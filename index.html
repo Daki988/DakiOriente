@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEAM SOFTWARES INDUSTRY — People | Ideas | Technology | Impact</title>
+  <meta name="description" content="NEAM SOFTWARES INDUSTRY conçoit des logiciels, applications web & mobiles et solutions numériques sur mesure. People | Ideas | Technology | Impact.">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta property="og:title" content="NEAM SOFTWARES INDUSTRY">
+  <meta property="og:description" content="People | Ideas | Technology | Impact — Solutions logicielles sur mesure.">
+  <meta property="og:image" content="assets/logo-dark.png">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="preloader" id="preloader">
+    <svg class="preloader__mark" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8 58 54H44L32 32 20 54H6Z"/></svg>
+    <div class="preloader__bar"><span></span></div>
+  </div>
+
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__brand" aria-label="NEAM Softwares Industry — accueil">
+      <img src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395">
+    </a>
+    <nav class="nav__links" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#vision">Vision</a>
+      <a href="#process">Méthode</a>
+      <a href="#tech">Technologies</a>
+      <a href="#contact" class="btn btn--sm btn--primary">Démarrer un projet</a>
+    </nav>
+    <button class="nav__toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <main id="top">
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <canvas id="network" class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__grid" aria-hidden="true"></div>
+      <div class="hero__content">
+        <p class="eyebrow reveal"><span class="dot"></span> Ingénierie logicielle · Innovation · Afrique &amp; Monde</p>
+        <h1 class="sr-only">NEAM SOFTWARES INDUSTRY</h1>
+        <img class="hero__logo reveal" src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395">
+        <p class="hero__lead reveal">
+          Nous transformons les idées en <span class="typed" id="typed">logiciels</span><span class="caret">|</span><br>
+          qui créent un impact réel.
+        </p>
+        <div class="hero__cta reveal">
+          <a href="#contact" class="btn btn--primary magnetic">Parlons de votre projet <span class="arrow">→</span></a>
+          <a href="#services" class="btn btn--ghost magnetic">Découvrir nos services</a>
+        </div>
+      </div>
+      <a href="#manifesto" class="hero__scroll" aria-label="Défiler vers le bas"><span></span></a>
+    </section>
+
+    <!-- ================= MARQUEE ================= -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>PEOPLE</span><i>▲</i><span>IDEAS</span><i>▲</i><span>TECHNOLOGY</span><i>▲</i><span>IMPACT</span><i>▲</i>
+        <span>PEOPLE</span><i>▲</i><span>IDEAS</span><i>▲</i><span>TECHNOLOGY</span><i>▲</i><span>IMPACT</span><i>▲</i>
+        <span>PEOPLE</span><i>▲</i><span>IDEAS</span><i>▲</i><span>TECHNOLOGY</span><i>▲</i><span>IMPACT</span><i>▲</i>
+        <span>PEOPLE</span><i>▲</i><span>IDEAS</span><i>▲</i><span>TECHNOLOGY</span><i>▲</i><span>IMPACT</span><i>▲</i>
+      </div>
+    </div>
+
+    <!-- ================= MANIFESTO ================= -->
+    <section class="manifesto section" id="manifesto">
+      <div class="container">
+        <p class="manifesto__text" id="manifestoText">
+          Chez NEAM, nous croyons que la technologie n'a de valeur que lorsqu'elle sert les personnes.
+          Nous concevons, développons et déployons des solutions logicielles robustes, élégantes et
+          évolutives — pour que chaque idée devienne un impact mesurable.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= SERVICES ================= -->
+    <section class="services section" id="services">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="tag">01 — Services</span>
+          <h2>Ce que nous <em>construisons</em></h2>
+          <p>Une expertise complète, de la stratégie au déploiement, pour accélérer votre transformation numérique.</p>
+        </header>
+
+        <div class="cards">
+          <article class="card reveal tilt">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24"><path d="M3 5h18v12H3zM8 21h8M12 17v4"/></svg>
+            </div>
+            <h3>Développement Web</h3>
+            <p>Sites, plateformes et applications web performantes, sécurisées et pensées pour convertir.</p>
+            <span class="card__num">01</span>
+          </article>
+          <article class="card reveal tilt">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+            </div>
+            <h3>Applications Mobiles</h3>
+            <p>Apps iOS &amp; Android natives ou cross-platform, fluides et intuitives, du prototype au store.</p>
+            <span class="card__num">02</span>
+          </article>
+          <article class="card reveal tilt">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/><circle cx="19" cy="17" r="2"/></svg>
+            </div>
+            <h3>Logiciels sur mesure</h3>
+            <p>ERP, CRM, outils de gestion métier : des logiciels taillés exactement pour vos processus.</p>
+            <span class="card__num">03</span>
+          </article>
+          <article class="card reveal tilt">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24"><path d="M7 18a5 5 0 1 1 .9-9.9A6 6 0 0 1 19 10a4 4 0 0 1-1 8z"/></svg>
+            </div>
+            <h3>Cloud &amp; DevOps</h3>
+            <p>Architecture cloud, CI/CD, conteneurisation et supervision pour des systèmes toujours disponibles.</p>
+            <span class="card__num">04</span>
+          </article>
+          <article class="card reveal tilt">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3"/></svg>
+            </div>
+            <h3>IA &amp; Data</h3>
+            <p>Intelligence artificielle, automatisation et tableaux de bord pour décider plus vite et mieux.</p>
+            <span class="card__num">05</span>
+          </article>
+          <article class="card reveal tilt">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <h3>Cybersécurité &amp; Conseil</h3>
+            <p>Audit, sécurisation et accompagnement stratégique pour bâtir une technologie de confiance.</p>
+            <span class="card__num">06</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VISION / PILLARS ================= -->
+    <section class="vision section" id="vision">
+      <div class="container vision__inner">
+        <div class="vision__brand reveal">
+          <img src="assets/logo-light.png" alt="NEAM Softwares Industry" width="1200" height="287" loading="lazy">
+          <p>Notre identité repose sur quatre piliers indissociables. Ensemble, ils forment la pointe de la flèche&nbsp;: une ascension constante vers l'excellence.</p>
+        </div>
+        <div class="pillars">
+          <div class="pillar reveal">
+            <span class="pillar__idx">P</span>
+            <div><h3>People</h3><p>Les humains d'abord. Nos clients, nos utilisateurs et nos talents sont au cœur de chaque décision.</p></div>
+          </div>
+          <div class="pillar reveal">
+            <span class="pillar__idx">I</span>
+            <div><h3>Ideas</h3><p>Créativité et audace. Nous challengeons l'existant pour imaginer des solutions inédites.</p></div>
+          </div>
+          <div class="pillar reveal">
+            <span class="pillar__idx">T</span>
+            <div><h3>Technology</h3><p>Excellence technique. Des architectures modernes, propres et pensées pour durer.</p></div>
+          </div>
+          <div class="pillar reveal">
+            <span class="pillar__idx">I</span>
+            <div><h3>Impact</h3><p>Des résultats concrets. Chaque ligne de code doit créer de la valeur mesurable.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STATS ================= -->
+    <section class="stats">
+      <div class="container stats__grid">
+        <div class="stat reveal"><strong data-count="100" data-suffix="%">0</strong><span>Solutions sur mesure</span></div>
+        <div class="stat reveal"><strong data-count="24" data-suffix="/7">0</strong><span>Support &amp; supervision</span></div>
+        <div class="stat reveal"><strong data-count="6">0</strong><span>Domaines d'expertise</span></div>
+        <div class="stat reveal"><strong data-count="4">0</strong><span>Piliers fondateurs</span></div>
+      </div>
+    </section>
+
+    <!-- ================= PROCESS ================= -->
+    <section class="process section" id="process">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="tag">02 — Méthode</span>
+          <h2>De l'idée à l'<em>impact</em></h2>
+          <p>Une méthode agile et transparente, rythmée par des livraisons fréquentes.</p>
+        </header>
+        <ol class="timeline">
+          <li class="step reveal">
+            <span class="step__n">01</span>
+            <h3>Découverte</h3>
+            <p>Ateliers, analyse des besoins et définition des objectifs business.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__n">02</span>
+            <h3>Conception</h3>
+            <p>Architecture, UX/UI design et prototypes interactifs validés avec vous.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__n">03</span>
+            <h3>Développement</h3>
+            <p>Sprints agiles, code testé, démonstrations régulières.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__n">04</span>
+            <h3>Déploiement</h3>
+            <p>Mise en production sécurisée, formation et accompagnement.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step__n">05</span>
+            <h3>Évolution</h3>
+            <p>Maintenance, supervision et amélioration continue.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= TECH ================= -->
+    <section class="tech section" id="tech">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="tag">03 — Technologies</span>
+          <h2>Un arsenal <em>moderne</em></h2>
+          <p>Nous choisissons les bons outils pour chaque défi.</p>
+        </header>
+        <div class="tech__cloud reveal">
+          <span>JavaScript</span><span>TypeScript</span><span>React</span><span>Next.js</span><span>Vue.js</span>
+          <span>Node.js</span><span>Python</span><span>Django</span><span>Laravel</span><span>Java</span>
+          <span>Flutter</span><span>Kotlin</span><span>Swift</span><span>PostgreSQL</span><span>MongoDB</span>
+          <span>Docker</span><span>Kubernetes</span><span>AWS</span><span>Azure</span><span>Google Cloud</span>
+          <span>TensorFlow</span><span>OpenAPI</span><span>GraphQL</span><span>Linux</span>
+        </div>
+        <div class="terminal reveal" aria-hidden="true">
+          <div class="terminal__bar"><i></i><i></i><i></i><span>neam@industry: ~</span></div>
+          <pre class="terminal__body" id="terminal"></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA / CONTACT ================= -->
+    <section class="contact section" id="contact">
+      <div class="contact__glow" aria-hidden="true"></div>
+      <div class="container contact__inner">
+        <div class="contact__intro reveal">
+          <span class="tag">04 — Contact</span>
+          <h2>Prêt à <em>élever</em><br>votre projet&nbsp;?</h2>
+          <p>Racontez-nous votre idée. Nous revenons vers vous rapidement avec une première analyse et une proposition adaptée.</p>
+          <ul class="contact__list">
+            <li><span>Email</span><a href="mailto:contact@neam-softwares.com">contact@neam-softwares.com</a></li>
+            <li><span>Disponibilité</span>Lun — Sam · 8h — 19h</li>
+          </ul>
+        </div>
+        <form class="form reveal" id="contactForm" novalidate>
+          <div class="form__row">
+            <label class="field"><input type="text" name="name" required placeholder=" "><span>Nom complet</span></label>
+            <label class="field"><input type="email" name="email" required placeholder=" "><span>Email</span></label>
+          </div>
+          <label class="field">
+            <select name="service" required>
+              <option value="" disabled selected hidden></option>
+              <option>Développement Web</option>
+              <option>Application Mobile</option>
+              <option>Logiciel sur mesure</option>
+              <option>Cloud &amp; DevOps</option>
+              <option>IA &amp; Data</option>
+              <option>Cybersécurité &amp; Conseil</option>
+            </select>
+            <span>Type de projet</span>
+          </label>
+          <label class="field"><textarea name="message" rows="5" required placeholder=" "></textarea><span>Votre message</span></label>
+          <button type="submit" class="btn btn--primary btn--block magnetic">Envoyer la demande <span class="arrow">→</span></button>
+          <p class="form__status" id="formStatus" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <img src="assets/logo-dark.png" alt="NEAM Softwares Industry" class="footer__logo" width="1200" height="395" loading="lazy">
+      <nav class="footer__links">
+        <a href="#services">Services</a>
+        <a href="#vision">Vision</a>
+        <a href="#process">Méthode</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <p class="footer__copy">© <span id="year"></span> NEAM SOFTWARES INDUSTRY. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
