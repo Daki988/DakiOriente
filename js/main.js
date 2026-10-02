@@ -29,6 +29,7 @@
       'Module LOGICIELS & OUTILS',
       'Module IA & AUTOMATISATION',
       'Module CONSEIL & FORMATION',
+      'Produits GURUTOOLS × TREMPLIN',
     ];
     for (let i = 0; i < lines.length; i++) {
       if (booted) return;
@@ -248,6 +249,103 @@
     if (polesVisible && !was) selectPole(current); else if (!polesVisible) clearTimeout(cycleTimer);
   }, { threshold: 0.3 }).observe(polesWrap);
   selectPole(0);
+
+
+  /* ---------- Produits : GuruTools × Tremplin ---------- */
+  // Run a looping demo only while its element is on screen
+  const whileVisible = (el, start, stop, threshold = 0.3) => {
+    let on = false;
+    new IntersectionObserver(e => {
+      if (e[0].isIntersecting && !on) { on = true; start(); }
+      else if (!e[0].isIntersecting && on) { on = false; stop(); }
+    }, { threshold }).observe(el);
+  };
+
+  // Matching engine: criteria light up in turn
+  const criteria = $$('#criteria li');
+  let critTimer = null, critI = 0;
+  whileVisible($('#eco'), () => {
+    const stepC = () => { criteria.forEach((c, i) => c.classList.toggle('is-on', i === critI)); critI = (critI + 1) % criteria.length; };
+    stepC();
+    if (!reduceMotion) critTimer = setInterval(stepC, 900);
+  }, () => clearInterval(critTimer));
+
+  // Explainable match card
+  const matchCard = $('#matchCard');
+  new IntersectionObserver(async (e, o) => {
+    if (!e[0].isIntersecting) return;
+    o.disconnect();
+    $('.match__arc', matchCard).style.strokeDashoffset = 100 - 82;
+    countUp($('#matchScore'), 82, '%', 1600);
+    for (const li of $$('#matchWhy li')) { li.classList.add('is-on'); if (!reduceMotion) await wait(380); }
+  }, { threshold: 0.4 }).observe(matchCard);
+
+  // GuruTools pipeline: candidates move Reçues → Analysées → Qualifiées → Shortlist
+  const lane = $('#pdLane');
+  const pdParsed = $('#pdParsed');
+  const pdShort = $('#pdShort');
+  const candidates = [
+    { id: 'AM', score: 91 }, { id: 'JK', score: 64 }, { id: 'SN', score: 86 },
+    { id: 'PB', score: 58 }, { id: 'LO', score: 79 },
+  ];
+  lane.innerHTML = candidates.map((c, i) =>
+    `<div class="pd__card" style="--row:${i}" data-s="0"><i>${c.id}</i><span></span><b>${c.score}%</b></div>`).join('');
+  const cards = $$('.pd__card', lane);
+  let pipeTimer = null, pipeTick = 0;
+  const resetPipe = () => {
+    pipeTick = 0;
+    cards.forEach(c => { c.dataset.s = 0; c.style.setProperty('--s', 0); c.classList.remove('is-out', 'is-scan'); });
+    pdParsed.textContent = '0'; pdShort.textContent = '0';
+  };
+  const stepPipe = () => {
+    // each tick advances one candidate one stage, round-robin
+    const order = [];
+    for (let stage = 0; stage < 3; stage++) cards.forEach((c, i) => order.push([i, stage]));
+    if (pipeTick >= order.length) { resetPipe(); return; }
+    const [i, stage] = order[pipeTick++];
+    const card = cards[i];
+    const cand = candidates[i];
+    if (card.classList.contains('is-out')) return stepPipe();
+    if (stage === 1 && cand.score < 70) { card.classList.add('is-out'); return; }
+    if (stage === 2 && cand.score < 85) { return; }
+    card.classList.remove('is-scan'); void card.offsetWidth; card.classList.add('is-scan');
+    card.dataset.s = stage + 1;
+    card.style.setProperty('--s', stage + 1);
+    pdParsed.textContent = cards.filter(c => +c.dataset.s >= 1).length;
+    pdShort.textContent = cards.filter(c => +c.dataset.s === 3).length;
+  };
+  whileVisible($('#guruPipe'), () => {
+    if (reduceMotion) { for (let k = 0; k < 15; k++) stepPipe(); return; }
+    resetPipe();
+    pipeTimer = setInterval(stepPipe, 700);
+  }, () => clearInterval(pipeTimer));
+
+  // Tremplin CV analysis: score gauge + recommendations
+  const gaugeArc = $('#gaugeArc');
+  const gaugeVal = $('#gaugeVal');
+  const recos = $$('#cvReco li');
+  let cvTimers = [];
+  const runCv = () => {
+    cvTimers.forEach(clearTimeout); cvTimers = [];
+    gaugeArc.style.strokeDashoffset = 100; gaugeVal.textContent = '0';
+    recos.forEach(r => r.classList.remove('is-on'));
+    cvTimers.push(setTimeout(() => { gaugeArc.style.strokeDashoffset = 100 - 74; countUp(gaugeVal, 74, '', 1500); }, 600));
+    recos.forEach((r, i) => cvTimers.push(setTimeout(() => r.classList.add('is-on'), 2000 + i * 600)));
+    if (!reduceMotion) cvTimers.push(setTimeout(runCv, 8000));
+  };
+  whileVisible($('#cvDemo'), runCv, () => { cvTimers.forEach(clearTimeout); cvTimers = []; });
+
+  // Career ecosystem chain lights up step by step
+  const chain = $$('#careerChain li');
+  let chainTimer = null, chainI = 0;
+  whileVisible($('#careerChain'), () => {
+    const stepK = () => {
+      chain.forEach((c, i) => c.classList.toggle('is-on', i <= chainI));
+      chainI = chainI >= chain.length ? 0 : chainI + 1;
+    };
+    if (reduceMotion) { chain.forEach(c => c.classList.add('is-on')); return; }
+    chainI = 0; stepK(); chainTimer = setInterval(stepK, 500);
+  }, () => clearInterval(chainTimer));
 
   /* ---------- Pointer effects ---------- */
   if (finePointer && !reduceMotion) {

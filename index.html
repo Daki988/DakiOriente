@@ -39,6 +39,7 @@
     <nav class="nav__links" id="navLinks">
       <a href="#about">Qui sommes-nous</a>
       <a href="#poles">Pôles</a>
+      <a href="#produits">Produits</a>
       <a href="#methode">Méthode</a>
       <a href="#programme">NEAM × KANIE 30/30</a>
       <a href="#contact" class="btn btn--sm btn--primary">Nous contacter</a>
@@ -68,7 +69,7 @@
         </div>
       </div>
       <div class="hero__hud" aria-hidden="true">
-        <span>WEB</span><span>LOGICIELS</span><span>IA</span><span>AUTOMATISATION</span><span>CONSEIL</span>
+        <span>WEB</span><span>LOGICIELS</span><span>IA</span><span>AUTOMATISATION</span><span>CONSEIL</span><span>GURUTOOLS</span><span>TREMPLIN</span>
       </div>
       <a href="#about" class="hero__scroll" aria-label="Défiler vers le bas"><span></span></a>
     </section>
@@ -302,11 +303,249 @@
       </div>
     </section>
 
-    <!-- ================= 05 MÉTHODE ================= -->
+    <!-- ================= 05 PRODUITS ================= -->
+    <section class="products section" id="produits">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="tag" data-scramble>05 — NOS PRODUITS</span>
+          <h2>GuruTools <em>×</em> Tremplin</h2>
+          <p>Un écosystème numérique pour recruter, trouver un stage, préparer sa candidature et faciliter l’insertion professionnelle. Deux plateformes complémentaires autour d’un même moteur intelligent.</p>
+          <p class="products__kw mono">TALENT • CAREER • RECRUITMENT • AI</p>
+        </header>
+
+        <!-- Écosystème + moteur de matching -->
+        <div class="eco reveal" id="eco">
+          <article class="eco__side eco__side--tremplin">
+            <span class="eco__who mono">CÔTÉ CANDIDAT</span>
+            <h3 class="wordmark wordmark--tremplin">TREMPLIN</h3>
+            <p>Plateforme candidat spécialisée dans les stages, l’insertion professionnelle et le développement de l’employabilité.</p>
+            <ul class="eco__chips"><li>Profil</li><li>CV</li><li>Compétences</li></ul>
+            <p class="eco__quote">« Voici les offres qui correspondent à votre profil. »</p>
+          </article>
+
+          <div class="engine" aria-hidden="true">
+            <svg class="engine__svg" viewBox="0 0 300 300">
+              <defs>
+                <radialGradient id="coreGrad"><stop offset="0" stop-color="#f5b31b" stop-opacity=".55"/><stop offset="1" stop-color="#f5b31b" stop-opacity="0"/></radialGradient>
+              </defs>
+              <circle cx="150" cy="150" r="70" fill="url(#coreGrad)"/>
+              <g class="engine__ring engine__ring--1"><circle cx="150" cy="150" r="112"/></g>
+              <g class="engine__ring engine__ring--2"><circle cx="150" cy="150" r="92"/></g>
+              <g class="engine__ring engine__ring--3"><circle cx="150" cy="150" r="58"/></g>
+              <path id="inL" class="engine__wire" d="M0 150 C60 150 70 150 108 150"/>
+              <path id="inR" class="engine__wire" d="M300 150 C240 150 230 150 192 150"/>
+              <path id="outL" class="engine__wire" d="M108 160 C70 175 50 200 0 205"/>
+              <path id="outR" class="engine__wire" d="M192 160 C230 175 250 200 300 205"/>
+              <circle r="4" class="engine__pk engine__pk--t"><animateMotion dur="2s" repeatCount="indefinite"><mpath href="#inL"/></animateMotion></circle>
+              <circle r="4" class="engine__pk engine__pk--g"><animateMotion dur="2s" begin=".5s" repeatCount="indefinite"><mpath href="#inR"/></animateMotion></circle>
+              <circle r="3.5" class="engine__pk engine__pk--y"><animateMotion dur="2.4s" begin="1s" repeatCount="indefinite"><mpath href="#outL"/></animateMotion></circle>
+              <circle r="3.5" class="engine__pk engine__pk--y"><animateMotion dur="2.4s" begin="1.6s" repeatCount="indefinite"><mpath href="#outR"/></animateMotion></circle>
+              <polygon class="engine__core" points="150,118 178,166 122,166"/>
+              <text x="150" y="196" class="engine__lbl">MATCHING</text>
+              <text x="150" y="210" class="engine__lbl">ENGINE</text>
+            </svg>
+            <ul class="engine__criteria mono" id="criteria">
+              <li>Formation</li><li>Compétences</li><li>Métier</li><li>Expérience</li><li>Disponibilité</li><li>Localisation</li><li>Critères</li>
+            </ul>
+          </div>
+
+          <article class="eco__side eco__side--guru">
+            <span class="eco__who mono">CÔTÉ ENTREPRISE</span>
+            <h3 class="wordmark wordmark--guru">GURU<span>TOOLS</span></h3>
+            <p>Plateforme entreprise dédiée à la publication d’offres, la réception des candidatures et la qualification des profils.</p>
+            <ul class="eco__chips"><li>Besoin</li><li>Offre</li><li>Critères</li></ul>
+            <p class="eco__quote">« Voici les candidats correspondant à votre offre. »</p>
+          </article>
+        </div>
+
+        <!-- Match explicable -->
+        <div class="explain reveal">
+          <div class="explain__text">
+            <span class="panel__label mono">// UN MATCH DOIT ÊTRE EXPLICABLE</span>
+            <p>Le candidat comprend pourquoi une offre lui correspond et quels écarts il peut encore combler. Les pondérations restent configurables et les critères obligatoires sont distingués des critères préférentiels.</p>
+            <p class="explain__rule"><span class="mono">PRINCIPE IA</span> L’IA ne doit jamais inventer une expérience, un diplôme ou une compétence.</p>
+          </div>
+          <div class="match hud" id="matchCard">
+            <div class="match__head">
+              <div><small class="mono">OFFRE</small><b>Stage · Assistant marketing digital</b></div>
+              <div class="match__score"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"/><circle class="match__arc" cx="22" cy="22" r="19" pathLength="100"/></svg><span class="mono" id="matchScore">0</span></div>
+            </div>
+            <ul class="match__why" id="matchWhy">
+              <li class="ok">Formation compatible <em class="mono">obligatoire</em></li>
+              <li class="ok">Disponibilité immédiate <em class="mono">obligatoire</em></li>
+              <li class="ok">Réseaux sociais, rédaction <em class="mono">compétences</em></li>
+              <li class="gap">Outils d’analyse web <em class="mono">écart → formation recommandée</em></li>
+            </ul>
+            <p class="demo__note mono">Exemple d’illustration</p>
+          </div>
+        </div>
+
+        <!-- ===== GURUTOOLS ===== -->
+        <article class="product product--guru" id="gurutools">
+          <div class="product__grid">
+            <div class="product__info reveal">
+              <span class="product__badge mono">PLATEFORME DE RECRUTEMENT · ENTREPRISES</span>
+              <h3 class="wordmark wordmark--guru wordmark--xl">GURU<span>TOOLS</span></h3>
+              <p class="product__tagline">Une nouvelle façon de recruter.</p>
+              <p class="product__desc">GuruTools centralise les étapes essentielles du recrutement&nbsp;: création d’offres, diffusion, réception des candidatures, analyse des CV, qualification et suivi. Un outil conçu pour simplifier le travail des TPE/PME et des recruteurs.</p>
+              <p class="product__pos"><span class="mono">POSITIONNEMENT ACTUEL</span> Solution de recrutement gratuite destinée aux TPE/PME du Gabon.</p>
+              <div class="product__cta">
+                <a href="#contact" class="btn btn--primary magnetic" data-service="GuruTools">Recruter avec GuruTools <span class="arrow">→</span></a>
+              </div>
+            </div>
+
+            <div class="console product__demo hud reveal" aria-hidden="true">
+              <div class="console__bar mono"><i></i><i></i><i></i><span>gurutools://recrutement/pipeline</span><span class="console__live">● LIVE</span></div>
+              <div class="pipeline-demo" id="guruPipe">
+                <div class="pd__cols">
+                  <span>Reçues</span><span>Analysées</span><span>Qualifiées</span><span>Shortlist</span>
+                </div>
+                <div class="pd__lane" id="pdLane"></div>
+                <div class="pd__foot mono"><span>CV ANALYSÉS <b id="pdParsed">0</b></span><span>SHORTLIST <b id="pdShort">0</b></span></div>
+              </div>
+              <p class="demo__note mono">Illustration · profils fictifs</p>
+            </div>
+          </div>
+
+          <div class="feat reveal">
+            <h4 class="feat__title mono">// FONCTIONNALITÉS</h4>
+            <div class="feat__grid">
+              <div class="feat__item"><span class="feat__ico">✎</span><h5>Création d’offres</h5><p>Annonces structurées avec titre, description, profil recherché, localisation et modalités.</p></div>
+              <div class="feat__item"><span class="feat__ico">⇪</span><h5>Diffusion</h5><p>Partager une offre via un lien de candidature et les canaux numériques pertinents.</p></div>
+              <div class="feat__item"><span class="feat__ico">➜</span><h5>Candidature simple</h5><p>Le candidat postule sans créer de compte au préalable.</p></div>
+              <div class="feat__item"><span class="feat__ico">⌗</span><h5>Parsing des CV</h5><p>Extraction des informations clés&nbsp;: identité, expériences, formation et compétences.</p></div>
+              <div class="feat__item"><span class="feat__ico">◎</span><h5>Scoring &amp; matching</h5><p>Comparer les candidatures aux critères du poste et faciliter la présélection.</p></div>
+              <div class="feat__item"><span class="feat__ico">▤</span><h5>Suivi des candidatures</h5><p>Centraliser les profils et suivre l’avancement du recrutement.</p></div>
+            </div>
+          </div>
+
+          <div class="flowline reveal">
+            <h4 class="feat__title mono">// COMMENT ÇA FONCTIONNE</h4>
+            <ol class="flowline__steps">
+              <li><b>Créer</b><span>Le recruteur crée son offre.</span></li>
+              <li><b>Diffuser</b><span>L’offre est partagée aux candidats.</span></li>
+              <li><b>Recevoir</b><span>Les candidatures arrivent dans GuruTools.</span></li>
+              <li><b>Analyser</b><span>Les CV sont structurés et analysés.</span></li>
+              <li><b>Qualifier</b><span>Les profils sont comparés aux critères.</span></li>
+              <li><b>Décider</b><span>Le recruteur constitue sa shortlist.</span></li>
+            </ol>
+            <p class="flowline__tag mono">MOINS DE TRI MANUEL • PLUS DE TEMPS POUR DÉCIDER</p>
+          </div>
+
+          <div class="audience reveal">
+            <h4 class="feat__title mono">// POUR QUI&nbsp;?</h4>
+            <div class="audience__grid">
+              <div><b>TPE / PME</b><p>Recruter sans mettre en place une infrastructure RH lourde.</p></div>
+              <div><b>Cabinets</b><p>Gérer plusieurs recrutements et plusieurs viviers de candidats.</p></div>
+              <div><b>Responsables RH</b><p>Structurer la présélection et le suivi des candidatures.</p></div>
+              <div><b>Dirigeants</b><p>Accéder plus rapidement aux profils correspondant au besoin.</p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ===== TREMPLIN ===== -->
+        <article class="product product--tremplin" id="tremplin">
+          <div class="product__grid product__grid--rev">
+            <div class="product__info reveal">
+              <span class="product__badge mono">ASSISTANT DE CARRIÈRE · CANDIDATS</span>
+              <h3 class="wordmark wordmark--tremplin wordmark--xl">TREMPLIN</h3>
+              <p class="product__tagline">De « je cherche un stage » à « je suis prêt à candidater ».</p>
+              <p class="product__desc">Tremplin ne se limite pas à afficher des offres. Il accompagne le candidat sur l’ensemble de son parcours&nbsp;: préparation, orientation, matching, candidature, entretien et progression.</p>
+              <p class="product__pos"><span class="mono">OBJECTIF</span> Améliorer l’employabilité, pas seulement la visibilité.</p>
+              <div class="product__cta">
+                <a href="#contact" class="btn btn--primary magnetic" data-service="Tremplin">En savoir plus sur Tremplin <span class="arrow">→</span></a>
+              </div>
+            </div>
+
+            <div class="console product__demo hud reveal" aria-hidden="true">
+              <div class="console__bar mono"><i></i><i></i><i></i><span>tremplin://carriere/analyse-cv</span><span class="console__live">● LIVE</span></div>
+              <div class="cvdemo" id="cvDemo">
+                <div class="cvdemo__doc">
+                  <span class="cvdemo__scan"></span>
+                  <div class="cvdemo__avatar"></div>
+                  <span class="w60"></span><span class="w40"></span>
+                  <span class="cvdemo__h"></span><span class="w90"></span><span class="w80"></span><span class="w70"></span>
+                  <span class="cvdemo__h"></span><span class="w85"></span><span class="w60"></span>
+                  <span class="cvdemo__h"></span><span class="w50"></span><span class="w75"></span>
+                </div>
+                <div class="cvdemo__side">
+                  <div class="gauge">
+                    <svg viewBox="0 0 120 70"><path class="gauge__bg" d="M10 62 A50 50 0 0 1 110 62"/><path class="gauge__fg" id="gaugeArc" d="M10 62 A50 50 0 0 1 110 62" pathLength="100"/></svg>
+                    <b class="mono" id="gaugeVal">0</b>
+                    <small class="mono">CAREER READINESS SCORE</small>
+                  </div>
+                  <ul class="reco" id="cvReco">
+                    <li>Ajouter des résultats chiffrés à l’expérience</li>
+                    <li>Mettre en avant 3 compétences clés</li>
+                    <li>Lettre personnalisée prête pour l’offre</li>
+                  </ul>
+                </div>
+              </div>
+              <p class="demo__note mono">Illustration</p>
+            </div>
+          </div>
+
+          <div class="journey reveal">
+            <h4 class="feat__title mono">// LE PARCOURS CANDIDAT</h4>
+            <ol class="journey__steps">
+              <li><span class="mono">01</span><b>Profil</b><p>Formation, compétences, expérience, disponibilité.</p></li>
+              <li><span class="mono">02</span><b>CV</b><p>Création, modèles, analyse et optimisation.</p></li>
+              <li><span class="mono">03</span><b>Matching</b><p>Offres compatibles et explication du score.</p></li>
+              <li><span class="mono">04</span><b>Candidature</b><p>CV adapté, lettre personnalisée et suivi.</p></li>
+              <li><span class="mono">05</span><b>Entretien</b><p>Questions, simulations et recommandations.</p></li>
+              <li><span class="mono">06</span><b>Progression</b><p>Formations et actions recommandées.</p></li>
+            </ol>
+          </div>
+
+          <div class="tfeat reveal">
+            <h4 class="feat__title mono">// FONCTIONNALITÉS CLÉS</h4>
+            <ul class="tfeat__list">
+              <li>Profil professionnel progressif et Career Readiness Score.</li>
+              <li>Créateur de CV avec plusieurs modèles et versions adaptées aux candidatures.</li>
+              <li>Analyse intelligente du CV et recommandations d’amélioration.</li>
+              <li>Adaptation du CV à une offre sans inventer d’expérience ou de compétence.</li>
+              <li>Génération de lettres de motivation personnalisées.</li>
+              <li>Offres de stage et d’emploi recommandées selon le profil.</li>
+              <li>Gestionnaire de candidatures et historique.</li>
+              <li>Préparation et simulation d’entretiens.</li>
+              <li>Recommandations de compétences et de formations.</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- IA encadrée -->
+        <div class="aiband reveal">
+          <div class="aiband__head">
+            <span class="tag">IA &amp; INTELLIGENCE</span>
+            <h3>Une IA encadrée par les données du profil et de l’offre.</h3>
+          </div>
+          <div class="aiband__grid">
+            <div><b class="mono">CV</b><p>Analyse, score, reformulation et adaptation.</p></div>
+            <div><b class="mono">OFFRES</b><p>Analyse des exigences et extraction des compétences.</p></div>
+            <div><b class="mono">MATCHING</b><p>Rapprochement profil ↔ offre et explication du score.</p></div>
+            <div><b class="mono">CANDIDATURE</b><p>Lettre personnalisée et recommandations.</p></div>
+            <div><b class="mono">ENTRETIEN</b><p>Simulation, analyse des réponses et axes d’amélioration.</p></div>
+            <div><b class="mono">FORMATION</b><p>Identification des compétences à développer.</p></div>
+          </div>
+        </div>
+
+        <!-- Vision long terme -->
+        <div class="career reveal">
+          <span class="tag">VISION À LONG TERME — NEAM CAREER ECOSYSTEM</span>
+          <ol class="career__chain" id="careerChain">
+            <li>Orientation</li><li>Formation</li><li>Compétences</li><li>CV</li><li>Stage</li><li>Expérience</li><li>Emploi</li>
+          </ol>
+          <p>Tremplin peut évoluer d’une plateforme de recherche de stages vers une véritable plateforme Career Tech / HR Tech, tandis que GuruTools constitue le volet entreprise et recrutement.</p>
+          <p class="career__motto"><b>GURUTOOLS × TREMPLIN</b> — Relier les compétences des candidats aux besoins réels des entreprises.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 06 MÉTHODE ================= -->
     <section class="method section" id="methode">
       <div class="container method__inner">
         <header class="section__head method__head reveal">
-          <span class="tag" data-scramble>05 — NOTRE MÉTHODE D’ACCOMPAGNEMENT</span>
+          <span class="tag" data-scramble>06 — NOTRE MÉTHODE D’ACCOMPAGNEMENT</span>
           <h2>Un processus <em>maîtrisé</em>, étape par étape</h2>
           <p>Chaque mission suit un cycle clair, documenté et mesuré. Vous savez toujours où en est votre projet.</p>
         </header>
@@ -447,6 +686,8 @@
               <option>Logiciels &amp; Outils</option>
               <option>IA &amp; Automatisation</option>
               <option>Conseil &amp; Formation</option>
+              <option>GuruTools</option>
+              <option>Tremplin</option>
               <option>Programme NEAM × KANIE 30/30</option>
             </select>
             <span>Votre besoin</span>
@@ -467,6 +708,7 @@
       <nav class="footer__links">
         <a href="#about">Qui sommes-nous</a>
         <a href="#poles">Pôles</a>
+        <a href="#produits">Produits</a>
         <a href="#methode">Méthode</a>
         <a href="#programme">NEAM × KANIE 30/30</a>
         <a href="#contact">Contact</a>
