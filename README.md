@@ -12,10 +12,10 @@ python3 -m http.server 8000
 puis allez sur http://localhost:8000
 
 ## Structure
-- `index.html` — page unique (hero, services, vision, méthode, technologies, contact)
+- `index.html` — page unique (accueil, qui sommes-nous, vision/mission/valeurs, pôles, solutions, méthode, programme NEAM × KANIE 30/30, contact)
 - `css/style.css` — styles (thème noir / jaune du logo)
-- `js/main.js` — animations (réseau de particules, révélations au scroll, compteurs, terminal, formulaire)
+- `js/main.js` — animations (séquence de démarrage, globe 3D, texte décodé, console des pôles, suivi 30 jours, formulaire)
 - `assets/` — logos et favicon
 
 ## À personnaliser
-- Adresse email de contact : `contact@neam-softwares.com` (dans `index.html` et `js/main.js`)
+- Adresse email de contact : `contact@neamindustry.com` (dans `index.html` et `js/main.js`) — à confirmer

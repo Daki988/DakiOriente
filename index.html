@@ -3,26 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEAM SOFTWARES INDUSTRY — People | Ideas | Technology | Impact</title>
-  <meta name="description" content="NEAM SOFTWARES INDUSTRY conçoit des logiciels, applications web & mobiles et solutions numériques sur mesure. People | Ideas | Technology | Impact.">
-  <meta name="theme-color" content="#0a0a0a">
+  <title>NEAM SOFTWARES INDUSTRY — Build a better tomorrow !</title>
+  <meta name="description" content="NEAM Softwares Industry accompagne les entreprises dans leur transformation numérique : présence digitale, logiciels, sites web, IA, automatisation, outils métiers et conseil.">
+  <meta name="theme-color" content="#07080a">
   <meta property="og:title" content="NEAM SOFTWARES INDUSTRY">
-  <meta property="og:description" content="People | Ideas | Technology | Impact — Solutions logicielles sur mesure.">
+  <meta property="og:description" content="Technologie • Conseil • Innovation — Des solutions numériques conçues pour transformer les entreprises.">
   <meta property="og:image" content="assets/logo-dark.png">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="preloader" id="preloader">
-    <svg class="preloader__mark" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8 58 54H44L32 32 20 54H6Z"/></svg>
-    <div class="preloader__bar"><span></span></div>
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- ================= BOOT SEQUENCE ================= -->
+  <div class="boot" id="boot" aria-hidden="true">
+    <div class="boot__inner">
+      <svg class="boot__mark" viewBox="0 0 64 64"><path d="M32 8 58 54H44L32 32 20 54H6Z"/></svg>
+      <pre class="boot__log" id="bootLog"></pre>
+      <div class="boot__bar"><span id="bootBar"></span></div>
+    </div>
   </div>
 
   <div class="cursor-glow" aria-hidden="true"></div>
   <div class="scroll-progress" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
 
   <!-- ================= NAV ================= -->
   <header class="nav" id="nav">
@@ -30,11 +37,11 @@
       <img src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395">
     </a>
     <nav class="nav__links" id="navLinks">
-      <a href="#services">Services</a>
-      <a href="#vision">Vision</a>
-      <a href="#process">Méthode</a>
-      <a href="#tech">Technologies</a>
-      <a href="#contact" class="btn btn--sm btn--primary">Démarrer un projet</a>
+      <a href="#about">Qui sommes-nous</a>
+      <a href="#poles">Pôles</a>
+      <a href="#methode">Méthode</a>
+      <a href="#programme">NEAM × KANIE 30/30</a>
+      <a href="#contact" class="btn btn--sm btn--primary">Nous contacter</a>
     </nav>
     <button class="nav__toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
       <span></span><span></span>
@@ -44,236 +51,402 @@
   <main id="top">
     <!-- ================= HERO ================= -->
     <section class="hero">
-      <canvas id="network" class="hero__canvas" aria-hidden="true"></canvas>
-      <div class="hero__grid" aria-hidden="true"></div>
+      <canvas id="globe" class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__floor" aria-hidden="true"></div>
       <div class="hero__content">
-        <p class="eyebrow reveal"><span class="dot"></span> Ingénierie logicielle · Innovation · Afrique &amp; Monde</p>
+        <p class="status reveal"><span class="status__dot"></span><span class="mono">SYSTÈMES OPÉRATIONNELS</span><span class="status__sep"></span><span class="mono" id="clock">--:--:--</span><span class="mono status__loc">LIBREVILLE · GA</span></p>
         <h1 class="sr-only">NEAM SOFTWARES INDUSTRY</h1>
-        <img class="hero__logo reveal" src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395">
-        <p class="hero__lead reveal">
-          Nous transformons les idées en <span class="typed" id="typed">logiciels</span><span class="caret">|</span><br>
-          qui créent un impact réel.
-        </p>
+        <div class="hero__logo-wrap reveal">
+          <img class="hero__logo" src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395">
+          <span class="hero__scan" aria-hidden="true"></span>
+        </div>
+        <p class="hero__kicker reveal mono" data-scramble>TECHNOLOGIE • CONSEIL • INNOVATION</p>
+        <p class="hero__lead reveal">Des solutions numériques conçues pour <strong>transformer les entreprises</strong>.</p>
         <div class="hero__cta reveal">
-          <a href="#contact" class="btn btn--primary magnetic">Parlons de votre projet <span class="arrow">→</span></a>
-          <a href="#services" class="btn btn--ghost magnetic">Découvrir nos services</a>
+          <a href="#poles" class="btn btn--primary magnetic">Découvrir nos pôles <span class="arrow">→</span></a>
+          <a href="#programme" class="btn btn--ghost magnetic">Programme NEAM × KANIE 30/30</a>
         </div>
       </div>
-      <a href="#manifesto" class="hero__scroll" aria-label="Défiler vers le bas"><span></span></a>
+      <div class="hero__hud" aria-hidden="true">
+        <span>WEB</span><span>LOGICIELS</span><span>IA</span><span>AUTOMATISATION</span><span>CONSEIL</span>
+      </div>
+      <a href="#about" class="hero__scroll" aria-label="Défiler vers le bas"><span></span></a>
     </section>
 
-    <!-- ================= MARQUEE ================= -->
+    <!-- ================= MARQUEE (valeurs) ================= -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee__track">
-        <span>PEOPLE</span><i>▲</i><span>IDEAS</span><i>▲</i><span>TECHNOLOGY</span><i>▲</i><span>IMPACT</span><i>▲</i>
-        <span>PEOPLE</span><i>▲</i><span>IDEAS</span><i>▲</i><span>TECHNOLOGY</span><i>▲</i><span>IMPACT</span><i>▲</i>
-        <span>PEOPLE</span><i>▲</i><span>IDEAS</span><i>▲</i><span>TECHNOLOGY</span><i>▲</i><span>IMPACT</span><i>▲</i>
-        <span>PEOPLE</span><i>▲</i><span>IDEAS</span><i>▲</i><span>TECHNOLOGY</span><i>▲</i><span>IMPACT</span><i>▲</i>
+        <span>INNOVATION</span><i>▲</i><span>PROXIMITÉ</span><i>▲</i><span>IMPACT</span><i>▲</i><span>FIABILITÉ</span><i>▲</i><span>ORIENTATION RÉSULTAT</span><i>▲</i>
+        <span>INNOVATION</span><i>▲</i><span>PROXIMITÉ</span><i>▲</i><span>IMPACT</span><i>▲</i><span>FIABILITÉ</span><i>▲</i><span>ORIENTATION RÉSULTAT</span><i>▲</i>
       </div>
     </div>
 
-    <!-- ================= MANIFESTO ================= -->
-    <section class="manifesto section" id="manifesto">
-      <div class="container">
-        <p class="manifesto__text" id="manifestoText">
-          Chez NEAM, nous croyons que la technologie n'a de valeur que lorsqu'elle sert les personnes.
-          Nous concevons, développons et déployons des solutions logicielles robustes, élégantes et
-          évolutives — pour que chaque idée devienne un impact mesurable.
-        </p>
-      </div>
-    </section>
-
-    <!-- ================= SERVICES ================= -->
-    <section class="services section" id="services">
+    <!-- ================= 01 QUI SOMMES-NOUS ================= -->
+    <section class="about section" id="about">
       <div class="container">
         <header class="section__head reveal">
-          <span class="tag">01 — Services</span>
-          <h2>Ce que nous <em>construisons</em></h2>
-          <p>Une expertise complète, de la stratégie au déploiement, pour accélérer votre transformation numérique.</p>
+          <span class="tag" data-scramble>01 — QUI SOMMES-NOUS ?</span>
+          <h2>Votre partenaire de <em>transformation numérique</em></h2>
         </header>
-
-        <div class="cards">
-          <article class="card reveal tilt">
-            <div class="card__icon">
-              <svg viewBox="0 0 24 24"><path d="M3 5h18v12H3zM8 21h8M12 17v4"/></svg>
-            </div>
-            <h3>Développement Web</h3>
-            <p>Sites, plateformes et applications web performantes, sécurisées et pensées pour convertir.</p>
-            <span class="card__num">01</span>
+        <div class="about__grid">
+          <article class="panel hud about__pos reveal">
+            <span class="panel__label mono">// NOTRE POSITIONNEMENT</span>
+            <p class="about__statement">NEAM accompagne les entreprises dans leur transformation numérique&nbsp;: <span class="hl">présence digitale</span>, <span class="hl">logiciels</span>, <span class="hl">sites web</span>, <span class="hl">IA</span>, <span class="hl">automatisation</span>, <span class="hl">outils métiers</span> et <span class="hl">conseil</span>.</p>
           </article>
-          <article class="card reveal tilt">
-            <div class="card__icon">
-              <svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
-            </div>
-            <h3>Applications Mobiles</h3>
-            <p>Apps iOS &amp; Android natives ou cross-platform, fluides et intuitives, du prototype au store.</p>
-            <span class="card__num">02</span>
-          </article>
-          <article class="card reveal tilt">
-            <div class="card__icon">
-              <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/><circle cx="19" cy="17" r="2"/></svg>
-            </div>
-            <h3>Logiciels sur mesure</h3>
-            <p>ERP, CRM, outils de gestion métier : des logiciels taillés exactement pour vos processus.</p>
-            <span class="card__num">03</span>
-          </article>
-          <article class="card reveal tilt">
-            <div class="card__icon">
-              <svg viewBox="0 0 24 24"><path d="M7 18a5 5 0 1 1 .9-9.9A6 6 0 0 1 19 10a4 4 0 0 1-1 8z"/></svg>
-            </div>
-            <h3>Cloud &amp; DevOps</h3>
-            <p>Architecture cloud, CI/CD, conteneurisation et supervision pour des systèmes toujours disponibles.</p>
-            <span class="card__num">04</span>
-          </article>
-          <article class="card reveal tilt">
-            <div class="card__icon">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3"/></svg>
-            </div>
-            <h3>IA &amp; Data</h3>
-            <p>Intelligence artificielle, automatisation et tableaux de bord pour décider plus vite et mieux.</p>
-            <span class="card__num">05</span>
-          </article>
-          <article class="card reveal tilt">
-            <div class="card__icon">
-              <svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg>
-            </div>
-            <h3>Cybersécurité &amp; Conseil</h3>
-            <p>Audit, sécurisation et accompagnement stratégique pour bâtir une technologie de confiance.</p>
-            <span class="card__num">06</span>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= VISION / PILLARS ================= -->
-    <section class="vision section" id="vision">
-      <div class="container vision__inner">
-        <div class="vision__brand reveal">
-          <img src="assets/logo-light.png" alt="NEAM Softwares Industry" width="1200" height="287" loading="lazy">
-          <p>Notre identité repose sur quatre piliers indissociables. Ensemble, ils forment la pointe de la flèche&nbsp;: une ascension constante vers l'excellence.</p>
-        </div>
-        <div class="pillars">
-          <div class="pillar reveal">
-            <span class="pillar__idx">P</span>
-            <div><h3>People</h3><p>Les humains d'abord. Nos clients, nos utilisateurs et nos talents sont au cœur de chaque décision.</p></div>
-          </div>
-          <div class="pillar reveal">
-            <span class="pillar__idx">I</span>
-            <div><h3>Ideas</h3><p>Créativité et audace. Nous challengeons l'existant pour imaginer des solutions inédites.</p></div>
-          </div>
-          <div class="pillar reveal">
-            <span class="pillar__idx">T</span>
-            <div><h3>Technology</h3><p>Excellence technique. Des architectures modernes, propres et pensées pour durer.</p></div>
-          </div>
-          <div class="pillar reveal">
-            <span class="pillar__idx">I</span>
-            <div><h3>Impact</h3><p>Des résultats concrets. Chaque ligne de code doit créer de la valeur mesurable.</p></div>
+          <div class="about__do">
+            <span class="panel__label mono reveal">// CE QUE NOUS FAISONS</span>
+            <ul class="dolist">
+              <li class="reveal"><span class="dolist__i mono">A</span><p><strong>Concevoir</strong> des expériences et outils numériques utiles au quotidien.</p></li>
+              <li class="reveal"><span class="dolist__i mono">B</span><p><strong>Structurer</strong> la présence digitale et les parcours clients.</p></li>
+              <li class="reveal"><span class="dolist__i mono">C</span><p><strong>Automatiser</strong> les processus pour gagner du temps et fiabiliser l’exécution.</p></li>
+              <li class="reveal"><span class="dolist__i mono">D</span><p><strong>Accompagner</strong> les dirigeants dans leurs décisions technologiques et digitales.</p></li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= STATS ================= -->
-    <section class="stats">
-      <div class="container stats__grid">
-        <div class="stat reveal"><strong data-count="100" data-suffix="%">0</strong><span>Solutions sur mesure</span></div>
-        <div class="stat reveal"><strong data-count="24" data-suffix="/7">0</strong><span>Support &amp; supervision</span></div>
-        <div class="stat reveal"><strong data-count="6">0</strong><span>Domaines d'expertise</span></div>
-        <div class="stat reveal"><strong data-count="4">0</strong><span>Piliers fondateurs</span></div>
-      </div>
-    </section>
-
-    <!-- ================= PROCESS ================= -->
-    <section class="process section" id="process">
+    <!-- ================= 02 VISION MISSION VALEURS ================= -->
+    <section class="vmv section" id="vision">
       <div class="container">
         <header class="section__head reveal">
-          <span class="tag">02 — Méthode</span>
-          <h2>De l'idée à l'<em>impact</em></h2>
-          <p>Une méthode agile et transparente, rythmée par des livraisons fréquentes.</p>
+          <span class="tag" data-scramble>02 — VISION, MISSION &amp; VALEURS</span>
+          <h2>Build a better <em>tomorrow</em> !</h2>
         </header>
-        <ol class="timeline">
-          <li class="step reveal">
-            <span class="step__n">01</span>
-            <h3>Découverte</h3>
-            <p>Ateliers, analyse des besoins et définition des objectifs business.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step__n">02</span>
-            <h3>Conception</h3>
-            <p>Architecture, UX/UI design et prototypes interactifs validés avec vous.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step__n">03</span>
-            <h3>Développement</h3>
-            <p>Sprints agiles, code testé, démonstrations régulières.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step__n">04</span>
-            <h3>Déploiement</h3>
-            <p>Mise en production sécurisée, formation et accompagnement.</p>
-          </li>
-          <li class="step reveal">
-            <span class="step__n">05</span>
-            <h3>Évolution</h3>
-            <p>Maintenance, supervision et amélioration continue.</p>
-          </li>
+        <div class="vmv__grid">
+          <article class="vmv__card hud reveal tilt">
+            <span class="vmv__k mono">VISION</span>
+            <p>Construire des entreprises plus performantes grâce au numérique.</p>
+            <svg class="vmv__ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"/><circle cx="24" cy="24" r="12"/><circle cx="24" cy="24" r="4"/></svg>
+          </article>
+          <article class="vmv__card hud reveal tilt">
+            <span class="vmv__k mono">MISSION</span>
+            <p>Transformer les besoins métiers en solutions digitales concrètes, simples et mesurables.</p>
+            <svg class="vmv__ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 38 18 24l8 8L42 12"/><path d="M32 12h10v10"/></svg>
+          </article>
+          <article class="vmv__card vmv__card--values hud reveal tilt">
+            <span class="vmv__k mono">VALEURS</span>
+            <ul class="values">
+              <li>Innovation</li><li>Proximité</li><li>Impact</li><li>Fiabilité</li><li>Orientation résultat</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 03 PÔLES ================= -->
+    <section class="poles section" id="poles">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="tag" data-scramble>03 — NOS PÔLES D’INTERVENTION</span>
+          <h2>Le cycle complet de la <em>transformation</em></h2>
+          <p>Une offre pensée pour accompagner chaque étape. Sélectionnez un pôle pour voir ce que nous maîtrisons.</p>
+        </header>
+
+        <div class="poles__wrap reveal">
+          <div class="poles__tabs" role="tablist" aria-label="Pôles d’intervention">
+            <button class="pole-tab is-active" role="tab" aria-selected="true" aria-controls="pole-web" id="tab-web" data-pole="web">
+              <span class="pole-tab__n mono">P.01</span>
+              <span class="pole-tab__t">Digital &amp; Web</span>
+              <span class="pole-tab__d">Sites vitrines, plateformes, e-commerce, UX/UI et présence digitale.</span>
+              <span class="pole-tab__bar"><span></span></span>
+            </button>
+            <button class="pole-tab" role="tab" aria-selected="false" aria-controls="pole-soft" id="tab-soft" data-pole="soft">
+              <span class="pole-tab__n mono">P.02</span>
+              <span class="pole-tab__t">Logiciels &amp; Outils</span>
+              <span class="pole-tab__d">Applications métier, CRM, ERP, tableaux de bord et outils internes.</span>
+              <span class="pole-tab__bar"><span></span></span>
+            </button>
+            <button class="pole-tab" role="tab" aria-selected="false" aria-controls="pole-ai" id="tab-ai" data-pole="ai">
+              <span class="pole-tab__n mono">P.03</span>
+              <span class="pole-tab__t">IA &amp; Automatisation</span>
+              <span class="pole-tab__d">Assistants IA, workflows, automatisation et optimisation des opérations.</span>
+              <span class="pole-tab__bar"><span></span></span>
+            </button>
+            <button class="pole-tab" role="tab" aria-selected="false" aria-controls="pole-consult" id="tab-consult" data-pole="consult">
+              <span class="pole-tab__n mono">P.04</span>
+              <span class="pole-tab__t">Conseil &amp; Formation</span>
+              <span class="pole-tab__d">Diagnostic, stratégie digitale, accompagnement des équipes et formation.</span>
+              <span class="pole-tab__bar"><span></span></span>
+            </button>
+          </div>
+
+          <div class="console hud">
+            <div class="console__bar mono"><i></i><i></i><i></i><span id="consolePath">neam://poles/digital-web</span><span class="console__live">● LIVE</span></div>
+
+            <!-- WEB -->
+            <div class="console__panel is-active" role="tabpanel" id="pole-web" aria-labelledby="tab-web">
+              <div class="demo demo--web" aria-hidden="true">
+                <div class="mock">
+                  <div class="mock__top"><i></i><i></i><i></i><span class="mock__url mono">votre-entreprise.com</span></div>
+                  <div class="mock__body">
+                    <div class="mock__nav"><b></b><span></span><span></span><span></span></div>
+                    <div class="mock__hero"><span class="l1"></span><span class="l2"></span><span class="btnx"></span></div>
+                    <div class="mock__cards"><span></span><span></span><span></span></div>
+                  </div>
+                  <div class="mock__phone"><span></span><span></span><span></span><span></span></div>
+                </div>
+                <div class="checks mono">
+                  <span>RESPONSIVE</span><span>UX/UI</span><span>SEO</span><span>E-COMMERCE</span>
+                </div>
+              </div>
+              <ul class="caps">
+                <li>Sites vitrines</li><li>Plateformes web</li><li>E-commerce</li><li>Design UX/UI</li><li>Présence digitale</li><li>Optimisation mobile &amp; SEO</li>
+              </ul>
+            </div>
+
+            <!-- SOFT -->
+            <div class="console__panel" role="tabpanel" id="pole-soft" aria-labelledby="tab-soft" hidden>
+              <div class="demo demo--soft" aria-hidden="true">
+                <div class="dash">
+                  <aside class="dash__side"><span class="on"></span><span></span><span></span><span></span><span></span></aside>
+                  <div class="dash__main">
+                    <div class="dash__kpis">
+                      <div><small class="mono">VENTES</small><b class="mono" data-tick="1284">0</b></div>
+                      <div><small class="mono">CLIENTS</small><b class="mono" data-tick="342">0</b></div>
+                      <div><small class="mono">STOCK</small><b class="mono" data-tick="97" data-suffix="%">0</b></div>
+                    </div>
+                    <div class="dash__chart">
+                      <span style="--h:42%"></span><span style="--h:58%"></span><span style="--h:36%"></span><span style="--h:72%"></span><span style="--h:64%"></span><span style="--h:88%"></span><span style="--h:76%"></span><span style="--h:94%"></span>
+                      <svg viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 32 14 26 28 29 42 18 57 20 71 10 85 13 100 4"/></svg>
+                    </div>
+                    <div class="dash__rows"><span></span><span></span><span></span></div>
+                  </div>
+                </div>
+                <p class="demo__note mono">Données d’illustration</p>
+              </div>
+              <ul class="caps">
+                <li>Applications métier</li><li>CRM</li><li>ERP</li><li>Tableaux de bord</li><li>Outils internes</li><li>Intégrations</li>
+              </ul>
+            </div>
+
+            <!-- AI -->
+            <div class="console__panel" role="tabpanel" id="pole-ai" aria-labelledby="tab-ai" hidden>
+              <div class="demo demo--ai" aria-hidden="true">
+                <svg class="flow" viewBox="0 0 400 200">
+                  <defs>
+                    <linearGradient id="fl" x1="0" x2="1"><stop offset="0" stop-color="#f5b31b" stop-opacity=".1"/><stop offset=".5" stop-color="#f5b31b"/><stop offset="1" stop-color="#2fd3e0" stop-opacity=".1"/></linearGradient>
+                  </defs>
+                  <path id="p1" class="flow__path" d="M70 100 C110 100 120 50 170 50"/>
+                  <path id="p2" class="flow__path" d="M70 100 C110 100 120 150 170 150"/>
+                  <path id="p3" class="flow__path" d="M230 50 C280 50 290 100 330 100"/>
+                  <path id="p4" class="flow__path" d="M230 150 C280 150 290 100 330 100"/>
+                  <circle class="flow__pulse" r="4"><animateMotion dur="2.4s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion></circle>
+                  <circle class="flow__pulse" r="4"><animateMotion dur="2.4s" begin=".6s" repeatCount="indefinite"><mpath href="#p2"/></animateMotion></circle>
+                  <circle class="flow__pulse flow__pulse--c" r="4"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite"><mpath href="#p3"/></animateMotion></circle>
+                  <circle class="flow__pulse flow__pulse--c" r="4"><animateMotion dur="2.4s" begin="1.8s" repeatCount="indefinite"><mpath href="#p4"/></animateMotion></circle>
+                  <g class="flow__node"><rect x="10" y="78" width="60" height="44" rx="10"/><text x="40" y="104">Demande</text></g>
+                  <g class="flow__node flow__node--ai"><rect x="170" y="28" width="60" height="44" rx="10"/><text x="200" y="54">IA</text></g>
+                  <g class="flow__node"><rect x="170" y="128" width="60" height="44" rx="10"/><text x="200" y="154">Workflow</text></g>
+                  <g class="flow__node flow__node--out"><rect x="330" y="78" width="60" height="44" rx="10"/><text x="360" y="104">Action</text></g>
+                </svg>
+                <div class="chat">
+                  <p class="chat__q">Combien de devis en attente cette semaine&nbsp;?</p>
+                  <p class="chat__a"><span class="typing"><i></i><i></i><i></i></span><span class="chat__txt">12 devis en attente. Relances automatiques planifiées pour demain 9h.</span></p>
+                </div>
+              </div>
+              <ul class="caps">
+                <li>Assistants IA</li><li>Workflows</li><li>Automatisation</li><li>Optimisation des opérations</li><li>Recommandations IA</li><li>Outils numériques</li>
+              </ul>
+            </div>
+
+            <!-- CONSULT -->
+            <div class="console__panel" role="tabpanel" id="pole-consult" aria-labelledby="tab-consult" hidden>
+              <div class="demo demo--consult" aria-hidden="true">
+                <svg class="radar" viewBox="-120 -110 240 220">
+                  <g class="radar__grid">
+                    <polygon points="0,-80 76,-25 47,65 -47,65 -76,-25"/>
+                    <polygon points="0,-60 57,-19 35,49 -35,49 -57,-19"/>
+                    <polygon points="0,-40 38,-12 24,32 -24,32 -38,-12"/>
+                    <polygon points="0,-20 19,-6 12,16 -12,16 -19,-6"/>
+                    <line x1="0" y1="0" x2="0" y2="-80"/><line x1="0" y1="0" x2="76" y2="-25"/><line x1="0" y1="0" x2="47" y2="65"/><line x1="0" y1="0" x2="-47" y2="65"/><line x1="0" y1="0" x2="-76" y2="-25"/>
+                  </g>
+                  <polygon class="radar__before" points="0,-30 30,-10 16,22 -24,33 -26,-8"/>
+                  <polygon class="radar__after" points="0,-74 68,-22 41,57 -42,58 -66,-21"/>
+                  <g class="radar__lbl">
+                    <text x="0" y="-88">Visibilité</text><text x="84" y="-26" text-anchor="start">Outils</text><text x="52" y="82">Process</text><text x="-52" y="82">Équipes</text><text x="-84" y="-26" text-anchor="end">Stratégie</text>
+                  </g>
+                </svg>
+                <div class="legend mono"><span class="lg-b">AVANT</span><span class="lg-a">APRÈS ACCOMPAGNEMENT</span><em>Illustration</em></div>
+              </div>
+              <ul class="caps">
+                <li>Diagnostic digital</li><li>Stratégie digitale</li><li>Feuille de route</li><li>Accompagnement des équipes</li><li>Formation</li><li>Décisions technologiques</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 04 SOLUTIONS ================= -->
+    <section class="solutions section" id="solutions">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="tag" data-scramble>04 — NOS SOLUTIONS POUR LES ENTREPRISES</span>
+          <h2>De l’idée au <em>déploiement</em></h2>
+        </header>
+        <ol class="pipeline">
+          <li class="pipe reveal"><span class="pipe__n mono">01</span><h3>Diagnostiquer</h3><p>Comprendre le besoin, le marché et les priorités.</p></li>
+          <li class="pipe reveal"><span class="pipe__n mono">02</span><h3>Concevoir</h3><p>Définir l’expérience, les outils et la stratégie.</p></li>
+          <li class="pipe reveal"><span class="pipe__n mono">03</span><h3>Développer</h3><p>Construire et intégrer les solutions.</p></li>
+          <li class="pipe reveal"><span class="pipe__n mono">04</span><h3>Déployer</h3><p>Former, automatiser, mesurer et améliorer.</p></li>
+        </ol>
+
+        <div class="sectors panel hud reveal">
+          <span class="panel__label mono">// SECTEURS</span>
+          <div class="sectors__list">
+            <span>Commerce</span><span>Restauration</span><span>Immobilier</span><span>Services</span><span>Éducation</span><span>BTP</span><span>Cabinets</span><span>PME</span>
+          </div>
+          <p class="sectors__goal"><span class="mono">OBJECTIF&nbsp;→</span> faire du digital un levier de <strong>visibilité</strong>, d’<strong>acquisition</strong>, de <strong>productivité</strong> et de <strong>croissance</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 05 MÉTHODE ================= -->
+    <section class="method section" id="methode">
+      <div class="container method__inner">
+        <header class="section__head method__head reveal">
+          <span class="tag" data-scramble>05 — NOTRE MÉTHODE D’ACCOMPAGNEMENT</span>
+          <h2>Un processus <em>maîtrisé</em>, étape par étape</h2>
+          <p>Chaque mission suit un cycle clair, documenté et mesuré. Vous savez toujours où en est votre projet.</p>
+        </header>
+        <ol class="steps" id="steps">
+          <li class="step reveal"><span class="step__k mono">AUDIT</span><p>État des lieux digital et identification des écarts.</p></li>
+          <li class="step reveal"><span class="step__k mono">STRATÉGIE</span><p>Priorités, positionnement, objectifs et feuille de route.</p></li>
+          <li class="step reveal"><span class="step__k mono">PRODUCTION</span><p>Création des supports, contenus, outils et solutions.</p></li>
+          <li class="step reveal"><span class="step__k mono">DÉPLOIEMENT</span><p>Mise en ligne, formation, automatisation et accompagnement.</p></li>
+          <li class="step reveal"><span class="step__k mono">MESURE</span><p>Suivi des KPI, ajustements et amélioration continue.</p></li>
         </ol>
       </div>
     </section>
 
-    <!-- ================= TECH ================= -->
-    <section class="tech section" id="tech">
+    <!-- ================= PROGRAMME NEAM × KANIE 30/30 ================= -->
+    <section class="program section" id="programme">
+      <div class="program__bg" aria-hidden="true"></div>
       <div class="container">
-        <header class="section__head reveal">
-          <span class="tag">03 — Technologies</span>
-          <h2>Un arsenal <em>moderne</em></h2>
-          <p>Nous choisissons les bons outils pour chaque défi.</p>
+        <header class="program__head reveal">
+          <span class="tag" data-scramble>VOLET SPÉCIAL — PROGRAMME D’ACCÉLÉRATION DIGITALE</span>
+          <h2 class="program__title">NEAM <span>×</span> KANIE <em>30/30</em></h2>
+          <p class="program__sub">Programme d’accélération digitale des TPE &amp; PME de Libreville.</p>
         </header>
-        <div class="tech__cloud reveal">
-          <span>JavaScript</span><span>TypeScript</span><span>React</span><span>Next.js</span><span>Vue.js</span>
-          <span>Node.js</span><span>Python</span><span>Django</span><span>Laravel</span><span>Java</span>
-          <span>Flutter</span><span>Kotlin</span><span>Swift</span><span>PostgreSQL</span><span>MongoDB</span>
-          <span>Docker</span><span>Kubernetes</span><span>AWS</span><span>Azure</span><span>Google Cloud</span>
-          <span>TensorFlow</span><span>OpenAPI</span><span>GraphQL</span><span>Linux</span>
+
+        <div class="counters reveal">
+          <div class="counter"><strong data-count="30">0</strong><span>Entreprises</span></div>
+          <div class="counter"><strong data-count="30">0</strong><span>Jours</span></div>
+          <div class="counter"><strong data-count="1">0</strong><span>Transformation</span></div>
         </div>
-        <div class="terminal reveal" aria-hidden="true">
-          <div class="terminal__bar"><i></i><i></i><i></i><span>neam@industry: ~</span></div>
-          <pre class="terminal__body" id="terminal"></pre>
+
+        <div class="alliance">
+          <article class="ally hud reveal"><span class="ally__k mono">NEAM</span><p>Technologie • Web • IA • Automatisation</p></article>
+          <span class="ally__x reveal" aria-hidden="true">+</span>
+          <article class="ally hud reveal"><span class="ally__k mono">KANIE</span><p>Stratégie • Créativité • Communication</p></article>
+          <span class="ally__x reveal" aria-hidden="true">=</span>
+          <article class="ally ally--together hud reveal"><span class="ally__k mono">ENSEMBLE</span><p>Diagnostic → production → accompagnement</p></article>
+        </div>
+
+        <!-- Timeline 30 jours -->
+        <div class="month reveal" id="month">
+          <div class="month__head">
+            <h3>Un mois structuré autour d’actions concrètes</h3>
+            <div class="month__day mono"><span>JOUR</span><b id="dayCount">00</b><span>/30</span></div>
+          </div>
+          <div class="month__track"><span id="monthFill"></span>
+            <i style="--x:0%"></i><i style="--x:25%"></i><i style="--x:50%"></i><i style="--x:75%"></i><i style="--x:100%"></i>
+          </div>
+          <div class="weeks">
+            <article class="week" data-week="1">
+              <span class="week__n mono">SEMAINE 1</span>
+              <h4>Audit &amp; Stratégie</h4>
+              <ul><li>Réunion de lancement</li><li>Diagnostic digital</li><li>Benchmark concurrentiel</li><li>Plan d’action</li></ul>
+            </article>
+            <article class="week" data-week="2">
+              <span class="week__n mono">SEMAINE 2</span>
+              <h4>Web &amp; Identité</h4>
+              <ul><li>Architecture / refonte du site</li><li>Identité visuelle</li><li>Optimisation mobile</li><li>Fondations SEO</li></ul>
+            </article>
+            <article class="week" data-week="3">
+              <span class="week__n mono">SEMAINE 3</span>
+              <h4>Communication &amp; Contenu</h4>
+              <ul><li>Stratégie éditoriale</li><li>8 contenus / visuels</li><li>Optimisation des réseaux</li><li>Parcours d’acquisition</li></ul>
+            </article>
+            <article class="week" data-week="4">
+              <span class="week__n mono">SEMAINE 4</span>
+              <h4>Déploiement &amp; Formation</h4>
+              <ul><li>Publication / mise en ligne</li><li>Formation &amp; remise d’outils</li><li>Suivi des performances</li><li>Feuille de route 90 jours</li></ul>
+            </article>
+          </div>
+        </div>
+
+        <!-- Livrables -->
+        <div class="deliver">
+          <div class="deliver__list panel hud reveal">
+            <span class="panel__label mono">// 07 — LIVRABLES À LA FIN DU CYCLE</span>
+            <ul class="checklist" id="checklist">
+              <li>Diagnostic digital et maturité numérique</li>
+              <li>Benchmark de 5 concurrents</li>
+              <li>Positionnement et identité de marque</li>
+              <li>Architecture / création / optimisation du site</li>
+              <li>Stratégie de communication digitale</li>
+              <li>8 contenus prêts à publier</li>
+              <li>Parcours d’acquisition et conversion</li>
+              <li>Recommandations IA et outils numériques</li>
+              <li>Plan d’action 90 jours</li>
+            </ul>
+          </div>
+          <div class="gains reveal">
+            <h3>Ce que l’entreprise doit gagner</h3>
+            <ul>
+              <li>Plus de visibilité</li>
+              <li>Une image plus professionnelle</li>
+              <li>Une communication plus structurée</li>
+              <li>Des outils mieux exploités</li>
+              <li>Un plan clair pour les 90 prochains jours</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="join hud reveal">
+          <div>
+            <span class="tag">UNE ALLIANCE ENTRE TECHNOLOGIE &amp; COMMUNICATION</span>
+            <p>NEAM apporte l’expertise technologique et les outils numériques. KANIE Agency renforce la stratégie, la créativité et la performance de la communication. Ensemble, nous construisons un accompagnement cohérent pour les entreprises.</p>
+          </div>
+          <a href="#contact" class="btn btn--primary magnetic" data-service="Programme NEAM × KANIE 30/30">Rejoindre le programme <span class="arrow">→</span></a>
         </div>
       </div>
     </section>
 
-    <!-- ================= CTA / CONTACT ================= -->
+    <!-- ================= CONTACT ================= -->
     <section class="contact section" id="contact">
       <div class="contact__glow" aria-hidden="true"></div>
       <div class="container contact__inner">
         <div class="contact__intro reveal">
-          <span class="tag">04 — Contact</span>
-          <h2>Prêt à <em>élever</em><br>votre projet&nbsp;?</h2>
-          <p>Racontez-nous votre idée. Nous revenons vers vous rapidement avec une première analyse et une proposition adaptée.</p>
+          <span class="tag" data-scramble>CONTACT</span>
+          <h2>Construisons <em>demain</em>, ensemble.</h2>
+          <p>Parlez-nous de votre entreprise et de vos besoins. Nous revenons vers vous avec un premier diagnostic et une proposition adaptée.</p>
           <ul class="contact__list">
-            <li><span>Email</span><a href="mailto:contact@neam-softwares.com">contact@neam-softwares.com</a></li>
-            <li><span>Disponibilité</span>Lun — Sam · 8h — 19h</li>
+            <li><span class="mono">SITE WEB</span><a href="https://neamindustry.com" target="_blank" rel="noopener">neamindustry.com</a></li>
+            <li><span class="mono">EMAIL</span><a href="mailto:contact@neamindustry.com">contact@neamindustry.com</a></li>
+            <li><span class="mono">BASE</span>Libreville, Gabon</li>
           </ul>
         </div>
-        <form class="form reveal" id="contactForm" novalidate>
+        <form class="form hud reveal" id="contactForm" novalidate>
           <div class="form__row">
-            <label class="field"><input type="text" name="name" required placeholder=" "><span>Nom complet</span></label>
-            <label class="field"><input type="email" name="email" required placeholder=" "><span>Email</span></label>
+            <label class="field"><input id="f-name" type="text" name="name" required placeholder=" "><span>Nom complet</span></label>
+            <label class="field"><input id="f-company" type="text" name="company" placeholder=" "><span>Entreprise</span></label>
           </div>
+          <label class="field"><input id="f-email" type="email" name="email" required placeholder=" "><span>Email</span></label>
           <label class="field">
-            <select name="service" required>
+            <select id="f-service" name="service" required>
               <option value="" disabled selected hidden></option>
-              <option>Développement Web</option>
-              <option>Application Mobile</option>
-              <option>Logiciel sur mesure</option>
-              <option>Cloud &amp; DevOps</option>
-              <option>IA &amp; Data</option>
-              <option>Cybersécurité &amp; Conseil</option>
+              <option>Digital &amp; Web</option>
+              <option>Logiciels &amp; Outils</option>
+              <option>IA &amp; Automatisation</option>
+              <option>Conseil &amp; Formation</option>
+              <option>Programme NEAM × KANIE 30/30</option>
             </select>
-            <span>Type de projet</span>
+            <span>Votre besoin</span>
           </label>
-          <label class="field"><textarea name="message" rows="5" required placeholder=" "></textarea><span>Votre message</span></label>
+          <label class="field"><textarea id="f-message" name="message" rows="5" required placeholder=" "></textarea><span>Votre message</span></label>
           <button type="submit" class="btn btn--primary btn--block magnetic">Envoyer la demande <span class="arrow">→</span></button>
           <p class="form__status" id="formStatus" role="status"></p>
         </form>
@@ -285,13 +458,15 @@
   <footer class="footer">
     <div class="container footer__inner">
       <img src="assets/logo-dark.png" alt="NEAM Softwares Industry" class="footer__logo" width="1200" height="395" loading="lazy">
+      <p class="footer__motto">Build a better tomorrow !</p>
       <nav class="footer__links">
-        <a href="#services">Services</a>
-        <a href="#vision">Vision</a>
-        <a href="#process">Méthode</a>
+        <a href="#about">Qui sommes-nous</a>
+        <a href="#poles">Pôles</a>
+        <a href="#methode">Méthode</a>
+        <a href="#programme">NEAM × KANIE 30/30</a>
         <a href="#contact">Contact</a>
       </nav>
-      <p class="footer__copy">© <span id="year"></span> NEAM SOFTWARES INDUSTRY. Tous droits réservés.</p>
+      <p class="footer__copy">© <span id="year"></span> NEAM SOFTWARES INDUSTRY · Technologie • Conseil • Innovation</p>
     </div>
   </footer>
 
