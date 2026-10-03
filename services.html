@@ -4,132 +4,161 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Services — NEAM Softwares Industry</title>
-  <meta name="description" content="Digital & Web, Logiciels & Outils, IA & Automatisation, Conseil & Formation : les services de transformation digitale de NEAM.">
+  <meta name="description" content="Digital & Web, Logiciels & Outils, IA & Automatisation, Conseil & Formation : les expertises de transformation digitale de NEAM.">
   <meta name="theme-color" content="#ffffff">
   <meta property="og:title" content="Services — NEAM Softwares Industry">
-  <meta property="og:description" content="Digital & Web, Logiciels & Outils, IA & Automatisation, Conseil & Formation : les services de transformation digitale de NEAM.">
+  <meta property="og:description" content="Digital & Web, Logiciels & Outils, IA & Automatisation, Conseil & Formation : les expertises de transformation digitale de NEAM.">
   <meta property="og:image" content="assets/logo-light.png">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <header class="header">
-    <div class="container header__inner">
+    <div class="wrap header__inner">
       <a href="index.html" class="header__logo" aria-label="NEAM Softwares Industry — accueil">
-        <img src="assets/logo-light.png" alt="NEAM Softwares Industry" width="1200" height="287">
+        <img class="logo-ink" src="assets/logo-light.png" alt="NEAM Softwares Industry" width="1200" height="287">
+        <img class="logo-white" src="assets/logo-dark.png" alt="" width="1200" height="395">
       </a>
       <nav class="nav" aria-label="Navigation principale">
-        <a href="index.html">Accueil</a>
-        <a href="services.html" aria-current="page">Services</a>
-        <a href="produits.html">Produits</a>
-        <a href="programme.html">Programme 30/30</a>
-        <a href="a-propos.html">À propos</a>
-        <a href="contact.html" class="btn btn--primary">Nous contacter</a>
+        <div class="nav__links">
+          <a href="services.html" aria-current="page">Services</a>
+          <a href="produits.html">Produits</a>
+          <a href="programme.html">Programme 30/30</a>
+          <a href="a-propos.html">À propos</a>
+        </div>
+        <a href="contact.html" class="btn btn--ink">Démarrer un projet <span class="arr">→</span></a>
       </nav>
-      <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
+      <button class="nav-toggle" type="button" aria-expanded="false">Menu</button>
     </div>
   </header>
 
   <main>
     <section class="page-hero">
-      <div class="container">
-        <p class="breadcrumb"><a href="index.html">Accueil</a> / Services</p>
-        <span class="eyebrow">Nos services</span>
-        <h1>Votre transformation, pôle par pôle</h1>
-        <p class="lead">Du site web à l’IA, avec un seul interlocuteur.</p>
-
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container poles">
-        <article class="pole reveal" id="digital-web">
-          <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
-          <div class="pole__body">
-            <h2>Digital &amp; Web</h2>
-            <p class="lead">Être visible et trouvé en ligne.</p>
-            <ul class="tags"><li>Sites vitrines</li><li>Plateformes</li><li>E-commerce</li><li>UX/UI</li><li>Présence digitale</li></ul>
-          </div>
-          <a href="contact.html?besoin=Digital%20%26%20Web" class="btn btn--outline">En parler <span class="arrow">→</span></a>
-        </article>
-        <article class="pole reveal" id="logiciels-outils">
-          <span class="icon icon--blue"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
-          <div class="pole__body">
-            <h2>Logiciels &amp; Outils</h2>
-            <p class="lead">Remplacer le papier et Excel.</p>
-            <ul class="tags"><li>Applications métier</li><li>CRM</li><li>ERP</li><li>Tableaux de bord</li><li>Outils internes</li></ul>
-          </div>
-          <a href="contact.html?besoin=Logiciels%20%26%20Outils" class="btn btn--outline">En parler <span class="arrow">→</span></a>
-        </article>
-        <article class="pole reveal" id="ia-automatisation">
-          <span class="icon icon--teal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M10 12h4"/></svg></span>
-          <div class="pole__body">
-            <h2>IA &amp; Automatisation</h2>
-            <p class="lead">Gagner du temps chaque jour.</p>
-            <ul class="tags"><li>Assistants IA</li><li>Workflows</li><li>Automatisation</li><li>Optimisation des opérations</li></ul>
-          </div>
-          <a href="contact.html?besoin=IA%20%26%20Automatisation" class="btn btn--outline">En parler <span class="arrow">→</span></a>
-        </article>
-        <article class="pole reveal" id="conseil-formation">
-          <span class="icon icon--navy"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.5a3 3 0 0 1 0 6M21 20c0-2.6-1.6-4.8-4-5.6"/></svg></span>
-          <div class="pole__body">
-            <h2>Conseil &amp; Formation</h2>
-            <p class="lead">Savoir par où commencer.</p>
-            <ul class="tags"><li>Diagnostic</li><li>Stratégie digitale</li><li>Accompagnement des équipes</li><li>Formation</li></ul>
-          </div>
-          <a href="contact.html?besoin=Conseil" class="btn btn--outline">En parler <span class="arrow">→</span></a>
-        </article>
-      </div>
-    </section>
-
-    <section class="section section--soft">
-      <div class="container">
-        <header class="section__head section__head--center reveal">
-          <span class="eyebrow">Notre méthode</span>
-          <h2>5 étapes claires</h2>
-        </header>
-        <ol class="journey journey--5"><li class="reveal"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><h3>Audit</h3><p>État des lieux</p></li><li class="reveal"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></span><h3>Stratégie</h3><p>Priorités et feuille de route</p></li><li class="reveal"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></svg></span><h3>Production</h3><p>Outils et contenus</p></li><li class="reveal"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15c-1.5 1.5-2 4-2 6 2 0 4.5-.5 6-2"/><path d="M9 15l-3-3c1-4 5-9 12-9 0 7-5 11-9 12z"/><circle cx="15" cy="9" r="1.5"/></svg></span><h3>Déploiement</h3><p>Mise en ligne et formation</p></li><li class="reveal"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V11M10 20V5M16 20v-6M2 20h20"/></svg></span><h3>Mesure</h3><p>Suivi et amélioration</p></li></ol>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container split">
-        <div class="reveal">
-          <span class="eyebrow">Secteurs</span>
-          <h2>Pour toutes les entreprises</h2>
+      <div class="wrap">
+        <div class="page-hero__meta reveal"><span class="label"><a href="index.html">Accueil</a> / <b>Services</b></span><span class="label">4 expertises</span></div>
+        <h1 class="lines"><span class="line"><span>Une expertise pour</span></span><span class="line"><span>chaque étape de votre</span></span><span class="line"><span><em>transformation</em>.</span></span></h1>
+        <div class="page-hero__foot reveal">
+          <span class="label">(Services)</span>
+          <div><p class="lead">Une offre pensée pour accompagner le cycle complet de la transformation digitale&nbsp;: de la présence en ligne aux outils métiers, de l’automatisation à la formation de vos équipes.</p><div class="actions"><a class="btn btn--line" href="#digital-web">Digital &amp; Web</a><a class="btn btn--line" href="#logiciels-outils">Logiciels &amp; Outils</a><a class="btn btn--line" href="#ia-automatisation">IA &amp; Automatisation</a><a class="btn btn--line" href="#conseil-formation">Conseil &amp; Formation</a></div></div>
         </div>
-        <div class="reveal"><ul class="tags"><li>Commerce</li><li>Restauration</li><li>Immobilier</li><li>Services</li><li>Éducation</li><li>BTP</li><li>Cabinets</li><li>PME</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="acc reveal">
+          <div class="acc__item is-open" id="digital-web" style="scroll-margin-top:96px">
+            <button class="acc__btn" type="button" aria-controls="digital-web-panel">
+              <span class="acc__num">01</span>
+              <span class="acc__title">Digital &amp; Web</span>
+              <span class="acc__hint">Sites · E-commerce · UX/UI</span>
+              <span class="acc__icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc__panel" id="digital-web-panel">
+              <div class="acc__inner">
+                <div class="acc__content">
+                  <span></span>
+                  <div><p class="lead">Un site et une présence en ligne qui inspirent confiance et attirent de nouveaux clients. Nous concevons des expériences claires, rapides et pensées pour le mobile.</p><div class="actions"><a href="contact.html?besoin=Digital%20%26%20Web" class="btn btn--line">En parler avec nous <span class="arr">→</span></a></div></div>
+                  <div><span class="label">Ce que nous réalisons</span><ul class="ticks"><li>Sites vitrines</li><li>Plateformes web</li><li>E-commerce</li><li>Design UX/UI</li><li>Présence digitale</li></ul></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="acc__item" id="logiciels-outils" style="scroll-margin-top:96px">
+            <button class="acc__btn" type="button" aria-controls="logiciels-outils-panel">
+              <span class="acc__num">02</span>
+              <span class="acc__title">Logiciels &amp; Outils</span>
+              <span class="acc__hint">CRM · ERP · Tableaux de bord</span>
+              <span class="acc__icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc__panel" id="logiciels-outils-panel">
+              <div class="acc__inner">
+                <div class="acc__content">
+                  <span></span>
+                  <div><p class="lead">Des outils taillés pour votre activité, qui remplacent les fichiers dispersés et vous donnent une vision claire de votre entreprise, en temps réel.</p><div class="actions"><a href="contact.html?besoin=Logiciels%20%26%20Outils" class="btn btn--line">En parler avec nous <span class="arr">→</span></a></div></div>
+                  <div><span class="label">Ce que nous réalisons</span><ul class="ticks"><li>Applications métier</li><li>CRM</li><li>ERP</li><li>Tableaux de bord</li><li>Outils internes</li></ul></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="acc__item" id="ia-automatisation" style="scroll-margin-top:96px">
+            <button class="acc__btn" type="button" aria-controls="ia-automatisation-panel">
+              <span class="acc__num">03</span>
+              <span class="acc__title">IA &amp; Automatisation</span>
+              <span class="acc__hint">Assistants IA · Workflows</span>
+              <span class="acc__icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc__panel" id="ia-automatisation-panel">
+              <div class="acc__inner">
+                <div class="acc__content">
+                  <span></span>
+                  <div><p class="lead">Des assistants intelligents et des workflows qui prennent en charge les tâches répétitives, pour que vos équipes se concentrent sur l’essentiel.</p><div class="actions"><a href="contact.html?besoin=IA%20%26%20Automatisation" class="btn btn--line">En parler avec nous <span class="arr">→</span></a></div></div>
+                  <div><span class="label">Ce que nous réalisons</span><ul class="ticks"><li>Assistants IA</li><li>Workflows</li><li>Automatisation</li><li>Optimisation des opérations</li></ul></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="acc__item" id="conseil-formation" style="scroll-margin-top:96px">
+            <button class="acc__btn" type="button" aria-controls="conseil-formation-panel">
+              <span class="acc__num">04</span>
+              <span class="acc__title">Conseil &amp; Formation</span>
+              <span class="acc__hint">Diagnostic · Stratégie · Formation</span>
+              <span class="acc__icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc__panel" id="conseil-formation-panel">
+              <div class="acc__inner">
+                <div class="acc__content">
+                  <span></span>
+                  <div><p class="lead">Un regard extérieur pour prioriser vos investissements, et des formations pour que vos équipes adoptent durablement les nouveaux outils.</p><div class="actions"><a href="contact.html?besoin=Conseil" class="btn btn--line">En parler avec nous <span class="arr">→</span></a></div></div>
+                  <div><span class="label">Ce que nous réalisons</span><ul class="ticks"><li>Diagnostic digital</li><li>Stratégie digitale</li><li>Accompagnement des équipes</li><li>Formation</li></ul></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--ink">
+      <div class="wrap method">
+        <div class="method__sticky reveal">
+          <span class="label">(02) <b>Notre méthode</b></span>
+          <h2>De l’idée au <em>déploiement</em>.</h2>
+          <p class="lead">Une méthode claire et transparente&nbsp;: à chaque étape, vous savez où en est votre projet et ce qui vient ensuite.</p>
+        </div>
+        <ol class="method__list"><li class="reveal"><div><h3>Audit</h3><p>État des lieux digital et identification des écarts.</p></div></li><li class="reveal"><div><h3>Stratégie</h3><p>Priorités, positionnement, objectifs et feuille de route.</p></div></li><li class="reveal"><div><h3>Production</h3><p>Création des supports, contenus, outils et solutions.</p></div></li><li class="reveal"><div><h3>Déploiement</h3><p>Mise en ligne, formation, automatisation et accompagnement.</p></div></li><li class="reveal"><div><h3>Mesure</h3><p>Suivi des KPI, ajustements et amélioration continue.</p></div></li></ol>
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-        <div class="band reveal">
-          <div class="band__text">
-            <h2>Pas sûr de quoi choisir&nbsp;?</h2>
-            <p>On commence par un diagnostic.</p>
-          </div>
-          <div class="actions"><a href="contact.html?besoin=Conseil" class="btn btn--primary">Demander un diagnostic <span class="arrow">→</span></a></div>
+      <div class="wrap">
+        <div class="head reveal">
+          <span class="label">(03) Secteurs</span>
+          <div class="head__body"><h2>Pensé pour les <em>TPE, PME</em> et organisations.</h2><p class="lead">Objectif&nbsp;: faire du digital un levier de visibilité, d’acquisition, de productivité et de croissance.</p></div>
         </div>
+        <div class="reveal"><ul class="chips"><li>Commerce</li><li>Restauration</li><li>Immobilier</li><li>Services</li><li>Éducation</li><li>BTP</li><li>Cabinets</li><li>PME</li></ul></div>
       </div>
     </section>
 
   </main>
 
   <footer class="footer">
-    <div class="container">
+    <div class="wrap">
+      <div class="footer__cta">
+        <span class="label">Un projet, une question&nbsp;?</span>
+        <a class="big" href="contact.html">Parlons de votre <em>projet</em> <span class="arr">↗</span></a>
+      </div>
       <div class="footer__grid">
         <div class="footer__brand">
           <img src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395" loading="lazy">
           <p>Des solutions numériques conçues pour transformer les entreprises.</p>
-          <p class="footer__motto">Build a better tomorrow&nbsp;!</p>
         </div>
         <div>
-          <h4>Services</h4>
+          <h4>Expertises</h4>
           <ul>
             <li><a href="services.html#digital-web">Digital &amp; Web</a></li>
             <li><a href="services.html#logiciels-outils">Logiciels &amp; Outils</a></li>
@@ -142,7 +171,7 @@
           <ul>
             <li><a href="produits.html#gurutools">GuruTools</a></li>
             <li><a href="produits.html#tremplin">Tremplin</a></li>
-            <li><a href="programme.html">Programme NEAM × KANIE 30/30</a></li>
+            <li><a href="programme.html">NEAM × KANIE 30/30</a></li>
           </ul>
         </div>
         <div>
@@ -156,7 +185,7 @@
       </div>
       <div class="footer__bottom">
         <span>© <span data-year></span> NEAM Softwares Industry</span>
-        <span>Technologie • Conseil • Innovation</span>
+        <span class="footer__motto">Build a better tomorrow&nbsp;!</span>
       </div>
     </div>
   </footer>

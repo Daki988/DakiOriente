@@ -1,72 +1,78 @@
 /* =========================================================
-   NEAM SOFTWARES INDUSTRY — Interactions (volontairement légères)
+   NEAM SOFTWARES INDUSTRY — Interactions
    ========================================================= */
 (() => {
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
-  /* ---------- Année du pied de page ---------- */
   $$('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
 
-  /* ---------- En-tête : ombre au défilement + menu mobile ---------- */
+  /* ---------- En-tête ---------- */
   const header = $('.header');
   const toggle = $('.nav-toggle');
   const onScroll = () => header.classList.toggle('is-scrolled', scrollY > 8);
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
-
   const setMenu = open => {
     header.classList.toggle('is-open', open);
     toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    toggle.textContent = open ? 'Fermer' : 'Menu';
+    document.body.style.overflow = open ? 'hidden' : '';
   };
   toggle.addEventListener('click', () => setMenu(!header.classList.contains('is-open')));
   $$('.nav a').forEach(a => a.addEventListener('click', () => setMenu(false)));
   addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
-  /* ---------- Apparition douce au défilement ---------- */
+  /* ---------- Titres ligne par ligne ---------- */
+  $$('.lines').forEach(el => $$('.line > span', el).forEach((s, i) => s.style.setProperty('--i', i)));
+
+  /* ---------- Apparitions au défilement ---------- */
   const groups = new Map();
   $$('.reveal').forEach(el => {
     const i = groups.get(el.parentElement) || 0;
     groups.set(el.parentElement, i + 1);
-    el.style.setProperty('--d', `${Math.min(i, 5) * 0.07}s`);
+    el.style.setProperty('--d', `${Math.min(i, 5) * 0.08}s`);
   });
+  const targets = $$('.reveal, .lines');
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    $$('.reveal').forEach(el => io.observe(el));
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    targets.forEach(el => io.observe(el));
   } else {
-    $$('.reveal').forEach(el => el.classList.add('is-in'));
+    targets.forEach(el => el.classList.add('is-in'));
   }
 
-
-  /* ---------- « Où en est votre entreprise ? » ---------- */
-  const levels = $$('.level');
-  levels.forEach((btn, i) => btn.addEventListener('click', () => {
-    levels.forEach((b, j) => {
-      const on = i === j;
-      b.classList.toggle('is-active', on);
-      b.setAttribute('aria-selected', String(on));
-      $('#lvl-' + j).hidden = !on;
-    });
-  }));
+  /* ---------- Accordéon des expertises ---------- */
+  $$('.acc__item').forEach(item => {
+    const btn = $('.acc__btn', item);
+    const panel = $('.acc__panel', item);
+    const sync = () => {
+      const open = item.classList.contains('is-open');
+      btn.setAttribute('aria-expanded', String(open));
+      panel.inert = !open;
+    };
+    btn.addEventListener('click', () => { item.classList.toggle('is-open'); sync(); });
+    sync();
+  });
+  // Ouvre l'expertise visée par l'ancre (ex. services.html#ia-automatisation)
+  const openFromHash = () => {
+    const target = location.hash && document.getElementById(location.hash.slice(1));
+    if (target && target.classList.contains('acc__item') && !target.classList.contains('is-open')) $('.acc__btn', target).click();
+  };
+  openFromHash();
+  addEventListener('hashchange', openFromHash);
 
   /* ---------- Formulaire de contact ---------- */
   const form = $('#contactForm');
   if (!form) return;
   const status = $('#formStatus');
   const select = $('#besoin');
-
-  // Pré-sélection du besoin depuis l'URL (ex. contact.html?besoin=GuruTools)
   const wanted = new URLSearchParams(location.search).get('besoin');
   if (wanted) {
     const opt = [...select.options].find(o => o.value && o.value.toLowerCase().startsWith(wanted.toLowerCase()));
     if (opt) select.value = opt.value;
   }
-
   form.addEventListener('submit', e => {
     e.preventDefault();
     let valid = true;

@@ -4,79 +4,88 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>À propos — NEAM Softwares Industry</title>
-  <meta name="description" content="NEAM Softwares Industry : vision, mission et valeurs.">
+  <meta name="description" content="NEAM Softwares Industry : ce que nous faisons, notre vision, notre mission et nos valeurs.">
   <meta name="theme-color" content="#ffffff">
   <meta property="og:title" content="À propos — NEAM Softwares Industry">
-  <meta property="og:description" content="NEAM Softwares Industry : vision, mission et valeurs.">
+  <meta property="og:description" content="NEAM Softwares Industry : ce que nous faisons, notre vision, notre mission et nos valeurs.">
   <meta property="og:image" content="assets/logo-light.png">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <header class="header">
-    <div class="container header__inner">
+    <div class="wrap header__inner">
       <a href="index.html" class="header__logo" aria-label="NEAM Softwares Industry — accueil">
-        <img src="assets/logo-light.png" alt="NEAM Softwares Industry" width="1200" height="287">
+        <img class="logo-ink" src="assets/logo-light.png" alt="NEAM Softwares Industry" width="1200" height="287">
+        <img class="logo-white" src="assets/logo-dark.png" alt="" width="1200" height="395">
       </a>
       <nav class="nav" aria-label="Navigation principale">
-        <a href="index.html">Accueil</a>
-        <a href="services.html">Services</a>
-        <a href="produits.html">Produits</a>
-        <a href="programme.html">Programme 30/30</a>
-        <a href="a-propos.html" aria-current="page">À propos</a>
-        <a href="contact.html" class="btn btn--primary">Nous contacter</a>
+        <div class="nav__links">
+          <a href="services.html">Services</a>
+          <a href="produits.html">Produits</a>
+          <a href="programme.html">Programme 30/30</a>
+          <a href="a-propos.html" aria-current="page">À propos</a>
+        </div>
+        <a href="contact.html" class="btn btn--ink">Démarrer un projet <span class="arr">→</span></a>
       </nav>
-      <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
+      <button class="nav-toggle" type="button" aria-expanded="false">Menu</button>
     </div>
   </header>
 
   <main>
     <section class="page-hero">
-      <div class="container">
-        <p class="breadcrumb"><a href="index.html">Accueil</a> / À propos</p>
-        <span class="eyebrow">Qui sommes-nous&nbsp;?</span>
-        <h1>NEAM Softwares Industry</h1>
-        <p class="lead">Votre partenaire de transformation digitale, à Libreville.</p>
-
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container grid grid--3">
-        <div class="card reveal"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><h3>Vision</h3><p>Des entreprises plus performantes grâce au numérique.</p></div>
-        <div class="card reveal"><span class="icon icon--teal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><h3>Mission</h3><p>Des solutions concrètes, simples et mesurables.</p></div>
-        <div class="card reveal"><span class="icon icon--navy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span><h3>Valeurs</h3>
-          <div class="values"><span>Innovation</span><span>Proximité</span><span>Impact</span><span>Fiabilité</span><span>Résultats</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--soft">
-      <div class="container split">
-        <div class="reveal">
-          <span class="eyebrow">Notre devise</span>
-          <p class="quote">«&nbsp;Build a better tomorrow&nbsp;!&nbsp;»</p>
-        </div>
-        <div class="card reveal">
-          <h3>Partenaire</h3>
-          <p><strong>KANIE Agency</strong> · stratégie, créativité, communication.</p>
-          <a href="programme.html" class="link-arrow">Programme 30/30 →</a>
+      <div class="wrap">
+        <div class="page-hero__meta reveal"><span class="label"><a href="index.html">Accueil</a> / <b>À propos</b></span><span class="label">Libreville, Gabon</span></div>
+        <h1 class="lines"><span class="line"><span>Construire des</span></span><span class="line"><span>entreprises plus</span></span><span class="line"><span><em>performantes</em>.</span></span></h1>
+        <div class="page-hero__foot reveal">
+          <span class="label">(À propos)</span>
+          <div><p class="lead">NEAM Softwares Industry accompagne les entreprises dans leur transformation numérique&nbsp;: présence digitale, logiciels, sites web, IA, automatisation, outils métiers et conseil.</p></div>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-        <div class="band reveal">
-          <div class="band__text">
-            <h2>Faisons connaissance</h2>
-            <p>Parlez-nous de votre entreprise.</p>
+      <div class="wrap">
+        <div class="head reveal">
+          <span class="label">(01) Ce que nous faisons</span>
+          <div class="head__body"><h2>Quatre <em>verbes</em> guident notre travail.</h2></div>
+        </div>
+        <div class="grid4 reveal">
+          <div><span class="k">01</span><h3>Concevoir</h3><p>Des expériences et outils numériques utiles au quotidien.</p></div>
+          <div><span class="k">02</span><h3>Structurer</h3><p>La présence digitale et les parcours clients.</p></div>
+          <div><span class="k">03</span><h3>Automatiser</h3><p>Les processus, pour gagner du temps et fiabiliser l’exécution.</p></div>
+          <div><span class="k">04</span><h3>Accompagner</h3><p>Les dirigeants dans leurs décisions technologiques et digitales.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--grey">
+      <div class="wrap">
+        <div class="head reveal">
+          <span class="label">(02) Vision, mission &amp; valeurs</span>
+          <div class="head__body"><h2>Ce qui nous <em>guide</em>.</h2></div>
+        </div>
+        <div class="grid3 reveal">
+          <div><span class="k">Vision</span><h3>Construire des entreprises plus performantes grâce au numérique.</h3></div>
+          <div><span class="k">Mission</span><h3>Transformer les besoins métiers en solutions digitales concrètes, simples et mesurables.</h3></div>
+          <div><span class="k">Valeurs</span><ul class="chips"><li>Innovation</li><li>Proximité</li><li>Impact</li><li>Fiabilité</li><li>Orientation résultat</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--ink">
+      <div class="wrap cols">
+        <span class="label reveal">(03) <b>Notre devise</b></span>
+        <div class="cols__main">
+          <p class="display reveal">Build a better <em>tomorrow</em>&nbsp;!</p>
+          <div class="duo-text reveal">
+            <div><span class="k">Partenaire</span><h4>KANIE Agency</h4><p>Stratégie, créativité et communication&nbsp;: ensemble, nous accompagnons les TPE/PME de Libreville.</p></div>
+            <div><span class="k">Programme</span><h4>NEAM × KANIE 30/30</h4><a href="programme.html" class="ulink">Découvrir le programme ↗</a></div>
           </div>
-          <div class="actions"><a href="contact.html" class="btn btn--primary">Nous contacter <span class="arrow">→</span></a></div>
         </div>
       </div>
     </section>
@@ -84,15 +93,18 @@
   </main>
 
   <footer class="footer">
-    <div class="container">
+    <div class="wrap">
+      <div class="footer__cta">
+        <span class="label">Un projet, une question&nbsp;?</span>
+        <a class="big" href="contact.html">Parlons de votre <em>projet</em> <span class="arr">↗</span></a>
+      </div>
       <div class="footer__grid">
         <div class="footer__brand">
           <img src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395" loading="lazy">
           <p>Des solutions numériques conçues pour transformer les entreprises.</p>
-          <p class="footer__motto">Build a better tomorrow&nbsp;!</p>
         </div>
         <div>
-          <h4>Services</h4>
+          <h4>Expertises</h4>
           <ul>
             <li><a href="services.html#digital-web">Digital &amp; Web</a></li>
             <li><a href="services.html#logiciels-outils">Logiciels &amp; Outils</a></li>
@@ -105,7 +117,7 @@
           <ul>
             <li><a href="produits.html#gurutools">GuruTools</a></li>
             <li><a href="produits.html#tremplin">Tremplin</a></li>
-            <li><a href="programme.html">Programme NEAM × KANIE 30/30</a></li>
+            <li><a href="programme.html">NEAM × KANIE 30/30</a></li>
           </ul>
         </div>
         <div>
@@ -119,7 +131,7 @@
       </div>
       <div class="footer__bottom">
         <span>© <span data-year></span> NEAM Softwares Industry</span>
-        <span>Technologie • Conseil • Innovation</span>
+        <span class="footer__motto">Build a better tomorrow&nbsp;!</span>
       </div>
     </div>
   </footer>

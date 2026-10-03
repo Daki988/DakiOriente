@@ -4,55 +4,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — NEAM Softwares Industry</title>
-  <meta name="description" content="Contactez NEAM Softwares Industry pour votre transformation digitale.">
+  <meta name="description" content="Contactez NEAM Softwares Industry pour parler de votre projet de transformation digitale.">
   <meta name="theme-color" content="#ffffff">
   <meta property="og:title" content="Contact — NEAM Softwares Industry">
-  <meta property="og:description" content="Contactez NEAM Softwares Industry pour votre transformation digitale.">
+  <meta property="og:description" content="Contactez NEAM Softwares Industry pour parler de votre projet de transformation digitale.">
   <meta property="og:image" content="assets/logo-light.png">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <header class="header">
-    <div class="container header__inner">
+    <div class="wrap header__inner">
       <a href="index.html" class="header__logo" aria-label="NEAM Softwares Industry — accueil">
-        <img src="assets/logo-light.png" alt="NEAM Softwares Industry" width="1200" height="287">
+        <img class="logo-ink" src="assets/logo-light.png" alt="NEAM Softwares Industry" width="1200" height="287">
+        <img class="logo-white" src="assets/logo-dark.png" alt="" width="1200" height="395">
       </a>
       <nav class="nav" aria-label="Navigation principale">
-        <a href="index.html">Accueil</a>
-        <a href="services.html">Services</a>
-        <a href="produits.html">Produits</a>
-        <a href="programme.html">Programme 30/30</a>
-        <a href="a-propos.html">À propos</a>
-        <a href="contact.html" class="btn btn--primary" aria-current="page">Nous contacter</a>
+        <div class="nav__links">
+          <a href="services.html">Services</a>
+          <a href="produits.html">Produits</a>
+          <a href="programme.html">Programme 30/30</a>
+          <a href="a-propos.html">À propos</a>
+        </div>
+        <a href="contact.html" class="btn btn--ink">Démarrer un projet <span class="arr">→</span></a>
       </nav>
-      <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
+      <button class="nav-toggle" type="button" aria-expanded="false">Menu</button>
     </div>
   </header>
 
   <main>
     <section class="page-hero">
-      <div class="container">
-        <p class="breadcrumb"><a href="index.html">Accueil</a> / Contact</p>
-        <span class="eyebrow">Contact</span>
-        <h1>Parlons de votre transformation</h1>
-        <p class="lead">Réponse avec un premier diagnostic et une proposition adaptée.</p>
-
+      <div class="wrap">
+        <div class="page-hero__meta reveal"><span class="label"><a href="index.html">Accueil</a> / <b>Contact</b></span><span class="label"><span class="dot-live"></span>Libreville, Gabon</span></div>
+        <h1 class="lines"><span class="line"><span>Parlons de votre</span></span><span class="line"><span><em>projet</em>.</span></span></h1>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container contact-grid">
-        <div class="reveal">
-          <ul class="info-list">
-            <li><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><div><small>Email</small><a href="mailto:contact@neamindustry.com">contact@neamindustry.com</a></div></li>
-            <li><span class="icon icon--teal"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg></span><div><small>Site web</small><a href="https://neamindustry.com" target="_blank" rel="noopener">neamindustry.com</a></div></li>
-            <li><span class="icon icon--navy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><small>Basés à</small><b>Libreville, Gabon</b></div></li>
-          </ul>
+    <section class="section section--tight">
+      <div class="wrap contact">
+        <div class="contact__info reveal">
+          <p class="lead">Décrivez-nous votre entreprise et vos besoins. Nous revenons vers vous avec un premier diagnostic et une proposition adaptée.</p>
+          <dl>
+            <div><dt class="label">Email</dt><dd><a class="ulink" href="mailto:contact@neamindustry.com">contact@neamindustry.com</a></dd></div>
+            <div><dt class="label">Site web</dt><dd><a class="ulink" href="https://neamindustry.com" target="_blank" rel="noopener">neamindustry.com</a></dd></div>
+            <div><dt class="label">Basés à</dt><dd>Libreville, Gabon</dd></div>
+          </dl>
         </div>
 
         <form class="form reveal" id="contactForm" novalidate>
@@ -71,16 +71,19 @@
               <option value="Digital &amp; Web">Digital &amp; Web</option>
               <option value="Logiciels &amp; Outils">Logiciels &amp; Outils</option>
               <option value="IA &amp; Automatisation">IA &amp; Automatisation</option>
-              <option value="Conseil &amp; Formation">Conseil &amp; Formation (diagnostic)</option>
-              <option value="GuruTools">GuruTools (recrutement)</option>
-              <option value="Tremplin">Tremplin (carrière &amp; stages)</option>
+              <option value="Conseil &amp; Formation">Conseil &amp; Formation</option>
+              <option value="GuruTools">GuruTools — recrutement</option>
+              <option value="Tremplin">Tremplin — carrière &amp; stages</option>
               <option value="Programme NEAM × KANIE 30/30">Programme NEAM × KANIE 30/30</option>
               <option value="Autre">Autre</option>
             </select>
           </div>
-          <div class="field"><label for="message">Message</label><textarea id="message" name="message" rows="4" required placeholder="En quelques mots : votre activité et ce que vous voulez améliorer."></textarea></div>
-          <button type="submit" class="btn btn--primary btn--block">Envoyer <span class="arrow">→</span></button>
-          <p class="form__status" id="formStatus" role="status"></p>
+          <div class="field"><label for="message">Votre projet</label><textarea id="message" name="message" rows="4" required placeholder="Votre activité, ce que vous souhaitez améliorer, vos délais…"></textarea></div>
+          <div class="form__foot">
+            <span class="label">Vos informations servent uniquement à vous répondre.</span>
+            <button type="submit" class="btn btn--yellow">Envoyer la demande <span class="arr">→</span></button>
+            <p class="form__status" id="formStatus" role="status"></p>
+          </div>
         </form>
       </div>
     </section>
@@ -88,15 +91,15 @@
   </main>
 
   <footer class="footer">
-    <div class="container">
+    <div class="wrap">
+
       <div class="footer__grid">
         <div class="footer__brand">
           <img src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395" loading="lazy">
           <p>Des solutions numériques conçues pour transformer les entreprises.</p>
-          <p class="footer__motto">Build a better tomorrow&nbsp;!</p>
         </div>
         <div>
-          <h4>Services</h4>
+          <h4>Expertises</h4>
           <ul>
             <li><a href="services.html#digital-web">Digital &amp; Web</a></li>
             <li><a href="services.html#logiciels-outils">Logiciels &amp; Outils</a></li>
@@ -109,7 +112,7 @@
           <ul>
             <li><a href="produits.html#gurutools">GuruTools</a></li>
             <li><a href="produits.html#tremplin">Tremplin</a></li>
-            <li><a href="programme.html">Programme NEAM × KANIE 30/30</a></li>
+            <li><a href="programme.html">NEAM × KANIE 30/30</a></li>
           </ul>
         </div>
         <div>
@@ -123,7 +126,7 @@
       </div>
       <div class="footer__bottom">
         <span>© <span data-year></span> NEAM Softwares Industry</span>
-        <span>Technologie • Conseil • Innovation</span>
+        <span class="footer__motto">Build a better tomorrow&nbsp;!</span>
       </div>
     </div>
   </footer>

@@ -4,180 +4,235 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NEAM Softwares Industry — Transformation digitale des entreprises</title>
-  <meta name="description" content="NEAM Softwares Industry accompagne la transformation digitale des entreprises : sites web, logiciels, IA, automatisation et conseil.">
+  <meta name="description" content="NEAM Softwares Industry accompagne la transformation digitale des entreprises : sites web, logiciels, IA, automatisation, outils métiers et conseil.">
   <meta name="theme-color" content="#ffffff">
   <meta property="og:title" content="NEAM Softwares Industry — Transformation digitale des entreprises">
-  <meta property="og:description" content="NEAM Softwares Industry accompagne la transformation digitale des entreprises : sites web, logiciels, IA, automatisation et conseil.">
+  <meta property="og:description" content="NEAM Softwares Industry accompagne la transformation digitale des entreprises : sites web, logiciels, IA, automatisation, outils métiers et conseil.">
   <meta property="og:image" content="assets/logo-light.png">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <header class="header">
-    <div class="container header__inner">
+    <div class="wrap header__inner">
       <a href="index.html" class="header__logo" aria-label="NEAM Softwares Industry — accueil">
-        <img src="assets/logo-light.png" alt="NEAM Softwares Industry" width="1200" height="287">
+        <img class="logo-ink" src="assets/logo-light.png" alt="NEAM Softwares Industry" width="1200" height="287">
+        <img class="logo-white" src="assets/logo-dark.png" alt="" width="1200" height="395">
       </a>
       <nav class="nav" aria-label="Navigation principale">
-        <a href="index.html" aria-current="page">Accueil</a>
-        <a href="services.html">Services</a>
-        <a href="produits.html">Produits</a>
-        <a href="programme.html">Programme 30/30</a>
-        <a href="a-propos.html">À propos</a>
-        <a href="contact.html" class="btn btn--primary">Nous contacter</a>
+        <div class="nav__links">
+          <a href="services.html">Services</a>
+          <a href="produits.html">Produits</a>
+          <a href="programme.html">Programme 30/30</a>
+          <a href="a-propos.html">À propos</a>
+        </div>
+        <a href="contact.html" class="btn btn--ink">Démarrer un projet <span class="arr">→</span></a>
       </nav>
-      <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
+      <button class="nav-toggle" type="button" aria-expanded="false">Menu</button>
     </div>
   </header>
 
   <main>
     <section class="hero">
-      <div class="container hero__grid">
-        <div class="hero__text">
-          <span class="eyebrow reveal">Transformation digitale</span>
-          <h1 class="reveal">Faites passer votre entreprise <span class="hl">au numérique</span>, simplement.</h1>
-          <p class="lead reveal">Sites, logiciels, IA et conseil&nbsp;: nous vous accompagnons à chaque étape.</p>
-          <div class="actions reveal">
-            <a href="contact.html" class="btn btn--primary">Parler de mon projet <span class="arrow">→</span></a>
-            <a href="#ou-en-etes-vous" class="btn btn--outline">Où en êtes-vous&nbsp;?</a>
+      <div class="wrap">
+        <div class="hero__meta reveal"><span class="label"><span class="dot-live"></span>Libreville, Gabon</span><span class="label">Technologie · Conseil · Innovation</span></div>
+        <h1 class="lines display"><span class="line"><span>Nous accompagnons</span></span><span class="line"><span>la <em>transformation</em></span></span><span class="line"><span>digitale des entreprises.</span></span></h1>
+        <div class="hero__foot reveal">
+          <p class="lead">Présence digitale, logiciels, sites web, IA, automatisation, outils métiers et conseil&nbsp;: nous transformons vos besoins en solutions concrètes, simples et mesurables.</p>
+          <div class="actions">
+            <a href="contact.html" class="btn btn--yellow">Parler de mon projet <span class="arr">→</span></a>
+            <a href="services.html" class="btn btn--line">Nos expertises</a>
           </div>
-          <div class="trust reveal"><span>Basés à Libreville</span><span>Du diagnostic au déploiement</span></div>
         </div>
-        <div class="transfo reveal" aria-label="Avant et après la transformation digitale">
-          <div class="transfo__col transfo__col--before">
-            <span class="transfo__label">Avant</span>
-            <ul><li class="transfo__item"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16"/></svg></span><span>Papier & fichiers Excel</span></li><li class="transfo__item"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span>Tâches répétitives à la main</span></li><li class="transfo__item"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 6.1A9.8 9.8 0 0 1 12 6c5 0 9 6 9 6a16 16 0 0 1-2.6 3.2M6.6 7.6C4.4 9.2 3 12 3 12s4 6 9 6c1.4 0 2.7-.4 3.9-1"/></svg></span><span>Peu visible en ligne</span></li><li class="transfo__item"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"/></svg></span><span>Décisions à l’intuition</span></li></ul>
-          </div>
-          <div class="transfo__arrow" aria-hidden="true"><span></span></div>
-          <div class="transfo__col transfo__col--after">
-            <span class="transfo__label">Après NEAM</span>
-            <ul><li class="transfo__item"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><span>Site web & présence digitale</span></li><li class="transfo__item"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span><span>Processus automatisés</span></li><li class="transfo__item"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.5a3 3 0 0 1 0 6M21 20c0-2.6-1.6-4.8-4-5.6"/></svg></span><span>Clients et équipes connectés</span></li><li class="transfo__item"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V11M10 20V5M16 20v-6M2 20h20"/></svg></span><span>Tableaux de bord clairs</span></li></ul>
+      </div>
+    </section>
+    <div class="marquee" aria-hidden="true"><div class="marquee__track"><span>Sites web</span><span>E-commerce</span><span>Applications métier</span><span>CRM &amp; ERP</span><span>Tableaux de bord</span><span>Assistants IA</span><span>Automatisation</span><span>Stratégie digitale</span><span>Formation</span><span>Sites web</span><span>E-commerce</span><span>Applications métier</span><span>CRM &amp; ERP</span><span>Tableaux de bord</span><span>Assistants IA</span><span>Automatisation</span><span>Stratégie digitale</span><span>Formation</span></div></div>
+
+    <section class="section">
+      <div class="wrap cols">
+        <span class="label reveal">(01) Notre conviction</span>
+        <div class="cols__main">
+          <p class="statement reveal">La technologie n’a de valeur que lorsqu’elle simplifie le quotidien. <span class="dim">Notre rôle&nbsp;: transformer vos besoins métiers en solutions digitales concrètes, simples et mesurables.</span></p>
+          <div class="duo-text reveal">
+            <div><span class="k">Vision</span><h4>Construire des entreprises plus performantes grâce au numérique.</h4></div>
+            <div><span class="k">Comment</span><p>Nous concevons des outils utiles au quotidien, structurons votre présence digitale, automatisons vos processus et accompagnons vos décisions technologiques.</p></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section section--soft" id="ou-en-etes-vous" style="scroll-margin-top:76px">
-      <div class="container">
-        <header class="section__head section__head--center reveal">
-          <span class="eyebrow">Où en est votre entreprise&nbsp;?</span>
-          <h2>Choisissez votre situation</h2>
-        </header>
-        <div class="maturity reveal">
-          <div class="levels" role="tablist" aria-label="Votre situation"><button type="button" class="level is-active" role="tab" aria-selected="true" aria-controls="lvl-0" id="lvlbtn-0"><b>Je démarre</b><span>Pas encore de site, peu de présence en ligne.</span></button><button type="button" class="level" role="tab" aria-selected="false" aria-controls="lvl-1" id="lvlbtn-1"><b>Tout est manuel</b><span>Papier, Excel, messages : on perd du temps.</span></button><button type="button" class="level" role="tab" aria-selected="false" aria-controls="lvl-2" id="lvlbtn-2"><b>J’ai des outils</b><span>Mais ils ne communiquent pas entre eux.</span></button><button type="button" class="level" role="tab" aria-selected="false" aria-controls="lvl-3" id="lvlbtn-3"><b>Je veux une stratégie</b><span>Je ne sais pas par où commencer.</span></button></div>
-          <div class="level-panels"><div class="level-panel" role="tabpanel" id="lvl-0" aria-labelledby="lvlbtn-0">
-              <span class="level-panel__k">Première étape conseillée</span>
-              <div class="level-panel__pole"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><strong>Digital &amp; Web</strong></div>
-              <ul class="tags"><li>Site vitrine</li><li>Identité</li><li>Réseaux sociais</li></ul>
-              <a href="contact.html?besoin=Digital%20%26%20Web" class="btn btn--primary">Demander un diagnostic <span class="arrow">→</span></a>
-            </div><div class="level-panel" role="tabpanel" id="lvl-1" aria-labelledby="lvlbtn-1" hidden>
-              <span class="level-panel__k">Première étape conseillée</span>
-              <div class="level-panel__pole"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><strong>Logiciels &amp; Outils</strong></div>
-              <ul class="tags"><li>CRM</li><li>Outil de gestion</li><li>Tableau de bord</li></ul>
-              <a href="contact.html?besoin=Logiciels%20%26%20Outils" class="btn btn--primary">Demander un diagnostic <span class="arrow">→</span></a>
-            </div><div class="level-panel" role="tabpanel" id="lvl-2" aria-labelledby="lvlbtn-2" hidden>
-              <span class="level-panel__k">Première étape conseillée</span>
-              <div class="level-panel__pole"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M10 12h4"/></svg></span><strong>IA &amp; Automatisation</strong></div>
-              <ul class="tags"><li>Workflows</li><li>Assistant IA</li><li>Automatisation</li></ul>
-              <a href="contact.html?besoin=IA%20%26%20Automatisation" class="btn btn--primary">Demander un diagnostic <span class="arrow">→</span></a>
-            </div><div class="level-panel" role="tabpanel" id="lvl-3" aria-labelledby="lvlbtn-3" hidden>
-              <span class="level-panel__k">Première étape conseillée</span>
-              <div class="level-panel__pole"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.5a3 3 0 0 1 0 6M21 20c0-2.6-1.6-4.8-4-5.6"/></svg></span><strong>Conseil &amp; Formation</strong></div>
-              <ul class="tags"><li>Diagnostic</li><li>Feuille de route</li><li>Formation</li></ul>
-              <a href="contact.html?besoin=Conseil" class="btn btn--primary">Demander un diagnostic <span class="arrow">→</span></a>
-            </div></div>
+    <section class="section section--grey">
+      <div class="wrap">
+        <div class="head reveal">
+          <span class="label">(02) Ce qui change pour vous</span>
+          <div class="head__body"><h2>Votre entreprise, <em>avant</em> et <em>après</em>.</h2><p class="lead">La transformation digitale, concrètement&nbsp;: moins de tâches manuelles, plus de visibilité, et des décisions appuyées sur des données.</p></div>
+        </div>
+        <div class="ba">
+          <div class="ba__head"><span class="label">Domaine</span><span class="label">Avant</span><span></span><span class="label"><b>Avec NEAM</b></span></div>
+          <div class="ba__row reveal"><span class="ba__topic">Présence</span><span class="ba__before">Peu visible en ligne</span><span class="ba__arrow" aria-hidden="true">→</span><span class="ba__after">Un site et une présence digitale qui inspirent confiance<small>Sites vitrines, e-commerce, réseaux sociais</small></span></div><div class="ba__row reveal"><span class="ba__topic">Organisation</span><span class="ba__before">Papier, Excel et messages dispersés</span><span class="ba__arrow" aria-hidden="true">→</span><span class="ba__after">Des outils métier centralisés<small>Applications métier, CRM, ERP</small></span></div><div class="ba__row reveal"><span class="ba__topic">Temps</span><span class="ba__before">Tâches répétitives faites à la main</span><span class="ba__arrow" aria-hidden="true">→</span><span class="ba__after">Des processus automatisés<small>Workflows et assistants IA</small></span></div><div class="ba__row reveal"><span class="ba__topic">Décisions</span><span class="ba__before">Pilotage à l’intuition</span><span class="ba__arrow" aria-hidden="true">→</span><span class="ba__after">Des tableaux de bord clairs<small>Indicateurs suivis et amélioration continue</small></span></div>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-        <header class="section__head section__head--center reveal">
-          <span class="eyebrow">Votre transformation</span>
-          <h2>4 étapes, un seul interlocuteur</h2>
-        </header>
-        <ol class="journey"><li class="reveal"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><h3>Diagnostiquer</h3><p>Vos besoins et priorités</p></li><li class="reveal"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></span><h3>Concevoir</h3><p>La bonne solution</p></li><li class="reveal"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></svg></span><h3>Développer</h3><p>Construire et intégrer</p></li><li class="reveal"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15c-1.5 1.5-2 4-2 6 2 0 4.5-.5 6-2"/><path d="M9 15l-3-3c1-4 5-9 12-9 0 7-5 11-9 12z"/><circle cx="15" cy="9" r="1.5"/></svg></span><h3>Déployer</h3><p>Former et mesurer</p></li></ol>
-      </div>
-    </section>
-
-    <section class="section section--soft">
-      <div class="container">
-        <header class="section__head reveal">
-          <span class="eyebrow">Nos services</span>
-          <h2>Tout pour votre transformation</h2>
-        </header>
-        <div class="grid grid--2">
-          <a class="tile reveal" href="services.html#digital-web"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><div><h3>Digital &amp; Web</h3><p>Sites, e-commerce, présence en ligne</p></div><span class="tile__more">→</span></a>
-          <a class="tile reveal" href="services.html#logiciels-outils"><span class="icon icon--blue"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><div><h3>Logiciels &amp; Outils</h3><p>CRM, ERP, tableaux de bord</p></div><span class="tile__more">→</span></a>
-          <a class="tile reveal" href="services.html#ia-automatisation"><span class="icon icon--teal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M10 12h4"/></svg></span><div><h3>IA &amp; Automatisation</h3><p>Assistants IA, workflows</p></div><span class="tile__more">→</span></a>
-          <a class="tile reveal" href="services.html#conseil-formation"><span class="icon icon--navy"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.5a3 3 0 0 1 0 6M21 20c0-2.6-1.6-4.8-4-5.6"/></svg></span><div><h3>Conseil &amp; Formation</h3><p>Diagnostic, stratégie, formation</p></div><span class="tile__more">→</span></a>
+      <div class="wrap">
+        <div class="head reveal">
+          <span class="label">(03) Expertises</span>
+          <div class="head__body"><h2>Quatre expertises, <em>un seul</em> partenaire.</h2></div>
+        </div>
+        <div class="acc reveal">
+          <div class="acc__item is-open" id="digital-web" style="scroll-margin-top:96px">
+            <button class="acc__btn" type="button" aria-controls="digital-web-panel">
+              <span class="acc__num">01</span>
+              <span class="acc__title">Digital &amp; Web</span>
+              <span class="acc__hint">Sites · E-commerce · UX/UI</span>
+              <span class="acc__icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc__panel" id="digital-web-panel">
+              <div class="acc__inner">
+                <div class="acc__content">
+                  <span></span>
+                  <div><p class="lead">Un site et une présence en ligne qui inspirent confiance et attirent de nouveaux clients. Nous concevons des expériences claires, rapides et pensées pour le mobile.</p><div class="actions"><a href="contact.html?besoin=Digital%20%26%20Web" class="btn btn--line">En parler avec nous <span class="arr">→</span></a></div></div>
+                  <div><span class="label">Ce que nous réalisons</span><ul class="ticks"><li>Sites vitrines</li><li>Plateformes web</li><li>E-commerce</li><li>Design UX/UI</li><li>Présence digitale</li></ul></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="acc__item" id="logiciels-outils" style="scroll-margin-top:96px">
+            <button class="acc__btn" type="button" aria-controls="logiciels-outils-panel">
+              <span class="acc__num">02</span>
+              <span class="acc__title">Logiciels &amp; Outils</span>
+              <span class="acc__hint">CRM · ERP · Tableaux de bord</span>
+              <span class="acc__icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc__panel" id="logiciels-outils-panel">
+              <div class="acc__inner">
+                <div class="acc__content">
+                  <span></span>
+                  <div><p class="lead">Des outils taillés pour votre activité, qui remplacent les fichiers dispersés et vous donnent une vision claire de votre entreprise, en temps réel.</p><div class="actions"><a href="contact.html?besoin=Logiciels%20%26%20Outils" class="btn btn--line">En parler avec nous <span class="arr">→</span></a></div></div>
+                  <div><span class="label">Ce que nous réalisons</span><ul class="ticks"><li>Applications métier</li><li>CRM</li><li>ERP</li><li>Tableaux de bord</li><li>Outils internes</li></ul></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="acc__item" id="ia-automatisation" style="scroll-margin-top:96px">
+            <button class="acc__btn" type="button" aria-controls="ia-automatisation-panel">
+              <span class="acc__num">03</span>
+              <span class="acc__title">IA &amp; Automatisation</span>
+              <span class="acc__hint">Assistants IA · Workflows</span>
+              <span class="acc__icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc__panel" id="ia-automatisation-panel">
+              <div class="acc__inner">
+                <div class="acc__content">
+                  <span></span>
+                  <div><p class="lead">Des assistants intelligents et des workflows qui prennent en charge les tâches répétitives, pour que vos équipes se concentrent sur l’essentiel.</p><div class="actions"><a href="contact.html?besoin=IA%20%26%20Automatisation" class="btn btn--line">En parler avec nous <span class="arr">→</span></a></div></div>
+                  <div><span class="label">Ce que nous réalisons</span><ul class="ticks"><li>Assistants IA</li><li>Workflows</li><li>Automatisation</li><li>Optimisation des opérations</li></ul></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="acc__item" id="conseil-formation" style="scroll-margin-top:96px">
+            <button class="acc__btn" type="button" aria-controls="conseil-formation-panel">
+              <span class="acc__num">04</span>
+              <span class="acc__title">Conseil &amp; Formation</span>
+              <span class="acc__hint">Diagnostic · Stratégie · Formation</span>
+              <span class="acc__icon" aria-hidden="true"></span>
+            </button>
+            <div class="acc__panel" id="conseil-formation-panel">
+              <div class="acc__inner">
+                <div class="acc__content">
+                  <span></span>
+                  <div><p class="lead">Un regard extérieur pour prioriser vos investissements, et des formations pour que vos équipes adoptent durablement les nouveaux outils.</p><div class="actions"><a href="contact.html?besoin=Conseil" class="btn btn--line">En parler avec nous <span class="arr">→</span></a></div></div>
+                  <div><span class="label">Ce que nous réalisons</span><ul class="ticks"><li>Diagnostic digital</li><li>Stratégie digitale</li><li>Accompagnement des équipes</li><li>Formation</li></ul></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
+    <section class="section section--ink">
+      <div class="wrap method">
+        <div class="method__sticky reveal">
+          <span class="label">(04) <b>Notre méthode</b></span>
+          <h2>De l’idée au <em>déploiement</em>.</h2>
+          <p class="lead">Une méthode claire et transparente&nbsp;: à chaque étape, vous savez où en est votre projet et ce qui vient ensuite.</p>
+        </div>
+        <ol class="method__list"><li class="reveal"><div><h3>Audit</h3><p>État des lieux digital et identification des écarts.</p></div></li><li class="reveal"><div><h3>Stratégie</h3><p>Priorités, positionnement, objectifs et feuille de route.</p></div></li><li class="reveal"><div><h3>Production</h3><p>Création des supports, contenus, outils et solutions.</p></div></li><li class="reveal"><div><h3>Déploiement</h3><p>Mise en ligne, formation, automatisation et accompagnement.</p></div></li><li class="reveal"><div><h3>Mesure</h3><p>Suivi des KPI, ajustements et amélioration continue.</p></div></li></ol>
+      </div>
+    </section>
+
     <section class="section">
-      <div class="container">
-        <header class="section__head reveal">
-          <span class="eyebrow">Nos produits</span>
-          <h2>Le recrutement, transformé</h2>
-        </header>
-        <div class="grid grid--2">
-          <a class="product-card product-card--guru reveal" href="produits.html#gurutools">
-            <span class="who">Entreprises</span>
-            <span class="wordmark wordmark--guru">GURU<span>TOOLS</span></span>
-            <p>Publiez vos offres, recevez et triez les CV en quelques clics.</p>
-            <span class="link-arrow">Découvrir →</span>
+      <div class="wrap">
+        <div class="head reveal">
+          <span class="label">(05) Produits &amp; programmes</span>
+          <div class="head__body"><h2>Nos solutions, <em>déjà</em> en action.</h2></div>
+        </div>
+        <div class="work">
+          <a class="work__card reveal" href="produits.html#gurutools">
+            <div class="work__visual work__visual--blue"><div class="mock" aria-hidden="true"><div class="mock__bar"><i></i><i></i><i></i><b>GuruTools · Recrutement</b></div><div class="mock__body"><div class="kanban">
+  <div><small>Reçues</small><span>A. M.</span><span>J. K.</span><span>P. B.</span></div>
+  <div><small>Analysées</small><span>S. N.</span><span>L. O.</span></div>
+  <div><small>Qualifiées</small><span class="hot">R. E.</span><span>T. D.</span></div>
+  <div><small>Shortlist</small><span class="hot">M. A.</span></div>
+</div></div></div></div>
+            <div class="work__meta"><h3>GuruTools <span class="arr">↗</span></h3><span class="label">Recrutement · Entreprises</span></div>
+            <p>La plateforme de recrutement&nbsp;: publier des offres, recevoir les candidatures, analyser les CV et identifier plus vite les bons profils.</p>
           </a>
-          <a class="product-card product-card--tremplin reveal" href="produits.html#tremplin">
-            <span class="who">Candidats</span>
-            <span class="wordmark wordmark--tremplin">TREMPLIN</span>
-            <p>Créez votre CV, trouvez un stage, préparez vos entretiens.</p>
-            <span class="link-arrow">Découvrir →</span>
+          <a class="work__card reveal" href="produits.html#tremplin">
+            <div class="work__visual work__visual--teal"><div class="mock" aria-hidden="true"><div class="mock__bar"><i></i><i></i><i></i><b>Tremplin · Mon CV</b></div><div class="mock__body cvm">
+  <div class="cvm__doc"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="cvm__score"><div class="ring" style="--p:74" data-v="74"></div><small>Career Readiness Score</small></div>
+</div></div></div>
+            <div class="work__meta"><h3>Tremplin <span class="arr">↗</span></h3><span class="label">Carrière · Candidats</span></div>
+            <p>L’assistant de carrière spécialisé dans les stages et l’insertion&nbsp;: profil, CV, offres adaptées, candidature et préparation aux entretiens.</p>
+          </a>
+          <a class="work__card work__card--wide reveal" href="programme.html">
+            <div class="work__visual work__visual--yellow"><div class="cal" aria-hidden="true"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="now"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span></div><span class="mock-note">30 jours · 30 entreprises</span></div>
+            <div class="work__meta"><h3>NEAM × KANIE 30/30 <span class="arr">↗</span></h3><span class="label">Programme · TPE &amp; PME de Libreville</span></div>
+            <p>Un programme d’accélération digitale&nbsp;: diagnostic, site web, identité, communication et formation, en un mois, avec KANIE Agency.</p>
           </a>
         </div>
       </div>
     </section>
 
-    <section class="section section--soft">
-      <div class="container">
-        <div class="band band--light reveal">
-          <div class="band__text">
-            <span class="eyebrow">Programme NEAM × KANIE</span>
-            <h2>30 entreprises · 30 jours · 1 transformation</h2>
-          </div>
-          <div class="actions"><a href="programme.html" class="btn btn--primary">Voir le programme <span class="arrow">→</span></a></div>
+    <section class="section section--grey">
+      <div class="wrap">
+        <div class="head reveal">
+          <span class="label">(06) Pour qui</span>
+          <div class="head__body"><h2>Des entreprises de <em>tous</em> les secteurs.</h2><p class="lead">Notre objectif&nbsp;: faire du digital un levier de visibilité, d’acquisition, de productivité et de croissance.</p></div>
         </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="band reveal">
-          <div class="band__text">
-            <h2>Prêt à transformer votre entreprise&nbsp;?</h2>
-            <p>Premier échange pour faire le point sur vos besoins.</p>
-          </div>
-          <div class="actions"><a href="contact.html" class="btn btn--primary">Prendre contact <span class="arrow">→</span></a></div>
+        <div class="numbers reveal">
+          <div><strong>4</strong><span class="label">Expertises</span></div>
+          <div><strong>8</strong><span class="label">Secteurs d’activité</span></div>
+          <div><strong>30</strong><span class="label">Entreprises par programme</span></div>
+          <div><strong>1</strong><span class="label">Interlocuteur unique</span></div>
         </div>
+        <div class="reveal" style="margin-top:40px"><ul class="chips"><li>Commerce</li><li>Restauration</li><li>Immobilier</li><li>Services</li><li>Éducation</li><li>BTP</li><li>Cabinets</li><li>PME</li></ul></div>
       </div>
     </section>
 
   </main>
 
   <footer class="footer">
-    <div class="container">
+    <div class="wrap">
+      <div class="footer__cta">
+        <span class="label">Un projet, une question&nbsp;?</span>
+        <a class="big" href="contact.html">Parlons de votre <em>projet</em> <span class="arr">↗</span></a>
+      </div>
       <div class="footer__grid">
         <div class="footer__brand">
           <img src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395" loading="lazy">
           <p>Des solutions numériques conçues pour transformer les entreprises.</p>
-          <p class="footer__motto">Build a better tomorrow&nbsp;!</p>
         </div>
         <div>
-          <h4>Services</h4>
+          <h4>Expertises</h4>
           <ul>
             <li><a href="services.html#digital-web">Digital &amp; Web</a></li>
             <li><a href="services.html#logiciels-outils">Logiciels &amp; Outils</a></li>
@@ -190,7 +245,7 @@
           <ul>
             <li><a href="produits.html#gurutools">GuruTools</a></li>
             <li><a href="produits.html#tremplin">Tremplin</a></li>
-            <li><a href="programme.html">Programme NEAM × KANIE 30/30</a></li>
+            <li><a href="programme.html">NEAM × KANIE 30/30</a></li>
           </ul>
         </div>
         <div>
@@ -204,7 +259,7 @@
       </div>
       <div class="footer__bottom">
         <span>© <span data-year></span> NEAM Softwares Industry</span>
-        <span>Technologie • Conseil • Innovation</span>
+        <span class="footer__motto">Build a better tomorrow&nbsp;!</span>
       </div>
     </div>
   </footer>
