@@ -82,7 +82,7 @@
       if (!ok) valid = false;
     });
     if (!valid) {
-      status.textContent = 'Merci d’indiquer votre nom, un email valide, votre besoin et un message.';
+      status.textContent = 'Merci d’indiquer votre nom, un e-mail valide, votre besoin et un message.';
       status.classList.add('is-error');
       return;
     }
