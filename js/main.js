@@ -42,6 +42,18 @@
     $$('.reveal').forEach(el => el.classList.add('is-in'));
   }
 
+
+  /* ---------- « Où en est votre entreprise ? » ---------- */
+  const levels = $$('.level');
+  levels.forEach((btn, i) => btn.addEventListener('click', () => {
+    levels.forEach((b, j) => {
+      const on = i === j;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-selected', String(on));
+      $('#lvl-' + j).hidden = !on;
+    });
+  }));
+
   /* ---------- Formulaire de contact ---------- */
   const form = $('#contactForm');
   if (!form) return;
