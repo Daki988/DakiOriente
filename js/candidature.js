@@ -17,23 +17,23 @@
   const DIMS = {
     visibilite: {
       label: 'Visibilité en ligne',
-      reco: 'Créer ou refondre un site adapté au mobile, poser les fondations du référencement (SEO) et compléter votre fiche Google.',
+      reco: 'Commencez par être trouvé : un site adapté au mobile, les bases du référencement (SEO) et une fiche Google complète.',
     },
     image: {
       label: 'Image et communication',
-      reco: 'Clarifier votre identité visuelle, définir une ligne éditoriale et publier régulièrement sur les bons réseaux sociaux.',
+      reco: 'Soignez votre image : une identité visuelle claire, une ligne éditoriale simple et des publications régulières sur les bons réseaux.',
     },
     outils: {
       label: 'Outils et organisation',
-      reco: 'Remplacer les fichiers dispersés par des outils adaptés et automatiser les tâches répétitives (devis, factures, relances).',
+      reco: 'Gagnez du temps : remplacez les fichiers éparpillés par des outils adaptés et automatisez les tâches répétitives (devis, factures, relances).',
     },
     pilotage: {
       label: 'Données et stratégie',
-      reco: 'Suivre quelques indicateurs clés et construire une feuille de route digitale sur 90 jours.',
+      reco: 'Décidez avec des chiffres : suivez quelques indicateurs clés et fixez-vous une feuille de route digitale sur 90 jours.',
     },
     engagement: {
       label: 'Engagement digital',
-      reco: 'Prévoir un petit budget régulier pour le digital (publicité ciblée, outils en ligne) et confier les tâches clés à des professionnels.',
+      reco: 'Passez à l’action : prévoyez un petit budget régulier pour le digital (publicité ciblée, outils en ligne) et confiez les tâches clés à des professionnels.',
     },
   };
 
@@ -86,10 +86,10 @@
   };
 
   const LEVELS = [
-    { max: 25, name: 'Premiers pas', text: 'Votre entreprise est encore peu présente en ligne. C’est le profil pour lequel le programme peut avoir le plus d’impact : chaque action se verra rapidement.' },
-    { max: 50, name: 'Bases posées', text: 'Les premières briques existent, mais elles ne travaillent pas encore ensemble. Le programme vous aidera à structurer votre présence et à gagner en régularité.' },
-    { max: 75, name: 'En progression', text: 'Votre entreprise est déjà bien engagée dans le digital. Le programme vous aidera à optimiser vos outils et à transformer votre visibilité en clients.' },
-    { max: 100, name: 'Avancé', text: 'Votre maturité numérique est solide. Le programme vous permettra d’accélérer : automatisation, IA et pilotage par les données.' },
+    { max: 25, name: 'Premiers pas', text: 'Votre entreprise est encore discrète en ligne. Bonne nouvelle : c’est là que le programme a le plus d’impact, et chaque action se verra vite.' },
+    { max: 50, name: 'Bases posées', text: 'Vous avez déjà posé des bases, mais elles ne travaillent pas encore ensemble. Le programme vous aidera à structurer tout cela et à gagner en régularité.' },
+    { max: 75, name: 'En progression', text: 'Votre entreprise est déjà bien engagée dans le digital. Le programme vous aidera à tirer le meilleur de vos outils et à transformer votre visibilité en clients.' },
+    { max: 100, name: 'Avancé', text: 'Bravo, votre maturité numérique est solide. Le programme vous permettra d’aller plus loin : automatisation, IA et pilotage par les données.' },
   ];
 
   /* ---------- État ---------- */
