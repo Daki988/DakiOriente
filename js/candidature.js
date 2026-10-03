@@ -1,6 +1,6 @@
 /* =========================================================
    NEAM × KANIE 30/30 — Candidature & test de maturité numérique
-   - 12 questions réparties en 4 axes (0 à 3 points chacune)
+   - 14 questions réparties en 5 axes (0 à 3 points chacune)
    - Rapport envoyé à l’équipe NEAM via FormSubmit
    - Résultats téléchargeables en PDF (jsPDF, généré dans le navigateur)
    ========================================================= */
@@ -31,6 +31,10 @@
       label: 'Données et stratégie',
       reco: 'Suivre quelques indicateurs clés et construire une feuille de route digitale sur 90 jours.',
     },
+    engagement: {
+      label: 'Engagement digital',
+      reco: 'Prévoir un petit budget régulier pour le digital (publicité ciblée, outils en ligne) et confier les tâches clés à des professionnels.',
+    },
   };
 
   const QUESTIONS = [
@@ -58,7 +62,28 @@
       ['Jamais', 0], ['Nous avons essayé', 1], ['Parfois', 2], ['Régulièrement', 3] ] },
     { dim: 'pilotage', text: 'Avez-vous un plan pour développer votre présence digitale ?', options: [
       ['Non', 0], ['Quelques idées', 1], ['Des objectifs, mais pas de plan', 2], ['Un plan avec des étapes et un budget', 3] ] },
+    { dim: 'engagement', multi: true, none: 'Aucun pour le moment',
+      text: 'Avez-vous déjà payé pour l’un de ces services ou outils digitaux ?',
+      hint: 'Plusieurs réponses possibles.',
+      options: ['Publicité en ligne (Facebook, Instagram, Google…)', 'Infographiste ou designer', 'Développeur (site, application)', 'Digital marketeur ou community manager', 'Abonnement à un outil d’IA', 'Abonnement à un logiciel en ligne (gestion, facturation…)'],
+      // 0 service = 0 pt · 1 = 1 pt · 2 ou 3 = 2 pts · 4 et plus = 3 pts
+      score: n => (n === 0 ? 0 : n === 1 ? 1 : n <= 3 ? 2 : 3) },
+    { dim: 'engagement', text: 'Dans les 6 prochains mois, êtes-vous prêt à investir dans le digital ?', options: [
+      ['Non, pas pour le moment', 0], ['Peut-être, si le budget le permet', 1], ['Oui, avec un petit budget', 2], ['Oui, c’est une priorité', 3] ] },
   ];
+
+  // Points et libellé d’une réponse, quel que soit le type de question
+  const pointsOf = i => {
+    const q = QUESTIONS[i], a = answers[i];
+    if (a == null) return 0;
+    return q.multi ? q.score(a.length) : q.options[a][1];
+  };
+  const labelOf = i => {
+    const q = QUESTIONS[i], a = answers[i];
+    if (a == null) return '—';
+    if (q.multi) return a.length ? a.map(k => q.options[k]).join(', ') : q.none;
+    return q.options[a][0];
+  };
 
   const LEVELS = [
     { max: 25, name: 'Premiers pas', text: 'Votre entreprise est encore peu présente en ligne. C’est le profil pour lequel le programme peut avoir le plus d’impact : chaque action se verra rapidement.' },
@@ -75,7 +100,19 @@
 
   /* ---------- Construction des étapes de questions ---------- */
   const qContainer = $('#quizQuestions');
-  qContainer.innerHTML = QUESTIONS.map((q, i) => `
+  qContainer.innerHTML = QUESTIONS.map((q, i) => q.multi ? `
+    <section class="q-step" data-step="q" hidden>
+      <span class="label">Question ${i + 1} / ${QUESTIONS.length} · ${DIMS[q.dim].label}</span>
+      <h2 class="q-step__title">${q.text}</h2>
+      <p class="form__hint">${q.hint}</p>
+      <div class="q-options" role="group" aria-label="${q.text.replace(/"/g, '&quot;')}">
+        ${q.options.map((label, j) => `
+          <label class="q-option q-option--radio"><input type="checkbox" data-multi="${i}" value="${j}"><span class="q-option__key">${String.fromCharCode(65 + j)}</span><span>${label}</span></label>`).join('')}
+        <label class="q-option q-option--radio"><input type="checkbox" data-multi="${i}" data-none value="none"><span class="q-option__key">${String.fromCharCode(65 + q.options.length)}</span><span>${q.none}</span></label>
+      </div>
+      <p class="form__status is-error" data-multi-error="${i}" hidden>Cochez au moins une réponse.</p>
+      <div class="actions"><button type="button" class="btn btn--yellow" data-multi-next="${i}">Continuer <span class="arr">→</span></button></div>
+    </section>` : `
     <section class="q-step" data-step="q" hidden>
       <span class="label">Question ${i + 1} / ${QUESTIONS.length} · ${DIMS[q.dim].label}</span>
       <h2 class="q-step__title">${q.text}</h2>
@@ -146,13 +183,29 @@
     setTimeout(() => show(step + 1), 220);
   }));
 
+  // Questions à choix multiples : « Aucun » exclut les autres réponses
+  $$('input[data-multi]', root).forEach(box => box.addEventListener('change', () => {
+    const i = box.dataset.multi;
+    const group = $$(`input[data-multi="${i}"]`, root);
+    if (box.checked && box.hasAttribute('data-none')) group.forEach(b => { if (b !== box) b.checked = false; });
+    if (box.checked && !box.hasAttribute('data-none')) group.forEach(b => { if (b.hasAttribute('data-none')) b.checked = false; });
+    $(`[data-multi-error="${i}"]`, root).hidden = true;
+  }));
+  $$('[data-multi-next]', root).forEach(btn => btn.addEventListener('click', () => {
+    const i = +btn.dataset.multiNext;
+    const checked = $$(`input[data-multi="${i}"]:checked`, root);
+    if (!checked.length) { $(`[data-multi-error="${i}"]`, root).hidden = false; return; }
+    answers[i] = checked.filter(b => !b.hasAttribute('data-none')).map(b => +b.value);
+    show(step + 1);
+  }));
+
   /* ---------- Calcul du résultat ---------- */
   const computeResult = () => {
     const dims = {};
     Object.keys(DIMS).forEach(k => { dims[k] = { got: 0, max: 0 }; });
     QUESTIONS.forEach((q, i) => {
       dims[q.dim].max += 3;
-      dims[q.dim].got += answers[i] == null ? 0 : q.options[answers[i]][1];
+      dims[q.dim].got += pointsOf(i);
     });
     const got = Object.values(dims).reduce((a, d) => a + d.got, 0);
     const max = Object.values(dims).reduce((a, d) => a + d.max, 0);
@@ -198,7 +251,7 @@
     lines['Motivation'] = profile.motivation;
     lines['Disponible pendant 30 jours'] = profile.dispo ? 'Oui' : 'Non';
     QUESTIONS.forEach((q, i) => {
-      const a = answers[i] == null ? '—' : `${q.options[answers[i]][0]} (${q.options[answers[i]][1]}/3)`;
+      const a = answers[i] == null ? '—' : `${labelOf(i)} (${pointsOf(i)}/3)`;
       lines[`Q${String(i + 1).padStart(2, '0')} — ${q.text}`] = a;
     });
     lines['Date'] = new Date().toLocaleString('fr-FR');
@@ -327,7 +380,7 @@
     doc.setFontSize(8.8);
     QUESTIONS.forEach((q, i) => {
       if (y > 272) { doc.addPage(); y = 20; }
-      const a = answers[i] == null ? '-' : q.options[answers[i]][0];
+      const a = answers[i] == null ? '-' : labelOf(i);
       doc.setFont('helvetica', 'normal'); doc.setTextColor(...muted);
       const qt = doc.splitTextToSize(safe(`${i + 1}. ${q.text}`), 100);
       doc.text(qt, M, y);

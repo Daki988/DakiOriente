@@ -32,7 +32,7 @@ puis ouvrez http://localhost:8000
 - Le lien `contact.html?besoin=GuruTools` pré-sélectionne le besoin dans le formulaire.
 
 ## Candidature 30/30 (test de maturité numérique)
-- 12 questions sur 4 axes (visibilité, image et communication, outils, données et stratégie), score sur 100 et priorités.
+- 14 questions sur 5 axes (visibilité, image et communication, outils, données et stratégie, engagement digital), score sur 100 et priorités.
 - Le rapport de candidature est envoyé à **daki.liaison@gmail.com** via le service gratuit [FormSubmit](https://formsubmit.co) (`js/candidature.js`, constante `RECIPIENT`).
 - **Activation obligatoire** : à la toute première candidature, FormSubmit envoie un e-mail de confirmation à cette adresse. Il faut cliquer sur « Activate Form » ; les candidatures suivantes arrivent alors directement. FormSubmit propose ensuite un identifiant aléatoire à utiliser à la place de l’adresse dans `ENDPOINT`, pour ne plus l’afficher dans le code du site.
 - Si l’envoi échoue, le candidat voit un lien pour envoyer sa candidature par e-mail.
