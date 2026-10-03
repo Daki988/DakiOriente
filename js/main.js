@@ -26,61 +26,64 @@
   /* ---------- Titres ligne par ligne ---------- */
   $$('.lines').forEach(el => $$('.line > span', el).forEach((s, i) => s.style.setProperty('--i', i)));
 
-  /* ---------- Apparitions au défilement ---------- */
+  /* ---------- Apparitions au défilement (démarrent après le chargement) ---------- */
   const groups = new Map();
   $$('.reveal').forEach(el => {
     const i = groups.get(el.parentElement) || 0;
     groups.set(el.parentElement, i + 1);
     el.style.setProperty('--d', `${Math.min(i, 5) * 0.08}s`);
   });
-  const targets = $$('.reveal, .lines');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    targets.forEach(el => io.observe(el));
+  const startReveal = () => {
+    const targets = $$('.reveal, .lines');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      targets.forEach(el => io.observe(el));
+    } else {
+      targets.forEach(el => el.classList.add('is-in'));
+    }
+  };
+
+  /* ---------- Animation de chargement : du cahier à l'IA ---------- */
+  const loader = $('#loader');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!loader || reduce) {
+    startReveal();
   } else {
-    targets.forEach(el => el.classList.add('is-in'));
-  }
-
-
-  /* ---------- Animation « L'évolution » : pilotée par le défilement ---------- */
-  const evo = $('#evolution');
-  if (evo) {
-    const scenes = $$('.sc', evo);
-    const stepsEl = $$('.evo__step', evo);
-    const bar = $('#evoBar');
-    // Valeurs d'illustration par étape (en %)
-    const METERS = { vis: [5, 12, 55, 80, 95], org: [10, 35, 45, 55, 95], time: [0, 15, 25, 40, 85] };
-    const meters = $$('[data-meter]', evo);
-    let current = -1;
-    const setStage = i => {
-      if (i === current) return;
-      current = i;
-      scenes.forEach((s, j) => s.classList.toggle('is-active', j === i));
-      stepsEl.forEach((s, j) => s.classList.toggle('is-active', j === i));
-      meters.forEach(m => { m.style.width = `${METERS[m.dataset.meter][i]}%`; });
+    document.body.classList.add('is-loading');
+    // Version complète à la première visite, version courte ensuite
+    let quick = false;
+    try { quick = sessionStorage.getItem('neam-loader') === '1'; sessionStorage.setItem('neam-loader', '1'); } catch (e) { /* stockage indisponible */ }
+    const icons = $$('.loader__icon', loader);
+    const label = $('#loaderLabel');
+    const bar = $('#loaderBar');
+    const LABELS = ['Le cahier', 'Le tableur', 'Le site web', 'Le mobile', 'L’intelligence artificielle'];
+    const STEP = quick ? 110 : 320;
+    let finished = false;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      loader.classList.add('is-done');
+      document.body.classList.remove('is-loading');
+      startReveal();
+      setTimeout(() => loader.remove(), 900);
     };
-    const progress = () => {
-      const r = evo.getBoundingClientRect();
-      const total = r.height - innerHeight;
-      return Math.min(1, Math.max(0, -r.top / total));
+    const showLogo = () => {
+      loader.classList.add('is-logo');
+      bar.style.width = '100%';
+      setTimeout(finish, quick ? 250 : 650);
     };
-    const onEvoScroll = () => {
-      const p = progress();
-      bar.style.width = `${(p * 100).toFixed(1)}%`;
-      setStage(Math.min(scenes.length - 1, Math.floor(p * scenes.length)));
+    let i = 0;
+    const next = () => {
+      icons.forEach((ic, j) => ic.classList.toggle('is-on', j === i));
+      label.textContent = LABELS[i];
+      bar.style.width = `${((i + 1) / (icons.length + 1)) * 100}%`;
+      i++;
+      setTimeout(i < icons.length ? next : showLogo, STEP);
     };
-    addEventListener('scroll', onEvoScroll, { passive: true });
-    addEventListener('resize', onEvoScroll);
-    onEvoScroll();
-    // Un clic sur une étape fait défiler jusqu'à elle
-    $$('[data-evo]', evo).forEach(btn => btn.addEventListener('click', () => {
-      const i = +btn.dataset.evo;
-      const top = evo.getBoundingClientRect().top + scrollY;
-      const total = evo.offsetHeight - innerHeight;
-      scrollTo({ top: top + total * ((i + 0.5) / scenes.length), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    }));
+    next();
+    setTimeout(finish, 5000); // sécurité
   }
 
   /* ---------- Accordéon des expertises ---------- */
