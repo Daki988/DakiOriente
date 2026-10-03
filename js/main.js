@@ -43,6 +43,46 @@
     targets.forEach(el => el.classList.add('is-in'));
   }
 
+
+  /* ---------- Animation « L'évolution » : pilotée par le défilement ---------- */
+  const evo = $('#evolution');
+  if (evo) {
+    const scenes = $$('.sc', evo);
+    const stepsEl = $$('.evo__step', evo);
+    const bar = $('#evoBar');
+    // Valeurs d'illustration par étape (en %)
+    const METERS = { vis: [5, 12, 55, 80, 95], org: [10, 35, 45, 55, 95], time: [0, 15, 25, 40, 85] };
+    const meters = $$('[data-meter]', evo);
+    let current = -1;
+    const setStage = i => {
+      if (i === current) return;
+      current = i;
+      scenes.forEach((s, j) => s.classList.toggle('is-active', j === i));
+      stepsEl.forEach((s, j) => s.classList.toggle('is-active', j === i));
+      meters.forEach(m => { m.style.width = `${METERS[m.dataset.meter][i]}%`; });
+    };
+    const progress = () => {
+      const r = evo.getBoundingClientRect();
+      const total = r.height - innerHeight;
+      return Math.min(1, Math.max(0, -r.top / total));
+    };
+    const onEvoScroll = () => {
+      const p = progress();
+      bar.style.width = `${(p * 100).toFixed(1)}%`;
+      setStage(Math.min(scenes.length - 1, Math.floor(p * scenes.length)));
+    };
+    addEventListener('scroll', onEvoScroll, { passive: true });
+    addEventListener('resize', onEvoScroll);
+    onEvoScroll();
+    // Un clic sur une étape fait défiler jusqu'à elle
+    $$('[data-evo]', evo).forEach(btn => btn.addEventListener('click', () => {
+      const i = +btn.dataset.evo;
+      const top = evo.getBoundingClientRect().top + scrollY;
+      const total = evo.offsetHeight - innerHeight;
+      scrollTo({ top: top + total * ((i + 0.5) / scenes.length), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    }));
+  }
+
   /* ---------- Accordéon des expertises ---------- */
   $$('.acc__item').forEach(item => {
     const btn = $('.acc__btn', item);

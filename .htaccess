@@ -1,0 +1,31 @@
+# NEAM Softwares Industry — configuration Apache (hébergement LWS)
+
+# Page d'accueil et pas de liste des fichiers
+DirectoryIndex index.html
+Options -Indexes
+
+# Page introuvable : retour à l'accueil
+ErrorDocument 404 /index.html
+
+# Redirection vers HTTPS : à activer UNIQUEMENT une fois le certificat SSL actif
+# (ou utilisez l'option « Forcer HTTPS » du panneau LWS).
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+
+# Compression des fichiers texte
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain application/javascript application/json image/svg+xml
+</IfModule>
+
+# Mise en cache dans le navigateur
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+</IfModule>

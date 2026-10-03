@@ -37,3 +37,13 @@ puis ouvrez http://localhost:8000
 - **Activation obligatoire** : à la toute première candidature, FormSubmit envoie un e-mail de confirmation à cette adresse. Il faut cliquer sur « Activate Form » ; les candidatures suivantes arrivent alors directement. FormSubmit propose ensuite un identifiant aléatoire à utiliser à la place de l’adresse dans `ENDPOINT`, pour ne plus l’afficher dans le code du site.
 - Si l’envoi échoue, le candidat voit un lien pour envoyer sa candidature par e-mail.
 - Le PDF des résultats est généré dans le navigateur avec jsPDF (`js/vendor/jspdf.umd.min.js`, version 2.5.1).
+
+## Mise en ligne (LWS)
+1. Hébergement web mutualisé LWS (l’offre **LWS Perso** suffit : site statique, 5 adresses e-mail, nom de domaine et SSL inclus).
+2. Dans le panneau LWS, ouvrir le **Gestionnaire de fichiers** (ou un client FTP comme FileZilla) et envoyer **le contenu** de l’archive dans le dossier `htdocs` (pas le dossier lui-même) : les fichiers `.html`, les dossiers `css/`, `js/`, `assets/`, ainsi que `.htaccess`, `robots.txt` et `sitemap.xml`.
+3. Activer le **certificat SSL** (Let’s Encrypt, gratuit) puis l’option **« Forcer HTTPS »** du panneau, ou décommenter les lignes prévues dans `.htaccess`.
+4. Créer l’adresse **contact@neamindustry.com** dans la partie e-mails du panneau (elle est utilisée sur le site).
+5. Faire une première candidature test sur `/candidature.html`, puis cliquer sur **« Activate Form »** dans l’e-mail reçu de FormSubmit sur daki.liaison@gmail.com.
+6. Déclarer le site dans Google Search Console et y envoyer `sitemap.xml`.
+
+Fichiers ajoutés pour l’hébergement : `.htaccess` (compression, cache, pas de liste de fichiers), `robots.txt`, `sitemap.xml` (domaine `neamindustry.com` à adapter si besoin).
