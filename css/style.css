@@ -466,18 +466,18 @@ p { max-width: 66ch; }
 
 /* ---------- Animation de chargement : du cahier à l'IA ---------- */
 .loader { display: none; }
-.js .loader { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: var(--ink); color: #fff; transition: transform .7s var(--ease), visibility .7s; }
+.js .loader { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: var(--ink); color: #fff; transition: transform .9s var(--ease), visibility .9s; }
 .js .loader.is-done { transform: translateY(-100%); visibility: hidden; }
 .js body.is-loading { overflow: hidden; }
 .loader__inner { display: grid; justify-items: center; gap: 18px; width: min(320px, 100% - 32px); }
 .loader__icons { position: relative; width: 96px; height: 96px; }
-.loader__icon { position: absolute; inset: 8px; width: 80px; height: 80px; fill: none; stroke: var(--yellow); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transform: scale(.7) rotate(-8deg); transition: opacity .22s ease, transform .3s var(--ease); }
+.loader__icon { position: absolute; inset: 8px; width: 80px; height: 80px; fill: none; stroke: var(--yellow); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transform: scale(.7) rotate(-8deg); transition: opacity .4s ease, transform .55s var(--ease); }
 .loader__icon.is-on { opacity: 1; transform: none; }
-.loader__logo { position: absolute; left: 50%; top: 50%; width: 220px; max-width: none; height: auto; opacity: 0; transform: translate(-50%, -50%) scale(.9); transition: opacity .4s ease, transform .5s var(--ease); }
+.loader__logo { position: absolute; left: 50%; top: 50%; width: 220px; max-width: none; height: auto; opacity: 0; transform: translate(-50%, -50%) scale(.9); transition: opacity .6s ease, transform .8s var(--ease); }
 .loader.is-logo .loader__icon { opacity: 0; transform: scale(1.3); }
 .loader.is-logo .loader__logo { opacity: 1; transform: translate(-50%, -50%); }
 .loader__label { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: #a9a9ae; min-height: 1.6em; transition: opacity .3s; }
 .loader.is-logo .loader__label { opacity: 0; }
 .loader__bar { width: 100%; height: 2px; background: #2a2a2e; border-radius: 2px; overflow: hidden; }
-.loader__bar span { display: block; height: 100%; width: 0; background: var(--yellow); transition: width .25s ease; }
+.loader__bar span { display: block; height: 100%; width: 0; background: var(--yellow); transition: width .6s ease; }
 @media (prefers-reduced-motion: reduce) { .js .loader { display: none; } .js body.is-loading { overflow: auto; } }

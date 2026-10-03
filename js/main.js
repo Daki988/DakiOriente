@@ -59,7 +59,7 @@
     const label = $('#loaderLabel');
     const bar = $('#loaderBar');
     const LABELS = ['Le cahier', 'Le tableur', 'Le site web', 'Le mobile', 'L’intelligence artificielle'];
-    const STEP = quick ? 110 : 320;
+    const STEP = quick ? 300 : 650;
     let finished = false;
     const finish = () => {
       if (finished) return;
@@ -67,12 +67,12 @@
       loader.classList.add('is-done');
       document.body.classList.remove('is-loading');
       startReveal();
-      setTimeout(() => loader.remove(), 900);
+      setTimeout(() => loader.remove(), 1100);
     };
     const showLogo = () => {
       loader.classList.add('is-logo');
       bar.style.width = '100%';
-      setTimeout(finish, quick ? 250 : 650);
+      setTimeout(finish, quick ? 500 : 1100);
     };
     let i = 0;
     const next = () => {
@@ -83,7 +83,7 @@
       setTimeout(i < icons.length ? next : showLogo, STEP);
     };
     next();
-    setTimeout(finish, 5000); // sécurité
+    setTimeout(finish, 9000); // sécurité
   }
 
   /* ---------- Accordéon des expertises ---------- */
