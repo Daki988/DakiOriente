@@ -3,717 +3,217 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEAM SOFTWARES INDUSTRY — Build a better tomorrow !</title>
-  <meta name="description" content="NEAM Softwares Industry accompagne les entreprises dans leur transformation numérique : présence digitale, logiciels, sites web, IA, automatisation, outils métiers et conseil.">
-  <meta name="theme-color" content="#07080a">
-  <meta property="og:title" content="NEAM SOFTWARES INDUSTRY">
-  <meta property="og:description" content="Technologie • Conseil • Innovation — Des solutions numériques conçues pour transformer les entreprises.">
-  <meta property="og:image" content="assets/logo-dark.png">
+  <title>NEAM Softwares Industry — Solutions numériques pour les entreprises</title>
+  <meta name="description" content="NEAM Softwares Industry accompagne les entreprises dans leur transformation numérique : sites web, logiciels, IA, automatisation, outils métiers et conseil.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="NEAM Softwares Industry — Solutions numériques pour les entreprises">
+  <meta property="og:description" content="NEAM Softwares Industry accompagne les entreprises dans leur transformation numérique : sites web, logiciels, IA, automatisation, outils métiers et conseil.">
+  <meta property="og:image" content="assets/logo-light.png">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-  <script>document.documentElement.classList.add('js');</script>
-
-  <!-- ================= BOOT SEQUENCE ================= -->
-  <div class="boot" id="boot" aria-hidden="true">
-    <div class="boot__inner">
-      <svg class="boot__mark" viewBox="0 0 64 64"><path d="M32 8 58 54H44L32 32 20 54H6Z"/></svg>
-      <pre class="boot__log" id="bootLog"></pre>
-      <div class="boot__bar"><span id="bootBar"></span></div>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__logo" aria-label="NEAM Softwares Industry — accueil">
+        <img src="assets/logo-light.png" alt="NEAM Softwares Industry" width="1200" height="287">
+      </a>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="index.html" aria-current="page">Accueil</a>
+        <a href="services.html">Services</a>
+        <a href="produits.html">Produits</a>
+        <a href="programme.html">Programme 30/30</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html" class="btn btn--primary">Nous contacter</a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
     </div>
-  </div>
-
-  <div class="cursor-glow" aria-hidden="true"></div>
-  <div class="scroll-progress" aria-hidden="true"></div>
-  <div class="noise" aria-hidden="true"></div>
-
-  <!-- ================= NAV ================= -->
-  <header class="nav" id="nav">
-    <a href="#top" class="nav__brand" aria-label="NEAM Softwares Industry — accueil">
-      <img src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395">
-    </a>
-    <nav class="nav__links" id="navLinks">
-      <a href="#about">Qui sommes-nous</a>
-      <a href="#poles">Pôles</a>
-      <a href="#produits">Produits</a>
-      <a href="#methode">Méthode</a>
-      <a href="#programme">NEAM × KANIE 30/30</a>
-      <a href="#contact" class="btn btn--sm btn--primary">Nous contacter</a>
-    </nav>
-    <button class="nav__toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
-      <span></span><span></span>
-    </button>
   </header>
 
-  <main id="top">
-    <!-- ================= HERO ================= -->
+  <main>
     <section class="hero">
-      <canvas id="globe" class="hero__canvas" aria-hidden="true"></canvas>
-      <div class="hero__floor" aria-hidden="true"></div>
-      <div class="hero__content">
-        <p class="status reveal"><span class="status__dot"></span><span class="mono">SYSTÈMES OPÉRATIONNELS</span><span class="status__sep"></span><span class="mono" id="clock">--:--:--</span><span class="mono status__loc">LIBREVILLE · GA</span></p>
-        <h1 class="sr-only">NEAM SOFTWARES INDUSTRY</h1>
-        <div class="hero__logo-wrap reveal">
-          <img class="hero__logo" src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395">
-          <span class="hero__scan" aria-hidden="true"></span>
+      <div class="container hero__grid">
+        <div class="hero__text">
+          <p class="hero__tag reveal">Technologie<b>•</b>Conseil<b>•</b>Innovation</p>
+          <h1 class="reveal">Des solutions numériques conçues pour <span class="hl">transformer les entreprises</span>.</h1>
+          <p class="lead reveal">NEAM accompagne les entreprises dans leur transformation numérique&nbsp;: présence digitale, logiciels, sites web, IA, automatisation, outils métiers et conseil.</p>
+          <div class="actions reveal">
+            <a href="contact.html" class="btn btn--primary">Parler de mon projet <span class="arrow">→</span></a>
+            <a href="services.html" class="btn btn--outline">Découvrir nos services</a>
+          </div>
+          <div class="trust reveal"><span>Basés à Libreville</span><span>Du diagnostic au déploiement</span><span>Des solutions simples et mesurables</span></div>
         </div>
-        <p class="hero__kicker reveal mono" data-scramble>TECHNOLOGIE • CONSEIL • INNOVATION</p>
-        <p class="hero__lead reveal">Des solutions numériques conçues pour <strong>transformer les entreprises</strong>.</p>
-        <div class="hero__cta reveal">
-          <a href="#poles" class="btn btn--primary magnetic">Découvrir nos pôles <span class="arrow">→</span></a>
-          <a href="#programme" class="btn btn--ghost magnetic">Programme NEAM × KANIE 30/30</a>
-        </div>
-      </div>
-      <div class="hero__hud" aria-hidden="true">
-        <span>WEB</span><span>LOGICIELS</span><span>IA</span><span>AUTOMATISATION</span><span>CONSEIL</span><span>GURUTOOLS</span><span>TREMPLIN</span>
-      </div>
-      <a href="#about" class="hero__scroll" aria-label="Défiler vers le bas"><span></span></a>
-    </section>
-
-    <!-- ================= MARQUEE (valeurs) ================= -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee__track">
-        <span>INNOVATION</span><i>▲</i><span>PROXIMITÉ</span><i>▲</i><span>IMPACT</span><i>▲</i><span>FIABILITÉ</span><i>▲</i><span>ORIENTATION RÉSULTAT</span><i>▲</i>
-        <span>INNOVATION</span><i>▲</i><span>PROXIMITÉ</span><i>▲</i><span>IMPACT</span><i>▲</i><span>FIABILITÉ</span><i>▲</i><span>ORIENTATION RÉSULTAT</span><i>▲</i>
-      </div>
-    </div>
-
-    <!-- ================= 01 QUI SOMMES-NOUS ================= -->
-    <section class="about section" id="about">
-      <div class="container">
-        <header class="section__head reveal">
-          <span class="tag" data-scramble>01 — QUI SOMMES-NOUS ?</span>
-          <h2>Votre partenaire de <em>transformation numérique</em></h2>
-        </header>
-        <div class="about__grid">
-          <article class="panel hud about__pos reveal">
-            <span class="panel__label mono">// NOTRE POSITIONNEMENT</span>
-            <p class="about__statement">NEAM accompagne les entreprises dans leur transformation numérique&nbsp;: <span class="hl">présence digitale</span>, <span class="hl">logiciels</span>, <span class="hl">sites web</span>, <span class="hl">IA</span>, <span class="hl">automatisation</span>, <span class="hl">outils métiers</span> et <span class="hl">conseil</span>.</p>
-          </article>
-          <div class="about__do">
-            <span class="panel__label mono reveal">// CE QUE NOUS FAISONS</span>
-            <ul class="dolist">
-              <li class="reveal"><span class="dolist__i mono">A</span><p><strong>Concevoir</strong> des expériences et outils numériques utiles au quotidien.</p></li>
-              <li class="reveal"><span class="dolist__i mono">B</span><p><strong>Structurer</strong> la présence digitale et les parcours clients.</p></li>
-              <li class="reveal"><span class="dolist__i mono">C</span><p><strong>Automatiser</strong> les processus pour gagner du temps et fiabiliser l’exécution.</p></li>
-              <li class="reveal"><span class="dolist__i mono">D</span><p><strong>Accompagner</strong> les dirigeants dans leurs décisions technologiques et digitales.</p></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= 02 VISION MISSION VALEURS ================= -->
-    <section class="vmv section" id="vision">
-      <div class="container">
-        <header class="section__head reveal">
-          <span class="tag" data-scramble>02 — VISION, MISSION &amp; VALEURS</span>
-          <h2>Build a better <em>tomorrow</em> !</h2>
-        </header>
-        <div class="vmv__grid">
-          <article class="vmv__card hud reveal tilt">
-            <span class="vmv__k mono">VISION</span>
-            <p>Construire des entreprises plus performantes grâce au numérique.</p>
-            <svg class="vmv__ico" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"/><circle cx="24" cy="24" r="12"/><circle cx="24" cy="24" r="4"/></svg>
-          </article>
-          <article class="vmv__card hud reveal tilt">
-            <span class="vmv__k mono">MISSION</span>
-            <p>Transformer les besoins métiers en solutions digitales concrètes, simples et mesurables.</p>
-            <svg class="vmv__ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M6 38 18 24l8 8L42 12"/><path d="M32 12h10v10"/></svg>
-          </article>
-          <article class="vmv__card vmv__card--values hud reveal tilt">
-            <span class="vmv__k mono">VALEURS</span>
-            <ul class="values">
-              <li>Innovation</li><li>Proximité</li><li>Impact</li><li>Fiabilité</li><li>Orientation résultat</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= 03 PÔLES ================= -->
-    <section class="poles section" id="poles">
-      <div class="container">
-        <header class="section__head reveal">
-          <span class="tag" data-scramble>03 — NOS PÔLES D’INTERVENTION</span>
-          <h2>Le cycle complet de la <em>transformation</em></h2>
-          <p>Une offre pensée pour accompagner chaque étape. Sélectionnez un pôle pour voir ce que nous maîtrisons.</p>
-        </header>
-
-        <div class="poles__wrap reveal">
-          <div class="poles__tabs" role="tablist" aria-label="Pôles d’intervention">
-            <button class="pole-tab is-active" role="tab" aria-selected="true" aria-controls="pole-web" id="tab-web" data-pole="web">
-              <span class="pole-tab__n mono">P.01</span>
-              <span class="pole-tab__t">Digital &amp; Web</span>
-              <span class="pole-tab__d">Sites vitrines, plateformes, e-commerce, UX/UI et présence digitale.</span>
-              <span class="pole-tab__bar"><span></span></span>
-            </button>
-            <button class="pole-tab" role="tab" aria-selected="false" aria-controls="pole-soft" id="tab-soft" data-pole="soft">
-              <span class="pole-tab__n mono">P.02</span>
-              <span class="pole-tab__t">Logiciels &amp; Outils</span>
-              <span class="pole-tab__d">Applications métier, CRM, ERP, tableaux de bord et outils internes.</span>
-              <span class="pole-tab__bar"><span></span></span>
-            </button>
-            <button class="pole-tab" role="tab" aria-selected="false" aria-controls="pole-ai" id="tab-ai" data-pole="ai">
-              <span class="pole-tab__n mono">P.03</span>
-              <span class="pole-tab__t">IA &amp; Automatisation</span>
-              <span class="pole-tab__d">Assistants IA, workflows, automatisation et optimisation des opérations.</span>
-              <span class="pole-tab__bar"><span></span></span>
-            </button>
-            <button class="pole-tab" role="tab" aria-selected="false" aria-controls="pole-consult" id="tab-consult" data-pole="consult">
-              <span class="pole-tab__n mono">P.04</span>
-              <span class="pole-tab__t">Conseil &amp; Formation</span>
-              <span class="pole-tab__d">Diagnostic, stratégie digitale, accompagnement des équipes et formation.</span>
-              <span class="pole-tab__bar"><span></span></span>
-            </button>
-          </div>
-
-          <div class="console hud">
-            <div class="console__bar mono"><i></i><i></i><i></i><span id="consolePath">neam://poles/digital-web</span><span class="console__live">● LIVE</span></div>
-
-            <!-- WEB -->
-            <div class="console__panel is-active" role="tabpanel" id="pole-web" aria-labelledby="tab-web">
-              <div class="demo demo--web" aria-hidden="true">
-                <div class="mock">
-                  <div class="mock__top"><i></i><i></i><i></i><span class="mock__url mono">votre-entreprise.com</span></div>
-                  <div class="mock__body">
-                    <div class="mock__nav"><b></b><span></span><span></span><span></span></div>
-                    <div class="mock__hero"><span class="l1"></span><span class="l2"></span><span class="btnx"></span></div>
-                    <div class="mock__cards"><span></span><span></span><span></span></div>
-                  </div>
-                  <div class="mock__phone"><span></span><span></span><span></span><span></span></div>
-                </div>
-                <div class="checks mono">
-                  <span>RESPONSIVE</span><span>UX/UI</span><span>SEO</span><span>E-COMMERCE</span>
-                </div>
-              </div>
-              <ul class="caps">
-                <li>Sites vitrines</li><li>Plateformes web</li><li>E-commerce</li><li>Design UX/UI</li><li>Présence digitale</li><li>Optimisation mobile &amp; SEO</li>
-              </ul>
-            </div>
-
-            <!-- SOFT -->
-            <div class="console__panel" role="tabpanel" id="pole-soft" aria-labelledby="tab-soft" hidden>
-              <div class="demo demo--soft" aria-hidden="true">
-                <div class="dash">
-                  <aside class="dash__side"><span class="on"></span><span></span><span></span><span></span><span></span></aside>
-                  <div class="dash__main">
-                    <div class="dash__kpis">
-                      <div><small class="mono">VENTES</small><b class="mono" data-tick="1284">0</b></div>
-                      <div><small class="mono">CLIENTS</small><b class="mono" data-tick="342">0</b></div>
-                      <div><small class="mono">STOCK</small><b class="mono" data-tick="97" data-suffix="%">0</b></div>
-                    </div>
-                    <div class="dash__chart">
-                      <span style="--h:42%"></span><span style="--h:58%"></span><span style="--h:36%"></span><span style="--h:72%"></span><span style="--h:64%"></span><span style="--h:88%"></span><span style="--h:76%"></span><span style="--h:94%"></span>
-                      <svg viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M0 32 14 26 28 29 42 18 57 20 71 10 85 13 100 4"/></svg>
-                    </div>
-                    <div class="dash__rows"><span></span><span></span><span></span></div>
-                  </div>
-                </div>
-                <p class="demo__note mono">Données d’illustration</p>
-              </div>
-              <ul class="caps">
-                <li>Applications métier</li><li>CRM</li><li>ERP</li><li>Tableaux de bord</li><li>Outils internes</li><li>Intégrations</li>
-              </ul>
-            </div>
-
-            <!-- AI -->
-            <div class="console__panel" role="tabpanel" id="pole-ai" aria-labelledby="tab-ai" hidden>
-              <div class="demo demo--ai" aria-hidden="true">
-                <svg class="flow" viewBox="0 0 400 200">
-                  <defs>
-                    <linearGradient id="fl" x1="0" x2="1"><stop offset="0" stop-color="#f5b31b" stop-opacity=".1"/><stop offset=".5" stop-color="#f5b31b"/><stop offset="1" stop-color="#2fd3e0" stop-opacity=".1"/></linearGradient>
-                  </defs>
-                  <path id="p1" class="flow__path" d="M70 100 C110 100 120 50 170 50"/>
-                  <path id="p2" class="flow__path" d="M70 100 C110 100 120 150 170 150"/>
-                  <path id="p3" class="flow__path" d="M230 50 C280 50 290 100 330 100"/>
-                  <path id="p4" class="flow__path" d="M230 150 C280 150 290 100 330 100"/>
-                  <circle class="flow__pulse" r="4"><animateMotion dur="2.4s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion></circle>
-                  <circle class="flow__pulse" r="4"><animateMotion dur="2.4s" begin=".6s" repeatCount="indefinite"><mpath href="#p2"/></animateMotion></circle>
-                  <circle class="flow__pulse flow__pulse--c" r="4"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite"><mpath href="#p3"/></animateMotion></circle>
-                  <circle class="flow__pulse flow__pulse--c" r="4"><animateMotion dur="2.4s" begin="1.8s" repeatCount="indefinite"><mpath href="#p4"/></animateMotion></circle>
-                  <g class="flow__node"><rect x="10" y="78" width="60" height="44" rx="10"/><text x="40" y="104">Demande</text></g>
-                  <g class="flow__node flow__node--ai"><rect x="170" y="28" width="60" height="44" rx="10"/><text x="200" y="54">IA</text></g>
-                  <g class="flow__node"><rect x="170" y="128" width="60" height="44" rx="10"/><text x="200" y="154">Workflow</text></g>
-                  <g class="flow__node flow__node--out"><rect x="330" y="78" width="60" height="44" rx="10"/><text x="360" y="104">Action</text></g>
-                </svg>
-                <div class="chat">
-                  <p class="chat__q">Combien de devis en attente cette semaine&nbsp;?</p>
-                  <p class="chat__a"><span class="typing"><i></i><i></i><i></i></span><span class="chat__txt">12 devis en attente. Relances automatiques planifiées pour demain 9h.</span></p>
-                </div>
-              </div>
-              <ul class="caps">
-                <li>Assistants IA</li><li>Workflows</li><li>Automatisation</li><li>Optimisation des opérations</li><li>Recommandations IA</li><li>Outils numériques</li>
-              </ul>
-            </div>
-
-            <!-- CONSULT -->
-            <div class="console__panel" role="tabpanel" id="pole-consult" aria-labelledby="tab-consult" hidden>
-              <div class="demo demo--consult" aria-hidden="true">
-                <svg class="radar" viewBox="-120 -110 240 220">
-                  <g class="radar__grid">
-                    <polygon points="0,-80 76,-25 47,65 -47,65 -76,-25"/>
-                    <polygon points="0,-60 57,-19 35,49 -35,49 -57,-19"/>
-                    <polygon points="0,-40 38,-12 24,32 -24,32 -38,-12"/>
-                    <polygon points="0,-20 19,-6 12,16 -12,16 -19,-6"/>
-                    <line x1="0" y1="0" x2="0" y2="-80"/><line x1="0" y1="0" x2="76" y2="-25"/><line x1="0" y1="0" x2="47" y2="65"/><line x1="0" y1="0" x2="-47" y2="65"/><line x1="0" y1="0" x2="-76" y2="-25"/>
-                  </g>
-                  <polygon class="radar__before" points="0,-30 30,-10 16,22 -24,33 -26,-8"/>
-                  <polygon class="radar__after" points="0,-74 68,-22 41,57 -42,58 -66,-21"/>
-                  <g class="radar__lbl">
-                    <text x="0" y="-88">Visibilité</text><text x="84" y="-26" text-anchor="start">Outils</text><text x="52" y="82">Process</text><text x="-52" y="82">Équipes</text><text x="-84" y="-26" text-anchor="end">Stratégie</text>
-                  </g>
-                </svg>
-                <div class="legend mono"><span class="lg-b">AVANT</span><span class="lg-a">APRÈS ACCOMPAGNEMENT</span><em>Illustration</em></div>
-              </div>
-              <ul class="caps">
-                <li>Diagnostic digital</li><li>Stratégie digitale</li><li>Feuille de route</li><li>Accompagnement des équipes</li><li>Formation</li><li>Décisions technologiques</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= 04 SOLUTIONS ================= -->
-    <section class="solutions section" id="solutions">
-      <div class="container">
-        <header class="section__head reveal">
-          <span class="tag" data-scramble>04 — NOS SOLUTIONS POUR LES ENTREPRISES</span>
-          <h2>De l’idée au <em>déploiement</em></h2>
-        </header>
-        <ol class="pipeline">
-          <li class="pipe reveal"><span class="pipe__n mono">01</span><h3>Diagnostiquer</h3><p>Comprendre le besoin, le marché et les priorités.</p></li>
-          <li class="pipe reveal"><span class="pipe__n mono">02</span><h3>Concevoir</h3><p>Définir l’expérience, les outils et la stratégie.</p></li>
-          <li class="pipe reveal"><span class="pipe__n mono">03</span><h3>Développer</h3><p>Construire et intégrer les solutions.</p></li>
-          <li class="pipe reveal"><span class="pipe__n mono">04</span><h3>Déployer</h3><p>Former, automatiser, mesurer et améliorer.</p></li>
-        </ol>
-
-        <div class="sectors panel hud reveal">
-          <span class="panel__label mono">// SECTEURS</span>
-          <div class="sectors__list">
-            <span>Commerce</span><span>Restauration</span><span>Immobilier</span><span>Services</span><span>Éducation</span><span>BTP</span><span>Cabinets</span><span>PME</span>
-          </div>
-          <p class="sectors__goal"><span class="mono">OBJECTIF&nbsp;→</span> faire du digital un levier de <strong>visibilité</strong>, d’<strong>acquisition</strong>, de <strong>productivité</strong> et de <strong>croissance</strong>.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= 05 PRODUITS ================= -->
-    <section class="products section" id="produits">
-      <div class="container">
-        <header class="section__head reveal">
-          <span class="tag" data-scramble>05 — NOS PRODUITS</span>
-          <h2>GuruTools <em>×</em> Tremplin</h2>
-          <p>Un écosystème numérique pour recruter, trouver un stage, préparer sa candidature et faciliter l’insertion professionnelle. Deux plateformes complémentaires autour d’un même moteur intelligent.</p>
-          <p class="products__kw mono">TALENT • CAREER • RECRUITMENT • AI</p>
-        </header>
-
-        <!-- Écosystème + moteur de matching -->
-        <div class="eco reveal" id="eco">
-          <article class="eco__side eco__side--tremplin">
-            <span class="eco__who mono">CÔTÉ CANDIDAT</span>
-            <h3 class="wordmark wordmark--tremplin">TREMPLIN</h3>
-            <p>Plateforme candidat spécialisée dans les stages, l’insertion professionnelle et le développement de l’employabilité.</p>
-            <ul class="eco__chips"><li>Profil</li><li>CV</li><li>Compétences</li></ul>
-            <p class="eco__quote">« Voici les offres qui correspondent à votre profil. »</p>
-          </article>
-
-          <div class="engine" aria-hidden="true">
-            <svg class="engine__svg" viewBox="0 0 300 300">
-              <defs>
-                <radialGradient id="coreGrad"><stop offset="0" stop-color="#f5b31b" stop-opacity=".55"/><stop offset="1" stop-color="#f5b31b" stop-opacity="0"/></radialGradient>
-              </defs>
-              <circle cx="150" cy="150" r="70" fill="url(#coreGrad)"/>
-              <g class="engine__ring engine__ring--1"><circle cx="150" cy="150" r="112"/></g>
-              <g class="engine__ring engine__ring--2"><circle cx="150" cy="150" r="92"/></g>
-              <g class="engine__ring engine__ring--3"><circle cx="150" cy="150" r="58"/></g>
-              <path id="inL" class="engine__wire" d="M0 150 C60 150 70 150 108 150"/>
-              <path id="inR" class="engine__wire" d="M300 150 C240 150 230 150 192 150"/>
-              <path id="outL" class="engine__wire" d="M108 160 C70 175 50 200 0 205"/>
-              <path id="outR" class="engine__wire" d="M192 160 C230 175 250 200 300 205"/>
-              <circle r="4" class="engine__pk engine__pk--t"><animateMotion dur="2s" repeatCount="indefinite"><mpath href="#inL"/></animateMotion></circle>
-              <circle r="4" class="engine__pk engine__pk--g"><animateMotion dur="2s" begin=".5s" repeatCount="indefinite"><mpath href="#inR"/></animateMotion></circle>
-              <circle r="3.5" class="engine__pk engine__pk--y"><animateMotion dur="2.4s" begin="1s" repeatCount="indefinite"><mpath href="#outL"/></animateMotion></circle>
-              <circle r="3.5" class="engine__pk engine__pk--y"><animateMotion dur="2.4s" begin="1.6s" repeatCount="indefinite"><mpath href="#outR"/></animateMotion></circle>
-              <polygon class="engine__core" points="150,118 178,166 122,166"/>
-              <text x="150" y="196" class="engine__lbl">MATCHING</text>
-              <text x="150" y="210" class="engine__lbl">ENGINE</text>
-            </svg>
-            <ul class="engine__criteria mono" id="criteria">
-              <li>Formation</li><li>Compétences</li><li>Métier</li><li>Expérience</li><li>Disponibilité</li><li>Localisation</li><li>Critères</li>
-            </ul>
-          </div>
-
-          <article class="eco__side eco__side--guru">
-            <span class="eco__who mono">CÔTÉ ENTREPRISE</span>
-            <h3 class="wordmark wordmark--guru">GURU<span>TOOLS</span></h3>
-            <p>Plateforme entreprise dédiée à la publication d’offres, la réception des candidatures et la qualification des profils.</p>
-            <ul class="eco__chips"><li>Besoin</li><li>Offre</li><li>Critères</li></ul>
-            <p class="eco__quote">« Voici les candidats correspondant à votre offre. »</p>
-          </article>
-        </div>
-
-        <!-- Match explicable -->
-        <div class="explain reveal">
-          <div class="explain__text">
-            <span class="panel__label mono">// UN MATCH DOIT ÊTRE EXPLICABLE</span>
-            <p>Le candidat comprend pourquoi une offre lui correspond et quels écarts il peut encore combler. Les pondérations restent configurables et les critères obligatoires sont distingués des critères préférentiels.</p>
-            <p class="explain__rule"><span class="mono">PRINCIPE IA</span> L’IA ne doit jamais inventer une expérience, un diplôme ou une compétence.</p>
-          </div>
-          <div class="match hud" id="matchCard">
-            <div class="match__head">
-              <div><small class="mono">OFFRE</small><b>Stage · Assistant marketing digital</b></div>
-              <div class="match__score"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"/><circle class="match__arc" cx="22" cy="22" r="19" pathLength="100"/></svg><span class="mono" id="matchScore">0</span></div>
-            </div>
-            <ul class="match__why" id="matchWhy">
-              <li class="ok">Formation compatible <em class="mono">obligatoire</em></li>
-              <li class="ok">Disponibilité immédiate <em class="mono">obligatoire</em></li>
-              <li class="ok">Réseaux sociais, rédaction <em class="mono">compétences</em></li>
-              <li class="gap">Outils d’analyse web <em class="mono">écart → formation recommandée</em></li>
-            </ul>
-            <p class="demo__note mono">Exemple d’illustration</p>
-          </div>
-        </div>
-
-        <!-- ===== GURUTOOLS ===== -->
-        <article class="product product--guru" id="gurutools">
-          <div class="product__grid">
-            <div class="product__info reveal">
-              <span class="product__badge mono">PLATEFORME DE RECRUTEMENT · ENTREPRISES</span>
-              <h3 class="wordmark wordmark--guru wordmark--xl">GURU<span>TOOLS</span></h3>
-              <p class="product__tagline">Une nouvelle façon de recruter.</p>
-              <p class="product__desc">GuruTools centralise les étapes essentielles du recrutement&nbsp;: création d’offres, diffusion, réception des candidatures, analyse des CV, qualification et suivi. Un outil conçu pour simplifier le travail des TPE/PME et des recruteurs.</p>
-              <p class="product__pos"><span class="mono">POSITIONNEMENT ACTUEL</span> Solution de recrutement gratuite destinée aux TPE/PME du Gabon.</p>
-              <div class="product__cta">
-                <a href="#contact" class="btn btn--primary magnetic" data-service="GuruTools">Recruter avec GuruTools <span class="arrow">→</span></a>
-              </div>
-            </div>
-
-            <div class="console product__demo hud reveal" aria-hidden="true">
-              <div class="console__bar mono"><i></i><i></i><i></i><span>gurutools://recrutement/pipeline</span><span class="console__live">● LIVE</span></div>
-              <div class="pipeline-demo" id="guruPipe">
-                <div class="pd__cols">
-                  <span>Reçues</span><span>Analysées</span><span>Qualifiées</span><span>Shortlist</span>
-                </div>
-                <div class="pd__lane" id="pdLane"></div>
-                <div class="pd__foot mono"><span>CV ANALYSÉS <b id="pdParsed">0</b></span><span>SHORTLIST <b id="pdShort">0</b></span></div>
-              </div>
-              <p class="demo__note mono">Illustration · profils fictifs</p>
-            </div>
-          </div>
-
-          <div class="feat reveal">
-            <h4 class="feat__title mono">// FONCTIONNALITÉS</h4>
-            <div class="feat__grid">
-              <div class="feat__item"><span class="feat__ico">✎</span><h5>Création d’offres</h5><p>Annonces structurées avec titre, description, profil recherché, localisation et modalités.</p></div>
-              <div class="feat__item"><span class="feat__ico">⇪</span><h5>Diffusion</h5><p>Partager une offre via un lien de candidature et les canaux numériques pertinents.</p></div>
-              <div class="feat__item"><span class="feat__ico">➜</span><h5>Candidature simple</h5><p>Le candidat postule sans créer de compte au préalable.</p></div>
-              <div class="feat__item"><span class="feat__ico">⌗</span><h5>Parsing des CV</h5><p>Extraction des informations clés&nbsp;: identité, expériences, formation et compétences.</p></div>
-              <div class="feat__item"><span class="feat__ico">◎</span><h5>Scoring &amp; matching</h5><p>Comparer les candidatures aux critères du poste et faciliter la présélection.</p></div>
-              <div class="feat__item"><span class="feat__ico">▤</span><h5>Suivi des candidatures</h5><p>Centraliser les profils et suivre l’avancement du recrutement.</p></div>
-            </div>
-          </div>
-
-          <div class="flowline reveal">
-            <h4 class="feat__title mono">// COMMENT ÇA FONCTIONNE</h4>
-            <ol class="flowline__steps">
-              <li><b>Créer</b><span>Le recruteur crée son offre.</span></li>
-              <li><b>Diffuser</b><span>L’offre est partagée aux candidats.</span></li>
-              <li><b>Recevoir</b><span>Les candidatures arrivent dans GuruTools.</span></li>
-              <li><b>Analyser</b><span>Les CV sont structurés et analysés.</span></li>
-              <li><b>Qualifier</b><span>Les profils sont comparés aux critères.</span></li>
-              <li><b>Décider</b><span>Le recruteur constitue sa shortlist.</span></li>
-            </ol>
-            <p class="flowline__tag mono">MOINS DE TRI MANUEL • PLUS DE TEMPS POUR DÉCIDER</p>
-          </div>
-
-          <div class="audience reveal">
-            <h4 class="feat__title mono">// POUR QUI&nbsp;?</h4>
-            <div class="audience__grid">
-              <div><b>TPE / PME</b><p>Recruter sans mettre en place une infrastructure RH lourde.</p></div>
-              <div><b>Cabinets</b><p>Gérer plusieurs recrutements et plusieurs viviers de candidats.</p></div>
-              <div><b>Responsables RH</b><p>Structurer la présélection et le suivi des candidatures.</p></div>
-              <div><b>Dirigeants</b><p>Accéder plus rapidement aux profils correspondant au besoin.</p></div>
-            </div>
-          </div>
-        </article>
-
-        <!-- ===== TREMPLIN ===== -->
-        <article class="product product--tremplin" id="tremplin">
-          <div class="product__grid product__grid--rev">
-            <div class="product__info reveal">
-              <span class="product__badge mono">ASSISTANT DE CARRIÈRE · CANDIDATS</span>
-              <h3 class="wordmark wordmark--tremplin wordmark--xl">TREMPLIN</h3>
-              <p class="product__tagline">De « je cherche un stage » à « je suis prêt à candidater ».</p>
-              <p class="product__desc">Tremplin ne se limite pas à afficher des offres. Il accompagne le candidat sur l’ensemble de son parcours&nbsp;: préparation, orientation, matching, candidature, entretien et progression.</p>
-              <p class="product__pos"><span class="mono">OBJECTIF</span> Améliorer l’employabilité, pas seulement la visibilité.</p>
-              <div class="product__cta">
-                <a href="#contact" class="btn btn--primary magnetic" data-service="Tremplin">En savoir plus sur Tremplin <span class="arrow">→</span></a>
-              </div>
-            </div>
-
-            <div class="console product__demo hud reveal" aria-hidden="true">
-              <div class="console__bar mono"><i></i><i></i><i></i><span>tremplin://carriere/analyse-cv</span><span class="console__live">● LIVE</span></div>
-              <div class="cvdemo" id="cvDemo">
-                <div class="cvdemo__doc">
-                  <span class="cvdemo__scan"></span>
-                  <div class="cvdemo__avatar"></div>
-                  <span class="w60"></span><span class="w40"></span>
-                  <span class="cvdemo__h"></span><span class="w90"></span><span class="w80"></span><span class="w70"></span>
-                  <span class="cvdemo__h"></span><span class="w85"></span><span class="w60"></span>
-                  <span class="cvdemo__h"></span><span class="w50"></span><span class="w75"></span>
-                </div>
-                <div class="cvdemo__side">
-                  <div class="gauge">
-                    <svg viewBox="0 0 120 70"><path class="gauge__bg" d="M10 62 A50 50 0 0 1 110 62"/><path class="gauge__fg" id="gaugeArc" d="M10 62 A50 50 0 0 1 110 62" pathLength="100"/></svg>
-                    <b class="mono" id="gaugeVal">0</b>
-                    <small class="mono">CAREER READINESS SCORE</small>
-                  </div>
-                  <ul class="reco" id="cvReco">
-                    <li>Ajouter des résultats chiffrés à l’expérience</li>
-                    <li>Mettre en avant 3 compétences clés</li>
-                    <li>Lettre personnalisée prête pour l’offre</li>
-                  </ul>
-                </div>
-              </div>
-              <p class="demo__note mono">Illustration</p>
-            </div>
-          </div>
-
-          <div class="journey reveal">
-            <h4 class="feat__title mono">// LE PARCOURS CANDIDAT</h4>
-            <ol class="journey__steps">
-              <li><span class="mono">01</span><b>Profil</b><p>Formation, compétences, expérience, disponibilité.</p></li>
-              <li><span class="mono">02</span><b>CV</b><p>Création, modèles, analyse et optimisation.</p></li>
-              <li><span class="mono">03</span><b>Matching</b><p>Offres compatibles et explication du score.</p></li>
-              <li><span class="mono">04</span><b>Candidature</b><p>CV adapté, lettre personnalisée et suivi.</p></li>
-              <li><span class="mono">05</span><b>Entretien</b><p>Questions, simulations et recommandations.</p></li>
-              <li><span class="mono">06</span><b>Progression</b><p>Formations et actions recommandées.</p></li>
-            </ol>
-          </div>
-
-          <div class="tfeat reveal">
-            <h4 class="feat__title mono">// FONCTIONNALITÉS CLÉS</h4>
-            <ul class="tfeat__list">
-              <li>Profil professionnel progressif et Career Readiness Score.</li>
-              <li>Créateur de CV avec plusieurs modèles et versions adaptées aux candidatures.</li>
-              <li>Analyse intelligente du CV et recommandations d’amélioration.</li>
-              <li>Adaptation du CV à une offre sans inventer d’expérience ou de compétence.</li>
-              <li>Génération de lettres de motivation personnalisées.</li>
-              <li>Offres de stage et d’emploi recommandées selon le profil.</li>
-              <li>Gestionnaire de candidatures et historique.</li>
-              <li>Préparation et simulation d’entretiens.</li>
-              <li>Recommandations de compétences et de formations.</li>
-            </ul>
-          </div>
-        </article>
-
-        <!-- IA encadrée -->
-        <div class="aiband reveal">
-          <div class="aiband__head">
-            <span class="tag">IA &amp; INTELLIGENCE</span>
-            <h3>Une IA encadrée par les données du profil et de l’offre.</h3>
-          </div>
-          <div class="aiband__grid">
-            <div><b class="mono">CV</b><p>Analyse, score, reformulation et adaptation.</p></div>
-            <div><b class="mono">OFFRES</b><p>Analyse des exigences et extraction des compétences.</p></div>
-            <div><b class="mono">MATCHING</b><p>Rapprochement profil ↔ offre et explication du score.</p></div>
-            <div><b class="mono">CANDIDATURE</b><p>Lettre personnalisée et recommandations.</p></div>
-            <div><b class="mono">ENTRETIEN</b><p>Simulation, analyse des réponses et axes d’amélioration.</p></div>
-            <div><b class="mono">FORMATION</b><p>Identification des compétences à développer.</p></div>
-          </div>
-        </div>
-
-        <!-- Vision long terme -->
-        <div class="career reveal">
-          <span class="tag">VISION À LONG TERME — NEAM CAREER ECOSYSTEM</span>
-          <ol class="career__chain" id="careerChain">
-            <li>Orientation</li><li>Formation</li><li>Compétences</li><li>CV</li><li>Stage</li><li>Expérience</li><li>Emploi</li>
-          </ol>
-          <p>Tremplin peut évoluer d’une plateforme de recherche de stages vers une véritable plateforme Career Tech / HR Tech, tandis que GuruTools constitue le volet entreprise et recrutement.</p>
-          <p class="career__motto"><b>GURUTOOLS × TREMPLIN</b> — Relier les compétences des candidats aux besoins réels des entreprises.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= 06 MÉTHODE ================= -->
-    <section class="method section" id="methode">
-      <div class="container method__inner">
-        <header class="section__head method__head reveal">
-          <span class="tag" data-scramble>06 — NOTRE MÉTHODE D’ACCOMPAGNEMENT</span>
-          <h2>Un processus <em>maîtrisé</em>, étape par étape</h2>
-          <p>Chaque mission suit un cycle clair, documenté et mesuré. Vous savez toujours où en est votre projet.</p>
-        </header>
-        <ol class="steps" id="steps">
-          <li class="step reveal"><span class="step__k mono">AUDIT</span><p>État des lieux digital et identification des écarts.</p></li>
-          <li class="step reveal"><span class="step__k mono">STRATÉGIE</span><p>Priorités, positionnement, objectifs et feuille de route.</p></li>
-          <li class="step reveal"><span class="step__k mono">PRODUCTION</span><p>Création des supports, contenus, outils et solutions.</p></li>
-          <li class="step reveal"><span class="step__k mono">DÉPLOIEMENT</span><p>Mise en ligne, formation, automatisation et accompagnement.</p></li>
-          <li class="step reveal"><span class="step__k mono">MESURE</span><p>Suivi des KPI, ajustements et amélioration continue.</p></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ================= PROGRAMME NEAM × KANIE 30/30 ================= -->
-    <section class="program section" id="programme">
-      <div class="program__bg" aria-hidden="true"></div>
-      <div class="container">
-        <header class="program__head reveal">
-          <span class="tag" data-scramble>VOLET SPÉCIAL — PROGRAMME D’ACCÉLÉRATION DIGITALE</span>
-          <div class="lockup">
-            <div class="lockup__logo lockup__logo--neam"><img src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395" loading="lazy"></div>
-            <div class="lockup__link" aria-hidden="true"><span></span><b>×</b></div>
-            <div class="lockup__logo lockup__logo--kanie"><img src="assets/logo-kanie.jpg" alt="KANIE Agency" width="900" height="343" loading="lazy"></div>
-          </div>
-          <h2 class="program__title">NEAM <span>×</span> KANIE <em>30/30</em></h2>
-          <p class="program__sub">Programme d’accélération digitale des TPE &amp; PME de Libreville.</p>
-        </header>
-
-        <div class="counters reveal">
-          <div class="counter"><strong data-count="30">0</strong><span>Entreprises</span></div>
-          <div class="counter"><strong data-count="30">0</strong><span>Jours</span></div>
-          <div class="counter"><strong data-count="1">0</strong><span>Transformation</span></div>
-        </div>
-
-        <div class="alliance">
-          <article class="ally hud reveal"><span class="ally__k mono">NEAM</span><p>Technologie • Web • IA • Automatisation</p></article>
-          <span class="ally__x reveal" aria-hidden="true">+</span>
-          <article class="ally hud reveal"><span class="ally__k mono">KANIE AGENCY</span><p>Stratégie • Créativité • Communication</p></article>
-          <span class="ally__x reveal" aria-hidden="true">=</span>
-          <article class="ally ally--together hud reveal"><span class="ally__k mono">ENSEMBLE</span><p>Diagnostic → production → accompagnement</p></article>
-        </div>
-
-        <!-- Timeline 30 jours -->
-        <div class="month reveal" id="month">
-          <div class="month__head">
-            <h3>Un mois structuré autour d’actions concrètes</h3>
-            <div class="month__day mono"><span>JOUR</span><b id="dayCount">00</b><span>/30</span></div>
-          </div>
-          <div class="month__track"><span id="monthFill"></span>
-            <i style="--x:0%"></i><i style="--x:25%"></i><i style="--x:50%"></i><i style="--x:75%"></i><i style="--x:100%"></i>
-          </div>
-          <div class="weeks">
-            <article class="week" data-week="1">
-              <span class="week__n mono">SEMAINE 1</span>
-              <h4>Audit &amp; Stratégie</h4>
-              <ul><li>Réunion de lancement</li><li>Diagnostic digital</li><li>Benchmark concurrentiel</li><li>Plan d’action</li></ul>
-            </article>
-            <article class="week" data-week="2">
-              <span class="week__n mono">SEMAINE 2</span>
-              <h4>Web &amp; Identité</h4>
-              <ul><li>Architecture / refonte du site</li><li>Identité visuelle</li><li>Optimisation mobile</li><li>Fondations SEO</li></ul>
-            </article>
-            <article class="week" data-week="3">
-              <span class="week__n mono">SEMAINE 3</span>
-              <h4>Communication &amp; Contenu</h4>
-              <ul><li>Stratégie éditoriale</li><li>8 contenus / visuels</li><li>Optimisation des réseaux</li><li>Parcours d’acquisition</li></ul>
-            </article>
-            <article class="week" data-week="4">
-              <span class="week__n mono">SEMAINE 4</span>
-              <h4>Déploiement &amp; Formation</h4>
-              <ul><li>Publication / mise en ligne</li><li>Formation &amp; remise d’outils</li><li>Suivi des performances</li><li>Feuille de route 90 jours</li></ul>
-            </article>
-          </div>
-        </div>
-
-        <!-- Livrables -->
-        <div class="deliver">
-          <div class="deliver__list panel hud reveal">
-            <span class="panel__label mono">// 07 — LIVRABLES À LA FIN DU CYCLE</span>
-            <ul class="checklist" id="checklist">
-              <li>Diagnostic digital et maturité numérique</li>
-              <li>Benchmark de 5 concurrents</li>
-              <li>Positionnement et identité de marque</li>
-              <li>Architecture / création / optimisation du site</li>
-              <li>Stratégie de communication digitale</li>
-              <li>8 contenus prêts à publier</li>
-              <li>Parcours d’acquisition et conversion</li>
-              <li>Recommandations IA et outils numériques</li>
-              <li>Plan d’action 90 jours</li>
-            </ul>
-          </div>
-          <div class="gains reveal">
-            <h3>Ce que l’entreprise doit gagner</h3>
-            <ul>
-              <li>Plus de visibilité</li>
-              <li>Une image plus professionnelle</li>
-              <li>Une communication plus structurée</li>
-              <li>Des outils mieux exploités</li>
-              <li>Un plan clair pour les 90 prochains jours</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="join hud reveal">
-          <div>
-            <span class="tag">UNE ALLIANCE ENTRE TECHNOLOGIE &amp; COMMUNICATION</span>
-            <p>NEAM apporte l’expertise technologique et les outils numériques. KANIE Agency renforce la stratégie, la créativité et la performance de la communication. Ensemble, nous construisons un accompagnement cohérent pour les entreprises.</p>
-          </div>
-          <a href="#contact" class="btn btn--primary magnetic" data-service="Programme NEAM × KANIE 30/30">Rejoindre le programme <span class="arrow">→</span></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= CONTACT ================= -->
-    <section class="contact section" id="contact">
-      <div class="contact__glow" aria-hidden="true"></div>
-      <div class="container contact__inner">
-        <div class="contact__intro reveal">
-          <span class="tag" data-scramble>CONTACT</span>
-          <h2>Construisons <em>demain</em>, ensemble.</h2>
-          <p>Parlez-nous de votre entreprise et de vos besoins. Nous revenons vers vous avec un premier diagnostic et une proposition adaptée.</p>
-          <ul class="contact__list">
-            <li><span class="mono">SITE WEB</span><a href="https://neamindustry.com" target="_blank" rel="noopener">neamindustry.com</a></li>
-            <li><span class="mono">EMAIL</span><a href="mailto:contact@neamindustry.com">contact@neamindustry.com</a></li>
-            <li><span class="mono">BASE</span>Libreville, Gabon</li>
+        <aside class="hero__card reveal" aria-label="Ce que nous faisons">
+          <h2>Ce que nous faisons pour vous</h2>
+          <ul class="checklist">
+            <li><span><strong>Concevoir</strong> des expériences et outils numériques utiles au quotidien.</span></li>
+            <li><span><strong>Structurer</strong> votre présence digitale et vos parcours clients.</span></li>
+            <li><span><strong>Automatiser</strong> vos processus pour gagner du temps et fiabiliser l’exécution.</span></li>
+            <li><span><strong>Accompagner</strong> les dirigeants dans leurs décisions technologiques et digitales.</span></li>
           </ul>
-        </div>
-        <form class="form hud reveal" id="contactForm" novalidate>
-          <div class="form__row">
-            <label class="field"><input id="f-name" type="text" name="name" required placeholder=" "><span>Nom complet</span></label>
-            <label class="field"><input id="f-company" type="text" name="company" placeholder=" "><span>Entreprise</span></label>
-          </div>
-          <label class="field"><input id="f-email" type="email" name="email" required placeholder=" "><span>Email</span></label>
-          <label class="field">
-            <select id="f-service" name="service" required>
-              <option value="" disabled selected hidden></option>
-              <option>Digital &amp; Web</option>
-              <option>Logiciels &amp; Outils</option>
-              <option>IA &amp; Automatisation</option>
-              <option>Conseil &amp; Formation</option>
-              <option>GuruTools</option>
-              <option>Tremplin</option>
-              <option>Programme NEAM × KANIE 30/30</option>
-            </select>
-            <span>Votre besoin</span>
-          </label>
-          <label class="field"><textarea id="f-message" name="message" rows="5" required placeholder=" "></textarea><span>Votre message</span></label>
-          <button type="submit" class="btn btn--primary btn--block magnetic">Envoyer la demande <span class="arrow">→</span></button>
-          <p class="form__status" id="formStatus" role="status"></p>
-        </form>
+          <p class="hero__card-foot"><span class="dot"></span>Innovation • Proximité • Impact • Fiabilité • Orientation résultat</p>
+        </aside>
       </div>
     </section>
+
+    <section class="section section--soft">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="eyebrow">Nos services</span>
+          <h2>Quatre pôles pour accompagner toute votre transformation</h2>
+          <p class="lead">Une offre pensée pour vous suivre du premier diagnostic jusqu’aux résultats.</p>
+        </header>
+        <div class="grid grid--4">
+          <a class="card reveal" href="services.html#digital-web">
+            <span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+            <h3>Digital &amp; Web</h3>
+            <p>Sites vitrines, plateformes, e-commerce, UX/UI et présence digitale.</p>
+            <span class="link-arrow">En savoir plus →</span>
+          </a>
+          <a class="card reveal" href="services.html#logiciels-outils">
+            <span class="icon icon--blue"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+            <h3>Logiciels &amp; Outils</h3>
+            <p>Applications métier, CRM, ERP, tableaux de bord et outils internes.</p>
+            <span class="link-arrow">En savoir plus →</span>
+          </a>
+          <a class="card reveal" href="services.html#ia-automatisation">
+            <span class="icon icon--teal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M10 12h4"/></svg></span>
+            <h3>IA &amp; Automatisation</h3>
+            <p>Assistants IA, workflows, automatisation et optimisation des opérations.</p>
+            <span class="link-arrow">En savoir plus →</span>
+          </a>
+          <a class="card reveal" href="services.html#conseil-formation">
+            <span class="icon icon--navy"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.5a3 3 0 0 1 0 6M21 20c0-2.6-1.6-4.8-4-5.6"/></svg></span>
+            <h3>Conseil &amp; Formation</h3>
+            <p>Diagnostic, stratégie digitale, accompagnement des équipes et formation.</p>
+            <span class="link-arrow">En savoir plus →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="eyebrow">Notre façon de travailler</span>
+          <h2>De l’idée au déploiement, étape par étape</h2>
+        </header>
+        <ol class="steps steps--row" style="--n:4">
+          <li class="reveal"><h3>Diagnostiquer</h3><p>Comprendre le besoin, le marché et les priorités.</p></li>
+          <li class="reveal"><h3>Concevoir</h3><p>Définir l’expérience, les outils et la stratégie.</p></li>
+          <li class="reveal"><h3>Développer</h3><p>Construire et intégrer les solutions.</p></li>
+          <li class="reveal"><h3>Déployer</h3><p>Former, automatiser, mesurer et améliorer.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section--soft">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="eyebrow">Nos produits</span>
+          <h2>Deux plateformes pour rapprocher talents et entreprises</h2>
+          <p class="lead">GuruTools et Tremplin fonctionnent autour d’un même moteur intelligent.</p>
+        </header>
+        <div class="grid grid--2">
+          <a class="product-card product-card--guru reveal" href="produits.html#gurutools">
+            <span class="who">Pour les entreprises</span>
+            <span class="wordmark wordmark--guru">GURU<span>TOOLS</span></span>
+            <p>La plateforme de recrutement&nbsp;: publier des offres, recevoir des candidatures, analyser les CV et identifier plus rapidement les profils pertinents.</p>
+            <span class="link-arrow">Découvrir GuruTools →</span>
+          </a>
+          <a class="product-card product-card--tremplin reveal" href="produits.html#tremplin">
+            <span class="who">Pour les candidats</span>
+            <span class="wordmark wordmark--tremplin">TREMPLIN</span>
+            <p>L’assistant de carrière spécialisé dans les stages et l’insertion&nbsp;: profil, CV, offres adaptées, candidature et préparation aux entretiens.</p>
+            <span class="link-arrow">Découvrir Tremplin →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="band reveal">
+          <div class="band__text">
+            <span class="eyebrow">Programme spécial</span>
+            <h2>NEAM × KANIE 30/30</h2>
+            <p>30 TPE/PME de Libreville accompagnées pendant 30 jours&nbsp;: diagnostic, site web, identité, communication et formation.</p>
+          </div>
+          <div class="actions"><a href="programme.html" class="btn btn--primary">Voir le programme <span class="arrow">→</span></a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--soft">
+      <div class="container split">
+        <div class="reveal">
+          <span class="eyebrow">Pour qui&nbsp;?</span>
+          <h2>Des solutions pour les entreprises de tous les secteurs</h2>
+          <p class="lead">Notre objectif&nbsp;: faire du digital un levier de visibilité, d’acquisition, de productivité et de croissance.</p>
+        </div>
+        <div class="reveal">
+          <ul class="tags"><li>Commerce</li><li>Restauration</li><li>Immobilier</li><li>Services</li><li>Éducation</li><li>BTP</li><li>Cabinets</li><li>PME</li></ul>
+          <a href="contact.html" class="link-arrow">Parlons de votre activité →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="band reveal">
+          <div class="band__text">
+            <h2>Un projet&nbsp;? Parlons-en simplement.</h2>
+            <p>Expliquez-nous votre besoin. Nous revenons vers vous avec un premier diagnostic et une proposition adaptée.</p>
+          </div>
+          <div class="actions"><a href="contact.html" class="btn btn--primary">Prendre contact <span class="arrow">→</span></a></div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- ================= FOOTER ================= -->
   <footer class="footer">
-    <div class="container footer__inner">
-      <img src="assets/logo-dark.png" alt="NEAM Softwares Industry" class="footer__logo" width="1200" height="395" loading="lazy">
-      <p class="footer__motto">Build a better tomorrow !</p>
-      <nav class="footer__links">
-        <a href="#about">Qui sommes-nous</a>
-        <a href="#poles">Pôles</a>
-        <a href="#produits">Produits</a>
-        <a href="#methode">Méthode</a>
-        <a href="#programme">NEAM × KANIE 30/30</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <p class="footer__copy">© <span id="year"></span> NEAM SOFTWARES INDUSTRY · Technologie • Conseil • Innovation</p>
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395" loading="lazy">
+          <p>Des solutions numériques conçues pour transformer les entreprises.</p>
+          <p class="footer__motto">Build a better tomorrow&nbsp;!</p>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#digital-web">Digital &amp; Web</a></li>
+            <li><a href="services.html#logiciels-outils">Logiciels &amp; Outils</a></li>
+            <li><a href="services.html#ia-automatisation">IA &amp; Automatisation</a></li>
+            <li><a href="services.html#conseil-formation">Conseil &amp; Formation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Produits</h4>
+          <ul>
+            <li><a href="produits.html#gurutools">GuruTools</a></li>
+            <li><a href="produits.html#tremplin">Tremplin</a></li>
+            <li><a href="programme.html">Programme NEAM × KANIE 30/30</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="contact.html">Nous écrire</a></li>
+            <li><a href="mailto:contact@neamindustry.com">contact@neamindustry.com</a></li>
+            <li>Libreville, Gabon</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© <span data-year></span> NEAM Softwares Industry</span>
+        <span>Technologie • Conseil • Innovation</span>
+      </div>
     </div>
   </footer>
 
