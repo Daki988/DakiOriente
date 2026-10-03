@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEAM Super App — Tout ce dont vous avez besoin, au même endroit</title>
+  <meta name="description" content="La NEAM Super App, bientôt à Libreville : courses, repas, colis, santé, beauté, tech et services à domicile, dans une seule application.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="NEAM Super App — Tout ce dont vous avez besoin, au même endroit">
+  <meta property="og:description" content="La NEAM Super App, bientôt à Libreville : courses, repas, colis, santé, beauté, tech et services à domicile, dans une seule application.">
+  <meta property="og:image" content="assets/logo-light.png">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <div class="loader__icons">
+        <svg class="loader__icon" viewBox="0 0 24 24"><path d="M6 3h11a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M9 8h6M9 12h6M9 16h4"/></svg>
+        <svg class="loader__icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9h18M3 14h18M9 4v16M15 4v16"/></svg>
+        <svg class="loader__icon" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="15" rx="1.5"/><path d="M2.5 8h19M6 12h8M6 15h5"/></svg>
+        <svg class="loader__icon" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/><path d="M12 13s-2-1.2-2-2.6c0-.8.6-1.4 1.3-1.4.3 0 .5.1.7.4.2-.3.4-.4.7-.4.7 0 1.3.6 1.3 1.4 0 1.4-2 2.6-2 2.6z"/></svg>
+        <svg class="loader__icon" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/><path d="M10 10.5h4M10 13.5h2.5"/></svg>
+        <img class="loader__logo" src="assets/logo-dark.png" alt="" width="1200" height="395">
+      </div>
+      <p class="loader__label" id="loaderLabel">Le cahier</p>
+      <div class="loader__bar"><span id="loaderBar"></span></div>
+    </div>
+  </div>
+  <header class="header">
+    <div class="wrap header__inner">
+      <a href="index.html" class="header__logo" aria-label="NEAM Softwares Industry — accueil">
+        <img class="logo-ink" src="assets/logo-light.png" alt="NEAM Softwares Industry" width="1200" height="287">
+        <img class="logo-white" src="assets/logo-dark.png" alt="" width="1200" height="395">
+      </a>
+      <nav class="nav" aria-label="Navigation principale">
+        <div class="nav__links">
+          <a href="services.html">Services</a>
+          <a href="produits.html">Produits</a>
+          <a href="super-app.html" aria-current="page">Super App</a>
+          <a href="programme.html">Programme 30/30</a>
+          <a href="a-propos.html">À propos</a>
+        </div>
+        <a href="contact.html" class="btn btn--ink">Démarrer un projet <span class="arr">→</span></a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false">Menu</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <div class="page-hero__meta reveal"><span class="label"><a href="index.html">Accueil</a> / <b>Super App</b></span><span class="label"><span class="dot-live"></span>Bientôt disponible</span></div>
+        <h1 class="lines"><span class="line"><span>Tout ce dont vous</span></span><span class="line"><span>avez besoin, au</span></span><span class="line"><span><em>même endroit</em>.</span></span></h1>
+        <div class="page-hero__foot reveal">
+          <span></span>
+          <div>
+            <p class="lead">Faire ses courses, se faire livrer un repas, envoyer un colis, trouver un médicament ou un plombier… Pourquoi jongler entre dix applications&nbsp;? La <strong>NEAM Super App</strong> réunit tous ces services dans une seule application, pensée pour Libreville. Plus proche de votre quotidien.</p>
+            <div class="actions"><a href="contact.html?besoin=NEAM%20Super%20App" class="btn btn--yellow">Être informé du lancement <span class="arr">→</span></a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="head reveal">
+          <span class="label">(01) Les services</span>
+          <div class="head__body"><h2>Huit services, <em>une seule</em> application.</h2><p class="lead">Voici ce que vous trouverez dans la NEAM Super App. Chaque service répond à un besoin du quotidien, et tous partagent le même compte, le même paiement et la même livraison.</p></div>
+        </div>
+        <nav class="mod-nav reveal" aria-label="Services de la Super App"><a class="btn btn--line btn--sm" href="#market">NEAM Market</a><a class="btn btn--line btn--sm" href="#brico">Brico&amp;Déco</a><a class="btn btn--line btn--sm" href="#food">NEAM Food</a><a class="btn btn--line btn--sm" href="#express">NEAM Express</a><a class="btn btn--line btn--sm" href="#health">NEAM Health</a><a class="btn btn--line btn--sm" href="#beauty">NEAM Beauty</a><a class="btn btn--line btn--sm" href="#tech">NEAM Tech</a><a class="btn btn--line btn--sm" href="#services">NEAM Services</a></nav>
+        <div class="mods">
+          <article class="mod mod--market reveal" id="market">
+            <header class="mod__head">
+              <span class="mod__n">01</span>
+              <div><h3>NEAM Market</h3><p>Votre supérette en ligne</p></div>
+            </header>
+            <div class="mod__body">
+              <p>Tout ce dont vous avez besoin, au même endroit.</p>
+              <ul class="chips"><li>Épicerie</li><li>Boissons</li><li>Fruits et légumes</li><li>Viandes et poissons</li><li>Produits laitiers</li><li>Hygiène et entretien</li><li>Snacks et surgelés</li><li>Bébés</li><li>Produits locaux</li></ul>
+              <p class="mod__badge">Livraison rapide à Libreville et environs</p>
+              <p class="mod__slogan">Vos courses, en quelques clics&nbsp;!</p>
+            </div>
+          </article>
+          <article class="mod mod--brico reveal" id="brico">
+            <header class="mod__head">
+              <span class="mod__n">02</span>
+              <div><h3>Brico&amp;Déco by NEAM</h3><p>Les petits indispensables pour vos projets</p></div>
+            </header>
+            <div class="mod__body">
+              <p>Rénover, réparer, aménager&nbsp;: tout le nécessaire, livré chez vous.</p>
+              <ul class="chips"><li>Outillage</li><li>Quincaillerie</li><li>Électricité</li><li>Plomberie</li><li>Peinture</li><li>Décoration</li><li>Maison et jardin</li></ul>
+              
+              <p class="mod__slogan">Rénover, réparer, aménager… c’est plus simple avec NEAM&nbsp;!</p>
+            </div>
+          </article>
+          <article class="mod mod--food reveal" id="food">
+            <header class="mod__head">
+              <span class="mod__n">03</span>
+              <div><h3>NEAM Food</h3><p>Vos restaurants préférés chez vous</p></div>
+            </header>
+            <div class="mod__body">
+              <p>Une large sélection de restaurants, livrée rapidement et avec une qualité garantie.</p>
+              <ul class="chips"><li>Fast food</li><li>Cuisine locale</li><li>Plats africains</li><li>Pizzas et burgers</li><li>Sandwichs</li><li>Menus sains</li><li>Boissons et desserts</li></ul>
+              <p class="mod__badge">Livraison rapide · Large choix de restaurants · Qualité garantie</p>
+              <p class="mod__slogan">Good food, good mood&nbsp;!</p>
+            </div>
+          </article>
+          <article class="mod mod--express reveal" id="express">
+            <header class="mod__head">
+              <span class="mod__n">04</span>
+              <div><h3>NEAM Express</h3><p>Livraison rapide de vos colis</p></div>
+            </header>
+            <div class="mod__body">
+              <p>Vos envois, en toute confiance&nbsp;: rapides, sécurisés et suivis en temps réel.</p>
+              <ul class="chips"><li>Colis et documents</li><li>Courses</li><li>Produits NEAM</li><li>Livraison pour entreprises</li><li>Suivi en temps réel</li></ul>
+              <p class="mod__badge">Rapide · Sécurisé · Partout à Libreville et environs</p>
+              <p class="mod__slogan">Vos envois, en toute confiance&nbsp;!</p>
+            </div>
+          </article>
+          <article class="mod mod--health reveal" id="health">
+            <header class="mod__head">
+              <span class="mod__n">05</span>
+              <div><h3>NEAM Health</h3><p>Votre santé, notre priorité</p></div>
+            </header>
+            <div class="mod__body">
+              <p>Des produits essentiels pour toute la famille, et des conseils pour prendre soin de vous.</p>
+              <ul class="chips"><li>Médicaments</li><li>Parapharmacie</li><li>Vitamines et compléments</li><li>Matériel médical</li><li>Hygiène et soins</li><li>Bébé et maternité</li><li>Conseils santé</li></ul>
+              
+              <p class="mod__slogan">Prenez soin de vous, nous sommes là&nbsp;!</p>
+            </div>
+          </article>
+          <article class="mod mod--beauty reveal" id="beauty">
+            <header class="mod__head">
+              <span class="mod__n">06</span>
+              <div><h3>NEAM Beauty</h3><p>Révélez votre éclat</p></div>
+            </header>
+            <div class="mod__body">
+              <p>Tout pour votre beauté et votre bien-être, en quelques clics.</p>
+              <ul class="chips"><li>Soins du visage</li><li>Soins du corps</li><li>Produits capillaires</li><li>Maquillage</li><li>Parfums</li><li>Hygiène et beauté</li><li>Accessoires</li></ul>
+              
+              <p class="mod__slogan">Belle aujourd’hui, encore plus demain&nbsp;!</p>
+            </div>
+          </article>
+          <article class="mod mod--tech reveal" id="tech">
+            <header class="mod__head">
+              <span class="mod__n">07</span>
+              <div><h3>NEAM Tech</h3><p>Restez connecté</p></div>
+            </header>
+            <div class="mod__body">
+              <p>Les meilleurs accessoires pour votre quotidien.</p>
+              <ul class="chips"><li>Téléphones et accessoires</li><li>Chargeurs et câbles</li><li>Écouteurs et casques</li><li>Power banks</li><li>Accessoires informatiques</li><li>Objets connectés</li><li>Gaming</li></ul>
+              
+              <p class="mod__slogan">La technologie, à portée de main&nbsp;!</p>
+            </div>
+          </article>
+          <article class="mod mod--services reveal" id="services">
+            <header class="mod__head">
+              <span class="mod__n">08</span>
+              <div><h3>NEAM Services</h3><p>Des services pour vous faciliter la vie</p></div>
+            </header>
+            <div class="mod__body">
+              <p>Gagnez du temps, on s’occupe du reste.</p>
+              <ul class="chips"><li>Ménage à domicile</li><li>Plomberie</li><li>Électricité</li><li>Jardinage</li><li>Aide administrative</li><li>Impression et reprographie</li><li>Bricolage</li><li>Et bien plus…</li></ul>
+              
+              <p class="mod__slogan">Vos services, en un clic&nbsp;!</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--grey">
+      <div class="wrap">
+        <div class="head reveal">
+          <span class="label">(02) Et plus encore</span>
+          <div class="head__body"><h2>Une Super App en <em>constante</em> évolution.</h2><p class="lead">De nouvelles solutions arrivent pour un quotidien encore plus simple. Restez connectés&nbsp;: de nouvelles surprises se préparent.</p></div>
+        </div>
+        <div class="grid4 reveal">
+          <div><span class="k">Bientôt</span><h3>Voyage</h3></div>
+          <div><span class="k">Bientôt</span><h3>Éducation</h3></div>
+          <div><span class="k">Bientôt</span><h3>Assurance</h3></div>
+          <div><span class="k">Bientôt</span><h3>Événements</h3></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--ink">
+      <div class="wrap cols">
+        <span class="label reveal">(03) <b>Nos engagements</b></span>
+        <div class="cols__main">
+          <p class="statement reveal">NEAM, plus qu’une application&nbsp;: un mode de vie. <span class="dim">Une seule application pour simplifier votre quotidien, avec les mêmes garanties pour chaque service.</span></p>
+          <div class="grid4 reveal">
+            <div><span class="k">01</span><h4>Paiement sécurisé</h4></div>
+            <div><span class="k">02</span><h4>Livraison rapide</h4></div>
+            <div><span class="k">03</span><h4>Service client réactif</h4></div>
+            <div><span class="k">04</span><h4>Des prix accessibles</h4></div>
+          </div>
+          <div class="actions reveal"><a href="contact.html?besoin=NEAM%20Super%20App" class="btn btn--yellow">Être informé du lancement <span class="arr">→</span></a><span class="label">#PlusProcheDeVotreQuotidien</span></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__cta">
+        <span class="label">Un projet, une question&nbsp;?</span>
+        <a class="big" href="contact.html">Parlons de votre <em>projet</em> <span class="arr">↗</span></a>
+      </div>
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395" loading="lazy">
+          <p>La transformation digitale comme levier de croissance pour les TPE et PME gabonaises.</p>
+        </div>
+        <div>
+          <h4>Expertises</h4>
+          <ul>
+            <li><a href="services.html#digital-web">Digital &amp; Web</a></li>
+            <li><a href="services.html#logiciels-outils">Logiciels &amp; Outils</a></li>
+            <li><a href="services.html#ia-automatisation">IA &amp; Automatisation</a></li>
+            <li><a href="services.html#conseil-formation">Conseil &amp; Formation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Produits</h4>
+          <ul>
+            <li><a href="https://gurutools.pro" target="_blank" rel="noopener">GuruTools ↗</a></li>
+            <li><a href="produits.html#tremplin">Tremplin</a></li>
+            <li><a href="super-app.html">NEAM Super App</a></li>
+            <li><a href="programme.html">NEAM × KANIE 30/30</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="contact.html">Nous écrire</a></li>
+            <li><a href="mailto:contact@neamindustry.com">contact@neamindustry.com</a></li>
+            <li>Libreville, Gabon</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© <span data-year></span> NEAM Softwares Industry</span>
+        <span class="footer__motto">Build a better tomorrow&nbsp;!</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -40,7 +40,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .section--tight { padding-block: clamp(48px, 6vw, 80px); }
 .section--grey { background: var(--paper-2); }
 .section--ink { background: var(--ink); color: #c9c9cc; }
-.section--ink h2, .section--ink h3, .section--ink .display { color: #fff; }
+.section--ink h2, .section--ink h3, .section--ink h4, .section--ink .display { color: #fff; }
 
 /* ---------- Type ---------- */
 h1, h2, h3, h4, .display { font-family: var(--font-sans); color: var(--ink); font-weight: 600; letter-spacing: -.035em; line-height: 1.02; text-wrap: balance; }
@@ -484,3 +484,28 @@ p { max-width: 66ch; }
 .logos a { display: inline-flex; border-radius: 4px; transition: opacity .3s; }
 .logos a:hover { opacity: .75; }
 .grid3 .ulink, .duo-text .ulink { justify-self: start; }
+
+/* ---------- NEAM Super App ---------- */
+.btn--sm { padding: 9px 16px; font-size: 14px; }
+.mod-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: clamp(28px, 4vw, 48px); }
+.mods { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); }
+.mod { --c: var(--ink); --c2: var(--ink); display: grid; grid-template-rows: auto 1fr; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: #fff; scroll-margin-top: 96px; transition: transform .4s var(--ease), box-shadow .4s; }
+.mod:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -28px rgba(15,15,16,.35); }
+.mod__head { display: flex; gap: 18px; align-items: center; padding: clamp(20px, 2.6vw, 28px); background: linear-gradient(120deg, var(--c), var(--c2)); color: #fff; }
+.mod__n { flex: none; width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; background: rgba(255,255,255,.95); color: var(--c); font-size: 22px; font-weight: 700; letter-spacing: -.03em; }
+.mod__head h3 { color: #fff; font-size: clamp(24px, 2.4vw, 32px); }
+.mod__head p { color: rgba(255,255,255,.9); font-size: 16px; }
+.mod__body { display: grid; gap: 16px; align-content: start; padding: clamp(20px, 2.6vw, 28px); }
+.mod__body > p:first-child { color: var(--text); }
+.mod .chips li { border-color: color-mix(in srgb, var(--c) 30%, var(--line)); }
+.mod__badge { justify-self: start; font-size: 13.5px; font-weight: 600; color: var(--c); padding: 6px 12px; border-radius: 100px; background: color-mix(in srgb, var(--c) 10%, #fff); }
+.mod__slogan { font-family: var(--font-serif); font-style: italic; font-size: clamp(20px, 2vw, 24px); color: var(--c); line-height: 1.2; }
+.mod--market { --c: #138a4b; --c2: #2fb565; }
+.mod--brico { --c: #e2560f; --c2: #f59a1b; }
+.mod--food { --c: #b5122b; --c2: #e0362f; }
+.mod--express { --c: #0f6e3c; --c2: #1e9a57; }
+.mod--health { --c: #1658c4; --c2: #2f86e8; }
+.mod--beauty { --c: #c92f6b; --c2: #ef5b93; }
+.mod--tech { --c: #6a32d6; --c2: #9a5cf0; }
+.mod--services { --c: #a87412; --c2: #d6a32d; }
+@media (max-width: 860px) { .mods { grid-template-columns: 1fr; } }
