@@ -481,3 +481,6 @@ p { max-width: 66ch; }
 .loader__bar { width: 100%; height: 2px; background: #2a2a2e; border-radius: 2px; overflow: hidden; }
 .loader__bar span { display: block; height: 100%; width: 0; background: var(--yellow); transition: width .6s ease; }
 @media (prefers-reduced-motion: reduce) { .js .loader { display: none; } .js body.is-loading { overflow: auto; } }
+.logos a { display: inline-flex; border-radius: 4px; transition: opacity .3s; }
+.logos a:hover { opacity: .75; }
+.grid3 .ulink, .duo-text .ulink { justify-self: start; }
