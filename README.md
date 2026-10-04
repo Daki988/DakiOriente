@@ -8,7 +8,8 @@ Site vitrine statique, en plusieurs pages (HTML / CSS / JavaScript, sans outil d
 - `index.html` — Accueil
 - `services.html` — Les 4 pôles, la méthode, les secteurs
 - `produits.html` — GuruTools et Tremplin
-- `super-app.html` — Présentation des services de la NEAM Super App (à venir)
+- `produits.html#super-app` — NEAM Super App (téléphone animé en 3D, aperçu, 9 services)
+- `neam-market.html`, `neam-food.html`, `neam-express.html`, `neam-health.html`, `neam-print.html`, `neam-services.html`, `brico-deco.html`, `neam-beauty.html`, `neam-tech.html` — une page par service de la Super App
 - `programme.html` — Programme NEAM × KANIE 30/30
 - `a-propos.html` — Positionnement, vision, mission, valeurs
 - `contact.html` — Coordonnées et formulaire

@@ -7,6 +7,9 @@ Options -Indexes
 # Page introuvable : retour à l'accueil
 ErrorDocument 404 /index.html
 
+# L'ancienne page Super App est désormais dans Produits
+Redirect 301 /super-app.html /produits.html#super-app
+
 # Redirection vers HTTPS : à activer UNIQUEMENT une fois le certificat SSL actif
 # (ou utilisez l'option « Forcer HTTPS » du panneau LWS).
 # RewriteEngine On

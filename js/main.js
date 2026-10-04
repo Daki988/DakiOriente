@@ -115,6 +115,12 @@
   if (wanted) {
     const opt = [...select.options].find(o => o.value && o.value.toLowerCase().startsWith(wanted.toLowerCase()));
     if (opt) select.value = opt.value;
+    // Un service de la Super App (NEAM Market, Brico&Déco…) : rattaché à la Super App
+    else if (/neam|brico/i.test(wanted)) {
+      select.value = 'NEAM Super App';
+      const msg = $('#message');
+      if (msg && !msg.value) msg.value = `Bonjour, je souhaite être informé(e) du lancement de ${wanted}.`;
+    }
   }
   form.addEventListener('submit', async e => {
     e.preventDefault();
@@ -158,4 +164,25 @@
   });
   $$('input, select, textarea', form).forEach(f =>
     f.addEventListener('input', () => f.closest('.field')?.classList.remove('is-invalid')));
+})();
+
+/* ---------- Inclinaison 3D au survol (téléphone Super App, interfaces) ---------- */
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
+  document.querySelectorAll('[data-tilt]').forEach(el => {
+    const target = el.querySelector('.phone3d__tilt, .svc-ui__tilt');
+    if (!target) return;
+    const zone = el.closest('section') || el;
+    zone.addEventListener('pointermove', e => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - (r.left + r.width / 2)) / innerWidth;
+      const y = (e.clientY - (r.top + r.height / 2)) / innerHeight;
+      target.style.setProperty('--ty', `${(x * 24).toFixed(2)}deg`);
+      target.style.setProperty('--tx', `${(-y * 18).toFixed(2)}deg`);
+    });
+    zone.addEventListener('pointerleave', () => {
+      target.style.setProperty('--ty', '0deg');
+      target.style.setProperty('--tx', '0deg');
+    });
+  });
 })();
