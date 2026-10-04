@@ -511,3 +511,13 @@ p { max-width: 66ch; }
 @media (max-width: 860px) { .mods { grid-template-columns: 1fr; } }
 .sa-logo { width: min(420px, 80%); height: auto; margin-bottom: clamp(24px, 3vw, 40px); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.sa-logo { border-radius: 10px; }
+.mod__logo { flex: none; width: 60px; height: 60px; border-radius: 14px; background: #fff; display: grid; place-items: center; padding: 8px; box-shadow: 0 6px 16px -8px rgba(0,0,0,.35); }
+.mod__logo img { width: 100%; height: 100%; object-fit: contain; }
+.mod--market { --c: #e5780f; --c2: #f5a12a; }
+.mod--food { --c: #c8261f; --c2: #ec4a3c; }
+.mod--express { --c: #1d8a52; --c2: #3cba78; }
+.mod--health { --c: #1d63d6; --c2: #3b8af0; }
+.mod--print { --c: #6a2fd6; --c2: #9257f2; }
+.mod--services { --c: #b8860b; --c2: #e5b62c; }
+.mod--brico { --c: #8a4b1f; --c2: #b8692c; }
