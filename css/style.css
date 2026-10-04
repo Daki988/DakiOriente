@@ -521,3 +521,16 @@ p { max-width: 66ch; }
 .mod--print { --c: #6a2fd6; --c2: #9257f2; }
 .mod--services { --c: #b8860b; --c2: #e5b62c; }
 .mod--brico { --c: #8a4b1f; --c2: #b8692c; }
+
+/* ---------- Documents à télécharger ---------- */
+.docs { display: grid; gap: clamp(28px, 4vw, 56px); }
+.doc { display: grid; grid-template-columns: minmax(140px, 260px) 1fr; gap: clamp(20px, 4vw, 56px); align-items: start; padding-top: clamp(24px, 3vw, 40px); border-top: 1px solid var(--line, rgba(0,0,0,.12)); }
+.doc__cover { display: block; border-radius: 6px; overflow: hidden; box-shadow: 0 18px 40px -18px rgba(0,0,0,.35); transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+.doc__cover:hover { transform: translateY(-6px) rotate(-1deg); }
+.doc__cover img { display: block; width: 100%; height: auto; }
+.doc__body h3 { margin: 10px 0 12px; font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.15; }
+.doc__body p { max-width: 58ch; }
+.doc__body .chips { margin: 18px 0 0; }
+.doc__body .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 26px; }
+@media (min-width: 1000px) { .section--grey .docs { grid-template-columns: 1fr 1fr; } .section--grey .doc { grid-template-columns: 180px 1fr; } }
+@media (max-width: 600px) { .doc { grid-template-columns: 1fr; } .doc__cover { max-width: 220px; } }
