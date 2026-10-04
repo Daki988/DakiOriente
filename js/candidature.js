@@ -1,12 +1,13 @@
 /* =========================================================
    NEAM × KANIE 30/30 — Candidature & test de maturité numérique
    - 14 questions réparties en 5 axes (0 à 3 points chacune)
-   - Rapport envoyé à l’équipe NEAM via FormSubmit
+   - Rapport envoyé à l’équipe NEAM et résultats envoyés au candidat (api/candidature.php)
    - Résultats téléchargeables en PDF (jsPDF, généré dans le navigateur)
    ========================================================= */
 (() => {
-  const RECIPIENT = 'daki.liaison@gmail.com';
-  const ENDPOINT = `https://formsubmit.co/ajax/${RECIPIENT}`;
+  // Envoi par le serveur du site (api/candidature.php), depuis contact@neamindustry.com
+  const ENDPOINT = 'api/candidature.php';
+  const CONTACT = 'contact@neamindustry.com';
 
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
@@ -230,55 +231,45 @@
     $('#resPrio').innerHTML = result.priorities.map(p => `<li><b>${p.label}</b><span>${p.reco}</span></li>`).join('');
   };
 
-  /* ---------- Rapport e-mail ---------- */
-  const buildReport = () => {
-    const lines = {
-      _subject: `Candidature 30/30 — ${profile.entreprise} — ${result.score}/100 (${result.level.name})`,
-      _template: 'table',
-      _replyto: profile.email,
-      'Entreprise': profile.entreprise,
-      'Secteur': profile.secteur,
-      'Ville': profile.ville,
-      'Taille': profile.taille,
-      'Contact': `${profile.nom}${profile.fonction ? ' — ' + profile.fonction : ''}`,
-      'E-mail': profile.email,
-      'Téléphone / WhatsApp': profile.telephone,
-      'Score de maturité': `${result.score}/100 — ${result.level.name}`,
-    };
-    result.byDim.forEach(d => { lines[`Axe — ${d.label}`] = `${d.pct}%`; });
-    lines['Priorités recommandées'] = result.priorities.map(p => p.label).join(', ');
-    lines['Objectif principal'] = profile.objectif;
-    lines['Motivation'] = profile.motivation;
-    lines['Disponible pendant 30 jours'] = profile.dispo ? 'Oui' : 'Non';
-    QUESTIONS.forEach((q, i) => {
-      const a = answers[i] == null ? '—' : `${labelOf(i)} (${pointsOf(i)}/3)`;
-      lines[`Q${String(i + 1).padStart(2, '0')} — ${q.text}`] = a;
-    });
-    lines['Date'] = new Date().toLocaleString('fr-FR');
-    return lines;
-  };
-
+  /* ---------- Envoi : rapport à l’équipe + résultats au candidat ---------- */
   const sendReport = async () => {
     const status = $('#sendStatus');
     status.className = 'send-status is-pending';
     status.textContent = 'Envoi de votre candidature…';
-    const report = buildReport();
+    let pdf = '';
+    try {
+      const doc = await buildPdf();
+      if (doc) pdf = doc.output('datauristring').split(',')[1] || '';
+    } catch (e) { /* le rapport part sans PDF */ }
+    const payload = {
+      profile,
+      result: { score: result.score, level: { name: result.level.name, text: result.level.text }, byDim: result.byDim, priorities: result.priorities },
+      answers: QUESTIONS.map((q, i) => ({ q: q.text, a: labelOf(i), pts: pointsOf(i) })),
+      pdf,
+      website: ($('#hp-candidature') || {}).value || '',
+    };
     try {
       const res = await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(report),
+        body: JSON.stringify(payload),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || `HTTP ${res.status}`);
+      if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
       status.className = 'send-status is-ok';
-      status.textContent = 'Candidature envoyée. L’équipe NEAM × KANIE reviendra vers vous rapidement.';
+      status.textContent = data.candidateMail
+        ? `Candidature envoyée. Vos résultats vous ont aussi été envoyés à ${profile.email}, avec le PDF en pièce jointe.`
+        : 'Candidature envoyée. L’équipe NEAM × KANIE reviendra vers vous rapidement.';
     } catch (err) {
       // Solution de secours : e-mail prérempli
-      const body = Object.entries(report).filter(([k]) => !k.startsWith('_')).map(([k, v]) => `${k} : ${v}`).join('\n');
-      const href = `mailto:${RECIPIENT}?subject=${encodeURIComponent(report._subject)}&body=${encodeURIComponent(body)}`;
+      const body = [
+        `Entreprise : ${profile.entreprise}`, `Contact : ${profile.nom}`, `E-mail : ${profile.email}`, `Téléphone : ${profile.telephone}`,
+        `Score : ${result.score}/100 (${result.level.name})`, ...result.byDim.map(d => `${d.label} : ${d.pct}%`),
+        `Objectif : ${profile.objectif}`, `Motivation : ${profile.motivation}`,
+      ].join('\n');
+      const href = `mailto:${CONTACT}?subject=${encodeURIComponent(`Candidature 30/30 — ${profile.entreprise}`)}&body=${encodeURIComponent(body)}`;
       status.className = 'send-status is-error';
-      status.innerHTML = `L’envoi automatique n’a pas abouti. <a class="ulink" href="${href}">Envoyer ma candidature par e-mail</a> ou écrivez à ${RECIPIENT}.`;
+      status.innerHTML = `L’envoi automatique n’a pas abouti. <a class="ulink" href="${href}">Envoyer ma candidature par e-mail</a> ou écrivez-nous à ${CONTACT}.`;
     }
   };
 
@@ -320,10 +311,9 @@
   // Les polices PDF standard ne couvrent pas certains signes typographiques
   const safe = t => String(t).replace(/[’‘]/g, "'").replace(/[“”«»]/g, '"').replace(/[—–]/g, '-').replace(/…/g, '...').replace(/ | /g, ' ');
 
-  const downloadPdf = async () => {
-    const btn = $('#pdfBtn');
-    if (!window.jspdf) { btn.textContent = 'PDF indisponible pour le moment'; return; }
-    btn.disabled = true;
+  // Construit le PDF des résultats (utilisé pour l’e-mail et le téléchargement)
+  const buildPdf = async () => {
+    if (!window.jspdf) return null;
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ unit: 'mm', format: 'a4' });
     const W = 210, M = 18;
@@ -400,7 +390,16 @@
     }
 
     const slug = profile.entreprise.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'entreprise';
-    doc.save(`maturite-numerique-${slug}.pdf`);
+    doc.__filename = `maturite-numerique-${slug}.pdf`;
+    return doc;
+  };
+
+  const downloadPdf = async () => {
+    const btn = $('#pdfBtn');
+    btn.disabled = true;
+    const doc = await buildPdf();
+    if (!doc) { btn.textContent = 'PDF indisponible pour le moment'; return; }
+    doc.save(doc.__filename);
     btn.disabled = false;
   };
   $('#pdfBtn').addEventListener('click', downloadPdf);

@@ -116,12 +116,12 @@
     const opt = [...select.options].find(o => o.value && o.value.toLowerCase().startsWith(wanted.toLowerCase()));
     if (opt) select.value = opt.value;
   }
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
     let valid = true;
     $$('input, select, textarea', form).forEach(f => {
       const ok = f.checkValidity();
-      f.closest('.field').classList.toggle('is-invalid', !ok);
+      f.closest('.field')?.classList.toggle('is-invalid', !ok);
       if (!ok) valid = false;
     });
     if (!valid) {
@@ -131,14 +131,31 @@
     }
     status.classList.remove('is-error');
     const d = new FormData(form);
-    const company = d.get('entreprise') ? ` (${d.get('entreprise')})` : '';
-    const subject = encodeURIComponent(`[Site NEAM] ${d.get('besoin')} — ${d.get('nom')}${company}`);
-    const body = encodeURIComponent(
-      `Nom : ${d.get('nom')}\nEntreprise : ${d.get('entreprise') || '-'}\nEmail : ${d.get('email')}\nTéléphone : ${d.get('telephone') || '-'}\nBesoin : ${d.get('besoin')}\n\n${d.get('message')}`
-    );
-    location.href = `mailto:contact@neamindustry.com?subject=${subject}&body=${body}`;
-    status.textContent = 'Votre messagerie s’ouvre avec votre demande préremplie. Si rien ne s’ouvre, écrivez-nous à contact@neamindustry.com.';
+    const btn = $('button[type=submit]', form);
+    btn.disabled = true;
+    status.textContent = 'Envoi en cours…';
+    try {
+      const res = await fetch('api/contact.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(d.entries())),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
+      status.textContent = 'Merci, votre message est bien envoyé. Nous vous répondons très vite.';
+      form.reset();
+    } catch (err) {
+      // Solution de secours : messagerie du visiteur
+      const company = d.get('entreprise') ? ` (${d.get('entreprise')})` : '';
+      const subject = encodeURIComponent(`[Site NEAM] ${d.get('besoin')} — ${d.get('nom')}${company}`);
+      const body = encodeURIComponent(
+        `Nom : ${d.get('nom')}\nEntreprise : ${d.get('entreprise') || '-'}\nE-mail : ${d.get('email')}\nTéléphone : ${d.get('telephone') || '-'}\nBesoin : ${d.get('besoin')}\n\n${d.get('message')}`
+      );
+      status.classList.add('is-error');
+      status.innerHTML = `L’envoi n’a pas abouti. <a class="ulink" href="mailto:contact@neamindustry.com?subject=${subject}&body=${body}">Envoyer par e-mail</a> ou écrivez-nous à contact@neamindustry.com.`;
+    }
+    btn.disabled = false;
   });
   $$('input, select, textarea', form).forEach(f =>
-    f.addEventListener('input', () => f.closest('.field').classList.remove('is-invalid')));
+    f.addEventListener('input', () => f.closest('.field')?.classList.remove('is-invalid')));
 })();

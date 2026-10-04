@@ -510,3 +510,4 @@ p { max-width: 66ch; }
 .mod--services { --c: #a87412; --c2: #d6a32d; }
 @media (max-width: 860px) { .mods { grid-template-columns: 1fr; } }
 .sa-logo { width: min(420px, 80%); height: auto; margin-bottom: clamp(24px, 3vw, 40px); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
