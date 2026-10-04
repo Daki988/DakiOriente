@@ -768,3 +768,12 @@ p { max-width: 66ch; }
 .ds-offer .btn { margin-top: auto; align-self: flex-start; }
 .ds-offer--hl { border: 2px solid var(--yellow); box-shadow: 0 24px 50px -30px rgba(0,0,0,.35); }
 @media (max-width: 900px) { .ds-offers { grid-template-columns: 1fr; } }
+
+/* ---------- Produits : vrais visuels et logos ---------- */
+.prod-logo { display: block; width: clamp(170px, 18vw, 240px); height: auto; margin-bottom: -10px; }
+.case__shot { margin: 0; border-radius: 14px; overflow: hidden; box-shadow: 0 30px 60px -34px rgba(0,0,0,.45); border: 1px solid var(--line); }
+.case__shot img { display: block; width: 100%; height: auto; }
+.work__visual--shot { padding: 0 !important; background: var(--paper-2); }
+.work__visual--shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; transition: transform .8s var(--ease); }
+.work__card:hover .work__visual--shot img { transform: scale(1.03); }
+.svc-ui--wide img { width: min(500px, 88vw); }
