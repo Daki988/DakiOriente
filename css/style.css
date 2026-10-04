@@ -509,3 +509,4 @@ p { max-width: 66ch; }
 .mod--tech { --c: #6a32d6; --c2: #9a5cf0; }
 .mod--services { --c: #a87412; --c2: #d6a32d; }
 @media (max-width: 860px) { .mods { grid-template-columns: 1fr; } }
+.sa-logo { width: min(420px, 80%); height: auto; margin-bottom: clamp(24px, 3vw, 40px); }
