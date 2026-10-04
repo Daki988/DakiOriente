@@ -38,7 +38,7 @@ $langs = array_filter(array_map('trim', explode(',', (string)$job['languages']))
                             <button type="submit" class="fav-btn <?= $isFav ? 'on' : '' ?>" style="width:48px;height:48px" aria-pressed="<?= $isFav ? 'true' : 'false' ?>" aria-label="<?= $isFav ? 'Retirer des favoris' : 'Ajouter aux favoris' ?>"><?= icon('heart') ?></button>
                         </form>
                         <?php if ($application): ?>
-                            <a class="btn btn-ghost btn-lg" href="<?= e(url('/espace/candidatures/' . $application['id'])) ?>"><?= icon('check') ?> Candidature <?= e(mb_strtolower(application_statuses()[$application['status']][0])) ?></a>
+                            <a class="btn btn-ghost btn-lg" href="<?= e(url('/espace/candidatures/' . $application['id'])) ?>"><?= icon('check') ?> Ma candidature : <?= e(application_statuses()[$application['status']][0]) ?></a>
                         <?php elseif ($job['apply_mode'] === 'external'): ?>
                             <a class="btn btn-cta btn-lg" href="<?= e($job['external_url']) ?>" target="_blank" rel="noopener noreferrer">Postuler sur le site <?= icon('external-link') ?></a>
                         <?php else: ?>

@@ -451,3 +451,20 @@ function role_label(string $role): string
 {
     return ['candidate' => 'Candidat', 'company' => 'Recruteur', 'school' => 'École', 'admin' => 'Admin NEAM'][$role] ?? $role;
 }
+
+/** Envoie un export CSV compatible Excel (UTF-8 avec BOM, séparateur « ; »). */
+function send_csv(string $filename, array $header, array $rows): never
+{
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="' . str_replace('"', '', $filename) . '"');
+    $out = fopen('php://output', 'w');
+    fwrite($out, "\xEF\xBB\xBF");
+    fputcsv($out, $header, ';', '"', '\\');
+    foreach ($rows as $r) {
+        // Neutralise l'injection de formules dans les tableurs
+        $r = array_map(fn($v) => is_string($v) && preg_match('/^[=+\-@]/', $v) ? "'" . $v : $v, $r);
+        fputcsv($out, $r, ';', '"', '\\');
+    }
+    fclose($out);
+    exit;
+}

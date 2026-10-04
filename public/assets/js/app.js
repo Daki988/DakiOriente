@@ -125,6 +125,7 @@
   if (window.Chart) {
     Chart.defaults.font.family = '"Plus Jakarta Sans", system-ui, sans-serif';
     Chart.defaults.color = '#5a6788';
+    Chart.defaults.locale = 'fr-FR';
     Chart.defaults.plugins.legend.labels.usePointStyle = true;
     $$('canvas[data-chart]').forEach(cv => {
       const cfg = JSON.parse(cv.dataset.chart);

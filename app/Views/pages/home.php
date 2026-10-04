@@ -13,7 +13,7 @@ $defaultCity = '';
     <div class="container hero-grid">
         <div class="fade-up">
             <span class="pill">Stages • Emplois • Formations</span>
-            <h1>De je cherche un stage à <span class="accent">je suis prêt <span class="underline-sun">à candidater.</span></span></h1>
+            <h1 class="hero-title">De je cherche un stage à <span class="accent">je suis prêt <span class="underline-sun">à candidater.</span></span></h1>
             <p class="lead">Tremplin t'accompagne à chaque étape : trouve des opportunités, crée ton CV et postule simplement.</p>
 
             <div class="hero-visual-mobile" aria-hidden="true">
@@ -58,7 +58,7 @@ $defaultCity = '';
     </div>
 
     <div class="container mt-4">
-        <div class="grid-4">
+        <div class="features">
             <a class="feature f-blue" href="<?= e(url('/offres')) ?>">
                 <span class="fi"><?= icon('search') ?></span>
                 <h3>Trouve des offres</h3>

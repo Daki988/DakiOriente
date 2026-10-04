@@ -12,8 +12,8 @@
             <div class="field"><label class="sr-only" for="a<?= $i ?>">Ta réponse</label><textarea id="a<?= $i ?>" name="answer[<?= $i ?>]" maxlength="3000" placeholder="Réponds comme si tu étais face au recruteur…"><?= e($answers[$i] ?? '') ?></textarea></div>
             <?php if ($fb): ?>
                 <div class="grid-2 mt-2 small">
-                    <ul class="explain-list ok"><?php foreach ($fb['good'] ?: ['—'] as $g): ?><li><?= icon('check') ?><span><?= e($g) ?></span></li><?php endforeach; ?></ul>
-                    <ul class="explain-list gap"><?php foreach ($fb['tips'] ?: ['Très bonne réponse !'] as $t): ?><li><?= icon('lightbulb') ?><span><?= e($t) ?></span></li><?php endforeach; ?></ul>
+                    <ul class="explain-list ok"><?php foreach (($fb['good'] ?? []) ?: ['—'] as $g): ?><li><?= icon('check') ?><span><?= e($g) ?></span></li><?php endforeach; ?></ul>
+                    <ul class="explain-list gap"><?php foreach (($fb['tips'] ?? []) ?: ['Très bonne réponse !'] as $t): ?><li><?= icon('lightbulb') ?><span><?= e($t) ?></span></li><?php endforeach; ?></ul>
                 </div>
             <?php endif; ?>
         </section>

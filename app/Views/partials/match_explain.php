@@ -4,7 +4,7 @@
     <div class="grow">
         <span class="badge badge-<?= $match['score'] >= 70 ? 'green' : ($match['score'] >= 50 ? 'blue' : 'amber') ?>"><?= e($match['level']) ?></span>
         <h3 class="mt-1 mb-0">Pourquoi ce score ?</h3>
-        <p class="small muted mb-0">Calcul transparent sur 9 critères pondérés (<?= e(App\Services\Ai\AiService::providerName()) ?> n'intervient pas dans le score).</p>
+        <p class="small muted mb-0">Calcul transparent sur 9 critères pondérés, sans IA générative : chaque point est justifié.</p>
     </div>
 </div>
 <?php if ($match['eliminated']): ?>

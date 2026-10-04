@@ -461,7 +461,7 @@ return function (): void {
         DB::insert('favorites', ['user_id' => $demo, 'job_id' => $jobs[$j], 'created_at' => $ago(4)]);
     }
     DB::insert('cv_versions', ['user_id' => $demo, 'label' => 'CV Stage développement web', 'template' => 'moderne', 'snapshot' => json_encode(ProfileService::load($demo, true), JSON_UNESCAPED_UNICODE), 'created_at' => $ago(12)]);
-    DB::insert('interview_sessions', ['user_id' => $demo, 'job_id' => $jobs[0], 'questions' => json_encode([['type' => 'Présentation', 'q' => 'Présente-toi en deux minutes.']]), 'answers' => json_encode(['Je suis Grâce, étudiante en Licence informatique. Lors de mon stage, j\'ai développé un module de gestion en PHP qui a permis de réduire de 30 % le temps de saisie.']), 'feedback' => json_encode([['score' => 8]]), 'score' => 80, 'created_at' => $ago(6)]);
+    DB::insert('interview_sessions', ['user_id' => $demo, 'job_id' => $jobs[0], 'questions' => json_encode([['type' => 'Présentation', 'q' => 'Présente-toi en deux minutes.']]), 'answers' => json_encode(['Je suis Grâce, étudiante en Licence informatique. Lors de mon stage, j\'ai développé un module de gestion en PHP qui a permis de réduire de 30 % le temps de saisie.']), 'feedback' => json_encode([['score' => 8, 'good' => ['Contexte posé', 'Tu parles de tes actions personnelles (« j\'ai… »)', 'Résultat mis en avant', 'Réponse chiffrée'], 'tips' => ['Développe davantage (vise 60 à 180 mots, soit 1 à 2 minutes à l\'oral).'], 'words' => 32]], JSON_UNESCAPED_UNICODE), 'score' => 80, 'created_at' => $ago(6)]);
 
     /* ---------- Stages suivis par l'école ---------- */
     $internStatus = ['candidature', 'en_cours', 'placement', 'convention', 'recherche', 'termine', 'candidature', 'en_cours'];

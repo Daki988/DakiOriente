@@ -1,0 +1,8 @@
+# Hébergement mutualisé : si la racine web ne peut pas pointer sur /public,
+# toutes les requêtes sont redirigées vers /public et les dossiers sensibles sont bloqués.
+Options -Indexes
+RewriteEngine On
+RewriteRule ^(app|database|storage|bin|vendor)(/|$) - [F,L]
+RewriteRule ^\.(env|git) - [F,L]
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ public/$1 [L]

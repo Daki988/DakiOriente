@@ -19,6 +19,11 @@ spl_autoload_register(function (string $class): void {
     }
 });
 
+// Dépendances Composer optionnelles (ex. SDK Claude officiel « anthropic-ai/sdk »)
+if (is_file(BASE_PATH . '/vendor/autoload.php')) {
+    require BASE_PATH . '/vendor/autoload.php';
+}
+
 require APP_PATH . '/helpers.php';
 
 App\Core\Config::load(BASE_PATH);

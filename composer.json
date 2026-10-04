@@ -1,0 +1,20 @@
+{
+    "name": "neam/tremplin",
+    "description": "TREMPLIN by NEAM — plateforme de stages, d'insertion professionnelle et de matching candidats–entreprises",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.2",
+        "ext-pdo": "*",
+        "ext-mbstring": "*",
+        "ext-fileinfo": "*",
+        "ext-json": "*"
+    },
+    "suggest": {
+        "anthropic-ai/sdk": "Active l'assistant IA Claude (AI_PROVIDER=anthropic) — à installer avec guzzlehttp/guzzle",
+        "guzzlehttp/guzzle": "Client HTTP requis par anthropic-ai/sdk",
+        "ext-zip": "Import des CV au format DOCX",
+        "ext-gd": "Traitement d'images"
+    },
+    "config": { "optimize-autoloader": true }
+}

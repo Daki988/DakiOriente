@@ -98,7 +98,7 @@ final class ApplicationController extends Controller
         }
         NotificationService::notify($uid, 'status', 'Candidature envoyée : ' . $job['title'], 'Tu seras notifié·e à chaque étape. Astuce : prépare déjà ton entretien.', '/espace/candidatures/' . $appId);
         audit('application.created', 'application', $appId, ['job' => $job['id'], 'score' => $match['score']]);
-        flash('success', 'Candidature envoyée à ' . $job['company_name'] . ' ! Bonne chance 🚀');
+        flash('success', 'Candidature envoyée à ' . $job['company_name'] . ' ! Bonne chance');
         redirect('/espace/candidatures/' . $appId);
     }
 

@@ -68,7 +68,6 @@ final class AiService
         $name = trim($p['first_name'] . ' ' . $p['last_name']);
         $levels = education_levels();
         $edu = $p['educations'][0] ?? null;
-        $exp = $p['experiences'][0] ?? null;
         $skillsAll = array_column($p['skills'], 'name');
         $matched = [];
         $m = null;
@@ -82,31 +81,32 @@ final class AiService
         $company = $job['company_name'] ?? 'votre entreprise';
         $warm = $tone === 'enthousiaste';
 
+        $typeLabel = ['stage' => 'stage', 'alternance' => 'alternance', 'premier_emploi' => 'premier emploi', 'cdd' => 'CDD', 'cdi' => 'CDI', 'freelance' => 'mission'];
         $intro = $job
             ? sprintf(
                 '%s par votre offre de %s « %s » à %s, je vous adresse ma candidature avec %s.',
                 $warm ? 'Vivement intéressé·e' : 'Particulièrement intéressé·e',
-                mb_strtolower(job_types()[$job['type']] ?? 'poste'),
+                $typeLabel[$job['type']] ?? 'poste',
                 $job['title'],
                 $job['city_name'] ?: 'distance',
                 $warm ? 'beaucoup d\'enthousiasme' : 'conviction'
             )
             : sprintf('Je me permets de vous adresser ma candidature spontanée pour un poste %s au sein de %s.', $p['desired_job'] ? 'de ' . $p['desired_job'] : 'correspondant à mon profil', $company);
 
-        $para2 = sprintf(
-            'Actuellement titulaire d\'un niveau %s%s, j\'ai développé de solides compétences en %s.',
-            $levels[$p['education_level']] ?? '',
-            $edu ? ' (' . $edu['degree'] . ($edu['field'] ? ' en ' . $edu['field'] : '') . ', ' . $edu['school'] . ')' : '',
-            $highlight ? self::joinFr($highlight) : 'gestion de projets'
-        );
+        $para2 = $edu
+            ? sprintf('Titulaire d\'un diplôme de niveau %s%s (%s)', $levels[$p['education_level']] ?? $edu['degree'], $edu['field'] ? ' en ' . $edu['field'] : '', $edu['school'])
+            : sprintf('Fort·e d\'un niveau %s', $levels[$p['education_level']] ?? '');
+        $para2 .= ', j\'ai développé de solides compétences en ' . ($highlight ? self::joinFr($highlight) : 'gestion de projets') . '.';
+        // Priorité aux expériences professionnelles, puis aux projets
+        $pro = array_values(array_filter($p['experiences'], fn($x) => $x['kind'] !== 'projet'));
+        $exp = $pro[0] ?? ($p['experiences'][0] ?? null);
         if ($exp) {
-            $para2 .= sprintf(
-                ' Mon expérience %s « %s »%s m\'a permis de mettre ces compétences en pratique%s.',
-                $exp['kind'] === 'projet' ? 'sur le projet' : 'en tant que',
-                $exp['title'],
-                $exp['company'] ? ' chez ' . $exp['company'] : '',
-                $exp['description'] ? ' : ' . rtrim(mb_strtolower(mb_substr(excerpt($exp['description'], 160), 0, 1)) . mb_substr(excerpt($exp['description'], 160), 1), '.…') : ''
-            );
+            $firstSentence = $exp['description'] ? trim((string)preg_split('/(?<=[.!?])\s+/u', trim($exp['description']))[0]) : '';
+            $what = $exp['kind'] === 'projet'
+                ? 'Le projet « ' . preg_replace('/^Projet\s*:\s*/u', '', $exp['title']) . ' »'
+                : 'Mon expérience de ' . mb_strtolower($exp['title']) . ($exp['company'] ? ' chez ' . $exp['company'] : '');
+            $para2 .= ' ' . $what . ' m\'a permis de mettre ces compétences en pratique'
+                . ($firstSentence ? ' : ' . mb_strtolower(mb_substr($firstSentence, 0, 1)) . rtrim(mb_substr($firstSentence, 1), '.') . '.' : '.');
         }
 
         $para3 = $job
@@ -114,12 +114,12 @@ final class AiService
                 'Rejoindre %s représente pour moi l\'opportunité de contribuer à vos missions%s tout en continuant à progresser. %s',
                 $company,
                 $job['sector_name'] ? ' dans le secteur ' . mb_strtolower($job['sector_name']) : '',
-                $soft ? 'Reconnu·e pour ma ' . mb_strtolower(self::joinFr($soft)) . ', je saurai m\'intégrer rapidement à vos équipes.' : 'Je saurai m\'intégrer rapidement à vos équipes.'
+                $soft ? 'Reconnu·e pour mes qualités (' . mb_strtolower(implode(', ', $soft)) . '), je saurai m\'intégrer rapidement à vos équipes.' : 'Je saurai m\'intégrer rapidement à vos équipes.'
             )
             : 'Votre entreprise attire mon attention par son dynamisme et sa contribution au développement du Gabon. Je serais fier·e de mettre mon énergie à votre service.';
 
         if ($m && $m['missing_skills']) {
-            $para3 .= ' Conscient·e que ' . $m['missing_skills'][0]['name'] . ' est importante pour ce poste, je me forme activement sur ce sujet.';
+            $para3 .= ' Conscient·e que la compétence « ' . $m['missing_skills'][0]['name'] . ' » est importante pour ce poste, je me forme activement dans ce domaine.';
         }
 
         $avail = $p['availability_date'] && strtotime($p['availability_date']) > time()

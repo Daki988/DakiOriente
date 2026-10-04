@@ -9,7 +9,7 @@ use App\Core\Validator;
 use App\Services\MatchingEngine;
 use App\Services\NotificationService;
 
-final class CompanyController extends Controller
+class CompanyController extends Controller
 {
     protected function company(): array
     {

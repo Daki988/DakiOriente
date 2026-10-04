@@ -46,7 +46,7 @@ final class Config
             'ai' => [
                 'provider' => $get('AI_PROVIDER', 'local'), // local | anthropic
                 'api_key'  => $get('ANTHROPIC_API_KEY', ''),
-                'model'    => $get('AI_MODEL', 'claude-sonnet-5-5'),
+                'model'    => $get('AI_MODEL', 'claude-opus-5-5'),
             ],
             'payment' => [
                 'driver' => $get('PAYMENT_DRIVER', 'sandbox'),

@@ -7,7 +7,7 @@ $chart = ['type' => 'bar', 'data' => ['labels' => array_map(fn($s) => $st[$s][0]
     <div class="alert alert-warning mb-3"><?= icon('shield-check') ?><div><b>Vérification en cours.</b> L'équipe NEAM vérifie <?= e($c['name']) ?> (RCCM, coordonnées). Vos offres seront publiées dès validation — en général sous 24 à 48 h.</div></div>
 <?php endif; ?>
 <div class="page-head">
-    <div><h1>Bonjour <?= e(user()['first_name']) ?> 👋</h1><p><?= e($c['name']) ?> · offre <?= e(str_replace('BIZ_', '', $c['plan_code'])) ?> · <?= (int)$c['job_credits'] ?> offres actives max.</p></div>
+    <div><h1>Bonjour <?= e(user()['first_name']) ?></h1><p><?= e($c['name']) ?> · offre <?= e(str_replace('BIZ_', '', $c['plan_code'])) ?> · <?= (int)$c['job_credits'] ?> offres actives max.</p></div>
     <a class="btn btn-cta" href="<?= e(url('/entreprise/offres/nouvelle')) ?>"><?= icon('plus') ?> Publier une offre</a>
 </div>
 <div class="grid-4 mb-3">

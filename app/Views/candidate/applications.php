@@ -19,7 +19,7 @@
                     <td><div class="ring ring-sm <?= score_class((int)$a['match_score']) ?>" style="--p:<?= (int)$a['match_score'] ?>"><b><?= (int)$a['match_score'] ?></b></div></td>
                     <td><?= status_badge($a['status']) ?></td>
                     <td class="hide-mobile nowrap"><?= e(date_fr($a['created_at'])) ?></td>
-                    <td class="hide-mobile small"><?= $a['interview_at'] && $a['status'] === 'interview' ? icon('calendar') . ' Entretien le ' . e(date_fr($a['interview_at'], true)) : ($a['status'] === 'sent' ? 'En attente de lecture' : ($a['status'] === 'accepted' ? 'Félicitations ! 🎉' : '—')) ?></td>
+                    <td class="hide-mobile small"><?= $a['interview_at'] && $a['status'] === 'interview' ? icon('calendar') . ' Entretien le ' . e(date_fr($a['interview_at'], true)) : ($a['status'] === 'sent' ? 'En attente de lecture' : ($a['status'] === 'accepted' ? 'Félicitations !' : '—')) ?></td>
                     <td><a class="btn btn-ghost btn-sm" href="<?= e(url('/espace/candidatures/' . $a['id'])) ?>">Détails</a></td>
                 </tr>
             <?php endforeach; ?>

@@ -60,7 +60,8 @@ final class PlanService
     public static function applicationQuota(array $user): array
     {
         $plan = self::plan(self::effectiveCode($user));
-        $limit = $plan['limits_list']['applications'] ?? 5;
+        $limits = $plan['limits_list'] ?? [];
+        $limit = array_key_exists('applications', $limits) ? $limits['applications'] : 5;
         $used = (int)DB::value('SELECT COUNT(*) FROM applications WHERE user_id = :u AND created_at >= :d', ['u' => $user['id'], 'd' => date('Y-m-01 00:00:00')]);
         return ['limit' => $limit, 'used' => $used, 'remaining' => $limit === null ? null : max(0, $limit - $used)];
     }
