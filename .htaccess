@@ -16,6 +16,9 @@ Redirect 301 /super-app.html /produits.html#super-app
 # RewriteCond %{HTTPS} off
 # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
 
+# Manifeste de l'application (icône sur l'écran d'accueil)
+AddType application/manifest+json .webmanifest
+
 # Compression des fichiers texte
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css text/plain application/javascript application/json image/svg+xml
