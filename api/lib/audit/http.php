@@ -62,10 +62,11 @@ function public_target(string $url): ?array
     return ['host' => $host, 'ip' => $ips[0], 'port' => $port];
 }
 
-function audit_curl_handle(string $url, array $target, int $timeout, int $maxBytes, string &$buffer, $share = null)
+function audit_curl_handle(string $url, array $target, int $timeout, int $maxBytes, string &$buffer, $share = null, ?array &$headers = null)
 {
     $ch = curl_init($url);
     $buffer = '';
+    $headers = [];
     if ($share) {
         curl_setopt($ch, CURLOPT_SHARE, $share);
     }
@@ -82,6 +83,13 @@ function audit_curl_handle(string $url, array $target, int $timeout, int $maxByt
         CURLOPT_HTTPHEADER => ['Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Language: fr-FR,fr;q=0.9,en;q=0.6'],
         CURLOPT_ENCODING => '',
         CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_HEADERFUNCTION => function ($ch, $line) use (&$headers) {
+            $parts = explode(':', $line, 2);
+            if (count($parts) === 2) {
+                $headers[strtolower(trim($parts[0]))] = trim($parts[1]);
+            }
+            return strlen($line);
+        },
         CURLOPT_WRITEFUNCTION => function ($ch, $chunk) use (&$buffer, $maxBytes) {
             $buffer .= $chunk;
             return strlen($buffer) > $maxBytes ? 0 : strlen($chunk);
@@ -102,22 +110,24 @@ function fetch_many(array $urls, int $timeout = 10, int $maxBytes = 1500000): ar
     $share = curl_share_init();
     curl_share_setopt($share, CURLSHOPT_SHARE, CURL_LOCK_DATA_COOKIE);
     foreach ($urls as $key => $url) {
-        $pending[$key] = ['url' => $url, 'hops' => 0, 'time' => 0.0];
+        $pending[$key] = ['url' => $url, 'hops' => 0, 'time' => 0.0, 'chain' => [$url]];
     }
     while ($pending) {
         $mh = curl_multi_init();
         $handles = [];
         $buffers = [];
+        $hdrs = [];
         foreach ($pending as $key => $job) {
             $target = public_target($job['url']);
             if (!$target) {
                 $host = (string) parse_url($job['url'], PHP_URL_HOST);
                 $err = $host !== '' && !@gethostbynamel($host) ? 'domaine introuvable' : 'adresse non autorisée';
-                $results[$key] = ['ok' => false, 'status' => 0, 'url' => $job['url'], 'body' => '', 'time' => 0, 'size' => 0, 'https' => false, 'error' => $err];
+                $results[$key] = ['ok' => false, 'status' => 0, 'url' => $job['url'], 'body' => '', 'time' => 0, 'size' => 0, 'https' => false, 'error' => $err, 'headers' => [], 'chain' => $job['chain']];
                 continue;
             }
             $buffers[$key] = '';
-            $handles[$key] = audit_curl_handle($job['url'], $target, $timeout, $maxBytes, $buffers[$key], $share);
+            $hdrs[$key] = [];
+            $handles[$key] = audit_curl_handle($job['url'], $target, $timeout, $maxBytes, $buffers[$key], $share, $hdrs[$key]);
             curl_multi_add_handle($mh, $handles[$key]);
         }
         do {
@@ -137,7 +147,7 @@ function fetch_many(array $urls, int $timeout = 10, int $maxBytes = 1500000): ar
             curl_multi_remove_handle($mh, $ch);
             curl_close($ch);
             if ($code >= 300 && $code < 400 && $location !== '' && $job['hops'] < 6) {
-                $next[$key] = ['url' => $location, 'hops' => $job['hops'] + 1, 'time' => $time];
+                $next[$key] = ['url' => $location, 'hops' => $job['hops'] + 1, 'time' => $time, 'chain' => array_merge($job['chain'], [$location])];
                 continue;
             }
             $body = $buffers[$key];
@@ -150,6 +160,8 @@ function fetch_many(array $urls, int $timeout = 10, int $maxBytes = 1500000): ar
                 'size' => strlen($body),
                 'https' => stripos($job['url'], 'https://') === 0,
                 'error' => $code >= 300 && $code < 400 ? 'trop de redirections' : ($code ? '' : ($err ?: 'pas de réponse')),
+                'headers' => $hdrs[$key],
+                'chain' => $job['chain'],
             ];
         }
         curl_multi_close($mh);

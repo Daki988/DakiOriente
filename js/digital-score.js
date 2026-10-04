@@ -58,6 +58,7 @@
       const disc = await call('discover', {
         company, sector: d.get('sector'), city: d.get('city'), country: d.get('country'), url: d.get('url'),
         activity: d.get('activity'), socials: d.get('socials'), competitors: d.getAll('competitor').filter(Boolean),
+        clients: d.get('clients'), basket: d.get('basket'),
       }, 40000);
       aid = disc.aid;
       await wait(400); setEng(0, 'done');
@@ -182,6 +183,41 @@
     }
   };
 
+  /* ---------- Retour sur investissement ---------- */
+  const fcfa = n => Math.round(n).toLocaleString('fr-FR').replace(/\u202f|\u00a0/g, ' ');
+  const money = c => c[1] === 0 ? 'gratuit (à faire soi-même)' : `${c[0] ? fcfa(c[0]) : '0'} à ${fcfa(c[1])} FCFA`;
+  const pct = u => `${String(u[0]).replace('.', ',')} à ${String(u[1]).replace('.', ',')} %`;
+  const num = v => parseInt(String(v || '').replace(/\D/g, ''), 10) || 0;
+  const businessCA = () => {
+    const c = $('#roi-clients', reportBox), b = $('#roi-basket', reportBox);
+    return c && b ? num(c.value) * num(b.value) : (report.business ? (report.business.clients || 0) * (report.business.basket || 0) : 0);
+  };
+  // Pour chaque action : gain mensuel [bas, haut], coût moyen et délai de retour (mois)
+  const roiOf = (a, ca) => {
+    const gain = [ca * a.roi.up[0] / 100, ca * a.roi.up[1] / 100];
+    const cost = (a.roi.cost[0] + a.roi.cost[1]) / 2;
+    const gMid = (gain[0] + gain[1]) / 2;
+    return { gain, cost, payback: cost === 0 ? 0 : gMid > 0 ? cost / gMid : null, roi12: cost > 0 && gMid > 0 ? (gMid * 12 - cost) / cost : null };
+  };
+  const payLabel = p => p == null ? '—' : p === 0 ? 'immédiat' : p < 1 ? 'moins d’1 mois' : p > 36 ? 'plus de 3 ans' : `${Math.ceil(p)} mois`;
+  const renderRoi = () => {
+    const ca = businessCA();
+    const rows = report.actions.filter(a => a.roi);
+    $('#roi-ca', reportBox).textContent = ca ? `${fcfa(ca)} FCFA` : '—';
+    $('#roi-rows', reportBox).innerHTML = rows.map(a => {
+      const x = roiOf(a, ca);
+      return `<tr><th>${prio(a.priority)} ${esc(a.title)}</th><td>${money(a.roi.cost)}</td><td>+${pct(a.roi.up)}</td><td>${ca ? `${fcfa(x.gain[0])} à ${fcfa(x.gain[1])} FCFA` : '—'}</td><td>${ca ? payLabel(x.payback) : '—'}</td></tr>`;
+    }).join('');
+    const s = report.roi;
+    const g = [ca * s.up[0] / 100, ca * s.up[1] / 100];
+    const cMid = (s.cost[0] + s.cost[1]) / 2, gMid = (g[0] + g[1]) / 2;
+    $('#roi-sum', reportBox).innerHTML = `
+      <div><span class="k">Plan complet</span><b>+${pct(s.up)}</b><small>de chiffre d’affaires estimé</small></div>
+      <div><span class="k">Investissement</span><b>${fcfa(s.cost[0])} à ${fcfa(s.cost[1])}</b><small>FCFA, sur ${s.days} jours de mise en œuvre</small></div>
+      <div><span class="k">Gain mensuel</span><b>${ca ? `${fcfa(g[0])} à ${fcfa(g[1])}` : '—'}</b><small>${ca ? 'FCFA par mois' : 'indiquez vos chiffres ci-dessus'}</small></div>
+      <div><span class="k">Rentabilisé en</span><b>${ca ? payLabel(gMid ? cMid / gMid : null) : '—'}</b><small>${ca && gMid ? `ROI sur 12 mois : ${Math.round((gMid * 12 - cMid) / cMid * 100)} %` : 'en moyenne'}</small></div>`;
+  };
+
   /* ---------- Rapport complet ---------- */
   const conf = c => c == null ? '<span class="ds-conf ds-conf--na">—</span>' : `<span class="ds-conf"><i style="width:${c}%"></i><b>${c}&nbsp;%</b></span>`;
   const renderReport = email => {
@@ -258,19 +294,32 @@
           ${a.why.length ? `<p><span class="k">Pourquoi&nbsp;?</span>${a.why.map(esc).join(' · ')}</p>` : ''}
           <p><span class="k">Pourquoi c’est important</span>${esc(a.importance)}</p>
           <p><span class="k">Que faire</span>${esc(a.todo)}</p>
+          ${a.roi ? `<p><span class="k">Coût et gain estimés</span>${money(a.roi.cost)} · hausse du chiffre d’affaires de ${pct(a.roi.up)} · ${a.roi.days} jour(s) de mise en œuvre</p>` : ''}
           <p class="ds-meta">Impact ${esc(a.impact.toLowerCase())} · difficulté ${esc(a.difficulty.toLowerCase())} · ${esc(a.when_label)} · ${esc(a.axes.join(', '))}</p></details>`).join('')}</div>
       </section>
 
-      <section class="ds-block"><h3><span>08</span>Votre plan d’action</h3>
+      <section class="ds-block" id="dsRoi"><h3><span>08</span>Retour sur investissement estimé</h3>
+        <p class="ds-note">Indiquez votre activité pour chiffrer ce que chaque action peut vous rapporter. Les hypothèses sont prudentes et indicatives&nbsp;: un expert NEAM les affine avec vous.</p>
+        <div class="ds-roi-in">
+          <div class="field"><label for="roi-clients">Clients par mois</label><input id="roi-clients" type="number" min="0" inputmode="numeric" value="${r.business && r.business.clients ? r.business.clients : ''}" placeholder="Ex. : 80"></div>
+          <div class="field"><label for="roi-basket">Panier moyen (FCFA)</label><input id="roi-basket" type="text" inputmode="numeric" value="${r.business && r.business.basket ? fcfa(r.business.basket) : ''}" placeholder="Ex. : 25 000"></div>
+          <div class="ds-roi-ca"><span class="k">Chiffre d’affaires mensuel</span><b id="roi-ca">—</b></div>
+        </div>
+        <div class="ds-roi-sum" id="roi-sum"></div>
+        <div class="ds-table-wrap"><table class="ds-table ds-roi"><thead><tr><th>Action</th><th>Coût estimé</th><th>Hausse du CA</th><th>Gain mensuel</th><th>Rentabilisé en</th></tr></thead><tbody id="roi-rows"></tbody></table></div>
+      </section>
+
+      <section class="ds-block"><h3><span>09</span>Votre plan d’action</h3>
         <div class="ds-plan">${r.plan.map(p => `<div class="ds-plan__col${p.key.startsWith('s') ? '' : ' ds-plan__col--long'}"><span class="k">${esc(p.label)}</span><ul>${p.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('')}</div>
       </section>
 
-      <section class="ds-block ds-sources"><h3><span>09</span>Sources et limites</h3>
+      <section class="ds-block ds-sources"><h3><span>10</span>Sources et limites</h3>
         <ul>
           <li>Site web analysé automatiquement (${r.criteria_count} critères mesurés sur ${r.criteria_total}).</li>
           <li>Google Business&nbsp;: ${r.sources.places ? 'données Google Maps' : 'non mesuré dans ce test'}.</li>
           <li>Performance mobile&nbsp;: ${r.sources.pagespeed ? 'Google PageSpeed Insights' : 'temps de réponse mesuré par NEAM'}.</li>
           <li>Synthèse&nbsp;: ${r.analysis.source === 'ai' ? 'rédigée par l’analyste IA de NEAM à partir des résultats calculés' : 'générée automatiquement à partir des résultats calculés'}.</li>
+          <li>Coûts et gains&nbsp;: barème indicatif NEAM, hypothèses prudentes. Les effets des actions ne s’additionnent pas&nbsp;: le total est calculé de façon dégressive et plafonné.</li>
           <li>L’activité des réseaux sociaux (abonnés, fréquence) n’est pas mesurée automatiquement&nbsp;: un audit approfondi la complète.</li>
         </ul>
       </section>
@@ -278,6 +327,9 @@
       <div class="ds-cta"><p class="statement">Envie de passer à l’action&nbsp;? <span class="dim">Un expert NEAM vous explique votre audit et construit avec vous le plan des 30 prochains jours.</span></p>
         <div class="actions"><a class="btn btn--yellow" href="contact.html?besoin=NEAM%20Digital%20Score">Parler à un expert <span class="arr">→</span></a><button type="button" class="btn btn--line" data-restart>Analyser une autre entreprise</button></div></div>`;
     show(reportBox);
+    const roiInputs = ['#roi-clients', '#roi-basket'].map(q => $(q, reportBox));
+    roiInputs.forEach(i => i.addEventListener('input', renderRoi));
+    renderRoi();
     $('#dsPdf').addEventListener('click', async () => { const doc = await buildPdf(); if (doc) doc.save(doc.__filename); });
   };
 
@@ -422,7 +474,20 @@
       y += 2;
     });
 
-    h2('09', 'Votre plan');
+    h2('09', 'Retour sur investissement estimé');
+    const ca = businessCA();
+    txt(ca ? `Base : chiffre d'affaires mensuel de ${fcfa(ca)} FCFA. Hypothèses prudentes et indicatives.` : 'Indiquez votre nombre de clients et votre panier moyen pour chiffrer les gains. Hypothèses prudentes et indicatives.', 9, 'italic', muted);
+    y += 2;
+    row(['Action', 'Coût estimé (FCFA)', 'Hausse du CA', 'Gain mensuel (FCFA)', 'Rentabilisé en'], [62, 34, 24, 34, 24], { bold: true, fill: [244, 244, 242], size: 8.5 });
+    report.actions.filter(a => a.roi).forEach(a => {
+      const x = roiOf(a, ca);
+      row([a.title, a.roi.cost[1] === 0 ? 'gratuit' : `${fcfa(a.roi.cost[0])} - ${fcfa(a.roi.cost[1])}`, `+${pct(a.roi.up)}`, ca ? `${fcfa(x.gain[0])} - ${fcfa(x.gain[1])}` : '-', ca ? payLabel(x.payback) : '-'], [62, 34, 24, 34, 24], { size: 8.5 });
+    });
+    y += 2;
+    const s9 = report.roi;
+    txt(`Plan complet : +${pct(s9.up)} de chiffre d'affaires estimé, pour ${fcfa(s9.cost[0])} à ${fcfa(s9.cost[1])} FCFA d'investissement${ca ? `, soit ${fcfa(ca * s9.up[0] / 100)} à ${fcfa(ca * s9.up[1] / 100)} FCFA de gain par mois` : ''}.`, 10, 'bold');
+
+    h2('10', 'Votre plan');
     r.plan.forEach(p => { txt(p.label, 10, 'bold'); p.items.forEach(i => txt('- ' + i, 9.5, 'normal', [60, 60, 64], 5)); y += 1; });
 
     y += 4;

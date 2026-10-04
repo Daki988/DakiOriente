@@ -173,7 +173,8 @@ if ($step === 'discover') {
     $id = bin2hex(random_bytes(12));
     audit_save($id, [
         'created' => time(),
-        'meta' => ['company' => $company, 'sector' => $sector ?: $activity, 'activity' => $activity, 'city' => $city, 'country' => $country, 'query' => $query],
+        'meta' => ['company' => $company, 'sector' => $sector ?: $activity, 'activity' => $activity, 'city' => $city, 'country' => $country, 'query' => $query,
+            'business' => ['clients' => max(0, min(1000000, (int) ($d['clients'] ?? 0))) ?: null, 'basket' => max(0, min(1000000000, (int) preg_replace('/\D/', '', (string) ($d['basket'] ?? '')))) ?: null]],
         'target' => ['name' => $company, 'url' => $website, 'gbp' => $gbp, 'gbp_measured' => $gbpMeasured, 'rank' => $rank, 'socials_declared' => $socials],
         'competitors' => $picked,
         'sources' => $sources,
@@ -216,7 +217,7 @@ if ($step === 'site' || $step === 'psi') {
         respond(200, ['ok' => true, 'skipped' => true]);
     }
     $api = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?' . http_build_query(['url' => $url, 'strategy' => 'mobile', 'key' => $key, 'locale' => 'fr'])
-        . '&category=performance&category=seo&category=accessibility';
+        . '&category=performance&category=seo&category=accessibility&category=best-practices';
     $r = api_json('GET', $api, [], null, 70);
     $cats = $r['data']['lighthouseResult']['categories'] ?? null;
     if ($r['status'] !== 200 || !$cats) {
@@ -226,7 +227,22 @@ if ($step === 'site' || $step === 'psi') {
         'performance' => (int) round(($cats['performance']['score'] ?? 0) * 100),
         'seo' => (int) round(($cats['seo']['score'] ?? 0) * 100),
         'accessibility' => (int) round(($cats['accessibility']['score'] ?? 0) * 100),
+        'best_practices' => (int) round(($cats['best-practices']['score'] ?? 0) * 100),
     ];
+    $audits = $r['data']['lighthouseResult']['audits'] ?? [];
+    $metric = fn($k) => isset($audits[$k]['numericValue']) ? (float) $audits[$k]['numericValue'] : null;
+    if (($v = $metric('largest-contentful-paint')) !== null) {
+        $psi['lcp'] = round($v / 1000, 2);
+    }
+    if (($v = $metric('first-contentful-paint')) !== null) {
+        $psi['fcp'] = round($v / 1000, 2);
+    }
+    if (($v = $metric('cumulative-layout-shift')) !== null) {
+        $psi['cls'] = round($v, 3);
+    }
+    if (($v = $metric('total-blocking-time')) !== null) {
+        $psi['tbt'] = (int) round($v);
+    }
     audit_save($id, $psi, "psi$idx");
     respond(200, ['ok' => true] + $psi);
 }

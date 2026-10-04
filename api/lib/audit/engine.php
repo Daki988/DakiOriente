@@ -89,6 +89,13 @@ function build_report(array $target, array $competitors, array $meta): array
         $crit[$c['id']] = $c;
     }
 
+    // Moyennes Google des concurrents, pour les critères relatifs de réputation
+    $cr = array_values(array_filter(array_map(fn($c) => $c['gbp']['reviews'] ?? null, $competitors), fn($v) => $v !== null));
+    $cn = array_values(array_filter(array_map(fn($c) => $c['gbp']['rating'] ?? null, $competitors), fn($v) => $v !== null));
+    $target['comp_reviews_avg'] = $cr ? array_sum($cr) / count($cr) : null;
+    $target['comp_rating_avg'] = $cn ? array_sum($cn) / count($cn) : null;
+
+    $roi = action_roi();
     $t = score_entity($target);
     $comps = [];
     $skipped = [];
@@ -188,6 +195,8 @@ function build_report(array $target, array $competitors, array $meta): array
             'importance' => trim($a['why'] . ' ' . $compNote),
             'todo' => $a['todo'],
             'axes' => array_map(fn($k) => AXES[$k]['label'], $axisList),
+            'roi' => $roi[$aid] ?? null,
+            'criteria_failed' => count($info['criteria']),
             'weight' => $info['loss'] * $a['impact'],
         ];
     }
@@ -255,6 +264,8 @@ function build_report(array $target, array $competitors, array $meta): array
         }, $actionsOut),
         'opportunities' => array_slice($opps, 0, 5),
         'opportunity_score' => $oppScore,
+        'roi' => roi_summary($actionsOut),
+        'business' => $meta['business'] ?? null,
         'plan' => $plan,
         'gbp' => $target['gbp'] ? [
             'name' => $target['gbp']['name'], 'rating' => $target['gbp']['rating'], 'reviews' => $target['gbp']['reviews'],
@@ -355,4 +366,29 @@ function find_opportunities(array $target, array $t, array $comps): array
     }
     usort($out, fn($a, $b) => $b['strength'] <=> $a['strength']);
     return $out;
+}
+
+
+/** Synthèse du ROI : hausse combinée (effets non additifs) et coût total du plan. */
+function roi_summary(array $actions): array
+{
+    $keepLow = $keepHigh = 1.0;
+    $cost = [0, 0];
+    $days = 0;
+    foreach ($actions as $a) {
+        if (!$a['roi']) {
+            continue;
+        }
+        $keepLow *= 1 - $a['roi']['up'][0] / 100;
+        $keepHigh *= 1 - $a['roi']['up'][1] / 100;
+        $cost[0] += $a['roi']['cost'][0];
+        $cost[1] += $a['roi']['cost'][1];
+        $days += $a['roi']['days'];
+    }
+    // Plafond prudent : un plan digital ne double pas un chiffre d'affaires
+    return [
+        'up' => [round(min(25, (1 - $keepLow) * 100), 1), round(min(45, (1 - $keepHigh) * 100), 1)],
+        'cost' => $cost,
+        'days' => $days,
+    ];
 }

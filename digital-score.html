@@ -80,6 +80,11 @@
             <summary>Affiner l’analyse <em>(facultatif)</em></summary>
             <div class="field"><label for="ds-activity">Votre activité en quelques mots</label><input id="ds-activity" name="activity" type="text" placeholder="Ex.&nbsp;: agence de voyage, pâtisserie, cabinet comptable…"></div>
             <div class="field"><label for="ds-socials">Vos pages Facebook, Instagram, LinkedIn, TikTok…</label><textarea id="ds-socials" name="socials" rows="2" placeholder="Un lien par ligne"></textarea></div>
+            <div class="form__row">
+              <div class="field"><label for="ds-clients">Clients par mois <em>(environ)</em></label><input id="ds-clients" name="clients" type="number" min="0" inputmode="numeric" placeholder="Ex.&nbsp;: 80"></div>
+              <div class="field"><label for="ds-basket">Panier moyen <em>(FCFA)</em></label><input id="ds-basket" name="basket" type="text" inputmode="numeric" placeholder="Ex.&nbsp;: 25 000"></div>
+            </div>
+            <p class="ds-hint">Ces deux chiffres restent confidentiels&nbsp;: ils servent uniquement à estimer le retour sur investissement de chaque action.</p>
             <div class="field"><label>Sites de vos concurrents</label>
               <div class="ds-comp"><input name="competitor" type="text" inputmode="url" placeholder="concurrent-1.com" aria-label="Concurrent 1"><input name="competitor" type="text" inputmode="url" placeholder="concurrent-2.com" aria-label="Concurrent 2"><input name="competitor" type="text" inputmode="url" placeholder="concurrent-3.com" aria-label="Concurrent 3"></div>
             </div>
@@ -94,7 +99,7 @@
         <div class="ds-run" id="dsRun" hidden>
           <span class="label">Analyse en cours · <b id="dsRunName"></b></span>
           <h2 class="ds-run__title">NEAM analyse votre présence en ligne…</h2>
-          <ol class="ds-eng"><li data-engine="0"><span class="ds-eng__n">1</span><div><b>Discovery</b><span>Recherche du site, de la fiche Google, des réseaux et des concurrents.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="1"><span class="ds-eng__n">2</span><div><b>Collecte</b><span>Lecture du site&nbsp;: pages, coordonnées, SEO, technique, réseaux.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="2"><span class="ds-eng__n">3</span><div><b>Audit</b><span>Plus de 50 critères évalués, chacun avec son constat.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="3"><span class="ds-eng__n">4</span><div><b>Concurrents</b><span>Les mêmes critères appliqués à vos concurrents principaux.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="4"><span class="ds-eng__n">5</span><div><b>Score</b><span>NEAM Digital Score™ sur 7 axes et classement.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="5"><span class="ds-eng__n">6</span><div><b>Analyste IA</b><span>Interprétation des résultats, sans rien inventer.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="6"><span class="ds-eng__n">7</span><div><b>Recommandations</b><span>Plan d’action priorisé et opportunités.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li></ol>
+          <ol class="ds-eng"><li data-engine="0"><span class="ds-eng__n">1</span><div><b>Discovery</b><span>Recherche du site, de la fiche Google, des réseaux et des concurrents.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="1"><span class="ds-eng__n">2</span><div><b>Collecte</b><span>Lecture du site&nbsp;: pages, coordonnées, SEO, technique, réseaux.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="2"><span class="ds-eng__n">3</span><div><b>Audit</b><span>150 critères évalués&nbsp;: technique, sécurité, contenu, conversion, confiance…</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="3"><span class="ds-eng__n">4</span><div><b>Concurrents</b><span>Les mêmes critères appliqués à vos concurrents principaux.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="4"><span class="ds-eng__n">5</span><div><b>Score</b><span>NEAM Digital Score™ sur 7 axes et classement.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="5"><span class="ds-eng__n">6</span><div><b>Analyste IA</b><span>Interprétation des résultats, sans rien inventer.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="6"><span class="ds-eng__n">7</span><div><b>Recommandations</b><span>Plan d’action priorisé, opportunités et retour sur investissement estimé.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li></ol>
           <p class="ds-run__msg" id="dsRunMsg" role="status">Démarrage…</p>
         </div>
 
@@ -109,7 +114,7 @@
           <span class="label">(01) Comment ça marche</span>
           <div class="head__body"><h2>Sept moteurs, <em>un seul</em> diagnostic.</h2><p class="lead">Notre outil ne se contente pas de donner une note. Il cherche, mesure, compare, explique et vous dit par où commencer.</p></div>
         </div>
-        <ol class="ds-steps reveal"><li><span class="k">01</span><h4>Discovery</h4><p>Recherche du site, de la fiche Google, des réseaux et des concurrents.</p></li><li><span class="k">02</span><h4>Collecte</h4><p>Lecture du site&nbsp;: pages, coordonnées, SEO, technique, réseaux.</p></li><li><span class="k">03</span><h4>Audit</h4><p>Plus de 50 critères évalués, chacun avec son constat.</p></li><li><span class="k">04</span><h4>Concurrents</h4><p>Les mêmes critères appliqués à vos concurrents principaux.</p></li><li><span class="k">05</span><h4>Score</h4><p>NEAM Digital Score™ sur 7 axes et classement.</p></li><li><span class="k">06</span><h4>Analyste IA</h4><p>Interprétation des résultats, sans rien inventer.</p></li><li><span class="k">07</span><h4>Recommandations</h4><p>Plan d’action priorisé et opportunités.</p></li></ol>
+        <ol class="ds-steps reveal"><li><span class="k">01</span><h4>Discovery</h4><p>Recherche du site, de la fiche Google, des réseaux et des concurrents.</p></li><li><span class="k">02</span><h4>Collecte</h4><p>Lecture du site&nbsp;: pages, coordonnées, SEO, technique, réseaux.</p></li><li><span class="k">03</span><h4>Audit</h4><p>150 critères évalués&nbsp;: technique, sécurité, contenu, conversion, confiance…</p></li><li><span class="k">04</span><h4>Concurrents</h4><p>Les mêmes critères appliqués à vos concurrents principaux.</p></li><li><span class="k">05</span><h4>Score</h4><p>NEAM Digital Score™ sur 7 axes et classement.</p></li><li><span class="k">06</span><h4>Analyste IA</h4><p>Interprétation des résultats, sans rien inventer.</p></li><li><span class="k">07</span><h4>Recommandations</h4><p>Plan d’action priorisé, opportunités et retour sur investissement estimé.</p></li></ol>
       </div>
     </section>
 
@@ -121,7 +126,7 @@
           <div class="grid3 reveal">
             <div><span class="k">Données</span><h4>Collectées, pas devinées</h4><p>Votre site, votre fiche Google et vos réseaux sont lus automatiquement. Ce qui n’a pas pu être mesuré est signalé comme tel.</p></div>
             <div><span class="k">Comparaison</span><h4>Face à vos vrais concurrents</h4><p>Les mêmes critères, appliqués de la même façon, aux entreprises de votre secteur et de votre ville.</p></div>
-            <div><span class="k">Action</span><h4>Un plan, pas un constat</h4><p>Chaque problème devient une action, classée par impact, difficulté et urgence.</p></div>
+            <div><span class="k">Action</span><h4>Un plan chiffré, pas un constat</h4><p>Chaque problème devient une action, classée par impact, difficulté et urgence, avec son coût et son retour sur investissement estimés.</p></div>
           </div>
         </div>
       </div>
@@ -134,7 +139,7 @@
           <div class="head__body"><h2>Votre audit, <em>approfondi</em> par nos experts.</h2><p class="lead">Le test gratuit vous donne une première lecture. Pour une analyse complète, avec plus de concurrents et un accompagnement, choisissez la formule qui vous ressemble.</p></div>
         </div>
         <div class="ds-offers"><article class="ds-offer reveal">
-            <span class="k">Audit automatisé</span><h3>NEAM Audit</h3><p>Rapport, score et recommandations détaillées.</p><ul class="ticks"><li>Score sur 7 axes</li><li>Plus de 50 critères</li><li>Plan d’action priorisé</li></ul>
+            <span class="k">Audit automatisé</span><h3>NEAM Audit</h3><p>Rapport, score et recommandations détaillées.</p><ul class="ticks"><li>Score sur 7 axes</li><li>150 critères</li><li>Plan d’action priorisé et ROI estimé</li></ul>
             <a class="btn btn--line" href="contact.html?besoin=NEAM%20Digital%20Score">Demander un devis <span class="arr">→</span></a>
           </article><article class="ds-offer reveal ds-offer--hl">
             <span class="k">Audit + concurrents</span><h3>NEAM Benchmark</h3><p>Votre position face à vos 5 concurrents principaux.</p><ul class="ticks"><li>Tout l’audit</li><li>Benchmark de 5 concurrents</li><li>Opportunités chiffrées</li><li>Restitution avec un expert</li></ul>

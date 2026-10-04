@@ -59,11 +59,13 @@ Le prospect saisit son entreprise, sa ville et son secteur (son site et ses conc
 `api/audit.php` enchaîne les 7 moteurs :
 
 1. **Discovery** : site saisi ou trouvé sur Google, fiche Google Business, réseaux sociaux, concurrents ;
-2. **Collecte** et 3. **Audit** : lecture du site (accueil, contact, robots.txt, sitemap.xml) et 50+ critères (`api/lib/audit/framework.php`) ;
+2. **Collecte** et 3. **Audit** : lecture du site (accueil, contact, robots.txt, sitemap.xml, en-têtes, redirection https, page 404, liens internes) et 150 critères (`api/lib/audit/framework.php`) ;
 4. **Concurrents** : mêmes critères appliqués aux concurrents (score de pertinence avec Google) ;
 5. **Score** : NEAM Digital Score™ sur 7 axes et classement ;
 6. **Analyste IA** : synthèse rédigée par Claude à partir des résultats calculés (sinon synthèse automatique) ;
-7. **Recommandations** : actions priorisées (impact × difficulté × urgence), opportunités et plan 30 / 90 / 180 jours.
+7. **Recommandations** : actions priorisées (impact × difficulté × urgence), opportunités, plan 30 / 90 / 180 jours et ROI estimé.
+
+Le barème du ROI (hausse de chiffre d'affaires, coût en FCFA, délai) se règle action par action dans `action_roi()` (`api/lib/audit/framework.php`).
 
 Aperçu gratuit à l'écran, puis audit complet (écran + PDF + e-mail) contre nom et e-mail.
 Le prospect reçoit le PDF depuis contact@neamindustry.com et l'équipe est prévenue (`audit.notify_to`).
