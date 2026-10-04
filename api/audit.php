@@ -82,6 +82,70 @@ function parse_socials(string $text): array
     }
     return $out;
 }
+/** Devine le site d'une entreprise à partir de son nom (nom.ga, nom.com, nom-gabon.com…), vérifié par le contenu. */
+function guess_website(string $company, string $country): ?string
+{
+    $ascii = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $company) ?: $company);
+    $ascii = preg_replace('/\b(sarl|sa|sas|sasu|ets|etablissements|ste|societe|the|les|la|le)\b/', ' ', $ascii);
+    $words = array_values(array_filter(preg_split('/[^a-z0-9]+/', $ascii)));
+    if (!$words) {
+        return null;
+    }
+    $joined = implode('', $words);
+    $dashed = implode('-', $words);
+    $first = $words[0];
+    $slugs = array_unique(array_filter([$joined, $dashed, strlen($first) >= 4 ? $first : null]));
+    $tlds = stripos($country, 'gabon') !== false ? ['ga', 'com', 'net', 'pro', 'africa', 'org'] : ['com', 'net', 'pro', 'org'];
+    $jobs = [];
+    foreach ($slugs as $sl) {
+        if (strlen($sl) < 3 || strlen($sl) > 40) {
+            continue;
+        }
+        foreach ($tlds as $t) {
+            $jobs[] = "https://$sl.$t/";
+        }
+        if (stripos($country, 'gabon') !== false) {
+            $jobs[] = "https://$sl-gabon.com/";
+            $jobs[] = "https://{$sl}gabon.com/";
+        }
+    }
+    $jobs = array_slice(array_values(array_unique($jobs)), 0, 18);
+    // Seuls les domaines qui existent sont téléchargés
+    $live = [];
+    foreach ($jobs as $i => $u) {
+        if (@gethostbynamel((string) parse_url($u, PHP_URL_HOST))) {
+            $live["g$i"] = $u;
+        }
+    }
+    if (!$live) {
+        return null;
+    }
+    $res = fetch_many($live, 7, 600000);
+    $tokens = array_filter($words, fn($w) => strlen($w) >= 3);
+    foreach ($live as $k => $u) {
+        $r = $res[$k] ?? null;
+        if (!$r || !$r['ok']) {
+            continue;
+        }
+        $hay = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', strip_tags(substr($r['body'], 0, 200000))) ?: '');
+        $hits = count(array_filter($tokens, fn($w) => str_contains($hay, $w)));
+        // Le nom de l'entreprise doit apparaître sur la page, et pas une page de domaine à vendre
+        // Domaine construit avec tous les mots du nom : le premier mot suffit ; sinon 60 % des mots
+        $host = (string) parse_url($u, PHP_URL_HOST);
+        // Redirection vers un autre domaine (revendeur, page parking) : rejeté
+        if (preg_replace('/^www\./', '', strtolower((string) parse_url($r['url'], PHP_URL_HOST))) !== $host) {
+            continue;
+        }
+        $full = str_starts_with($host, $joined . '.') || str_starts_with($host, $dashed . '.') || str_starts_with($host, $joined . '-gabon') || str_starts_with($host, $joined . 'gabon');
+        $need = $full ? 1 : max(1, (int) ceil(count($tokens) * .6));
+        $firstOk = !$full || str_contains($hay, $first);
+        if ($tokens && $firstOk && $hits >= $need && !preg_match('/(domain is for sale|domaine (est )?à vendre|buy this domain|parked|this domain)/i', $hay)) {
+            return $r['url'];
+        }
+    }
+    return null;
+}
+
 function host_of(string $url): string
 {
     return preg_replace('/^www\./', '', strtolower((string) parse_url($url, PHP_URL_HOST)));
@@ -153,6 +217,12 @@ if ($step === 'discover') {
     if (!$website && $gbp && $gbp['website'] !== '') {
         $website = normalize_url($gbp['website']);
     }
+    // Pas de site saisi ni trouvé sur Google : on essaie les noms de domaine les plus probables
+    $guessed = false;
+    if (!$website) {
+        $website = guess_website($company, $country);
+        $guessed = (bool) $website;
+    }
 
     // Concurrents retenus : ceux saisis d'abord, puis les plus pertinents trouvés sur Google
     $picked = [];
@@ -175,7 +245,7 @@ if ($step === 'discover') {
         'created' => time(),
         'meta' => ['company' => $company, 'sector' => $sector ?: $activity, 'activity' => $activity, 'city' => $city, 'country' => $country, 'query' => $query,
             'business' => ['clients' => max(0, min(1000000, (int) ($d['clients'] ?? 0))) ?: null, 'basket' => max(0, min(1000000000, (int) preg_replace('/\D/', '', (string) ($d['basket'] ?? '')))) ?: null]],
-        'target' => ['name' => $company, 'url' => $website, 'gbp' => $gbp, 'gbp_measured' => $gbpMeasured, 'rank' => $rank, 'socials_declared' => $socials],
+        'target' => ['name' => $company, 'url' => $website, 'guessed' => $guessed, 'gbp' => $gbp, 'gbp_measured' => $gbpMeasured, 'rank' => $rank, 'socials_declared' => $socials],
         'competitors' => $picked,
         'sources' => $sources,
         'ip' => $_SERVER['REMOTE_ADDR'] ?? '',
@@ -267,6 +337,7 @@ function build_entities(string $id, array $state): array
         'psi' => audit_load($id, 'psi-1'),
         'socials_declared' => $t['socials_declared'],
         'query' => $state['meta']['query'],
+        'guessed' => !empty($t['guessed']),
     ];
     if ($t['rank'] !== null) {
         $target['rank'] = $t['rank'];
@@ -295,7 +366,9 @@ function discovery_rows(array $target): array
     $g = $target['gbp'];
     if ($s) {
         $conf = $s['name_on_site'] ? 98 : 60;
-        $rows[] = ['label' => 'Site web', 'value' => $s['host'], 'source' => $g && $g['website'] ? 'Saisi / Google' : 'Saisi', 'confidence' => $conf,
+        $src = !empty($target['guessed']) ? 'Trouvé à partir du nom' : ($g && $g['website'] ? 'Saisi / Google' : 'Saisi');
+        $conf = !empty($target['guessed']) ? min($conf, 85) : $conf;
+        $rows[] = ['label' => 'Site web', 'value' => $s['host'], 'source' => $src, 'confidence' => $conf,
             'warning' => $s['name_on_site'] ? '' : 'Le nom de l’entreprise n’apparaît pas sur ce site : vérifiez qu’il s’agit bien du vôtre.'];
     } elseif (!empty($target['site']['url'])) {
         $rows[] = ['label' => 'Site web', 'value' => host_of($target['site']['url']) . ' (inaccessible)', 'source' => 'Saisi', 'confidence' => 90, 'warning' => ''];
@@ -344,6 +417,10 @@ if ($step === 'report') {
     [$target, $comps] = build_entities($id, $state);
     $report = build_report($target, $comps, $state['meta'] + ['sources' => $state['sources']]);
     $report['discovery'] = discovery_rows($target);
+    $st = $target['site'];
+    $report['site_status'] = !$st ? ['state' => 'none']
+        : (!empty($st['reachable']) ? ['state' => 'ok', 'host' => $st['host'], 'guessed' => !empty($target['guessed'])]
+        : ['state' => 'down', 'host' => host_of($st['url']), 'error' => $st['error'] ?? '']);
     $report['analysis'] = ai_analysis($report) ?? rule_based_analysis($report);
     $report['id'] = $id;
     audit_save($id, $report, 'report');
@@ -362,6 +439,7 @@ if ($step === 'report') {
         'problems' => array_slice(array_map(fn($p) => ['title' => $p['title'], 'priority' => $p['priority']], $report['problems']), 0, 3),
         'criteria_count' => $report['criteria_count'],
         'partial' => $report['partial'],
+        'site_status' => $report['site_status'],
     ]]);
 }
 

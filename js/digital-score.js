@@ -113,6 +113,16 @@
   const prio = p => `<span class="ds-p ds-p--${p}">P${p}</span>`;
   const ord = n => n === 1 ? '1ᵉʳ' : `${n}ᵉ`;
 
+  /* ---------- État du site analysé ---------- */
+  const siteNote = p => {
+    const st = p.site_status || {};
+    const retry = '<button type="button" class="ulink" data-retry>Relancer avec l’adresse de mon site</button>';
+    if (st.state === 'none') return `<p class="ds-warn"><b>Aucun site web n’a été trouvé pour ${esc(p.company)}.</b> Sans site ni fiche Google, très peu de critères peuvent être mesurés : c’est pourquoi le score est si bas. Vous avez un site ? ${retry}</p>`;
+    if (st.state === 'down') return `<p class="ds-warn"><b>Le site ${esc(st.host)} n’a pas pu être analysé</b> (${esc(st.error || 'pas de réponse')}). Vérifiez l’adresse puis ${retry.replace('Relancer', 'relancez')}.</p>`;
+    if (st.guessed) return `<p class="ds-info">Nous avons trouvé votre site : <b>${esc(st.host)}</b>. Ce n’est pas le bon ? ${retry}</p>`;
+    return '';
+  };
+
   /* ---------- Aperçu gratuit ---------- */
   const renderPreview = p => {
     const more = Math.max(0, p.action_count - p.problems.length);
@@ -132,6 +142,7 @@
             </ul>
           </div>
         </div>
+        ${siteNote(p)}
         ${p.partial ? '<p class="ds-warn">Votre site est construit en JavaScript : une partie des critères n’a pas pu être lue automatiquement. Ce score est partiel ; un expert NEAM peut compléter l’audit.</p>' : ''}
       </div>
       ${bars(p.axes)}
@@ -347,6 +358,10 @@
 
   document.addEventListener('click', e => {
     if (e.target.closest('[data-restart]')) { aid = null; report = null; show(form); }
+    if (e.target.closest('[data-retry]')) {
+      aid = null; report = null; show(form);
+      const u = $('#ds-url'); u.closest('.field').classList.add('is-invalid'); setTimeout(() => u.focus(), 400);
+    }
   });
 
   /* ---------- PDF ---------- */

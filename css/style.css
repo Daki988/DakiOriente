@@ -818,3 +818,5 @@ p { max-width: 66ch; }
 @media (max-width: 760px) { .grid3 > div > h3 { font-size: 20px; } }
 /* Téléphone 3D des pages services : logos flottants contenus dans leur colonne */
 @media (max-width: 1280px) { .svc .phone3d__orb { left: clamp(2%, var(--x), 98%); } }
+.ds-info { padding: 12px 16px; border-radius: 10px; background: #eef6ff; border: 1px solid #bcd8f5; font-size: .92rem; }
+.ds-warn button.ulink, .ds-info button.ulink { background: none; border: 0; padding: 0; font: inherit; font-weight: 600; cursor: pointer; }
