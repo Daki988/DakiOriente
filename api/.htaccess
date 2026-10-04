@@ -1,4 +1,4 @@
-# Seuls contact.php et candidature.php sont accessibles depuis le web
+# Seuls contact.php, candidature.php et audit.php sont accessibles depuis le web
 <FilesMatch "^(config|mailer)\.php$">
   <IfModule mod_authz_core.c>
     Require all denied

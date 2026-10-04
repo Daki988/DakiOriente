@@ -25,7 +25,7 @@ function respond(int $status, array $data): void
 }
 
 /** Contrôles communs : méthode, origine, taille, anti-robot, limite d'envois. Renvoie le JSON décodé. */
-function read_request(int $maxBytes): array
+function read_request(int $maxBytes, ?int $limit = null, string $bucket = ''): array
 {
     global $CONFIG;
     if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
@@ -57,15 +57,15 @@ function read_request(int $maxBytes): array
         respond(200, ['ok' => true]);
     }
 
-    rate_limit((int) $CONFIG['rate_limit']);
+    rate_limit($limit ?? (int) $CONFIG['rate_limit'], $bucket);
     return $data;
 }
 
 /** Limite le nombre d'envois par adresse IP (fenêtre de 10 minutes). */
-function rate_limit(int $max): void
+function rate_limit(int $max, string $bucket = ''): void
 {
     $ip = $_SERVER['REMOTE_ADDR'] ?? 'inconnue';
-    $file = sys_get_temp_dir() . '/neam_rl_' . md5($ip . basename($_SERVER['SCRIPT_NAME'] ?? ''));
+    $file = sys_get_temp_dir() . '/neam_rl_' . md5($ip . basename($_SERVER['SCRIPT_NAME'] ?? '') . $bucket);
     $now = time();
     $hits = [];
     if (is_file($file)) {

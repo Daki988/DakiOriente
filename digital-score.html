@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEAM Digital Score™ — Testez gratuitement votre présence en ligne</title>
+  <meta name="description" content="Testez gratuitement votre NEAM Digital Score™ : diagnostic digital, benchmark concurrentiel et plan d’action priorisé pour votre entreprise au Gabon.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:title" content="NEAM Digital Score™ — Testez gratuitement votre présence en ligne">
+  <meta property="og:description" content="Testez gratuitement votre NEAM Digital Score™ : diagnostic digital, benchmark concurrentiel et plan d’action priorisé pour votre entreprise au Gabon.">
+  <meta property="og:image" content="assets/logo-light.png">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <div class="loader__icons">
+        <svg class="loader__icon" viewBox="0 0 24 24"><path d="M6 3h11a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M9 8h6M9 12h6M9 16h4"/></svg>
+        <svg class="loader__icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9h18M3 14h18M9 4v16M15 4v16"/></svg>
+        <svg class="loader__icon" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="15" rx="1.5"/><path d="M2.5 8h19M6 12h8M6 15h5"/></svg>
+        <svg class="loader__icon" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/><path d="M12 13s-2-1.2-2-2.6c0-.8.6-1.4 1.3-1.4.3 0 .5.1.7.4.2-.3.4-.4.7-.4.7 0 1.3.6 1.3 1.4 0 1.4-2 2.6-2 2.6z"/></svg>
+        <svg class="loader__icon" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/><path d="M10 10.5h4M10 13.5h2.5"/></svg>
+        <img class="loader__logo" src="assets/logo-dark.png" alt="" width="1200" height="395">
+      </div>
+      <p class="loader__label" id="loaderLabel">Le cahier</p>
+      <div class="loader__bar"><span id="loaderBar"></span></div>
+    </div>
+  </div>
+  <header class="header">
+    <div class="wrap header__inner">
+      <a href="index.html" class="header__logo" aria-label="NEAM Softwares Industry — accueil">
+        <img class="logo-ink" src="assets/logo-light.png" alt="NEAM Softwares Industry" width="1200" height="287">
+        <img class="logo-white" src="assets/logo-dark.png" alt="" width="1200" height="395">
+      </a>
+      <nav class="nav" aria-label="Navigation principale">
+        <div class="nav__links">
+          <a href="services.html">Services</a>
+          <a href="produits.html">Produits</a>
+          <a href="digital-score.html" aria-current="page">Digital Score</a>
+          <a href="programme.html">Programme 30/30</a>
+          <a href="a-propos.html">À propos</a>
+        </div>
+        <a href="contact.html" class="btn btn--ink">Démarrer un projet <span class="arr">→</span></a>
+      </nav>
+      <button class="nav-toggle" type="button" aria-expanded="false">Menu</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero page-hero--compact">
+      <div class="wrap">
+        <div class="page-hero__meta reveal"><span class="label"><a href="index.html">Accueil</a> / <b>Digital Score</b></span><span class="label"><span class="dot-live"></span>Gratuit · 2 minutes</span></div>
+        <h1 class="lines"><span class="line"><span>Testez gratuitement</span></span><span class="line"><span>votre <em>Digital Score</em>.</span></span></h1>
+        <div class="page-hero__foot reveal">
+          <span></span>
+          <div><p class="lead">Où en est vraiment votre entreprise sur Internet&nbsp;? Et face à vos concurrents&nbsp;? Indiquez votre nom, votre ville et votre secteur&nbsp;: NEAM analyse votre présence en ligne, la compare à celle de vos concurrents et vous dit quoi faire en priorité.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" id="outil">
+      <div class="wrap ds">
+        <form class="form ds-form reveal" id="dsForm" novalidate>
+          <div class="hp" aria-hidden="true"><label for="hp-ds">Ne pas remplir</label><input id="hp-ds" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+          <div class="form__row">
+            <div class="field"><label for="ds-company">Nom de l’entreprise</label><input id="ds-company" name="company" type="text" autocomplete="organization" required placeholder="Ex.&nbsp;: Boulangerie du Centre"></div>
+            <div class="field"><label for="ds-sector">Secteur</label><select id="ds-sector" name="sector" required><option value="" selected disabled>Choisissez…</option><option value="Commerce">Commerce</option><option value="Restauration">Restauration</option><option value="Hôtellerie &amp; tourisme">Hôtellerie &amp; tourisme</option><option value="Immobilier">Immobilier</option><option value="Santé">Santé</option><option value="Beauté &amp; bien-être">Beauté &amp; bien-être</option><option value="BTP &amp; construction">BTP &amp; construction</option><option value="Éducation &amp; formation">Éducation &amp; formation</option><option value="Transport &amp; logistique">Transport &amp; logistique</option><option value="Automobile">Automobile</option><option value="Banque &amp; assurance">Banque &amp; assurance</option><option value="Informatique &amp; télécoms">Informatique &amp; télécoms</option><option value="Conseil &amp; services aux entreprises">Conseil &amp; services aux entreprises</option><option value="Événementiel">Événementiel</option><option value="Autre">Autre</option></select></div>
+          </div>
+          <div class="form__row">
+            <div class="field"><label for="ds-city">Ville</label><input id="ds-city" name="city" type="text" value="Libreville" required></div>
+            <div class="field"><label for="ds-country">Pays</label><input id="ds-country" name="country" type="text" value="Gabon" required></div>
+          </div>
+          <div class="field"><label for="ds-url">Site web <em>(facultatif, mais recommandé)</em></label><input id="ds-url" name="url" type="text" inputmode="url" placeholder="www.votre-site.com"></div>
+          <details class="ds-more">
+            <summary>Affiner l’analyse <em>(facultatif)</em></summary>
+            <div class="field"><label for="ds-activity">Votre activité en quelques mots</label><input id="ds-activity" name="activity" type="text" placeholder="Ex.&nbsp;: agence de voyage, pâtisserie, cabinet comptable…"></div>
+            <div class="field"><label for="ds-socials">Vos pages Facebook, Instagram, LinkedIn, TikTok…</label><textarea id="ds-socials" name="socials" rows="2" placeholder="Un lien par ligne"></textarea></div>
+            <div class="field"><label>Sites de vos concurrents</label>
+              <div class="ds-comp"><input name="competitor" type="text" inputmode="url" placeholder="concurrent-1.com" aria-label="Concurrent 1"><input name="competitor" type="text" inputmode="url" placeholder="concurrent-2.com" aria-label="Concurrent 2"><input name="competitor" type="text" inputmode="url" placeholder="concurrent-3.com" aria-label="Concurrent 3"></div>
+            </div>
+          </details>
+          <div class="form__foot">
+            <span class="label">Analyse de données publiques uniquement.</span>
+            <button type="submit" class="btn btn--yellow">Lancer l’analyse <span class="arr">→</span></button>
+            <p class="form__status" id="dsStatus" role="status"></p>
+          </div>
+        </form>
+
+        <div class="ds-run" id="dsRun" hidden>
+          <span class="label">Analyse en cours · <b id="dsRunName"></b></span>
+          <h2 class="ds-run__title">NEAM analyse votre présence en ligne…</h2>
+          <ol class="ds-eng"><li data-engine="0"><span class="ds-eng__n">1</span><div><b>Discovery</b><span>Recherche du site, de la fiche Google, des réseaux et des concurrents.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="1"><span class="ds-eng__n">2</span><div><b>Collecte</b><span>Lecture du site&nbsp;: pages, coordonnées, SEO, technique, réseaux.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="2"><span class="ds-eng__n">3</span><div><b>Audit</b><span>Plus de 50 critères évalués, chacun avec son constat.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="3"><span class="ds-eng__n">4</span><div><b>Concurrents</b><span>Les mêmes critères appliqués à vos concurrents principaux.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="4"><span class="ds-eng__n">5</span><div><b>Score</b><span>NEAM Digital Score™ sur 7 axes et classement.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="5"><span class="ds-eng__n">6</span><div><b>Analyste IA</b><span>Interprétation des résultats, sans rien inventer.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li><li data-engine="6"><span class="ds-eng__n">7</span><div><b>Recommandations</b><span>Plan d’action priorisé et opportunités.</span></div><span class="ds-eng__st" aria-hidden="true"></span></li></ol>
+          <p class="ds-run__msg" id="dsRunMsg" role="status">Démarrage…</p>
+        </div>
+
+        <div class="ds-preview" id="dsPreview" hidden></div>
+        <div class="ds-report" id="dsReport" hidden></div>
+      </div>
+    </section>
+
+    <section class="section section--grey">
+      <div class="wrap">
+        <div class="head reveal">
+          <span class="label">(01) Comment ça marche</span>
+          <div class="head__body"><h2>Sept moteurs, <em>un seul</em> diagnostic.</h2><p class="lead">Notre outil ne se contente pas de donner une note. Il cherche, mesure, compare, explique et vous dit par où commencer.</p></div>
+        </div>
+        <ol class="ds-steps reveal"><li><span class="k">01</span><h4>Discovery</h4><p>Recherche du site, de la fiche Google, des réseaux et des concurrents.</p></li><li><span class="k">02</span><h4>Collecte</h4><p>Lecture du site&nbsp;: pages, coordonnées, SEO, technique, réseaux.</p></li><li><span class="k">03</span><h4>Audit</h4><p>Plus de 50 critères évalués, chacun avec son constat.</p></li><li><span class="k">04</span><h4>Concurrents</h4><p>Les mêmes critères appliqués à vos concurrents principaux.</p></li><li><span class="k">05</span><h4>Score</h4><p>NEAM Digital Score™ sur 7 axes et classement.</p></li><li><span class="k">06</span><h4>Analyste IA</h4><p>Interprétation des résultats, sans rien inventer.</p></li><li><span class="k">07</span><h4>Recommandations</h4><p>Plan d’action priorisé et opportunités.</p></li></ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap cols">
+        <span class="label reveal">(02) Notre méthode</span>
+        <div class="cols__main">
+          <p class="statement reveal">L’IA est notre analyste, pas notre source de vérité. <span class="dim">Les scores sont calculés par des règles transparentes à partir de données vérifiables. L’IA ne fait qu’interpréter, et chaque information trouvée est accompagnée d’un niveau de confiance.</span></p>
+          <div class="grid3 reveal">
+            <div><span class="k">Données</span><h4>Collectées, pas devinées</h4><p>Votre site, votre fiche Google et vos réseaux sont lus automatiquement. Ce qui n’a pas pu être mesuré est signalé comme tel.</p></div>
+            <div><span class="k">Comparaison</span><h4>Face à vos vrais concurrents</h4><p>Les mêmes critères, appliqués de la même façon, aux entreprises de votre secteur et de votre ville.</p></div>
+            <div><span class="k">Action</span><h4>Un plan, pas un constat</h4><p>Chaque problème devient une action, classée par impact, difficulté et urgence.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--grey">
+      <div class="wrap">
+        <div class="head reveal">
+          <span class="label">(03) Aller plus loin</span>
+          <div class="head__body"><h2>Votre audit, <em>approfondi</em> par nos experts.</h2><p class="lead">Le test gratuit vous donne une première lecture. Pour une analyse complète, avec plus de concurrents et un accompagnement, choisissez la formule qui vous ressemble.</p></div>
+        </div>
+        <div class="ds-offers"><article class="ds-offer reveal">
+            <span class="k">Audit automatisé</span><h3>NEAM Audit</h3><p>Rapport, score et recommandations détaillées.</p><ul class="ticks"><li>Score sur 7 axes</li><li>Plus de 50 critères</li><li>Plan d’action priorisé</li></ul>
+            <a class="btn btn--line" href="contact.html?besoin=NEAM%20Digital%20Score">Demander un devis <span class="arr">→</span></a>
+          </article><article class="ds-offer reveal ds-offer--hl">
+            <span class="k">Audit + concurrents</span><h3>NEAM Benchmark</h3><p>Votre position face à vos 5 concurrents principaux.</p><ul class="ticks"><li>Tout l’audit</li><li>Benchmark de 5 concurrents</li><li>Opportunités chiffrées</li><li>Restitution avec un expert</li></ul>
+            <a class="btn btn--yellow" href="contact.html?besoin=NEAM%20Digital%20Score">Demander un devis <span class="arr">→</span></a>
+          </article><article class="ds-offer reveal">
+            <span class="k">Audit + benchmark + accompagnement</span><h3>NEAM Digital Strategy</h3><p>Nous mettons le plan d’action en œuvre avec vous.</p><ul class="ticks"><li>Tout le benchmark</li><li>Feuille de route 30 / 90 / 180 jours</li><li>Mise en œuvre par NEAM</li><li>Suivi mensuel du score</li></ul>
+            <a class="btn btn--line" href="contact.html?besoin=NEAM%20Digital%20Score">Demander un devis <span class="arr">→</span></a>
+          </article></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/logo-dark.png" alt="NEAM Softwares Industry" width="1200" height="395" loading="lazy">
+          <p>La transformation digitale comme levier de croissance pour les TPE et PME gabonaises.</p>
+        </div>
+        <div>
+          <h4>Expertises</h4>
+          <ul>
+            <li><a href="services.html#digital-web">Digital &amp; Web</a></li>
+            <li><a href="services.html#logiciels-outils">Logiciels &amp; Outils</a></li>
+            <li><a href="services.html#ia-automatisation">IA &amp; Automatisation</a></li>
+            <li><a href="services.html#conseil-formation">Conseil &amp; Formation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Produits</h4>
+          <ul>
+            <li><a href="digital-score.html">NEAM Digital Score™</a></li>
+            <li><a href="https://gurutools.pro" target="_blank" rel="noopener">GuruTools ↗</a></li>
+            <li><a href="produits.html#tremplin">Tremplin</a></li>
+            <li><a href="produits.html#super-app">NEAM Super App</a></li>
+            <li><a href="programme.html">NEAM × KANIE 30/30</a></li>
+            <li><a href="ressources.html">Blueprint 2027 (PDF)</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="contact.html">Nous écrire</a></li>
+            <li><a href="mailto:contact@neamindustry.com">contact@neamindustry.com</a></li>
+            <li>Libreville, Gabon</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© <span data-year></span> NEAM Softwares Industry</span>
+        <span class="footer__motto">Build a better tomorrow&nbsp;!</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/vendor/jspdf.umd.min.js" defer></script>
+  <script src="js/digital-score.js" defer></script>
+</body>
+</html>

@@ -53,6 +53,29 @@ Champ invisible anti-robots, refus des envois venant d’autres sites, limite de
 ### Test de maturité numérique
 14 questions sur 5 axes (visibilité, image et communication, outils, données et stratégie, engagement digital), score sur 100 et priorités. Le PDF des résultats est généré dans le navigateur avec jsPDF (`js/vendor/jspdf.umd.min.js`, version 2.5.1) puis joint aux e-mails.
 
+## Outil NEAM Digital Score™ (`digital-score.html`)
+
+Le prospect saisit son entreprise, sa ville et son secteur (son site et ses concurrents en option).
+`api/audit.php` enchaîne les 7 moteurs :
+
+1. **Discovery** : site saisi ou trouvé sur Google, fiche Google Business, réseaux sociaux, concurrents ;
+2. **Collecte** et 3. **Audit** : lecture du site (accueil, contact, robots.txt, sitemap.xml) et 50+ critères (`api/lib/audit/framework.php`) ;
+4. **Concurrents** : mêmes critères appliqués aux concurrents (score de pertinence avec Google) ;
+5. **Score** : NEAM Digital Score™ sur 7 axes et classement ;
+6. **Analyste IA** : synthèse rédigée par Claude à partir des résultats calculés (sinon synthèse automatique) ;
+7. **Recommandations** : actions priorisées (impact × difficulté × urgence), opportunités et plan 30 / 90 / 180 jours.
+
+Aperçu gratuit à l'écran, puis audit complet (écran + PDF + e-mail) contre nom et e-mail.
+Le prospect reçoit le PDF depuis contact@neamindustry.com et l'équipe est prévenue (`audit.notify_to`).
+
+Clés facultatives dans `api/config.php` → `audit` : sans clé, l'audit du site fonctionne déjà.
+
+- `google_places_key` : Google Places API (New) — fiche Google, avis, concurrents automatiques ;
+- `pagespeed_key` : Google PageSpeed Insights — performance mobile ;
+- `anthropic_api_key` : API Claude — synthèse rédigée par l'IA.
+
+Les audits sont conservés 30 jours dans `api/data/audits/` (dossier protégé, créé automatiquement).
+
 ## Mise en ligne (LWS)
 1. Hébergement web mutualisé LWS (l’offre **LWS Perso** suffit : site statique, 5 adresses e-mail, nom de domaine et SSL inclus).
 2. Dans le panneau LWS, ouvrir le **Gestionnaire de fichiers** (ou un client FTP comme FileZilla) et envoyer **le contenu** de l’archive dans le dossier `htdocs` (pas le dossier lui-même) : les fichiers `.html`, les dossiers `css/`, `js/`, `assets/`, `api/`, ainsi que `.htaccess`, `robots.txt` et `sitemap.xml`.
