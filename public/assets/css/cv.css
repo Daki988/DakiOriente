@@ -81,14 +81,17 @@ pdf:end */
 .bg-right { right: 0; }
 
 /* ---------- Mise en page : une colonne / bandeau ---------- */
-.l-single .cv-head, .l-header .cv-head { display: table; width: 100%; }
-.cv-head-photo { display: table-cell; width: 40mm; vertical-align: middle; }
+.cv-head-row { position: relative; }
+.cv-head-photo { float: left; width: 36mm; }
 .cv-head-photo .cv-photo-wrap { margin: 0; }
-.cv-head-txt { display: table-cell; vertical-align: middle; }
-.cv-head-qr { display: table-cell; width: 26mm; vertical-align: middle; text-align: right; }
+.cv-head-qr { float: right; width: 24mm; text-align: right; }
 .cv-head-qr img { width: 22mm; height: 22mm; }
-.l-single, .l-header { padding-left: 16mm; padding-right: 16mm; }
-.l-header .cv-head { margin-top: -14mm; margin-left: -16mm; width: 178mm; padding: 11mm 16mm 9mm; }
+.with-photo .cv-head-txt { margin-left: 40mm; min-height: 33mm; padding-top: 1.5mm; }
+.with-qr .cv-head-txt { margin-right: 26mm; }
+.cv-clear { clear: both; height: 0; overflow: hidden; }
+.l-single { padding-left: 16mm; padding-right: 16mm; }
+.l-header .cv-head { margin-top: -14mm; padding: 11mm 16mm 9mm; }
+.l-header .cv-body { padding-left: 16mm; padding-right: 16mm; }
 .cv-body { padding-top: .2em; }
 
 /* ---------- Mise en page : titres en marge ---------- */
@@ -98,7 +101,7 @@ pdf:end */
 .cv-lbl-when { margin-top: .15em; text-transform: none; letter-spacing: 0; font-weight: normal; color: #6b7a92; font-size: 1.02em; }
 .cv-cnt { padding: 0 0 .7em; vertical-align: top; }
 .cv-cnt .cv-item { margin-bottom: 0; }
-.l-label .cv-head { display: table; width: 100%; margin-bottom: 5mm; padding-bottom: 4mm; border-bottom: .8pt solid var(--cv-line); }
+.l-label .cv-head { margin-bottom: 5mm; padding-bottom: 4mm; border-bottom: .8pt solid var(--cv-line); }
 
 /* ================= Modèles ================= */
 
@@ -229,7 +232,7 @@ pdf:end */
 .l-side .cv-side { position: relative; }
 .side-left .cv-side { float: left; }
 .side-right .cv-side { float: right; }
-.l-side .cv-side, .l-header .cv-head { box-sizing: content-box; }
+.l-side .cv-side { box-sizing: content-box; }
 .cv img { max-width: none; }
 /* Repères de page (aperçu à l'écran) */
 .cv-pagemarks { position: absolute; left: 0; right: 0; top: 0; pointer-events: none; }

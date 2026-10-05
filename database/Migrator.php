@@ -48,12 +48,8 @@ final class Migrator
             $pdo->exec($idx);
         }
 
-        if ($seed) {
-            (require __DIR__ . '/seed.php')();
-        } else {
-            self::seedCertifications();
-            self::seedLearning();
-        }
+        // Référentiels toujours chargés ; données fictives seulement en démonstration
+        (require __DIR__ . '/seed.php')($seed);
     }
 
     /** Mise à jour d'une base existante : ajoute les colonnes apparues depuis l'installation. */

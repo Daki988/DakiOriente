@@ -2,8 +2,9 @@
 declare(strict_types=1);
 
 /*
- * Données de démonstration TREMPLIN by NEAM.
- * Toutes les entreprises, écoles et personnes sont fictives.
+ * Données TREMPLIN by NEAM.
+ * - Référentiels (pays, villes, secteurs, compétences, métiers, formations, offres, paramètres) et conseils : toujours chargés.
+ * - Démonstration ($demo = true) : entreprises, écoles, personnes et offres fictives.
  */
 
 use App\Core\DB;
@@ -11,7 +12,7 @@ use App\Services\EmployabilityService;
 use App\Services\MatchingEngine;
 use App\Services\ProfileService;
 
-return function (): void {
+return function (bool $demo = true): void {
     mt_srand(2026);
     $pdo = DB::pdo();
     $pdo->beginTransaction();
@@ -148,6 +149,25 @@ return function (): void {
         'ai_enabled' => '1', 'launch_mode' => '1', 'ai_monthly_limit' => '30', 'match_alert_threshold' => '70', 'maintenance' => '0',
     ] as $k => $v) {
         DB::insert('settings', ['skey' => $k, 'svalue' => $v]);
+    }
+
+    /* ---------- Conseils (contenus éditoriaux) ---------- */
+    $articles = [
+        ['Réussir son CV quand on n\'a pas d\'expérience', 'cv', '#0057ff', "Pas d'expérience professionnelle ? Pas de panique : les recruteurs gabonais savent que tout le monde commence un jour. L'essentiel est de montrer ce que tu sais faire.\n\nMets en avant tes projets\nProjet de fin d'études, association, tontine que tu as aidée à organiser, petit commerce familial : chaque projet prouve une compétence. Décris ce que TU as fait et le résultat obtenu.\n\nSois précis·e sur tes compétences\nPlutôt que « maîtrise de l'informatique », écris « Excel : tableaux croisés dynamiques, formules RECHERCHEV ».\n\nSoigne la forme\n- Une page maximum\n- Une photo professionnelle (fond neutre, tenue correcte)\n- Un e-mail sérieux (prenom.nom@…)\n- Aucune faute d'orthographe\n\nAvec Tremplin, ton CV est généré automatiquement à partir de ton profil : il suffit de le compléter."],
+        ['5 questions d\'entretien à préparer absolument', 'entretien', '#f59e0b', "L'entretien se prépare comme un examen. Voici les questions qui reviennent presque toujours.\n\n1. Présentez-vous\nDeux minutes : ton parcours, tes compétences, ce que tu cherches. Termine par le lien avec le poste.\n\n2. Pourquoi notre entreprise ?\nRenseigne-toi : activité, actualités, valeurs. Montre que tu ne postules pas au hasard.\n\n3. Quelles sont vos qualités et vos défauts ?\nIllustre chaque qualité par un exemple. Pour le défaut, montre comment tu travailles à l'améliorer.\n\n4. Racontez une difficulté que vous avez surmontée\nUtilise la méthode STAR : Situation, Tâche, Action, Résultat.\n\n5. Avez-vous des questions ?\nToujours oui ! Interroge sur l'équipe, les missions, l'intégration.\n\nEntraîne-toi avec le simulateur d'entretien Tremplin : il analyse tes réponses et te donne des conseils."],
+        ['Les métiers qui recrutent au Gabon en ce moment', 'marche', '#10b981', "Le marché de l'emploi gabonais évolue avec la diversification de l'économie. Voici les secteurs les plus dynamiques.\n\nNumérique et télécoms\nDéveloppeurs, techniciens réseaux, data analysts et spécialistes de la cybersécurité sont très recherchés, notamment avec l'essor du mobile money.\n\nÉnergie et mines\nTechniciens HSE, électrotechniciens et géologues restent demandés à Port-Gentil et dans le Haut-Ogooué. Les énergies renouvelables (solaire) créent de nouveaux métiers.\n\nBois et environnement\nLa transformation locale du bois et la gestion durable des forêts ouvrent des postes d'ingénieurs forestiers et de techniciens SIG.\n\nAgriculture et agro-industrie\nLa sécurité alimentaire est une priorité : agronomes et techniciens agricoles sont attendus.\n\nPasse le test d'orientation Tremplin pour découvrir les métiers qui te correspondent."],
+        ['Stage : comment transformer l\'essai en emploi', 'stage', '#8b5cf6', "Un stage réussi est souvent la meilleure porte d'entrée vers un premier emploi.\n\nSois ponctuel·le et fiable\nC'est la base. Arrive à l'heure, respecte les délais, préviens en cas d'empêchement.\n\nPose des questions\nUn stagiaire curieux apprend plus vite et montre son intérêt.\n\nPrends des initiatives\nPropose une amélioration, même petite : un fichier mieux organisé, une procédure documentée.\n\nCrée ton réseau\nDéjeune avec les équipes, demande des conseils. Les recommandations internes comptent énormément.\n\nFais un bilan avant de partir\nDemande un retour à ton tuteur et une attestation. Ajoute ensuite cette expérience à ton profil Tremplin."],
+        ['Lettre de motivation : la méthode en 4 paragraphes', 'cv', '#ec4899', "Une bonne lettre est courte, personnalisée et orientée vers l'entreprise.\n\n1. L'accroche\nPourquoi cette offre t'intéresse, en une ou deux phrases.\n\n2. Ce que tu apportes\nTes compétences clés, illustrées par des exemples concrets.\n\n3. Pourquoi eux\nCe qui t'attire dans l'entreprise : projets, secteur, valeurs.\n\n4. La conclusion\nTa disponibilité et ta demande d'entretien.\n\nLe générateur de lettres Tremplin adapte automatiquement ta lettre à chaque offre à partir de ton profil."],
+        ['Mobile Money, réseaux sociaux : soigner son image en ligne', 'conseil', '#0ea5e9', "Les recruteurs regardent de plus en plus les profils en ligne des candidats.\n\nVérifie ce qui est public\nPhotos, commentaires, publications : fais le tri sur Facebook, Instagram et TikTok.\n\nCrée un profil LinkedIn\nMême simple, il montre ton sérieux. Reprends les informations de ton profil Tremplin.\n\nSois cohérent·e\nLes informations de ton CV, de LinkedIn et de Tremplin doivent être identiques.\n\nProtège tes données\nNe partage jamais tes codes Mobile Money ni tes documents d'identité avec un « recruteur » qui te les demande : c'est une arnaque. Signale-le sur Tremplin."],
+    ];
+    foreach ($articles as $i => [$t, $cat, $color, $body]) {
+        DB::insert('contents', ['slug' => slugify($t), 'title' => $t, 'category' => $cat, 'excerpt' => excerpt(explode("\n", $body)[0], 160), 'body' => $body, 'cover_color' => $color, 'reading_minutes' => 3 + $i % 3, 'published' => 1, 'created_at' => $ago(5 + $i * 6)]);
+    }
+
+    if (!$demo) {
+        // Production : référentiels et conseils uniquement, aucune donnée fictive
+        $pdo->commit();
+        return;
     }
 
     /* ---------- Utilisateurs ---------- */
@@ -474,19 +494,6 @@ return function (): void {
     ];
     foreach ($notifs as [$u, $type, $title, $body, $link, $d]) {
         DB::insert('notifications', ['user_id' => $u, 'type' => $type, 'title' => $title, 'body' => $body, 'link' => $link, 'created_at' => $ago($d), 'read_at' => $d > 3 ? $ago($d - 1) : null]);
-    }
-
-    /* ---------- Conseils (contenus éditoriaux) ---------- */
-    $articles = [
-        ['Réussir son CV quand on n\'a pas d\'expérience', 'cv', '#0057ff', "Pas d'expérience professionnelle ? Pas de panique : les recruteurs gabonais savent que tout le monde commence un jour. L'essentiel est de montrer ce que tu sais faire.\n\nMets en avant tes projets\nProjet de fin d'études, association, tontine que tu as aidée à organiser, petit commerce familial : chaque projet prouve une compétence. Décris ce que TU as fait et le résultat obtenu.\n\nSois précis·e sur tes compétences\nPlutôt que « maîtrise de l'informatique », écris « Excel : tableaux croisés dynamiques, formules RECHERCHEV ».\n\nSoigne la forme\n- Une page maximum\n- Une photo professionnelle (fond neutre, tenue correcte)\n- Un e-mail sérieux (prenom.nom@…)\n- Aucune faute d'orthographe\n\nAvec Tremplin, ton CV est généré automatiquement à partir de ton profil : il suffit de le compléter."],
-        ['5 questions d\'entretien à préparer absolument', 'entretien', '#f59e0b', "L'entretien se prépare comme un examen. Voici les questions qui reviennent presque toujours.\n\n1. Présentez-vous\nDeux minutes : ton parcours, tes compétences, ce que tu cherches. Termine par le lien avec le poste.\n\n2. Pourquoi notre entreprise ?\nRenseigne-toi : activité, actualités, valeurs. Montre que tu ne postules pas au hasard.\n\n3. Quelles sont vos qualités et vos défauts ?\nIllustre chaque qualité par un exemple. Pour le défaut, montre comment tu travailles à l'améliorer.\n\n4. Racontez une difficulté que vous avez surmontée\nUtilise la méthode STAR : Situation, Tâche, Action, Résultat.\n\n5. Avez-vous des questions ?\nToujours oui ! Interroge sur l'équipe, les missions, l'intégration.\n\nEntraîne-toi avec le simulateur d'entretien Tremplin : il analyse tes réponses et te donne des conseils."],
-        ['Les métiers qui recrutent au Gabon en ce moment', 'marche', '#10b981', "Le marché de l'emploi gabonais évolue avec la diversification de l'économie. Voici les secteurs les plus dynamiques.\n\nNumérique et télécoms\nDéveloppeurs, techniciens réseaux, data analysts et spécialistes de la cybersécurité sont très recherchés, notamment avec l'essor du mobile money.\n\nÉnergie et mines\nTechniciens HSE, électrotechniciens et géologues restent demandés à Port-Gentil et dans le Haut-Ogooué. Les énergies renouvelables (solaire) créent de nouveaux métiers.\n\nBois et environnement\nLa transformation locale du bois et la gestion durable des forêts ouvrent des postes d'ingénieurs forestiers et de techniciens SIG.\n\nAgriculture et agro-industrie\nLa sécurité alimentaire est une priorité : agronomes et techniciens agricoles sont attendus.\n\nPasse le test d'orientation Tremplin pour découvrir les métiers qui te correspondent."],
-        ['Stage : comment transformer l\'essai en emploi', 'stage', '#8b5cf6', "Un stage réussi est souvent la meilleure porte d'entrée vers un premier emploi.\n\nSois ponctuel·le et fiable\nC'est la base. Arrive à l'heure, respecte les délais, préviens en cas d'empêchement.\n\nPose des questions\nUn stagiaire curieux apprend plus vite et montre son intérêt.\n\nPrends des initiatives\nPropose une amélioration, même petite : un fichier mieux organisé, une procédure documentée.\n\nCrée ton réseau\nDéjeune avec les équipes, demande des conseils. Les recommandations internes comptent énormément.\n\nFais un bilan avant de partir\nDemande un retour à ton tuteur et une attestation. Ajoute ensuite cette expérience à ton profil Tremplin."],
-        ['Lettre de motivation : la méthode en 4 paragraphes', 'cv', '#ec4899', "Une bonne lettre est courte, personnalisée et orientée vers l'entreprise.\n\n1. L'accroche\nPourquoi cette offre t'intéresse, en une ou deux phrases.\n\n2. Ce que tu apportes\nTes compétences clés, illustrées par des exemples concrets.\n\n3. Pourquoi eux\nCe qui t'attire dans l'entreprise : projets, secteur, valeurs.\n\n4. La conclusion\nTa disponibilité et ta demande d'entretien.\n\nLe générateur de lettres Tremplin adapte automatiquement ta lettre à chaque offre à partir de ton profil."],
-        ['Mobile Money, réseaux sociaux : soigner son image en ligne', 'conseil', '#0ea5e9', "Les recruteurs regardent de plus en plus les profils en ligne des candidats.\n\nVérifie ce qui est public\nPhotos, commentaires, publications : fais le tri sur Facebook, Instagram et TikTok.\n\nCrée un profil LinkedIn\nMême simple, il montre ton sérieux. Reprends les informations de ton profil Tremplin.\n\nSois cohérent·e\nLes informations de ton CV, de LinkedIn et de Tremplin doivent être identiques.\n\nProtège tes données\nNe partage jamais tes codes Mobile Money ni tes documents d'identité avec un « recruteur » qui te les demande : c'est une arnaque. Signale-le sur Tremplin."],
-    ];
-    foreach ($articles as $i => [$t, $cat, $color, $body]) {
-        DB::insert('contents', ['slug' => slugify($t), 'title' => $t, 'category' => $cat, 'excerpt' => excerpt(explode("\n", $body)[0], 160), 'body' => $body, 'cover_color' => $color, 'reading_minutes' => 3 + $i % 3, 'published' => 1, 'created_at' => $ago(5 + $i * 6)]);
     }
 
     /* ---------- Plan de progression de la candidate de démo ---------- */

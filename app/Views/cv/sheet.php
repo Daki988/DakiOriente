@@ -175,14 +175,15 @@ $classes = 'cv t-' . $key . ' l-' . $layout . ' d-' . $density . ' m-' . $mode .
 <?php elseif ($layout === 'label'):
     $row = fn(string $label, string $content) => $content === '' ? '' : '<table class="cv-row"><tr><td class="cv-lbl">' . e($label) . '</td><td class="cv-cnt">' . $content . '</td></tr></table>';
     $strip = fn(string $html) => preg_replace('#<h4 class="cv-h">.*?</h4>#s', '', $html); ?>
-    <div class="cv-head">
+    <div class="cv-head"><div class="cv-head-row<?= $d['photo'] ? ' with-photo' : '' ?>">
         <?php if ($d['photo']): ?><div class="cv-head-photo"><?= $photo() ?></div><?php endif; ?>
         <div class="cv-head-txt">
             <h1 class="cv-name"><?= e($d['first']) ?> <span class="cv-last"><?= e($d['last']) ?></span></h1>
             <?php if ($d['headline']): ?><div class="cv-headline"><?= e($d['headline']) ?></div><?php endif; ?>
             <?= $contactInline() ?>
         </div>
-    </div>
+        <div class="cv-clear"></div>
+    </div></div>
     <?= $row('Profil', $d['summary'] !== '' ? '<p>' . nl2br(e($d['summary'])) . '</p>' : '') ?>
     <?php
     $expRows = '';
@@ -207,15 +208,16 @@ $classes = 'cv t-' . $key . ' l-' . $layout . ' d-' . $density . ' m-' . $mode .
     <?= $row('', $strip($footer())) ?>
     <?php if ($d['qr']): ?><?= $row('CV en ligne', $strip($qr(false))) ?><?php endif; ?>
 <?php else: /* single et header */ ?>
-    <div class="cv-head">
+    <div class="cv-head"><div class="cv-head-row<?= $d['photo'] ? ' with-photo' : '' ?><?= $d['qr'] && $layout === 'header' ? ' with-qr' : '' ?>">
         <?php if ($d['photo']): ?><div class="cv-head-photo"><?= $photo() ?></div><?php endif; ?>
+        <?php if ($d['qr'] && $layout === 'header'): ?><div class="cv-head-qr"><img src="<?= e($d['qr']) ?>" alt="QR code vers le CV en ligne"></div><?php endif; ?>
         <div class="cv-head-txt">
             <h1 class="cv-name"><?= e($d['first']) ?> <span class="cv-last"><?= e($d['last']) ?></span></h1>
             <?php if ($d['headline']): ?><div class="cv-headline"><?= e($d['headline']) ?></div><?php endif; ?>
             <?= $contactInline() ?>
         </div>
-        <?php if ($d['qr'] && $layout === 'header'): ?><div class="cv-head-qr"><img src="<?= e($d['qr']) ?>" alt="QR code vers le CV en ligne"></div><?php endif; ?>
-    </div>
+        <div class="cv-clear"></div>
+    </div></div>
     <div class="cv-body">
         <?= $summary() ?>
         <?php if ($key === 'premier'): ?><?= $skills('chips') ?><?= $soft('chips') ?><?php endif; ?>

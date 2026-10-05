@@ -52,7 +52,7 @@ final class CvShare
             return null;
         }
         $options = new \chillerlan\QRCode\QROptions([
-            'outputInterface' => \chillerlan\QRCode\Output\QRGdImagePNG::class,
+            'outputType' => \chillerlan\QRCode\Output\QROutputInterface::GDIMAGE_PNG,
             'outputBase64' => true, 'scale' => 6, 'quietzoneSize' => 1,
             'eccLevel' => \chillerlan\QRCode\Common\EccLevel::M,
         ]);
