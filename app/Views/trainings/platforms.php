@@ -17,7 +17,7 @@
                 <div class="flex flex-wrap" style="gap:6px">
                     <span class="badge badge-<?= $pc ?>"><?= e($pl) ?></span>
                     <span class="badge badge-gray"><?= e(implode(' · ', array_map(fn($l) => App\Services\Training\TrainingCatalog::LANG[$l] ?? $l, explode(',', (string)$p['languages'])))) ?></span>
-                    <span class="badge badge-blue"><?= (int)$p['courses'] ?> formation<?= $p['courses'] > 1 ? 's' : '' ?> sur Tremplin<?= $p['courses_fr'] ? ' dont ' . (int)$p['courses_fr'] . ' en français' : '' ?></span>
+                    <span class="badge badge-blue" style="white-space:normal"><?= (int)$p['courses'] ?> formation<?= $p['courses'] > 1 ? 's' : '' ?> sur Tremplin<?= $p['courses_fr'] ? ' dont ' . (int)$p['courses_fr'] . ' en français' : '' ?></span>
                 </div>
                 <p class="small mb-0"><b>Prix :</b> <?= e($p['pricing_note']) ?></p>
                 <p class="small mb-0"><b>Certificat :</b> <?= e($p['certificate_note']) ?></p>
