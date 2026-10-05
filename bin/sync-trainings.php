@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 
 require dirname(__DIR__) . '/app/bootstrap.php';
+@set_time_limit(0);
 
 use App\Core\DB;
 use App\Services\Training\Http;

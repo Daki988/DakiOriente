@@ -9,3 +9,7 @@
 !/storage/logs/.gitkeep
 /storage/cache/*
 !/storage/cache/.gitkeep
+/storage/installed.lock
+/storage/install-code.txt
+/dist/
+!.env.example

@@ -25,10 +25,33 @@ header('Referrer-Policy: strict-origin-when-cross-origin');
 header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
 header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'");
 
-// Installation automatique en local (SQLite) au premier lancement
-if (config('db.driver') === 'sqlite' && !is_file(config('db.path'))) {
+// Développement local (php -S) : installation automatique de la démo SQLite au premier lancement
+if (PHP_SAPI === 'cli-server' && config('db.driver') === 'sqlite' && !is_file(config('db.path'))) {
     require BASE_PATH . '/database/Migrator.php';
     \Database\Migrator::install(true);
+}
+// Hébergement : tant que l'installation n'est pas terminée, on renvoie vers l'assistant d'installation
+if (PHP_SAPI !== 'cli-server' && !is_file(STORAGE_PATH . '/installed.lock')) {
+    if (is_file(__DIR__ . '/install.php')) {
+        header('Location: ' . rtrim((string)config('app.url'), '/') . '/install.php', true, 302);
+    } else {
+        http_response_code(503);
+        echo 'Installation non terminée : déposez le fichier public/install.php puis ouvrez /install.php.';
+    }
+    exit;
+}
+
+// Mise à jour automatique de la base après le dépôt d'une nouvelle version (sans accès SSH)
+if (is_file(STORAGE_PATH . '/installed.lock') && setting('schema_version') !== APP_VERSION) {
+    require_once BASE_PATH . '/database/Migrator.php';
+    try {
+        $added = \Database\Migrator::upgrade();
+        \App\Core\DB::run('DELETE FROM settings WHERE skey = :k', ['k' => 'schema_version']);
+        \App\Core\DB::insert('settings', ['skey' => 'schema_version', 'svalue' => APP_VERSION]);
+        error_log('[' . date('c') . '] Mise à jour ' . APP_VERSION . ($added ? ' : ' . implode(', ', $added) : ' (schéma déjà à jour)'));
+    } catch (\Throwable $e) {
+        error_log('[' . date('c') . '] Échec de la mise à jour automatique : ' . $e->getMessage());
+    }
 }
 
 $isApi = str_starts_with((string)parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH), '/api/v1');

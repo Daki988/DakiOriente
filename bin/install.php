@@ -30,6 +30,9 @@ if ($fresh && config('db.driver') === 'sqlite' && is_file(config('db.path'))) {
 
 $t = microtime(true);
 Database\Migrator::install($seed, $fresh);
+App\Core\DB::run('DELETE FROM settings WHERE skey = :k', ['k' => 'schema_version']);
+App\Core\DB::insert('settings', ['skey' => 'schema_version', 'svalue' => APP_VERSION]);
+@file_put_contents(STORAGE_PATH . '/installed.lock', date('c') . " (installation en ligne de commande)\n");
 printf("✔ Base TREMPLIN installée (%s) en %.1fs%s\n", config('db.driver'), microtime(true) - $t, $seed ? ' avec les données de démonstration' : '');
 if ($seed) {
     echo "\nComptes de démonstration (mot de passe : Tremplin2026!)\n";
