@@ -42,6 +42,23 @@ function setting(string $key, mixed $default = null): mixed
     return $cache[$key] ?? $default;
 }
 
+/** Clé secrète locale (signature des URL de photos). Générée au premier usage, hors du dépôt. */
+function app_secret(): string
+{
+    static $key = null;
+    if ($key === null) {
+        $key = (string)(config('app.secret') ?: '');
+        if ($key === '') {
+            $file = STORAGE_PATH . '/cache/app-secret.key';
+            if (!is_file($file)) {
+                @file_put_contents($file, bin2hex(random_bytes(32)));
+            }
+            $key = (string)@file_get_contents($file) ?: 'tremplin';
+        }
+    }
+    return $key;
+}
+
 /* ---------- HTTP ---------- */
 
 function e(mixed $value): string
@@ -92,6 +109,12 @@ function abort(int $code, string $message = ''): never
         'message' => $message,
     ]);
     exit;
+}
+
+/** Requête envoyée en arrière-plan (fetch) plutôt que par un formulaire classique. */
+function is_ajax(): bool
+{
+    return ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'fetch' || str_contains((string)($_SERVER['HTTP_ACCEPT'] ?? ''), 'application/json');
 }
 
 function json_response(mixed $data, int $code = 200): never

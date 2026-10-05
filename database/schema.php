@@ -54,7 +54,9 @@ return [
     availability_date VARCHAR(10), languages TEXT, certifications TEXT, soft_skills TEXT,
     riasec_code VARCHAR(3), riasec_scores TEXT, employability_score INTEGER NOT NULL DEFAULT 0,
     cv_template VARCHAR(20) NOT NULL DEFAULT 'moderne', linkedin VARCHAR(255), portfolio VARCHAR(255),
-    visible_to_recruiters INTEGER NOT NULL DEFAULT 1, completion INTEGER NOT NULL DEFAULT 0, cv_ai TEXT, gap_advice TEXT, updated_at {TS}
+    visible_to_recruiters INTEGER NOT NULL DEFAULT 1, completion INTEGER NOT NULL DEFAULT 0, cv_ai TEXT, gap_advice TEXT,
+    interests VARCHAR(255), photo_document_id INTEGER, cv_settings TEXT, cv_proof TEXT, cv_share_token VARCHAR(40), cv_public INTEGER NOT NULL DEFAULT 0,
+    cv_views INTEGER NOT NULL DEFAULT 0, cv_downloads INTEGER NOT NULL DEFAULT 0, updated_at {TS}
 )",
 'candidate_educations' => "CREATE TABLE candidate_educations (
     id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,

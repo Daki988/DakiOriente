@@ -15,6 +15,7 @@ use App\Controllers\Candidate\ProfileController;
 use App\Controllers\Company\CompanyController;
 use App\Controllers\Company\RecruitController;
 use App\Controllers\PageController;
+use App\Controllers\PublicCvController;
 use App\Controllers\JobController;
 use App\Controllers\School\SchoolController;
 use App\Controllers\SubscriptionController;
@@ -35,6 +36,9 @@ return function (Router $r): void {
     $r->get('/formations/{id}', [TrainingController::class, 'show']);
     $r->get('/formations/{id}/aller', [TrainingController::class, 'go'], ['throttle:training-go,60,10']);
     $r->get('/certifications', [PageController::class, 'certifications']);
+    $r->get('/photos/{token}', [PublicCvController::class, 'photo']);
+    $r->get('/cv/{token}', [PublicCvController::class, 'show'], ['throttle:cv-public,120,10']);
+    $r->get('/cv/{token}/pdf', [PublicCvController::class, 'pdf'], ['throttle:cv-public-pdf,20,10']);
     $r->get('/conseils', [PageController::class, 'articles']);
     $r->get('/conseils/{slug}', [PageController::class, 'article']);
     $r->get('/tarifs', [PageController::class, 'pricing']);
@@ -99,6 +103,13 @@ return function (Router $r): void {
 
         $r->get('/cv', [CvController::class, 'index']);
         $r->post('/cv/modele', [CvController::class, 'template']);
+        $r->post('/cv/reglages', [CvController::class, 'settings']);
+        $r->post('/cv/photo', [CvController::class, 'photo'], ['throttle:upload,10,10']);
+        $r->post('/cv/photo/supprimer', [CvController::class, 'deletePhoto']);
+        $r->get('/cv/apercu', [CvController::class, 'preview']);
+        $r->post('/cv/relecture', [CvController::class, 'proof'], ['throttle:cv-proof,60,10']);
+        $r->get('/cv/pdf', [CvController::class, 'pdf'], ['throttle:cv-pdf,60,10']);
+        $r->post('/cv/partage', [CvController::class, 'share']);
         $r->post('/cv/version', [CvController::class, 'snapshot']);
         $r->post('/cv/ia', [CvController::class, 'aiCv'], ['throttle:ai,30,60']);
         $r->post('/cv/ia/reinitialiser', [CvController::class, 'resetAiCv']);

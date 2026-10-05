@@ -87,6 +87,38 @@
     try { await navigator.clipboard.writeText(text); window.tremplinToast('Copié dans le presse-papiers'); } catch (e) { }
   }));
 
+  /* Atelier CV : la feuille A4 est mise à l'échelle de son conteneur, avec les repères de changement de page */
+  const fitCv = () => $$('[data-cv-fit]').forEach(box => {
+    const scope = box.querySelector('.cv-scope');
+    if (!scope || !box.clientWidth) return;
+    const sheet = scope.firstElementChild;
+    const k = box.clientWidth / sheet.offsetWidth;
+    scope.style.transform = 'scale(' + k + ')';
+    if (box.hasAttribute('data-cv-marks')) {
+      box.style.height = Math.ceil(sheet.offsetHeight * k) + 'px';
+      const pageH = sheet.offsetWidth * 297 / 210;
+      let marks = box.querySelector('.cv-pagemarks');
+      if (!marks) { marks = document.createElement('div'); marks.className = 'cv-pagemarks'; box.appendChild(marks); }
+      marks.innerHTML = '';
+      for (let n = 1; n * pageH < sheet.offsetHeight - 40; n++) {
+        const m = document.createElement('div'); m.className = 'cv-pagemark'; m.style.top = Math.round(n * pageH * k) + 'px';
+        m.innerHTML = '<span>Page ' + (n + 1) + '</span>'; marks.appendChild(m);
+      }
+    }
+  });
+  if ($('[data-cv-fit]')) {
+    fitCv();
+    window.addEventListener('resize', fitCv);
+    if (document.fonts) document.fonts.ready.then(fitCv);
+    window.addEventListener('load', fitCv);
+  }
+  $$('[data-cv-cat]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    $$('[data-cv-cat]').forEach(x => x.classList.toggle('active', x === a));
+    $$('.cv-tcard').forEach(c => { c.hidden = !!a.dataset.cvCat && c.dataset.cat !== a.dataset.cvCat; });
+    fitCv();
+  }));
+
   /* Impression */
   $$('[data-print]').forEach(b => b.addEventListener('click', () => window.print()));
 

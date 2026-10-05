@@ -369,6 +369,24 @@ return function (): void {
         }
     }
     $demo = $candIds['candidat@tremplin.ga'];
+    // CV de démonstration : photo (illustration), centres d'intérêt et une expérience avec quelques fautes courantes
+    // pour montrer la relecture obligatoire avant le téléchargement du PDF.
+    DB::insert('candidate_experiences', [
+        'user_id' => $demo, 'title' => 'vendeuse caissière (emploi d\'été)', 'company' => 'Supermarché Mbolo', 'kind' => 'emploi', 'city' => 'Libreville',
+        'start_date' => date('Y-m-d', strtotime('-26 months')), 'end_date' => date('Y-m-d', strtotime('-23 months')),
+        'description' => "Accueil des clients et tenue de la caisse.\nJ'ai participer à l'organisation des évenements du magasin,et au suivi des stocks.\nFormation des nouveaux saisonniers  aux procédures d'encaissement.",
+    ]);
+    DB::update('candidate_profiles', ['interests' => 'Bénévolat associatif, basket-ball, photographie', 'cv_template' => 'moderne'], 'user_id = :u', ['u' => $demo]);
+    $photo = __DIR__ . '/demo/photo-demo.jpg';
+    if (is_file($photo) && function_exists('imagecreatetruecolor')) {
+        $tmp = tempnam(sys_get_temp_dir(), 'cv');
+        copy($photo, $tmp);
+        try {
+            \App\Services\Cv\CvPhoto::store($demo, ['name' => 'photo.jpg', 'tmp_name' => $tmp, 'size' => filesize($tmp), 'error' => UPLOAD_ERR_OK]);
+        } catch (\Throwable) {
+            @unlink($tmp);
+        }
+    }
 
     /* ---------- Candidatures ---------- */
     $statusFlow = ['sent', 'viewed', 'shortlisted', 'interview', 'accepted', 'rejected'];

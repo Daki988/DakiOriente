@@ -78,7 +78,8 @@ final class Migrator
                 $added[] = $table;
             }
         }
-        $columns = ['candidate_profiles' => ['cv_ai' => 'TEXT', 'gap_advice' => 'TEXT'],
+        $columns = ['candidate_profiles' => ['cv_ai' => 'TEXT', 'gap_advice' => 'TEXT', 'interests' => 'VARCHAR(255)', 'photo_document_id' => 'INTEGER', 'cv_settings' => 'TEXT',
+                'cv_proof' => 'TEXT', 'cv_share_token' => 'VARCHAR(40)', 'cv_public' => 'INTEGER NOT NULL DEFAULT 0', 'cv_views' => 'INTEGER NOT NULL DEFAULT 0', 'cv_downloads' => 'INTEGER NOT NULL DEFAULT 0'],
             'trainings' => ['platform_id' => 'INTEGER', 'language' => "VARCHAR(5) DEFAULT 'fr'", 'skills' => 'VARCHAR(255)', 'certificate' => "VARCHAR(20) DEFAULT 'variable'",
                 'external_id' => 'VARCHAR(120)', 'source' => "VARCHAR(20) DEFAULT 'catalogue'", 'active' => 'INTEGER NOT NULL DEFAULT 1', 'next_session' => 'VARCHAR(10)',
                 'clicks' => 'INTEGER NOT NULL DEFAULT 0', 'updated_at' => ($driver === 'pgsql' ? 'TIMESTAMP NULL' : 'DATETIME NULL')]];

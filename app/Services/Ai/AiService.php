@@ -447,6 +447,40 @@ final class AiService
         return ['headline' => $p['headline'], 'summary' => $summary, 'experiences' => $bullets, 'skills_tip' => '', 'provider' => 'Moteur NEAM', 'job' => $job['title'] ?? null, 'generated_at' => now()];
     }
 
+    /**
+     * Relecture orthographique et grammaticale des textes du CV par Claude.
+     * Retourne une liste de corrections [{field, original, suggestion, type, explanation}] ou null si Claude est indisponible.
+     */
+    public static function proofread(array $texts): ?array
+    {
+        $llm = self::llm();
+        if (!$llm || !$texts) {
+            return null;
+        }
+        $prompt = "Relis ces textes d'un CV (clés = identifiants de champ). Relève UNIQUEMENT les vraies fautes : orthographe, grammaire, conjugaison, accords, "
+            . "majuscules et typographie française (espace avant : ; ! ?, guillemets « »). Ne réécris pas le style, ne change pas le sens, ne touche pas aux noms propres "
+            . "d'entreprises, d'écoles ou de personnes sauf faute évidente. Les textes en anglais sont relus selon les règles anglaises.\n"
+            . "Pour chaque faute : \"original\" = extrait EXACT et le plus court possible du texte (quelques mots), \"suggestion\" = ce même extrait corrigé.\n"
+            . "Types autorisés : orthographe, grammaire, conjugaison, accord, typographie, majuscule, ponctuation.\n"
+            . "Réponds UNIQUEMENT en JSON : {\"issues\": [{\"field\": \"…\", \"original\": \"…\", \"suggestion\": \"…\", \"type\": \"…\", \"explanation\": \"explication courte en français\"}]}. "
+            . "S'il n'y a aucune faute : {\"issues\": []}.\n\nTEXTES (JSON) : " . json_encode($texts, JSON_UNESCAPED_UNICODE);
+        $data = self::json($llm->complete(self::SYSTEM . ' Tu es correcteur professionnel.', $prompt, 3000, 'low'));
+        if (!is_array($data) || !isset($data['issues']) || !is_array($data['issues'])) {
+            self::log('cv_proofread', 'anthropic', 'Relecture CV', 0, 'error');
+            return null;
+        }
+        $out = [];
+        foreach ($data['issues'] as $i) {
+            if (!is_array($i) || !isset($i['field'], $i['original'], $i['suggestion']) || $i['original'] === $i['suggestion'] || mb_strlen((string)$i['original']) > 300) {
+                continue;
+            }
+            $out[] = ['field' => (string)$i['field'], 'original' => (string)$i['original'], 'suggestion' => mb_substr((string)$i['suggestion'], 0, 400),
+                'type' => (string)($i['type'] ?? 'orthographe'), 'explanation' => mb_substr((string)($i['explanation'] ?? ''), 0, 200)];
+        }
+        self::log('cv_proofread', 'anthropic', 'Relecture CV : ' . count($out) . ' correction(s)', mb_strlen(json_encode($out)));
+        return $out;
+    }
+
     /* ======================= Recruteur ======================= */
 
     public static function candidateSummary(array $p, ?array $job = null): string

@@ -26,7 +26,7 @@
         <?php if (!empty($p['certificates'])): ?><section class="card card-lg"><h2 style="font-size:1.15rem"><?= icon('award') ?> Certificats du candidat</h2><p class="small muted">Les certificats « Vérifié par NEAM » ont été contrôlés par notre équipe. Pour les autres, le lien mène à la page officielle de la plateforme.</p><?= App\Core\View::partial('partials/certificates_list', ['certificates' => $p['certificates'], 'recruiter' => true]) ?></section><?php endif; ?>
         <details class="card card-lg" open>
             <summary style="cursor:pointer"><h2 style="font-size:1.15rem;display:inline"><?= icon('file-text') ?> CV du candidat</h2></summary>
-            <div class="mt-2" style="background:#e9eef7;border-radius:16px;padding:12px;overflow:hidden"><?= App\Core\View::partial('candidate/_cv', ['p' => $p, 'template' => $p['cv_template']]) ?></div>
+            <div class="mt-2 cv-stage"><div class="cv-fit cv-live" data-cv-fit data-cv-marks><?= App\Services\Cv\CvRenderer::render($p) ?></div></div>
         </details>
 
         <section class="card card-lg">

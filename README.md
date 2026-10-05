@@ -39,7 +39,7 @@ Les entreprises, écoles et personnes de démonstration sont fictives.
 
 ### Candidat
 - Inscription par e-mail, connexion par e-mail ou téléphone, onboarding en 3 étapes, profil complet : formations, expériences, compétences avec niveau, langues (A1–C2), mobilité, préférences
-- **CV automatique** en 3 modèles (Moderne, Classique, Créatif), impression / PDF, **historique des versions**
+- **Atelier CV** : 14 modèles (Moderne, Horizon, Compact, Exécutif, Créatif, Impact, Douceur, Classique, Élégant, Corporate, Minimal, Chrono, Premier emploi, ATS) × 9 palettes × 4 polices, photo, sections au choix, **historique des versions** (détails plus bas)
 - **Import de CV** (PDF, DOCX, TXT) avec détection automatique des compétences
 - **Lettres de motivation** adaptées à chaque offre (moteur NEAM ou Claude)
 - Recherche multicritère, favoris, candidature directe ou redirection externe, suivi en 7 étapes, messagerie avec le recruteur, rappels de relance
@@ -78,6 +78,17 @@ La page **Mes axes de progression** (`/espace/progression`) compare le profil du
 - Chaque fiche d'offre affiche aussi une section **« Combler l'écart pour ce poste »**, le plan 30/60/90 jours reprend les certifications prioritaires, et le tableau de bord met en avant l'axe n°1.
 
 Le catalogue public `/certifications` est filtrable et propose une sélection personnalisée au candidat connecté. Il est géré dans Admin › Référentiels › Certifications. Code : `app/Services/GapAnalysisService.php`, catalogue initial : `database/certifications.php`. Une base existante se met à jour avec `php bin/install.php --upgrade`.
+
+### Atelier CV, relecture et PDF
+
+- **Galerie de 14 modèles** affichés avec les vraies informations du candidat, filtrables par style (Moderne, Professionnel, Classique, Créatif, Étudiant, Optimisé ATS). Palette (9), police (4, intégrées au PDF), densité, ordre des sections, nombre de compétences, sections facultatives (qualités, langues, certifications, centres d'intérêt, disponibilité, références, QR code).
+- **Photo** : recadrée au carré, redimensionnée, réenregistrée en JPEG (métadonnées et localisation supprimées), forme ronde ou carrée, servie par une URL signée. Jamais affichée sur le modèle ATS.
+- **Relecture obligatoire** avant téléchargement (`/espace/cv/apercu`) : moteur NEAM (dictionnaire des fautes fréquentes, accents, participe passé après « j'ai », « à » / « a », mots répétés, majuscules, espaces et ponctuation, graphie des outils et villes) et, si la clé est configurée, **Claude** pour la grammaire et les accords en contexte. Chaque remarque se **corrige en un clic** (la correction est appliquée au profil) ou se **conserve volontairement** ; le PDF n'est téléchargeable qu'une fois toutes les remarques bloquantes traitées. Les conseils de rédaction restent facultatifs.
+- **PDF généré côté serveur** (dompdf) : A4, texte sélectionnable, polices intégrées, lisible par les logiciels de tri (ATS). **Mise en page automatique** : on mesure le rendu réel, on resserre si besoin pour tenir sur une page sans texte minuscule, sinon deux pages propres ; les blocs de la colonne latérale qui ne tiennent pas passent dans la colonne principale (rien n'est jamais coupé). L'aperçu affiche le PDF exact page par page (pdf.js), y compris sur mobile.
+- **Score de qualité du CV** (sur 100) avec les actions qui rapportent le plus de points.
+- **CV en ligne** : lien privé non référencé (`/cv/{jeton}`), activable, révocable et régénérable, compteur de vues, téléchargement du PDF, **QR code** imprimable sur le CV.
+- Gratuit pendant la phase de lancement. Code : `app/Services/Cv/`, gabarit `app/Views/cv/sheet.php`, styles `public/assets/css/cv.css` (communs à l'écran et au PDF).
+- Dépendances Composer : `dompdf/dompdf` (PDF) et `chillerlan/php-qrcode` (QR code). Sans elles, l'application bascule sur la version imprimable du navigateur.
 
 ### Formations en ligne (Coursera, OpenClassrooms, Udemy…)
 
