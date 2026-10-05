@@ -83,6 +83,72 @@ final class AiService
         ]);
     }
 
+    /* ======================= Coaching sur les écarts ======================= */
+
+    /**
+     * Conseil personnalisé à partir de l'analyse des écarts (GapAnalysisService::market).
+     * Retourne ['text', 'provider'] ; le repli local reste précis car il s'appuie sur les gains mesurés.
+     */
+    public static function gapAdvice(array $p, array $analysis): array
+    {
+        $gaps = array_slice($analysis['gaps'], 0, 5);
+        $summary = 'Coaching écarts (' . count($gaps) . ' écarts)';
+        if ($gaps && ($llm = self::llm())) {
+            $lines = [];
+            foreach ($gaps as $i => $g) {
+                $recos = array_map(fn($r) => $r['title'] . (isset($r['cost']) ? ' (' . $r['cost'] . ')' : ''), array_filter($g['recos'], fn($r) => $r['kind'] !== 'project'));
+                $lines[] = ($i + 1) . '. ' . $g['label'] . ' — demandé dans ' . $g['count'] . ' offre(s) sur ' . count($analysis['jobs'])
+                    . ', gain moyen mesuré +' . $g['avg_gain'] . ' points, sévérité ' . $g['severity']
+                    . ($recos ? '. Pistes du catalogue : ' . implode(' ; ', array_slice($recos, 0, 3)) : '');
+            }
+            $prompt = "Voici l'analyse des écarts entre le profil d'un candidat et ses " . count($analysis['jobs']) . " offres les plus proches. "
+                . "Score moyen actuel : {$analysis['avg']}/100, atteignable en comblant les 3 premiers écarts : {$analysis['potential']}/100.\n\n"
+                . "CANDIDAT :\n" . self::profileBrief($p) . "\n\nÉCARTS PRIORITAIRES :\n" . implode("\n", $lines)
+                . (empty($analysis['strengths']) ? '' : "\n\nATOUTS LES PLUS DEMANDÉS : " . implode(', ', array_column($analysis['strengths'], 'name')))
+                . "\n\nRédige un conseil personnalisé de 150 à 220 mots, en tutoyant le candidat, sur un ton encourageant, pédagogique et expert. "
+                . "Commence par valoriser ses atouts, puis propose un ordre d'action réaliste sur 3 mois en expliquant pourquoi cet ordre. "
+                . "Recommande uniquement des certifications et formations présentes dans les pistes fournies ; privilégie les options gratuites quand elles existent. "
+                . "N'invente aucun chiffre ni aucun prix. Texte brut, sans markdown, en 3 courts paragraphes.";
+            $out = $llm->complete(self::SYSTEM . ' Tu es un coach carrière exigeant mais bienveillant.', $prompt, 1200, 'medium');
+            if ($out) {
+                self::log('gap_advice', 'anthropic', $summary, mb_strlen($out));
+                return ['text' => $out, 'provider' => 'Claude'];
+            }
+        }
+        $out = self::localGapAdvice($p, $analysis);
+        self::log('gap_advice', 'local', $summary, mb_strlen($out));
+        return ['text' => $out, 'provider' => 'Moteur NEAM'];
+    }
+
+    private static function localGapAdvice(array $p, array $a): string
+    {
+        $first = $p['first_name'] ?? '';
+        if (!$a['gaps']) {
+            return "$first, ton profil couvre déjà l'essentiel de ce que demandent tes offres les plus proches. "
+                . "La priorité maintenant : postuler régulièrement et préparer tes entretiens. C'est là que tout se joue.";
+        }
+        $p1 = $a['strengths']
+            ? "$first, tu pars avec de vrais atouts : " . self::joinFr(array_column(array_slice($a['strengths'], 0, 3), 'name')) . ' reviennent souvent dans les offres qui te correspondent. Garde-les en avant sur ton CV.'
+            : "$first, ton profil a une bonne base, et chaque écart ci-dessous peut se combler.";
+        $steps = [];
+        foreach (array_slice($a['gaps'], 0, 3) as $i => $g) {
+            $cert = null;
+            foreach ($g['recos'] as $r) {
+                if (in_array($r['kind'], ['certification', 'training'], true)) {
+                    $cert = $r;
+                    break;
+                }
+            }
+            $when = ['Ce mois-ci', 'Le mois prochain', 'Le troisième mois'][$i];
+            $steps[] = "$when : " . lcfirst($g['label']) . ' (demandé dans ' . $g['count'] . ' de tes offres, +' . $g['avg_gain'] . ' points en moyenne)'
+                . ($cert ? ', par exemple avec « ' . $cert['title'] . ' »' . (isset($cert['cost']) && $cert['cost'] === 'Gratuit' ? ', qui est gratuit' : '') : '') . '.';
+        }
+        $p2 = "Pour avancer efficacement, attaque les écarts dans cet ordre : il commence par ceux qui débloquent le plus d'offres.\n" . implode("\n", $steps);
+        $p3 = "En comblant ces trois écarts, ton score moyen sur tes meilleures offres passerait de {$a['avg']} à {$a['potential']}/100. "
+            . 'Ajoute chaque étape à ton plan pour suivre tes progrès : une certification obtenue rejoint automatiquement ton profil.';
+        return $p1 . "\n\n" . $p2 . "\n\n" . $p3;
+    }
+
     /* ======================= Lettre de motivation ======================= */
 
     public static function coverLetter(array $p, ?array $job, string $tone = 'professionnel'): string

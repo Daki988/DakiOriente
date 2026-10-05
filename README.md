@@ -67,11 +67,23 @@ Les entreprises, écoles et personnes de démonstration sont fictives.
 ### Moteur de matching (§8)
 Score de 0 à 100 sur 9 critères pondérés (compétences 30 %, formation 15 %, expérience 15 %, métier 10 %, localisation 10 %, disponibilité 5 %, langues 5 %, soft skills 5 %, préférences 5 %). Les poids sont configurables par secteur. Le niveau d'étude obligatoire est traité comme critère **éliminatoire**. Chaque résultat expose le détail par critère, les points forts, les écarts et des **actions recommandées** (formations ciblées, projets, conseils). Code : `app/Services/MatchingEngine.php`.
 
+### Analyse des écarts et recommandations
+La page **Mes axes de progression** (`/espace/progression`) compare le profil du candidat à ses offres les plus proches (5, 10 ou 20) et détecte les écarts : compétences absentes ou insuffisantes, langues, niveau d'études, expérience, qualités, mobilité.
+
+- **Gains mesurés, pas estimés** : pour chaque écart, le moteur de matching est relancé sur un profil où l'écart est comblé. Un écart bloquant (niveau éliminatoire) est levé d'abord, pour que les autres gains restent lisibles.
+- **Priorisation marché** : les écarts sont classés par gain cumulé sur les offres analysées. Le score moyen atteignable en comblant les 3 premiers est affiché.
+- **Recommandations détaillées** : certifications reconnues (catalogue de 60 certifications reliées aux compétences et aux langues, options gratuites en tête), formations du catalogue, projet concret pour prouver la compétence, actions (stage, bénévolat, VAE, mobilité).
+- **Plan de progression** : le candidat ajoute certifications, formations et projets à son plan (à faire, en cours, atteint). Une certification atteinte rejoint son profil et son CV, et les compétences liées passent au niveau « confirmé » : les scores sont recalculés.
+- **Avis du coach** : conseil personnalisé rédigé par Claude à partir des gains mesurés, avec repli sur le moteur local.
+- Chaque fiche d'offre affiche aussi une section **« Combler l'écart pour ce poste »**, le plan 30/60/90 jours reprend les certifications prioritaires, et le tableau de bord met en avant l'axe n°1.
+
+Le catalogue public `/certifications` est filtrable et propose une sélection personnalisée au candidat connecté. Il est géré dans Admin › Référentiels › Certifications. Code : `app/Services/GapAnalysisService.php`, catalogue initial : `database/certifications.php`. Une base existante se met à jour avec `php bin/install.php --upgrade`.
+
 ### Phase de lancement et monétisation (§12)
 Tremplin démarre en **phase de lancement gratuite** : toutes les fonctionnalités sont accessibles sans abonnement, les quotas sont levés et aucun paiement n'est proposé. La page Tarifs et l'espace « Abonnement » l'expliquent aux utilisateurs. Le mode se désactive dans Admin › Paramètres le jour où le modèle payant est arrêté : la grille FREE / STARTER / PRO / PREMIUM / CAREER, les offres entreprises et le paiement Mobile Money (pilote `sandbox` à remplacer par un agrégateur) sont déjà en place.
 
 ### API REST v1 (§16)
-Endpoints JSON authentifiés par jeton Bearer : `/api/v1/auth/login`, `/jobs`, `/jobs/{id}/apply`, `/matches`, `/recommendations`, `/cover-letter/generate`, `/interview/simulate`, `/companies/jobs`, `/companies/candidates/search`, `/admin/analytics`… Spécification OpenAPI 3 : `/api/v1/openapi.json`, documentation : `/api`.
+Endpoints JSON authentifiés par jeton Bearer : `/api/v1/auth/login`, `/jobs`, `/jobs/{id}/apply`, `/matches`, `/recommendations`, `/gaps` (analyse des écarts, globale ou `?job_id=`), `/certifications`, `/cover-letter/generate`, `/interview/simulate`, `/companies/jobs`, `/companies/candidates/search`, `/admin/analytics`… Spécification OpenAPI 3 : `/api/v1/openapi.json`, documentation : `/api`.
 
 ```bash
 curl -X POST http://localhost:8000/api/v1/auth/login -H "Content-Type: application/json" \

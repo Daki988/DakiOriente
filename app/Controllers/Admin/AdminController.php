@@ -215,6 +215,7 @@ final class AdminController extends Controller
         'countries'    => ['Pays', ['code', 'name', 'currency', 'phone_prefix']],
         'job_families' => ['Métiers', ['name', 'riasec', 'sector_id', 'skills', 'education_min', 'outlook']],
         'trainings'    => ['Formations', ['title', 'provider', 'skill_id', 'duration', 'price', 'format']],
+        'certifications' => ['Certifications', ['name', 'issuer', 'domain', 'skills', 'language', 'level', 'cost', 'prep_time', 'url']],
     ];
 
     public function referentials(): string
@@ -254,6 +255,10 @@ final class AdminController extends Controller
                 flash('error', 'Cet élément existe déjà.');
                 back();
             }
+        }
+        if ($tab === 'certifications') {
+            $data['cost'] = in_array($data['cost'], ['gratuit', 'mixte', 'payant'], true) ? $data['cost'] : 'payant';
+            $data['level'] = in_array($data['level'], ['debutant', 'intermediaire', 'avance'], true) ? $data['level'] : 'debutant';
         }
         if ($tab === 'skills') {
             $data['category'] = in_array($data['category'], ['tech', 'soft'], true) ? $data['category'] : 'tech';

@@ -49,7 +49,9 @@ final class DashboardController extends Controller
             default => ['Développe une compétence clé', 'Une seule nouvelle compétence peut débloquer plusieurs offres. Les formations recommandées ciblent tes écarts les plus fréquents.', '/formations', 'graduation-cap'],
         };
 
-        return $this->app('candidate/dashboard', compact('p', 'completion', 'employ', 'recos', 'apps', 'counts', 'interviews', 'history', 'favorites', 'notifications', 'next', 'quota') + [
+        $gaps = \App\Services\GapAnalysisService::market($uid, 10);
+
+        return $this->app('candidate/dashboard', compact('p', 'completion', 'employ', 'recos', 'apps', 'counts', 'interviews', 'history', 'favorites', 'notifications', 'next', 'quota', 'gaps') + [
             'title' => 'Mon tableau de bord', 'charts' => true,
         ]);
     }

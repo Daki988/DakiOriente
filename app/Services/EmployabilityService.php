@@ -126,8 +126,22 @@ final class EmployabilityService
         $d30[] = 'Envoyer 5 candidatures ciblées parmi tes meilleurs matchs';
 
         $d60 = [];
-        foreach ($topMissing as $s) {
-            $d60[] = "Se former sur « $s » (compétence la plus demandée dans tes matchs)";
+        foreach (array_slice(GapAnalysisService::market($userId, 10)['gaps'], 0, 3) as $g) {
+            $pick = null;
+            foreach ($g['recos'] as $r) {
+                if (in_array($r['kind'], ['certification', 'training'], true)) {
+                    $pick = $r;
+                    break;
+                }
+            }
+            $d60[] = $pick
+                ? ($pick['kind'] === 'certification' ? 'Préparer la certification « ' : 'Suivre la formation « ') . $pick['title'] . ' » pour : ' . lcfirst($g['label']) . ' (+' . $g['avg_gain'] . ' pts en moyenne sur ' . $g['count'] . ' offre(s))'
+                : ucfirst($g['label']) . ' (+' . $g['avg_gain'] . ' pts en moyenne sur ' . $g['count'] . ' offre(s))';
+        }
+        if (!$d60) {
+            foreach ($topMissing as $s) {
+                $d60[] = "Se former sur « $s » (compétence la plus demandée dans tes matchs)";
+            }
         }
         $d60[] = 'Faire 2 simulations d\'entretien et retravailler les réponses faibles';
         $d60[] = 'Réaliser un projet concret à ajouter dans ton profil (portfolio, étude de cas, bénévolat)';

@@ -35,6 +35,20 @@ $chart = [
     </div>
 </div>
 
+<?php if (!empty($gaps['gaps'])): $g1 = $gaps['gaps'][0]; ?>
+<a class="card card-hover mb-3 gap-teaser" href="<?= e(url('/espace/progression')) ?>" style="color:inherit">
+    <div class="flex flex-wrap" style="gap:16px;align-items:center">
+        <span class="kpi" style="border:0;padding:0;background:none"><span class="ki green"><?= icon('trending-up') ?></span></span>
+        <div class="grow" style="min-width:220px">
+            <small class="eyebrow" style="margin:0">Ton axe de progression n°1</small>
+            <h2 style="font-size:1.08rem;margin:2px 0"><?= e($g1['label']) ?></h2>
+            <p class="muted small mb-0">Demandé dans <?= (int)$g1['count'] ?> de tes <?= count($gaps['jobs']) ?> meilleures offres, +<?= (int)$g1['avg_gain'] ?> pts en moyenne. En comblant tes 3 premiers écarts, ton score moyen passe de <?= (int)$gaps['avg'] ?> à <b style="color:var(--green)"><?= (int)$gaps['potential'] ?></b>.</p>
+        </div>
+        <span class="btn btn-soft">Voir comment <?= icon('arrow-right') ?></span>
+    </div>
+</a>
+<?php endif; ?>
+
 <div class="grid-4 mb-3">
     <div class="kpi"><span class="ki"><?= icon('send') ?></span><div><b><?= $sent ?></b><span>Candidatures</span></div></div>
     <div class="kpi"><span class="ki violet"><?= icon('star') ?></span><div><b><?= ($counts['shortlisted'] ?? 0) + ($counts['interview'] ?? 0) ?></b><span>Présélections & entretiens</span></div></div>

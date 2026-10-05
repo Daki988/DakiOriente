@@ -27,7 +27,7 @@ final class MatchingEngine
         'preferences'  => ['Préférences candidat ↔ offre', 5],
     ];
 
-    private const LANG_LEVELS = ['A1' => 1, 'A2' => 2, 'B1' => 3, 'B2' => 4, 'C1' => 5, 'C2' => 6];
+    public const LANG_LEVELS = ['A1' => 1, 'A2' => 2, 'B1' => 3, 'B2' => 4, 'C1' => 5, 'C2' => 6];
     private const STOPWORDS = ['de', 'du', 'des', 'la', 'le', 'les', 'et', 'en', 'un', 'une', 'a', 'au', 'aux', 'pour', 'h', 'f', 'stage', 'stagiaire', 'junior', 'assistant', 'assistante', 'charge', 'chargee'];
 
     private static array $weightCache = [];
@@ -87,7 +87,7 @@ final class MatchingEngine
     }
 
     /** Calcule le score de compatibilité candidat ↔ offre. */
-    public static function compute(array $p, array $job): array
+    public static function compute(array $p, array $job, bool $withActions = true): array
     {
         $weights = self::weights($job['sector_id'] ? (int)$job['sector_id'] : null);
         $criteria = [];
@@ -304,7 +304,7 @@ final class MatchingEngine
             'gaps'           => array_slice($gaps, 0, 4),
             'missing_skills' => $missingSkills,
             'missing_langs'  => $missingLangs,
-            'actions'        => self::actions($result, $missingSkills, $missingLangs, $job, $p),
+            'actions'        => $withActions ? self::actions($result, $missingSkills, $missingLangs, $job, $p) : [],
         ];
     }
 
@@ -455,7 +455,7 @@ final class MatchingEngine
         return $y . ' an' . ($y > 1 ? 's' : '') . ($r ? " $r mois" : '');
     }
 
-    private static function parseLangs(string $s): array
+    public static function parseLangs(string $s): array
     {
         $out = [];
         foreach (array_filter(array_map('trim', explode(',', $s))) as $item) {

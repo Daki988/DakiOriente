@@ -54,7 +54,7 @@ return [
     availability_date VARCHAR(10), languages TEXT, certifications TEXT, soft_skills TEXT,
     riasec_code VARCHAR(3), riasec_scores TEXT, employability_score INTEGER NOT NULL DEFAULT 0,
     cv_template VARCHAR(20) NOT NULL DEFAULT 'moderne', linkedin VARCHAR(255), portfolio VARCHAR(255),
-    visible_to_recruiters INTEGER NOT NULL DEFAULT 1, completion INTEGER NOT NULL DEFAULT 0, cv_ai TEXT, updated_at {TS}
+    visible_to_recruiters INTEGER NOT NULL DEFAULT 1, completion INTEGER NOT NULL DEFAULT 0, cv_ai TEXT, gap_advice TEXT, updated_at {TS}
 )",
 'candidate_educations' => "CREATE TABLE candidate_educations (
     id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -173,6 +173,16 @@ return [
     sector_id INTEGER REFERENCES sectors(id), format VARCHAR(30) DEFAULT 'en ligne', duration VARCHAR(40),
     price INTEGER NOT NULL DEFAULT 0, level VARCHAR(20) DEFAULT 'debutant', url VARCHAR(255), description TEXT
 )",
+'certifications' => "CREATE TABLE certifications (
+    id {PK}, name VARCHAR(190) NOT NULL, issuer VARCHAR(190), domain VARCHAR(60), skills VARCHAR(255), language VARCHAR(40),
+    level VARCHAR(20) DEFAULT 'debutant', format VARCHAR(120), prep_time VARCHAR(60), cost VARCHAR(20) DEFAULT 'payant',
+    url VARCHAR(255), description TEXT, value_note VARCHAR(255)
+)",
+'candidate_goals' => "CREATE TABLE candidate_goals (
+    id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, kind VARCHAR(20) NOT NULL,
+    ref_id INTEGER, label VARCHAR(190) NOT NULL, gap_key VARCHAR(80), status VARCHAR(20) NOT NULL DEFAULT 'todo',
+    created_at {TS}, done_at {TS}
+)",
 
 // ---------- Écoles ----------
 'schools' => "CREATE TABLE schools (
@@ -258,6 +268,7 @@ return [
 
 // ---------- Index ----------
 '_indexes' => [
+    'CREATE INDEX idx_goals_user ON candidate_goals(user_id)',
     'CREATE INDEX idx_jobs_status ON jobs(status, published_at)',
     'CREATE INDEX idx_jobs_company ON jobs(company_id)',
     'CREATE INDEX idx_apps_user ON applications(user_id)',

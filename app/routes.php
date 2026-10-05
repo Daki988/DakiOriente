@@ -28,6 +28,7 @@ return function (Router $r): void {
     $r->get('/entreprises/{slug}', [PageController::class, 'company']);
     $r->get('/formations', [PageController::class, 'trainings']);
     $r->get('/formations/{id}', [PageController::class, 'training']);
+    $r->get('/certifications', [PageController::class, 'certifications']);
     $r->get('/conseils', [PageController::class, 'articles']);
     $r->get('/conseils/{slug}', [PageController::class, 'article']);
     $r->get('/tarifs', [PageController::class, 'pricing']);
@@ -118,6 +119,11 @@ return function (Router $r): void {
         $r->get('/entretien/{id}', [CareerController::class, 'interviewSession']);
         $r->post('/entretien/{id}', [CareerController::class, 'answerInterview']);
         $r->get('/plan', [CareerController::class, 'plan']);
+        $r->get('/progression', [CareerController::class, 'progression']);
+        $r->post('/progression/objectifs', [CareerController::class, 'addGoal']);
+        $r->post('/progression/objectifs/{id}', [CareerController::class, 'updateGoal']);
+        $r->post('/progression/objectifs/{id}/supprimer', [CareerController::class, 'deleteGoal']);
+        $r->post('/progression/conseil', [CareerController::class, 'gapAdvice'], ['throttle:ai,30,60']);
     });
 
     /* ---------- Espace entreprise ---------- */
@@ -200,6 +206,8 @@ return function (Router $r): void {
         $r->post('/jobs/{id}/apply', [ApiController::class, 'apply'], ['role:candidate']);
         $r->get('/matches', [ApiController::class, 'matches'], ['role:candidate']);
         $r->get('/recommendations', [ApiController::class, 'recommendations'], ['role:candidate']);
+        $r->get('/gaps', [ApiController::class, 'gaps'], ['role:candidate']);
+        $r->get('/certifications', [ApiController::class, 'certifications']);
         $r->post('/cv/generate', [ApiController::class, 'cv'], ['role:candidate']);
         $r->post('/cover-letter/generate', [ApiController::class, 'coverLetter'], ['role:candidate']);
         $r->post('/interview/simulate', [ApiController::class, 'interview'], ['role:candidate']);

@@ -94,6 +94,8 @@ $langs = array_filter(array_map('trim', explode(',', (string)$job['languages']))
                 </div>
             </div>
 
+            <?php if (!empty($gapPlan)): ?><?= App\Core\View::partial('partials/gap_plan', ['plan' => $gapPlan, 'job' => $job, 'planned' => $planned]) ?><?php endif; ?>
+
             <div class="card">
                 <div class="flex" style="align-items:flex-start">
                     <span class="logo-box" style="background:<?= e($company['color']) ?>"><?= e($logo) ?></span>

@@ -147,6 +147,7 @@ return function (): void {
             'description' => "Formation pratique pour acquérir des compétences immédiatement utiles en entreprise. Exercices concrets, cas gabonais et attestation de fin de formation.",
         ]);
     }
+    \Database\Migrator::seedCertifications();
 
     /* ---------- Offres d'abonnement ---------- */
     $plans = [
@@ -502,6 +503,11 @@ return function (): void {
     ];
     foreach ($articles as $i => [$t, $cat, $color, $body]) {
         DB::insert('contents', ['slug' => slugify($t), 'title' => $t, 'category' => $cat, 'excerpt' => excerpt(explode("\n", $body)[0], 160), 'body' => $body, 'cover_color' => $color, 'reading_minutes' => 3 + $i % 3, 'published' => 1, 'created_at' => $ago(5 + $i * 6)]);
+    }
+
+    /* ---------- Plan de progression de la candidate de démo ---------- */
+    foreach ([['certification', 'Microsoft Power BI Data Analyst (PL-300)', 'skill:12', 'en_cours', 4], ['certification', 'TOEIC Listening & Reading', 'lang:anglais', 'todo', 2]] as [$kind, $name, $key, $st, $d]) {
+        DB::insert('candidate_goals', ['user_id' => $demo, 'kind' => $kind, 'ref_id' => DB::value('SELECT id FROM certifications WHERE name = :n', ['n' => $name]), 'label' => $name, 'gap_key' => $key, 'status' => $st, 'created_at' => $ago($d), 'done_at' => null]);
     }
 
     /* ---------- Signalements & audit ---------- */

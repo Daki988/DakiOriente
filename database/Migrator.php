@@ -57,7 +57,30 @@ final class Migrator
     public static function upgrade(): array
     {
         $added = [];
-        $columns = ['candidate_profiles' => ['cv_ai' => 'TEXT']];
+        // Tables apparues depuis l'installation
+        $schema = require __DIR__ . '/schema.php';
+        $driver = DB::driver();
+        $tables = $driver === 'sqlite'
+            ? DB::column("SELECT name FROM sqlite_master WHERE type = 'table'")
+            : DB::column('SELECT table_name FROM information_schema.tables WHERE table_schema = ' . ($driver === 'pgsql' ? 'current_schema()' : 'DATABASE()'));
+        $pk = match ($driver) {
+            'sqlite' => 'INTEGER PRIMARY KEY AUTOINCREMENT',
+            'pgsql'  => 'SERIAL PRIMARY KEY',
+            default  => 'INT AUTO_INCREMENT PRIMARY KEY',
+        };
+        foreach ($schema as $table => $sql) {
+            if ($table !== '_indexes' && !in_array($table, $tables, true)) {
+                DB::pdo()->exec(str_replace(['{PK}', '{TS}'], [$pk, $driver === 'pgsql' ? 'TIMESTAMP NULL' : 'DATETIME NULL'], $sql)
+                    . ($driver === 'mysql' ? ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci' : ''));
+                $added[] = $table;
+            }
+        }
+        if (!(int)DB::value('SELECT COUNT(*) FROM certifications')) {
+            self::seedCertifications();
+            $added[] = 'certifications (catalogue)';
+        }
+
+        $columns = ['candidate_profiles' => ['cv_ai' => 'TEXT', 'gap_advice' => 'TEXT']];
         foreach ($columns as $table => $cols) {
             $existing = DB::driver() === 'sqlite'
                 ? array_column(DB::all("PRAGMA table_info($table)"), 'name')
@@ -76,5 +99,17 @@ final class Migrator
             $added[] = 'settings.launch_mode';
         }
         return $added;
+    }
+
+    /** Catalogue de certifications reliées aux compétences du référentiel. */
+    public static function seedCertifications(): void
+    {
+        foreach (require __DIR__ . '/certifications.php' as [$name, $issuer, $domain, $skills, $lang, $level, $format, $prep, $cost, $url, $desc, $note]) {
+            DB::insert('certifications', [
+                'name' => $name, 'issuer' => $issuer, 'domain' => $domain, 'skills' => $skills ?: null, 'language' => $lang ?: null,
+                'level' => $level, 'format' => $format, 'prep_time' => $prep, 'cost' => $cost, 'url' => $url ?: null,
+                'description' => $desc, 'value_note' => $note,
+            ]);
+        }
     }
 }

@@ -80,6 +80,8 @@ final class ApiController extends Controller
         $paths['/jobs/{id}/apply']['post'] = $def('Postuler', 'Candidat', true, $body(['cover_letter' => $s()]));
         $paths['/matches']['get'] = $def('Mes scores de compatibilité', 'Matching');
         $paths['/recommendations']['get'] = $def('Recommandations d\'offres et de métiers', 'Matching');
+        $paths['/gaps']['get'] = $def('Analyse des écarts avec le marché (gains mesurés, certifications, formations, projets)', 'Matching', true, ['parameters' => [['name' => 'job_id', 'in' => 'query', 'schema' => $s('integer'), 'description' => 'Analyse pour une offre précise'], ['name' => 'limit', 'in' => 'query', 'schema' => $s('integer'), 'description' => 'Nombre d\'offres analysées (5 à 20)']]]);
+        $paths['/certifications']['get'] = $def('Catalogue des certifications', 'Formation', false, ['parameters' => array_map(fn($n) => ['name' => $n, 'in' => 'query', 'schema' => $s()], ['q', 'domain'])]);
         $paths['/cv/generate']['post'] = $def('Données structurées du CV', 'IA');
         $paths['/cover-letter/generate']['post'] = $def('Générer une lettre', 'IA', true, $body(['job_id' => $s('integer'), 'tone' => $s()]));
         $paths['/interview/simulate']['post'] = $def('Simulation d\'entretien', 'IA', true, $body(['job_id' => $s('integer'), 'answers' => ['type' => 'array', 'items' => $s()]]));
@@ -221,6 +223,33 @@ final class ApiController extends Controller
             'careers' => $p['riasec_code'] ? array_map(fn($c) => ['name' => $c['name'], 'fit' => $c['fit'], 'riasec' => $c['riasec'], 'sector' => $c['sector_name'], 'outlook' => $c['outlook']], \App\Services\RiasecService::careers($p['riasec_code'], 6)) : [],
             'employability' => ['score' => $e['score'], 'label' => $e['label'], 'tips' => $e['tips']],
         ]]);
+    }
+
+    public function gaps(): void
+    {
+        $uid = Auth::id();
+        if ($jobId = (int)input('job_id', 0)) {
+            $job = MatchingEngine::loadJob($jobId);
+            if (!$job || $job['status'] !== 'published') {
+                json_response(['error' => 'Offre introuvable'], 404);
+            }
+            json_response(['data' => \App\Services\GapAnalysisService::forJob(ProfileService::load($uid), $job)]);
+        }
+        $a = \App\Services\GapAnalysisService::market($uid, max(5, min(20, (int)input('limit', 10))));
+        json_response(['data' => $a]);
+    }
+
+    public function certifications(): void
+    {
+        $q = normalize((string)input('q', ''));
+        $domain = (string)input('domain', '');
+        $rows = array_values(array_filter(DB::all('SELECT * FROM certifications ORDER BY domain, name'), fn($c) => ($domain === '' || $c['domain'] === $domain)
+            && ($q === '' || str_contains(normalize($c['name'] . ' ' . $c['issuer'] . ' ' . $c['skills'] . ' ' . $c['language']), $q))));
+        json_response(['data' => array_map(fn($c) => [
+            'id' => (int)$c['id'], 'name' => $c['name'], 'issuer' => $c['issuer'], 'domain' => $c['domain'],
+            'skills' => array_values(array_filter(array_map('trim', explode(',', (string)$c['skills'])))), 'language' => $c['language'],
+            'level' => $c['level'], 'format' => $c['format'], 'prep_time' => $c['prep_time'], 'cost' => $c['cost'], 'url' => $c['url'], 'description' => $c['description'],
+        ], $rows)]);
     }
 
     public function cv(): void

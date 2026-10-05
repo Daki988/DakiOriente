@@ -77,17 +77,21 @@ final class JobController extends Controller
         }
         $company = DB::one('SELECT c.*, ci.name AS city_name FROM companies c LEFT JOIN cities ci ON ci.id = c.city_id WHERE c.id = :id', ['id' => $job['company_id']]);
         $match = null;
+        $gapPlan = null;
+        $planned = [];
         $application = null;
         $isFav = false;
         if (Auth::is('candidate')) {
             $match = MatchingEngine::forUser(Auth::id(), (int)$id);
+            $gapPlan = $match ? \App\Services\GapAnalysisService::forJob(\App\Services\ProfileService::load(Auth::id()), MatchingEngine::loadJob((int)$id), $match) : null;
+            $planned = \App\Core\DB::column('SELECT label FROM candidate_goals WHERE user_id = :u', ['u' => Auth::id()]);
             $application = DB::one('SELECT * FROM applications WHERE job_id = :j AND user_id = :u', ['j' => (int)$id, 'u' => Auth::id()]);
             $isFav = (bool)DB::value('SELECT COUNT(*) FROM favorites WHERE user_id = :u AND job_id = :j', ['u' => Auth::id(), 'j' => (int)$id]);
         }
         $similar = DB::all(JobSearch::BASE_SELECT . " WHERE j.status = 'published' AND j.id != :id AND (j.sector_id = :s OR j.company_id = :c) ORDER BY j.published_at DESC LIMIT 3",
             ['id' => (int)$id, 's' => $job['sector_id'], 'c' => $job['company_id']]);
         $applicants = (int)DB::value('SELECT COUNT(*) FROM applications WHERE job_id = :j', ['j' => (int)$id]);
-        return $this->view('jobs/show', compact('job', 'company', 'match', 'application', 'isFav', 'similar', 'applicants', 'own') + [
+        return $this->view('jobs/show', compact('job', 'company', 'match', 'application', 'isFav', 'similar', 'applicants', 'own', 'gapPlan', 'planned') + [
             'title' => $job['title'] . ' — ' . $job['company_name'],
             'description' => $job['summary'],
         ]);

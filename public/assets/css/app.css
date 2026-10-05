@@ -689,3 +689,42 @@ h1, h2, h3, p, .small, label, .badge { overflow-wrap: anywhere; }
   .btn { white-space: normal; max-width: 100%; text-align: center; }
   .footer-grid a { overflow-wrap: anywhere; }
 }
+
+/* ---------- Axes de progression et recommandations ---------- */
+.reco-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.reco { display: flex; gap: 12px; align-items: flex-start; background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; min-width: 0; }
+.reco .ri { flex: none; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--blue-50); color: var(--blue); }
+.reco-certification .ri { background: #fff4d6; color: #b7791f; }
+.reco-project .ri { background: #ecfdf3; color: var(--green); }
+.reco-title { display: block; color: var(--navy); font-size: .93rem; margin-top: 2px; }
+.reco-note { color: var(--navy); }
+.reco-note .ic { color: var(--blue); }
+.gap-hero { position: relative; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; }
+.gap-hero > div:first-child { flex: 1 1 320px; min-width: 0; }
+.gap-rings { display: flex; align-items: center; gap: 14px; background: rgba(255, 255, 255, .12); border-radius: 18px; padding: 14px 18px; color: #fff; }
+.gap-rings small { display: block; margin-top: 6px; font-weight: 600; }
+.gap-arrow { color: var(--yellow); }
+.gap-card.focus { border-color: #ffd36b; box-shadow: 0 10px 30px -18px rgba(183, 121, 31, .5); }
+.gap-head { display: flex; gap: 14px; align-items: flex-start; }
+.gap-rank { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--navy); color: #fff; font-weight: 800; }
+.gap-gain { flex: none; text-align: center; background: #ecfdf3; color: #0b5e2f; border-radius: 14px; padding: 8px 12px; min-width: 76px; }
+.gap-gain b { display: block; font-size: 1.35rem; line-height: 1.1; }
+.gap-gain span { font-size: .72rem; font-weight: 600; }
+.gap-gain.sm { min-width: 0; padding: 6px 10px; }
+.gap-gain.sm b { font-size: 1.05rem; }
+.gap-mini { display: flex; align-items: center; gap: 6px; font-weight: 700; color: var(--muted); }
+.gap-mini b { color: var(--green); font-size: 1.1rem; }
+.gap-row + .gap-row { border-top: 1px solid var(--line); padding-top: 14px; }
+.goal { padding: 10px 0; }
+.goal + .goal { border-top: 1px solid var(--line); }
+.coach-text p { color: #fff; font-size: .92rem; line-height: 1.6; }
+@media (max-width: 639.98px) {
+  .gap-head { flex-wrap: wrap; }
+  .gap-gain { order: 3; }
+  .gap-rings { width: 100%; justify-content: center; }
+}
+@media (min-width: 1280px) { .reco-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.reco-more > summary { cursor: pointer; font-weight: 700; font-size: .88rem; color: var(--blue); list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+.reco-more > summary::-webkit-details-marker { display: none; }
+.reco-more[open] > summary .ic { transform: rotate(180deg); }
+.list > li.goal { display: block; }

@@ -7,6 +7,7 @@ use App\Controllers\Controller;
 use App\Core\DB;
 use App\Services\Ai\AiService;
 use App\Services\EmployabilityService;
+use App\Services\GapAnalysisService;
 use App\Services\MatchingEngine;
 use App\Services\PlanService;
 use App\Services\ProfileService;
@@ -31,6 +32,87 @@ final class CareerController extends Controller
         }
         $favs = DB::column('SELECT job_id FROM favorites WHERE user_id = :u', ['u' => $uid]);
         return $this->app('candidate/recommendations', compact('recos', 'careers', 'p', 'advanced', 'favs') + ['title' => 'Offres pour moi']);
+    }
+
+    /* ---------- Axes de progression : écarts avec le marché et plan d'action ---------- */
+
+    public function progression(): string
+    {
+        $uid = $this->uid();
+        $n = in_array((int)input('n', 10), [5, 10, 20], true) ? (int)input('n', 10) : 10;
+        $analysis = GapAnalysisService::market($uid, $n);
+        $goals = GapAnalysisService::goals($uid);
+        $p = ProfileService::load($uid);
+        $advice = json_decode((string)($p['gap_advice'] ?? ''), true) ?: null;
+        $planned = array_column($goals, 'label');
+        return $this->app('candidate/progression', compact('analysis', 'goals', 'advice', 'planned', 'n', 'p') + [
+            'title' => 'Mes axes de progression', 'provider' => AiService::providerName(), 'usage' => AiService::usage($uid),
+        ]);
+    }
+
+    public function addGoal(): void
+    {
+        $uid = $this->uid();
+        $kind = in_array(input('kind'), ['certification', 'training', 'project', 'action'], true) ? (string)input('kind') : 'action';
+        $label = mb_substr(trim((string)input('label', '')), 0, 190);
+        $ref = (int)input('ref_id', 0) ?: null;
+        if ($kind === 'certification' && $ref) {
+            $label = (string)(DB::value('SELECT name FROM certifications WHERE id = :id', ['id' => $ref]) ?: $label);
+        } elseif ($kind === 'training' && $ref) {
+            $label = (string)(DB::value('SELECT title FROM trainings WHERE id = :id', ['id' => $ref]) ?: $label);
+        }
+        if ($label === '') {
+            back();
+        }
+        if (!DB::value('SELECT COUNT(*) FROM candidate_goals WHERE user_id = :u AND label = :l AND status != :d', ['u' => $uid, 'l' => $label, 'd' => 'fait'])) {
+            DB::insert('candidate_goals', [
+                'user_id' => $uid, 'kind' => $kind, 'ref_id' => $ref, 'label' => $label,
+                'gap_key' => mb_substr((string)input('gap_key', ''), 0, 80) ?: null, 'status' => 'todo', 'created_at' => now(), 'done_at' => null,
+            ]);
+        }
+        audit('goal.added', 'user', $uid, ['label' => $label]);
+        flash('success', '« ' . $label . ' » ajouté à ton plan. Un objectif écrit a beaucoup plus de chances d\'être atteint : passe-le « en cours » dès que tu commences.');
+        redirect('/espace/progression#plan');
+    }
+
+    public function updateGoal(string $id): void
+    {
+        $uid = $this->uid();
+        $goal = DB::one('SELECT * FROM candidate_goals WHERE id = :id AND user_id = :u', ['id' => (int)$id, 'u' => $uid]) ?? abort(404);
+        $status = in_array(input('status'), ['todo', 'en_cours', 'fait'], true) ? (string)input('status') : 'todo';
+        DB::update('candidate_goals', ['status' => $status, 'done_at' => $status === 'fait' ? now() : null], 'id = :id', ['id' => $goal['id']]);
+        if ($status === 'fait' && $goal['status'] !== 'fait') {
+            $added = GapAnalysisService::complete($uid, $goal);
+            ProfileService::refreshCompletion($uid);
+            EmployabilityService::compute($uid, true);
+            audit('goal.done', 'user', $uid, ['label' => $goal['label']]);
+            flash('success', 'Bravo, objectif atteint : « ' . $goal['label'] . ' » !'
+                . ($goal['kind'] === 'certification' ? ' La certification apparaît maintenant sur ton profil et ton CV' . ($added ? ', et ces compétences ont été mises à jour : ' . implode(', ', $added) : '') . '. Tes scores ont été recalculés.' : ''));
+        } else {
+            flash('success', $status === 'en_cours' ? 'C\'est parti ! Avance un peu chaque semaine : la régularité fait la différence.' : 'Objectif mis à jour.');
+        }
+        redirect('/espace/progression#plan');
+    }
+
+    public function deleteGoal(string $id): void
+    {
+        DB::delete('candidate_goals', 'id = :id AND user_id = :u', ['id' => (int)$id, 'u' => $this->uid()]);
+        flash('info', 'Objectif retiré de ton plan.');
+        redirect('/espace/progression#plan');
+    }
+
+    public function gapAdvice(): void
+    {
+        $uid = $this->uid();
+        if (!AiService::enabled()) {
+            flash('warning', 'L\'assistant IA est temporairement désactivé par l\'équipe NEAM.');
+            redirect('/espace/progression');
+        }
+        $p = ProfileService::load($uid, true);
+        $advice = AiService::gapAdvice($p, GapAnalysisService::market($uid, 10)) + ['at' => now()];
+        DB::update('candidate_profiles', ['gap_advice' => json_encode($advice, JSON_UNESCAPED_UNICODE)], 'user_id = :u', ['u' => $uid]);
+        flash('success', 'Ton conseil personnalisé est prêt. Lis-le, puis ajoute les étapes qui te parlent à ton plan.');
+        redirect('/espace/progression#coach');
     }
 
     public function employability(): string

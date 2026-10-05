@@ -1,8 +1,8 @@
 <?php
-$labels = ['name' => 'Nom', 'category' => 'Catégorie', 'aliases' => 'Synonymes (virgules)', 'icon' => 'Icône', 'country_id' => 'Pays', 'code' => 'Code ISO', 'currency' => 'Devise', 'phone_prefix' => 'Indicatif', 'riasec' => 'Code RIASEC', 'sector_id' => 'Secteur', 'skills' => 'Compétences', 'education_min' => 'Niveau min. (0-7)', 'outlook' => 'Débouchés', 'title' => 'Titre', 'provider' => 'Organisme', 'skill_id' => 'Compétence', 'duration' => 'Durée', 'price' => 'Prix (FCFA)', 'format' => 'Format'];
+$labels = ['issuer' => 'Organisme', 'domain' => 'Domaine', 'language' => 'Langue', 'level' => 'Niveau', 'cost' => 'Coût', 'prep_time' => 'Préparation', 'url' => 'Lien officiel', 'name' => 'Nom', 'category' => 'Catégorie', 'aliases' => 'Synonymes (virgules)', 'icon' => 'Icône', 'country_id' => 'Pays', 'code' => 'Code ISO', 'currency' => 'Devise', 'phone_prefix' => 'Indicatif', 'riasec' => 'Code RIASEC', 'sector_id' => 'Secteur', 'skills' => 'Compétences', 'education_min' => 'Niveau min. (0-7)', 'outlook' => 'Débouchés', 'title' => 'Titre', 'provider' => 'Organisme', 'skill_id' => 'Compétence', 'duration' => 'Durée', 'price' => 'Prix (FCFA)', 'format' => 'Format'];
 $fields = $refs[$tab][1];
 ?>
-<div class="page-head"><div><h1>Référentiels</h1><p>Données paramétrables multi-pays : compétences, métiers, secteurs, villes, pays, formations.</p></div></div>
+<div class="page-head"><div><h1>Référentiels</h1><p>Données paramétrables multi-pays : compétences, métiers, secteurs, villes, pays, formations et certifications. Les compétences d'une certification se saisissent avec leur nom exact, séparées par des virgules.</p></div></div>
 <nav class="tabs mb-3"><?php foreach ($refs as $k => [$l]): ?><a class="<?= $tab === $k ? 'active' : '' ?>" href="<?= e(url('/admin/referentiels', ['tab' => $k])) ?>"><?= e($l) ?></a><?php endforeach; ?></nav>
 <div class="layout-aside">
     <div class="table-wrap"><table class="table">
@@ -24,7 +24,9 @@ $fields = $refs[$tab][1];
             <h3>Ajouter — <?= e($refs[$tab][0]) ?></h3>
             <?php foreach ($fields as $f): ?>
                 <div class="field"><label for="f-<?= $f ?>"><?= e($labels[$f] ?? $f) ?></label>
-                    <?php if ($f === 'category'): ?><select id="f-<?= $f ?>" name="category"><option value="tech">Technique</option><option value="soft">Soft skill</option></select>
+                    <?php if ($f === 'cost' && $tab === 'certifications'): ?><select id="f-cost" name="cost"><option value="gratuit">Gratuit</option><option value="mixte">Cours gratuits, examen payant</option><option value="payant" selected>Payant</option></select>
+                    <?php elseif ($f === 'level' && $tab === 'certifications'): ?><select id="f-level" name="level"><option value="debutant">Débutant</option><option value="intermediaire">Intermédiaire</option><option value="avance">Avancé</option></select>
+                    <?php elseif ($f === 'category'): ?><select id="f-<?= $f ?>" name="category"><option value="tech">Technique</option><option value="soft">Soft skill</option></select>
                     <?php elseif ($f === 'country_id'): ?><select id="f-<?= $f ?>" name="country_id"><?php foreach ($countries as $c): ?><option value="<?= (int)$c['id'] ?>"><?= e($c['name']) ?></option><?php endforeach; ?></select>
                     <?php elseif ($f === 'sector_id'): ?><select id="f-<?= $f ?>" name="sector_id"><?php foreach ($sectors as $c): ?><option value="<?= (int)$c['id'] ?>"><?= e($c['name']) ?></option><?php endforeach; ?></select>
                     <?php elseif ($f === 'skill_id'): ?><select id="f-<?= $f ?>" name="skill_id"><option value="">—</option><?php foreach ($skills as $c): ?><option value="<?= (int)$c['id'] ?>"><?= e($c['name']) ?></option><?php endforeach; ?></select>

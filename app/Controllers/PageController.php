@@ -108,6 +108,31 @@ final class PageController extends Controller
         return $this->view('pages/trainings', compact('trainings', 'q', 'recommended') + ['title' => 'Se former']);
     }
 
+    /** Catalogue des certifications, avec une sélection personnalisée pour le candidat connecté. */
+    public function certifications(): string
+    {
+        $q = trim((string)input('q', ''));
+        $domain = (string)input('domaine', '');
+        $all = DB::all('SELECT * FROM certifications ORDER BY domain, name');
+        $domains = array_values(array_unique(array_column($all, 'domain')));
+        $n = normalize($q);
+        $certs = array_values(array_filter($all, fn($c) => ($domain === '' || $c['domain'] === $domain)
+            && ($n === '' || str_contains(normalize($c['name'] . ' ' . $c['issuer'] . ' ' . $c['skills'] . ' ' . $c['language'] . ' ' . $c['domain']), $n))
+            && (!input('gratuit') || $c['cost'] !== 'payant')));
+        $forMe = [];
+        if (Auth::is('candidate')) {
+            foreach (\App\Services\GapAnalysisService::market(Auth::id(), 10)['gaps'] as $g) {
+                foreach ($g['recos'] as $r) {
+                    if ($r['kind'] === 'certification' && !isset($forMe[$r['id']])) {
+                        $forMe[$r['id']] = $r + ['why' => $g['label'], 'count' => $g['count'], 'gain' => $g['avg_gain']];
+                    }
+                }
+            }
+            $forMe = array_slice(array_values($forMe), 0, 3);
+        }
+        return $this->view('pages/certifications', compact('certs', 'domains', 'domain', 'q', 'forMe') + ['title' => 'Certifications']);
+    }
+
     public function training(string $id): string
     {
         $t = DB::one('SELECT t.*, sk.name AS skill_name, s.name AS sector_name FROM trainings t LEFT JOIN skills sk ON sk.id = t.skill_id LEFT JOIN sectors s ON s.id = t.sector_id WHERE t.id = :id', ['id' => (int)$id]);

@@ -71,6 +71,7 @@ $isActive = fn(string $href) => $href === '/' ? is_current('/', true) : is_curre
                     <li><a href="<?= e(url('/offres')) ?>">Trouver un stage</a></li>
                     <li><a href="<?= e(url('/espace/cv')) ?>">Créer mon CV</a></li>
                     <li><a href="<?= e(url('/espace/orientation')) ?>">Test d'orientation</a></li>
+                    <li><a href="<?= e(url('/certifications')) ?>">Certifications reconnues</a></li>
                     <li><a href="<?= e(url('/tarifs')) ?>"><?= launch_mode() ? 'Gratuit pendant le lancement' : 'Offres & tarifs' ?></a></li>
                 </ul>
             </div>
