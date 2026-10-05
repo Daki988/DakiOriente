@@ -396,7 +396,7 @@ function app_nav(string $role): array
             ['CVthèque', '/entreprise/cvtheque', 'users'],
             ['Statistiques', '/entreprise/statistiques', 'bar-chart-3'],
             ['Profil entreprise', '/entreprise/profil', 'building-2', 'Entreprise'],
-            ['Abonnement', '/abonnement', 'credit-card'],
+            ...(launch_mode() ? [] : [['Abonnement', '/abonnement', 'credit-card']]),
         ],
         'school' => [
             ['Tableau de bord', '/ecole', 'house', 'Établissement'],
@@ -467,4 +467,10 @@ function send_csv(string $filename, array $header, array $rows): never
     }
     fclose($out);
     exit;
+}
+
+/** Phase de lancement : toutes les fonctionnalités sont gratuites, les paiements sont désactivés. */
+function launch_mode(): bool
+{
+    return setting('launch_mode', '1') === '1';
 }

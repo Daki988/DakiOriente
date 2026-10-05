@@ -144,7 +144,7 @@ final class AdminController extends Controller
         foreach (DB::column('SELECT user_id FROM company_users WHERE company_id = :c', ['c' => $c['id']]) as $uid) {
             NotificationService::notify((int)$uid, 'moderation',
                 $decision === 'verified' ? 'Votre entreprise est vérifiée !' : ($decision === 'rejected' ? 'Vérification de votre entreprise refusée' : 'Vérification remise en attente'),
-                $decision === 'verified' ? 'Vos offres sont désormais publiées' . ($published ? " ($published publiée(s))." : '.') : (string)input('note', 'Contactez support@tremplin.ga pour plus d\'informations.'),
+                $decision === 'verified' ? 'Vos offres sont désormais publiées' . ($published ? " ($published publiée(s))." : '.') : (string)input('note', 'Contactez contact@neamindustry.com pour plus d\'informations.'),
                 '/entreprise');
         }
         audit('company.' . $decision, 'company', (int)$c['id'], ['note' => input('note')]);
@@ -457,24 +457,28 @@ final class AdminController extends Controller
 
     public function settings(): string
     {
-        $keys = ['ai_enabled', 'match_alert_threshold', 'stat_youth', 'stat_offers', 'stat_companies', 'testimonial_text', 'testimonial_author'];
-        $values = [];
-        foreach ($keys as $k) {
-            $values[$k] = setting($k, '');
-        }
+        $values = [
+            'ai_enabled' => setting('ai_enabled', '1'), 'match_alert_threshold' => setting('match_alert_threshold', '70'),
+            'launch_mode' => setting('launch_mode', '1'), 'ai_monthly_limit' => setting('ai_monthly_limit', '30'), 'launch_message' => setting('launch_message', ''),
+        ];
         $plans = DB::all('SELECT * FROM plans ORDER BY sort');
-        return $this->app('admin/settings', compact('values', 'plans') + ['title' => 'Paramètres', 'provider' => \App\Services\Ai\AiService::providerName()]);
+        $aiStats = DB::all("SELECT provider, feature, COUNT(*) AS n FROM ai_logs WHERE created_at >= :d GROUP BY provider, feature ORDER BY n DESC", ['d' => date('Y-m-01')]);
+        return $this->app('admin/settings', compact('values', 'plans', 'aiStats') + [
+            'title' => 'Paramètres', 'provider' => \App\Services\Ai\AiService::providerName(),
+            'claude' => \App\Services\Ai\AiService::claudeConfigured(), 'sdk' => class_exists(\Anthropic\Client::class),
+            'keySet' => config('ai.api_key') !== '', 'mailDriver' => config('mail.driver'),
+        ]);
     }
 
     public function saveSettings(): void
     {
         $values = [
             'ai_enabled' => input('ai_enabled') ? '1' : '0',
+            'launch_mode' => input('launch_mode') ? '1' : '0',
             'match_alert_threshold' => (string)max(40, min(95, (int)input('match_alert_threshold', 70))),
+            'ai_monthly_limit' => (string)max(0, min(1000, (int)input('ai_monthly_limit', 30))),
+            'launch_message' => mb_substr(trim((string)input('launch_message', '')), 0, 300),
         ];
-        foreach (['stat_youth', 'stat_offers', 'stat_companies', 'testimonial_text', 'testimonial_author'] as $k) {
-            $values[$k] = mb_substr(trim((string)input($k, '')), 0, 300);
-        }
         foreach ($values as $k => $v) {
             DB::delete('settings', 'skey = :k', ['k' => $k]);
             DB::insert('settings', ['skey' => $k, 'svalue' => $v]);

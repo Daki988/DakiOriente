@@ -93,6 +93,8 @@ return function (Router $r): void {
         $r->get('/cv', [CvController::class, 'index']);
         $r->post('/cv/modele', [CvController::class, 'template']);
         $r->post('/cv/version', [CvController::class, 'snapshot']);
+        $r->post('/cv/ia', [CvController::class, 'aiCv'], ['throttle:ai,30,60']);
+        $r->post('/cv/ia/reinitialiser', [CvController::class, 'resetAiCv']);
         $r->get('/cv/imprimer', [CvController::class, 'print']);
         $r->get('/cv/versions/{id}', [CvController::class, 'version']);
         $r->post('/cv/import', [CvController::class, 'import'], ['throttle:upload,10,10']);

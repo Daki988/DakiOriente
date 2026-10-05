@@ -24,7 +24,42 @@ final class CvController extends Controller
         $docs = DB::all("SELECT * FROM documents WHERE user_id = :u AND kind = 'cv' ORDER BY created_at DESC", ['u' => $this->uid()]);
         $import = Session::get('cv_import');
         $canTemplates = PlanService::allows($this->user(), 'cv_templates');
-        return $this->app('candidate/cv', compact('p', 'versions', 'docs', 'import', 'canTemplates') + ['templates' => self::TEMPLATES, 'title' => 'Mon CV']);
+        $jobs = DB::all("SELECT j.id, j.title, co.name AS company_name FROM jobs j JOIN companies co ON co.id = j.company_id WHERE j.status = 'published' ORDER BY j.published_at DESC LIMIT 60");
+        return $this->app('candidate/cv', compact('p', 'versions', 'docs', 'import', 'canTemplates', 'jobs') + [
+            'templates' => self::TEMPLATES, 'title' => 'Mon CV', 'provider' => AiService::providerName(),
+            'usage' => AiService::usage(), 'aiEnabled' => AiService::enabled(),
+        ]);
+    }
+
+    /** Rédaction du CV par l'IA (Claude) : accroche, titre et expériences reformulées, éventuellement ciblées sur une offre. */
+    public function aiCv(): void
+    {
+        if (!AiService::enabled()) {
+            flash('warning', 'L\'assistant IA est temporairement désactivé.');
+            redirect('/espace/cv');
+        }
+        $jobId = (int)input('job_id', 0);
+        $job = $jobId ? MatchingEngine::loadJob($jobId) : null;
+        $p = ProfileService::load($this->uid(), true);
+        if (!$p['experiences'] && !$p['skills']) {
+            flash('warning', 'Ajoute d\'abord tes expériences et compétences dans ton profil : l\'IA n\'invente rien.');
+            redirect('/espace/profil');
+        }
+        $quota = AiService::quotaReached();
+        $content = AiService::cvContent($p, $job);
+        DB::update('candidate_profiles', ['cv_ai' => json_encode($content, JSON_UNESCAPED_UNICODE), 'updated_at' => now()], 'user_id = :u', ['u' => $this->uid()]);
+        audit('cv.ai_generated', 'user', $this->uid(), ['provider' => $content['provider'], 'job' => $jobId ?: null]);
+        flash('success', $content['provider'] === 'Claude'
+            ? 'CV rédigé par Claude' . ($job ? ' pour « ' . $job['title'] . ' »' : '') . '. Relis-le : tu peux revenir à ta version à tout moment.'
+            : ($quota ? 'Quota IA du mois atteint : CV rédigé par le moteur NEAM.' : 'CV mis en forme par le moteur NEAM.'));
+        redirect('/espace/cv');
+    }
+
+    public function resetAiCv(): void
+    {
+        DB::update('candidate_profiles', ['cv_ai' => null], 'user_id = :u', ['u' => $this->uid()]);
+        flash('info', 'Ton CV utilise de nouveau les textes de ton profil.');
+        redirect('/espace/cv');
     }
 
     public function template(): void
@@ -129,7 +164,7 @@ final class CvController extends Controller
         $usedThisMonth = (int)DB::value('SELECT COUNT(*) FROM cover_letters WHERE user_id = :u AND created_at >= :d', ['u' => $uid, 'd' => date('Y-m-01')]);
         $unlimited = PlanService::allows($this->user(), 'ai_letter');
         return $this->app('candidate/letters', compact('letters', 'jobs', 'selectedJob', 'usedThisMonth', 'unlimited') + [
-            'freeLimit' => self::FREE_LETTERS, 'provider' => AiService::providerName(), 'aiEnabled' => AiService::enabled(), 'title' => 'Lettres de motivation',
+            'freeLimit' => self::FREE_LETTERS, 'provider' => AiService::providerName(), 'aiEnabled' => AiService::enabled(), 'usage' => AiService::usage(), 'title' => 'Lettres de motivation',
         ]);
     }
 

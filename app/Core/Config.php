@@ -37,16 +37,23 @@ final class Config
                 'password' => $get('DB_PASSWORD', ''),
             ],
             'mail' => [
-                'driver' => $get('MAIL_DRIVER', 'log'), // log | mail
-                'from'   => $get('MAIL_FROM', 'no-reply@tremplin.ga'),
+                'driver'     => $get('MAIL_DRIVER', 'log'), // log | smtp | mail
+                'from'       => $get('MAIL_FROM', 'contact@neamindustry.com'),
+                'from_name'  => $get('MAIL_FROM_NAME', 'Tremplin by NEAM'),
+                'host'       => $get('MAIL_HOST', ''),
+                'port'       => (int)$get('MAIL_PORT', 465),
+                'username'   => $get('MAIL_USERNAME', ''),
+                'password'   => $get('MAIL_PASSWORD', ''),
+                'encryption' => $get('MAIL_ENCRYPTION', 'ssl'), // ssl | tls
             ],
             'sms' => [
                 'driver' => $get('SMS_DRIVER', 'log'),
             ],
             'ai' => [
-                'provider' => $get('AI_PROVIDER', 'local'), // local | anthropic
+                'provider' => $get('AI_PROVIDER', 'anthropic'), // anthropic (Claude, si clé présente) | local
                 'api_key'  => $get('ANTHROPIC_API_KEY', ''),
                 'model'    => $get('AI_MODEL', 'claude-opus-5-5'),
+                'base_url' => $get('AI_BASE_URL', 'https://api.anthropic.com'),
             ],
             'payment' => [
                 'driver' => $get('PAYMENT_DRIVER', 'sandbox'),

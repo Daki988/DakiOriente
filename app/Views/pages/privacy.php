@@ -15,7 +15,7 @@
             <p>Tu peux à tout moment accéder à tes données, les rectifier, les exporter (format JSON) ou supprimer ton compte depuis <a href="<?= e(url('/compte')) ?>">Paramètres du compte</a>. Les documents des comptes supprimés sont effacés immédiatement ; les journaux techniques sont conservés 12 mois.</p>
             <h2>Sécurité</h2>
             <p>Chiffrement TLS, mots de passe hachés (bcrypt/argon), contrôle d'accès par rôle, protection CSRF, limitation des tentatives, analyse des fichiers déposés et journal d'audit des actions sensibles.</p>
-            <p>Contact : <a href="mailto:dpo@tremplin.ga">dpo@tremplin.ga</a></p>
+            <p>Contact : <a href="mailto:contact@neamindustry.com">contact@neamindustry.com</a></p>
         </div>
     </div>
 </section>

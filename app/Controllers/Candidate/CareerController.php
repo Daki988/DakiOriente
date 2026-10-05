@@ -84,7 +84,7 @@ final class CareerController extends Controller
         }
         $jobId = (int)input('job_id', 0);
         $job = $jobId ? MatchingEngine::loadJob($jobId) : null;
-        $questions = AiService::interviewQuestions(ProfileService::load($this->uid()), $job);
+        $questions = AiService::interviewQuestions(ProfileService::load($this->uid()), $job, true);
         $id = DB::insert('interview_sessions', ['user_id' => $this->uid(), 'job_id' => $job ? $jobId : null, 'questions' => json_encode($questions, JSON_UNESCAPED_UNICODE), 'created_at' => now()]);
         redirect('/espace/entretien/' . $id);
     }
@@ -115,15 +115,11 @@ final class CareerController extends Controller
         $questions = json_decode($s['questions'], true) ?: [];
         $job = $s['job_id'] ? MatchingEngine::loadJob((int)$s['job_id']) : null;
         $answers = [];
-        $feedback = [];
-        $total = 0;
         foreach ($questions as $i => $q) {
-            $a = mb_substr(trim((string)($_POST['answer'][$i] ?? '')), 0, 3000);
-            $answers[$i] = $a;
-            $fb = AiService::evaluateAnswer($q['q'], $a, $job);
-            $feedback[$i] = $fb;
-            $total += $fb['score'];
+            $answers[$i] = mb_substr(trim((string)($_POST['answer'][$i] ?? '')), 0, 3000);
         }
+        $feedback = AiService::evaluateAnswers($questions, $answers, $job);
+        $total = array_sum(array_column($feedback, 'score'));
         $score = $questions ? (int)round($total / (count($questions) * 10) * 100) : 0;
         DB::update('interview_sessions', [
             'answers' => json_encode($answers, JSON_UNESCAPED_UNICODE), 'feedback' => json_encode($feedback, JSON_UNESCAPED_UNICODE), 'score' => $score,

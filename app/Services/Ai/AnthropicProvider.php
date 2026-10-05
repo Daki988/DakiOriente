@@ -5,7 +5,7 @@ namespace App\Services\Ai;
 
 /**
  * Fournisseur Claude (Anthropic) via le SDK PHP officiel `anthropic-ai/sdk` (composer install).
- * Activé avec AI_PROVIDER=anthropic et ANTHROPIC_API_KEY dans .env.
+ * Activé avec AI_PROVIDER=anthropic et ANTHROPIC_API_KEY dans .env (modèle : AI_MODEL, par défaut claude-opus-5-5).
  * En cas d'indisponibilité (SDK absent, erreur réseau, refus), retourne null → génération locale.
  */
 final class AnthropicProvider implements AiProvider
@@ -20,18 +20,19 @@ final class AnthropicProvider implements AiProvider
         return config('ai.api_key') !== '' && class_exists(\Anthropic\Client::class);
     }
 
-    public function complete(string $system, string $prompt, int $maxTokens = 2000): ?string
+    public function complete(string $system, string $prompt, int $maxTokens = 2000, string $effort = 'low'): ?string
     {
         if (!self::available()) {
             return null;
         }
         try {
-            $client = new \Anthropic\Client(apiKey: (string)config('ai.api_key'));
+            $client = new \Anthropic\Client(apiKey: (string)config('ai.api_key'), baseUrl: (string)config('ai.base_url'));
             $message = $client->messages->create(
                 model: (string)config('ai.model'),
-                maxTokens: max($maxTokens, 4000),
+                // Marge pour la réflexion adaptative du modèle, en plus du texte attendu
+                maxTokens: min(16000, $maxTokens + 6000),
                 system: $system,
-                outputConfig: ['effort' => 'low'],
+                outputConfig: ['effort' => in_array($effort, ['low', 'medium', 'high'], true) ? $effort : 'low'],
                 messages: [
                     ['role' => 'user', 'content' => $prompt],
                 ],

@@ -85,22 +85,19 @@ $defaultCity = '';
             </a>
         </div>
 
-        <div class="stats-strip mt-3">
-            <div class="stats">
-                <div class="stat"><?= icon('users') ?><div><b>+ <?= e(setting('stat_youth', '5 000')) ?></b><span>jeunes accompagnés</span></div></div>
-                <div class="stat"><?= icon('briefcase-business') ?><div><b>+ <?= e(setting('stat_offers', '1 200')) ?></b><span>offres disponibles</span></div></div>
-                <div class="stat"><?= icon('building-2') ?><div><b>+ <?= e(setting('stat_companies', '300')) ?></b><span>entreprises partenaires</span></div></div>
-            </div>
-            <div class="testimonial">
-                <div class="faces" aria-hidden="true">
-                    <span class="avatar" style="background:#f59e0b">G</span><span class="avatar" style="background:#0057ff">K</span><span class="avatar" style="background:#12a150">S</span>
-                </div>
+        <div class="stats-strip launch-strip mt-3">
+            <div class="flex" style="gap:14px;align-items:flex-start">
+                <span class="launch-badge"><?= icon('rocket') ?></span>
                 <div>
-                    <blockquote>“<?= e(setting('testimonial_text')) ?>”</blockquote>
-                    <cite>— <?= e(setting('testimonial_author')) ?></cite>
+                    <b style="color:var(--navy);font-size:1.05rem">Tremplin est en phase de lancement</b>
+                    <p class="small muted mb-0"><?= e(setting('launch_message', 'Pendant cette phase, toutes les fonctionnalités sont gratuites pour les candidats, les entreprises et les écoles. Rejoins les premiers inscrits et aide-nous à construire la plateforme.')) ?></p>
                 </div>
             </div>
-        </div>
+            <div class="stats">
+                <div class="stat"><?= icon('badge-check') ?><div><b>100 %</b><span>gratuit pendant le lancement</span></div></div>
+                <div class="stat"><?= icon('shield-check') ?><div><b>Offres</b><span>vérifiées par l'équipe NEAM</span></div></div>
+                <div class="stat"><?= icon('sparkles') ?><div><b>IA Claude</b><span>pour ton CV, tes lettres et tes entretiens</span></div></div>
+            </div>
     </div>
 </section>
 

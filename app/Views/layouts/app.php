@@ -26,7 +26,12 @@ $planCode = $role === 'candidate' ? App\Services\PlanService::effectiveCode($u) 
                 <?php if ($it[1] === '/admin/entreprises' && ($pend = (int)App\Core\DB::value("SELECT COUNT(*) FROM companies WHERE status = 'pending'"))): ?><span class="badge badge-amber"><?= $pend ?></span><?php endif; ?>
             </a>
         <?php endforeach; ?>
-        <?php if ($role === 'candidate' && in_array($planCode, ['FREE', 'STARTER'], true)): ?>
+        <?php if (launch_mode()): ?>
+            <div class="side-upsell">
+                <b><?= icon('rocket') ?> Phase de lancement</b>
+                Toutes les fonctionnalités sont gratuites pendant cette période, y compris l'assistant IA.
+            </div>
+        <?php elseif ($role === 'candidate' && in_array($planCode, ['FREE', 'STARTER'], true)): ?>
             <div class="side-upsell">
                 <b>Passe à Pro <?= icon('sparkles') ?></b>
                 Candidatures illimitées, plan d'action et recommandations avancées.
@@ -51,13 +56,13 @@ $planCode = $role === 'candidate' ? App\Services\PlanService::effectiveCode($u) 
                 <details class="dropdown">
                     <summary class="flex" style="gap:8px;padding:4px;border-radius:12px" aria-label="Menu du compte">
                         <span class="avatar avatar-sm" style="background:<?= e(avatar_color($u['email'])) ?>"><?= e(initials($u['first_name'], $u['last_name'])) ?></span>
-                        <span class="hide-mobile" style="line-height:1.2"><b style="font-size:.9rem;color:var(--navy)"><?= e($u['first_name']) ?></b><br><small class="muted"><?= e(role_label($role)) ?><?= $planCode && $planCode !== 'FREE' ? ' · ' . e($planCode) : '' ?></small></span>
+                        <span class="hide-mobile" style="line-height:1.2"><b style="font-size:.9rem;color:var(--navy)"><?= e($u['first_name']) ?></b><br><small class="muted"><?= e(role_label($role)) ?><?= !launch_mode() && $planCode && $planCode !== 'FREE' ? ' · ' . e($planCode) : '' ?></small></span>
                         <?= icon('chevron-down', 'hide-mobile') ?>
                     </summary>
                     <div class="dropdown-menu">
                         <a href="<?= e(url('/')) ?>"><?= icon('globe') ?> Site public</a>
                         <a href="<?= e(url('/compte')) ?>"><?= icon('settings') ?> Paramètres du compte</a>
-                        <?php if ($role === 'candidate' || $role === 'company'): ?><a href="<?= e(url('/abonnement')) ?>"><?= icon('credit-card') ?> Abonnement</a><?php endif; ?>
+                        <?php if (!launch_mode() && ($role === 'candidate' || $role === 'company')): ?><a href="<?= e(url('/abonnement')) ?>"><?= icon('credit-card') ?> Abonnement</a><?php endif; ?>
                         <a href="<?= e(url('/compte/api')) ?>"><?= icon('key-round') ?> Accès API</a>
                         <div class="divider" style="margin:6px 0"></div>
                         <form action="<?= e(url('/deconnexion')) ?>" method="post"><?= csrf_field() ?><button type="submit" class="danger"><?= icon('log-out') ?> Se déconnecter</button></form>

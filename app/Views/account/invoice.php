@@ -5,7 +5,7 @@
         <div style="text-align:right"><h1 style="font-size:1.6rem;margin:0">FACTURE</h1><b><?= e($inv['number']) ?></b><br><span class="muted"><?= e(date_fr($inv['paid_at'])) ?></span></div>
     </div>
     <div class="grid-2 mt-4">
-        <div><h4>Émetteur</h4>NEAM Softwares Industry<br>Libreville, Gabon<br>contact@tremplin.ga</div>
+        <div><h4>Émetteur</h4>NEAM Softwares Industry<br>Libreville, Gabon<br>contact@neamindustry.com</div>
         <div><h4>Client</h4><?= e($inv['first_name'] . ' ' . $inv['last_name']) ?><br><?= e($inv['email']) ?></div>
     </div>
     <table class="table mt-4" style="border:1px solid var(--line)">

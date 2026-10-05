@@ -54,7 +54,7 @@ final class AccountController extends Controller
         DB::update('users', ['password_hash' => password_hash($d['password'], PASSWORD_DEFAULT), 'updated_at' => now()], 'id = :id', ['id' => $u['id']]);
         DB::delete('api_tokens', 'user_id = :u', ['u' => $u['id']]);
         audit('account.password_changed', 'user', (int)$u['id']);
-        NotificationService::notify((int)$u['id'], 'security', 'Ton mot de passe a été modifié', 'Si tu n\'es pas à l\'origine de ce changement, contacte immédiatement support@tremplin.ga.', '/compte');
+        NotificationService::notify((int)$u['id'], 'security', 'Ton mot de passe a été modifié', 'Si tu n\'es pas à l\'origine de ce changement, contacte immédiatement contact@neamindustry.com.', '/compte');
         flash('success', 'Mot de passe modifié. Tes jetons d\'API ont été révoqués par sécurité.');
         redirect('/compte');
     }

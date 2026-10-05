@@ -248,11 +248,12 @@ final class ApiController extends Controller
         $job = !empty($in['job_id']) ? MatchingEngine::loadJob((int)$in['job_id']) : null;
         $questions = AiService::interviewQuestions(ProfileService::load(Auth::id()), $job);
         $answers = (array)($in['answers'] ?? []);
+        $feedback = $answers ? AiService::evaluateAnswers($questions, $answers, $job) : [];
         $out = [];
         foreach ($questions as $i => $q) {
             $row = ['type' => $q['type'], 'question' => $q['q']];
             if (isset($answers[$i])) {
-                $row['feedback'] = AiService::evaluateAnswer($q['q'], (string)$answers[$i], $job);
+                $row['feedback'] = $feedback[$i] ?? null;
             }
             $out[] = $row;
         }

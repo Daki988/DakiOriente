@@ -34,7 +34,7 @@
             </fieldset>
             <?php if (!$aiEnabled): ?><div class="alert alert-warning small"><?= icon('info') ?><div>L'assistant est temporairement désactivé.</div></div><?php endif; ?>
             <button class="btn btn-cta btn-block" type="submit" <?= $aiEnabled ? '' : 'disabled' ?>><?= icon('sparkles') ?> Générer ma lettre</button>
-            <p class="small muted mb-0"><?= icon('info') ?> Moteur : <?= e($provider) ?>. <?= $unlimited ? 'Lettres illimitées avec ton abonnement.' : 'Offre Free : ' . max(0, $freeLimit - $usedThisMonth) . ' / ' . $freeLimit . ' lettres restantes ce mois.' ?></p>
+            <p class="small muted mb-0"><?= icon('info') ?> Moteur : <?= e($provider) ?>. <?= launch_mode() ? 'Gratuit pendant la phase de lancement · ' . (int)$usage['remaining'] . '/' . (int)$usage['limit'] . ' générations IA restantes ce mois.' : ($unlimited ? 'Lettres illimitées avec ton abonnement.' : 'Offre Free : ' . max(0, $freeLimit - $usedThisMonth) . ' / ' . $freeLimit . ' lettres restantes ce mois.') ?></p>
         </form>
     </aside>
 </div>

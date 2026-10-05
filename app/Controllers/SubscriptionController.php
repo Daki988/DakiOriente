@@ -18,8 +18,20 @@ final class SubscriptionController extends Controller
         };
     }
 
+    /** Pendant la phase de lancement, aucun paiement n'est proposé. */
+    private function guardLaunch(): void
+    {
+        if (launch_mode()) {
+            flash('info', 'Tremplin est gratuit pendant la phase de lancement : aucun paiement n\'est nécessaire.');
+            redirect('/abonnement');
+        }
+    }
+
     public function index(): string
     {
+        if (launch_mode()) {
+            return $this->app('account/launch', ['title' => 'Accès gratuit — phase de lancement']);
+        }
         $plans = DB::all('SELECT * FROM plans WHERE audience = :a ORDER BY sort', ['a' => $this->audience()]);
         foreach ($plans as &$p) {
             $p['features_list'] = json_decode((string)$p['features'], true) ?: [];
@@ -34,6 +46,7 @@ final class SubscriptionController extends Controller
 
     public function pay(): void
     {
+        $this->guardLaunch();
         $plan = PlanService::plan((string)input('plan'));
         if (!$plan || $plan['audience'] !== $this->audience() || (int)$plan['price'] <= 0) {
             flash('error', 'Offre invalide.');
@@ -77,6 +90,7 @@ final class SubscriptionController extends Controller
     /** Sandbox : simule la validation (ou le refus) côté opérateur. En production : webhook signé de l'agrégateur. */
     public function confirm(string $ref): void
     {
+        $this->guardLaunch();
         if (config('payment.driver') !== 'sandbox') {
             abort(403);
         }

@@ -21,6 +21,23 @@
     </div>
 
     <aside class="stack">
+        <form method="post" action="<?= e(url('/espace/cv/ia')) ?>" class="card card-blue stack-sm">
+            <?= csrf_field() ?>
+            <h3 class="mb-0"><?= icon('sparkles') ?> Rédiger mon CV avec l'IA</h3>
+            <p class="small mb-0" style="color:#e2ecff">Claude rédige ton accroche et reformule tes expériences en points forts, à partir de ton profil (sans rien inventer). Tu peux le cibler sur une offre.</p>
+            <label class="sr-only" for="cv-job">Offre ciblée</label>
+            <select id="cv-job" name="job_id" class="input"><option value="">CV général</option><?php foreach ($jobs as $j): ?><option value="<?= (int)$j['id'] ?>"><?= e($j['title'] . ' — ' . $j['company_name']) ?></option><?php endforeach; ?></select>
+            <button class="btn btn-cta btn-block" type="submit" <?= $aiEnabled ? '' : 'disabled' ?>><?= icon('sparkles') ?> <?= !empty($p['cv_ai_data']) ? 'Régénérer' : 'Générer' ?> mon CV</button>
+            <small style="color:#e2ecff">Moteur : <?= e($provider) ?> · <?= (int)$usage['remaining'] ?>/<?= (int)$usage['limit'] ?> générations IA restantes ce mois</small>
+        </form>
+        <?php if (!empty($p['cv_ai_data'])): $ai = $p['cv_ai_data']; ?>
+            <section class="card">
+                <h3><?= icon('circle-check-big') ?> Version rédigée par <?= e($ai['provider']) ?></h3>
+                <p class="small muted">Générée <?= e(time_ago($ai['generated_at'] ?? null)) ?><?= !empty($ai['job']) ? ' pour « ' . e($ai['job']) . ' »' : '' ?>. Ton profil d'origine n'est pas modifié.</p>
+                <?php if (!empty($ai['skills_tip'])): ?><div class="alert alert-info small"><?= icon('lightbulb') ?><div><?= e($ai['skills_tip']) ?></div></div><?php endif; ?>
+                <form method="post" action="<?= e(url('/espace/cv/ia/reinitialiser')) ?>" class="mt-1"><?= csrf_field() ?><button class="btn btn-ghost btn-sm" type="submit"><?= icon('refresh-cw') ?> Revenir aux textes de mon profil</button></form>
+            </section>
+        <?php endif; ?>
         <section class="card" id="import">
             <h3><?= icon('upload') ?> Importer mon CV existant</h3>
             <p class="small muted">PDF, DOCX ou TXT (5 Mo max). Nous détectons tes compétences pour compléter ton profil automatiquement.</p>

@@ -5,6 +5,33 @@ foreach ($plans as $p) {
 }
 $current = user() ? App\Services\PlanService::effectiveCode(user()) : null;
 ?>
+<?php if (launch_mode()): ?>
+<section class="hero" style="padding:36px 0 20px">
+    <div class="container text-center">
+        <span class="pill"><?= icon('rocket') ?> Phase de lancement</span>
+        <h1 style="font-size:clamp(1.9rem,4vw,2.8rem);margin:14px auto 10px;max-width:none">Tremplin est 100 % gratuit pendant le lancement</h1>
+        <p class="muted" style="max-width:640px;margin:0 auto">Candidats, entreprises et écoles : toutes les fonctionnalités sont accessibles sans abonnement et sans moyen de paiement. Le modèle tarifaire définitif sera annoncé ultérieurement.</p>
+        <a class="btn btn-cta btn-lg mt-3" href="<?= e(url(user() ? App\Core\Auth::homeUrl() : '/inscription')) ?>"><?= user() ? 'Aller à mon espace' : 'Créer mon compte gratuitement' ?> <?= icon('arrow-right') ?></a>
+    </div>
+</section>
+<section class="section-sm">
+    <div class="container">
+        <div class="grid-3">
+            <div class="card card-lg"><h3><?= icon('user') ?> Candidats</h3><ul class="explain-list ok"><li><?= icon('check') ?><span>Profil, CV et candidatures illimitées</span></li><li><?= icon('check') ?><span>Score de compatibilité expliqué sur chaque offre</span></li><li><?= icon('check') ?><span>CV, lettres et préparation d'entretien avec l'IA Claude</span></li><li><?= icon('check') ?><span>Orientation RIASEC et plan d'action 30/60/90 jours</span></li></ul></div>
+            <div class="card card-lg"><h3><?= icon('building-2') ?> Entreprises</h3><ul class="explain-list ok"><li><?= icon('check') ?><span>Publication d'offres sans limite après vérification</span></li><li><?= icon('check') ?><span>Profils compatibles classés et expliqués</span></li><li><?= icon('check') ?><span>CVthèque, pipeline et statistiques</span></li></ul><a class="btn btn-primary mt-1" href="<?= e(url('/inscription?role=company')) ?>">Publier une offre</a></div>
+            <div class="card card-lg"><h3><?= icon('school') ?> Écoles & universités</h3><ul class="explain-list ok"><li><?= icon('check') ?><span>Suivi des étudiants et des stages</span></li><li><?= icon('check') ?><span>Diffusion ciblée d'opportunités</span></li><li><?= icon('check') ?><span>Rapports d'insertion exportables</span></li></ul><a class="btn btn-primary mt-1" href="<?= e(url('/inscription?role=school')) ?>">Créer l'espace établissement</a></div>
+        </div>
+        <h2 class="mt-4">Questions fréquentes</h2>
+        <div class="stack mt-2">
+            <details class="faq"><summary>Combien de temps dure la phase de lancement ?</summary><p class="mb-0">Elle durera le temps de stabiliser la plateforme avec ses premiers utilisateurs. Sa fin sera annoncée à l'avance, par e-mail et sur le site.</p></details>
+            <details class="faq"><summary>Devrai-je payer ensuite ?</summary><p class="mb-0">Les fonctionnalités essentielles resteront gratuites. D'éventuelles offres payantes seront présentées avant leur mise en place et ne seront jamais activées sans ton accord.</p></details>
+            <details class="faq"><summary>Pourquoi l'assistant IA est-il limité ?</summary><p class="mb-0">Pour garantir un service de qualité à tous, chaque utilisateur dispose de <?= (int)setting('ai_monthly_limit', 30) ?> générations IA par mois (lettres, CV, entretiens).</p></details>
+            <details class="faq"><summary>Un recruteur peut-il me demander de payer ?</summary><p class="mb-0"><b>Jamais.</b> Postuler est gratuit. Si quelqu'un te demande de l'argent pour une candidature, signale-le immédiatement depuis l'offre.</p></details>
+            <details class="faq"><summary>Comment vous contacter ?</summary><p class="mb-0">Écris-nous à <a href="mailto:<?= e(config('mail.from')) ?>"><?= e(config('mail.from')) ?></a>.</p></details>
+        </div>
+    </div>
+</section>
+<?php return; endif; ?>
 <section class="hero" style="padding:36px 0 20px">
     <div class="container text-center">
         <span class="eyebrow">Offres & tarifs</span>

@@ -19,18 +19,61 @@ final class AiService
         return setting('ai_enabled', '1') === '1';
     }
 
+    /** Claude si configuré, activé et si le quota mensuel de l'utilisateur n'est pas atteint. */
     private static function llm(): ?AiProvider
     {
-        if (!self::enabled() || config('ai.provider') !== 'anthropic' || !AnthropicProvider::available()) {
+        if (!self::claudeConfigured() || self::quotaReached()) {
             return null;
         }
         return new AnthropicProvider();
     }
 
+    public static function claudeConfigured(): bool
+    {
+        return self::enabled() && config('ai.provider') === 'anthropic' && AnthropicProvider::available();
+    }
+
     public static function providerName(): string
     {
-        return self::llm() ? 'Claude (Anthropic)' : 'Moteur NEAM (règles)';
+        return self::claudeConfigured() ? 'Claude (Anthropic)' : 'Moteur NEAM (règles)';
     }
+
+    /** Générations Claude utilisées ce mois-ci par l'utilisateur connecté (maîtrise des coûts). */
+    public static function usage(?int $userId = null): array
+    {
+        $userId ??= \App\Core\Auth::id();
+        $limit = max(0, (int)setting('ai_monthly_limit', 30));
+        $used = $userId ? (int)DB::value(
+            "SELECT COUNT(*) FROM ai_logs WHERE user_id = :u AND provider = 'anthropic' AND status = 'ok' AND created_at >= :d",
+            ['u' => $userId, 'd' => date('Y-m-01 00:00:00')]
+        ) : 0;
+        return ['used' => $used, 'limit' => $limit, 'remaining' => max(0, $limit - $used)];
+    }
+
+    public static function quotaReached(): bool
+    {
+        $u = \App\Core\Auth::user();
+        if (!$u || $u['role'] === 'admin') {
+            return false;
+        }
+        return self::usage((int)$u['id'])['remaining'] <= 0;
+    }
+
+    /** Extrait un objet/tableau JSON d'une réponse de modèle (tolère les blocs ```json). */
+    private static function json(?string $text): ?array
+    {
+        if (!$text) {
+            return null;
+        }
+        $t = trim(preg_replace('/^```(?:json)?\s*|\s*```$/m', '', trim($text)));
+        $start = strcspn($t, '[{');
+        $data = json_decode(substr($t, $start), true);
+        return is_array($data) ? $data : null;
+    }
+
+    private const SYSTEM = 'Tu es le conseiller carrière de Tremplin by NEAM, plateforme d\'insertion professionnelle au Gabon. '
+        . 'Tu écris en français clair, professionnel et chaleureux, adapté au marché de l\'emploi gabonais et d\'Afrique centrale. '
+        . 'Tu n\'inventes jamais de faits (diplômes, employeurs, chiffres, dates) : tu n\'utilises que les informations fournies.';
 
     private static function log(string $feature, string $provider, string $summary, int $chars, string $status = 'ok'): void
     {
@@ -52,7 +95,7 @@ final class AiService
                 . "Structure : accroche, ce que j'apporte (2-3 preuves concrètes), pourquoi cette entreprise, conclusion avec disponibilité. "
                 . "Texte brut sans markdown, commençant par « Madame, Monsieur, ».\n\n"
                 . "CANDIDAT :\n" . self::profileBrief($p) . ($job ? "\n\nOFFRE :\n" . self::jobBrief($job) : '');
-            $out = $llm->complete('Tu es un conseiller en insertion professionnelle au Gabon. Tu écris des candidatures sobres, précises et percutantes.', $prompt, 1500);
+            $out = $llm->complete(self::SYSTEM . ' Tu écris des candidatures sobres, précises et percutantes.', $prompt, 1500, 'medium');
             if ($out) {
                 self::log('cover_letter', 'anthropic', $summary, mb_strlen($out));
                 return $out;
@@ -133,8 +176,20 @@ final class AiService
 
     /* ======================= Entretien ======================= */
 
-    public static function interviewQuestions(array $p, ?array $job): array
+    public static function interviewQuestions(array $p, ?array $job, bool $useClaude = false): array
     {
+        if ($useClaude && ($llm = self::llm())) {
+            $prompt = "Prépare 7 questions d'entretien pour ce candidat" . ($job ? " qui postule à l'offre ci-dessous" : '') . ". "
+                . "Mélange : présentation, motivation, 2 questions techniques sur les compétences demandées, une mise en situation, une question comportementale, une question de conclusion. "
+                . "Tutoie le candidat. Réponds UNIQUEMENT avec un tableau JSON : [{\"type\": \"Présentation\", \"q\": \"…\"}].\n\n"
+                . "CANDIDAT :\n" . self::profileBrief($p) . ($job ? "\n\nOFFRE :\n" . self::jobBrief($job) : '');
+            $data = self::json($llm->complete(self::SYSTEM, $prompt, 1500, 'low'));
+            $questions = array_values(array_filter((array)$data, fn($q) => is_array($q) && !empty($q['q'])));
+            if (count($questions) >= 4) {
+                self::log('interview_questions', 'anthropic', $job ? $job['title'] : 'Entretien général', mb_strlen(json_encode($questions)));
+                return array_map(fn($q) => ['type' => mb_substr((string)($q['type'] ?? 'Question'), 0, 30), 'q' => mb_substr((string)$q['q'], 0, 400)], array_slice($questions, 0, 8));
+            }
+        }
         $q = [
             ['type' => 'Présentation', 'q' => 'Présente-toi en deux minutes : ton parcours, ce que tu sais faire et ce que tu cherches.'],
             ['type' => 'Motivation', 'q' => $job ? 'Pourquoi veux-tu rejoindre ' . $job['company_name'] . ' pour ce poste de ' . $job['title'] . ' ?' : 'Quel métier vises-tu et pourquoi ?'],
@@ -152,6 +207,50 @@ final class AiService
         }
         $q[] = ['type' => 'Conclusion', 'q' => 'As-tu des questions à nous poser ?'];
         return $q;
+    }
+
+    /**
+     * Évaluation de toutes les réponses d'une simulation : Claude (feedback personnalisé) avec repli
+     * sur la grille déterministe STAR. Retourne une liste [score 0-10, good[], tips[], words].
+     */
+    public static function evaluateAnswers(array $questions, array $answers, ?array $job = null): array
+    {
+        $local = [];
+        foreach ($questions as $i => $q) {
+            $local[$i] = self::evaluateAnswer($q['q'], (string)($answers[$i] ?? ''), $job);
+        }
+        $answered = array_filter($answers, fn($a) => trim((string)$a) !== '');
+        if (!$answered || !($llm = self::llm())) {
+            return $local;
+        }
+        $qa = [];
+        foreach ($questions as $i => $q) {
+            $qa[] = ['index' => $i, 'question' => $q['q'], 'reponse' => mb_substr(trim((string)($answers[$i] ?? '')), 0, 2000)];
+        }
+        $prompt = "Évalue les réponses de ce candidat à une simulation d'entretien" . ($job ? " pour le poste « {$job['title']} » chez {$job['company_name']}" : '') . ". "
+            . "Pour chaque question : une note de 0 à 10 (0 si pas de réponse), 1 à 3 points forts, 1 à 3 conseils concrets (méthode STAR, chiffres, lien avec le poste). Tutoie le candidat. "
+            . "Réponds UNIQUEMENT avec un tableau JSON : [{\"index\": 0, \"score\": 7, \"good\": [\"…\"], \"tips\": [\"…\"]}].\n\n"
+            . json_encode($qa, JSON_UNESCAPED_UNICODE);
+        $data = self::json($llm->complete(self::SYSTEM . ' Tu es aussi un recruteur exigeant mais bienveillant.', $prompt, 3000, 'low'));
+        if (!$data) {
+            return $local;
+        }
+        $out = $local;
+        foreach ($data as $row) {
+            $i = (int)($row['index'] ?? -1);
+            if (!isset($out[$i]) || !isset($row['score'])) {
+                continue;
+            }
+            $out[$i] = [
+                'score' => max(0, min(10, (int)$row['score'])),
+                'good'  => array_slice(array_map('strval', (array)($row['good'] ?? [])), 0, 3),
+                'tips'  => array_slice(array_map('strval', (array)($row['tips'] ?? [])), 0, 3),
+                'words' => $local[$i]['words'],
+                'ai'    => true,
+            ];
+        }
+        self::log('interview_feedback', 'anthropic', $job ? $job['title'] : 'Entretien général', mb_strlen(json_encode($data)));
+        return $out;
     }
 
     /** Évaluation déterministe et explicable d'une réponse (méthode STAR, précision, longueur). */
@@ -222,6 +321,64 @@ final class AiService
             $tips[] = 'Évite les formules négatives : transforme-les en piste d\'apprentissage.';
         }
         return ['score' => min(10, $score), 'good' => $good, 'tips' => array_slice($tips, 0, 3), 'words' => $words];
+    }
+
+    /* ======================= CV ======================= */
+
+    /**
+     * Rédaction du CV : accroche, titre et réécriture des expériences en puces orientées résultats.
+     * Retourne ['headline', 'summary', 'experiences' => [id => [puces]], 'skills_tip', 'provider'].
+     */
+    public static function cvContent(array $p, ?array $job = null): array
+    {
+        $summaryLog = 'CV' . ($job ? ' ciblé « ' . $job['title'] . ' »' : '');
+        if ($llm = self::llm()) {
+            $exps = array_map(fn($x) => ['id' => (int)$x['id'], 'intitule' => $x['title'], 'organisation' => $x['company'], 'type' => $x['kind'], 'description' => $x['description']], $p['experiences']);
+            $prompt = "Rédige le contenu d'un CV percutant pour ce candidat" . ($job ? ", ciblé sur l'offre ci-dessous" : '') . ".\n"
+                . "- headline : titre professionnel (max 90 caractères)\n"
+                . "- summary : accroche de 3 phrases maximum (max 450 caractères), à la première personne sans « je » en début de chaque phrase\n"
+                . "- experiences : pour chaque expérience (par id), 2 à 4 puces commençant par un verbe d'action, orientées résultats, sans inventer de chiffres\n"
+                . "- skills_tip : un conseil sur les compétences à mettre en avant (1 phrase)\n"
+                . "Réponds UNIQUEMENT en JSON : {\"headline\": \"…\", \"summary\": \"…\", \"experiences\": [{\"id\": 1, \"bullets\": [\"…\"]}], \"skills_tip\": \"…\"}.\n\n"
+                . "CANDIDAT :\n" . self::profileBrief($p) . "\nEXPÉRIENCES (JSON) : " . json_encode($exps, JSON_UNESCAPED_UNICODE)
+                . ($job ? "\n\nOFFRE :\n" . self::jobBrief($job) : '');
+            $data = self::json($llm->complete(self::SYSTEM . ' Tu es expert en rédaction de CV.', $prompt, 3000, 'medium'));
+            if ($data && !empty($data['summary'])) {
+                $bullets = [];
+                $known = array_column($p['experiences'], 'id');
+                foreach ((array)($data['experiences'] ?? []) as $e) {
+                    if (in_array((int)($e['id'] ?? 0), array_map('intval', $known), true)) {
+                        $bullets[(int)$e['id']] = array_slice(array_map(fn($b) => mb_substr((string)$b, 0, 220), (array)($e['bullets'] ?? [])), 0, 4);
+                    }
+                }
+                self::log('cv_content', 'anthropic', $summaryLog, mb_strlen(json_encode($data)));
+                return [
+                    'headline' => mb_substr((string)($data['headline'] ?? $p['headline']), 0, 120),
+                    'summary' => mb_substr((string)$data['summary'], 0, 600),
+                    'experiences' => $bullets,
+                    'skills_tip' => mb_substr((string)($data['skills_tip'] ?? ''), 0, 300),
+                    'provider' => 'Claude', 'job' => $job['title'] ?? null, 'generated_at' => now(),
+                ];
+            }
+        }
+        // Repli local : accroche construite à partir du profil, puces issues des descriptions
+        $levels = education_levels();
+        $top = array_slice(array_column(array_filter($p['skills'], fn($s) => $s['category'] === 'tech'), 'name'), 0, 3);
+        $summary = trim(sprintf(
+            '%s de niveau %s%s. Compétences clés : %s. %s',
+            $p['headline'] ?: 'Candidat·e motivé·e',
+            $levels[$p['education_level']] ?? '',
+            $p['field_of_study'] ? ' en ' . mb_strtolower($p['field_of_study']) : '',
+            $top ? self::joinFr($top) : 'polyvalence et apprentissage rapide',
+            $p['desired_job'] ? 'Objectif : ' . mb_strtolower($p['desired_job']) . ($job ? ' — candidature pour « ' . $job['title'] . ' ».' : '.') : ''
+        ));
+        $bullets = [];
+        foreach ($p['experiences'] as $x) {
+            $sentences = array_filter(array_map('trim', preg_split('/(?<=[.!?])\s+/u', (string)$x['description'])));
+            $bullets[(int)$x['id']] = array_slice(array_map(fn($s) => rtrim($s, '.'), $sentences), 0, 3);
+        }
+        self::log('cv_content', 'local', $summaryLog, mb_strlen($summary));
+        return ['headline' => $p['headline'], 'summary' => $summary, 'experiences' => $bullets, 'skills_tip' => '', 'provider' => 'Moteur NEAM', 'job' => $job['title'] ?? null, 'generated_at' => now()];
     }
 
     /* ======================= Recruteur ======================= */

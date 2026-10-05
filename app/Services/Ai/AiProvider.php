@@ -9,5 +9,5 @@ interface AiProvider
     public function name(): string;
 
     /** Retourne le texte généré, ou null si le fournisseur ne peut pas répondre (le service bascule alors en local). */
-    public function complete(string $system, string $prompt, int $maxTokens = 2000): ?string;
+    public function complete(string $system, string $prompt, int $maxTokens = 2000, string $effort = 'low'): ?string;
 }

@@ -43,6 +43,7 @@ final class ProfileService
         $p['soft_list'] = array_values(array_filter(array_map('trim', explode(',', (string)($p['soft_skills'] ?? '')))));
         $p['types_list'] = array_values(array_filter(explode(',', (string)($p['desired_types'] ?? ''))));
         $p['riasec'] = json_decode((string)($p['riasec_scores'] ?? ''), true) ?: [];
+        $p['cv_ai_data'] = json_decode((string)($p['cv_ai'] ?? ''), true) ?: null;
         $p['education_level'] = (int)($p['education_level'] ?? 2);
         $p['experience_months'] = (int)($p['experience_months'] ?? 0);
         return self::$cache[$userId] = $p;

@@ -10,6 +10,7 @@ $isActive = fn(string $href) => $href === '/' ? is_current('/', true) : is_curre
 </head>
 <body>
 <a class="skip-link" href="#contenu">Aller au contenu</a>
+<?php if (launch_mode()): ?><div class="launch-bar"><b>Phase de lancement</b> — Tremplin est entièrement gratuit pendant cette période. <a href="<?= e(url('/tarifs')) ?>">En savoir plus</a></div><?php endif; ?>
 <header class="site-header">
     <div class="container header-bar">
         <button class="icon-btn hide-desktop" type="button" data-menu-open aria-expanded="false" aria-controls="mobile-menu" aria-label="Ouvrir le menu"><?= icon('menu') ?></button>
@@ -70,7 +71,7 @@ $isActive = fn(string $href) => $href === '/' ? is_current('/', true) : is_curre
                     <li><a href="<?= e(url('/offres')) ?>">Trouver un stage</a></li>
                     <li><a href="<?= e(url('/espace/cv')) ?>">Créer mon CV</a></li>
                     <li><a href="<?= e(url('/espace/orientation')) ?>">Test d'orientation</a></li>
-                    <li><a href="<?= e(url('/tarifs')) ?>">Offres & tarifs</a></li>
+                    <li><a href="<?= e(url('/tarifs')) ?>"><?= launch_mode() ? 'Gratuit pendant le lancement' : 'Offres & tarifs' ?></a></li>
                 </ul>
             </div>
             <div>
@@ -94,7 +95,7 @@ $isActive = fn(string $href) => $href === '/' ? is_current('/', true) : is_curre
                     <li><a href="<?= e(url('/conseils')) ?>">Conseils carrière</a></li>
                     <li><a href="<?= e(url('/api')) ?>">API partenaires</a></li>
                     <li><a href="<?= e(url('/confidentialite')) ?>">Confidentialité</a></li>
-                    <li><a href="mailto:contact@tremplin.ga">contact@tremplin.ga</a></li>
+                    <li><a href="mailto:contact@neamindustry.com">contact@neamindustry.com</a></li>
                 </ul>
             </div>
         </div>

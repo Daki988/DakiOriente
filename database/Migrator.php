@@ -52,4 +52,29 @@ final class Migrator
             (require __DIR__ . '/seed.php')();
         }
     }
+
+    /** Mise à jour d'une base existante : ajoute les colonnes apparues depuis l'installation. */
+    public static function upgrade(): array
+    {
+        $added = [];
+        $columns = ['candidate_profiles' => ['cv_ai' => 'TEXT']];
+        foreach ($columns as $table => $cols) {
+            $existing = DB::driver() === 'sqlite'
+                ? array_column(DB::all("PRAGMA table_info($table)"), 'name')
+                : DB::column('SELECT column_name FROM information_schema.columns WHERE table_name = :t', ['t' => $table]);
+            foreach ($cols as $col => $type) {
+                if (!in_array($col, $existing, true)) {
+                    DB::pdo()->exec("ALTER TABLE $table ADD COLUMN $col $type");
+                    $added[] = "$table.$col";
+                }
+            }
+        }
+        if (!DB::value("SELECT COUNT(*) FROM settings WHERE skey = 'launch_mode'")) {
+            foreach (['launch_mode' => '1', 'ai_monthly_limit' => '30'] as $k => $v) {
+                DB::insert('settings', ['skey' => $k, 'svalue' => $v]);
+            }
+            $added[] = 'settings.launch_mode';
+        }
+        return $added;
+    }
 }

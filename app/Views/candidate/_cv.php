@@ -13,10 +13,16 @@ $dots = function (int $lvl): string {
     }
     return $h . '</span>';
 };
+$ai = $p['cv_ai_data'] ?? null;
+if ($ai) {
+    $p['headline'] = $ai['headline'] ?: ($p['headline'] ?? '');
+    $p['bio'] = $ai['summary'] ?: ($p['bio'] ?? '');
+}
 $period = fn($x) => date_fr($x['start_date'] ?? null) . ' – ' . (!empty($x['end_date']) ? date_fr($x['end_date']) : 'aujourd\'hui');
-$experiences = function () use ($p, $period) {
-    foreach ($p['experiences'] ?? [] as $x): ?>
-        <div class="cv-item"><b><?= e($x['title']) ?></b><?= $x['company'] ? ' — ' . e($x['company']) : '' ?><br><span class="when"><?= e($period($x)) ?><?= $x['city'] ? ' · ' . e($x['city']) : '' ?></span><?php if ($x['description']): ?><div><?= e($x['description']) ?></div><?php endif; ?></div>
+$experiences = function () use ($p, $period, $ai) {
+    foreach ($p['experiences'] ?? [] as $x): $bullets = $ai['experiences'][$x['id']] ?? null; ?>
+        <div class="cv-item"><b><?= e($x['title']) ?></b><?= $x['company'] ? ' — ' . e($x['company']) : '' ?><br><span class="when"><?= e($period($x)) ?><?= $x['city'] ? ' · ' . e($x['city']) : '' ?></span>
+            <?php if ($bullets): ?><ul style="margin:4px 0 0;padding-left:1.1em"><?php foreach ($bullets as $b): ?><li><?= e($b) ?></li><?php endforeach; ?></ul><?php elseif ($x['description']): ?><div><?= e($x['description']) ?></div><?php endif; ?></div>
     <?php endforeach;
 };
 $educations = function () use ($p) {

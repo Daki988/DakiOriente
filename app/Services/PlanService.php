@@ -44,6 +44,9 @@ final class PlanService
 
     public static function allows(array $user, string $feature): bool
     {
+        if (launch_mode()) {
+            return true;
+        }
         if ($user['role'] !== 'candidate') {
             return true;
         }
@@ -59,6 +62,9 @@ final class PlanService
     /** Nombre de candidatures autorisées ce mois-ci (null = illimité). */
     public static function applicationQuota(array $user): array
     {
+        if (launch_mode()) {
+            return ['limit' => null, 'used' => 0, 'remaining' => null];
+        }
         $plan = self::plan(self::effectiveCode($user));
         $limits = $plan['limits_list'] ?? [];
         $limit = array_key_exists('applications', $limits) ? $limits['applications'] : 5;

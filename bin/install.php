@@ -6,12 +6,18 @@ declare(strict_types=1);
  *   php bin/install.php            → crée le schéma + données de démonstration
  *   php bin/install.php --fresh    → supprime et recrée tout
  *   php bin/install.php --no-seed  → schéma seul (production)
+ *   php bin/install.php --upgrade  → met à jour une base existante
  */
 
 require dirname(__DIR__) . '/app/bootstrap.php';
 require BASE_PATH . '/database/Migrator.php';
 
 $args = $argv ?? [];
+if (in_array('--upgrade', $args, true)) {
+    $added = Database\Migrator::upgrade();
+    echo $added ? '✔ Mise à jour : ' . implode(', ', $added) . "\n" : "✔ Base déjà à jour\n";
+    exit;
+}
 $fresh = in_array('--fresh', $args, true);
 $seed = !in_array('--no-seed', $args, true);
 

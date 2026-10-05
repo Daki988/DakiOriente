@@ -13,6 +13,7 @@ Plateforme d'insertion professionnelle pour le Gabon et l'Afrique francophone : 
 ## Démarrage rapide (2 minutes)
 
 ```bash
+composer install                                     # SDK Claude, client HTTP, PHPMailer
 php bin/install.php                                  # crée la base SQLite et les données de démonstration
 php -S localhost:8000 -t public public/index.php     # lance le serveur
 ```
@@ -66,8 +67,8 @@ Les entreprises, écoles et personnes de démonstration sont fictives.
 ### Moteur de matching (§8)
 Score de 0 à 100 sur 9 critères pondérés (compétences 30 %, formation 15 %, expérience 15 %, métier 10 %, localisation 10 %, disponibilité 5 %, langues 5 %, soft skills 5 %, préférences 5 %). Les poids sont configurables par secteur. Le niveau d'étude obligatoire est traité comme critère **éliminatoire**. Chaque résultat expose le détail par critère, les points forts, les écarts et des **actions recommandées** (formations ciblées, projets, conseils). Code : `app/Services/MatchingEngine.php`.
 
-### Monétisation (§12)
-Offres FREE, STARTER (2 000 FCFA), PRO (5 000), PREMIUM (10 000), CAREER (15 000), offres entreprises et licence école. Paiement **Airtel Money / Moov Money / carte** : le pilote `sandbox` simule la confirmation opérateur. L'activation se fait dans une transaction, avec facture.
+### Phase de lancement et monétisation (§12)
+Tremplin démarre en **phase de lancement gratuite** : toutes les fonctionnalités sont accessibles sans abonnement, les quotas sont levés et aucun paiement n'est proposé. La page Tarifs et l'espace « Abonnement » l'expliquent aux utilisateurs. Le mode se désactive dans Admin › Paramètres le jour où le modèle payant est arrêté : la grille FREE / STARTER / PRO / PREMIUM / CAREER, les offres entreprises et le paiement Mobile Money (pilote `sandbox` à remplacer par un agrégateur) sont déjà en place.
 
 ### API REST v1 (§16)
 Endpoints JSON authentifiés par jeton Bearer : `/api/v1/auth/login`, `/jobs`, `/jobs/{id}/apply`, `/matches`, `/recommendations`, `/cover-letter/generate`, `/interview/simulate`, `/companies/jobs`, `/companies/candidates/search`, `/admin/analytics`… Spécification OpenAPI 3 : `/api/v1/openapi.json`, documentation : `/api`.
@@ -95,23 +96,30 @@ Copier `.env.example` vers `.env`. Les principaux paramètres :
 |---|---|
 | `DB_DRIVER` | `sqlite` (par défaut), `mysql` ou `pgsql` |
 | `APP_DEMO` | `false` en production pour masquer les comptes de démonstration |
-| `MAIL_DRIVER` | `log` (messages visibles dans Admin › Communications) ou `mail` |
-| `AI_PROVIDER` | `local` (moteur NEAM à base de règles, sans clé) ou `anthropic` |
-| `PAYMENT_DRIVER` | `sandbox` tant qu'aucun agrégateur Mobile Money n'est branché |
+| `MAIL_DRIVER` | `log` (messages visibles dans Admin › Communications), `smtp` (envoi réel depuis contact@neamindustry.com) ou `mail` |
+| `ANTHROPIC_API_KEY` | Clé API Claude (CV, lettres, préparation d'entretien). Sans clé : moteur NEAM à base de règles |
+| `PAYMENT_DRIVER` | `sandbox` ; inutilisé pendant la phase de lancement |
 
-### Activer Claude (optionnel)
+### Activer Claude (CV, lettres, entretiens)
 
-```bash
-composer require anthropic-ai/sdk guzzlehttp/guzzle
-```
+Claude rédige les CV (accroche, expériences reformulées, ciblage sur une offre), les lettres de motivation, les questions d'entretien et le feedback sur les réponses.
 
-Puis dans `.env` : `AI_PROVIDER=anthropic` et `ANTHROPIC_API_KEY=…`. Si l'API est indisponible ou refuse une requête, la génération bascule automatiquement sur le moteur local. Le score de matching n'utilise jamais l'IA générative. L'assistant se désactive depuis Admin › Paramètres.
+1. Créer une clé sur https://console.anthropic.com → *Settings › API Keys* (un moyen de paiement doit être enregistré sur le compte Anthropic).
+2. Dans `.env` sur le serveur : `ANTHROPIC_API_KEY=sk-ant-…` (ne jamais committer cette clé).
+3. `composer install` si ce n'est pas déjà fait, puis vérifier dans Admin › Paramètres que le moteur actif est « Claude (Anthropic) ».
+
+Modèle par défaut : `claude-opus-5-5` (modifiable avec `AI_MODEL`). Pour maîtriser les coûts, chaque utilisateur dispose de 30 générations Claude par mois (réglable dans Admin › Paramètres) ; au-delà, ou si l'API est indisponible, le moteur local prend le relais. Chaque appel est journalisé (Admin › Communications). Le score de matching n'utilise jamais l'IA générative.
+
+### E-mails depuis contact@neamindustry.com
+
+Dans `.env` : `MAIL_DRIVER=smtp`, `MAIL_HOST`, `MAIL_PORT` (465 en SSL ou 587 en TLS), `MAIL_USERNAME=contact@neamindustry.com` et `MAIL_PASSWORD` (paramètres SMTP fournis par l'hébergeur de la messagerie). Tous les e-mails (inscription, mot de passe, candidatures, entretiens, alertes) partent de cette adresse, qui sert aussi de contact affiché sur le site.
 
 ### Production (MySQL)
 
 ```bash
 cp .env.example .env    # puis DB_DRIVER=mysql, DB_HOST, DB_NAME, DB_USER, DB_PASSWORD, APP_DEMO=false
-php bin/install.php --no-seed
+php bin/install.php --no-seed    # base vide (sans données de démonstration)
+php bin/install.php --upgrade    # pour mettre à jour une base existante
 ```
 
 La racine web doit pointer sur `public/`. Sur un hébergement mutualisé où ce n'est pas possible, le `.htaccess` racine redirige vers `public/` et bloque les dossiers sensibles. Le dossier `storage/` doit être accessible en écriture.
@@ -138,7 +146,8 @@ storage/        base SQLite, uploads privés, logs
 Les services externes (IA, e-mail, SMS/WhatsApp, paiement) sont encapsulés derrière des services internes : on peut changer de fournisseur sans toucher au reste du produit.
 
 ## Feuille de route suggérée
-- Brancher un agrégateur Mobile Money (webhook signé à la place du sandbox) et un fournisseur SMS/WhatsApp
+- À la fin de la phase de lancement : brancher un agrégateur Mobile Money (webhook signé à la place du sandbox)
+- Fournisseur SMS/WhatsApp
 - 2FA pour les administrateurs, file d'attente pour les e-mails et les alertes quotidiennes/hebdomadaires
 - Applications mobiles sur l'API v1, extension multi-pays
 

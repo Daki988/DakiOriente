@@ -2,7 +2,7 @@
 <div class="page-head"><div><h1>Profil entreprise</h1><p>Ces informations apparaissent sur vos offres et votre page publique.</p></div>
 <?php if (!empty($c['slug']) && $c['status'] === 'verified'): ?><a class="btn btn-ghost" href="<?= e(url('/entreprises/' . $c['slug'])) ?>" target="_blank"><?= icon('eye') ?> Page publique</a><?php endif; ?></div>
 <?php if (!empty($c)): ?>
-    <div class="alert alert-<?= $c['status'] === 'verified' ? 'success' : ($c['status'] === 'rejected' ? 'error' : 'warning') ?> mb-3"><?= icon('shield-check') ?><div>Statut de vérification : <b><?= e(['verified' => 'Entreprise vérifiée', 'pending' => 'En cours de vérification', 'rejected' => 'Vérification refusée — contactez support@tremplin.ga'][$c['status']] ?? $c['status']) ?></b></div></div>
+    <div class="alert alert-<?= $c['status'] === 'verified' ? 'success' : ($c['status'] === 'rejected' ? 'error' : 'warning') ?> mb-3"><?= icon('shield-check') ?><div>Statut de vérification : <b><?= e(['verified' => 'Entreprise vérifiée', 'pending' => 'En cours de vérification', 'rejected' => 'Vérification refusée — contactez contact@neamindustry.com'][$c['status']] ?? $c['status']) ?></b></div></div>
 <?php endif; ?>
 <div class="layout-aside">
     <form method="post" action="<?= e(url('/entreprise/profil')) ?>" class="card card-lg">

@@ -28,7 +28,7 @@ final class AuthController extends Controller
             back();
         }
         if ($user['status'] !== 'active') {
-            flash('error', 'Ce compte est suspendu. Contacte support@tremplin.ga.');
+            flash('error', 'Ce compte est suspendu. Contacte contact@neamindustry.com.');
             back();
         }
         Auth::login($user);

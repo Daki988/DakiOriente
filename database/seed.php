@@ -164,8 +164,8 @@ return function (): void {
         DB::insert('plans', ['code' => $code, 'name' => $n, 'audience' => $aud, 'price' => $price, 'tagline' => $tag,
             'features' => json_encode($feat, JSON_UNESCAPED_UNICODE), 'limits' => json_encode($lim), 'highlight' => $hl, 'sort' => $sort]);
     }
-    DB::insert('coupons', ['code' => 'BIENVENUE25', 'percent' => 25, 'max_uses' => 500, 'uses' => 12, 'expires_at' => date('Y-12-31'), 'active' => 1]);
-    DB::insert('coupons', ['code' => 'ETUDIANT50', 'percent' => 50, 'max_uses' => 200, 'uses' => 41, 'expires_at' => date('Y-12-31'), 'active' => 1]);
+    DB::insert('coupons', ['code' => 'BIENVENUE25', 'percent' => 25, 'max_uses' => 500, 'uses' => 0, 'expires_at' => date('Y-12-31'), 'active' => 1]);
+    DB::insert('coupons', ['code' => 'ETUDIANT50', 'percent' => 50, 'max_uses' => 200, 'uses' => 0, 'expires_at' => date('Y-12-31'), 'active' => 1]);
 
     /* ---------- Poids de matching ---------- */
     foreach (MatchingEngine::CRITERIA as $k => [, $w]) {
@@ -178,9 +178,7 @@ return function (): void {
 
     /* ---------- Paramètres ---------- */
     foreach ([
-        'ai_enabled' => '1', 'stat_youth' => '5 000', 'stat_offers' => '1 200', 'stat_companies' => '300',
-        'testimonial_text' => 'Tremplin m\'a permis de trouver mon stage en moins d\'un mois. La plateforme est simple et vraiment utile !',
-        'testimonial_author' => 'Grâce, Étudiante à Libreville', 'match_alert_threshold' => '70', 'maintenance' => '0',
+        'ai_enabled' => '1', 'launch_mode' => '1', 'ai_monthly_limit' => '30', 'match_alert_threshold' => '70', 'maintenance' => '0',
     ] as $k => $v) {
         DB::insert('settings', ['skey' => $k, 'svalue' => $v]);
     }
@@ -326,17 +324,17 @@ return function (): void {
     /* ---------- Candidats ---------- */
     $cands = [
         // [email, prénom, nom, ville, titre, edu, domaine, mois exp, métier visé, secteur, types, compétences [nom=>niveau], soft, langues, riasec, plan, école?, programme]
-        ['candidat@tremplin.ga', 'Grâce', 'Moussavou', 'Libreville', 'Étudiante en Licence Informatique — développement web', 4, 'Informatique de gestion', 4, 'Développeuse web', 'Numérique', 'stage,premier_emploi', ['PHP' => 3, 'HTML / CSS' => 4, 'JavaScript' => 3, 'SQL' => 3, 'Git' => 2, 'Pack Office' => 4, 'Excel avancé' => 3], 'Travail en équipe,Rigueur,Autonomie,Créativité', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'B1'], ['name' => 'Punu', 'level' => 'B2']], 'ICR', 'PREMIUM', true, 'Licence Informatique'],
-        ['jordan.nze@mail.ga', 'Jordan', 'Nzé', 'Libreville', 'Diplômé en Master Finance — analyse crédit', 6, 'Finance d\'entreprise', 10, 'Analyste financier', 'Banque', 'cdi,premier_emploi', ['Analyse financière' => 4, 'Comptabilité générale' => 4, 'Excel avancé' => 5, 'Power BI' => 3, 'Droit des affaires' => 2], 'Rigueur,Résolution de problèmes,Leadership', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'B2']], 'CIE', 'PRO', true, 'Master Finance'],
+        ['candidat@tremplin.ga', 'Grâce', 'Moussavou', 'Libreville', 'Étudiante en Licence Informatique — développement web', 4, 'Informatique de gestion', 4, 'Développeuse web', 'Numérique', 'stage,premier_emploi', ['PHP' => 3, 'HTML / CSS' => 4, 'JavaScript' => 3, 'SQL' => 3, 'Git' => 2, 'Pack Office' => 4, 'Excel avancé' => 3], 'Travail en équipe,Rigueur,Autonomie,Créativité', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'B1'], ['name' => 'Punu', 'level' => 'B2']], 'ICR', 'FREE', true, 'Licence Informatique'],
+        ['jordan.nze@mail.ga', 'Jordan', 'Nzé', 'Libreville', 'Diplômé en Master Finance — analyse crédit', 6, 'Finance d\'entreprise', 10, 'Analyste financier', 'Banque', 'cdi,premier_emploi', ['Analyse financière' => 4, 'Comptabilité générale' => 4, 'Excel avancé' => 5, 'Power BI' => 3, 'Droit des affaires' => 2], 'Rigueur,Résolution de problèmes,Leadership', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'B2']], 'CIE', 'FREE', true, 'Master Finance'],
         ['merveille.ondo@mail.ga', 'Merveille', 'Ondo', 'Port-Gentil', 'Technicienne HSE — BTS QHSE', 3, 'Qualité Hygiène Sécurité Environnement', 8, 'Technicienne HSE', 'Pétrole', 'premier_emploi,cdd', ['HSE' => 4, 'Pack Office' => 3, 'Gestion de projet' => 2], 'Rigueur,Communication,Gestion du stress', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'B2']], 'RCS', 'FREE', false, null],
-        ['kevin.mba@mail.ga', 'Kévin', 'Mba', 'Libreville', 'Développeur mobile autodidacte (Flutter)', 3, 'Réseaux et télécoms', 14, 'Développeur mobile', 'Numérique', 'premier_emploi,freelance,cdi', ['Développement mobile' => 4, 'JavaScript' => 3, 'Git' => 4, 'SQL' => 2, 'Réseaux informatiques' => 3], 'Autonomie,Créativité,Résolution de problèmes', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'B1']], 'IRA', 'STARTER', true, 'BTS Réseaux'],
+        ['kevin.mba@mail.ga', 'Kévin', 'Mba', 'Libreville', 'Développeur mobile autodidacte (Flutter)', 3, 'Réseaux et télécoms', 14, 'Développeur mobile', 'Numérique', 'premier_emploi,freelance,cdi', ['Développement mobile' => 4, 'JavaScript' => 3, 'Git' => 4, 'SQL' => 2, 'Réseaux informatiques' => 3], 'Autonomie,Créativité,Résolution de problèmes', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'B1']], 'IRA', 'FREE', true, 'BTS Réseaux'],
         ['ruth.ngoua@mail.ga', 'Ruth', 'Ngoua', 'Libreville', 'Community manager & créatrice de contenu', 4, 'Communication', 12, 'Community manager', 'Marketing', 'cdd,premier_emploi,freelance', ['Gestion des réseaux sociaux' => 5, 'Rédaction' => 4, 'Création graphique' => 4, 'Marketing digital' => 3], 'Créativité,Communication,Adaptabilité', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'B1']], 'AES', 'FREE', true, 'Licence Communication'],
         ['ismael.obame@mail.ga', 'Ismaël', 'Obame', 'Owendo', 'Assistant logistique — Licence Transport', 4, 'Transport et logistique', 6, 'Logisticien', 'Logistique', 'stage,premier_emploi', ['Logistique' => 4, 'Gestion des stocks' => 3, 'Excel avancé' => 3, 'Transit & douane' => 2], 'Sens de l\'organisation,Rigueur,Travail en équipe', [['name' => 'Français', 'level' => 'C2']], 'CER', 'FREE', false, null],
         ['christelle.mbou@mail.ga', 'Christelle', 'Mboumba', 'Franceville', 'Infirmière diplômée d\'État', 3, 'Sciences infirmières', 18, 'Infirmière', 'Santé', 'cdi,cdd', ['Soins infirmiers' => 5, 'Pack Office' => 2], 'Communication,Gestion du stress,Travail en équipe', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Téké', 'level' => 'C1']], 'SRI', 'FREE', false, null],
         ['arnaud.essono@mail.ga', 'Arnaud', 'Essono', 'Oyem', 'Commercial terrain — Bac+2 Action commerciale', 3, 'Action commerciale', 8, 'Commercial', 'Commerce', 'premier_emploi,cdi', ['Techniques de vente' => 4, 'Gestion de la relation client' => 4, 'Pack Office' => 3], 'Communication,Adaptabilité,Autonomie', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Fang', 'level' => 'C2']], 'ESR', 'FREE', false, null],
-        ['laetitia.bivigou@mail.ga', 'Laëtitia', 'Bivigou', 'Libreville', 'Étudiante Master Comptabilité Contrôle Audit', 5, 'Comptabilité', 3, 'Contrôleuse de gestion', 'Banque', 'alternance,stage', ['Comptabilité générale' => 4, 'Contrôle de gestion' => 3, 'Excel avancé' => 4, 'Sage Comptabilité' => 3, 'Fiscalité' => 3], 'Rigueur,Sens de l\'organisation,Autonomie', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'B1']], 'CIS', 'STARTER', true, 'Master CCA'],
+        ['laetitia.bivigou@mail.ga', 'Laëtitia', 'Bivigou', 'Libreville', 'Étudiante Master Comptabilité Contrôle Audit', 5, 'Comptabilité', 3, 'Contrôleuse de gestion', 'Banque', 'alternance,stage', ['Comptabilité générale' => 4, 'Contrôle de gestion' => 3, 'Excel avancé' => 4, 'Sage Comptabilité' => 3, 'Fiscalité' => 3], 'Rigueur,Sens de l\'organisation,Autonomie', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'B1']], 'CIS', 'FREE', true, 'Master CCA'],
         ['brice.nguema@mail.ga', 'Brice', 'Nguema', 'Lambaréné', 'Ingénieur des Eaux et Forêts (en fin d\'études)', 5, 'Foresterie', 4, 'Ingénieur forestier', 'Bois', 'stage,premier_emploi', ['Gestion forestière' => 4, 'SIG / Cartographie' => 4, 'Analyse de données' => 2], 'Autonomie,Rigueur,Adaptabilité', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'B2']], 'RIC', 'FREE', false, null],
-        ['sarah.ella@mail.ga', 'Sarah', 'Ella', 'Libreville', 'Data analyst junior — Python & Power BI', 6, 'Statistiques et data science', 9, 'Data analyst', 'Numérique', 'cdd,cdi', ['Analyse de données' => 4, 'Python' => 4, 'SQL' => 4, 'Power BI' => 4, 'Excel avancé' => 4], 'Rigueur,Résolution de problèmes,Communication', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'C1']], 'ICA', 'PRO', true, 'Master Data'],
+        ['sarah.ella@mail.ga', 'Sarah', 'Ella', 'Libreville', 'Data analyst junior — Python & Power BI', 6, 'Statistiques et data science', 9, 'Data analyst', 'Numérique', 'cdd,cdi', ['Analyse de données' => 4, 'Python' => 4, 'SQL' => 4, 'Power BI' => 4, 'Excel avancé' => 4], 'Rigueur,Résolution de problèmes,Communication', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'C1']], 'ICA', 'FREE', true, 'Master Data'],
         ['dimitri.koumba@mail.ga', 'Dimitri', 'Koumba', 'Port-Gentil', 'Électrotechnicien — BTS Électrotechnique', 3, 'Électrotechnique', 5, 'Électrotechnicien', 'Pétrole', 'stage,cdd,premier_emploi', ['Électricité industrielle' => 4, 'Maintenance industrielle' => 3, 'Énergie solaire' => 2, 'HSE' => 2], 'Travail en équipe,Rigueur', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'A2']], 'RIC', 'FREE', false, null],
         ['patricia.mintsa@mail.ga', 'Patricia', 'Mintsa', 'Libreville', 'Assistante RH en reconversion', 4, 'Gestion des ressources humaines', 20, 'Chargée RH', 'Administration', 'cdi,alternance', ['Gestion des ressources humaines' => 4, 'Secrétariat' => 4, 'Pack Office' => 5, 'Droit des affaires' => 2], 'Sens de l\'organisation,Communication,Rigueur', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'B1']], 'SEC', 'FREE', false, null],
         ['yann.assoumou@mail.ga', 'Yann', 'Assoumou', 'Akanda', 'Technicien support & réseaux', 3, 'Maintenance informatique', 7, 'Technicien réseaux', 'Numérique', 'stage,premier_emploi', ['Support informatique' => 4, 'Réseaux informatiques' => 3, 'Cybersécurité' => 2, 'Pack Office' => 3], 'Résolution de problèmes,Communication', [['name' => 'Français', 'level' => 'C2'], ['name' => 'Anglais', 'level' => 'A2']], 'RIC', 'FREE', true, 'BTS Maintenance'],
@@ -476,27 +474,6 @@ return function (): void {
             'tutor' => in_array($status, ['en_cours', 'termine', 'convention'], true) ? 'M. Ndoutoume' : null,
             'agreement_signed' => in_array($status, ['convention', 'en_cours', 'termine'], true) ? 1 : 0, 'updated_at' => $ago(mt_rand(1, 20)),
         ]);
-    }
-
-    /* ---------- Paiements (historique pour les statistiques) ---------- */
-    $payers = array_values($candIds);
-    for ($m = 5; $m >= 0; $m--) {
-        $n = 3 + (5 - $m) * 2;
-        for ($x = 0; $x < $n; $x++) {
-            $plan = ['STARTER', 'STARTER', 'PRO', 'PRO', 'PREMIUM', 'CAREER'][mt_rand(0, 5)];
-            $price = (int)DB::value('SELECT price FROM plans WHERE code = :c', ['c' => $plan]);
-            $date = date('Y-m-d H:i:s', strtotime("-$m months -" . mt_rand(0, 25) . ' days'));
-            if (strtotime($date) > time()) {
-                $date = now();
-            }
-            $pid = DB::insert('payments', [
-                'user_id' => $payers[mt_rand(0, count($payers) - 1)], 'plan_code' => $plan, 'amount' => $price, 'discount' => 0, 'currency' => 'XAF',
-                'method' => ['airtel_money', 'airtel_money', 'moov_money', 'card'][mt_rand(0, 3)], 'phone' => '+241 07' . mt_rand(100000, 999999),
-                'reference' => 'TRP-' . date('ymd', strtotime($date)) . '-' . strtoupper(bin2hex(random_bytes(3))), 'status' => mt_rand(0, 9) ? 'success' : 'failed',
-                'provider_ref' => 'SBX-' . strtoupper(bin2hex(random_bytes(4))), 'created_at' => $date, 'updated_at' => $date,
-            ]);
-            DB::insert('invoices', ['payment_id' => $pid, 'number' => 'FAC-' . date('Y', strtotime($date)) . '-' . str_pad((string)$pid, 5, '0', STR_PAD_LEFT), 'amount' => $price, 'created_at' => $date]);
-        }
     }
 
     /* ---------- Notifications ---------- */

@@ -38,10 +38,44 @@ final class NotificationService
     public static function sendEmail(string $to, string $subject, string $body): void
     {
         $id = self::queue('email', $to, $subject, $body);
-        if (config('mail.driver') === 'mail') {
-            $headers = 'From: Tremplin by NEAM <' . config('mail.from') . ">\r\nContent-Type: text/plain; charset=UTF-8";
+        $driver = config('mail.driver');
+        if ($driver === 'smtp') {
+            $ok = self::sendSmtp($to, $subject, $body);
+            DB::update('outbox', ['status' => $ok ? 'sent' : 'failed', 'sent_at' => now()], 'id = :id', ['id' => $id]);
+        } elseif ($driver === 'mail') {
+            $headers = 'From: ' . config('mail.from_name') . ' <' . config('mail.from') . ">\r\nReply-To: " . config('mail.from') . "\r\nContent-Type: text/plain; charset=UTF-8";
             $ok = @mail($to, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, $headers);
             DB::update('outbox', ['status' => $ok ? 'sent' : 'failed', 'sent_at' => now()], 'id = :id', ['id' => $id]);
+        }
+    }
+
+    /** Envoi SMTP authentifié (PHPMailer, installé via Composer) depuis l'adresse officielle NEAM. */
+    private static function sendSmtp(string $to, string $subject, string $body): bool
+    {
+        if (!class_exists(\PHPMailer\PHPMailer\PHPMailer::class)) {
+            error_log('[mail] PHPMailer absent : lancez « composer install ».');
+            return false;
+        }
+        try {
+            $m = new \PHPMailer\PHPMailer\PHPMailer(true);
+            $m->isSMTP();
+            $m->Host = (string)config('mail.host');
+            $m->Port = (int)config('mail.port');
+            $m->SMTPAuth = true;
+            $m->Username = (string)config('mail.username');
+            $m->Password = (string)config('mail.password');
+            $m->SMTPSecure = config('mail.encryption') === 'tls' ? \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS : \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+            $m->CharSet = 'UTF-8';
+            $m->Timeout = 15;
+            $m->setFrom((string)config('mail.from'), (string)config('mail.from_name'));
+            $m->addReplyTo((string)config('mail.from'), (string)config('mail.from_name'));
+            $m->addAddress($to);
+            $m->Subject = $subject;
+            $m->Body = $body;
+            return $m->send();
+        } catch (\Throwable $e) {
+            error_log('[mail] Échec SMTP vers ' . $to . ' : ' . $e->getMessage());
+            return false;
         }
     }
 

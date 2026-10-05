@@ -179,7 +179,7 @@ class CompanyController extends Controller
     {
         $c = $this->company();
         $active = (int)DB::value("SELECT COUNT(*) FROM jobs WHERE company_id = :c AND status IN ('published','pending')", ['c' => $c['id']]);
-        if (input('action') !== 'draft' && $active >= (int)$c['job_credits']) {
+        if (!launch_mode() && input('action') !== 'draft' && $active >= (int)$c['job_credits']) {
             flash('warning', 'Vous avez atteint votre quota de ' . $c['job_credits'] . ' offres actives. Archivez une offre ou passez à l\'offre Entreprise Pro.');
             redirect('/abonnement');
         }

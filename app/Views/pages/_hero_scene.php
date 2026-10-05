@@ -7,7 +7,7 @@
         <p class="hand-note" style="left:20px;top:22px;font-size:1.45rem">Mon avenir<br>commence ici !</p>
         <svg style="position:absolute;left:120px;top:84px;width:52px;height:40px;color:var(--navy)" viewBox="0 0 52 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 4c10 18 26 26 44 24"/><path d="M38 20l8 8-10 4"/></svg>
         <?php if ($photo): ?>
-            <div class="hero-photo" style="left:auto;right:6px;top:20px;width:52%;height:86%;background-image:url('<?= e($photo) ?>')"></div>
+            <img class="hero-cutout" src="<?= e($photo) ?>" alt="" width="820" height="731" style="right:0;bottom:0;width:68%" fetchpriority="high">
         <?php else: ?>
             <div class="hero-app" style="right:22px;top:26px;width:200px;padding:14px">
                 <div class="flex" style="gap:10px"><span class="avatar avatar-sm" style="background:#f59e0b">G</span><div style="line-height:1.2"><b style="font-size:.85rem;color:var(--navy)">Grâce M.</b><br><small class="muted" style="font-size:.7rem">Licence Informatique</small></div></div>
@@ -32,7 +32,7 @@
         <svg style="position:absolute;left:0;top:22%;width:44px;height:44px;color:var(--yellow)" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"><path d="M22 4v10"/><path d="M6 14l8 6"/><path d="M38 14l-8 6"/></svg>
 
         <?php if ($photo): ?>
-            <div class="hero-photo" style="left:18%;right:6%;top:10%;bottom:6%;background-image:url('<?= e($photo) ?>')"></div>
+            <img class="hero-cutout" src="<?= e($photo) ?>" alt="" width="820" height="731" style="right:1%;bottom:0;width:90%" fetchpriority="high">
         <?php else: ?>
             <div class="hero-app" style="left:8%;top:24%;width:300px">
                 <div class="flex" style="gap:12px">
@@ -47,10 +47,10 @@
             </div>
         <?php endif; ?>
 
-        <div class="float-card" style="right:0;top:6%"><span class="ib"><?= icon('briefcase-business') ?></span><span>Des milliers<br>d'offres</span></div>
-        <div class="float-card" style="right:-1%;top:27%;animation-delay:-2s"><span class="ib" style="background:var(--navy)"><?= icon('graduation-cap') ?></span><span>Des entreprises<br>qui recrutent</span></div>
+        <div class="float-card" style="right:0;top:<?= $photo ? '2%' : '6%' ?>"><span class="ib"><?= icon('badge-check') ?></span><span>Offres vérifiées<br>par NEAM</span></div>
+        <div class="float-card" style="<?= $photo ? 'left:-4%;top:36%' : 'right:-1%;top:27%' ?>;animation-delay:-2s"><span class="ib" style="background:var(--navy)"><?= icon('gauge') ?></span><span>Score de<br>compatibilité expliqué</span></div>
 
-        <div class="hero-app" style="right:2%;bottom:4%;width:330px;padding:14px 16px;animation:floaty 7s ease-in-out infinite;animation-delay:-3s">
+        <div class="hero-app" style="<?= $photo ? 'left:-5%;bottom:9%;width:270px' : 'right:2%;bottom:4%;width:330px' ?>;padding:14px 16px;animation:floaty 7s ease-in-out infinite;animation-delay:-3s;z-index:2">
             <div class="flex" style="gap:12px">
                 <span class="logo-box" style="--s:42px;background:#0057ff">OT</span>
                 <div class="grow" style="line-height:1.25;min-width:0"><b style="color:var(--navy);font-size:.9rem">Stage Développeur·se Web</b><br><small class="muted">OkoumeTech · Libreville</small></div>
