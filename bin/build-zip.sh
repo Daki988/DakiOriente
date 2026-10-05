@@ -12,11 +12,12 @@ mkdir -p "$ROOT/dist"
 git -C "$ROOT" archive --format=tar HEAD | tar -x -C "$WORK"
 
 # 2. Bibliothèques PHP de production (dompdf, QR code, SDK Claude, PHPMailer…)
-( cd "$WORK" && COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --no-interaction --no-progress --quiet )
+( cd "$WORK" && COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress --quiet )
 
 # 3. Fichiers inutiles en ligne
 rm -rf "$WORK/.claude" "$WORK/.mcp.json" "$WORK/docs" "$WORK/bin/build-zip.sh" "$WORK/.gitignore"
-find "$WORK/vendor" -type d \( -name tests -o -name Tests -o -name docs -o -name .github \) -prune -exec rm -rf {} + 2>/dev/null || true
+find "$WORK/vendor" -type d \( -name .git -o -name tests -o -name Tests -o -name test -o -name examples -o -name docs -o -name doc -o -name .github \) -prune -exec rm -rf {} + 2>/dev/null || true
+find "$WORK/vendor" -type f \( -name '*.md' -o -name 'phpunit*' -o -name '.gitattributes' -o -name '.editorconfig' \) ! -iname 'LICENSE*' -delete 2>/dev/null || true
 
 # 4. Dossiers de données vides mais présents (droits d'écriture)
 mkdir -p "$WORK/storage/uploads" "$WORK/storage/logs" "$WORK/storage/cache"

@@ -178,6 +178,10 @@ php bin/install.php --upgrade    # pour mettre à jour une base existante
 
 La racine web doit pointer sur `public/`. Sur un hébergement mutualisé où ce n'est pas possible, le `.htaccess` racine redirige vers `public/` et bloque les dossiers sensibles. Le dossier `storage/` doit être accessible en écriture.
 
+### Hébergement mutualisé sans SSH (LWS…)
+
+`bin/build-zip.sh` produit une archive autonome (`dist/tremplin-lws-AAAAMMJJ.zip`, environ 11 Mo, bibliothèques Composer incluses). Une fois décompressée sur l'hébergement, l'**assistant d'installation** `/install.php` vérifie le serveur, demande un code de propriété (fichier `storage/install-code.txt`), écrit le `.env`, crée la base (référentiels, 311 formations, 60 certifications ; démonstration en option), crée le compte administrateur, puis se verrouille et se supprime. À chaque nouvelle version (constante `APP_VERSION`), la base est mise à jour automatiquement au premier chargement. Guide pas à pas : [DEPLOIEMENT-LWS.md](DEPLOIEMENT-LWS.md).
+
 ---
 
 ## Sécurité (§17)
