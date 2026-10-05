@@ -35,7 +35,7 @@ $mySkillIds = array_column($p['skills'], 'id');
                 <div class="field"><label for="education_level">Niveau d'études <span class="req">*</span></label><select id="education_level" name="education_level"><?php foreach ($levels as $k => $l): ?><option value="<?= $k ?>" <?= $p['education_level'] === $k ? 'selected' : '' ?>><?= e($l) ?></option><?php endforeach; ?></select></div>
                 <div class="field"><label for="field_of_study">Domaine</label><input id="field_of_study" name="field_of_study" value="<?= e($p['field_of_study']) ?>"></div>
                 <div class="field"><label for="experience_months">Expérience totale (mois)</label><input id="experience_months" name="experience_months" type="number" min="0" max="600" value="<?= (int)$p['experience_months'] ?>"><span class="hint">Stages et emplois cumulés.</span></div>
-                <div class="field"><label for="certifications">Certifications</label><input id="certifications" name="certifications" value="<?= e($p['certifications']) ?>" placeholder="Ex. TOEIC 750, PIX, CCNA…"></div>
+                <div class="field"><label for="certifications">Certifications</label><input id="certifications" name="certifications" value="<?= e($p['certifications']) ?>" placeholder="Ex. TOEIC 750, PIX, CCNA…"><span class="hint">Tes certificats de cours en ligne se relient avec leur lien de vérification dans <a href="<?= e(url('/espace/formations#certificats')) ?>">Mes formations</a>.</span></div>
             </div>
 
             <h2 class="mt-4" style="font-size:1.2rem"><?= icon('target') ?> Ce que je recherche</h2>

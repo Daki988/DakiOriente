@@ -3,12 +3,14 @@ declare(strict_types=1);
 
 use App\Controllers\AccountController;
 use App\Controllers\Admin\AdminController;
+use App\Controllers\Admin\LearningController as AdminLearningController;
 use App\Controllers\Api\ApiController;
 use App\Controllers\AuthController;
 use App\Controllers\Candidate\ApplicationController;
 use App\Controllers\Candidate\CareerController;
 use App\Controllers\Candidate\CvController;
 use App\Controllers\Candidate\DashboardController;
+use App\Controllers\Candidate\LearningController;
 use App\Controllers\Candidate\ProfileController;
 use App\Controllers\Company\CompanyController;
 use App\Controllers\Company\RecruitController;
@@ -16,6 +18,7 @@ use App\Controllers\PageController;
 use App\Controllers\JobController;
 use App\Controllers\School\SchoolController;
 use App\Controllers\SubscriptionController;
+use App\Controllers\TrainingController;
 use App\Core\Router;
 
 return function (Router $r): void {
@@ -26,8 +29,11 @@ return function (Router $r): void {
     $r->get('/offres/{id}', [JobController::class, 'show']);
     $r->get('/entreprises', [PageController::class, 'companies']);
     $r->get('/entreprises/{slug}', [PageController::class, 'company']);
-    $r->get('/formations', [PageController::class, 'trainings']);
-    $r->get('/formations/{id}', [PageController::class, 'training']);
+    $r->get('/formations', [TrainingController::class, 'index']);
+    $r->get('/formations/plateformes', [TrainingController::class, 'platforms']);
+    $r->get('/formations/plateformes/{slug}', [TrainingController::class, 'platform']);
+    $r->get('/formations/{id}', [TrainingController::class, 'show']);
+    $r->get('/formations/{id}/aller', [TrainingController::class, 'go'], ['throttle:training-go,60,10']);
     $r->get('/certifications', [PageController::class, 'certifications']);
     $r->get('/conseils', [PageController::class, 'articles']);
     $r->get('/conseils/{slug}', [PageController::class, 'article']);
@@ -119,6 +125,10 @@ return function (Router $r): void {
         $r->get('/entretien/{id}', [CareerController::class, 'interviewSession']);
         $r->post('/entretien/{id}', [CareerController::class, 'answerInterview']);
         $r->get('/plan', [CareerController::class, 'plan']);
+        $r->get('/formations', [LearningController::class, 'index']);
+        $r->post('/formations/{id}/statut', [LearningController::class, 'status']);
+        $r->post('/certificats', [LearningController::class, 'addCertificate'], ['throttle:upload,10,10']);
+        $r->post('/certificats/{id}/supprimer', [LearningController::class, 'deleteCertificate']);
         $r->get('/progression', [CareerController::class, 'progression']);
         $r->post('/progression/objectifs', [CareerController::class, 'addGoal']);
         $r->post('/progression/objectifs/{id}', [CareerController::class, 'updateGoal']);
@@ -170,6 +180,12 @@ return function (Router $r): void {
     /* ---------- Back-office NEAM ---------- */
     $r->group('/admin', ['role:admin'], function (Router $r) {
         $r->get('', [AdminController::class, 'dashboard']);
+        $r->get('/formations', [AdminLearningController::class, 'index']);
+        $r->post('/formations/import', [AdminLearningController::class, 'import']);
+        $r->post('/formations/plateformes/{id}', [AdminLearningController::class, 'updatePlatform']);
+        $r->post('/formations/{slug}/synchroniser', [AdminLearningController::class, 'sync']);
+        $r->post('/formations/{id}/visibilite', [AdminLearningController::class, 'toggleTraining']);
+        $r->post('/certificats/{id}', [AdminLearningController::class, 'reviewCertificate']);
         $r->get('/utilisateurs', [AdminController::class, 'users']);
         $r->post('/utilisateurs/{id}', [AdminController::class, 'updateUser']);
         $r->get('/entreprises', [AdminController::class, 'companies']);
@@ -208,6 +224,7 @@ return function (Router $r): void {
         $r->get('/recommendations', [ApiController::class, 'recommendations'], ['role:candidate']);
         $r->get('/gaps', [ApiController::class, 'gaps'], ['role:candidate']);
         $r->get('/certifications', [ApiController::class, 'certifications']);
+        $r->get('/trainings', [ApiController::class, 'trainings']);
         $r->post('/cv/generate', [ApiController::class, 'cv'], ['role:candidate']);
         $r->post('/cover-letter/generate', [ApiController::class, 'coverLetter'], ['role:candidate']);
         $r->post('/interview/simulate', [ApiController::class, 'interview'], ['role:candidate']);

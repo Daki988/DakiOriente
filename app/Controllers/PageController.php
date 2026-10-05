@@ -72,42 +72,6 @@ final class PageController extends Controller
         return $this->view('pages/company', compact('company', 'jobs', 'hired') + ['title' => $company['name']]);
     }
 
-    public function trainings(): string
-    {
-        $q = trim((string)input('q', ''));
-        $where = ['1 = 1'];
-        $params = [];
-        if ($q !== '') {
-            $where[] = '(t.title LIKE :q OR sk.name LIKE :q2 OR t.provider LIKE :q3)';
-            $params = ['q' => "%$q%", 'q2' => "%$q%", 'q3' => "%$q%"];
-        }
-        if (input('free')) {
-            $where[] = 't.price = 0';
-        }
-        $trainings = DB::all(
-            'SELECT t.*, sk.name AS skill_name, s.name AS sector_name FROM trainings t
-             LEFT JOIN skills sk ON sk.id = t.skill_id LEFT JOIN sectors s ON s.id = t.sector_id
-             WHERE ' . implode(' AND ', $where) . ' ORDER BY t.price = 0 DESC, t.title',
-            $params
-        );
-        // Formations recommandées à partir des écarts de compétences du candidat
-        $recommended = [];
-        if (Auth::is('candidate')) {
-            $missing = [];
-            foreach (MatchingEngine::recommendJobs(Auth::id(), 8) as $r) {
-                foreach ($r['match']['missing_skills'] as $s) {
-                    $missing[$s['id']] = ($missing[$s['id']] ?? 0) + ($s['required'] ? 2 : 1);
-                }
-            }
-            arsort($missing);
-            if ($missing) {
-                [$in, $p] = DB::in('s', array_slice(array_keys($missing), 0, 6));
-                $recommended = DB::all("SELECT t.*, sk.name AS skill_name FROM trainings t JOIN skills sk ON sk.id = t.skill_id WHERE t.skill_id IN ($in) LIMIT 3", $p);
-            }
-        }
-        return $this->view('pages/trainings', compact('trainings', 'q', 'recommended') + ['title' => 'Se former']);
-    }
-
     /** Catalogue des certifications, avec une sélection personnalisée pour le candidat connecté. */
     public function certifications(): string
     {
@@ -131,16 +95,6 @@ final class PageController extends Controller
             $forMe = array_slice(array_values($forMe), 0, 3);
         }
         return $this->view('pages/certifications', compact('certs', 'domains', 'domain', 'q', 'forMe') + ['title' => 'Certifications']);
-    }
-
-    public function training(string $id): string
-    {
-        $t = DB::one('SELECT t.*, sk.name AS skill_name, s.name AS sector_name FROM trainings t LEFT JOIN skills sk ON sk.id = t.skill_id LEFT JOIN sectors s ON s.id = t.sector_id WHERE t.id = :id', ['id' => (int)$id]);
-        if (!$t) {
-            abort(404);
-        }
-        $jobs = $t['skill_id'] ? DB::all(JobSearch::BASE_SELECT . " WHERE j.status = 'published' AND EXISTS (SELECT 1 FROM job_skills js WHERE js.job_id = j.id AND js.skill_id = :s) ORDER BY j.published_at DESC LIMIT 4", ['s' => $t['skill_id']]) : [];
-        return $this->view('pages/training', compact('t', 'jobs') + ['title' => $t['title']]);
     }
 
     public function articles(): string

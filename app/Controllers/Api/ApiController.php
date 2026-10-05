@@ -81,6 +81,7 @@ final class ApiController extends Controller
         $paths['/matches']['get'] = $def('Mes scores de compatibilité', 'Matching');
         $paths['/recommendations']['get'] = $def('Recommandations d\'offres et de métiers', 'Matching');
         $paths['/gaps']['get'] = $def('Analyse des écarts avec le marché (gains mesurés, certifications, formations, projets)', 'Matching', true, ['parameters' => [['name' => 'job_id', 'in' => 'query', 'schema' => $s('integer'), 'description' => 'Analyse pour une offre précise'], ['name' => 'limit', 'in' => 'query', 'schema' => $s('integer'), 'description' => 'Nombre d\'offres analysées (5 à 20)']]]);
+        $paths['/trainings']['get'] = $def('Formations en ligne (Coursera, OpenClassrooms, Udemy, edX…) classées par demande des employeurs', 'Formation', false, ['parameters' => array_map(fn($n) => ['name' => $n, 'in' => 'query', 'schema' => $s()], ['q', 'platform', 'lang', 'skill'])]);
         $paths['/certifications']['get'] = $def('Catalogue des certifications', 'Formation', false, ['parameters' => array_map(fn($n) => ['name' => $n, 'in' => 'query', 'schema' => $s()], ['q', 'domain'])]);
         $paths['/cv/generate']['post'] = $def('Données structurées du CV', 'IA');
         $paths['/cover-letter/generate']['post'] = $def('Générer une lettre', 'IA', true, $body(['job_id' => $s('integer'), 'tone' => $s()]));
@@ -237,6 +238,16 @@ final class ApiController extends Controller
         }
         $a = \App\Services\GapAnalysisService::market($uid, max(5, min(20, (int)input('limit', 10))));
         json_response(['data' => $a]);
+    }
+
+    public function trainings(): void
+    {
+        $rows = \App\Services\Training\TrainingCatalog::search(['q' => (string)input('q', ''), 'platform' => (string)input('platform', ''), 'lang' => (string)input('lang', ''), 'skill' => (string)input('skill', ''), 'free' => (bool)input('free')]);
+        json_response(['data' => array_map(fn($t) => [
+            'id' => (int)$t['id'], 'title' => $t['title'], 'platform' => $t['platform_name'], 'provider' => $t['provider'], 'language' => $t['language'],
+            'duration' => $t['duration'], 'certificate' => $t['certificate'], 'skills' => array_values(array_filter(array_map('trim', explode(',', (string)$t['skills'])))),
+            'employer_demand' => $t['demand'], 'url' => url('/formations/' . $t['id']), 'next_session' => $t['next_session'],
+        ], array_slice($rows, 0, 100)), 'meta' => ['total' => count($rows)]]);
     }
 
     public function certifications(): void

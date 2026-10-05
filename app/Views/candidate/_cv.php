@@ -14,6 +14,20 @@ $dots = function (int $lvl): string {
     return $h . '</span>';
 };
 $ai = $p['cv_ai_data'] ?? null;
+$certifications = function () use ($p) {
+    $items = $p['certificates'] ?? [];
+    if (!$items && empty($p['certifications'])) {
+        return;
+    }
+    echo '<h4>Certifications</h4>';
+    foreach ($items as $c) {
+        echo '<div class="cv-item"><b>' . e($c['title']) . '</b>' . ($c['status'] === 'verifie' ? ' <span title="Vérifié par NEAM">✓</span>' : '')
+            . '<br><span class="when">' . e(implode(' · ', array_filter([$c['issuer'], $c['issued_at'] ? substr($c['issued_at'], 0, 4) : null]))) . '</span></div>';
+    }
+    if (!empty($p['certifications'])) {
+        echo '<p>' . e($p['certifications']) . '</p>';
+    }
+};
 if ($ai) {
     $p['headline'] = $ai['headline'] ?: ($p['headline'] ?? '');
     $p['bio'] = $ai['summary'] ?: ($p['bio'] ?? '');
@@ -45,7 +59,7 @@ $educations = function () use ($p) {
     <p><?= e(implode(' · ', array_map(fn($s) => $s['name'], $tech))) ?></p>
     <?php if ($soft): ?><p><b>Qualités :</b> <?= e(implode(', ', $soft)) ?></p><?php endif; ?>
     <?php if ($langs): ?><h4>Langues</h4><p><?= e(implode(' · ', array_map(fn($l) => $l['name'] . ' (' . $l['level'] . ')', $langs))) ?></p><?php endif; ?>
-    <?php if (!empty($p['certifications'])): ?><h4>Certifications</h4><p><?= e($p['certifications']) ?></p><?php endif; ?>
+    <?php $certifications(); ?>
 </div>
 <?php elseif ($template === 'creatif'): ?>
 <div class="cv-sheet cv-creatif">
@@ -87,7 +101,7 @@ $educations = function () use ($p) {
         <?php if (!empty($p['bio'])): ?><h4>Profil</h4><p><?= e($p['bio']) ?></p><?php endif; ?>
         <h4>Expériences & projets</h4><?php $experiences(); ?>
         <h4>Formation</h4><?php $educations(); ?>
-        <?php if (!empty($p['certifications'])): ?><h4>Certifications</h4><p><?= e($p['certifications']) ?></p><?php endif; ?>
+        <?php $certifications(); ?>
         <?php if (!empty($p['availability_date'])): ?><h4>Disponibilité</h4><p>À partir du <?= e(date_fr($p['availability_date'])) ?> · Mobilité : <?= e(mobility_labels()[$p['mobility'] ?? 'ville'] ?? '') ?></p><?php endif; ?>
     </div>
 </div>

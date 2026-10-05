@@ -216,7 +216,7 @@ final class MatchingEngine
             $ratio = 0.8;
             $detail = 'Pas d\'exigence linguistique particulière';
         }
-        if (!empty($p['certifications'])) {
+        if (!empty($p['certifications']) || !empty($p['certificates'])) {
             $ratio = min(1, $ratio + 0.15);
             $detail .= ' · certifications valorisées';
         }
@@ -324,12 +324,13 @@ final class MatchingEngine
     {
         $actions = [];
         foreach (array_slice($missingSkills, 0, 3) as $s) {
-            $training = DB::one('SELECT id, title, provider, duration, price FROM trainings WHERE skill_id = :s ORDER BY price ASC LIMIT 1', ['s' => $s['id']]);
+            $training = DB::one("SELECT t.id, t.title, t.duration, p.name AS platform FROM trainings t JOIN learning_platforms p ON p.id = t.platform_id
+                WHERE t.skill_id = :s AND t.active = 1 ORDER BY CASE WHEN t.language = 'fr' THEN 0 ELSE 1 END, CASE WHEN t.certificate = 'gratuit' THEN 0 ELSE 1 END LIMIT 1", ['s' => $s['id']]);
             $actions[] = [
                 'type'  => 'skill',
                 'text'  => ($s['required'] ? 'Acquérir la compétence clé « ' : 'Développer « ') . $s['name'] . ' »',
                 'link'  => $training ? '/formations/' . $training['id'] : '/formations?q=' . urlencode($s['name']),
-                'extra' => $training ? $training['title'] . ' · ' . $training['duration'] . ' · ' . ($training['price'] ? money((int)$training['price']) : 'Gratuit') : null,
+                'extra' => $training ? $training['title'] . ' · ' . $training['platform'] . ' · ' . $training['duration'] : null,
             ];
         }
         if ($criteria['experience']['ratio'] < 0.6) {

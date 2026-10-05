@@ -17,6 +17,7 @@
             <ul class="timeline"><?php foreach ($p['educations'] as $ed): ?><li><span class="dot done"></span><b><?= e($ed['degree']) ?> <?= e($ed['field']) ?></b><span><?= e($ed['school']) ?> · <?= e($ed['end_year']) ?></span></li><?php endforeach; ?></ul>
             <h3>Expériences</h3>
             <ul class="timeline"><?php foreach ($p['experiences'] as $x): ?><li><span class="dot done"></span><b><?= e($x['title']) ?></b><span><?= e($x['company']) ?> · <?= e(date_fr($x['start_date'])) ?></span><?php if ($x['description']): ?><p class="small mb-0"><?= e($x['description']) ?></p><?php endif; ?></li><?php endforeach; ?></ul>
+            <?php if (!empty($p['certificates'])): ?><h3>Certificats et formations en ligne</h3><?= App\Core\View::partial('partials/certificates_list', ['certificates' => $p['certificates'], 'recruiter' => true]) ?><?php endif; ?>
             <p class="small"><b>Langues :</b> <?= e(implode(', ', array_map(fn($l) => $l['name'] . ' ' . $l['level'], $p['languages_list']))) ?> · <b>Disponibilité :</b> <?= e(date_fr($p['availability_date'])) ?> · <b>Mobilité :</b> <?= e(mobility_labels()[$p['mobility']] ?? '') ?></p>
         </section>
     </div>

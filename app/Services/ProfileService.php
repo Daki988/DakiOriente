@@ -44,6 +44,7 @@ final class ProfileService
         $p['types_list'] = array_values(array_filter(explode(',', (string)($p['desired_types'] ?? ''))));
         $p['riasec'] = json_decode((string)($p['riasec_scores'] ?? ''), true) ?: [];
         $p['cv_ai_data'] = json_decode((string)($p['cv_ai'] ?? ''), true) ?: null;
+        $p['certificates'] = DB::all("SELECT id, title, issuer, issued_at, credential_url, status FROM candidate_certificates WHERE user_id = :u AND status != 'refuse' ORDER BY issued_at DESC, id DESC", ['u' => $userId]);
         $p['education_level'] = (int)($p['education_level'] ?? 2);
         $p['experience_months'] = (int)($p['experience_months'] ?? 0);
         return self::$cache[$userId] = $p;

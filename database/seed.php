@@ -111,42 +111,8 @@ return function (): void {
         DB::insert('job_families', ['name' => $n, 'sector_id' => $S($sec), 'riasec' => $code, 'description' => $desc, 'skills' => $sk, 'education_min' => $edu, 'outlook' => $out]);
     }
 
-    /* ---------- Formations ---------- */
-    $trainings = [
-        ['Les bases de SQL en 4 semaines', 'NEAM Academy', 'SQL', 'Numérique', 'en ligne', '4 semaines', 0, 'debutant'],
-        ['Développer avec Laravel (PHP)', 'NEAM Academy', 'PHP', 'Numérique', 'en ligne', '6 semaines', 15000, 'intermediaire'],
-        ['JavaScript moderne & React', 'Libreville Code School', 'JavaScript', 'Numérique', 'hybride', '8 semaines', 35000, 'intermediaire'],
-        ['Python pour l\'analyse de données', 'NEAM Academy', 'Python', 'Numérique', 'en ligne', '5 semaines', 10000, 'debutant'],
-        ['Power BI : tableaux de bord professionnels', 'DataLab Afrique', 'Power BI', 'Numérique', 'en ligne', '3 semaines', 20000, 'intermediaire'],
-        ['Excel avancé pour l\'entreprise', 'NEAM Academy', 'Excel avancé', 'Administration', 'en ligne', '2 semaines', 5000, 'intermediaire'],
-        ['Introduction à la cybersécurité', 'Cyber Gabon Initiative', 'Cybersécurité', 'Numérique', 'en ligne', '4 semaines', 0, 'debutant'],
-        ['Réseaux Cisco CCNA – préparation', 'Institut Télécom de l\'Estuaire', 'Réseaux informatiques', 'Numérique', 'présentiel', '10 semaines', 120000, 'intermediaire'],
-        ['Comptabilité SYSCOHADA révisé', 'Cabinet Formation Ogooué', 'Comptabilité générale', 'Banque', 'présentiel', '6 semaines', 60000, 'debutant'],
-        ['Sage 100 Comptabilité – prise en main', 'Cabinet Formation Ogooué', 'Sage Comptabilité', 'Banque', 'hybride', '2 semaines', 25000, 'debutant'],
-        ['Analyse financière et crédit', 'Académie Bancaire d\'Afrique Centrale', 'Analyse financière', 'Banque', 'en ligne', '5 semaines', 45000, 'avance'],
-        ['Marketing digital & publicité en ligne', 'NEAM Academy', 'Marketing digital', 'Marketing', 'en ligne', '4 semaines', 10000, 'debutant'],
-        ['Community management professionnel', 'Studio Komo', 'Gestion des réseaux sociaux', 'Marketing', 'en ligne', '3 semaines', 15000, 'debutant'],
-        ['Design graphique avec Canva & Figma', 'Studio Komo', 'Création graphique', 'Marketing', 'en ligne', '3 semaines', 0, 'debutant'],
-        ['Techniques de vente et négociation', 'Business School du Komo', 'Techniques de vente', 'Commerce', 'présentiel', '2 semaines', 30000, 'debutant'],
-        ['Gestion de projet – méthodes agiles', 'NEAM Academy', 'Gestion de projet', 'Administration', 'en ligne', '4 semaines', 15000, 'intermediaire'],
-        ['Logistique & supply chain', 'Port Academy Owendo', 'Logistique', 'Logistique', 'hybride', '6 semaines', 50000, 'debutant'],
-        ['Certification HSE niveau 1', 'Centre HSE de Port-Gentil', 'HSE', 'Pétrole', 'présentiel', '3 semaines', 90000, 'debutant'],
-        ['Installation photovoltaïque', 'Solar Skills Gabon', 'Énergie solaire', 'Pétrole', 'présentiel', '4 semaines', 75000, 'debutant'],
-        ['QGIS : cartographie et SIG', 'Forêt & Climat Formation', 'SIG / Cartographie', 'Bois', 'en ligne', '4 semaines', 0, 'debutant'],
-        ['Anglais professionnel (B1 → B2)', 'English Hub Libreville', null, 'Éducation', 'hybride', '12 semaines', 40000, 'intermediaire'],
-        ['Prise de parole et communication', 'NEAM Academy', 'Communication', 'Administration', 'en ligne', '2 semaines', 0, 'debutant'],
-        ['Gestion des ressources humaines et paie', 'Business School du Komo', 'Gestion des ressources humaines', 'Administration', 'présentiel', '6 semaines', 55000, 'debutant'],
-        ['Suivi-évaluation de projets de développement', 'Institut ONG Afrique', 'Suivi-évaluation', 'ONG', 'en ligne', '5 semaines', 20000, 'intermediaire'],
-        ['Git & GitHub pour débutants', 'Libreville Code School', 'Git', 'Numérique', 'en ligne', '1 semaine', 0, 'debutant'],
-        ['AutoCAD 2D/3D', 'Institut BTP du Gabon', 'AutoCAD', 'BTP', 'présentiel', '5 semaines', 65000, 'debutant'],
-    ];
-    foreach ($trainings as [$t, $prov, $sk, $sec, $fmt, $dur, $price, $lvl]) {
-        DB::insert('trainings', [
-            'title' => $t, 'provider' => $prov, 'skill_id' => $sk ? $skill[$sk] : null, 'sector_id' => $S($sec), 'format' => $fmt,
-            'duration' => $dur, 'price' => $price, 'level' => $lvl, 'url' => null,
-            'description' => "Formation pratique pour acquérir des compétences immédiatement utiles en entreprise. Exercices concrets, cas gabonais et attestation de fin de formation.",
-        ]);
-    }
+    /* ---------- Plateformes de formation en ligne et leurs cours (catalogue réel) ---------- */
+    \Database\Migrator::seedLearning();
     \Database\Migrator::seedCertifications();
 
     /* ---------- Offres d'abonnement ---------- */
@@ -508,6 +474,26 @@ return function (): void {
     /* ---------- Plan de progression de la candidate de démo ---------- */
     foreach ([['certification', 'Microsoft Power BI Data Analyst (PL-300)', 'skill:12', 'en_cours', 4], ['certification', 'TOEIC Listening & Reading', 'lang:anglais', 'todo', 2]] as [$kind, $name, $key, $st, $d]) {
         DB::insert('candidate_goals', ['user_id' => $demo, 'kind' => $kind, 'ref_id' => DB::value('SELECT id FROM certifications WHERE name = :n', ['n' => $name]), 'label' => $name, 'gap_key' => $key, 'status' => $st, 'created_at' => $ago($d), 'done_at' => null]);
+    }
+
+    /* ---------- Formations en ligne suivies et certificats (démonstration) ---------- */
+    $tid = fn(string $title) => (int)DB::value('SELECT id FROM trainings WHERE title = :t', ['t' => $title]);
+    foreach ([['Réalisez des dashboards avec Power BI', 'en_cours', 6, null], ['Initiez-vous à la gestion de projet agile', 'suivie', 2, null], ['Gérez du code avec Git et GitHub', 'terminee', 40, 25]] as [$title, $st, $start, $end]) {
+        if ($id = $tid($title)) {
+            DB::insert('candidate_trainings', ['user_id' => $demo, 'training_id' => $id, 'status' => $st, 'started_at' => $st === 'suivie' ? null : $ago($start), 'completed_at' => $end ? $ago($end) : null, 'created_at' => $ago($start)]);
+            DB::run('UPDATE trainings SET clicks = clicks + :c WHERE id = :id', ['c' => 3 + $start % 7, 'id' => $id]);
+        }
+    }
+    if ($git = $tid('Gérez du code avec Git et GitHub')) {
+        DB::insert('candidate_certificates', ['user_id' => $demo, 'training_id' => $git, 'certification_id' => null, 'title' => 'Gérez du code avec Git et GitHub', 'issuer' => 'OpenClassrooms',
+            'issued_at' => date('Y-m-d', strtotime('-25 days')), 'credential_url' => null, 'credential_id' => null, 'document_id' => null, 'status' => 'verifie',
+            'review_note' => 'Données de démonstration', 'created_at' => $ago(25), 'reviewed_at' => $ago(24)]);
+    }
+    if ($cyber = $tid('Introduction to Cybersecurity')) {
+        DB::insert('candidate_certificates', ['user_id' => $candIds['steeve.mouele@mail.ga'], 'training_id' => $cyber, 'certification_id' => null, 'title' => 'Introduction to Cybersecurity', 'issuer' => 'Cisco Networking Academy',
+            'issued_at' => date('Y-m-d', strtotime('-3 days')), 'credential_url' => null, 'credential_id' => null, 'document_id' => null, 'status' => 'declare',
+            'review_note' => null, 'created_at' => $ago(2), 'reviewed_at' => null]);
+        DB::insert('candidate_trainings', ['user_id' => $candIds['steeve.mouele@mail.ga'], 'training_id' => $cyber, 'status' => 'terminee', 'started_at' => $ago(20), 'completed_at' => $ago(3), 'created_at' => $ago(20)]);
     }
 
     /* ---------- Signalements & audit ---------- */

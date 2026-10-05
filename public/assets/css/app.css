@@ -728,3 +728,24 @@ h1, h2, h3, p, .small, label, .badge { overflow-wrap: anywhere; }
 .reco-more > summary::-webkit-details-marker { display: none; }
 .reco-more[open] > summary .ic { transform: rotate(180deg); }
 .list > li.goal { display: block; }
+
+/* ---------- Formations en ligne et plateformes ---------- */
+.platform-chip { display: inline-flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 700; color: var(--navy); }
+.platform-chip i { width: 10px; height: 10px; border-radius: 3px; background: var(--pc, var(--blue)); flex: none; }
+.training-card { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.training-card h3 { font-size: 1rem; line-height: 1.35; }
+.training-card h3 a { color: var(--navy); }
+.training-card h3 a:hover { color: var(--blue); }
+.training-filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; padding: 14px; }
+.training-filters .field { margin: 0; }
+@media (max-width: 640px) { .training-filters > .field, .training-filters .field select, .training-filters .field input[type=search], .training-filters .field input[type=text] { width: 100%; flex: 1 1 100%; } }
+.platform-strip { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr)); }
+.platform-tile { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; color: var(--navy); min-width: 0; transition: border-color .15s, transform .15s; }
+.platform-tile:hover { border-color: var(--pc, var(--blue)); transform: translateY(-1px); }
+.platform-tile b { display: block; font-size: .9rem; }
+.platform-tile small { color: var(--muted); font-size: .76rem; }
+.platform-tile.more { justify-content: space-between; background: var(--blue-50); border-color: var(--blue-100); }
+.pt-logo { flex: none; width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--pc, var(--blue)); color: #fff; font-weight: 800; }
+.pt-logo.lg { width: 48px; height: 48px; font-size: 1.3rem; border-radius: 14px; }
+.pt-logo.xl { width: 72px; height: 72px; font-size: 2rem; border-radius: 20px; }
+.platform-card { border-top: 4px solid var(--pc, var(--blue)); }

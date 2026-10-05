@@ -23,6 +23,7 @@
             <?php if ($docs): ?><h3 class="mt-2">Documents</h3><ul class="list"><?php foreach ($docs as $d): ?><li><?= icon('file-text') ?><a class="grow" href="<?= e(url('/documents/' . $d['id'])) ?>"><?= e($d['original_name']) ?></a></li><?php endforeach; ?></ul><?php endif; ?>
         </section>
 
+        <?php if (!empty($p['certificates'])): ?><section class="card card-lg"><h2 style="font-size:1.15rem"><?= icon('award') ?> Certificats du candidat</h2><p class="small muted">Les certificats « Vérifié par NEAM » ont été contrôlés par notre équipe. Pour les autres, le lien mène à la page officielle de la plateforme.</p><?= App\Core\View::partial('partials/certificates_list', ['certificates' => $p['certificates'], 'recruiter' => true]) ?></section><?php endif; ?>
         <details class="card card-lg" open>
             <summary style="cursor:pointer"><h2 style="font-size:1.15rem;display:inline"><?= icon('file-text') ?> CV du candidat</h2></summary>
             <div class="mt-2" style="background:#e9eef7;border-radius:16px;padding:12px;overflow:hidden"><?= App\Core\View::partial('candidate/_cv', ['p' => $p, 'template' => $p['cv_template']]) ?></div>

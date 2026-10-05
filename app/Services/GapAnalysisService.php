@@ -330,12 +330,12 @@ final class GapAnalysisService
         switch ($g['type']) {
             case 'skill':
             case 'level':
-                foreach (self::certificationsForSkill($g['name'], $g['type'] === 'level' ? 'intermediaire' : 'debutant', 3) as $c) {
-                    $out[] = self::certReco($c);
+                // D'abord se former (cours en ligne), puis prouver (certification), puis pratiquer (projet)
+                foreach (\App\Services\Training\TrainingCatalog::forSkill($g['name'], 2) as $t) {
+                    $out[] = self::trainingReco($t);
                 }
-                foreach (DB::all('SELECT id, title, provider, duration, price, format FROM trainings WHERE skill_id = :s ORDER BY price ASC LIMIT 2', ['s' => $g['ref']]) as $t) {
-                    $out[] = ['kind' => 'training', 'id' => (int)$t['id'], 'title' => $t['title'], 'subtitle' => trim($t['provider'] . ' · ' . $t['duration'] . ' · ' . $t['format'], ' ·'),
-                        'cost' => $t['price'] ? money((int)$t['price']) : 'Gratuit', 'link' => '/formations/' . $t['id'], 'external' => false];
+                foreach (self::certificationsForSkill($g['name'], $g['type'] === 'level' ? 'intermediaire' : 'debutant', 2) as $c) {
+                    $out[] = self::certReco($c);
                 }
                 $out[] = ['kind' => 'project', 'title' => 'Projet pour le prouver', 'subtitle' => self::PROJECTS[$g['name']] ?? 'Réalise un mini-projet utilisant « ' . $g['name'] . ' » et décris-le dans ton profil : contexte, ce que tu as fait, résultat obtenu.',
                     'link' => '/espace/profil#experiences', 'external' => false];
@@ -346,7 +346,11 @@ final class GapAnalysisService
                         $out[] = self::certReco($c);
                     }
                 }
-                $out = array_slice($out, 0, 3);
+                $out = array_slice($out, 0, 2);
+                $lang = ucfirst(mb_strtolower($g['name']));
+                foreach (array_reverse(\App\Services\Training\TrainingCatalog::forSkill($lang, 2)) as $t) {
+                    array_unshift($out, self::trainingReco($t));
+                }
                 $out[] = ['kind' => 'action', 'title' => 'Pratiquer chaque jour, gratuitement', 'subtitle' => 'Applications d\'apprentissage, podcasts, clubs de conversation, séries en version originale : 20 minutes par jour suffisent pour progresser d\'un niveau en quelques mois.',
                     'link' => '/formations?q=' . urlencode($g['name']), 'external' => false];
                 break;
@@ -387,6 +391,15 @@ final class GapAnalysisService
         $costRank = ['gratuit' => 0, 'mixte' => 1, 'payant' => 2];
         usort($rows, fn($a, $b) => [abs(($rank[$a['level']] ?? 0) - $rank[$level]), $costRank[$a['cost']] ?? 2] <=> [abs(($rank[$b['level']] ?? 0) - $rank[$level]), $costRank[$b['cost']] ?? 2]);
         return array_slice($rows, 0, $limit);
+    }
+
+    private static function trainingReco(array $t): array
+    {
+        $cert = \App\Services\Training\TrainingCatalog::CERT[$t['certificate']] ?? null;
+        return ['kind' => 'training', 'id' => (int)$t['id'], 'title' => $t['title'],
+            'subtitle' => implode(' · ', array_filter([$t['platform_name'], $t['provider'] !== $t['platform_name'] ? $t['provider'] : null, $t['duration'], \App\Services\Training\TrainingCatalog::LANG[$t['language']] ?? null])),
+            'cost' => $cert[0] ?? null, 'cost_color' => $cert[1] ?? 'gray', 'platform' => $t['platform_name'],
+            'link' => '/formations/' . $t['id'], 'external' => false];
     }
 
     private static function certReco(array $c): array

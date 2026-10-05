@@ -50,6 +50,9 @@ final class Migrator
 
         if ($seed) {
             (require __DIR__ . '/seed.php')();
+        } else {
+            self::seedCertifications();
+            self::seedLearning();
         }
     }
 
@@ -75,14 +78,12 @@ final class Migrator
                 $added[] = $table;
             }
         }
-        if (!(int)DB::value('SELECT COUNT(*) FROM certifications')) {
-            self::seedCertifications();
-            $added[] = 'certifications (catalogue)';
-        }
-
-        $columns = ['candidate_profiles' => ['cv_ai' => 'TEXT', 'gap_advice' => 'TEXT']];
+        $columns = ['candidate_profiles' => ['cv_ai' => 'TEXT', 'gap_advice' => 'TEXT'],
+            'trainings' => ['platform_id' => 'INTEGER', 'language' => "VARCHAR(5) DEFAULT 'fr'", 'skills' => 'VARCHAR(255)', 'certificate' => "VARCHAR(20) DEFAULT 'variable'",
+                'external_id' => 'VARCHAR(120)', 'source' => "VARCHAR(20) DEFAULT 'catalogue'", 'active' => 'INTEGER NOT NULL DEFAULT 1', 'next_session' => 'VARCHAR(10)',
+                'clicks' => 'INTEGER NOT NULL DEFAULT 0', 'updated_at' => ($driver === 'pgsql' ? 'TIMESTAMP NULL' : 'DATETIME NULL')]];
         foreach ($columns as $table => $cols) {
-            $existing = DB::driver() === 'sqlite'
+            $existing = $driver === 'sqlite'
                 ? array_column(DB::all("PRAGMA table_info($table)"), 'name')
                 : DB::column('SELECT column_name FROM information_schema.columns WHERE table_name = :t', ['t' => $table]);
             foreach ($cols as $col => $type) {
@@ -92,6 +93,17 @@ final class Migrator
                 }
             }
         }
+        if (!(int)DB::value('SELECT COUNT(*) FROM learning_platforms')) {
+            // Les anciennes formations sans plateforme sont masquées au profit du catalogue des plateformes en ligne
+            DB::run('UPDATE trainings SET active = 0 WHERE platform_id IS NULL');
+            self::seedLearning();
+            $added[] = 'plateformes de formation (catalogue)';
+        }
+        if (!(int)DB::value('SELECT COUNT(*) FROM certifications')) {
+            self::seedCertifications();
+            $added[] = 'certifications (catalogue)';
+        }
+
         if (!DB::value("SELECT COUNT(*) FROM settings WHERE skey = 'launch_mode'")) {
             foreach (['launch_mode' => '1', 'ai_monthly_limit' => '30'] as $k => $v) {
                 DB::insert('settings', ['skey' => $k, 'svalue' => $v]);
@@ -110,6 +122,33 @@ final class Migrator
                 'level' => $level, 'format' => $format, 'prep_time' => $prep, 'cost' => $cost, 'url' => $url ?: null,
                 'description' => $desc, 'value_note' => $note,
             ]);
+        }
+    }
+
+    /** Plateformes de formation en ligne, sélection vérifiée et dernier instantané des catalogues synchronisés. */
+    public static function seedLearning(): void
+    {
+        $data = require __DIR__ . '/learning.php';
+        foreach ($data['platforms'] as $slug => $p) {
+            DB::insert('learning_platforms', [
+                'slug' => $slug, 'name' => $p['name'], 'url' => $p['url'], 'color' => $p['color'], 'languages' => $p['languages'],
+                'pricing' => $p['pricing'], 'pricing_note' => $p['pricing_note'], 'certificate_note' => $p['certificate_note'],
+                'tagline' => $p['tagline'], 'description' => $p['description'], 'strengths' => $p['strengths'], 'tips' => $p['tips'],
+                'connector' => $p['connector'], 'active' => 1,
+            ]);
+        }
+        foreach ($data['courses'] as $slug => $courses) {
+            $base = rtrim(parse_url($data['platforms'][$slug]['url'], PHP_URL_SCHEME) . '://' . parse_url($data['platforms'][$slug]['url'], PHP_URL_HOST), '/');
+            \App\Services\Training\TrainingSync::import($slug, array_map(fn($c) => [
+                'title' => $c[0], 'url' => str_starts_with($c[1], 'http') ? $c[1] : $base . $c[1], 'external_id' => $c[1], 'language' => $c[2],
+                'partner' => $c[3], 'duration' => $c[4], 'certificate' => $c[5], 'level' => $c[6], 'skills' => $c[7],
+            ], $courses), 'catalogue');
+        }
+        foreach (glob(__DIR__ . '/catalog/*.json') ?: [] as $file) {
+            $slug = basename($file, '.json');
+            if (isset($data['platforms'][$slug])) {
+                \App\Services\Training\TrainingSync::import($slug, json_decode((string)file_get_contents($file), true) ?: [], 'api');
+            }
         }
     }
 }

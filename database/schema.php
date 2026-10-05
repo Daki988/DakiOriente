@@ -168,15 +168,38 @@ return [
 )",
 
 // ---------- Formations ----------
+'learning_platforms' => "CREATE TABLE learning_platforms (
+    id {PK}, slug VARCHAR(40) NOT NULL UNIQUE, name VARCHAR(120) NOT NULL, url VARCHAR(255) NOT NULL, color VARCHAR(10) DEFAULT '#0057ff',
+    languages VARCHAR(20) DEFAULT 'fr,en', pricing VARCHAR(20) DEFAULT 'freemium', pricing_note VARCHAR(255), certificate_note VARCHAR(255),
+    tagline VARCHAR(190), description TEXT, strengths TEXT, tips TEXT, connector VARCHAR(20) NOT NULL DEFAULT 'manual',
+    affiliate_param VARCHAR(120), active INTEGER NOT NULL DEFAULT 1, last_sync_at {TS}, last_sync_count INTEGER
+)",
 'trainings' => "CREATE TABLE trainings (
     id {PK}, title VARCHAR(190) NOT NULL, provider VARCHAR(160), skill_id INTEGER REFERENCES skills(id),
-    sector_id INTEGER REFERENCES sectors(id), format VARCHAR(30) DEFAULT 'en ligne', duration VARCHAR(40),
-    price INTEGER NOT NULL DEFAULT 0, level VARCHAR(20) DEFAULT 'debutant', url VARCHAR(255), description TEXT
+    sector_id INTEGER REFERENCES sectors(id), format VARCHAR(30) DEFAULT 'en ligne', duration VARCHAR(80),
+    price INTEGER NOT NULL DEFAULT 0, level VARCHAR(20) DEFAULT 'debutant', url VARCHAR(255), description TEXT,
+    platform_id INTEGER REFERENCES learning_platforms(id), language VARCHAR(5) DEFAULT 'fr', skills VARCHAR(255),
+    certificate VARCHAR(20) DEFAULT 'variable', external_id VARCHAR(120), source VARCHAR(20) DEFAULT 'catalogue',
+    active INTEGER NOT NULL DEFAULT 1, next_session VARCHAR(10), clicks INTEGER NOT NULL DEFAULT 0, updated_at {TS}
 )",
 'certifications' => "CREATE TABLE certifications (
     id {PK}, name VARCHAR(190) NOT NULL, issuer VARCHAR(190), domain VARCHAR(60), skills VARCHAR(255), language VARCHAR(40),
     level VARCHAR(20) DEFAULT 'debutant', format VARCHAR(120), prep_time VARCHAR(60), cost VARCHAR(20) DEFAULT 'payant',
     url VARCHAR(255), description TEXT, value_note VARCHAR(255)
+)",
+'candidate_trainings' => "CREATE TABLE candidate_trainings (
+    id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    training_id INTEGER NOT NULL REFERENCES trainings(id) ON DELETE CASCADE, status VARCHAR(20) NOT NULL DEFAULT 'suivie',
+    started_at {TS}, completed_at {TS}, created_at {TS}
+)",
+'candidate_certificates' => "CREATE TABLE candidate_certificates (
+    id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, training_id INTEGER REFERENCES trainings(id) ON DELETE SET NULL,
+    certification_id INTEGER REFERENCES certifications(id) ON DELETE SET NULL, title VARCHAR(190) NOT NULL, issuer VARCHAR(160),
+    issued_at VARCHAR(10), credential_url VARCHAR(255), credential_id VARCHAR(120), document_id INTEGER,
+    status VARCHAR(20) NOT NULL DEFAULT 'declare', review_note VARCHAR(255), created_at {TS}, reviewed_at {TS}
+)",
+'training_clicks' => "CREATE TABLE training_clicks (
+    id {PK}, training_id INTEGER NOT NULL REFERENCES trainings(id) ON DELETE CASCADE, user_id INTEGER, created_at {TS}
 )",
 'candidate_goals' => "CREATE TABLE candidate_goals (
     id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, kind VARCHAR(20) NOT NULL,
@@ -269,6 +292,10 @@ return [
 // ---------- Index ----------
 '_indexes' => [
     'CREATE INDEX idx_goals_user ON candidate_goals(user_id)',
+    'CREATE INDEX idx_trainings_platform ON trainings(platform_id, active)',
+    'CREATE INDEX idx_trainings_skill ON trainings(skill_id)',
+    'CREATE INDEX idx_ctrain_user ON candidate_trainings(user_id)',
+    'CREATE INDEX idx_certs_user ON candidate_certificates(user_id)',
     'CREATE INDEX idx_jobs_status ON jobs(status, published_at)',
     'CREATE INDEX idx_jobs_company ON jobs(company_id)',
     'CREATE INDEX idx_apps_user ON applications(user_id)',

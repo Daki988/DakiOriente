@@ -79,11 +79,42 @@ La page **Mes axes de progression** (`/espace/progression`) compare le profil du
 
 Le catalogue public `/certifications` est filtrable et propose une sélection personnalisée au candidat connecté. Il est géré dans Admin › Référentiels › Certifications. Code : `app/Services/GapAnalysisService.php`, catalogue initial : `database/certifications.php`. Une base existante se met à jour avec `php bin/install.php --upgrade`.
 
+### Formations en ligne (Coursera, OpenClassrooms, Udemy…)
+
+Le catalogue `/formations` réunit des cours **en français et en anglais uniquement**, issus de plateformes reconnues : Coursera, OpenClassrooms, Udemy, edX, FUN MOOC, Microsoft Learn, freeCodeCamp et Cisco Networking Academy. Chaque formation est reliée aux compétences du référentiel, ce qui permet d'afficher combien d'offres publiées les demandent.
+
+- **Une page par plateforme** (`/formations/plateformes/{slug}`) : présentation, modèle gratuit / payant, valeur du certificat, conseils, puis les formations demandées par les employeurs et le reste du catalogue.
+- **Sortie vers la plateforme d'origine** : le bouton « Suivre la formation » passe par `/formations/{id}/aller`, qui compte le clic, ajoute le cours à « Mes formations » du candidat, ajoute le paramètre d'affiliation éventuel puis redirige (HTTPS uniquement).
+- **Suivi et certificat** : le candidat marque le cours « en cours » puis « terminé » (compétences portées au niveau 2), puis relie son certificat (lien de vérification HTTPS ou fichier PDF / image ; compétences au niveau 3). L'équipe NEAM le vérifie dans Admin › Formations & certificats : le badge « Vérifié par NEAM » apparaît alors sur le profil, le CV et la fiche vue par les recruteurs, et le certificat compte dans le score de matching.
+- **Recommandations** : l'analyse des écarts propose d'abord des formations du catalogue (français et gratuit en priorité), puis des certifications.
+
+Alimentation du catalogue :
+
+| Plateforme | Méthode |
+|---|---|
+| Coursera | API publique du catalogue (`bin/sync-trainings.php coursera`) |
+| FUN MOOC | API de recherche (sessions ouvertes ou à venir uniquement) |
+| Udemy | L'API affiliés a fermé le 1er janvier 2025 : importer le flux du programme d'affiliation (CSV / JSON) |
+| OpenClassrooms, edX, Microsoft Learn, freeCodeCamp, Cisco | Sélection vérifiée dans `database/learning.php`, complétée par import |
+
+```bash
+php bin/sync-trainings.php all                 # synchronise les plateformes avec connecteur
+php bin/sync-trainings.php coursera --per-skill=8
+php bin/sync-trainings.php all --snapshot      # met aussi à jour database/catalog/*.json
+php bin/sync-trainings.php --check-links       # masque les formations dont la page a disparu (hors Udemy)
+# Tâche planifiée conseillée (chaque lundi à 3 h) :
+# 0 3 * * 1 php /chemin/vers/tremplin/bin/sync-trainings.php all
+```
+
+Import de fichier (Admin › Formations & certificats) : CSV (séparateur `,` ou `;`) ou JSON, colonnes `title`, `url` (obligatoires), `language` (`fr`/`en`), `provider` (organisme), `duration`, `level`, `certificate` (`gratuit`, `payant`, `badge`, `variable`, `aucun`), `skills`, `external_id`. Les lignes hors français / anglais ou sans compétence reconnue sont ignorées ; les compétences sont déduites du titre si la colonne est vide. Le paramètre d'affiliation de chaque plateforme (ex. `ref=neam`) se règle au même endroit.
+
+Tremplin n'est pas affilié à ces plateformes : les prix et règles de certification sont ceux de chaque plateforme et peuvent changer. Une base existante reçoit le catalogue avec `php bin/install.php --upgrade`. Code : `app/Services/Training/`.
+
 ### Phase de lancement et monétisation (§12)
 Tremplin démarre en **phase de lancement gratuite** : toutes les fonctionnalités sont accessibles sans abonnement, les quotas sont levés et aucun paiement n'est proposé. La page Tarifs et l'espace « Abonnement » l'expliquent aux utilisateurs. Le mode se désactive dans Admin › Paramètres le jour où le modèle payant est arrêté : la grille FREE / STARTER / PRO / PREMIUM / CAREER, les offres entreprises et le paiement Mobile Money (pilote `sandbox` à remplacer par un agrégateur) sont déjà en place.
 
 ### API REST v1 (§16)
-Endpoints JSON authentifiés par jeton Bearer : `/api/v1/auth/login`, `/jobs`, `/jobs/{id}/apply`, `/matches`, `/recommendations`, `/gaps` (analyse des écarts, globale ou `?job_id=`), `/certifications`, `/cover-letter/generate`, `/interview/simulate`, `/companies/jobs`, `/companies/candidates/search`, `/admin/analytics`… Spécification OpenAPI 3 : `/api/v1/openapi.json`, documentation : `/api`.
+Endpoints JSON authentifiés par jeton Bearer : `/api/v1/auth/login`, `/jobs`, `/jobs/{id}/apply`, `/matches`, `/recommendations`, `/gaps` (analyse des écarts, globale ou `?job_id=`), `/certifications`, `/trainings` (catalogue de formations, filtres `q`, `platform`, `lang`, `skill`, `free`), `/cover-letter/generate`, `/interview/simulate`, `/companies/jobs`, `/companies/candidates/search`, `/admin/analytics`… Spécification OpenAPI 3 : `/api/v1/openapi.json`, documentation : `/api`.
 
 ```bash
 curl -X POST http://localhost:8000/api/v1/auth/login -H "Content-Type: application/json" \
