@@ -35,7 +35,7 @@ final class AuthController extends Controller
         RateLimiter::clear('login|' . client_ip());
         audit('auth.login', 'user', (int)$user['id']);
         $intended = Session::pull('intended');
-        flash('success', 'Bon retour, ' . $user['first_name'] . ' !');
+        flash('success', 'Content de te revoir, ' . $user['first_name'] . ' ! Jette un œil à tes nouvelles offres compatibles.');
         redirect($intended && str_starts_with($intended, '/') && !str_starts_with($intended, '//') ? $intended : Auth::homeUrl($user));
     }
 
@@ -107,7 +107,7 @@ final class AuthController extends Controller
         Auth::login($user);
         audit('auth.register', 'user', $userId, ['role' => $role]);
         NotificationService::notify($userId, 'welcome', 'Bienvenue sur Tremplin, ' . $user['first_name'] . ' !',
-            $role === 'candidate' ? 'Complète ton profil pour découvrir tes premiers matchs.' : ($role === 'company' ? 'Votre entreprise est en cours de vérification (24 à 48 h). Vous pouvez déjà préparer vos offres.' : 'Partagez votre code établissement avec vos étudiants.'),
+            $role === 'candidate' ? 'Ton aventure commence ici. Première étape : complète ton profil. Plus il est précis, plus tes scores de compatibilité sont justes et plus les recruteurs te trouvent facilement.' : ($role === 'company' ? 'Votre entreprise est en cours de vérification par l\'équipe NEAM (24 à 48 h). Profitez-en pour préparer vos offres : elles seront publiées dès la validation.' : 'Première étape : partagez votre code établissement avec vos étudiants. Dès qu\'ils le saisissent, vous suivez leurs candidatures et leurs stages.'),
             Auth::homeUrl($user));
         redirect($role === 'candidate' ? '/espace/bienvenue' : Auth::homeUrl($user));
     }
@@ -117,7 +117,7 @@ final class AuthController extends Controller
         audit('auth.logout', 'user', Auth::id());
         Auth::logout();
         \App\Core\Session::start();
-        flash('info', 'Tu es déconnecté·e. À bientôt !');
+        flash('info', 'Tu es déconnecté·e. À très vite, et bonne recherche !');
         redirect('/');
     }
 

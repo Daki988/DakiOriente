@@ -32,37 +32,37 @@ final class EmployabilityService
             'skills' => [
                 'label' => 'Compétences techniques', 'max' => 20,
                 'value' => min(20, $skillPts * 20 / 24),
-                'tip'   => count($techSkills) < 6 ? 'Ajoute des compétences techniques et évalue ton niveau honnêtement' : null,
+                'tip'   => count($techSkills) < 6 ? 'Ajoute tes compétences techniques et évalue ton niveau honnêtement : un niveau juste vaut mieux qu\'un niveau gonflé en entretien' : null,
             ],
             'experience' => [
                 'label' => 'Expérience & projets', 'max' => 20,
                 'value' => min(20, $months * 20 / 18 + $projects * 3),
-                'tip'   => $months < 6 ? 'Un stage, un job étudiant ou un projet concret renforce fortement ton profil' : null,
+                'tip'   => $months < 6 ? 'Pas encore d\'expérience ? Un stage, un job étudiant ou un projet personnel concret compte aussi, et il pèse lourd' : null,
             ],
             'education' => [
                 'label' => 'Formation', 'max' => 15,
                 'value' => min(15, $p['education_level'] * 15 / 6),
-                'tip'   => $p['education_level'] < 4 ? 'Les formations courtes certifiantes compensent un niveau d\'étude plus faible' : null,
+                'tip'   => $p['education_level'] < 4 ? 'Une formation courte certifiante peut compenser un diplôme moins élevé : les recruteurs regardent aussi ce que tu sais faire' : null,
             ],
             'languages' => [
                 'label' => 'Langues', 'max' => 10,
                 'value' => min(10, $langCount * 4 + ($hasEnglish ? 3 : 0)),
-                'tip'   => !$hasEnglish ? 'L\'anglais est demandé dans de nombreuses offres (pétrole, mines, ONG, digital)' : null,
+                'tip'   => !$hasEnglish ? 'L\'anglais ouvre beaucoup de portes au Gabon (pétrole, mines, ONG, digital) : même un niveau intermédiaire fait la différence' : null,
             ],
             'orientation' => [
                 'label' => 'Orientation (RIASEC)', 'max' => 5,
                 'value' => $p['riasec_code'] ? 5 : 0,
-                'tip'   => !$p['riasec_code'] ? 'Passe le test d\'orientation pour clarifier ton projet' : null,
+                'tip'   => !$p['riasec_code'] ? 'Passe le test d\'orientation : 10 minutes pour clarifier ton projet et cibler les bons métiers' : null,
             ],
             'soft' => [
                 'label' => 'Soft skills', 'max' => 5,
                 'value' => min(5, count($p['soft_list']) * 1.25),
-                'tip'   => count($p['soft_list']) < 4 ? 'Mets en avant tes qualités (rigueur, travail en équipe…)' : null,
+                'tip'   => count($p['soft_list']) < 4 ? 'Mets en avant tes qualités (rigueur, travail en équipe…) : à compétences égales, c\'est souvent ce qui départage' : null,
             ],
             'activity' => [
                 'label' => 'Dynamique de recherche', 'max' => 10,
                 'value' => min(10, $apps * 2 + $interviews * 2),
-                'tip'   => $apps < 3 ? 'Postule régulièrement : 3 à 5 candidatures ciblées par semaine' : null,
+                'tip'   => $apps < 3 ? 'Garde le rythme : 3 à 5 candidatures ciblées par semaine valent mieux que 30 envoyées au hasard' : null,
             ],
         ];
         $score = 0;

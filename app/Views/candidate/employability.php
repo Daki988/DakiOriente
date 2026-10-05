@@ -2,7 +2,7 @@
 $chart = ['type' => 'line', 'data' => ['labels' => array_map(fn($h) => date_fr($h['created_at']), $history), 'datasets' => [['label' => 'Mon score', 'data' => array_map(fn($h) => (int)$h['score'], $history)]]], 'options' => ['scales' => ['y' => ['min' => 0, 'max' => 100]]]];
 $icons = ['profile' => 'user', 'skills' => 'zap', 'experience' => 'briefcase-business', 'education' => 'graduation-cap', 'languages' => 'languages', 'orientation' => 'compass', 'soft' => 'smile', 'activity' => 'activity'];
 ?>
-<div class="page-head"><div><h1>Score d'employabilité</h1><p>Un score explicable : chaque facteur indique ce qui compte et comment progresser.</p></div></div>
+<div class="page-head"><div><h1>Score d'employabilité</h1><p>Ce score mesure ce que les recruteurs regardent vraiment. Chaque facteur te montre où tu en es et l'action qui te fera progresser le plus vite.</p></div></div>
 <div class="grid-2 mb-3">
     <div class="card card-lg">
         <div class="score-hero">

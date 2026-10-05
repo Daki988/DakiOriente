@@ -16,7 +16,7 @@ $chart = [
     <div class="flex flex-wrap between" style="gap:20px;align-items:center">
         <div style="max-width:640px">
             <p class="hand" style="font-size:1.6rem;color:var(--yellow);margin:0">Bonjour <?= e($p['first_name']) ?> !</p>
-            <h1 style="font-size:clamp(1.4rem,3vw,2rem);margin:4px 0 8px">Ton avenir avance, étape par étape.</h1>
+            <h1 style="font-size:clamp(1.4rem,3vw,2rem);margin:4px 0 8px"><?= $completion['percent'] < 70 ? 'Encore quelques étapes et les recruteurs te verront.' : 'Ton avenir avance, étape par étape.' ?></h1>
             <p style="margin:0">Profil complété à <b style="color:#fff"><?= $completion['percent'] ?> %</b> · <?= count($recos) ?> nouvelles offres compatibles · <?= $sent ?> candidature<?= $sent > 1 ? 's' : '' ?> en cours</p>
             <div class="bar mt-2" style="background:rgba(255,255,255,.25);max-width:420px"><i data-w="<?= $completion['percent'] ?>" style="background:var(--yellow)"></i></div>
         </div>
@@ -47,7 +47,7 @@ $chart = [
         <section class="card">
             <div class="card-title"><h2><?= icon('sparkles') ?> Offres faites pour toi</h2><a class="small" href="<?= e(url('/espace/recommandations')) ?>">Tout voir</a></div>
             <?php if (!$recos): ?>
-                <?= App\Core\View::partial('partials/empty', ['icon' => 'sparkles', 'heading' => 'Complète ton profil', 'text' => 'Ajoute tes compétences pour recevoir des recommandations.', 'cta' => ['Compléter mon profil', '/espace/profil']]) ?>
+                <?= App\Core\View::partial('partials/empty', ['icon' => 'sparkles', 'heading' => 'Tes recommandations arrivent', 'text' => 'Ajoute tes compétences : dès les premières, tu verras les offres faites pour toi, classées et expliquées.', 'cta' => ['Compléter mon profil', '/espace/profil']]) ?>
             <?php else: ?>
                 <div class="stack">
                     <?php foreach ($recos as $r): ?>
@@ -63,7 +63,7 @@ $chart = [
         <section class="card">
             <div class="card-title"><h2><?= icon('send') ?> Suivi de mes candidatures</h2><a class="small" href="<?= e(url('/espace/candidatures')) ?>">Toutes</a></div>
             <?php if (!$apps): ?>
-                <?= App\Core\View::partial('partials/empty', ['icon' => 'send', 'heading' => 'Aucune candidature pour l\'instant', 'text' => 'Ton premier pas commence par une candidature ciblée.', 'cta' => ['Trouver une offre', '/offres']]) ?>
+                <?= App\Core\View::partial('partials/empty', ['icon' => 'send', 'heading' => 'Prêt·e pour ta première candidature ?', 'text' => 'Commence par une offre où ton score dépasse 70 % : tes chances y sont les meilleures.', 'cta' => ['Trouver une offre', '/offres']]) ?>
             <?php else: ?>
                 <ul class="list">
                     <?php foreach ($apps as $a):

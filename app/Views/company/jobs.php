@@ -1,11 +1,11 @@
-<div class="page-head"><div><h1>Mes offres</h1><p>Publiez, modifiez, dupliquez et archivez vos offres.</p></div><a class="btn btn-cta" href="<?= e(url('/entreprise/offres/nouvelle')) ?>"><?= icon('plus') ?> Nouvelle offre</a></div>
+<div class="page-head"><div><h1>Mes offres</h1><p>Publiez, modifiez, dupliquez et archivez vos offres. Une offre précise attire des candidats plus compatibles.</p></div><a class="btn btn-cta" href="<?= e(url('/entreprise/offres/nouvelle')) ?>"><?= icon('plus') ?> Nouvelle offre</a></div>
 <nav class="tabs mb-3">
     <?php foreach (['' => 'Toutes', 'published' => 'Publiées', 'pending' => 'En modération', 'draft' => 'Brouillons', 'archived' => 'Archivées'] as $k => $l): ?>
         <a class="<?= (string)$status === $k ? 'active' : '' ?>" href="<?= e(url('/entreprise/offres', ['statut' => $k])) ?>"><?= e($l) ?></a>
     <?php endforeach; ?>
 </nav>
 <?php if (!$jobs): ?>
-    <?= App\Core\View::partial('partials/empty', ['icon' => 'briefcase-business', 'heading' => 'Aucune offre', 'cta' => ['Publier une offre', '/entreprise/offres/nouvelle']]) ?>
+    <?= App\Core\View::partial('partials/empty', ['icon' => 'briefcase-business', 'heading' => 'Aucune offre pour l\'instant', 'text' => 'Publiez votre première offre : en quelques minutes, vous recevez des candidats classés par compatibilité.', 'cta' => ['Publier une offre', '/entreprise/offres/nouvelle']]) ?>
 <?php else: ?>
     <div class="table-wrap"><table class="table">
         <thead><tr><th>Offre</th><th>Statut</th><th class="hide-mobile">Publiée</th><th>Vues</th><th>Candidats</th><th><span class="sr-only">Actions</span></th></tr></thead>

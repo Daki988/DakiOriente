@@ -10,7 +10,7 @@
     <noscript><button class="btn btn-primary" type="submit">Filtrer</button></noscript>
 </form>
 <?php if (!$results): ?>
-    <?= App\Core\View::partial('partials/empty', ['icon' => 'users', 'heading' => 'Aucun profil au-dessus de ce seuil', 'text' => 'Abaissez le score minimum ou élargissez les critères.']) ?>
+    <?= App\Core\View::partial('partials/empty', ['icon' => 'users', 'heading' => 'Aucun profil au-dessus de ce seuil', 'text' => 'Abaissez légèrement le score minimum : les écarts affichés vous diront précisément ce qu\'il manque à chaque profil.']) ?>
 <?php else: ?>
     <div class="stack">
         <?php foreach ($results as $r): $p = $r['p'] ?? $r['profile']; $m = $r['match']; ?>

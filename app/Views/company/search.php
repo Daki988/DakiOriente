@@ -11,7 +11,7 @@
 </form>
 <p class="muted small"><?= count($results) ?> profil(s)</p>
 <?php if (!$results): ?>
-    <?= App\Core\View::partial('partials/empty', ['icon' => 'users', 'heading' => 'Aucun profil trouvé', 'text' => 'Élargissez vos critères.']) ?>
+    <?= App\Core\View::partial('partials/empty', ['icon' => 'users', 'heading' => 'Aucun profil trouvé', 'text' => 'Élargissez un peu vos critères : un candidat à 65 % avec la bonne motivation vaut souvent mieux qu\'aucun candidat.']) ?>
 <?php else: ?>
     <div class="grid-2">
         <?php foreach ($results as $r): $p = $r['p']; $m = $r['match']; ?>

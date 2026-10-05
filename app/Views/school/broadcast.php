@@ -1,4 +1,4 @@
-<div class="page-head"><div><h1>Diffusion ciblée d'offres</h1><p>Recommandez une opportunité à vos étudiants : ils reçoivent une notification (in-app, e-mail selon leurs préférences).</p></div></div>
+<div class="page-head"><div><h1>Diffusion ciblée d'offres</h1><p>Recommandez une opportunité à vos étudiants. Une offre conseillée par leur école a plus de chances d'être lue, et de déboucher sur une candidature.</p></div></div>
 <form method="post" action="<?= e(url('/ecole/diffusion')) ?>" class="card card-lg stack" style="max-width:760px">
     <?= csrf_field() ?>
     <div class="field"><label for="job_id">Offre à diffuser *</label><select id="job_id" name="job_id" required><option value="">Choisir…</option><?php foreach ($jobs as $j): ?><option value="<?= (int)$j['id'] ?>"><?= e($j['title'] . ' — ' . $j['company_name'] . ' (' . (job_types()[$j['type']] ?? '') . ')') ?></option><?php endforeach; ?></select></div>

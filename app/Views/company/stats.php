@@ -4,7 +4,7 @@ $line = ['type' => 'bar', 'data' => ['labels' => array_map(fn($m) => $monthsFr[s
 $dough = ['type' => 'doughnut', 'data' => ['labels' => ['< 50 %', '50–69 %', '70–84 %', '≥ 85 %'], 'datasets' => [['label' => 'Candidats', 'data' => $scoreDist, 'backgroundColor' => ['#ffc21a', '#00b4ff', '#0057ff', '#12a150']]]]];
 $conv = $totals['views'] ? round($totals['apps'] / $totals['views'] * 100, 1) : 0;
 ?>
-<div class="page-head"><div><h1>Statistiques de recrutement</h1><p>Vues, candidatures, conversion et délais — pour piloter vos offres.</p></div></div>
+<div class="page-head"><div><h1>Statistiques de recrutement</h1><p>Vues, candidatures, conversion et délais. Repérez ce qui fonctionne et ajustez vos offres en conséquence.</p></div></div>
 <div class="grid-4 mb-3">
     <div class="kpi"><span class="ki"><?= icon('eye') ?></span><div><b><?= nf($totals['views']) ?></b><span>Vues des offres</span></div></div>
     <div class="kpi"><span class="ki amber"><?= icon('send') ?></span><div><b><?= nf($totals['apps']) ?></b><span>Candidatures · conversion <?= str_replace('.', ',', (string)$conv) ?> %</span></div></div>

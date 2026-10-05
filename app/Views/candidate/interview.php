@@ -1,4 +1,4 @@
-<div class="page-head"><div><h1>Préparer un entretien</h1><p>Entraîne-toi sur des questions adaptées à l'offre visée et reçois un feedback immédiat (méthode STAR).</p></div></div>
+<div class="page-head"><div><h1>Préparer un entretien</h1><p>Le stress d'un entretien vient surtout de l'inconnu. Entraîne-toi sur des questions adaptées à l'offre et reçois un retour immédiat : le jour J, tu auras déjà répondu à la plupart d'entre elles.</p></div></div>
 <div class="layout-aside">
     <div class="stack">
         <?php if ($allowed): ?>

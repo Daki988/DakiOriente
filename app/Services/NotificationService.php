@@ -18,12 +18,12 @@ final class NotificationService
             'user_id' => $userId, 'type' => $type, 'title' => $title, 'body' => mb_substr($body, 0, 500),
             'link' => $link, 'created_at' => now(),
         ]);
-        $user = DB::one('SELECT email, phone, first_name, notify_email, notify_sms, notify_whatsapp FROM users WHERE id = :id', ['id' => $userId]);
+        $user = DB::one('SELECT email, phone, first_name, role, notify_email, notify_sms, notify_whatsapp FROM users WHERE id = :id', ['id' => $userId]);
         if (!$user) {
             return;
         }
         if ($email && (int)$user['notify_email']) {
-            self::sendEmail($user['email'], $title, self::emailBody($user['first_name'], $title, $body, $link));
+            self::sendEmail($user['email'], $title, self::emailBody($user['first_name'], $title, $body, $link, $user['role'] !== 'candidate'));
         }
         if ($sms && $user['phone']) {
             if ((int)$user['notify_sms']) {
@@ -93,11 +93,14 @@ final class NotificationService
         return $id;
     }
 
-    private static function emailBody(string $firstName, string $title, string $body, ?string $link): string
+    /** Les candidats sont tutoyés, les recruteurs, écoles et administrateurs vouvoyés. */
+    private static function emailBody(string $firstName, string $title, string $body, ?string $link, bool $formal = false): string
     {
-        return "Bonjour $firstName,\n\n$title\n\n$body\n\n" . ($link ? 'Voir sur Tremplin : ' . url($link) . "\n\n" : '')
-            . "— L'équipe Tremplin by NEAM\nTransformer le potentiel en opportunités.\n\n"
-            . "Pour modifier tes préférences de notification : " . url('/compte');
+        return "Bonjour $firstName,\n\n$title\n\n$body\n\n"
+            . ($link ? ($formal ? 'Pour voir le détail et agir : ' : 'Pour voir le détail et passer à l\'action : ') . url($link) . "\n\n" : '')
+            . ($formal ? "Bonne journée,\n" : "On croit en toi,\n")
+            . "L'équipe Tremplin by NEAM\nTransformer le potentiel en opportunités.\n\n"
+            . ($formal ? 'Pour régler vos préférences de notification : ' : 'Pour choisir les alertes que tu reçois : ') . url('/compte');
     }
 
     /** Alerte les candidats dont le profil correspond fortement à une offre nouvellement publiée. */
@@ -113,8 +116,8 @@ final class NotificationService
             $p = ProfileService::load((int)$uid);
             $m = MatchingEngine::compute($p, $job);
             if ($m['score'] >= $threshold && !$m['eliminated']) {
-                self::notify((int)$uid, 'job_match', 'Nouvelle offre compatible à ' . $m['score'] . ' % : ' . $job['title'],
-                    $job['company_name'] . ' · ' . ($job['city_name'] ?? '') . ' — ' . $m['level'], '/offres/' . $jobId, true, true);
+                self::notify((int)$uid, 'job_match', 'Une offre pour toi, compatible à ' . $m['score'] . ' % : ' . $job['title'],
+                    $job['company_name'] . ' · ' . ($job['city_name'] ?? '') . ' — ' . $m['level'] . '. Les premiers candidats sont souvent les premiers lus : regarde-la sans attendre.', '/offres/' . $jobId, true, true);
                 $count++;
             }
         }

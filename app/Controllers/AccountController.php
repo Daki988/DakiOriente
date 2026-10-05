@@ -39,7 +39,7 @@ final class AccountController extends Controller
             'alert_frequency' => $freq, 'updated_at' => now(),
         ], 'id = :id', ['id' => $this->uid()]);
         audit('account.preferences', 'user', $this->uid());
-        flash('success', 'Préférences de communication enregistrées.');
+        flash('success', 'Préférences enregistrées. Tu recevras uniquement les alertes que tu as choisies.');
         redirect('/compte');
     }
 
@@ -113,7 +113,7 @@ final class AccountController extends Controller
         });
         Auth::logout();
         \App\Core\Session::start();
-        flash('info', 'Ton compte et tes données ont été supprimés. Nous espérons te revoir bientôt.');
+        flash('info', 'Ton compte et tes données ont été supprimés. Merci d\'avoir essayé Tremplin, et bonne route pour la suite !');
         redirect('/');
     }
 
@@ -183,7 +183,7 @@ final class AccountController extends Controller
         foreach ($recipients as $r) {
             NotificationService::notify((int)$r, 'message', 'Nouveau message — ' . $a['title'], excerpt($body, 120), $isCandidate ? '/entreprise/candidatures/' . $a['id'] : '/espace/candidatures/' . $a['id']);
         }
-        flash('success', 'Message envoyé.');
+        flash('success', 'Message envoyé. Le destinataire est prévenu.');
         back();
     }
 }

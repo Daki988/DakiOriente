@@ -1,5 +1,5 @@
 <div class="page-head">
-    <div><h1>Mon CV</h1><p>Généré automatiquement à partir de ton profil. Modifie ton profil, ton CV se met à jour.</p></div>
+    <div><h1>Mon CV</h1><p>Ton CV se construit à partir de ton profil et se met à jour tout seul. Un recruteur y passe en moyenne moins d'une minute : on l'a donc pensé clair, aéré et facile à lire.</p></div>
     <div class="flex flex-wrap">
         <a class="btn btn-ghost" href="<?= e(url('/espace/profil')) ?>"><?= icon('pencil') ?> Modifier le contenu</a>
         <a class="btn btn-primary" href="<?= e(url('/espace/cv/imprimer')) ?>" target="_blank"><?= icon('file-down') ?> Télécharger en PDF</a>

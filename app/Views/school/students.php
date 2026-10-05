@@ -4,7 +4,7 @@
     <div>
         <form method="get" class="flex mb-2"><label class="sr-only" for="sq">Rechercher</label><input id="sq" name="q" class="input" value="<?= e($q) ?>" placeholder="Nom, filière…"><button class="btn btn-primary" type="submit"><?= icon('search') ?></button></form>
         <?php if (!$students): ?>
-            <?= App\Core\View::partial('partials/empty', ['icon' => 'users', 'heading' => 'Aucun étudiant', 'text' => 'Invitez vos étudiants avec votre code établissement.']) ?>
+            <?= App\Core\View::partial('partials/empty', ['icon' => 'users', 'heading' => 'Vos étudiants arrivent', 'text' => 'Partagez votre code établissement ou invitez-les par e-mail : dès leur inscription, vous suivez leur recherche de stage ici.']) ?>
         <?php else: ?>
             <div class="table-wrap"><table class="table">
                 <thead><tr><th>Étudiant</th><th>Filière</th><th>Employabilité</th><th>Candidatures</th><th>Stage</th><th>Insertion</th></tr></thead>

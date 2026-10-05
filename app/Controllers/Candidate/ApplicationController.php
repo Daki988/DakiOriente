@@ -28,7 +28,7 @@ final class ApplicationController extends Controller
         if ($this->wantsJson()) {
             json_response(['favorite' => !$exists]);
         }
-        flash('success', $exists ? 'Offre retirée de tes favoris.' : 'Offre ajoutée à tes favoris.');
+        flash('success', $exists ? 'Offre retirée de tes favoris.' : 'Offre ajoutée à tes favoris. Tu la retrouves dans ton espace, avec ton score à jour.');
         back();
     }
 
@@ -71,7 +71,7 @@ final class ApplicationController extends Controller
         }
         $quota = PlanService::applicationQuota($this->user());
         if ($quota['remaining'] !== null && $quota['remaining'] <= 0) {
-            flash('warning', 'Tu as atteint ta limite de ' . $quota['limit'] . ' candidatures ce mois-ci. Passe à une offre supérieure pour continuer.');
+            flash('warning', 'Tu as atteint ta limite de ' . $quota['limit'] . ' candidatures ce mois-ci. Bonne nouvelle : celles que tu as envoyées sont ciblées, et c\'est ce qui compte le plus.');
             redirect('/abonnement');
         }
         $letter = trim((string)input('cover_letter', ''));
@@ -96,9 +96,9 @@ final class ApplicationController extends Controller
                 $u['first_name'] . ' ' . mb_substr($u['last_name'], 0, 1) . '. a postulé. ' . $match['level'] . '.',
                 '/entreprise/candidatures/' . $appId, $match['score'] >= $threshold);
         }
-        NotificationService::notify($uid, 'status', 'Candidature envoyée : ' . $job['title'], 'Tu seras notifié·e à chaque étape. Astuce : prépare déjà ton entretien.', '/espace/candidatures/' . $appId);
+        NotificationService::notify($uid, 'status', 'Candidature envoyée : ' . $job['title'], 'Bien joué ! Tu seras prévenu·e à chaque étape. Conseil d\'expert : entraîne-toi dès maintenant à l\'entretien, les recruteurs rappellent souvent sous quelques jours.', '/espace/candidatures/' . $appId);
         audit('application.created', 'application', $appId, ['job' => $job['id'], 'score' => $match['score']]);
-        flash('success', 'Candidature envoyée à ' . $job['company_name'] . ' ! Bonne chance');
+        flash('success', 'Candidature envoyée à ' . $job['company_name'] . ' ! Pendant que le recruteur la lit, prépare ton entretien : tu auras une longueur d\'avance.');
         redirect('/espace/candidatures/' . $appId);
     }
 
@@ -154,8 +154,8 @@ final class ApplicationController extends Controller
     {
         $a = $this->own((int)$id);
         DB::update('applications', ['reminder_at' => date('Y-m-d 09:00:00', strtotime('+7 days'))], 'id = :id', ['id' => $a['id']]);
-        NotificationService::notify($this->uid(), 'reminder', 'Rappel programmé : relancer ' . $a['company_name'], 'Le ' . date_fr(date('Y-m-d', strtotime('+7 days'))) . ', pense à relancer poliment le recruteur si tu n\'as pas de réponse.', '/espace/candidatures/' . $a['id'], false);
-        flash('success', 'Rappel programmé dans 7 jours.');
+        NotificationService::notify($this->uid(), 'reminder', 'Rappel programmé : relancer ' . $a['company_name'], 'Le ' . date_fr(date('Y-m-d', strtotime('+7 days'))) . ', si tu n\'as pas de réponse, relance poliment le recruteur. Une relance courte et courtoise montre ta motivation, et beaucoup de candidats oublient de le faire.', '/espace/candidatures/' . $a['id'], false);
+        flash('success', 'C\'est noté : on te rappelle dans 7 jours de relancer le recruteur si besoin.');
         redirect('/espace/candidatures/' . $a['id']);
     }
 
@@ -168,7 +168,7 @@ final class ApplicationController extends Controller
         }
         DB::delete('applications', 'id = :id', ['id' => $a['id']]);
         audit('application.withdrawn', 'application', (int)$a['id']);
-        flash('info', 'Candidature retirée.');
+        flash('info', 'Candidature retirée. Ton temps est précieux : concentre-le sur les offres où tu as le plus de chances.');
         redirect('/espace/candidatures');
     }
 

@@ -25,7 +25,7 @@
             </div>
         <?php endif; ?>
         <?php if (!$trainings): ?>
-            <?= App\Core\View::partial('partials/empty', ['icon' => 'graduation-cap', 'heading' => 'Aucune formation trouvée', 'text' => 'Essaie un autre mot-clé.']) ?>
+            <?= App\Core\View::partial('partials/empty', ['icon' => 'graduation-cap', 'heading' => 'Aucune formation trouvée', 'text' => 'Essaie un mot-clé plus général, par exemple « Excel » plutôt que « Excel avancé ».']) ?>
         <?php else: ?>
             <div class="grid-3">
                 <?php foreach ($trainings as $t): ?>

@@ -137,7 +137,7 @@ final class SchoolController extends Controller
             'updated_at' => now(),
         ], 'id = :id', ['id' => $i['id']]);
         if ($status !== $i['status'] && $status === 'convention') {
-            NotificationService::notify((int)$i['user_id'], 'internship', 'Ta convention de stage est validée par ' . $s['name'], 'Bon stage !', '/espace', true, true);
+            NotificationService::notify((int)$i['user_id'], 'internship', 'Ta convention de stage est validée par ' . $s['name'], 'Tout est en ordre, il ne te reste plus qu\'à briller. Bon stage ! Pense à ajouter cette expérience à ton profil à la fin.', '/espace', true, true);
         }
         audit('internship.updated', 'internship', (int)$i['id'], ['status' => $status]);
         flash('success', 'Suivi de stage mis à jour.');
@@ -170,10 +170,10 @@ final class SchoolController extends Controller
         $ids = DB::column($sql, $params);
         $message = mb_substr(trim((string)input('message', '')), 0, 300);
         foreach ($ids as $uid) {
-            NotificationService::notify((int)$uid, 'broadcast', $s['short_name'] . ' te recommande : ' . $job['title'], ($message ?: 'Une opportunité sélectionnée par ton établissement.') . ' — ' . $job['company_name'], '/offres/' . $job['id']);
+            NotificationService::notify((int)$uid, 'broadcast', $s['short_name'] . ' te recommande : ' . $job['title'], ($message ?: 'Ton établissement a sélectionné cette opportunité pour toi. Regarde ton score de compatibilité.') . ' — ' . $job['company_name'], '/offres/' . $job['id']);
         }
         audit('school.broadcast', 'job', (int)$job['id'], ['recipients' => count($ids)]);
-        flash('success', 'Offre diffusée à ' . count($ids) . ' étudiant(s).');
+        flash('success', 'Offre diffusée à ' . count($ids) . ' étudiant(s). Une recommandation de l\'école compte beaucoup aux yeux des étudiants.');
         redirect('/ecole/diffusion');
     }
 
@@ -184,7 +184,7 @@ final class SchoolController extends Controller
         if (DB::value("SELECT COUNT(*) FROM companies WHERE id = :c AND status = 'verified'", ['c' => $cid]) && !DB::value('SELECT COUNT(*) FROM school_partners WHERE school_id = :s AND company_id = :c', ['s' => $s['id'], 'c' => $cid])) {
             DB::insert('school_partners', ['school_id' => $s['id'], 'company_id' => $cid, 'created_at' => now()]);
             foreach (DB::column('SELECT user_id FROM company_users WHERE company_id = :c', ['c' => $cid]) as $r) {
-                NotificationService::notify((int)$r, 'partner', $s['name'] . ' vous propose un partenariat', 'Accédez en priorité aux étudiants de l\'établissement.', '/entreprise', true);
+                NotificationService::notify((int)$r, 'partner', $s['name'] . ' vous propose un partenariat', 'Accédez en priorité aux étudiants de l\'établissement et recrutez vos futurs talents dès leur formation.', '/entreprise', true);
             }
             flash('success', 'Partenariat enregistré.');
         }

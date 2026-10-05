@@ -42,11 +42,11 @@ final class DashboardController extends Controller
 
         // Prochaine action : la plus impactante d'abord
         $next = match (true) {
-            $completion['percent'] < 70 => ['Complète ton profil', reset($completion['missing']) . ' — ton score de compatibilité augmentera sur toutes les offres.', '/espace/profil', 'user'],
-            !$p['riasec_code'] => ['Passe le test d\'orientation', '10 minutes pour découvrir les métiers faits pour toi.', '/espace/orientation', 'compass'],
-            (bool)$interviews => ['Prépare ton entretien', 'Entretien avec ' . $interviews[0]['company_name'] . ' le ' . date_fr($interviews[0]['scheduled_at'], true) . '.', '/espace/entretien?job=' . DB::value('SELECT job_id FROM applications WHERE id = :a', ['a' => $interviews[0]['application_id']]), 'mic'],
-            (bool)$recos && $recos[0]['match']['score'] >= 70 => ['Postule à ton meilleur match', $recos[0]['job']['title'] . ' — compatible à ' . $recos[0]['match']['score'] . ' %.', '/offres/' . $recos[0]['job']['id'], 'send'],
-            default => ['Développe une compétence clé', 'Les formations recommandées comblent tes écarts les plus fréquents.', '/formations', 'graduation-cap'],
+            $completion['percent'] < 70 => ['Complète ton profil', reset($completion['missing']) . ' : c\'est l\'action qui fera monter ton score sur toutes les offres à la fois.', '/espace/profil', 'user'],
+            !$p['riasec_code'] => ['Passe le test d\'orientation', '10 minutes pour découvrir ce qui te motive et les métiers où tu as toutes tes chances.', '/espace/orientation', 'compass'],
+            (bool)$interviews => ['Prépare ton entretien', 'Entretien avec ' . $interviews[0]['company_name'] . ' le ' . date_fr($interviews[0]['scheduled_at'], true) . '. Une simulation maintenant, et tu arriveras serein·e.', '/espace/entretien?job=' . DB::value('SELECT job_id FROM applications WHERE id = :a', ['a' => $interviews[0]['application_id']]), 'mic'],
+            (bool)$recos && $recos[0]['match']['score'] >= 70 => ['Postule à ton meilleur match', $recos[0]['job']['title'] . ' : compatible à ' . $recos[0]['match']['score'] . ' %. Avec un score pareil, tu as une vraie carte à jouer.', '/offres/' . $recos[0]['job']['id'], 'send'],
+            default => ['Développe une compétence clé', 'Une seule nouvelle compétence peut débloquer plusieurs offres. Les formations recommandées ciblent tes écarts les plus fréquents.', '/formations', 'graduation-cap'],
         };
 
         return $this->app('candidate/dashboard', compact('p', 'completion', 'employ', 'recos', 'apps', 'counts', 'interviews', 'history', 'favorites', 'notifications', 'next', 'quota') + [

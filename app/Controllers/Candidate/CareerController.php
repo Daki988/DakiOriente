@@ -56,14 +56,14 @@ final class CareerController extends Controller
     {
         $answers = array_map('intval', (array)($_POST['a'] ?? []));
         if (count($answers) < count(RiasecService::questions())) {
-            flash('error', 'Réponds à toutes les questions pour obtenir un résultat fiable (' . count($answers) . '/' . count(RiasecService::questions()) . ').');
+            flash('error', 'Encore un petit effort : réponds à toutes les questions pour obtenir un résultat fiable (' . count($answers) . '/' . count(RiasecService::questions()) . ').');
             back();
         }
         $res = RiasecService::score($answers);
         RiasecService::save($this->uid(), $res);
         ProfileService::refreshCompletion($this->uid());
         audit('riasec.completed', 'user', $this->uid(), ['code' => $res['code']]);
-        flash('success', 'Ton profil est ' . $res['code'] . ' ! Découvre les métiers qui te correspondent.');
+        flash('success', 'Ton profil est ' . $res['code'] . ' ! Lis bien ce que cela dit de toi, puis regarde les métiers recommandés : certains vont sûrement te surprendre.');
         redirect('/espace/orientation');
     }
 
@@ -125,7 +125,7 @@ final class CareerController extends Controller
             'answers' => json_encode($answers, JSON_UNESCAPED_UNICODE), 'feedback' => json_encode($feedback, JSON_UNESCAPED_UNICODE), 'score' => $score,
         ], 'id = :id', ['id' => $s['id']]);
         ProfileService::refreshCompletion($this->uid());
-        flash('success', "Simulation analysée : $score / 100. Consulte le feedback question par question.");
+        flash('success', "Simulation analysée : $score / 100. Lis le feedback question par question, retravaille tes réponses et relance l'analyse : c'est en répétant qu'on gagne en aisance.");
         redirect('/espace/entretien/' . $s['id'] . '#feedback');
     }
 

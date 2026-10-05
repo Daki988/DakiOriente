@@ -144,7 +144,7 @@ final class AdminController extends Controller
         foreach (DB::column('SELECT user_id FROM company_users WHERE company_id = :c', ['c' => $c['id']]) as $uid) {
             NotificationService::notify((int)$uid, 'moderation',
                 $decision === 'verified' ? 'Votre entreprise est vérifiée !' : ($decision === 'rejected' ? 'Vérification de votre entreprise refusée' : 'Vérification remise en attente'),
-                $decision === 'verified' ? 'Vos offres sont désormais publiées' . ($published ? " ($published publiée(s))." : '.') : (string)input('note', 'Contactez contact@neamindustry.com pour plus d\'informations.'),
+                $decision === 'verified' ? 'Le badge « Entreprise vérifiée » rassure les candidats. Vos offres sont désormais publiées' . ($published ? " ($published publiée(s))." : '.') : (string)input('note', 'Contactez contact@neamindustry.com pour plus d\'informations.'),
                 '/entreprise');
         }
         audit('company.' . $decision, 'company', (int)$c['id'], ['note' => input('note')]);
@@ -429,7 +429,7 @@ final class AdminController extends Controller
             audit('job.suspended', 'job', (int)$r['entity_id']);
         }
         if ($r['user_id'] && $status === 'resolved') {
-            NotificationService::notify((int)$r['user_id'], 'moderation', 'Ton signalement a été traité', 'Merci de contribuer à la sécurité de Tremplin.', null, false);
+            NotificationService::notify((int)$r['user_id'], 'moderation', 'Ton signalement a été traité', 'Merci ! Grâce à des signalements comme le tien, Tremplin reste un endroit sûr pour tous les candidats.', null, false);
         }
         audit('report.' . $status, 'report', (int)$r['id']);
         flash('success', 'Signalement mis à jour.');

@@ -14,7 +14,7 @@
 <section class="section-sm">
     <div class="container">
         <?php if (!$companies): ?>
-            <?= App\Core\View::partial('partials/empty', ['icon' => 'building-2', 'heading' => 'Aucune entreprise trouvée', 'text' => 'Modifie ta recherche.']) ?>
+            <?= App\Core\View::partial('partials/empty', ['icon' => 'building-2', 'heading' => 'Aucune entreprise trouvée', 'text' => 'Essaie un autre nom ou retire le filtre de secteur.']) ?>
         <?php else: ?>
             <div class="grid-3">
                 <?php foreach ($companies as $c): ?>

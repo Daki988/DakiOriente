@@ -1,5 +1,5 @@
 <div class="page-head">
-    <div><h1>Orientation RIASEC</h1><p>30 situations du quotidien au Gabon pour révéler ce qui te motive vraiment.</p></div>
+    <div><h1>Orientation RIASEC</h1><p>30 situations du quotidien au Gabon pour révéler ce qui te motive vraiment. Il n'y a pas de bonne réponse : plus tu es spontané·e, plus le résultat te ressemble.</p></div>
     <?php if (!$retake): ?><a class="btn btn-ghost" href="<?= e(url('/espace/orientation?refaire=1')) ?>"><?= icon('refresh-cw') ?> Refaire le test</a><?php endif; ?>
 </div>
 

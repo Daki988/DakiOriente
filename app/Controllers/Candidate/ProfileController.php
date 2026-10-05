@@ -51,7 +51,7 @@ final class ProfileController extends Controller
             DB::insert('candidate_skills', ['user_id' => $uid, 'skill_id' => $sid, 'level' => 4]);
         }
         $score = ProfileService::refreshCompletion($uid);
-        flash('success', "Profil créé ! Ton premier score d'employabilité : $score / 100. Voici tes premières offres compatibles.");
+        flash('success', "Profil créé, bravo ! Ton premier score d'employabilité est de $score / 100. Ce n'est qu'un point de départ : voici tes premières offres compatibles et la prochaine action pour progresser.");
         redirect('/espace/recommandations');
     }
 
@@ -89,7 +89,7 @@ final class ProfileController extends Controller
             ], 'user_id = :u', ['u' => $uid]);
         });
         $score = ProfileService::refreshCompletion($uid);
-        flash('success', "Profil enregistré. Score d'employabilité : $score / 100.");
+        flash('success', "Profil enregistré. Ton score d'employabilité est maintenant de $score / 100.");
         redirect('/espace/profil');
     }
 
@@ -110,7 +110,7 @@ final class ProfileController extends Controller
         DB::run('DELETE FROM candidate_skills WHERE user_id = :u AND skill_id = :s', ['u' => $uid, 's' => $skillId]);
         DB::insert('candidate_skills', ['user_id' => $uid, 'skill_id' => $skillId, 'level' => $level]);
         ProfileService::refreshCompletion($uid);
-        flash('success', 'Compétence ajoutée — tes scores de compatibilité ont été recalculés.');
+        flash('success', 'Compétence ajoutée ! Tes scores de compatibilité ont été recalculés : va voir quelles offres se rapprochent de toi.');
         redirect('/espace/profil#competences');
     }
 
@@ -130,7 +130,7 @@ final class ProfileController extends Controller
         ])->validateOrBack();
         DB::insert('candidate_educations', ['user_id' => $this->uid()] + array_map(fn($v) => $v === '' ? null : $v, $d));
         ProfileService::refreshCompletion($this->uid());
-        flash('success', 'Formation ajoutée.');
+        flash('success', 'Formation ajoutée. Elle compte dans ton score sur toutes les offres.');
         redirect('/espace/profil#formations');
     }
 
@@ -159,7 +159,7 @@ final class ProfileController extends Controller
             }
         }
         ProfileService::refreshCompletion($this->uid());
-        flash('success', 'Expérience ajoutée.' . ($added ? ' Compétences détectées et ajoutées : ' . implode(', ', $added) . '.' : ''));
+        flash('success', 'Expérience ajoutée. Chaque expérience, même courte, rassure les recruteurs.' . ($added ? ' Nous avons repéré et ajouté ces compétences : ' . implode(', ', $added) . '.' : ''));
         redirect('/espace/profil#experiences');
     }
 
@@ -185,7 +185,7 @@ final class ProfileController extends Controller
         }
         DB::update('candidate_profiles', ['languages' => json_encode(array_slice($out, 0, 8), JSON_UNESCAPED_UNICODE), 'updated_at' => now()], 'user_id = :u', ['u' => $this->uid()]);
         ProfileService::refreshCompletion($this->uid());
-        flash('success', 'Langues enregistrées.');
+        flash('success', 'Langues enregistrées. Beaucoup d\'offres au Gabon demandent l\'anglais : c\'est un vrai atout si tu le maîtrises.');
         redirect('/espace/profil#langues');
     }
 
@@ -202,7 +202,7 @@ final class ProfileController extends Controller
             DB::insert('internships', ['school_id' => $school['id'], 'user_id' => $this->uid(), 'status' => 'recherche', 'updated_at' => now()]);
             audit('school.joined', 'school', (int)$school['id']);
         }
-        flash('success', 'Tu es maintenant rattaché·e à ' . $school['name'] . '.');
+        flash('success', 'Tu es maintenant rattaché·e à ' . $school['name'] . '. Ton école pourra te recommander des offres et suivre ton stage avec toi.');
         redirect('/espace/profil');
     }
 }

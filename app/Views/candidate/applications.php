@@ -1,5 +1,5 @@
 <?php $st = application_statuses(); ?>
-<div class="page-head"><div><h1>Mes candidatures</h1><p>Suis chaque étape, du dépôt à la réponse.</p></div><a class="btn btn-primary" href="<?= e(url('/offres')) ?>"><?= icon('search') ?> Trouver d'autres offres</a></div>
+<div class="page-head"><div><h1>Mes candidatures</h1><p>Suis chaque étape, du dépôt à la réponse. Pas de nouvelles après une semaine ? Une relance polie fait souvent la différence.</p></div><a class="btn btn-primary" href="<?= e(url('/offres')) ?>"><?= icon('search') ?> Trouver d'autres offres</a></div>
 <nav class="tabs mb-3" aria-label="Filtrer par statut">
     <a href="<?= e(url('/espace/candidatures')) ?>" class="<?= $status === '' ? 'active' : '' ?>">Toutes <span class="count"><?= $counts[''] ?></span></a>
     <?php foreach ($st as $k => [$label]): if ($k === 'draft') continue; ?>
@@ -7,7 +7,7 @@
     <?php endforeach; ?>
 </nav>
 <?php if (!$apps): ?>
-    <?= App\Core\View::partial('partials/empty', ['icon' => 'send', 'heading' => 'Aucune candidature ici', 'text' => 'Tes candidatures apparaîtront ici avec leur statut en temps réel.', 'cta' => ['Voir mes offres recommandées', '/espace/recommandations']]) ?>
+    <?= App\Core\View::partial('partials/empty', ['icon' => 'send', 'heading' => 'Aucune candidature ici', 'text' => 'Tes candidatures apparaîtront ici, avec leur statut en temps réel. Commence par tes offres recommandées : ce sont celles où tes chances sont les meilleures.', 'cta' => ['Voir mes offres recommandées', '/espace/recommandations']]) ?>
 <?php else: ?>
     <div class="table-wrap">
         <table class="table">

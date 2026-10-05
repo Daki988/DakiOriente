@@ -1,4 +1,4 @@
-<div class="page-head"><div><h1>Mon plan d'action 30 / 60 / 90 jours</h1><p>Construit à partir de tes écarts réels avec les offres qui te correspondent.</p></div><?php if ($allowed): ?><button class="btn btn-ghost" type="button" data-print><?= icon('printer') ?> Imprimer</button><?php endif; ?></div>
+<div class="page-head"><div><h1>Mon plan d'action 30 / 60 / 90 jours</h1><p>Construit à partir de tes écarts réels avec les offres qui te correspondent. Une étape à la fois : c'est comme ça qu'on avance pour de bon.</p></div><?php if ($allowed): ?><button class="btn btn-ghost" type="button" data-print><?= icon('printer') ?> Imprimer</button><?php endif; ?></div>
 <?php if (!$allowed): ?>
     <?= App\Core\View::partial('partials/locked', ['required' => 'PRO', 'heading' => 'Ton plan d\'action personnalisé', 'text' => 'Un programme concret en 3 étapes, basé sur les compétences les plus demandées dans tes matchs.']) ?>
 <?php else: ?>

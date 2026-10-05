@@ -13,11 +13,11 @@ use App\Services\ProfileService;
 final class RecruitController extends CompanyController
 {
     private const MESSAGES = [
-        'viewed'      => ['Ta candidature a été consultée', 'Le recruteur de %s a consulté ta candidature.'],
-        'shortlisted' => ['Bonne nouvelle : tu es présélectionné·e !', '%s a retenu ta candidature pour la suite du processus.'],
-        'interview'   => ['Invitation à un entretien', '%s souhaite te rencontrer. Consulte les détails et prépare-toi.'],
-        'accepted'    => ['Félicitations, ta candidature est acceptée !', '%s a retenu ta candidature. Le recruteur va te contacter.'],
-        'rejected'    => ['Réponse à ta candidature', '%s n\'a pas retenu ta candidature cette fois-ci. Consulte les axes d\'amélioration proposés.'],
+        'viewed'      => ['Ta candidature a été lue', 'Le recruteur de %s a consulté ta candidature. C\'est le bon moment pour préparer ton entretien, au cas où.'],
+        'shortlisted' => ['Bonne nouvelle : tu es présélectionné·e !', '%s a retenu ta candidature pour la suite. Ton profil a fait la différence : entraîne-toi maintenant à l\'entretien pour transformer l\'essai.'],
+        'interview'   => ['Invitation à un entretien', '%s souhaite te rencontrer ! Consulte les détails, puis lance une simulation d\'entretien sur cette offre : 20 minutes d\'entraînement changent tout.'],
+        'accepted'    => ['Félicitations, ta candidature est acceptée !', '%s a retenu ta candidature. Le recruteur va te contacter très vite. Tu peux être fier·e de toi !'],
+        'rejected'    => ['Réponse à ta candidature', '%s n\'a pas retenu ta candidature cette fois-ci. Ce n\'est pas un jugement sur ta valeur : regarde les axes d\'amélioration proposés, ils te rapprochent de la prochaine offre.'],
     ];
 
     /** Candidature reçue par l'entreprise courante uniquement (RBAC + cloisonnement). */
@@ -101,7 +101,7 @@ final class RecruitController extends CompanyController
         if ($this->wantsJson()) {
             json_response(['ok' => true, 'status' => $status]);
         }
-        flash('success', 'Statut mis à jour : ' . application_statuses()[$status][0] . '. Le candidat a été notifié.');
+        flash('success', 'Statut mis à jour : ' . application_statuses()[$status][0] . '. Le candidat est prévenu : une réponse rapide renforce l\'image de votre entreprise.');
         back();
     }
 
@@ -133,9 +133,9 @@ final class RecruitController extends CompanyController
         if ($a['status'] !== 'interview') {
             $this->changeStatus($a, 'interview', 'Entretien le ' . date_fr($at, true));
         } else {
-            NotificationService::notify((int)$a['user_id'], 'interview', 'Nouvel entretien programmé — ' . $a['title'], 'Le ' . date_fr($at, true) . ' · ' . $d['location'], '/espace/candidatures/' . $a['id'], true, true);
+            NotificationService::notify((int)$a['user_id'], 'interview', 'Entretien programmé — ' . $a['title'], 'Le ' . date_fr($at, true) . ' · ' . $d['location'] . '. Prépare-toi avec le simulateur d\'entretien de ton espace.', '/espace/candidatures/' . $a['id'], true, true);
         }
-        flash('success', 'Entretien programmé le ' . date_fr($at, true) . '. Le candidat a reçu une invitation.');
+        flash('success', 'Entretien programmé le ' . date_fr($at, true) . '. Le candidat a reçu l\'invitation par e-mail et dans son espace.');
         back();
     }
 
@@ -210,9 +210,9 @@ final class RecruitController extends CompanyController
         }
         $m = MatchingEngine::forUser((int)$cand['id'], (int)$job['id']);
         NotificationService::notify((int)$cand['id'], 'invite', $this->company()['name'] . ' t\'invite à postuler !',
-            'Ton profil correspond à ' . $m['score'] . ' % à l\'offre « ' . $job['title'] . ' ».', '/offres/' . $job['id'], true, true);
+            'Le recruteur a repéré ton profil : tu corresponds à ' . $m['score'] . ' % à l\'offre « ' . $job['title'] . ' ». Une invitation directe, c\'est rare : ne la laisse pas passer.', '/offres/' . $job['id'], true, true);
         audit('candidate.invited', 'user', (int)$cand['id'], ['job' => $job['id']]);
-        flash('success', $cand['first_name'] . ' a été invité·e à postuler.');
+        flash('success', $cand['first_name'] . ' a été invité·e à postuler. Une invitation directe est le meilleur moyen d\'attirer un profil qui vous intéresse.');
         back();
     }
 }

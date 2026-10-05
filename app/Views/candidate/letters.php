@@ -1,10 +1,10 @@
 <div class="page-head">
-    <div><h1>Lettres de motivation</h1><p>Rédigées à partir de ton profil et adaptées à l'offre visée. Tu gardes toujours la main sur le texte final.</p></div>
+    <div><h1>Lettres de motivation</h1><p>Une bonne lettre ne se recopie pas, elle s'adapte. L'assistant part de ton profil et de l'offre visée, puis tu ajoutes ta touche personnelle : c'est ce mélange qui convainc.</p></div>
 </div>
 <div class="layout-aside">
     <div class="stack">
         <?php if (!$letters): ?>
-            <?= App\Core\View::partial('partials/empty', ['icon' => 'scroll-text', 'heading' => 'Aucune lettre pour l\'instant', 'text' => 'Choisis une offre à droite et génère ta première lettre personnalisée.']) ?>
+            <?= App\Core\View::partial('partials/empty', ['icon' => 'scroll-text', 'heading' => 'Ta première lettre t\'attend', 'text' => 'Choisis une offre à droite et génère une lettre adaptée en quelques secondes. Tu n\'auras plus qu\'à la personnaliser.']) ?>
         <?php endif; ?>
         <?php foreach ($letters as $l): ?>
             <article class="card card-lg" id="lettre-<?= (int)$l['id'] ?>">

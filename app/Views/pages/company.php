@@ -25,7 +25,7 @@
     <div class="container">
         <h2>Offres en cours</h2>
         <?php if (!$jobs): ?>
-            <?= App\Core\View::partial('partials/empty', ['icon' => 'briefcase-business', 'heading' => 'Pas d\'offre en ce moment', 'text' => 'Reviens bientôt ou active les alertes depuis ton espace.']) ?>
+            <?= App\Core\View::partial('partials/empty', ['icon' => 'briefcase-business', 'heading' => 'Pas d\'offre en ce moment', 'text' => 'Ajoute ton profil sur Tremplin : tu seras alerté·e dès que cette entreprise publie une offre qui te correspond.']) ?>
         <?php else: ?>
             <div class="grid-2"><?php foreach ($jobs as $job): ?><?= App\Core\View::partial('partials/job_card', ['job' => $job]) ?><?php endforeach; ?></div>
         <?php endif; ?>

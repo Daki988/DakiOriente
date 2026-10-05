@@ -1,11 +1,11 @@
 <div class="page-head">
-    <div><h1>Offres pour moi</h1><p>Classées par compatibilité avec ton profil — chaque score est expliqué.</p></div>
+    <div><h1>Offres pour moi</h1><p>Classées par compatibilité avec ton profil. Pour chacune, tu vois pourquoi elle te correspond et ce qui te manque encore.</p></div>
     <a class="btn btn-ghost" href="<?= e(url('/offres?sort=match')) ?>"><?= icon('search') ?> Recherche avancée</a>
 </div>
 <div class="layout-aside">
     <div class="stack">
         <?php if (!$recos): ?>
-            <?= App\Core\View::partial('partials/empty', ['icon' => 'sparkles', 'heading' => 'Pas encore de recommandation', 'text' => 'Ajoute des compétences et précise le métier visé pour recevoir tes premières offres compatibles.', 'cta' => ['Compléter mon profil', '/espace/profil']]) ?>
+            <?= App\Core\View::partial('partials/empty', ['icon' => 'sparkles', 'heading' => 'Tes recommandations arrivent', 'text' => 'Ajoute des compétences et précise le métier visé pour recevoir tes premières offres compatibles.', 'cta' => ['Compléter mon profil', '/espace/profil']]) ?>
         <?php endif; ?>
         <?php foreach ($recos as $i => $r): $m = $r['match']; ?>
             <div class="card" style="padding:0;overflow:hidden">

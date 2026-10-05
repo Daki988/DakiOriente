@@ -1,10 +1,10 @@
 <?php $icons = ['interview' => 'calendar', 'job_match' => 'target', 'status' => 'eye', 'payment' => 'wallet', 'application' => 'send', 'message' => 'message-square', 'moderation' => 'shield-check', 'security' => 'lock', 'welcome' => 'sparkles', 'reminder' => 'bell', 'internship' => 'school', 'broadcast' => 'send', 'invite' => 'user-plus']; ?>
 <div class="page-head">
-    <div><h1>Notifications</h1><p>Toutes tes alertes, rappels et messages.</p></div>
+    <div><h1>Notifications</h1><p>Tes alertes, rappels et messages, au même endroit.</p></div>
     <form method="post" action="<?= e(url('/notifications/lire')) ?>"><?= csrf_field() ?><button class="btn btn-ghost" type="submit"><?= icon('check') ?> Tout marquer comme lu</button></form>
 </div>
 <?php if (!$items): ?>
-    <?= App\Core\View::partial('partials/empty', ['icon' => 'bell', 'heading' => 'Aucune notification', 'text' => 'Tu seras prévenu·e ici des nouvelles offres compatibles et de l\'avancement de tes candidatures.']) ?>
+    <?= App\Core\View::partial('partials/empty', ['icon' => 'bell', 'heading' => 'Tout est calme pour l\'instant', 'text' => 'Tu seras prévenu·e ici dès qu\'une offre compatible sort ou qu\'un recruteur avance sur ta candidature.']) ?>
 <?php else: ?>
     <div class="card"><ul class="list">
         <?php foreach ($items as $n): ?>

@@ -216,7 +216,7 @@ class CompanyController extends Controller
         if ($status !== $job['status']) {
             $this->afterPublish((int)$job['id'], $status);
         } else {
-            flash('success', 'Offre mise à jour. Les scores de compatibilité ont été recalculés.');
+            flash('success', 'Offre mise à jour. Les scores de compatibilité des candidats ont été recalculés.');
         }
         redirect('/entreprise/offres');
     }
@@ -225,14 +225,14 @@ class CompanyController extends Controller
     {
         if ($status === 'published') {
             $n = NotificationService::jobAlerts($id, (int)setting('match_alert_threshold', 70));
-            flash('success', 'Offre publiée ! ' . ($n ? "$n candidat(s) très compatible(s) ont été alerté(s)." : 'Découvrez les profils compatibles.'));
+            flash('success', 'Offre publiée ! ' . ($n ? "$n candidat(s) très compatible(s) ont déjà été alerté(s). Invitez aussi les meilleurs profils ci-dessous : c'est le moyen le plus rapide de recevoir de bonnes candidatures." : 'Voici les profils les plus compatibles : invitez les meilleurs à postuler, c\'est le moyen le plus rapide de recevoir de bonnes candidatures.'));
         } elseif ($status === 'pending') {
             foreach (DB::column("SELECT id FROM users WHERE role = 'admin'") as $a) {
                 NotificationService::notify((int)$a, 'moderation', 'Offre à modérer', 'Une nouvelle offre attend validation.', '/admin/offres?statut=pending', false);
             }
-            flash('info', 'Offre enregistrée. Elle sera publiée après vérification de votre entreprise par l\'équipe NEAM (24–48 h).');
+            flash('info', 'Offre enregistrée. Elle sera publiée dès que l\'équipe NEAM aura vérifié votre entreprise (24 à 48 h). Cette vérification protège les candidats et rend vos offres plus crédibles.');
         } else {
-            flash('success', 'Brouillon enregistré.');
+            flash('success', 'Brouillon enregistré. Vous pourrez le publier quand vous voulez.');
         }
     }
 

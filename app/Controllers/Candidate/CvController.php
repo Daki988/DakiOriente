@@ -42,7 +42,7 @@ final class CvController extends Controller
         $job = $jobId ? MatchingEngine::loadJob($jobId) : null;
         $p = ProfileService::load($this->uid(), true);
         if (!$p['experiences'] && !$p['skills']) {
-            flash('warning', 'Ajoute d\'abord tes expériences et compétences dans ton profil : l\'IA n\'invente rien.');
+            flash('warning', 'Ajoute d\'abord tes expériences et compétences dans ton profil. L\'IA met en valeur ce que tu as vraiment fait, elle n\'invente rien : c\'est ce qui rend ton CV crédible.');
             redirect('/espace/profil');
         }
         $quota = AiService::quotaReached();
@@ -58,7 +58,7 @@ final class CvController extends Controller
     public function resetAiCv(): void
     {
         DB::update('candidate_profiles', ['cv_ai' => null], 'user_id = :u', ['u' => $this->uid()]);
-        flash('info', 'Ton CV utilise de nouveau les textes de ton profil.');
+        flash('info', 'Ton CV utilise de nouveau les textes de ton profil. Tu peux régénérer une version IA quand tu veux.');
         redirect('/espace/cv');
     }
 
@@ -149,7 +149,7 @@ final class CvController extends Controller
             DB::update('candidate_profiles', ['linkedin' => $import['linkedin']], 'user_id = :u', ['u' => $this->uid()]);
         }
         ProfileService::refreshCompletion($this->uid());
-        flash('success', "$added compétence(s) ajoutée(s) à ton profil.");
+        flash('success', "$added compétence(s) ajoutée(s) à ton profil. Tes scores de compatibilité viennent d'être recalculés.");
         redirect('/espace/profil#competences');
     }
 
@@ -189,7 +189,7 @@ final class CvController extends Controller
             'user_id' => $uid, 'job_id' => $job ? $jobId : null, 'title' => $job ? 'Lettre — ' . $job['title'] : 'Candidature spontanée',
             'body' => $body, 'source' => 'ia', 'created_at' => now(),
         ]);
-        flash('success', 'Lettre générée. Relis-la et personnalise-la avant de l\'envoyer.');
+        flash('success', 'Ta lettre est prête. Relis-la et ajoute une touche personnelle, par exemple un détail sur l\'entreprise : c\'est ce qui la rendra unique.');
         redirect('/espace/lettres#lettre-' . $id);
     }
 
