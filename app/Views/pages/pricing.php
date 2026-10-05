@@ -10,7 +10,7 @@ $current = user() ? App\Services\PlanService::effectiveCode(user()) : null;
     <div class="container text-center">
         <span class="pill"><?= icon('rocket') ?> Phase de lancement</span>
         <h1 style="font-size:clamp(1.9rem,4vw,2.8rem);margin:14px auto 10px;max-width:none">Tremplin est 100 % gratuit pendant le lancement</h1>
-        <p class="muted" style="max-width:640px;margin:0 auto">Candidats, entreprises et écoles : toutes les fonctionnalités sont accessibles sans abonnement et sans moyen de paiement. Le modèle tarifaire définitif sera annoncé ultérieurement.</p>
+        <p class="muted" style="max-width:640px;margin:0 auto">Pas d'abonnement, pas de moyen de paiement à renseigner, pas de version limitée. Candidats, entreprises et écoles ont accès à tout. Pourquoi ? Parce que nous voulons construire Tremplin avec vous, à partir de vos usages réels. Profitez-en : c'est maintenant que tout se met en place.</p>
         <a class="btn btn-cta btn-lg mt-3" href="<?= e(url(user() ? App\Core\Auth::homeUrl() : '/inscription')) ?>"><?= user() ? 'Aller à mon espace' : 'Créer mon compte gratuitement' ?> <?= icon('arrow-right') ?></a>
     </div>
 </section>
@@ -23,11 +23,11 @@ $current = user() ? App\Services\PlanService::effectiveCode(user()) : null;
         </div>
         <h2 class="mt-4">Questions fréquentes</h2>
         <div class="stack mt-2">
-            <details class="faq"><summary>Combien de temps dure la phase de lancement ?</summary><p class="mb-0">Elle durera le temps de stabiliser la plateforme avec ses premiers utilisateurs. Sa fin sera annoncée à l'avance, par e-mail et sur le site.</p></details>
-            <details class="faq"><summary>Devrai-je payer ensuite ?</summary><p class="mb-0">Les fonctionnalités essentielles resteront gratuites. D'éventuelles offres payantes seront présentées avant leur mise en place et ne seront jamais activées sans ton accord.</p></details>
-            <details class="faq"><summary>Pourquoi l'assistant IA est-il limité ?</summary><p class="mb-0">Pour garantir un service de qualité à tous, chaque utilisateur dispose de <?= (int)setting('ai_monthly_limit', 30) ?> générations IA par mois (lettres, CV, entretiens).</p></details>
-            <details class="faq"><summary>Un recruteur peut-il me demander de payer ?</summary><p class="mb-0"><b>Jamais.</b> Postuler est gratuit. Si quelqu'un te demande de l'argent pour une candidature, signale-le immédiatement depuis l'offre.</p></details>
-            <details class="faq"><summary>Comment vous contacter ?</summary><p class="mb-0">Écris-nous à <a href="mailto:<?= e(config('mail.from')) ?>"><?= e(config('mail.from')) ?></a>.</p></details>
+            <details class="faq"><summary>Combien de temps dure la phase de lancement ?</summary><p class="mb-0">Le temps de bien rôder la plateforme avec ses premiers utilisateurs. Pas de mauvaise surprise : la fin sera annoncée à l'avance, par e-mail et sur le site.</p></details>
+            <details class="faq"><summary>Devrai-je payer ensuite ?</summary><p class="mb-0">L'essentiel restera gratuit : chercher, postuler, suivre tes candidatures. Si des options payantes arrivent un jour, elles te seront présentées avant et ne seront jamais activées sans ton accord.</p></details>
+            <details class="faq"><summary>Pourquoi l'assistant IA est-il limité ?</summary><p class="mb-0">Chaque génération par Claude a un coût réel. Pour que tout le monde en profite, chacun dispose de <?= (int)setting('ai_monthly_limit', 30) ?> générations par mois (lettres, CV, entretiens). C'est largement de quoi préparer plusieurs candidatures soignées. Au-delà, le moteur NEAM prend le relais.</p></details>
+            <details class="faq"><summary>Un recruteur peut-il me demander de payer ?</summary><p class="mb-0"><b>Jamais.</b> Postuler est toujours gratuit. Un vrai recruteur ne demande pas d'argent pour étudier une candidature. Si cela t'arrive, signale l'offre : l'équipe NEAM intervient rapidement.</p></details>
+            <details class="faq"><summary>Comment vous contacter ?</summary><p class="mb-0">Une question, une idée, un bug ? Écris-nous à <a href="mailto:<?= e(config('mail.from')) ?>"><?= e(config('mail.from')) ?></a>.</p></details>
         </div>
     </div>
 </section>
@@ -90,7 +90,7 @@ $current = user() ? App\Services\PlanService::effectiveCode(user()) : null;
         <div class="stack mt-2">
             <details class="faq"><summary>Comment payer avec Airtel Money ou Moov Money ?</summary><p class="mb-0">Choisis ton offre, sélectionne ton opérateur et saisis ton numéro. Tu reçois une demande de confirmation sur ton téléphone : valide avec ton code secret. Ton abonnement est activé immédiatement.</p></details>
             <details class="faq"><summary>Puis-je arrêter à tout moment ?</summary><p class="mb-0">Oui. Les abonnements durent 30 jours et ne sont pas reconduits automatiquement : tu choisis de renouveler ou non.</p></details>
-            <details class="faq"><summary>Un recruteur peut-il me demander de payer ?</summary><p class="mb-0"><b>Jamais.</b> Postuler est gratuit. Si quelqu'un te demande de l'argent pour une candidature, signale-le immédiatement depuis l'offre.</p></details>
+            <details class="faq"><summary>Un recruteur peut-il me demander de payer ?</summary><p class="mb-0"><b>Jamais.</b> Postuler est toujours gratuit. Un vrai recruteur ne demande pas d'argent pour étudier une candidature. Si cela t'arrive, signale l'offre : l'équipe NEAM intervient rapidement.</p></details>
         </div>
     </div>
 </section>

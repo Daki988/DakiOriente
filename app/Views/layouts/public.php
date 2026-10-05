@@ -10,7 +10,7 @@ $isActive = fn(string $href) => $href === '/' ? is_current('/', true) : is_curre
 </head>
 <body>
 <a class="skip-link" href="#contenu">Aller au contenu</a>
-<?php if (launch_mode()): ?><div class="launch-bar"><b>Phase de lancement</b> — Tremplin est entièrement gratuit pendant cette période. <a href="<?= e(url('/tarifs')) ?>">En savoir plus</a></div><?php endif; ?>
+<?php if (launch_mode()): ?><div class="launch-bar"><b>Phase de lancement</b> — Tout est gratuit, pour tout le monde. <a href="<?= e(url('/tarifs')) ?>">Profites-en</a></div><?php endif; ?>
 <header class="site-header">
     <div class="container header-bar">
         <button class="icon-btn hide-desktop" type="button" data-menu-open aria-expanded="false" aria-controls="mobile-menu" aria-label="Ouvrir le menu"><?= icon('menu') ?></button>
@@ -62,7 +62,7 @@ $isActive = fn(string $href) => $href === '/' ? is_current('/', true) : is_curre
         <div class="footer-grid">
             <div>
                 <span class="footer-logo"><img src="<?= e(asset('img/logo.png')) ?>" alt="Tremplin by NEAM" width="69" height="52"></span>
-                <p class="mt-2" style="max-width:320px">La plateforme intelligente de stages, d'insertion professionnelle et de matching candidats–entreprises au Gabon et en Afrique francophone.</p>
+                <p class="mt-2" style="max-width:320px">Stages, premiers emplois et formations au Gabon et en Afrique francophone. Tremplin rapproche les jeunes talents et les entreprises qui les cherchent, et explique chaque rapprochement.</p>
                 <p class="hand" style="font-size:1.5rem;color:var(--yellow);margin:0">Transformer le potentiel en opportunités.</p>
             </div>
             <div>

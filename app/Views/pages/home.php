@@ -14,7 +14,7 @@ $defaultCity = '';
         <div class="fade-up">
             <span class="pill">Stages • Emplois • Formations</span>
             <h1 class="hero-title">De je cherche un stage à <span class="accent">je suis prêt <span class="underline-sun">à candidater.</span></span></h1>
-            <p class="lead">Tremplin t'accompagne à chaque étape : trouve des opportunités, crée ton CV et postule simplement.</p>
+            <p class="lead">Tu as le potentiel. Il te manque peut-être juste la bonne méthode. Tremplin te montre les offres faites pour toi, t'explique ce qui te sépare de chacune et t'aide à préparer une candidature qui donne envie de te rencontrer.</p>
 
             <div class="hero-visual-mobile" aria-hidden="true">
                 <?= App\Core\View::partial('pages/_hero_scene', ['compact' => true, 'photo' => $heroPhoto]) ?>
@@ -50,7 +50,7 @@ $defaultCity = '';
             <button class="btn btn-cta" type="submit">Rechercher <?= icon('arrow-right') ?></button>
         </form>
         <div class="flex flex-wrap mt-2 small" style="gap:8px">
-            <span class="muted">Populaire :</span>
+            <span class="muted">Les plus recherchés :</span>
             <?php foreach (['Stage informatique', 'Comptabilité', 'HSE', 'Marketing digital', 'Logistique'] as $s): ?>
                 <a class="tag" href="<?= e(url('/offres', ['q' => $s])) ?>"><?= e($s) ?></a>
             <?php endforeach; ?>
@@ -62,25 +62,25 @@ $defaultCity = '';
             <a class="feature f-blue" href="<?= e(url('/offres')) ?>">
                 <span class="fi"><?= icon('search') ?></span>
                 <h3>Trouve des offres</h3>
-                <p>Stages, emplois, alternances au Gabon et en Afrique.</p>
+                <p>Stages, emplois et alternances vérifiés, au Gabon et en Afrique.</p>
                 <span class="go"><?= icon('chevron-right') ?></span>
             </a>
             <a class="feature f-amber" href="<?= e(url($u ? '/espace/cv' : '/inscription')) ?>">
                 <span class="fi"><?= icon('file-text') ?></span>
                 <h3>Crée ton CV</h3>
-                <p>Avec nos modèles et l'assistance IA.</p>
+                <p>Un CV clair qui met en valeur ce que tu sais vraiment faire.</p>
                 <span class="go"><?= icon('chevron-right') ?></span>
             </a>
             <a class="feature f-violet" href="<?= e(url('/formations')) ?>">
                 <span class="fi"><?= icon('graduation-cap') ?></span>
                 <h3>Développe tes compétences</h3>
-                <p>Formations adaptées à ton profil.</p>
+                <p>Les formations qui comblent tes écarts avec les offres.</p>
                 <span class="go"><?= icon('chevron-right') ?></span>
             </a>
             <a class="feature f-pink" href="<?= e(url('/entreprises')) ?>">
                 <span class="fi"><?= icon('building-2') ?></span>
                 <h3>Découvre les entreprises</h3>
-                <p>Qui recrutent près de toi et partout en Afrique.</p>
+                <p>Celles qui recrutent près de chez toi, toutes vérifiées.</p>
                 <span class="go"><?= icon('chevron-right') ?></span>
             </a>
         </div>
@@ -89,8 +89,8 @@ $defaultCity = '';
             <div class="flex" style="gap:14px;align-items:flex-start">
                 <span class="launch-badge"><?= icon('rocket') ?></span>
                 <div>
-                    <b style="color:var(--navy);font-size:1.05rem">Tremplin est en phase de lancement</b>
-                    <p class="small muted mb-0"><?= e(setting('launch_message', 'Pendant cette phase, toutes les fonctionnalités sont gratuites pour les candidats, les entreprises et les écoles. Rejoins les premiers inscrits et aide-nous à construire la plateforme.')) ?></p>
+                    <b style="color:var(--navy);font-size:1.05rem">Tremplin est en phase de lancement, et c'est le bon moment pour arriver</b>
+                    <p class="small muted mb-0"><?= e(setting('launch_message', '') ?: 'Pendant le lancement, tout est gratuit pour les candidats, les entreprises et les écoles. Les premiers inscrits prennent une longueur d\'avance et nous aident à construire la plateforme qui leur ressemble.') ?></p>
                 </div>
             </div>
             <div class="stats">
@@ -123,14 +123,14 @@ $defaultCity = '';
             <div>
                 <span class="eyebrow">Ton parcours, étape par étape</span>
                 <h2>Bien plus qu'un site d'annonces</h2>
-                <p class="muted mb-0" style="max-width:640px">Tremplin t'aide à comprendre ton profil, à devenir plus compatible avec les offres qui te font rêver, puis à transformer cette compatibilité en candidature.</p>
+                <p class="muted mb-0" style="max-width:640px">Envoyer des dizaines de CV au hasard, ça ne marche pas. Ce qui marche, c'est de savoir où tu en es, de viser les bonnes offres et de soigner chaque candidature. Tremplin t'accompagne sur ces trois points.</p>
             </div>
         </div>
         <div class="steps">
-            <div class="step"><h3>Construis ton profil</h3><p>Compétences, formations, langues, projets : ton profil devient ton passeport professionnel.</p></div>
-            <div class="step"><h3>Oriente-toi</h3><p>Test RIASEC, score d'employabilité expliqué et métiers qui te correspondent.</p></div>
-            <div class="step"><h3>Matche avec les offres</h3><p>Un score de 0 à 100 transparent : points forts, écarts et actions pour progresser.</p></div>
-            <div class="step"><h3>Postule et décroche</h3><p>CV et lettre adaptés en un clic, suivi en temps réel et préparation d'entretien.</p></div>
+            <div class="step"><h3>Construis ton profil</h3><p>Compétences, formations, langues, projets : tout compte, même tes projets d'études. Un profil complet, c'est un recruteur qui te trouve.</p></div>
+            <div class="step"><h3>Oriente-toi</h3><p>Pas sûr·e de ta voie ? Le test d'orientation révèle ce qui te motive et les métiers où tu as toutes tes chances.</p></div>
+            <div class="step"><h3>Matche avec les offres</h3><p>Pour chaque offre, un score de 0 à 100. Tu vois tes points forts, ce qui te manque et comment le rattraper.</p></div>
+            <div class="step"><h3>Postule et décroche</h3><p>CV et lettre adaptés à l'offre, suivi de chaque candidature et entraînement à l'entretien. Tu arrives prêt·e.</p></div>
         </div>
     </div>
 </section>
@@ -154,7 +154,7 @@ $defaultCity = '';
         <div>
             <span class="eyebrow">Le cœur de Tremplin</span>
             <h2>Un matching qui t'explique tout</h2>
-            <p class="muted">Pas de boîte noire. Chaque score est calculé sur 9 critères pondérés — compétences, formation, expérience, localisation, langues… — et t'indique précisément quoi améliorer.</p>
+            <p class="muted">La plupart des plateformes te disent « oui » ou « non » sans explication. Tremplin calcule ton score sur 9 critères (compétences, formation, expérience, localisation, langues…) et te dit précisément quoi améliorer. Un écart que tu comprends, c'est un écart que tu peux combler.</p>
             <ul class="explain-list ok mt-2">
                 <li><?= icon('check') ?><span><b>Score global de 0 à 100</b> pour chaque offre</span></li>
                 <li><?= icon('check') ?><span><b>Points forts et écarts</b> détaillés critère par critère</span></li>
@@ -211,14 +211,14 @@ $defaultCity = '';
     <div class="container grid-2">
         <div class="card card-lg card-navy">
             <span class="badge badge-yellow mb-2"><?= icon('building-2') ?> Recruteurs</span>
-            <h2>Trouvez les bons profils, plus vite</h2>
-            <p>Publiez vos offres, recevez des candidats classés par compatibilité, gérez votre pipeline et mesurez vos délais de recrutement.</p>
+            <h2>Trouvez les bons profils, sans trier 200 CV</h2>
+            <p>Vos candidats arrivent classés par compatibilité, avec les raisons du classement. Vous concentrez votre temps sur les profils qui comptent et vous suivez chaque recrutement de bout en bout. Gratuit pendant le lancement.</p>
             <a class="btn btn-cta" href="<?= e(url('/inscription?role=company')) ?>">Publier une offre</a>
         </div>
         <div class="card card-lg card-blue">
             <span class="badge" style="background:rgba(255,255,255,.18);color:#fff"><?= icon('school') ?> Écoles & universités</span>
             <h2 class="mt-2">Suivez l'insertion de vos étudiants</h2>
-            <p>Tableau de suivi des stages, statistiques par filière, diffusion ciblée d'opportunités et rapports exportables.</p>
+            <p>Qui a trouvé son stage, qui cherche encore, quelle filière s'insère le mieux : vous le voyez en un coup d'œil. Diffusez les bonnes offres aux bons étudiants et exportez vos rapports d'insertion.</p>
             <a class="btn" style="background:#fff;color:var(--blue)" href="<?= e(url('/inscription?role=school')) ?>">Créer l'espace établissement</a>
         </div>
     </div>
@@ -241,7 +241,7 @@ $defaultCity = '';
             <span class="deco"></span><span class="deco2"></span>
             <p class="hand" style="font-size:2rem;color:#fff;margin:0">Mon avenir commence ici !</p>
             <h2 style="font-size:clamp(1.6rem,3.5vw,2.4rem)">Prêt·e à passer à l'étape suivante ?</h2>
-            <p style="max-width:560px;margin:0 auto 20px">Inscription gratuite en 2 minutes. Ton premier score de compatibilité t'attend.</p>
+            <p style="max-width:560px;margin:0 auto 20px">L'inscription prend 2 minutes et elle est gratuite. Dès que ton profil est rempli, tu sais quelles offres sont faites pour toi et comment augmenter tes chances.</p>
             <a class="btn btn-cta btn-lg" href="<?= e(url($u ? \App\Core\Auth::homeUrl() : '/inscription')) ?>"><?= $u ? 'Aller à mon espace' : 'Je crée mon compte' ?> <?= icon('arrow-right') ?></a>
         </div>
     </div>

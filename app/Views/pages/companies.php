@@ -2,7 +2,7 @@
     <div class="container">
         <span class="eyebrow">Entreprises</span>
         <h1 style="font-size:clamp(1.8rem,4vw,2.6rem)">Elles recrutent sur Tremplin</h1>
-        <p class="muted">Des entreprises vérifiées par l'équipe NEAM, au Gabon et en Afrique centrale.</p>
+        <p class="muted" style="max-width:640px">Chaque entreprise est vérifiée par l'équipe NEAM avant de publier. Découvre ce qu'elles font, ce qu'elles recherchent, et repère celles où tu te vois évoluer.</p>
         <form method="get" class="flex flex-wrap mt-2" action="<?= e(url('/entreprises')) ?>">
             <div class="field grow" style="min-width:220px"><label class="sr-only" for="cq">Rechercher</label><input id="cq" name="q" value="<?= e($q) ?>" placeholder="Nom, activité…"></div>
             <div class="field" style="min-width:220px"><label class="sr-only" for="cs">Secteur</label>

@@ -3,7 +3,7 @@
     <div class="container">
         <span class="eyebrow">Se former</span>
         <h1 style="font-size:clamp(1.8rem,4vw,2.6rem)">Développe les compétences qui recrutent</h1>
-        <p class="muted" style="max-width:640px">Formations courtes, en ligne ou près de chez toi, sélectionnées pour combler les écarts identifiés par le matching.</p>
+        <p class="muted" style="max-width:640px">Il te manque une compétence pour une offre qui te plaît ? Ce n'est pas un mur, c'est une étape. Ces formations courtes, en ligne ou près de chez toi, sont choisies pour combler précisément les écarts que révèle ton score.</p>
         <form method="get" class="flex flex-wrap mt-2" action="<?= e(url('/formations')) ?>">
             <div class="field grow" style="min-width:220px"><label class="sr-only" for="tq">Compétence</label><input id="tq" name="q" value="<?= e($q) ?>" placeholder="Compétence, organisme… (ex. Excel, SQL, HSE)"></div>
             <label class="check" style="align-self:center"><input type="checkbox" name="free" value="1" <?= input('free') ? 'checked' : '' ?>> Gratuites uniquement</label>

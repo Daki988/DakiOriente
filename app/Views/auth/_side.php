@@ -6,10 +6,10 @@
         <p class="hand" style="font-size:2rem;color:var(--yellow);margin:16px 0 0">Mon avenir commence ici !</p>
         <h2><?= e($heading ?? 'Transformer le potentiel en opportunités.') ?></h2>
         <ul class="explain-list mt-3" style="color:#fff">
-            <li><?= icon('circle-check-big') ?><span>Des offres de stages et d'emplois vérifiées au Gabon</span></li>
-            <li><?= icon('circle-check-big') ?><span>Un score de compatibilité clair pour chaque offre</span></li>
-            <li><?= icon('circle-check-big') ?><span>CV, lettres et préparation d'entretien assistés par l'IA</span></li>
-            <li><?= icon('circle-check-big') ?><span>Tes données protégées, jamais revendues</span></li>
+            <li><?= icon('circle-check-big') ?><span>Des offres vérifiées par l'équipe NEAM : pas d'arnaque, pas d'annonce fantôme</span></li>
+            <li><?= icon('circle-check-big') ?><span>Un score de compatibilité qui t'explique où tu en es et comment progresser</span></li>
+            <li><?= icon('circle-check-big') ?><span>CV, lettres et entraînement à l'entretien avec l'IA Claude</span></li>
+            <li><?= icon('circle-check-big') ?><span>Tes données t'appartiennent : protégées et jamais revendues</span></li>
         </ul>
     </div>
 </aside>

@@ -8,11 +8,11 @@ $err = errors();
 $f = fn(string $k) => isset($err[$k]) ? 'has-error' : '';
 ?>
 <div class="auth-wrap">
-    <?= App\Core\View::partial('auth/_side', ['heading' => $role === 'company' ? 'Recrutez les talents de demain.' : ($role === 'school' ? 'Suivez l\'insertion de vos étudiants.' : 'Ton tremplin vers l\'emploi.')]) ?>
+    <?= App\Core\View::partial('auth/_side', ['heading' => $role === 'company' ? 'Les talents de demain sont déjà là. Trouvez-les.' : ($role === 'school' ? 'Suivez l\'insertion de vos étudiants, sans tableur.' : 'Ton tremplin vers l\'emploi commence ici.')]) ?>
     <div class="auth-form">
         <div class="auth-card" style="max-width:560px">
             <h1 style="font-size:2rem">Créer mon compte</h1>
-            <p class="muted">Déjà inscrit·e ? <a href="<?= e(url('/connexion')) ?>">Se connecter</a></p>
+            <p class="muted"><?= $role === 'candidate' ? 'Gratuit, sans engagement, et ton premier score de compatibilité arrive dès que ton profil est rempli.' : 'Gratuit pendant le lancement, sans engagement.' ?> Déjà inscrit·e ? <a href="<?= e(url('/connexion')) ?>">Se connecter</a></p>
 
             <nav class="role-switch mb-2" aria-label="Type de compte">
                 <?php foreach ($roles as $k => [$label, $ic, $hint]): ?>
@@ -44,7 +44,7 @@ $f = fn(string $k) => isset($err[$k]) ? 'has-error' : '';
                             <div class="field">
                                 <label for="rccm">N° RCCM</label>
                                 <input id="rccm" name="rccm" value="<?= e(old('rccm')) ?>" placeholder="GA-LBV-2024-B-12345">
-                                <span class="hint">Accélère la vérification de votre entreprise.</span>
+                                <span class="hint">Facultatif, mais vos offres seront vérifiées et publiées plus vite.</span>
                             </div>
                         <?php endif; ?>
                         <div class="field span-2 <?= $f('city_id') ?>">
@@ -91,7 +91,7 @@ $f = fn(string $k) => isset($err[$k]) ? 'has-error' : '';
                         <div class="field span-2">
                             <label for="school_code">Code établissement <span class="muted">(facultatif)</span></label>
                             <input id="school_code" name="school_code" value="<?= e(old('school_code')) ?>" placeholder="Ex. ISNG2026" style="text-transform:uppercase">
-                            <span class="hint">Fourni par ton école ou université pour le suivi de tes stages.</span>
+                            <span class="hint">Ton école te l'a peut-être donné : il lui permet de t'accompagner dans ta recherche de stage.</span>
                         </div>
                     <?php endif; ?>
                     <div class="span-2 stack-sm">

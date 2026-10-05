@@ -72,7 +72,7 @@ $q = array_filter(['q' => $filters['q'], 'city' => $filters['city'], 'sector' =>
             <?php if (!user()): ?>
                 <div class="card card-blue mt-2">
                     <h3><?= icon('target') ?> Ton score de match</h3>
-                    <p class="small" style="color:#e2ecff">Crée ton profil pour voir ta compatibilité avec chaque offre et recevoir des alertes.</p>
+                    <p class="small" style="color:#e2ecff">Sur quelles offres as-tu vraiment tes chances ? Crée ton profil gratuit : ton score s'affiche sur chaque offre et tu es alerté·e dès qu'une offre compatible sort.</p>
                     <a class="btn btn-cta btn-sm" href="<?= e(url('/inscription')) ?>">Créer mon profil</a>
                 </div>
             <?php endif; ?>

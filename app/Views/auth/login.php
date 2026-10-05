@@ -3,7 +3,7 @@
     <div class="auth-form">
         <div class="auth-card">
             <h1 style="font-size:2rem">Connexion</h1>
-            <p class="muted">Pas encore de compte ? <a href="<?= e(url('/inscription')) ?>">Inscris-toi gratuitement</a></p>
+            <p class="muted">Tes offres compatibles t'attendent. Pas encore de compte ? <a href="<?= e(url('/inscription')) ?>">Inscris-toi gratuitement</a>, ça prend 2 minutes.</p>
             <form method="post" action="<?= e(url('/connexion')) ?>" class="card card-lg stack" novalidate>
                 <?= csrf_field() ?>
                 <div class="field <?= isset(errors()['login']) ? 'has-error' : '' ?>">
