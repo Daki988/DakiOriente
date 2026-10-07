@@ -21,7 +21,7 @@
                     <div class="grow"><b style="color:var(--navy)"><?= e($p['first_name'] . ' ' . mb_substr((string)$p['last_name'], 0, 1) . '.') ?></b><br><small class="muted"><?= e($p['headline']) ?></small><br><small class="muted"><?= icon('map-pin') ?> <?= e($p['city_name']) ?> · <?= e(education_levels()[$p['education_level']] ?? '') ?> · employabilité <?= (int)$p['employability_score'] ?></small></div>
                     <?php if ($m): ?><div class="ring ring-sm <?= score_class($m['score']) ?>" style="--p:<?= $m['score'] ?>"><b><?= $m['score'] ?></b></div><?php endif; ?>
                 </div>
-                <div class="tags mt-1"><?php foreach (array_slice(array_filter($p['skills'], fn($s) => $s['category'] === 'tech'), 0, 5) as $s): ?><span class="tag"><?= e($s['name']) ?></span><?php endforeach; ?></div>
+                <div class="tags mt-1"><?php foreach (array_slice(array_filter($p['skills'], fn($s) => !in_array($s['category'], ['comportementale', 'linguistique'], true)), 0, 5) as $s): ?><span class="tag"><?= e($s['name']) ?></span><?php endforeach; ?></div>
             </a>
         <?php endforeach; ?>
     </div>

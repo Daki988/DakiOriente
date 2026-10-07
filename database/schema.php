@@ -23,7 +23,58 @@ return [
 )",
 'skills' => "CREATE TABLE skills (
     id {PK}, name VARCHAR(120) NOT NULL, slug VARCHAR(120) NOT NULL UNIQUE,
-    category VARCHAR(20) NOT NULL DEFAULT 'tech', aliases TEXT
+    category VARCHAR(20) NOT NULL DEFAULT 'technique', aliases TEXT, code VARCHAR(20), definition VARCHAR(255),
+    level_criteria TEXT, proofs VARCHAR(120), esco_uri VARCHAR(190), esco_label VARCHAR(190), framework VARCHAR(160),
+    credential INTEGER NOT NULL DEFAULT 0, status VARCHAR(20) NOT NULL DEFAULT 'brouillon', revision INTEGER NOT NULL DEFAULT 1, updated_at {TS}
+)",
+
+// ---------- Référentiels v1.1 : métiers, diplômes, versions, curation ----------
+'occupations' => "CREATE TABLE occupations (
+    id {PK}, code VARCHAR(20) NOT NULL UNIQUE, rome_code VARCHAR(10), title VARCHAR(190) NOT NULL, family VARCHAR(190),
+    sector_id INTEGER REFERENCES sectors(id), education_min INTEGER NOT NULL DEFAULT 2, fields VARCHAR(255), languages VARCHAR(190),
+    regulated_degree VARCHAR(190), related VARCHAR(255), description TEXT, isco_code VARCHAR(4), isco_label VARCHAR(190), isco_source VARCHAR(30),
+    esco_uri VARCHAR(190), esco_label VARCHAR(190), status VARCHAR(20) NOT NULL DEFAULT 'brouillon', revision INTEGER NOT NULL DEFAULT 1,
+    reviewed_by INTEGER, reviewed_at {TS}, validated_by INTEGER, validated_at {TS}, created_at {TS}, updated_at {TS}
+)",
+'occupation_labels' => "CREATE TABLE occupation_labels (
+    id {PK}, occupation_id INTEGER NOT NULL REFERENCES occupations(id) ON DELETE CASCADE,
+    label VARCHAR(190) NOT NULL, norm VARCHAR(190) NOT NULL, source VARCHAR(20) NOT NULL DEFAULT 'rome'
+)",
+'occupation_skills' => "CREATE TABLE occupation_skills (
+    occupation_id INTEGER NOT NULL REFERENCES occupations(id) ON DELETE CASCADE,
+    skill_id INTEGER NOT NULL REFERENCES skills(id) ON DELETE CASCADE,
+    level INTEGER NOT NULL DEFAULT 2, weight INTEGER NOT NULL DEFAULT 10, blocking INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (occupation_id, skill_id)
+)",
+'rome_labels' => "CREATE TABLE rome_labels (
+    id {PK}, rome_code VARCHAR(10) NOT NULL, label VARCHAR(190) NOT NULL, norm VARCHAR(190) NOT NULL, fiche INTEGER NOT NULL DEFAULT 0
+)",
+'degrees' => "CREATE TABLE degrees (
+    id {PK}, title VARCHAR(190) NOT NULL, level INTEGER NOT NULL, country VARCHAR(80), recognition VARCHAR(80),
+    synonyms VARCHAR(255), to_verify INTEGER NOT NULL DEFAULT 0, status VARCHAR(20) NOT NULL DEFAULT 'brouillon', updated_at {TS}
+)",
+'ref_versions' => "CREATE TABLE ref_versions (
+    id {PK}, number INTEGER NOT NULL, label VARCHAR(190), changelog TEXT, file VARCHAR(120), checksum VARCHAR(64),
+    golden_pairs INTEGER NOT NULL DEFAULT 0, golden_mae VARCHAR(10), stats TEXT, published_by INTEGER, published_at {TS}
+)",
+'ref_changes' => "CREATE TABLE ref_changes (
+    id {PK}, entity VARCHAR(30) NOT NULL, entity_id INTEGER, action VARCHAR(30) NOT NULL, summary VARCHAR(255),
+    user_id INTEGER, version_id INTEGER, created_at {TS}
+)",
+'score_rules' => "CREATE TABLE score_rules (
+    id {PK}, version_id INTEGER, rules TEXT NOT NULL, note VARCHAR(255), created_by INTEGER, created_at {TS}
+)",
+'curation_queue' => "CREATE TABLE curation_queue (
+    id {PK}, kind VARCHAR(20) NOT NULL, label VARCHAR(255) NOT NULL, norm VARCHAR(190), source VARCHAR(20), ref_id INTEGER,
+    context TEXT, suggestion TEXT, hits INTEGER NOT NULL DEFAULT 1, status VARCHAR(20) NOT NULL DEFAULT 'ouvert',
+    handled_by INTEGER, handled_at {TS}, resolution VARCHAR(255), user_id INTEGER, created_at {TS}, updated_at {TS}
+)",
+'golden_pairs' => "CREATE TABLE golden_pairs (
+    id {PK}, user_id INTEGER, job_id INTEGER, label VARCHAR(190), profile_snapshot TEXT NOT NULL, job_snapshot TEXT NOT NULL,
+    expert_score INTEGER NOT NULL, expert_id INTEGER, note VARCHAR(255), created_at {TS}
+)",
+'normalization_checks' => "CREATE TABLE normalization_checks (
+    id {PK}, kind VARCHAR(20) NOT NULL, raw VARCHAR(255) NOT NULL, ref_code VARCHAR(30), correct INTEGER NOT NULL,
+    checker_id INTEGER, created_at {TS}
 )",
 
 // ---------- Utilisateurs ----------
@@ -34,7 +85,8 @@ return [
     status VARCHAR(20) NOT NULL DEFAULT 'active', plan_code VARCHAR(20) NOT NULL DEFAULT 'FREE', plan_expires_at {TS},
     notify_email INTEGER NOT NULL DEFAULT 1, notify_sms INTEGER NOT NULL DEFAULT 0, notify_whatsapp INTEGER NOT NULL DEFAULT 0,
     alert_frequency VARCHAR(20) NOT NULL DEFAULT 'instant', consent_marketing INTEGER NOT NULL DEFAULT 0,
-    country_code VARCHAR(2) NOT NULL DEFAULT 'GA', email_verified_at {TS}, last_login_at {TS}, created_at {TS}, updated_at {TS}
+    country_code VARCHAR(2) NOT NULL DEFAULT 'GA', email_verified_at {TS}, last_login_at {TS}, created_at {TS}, updated_at {TS},
+    ref_role VARCHAR(20)
 )",
 'api_tokens' => "CREATE TABLE api_tokens (
     id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, name VARCHAR(60),
@@ -56,12 +108,13 @@ return [
     cv_template VARCHAR(20) NOT NULL DEFAULT 'moderne', linkedin VARCHAR(255), portfolio VARCHAR(255),
     visible_to_recruiters INTEGER NOT NULL DEFAULT 1, completion INTEGER NOT NULL DEFAULT 0, cv_ai TEXT, gap_advice TEXT,
     interests VARCHAR(255), photo_document_id INTEGER, cv_settings TEXT, cv_proof TEXT, cv_share_token VARCHAR(40), cv_public INTEGER NOT NULL DEFAULT 0,
-    cv_views INTEGER NOT NULL DEFAULT 0, cv_downloads INTEGER NOT NULL DEFAULT 0, updated_at {TS}
+    cv_views INTEGER NOT NULL DEFAULT 0, cv_downloads INTEGER NOT NULL DEFAULT 0, target_occupations VARCHAR(60), extraction VARCHAR(20) NOT NULL DEFAULT 'formulaire', updated_at {TS}
 )",
 'candidate_educations' => "CREATE TABLE candidate_educations (
     id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     school VARCHAR(160) NOT NULL, degree VARCHAR(160) NOT NULL, field VARCHAR(160),
-    start_year INTEGER, end_year INTEGER, description TEXT
+    start_year INTEGER, end_year INTEGER, description TEXT, degree_id INTEGER, level INTEGER, in_progress INTEGER NOT NULL DEFAULT 0,
+    study_year VARCHAR(40), to_verify INTEGER NOT NULL DEFAULT 0
 )",
 'candidate_experiences' => "CREATE TABLE candidate_experiences (
     id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -71,7 +124,8 @@ return [
 'candidate_skills' => "CREATE TABLE candidate_skills (
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     skill_id INTEGER NOT NULL REFERENCES skills(id) ON DELETE CASCADE,
-    level INTEGER NOT NULL DEFAULT 3, PRIMARY KEY (user_id, skill_id)
+    level INTEGER NOT NULL DEFAULT 3, proof VARCHAR(20) NOT NULL DEFAULT 'aucune', source VARCHAR(20) NOT NULL DEFAULT 'declare',
+    confidence INTEGER NOT NULL DEFAULT 100, confirmed INTEGER NOT NULL DEFAULT 1, updated_at {TS}, PRIMARY KEY (user_id, skill_id)
 )",
 'cv_versions' => "CREATE TABLE cv_versions (
     id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -122,12 +176,14 @@ return [
     languages VARCHAR(255), soft_skills VARCHAR(255), duration VARCHAR(60), start_date VARCHAR(10), deadline VARCHAR(10),
     positions INTEGER NOT NULL DEFAULT 1, apply_mode VARCHAR(10) NOT NULL DEFAULT 'internal', external_url VARCHAR(255),
     status VARCHAR(20) NOT NULL DEFAULT 'pending', moderation_note VARCHAR(255), featured INTEGER NOT NULL DEFAULT 0,
-    views INTEGER NOT NULL DEFAULT 0, created_by INTEGER, published_at {TS}, created_at {TS}, updated_at {TS}
+    views INTEGER NOT NULL DEFAULT 0, created_by INTEGER, published_at {TS}, created_at {TS}, updated_at {TS},
+    occupation_id INTEGER, occupation_confirmed INTEGER NOT NULL DEFAULT 0, occupation_confidence INTEGER, languages_blocking VARCHAR(160)
 )",
 'job_skills' => "CREATE TABLE job_skills (
     job_id INTEGER NOT NULL REFERENCES jobs(id) ON DELETE CASCADE,
     skill_id INTEGER NOT NULL REFERENCES skills(id) ON DELETE CASCADE,
-    required INTEGER NOT NULL DEFAULT 1, weight INTEGER NOT NULL DEFAULT 3, PRIMARY KEY (job_id, skill_id)
+    required INTEGER NOT NULL DEFAULT 1, weight INTEGER NOT NULL DEFAULT 3, level INTEGER NOT NULL DEFAULT 3, blocking INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (job_id, skill_id)
 )",
 'applications' => "CREATE TABLE applications (
     id {PK}, job_id INTEGER NOT NULL REFERENCES jobs(id) ON DELETE CASCADE,
@@ -158,7 +214,8 @@ return [
 )",
 'match_scores' => "CREATE TABLE match_scores (
     id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    job_id INTEGER NOT NULL REFERENCES jobs(id) ON DELETE CASCADE, score INTEGER NOT NULL, details TEXT, computed_at {TS}
+    job_id INTEGER NOT NULL REFERENCES jobs(id) ON DELETE CASCADE, score INTEGER NOT NULL, details TEXT, computed_at {TS},
+    verdict VARCHAR(20), ref_version INTEGER, extraction VARCHAR(20), explanation TEXT
 )",
 'recommendations' => "CREATE TABLE recommendations (
     id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -182,7 +239,13 @@ return [
     price INTEGER NOT NULL DEFAULT 0, level VARCHAR(20) DEFAULT 'debutant', url VARCHAR(255), description TEXT,
     platform_id INTEGER REFERENCES learning_platforms(id), language VARCHAR(5) DEFAULT 'fr', skills VARCHAR(255),
     certificate VARCHAR(20) DEFAULT 'variable', external_id VARCHAR(120), source VARCHAR(20) DEFAULT 'catalogue',
-    active INTEGER NOT NULL DEFAULT 1, next_session VARCHAR(10), clicks INTEGER NOT NULL DEFAULT 0, updated_at {TS}
+    active INTEGER NOT NULL DEFAULT 1, next_session VARCHAR(10), clicks INTEGER NOT NULL DEFAULT 0, updated_at {TS},
+    verified_at {TS}, quality INTEGER, partner INTEGER NOT NULL DEFAULT 0, recognition VARCHAR(20), prerequisites VARCHAR(255), link_status VARCHAR(20)
+)",
+'training_skills' => "CREATE TABLE training_skills (
+    training_id INTEGER NOT NULL REFERENCES trainings(id) ON DELETE CASCADE,
+    skill_id INTEGER NOT NULL REFERENCES skills(id) ON DELETE CASCADE,
+    level_reached INTEGER NOT NULL DEFAULT 2, PRIMARY KEY (training_id, skill_id)
 )",
 'certifications' => "CREATE TABLE certifications (
     id {PK}, name VARCHAR(190) NOT NULL, issuer VARCHAR(190), domain VARCHAR(60), skills VARCHAR(255), language VARCHAR(40),
@@ -291,6 +354,12 @@ return [
     bucket VARCHAR(190) PRIMARY KEY, hits INTEGER NOT NULL DEFAULT 0, reset_at INTEGER NOT NULL
 )",
 
+// ---------- Explicabilité (v1.1) ----------
+'score_feedback' => "CREATE TABLE score_feedback (
+    id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, job_id INTEGER, understood INTEGER NOT NULL,
+    ref_version INTEGER, created_at {TS}
+)",
+
 // ---------- Index ----------
 '_indexes' => [
     'CREATE INDEX idx_goals_user ON candidate_goals(user_id)',
@@ -306,5 +375,11 @@ return [
     'CREATE INDEX idx_match_user ON match_scores(user_id, job_id)',
     'CREATE INDEX idx_audit_created ON audit_logs(created_at)',
     'CREATE INDEX idx_cities_country ON cities(country_id)',
+    'CREATE INDEX idx_occ_labels_norm ON occupation_labels(norm)',
+    'CREATE INDEX idx_occ_labels_occ ON occupation_labels(occupation_id)',
+    'CREATE INDEX idx_rome_labels_norm ON rome_labels(norm)',
+    'CREATE INDEX idx_tskills_skill ON training_skills(skill_id)',
+    'CREATE INDEX idx_curation_status ON curation_queue(status, kind)',
+    'CREATE INDEX idx_jobs_occupation ON jobs(occupation_id)',
 ],
 ];

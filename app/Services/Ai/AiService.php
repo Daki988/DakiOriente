@@ -83,6 +83,27 @@ final class AiService
         ]);
     }
 
+    /* ======================= Explication d'un score (référentiel v1.1) ======================= */
+
+    /**
+     * Reformule l'explication calculée d'un score d'adéquation. Claude ne fixe ni ne modifie rien :
+     * la réponse est contrôlée ensuite (aucun nombre nouveau) par Referential\Explainer::faithful().
+     */
+    public static function explainScore(string $base): ?string
+    {
+        $llm = self::llm();
+        if (!$llm) {
+            return null;
+        }
+        $prompt = "Voici l'explication, calculée par des règles, du score d'adéquation d'un candidat avec une offre :\n\n" . $base
+            . "\n\nReformule-la en 60 à 110 mots, en tutoyant le candidat, avec un vocabulaire simple et sans jargon technique, sur un ton encourageant mais honnête. "
+            . "Règles impératives : garde exactement les mêmes chiffres, n'en ajoute aucun, n'ajoute aucun fait, aucun conseil ni aucune compétence qui ne figure pas dans le texte, "
+            . "ne promets jamais d'embauche. Texte brut en un seul paragraphe, sans markdown.";
+        $out = $llm->complete(self::SYSTEM, $prompt, 500, 'low');
+        self::log('explain_score', $out ? 'anthropic' : 'local', 'Explication de score', mb_strlen((string)$out), $out ? 'ok' : 'error');
+        return $out ? trim($out) : null;
+    }
+
     /* ======================= Coaching sur les écarts ======================= */
 
     /**
@@ -429,7 +450,7 @@ final class AiService
         }
         // Repli local : accroche construite à partir du profil, puces issues des descriptions
         $levels = education_levels();
-        $top = array_slice(array_column(array_filter($p['skills'], fn($s) => $s['category'] === 'tech'), 'name'), 0, 3);
+        $top = array_slice(array_column(array_filter($p['skills'], fn($s) => !in_array($s['category'], ['comportementale', 'linguistique'], true)), 'name'), 0, 3);
         $summary = trim(sprintf(
             '%s de niveau %s%s. Compétences clés : %s. %s',
             $p['headline'] ?: 'Candidat·e motivé·e',

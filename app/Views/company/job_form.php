@@ -6,9 +6,21 @@ $cls = fn(string $k) => isset($err[$k]) ? 'has-error' : '';
 $langs = array_filter(array_map('trim', explode(',', (string)($job['languages'] ?? ''))));
 $softSel = array_filter(array_map('trim', explode(',', (string)($job['soft_skills'] ?? ''))));
 $rows = $jobSkills ?: [];
-while (count($rows) < max(6, count($jobSkills) + 2)) {
-    $rows[] = ['skill_id' => '', 'required' => 1, 'weight' => 3];
+while (count($rows) < max(8, count($jobSkills) + 2)) {
+    $rows[] = ['skill_id' => '', 'required' => 1, 'weight' => 10, 'level' => 3, 'blocking' => 0];
 }
+$langBlock = array_filter(array_map('trim', explode(',', (string)($job['languages_blocking'] ?? ''))));
+$R = App\Services\Referential\Ref::class;
+$byCat = [];
+foreach ($skills as $s) {
+    $byCat[$s['credential'] ? 'titres' : $s['category']][] = $s;
+}
+$catLabels = ['technique' => 'Techniques', 'numerique' => 'Numériques', 'transverse' => 'Transverses', 'comportementale' => 'Comportementales', 'titres' => 'Permis et habilitations'];
+$occBySector = [];
+foreach ($occupations as $o) {
+    $occBySector[$o['sector'] ?: 'Autres'][] = $o;
+}
+$curOcc = (int)$v('occupation_id', 0);
 ?>
 <nav class="breadcrumb"><a href="<?= e(url('/entreprise/offres')) ?>"><?= icon('chevron-left') ?> Mes offres</a></nav>
 <div class="page-head"><div><h1><?= $isEdit ? 'Modifier l\'offre' : 'Publier une offre' ?></h1><p>Des critères précis = un matching plus juste et des candidats mieux classés.</p></div></div>
@@ -30,27 +42,40 @@ while (count($rows) < max(6, count($jobSkills) + 2)) {
             </div>
         </section>
 
-        <section class="card card-lg">
-            <h2 style="font-size:1.15rem">2. Critères de matching</h2>
-            <p class="small muted">Compétences techniques : 30 % du score. Les compétences « clés » comptent double ; le poids (1 à 5) affine leur importance.</p>
-            <div class="table-wrap"><table class="table">
-                <thead><tr><th>Compétence</th><th>Clé ?</th><th>Poids</th></tr></thead>
+        <section class="card card-lg" data-occ-form data-suggest="<?= e(url('/entreprise/metiers/suggerer')) ?>" data-sheet="<?= e(url('/entreprise/metiers')) ?>">
+            <h2 style="font-size:1.15rem">2. Fiche métier et critères de matching</h2>
+            <p class="small muted">Chaque offre est rattachée à un code du référentiel Métiers Tremplin (ROME 4.0, ESCO, ISCO-08) : candidats et offres sont ainsi comparés sur la même base. Le code est proposé automatiquement à partir de l'intitulé ; vérifie-le et confirme-le.</p>
+            <div class="form-grid cols-2">
+                <div class="field span-2"><label for="occupation_id">Code métier</label>
+                    <select id="occupation_id" name="occupation_id"><option value="">— Choisir la fiche métier —</option>
+                        <?php foreach ($occBySector as $sec => $list): ?><optgroup label="<?= e($sec) ?>"><?php foreach ($list as $o): ?><option value="<?= (int)$o['id'] ?>" <?= $curOcc === (int)$o['id'] ? 'selected' : '' ?>><?= e($o['code'] . ' — ' . $o['title']) ?></option><?php endforeach; ?></optgroup><?php endforeach; ?>
+                    </select>
+                    <span class="hint" data-occ-hint><?= !empty($job['occupation_id']) && empty($job['occupation_confirmed']) ? 'Code proposé automatiquement : à confirmer.' : '' ?></span></div>
+                <label class="check"><input type="checkbox" name="occupation_confirmed" value="1" <?= !empty($job['occupation_confirmed']) ? 'checked' : '' ?>> <span class="small">Je confirme ce code métier</span></label>
+                <div><button class="btn btn-soft btn-sm" type="button" data-occ-fill><?= icon('download') ?> Reprendre les compétences de la fiche</button></div>
+            </div>
+            <p class="small muted mt-2">Compétences : 40 % du score. Niveau attendu de 1 (Notions) à 4 (Expert) ; le poids règle l'importance relative. Un <b>prérequis bloquant</b> (permis, habilitation, compétence indispensable) écarte le profil qui ne l'a pas, quel que soit son score.</p>
+            <div class="table-wrap"><table class="table" data-occ-rows>
+                <thead><tr><th>Compétence</th><th>Niveau attendu</th><th>Poids</th><th>Bloquant ?</th></tr></thead>
                 <tbody><?php foreach ($rows as $i => $r): ?>
                     <tr>
-                        <td><label class="sr-only" for="sk<?= $i ?>">Compétence</label><select id="sk<?= $i ?>" name="skill_id[]" class="input" style="min-height:40px"><option value="">—</option><?php foreach ($skills as $s): ?><option value="<?= (int)$s['id'] ?>" <?= (int)$r['skill_id'] === (int)$s['id'] ? 'selected' : '' ?>><?= e($s['name']) ?></option><?php endforeach; ?></select></td>
-                        <td><select name="skill_required[]" class="input" style="min-height:40px" aria-label="Compétence clé"><option value="1" <?= (int)$r['required'] ? 'selected' : '' ?>>Clé</option><option value="0" <?= !(int)$r['required'] ? 'selected' : '' ?>>Souhaitée</option></select></td>
-                        <td><select name="skill_weight[]" class="input" style="min-height:40px" aria-label="Poids"><?php for ($w = 1; $w <= 5; $w++): ?><option value="<?= $w ?>" <?= (int)$r['weight'] === $w ? 'selected' : '' ?>><?= $w ?></option><?php endfor; ?></select></td>
+                        <td><label class="sr-only" for="sk<?= $i ?>">Compétence</label><select id="sk<?= $i ?>" name="skill_id[]" class="input" style="min-height:40px"><option value="">—</option><?php foreach ($catLabels as $ck => $cl): if (empty($byCat[$ck])) continue; ?><optgroup label="<?= e($cl) ?>"><?php foreach ($byCat[$ck] as $sk): ?><option value="<?= (int)$sk['id'] ?>" <?= (int)$r['skill_id'] === (int)$sk['id'] ? 'selected' : '' ?>><?= e($sk['name']) ?></option><?php endforeach; ?></optgroup><?php endforeach; ?></select></td>
+                        <td><select name="skill_level[]" class="input" style="min-height:40px" aria-label="Niveau attendu"><?php foreach ($R::LEVELS as $lk => [$ll]): ?><option value="<?= $lk ?>" <?= (int)($r['level'] ?? 3) === $lk ? 'selected' : '' ?>><?= $lk ?> — <?= e($ll) ?></option><?php endforeach; ?></select></td>
+                        <td><input name="skill_weight[]" type="number" min="1" max="100" class="input" style="min-height:40px;width:90px" aria-label="Poids" value="<?= max(1, (int)$r['weight']) ?>"></td>
+                        <td><select name="skill_blocking[]" class="input" style="min-height:40px" aria-label="Prérequis bloquant"><option value="0">Non</option><option value="1" <?= !empty($r['blocking']) ? 'selected' : '' ?>>Oui</option></select></td>
                     </tr>
                 <?php endforeach; ?></tbody>
             </table></div>
             <div class="form-grid cols-2 mt-2">
                 <div class="field"><label for="education_min">Niveau minimum</label><select id="education_min" name="education_min"><?php foreach (education_levels() as $k => $l): ?><option value="<?= $k ?>" <?= (int)$v('education_min') === $k ? 'selected' : '' ?>><?= e($l) ?></option><?php endforeach; ?></select>
-                    <label class="check mt-1"><input type="checkbox" name="education_eliminatory" value="1" <?= !empty($job['education_eliminatory']) ? 'checked' : '' ?>> <span class="small">Critère éliminatoire (niveau légalement requis)</span></label></div>
+                    <label class="check mt-1"><input type="checkbox" name="education_eliminatory" value="1" <?= !empty($job['education_eliminatory']) ? 'checked' : '' ?>> <span class="small">Diplôme bloquant (niveau ou diplôme réglementé exigé)</span></label>
+                    <span class="hint">Sinon, un écart d'un niveau réduit le score sans écarter le candidat.</span></div>
                 <div class="field"><label for="experience_min">Expérience minimum (mois)</label><input id="experience_min" name="experience_min" type="number" min="0" max="240" value="<?= (int)$v('experience_min', 0) ?>"><span class="hint">0 = débutants acceptés</span></div>
             </div>
             <p class="label mt-2">Langues requises</p>
             <?php for ($i = 0; $i < 3; $i++): [$ln, $ll] = array_pad(explode(':', $langs[$i] ?? ''), 2, 'B1'); ?>
-                <div class="flex mb-1"><input class="input grow" name="lang_name[]" value="<?= e($ln) ?>" placeholder="<?= ['Français', 'Anglais', 'Autre'][$i] ?>" aria-label="Langue <?= $i + 1 ?>"><select class="input" name="lang_level[]" style="width:180px" aria-label="Niveau"><?php foreach (language_levels() as $k => $lab): ?><option value="<?= $k ?>" <?= $ll === $k ? 'selected' : '' ?>><?= $k ?> — <?= e($lab) ?></option><?php endforeach; ?></select></div>
+                <div class="flex flex-wrap mb-1"><input class="input grow" name="lang_name[]" value="<?= e($ln) ?>" placeholder="<?= ['Français', 'Anglais', 'Autre'][$i] ?>" aria-label="Langue <?= $i + 1 ?>"><select class="input" name="lang_level[]" style="width:180px" aria-label="Niveau"><?php foreach (language_levels() as $k => $lab): ?><option value="<?= $k ?>" <?= $ll === $k ? 'selected' : '' ?>><?= $k ?> — <?= e($lab) ?></option><?php endforeach; ?></select>
+                    <label class="check"><input type="checkbox" name="lang_block[<?= $i ?>]" value="1" <?= $ln !== '' && in_array($ln, $langBlock, true) ? 'checked' : '' ?>> <span class="small">Obligatoire</span></label></div>
             <?php endfor; ?>
             <p class="label mt-2">Qualités recherchées (3 à 5)</p>
             <div class="choice-grid"><?php foreach ($softs as $s): ?><label class="choice"><input type="checkbox" name="soft[]" value="<?= e($s['name']) ?>" <?= in_array($s['name'], $softSel, true) ? 'checked' : '' ?>><span><?= e($s['name']) ?></span></label><?php endforeach; ?></div>

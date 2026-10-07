@@ -7,6 +7,9 @@ use App\Controllers\Controller;
 use App\Core\DB;
 use App\Core\Validator;
 use App\Services\ProfileService;
+use App\Services\Referential\Curation;
+use App\Services\Referential\Normalizer;
+use App\Services\Referential\Ref;
 
 final class ProfileController extends Controller
 {
@@ -15,8 +18,8 @@ final class ProfileController extends Controller
         return [
             'cities'  => DB::all("SELECT ci.id, ci.name, co.name AS country FROM cities ci JOIN countries co ON co.id = ci.country_id ORDER BY co.code = 'GA' DESC, co.name, ci.name"),
             'sectors' => DB::all('SELECT id, name FROM sectors ORDER BY name'),
-            'skillsTech' => DB::all("SELECT id, name FROM skills WHERE category = 'tech' ORDER BY name"),
-            'skillsSoft' => DB::all("SELECT id, name FROM skills WHERE category = 'soft' ORDER BY name"),
+            'skillsTech' => DB::all("SELECT id, name, category FROM skills WHERE category IN ('technique', 'numerique', 'transverse') ORDER BY name"),
+            'skillsSoft' => DB::all("SELECT id, name FROM skills WHERE category = 'comportementale' ORDER BY name"),
         ];
     }
 
@@ -29,7 +32,7 @@ final class ProfileController extends Controller
     public function saveOnboarding(): void
     {
         $d = Validator::make($_POST, [
-            'headline' => 'required|max:160', 'city_id' => 'required|exists:cities,id', 'education_level' => 'required|between:0,7',
+            'headline' => 'required|max:160', 'city_id' => 'required|exists:cities,id', 'education_level' => 'required|between:0,6',
             'field_of_study' => 'nullable|max:150', 'desired_job' => 'required|max:150', 'desired_sector_id' => 'nullable|exists:sectors,id',
         ])->validateOrBack();
         $uid = $this->uid();
@@ -68,7 +71,7 @@ final class ProfileController extends Controller
         $d = Validator::make($_POST, [
             'first_name' => 'required|max:80', 'last_name' => 'required|max:80', 'phone' => 'nullable|phone',
             'headline' => 'nullable|max:160', 'bio' => 'nullable|max:1500', 'city_id' => 'nullable|exists:cities,id',
-            'birth_date' => 'nullable|date', 'education_level' => 'required|between:0,7', 'field_of_study' => 'nullable|max:150',
+            'birth_date' => 'nullable|date', 'education_level' => 'required|between:0,6', 'field_of_study' => 'nullable|max:150',
             'experience_months' => 'nullable|between:0,600', 'desired_job' => 'nullable|max:150', 'desired_sector_id' => 'nullable|exists:sectors,id',
             'desired_salary' => 'nullable|between:0,100000000', 'mobility' => 'required|in:ville,national,international',
             'availability_date' => 'nullable|date', 'certifications' => 'nullable|max:500',
@@ -96,21 +99,67 @@ final class ProfileController extends Controller
     public function addSkill(): void
     {
         $uid = $this->uid();
-        $level = max(1, min(5, (int)input('level', 3)));
+        $level = max(1, min(4, (int)input('level', 2)));
+        $proof = isset(Ref::PROOFS[(string)input('proof')]) ? (string)input('proof') : 'aucune';
         $skillId = (int)input('skill_id', 0);
         $name = trim((string)input('skill_name', ''));
+        $confirmed = 1;
+        $confidence = 100;
         if (!$skillId && $name !== '') {
-            $existing = DB::one('SELECT id FROM skills WHERE slug = :s', ['s' => slugify($name)]);
-            $skillId = $existing ? (int)$existing['id'] : DB::insert('skills', ['name' => mb_substr($name, 0, 120), 'slug' => slugify($name), 'category' => 'tech', 'aliases' => '']);
+            // Rapprochement du référentiel : synonymes puis similarité ; sinon, envoi en curation (jamais de création silencieuse)
+            $m = Normalizer::skill($name);
+            $auto = (int)Ref::rules()['normalization']['auto'];
+            if ($m && $m['confidence'] >= (int)Ref::rules()['normalization']['confirm']) {
+                $skillId = $m['id'];
+                $confidence = $m['confidence'];
+                $confirmed = $m['confidence'] >= $auto ? 1 : 0;
+            } else {
+                Curation::add('competence', $name, 'candidat', null, $m, [], $uid);
+                flash('info', '« ' . $name . ' » n\'est pas encore dans le référentiel des compétences : l\'équipe de curation l\'examine. En attendant, choisis la compétence la plus proche dans la liste.');
+                redirect('/espace/profil#competences');
+            }
         }
         if (!$skillId || !DB::value('SELECT COUNT(*) FROM skills WHERE id = :id', ['id' => $skillId])) {
             flash('error', 'Choisis une compétence dans la liste ou saisis son nom.');
             back();
         }
         DB::run('DELETE FROM candidate_skills WHERE user_id = :u AND skill_id = :s', ['u' => $uid, 's' => $skillId]);
-        DB::insert('candidate_skills', ['user_id' => $uid, 'skill_id' => $skillId, 'level' => $level]);
+        DB::insert('candidate_skills', ['user_id' => $uid, 'skill_id' => $skillId, 'level' => $level, 'proof' => $proof, 'source' => 'declare',
+            'confidence' => $confidence, 'confirmed' => $confirmed, 'updated_at' => now()]);
         ProfileService::refreshCompletion($uid);
-        flash('success', 'Compétence ajoutée ! Tes scores de compatibilité ont été recalculés : va voir quelles offres se rapprochent de toi.');
+        $skill = (string)DB::value('SELECT name FROM skills WHERE id = :id', ['id' => $skillId]);
+        if (!$confirmed) {
+            flash('info', 'Nous avons rapproché ta saisie de « ' . $skill . ' ». Confirme-le dans la liste pour qu\'elle compte dans tes scores.');
+        } else {
+            $cap = (int)Ref::rules()['unproven_cap'];
+            flash('success', 'Compétence « ' . $skill . ' » ajoutée.' . ($proof === 'aucune' && $level > $cap ? " Sans preuve, elle compte au niveau $cap dans les scores : ajoute un certificat, un stage ou un projet pour qu'elle compte au niveau $level." : ' Tes scores de compatibilité ont été recalculés.'));
+        }
+        redirect('/espace/profil#competences');
+    }
+
+    /** Correction d'une compétence (niveau, preuve, confirmation) : chaque correction est journalisée (§5). */
+    public function updateSkill(string $id): void
+    {
+        $uid = $this->uid();
+        $cur = DB::one('SELECT cs.*, s.name FROM candidate_skills cs JOIN skills s ON s.id = cs.skill_id WHERE cs.user_id = :u AND cs.skill_id = :s', ['u' => $uid, 's' => (int)$id]);
+        if (!$cur) {
+            abort(404);
+        }
+        $data = ['updated_at' => now()];
+        if (input('level') !== null) {
+            $data['level'] = max(1, min(4, (int)input('level')));
+        }
+        if (input('proof') !== null && isset(Ref::PROOFS[(string)input('proof')])) {
+            $data['proof'] = (string)input('proof');
+        }
+        if (input('confirm') === '1') {
+            $data['confirmed'] = 1;
+        }
+        DB::update('candidate_skills', $data, 'user_id = :u AND skill_id = :s', ['u' => $uid, 's' => (int)$id]);
+        audit('skill.corrected', 'skill', (int)$id, ['from' => ['level' => (int)$cur['level'], 'proof' => $cur['proof'], 'confirmed' => (int)$cur['confirmed'], 'source' => $cur['source']],
+            'to' => array_diff_key($data, ['updated_at' => 1])]);
+        ProfileService::refreshCompletion($uid);
+        flash('success', '« ' . $cur['name'] . ' » mise à jour. Tes scores ont été recalculés.');
         redirect('/espace/profil#competences');
     }
 
@@ -128,9 +177,23 @@ final class ProfileController extends Controller
             'school' => 'required|max:160', 'degree' => 'required|max:160', 'field' => 'nullable|max:160',
             'start_year' => 'nullable|between:1970,2040', 'end_year' => 'nullable|between:1970,2040', 'description' => 'nullable|max:600',
         ])->validateOrBack();
-        DB::insert('candidate_educations', ['user_id' => $this->uid()] + array_map(fn($v) => $v === '' ? null : $v, $d));
+        $row = ['user_id' => $this->uid()] + array_map(fn($v) => $v === '' ? null : $v, $d);
+        // Référentiel Diplômes : niveau N0-N6 ; un diplôme étranger douteux est marqué « à vérifier » plutôt que classé par défaut
+        $deg = Normalizer::degree($d['degree'] . ' ' . ($d['field'] ?? ''));
+        $inProgress = input('in_progress') ? 1 : 0;
+        $row += ['degree_id' => $deg['id'] ?? null, 'level' => $deg['level'] ?? null, 'in_progress' => $inProgress || ($deg['in_progress'] ?? false) ? 1 : 0,
+            'study_year' => mb_substr(trim((string)input('study_year')), 0, 40) ?: null, 'to_verify' => !$deg || $deg['to_verify'] ? 1 : 0];
+        DB::insert('candidate_educations', $row);
+        if (!$deg || $deg['to_verify']) {
+            Curation::add('diplome', $d['degree'] . ($d['field'] ? ' — ' . $d['field'] : ''), 'candidat', null, $deg, ['school' => $d['school']], $this->uid());
+        } elseif (!$row['in_progress']) {
+            // Le plus haut diplôme obtenu fixe le niveau du profil
+            DB::run('UPDATE candidate_profiles SET education_level = :l WHERE user_id = :u AND education_level < :l2', ['l' => $deg['level'], 'l2' => $deg['level'], 'u' => $this->uid()]);
+        }
         ProfileService::refreshCompletion($this->uid());
-        flash('success', 'Formation ajoutée. Elle compte dans ton score sur toutes les offres.');
+        flash('success', $deg && !$deg['to_verify']
+            ? 'Formation ajoutée : « ' . $deg['title'] . ' », niveau ' . Ref::degreeLabel($deg['level']) . ($row['in_progress'] ? ' (en cours)' : '') . '. Elle compte dans ton score sur toutes les offres.'
+            : 'Formation ajoutée. Son niveau sera confirmé par l\'équipe NEAM : en attendant, vérifie ton niveau d\'études dans ton profil.');
         redirect('/espace/profil#formations');
     }
 
@@ -151,15 +214,26 @@ final class ProfileController extends Controller
         DB::insert('candidate_experiences', ['user_id' => $this->uid()] + array_map(fn($v) => $v === '' ? null : $v, $d));
         // Extraction automatique des compétences citées dans la description
         $found = ProfileService::extractSkills(($d['title'] ?? '') . ' ' . ($d['description'] ?? ''));
-        $added = [];
+        $proof = in_array($d['kind'], ['projet', 'benevolat'], true) ? 'projet' : 'experience';
+        $added = $proven = [];
         foreach ($found as $s) {
-            if (!DB::value('SELECT COUNT(*) FROM candidate_skills WHERE user_id = :u AND skill_id = :s', ['u' => $this->uid(), 's' => $s['id']])) {
-                DB::insert('candidate_skills', ['user_id' => $this->uid(), 'skill_id' => $s['id'], 'level' => 2]);
+            if ($s['category'] === 'linguistique') {
+                continue;
+            }
+            $cur = DB::one('SELECT proof FROM candidate_skills WHERE user_id = :u AND skill_id = :s', ['u' => $this->uid(), 's' => $s['id']]);
+            if (!$cur) {
+                DB::insert('candidate_skills', ['user_id' => $this->uid(), 'skill_id' => $s['id'], 'level' => 2, 'proof' => $proof, 'source' => 'experience', 'confidence' => 100, 'confirmed' => 1, 'updated_at' => now()]);
                 $added[] = $s['name'];
+            } elseif ($cur['proof'] === 'aucune') {
+                // Une expérience décrite sert de preuve : la compétence n'est plus plafonnée
+                DB::update('candidate_skills', ['proof' => $proof, 'updated_at' => now()], 'user_id = :u AND skill_id = :s', ['u' => $this->uid(), 's' => $s['id']]);
+                $proven[] = $s['name'];
             }
         }
         ProfileService::refreshCompletion($this->uid());
-        flash('success', 'Expérience ajoutée. Chaque expérience, même courte, rassure les recruteurs.' . ($added ? ' Nous avons repéré et ajouté ces compétences : ' . implode(', ', $added) . '.' : ''));
+        flash('success', 'Expérience ajoutée. Chaque expérience, même courte, rassure les recruteurs.'
+            . ($added ? ' Compétences repérées et ajoutées (niveau 2, à ajuster) : ' . implode(', ', $added) . '.' : '')
+            . ($proven ? ' Cette expérience prouve désormais : ' . implode(', ', $proven) . '.' : ''));
         redirect('/espace/profil#experiences');
     }
 

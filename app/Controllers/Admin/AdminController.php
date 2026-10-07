@@ -230,7 +230,7 @@ final class AdminController extends Controller
         };
         $countries = DB::all('SELECT id, name FROM countries ORDER BY name');
         $sectors = DB::all('SELECT id, name FROM sectors ORDER BY name');
-        $skills = DB::all("SELECT id, name FROM skills WHERE category = 'tech' ORDER BY name");
+        $skills = DB::all("SELECT id, name FROM skills WHERE category IN ('technique', 'numerique', 'transverse') ORDER BY name");
         return $this->app('admin/referentials', compact('tab', 'rows', 'countries', 'sectors', 'skills') + ['refs' => self::REFS, 'title' => 'Référentiels']);
     }
 
@@ -261,7 +261,7 @@ final class AdminController extends Controller
             $data['level'] = in_array($data['level'], ['debutant', 'intermediaire', 'avance'], true) ? $data['level'] : 'debutant';
         }
         if ($tab === 'skills') {
-            $data['category'] = in_array($data['category'], ['tech', 'soft'], true) ? $data['category'] : 'tech';
+            $data['category'] = isset(\App\Services\Referential\Ref::CATEGORIES[$data['category']]) ? $data['category'] : 'technique';
         }
         if ($tab === 'countries') {
             $data['code'] = mb_strtoupper(mb_substr((string)$data['code'], 0, 2));
@@ -273,7 +273,7 @@ final class AdminController extends Controller
         $id = DB::insert($tab, $data);
         audit('referential.created', $tab, $id, ['name' => $data[self::REFS[$tab][1][0]]]);
         flash('success', self::REFS[$tab][0] . ' : élément ajouté.');
-        redirect('/admin/referentiels?tab=' . $tab);
+        redirect('/admin/referentiels/donnees?tab=' . $tab);
     }
 
     public function deleteReferential(): void
@@ -289,66 +289,7 @@ final class AdminController extends Controller
         } catch (\PDOException) {
             flash('error', 'Impossible de supprimer : cet élément est utilisé (offres, profils…).');
         }
-        redirect('/admin/referentiels?tab=' . $tab);
-    }
-
-    /* ---------- Matching ---------- */
-
-    public function matching(): string
-    {
-        $sectorId = (int)input('sector', 0) ?: null;
-        $weights = MatchingEngine::weights($sectorId);
-        $raw = [];
-        foreach (DB::all('SELECT criterion, weight FROM matching_weights WHERE ' . ($sectorId ? 'sector_id = :s' : 'sector_id IS NULL'), $sectorId ? ['s' => $sectorId] : []) as $r) {
-            $raw[$r['criterion']] = (int)$r['weight'];
-        }
-        $sectors = DB::all('SELECT s.id, s.name, (SELECT COUNT(*) FROM matching_weights w WHERE w.sector_id = s.id) AS custom FROM sectors s ORDER BY s.name');
-        // Calibrage : score moyen des candidatures acceptées vs refusées (qualité du matching)
-        $quality = [
-            'accepted' => (int)DB::value("SELECT AVG(match_score) FROM applications WHERE status = 'accepted'"),
-            'shortlisted' => (int)DB::value("SELECT AVG(match_score) FROM applications WHERE status IN ('shortlisted','interview')"),
-            'rejected' => (int)DB::value("SELECT AVG(match_score) FROM applications WHERE status = 'rejected'"),
-        ];
-        // Simulation sur un couple candidat/offre
-        $sim = null;
-        $candidates = DB::all("SELECT u.id, u.first_name, u.last_name FROM users u WHERE u.role = 'candidate' ORDER BY u.first_name LIMIT 50");
-        $jobs = DB::all("SELECT id, title FROM jobs WHERE status = 'published' ORDER BY title");
-        if (input('cand') && input('job')) {
-            $p = ProfileService::load((int)input('cand'));
-            $j = MatchingEngine::loadJob((int)input('job'));
-            $sim = $p && $j ? MatchingEngine::compute($p, $j) : null;
-        }
-        return $this->app('admin/matching', compact('sectorId', 'weights', 'raw', 'sectors', 'quality', 'sim', 'candidates', 'jobs') + ['criteria' => MatchingEngine::CRITERIA, 'title' => 'Moteur de matching']);
-    }
-
-    public function saveMatching(): void
-    {
-        $sectorId = (int)input('sector_id', 0) ?: null;
-        $where = $sectorId ? 'sector_id = :s' : 'sector_id IS NULL';
-        $params = $sectorId ? ['s' => $sectorId] : [];
-        if (input('reset') && $sectorId) {
-            DB::delete('matching_weights', $where, $params);
-            audit('matching.weights_reset', 'sector', $sectorId);
-            flash('info', 'Ce secteur utilise de nouveau les poids par défaut.');
-            redirect('/admin/matching?sector=' . $sectorId);
-        }
-        $new = [];
-        foreach (array_keys(MatchingEngine::CRITERIA) as $k) {
-            $new[$k] = max(0, min(100, (int)($_POST['w'][$k] ?? 0)));
-        }
-        if (array_sum($new) <= 0) {
-            flash('error', 'La somme des poids doit être positive.');
-            back();
-        }
-        DB::transaction(function () use ($where, $params, $new, $sectorId) {
-            DB::delete('matching_weights', $where, $params);
-            foreach ($new as $k => $w) {
-                DB::insert('matching_weights', ['sector_id' => $sectorId, 'criterion' => $k, 'weight' => $w]);
-            }
-        });
-        audit('matching.weights_updated', 'sector', $sectorId, $new);
-        flash('success', 'Poids enregistrés (total ' . array_sum($new) . ', normalisé à 100). Les scores sont recalculés en temps réel.');
-        redirect('/admin/matching' . ($sectorId ? '?sector=' . $sectorId : ''));
+        redirect('/admin/referentiels/donnees?tab=' . $tab);
     }
 
     /* ---------- Paiements & contenus ---------- */

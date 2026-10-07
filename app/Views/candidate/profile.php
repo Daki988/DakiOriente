@@ -64,25 +64,55 @@ $mySkillIds = array_column($p['skills'], 'id');
         </form>
 
         <section class="card card-lg" id="competences">
-            <div class="card-title"><h2><?= icon('zap') ?> Compétences techniques</h2><span class="badge badge-blue"><?= count(array_filter($p['skills'], fn($s) => $s['category'] === 'tech')) ?></span></div>
+            <?php
+            $R = App\Services\Referential\Ref::class;
+            $cap = (int)$R::rules()['unproven_cap'];
+            $hard = array_values(array_filter($p['skills'], fn($s) => !in_array($s['category'], ['comportementale', 'linguistique'], true) && isset($s['proof'])));
+            ?>
+            <div class="card-title"><h2><?= icon('zap') ?> Compétences</h2><span class="badge badge-blue"><?= count($hard) ?></span></div>
+            <p class="small muted">Échelle commune : 1 Notions · 2 Opérationnel · 3 Maîtrise · 4 Expert. <b>Sans preuve, une compétence compte au niveau <?= $cap ?> au maximum</b> dans les scores : ajoute un diplôme, un certificat, un stage ou un projet pour qu'elle compte pleinement.</p>
             <div class="stack-sm">
-                <?php foreach ($p['skills'] as $s): if ($s['category'] !== 'tech') continue; ?>
-                    <div class="flex between" style="padding:8px 0;border-bottom:1px solid var(--line-2)">
-                        <b style="color:var(--navy);font-size:.93rem"><?= e($s['name']) ?></b>
-                        <div class="flex">
-                            <span class="level-dots" aria-label="Niveau <?= (int)$s['level'] ?> sur 5"><?php for ($i = 1; $i <= 5; $i++): ?><i class="<?= $i <= $s['level'] ? 'on' : '' ?>"></i><?php endfor; ?></span>
+                <?php foreach ($hard as $s): $lvl = (int)$s['level']; $capped = $s['proof'] === 'aucune' && $lvl > $cap; ?>
+                    <div class="skill-row<?= !(int)$s['confirmed'] ? ' pending' : '' ?>">
+                        <div class="flex between" style="gap:10px;align-items:flex-start">
+                            <div class="grow">
+                                <b style="color:var(--navy);font-size:.93rem"><?= e($s['name']) ?></b>
+                                <small class="muted"> · <?= e($R::CATEGORIES[$s['category']][0] ?? '') ?></small><br>
+                                <span class="level-dots" aria-label="Niveau <?= $lvl ?> sur 4"><?php for ($i = 1; $i <= 4; $i++): ?><i class="<?= $i <= $lvl ? 'on' : '' ?>"></i><?php endfor; ?></span>
+                                <small><?= $lvl ?> · <?= e($R::LEVELS[$lvl][0] ?? '') ?></small>
+                                <?php if ($s['proof'] !== 'aucune'): ?><span class="badge badge-green"><?= icon('badge-check') ?> <?= e($R::PROOFS[$s['proof']] ?? $s['proof']) ?></span>
+                                <?php elseif ($capped): ?><span class="badge badge-amber" title="Ajoute une preuve pour qu'elle compte au niveau <?= $lvl ?>">Sans preuve : compte au niveau <?= $cap ?></span>
+                                <?php else: ?><span class="badge badge-gray">Sans preuve</span><?php endif; ?>
+                                <?php if ($s['source'] !== 'declare'): ?><small class="muted"> · détectée (<?= e(['cv' => 'CV importé', 'experience' => 'expérience', 'formation' => 'formation', 'certification' => 'certification'][$s['source']] ?? $s['source']) ?>)</small><?php endif; ?>
+                            </div>
                             <form method="post" action="<?= e(url('/espace/profil/competences/' . $s['id'] . '/supprimer')) ?>"><?= csrf_field() ?><button class="btn btn-ghost btn-icon btn-sm" type="submit" aria-label="Retirer <?= e($s['name']) ?>"><?= icon('x') ?></button></form>
                         </div>
+                        <?php if (!(int)$s['confirmed']): ?>
+                            <form method="post" action="<?= e(url('/espace/profil/competences/' . $s['id'])) ?>" class="alert alert-info mt-1" style="padding:8px 12px">
+                                <?= csrf_field() ?><input type="hidden" name="confirm" value="1"><?= icon('circle-help') ?><div class="grow small">Rapprochement à confirmer (indice <?= (int)$s['confidence'] ?> %) : s'agit-il bien de « <?= e($s['name']) ?> » ? Tant qu'elle n'est pas confirmée, elle ne compte pas dans les scores.</div><button class="btn btn-soft btn-sm" type="submit">Confirmer</button>
+                            </form>
+                        <?php endif; ?>
+                        <details class="mt-1"><summary class="small">Corriger le niveau ou ajouter une preuve</summary>
+                            <form method="post" action="<?= e(url('/espace/profil/competences/' . $s['id'])) ?>" class="flex flex-wrap mt-1" style="gap:8px;align-items:end">
+                                <?= csrf_field() ?>
+                                <div class="field"><label class="sr-only" for="lv-<?= (int)$s['id'] ?>">Niveau</label><select id="lv-<?= (int)$s['id'] ?>" name="level"><?php foreach ($R::LEVELS as $k => [$l]): ?><option value="<?= $k ?>" <?= $k === $lvl ? 'selected' : '' ?>><?= $k ?> — <?= e($l) ?></option><?php endforeach; ?></select></div>
+                                <div class="field"><label class="sr-only" for="pr-<?= (int)$s['id'] ?>">Preuve</label><select id="pr-<?= (int)$s['id'] ?>" name="proof"><?php foreach ($R::PROOFS as $k => $l): ?><option value="<?= $k ?>" <?= $k === $s['proof'] ? 'selected' : '' ?>><?= e($l) ?></option><?php endforeach; ?></select></div>
+                                <button class="btn btn-soft btn-sm" type="submit">Enregistrer</button>
+                            </form>
+                        </details>
                     </div>
                 <?php endforeach; ?>
             </div>
-            <form method="post" action="<?= e(url('/espace/profil/competences')) ?>" class="form-grid cols-3 mt-2" style="align-items:end">
+            <form method="post" action="<?= e(url('/espace/profil/competences')) ?>" class="form-grid cols-2 mt-2" style="align-items:end">
                 <?= csrf_field() ?>
-                <div class="field"><label for="skill_id">Ajouter une compétence</label>
-                    <select id="skill_id" name="skill_id"><option value="">Choisir dans la liste…</option><?php foreach ($skillsTech as $s): if (in_array($s['id'], $mySkillIds)) continue; ?><option value="<?= (int)$s['id'] ?>"><?= e($s['name']) ?></option><?php endforeach; ?></select></div>
-                <div class="field"><label for="skill_name">…ou la saisir</label><input id="skill_name" name="skill_name" placeholder="Ex. Laravel"></div>
-                <div class="field"><label for="level">Niveau</label><select id="level" name="level"><option value="1">1 — Notions</option><option value="2">2 — Débutant</option><option value="3" selected>3 — Intermédiaire</option><option value="4">4 — Confirmé</option><option value="5">5 — Expert</option></select></div>
-                <div class="span-3"><button class="btn btn-soft" type="submit"><?= icon('plus') ?> Ajouter</button></div>
+                <div class="field"><label for="skill_id">Ajouter une compétence du référentiel</label>
+                    <select id="skill_id" name="skill_id"><option value="">Choisir dans la liste…</option>
+                        <?php foreach (['technique', 'numerique', 'transverse'] as $cat): ?><optgroup label="<?= e($R::CATEGORIES[$cat][0]) ?>"><?php foreach ($skillsTech as $s): if (in_array($s['id'], $mySkillIds) || ($s['category'] ?? '') !== $cat) continue; ?><option value="<?= (int)$s['id'] ?>"><?= e($s['name']) ?></option><?php endforeach; ?></optgroup><?php endforeach; ?>
+                    </select></div>
+                <div class="field"><label for="skill_name">…ou la saisir</label><input id="skill_name" name="skill_name" placeholder="Ex. Laravel, comptabilité OHADA"><span class="hint">Rapprochée automatiquement du référentiel.</span></div>
+                <div class="field"><label for="level">Ton niveau</label><select id="level" name="level"><?php foreach ($R::LEVELS as $k => [$l, $crit]): ?><option value="<?= $k ?>" <?= $k === 2 ? 'selected' : '' ?> title="<?= e($crit) ?>"><?= $k ?> — <?= e($l) ?> : <?= e(mb_strtolower(rtrim($crit, '.'))) ?></option><?php endforeach; ?></select></div>
+                <div class="field"><label for="proof">Preuve</label><select id="proof" name="proof"><?php foreach ($R::PROOFS as $k => $l): ?><option value="<?= $k ?>"><?= e($l) ?></option><?php endforeach; ?></select></div>
+                <div class="span-2"><button class="btn btn-soft" type="submit"><?= icon('plus') ?> Ajouter</button></div>
             </form>
         </section>
 
@@ -90,7 +120,11 @@ $mySkillIds = array_column($p['skills'], 'id');
             <h2 style="font-size:1.2rem"><?= icon('graduation-cap') ?> Formations</h2>
             <ul class="timeline mt-2">
                 <?php foreach ($p['educations'] as $ed): ?>
-                    <li><span class="dot done"></span><div class="flex between"><div><b><?= e($ed['degree']) ?><?= $ed['field'] ? ' — ' . e($ed['field']) : '' ?></b><span><?= e($ed['school']) ?> · <?= e($ed['start_year']) ?>–<?= e($ed['end_year']) ?></span></div>
+                    <li><span class="dot <?= (int)($ed['in_progress'] ?? 0) ? '' : 'done' ?>"></span><div class="flex between"><div><b><?= e($ed['degree']) ?><?= $ed['field'] ? ' — ' . e($ed['field']) : '' ?></b>
+                        <?php if ($ed['level'] !== null): ?><span class="badge badge-blue"><?= e(App\Services\Referential\Ref::degreeLabel((int)$ed['level'])) ?></span><?php endif; ?>
+                        <?php if ((int)($ed['in_progress'] ?? 0)): ?><span class="badge badge-sky">En cours<?= $ed['study_year'] ? ' · ' . e($ed['study_year']) : '' ?></span><?php endif; ?>
+                        <?php if ((int)($ed['to_verify'] ?? 0)): ?><span class="badge badge-amber">Niveau à vérifier</span><?php endif; ?>
+                        <span><?= e($ed['school']) ?> · <?= e($ed['start_year']) ?>–<?= e($ed['end_year']) ?></span></div>
                         <form method="post" action="<?= e(url('/espace/profil/formations/' . $ed['id'] . '/supprimer')) ?>" data-confirm="Supprimer cette formation ?"><?= csrf_field() ?><button class="btn btn-ghost btn-icon btn-sm" type="submit" aria-label="Supprimer"><?= icon('trash-2') ?></button></form></div></li>
                 <?php endforeach; ?>
             </ul>
@@ -101,6 +135,8 @@ $mySkillIds = array_column($p['skills'], 'id');
                     <div class="field"><label for="ed-degree">Diplôme *</label><input id="ed-degree" name="degree" required placeholder="Licence, BTS, Master…"></div>
                     <div class="field"><label for="ed-field">Spécialité</label><input id="ed-field" name="field"></div>
                     <div class="flex"><div class="field grow"><label for="ed-start">Début</label><input id="ed-start" name="start_year" type="number" min="1970" max="2040"></div><div class="field grow"><label for="ed-end">Fin</label><input id="ed-end" name="end_year" type="number" min="1970" max="2040"></div></div>
+                    <label class="check"><input type="checkbox" name="in_progress" value="1"> <span>Diplôme en cours</span></label>
+                    <div class="field"><label for="ed-year">Année d'études <small class="muted">(si en cours)</small></label><input id="ed-year" name="study_year" placeholder="Ex. 3e année"></div>
                     <div class="field span-2"><label for="ed-desc">Détails</label><textarea id="ed-desc" name="description" style="min-height:80px"></textarea></div>
                     <div><button class="btn btn-primary" type="submit">Ajouter</button></div>
                 </form>

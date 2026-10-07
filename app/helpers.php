@@ -301,15 +301,15 @@ function job_types(): array
 
 function education_levels(): array
 {
+    // Échelle commune Tremplin N0-N6 (référentiel Diplômes & Équivalences)
     return [
-        0 => 'Sans diplôme',
-        1 => 'BEPC',
-        2 => 'Baccalauréat',
-        3 => 'Bac +2 (BTS, DUT)',
-        4 => 'Bac +3 (Licence)',
-        5 => 'Bac +4 (Maîtrise)',
-        6 => 'Bac +5 (Master, Ingénieur)',
-        7 => 'Doctorat',
+        0 => 'N0 · Sans diplôme',
+        1 => 'N1 · BEPC, CAP',
+        2 => 'N2 · Baccalauréat',
+        3 => 'N3 · Bac+2 (BTS, DUT, DTS)',
+        4 => 'N4 · Bac+3 (Licence)',
+        5 => 'N5 · Bac+5 (Master, ingénieur)',
+        6 => 'N6 · Bac+8 (Doctorat)',
     ];
 }
 
@@ -438,8 +438,12 @@ function app_nav(string $role): array
             ['Offres', '/admin/offres', 'briefcase-business'],
             ['Signalements', '/admin/signalements', 'flag'],
             ['Formations & certificats', '/admin/formations', 'graduation-cap'],
-            ['Référentiels', '/admin/referentiels', 'database', 'Configuration'],
-            ['Moteur de matching', '/admin/matching', 'target'],
+            ['Référentiels', '/admin/referentiels', 'database', 'Référentiels v1.1'],
+            ['File de curation', '/admin/curation', 'list-checks'],
+            ['Objectifs & seuils', '/admin/referentiels/regles', 'target'],
+            ['Versions & jeu de référence', '/admin/referentiels/versions', 'layers'],
+            ['Qualité & calibrage', '/admin/qualite', 'gauge'],
+            ['Pays, villes, secteurs', '/admin/referentiels/donnees', 'globe', 'Configuration'],
             ['Contenus', '/admin/contenus', 'book-open'],
             ['Paiements', '/admin/paiements', 'wallet'],
             ['Communications', '/admin/communications', 'mail'],

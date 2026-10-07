@@ -75,6 +75,11 @@ final class ApiController extends Controller
         $paths['/auth/login']['post'] = $def('Obtenir un jeton', 'Auth', false, $body(['login' => $s(), 'password' => $s()], ['login', 'password']));
         $paths['/jobs']['get'] = $def('Rechercher des offres', 'Offres', false, ['parameters' => array_map(fn($n) => ['name' => $n, 'in' => 'query', 'schema' => $s()], ['q', 'city', 'sector', 'type', 'page'])]);
         $paths['/jobs/{id}']['get'] = $def('Détail d\'une offre', 'Offres', false, ['parameters' => [['name' => 'id', 'in' => 'path', 'required' => true, 'schema' => $s('integer')]]]);
+        $paths['/referentials/version']['get'] = $def('Version publiée des référentiels et règles du score', 'Référentiels', false);
+        $paths['/referentials/occupations']['get'] = $def('Fiches métier (code Tremplin, ROME, ISCO-08, ESCO) et code proposé pour un intitulé', 'Référentiels', false, ['parameters' => array_map(fn($n) => ['name' => $n, 'in' => 'query', 'schema' => $s()], ['q', 'status'])]);
+        $paths['/referentials/occupations/{code}']['get'] = $def('Fiche métier complète : appellations, compétences requises (niveau, poids, bloquantes)', 'Référentiels', false, ['parameters' => [['name' => 'code', 'in' => 'path', 'required' => true, 'schema' => $s()]]]);
+        $paths['/referentials/skills']['get'] = $def('Référentiel Compétences et échelle de maîtrise', 'Référentiels', false, ['parameters' => array_map(fn($n) => ['name' => $n, 'in' => 'query', 'schema' => $s()], ['q', 'category'])]);
+        $paths['/referentials/degrees']['get'] = $def('Diplômes et échelle N0-N6', 'Référentiels', false);
         $paths['/candidates/me']['get'] = $def('Mon profil', 'Candidat');
         $paths['/candidates/me']['patch'] = $def('Mettre à jour mon profil', 'Candidat', true, $body(['headline' => $s(), 'bio' => $s(), 'desired_job' => $s(), 'phone' => $s(), 'availability_date' => $s(), 'skills' => ['type' => 'array', 'items' => ['type' => 'object', 'properties' => ['name' => $s(), 'level' => $s('integer')]]]]));
         $paths['/jobs/{id}/apply']['post'] = $def('Postuler', 'Candidat', true, $body(['cover_letter' => $s()]));
@@ -176,7 +181,7 @@ final class ApiController extends Controller
                 continue;
             }
             $sk = DB::one('SELECT id FROM skills WHERE slug = :s', ['s' => slugify($name)]);
-            $sid = $sk ? (int)$sk['id'] : DB::insert('skills', ['name' => mb_substr($name, 0, 120), 'slug' => slugify($name), 'category' => 'tech', 'aliases' => '']);
+            $sid = $sk ? (int)$sk['id'] : DB::insert('skills', ['name' => mb_substr($name, 0, 120), 'slug' => slugify($name), 'category' => 'technique', 'aliases' => '', 'status' => 'brouillon']);
             DB::run('DELETE FROM candidate_skills WHERE user_id = :u AND skill_id = :s', ['u' => $uid, 's' => $sid]);
             DB::insert('candidate_skills', ['user_id' => $uid, 'skill_id' => $sid, 'level' => max(1, min(5, (int)($s['level'] ?? 3)))]);
         }
@@ -263,6 +268,77 @@ final class ApiController extends Controller
         ], $rows)]);
     }
 
+    /* ---------- Référentiels v1.1 (lecture) : codes métier dès la création des offres ---------- */
+
+    public function refVersion(): void
+    {
+        $v = \App\Services\Referential\Versions::current();
+        json_response(['data' => $v ? ['number' => (int)$v['number'], 'label' => $v['label'], 'published_at' => $v['published_at'], 'checksum' => $v['checksum'],
+            'rules' => \App\Services\Referential\Ref::rules()] : null]);
+    }
+
+    public function occupations(): void
+    {
+        $q = trim((string)input('q', ''));
+        $params = [];
+        $where = ["o.status != 'archive'"];
+        if (isset(\App\Services\Referential\Ref::STATUSES[(string)input('status')])) {
+            $where[] = 'o.status = :st';
+            $params['st'] = (string)input('status');
+        }
+        if ($q !== '') {
+            $where[] = '(o.title LIKE :q OR o.code LIKE :q2 OR o.rome_code LIKE :q3 OR o.id IN (SELECT occupation_id FROM occupation_labels WHERE label LIKE :q4))';
+            $params += ['q' => "%$q%", 'q2' => "%$q%", 'q3' => "%$q%", 'q4' => "%$q%"];
+        }
+        $rows = DB::all('SELECT o.code, o.title, o.rome_code, o.isco_code, o.esco_uri, o.education_min, o.status, s.name AS sector FROM occupations o LEFT JOIN sectors s ON s.id = o.sector_id WHERE '
+            . implode(' AND ', $where) . ' ORDER BY o.code LIMIT 200', $params);
+        $best = $q !== '' ? \App\Services\Referential\Normalizer::occupation($q) : null;
+        json_response(['data' => $rows, 'suggestion' => $best ? ['code' => $best['code'], 'title' => $best['title'], 'confidence' => $best['confidence']] : null]);
+    }
+
+    public function occupation(string $code): void
+    {
+        $o = DB::one("SELECT o.*, s.name AS sector FROM occupations o LEFT JOIN sectors s ON s.id = o.sector_id WHERE o.code = :c AND o.status != 'archive'", ['c' => strtoupper($code)]);
+        if (!$o) {
+            json_response(['error' => 'Fiche introuvable'], 404);
+        }
+        json_response(['data' => [
+            'code' => $o['code'], 'title' => $o['title'], 'status' => $o['status'], 'revision' => (int)$o['revision'], 'sector' => $o['sector'], 'family' => $o['family'],
+            'correspondences' => ['rome' => $o['rome_code'], 'isco_08' => $o['isco_code'], 'isco_source' => $o['isco_source'], 'esco' => $o['esco_uri']],
+            'education_min' => ['level' => (int)$o['education_min'], 'label' => \App\Services\Referential\Ref::degreeLabel((int)$o['education_min'])],
+            'regulated_degree' => $o['regulated_degree'], 'languages' => json_decode((string)$o['languages'], true) ?: (object)[],
+            'related' => array_values(array_filter(explode(',', (string)$o['related']))),
+            'labels' => DB::column('SELECT label FROM occupation_labels WHERE occupation_id = :o ORDER BY label', ['o' => $o['id']]),
+            'skills' => array_map(fn($r) => ['code' => $r['code'], 'name' => $r['name'], 'level' => (int)$r['level'], 'weight' => (int)$r['weight'], 'blocking' => (bool)$r['blocking']],
+                DB::all('SELECT s.code, s.name, os.level, os.weight, os.blocking FROM occupation_skills os JOIN skills s ON s.id = os.skill_id WHERE os.occupation_id = :o ORDER BY os.blocking, os.weight DESC', ['o' => $o['id']])),
+        ]]);
+    }
+
+    public function refSkills(): void
+    {
+        $q = trim((string)input('q', ''));
+        $cat = (string)input('category', '');
+        $params = [];
+        $where = ["status != 'archive'"];
+        if ($q !== '') {
+            $where[] = '(name LIKE :q OR aliases LIKE :q2)';
+            $params += ['q' => "%$q%", 'q2' => "%$q%"];
+        }
+        if (isset(\App\Services\Referential\Ref::CATEGORIES[$cat])) {
+            $where[] = 'category = :c';
+            $params['c'] = $cat;
+        }
+        $rows = DB::all('SELECT code, name, category, definition, aliases, esco_uri, framework, credential, status FROM skills WHERE ' . implode(' AND ', $where) . ' ORDER BY name LIMIT 300', $params);
+        json_response(['data' => array_map(fn($r) => ['synonyms' => array_values(array_filter(array_map('trim', explode(',', (string)$r['aliases']))))] + array_diff_key($r, ['aliases' => 1]) + ['credential' => (bool)$r['credential']], $rows),
+            'levels' => array_map(fn($l) => ['label' => $l[0], 'criterion' => $l[1]], \App\Services\Referential\Ref::LEVELS)]);
+    }
+
+    public function degrees(): void
+    {
+        json_response(['data' => DB::all('SELECT title, level, country, recognition, to_verify FROM degrees ORDER BY level, title'),
+            'scale' => array_map(fn($l) => ['code' => $l[0], 'label' => $l[1], 'examples' => $l[2]], \App\Services\Referential\Ref::data()['levels'])]);
+    }
+
     public function cv(): void
     {
         $p = ProfileService::load(Auth::id(), true);
@@ -309,26 +385,46 @@ final class ApiController extends Controller
         $d = $this->validate([
             'title' => 'required|min:5|max:190', 'type' => 'required|in:' . implode(',', array_keys(job_types())), 'city_id' => 'required|exists:cities,id',
             'sector_id' => 'required|exists:sectors,id', 'summary' => 'required|min:20|max:300', 'description' => 'required|min:50|max:6000',
-            'education_min' => 'nullable|between:0,7', 'experience_min' => 'nullable|between:0,240', 'salary_min' => 'nullable|integer', 'salary_max' => 'nullable|integer', 'deadline' => 'nullable|date',
+            'education_min' => 'nullable|between:0,6', 'experience_min' => 'nullable|between:0,240', 'salary_min' => 'nullable|integer', 'salary_max' => 'nullable|integer', 'deadline' => 'nullable|date',
         ]);
         $status = $company['status'] === 'verified' ? 'published' : 'pending';
+        // Code métier : fourni (« occupation_code ») ou proposé par la normalisation ; à confirmer par le recruteur
+        $in = json_input();
+        $occ = !empty($in['occupation_code']) ? DB::one("SELECT id FROM occupations WHERE code = :c AND status != 'archive'", ['c' => strtoupper((string)$in['occupation_code'])]) : null;
+        $m = \App\Services\Referential\Normalizer::occupation($d['title']);
+        $occId = $occ ? (int)$occ['id'] : ($m && $m['confidence'] >= (int)\App\Services\Referential\Ref::rules()['normalization']['confirm'] ? (int)$m['id'] : null);
         $id = DB::insert('jobs', [
             'company_id' => $company['id'], 'title' => $d['title'], 'slug' => slugify($d['title']), 'type' => $d['type'], 'city_id' => (int)$d['city_id'], 'sector_id' => (int)$d['sector_id'],
             'summary' => $d['summary'], 'description' => $d['description'], 'education_min' => (int)($d['education_min'] ?? 2), 'experience_min' => (int)($d['experience_min'] ?? 0),
             'salary_min' => $d['salary_min'] ?? null, 'salary_max' => $d['salary_max'] ?? null, 'deadline' => $d['deadline'] ?? null, 'status' => $status,
             'created_by' => Auth::id(), 'published_at' => $status === 'published' ? now() : null, 'created_at' => now(), 'updated_at' => now(),
+            'occupation_id' => $occId, 'occupation_confirmed' => $occ ? 1 : 0, 'occupation_confidence' => $occ ? 100 : ($m['confidence'] ?? null),
         ]);
-        foreach (array_slice((array)(json_input()['skills'] ?? []), 0, 15) as $name) {
-            $sk = DB::one('SELECT id FROM skills WHERE slug = :s', ['s' => slugify((string)$name)]);
-            if ($sk) {
-                DB::insert('job_skills', ['job_id' => $id, 'skill_id' => $sk['id'], 'required' => 1, 'weight' => 3]);
+        $names = array_slice((array)($in['skills'] ?? []), 0, 15);
+        foreach ($names as $name) {
+            $sk = \App\Services\Referential\Normalizer::skill((string)$name);
+            if ($sk && $sk['confidence'] >= 85) {
+                DB::run('DELETE FROM job_skills WHERE job_id = :j AND skill_id = :s', ['j' => $id, 's' => $sk['id']]);
+                DB::insert('job_skills', ['job_id' => $id, 'skill_id' => $sk['id'], 'required' => 1, 'weight' => 10, 'level' => 3, 'blocking' => 0]);
+            } else {
+                \App\Services\Referential\Curation::add('competence', (string)$name, 'offre', $id, $sk);
             }
+        }
+        if (!$names && $occId) {
+            // Compétences héritées de la fiche métier
+            foreach (DB::all('SELECT skill_id, level, weight, blocking FROM occupation_skills WHERE occupation_id = :o', ['o' => $occId]) as $os) {
+                DB::insert('job_skills', ['job_id' => $id, 'skill_id' => $os['skill_id'], 'required' => !$os['blocking'] && $os['level'] >= 3 ? 1 : 0, 'weight' => $os['weight'], 'level' => $os['level'], 'blocking' => $os['blocking']]);
+            }
+        }
+        if (!$occId) {
+            \App\Services\Referential\Curation::add('appellation', $d['title'], 'offre', $id, $m);
         }
         audit('job.created', 'job', $id, ['via' => 'api']);
         if ($status === 'published') {
             NotificationService::jobAlerts($id);
         }
-        json_response(['data' => ['id' => $id, 'status' => $status, 'url' => url('/offres/' . $id)]], 201);
+        json_response(['data' => ['id' => $id, 'status' => $status, 'url' => url('/offres/' . $id),
+            'occupation' => $occId ? ['code' => DB::value('SELECT code FROM occupations WHERE id = :id', ['id' => $occId]), 'confirmed' => (bool)$occ] : null]], 201);
     }
 
     public function searchCandidates(): void

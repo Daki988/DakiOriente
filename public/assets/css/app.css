@@ -808,3 +808,28 @@ h1, h2, h3, p, .small, label, .badge { overflow-wrap: anywhere; }
 .pt-logo.lg { width: 48px; height: 48px; font-size: 1.3rem; border-radius: 14px; }
 .pt-logo.xl { width: 72px; height: 72px; font-size: 2rem; border-radius: 20px; }
 .platform-card { border-top: 4px solid var(--pc, var(--blue)); }
+
+/* ---------- Référentiels et matching explicable (v1.1) ---------- */
+.explain-box { background: var(--sky); border-radius: 14px; padding: 12px 14px; color: var(--navy); font-size: .92rem; line-height: 1.55; }
+.explain-box small { display: block; margin-top: 6px; }
+.explain-feedback { border-top: 1px dashed var(--line); padding-top: 12px; }
+.skill-row { padding: 10px 0; border-bottom: 1px solid var(--line-2); }
+.skill-row.pending { background: #fffaf0; border-radius: 10px; padding: 10px; }
+.skill-row .level-dots { vertical-align: middle; margin-right: 4px; }
+.ref-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.ref-stat { background: var(--card, #fff); border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+.ref-stat b { display: block; font-size: 1.5rem; color: var(--navy); line-height: 1.1; }
+.ref-stat small { color: var(--muted); }
+.ref-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+.ref-tabs a { padding: 8px 12px; border-radius: 999px; background: var(--line-2); color: var(--navy); font-weight: 600; font-size: .86rem; text-decoration: none; }
+.ref-tabs a.on { background: var(--navy); color: #fff; }
+.kpi-row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) 110px 110px; gap: 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line-2); font-size: .9rem; }
+.kpi-row .kpi-val { font-weight: 800; color: var(--navy); font-variant-numeric: tabular-nums; }
+.kpi-ok { color: #0b7a3b; } .kpi-ko { color: #b42324; } .kpi-na { color: var(--muted); }
+.occ-skill { display: grid; grid-template-columns: minmax(0, 1fr) 90px 80px 90px 36px; gap: 8px; align-items: center; }
+.target-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--sky); color: var(--navy); border-radius: 999px; padding: 6px 12px; font-weight: 600; font-size: .86rem; }
+@media (max-width: 640px) {
+    .kpi-row { grid-template-columns: 1fr 1fr; }
+    .kpi-row > :nth-child(2) { grid-column: 1 / -1; order: 3; }
+    .occ-skill { grid-template-columns: 1fr 1fr; }
+}

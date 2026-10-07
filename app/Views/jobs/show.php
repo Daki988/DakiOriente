@@ -76,17 +76,20 @@ $langs = array_filter(array_map('trim', explode(',', (string)$job['languages']))
                             if ($match) {
                                 $missingIds = array_column($match['missing_skills'], 'id');
                             }
+                            $levelsBySkill = $match ? array_column($match['skill_items'], null, 'id') : [];
                             foreach ($job['skills'] as $s):
-                                $ok = $match ? !in_array($s['id'], $missingIds, false) : null; ?>
-                                <span class="tag <?= $ok === true ? 'ok' : ($ok === false ? 'miss' : '') ?>"><?= $ok === true ? icon('check') : ($ok === false ? icon('plus') : '') ?><?= e($s['name']) ?><?= $s['required'] ? ' <b title="Compétence clé">★</b>' : '' ?></span>
+                                $it = $levelsBySkill[(int)$s['id']] ?? null;
+                                $ok = $match && !(int)$s['blocking'] ? ($it && $it['value'] >= 1) : null; ?>
+                                <span class="tag <?= $ok === true ? 'ok' : ($ok === false ? 'miss' : '') ?>"><?= $ok === true ? icon('check') : ($ok === false ? icon('plus') : '') ?><?= (int)$s['blocking'] ? icon('lock') : '' ?><?= e($s['name']) ?> <small>niv. <?= (int)$s['level'] ?></small><?= $s['required'] && !(int)$s['blocking'] ? ' <b title="Compétence clé">★</b>' : '' ?></span>
                             <?php endforeach; ?>
                         </div>
-                        <?php if ($match): ?><p class="small muted mt-1"><?= icon('check') ?> maîtrisée · <?= icon('plus') ?> à acquérir · ★ compétence clé</p><?php endif; ?>
+                        <p class="small muted mt-1"><?php if ($match): ?><?= icon('check') ?> au niveau attendu · <?= icon('plus') ?> à acquérir ou renforcer · <?php endif; ?>★ compétence clé · <?= icon('lock') ?> prérequis indispensable · niveaux 1 Notions à 4 Expert</p>
+                        <?php if (!empty($job['occupation_code'])): ?><p class="small mt-1"><span class="badge badge-gray"><?= e($job['occupation_code']) ?></span> Fiche métier : <?= e($job['occupation_title']) ?></p><?php endif; ?>
                     </div>
                     <div class="stack-sm small">
                         <div><b>Niveau d'études :</b> <?= e($levels[(int)$job['education_min']] ?? '') ?> minimum<?= $job['education_eliminatory'] ? ' <span class="badge badge-red">obligatoire</span>' : '' ?></div>
                         <div><b>Expérience :</b> <?= $job['experience_min'] ? e(App\Services\MatchingEngine::monthsLabel((int)$job['experience_min'])) : 'Débutant·e accepté·e' ?></div>
-                        <?php if ($langs): ?><div><b>Langues :</b> <?= e(implode(', ', array_map(fn($l) => str_replace(':', ' (', $l) . ')', $langs))) ?></div><?php endif; ?>
+                        <?php if ($langs): ?><div><b>Langues :</b> <?= e(implode(', ', array_map(fn($l) => str_replace(':', ' (', $l) . ')', $langs))) ?><?php if (!empty($job['languages_blocking'])): ?> <span class="badge badge-red">obligatoire : <?= e($job['languages_blocking']) ?></span><?php endif; ?></div><?php endif; ?>
                         <?php if ($job['soft_skills']): ?><div><b>Qualités :</b> <?= e(str_replace(',', ', ', $job['soft_skills'])) ?></div><?php endif; ?>
                         <?php if ($job['deadline']): ?><div><b>Date limite :</b> <?= e(date_fr($job['deadline'])) ?></div><?php endif; ?>
                         <div><b>Publiée :</b> <?= e(time_ago($job['published_at'])) ?></div>
@@ -124,8 +127,11 @@ $langs = array_filter(array_map('trim', explode(',', (string)$job['languages']))
 
         <aside class="stack">
             <?php if ($match): ?>
-                <div class="card card-lg" style="position:sticky;top:90px">
-                    <?= App\Core\View::partial('partials/match_explain', ['match' => $match, 'showActions' => true]) ?>
+                <div class="card card-lg" id="adequation">
+                    <?= App\Core\View::partial('partials/match_explain', ['match' => $match, 'showActions' => true, 'explanation' => $explanation, 'jobId' => (int)$job['id'], 'feedback' => $feedback]) ?>
+                    <?php if ($explanation && $explanation['provider'] !== 'Claude' && App\Services\Ai\AiService::claudeConfigured()): ?>
+                        <form method="post" action="<?= e(url('/espace/offres/' . (int)$job['id'] . '/explication')) ?>" class="mt-2"><?= csrf_field() ?><button class="btn btn-ghost btn-sm" type="submit"><?= icon('sparkles') ?> Reformuler l'explication avec Claude</button></form>
+                    <?php endif; ?>
                 </div>
             <?php elseif (!$u): ?>
                 <div class="card card-lg text-center">

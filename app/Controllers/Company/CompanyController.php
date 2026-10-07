@@ -8,6 +8,9 @@ use App\Core\DB;
 use App\Core\Validator;
 use App\Services\MatchingEngine;
 use App\Services\NotificationService;
+use App\Services\Referential\Curation;
+use App\Services\Referential\Normalizer;
+use App\Services\Referential\Ref;
 
 class CompanyController extends Controller
 {
@@ -108,9 +111,29 @@ class CompanyController extends Controller
         return [
             'sectors' => DB::all('SELECT id, name FROM sectors ORDER BY name'),
             'cities'  => DB::all("SELECT ci.id, ci.name, co.name AS country FROM cities ci JOIN countries co ON co.id = ci.country_id ORDER BY co.code = 'GA' DESC, co.name, ci.name"),
-            'skills'  => DB::all("SELECT id, name FROM skills WHERE category = 'tech' ORDER BY name"),
-            'softs'   => DB::all("SELECT id, name FROM skills WHERE category = 'soft' ORDER BY name"),
+            'skills'  => DB::all("SELECT id, name, category, credential FROM skills WHERE category != 'linguistique' ORDER BY name"),
+            'softs'   => DB::all("SELECT id, name FROM skills WHERE category = 'comportementale' ORDER BY name"),
+            'occupations' => DB::all("SELECT o.id, o.code, o.title, s.name AS sector FROM occupations o LEFT JOIN sectors s ON s.id = o.sector_id WHERE o.status != 'archive' ORDER BY s.name, o.title"),
         ];
+    }
+
+    /** Code métier proposé automatiquement pour un intitulé ; le recruteur le confirme (§4). */
+    public function suggestOccupation(): void
+    {
+        $m = Normalizer::occupation((string)input('titre', ''));
+        json_response(['suggestion' => $m && $m['confidence'] >= (int)Ref::rules()['normalization']['confirm'] ? $m : null]);
+    }
+
+    /** Fiche métier : compétences requises (niveau, poids, bloquantes), niveau d'accès, langues, diplôme réglementé. */
+    public function occupationSheet(string $id): void
+    {
+        $o = DB::one("SELECT * FROM occupations WHERE id = :id AND status != 'archive'", ['id' => (int)$id]);
+        if (!$o) {
+            json_response(['error' => 'Fiche introuvable'], 404);
+        }
+        $skills = DB::all('SELECT os.skill_id, os.level, os.weight, os.blocking, s.name FROM occupation_skills os JOIN skills s ON s.id = os.skill_id WHERE os.occupation_id = :o ORDER BY os.blocking, os.weight DESC', ['o' => $o['id']]);
+        json_response(['id' => (int)$o['id'], 'code' => $o['code'], 'title' => $o['title'], 'education_min' => (int)$o['education_min'],
+            'regulated' => $o['regulated_degree'], 'languages' => json_decode((string)$o['languages'], true) ?: [], 'skills' => $skills]);
     }
 
     public function createJob(): string
@@ -123,7 +146,7 @@ class CompanyController extends Controller
     public function editJob(string $id): string
     {
         $job = $this->ownJob((int)$id);
-        $jobSkills = DB::all('SELECT skill_id, required, weight FROM job_skills WHERE job_id = :j', ['j' => $job['id']]);
+        $jobSkills = DB::all("SELECT js.skill_id, js.required, js.weight, js.level, js.blocking FROM job_skills js JOIN skills s ON s.id = js.skill_id WHERE js.job_id = :j AND s.category != 'comportementale' ORDER BY js.blocking, js.weight DESC", ['j' => $job['id']]);
         return $this->app('company/job_form', $this->formRefs() + ['c' => $this->company(), 'job' => $job, 'jobSkills' => $jobSkills, 'title' => 'Modifier l\'offre']);
     }
 
@@ -133,7 +156,7 @@ class CompanyController extends Controller
             'title' => 'required|min:5|max:190', 'type' => 'required|in:' . implode(',', array_keys(job_types())),
             'sector_id' => 'required|exists:sectors,id', 'city_id' => 'required|exists:cities,id', 'remote' => 'required|in:0,1,2',
             'summary' => 'required|min:20|max:300', 'description' => 'required|min:50|max:6000', 'missions' => 'nullable|max:4000', 'profile' => 'nullable|max:4000',
-            'education_min' => 'required|between:0,7', 'experience_min' => 'required|between:0,240',
+            'education_min' => 'required|between:0,6', 'experience_min' => 'required|between:0,240',
             'salary_min' => 'nullable|between:0,100000000', 'salary_max' => 'nullable|between:0,100000000',
             'duration' => 'nullable|max:60', 'start_date' => 'nullable|date', 'deadline' => 'nullable|date', 'positions' => 'required|between:1,100',
             'apply_mode' => 'required|in:internal,external', 'external_url' => 'nullable|url|max:255',
@@ -143,20 +166,30 @@ class CompanyController extends Controller
             back();
         }
         $langs = [];
+        $langBlock = [];
         foreach ((array)($_POST['lang_name'] ?? []) as $i => $n) {
             $n = trim(str_replace([':', ','], '', (string)$n));
             $l = (string)($_POST['lang_level'][$i] ?? 'B1');
             if ($n !== '' && isset(language_levels()[$l])) {
                 $langs[] = "$n:$l";
+                if (!empty($_POST['lang_block'][$i])) {
+                    $langBlock[] = $n;
+                }
             }
         }
+        $occ = (int)input('occupation_id', 0);
+        $occ = $occ && DB::value("SELECT id FROM occupations WHERE id = :id AND status != 'archive'", ['id' => $occ]) ? $occ : null;
+        $match = Normalizer::occupation($d['title']);
         $soft = array_values(array_filter(array_map('trim', (array)($_POST['soft'] ?? []))));
         return $d + [
-            'languages' => implode(',', $langs), 'soft_skills' => implode(',', array_slice($soft, 0, 6)),
+            'languages' => implode(',', $langs), 'soft_skills' => implode(',', array_slice($soft, 0, 6)), 'languages_blocking' => implode(',', $langBlock) ?: null,
             'education_eliminatory' => input('education_eliminatory') ? 1 : 0, 'slug' => slugify($d['title']),
+            'occupation_id' => $occ, 'occupation_confirmed' => $occ && input('occupation_confirmed') ? 1 : 0,
+            'occupation_confidence' => $occ && $match && (int)$match['id'] === $occ ? $match['confidence'] : null,
         ];
     }
 
+    /** Compétences de l'offre : héritées de la fiche métier, niveaux et poids ajustés par le recruteur (§4). */
     private function syncSkills(int $jobId): void
     {
         DB::delete('job_skills', 'job_id = :j', ['j' => $jobId]);
@@ -167,11 +200,31 @@ class CompanyController extends Controller
                 continue;
             }
             $seen[$sid] = true;
+            $level = max(1, min(4, (int)($_POST['skill_level'][$i] ?? 3)));
+            $blocking = !empty($_POST['skill_blocking'][$i]) ? 1 : 0;
             DB::insert('job_skills', [
-                'job_id' => $jobId, 'skill_id' => $sid,
-                'required' => ($_POST['skill_required'][$i] ?? '0') === '1' ? 1 : 0,
-                'weight' => max(1, min(5, (int)($_POST['skill_weight'][$i] ?? 3))),
+                'job_id' => $jobId, 'skill_id' => $sid, 'level' => $level, 'blocking' => $blocking,
+                'required' => !$blocking && $level >= 3 ? 1 : 0,
+                'weight' => $blocking ? 0 : max(1, min(100, (int)($_POST['skill_weight'][$i] ?? 10))),
             ]);
+        }
+        // Qualités cochées : compétences comportementales de l'offre (niveau 2, poids léger)
+        foreach (array_values(array_filter(array_map('trim', (array)($_POST['soft'] ?? [])))) as $name) {
+            $sid = (int)DB::value("SELECT id FROM skills WHERE name = :n AND category = 'comportementale'", ['n' => $name]);
+            if ($sid && !isset($seen[$sid])) {
+                $seen[$sid] = true;
+                DB::insert('job_skills', ['job_id' => $jobId, 'skill_id' => $sid, 'level' => 2, 'blocking' => 0, 'required' => 0, 'weight' => 5]);
+            }
+        }
+    }
+
+    /** Intitulé non reconnu avec assez de confiance : file de curation, avec le code choisi par le recruteur comme suggestion. */
+    private function curateTitle(int $jobId, array $d): void
+    {
+        $m = Normalizer::occupation($d['title']);
+        if (!$m || $m['confidence'] < (int)Ref::rules()['normalization']['auto'] || ($d['occupation_id'] && (int)$m['id'] !== (int)$d['occupation_id'])) {
+            $chosen = $d['occupation_id'] ? DB::one('SELECT code, title FROM occupations WHERE id = :id', ['id' => $d['occupation_id']]) : null;
+            Curation::add('appellation', $d['title'], 'offre', $jobId, $chosen ? $chosen + ['choisi_par' => 'recruteur'] : ($m ?: Normalizer::romeFor($d['title'])), [], $this->uid());
         }
     }
 
@@ -193,6 +246,7 @@ class CompanyController extends Controller
             $this->syncSkills($id);
             return $id;
         });
+        $this->curateTitle($id, $d);
         audit('job.created', 'job', $id, ['status' => $status]);
         $this->afterPublish($id, $status);
         redirect($status === 'draft' ? '/entreprise/offres' : '/entreprise/offres/' . $id . '/matching');
@@ -211,6 +265,9 @@ class CompanyController extends Controller
             DB::update('jobs', $d + ['status' => $status, 'updated_at' => now(), 'published_at' => $status === 'published' ? ($job['published_at'] ?: now()) : $job['published_at']], 'id = :id', ['id' => $job['id']]);
             $this->syncSkills((int)$job['id']);
         });
+        if ($d['title'] !== $job['title'] || (int)$d['occupation_id'] !== (int)$job['occupation_id']) {
+            $this->curateTitle((int)$job['id'], $d);
+        }
         MatchingEngine::forget((int)$job['id']);
         audit('job.updated', 'job', (int)$job['id']);
         if ($status !== $job['status']) {
@@ -249,7 +306,7 @@ class CompanyController extends Controller
         $copy['created_at'] = $copy['updated_at'] = now();
         $newId = DB::insert('jobs', $copy);
         foreach (DB::all('SELECT * FROM job_skills WHERE job_id = :j', ['j' => $job['id']]) as $s) {
-            DB::insert('job_skills', ['job_id' => $newId, 'skill_id' => $s['skill_id'], 'required' => $s['required'], 'weight' => $s['weight']]);
+            DB::insert('job_skills', ['job_id' => $newId, 'skill_id' => $s['skill_id'], 'required' => $s['required'], 'weight' => $s['weight'], 'level' => $s['level'], 'blocking' => $s['blocking']]);
         }
         audit('job.duplicated', 'job', $newId, ['from' => $job['id']]);
         flash('success', 'Offre dupliquée en brouillon.');

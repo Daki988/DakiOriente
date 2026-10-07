@@ -5,7 +5,7 @@ $planned ??= [];
 ?>
 <section class="card card-lg" id="combler">
     <div class="card-title">
-        <div><h2 style="font-size:1.25rem;margin:0"><?= icon('route') ?> Combler l'écart pour ce poste</h2><p class="small muted mb-0">Gains mesurés par le moteur de matching sur ton profil.</p></div>
+        <div><h2 style="font-size:1.25rem;margin:0"><?= icon('route') ?> Combler l'écart pour ce poste</h2><p class="small muted mb-0">Gains mesurés par le moteur de matching sur ton profil. Au plus trois formations par écart, la gratuite d'abord quand elle existe.</p></div>
         <?php if ($plan['potential'] > $plan['score']): ?><div class="gap-mini"><span><?= (int)$plan['score'] ?> %</span><?= icon('arrow-right') ?><b><?= (int)$plan['potential'] ?> %</b></div><?php endif; ?>
     </div>
     <?php if (!$plan['gaps']): ?>
@@ -22,7 +22,7 @@ $planned ??= [];
                         </div>
                         <?php if ($g['gain']): ?><div class="gap-gain sm"><b>+<?= (int)$g['gain'] ?></b><span>pts</span></div><?php endif; ?>
                     </div>
-                    <?php $recos = array_slice(array_values(array_filter($g['recos'], fn($r) => $r['kind'] !== 'action' || $g['type'] !== 'skill')), 0, 2); ?>
+                    <?php $recos = array_slice(array_values(array_filter($g['recos'], fn($r) => $r['kind'] !== 'action' || !in_array($g['type'], ['skill', 'level'], true))), 0, in_array($g['type'], ['skill', 'level'], true) ? 4 : 2); ?>
                     <?php if ($recos): ?>
                         <ul class="reco-list mt-1">
                             <?php foreach ($recos as $r): ?><?= App\Core\View::partial('partials/reco_item', ['r' => $r, 'gapKey' => $g['key'], 'planned' => $planned, 'canPlan' => true]) ?><?php endforeach; ?>

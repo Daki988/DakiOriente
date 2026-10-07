@@ -28,8 +28,23 @@ final class TrainingSync
      * @param iterable<array> $rows  voir Connector ; 'skills' (liste de noms) peut être fourni, sinon il est détecté
      * @param int $perSkill nombre maximum de formations gardées par compétence principale (0 = sans limite)
      */
+    private static function hasTable(): bool
+    {
+        static $ok = null;
+        if ($ok === null) {
+            try {
+                DB::value('SELECT COUNT(*) FROM training_skills');
+                $ok = true;
+            } catch (\Throwable) {
+                $ok = false;
+            }
+        }
+        return $ok;
+    }
+
     public static function import(string $platformSlug, iterable $rows, string $source = 'import', int $perSkill = 0): array
     {
+        $catalogDate = null;
         $platform = DB::one('SELECT * FROM learning_platforms WHERE slug = :s', ['s' => $platformSlug]);
         if (!$platform) {
             throw new \InvalidArgumentException("Plateforme inconnue : $platformSlug");
@@ -50,15 +65,27 @@ final class TrainingSync
                 'url' => mb_substr((string)$r['url'], 0, 255), 'description' => $r['description'] ?? null, 'platform_id' => (int)$platform['id'],
                 'language' => $r['language'], 'certificate' => in_array($r['certificate'] ?? '', ['gratuit', 'payant', 'badge', 'aucun', 'variable'], true) ? $r['certificate'] : 'variable',
                 'external_id' => mb_substr((string)$ext, 0, 120), 'source' => $source, 'active' => 1, 'next_session' => $r['next_session'] ?? null, 'updated_at' => now(),
+                // Vérification : la synchronisation ou l'import confirme le lien ; la sélection initiale garde sa date de constitution
+                'verified_at' => $source === 'catalogue' ? (($catalogDate ??= ((require BASE_PATH . '/database/learning.php')['verified_at'] ?? date('Y-m-d'))) . ' 00:00:00') : now(),
+                'link_status' => 'ok',
             ];
             $existing = DB::value('SELECT id FROM trainings WHERE platform_id = :p AND (external_id = :e OR url = :u)', ['p' => $platform['id'], 'e' => $data['external_id'], 'u' => $data['url']]);
             if ($existing) {
                 DB::update('trainings', $data, 'id = :id', ['id' => $existing]);
-                $ids[] = (int)$existing;
+                $tid = (int)$existing;
                 $updated++;
             } else {
-                $ids[] = DB::insert('trainings', $data);
+                $tid = DB::insert('trainings', $data);
                 $added++;
+            }
+            $ids[] = $tid;
+            // Référentiel Formations : compétences développées et niveau atteint
+            if (self::hasTable()) {
+                DB::delete('training_skills', 'training_id = :t', ['t' => $tid]);
+                $reached = \App\Services\Referential\Loader::levelReached($data['level'], $data['certificate']);
+                foreach (array_unique(array_filter(array_map(fn($n) => $skillIds[$n] ?? null, $r['skills']))) as $sid) {
+                    DB::insert('training_skills', ['training_id' => $tid, 'skill_id' => $sid, 'level_reached' => $reached]);
+                }
             }
         }
         // Les formations d'une synchronisation précédente qui n'existent plus sont masquées (jamais supprimées : historique des candidats)

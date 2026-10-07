@@ -10,6 +10,8 @@ declare(strict_types=1);
  * Cours : [titre, chemin ou URL, langue, organisme, durée, certificat (gratuit|payant|badge|aucun|variable), niveau, compétences]
  */
 return [
+    // Date de vérification des liens et informations de la sélection initiale (référentiel Formations, §6)
+    'verified_at' => '2026-10-05',
     'platforms' => [
         'coursera' => [
             'name' => 'Coursera', 'url' => 'https://www.coursera.org', 'color' => '#0056D2', 'languages' => 'fr,en', 'pricing' => 'freemium', 'connector' => 'coursera',

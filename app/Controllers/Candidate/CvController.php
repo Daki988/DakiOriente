@@ -304,7 +304,7 @@ final class CvController extends Controller
         foreach ($import['skills'] as $s) {
             if (in_array((int)$s['id'], $chosen, true)) {
                 DB::run('DELETE FROM candidate_skills WHERE user_id = :u AND skill_id = :s', ['u' => $this->uid(), 's' => $s['id']]);
-                DB::insert('candidate_skills', ['user_id' => $this->uid(), 'skill_id' => $s['id'], 'level' => $s['category'] === 'soft' ? 4 : 3]);
+                DB::insert('candidate_skills', ['user_id' => $this->uid(), 'skill_id' => $s['id'], 'level' => 3, 'proof' => 'aucune', 'source' => 'cv', 'confidence' => 100, 'confirmed' => 1, 'updated_at' => now()]);
                 $added++;
             }
         }

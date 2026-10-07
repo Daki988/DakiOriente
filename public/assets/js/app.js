@@ -180,6 +180,45 @@
     });
   }
 
+  /* Offre : code métier proposé à partir de l'intitulé, compétences reprises de la fiche métier (référentiel v1.1) */
+  const occ = $('[data-occ-form]');
+  if (occ) {
+    const sel = $('#occupation_id'), title = $('#title'), hint = $('[data-occ-hint]', occ);
+    const confirmBox = $('input[name="occupation_confirmed"]', occ);
+    let timer = null;
+    const suggest = () => {
+      const t = (title.value || '').trim();
+      if (t.length < 4 || (confirmBox && confirmBox.checked)) return;
+      fetch(occ.dataset.suggest + '?titre=' + encodeURIComponent(t), { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(r => r.json()).then(d => {
+          if (!d.suggestion) { hint.textContent = 'Aucun code évident : choisis la fiche la plus proche, l\'intitulé sera examiné par l\'équipe de curation.'; return; }
+          sel.value = String(d.suggestion.id);
+          hint.textContent = 'Code proposé : ' + d.suggestion.code + ' (' + d.suggestion.title + ', indice de confiance ' + d.suggestion.confidence + ' %). Vérifie-le puis confirme.';
+        }).catch(() => {});
+    };
+    title && title.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(suggest, 600); });
+    if (title && !sel.value) suggest();
+    const fill = $('[data-occ-fill]', occ);
+    fill && fill.addEventListener('click', () => {
+      if (!sel.value) { window.tremplinToast('Choisis d\'abord une fiche métier.', 'warning'); return; }
+      fetch(occ.dataset.sheet + '/' + sel.value + '/fiche', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(r => r.json()).then(d => {
+          const rows = $$('[data-occ-rows] tbody tr', occ);
+          d.skills.forEach((s, i) => {
+            const tr = rows[i]; if (!tr) return;
+            $('select[name="skill_id[]"]', tr).value = String(s.skill_id);
+            $('select[name="skill_level[]"]', tr).value = String(s.level);
+            $('input[name="skill_weight[]"]', tr).value = String(Math.max(1, s.weight || 1));
+            $('select[name="skill_blocking[]"]', tr).value = s.blocking ? '1' : '0';
+          });
+          rows.slice(d.skills.length).forEach(tr => { $('select[name="skill_id[]"]', tr).value = ''; });
+          const edu = $('#education_min'); if (edu) edu.value = String(d.education_min);
+          const elim = $('input[name="education_eliminatory"]'); if (elim && d.regulated) elim.checked = true;
+          window.tremplinToast(d.skills.length + ' compétences reprises de la fiche ' + d.code + ' : ajuste les niveaux et les poids si besoin.');
+        }).catch(() => window.tremplinToast('Fiche indisponible pour le moment.', 'error'));
+    });
+  }
+
   /* Paiement : relance automatique du statut */
   const pay = $('[data-poll-payment]');
   if (pay) setTimeout(() => window.location.reload(), 6000);

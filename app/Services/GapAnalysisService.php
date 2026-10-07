@@ -198,126 +198,45 @@ final class GapAnalysisService
     private static function detect(array $p, array $job, array $match): array
     {
         $gaps = [];
-        $c = $match['criteria'];
-
-        // Compétences absentes
-        foreach ($match['missing_skills'] as $s) {
-            $gaps[] = [
-                'key' => 'skill:' . $s['id'], 'type' => 'skill', 'ref' => (int)$s['id'], 'name' => $s['name'],
-                'label' => 'Acquérir « ' . $s['name'] . ' »',
-                'detail' => $s['required'] ? 'Compétence clé : elle compte double dans le calcul du score.' : 'Compétence appréciée par les recruteurs.',
-                'severity' => $s['required'] ? 'important' : 'bonus',
-                'apply' => function (array $q) use ($s) {
-                    $q['skills'][] = ['id' => $s['id'], 'name' => $s['name'], 'slug' => '', 'category' => 'tech', 'level' => 3];
+        // Prérequis bloquants d'abord : tant qu'ils manquent, le verdict reste « Prérequis manquant »
+        foreach ($match['blocking'] ?? [] as $b) {
+            $g = ['key' => 'block:' . $b['type'] . ':' . normalize((string)$b['ref']), 'type' => $b['type'] === 'skill' ? 'skill' : ($b['type'] === 'language' ? 'language' : 'education'),
+                'ref' => $b['ref'], 'name' => $b['label'], 'severity' => 'bloquant', 'expected' => $b['type'] === 'skill' ? 1 : null, 'current' => 0,
+                'label' => 'Prérequis : ' . $b['label'], 'detail' => ucfirst($b['detail']) . '. Sans ce prérequis, la candidature ne peut pas être retenue, quel que soit le score.'];
+            $g['apply'] = function (array $q) use ($b) {
+                if ($b['type'] === 'skill') {
+                    return MatchingEngine::closeGap($q, ['type' => 'skill', 'ref' => $b['ref'], 'name' => $b['label'], 'expected' => 1]) ?? $q;
+                }
+                if ($b['type'] === 'language') {
+                    $q['languages_list'][] = ['name' => $b['ref'], 'level' => 'C1'];
                     return $q;
-                },
-            ];
+                }
+                $q['educations'][] = ['degree' => $b['label'], 'field' => '', 'in_progress' => 0, 'level' => (int)$b['ref']];
+                $q['education_level'] = max((int)$q['education_level'], (int)$b['ref']);
+                return $q;
+            };
+            $gaps[] = $g;
         }
-        // Compétences présentes mais à un niveau insuffisant
-        $levels = [];
-        foreach ($p['skills'] as $s) {
-            $levels[(int)$s['id']] = (int)$s['level'];
-        }
-        foreach ($job['skills'] as $s) {
-            $lvl = $levels[(int)$s['id']] ?? 0;
-            if ($lvl > 0 && $lvl < 3) {
-                $gaps[] = [
-                    'key' => 'level:' . $s['id'], 'type' => 'level', 'ref' => (int)$s['id'], 'name' => $s['name'],
-                    'label' => 'Approfondir « ' . $s['name'] . ' »',
-                    'detail' => 'Ton niveau actuel : ' . ($lvl === 1 ? 'notions' : 'débutant') . '. À partir du niveau intermédiaire, prouvé par une certification ou un projet, la compétence compte pleinement dans le score.',
-                    'severity' => (int)$s['required'] ? 'important' : 'bonus',
-                    'apply' => function (array $q) use ($s) {
-                        foreach ($q['skills'] as &$x) {
-                            if ((int)$x['id'] === (int)$s['id']) {
-                                $x['level'] = 3;
-                            }
-                        }
-                        return $q;
-                    },
-                ];
-            }
-        }
-        // Langues
-        $have = [];
-        foreach ($p['languages_list'] as $l) {
-            $have[normalize($l['name'] ?? '')] = MatchingEngine::LANG_LEVELS[$l['level'] ?? 'B1'] ?? 3;
-        }
-        $names = array_flip(MatchingEngine::LANG_LEVELS);
-        foreach (MatchingEngine::parseLangs((string)$job['languages']) as $name => $lvl) {
-            $cur = $have[normalize($name)] ?? 0;
-            if ($cur >= $lvl) {
-                continue;
-            }
-            $target = $names[$lvl] ?? 'B1';
-            $gaps[] = [
-                'key' => 'lang:' . normalize($name), 'type' => 'language', 'ref' => null, 'name' => $name,
-                'label' => ucfirst($name) . ' : viser le niveau ' . $target,
-                'detail' => $cur ? 'Ton niveau actuel : ' . ($names[$cur] ?? '?') . '. L\'offre demande ' . $target . '.' : 'Langue demandée par l\'offre et absente de ton profil (niveau ' . $target . ' attendu).',
-                'severity' => 'important',
-                'apply' => function (array $q) use ($name, $target) {
-                    $found = false;
-                    foreach ($q['languages_list'] as &$l) {
-                        if (normalize($l['name'] ?? '') === normalize($name)) {
-                            $l['level'] = $target;
-                            $found = true;
-                        }
-                    }
-                    unset($l);
-                    if (!$found) {
-                        $q['languages_list'][] = ['name' => $name, 'level' => $target];
-                    }
-                    return $q;
-                },
-            ];
-        }
-        // Niveau d'études
-        if ($p['education_level'] < (int)$job['education_min']) {
-            $req = (int)$job['education_min'];
-            $gaps[] = [
-                'key' => 'edu:' . $req, 'type' => 'education', 'ref' => $req, 'name' => education_levels()[$req] ?? '',
-                'label' => 'Niveau d\'études : ' . (education_levels()[$req] ?? '') . ' attendu',
-                'detail' => (int)$job['education_eliminatory'] ? 'Exigence éliminatoire pour cette offre : sans ce niveau, la candidature est rarement retenue.' : 'Le niveau demandé est supérieur au tien, mais l\'offre reste ouverte : tes compétences peuvent compenser.',
-                'severity' => (int)$job['education_eliminatory'] ? 'bloquant' : 'important',
-                'apply' => fn(array $q) => ['education_level' => $req] + $q,
-            ];
-        }
-        // Expérience
-        $min = (int)$job['experience_min'];
-        if ($c['experience']['ratio'] < 1) {
-            $gaps[] = [
-                'key' => $min ? 'exp:' . $min : 'exp:0', 'type' => 'experience', 'ref' => $min, 'name' => 'Expérience',
-                'label' => $min ? 'Expérience : ' . MatchingEngine::monthsLabel($min) . ' attendue' : 'Une première expérience ou un projet concret',
-                'detail' => $c['experience']['detail'] . '. Les stages, projets et engagements associatifs comptent aussi.',
-                'severity' => $min ? 'important' : 'bonus',
-                'apply' => fn(array $q) => ['experience_months' => max($min, 1)] + $q,
-            ];
-        }
-        // Qualités recherchées
-        $req = array_filter(array_map('trim', explode(',', (string)$job['soft_skills'])));
-        $mine = array_map('normalize', $p['soft_list']);
-        $missing = array_values(array_filter($req, fn($x) => !in_array(normalize($x), $mine, true)));
-        if ($missing) {
-            $gaps[] = [
-                'key' => 'soft:' . normalize(implode(' ', $missing)), 'type' => 'soft', 'ref' => null, 'name' => implode(', ', $missing),
-                'label' => 'Mettre en avant : ' . implode(', ', $missing),
-                'detail' => 'Qualités recherchées par le recruteur, absentes de ton profil. Tu les as peut-être déjà : il faut surtout les prouver.',
-                'severity' => 'bonus',
-                'apply' => function (array $q) use ($missing) {
-                    $q['soft_list'] = array_merge($q['soft_list'], $missing);
-                    return $q;
-                },
-            ];
-        }
-        // Mobilité
-        if ($c['location']['ratio'] < 0.5 && (int)$job['remote'] === 0 && $p['city_id']) {
-            $abroad = (int)$p['country_id'] !== (int)$job['country_id'];
-            $gaps[] = [
-                'key' => 'mob:' . ($abroad ? 'international' : 'national'), 'type' => 'mobility', 'ref' => null, 'name' => $job['city_name'],
-                'label' => 'Mobilité : poste à ' . $job['city_name'],
-                'detail' => $c['location']['detail'] . '. Si tu es prêt·e à déménager, indique-le dans ton profil.',
-                'severity' => 'bonus',
-                'apply' => fn(array $q) => ['mobility' => $abroad ? 'international' : 'national'] + $q,
-            ];
+        foreach ($match['gap_items'] ?? [] as $gi) {
+            $sev = match ($gi['type']) {
+                'skill', 'level' => (int)$gi['expected'] >= 3 ? 'important' : 'bonus',
+                'education', 'language' => 'important',
+                'experience' => (int)$gi['expected'] > 0 ? 'important' : 'bonus',
+                default => 'bonus',
+            };
+            $label = match ($gi['type']) {
+                'skill' => 'Acquérir « ' . $gi['name'] . ' »',
+                'level' => ($gi['capped'] ?? false) ? 'Prouver ton niveau en « ' . $gi['name'] . ' »' : 'Approfondir « ' . $gi['name'] . ' »',
+                'education' => 'Niveau d\'études : ' . \App\Services\Referential\Ref::degreeLabel((int)$gi['expected']) . ' attendu',
+                'domain' => 'Domaine d\'études à rapprocher du poste',
+                'experience' => (int)$gi['expected'] ? 'Expérience : ' . MatchingEngine::monthsLabel((int)$gi['expected']) . ' attendus' : 'Une première expérience ou un projet en lien',
+                'language' => ucfirst($gi['name']) . ' : viser le niveau ' . (array_flip(MatchingEngine::LANG_LEVELS)[$gi['expected']] ?? 'B1'),
+                'cv' => 'Renforcer la qualité de ton CV',
+                default => 'Mobilité et disponibilité',
+            };
+            $gaps[] = ['key' => $gi['key'], 'type' => $gi['type'], 'ref' => $gi['ref'], 'name' => $gi['name'], 'severity' => $sev, 'label' => $label,
+                'expected' => $gi['expected'], 'current' => $gi['current'], 'detail' => $gi['text'] . '.',
+                'apply' => fn(array $q) => MatchingEngine::closeGap($q, $gi) ?? $q];
         }
         return $gaps;
     }
@@ -330,9 +249,11 @@ final class GapAnalysisService
         switch ($g['type']) {
             case 'skill':
             case 'level':
-                // D'abord se former (cours en ligne), puis prouver (certification), puis pratiquer (projet)
-                foreach (\App\Services\Training\TrainingCatalog::forSkill($g['name'], 2) as $t) {
-                    $out[] = self::trainingReco($t);
+                // D'abord se former (au plus 3 formations reliées à cet écart précis), puis prouver (certification), puis pratiquer (projet)
+                if (is_numeric($g['ref'])) {
+                    foreach (\App\Services\Referential\TrainingRecommender::forGap((int)$g['ref'], (int)($g['expected'] ?: 3), (int)($g['current'] ?? 0)) as $t) {
+                        $out[] = self::trainingReco($t);
+                    }
                 }
                 foreach (self::certificationsForSkill($g['name'], $g['type'] === 'level' ? 'intermediaire' : 'debutant', 2) as $c) {
                     $out[] = self::certReco($c);
@@ -399,6 +320,7 @@ final class GapAnalysisService
         return ['kind' => 'training', 'id' => (int)$t['id'], 'title' => $t['title'],
             'subtitle' => implode(' · ', array_filter([$t['platform_name'], $t['provider'] !== $t['platform_name'] ? $t['provider'] : null, $t['duration'], \App\Services\Training\TrainingCatalog::LANG[$t['language']] ?? null])),
             'cost' => $cert[0] ?? null, 'cost_color' => $cert[1] ?? 'gray', 'platform' => $t['platform_name'],
+            'closes' => $t['closes'] ?? null, 'partner' => !empty($t['partner']), 'free' => $t['free'] ?? null,
             'link' => '/formations/' . $t['id'], 'external' => false];
     }
 

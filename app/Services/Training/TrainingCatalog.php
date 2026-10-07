@@ -89,6 +89,18 @@ final class TrainingCatalog
     public const BASE = 'SELECT t.*, p.slug AS platform_slug, p.name AS platform_name, p.color AS platform_color, p.url AS platform_url
         FROM trainings t LEFT JOIN learning_platforms p ON p.id = t.platform_id';
 
+    /** Date limite de vérification : une formation non vérifiée depuis 6 mois est masquée (§6). */
+    public static function freshSince(): string
+    {
+        $months = (int)(\App\Services\Referential\Ref::rules()['trainings']['freshness_months'] ?? 6);
+        return date('Y-m-d H:i:s', strtotime("-$months months"));
+    }
+
+    public static function isFresh(array $t): bool
+    {
+        return !empty($t['verified_at']) && $t['verified_at'] >= self::freshSince();
+    }
+
     public static function find(int $id): ?array
     {
         return DB::one(self::BASE . ' WHERE t.id = :id', ['id' => $id]);
@@ -97,8 +109,8 @@ final class TrainingCatalog
     /** Recherche multi-critères (texte, plateforme, langue, compétence, certificat gratuit). */
     public static function search(array $f): array
     {
-        $where = ['t.active = 1', 't.platform_id IS NOT NULL'];
-        $params = [];
+        $where = ['t.active = 1', 't.platform_id IS NOT NULL', 't.verified_at >= :fresh'];
+        $params = ['fresh' => self::freshSince()];
         if (!empty($f['platform'])) {
             $where[] = 'p.slug = :pl';
             $params['pl'] = $f['platform'];
@@ -136,7 +148,7 @@ final class TrainingCatalog
     {
         // Filtre exact en PHP (portable MySQL / PostgreSQL / SQLite)
         $rows = array_values(array_filter(
-            DB::all(self::BASE . ' WHERE t.active = 1 AND t.platform_id IS NOT NULL AND t.skills LIKE :s', ['s' => '%' . $name . '%']),
+            DB::all(self::BASE . ' WHERE t.active = 1 AND t.platform_id IS NOT NULL AND t.verified_at >= :fresh AND t.skills LIKE :s', ['s' => '%' . $name . '%', 'fresh' => self::freshSince()]),
             fn($t) => in_array($name, array_map('trim', explode(',', (string)$t['skills'])), true)
         ));
         $rank = fn($t) => ($t['language'] === 'fr' ? 4 : 0) + ($t['certificate'] === 'gratuit' ? 2 : 0) + (str_starts_with((string)$t['skills'], $name) ? 2 : 0) + ($t['source'] === 'catalogue' ? 1 : 0);
@@ -146,9 +158,9 @@ final class TrainingCatalog
 
     public static function platforms(): array
     {
-        $rows = DB::all("SELECT p.*, (SELECT COUNT(*) FROM trainings t WHERE t.platform_id = p.id AND t.active = 1) AS courses,
-            (SELECT COUNT(*) FROM trainings t WHERE t.platform_id = p.id AND t.active = 1 AND t.language = 'fr') AS courses_fr
-            FROM learning_platforms p WHERE p.active = 1 ORDER BY courses DESC, p.name");
+        $rows = DB::all("SELECT p.*, (SELECT COUNT(*) FROM trainings t WHERE t.platform_id = p.id AND t.active = 1 AND t.verified_at >= :f1) AS courses,
+            (SELECT COUNT(*) FROM trainings t WHERE t.platform_id = p.id AND t.active = 1 AND t.verified_at >= :f2 AND t.language = 'fr') AS courses_fr
+            FROM learning_platforms p WHERE p.active = 1 ORDER BY courses DESC, p.name", ['f1' => self::freshSince(), 'f2' => self::freshSince()]);
         return $rows;
     }
 

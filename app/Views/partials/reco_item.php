@@ -13,9 +13,11 @@ $inPlan = in_array($label, $planned, true);
         <div class="flex flex-wrap" style="gap:6px;align-items:center">
             <small class="eyebrow" style="margin:0"><?= e($kinds[$r['kind']] ?? '') ?></small>
             <?php if (!empty($r['cost'])): ?><span class="badge badge-<?= e($r['cost_color'] ?? ($r['cost'] === 'Gratuit' ? 'green' : 'gray')) ?>"><?= e($r['cost']) ?></span><?php endif; ?>
+            <?php if (!empty($r['partner'])): ?><span class="badge badge-violet" title="Formation partenaire : aucun avantage dans le classement">Partenaire</span><?php endif; ?>
         </div>
         <b class="reco-title"><?= e($r['title']) ?></b>
         <p class="small muted mb-0"><?= e($r['subtitle']) ?></p>
+        <?php if (!empty($r['closes'])): ?><p class="small mb-0 reco-note"><?= icon('target') ?> Écart comblé : <?= e($r['closes']) ?></p><?php endif; ?>
         <?php if (!empty($r['note'])): ?><p class="small mb-0 reco-note"><?= icon('target') ?> <?= e($r['note']) ?></p><?php endif; ?>
         <div class="flex flex-wrap mt-1" style="gap:8px">
             <?php if (!empty($r['link'])): ?>

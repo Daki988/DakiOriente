@@ -31,7 +31,19 @@ final class LearningController extends Controller
             'certificates' => (int)DB::value('SELECT COUNT(*) FROM candidate_certificates'),
             'pending' => (int)DB::value("SELECT COUNT(*) FROM candidate_certificates WHERE status = 'declare'"),
         ];
-        return $this->app('admin/learning', compact('platforms', 'top', 'certificates', 'stats') + ['title' => 'Formations & certificats', 'connectors' => array_keys(TrainingSync::CONNECTORS)]);
+        // Référentiel Formations : recherche d'une formation pour éditer sa fiche (compétences développées, niveau atteint, qualité…)
+        $q = trim((string)input('q', ''));
+        $found = [];
+        if ($q !== '') {
+            $found = DB::all(TrainingCatalog::BASE . ' WHERE t.title LIKE :q OR t.provider LIKE :q2 ORDER BY t.active DESC, t.title LIMIT 25', ['q' => "%$q%", 'q2' => "%$q%"]);
+            foreach ($found as &$t) {
+                $t['ref_skills'] = DB::all('SELECT ts.skill_id, ts.level_reached, s.name FROM training_skills ts JOIN skills s ON s.id = ts.skill_id WHERE ts.training_id = :t', ['t' => $t['id']]);
+            }
+            unset($t);
+        }
+        $allSkills = $found ? DB::all("SELECT id, name FROM skills WHERE status != 'archive' ORDER BY name") : [];
+        $stats['fresh'] = (int)DB::value('SELECT COUNT(*) FROM trainings WHERE active = 1 AND platform_id IS NOT NULL AND verified_at >= :f', ['f' => TrainingCatalog::freshSince()]);
+        return $this->app('admin/learning', compact('platforms', 'top', 'certificates', 'stats', 'q', 'found', 'allSkills') + ['title' => 'Formations & certificats', 'connectors' => array_keys(TrainingSync::CONNECTORS)]);
     }
 
     /** Synchronisation à la demande (la synchronisation hebdomadaire se fait par tâche planifiée). */

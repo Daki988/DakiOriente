@@ -65,6 +65,12 @@ Le catalogue est déjà chargé. Pour le tenir à jour (nouveaux cours Coursera 
 
 La synchronisation dure quelques minutes. Elle peut aussi être lancée à la main depuis **Admin › Formations & certificats**.
 
+Ajoutez une seconde tâche, même méthode, pour **vérifier les liens des formations** (une formation dont le lien ne répond plus est masquée et envoyée dans la file de curation) :
+
+- Script : `bin/verifier-formations.php`, fréquence : **une fois par semaine** (ex. mardi à 3 h).
+
+Elle peut aussi être lancée par lots de 25 depuis **Admin › Qualité & calibrage** ou **Admin › Formations & certificats**.
+
 ### Réglages du fichier `.env`
 
 Le fichier `.env` (racine du dossier) contient la configuration. Modifiez-le avec le gestionnaire de fichiers si besoin :
@@ -83,13 +89,14 @@ Le fichier `.env` (racine du dossier) contient la configuration. Modifiez-le ave
 ## Mettre à jour la plateforme
 
 1. Faites une **sauvegarde** (voir plus bas).
-2. Envoyez les fichiers de la nouvelle archive **en remplaçant** les anciens, **sauf** le fichier `.env` et le dossier `storage/` (qui contient vos données, CV et photos).
-3. Ouvrez le site : la base est **mise à jour automatiquement** au premier chargement (nouvelles tables et colonnes), sans perte de données.
+2. Envoyez les fichiers de la nouvelle archive **en remplaçant** les anciens, **sauf** le fichier `.env` et le dossier `storage/` (qui contient vos données, CV, photos et versions publiées des référentiels).
+3. Ouvrez le site : la base est **mise à jour automatiquement** au premier chargement (nouvelles tables et colonnes), sans perte de données. Lors du passage à la version 1.6, ce premier chargement installe aussi les référentiels (fiches métier, compétences, diplômes, index ROME) et publie la version 1 : il peut prendre quelques secondes.
 
 ## Sauvegardes
 
 - **Base de données** : avec la base intégrée, copiez le fichier `storage/database.sqlite` ; avec MySQL, LWS Panel › MySQL & phpMyAdmin › onglet *Exporter*. LWS propose aussi des sauvegardes automatiques selon la formule.
 - **Fichiers des utilisateurs** : le dossier `storage/uploads/` (CV importés, photos, certificats).
+- **Versions des référentiels** : le dossier `storage/referentiels/` (une version figée par publication).
 - **Configuration** : le fichier `.env`.
 
 ## Dépannage

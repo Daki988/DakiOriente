@@ -187,7 +187,7 @@ $blocking = count($pending['blocking']);
                     <form method="post" action="<?= e(url('/espace/cv/import/appliquer')) ?>" class="stack-sm">
                         <?= csrf_field() ?>
                         <p class="small muted mb-0"><?= count($import['skills']) ?> nouvelle(s) compétence(s) détectée(s)<?= $import['known'] ? ', ' . $import['known'] . ' déjà dans ton profil' : '' ?> :</p>
-                        <?php foreach ($import['skills'] as $sk): ?><label class="check"><input type="checkbox" name="skills[]" value="<?= (int)$sk['id'] ?>" checked> <span><?= e($sk['name']) ?> <small class="muted"><?= $sk['category'] === 'soft' ? '(qualité)' : '' ?></small></span></label><?php endforeach; ?>
+                        <?php foreach ($import['skills'] as $sk): ?><label class="check"><input type="checkbox" name="skills[]" value="<?= (int)$sk['id'] ?>" checked> <span><?= e($sk['name']) ?> <small class="muted"><?= $sk['category'] === 'comportementale' ? '(qualité)' : '' ?></small></span></label><?php endforeach; ?>
                         <?php if ($import['linkedin']): ?><label class="check"><input type="checkbox" name="use_linkedin" value="1" checked> <span>Ajouter mon LinkedIn : <?= e($import['linkedin']) ?></span></label><?php endif; ?>
                         <button class="btn btn-primary btn-sm" type="submit">Ajouter à mon profil</button>
                     </form>

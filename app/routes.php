@@ -4,6 +4,7 @@ declare(strict_types=1);
 use App\Controllers\AccountController;
 use App\Controllers\Admin\AdminController;
 use App\Controllers\Admin\LearningController as AdminLearningController;
+use App\Controllers\Admin\ReferentialController;
 use App\Controllers\Api\ApiController;
 use App\Controllers\AuthController;
 use App\Controllers\Candidate\ApplicationController;
@@ -11,6 +12,7 @@ use App\Controllers\Candidate\CareerController;
 use App\Controllers\Candidate\CvController;
 use App\Controllers\Candidate\DashboardController;
 use App\Controllers\Candidate\LearningController;
+use App\Controllers\Candidate\MatchController;
 use App\Controllers\Candidate\ProfileController;
 use App\Controllers\Company\CompanyController;
 use App\Controllers\Company\RecruitController;
@@ -94,6 +96,7 @@ return function (Router $r): void {
         $r->post('/profil', [ProfileController::class, 'update']);
         $r->post('/profil/competences', [ProfileController::class, 'addSkill']);
         $r->post('/profil/competences/{id}/supprimer', [ProfileController::class, 'removeSkill']);
+        $r->post('/profil/competences/{id}', [ProfileController::class, 'updateSkill']);
         $r->post('/profil/formations', [ProfileController::class, 'addEducation']);
         $r->post('/profil/formations/{id}/supprimer', [ProfileController::class, 'removeEducation']);
         $r->post('/profil/experiences', [ProfileController::class, 'addExperience']);
@@ -145,6 +148,12 @@ return function (Router $r): void {
         $r->post('/progression/objectifs/{id}', [CareerController::class, 'updateGoal']);
         $r->post('/progression/objectifs/{id}/supprimer', [CareerController::class, 'deleteGoal']);
         $r->post('/progression/conseil', [CareerController::class, 'gapAdvice'], ['throttle:ai,30,60']);
+        // Explicabilité (référentiels v1.1)
+        $r->post('/offres/{id}/compris', [MatchController::class, 'understood'], ['throttle:feedback,60,10']);
+        $r->post('/offres/{id}/signaler-explication', [MatchController::class, 'report'], ['throttle:report,10,60']);
+        $r->post('/offres/{id}/explication', [MatchController::class, 'rephrase'], ['throttle:ai,30,60']);
+        $r->post('/metiers-cibles', [MatchController::class, 'targets']);
+        $r->get('/metiers/recherche', [MatchController::class, 'searchOccupations']);
     });
 
     /* ---------- Espace entreprise ---------- */
@@ -160,6 +169,8 @@ return function (Router $r): void {
             $r->post('/offres/{id}', [CompanyController::class, 'updateJob']);
             $r->post('/offres/{id}/dupliquer', [CompanyController::class, 'duplicateJob']);
             $r->post('/offres/{id}/archiver', [CompanyController::class, 'archiveJob']);
+            $r->get('/metiers/suggerer', [CompanyController::class, 'suggestOccupation']);
+            $r->get('/metiers/{id}/fiche', [CompanyController::class, 'occupationSheet']);
             $r->get('/offres/{id}/candidatures', [RecruitController::class, 'pipeline']);
             $r->get('/offres/{id}/matching', [RecruitController::class, 'matching']);
             $r->get('/candidatures/{id}', [RecruitController::class, 'application']);
@@ -203,11 +214,34 @@ return function (Router $r): void {
         $r->post('/entreprises/{id}', [AdminController::class, 'moderateCompany']);
         $r->get('/offres', [AdminController::class, 'jobs']);
         $r->post('/offres/{id}', [AdminController::class, 'moderateJob']);
-        $r->get('/referentiels', [AdminController::class, 'referentials']);
-        $r->post('/referentiels', [AdminController::class, 'saveReferential']);
-        $r->post('/referentiels/supprimer', [AdminController::class, 'deleteReferential']);
-        $r->get('/matching', [AdminController::class, 'matching']);
-        $r->post('/matching', [AdminController::class, 'saveMatching']);
+        $r->get('/referentiels/donnees', [AdminController::class, 'referentials']);
+        $r->post('/referentiels/donnees', [AdminController::class, 'saveReferential']);
+        $r->post('/referentiels/donnees/supprimer', [AdminController::class, 'deleteReferential']);
+        // Référentiels v1.1 : curation, versions, jeu de référence, qualité
+        $r->get('/referentiels', [ReferentialController::class, 'index']);
+        $r->get('/referentiels/metiers', [ReferentialController::class, 'occupations']);
+        $r->post('/referentiels/metiers', [ReferentialController::class, 'createOccupation']);
+        $r->get('/referentiels/metiers/{id}', [ReferentialController::class, 'occupation']);
+        $r->post('/referentiels/metiers/{id}', [ReferentialController::class, 'saveOccupation']);
+        $r->post('/referentiels/metiers/{id}/statut', [ReferentialController::class, 'occupationStatus']);
+        $r->get('/referentiels/competences', [ReferentialController::class, 'skills']);
+        $r->post('/referentiels/competences', [ReferentialController::class, 'saveSkill']);
+        $r->get('/referentiels/diplomes', [ReferentialController::class, 'degrees']);
+        $r->post('/referentiels/diplomes', [ReferentialController::class, 'saveDegree']);
+        $r->get('/referentiels/regles', [ReferentialController::class, 'rules']);
+        $r->post('/referentiels/regles', [ReferentialController::class, 'saveRules']);
+        $r->get('/referentiels/versions', [ReferentialController::class, 'versions']);
+        $r->post('/referentiels/versions', [ReferentialController::class, 'publish']);
+        $r->post('/referentiels/jeu-de-reference', [ReferentialController::class, 'addPair']);
+        $r->post('/referentiels/jeu-de-reference/{id}/supprimer', [ReferentialController::class, 'deletePair']);
+        $r->post('/referentiels/equipe', [ReferentialController::class, 'team']);
+        $r->get('/curation', [ReferentialController::class, 'curation']);
+        $r->post('/curation/{id}', [ReferentialController::class, 'handleCuration']);
+        $r->get('/qualite', [ReferentialController::class, 'quality']);
+        $r->post('/qualite/controle', [ReferentialController::class, 'check']);
+        $r->post('/formations/verifier-liens', [ReferentialController::class, 'checkLinks']);
+        $r->post('/formations/{id}/fiche', [ReferentialController::class, 'saveTraining']);
+        $r->get('/matching', [ReferentialController::class, 'rules']);
         $r->get('/paiements', [AdminController::class, 'payments']);
         $r->post('/coupons', [AdminController::class, 'saveCoupon']);
         $r->get('/contenus', [AdminController::class, 'contents']);
@@ -235,6 +269,11 @@ return function (Router $r): void {
         $r->get('/recommendations', [ApiController::class, 'recommendations'], ['role:candidate']);
         $r->get('/gaps', [ApiController::class, 'gaps'], ['role:candidate']);
         $r->get('/certifications', [ApiController::class, 'certifications']);
+        $r->get('/referentials/version', [ApiController::class, 'refVersion']);
+        $r->get('/referentials/occupations', [ApiController::class, 'occupations']);
+        $r->get('/referentials/occupations/{code}', [ApiController::class, 'occupation']);
+        $r->get('/referentials/skills', [ApiController::class, 'refSkills']);
+        $r->get('/referentials/degrees', [ApiController::class, 'degrees']);
         $r->get('/trainings', [ApiController::class, 'trainings']);
         $r->post('/cv/generate', [ApiController::class, 'cv'], ['role:candidate']);
         $r->post('/cover-letter/generate', [ApiController::class, 'coverLetter'], ['role:candidate']);

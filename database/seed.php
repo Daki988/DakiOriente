@@ -15,6 +15,8 @@ use App\Services\ProfileService;
 return function (bool $demo = true): void {
     mt_srand(2026);
     $pdo = DB::pdo();
+    // Niveaux d'études : ancienne notation (0-7) des données ci-dessous convertie vers l'échelle Tremplin N0-N6
+    $N = fn(int $old) => [0, 1, 2, 3, 4, 4, 5, 6][$old] ?? $old;
     $pdo->beginTransaction();
     $ago = fn(int $days, int $h = 10) => date('Y-m-d H:i:s', strtotime("-$days days") - ($h * 3600) % 86400);
     $pwd = password_hash('Tremplin2026!', PASSWORD_DEFAULT);
@@ -109,12 +111,16 @@ return function (bool $demo = true): void {
         ['Enseignant·e / formateur·rice', 'Éducation', 'SAI', 'Transmet des savoirs et accompagne les apprenants.', 'Enseignement,Communication', 4, 'bonne'],
     ];
     foreach ($families as [$n, $sec, $code, $desc, $sk, $edu, $out]) {
-        DB::insert('job_families', ['name' => $n, 'sector_id' => $S($sec), 'riasec' => $code, 'description' => $desc, 'skills' => $sk, 'education_min' => $edu, 'outlook' => $out]);
+        DB::insert('job_families', ['name' => $n, 'sector_id' => $S($sec), 'riasec' => $code, 'description' => $desc, 'skills' => $sk, 'education_min' => $N($edu), 'outlook' => $out]);
     }
 
     /* ---------- Plateformes de formation en ligne et leurs cours (catalogue réel) ---------- */
     \Database\Migrator::seedLearning();
     \Database\Migrator::seedCertifications();
+
+    /* ---------- Référentiels v1.1 : compétences, diplômes, ROME 4.0, fiches métier, formations ↔ compétences ---------- */
+    DB::insert('settings', ['skey' => 'education_scale', 'svalue' => 'tremplin-n']);
+    \App\Services\Referential\Loader::run(false);
 
     /* ---------- Offres d'abonnement ---------- */
     $plans = [
@@ -135,14 +141,7 @@ return function (bool $demo = true): void {
     DB::insert('coupons', ['code' => 'BIENVENUE25', 'percent' => 25, 'max_uses' => 500, 'uses' => 0, 'expires_at' => date('Y-12-31'), 'active' => 1]);
     DB::insert('coupons', ['code' => 'ETUDIANT50', 'percent' => 50, 'max_uses' => 200, 'uses' => 0, 'expires_at' => date('Y-12-31'), 'active' => 1]);
 
-    /* ---------- Poids de matching ---------- */
-    foreach (MatchingEngine::CRITERIA as $k => [, $w]) {
-        DB::insert('matching_weights', ['sector_id' => null, 'criterion' => $k, 'weight' => $w]);
-    }
-    // Exemple de calibrage sectoriel : le pétrole valorise davantage l'expérience et les langues (HSE, anglais)
-    foreach (['skills' => 28, 'education' => 12, 'experience' => 20, 'job_title' => 8, 'location' => 8, 'availability' => 5, 'languages' => 10, 'soft_skills' => 4, 'preferences' => 5] as $k => $w) {
-        DB::insert('matching_weights', ['sector_id' => $S('Pétrole'), 'criterion' => $k, 'weight' => $w]);
-    }
+    // Poids du score : référentiel Objectifs & Seuils versionné (score_rules), chargé avec les référentiels
 
     /* ---------- Paramètres ---------- */
     foreach ([
@@ -167,6 +166,7 @@ return function (bool $demo = true): void {
     if (!$demo) {
         // Production : référentiels et conseils uniquement, aucune donnée fictive
         $pdo->commit();
+        \App\Services\Referential\Versions::publish(null, 'Version initiale', false, true);
         return;
     }
 
@@ -261,6 +261,7 @@ return function (bool $demo = true): void {
     $jobs = [];
     foreach ($jobDefs as $i => $d) {
         [$co, $title, $type, $c, $remote, $edu, $exp, $smin, $smax, $skills, $soft, $langs, $dur, $summary] = $d;
+        $edu = $N($edu);
         $elim = $d[14] ?? 0;
         $company = $companies[$co];
         $days = mt_rand(1, 40);
@@ -282,7 +283,7 @@ return function (bool $demo = true): void {
             'created_at' => $ago($days + 1), 'updated_at' => $ago($days),
         ]);
         foreach ($skills as $sn => [$req, $w]) {
-            DB::insert('job_skills', ['job_id' => $jid, 'skill_id' => $skill[$sn], 'required' => $req, 'weight' => $w]);
+            DB::insert('job_skills', ['job_id' => $jid, 'skill_id' => $skill[$sn], 'required' => $req, 'weight' => $w, 'level' => $req ? 3 : 2, 'blocking' => 0]);
         }
         $jobs[] = $jid;
     }
@@ -296,7 +297,11 @@ return function (bool $demo = true): void {
         'start_date' => date('Y-m-d', strtotime('+20 days')), 'deadline' => date('Y-m-d', strtotime('+30 days')), 'status' => 'pending',
         'created_by' => $companies['Mbadi Distribution']['user'], 'created_at' => $ago(1), 'updated_at' => $ago(1),
     ]);
-    DB::insert('job_skills', ['job_id' => $pend, 'skill_id' => $skill['Gestion des stocks'], 'required' => 1, 'weight' => 4]);
+    DB::insert('job_skills', ['job_id' => $pend, 'skill_id' => $skill['Gestion des stocks'], 'required' => 1, 'weight' => 4, 'level' => 3, 'blocking' => 0]);
+    // Codes métier des offres : proposés par la normalisation, confirmés ici comme le ferait chaque recruteur
+    \App\Services\Referential\Loader::linkJobs(true);
+    // Prérequis réglementés : le diplôme d'État est exigé pour l'offre d'infirmier·ère
+    DB::run("UPDATE jobs SET education_eliminatory = 1 WHERE occupation_id IN (SELECT id FROM occupations WHERE regulated_degree IS NOT NULL)");
 
     /* ---------- École ---------- */
     $schoolUser = $mkUser('school', 'ecole@tremplin.ga', 'Béatrice', 'Mintsa', '+241 74 55 66 77', 'FREE', 170);
@@ -331,6 +336,8 @@ return function (bool $demo = true): void {
     $candIds = [];
     foreach ($cands as $i => $c) {
         [$email, $first, $last, $cty, $head, $edu, $field, $months, $want, $sec, $types, $skills, $soft, $langs, $riasec, $plan, $inSchool, $program] = $c;
+        $eduOld = $edu;
+        $edu = $N($edu);
         $uid = $mkUser('candidate', $email, $first, $last, '+241 0' . mt_rand(6, 7) . ' ' . mt_rand(10, 99) . ' ' . mt_rand(10, 99) . ' ' . mt_rand(10, 99), $plan, 175 - $i * 9);
         $candIds[$email] = $uid;
         $scores = null;
@@ -345,29 +352,36 @@ return function (bool $demo = true): void {
         DB::insert('candidate_profiles', [
             'user_id' => $uid, 'headline' => $head,
             'bio' => "Je suis $first, " . mb_strtolower($head) . ". Passionné·e par mon domaine, je cherche une opportunité pour mettre mes compétences au service d'une organisation ambitieuse et continuer à apprendre au contact de professionnels.",
-            'city_id' => $city[$cty], 'birth_date' => (2006 - $edu - mt_rand(0, 3)) . '-0' . mt_rand(1, 9) . '-1' . mt_rand(0, 9), 'education_level' => $edu,
+            'city_id' => $city[$cty], 'birth_date' => (2006 - $eduOld - mt_rand(0, 3)) . '-0' . mt_rand(1, 9) . '-1' . mt_rand(0, 9), 'education_level' => $edu,
             'field_of_study' => $field, 'experience_months' => $months, 'desired_job' => $want, 'desired_sector_id' => $S($sec), 'desired_types' => $types,
-            'desired_salary' => $edu >= 5 ? 500000 : ($edu >= 3 ? 250000 : 80000), 'remote_ok' => mt_rand(0, 1), 'mobility' => ['ville', 'national', 'national', 'international'][mt_rand(0, 3)],
+            'desired_salary' => $eduOld >= 5 ? 500000 : ($eduOld >= 3 ? 250000 : 80000), 'remote_ok' => mt_rand(0, 1), 'mobility' => ['ville', 'national', 'national', 'international'][mt_rand(0, 3)],
             'availability_date' => date('Y-m-d', strtotime('+' . mt_rand(0, 20) . ' days')), 'languages' => json_encode($langs, JSON_UNESCAPED_UNICODE),
             'certifications' => $i % 3 === 0 ? 'Attestation Google Digital Active, PIX niveau 3' : null, 'soft_skills' => $soft,
             'riasec_code' => $riasec, 'riasec_scores' => $scores, 'cv_template' => ['moderne', 'classique', 'creatif'][$i % 3],
             'linkedin' => $i < 4 ? 'https://www.linkedin.com/in/' . slugify("$first-$last") : null, 'visible_to_recruiters' => 1, 'updated_at' => $ago(2),
         ]);
+        // Preuves (démonstration) : compétences exercées en stage → expérience ; compétences du diplôme → diplôme ;
+        // les autres restent déclarées sans preuve, donc plafonnées au niveau 2 dans le score.
+        $k = 0;
         foreach ($skills as $sn => $lvl) {
-            DB::insert('candidate_skills', ['user_id' => $uid, 'skill_id' => $skill[$sn], 'level' => $lvl]);
+            $proof = $months > 0 && $k < 2 ? 'experience' : ($lvl >= 3 && $k < 4 ? 'diplome' : 'aucune');
+            DB::insert('candidate_skills', ['user_id' => $uid, 'skill_id' => $skill[$sn], 'level' => min(4, $lvl), 'proof' => $proof, 'source' => 'declare', 'confidence' => 100, 'confirmed' => 1]);
+            $k++;
         }
         foreach (array_map('trim', explode(',', $soft)) as $sn) {
             if (isset($skill[$sn])) {
-                DB::insert('candidate_skills', ['user_id' => $uid, 'skill_id' => $skill[$sn], 'level' => 4]);
+                DB::insert('candidate_skills', ['user_id' => $uid, 'skill_id' => $skill[$sn], 'level' => 3, 'proof' => $months > 0 ? 'experience' : 'aucune', 'source' => 'declare', 'confidence' => 100, 'confirmed' => 1]);
             }
         }
-        $endYear = (int)date('Y') - ($edu >= 5 ? 0 : 1);
+        $endYear = (int)date('Y') - ($eduOld >= 5 ? 0 : 1);
+        $degreeTitle = [2 => 'Baccalauréat', 3 => 'BTS ' . $field, 4 => 'Licence ' . $field, 5 => 'Master ' . $field, 6 => 'Doctorat ' . $field][$edu] ?? education_levels()[$edu];
         DB::insert('candidate_educations', [
             'user_id' => $uid, 'school' => $inSchool ? 'Institut Supérieur du Numérique et de Gestion de Libreville' : ['Université Omar Bongo', 'Université des Sciences et Techniques de Masuku', 'Institut Universitaire des Sciences de l\'Organisation', 'École Nationale des Eaux et Forêts'][$i % 4],
-            'degree' => education_levels()[$edu], 'field' => $field, 'start_year' => $endYear - 3, 'end_year' => $endYear,
-            'description' => 'Projet de fin d\'études mené en équipe, mention Bien.',
+            'degree' => $email === 'christelle.mbou@mail.ga' ? 'Diplôme d\'État d\'infirmier' : $degreeTitle, 'field' => $field, 'start_year' => $endYear - 3, 'end_year' => $endYear,
+            'description' => 'Projet de fin d\'études mené en équipe, mention Bien.', 'level' => $edu,
+            'in_progress' => $email === 'candidat@tremplin.ga' ? 1 : 0, 'study_year' => $email === 'candidat@tremplin.ga' ? '3e année' : null,
         ]);
-        DB::insert('candidate_educations', ['user_id' => $uid, 'school' => 'Lycée ' . ['Léon Mba', 'National Paul Indjendjet Gondjout', 'd\'Application Nelson Mandela', 'Technique Omar Bongo'][$i % 4], 'degree' => 'Baccalauréat', 'field' => 'Série ' . ['C', 'D', 'G2', 'F3'][$i % 4], 'start_year' => $endYear - 6, 'end_year' => $endYear - 3, 'description' => null]);
+        DB::insert('candidate_educations', ['user_id' => $uid, 'school' => 'Lycée ' . ['Léon Mba', 'National Paul Indjendjet Gondjout', 'd\'Application Nelson Mandela', 'Technique Omar Bongo'][$i % 4], 'degree' => 'Baccalauréat', 'field' => 'Série ' . ['C', 'D', 'G2', 'F3'][$i % 4], 'start_year' => $endYear - 6, 'end_year' => $endYear - 3, 'description' => null, 'level' => 2]);
         if ($months > 0) {
             $sk = array_keys($skills);
             DB::insert('candidate_experiences', [
@@ -382,7 +396,7 @@ return function (bool $demo = true): void {
             ]);
         }
         if ($inSchool) {
-            DB::insert('school_students', ['school_id' => $schoolId, 'user_id' => $uid, 'program' => $program, 'level' => $edu >= 5 ? 'M2' : ($edu === 4 ? 'L3' : 'BTS 2'), 'cohort' => date('Y'), 'graduated' => $edu >= 6 ? 1 : 0, 'employed' => $i === 1 ? 1 : 0, 'joined_at' => $ago(90)]);
+            DB::insert('school_students', ['school_id' => $schoolId, 'user_id' => $uid, 'program' => $program, 'level' => $eduOld >= 5 ? 'M2' : ($eduOld === 4 ? 'L3' : 'BTS 2'), 'cohort' => date('Y'), 'graduated' => $eduOld >= 6 ? 1 : 0, 'employed' => $i === 1 ? 1 : 0, 'joined_at' => $ago(90)]);
         }
         if ($riasec) {
             DB::insert('riasec_results', ['user_id' => $uid, 'scores' => $scores, 'code' => $riasec, 'created_at' => $ago(30)]);
@@ -396,7 +410,8 @@ return function (bool $demo = true): void {
         'start_date' => date('Y-m-d', strtotime('-26 months')), 'end_date' => date('Y-m-d', strtotime('-23 months')),
         'description' => "Accueil des clients et tenue de la caisse.\nJ'ai participer à l'organisation des évenements du magasin,et au suivi des stocks.\nFormation des nouveaux saisonniers  aux procédures d'encaissement.",
     ]);
-    DB::update('candidate_profiles', ['interests' => 'Bénévolat associatif, basket-ball, photographie', 'cv_template' => 'moderne'], 'user_id = :u', ['u' => $demo]);
+    DB::update('candidate_profiles', ['interests' => 'Bénévolat associatif, basket-ball, photographie', 'cv_template' => 'moderne',
+        'target_occupations' => implode(',', DB::column("SELECT id FROM occupations WHERE code IN ('TRM-NUM-001', 'TRM-NUM-002') ORDER BY code"))], 'user_id = :u', ['u' => $demo]);
     $photo = __DIR__ . '/demo/photo-demo.jpg';
     if (is_file($photo) && function_exists('imagecreatetruecolor')) {
         $tmp = tempnam(sys_get_temp_dir(), 'cv');
@@ -528,6 +543,7 @@ return function (bool $demo = true): void {
     }
 
     $pdo->commit();
+    \App\Services\Referential\Versions::publish(null, 'Version initiale', false, true);
 
     // Scores d'employabilité et complétion
     foreach ($candIds as $uid) {

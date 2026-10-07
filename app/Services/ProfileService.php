@@ -33,7 +33,8 @@ final class ProfileService
         }
         $p['user_id'] = $userId;
         $p['skills'] = DB::all(
-            'SELECT s.id, s.name, s.slug, s.category, cs.level FROM candidate_skills cs JOIN skills s ON s.id = cs.skill_id
+            'SELECT s.id, s.name, s.slug, s.category, s.credential, s.code, cs.level, cs.proof, cs.source, cs.confidence, cs.confirmed
+             FROM candidate_skills cs JOIN skills s ON s.id = cs.skill_id
              WHERE cs.user_id = :u ORDER BY cs.level DESC, s.name',
             ['u' => $userId]
         );
@@ -47,7 +48,57 @@ final class ProfileService
         $p['certificates'] = DB::all("SELECT id, title, issuer, issued_at, credential_url, status FROM candidate_certificates WHERE user_id = :u AND status != 'refuse' ORDER BY issued_at DESC, id DESC", ['u' => $userId]);
         $p['education_level'] = (int)($p['education_level'] ?? 2);
         $p['experience_months'] = (int)($p['experience_months'] ?? 0);
+        self::enrich($p);
         return self::$cache[$userId] = $p;
+    }
+
+    /**
+     * Données normalisées utilisées par le moteur v1.1 : qualités déclarées reliées au référentiel,
+     * domaines d'études, diplôme en cours, rattachement des expériences aux fiches métier, qualité du CV.
+     */
+    public static function enrich(array &$p): void
+    {
+        static $softIds = null;
+        $softIds ??= array_column(DB::all("SELECT id, name, category, credential FROM skills WHERE category = 'comportementale'"), null, 'name');
+        $have = array_column($p['skills'], 'id');
+        foreach ($p['soft_list'] as $soft) {
+            $s = $softIds[$soft] ?? null;
+            if ($s && !in_array($s['id'], $have)) {
+                $p['skills'][] = ['id' => (int)$s['id'], 'name' => $s['name'], 'slug' => '', 'category' => 'comportementale', 'credential' => 0, 'code' => null,
+                    'level' => 2, 'proof' => 'aucune', 'source' => 'declare', 'confidence' => 100, 'confirmed' => 1];
+                $have[] = $s['id'];
+            }
+        }
+        $texts = [(string)($p['field_of_study'] ?? '')];
+        $inProgress = null;
+        foreach ($p['educations'] as $e) {
+            $texts[] = $e['degree'] . ' ' . $e['field'];
+            if ((int)($e['in_progress'] ?? 0) && $e['level'] !== null && (!$inProgress || (int)$e['level'] > $inProgress['level'])) {
+                $inProgress = ['level' => (int)$e['level'], 'label' => trim($e['degree'] . ' ' . ($e['study_year'] ?? ''))];
+            }
+        }
+        $p['study_fields'] = array_values(array_unique(\App\Services\Referential\Ref::fieldsOf(implode(' ', $texts))));
+        $p['degree_in_progress'] = $inProgress;
+        static $occByTitle = [];
+        foreach ($p['experiences'] as &$x) {
+            $t = (string)$x['title'];
+            if (!array_key_exists($t, $occByTitle)) {
+                $m = \App\Services\Referential\Normalizer::occupation($t);
+                $occByTitle[$t] = $m && $m['confidence'] >= 60 ? $m['code'] : null;
+            }
+            $x['occupation_code'] = $occByTitle[$t];
+        }
+        unset($x);
+        $p['cv_quality'] = 0;
+        $p['cv_quality_tip'] = null;
+        try {
+            $settings = \App\Services\Cv\CvTemplates::settings($p);
+            $proof = \App\Services\Cv\Proofreader::check($p);
+            $cv = \App\Services\Cv\CvScore::compute($p, count(\App\Services\Cv\Proofreader::pending($proof, $settings['ignored'])['blocking']), $settings);
+            $p['cv_quality'] = (int)$cv['score'];
+            $p['cv_quality_tip'] = $cv['todo'][0]['label'] ?? null;
+        } catch (\Throwable) {
+        }
     }
 
     /** Pourcentage de complétion du profil + éléments manquants. */

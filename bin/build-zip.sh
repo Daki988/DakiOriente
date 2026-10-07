@@ -21,8 +21,8 @@ find "$WORK/vendor" -type d \( -name .git -o -name tests -o -name Tests -o -name
 find "$WORK/vendor" -type f \( -name '*.md' -o -name 'phpunit*' -o -name '.gitattributes' -o -name '.editorconfig' \) ! -iname 'LICENSE*' -delete 2>/dev/null || true
 
 # 4. Dossiers de données vides mais présents (droits d'écriture)
-mkdir -p "$WORK/storage/uploads" "$WORK/storage/logs" "$WORK/storage/cache"
-touch "$WORK/storage/uploads/.gitkeep" "$WORK/storage/logs/.gitkeep" "$WORK/storage/cache/.gitkeep"
+mkdir -p "$WORK/storage/uploads" "$WORK/storage/logs" "$WORK/storage/cache" "$WORK/storage/referentiels"
+touch "$WORK/storage/uploads/.gitkeep" "$WORK/storage/logs/.gitkeep" "$WORK/storage/cache/.gitkeep" "$WORK/storage/referentiels/.gitkeep"
 for d in storage app vendor database bin; do
   printf '<IfModule mod_authz_core.c>\n    Require all denied\n</IfModule>\n<IfModule !mod_authz_core.c>\n    Deny from all\n</IfModule>\n' > "$WORK/$d/.htaccess"
 done

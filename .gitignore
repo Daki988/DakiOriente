@@ -13,3 +13,5 @@
 /storage/install-code.txt
 /dist/
 !.env.example
+/storage/referentiels/*
+!/storage/referentiels/.gitkeep

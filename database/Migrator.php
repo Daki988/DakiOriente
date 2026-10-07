@@ -74,11 +74,24 @@ final class Migrator
                 $added[] = $table;
             }
         }
+        $ts = $driver === 'pgsql' ? 'TIMESTAMP NULL' : 'DATETIME NULL';
         $columns = ['candidate_profiles' => ['cv_ai' => 'TEXT', 'gap_advice' => 'TEXT', 'interests' => 'VARCHAR(255)', 'photo_document_id' => 'INTEGER', 'cv_settings' => 'TEXT',
-                'cv_proof' => 'TEXT', 'cv_share_token' => 'VARCHAR(40)', 'cv_public' => 'INTEGER NOT NULL DEFAULT 0', 'cv_views' => 'INTEGER NOT NULL DEFAULT 0', 'cv_downloads' => 'INTEGER NOT NULL DEFAULT 0'],
+                'cv_proof' => 'TEXT', 'cv_share_token' => 'VARCHAR(40)', 'cv_public' => 'INTEGER NOT NULL DEFAULT 0', 'cv_views' => 'INTEGER NOT NULL DEFAULT 0', 'cv_downloads' => 'INTEGER NOT NULL DEFAULT 0',
+                'target_occupations' => 'VARCHAR(60)', 'extraction' => "VARCHAR(20) NOT NULL DEFAULT 'formulaire'"],
             'trainings' => ['platform_id' => 'INTEGER', 'language' => "VARCHAR(5) DEFAULT 'fr'", 'skills' => 'VARCHAR(255)', 'certificate' => "VARCHAR(20) DEFAULT 'variable'",
                 'external_id' => 'VARCHAR(120)', 'source' => "VARCHAR(20) DEFAULT 'catalogue'", 'active' => 'INTEGER NOT NULL DEFAULT 1', 'next_session' => 'VARCHAR(10)',
-                'clicks' => 'INTEGER NOT NULL DEFAULT 0', 'updated_at' => ($driver === 'pgsql' ? 'TIMESTAMP NULL' : 'DATETIME NULL')]];
+                'clicks' => 'INTEGER NOT NULL DEFAULT 0', 'updated_at' => $ts,
+                'verified_at' => $ts, 'quality' => 'INTEGER', 'partner' => 'INTEGER NOT NULL DEFAULT 0', 'recognition' => 'VARCHAR(20)', 'prerequisites' => 'VARCHAR(255)', 'link_status' => 'VARCHAR(20)'],
+            // Référentiels et matching explicable (v1.1)
+            'skills' => ['code' => 'VARCHAR(20)', 'definition' => 'VARCHAR(255)', 'level_criteria' => 'TEXT', 'proofs' => 'VARCHAR(120)', 'esco_uri' => 'VARCHAR(190)', 'esco_label' => 'VARCHAR(190)',
+                'framework' => 'VARCHAR(160)', 'credential' => 'INTEGER NOT NULL DEFAULT 0', 'status' => "VARCHAR(20) NOT NULL DEFAULT 'brouillon'", 'revision' => 'INTEGER NOT NULL DEFAULT 1', 'updated_at' => $ts],
+            'candidate_skills' => ['proof' => "VARCHAR(20) NOT NULL DEFAULT 'aucune'", 'source' => "VARCHAR(20) NOT NULL DEFAULT 'declare'", 'confidence' => 'INTEGER NOT NULL DEFAULT 100',
+                'confirmed' => 'INTEGER NOT NULL DEFAULT 1', 'updated_at' => $ts],
+            'candidate_educations' => ['degree_id' => 'INTEGER', 'level' => 'INTEGER', 'in_progress' => 'INTEGER NOT NULL DEFAULT 0', 'study_year' => 'VARCHAR(40)', 'to_verify' => 'INTEGER NOT NULL DEFAULT 0'],
+            'jobs' => ['occupation_id' => 'INTEGER', 'occupation_confirmed' => 'INTEGER NOT NULL DEFAULT 0', 'occupation_confidence' => 'INTEGER', 'languages_blocking' => 'VARCHAR(160)'],
+            'job_skills' => ['level' => 'INTEGER NOT NULL DEFAULT 3', 'blocking' => 'INTEGER NOT NULL DEFAULT 0'],
+            'users' => ['ref_role' => 'VARCHAR(20)'],
+            'match_scores' => ['verdict' => 'VARCHAR(20)', 'ref_version' => 'INTEGER', 'extraction' => 'VARCHAR(20)', 'explanation' => 'TEXT']];
         foreach ($columns as $table => $cols) {
             $existing = $driver === 'sqlite'
                 ? array_column(DB::all("PRAGMA table_info($table)"), 'name')
@@ -99,6 +112,25 @@ final class Migrator
         if (!(int)DB::value('SELECT COUNT(*) FROM certifications')) {
             self::seedCertifications();
             $added[] = 'certifications (catalogue)';
+        }
+
+        // Index des tables apparues (ignorés s'ils existent déjà)
+        if ($added) {
+            foreach ($schema['_indexes'] as $idx) {
+                try {
+                    DB::pdo()->exec($idx);
+                } catch (\Throwable) {
+                }
+            }
+        }
+        // Référentiels v1.1 : chargement, rattachement des offres (à confirmer par les recruteurs), première version publiée
+        if (!(int)DB::value('SELECT COUNT(*) FROM occupations')) {
+            \App\Services\Referential\Loader::run(true);
+            $added[] = 'référentiels v1.1 (métiers, compétences, diplômes, formations)';
+        }
+        if (!(int)DB::value('SELECT COUNT(*) FROM ref_versions')) {
+            \App\Services\Referential\Versions::publish(null, 'Version initiale', false, true);
+            $added[] = 'version initiale des référentiels';
         }
 
         if (!DB::value("SELECT COUNT(*) FROM settings WHERE skey = 'launch_mode'")) {

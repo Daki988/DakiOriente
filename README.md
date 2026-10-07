@@ -61,11 +61,29 @@ Les entreprises, écoles et personnes de démonstration sont fictives.
 - Dashboard (utilisateurs, offres, candidatures, placements, revenus, conversion free → payant, ARPU)
 - Comptes et rôles, modération des entreprises et des offres, signalements
 - Référentiels multi-pays : compétences, métiers (RIASEC), secteurs, villes, pays, formations
-- **Configuration des poids du matching** par secteur, simulateur et indicateurs de calibrage
+- **Référentiels versionnés (v1.1)** : fiches métier, compétences, diplômes, objectifs et seuils, file de curation, versions et jeu de référence, tableau de bord qualité
 - Paiements, codes promo, grille tarifaire, contenus éditoriaux, journal des communications et des appels IA, **journal d'audit**, exports CSV
 
-### Moteur de matching (§8)
-Score de 0 à 100 sur 9 critères pondérés (compétences 30 %, formation 15 %, expérience 15 %, métier 10 %, localisation 10 %, disponibilité 5 %, langues 5 %, soft skills 5 %, préférences 5 %). Les poids sont configurables par secteur. Le niveau d'étude obligatoire est traité comme critère **éliminatoire**. Chaque résultat expose le détail par critère, les points forts, les écarts et des **actions recommandées** (formations ciblées, projets, conseils). Code : `app/Services/MatchingEngine.php`.
+### Référentiels et matching explicable (cahier des charges v1.1)
+Principe : **le référentiel décide, l'IA explique**. Le score est calculé de façon déterministe à partir de référentiels versionnés ; Claude ne fait que reformuler l'explication, sans pouvoir en changer les éléments (une reformulation qui introduit un chiffre absent du calcul est rejetée).
+
+- **Cinq référentiels** (Admin › Référentiels) :
+  - **Métiers** : 215 fiches TRM-XXX-NNN rattachées au ROME 4.0 (France Travail, open data), à ESCO et à ISCO-08, avec compétences pondérées (total 100), niveaux attendus, langues, prérequis bloquants, métiers réglementés et appellations locales. L'arborescence ROME complète (1 911 fiches, 14 301 appellations) sert d'index de normalisation.
+  - **Compétences** : 174 compétences (ESCO, DigComp, CECRL) en 5 catégories, niveaux 1 à 4 ; sans preuve (diplôme, certificat, expérience, projet), le niveau retenu est plafonné à 2.
+  - **Formations** : au plus 3 par écart, toujours une option gratuite, partenaires signalés sans avantage de classement ; une formation non vérifiée depuis 6 mois est masquée automatiquement.
+  - **Diplômes** : échelle N0 à N6, 25 diplômes, domaines d'études.
+  - **Objectifs & seuils** : poids compétences 40, diplôme 20, expérience 15, langues 10, qualité du CV 10, localisation 5 ; verdicts « Profil adapté » (≥ 75), « Profil proche » (≥ 55), « Profil à renforcer » (≥ 40), « Profil éloigné » ; un prérequis bloquant absent donne « Prérequis manquant ».
+- **Moteur** : pénalité de 0,35 par niveau manquant, prérequis bloquants, mode dégradé quand une offre n'est pas rattachée à une fiche. Employabilité = moyenne sur les 10 offres les plus proches des 1 à 3 métiers cibles du candidat (« prêt » à partir de 70).
+- **Fiche d'adéquation** sur chaque offre : score et verdict, détail par critère, 3 points forts, écarts classés (niveau actuel / attendu, action, gain mesuré), formations par écart, bouton « Signaler une erreur » et question « As-tu compris ton score ? ».
+- **Gouvernance** : rôles (responsable des référentiels, expert sectoriel, curateur), cycle brouillon → relu → validé → publié, révision et archivage ; chaque publication crée une version figée (`storage/referentiels/vN.json`, empreinte SHA-256) avec journal des modifications. La publication est conditionnée au jeu de référence : au moins 20 couples notés par les experts (200 visés) et un écart moyen inférieur à 10 points ; une publication forcée avec un jeu incomplet est signalée dans le journal.
+- **File de curation** : les intitulés d'offres, compétences et diplômes non reconnus avec assez de confiance, les liens de formation morts et les explications signalées y arrivent pour traitement.
+- **Qualité & calibrage** : 9 indicateurs (§13) calculés sur les données réelles (« non mesurable » tant qu'elles manquent), taux d'entretien et d'embauche par verdict.
+- **API** en lecture : `/api/v1/referentials/version`, `/occupations`, `/occupations/{code}`, `/skills`, `/degrees`.
+- **Outils** : `php bin/verifier-formations.php` (liens des formations, à planifier chaque semaine), `php bin/import-referentiel.php --rome [fichier.csv]` et `--esco occupations_fr.csv` (correspondances proposées, à valider).
+
+> Les fiches métier livrées sont des **propositions NEAM au statut brouillon** : elles doivent être relues et validées par des experts du marché gabonais. Le jeu de référence est livré **vide** ; il se remplit depuis Admin › Versions & jeu de référence.
+
+Code : `app/Services/MatchingEngine.php`, `app/Services/Referential/`, données : `database/referentiels/`.
 
 ### Analyse des écarts et recommandations
 La page **Mes axes de progression** (`/espace/progression`) compare le profil du candidat à ses offres les plus proches (5, 10 ou 20) et détecte les écarts : compétences absentes ou insuffisantes, langues, niveau d'études, expérience, qualités, mobilité.

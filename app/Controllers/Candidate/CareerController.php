@@ -117,10 +117,18 @@ final class CareerController extends Controller
 
     public function employability(): string
     {
-        $e = EmployabilityService::compute($this->uid(), true);
+        $e = EmployabilityService::compute($this->uid(), true, true);
         $history = DB::all('SELECT score, created_at FROM employability_scores WHERE user_id = :u ORDER BY created_at LIMIT 20', ['u' => $this->uid()]);
         $avg = (int)DB::value("SELECT AVG(employability_score) FROM candidate_profiles cp JOIN users u ON u.id = cp.user_id WHERE u.status = 'active'");
-        return $this->app('candidate/employability', compact('e', 'history', 'avg') + ['title' => 'Score d\'employabilité', 'charts' => true]);
+        // Recommandations concrètes pour les écarts du plan de progression (formations liées à l'écart, certifications, projets)
+        foreach ($e['plan'] as &$step) {
+            $step['recos'] = in_array($step['type'], ['skill', 'level', 'language', 'education', 'experience'], true)
+                ? array_slice(GapAnalysisService::recommendations($step, ['id' => 0]), 0, 3) : [];
+        }
+        unset($step);
+        $occupations = DB::all("SELECT o.id, o.code, o.title, s.name AS sector FROM occupations o LEFT JOIN sectors s ON s.id = o.sector_id WHERE o.status != 'archive' ORDER BY s.name, o.title");
+        $planned = DB::column('SELECT label FROM candidate_goals WHERE user_id = :u', ['u' => $this->uid()]);
+        return $this->app('candidate/employability', compact('e', 'history', 'avg', 'occupations', 'planned') + ['title' => 'Score d\'employabilité', 'charts' => true]);
     }
 
     public function orientation(): string
