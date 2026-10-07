@@ -5,7 +5,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 STAMP="$(date +%Y%m%d)"
 WORK="$(mktemp -d)"
-OUT="$ROOT/dist/tremplin-lws-$STAMP.zip"
+OUT="$ROOT/dist/tremplin-lws.zip"
+KEY="$(head -c 18 /dev/urandom | od -An -tx1 | tr -d ' \n' | cut -c1-24)"
 mkdir -p "$ROOT/dist"
 
 # 1. Fichiers suivis par git (dernier commit) : aucun fichier local, base de test ou secret ne part dans l'archive
@@ -26,7 +27,24 @@ for d in storage app vendor database bin; do
   printf '<IfModule mod_authz_core.c>\n    Require all denied\n</IfModule>\n<IfModule !mod_authz_core.c>\n    Deny from all\n</IfModule>\n' > "$WORK/$d/.htaccess"
 done
 
+# Clé d'installation : le lien /install.php?cle=… suffit pour installer en une seule étape (clé supprimée après usage)
+printf '%s\n' "$KEY" > "$WORK/storage/install-key.txt"
+cat > "$WORK/LISEZ-MOI-INSTALLATION.txt" <<TXT
+TREMPLIN by NEAM — installation en une étape
+
+1. Décompressez cette archive dans le dossier de votre sous-domaine (gestionnaire de fichiers LWS › Extraire).
+2. Ouvrez ce lien en remplaçant l'adresse par celle de votre sous-domaine :
+
+   https://votre-sous-domaine/install.php?cle=$KEY
+
+3. Saisissez votre nom, votre e-mail et un mot de passe : c'est tout.
+   La plateforme est installée et vous êtes connecté(e) à l'administration.
+
+Guide complet : DEPLOIEMENT-LWS.md
+TXT
 rm -f "$OUT"
 ( cd "$WORK" && zip -qr -9 "$OUT" . -x '*.DS_Store' )
 rm -rf "$WORK"
 echo "✔ $OUT ($(du -h "$OUT" | cut -f1))"
+echo "  Lien d'installation : https://<sous-domaine>/install.php?cle=$KEY"
+echo "$KEY" > "$ROOT/dist/cle-installation.txt"

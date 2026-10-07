@@ -180,7 +180,7 @@ La racine web doit pointer sur `public/`. Sur un hébergement mutualisé où ce 
 
 ### Hébergement mutualisé sans SSH (LWS…)
 
-`bin/build-zip.sh` produit une archive autonome (`dist/tremplin-lws-AAAAMMJJ.zip`, environ 11 Mo, bibliothèques Composer incluses). Une fois décompressée sur l'hébergement, l'**assistant d'installation** `/install.php` vérifie le serveur, demande un code de propriété (fichier `storage/install-code.txt`), écrit le `.env`, crée la base (référentiels, 311 formations, 60 certifications ; démonstration en option), crée le compte administrateur, puis se verrouille et se supprime. À chaque nouvelle version (constante `APP_VERSION`), la base est mise à jour automatiquement au premier chargement. Guide pas à pas : [DEPLOIEMENT-LWS.md](DEPLOIEMENT-LWS.md).
+`bin/build-zip.sh` produit une archive autonome (`dist/tremplin-lws.zip`, environ 11 Mo, bibliothèques Composer incluses) et une **clé d'installation**. Une fois l'archive décompressée, il suffit d'ouvrir `/install.php?cle=…` et de saisir nom, e-mail et mot de passe : l'**installation express** écrit le `.env`, crée la base intégrée (SQLite ; MySQL en option), charge les référentiels, 311 formations et 60 certifications (démonstration en option), crée et connecte le compte administrateur, active HTTPS si l'installation se fait en https, puis se verrouille et se supprime. À chaque nouvelle version (constante `APP_VERSION`), la base est mise à jour automatiquement au premier chargement. Guide pas à pas : [DEPLOIEMENT-LWS.md](DEPLOIEMENT-LWS.md).
 
 ---
 

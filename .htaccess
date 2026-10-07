@@ -13,7 +13,7 @@ RewriteEngine On
 # Code, données, bibliothèques et fichiers de configuration : jamais servis
 RewriteRule ^(app|database|storage|bin|vendor|docs|dist)(/|$) - [F,L]
 RewriteRule (^|/)\.(?!well-known/) - [F,L]
-RewriteRule ^(composer\.(json|lock)|README\.md|DEPLOIEMENT-LWS\.md|.*\.sqlite)$ - [F,L]
+RewriteRule ^(composer\.(json|lock)|README\.md|DEPLOIEMENT-LWS\.md|LISEZ-MOI-INSTALLATION\.txt|.*\.sqlite|[^/]*\.txt)$ - [F,L]
 
 # Tout le reste est servi depuis /public
 RewriteCond %{REQUEST_URI} !^/public/

@@ -2,14 +2,16 @@
 declare(strict_types=1);
 
 /*
- * TREMPLIN by NEAM — assistant d'installation en ligne (hébergement mutualisé sans SSH, ex. LWS).
- * 1. Vérifie le serveur  2. Prouve que vous êtes le propriétaire (code déposé dans storage/)
- * 3. Écrit le fichier .env, crée la base et le compte administrateur  4. Se verrouille.
+ * TREMPLIN by NEAM — installation express (hébergement mutualisé sans SSH, ex. LWS).
+ * Un seul écran : nom, e-mail et mot de passe de l'administrateur. Base intégrée (SQLite) par défaut,
+ * MySQL en option. Le lien d'installation contient une clé (fichier storage/install-key.txt fourni avec l'archive) ;
+ * à défaut, un code est déposé dans storage/install-code.txt. L'assistant se verrouille et se supprime ensuite.
  */
 
 $base = dirname(__DIR__);
 $storage = $base . '/storage';
 $lock = $storage . '/installed.lock';
+$keyFile = $storage . '/install-key.txt';
 $codeFile = $storage . '/install-code.txt';
 
 header('X-Robots-Tag: noindex, nofollow');
@@ -24,33 +26,42 @@ function h(mixed $v): string
 function page(string $title, string $body): never
 {
     echo '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">'
-        . '<title>' . h($title) . ' · Installation Tremplin</title><style>'
-        . 'body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#f3f6fc;color:#142144}'
-        . '.w{max-width:760px;margin:0 auto;padding:28px 16px 60px}h1{font-size:1.6rem;margin:.2em 0}h2{font-size:1.1rem;margin:1.6em 0 .5em;color:#0a1633}'
-        . '.card{background:#fff;border:1px solid #e4eaf5;border-radius:16px;padding:20px;margin:14px 0}.top{display:flex;align-items:center;gap:10px;font-weight:800;color:#0057ff}'
-        . 'label{display:block;font-weight:600;margin:12px 0 4px;font-size:.92rem}input,select{width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #cfd8ea;border-radius:10px;font:inherit;background:#fff}'
-        . '.row{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.hint{font-size:.82rem;color:#5a6788;margin-top:3px}'
-        . '.btn{display:inline-block;margin-top:18px;padding:13px 22px;border:0;border-radius:12px;background:#0057ff;color:#fff;font:700 1rem system-ui,sans-serif;cursor:pointer;text-decoration:none}'
-        . '.ok{color:#0d7a3f}.ko{color:#c01d24}.warn{background:#fff6dd;border:1px solid #ffe3a3;border-radius:12px;padding:12px 14px}.err{background:#fdecec;border:1px solid #f5c2c4;border-radius:12px;padding:12px 14px}'
-        . '.succ{background:#e8f8ef;border:1px solid #b9e8cc;border-radius:12px;padding:12px 14px}ul.checks{list-style:none;padding:0;margin:0}ul.checks li{padding:4px 0}'
-        . 'code{background:#eef2f9;padding:1px 6px;border-radius:6px}.check{display:flex;gap:8px;align-items:flex-start;font-weight:500}.check input{width:auto;margin-top:4px}'
-        . '</style></head><body><div class="w"><div class="top">◆ Tremplin by NEAM</div>' . $body . '</div></body></html>';
+        . '<title>' . h($title) . ' · Tremplin</title><style>'
+        . ':root{--b:#0057ff;--n:#0a1633}*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:linear-gradient(180deg,#eaf1ff,#f6f9ff 40%);color:#142144;min-height:100vh}'
+        . '.w{max-width:560px;margin:0 auto;padding:32px 16px 60px}h1{font-size:1.65rem;line-height:1.2;margin:.3em 0 .2em;color:var(--n)}p.lead{color:#5a6788;margin:0 0 18px}'
+        . '.card{background:#fff;border:1px solid #e4eaf5;border-radius:18px;padding:22px;margin:14px 0;box-shadow:0 16px 40px -28px rgba(0,40,120,.45)}.top{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--b);font-size:1.05rem}'
+        . '.top i{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--b);color:#fff;font-style:normal}'
+        . 'label{display:block;font-weight:600;margin:14px 0 5px;font-size:.92rem}input,select{width:100%;padding:12px 13px;border:1px solid #cfd8ea;border-radius:11px;font:inherit;background:#fff}'
+        . 'input:focus,select:focus{outline:3px solid #dde9ff;border-color:var(--b)}.row{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}.hint{font-size:.82rem;color:#5a6788;margin-top:4px}'
+        . '.btn{display:block;width:100%;margin-top:20px;padding:14px 22px;border:0;border-radius:13px;background:var(--b);color:#fff;font:700 1.05rem system-ui,sans-serif;cursor:pointer;text-align:center;text-decoration:none}'
+        . '.btn:hover{background:#0047d6}.ok{color:#0d7a3f}.ko{color:#c01d24}.err{background:#fdecec;border:1px solid #f5c2c4;border-radius:12px;padding:12px 14px}.err ul{margin:.3em 0 0;padding-left:1.2em}'
+        . '.succ{background:#e8f8ef;border:1px solid #b9e8cc;border-radius:12px;padding:12px 14px}ul.checks{list-style:none;padding:0;margin:0;font-size:.92rem}ul.checks li{padding:3px 0}'
+        . 'code{background:#eef2f9;padding:1px 6px;border-radius:6px}details{margin-top:14px}summary{cursor:pointer;font-weight:600;color:var(--b)}'
+        . '.check{display:flex;gap:10px;align-items:flex-start;font-weight:500;margin-top:12px}.check input{width:auto;margin-top:5px}.steps{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 0;padding:0;list-style:none;font-size:.85rem;color:#5a6788}'
+        . '.steps li{background:#fff;border:1px solid #e4eaf5;border-radius:99px;padding:4px 12px}'
+        . '</style></head><body><div class="w"><div class="top"><i>◆</i> Tremplin by NEAM</div>' . $body . '</div></body></html>';
     exit;
 }
 
 /* ---------- Déjà installé ---------- */
 if (is_file($lock)) {
     http_response_code(403);
-    page('Déjà installé', '<h1>La plateforme est déjà installée</h1><div class="card"><p>Par sécurité, cet assistant est désactivé. '
-        . 'Supprimez le fichier <code>public/install.php</code> de votre hébergement s\'il est encore présent.</p>'
-        . '<p>Pour réinstaller (efface toutes les données) : supprimez <code>storage/installed.lock</code>, puis rouvrez cette page.</p><a class="btn" href="./">Ouvrir la plateforme</a></div>');
+    page('Déjà installé', '<h1>La plateforme est déjà installée</h1><div class="card"><p>Par sécurité, l\'assistant est désactivé. '
+        . 'Supprimez le fichier <code>public/install.php</code> s\'il est encore présent.</p>'
+        . '<p class="hint">Réinstaller (efface toutes les données) : supprimez <code>storage/installed.lock</code> et le fichier <code>.env</code>, puis rouvrez cette page.</p><a class="btn" href="./">Ouvrir la plateforme</a></div>');
 }
 
 /* ---------- Prérequis ---------- */
+foreach (['uploads', 'logs', 'cache'] as $d) {
+    if (!is_dir("$storage/$d")) {
+        @mkdir("$storage/$d", 0775, true);
+    }
+}
+$hasMysql = extension_loaded('pdo_mysql');
+$hasSqlite = extension_loaded('pdo_sqlite');
 $checks = [
     ['PHP 8.2 ou plus récent (actuel : ' . PHP_VERSION . ')', version_compare(PHP_VERSION, '8.2.0', '>='), true],
-    ['Extension PDO MySQL (base MySQL / MariaDB)', extension_loaded('pdo_mysql'), false],
-    ['Extension PDO SQLite (alternative sans serveur de base)', extension_loaded('pdo_sqlite'), false],
+    ['Base de données disponible (SQLite intégrée ou MySQL)', $hasSqlite || $hasMysql, true],
     ['Extension mbstring', extension_loaded('mbstring'), true],
     ['Extension fileinfo (contrôle des fichiers envoyés)', extension_loaded('fileinfo'), true],
     ['Extension GD (photos, QR code, PDF)', extension_loaded('gd'), true],
@@ -58,77 +69,72 @@ $checks = [
     ['Extension zip (import des CV Word)', extension_loaded('zip'), false],
     ['Bibliothèques incluses (dossier vendor/)', is_file($base . '/vendor/autoload.php'), true],
     ['Dossier storage/ accessible en écriture', is_writable($storage), true],
-    ['Dossier racine accessible en écriture (fichier .env)', is_writable($base) || (is_file($base . '/.env') && is_writable($base . '/.env')), true],
+    ['Dossier principal accessible en écriture (fichier .env)', is_writable($base) || (is_file($base . '/.env') && is_writable($base . '/.env')), true],
 ];
-foreach (['uploads', 'logs', 'cache'] as $d) {
-    if (!is_dir("$storage/$d")) {
-        @mkdir("$storage/$d", 0775, true);
-    }
-}
 $blocking = array_filter($checks, fn($c) => $c[2] && !$c[1]);
-if (!extension_loaded('pdo_mysql') && !extension_loaded('pdo_sqlite')) {
-    $blocking[] = ['Aucun pilote de base de données', false, true];
-}
 $checkHtml = '<ul class="checks">' . implode('', array_map(fn($c) => '<li class="' . ($c[1] ? 'ok' : ($c[2] ? 'ko' : '')) . '">' . ($c[1] ? '✔' : ($c[2] ? '✖' : '–')) . ' ' . h($c[0]) . '</li>', $checks)) . '</ul>';
 if ($blocking) {
-    page('Prérequis', '<h1>Installation de Tremplin</h1><div class="card"><h2>Le serveur doit être ajusté</h2>' . $checkHtml
-        . '<div class="warn" style="margin-top:12px">Sur LWS : <b>Panel LWS › Hébergement › Configuration PHP</b> pour choisir PHP 8.2 ou 8.3 et activer les extensions ; '
-        . 'vérifiez aussi que le dossier a bien été décompressé en entier (dossier <code>vendor/</code> compris). Rechargez ensuite cette page.</div></div>');
+    page('Prérequis', '<h1>Encore un réglage côté hébergeur</h1><div class="card">' . $checkHtml
+        . '<div class="err" style="margin-top:14px">Sur LWS : <b>Panel LWS › votre formule › Configuration PHP</b>, choisissez PHP 8.3, patientez 15 à 20 minutes, puis rechargez cette page. '
+        . 'Vérifiez aussi que l\'archive a été décompressée en entier (dossier <code>vendor/</code> compris).</div></div>');
 }
 
-/* ---------- Code de propriété ---------- */
-if (!is_file($codeFile)) {
+/* ---------- Preuve de propriété ---------- */
+// La clé livrée avec l'archive (dans le lien d'installation) suffit ; sinon, code à lire dans storage/install-code.txt
+$shippedKey = is_file($keyFile) ? trim((string)file_get_contents($keyFile)) : '';
+if ($shippedKey === '' && !is_file($codeFile)) {
     @file_put_contents($codeFile, strtoupper(substr(bin2hex(random_bytes(6)), 0, 10)) . "\n");
 }
-$expected = trim((string)@file_get_contents($codeFile));
+$fileCode = is_file($codeFile) ? trim((string)file_get_contents($codeFile)) : '';
+$given = trim((string)($_POST['cle'] ?? $_GET['cle'] ?? ''));
+$authorized = ($shippedKey !== '' && hash_equals($shippedKey, $given)) || ($fileCode !== '' && hash_equals($fileCode, strtoupper($given)));
 
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 $https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https';
-$dir = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/')), '/');
-$dir = preg_replace('#/public$#', '', $dir);
+$dir = preg_replace('#/public$#', '', rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/')), '/'));
 $f = $_POST + [
-    'app_url' => ($https ? 'https://' : 'http://') . $host . $dir, 'db_driver' => extension_loaded('pdo_mysql') ? 'mysql' : 'sqlite',
-    'db_host' => 'localhost', 'db_port' => '3306', 'db_name' => '', 'db_user' => '', 'db_password' => '',
-    'admin_first' => '', 'admin_last' => '', 'admin_email' => '', 'admin_password' => '', 'demo' => '',
-    'anthropic_key' => '', 'mail_host' => '', 'mail_port' => '465', 'mail_user' => 'contact@neamindustry.com', 'mail_password' => '', 'code' => '',
+    'admin_first' => '', 'admin_last' => '', 'admin_email' => '', 'admin_password' => '', 'db_driver' => $hasSqlite ? 'sqlite' : 'mysql',
+    'db_host' => 'localhost', 'db_port' => '3306', 'db_name' => '', 'db_user' => '', 'db_password' => '', 'demo' => '', 'anthropic_key' => '',
+    'mail_host' => '', 'mail_port' => '465', 'mail_user' => 'contact@neamindustry.com', 'mail_password' => '',
+    'app_url' => ($https ? 'https://' : 'http://') . $host . $dir,
 ];
 $errors = [];
 
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
-    if (!hash_equals($expected, strtoupper(trim((string)$f['code'])))) {
-        $errors[] = 'Code de propriété incorrect : ouvrez le fichier storage/install-code.txt avec le gestionnaire de fichiers de LWS et recopiez son contenu.';
+    if (!$authorized) {
+        $errors[] = 'Clé d\'installation invalide. Utilisez le lien d\'installation fourni avec l\'archive, ou recopiez le code du fichier storage/install-code.txt.';
     }
     if (!filter_var($f['app_url'], FILTER_VALIDATE_URL)) {
-        $errors[] = 'Adresse du site invalide (exemple : https://tremplin.neamindustry.com).';
-    }
-    if (!filter_var($f['admin_email'], FILTER_VALIDATE_EMAIL)) {
-        $errors[] = 'E-mail de l\'administrateur invalide.';
-    }
-    if (mb_strlen((string)$f['admin_password']) < 10) {
-        $errors[] = 'Mot de passe administrateur : 10 caractères au minimum.';
+        $errors[] = 'Adresse du site invalide.';
     }
     if (trim((string)$f['admin_first']) === '' || trim((string)$f['admin_last']) === '') {
-        $errors[] = 'Indiquez le prénom et le nom de l\'administrateur.';
+        $errors[] = 'Indiquez votre prénom et votre nom.';
     }
-    $driver = $f['db_driver'] === 'sqlite' ? 'sqlite' : 'mysql';
+    if (!filter_var($f['admin_email'], FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'Adresse e-mail invalide.';
+    }
+    if (mb_strlen((string)$f['admin_password']) < 10) {
+        $errors[] = 'Mot de passe : 10 caractères au minimum.';
+    }
+    $driver = $f['db_driver'] === 'mysql' || !$hasSqlite ? 'mysql' : 'sqlite';
     if (!$errors && $driver === 'mysql') {
         try {
             $pdo = new PDO('mysql:host=' . $f['db_host'] . ';port=' . (int)$f['db_port'] . ';dbname=' . $f['db_name'] . ';charset=utf8mb4', (string)$f['db_user'], (string)$f['db_password'],
                 [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_TIMEOUT => 8]);
             if ($pdo->query("SHOW TABLES LIKE 'users'")->fetchColumn()) {
-                $errors[] = 'Cette base contient déjà une installation de Tremplin. Utilisez une base vide, ou supprimez ses tables depuis phpMyAdmin.';
+                $errors[] = 'Cette base MySQL contient déjà une installation de Tremplin : utilisez une base vide.';
             }
         } catch (Throwable $e) {
-            $errors[] = 'Connexion à la base impossible : ' . $e->getMessage() . ' — vérifiez l\'hôte, le nom de la base, l\'utilisateur et le mot de passe indiqués dans le Panel LWS (rubrique « Bases de données MySQL »).';
+            $errors[] = 'Connexion MySQL impossible : ' . $e->getMessage() . ' — recopiez l\'hôte, le nom de la base, l\'utilisateur et le mot de passe du Panel LWS (MySQL & phpMyAdmin), ou choisissez la base intégrée.';
         }
     }
     if (!$errors) {
         $q = fn($v) => '"' . str_replace(['\\', '"', "\n", "\r"], ['\\\\', '\\"', '', ''], (string)$v) . '"';
+        $url = rtrim((string)$f['app_url'], '/');
         $env = [
-            '# Généré par l\'assistant d\'installation le ' . date('d/m/Y H:i'),
-            'APP_NAME="Tremplin by NEAM"', 'APP_URL=' . $q(rtrim((string)$f['app_url'], '/')), 'APP_DEBUG=false', 'APP_DEMO=' . ($f['demo'] ? 'true' : 'false'),
-            'APP_TIMEZONE=Africa/Libreville', 'APP_KEY=' . bin2hex(random_bytes(32)), '',
-            'DB_DRIVER=' . $driver,
+            '# Configuration générée par l\'installation express le ' . date('d/m/Y H:i') . ' — modifiable à tout moment',
+            'APP_NAME="Tremplin by NEAM"', 'APP_URL=' . $q($url), 'APP_DEBUG=false', 'APP_DEMO=' . ($f['demo'] ? 'true' : 'false'),
+            'APP_TIMEZONE=Africa/Libreville', 'APP_KEY=' . bin2hex(random_bytes(32)), '', 'DB_DRIVER=' . $driver,
         ];
         if ($driver === 'mysql') {
             array_push($env, 'DB_HOST=' . $q($f['db_host']), 'DB_PORT=' . (int)$f['db_port'], 'DB_NAME=' . $q($f['db_name']), 'DB_USER=' . $q($f['db_user']), 'DB_PASSWORD=' . $q($f['db_password']));
@@ -142,43 +148,58 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             'AI_PROVIDER=anthropic', 'ANTHROPIC_API_KEY=' . $q($f['anthropic_key']), 'AI_MODEL=claude-opus-5-5', '',
             'PAYMENT_DRIVER=sandbox', 'UPLOAD_MAX_SIZE=5242880', '');
         if (@file_put_contents($base . '/.env', implode("\n", $env)) === false) {
-            $errors[] = 'Impossible d\'écrire le fichier .env à la racine : donnez les droits d\'écriture au dossier (755) puis réessayez.';
+            $errors[] = 'Impossible d\'écrire le fichier .env : donnez les droits d\'écriture (755) au dossier du site, puis réessayez.';
         } else {
             @chmod($base . '/.env', 0640);
             try {
                 require $base . '/app/bootstrap.php';
                 require $base . '/database/Migrator.php';
                 @set_time_limit(300);
+                if ($driver === 'sqlite') {
+                    @unlink($storage . '/database.sqlite');
+                }
                 Database\Migrator::install((bool)$f['demo'], false);
                 $now = date('Y-m-d H:i:s');
+                $email = strtolower(trim((string)$f['admin_email']));
                 $hash = password_hash((string)$f['admin_password'], PASSWORD_DEFAULT);
-                $exists = App\Core\DB::value('SELECT id FROM users WHERE email = :e', ['e' => strtolower(trim((string)$f['admin_email']))]);
-                if ($exists) {
-                    App\Core\DB::update('users', ['role' => 'admin', 'password_hash' => $hash, 'status' => 'active'], 'id = :id', ['id' => $exists]);
+                $adminId = App\Core\DB::value('SELECT id FROM users WHERE email = :e', ['e' => $email]);
+                if ($adminId) {
+                    App\Core\DB::update('users', ['role' => 'admin', 'password_hash' => $hash, 'status' => 'active'], 'id = :id', ['id' => $adminId]);
                 } else {
-                    App\Core\DB::insert('users', [
-                        'role' => 'admin', 'email' => strtolower(trim((string)$f['admin_email'])), 'password_hash' => $hash,
-                        'first_name' => trim((string)$f['admin_first']), 'last_name' => trim((string)$f['admin_last']), 'status' => 'active', 'plan_code' => 'FREE',
-                        'email_verified_at' => $now, 'created_at' => $now, 'updated_at' => $now,
+                    $adminId = App\Core\DB::insert('users', [
+                        'role' => 'admin', 'email' => $email, 'password_hash' => $hash, 'first_name' => trim((string)$f['admin_first']), 'last_name' => trim((string)$f['admin_last']),
+                        'status' => 'active', 'plan_code' => 'FREE', 'email_verified_at' => $now, 'created_at' => $now, 'updated_at' => $now,
                     ]);
                 }
                 if ($f['demo']) {
-                    // Le compte administrateur de démonstration ne doit pas rester accessible avec un mot de passe public
+                    // Le compte administrateur de démonstration ne doit jamais rester accessible avec un mot de passe public
                     App\Core\DB::update('users', ['password_hash' => password_hash(bin2hex(random_bytes(16)), PASSWORD_DEFAULT), 'status' => 'suspended'], "email = 'admin@tremplin.ga'", []);
                 }
+                App\Core\DB::run('DELETE FROM settings WHERE skey = :k', ['k' => 'schema_version']);
                 App\Core\DB::insert('settings', ['skey' => 'schema_version', 'svalue' => APP_VERSION]);
-                file_put_contents($lock, date('c') . " (assistant web)\n");
+                // HTTPS : si l'installation se fait déjà en https, on force la redirection pour tout le site
+                if ($https && is_file($base . '/.htaccess')) {
+                    $ht = (string)file_get_contents($base . '/.htaccess');
+                    $ht = str_replace(["# RewriteCond %{HTTPS} !=on", "# RewriteCond %{HTTP:X-Forwarded-Proto} !=https", "# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]"],
+                        ["RewriteCond %{HTTPS} !=on", "RewriteCond %{HTTP:X-Forwarded-Proto} !=https", "RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]"], $ht);
+                    @file_put_contents($base . '/.htaccess', $ht);
+                }
+                file_put_contents($lock, date('c') . " (installation express)\n");
                 @unlink($codeFile);
+                @unlink($keyFile);
+                // Connexion directe de l'administrateur : la plateforme est prête à l'emploi
+                App\Core\Session::start();
+                App\Core\Auth::login(App\Core\DB::one('SELECT * FROM users WHERE id = :id', ['id' => $adminId]));
                 $selfDeleted = @unlink(__FILE__);
-                $url = rtrim((string)$f['app_url'], '/');
-                page('Installation terminée', '<h1>C\'est en ligne ! 🎉</h1><div class="card"><div class="succ"><b>Tremplin est installé.</b> Base de données créée, catalogue de 311 formations et 60 certifications chargé'
-                    . ($f['demo'] ? ', données de démonstration ajoutées (comptes candidat, recruteur et école : mot de passe <code>Tremplin2026!</code>)' : '') . '.</div>'
-                    . '<h2>Prochaines étapes</h2><ol>'
-                    . '<li>Connectez-vous avec <b>' . h($f['admin_email']) . '</b> : <a href="' . h($url) . '/connexion">' . h($url) . '/connexion</a></li>'
-                    . ($selfDeleted ? '<li class="ok">L\'assistant d\'installation s\'est supprimé automatiquement.</li>' : '<li class="ko"><b>Supprimez le fichier <code>public/install.php</code></b> avec le gestionnaire de fichiers (il est déjà verrouillé, mais autant le retirer).</li>')
-                    . '<li>Activez le certificat SSL gratuit (Let\'s Encrypt) dans le Panel LWS, puis la redirection HTTPS (voir le guide).</li>'
-                    . '<li>Programmez la tâche hebdomadaire de mise à jour des formations (voir le guide, rubrique « Tâches planifiées »).</li></ol>'
-                    . '<a class="btn" href="' . h($url) . '/">Ouvrir la plateforme</a></div>');
+                page('C\'est en ligne', '<h1>C\'est en ligne ! 🎉</h1><p class="lead">Tremplin est installé et vous êtes connecté·e en tant qu\'administrateur.</p><div class="card"><div class="succ">'
+                    . '<b>Prêt à l\'emploi :</b> 311 formations, 60 certifications, 59 compétences, 21 villes, conseils carrière et 17 modèles de CV'
+                    . ($f['demo'] ? ', plus des données de démonstration (comptes candidat, recruteur et école : mot de passe <code>Tremplin2026!</code>)' : '') . '.</div>'
+                    . '<ul class="checks" style="margin-top:14px">'
+                    . '<li class="ok">✔ Base de données ' . ($driver === 'sqlite' ? 'intégrée créée (aucun réglage nécessaire)' : 'MySQL créée') . '</li>'
+                    . '<li class="ok">✔ Compte administrateur : ' . h($email) . '</li>'
+                    . ($https ? '<li class="ok">✔ HTTPS forcé sur tout le site</li>' : '<li>– Pensez à activer le certificat SSL gratuit dans le Panel LWS (voir le guide)</li>')
+                    . ($selfDeleted ? '<li class="ok">✔ Assistant d\'installation supprimé</li>' : '<li class="ko">✖ Supprimez le fichier <code>public/install.php</code> (il est déjà verrouillé)</li>')
+                    . '</ul><a class="btn" href="' . h($url) . '/admin">Ouvrir mon tableau de bord</a></div>');
             } catch (Throwable $e) {
                 @unlink($base . '/.env');
                 $errors[] = 'Erreur pendant la création de la base : ' . $e->getMessage();
@@ -188,24 +209,30 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
 }
 
 /* ---------- Formulaire ---------- */
+if (!$authorized && ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET') {
+    page('Installation', '<h1>Installer Tremplin</h1><p class="lead">Ouvrez le <b>lien d\'installation</b> fourni avec l\'archive (il contient votre clé), ou saisissez le code du fichier <code>storage/install-code.txt</code>.</p>'
+        . '<form method="get" class="card"><label for="cle">Clé ou code d\'installation</label><input id="cle" name="cle" required autocomplete="off"><button class="btn" type="submit">Continuer</button></form>');
+}
 $err = $errors ? '<div class="err"><b>À corriger :</b><ul>' . implode('', array_map(fn($e) => '<li>' . h($e) . '</li>', $errors)) . '</ul></div>' : '';
 $sel = fn($a, $b) => $a === $b ? ' selected' : '';
-page('Installation', '<h1>Installation de Tremplin</h1><p>Cinq minutes suffisent. Gardez sous la main les informations de votre base MySQL (Panel LWS › Bases de données).</p>' . $err
-    . '<details class="card"><summary><b>Vérification du serveur</b> : tout est prêt ✔</summary>' . $checkHtml . '</details>'
-    . '<form method="post" class="card" autocomplete="off">'
-    . '<h2>1. Code de propriété</h2><p class="hint" style="font-size:.9rem">Pour prouver que vous gérez cet hébergement, ouvrez le fichier <code>storage/install-code.txt</code> dans le gestionnaire de fichiers LWS (ou par FTP) et recopiez le code.</p>'
-    . '<label for="code">Code</label><input id="code" name="code" required value="' . h($f['code']) . '" style="text-transform:uppercase;letter-spacing:.15em;max-width:260px">'
-    . '<h2>2. Adresse du site</h2><label for="app_url">URL complète du sous-domaine</label><input id="app_url" name="app_url" required value="' . h($f['app_url']) . '"><div class="hint">Exemple : https://tremplin.neamindustry.com (sans barre oblique finale).</div>'
-    . '<h2>3. Base de données</h2><label for="db_driver">Type</label><select id="db_driver" name="db_driver"><option value="mysql"' . $sel($f['db_driver'], 'mysql') . '>MySQL / MariaDB (recommandé sur LWS)</option><option value="sqlite"' . $sel($f['db_driver'], 'sqlite') . '>SQLite (fichier, pour un test rapide)</option></select>'
-    . '<div class="row"><div><label for="db_host">Serveur (hôte)</label><input id="db_host" name="db_host" value="' . h($f['db_host']) . '"><div class="hint">Indiqué par LWS avec la base.</div></div><div><label for="db_port">Port</label><input id="db_port" name="db_port" value="' . h($f['db_port']) . '"></div></div>'
-    . '<div class="row"><div><label for="db_name">Nom de la base</label><input id="db_name" name="db_name" value="' . h($f['db_name']) . '"></div><div><label for="db_user">Utilisateur</label><input id="db_user" name="db_user" value="' . h($f['db_user']) . '"></div></div>'
-    . '<label for="db_password">Mot de passe de la base</label><input id="db_password" name="db_password" type="password" value="' . h($f['db_password']) . '">'
-    . '<h2>4. Compte administrateur NEAM</h2><div class="row"><div><label for="admin_first">Prénom</label><input id="admin_first" name="admin_first" required value="' . h($f['admin_first']) . '"></div><div><label for="admin_last">Nom</label><input id="admin_last" name="admin_last" required value="' . h($f['admin_last']) . '"></div></div>'
-    . '<div class="row"><div><label for="admin_email">E-mail</label><input id="admin_email" name="admin_email" type="email" required value="' . h($f['admin_email']) . '"></div><div><label for="admin_password">Mot de passe (10 caractères min.)</label><input id="admin_password" name="admin_password" type="password" required minlength="10"></div></div>'
-    . '<h2>5. Options (modifiables plus tard dans le fichier .env)</h2>'
-    . '<label class="check"><input type="checkbox" name="demo" value="1"' . ($f['demo'] ? ' checked' : '') . '> <span>Ajouter les <b>données de démonstration</b> (entreprises, offres et candidats fictifs) — pour une présentation uniquement, pas pour le lancement public.</span></label>'
-    . '<label for="anthropic_key">Clé API Claude (facultatif)</label><input id="anthropic_key" name="anthropic_key" value="' . h($f['anthropic_key']) . '" placeholder="sk-ant-…"><div class="hint">Sans clé, le moteur NEAM rédige CV et lettres. La clé se crée sur console.anthropic.com. Elle reste sur votre serveur.</div>'
-    . '<div class="row"><div><label for="mail_host">Serveur SMTP de contact@neamindustry.com (facultatif)</label><input id="mail_host" name="mail_host" value="' . h($f['mail_host']) . '" placeholder="mail.neamindustry.com"></div><div><label for="mail_port">Port SMTP</label><input id="mail_port" name="mail_port" value="' . h($f['mail_port']) . '"></div></div>'
-    . '<div class="row"><div><label for="mail_user">Identifiant SMTP</label><input id="mail_user" name="mail_user" value="' . h($f['mail_user']) . '"></div><div><label for="mail_password">Mot de passe SMTP</label><input id="mail_password" name="mail_password" type="password"></div></div>'
-    . '<div class="hint">Sans SMTP, les e-mails sont enregistrés dans le back-office (Admin › Communications) au lieu d\'être envoyés.</div>'
-    . '<button class="btn" type="submit">Installer Tremplin</button></form>');
+page('Installation', '<h1>Installer Tremplin en une minute</h1><p class="lead">Créez votre compte administrateur : tout le reste est configuré automatiquement.</p>'
+    . '<ul class="steps"><li>✔ Serveur compatible</li><li>✔ Clé vérifiée</li><li>➜ Votre compte</li></ul>' . $err
+    . '<form method="post" class="card" autocomplete="off"><input type="hidden" name="cle" value="' . h($given) . '">'
+    . '<div class="row"><div><label for="admin_first">Prénom</label><input id="admin_first" name="admin_first" required value="' . h($f['admin_first']) . '"></div>'
+    . '<div><label for="admin_last">Nom</label><input id="admin_last" name="admin_last" required value="' . h($f['admin_last']) . '"></div></div>'
+    . '<label for="admin_email">E-mail de connexion</label><input id="admin_email" name="admin_email" type="email" required value="' . h($f['admin_email']) . '">'
+    . '<label for="admin_password">Mot de passe (10 caractères minimum)</label><input id="admin_password" name="admin_password" type="password" required minlength="10" autocomplete="new-password">'
+    . '<button class="btn" type="submit">Installer et ouvrir la plateforme</button>'
+    . '<details><summary>Options avancées (facultatif)</summary>'
+    . '<label for="app_url">Adresse du site</label><input id="app_url" name="app_url" value="' . h($f['app_url']) . '"><div class="hint">Détectée automatiquement.</div>'
+    . '<label for="db_driver">Base de données</label><select id="db_driver" name="db_driver">' . ($hasSqlite ? '<option value="sqlite"' . $sel($f['db_driver'], 'sqlite') . '>Base intégrée (recommandé pour démarrer : rien à créer)</option>' : '')
+    . ($hasMysql ? '<option value="mysql"' . $sel($f['db_driver'], 'mysql') . '>MySQL (Panel LWS › MySQL & phpMyAdmin)</option>' : '') . '</select>'
+    . '<div class="row"><div><label for="db_host">Hôte MySQL</label><input id="db_host" name="db_host" value="' . h($f['db_host']) . '"></div><div><label for="db_name">Nom de la base</label><input id="db_name" name="db_name" value="' . h($f['db_name']) . '"></div></div>'
+    . '<div class="row"><div><label for="db_user">Utilisateur</label><input id="db_user" name="db_user" value="' . h($f['db_user']) . '"></div><div><label for="db_password">Mot de passe</label><input id="db_password" name="db_password" type="password" value="' . h($f['db_password']) . '"></div></div>'
+    . '<input type="hidden" name="db_port" value="' . h($f['db_port']) . '">'
+    . '<label for="anthropic_key">Clé API Claude</label><input id="anthropic_key" name="anthropic_key" value="' . h($f['anthropic_key']) . '" placeholder="sk-ant-…"><div class="hint">Sans clé, le moteur NEAM intégré rédige CV et lettres. La clé reste sur votre serveur.</div>'
+    . '<div class="row"><div><label for="mail_host">Serveur SMTP (contact@neamindustry.com)</label><input id="mail_host" name="mail_host" value="' . h($f['mail_host']) . '"></div><div><label for="mail_password">Mot de passe SMTP</label><input id="mail_password" name="mail_password" type="password"></div></div>'
+    . '<input type="hidden" name="mail_user" value="' . h($f['mail_user']) . '"><input type="hidden" name="mail_port" value="' . h($f['mail_port']) . '">'
+    . '<label class="check"><input type="checkbox" name="demo" value="1"' . ($f['demo'] ? ' checked' : '') . '> <span>Ajouter des <b>données de démonstration</b> (entreprises, offres et candidats fictifs) — pour une présentation, pas pour le lancement public.</span></label>'
+    . '</details></form>'
+    . '<details class="card"><summary>Vérification du serveur</summary>' . $checkHtml . '</details>');

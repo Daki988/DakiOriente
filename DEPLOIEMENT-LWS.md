@@ -1,80 +1,60 @@
 # Mettre Tremplin en ligne sur un sous-domaine LWS
 
-Ce guide vous accompagne pas à pas, sans ligne de commande. Comptez **20 à 30 minutes**, dont une partie d'attente (version PHP, certificat SSL).
+**Installation en une seule fois, prête à l'emploi** : vous déposez l'archive, vous cliquez sur le lien d'installation, vous créez votre compte. Aucune base de données à créer, aucun fichier à modifier.
 
 Exemple utilisé : le sous-domaine **tremplin.neamindustry.com**. Remplacez-le par le vôtre.
 
-> Les noms des menus LWS peuvent légèrement varier selon votre formule et les mises à jour du LWS Panel. En cas de doute, la recherche de l'aide LWS (aide.lws.fr) donne la procédure à jour.
+> Les intitulés des menus LWS peuvent légèrement varier selon votre formule. En cas de doute, l'aide LWS (aide.lws.fr) donne la procédure à jour.
 
 ---
 
-## Ce qu'il vous faut
+## Avant de commencer (une seule fois)
 
-- Une formule d'hébergement **mutualisé Linux LWS** (Perso, Starter, Standard, Performance…) avec **PHP 8.2 ou 8.3** et **MySQL**.
-- L'archive `tremplin-lws-*.zip` (tout est inclus, y compris les bibliothèques : rien à installer).
-- 300 Mo d'espace libre environ (application, catalogue de formations, futurs CV et photos).
+1. **Sous-domaine** : LWS Panel › votre formule › **Sous-domaines** › saisissez `tremplin` › **Ajout**. Notez le dossier associé (souvent `/htdocs/tremplin`).
+2. **PHP 8.3** : LWS Panel › votre formule › **Configuration PHP** › PHP 8.3 (8.2 au minimum). LWS indique 15 à 20 minutes pour l'application du changement.
+
+Vous n'avez **pas** besoin de créer de base MySQL : Tremplin utilise par défaut une base intégrée, créée automatiquement. MySQL reste disponible dans les options avancées de l'installation.
 
 ---
 
-## Étape 1 — Créer le sous-domaine
+## Installation en 3 étapes
 
-1. LWS Panel › votre formule › **Gérer** › rubrique *Gestion du domaine* › **Sous-domaines**.
-2. Saisissez `tremplin` puis **Ajout**.
-3. Notez le **dossier** associé au sous-domaine (souvent un dossier du même nom dans votre espace, par exemple `/htdocs/tremplin`).
+### 1. Déposer l'archive
 
-**Si le panel vous permet de choisir le dossier racine** du sous-domaine, faites-le pointer vers `…/tremplin/public` : c'est la configuration idéale.
-**Sinon, aucun problème** : le fichier `.htaccess` fourni à la racine redirige automatiquement vers `public/` et bloque l'accès aux dossiers sensibles (`app`, `storage`, `vendor`, `.env`…).
+LWS Panel › **Gestionnaire de fichiers** › dossier du sous-domaine › **Téléverser** `tremplin-lws.zip` › **Extraire**.
+Vérifiez que vous voyez directement `app/`, `public/`, `storage/`, `vendor/`… (pas un sous-dossier en plus), puis supprimez le `.zip`.
 
-## Étape 2 — Choisir PHP 8.3
+### 2. Ouvrir le lien d'installation
 
-1. LWS Panel › votre formule › **Configuration PHP**.
-2. Sélectionnez **PHP 8.3** (ou 8.2 au minimum) et validez.
-3. Vérifiez que ces extensions sont actives (c'est le cas par défaut en général) : **pdo_mysql, mbstring, fileinfo, gd, curl, zip**.
-4. LWS indique un délai de **15 à 20 minutes** pour que la nouvelle version s'applique : passez à l'étape 3 en attendant.
+Le lien vous a été transmis avec l'archive. Il figure aussi dans le fichier `LISEZ-MOI-INSTALLATION.txt` de l'archive. Il a cette forme :
 
-## Étape 3 — Créer la base de données
+`https://tremplin.neamindustry.com/install.php?cle=VOTRE-CLÉ`
 
-1. LWS Panel › **MySQL & phpMyAdmin** › « Créer une base MySQL ».
-2. Notez soigneusement les quatre informations affichées : **serveur (hôte)**, **nom de la base**, **utilisateur**, **mot de passe**.
+La clé prouve que c'est bien vous qui installez. Elle est détruite après l'installation.
 
-Pour des raisons de sécurité, LWS n'autorise l'accès à la base que depuis l'hébergement lui-même : c'est normal, Tremplin s'y connecte de l'intérieur.
+### 3. Créer votre compte
 
-## Étape 4 — Envoyer les fichiers
+Saisissez **prénom, nom, e-mail et mot de passe** (10 caractères minimum), puis **Installer et ouvrir la plateforme**.
 
-**Méthode simple : le gestionnaire de fichiers LWS**
+En quelques secondes :
+- la base est créée avec les **311 formations**, les **60 certifications**, les compétences, les villes, les conseils carrière et les **17 modèles de CV** ;
+- votre compte administrateur est créé et **vous êtes connecté·e** ;
+- si vous installez en `https://`, la redirection HTTPS est activée automatiquement ;
+- l'assistant d'installation se verrouille et se supprime.
 
-1. LWS Panel › **Gestionnaire de fichiers** › ouvrez le dossier du sous-domaine (étape 1).
-2. **Téléversez** `tremplin-lws-*.zip`, puis utilisez **Extraire** sur l'archive.
-3. Vérifiez que vous voyez directement dans le dossier : `app/`, `public/`, `storage/`, `vendor/`, `.htaccess`… (et pas un sous-dossier supplémentaire). Si un sous-dossier a été créé, déplacez son contenu d'un niveau.
-4. Supprimez l'archive `.zip` une fois l'extraction terminée.
+**C'est prêt.** Les candidats peuvent s'inscrire, créer leur CV et télécharger leur PDF ; les entreprises peuvent publier leurs offres.
 
-**Méthode alternative : FTP (FileZilla)**. Décompressez l'archive sur votre ordinateur, puis envoyez tout le contenu dans le dossier du sous-domaine. Pensez à afficher les fichiers cachés pour que `.htaccess` soit bien envoyé.
+> **Options avancées** (facultatives, dans l'écran d'installation) : base MySQL, clé Claude, serveur e-mail SMTP, données de démonstration pour une présentation.
 
-**Droits d'accès** : les valeurs par défaut conviennent en général (755 pour les dossiers, 644 pour les fichiers). Le dossier `storage/` et ses sous-dossiers doivent être accessibles en écriture.
+---
 
-## Étape 5 — Lancer l'assistant d'installation
+## Recommandé ensuite
 
-1. Ouvrez **http://tremplin.neamindustry.com/install.php** (en `https://` si le certificat est déjà actif).
-2. L'assistant vérifie le serveur. Si une ligne est en rouge, il vous dit quoi corriger (le plus souvent : version PHP pas encore appliquée, patientez quelques minutes).
-3. **Code de propriété** : dans le gestionnaire de fichiers, ouvrez `storage/install-code.txt` et recopiez le code. Il prouve que c'est bien vous qui installez.
-4. Renseignez :
-   - l'**adresse du site** (ex. `https://tremplin.neamindustry.com`) ;
-   - la **base de données** (étape 3) ;
-   - votre **compte administrateur** (e-mail et mot de passe d'au moins 10 caractères) ;
-   - en option : la **clé Claude**, le **SMTP** de contact@neamindustry.com, les **données de démonstration**.
-5. Cliquez sur **Installer Tremplin**. En quelques secondes, la base est créée avec les référentiels (villes, secteurs, 59 compétences), le **catalogue réel de 311 formations** et **60 certifications**.
+### Certificat SSL (HTTPS)
 
-L'assistant se verrouille ensuite et tente de se supprimer. S'il vous le demande, supprimez `public/install.php` à la main.
+LWS Panel › **SSL** › activez le certificat Let's Encrypt gratuit pour le sous-domaine. Si vous avez installé en `http://`, retirez ensuite les `#` devant les trois lignes « Redirection vers HTTPS » du fichier `.htaccess` (racine du site) et mettez `APP_URL` en `https://` dans le fichier `.env`.
 
-> **Données de démonstration** : utiles pour une présentation (entreprises, offres et candidats fictifs ; comptes candidat, recruteur et école avec le mot de passe `Tremplin2026!`). Le compte administrateur de démonstration est désactivé automatiquement. **Ne les cochez pas pour le lancement public.**
-
-## Étape 6 — Activer HTTPS
-
-1. LWS Panel › **SSL** (certificat Let's Encrypt gratuit) › activez-le pour `tremplin.neamindustry.com`.
-2. Une fois le certificat actif, forcez HTTPS : dans le fichier `.htaccess` à la racine du dossier, retirez les `#` devant les trois lignes de la rubrique « Redirection vers HTTPS ».
-3. Vérifiez que `APP_URL` commence bien par `https://` dans le fichier `.env` (racine du dossier).
-
-## Étape 7 — Tâche planifiée hebdomadaire (formations)
+### Tâche planifiée hebdomadaire (formations)
 
 Le catalogue est déjà chargé. Pour le tenir à jour (nouveaux cours Coursera et sessions FUN MOOC) :
 
@@ -85,7 +65,7 @@ Le catalogue est déjà chargé. Pour le tenir à jour (nouveaux cours Coursera 
 
 La synchronisation dure quelques minutes. Elle peut aussi être lancée à la main depuis **Admin › Formations & certificats**.
 
-## Étape 8 — Réglages à faire dans le fichier `.env`
+### Réglages du fichier `.env`
 
 Le fichier `.env` (racine du dossier) contient la configuration. Modifiez-le avec le gestionnaire de fichiers si besoin :
 
@@ -108,7 +88,7 @@ Le fichier `.env` (racine du dossier) contient la configuration. Modifiez-le ave
 
 ## Sauvegardes
 
-- **Base de données** : LWS Panel › MySQL & phpMyAdmin › phpMyAdmin › onglet *Exporter*. LWS propose aussi des sauvegardes automatiques selon la formule.
+- **Base de données** : avec la base intégrée, copiez le fichier `storage/database.sqlite` ; avec MySQL, LWS Panel › MySQL & phpMyAdmin › onglet *Exporter*. LWS propose aussi des sauvegardes automatiques selon la formule.
 - **Fichiers des utilisateurs** : le dossier `storage/uploads/` (CV importés, photos, certificats).
 - **Configuration** : le fichier `.env`.
 
@@ -118,11 +98,11 @@ Le fichier `.env` (racine du dossier) contient la configuration. Modifiez-le ave
 |---|---|
 | Page blanche ou erreur 500 | Vérifiez la version PHP (8.2+). Consultez `storage/logs/php-error.log`. |
 | « Forbidden » / 403 partout | Le contenu de l'archive est peut-être dans un sous-dossier : voir étape 4. |
-| L'installation demande un code | Ouvrez `storage/install-code.txt` dans le gestionnaire de fichiers. |
-| « Connexion à la base impossible » | Recopiez exactement l'hôte, le nom, l'utilisateur et le mot de passe de l'étape 3. |
+| L'installation demande une clé | Utilisez le lien d'installation complet (avec `?cle=…`), ou ouvrez `storage/install-code.txt` dans le gestionnaire de fichiers. |
+| « Connexion MySQL impossible » (option avancée) | Recopiez l'hôte, le nom, l'utilisateur et le mot de passe du Panel LWS, ou laissez la base intégrée. |
 | Les styles ne s'affichent pas | Vérifiez que le fichier `.htaccess` (fichier caché) a bien été envoyé, à la racine et dans `public/`. |
 | Les e-mails ne partent pas | Vérifiez les paramètres SMTP dans `.env`, ou passez `MAIL_DRIVER=log` pour les consulter dans l'administration. |
-| Réinstaller de zéro | Supprimez `storage/installed.lock` et `.env`, videz la base dans phpMyAdmin, rouvrez `/install.php` (à renvoyer s'il a été supprimé). |
+| Réinstaller de zéro | Supprimez `storage/installed.lock`, `storage/database.sqlite` et `.env`, renvoyez `public/install.php` depuis l'archive, puis rouvrez `/install.php`. |
 
 ## Sécurité, en bref
 
