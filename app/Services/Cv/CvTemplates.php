@@ -14,6 +14,15 @@ final class CvTemplates
      * side : left|right pour les mises en page à colonne. photo : le modèle affiche la photo par défaut.
      */
     public const TEMPLATES = [
+        'prestige'  => ['name' => 'Prestige', 'cat' => 'Moderne', 'layout' => 'side', 'side' => 'left', 'photo' => true, 'font' => 'poppins', 'palette' => 'lagon',
+            'side_blocks' => ['contact', 'skills', 'edu', 'langs', 'soft', 'qr'], 'side_name' => false,
+            'desc' => 'Colonne sombre avec photo cerclée, nom sur deux lignes, frise des expériences et dates en pastilles.', 'for' => 'Assistanat, gestion, administration, tous profils'],
+        'signature' => ['name' => 'Signature', 'cat' => 'Créatif', 'layout' => 'side', 'side' => 'left', 'photo' => true, 'font' => 'poppins', 'palette' => 'violet',
+            'side_blocks' => ['contact', 'langs', 'skills', 'soft', 'interests', 'qr'], 'side_name' => false,
+            'desc' => 'Photo en arc de cercle, parcours sur un panneau teinté, intitulés de poste en couleur.', 'for' => 'Marketing, communication, digital, freelances'],
+        'parcours'  => ['name' => 'Parcours', 'cat' => 'Professionnel', 'layout' => 'side', 'side' => 'left', 'photo' => true, 'font' => 'lato', 'palette' => 'ardoise',
+            'side_blocks' => ['contact', 'skills', 'langs', 'soft', 'interests', 'qr'], 'side_name' => false, 'photo_shape' => 'square',
+            'desc' => 'Photo pleine largeur, bandeau sombre au nom du candidat et frise verticale avec pictogrammes.', 'for' => 'Commerce, distribution, management, alternance'],
         'moderne'   => ['name' => 'Moderne', 'cat' => 'Moderne', 'layout' => 'side', 'side' => 'left', 'photo' => true, 'font' => 'poppins', 'palette' => 'tremplin',
             'desc' => 'Colonne foncée pour les contacts et compétences, contenu aéré à droite.', 'for' => 'Tous profils, tertiaire, numérique'],
         'horizon'   => ['name' => 'Horizon', 'cat' => 'Moderne', 'layout' => 'side', 'side' => 'right', 'photo' => true, 'font' => 'lato', 'palette' => 'marine',
@@ -48,6 +57,7 @@ final class CvTemplates
 
     /** accent : couleur principale ; dark : variante foncée ; soft : fond teinté ; line : filets. */
     public const PALETTES = [
+        'lagon'    => ['name' => 'Lagon', 'accent' => '#14b8a6', 'dark' => '#17233d', 'soft' => '#e6f7f4', 'line' => '#cdebe6'],
         'tremplin' => ['name' => 'Bleu Tremplin', 'accent' => '#0057ff', 'dark' => '#0b2a5b', 'soft' => '#eef3ff', 'line' => '#d6e2ff'],
         'marine'   => ['name' => 'Marine', 'accent' => '#1f4e8c', 'dark' => '#10223f', 'soft' => '#eef2f8', 'line' => '#d3deee'],
         'emeraude' => ['name' => 'Émeraude', 'accent' => '#0f8a6a', 'dark' => '#0b3f33', 'soft' => '#eaf6f2', 'line' => '#cbe8de'],
@@ -92,7 +102,7 @@ final class CvTemplates
             'font' => $saved['fonts'][$t['key']] ?? $t['font'],
             'density' => $saved['density'] ?? 'auto',
             'photo' => $saved['photo'] ?? null,
-            'photo_shape' => $saved['photo_shape'] ?? 'round',
+            'photo_shape' => $saved['photo_shape'] ?? ($t['photo_shape'] ?? 'round'),
             'order' => $saved['order'] ?? 'auto',
             'sections' => ($saved['sections'] ?? []) + ['qualities' => true, 'languages' => true, 'certifications' => true, 'interests' => true, 'availability' => true, 'references' => false, 'qr' => false],
             'max_skills' => (int)($saved['max_skills'] ?? 10),

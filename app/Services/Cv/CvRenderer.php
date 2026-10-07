@@ -31,11 +31,11 @@ final class CvRenderer
         ], fn($c) => !empty($c[1])));
         $experiences = [];
         foreach ($p['experiences'] ?? [] as $x) {
-            $bullets = $ai['experiences'][$x['id']] ?? null;
+            $bullets = !empty($ai['experiences'][$x['id']]) ? self::structure(array_map(fn($b) => '- ' . $b, $ai['experiences'][$x['id']])) : null;
             if (!$bullets && !empty($x['description'])) {
-                // Les descriptions saisies avec des tirets deviennent des puces
-                $lines = array_values(array_filter(array_map(fn($l) => trim(ltrim(trim($l), '-•*–')), preg_split('/\R/u', (string)$x['description']))));
-                $bullets = count($lines) > 1 ? $lines : null;
+                // Les descriptions saisies sur plusieurs lignes deviennent des puces (et sous-titres)
+                $lines = array_values(array_filter(array_map('trim', preg_split('/\R/u', (string)$x['description']))));
+                $bullets = count($lines) > 1 ? self::structure($lines) : null;
             }
             $experiences[] = [
                 'id' => (int)$x['id'], 'title' => $x['title'], 'org' => $x['company'] ?? '', 'place' => $x['city'] ?? '',
@@ -79,6 +79,35 @@ final class CvRenderer
         ];
     }
 
+    /**
+     * Lignes de description → éléments affichables :
+     *  - « Direction générale : » (ligne sans tiret terminée par deux-points) → sous-titre ;
+     *  - « Procédures douanières : codification… » → puce dont l'intitulé est mis en gras.
+     * @return list<array{t:string, lead:?string, text:string}>
+     */
+    public static function structure(array $lines): array
+    {
+        $out = [];
+        foreach ($lines as $raw) {
+            $l = trim((string)$raw);
+            $dash = (bool)preg_match('/^[-•*–·]\s*/u', $l);
+            $l = trim(preg_replace('/^[-•*–·]\s*/u', '', $l));
+            if ($l === '') {
+                continue;
+            }
+            if (!$dash && preg_match('/^(.{2,70}?)\s*:$/u', $l, $m)) {
+                $out[] = ['t' => 'sub', 'lead' => null, 'text' => $m[1]];
+                continue;
+            }
+            if (preg_match('/^([^:.;!?]{3,60}?)\s*:\s+(\S.*)$/u', $l, $m)) {
+                $out[] = ['t' => 'li', 'lead' => $m[1], 'text' => $m[2]];
+            } else {
+                $out[] = ['t' => 'li', 'lead' => null, 'text' => $l];
+            }
+        }
+        return $out;
+    }
+
     /** « janv. 2024 – aujourd'hui » */
     public static function period(?string $start, ?string $end): string
     {
@@ -104,17 +133,19 @@ final class CvRenderer
      * $moveCount : nombre de blocs à reporter, mesuré lors de la génération du PDF ; à défaut, estimation.
      * Retourne [blocs de la colonne latérale, blocs reportés].
      */
-    public static function sideBlocks(array $d, string $density, bool $nameInSide, ?int $moveCount = null): array
+    public static function sideBlocks(array $d, string $density, bool $nameInSide, ?int $moveCount = null, ?array $order = null): array
     {
-        $blocks = [
+        $all = [
             'contact' => 2.4 + count($d['contact']) * 2.3,
+            'edu' => $d['educations'] ? 2.4 + count($d['educations']) * 3.6 : 0,
             'skills' => $d['skills'] ? 2.4 + count($d['skills']) * 1.5 : 0,
             'langs' => $d['langs'] ? 2.4 + count($d['langs']) * 1.45 : 0,
             'soft' => $d['soft'] ? 2.4 + ceil(mb_strlen(implode(' · ', $d['soft'])) / 26) * 1.3 : 0,
             'interests' => $d['interests'] ? 2.4 + ceil(mb_strlen(implode(' · ', $d['interests'])) / 26) * 1.3 : 0,
             'qr' => $d['qr'] ? 8 : 0,
         ];
-        $blocks = array_filter($blocks);
+        $order ??= ['contact', 'skills', 'langs', 'soft', 'interests', 'qr'];
+        $blocks = array_filter(array_intersect_key(array_replace(array_flip($order), $all), array_flip($order)));
         $keys = array_keys($blocks);
         if ($moveCount === null) {
             $used = ($d['photo'] ? 8 : 0) + ($nameInSide ? 2 + ceil(mb_strlen($d['name']) / 12) * 2.6 + ($d['headline'] ? ceil(mb_strlen($d['headline']) / 22) * 1.5 : 0) : 0);

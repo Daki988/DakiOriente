@@ -213,10 +213,110 @@ pdf:end */
 .t-ats .cv-h { color: #111111; border-bottom: .8pt solid #111111; letter-spacing: .04em; }
 .t-ats .cv-org, .t-ats .cv-when { color: #333333; }
 
+/* ---------- Éléments partagés (titres à filet, puces structurées, listes, icônes) ---------- */
+.cv-h-r { display: none; }
+.cv-h-ico { display: none; }
+.cv-photo-ring { display: inline-block; }
+.cv-sub { margin: .45em 0 .1em; font-weight: bold; font-size: .93em; color: #2c3a52; }
+.cv-ul li b { color: #142039; }
+.cv-li { display: table; width: 100%; margin-bottom: .32em; }
+.cv-mk { display: table-cell; width: 3.6mm; vertical-align: top; }
+.cv-mk i { display: block; width: 1.5mm; height: 1.5mm; margin-top: .48em; border-radius: .75mm; background: var(--cv-accent); }
+.cv-lt { display: table-cell; vertical-align: top; }
+.cv-ico { width: 3.6mm; height: 3.6mm; vertical-align: middle; }
+.cv-ct-i { display: table; width: 100%; margin-bottom: .5em; }
+.cv-ct-ic { display: table-cell; width: 8.5mm; vertical-align: middle; }
+.cv-ct-v { display: table-cell; vertical-align: middle; word-wrap: break-word; }
+.cv-ct-pill { display: inline-block; width: 6.4mm; height: 6.4mm; border-radius: 3.2mm; background: var(--cv-accent); text-align: center; }
+.cv-ct-pill .cv-ico { width: 3.4mm; height: 3.4mm; margin-top: 1.5mm; }
+.cv-edu-s { margin-bottom: .75em; }
+.cv-edu-school { font-size: .9em; opacity: .8; }
+.cv-edu-years { font-size: .85em; color: var(--cv-accent); }
+.cv-when.pill { padding: .25mm 2.6mm; border-radius: 3mm; background: var(--cv-soft); color: var(--cv-dark); font-size: .82em; }
+.cv-cards { width: 100%; border-collapse: separate; border-spacing: 0 2mm; }
+.cv-cards td { width: 50%; padding: 0; vertical-align: top; }
+.cv-cards td + td { padding-left: 2.5mm; }
+.cv-card { padding: 2.4mm 3mm; border-radius: 2mm; background: var(--cv-soft); color: var(--cv-dark); font-weight: bold; }
+
+/* ================= Modèles inspirés des CV de référence ================= */
+
+/* Prestige : colonne sombre, photo cerclée, nom sur deux lignes, frise et pastilles */
+.cv-sidebg.bg-prestige { width: 64mm; background: var(--cv-dark); }
+.cv-topline.bg-prestige { left: 0; right: 0; height: 2.6mm; background: var(--cv-accent); }
+.t-prestige .cv-side { width: 50mm; color: #e3e9f3; }
+.t-prestige.side-left .cv-main { margin-left: 64mm; padding: 0 12mm 0 10mm; }
+.t-prestige .cv-side .cv-photo-wrap { margin: 2mm 0 7mm; }
+.t-prestige .cv-photo { width: 40mm; height: 40mm; border: 1.5mm solid var(--cv-accent); }
+.t-prestige .cv-photo.rd { border-radius: 20mm; }
+.t-prestige .cv-side .cv-h { margin: 1.5em 0 .8em; padding: 0; border: 0; color: #ffffff; font-size: .95em; letter-spacing: .18em; }
+.t-prestige .cv-side .cv-h-t { display: inline-block; padding-bottom: 1.4mm; border-bottom: .8mm solid var(--cv-accent); }
+.t-prestige .cv-side .cv-ct { margin-bottom: .7em; padding-left: 3mm; border-left: .5mm solid var(--cv-accent); }
+.t-prestige .cv-side .cv-ct-l { color: #9fb0c9; opacity: 1; font-size: .72em; letter-spacing: .08em; }
+.t-prestige .cv-side .cv-edu-s b { color: #ffffff; }
+.t-prestige .cv-side .cv-lvl { color: #c4d0e3; }
+.t-prestige .cv-side .cv-inline { color: #e3e9f3; }
+.t-prestige .cv-head { margin-bottom: 2mm; }
+.t-prestige .cv-name { font-size: 2.55em; line-height: 1.05; font-weight: normal; color: var(--cv-dark); }
+.t-prestige .cv-last { display: block; font-weight: bold; text-transform: uppercase; letter-spacing: .01em; }
+.t-prestige .cv-headline { margin-top: 2.2mm; color: var(--cv-accent); font-weight: normal; font-size: .82em; text-transform: uppercase; letter-spacing: .2em; }
+.t-prestige .cv-main .cv-h { display: table; width: 100%; margin: 1.5em 0 .7em; padding: 0; border: 0; color: var(--cv-dark); letter-spacing: .2em; }
+.t-prestige .cv-main .cv-h-t { display: table-cell; width: 1%; white-space: nowrap; padding: .1em 3mm .1em 2.4mm; border-left: 1.2mm solid var(--cv-accent); }
+.t-prestige .cv-main .cv-h-r { display: table-cell; vertical-align: middle; }
+.t-prestige .cv-main .cv-h-r b { display: block; height: 0; border-top: .6pt solid var(--cv-line); }
+.t-prestige .cv-summary p { color: #4a5873; }
+.t-prestige .cv-exps .cv-item { position: relative; margin: 0 0 0 1.4mm; padding: 0 0 .9em 6mm; border-left: .8pt solid var(--cv-line); }
+.t-prestige .cv-tl-dot { position: absolute; left: -2.05mm; top: .28em; width: 2.4mm; height: 2.4mm; border-radius: 1.9mm; background: #ffffff; border: .7mm solid var(--cv-accent); }
+.t-prestige .cv-org { color: var(--cv-accent); }
+.t-prestige .cv-ul li { margin-bottom: .2em; }
+
+/* Signature : photo en arc, panneau teinté, intitulés en couleur */
+.cv-sidebg.bg-signature { width: 70mm; background: #ffffff; }
+.cv-mainbg.bg-signature { left: 70mm; right: 0; background: var(--cv-soft); border-top-left-radius: 16mm; }
+.cv-deco.bg-signature { width: 34mm; height: 34mm; border: 5mm solid var(--cv-accent); border-radius: 22mm; }
+.t-signature .cv-side { width: 56mm; }
+.t-signature.side-left .cv-main { margin-left: 70mm; padding: 4mm 12mm 0 10mm; }
+.t-signature .cv-side .cv-photo-wrap { margin: 0 0 6mm; text-align: left; }
+.t-signature .cv-photo-ring { padding: 2mm; border: 1.4mm solid #ffffff; border-top-color: var(--cv-accent); border-left-color: var(--cv-accent); border-radius: 24mm; }
+.t-signature .cv-photo { width: 40mm; height: 40mm; }
+.t-signature .cv-photo.rd { border-radius: 20mm; }
+.t-signature .cv-side .cv-h { margin: 1.5em 0 .8em; padding-bottom: 1.2mm; color: #111827; border-bottom: .8pt solid #111827; letter-spacing: .02em; }
+.t-signature .cv-name { font-size: 2.3em; font-weight: normal; color: #111827; text-transform: uppercase; }
+.t-signature .cv-last { font-weight: bold; color: var(--cv-accent); }
+.t-signature .cv-headline { color: #374151; font-weight: normal; }
+.t-signature .cv-main .cv-h { margin: 1.6em 0 .8em; padding-bottom: 1.4mm; color: #111827; border-bottom: .8pt solid #111827; letter-spacing: .02em; }
+.t-signature .cv-title { color: var(--cv-accent); text-transform: uppercase; font-size: .98em; }
+.t-signature .cv-org { color: #1f2937; font-size: 1em; }
+.t-signature .cv-when { color: #4b5563; }
+
+/* Parcours : photo pleine largeur, bandeau sombre, frise à pictogrammes */
+.cv-sidebg.bg-parcours { width: 64mm; background: #e3e6eb; }
+.cv-tline.bg-parcours { left: 71mm; width: .35mm; background: #9aa3b5; }
+.t-parcours .cv-side { width: 52mm; padding: 0 6mm; }
+.t-parcours.side-left .cv-main { margin-left: 64mm; padding: 0 12mm 0 14mm; }
+.t-parcours .cv-side .cv-photo-wrap { margin: -14mm -6mm 6mm; }
+.t-parcours .cv-side .cv-photo { width: 64mm; height: 64mm; border-radius: 0; }
+.t-parcours .cv-side .cv-photo-wrap.ph-rd { margin: 0 0 6mm; text-align: center; }
+.t-parcours .cv-side .cv-photo-wrap.ph-rd .cv-photo { width: 38mm; height: 38mm; border-radius: 19mm; }
+.t-parcours .cv-side .cv-h { margin: 1.3em 0 .7em; padding-bottom: 1.2mm; color: var(--cv-dark); border-bottom: 1.4pt solid var(--cv-dark); letter-spacing: .16em; }
+.t-parcours .cv-head { margin: -14mm -12mm 7mm -14mm; padding: 9mm 12mm 7mm 14mm; background: var(--cv-dark); }
+.t-parcours .cv-name { color: #ffffff; text-transform: uppercase; font-size: 2.2em; }
+.t-parcours .cv-headline { color: #ffffff; font-weight: normal; text-transform: uppercase; letter-spacing: .08em; font-size: .95em; }
+.t-parcours .cv-main .cv-h { position: relative; margin: 1.4em 0 .8em; padding-bottom: 1.2mm; color: var(--cv-dark); border-bottom: 1.2pt solid var(--cv-dark); letter-spacing: .18em; font-size: 1.1em; }
+.t-parcours .cv-h-ico { display: block; position: absolute; left: -10.6mm; top: -.6mm; width: 7.2mm; height: 7.2mm; border-radius: 3.6mm; background: var(--cv-dark); text-align: center; }
+.t-parcours .cv-h-ico .cv-ico { width: 3.8mm; height: 3.8mm; margin-top: 1.7mm; }
+.t-parcours .cv-item { position: relative; }
+.t-parcours .cv-pc-dot { position: absolute; left: -8.2mm; top: .35em; width: 2.4mm; height: 2.4mm; border-radius: 1.6mm; background: #ffffff; border: .5mm solid #9aa3b5; }
+.t-parcours .cv-title { font-size: 1.12em; color: #1f2a3d; font-weight: normal; }
+.t-parcours .cv-org { font-size: .88em; color: #1f2a3d; }
+
 /* ---------- PDF : arrière-plans répétés sur chaque page ---------- */
 /* pdf:start
 .cv-sidebg, .cv-bandbg { position: fixed; top: -14mm; bottom: -12mm; z-index: -1; }
 .cv-topline { position: fixed; top: -14mm; z-index: -1; }
+.cv-mainbg, .cv-tline { position: fixed; top: -14mm; bottom: -12mm; z-index: -1; }
+.cv-deco { position: fixed; right: -22mm; bottom: -34mm; z-index: -1; }
+.t-parcours .cv-head { padding-top: 23mm; }
+.t-parcours .cv-side .cv-photo-wrap.ph-sq { margin-top: 0; }
 .l-side .cv-side { position: absolute; top: 0; z-index: 5; }
 .side-left .cv-side { left: 0; }
 .side-right .cv-side { right: 0; }
@@ -228,8 +328,11 @@ pdf:end */
 .cv * { box-sizing: border-box; }
 .l-side { display: flow-root; }
 .cv-sidebg, .cv-bandbg { position: absolute; top: 0; bottom: 0; }
-.cv-topline { position: absolute; }
+.cv-topline { position: absolute; top: 0; }
+.cv-mainbg, .cv-tline { position: absolute; top: 0; bottom: 0; }
+.cv-deco { position: absolute; right: -22mm; bottom: -22mm; }
 .l-side .cv-side { position: relative; }
+.l-side .cv-main { position: relative; }
 .side-left .cv-side { float: left; }
 .side-right .cv-side { float: right; }
 .l-side .cv-side { box-sizing: content-box; }

@@ -10,7 +10,7 @@ define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
 define('STORAGE_PATH', BASE_PATH . '/storage');
 // Version de l'application : à chaque nouvelle version déployée, la base est mise à jour automatiquement (public/index.php)
-define('APP_VERSION', '1.4.0');
+define('APP_VERSION', '1.5.0');
 
 spl_autoload_register(function (string $class): void {
     if (str_starts_with($class, 'App\\')) {
