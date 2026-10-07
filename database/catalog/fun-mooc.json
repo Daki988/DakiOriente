@@ -1,0 +1,198 @@
+[
+    {
+        "external_id": "5481",
+        "title": "Python : des fondamentaux aux concepts avancés du langage",
+        "url": "https://www.fun-mooc.fr/fr/cours/python-3-des-fondamentaux-aux-concepts-avances-du-langage/",
+        "language": "fr",
+        "partner": "Université Côte d'Azur (UniCA)",
+        "duration": "9 semaines · 81 heures",
+        "certificate": "variable",
+        "description": "Pour apprendre à bien programmer en Python, à écrire rapidement des programmes efficaces, faciles à comprendre et à maintenir qui exploitent pleinement les possibilités du langage !",
+        "next_session": "ouvert",
+        "skills": [
+            "Python"
+        ]
+    },
+    {
+        "external_id": "9133",
+        "title": "Machine learning in Python with scikit-learn",
+        "url": "https://www.fun-mooc.fr/fr/cours/machine-learning-python-scikit-learn/",
+        "language": "en",
+        "partner": "Inria",
+        "duration": "36 heures",
+        "certificate": "variable",
+        "description": "Build predictive models with scikit-learn and gain a practical understanding of\r\nthe strengths and limitations of machine learning!",
+        "next_session": "ouvert",
+        "skills": [
+            "Python"
+        ]
+    },
+    {
+        "external_id": "14848",
+        "title": "Diversifier sa pédagogie avec la classe inversée",
+        "url": "https://www.fun-mooc.fr/fr/cours/diversifier-sa-pedagogie-avec-la-classe-inversee/",
+        "language": "fr",
+        "partner": "UniCamp",
+        "duration": "4 semaines · 10 heures",
+        "certificate": "payant",
+        "description": "",
+        "next_session": "2026-11-23",
+        "skills": [
+            "Enseignement"
+        ]
+    },
+    {
+        "external_id": "13057",
+        "title": "Enseigner en extérieur",
+        "url": "https://www.fun-mooc.fr/fr/cours/enseigner-en-exterieur/",
+        "language": "fr",
+        "partner": "UniCamp",
+        "duration": "4 semaines · 12 heures",
+        "certificate": "payant",
+        "description": "Découvrez comment diversifier votre approche pédagogique avec un outil éducatif immersif et engageant.",
+        "next_session": "2027-03-08",
+        "skills": [
+            "Enseignement"
+        ]
+    },
+    {
+        "external_id": "14735",
+        "title": "Le monde de l’enseignement supérieur en santé aujourd’hui",
+        "url": "https://www.fun-mooc.fr/fr/cours/le-monde-de-lenseignement-superieur-en-sante-aujourdhui/",
+        "language": "fr",
+        "partner": "UniCamp",
+        "duration": "3 semaines · 7 heures",
+        "certificate": "payant",
+        "description": "",
+        "next_session": "2026-11-30",
+        "skills": [
+            "Enseignement"
+        ]
+    },
+    {
+        "external_id": "7569",
+        "title": "5G : principes de l’interface radio et du réseau d’accès",
+        "url": "https://www.fun-mooc.fr/fr/cours/explorer-la-5g/",
+        "language": "fr",
+        "partner": "Institut Mines-Télécom (IMT)",
+        "duration": "5 semaines · 30 heures",
+        "certificate": "variable",
+        "description": "Ce cours présente les évolutions de l’interface radio apportée par la 5G et introduit l’architecture des réseaux d’accès.",
+        "next_session": "ouvert",
+        "skills": [
+            "Réseaux informatiques"
+        ]
+    },
+    {
+        "external_id": "12310",
+        "title": "5G : Principe du réseau cœur",
+        "url": "https://www.fun-mooc.fr/fr/cours/5g-principe-du-reseau-coeur/",
+        "language": "fr",
+        "partner": "Institut Mines-Télécom (IMT)",
+        "duration": "5 semaines · 30 heures",
+        "certificate": "variable",
+        "description": "",
+        "next_session": "ouvert",
+        "skills": [
+            "Réseaux informatiques"
+        ]
+    },
+    {
+        "external_id": "5348",
+        "title": "Réseaux d'accès optiques FTTH",
+        "url": "https://www.fun-mooc.fr/fr/cours/reseaux-dacces-optiques-ftth/",
+        "language": "fr",
+        "partner": "Institut Mines-Télécom (IMT)",
+        "duration": "6 semaines · 12 heures",
+        "certificate": "variable",
+        "description": "Bienvenue dans la première partie du MOOC FTTH !",
+        "next_session": "ouvert",
+        "skills": [
+            "Réseaux informatiques"
+        ]
+    },
+    {
+        "external_id": "13981",
+        "title": "Les essentiels de la cybersécurité : du risque à la résilience",
+        "url": "https://www.fun-mooc.fr/fr/cours/les-essentiels-de-la-cybersecurite-du-risque-a-la-resilience/",
+        "language": "fr",
+        "partner": "Institut Mines-Télécom (IMT)",
+        "duration": "À ton rythme",
+        "certificate": "variable",
+        "description": "",
+        "next_session": "ouvert",
+        "skills": [
+            "Cybersécurité"
+        ]
+    },
+    {
+        "external_id": "11602",
+        "title": "Télédétection des risques naturels (ORISAT)",
+        "url": "https://www.fun-mooc.fr/fr/cours/orisat-teledetection-des-risques-naturels/",
+        "language": "fr",
+        "partner": "Université Grenoble Alpes (UGA)",
+        "duration": "7 semaines · 14 heures",
+        "certificate": "variable",
+        "description": "Détecter les zones à risques, comprendre la physique des aléas, surveiller l’activité de la Terre et anticiper des catastrophes grâce aux satellites et la télédétection",
+        "next_session": "ouvert",
+        "skills": [
+            "SIG / Cartographie"
+        ]
+    },
+    {
+        "external_id": "14336",
+        "title": "Bien informer sur la biodiversité - Le MOOC",
+        "url": "https://www.fun-mooc.fr/fr/cours/bien-informer-sur-la-biodiversite-le-mooc/",
+        "language": "fr",
+        "partner": "Université Paris-Saclay",
+        "duration": "3 heures · 3 heures",
+        "certificate": "variable",
+        "description": "Le MOOC de Reporters d'Espoirs pour améliorer le traitement médiatique de la biodiversité",
+        "next_session": "ouvert",
+        "skills": [
+            "Gestion forestière"
+        ]
+    },
+    {
+        "external_id": "13598",
+        "title": "S'exercer à la prise de parole en situation professionnelle",
+        "url": "https://www.fun-mooc.fr/fr/cours/sexercer-a-la-prise-de-parole-en-situation-professionnelle/",
+        "language": "fr",
+        "partner": "UniCamp",
+        "duration": "4 semaines · 7 heures",
+        "certificate": "payant",
+        "description": "Développez vos compétences de communication en milieu professionnel et structurez vos discours pour vos présentations.",
+        "next_session": "2027-01-18",
+        "skills": [
+            "Communication"
+        ]
+    },
+    {
+        "external_id": "13118",
+        "title": "COMPASS : Comprendre et Agir sur le Stress des Soignants",
+        "url": "https://www.fun-mooc.fr/fr/cours/compass-comprendre-et-agir-sur-le-stress-des-soignants/",
+        "language": "fr",
+        "partner": "Université de Liège",
+        "duration": "6 semaines · 12 heures",
+        "certificate": "variable",
+        "description": "Mieux comprendre le stress des soignants pour mieux y faire face et favoriser des soins de qualité.",
+        "next_session": "ouvert",
+        "skills": [
+            "Gestion du stress"
+        ]
+    },
+    {
+        "external_id": "13705",
+        "title": "Développer sa créativité",
+        "url": "https://www.fun-mooc.fr/fr/cours/developper-sa-creativite/",
+        "language": "fr",
+        "partner": "UniCamp",
+        "duration": "3 semaines · 7 heures",
+        "certificate": "payant",
+        "description": "",
+        "next_session": "2027-02-01",
+        "skills": [
+            "Créativité"
+        ]
+    }
+]

@@ -1,0 +1,25 @@
+{
+    "name": "neam/tremplin",
+    "description": "TREMPLIN by NEAM — plateforme de stages, d'insertion professionnelle et de matching candidats–entreprises",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.2",
+        "ext-pdo": "*",
+        "ext-mbstring": "*",
+        "ext-fileinfo": "*",
+        "ext-json": "*",
+        "anthropic-ai/sdk": "^0.54",
+        "guzzlehttp/guzzle": "^7.9",
+        "phpmailer/phpmailer": "^6.9",
+        "dompdf/dompdf": "^3.1",
+        "chillerlan/php-qrcode": "^5.0"
+    },
+    "suggest": {
+        "ext-zip": "Import des CV au format DOCX",
+        "ext-gd": "Traitement d'images"
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}

@@ -1,0 +1,29 @@
+# TREMPLIN by NEAM — hébergement mutualisé (LWS, o2switch, OVH…)
+# Si le sous-domaine pointe sur ce dossier (et non sur /public), toutes les requêtes
+# sont servies depuis /public et les dossiers sensibles restent inaccessibles.
+Options -Indexes
+DirectoryIndex index.php
+RewriteEngine On
+
+# Redirection vers HTTPS : à activer (retirer les « # ») une fois le certificat SSL installé
+# RewriteCond %{HTTPS} !=on
+# RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Code, données, bibliothèques et fichiers de configuration : jamais servis
+RewriteRule ^(app|database|storage|bin|vendor|docs|dist)(/|$) - [F,L]
+RewriteRule (^|/)\.(?!well-known/) - [F,L]
+RewriteRule ^(composer\.(json|lock)|README\.md|DEPLOIEMENT-LWS\.md|LISEZ-MOI-INSTALLATION\.txt|.*\.sqlite|[^/]*\.txt)$ - [F,L]
+
+# Tout le reste est servi depuis /public
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ public/$1 [L]
+
+<FilesMatch "^\.(env|git|htpasswd)">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Deny from all
+    </IfModule>
+</FilesMatch>
