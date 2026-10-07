@@ -594,6 +594,12 @@ final class ReferentialController extends Controller
                 }
                 Curation::close((int)$it['id'], 'traite', 'Formation retirée du catalogue', $uid);
                 break;
+            case 'hide_offer':
+                if ($it['ref_id']) {
+                    DB::update('external_offers', ['hidden' => 1, 'hidden_reason' => mb_substr($note ?: 'signalée par un candidat', 0, 160)], 'id = :id', ['id' => $it['ref_id']]);
+                }
+                Curation::close((int)$it['id'], 'traite', 'Offre externe retirée de la préparation aux stages' . ($note ? ' — ' . $note : ''), $uid);
+                break;
             case 'done':
                 Curation::close((int)$it['id'], 'traite', $note ?: 'Traité', $uid);
                 break;

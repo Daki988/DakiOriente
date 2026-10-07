@@ -133,6 +133,11 @@ final class Migrator
             $added[] = 'version initiale des référentiels';
         }
 
+        if (!(int)DB::value('SELECT COUNT(*) FROM offer_sources')) {
+            self::seedOfferSources();
+            $added[] = 'sources vérifiées de la préparation aux stages';
+        }
+
         if (!DB::value("SELECT COUNT(*) FROM settings WHERE skey = 'launch_mode'")) {
             foreach (['launch_mode' => '1', 'ai_monthly_limit' => '30'] as $k => $v) {
                 DB::insert('settings', ['skey' => $k, 'svalue' => $v]);
@@ -140,6 +145,48 @@ final class Migrator
             $added[] = 'settings.launch_mode';
         }
         return $added;
+    }
+
+    /** Sources d'offres de stage vérifiées par NEAM (préparation aux stages). */
+    public static function seedOfferSources(): void
+    {
+        foreach (require __DIR__ . '/sources-offres.php' as [$name, $domain, $url, $kind, $countries, $note]) {
+            DB::insert('offer_sources', ['name' => $name, 'domain' => $domain, 'url' => $url, 'kind' => $kind, 'countries' => $countries, 'note' => $note,
+                'active' => 1, 'verified_at' => '2026-10-07 12:00:00', 'created_at' => now()]);
+        }
+    }
+
+    /**
+     * Démonstration : deux annonces réelles relevées le 7 octobre 2026 sur QG Jeune Gabon (source vérifiée),
+     * recopiées telles qu'elles sont publiées. Aucune offre externe n'est inventée.
+     */
+    public static function seedDemoInternshipOffers(): void
+    {
+        $offers = [
+            ['query' => 'géomatique', 'it' => [
+                'url' => 'https://www.qgjeunegabon.org/appel-a-candidature-pour-stage-a-lageos/', 'title' => 'Appel à candidature pour stage à l\'AGEOS',
+                'organization' => 'Agence Gabonaise d\'Études et d\'Observations Spatiales (AGEOS)', 'city' => 'Ntoum', 'country' => 'GA',
+                'published' => '2026-06-24', 'deadline' => '2026-06-29', 'status' => 'cloturee', 'is_internship' => true,
+                'education' => 'Licence (Bac+3) ou Master, en cours ou complété, en géomatique, télédétection, sciences de l\'environnement, géographie numérique ou discipline connexe',
+                'duration' => '3 mois non renouvelables', 'skills' => ['QGIS', 'ArcGIS', 'Traitement d\'images satellitaires', 'Google Earth Engine', 'Données vectorielles', 'Python', 'R'],
+                'languages' => [], 'summary' => 'Six stagiaires recherchés au centre de compétence de l\'AGEOS (ZIS de Nkok) pour appuyer la production et la validation de données géospatiales d\'un atlas interactif.',
+            ]],
+            ['query' => 'juriste', 'it' => [
+                'url' => 'https://www.qgjeunegabon.org/offre-de-stage-juriste-stagiaire/', 'title' => 'Offre de stage – Juriste stagiaire',
+                'organization' => 'Cabinet juridique', 'city' => 'Libreville', 'country' => 'GA', 'published' => '2026-06-09', 'status' => 'inconnu', 'is_internship' => true,
+                'education' => 'Licence ou Master en droit', 'duration' => null, 'skills' => ['Rédaction juridique', 'Capacités d\'analyse', 'Bureautique'],
+                'languages' => [], 'summary' => 'Un cabinet de Libreville recrute un juriste stagiaire pour la recherche juridique, la rédaction, le suivi des dossiers clients, le conseil et le contentieux.',
+            ]],
+        ];
+        $sources = \App\Services\Internship\OfferWatch::sources('GA');
+        foreach ($offers as $o) {
+            $check = \App\Services\Internship\OfferWatch::validate($o['it'], 'GA', $sources, null, false);
+            if ($check['ok']) {
+                $occ = \App\Services\Referential\Normalizer::occupation($o['query']);
+                \App\Services\Internship\OfferWatch::store($check['offer'] + ['link_status' => 'non_controle'], 'GA', \App\Services\Internship\OfferWatch::queryNorm($o['query']),
+                    $occ && $occ['confidence'] >= 60 ? (int)$occ['id'] : null, 'manuel', null);
+            }
+        }
     }
 
     /** Catalogue de certifications reliées aux compétences du référentiel. */

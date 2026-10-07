@@ -20,7 +20,7 @@ $R = App\Services\Referential\Ref::class;
                 <small class="muted">Source : <?= e($it['source']) ?><?= $it['ref_id'] && $it['source'] === 'offre' ? ' · <a href="' . e(url('/offres/' . $it['ref_id'])) . '">offre n° ' . (int)$it['ref_id'] . '</a>' : '' ?> · <?= e(time_ago($it['created_at'])) ?></small>
                 <?php if ($sug): ?><p class="small mb-0 mt-1"><?= icon('lightbulb') ?> Suggestion : <?= e(implode(' · ', array_filter([$sug['code'] ?? ($sug['rome'] ?? null), $sug['title'] ?? ($sug['fiche'] ?? ($sug['name'] ?? null)), isset($sug['confidence']) ? 'confiance ' . $sug['confidence'] . ' %' : null, isset($sug['choisi_par']) ? 'choisi par le recruteur' : null]))) ?></p><?php endif; ?>
                 <?php if (!empty($ctx['reason'])): ?><p class="small mb-0 mt-1"><b>Motif :</b> <?= e($ctx['reason']) ?> <span class="muted">(score <?= (int)($ctx['score'] ?? 0) ?>, version <?= (int)($ctx['version'] ?? 0) ?>)</span></p><?php endif; ?>
-                <?php if (!empty($ctx['url'])): ?><p class="small mb-0 mt-1"><a href="<?= e($ctx['url']) ?>" target="_blank" rel="noopener"><?= e($ctx['url']) ?></a> · HTTP <?= (int)($ctx['http'] ?? 0) ?></p><?php endif; ?>
+                <?php if (!empty($ctx['url'])): ?><p class="small mb-0 mt-1"><a href="<?= e($ctx['url']) ?>" target="_blank" rel="noopener noreferrer"><?= e($ctx['url']) ?></a><?= isset($ctx['http']) ? ' · HTTP ' . (int)$ctx['http'] : '' ?></p><?php endif; ?>
                 <?php if ($it['resolution']): ?><p class="small mb-0 mt-1"><?= icon('check') ?> <?= e($it['resolution']) ?></p><?php endif; ?>
             </div>
         </div>
@@ -46,6 +46,9 @@ $R = App\Services\Referential\Ref::class;
             <?php elseif ($it['kind'] === 'lien'): ?>
                 <form method="post" action="<?= e($act) ?>"><?= $tk ?><input type="hidden" name="action" value="recheck"><button class="btn btn-soft btn-sm" type="submit">Revérifier le lien</button></form>
                 <form method="post" action="<?= e($act) ?>"><?= $tk ?><input type="hidden" name="action" value="hide_training"><button class="btn btn-ghost btn-sm" type="submit">Retirer la formation</button></form>
+            <?php elseif ($it['kind'] === 'offre_stage'): ?>
+                <form method="post" action="<?= e($act) ?>"><?= $tk ?><input type="hidden" name="action" value="hide_offer"><button class="btn btn-soft btn-sm" type="submit">Retirer l'offre de la préparation</button></form>
+                <a class="btn btn-ghost btn-sm" href="<?= e(url('/admin/veille-stages')) ?>">Veille des stages</a>
             <?php endif; ?>
             <form method="post" action="<?= e($act) ?>" class="flex" style="gap:6px"><?= $tk ?>
                 <input class="input" name="note" placeholder="Résolution (facultatif)" aria-label="Résolution" style="min-width:200px">

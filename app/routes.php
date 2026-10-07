@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use App\Controllers\AccountController;
 use App\Controllers\Admin\AdminController;
+use App\Controllers\Admin\InternshipWatchController;
 use App\Controllers\Admin\LearningController as AdminLearningController;
 use App\Controllers\Admin\ReferentialController;
 use App\Controllers\Api\ApiController;
@@ -11,6 +12,7 @@ use App\Controllers\Candidate\ApplicationController;
 use App\Controllers\Candidate\CareerController;
 use App\Controllers\Candidate\CvController;
 use App\Controllers\Candidate\DashboardController;
+use App\Controllers\Candidate\InternshipController;
 use App\Controllers\Candidate\LearningController;
 use App\Controllers\Candidate\MatchController;
 use App\Controllers\Candidate\ProfileController;
@@ -154,6 +156,10 @@ return function (Router $r): void {
         $r->post('/offres/{id}/explication', [MatchController::class, 'rephrase'], ['throttle:ai,30,60']);
         $r->post('/metiers-cibles', [MatchController::class, 'targets']);
         $r->get('/metiers/recherche', [MatchController::class, 'searchOccupations']);
+        // Préparation aux stages (offres réelles publiées hors de Tremplin)
+        $r->get('/preparation-stages', [InternshipController::class, 'index']);
+        $r->post('/preparation-stages/rechercher', [InternshipController::class, 'search'], ['throttle:stagesearch,6,1440']);
+        $r->post('/preparation-stages/offres/{id}/signaler', [InternshipController::class, 'report'], ['throttle:report,10,60']);
     });
 
     /* ---------- Espace entreprise ---------- */
@@ -235,6 +241,14 @@ return function (Router $r): void {
         $r->post('/referentiels/jeu-de-reference', [ReferentialController::class, 'addPair']);
         $r->post('/referentiels/jeu-de-reference/{id}/supprimer', [ReferentialController::class, 'deletePair']);
         $r->post('/referentiels/equipe', [ReferentialController::class, 'team']);
+        $r->get('/veille-stages', [InternshipWatchController::class, 'index']);
+        $r->post('/veille-stages/sources', [InternshipWatchController::class, 'saveSource']);
+        $r->post('/veille-stages/sources/{id}/statut', [InternshipWatchController::class, 'toggleSource']);
+        $r->post('/veille-stages/offres', [InternshipWatchController::class, 'addOffer']);
+        $r->post('/veille-stages/offres/{id}/masquer', [InternshipWatchController::class, 'toggleOffer']);
+        $r->post('/veille-stages/offres/{id}/verifier', [InternshipWatchController::class, 'recheck']);
+        $r->post('/veille-stages/rechercher', [InternshipWatchController::class, 'search']);
+        $r->post('/veille-stages/reglages', [InternshipWatchController::class, 'settings']);
         $r->get('/curation', [ReferentialController::class, 'curation']);
         $r->post('/curation/{id}', [ReferentialController::class, 'handleCuration']);
         $r->get('/qualite', [ReferentialController::class, 'quality']);

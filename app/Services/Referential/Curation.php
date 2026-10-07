@@ -18,6 +18,7 @@ final class Curation
         'explication' => ['Explication signalée', 'circle-help'],
         'lien'        => ['Lien de formation à revérifier', 'link'],
         'suggestion'  => ['Suggestion d\'une entreprise', 'lightbulb'],
+        'offre_stage' => ['Offre de stage externe signalée', 'flag'],
     ];
 
     /** Ajoute (ou incrémente) un élément ; les doublons ouverts sont regroupés. */

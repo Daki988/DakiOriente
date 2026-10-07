@@ -833,3 +833,9 @@ h1, h2, h3, p, .small, label, .badge { overflow-wrap: anywhere; }
     .kpi-row > :nth-child(2) { grid-column: 1 / -1; order: 3; }
     .occ-skill { grid-template-columns: 1fr 1fr; }
 }
+
+/* Préparation aux stages */
+.list-plain{list-style:none;margin:0;padding:0}
+.plan-list{margin:0;padding-left:1.2rem}
+.plan-list > li::marker{font-weight:700;color:var(--blue,#0057ff)}
+.ext-offer-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}

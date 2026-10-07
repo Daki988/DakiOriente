@@ -121,6 +121,7 @@ return function (bool $demo = true): void {
     /* ---------- Référentiels v1.1 : compétences, diplômes, ROME 4.0, fiches métier, formations ↔ compétences ---------- */
     DB::insert('settings', ['skey' => 'education_scale', 'svalue' => 'tremplin-n']);
     \App\Services\Referential\Loader::run(false);
+    \Database\Migrator::seedOfferSources();
 
     /* ---------- Offres d'abonnement ---------- */
     $plans = [
@@ -544,6 +545,7 @@ return function (bool $demo = true): void {
 
     $pdo->commit();
     \App\Services\Referential\Versions::publish(null, 'Version initiale', false, true);
+    \Database\Migrator::seedDemoInternshipOffers();
 
     // Scores d'employabilité et complétion
     foreach ($candIds as $uid) {

@@ -85,6 +85,25 @@ Principe : **le référentiel décide, l'IA explique**. Le score est calculé de
 
 Code : `app/Services/MatchingEngine.php`, `app/Services/Referential/`, données : `database/referentiels/`.
 
+### Préparation aux stages (offres réelles hors Tremplin)
+La page **Préparation aux stages** (`/espace/preparation-stages`) évalue le CV du candidat sur de **vraies offres de stage** publiées dans son pays (celui de son compte) sur des sites vérifiés par NEAM, pour qu'il soit prêt quand des offres du même type paraîtront sur Tremplin. Aucune candidature n'est envoyée.
+
+- **Sources vérifiées** (Admin › Veille des stages) : Gabon Opportunités, Jobartis Gabon, Africarrières, QG Jeune Gabon, Michael Page Africa, sites carrières d'AGL et de Grant Thornton Gabon, LinkedIn Emplois, MinaJobs (Cameroun). Chaque source a été contrôlée le 7 octobre 2026 ; l'équipe en ajoute, en suspend ou en retire.
+- **Collecte** : Claude effectue une recherche web limitée aux domaines de ces sources (`web_search`, avec `allowed_domains`). Sans clé Claude, l'équipe saisit les offres à la main avec les mêmes contrôles.
+- **Aucune offre inventée.** Une offre n'est retenue que si :
+  - son adresse figure dans les résultats bruts du moteur de recherche ;
+  - elle appartient à une source active du pays ;
+  - il s'agit bien d'un stage situé dans ce pays ;
+  - elle a moins de 12 mois, d'après sa date de publication ou, à défaut, sa date limite de candidature ;
+  - sa page n'est pas supprimée.
+
+  Chaque rejet est journalisé avec son motif, et les candidats peuvent signaler une offre (file de curation).
+- **Évaluation** : chaque annonce est rattachée à une fiche métier. Les compétences citées sont reconnues par le référentiel, avec un niveau attendu de stagiaire (2 par défaut). Le score est calculé par le moteur de matching, avec les mêmes poids et les mêmes seuils.
+- **Bilan** : score moyen, puis « prêt » si ce score atteint 70 et que 60 % des compétences demandées sont acquises. S'y ajoutent les compétences les plus demandées, les écarts récurrents avec formations, certifications et projets (ajoutables au plan), et les atouts. Chaque offre a un lien vers l'annonce d'origine.
+- **Coût maîtrisé** : une recherche est partagée entre candidats et réutilisée pendant 7 jours. Une recherche consomme une génération du quota mensuel du candidat. Au plus 6 recherches par jour et par candidat.
+
+Code : `app/Services/Internship/`, sources : `database/sources-offres.php`.
+
 ### Analyse des écarts et recommandations
 La page **Mes axes de progression** (`/espace/progression`) compare le profil du candidat à ses offres les plus proches (5, 10 ou 20) et détecte les écarts : compétences absentes ou insuffisantes, langues, niveau d'études, expérience, qualités, mobilité.
 
