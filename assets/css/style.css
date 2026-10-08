@@ -112,13 +112,11 @@ p { margin: 0 0 1em; }
 .art-bg { background: radial-gradient(circle at 50% 38%, #fff 0, hsl(var(--h) 85% 95%) 45%, hsl(var(--h) 70% 90%) 100%); }
 
 /* ---------- Photos produits ---------- */
-.card__media img, .pm__media img, .line__thumb img, .quiz__thumb img, .coll__art img, .feature__art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card__media img, .pm__media img, .line__thumb img, .quiz__thumb img, .feature__art img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .card__media img { position: absolute; inset: 0; transition: transform .8s var(--ease); }
 .card:hover .card__media img { transform: scale(1.06); }
 .card__media .badge, .card__media .card__quick { z-index: 1; }
-.line__thumb, .quiz__thumb, .coll__art { overflow: hidden; }
-.coll__art img { transition: transform .6s var(--ease); }
-.coll:hover .coll__art img { transform: scale(1.08); }
+.line__thumb, .quiz__thumb { overflow: hidden; }
 
 /* ---------- Hero ---------- */
 .hero { padding: clamp(40px, 6vw, 72px) 0 clamp(56px, 7vw, 96px); }
@@ -161,17 +159,20 @@ p { margin: 0 0 1em; }
 .rail-nav { display: flex; gap: 8px; }
 
 /* Collections */
-.collections { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.coll { position: relative; display: grid; grid-template-columns: 1fr 120px; align-items: center; gap: 12px; padding: 22px 22px 22px 26px; border-radius: var(--radius); text-align: left; background: #fff; border: 1px solid var(--line); overflow: hidden; transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .2s; }
-.coll:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: transparent; }
-.coll__art { width: 120px; height: 120px; border-radius: 20px; display: grid; place-items: center; }
-.coll__art svg { width: 66%; transition: transform .6s var(--ease); }
-.coll:hover .coll__art svg { transform: scale(1.1) rotate(-6deg); }
-.coll h3 { margin: 0 0 4px; font-size: 1.25rem; }
-.coll p { color: var(--muted); margin: 0; font-size: .9rem; line-height: 1.45; }
-.coll__go { display: inline-block; margin-top: 12px; font-size: .85rem; font-weight: 700; }
-.coll__go::after { content: " →"; transition: margin .2s; }
-.coll:hover .coll__go { color: var(--accent); }
+.collections { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+.coll { position: relative; grid-column: span 3; min-height: 300px; display: flex; align-items: flex-end; padding: 22px; border-radius: var(--radius); overflow: hidden; text-align: left; color: #fff; isolation: isolate; background: var(--soft-2); }
+.coll:nth-child(-n+2) { grid-column: span 6; min-height: 400px; }
+.coll__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+.coll::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(17, 17, 17, 0) 35%, rgba(17, 17, 17, .72)); transition: opacity .4s; }
+.coll:hover .coll__img { transform: scale(1.07); }
+.coll__txt { display: grid; gap: 4px; }
+.coll__count { justify-self: start; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: rgba(255, 255, 255, .2); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); margin-bottom: 6px; }
+.coll h3 { margin: 0; font-size: 1.5rem; color: #fff; }
+.coll:nth-child(-n+2) h3 { font-size: clamp(1.7rem, 3vw, 2.4rem); }
+.coll p { margin: 0; color: rgba(255, 255, 255, .85); font-size: .92rem; line-height: 1.4; }
+.coll__go { margin-top: 10px; font-size: .88rem; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; }
+.coll__go::after { content: "→"; transition: transform .3s var(--ease); }
+.coll:hover .coll__go::after { transform: translateX(6px); }
 
 /* Offre vedette */
 .feature { position: relative; display: grid; grid-template-columns: 1fr 1fr; align-items: center; border-radius: 32px; overflow: hidden; min-height: 420px; }
@@ -390,7 +391,7 @@ kbd { font-family: var(--font); font-size: .75rem; padding: 1px 6px; border: 1px
   .grid { grid-template-columns: repeat(3, 1fr); }
   .nav { gap: 18px; }
   .iconbtn--exit span { display: none; }
-  .collections { grid-template-columns: repeat(2, 1fr); }
+  .coll { grid-column: span 6; }
 }
 @media (max-width: 900px) {
   .nav { position: fixed; top: 70px; left: 0; right: 0; flex-direction: column; gap: 0; padding: 8px 16px 20px; background: #fff; border-bottom: 1px solid var(--line); box-shadow: var(--shadow); transform: translateY(-12px); opacity: 0; visibility: hidden; transition: transform .35s var(--ease), opacity .35s, visibility .35s; margin: 0; }
@@ -416,9 +417,8 @@ kbd { font-family: var(--font); font-size: .75rem; padding: 1px 6px; border: 1px
 }
 @media (max-width: 560px) {
   body { font-size: 15px; }
-  .collections { grid-template-columns: 1fr; }
-  .coll { grid-template-columns: 1fr 96px; }
-  .coll__art { width: 96px; height: 96px; }
+  .coll, .coll:nth-child(-n+2) { grid-column: span 12; min-height: 230px; }
+  .coll:nth-child(-n+2) { min-height: 300px; }
   .hero__showcase { height: 460px; }
   .float { padding: 8px; gap: 10px; border-radius: 16px; }
   .float__img { width: 58px; height: 58px; border-radius: 12px; }
@@ -460,3 +460,42 @@ kbd { font-family: var(--font); font-size: .75rem; padding: 1px 6px; border: 1px
 /* Bouton d'ajout rapide des tuiles vitrine */
 .add-mini { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 1.35rem; line-height: 1; display: grid; place-items: center; transition: background .2s, transform .25s var(--ease); }
 .add-mini:hover { background: var(--accent); transform: rotate(90deg); }
+
+/* ---------- Bandeau défilant ---------- */
+.ribbon { overflow: hidden; padding: 26px 0; border-block: 1px solid var(--line); background: var(--bg); }
+.ribbon__track { display: flex; align-items: center; gap: 36px; width: max-content; animation: marquee 38s linear infinite; }
+.ribbon__track span { font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 800; letter-spacing: -.04em; white-space: nowrap; line-height: 1; }
+.ribbon__track span.o { color: transparent; -webkit-text-stroke: 1.5px var(--ink); }
+.ribbon__track i { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); flex: none; }
+.ribbon:hover .ribbon__track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ---------- Fiche produit : livraison & ventes croisées ---------- */
+.pm__eta { margin: 16px 0 0; padding: 12px 14px; border-radius: 12px; background: #eaf7f0; color: #0f6b46; font-size: .88rem; line-height: 1.45; }
+.pm__eta strong { color: #0b5537; }
+.xsell { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+.xsell__title { margin: 0 0 10px; font-size: .78rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.xsell__list { display: grid; gap: 8px; }
+.xsell__item { display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 14px; border: 1px solid var(--line); background: #fff; }
+.xsell__img { width: 52px; height: 52px; flex: none; border-radius: 10px; overflow: hidden; }
+.xsell__img img { width: 100%; height: 100%; object-fit: cover; }
+.xsell__txt { flex: 1; min-width: 0; display: grid; line-height: 1.3; }
+.xsell__txt strong { font-size: .88rem; font-weight: 700; }
+.xsell__txt span { font-size: .82rem; color: var(--muted); font-weight: 700; }
+.xsell .add-mini { width: 34px; height: 34px; font-size: 1.15rem; }
+.xsell--cart { border-top: 0; margin-top: 8px; }
+.pm__media img { transition: transform .8s var(--ease); }
+.pm__media:hover img { transform: scale(1.04); }
+
+/* ---------- Barre panier mobile ---------- */
+.stickybar { display: none; }
+@media (max-width: 900px) {
+  .stickybar:not([hidden]) { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; border-radius: 999px; background: var(--ink); color: #fff; box-shadow: var(--shadow); font-size: .9rem; animation: pop .4s var(--ease) both; }
+  .stickybar__info { font-weight: 600; color: #ddd; }
+  .stickybar__go { font-weight: 800; }
+  body.locked .stickybar { display: none !important; }
+  .toast { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+}
+/* Panier ou fiche ouverts : la notification passe en haut pour ne rien masquer */
+body.locked .toast { top: calc(16px + env(safe-area-inset-top, 0px)); bottom: auto; transform: translate(-50%, -160%); }
+body.locked .toast.show { transform: translate(-50%, 0); }

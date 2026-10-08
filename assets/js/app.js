@@ -9,6 +9,7 @@
     whatsapp: "24100000000",      // numéro WhatsApp de la boutique, format international sans "+"
     shippingFee: 2000,            // frais de livraison (FCFA)
     freeShippingFrom: 30000,      // livraison offerte à partir de (FCFA)
+    cutoffHour: 16,               // commande passée avant cette heure (heure de Libreville) = livrée le lendemain
     exitUrl: "https://www.google.com/search?q=m%C3%A9t%C3%A9o+libreville"
   };
 
@@ -57,8 +58,9 @@
     return '<svg viewBox="0 0 100 100" aria-hidden="true">' + defs + (shapes[type] || shapes.egg) + "</svg>";
   }
   /* Photo produit (assets/img/<id>.jpg), avec repli sur l'illustration si l'image manque */
-  function pic(p) {
-    return '<img src="' + (p.img || "assets/img/" + p.id + ".jpg") + '" alt="' + esc(p.name) + '" loading="lazy"' +
+  function pic(p, sizes) {
+    var src = p.img || "assets/img/" + p.id + ".jpg", sm = src.replace("assets/img/", "assets/img/sm/");
+    return '<img src="' + sm + '" srcset="' + sm + " 480w, " + src + ' 800w" sizes="' + (sizes || "(max-width: 560px) 50vw, 320px") + '" alt="' + esc(p.name) + '" loading="lazy" decoding="async"' +
       (p.pos ? ' style="object-position:' + p.pos + '"' : "") + ' onerror="this.replaceWith(document.createRange().createContextualFragment(window.__art(\'' + p.art + '\',' + p.hue + ')))">';
   }
   window.__art = art;
@@ -104,9 +106,9 @@
   $("#collections-grid").innerHTML = CATS.map(function (c) {
     var n = PRODUCTS.filter(function (p) { return p.cat === c.id; }).length;
     return '<button class="coll" data-cat="' + c.id + '">' +
-      "<div><h3>" + esc(c.label) + "</h3><p>" + esc(c.hint) + "</p>" +
-      '<span class="coll__go">' + n + " produits</span></div>" +
-      '<div class="coll__art art-bg" ' + artBg(c.hue) + '><img src="assets/img/cat-' + c.id + '.jpg" alt="" loading="lazy"></div></button>';
+      '<img class="coll__img" src="assets/img/sm/cat-' + c.id + '.jpg" srcset="assets/img/sm/cat-' + c.id + '.jpg 480w, assets/img/cat-' + c.id + '.jpg 800w" sizes="(max-width: 560px) 100vw, 50vw" alt="" loading="lazy" decoding="async">' +
+      '<span class="coll__txt"><span class="coll__count">' + n + " produits</span><h3>" + esc(c.label) + "</h3><p>" + esc(c.hint) + "</p>" +
+      '<span class="coll__go">Découvrir</span></span></button>';
   }).join("");
   $$(".coll").forEach(function (b) {
     b.addEventListener("click", function () { setFilter(b.dataset.cat); $("#boutique").scrollIntoView(); });
@@ -183,7 +185,7 @@
       '<button class="add-mini" data-add="' + p.id + '" aria-label="Ajouter ' + esc(p.name) + ' au panier">+</button></div>';
   }
   $("#hero-product").innerHTML =
-    '<div class="hero__photo"><img src="assets/img/hero.jpg" alt="Un couple enlacé, complice, dans un lit aux draps blancs"></div>' +
+    '<div class="hero__photo"><img src="assets/img/hero.jpg" fetchpriority="high" decoding="async" alt="Un couple enlacé, complice, dans un lit aux draps blancs"></div>' +
     floatHTML("E01", "float--a") + floatHTML("L01", "float--b") +
     '<div class="hero__stamp"><strong>Colis 100&nbsp;% neutre</strong><span>Personne ne saura.</span></div>';
 
@@ -204,7 +206,7 @@
       '<div class="feature__price">' + fcfa(p.price) + "<s>" + fcfa(p.old) + '</s><span class="feature__save">-' + fcfa(p.old - p.price) + "</span></div>" +
       '<div class="hero__cta" style="margin:0"><button class="btn btn--primary btn--lg" data-add="' + p.id + '">Ajouter au panier</button>' +
       '<button class="btn btn--outline btn--lg" data-open="' + p.id + '">Voir le détail</button></div></div>' +
-      '<div class="feature__art"><img src="assets/img/feature.jpg" alt="' + esc(p.name) + '" loading="lazy"></div></div>';
+      '<div class="feature__art"><img src="assets/img/sm/feature.jpg" srcset="assets/img/sm/feature.jpg 480w, assets/img/feature.jpg 1200w" sizes="(max-width: 900px) 100vw, 620px" alt="' + esc(p.name) + '" loading="lazy" decoding="async"></div></div>';
   })();
 
   /* ---------- Fiche produit ---------- */
@@ -213,7 +215,7 @@
     var p = byId[id]; if (!p) return;
     var qty = 1;
     $("#pm").innerHTML =
-      '<div class="pm__media art-bg" ' + artBg(p.hue) + ">" + pic(p) + "</div>" +
+      '<div class="pm__media art-bg" ' + artBg(p.hue) + ">" + pic(p, "(max-width: 900px) 100vw, 520px") + "</div>" +
       '<div class="pm__body"><span class="label">' + esc(catById[p.cat].label) + (p.badge ? " · " + esc(p.badge) : "") + "</span>" +
       '<h3 id="pm-name">' + esc(p.name) + "</h3>" +
       '<div class="pm__price">' + fcfa(p.price) + (p.old ? "<s>" + fcfa(p.old) + "</s>" : "") + "</div>" +
@@ -221,12 +223,39 @@
       '<ul class="pm__points">' + p.points.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" +
       '<div class="pm__actions"><div class="qty"><button data-q="-1" aria-label="Moins">−</button><span id="pm-qty">1</span><button data-q="1" aria-label="Plus">+</button></div>' +
       '<button class="btn btn--primary" id="pm-add">Ajouter au panier</button></div>' +
-      '<div class="pm__trust"><span>📦<br>Colis neutre</span><span>💵<br>Payé à la livraison</span><span>✓<br>Matières sûres</span></div></div>';
+      '<p class="pm__eta">' + deliveryText() + "</p>" +
+      '<div class="pm__trust"><span>📦<br>Colis neutre</span><span>💵<br>Payé à la livraison</span><span>✓<br>Matières sûres</span></div>' +
+      crossSellHTML(p) + "</div>";
     $$("[data-q]", pmModal).forEach(function (b) {
       b.addEventListener("click", function () { qty = Math.max(1, Math.min(10, qty + Number(b.dataset.q))); $("#pm-qty").textContent = qty; });
     });
     $("#pm-add").addEventListener("click", function () { addToCart(p.id, qty); closeModal(pmModal); openCart(); });
+    $(".pm__body", pmModal).scrollTop = 0; $(".modal__panel", pmModal).scrollTop = 0;
     openModal(pmModal);
+  }
+
+  /* Délai de livraison, calculé à l'heure de Libreville (UTC+1) */
+  function deliveryText() {
+    var now = new Date(Date.now() + 3600000), d = now.getUTCDay(), h = now.getUTCHours(), m = now.getUTCMinutes();
+    var open = d !== 0 && h < CONFIG.cutoffHour;
+    if (open) {
+      var left = (CONFIG.cutoffHour - h) * 60 - m;
+      return "Commandez dans les <strong>" + Math.floor(left / 60) + " h " + String(left % 60).padStart(2, "0") + " min</strong> : livré " + (d === 6 ? "lundi" : "demain") + " à Libreville.";
+    }
+    return "Commandez maintenant : livré <strong>" + (d === 6 || (d === 5 && h >= CONFIG.cutoffHour) ? "lundi" : "dès après-demain") + "</strong> à Libreville.";
+  }
+
+  /* « Souvent ajoutés ensemble » */
+  var PAIRS = { elle: ["P04", "P06", "P01"], lui: ["P04", "P03", "P06"], couple: ["P04", "S01", "P02"], lingerie: ["S02", "S01", "C03"], essentiels: ["P04", "E05", "S01"], sensualite: ["S03", "L01", "P04"] };
+  function crossSellHTML(p) {
+    var ids = (PAIRS[p.cat] || []).filter(function (id) { return id !== p.id && byId[id]; }).slice(0, 3);
+    if (!ids.length) return "";
+    return '<div class="xsell"><p class="xsell__title">Souvent ajoutés ensemble</p><div class="xsell__list">' + ids.map(function (id) {
+      var q = byId[id];
+      return '<div class="xsell__item"><span class="xsell__img art-bg" ' + artBg(q.hue) + ">" + pic(q, "64px") + "</span>" +
+        "<span class=\"xsell__txt\"><strong>" + esc(q.name) + "</strong><span>" + fcfa(q.price) + "</span></span>" +
+        '<button class="add-mini" data-add="' + q.id + '" aria-label="Ajouter ' + esc(q.name) + ' au panier">+</button></div>';
+    }).join("") + "</div></div>";
   }
 
   var lastFocus = null;
@@ -256,6 +285,9 @@
   function renderCart() {
     var t = totals();
     $("#cart-count").textContent = t.count;
+    var bar = $("#stickybar");
+    bar.hidden = t.count === 0;
+    $("#stickybar-info").textContent = t.count + (t.count > 1 ? " articles · " : " article · ") + fcfa(t.total);
     var ids = Object.keys(cart);
     if (!ids.length) {
       $("#cart-items").innerHTML = '<div class="cart-empty"><strong>Votre panier est vide.</strong>Mais vos envies, elles, ne demandent qu\'à s\'exprimer.<br><br><a href="#boutique" class="btn btn--outline btn--sm" data-close-cart>Explorer la boutique</a></div>';
@@ -279,10 +311,19 @@
       '<div class="grand"><span>Total</span><span>' + fcfa(t.total) + "</span></div></div>" +
       '<button class="btn btn--primary btn--full" id="to-checkout">Commander, payer à la livraison →</button>' +
       '<p class="reassure">📦 Colis neutre · 🔒 Aucun compte · 💵 Rien à payer en ligne</p>';
+    var sugg = ["P04", "P01", "P06", "S01"].filter(function (id) { return !cart[id]; }).slice(0, 2);
+    if (sugg.length) {
+      $("#cart-items").insertAdjacentHTML("beforeend", '<div class="xsell xsell--cart"><p class="xsell__title">Pensez-y</p><div class="xsell__list">' + sugg.map(function (id) {
+        var q = byId[id];
+        return '<div class="xsell__item"><span class="xsell__img art-bg" ' + artBg(q.hue) + ">" + pic(q, "64px") + "</span>" +
+          "<span class=\"xsell__txt\"><strong>" + esc(q.name) + "</strong><span>" + fcfa(q.price) + "</span></span>" +
+          '<button class="add-mini" data-add="' + q.id + '" aria-label="Ajouter ' + esc(q.name) + ' au panier">+</button></div>';
+      }).join("") + "</div></div>");
+    }
     $("#to-checkout").addEventListener("click", function () { closeCart(); openCheckout(); });
   }
   $("#cart-items").addEventListener("click", function (e) {
-    var b = e.target.closest("button"); if (!b) return;
+    var b = e.target.closest("button"); if (!b || b.dataset.add) return;
     if (b.dataset.inc) cart[b.dataset.inc] = Math.min(10, cart[b.dataset.inc] + 1);
     if (b.dataset.dec) { cart[b.dataset.dec]--; if (cart[b.dataset.dec] <= 0) delete cart[b.dataset.dec]; }
     if (b.dataset.rm) delete cart[b.dataset.rm];
@@ -291,6 +332,7 @@
   function openCart() { lastFocus = document.activeElement; drawer.hidden = false; document.body.classList.add("locked"); $(".modal__close", drawer).focus(); }
   function closeCart() { drawer.hidden = true; if (gate.hidden && $$(".modal:not([hidden])").length === 0) document.body.classList.remove("locked"); }
   $("#cart-open").addEventListener("click", openCart);
+  $("#stickybar").addEventListener("click", openCart);
   drawer.addEventListener("click", function (e) { if (e.target.closest("[data-close-cart]")) closeCart(); });
 
   /* ---------- Commande ---------- */

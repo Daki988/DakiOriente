@@ -41,7 +41,10 @@ exactement l'article vendu.
 | S04.jpg | https://www.pexels.com/photo/7233102/ |
 | cat-lingerie.jpg | https://www.pexels.com/photo/10457175/ |
 | cat-elle.jpg | https://www.pexels.com/photo/11635270/ |
-| cat-lui.jpg | https://www.pexels.com/photo/6763675/ |
+| cat-lui.jpg | https://www.pexels.com/photo/6763684/ |
 | cat-couple.jpg | https://www.pexels.com/photo/5217155/ |
 | cat-essentiels.jpg | https://www.pexels.com/photo/5218024/ |
 | cat-sensualite.jpg | https://www.pexels.com/photo/7796451/ |
+
+Le dossier `sm/` contient les mêmes photos en version légère (480 px de large),
+servies automatiquement aux téléphones pour un chargement plus rapide.
