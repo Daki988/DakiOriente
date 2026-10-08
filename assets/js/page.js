@@ -1,6 +1,7 @@
 /* ==========================================================
-   Daki Oriente — page « Le Guide »
-   Vérification d'âge, sortie rapide, menu, sommaire actif, produits liés.
+   Daki Oriente — pages secondaires (Le Guide, Suivi de commande)
+   Vérification d'âge, sortie rapide, menu, compteur du panier,
+   et pour le guide : sommaire actif, barre de lecture, produits liés.
    ========================================================== */
 (function () {
   "use strict";
@@ -68,6 +69,7 @@
   var links = $$("#g-toc a"), arts = $$(".g-art"), bar = $("#g-progress");
   function onScroll() {
     header.classList.toggle("scrolled", window.scrollY > 10);
+    if (!bar || !arts.length) return;
     var max = document.documentElement.scrollHeight - window.innerHeight;
     bar.style.width = (max > 0 ? Math.min(100, window.scrollY / max * 100) : 0) + "%";
     var current = arts[0];

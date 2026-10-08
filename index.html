@@ -50,7 +50,7 @@
         <a href="#boutique">Boutique</a>
         <a href="#discretion">Discrétion</a>
         <a href="guide.html">Le Guide</a>
-        <a href="#suivi">Suivi</a>
+        <a href="suivi.html">Suivi</a>
         <a href="#faq">Questions</a>
       </nav>
       <div class="header__actions">
@@ -160,6 +160,7 @@
         </div>
         <div class="filters" id="filters" role="tablist" aria-label="Filtrer par catégorie"></div>
         <div class="grid" id="grid"></div>
+        <div class="more" id="more-wrap" hidden><button class="btn btn--outline btn--lg" id="more"></button></div>
         <p class="empty" id="empty" hidden>Aucun produit ne correspond. Essayez un autre mot, ou <a href="#" data-whatsapp>demandez-nous directement</a>.</p>
       </div>
     </section>
@@ -200,58 +201,6 @@
       </div>
     </section>
 
-    <!-- ===== Comment ça marche ===== -->
-    <section class="section">
-      <div class="container">
-        <div class="section__head">
-          <div>
-            <span class="label">Comment ça marche</span>
-            <h2>Comment commander <mark>sans gêne</mark>&nbsp;?</h2>
-          </div>
-          <p class="muted section__aside">C'est plus simple qu'il n'y paraît. Trois étapes, et la plus difficile, c'est de cliquer sur « Commander ».</p>
-        </div>
-        <ol class="steps">
-          <li class="step">
-            <span class="step__n">1</span>
-            <h3>Choisir</h3>
-            <p>Parcourez la boutique ou faites notre mini-quiz. Pas de compte à créer, pas d'adresse e-mail obligatoire.</p>
-          </li>
-          <li class="step">
-            <span class="step__n">2</span>
-            <h3>Recevoir</h3>
-            <p>Votre commande arrive dans un colis neutre, en main propre ou en point relais. Personne ne peut deviner ce qu'il contient.</p>
-          </li>
-          <li class="step">
-            <span class="step__n">3</span>
-            <h3>Profiter</h3>
-            <p>Vous payez à la réception, en espèces, Airtel Money ou Moov Money. Il ne vous reste plus qu'à vous faire plaisir.</p>
-          </li>
-        </ol>
-
-        <div class="compare" role="table" aria-label="Avant et avec Daki Oriente">
-          <div class="compare__row compare__head" role="row">
-            <span role="columnheader">Avant</span><span role="columnheader">Avec Daki Oriente</span>
-          </div>
-          <div class="compare__row" role="row">
-            <span role="cell" class="compare__before">Entrer dans une boutique et croiser quelqu'un qu'on connaît</span>
-            <span role="cell" class="compare__after">Vous choisissez seul·e, depuis votre téléphone</span>
-          </div>
-          <div class="compare__row" role="row">
-            <span role="cell" class="compare__before">Un colis qui trahit son contenu</span>
-            <span role="cell" class="compare__after">Un carton marron que personne ne remarque</span>
-          </div>
-          <div class="compare__row" role="row">
-            <span role="cell" class="compare__before">Un nom gênant sur le relevé bancaire</span>
-            <span role="cell" class="compare__after">Vous payez à la livraison, rien n'apparaît nulle part</span>
-          </div>
-          <div class="compare__row" role="row">
-            <span role="cell" class="compare__before">Des produits du marché, sans garantie</span>
-            <span role="cell" class="compare__after">Des matières sûres et des normes vérifiées</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ===== Quiz ===== -->
     <section class="section section--soft" id="quiz">
       <div class="container quiz">
@@ -265,27 +214,6 @@
     </section>
 
     <!-- ===== FAQ ===== -->
-    <!-- ===== Suivi de commande ===== -->
-    <section class="section section--soft" id="suivi">
-      <div class="container trk">
-        <div class="trk__intro">
-          <span class="label">Suivi de commande</span>
-          <h2>Où en est votre <mark>colis</mark>&nbsp;?</h2>
-          <p class="lead">Suivez votre livraison étape par étape, jusqu'au créneau d'arrivée. Et ajoutez vos consignes pour que le livreur reste discret.</p>
-          <form class="trk-form" id="trk-form">
-            <label for="trk-ref">Numéro de commande</label>
-            <input id="trk-ref" name="ref" required placeholder="DO-K3F9QZ" autocomplete="off" autocapitalize="characters">
-            <label for="trk-code">4 derniers chiffres de votre téléphone</label>
-            <input id="trk-code" name="code" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" placeholder="1234" autocomplete="off">
-            <button class="btn btn--primary btn--lg" type="submit">Suivre ma commande</button>
-            <p class="trk-msg" id="trk-msg" role="status"></p>
-          </form>
-          <div class="trk-mine" id="trk-mine"></div>
-        </div>
-        <div class="trk__result" id="trk-result" hidden></div>
-      </div>
-    </section>
-
     <section class="section" id="faq">
       <div class="container faq-wrap">
         <div>
@@ -305,14 +233,6 @@
           <details>
             <summary>Comment se passe le paiement&nbsp;?</summary>
             <p>Vous payez à la réception, en espèces, Airtel Money ou Moov Money. Rien n'apparaît sur un relevé bancaire, et vous ne payez qu'une fois le colis entre vos mains.</p>
-          </details>
-          <details>
-            <summary>Puis-je me faire livrer ailleurs que chez moi&nbsp;?</summary>
-            <p>Bien sûr. Au bureau, chez une amie, en point relais ou en retrait discret. Indiquez simplement l'adresse et le créneau qui vous arrangent.</p>
-          </details>
-          <details>
-            <summary>Les produits sont-ils sûrs pour le corps&nbsp;?</summary>
-            <p>Oui. Nos jouets sont en silicone médical ou en matières body-safe, sans phtalates. Nos préservatifs respectent les normes CE / ISO 4074. Nous ne vendons rien que nous n'utiliserions pas nous-mêmes.</p>
           </details>
           <details>
             <summary>Et si le produit ne me convient pas&nbsp;?</summary>
@@ -362,7 +282,7 @@
         <ul>
           <li><a href="#discretion">Notre engagement discrétion</a></li>
           <li><a href="guide.html">Le Guide : nos conseils</a></li>
-          <li><a href="#suivi">Suivre ma commande</a></li>
+          <li><a href="suivi.html">Suivre ma commande</a></li>
           <li><a href="#faq">Livraison & paiement</a></li>
           <li><a href="#faq">Retours & garantie</a></li>
           <li><a href="#faq">Données personnelles</a></li>
@@ -477,6 +397,5 @@
   <script src="assets/js/config.js"></script>
   <script src="assets/js/products.js"></script>
   <script src="assets/js/app.js"></script>
-  <script src="assets/js/tracking.js"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@ Boutique statique au thème clair (HTML/CSS/JS, aucune dépendance). Ouvrez `ind
 - Catalogue filtrable (6 collections, 26 produits), recherche, tri
 - Fiche produit, panier avec barre « livraison offerte », commande sans compte
 - Commande envoyée en récapitulatif WhatsApp, paiement à la livraison (espèces, Airtel Money, Moov Money)
-- Suivi de commande : créneau de livraison, étapes, position du livreur, historique, consignes de livraison (voir `docs/SUIVI.md`)
+- Suivi de commande sur sa propre page (`suivi.html`) : créneau de livraison, étapes, position du livreur, historique, consignes de livraison (voir `docs/SUIVI.md`)
 - Page « Le Guide » (`guide.html`) : premier jouet, lubrifiants, hygiène, préservatifs, santé sexuelle, couple, consentement, discrétion
 - Quiz « Trouver mon produit idéal », FAQ discrétion, inscription newsletter
 

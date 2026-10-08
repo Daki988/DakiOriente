@@ -129,7 +129,8 @@
   $$("#footer-cats a").forEach(function (a) { a.addEventListener("click", function () { setFilter(a.dataset.cat); }); });
 
   /* ---------- Boutique ---------- */
-  var state = { cat: "all", q: "", sort: "featured" };
+  var state = { cat: "all", q: "", sort: "featured", expanded: false };
+  var PREVIEW = 8; // produits visibles avant « Voir tous les produits »
   var filtersEl = $("#filters");
   filtersEl.innerHTML = [{ id: "all", short: "Tout voir" }].concat(CATS).map(function (c) {
     var n = c.id === "all" ? PRODUCTS.length : PRODUCTS.filter(function (p) { return p.cat === c.id; }).length;
@@ -138,6 +139,8 @@
   filtersEl.addEventListener("click", function (e) { var b = e.target.closest(".chip"); if (b) setFilter(b.dataset.cat); });
   $("#search").addEventListener("input", function (e) { state.q = e.target.value.trim().toLowerCase(); renderGrid(); });
   $("#sort").addEventListener("change", function (e) { state.sort = e.target.value; renderGrid(); });
+
+  $("#more").addEventListener("click", function () { state.expanded = true; renderGrid(); });
 
   function setFilter(cat) {
     state.cat = cat;
@@ -158,7 +161,11 @@
     else if (state.sort === "desc") list.sort(function (a, b) { return b.price - a.price; });
     else list.sort(function (a, b) { return (rank[a.badge] !== undefined ? rank[a.badge] : 9) - (rank[b.badge] !== undefined ? rank[b.badge] : 9); });
 
+    var total = list.length, short = !state.expanded && state.cat === "all" && !state.q && total > PREVIEW;
+    if (short) list = list.slice(0, PREVIEW);
     $("#grid").innerHTML = list.map(cardHTML).join("");
+    $("#more-wrap").hidden = !short;
+    if (short) $("#more").textContent = "Voir les " + total + " produits";
     $("#empty").hidden = list.length > 0;
   }
 
@@ -377,12 +384,15 @@
       (f.get("call") ? "\nMerci de m'appeler avant de passer." : "");
     var link = waLink(msg);
     var phone = String(f.get("phone")).replace(/\D/g, ""), code = phone.slice(-4);
-    if (window.DOTrack) window.DOTrack.save({
+    // La commande est gardée sur l'appareil pour la page de suivi (suivi.html)
+    var orders = store.get("do_orders", []).filter(function (o) { return o.ref !== ref; });
+    orders.unshift({
       ref: ref, code: code, status: "commandee", createdAt: new Date().toISOString(),
       items: Object.keys(cart).map(function (id) { return [id, cart[id]]; }), total: t.total,
       name: String(f.get("name")), address: String(f.get("address")), slot: String(f.get("slot")), pay: String(f.get("pay")),
       events: [{ t: new Date().toISOString(), label: "Commande reçue", place: "Boutique en ligne" }]
     });
+    store.set("do_orders", orders.slice(0, 10));
     cart = {}; saveCart();
     $("#checkout-body").innerHTML =
       '<div class="success"><div class="success__icon">✓</div><span class="label">Commande ' + ref + "</span>" +
@@ -391,7 +401,7 @@
       '<a class="btn btn--primary btn--full" href="' + link + '" target="_blank" rel="noopener">Confirmer sur WhatsApp →</a>' +
       '<button class="btn btn--outline btn--full" id="co-track" style="margin-top:10px">Suivre ma commande</button>' +
       '<p class="muted small" style="margin-top:14px">Vous paierez ' + fcfa(t.total) + " à la réception, en " + esc(f.get("pay")) + ".<br>Pour le suivi : commande <strong>" + ref + "</strong>, code <strong>" + esc(code) + "</strong>.</p></div>";
-    $("#co-track").addEventListener("click", function () { closeModal(coModal); if (window.DOTrack) window.DOTrack.open(ref, code); });
+    $("#co-track").addEventListener("click", function () { location.href = "suivi.html#" + ref; });
   }
 
   /* ---------- Quiz ---------- */

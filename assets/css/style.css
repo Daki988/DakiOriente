@@ -728,3 +728,48 @@ body.locked .toast.show { transform: translate(-50%, 0); }
   .g-table td:first-child { font-size: 1.05rem; padding-bottom: 6px; }
   .g-table td[data-label]::before { content: attr(data-label) " : "; font-weight: 800; color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; }
 }
+
+/* ==========================================================
+   Accueil plus court
+   ========================================================== */
+.section { padding: clamp(48px, 6.5vw, 88px) 0; }
+.section--tight { padding: clamp(32px, 4.5vw, 56px) 0; }
+.more { display: flex; justify-content: center; margin-top: 36px; }
+.trk-page { padding-top: clamp(40px, 5vw, 64px); min-height: 70vh; }
+.trk-title { font-size: clamp(2.2rem, 4.6vw, 3.4rem); }
+@media (max-width: 560px) {
+  /* Collections en carrousel horizontal plutôt qu'empilées */
+  .collections { display: grid; grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 72%; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: -16px; padding: 0 16px 6px; scrollbar-width: none; }
+  .collections::-webkit-scrollbar { display: none; }
+  .coll, .coll:nth-child(-n+2) { grid-column: auto; min-height: 260px; scroll-snap-align: start; }
+  .section__head { margin-bottom: 24px; }
+  .section__aside { display: none; }
+  /* Pied de page compact */
+  .footer { padding: 40px 0 24px; }
+  .footer__grid { grid-template-columns: 1fr 1fr; gap: 24px 16px; }
+  .footer__grid > div:first-child { grid-column: 1 / -1; }
+  .footer__legal { margin-top: 28px; }
+  .discretion__visual { min-height: 260px; }
+}
+.coll { min-height: 250px; }
+.coll:nth-child(-n+2) { min-height: 330px; }
+.feature { min-height: 360px; }
+.feature__art { min-height: 360px; }
+@media (max-width: 900px) {
+  .hero__showcase { height: 420px; }
+  .feature__art { min-height: 220px; }
+  .discretion__visual { min-height: 230px; }
+  .parcel { transform: rotate(-5deg) scale(.85); }
+}
+@media (max-width: 560px) {
+  .hero__showcase { height: 400px; }
+  .coll, .coll:nth-child(-n+2) { min-height: 240px; }
+  .quiz__card { min-height: 0; }
+}
+@media (max-width: 560px) {
+  .collections { scroll-padding-inline: 16px; }
+}
+@media (max-width: 900px) {
+  /* Bouton d'ajout rapide posé en bas de la photo */
+  .card__quick { position: absolute; left: 8px; right: 8px; bottom: 8px; width: auto; margin: 0; opacity: 1; transform: none; padding: .65em .6em; font-size: .8rem; }
+}

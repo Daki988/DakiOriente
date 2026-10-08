@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Titre volontairement neutre : rien de compromettant dans l'onglet ni l'historique -->
+  <title>Suivi de commande — Daki Oriente</title>
+  <meta name="description" content="Suivez votre commande Daki Oriente : créneau de livraison, étapes, position du livreur et consignes de livraison.">
+  <meta property="og:title" content="Suivi de commande — Daki Oriente">
+  <meta property="og:description" content="Lingerie, jouets et essentiels intimes. Colis 100 % neutre, paiement à la livraison à Libreville.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23111111'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23ff4d5e'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="track-page">
+
+  <!-- ===== Vérification d'âge ===== -->
+  <div class="agegate" id="agegate" role="dialog" aria-modal="true" aria-labelledby="agegate-title" hidden>
+    <div class="agegate__card">
+      <span class="pill">Espace réservé aux adultes</span>
+      <h2 id="agegate-title">Avez-vous 18 ans ou plus&nbsp;?</h2>
+      <p>Ce site présente des produits pour adultes. En entrant, vous confirmez être majeur·e selon la loi de votre pays.</p>
+      <div class="agegate__actions">
+        <button class="btn btn--primary" id="agegate-yes">Oui, j'entre</button>
+        <a class="btn btn--outline" href="https://www.google.com" rel="noreferrer">Non, je sors</a>
+      </div>
+      <p class="agegate__note">Aucune donnée n'est enregistrée. Ce choix reste sur votre appareil.</p>
+    </div>
+  </div>
+
+  <!-- ===== Bandeau confiance ===== -->
+  <div class="topbar">
+    <p>Livraison <strong>offerte dès 30 000 FCFA</strong> · Colis 100 % neutre · Paiement à la livraison</p>
+  </div>
+
+  <!-- ===== En-tête ===== -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo" aria-label="Daki Oriente, retour à la boutique">
+        <span class="logo__dot"></span>daki<span class="logo__light">oriente</span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Navigation principale">
+        <a href="index.html#boutique">Boutique</a>
+        <a href="index.html#collections">Collections</a>
+        <a href="guide.html">Le Guide</a>
+        <a href="suivi.html" aria-current="page">Suivi</a>
+        <a href="index.html#faq">Questions</a>
+      </nav>
+      <div class="header__actions">
+        <button class="iconbtn iconbtn--exit" id="quick-exit" title="Quitter le site immédiatement (touche Échap ×2)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12s3.5-7 9-7 9 7 9 7-3.5 7-9 7-9-7-9-7z"/><path d="M4 4l16 16"/></svg>
+          <span class="exit-long">Sortie rapide</span><span class="exit-short">Quitter</span>
+        </button>
+        <a class="iconbtn iconbtn--cart" href="index.html#panier" aria-label="Voir le panier">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 016 0"/></svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </a>
+        <button class="iconbtn burger" id="burger" aria-label="Menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ===== Suivi de commande ===== -->
+    <section class="section section--soft trk-page" id="suivi">
+      <div class="container trk">
+        <div class="trk__intro">
+          <span class="label">Suivi de commande</span>
+          <h1 class="trk-title">Où en est votre <mark>colis</mark>&nbsp;?</h1>
+          <p class="lead">Suivez votre livraison étape par étape, jusqu'au créneau d'arrivée. Et ajoutez vos consignes pour que le livreur reste discret.</p>
+          <form class="trk-form" id="trk-form">
+            <label for="trk-ref">Numéro de commande</label>
+            <input id="trk-ref" name="ref" required placeholder="DO-K3F9QZ" autocomplete="off" autocapitalize="characters">
+            <label for="trk-code">4 derniers chiffres de votre téléphone</label>
+            <input id="trk-code" name="code" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" placeholder="1234" autocomplete="off">
+            <button class="btn btn--primary btn--lg" type="submit">Suivre ma commande</button>
+            <p class="trk-msg" id="trk-msg" role="status"></p>
+          </form>
+          <div class="trk-mine" id="trk-mine"></div>
+        </div>
+        <div class="trk__result" id="trk-result" hidden></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__legal">
+      <p>© <span id="year"></span> Daki Oriente. Vente réservée aux personnes majeures. Livraison discrète à Libreville.</p>
+      <p>Astuce discrétion&nbsp;: appuyez deux fois sur <kbd>Échap</kbd> pour quitter le site instantanément.</p>
+    </div>
+  </footer>
+
+  <!-- ===== Écran neutre de la sortie rapide : une publicité (enseigne fictive) ===== -->
+  <div class="cover" id="cover" hidden>
+    <div class="ad">
+      <span class="ad__tag">Publicité</span>
+      <div class="ad__hero">
+        <p class="ad__brand">Marché Soleil</p>
+        <h1>Les prix<br>fondent cette semaine&nbsp;!</h1>
+        <p class="ad__dates">Du lundi au dimanche, dans tous nos magasins</p>
+        <span class="ad__burst">Jusqu'à<br><b>-30&nbsp;%</b></span>
+      </div>
+      <ul class="ad__deals">
+        <li><span class="ad__item">Riz parfumé<small>sac de 25 kg</small></span><span class="ad__price"><s>21 500</s>16 900 <em>FCFA</em></span></li>
+        <li><span class="ad__item">Huile végétale<small>bidon de 5 L</small></span><span class="ad__price"><s>9 800</s>7 450 <em>FCFA</em></span></li>
+        <li><span class="ad__item">Cuisses de poulet<small>carton de 10 kg</small></span><span class="ad__price"><s>18 000</s>14 500 <em>FCFA</em></span></li>
+        <li><span class="ad__item">Lait en poudre<small>boîte de 2,5 kg</small></span><span class="ad__price"><s>12 900</s>9 990 <em>FCFA</em></span></li>
+        <li><span class="ad__item">Eau minérale<small>pack de 6 × 1,5 L</small></span><span class="ad__price"><s>2 400</s>1 750 <em>FCFA</em></span></li>
+      </ul>
+      <p class="ad__cta">Livraison à domicile offerte dès 25 000 FCFA d'achat</p>
+      <p class="ad__legal">Offres valables dans la limite des stocks disponibles. Photos non contractuelles.</p>
+    </div>
+  </div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/page.js"></script>
+  <script src="assets/js/tracking.js"></script>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

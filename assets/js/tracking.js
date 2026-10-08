@@ -53,7 +53,12 @@
     if (order.windowStart && order.windowEnd) return [new Date(order.windowStart), new Date(order.windowEnd)];
     var base = new Date(order.createdAt), s = new Date(base), slot = SLOTS[order.slot];
     s.setDate(s.getDate() + (base.getHours() >= 16 ? 1 : 0));
-    if (slot) s.setHours(slot[0], 0, 0, 0); else { s = new Date(Math.max(Date.now(), base.getTime()) + 3600000); s.setMinutes(s.getMinutes() < 30 ? 15 : 45, 0, 0); }
+    if (slot) s.setHours(slot[0], 0, 0, 0);
+    else if (base.getHours() >= 16) s.setHours(9, 15, 0, 0); // commande après l'heure limite : premier créneau du lendemain
+    else {
+      s = new Date(Math.max(Date.now(), base.getTime()) + 3600000); s.setMinutes(s.getMinutes() < 30 ? 15 : 45, 0, 0);
+      if (s.getHours() < 9) s.setHours(9, 15, 0, 0);
+    }
     var e = new Date(s.getTime() + 2 * 3600000);
     return [s, e];
   }
@@ -355,6 +360,13 @@
       $("#trk-ins-sent a").href = "https://wa.me/" + TRACKING.whatsapp + "?text=" + encodeURIComponent(txt);
     });
     renderList();
+    // suivi.html#DO-XXXXXX ouvre directement la commande (lien du message de confirmation)
+    var ref = location.hash.slice(1).toUpperCase();
+    if (/^DO-[A-Z0-9]+$/.test(ref)) {
+      var o = localOrders().filter(function (x) { return x.ref === ref; })[0];
+      if (o) { $("#trk-ref").value = o.ref; $("#trk-code").value = o.code || ""; lookup(o.ref, o.code || ""); }
+      else if (ref === TRACKING.demoRef) { $("#trk-ref").value = ref; $("#trk-code").value = TRACKING.demoCode; lookup(ref, TRACKING.demoCode); }
+    }
   }
 
   /* API utilisée par la boutique au moment de la commande */
