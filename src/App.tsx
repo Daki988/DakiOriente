@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { HashRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { HashRouter, MemoryRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { AppProvider } from './store/AppContext'
 import { BottomNav, CartFab, TopNav } from './components/Navigation'
 import { Toasts } from './components/Toasts'
@@ -55,13 +55,17 @@ function Shell() {
   )
 }
 
+// Dans un environnement qui bloque les changements d'URL (page intégrée, aperçu),
+// la navigation se fait en mémoire : build avec VITE_ROUTER=memory.
+const Router = import.meta.env.VITE_ROUTER === 'memory' ? MemoryRouter : HashRouter
+
 export default function App() {
   return (
     <AppProvider>
-      <HashRouter>
+      <Router>
         <Shell />
         <Splash />
-      </HashRouter>
+      </Router>
     </AppProvider>
   )
 }

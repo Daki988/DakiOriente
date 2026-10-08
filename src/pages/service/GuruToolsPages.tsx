@@ -8,6 +8,7 @@ import { useApp } from '../../store/AppContext'
 import { timeAgo } from '../../lib/format'
 import { tap } from '../../lib/native'
 import { hrefOf, ServiceHeader, ServiceSubHeader } from './ServiceLayout'
+import { useBack } from '../../lib/useBack'
 
 const BLUE = '#0b5cf0'
 const COMPANY = 'KUMBA SERVICES'
@@ -299,7 +300,7 @@ export function GuruCandidates({ service }: { service: Service }) {
 
 export function GuruCandidate({ service }: { service: Service }) {
   const { cid } = useParams()
-  const navigate = useNavigate()
+  const back = useBack(hrefOf(service, 'tableau'))
   const { candidates, setCandidateStatus, toast } = useApp()
   const [tab, setTab] = useState<'resume' | 'cv' | 'ia' | 'notes'>('ia')
   const [notes, setNotes] = useState('')
@@ -310,7 +311,7 @@ export function GuruCandidate({ service }: { service: Service }) {
     <>
       <ServiceSubHeader service={service} title="Profil candidat" />
       <div className="p-4">
-        <button onClick={() => navigate(-1)} className="flex items-center gap-1 text-xs font-medium" style={{ color: BLUE }}><ArrowLeft size={14} /> Retour à la liste</button>
+        <button onClick={back} className="flex items-center gap-1 text-xs font-medium" style={{ color: BLUE }}><ArrowLeft size={14} /> Retour à la liste</button>
         <div className="mt-3 flex items-center gap-4">
           <span className="grid h-20 w-20 place-items-center rounded-full bg-[#eef4ff] text-5xl">{c.avatar}</span>
           <div>

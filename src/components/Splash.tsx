@@ -11,6 +11,8 @@ export function Splash() {
     }
   })
 
+  // Une seule fois au montage : si l'effet dépendait de `phase`, le passage à « out »
+  // annulerait le second minuteur et l'écran (invisible) bloquerait tous les clics.
   useEffect(() => {
     if (phase !== 'in') return
     try {
@@ -24,11 +26,11 @@ export function Splash() {
       clearTimeout(a)
       clearTimeout(b)
     }
-  }, [phase])
+  }, [])
 
   if (phase === 'done') return null
   return (
-    <div className={`bg-neam-hero fixed inset-0 z-[100] grid place-items-center transition-opacity duration-500 ${phase === 'out' ? 'opacity-0' : ''}`}>
+    <div className={`bg-neam-hero fixed inset-0 z-[100] grid place-items-center transition-opacity duration-500 ${phase === 'out' ? 'pointer-events-none opacity-0' : ''}`}>
       <div className="absolute h-64 w-64 animate-pulse rounded-full bg-neam-400/20 blur-3xl" />
       <div className="relative animate-pop">
         <NeamLogo size="lg" />

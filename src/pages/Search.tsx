@@ -1,17 +1,18 @@
 import { useMemo, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { ChevronLeft, Clock, Search as SearchIcon, X } from 'lucide-react'
 import { PRODUCTS } from '../data/products'
 import { SERVICES } from '../data/services'
 import { useApp } from '../store/AppContext'
 import { PageShell } from '../components/Navigation'
+import { useBack } from '../lib/useBack'
 import { ProductCard } from '../components/ProductCard'
 import { ServiceBadge } from '../components/ServiceTile'
 
 const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
 
 export default function Search() {
-  const navigate = useNavigate()
+  const back = useBack()
   const { recentSearches, pushSearch } = useApp()
   const [q, setQ] = useState('')
   const query = norm(q.trim())
@@ -26,7 +27,7 @@ export default function Search() {
     <PageShell>
       <header className="sticky top-0 z-30 bg-white/90 pt-safe backdrop-blur-xl lg:top-[72px]">
         <div className="flex items-center gap-2 px-3 py-2">
-          <button onClick={() => navigate(-1)} aria-label="Retour" className="grid h-10 w-10 place-items-center rounded-full hover:bg-neutral-100"><ChevronLeft size={24} /></button>
+          <button onClick={back} aria-label="Retour" className="grid h-10 w-10 place-items-center rounded-full hover:bg-neutral-100"><ChevronLeft size={24} /></button>
           <form
             className="flex h-12 flex-1 items-center gap-2 rounded-full bg-neutral-100 px-4"
             onSubmit={(e) => {

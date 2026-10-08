@@ -5,6 +5,7 @@ import { SERVICES, SERVICE_MAP, type ServiceId } from '../data/services'
 import { PRODUCT_MAP } from '../data/products'
 import { useApp } from '../store/AppContext'
 import { tap } from '../lib/native'
+import { useBack } from '../lib/useBack'
 
 type Detector = { detect: (src: HTMLVideoElement) => Promise<{ rawValue: string }[]> }
 
@@ -16,6 +17,7 @@ type Detector = { detect: (src: HTMLVideoElement) => Promise<{ rawValue: string 
  */
 export default function Scanner() {
   const navigate = useNavigate()
+  const back = useBack()
   const { addToCart, toast } = useApp()
   const video = useRef<HTMLVideoElement>(null)
   const [status, setStatus] = useState<'starting' | 'live' | 'denied' | 'unsupported'>('starting')
@@ -90,7 +92,7 @@ export default function Scanner() {
       {status !== 'live' && <div className="bg-neam-hero absolute inset-0" />}
 
       <div className="relative flex items-center justify-between px-4 pt-[calc(var(--safe-top)+12px)]">
-        <button onClick={() => navigate(-1)} aria-label="Fermer" className="glass grid h-11 w-11 place-items-center rounded-full"><X size={22} /></button>
+        <button onClick={back} aria-label="Fermer" className="glass grid h-11 w-11 place-items-center rounded-full"><X size={22} /></button>
         <h1 className="font-semibold">Scanner NEAM</h1>
         <button onClick={toggleTorch} aria-label="Lampe" className={`glass grid h-11 w-11 place-items-center rounded-full ${torch ? 'bg-white/30' : ''}`}><Flashlight size={20} /></button>
       </div>

@@ -7,6 +7,7 @@ import { Icon } from '../../lib/icons'
 import { NeamMark } from '../../components/Logo'
 import { ServiceWordmark } from '../../components/ServiceTile'
 import { tap } from '../../lib/native'
+import { useBack } from '../../lib/useBack'
 
 export const hrefOf = (service: Service, to: string) => (to.startsWith('/') ? to : `/service/${service.id}${to ? `/${to}` : ''}`)
 
@@ -103,12 +104,12 @@ export function ServiceHeader({ service, search = true, location = search }: { s
 
 /** En-tête coloré des sous-pages (catégorie, restaurant…), comme l'écran « Fruits & Légumes frais ». */
 export function ServiceSubHeader({ service, title, children }: { service: Service; title: string; children?: ReactNode }) {
-  const navigate = useNavigate()
+  const back = useBack(hrefOf(service, ''))
   const { cartCount } = useApp()
   return (
     <header className="sticky top-0 z-30 pt-safe text-white lg:top-[124px]" style={{ background: service.gradient }}>
       <div className="flex h-14 items-center gap-2 px-3">
-        <button onClick={() => navigate(-1)} aria-label="Retour" className="grid h-10 w-10 place-items-center rounded-full hover:bg-white/15"><ChevronLeft size={24} /></button>
+        <button onClick={back} aria-label="Retour" className="grid h-10 w-10 place-items-center rounded-full hover:bg-white/15"><ChevronLeft size={24} /></button>
         <h1 className="min-w-0 flex-1 truncate text-lg font-bold">{title}</h1>
         <Link to="/panier" aria-label="Panier" className="relative grid h-10 w-10 place-items-center rounded-full hover:bg-white/15">
           <ShoppingCart size={21} />
