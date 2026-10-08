@@ -26,3 +26,9 @@ Maquettes de référence (à valider avant tout changement visuel) : https://www
 Titres mot par mot, parallaxe du hero, compteurs, révélations au scroll (stagger), marquee des logos, ligne de parcours liée au scroll, cartes inclinables, reflet sur les boutons, transitions de questions, radar tracé, pins de carte en ressort, header qui se rétracte, barre de progression de lecture, transitions de page. Toutes respectent `prefers-reduced-motion`.
 
 Le profil d'orientation est conservé dans le navigateur (`localStorage`) en attendant le backend.
+
+## Mise en ligne
+
+Production : https://navigoal.netlify.app (projet Netlify `navigoal`, équipe DakiOriente).
+
+Le fichier `netlify.toml` à la racine du dépôt permet aussi un déploiement continu depuis GitHub (base `web`, build `npm ci && npm run build`, publication `out`) si le dépôt est relié au projet dans Netlify.
