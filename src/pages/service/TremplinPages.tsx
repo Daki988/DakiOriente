@@ -23,7 +23,7 @@ function SearchCard({ service, compact = false }: { service: Service; compact?: 
         tap()
         navigate(`${hrefOf(service, 'offres')}?q=${encodeURIComponent(q)}&ville=${encodeURIComponent(city)}`)
       }}
-      className={`grid gap-2 ${compact ? '' : 'sm:grid-cols-[1fr_180px_auto]'}`}
+      className={`grid grid-cols-1 gap-2 ${compact ? '' : 'sm:grid-cols-[minmax(0,1fr)_180px_auto]'}`}
     >
       <label className="flex h-12 items-center gap-3 rounded-2xl bg-white px-4 shadow-sm ring-1 ring-black/5">
         <Search size={19} className="text-neutral-700" />
@@ -257,7 +257,7 @@ export function TremplinCV({ service }: { service: Service }) {
   return (
     <>
       <ServiceSubHeader service={service} title="Mon CV" />
-      <div className="grid gap-5 p-4 xl:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 p-4 xl:grid-cols-2">
         <div className="space-y-3">
           <div className="grid grid-cols-2 gap-2">
             <input className={field} placeholder="Prénom et nom" value={cv.fullName} onChange={(e) => set('fullName', e.target.value)} />
@@ -345,7 +345,7 @@ export function TremplinFormations({ service }: { service: Service }) {
   return (
     <>
       <ServiceSubHeader service={service} title="Formations" />
-      <ul className="grid gap-3 p-4 sm:grid-cols-2">
+      <ul className="grid grid-cols-1 gap-3 p-4 sm:grid-cols-2">
         {FORMATIONS.map((f) => {
           const on = enrollments.includes(f.id)
           return (
@@ -358,7 +358,7 @@ export function TremplinFormations({ service }: { service: Service }) {
               </div>
               <button
                 onClick={() => { if (!on) { enroll(f.id); toast('Inscription confirmée') } }}
-                className={`rounded-xl px-3 py-2 text-xs font-semibold ${on ? 'bg-neam-50 text-neam-700' : 'bg-[#7c3aed] text-white'}`}
+                className={`shrink-0 rounded-xl px-3 py-2 text-xs font-semibold ${on ? 'bg-neam-50 text-neam-700' : 'bg-[#7c3aed] text-white'}`}
               >
                 {on ? 'Inscrit ✓' : 'S’inscrire'}
               </button>

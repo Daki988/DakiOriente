@@ -15,7 +15,7 @@ export const paymentLabel = (id: string) => PAYMENT_METHODS.find((p) => p.id ===
 
 export function PaymentPicker({ value, onChange, wallet }: { value: PaymentId; onChange: (id: PaymentId) => void; wallet: number }) {
   return (
-    <div className="grid gap-2" role="radiogroup" aria-label="Moyen de paiement">
+    <div className="grid grid-cols-1 gap-2" role="radiogroup" aria-label="Moyen de paiement">
       {PAYMENT_METHODS.map((m) => {
         const on = value === m.id
         return (

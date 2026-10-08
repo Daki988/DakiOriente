@@ -134,7 +134,7 @@ export function ShopHome({ service }: { service: Service }) {
       <ServiceHeader service={service} />
       <HeroBanner service={service} onCta={() => navigate(hrefOf(service, heroTarget))} />
       {service.quick.length > 0 && (
-        <section className={`grid gap-x-3 gap-y-4 px-4 pt-6 ${service.quick.length > 4 ? 'grid-cols-4' : 'grid-cols-4'}`}>
+        <section className={`grid grid-cols-4 gap-x-3 gap-y-4 px-4 pt-6 ${service.quick.length > 4 ? 'md:grid-cols-8' : ''}`}>
           {service.quick.map((q) => <QuickTile key={q.label} q={q} service={service} />)}
         </section>
       )}
@@ -145,7 +145,7 @@ export function ShopHome({ service }: { service: Service }) {
             <div className="p-5">
               <h3 className="text-xl font-extrabold leading-tight">{service.banner.title}</h3>
               <p className="mt-1 text-sm text-white/85">{service.banner.text}</p>
-              <span className="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-900">{service.banner.cta} <ArrowRight size={15} /></span>
+              <span className="mt-3 inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-white px-4 py-2 text-[clamp(11px,3.3vw,14px)] font-semibold text-neutral-900">{service.banner.cta} <ArrowRight size={15} /></span>
             </div>
             <div className="relative">
               <span className="absolute bottom-3 left-1/2 -translate-x-1/2 text-7xl drop-shadow-lg">{service.banner.emoji[0]}</span>

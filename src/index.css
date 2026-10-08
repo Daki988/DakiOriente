@@ -51,6 +51,16 @@
 
 html, body, #root { min-height: 100%; }
 
+/* Les champs ont une largeur intrinsèque (~20 caractères) qui fait déborder les lignes flex sur petit écran :
+   ils prennent la place disponible (les utilitaires w-* de Tailwind restent prioritaires). */
+@layer base {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), select, textarea { min-width: 0; width: 100%; }
+}
+
+/* Mots longs (« parapharmacie », « recommandations ») : retour à la ligne plutôt que débordement */
+body { overflow-wrap: break-word; }
+p, h1, h2, h3 { hyphens: auto; }
+
 body {
   margin: 0;
   font-family: var(--font-sans);

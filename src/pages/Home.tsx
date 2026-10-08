@@ -45,7 +45,7 @@ export default function Home() {
             <MapPin size={18} className="fill-white text-neam-900" /> {city}, Gabon <ChevronDown size={16} />
           </button>
           <div className="mt-3 flex h-[52px] items-center gap-3 rounded-full bg-white pl-4 pr-2 text-neutral-500 shadow-lg">
-            <button onClick={() => navigate('/recherche')} className="flex flex-1 items-center gap-3 text-left text-[15px]">
+            <button onClick={() => navigate('/recherche')} className="flex min-w-0 flex-1 items-center gap-3 text-left text-[15px]">
               <Search size={22} className="text-neutral-800" />
               <span className="truncate">Rechercher un produit, un service…</span>
             </button>
@@ -64,7 +64,7 @@ export default function Home() {
         </div>
 
         <section className="px-4 pt-6 lg:px-6" aria-label="Services NEAM">
-          <div className="grid grid-cols-4 gap-x-3 gap-y-5">
+          <div className="grid grid-cols-4 gap-x-3 gap-y-5 md:grid-cols-6 lg:grid-cols-4">
             {SERVICES.map((s, i) => (
               <ServiceTile key={s.id} service={s} index={i} />
             ))}
@@ -73,8 +73,8 @@ export default function Home() {
 
         <section className="pb-8 pt-8">
           <div className="mb-3 flex items-center justify-between px-4 lg:px-6">
-            <h2 className="text-lg font-bold">Populaire près de chez vous</h2>
-            <Link to="/recherche" className="flex items-center text-sm font-medium text-neam-600">Tout voir <ChevronRight size={16} /></Link>
+            <h2 className="min-w-0 text-[clamp(15px,4.6vw,18px)] font-bold">Populaire près de chez vous</h2>
+            <Link to="/recherche" className="flex shrink-0 items-center whitespace-nowrap text-sm font-medium text-neam-600">Tout voir <ChevronRight size={16} /></Link>
           </div>
           <div className="no-scrollbar flex gap-3 overflow-x-auto px-4 pb-2 lg:px-6">
             {popular.map((p) => (

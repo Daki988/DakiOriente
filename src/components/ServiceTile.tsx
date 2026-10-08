@@ -52,11 +52,12 @@ export function ServiceTile({ service, index = 0 }: { service: Service; index?: 
       className="group flex animate-fade-up flex-col items-center text-center"
       style={{ animationDelay: `${index * 40}ms` }}
     >
+      <div className="relative w-full">
+      {service.isNew && <span className="absolute -right-1 -top-1.5 z-10 rounded-full bg-white px-1.5 py-0.5 text-[clamp(6.5px,1.9vw,9px)] font-extrabold uppercase tracking-wide shadow-md ring-1 ring-black/5" style={{ color: service.color }}>Nouveau</span>}
       <div
         className="tile-shine relative flex aspect-square w-full flex-col items-center justify-center gap-1 rounded-[22px] text-white shadow-[0_10px_24px_-10px_rgba(0,0,0,0.45)] transition duration-300 group-hover:-translate-y-1 group-active:scale-95"
         style={{ background: service.gradient }}
       >
-        {service.isNew && <span className="absolute right-1.5 top-1.5 rounded-full bg-white px-1.5 py-0.5 text-[7.5px] font-extrabold uppercase tracking-wide shadow" style={{ color: service.color }}>Nouveau</span>}
         <ServiceGlyph service={service} className="h-[34%] max-h-11 max-w-[70%]" />
         <div className="px-1 leading-[1.05]">
           {service.tileTitle ? (
@@ -71,6 +72,7 @@ export function ServiceTile({ service, index = 0 }: { service: Service; index?: 
             </>
           )}
         </div>
+      </div>
       </div>
       <p className="mt-2 px-0.5 text-[clamp(9.5px,2.6vw,12px)] leading-tight text-neutral-600">{service.description}</p>
     </Link>

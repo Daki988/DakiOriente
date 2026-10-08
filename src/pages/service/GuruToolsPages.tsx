@@ -47,7 +47,7 @@ export function GuruHome({ service }: { service: Service }) {
           </div>
         </div>
         <p className="mt-3 text-sm text-neutral-700">Publiez une annonce, partagez votre lien et recevez vos candidatures classées par pertinence grâce à l’IA. Simple, rapide et 100 % adapté aux TPE et PME du Gabon.</p>
-        <div className="mt-4 grid gap-2 sm:grid-cols-2">
+        <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
           <button onClick={() => { tap(); navigate(hrefOf(service, 'annonce')) }} className="flex items-center justify-center gap-2 rounded-2xl py-3.5 font-semibold text-white shadow-lg" style={{ background: BLUE }}>
             Créer une annonce gratuitement <ArrowRight size={17} />
           </button>
@@ -136,7 +136,7 @@ export function GuruDashboard({ service }: { service: Service }) {
           ))}
         </div>
         <h2 className="mb-3 mt-6 text-[17px] font-bold">Mes recrutements</h2>
-        <div className="grid gap-3 xl:grid-cols-2">{recruitments.map((r) => <RecruitmentCard key={r.id} r={r} service={service} />)}</div>
+        <div className="grid grid-cols-1 gap-3 xl:grid-cols-2">{recruitments.map((r) => <RecruitmentCard key={r.id} r={r} service={service} />)}</div>
       </div>
     </>
   )
@@ -325,9 +325,9 @@ export function GuruCandidate({ service }: { service: Service }) {
           </div>
         </div>
         <div className="mt-4 grid grid-cols-3 gap-2">
-          <a href="mailto:" onClick={() => toast(`Message envoyé à ${c.name}`)} className="flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-sm font-semibold text-white" style={{ background: BLUE }}><Mail size={16} /> Contacter</a>
-          <button onClick={() => { setCandidateStatus(c.id, 'présélectionné'); toast('Candidat présélectionné') }} className={`rounded-xl py-2.5 text-sm font-semibold ${c.status === 'présélectionné' ? 'bg-neam-600 text-white' : 'bg-neam-50 text-neam-700'}`}>Présélectionner</button>
-          <button onClick={() => { setCandidateStatus(c.id, 'écarté'); toast('Candidature écartée') }} className={`rounded-xl py-2.5 text-sm font-semibold ${c.status === 'écarté' ? 'bg-neutral-700 text-white' : 'bg-neutral-100 text-neutral-600'}`}>Écarter</button>
+          <a href="mailto:" onClick={() => toast(`Message envoyé à ${c.name}`)} className="flex items-center justify-center gap-1.5 rounded-xl px-1 py-2.5 text-[clamp(11px,3.4vw,14px)] font-semibold text-white" style={{ background: BLUE }}><Mail size={16} className="shrink-0" /> Contacter</a>
+          <button onClick={() => { setCandidateStatus(c.id, 'présélectionné'); toast('Candidat présélectionné') }} className={`rounded-xl px-1 py-2.5 text-[clamp(11px,3.4vw,14px)] font-semibold leading-tight ${c.status === 'présélectionné' ? 'bg-neam-600 text-white' : 'bg-neam-50 text-neam-700'}`}><span className="sm:hidden">Retenir</span><span className="hidden sm:inline">Présélectionner</span></button>
+          <button onClick={() => { setCandidateStatus(c.id, 'écarté'); toast('Candidature écartée') }} className={`rounded-xl px-1 py-2.5 text-[clamp(11px,3.4vw,14px)] font-semibold leading-tight ${c.status === 'écarté' ? 'bg-neutral-700 text-white' : 'bg-neutral-100 text-neutral-600'}`}>Écarter</button>
         </div>
 
         <div className="mt-5 grid grid-cols-4 border-b border-neutral-200 text-sm">
@@ -338,7 +338,7 @@ export function GuruCandidate({ service }: { service: Service }) {
 
         {tab === 'ia' && (
           <div className="mt-4 space-y-3">
-            <div className="grid gap-3 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               <div className="rounded-2xl bg-white p-4 ring-1 ring-black/5">
                 <p className="text-xs text-neutral-500">Score global</p>
                 <p className="text-4xl font-extrabold" style={{ color: scoreColor(c.score) }}>{c.score} %</p>

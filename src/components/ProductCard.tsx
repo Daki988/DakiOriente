@@ -165,11 +165,11 @@ export function ProductSheet({ product, open, onClose, onBook, onCustom }: { pro
               onClose()
               add(product, qty)
             }}
-            className="flex flex-1 items-center justify-between rounded-2xl px-5 py-3.5 font-semibold text-white shadow-lg transition active:scale-[0.98]"
+            className="flex min-w-0 flex-1 items-center justify-between gap-2 rounded-2xl px-4 py-3.5 text-[clamp(13px,4vw,16px)] font-semibold text-white shadow-lg transition active:scale-[0.98] sm:px-5"
             style={{ background: service.gradient }}
           >
             <span>{service.cta}</span>
-            <span>{fcfa(product.price * qty)}</span>
+            <span className="whitespace-nowrap">{fcfa(product.price * qty)}</span>
           </button>
         </div>
       )}
