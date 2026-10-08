@@ -12,7 +12,7 @@
     // Lien CSV d'une feuille Google Sheets publiée (Fichier > Partager > Publier sur le Web > CSV).
     // Colonnes attendues : voir docs/suivi-modele.csv. Laissez vide pour le mode démonstration.
     csvUrl: "",
-    whatsapp: "24100000000",
+    whatsapp: window.DO_CONFIG.whatsapp, // à régler dans assets/js/config.js
     demoRef: "DO-DEMO24",
     demoCode: "0000"
   };

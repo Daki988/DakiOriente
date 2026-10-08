@@ -10,10 +10,12 @@ Boutique statique au thème clair (HTML/CSS/JS, aucune dépendance). Ouvrez `ind
 - Fiche produit, panier avec barre « livraison offerte », commande sans compte
 - Commande envoyée en récapitulatif WhatsApp, paiement à la livraison (espèces, Airtel Money, Moov Money)
 - Suivi de commande : créneau de livraison, étapes, position du livreur, historique, consignes de livraison (voir `docs/SUIVI.md`)
+- Page « Le Guide » (`guide.html`) : premier jouet, lubrifiants, hygiène, préservatifs, santé sexuelle, couple, consentement, discrétion
 - Quiz « Trouver mon produit idéal », FAQ discrétion, inscription newsletter
 
 ## À personnaliser
-- `assets/js/app.js` → bloc `CONFIG` : numéro WhatsApp, frais et seuil de livraison offerte
+- `assets/js/config.js` → numéro WhatsApp (utilisé sur toutes les pages) et page de la sortie rapide
+- `assets/js/app.js` → bloc `CONFIG` : frais et seuil de livraison offerte, heure limite de commande
 - `assets/js/tracking.js` → lien de la feuille de suivi et numéro WhatsApp (voir `docs/SUIVI.md`)
 - `assets/js/products.js` → produits, prix (FCFA), descriptions, catégories
 - Les visuels produits sont des illustrations abstraites : remplacez-les par vos photos quand elles sont prêtes

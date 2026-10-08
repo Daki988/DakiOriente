@@ -6,11 +6,11 @@
 
   /* ---------- Réglages : à adapter ---------- */
   var CONFIG = {
-    whatsapp: "24100000000",      // numéro WhatsApp de la boutique, format international sans "+"
+    whatsapp: window.DO_CONFIG.whatsapp, // à régler dans assets/js/config.js
     shippingFee: 2000,            // frais de livraison (FCFA)
     freeShippingFrom: 30000,      // livraison offerte à partir de (FCFA)
     cutoffHour: 16,               // commande passée avant cette heure (heure de Libreville) = livrée le lendemain
-    exitUrl: "https://www.google.com/search?q=m%C3%A9t%C3%A9o+libreville"
+    exitUrl: window.DO_CONFIG.exitUrl
   };
 
   var CATS = window.CATEGORIES;
@@ -80,7 +80,7 @@
   function quickExit() {
     var cover = $("#cover");
     cover.hidden = false;
-    document.title = "Marché Soleil · Promotions de la semaine";
+    document.title = window.DO_CONFIG.exitTitle;
     document.body.classList.add("locked");
     $$(".modal, .drawer").forEach(function (m) { m.hidden = true; });
     // Site ouvert normalement : on part vers Google. Site intégré dans une autre page (comme la démo) :
@@ -461,5 +461,8 @@
 
   renderGrid();
   renderCart();
+  // Liens depuis les autres pages : #panier ouvre le panier, #p-E05 ouvre la fiche du produit E05
+  if (location.hash === "#panier") openCart();
+  else if (/^#p-[A-Z0-9]+$/.test(location.hash) && byId[location.hash.slice(3)]) { $("#boutique").scrollIntoView(); openProduct(location.hash.slice(3)); }
   renderQuiz();
 })();

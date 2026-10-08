@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Titre volontairement neutre : rien de compromettant dans l'onglet ni l'historique -->
+  <title>Le Guide — Daki Oriente</title>
+  <meta name="description" content="Le guide Daki Oriente : choisir son premier jouet, bien utiliser un lubrifiant, entretenir ses jouets, préservatifs, santé sexuelle, consentement et discrétion. Simple, sans tabou.">
+  <meta property="og:title" content="Le Guide — Daki Oriente">
+  <meta property="og:description" content="Lingerie, jouets et essentiels intimes. Colis 100 % neutre, paiement à la livraison à Libreville.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23111111'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23ff4d5e'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="guide-page">
+
+  <!-- ===== Vérification d'âge ===== -->
+  <div class="agegate" id="agegate" role="dialog" aria-modal="true" aria-labelledby="agegate-title" hidden>
+    <div class="agegate__card">
+      <span class="pill">Espace réservé aux adultes</span>
+      <h2 id="agegate-title">Avez-vous 18 ans ou plus&nbsp;?</h2>
+      <p>Ce site présente des produits pour adultes. En entrant, vous confirmez être majeur·e selon la loi de votre pays.</p>
+      <div class="agegate__actions">
+        <button class="btn btn--primary" id="agegate-yes">Oui, j'entre</button>
+        <a class="btn btn--outline" href="https://www.google.com" rel="noreferrer">Non, je sors</a>
+      </div>
+      <p class="agegate__note">Aucune donnée n'est enregistrée. Ce choix reste sur votre appareil.</p>
+    </div>
+  </div>
+
+  <!-- ===== Bandeau confiance ===== -->
+  <div class="topbar">
+    <p>Livraison <strong>offerte dès 30 000 FCFA</strong> · Colis 100 % neutre · Paiement à la livraison</p>
+  </div>
+
+  <!-- ===== En-tête ===== -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo" aria-label="Daki Oriente, retour à la boutique">
+        <span class="logo__dot"></span>daki<span class="logo__light">oriente</span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Navigation principale">
+        <a href="index.html#boutique">Boutique</a>
+        <a href="index.html#collections">Collections</a>
+        <a href="guide.html" aria-current="page">Le Guide</a>
+        <a href="index.html#suivi">Suivi</a>
+        <a href="index.html#faq">Questions</a>
+      </nav>
+      <div class="header__actions">
+        <button class="iconbtn iconbtn--exit" id="quick-exit" title="Quitter le site immédiatement (touche Échap ×2)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12s3.5-7 9-7 9 7 9 7-3.5 7-9 7-9-7-9-7z"/><path d="M4 4l16 16"/></svg>
+          <span class="exit-long">Sortie rapide</span><span class="exit-short">Quitter</span>
+        </button>
+        <a class="iconbtn iconbtn--cart" href="index.html#panier" aria-label="Voir le panier">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 016 0"/></svg>
+          <span class="cart-count" id="cart-count">0</span>
+        </a>
+        <button class="iconbtn burger" id="burger" aria-label="Menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="g-progress" aria-hidden="true"><i id="g-progress"></i></div>
+  </header>
+
+  <main id="top">
+    <section class="g-hero">
+      <div class="container">
+        <span class="label">Le Guide Daki Oriente</span>
+        <h1>Tout ce que vous n'osez pas <mark>demander</mark>, expliqué simplement.</h1>
+        <p class="lead">Pas de jargon, pas de jugement. Des réponses claires pour vous faire plaisir en toute sécurité, seul·e ou à deux. Huit sujets, quelques minutes de lecture chacun.</p>
+        <ul class="g-chips">
+          <li><a href="#premier-jouet">Choisir son premier jouet</a></li>
+          <li><a href="#lubrifiant">Le lubrifiant, mode d'emploi</a></li>
+          <li><a href="#hygiene">Entretenir ses jouets</a></li>
+          <li><a href="#preservatifs">Bien utiliser un préservatif</a></li>
+          <li><a href="#sante">Santé sexuelle</a></li>
+          <li><a href="#a-deux">En parler à deux</a></li>
+          <li><a href="#consentement">Le consentement</a></li>
+          <li><a href="#discretion">Rester discret·e</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="container g-layout">
+      <aside class="g-toc" aria-label="Sommaire">
+        <p>Sommaire</p>
+        <ol id="g-toc">
+            <li><a href="#premier-jouet">Choisir son premier jouet</a></li>
+            <li><a href="#lubrifiant">Le lubrifiant, mode d'emploi</a></li>
+            <li><a href="#hygiene">Entretenir ses jouets</a></li>
+            <li><a href="#preservatifs">Bien utiliser un préservatif</a></li>
+            <li><a href="#sante">Santé sexuelle</a></li>
+            <li><a href="#a-deux">En parler à deux</a></li>
+            <li><a href="#consentement">Le consentement</a></li>
+            <li><a href="#discretion">Rester discret·e</a></li>
+        </ol>
+        <a class="btn btn--primary btn--full" href="index.html#quiz">Trouver mon produit idéal</a>
+      </aside>
+
+      <div class="g-articles">
+        <article class="g-art" id="premier-jouet">
+          <p class="g-art__meta"><span>Débuter</span> · 3 min de lecture</p>
+          <h2>Comment choisir son <mark>premier jouet</mark>&nbsp;?</h2>
+          <p>Il n'y a pas de bon ou de mauvais premier jouet, seulement celui qui vous correspond. La plupart des personnes qui débutent regrettent d'avoir commencé trop grand ou trop compliqué. Voici les questions à vous poser.</p>
+          <h3>Externe ou interne&nbsp;?</h3>
+          <p>Pour une première fois, un jouet de stimulation externe (bullet, stimulateur à ondes d'air) est le plus simple : rien à introduire, juste à découvrir ce qui vous plaît. Vous saurez ensuite si vous avez envie d'aller plus loin.</p>
+          <h3>Les quatre critères qui comptent vraiment</h3>
+          <ul class="g-checks">
+            <li><strong>La matière :</strong> du silicone médical ou un plastique ABS. Évitez le « jelly » et le PVC souple : ces matières sont poreuses, retiennent les bactéries et peuvent contenir des phtalates.</li>
+            <li><strong>Le bruit :</strong> un moteur silencieux (moins de 50 dB) évite les moments gênants avec les voisins ou la famille.</li>
+            <li><strong>La recharge :</strong> un jouet rechargeable par USB coûte moins cher à l'usage qu'un jouet à piles.</li>
+            <li><strong>L'étanchéité :</strong> un modèle étanche se nettoie facilement et s'utilise sous la douche.</li>
+          </ul>
+          <div class="g-note"><strong>À retenir</strong>Commencez petit, en silicone, avec plusieurs intensités. Vous pourrez toujours monter en gamme ensuite.</div>
+          <div class="g-products" data-products="E05,E01,C02"></div>
+        </article>
+
+        <article class="g-art" id="lubrifiant">
+          <p class="g-art__meta"><span>Confort</span> · 3 min de lecture</p>
+          <h2>Pourquoi tout le monde finit par acheter un <mark>lubrifiant</mark>&nbsp;?</h2>
+          <p>C'est le produit le plus vendu dans toutes les boutiques intimes, et ce n'est pas un hasard. Un lubrifiant n'est pas un signe que « quelque chose ne va pas » : il rend tout plus doux, plus long et plus agréable, à tout âge.</p>
+          <h3>Quel lubrifiant pour quel usage&nbsp;?</h3>
+          <div class="g-table">
+            <table>
+              <thead><tr><th>Base</th><th>Points forts</th><th>Attention</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Eau</strong></td><td data-label="Points forts">Compatible avec tous les préservatifs et tous les jouets. Se rince facilement.</td><td data-label="Attention">Sèche plus vite : on en remet un peu.</td></tr>
+                <tr><td><strong>Silicone</strong></td><td data-label="Points forts">Très longue tenue, idéal sous la douche. Compatible avec les préservatifs en latex.</td><td data-label="Attention">Abîme les jouets en silicone. Plus difficile à rincer.</td></tr>
+                <tr><td><strong>Huile</strong></td><td data-label="Points forts">Agréable pour les massages.</td><td data-label="Attention"><strong>Fragilise les préservatifs en latex</strong> : ne les associez jamais.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="g-note"><strong>À retenir</strong>Dans le doute, choisissez un lubrifiant à base d'eau : il va avec tout. Testez-le d'abord sur l'intérieur du poignet si vous avez la peau sensible.</div>
+          <div class="g-products" data-products="P08,P04,P05"></div>
+        </article>
+
+        <article class="g-art" id="hygiene">
+          <p class="g-art__meta"><span>Hygiène</span> · 2 min de lecture</p>
+          <h2>Comment <mark>entretenir</mark> ses jouets&nbsp;?</h2>
+          <p>Un jouet bien entretenu dure des années et reste sain. Il suffit de quelques gestes simples, à faire avant et après chaque utilisation.</p>
+          <ol class="g-steps">
+            <li><strong>Lavez-le</strong> à l'eau tiède avec un savon doux ou un nettoyant spécial jouets. Pour un jouet non étanche, lavez seulement la surface, sans plonger le moteur ni la prise de charge.</li>
+            <li><strong>Séchez-le</strong> avec un linge propre qui ne peluche pas, ou laissez-le sécher à l'air libre.</li>
+            <li><strong>Rangez-le</strong> à part, dans une pochette en tissu, à l'abri de la poussière et de la chaleur. Évitez que deux jouets en silicone se touchent : leurs matières peuvent réagir entre elles.</li>
+            <li><strong>Inspectez-le</strong> de temps en temps. Une fissure ou une surface qui devient collante : il est temps de le remplacer.</li>
+          </ol>
+          <div class="g-note"><strong>À retenir</strong>Si vous partagez un jouet avec un·e partenaire, couvrez-le d'un préservatif neuf pour chaque personne.</div>
+          <div class="g-products" data-products="P06,P07"></div>
+        </article>
+
+        <article class="g-art" id="preservatifs">
+          <p class="g-art__meta"><span>Protection</span> · 3 min de lecture</p>
+          <h2>Préservatifs : comment bien les <mark>choisir</mark> et bien les utiliser&nbsp;?</h2>
+          <p>Le préservatif est le seul moyen qui protège à la fois des grossesses non désirées et des infections sexuellement transmissibles (IST), dont le VIH. Encore faut-il qu'il soit adapté et bien utilisé.</p>
+          <h3>La bonne taille</h3>
+          <p>Un préservatif trop serré gêne et peut se rompre ; trop large, il peut glisser. La largeur standard est de 52 à 54 mm. Si vous êtes à l'étroit, essayez une taille XL (56–57 mm). Si le préservatif glisse, une taille plus ajustée (49 mm) sera plus sûre.</p>
+          <h3>Les bons gestes</h3>
+          <ul class="g-checks">
+            <li>Vérifiez la <strong>date de péremption</strong> et la présence de la norme <strong>CE</strong> ou <strong>ISO 4074</strong>.</li>
+            <li>Ouvrez l'emballage avec les doigts, <strong>jamais avec les dents</strong> ni des ciseaux.</li>
+            <li>Pincez le réservoir pour chasser l'air, puis déroulez-le jusqu'à la base.</li>
+            <li>Un seul préservatif à la fois : <strong>en mettre deux augmente le risque de rupture</strong>.</li>
+            <li>Conservez-les au frais et au sec. La chaleur les abîme : évitez la boîte à gants de la voiture et le portefeuille.</li>
+          </ul>
+          <div class="g-note"><strong>À retenir</strong>Avec un préservatif en latex, utilisez un lubrifiant à base d'eau ou de silicone, jamais d'huile.</div>
+          <div class="g-products" data-products="P01,P03,P02"></div>
+        </article>
+
+        <article class="g-art" id="sante">
+          <p class="g-art__meta"><span>Santé</span> · 2 min de lecture</p>
+          <h2>Santé sexuelle : les réflexes qui <mark>protègent</mark>.</h2>
+          <p>Prendre soin de sa santé sexuelle fait partie du plaisir. Quelques réflexes simples suffisent.</p>
+          <ul class="g-checks">
+            <li><strong>Faites-vous dépister régulièrement</strong>, surtout avant d'arrêter le préservatif avec un·e nouveau·elle partenaire. Beaucoup d'IST ne donnent aucun symptôme.</li>
+            <li><strong>Après un rapport à risque</strong> (préservatif rompu, rapport non protégé), consultez un médecin ou un centre de santé <strong>le plus vite possible, dans les 72 heures</strong>. Un traitement d'urgence contre le VIH et une contraception d'urgence peuvent encore être proposés.</li>
+            <li><strong>Une douleur, une irritation ou un écoulement inhabituel</strong> ? Arrêtez l'utilisation des produits concernés et parlez-en à un professionnel de santé.</li>
+            <li><strong>Un traitement en cours</strong> (problème cardiaque, tension) ? Demandez l'avis de votre médecin avant d'utiliser des stimulants ou des produits retardants.</li>
+          </ul>
+          <div class="g-note g-note--info"><strong>Bon à savoir</strong>Ce guide donne des repères généraux. Il ne remplace pas l'avis d'un médecin, d'une sage-femme ou d'un centre de santé.</div>
+        </article>
+
+        <article class="g-art" id="a-deux">
+          <p class="g-art__meta"><span>Couple</span> · 3 min de lecture</p>
+          <h2>Comment parler de ses <mark>envies</mark> à deux&nbsp;?</h2>
+          <p>Proposer un jouet, une tenue ou un nouveau jeu à son ou sa partenaire peut intimider. Pourtant, la plupart des couples qui osent en parler disent se sentir plus proches après.</p>
+          <ul class="g-checks">
+            <li><strong>Choisissez le bon moment :</strong> un moment calme et complice, pas au milieu d'une dispute ni juste après un rapport décevant.</li>
+            <li><strong>Parlez de vous :</strong> « J'aimerais qu'on essaie… », « J'ai envie de… » passe beaucoup mieux que « Tu ne fais jamais… ».</li>
+            <li><strong>Présentez le jouet comme un complice,</strong> pas comme un remplaçant. Il s'ajoute à ce que vous partagez déjà.</li>
+            <li><strong>Choisissez ensemble :</strong> parcourir la boutique à deux est souvent le début du jeu.</li>
+            <li><strong>Acceptez un « pas maintenant ».</strong> Une envie qui n'est pas partagée aujourd'hui peut l'être plus tard.</li>
+          </ul>
+          <div class="g-products" data-products="C01,S03,C03"></div>
+        </article>
+
+        <article class="g-art" id="consentement">
+          <p class="g-art__meta"><span>Respect</span> · 2 min de lecture</p>
+          <h2>Le consentement, c'est <mark>simple</mark>.</h2>
+          <p>Le plaisir n'existe que s'il est partagé. Le consentement en est la base, à chaque fois et pour chaque pratique.</p>
+          <ul class="g-checks">
+            <li><strong>Il est clair :</strong> un « oui » franc et enthousiaste. Le silence, l'hésitation ou l'absence de « non » ne sont pas un « oui ».</li>
+            <li><strong>Il est libre :</strong> sans pression, sans chantage, sans insistance.</li>
+            <li><strong>Il est réversible :</strong> chacun·e peut changer d'avis à tout moment, même en cours de route.</li>
+            <li><strong>Il est éclairé :</strong> une personne très alcoolisée, endormie ou inconsciente ne peut pas consentir.</li>
+            <li><strong>Il concerne des adultes :</strong> les produits de cette boutique sont réservés aux personnes majeures.</li>
+          </ul>
+          <div class="g-note"><strong>À retenir</strong>Pour les jeux de liens ou de rôle, convenez d'un mot d'arrêt avant de commencer. Quand il est prononcé, tout s'arrête, sans discussion.</div>
+        </article>
+
+        <article class="g-art" id="discretion">
+          <p class="g-art__meta"><span>Vie privée</span> · 2 min de lecture</p>
+          <h2>Comment garder vos achats <mark>vraiment</mark> privés&nbsp;?</h2>
+          <p>Chez Daki Oriente, la discrétion fait partie du service. Voici ce que nous faisons, et ce que vous pouvez faire de votre côté.</p>
+          <h3>De notre côté</h3>
+          <ul class="g-checks">
+            <li>Un colis marron, sans logo ni description. L'expéditeur indiqué est « DO Distribution ».</li>
+            <li>Le paiement à la livraison : rien n'apparaît sur un relevé bancaire.</li>
+            <li>Un livreur qui annonce simplement « livraison pour vous ».</li>
+            <li>Aucun compte à créer, et vos données servent uniquement à la livraison.</li>
+          </ul>
+          <h3>De votre côté</h3>
+          <ul class="g-checks">
+            <li>Le bouton <strong>« Quitter »</strong>, en haut de chaque page, remplace instantanément le site par une publicité. Sur ordinateur, appuyez deux fois sur <kbd>Échap</kbd>.</li>
+            <li>Naviguez en <strong>navigation privée</strong> : rien ne reste dans l'historique de votre téléphone.</li>
+            <li>Rangez vos jouets dans une <strong>pochette neutre</strong> et gardez un code sur votre téléphone.</li>
+            <li>Faites-vous livrer <strong>au bureau, chez une amie ou en point relais</strong> si c'est plus simple.</li>
+          </ul>
+          <div class="g-products" data-products="P07,P08"></div>
+        </article>
+
+        <section class="g-end">
+          <h2>Une question qui n'est pas dans ce guide&nbsp;?</h2>
+          <p>Écrivez-nous sur WhatsApp. Nous répondons en moins d'une heure, avec bienveillance et sans tabou.</p>
+          <div class="g-end__actions">
+            <a class="btn btn--primary btn--lg" href="#" data-whatsapp>Poser ma question</a>
+            <a class="btn btn--outline btn--lg" href="index.html#boutique">Retour à la boutique</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__legal">
+      <p>© <span id="year"></span> Daki Oriente. Vente réservée aux personnes majeures. Ce guide ne remplace pas l'avis d'un professionnel de santé.</p>
+      <p>Astuce discrétion&nbsp;: appuyez deux fois sur <kbd>Échap</kbd> pour quitter le site instantanément.</p>
+    </div>
+  </footer>
+
+  <!-- ===== Écran neutre de la sortie rapide : une publicité (enseigne fictive) ===== -->
+  <div class="cover" id="cover" hidden>
+    <div class="ad">
+      <span class="ad__tag">Publicité</span>
+      <div class="ad__hero">
+        <p class="ad__brand">Marché Soleil</p>
+        <h1>Les prix<br>fondent cette semaine&nbsp;!</h1>
+        <p class="ad__dates">Du lundi au dimanche, dans tous nos magasins</p>
+        <span class="ad__burst">Jusqu'à<br><b>-30&nbsp;%</b></span>
+      </div>
+      <ul class="ad__deals">
+        <li><span class="ad__item">Riz parfumé<small>sac de 25 kg</small></span><span class="ad__price"><s>21 500</s>16 900 <em>FCFA</em></span></li>
+        <li><span class="ad__item">Huile végétale<small>bidon de 5 L</small></span><span class="ad__price"><s>9 800</s>7 450 <em>FCFA</em></span></li>
+        <li><span class="ad__item">Cuisses de poulet<small>carton de 10 kg</small></span><span class="ad__price"><s>18 000</s>14 500 <em>FCFA</em></span></li>
+        <li><span class="ad__item">Lait en poudre<small>boîte de 2,5 kg</small></span><span class="ad__price"><s>12 900</s>9 990 <em>FCFA</em></span></li>
+        <li><span class="ad__item">Eau minérale<small>pack de 6 × 1,5 L</small></span><span class="ad__price"><s>2 400</s>1 750 <em>FCFA</em></span></li>
+      </ul>
+      <p class="ad__cta">Livraison à domicile offerte dès 25 000 FCFA d'achat</p>
+      <p class="ad__legal">Offres valables dans la limite des stocks disponibles. Photos non contractuelles.</p>
+    </div>
+  </div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/guide.js"></script>
+</body>
+</html>
