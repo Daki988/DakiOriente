@@ -158,7 +158,8 @@
       '<button class="card__quick" data-add="' + p.id + '" aria-label="Ajouter ' + esc(p.name) + ' au panier">Ajouter au panier</button></div>' +
       '<div class="card__body"><span class="card__cat">' + esc(catById[p.cat].label) + "</span>" +
       '<h3 class="card__name" data-open="' + p.id + '">' + esc(p.name) + "</h3>" +
-      '<span class="price">' + fcfa(p.price) + (p.old ? "<s>" + fcfa(p.old) + "</s>" : "") + "</span></div></article>";
+      '<span class="price">' + fcfa(p.price) + (p.old ? "<s>" + fcfa(p.old) + "</s>" : "") + "</span>" +
+      '<span class="card__eta">' + etaShort() + "</span></div></article>";
   }
 
   /* Clics délégués : ajout rapide et ouverture de fiche, partout sur la page */
@@ -234,19 +235,26 @@
     openModal(pmModal);
   }
 
+  /* Délai court affiché sur les cartes produits */
+  function etaShort() {
+    var now = new Date(Date.now() + 3600000), d = now.getUTCDay(), h = now.getUTCHours();
+    if (d !== 0 && h < CONFIG.cutoffHour) return d === 6 ? "Livré lundi" : "Livré demain";
+    return "Livré sous 48 h";
+  }
+
   /* Délai de livraison, calculé à l'heure de Libreville (UTC+1) */
   function deliveryText() {
     var now = new Date(Date.now() + 3600000), d = now.getUTCDay(), h = now.getUTCHours(), m = now.getUTCMinutes();
     var open = d !== 0 && h < CONFIG.cutoffHour;
     if (open) {
       var left = (CONFIG.cutoffHour - h) * 60 - m;
-      return "Commandez dans les <strong>" + Math.floor(left / 60) + " h " + String(left % 60).padStart(2, "0") + " min</strong> : livré " + (d === 6 ? "lundi" : "demain") + " à Libreville.";
+      return "Commandez dans les <strong>" + (left >= 60 ? Math.floor(left / 60) + " h " + String(left % 60).padStart(2, "0") : left) + " min</strong> : livré " + (d === 6 ? "lundi" : "demain") + " à Libreville.";
     }
     return "Commandez maintenant : livré <strong>" + (d === 6 || (d === 5 && h >= CONFIG.cutoffHour) ? "lundi" : "dès après-demain") + "</strong> à Libreville.";
   }
 
   /* « Souvent ajoutés ensemble » */
-  var PAIRS = { elle: ["P04", "P06", "P01"], lui: ["P04", "P03", "P06"], couple: ["P04", "S01", "P02"], lingerie: ["S02", "S01", "C03"], essentiels: ["P04", "E05", "S01"], sensualite: ["S03", "L01", "P04"] };
+  var PAIRS = { elle: ["P08", "P07", "P01"], lui: ["P04", "P03", "P07"], couple: ["P08", "S01", "P02"], lingerie: ["S02", "S01", "C03"], essentiels: ["P04", "E05", "S01"], sensualite: ["S03", "L01", "P04"] };
   function crossSellHTML(p) {
     var ids = (PAIRS[p.cat] || []).filter(function (id) { return id !== p.id && byId[id]; }).slice(0, 3);
     if (!ids.length) return "";
@@ -311,7 +319,7 @@
       '<div class="grand"><span>Total</span><span>' + fcfa(t.total) + "</span></div></div>" +
       '<button class="btn btn--primary btn--full" id="to-checkout">Commander, payer à la livraison →</button>' +
       '<p class="reassure">📦 Colis neutre · 🔒 Aucun compte · 💵 Rien à payer en ligne</p>';
-    var sugg = ["P04", "P01", "P06", "S01"].filter(function (id) { return !cart[id]; }).slice(0, 2);
+    var sugg = ["P08", "P07", "P01", "S01"].filter(function (id) { return !cart[id]; }).slice(0, 2);
     if (sugg.length) {
       $("#cart-items").insertAdjacentHTML("beforeend", '<div class="xsell xsell--cart"><p class="xsell__title">Pensez-y</p><div class="xsell__list">' + sugg.map(function (id) {
         var q = byId[id];

@@ -616,3 +616,7 @@ body.locked .toast.show { transform: translate(-50%, 0); }
   .trk-map { height: 230px; }
   .trk-map__bubble { font-size: .8rem; white-space: normal; width: max-content; max-width: 200px; text-align: center; }
 }
+
+/* Délai de livraison sur les cartes */
+.card__eta { display: inline-flex; align-items: center; gap: 6px; margin-top: 2px; font-size: .78rem; font-weight: 700; color: #0f8a5a; }
+.card__eta::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }

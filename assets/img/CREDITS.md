@@ -35,6 +35,7 @@ exactement l'article vendu.
 | P04.jpg | https://www.pexels.com/photo/14836428/ |
 | P05.jpg | https://www.pexels.com/photo/11635425/ |
 | P06.jpg | https://www.pexels.com/photo/8217401/ |
+| P07.jpg | https://www.pexels.com/photo/9603488/ |
 | S01.jpg | https://www.pexels.com/photo/6560257/ |
 | S02.jpg | https://www.pexels.com/photo/7797456/ |
 | S03.jpg | https://www.pexels.com/photo/7417153/ |

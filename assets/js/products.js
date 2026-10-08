@@ -90,6 +90,12 @@ window.PRODUCTS = [
   { id: "P06", pos: "62% 50%", cat: "essentiels", name: "Nettoyant Jouets Hygiène+", price: 5900, art: "bottle", hue: 160,
     desc: "Nettoie et désinfecte vos jouets en un geste. Pour un plaisir toujours sain.",
     points: ["Antibactérien", "Sans rinçage", "150 ml"] },
+  { id: "P08", img: "assets/img/P04.jpg", cat: "essentiels", name: "Pack Essentiel Lubrifiant + Nettoyant", price: 9900, old: 12800, art: "bottle", hue: 200, badge: "Malin",
+    desc: "Le duo que tout le monde finit par acheter : un lubrifiant à base d'eau pour le confort, un nettoyant pour garder vos jouets impeccables.",
+    points: ["Lubrifiant Aqua Soie 100 ml", "Nettoyant Hygiène+ 150 ml", "Économisez 2 900 FCFA"] },
+  { id: "P07", cat: "essentiels", name: "Pochette de Rangement Discrète", price: 2900, art: "box", hue: 30,
+    desc: "Une pochette en coton neutre pour ranger vos jouets à l'abri de la poussière et des regards. Rien n'indique ce qu'elle contient.",
+    points: ["Coton doux, fermeture à cordon", "Format 20 × 25 cm", "Se glisse dans un tiroir ou un sac"] },
 
   // Sensualité
   { id: "S01", cat: "sensualite", name: "Huile de Massage Ylang-Ylang", price: 8900, art: "bottle", hue: 35, badge: "Coup de cœur",
