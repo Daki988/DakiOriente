@@ -89,7 +89,7 @@ p { margin: 0 0 1em; }
 .topbar strong { color: #ffb3ba; font-weight: 700; }
 
 /* ---------- En-tête ---------- */
-.header { position: sticky; top: 0; z-index: 40; background: rgba(255, 255, 255, .86); backdrop-filter: saturate(1.6) blur(14px); -webkit-backdrop-filter: saturate(1.6) blur(14px); border-bottom: 1px solid transparent; transition: border-color .3s; }
+.header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; background: rgba(255, 255, 255, .86); backdrop-filter: saturate(1.6) blur(14px); -webkit-backdrop-filter: saturate(1.6) blur(14px); border-bottom: 1px solid transparent; transition: border-color .3s; }
 .header.scrolled { border-bottom-color: var(--line); }
 .header__inner { display: flex; align-items: center; gap: 24px; height: 70px; }
 .logo { display: inline-flex; align-items: center; gap: 2px; font-weight: 800; font-size: 1.35rem; letter-spacing: -.04em; }
