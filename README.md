@@ -85,22 +85,33 @@ Principe : **le référentiel décide, l'IA explique**. Le score est calculé de
 
 Code : `app/Services/MatchingEngine.php`, `app/Services/Referential/`, données : `database/referentiels/`.
 
-### Préparation aux stages (offres réelles hors Tremplin)
-La page **Préparation aux stages** (`/espace/preparation-stages`) évalue le CV du candidat sur de **vraies offres de stage** publiées dans son pays (celui de son compte) sur des sites vérifiés par NEAM, pour qu'il soit prêt quand des offres du même type paraîtront sur Tremplin. Aucune candidature n'est envoyée.
+### Préparation sur offres réelles (stages et emplois, hors Tremplin)
+La page **Préparation sur offres réelles** (`/espace/preparation-stages`) évalue le CV du candidat sur de **vraies offres** de stage ou d'emploi (CDI, CDD, premier emploi). Ces offres sont publiées dans son pays (celui de son compte), sur des sites vérifiés par NEAM. Le but est qu'il soit prêt quand des offres du même type paraîtront sur Tremplin. Aucune candidature n'est envoyée.
 
-- **Sources vérifiées** (Admin › Veille des stages) : Gabon Opportunités, Jobartis Gabon, Africarrières, QG Jeune Gabon, Michael Page Africa, sites carrières d'AGL et de Grant Thornton Gabon, LinkedIn Emplois, MinaJobs (Cameroun). Chaque source a été contrôlée le 7 octobre 2026 ; l'équipe en ajoute, en suspend ou en retire.
-- **Collecte** : Claude effectue une recherche web limitée aux domaines de ces sources (`web_search`, avec `allowed_domains`). Sans clé Claude, l'équipe saisit les offres à la main avec les mêmes contrôles.
+- **Sources vérifiées** (Admin › Veille des offres) : Gabon Opportunités, Jobartis Gabon, Africarrières, QG Jeune Gabon, Michael Page Africa, sites carrières d'AGL et de Grant Thornton Gabon, LinkedIn Emplois, MinaJobs (Cameroun). Contrôlées le 7 octobre 2026 ; l'équipe en ajoute, en suspend ou en retire.
+- **Collecte** : Claude effectue une recherche web limitée aux domaines de ces sources (`web_search`, avec `allowed_domains`), pour des stages, des emplois ou les deux. Sans clé Claude, l'équipe saisit les offres à la main avec les mêmes contrôles.
 - **Aucune offre inventée.** Une offre n'est retenue que si :
   - son adresse figure dans les résultats bruts du moteur de recherche ;
+  - c'est une annonce individuelle, pas une page de liste ;
   - elle appartient à une source active du pays ;
-  - il s'agit bien d'un stage situé dans ce pays ;
-  - elle a moins de 12 mois, d'après sa date de publication ou, à défaut, sa date limite de candidature ;
+  - son type de contrat correspond à la recherche ;
+  - elle a moins de 12 mois (date de publication, ou date limite de candidature) ;
   - sa page n'est pas supprimée.
 
-  Chaque rejet est journalisé avec son motif, et les candidats peuvent signaler une offre (file de curation).
-- **Évaluation** : chaque annonce est rattachée à une fiche métier. Les compétences citées sont reconnues par le référentiel, avec un niveau attendu de stagiaire (2 par défaut). Le score est calculé par le moteur de matching, avec les mêmes poids et les mêmes seuils.
-- **Bilan** : score moyen, puis « prêt » si ce score atteint 70 et que 60 % des compétences demandées sont acquises. S'y ajoutent les compétences les plus demandées, les écarts récurrents avec formations, certifications et projets (ajoutables au plan), et les atouts. Chaque offre a un lien vers l'annonce d'origine.
-- **Coût maîtrisé** : une recherche est partagée entre candidats et réutilisée pendant 7 jours. Une recherche consomme une génération du quota mensuel du candidat. Au plus 6 recherches par jour et par candidat.
+  Les rejets sont journalisés et les candidats peuvent signaler une offre.
+- **LinkedIn** : ses conditions d'utilisation interdisent les accès automatisés, et il n'existe pas d'API publique de lecture des offres. Tremplin n'interroge donc jamais LinkedIn directement. Ses annonces ne viennent que :
+  - des résultats du moteur de recherche (pages `/jobs/view/` uniquement, liens non contrôlés automatiquement) ;
+  - de la saisie manuelle par l'équipe ;
+  - de ce que le candidat colle lui-même.
+- **« Évaluer une offre que j'ai trouvée »** : le candidat colle le texte d'une annonce vue sur LinkedIn ou ailleurs, et son CV est évalué dessus.
+  - Avec Claude, l'extraction est contrôlée : toute compétence, tout employeur, tout diplôme ou toute durée d'expérience absents du texte est écarté.
+  - Sans Claude, l'extraction se fait par les règles du référentiel.
+  - L'évaluation reste privée et peut être supprimée.
+- **Évaluation** : rattachement à une fiche métier, compétences reconnues par le référentiel, puis score du moteur de matching (mêmes poids, mêmes seuils).
+  - Pour un stage : niveau attendu plafonné au niveau stagiaire (2 par défaut).
+  - Pour un emploi : niveaux de la fiche métier et expérience demandée.
+- **Bilan** : score moyen, puis « prêt » si ce score atteint 70 et que 60 % des compétences demandées sont acquises. S'y ajoutent les compétences les plus demandées, les écarts récurrents avec formations, certifications et projets, et les atouts.
+- **Coût maîtrisé** : une recherche est partagée entre candidats et réutilisée pendant 7 jours ; elle consomme une génération du quota mensuel du candidat.
 
 Code : `app/Services/Internship/`, sources : `database/sources-offres.php`.
 

@@ -10,19 +10,22 @@ use App\Services\Referential\Normalizer;
 use App\Services\Referential\Ref;
 
 /**
- * Veille des offres de stage réelles publiées hors de Tremplin (préparation des candidats).
+ * Veille des offres réelles (stages et emplois) publiées hors de Tremplin, pour préparer les candidats.
  *
  * Aucune offre n'est inventée :
  *  1. la recherche web de Claude est limitée aux domaines des sources vérifiées par NEAM pour le pays ;
  *  2. une offre n'est retenue que si son adresse figure dans les résultats bruts renvoyés par le moteur de recherche
  *     (et pas seulement dans le texte rédigé par Claude) ;
- *  3. elle doit appartenir à une source active du pays, être un stage, dater de moins de 12 mois si la date est connue ;
- *  4. le lien est contrôlé : une page supprimée (404, 410) ou un domaine injoignable écarte l'offre.
+ *  3. elle doit être une annonce individuelle (pas une page de liste) d'une source active du pays, du type de contrat demandé,
+ *     et dater de moins de 12 mois (date de publication, ou date limite de candidature à défaut) ;
+ *  4. le lien est contrôlé : une page supprimée (404, 410) ou un domaine injoignable écarte l'offre. Les sites qui interdisent
+ *     les accès automatisés (LinkedIn) ne sont jamais interrogés directement : leurs annonces ne viennent que des résultats du moteur.
  * Chaque rejet est consigné avec son motif (Admin › Veille des stages).
  */
 final class OfferWatch
 {
     public const KINDS = ['plateforme' => 'Site d\'emploi', 'relais' => 'Relais d\'annonces', 'entreprise' => 'Site carrière d\'entreprise', 'reseau' => 'Réseau professionnel', 'institution' => 'Institution'];
+    public const CONTRACTS = ['stage' => 'Stages', 'emploi' => 'Emplois (CDI, CDD, premier emploi)', 'tous' => 'Stages et emplois'];
     public const STATUSES = ['ouverte' => ['Ouverte', 'green'], 'cloturee' => ['Clôturée', 'gray'], 'inconnu' => ['Statut non indiqué', 'amber']];
     private const STAGE_WORDS = '/\b(stage|stages|stagiaire|stagiaires|internship|intern|interns|alternance|alternant|apprenti|apprentissage|pnpe|trainee|graduate)\b/u';
 
@@ -84,39 +87,49 @@ final class OfferWatch
         }
         $host = preg_replace('/^www\./', '', strtolower($p['host'])) ?? '';
         $path = rtrim($p['path'] ?? '', '/');
+        // Annonce LinkedIn : même offre quel que soit le sous-domaine pays (ga., fr.) ou le libellé de l'adresse
+        if (($host === 'linkedin.com' || str_ends_with($host, '.linkedin.com')) && preg_match('#/jobs/view/(?:[^/]*?-)?(\d{6,})#', $path, $m)) {
+            return 'https://linkedin.com/jobs/view/' . $m[1];
+        }
         return 'https://' . $host . $path . $query;
     }
 
     public static function queryNorm(string $query): string
     {
         $n = normalize($query);
-        $words = array_filter(explode(' ', $n), fn($w) => $w !== '' && !in_array($w, ['stage', 'stages', 'stagiaire', 'de', 'en', 'du', 'des', 'la', 'le', 'h', 'f'], true));
+        $words = array_filter(explode(' ', $n), fn($w) => $w !== '' && !in_array($w, ['stage', 'stages', 'stagiaire', 'emploi', 'emplois', 'poste', 'cdi', 'cdd', 'de', 'en', 'du', 'des', 'la', 'le', 'h', 'f'], true));
         return mb_substr(implode(' ', $words), 0, 160);
     }
 
     /* ================================================================== Offres disponibles */
 
     /** Offres retenues pour un pays et une recherche (même intitulé normalisé ou même fiche métier). */
-    public static function offers(string $country, string $query, ?int $occupationId = null, int $limit = 30): array
+    public static function offers(string $country, string $query, ?int $occupationId = null, int $limit = 30, string $contract = 'stage'): array
     {
         $norm = self::queryNorm($query);
         $minDate = date('Y-m-d', strtotime('-' . self::config()['max_age_days'] . ' days'));
         $params = ['c' => $country, 'q' => $norm, 'd' => $minDate, 'd2' => $minDate];
+        $kind = '';
+        if ($contract !== 'tous') {
+            $kind = ' AND e.contract = :k';
+            $params['k'] = $contract === 'emploi' ? 'emploi' : 'stage';
+        }
         $occ = '';
         if ($occupationId) {
             $occ = ' OR e.occupation_id = :o';
             $params['o'] = $occupationId;
         }
         return DB::all("SELECT e.*, s.name AS source_name, s.kind AS source_kind FROM external_offers e LEFT JOIN offer_sources s ON s.id = e.source_id
-            WHERE e.country_code = :c AND e.hidden = 0 AND (e.query_norm = :q$occ) AND COALESCE(e.published_at, e.deadline, :d) >= :d2
+            WHERE e.country_code = :c AND e.hidden = 0 AND (e.query_norm = :q$occ) AND COALESCE(e.published_at, e.deadline, :d) >= :d2$kind
               AND (s.id IS NULL OR s.active = 1)
             ORDER BY CASE WHEN e.published_at IS NULL THEN 1 ELSE 0 END, e.published_at DESC, e.id DESC LIMIT " . (int)$limit, $params);
     }
 
-    /** Dernière recherche pour ce pays et cet intitulé. */
-    public static function lastSearch(string $country, string $query): ?array
+    /** Dernière recherche pour ce pays, cet intitulé et ce type de contrat (une recherche « tous » couvre les deux). */
+    public static function lastSearch(string $country, string $query, string $contract = 'stage'): ?array
     {
-        return DB::one('SELECT * FROM internship_searches WHERE country_code = :c AND query_norm = :q ORDER BY id DESC LIMIT 1', ['c' => $country, 'q' => self::queryNorm($query)]);
+        return DB::one('SELECT * FROM internship_searches WHERE country_code = :c AND query_norm = :q AND contract IN (:k, :t) ORDER BY id DESC LIMIT 1',
+            ['c' => $country, 'q' => self::queryNorm($query), 'k' => $contract, 't' => 'tous']);
     }
 
     public static function searchIsFresh(?array $search): bool
@@ -130,20 +143,21 @@ final class OfferWatch
      * Lance une recherche d'offres réelles pour le pays et l'intitulé donnés.
      * @return array{ok:bool, message:string, kept:int, rejected:int, cached:bool}
      */
-    public static function collect(string $country, string $query, ?int $occupationId, ?int $userId, ?callable $searcher = null): array
+    public static function collect(string $country, string $query, ?int $occupationId, ?int $userId, ?callable $searcher = null, string $contract = 'stage'): array
     {
+        $contract = isset(self::CONTRACTS[$contract]) ? $contract : 'stage';
         $query = trim(mb_substr($query, 0, 160));
         $norm = self::queryNorm($query);
         if ($norm === '') {
-            return ['ok' => false, 'message' => 'Précise le stage recherché (métier ou domaine).', 'kept' => 0, 'rejected' => 0, 'cached' => false];
+            return ['ok' => false, 'message' => 'Précise le métier ou le domaine recherché.', 'kept' => 0, 'rejected' => 0, 'cached' => false];
         }
-        if (self::searchIsFresh(self::lastSearch($country, $query))) {
+        if (self::searchIsFresh(self::lastSearch($country, $query, $contract))) {
             return ['ok' => true, 'message' => 'Résultats de la recherche récente réutilisés.', 'kept' => 0, 'rejected' => 0, 'cached' => true];
         }
         $sources = self::sources($country);
         $countryName = (string)(DB::value('SELECT name FROM countries WHERE code = :c', ['c' => $country]) ?: $country);
         if (!$sources) {
-            return self::logSearch($country, $query, $norm, $occupationId, $userId, 'aucune_source', 0, [],
+            return self::logSearch($country, $query, $norm, $occupationId, $userId, 'aucune_source', 0, [], $contract,
                 'Aucune source vérifiée n\'est encore enregistrée pour ce pays : l\'équipe NEAM doit en ajouter.');
         }
         if (!$searcher) {
@@ -156,15 +170,19 @@ final class OfferWatch
         }
         $cfg = self::config();
         $domains = array_values(array_unique(array_map(fn($s) => strtolower(preg_replace('/^www\./', '', trim((string)$s['domain'])) ?? ''), $sources)));
-        $system = 'Tu es le veilleur des offres de stage de Tremplin by NEAM. Tu cherches uniquement des annonces réelles, publiées par des employeurs identifiés, '
+        $what = ['stage' => 'offres de stage', 'emploi' => 'offres d\'emploi (CDI, CDD, premier emploi, poste junior)', 'tous' => 'offres de stage et d\'emploi (CDI, CDD, premier emploi)'][$contract];
+        $system = 'Tu es le veilleur des offres de Tremplin by NEAM. Tu cherches uniquement des annonces réelles, publiées par des employeurs identifiés, '
             . 'sur les sites autorisés. Tu ne rédiges jamais d\'annonce, tu ne complètes jamais une information absente de la page : un champ inconnu vaut null.';
-        $prompt = "Recherche des offres de stage réelles correspondant à : « $query », au $countryName (code pays $country).\n"
+        $linkedin = in_array('linkedin.com', $domains, true)
+            ? 'Sur LinkedIn, seules les pages d\'annonce individuelles dont l\'adresse contient /jobs/view/ sont utiles (pas les pages « Jobs in… » ni les profils ou publications).' . "\n" : '';
+        $prompt = "Recherche des $what réelles correspondant à : « $query », au $countryName (code pays $country).\n"
             . 'Cherche de préférence des annonces des 12 derniers mois ; les annonces clôturées sont acceptées si elles sont représentatives (elles servent à préparer un candidat, pas à postuler).' . "\n"
-            . 'Retiens uniquement des pages d\'annonce individuelles (pas des pages de liste ni des articles de conseils), pour un stage situé au ' . $countryName . ".\n"
+            . 'Retiens uniquement des pages d\'annonce individuelles (pas des pages de liste ni des articles de conseils), pour un poste situé au ' . $countryName . ".\n" . $linkedin
             . "Réponds uniquement par un tableau JSON d'au plus {$cfg['max_offers']} objets, sans texte autour, avec les clés :\n"
             . '{"url": adresse exacte de la page d\'annonce telle qu\'elle apparaît dans les résultats de recherche, "title": intitulé exact, "organization": employeur ou null, '
             . '"city": ville ou null, "country": code pays ISO à 2 lettres, "published": date de publication AAAA-MM-JJ ou null, "deadline": date limite de candidature AAAA-MM-JJ ou null, "status": "ouverte" | "cloturee" | "inconnu", '
-            . '"is_internship": true ou false, "education": niveau d\'études demandé tel qu\'écrit ou null, "duration": durée ou null, '
+            . '"is_internship": true si c\'est un stage, une alternance ou un apprentissage, sinon false, "education": niveau d\'études demandé tel qu\'écrit ou null, '
+            . '"experience_years": nombre d\'années d\'expérience exigées tel qu\'écrit ou null, "duration": durée ou null, '
             . '"skills": compétences et outils demandés, tels qu\'écrits (liste de 0 à 12 libellés courts), "languages": langues demandées (liste), '
             . '"summary": résumé fidèle des missions en 1 à 2 phrases, sans rien ajouter}.' . "\n"
             . 'Si aucune annonce ne correspond, réponds [].';
@@ -179,7 +197,7 @@ final class OfferWatch
             $msg = $res && str_starts_with((string)$res['error'], 'api')
                 ? 'La recherche web de Claude n\'est pas disponible (elle doit être autorisée dans la console Anthropic de l\'organisation).'
                 : 'La recherche en ligne n\'a pas abouti. Réessaie plus tard.';
-            return self::logSearch($country, $query, $norm, $occupationId, $userId, 'erreur', 0, [], $msg);
+            return self::logSearch($country, $query, $norm, $occupationId, $userId, 'erreur', 0, [], $contract, $msg);
         }
         $items = self::decode((string)$res['text']);
         $allowed = [];
@@ -192,7 +210,7 @@ final class OfferWatch
         $kept = 0;
         $rejected = [];
         foreach (array_slice($items, 0, $cfg['max_offers'] + 5) as $it) {
-            $check = self::validate($it, $country, $sources, $allowed);
+            $check = self::validate($it, $country, $sources, $allowed, true, $contract);
             if (!$check['ok']) {
                 $rejected[] = ['url' => mb_substr((string)($it['url'] ?? ''), 0, 300), 'title' => mb_substr((string)($it['title'] ?? ''), 0, 160), 'reason' => $check['reason']];
                 continue;
@@ -201,17 +219,17 @@ final class OfferWatch
                 $kept++;
             }
         }
-        $searchId = self::logSearch($country, $query, $norm, $occupationId, $userId, 'ok', count($items), $rejected, null, $kept)['search_id'];
+        $searchId = self::logSearch($country, $query, $norm, $occupationId, $userId, 'ok', count($items), $rejected, $contract, null, $kept)['search_id'];
         DB::run('UPDATE external_offers SET search_id = :s WHERE search_id IS NULL AND query_norm = :q AND country_code = :c', ['s' => $searchId, 'q' => $norm, 'c' => $country]);
         $msg = $kept ? "$kept offre(s) réelle(s) retenue(s)" . ($rejected ? ', ' . count($rejected) . ' écartée(s) par les contrôles' : '') . '.'
             : 'Aucune nouvelle offre vérifiable trouvée sur les sources autorisées' . ($rejected ? ' (' . count($rejected) . ' écartée(s) par les contrôles)' : '') . '.';
         return ['ok' => true, 'message' => $msg, 'kept' => $kept, 'rejected' => count($rejected), 'cached' => false];
     }
 
-    private static function logSearch(string $country, string $query, string $norm, ?int $occ, ?int $uid, string $status, int $found, array $rejected, ?string $message, int $kept = 0): array
+    private static function logSearch(string $country, string $query, string $norm, ?int $occ, ?int $uid, string $status, int $found, array $rejected, string $contract, ?string $message, int $kept = 0): array
     {
         $id = DB::insert('internship_searches', [
-            'country_code' => $country, 'query' => $query, 'query_norm' => $norm, 'occupation_id' => $occ, 'provider' => 'claude', 'status' => $status,
+            'country_code' => $country, 'query' => $query, 'query_norm' => $norm, 'occupation_id' => $occ, 'provider' => 'claude', 'contract' => $contract, 'status' => $status,
             'found' => $found, 'kept' => $kept, 'rejected' => $rejected ? json_encode($rejected, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) : null,
             'message' => $message ? mb_substr($message, 0, 255) : null, 'user_id' => $uid, 'created_at' => now(),
         ]);
@@ -236,7 +254,7 @@ final class OfferWatch
      * @param array<string, array{url:string, title:string, page_age:?string}>|null $allowed résultats bruts de la recherche (null : saisie manuelle)
      * @return array{ok:bool, reason?:string, offer?:array}
      */
-    public static function validate(array $it, string $country, array $sources, ?array $allowed, bool $checkLink = true): array
+    public static function validate(array $it, string $country, array $sources, ?array $allowed, bool $checkLink = true, string $wanted = 'stage'): array
     {
         $url = trim((string)($it['url'] ?? ''));
         $title = trim(strip_tags((string)($it['title'] ?? '')));
@@ -256,13 +274,21 @@ final class OfferWatch
         if (!$source) {
             return ['ok' => false, 'reason' => 'site hors des sources vérifiées du pays'];
         }
+        if (self::isListing($url)) {
+            return ['ok' => false, 'reason' => 'page de liste ou de recherche, pas une annonce'];
+        }
         $cc = strtoupper(trim((string)($it['country'] ?? '')));
         if ($cc !== '' && $cc !== strtoupper($country)) {
             return ['ok' => false, 'reason' => 'stage situé dans un autre pays (' . $cc . ')'];
         }
         $text = normalize($title . ' ' . ($it['summary'] ?? ''));
-        if (($it['is_internship'] ?? true) === false || !preg_match(self::STAGE_WORDS, $text)) {
+        // Type de contrat : indication explicite de l'extraction, sinon mots du stage dans l'intitulé ou le résumé
+        $isStage = is_bool($it['is_internship'] ?? null) ? $it['is_internship'] : (bool)preg_match(self::STAGE_WORDS, $text);
+        if ($wanted === 'stage' && !$isStage) {
             return ['ok' => false, 'reason' => 'pas une offre de stage'];
+        }
+        if ($wanted === 'emploi' && $isStage) {
+            return ['ok' => false, 'reason' => 'offre de stage (recherche d\'emplois)'];
         }
         $published = self::date((string)($it['published'] ?? '')) ?? self::date((string)($result['page_age'] ?? ''));
         if ($published && $published > date('Y-m-d', strtotime('+1 day'))) {
@@ -277,7 +303,8 @@ final class OfferWatch
         if (!$published && $deadline && $deadline < $limit) {
             return ['ok' => false, 'reason' => 'date limite de candidature dépassée depuis plus de ' . self::config()['max_age_days'] . ' jours'];
         }
-        $link = $checkLink ? self::linkStatus($url) : 'non_controle';
+        // Sites qui interdisent les accès automatisés (LinkedIn) : jamais interrogés, l'annonce vient des résultats du moteur
+        $link = $checkLink && (int)($source['fetch'] ?? 1) === 1 ? self::linkStatus($url) : 'non_controle';
         if (in_array($link, ['mort', 'injoignable'], true)) {
             return ['ok' => false, 'reason' => $link === 'mort' ? 'page d\'annonce supprimée' : 'site injoignable'];
         }
@@ -290,7 +317,8 @@ final class OfferWatch
             'url' => mb_substr($url, 0, 500), 'source_id' => (int)$source['id'], 'title' => mb_substr($title, 0, 190),
             'organization' => self::str($it['organization'] ?? null, 160), 'city' => self::str($it['city'] ?? null, 100), 'published_at' => $published, 'deadline' => $deadline,
             'offer_status' => isset(self::STATUSES[$status]) ? $status : 'inconnu', 'education' => self::str($it['education'] ?? null, 160),
-            'duration' => self::str($it['duration'] ?? null, 60), 'skills' => array_slice($list($it['skills'] ?? []), 0, 12),
+            'duration' => self::str($it['duration'] ?? null, 60), 'contract' => $isStage ? 'stage' : 'emploi',
+            'experience_months' => is_numeric($it['experience_years'] ?? null) ? max(0, min(240, (int)round(12 * (float)$it['experience_years']))) : null, 'skills' => array_slice($list($it['skills'] ?? []), 0, 12),
             'languages' => array_slice($list($it['languages'] ?? []), 0, 4), 'summary' => self::str($it['summary'] ?? null, 600), 'link_status' => $link,
         ]];
     }
@@ -347,18 +375,13 @@ final class OfferWatch
         $hash = hash('sha256', self::canonical($o['url']));
         $occ = Normalizer::occupation($o['title']);
         $minConf = (int)(Ref::rules()['normalization']['confirm'] ?? 60);
-        $skills = [];
-        foreach ($o['skills'] as $label) {
-            $hit = Normalizer::skill($label);
-            // Correspondance exacte, ou approchée sûre sur un libellé assez long (« C » ne doit pas devenir « permis C »)
-            $ok = $hit && ($hit['confidence'] >= 100 || ($hit['confidence'] >= 80 && mb_strlen($label) >= 4));
-            $skills[] = ['label' => $label, 'id' => $ok ? $hit['id'] : null, 'name' => $ok ? $hit['name'] : null];
-        }
+        $skills = self::skillLabels($o['skills']);
         $data = [
             'url' => $o['url'], 'url_hash' => $hash, 'source_id' => $o['source_id'], 'country_code' => $country, 'query_norm' => $queryNorm,
             'title' => $o['title'], 'organization' => $o['organization'], 'city' => $o['city'], 'published_at' => $o['published_at'], 'deadline' => $o['deadline'] ?? null,
             'offer_status' => $o['offer_status'], 'education' => $o['education'], 'education_level' => self::educationLevel((string)$o['education']),
-            'duration' => $o['duration'], 'skills' => json_encode($skills, JSON_UNESCAPED_UNICODE), 'languages' => $o['languages'] ? implode(', ', $o['languages']) : null,
+            'duration' => $o['duration'], 'contract' => $o['contract'] ?? 'stage', 'experience_months' => $o['experience_months'] ?? null,
+            'skills' => json_encode($skills, JSON_UNESCAPED_UNICODE), 'languages' => $o['languages'] ? implode(', ', $o['languages']) : null,
             'summary' => $o['summary'], 'occupation_id' => $occ && $occ['confidence'] >= $minConf ? $occ['id'] : $occupationId,
             'occupation_confidence' => $occ && $occ['confidence'] >= $minConf ? $occ['confidence'] : ($occupationId ? 100 : null),
             'provider' => $provider, 'link_status' => $o['link_status'], 'checked_at' => now(),
@@ -395,9 +418,12 @@ final class OfferWatch
     /** Revérifie le lien d'une offre (Admin) ; une page supprimée masque l'offre. */
     public static function recheck(int $id): string
     {
-        $o = DB::one('SELECT id, url FROM external_offers WHERE id = :id', ['id' => $id]);
+        $o = DB::one('SELECT e.id, e.url, s.fetch FROM external_offers e LEFT JOIN offer_sources s ON s.id = e.source_id WHERE e.id = :id', ['id' => $id]);
         if (!$o) {
             return 'introuvable';
+        }
+        if ($o['fetch'] !== null && !(int)$o['fetch']) {
+            return 'interdit';
         }
         $s = self::linkStatus((string)$o['url']);
         $data = ['link_status' => $s, 'checked_at' => now()];
@@ -406,5 +432,34 @@ final class OfferWatch
         }
         DB::update('external_offers', $data, 'id = :id', ['id' => $id]);
         return $s;
+    }
+
+    /** Page de liste, de recherche ou d'archive (et non une annonce). */
+    public static function isListing(string $url): bool
+    {
+        $host = strtolower((string)parse_url($url, PHP_URL_HOST));
+        $path = strtolower(rtrim((string)parse_url($url, PHP_URL_PATH), '/'));
+        if ($host === 'linkedin.com' || str_ends_with($host, '.linkedin.com')) {
+            return !preg_match('#/jobs/view/#', $path);
+        }
+        return $path === '' || (bool)preg_match('#/(category|categorie|tag|tags|page|search|recherche|author)(/|$)#', $path)
+            || (bool)preg_match('#/(emplois|jobs|offres|offres-emploi|carrieres|careers|job-opportunities)$#', $path);
+    }
+
+    /**
+     * Compétences d'une annonce rattachées au référentiel : correspondance exacte,
+     * ou approchée sûre sur un libellé assez long (« C » ne doit pas devenir « permis C »).
+     * @param list<string> $labels
+     * @return list<array{label:string, id:?int, name:?string}>
+     */
+    public static function skillLabels(array $labels): array
+    {
+        $out = [];
+        foreach ($labels as $label) {
+            $hit = Normalizer::skill($label);
+            $ok = $hit && ($hit['confidence'] >= 100 || ($hit['confidence'] >= 80 && mb_strlen($label) >= 4));
+            $out[] = ['label' => $label, 'id' => $ok ? $hit['id'] : null, 'name' => $ok ? $hit['name'] : null];
+        }
+        return $out;
     }
 }

@@ -48,7 +48,7 @@ $R = App\Services\Referential\Ref::class;
                 <form method="post" action="<?= e($act) ?>"><?= $tk ?><input type="hidden" name="action" value="hide_training"><button class="btn btn-ghost btn-sm" type="submit">Retirer la formation</button></form>
             <?php elseif ($it['kind'] === 'offre_stage'): ?>
                 <form method="post" action="<?= e($act) ?>"><?= $tk ?><input type="hidden" name="action" value="hide_offer"><button class="btn btn-soft btn-sm" type="submit">Retirer l'offre de la préparation</button></form>
-                <a class="btn btn-ghost btn-sm" href="<?= e(url('/admin/veille-stages')) ?>">Veille des stages</a>
+                <a class="btn btn-ghost btn-sm" href="<?= e(url('/admin/veille-stages')) ?>">Veille des offres</a>
             <?php endif; ?>
             <form method="post" action="<?= e($act) ?>" class="flex" style="gap:6px"><?= $tk ?>
                 <input class="input" name="note" placeholder="Résolution (facultatif)" aria-label="Résolution" style="min-width:200px">

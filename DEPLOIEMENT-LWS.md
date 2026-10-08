@@ -77,7 +77,7 @@ Le fichier `.env` (racine du dossier) contient la configuration. Modifiez-le ave
 
 | Réglage | Rôle |
 |---|---|
-| `ANTHROPIC_API_KEY` | Clé Claude pour les CV, lettres, relecture et entretiens, ainsi que pour la recherche d'offres de stage réelles (préparation aux stages). Vide = moteur NEAM intégré, et offres de stage saisies à la main par l'équipe. La recherche web doit être autorisée pour l'organisation dans la console Anthropic (paramètres de l’organisation). |
+| `ANTHROPIC_API_KEY` | Clé Claude pour les CV, lettres, relecture et entretiens, ainsi que pour la recherche d'offres réelles de stage et d'emploi (préparation sur offres réelles). Vide = moteur NEAM intégré, et offres saisies à la main par l'équipe. La recherche web doit être autorisée pour l'organisation dans la console Anthropic (paramètres de l’organisation). |
 | `MAIL_DRIVER`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD` | Envoi réel des e-mails depuis contact@neamindustry.com. Avec `MAIL_DRIVER=log`, les messages sont visibles dans Admin › Communications. Les paramètres SMTP sont fournis par l'hébergeur de la boîte mail. |
 | `APP_DEMO` | `true` affiche les comptes de démonstration sur la page de connexion. Mettez `false` en production. |
 | `APP_DEBUG` | Laissez `false` en ligne (affiche les erreurs détaillées si `true`, à n'utiliser que le temps d'un dépannage). |

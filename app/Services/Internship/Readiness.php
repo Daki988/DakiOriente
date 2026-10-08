@@ -10,8 +10,8 @@ use App\Services\ProfileService;
 use App\Services\Referential\Ref;
 
 /**
- * Préparation aux stages : le CV du candidat est évalué, avec le moteur de matching et les référentiels,
- * sur des offres de stage réelles publiées hors de Tremplin dans son pays. But : être prêt quand des offres
+ * Préparation sur offres réelles : le CV du candidat est évalué, avec le moteur de matching et les référentiels,
+ * sur des offres réelles (stages ou emplois) publiées hors de Tremplin dans son pays. But : être prêt quand des offres
  * du même type paraîtront sur Tremplin (aucune candidature n'est envoyée).
  *
  * Pour chaque offre, l'offre « type » est construite ainsi :
@@ -28,7 +28,9 @@ final class Readiness
     /** Offre « type » pour le moteur, ou null si l'annonce ne contient rien d'évaluable. */
     public static function jobFor(array $offer, array $p): ?array
     {
-        $cap = OfferWatch::config()['level_cap'];
+        // Stage : niveau attendu plafonné au niveau stagiaire ; emploi : niveaux de la fiche métier
+        $isStage = ($offer['contract'] ?? 'stage') === 'stage';
+        $cap = $isStage ? OfferWatch::config()['level_cap'] : 4;
         $job = null;
         $occId = $offer['occupation_id'] ? (int)$offer['occupation_id'] : null;
         if ($occId) {
@@ -44,7 +46,7 @@ final class Readiness
         foreach (json_decode((string)$offer['skills'], true) ?: [] as $s) {
             if (!empty($s['id']) && !isset($skills[(int)$s['id']]) && ($meta = Ref::skill((int)$s['id']))) {
                 $skills[(int)$s['id']] = ['id' => (int)$s['id'], 'name' => $meta['name'], 'category' => $meta['category'], 'credential' => $meta['credential'],
-                    'required' => 1, 'weight' => $extraWeight, 'level' => $cap, 'blocking' => 0, 'from_offer' => true];
+                    'required' => 1, 'weight' => $extraWeight, 'level' => $isStage ? $cap : 3, 'blocking' => 0, 'from_offer' => true];
             }
         }
         if (!$skills) {
@@ -61,9 +63,9 @@ final class Readiness
             ['k' => $offer['country_code'], 'n' => trim((string)$offer['city'])]) : null;
         $countryId = DB::value('SELECT id FROM countries WHERE code = :c', ['c' => $offer['country_code']]);
         return [
-            'id' => 0, 'title' => $offer['title'], 'type' => 'stage', 'occupation_id' => $occId,
+            'id' => 0, 'title' => $offer['title'], 'type' => $isStage ? 'stage' : ((int)($offer['experience_months'] ?? 0) > 12 ? 'cdi' : 'premier_emploi'), 'occupation_id' => $occId,
             'education_min' => $offer['education_level'] !== null ? (int)$offer['education_level'] : (int)($job['education_min'] ?? 2),
-            'education_eliminatory' => 0, 'experience_min' => 0,
+            'education_eliminatory' => 0, 'experience_min' => $isStage ? 0 : (int)($offer['experience_months'] ?? 0),
             'languages' => $langs ? implode(',', $langs) : ($job['languages'] ?? ''), 'languages_blocking' => null,
             'remote' => 0, 'city_id' => $city['id'] ?? null, 'country_id' => $countryId ? (int)$countryId : null,
             'city_name' => $city['name'] ?? ($offer['city'] ?: 'ville non précisée'), 'start_date' => null,
@@ -75,7 +77,7 @@ final class Readiness
      * Évalue le profil sur les offres fournies et enregistre le bilan.
      * @return array{score:?int, ready:bool, threshold:int, offers:list<array>, scored:int, gaps:list<array>, demanded:list<array>, strengths:list<array>, cv:array, version:int}
      */
-    public static function evaluate(int $userId, array $offers, string $query, string $country, ?int $occupationId, bool $persist = true): array
+    public static function evaluate(int $userId, array $offers, string $query, string $country, ?int $occupationId, bool $persist = true, string $contract = 'stage'): array
     {
         $p = ProfileService::load($userId, true);
         $threshold = (int)(Ref::rules()['employability']['ready'] ?? 70);
@@ -159,7 +161,7 @@ final class Readiness
         ];
         if ($persist && $n) {
             DB::insert('internship_reviews', [
-                'user_id' => $userId, 'query' => mb_substr($query, 0, 160), 'country_code' => $country, 'occupation_id' => $occupationId, 'offers' => $n,
+                'user_id' => $userId, 'query' => mb_substr($query, 0, 160), 'country_code' => $country, 'contract' => $contract, 'occupation_id' => $occupationId, 'offers' => $n,
                 'score' => $result['score'], 'ready' => $result['ready'] ? 1 : 0, 'ref_version' => $result['version'], 'created_at' => now(),
                 'result' => json_encode(['offers' => array_map(fn($r) => ['id' => (int)$r['offer']['id'], 'score' => $r['m']['score'] ?? null], $rows),
                     'gaps' => array_map(fn($g) => ['key' => $g['gap']['key'], 'text' => $g['gap']['text'], 'count' => $g['count']], $gaps)], JSON_UNESCAPED_UNICODE),

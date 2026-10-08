@@ -160,6 +160,9 @@ return function (Router $r): void {
         $r->get('/preparation-stages', [InternshipController::class, 'index']);
         $r->post('/preparation-stages/rechercher', [InternshipController::class, 'search'], ['throttle:stagesearch,6,1440']);
         $r->post('/preparation-stages/offres/{id}/signaler', [InternshipController::class, 'report'], ['throttle:report,10,60']);
+        $r->post('/preparation-stages/offre-trouvee', [InternshipController::class, 'checkOffer'], ['throttle:offercheck,20,1440']);
+        $r->get('/preparation-stages/offres-evaluees/{id}', [InternshipController::class, 'showCheck']);
+        $r->post('/preparation-stages/offres-evaluees/{id}/supprimer', [InternshipController::class, 'deleteCheck']);
     });
 
     /* ---------- Espace entreprise ---------- */

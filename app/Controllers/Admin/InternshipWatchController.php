@@ -35,10 +35,11 @@ final class InternshipWatchController extends Controller
             'hidden' => (int)DB::value('SELECT COUNT(*) FROM external_offers WHERE hidden = 1'),
             'searches' => (int)DB::value('SELECT COUNT(*) FROM internship_searches'),
             'reviews' => (int)DB::value('SELECT COUNT(*) FROM internship_reviews'),
+            'checks' => (int)DB::value('SELECT COUNT(*) FROM offer_checks'),
             'candidates' => (int)DB::value('SELECT COUNT(DISTINCT user_id) FROM internship_reviews'),
         ];
         return $this->app('admin/internships', compact('offers', 'sources', 'searches', 'countries', 'stats', 'country', 'show') + [
-            'cfg' => OfferWatch::config(), 'claude' => AiService::claudeConfigured(), 'title' => 'Veille des stages',
+            'cfg' => OfferWatch::config(), 'claude' => AiService::claudeConfigured(), 'title' => 'Veille des offres',
         ]);
     }
 
@@ -79,13 +80,15 @@ final class InternshipWatchController extends Controller
     public function addOffer(): void
     {
         $country = strtoupper((string)input('country_code', 'GA'));
+        $contract = input('contract') === 'emploi' ? 'emploi' : 'stage';
         $it = [
             'url' => (string)input('url'), 'title' => (string)input('title'), 'organization' => input('organization'), 'city' => input('city'),
-            'country' => $country, 'published' => (string)input('published', ''), 'deadline' => (string)input('deadline', ''), 'status' => (string)input('status', 'inconnu'), 'is_internship' => true,
+            'country' => $country, 'published' => (string)input('published', ''), 'deadline' => (string)input('deadline', ''), 'status' => (string)input('status', 'inconnu'), 'is_internship' => $contract === 'stage',
+            'experience_years' => is_numeric(input('experience_years')) ? (float)input('experience_years') : null,
             'education' => input('education'), 'duration' => input('duration'), 'skills' => (string)input('skills', ''), 'languages' => (string)input('languages', ''),
             'summary' => input('summary'),
         ];
-        $check = OfferWatch::validate($it, $country, OfferWatch::sources($country), null);
+        $check = OfferWatch::validate($it, $country, OfferWatch::sources($country), null, true, $contract);
         if (!$check['ok']) {
             flash('error', 'Offre refusée : ' . $check['reason'] . '.');
             redirect('/admin/veille-stages#ajout');
@@ -114,7 +117,8 @@ final class InternshipWatchController extends Controller
         $s = OfferWatch::recheck((int)$id);
         flash($s === 'mort' ? 'warning' : 'success', match ($s) {
             'ok' => 'Lien joignable.', 'protege' => 'Page protégée (connexion ou robot bloqué) : l\'offre est conservée.',
-            'mort' => 'Page supprimée : l\'offre est retirée.', default => 'Lien non contrôlable pour l\'instant.',
+            'mort' => 'Page supprimée : l\'offre est retirée.', 'interdit' => 'Site qui interdit les accès automatisés (LinkedIn) : vérifie le lien à la main.',
+            default => 'Lien non contrôlable pour l\'instant.',
         });
         back();
     }
@@ -130,8 +134,10 @@ final class InternshipWatchController extends Controller
         // L'équipe peut forcer une nouvelle recherche malgré le cache
         if (input('force')) {
             DB::run("UPDATE internship_searches SET status = 'expire' WHERE country_code = :c AND query_norm = :q AND status = 'ok'", ['c' => $country, 'q' => OfferWatch::queryNorm($query)]);
+            // (le type de contrat n'entre pas dans la condition : forcer relance toutes les recherches de cet intitulé)
         }
-        $r = OfferWatch::collect($country, $query, $hit && $hit['confidence'] >= 60 ? (int)$hit['id'] : null, $this->uid());
+        $contract = isset(OfferWatch::CONTRACTS[input('type')]) ? (string)input('type') : 'stage';
+        $r = OfferWatch::collect($country, $query, $hit && $hit['confidence'] >= 60 ? (int)$hit['id'] : null, $this->uid(), null, $contract);
         flash($r['ok'] ? 'success' : 'warning', $r['message']);
         redirect('/admin/veille-stages?pays=' . $country . '#recherches');
     }

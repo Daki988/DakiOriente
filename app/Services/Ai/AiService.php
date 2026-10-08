@@ -83,6 +83,30 @@ final class AiService
         ]);
     }
 
+    /* ======================= Lecture d'une annonce collée par le candidat ======================= */
+
+    /**
+     * Extrait les exigences d'une annonce (texte fourni par le candidat). Le résultat est ensuite contrôlé
+     * par Internship\OfferCheck::ground() : tout élément absent du texte est écarté.
+     */
+    public static function extractOffer(string $text): ?array
+    {
+        $llm = self::llm();
+        if (!$llm) {
+            return null;
+        }
+        $prompt = "Voici le texte d'une offre d'emploi ou de stage, copié par un candidat :\n\n<<<\n" . mb_substr($text, 0, 8000) . "\n>>>\n\n"
+            . 'Extrais uniquement ce qui est écrit dans ce texte. Réponds par un objet JSON sans texte autour, avec les clés : '
+            . '"title" (intitulé du poste), "organization" (employeur ou null), "city" (ville ou null), "is_internship" (true si stage, alternance ou apprentissage), '
+            . '"education" (niveau d\'études demandé, recopié tel qu\'écrit, ou null), "experience_years" (nombre d\'années d\'expérience exigées, ou null), '
+            . '"skills" (compétences, outils et logiciels demandés, recopiés tels qu\'écrits, 0 à 15 libellés courts), "languages" (langues demandées). '
+            . 'N\'ajoute aucune compétence implicite ou supposée.';
+        $out = $llm->complete(self::SYSTEM, $prompt, 900);
+        $data = self::json($out);
+        self::log('offer_extract', 'anthropic', mb_substr($text, 0, 120), mb_strlen((string)$out), $data ? 'ok' : 'error');
+        return is_array($data) && !array_is_list($data) ? $data : null;
+    }
+
     /* ======================= Explication d'un score (référentiel v1.1) ======================= */
 
     /**

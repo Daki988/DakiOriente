@@ -363,25 +363,30 @@ return [
 // ---------- Préparation aux stages : offres réelles publiées sur des sources vérifiées ----------
 'offer_sources' => "CREATE TABLE offer_sources (
     id {PK}, name VARCHAR(120) NOT NULL, domain VARCHAR(160) NOT NULL, url VARCHAR(255), kind VARCHAR(20) NOT NULL DEFAULT 'plateforme',
-    countries VARCHAR(60) NOT NULL DEFAULT 'GA', note VARCHAR(255), active INTEGER NOT NULL DEFAULT 1,
+    countries VARCHAR(60) NOT NULL DEFAULT 'GA', note VARCHAR(255), active INTEGER NOT NULL DEFAULT 1, fetch INTEGER NOT NULL DEFAULT 1,
     verified_at {TS}, verified_by INTEGER, created_at {TS}
 )",
 'internship_searches' => "CREATE TABLE internship_searches (
     id {PK}, country_code VARCHAR(2) NOT NULL, query VARCHAR(160) NOT NULL, query_norm VARCHAR(160) NOT NULL, occupation_id INTEGER,
-    provider VARCHAR(20) NOT NULL, status VARCHAR(20) NOT NULL, found INTEGER NOT NULL DEFAULT 0, kept INTEGER NOT NULL DEFAULT 0,
+    provider VARCHAR(20) NOT NULL, contract VARCHAR(10) NOT NULL DEFAULT 'stage', status VARCHAR(20) NOT NULL, found INTEGER NOT NULL DEFAULT 0, kept INTEGER NOT NULL DEFAULT 0,
     rejected TEXT, message VARCHAR(255), user_id INTEGER, created_at {TS}
 )",
 'external_offers' => "CREATE TABLE external_offers (
     id {PK}, url VARCHAR(500) NOT NULL, url_hash VARCHAR(64) NOT NULL UNIQUE, source_id INTEGER REFERENCES offer_sources(id),
     country_code VARCHAR(2) NOT NULL, search_id INTEGER, query_norm VARCHAR(160), title VARCHAR(190) NOT NULL, organization VARCHAR(160), city VARCHAR(100),
-    published_at VARCHAR(10), deadline VARCHAR(10), offer_status VARCHAR(20) NOT NULL DEFAULT 'inconnu', education VARCHAR(160), education_level INTEGER, duration VARCHAR(60),
+    contract VARCHAR(10) NOT NULL DEFAULT 'stage', experience_months INTEGER, published_at VARCHAR(10), deadline VARCHAR(10), offer_status VARCHAR(20) NOT NULL DEFAULT 'inconnu', education VARCHAR(160), education_level INTEGER, duration VARCHAR(60),
     skills TEXT, languages VARCHAR(160), summary TEXT, occupation_id INTEGER, occupation_confidence INTEGER,
     provider VARCHAR(20) NOT NULL DEFAULT 'claude', link_status VARCHAR(20), checked_at {TS}, hidden INTEGER NOT NULL DEFAULT 0, hidden_reason VARCHAR(160),
     created_by INTEGER, found_at {TS}
 )",
 'internship_reviews' => "CREATE TABLE internship_reviews (
-    id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, query VARCHAR(160) NOT NULL, country_code VARCHAR(2) NOT NULL,
+    id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, query VARCHAR(160) NOT NULL, country_code VARCHAR(2) NOT NULL, contract VARCHAR(10) NOT NULL DEFAULT 'stage',
     occupation_id INTEGER, offers INTEGER NOT NULL DEFAULT 0, score INTEGER, ready INTEGER NOT NULL DEFAULT 0, result TEXT, ref_version INTEGER, created_at {TS}
+)",
+'offer_checks' => "CREATE TABLE offer_checks (
+    id {PK}, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, url VARCHAR(500), site VARCHAR(120), title VARCHAR(190) NOT NULL,
+    contract VARCHAR(10) NOT NULL DEFAULT 'emploi', offer_text TEXT NOT NULL, extracted TEXT, extraction VARCHAR(20) NOT NULL DEFAULT 'regles',
+    score INTEGER, verdict VARCHAR(20), ref_version INTEGER, created_at {TS}
 )",
 
 // ---------- Index ----------
@@ -408,5 +413,6 @@ return [
     'CREATE INDEX idx_ext_offers_query ON external_offers(country_code, query_norm)',
     'CREATE INDEX idx_ext_offers_occ ON external_offers(country_code, occupation_id)',
     'CREATE INDEX idx_int_reviews_user ON internship_reviews(user_id, created_at)',
+    'CREATE INDEX idx_offer_checks_user ON offer_checks(user_id, created_at)',
 ],
 ];

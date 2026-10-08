@@ -91,7 +91,12 @@ final class Migrator
             'jobs' => ['occupation_id' => 'INTEGER', 'occupation_confirmed' => 'INTEGER NOT NULL DEFAULT 0', 'occupation_confidence' => 'INTEGER', 'languages_blocking' => 'VARCHAR(160)'],
             'job_skills' => ['level' => 'INTEGER NOT NULL DEFAULT 3', 'blocking' => 'INTEGER NOT NULL DEFAULT 0'],
             'users' => ['ref_role' => 'VARCHAR(20)'],
-            'match_scores' => ['verdict' => 'VARCHAR(20)', 'ref_version' => 'INTEGER', 'extraction' => 'VARCHAR(20)', 'explanation' => 'TEXT']];
+            'match_scores' => ['verdict' => 'VARCHAR(20)', 'ref_version' => 'INTEGER', 'extraction' => 'VARCHAR(20)', 'explanation' => 'TEXT'],
+            // Préparation sur offres réelles : emplois en plus des stages, sources non interrogeables directement (1.8)
+            'offer_sources' => ['fetch' => 'INTEGER NOT NULL DEFAULT 1'],
+            'internship_searches' => ['contract' => "VARCHAR(10) NOT NULL DEFAULT 'stage'"],
+            'external_offers' => ['contract' => "VARCHAR(10) NOT NULL DEFAULT 'stage'", 'experience_months' => 'INTEGER'],
+            'internship_reviews' => ['contract' => "VARCHAR(10) NOT NULL DEFAULT 'stage'"]];
         foreach ($columns as $table => $cols) {
             $existing = $driver === 'sqlite'
                 ? array_column(DB::all("PRAGMA table_info($table)"), 'name')
@@ -137,6 +142,10 @@ final class Migrator
             self::seedOfferSources();
             $added[] = 'sources vérifiées de la préparation aux stages';
         }
+        if (in_array('offer_sources.fetch', $added, true)) {
+            // LinkedIn n'autorise pas les accès automatisés : ses pages ne sont jamais interrogées directement
+            DB::run("UPDATE offer_sources SET fetch = 0 WHERE domain = 'linkedin.com'");
+        }
 
         if (!DB::value("SELECT COUNT(*) FROM settings WHERE skey = 'launch_mode'")) {
             foreach (['launch_mode' => '1', 'ai_monthly_limit' => '30'] as $k => $v) {
@@ -152,7 +161,7 @@ final class Migrator
     {
         foreach (require __DIR__ . '/sources-offres.php' as [$name, $domain, $url, $kind, $countries, $note]) {
             DB::insert('offer_sources', ['name' => $name, 'domain' => $domain, 'url' => $url, 'kind' => $kind, 'countries' => $countries, 'note' => $note,
-                'active' => 1, 'verified_at' => '2026-10-07 12:00:00', 'created_at' => now()]);
+                'active' => 1, 'fetch' => $domain === 'linkedin.com' ? 0 : 1, 'verified_at' => '2026-10-07 12:00:00', 'created_at' => now()]);
         }
     }
 

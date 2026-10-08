@@ -26,7 +26,7 @@ return [
     ['Grant Thornton Gabon (carrières)', 'grantthornton.ga', 'https://www.grantthornton.ga/en/careers/job-opportunities/', 'entreprise', 'GA',
         'Page officielle d\'offres d\'emploi et de stage du cabinet d\'audit.'],
     ['LinkedIn Emplois', 'linkedin.com', 'https://www.linkedin.com/jobs/', 'reseau', '*',
-        'Offres publiées par les pages entreprises ; la recherche est limitée au pays du candidat.'],
+        'Offres publiées par les pages entreprises. LinkedIn n\'autorise pas les accès automatisés : ses pages ne sont jamais interrogées directement, seules les annonces individuelles présentes dans les résultats du moteur de recherche sont retenues.'],
     ['MinaJobs Cameroun', 'minajobs.net', 'https://cameroun.minajobs.net/', 'plateforme', 'CM',
         'Site d\'emploi camerounais ; offres d\'employeurs nommés (GIZ, SPAR, EcoSantePro), y compris des stages.'],
 ];
