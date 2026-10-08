@@ -7,11 +7,11 @@
   <title>Daki Oriente — Bien-être intime</title>
   <meta name="description" content="Daki Oriente, la boutique intime en ligne de Libreville : lingerie, vibromasseurs, jouets pour elle et lui, préservatifs et lubrifiants. Livraison en colis 100 % neutre, paiement à la livraison.">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#120a10">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23120a10'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia' font-style='italic' font-size='18' fill='%23d9b48f'%3Ed%3C/text%3E%3C/svg%3E">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23111111'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23ff4d5e'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -19,43 +19,34 @@
   <!-- ===== Vérification d'âge ===== -->
   <div class="agegate" id="agegate" role="dialog" aria-modal="true" aria-labelledby="agegate-title" hidden>
     <div class="agegate__card">
-      <p class="eyebrow">Espace réservé aux adultes</p>
-      <h2 id="agegate-title">Avez-vous <em>18 ans</em> ou plus ?</h2>
+      <span class="pill">Espace réservé aux adultes</span>
+      <h2 id="agegate-title">Avez-vous 18 ans ou plus&nbsp;?</h2>
       <p>Ce site présente des produits pour adultes. En entrant, vous confirmez être majeur·e selon la loi de votre pays.</p>
       <div class="agegate__actions">
-        <button class="btn btn--gold" id="agegate-yes">Oui, j'entre</button>
-        <a class="btn btn--ghost" href="https://www.google.com" rel="noreferrer">Non, je sors</a>
+        <button class="btn btn--primary" id="agegate-yes">Oui, j'entre</button>
+        <a class="btn btn--outline" href="https://www.google.com" rel="noreferrer">Non, je sors</a>
       </div>
-      <p class="agegate__note">🔒 Aucune donnée n'est enregistrée. Ce choix reste sur votre appareil.</p>
+      <p class="agegate__note">Aucune donnée n'est enregistrée. Ce choix reste sur votre appareil.</p>
     </div>
   </div>
 
   <!-- ===== Bandeau confiance ===== -->
   <div class="topbar">
-    <div class="topbar__track">
-      <span>📦 Colis 100 % neutre, aucun logo</span>
-      <span>💵 Paiement à la livraison</span>
-      <span>🚚 Livraison Libreville en 24 h</span>
-      <span>🔒 Vos données ne sont jamais partagées</span>
-      <span>📦 Colis 100 % neutre, aucun logo</span>
-      <span>💵 Paiement à la livraison</span>
-      <span>🚚 Livraison Libreville en 24 h</span>
-      <span>🔒 Vos données ne sont jamais partagées</span>
-    </div>
+    <p>Livraison <strong>offerte dès 30 000 FCFA</strong> · Colis 100 % neutre · Paiement à la livraison</p>
   </div>
 
   <!-- ===== En-tête ===== -->
   <header class="header" id="header">
     <div class="container header__inner">
       <a href="#top" class="logo" aria-label="Daki Oriente, accueil">
-        <span class="logo__mark">d</span>
-        <span class="logo__text">Daki <em>Oriente</em></span>
+        <span class="logo__dot"></span>daki<span class="logo__light">oriente</span>
       </a>
       <nav class="nav" id="nav" aria-label="Navigation principale">
-        <a href="#boutique">Boutique</a>
+        <a href="#nouveautes">Best-sellers</a>
         <a href="#collections">Collections</a>
+        <a href="#boutique">Boutique</a>
         <a href="#discretion">Discrétion</a>
-        <a href="#quiz">Trouver mon produit</a>
+        <a href="#quiz">Conseil</a>
         <a href="#faq">Questions</a>
       </nav>
       <div class="header__actions">
@@ -63,7 +54,7 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12s3.5-7 9-7 9 7 9 7-3.5 7-9 7-9-7-9-7z"/><path d="M4 4l16 16"/></svg>
           <span>Sortie rapide</span>
         </button>
-        <button class="iconbtn" id="cart-open" aria-label="Ouvrir le panier">
+        <button class="iconbtn iconbtn--cart" id="cart-open" aria-label="Ouvrir le panier">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 016 0"/></svg>
           <span class="cart-count" id="cart-count">0</span>
         </button>
@@ -76,156 +67,73 @@
 
   <main id="top">
 
-    <!-- ===== Hero ===== -->
+    <!-- ===== Hero : les produits d'abord ===== -->
     <section class="hero">
-      <div class="hero__glow" aria-hidden="true"></div>
       <div class="container hero__inner">
         <div class="hero__copy">
-          <p class="eyebrow">Le boudoir · Libreville, Gabon</p>
-          <h1>Et si vous vous offriez <em>enfin</em> le plaisir que vous méritez&nbsp;?</h1>
-          <p class="lead">Aujourd'hui, le désir se cherche d'abord en ligne. Mais entre la gêne, la peur d'être reconnu·e et les produits douteux, beaucoup renoncent. Chez Daki Oriente, vous choisissez tranquillement, depuis votre canapé, et vous recevez un colis que personne ne peut deviner.</p>
+          <span class="pill"><span class="pill__dot"></span>Livraison discrète à Libreville en 24 h</span>
+          <h1>Et si vous vous offriez <mark>enfin</mark> le plaisir que vous méritez&nbsp;?</h1>
+          <p class="lead">Choisissez tranquillement, depuis votre canapé. Recevez un colis que personne ne peut deviner. Payez seulement quand il est entre vos mains.</p>
           <div class="hero__cta">
-            <a href="#boutique" class="btn btn--gold">Découvrir la boutique →</a>
-            <a href="#quiz" class="btn btn--ghost">Trouver mon produit idéal</a>
+            <a href="#boutique" class="btn btn--primary btn--lg">Découvrir la boutique</a>
+            <a href="#quiz" class="btn btn--outline btn--lg">Trouver mon produit idéal</a>
           </div>
           <ul class="hero__proof">
-            <li><strong>100 %</strong> colis neutres</li>
-            <li><strong>24 h</strong> à Libreville</li>
-            <li><strong>0</strong> compte à créer</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg>Colis neutre</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg>Payé à la livraison</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Matières certifiées</li>
           </ul>
         </div>
-        <div class="hero__visual" aria-hidden="true">
-          <div class="parcel">
-            <div class="parcel__box">
-              <div class="parcel__tape"></div>
-              <div class="parcel__label">
-                <span>Destinataire</span>
-                <strong>M. / Mme ••••••</strong>
-                <span>Expéditeur : DO Distribution</span>
-              </div>
-            </div>
-            <div class="parcel__caption">
-              <span class="eyebrow">Ce que voit le livreur</span>
-              <p>Un carton marron. Point.</p>
-            </div>
-          </div>
-          <div class="hero__orb hero__orb--1"></div>
-          <div class="hero__orb hero__orb--2"></div>
-        </div>
+        <div class="hero__showcase" id="hero-product"></div>
       </div>
     </section>
 
-    <!-- ===== (01) Engagement ===== -->
-    <section class="section" id="discretion">
+    <!-- ===== Best-sellers ===== -->
+    <section class="section section--tight" id="nouveautes">
       <div class="container">
-        <p class="section__num">(01) Notre engagement</p>
-        <div class="split">
-          <h2>Votre intimité ne regarde <em>que vous</em>.</h2>
-          <p class="lead">Se faire plaisir ne devrait jamais être une source de stress. C'est notre engagement : que personne, ni votre voisin, ni votre banque, ni le livreur, ne sache ce que vous avez commandé.</p>
+        <div class="section__head">
+          <div>
+            <span class="label">Les plus désirés</span>
+            <h2>Ce que nos clients <mark>adorent</mark>.</h2>
+          </div>
+          <div class="rail-nav">
+            <button class="iconbtn" data-rail="-1" aria-label="Précédent"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button class="iconbtn" data-rail="1" aria-label="Suivant"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
         </div>
-        <div class="pillars">
-          <article class="pillar">
-            <span class="pillar__icon">📦</span>
-            <h3>Discrétion totale</h3>
-            <p>Carton marron, aucun logo, aucune mention du contenu. L'expéditeur s'appelle simplement « DO Distribution ».</p>
-          </article>
-          <article class="pillar">
-            <span class="pillar__icon">✓</span>
-            <h3>Qualité garantie</h3>
-            <p>Silicone médical, matières body-safe, préservatifs aux normes CE / ISO. Rien qui ne touche votre peau sans avoir été vérifié.</p>
-          </article>
-          <article class="pillar">
-            <span class="pillar__icon">💬</span>
-            <h3>Conseil sans jugement</h3>
-            <p>Une question ? Nous répondons sur WhatsApp, avec bienveillance et sans tabou. Nous parlons votre langage, pas celui des catalogues.</p>
-          </article>
-        </div>
+        <div class="rail" id="bestsellers"></div>
       </div>
     </section>
 
-    <!-- ===== (02) Comment ça marche ===== -->
-    <section class="section section--alt">
+    <!-- ===== Collections ===== -->
+    <section class="section section--soft" id="collections">
       <div class="container">
-        <p class="section__num">(02) Le chemin du plaisir</p>
-        <h2>Comment commander <em>sans gêne</em>&nbsp;?</h2>
-        <p class="lead narrow">C'est plus simple qu'il n'y paraît. Tout se joue en trois étapes, et la plus difficile, c'est de cliquer sur « Commander ».</p>
-        <ol class="steps">
-          <li class="step">
-            <span class="step__n">01</span>
-            <h3><em>Choisir</em></h3>
-            <p>Parcourez la boutique ou faites notre mini-quiz. Pas de compte à créer, pas d'adresse e-mail obligatoire.</p>
-            <ul class="tags"><li>Sans inscription</li><li>Conseils WhatsApp</li></ul>
-          </li>
-          <li class="step">
-            <span class="step__n">02</span>
-            <h3><em>Recevoir</em></h3>
-            <p>Votre commande arrive dans un colis neutre, en main propre ou en point relais. Personne ne peut deviner ce qu'il contient.</p>
-            <ul class="tags"><li>Colis neutre</li><li>Libreville 24 h</li><li>Point relais</li></ul>
-          </li>
-          <li class="step">
-            <span class="step__n">03</span>
-            <h3><em>Profiter</em></h3>
-            <p>Vous payez à la réception, en espèces ou Mobile Money. Il ne vous reste plus qu'à vous faire plaisir.</p>
-            <ul class="tags"><li>Espèces</li><li>Airtel Money</li><li>Moov Money</li></ul>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ===== (03) Avant / Avec ===== -->
-    <section class="section">
-      <div class="container">
-        <p class="section__num">(03) Ce qui change pour vous</p>
-        <h2>Concrètement, qu'est-ce qui <em>change</em>&nbsp;?</h2>
-        <p class="lead narrow">Vous reconnaissez-vous dans la colonne de gauche&nbsp;?</p>
-        <div class="compare" role="table" aria-label="Avant et avec Daki Oriente">
-          <div class="compare__row compare__head" role="row">
-            <span role="columnheader">Domaine</span><span role="columnheader">Avant</span><span role="columnheader" aria-hidden="true"></span><span role="columnheader"><strong>Avec Daki Oriente</strong></span>
+        <div class="section__head">
+          <div>
+            <span class="label">Collections</span>
+            <h2>De quoi avez-vous <mark>envie</mark>&nbsp;?</h2>
           </div>
-          <div class="compare__row" role="row">
-            <span role="cell" class="compare__k">Achat</span>
-            <span role="cell" class="compare__before">Entrer dans une boutique et croiser quelqu'un qu'on connaît</span>
-            <span class="compare__arrow" aria-hidden="true">→</span>
-            <span role="cell" class="compare__after">Vous choisissez seul·e, depuis votre téléphone<small>Boutique en ligne, sans inscription</small></span>
-          </div>
-          <div class="compare__row" role="row">
-            <span role="cell" class="compare__k">Livraison</span>
-            <span role="cell" class="compare__before">Un colis qui trahit son contenu</span>
-            <span class="compare__arrow" aria-hidden="true">→</span>
-            <span role="cell" class="compare__after">Un carton marron que personne ne remarque<small>Emballage neutre, expéditeur anonyme</small></span>
-          </div>
-          <div class="compare__row" role="row">
-            <span role="cell" class="compare__k">Paiement</span>
-            <span role="cell" class="compare__before">Un nom gênant sur le relevé bancaire</span>
-            <span class="compare__arrow" aria-hidden="true">→</span>
-            <span role="cell" class="compare__after">Vous payez à la livraison, rien n'apparaît<small>Espèces ou Mobile Money</small></span>
-          </div>
-          <div class="compare__row" role="row">
-            <span role="cell" class="compare__k">Qualité</span>
-            <span role="cell" class="compare__before">Des produits du marché, sans garantie</span>
-            <span class="compare__arrow" aria-hidden="true">→</span>
-            <span role="cell" class="compare__after">Des matières sûres et des normes vérifiées<small>Silicone médical, CE / ISO 4074</small></span>
-          </div>
+          <p class="muted section__aside">Six univers, une seule boutique. Ouvrez celui qui vous parle.</p>
         </div>
-      </div>
-    </section>
-
-    <!-- ===== (04) Collections ===== -->
-    <section class="section section--alt" id="collections">
-      <div class="container">
-        <p class="section__num">(04) Collections</p>
-        <h2>De quoi avez-vous <em>envie</em>&nbsp;?</h2>
-        <p class="lead narrow">Six univers, une seule boutique. Ouvrez celui qui vous parle.</p>
         <div class="collections" id="collections-grid"></div>
       </div>
     </section>
 
-    <!-- ===== (05) Boutique ===== -->
+    <!-- ===== Offre vedette ===== -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="feature" id="feature"></div>
+      </div>
+    </section>
+
+    <!-- ===== Boutique ===== -->
     <section class="section" id="boutique">
       <div class="container">
-        <p class="section__num">(05) La boutique</p>
-        <div class="shop__head">
-          <h2>Tout ce qui vous fait <em>frissonner</em>.</h2>
+        <div class="section__head">
+          <div>
+            <span class="label">La boutique</span>
+            <h2>Tout ce qui vous fait <mark>frissonner</mark>.</h2>
+          </div>
           <div class="shop__tools">
             <label class="search">
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
@@ -244,26 +152,116 @@
       </div>
     </section>
 
-    <!-- ===== (06) Quiz ===== -->
-    <section class="section section--dark" id="quiz">
+    <!-- ===== Discrétion ===== -->
+    <section class="section section--soft" id="discretion">
+      <div class="container discretion">
+        <div class="discretion__visual" aria-hidden="true">
+          <div class="parcel">
+            <div class="parcel__tape"></div>
+            <div class="parcel__label">
+              <span>Destinataire</span>
+              <strong>M. / Mme ••••••</strong>
+              <span>Expéditeur : DO Distribution</span>
+            </div>
+          </div>
+          <div class="parcel__bubble"><strong>Ce que voit le livreur&nbsp;:</strong> un carton marron. Point.</div>
+        </div>
+        <div>
+          <span class="label">Notre engagement</span>
+          <h2>Votre intimité ne regarde <mark>que vous</mark>.</h2>
+          <p class="lead">Se faire plaisir ne devrait jamais être une source de stress. Notre engagement&nbsp;: que personne, ni votre voisin, ni votre banque, ni le livreur, ne sache ce que vous avez commandé.</p>
+          <div class="pillars">
+            <article class="pillar">
+              <h3>Discrétion totale</h3>
+              <p>Carton marron, aucun logo, aucune mention du contenu. L'expéditeur s'appelle simplement « DO Distribution ».</p>
+            </article>
+            <article class="pillar">
+              <h3>Qualité garantie</h3>
+              <p>Silicone médical, matières body-safe, préservatifs aux normes CE / ISO. Rien ne touche votre peau sans avoir été vérifié.</p>
+            </article>
+            <article class="pillar">
+              <h3>Conseil sans jugement</h3>
+              <p>Une question&nbsp;? Nous répondons sur WhatsApp, avec bienveillance et sans tabou. Nous parlons votre langage, pas celui des catalogues.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Comment ça marche ===== -->
+    <section class="section">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <span class="label">Comment ça marche</span>
+            <h2>Comment commander <mark>sans gêne</mark>&nbsp;?</h2>
+          </div>
+          <p class="muted section__aside">C'est plus simple qu'il n'y paraît. Trois étapes, et la plus difficile, c'est de cliquer sur « Commander ».</p>
+        </div>
+        <ol class="steps">
+          <li class="step">
+            <span class="step__n">1</span>
+            <h3>Choisir</h3>
+            <p>Parcourez la boutique ou faites notre mini-quiz. Pas de compte à créer, pas d'adresse e-mail obligatoire.</p>
+          </li>
+          <li class="step">
+            <span class="step__n">2</span>
+            <h3>Recevoir</h3>
+            <p>Votre commande arrive dans un colis neutre, en main propre ou en point relais. Personne ne peut deviner ce qu'il contient.</p>
+          </li>
+          <li class="step">
+            <span class="step__n">3</span>
+            <h3>Profiter</h3>
+            <p>Vous payez à la réception, en espèces, Airtel Money ou Moov Money. Il ne vous reste plus qu'à vous faire plaisir.</p>
+          </li>
+        </ol>
+
+        <div class="compare" role="table" aria-label="Avant et avec Daki Oriente">
+          <div class="compare__row compare__head" role="row">
+            <span role="columnheader">Avant</span><span role="columnheader">Avec Daki Oriente</span>
+          </div>
+          <div class="compare__row" role="row">
+            <span role="cell" class="compare__before">Entrer dans une boutique et croiser quelqu'un qu'on connaît</span>
+            <span role="cell" class="compare__after">Vous choisissez seul·e, depuis votre téléphone</span>
+          </div>
+          <div class="compare__row" role="row">
+            <span role="cell" class="compare__before">Un colis qui trahit son contenu</span>
+            <span role="cell" class="compare__after">Un carton marron que personne ne remarque</span>
+          </div>
+          <div class="compare__row" role="row">
+            <span role="cell" class="compare__before">Un nom gênant sur le relevé bancaire</span>
+            <span role="cell" class="compare__after">Vous payez à la livraison, rien n'apparaît nulle part</span>
+          </div>
+          <div class="compare__row" role="row">
+            <span role="cell" class="compare__before">Des produits du marché, sans garantie</span>
+            <span role="cell" class="compare__after">Des matières sûres et des normes vérifiées</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Quiz ===== -->
+    <section class="section section--soft" id="quiz">
       <div class="container quiz">
         <div>
-          <p class="section__num">(06) Votre guide</p>
-          <h2>Vous ne savez pas par où <em>commencer</em>&nbsp;?</h2>
+          <span class="label">Votre guide</span>
+          <h2>Vous ne savez pas par où <mark>commencer</mark>&nbsp;?</h2>
           <p class="lead">C'est normal. Répondez à trois questions, nous vous proposons les produits faits pour vous. Promis, personne ne verra vos réponses.</p>
         </div>
         <div class="quiz__card" id="quiz-card" aria-live="polite"></div>
       </div>
     </section>
 
-    <!-- ===== (07) FAQ ===== -->
+    <!-- ===== FAQ ===== -->
     <section class="section" id="faq">
-      <div class="container">
-        <p class="section__num">(07) Vos questions</p>
-        <h2>Ce que vous n'osez pas <em>demander</em>.</h2>
-        <p class="lead narrow">Pas de surprise ni de tabou : voici les réponses aux questions qu'on nous pose le plus souvent.</p>
+      <div class="container faq-wrap">
+        <div>
+          <span class="label">Vos questions</span>
+          <h2>Ce que vous n'osez pas <mark>demander</mark>.</h2>
+          <p class="muted">Pas de surprise ni de tabou. Une autre question&nbsp;? <a href="#" data-whatsapp class="link">Écrivez-nous sur WhatsApp</a>.</p>
+        </div>
         <div class="faq">
-          <details>
+          <details open>
             <summary>Qu'y a-t-il exactement sur le colis&nbsp;?</summary>
             <p>Votre nom (ou un prénom de votre choix), votre adresse, et l'expéditeur « DO Distribution ». Aucun logo, aucune description, aucune facture visible. Même le livreur ne sait pas ce qu'il transporte.</p>
           </details>
@@ -295,19 +293,20 @@
       </div>
     </section>
 
-    <!-- ===== Newsletter / CTA ===== -->
-    <section class="section section--alt">
-      <div class="container cta">
-        <div>
-          <p class="section__num">(08) Le cahier secret</p>
-          <h2>Envie d'être dans la <em>confidence</em>&nbsp;?</h2>
-          <p class="lead">Nouveautés, conseils et ventes privées, une fois par mois. Et <strong>-10 % sur votre première commande</strong>. L'e-mail arrive avec un objet neutre, bien sûr.</p>
+    <!-- ===== Newsletter ===== -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <h2>-10 % sur votre première commande.</h2>
+            <p>Nouveautés, conseils et ventes privées, une fois par mois. L'e-mail arrive avec un objet neutre, bien sûr.</p>
+          </div>
+          <form class="newsletter" id="newsletter">
+            <input type="email" required placeholder="votre@email.com" aria-label="Votre adresse e-mail">
+            <button class="btn btn--primary" type="submit">Recevoir mon code</button>
+            <p class="newsletter__msg" id="newsletter-msg" role="status"></p>
+          </form>
         </div>
-        <form class="newsletter" id="newsletter">
-          <input type="email" required placeholder="votre@email.com" aria-label="Votre adresse e-mail">
-          <button class="btn btn--gold" type="submit">Recevoir mon code →</button>
-          <p class="newsletter__msg" id="newsletter-msg" role="status"></p>
-        </form>
       </div>
     </section>
 
@@ -317,7 +316,7 @@
   <footer class="footer">
     <div class="container footer__grid">
       <div>
-        <a href="#top" class="logo"><span class="logo__mark">d</span><span class="logo__text">Daki <em>Oriente</em></span></a>
+        <a href="#top" class="logo"><span class="logo__dot"></span>daki<span class="logo__light">oriente</span></a>
         <p>La boutique intime qui garde vos secrets. Libreville, Gabon.</p>
         <p class="footer__badges"><span>18+</span><span>Colis neutre</span><span>Paiement à la livraison</span></p>
       </div>
@@ -345,7 +344,7 @@
     </div>
     <div class="container footer__legal">
       <p>© <span id="year"></span> Daki Oriente. Vente réservée aux personnes majeures. Produits non remboursables une fois ouverts, pour des raisons d'hygiène.</p>
-      <p>Astuce discrétion : appuyez deux fois sur <kbd>Échap</kbd> pour quitter le site instantanément.</p>
+      <p>Astuce discrétion&nbsp;: appuyez deux fois sur <kbd>Échap</kbd> pour quitter le site instantanément.</p>
     </div>
   </footer>
 
@@ -377,32 +376,34 @@
     <div class="modal__panel modal__panel--narrow" role="dialog" aria-modal="true" aria-labelledby="co-title">
       <button class="modal__close" data-close aria-label="Fermer">×</button>
       <div id="checkout-body">
-        <p class="eyebrow">Dernière étape</p>
-        <h3 id="co-title">Où devons-nous <em>livrer</em>&nbsp;?</h3>
+        <span class="label">Dernière étape</span>
+        <h3 id="co-title">Où devons-nous livrer&nbsp;?</h3>
         <p class="muted">Pas de compte, pas d'e-mail. Juste de quoi vous trouver.</p>
         <form class="form" id="checkout-form">
           <label>Prénom ou pseudo<input name="name" required autocomplete="given-name" placeholder="Ex. : Sam"></label>
           <label>Téléphone / WhatsApp<input name="phone" type="tel" required autocomplete="tel" placeholder="+241 …"></label>
           <label>Quartier / adresse de livraison<input name="address" required autocomplete="street-address" placeholder="Ex. : Louis, près de…"></label>
-          <label>Créneau souhaité
-            <select name="slot">
-              <option>Dès que possible</option>
-              <option>Matin (9 h – 12 h)</option>
-              <option>Après-midi (12 h – 17 h)</option>
-              <option>Soir (17 h – 21 h)</option>
-            </select>
-          </label>
-          <label>Paiement à la livraison
-            <select name="pay">
-              <option>Espèces</option>
-              <option>Airtel Money</option>
-              <option>Moov Money</option>
-            </select>
-          </label>
+          <div class="form__row">
+            <label>Créneau
+              <select name="slot">
+                <option>Dès que possible</option>
+                <option>Matin (9 h – 12 h)</option>
+                <option>Après-midi (12 h – 17 h)</option>
+                <option>Soir (17 h – 21 h)</option>
+              </select>
+            </label>
+            <label>Paiement
+              <select name="pay">
+                <option>Espèces</option>
+                <option>Airtel Money</option>
+                <option>Moov Money</option>
+              </select>
+            </label>
+          </div>
           <label class="check"><input type="checkbox" name="call" checked> Le livreur m'appelle avant de passer (il dit simplement « livraison pour vous »)</label>
           <div class="co-total" id="co-total"></div>
-          <button class="btn btn--gold btn--full" type="submit">Confirmer ma commande →</button>
-          <p class="muted small">🔒 Vos informations servent uniquement à la livraison.</p>
+          <button class="btn btn--primary btn--full btn--lg" type="submit">Confirmer ma commande</button>
+          <p class="muted small center">Vos informations servent uniquement à la livraison.</p>
         </form>
       </div>
     </div>

@@ -1,6 +1,6 @@
 # Daki Oriente — boutique intime en ligne
 
-Site vitrine + boutique statique (HTML/CSS/JS, aucune dépendance). Ouvrez `index.html` dans un navigateur ou déposez le dossier sur n'importe quel hébergeur statique (Vercel, Netlify, GitHub Pages…).
+Boutique statique au thème clair (HTML/CSS/JS, aucune dépendance). Ouvrez `index.html` dans un navigateur ou déposez le dossier sur n'importe quel hébergeur statique (Vercel, Netlify, GitHub Pages…).
 
 ## Ce que contient le site
 - Vérification d'âge 18+ à l'entrée

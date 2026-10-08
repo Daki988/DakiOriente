@@ -95,13 +95,12 @@
   $("#year").textContent = new Date().getFullYear();
 
   /* ---------- Collections ---------- */
-  $("#collections-grid").innerHTML = CATS.map(function (c, i) {
+  $("#collections-grid").innerHTML = CATS.map(function (c) {
     var n = PRODUCTS.filter(function (p) { return p.cat === c.id; }).length;
     return '<button class="coll" data-cat="' + c.id + '">' +
-      '<div class="coll__art art-bg" ' + artBg(c.hue) + ">" + art(c.art, c.hue) + "</div>" +
-      '<span class="coll__n">0' + (i + 1) + "</span>" +
-      "<h3>" + esc(c.label) + "</h3><p>" + esc(c.hint) + " · " + n + " produits</p>" +
-      '<span class="coll__go">Voir la sélection →</span></button>';
+      "<div><h3>" + esc(c.label) + "</h3><p>" + esc(c.hint) + "</p>" +
+      '<span class="coll__go">' + n + " produits</span></div>" +
+      '<div class="coll__art art-bg" ' + artBg(c.hue) + ">" + art(c.art, c.hue) + "</div></button>";
   }).join("");
   $$(".coll").forEach(function (b) {
     b.addEventListener("click", function () { setFilter(b.dataset.cat); $("#boutique").scrollIntoView(); });
@@ -139,29 +138,67 @@
     else if (state.sort === "desc") list.sort(function (a, b) { return b.price - a.price; });
     else list.sort(function (a, b) { return (rank[a.badge] !== undefined ? rank[a.badge] : 9) - (rank[b.badge] !== undefined ? rank[b.badge] : 9); });
 
-    $("#grid").innerHTML = list.map(function (p, i) {
-      var promo = p.old ? '<span class="badge badge--promo">-' + Math.round((1 - p.price / p.old) * 100) + " %</span>" : "";
-      return '<article class="card" style="animation-delay:' + Math.min(i, 12) * 40 + 'ms">' +
-        '<div class="card__media art-bg" ' + artBg(p.hue) + ' data-open="' + p.id + '">' + art(p.art, p.hue) +
-        (p.badge ? '<span class="badge">' + esc(p.badge) + "</span>" : "") + promo + "</div>" +
-        '<div class="card__body"><span class="card__cat">' + esc(catById[p.cat].short) + "</span>" +
-        '<h3 class="card__name" data-open="' + p.id + '">' + esc(p.name) + "</h3>" +
-        '<div class="card__foot"><span class="price">' + fcfa(p.price) + (p.old ? "<s>" + fcfa(p.old) + "</s>" : "") + "</span>" +
-        '<button class="add" data-add="' + p.id + '" aria-label="Ajouter ' + esc(p.name) + ' au panier">+</button></div></div></article>';
-    }).join("");
+    $("#grid").innerHTML = list.map(cardHTML).join("");
     $("#empty").hidden = list.length > 0;
   }
-  $("#grid").addEventListener("click", function (e) {
+
+  function cardHTML(p, i) {
+    var promo = p.old ? '<span class="badge badge--promo">-' + Math.round((1 - p.price / p.old) * 100) + " %</span>" : "";
+    return '<article class="card" style="animation-delay:' + Math.min(i || 0, 12) * 40 + 'ms">' +
+      '<div class="card__media art-bg" ' + artBg(p.hue) + ' data-open="' + p.id + '">' + art(p.art, p.hue) +
+      (p.badge ? '<span class="badge">' + esc(p.badge) + "</span>" : "") + promo +
+      '<button class="card__quick" data-add="' + p.id + '" aria-label="Ajouter ' + esc(p.name) + ' au panier">Ajouter au panier</button></div>' +
+      '<div class="card__body"><span class="card__cat">' + esc(catById[p.cat].label) + "</span>" +
+      '<h3 class="card__name" data-open="' + p.id + '">' + esc(p.name) + "</h3>" +
+      '<span class="price">' + fcfa(p.price) + (p.old ? "<s>" + fcfa(p.old) + "</s>" : "") + "</span></div></article>";
+  }
+
+  /* Clics délégués : ajout rapide et ouverture de fiche, partout sur la page */
+  document.addEventListener("click", function (e) {
     var add = e.target.closest("[data-add]");
     if (add) {
+      e.stopPropagation();
       addToCart(add.dataset.add, 1);
-      add.classList.add("done"); add.textContent = "✓";
-      setTimeout(function () { add.classList.remove("done"); add.textContent = "+"; }, 1200);
+      if (add.classList.contains("card__quick")) {
+        add.classList.add("done"); add.textContent = "Ajouté ✓";
+        setTimeout(function () { add.classList.remove("done"); add.textContent = "Ajouter au panier"; }, 1400);
+      }
       return;
     }
     var open = e.target.closest("[data-open]");
-    if (open) openProduct(open.dataset.open);
+    if (open && !open.closest(".modal")) openProduct(open.dataset.open);
   });
+
+  /* ---------- Vitrine du haut ---------- */
+  function tileHTML(id, big) {
+    var p = byId[id];
+    return '<div class="tile art-bg' + (big ? " tile--big" : "") + '" ' + artBg(p.hue) + ' data-open="' + p.id + '">' +
+      '<div class="tile__art">' + art(p.art, p.hue) + "</div>" +
+      (p.badge ? '<span class="badge">' + esc(p.badge) + "</span>" : "") +
+      '<div class="tile__info"><div><strong>' + esc(p.name) + "</strong><span>" + fcfa(p.price) + "</span></div>" +
+      '<button class="add-mini" data-add="' + p.id + '" aria-label="Ajouter ' + esc(p.name) + ' au panier">+</button></div></div>';
+  }
+  $("#hero-product").innerHTML = tileHTML("E01", true) + tileHTML("L01") + tileHTML("C01");
+
+  /* ---------- Best-sellers ---------- */
+  var rail = $("#bestsellers");
+  rail.innerHTML = PRODUCTS.filter(function (p) { return p.badge === "Best-seller" || p.badge === "Coup de cœur"; }).map(cardHTML).join("");
+  $$("[data-rail]").forEach(function (b) {
+    b.addEventListener("click", function () { rail.scrollBy({ left: Number(b.dataset.rail) * rail.clientWidth * 0.8, behavior: "smooth" }); });
+  });
+
+  /* ---------- Offre vedette ---------- */
+  (function () {
+    var p = byId["C02"];
+    $("#feature").outerHTML =
+      '<div class="feature art-bg" ' + artBg(p.hue) + '><div class="feature__copy"><span class="label">Offre du moment</span>' +
+      "<h2>Envie de pimenter vos soirées à deux&nbsp;?</h2>" +
+      "<p>" + esc(p.desc) + "</p>" +
+      '<div class="feature__price">' + fcfa(p.price) + "<s>" + fcfa(p.old) + '</s><span class="feature__save">-' + fcfa(p.old - p.price) + "</span></div>" +
+      '<div class="hero__cta" style="margin:0"><button class="btn btn--primary btn--lg" data-add="' + p.id + '">Ajouter au panier</button>' +
+      '<button class="btn btn--outline btn--lg" data-open="' + p.id + '">Voir le détail</button></div></div>' +
+      '<div class="feature__art">' + art(p.art, p.hue) + "</div></div>";
+  })();
 
   /* ---------- Fiche produit ---------- */
   var pmModal = $("#product-modal");
@@ -170,13 +207,13 @@
     var qty = 1;
     $("#pm").innerHTML =
       '<div class="pm__media art-bg" ' + artBg(p.hue) + ">" + art(p.art, p.hue) + "</div>" +
-      '<div class="pm__body"><p class="eyebrow">' + esc(catById[p.cat].label) + (p.badge ? " · " + esc(p.badge) : "") + "</p>" +
+      '<div class="pm__body"><span class="label">' + esc(catById[p.cat].label) + (p.badge ? " · " + esc(p.badge) : "") + "</span>" +
       '<h3 id="pm-name">' + esc(p.name) + "</h3>" +
       '<div class="pm__price">' + fcfa(p.price) + (p.old ? "<s>" + fcfa(p.old) + "</s>" : "") + "</div>" +
       '<p class="muted">' + esc(p.desc) + "</p>" +
       '<ul class="pm__points">' + p.points.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" +
       '<div class="pm__actions"><div class="qty"><button data-q="-1" aria-label="Moins">−</button><span id="pm-qty">1</span><button data-q="1" aria-label="Plus">+</button></div>' +
-      '<button class="btn btn--gold" id="pm-add">Ajouter au panier</button></div>' +
+      '<button class="btn btn--primary" id="pm-add">Ajouter au panier</button></div>' +
       '<div class="pm__trust"><span>📦<br>Colis neutre</span><span>💵<br>Payé à la livraison</span><span>✓<br>Matières sûres</span></div></div>';
     $$("[data-q]", pmModal).forEach(function (b) {
       b.addEventListener("click", function () { qty = Math.max(1, Math.min(10, qty + Number(b.dataset.q))); $("#pm-qty").textContent = qty; });
@@ -214,7 +251,7 @@
     $("#cart-count").textContent = t.count;
     var ids = Object.keys(cart);
     if (!ids.length) {
-      $("#cart-items").innerHTML = '<div class="cart-empty"><strong>Votre panier est vide.</strong>Mais vos envies, elles, ne demandent qu\'à s\'exprimer.<br><br><a href="#boutique" class="btn btn--ghost btn--sm" data-close-cart>Explorer la boutique</a></div>';
+      $("#cart-items").innerHTML = '<div class="cart-empty"><strong>Votre panier est vide.</strong>Mais vos envies, elles, ne demandent qu\'à s\'exprimer.<br><br><a href="#boutique" class="btn btn--outline btn--sm" data-close-cart>Explorer la boutique</a></div>';
       $("#cart-foot").innerHTML = "";
       return;
     }
@@ -233,7 +270,7 @@
       '<div class="totals"><div><span>Sous-total</span><span>' + fcfa(t.sub) + "</span></div>" +
       "<div><span>Livraison discrète</span><span>" + (t.ship ? fcfa(t.ship) : "Offerte") + "</span></div>" +
       '<div class="grand"><span>Total</span><span>' + fcfa(t.total) + "</span></div></div>" +
-      '<button class="btn btn--gold btn--full" id="to-checkout">Commander, payer à la livraison →</button>' +
+      '<button class="btn btn--primary btn--full" id="to-checkout">Commander, payer à la livraison →</button>' +
       '<p class="reassure">📦 Colis neutre · 🔒 Aucun compte · 💵 Rien à payer en ligne</p>';
     $("#to-checkout").addEventListener("click", function () { closeCart(); openCheckout(); });
   }
@@ -272,10 +309,10 @@
     var link = waLink(msg);
     cart = {}; saveCart();
     $("#checkout-body").innerHTML =
-      '<div class="success"><div class="success__icon">✓</div><p class="eyebrow">Commande ' + ref + "</p>" +
-      "<h3>Merci, c'est <em>entre nous</em>.</h3>" +
+      '<div class="success"><div class="success__icon">✓</div><span class="label">Commande ' + ref + "</span>" +
+      "<h3>Merci, c'est entre nous.</h3>" +
       '<p class="muted">Envoyez-nous le récapitulatif sur WhatsApp pour confirmer : nous vous répondons en moins d\'une heure et votre colis neutre part aussitôt.</p>' +
-      '<a class="btn btn--gold btn--full" href="' + link + '" target="_blank" rel="noopener">Confirmer sur WhatsApp →</a>' +
+      '<a class="btn btn--primary btn--full" href="' + link + '" target="_blank" rel="noopener">Confirmer sur WhatsApp →</a>' +
       '<p class="muted small" style="margin-top:14px">Vous paierez ' + fcfa(t.total) + " à la réception, en " + esc(f.get("pay")) + ".</p></div>";
   }
 
@@ -307,19 +344,18 @@
     var bars = '<div class="quiz__progress">' + QUIZ.map(function (_, i) { return '<span class="' + (i <= step ? "on" : "") + '"></span>'; }).join("") + "</div>";
     if (step < QUIZ.length) {
       var Q = QUIZ[step];
-      card.innerHTML = bars + '<p class="eyebrow">Question ' + (step + 1) + " / " + QUIZ.length + '</p><div class="quiz__q">' + Q.q + '</div><div class="quiz__opts">' +
+      card.innerHTML = bars + '<p class="quiz__step">Question ' + (step + 1) + " sur " + QUIZ.length + '</p><div class="quiz__q">' + Q.q + '</div><div class="quiz__opts">' +
         Q.opts.map(function (o) { return '<button class="quiz__opt" data-v="' + o[1] + '">' + o[0] + "</button>"; }).join("") + "</div>";
       $$(".quiz__opt", card).forEach(function (b) { b.addEventListener("click", function () { answers[Q.key] = b.dataset.v; step++; renderQuiz(); }); });
       return;
     }
     var top = PRODUCTS.map(function (p) { return { p: p, s: scoreProduct(p) }; })
       .sort(function (a, b) { return b.s - a.s || a.p.price - b.p.price; }).slice(0, 3);
-    card.innerHTML = bars + '<p class="eyebrow">Votre sélection sur-mesure</p><div class="quiz__q">Voici ce qui devrait vous <em style="font-style:italic;color:var(--gold-2)">plaire</em>.</div>' +
+    card.innerHTML = bars + '<p class="quiz__step">Votre sélection sur mesure</p><div class="quiz__q">Voici ce qui devrait vous <mark>plaire</mark>.</div>' +
       '<div class="quiz__results">' + top.map(function (x) {
         var p = x.p;
         return '<button class="quiz__item" data-open="' + p.id + '"><span class="quiz__thumb art-bg" ' + artBg(p.hue) + ">" + art(p.art, p.hue) + "</span><span><strong>" + esc(p.name) + "</strong><span>" + fcfa(p.price) + "</span></span></button>";
       }).join("") + '</div><button class="quiz__restart" id="quiz-restart">Recommencer le quiz</button>';
-    $$(".quiz__item", card).forEach(function (b) { b.addEventListener("click", function () { openProduct(b.dataset.open); }); });
     $("#quiz-restart").addEventListener("click", function () { answers = {}; step = 0; renderQuiz(); });
   }
 
@@ -342,7 +378,7 @@
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
     }, { threshold: 0.12 });
-    $$(".section .container > *, .pillar, .step").forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
+    $$(".section .container > *:not(.feature), .step").forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
   }
 
   renderGrid();
