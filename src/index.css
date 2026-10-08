@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  --color-neam-50: #eafff4;
+  --color-neam-100: #c9fbe2;
+  --color-neam-200: #8ff3c3;
+  --color-neam-300: #4fe8a1;
+  --color-neam-400: #22d884;
+  --color-neam-500: #10c070;
+  --color-neam-600: #079b5a;
+  --color-neam-700: #077a49;
+  --color-neam-800: #0a5a39;
+  --color-neam-900: #073d29;
+  --color-neam-950: #04241b;
+
+  --animate-fade-up: fade-up 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-pop: pop 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-sheet: sheet 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-scan: scan 2.2s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes sheet {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  @keyframes scan {
+    0%, 100% { top: 8%; }
+    50% { top: 88%; }
+  }
+}
+
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  color-scheme: light;
+}
+
+html, body, #root { min-height: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: #f4f7f5;
+  color: #0f1f19;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+@media (min-width: 1024px) {
+  body {
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #0c6b45 0%, transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, #0a4f36 0%, transparent 60%),
+      #04241b;
+    background-attachment: fixed;
+  }
+}
+
+button { cursor: pointer; }
+
+/* Classes maison dans un layer pour que les utilitaires Tailwind puissent les surcharger */
+@layer components {
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+.pt-safe { padding-top: var(--safe-top); }
+.pb-safe { padding-bottom: var(--safe-bottom); }
+
+.bg-neam-hero {
+  background:
+    radial-gradient(120% 90% at 0% 0%, #0d7a4f 0%, transparent 55%),
+    radial-gradient(80% 80% at 100% 0%, #0b5f3e 0%, transparent 60%),
+    linear-gradient(180deg, #063a29 0%, #04241b 100%);
+}
+
+.bg-neam-dark {
+  background:
+    radial-gradient(90% 60% at 0% 0%, #0b5e3e 0%, transparent 60%),
+    radial-gradient(70% 50% at 100% 100%, #0a4a33 0%, transparent 60%),
+    #04241b;
+}
+
+.text-gradient-neam {
+  background: linear-gradient(90deg, #4fe8a1, #10c070);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tile-shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.tile-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(255,255,255,.35) 0%, rgba(255,255,255,0) 45%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.glass {
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.12);
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
