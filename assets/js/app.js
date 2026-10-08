@@ -75,12 +75,12 @@
   });
 
   /* ---------- Sortie rapide ---------- */
-  /* 1. Un écran neutre recouvre tout immédiatement (fonctionne partout, même hors ligne
+  /* 1. Une publicité (enseigne fictive) recouvre tout immédiatement (fonctionne partout, même hors ligne
         ou quand la page est intégrée ailleurs) ; 2. on part vers Google si le navigateur le permet. */
   function quickExit() {
     var cover = $("#cover");
     cover.hidden = false;
-    document.title = "Recette du poulet nyembwe";
+    document.title = "Marché Soleil · Promotions de la semaine";
     document.body.classList.add("locked");
     $$(".modal, .drawer").forEach(function (m) { m.hidden = true; });
     // Site ouvert normalement : on part vers Google. Site intégré dans une autre page (comme la démo) :

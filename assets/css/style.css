@@ -627,8 +627,21 @@ body.locked .toast.show { transform: translate(-50%, 0); }
   .iconbtn--exit .exit-short { display: inline; }
   .iconbtn--exit { padding: 0 12px 0 10px; gap: 6px; font-size: .8rem; }
 }
-.cover { position: fixed; inset: 0; z-index: 1000; overflow: auto; background: #fff; color: #222; font-family: Georgia, "Times New Roman", serif; padding: calc(32px + env(safe-area-inset-top, 0px)) 16px 48px; }
-.cover__page { max-width: 640px; margin: 0 auto; line-height: 1.7; }
-.cover__page h1 { font-family: inherit; font-weight: 700; letter-spacing: 0; font-size: 2.2rem; margin: 0 0 12px; }
-.cover__page h2 { font-family: inherit; font-weight: 700; letter-spacing: 0; font-size: 1.25rem; margin: 28px 0 8px; }
-.cover__meta { color: #777; font-size: .9rem; margin: 0 0 8px; }
+.cover { position: fixed; inset: 0; z-index: 1000; overflow: auto; background: #fff7e0; color: #1d1d1b; font-family: "Arial Black", "Helvetica Neue", Arial, sans-serif; }
+.ad { position: relative; max-width: 560px; min-height: 100%; margin: 0 auto; padding: calc(20px + env(safe-area-inset-top, 0px)) 16px 32px; background: #fff7e0; }
+.ad__tag { display: table; margin: 0 0 8px auto; padding: 2px 8px; border-radius: 4px; background: rgba(0, 0, 0, .55); color: #fff; font: 600 .7rem Arial, sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.ad__hero { position: relative; overflow: hidden; padding: 28px 22px 30px; border-radius: 22px; background: linear-gradient(140deg, #ffb703, #fb8500); color: #fff; }
+.ad__brand { display: inline-block; margin: 0 0 22px; padding: 6px 12px; border-radius: 999px; background: #fff; color: #e85d04; font-size: 1rem; }
+.ad__hero h1 { margin: 0 0 10px; font-family: inherit; font-weight: 900; letter-spacing: -.02em; line-height: 1.02; font-size: clamp(2rem, 9vw, 2.9rem); text-shadow: 0 3px 0 rgba(0, 0, 0, .12); }
+.ad__dates { margin: 0; font: 700 .95rem Arial, sans-serif; }
+.ad__burst { position: absolute; right: 14px; top: 16px; display: grid; place-items: center; width: 96px; height: 96px; border-radius: 50%; background: #d00000; color: #fff; text-align: center; font: 700 .8rem/1.1 Arial, sans-serif; transform: rotate(-12deg); box-shadow: 0 6px 18px rgba(0, 0, 0, .2); }
+.ad__burst b { font-family: "Arial Black", Arial, sans-serif; font-size: 1.45rem; }
+.ad__deals { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; }
+.ad__deals li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 16px; background: #fff; box-shadow: 0 2px 8px rgba(0, 0, 0, .06); }
+.ad__item { display: grid; font-size: 1.05rem; line-height: 1.2; }
+.ad__item small { font: 400 .85rem Arial, sans-serif; color: #6b6b6b; }
+.ad__price { text-align: right; color: #d00000; font-size: 1.3rem; white-space: nowrap; line-height: 1.1; }
+.ad__price s { display: block; color: #8a8a8a; font: 400 .8rem Arial, sans-serif; }
+.ad__price em { font-style: normal; font-size: .75rem; }
+.ad__cta { margin: 18px 0 8px; padding: 14px; border-radius: 14px; background: #2b9348; color: #fff; text-align: center; font-size: 1rem; }
+.ad__legal { margin: 0; color: #8a8a8a; font: 400 .72rem Arial, sans-serif; text-align: center; }
