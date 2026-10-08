@@ -1,0 +1,190 @@
+{
+  "_meta": {
+    "referentiel": "pays",
+    "version": "1.0.0",
+    "date": "2026-10-08",
+    "plateforme": "Navigoal",
+    "description": "Pays de la phase de lancement"
+  },
+  "items": [
+    {
+      "id": "GA",
+      "nom": "Gabon",
+      "capitale": "Libreville",
+      "langue_enseignement": [
+        "fr"
+      ],
+      "monnaie": "XAF",
+      "indicatif": "+241",
+      "examens": {
+        "fin_primaire": "CEP",
+        "fin_college": "BEPC",
+        "fin_lycee": "Baccalauréat"
+      },
+      "systeme_superieur": "LMD (Licence-Master-Doctorat) + BTS/DUT/DTS",
+      "organismes": [
+        {
+          "sigle": "MESRS",
+          "nom": "Ministère de l'Enseignement supérieur et de la Recherche scientifique"
+        },
+        {
+          "sigle": "MEN",
+          "nom": "Ministère de l'Éducation nationale"
+        },
+        {
+          "sigle": "ANBG",
+          "nom": "Agence nationale des bourses du Gabon",
+          "site_web": "https://www.anbg-ga.com"
+        },
+        {
+          "sigle": "CNOU",
+          "nom": "Centre national des œuvres universitaires",
+          "role": "logement et restauration étudiants"
+        }
+      ],
+      "paiement_mobile": [
+        "Airtel Money",
+        "Moov Money"
+      ],
+      "villes_universitaires": [
+        "Libreville",
+        "Owendo",
+        "Akanda",
+        "Franceville",
+        "Moanda",
+        "Port-Gentil",
+        "Oyem",
+        "Lambaréné"
+      ]
+    },
+    {
+      "id": "MA",
+      "nom": "Maroc",
+      "capitale": "Rabat",
+      "langue_enseignement": [
+        "ar",
+        "fr",
+        "en"
+      ],
+      "monnaie": "MAD",
+      "indicatif": "+212",
+      "examens": {
+        "fin_primaire": "Certificat d'études primaires",
+        "fin_college": "Examen régional normalisé (3e année collégiale)",
+        "fin_lycee": "Baccalauréat (examen régional en 1ère année bac + examen national en 2ème année bac)"
+      },
+      "systeme_superieur": "LMD + cycles d'ingénieur (CPGE / cycle préparatoire intégré), DUT, BTS, DEUST",
+      "organismes": [
+        {
+          "sigle": "MESRSI",
+          "nom": "Ministère de l'Enseignement supérieur, de la Recherche scientifique et de l'Innovation"
+        },
+        {
+          "sigle": "MENPS",
+          "nom": "Ministère de l'Éducation nationale, du Préscolaire et des Sports"
+        },
+        {
+          "sigle": "ONOUSC",
+          "nom": "Office national des œuvres universitaires sociales et culturelles",
+          "site_web": "https://www.onousc.ma",
+          "role": "bourses, cités universitaires, restauration"
+        },
+        {
+          "sigle": "OFPPT",
+          "nom": "Office de la formation professionnelle et de la promotion du travail",
+          "site_web": "https://www.ofppt.ma"
+        },
+        {
+          "nom": "Plateforme nationale de préinscription",
+          "site_web": "https://www.cursussup.gov.ma"
+        }
+      ],
+      "paiement_mobile": [
+        "Orange Money",
+        "inwi money",
+        "CMI (carte bancaire)",
+        "Cash Plus",
+        "Wafacash"
+      ],
+      "villes_universitaires": [
+        "Rabat",
+        "Salé",
+        "Casablanca",
+        "Mohammédia",
+        "Marrakech",
+        "Fès",
+        "Meknès",
+        "Agadir",
+        "Oujda",
+        "Tanger",
+        "Tétouan",
+        "Kénitra",
+        "El Jadida",
+        "Settat",
+        "Béni Mellal",
+        "Ifrane",
+        "Benguerir"
+      ]
+    },
+    {
+      "id": "SN",
+      "nom": "Sénégal",
+      "capitale": "Dakar",
+      "langue_enseignement": [
+        "fr",
+        "ar"
+      ],
+      "monnaie": "XOF",
+      "indicatif": "+221",
+      "examens": {
+        "fin_primaire": "CFEE",
+        "fin_college": "BFEM",
+        "fin_lycee": "Baccalauréat (Office du Bac)"
+      },
+      "systeme_superieur": "LMD + BTS, DUT, DST, DIC (ingénieur de conception)",
+      "organismes": [
+        {
+          "sigle": "MESRI",
+          "nom": "Ministère de l'Enseignement supérieur, de la Recherche et de l'Innovation"
+        },
+        {
+          "sigle": "MEN",
+          "nom": "Ministère de l'Éducation nationale"
+        },
+        {
+          "nom": "Office du Baccalauréat",
+          "site_web": "https://officedubac.sn"
+        },
+        {
+          "nom": "Campusen (orientation des bacheliers)",
+          "site_web": "https://campusen.sn"
+        },
+        {
+          "sigle": "COUD",
+          "nom": "Centre des œuvres universitaires de Dakar",
+          "role": "logement et restauration UCAD"
+        },
+        {
+          "sigle": "ANAQ-Sup",
+          "nom": "Autorité nationale d'assurance qualité de l'enseignement supérieur"
+        }
+      ],
+      "paiement_mobile": [
+        "Wave",
+        "Orange Money",
+        "Free Money"
+      ],
+      "villes_universitaires": [
+        "Dakar",
+        "Diamniadio",
+        "Thiès",
+        "Saint-Louis",
+        "Ziguinchor",
+        "Bambey",
+        "Kaolack",
+        "Touba",
+        "Matam"
+      ]
+    }
+  ]
+}

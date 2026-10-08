@@ -1,0 +1,2768 @@
+{
+  "_meta": {
+    "referentiel": "metiers",
+    "version": "1.0.0",
+    "date": "2026-10-08",
+    "plateforme": "Navigoal"
+  },
+  "items": [
+    {
+      "id": "met-medecin-generaliste",
+      "nom": "Médecin généraliste",
+      "domaine": "dom-sante",
+      "riasec": [
+        "I",
+        "S"
+      ],
+      "niveau_min": "niv-bac7",
+      "description": "Diagnostique, soigne et suit les patients ; oriente vers les spécialistes.",
+      "missions": [
+        "Consulter et examiner les patients",
+        "Établir un diagnostic et prescrire un traitement",
+        "Mener des actions de prévention"
+      ],
+      "competences": [
+        "cmp-soins-cliniques",
+        "cmp-empathie",
+        "cmp-esprit-analyse",
+        "cmp-ethique"
+      ],
+      "formations": [
+        "frm-doctorat-medecine"
+      ],
+      "secteurs": [
+        "Hôpitaux publics",
+        "Cliniques privées",
+        "ONG de santé"
+      ]
+    },
+    {
+      "id": "met-medecin-specialiste",
+      "nom": "Médecin spécialiste (pédiatre, chirurgien, cardiologue...)",
+      "domaine": "dom-sante",
+      "riasec": [
+        "I",
+        "S"
+      ],
+      "niveau_min": "niv-bac8",
+      "description": "Prend en charge des pathologies relevant d'une spécialité médicale ou chirurgicale.",
+      "missions": [
+        "Réaliser des consultations spécialisées",
+        "Pratiquer des actes techniques ou chirurgicaux",
+        "Former les internes"
+      ],
+      "competences": [
+        "cmp-soins-cliniques",
+        "cmp-gestion-stress",
+        "cmp-rigueur"
+      ],
+      "formations": [
+        "frm-doctorat-medecine"
+      ],
+      "secteurs": [
+        "CHU",
+        "Cliniques"
+      ]
+    },
+    {
+      "id": "met-pharmacien",
+      "nom": "Pharmacien",
+      "domaine": "dom-sante",
+      "riasec": [
+        "I",
+        "C"
+      ],
+      "niveau_min": "niv-bac7",
+      "description": "Délivre et contrôle les médicaments, conseille les patients, peut travailler dans l'industrie.",
+      "missions": [
+        "Contrôler les ordonnances",
+        "Conseiller sur le bon usage du médicament",
+        "Gérer les stocks de l'officine"
+      ],
+      "competences": [
+        "cmp-pharmacologie",
+        "cmp-rigueur",
+        "cmp-techniques-vente"
+      ],
+      "formations": [
+        "frm-doctorat-pharmacie"
+      ],
+      "secteurs": [
+        "Officines",
+        "Hôpitaux",
+        "Industrie pharmaceutique"
+      ]
+    },
+    {
+      "id": "met-chirurgien-dentiste",
+      "nom": "Chirurgien-dentiste",
+      "domaine": "dom-sante",
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "niveau_min": "niv-bac7",
+      "description": "Prévient et soigne les maladies de la bouche et des dents.",
+      "missions": [
+        "Soigner caries et infections",
+        "Poser des prothèses",
+        "Sensibiliser à l'hygiène bucco-dentaire"
+      ],
+      "competences": [
+        "cmp-soins-cliniques",
+        "cmp-rigueur"
+      ],
+      "formations": [
+        "frm-doctorat-chirurgie-dentaire"
+      ],
+      "secteurs": [
+        "Cabinets",
+        "Hôpitaux"
+      ]
+    },
+    {
+      "id": "met-infirmier",
+      "nom": "Infirmier / Infirmière",
+      "domaine": "dom-sante",
+      "riasec": [
+        "S",
+        "R"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Dispense les soins prescrits, surveille l'état des patients et assure leur confort.",
+      "missions": [
+        "Administrer les traitements",
+        "Surveiller les constantes",
+        "Accompagner patients et familles"
+      ],
+      "competences": [
+        "cmp-soins-cliniques",
+        "cmp-empathie",
+        "cmp-gestion-stress",
+        "cmp-premiers-secours"
+      ],
+      "formations": [
+        "frm-licence-sciences-infirmieres"
+      ],
+      "secteurs": [
+        "Hôpitaux",
+        "Centres de santé",
+        "Entreprises"
+      ]
+    },
+    {
+      "id": "met-sage-femme",
+      "nom": "Sage-femme",
+      "domaine": "dom-sante",
+      "riasec": [
+        "S",
+        "I"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Suit la grossesse, réalise les accouchements et accompagne la mère et le nouveau-né.",
+      "missions": [
+        "Suivre les consultations prénatales",
+        "Pratiquer les accouchements",
+        "Conseiller en planification familiale"
+      ],
+      "competences": [
+        "cmp-soins-cliniques",
+        "cmp-empathie",
+        "cmp-gestion-stress"
+      ],
+      "formations": [
+        "frm-licence-sage-femme"
+      ],
+      "secteurs": [
+        "Maternités",
+        "Centres de santé"
+      ]
+    },
+    {
+      "id": "met-technicien-laboratoire",
+      "nom": "Technicien de laboratoire médical",
+      "domaine": "dom-sante",
+      "riasec": [
+        "I",
+        "R"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Réalise les analyses biologiques qui aident au diagnostic.",
+      "missions": [
+        "Effectuer prélèvements et analyses",
+        "Contrôler la qualité des résultats",
+        "Entretenir les équipements"
+      ],
+      "competences": [
+        "cmp-biologie",
+        "cmp-rigueur",
+        "cmp-qhse"
+      ],
+      "formations": [
+        "frm-licence-biologie-medicale",
+        "frm-licence-biologie"
+      ],
+      "secteurs": [
+        "Laboratoires",
+        "Hôpitaux"
+      ]
+    },
+    {
+      "id": "met-kinesitherapeute",
+      "nom": "Kinésithérapeute",
+      "domaine": "dom-sante",
+      "riasec": [
+        "S",
+        "R"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Rééduque les patients par le mouvement et des techniques manuelles.",
+      "missions": [
+        "Évaluer les capacités motrices",
+        "Mettre en place des programmes de rééducation"
+      ],
+      "competences": [
+        "cmp-soins-cliniques",
+        "cmp-condition-physique",
+        "cmp-empathie"
+      ],
+      "formations": [
+        "frm-licence-kinesitherapie"
+      ],
+      "secteurs": [
+        "Cliniques",
+        "Clubs sportifs"
+      ]
+    },
+    {
+      "id": "met-epidemiologiste",
+      "nom": "Épidémiologiste / chargé de santé publique",
+      "domaine": "dom-sante",
+      "riasec": [
+        "I",
+        "S"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Étudie la répartition des maladies et conçoit des programmes de prévention.",
+      "missions": [
+        "Collecter et analyser des données sanitaires",
+        "Piloter des campagnes de prévention"
+      ],
+      "competences": [
+        "cmp-sante-publique",
+        "cmp-statistiques",
+        "cmp-analyse-donnees"
+      ],
+      "formations": [
+        "frm-master-sante-publique",
+        "frm-doctorat-medecine"
+      ],
+      "secteurs": [
+        "Ministères de la santé",
+        "OMS / ONG",
+        "Instituts de recherche"
+      ]
+    },
+    {
+      "id": "met-veterinaire",
+      "nom": "Vétérinaire",
+      "domaine": "dom-agri-env",
+      "riasec": [
+        "I",
+        "R"
+      ],
+      "niveau_min": "niv-bac7",
+      "description": "Soigne les animaux et veille à la sécurité sanitaire des aliments d'origine animale.",
+      "missions": [
+        "Diagnostiquer et soigner les animaux",
+        "Contrôler les élevages et abattoirs"
+      ],
+      "competences": [
+        "cmp-elevage",
+        "cmp-soins-cliniques",
+        "cmp-biologie"
+      ],
+      "formations": [
+        "frm-doctorat-veterinaire"
+      ],
+      "secteurs": [
+        "Cabinets",
+        "Services vétérinaires de l'État",
+        "Élevages"
+      ]
+    },
+    {
+      "id": "met-developpeur-web-mobile",
+      "nom": "Développeur web et mobile",
+      "domaine": "dom-numerique",
+      "riasec": [
+        "I",
+        "R"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Conçoit et développe des sites, applications et API.",
+      "missions": [
+        "Traduire un besoin en fonctionnalités",
+        "Coder, tester et déployer",
+        "Maintenir les applications"
+      ],
+      "competences": [
+        "cmp-programmation",
+        "cmp-developpement-web-mobile",
+        "cmp-bases-de-donnees",
+        "cmp-resolution-problemes"
+      ],
+      "formations": [
+        "frm-bts-informatique-gestion",
+        "frm-licence-genie-logiciel",
+        "frm-licence-informatique",
+        "frm-ts-ofppt-digital"
+      ],
+      "secteurs": [
+        "ESN",
+        "Startups",
+        "Banques",
+        "Opérateurs télécoms"
+      ]
+    },
+    {
+      "id": "met-ingenieur-logiciel",
+      "nom": "Ingénieur logiciel / architecte logiciel",
+      "domaine": "dom-numerique",
+      "riasec": [
+        "I",
+        "C"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Conçoit l'architecture de systèmes logiciels complexes et encadre leur réalisation.",
+      "missions": [
+        "Concevoir l'architecture technique",
+        "Encadrer les développeurs",
+        "Garantir la qualité du code"
+      ],
+      "competences": [
+        "cmp-programmation",
+        "cmp-gestion-projet",
+        "cmp-systemes-cloud"
+      ],
+      "formations": [
+        "frm-cpge-scientifique",
+        "frm-ingenieur-informatique",
+        "frm-master-systemes-information"
+      ],
+      "secteurs": [
+        "ESN",
+        "Grandes entreprises",
+        "Fintech"
+      ]
+    },
+    {
+      "id": "met-data-analyst",
+      "nom": "Data analyst",
+      "domaine": "dom-numerique",
+      "riasec": [
+        "I",
+        "C"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Collecte, nettoie et analyse des données pour éclairer les décisions.",
+      "missions": [
+        "Construire des tableaux de bord",
+        "Analyser les tendances",
+        "Présenter des recommandations"
+      ],
+      "competences": [
+        "cmp-analyse-donnees",
+        "cmp-statistiques",
+        "cmp-bases-de-donnees",
+        "cmp-esprit-analyse"
+      ],
+      "formations": [
+        "frm-licence-informatique",
+        "frm-master-data-science-ia",
+        "frm-ingenieur-statistique",
+        "frm-licence-mathematiques"
+      ],
+      "secteurs": [
+        "Banques",
+        "Télécoms",
+        "Administrations",
+        "E-commerce"
+      ]
+    },
+    {
+      "id": "met-data-scientist",
+      "nom": "Data scientist / ingénieur IA",
+      "domaine": "dom-numerique",
+      "riasec": [
+        "I",
+        "C"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Développe des modèles statistiques et d'intelligence artificielle.",
+      "missions": [
+        "Préparer les jeux de données",
+        "Entraîner et évaluer des modèles",
+        "Industrialiser les modèles"
+      ],
+      "competences": [
+        "cmp-ia-machine-learning",
+        "cmp-programmation",
+        "cmp-statistiques",
+        "cmp-mathematiques"
+      ],
+      "formations": [
+        "frm-master-data-science-ia",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-statistique"
+      ],
+      "secteurs": [
+        "Tech",
+        "Banques",
+        "Assurances",
+        "Recherche"
+      ]
+    },
+    {
+      "id": "met-admin-reseaux",
+      "nom": "Administrateur systèmes et réseaux",
+      "domaine": "dom-numerique",
+      "riasec": [
+        "R",
+        "C"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Installe et maintient l'infrastructure informatique d'une organisation.",
+      "missions": [
+        "Administrer serveurs et réseaux",
+        "Gérer les sauvegardes",
+        "Assurer le support"
+      ],
+      "competences": [
+        "cmp-reseaux-telecoms",
+        "cmp-systemes-cloud",
+        "cmp-cybersecurite"
+      ],
+      "formations": [
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-reseaux-securite"
+      ],
+      "secteurs": [
+        "Toutes entreprises",
+        "Administrations"
+      ]
+    },
+    {
+      "id": "met-expert-cybersecurite",
+      "nom": "Expert en cybersécurité",
+      "domaine": "dom-numerique",
+      "riasec": [
+        "I",
+        "C"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Protège les systèmes d'information contre les attaques.",
+      "missions": [
+        "Auditer la sécurité",
+        "Détecter et répondre aux incidents",
+        "Sensibiliser les utilisateurs"
+      ],
+      "competences": [
+        "cmp-cybersecurite",
+        "cmp-reseaux-telecoms",
+        "cmp-ethique"
+      ],
+      "formations": [
+        "frm-master-cybersecurite",
+        "frm-licence-reseaux-securite",
+        "frm-ingenieur-informatique"
+      ],
+      "secteurs": [
+        "Banques",
+        "États",
+        "Opérateurs",
+        "Cabinets de conseil"
+      ]
+    },
+    {
+      "id": "met-ingenieur-telecoms",
+      "nom": "Ingénieur télécoms",
+      "domaine": "dom-numerique",
+      "riasec": [
+        "I",
+        "R"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Conçoit et optimise les réseaux de télécommunications (mobile, fibre, satellite).",
+      "missions": [
+        "Dimensionner les réseaux",
+        "Superviser le déploiement",
+        "Optimiser la qualité de service"
+      ],
+      "competences": [
+        "cmp-reseaux-telecoms",
+        "cmp-electricite-electronique",
+        "cmp-gestion-projet"
+      ],
+      "formations": [
+        "frm-ingenieur-telecoms",
+        "frm-dut-reseaux-telecoms"
+      ],
+      "secteurs": [
+        "Opérateurs (Airtel, Orange, Maroc Telecom, Sonatel...)",
+        "Équipementiers"
+      ]
+    },
+    {
+      "id": "met-ux-ui-designer",
+      "nom": "UX/UI designer",
+      "domaine": "dom-numerique",
+      "riasec": [
+        "A",
+        "I"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Conçoit des interfaces simples et agréables, centrées sur les utilisateurs.",
+      "missions": [
+        "Mener des tests utilisateurs",
+        "Réaliser maquettes et prototypes",
+        "Définir une charte d'interface"
+      ],
+      "competences": [
+        "cmp-ux-ui",
+        "cmp-design-graphique",
+        "cmp-empathie",
+        "cmp-creativite"
+      ],
+      "formations": [
+        "frm-licence-design-graphique",
+        "frm-licence-genie-logiciel"
+      ],
+      "secteurs": [
+        "Startups",
+        "Agences digitales"
+      ]
+    },
+    {
+      "id": "met-chef-projet-digital",
+      "nom": "Chef de projet digital",
+      "domaine": "dom-numerique",
+      "riasec": [
+        "E",
+        "C"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Pilote des projets numériques de la conception à la mise en ligne.",
+      "missions": [
+        "Recueillir les besoins",
+        "Planifier et coordonner",
+        "Suivre budget et délais"
+      ],
+      "competences": [
+        "cmp-gestion-projet",
+        "cmp-communication-orale",
+        "cmp-leadership"
+      ],
+      "formations": [
+        "frm-master-systemes-information",
+        "frm-ingenieur-informatique",
+        "frm-master-marketing"
+      ],
+      "secteurs": [
+        "Agences",
+        "Entreprises",
+        "Administrations"
+      ]
+    },
+    {
+      "id": "met-technicien-support",
+      "nom": "Technicien support informatique",
+      "domaine": "dom-numerique",
+      "riasec": [
+        "R",
+        "S"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Assiste les utilisateurs et dépanne postes, logiciels et réseaux.",
+      "missions": [
+        "Diagnostiquer les pannes",
+        "Installer matériels et logiciels",
+        "Former les utilisateurs"
+      ],
+      "competences": [
+        "cmp-systemes-cloud",
+        "cmp-communication-orale",
+        "cmp-resolution-problemes"
+      ],
+      "formations": [
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms"
+      ],
+      "secteurs": [
+        "Toutes entreprises"
+      ]
+    },
+    {
+      "id": "met-electricien-electrotechnicien",
+      "nom": "Électrotechnicien",
+      "domaine": "dom-ingenierie",
+      "riasec": [
+        "R",
+        "C"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Installe, contrôle et dépanne les équipements électriques.",
+      "missions": [
+        "Câbler et raccorder",
+        "Diagnostiquer les pannes",
+        "Respecter les normes de sécurité"
+      ],
+      "competences": [
+        "cmp-electricite-electronique",
+        "cmp-qhse"
+      ],
+      "formations": [
+        "frm-bts-electrotechnique"
+      ],
+      "secteurs": [
+        "Industrie",
+        "BTP",
+        "Sociétés d'électricité (SEEG, ONEE, Senelec)"
+      ]
+    },
+    {
+      "id": "met-technicien-maintenance",
+      "nom": "Technicien de maintenance industrielle",
+      "domaine": "dom-ingenierie",
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Assure le bon fonctionnement des équipements de production.",
+      "missions": [
+        "Réaliser la maintenance préventive",
+        "Intervenir en dépannage",
+        "Proposer des améliorations"
+      ],
+      "competences": [
+        "cmp-mecanique",
+        "cmp-electricite-electronique",
+        "cmp-automatisme"
+      ],
+      "formations": [
+        "frm-bts-maintenance-industrielle",
+        "frm-ts-froid-climatisation"
+      ],
+      "secteurs": [
+        "Usines",
+        "Mines",
+        "Agro-industrie"
+      ]
+    },
+    {
+      "id": "met-ingenieur-electricien",
+      "nom": "Ingénieur électricien / énergéticien",
+      "domaine": "dom-ingenierie",
+      "riasec": [
+        "I",
+        "R"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Conçoit des installations électriques et des systèmes de production d'énergie.",
+      "missions": [
+        "Concevoir des réseaux électriques",
+        "Piloter des projets énergétiques",
+        "Optimiser la consommation"
+      ],
+      "competences": [
+        "cmp-electricite-electronique",
+        "cmp-energies-renouvelables",
+        "cmp-gestion-projet"
+      ],
+      "formations": [
+        "frm-ingenieur-genie-electrique",
+        "frm-master-energies-renouvelables",
+        "frm-licence-genie-electrique"
+      ],
+      "secteurs": [
+        "Énergie",
+        "Industrie",
+        "BTP"
+      ]
+    },
+    {
+      "id": "met-ingenieur-mecanique",
+      "nom": "Ingénieur mécanique",
+      "domaine": "dom-ingenierie",
+      "riasec": [
+        "I",
+        "R"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Conçoit et améliore des machines, véhicules et systèmes mécaniques.",
+      "missions": [
+        "Concevoir en CAO",
+        "Dimensionner les pièces",
+        "Suivre la production"
+      ],
+      "competences": [
+        "cmp-mecanique",
+        "cmp-dessin-technique-cao",
+        "cmp-mathematiques"
+      ],
+      "formations": [
+        "frm-cpge-scientifique",
+        "frm-ingenieur-genie-mecanique",
+        "frm-licence-genie-mecanique"
+      ],
+      "secteurs": [
+        "Automobile",
+        "Aéronautique",
+        "Industrie"
+      ]
+    },
+    {
+      "id": "met-ingenieur-genie-industriel",
+      "nom": "Ingénieur génie industriel / méthodes",
+      "domaine": "dom-ingenierie",
+      "riasec": [
+        "I",
+        "C"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Optimise les procédés de production, la qualité et la logistique.",
+      "missions": [
+        "Analyser les flux",
+        "Améliorer la productivité",
+        "Déployer le lean"
+      ],
+      "competences": [
+        "cmp-qhse",
+        "cmp-logistique",
+        "cmp-statistiques"
+      ],
+      "formations": [
+        "frm-ingenieur-genie-industriel"
+      ],
+      "secteurs": [
+        "Industrie",
+        "Logistique",
+        "Conseil"
+      ]
+    },
+    {
+      "id": "met-ingenieur-procedes",
+      "nom": "Ingénieur procédés / chimiste",
+      "domaine": "dom-ingenierie",
+      "riasec": [
+        "I",
+        "R"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Conçoit et pilote des procédés de transformation chimique.",
+      "missions": [
+        "Mettre au point les procédés",
+        "Contrôler la qualité",
+        "Assurer la sécurité industrielle"
+      ],
+      "competences": [
+        "cmp-physique-chimie",
+        "cmp-qhse"
+      ],
+      "formations": [
+        "frm-ingenieur-genie-chimique"
+      ],
+      "secteurs": [
+        "Chimie (OCP...)",
+        "Pétrole",
+        "Agroalimentaire"
+      ]
+    },
+    {
+      "id": "met-automaticien",
+      "nom": "Automaticien / roboticien",
+      "domaine": "dom-ingenierie",
+      "riasec": [
+        "I",
+        "R"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Programme et règle les systèmes automatisés et robots.",
+      "missions": [
+        "Programmer les automates",
+        "Mettre en service les lignes",
+        "Dépanner"
+      ],
+      "competences": [
+        "cmp-automatisme",
+        "cmp-electricite-electronique",
+        "cmp-programmation"
+      ],
+      "formations": [
+        "frm-licence-genie-electrique",
+        "frm-ingenieur-genie-electrique"
+      ],
+      "secteurs": [
+        "Industrie automobile",
+        "Agroalimentaire"
+      ]
+    },
+    {
+      "id": "met-mecanicien-auto",
+      "nom": "Mécanicien / technicien automobile",
+      "domaine": "dom-ingenierie",
+      "riasec": [
+        "R"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Entretient et répare les véhicules.",
+      "missions": [
+        "Diagnostiquer les pannes",
+        "Réparer moteurs et systèmes électroniques"
+      ],
+      "competences": [
+        "cmp-mecanique",
+        "cmp-electricite-electronique"
+      ],
+      "formations": [
+        "frm-ts-mecanique-auto"
+      ],
+      "secteurs": [
+        "Garages",
+        "Concessionnaires",
+        "Flottes"
+      ]
+    },
+    {
+      "id": "met-ingenieur-textile",
+      "nom": "Ingénieur / technicien textile et habillement",
+      "domaine": "dom-ingenierie",
+      "riasec": [
+        "R",
+        "A"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Organise la production textile et de vêtements.",
+      "missions": [
+        "Suivre la production",
+        "Contrôler la qualité",
+        "Développer des collections"
+      ],
+      "competences": [
+        "cmp-mecanique",
+        "cmp-qhse",
+        "cmp-design-graphique"
+      ],
+      "formations": [
+        "frm-licence-textile"
+      ],
+      "secteurs": [
+        "Industrie textile",
+        "Mode"
+      ]
+    },
+    {
+      "id": "met-ingenieur-genie-civil",
+      "nom": "Ingénieur génie civil",
+      "domaine": "dom-btp",
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Conçoit et supervise la construction de bâtiments, routes et ouvrages d'art.",
+      "missions": [
+        "Réaliser les études techniques",
+        "Diriger les chantiers",
+        "Contrôler coûts et délais"
+      ],
+      "competences": [
+        "cmp-calcul-structures",
+        "cmp-conduite-chantier",
+        "cmp-gestion-projet"
+      ],
+      "formations": [
+        "frm-cpge-scientifique",
+        "frm-ingenieur-genie-civil",
+        "frm-licence-genie-civil"
+      ],
+      "secteurs": [
+        "Entreprises de BTP",
+        "Bureaux d'études",
+        "Ministères des travaux publics"
+      ]
+    },
+    {
+      "id": "met-conducteur-travaux",
+      "nom": "Conducteur de travaux",
+      "domaine": "dom-btp",
+      "riasec": [
+        "R",
+        "E"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Organise et suit l'exécution d'un chantier.",
+      "missions": [
+        "Planifier les travaux",
+        "Encadrer les équipes",
+        "Gérer les approvisionnements"
+      ],
+      "competences": [
+        "cmp-conduite-chantier",
+        "cmp-leadership",
+        "cmp-organisation"
+      ],
+      "formations": [
+        "frm-bts-batiment",
+        "frm-licence-genie-civil"
+      ],
+      "secteurs": [
+        "BTP"
+      ]
+    },
+    {
+      "id": "met-architecte",
+      "nom": "Architecte",
+      "domaine": "dom-btp",
+      "riasec": [
+        "A",
+        "I"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Conçoit des bâtiments fonctionnels et esthétiques et suit leur réalisation.",
+      "missions": [
+        "Concevoir les plans",
+        "Déposer les permis",
+        "Suivre le chantier"
+      ],
+      "competences": [
+        "cmp-dessin-technique-cao",
+        "cmp-creativite",
+        "cmp-communication-orale"
+      ],
+      "formations": [
+        "frm-architecture"
+      ],
+      "secteurs": [
+        "Cabinets d'architecture",
+        "Promoteurs",
+        "Collectivités"
+      ]
+    },
+    {
+      "id": "met-urbaniste",
+      "nom": "Urbaniste",
+      "domaine": "dom-btp",
+      "riasec": [
+        "I",
+        "A"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Planifie l'aménagement des villes et territoires.",
+      "missions": [
+        "Élaborer des plans d'urbanisme",
+        "Concerter les acteurs"
+      ],
+      "competences": [
+        "cmp-topographie",
+        "cmp-politiques-publiques",
+        "cmp-gestion-environnement"
+      ],
+      "formations": [
+        "frm-master-urbanisme",
+        "frm-architecture"
+      ],
+      "secteurs": [
+        "Collectivités",
+        "Agences urbaines",
+        "Bureaux d'études"
+      ]
+    },
+    {
+      "id": "met-geometre-topographe",
+      "nom": "Géomètre-topographe",
+      "domaine": "dom-btp",
+      "riasec": [
+        "R",
+        "C"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Mesure et cartographie les terrains.",
+      "missions": [
+        "Réaliser des relevés",
+        "Produire des plans et cartes SIG"
+      ],
+      "competences": [
+        "cmp-topographie",
+        "cmp-dessin-technique-cao",
+        "cmp-rigueur"
+      ],
+      "formations": [
+        "frm-bts-topographie"
+      ],
+      "secteurs": [
+        "Cadastre",
+        "BTP",
+        "Mines"
+      ]
+    },
+    {
+      "id": "met-dessinateur-projeteur",
+      "nom": "Dessinateur-projeteur (DAO/BIM)",
+      "domaine": "dom-btp",
+      "riasec": [
+        "R",
+        "A"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Réalise les plans techniques des projets de construction ou industriels.",
+      "missions": [
+        "Produire les plans 2D/3D",
+        "Mettre à jour la maquette BIM"
+      ],
+      "competences": [
+        "cmp-dessin-technique-cao",
+        "cmp-rigueur"
+      ],
+      "formations": [
+        "frm-bts-batiment",
+        "frm-licence-genie-mecanique"
+      ],
+      "secteurs": [
+        "Bureaux d'études"
+      ]
+    },
+    {
+      "id": "met-geologue",
+      "nom": "Géologue",
+      "domaine": "dom-energie-mines",
+      "riasec": [
+        "I",
+        "R"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Étudie le sous-sol pour rechercher des ressources ou sécuriser des projets.",
+      "missions": [
+        "Réaliser des campagnes de terrain",
+        "Interpréter les données géologiques"
+      ],
+      "competences": [
+        "cmp-geosciences",
+        "cmp-methodologie-recherche"
+      ],
+      "formations": [
+        "frm-licence-geologie",
+        "frm-ingenieur-mines"
+      ],
+      "secteurs": [
+        "Compagnies minières (Comilog, OCP...)",
+        "Pétrole",
+        "Services géologiques"
+      ]
+    },
+    {
+      "id": "met-ingenieur-mines",
+      "nom": "Ingénieur des mines",
+      "domaine": "dom-energie-mines",
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Planifie et dirige l'exploitation des gisements miniers.",
+      "missions": [
+        "Concevoir le plan d'exploitation",
+        "Gérer la sécurité",
+        "Optimiser la production"
+      ],
+      "competences": [
+        "cmp-geosciences",
+        "cmp-qhse",
+        "cmp-gestion-projet"
+      ],
+      "formations": [
+        "frm-ingenieur-mines"
+      ],
+      "secteurs": [
+        "Manganèse, phosphate, or, fer"
+      ]
+    },
+    {
+      "id": "met-ingenieur-petrolier",
+      "nom": "Ingénieur pétrolier / gazier",
+      "domaine": "dom-energie-mines",
+      "riasec": [
+        "I",
+        "R"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Intervient dans l'exploration, le forage et la production d'hydrocarbures.",
+      "missions": [
+        "Piloter des opérations de forage",
+        "Optimiser la production des puits"
+      ],
+      "competences": [
+        "cmp-geosciences",
+        "cmp-qhse",
+        "cmp-physique-chimie"
+      ],
+      "formations": [
+        "frm-ingenieur-petrole-gaz"
+      ],
+      "secteurs": [
+        "Compagnies pétrolières",
+        "Parapétrolier"
+      ]
+    },
+    {
+      "id": "met-technicien-energies-renouvelables",
+      "nom": "Technicien en énergies renouvelables (solaire, éolien)",
+      "domaine": "dom-energie-mines",
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Installe et entretient des centrales solaires et éoliennes.",
+      "missions": [
+        "Dimensionner une installation",
+        "Installer et mettre en service",
+        "Assurer la maintenance"
+      ],
+      "competences": [
+        "cmp-energies-renouvelables",
+        "cmp-electricite-electronique"
+      ],
+      "formations": [
+        "frm-bts-electrotechnique",
+        "frm-licence-genie-electrique"
+      ],
+      "secteurs": [
+        "Énergie (MASEN, Senelec...)",
+        "Installateurs"
+      ]
+    },
+    {
+      "id": "met-ingenieur-agronome",
+      "nom": "Ingénieur agronome",
+      "domaine": "dom-agri-env",
+      "riasec": [
+        "I",
+        "R"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Améliore la production agricole et accompagne les exploitants.",
+      "missions": [
+        "Conseiller les producteurs",
+        "Conduire des essais",
+        "Gérer des projets agricoles"
+      ],
+      "competences": [
+        "cmp-agronomie",
+        "cmp-elevage",
+        "cmp-gestion-projet"
+      ],
+      "formations": [
+        "frm-ingenieur-agronome",
+        "frm-licence-agronomie"
+      ],
+      "secteurs": [
+        "Agro-industrie",
+        "Ministères de l'agriculture",
+        "ONG"
+      ]
+    },
+    {
+      "id": "met-technicien-agricole",
+      "nom": "Technicien agricole / conseiller agricole",
+      "domaine": "dom-agri-env",
+      "riasec": [
+        "R",
+        "S"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Appuie techniquement les agriculteurs et éleveurs.",
+      "missions": [
+        "Former aux bonnes pratiques",
+        "Suivre les cultures et élevages"
+      ],
+      "competences": [
+        "cmp-agronomie",
+        "cmp-elevage",
+        "cmp-pedagogie"
+      ],
+      "formations": [
+        "frm-bts-agriculture"
+      ],
+      "secteurs": [
+        "Coopératives",
+        "Projets agricoles"
+      ]
+    },
+    {
+      "id": "met-entrepreneur-agricole",
+      "nom": "Entrepreneur agricole / agripreneur",
+      "domaine": "dom-agri-env",
+      "riasec": [
+        "E",
+        "R"
+      ],
+      "niveau_min": "niv-bac",
+      "description": "Crée et gère une exploitation ou une entreprise agroalimentaire.",
+      "missions": [
+        "Produire et transformer",
+        "Commercialiser",
+        "Gérer les finances"
+      ],
+      "competences": [
+        "cmp-agronomie",
+        "cmp-esprit-entrepreneurial",
+        "cmp-comptabilite"
+      ],
+      "formations": [
+        "frm-bts-agriculture",
+        "frm-licence-agronomie"
+      ],
+      "secteurs": [
+        "Auto-entreprise"
+      ]
+    },
+    {
+      "id": "met-ingenieur-eaux-forets",
+      "nom": "Ingénieur des eaux et forêts",
+      "domaine": "dom-agri-env",
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Gère durablement les forêts, la faune et les aires protégées.",
+      "missions": [
+        "Inventorier les ressources forestières",
+        "Lutter contre l'exploitation illégale",
+        "Piloter des plans d'aménagement"
+      ],
+      "competences": [
+        "cmp-gestion-environnement",
+        "cmp-topographie",
+        "cmp-biologie"
+      ],
+      "formations": [
+        "frm-ingenieur-eaux-forets"
+      ],
+      "secteurs": [
+        "Administrations des forêts",
+        "ANPN",
+        "Exploitants forestiers"
+      ]
+    },
+    {
+      "id": "met-charge-environnement",
+      "nom": "Chargé d'études environnement / RSE",
+      "domaine": "dom-agri-env",
+      "riasec": [
+        "I",
+        "S"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Évalue l'impact environnemental des projets et pilote les démarches durables.",
+      "missions": [
+        "Réaliser des études d'impact",
+        "Mettre en œuvre la politique RSE"
+      ],
+      "competences": [
+        "cmp-gestion-environnement",
+        "cmp-qhse",
+        "cmp-communication-ecrite"
+      ],
+      "formations": [
+        "frm-master-environnement"
+      ],
+      "secteurs": [
+        "Bureaux d'études",
+        "Mines",
+        "Bailleurs de fonds"
+      ]
+    },
+    {
+      "id": "met-technicien-peche",
+      "nom": "Technicien des pêches et de l'aquaculture",
+      "domaine": "dom-agri-env",
+      "riasec": [
+        "R"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Accompagne la gestion durable des ressources halieutiques.",
+      "missions": [
+        "Suivre les stocks",
+        "Encadrer les pêcheurs",
+        "Développer l'aquaculture"
+      ],
+      "competences": [
+        "cmp-gestion-environnement",
+        "cmp-biologie"
+      ],
+      "formations": [
+        "frm-licence-sciences-mer"
+      ],
+      "secteurs": [
+        "Ports",
+        "Administrations des pêches"
+      ]
+    },
+    {
+      "id": "met-statisticien",
+      "nom": "Statisticien / économiste",
+      "domaine": "dom-sciences",
+      "riasec": [
+        "I",
+        "C"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Produit et analyse des statistiques économiques et sociales.",
+      "missions": [
+        "Concevoir des enquêtes",
+        "Modéliser",
+        "Publier des analyses"
+      ],
+      "competences": [
+        "cmp-statistiques",
+        "cmp-analyse-donnees",
+        "cmp-mathematiques"
+      ],
+      "formations": [
+        "frm-ingenieur-statistique",
+        "frm-licence-mathematiques"
+      ],
+      "secteurs": [
+        "Instituts de statistique (DGS, HCP, ANSD)",
+        "Banques centrales",
+        "Organisations internationales"
+      ]
+    },
+    {
+      "id": "met-chercheur",
+      "nom": "Enseignant-chercheur / chercheur",
+      "domaine": "dom-sciences",
+      "riasec": [
+        "I",
+        "A"
+      ],
+      "niveau_min": "niv-bac8",
+      "description": "Produit des connaissances scientifiques et les enseigne à l'université.",
+      "missions": [
+        "Conduire des recherches",
+        "Publier",
+        "Enseigner et encadrer"
+      ],
+      "competences": [
+        "cmp-methodologie-recherche",
+        "cmp-pedagogie",
+        "cmp-communication-ecrite"
+      ],
+      "formations": [
+        "frm-doctorat-recherche",
+        "frm-licence-physique-chimie",
+        "frm-licence-biologie",
+        "frm-licence-histoire-geographie"
+      ],
+      "secteurs": [
+        "Universités",
+        "Centres de recherche"
+      ]
+    },
+    {
+      "id": "met-actuaire",
+      "nom": "Actuaire",
+      "domaine": "dom-finance",
+      "riasec": [
+        "I",
+        "C"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Évalue les risques financiers pour les assurances et la protection sociale.",
+      "missions": [
+        "Modéliser les risques",
+        "Calculer les tarifs et provisions"
+      ],
+      "competences": [
+        "cmp-mathematiques",
+        "cmp-statistiques",
+        "cmp-analyse-financiere"
+      ],
+      "formations": [
+        "frm-ingenieur-statistique"
+      ],
+      "secteurs": [
+        "Assurances",
+        "Caisses de retraite"
+      ]
+    },
+    {
+      "id": "met-comptable",
+      "nom": "Comptable",
+      "domaine": "dom-finance",
+      "riasec": [
+        "C",
+        "I"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Enregistre les opérations et établit les états financiers.",
+      "missions": [
+        "Tenir la comptabilité",
+        "Préparer les déclarations fiscales",
+        "Établir les bilans"
+      ],
+      "competences": [
+        "cmp-comptabilite",
+        "cmp-fiscalite",
+        "cmp-rigueur",
+        "cmp-bureautique"
+      ],
+      "formations": [
+        "frm-bts-comptabilite",
+        "frm-licence-gestion"
+      ],
+      "secteurs": [
+        "Entreprises",
+        "Cabinets comptables",
+        "Administrations"
+      ]
+    },
+    {
+      "id": "met-expert-comptable",
+      "nom": "Expert-comptable / commissaire aux comptes",
+      "domaine": "dom-finance",
+      "riasec": [
+        "C",
+        "E"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Certifie les comptes et conseille les dirigeants.",
+      "missions": [
+        "Réviser et certifier les comptes",
+        "Conseiller en fiscalité et gestion"
+      ],
+      "competences": [
+        "cmp-comptabilite",
+        "cmp-audit-controle",
+        "cmp-fiscalite",
+        "cmp-ethique"
+      ],
+      "formations": [
+        "frm-master-finance-audit"
+      ],
+      "secteurs": [
+        "Cabinets",
+        "Big Four"
+      ]
+    },
+    {
+      "id": "met-auditeur",
+      "nom": "Auditeur",
+      "domaine": "dom-finance",
+      "riasec": [
+        "I",
+        "C"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Vérifie la fiabilité des comptes et des procédures.",
+      "missions": [
+        "Planifier les missions d'audit",
+        "Analyser les risques",
+        "Rédiger des recommandations"
+      ],
+      "competences": [
+        "cmp-audit-controle",
+        "cmp-esprit-analyse",
+        "cmp-communication-ecrite"
+      ],
+      "formations": [
+        "frm-master-finance-audit"
+      ],
+      "secteurs": [
+        "Cabinets d'audit",
+        "Banques",
+        "Cour des comptes"
+      ]
+    },
+    {
+      "id": "met-controleur-gestion",
+      "nom": "Contrôleur de gestion",
+      "domaine": "dom-finance",
+      "riasec": [
+        "C",
+        "I"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Pilote la performance financière et construit les budgets.",
+      "missions": [
+        "Élaborer les budgets",
+        "Analyser les écarts",
+        "Produire les tableaux de bord"
+      ],
+      "competences": [
+        "cmp-analyse-financiere",
+        "cmp-comptabilite",
+        "cmp-analyse-donnees"
+      ],
+      "formations": [
+        "frm-master-finance-audit",
+        "frm-licence-gestion"
+      ],
+      "secteurs": [
+        "Entreprises"
+      ]
+    },
+    {
+      "id": "met-analyste-financier",
+      "nom": "Analyste financier",
+      "domaine": "dom-finance",
+      "riasec": [
+        "I",
+        "C"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Évalue la santé financière des entreprises et les opportunités d'investissement.",
+      "missions": [
+        "Analyser les états financiers",
+        "Valoriser les entreprises",
+        "Recommander des investissements"
+      ],
+      "competences": [
+        "cmp-analyse-financiere",
+        "cmp-statistiques",
+        "cmp-anglais"
+      ],
+      "formations": [
+        "frm-master-finance-audit",
+        "frm-licence-banque-finance"
+      ],
+      "secteurs": [
+        "Banques",
+        "Fonds d'investissement",
+        "Bourses (BRVM, Bourse de Casablanca, BVMAC)"
+      ]
+    },
+    {
+      "id": "met-charge-clientele-banque",
+      "nom": "Chargé de clientèle bancaire",
+      "domaine": "dom-finance",
+      "riasec": [
+        "E",
+        "S"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Conseille et accompagne un portefeuille de clients particuliers ou entreprises.",
+      "missions": [
+        "Ouvrir et suivre les comptes",
+        "Proposer crédits et placements"
+      ],
+      "competences": [
+        "cmp-techniques-vente",
+        "cmp-analyse-financiere",
+        "cmp-communication-orale"
+      ],
+      "formations": [
+        "frm-licence-banque-finance",
+        "frm-bts-commerce"
+      ],
+      "secteurs": [
+        "Banques",
+        "Microfinance",
+        "Assurances"
+      ]
+    },
+    {
+      "id": "met-agent-mobile-money",
+      "nom": "Responsable / agent de services financiers mobiles",
+      "domaine": "dom-finance",
+      "riasec": [
+        "E",
+        "C"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Développe et gère les réseaux de paiement mobile.",
+      "missions": [
+        "Animer un réseau d'agents",
+        "Assurer la conformité",
+        "Développer les usages"
+      ],
+      "competences": [
+        "cmp-techniques-vente",
+        "cmp-organisation"
+      ],
+      "formations": [
+        "frm-bts-commerce",
+        "frm-licence-banque-finance"
+      ],
+      "secteurs": [
+        "Opérateurs mobile money",
+        "Fintech"
+      ]
+    },
+    {
+      "id": "met-chef-projet",
+      "nom": "Chef de projet",
+      "domaine": "dom-gestion",
+      "riasec": [
+        "E",
+        "C"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Coordonne un projet en respectant objectifs, budget et délais.",
+      "missions": [
+        "Planifier",
+        "Coordonner les parties prenantes",
+        "Piloter les risques"
+      ],
+      "competences": [
+        "cmp-gestion-projet",
+        "cmp-leadership",
+        "cmp-organisation"
+      ],
+      "formations": [
+        "frm-master-management",
+        "frm-mba",
+        "frm-ingenieur-genie-industriel"
+      ],
+      "secteurs": [
+        "Toutes organisations",
+        "ONG",
+        "Bailleurs"
+      ]
+    },
+    {
+      "id": "met-responsable-rh",
+      "nom": "Responsable des ressources humaines",
+      "domaine": "dom-gestion",
+      "riasec": [
+        "S",
+        "E"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Recrute, forme et accompagne les collaborateurs.",
+      "missions": [
+        "Recruter",
+        "Gérer la paie et l'administration du personnel",
+        "Développer les compétences"
+      ],
+      "competences": [
+        "cmp-gestion-rh",
+        "cmp-empathie",
+        "cmp-droit-affaires"
+      ],
+      "formations": [
+        "frm-master-grh",
+        "frm-licence-grh"
+      ],
+      "secteurs": [
+        "Entreprises",
+        "Administrations"
+      ]
+    },
+    {
+      "id": "met-assistant-direction",
+      "nom": "Assistant(e) de direction",
+      "domaine": "dom-gestion",
+      "riasec": [
+        "C",
+        "S"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Organise l'agenda, la communication et les dossiers d'une direction.",
+      "missions": [
+        "Gérer agendas et courriers",
+        "Organiser réunions et déplacements"
+      ],
+      "competences": [
+        "cmp-organisation",
+        "cmp-bureautique",
+        "cmp-communication-ecrite"
+      ],
+      "formations": [
+        "frm-bts-assistant-direction"
+      ],
+      "secteurs": [
+        "Toutes organisations"
+      ]
+    },
+    {
+      "id": "met-entrepreneur",
+      "nom": "Entrepreneur / créateur d'entreprise",
+      "domaine": "dom-gestion",
+      "riasec": [
+        "E",
+        "A"
+      ],
+      "niveau_min": "niv-bac",
+      "description": "Crée et développe sa propre entreprise.",
+      "missions": [
+        "Identifier une opportunité",
+        "Construire un business model",
+        "Lever des fonds et recruter"
+      ],
+      "competences": [
+        "cmp-esprit-entrepreneurial",
+        "cmp-leadership",
+        "cmp-negociation",
+        "cmp-strategie"
+      ],
+      "formations": [
+        "frm-bachelor-business",
+        "frm-master-management",
+        "frm-mba"
+      ],
+      "secteurs": [
+        "Incubateurs",
+        "Startups",
+        "PME"
+      ]
+    },
+    {
+      "id": "met-consultant",
+      "nom": "Consultant en management / stratégie",
+      "domaine": "dom-gestion",
+      "riasec": [
+        "E",
+        "I"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Accompagne les organisations dans leurs transformations.",
+      "missions": [
+        "Diagnostiquer",
+        "Recommander",
+        "Accompagner la mise en œuvre"
+      ],
+      "competences": [
+        "cmp-strategie",
+        "cmp-esprit-analyse",
+        "cmp-communication-orale"
+      ],
+      "formations": [
+        "frm-master-management",
+        "frm-mba"
+      ],
+      "secteurs": [
+        "Cabinets de conseil"
+      ]
+    },
+    {
+      "id": "met-commercial",
+      "nom": "Commercial / technico-commercial",
+      "domaine": "dom-commerce",
+      "riasec": [
+        "E",
+        "S"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Prospecte, négocie et fidélise des clients.",
+      "missions": [
+        "Prospecter",
+        "Négocier",
+        "Suivre son portefeuille"
+      ],
+      "competences": [
+        "cmp-techniques-vente",
+        "cmp-negociation",
+        "cmp-communication-orale"
+      ],
+      "formations": [
+        "frm-bts-commerce",
+        "frm-bachelor-business"
+      ],
+      "secteurs": [
+        "Distribution",
+        "Industrie",
+        "Services"
+      ]
+    },
+    {
+      "id": "met-responsable-marketing",
+      "nom": "Responsable marketing",
+      "domaine": "dom-commerce",
+      "riasec": [
+        "E",
+        "A"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Définit la stratégie de marque et de produit.",
+      "missions": [
+        "Étudier le marché",
+        "Lancer des produits",
+        "Piloter les campagnes"
+      ],
+      "competences": [
+        "cmp-marketing",
+        "cmp-strategie",
+        "cmp-creativite"
+      ],
+      "formations": [
+        "frm-master-marketing",
+        "frm-master-management"
+      ],
+      "secteurs": [
+        "Biens de consommation",
+        "Télécoms",
+        "Banques"
+      ]
+    },
+    {
+      "id": "met-community-manager",
+      "nom": "Community manager / spécialiste marketing digital",
+      "domaine": "dom-commerce",
+      "riasec": [
+        "A",
+        "E"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Anime les communautés en ligne et pilote les campagnes digitales.",
+      "missions": [
+        "Créer des contenus",
+        "Animer les réseaux sociaux",
+        "Analyser les performances"
+      ],
+      "competences": [
+        "cmp-marketing-digital",
+        "cmp-communication-ecrite",
+        "cmp-creativite"
+      ],
+      "formations": [
+        "frm-licence-communication",
+        "frm-master-marketing"
+      ],
+      "secteurs": [
+        "Agences",
+        "Marques",
+        "Médias"
+      ]
+    },
+    {
+      "id": "met-gestionnaire-ecommerce",
+      "nom": "E-commerçant / gestionnaire e-commerce",
+      "domaine": "dom-commerce",
+      "riasec": [
+        "E",
+        "C"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Gère une boutique en ligne et ses ventes.",
+      "missions": [
+        "Gérer le catalogue",
+        "Piloter la logistique et le paiement",
+        "Animer les ventes"
+      ],
+      "competences": [
+        "cmp-marketing-digital",
+        "cmp-logistique",
+        "cmp-esprit-entrepreneurial"
+      ],
+      "formations": [
+        "frm-bts-commerce",
+        "frm-bachelor-business"
+      ],
+      "secteurs": [
+        "E-commerce"
+      ]
+    },
+    {
+      "id": "met-logisticien",
+      "nom": "Logisticien / responsable supply chain",
+      "domaine": "dom-transport-logistique",
+      "riasec": [
+        "C",
+        "E"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Organise les flux de marchandises de l'approvisionnement à la livraison.",
+      "missions": [
+        "Planifier les approvisionnements",
+        "Gérer les entrepôts",
+        "Optimiser les transports"
+      ],
+      "competences": [
+        "cmp-logistique",
+        "cmp-organisation",
+        "cmp-analyse-donnees"
+      ],
+      "formations": [
+        "frm-licence-logistique",
+        "frm-master-logistique"
+      ],
+      "secteurs": [
+        "Ports (Owendo, Tanger Med, Dakar)",
+        "Transitaires",
+        "Industrie"
+      ]
+    },
+    {
+      "id": "met-transitaire",
+      "nom": "Déclarant en douane / transitaire",
+      "domaine": "dom-transport-logistique",
+      "riasec": [
+        "C",
+        "E"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Accomplit les formalités de dédouanement des marchandises.",
+      "missions": [
+        "Établir les déclarations",
+        "Calculer droits et taxes"
+      ],
+      "competences": [
+        "cmp-logistique",
+        "cmp-rigueur",
+        "cmp-droit-affaires"
+      ],
+      "formations": [
+        "frm-licence-logistique",
+        "frm-bts-commerce"
+      ],
+      "secteurs": [
+        "Transitaires",
+        "Douanes"
+      ]
+    },
+    {
+      "id": "met-pilote-ligne",
+      "nom": "Pilote de ligne",
+      "domaine": "dom-transport-logistique",
+      "riasec": [
+        "R",
+        "E"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Assure le pilotage d'avions commerciaux.",
+      "missions": [
+        "Préparer le vol",
+        "Piloter",
+        "Garantir la sécurité des passagers"
+      ],
+      "competences": [
+        "cmp-gestion-stress",
+        "cmp-anglais",
+        "cmp-mathematiques"
+      ],
+      "formations": [
+        "frm-aviation-civile"
+      ],
+      "secteurs": [
+        "Compagnies aériennes"
+      ]
+    },
+    {
+      "id": "met-controleur-aerien",
+      "nom": "Contrôleur aérien",
+      "domaine": "dom-transport-logistique",
+      "riasec": [
+        "R",
+        "C"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Guide les avions et garantit la sécurité du trafic aérien.",
+      "missions": [
+        "Gérer le trafic",
+        "Coordonner avec les pilotes"
+      ],
+      "competences": [
+        "cmp-gestion-stress",
+        "cmp-anglais",
+        "cmp-rigueur"
+      ],
+      "formations": [
+        "frm-aviation-civile"
+      ],
+      "secteurs": [
+        "ASECNA",
+        "ONDA"
+      ]
+    },
+    {
+      "id": "met-technicien-maintenance-aero",
+      "nom": "Technicien de maintenance aéronautique",
+      "domaine": "dom-transport-logistique",
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Entretient et répare les aéronefs.",
+      "missions": [
+        "Inspecter les appareils",
+        "Remplacer les pièces",
+        "Documenter les interventions"
+      ],
+      "competences": [
+        "cmp-mecanique",
+        "cmp-electricite-electronique",
+        "cmp-rigueur"
+      ],
+      "formations": [
+        "frm-aviation-civile"
+      ],
+      "secteurs": [
+        "Compagnies aériennes",
+        "Industrie aéronautique"
+      ]
+    },
+    {
+      "id": "met-avocat",
+      "nom": "Avocat",
+      "domaine": "dom-droit",
+      "riasec": [
+        "E",
+        "S"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Conseille et défend ses clients devant les juridictions.",
+      "missions": [
+        "Conseiller",
+        "Rédiger actes et plaidoiries",
+        "Plaider"
+      ],
+      "competences": [
+        "cmp-procedures-judiciaires",
+        "cmp-communication-orale",
+        "cmp-negociation",
+        "cmp-ethique"
+      ],
+      "formations": [
+        "frm-licence-droit-prive",
+        "frm-master-droit-affaires"
+      ],
+      "secteurs": [
+        "Cabinets d'avocats"
+      ]
+    },
+    {
+      "id": "met-magistrat",
+      "nom": "Magistrat",
+      "domaine": "dom-droit",
+      "riasec": [
+        "I",
+        "S"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Juge les litiges ou représente le ministère public.",
+      "missions": [
+        "Instruire les dossiers",
+        "Rendre des décisions"
+      ],
+      "competences": [
+        "cmp-procedures-judiciaires",
+        "cmp-ethique",
+        "cmp-esprit-analyse"
+      ],
+      "formations": [
+        "frm-magistrature",
+        "frm-licence-droit-prive"
+      ],
+      "secteurs": [
+        "Juridictions"
+      ]
+    },
+    {
+      "id": "met-notaire",
+      "nom": "Notaire",
+      "domaine": "dom-droit",
+      "riasec": [
+        "C",
+        "E"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Authentifie les actes juridiques (ventes, successions, sociétés).",
+      "missions": [
+        "Rédiger les actes",
+        "Conseiller les familles et entreprises"
+      ],
+      "competences": [
+        "cmp-droit-affaires",
+        "cmp-rigueur",
+        "cmp-communication-ecrite"
+      ],
+      "formations": [
+        "frm-master-droit-affaires"
+      ],
+      "secteurs": [
+        "Études notariales"
+      ]
+    },
+    {
+      "id": "met-juriste-entreprise",
+      "nom": "Juriste d'entreprise",
+      "domaine": "dom-droit",
+      "riasec": [
+        "I",
+        "C"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Sécurise juridiquement les activités de l'entreprise.",
+      "missions": [
+        "Rédiger les contrats",
+        "Gérer les contentieux",
+        "Assurer la veille juridique"
+      ],
+      "competences": [
+        "cmp-droit-affaires",
+        "cmp-communication-ecrite"
+      ],
+      "formations": [
+        "frm-master-droit-affaires"
+      ],
+      "secteurs": [
+        "Entreprises",
+        "Banques"
+      ]
+    },
+    {
+      "id": "met-administrateur-civil",
+      "nom": "Administrateur civil / cadre de l'administration",
+      "domaine": "dom-admin-publique",
+      "riasec": [
+        "E",
+        "C"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Conçoit et met en œuvre les politiques publiques.",
+      "missions": [
+        "Préparer les textes",
+        "Piloter des services publics",
+        "Gérer les budgets publics"
+      ],
+      "competences": [
+        "cmp-droit-public",
+        "cmp-politiques-publiques",
+        "cmp-leadership"
+      ],
+      "formations": [
+        "frm-ena-administration",
+        "frm-licence-droit-public"
+      ],
+      "secteurs": [
+        "Ministères",
+        "Collectivités"
+      ]
+    },
+    {
+      "id": "met-diplomate",
+      "nom": "Diplomate",
+      "domaine": "dom-admin-publique",
+      "riasec": [
+        "E",
+        "S"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Représente son pays et défend ses intérêts à l'étranger.",
+      "missions": [
+        "Négocier",
+        "Rédiger des notes politiques",
+        "Protéger les ressortissants"
+      ],
+      "competences": [
+        "cmp-relations-internationales",
+        "cmp-negociation",
+        "cmp-anglais",
+        "cmp-langues-etrangeres"
+      ],
+      "formations": [
+        "frm-master-relations-internationales",
+        "frm-ena-administration"
+      ],
+      "secteurs": [
+        "Ministères des affaires étrangères",
+        "Organisations internationales"
+      ]
+    },
+    {
+      "id": "met-inspecteur-impots",
+      "nom": "Inspecteur des impôts / douanes",
+      "domaine": "dom-admin-publique",
+      "riasec": [
+        "C",
+        "E"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Contrôle l'application de la législation fiscale ou douanière.",
+      "missions": [
+        "Contrôler les déclarations",
+        "Lutter contre la fraude"
+      ],
+      "competences": [
+        "cmp-fiscalite",
+        "cmp-droit-public",
+        "cmp-rigueur"
+      ],
+      "formations": [
+        "frm-ena-administration",
+        "frm-licence-droit-public",
+        "frm-licence-economie"
+      ],
+      "secteurs": [
+        "Administrations fiscales et douanières"
+      ]
+    },
+    {
+      "id": "met-enseignant-secondaire",
+      "nom": "Professeur de collège / lycée",
+      "domaine": "dom-education",
+      "riasec": [
+        "S",
+        "A"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Enseigne une discipline et accompagne les élèves.",
+      "missions": [
+        "Préparer et dispenser les cours",
+        "Évaluer les élèves",
+        "Participer à l'orientation"
+      ],
+      "competences": [
+        "cmp-didactique",
+        "cmp-pedagogie",
+        "cmp-communication-orale"
+      ],
+      "formations": [
+        "frm-ens-professorat",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-biologie",
+        "frm-licence-lettres-modernes",
+        "frm-licence-histoire-geographie",
+        "frm-licence-langues-etrangeres"
+      ],
+      "secteurs": [
+        "Établissements publics et privés"
+      ]
+    },
+    {
+      "id": "met-instituteur",
+      "nom": "Instituteur / professeur des écoles",
+      "domaine": "dom-education",
+      "riasec": [
+        "S",
+        "A"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Enseigne les apprentissages fondamentaux aux enfants.",
+      "missions": [
+        "Enseigner lecture, écriture, calcul",
+        "Suivre chaque élève"
+      ],
+      "competences": [
+        "cmp-pedagogie",
+        "cmp-empathie",
+        "cmp-communication-orale"
+      ],
+      "formations": [
+        "frm-licence-sciences-education"
+      ],
+      "secteurs": [
+        "Écoles primaires"
+      ]
+    },
+    {
+      "id": "met-conseiller-orientation",
+      "nom": "Conseiller d'orientation",
+      "domaine": "dom-education",
+      "riasec": [
+        "S",
+        "I"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Aide les jeunes à construire leur projet scolaire et professionnel.",
+      "missions": [
+        "Mener des entretiens",
+        "Faire passer des tests",
+        "Informer sur les filières"
+      ],
+      "competences": [
+        "cmp-accompagnement-psycho",
+        "cmp-empathie",
+        "cmp-communication-orale"
+      ],
+      "formations": [
+        "frm-licence-psychologie",
+        "frm-licence-sciences-education"
+      ],
+      "secteurs": [
+        "Établissements scolaires",
+        "Navigoal",
+        "Centres d'orientation"
+      ]
+    },
+    {
+      "id": "met-psychologue",
+      "nom": "Psychologue",
+      "domaine": "dom-shs",
+      "riasec": [
+        "S",
+        "I"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Évalue et accompagne la santé psychique des personnes.",
+      "missions": [
+        "Mener des entretiens",
+        "Réaliser des bilans",
+        "Proposer un suivi"
+      ],
+      "competences": [
+        "cmp-accompagnement-psycho",
+        "cmp-empathie",
+        "cmp-ethique"
+      ],
+      "formations": [
+        "frm-licence-psychologie"
+      ],
+      "secteurs": [
+        "Hôpitaux",
+        "Écoles",
+        "Cabinets"
+      ]
+    },
+    {
+      "id": "met-travailleur-social",
+      "nom": "Travailleur social / assistant social",
+      "domaine": "dom-shs",
+      "riasec": [
+        "S",
+        "E"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Accompagne les personnes et familles en difficulté.",
+      "missions": [
+        "Évaluer les situations",
+        "Orienter vers les dispositifs d'aide"
+      ],
+      "competences": [
+        "cmp-accompagnement-psycho",
+        "cmp-empathie",
+        "cmp-communication-orale"
+      ],
+      "formations": [
+        "frm-licence-travail-social",
+        "frm-licence-sociologie"
+      ],
+      "secteurs": [
+        "Services sociaux",
+        "ONG"
+      ]
+    },
+    {
+      "id": "met-sociologue",
+      "nom": "Sociologue / chargé d'études sociales",
+      "domaine": "dom-shs",
+      "riasec": [
+        "I",
+        "S"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Étudie les comportements sociaux pour éclairer les décisions.",
+      "missions": [
+        "Concevoir des enquêtes",
+        "Analyser des données qualitatives"
+      ],
+      "competences": [
+        "cmp-methodologie-recherche",
+        "cmp-esprit-analyse"
+      ],
+      "formations": [
+        "frm-licence-sociologie"
+      ],
+      "secteurs": [
+        "Instituts de recherche",
+        "ONG"
+      ]
+    },
+    {
+      "id": "met-traducteur-interprete",
+      "nom": "Traducteur / interprète",
+      "domaine": "dom-lettres-langues",
+      "riasec": [
+        "A",
+        "C"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Traduit des documents ou interprète des échanges oraux.",
+      "missions": [
+        "Traduire des textes",
+        "Interpréter en conférence"
+      ],
+      "competences": [
+        "cmp-traduction",
+        "cmp-anglais",
+        "cmp-langues-etrangeres",
+        "cmp-rigueur"
+      ],
+      "formations": [
+        "frm-master-traduction",
+        "frm-licence-langues-etrangeres"
+      ],
+      "secteurs": [
+        "Organisations internationales",
+        "Agences",
+        "Indépendant"
+      ]
+    },
+    {
+      "id": "met-bibliothecaire-documentaliste",
+      "nom": "Bibliothécaire / documentaliste",
+      "domaine": "dom-lettres-langues",
+      "riasec": [
+        "C",
+        "S"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Gère les fonds documentaires et accompagne les usagers.",
+      "missions": [
+        "Classer et numériser les collections",
+        "Accueillir et orienter le public"
+      ],
+      "competences": [
+        "cmp-organisation",
+        "cmp-bureautique"
+      ],
+      "formations": [
+        "frm-licence-lettres-modernes"
+      ],
+      "secteurs": [
+        "Bibliothèques",
+        "Universités"
+      ]
+    },
+    {
+      "id": "met-coach-sportif",
+      "nom": "Éducateur sportif / coach",
+      "domaine": "dom-securite-defense",
+      "riasec": [
+        "S",
+        "R"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Entraîne et encadre des sportifs.",
+      "missions": [
+        "Concevoir les entraînements",
+        "Encadrer les compétitions"
+      ],
+      "competences": [
+        "cmp-condition-physique",
+        "cmp-pedagogie",
+        "cmp-leadership"
+      ],
+      "formations": [
+        "frm-licence-staps"
+      ],
+      "secteurs": [
+        "Clubs",
+        "Fédérations",
+        "Écoles"
+      ]
+    },
+    {
+      "id": "met-officier-militaire",
+      "nom": "Officier (armée, gendarmerie, police)",
+      "domaine": "dom-securite-defense",
+      "riasec": [
+        "E",
+        "R"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Commande des unités chargées de la défense et de la sécurité.",
+      "missions": [
+        "Commander",
+        "Planifier les opérations",
+        "Former les hommes"
+      ],
+      "competences": [
+        "cmp-leadership",
+        "cmp-condition-physique",
+        "cmp-gestion-stress"
+      ],
+      "formations": [
+        "frm-ena-administration"
+      ],
+      "secteurs": [
+        "Forces armées et de sécurité"
+      ]
+    },
+    {
+      "id": "met-journaliste",
+      "nom": "Journaliste",
+      "domaine": "dom-communication",
+      "riasec": [
+        "A",
+        "S"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Recherche, vérifie et diffuse l'information.",
+      "missions": [
+        "Enquêter",
+        "Rédiger / présenter",
+        "Vérifier les sources"
+      ],
+      "competences": [
+        "cmp-journalisme",
+        "cmp-communication-ecrite",
+        "cmp-ethique"
+      ],
+      "formations": [
+        "frm-licence-journalisme"
+      ],
+      "secteurs": [
+        "Presse",
+        "Radio",
+        "TV",
+        "Web"
+      ]
+    },
+    {
+      "id": "met-charge-communication",
+      "nom": "Chargé de communication",
+      "domaine": "dom-communication",
+      "riasec": [
+        "A",
+        "E"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Conçoit et met en œuvre la communication d'une organisation.",
+      "missions": [
+        "Rédiger les supports",
+        "Organiser des événements",
+        "Gérer les relations presse"
+      ],
+      "competences": [
+        "cmp-communication-ecrite",
+        "cmp-marketing-digital",
+        "cmp-creativite"
+      ],
+      "formations": [
+        "frm-licence-communication",
+        "frm-master-marketing"
+      ],
+      "secteurs": [
+        "Entreprises",
+        "Institutions",
+        "Agences"
+      ]
+    },
+    {
+      "id": "met-realisateur-monteur",
+      "nom": "Réalisateur / monteur vidéo",
+      "domaine": "dom-arts-design",
+      "riasec": [
+        "A",
+        "R"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Réalise et monte des contenus audiovisuels.",
+      "missions": [
+        "Écrire et tourner",
+        "Monter et étalonner",
+        "Diffuser"
+      ],
+      "competences": [
+        "cmp-production-audiovisuelle",
+        "cmp-creativite"
+      ],
+      "formations": [
+        "frm-licence-audiovisuel-cinema"
+      ],
+      "secteurs": [
+        "Chaînes TV",
+        "Production",
+        "Créateur de contenu"
+      ]
+    },
+    {
+      "id": "met-graphiste",
+      "nom": "Graphiste / designer",
+      "domaine": "dom-arts-design",
+      "riasec": [
+        "A"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Crée des identités visuelles et supports graphiques.",
+      "missions": [
+        "Concevoir logos et chartes",
+        "Réaliser des supports print et web"
+      ],
+      "competences": [
+        "cmp-design-graphique",
+        "cmp-creativite"
+      ],
+      "formations": [
+        "frm-licence-design-graphique",
+        "frm-licence-beaux-arts"
+      ],
+      "secteurs": [
+        "Agences",
+        "Indépendant"
+      ]
+    },
+    {
+      "id": "met-artiste-plasticien",
+      "nom": "Artiste plasticien",
+      "domaine": "dom-arts-design",
+      "riasec": [
+        "A"
+      ],
+      "niveau_min": "niv-bac",
+      "description": "Crée des œuvres d'art (peinture, sculpture, installation).",
+      "missions": [
+        "Créer",
+        "Exposer",
+        "Vendre ses œuvres"
+      ],
+      "competences": [
+        "cmp-creativite",
+        "cmp-esprit-entrepreneurial"
+      ],
+      "formations": [
+        "frm-licence-beaux-arts"
+      ],
+      "secteurs": [
+        "Galeries",
+        "Indépendant"
+      ]
+    },
+    {
+      "id": "met-gestionnaire-patrimoine-culturel",
+      "nom": "Gestionnaire du patrimoine culturel / médiateur culturel",
+      "domaine": "dom-arts-design",
+      "riasec": [
+        "A",
+        "S"
+      ],
+      "niveau_min": "niv-bac5",
+      "description": "Conserve et valorise le patrimoine (musées, sites, archives).",
+      "missions": [
+        "Inventorier et conserver",
+        "Concevoir des expositions",
+        "Animer des publics"
+      ],
+      "competences": [
+        "cmp-methodologie-recherche",
+        "cmp-communication-orale"
+      ],
+      "formations": [
+        "frm-licence-patrimoine"
+      ],
+      "secteurs": [
+        "Musées",
+        "Ministères de la culture"
+      ]
+    },
+    {
+      "id": "met-styliste",
+      "nom": "Styliste / modéliste",
+      "domaine": "dom-arts-design",
+      "riasec": [
+        "A",
+        "R"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Conçoit des vêtements et accessoires de mode.",
+      "missions": [
+        "Dessiner des collections",
+        "Réaliser les patrons",
+        "Suivre la fabrication"
+      ],
+      "competences": [
+        "cmp-creativite",
+        "cmp-design-graphique"
+      ],
+      "formations": [
+        "frm-licence-textile",
+        "frm-licence-design-graphique"
+      ],
+      "secteurs": [
+        "Mode",
+        "Textile"
+      ]
+    },
+    {
+      "id": "met-gestionnaire-hotel",
+      "nom": "Gestionnaire hôtelier",
+      "domaine": "dom-tourisme",
+      "riasec": [
+        "E",
+        "S"
+      ],
+      "niveau_min": "niv-bac3",
+      "description": "Dirige un établissement hôtelier et ses équipes.",
+      "missions": [
+        "Gérer l'accueil et l'hébergement",
+        "Piloter la rentabilité",
+        "Encadrer le personnel"
+      ],
+      "competences": [
+        "cmp-accueil-hospitalite",
+        "cmp-gestion-rh",
+        "cmp-langues-etrangeres"
+      ],
+      "formations": [
+        "frm-licence-hotellerie"
+      ],
+      "secteurs": [
+        "Hôtels",
+        "Resorts"
+      ]
+    },
+    {
+      "id": "met-agent-tourisme",
+      "nom": "Agent de voyage / guide touristique",
+      "domaine": "dom-tourisme",
+      "riasec": [
+        "S",
+        "E"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Conçoit, vend et accompagne des séjours.",
+      "missions": [
+        "Conseiller les clients",
+        "Organiser les circuits",
+        "Guider les visiteurs"
+      ],
+      "competences": [
+        "cmp-accueil-hospitalite",
+        "cmp-langues-etrangeres",
+        "cmp-techniques-vente"
+      ],
+      "formations": [
+        "frm-bts-tourisme"
+      ],
+      "secteurs": [
+        "Agences",
+        "Écotourisme"
+      ]
+    },
+    {
+      "id": "met-chef-cuisinier",
+      "nom": "Chef cuisinier",
+      "domaine": "dom-tourisme",
+      "riasec": [
+        "R",
+        "A"
+      ],
+      "niveau_min": "niv-bac2",
+      "description": "Conçoit les menus et dirige la cuisine.",
+      "missions": [
+        "Créer des recettes",
+        "Encadrer la brigade",
+        "Garantir l'hygiène"
+      ],
+      "competences": [
+        "cmp-cuisine",
+        "cmp-creativite",
+        "cmp-leadership"
+      ],
+      "formations": [
+        "frm-licence-hotellerie"
+      ],
+      "secteurs": [
+        "Restaurants",
+        "Hôtels"
+      ]
+    }
+  ]
+}

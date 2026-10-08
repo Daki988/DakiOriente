@@ -1,0 +1,472 @@
+{
+  "_meta": {
+    "referentiel": "competences",
+    "version": "1.0.0",
+    "date": "2026-10-08",
+    "plateforme": "Navigoal"
+  },
+  "items": [
+    {
+      "id": "cmp-communication-orale",
+      "libelle": "Communication orale",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-communication-ecrite",
+      "libelle": "Communication écrite et rédaction",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-travail-equipe",
+      "libelle": "Travail en équipe",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-leadership",
+      "libelle": "Leadership et animation d'équipe",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-esprit-analyse",
+      "libelle": "Esprit d'analyse et de synthèse",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-resolution-problemes",
+      "libelle": "Résolution de problèmes",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-organisation",
+      "libelle": "Organisation et gestion du temps",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-rigueur",
+      "libelle": "Rigueur et sens du détail",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-creativite",
+      "libelle": "Créativité",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-adaptabilite",
+      "libelle": "Adaptabilité",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-empathie",
+      "libelle": "Empathie et sens de l'écoute",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-negociation",
+      "libelle": "Négociation et persuasion",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-esprit-entrepreneurial",
+      "libelle": "Esprit d'entreprise et initiative",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-ethique",
+      "libelle": "Éthique et déontologie",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-gestion-stress",
+      "libelle": "Gestion du stress",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-pedagogie",
+      "libelle": "Pédagogie et transmission",
+      "categorie": "transversale",
+      "domaine": null
+    },
+    {
+      "id": "cmp-gestion-projet",
+      "libelle": "Gestion de projet",
+      "categorie": "transversale",
+      "domaine": "dom-gestion"
+    },
+    {
+      "id": "cmp-francais",
+      "libelle": "Maîtrise du français",
+      "categorie": "langue",
+      "domaine": null
+    },
+    {
+      "id": "cmp-anglais",
+      "libelle": "Anglais professionnel",
+      "categorie": "langue",
+      "domaine": null
+    },
+    {
+      "id": "cmp-arabe",
+      "libelle": "Arabe (classique / standard)",
+      "categorie": "langue",
+      "domaine": null
+    },
+    {
+      "id": "cmp-langues-etrangeres",
+      "libelle": "Langues étrangères (espagnol, allemand, chinois...)",
+      "categorie": "langue",
+      "domaine": null
+    },
+    {
+      "id": "cmp-bureautique",
+      "libelle": "Bureautique (traitement de texte, tableur)",
+      "categorie": "numerique",
+      "domaine": null
+    },
+    {
+      "id": "cmp-mathematiques",
+      "libelle": "Raisonnement mathématique",
+      "categorie": "scientifique",
+      "domaine": "dom-sciences"
+    },
+    {
+      "id": "cmp-statistiques",
+      "libelle": "Statistiques et probabilités",
+      "categorie": "scientifique",
+      "domaine": "dom-sciences"
+    },
+    {
+      "id": "cmp-physique-chimie",
+      "libelle": "Physique-chimie appliquée",
+      "categorie": "scientifique",
+      "domaine": "dom-sciences"
+    },
+    {
+      "id": "cmp-biologie",
+      "libelle": "Biologie et sciences du vivant",
+      "categorie": "scientifique",
+      "domaine": "dom-sciences"
+    },
+    {
+      "id": "cmp-methodologie-recherche",
+      "libelle": "Méthodologie de recherche",
+      "categorie": "scientifique",
+      "domaine": "dom-sciences"
+    },
+    {
+      "id": "cmp-programmation",
+      "libelle": "Programmation (Python, Java, JavaScript...)",
+      "categorie": "technique",
+      "domaine": "dom-numerique"
+    },
+    {
+      "id": "cmp-developpement-web-mobile",
+      "libelle": "Développement web et mobile",
+      "categorie": "technique",
+      "domaine": "dom-numerique"
+    },
+    {
+      "id": "cmp-bases-de-donnees",
+      "libelle": "Bases de données et SQL",
+      "categorie": "technique",
+      "domaine": "dom-numerique"
+    },
+    {
+      "id": "cmp-analyse-donnees",
+      "libelle": "Analyse et visualisation de données",
+      "categorie": "technique",
+      "domaine": "dom-numerique"
+    },
+    {
+      "id": "cmp-ia-machine-learning",
+      "libelle": "Intelligence artificielle et machine learning",
+      "categorie": "technique",
+      "domaine": "dom-numerique"
+    },
+    {
+      "id": "cmp-reseaux-telecoms",
+      "libelle": "Réseaux et télécommunications",
+      "categorie": "technique",
+      "domaine": "dom-numerique"
+    },
+    {
+      "id": "cmp-cybersecurite",
+      "libelle": "Cybersécurité",
+      "categorie": "technique",
+      "domaine": "dom-numerique"
+    },
+    {
+      "id": "cmp-systemes-cloud",
+      "libelle": "Administration systèmes et cloud",
+      "categorie": "technique",
+      "domaine": "dom-numerique"
+    },
+    {
+      "id": "cmp-ux-ui",
+      "libelle": "Design d'interface (UX/UI)",
+      "categorie": "technique",
+      "domaine": "dom-numerique"
+    },
+    {
+      "id": "cmp-dessin-technique-cao",
+      "libelle": "Dessin technique et CAO/DAO",
+      "categorie": "technique",
+      "domaine": "dom-ingenierie"
+    },
+    {
+      "id": "cmp-electricite-electronique",
+      "libelle": "Électricité et électronique",
+      "categorie": "technique",
+      "domaine": "dom-ingenierie"
+    },
+    {
+      "id": "cmp-mecanique",
+      "libelle": "Mécanique et maintenance industrielle",
+      "categorie": "technique",
+      "domaine": "dom-ingenierie"
+    },
+    {
+      "id": "cmp-automatisme",
+      "libelle": "Automatismes et informatique industrielle",
+      "categorie": "technique",
+      "domaine": "dom-ingenierie"
+    },
+    {
+      "id": "cmp-qhse",
+      "libelle": "Qualité, hygiène, sécurité, environnement (QHSE)",
+      "categorie": "technique",
+      "domaine": "dom-ingenierie"
+    },
+    {
+      "id": "cmp-calcul-structures",
+      "libelle": "Calcul de structures et résistance des matériaux",
+      "categorie": "technique",
+      "domaine": "dom-btp"
+    },
+    {
+      "id": "cmp-conduite-chantier",
+      "libelle": "Conduite et suivi de chantier",
+      "categorie": "technique",
+      "domaine": "dom-btp"
+    },
+    {
+      "id": "cmp-topographie",
+      "libelle": "Topographie et SIG",
+      "categorie": "technique",
+      "domaine": "dom-btp"
+    },
+    {
+      "id": "cmp-geosciences",
+      "libelle": "Géologie et géosciences",
+      "categorie": "technique",
+      "domaine": "dom-energie-mines"
+    },
+    {
+      "id": "cmp-energies-renouvelables",
+      "libelle": "Énergies renouvelables",
+      "categorie": "technique",
+      "domaine": "dom-energie-mines"
+    },
+    {
+      "id": "cmp-agronomie",
+      "libelle": "Agronomie et production végétale",
+      "categorie": "technique",
+      "domaine": "dom-agri-env"
+    },
+    {
+      "id": "cmp-elevage",
+      "libelle": "Production animale et santé animale",
+      "categorie": "technique",
+      "domaine": "dom-agri-env"
+    },
+    {
+      "id": "cmp-gestion-environnement",
+      "libelle": "Gestion de l'environnement et des ressources naturelles",
+      "categorie": "technique",
+      "domaine": "dom-agri-env"
+    },
+    {
+      "id": "cmp-comptabilite",
+      "libelle": "Comptabilité générale et analytique",
+      "categorie": "technique",
+      "domaine": "dom-finance"
+    },
+    {
+      "id": "cmp-fiscalite",
+      "libelle": "Fiscalité",
+      "categorie": "technique",
+      "domaine": "dom-finance"
+    },
+    {
+      "id": "cmp-analyse-financiere",
+      "libelle": "Analyse financière",
+      "categorie": "technique",
+      "domaine": "dom-finance"
+    },
+    {
+      "id": "cmp-audit-controle",
+      "libelle": "Audit et contrôle interne",
+      "categorie": "technique",
+      "domaine": "dom-finance"
+    },
+    {
+      "id": "cmp-gestion-rh",
+      "libelle": "Gestion des ressources humaines",
+      "categorie": "technique",
+      "domaine": "dom-gestion"
+    },
+    {
+      "id": "cmp-strategie",
+      "libelle": "Stratégie et management des organisations",
+      "categorie": "technique",
+      "domaine": "dom-gestion"
+    },
+    {
+      "id": "cmp-marketing",
+      "libelle": "Marketing et études de marché",
+      "categorie": "technique",
+      "domaine": "dom-commerce"
+    },
+    {
+      "id": "cmp-marketing-digital",
+      "libelle": "Marketing digital et réseaux sociaux",
+      "categorie": "technique",
+      "domaine": "dom-commerce"
+    },
+    {
+      "id": "cmp-techniques-vente",
+      "libelle": "Techniques de vente et relation client",
+      "categorie": "technique",
+      "domaine": "dom-commerce"
+    },
+    {
+      "id": "cmp-logistique",
+      "libelle": "Logistique et supply chain",
+      "categorie": "technique",
+      "domaine": "dom-transport-logistique"
+    },
+    {
+      "id": "cmp-droit-affaires",
+      "libelle": "Droit des affaires",
+      "categorie": "technique",
+      "domaine": "dom-droit"
+    },
+    {
+      "id": "cmp-droit-public",
+      "libelle": "Droit public et administratif",
+      "categorie": "technique",
+      "domaine": "dom-droit"
+    },
+    {
+      "id": "cmp-procedures-judiciaires",
+      "libelle": "Procédures judiciaires",
+      "categorie": "technique",
+      "domaine": "dom-droit"
+    },
+    {
+      "id": "cmp-politiques-publiques",
+      "libelle": "Analyse des politiques publiques",
+      "categorie": "technique",
+      "domaine": "dom-admin-publique"
+    },
+    {
+      "id": "cmp-relations-internationales",
+      "libelle": "Relations internationales",
+      "categorie": "technique",
+      "domaine": "dom-admin-publique"
+    },
+    {
+      "id": "cmp-soins-cliniques",
+      "libelle": "Soins et diagnostic clinique",
+      "categorie": "technique",
+      "domaine": "dom-sante"
+    },
+    {
+      "id": "cmp-pharmacologie",
+      "libelle": "Pharmacologie",
+      "categorie": "technique",
+      "domaine": "dom-sante"
+    },
+    {
+      "id": "cmp-sante-publique",
+      "libelle": "Santé publique et épidémiologie",
+      "categorie": "technique",
+      "domaine": "dom-sante"
+    },
+    {
+      "id": "cmp-premiers-secours",
+      "libelle": "Gestes de premiers secours",
+      "categorie": "technique",
+      "domaine": "dom-sante"
+    },
+    {
+      "id": "cmp-accompagnement-psycho",
+      "libelle": "Accompagnement psychologique et social",
+      "categorie": "technique",
+      "domaine": "dom-shs"
+    },
+    {
+      "id": "cmp-didactique",
+      "libelle": "Didactique et conception de cours",
+      "categorie": "technique",
+      "domaine": "dom-education"
+    },
+    {
+      "id": "cmp-journalisme",
+      "libelle": "Techniques journalistiques et enquête",
+      "categorie": "technique",
+      "domaine": "dom-communication"
+    },
+    {
+      "id": "cmp-production-audiovisuelle",
+      "libelle": "Production audiovisuelle et multimédia",
+      "categorie": "technique",
+      "domaine": "dom-communication"
+    },
+    {
+      "id": "cmp-design-graphique",
+      "libelle": "Design graphique",
+      "categorie": "technique",
+      "domaine": "dom-arts-design"
+    },
+    {
+      "id": "cmp-traduction",
+      "libelle": "Traduction et interprétation",
+      "categorie": "technique",
+      "domaine": "dom-lettres-langues"
+    },
+    {
+      "id": "cmp-accueil-hospitalite",
+      "libelle": "Accueil et hospitalité",
+      "categorie": "technique",
+      "domaine": "dom-tourisme"
+    },
+    {
+      "id": "cmp-cuisine",
+      "libelle": "Techniques culinaires",
+      "categorie": "technique",
+      "domaine": "dom-tourisme"
+    },
+    {
+      "id": "cmp-condition-physique",
+      "libelle": "Condition physique et discipline",
+      "categorie": "technique",
+      "domaine": "dom-securite-defense"
+    }
+  ]
+}

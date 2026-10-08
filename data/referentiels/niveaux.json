@@ -1,0 +1,116 @@
+{
+  "_meta": {
+    "referentiel": "niveaux",
+    "version": "1.0.0",
+    "date": "2026-10-08",
+    "plateforme": "Navigoal"
+  },
+  "items": [
+    {
+      "id": "niv-primaire",
+      "libelle": "Primaire",
+      "ordre": 0
+    },
+    {
+      "id": "niv-college",
+      "libelle": "Collège (6e à 3e / 1re à 3e année collégiale)",
+      "ordre": 1,
+      "classes": {
+        "GA": [
+          "6e",
+          "5e",
+          "4e",
+          "3e"
+        ],
+        "SN": [
+          "6e",
+          "5e",
+          "4e",
+          "3e"
+        ],
+        "MA": [
+          "1AC",
+          "2AC",
+          "3AC"
+        ]
+      }
+    },
+    {
+      "id": "niv-lycee",
+      "libelle": "Lycée (2nde à Terminale)",
+      "ordre": 2,
+      "classes": {
+        "GA": [
+          "2nde",
+          "1ère",
+          "Tle"
+        ],
+        "SN": [
+          "2nde",
+          "1ère",
+          "Tle"
+        ],
+        "MA": [
+          "Tronc commun",
+          "1ère année bac",
+          "2ème année bac"
+        ]
+      }
+    },
+    {
+      "id": "niv-bac",
+      "libelle": "Baccalauréat",
+      "ordre": 3
+    },
+    {
+      "id": "niv-bac2",
+      "libelle": "Bac+2",
+      "ordre": 4,
+      "diplomes": [
+        "BTS",
+        "DUT",
+        "DTS",
+        "DEUST",
+        "DEUG",
+        "DST"
+      ]
+    },
+    {
+      "id": "niv-bac3",
+      "libelle": "Bac+3",
+      "ordre": 5,
+      "diplomes": [
+        "Licence",
+        "Licence professionnelle",
+        "Bachelor"
+      ]
+    },
+    {
+      "id": "niv-bac5",
+      "libelle": "Bac+5",
+      "ordre": 6,
+      "diplomes": [
+        "Master",
+        "Diplôme d'ingénieur",
+        "Diplôme de grande école",
+        "Architecte DPLG/DENA"
+      ]
+    },
+    {
+      "id": "niv-bac7",
+      "libelle": "Bac+6/7",
+      "ordre": 7,
+      "diplomes": [
+        "Doctorat en médecine / pharmacie / chirurgie dentaire"
+      ]
+    },
+    {
+      "id": "niv-bac8",
+      "libelle": "Bac+8",
+      "ordre": 8,
+      "diplomes": [
+        "Doctorat (PhD)"
+      ]
+    }
+  ]
+}

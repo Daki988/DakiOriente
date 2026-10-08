@@ -1,0 +1,110 @@
+{
+  "_meta": {
+    "referentiel": "domaines",
+    "version": "1.0.0",
+    "date": "2026-10-08",
+    "plateforme": "Navigoal"
+  },
+  "items": [
+    {
+      "id": "dom-sante",
+      "libelle": "Santé et médecine",
+      "description": "Soigner, prévenir, accompagner les patients."
+    },
+    {
+      "id": "dom-numerique",
+      "libelle": "Informatique, numérique et télécoms",
+      "description": "Développement, données, réseaux, cybersécurité, télécommunications."
+    },
+    {
+      "id": "dom-ingenierie",
+      "libelle": "Ingénierie et industrie",
+      "description": "Mécanique, électricité, électronique, génie industriel, maintenance."
+    },
+    {
+      "id": "dom-btp",
+      "libelle": "BTP, architecture et urbanisme",
+      "description": "Construire et aménager bâtiments, routes et villes."
+    },
+    {
+      "id": "dom-energie-mines",
+      "libelle": "Énergie, mines et pétrole",
+      "description": "Exploration, extraction, production et distribution d'énergie et de ressources."
+    },
+    {
+      "id": "dom-agri-env",
+      "libelle": "Agriculture, forêt, mer et environnement",
+      "description": "Agronomie, foresterie, pêche, eaux, climat, développement durable."
+    },
+    {
+      "id": "dom-gestion",
+      "libelle": "Gestion, management et ressources humaines",
+      "description": "Piloter les organisations, les équipes et les projets."
+    },
+    {
+      "id": "dom-finance",
+      "libelle": "Finance, banque, assurance et comptabilité",
+      "description": "Compter, financer, auditer, assurer."
+    },
+    {
+      "id": "dom-commerce",
+      "libelle": "Commerce, marketing et vente",
+      "description": "Vendre, négocier, développer des marques et des marchés."
+    },
+    {
+      "id": "dom-droit",
+      "libelle": "Droit et sciences politiques",
+      "description": "Juger, conseiller, défendre, réglementer."
+    },
+    {
+      "id": "dom-admin-publique",
+      "libelle": "Administration publique et diplomatie",
+      "description": "Servir l'État, les collectivités et les organisations internationales."
+    },
+    {
+      "id": "dom-lettres-langues",
+      "libelle": "Lettres, langues et traduction",
+      "description": "Langues, littérature, traduction, interprétariat."
+    },
+    {
+      "id": "dom-shs",
+      "libelle": "Sciences humaines et sociales",
+      "description": "Sociologie, psychologie, histoire, géographie, travail social."
+    },
+    {
+      "id": "dom-education",
+      "libelle": "Éducation et enseignement",
+      "description": "Enseigner, former, encadrer."
+    },
+    {
+      "id": "dom-communication",
+      "libelle": "Communication, journalisme et médias",
+      "description": "Informer, communiquer, produire des contenus."
+    },
+    {
+      "id": "dom-arts-design",
+      "libelle": "Arts, design et culture",
+      "description": "Créer, concevoir, valoriser le patrimoine et la culture."
+    },
+    {
+      "id": "dom-sciences",
+      "libelle": "Sciences fondamentales et statistique",
+      "description": "Mathématiques, physique, chimie, biologie, statistique."
+    },
+    {
+      "id": "dom-transport-logistique",
+      "libelle": "Transport, logistique et aéronautique",
+      "description": "Acheminer personnes et marchandises ; ports, aéroports, supply chain."
+    },
+    {
+      "id": "dom-tourisme",
+      "libelle": "Tourisme, hôtellerie et restauration",
+      "description": "Accueillir, héberger, restaurer, faire découvrir."
+    },
+    {
+      "id": "dom-securite-defense",
+      "libelle": "Sécurité, défense et sport",
+      "description": "Protéger, défendre, entraîner."
+    }
+  ]
+}

@@ -1,0 +1,4748 @@
+{
+  "_meta": {
+    "referentiel": "formations",
+    "version": "1.0.0",
+    "date": "2026-10-08",
+    "plateforme": "Navigoal"
+  },
+  "items": [
+    {
+      "id": "frm-doctorat-medecine",
+      "intitule": "Doctorat en médecine",
+      "diplome": "Doctorat d'exercice",
+      "niveau": "niv-bac7",
+      "duree_annees": 7,
+      "domaine": "dom-sante",
+      "competences": [
+        "cmp-soins-cliniques",
+        "cmp-biologie",
+        "cmp-sante-publique",
+        "cmp-ethique",
+        "cmp-empathie"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-medecin-generaliste",
+        "met-medecin-specialiste",
+        "met-epidemiologiste"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ga-uss",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uae",
+        "ma-um6p",
+        "ma-uir",
+        "ma-ueuromed",
+        "ma-um6ss",
+        "ma-uiass",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz",
+        "sn-uidt",
+        "sn-ussd"
+      ]
+    },
+    {
+      "id": "frm-doctorat-pharmacie",
+      "intitule": "Doctorat en pharmacie",
+      "diplome": "Doctorat d'exercice",
+      "niveau": "niv-bac7",
+      "duree_annees": 6,
+      "domaine": "dom-sante",
+      "competences": [
+        "cmp-pharmacologie",
+        "cmp-biologie",
+        "cmp-physique-chimie",
+        "cmp-rigueur"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-pharmacien"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ga-uss",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-ump",
+        "ma-um6ss",
+        "ma-uiass",
+        "sn-ucad",
+        "sn-ussd"
+      ]
+    },
+    {
+      "id": "frm-doctorat-chirurgie-dentaire",
+      "intitule": "Doctorat en chirurgie dentaire",
+      "diplome": "Doctorat d'exercice",
+      "niveau": "niv-bac7",
+      "duree_annees": 6,
+      "domaine": "dom-sante",
+      "competences": [
+        "cmp-soins-cliniques",
+        "cmp-biologie",
+        "cmp-rigueur"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-chirurgien-dentiste"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ga-uss",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-um6ss",
+        "ma-uiass",
+        "sn-ucad"
+      ]
+    },
+    {
+      "id": "frm-licence-sciences-infirmieres",
+      "intitule": "Licence en sciences infirmières",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-sante",
+      "competences": [
+        "cmp-soins-cliniques",
+        "cmp-premiers-secours",
+        "cmp-empathie",
+        "cmp-gestion-stress"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-infirmier"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ga-uss",
+        "ma-um6ss",
+        "ma-uiass",
+        "ma-uic",
+        "ma-mundiapolis",
+        "ma-upm",
+        "ma-universiapolis",
+        "sn-ucad",
+        "sn-ussd"
+      ]
+    },
+    {
+      "id": "frm-licence-sage-femme",
+      "intitule": "Licence sage-femme / maïeutique",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-sante",
+      "competences": [
+        "cmp-soins-cliniques",
+        "cmp-empathie",
+        "cmp-premiers-secours"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-sage-femme"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ga-uss",
+        "ma-um6ss",
+        "sn-ussd"
+      ]
+    },
+    {
+      "id": "frm-licence-biologie-medicale",
+      "intitule": "Licence en techniques de laboratoire / biologie médicale",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-sante",
+      "competences": [
+        "cmp-biologie",
+        "cmp-physique-chimie",
+        "cmp-rigueur"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-technicien-laboratoire"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ga-uss"
+      ]
+    },
+    {
+      "id": "frm-master-sante-publique",
+      "intitule": "Master en santé publique",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-sante",
+      "competences": [
+        "cmp-sante-publique",
+        "cmp-statistiques",
+        "cmp-gestion-projet"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-epidemiologiste"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ga-uss",
+        "sn-uadb",
+        "sn-eismv",
+        "sn-cesag"
+      ]
+    },
+    {
+      "id": "frm-licence-kinesitherapie",
+      "intitule": "Licence en kinésithérapie",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-sante",
+      "competences": [
+        "cmp-soins-cliniques",
+        "cmp-condition-physique",
+        "cmp-empathie"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-kinesitherapeute"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ma-um6ss",
+        "ma-uiass"
+      ]
+    },
+    {
+      "id": "frm-doctorat-veterinaire",
+      "intitule": "Doctorat vétérinaire",
+      "diplome": "Doctorat d'exercice",
+      "niveau": "niv-bac7",
+      "duree_annees": 6,
+      "domaine": "dom-agri-env",
+      "competences": [
+        "cmp-elevage",
+        "cmp-biologie",
+        "cmp-soins-cliniques"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-veterinaire"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a"
+        ]
+      },
+      "etablissements": [
+        "ma-um6ss",
+        "ma-iav",
+        "sn-eismv"
+      ]
+    },
+    {
+      "id": "frm-bts-informatique-gestion",
+      "intitule": "BTS Informatique de gestion / développement",
+      "diplome": "BTS",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-numerique",
+      "competences": [
+        "cmp-programmation",
+        "cmp-bases-de-donnees",
+        "cmp-bureautique"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-developpeur-web-mobile",
+        "met-technicien-support"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f2",
+          "ga-bac-f3",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-ist",
+        "ga-ita",
+        "ga-esgis",
+        "ma-iga",
+        "sn-isep-thies",
+        "sn-isi",
+        "sn-ipd"
+      ]
+    },
+    {
+      "id": "frm-dut-reseaux-telecoms",
+      "intitule": "DUT / BTS Réseaux et télécommunications",
+      "diplome": "DUT",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-numerique",
+      "competences": [
+        "cmp-reseaux-telecoms",
+        "cmp-systemes-cloud",
+        "cmp-electricite-electronique"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-admin-reseaux",
+        "met-ingenieur-telecoms",
+        "met-technicien-support"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f2",
+          "ga-bac-f3",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ga-ist",
+        "ga-inptic",
+        "sn-esp",
+        "sn-esmt",
+        "sn-ec2lt"
+      ]
+    },
+    {
+      "id": "frm-licence-informatique",
+      "intitule": "Licence en informatique",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-numerique",
+      "competences": [
+        "cmp-programmation",
+        "cmp-bases-de-donnees",
+        "cmp-mathematiques",
+        "cmp-resolution-problemes"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-developpeur-web-mobile",
+        "met-data-analyst"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f2",
+          "ga-bac-f3",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ga-uil",
+        "ga-ufgse",
+        "ga-usia",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "ma-aui",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz",
+        "sn-uidt",
+        "sn-uadb",
+        "sn-uam",
+        "sn-unchk",
+        "sn-dit",
+        "sn-uahb",
+        "sn-udb",
+        "sn-unis",
+        "sn-ucao"
+      ]
+    },
+    {
+      "id": "frm-licence-genie-logiciel",
+      "intitule": "Licence professionnelle génie logiciel / développement web et mobile",
+      "diplome": "Licence professionnelle",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-numerique",
+      "competences": [
+        "cmp-programmation",
+        "cmp-developpement-web-mobile",
+        "cmp-bases-de-donnees",
+        "cmp-ux-ui"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-developpeur-web-mobile",
+        "met-ux-ui-designer"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f2",
+          "ga-bac-f3",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-inptic",
+        "ga-ita",
+        "ga-esgis",
+        "ga-usia",
+        "sn-uam",
+        "sn-unchk",
+        "sn-ism",
+        "sn-supdeco",
+        "sn-isi",
+        "sn-ec2lt"
+      ]
+    },
+    {
+      "id": "frm-licence-reseaux-securite",
+      "intitule": "Licence réseaux, systèmes et sécurité",
+      "diplome": "Licence professionnelle",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-numerique",
+      "competences": [
+        "cmp-reseaux-telecoms",
+        "cmp-cybersecurite",
+        "cmp-systemes-cloud"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-admin-reseaux",
+        "met-expert-cybersecurite"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f2",
+          "ga-bac-f3",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-inptic",
+        "ga-ita",
+        "ga-usia",
+        "sn-esmt",
+        "sn-isi",
+        "sn-ec2lt"
+      ]
+    },
+    {
+      "id": "frm-master-data-science-ia",
+      "intitule": "Master data science et intelligence artificielle",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-numerique",
+      "competences": [
+        "cmp-ia-machine-learning",
+        "cmp-analyse-donnees",
+        "cmp-statistiques",
+        "cmp-programmation"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-data-analyst",
+        "met-data-scientist"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f2",
+          "ga-bac-f3",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ma-um6p",
+        "ma-aui",
+        "ma-ensias",
+        "ma-insea",
+        "ma-centrale-casa",
+        "sn-uam",
+        "sn-unchk",
+        "sn-ensae",
+        "sn-dit"
+      ]
+    },
+    {
+      "id": "frm-master-cybersecurite",
+      "intitule": "Master cybersécurité",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-numerique",
+      "competences": [
+        "cmp-cybersecurite",
+        "cmp-reseaux-telecoms",
+        "cmp-systemes-cloud"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-expert-cybersecurite"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f2",
+          "ga-bac-f3",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ma-ensias",
+        "ma-inpt",
+        "sn-esmt"
+      ]
+    },
+    {
+      "id": "frm-ingenieur-informatique",
+      "intitule": "Diplôme d'ingénieur en informatique / génie logiciel",
+      "diplome": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-numerique",
+      "competences": [
+        "cmp-programmation",
+        "cmp-bases-de-donnees",
+        "cmp-gestion-projet",
+        "cmp-mathematiques"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-ingenieur-logiciel",
+        "met-data-scientist",
+        "met-expert-cybersecurite",
+        "met-chef-projet-digital"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f2",
+          "ga-bac-f3",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ma-um5",
+        "ma-uca",
+        "ma-usmba",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "ma-um6p",
+        "ma-uir",
+        "ma-ueuromed",
+        "ma-uic",
+        "ma-mundiapolis",
+        "ma-upf",
+        "ma-upm",
+        "ma-universiapolis",
+        "ma-emi",
+        "ma-ensias",
+        "ma-inpt",
+        "ma-ehtp",
+        "ma-enim",
+        "ma-centrale-casa",
+        "ma-ensa-network",
+        "ma-ensao",
+        "ma-ensate",
+        "ma-emsi",
+        "ma-iga",
+        "ma-isga",
+        "sn-esp",
+        "sn-uidt",
+        "sn-ept",
+        "sn-dit",
+        "sn-daust"
+      ]
+    },
+    {
+      "id": "frm-ingenieur-telecoms",
+      "intitule": "Diplôme d'ingénieur télécommunications et réseaux",
+      "diplome": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-numerique",
+      "competences": [
+        "cmp-reseaux-telecoms",
+        "cmp-electricite-electronique",
+        "cmp-mathematiques"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-ingenieur-telecoms"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f2",
+          "ga-bac-f3",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-inptic",
+        "ma-inpt",
+        "ma-ensa-network",
+        "ma-ensao",
+        "sn-esmt"
+      ]
+    },
+    {
+      "id": "frm-master-systemes-information",
+      "intitule": "Master systèmes d'information et transformation digitale",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-numerique",
+      "competences": [
+        "cmp-bases-de-donnees",
+        "cmp-gestion-projet",
+        "cmp-strategie"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-ingenieur-logiciel",
+        "met-chef-projet-digital"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f2",
+          "ga-bac-f3",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-esgis",
+        "sn-isi"
+      ]
+    },
+    {
+      "id": "frm-cpge-scientifique",
+      "intitule": "Classes préparatoires aux grandes écoles (MP, PSI, TSI, BCPST)",
+      "diplome": "CPGE",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-sciences",
+      "competences": [
+        "cmp-mathematiques",
+        "cmp-physique-chimie",
+        "cmp-rigueur",
+        "cmp-gestion-stress"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-ingenieur-logiciel",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-civil"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ma-cpge",
+        "sn-ept"
+      ]
+    },
+    {
+      "id": "frm-bts-electrotechnique",
+      "intitule": "BTS / DUT Électrotechnique",
+      "diplome": "BTS",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-ingenierie",
+      "competences": [
+        "cmp-electricite-electronique",
+        "cmp-automatisme",
+        "cmp-qhse"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-electricien-electrotechnicien",
+        "met-technicien-energies-renouvelables"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f2",
+          "ga-bac-f3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ga-enset",
+        "ga-ist",
+        "ga-ito",
+        "ga-ita",
+        "ma-ofppt",
+        "sn-isep-thies",
+        "sn-ipd"
+      ]
+    },
+    {
+      "id": "frm-bts-maintenance-industrielle",
+      "intitule": "BTS / DUT Maintenance industrielle",
+      "diplome": "BTS",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-ingenierie",
+      "competences": [
+        "cmp-mecanique",
+        "cmp-electricite-electronique",
+        "cmp-qhse"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-technicien-maintenance"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f2",
+          "ga-bac-f3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ga-ist",
+        "ga-ito",
+        "ga-e3mg"
+      ]
+    },
+    {
+      "id": "frm-licence-genie-electrique",
+      "intitule": "Licence génie électrique et énergétique",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-ingenierie",
+      "competences": [
+        "cmp-electricite-electronique",
+        "cmp-automatisme",
+        "cmp-energies-renouvelables"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-ingenieur-electricien",
+        "met-automaticien",
+        "met-technicien-energies-renouvelables"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f2",
+          "ga-bac-f3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-uidt",
+        "sn-uam"
+      ]
+    },
+    {
+      "id": "frm-licence-genie-mecanique",
+      "intitule": "Licence génie mécanique et productique",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-ingenierie",
+      "competences": [
+        "cmp-mecanique",
+        "cmp-dessin-technique-cao"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-ingenieur-mecanique",
+        "met-dessinateur-projeteur"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f2",
+          "ga-bac-f3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-uidt",
+        "sn-uam"
+      ]
+    },
+    {
+      "id": "frm-ingenieur-genie-electrique",
+      "intitule": "Diplôme d'ingénieur génie électrique",
+      "diplome": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-ingenierie",
+      "competences": [
+        "cmp-electricite-electronique",
+        "cmp-automatisme",
+        "cmp-gestion-projet"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-ingenieur-electricien",
+        "met-automaticien"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f2",
+          "ga-bac-f3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ma-uh2c",
+        "ma-emi",
+        "ma-ehtp",
+        "ma-enim",
+        "ma-ensam-casa",
+        "ma-ensa-network",
+        "ma-ensao",
+        "ma-ensate",
+        "ma-emsi",
+        "sn-esp",
+        "sn-uidt",
+        "sn-ept",
+        "sn-daust"
+      ]
+    },
+    {
+      "id": "frm-ingenieur-genie-mecanique",
+      "intitule": "Diplôme d'ingénieur génie mécanique",
+      "diplome": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-ingenierie",
+      "competences": [
+        "cmp-mecanique",
+        "cmp-dessin-technique-cao",
+        "cmp-gestion-projet"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-ingenieur-mecanique"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f2",
+          "ga-bac-f3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ma-uh2c",
+        "ma-usmba",
+        "ma-umi",
+        "ma-emi",
+        "ma-ensam-casa",
+        "ma-ensa-network",
+        "ma-ensao",
+        "ma-ensate",
+        "sn-esp",
+        "sn-ept",
+        "sn-daust"
+      ]
+    },
+    {
+      "id": "frm-ingenieur-genie-industriel",
+      "intitule": "Diplôme d'ingénieur génie industriel",
+      "diplome": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-ingenierie",
+      "competences": [
+        "cmp-qhse",
+        "cmp-logistique",
+        "cmp-gestion-projet",
+        "cmp-statistiques"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-ingenieur-genie-industriel",
+        "met-chef-projet"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f2",
+          "ga-bac-f3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ma-uca",
+        "ma-uit",
+        "ma-umi",
+        "ma-emi",
+        "ma-centrale-casa",
+        "ma-ensam-casa",
+        "ma-ensa-network",
+        "ma-ensao",
+        "ma-ensate",
+        "ma-esith",
+        "ma-emsi",
+        "sn-esp",
+        "sn-ept"
+      ]
+    },
+    {
+      "id": "frm-ingenieur-genie-chimique",
+      "intitule": "Diplôme d'ingénieur génie chimique / procédés",
+      "diplome": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-ingenierie",
+      "competences": [
+        "cmp-physique-chimie",
+        "cmp-qhse",
+        "cmp-mathematiques"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-ingenieur-procedes"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f2",
+          "ga-bac-f3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ma-um6p",
+        "ma-emi",
+        "sn-esp"
+      ]
+    },
+    {
+      "id": "frm-licence-textile",
+      "intitule": "Licence / ingénieur textile et habillement",
+      "diplome": "Licence professionnelle",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-ingenierie",
+      "competences": [
+        "cmp-mecanique",
+        "cmp-design-graphique",
+        "cmp-qhse"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-ingenieur-textile",
+        "met-styliste"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f2",
+          "ga-bac-f3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ma-esith"
+      ]
+    },
+    {
+      "id": "frm-bts-batiment",
+      "intitule": "BTS / DUT Génie civil – bâtiment",
+      "diplome": "BTS",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-btp",
+      "competences": [
+        "cmp-dessin-technique-cao",
+        "cmp-conduite-chantier",
+        "cmp-calcul-structures"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-conducteur-travaux",
+        "met-dessinateur-projeteur"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f4"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-aa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ga-enset",
+        "ga-ito",
+        "ma-ofppt",
+        "sn-isep-thies",
+        "sn-ipd"
+      ]
+    },
+    {
+      "id": "frm-licence-genie-civil",
+      "intitule": "Licence génie civil",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-btp",
+      "competences": [
+        "cmp-calcul-structures",
+        "cmp-conduite-chantier",
+        "cmp-topographie"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-ingenieur-genie-civil",
+        "met-conducteur-travaux"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f4"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-aa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-uidt",
+        "sn-uam"
+      ]
+    },
+    {
+      "id": "frm-ingenieur-genie-civil",
+      "intitule": "Diplôme d'ingénieur génie civil / travaux publics",
+      "diplome": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-btp",
+      "competences": [
+        "cmp-calcul-structures",
+        "cmp-conduite-chantier",
+        "cmp-gestion-projet"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-ingenieur-genie-civil"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f4"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-aa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ma-ucd",
+        "ma-uir",
+        "ma-ueuromed",
+        "ma-upf",
+        "ma-emi",
+        "ma-ehtp",
+        "ma-ensa-network",
+        "ma-ensao",
+        "ma-ensate",
+        "ma-emsi",
+        "sn-esp",
+        "sn-uidt",
+        "sn-uam",
+        "sn-ept",
+        "sn-daust"
+      ]
+    },
+    {
+      "id": "frm-architecture",
+      "intitule": "Diplôme d'architecte",
+      "diplome": "Diplôme d'architecte",
+      "niveau": "niv-bac5",
+      "duree_annees": 6,
+      "domaine": "dom-btp",
+      "competences": [
+        "cmp-dessin-technique-cao",
+        "cmp-creativite",
+        "cmp-calcul-structures"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-architecte",
+        "met-urbaniste"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f4"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-aa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ma-um6p",
+        "ma-uir",
+        "ma-ueuromed",
+        "ma-uic",
+        "ma-upf",
+        "ma-upm",
+        "ma-ena-rabat"
+      ]
+    },
+    {
+      "id": "frm-master-urbanisme",
+      "intitule": "Master urbanisme et aménagement du territoire",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-btp",
+      "competences": [
+        "cmp-topographie",
+        "cmp-politiques-publiques",
+        "cmp-gestion-environnement"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-urbaniste"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f4"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-aa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ma-ehtp",
+        "ma-iav",
+        "ma-ena-rabat",
+        "ma-inau"
+      ]
+    },
+    {
+      "id": "frm-bts-topographie",
+      "intitule": "BTS / Technicien spécialisé géomètre-topographe",
+      "diplome": "BTS",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-btp",
+      "competences": [
+        "cmp-topographie",
+        "cmp-dessin-technique-cao"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-geometre-topographe"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f4"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-aa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ma-ofppt"
+      ]
+    },
+    {
+      "id": "frm-licence-geologie",
+      "intitule": "Licence sciences de la Terre / géologie",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-energie-mines",
+      "competences": [
+        "cmp-geosciences",
+        "cmp-physique-chimie"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-geologue"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f3",
+          "ga-bac-f4"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-ste",
+          "ma-bac-stm"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ga-e3mg",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz",
+        "sn-uidt"
+      ]
+    },
+    {
+      "id": "frm-ingenieur-mines",
+      "intitule": "Diplôme d'ingénieur des mines et métallurgie",
+      "diplome": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-energie-mines",
+      "competences": [
+        "cmp-geosciences",
+        "cmp-mecanique",
+        "cmp-qhse"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-geologue",
+        "met-ingenieur-mines"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f3",
+          "ga-bac-f4"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-ste",
+          "ma-bac-stm"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ga-e3mg",
+        "ma-um6p",
+        "ma-emi",
+        "ma-enim"
+      ]
+    },
+    {
+      "id": "frm-ingenieur-petrole-gaz",
+      "intitule": "Diplôme d'ingénieur / Master pétrole et gaz",
+      "diplome": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-energie-mines",
+      "competences": [
+        "cmp-geosciences",
+        "cmp-physique-chimie",
+        "cmp-qhse"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-ingenieur-petrolier"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f3",
+          "ga-bac-f4"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-ste",
+          "ma-bac-stm"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ma-enim"
+      ]
+    },
+    {
+      "id": "frm-master-energies-renouvelables",
+      "intitule": "Master énergies renouvelables et efficacité énergétique",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-energie-mines",
+      "competences": [
+        "cmp-energies-renouvelables",
+        "cmp-electricite-electronique",
+        "cmp-gestion-projet"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-ingenieur-electricien"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f3",
+          "ga-bac-f4"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-ste",
+          "ma-bac-stm"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ma-um6p",
+        "sn-ucad"
+      ]
+    },
+    {
+      "id": "frm-bts-agriculture",
+      "intitule": "BTS / Technicien agricole",
+      "diplome": "BTS",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-agri-env",
+      "competences": [
+        "cmp-agronomie",
+        "cmp-elevage"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-technicien-agricole",
+        "met-entrepreneur-agricole"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a"
+        ]
+      },
+      "etablissements": [
+        "sn-ussein",
+        "sn-isep-thies"
+      ]
+    },
+    {
+      "id": "frm-licence-agronomie",
+      "intitule": "Licence sciences agronomiques",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-agri-env",
+      "competences": [
+        "cmp-agronomie",
+        "cmp-biologie",
+        "cmp-gestion-environnement"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-ingenieur-agronome",
+        "met-entrepreneur-agricole"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "sn-ugb",
+        "sn-uasz",
+        "sn-ussein"
+      ]
+    },
+    {
+      "id": "frm-ingenieur-agronome",
+      "intitule": "Diplôme d'ingénieur agronome",
+      "diplome": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-agri-env",
+      "competences": [
+        "cmp-agronomie",
+        "cmp-elevage",
+        "cmp-gestion-projet"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-ingenieur-agronome"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ma-um6p",
+        "ma-iav",
+        "ma-ena-meknes",
+        "sn-uidt",
+        "sn-ussein"
+      ]
+    },
+    {
+      "id": "frm-ingenieur-eaux-forets",
+      "intitule": "Diplôme d'ingénieur / technicien des eaux et forêts",
+      "diplome": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-agri-env",
+      "competences": [
+        "cmp-gestion-environnement",
+        "cmp-topographie",
+        "cmp-biologie"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-ingenieur-eaux-forets"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a"
+        ]
+      },
+      "etablissements": [
+        "ga-enef",
+        "ma-enfi"
+      ]
+    },
+    {
+      "id": "frm-master-environnement",
+      "intitule": "Master environnement et développement durable",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-agri-env",
+      "competences": [
+        "cmp-gestion-environnement",
+        "cmp-qhse",
+        "cmp-gestion-projet"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-charge-environnement"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ga-enef",
+        "ma-iav",
+        "sn-ussein"
+      ]
+    },
+    {
+      "id": "frm-licence-sciences-mer",
+      "intitule": "Licence / BTS métiers de la mer et pêche",
+      "diplome": "Licence professionnelle",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-agri-env",
+      "competences": [
+        "cmp-gestion-environnement",
+        "cmp-logistique"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-technicien-peche"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a"
+        ]
+      },
+      "etablissements": [
+        "ga-esm",
+        "ma-uiz",
+        "sn-ussein"
+      ]
+    },
+    {
+      "id": "frm-licence-mathematiques",
+      "intitule": "Licence en mathématiques",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-sciences",
+      "competences": [
+        "cmp-mathematiques",
+        "cmp-statistiques",
+        "cmp-esprit-analyse"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-data-analyst",
+        "met-statisticien",
+        "met-enseignant-secondaire"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz",
+        "sn-uidt",
+        "sn-uadb"
+      ]
+    },
+    {
+      "id": "frm-licence-physique-chimie",
+      "intitule": "Licence en physique / chimie",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-sciences",
+      "competences": [
+        "cmp-physique-chimie",
+        "cmp-mathematiques"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-chercheur",
+        "met-enseignant-secondaire"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz",
+        "sn-uidt"
+      ]
+    },
+    {
+      "id": "frm-licence-biologie",
+      "intitule": "Licence en biologie (SVT)",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-sciences",
+      "competences": [
+        "cmp-biologie",
+        "cmp-methodologie-recherche"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-technicien-laboratoire",
+        "met-chercheur",
+        "met-enseignant-secondaire"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ga-ustm",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz",
+        "sn-uidt",
+        "sn-uadb"
+      ]
+    },
+    {
+      "id": "frm-ingenieur-statistique",
+      "intitule": "Diplôme d'ingénieur statisticien-économiste",
+      "diplome": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-sciences",
+      "competences": [
+        "cmp-statistiques",
+        "cmp-analyse-donnees",
+        "cmp-mathematiques"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-statisticien",
+        "met-actuaire"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ga-ista",
+        "ma-insea",
+        "sn-ensae"
+      ]
+    },
+    {
+      "id": "frm-doctorat-recherche",
+      "intitule": "Doctorat (PhD) – toutes disciplines",
+      "diplome": "Doctorat",
+      "niveau": "niv-bac8",
+      "duree_annees": 8,
+      "domaine": "dom-sciences",
+      "competences": [
+        "cmp-methodologie-recherche",
+        "cmp-communication-ecrite",
+        "cmp-esprit-analyse"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-chercheur"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-sa"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s4",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-s2a",
+          "sn-bac-f6"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ga-ustm",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "ma-uaq",
+        "ma-um6p",
+        "sn-ucad",
+        "sn-ugb"
+      ]
+    },
+    {
+      "id": "frm-bts-comptabilite",
+      "intitule": "BTS / DUT Comptabilité et gestion",
+      "diplome": "BTS",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-finance",
+      "competences": [
+        "cmp-comptabilite",
+        "cmp-fiscalite",
+        "cmp-bureautique"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-comptable"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-b",
+          "ga-bac-c",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-se",
+          "ma-bac-sgc"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s1a",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-insg",
+        "ga-ist",
+        "ma-ofppt",
+        "sn-esp",
+        "sn-ipd"
+      ]
+    },
+    {
+      "id": "frm-bts-commerce",
+      "intitule": "BTS / DUT Techniques de commercialisation",
+      "diplome": "BTS",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-commerce",
+      "competences": [
+        "cmp-techniques-vente",
+        "cmp-marketing",
+        "cmp-communication-orale"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-charge-clientele-banque",
+        "met-agent-mobile-money",
+        "met-commercial",
+        "met-gestionnaire-ecommerce",
+        "met-transitaire"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-b",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ma-ofppt"
+      ]
+    },
+    {
+      "id": "frm-bts-assistant-direction",
+      "intitule": "BTS Assistant(e) de direction / secrétariat",
+      "diplome": "BTS",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-gestion",
+      "competences": [
+        "cmp-bureautique",
+        "cmp-communication-ecrite",
+        "cmp-organisation"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-assistant-direction"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-b",
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-g1",
+          "ga-bac-g2",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-se",
+          "ma-bac-sgc"
+        ],
+        "SN": [
+          "sn-bac-l2",
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s1a",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-iuso"
+      ]
+    },
+    {
+      "id": "frm-licence-economie",
+      "intitule": "Licence en sciences économiques",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-gestion",
+      "competences": [
+        "cmp-mathematiques",
+        "cmp-statistiques",
+        "cmp-esprit-analyse"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-inspecteur-impots"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-b",
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-g1",
+          "ga-bac-g2",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-se",
+          "ma-bac-sgc"
+        ],
+        "SN": [
+          "sn-bac-l2",
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s1a",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz",
+        "sn-uidt",
+        "sn-uadb",
+        "sn-ussein"
+      ]
+    },
+    {
+      "id": "frm-licence-gestion",
+      "intitule": "Licence en sciences de gestion",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-gestion",
+      "competences": [
+        "cmp-comptabilite",
+        "cmp-strategie",
+        "cmp-marketing"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-comptable",
+        "met-controleur-gestion"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-b",
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-g1",
+          "ga-bac-g2",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-se",
+          "ma-bac-sgc"
+        ],
+        "SN": [
+          "sn-bac-l2",
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s1a",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ga-insg",
+        "ga-uil",
+        "ga-ufgse",
+        "ga-aum",
+        "ga-esgis",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz",
+        "sn-uidt",
+        "sn-uam",
+        "sn-unchk",
+        "sn-isi",
+        "sn-uahb",
+        "sn-udb",
+        "sn-unis",
+        "sn-ucao"
+      ]
+    },
+    {
+      "id": "frm-licence-banque-finance",
+      "intitule": "Licence banque, finance et assurance",
+      "diplome": "Licence professionnelle",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-finance",
+      "competences": [
+        "cmp-analyse-financiere",
+        "cmp-comptabilite",
+        "cmp-techniques-vente"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-analyste-financier",
+        "met-charge-clientele-banque",
+        "met-agent-mobile-money"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-b",
+          "ga-bac-c",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-se",
+          "ma-bac-sgc"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s1a",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-insg",
+        "ga-bbs",
+        "ga-aum",
+        "sn-cesag"
+      ]
+    },
+    {
+      "id": "frm-licence-grh",
+      "intitule": "Licence gestion des ressources humaines",
+      "diplome": "Licence professionnelle",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-gestion",
+      "competences": [
+        "cmp-gestion-rh",
+        "cmp-communication-orale",
+        "cmp-droit-affaires"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-responsable-rh"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-b",
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-g1",
+          "ga-bac-g2",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-se",
+          "ma-bac-sgc"
+        ],
+        "SN": [
+          "sn-bac-l2",
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s1a",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-insg",
+        "ga-iuso"
+      ]
+    },
+    {
+      "id": "frm-licence-logistique",
+      "intitule": "Licence transport, logistique et supply chain",
+      "diplome": "Licence professionnelle",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-transport-logistique",
+      "competences": [
+        "cmp-logistique",
+        "cmp-organisation",
+        "cmp-anglais"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-logisticien",
+        "met-transitaire"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-b",
+          "ga-bac-c",
+          "ga-bac-f1",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-stm",
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s1a",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-iuso",
+        "ga-esm",
+        "ga-aum",
+        "ga-libs",
+        "sn-uam",
+        "sn-supdeco"
+      ]
+    },
+    {
+      "id": "frm-bachelor-business",
+      "intitule": "Bachelor en management / business administration",
+      "diplome": "Bachelor",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-commerce",
+      "competences": [
+        "cmp-marketing",
+        "cmp-strategie",
+        "cmp-anglais",
+        "cmp-esprit-entrepreneurial"
+      ],
+      "mode_admission": "dossier+entretien",
+      "metiers": [
+        "met-entrepreneur",
+        "met-commercial",
+        "met-gestionnaire-ecommerce"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-b",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-bbs",
+        "ga-em-gabon",
+        "ga-afram",
+        "ga-libs",
+        "ma-aui",
+        "ma-uir",
+        "ma-ueuromed",
+        "ma-uic",
+        "ma-mundiapolis",
+        "ma-upf",
+        "ma-upm",
+        "ma-universiapolis",
+        "ma-hem",
+        "ma-esca",
+        "ma-isga",
+        "sn-ism",
+        "sn-supdeco",
+        "sn-bem",
+        "sn-iam"
+      ]
+    },
+    {
+      "id": "frm-master-finance-audit",
+      "intitule": "Master finance, comptabilité, contrôle et audit (CCA)",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-finance",
+      "competences": [
+        "cmp-audit-controle",
+        "cmp-analyse-financiere",
+        "cmp-fiscalite"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-expert-comptable",
+        "met-auditeur",
+        "met-controleur-gestion",
+        "met-analyste-financier"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-b",
+          "ga-bac-c",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-se",
+          "ma-bac-sgc"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s1a",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ga-insg",
+        "ga-ista",
+        "ga-uil",
+        "ga-ufgse",
+        "ga-bbs",
+        "ga-aum",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "ma-iscae",
+        "ma-encg-settat",
+        "ma-encg-casa",
+        "ma-encg-oujda",
+        "ma-encg-marrakech",
+        "ma-hem",
+        "ma-esca",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz",
+        "sn-uidt",
+        "sn-cesag",
+        "sn-ism",
+        "sn-supdeco",
+        "sn-bem",
+        "sn-iam"
+      ]
+    },
+    {
+      "id": "frm-master-marketing",
+      "intitule": "Master marketing et communication digitale",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-commerce",
+      "competences": [
+        "cmp-marketing",
+        "cmp-marketing-digital",
+        "cmp-strategie"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-chef-projet-digital",
+        "met-responsable-marketing",
+        "met-community-manager",
+        "met-charge-communication"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-b",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-insg",
+        "ga-em-gabon",
+        "ga-afram",
+        "ma-mundiapolis",
+        "ma-iscae",
+        "ma-encg-settat",
+        "ma-encg-casa",
+        "ma-encg-oujda",
+        "ma-encg-marrakech",
+        "ma-hem",
+        "ma-esca",
+        "sn-ism",
+        "sn-supdeco",
+        "sn-bem",
+        "sn-iam"
+      ]
+    },
+    {
+      "id": "frm-master-management",
+      "intitule": "Master management / Programme grande école",
+      "diplome": "Diplôme de grande école",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-gestion",
+      "competences": [
+        "cmp-strategie",
+        "cmp-leadership",
+        "cmp-gestion-projet",
+        "cmp-anglais"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-chef-projet",
+        "met-entrepreneur",
+        "met-consultant",
+        "met-responsable-marketing"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-b",
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-g1",
+          "ga-bac-g2",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-se",
+          "ma-bac-sgc"
+        ],
+        "SN": [
+          "sn-bac-l2",
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s1a",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-insg",
+        "ga-ista",
+        "ga-uil",
+        "ga-ufgse",
+        "ga-bbs",
+        "ga-em-gabon",
+        "ga-aum",
+        "ga-libs",
+        "ma-um6p",
+        "ma-uic",
+        "ma-iscae",
+        "ma-encg-settat",
+        "ma-encg-casa",
+        "ma-encg-oujda",
+        "ma-encg-marrakech",
+        "ma-hem",
+        "ma-esca",
+        "ma-iga",
+        "ma-isga",
+        "sn-esp",
+        "sn-esmt",
+        "sn-cesag",
+        "sn-ism",
+        "sn-supdeco",
+        "sn-bem",
+        "sn-iam"
+      ]
+    },
+    {
+      "id": "frm-master-grh",
+      "intitule": "Master management des ressources humaines",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-gestion",
+      "competences": [
+        "cmp-gestion-rh",
+        "cmp-droit-affaires",
+        "cmp-leadership"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-responsable-rh"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-b",
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-g1",
+          "ga-bac-g2",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-se",
+          "ma-bac-sgc"
+        ],
+        "SN": [
+          "sn-bac-l2",
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s1a",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-em-gabon",
+        "ma-hem",
+        "ma-esca",
+        "sn-ism",
+        "sn-supdeco",
+        "sn-bem",
+        "sn-iam"
+      ]
+    },
+    {
+      "id": "frm-master-logistique",
+      "intitule": "Master logistique et supply chain management",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-transport-logistique",
+      "competences": [
+        "cmp-logistique",
+        "cmp-gestion-projet",
+        "cmp-analyse-donnees"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-logisticien"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-b",
+          "ga-bac-c",
+          "ga-bac-f1",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-stm",
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s1a",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-em-gabon",
+        "ma-uae",
+        "ma-esith",
+        "ma-encg-settat"
+      ]
+    },
+    {
+      "id": "frm-mba",
+      "intitule": "MBA / Executive master",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-gestion",
+      "competences": [
+        "cmp-strategie",
+        "cmp-leadership",
+        "cmp-analyse-financiere"
+      ],
+      "mode_admission": "dossier+entretien",
+      "metiers": [
+        "met-chef-projet",
+        "met-entrepreneur",
+        "met-consultant"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-b",
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-g1",
+          "ga-bac-g2",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-svt",
+          "ma-bac-se",
+          "ma-bac-sgc"
+        ],
+        "SN": [
+          "sn-bac-l2",
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s1a",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-bbs",
+        "ma-aui",
+        "ma-iscae",
+        "ma-hem",
+        "ma-esca",
+        "sn-cesag",
+        "sn-ism",
+        "sn-supdeco",
+        "sn-bem",
+        "sn-iam"
+      ]
+    },
+    {
+      "id": "frm-licence-droit-prive",
+      "intitule": "Licence en droit privé",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-droit",
+      "competences": [
+        "cmp-droit-affaires",
+        "cmp-procedures-judiciaires",
+        "cmp-communication-ecrite"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-avocat",
+        "met-magistrat"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-charia"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ga-uil",
+        "ga-ufgse",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "ma-mundiapolis",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uidt",
+        "sn-ism",
+        "sn-uahb",
+        "sn-udb",
+        "sn-unis",
+        "sn-ucao"
+      ]
+    },
+    {
+      "id": "frm-licence-droit-public",
+      "intitule": "Licence en droit public / sciences politiques",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-droit",
+      "competences": [
+        "cmp-droit-public",
+        "cmp-politiques-publiques",
+        "cmp-communication-ecrite"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-administrateur-civil",
+        "met-inspecteur-impots"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-charia"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "ma-uaq",
+        "ma-uir",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uam",
+        "sn-unchk"
+      ]
+    },
+    {
+      "id": "frm-master-droit-affaires",
+      "intitule": "Master droit des affaires / juriste d'entreprise",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-droit",
+      "competences": [
+        "cmp-droit-affaires",
+        "cmp-fiscalite",
+        "cmp-negociation"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-avocat",
+        "met-notaire",
+        "met-juriste-entreprise"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-charia"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-ugb"
+      ]
+    },
+    {
+      "id": "frm-master-relations-internationales",
+      "intitule": "Master relations internationales et diplomatie",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-admin-publique",
+      "competences": [
+        "cmp-relations-internationales",
+        "cmp-anglais",
+        "cmp-negociation"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-diplomate"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b",
+          "ga-bac-g1"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "ma-aui",
+        "ma-uir",
+        "ma-ueuromed",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-udb"
+      ]
+    },
+    {
+      "id": "frm-ena-administration",
+      "intitule": "Cycle de formation de l'École nationale d'administration",
+      "diplome": "Diplôme de grande école",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-admin-publique",
+      "competences": [
+        "cmp-droit-public",
+        "cmp-politiques-publiques",
+        "cmp-gestion-projet"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-administrateur-civil",
+        "met-diplomate",
+        "met-inspecteur-impots",
+        "met-officier-militaire"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b",
+          "ga-bac-g1"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-ena",
+        "ma-ensa-admin",
+        "sn-ena"
+      ]
+    },
+    {
+      "id": "frm-magistrature",
+      "intitule": "Formation initiale des magistrats",
+      "diplome": "Diplôme de grande école",
+      "niveau": "niv-bac5",
+      "duree_annees": 6,
+      "domaine": "dom-droit",
+      "competences": [
+        "cmp-procedures-judiciaires",
+        "cmp-ethique",
+        "cmp-communication-ecrite"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-magistrat"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-charia"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-ena",
+        "ma-ism",
+        "sn-ena"
+      ]
+    },
+    {
+      "id": "frm-licence-lettres-modernes",
+      "intitule": "Licence lettres modernes",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-lettres-langues",
+      "competences": [
+        "cmp-francais",
+        "cmp-communication-ecrite",
+        "cmp-esprit-analyse"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-enseignant-secondaire",
+        "met-bibliothecaire-documentaliste"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2"
+        ],
+        "MA": [
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-charia",
+          "ma-bac-langue-arabe"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "ma-uaq",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz"
+      ]
+    },
+    {
+      "id": "frm-licence-langues-etrangeres",
+      "intitule": "Licence langues étrangères appliquées (anglais, espagnol, arabe...)",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-lettres-langues",
+      "competences": [
+        "cmp-anglais",
+        "cmp-langues-etrangeres",
+        "cmp-traduction"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-enseignant-secondaire",
+        "met-traducteur-interprete"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2"
+        ],
+        "MA": [
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-charia",
+          "ma-bac-langue-arabe"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz"
+      ]
+    },
+    {
+      "id": "frm-master-traduction",
+      "intitule": "Master traduction et interprétariat",
+      "diplome": "Master",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-lettres-langues",
+      "competences": [
+        "cmp-traduction",
+        "cmp-anglais",
+        "cmp-langues-etrangeres"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-traducteur-interprete"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2"
+        ],
+        "MA": [
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-charia",
+          "ma-bac-langue-arabe"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la"
+        ]
+      },
+      "etablissements": [
+        "ma-uae",
+        "sn-ucad"
+      ]
+    },
+    {
+      "id": "frm-licence-sociologie",
+      "intitule": "Licence sociologie / anthropologie",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-shs",
+      "competences": [
+        "cmp-methodologie-recherche",
+        "cmp-esprit-analyse",
+        "cmp-communication-ecrite"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-travailleur-social",
+        "met-sociologue"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-charia"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz",
+        "sn-uadb",
+        "sn-unchk"
+      ]
+    },
+    {
+      "id": "frm-licence-psychologie",
+      "intitule": "Licence psychologie",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-shs",
+      "competences": [
+        "cmp-accompagnement-psycho",
+        "cmp-empathie",
+        "cmp-methodologie-recherche"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-conseiller-orientation",
+        "met-psychologue"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-charia"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz"
+      ]
+    },
+    {
+      "id": "frm-licence-histoire-geographie",
+      "intitule": "Licence histoire / géographie",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-shs",
+      "competences": [
+        "cmp-communication-ecrite",
+        "cmp-esprit-analyse",
+        "cmp-topographie"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-chercheur",
+        "met-enseignant-secondaire"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-charia"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ma-um5",
+        "ma-uh2c",
+        "ma-uca",
+        "ma-usmba",
+        "ma-uiz",
+        "ma-ump",
+        "ma-uit",
+        "ma-uae",
+        "ma-umi",
+        "ma-ucd",
+        "ma-uh1",
+        "ma-usms",
+        "sn-ucad",
+        "sn-ugb",
+        "sn-uasz"
+      ]
+    },
+    {
+      "id": "frm-licence-travail-social",
+      "intitule": "Licence / diplôme d'État de travail social",
+      "diplome": "Diplôme d'État",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-shs",
+      "competences": [
+        "cmp-accompagnement-psycho",
+        "cmp-empathie",
+        "cmp-communication-orale"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-travailleur-social"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-charia"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ma-inas",
+        "sn-entss"
+      ]
+    },
+    {
+      "id": "frm-ens-professorat",
+      "intitule": "Professorat de l'enseignement secondaire (ENS / CRMEF / FASTEF)",
+      "diplome": "Diplôme de grande école",
+      "niveau": "niv-bac5",
+      "duree_annees": 5,
+      "domaine": "dom-education",
+      "competences": [
+        "cmp-didactique",
+        "cmp-pedagogie",
+        "cmp-communication-orale"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-enseignant-secondaire"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-svt",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-charia",
+          "ma-bac-langue-arabe"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-s2"
+        ]
+      },
+      "etablissements": [
+        "ga-ens",
+        "ga-enset",
+        "ma-ens-marrakech",
+        "sn-ucad",
+        "sn-fastef"
+      ]
+    },
+    {
+      "id": "frm-licence-sciences-education",
+      "intitule": "Licence en sciences de l'éducation",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-education",
+      "competences": [
+        "cmp-didactique",
+        "cmp-pedagogie",
+        "cmp-accompagnement-psycho"
+      ],
+      "mode_admission": "bac",
+      "metiers": [
+        "met-instituteur",
+        "met-conseiller-orientation"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-d"
+        ],
+        "MA": [
+          "ma-bac-svt",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-charia",
+          "ma-bac-langue-arabe"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-s2"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ga-ens",
+        "ma-um5",
+        "ma-ens-marrakech",
+        "sn-fastef"
+      ]
+    },
+    {
+      "id": "frm-licence-staps",
+      "intitule": "Licence STAPS (sport)",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-securite-defense",
+      "competences": [
+        "cmp-condition-physique",
+        "cmp-pedagogie",
+        "cmp-premiers-secours"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-coach-sportif"
+      ],
+      "series_recommandees": {},
+      "etablissements": [
+        "ma-uh2c",
+        "ma-uh1",
+        "sn-ucad",
+        "sn-ugb"
+      ]
+    },
+    {
+      "id": "frm-licence-journalisme",
+      "intitule": "Licence / diplôme de journalisme",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-communication",
+      "competences": [
+        "cmp-journalisme",
+        "cmp-communication-ecrite",
+        "cmp-production-audiovisuelle"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-journaliste"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b",
+          "ga-bac-g1"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-aa",
+          "ma-bac-langue-arabe"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ma-isic",
+        "sn-ucad",
+        "sn-cesti"
+      ]
+    },
+    {
+      "id": "frm-licence-communication",
+      "intitule": "Licence communication et relations publiques",
+      "diplome": "Licence professionnelle",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-communication",
+      "competences": [
+        "cmp-communication-orale",
+        "cmp-marketing-digital",
+        "cmp-communication-ecrite"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-community-manager",
+        "met-charge-communication"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b",
+          "ga-bac-g1"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-aa",
+          "ma-bac-langue-arabe"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ga-iuso",
+        "ga-uil",
+        "ga-afram",
+        "ma-aui",
+        "ma-isic",
+        "sn-uadb",
+        "sn-unchk",
+        "sn-ism",
+        "sn-iam",
+        "sn-uahb",
+        "sn-unis",
+        "sn-ucao"
+      ]
+    },
+    {
+      "id": "frm-licence-audiovisuel-cinema",
+      "intitule": "Licence audiovisuel et cinéma",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-arts-design",
+      "competences": [
+        "cmp-production-audiovisuelle",
+        "cmp-creativite"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-realisateur-monteur"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2"
+        ],
+        "MA": [
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-aa"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la"
+        ]
+      },
+      "etablissements": [
+        "sn-ensba"
+      ]
+    },
+    {
+      "id": "frm-licence-design-graphique",
+      "intitule": "Licence design graphique / arts appliqués",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-arts-design",
+      "competences": [
+        "cmp-design-graphique",
+        "cmp-creativite",
+        "cmp-ux-ui"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-ux-ui-designer",
+        "met-graphiste",
+        "met-styliste"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2"
+        ],
+        "MA": [
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-aa"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la"
+        ]
+      },
+      "etablissements": [
+        "ma-inba"
+      ]
+    },
+    {
+      "id": "frm-licence-beaux-arts",
+      "intitule": "Diplôme des beaux-arts / arts plastiques",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-arts-design",
+      "competences": [
+        "cmp-creativite",
+        "cmp-design-graphique"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-graphiste",
+        "met-artiste-plasticien"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2"
+        ],
+        "MA": [
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-aa"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la"
+        ]
+      },
+      "etablissements": [
+        "ma-inba",
+        "sn-ensba"
+      ]
+    },
+    {
+      "id": "frm-licence-patrimoine",
+      "intitule": "Licence patrimoine, archéologie et métiers de la culture",
+      "diplome": "Licence",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-arts-design",
+      "competences": [
+        "cmp-methodologie-recherche",
+        "cmp-communication-ecrite"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-gestionnaire-patrimoine-culturel"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2"
+        ],
+        "MA": [
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-aa"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la"
+        ]
+      },
+      "etablissements": [
+        "ga-uob",
+        "ma-insap"
+      ]
+    },
+    {
+      "id": "frm-aviation-civile",
+      "intitule": "Formations aéronautiques (pilote, contrôleur aérien, maintenance avion)",
+      "diplome": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5",
+      "duree_annees": 3,
+      "domaine": "dom-transport-logistique",
+      "competences": [
+        "cmp-mecanique",
+        "cmp-anglais",
+        "cmp-gestion-stress"
+      ],
+      "mode_admission": "concours",
+      "metiers": [
+        "met-pilote-ligne",
+        "met-controleur-aerien",
+        "met-technicien-maintenance-aero"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-b",
+          "ga-bac-c",
+          "ga-bac-f1",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-stm",
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s1a",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ma-uir",
+        "ma-aiac"
+      ]
+    },
+    {
+      "id": "frm-bts-tourisme",
+      "intitule": "BTS / Technicien spécialisé tourisme",
+      "diplome": "BTS",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-tourisme",
+      "competences": [
+        "cmp-accueil-hospitalite",
+        "cmp-langues-etrangeres",
+        "cmp-techniques-vente"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-agent-tourisme"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ma-uiz",
+        "ma-ofppt",
+        "sn-isep-thies"
+      ]
+    },
+    {
+      "id": "frm-licence-hotellerie",
+      "intitule": "Licence management hôtelier et restauration",
+      "diplome": "Licence professionnelle",
+      "niveau": "niv-bac3",
+      "duree_annees": 3,
+      "domaine": "dom-tourisme",
+      "competences": [
+        "cmp-accueil-hospitalite",
+        "cmp-cuisine",
+        "cmp-gestion-rh"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-gestionnaire-hotel",
+        "met-chef-cuisinier"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-a1",
+          "ga-bac-a2",
+          "ga-bac-b",
+          "ga-bac-g3"
+        ],
+        "MA": [
+          "ma-bac-se",
+          "ma-bac-sgc",
+          "ma-bac-lettres",
+          "ma-bac-sh",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-l1",
+          "sn-bac-l1p",
+          "sn-bac-l2",
+          "sn-bac-la",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ma-uca",
+        "ma-uiz",
+        "ma-upm",
+        "ma-universiapolis",
+        "sn-uasz"
+      ]
+    },
+    {
+      "id": "frm-ts-ofppt-digital",
+      "intitule": "Technicien spécialisé développement digital (formation professionnelle)",
+      "diplome": "Technicien spécialisé",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-numerique",
+      "competences": [
+        "cmp-programmation",
+        "cmp-developpement-web-mobile"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-developpeur-web-mobile"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-d",
+          "ga-bac-e",
+          "ga-bac-f2",
+          "ga-bac-f3",
+          "ga-bac-g2"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s2",
+          "sn-bac-s3",
+          "sn-bac-s1a",
+          "sn-bac-stidd",
+          "sn-bac-steg"
+        ]
+      },
+      "etablissements": [
+        "ma-ofppt"
+      ]
+    },
+    {
+      "id": "frm-ts-froid-climatisation",
+      "intitule": "Technicien spécialisé froid et climatisation",
+      "diplome": "Technicien spécialisé",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-ingenierie",
+      "competences": [
+        "cmp-electricite-electronique",
+        "cmp-mecanique"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-technicien-maintenance"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f2",
+          "ga-bac-f3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ga-ito",
+        "ma-ofppt"
+      ]
+    },
+    {
+      "id": "frm-ts-mecanique-auto",
+      "intitule": "Technicien spécialisé maintenance automobile",
+      "diplome": "Technicien spécialisé",
+      "niveau": "niv-bac2",
+      "duree_annees": 2,
+      "domaine": "dom-ingenierie",
+      "competences": [
+        "cmp-mecanique",
+        "cmp-electricite-electronique"
+      ],
+      "mode_admission": "dossier",
+      "metiers": [
+        "met-mecanicien-auto"
+      ],
+      "series_recommandees": {
+        "GA": [
+          "ga-bac-c",
+          "ga-bac-e",
+          "ga-bac-f1",
+          "ga-bac-f2",
+          "ga-bac-f3"
+        ],
+        "MA": [
+          "ma-bac-sm-a",
+          "ma-bac-sm-b",
+          "ma-bac-pc",
+          "ma-bac-ste",
+          "ma-bac-stm",
+          "ma-bac-pro"
+        ],
+        "SN": [
+          "sn-bac-s1",
+          "sn-bac-s3",
+          "sn-bac-s5",
+          "sn-bac-s1a",
+          "sn-bac-f6",
+          "sn-bac-stidd"
+        ]
+      },
+      "etablissements": [
+        "ma-ofppt",
+        "sn-isep-thies"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "_meta": {
+    "referentiel": "profils_riasec",
+    "version": "1.0.0",
+    "date": "2026-10-08",
+    "plateforme": "Navigoal",
+    "description": "Typologie de Holland utilisée par le moteur d'orientation"
+  },
+  "items": [
+    {
+      "code": "R",
+      "nom": "Réaliste",
+      "profil": "Bâtisseur / Technicien",
+      "description": "Aime le concret, manipuler des outils, des machines, travailler dehors ou sur le terrain."
+    },
+    {
+      "code": "I",
+      "nom": "Investigateur",
+      "profil": "Analyste / Chercheur",
+      "description": "Aime comprendre, observer, analyser, résoudre des problèmes complexes."
+    },
+    {
+      "code": "A",
+      "nom": "Artistique",
+      "profil": "Créatif / Concepteur",
+      "description": "Aime créer, imaginer, s'exprimer, travailler avec originalité."
+    },
+    {
+      "code": "S",
+      "nom": "Social",
+      "profil": "Accompagnateur / Soignant",
+      "description": "Aime aider, enseigner, soigner, conseiller et travailler avec les autres."
+    },
+    {
+      "code": "E",
+      "nom": "Entreprenant",
+      "profil": "Leader / Entrepreneur",
+      "description": "Aime convaincre, diriger, prendre des initiatives et des risques."
+    },
+    {
+      "code": "C",
+      "nom": "Conventionnel",
+      "profil": "Organisateur / Gestionnaire",
+      "description": "Aime l'ordre, la précision, les procédures, les chiffres et l'organisation."
+    }
+  ]
+}

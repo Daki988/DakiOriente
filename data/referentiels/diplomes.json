@@ -1,0 +1,110 @@
+{
+  "_meta": {
+    "referentiel": "diplomes",
+    "version": "1.0.0",
+    "date": "2026-10-08",
+    "plateforme": "Navigoal"
+  },
+  "items": [
+    {
+      "id": "dip-cap",
+      "libelle": "CAP",
+      "niveau": "niv-college"
+    },
+    {
+      "id": "dip-bt",
+      "libelle": "BT",
+      "niveau": "niv-lycee"
+    },
+    {
+      "id": "dip-bac-pro",
+      "libelle": "Bac pro",
+      "niveau": "niv-bac"
+    },
+    {
+      "id": "dip-bts",
+      "libelle": "BTS",
+      "niveau": "niv-bac2"
+    },
+    {
+      "id": "dip-dut",
+      "libelle": "DUT",
+      "niveau": "niv-bac2"
+    },
+    {
+      "id": "dip-dts",
+      "libelle": "DTS",
+      "niveau": "niv-bac2"
+    },
+    {
+      "id": "dip-deust",
+      "libelle": "DEUST",
+      "niveau": "niv-bac2"
+    },
+    {
+      "id": "dip-dst",
+      "libelle": "DST",
+      "niveau": "niv-bac2"
+    },
+    {
+      "id": "dip-technicien-sp-cialis",
+      "libelle": "Technicien spécialisé",
+      "niveau": "niv-bac2"
+    },
+    {
+      "id": "dip-cpge",
+      "libelle": "CPGE",
+      "niveau": "niv-bac2"
+    },
+    {
+      "id": "dip-licence",
+      "libelle": "Licence",
+      "niveau": "niv-bac3"
+    },
+    {
+      "id": "dip-licence-professionnelle",
+      "libelle": "Licence professionnelle",
+      "niveau": "niv-bac3"
+    },
+    {
+      "id": "dip-bachelor",
+      "libelle": "Bachelor",
+      "niveau": "niv-bac3"
+    },
+    {
+      "id": "dip-master",
+      "libelle": "Master",
+      "niveau": "niv-bac5"
+    },
+    {
+      "id": "dip-dipl-me-d-ing-nieur",
+      "libelle": "Diplôme d'ingénieur",
+      "niveau": "niv-bac5"
+    },
+    {
+      "id": "dip-dipl-me-de-grande-cole",
+      "libelle": "Diplôme de grande école",
+      "niveau": "niv-bac5"
+    },
+    {
+      "id": "dip-dipl-me-d-architecte",
+      "libelle": "Diplôme d'architecte",
+      "niveau": "niv-bac5"
+    },
+    {
+      "id": "dip-dipl-me-d-tat",
+      "libelle": "Diplôme d'État",
+      "niveau": "niv-bac3"
+    },
+    {
+      "id": "dip-doctorat-d-exercice",
+      "libelle": "Doctorat d'exercice",
+      "niveau": "niv-bac7"
+    },
+    {
+      "id": "dip-doctorat",
+      "libelle": "Doctorat",
+      "niveau": "niv-bac8"
+    }
+  ]
+}

@@ -1,0 +1,388 @@
+{
+  "_meta": {
+    "referentiel": "navilease_logements",
+    "version": "1.0.0",
+    "date": "2026-10-08",
+    "plateforme": "Navigoal",
+    "types_logement": [
+      {
+        "id": "log-residence-publique",
+        "libelle": "Résidence / cité universitaire publique",
+        "description": "Chambres gérées par l'office des œuvres universitaires (CNOU, ONOUSC, COUD/CROUS)."
+      },
+      {
+        "id": "log-residence-privee",
+        "libelle": "Résidence étudiante privée",
+        "description": "Studios ou chambres meublées avec services (gardiennage, wifi, ménage)."
+      },
+      {
+        "id": "log-studio",
+        "libelle": "Studio / appartement individuel",
+        "description": "Logement autonome loué à un particulier ou une agence."
+      },
+      {
+        "id": "log-colocation",
+        "libelle": "Colocation",
+        "description": "Appartement partagé entre plusieurs étudiants, bail commun ou individuel."
+      },
+      {
+        "id": "log-chambre-habitant",
+        "libelle": "Chambre chez l'habitant",
+        "description": "Chambre dans une famille d'accueil, souvent avec repas."
+      },
+      {
+        "id": "log-foyer-internat",
+        "libelle": "Foyer / internat",
+        "description": "Foyers confessionnels, associatifs ou internats d'établissements."
+      }
+    ],
+    "equipements": [
+      "Meublé",
+      "Wifi",
+      "Eau courante",
+      "Électricité incluse",
+      "Groupe électrogène / onduleur",
+      "Climatisation",
+      "Ventilateur",
+      "Cuisine équipée",
+      "Salle d'eau privative",
+      "Gardiennage 24h/24",
+      "Caméras de surveillance",
+      "Parking",
+      "Laverie",
+      "Espace de travail",
+      "Proche transports",
+      "Accessible PMR"
+    ],
+    "statuts_verification": [
+      {
+        "id": "non_verifie",
+        "libelle": "Non vérifié"
+      },
+      {
+        "id": "identite_verifiee",
+        "libelle": "Identité du bailleur vérifiée"
+      },
+      {
+        "id": "visite_navilease",
+        "libelle": "Logement visité par Navilease"
+      },
+      {
+        "id": "partenaire_certifie",
+        "libelle": "Partenaire certifié Navilease"
+      }
+    ],
+    "description": "Navilease – module logement étudiant de Navigoal. Seed des résidences publiques ; les offres privées sont saisies par les bailleurs."
+  },
+  "items": [
+    {
+      "id": "nl-ga-cnou-uob",
+      "nom": "Cités universitaires du campus UOB",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "log-residence-publique",
+      "gestionnaire": "CNOU",
+      "etablissements_desservis": [
+        "ga-uob",
+        "ga-ens",
+        "ga-enset"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ga-cnou-ustm",
+      "nom": "Résidences universitaires de l'USTM",
+      "pays": "GA",
+      "ville": "Franceville",
+      "type": "log-residence-publique",
+      "gestionnaire": "CNOU / USTM",
+      "etablissements_desservis": [
+        "ga-ustm"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ga-cnou-uss",
+      "nom": "Pavillon étudiant de l'USS (en construction)",
+      "pays": "GA",
+      "ville": "Owendo",
+      "type": "log-residence-publique",
+      "gestionnaire": "CNOU / USS",
+      "etablissements_desservis": [
+        "ga-uss"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-onousc-rabat",
+      "nom": "Cités universitaires de Rabat (Souissi, Agdal)",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "log-residence-publique",
+      "gestionnaire": "ONOUSC",
+      "etablissements_desservis": [
+        "ma-um5",
+        "ma-emi",
+        "ma-ensias",
+        "ma-inpt",
+        "ma-insea",
+        "ma-iav"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-onousc-casa",
+      "nom": "Cité universitaire de Casablanca",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "log-residence-publique",
+      "gestionnaire": "ONOUSC",
+      "etablissements_desservis": [
+        "ma-uh2c",
+        "ma-ehtp",
+        "ma-ensam-casa",
+        "ma-encg-casa"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-onousc-marrakech",
+      "nom": "Cité universitaire de Marrakech",
+      "pays": "MA",
+      "ville": "Marrakech",
+      "type": "log-residence-publique",
+      "gestionnaire": "ONOUSC",
+      "etablissements_desservis": [
+        "ma-uca",
+        "ma-encg-marrakech",
+        "ma-ens-marrakech"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-onousc-fes",
+      "nom": "Cités universitaires de Fès",
+      "pays": "MA",
+      "ville": "Fès",
+      "type": "log-residence-publique",
+      "gestionnaire": "ONOUSC",
+      "etablissements_desservis": [
+        "ma-usmba",
+        "ma-uaq"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-onousc-agadir",
+      "nom": "Cité universitaire d'Agadir",
+      "pays": "MA",
+      "ville": "Agadir",
+      "type": "log-residence-publique",
+      "gestionnaire": "ONOUSC",
+      "etablissements_desservis": [
+        "ma-uiz"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-onousc-oujda",
+      "nom": "Cité universitaire d'Oujda",
+      "pays": "MA",
+      "ville": "Oujda",
+      "type": "log-residence-publique",
+      "gestionnaire": "ONOUSC",
+      "etablissements_desservis": [
+        "ma-ump",
+        "ma-ensao",
+        "ma-encg-oujda"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-onousc-tetouan",
+      "nom": "Cité universitaire de Tétouan-Martil",
+      "pays": "MA",
+      "ville": "Tétouan",
+      "type": "log-residence-publique",
+      "gestionnaire": "ONOUSC",
+      "etablissements_desservis": [
+        "ma-uae",
+        "ma-ensate"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-onousc-meknes",
+      "nom": "Cité universitaire de Meknès",
+      "pays": "MA",
+      "ville": "Meknès",
+      "type": "log-residence-publique",
+      "gestionnaire": "ONOUSC",
+      "etablissements_desservis": [
+        "ma-umi",
+        "ma-ena-meknes"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-onousc-kenitra",
+      "nom": "Cité universitaire de Kénitra",
+      "pays": "MA",
+      "ville": "Kénitra",
+      "type": "log-residence-publique",
+      "gestionnaire": "ONOUSC",
+      "etablissements_desservis": [
+        "ma-uit"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-onousc-el-jadida",
+      "nom": "Cité universitaire d'El Jadida",
+      "pays": "MA",
+      "ville": "El Jadida",
+      "type": "log-residence-publique",
+      "gestionnaire": "ONOUSC",
+      "etablissements_desservis": [
+        "ma-ucd"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-onousc-settat",
+      "nom": "Cité universitaire de Settat",
+      "pays": "MA",
+      "ville": "Settat",
+      "type": "log-residence-publique",
+      "gestionnaire": "ONOUSC",
+      "etablissements_desservis": [
+        "ma-uh1",
+        "ma-encg-settat"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-onousc-beni-mellal",
+      "nom": "Cité universitaire de Béni Mellal",
+      "pays": "MA",
+      "ville": "Béni Mellal",
+      "type": "log-residence-publique",
+      "gestionnaire": "ONOUSC",
+      "etablissements_desservis": [
+        "ma-usms"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-um6p-campus",
+      "nom": "Résidences du campus UM6P",
+      "pays": "MA",
+      "ville": "Benguerir",
+      "type": "log-residence-publique",
+      "gestionnaire": "UM6P",
+      "etablissements_desservis": [
+        "ma-um6p"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-ma-aui-campus",
+      "nom": "Résidences du campus Al Akhawayn",
+      "pays": "MA",
+      "ville": "Ifrane",
+      "type": "log-residence-publique",
+      "gestionnaire": "Université Al Akhawayn",
+      "etablissements_desservis": [
+        "ma-aui"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-sn-coud",
+      "nom": "Campus social de l'UCAD",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "log-residence-publique",
+      "gestionnaire": "COUD",
+      "etablissements_desservis": [
+        "sn-ucad",
+        "sn-esp",
+        "sn-cesti",
+        "sn-fastef"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-sn-crous-ugb",
+      "nom": "Campus social de l'UGB",
+      "pays": "SN",
+      "ville": "Saint-Louis",
+      "type": "log-residence-publique",
+      "gestionnaire": "CROUS de Saint-Louis",
+      "etablissements_desservis": [
+        "sn-ugb"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-sn-crous-uasz",
+      "nom": "Campus social de l'UASZ",
+      "pays": "SN",
+      "ville": "Ziguinchor",
+      "type": "log-residence-publique",
+      "gestionnaire": "CROUS de Ziguinchor",
+      "etablissements_desservis": [
+        "sn-uasz"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-sn-crous-thies",
+      "nom": "Campus social de l'UIDT",
+      "pays": "SN",
+      "ville": "Thiès",
+      "type": "log-residence-publique",
+      "gestionnaire": "CROUS de Thiès",
+      "etablissements_desservis": [
+        "sn-uidt",
+        "sn-ept",
+        "sn-isep-thies"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    },
+    {
+      "id": "nl-sn-crous-bambey",
+      "nom": "Campus social de l'UADB",
+      "pays": "SN",
+      "ville": "Bambey",
+      "type": "log-residence-publique",
+      "gestionnaire": "CROUS de Bambey",
+      "etablissements_desservis": [
+        "sn-uadb"
+      ],
+      "statut_verification": "non_verifie",
+      "source": "curation (à vérifier auprès du gestionnaire)"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "http://insggabon.com/img/logo.png": "Domaine insggabon.com détourné (logo d'une entreprise industrielle chinoise)",
+  "https://www.pussy888fun.tv/wp-content/uploads/2021/03/cropped-main-logo.png": "Domaine lyceelbv.org détourné vers un site de jeux",
+  "https://www.google.com/s2/favicons?domain=www.ens-marrakech.ac.ma&sz=256": "Favicon de plateforme, pas le logo de l'ENS",
+  "https://aiac.ma/assets/images/logo.png": "Icône générique (téléphone)",
+  "https://www.esmt.sn/api/media/file/logo-polytech-grenoble.png": "Logo d'un partenaire (Polytech Grenoble)",
+  "https://www.groupeism.sn/sites/default/files/logo_continuite_pedagogique.png": "Badge « continuité pédagogique », pas le logo ISM",
+  "https://commons.wikimedia.org/wiki/Special:FilePath/Portail_de_l%27ENSA_Rabat_Maroc.jpg?width=256": "Photo du portail (P154 erroné sur Wikidata), pas un logo",
+  "https://www.google.com/s2/favicons?domain=www.lyceemaimonide.com&sz=256": "Favicon Wix générique",
+  "https://iejrjimenez.educacion.es/documents/d/global/logo-ministerio": "Bandeau du ministère espagnol, pas le logo de l'établissement",
+  "https://www.wix.com/favicon.ico": "Favicon Wix générique",
+  "https://www.google.com/s2/favicons?domain=aiac.ma&sz=256": "Icône générique (téléphone)",
+  "https://iga.ac.ma/wp-content/uploads/2022/05/UPVD_logo.svg-1024x594.png": "Logo d'un partenaire (Université de Perpignan)",
+  "https://www.esmt.sn/api/media/file/logo-ies-el-rincon.png": "Logo d'un partenaire (IES El Rincón)",
+  "https://univ.uahb.sn/wp-content/uploads/2026/09/logo-uqtr-entete-1-300x117.png": "Logo d'un partenaire (UQTR)",
+  "https://www.uiz.ac.ma/sites/default/files/banner/logo-uiz-gconcours.png": "Bannière d'un service de concours, pas le logo UIZ",
+  "https://iga.ac.ma/wp-content/uploads/2022/05/Universite_de_Tours_logo.svg-1024x721.png": "Logo d'un partenaire (Université de Tours)",
+  "https://www.esmt.sn/api/media/file/logo-ensil-ensci.png": "Logos de partenaires (ENSIL/ENSCI)",
+  "https://iejrjimenez.educacion.es/documents/d/global/logo-sed": "Logo ministériel, pas celui de l'établissement",
+  "https://iga.ac.ma/wp-content/uploads/2022/05/Logo_Universite_de_Lyon-1024x503.png": "Logo d'un partenaire",
+  "https://www.esmt.sn/api/media/file/logo-inp-grenoble.png": "Logo d'un partenaire",
+  "https://iejrjimenez.educacion.es/documents/d/global/logo-aee": "Logo ministériel (Acción Educativa Exterior)"
+}

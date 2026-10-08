@@ -1,0 +1,4278 @@
+{
+  "_meta": {
+    "referentiel": "etablissements_superieurs",
+    "version": "1.0.0",
+    "date": "2026-10-08",
+    "plateforme": "Navigoal",
+    "types": {
+      "universite": "Université",
+      "grande_ecole": "Grande école",
+      "ecole_ingenieurs": "École d'ingénieurs",
+      "ecole_commerce": "École de commerce / management",
+      "institut": "Institut",
+      "ecole_normale": "École normale / formation des enseignants",
+      "ecole_sante": "École de santé",
+      "formation_professionnelle": "Formation professionnelle",
+      "cpge": "Classes préparatoires"
+    },
+    "avertissement": "Offre de formation indicative, à valider par chaque établissement lors de son inscription sur Navigoal."
+  },
+  "items": [
+    {
+      "id": "ga-uob",
+      "nom": "Université Omar Bongo",
+      "sigle": "UOB",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://univuob.org",
+      "annee_creation": 1970,
+      "coordonnees": {
+        "lat": 0.421677,
+        "lng": 9.44558
+      },
+      "wikidata": "Q3551470",
+      "formations": [
+        "frm-doctorat-recherche",
+        "frm-licence-communication",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-journalisme",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-patrimoine",
+        "frm-licence-psychologie",
+        "frm-licence-sciences-education",
+        "frm-licence-sociologie",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ga/ga-uob.png",
+        "source_url": "https://univuob.org/wp-content/uploads/2024/07/cropped-logo_04.png",
+        "page_source": "https://univuob.org/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551470"
+      ]
+    },
+    {
+      "id": "ga-ustm",
+      "nom": "Université des Sciences et Techniques de Masuku",
+      "sigle": "USTM",
+      "pays": "GA",
+      "ville": "Franceville",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://univ-masuku.org",
+      "annee_creation": 1986,
+      "coordonnees": {
+        "lat": -1.63039,
+        "lng": 13.5523
+      },
+      "wikidata": "Q3551737",
+      "formations": [
+        "frm-bts-maintenance-industrielle",
+        "frm-doctorat-recherche",
+        "frm-dut-reseaux-telecoms",
+        "frm-ingenieur-agronome",
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-informatique",
+        "frm-licence-agronomie",
+        "frm-licence-biologie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-informatique",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-master-environnement"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ga/ga-ustm.png",
+        "source_url": "https://univ-masuku.org/assets/img/USTM.png",
+        "page_source": "https://univ-masuku.org",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551737"
+      ]
+    },
+    {
+      "id": "ga-uss",
+      "nom": "Université des Sciences de la Santé",
+      "sigle": "USS",
+      "pays": "GA",
+      "ville": "Owendo",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": null,
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-doctorat-chirurgie-dentaire",
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-licence-biologie-medicale",
+        "frm-licence-sage-femme",
+        "frm-licence-sciences-infirmieres",
+        "frm-master-sante-publique"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ga-ens",
+      "nom": "École Normale Supérieure de Libreville",
+      "sigle": "ENS",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "ecole_normale",
+      "type_libelle": "École normale / formation des enseignants",
+      "statut": "public",
+      "site_web": null,
+      "annee_creation": 1971,
+      "coordonnees": {
+        "lat": 0.425361111,
+        "lng": 9.443027777
+      },
+      "wikidata": "Q50361417",
+      "formations": [
+        "frm-ens-professorat",
+        "frm-licence-sciences-education"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q50361417"
+      ]
+    },
+    {
+      "id": "ga-enset",
+      "nom": "École Normale Supérieure de l'Enseignement Technique",
+      "sigle": "ENSET",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "ecole_normale",
+      "type_libelle": "École normale / formation des enseignants",
+      "statut": "public",
+      "site_web": "https://www.enset-gabon.com",
+      "annee_creation": 1972,
+      "coordonnees": {
+        "lat": 0.423388888,
+        "lng": 9.445527777
+      },
+      "wikidata": "Q104631935",
+      "formations": [
+        "frm-bts-batiment",
+        "frm-bts-electrotechnique",
+        "frm-ens-professorat"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631935"
+      ]
+    },
+    {
+      "id": "ga-insg",
+      "nom": "Institut National des Sciences de Gestion",
+      "sigle": "INSG",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": null,
+      "annee_creation": null,
+      "coordonnees": {
+        "lat": 0.419305555,
+        "lng": 9.432972222
+      },
+      "wikidata": "Q104631940",
+      "formations": [
+        "frm-bts-comptabilite",
+        "frm-licence-banque-finance",
+        "frm-licence-gestion",
+        "frm-licence-grh",
+        "frm-master-finance-audit",
+        "frm-master-management",
+        "frm-master-marketing"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631940"
+      ],
+      "site_web_signale": "http://insggabon.com"
+    },
+    {
+      "id": "ga-iuso",
+      "nom": "Institut Universitaire des Sciences de l'Organisation",
+      "sigle": "IUSO",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "institut",
+      "type_libelle": "Institut",
+      "statut": "public",
+      "site_web": null,
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": "Q104631941",
+      "formations": [
+        "frm-bts-assistant-direction",
+        "frm-licence-communication",
+        "frm-licence-grh",
+        "frm-licence-logistique"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631941"
+      ]
+    },
+    {
+      "id": "ga-ist",
+      "nom": "Institut Supérieur de Technologie",
+      "sigle": "IST",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "institut",
+      "type_libelle": "Institut",
+      "statut": "public",
+      "site_web": null,
+      "annee_creation": 1994,
+      "coordonnees": {
+        "lat": 0.372833333,
+        "lng": 9.463861111
+      },
+      "wikidata": "Q104631946",
+      "formations": [
+        "frm-bts-comptabilite",
+        "frm-bts-electrotechnique",
+        "frm-bts-informatique-gestion",
+        "frm-bts-maintenance-industrielle",
+        "frm-dut-reseaux-telecoms"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631946"
+      ]
+    },
+    {
+      "id": "ga-ito",
+      "nom": "Institut de Technologies d'Owendo",
+      "sigle": "ITO",
+      "pays": "GA",
+      "ville": "Owendo",
+      "type": "institut",
+      "type_libelle": "Institut",
+      "statut": "public",
+      "site_web": null,
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": "Q104631936",
+      "formations": [
+        "frm-bts-batiment",
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-ts-froid-climatisation"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631936"
+      ]
+    },
+    {
+      "id": "ga-e3mg",
+      "nom": "École des Mines et de la Métallurgie de Moanda",
+      "sigle": "E3MG",
+      "pays": "GA",
+      "ville": "Moanda",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "http://e3mg.ga",
+      "annee_creation": null,
+      "coordonnees": {
+        "lat": -1.537083333,
+        "lng": 13.24325
+      },
+      "wikidata": "Q104631949",
+      "formations": [
+        "frm-bts-maintenance-industrielle",
+        "frm-ingenieur-mines",
+        "frm-licence-geologie"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ga/ga-e3mg.png",
+        "source_url": "https://e3mg.ga/public/images/logo.png",
+        "page_source": "https://e3mg.ga/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631949"
+      ]
+    },
+    {
+      "id": "ga-enef",
+      "nom": "École Nationale des Eaux et Forêts",
+      "sigle": "ENEF",
+      "pays": "GA",
+      "ville": "Cap Estérias (Akanda)",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": null,
+      "annee_creation": 1953,
+      "coordonnees": {
+        "lat": 0.608632179,
+        "lng": 9.32855413
+      },
+      "wikidata": "Q104631930",
+      "formations": [
+        "frm-ingenieur-eaux-forets",
+        "frm-master-environnement"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631930"
+      ]
+    },
+    {
+      "id": "ga-inptic",
+      "nom": "Institut National de la Poste, des Technologies de l'Information et de la Communication",
+      "sigle": "INPTIC",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "institut",
+      "type_libelle": "Institut",
+      "statut": "public",
+      "site_web": null,
+      "annee_creation": null,
+      "coordonnees": {
+        "lat": 0.517944444,
+        "lng": 9.394833333
+      },
+      "wikidata": "Q104631931",
+      "formations": [
+        "frm-dut-reseaux-telecoms",
+        "frm-ingenieur-telecoms",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631931"
+      ]
+    },
+    {
+      "id": "ga-ena",
+      "nom": "École Nationale d'Administration du Gabon",
+      "sigle": "ENA",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": null,
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-ena-administration",
+        "frm-magistrature"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ga-esm",
+      "nom": "École Supérieure de la Mer",
+      "sigle": "ESM",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "prive",
+      "site_web": null,
+      "annee_creation": 2013,
+      "coordonnees": {
+        "lat": 0.351583333,
+        "lng": 9.472833333
+      },
+      "wikidata": "Q104631945",
+      "formations": [
+        "frm-licence-logistique",
+        "frm-licence-sciences-mer"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631945"
+      ]
+    },
+    {
+      "id": "ga-ista",
+      "nom": "Institut sous-régional de Statistique et d'Économie Appliquée / ISTA-CEMAC",
+      "sigle": "ISTA",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "institut",
+      "type_libelle": "Institut",
+      "statut": "inter_etats",
+      "site_web": "http://www.ista-cemac.org",
+      "annee_creation": 1980,
+      "coordonnees": {
+        "lat": 0.510635578,
+        "lng": 9.382100482
+      },
+      "wikidata": "Q16643774",
+      "formations": [
+        "frm-ingenieur-statistique",
+        "frm-master-finance-audit",
+        "frm-master-management"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ga/ga-ista.png",
+        "source_url": "http://www.ista-cemac.org/sites/default/files/inline-images/cemac_logo.png",
+        "page_source": "http://www.ista-cemac.org/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q16643774"
+      ]
+    },
+    {
+      "id": "ga-uil",
+      "nom": "Université Internationale de Libreville",
+      "sigle": "UIL",
+      "pays": "GA",
+      "ville": "Ntoum (Essassa)",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive",
+      "site_web": null,
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-licence-communication",
+        "frm-licence-droit-prive",
+        "frm-licence-gestion",
+        "frm-licence-informatique",
+        "frm-master-finance-audit",
+        "frm-master-management"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ga-ufgse",
+      "nom": "Université Franco-Gabonaise Saint-Exupéry",
+      "sigle": "UFGSE",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive",
+      "site_web": "https://www.ufgse.com",
+      "annee_creation": 2012,
+      "coordonnees": null,
+      "wikidata": "Q55280985",
+      "formations": [
+        "frm-licence-droit-prive",
+        "frm-licence-gestion",
+        "frm-licence-informatique",
+        "frm-master-finance-audit",
+        "frm-master-management"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ga/ga-ufgse.png",
+        "source_url": "https://www.google.com/s2/favicons?domain=www.ufgse.com&sz=256",
+        "page_source": "https://www.ufgse.com",
+        "methode": "favicon",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q55280985"
+      ]
+    },
+    {
+      "id": "ga-bbs",
+      "nom": "BBS School of Management (BGFI Business School)",
+      "sigle": "BBS",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "prive",
+      "site_web": "https://www.bbs-school.com",
+      "annee_creation": 2008,
+      "coordonnees": {
+        "lat": 0.386305555,
+        "lng": 9.448083333
+      },
+      "wikidata": "Q104631948",
+      "formations": [
+        "frm-bachelor-business",
+        "frm-licence-banque-finance",
+        "frm-master-finance-audit",
+        "frm-master-management",
+        "frm-mba"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631948"
+      ]
+    },
+    {
+      "id": "ga-em-gabon",
+      "nom": "École de Management du Gabon",
+      "sigle": "EM-Gabon",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "prive",
+      "site_web": "http://www.em-gabon.com",
+      "annee_creation": 2010,
+      "coordonnees": {
+        "lat": 0.379305555,
+        "lng": 9.499305555
+      },
+      "wikidata": "Q104631933",
+      "formations": [
+        "frm-bachelor-business",
+        "frm-master-grh",
+        "frm-master-logistique",
+        "frm-master-management",
+        "frm-master-marketing"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631933"
+      ]
+    },
+    {
+      "id": "ga-aum",
+      "nom": "African University of Management",
+      "sigle": "AUM",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive",
+      "site_web": "http://www.aumgroupga.com",
+      "annee_creation": null,
+      "coordonnees": {
+        "lat": 0.421027777,
+        "lng": 9.441611111
+      },
+      "wikidata": "Q104631932",
+      "formations": [
+        "frm-licence-banque-finance",
+        "frm-licence-gestion",
+        "frm-licence-logistique",
+        "frm-master-finance-audit",
+        "frm-master-management"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631932"
+      ]
+    },
+    {
+      "id": "ga-afram",
+      "nom": "Académie Franco-Américaine de Management",
+      "sigle": "AFRAM",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "prive",
+      "site_web": "http://www.aframschool.com",
+      "annee_creation": 2013,
+      "coordonnees": {
+        "lat": 0.420111111,
+        "lng": 9.427305555
+      },
+      "wikidata": "Q104631938",
+      "formations": [
+        "frm-bachelor-business",
+        "frm-licence-communication",
+        "frm-master-marketing"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631938"
+      ]
+    },
+    {
+      "id": "ga-ita",
+      "nom": "Institut des Techniques Avancées",
+      "sigle": "ITA",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "institut",
+      "type_libelle": "Institut",
+      "statut": "prive",
+      "site_web": "https://ita-gabon.com",
+      "annee_creation": null,
+      "coordonnees": {
+        "lat": 0.390666666,
+        "lng": 9.449111111
+      },
+      "wikidata": "Q104631929",
+      "formations": [
+        "frm-bts-electrotechnique",
+        "frm-bts-informatique-gestion",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631929"
+      ]
+    },
+    {
+      "id": "ga-esgis",
+      "nom": "École Supérieure de Gestion, d'Informatique et des Sciences – Gabon",
+      "sigle": "ESGIS",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "prive",
+      "site_web": "https://www.esgis.org",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": "Q104631942",
+      "formations": [
+        "frm-bts-informatique-gestion",
+        "frm-licence-genie-logiciel",
+        "frm-licence-gestion",
+        "frm-master-systemes-information"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ga/ga-esgis.png",
+        "source_url": "https://www.esgis.org/esgistogo/wp-content/uploads/2024/03/logo-esgis.png",
+        "page_source": "https://www.esgis.org/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631942"
+      ]
+    },
+    {
+      "id": "ga-libs",
+      "nom": "Libreville International Business School",
+      "sigle": "LIBS",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "prive",
+      "site_web": "http://esm-libs.com",
+      "annee_creation": null,
+      "coordonnees": {
+        "lat": 0.389944444,
+        "lng": 9.479833333
+      },
+      "wikidata": "Q104631944",
+      "formations": [
+        "frm-bachelor-business",
+        "frm-licence-logistique",
+        "frm-master-management"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631944"
+      ]
+    },
+    {
+      "id": "ga-usia",
+      "nom": "Université des Sciences d'Informatique Appliquée",
+      "sigle": "USIA",
+      "pays": "GA",
+      "ville": "Libreville",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive",
+      "site_web": null,
+      "annee_creation": 2006,
+      "coordonnees": null,
+      "wikidata": "Q104631939",
+      "formations": [
+        "frm-licence-genie-logiciel",
+        "frm-licence-informatique",
+        "frm-licence-reseaux-securite"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q104631939"
+      ]
+    },
+    {
+      "id": "ma-um5",
+      "nom": "Université Mohammed V de Rabat",
+      "sigle": "UM5",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.um5.ac.ma",
+      "annee_creation": 1957,
+      "coordonnees": {
+        "lat": 33.99833,
+        "lng": -6.84382
+      },
+      "wikidata": "Q1360237",
+      "formations": [
+        "frm-doctorat-chirurgie-dentaire",
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-doctorat-recherche",
+        "frm-ingenieur-informatique",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sciences-education",
+        "frm-licence-sociologie",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-um5.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohammed_V_University_Logo.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:Mohammed_V_University_Logo.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q1360237"
+      ]
+    },
+    {
+      "id": "ma-uh2c",
+      "nom": "Université Hassan II de Casablanca",
+      "sigle": "UH2C",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.univh2c.ma",
+      "annee_creation": 1975,
+      "coordonnees": {
+        "lat": 33.54,
+        "lng": -7.6
+      },
+      "wikidata": "Q82826",
+      "formations": [
+        "frm-doctorat-chirurgie-dentaire",
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-doctorat-recherche",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-mecanique",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sociologie",
+        "frm-licence-staps",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-uh2c.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/UH2-logo.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:UH2-logo.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q82826"
+      ]
+    },
+    {
+      "id": "ma-uca",
+      "nom": "Université Cadi Ayyad",
+      "sigle": "UCA",
+      "pays": "MA",
+      "ville": "Marrakech",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.uca.ma",
+      "annee_creation": 1978,
+      "coordonnees": {
+        "lat": 31.664140006,
+        "lng": -8.000817917
+      },
+      "wikidata": "Q737095",
+      "formations": [
+        "frm-doctorat-chirurgie-dentaire",
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-doctorat-recherche",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-informatique",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-hotellerie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sociologie",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-uca.webp",
+        "source_url": "https://www.uca.ma/uploads/settings/logo-dark.webp",
+        "page_source": "https://www.uca.ma/fr",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q737095"
+      ]
+    },
+    {
+      "id": "ma-usmba",
+      "nom": "Université Sidi Mohamed Ben Abdellah",
+      "sigle": "USMBA",
+      "pays": "MA",
+      "ville": "Fès",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.usmba.ac.ma",
+      "annee_creation": 1975,
+      "coordonnees": {
+        "lat": 34.0336,
+        "lng": -4.97778
+      },
+      "wikidata": "Q3551490",
+      "formations": [
+        "frm-doctorat-chirurgie-dentaire",
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-doctorat-recherche",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-informatique",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sociologie",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551490"
+      ]
+    },
+    {
+      "id": "ma-uiz",
+      "nom": "Université Ibn Zohr",
+      "sigle": "UIZ",
+      "pays": "MA",
+      "ville": "Agadir",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.uiz.ac.ma",
+      "annee_creation": 1989,
+      "coordonnees": {
+        "lat": 30.40618,
+        "lng": -9.54612
+      },
+      "wikidata": "Q3551418",
+      "formations": [
+        "frm-bts-tourisme",
+        "frm-doctorat-medecine",
+        "frm-doctorat-recherche",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-hotellerie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sciences-mer",
+        "frm-licence-sociologie",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-uiz.png",
+        "source_url": "https://www.uiz.ac.ma/sites/default/files/logo_0.png",
+        "page_source": "https://www.uiz.ac.ma",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551418"
+      ]
+    },
+    {
+      "id": "ma-ump",
+      "nom": "Université Mohammed Premier",
+      "sigle": "UMP",
+      "pays": "MA",
+      "ville": "Oujda",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.ump.ma",
+      "annee_creation": 1978,
+      "coordonnees": {
+        "lat": 34.6501,
+        "lng": -1.89893
+      },
+      "wikidata": "Q3551445",
+      "formations": [
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-doctorat-recherche",
+        "frm-ingenieur-informatique",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sociologie",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ump.png",
+        "source_url": "https://www.ump.ma/assets/logo.webp",
+        "page_source": "https://www.ump.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551445"
+      ]
+    },
+    {
+      "id": "ma-uit",
+      "nom": "Université Ibn Tofaïl",
+      "sigle": "UIT",
+      "pays": "MA",
+      "ville": "Kénitra",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.uit.ac.ma",
+      "annee_creation": 1989,
+      "coordonnees": {
+        "lat": 34.246255386,
+        "lng": -6.585286143
+      },
+      "wikidata": "Q3551417",
+      "formations": [
+        "frm-doctorat-recherche",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-informatique",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sociologie",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-uit.png",
+        "source_url": "https://www.uit.ac.ma/wp-content/uploads/2026/09/logo-uit-blanc.png",
+        "page_source": "https://www.uit.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551417"
+      ]
+    },
+    {
+      "id": "ma-uae",
+      "nom": "Université Abdelmalek Essaâdi",
+      "sigle": "UAE",
+      "pays": "MA",
+      "ville": "Tétouan",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.uae.ac.ma",
+      "annee_creation": 1982,
+      "coordonnees": {
+        "lat": 35.561006191,
+        "lng": -5.364546543
+      },
+      "wikidata": "Q3551367",
+      "formations": [
+        "frm-doctorat-medecine",
+        "frm-doctorat-recherche",
+        "frm-ingenieur-informatique",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sociologie",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-logistique",
+        "frm-master-relations-internationales",
+        "frm-master-traduction"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-uae.png",
+        "source_url": "https://www.google.com/s2/favicons?domain=www.uae.ac.ma&sz=256",
+        "page_source": "https://www.uae.ac.ma",
+        "methode": "favicon",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551367"
+      ]
+    },
+    {
+      "id": "ma-umi",
+      "nom": "Université Moulay Ismaïl",
+      "sigle": "UMI",
+      "pays": "MA",
+      "ville": "Meknès",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.umi.ac.ma",
+      "annee_creation": 1989,
+      "coordonnees": {
+        "lat": 33.895,
+        "lng": -5.55472222
+      },
+      "wikidata": "Q3551453",
+      "formations": [
+        "frm-doctorat-recherche",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-mecanique",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sociologie",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-umi.png",
+        "source_url": "https://www.umi.ac.ma/wp-content/uploads/2024/08/cropped-icon-Logo-180x180.png",
+        "page_source": "https://www.umi.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551453"
+      ]
+    },
+    {
+      "id": "ma-ucd",
+      "nom": "Université Chouaïb Doukkali",
+      "sigle": "UCD",
+      "pays": "MA",
+      "ville": "El Jadida",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.ucd.ac.ma",
+      "annee_creation": 1985,
+      "coordonnees": {
+        "lat": 33.22638889,
+        "lng": -8.48722222
+      },
+      "wikidata": "Q12204499",
+      "formations": [
+        "frm-doctorat-recherche",
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-informatique",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sociologie",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ucd.jpg",
+        "source_url": "https://www.google.com/s2/favicons?domain=www.ucd.ac.ma&sz=256",
+        "page_source": "https://www.ucd.ac.ma",
+        "methode": "favicon",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q12204499"
+      ]
+    },
+    {
+      "id": "ma-uh1",
+      "nom": "Université Hassan Ier",
+      "sigle": "UH1",
+      "pays": "MA",
+      "ville": "Settat",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.uh1.ac.ma",
+      "annee_creation": 1997,
+      "coordonnees": {
+        "lat": 33.02914687,
+        "lng": -7.615697544
+      },
+      "wikidata": "Q2405067",
+      "formations": [
+        "frm-doctorat-recherche",
+        "frm-ingenieur-informatique",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sociologie",
+        "frm-licence-staps",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-uh1.png",
+        "source_url": "https://www.google.com/s2/favicons?domain=www.uh1.ac.ma&sz=256",
+        "page_source": "https://www.uh1.ac.ma",
+        "methode": "favicon",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q2405067"
+      ]
+    },
+    {
+      "id": "ma-usms",
+      "nom": "Université Sultan Moulay Slimane",
+      "sigle": "USMS",
+      "pays": "MA",
+      "ville": "Béni Mellal",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.usms.ac.ma",
+      "annee_creation": 2007,
+      "coordonnees": {
+        "lat": 32.3358,
+        "lng": -6.36939
+      },
+      "wikidata": "Q3551494",
+      "formations": [
+        "frm-doctorat-recherche",
+        "frm-ingenieur-informatique",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sociologie",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-usms.png",
+        "source_url": "https://www.usms.ac.ma/sites/default/files/logo_usms_v.fw__0.png",
+        "page_source": "https://www.usms.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551494"
+      ]
+    },
+    {
+      "id": "ma-uaq",
+      "nom": "Université Al Quaraouiyine",
+      "sigle": "UAQ",
+      "pays": "MA",
+      "ville": "Fès",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://uaq.ma",
+      "annee_creation": 859,
+      "coordonnees": {
+        "lat": 34.064444444,
+        "lng": -4.973333333
+      },
+      "wikidata": "Q378014",
+      "formations": [
+        "frm-doctorat-recherche",
+        "frm-licence-droit-public",
+        "frm-licence-lettres-modernes"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-uaq.png",
+        "source_url": "https://uaq.ma/images/sampledata/icetheme/logos/logo_style2.png",
+        "page_source": "https://uaq.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q378014"
+      ]
+    },
+    {
+      "id": "ma-um6p",
+      "nom": "Université Mohammed VI Polytechnique",
+      "sigle": "UM6P",
+      "pays": "MA",
+      "ville": "Benguerir",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive_non_lucratif",
+      "site_web": "https://um6p.ma",
+      "annee_creation": 2017,
+      "coordonnees": {
+        "lat": 32.21889885,
+        "lng": -7.935571869
+      },
+      "wikidata": "Q61931430",
+      "formations": [
+        "frm-architecture",
+        "frm-doctorat-medecine",
+        "frm-doctorat-recherche",
+        "frm-ingenieur-agronome",
+        "frm-ingenieur-genie-chimique",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-mines",
+        "frm-master-data-science-ia",
+        "frm-master-energies-renouvelables",
+        "frm-master-management"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-um6p.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/UM6P-Universit%C3%A9-Mohamed-VI-polytechnique.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:UM6P-Universit%C3%A9-Mohamed-VI-polytechnique.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q61931430"
+      ]
+    },
+    {
+      "id": "ma-aui",
+      "nom": "Université Al Akhawayn d'Ifrane",
+      "sigle": "AUI",
+      "pays": "MA",
+      "ville": "Ifrane",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public_autonome",
+      "site_web": "https://www.aui.ma",
+      "annee_creation": 1995,
+      "coordonnees": {
+        "lat": 33.539248,
+        "lng": -5.105553
+      },
+      "wikidata": "Q2829294",
+      "formations": [
+        "frm-bachelor-business",
+        "frm-licence-communication",
+        "frm-licence-informatique",
+        "frm-master-data-science-ia",
+        "frm-master-relations-internationales",
+        "frm-mba"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-aui.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Al_Akhawayn_University_Logo.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:Al_Akhawayn_University_Logo.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q2829294"
+      ]
+    },
+    {
+      "id": "ma-uir",
+      "nom": "Université Internationale de Rabat",
+      "sigle": "UIR",
+      "pays": "MA",
+      "ville": "Rabat (Salé)",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive_reconnu",
+      "site_web": "https://www.uir.ac.ma",
+      "annee_creation": 2010,
+      "coordonnees": {
+        "lat": 33.985001,
+        "lng": -6.72376
+      },
+      "wikidata": "Q3551785",
+      "formations": [
+        "frm-architecture",
+        "frm-aviation-civile",
+        "frm-bachelor-business",
+        "frm-doctorat-medecine",
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-informatique",
+        "frm-licence-droit-public",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-uir.jpg",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/LOGO_UIR.jpg?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:LOGO_UIR.jpg",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551785"
+      ]
+    },
+    {
+      "id": "ma-ueuromed",
+      "nom": "Université Euromed de Fès",
+      "sigle": "UEMF",
+      "pays": "MA",
+      "ville": "Fès",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive_reconnu",
+      "site_web": "https://ueuromed.org",
+      "annee_creation": 2012,
+      "coordonnees": {
+        "lat": 34.045817664,
+        "lng": -5.065275661
+      },
+      "wikidata": "Q5411489",
+      "formations": [
+        "frm-architecture",
+        "frm-bachelor-business",
+        "frm-doctorat-medecine",
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-informatique",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ueuromed.png",
+        "source_url": "https://ueuromed.org/_next/image?url=%2FLogos_UEMF_2023_Blanc.png&w=384&q=75",
+        "page_source": "https://ueuromed.org",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q5411489"
+      ]
+    },
+    {
+      "id": "ma-um6ss",
+      "nom": "Université Mohammed VI des Sciences de la Santé",
+      "sigle": "UM6SS",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive_non_lucratif",
+      "site_web": "https://um6ss.ma",
+      "annee_creation": 2014,
+      "coordonnees": {
+        "lat": 33.586004514,
+        "lng": -7.627231457
+      },
+      "wikidata": "Q19407257",
+      "formations": [
+        "frm-doctorat-chirurgie-dentaire",
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-doctorat-veterinaire",
+        "frm-licence-kinesitherapie",
+        "frm-licence-sage-femme",
+        "frm-licence-sciences-infirmieres"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-um6ss.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/UM6SSlogo.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:UM6SSlogo.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q19407257"
+      ]
+    },
+    {
+      "id": "ma-uiass",
+      "nom": "Université Internationale Abulcasis des Sciences de la Santé",
+      "sigle": "UIASS",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive_reconnu",
+      "site_web": "http://www.uiass.ma",
+      "annee_creation": 2014,
+      "coordonnees": {
+        "lat": 33.977470111,
+        "lng": -6.869773473
+      },
+      "wikidata": "Q21619282",
+      "formations": [
+        "frm-doctorat-chirurgie-dentaire",
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-licence-kinesitherapie",
+        "frm-licence-sciences-infirmieres"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q21619282"
+      ]
+    },
+    {
+      "id": "ma-uic",
+      "nom": "Université Internationale de Casablanca",
+      "sigle": "UIC",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive_reconnu",
+      "site_web": "https://uic.ac.ma",
+      "annee_creation": 2010,
+      "coordonnees": {
+        "lat": 33.495634298,
+        "lng": -7.610467916
+      },
+      "wikidata": "Q16682080",
+      "formations": [
+        "frm-architecture",
+        "frm-bachelor-business",
+        "frm-ingenieur-informatique",
+        "frm-licence-sciences-infirmieres",
+        "frm-master-management"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-uic.jpg",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Universit%C3%A9_Internationale_de_Casablanca.jpg?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:Universit%C3%A9_Internationale_de_Casablanca.jpg",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q16682080"
+      ]
+    },
+    {
+      "id": "ma-mundiapolis",
+      "nom": "Université Mundiapolis",
+      "sigle": "Mundiapolis",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive",
+      "site_web": "https://www.mundiapolis.ma",
+      "annee_creation": 2009,
+      "coordonnees": {
+        "lat": 33.3821,
+        "lng": -7.56765
+      },
+      "wikidata": "Q20669874",
+      "formations": [
+        "frm-bachelor-business",
+        "frm-ingenieur-informatique",
+        "frm-licence-droit-prive",
+        "frm-licence-sciences-infirmieres",
+        "frm-master-marketing"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-mundiapolis.png",
+        "source_url": "https://www.mundiapolis.ma/sites/default/files/images/header/logo-25-coleur.png",
+        "page_source": "https://www.mundiapolis.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q20669874"
+      ]
+    },
+    {
+      "id": "ma-upf",
+      "nom": "Université Privée de Fès",
+      "sigle": "UPF",
+      "pays": "MA",
+      "ville": "Fès",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive_reconnu",
+      "site_web": "https://upf.ac.ma",
+      "annee_creation": 2006,
+      "coordonnees": {
+        "lat": 34.007,
+        "lng": -5.0165
+      },
+      "wikidata": "Q16511695",
+      "formations": [
+        "frm-architecture",
+        "frm-bachelor-business",
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-informatique"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-upf.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Logo_UPF_2026.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:Logo_UPF_2026.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q16511695"
+      ]
+    },
+    {
+      "id": "ma-upm",
+      "nom": "Université Privée de Marrakech",
+      "sigle": "UPM",
+      "pays": "MA",
+      "ville": "Marrakech",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive_reconnu",
+      "site_web": "https://upm.ac.ma",
+      "annee_creation": 2005,
+      "coordonnees": {
+        "lat": 31.51955808,
+        "lng": -8.062966984
+      },
+      "wikidata": "Q3551829",
+      "formations": [
+        "frm-architecture",
+        "frm-bachelor-business",
+        "frm-ingenieur-informatique",
+        "frm-licence-hotellerie",
+        "frm-licence-sciences-infirmieres"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-upm.jpg",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/LOGO_UPM_-_UNIVERSITE_PRIVEE_DE_MARRAKECH.jpg?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:LOGO_UPM_-_UNIVERSITE_PRIVEE_DE_MARRAKECH.jpg",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551829"
+      ]
+    },
+    {
+      "id": "ma-universiapolis",
+      "nom": "Université Internationale d'Agadir – Universiapolis",
+      "sigle": "Universiapolis",
+      "pays": "MA",
+      "ville": "Agadir",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive",
+      "site_web": "https://universiapolis.ma",
+      "annee_creation": 2005,
+      "coordonnees": {
+        "lat": 30.403978621,
+        "lng": -9.530693182
+      },
+      "wikidata": "Q100261338",
+      "formations": [
+        "frm-bachelor-business",
+        "frm-ingenieur-informatique",
+        "frm-licence-hotellerie",
+        "frm-licence-sciences-infirmieres"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-universiapolis.png",
+        "source_url": "https://universiapolis.ma/wp-content/uploads/2025/02/logo-laayoune-300x110.png",
+        "page_source": "https://universiapolis.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q100261338"
+      ]
+    },
+    {
+      "id": "ma-emi",
+      "nom": "École Mohammadia d'Ingénieurs",
+      "sigle": "EMI",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://www.emi.ac.ma",
+      "annee_creation": 1959,
+      "coordonnees": {
+        "lat": 33.999444444,
+        "lng": -6.851944444
+      },
+      "wikidata": "Q3577687",
+      "formations": [
+        "frm-ingenieur-genie-chimique",
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-mines"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-emi.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/EMILogo.gif?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:EMILogo.gif",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3577687"
+      ]
+    },
+    {
+      "id": "ma-ensias",
+      "nom": "École Nationale Supérieure d'Informatique et d'Analyse des Systèmes",
+      "sigle": "ENSIAS",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://ensias.um5.ac.ma",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-ingenieur-informatique",
+        "frm-master-cybersecurite",
+        "frm-master-data-science-ia"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ensias.png",
+        "source_url": "https://www.google.com/s2/favicons?domain=ensias.um5.ac.ma&sz=256",
+        "page_source": "https://ensias.um5.ac.ma",
+        "methode": "favicon",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ma-inpt",
+      "nom": "Institut National des Postes et Télécommunications",
+      "sigle": "INPT",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://inpt.ac.ma",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-telecoms",
+        "frm-master-cybersecurite"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-inpt.png",
+        "source_url": "https://inpt.ac.ma/sites/default/files/logo.png",
+        "page_source": "https://inpt.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ma-ehtp",
+      "nom": "École Hassania des Travaux Publics",
+      "sigle": "EHTP",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://www.ehtp.ac.ma",
+      "annee_creation": 1971,
+      "coordonnees": {
+        "lat": 33.5482,
+        "lng": -7.65145
+      },
+      "wikidata": "Q3577670",
+      "formations": [
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-informatique",
+        "frm-master-urbanisme"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ehtp.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%89cole_Hassania_des_Travaux_Publics_Logo.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:%C3%89cole_Hassania_des_Travaux_Publics_Logo.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3577670"
+      ]
+    },
+    {
+      "id": "ma-insea",
+      "nom": "Institut National de Statistique et d'Économie Appliquée",
+      "sigle": "INSEA",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://insea.ac.ma",
+      "annee_creation": 1961,
+      "coordonnees": {
+        "lat": 33.982,
+        "lng": -6.862
+      },
+      "wikidata": "Q2737222",
+      "formations": [
+        "frm-ingenieur-statistique",
+        "frm-master-data-science-ia"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-insea.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/INSEA_logo.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:INSEA_logo.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q2737222"
+      ]
+    },
+    {
+      "id": "ma-enim",
+      "nom": "École Nationale Supérieure des Mines de Rabat",
+      "sigle": "ENSMR",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://www.enim.ac.ma",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-mines",
+        "frm-ingenieur-petrole-gaz"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-enim.png",
+        "source_url": "https://www.enim.ac.ma/wp-content/uploads/2014/10/logo-ensmr-2.jpg",
+        "page_source": "https://www.enim.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ma-iav",
+      "nom": "Institut Agronomique et Vétérinaire Hassan II",
+      "sigle": "IAV Hassan II",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://iav.ac.ma",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-doctorat-veterinaire",
+        "frm-ingenieur-agronome",
+        "frm-master-environnement",
+        "frm-master-urbanisme"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-iav.png",
+        "source_url": "https://iav.ac.ma/themes/highsta/images/logo_iav2.png",
+        "page_source": "https://iav.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ma-ena-meknes",
+      "nom": "École Nationale d'Agriculture de Meknès",
+      "sigle": "ENA Meknès",
+      "pays": "MA",
+      "ville": "Meknès",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://www.enameknes.ac.ma",
+      "annee_creation": 1942,
+      "coordonnees": {
+        "lat": 33.8435,
+        "lng": -5.47746
+      },
+      "wikidata": "Q3578072",
+      "formations": [
+        "frm-ingenieur-agronome"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ena-meknes.webp",
+        "source_url": "https://www.enameknes.ac.ma/wp-content/uploads/2022/09/logo_ena-1.webp",
+        "page_source": "https://www.enameknes.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3578072"
+      ]
+    },
+    {
+      "id": "ma-enfi",
+      "nom": "École Nationale Forestière d'Ingénieurs",
+      "sigle": "ENFI",
+      "pays": "MA",
+      "ville": "Salé",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://enfi.ac.ma",
+      "annee_creation": 1968,
+      "coordonnees": {
+        "lat": 34.0427,
+        "lng": -6.80029
+      },
+      "wikidata": "Q3578163",
+      "formations": [
+        "frm-ingenieur-eaux-forets"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-enfi.png",
+        "source_url": "https://enfi.ac.ma/wp-content/uploads/2019/09/logo185-120.png",
+        "page_source": "https://enfi.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3578163"
+      ]
+    },
+    {
+      "id": "ma-centrale-casa",
+      "nom": "École Centrale Casablanca",
+      "sigle": "ECC",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://centrale-casablanca.ma",
+      "annee_creation": 2013,
+      "coordonnees": {
+        "lat": 33.480317394,
+        "lng": -7.620473588
+      },
+      "wikidata": "Q17626162",
+      "formations": [
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-informatique",
+        "frm-master-data-science-ia"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-centrale-casa.png",
+        "source_url": "https://centrale-casablanca.ma/wp-content/uploads/2023/01/Logo.png",
+        "page_source": "https://centrale-casablanca.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q17626162"
+      ]
+    },
+    {
+      "id": "ma-ensam-casa",
+      "nom": "École Nationale Supérieure d'Arts et Métiers de Casablanca",
+      "sigle": "ENSAM Casablanca",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://ensam-casa.ma",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-mecanique"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ensam-casa.png",
+        "source_url": "https://ensam-casa.ma/assets/img/logoENsam.png",
+        "page_source": "https://ensam-casa.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ma-ensa-network",
+      "nom": "Réseau des Écoles Nationales des Sciences Appliquées (ENSA)",
+      "sigle": "ENSA",
+      "pays": "MA",
+      "ville": "Multi-villes (Agadir, Marrakech, Fès, Oujda, Tanger, Kénitra, El Jadida...)",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://www.ensamaroc.com",
+      "annee_creation": 2011,
+      "coordonnees": null,
+      "wikidata": "Q8078058",
+      "formations": [
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-telecoms"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ensa-network.png",
+        "source_url": "https://www.ensamaroc.com/guest/img/logo/logo.png",
+        "page_source": "https://www.ensamaroc.com/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q8078058"
+      ]
+    },
+    {
+      "id": "ma-ensao",
+      "nom": "École Nationale des Sciences Appliquées d'Oujda",
+      "sigle": "ENSAO",
+      "pays": "MA",
+      "ville": "Oujda",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "http://ensao.ump.ma",
+      "annee_creation": 1999,
+      "coordonnees": {
+        "lat": 34.6505,
+        "lng": -1.8966
+      },
+      "wikidata": "Q3578143",
+      "formations": [
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-telecoms"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ensao.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/%C3%89cole_Nationale_des_Sciences_Appliqu%C3%A9es_d%27Oujda_logo.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:%C3%89cole_Nationale_des_Sciences_Appliqu%C3%A9es_d%27Oujda_logo.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3578143"
+      ]
+    },
+    {
+      "id": "ma-ensate",
+      "nom": "École Nationale des Sciences Appliquées de Tétouan",
+      "sigle": "ENSATE",
+      "pays": "MA",
+      "ville": "Tétouan",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://ensate.uae.ac.ma",
+      "annee_creation": 2008,
+      "coordonnees": {
+        "lat": 35.561766464,
+        "lng": -5.364514614
+      },
+      "wikidata": "Q8077995",
+      "formations": [
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-informatique"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q8077995"
+      ]
+    },
+    {
+      "id": "ma-esith",
+      "nom": "École Supérieure des Industries du Textile et de l'Habillement",
+      "sigle": "ESITH",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://www.esith.ac.ma",
+      "annee_creation": 1996,
+      "coordonnees": {
+        "lat": 33.539283333,
+        "lng": -7.663991666
+      },
+      "wikidata": "Q21029695",
+      "formations": [
+        "frm-ingenieur-genie-industriel",
+        "frm-licence-textile",
+        "frm-master-logistique"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esith.png",
+        "source_url": "https://www.esith.ac.ma/wp-content/uploads/2021/10/esith-couleur-600x315-cropped-2.png",
+        "page_source": "https://www.esith.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q21029695"
+      ]
+    },
+    {
+      "id": "ma-iscae",
+      "nom": "Institut Supérieur de Commerce et d'Administration des Entreprises",
+      "sigle": "ISCAE",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "public",
+      "site_web": "https://groupeiscae.ma",
+      "annee_creation": 1971,
+      "coordonnees": {
+        "lat": 33.5271,
+        "lng": -7.6382
+      },
+      "wikidata": "Q3152559",
+      "formations": [
+        "frm-master-finance-audit",
+        "frm-master-management",
+        "frm-master-marketing",
+        "frm-mba"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-iscae.png",
+        "source_url": "https://groupeiscae.ma/wp-content/uploads/2026/06/Logo_ISCAE_V3_Site_web.jpg",
+        "page_source": "https://groupeiscae.ma/fr/groupe-iscae-grande-ecole-business-school-maroc/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3152559"
+      ]
+    },
+    {
+      "id": "ma-encg-settat",
+      "nom": "École Nationale de Commerce et de Gestion de Settat",
+      "sigle": "ENCG Settat",
+      "pays": "MA",
+      "ville": "Settat",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "public",
+      "site_web": "http://www.encg-settat.ma",
+      "annee_creation": 1994,
+      "coordonnees": {
+        "lat": 33.0,
+        "lng": -7.61667
+      },
+      "wikidata": "Q3578117",
+      "formations": [
+        "frm-master-finance-audit",
+        "frm-master-logistique",
+        "frm-master-management",
+        "frm-master-marketing"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3578117"
+      ]
+    },
+    {
+      "id": "ma-encg-casa",
+      "nom": "École Nationale de Commerce et de Gestion de Casablanca",
+      "sigle": "ENCG Casablanca",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "public",
+      "site_web": "https://encgcasa.ma",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-master-finance-audit",
+        "frm-master-management",
+        "frm-master-marketing"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-encg-casa.png",
+        "source_url": "https://encgcasa.ma/static/encg/assets/img/logo/Logo_ENCGC_400x133.png",
+        "page_source": "https://encgcasa.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ma-encg-oujda",
+      "nom": "École Nationale de Commerce et de Gestion d'Oujda",
+      "sigle": "ENCG Oujda",
+      "pays": "MA",
+      "ville": "Oujda",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "public",
+      "site_web": "https://encgo.ump.ma",
+      "annee_creation": 2003,
+      "coordonnees": null,
+      "wikidata": "Q3578112",
+      "formations": [
+        "frm-master-finance-audit",
+        "frm-master-management",
+        "frm-master-marketing"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-encg-oujda.jpg",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Encgo_logo.jpg?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:Encgo_logo.jpg",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3578112"
+      ]
+    },
+    {
+      "id": "ma-encg-marrakech",
+      "nom": "École Nationale de Commerce et de Gestion de Marrakech",
+      "sigle": "ENCG Marrakech",
+      "pays": "MA",
+      "ville": "Marrakech",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "public",
+      "site_web": "https://www.uca.ma/encg/fr",
+      "annee_creation": 2004,
+      "coordonnees": {
+        "lat": 31.65170049,
+        "lng": -8.001723679
+      },
+      "wikidata": "Q3578116",
+      "formations": [
+        "frm-master-finance-audit",
+        "frm-master-management",
+        "frm-master-marketing"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-encg-marrakech.png",
+        "source_url": "https://www.uca.ma/public/website/theme-2/img/logo.png",
+        "page_source": "https://www.uca.ma/encg/fr",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3578116"
+      ]
+    },
+    {
+      "id": "ma-ena-rabat",
+      "nom": "École Nationale d'Architecture de Rabat",
+      "sigle": "ENA Rabat",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": "https://www.enarabat.ac.ma",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-architecture",
+        "frm-master-urbanisme"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ena-rabat.png",
+        "source_url": "https://www.enarabat.ac.ma/wp-content/uploads/2021/04/cropped-logo2-e1617271735105.png",
+        "page_source": "https://www.enarabat.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ma-inau",
+      "nom": "Institut National d'Aménagement et d'Urbanisme",
+      "sigle": "INAU",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": "https://inau.ac.ma",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-master-urbanisme"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-inau.jpg",
+        "source_url": "https://www.google.com/s2/favicons?domain=inau.ac.ma&sz=256",
+        "page_source": "https://inau.ac.ma",
+        "methode": "favicon",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ma-isic",
+      "nom": "Institut Supérieur de l'Information et de la Communication",
+      "sigle": "ISIC",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": "https://isic.ac.ma",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-licence-communication",
+        "frm-licence-journalisme"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-isic.png",
+        "source_url": "https://isic.ac.ma/wp-content/themes/creatitif-isic/images/logo-isic-footer.png",
+        "page_source": "https://isic.ac.ma/fr/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ma-insap",
+      "nom": "Institut National des Sciences de l'Archéologie et du Patrimoine",
+      "sigle": "INSAP",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": "https://insap.ac.ma",
+      "annee_creation": 1986,
+      "coordonnees": {
+        "lat": 33.977477645,
+        "lng": -6.871984619
+      },
+      "wikidata": "Q25381383",
+      "formations": [
+        "frm-licence-patrimoine"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-insap.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/%D8%A7%D9%84%D9%85%D8%B9%D9%87%D8%AF_%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A_%D9%84%D8%B9%D9%84%D9%88%D9%85_%D8%A7%D9%84%D8%A2%D8%AB%D8%A7%D8%B1_%D9%88_%D8%A7%D9%84%D8%AA%D8%B1%D8%A7%D8%AB_INSAP_%D8%A8%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:%D8%A7%D9%84%D9%85%D8%B9%D9%87%D8%AF_%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A_%D9%84%D8%B9%D9%84%D9%88%D9%85_%D8%A7%D9%84%D8%A2%D8%AB%D8%A7%D8%B1_%D9%88_%D8%A7%D9%84%D8%AA%D8%B1%D8%A7%D8%AB_INSAP_%D8%A8%D8%A7%D9%84%D8%B1%D8%A8%D8%A7%D8%B7.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q25381383"
+      ]
+    },
+    {
+      "id": "ma-inba",
+      "nom": "Institut National des Beaux-Arts de Tétouan",
+      "sigle": "INBA",
+      "pays": "MA",
+      "ville": "Tétouan",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": "https://inba.ma",
+      "annee_creation": 1945,
+      "coordonnees": {
+        "lat": 35.570963,
+        "lng": -5.383885
+      },
+      "wikidata": "Q74654815",
+      "formations": [
+        "frm-licence-beaux-arts",
+        "frm-licence-design-graphique"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-inba.jpg",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Blason_INBA.jpg?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:Blason_INBA.jpg",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q74654815"
+      ]
+    },
+    {
+      "id": "ma-ens-marrakech",
+      "nom": "École Normale Supérieure de Marrakech",
+      "sigle": "ENS Marrakech",
+      "pays": "MA",
+      "ville": "Marrakech",
+      "type": "ecole_normale",
+      "type_libelle": "École normale / formation des enseignants",
+      "statut": "public",
+      "site_web": "http://www.ens-marrakech.ac.ma",
+      "annee_creation": 1979,
+      "coordonnees": {
+        "lat": 31.6281517,
+        "lng": -8.0503661
+      },
+      "wikidata": "Q100144541",
+      "formations": [
+        "frm-ens-professorat",
+        "frm-licence-sciences-education"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q100144541"
+      ]
+    },
+    {
+      "id": "ma-ism",
+      "nom": "Institut Supérieur de la Magistrature",
+      "sigle": "ISM",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": "https://ism.ma",
+      "annee_creation": 1962,
+      "coordonnees": {
+        "lat": 33.9645,
+        "lng": -6.85146
+      },
+      "wikidata": "Q3152577",
+      "formations": [
+        "frm-magistrature"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ism.png",
+        "source_url": "https://ism.ma/wp-content/uploads/2022/08/logo-fr.png",
+        "page_source": "https://ism.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3152577"
+      ]
+    },
+    {
+      "id": "ma-ensa-admin",
+      "nom": "École Nationale Supérieure de l'Administration",
+      "sigle": "ENSA (Administration)",
+      "pays": "MA",
+      "ville": "Rabat",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": "https://ensa.org.ma",
+      "annee_creation": 2015,
+      "coordonnees": null,
+      "wikidata": "Q30294393",
+      "formations": [
+        "frm-ena-administration"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q30294393"
+      ]
+    },
+    {
+      "id": "ma-aiac",
+      "nom": "Académie Internationale Mohammed VI de l'Aviation Civile",
+      "sigle": "AIAC",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": "https://aiac.ma",
+      "annee_creation": 2000,
+      "coordonnees": {
+        "lat": 33.380928,
+        "lng": -7.568468
+      },
+      "wikidata": "Q2822420",
+      "formations": [
+        "frm-aviation-civile"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q2822420"
+      ]
+    },
+    {
+      "id": "ma-hem",
+      "nom": "HEM Business School",
+      "sigle": "HEM",
+      "pays": "MA",
+      "ville": "Casablanca / Rabat / Marrakech / Fès / Tanger",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "prive",
+      "site_web": "https://hem.ac.ma",
+      "annee_creation": 1988,
+      "coordonnees": {
+        "lat": 35.786521297,
+        "lng": -5.757105034
+      },
+      "wikidata": "Q3152162",
+      "formations": [
+        "frm-bachelor-business",
+        "frm-master-finance-audit",
+        "frm-master-grh",
+        "frm-master-management",
+        "frm-master-marketing",
+        "frm-mba"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-hem.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Logo_HEM.svg?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:Logo_HEM.svg",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3152162"
+      ]
+    },
+    {
+      "id": "ma-esca",
+      "nom": "ESCA École de Management",
+      "sigle": "ESCA",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "prive",
+      "site_web": "https://esca.ma",
+      "annee_creation": 1992,
+      "coordonnees": {
+        "lat": 33.561951111,
+        "lng": -7.662113888
+      },
+      "wikidata": "Q18213503",
+      "formations": [
+        "frm-bachelor-business",
+        "frm-master-finance-audit",
+        "frm-master-grh",
+        "frm-master-management",
+        "frm-master-marketing",
+        "frm-mba"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esca.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Logo_ESCA.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:Logo_ESCA.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q18213503"
+      ]
+    },
+    {
+      "id": "ma-emsi",
+      "nom": "École Marocaine des Sciences de l'Ingénieur",
+      "sigle": "EMSI",
+      "pays": "MA",
+      "ville": "Casablanca / Rabat / Marrakech / Tanger / Fès",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "prive",
+      "site_web": "https://emsi.ma",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-informatique"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-emsi.png",
+        "source_url": "https://emsi.ma/wp-content/uploads/2024/03/logo-vert.png",
+        "page_source": "https://emsi.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ma-iga",
+      "nom": "Institut Supérieur du Génie Appliqué",
+      "sigle": "IGA",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "prive",
+      "site_web": "http://www.iga.ac.ma",
+      "annee_creation": 1981,
+      "coordonnees": {
+        "lat": 33.590977932,
+        "lng": -7.591134131
+      },
+      "wikidata": "Q27961614",
+      "formations": [
+        "frm-bts-informatique-gestion",
+        "frm-ingenieur-informatique",
+        "frm-master-management"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-iga.png",
+        "source_url": "https://iga.ac.ma/wp-content/uploads/2022/04/logo_ecole_iga_bulbee.png",
+        "page_source": "http://www.iga.ac.ma",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q27961614"
+      ]
+    },
+    {
+      "id": "ma-isga",
+      "nom": "Institut Supérieur d'Ingénierie et des Affaires",
+      "sigle": "ISGA",
+      "pays": "MA",
+      "ville": "Casablanca / Rabat / Marrakech / Fès",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "prive",
+      "site_web": "http://www.isga.ma",
+      "annee_creation": 1981,
+      "coordonnees": null,
+      "wikidata": "Q56316720",
+      "formations": [
+        "frm-bachelor-business",
+        "frm-ingenieur-informatique",
+        "frm-master-management"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-isga.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/ISGA_Logo.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:ISGA_Logo.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q56316720"
+      ]
+    },
+    {
+      "id": "ma-cpge",
+      "nom": "Classes Préparatoires aux Grandes Écoles (réseau public)",
+      "sigle": "CPGE",
+      "pays": "MA",
+      "ville": "Multi-villes (Rabat, Casablanca, Fès, Marrakech, Tanger, Oujda...)",
+      "type": "cpge",
+      "type_libelle": "Classes préparatoires",
+      "statut": "public",
+      "site_web": "https://www.cpge.ac.ma",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-cpge-scientifique"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-cpge.png",
+        "source_url": "https://www.cpge.ac.ma/Commun/Images/logoSC.png",
+        "page_source": "https://www.cpge.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ma-inas",
+      "nom": "Institut National de l'Action Sociale",
+      "sigle": "INAS",
+      "pays": "MA",
+      "ville": "Tanger",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": null,
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-licence-travail-social"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "ma-ofppt",
+      "nom": "Office de la Formation Professionnelle et de la Promotion du Travail",
+      "sigle": "OFPPT",
+      "pays": "MA",
+      "ville": "National (plus de 350 établissements)",
+      "type": "formation_professionnelle",
+      "type_libelle": "Formation professionnelle",
+      "statut": "public",
+      "site_web": "https://www.ofppt.ma",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-bts-batiment",
+        "frm-bts-commerce",
+        "frm-bts-comptabilite",
+        "frm-bts-electrotechnique",
+        "frm-bts-topographie",
+        "frm-bts-tourisme",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto",
+        "frm-ts-ofppt-digital"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ofppt.png",
+        "source_url": "https://www.ofppt.ma/themes/custom/ofppt/assets/images/logo.png",
+        "page_source": "https://www.ofppt.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-ucad",
+      "nom": "Université Cheikh Anta Diop de Dakar",
+      "sigle": "UCAD",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.ucad.sn",
+      "annee_creation": 1957,
+      "coordonnees": {
+        "lat": 14.686955,
+        "lng": -17.463338
+      },
+      "wikidata": "Q671363",
+      "formations": [
+        "frm-doctorat-chirurgie-dentaire",
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-doctorat-recherche",
+        "frm-ens-professorat",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-informatique",
+        "frm-licence-journalisme",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sciences-infirmieres",
+        "frm-licence-sociologie",
+        "frm-licence-staps",
+        "frm-master-droit-affaires",
+        "frm-master-energies-renouvelables",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales",
+        "frm-master-traduction"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-ucad.jpg",
+        "source_url": "https://www.ucad.sn/sites/default/files/logo_0.jpg",
+        "page_source": "https://www.ucad.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q671363"
+      ]
+    },
+    {
+      "id": "sn-esp",
+      "nom": "École Supérieure Polytechnique de Dakar (UCAD)",
+      "sigle": "ESP",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://esp.sn",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-bts-comptabilite",
+        "frm-dut-reseaux-telecoms",
+        "frm-ingenieur-genie-chimique",
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-informatique",
+        "frm-master-management"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-esp.png",
+        "source_url": "https://www.google.com/s2/favicons?domain=esp.sn&sz=256",
+        "page_source": "https://esp.sn",
+        "methode": "favicon",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-cesti",
+      "nom": "Centre d'Études des Sciences et Techniques de l'Information (UCAD)",
+      "sigle": "CESTI",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": "https://cesti.ucad.sn",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-licence-journalisme"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-cesti.png",
+        "source_url": "https://cesti.ucad.sn/wp-content/uploads/2026/04/cropped-cropped-LOGO-CESTI-2-1.png",
+        "page_source": "https://cesti.ucad.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-fastef",
+      "nom": "Faculté des Sciences et Technologies de l'Éducation et de la Formation (UCAD)",
+      "sigle": "FASTEF",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "ecole_normale",
+      "type_libelle": "École normale / formation des enseignants",
+      "statut": "public",
+      "site_web": "https://fastef.ucad.sn",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": "Q138874366",
+      "formations": [
+        "frm-ens-professorat",
+        "frm-licence-sciences-education"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q138874366"
+      ]
+    },
+    {
+      "id": "sn-ugb",
+      "nom": "Université Gaston Berger de Saint-Louis",
+      "sigle": "UGB",
+      "pays": "SN",
+      "ville": "Saint-Louis",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.ugb.sn",
+      "annee_creation": 1990,
+      "coordonnees": {
+        "lat": 16.0625,
+        "lng": -16.42583333
+      },
+      "wikidata": "Q3551411",
+      "formations": [
+        "frm-doctorat-medecine",
+        "frm-doctorat-recherche",
+        "frm-licence-agronomie",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-droit-public",
+        "frm-licence-economie",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sociologie",
+        "frm-licence-staps",
+        "frm-master-droit-affaires",
+        "frm-master-finance-audit",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-ugb.png",
+        "source_url": "https://www.ugb.sn/sites/default/files/Capture1logo%20UGB_0.JPG",
+        "page_source": "https://www.ugb.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551411"
+      ]
+    },
+    {
+      "id": "sn-uasz",
+      "nom": "Université Assane Seck de Ziguinchor",
+      "sigle": "UASZ",
+      "pays": "SN",
+      "ville": "Ziguinchor",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://uasz.sn",
+      "annee_creation": 2007,
+      "coordonnees": {
+        "lat": 12.5482,
+        "lng": -16.2868
+      },
+      "wikidata": "Q3551694",
+      "formations": [
+        "frm-doctorat-medecine",
+        "frm-licence-agronomie",
+        "frm-licence-biologie",
+        "frm-licence-economie",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-histoire-geographie",
+        "frm-licence-hotellerie",
+        "frm-licence-informatique",
+        "frm-licence-langues-etrangeres",
+        "frm-licence-lettres-modernes",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-psychologie",
+        "frm-licence-sociologie",
+        "frm-master-finance-audit"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-uasz.png",
+        "source_url": "https://uasz.sn/wp-content/uploads/2014/10/Logo_uasz-bg-w.jpg",
+        "page_source": "https://uasz.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551694"
+      ]
+    },
+    {
+      "id": "sn-uidt",
+      "nom": "Université Iba Der Thiam de Thiès",
+      "sigle": "UIDT",
+      "pays": "SN",
+      "ville": "Thiès",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.univ-thies.sn",
+      "annee_creation": 2007,
+      "coordonnees": {
+        "lat": 14.7752,
+        "lng": -16.8787
+      },
+      "wikidata": "Q3551680",
+      "formations": [
+        "frm-doctorat-medecine",
+        "frm-ingenieur-agronome",
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-informatique",
+        "frm-licence-biologie",
+        "frm-licence-droit-prive",
+        "frm-licence-economie",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-geologie",
+        "frm-licence-gestion",
+        "frm-licence-informatique",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-master-finance-audit"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551680"
+      ]
+    },
+    {
+      "id": "sn-uadb",
+      "nom": "Université Alioune Diop de Bambey",
+      "sigle": "UADB",
+      "pays": "SN",
+      "ville": "Bambey",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://uadb.edu.sn",
+      "annee_creation": 2007,
+      "coordonnees": {
+        "lat": 14.6959099,
+        "lng": -16.4783497
+      },
+      "wikidata": "Q3551371",
+      "formations": [
+        "frm-licence-biologie",
+        "frm-licence-communication",
+        "frm-licence-economie",
+        "frm-licence-informatique",
+        "frm-licence-mathematiques",
+        "frm-licence-sociologie",
+        "frm-master-sante-publique"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-uadb.png",
+        "source_url": "https://uadb.edu.sn/images/img-logo-uadb/LOGO-UAD.png",
+        "page_source": "https://uadb.edu.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551371"
+      ]
+    },
+    {
+      "id": "sn-ussein",
+      "nom": "Université du Sine Saloum El-Hâdj Ibrahima Niass",
+      "sigle": "USSEIN",
+      "pays": "SN",
+      "ville": "Kaolack",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.ussein.sn",
+      "annee_creation": 2013,
+      "coordonnees": {
+        "lat": 14.1640031,
+        "lng": -16.1260927
+      },
+      "wikidata": "Q30294365",
+      "formations": [
+        "frm-bts-agriculture",
+        "frm-ingenieur-agronome",
+        "frm-licence-agronomie",
+        "frm-licence-economie",
+        "frm-licence-sciences-mer",
+        "frm-master-environnement"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-ussein.png",
+        "source_url": "https://www.ussein.sn/wp-content/uploads/2024/12/USSEIN-LOGO-copie.png",
+        "page_source": "https://www.ussein.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q30294365"
+      ]
+    },
+    {
+      "id": "sn-uam",
+      "nom": "Université Amadou Mahtar Mbow",
+      "sigle": "UAM",
+      "pays": "SN",
+      "ville": "Diamniadio",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "http://www.uam.sn",
+      "annee_creation": 2012,
+      "coordonnees": {
+        "lat": 14.734583732,
+        "lng": -17.198220742
+      },
+      "wikidata": "Q105475483",
+      "formations": [
+        "frm-ingenieur-genie-civil",
+        "frm-licence-droit-public",
+        "frm-licence-genie-civil",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-genie-mecanique",
+        "frm-licence-gestion",
+        "frm-licence-informatique",
+        "frm-licence-logistique",
+        "frm-master-data-science-ia"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q105475483"
+      ]
+    },
+    {
+      "id": "sn-unchk",
+      "nom": "Université Numérique Cheikh Hamidou Kane (ex-UVS)",
+      "sigle": "UN-CHK",
+      "pays": "SN",
+      "ville": "Dakar (en ligne, ENO régionaux)",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "public",
+      "site_web": "https://www.unchk.sn",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-licence-communication",
+        "frm-licence-droit-public",
+        "frm-licence-genie-logiciel",
+        "frm-licence-gestion",
+        "frm-licence-informatique",
+        "frm-licence-sociologie",
+        "frm-master-data-science-ia"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-unchk.png",
+        "source_url": "https://www.unchk.sn/wp-content/uploads/2020/02/Logo_UN-Horizontal.png",
+        "page_source": "https://www.unchk.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-ept",
+      "nom": "École Polytechnique de Thiès",
+      "sigle": "EPT",
+      "pays": "SN",
+      "ville": "Thiès",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://ept.sn",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-cpge-scientifique",
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-informatique"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-ensae",
+      "nom": "École Nationale de la Statistique et de l'Analyse Économique Pierre Ndiaye",
+      "sigle": "ENSAE",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "public",
+      "site_web": "https://www.ensae.sn",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-ingenieur-statistique",
+        "frm-master-data-science-ia"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-ena",
+      "nom": "École Nationale d'Administration du Sénégal",
+      "sigle": "ENA",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": "https://www.ena.sn",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-ena-administration",
+        "frm-magistrature"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-ena.jpg",
+        "source_url": "https://www.google.com/s2/favicons?domain=www.ena.sn&sz=256",
+        "page_source": "https://www.ena.sn",
+        "methode": "favicon",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-esmt",
+      "nom": "École Supérieure Multinationale des Télécommunications",
+      "sigle": "ESMT",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "inter_etats",
+      "site_web": "https://www.esmt.sn",
+      "annee_creation": 1981,
+      "coordonnees": {
+        "lat": 14.70002,
+        "lng": -17.4512
+      },
+      "wikidata": "Q5333198",
+      "formations": [
+        "frm-dut-reseaux-telecoms",
+        "frm-ingenieur-telecoms",
+        "frm-licence-reseaux-securite",
+        "frm-master-cybersecurite",
+        "frm-master-management"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-esmt.png",
+        "source_url": "https://www.esmt.sn/images/logos/logo-web-esmt-black.webp",
+        "page_source": "https://www.esmt.sn",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q5333198"
+      ]
+    },
+    {
+      "id": "sn-eismv",
+      "nom": "École Inter-États des Sciences et Médecine Vétérinaires",
+      "sigle": "EISMV",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "ecole_sante",
+      "type_libelle": "École de santé",
+      "statut": "inter_etats",
+      "site_web": "https://www.eismv.org",
+      "annee_creation": 1968,
+      "coordonnees": {
+        "lat": 14.68764,
+        "lng": -17.46173
+      },
+      "wikidata": "Q3578018",
+      "formations": [
+        "frm-doctorat-veterinaire",
+        "frm-master-sante-publique"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-eismv.png",
+        "source_url": "https://www.eismv.org/wp-content/uploads/2022/01/cropped-LOGO_EISMV-scaled-1-180x180.jpg",
+        "page_source": "https://www.eismv.org/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3578018"
+      ]
+    },
+    {
+      "id": "sn-cesag",
+      "nom": "Centre Africain d'Études Supérieures en Gestion",
+      "sigle": "CESAG",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "inter_etats",
+      "site_web": "https://www.cesag.sn",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-licence-banque-finance",
+        "frm-master-finance-audit",
+        "frm-master-management",
+        "frm-master-sante-publique",
+        "frm-mba"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-cesag.png",
+        "source_url": "https://www.cesag.sn/images/sampledata/ja_university/CSGLOG_F.png#joomlaImage://local-images/sampledata/ja_university/CSGLOG_F.png?width=400&height=100",
+        "page_source": "https://www.cesag.sn/index.php/fr/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-isep-thies",
+      "nom": "Institut Supérieur d'Enseignement Professionnel de Thiès",
+      "sigle": "ISEP Thiès",
+      "pays": "SN",
+      "ville": "Thiès",
+      "type": "institut",
+      "type_libelle": "Institut",
+      "statut": "public",
+      "site_web": "https://isep-thies.edu.sn",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-bts-agriculture",
+        "frm-bts-batiment",
+        "frm-bts-electrotechnique",
+        "frm-bts-informatique-gestion",
+        "frm-bts-tourisme",
+        "frm-ts-mecanique-auto"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-ism",
+      "nom": "Groupe ISM – Institut Supérieur de Management",
+      "sigle": "ISM",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "prive",
+      "site_web": "https://www.groupeism.sn",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-bachelor-business",
+        "frm-licence-communication",
+        "frm-licence-droit-prive",
+        "frm-licence-genie-logiciel",
+        "frm-master-finance-audit",
+        "frm-master-grh",
+        "frm-master-management",
+        "frm-master-marketing",
+        "frm-mba"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-ism.png",
+        "source_url": "https://www.groupeism.sn/sites/default/files/groupeism.sn__1.png",
+        "page_source": "https://www.groupeism.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-supdeco",
+      "nom": "Groupe Sup de Co Dakar",
+      "sigle": "Sup de Co",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "prive",
+      "site_web": "https://supdeco.sn",
+      "annee_creation": 1993,
+      "coordonnees": null,
+      "wikidata": "Q115405571",
+      "formations": [
+        "frm-bachelor-business",
+        "frm-licence-genie-logiciel",
+        "frm-licence-logistique",
+        "frm-master-finance-audit",
+        "frm-master-grh",
+        "frm-master-management",
+        "frm-master-marketing",
+        "frm-mba"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-supdeco.png",
+        "source_url": "https://supdeco.sn/wp-content/uploads/2021/09/logo-supdeco.png",
+        "page_source": "https://supdeco.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q115405571"
+      ]
+    },
+    {
+      "id": "sn-bem",
+      "nom": "BEM Dakar – Bordeaux École de Management",
+      "sigle": "BEM Dakar",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "prive",
+      "site_web": "https://bem.sn",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-bachelor-business",
+        "frm-master-finance-audit",
+        "frm-master-grh",
+        "frm-master-management",
+        "frm-master-marketing",
+        "frm-mba"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-bem.png",
+        "source_url": "https://bem.sn/assets/images/Logo-BEM-Neutre1.png",
+        "page_source": "https://bem.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-iam",
+      "nom": "Institut Africain de Management",
+      "sigle": "IAM",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "prive",
+      "site_web": "https://groupeiam.com",
+      "annee_creation": 1996,
+      "coordonnees": null,
+      "wikidata": "Q140948263",
+      "formations": [
+        "frm-bachelor-business",
+        "frm-licence-communication",
+        "frm-master-finance-audit",
+        "frm-master-grh",
+        "frm-master-management",
+        "frm-master-marketing",
+        "frm-mba"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-iam.png",
+        "source_url": "https://groupeiam.com/wp-content/uploads/2026/06/LOGO-IAM-BLANC-scaled.png",
+        "page_source": "https://groupeiam.com/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q140948263"
+      ]
+    },
+    {
+      "id": "sn-isi",
+      "nom": "Groupe Institut Supérieur d'Informatique",
+      "sigle": "ISI",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "prive",
+      "site_web": "https://www.groupeisi.com",
+      "annee_creation": 1994,
+      "coordonnees": null,
+      "wikidata": "Q140948264",
+      "formations": [
+        "frm-bts-informatique-gestion",
+        "frm-licence-genie-logiciel",
+        "frm-licence-gestion",
+        "frm-licence-reseaux-securite",
+        "frm-master-systemes-information"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-isi.png",
+        "source_url": "http://www.groupeisi.com/wp-content/uploads/2018/11/LOGO-NEW-GROUP.jpg",
+        "page_source": "https://www.groupeisi.com/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q140948264"
+      ]
+    },
+    {
+      "id": "sn-ipd",
+      "nom": "Institut Polytechnique de Dakar",
+      "sigle": "IPD",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "institut",
+      "type_libelle": "Institut",
+      "statut": "prive",
+      "site_web": "http://ipd.sn",
+      "annee_creation": 1991,
+      "coordonnees": {
+        "lat": 14.738278965,
+        "lng": -17.464775861
+      },
+      "wikidata": "Q105475472",
+      "formations": [
+        "frm-bts-batiment",
+        "frm-bts-comptabilite",
+        "frm-bts-electrotechnique",
+        "frm-bts-informatique-gestion"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-ipd.png",
+        "source_url": "https://www.ipd.sn/wp-content/uploads/2025/09/LOGO-01-scaled.png",
+        "page_source": "https://www.ipd.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q105475472"
+      ]
+    },
+    {
+      "id": "sn-dit",
+      "nom": "Dakar Institute of Technology",
+      "sigle": "DIT",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "prive",
+      "site_web": "https://dit.sn",
+      "annee_creation": null,
+      "coordonnees": {
+        "lat": 14.7105385,
+        "lng": -17.466467
+      },
+      "wikidata": "Q125637004",
+      "formations": [
+        "frm-ingenieur-informatique",
+        "frm-licence-informatique",
+        "frm-master-data-science-ia"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-dit.jpg",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Logodit.jpg?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:Logodit.jpg",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q125637004"
+      ]
+    },
+    {
+      "id": "sn-daust",
+      "nom": "Dakar American University of Science and Technology",
+      "sigle": "DAUST",
+      "pays": "SN",
+      "ville": "Somone (Thiès)",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "prive",
+      "site_web": "https://daust.org",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-ingenieur-genie-civil",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-informatique"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-daust.png",
+        "source_url": "https://daust.org/logos/daust-wordmark-navy.png",
+        "page_source": "https://daust.org/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-uahb",
+      "nom": "Université Amadou Hampâté Bâ",
+      "sigle": "UAHB",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive",
+      "site_web": "https://univ.uahb.sn",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-licence-communication",
+        "frm-licence-droit-prive",
+        "frm-licence-gestion",
+        "frm-licence-informatique"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-uahb.png",
+        "source_url": "https://www.google.com/s2/favicons?domain=univ.uahb.sn&sz=256",
+        "page_source": "https://univ.uahb.sn",
+        "methode": "favicon",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-udb",
+      "nom": "Université Dakar-Bourguiba",
+      "sigle": "UDB",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive",
+      "site_web": "http://www.udb-sn.com",
+      "annee_creation": 1995,
+      "coordonnees": {
+        "lat": 14.7188,
+        "lng": -17.4495
+      },
+      "wikidata": "Q3551395",
+      "formations": [
+        "frm-licence-droit-prive",
+        "frm-licence-gestion",
+        "frm-licence-informatique",
+        "frm-master-relations-internationales"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-udb.png",
+        "source_url": "http://www.udb-sn.com/images/logo.png",
+        "page_source": "http://www.udb-sn.com/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551395"
+      ]
+    },
+    {
+      "id": "sn-unis",
+      "nom": "Université du Sahel",
+      "sigle": "UNIS",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive",
+      "site_web": "http://unis.sn",
+      "annee_creation": 1998,
+      "coordonnees": {
+        "lat": 14.711516735,
+        "lng": -17.478258432
+      },
+      "wikidata": "Q3551765",
+      "formations": [
+        "frm-licence-communication",
+        "frm-licence-droit-prive",
+        "frm-licence-gestion",
+        "frm-licence-informatique"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q3551765"
+      ]
+    },
+    {
+      "id": "sn-ussd",
+      "nom": "Université des Sciences de la Santé de Dakar",
+      "sigle": "USSD",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive",
+      "site_web": "https://ussd.sn",
+      "annee_creation": 2016,
+      "coordonnees": null,
+      "wikidata": "Q140948261",
+      "formations": [
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-licence-sage-femme",
+        "frm-licence-sciences-infirmieres"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-ussd.png",
+        "source_url": "https://ussd.sn/wp-content/uploads/2026/03/Logo-USSD1-scaled.png",
+        "page_source": "https://ussd.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q140948261"
+      ]
+    },
+    {
+      "id": "sn-ucao",
+      "nom": "Université Catholique de l'Afrique de l'Ouest – Saint-Michel",
+      "sigle": "UCAO-USM",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "universite",
+      "type_libelle": "Université",
+      "statut": "prive",
+      "site_web": "https://www.st-michel.sn",
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-licence-communication",
+        "frm-licence-droit-prive",
+        "frm-licence-gestion",
+        "frm-licence-informatique"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-ucao.png",
+        "source_url": "https://www.st-michel.sn/wp-content/uploads/2023/01/Logos_UCAO_ISG.png",
+        "page_source": "https://www.st-michel.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-ensba",
+      "nom": "École Nationale des Arts",
+      "sigle": "ENA (Arts)",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": null,
+      "annee_creation": 1995,
+      "coordonnees": {
+        "lat": 14.72674,
+        "lng": -17.471076
+      },
+      "wikidata": "Q21281490",
+      "formations": [
+        "frm-licence-audiovisuel-cinema",
+        "frm-licence-beaux-arts"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q21281490"
+      ]
+    },
+    {
+      "id": "sn-entss",
+      "nom": "École Nationale des Travailleurs Sociaux Spécialisés",
+      "sigle": "ENTSS",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "grande_ecole",
+      "type_libelle": "Grande école",
+      "statut": "public",
+      "site_web": null,
+      "annee_creation": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [
+        "frm-licence-travail-social"
+      ],
+      "offre_indicative": true,
+      "logo": null,
+      "sources": [
+        "curation Navigoal"
+      ]
+    },
+    {
+      "id": "sn-ec2lt",
+      "nom": "École Centrale des Logiciels Libres et des Télécommunications",
+      "sigle": "EC2LT",
+      "pays": "SN",
+      "ville": "Dakar",
+      "type": "ecole_ingenieurs",
+      "type_libelle": "École d'ingénieurs",
+      "statut": "prive",
+      "site_web": "https://www.ec2lt.sn",
+      "annee_creation": 2009,
+      "coordonnees": {
+        "lat": 14.724111936,
+        "lng": -17.459673945
+      },
+      "wikidata": "Q105475471",
+      "formations": [
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite"
+      ],
+      "offre_indicative": true,
+      "logo": {
+        "fichier": "assets/logos/sn/sn-ec2lt.png",
+        "source_url": "https://www.ec2lt.sn/wp-content/uploads/2022/03/LOGO_EC2LT_mob.png",
+        "page_source": "https://www.ec2lt.sn/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
+      "sources": [
+        "curation Navigoal",
+        "wikidata:Q105475471"
+      ]
+    }
+  ]
+}
