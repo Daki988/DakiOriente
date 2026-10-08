@@ -56,7 +56,7 @@
       <div class="header__actions">
         <button class="iconbtn iconbtn--exit" id="quick-exit" title="Quitter le site immédiatement (touche Échap ×2)">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12s3.5-7 9-7 9 7 9 7-3.5 7-9 7-9-7-9-7z"/><path d="M4 4l16 16"/></svg>
-          <span>Sortie rapide</span>
+          <span class="exit-long">Sortie rapide</span><span class="exit-short">Quitter</span>
         </button>
         <button class="iconbtn iconbtn--cart" id="cart-open" aria-label="Ouvrir le panier">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 016 0"/></svg>
@@ -448,6 +448,29 @@
     <span class="stickybar__info" id="stickybar-info"></span>
     <span class="stickybar__go">Voir mon panier →</span>
   </button>
+
+  <!-- ===== Écran neutre de la sortie rapide ===== -->
+  <div class="cover" id="cover" hidden>
+    <article class="cover__page">
+      <p class="cover__meta">Cuisine du Gabon · 45 min · 4 personnes</p>
+      <h1>Poulet nyembwe</h1>
+      <p>Le plat de fête par excellence : du poulet mijoté dans une sauce onctueuse à la noix de palme.</p>
+      <h2>Ingrédients</h2>
+      <ul>
+        <li>1 poulet découpé en morceaux</li>
+        <li>500 g de pulpe de noix de palme</li>
+        <li>2 oignons, 3 gousses d'ail</li>
+        <li>1 piment, sel, poivre</li>
+      </ul>
+      <h2>Préparation</h2>
+      <ol>
+        <li>Faites dorer le poulet avec les oignons et l'ail émincés.</li>
+        <li>Ajoutez la pulpe de noix de palme et un verre d'eau.</li>
+        <li>Laissez mijoter 30 minutes à feu doux, en remuant de temps en temps.</li>
+        <li>Salez, poivrez, ajoutez le piment entier et servez avec du riz ou du manioc.</li>
+      </ol>
+    </article>
+  </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 

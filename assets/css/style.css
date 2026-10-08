@@ -390,7 +390,7 @@ kbd { font-family: var(--font); font-size: .75rem; padding: 1px 6px; border: 1px
 @media (max-width: 1100px) {
   .grid { grid-template-columns: repeat(3, 1fr); }
   .nav { gap: 18px; }
-  .iconbtn--exit span { display: none; }
+  .iconbtn--exit .exit-long { display: none; }
   .coll { grid-column: span 6; }
 }
 @media (max-width: 900px) {
@@ -620,3 +620,15 @@ body.locked .toast.show { transform: translate(-50%, 0); }
 /* Délai de livraison sur les cartes */
 .card__eta { display: inline-flex; align-items: center; gap: 6px; margin-top: 2px; font-size: .78rem; font-weight: 700; color: #0f8a5a; }
 .card__eta::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+/* ---------- Sortie rapide ---------- */
+.iconbtn--exit .exit-short { display: none; }
+@media (max-width: 1100px) {
+  .iconbtn--exit .exit-short { display: inline; }
+  .iconbtn--exit { padding: 0 12px 0 10px; gap: 6px; font-size: .8rem; }
+}
+.cover { position: fixed; inset: 0; z-index: 1000; overflow: auto; background: #fff; color: #222; font-family: Georgia, "Times New Roman", serif; padding: calc(32px + env(safe-area-inset-top, 0px)) 16px 48px; }
+.cover__page { max-width: 640px; margin: 0 auto; line-height: 1.7; }
+.cover__page h1 { font-family: inherit; font-weight: 700; letter-spacing: 0; font-size: 2.2rem; margin: 0 0 12px; }
+.cover__page h2 { font-family: inherit; font-weight: 700; letter-spacing: 0; font-size: 1.25rem; margin: 28px 0 8px; }
+.cover__meta { color: #777; font-size: .9rem; margin: 0 0 8px; }

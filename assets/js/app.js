@@ -75,7 +75,19 @@
   });
 
   /* ---------- Sortie rapide ---------- */
-  function quickExit() { window.location.replace(CONFIG.exitUrl); }
+  /* 1. Un écran neutre recouvre tout immédiatement (fonctionne partout, même hors ligne
+        ou quand la page est intégrée ailleurs) ; 2. on part vers Google si le navigateur le permet. */
+  function quickExit() {
+    var cover = $("#cover");
+    cover.hidden = false;
+    document.title = "Recette du poulet nyembwe";
+    document.body.classList.add("locked");
+    $$(".modal, .drawer").forEach(function (m) { m.hidden = true; });
+    // Site ouvert normalement : on part vers Google. Site intégré dans une autre page (comme la démo) :
+    // Google refuse de s'afficher dans un cadre, on garde donc l'écran neutre.
+    if (window.top === window.self) { window.location.replace(CONFIG.exitUrl); return; }
+    try { window.top.location.replace(CONFIG.exitUrl); } catch (e) { /* navigation bloquée : l'écran neutre reste affiché */ }
+  }
   $("#quick-exit").addEventListener("click", quickExit);
   var lastEsc = 0;
   document.addEventListener("keydown", function (e) {
