@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ArrowRight, Check, ChevronRight, CreditCard, MapPin, ShieldCheck, Star, Zap } from 'lucide-react'
-import { CITIES, SERVICES } from '../data/services'
+import { CITIES, logoOf, SERVICES } from '../data/services'
 import { useApp } from '../store/AppContext'
 import { NeamMark } from './Logo'
 import { PhoneIllustration, PhoneWithBubbles, Rider, Skyline } from './Illustrations'
@@ -68,6 +68,21 @@ const slides: Slide[] = [
         <span className="animate-float text-[clamp(64px,20vw,128px)]">🩺</span>
         <span className="absolute bottom-[14%] left-[10%] animate-float text-4xl [animation-delay:1s]">💊</span>
         <span className="absolute right-[8%] top-[12%] animate-float text-4xl [animation-delay:.5s]">🧴</span>
+      </div>
+    ),
+  },
+  {
+    title: <>Nouveau : Tremplin by NEAM.</>,
+    text: 'Stages, emplois et formations : crée ton CV et postule en un clic.',
+    cta: 'Trouver un stage',
+    to: '/service/tremplin',
+    bg: 'linear-gradient(120deg, #0b3fb0 0%, #1d6ef5 60%, #ffc21a 130%)',
+    art: (
+      <div className="relative grid h-full w-full place-items-center">
+        <div className="absolute h-[70%] w-[70%] rounded-full bg-white/25 blur-xl" />
+        <span className="animate-float text-[clamp(64px,20vw,128px)]">🧑🏾‍🎓</span>
+        <span className="absolute right-[6%] top-[10%] animate-float text-4xl [animation-delay:.5s]">💼</span>
+        <span className="absolute bottom-[14%] left-[8%] animate-float text-3xl [animation-delay:1s]">🚀</span>
       </div>
     ),
   },
@@ -200,7 +215,7 @@ export function PromoBanner() {
 }
 
 export function FeaturedServices() {
-  const featured = SERVICES.filter((s) => s.id !== 'services')
+  const featured = SERVICES.filter((s) => !['services', 'tremplin', 'gurutools', 'legal'].includes(s.id))
   return (
     <section>
       <div className="mb-3 flex items-center justify-between">
@@ -288,3 +303,31 @@ export function LocationSheet({ open, onClose }: { open: boolean; onClose: () =>
   )
 }
 
+/** Les nouvelles marques de l'écosystème NEAM, avec leurs logos officiels. */
+export function NewServices() {
+  const list = SERVICES.filter((s) => s.isNew)
+  return (
+    <section>
+      <div className="mb-3 flex items-center gap-2">
+        <h2 className="text-lg font-bold text-white sm:text-xl">Nouveau sur NEAM</h2>
+        <span className="rounded-full bg-neam-400 px-2 py-0.5 text-[10px] font-bold uppercase text-neam-950">Nouveau</span>
+      </div>
+      <div className="grid grid-cols-3 gap-2 sm:gap-3">
+        {list.map((s, i) => (
+          <Link
+            key={s.id}
+            to={`/service/${s.id}`}
+            onClick={tap}
+            className="group flex animate-fade-up flex-col overflow-hidden rounded-2xl bg-white shadow-lg ring-2 ring-white/10 transition hover:-translate-y-1"
+            style={{ animationDelay: `${i * 60}ms` }}
+          >
+            <div className="grid aspect-[1.25] place-items-center p-3" style={{ background: `radial-gradient(circle at 50% 60%, white 0%, ${s.soft} 85%)` }}>
+              <img src={logoOf(s.id)} alt={s.name} className="max-h-full max-w-full object-contain transition duration-500 group-hover:scale-105" />
+            </div>
+            <p className="px-2 py-2 text-center text-[clamp(9px,2.5vw,12px)] font-medium leading-tight text-neutral-600">{s.description}</p>
+          </Link>
+        ))}
+      </div>
+    </section>
+  )
+}

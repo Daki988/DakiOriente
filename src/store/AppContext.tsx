@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { PRODUCT_MAP, type Product } from '../data/products'
 import type { ServiceId } from '../data/services'
+import { SEED_CANDIDATES, SEED_RECRUITMENTS, type Candidate, type Recruitment } from '../data/careers'
 
 export type CartLine = { productId: string; qty: number }
 
@@ -19,7 +20,25 @@ export type Order = {
   /** Durée totale estimée en minutes (pour la simulation du suivi) */
   etaMin: number
   note?: string
+  /** livraison (par défaut) ou prestation sur rendez-vous */
+  kind?: 'livraison' | 'rendez-vous'
+  /** Créneau choisi pour un rendez-vous (libellé lisible) */
+  slot?: string
 }
+
+export type CV = {
+  fullName: string
+  title: string
+  phone: string
+  email: string
+  city: string
+  summary: string
+  skills: string[]
+  experiences: { role: string; company: string; period: string }[]
+  education: string
+}
+
+export type Application = { offerId: string; ts: number; status: 'Envoyée' | 'Vue' | 'Entretien' }
 
 export type Notification = { id: string; title: string; body: string; ts: number; read: boolean; icon: string }
 
@@ -34,9 +53,14 @@ type State = {
   recentSearches: string[]
   wallet: number
   userName: string
+  cv: CV
+  applications: Application[]
+  enrollments: string[]
+  recruitments: Recruitment[]
+  candidates: Candidate[]
 }
 
-const KEY = 'neam:v1'
+const KEY = 'neam:v2'
 
 const initialNotifications: Notification[] = [
   { id: 'n1', icon: '🎉', title: 'Bienvenue sur NEAM !', body: 'Un seul compte pour tous vos services du quotidien.', ts: Date.now() - 1000 * 60 * 5, read: false },
@@ -53,6 +77,11 @@ const defaults: State = {
   recentSearches: ['Poulet nyembwe', 'Paracétamol', 'Cartes de visite'],
   wallet: 25000,
   userName: 'Invité NEAM',
+  cv: { fullName: '', title: '', phone: '', email: '', city: 'Libreville', summary: '', skills: [], experiences: [], education: '' },
+  applications: [],
+  enrollments: [],
+  recruitments: SEED_RECRUITMENTS,
+  candidates: SEED_CANDIDATES,
 }
 
 function load(): State {
@@ -76,6 +105,12 @@ type Ctx = State & {
   pushSearch: (q: string) => void
   payWithWallet: (amount: number) => boolean
   setUserName: (n: string) => void
+  saveCV: (cv: CV) => void
+  apply: (offerId: string) => void
+  enroll: (formationId: string) => void
+  createRecruitment: (r: Omit<Recruitment, 'id' | 'createdAt' | 'status'>) => Recruitment
+  setCandidateStatus: (id: string, status: Candidate['status']) => void
+  addCandidates: (list: Candidate[]) => void
   cartCount: number
   cartTotal: number
   toasts: Toast[]
@@ -152,6 +187,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
         return true
       },
       setUserName: (userName) => setState((s) => ({ ...s, userName })),
+      saveCV: (cv) => setState((s) => ({ ...s, cv })),
+      apply: (offerId) =>
+        setState((s) =>
+          s.applications.some((a) => a.offerId === offerId)
+            ? s
+            : { ...s, applications: [{ offerId, ts: Date.now(), status: 'Envoyée' }, ...s.applications] },
+        ),
+      enroll: (id) => setState((s) => (s.enrollments.includes(id) ? s : { ...s, enrollments: [...s.enrollments, id] })),
+      createRecruitment: (r) => {
+        const rec: Recruitment = { ...r, id: `r${Date.now()}`, createdAt: Date.now(), status: 'Publié' }
+        setState((s) => ({ ...s, recruitments: [rec, ...s.recruitments] }))
+        return rec
+      },
+      addCandidates: (list) => setState((s) => ({ ...s, candidates: [...s.candidates, ...list] })),
+      setCandidateStatus: (id, status) =>
+        setState((s) => ({ ...s, candidates: s.candidates.map((c) => (c.id === id ? { ...c, status } : c)) })),
     }
   }, [state, toasts, toast])
 

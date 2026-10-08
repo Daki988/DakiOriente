@@ -14,7 +14,7 @@ export function PhoneIllustration({ className = '', tilt = -10 }: { className?: 
         <NeamMark className="w-[62%]" />
         <NeamWordmark className="mt-[6%] text-[clamp(10px,2.4vw,20px)]" />
         <div className="mt-auto mb-[12%] grid w-full grid-cols-3 gap-[6%]">
-          {SERVICES.map((s) => (
+          {SERVICES.slice(0, 9).map((s) => (
             <div key={s.id} className="aspect-square rounded-[25%]" style={{ background: s.gradient }} />
           ))}
         </div>

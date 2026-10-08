@@ -1,30 +1,15 @@
-import { useId } from 'react'
-
 type MarkProps = { className?: string; mono?: boolean }
 
-/** Le "N" en ruban de NEAM. `mono` = version blanche (sur tuiles colorées). */
+/** Le symbole « N » officiel de NEAM. `mono` = version blanche (sur tuiles colorées). */
 export function NeamMark({ className = 'h-8', mono = false }: MarkProps) {
-  const id = useId().replace(/:/g, '')
-  const light = mono ? '#ffffff' : `url(#l${id})`
-  const dark = mono ? 'rgba(255,255,255,0.78)' : `url(#d${id})`
   return (
-    <svg viewBox="0 0 120 90" className={className} aria-hidden="true">
-      {!mono && (
-        <defs>
-          <linearGradient id={`l${id}`} x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0" stopColor="#14c977" />
-            <stop offset="1" stopColor="#7cf7bd" />
-          </linearGradient>
-          <linearGradient id={`d${id}`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#0b9a5c" />
-            <stop offset="1" stopColor="#0ed27a" />
-          </linearGradient>
-        </defs>
-      )}
-      <path d="M44 6 L62 6 L94 84 L74 84 Z" fill={dark} />
-      <path d="M4 86 C12 56 24 28 44 6 L62 6 C44 28 34 56 28 86 Z" fill={light} />
-      <path d="M74 84 L94 84 C100 56 106 28 118 3 C98 14 84 44 74 84 Z" fill={light} />
-    </svg>
+    <img
+      src={mono ? './brand/express-mark-white.webp' : './brand/express-mark.webp'}
+      alt=""
+      aria-hidden="true"
+      draggable={false}
+      className={`w-auto select-none object-contain ${className}`}
+    />
   )
 }
 
@@ -43,7 +28,12 @@ export function NeamWordmark({ className = 'text-3xl', light = true }: { classNa
   )
 }
 
+/** Logo officiel complet (symbole + NEAM® + signature), pour fonds sombres. */
 export function NeamLogo({ tagline = true, size = 'md', light = true }: { tagline?: boolean; size?: 'sm' | 'md' | 'lg' | 'xl'; light?: boolean }) {
+  if (tagline && light) {
+    const h = { sm: 'h-9', md: 'h-[52px]', lg: 'h-20', xl: 'h-32' }[size]
+    return <img src="./brand/neam-logo.webp" alt="NEAM — Plus proche de votre quotidien." draggable={false} className={`${h} w-auto select-none`} />
+  }
   const s = {
     sm: { mark: 'h-7', word: 'text-2xl', tag: 'text-[9px]' },
     md: { mark: 'h-10', word: 'text-[34px]', tag: 'text-[11px]' },
@@ -52,14 +42,10 @@ export function NeamLogo({ tagline = true, size = 'md', light = true }: { taglin
   }[size]
   return (
     <div className="flex items-center gap-2">
-      <NeamMark className={`${s.mark} drop-shadow-[0_4px_12px_rgba(16,192,112,0.45)]`} />
+      <NeamMark className={s.mark} />
       <div className="flex flex-col">
         <NeamWordmark className={s.word} light={light} />
-        {tagline && (
-          <span className={`${s.tag} mt-0.5 font-medium ${light ? 'text-white/85' : 'text-neam-900/70'}`}>
-            Plus proche de votre quotidien.
-          </span>
-        )}
+        {tagline && <span className={`${s.tag} mt-0.5 font-medium ${light ? 'text-white/85' : 'text-neam-900/70'}`}>Plus proche de votre quotidien.</span>}
       </div>
     </div>
   )

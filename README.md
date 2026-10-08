@@ -11,17 +11,24 @@ Application **hybride** : une seule base de code web (React + TypeScript), qui t
 
 ## Les services
 
+Chaque service est une « mini-app » avec son logo officiel, son accueil, ses catégories et sa propre barre de navigation, d’après les interfaces de la charte NEAM.
+
 | Service | Contenu |
 | --- | --- |
-| **NEAM Market** | Courses et produits du quotidien |
-| **NEAM Food** | Repas et livraison de repas |
-| **NEAM Express** | Envoi de colis et documents : estimation du prix, course prioritaire |
-| **NEAM Health** | Santé, parapharmacie, téléconsultation |
-| **NEAM Print** | Impression et supports marketing |
-| **NEAM Services** | Assistance, conciergerie, réservation |
-| **Brico&Deco by NEAM** | Bricolage, décoration, artisans |
-| **NEAM Beauty** | Beauté, soins, prestations à domicile |
-| **NEAM Tech** | High-tech, informatique, solutions digitales |
+| **NEAM Market** | Courses : catégories, promotions du jour, pages catégories avec filtres (fruits, légumes, tubercules) |
+| **NEAM Food** | Restaurants populaires, menus par restaurant, promotions |
+| **NEAM Express** | Envoi de colis ou « Commander pour moi », Standard / Express / Same day, suivi du colis, tarifs |
+| **NEAM Health** | Téléconsultation, pharmacie, analyses, 8 spécialités avec prise de rendez-vous |
+| **NEAM Print** | Impressions, goodies, supports pub : personnalisation avec envoi du visuel |
+| **NEAM Services** | Ménage, plomberie, électricité, informatique… : réservation de créneau |
+| **Brico&Deco by NEAM** | Bricolage, déco, peinture, artisans |
+| **NEAM Beauty** | Maquillage, soins, parfums, prestations à domicile |
+| **NEAM Tech** | Smartphones, informatique, réparation, solutions digitales |
+| **Tremplin by NEAM** 🆕 | Stages, emplois, alternances : recherche, CV avec assistant de rédaction, candidature en un clic, formations, entreprises |
+| **GuruTools by NEAM** 🆕 | Recrutement pour TPE/PME : annonces, tableau de bord, candidats classés par score, fiche « Analyse IA » |
+| **Guru Légal by NEAM** 🆕 | Consultation juridique, documents (contrats, bail, statuts), création d’entreprise |
+
+Les logos officiels (fond détouré) sont dans `public/brand/` : `<service>-logo.webp` (logo complet), `<service>-mark.webp` (symbole) et `<service>-mark-white.webp` (symbole blanc pour les tuiles).
 
 ## Fonctionnalités
 
@@ -37,7 +44,7 @@ Application **hybride** : une seule base de code web (React + TypeScript), qui t
 - Notifications, profil, portefeuille
 - Côté natif : vibrations au toucher, barre d’état, écran de lancement, bouton retour Android
 
-> ℹ️ Pour l’instant, les données (catalogue, commandes, paiements) sont **simulées** et enregistrées sur l’appareil (`localStorage`). Le suivi de commande avance 10× plus vite que le temps réel, pour les démos. Il faudra brancher une API backend pour passer en production.
+> ℹ️ Pour l’instant, les données (catalogue, commandes, paiements, offres d’emploi, candidats, analyses « IA ») sont **simulées** et enregistrées sur l’appareil (`localStorage`). Le suivi de commande avance 10× plus vite que le temps réel, pour les démos. Il faudra brancher une API backend pour passer en production.
 
 ## Démarrage
 
@@ -74,8 +81,9 @@ Ensuite, dans Xcode : choisir l’équipe de signature, puis *Product → Archiv
 ```
 src/
   components/   Logo NEAM, tuiles de service, navigation, cartes produit, sections de l'accueil
-  pages/        Accueil, Service, Express, Panier, Validation, Commandes, Scanner, Profil…
-  data/         Services, catalogue produits, villes
+  pages/        Accueil, Panier, Validation, Commandes, Scanner, Profil…
+  pages/service Mini-apps des services (boutique, Express, Tremplin, GuruTools, Guru Légal)
+  data/         Services, catalogue produits, offres d'emploi et candidats, villes
   store/        État global (panier, favoris, commandes) persisté sur l'appareil
   lib/          Formatage FCFA, pont natif Capacitor
 assets/         Sources des icônes et de l'écran de lancement (npx @capacitor/assets generate)

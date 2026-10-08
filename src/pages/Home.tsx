@@ -7,7 +7,7 @@ import { useApp } from '../store/AppContext'
 import { NeamLogo } from '../components/Logo'
 import { ServiceTile } from '../components/ServiceTile'
 import { ProductCard } from '../components/ProductCard'
-import { FeaturedServices, FeatureStrip, HeroCarousel, LocationSheet, PromoBanner, SolutionsCta } from '../components/HomeSections'
+import { FeaturedServices, FeatureStrip, HeroCarousel, LocationSheet, NewServices, PromoBanner, SolutionsCta } from '../components/HomeSections'
 
 const greeting = () => {
   const h = new Date().getHours()
@@ -68,14 +68,6 @@ export default function Home() {
             {SERVICES.map((s, i) => (
               <ServiceTile key={s.id} service={s} index={i} />
             ))}
-            <div className="flex flex-col items-center text-center">
-              <div className="grid aspect-square w-full place-items-center rounded-[22px] bg-neutral-200/70 text-neutral-500">
-                <div className="text-center">
-                  <div className="text-2xl font-black tracking-widest text-neutral-700">•••</div>
-                  <div className="mt-1 px-1 text-[clamp(9px,2.5vw,12px)] leading-tight">Plus de services à venir…</div>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -100,6 +92,7 @@ export default function Home() {
         <FeatureStrip />
         <PromoBanner />
         <FeaturedServices />
+        <NewServices />
         <SolutionsCta />
         <p className="pt-2 text-center text-xs text-white/40">© {new Date().getFullYear()} NEAM · Libreville, Gabon</p>
       </div>

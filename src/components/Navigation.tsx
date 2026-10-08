@@ -16,7 +16,7 @@ const tabs = [
 
 export function BottomNav() {
   const { pathname } = useLocation()
-  if (pathname.startsWith('/scanner') || pathname.startsWith('/panier') || pathname.startsWith('/checkout')) return null
+  if (['/scanner', '/panier', '/checkout', '/service/'].some((p) => pathname.startsWith(p))) return null
   return (
     <nav className="fixed inset-x-0 bottom-0 z-40 lg:hidden" aria-label="Navigation principale">
       <div className="mx-auto max-w-xl rounded-t-[26px] border-t border-neutral-100 bg-white/95 pb-safe shadow-[0_-8px_30px_-12px_rgba(0,0,0,0.18)] backdrop-blur-xl">

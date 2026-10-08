@@ -6,7 +6,7 @@ import { Toasts } from './components/Toasts'
 import { Splash } from './components/Splash'
 import { initNative } from './lib/native'
 import Home from './pages/Home'
-import Service from './pages/Service'
+import ServiceApp from './pages/service'
 import AllServices from './pages/AllServices'
 import { Cart, Checkout } from './pages/Cart'
 import { OrderDetail, Orders } from './pages/Orders'
@@ -31,11 +31,11 @@ function Shell() {
   return (
     <>
       <TopNav />
-      <main key={pathname.split('/')[1]}>
+      <main key={pathname.split('/').slice(1, 3).join('/')}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<AllServices />} />
-          <Route path="/service/:id" element={<Service />} />
+          <Route path="/service/:id/*" element={<ServiceApp />} />
           <Route path="/recherche" element={<Search />} />
           <Route path="/panier" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { Check, ChevronRight, MessageCircle, Phone, Star } from 'lucide-react'
-import { SERVICE_MAP } from '../data/services'
+import { SERVICE_MAP, type ServiceId } from '../data/services'
+import { ServiceSubHeader } from './service/ServiceLayout'
 import { useApp, type Order } from '../store/AppContext'
 import { fcfa, timeAgo } from '../lib/format'
 import { PageHeader } from '../components/PageHeader'
@@ -20,6 +21,8 @@ const STEPS = [
 ]
 
 export function progressOf(o: Order, now = Date.now()) {
+  // Un rendez-vous reste « à venir » : pas de suivi de livraison
+  if (o.kind === 'rendez-vous') return 0
   return Math.min(1, ((now - o.createdAt) * DEMO_SPEED) / (o.etaMin * 60000))
 }
 
@@ -34,20 +37,22 @@ function useNow(ms = 1000) {
   return now
 }
 
-export function Orders() {
-  const { orders } = useApp()
+export function Orders({ serviceId }: { serviceId?: ServiceId } = {}) {
+  const { orders: all } = useApp()
+  const orders = serviceId ? all.filter((o) => o.serviceId === serviceId) : all
+  const svc = serviceId ? SERVICE_MAP[serviceId] : null
+  const isRdv = !!svc && ['health', 'services', 'legal'].includes(svc.id)
   const now = useNow(3000)
   const [tab, setTab] = useState<'current' | 'past'>('current')
   const list = orders.filter((o) => (progressOf(o, now) < 1) === (tab === 'current'))
 
-  return (
-    <PageShell>
-      <PageHeader title="Mes commandes" subtitle={`${orders.length} commande${orders.length > 1 ? 's' : ''}`} />
-      <div className="px-4">
+  const title = isRdv ? 'Mes rendez-vous' : svc?.id === 'express' ? 'Mes envois' : 'Mes commandes'
+  const body = (
+      <div className={svc ? 'p-4' : 'px-4'}>
         <div className="grid grid-cols-2 rounded-2xl bg-neutral-200/70 p-1 text-sm font-semibold">
           {(['current', 'past'] as const).map((t) => (
             <button key={t} onClick={() => setTab(t)} className={`rounded-xl py-2.5 transition ${tab === t ? 'bg-white text-neutral-900 shadow' : 'text-neutral-500'}`}>
-              {t === 'current' ? 'En cours' : 'Historique'}
+              {t === 'current' ? (isRdv ? 'À venir' : 'En cours') : 'Historique'}
             </button>
           ))}
         </div>
@@ -56,8 +61,8 @@ export function Orders() {
           <div className="flex flex-col items-center py-20 text-center">
             <div className="grid h-24 w-24 place-items-center rounded-full bg-neam-50 text-5xl">{tab === 'current' ? '🛵' : '🧾'}</div>
             <p className="mt-4 font-semibold">{tab === 'current' ? 'Aucune commande en cours' : 'Aucune commande passée'}</p>
-            <p className="mt-1 text-sm text-neutral-500">Vos commandes NEAM apparaîtront ici.</p>
-            <Link to="/" className="mt-6 rounded-full bg-neam-600 px-6 py-3 text-sm font-semibold text-white">Commander maintenant</Link>
+            <p className="mt-1 text-sm text-neutral-500">{svc ? `Vos ${title.slice(4).toLowerCase()} ${svc.name} apparaîtront ici.` : 'Vos commandes NEAM apparaîtront ici.'}</p>
+            <Link to={svc ? `/service/${svc.id}` : '/'} className="mt-6 rounded-full bg-neam-600 px-6 py-3 text-sm font-semibold text-white">Commander maintenant</Link>
           </div>
         ) : (
           <ul className="mt-4 space-y-3">
@@ -71,16 +76,16 @@ export function Orders() {
                       <ServiceBadge service={s} size="sm" />
                       <div className="min-w-0 flex-1">
                         <p className="truncate font-semibold">{s.name}</p>
-                        <p className="text-xs text-neutral-500">#{o.id} · {timeAgo(o.createdAt)}</p>
+                        <p className="text-xs text-neutral-500">#{o.id} · {o.slot ? `📅 ${o.slot}` : timeAgo(o.createdAt)}</p>
                       </div>
                       <ChevronRight size={18} className="text-neutral-400" />
                     </div>
                     <p className="mt-3 line-clamp-1 text-sm text-neutral-600">{o.lines.map((l) => `${l.qty}× ${l.name}`).join(', ')}</p>
                     <div className="mt-3 flex items-center justify-between">
-                      <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${p >= 1 ? 'bg-neutral-100 text-neutral-600' : 'bg-neam-50 text-neam-700'}`}>{STEPS[stepIndex(p)].label}</span>
+                      <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${p >= 1 ? 'bg-neutral-100 text-neutral-600' : 'bg-neam-50 text-neam-700'}`}>{o.kind === 'rendez-vous' ? 'Rendez-vous confirmé' : STEPS[stepIndex(p)].label}</span>
                       <span className="font-bold">{fcfa(o.total)}</span>
                     </div>
-                    {p < 1 && (
+                    {p < 1 && o.kind !== 'rendez-vous' && (
                       <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-neutral-100">
                         <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${Math.max(6, p * 100)}%`, background: s.gradient }} />
                       </div>
@@ -92,6 +97,19 @@ export function Orders() {
           </ul>
         )}
       </div>
+  )
+
+  if (svc)
+    return (
+      <>
+        <ServiceSubHeader service={svc} title={title} />
+        {body}
+      </>
+    )
+  return (
+    <PageShell>
+      <PageHeader title="Mes commandes" subtitle={`${orders.length} commande${orders.length > 1 ? 's' : ''}`} />
+      {body}
     </PageShell>
   )
 }
@@ -115,6 +133,17 @@ export function OrderDetail() {
     <PageShell>
       <PageHeader title={`Commande #${order.id}`} subtitle={s.name} />
 
+      {order.kind === 'rendez-vous' ? (
+        <div className="mx-4 rounded-3xl p-5 text-white shadow-lg" style={{ background: s.gradient }}>
+          <p className="text-xs font-medium uppercase tracking-wider text-white/80">Rendez-vous confirmé</p>
+          <p className="mt-1 text-2xl font-extrabold leading-tight first-letter:uppercase">{order.slot}</p>
+          <p className="mt-2 text-sm text-white/90">📍 {order.address}</p>
+          <div className="mt-4 flex gap-2">
+            <button onClick={() => toast('Rappel ajouté : vous serez notifié 1 h avant')} className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-900">Me le rappeler</button>
+            <button onClick={() => toast('Demande de report envoyée')} className="rounded-full bg-white/20 px-4 py-2 text-sm font-semibold">Reporter</button>
+          </div>
+        </div>
+      ) : (
       <div className="relative mx-4 h-56 overflow-hidden rounded-3xl bg-[#e8f1ec] ring-1 ring-black/5">
         <svg viewBox="0 0 400 220" className="absolute inset-0 h-full w-full" preserveAspectRatio="none" aria-hidden="true">
           <rect width="400" height="220" fill="#e6efe9" />
@@ -144,9 +173,10 @@ export function OrderDetail() {
           <p className="text-lg font-extrabold">{p >= 1 ? '✅' : `${remaining} min`}</p>
         </div>
       </div>
+      )}
 
       <div className="space-y-4 px-4 pt-4">
-        <section className="rounded-3xl bg-white p-4 shadow-sm ring-1 ring-black/5">
+        {order.kind !== 'rendez-vous' && <section className="rounded-3xl bg-white p-4 shadow-sm ring-1 ring-black/5">
           <ol className="space-y-0">
             {STEPS.map((st, i) => {
               const done = i <= step
@@ -164,9 +194,9 @@ export function OrderDetail() {
               )
             })}
           </ol>
-        </section>
+        </section>}
 
-        {step >= 2 && p < 1 && (
+        {order.kind !== 'rendez-vous' && step >= 2 && p < 1 && (
           <section className="flex items-center gap-3 rounded-3xl bg-neam-950 p-4 text-white">
             <span className="grid h-12 w-12 place-items-center rounded-full bg-neam-700 text-2xl">🧑🏾</span>
             <div className="flex-1">
@@ -178,7 +208,7 @@ export function OrderDetail() {
           </section>
         )}
 
-        {p >= 1 && (
+        {p >= 1 && order.kind !== 'rendez-vous' && (
           <section className="rounded-3xl bg-white p-4 text-center shadow-sm ring-1 ring-black/5">
             <p className="font-semibold">Comment s’est passée votre commande ?</p>
             <div className="mt-2 flex justify-center gap-1">
