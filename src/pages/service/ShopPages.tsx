@@ -5,6 +5,7 @@ import type { Quick, Section, Service } from '../../data/services'
 import { productsOf, RESTAURANTS, SPECIALTIES, type Product } from '../../data/products'
 import { Icon } from '../../lib/icons'
 import { ProductCard } from '../../components/ProductCard'
+import { useApp } from '../../store/AppContext'
 import { BookingSheet, type Bookable } from '../../components/BookingSheet'
 import { hrefOf, ServiceHeader, ServiceSubHeader } from './ServiceLayout'
 import { tap } from '../../lib/native'
@@ -308,6 +309,25 @@ export function RestaurantPage({ service }: { service: Service }) {
       <section className="grid grid-cols-2 gap-3 px-4 sm:grid-cols-3">
         {menu.map((p) => <ProductCard key={p.id} product={p} />)}
       </section>
+    </>
+  )
+}
+
+export function ServiceFavorites({ service }: { service: Service }) {
+  const { favorites } = useApp()
+  const list = productsOf(service.id).filter((p) => favorites.includes(p.id))
+  return (
+    <>
+      <ServiceSubHeader service={service} title="Mes favoris" />
+      {list.length ? (
+        <section className="grid grid-cols-2 gap-3 p-4 sm:grid-cols-3">{list.map((p) => <ProductCard key={p.id} product={p} />)}</section>
+      ) : (
+        <div className="px-8 py-16 text-center text-neutral-500">
+          <div className="text-5xl">🤍</div>
+          <p className="mt-3 font-medium">Aucun favori sur {service.name}</p>
+          <p className="text-sm">Touchez le cœur d’un article pour le retrouver ici.</p>
+        </div>
+      )}
     </>
   )
 }

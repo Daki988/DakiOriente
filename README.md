@@ -36,7 +36,7 @@ Les logos officiels (fond détouré) sont dans `public/brand/` : `<service>-logo
 - Mise en page **mobile** (navigation en bas avec bouton Scanner central) et **desktop** (barre de navigation en haut, deux colonnes)
 - Choix de la ville (Libreville, Port-Gentil, Franceville, Oyem…)
 - Recherche globale (services et produits), recherches récentes
-- Fiche produit, favoris, panier regroupé par service, livraison offerte dès 15 000 FCFA
+- Fiche produit, favoris, **un panier par service** (quitter un service avec un panier demande confirmation puis l’annule), livraison offerte dès 15 000 FCFA
 - Paiement : **NEAM Pay** (portefeuille), **Airtel Money**, **Moov Money**, carte bancaire, espèces à la livraison
 - Codes promo (`NEAM20`, `BIENVENUE`)
 - Suivi de commande en temps réel (carte, étapes, coursier, notation)

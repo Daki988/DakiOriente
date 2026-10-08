@@ -113,6 +113,8 @@ type Ctx = State & {
   addCandidates: (list: Candidate[]) => void
   cartCount: number
   cartTotal: number
+  /** Service auquel appartient le panier (un seul à la fois) */
+  cartService: ServiceId | null
   toasts: Toast[]
   toast: (text: string) => void
 }
@@ -140,15 +142,21 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const api = useMemo<Ctx>(() => {
     const cartCount = state.cart.reduce((n, l) => n + l.qty, 0)
     const cartTotal = state.cart.reduce((n, l) => n + (PRODUCT_MAP[l.productId]?.price ?? 0) * l.qty, 0)
+    const first = state.cart.find((l) => PRODUCT_MAP[l.productId])
+    const cartService = first ? PRODUCT_MAP[first.productId].serviceId : null
     return {
       ...state,
       cartCount,
       cartTotal,
+      cartService,
       toasts,
       toast,
       setCity: (city) => setState((s) => ({ ...s, city })),
       addToCart: (p, qty = 1) =>
         setState((s) => {
+          // Un panier = un seul service : un article d'un autre service remplace le panier
+          const owner = s.cart.map((l) => PRODUCT_MAP[l.productId]).find(Boolean)?.serviceId
+          if (owner && owner !== p.serviceId) s = { ...s, cart: [] }
           const found = s.cart.find((l) => l.productId === p.id)
           const cart = found
             ? s.cart.map((l) => (l.productId === p.id ? { ...l, qty: l.qty + qty } : l))

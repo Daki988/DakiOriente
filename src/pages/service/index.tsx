@@ -2,7 +2,7 @@ import { Navigate, Route, Routes, useParams } from 'react-router-dom'
 import { SERVICE_MAP, type ServiceId } from '../../data/services'
 import { Orders } from '../Orders'
 import { ServiceLayout, ServiceNav } from './ServiceLayout'
-import { CategoriesPage, CategoryPage, PromosPage, RestaurantPage, RestaurantsPage, ShopHome } from './ShopPages'
+import { CategoriesPage, CategoryPage, PromosPage, RestaurantPage, RestaurantsPage, ServiceFavorites, ShopHome } from './ShopPages'
 import { ExpressHome, ExpressPricing, ExpressTracking } from './ExpressPages'
 import { TremplinCompanies, TremplinCV, TremplinFormations, TremplinHome, TremplinOffers } from './TremplinPages'
 import { GuruCandidate, GuruCandidates, GuruDashboard, GuruHome, GuruNewJob, GuruRecruitment } from './GuruToolsPages'
@@ -21,6 +21,7 @@ export default function ServiceApp() {
       <Route path="c/:cat" element={<CategoryPage service={s} />} />
       <Route path="promos" element={<PromosPage service={s} />} />
       <Route path="commandes" element={<Orders serviceId={s.id} />} />
+      <Route path="favoris" element={<ServiceFavorites service={s} />} />
     </>
   )
 

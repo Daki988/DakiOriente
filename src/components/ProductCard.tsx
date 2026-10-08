@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { CalendarPlus, Heart, Minus, Plus, ShoppingCart, Star, Store, Upload } from 'lucide-react'
 import type { Product } from '../data/products'
 import { SERVICE_MAP } from '../data/services'
@@ -45,9 +46,23 @@ function Price({ product, className = '' }: { product: Product; className?: stri
  *  - row     : carte compacte pour les listes horizontales
  *  - mini    : petite carte (grilles 3 colonnes, comme les pages catégories des interfaces)
  */
+/** Ajout au panier : le panier appartient au service, on y entre si on n'y est pas déjà. */
+function useAddToServiceCart() {
+  const { addToCart, toast } = useApp()
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+  return (product: Product, qty = 1) => {
+    addToCart(product, qty)
+    const service = SERVICE_MAP[product.serviceId]
+    const inside = pathname.startsWith(`/service/${product.serviceId}`)
+    toast(`${qty > 1 ? `${qty} × ` : ''}${product.name} ajouté au panier ${service.name}`)
+    if (!inside && !['/panier', '/checkout', '/scanner'].includes(pathname)) navigate(`/service/${product.serviceId}`)
+  }
+}
+
 export function ProductCard({ product, variant = 'default', compact }: { product: Product; variant?: 'default' | 'row' | 'mini'; compact?: boolean }) {
   const [open, setOpen] = useState<null | 'detail' | 'book' | 'custom'>(null)
-  const { addToCart, toast } = useApp()
+  const add = useAddToServiceCart()
   const service = SERVICE_MAP[product.serviceId]
   const v = compact ? 'row' : variant
 
@@ -56,8 +71,7 @@ export function ProductCard({ product, variant = 'default', compact }: { product
     tap()
     if (product.booking) return setOpen('book')
     if (product.custom) return setOpen('custom')
-    addToCart(product)
-    toast(`${product.name} ajouté au panier`)
+    add(product)
   }
   const ActionIcon = product.booking ? CalendarPlus : product.custom ? Upload : v === 'mini' ? ShoppingCart : Plus
 
@@ -101,7 +115,7 @@ export function ProductCard({ product, variant = 'default', compact }: { product
 
 export function ProductSheet({ product, open, onClose, onBook, onCustom }: { product: Product; open: boolean; onClose: () => void; onBook?: () => void; onCustom?: () => void }) {
   const [qty, setQty] = useState(1)
-  const { addToCart, toast } = useApp()
+  const add = useAddToServiceCart()
   const service = SERVICE_MAP[product.serviceId]
   const special = product.booking ? onBook : product.custom ? onCustom : undefined
   return (
@@ -147,10 +161,9 @@ export function ProductSheet({ product, open, onClose, onBook, onCustom }: { pro
           <button
             onClick={() => {
               tap()
-              addToCart(product, qty)
-              toast(`${qty} × ${product.name} ajouté${qty > 1 ? 's' : ''}`)
               setQty(1)
               onClose()
+              add(product, qty)
             }}
             className="flex flex-1 items-center justify-between rounded-2xl px-5 py-3.5 font-semibold text-white shadow-lg transition active:scale-[0.98]"
             style={{ background: service.gradient }}

@@ -6,6 +6,7 @@ import { SERVICE_MAP, type ServiceId } from '../data/services'
 import { useApp } from '../store/AppContext'
 import { fcfa } from '../lib/format'
 import { tap } from '../lib/native'
+import { SKIP_GUARD } from '../lib/cartScope'
 import { PageHeader } from '../components/PageHeader'
 import { PageShell } from '../components/Navigation'
 import { ServiceBadge } from '../components/ServiceTile'
@@ -38,7 +39,7 @@ export function Cart() {
         <div className="flex flex-col items-center px-8 py-20 text-center">
           <div className="grid h-28 w-28 place-items-center rounded-full bg-neam-50 text-6xl">🛒</div>
           <h2 className="mt-5 text-lg font-bold">Votre panier est vide</h2>
-          <p className="mt-1 text-sm text-neutral-500">Découvrez nos services et ajoutez vos produits préférés.</p>
+          <p className="mt-1 text-sm text-neutral-500">Chaque service NEAM a son propre panier : ouvrez un service pour commencer vos achats.</p>
           <Link to="/" className="mt-6 rounded-full bg-neam-600 px-6 py-3 font-semibold text-white shadow-lg">Explorer NEAM</Link>
         </div>
       </PageShell>
@@ -49,14 +50,17 @@ export function Cart() {
   return (
     <PageShell className="pb-44">
       <PageHeader
-        title="Mon panier"
-        subtitle={`${groups.length} service${groups.length > 1 ? 's' : ''}`}
+        title={`Panier ${SERVICE_MAP[groups[0][0]].name}`}
+        subtitle="Un panier par service" 
         right={<button onClick={clearCart} className="rounded-full px-3 py-2 text-sm font-medium text-red-500 hover:bg-red-50">Vider</button>}
       />
       <div className="space-y-4 px-4 pt-2">
+        <Link to={`/service/${groups[0][0]}`} className="flex items-center justify-center gap-2 rounded-2xl border-2 border-dashed py-3 text-sm font-semibold" style={{ borderColor: SERVICE_MAP[groups[0][0]].color + '55', color: SERVICE_MAP[groups[0][0]].color }}>
+          + Continuer mes achats sur {SERVICE_MAP[groups[0][0]].name}
+        </Link>
         <div className="rounded-2xl bg-neam-50 p-4">
           <p className="flex items-center gap-2 text-sm font-medium text-neam-800">
-            <Bike size={18} /> {missing ? <>Plus que <b>{fcfa(missing)}</b> pour la livraison offerte</> : <>Livraison offerte débloquée 🎉</>}
+            <Bike size={18} className="shrink-0" /> <span>{missing ? <>Plus que <b>{fcfa(missing)}</b> pour la livraison offerte</> : <>Livraison offerte débloquée 🎉</>}</span>
           </p>
           <div className="mt-2 h-2 overflow-hidden rounded-full bg-neam-100">
             <div className="h-full rounded-full bg-gradient-to-r from-neam-400 to-neam-600 transition-all" style={{ width: `${Math.min(100, (cartTotal / FREE_FROM) * 100)}%` }} />
@@ -170,7 +174,7 @@ export function Checkout() {
       }
       clearCart()
       toast('Paiement accepté · commande confirmée')
-      navigate(groups.length === 1 ? `/commandes/${last}` : '/commandes', { replace: true })
+      navigate(groups.length === 1 ? `/commandes/${last}` : '/commandes', { replace: true, state: SKIP_GUARD })
     }, 1400)
   }
 

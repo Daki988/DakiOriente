@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
-import { HashRouter, MemoryRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { createHashRouter, createMemoryRouter, Navigate, Route, RouterProvider, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { AppProvider } from './store/AppContext'
 import { BottomNav, CartFab, TopNav } from './components/Navigation'
 import { Toasts } from './components/Toasts'
 import { Splash } from './components/Splash'
+import { LeaveGuard } from './components/LeaveGuard'
 import { initNative } from './lib/native'
 import Home from './pages/Home'
 import ServiceApp from './pages/service'
@@ -51,21 +52,22 @@ function Shell() {
       <CartFab />
       <BottomNav />
       <Toasts />
+      <LeaveGuard />
+      <Splash />
     </>
   )
 }
 
+// Routeur « data » (nécessaire pour confirmer la sortie d'un service).
 // Dans un environnement qui bloque les changements d'URL (page intégrée, aperçu),
 // la navigation se fait en mémoire : build avec VITE_ROUTER=memory.
-const Router = import.meta.env.VITE_ROUTER === 'memory' ? MemoryRouter : HashRouter
+const createRouter = import.meta.env.VITE_ROUTER === 'memory' ? createMemoryRouter : createHashRouter
+const router = createRouter([{ path: '*', element: <Shell /> }])
 
 export default function App() {
   return (
     <AppProvider>
-      <Router>
-        <Shell />
-        <Splash />
-      </Router>
+      <RouterProvider router={router} />
     </AppProvider>
   )
 }

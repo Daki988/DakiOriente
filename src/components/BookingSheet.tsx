@@ -8,6 +8,7 @@ import type { Product } from '../data/products'
 import { useApp } from '../store/AppContext'
 import { fcfa } from '../lib/format'
 import { tap } from '../lib/native'
+import { SKIP_GUARD } from '../lib/cartScope'
 
 const SLOTS = ['08:00', '09:30', '11:00', '13:30', '15:00', '16:30', '18:00']
 
@@ -55,7 +56,7 @@ export function BookingSheet({ item, open, onClose }: { item: Bookable; open: bo
     })
     toast('Rendez-vous confirmé')
     onClose()
-    navigate(`/commandes/${order.id}`)
+    navigate(`/commandes/${order.id}`, { state: SKIP_GUARD })
   }
 
   return (
