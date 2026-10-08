@@ -56,6 +56,12 @@
     };
     return '<svg viewBox="0 0 100 100" aria-hidden="true">' + defs + (shapes[type] || shapes.egg) + "</svg>";
   }
+  /* Photo produit (assets/img/<id>.jpg), avec repli sur l'illustration si l'image manque */
+  function pic(p) {
+    return '<img src="' + (p.img || "assets/img/" + p.id + ".jpg") + '" alt="' + esc(p.name) + '" loading="lazy"' +
+      (p.pos ? ' style="object-position:' + p.pos + '"' : "") + ' onerror="this.replaceWith(document.createRange().createContextualFragment(window.__art(\'' + p.art + '\',' + p.hue + ')))">';
+  }
+  window.__art = art;
   function artBg(hue) { return 'style="--h:' + (hue || 330) + '"'; }
 
   /* ---------- Vérification d'âge ---------- */
@@ -100,7 +106,7 @@
     return '<button class="coll" data-cat="' + c.id + '">' +
       "<div><h3>" + esc(c.label) + "</h3><p>" + esc(c.hint) + "</p>" +
       '<span class="coll__go">' + n + " produits</span></div>" +
-      '<div class="coll__art art-bg" ' + artBg(c.hue) + ">" + art(c.art, c.hue) + "</div></button>";
+      '<div class="coll__art art-bg" ' + artBg(c.hue) + '><img src="assets/img/cat-' + c.id + '.jpg" alt="" loading="lazy"></div></button>';
   }).join("");
   $$(".coll").forEach(function (b) {
     b.addEventListener("click", function () { setFilter(b.dataset.cat); $("#boutique").scrollIntoView(); });
@@ -145,7 +151,7 @@
   function cardHTML(p, i) {
     var promo = p.old ? '<span class="badge badge--promo">-' + Math.round((1 - p.price / p.old) * 100) + " %</span>" : "";
     return '<article class="card" style="animation-delay:' + Math.min(i || 0, 12) * 40 + 'ms">' +
-      '<div class="card__media art-bg" ' + artBg(p.hue) + ' data-open="' + p.id + '">' + art(p.art, p.hue) +
+      '<div class="card__media art-bg" ' + artBg(p.hue) + ' data-open="' + p.id + '">' + pic(p) +
       (p.badge ? '<span class="badge">' + esc(p.badge) + "</span>" : "") + promo +
       '<button class="card__quick" data-add="' + p.id + '" aria-label="Ajouter ' + esc(p.name) + ' au panier">Ajouter au panier</button></div>' +
       '<div class="card__body"><span class="card__cat">' + esc(catById[p.cat].label) + "</span>" +
@@ -170,15 +176,16 @@
   });
 
   /* ---------- Vitrine du haut ---------- */
-  function tileHTML(id, big) {
+  function floatHTML(id, cls) {
     var p = byId[id];
-    return '<div class="tile art-bg' + (big ? " tile--big" : "") + '" ' + artBg(p.hue) + ' data-open="' + p.id + '">' +
-      '<div class="tile__art">' + art(p.art, p.hue) + "</div>" +
-      (p.badge ? '<span class="badge">' + esc(p.badge) + "</span>" : "") +
-      '<div class="tile__info"><div><strong>' + esc(p.name) + "</strong><span>" + fcfa(p.price) + "</span></div>" +
-      '<button class="add-mini" data-add="' + p.id + '" aria-label="Ajouter ' + esc(p.name) + ' au panier">+</button></div></div>';
+    return '<div class="float ' + cls + '" data-open="' + p.id + '"><span class="float__img art-bg" ' + artBg(p.hue) + ">" + pic(p) + "</span>" +
+      '<span class="float__txt">' + (p.badge ? "<small>" + esc(p.badge) + "</small>" : "") + "<strong>" + esc(p.name) + "</strong><span>" + fcfa(p.price) + "</span></span>" +
+      '<button class="add-mini" data-add="' + p.id + '" aria-label="Ajouter ' + esc(p.name) + ' au panier">+</button></div>';
   }
-  $("#hero-product").innerHTML = tileHTML("E01", true) + tileHTML("L01") + tileHTML("C01");
+  $("#hero-product").innerHTML =
+    '<div class="hero__photo"><img src="assets/img/hero.jpg" alt="Un couple enlacé, complice, dans un lit aux draps blancs"></div>' +
+    floatHTML("E01", "float--a") + floatHTML("L01", "float--b") +
+    '<div class="hero__stamp"><strong>Colis 100&nbsp;% neutre</strong><span>Personne ne saura.</span></div>';
 
   /* ---------- Best-sellers ---------- */
   var rail = $("#bestsellers");
@@ -197,7 +204,7 @@
       '<div class="feature__price">' + fcfa(p.price) + "<s>" + fcfa(p.old) + '</s><span class="feature__save">-' + fcfa(p.old - p.price) + "</span></div>" +
       '<div class="hero__cta" style="margin:0"><button class="btn btn--primary btn--lg" data-add="' + p.id + '">Ajouter au panier</button>' +
       '<button class="btn btn--outline btn--lg" data-open="' + p.id + '">Voir le détail</button></div></div>' +
-      '<div class="feature__art">' + art(p.art, p.hue) + "</div></div>";
+      '<div class="feature__art"><img src="assets/img/feature.jpg" alt="' + esc(p.name) + '" loading="lazy"></div></div>';
   })();
 
   /* ---------- Fiche produit ---------- */
@@ -206,7 +213,7 @@
     var p = byId[id]; if (!p) return;
     var qty = 1;
     $("#pm").innerHTML =
-      '<div class="pm__media art-bg" ' + artBg(p.hue) + ">" + art(p.art, p.hue) + "</div>" +
+      '<div class="pm__media art-bg" ' + artBg(p.hue) + ">" + pic(p) + "</div>" +
       '<div class="pm__body"><span class="label">' + esc(catById[p.cat].label) + (p.badge ? " · " + esc(p.badge) : "") + "</span>" +
       '<h3 id="pm-name">' + esc(p.name) + "</h3>" +
       '<div class="pm__price">' + fcfa(p.price) + (p.old ? "<s>" + fcfa(p.old) + "</s>" : "") + "</div>" +
@@ -257,7 +264,7 @@
     }
     $("#cart-items").innerHTML = ids.map(function (id) {
       var p = byId[id];
-      return '<div class="line"><div class="line__thumb art-bg" ' + artBg(p.hue) + ">" + art(p.art, p.hue) + "</div>" +
+      return '<div class="line"><div class="line__thumb art-bg" ' + artBg(p.hue) + ">" + pic(p) + "</div>" +
         '<div><div class="line__name">' + esc(p.name) + '</div><div class="line__price">' + fcfa(p.price) + "</div>" +
         '<div class="qty"><button data-dec="' + id + '" aria-label="Moins">−</button><span>' + cart[id] + '</span><button data-inc="' + id + '" aria-label="Plus">+</button></div></div>' +
         '<button class="line__rm" data-rm="' + id + '">Retirer</button></div>';
@@ -354,7 +361,7 @@
     card.innerHTML = bars + '<p class="quiz__step">Votre sélection sur mesure</p><div class="quiz__q">Voici ce qui devrait vous <mark>plaire</mark>.</div>' +
       '<div class="quiz__results">' + top.map(function (x) {
         var p = x.p;
-        return '<button class="quiz__item" data-open="' + p.id + '"><span class="quiz__thumb art-bg" ' + artBg(p.hue) + ">" + art(p.art, p.hue) + "</span><span><strong>" + esc(p.name) + "</strong><span>" + fcfa(p.price) + "</span></span></button>";
+        return '<button class="quiz__item" data-open="' + p.id + '"><span class="quiz__thumb art-bg" ' + artBg(p.hue) + ">" + pic(p) + "</span><span><strong>" + esc(p.name) + "</strong><span>" + fcfa(p.price) + "</span></span></button>";
       }).join("") + '</div><button class="quiz__restart" id="quiz-restart">Recommencer le quiz</button>';
     $("#quiz-restart").addEventListener("click", function () { answers = {}; step = 0; renderQuiz(); });
   }

@@ -47,13 +47,13 @@ window.PRODUCTS = [
     points: ["Taille rouge à lèvres", "7 modes", "Voyage sans souci"] },
 
   // Pour lui
-  { id: "H01", cat: "lui", name: "Masturbateur Sensation Pro", price: 27900, art: "sleeve", hue: 215, badge: "Best-seller",
+  { id: "H01", pos: "30% 50%", cat: "lui", name: "Masturbateur Sensation Pro", price: 27900, art: "sleeve", hue: 215, badge: "Best-seller",
     desc: "Texture interne en relief, aspiration réglable. Une sensation incroyablement réaliste, en toute intimité.",
     points: ["Matière ultra-douce", "Démontable, facile à laver", "Discret : ressemble à une gourde"] },
   { id: "H02", cat: "lui", name: "Anneau Vibrant Endurance", price: 11900, art: "ring", hue: 200,
     desc: "Il prolonge l'érection et ajoute des vibrations pour madame. Tout le monde y gagne.",
     points: ["Silicone extensible", "Mini-moteur intégré", "Rechargeable"] },
-  { id: "H03", cat: "lui", name: "Masseur Prostatique Zénith", price: 29900, art: "wand", hue: 230, badge: "Nouveau",
+  { id: "H03", pos: "28% 50%", cat: "lui", name: "Masseur Prostatique Zénith", price: 29900, art: "wand", hue: 230, badge: "Nouveau",
     desc: "Conçu pour l'anatomie masculine. Une nouvelle façon de découvrir son corps, en douceur.",
     points: ["Forme ergonomique", "9 vibrations", "Silicone médical"] },
   { id: "H04", cat: "lui", name: "Spray Retardant Longue Durée", price: 8900, art: "bottle", hue: 180,
@@ -64,7 +64,7 @@ window.PRODUCTS = [
   { id: "C01", cat: "couple", name: "Vibro Couple Connecté", price: 44900, art: "ring", hue: 290, badge: "Coup de cœur",
     desc: "Se porte pendant l'amour, stimule les deux partenaires et se pilote depuis le téléphone. Même à distance.",
     points: ["Application gratuite", "Contrôle longue distance", "Silicone body-safe"] },
-  { id: "C02", cat: "couple", name: "Coffret Découverte à Deux", price: 39900, old: 49900, art: "kit", hue: 270,
+  { id: "C02", pos: "50% 50%", cat: "couple", name: "Coffret Découverte à Deux", price: 39900, old: 49900, art: "kit", hue: 270,
     desc: "Un bullet, un anneau, un lubrifiant, un bandeau et des dés coquins. Tout pour pimenter vos soirées.",
     points: ["5 accessoires", "Coffret cadeau", "Économisez 10 000 FCFA"] },
   { id: "C03", cat: "couple", name: "Kit Liens de Satin", price: 14900, art: "feather", hue: 340,
@@ -87,7 +87,7 @@ window.PRODUCTS = [
   { id: "P05", cat: "essentiels", name: "Lubrifiant Silicone Longue Tenue", price: 9900, art: "bottle", hue: 250,
     desc: "Glisse longue durée, idéal sous la douche. Quelques gouttes suffisent.",
     points: ["Base silicone", "Résiste à l'eau", "Non compatible jouets silicone"] },
-  { id: "P06", cat: "essentiels", name: "Nettoyant Jouets Hygiène+", price: 5900, art: "bottle", hue: 160,
+  { id: "P06", pos: "62% 50%", cat: "essentiels", name: "Nettoyant Jouets Hygiène+", price: 5900, art: "bottle", hue: 160,
     desc: "Nettoie et désinfecte vos jouets en un geste. Pour un plaisir toujours sain.",
     points: ["Antibactérien", "Sans rinçage", "150 ml"] },
 
