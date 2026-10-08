@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Navigoal — site web
 
-## Getting Started
-
-First, run the development server:
+Next.js 14 (export statique), Tailwind CSS, Framer Motion. Les données viennent des référentiels du dépôt (`../data/referentiels`, `../assets/logos`), copiées automatiquement par `scripts/sync-data.mjs` avant `dev` et `build`.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # site statique dans out/ (321 pages)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Maquettes de référence (à valider avant tout changement visuel) : https://www.figma.com/design/NzAcfIbAFK6tTliGnuE5xq
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Pages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Route | Contenu |
+|---|---|
+| `/` | Accueil : hero animé, recherche, logos, parcours, pays, domaines, métiers, Navilease, actualités |
+| `/orientation` | Test RIASEC interactif, résultat (radar, domaines, métiers, formations), « Ma série au lycée » |
+| `/formations`, `/formations/[id]` | Recherche filtrable des offres, fiche formation (compatibilité, admission, débouchés, logement) |
+| `/metiers`, `/metiers/[id]` | 96 fiches métiers filtrables par domaine et profil |
+| `/etablissements`, `/etablissements/[id]` | 120 établissements, fiche avec offre de formation |
+| `/pays`, `/navilease`, `/actualites`, `/espace` | Pays, logement étudiant, actualités, tableau de bord étudiant |
 
-## Learn More
+## Animations
 
-To learn more about Next.js, take a look at the following resources:
+Titres mot par mot, parallaxe du hero, compteurs, révélations au scroll (stagger), marquee des logos, ligne de parcours liée au scroll, cartes inclinables, reflet sur les boutons, transitions de questions, radar tracé, pins de carte en ressort, header qui se rétracte, barre de progression de lecture, transitions de page. Toutes respectent `prefers-reduced-motion`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Le profil d'orientation est conservé dans le navigateur (`localStorage`) en attendant le backend.
