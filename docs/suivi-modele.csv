@@ -1,0 +1,4 @@
+ref,code,statut,date_livraison,creneau_debut,creneau_fin,arrets_avant,livree_a,message,events
+DO-K3F9QZ,3456,en_route,2026-10-08,15:15,17:15,3,,,"2026-10-07 18:02;Commande reçue;Boutique en ligne|2026-10-08 09:10;Colis neutre préparé et scellé;Entrepôt, Libreville|2026-10-08 12:28;Le livreur a pris en charge votre colis;Libreville"
+DO-P8M2XA,7781,tentative,2026-10-09,12:00,14:00,0,,"Nous avons sonné à 14 h 24 sans réponse. Nouvelle tentative demain.","2026-10-08 10:00;Commande reçue;Boutique en ligne|2026-10-08 14:24;Première tentative de livraison;Libreville"
+DO-T4C7LB,1209,livree,2026-10-08,09:00,11:00,0,2026-10-08 10:12,,"2026-10-07 20:41;Commande reçue;Boutique en ligne|2026-10-08 10:12;Colis remis en main propre;Owendo"

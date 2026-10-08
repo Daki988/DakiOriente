@@ -50,6 +50,7 @@
         <a href="#boutique">Boutique</a>
         <a href="#discretion">Discrétion</a>
         <a href="#quiz">Conseil</a>
+        <a href="#suivi">Suivi</a>
         <a href="#faq">Questions</a>
       </nav>
       <div class="header__actions">
@@ -264,6 +265,27 @@
     </section>
 
     <!-- ===== FAQ ===== -->
+    <!-- ===== Suivi de commande ===== -->
+    <section class="section section--soft" id="suivi">
+      <div class="container trk">
+        <div class="trk__intro">
+          <span class="label">Suivi de commande</span>
+          <h2>Où en est votre <mark>colis</mark>&nbsp;?</h2>
+          <p class="lead">Suivez votre livraison étape par étape, jusqu'au créneau d'arrivée. Et ajoutez vos consignes pour que le livreur reste discret.</p>
+          <form class="trk-form" id="trk-form">
+            <label for="trk-ref">Numéro de commande</label>
+            <input id="trk-ref" name="ref" required placeholder="DO-K3F9QZ" autocomplete="off" autocapitalize="characters">
+            <label for="trk-code">4 derniers chiffres de votre téléphone</label>
+            <input id="trk-code" name="code" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" placeholder="1234" autocomplete="off">
+            <button class="btn btn--primary btn--lg" type="submit">Suivre ma commande</button>
+            <p class="trk-msg" id="trk-msg" role="status"></p>
+          </form>
+          <div class="trk-mine" id="trk-mine"></div>
+        </div>
+        <div class="trk__result" id="trk-result" hidden></div>
+      </div>
+    </section>
+
     <section class="section" id="faq">
       <div class="container faq-wrap">
         <div>
@@ -339,6 +361,7 @@
         <h4>Votre tranquillité</h4>
         <ul>
           <li><a href="#discretion">Notre engagement discrétion</a></li>
+          <li><a href="#suivi">Suivre ma commande</a></li>
           <li><a href="#faq">Livraison & paiement</a></li>
           <li><a href="#faq">Retours & garantie</a></li>
           <li><a href="#faq">Données personnelles</a></li>
@@ -430,5 +453,6 @@
 
   <script src="assets/js/products.js"></script>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/tracking.js"></script>
 </body>
 </html>

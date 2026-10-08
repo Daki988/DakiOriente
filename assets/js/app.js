@@ -356,13 +356,22 @@
       "\nCréneau : " + f.get("slot") + "\nPaiement : " + f.get("pay") +
       (f.get("call") ? "\nMerci de m'appeler avant de passer." : "");
     var link = waLink(msg);
+    var phone = String(f.get("phone")).replace(/\D/g, ""), code = phone.slice(-4);
+    if (window.DOTrack) window.DOTrack.save({
+      ref: ref, code: code, status: "commandee", createdAt: new Date().toISOString(),
+      items: Object.keys(cart).map(function (id) { return [id, cart[id]]; }), total: t.total,
+      name: String(f.get("name")), address: String(f.get("address")), slot: String(f.get("slot")), pay: String(f.get("pay")),
+      events: [{ t: new Date().toISOString(), label: "Commande reçue", place: "Boutique en ligne" }]
+    });
     cart = {}; saveCart();
     $("#checkout-body").innerHTML =
       '<div class="success"><div class="success__icon">✓</div><span class="label">Commande ' + ref + "</span>" +
       "<h3>Merci, c'est entre nous.</h3>" +
       '<p class="muted">Envoyez-nous le récapitulatif sur WhatsApp pour confirmer : nous vous répondons en moins d\'une heure et votre colis neutre part aussitôt.</p>' +
       '<a class="btn btn--primary btn--full" href="' + link + '" target="_blank" rel="noopener">Confirmer sur WhatsApp →</a>' +
-      '<p class="muted small" style="margin-top:14px">Vous paierez ' + fcfa(t.total) + " à la réception, en " + esc(f.get("pay")) + ".</p></div>";
+      '<button class="btn btn--outline btn--full" id="co-track" style="margin-top:10px">Suivre ma commande</button>' +
+      '<p class="muted small" style="margin-top:14px">Vous paierez ' + fcfa(t.total) + " à la réception, en " + esc(f.get("pay")) + ".<br>Pour le suivi : commande <strong>" + ref + "</strong>, code <strong>" + esc(code) + "</strong>.</p></div>";
+    $("#co-track").addEventListener("click", function () { closeModal(coModal); if (window.DOTrack) window.DOTrack.open(ref, code); });
   }
 
   /* ---------- Quiz ---------- */
