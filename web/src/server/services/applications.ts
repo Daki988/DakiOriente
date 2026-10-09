@@ -102,8 +102,13 @@ export async function submitApplication(student: User, id: string, payment?: { m
     if (!payment?.method) throw new AppError("Choisissez un moyen de paiement pour les frais de dossier.");
     const cur = p.currency ?? CURRENCY[e.pays];
     const payer = payment.payerId && payment.payerId !== student.id ? (await db.select().from(schema.users).where(eq(schema.users.id, payment.payerId)))[0] : student;
+    if (payer.id !== student.id && !(await isGuardianOf(payer.id, student.id))) throw forbidden();
     const r = await initiatePayment(payer, { kind: "frais_candidature", amount: p.applicationFee, currency: cur, method: payment.method, description: `Frais de dossier ${a.number} · ${e.sigle}`, applicationId: id, beneficiaryId: student.id });
-    redirectUrl = r.redirectUrl;
+    if (payer.id !== student.id) {
+      // Paiement par le parent : il reçoit la demande ; l'élève est redirigé vers le suivi de sa candidature.
+      await notify(payer.id, { kind: "paiement_demande", title: `${student.firstName} vous demande de régler ses frais de dossier`, body: `${p.title} · ${e.nom}`, link: r.redirectUrl, channels: ["app", "email", "sms"] });
+      redirectUrl = `/espace/candidatures/${id}?paiement=parent`;
+    } else redirectUrl = r.redirectUrl;
   }
   return { application: { ...a, status: "soumise" as Status }, redirectUrl };
 }

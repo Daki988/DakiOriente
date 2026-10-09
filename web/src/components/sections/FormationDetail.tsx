@@ -116,7 +116,7 @@ export function FormationDetail({ id }: { id: string }) {
             <div className="flex items-center justify-between"><span className="chip bg-[#e8f8ef] px-3.5 py-2 text-sm text-[#0f8a46]"><Sparkles size={16} /> {score} % compatible</span><span className="text-xs text-ink-mute">profil {profil.join("+")}</span></div>
             <div className="h-2 overflow-hidden rounded-full bg-[#e8edfa]"><motion.div className="h-full rounded-full bg-gradient-to-r from-brand-600 to-brand-400" initial={{ width: 0 }} animate={{ width: `${score}%` }} transition={{ delay: 0.5, duration: 1.1 }} /></div>
             <div className="flex flex-col gap-2 text-[13px]">{["Ta série est acceptée", "Correspond à ton profil", "Dans ton pays de recherche"].map((t) => <span key={t} className="flex items-center gap-2"><Check size={14} strokeWidth={3} className="text-[#0f8a46]" />{t}</span>)}</div>
-            <Link href="/espace#candidatures" className="btn-primary btn-shine w-full">Candidater maintenant <ArrowRight size={16} /></Link>
+            <Link href={`/espace/candidatures/nouvelle?etab=${e.id}&formation=${f.id}`} className="btn-primary btn-shine w-full">Candidater maintenant <ArrowRight size={16} /></Link>
             <motion.button whileTap={{ scale: 0.95 }} onClick={() => setFav(!fav)} className={`btn w-full border ${fav ? "border-[#ffc5cf] bg-[#ffecef] text-[#d42a50]" : "border-brand-200 bg-white text-brand-700"}`}>
               <motion.span animate={fav ? { scale: [1, 1.4, 1] } : {}}><Heart size={16} fill={fav ? "currentColor" : "none"} /></motion.span>{fav ? "Dans mes favoris" : "Ajouter aux favoris"}
             </motion.button>

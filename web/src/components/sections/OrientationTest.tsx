@@ -43,6 +43,9 @@ export function OrientationTest() {
   const finish = () => {
     setStep("result");
     try { localStorage.setItem(PROFILE_KEY, JSON.stringify({ answers, top: computeResult(answers).top, date: new Date().toISOString() })); } catch { /* ignore */ }
+    // Connecté·e : le résultat est aussi enregistré dans le profil (recommandations personnalisées).
+    const r = computeResult(answers);
+    fetch("/api/orientation/resultats/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ answers, scores: r.values, top: [...CODES].sort((a, b) => r.values[b] - r.values[a]).slice(0, 3) }) }).catch(() => {});
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const choose = (k: number) => {

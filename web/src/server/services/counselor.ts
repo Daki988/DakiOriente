@@ -18,7 +18,8 @@ export async function requestAppointment(student: User, raw: z.input<typeof appo
 }
 
 export async function listAppointments(user: User) {
-  if (user.role === "conseiller") return db.select({ a: schema.appointments, s: { id: schema.users.id, firstName: schema.users.firstName, lastName: schema.users.lastName, country: schema.users.country } }).from(schema.appointments).innerJoin(schema.users, eq(schema.users.id, schema.appointments.studentId)).where(or(eq(schema.appointments.counselorId, user.id), isNull(schema.appointments.counselorId))).orderBy(asc(schema.appointments.preferredAt));
+  // Un administrateur voit tous les rendez-vous ; un conseiller, les siens et les demandes non attribuées.
+  if (user.role === "conseiller" || user.role === "admin") return db.select({ a: schema.appointments, s: { id: schema.users.id, firstName: schema.users.firstName, lastName: schema.users.lastName, country: schema.users.country } }).from(schema.appointments).innerJoin(schema.users, eq(schema.users.id, schema.appointments.studentId)).where(user.role === "admin" ? undefined : or(eq(schema.appointments.counselorId, user.id), isNull(schema.appointments.counselorId))).orderBy(asc(schema.appointments.preferredAt));
   return db.select({ a: schema.appointments, s: { id: schema.users.id, firstName: schema.users.firstName, lastName: schema.users.lastName, country: schema.users.country } }).from(schema.appointments).innerJoin(schema.users, eq(schema.users.id, schema.appointments.studentId)).where(eq(schema.appointments.studentId, user.id)).orderBy(desc(schema.appointments.createdAt));
 }
 
@@ -34,6 +35,7 @@ export async function scheduleAppointment(counselor: User, id: string, scheduled
 export async function closeAppointment(user: User, id: string, status: "termine" | "annule") {
   const [a] = await db.select().from(schema.appointments).where(eq(schema.appointments.id, id));
   if (!a) throw notFound("Rendez-vous");
-  if (a.studentId !== user.id && a.counselorId !== user.id && user.role !== "admin") throw forbidden();
+  const unassigned = !a.counselorId && user.role === "conseiller"; // un conseiller peut décliner une demande non attribuée
+  if (a.studentId !== user.id && a.counselorId !== user.id && !unassigned && user.role !== "admin") throw forbidden();
   await db.update(schema.appointments).set({ status }).where(eq(schema.appointments.id, id));
 }

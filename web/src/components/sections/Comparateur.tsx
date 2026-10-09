@@ -144,7 +144,7 @@ export function Comparateur() {
                         </div>
                       );
                     })}
-                    <div className="mt-auto flex flex-col gap-2 p-[18px]"><Link href="/espace#candidatures" className={best ? "btn-primary" : "btn-ghost"}>Candidater</Link><Link href={`/etablissements/${c.e.id}/`} className="text-center text-[13px] font-bold text-brand-600">Voir la fiche →</Link></div>
+                    <div className="mt-auto flex flex-col gap-2 p-[18px]"><Link href={`/espace/candidatures/nouvelle?etab=${c.e.id}&formation=${c.ref}`} className={best ? "btn-primary" : "btn-ghost"}>Candidater</Link><Link href={`/etablissements/${c.e.id}/`} className="text-center text-[13px] font-bold text-brand-600">Voir la fiche →</Link></div>
                   </motion.div>
                 );
               })}
@@ -163,7 +163,7 @@ export function Comparateur() {
       </div>
 
       <div className="container mt-6 grid gap-4 md:grid-cols-3 print:hidden">
-        {([[Share2, "bg-brand-50 text-brand-600", "Partager la comparaison", "avec tes parents ou ton conseiller", share], [Download, "bg-[#e8f8ef] text-[#0f8a46]", "Exporter en PDF", "pour décider à tête reposée", () => window.print()], [MessageCircle, "bg-sun-100 text-[#a55a00]", "Poser une question", "directement aux établissements", () => (window.location.href = "/espace#messages")]] as const).map(([I, cls, t, s, fn]) => (
+        {([[Share2, "bg-brand-50 text-brand-600", "Partager la comparaison", "avec tes parents ou ton conseiller", share], [Download, "bg-[#e8f8ef] text-[#0f8a46]", "Exporter en PDF", "pour décider à tête reposée", () => window.print()], [MessageCircle, "bg-sun-100 text-[#a55a00]", "Poser une question", "directement aux établissements", () => (window.location.href = "/messages")]] as const).map(([I, cls, t, s, fn]) => (
           <button key={t} onClick={fn} className="card flex items-center gap-3 rounded-[18px] p-[18px] text-left transition hover:-translate-y-0.5 hover:shadow-lift"><span className={`flex h-[42px] w-[42px] items-center justify-center rounded-xl ${cls}`}><I size={20} /></span><span><b className="block text-sm">{t}</b><span className="text-xs text-ink-mute">{s}</span></span></button>
         ))}
       </div>

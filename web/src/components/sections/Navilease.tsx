@@ -29,14 +29,14 @@ export function Navilease() {
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2.5"><span className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-sun-400"><KeyRound size={24} /></span><span className="text-[28px] font-extrabold tracking-tight">Navi<span className="text-brand-600">lease</span></span><span className="chip bg-brand-50 text-brand-700">par Navigoal</span></motion.div>
             <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="h-display lg:text-[60px]">Ton logement étudiant, <span className="text-brand-600">vérifié</span> et <span className="text-gradient">sécurisé.</span></motion.h1>
             <p className="text-lg leading-relaxed text-ink-soft">Studios, colocations, résidences et cités universitaires près de ton établissement au Gabon, au Maroc et au Sénégal.</p>
-            <form onSubmit={(e) => { e.preventDefault(); document.getElementById("logements")?.scrollIntoView({ behavior: "smooth" }); }} className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_20px_50px_-18px_rgba(11,21,51,.3)] sm:flex-row sm:items-center">
+            <form onSubmit={(e) => { e.preventDefault(); const t = ({ Studios: "studio", Colocations: "colocation", "Résidences privées": "residence", "Chez l'habitant": "chez_habitant" } as Record<string, string>)[type]; window.location.href = `/navilease/logements/?${new URLSearchParams({ ...(pays ? { pays } : {}), ...(t ? { type: t } : {}) })}`; }} className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_20px_50px_-18px_rgba(11,21,51,.3)] sm:flex-row sm:items-center">
               <div className="flex flex-1 items-center gap-2.5 px-3 py-1.5"><GraduationCap size={18} className="text-brand-600" /><div className="flex flex-col"><span className="text-[11px] font-bold text-ink-mute">Pays</span>
                 <select value={pays} onChange={(e) => setPays(e.target.value as PaysCode | "")} className="bg-transparent text-sm font-bold outline-none"><option value="">Gabon, Maroc, Sénégal</option>{(["GA", "MA", "SN"] as const).map((p) => <option key={p} value={p}>{PAYS_NOM[p]}</option>)}</select></div></div>
               <div className="flex flex-1 flex-col px-3 py-1.5 sm:border-l sm:border-[#eef1f8]"><span className="text-[11px] font-bold text-ink-mute">Type</span>
                 <select value={type} onChange={(e) => setType(e.target.value)} className="bg-transparent text-sm font-bold outline-none">{TYPES.map((t) => <option key={t}>{t}</option>)}</select></div>
               <button className="btn-primary btn-shine"><Search size={16} /> Chercher</button>
             </form>
-            <div className="flex gap-8">{[[22, "", "cités universitaires publiques"], [3, "", "pays couverts"], [100, " %", "paiements protégés"]].map(([n, s, l]) => <div key={l as string}><b className="text-[22px]"><Counter to={n as number} suffix={s as string} /></b><span className="block text-[13px] text-ink-mute">{l}</span></div>)}</div>
+            <div className="flex gap-8">{[[79, "", "écoles partenaires couvertes"], [3, "", "pays couverts"], [100, " %", "paiements protégés"]].map(([n, s, l]) => <div key={l as string}><b className="text-[22px]"><Counter to={n as number} suffix={s as string} /></b><span className="block text-[13px] text-ink-mute">{l}</span></div>)}</div>
           </div>
           <div className="relative mx-auto aspect-square w-full max-w-[520px]">
             <motion.div initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="absolute inset-[4%_0_0_6%] overflow-hidden rounded-[32px] border-[6px] border-white bg-gradient-to-br from-brand-100 to-brand-50 shadow-[0_40px_80px_-30px_rgba(11,21,51,.35)]">
@@ -126,12 +126,12 @@ export function Navilease() {
         <Reveal className="flex h-full flex-col gap-4 rounded-[26px] bg-gradient-to-br from-brand-950 to-brand-700 p-8 text-white">
           <span className="flex h-[52px] w-[52px] items-center justify-center rounded-[14px] bg-white/10 text-sun-400"><HousePlus size={26} /></span>
           <h3 className="text-[26px] font-extrabold">Vous êtes bailleur ?</h3><p className="leading-relaxed text-[#c9d6ff]">Louez à des étudiants vérifiés, encaissez en sécurité et générez contrats et quittances automatiquement.</p>
-          <a href="mailto:bailleurs@navigoal.com" className="btn-sun btn-shine mt-auto self-start">Publier mon logement</a>
+          <Link href="/inscription?profil=bailleur" className="btn-sun btn-shine mt-auto self-start">Publier mon logement</Link>
         </Reveal>
         <Reveal delay={0.1} className="card flex h-full flex-col gap-4 rounded-[26px] p-8">
           <span className="flex h-[52px] w-[52px] items-center justify-center rounded-[14px] bg-[#e8f8ef] text-[#0f8a46]"><UsersRound size={26} /></span>
           <h3 className="text-[26px] font-extrabold">Parents, gardez la main</h3><p className="leading-relaxed text-ink-soft">Validez la réservation de votre enfant, devenez garant et suivez les paiements depuis votre espace parent.</p>
-          <Link href="/espace" className="btn-ghost mt-auto self-start">Découvrir l&apos;espace parent</Link>
+          <Link href="/inscription?profil=parent" className="btn-ghost mt-auto self-start">Créer un compte parent</Link>
         </Reveal>
       </div>
     </>

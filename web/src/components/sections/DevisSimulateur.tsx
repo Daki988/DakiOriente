@@ -153,7 +153,7 @@ export function DevisSimulateur() {
                 <a href={`https://wa.me/?text=${encodeURIComponent(resume + " " + url)}`} target="_blank" rel="noopener noreferrer" className="btn-ghost px-3 py-2.5 text-[13px]"><Share2 size={15} /> WhatsApp</a>
                 <a href={`mailto:?subject=${encodeURIComponent("Devis d'études Navigoal")}&body=${encodeURIComponent(resume + "\n\n" + url)}`} className="btn-ghost px-3 py-2.5 text-[13px]"><Mail size={15} /> E-mail</a>
               </div>
-              <Link href="/espace#messages" className="btn-ghost"><MessageCircle size={16} /> Demander les frais exacts à l&apos;école</Link>
+              <Link href={`/espace/candidatures/nouvelle?etab=${eid}&formation=${fid}`} className="btn-ghost"><MessageCircle size={16} /> Candidater et demander les frais exacts</Link>
               <div className="flex items-start gap-2.5 rounded-2xl bg-[#fff7dd] p-3 text-[13px]"><Lightbulb size={18} className="shrink-0 text-[#a55a00]" /><span><b>Astuce :</b> comparez ce devis avec d&apos;autres écoles qui mènent au même métier. <Link href={`/comparateur/?f=${fid}&e=${eid}`} className="font-bold text-brand-600"><Scale size={13} className="inline" /> Comparer</Link></span></div>
             </div>
             <div className="card flex flex-col gap-3.5 rounded-3xl p-5">

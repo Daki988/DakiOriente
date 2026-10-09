@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { Menu, Search, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Brand } from "./Brand";
 
 export const NAV = [
@@ -24,6 +24,10 @@ export function Header() {
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  // Session : le site public reste statique ; l'état connecté est lu côté navigateur.
+  const [me, setMe] = useState<{ firstName: string; role: string } | null>(null);
+  useEffect(() => { fetch("/api/moi/").then((r) => (r.ok ? r.json() : null)).then(setMe).catch(() => setMe(null)); }, []);
+  const home = me ? ({ eleve: "/espace", etudiant: "/espace", parent: "/parent", etablissement: "/etablissement", bailleur: "/bailleur", conseiller: "/conseiller", admin: "/admin" } as Record<string, string>)[me.role] ?? "/" : null;
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0;
     setHidden(y > prev && y > 240 && !open);
@@ -48,11 +52,12 @@ export function Header() {
           ))}
         </nav>
         <div className="flex items-center gap-2.5">
-          <Link href="/formations" aria-label="Rechercher" className="hidden h-[42px] w-[42px] items-center justify-center rounded-xl bg-[#f1f4fd] text-ink-soft transition hover:bg-brand-50 hover:text-brand-600 sm:flex">
+          <Link href="/recherche" aria-label="Rechercher" className="hidden h-[42px] w-[42px] items-center justify-center rounded-xl bg-[#f1f4fd] text-ink-soft transition hover:bg-brand-50 hover:text-brand-600 sm:flex">
             <Search size={18} />
           </Link>
-          <Link href="/espace" className="btn-ghost hidden whitespace-nowrap py-2.5 sm:inline-flex xl:hidden 2xl:inline-flex">Se connecter</Link>
-          <Link href="/espace" className="btn-sun hidden whitespace-nowrap py-2.5 sm:inline-flex">S&apos;inscrire</Link>
+          {me && home ? <Link href={home} className="btn-primary hidden whitespace-nowrap py-2.5 sm:inline-flex">Mon espace · {me.firstName}</Link> : <>
+            <Link href="/connexion" className="btn-ghost hidden whitespace-nowrap py-2.5 sm:inline-flex xl:hidden 2xl:inline-flex">Se connecter</Link>
+            <Link href="/inscription" className="btn-sun hidden whitespace-nowrap py-2.5 sm:inline-flex">S&apos;inscrire</Link></>}
           <button onClick={() => setOpen(!open)} className="flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-[#f1f4fd] xl:hidden" aria-label="Menu" aria-expanded={open}>
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -67,7 +72,7 @@ export function Header() {
                   <Link href={n.href} onClick={() => setOpen(false)} className={`block rounded-xl px-4 py-3 font-semibold ${active(n.href) ? "bg-brand-50 text-brand-600" : "text-ink-soft"}`}>{n.label}</Link>
                 </motion.div>
               ))}
-              <div className="mt-2 grid grid-cols-2 gap-2"><Link href="/espace" className="btn-ghost">Se connecter</Link><Link href="/espace" className="btn-sun">S&apos;inscrire</Link></div>
+              <div className="mt-2 grid grid-cols-2 gap-2">{me && home ? <Link href={home} className="btn-primary col-span-2">Mon espace</Link> : <><Link href="/connexion" className="btn-ghost">Se connecter</Link><Link href="/inscription" className="btn-sun">S&apos;inscrire</Link></>}</div>
             </div>
           </motion.nav>
         )}

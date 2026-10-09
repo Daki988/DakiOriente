@@ -4,7 +4,7 @@ import { TONES } from "@/lib/content";
 
 export function NewsCard({ a }: { a: { slug: string; cat: string; tone: string; titre: string; date: string; grad: string; icon: string; resume: string } }) {
   return (
-    <Link href={`/actualites/#${a.slug}`} className="card group flex h-full flex-col overflow-hidden rounded-[22px] transition hover:-translate-y-1 hover:shadow-lift">
+    <Link href={`/actualites/${a.slug}/`} className="card group flex h-full flex-col overflow-hidden rounded-[22px] transition hover:-translate-y-1 hover:shadow-lift">
       <div className={`relative flex h-44 items-center justify-center overflow-hidden bg-gradient-to-br ${a.grad}`}>
         <DynIcon name={a.icon} size={64} strokeWidth={1.5} className="text-white/70 transition duration-500 group-hover:scale-125 group-hover:rotate-6" />
         <div className="absolute -bottom-10 -right-10 h-32 w-32 rounded-full bg-white/10" />

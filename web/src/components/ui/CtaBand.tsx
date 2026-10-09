@@ -16,7 +16,7 @@ export function CtaBand({ title = <>Construis ton avenir avec <span className="t
             <h2 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-[34px]">{title}</h2>
             <p className="leading-relaxed text-[#c9d6ff]">{sub}</p>
             <div className="mt-2 flex flex-wrap gap-3">
-              <Link href="/espace" className="btn-sun btn-shine">Créer mon compte gratuitement <ArrowRight size={18} /></Link>
+              <Link href="/inscription" className="btn-sun btn-shine">Créer mon compte gratuitement <ArrowRight size={18} /></Link>
               <Link href="/orientation" className="btn border border-white/35 text-white hover:bg-white/10">Passer le test d&apos;orientation</Link>
             </div>
           </div>

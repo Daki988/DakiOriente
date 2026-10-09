@@ -45,7 +45,11 @@ export async function register(raw: RegisterInput) {
   const exists = await db.select({ id: schema.users.id }).from(schema.users)
     .where(or(email ? eq(schema.users.email, email) : undefined, phone ? eq(schema.users.phone, phone) : undefined)).limit(1);
   if (exists.length) throw new AppError("Un compte existe déjà avec cet e-mail ou ce numéro.", 409, "doublon");
-  if (input.role === "etablissement" && !input.establishmentId) throw new AppError("Choisissez votre établissement.");
+  if (input.role === "etablissement") {
+    if (!input.establishmentId) throw new AppError("Choisissez votre établissement.");
+    const [e] = await db.select({ id: schema.establishments.id }).from(schema.establishments).where(eq(schema.establishments.id, input.establishmentId));
+    if (!e) throw new AppError("Établissement inconnu : choisissez-le dans la liste.");
+  }
 
   const user = await db.transaction(async (tx) => {
     const [u] = await tx.insert(schema.users).values({
@@ -62,6 +66,13 @@ export async function register(raw: RegisterInput) {
     return u;
   });
   await audit(user.id, "inscription", "user", user.id, { role: user.role });
+  // Invitation du parent/tuteur saisi à l'inscription (code à saisir dans son espace parent).
+  const [inv] = await db.select().from(schema.guardianships).where(eq(schema.guardianships.childId, user.id));
+  if (inv?.inviteCode) {
+    const text = `${user.firstName} ${user.lastName} vous invite à suivre son parcours sur Navigoal et à valider son inscription. Code d'invitation : ${inv.inviteCode}. Créez votre compte parent puis saisissez ce code.`;
+    if (inv.inviteEmail) await sendEmail({ to: inv.inviteEmail, subject: "Invitation à suivre un parcours Navigoal", text });
+    else if (inv.invitePhone) await sendSms({ to: inv.invitePhone, text });
+  }
   if (email) await requestOtp(email, "verify_email");
   else if (phone) await requestOtp(phone, "verify_phone");
   return user;

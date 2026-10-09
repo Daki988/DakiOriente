@@ -3,7 +3,7 @@ import { z } from "zod";
 import { db, schema } from "../db";
 import { audit } from "../lib/audit";
 import { AppError, forbidden, notFound } from "../lib/errors";
-import { hashPassword } from "../auth/password";
+import { hashPassword, passwordProblem } from "../auth/password";
 import { notify } from "./notifications";
 
 type User = typeof schema.users.$inferSelect;
@@ -39,10 +39,17 @@ export async function setUserStatus(a: User, userId: string, status: "actif" | "
 /** Création de comptes internes (conseiller, administrateur). */
 export async function createStaff(a: User, i: { role: "conseiller" | "admin"; firstName: string; lastName: string; email: string; password: string }) {
   admin(a);
+  if (!["conseiller", "admin"].includes(i.role)) throw new AppError("Rôle interne invalide.");
+  if (!i.firstName?.trim() || !i.lastName?.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(i.email ?? "")) throw new AppError("Nom, prénom et e-mail valide obligatoires.");
+  const pb = passwordProblem(i.password ?? "");
+  if (pb) throw new AppError(pb);
+  const [dup] = await db.select({ id: schema.users.id }).from(schema.users).where(eq(schema.users.email, i.email.toLowerCase()));
+  if (dup) throw new AppError("Un compte existe déjà avec cet e-mail.", 409, "doublon");
   const [u] = await db.insert(schema.users).values({ role: i.role, firstName: i.firstName, lastName: i.lastName, email: i.email.toLowerCase(), passwordHash: await hashPassword(i.password), emailVerifiedAt: new Date() }).returning();
   await db.insert(schema.profiles).values({ userId: u.id });
   await audit(a.id, "creation_compte_interne", "user", u.id, { role: i.role });
-  return u;
+  const { passwordHash: _h, totpSecret: _t, ...safe } = u;
+  return safe;
 }
 
 // ---------------------------------------------------------------- Établissements
@@ -74,7 +81,7 @@ export async function listRef(a: User, name: RefName, q?: string) {
   return q ? items.filter((x) => JSON.stringify(x).toLowerCase().includes(q.toLowerCase())) : items;
 }
 
-const itemSchema = z.object({ id: z.string().regex(/^[a-z0-9-]+$/, "Identifiant : minuscules, chiffres et tirets.") }).passthrough();
+const itemSchema = z.object({ id: z.string().regex(/^[A-Za-z0-9-]+$/, "Identifiant : lettres, chiffres et tirets.") }).passthrough();
 
 export async function saveRefItem(a: User, name: RefName, raw: Record<string, unknown>) {
   admin(a);

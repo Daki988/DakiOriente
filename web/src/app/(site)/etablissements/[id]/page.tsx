@@ -42,7 +42,7 @@ export default function EtabPage({ params }: { params: { id: string } }) {
           <div className="flex flex-wrap gap-2.5">
             <Link href={compare} className="btn-ghost"><Scale size={16} /> Comparer</Link>
             <Link href={`/devis/?etab=${e.id}`} className="btn-ghost"><Calculator size={16} /> Devis parents</Link>
-            <Link href="/espace#candidatures" className="btn-primary btn-shine">Candidater <ArrowRight size={16} /></Link>
+            <Link href={`/espace/candidatures/nouvelle?etab=${e.id}${fid ? `&formation=${fid}` : ""}`} className="btn-primary btn-shine">Candidater <ArrowRight size={16} /></Link>
           </div>
         </Reveal>
         <Reveal delay={0.1}><PhotoGallery e={e} /></Reveal>
