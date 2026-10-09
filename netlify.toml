@@ -12,3 +12,7 @@
   for = "/_next/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Runtime Next.js (rendu serveur, API, middleware) : déclaré explicitement pour les déploiements par envoi direct.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
