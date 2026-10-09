@@ -24,9 +24,11 @@ Tous les fichiers sont dans `data/referentiels/`, au format JSON UTF-8, avec la 
 | `metiers.json` | 96 | `met-…` | Fiches métiers |
 | `formations.json` | 93 | `frm-…` | Formations types (familles de programmes) |
 | `series.json` | 42 | `<pays>-bac-…` | Séries / filières du baccalauréat + voies d'orientation après le brevet |
-| `etablissements_superieurs.json` | 120 | `<pays>-…` | Universités, grandes écoles, instituts |
+| `etablissements_superieurs.json` | 79 | `<pays>-…` | Établissements **privés et inter-États** accessibles aux étudiants étrangers (logos, photos) |
+| `etablissements_publics_archives.json` | 76 | `<pays>-…` | Établissements publics retirés du catalogue (accès des étrangers complexe), conservés pour référence |
+| `pays_details.json` | 3 | `GA`, `MA`, `SN` | Fiches pays pour la mobilité : visa, budget mensuel, frais du privé, reconnaissance des diplômes, villes, bourses, sources |
 | `etablissements_secondaires.json` | ≈ 3 400 | `<pays>-…` | Lycées de référence (curés) + collèges et lycées importés de Wikidata |
-| `navilease_logements.json` | 22 | `nl-…` | Résidences universitaires publiques + nomenclatures Navilease |
+| `navilease_logements.json` | 1 | `nl-…` | Résidences rattachées aux établissements du catalogue + nomenclatures Navilease (les cités universitaires publiques sont archivées dans `_meta`) |
 
 ## Graphe des relations
 
@@ -153,6 +155,15 @@ Les logos sont des marques appartenant à leurs établissements ; ils sont utili
 | Lycées curés avec logo | 0 / 15 | 4 / 15 | 1 / 18 | 5 / 48 |
 
 La couverture du Gabon est faible car la plupart des établissements n'ont pas de site joignable ni de logo sur Wikimedia Commons. Les logos manquants seront collectés auprès des établissements lors de l'onboarding ; l'interface affiche en attendant un badge avec le sigle.
+
+## Choix éditorial (v1.1) : établissements privés et inter-États
+
+Les établissements publics sont retirés du catalogue : leur accès est souvent complexe pour les étudiants étrangers (quotas, conventions bilatérales, priorité aux nationaux), en particulier au Maroc. Ils sont conservés dans `etablissements_publics_archives.json` avec le motif. Les écoles **inter-États** (ESMT, EISMV, CESAG, ISTA-CEMAC) restent au catalogue car elles ont une vocation internationale.
+
+## Photos des établissements
+
+`scripts/fetch_photos.py` collecte jusqu'à 3 photos par établissement dans `assets/photos/<pays>/` :
+Wikimedia Commons via Wikidata (auteur et licence conservés, attribution obligatoire), puis images de partage et bandeaux des sites officiels (propriété de l'établissement, `a_verifier: true`, à confirmer lors de l'onboarding). Chaque photo est revue visuellement ; les rejets sont listés dans `assets/photos/rejets.json`.
 
 ## Outils
 

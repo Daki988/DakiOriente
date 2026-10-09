@@ -569,10 +569,11 @@ def motion_guide():
     save("00-design-system-motion", doc("Navigoal — Motion & design system", body))
 
 
-accueil()
-orientation()
-formations()
-navilease()
-dashboard()
-mobile()
-motion_guide()
+if __name__ == "__main__":
+    accueil()
+    orientation()
+    formations()
+    navilease()
+    dashboard()
+    mobile()
+    motion_guide()

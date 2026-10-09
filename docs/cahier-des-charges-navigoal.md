@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Version** | 1.1 |
+| **Version** | 1.2 |
 | **Statut** | Document de cadrage produit |
 | **Périmètre de lancement** | **Gabon, Maroc, Sénégal** (ancrage historique au Gabon) |
 | **Publics cibles** | Collégiens, lycéens, étudiants, jeunes diplômés, parents/tuteurs, établissements d'enseignement, bailleurs et partenaires |
@@ -14,6 +14,7 @@
 | **Référentiels associés** | `data/referentiels/` (voir [référentiels](referentiels.md)) |
 
 > Historique : v1.0 — cahier des charges initial (nom de travail « Campus Afrique »).
+> v1.2 — catalogue recentré sur les **établissements privés et inter-États** (accessibles aux étudiants étrangers), fiches pays détaillées, photos des établissements, comparateur et parcours métier → formations → établissements.
 > v1.1 — renommage en **Navigoal**, périmètre de lancement à 3 pays, ajout du module logement **Navilease**, ajout des référentiels de données (formations, métiers, compétences, séries, établissements secondaires et supérieurs, logements).
 
 ---
@@ -383,11 +384,33 @@ Exemple : Licence → Informatique → Sénégal → Dakar.
 
 ---
 
+## 15 bis. Comparateur
+
+Le comparateur permet de mettre côte à côte jusqu'à 4 établissements :
+
+- qui proposent **la même formation** (ex. cycle ingénieur informatique) ;
+- ou des formations qui mènent **au même métier** (ex. data analyst : licence informatique, master data science, ingénieur statisticien) ;
+- ou choisis librement par l'étudiant.
+
+Critères comparés : compatibilité avec le profil, statut et reconnaissance, programme correspondant, diplôme et durée, mode d'admission, frais de scolarité, coût de la vie dans la ville, visa et séjour selon la nationalité, métiers visés, logements Navilease à proximité. La meilleure valeur de chaque ligne est mise en évidence. La comparaison peut être partagée avec les parents, exportée en PDF ou servir à interroger les établissements.
+
+## 15 ter. Adéquation séries → formations → métiers → établissements
+
+Chaque fiche métier présente le chemin complet : séries du bac recommandées (par pays) → formations → établissements qui les proposent → bouton « Comparer ces écoles ». Chaque fiche établissement présente ses programmes regroupés par domaine, avec les métiers auxquels ils mènent.
+
 ## 16. Catalogue des établissements
 
 Chaque établissement dispose d'une fiche : nom ; sigle ; **logo** ; présentation ; type et statut ; localisation (carte) ; contacts ; site web ; réseaux sociaux ; formations ; conditions d'admission ; frais ; calendrier ; documents demandés ; **logements Navilease à proximité**.
 
-Le référentiel initial (`etablissements_superieurs`, `etablissements_secondaires`, logos dans `assets/logos/`) sert d'amorçage ; chaque établissement revendique ensuite sa fiche (« claim ») et la met à jour.
+Le catalogue est recentré sur les **établissements privés et inter-États**, qui accueillent les étudiants étrangers ; les établissements publics, dont l'accès est souvent complexe pour les étrangers (notamment au Maroc), sont archivés.
+
+La fiche établissement comprend une **galerie photos** du cadre d'enseignement (campus, bâtiments, salles), les informations clés (statut, reconnaissance, langue, accueil des internationaux), les programmes par domaine reliés aux métiers, la procédure d'admission internationale, un simulateur de budget (frais + coût de la vie), les établissements comparables et les logements à proximité.
+
+Le référentiel initial (`etablissements_superieurs`, logos dans `assets/logos/`, photos dans `assets/photos/`) sert d'amorçage ; chaque établissement revendique ensuite sa fiche (« claim »), confirme ses photos et publie ses frais.
+
+### Fiches pays
+
+Chaque pays dispose d'une page détaillée : chiffres clés, raisons d'y étudier, système d'études et reconnaissance des diplômes, calendrier, visa et carte de séjour, budget mensuel étudiant, frais du privé, travail, santé, moyens de paiement, villes étudiantes, bourses et établissements (référentiel `pays_details`).
 
 ---
 

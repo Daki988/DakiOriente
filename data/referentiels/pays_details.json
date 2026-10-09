@@ -1,0 +1,162 @@
+{
+  "_meta": {
+    "referentiel": "pays_details",
+    "version": "1.0.0",
+    "date": "2026-10-09",
+    "plateforme": "Navigoal",
+    "description": "Fiches pays détaillées pour les étudiants en mobilité (établissements privés et inter-États).",
+    "avertissement": "Montants et règles indicatifs, issus de guides publics (sources listées). Les règles de visa varient selon la nationalité : toujours confirmer auprès de l'ambassade ou du consulat et de l'établissement."
+  },
+  "items": [
+    {
+      "id": "MA",
+      "nom": "Maroc",
+      "accroche": "Hub universitaire du continent : écoles d'ingénieurs et de commerce reconnues, campus modernes, forte communauté étudiante subsaharienne.",
+      "chiffres": { "population": "≈ 37 millions", "capitale": "Rabat", "monnaie": "Dirham (MAD)", "langues": ["Arabe", "Amazighe", "Français (enseignement supérieur)", "Anglais (en croissance)"], "fuseau": "UTC+1", "indicatif": "+212" },
+      "pourquoi": [
+        "Large choix d'écoles privées reconnues par l'État (ingénierie, management, santé, architecture).",
+        "Diplômes souvent en double diplomation avec des écoles européennes.",
+        "Vols directs vers Libreville et Dakar ; dispense de visa pour plusieurs nationalités africaines.",
+        "Communauté de plus de 20 000 étudiants subsahariens, associations et réseaux d'alumni."
+      ],
+      "systeme": "LMD (licence en 3 ans, master en 5 ans), cycles d'ingénieur en 5 ans (dont 2 ans préparatoires intégrés), bachelors et programmes grande école en 3 à 5 ans.",
+      "reconnaissance": "Privilégier les établissements « reconnus par l'État » : leurs diplômes sont équivalents aux diplômes nationaux. Les autres délivrent des diplômes d'établissement ou en partenariat étranger.",
+      "calendrier": "Rentrée en septembre–octobre ; candidatures de mars à juillet dans la plupart des écoles privées ; examens en janvier et juin.",
+      "visa": [
+        "Dispense de visa de court séjour pour plusieurs nationalités africaines (dont Sénégal, Gabon, Côte d'Ivoire, Congo, Guinée, Mali, Niger) ; visa d'études (type D) pour les autres.",
+        "Carte de séjour étudiant à demander à la préfecture de police après l'arrivée, renouvelable chaque année avec l'attestation d'inscription.",
+        "Pièces courantes : passeport, attestation d'inscription, justificatif de ressources, certificat d'hébergement, assurance santé, photos."
+      ],
+      "budget": {
+        "devise": "MAD",
+        "lignes": [
+          { "poste": "Logement (studio ou colocation)", "min": 1500, "max": 4000 },
+          { "poste": "Alimentation", "min": 1000, "max": 2000 },
+          { "poste": "Transport", "min": 200, "max": 500 },
+          { "poste": "Téléphone, internet, loisirs", "min": 400, "max": 1000 }
+        ],
+        "total_mensuel": { "min": 3100, "max": 7500 },
+        "note": "Casablanca et Rabat sont les villes les plus chères ; Fès, Meknès, Oujda et Agadir sont plus abordables."
+      },
+      "frais_prive": { "devise": "MAD", "min": 20000, "max": 100000, "unite": "par an", "note": "Écoles de commerce et d'ingénieurs : généralement 40 000 à 90 000 MAD/an ; médecine privée au-delà." },
+      "travail": "Le travail étudiant n'est pas autorisé officiellement ; les stages conventionnés le sont.",
+      "sante": "Assurance santé obligatoire pour la carte de séjour ; bonne offre de cliniques privées dans les grandes villes.",
+      "paiement": ["CMI (carte bancaire)", "Orange Money", "inwi money", "Cash Plus", "Wafacash"],
+      "villes": [
+        { "nom": "Casablanca", "profil": "Capitale économique : écoles de commerce, d'ingénieurs et d'architecture, stages en entreprise." },
+        { "nom": "Rabat", "profil": "Capitale administrative, universités internationales, vie plus calme." },
+        { "nom": "Marrakech", "profil": "Tourisme, hôtellerie, arts visuels ; coût de la vie modéré." },
+        { "nom": "Fès", "profil": "Ville universitaire historique, campus Euromed, budget plus doux." },
+        { "nom": "Benguerir", "profil": "Campus UM6P : recherche, ingénierie, data, vie sur campus." }
+      ],
+      "bourses": [
+        "Bourses et réductions propres aux écoles (mérite, excellence, fratrie).",
+        "AMCI (Agence marocaine de coopération internationale) : surtout pour l'enseignement public, sur proposition du pays d'origine."
+      ],
+      "sources": [
+        "https://visaconnectafrica.com/guides-pratiques/etudier-au-maroc-depuis-senegal",
+        "https://www.maroc.campusfrance.org/system/files/medias/documents/2025-06/Guide%20pre%CC%81paration%20au%20de%CC%81part%202025.pdf",
+        "https://www.eigsica.ma/wp-content/uploads/2020/07/LIVRET_ACCUEIL_ETRANGERS_2020.pdf"
+      ]
+    },
+    {
+      "id": "SN",
+      "nom": "Sénégal",
+      "accroche": "Dakar, carrefour de l'Afrique de l'Ouest : écoles de management, d'ingénierie et de santé, écoles inter-États et vie étudiante dynamique.",
+      "chiffres": { "population": "≈ 18 millions", "capitale": "Dakar", "monnaie": "Franc CFA (XOF)", "langues": ["Français (enseignement)", "Wolof", "Anglais (en croissance)"], "fuseau": "UTC+0", "indicatif": "+221" },
+      "pourquoi": [
+        "Plus de 100 établissements privés habilités par l'ANAQ-Sup, nombreux campus à Dakar.",
+        "Écoles inter-États à vocation internationale (ESMT, EISMV, CESAG).",
+        "Libre circulation pour les ressortissants de la CEDEAO.",
+        "Coût de la vie plus abordable que Libreville, écosystème tech et startups en plein essor."
+      ],
+      "systeme": "LMD (licence en 3 ans, master en 5 ans), BTS et DUT en 2 ans, diplômes d'ingénieur de conception (DIC) en 5 ans. Diplômes reconnus au niveau régional via le CAMES.",
+      "reconnaissance": "Vérifier que l'établissement et le diplôme sont habilités par l'ANAQ-Sup : seule une partie des établissements privés recensés l'est.",
+      "calendrier": "Rentrée d'octobre à décembre selon les écoles ; candidatures de juillet à octobre ; année jusqu'en juillet.",
+      "visa": [
+        "CEDEAO : pas de visa ; au-delà de 90 jours, carte de séjour étudiant à demander à Dakar.",
+        "Autres nationalités : visa étudiant auprès de l'ambassade ou du consulat du Sénégal, avec lettre d'admission d'un établissement reconnu.",
+        "Pièces courantes : passeport, lettre d'admission, preuve de ressources, assurance santé, justificatif de domicile."
+      ],
+      "budget": {
+        "devise": "XOF",
+        "lignes": [
+          { "poste": "Logement (chambre ou colocation)", "min": 40000, "max": 100000 },
+          { "poste": "Alimentation", "min": 60000, "max": 100000 },
+          { "poste": "Transport", "min": 15000, "max": 35000 },
+          { "poste": "Téléphone, internet, loisirs", "min": 15000, "max": 40000 }
+        ],
+        "total_mensuel": { "min": 190000, "max": 300000 },
+        "note": "Les places en cité universitaire sont rares et réservées en priorité aux étudiants du public."
+      },
+      "frais_prive": { "devise": "XOF", "min": 600000, "max": 2500000, "unite": "par an", "note": "Pas de grille nationale : chaque établissement fixe ses tarifs. La baisse des frais de 2023 concerne surtout les étudiants sénégalais et de l'UEMOA." },
+      "travail": "Possible avec autorisation ; les stages sont fréquents dans les cursus professionnalisants.",
+      "sante": "Assurance santé recommandée (environ 200 à 600 USD par an) ; bonne offre médicale à Dakar.",
+      "paiement": ["Wave", "Orange Money", "Free Money", "Carte bancaire"],
+      "villes": [
+        { "nom": "Dakar", "profil": "L'essentiel des écoles privées, stages, transports (BRT, TER), vie culturelle." },
+        { "nom": "Thiès", "profil": "Ingénierie et formation professionnelle, à 1 h de Dakar." },
+        { "nom": "Saint-Louis", "profil": "Ville universitaire calme et patrimoniale, loyers bas." }
+      ],
+      "bourses": [
+        "Réductions et bourses d'excellence proposées par les écoles privées.",
+        "Bourses de coopération de votre pays d'origine (ex. ANBG pour les Gabonais)."
+      ],
+      "sources": [
+        "https://au-senegal.com/etudier-au-senegal-guide-pratique-pour-etudiants-etrangers,17574.html",
+        "https://www.sencampus.com/dossiers/se-loger-et-vivre-etudiant-a-dakar/budget-etudiant-dakar",
+        "https://www.sencampus.com/dossiers/financer-ses-etudes-sans-bourse/combien-coutent-vraiment-des-etudes-au-senegal",
+        "https://au-senegal.com/cout-de-la-vie-a-dakar-en-2026-quel-budget-faut-il-reellement-prevoir,18481.html"
+      ]
+    },
+    {
+      "id": "GA",
+      "nom": "Gabon",
+      "accroche": "Pays pilote de Navigoal : écoles de management, de la mer et du numérique à Libreville, au cœur d'une économie tournée vers l'énergie, les mines et la forêt.",
+      "chiffres": { "population": "≈ 2,5 millions", "capitale": "Libreville", "monnaie": "Franc CFA (XAF)", "langues": ["Français (enseignement)", "Fang, Myènè, Punu…"], "fuseau": "UTC+1", "indicatif": "+241" },
+      "pourquoi": [
+        "Écoles privées proches des entreprises (pétrole, mines, banques, logistique portuaire).",
+        "Petites promotions et encadrement de proximité.",
+        "Diplômes reconnus dans l'espace CEMAC et via le CAMES.",
+        "Institut inter-États ISTA-CEMAC pour la statistique et l'économie appliquée."
+      ],
+      "systeme": "LMD (licence en 3 ans, master en 5 ans), BTS et DUT en 2 ans ; grandes écoles et instituts sur dossier ou concours.",
+      "reconnaissance": "Vérifier l'agrément de l'établissement auprès du ministère de l'Enseignement supérieur (MESRS) et la reconnaissance CAMES des diplômes.",
+      "calendrier": "Rentrée d'octobre à novembre ; candidatures de juillet à octobre.",
+      "visa": [
+        "Visa requis pour la plupart des nationalités (visa étudiant auprès de l'ambassade, e-visa DGDI pour l'entrée).",
+        "Carte de séjour à demander à la DGDI dans les 30 jours suivant l'arrivée, renouvelable chaque année avec l'attestation d'inscription.",
+        "Vaccination contre la fièvre jaune obligatoire ; assurance santé et rapatriement demandée."
+      ],
+      "budget": {
+        "devise": "XAF",
+        "lignes": [
+          { "poste": "Logement (chambre ou studio)", "min": 80000, "max": 200000 },
+          { "poste": "Alimentation", "min": 80000, "max": 150000 },
+          { "poste": "Transport (taxis partagés)", "min": 20000, "max": 50000 },
+          { "poste": "Téléphone, internet, loisirs", "min": 20000, "max": 50000 }
+        ],
+        "total_mensuel": { "min": 200000, "max": 450000 },
+        "note": "Libreville compte parmi les villes les plus chères d'Afrique ; charges (eau, électricité) souvent en plus du loyer."
+      },
+      "frais_prive": { "devise": "XAF", "min": 1500000, "max": 4000000, "unite": "par an", "note": "Fourchette indicative pour les universités et écoles privées ; demander un devis écrit." },
+      "travail": "Travail étudiant limité aux stages.",
+      "sante": "Assurance privée conseillée (≈ 200 000 à 500 000 XAF par an).",
+      "paiement": ["Airtel Money", "Moov Money", "Carte bancaire"],
+      "villes": [
+        { "nom": "Libreville", "profil": "Quasi-totalité des écoles privées, administrations, entreprises et ports." },
+        { "nom": "Owendo / Akanda", "profil": "Communes voisines de Libreville, campus en développement." },
+        { "nom": "Franceville / Moanda", "profil": "Pôle sciences et mines du Haut-Ogooué." }
+      ],
+      "bourses": [
+        "ANBG (Agence nationale des bourses du Gabon) pour les étudiants gabonais, y compris à l'étranger.",
+        "Bourses d'entreprises et de fondations (ex. Fondation BGFIBank)."
+      ],
+      "sources": [
+        "https://www.openshores.co/blog/gabon/programmes/ga-etudiant",
+        "https://africarrieres.com/gabon/fr/guide/decouvrir/cout-de-la-vie",
+        "https://www.expat.com/fr/guide/afrique/gabon/libreville/"
+      ]
+    }
+  ]
+}

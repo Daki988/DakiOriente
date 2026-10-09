@@ -49,23 +49,11 @@
         ]
       },
       "etablissements": [
-        "ga-uss",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uae",
         "ma-um6p",
         "ma-uir",
         "ma-ueuromed",
         "ma-um6ss",
         "ma-uiass",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz",
-        "sn-uidt",
         "sn-ussd"
       ]
     },
@@ -109,15 +97,8 @@
         ]
       },
       "etablissements": [
-        "ga-uss",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-ump",
         "ma-um6ss",
         "ma-uiass",
-        "sn-ucad",
         "sn-ussd"
       ]
     },
@@ -160,14 +141,8 @@
         ]
       },
       "etablissements": [
-        "ga-uss",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
         "ma-um6ss",
-        "ma-uiass",
-        "sn-ucad"
+        "ma-uiass"
       ]
     },
     {
@@ -210,15 +185,14 @@
         ]
       },
       "etablissements": [
-        "ga-uss",
         "ma-um6ss",
         "ma-uiass",
         "ma-uic",
         "ma-mundiapolis",
         "ma-upm",
         "ma-universiapolis",
-        "sn-ucad",
-        "sn-ussd"
+        "sn-ussd",
+        "sn-ipformed"
       ]
     },
     {
@@ -260,9 +234,9 @@
         ]
       },
       "etablissements": [
-        "ga-uss",
         "ma-um6ss",
-        "sn-ussd"
+        "sn-ussd",
+        "sn-ipformed"
       ]
     },
     {
@@ -304,7 +278,8 @@
         ]
       },
       "etablissements": [
-        "ga-uss"
+        "ga-uas",
+        "sn-ipformed"
       ]
     },
     {
@@ -346,8 +321,6 @@
         ]
       },
       "etablissements": [
-        "ga-uss",
-        "sn-uadb",
         "sn-eismv",
         "sn-cesag"
       ]
@@ -435,7 +408,6 @@
       },
       "etablissements": [
         "ma-um6ss",
-        "ma-iav",
         "sn-eismv"
       ]
     },
@@ -482,13 +454,13 @@
         ]
       },
       "etablissements": [
-        "ga-ist",
         "ga-ita",
         "ga-esgis",
         "ma-iga",
-        "sn-isep-thies",
         "sn-isi",
-        "sn-ipd"
+        "sn-ipd",
+        "sn-ensup",
+        "sn-ipp"
       ]
     },
     {
@@ -535,12 +507,9 @@
         ]
       },
       "etablissements": [
-        "ga-ustm",
-        "ga-ist",
-        "ga-inptic",
-        "sn-esp",
         "sn-esmt",
-        "sn-ec2lt"
+        "sn-ec2lt",
+        "sn-estim"
       ]
     },
     {
@@ -587,35 +556,22 @@
         ]
       },
       "etablissements": [
-        "ga-ustm",
         "ga-uil",
         "ga-ufgse",
         "ga-usia",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "ma-aui",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz",
-        "sn-uidt",
-        "sn-uadb",
-        "sn-uam",
-        "sn-unchk",
         "sn-dit",
         "sn-uahb",
         "sn-udb",
         "sn-unis",
-        "sn-ucao"
+        "sn-ucao",
+        "ga-uas",
+        "ma-iihem",
+        "sn-atlantic",
+        "sn-icagi",
+        "sn-ihe",
+        "sn-mit",
+        "sn-uea",
+        "sn-ukb"
       ]
     },
     {
@@ -662,16 +618,16 @@
         ]
       },
       "etablissements": [
-        "ga-inptic",
         "ga-ita",
         "ga-esgis",
         "ga-usia",
-        "sn-uam",
-        "sn-unchk",
         "sn-ism",
         "sn-supdeco",
         "sn-isi",
-        "sn-ec2lt"
+        "sn-ec2lt",
+        "ma-hightech",
+        "sn-ensup",
+        "sn-estim"
       ]
     },
     {
@@ -717,12 +673,13 @@
         ]
       },
       "etablissements": [
-        "ga-inptic",
         "ga-ita",
         "ga-usia",
         "sn-esmt",
         "sn-isi",
-        "sn-ec2lt"
+        "sn-ec2lt",
+        "ma-hightech",
+        "sn-estim"
       ]
     },
     {
@@ -770,13 +727,6 @@
       },
       "etablissements": [
         "ma-um6p",
-        "ma-aui",
-        "ma-ensias",
-        "ma-insea",
-        "ma-centrale-casa",
-        "sn-uam",
-        "sn-unchk",
-        "sn-ensae",
         "sn-dit"
       ]
     },
@@ -822,8 +772,6 @@
         ]
       },
       "etablissements": [
-        "ma-ensias",
-        "ma-inpt",
         "sn-esmt"
       ]
     },
@@ -873,16 +821,6 @@
         ]
       },
       "etablissements": [
-        "ga-ustm",
-        "ma-um5",
-        "ma-uca",
-        "ma-usmba",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
         "ma-um6p",
         "ma-uir",
         "ma-ueuromed",
@@ -891,23 +829,13 @@
         "ma-upf",
         "ma-upm",
         "ma-universiapolis",
-        "ma-emi",
-        "ma-ensias",
-        "ma-inpt",
-        "ma-ehtp",
-        "ma-enim",
-        "ma-centrale-casa",
-        "ma-ensa-network",
-        "ma-ensao",
-        "ma-ensate",
         "ma-emsi",
         "ma-iga",
         "ma-isga",
-        "sn-esp",
-        "sn-uidt",
-        "sn-ept",
         "sn-dit",
-        "sn-daust"
+        "sn-daust",
+        "ma-hightech",
+        "ma-estem"
       ]
     },
     {
@@ -952,11 +880,8 @@
         ]
       },
       "etablissements": [
-        "ga-inptic",
-        "ma-inpt",
-        "ma-ensa-network",
-        "ma-ensao",
-        "sn-esmt"
+        "sn-esmt",
+        "ma-estem"
       ]
     },
     {
@@ -1050,8 +975,7 @@
         ]
       },
       "etablissements": [
-        "ma-cpge",
-        "sn-ept"
+        "ma-eigsi-casa"
       ]
     },
     {
@@ -1097,13 +1021,10 @@
         ]
       },
       "etablissements": [
-        "ga-enset",
-        "ga-ist",
-        "ga-ito",
         "ga-ita",
-        "ma-ofppt",
-        "sn-isep-thies",
-        "sn-ipd"
+        "sn-ipd",
+        "sn-ipp",
+        "sn-esebat"
       ]
     },
     {
@@ -1148,10 +1069,7 @@
         ]
       },
       "etablissements": [
-        "ga-ustm",
-        "ga-ist",
-        "ga-ito",
-        "ga-e3mg"
+        "sn-esge"
       ]
     },
     {
@@ -1198,21 +1116,7 @@
         ]
       },
       "etablissements": [
-        "ga-ustm",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-uidt",
-        "sn-uam"
+        "sn-esge"
       ]
     },
     {
@@ -1256,23 +1160,7 @@
           "sn-bac-stidd"
         ]
       },
-      "etablissements": [
-        "ga-ustm",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-uidt",
-        "sn-uam"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-ingenieur-genie-electrique",
@@ -1317,20 +1205,9 @@
         ]
       },
       "etablissements": [
-        "ga-ustm",
-        "ma-uh2c",
-        "ma-emi",
-        "ma-ehtp",
-        "ma-enim",
-        "ma-ensam-casa",
-        "ma-ensa-network",
-        "ma-ensao",
-        "ma-ensate",
         "ma-emsi",
-        "sn-esp",
-        "sn-uidt",
-        "sn-ept",
-        "sn-daust"
+        "sn-daust",
+        "ma-eigsi-casa"
       ]
     },
     {
@@ -1375,18 +1252,8 @@
         ]
       },
       "etablissements": [
-        "ga-ustm",
-        "ma-uh2c",
-        "ma-usmba",
-        "ma-umi",
-        "ma-emi",
-        "ma-ensam-casa",
-        "ma-ensa-network",
-        "ma-ensao",
-        "ma-ensate",
-        "sn-esp",
-        "sn-ept",
-        "sn-daust"
+        "sn-daust",
+        "ma-eigsi-casa"
       ]
     },
     {
@@ -1433,19 +1300,8 @@
         ]
       },
       "etablissements": [
-        "ma-uca",
-        "ma-uit",
-        "ma-umi",
-        "ma-emi",
-        "ma-centrale-casa",
-        "ma-ensam-casa",
-        "ma-ensa-network",
-        "ma-ensao",
-        "ma-ensate",
-        "ma-esith",
         "ma-emsi",
-        "sn-esp",
-        "sn-ept"
+        "ma-eigsi-casa"
       ]
     },
     {
@@ -1490,9 +1346,7 @@
         ]
       },
       "etablissements": [
-        "ma-um6p",
-        "ma-emi",
-        "sn-esp"
+        "ma-um6p"
       ]
     },
     {
@@ -1537,9 +1391,7 @@
           "sn-bac-stidd"
         ]
       },
-      "etablissements": [
-        "ma-esith"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-bts-batiment",
@@ -1580,11 +1432,9 @@
         ]
       },
       "etablissements": [
-        "ga-enset",
-        "ga-ito",
-        "ma-ofppt",
-        "sn-isep-thies",
-        "sn-ipd"
+        "sn-ipd",
+        "sn-esebat",
+        "sn-batisup"
       ]
     },
     {
@@ -1626,21 +1476,11 @@
         ]
       },
       "etablissements": [
-        "ga-ustm",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-uidt",
-        "sn-uam"
+        "sn-ipp",
+        "sn-mit",
+        "sn-esebat",
+        "sn-esge",
+        "sn-batisup"
       ]
     },
     {
@@ -1681,22 +1521,13 @@
         ]
       },
       "etablissements": [
-        "ga-ustm",
-        "ma-ucd",
         "ma-uir",
         "ma-ueuromed",
         "ma-upf",
-        "ma-emi",
-        "ma-ehtp",
-        "ma-ensa-network",
-        "ma-ensao",
-        "ma-ensate",
         "ma-emsi",
-        "sn-esp",
-        "sn-uidt",
-        "sn-uam",
-        "sn-ept",
-        "sn-daust"
+        "sn-daust",
+        "ma-estem",
+        "sn-esebat"
       ]
     },
     {
@@ -1744,7 +1575,7 @@
         "ma-uic",
         "ma-upf",
         "ma-upm",
-        "ma-ena-rabat"
+        "ma-eac"
       ]
     },
     {
@@ -1785,10 +1616,7 @@
         ]
       },
       "etablissements": [
-        "ma-ehtp",
-        "ma-iav",
-        "ma-ena-rabat",
-        "ma-inau"
+        "ma-eac"
       ]
     },
     {
@@ -1828,7 +1656,7 @@
         ]
       },
       "etablissements": [
-        "ma-ofppt"
+        "sn-batisup"
       ]
     },
     {
@@ -1872,26 +1700,7 @@
           "sn-bac-stidd"
         ]
       },
-      "etablissements": [
-        "ga-ustm",
-        "ga-e3mg",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz",
-        "sn-uidt"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-ingenieur-mines",
@@ -1937,10 +1746,7 @@
         ]
       },
       "etablissements": [
-        "ga-e3mg",
-        "ma-um6p",
-        "ma-emi",
-        "ma-enim"
+        "ma-um6p"
       ]
     },
     {
@@ -1985,9 +1791,7 @@
           "sn-bac-stidd"
         ]
       },
-      "etablissements": [
-        "ma-enim"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-master-energies-renouvelables",
@@ -2032,8 +1836,7 @@
         ]
       },
       "etablissements": [
-        "ma-um6p",
-        "sn-ucad"
+        "ma-um6p"
       ]
     },
     {
@@ -2074,10 +1877,7 @@
           "sn-bac-s2a"
         ]
       },
-      "etablissements": [
-        "sn-ussein",
-        "sn-isep-thies"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-agronomie",
@@ -2118,12 +1918,7 @@
           "sn-bac-s2a"
         ]
       },
-      "etablissements": [
-        "ga-ustm",
-        "sn-ugb",
-        "sn-uasz",
-        "sn-ussein"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-ingenieur-agronome",
@@ -2164,12 +1959,7 @@
         ]
       },
       "etablissements": [
-        "ga-ustm",
-        "ma-um6p",
-        "ma-iav",
-        "ma-ena-meknes",
-        "sn-uidt",
-        "sn-ussein"
+        "ma-um6p"
       ]
     },
     {
@@ -2210,10 +2000,7 @@
           "sn-bac-s2a"
         ]
       },
-      "etablissements": [
-        "ga-enef",
-        "ma-enfi"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-master-environnement",
@@ -2253,12 +2040,7 @@
           "sn-bac-s2a"
         ]
       },
-      "etablissements": [
-        "ga-ustm",
-        "ga-enef",
-        "ma-iav",
-        "sn-ussein"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-sciences-mer",
@@ -2298,9 +2080,7 @@
         ]
       },
       "etablissements": [
-        "ga-esm",
-        "ma-uiz",
-        "sn-ussein"
+        "ga-esm"
       ]
     },
     {
@@ -2345,26 +2125,7 @@
           "sn-bac-f6"
         ]
       },
-      "etablissements": [
-        "ga-ustm",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz",
-        "sn-uidt",
-        "sn-uadb"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-physique-chimie",
@@ -2406,25 +2167,7 @@
           "sn-bac-f6"
         ]
       },
-      "etablissements": [
-        "ga-ustm",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz",
-        "sn-uidt"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-biologie",
@@ -2467,26 +2210,7 @@
           "sn-bac-f6"
         ]
       },
-      "etablissements": [
-        "ga-ustm",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz",
-        "sn-uidt",
-        "sn-uadb"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-ingenieur-statistique",
@@ -2532,9 +2256,7 @@
         ]
       },
       "etablissements": [
-        "ga-ista",
-        "ma-insea",
-        "sn-ensae"
+        "ga-ista"
       ]
     },
     {
@@ -2578,24 +2300,7 @@
         ]
       },
       "etablissements": [
-        "ga-uob",
-        "ga-ustm",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "ma-uaq",
-        "ma-um6p",
-        "sn-ucad",
-        "sn-ugb"
+        "ma-um6p"
       ]
     },
     {
@@ -2634,11 +2339,9 @@
         ]
       },
       "etablissements": [
-        "ga-insg",
-        "ga-ist",
-        "ma-ofppt",
-        "sn-esp",
-        "sn-ipd"
+        "sn-ipd",
+        "ga-esgec",
+        "sn-icagi"
       ]
     },
     {
@@ -2676,7 +2379,7 @@
         ]
       },
       "etablissements": [
-        "ma-ofppt"
+        "sn-iacom"
       ]
     },
     {
@@ -2721,9 +2424,7 @@
           "sn-bac-steg"
         ]
       },
-      "etablissements": [
-        "ga-iuso"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-economie",
@@ -2767,27 +2468,7 @@
           "sn-bac-steg"
         ]
       },
-      "etablissements": [
-        "ga-uob",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz",
-        "sn-uidt",
-        "sn-uadb",
-        "sn-ussein"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-gestion",
@@ -2833,35 +2514,29 @@
         ]
       },
       "etablissements": [
-        "ga-uob",
-        "ga-insg",
         "ga-uil",
         "ga-ufgse",
         "ga-aum",
         "ga-esgis",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz",
-        "sn-uidt",
-        "sn-uam",
-        "sn-unchk",
         "sn-isi",
         "sn-uahb",
         "sn-udb",
         "sn-unis",
-        "sn-ucao"
+        "sn-ucao",
+        "ga-esgec",
+        "ga-uas",
+        "sn-atlantic",
+        "sn-euromed",
+        "sn-ensup",
+        "sn-icagi",
+        "sn-2im",
+        "sn-ipp",
+        "sn-iued",
+        "sn-ihe",
+        "sn-mit",
+        "sn-uea",
+        "sn-ukb",
+        "sn-estim"
       ]
     },
     {
@@ -2902,10 +2577,11 @@
         ]
       },
       "etablissements": [
-        "ga-insg",
         "ga-bbs",
         "ga-aum",
-        "sn-cesag"
+        "sn-cesag",
+        "sn-euromed",
+        "sn-iued"
       ]
     },
     {
@@ -2951,8 +2627,7 @@
         ]
       },
       "etablissements": [
-        "ga-insg",
-        "ga-iuso"
+        "sn-2im"
       ]
     },
     {
@@ -2995,12 +2670,11 @@
         ]
       },
       "etablissements": [
-        "ga-iuso",
         "ga-esm",
         "ga-aum",
         "ga-libs",
-        "sn-uam",
-        "sn-supdeco"
+        "sn-supdeco",
+        "sn-euromed"
       ]
     },
     {
@@ -3041,7 +2715,6 @@
         "ga-em-gabon",
         "ga-afram",
         "ga-libs",
-        "ma-aui",
         "ma-uir",
         "ma-ueuromed",
         "ma-uic",
@@ -3055,7 +2728,16 @@
         "sn-ism",
         "sn-supdeco",
         "sn-bem",
-        "sn-iam"
+        "sn-iam",
+        "ma-esa-casa",
+        "ma-hightech",
+        "ma-iihem",
+        "ma-supmanagement",
+        "ma-hec-maroc",
+        "ma-supdeco-marrakech",
+        "ma-tbs-casa",
+        "sn-hec-dakar",
+        "sn-kedge"
       ]
     },
     {
@@ -3097,41 +2779,24 @@
         ]
       },
       "etablissements": [
-        "ga-uob",
-        "ga-insg",
         "ga-ista",
         "ga-uil",
         "ga-ufgse",
         "ga-bbs",
         "ga-aum",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "ma-iscae",
-        "ma-encg-settat",
-        "ma-encg-casa",
-        "ma-encg-oujda",
-        "ma-encg-marrakech",
         "ma-hem",
         "ma-esca",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz",
-        "sn-uidt",
         "sn-cesag",
         "sn-ism",
         "sn-supdeco",
         "sn-bem",
-        "sn-iam"
+        "sn-iam",
+        "ga-esgec",
+        "ma-supmanagement",
+        "ma-hec-maroc",
+        "ma-tbs-casa",
+        "sn-hec-dakar",
+        "sn-iued"
       ]
     },
     {
@@ -3168,21 +2833,18 @@
         ]
       },
       "etablissements": [
-        "ga-insg",
         "ga-em-gabon",
         "ga-afram",
         "ma-mundiapolis",
-        "ma-iscae",
-        "ma-encg-settat",
-        "ma-encg-casa",
-        "ma-encg-oujda",
-        "ma-encg-marrakech",
         "ma-hem",
         "ma-esca",
         "sn-ism",
         "sn-supdeco",
         "sn-bem",
-        "sn-iam"
+        "sn-iam",
+        "ma-hec-maroc",
+        "ma-supdeco-marrakech",
+        "sn-iacom"
       ]
     },
     {
@@ -3232,7 +2894,6 @@
         ]
       },
       "etablissements": [
-        "ga-insg",
         "ga-ista",
         "ga-uil",
         "ga-ufgse",
@@ -3242,22 +2903,28 @@
         "ga-libs",
         "ma-um6p",
         "ma-uic",
-        "ma-iscae",
-        "ma-encg-settat",
-        "ma-encg-casa",
-        "ma-encg-oujda",
-        "ma-encg-marrakech",
         "ma-hem",
         "ma-esca",
         "ma-iga",
         "ma-isga",
-        "sn-esp",
         "sn-esmt",
         "sn-cesag",
         "sn-ism",
         "sn-supdeco",
         "sn-bem",
-        "sn-iam"
+        "sn-iam",
+        "ma-esa-casa",
+        "ma-iihem",
+        "ma-supmanagement",
+        "ma-estem",
+        "ma-hec-maroc",
+        "ma-supdeco-marrakech",
+        "ma-tbs-casa",
+        "sn-atlantic",
+        "sn-euromed",
+        "sn-hec-dakar",
+        "sn-2im",
+        "sn-kedge"
       ]
     },
     {
@@ -3309,7 +2976,8 @@
         "sn-ism",
         "sn-supdeco",
         "sn-bem",
-        "sn-iam"
+        "sn-iam",
+        "ma-esa-casa"
       ]
     },
     {
@@ -3352,9 +3020,7 @@
       },
       "etablissements": [
         "ga-em-gabon",
-        "ma-uae",
-        "ma-esith",
-        "ma-encg-settat"
+        "sn-kedge"
       ]
     },
     {
@@ -3403,15 +3069,14 @@
       },
       "etablissements": [
         "ga-bbs",
-        "ma-aui",
-        "ma-iscae",
         "ma-hem",
         "ma-esca",
         "sn-cesag",
         "sn-ism",
         "sn-supdeco",
         "sn-bem",
-        "sn-iam"
+        "sn-iam",
+        "ma-esa-casa"
       ]
     },
     {
@@ -3453,30 +3118,18 @@
         ]
       },
       "etablissements": [
-        "ga-uob",
         "ga-uil",
         "ga-ufgse",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
         "ma-mundiapolis",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uidt",
         "sn-ism",
         "sn-uahb",
         "sn-udb",
         "sn-unis",
-        "sn-ucao"
+        "sn-ucao",
+        "ga-uas",
+        "sn-isdd",
+        "sn-uea",
+        "sn-ukb"
       ]
     },
     {
@@ -3518,25 +3171,8 @@
         ]
       },
       "etablissements": [
-        "ga-uob",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "ma-uaq",
         "ma-uir",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uam",
-        "sn-unchk"
+        "sn-isdd"
       ]
     },
     {
@@ -3579,21 +3215,7 @@
         ]
       },
       "etablissements": [
-        "ga-uob",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-ugb"
+        "sn-isdd"
       ]
     },
     {
@@ -3634,25 +3256,10 @@
         ]
       },
       "etablissements": [
-        "ga-uob",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "ma-aui",
         "ma-uir",
         "ma-ueuromed",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-udb"
+        "sn-udb",
+        "sn-isdd"
       ]
     },
     {
@@ -3695,11 +3302,7 @@
           "sn-bac-steg"
         ]
       },
-      "etablissements": [
-        "ga-ena",
-        "ma-ensa-admin",
-        "sn-ena"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-magistrature",
@@ -3738,11 +3341,7 @@
           "sn-bac-steg"
         ]
       },
-      "etablissements": [
-        "ga-ena",
-        "ma-ism",
-        "sn-ena"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-lettres-modernes",
@@ -3779,25 +3378,7 @@
           "sn-bac-la"
         ]
       },
-      "etablissements": [
-        "ga-uob",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "ma-uaq",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-langues-etrangeres",
@@ -3834,24 +3415,7 @@
           "sn-bac-la"
         ]
       },
-      "etablissements": [
-        "ga-uob",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-master-traduction",
@@ -3887,10 +3451,7 @@
           "sn-bac-la"
         ]
       },
-      "etablissements": [
-        "ma-uae",
-        "sn-ucad"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-sociologie",
@@ -3930,26 +3491,7 @@
           "sn-bac-steg"
         ]
       },
-      "etablissements": [
-        "ga-uob",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz",
-        "sn-uadb",
-        "sn-unchk"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-psychologie",
@@ -3990,22 +3532,7 @@
         ]
       },
       "etablissements": [
-        "ga-uob",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz"
+        "ma-psychosup"
       ]
     },
     {
@@ -4046,24 +3573,7 @@
           "sn-bac-steg"
         ]
       },
-      "etablissements": [
-        "ga-uob",
-        "ma-um5",
-        "ma-uh2c",
-        "ma-uca",
-        "ma-usmba",
-        "ma-uiz",
-        "ma-ump",
-        "ma-uit",
-        "ma-uae",
-        "ma-umi",
-        "ma-ucd",
-        "ma-uh1",
-        "ma-usms",
-        "sn-ucad",
-        "sn-ugb",
-        "sn-uasz"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-travail-social",
@@ -4102,10 +3612,7 @@
           "sn-bac-steg"
         ]
       },
-      "etablissements": [
-        "ma-inas",
-        "sn-entss"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-ens-professorat",
@@ -4144,13 +3651,7 @@
           "sn-bac-s2"
         ]
       },
-      "etablissements": [
-        "ga-ens",
-        "ga-enset",
-        "ma-ens-marrakech",
-        "sn-ucad",
-        "sn-fastef"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-sciences-education",
@@ -4190,13 +3691,7 @@
           "sn-bac-s2"
         ]
       },
-      "etablissements": [
-        "ga-uob",
-        "ga-ens",
-        "ma-um5",
-        "ma-ens-marrakech",
-        "sn-fastef"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-staps",
@@ -4215,12 +3710,7 @@
         "met-coach-sportif"
       ],
       "series_recommandees": {},
-      "etablissements": [
-        "ma-uh2c",
-        "ma-uh1",
-        "sn-ucad",
-        "sn-ugb"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-journalisme",
@@ -4262,10 +3752,7 @@
         ]
       },
       "etablissements": [
-        "ga-uob",
-        "ma-isic",
-        "sn-ucad",
-        "sn-cesti"
+        "ma-esjc"
       ]
     },
     {
@@ -4309,19 +3796,19 @@
         ]
       },
       "etablissements": [
-        "ga-uob",
-        "ga-iuso",
         "ga-uil",
         "ga-afram",
-        "ma-aui",
-        "ma-isic",
-        "sn-uadb",
-        "sn-unchk",
         "sn-ism",
         "sn-iam",
         "sn-uahb",
         "sn-unis",
-        "sn-ucao"
+        "sn-ucao",
+        "ma-iihem",
+        "ma-esjc",
+        "sn-atlantic",
+        "sn-iacom",
+        "sn-ihe",
+        "sn-uea"
       ]
     },
     {
@@ -4357,7 +3844,8 @@
         ]
       },
       "etablissements": [
-        "sn-ensba"
+        "ma-esjc",
+        "ma-esav"
       ]
     },
     {
@@ -4396,7 +3884,7 @@
         ]
       },
       "etablissements": [
-        "ma-inba"
+        "ma-esav"
       ]
     },
     {
@@ -4432,10 +3920,7 @@
           "sn-bac-la"
         ]
       },
-      "etablissements": [
-        "ma-inba",
-        "sn-ensba"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-patrimoine",
@@ -4469,10 +3954,7 @@
           "sn-bac-la"
         ]
       },
-      "etablissements": [
-        "ga-uob",
-        "ma-insap"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-aviation-civile",
@@ -4515,8 +3997,7 @@
         ]
       },
       "etablissements": [
-        "ma-uir",
-        "ma-aiac"
+        "ma-uir"
       ]
     },
     {
@@ -4557,11 +4038,7 @@
           "sn-bac-steg"
         ]
       },
-      "etablissements": [
-        "ma-uiz",
-        "ma-ofppt",
-        "sn-isep-thies"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-licence-hotellerie",
@@ -4603,11 +4080,10 @@
         ]
       },
       "etablissements": [
-        "ma-uca",
-        "ma-uiz",
         "ma-upm",
         "ma-universiapolis",
-        "sn-uasz"
+        "ma-supmanagement",
+        "ma-supdeco-marrakech"
       ]
     },
     {
@@ -4650,9 +4126,7 @@
           "sn-bac-steg"
         ]
       },
-      "etablissements": [
-        "ma-ofppt"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-ts-froid-climatisation",
@@ -4694,10 +4168,7 @@
           "sn-bac-stidd"
         ]
       },
-      "etablissements": [
-        "ga-ito",
-        "ma-ofppt"
-      ]
+      "etablissements": []
     },
     {
       "id": "frm-ts-mecanique-auto",
@@ -4739,10 +4210,7 @@
           "sn-bac-stidd"
         ]
       },
-      "etablissements": [
-        "ma-ofppt",
-        "sn-isep-thies"
-      ]
+      "etablissements": []
     }
   ]
 }

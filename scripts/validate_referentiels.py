@@ -75,6 +75,15 @@ def main():
             logo = e.get("logo")
             if logo and not os.path.exists(os.path.join(ROOT, logo["fichier"])):
                 errors.append(f"{e['id']}: fichier logo manquant {logo['fichier']}")
+            for ph in e.get("photos") or []:
+                if not os.path.exists(os.path.join(ROOT, ph["fichier"])):
+                    errors.append(f"{e['id']}: fichier photo manquant {ph['fichier']}")
+                if ph.get("methode") == "wikimedia_commons" and not ph.get("credit"):
+                    errors.append(f"{e['id']}: photo Commons sans crédit d'auteur")
+    for e in data["etablissements_superieurs"]:
+        if e["statut"] in ("public", "public_autonome"):
+            errors.append(f"{e['id']}: établissement public présent au catalogue (doit être archivé)")
+    check("pays_details", "pays", [p["id"] for p in load("pays_details")])
 
     for name, items in data.items():
         print(f"{name:28s} {len(items):5d}")
