@@ -733,15 +733,15 @@ Règles de gouvernance :
 
 ### Backend
 
-- Laravel ; API REST (documentée OpenAPI) ;
-- authentification sécurisée (tokens, OTP) ;
+- **Next.js full-stack** (décision V1) : API REST (`/api`, documentée OpenAPI), services métier en TypeScript et back-office dans le même projet que le front ; détail dans [docs/backend.md](backend.md) ;
+- authentification sécurisée (sessions, OTP SMS/e-mail) ;
 - gestion des rôles et permissions (élève, étudiant, parent, établissement, bailleur, conseiller, administrateur) ;
-- files de traitement (notifications, génération PDF, imports de référentiels) ;
-- intégrations : agrégateurs de paiement mobile par pays, SMS/WhatsApp, e-mail, signature électronique.
+- génération PDF (reçus, bordereaux, attestations, contrats, quittances), notifications e-mail/SMS ;
+- intégrations : agrégateurs de paiement mobile par pays (CinetPay prêt, bac à sable de recette), SMS/WhatsApp, e-mail.
 
 ### Base de données
 
-PostgreSQL (recommandé, avec PostGIS pour la recherche géographique des logements) ou MySQL.
+PostgreSQL (Netlify DB / Neon), via l'ORM Drizzle et des migrations SQL versionnées.
 
 ### Principales tables
 

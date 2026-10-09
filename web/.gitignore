@@ -39,3 +39,6 @@ next-env.d.ts
 /src/data/
 /public/logos/
 /public/photos/
+
+# fichiers déposés en local
+/.data/
