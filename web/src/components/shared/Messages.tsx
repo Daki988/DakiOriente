@@ -18,8 +18,8 @@ export function Messages({ id }: { id?: string }) {
   const rows = useMemo(() => (list.data ?? []).filter((c) => tab === "tous" || c.contextKind === tab), [list.data, tab]);
   const current = list.data?.find((c) => c.id === id);
   return (
-    <div className="grid gap-5 lg:h-[calc(100vh-140px)] lg:grid-cols-[360px_1fr]">
-      <section className={`card flex min-h-0 flex-col gap-3 rounded-[22px] p-4 ${id ? "hidden lg:flex" : ""}`}>
+    <div className="grid grid-cols-1 gap-5 lg:h-[calc(100vh-140px)] lg:grid-cols-[360px_1fr]">
+      <section className={`card flex min-h-0 min-w-0 flex-col gap-3 rounded-[22px] p-4 ${id ? "hidden lg:flex" : ""}`}>
         <h1 className="px-1 text-2xl font-extrabold">Messages</h1>
         <Tabs value={tab} onChange={setTab} items={[["tous", "Tous"], ["application", "Écoles"], ["booking", "Logement"], ["conseil", "Conseiller"]]} />
         <div className="-mx-1 flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto px-1">
@@ -39,7 +39,7 @@ export function Messages({ id }: { id?: string }) {
           })}
         </div>
       </section>
-      <section className={`card flex min-h-[70vh] flex-col rounded-[22px] p-5 lg:min-h-0 ${id ? "" : "hidden lg:flex"}`}>
+      <section className={`card flex min-h-[70vh] min-w-0 flex-col rounded-[22px] p-5 lg:min-h-0 ${id ? "" : "hidden lg:flex"}`}>
         {id ? (
           <>
             <div className="mb-3 flex items-center gap-3 border-b border-[#eef1f8] pb-3">

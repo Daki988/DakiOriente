@@ -17,7 +17,11 @@ import type { AppRow, Payment } from "@/components/espace/types";
 type Child = { link: { id: string; consentAt: string | null; relation: string }; child: { id: string; firstName: string; lastName: string; birthYear: number | null; country: string | null; city: string | null } };
 type Booking = { b: { id: string; number: string; status: string; tenantId: string; guarantorId: string | null }; h: { title: string; ville: string } };
 
-function useChildApps(id: string | null) { return useApi<AppRow[]>(id ? `/parent/enfants/${id}/candidatures` : null); }
+function useChildApps(id: string | null) {
+  const r = useApi<AppRow[]>(id ? `/parent/enfants/${id}/candidatures` : null);
+  // Les brouillons restent privés à l'élève.
+  return { ...r, data: r.data?.filter((a) => a.a.status !== "brouillon") };
+}
 
 /** Vue d'ensemble parent (maquette 16 avec données réelles). */
 export function ParentHome() {

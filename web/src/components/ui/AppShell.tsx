@@ -37,6 +37,8 @@ const MENUS: Record<string, { label: string; tint: string; items: Item[] }> = {
 };
 MENUS.eleve = { ...MENUS.etudiant, label: "Espace élève" };
 const GUEST: Item[] = [{ href: "/", Icon: House, t: "Accueil" }, { href: "/orientation", Icon: Compass, t: "Test d'orientation" }, { href: "/formations", Icon: GraduationCap, t: "Formations" }, { href: "/etablissements", Icon: Building2, t: "Établissements" }, { href: "/navilease", Icon: KeyRound, t: "Navilease" }];
+// Libellé court pour la barre mobile : « Mes candidatures » → « Candidatures ».
+const short = (t: string) => { const w = t.split(" ").filter((x) => !["Mon", "Mes", "Ma", "de", "&", "d'ensemble"].includes(x))[0] ?? t; return w.charAt(0).toUpperCase() + w.slice(1); };
 const ROLE_SUB: Record<string, string> = { eleve: "Élève", etudiant: "Étudiant·e", parent: "Parent / tuteur", etablissement: "Établissement", bailleur: "Bailleur Navilease", conseiller: "Conseiller", admin: "Administrateur" };
 
 export function AppShell({ user, children }: { user: ClientUser | null; children: ReactNode }) {
@@ -138,7 +140,7 @@ export function AppShell({ user, children }: { user: ClientUser | null; children
         <nav className="fixed inset-x-0 bottom-0 z-40 flex justify-around border-t border-slate-200 bg-white/95 px-2 pb-[max(env(safe-area-inset-bottom),8px)] pt-2 backdrop-blur lg:hidden" aria-label="Raccourcis">
           {items.slice(0, 4).map(({ href, Icon, t }) => (
             <Link key={href} href={href} className={`relative flex flex-col items-center gap-1 px-2 text-[11px] font-bold ${active(href) ? "text-brand-600" : "text-ink-mute"}`}>
-              {active(href) && <motion.span layoutId="mob-pill" className="absolute -top-2 h-1 w-8 rounded-full bg-brand-600" />}<Icon size={22} />{t.split(" ")[0]}
+              {active(href) && <motion.span layoutId="mob-pill" className="absolute -top-2 h-1 w-8 rounded-full bg-brand-600" />}<Icon size={22} />{short(t)}
             </Link>
           ))}
           <button onClick={() => setOpen(true)} className="flex flex-col items-center gap-1 px-2 text-[11px] font-bold text-ink-mute"><Menu size={22} />Menu</button>

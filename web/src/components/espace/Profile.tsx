@@ -6,6 +6,7 @@ import { Field, FormError, Input, Select, Textarea } from "@/components/app/form
 import { api } from "@/lib/api";
 import { useAction, useApi } from "@/hooks/useApi";
 import { PAYS_NOM, competences, pays, series, type PaysCode } from "@/lib/data";
+import { profileCompletion } from "./completion";
 
 type Me = { firstName: string; lastName: string; email: string | null; phone: string | null; birthYear: number | null; country: string | null; city: string | null; emailVerifiedAt: string | null; phoneVerifiedAt: string | null;
   profile: { level: string | null; serie: string | null; currentSchool: string | null; diploma: string | null; skills: string[]; interests: string[]; goals: string | null; riasec: { top: string[] } | null; preferences: { pays?: string[]; budgetAnnuel?: number; devise?: string; logement?: { budget?: number; type?: string; colocation?: boolean } } } | null };
@@ -32,8 +33,7 @@ export function Profile() {
     setSkills(p?.skills ?? []); setPrefPays(p?.preferences.pays ?? []); setColoc(!!p?.preferences.logement?.colocation);
   }, [me.data]);
   const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setF((x) => ({ ...x, [k]: e.target.value }));
-  const fields = [f.country, f.city, f.birthYear, f.level, f.serie, f.currentSchool, skills.length ? "x" : "", prefPays.length ? "x" : ""];
-  const completion = Math.round((fields.filter(Boolean).length / fields.length) * 100);
+  const completion = profileCompletion({ country: f.country, city: f.city, birthYear: f.birthYear, profile: { level: f.level, serie: f.serie, currentSchool: f.currentSchool, skills, preferences: { pays: prefPays } } });
   const seriesPays = useMemo(() => series.filter((s) => !f.country || s.pays === f.country), [f.country]);
   const villes = pays.find((p) => p.id === f.country)?.villes_universitaires ?? [];
   const minor = !!f.birthYear && new Date().getFullYear() - Number(f.birthYear) < 18;

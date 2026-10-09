@@ -8,10 +8,11 @@ import { Alert, Empty, StatusBadge, dateFr } from "@/components/app/kit";
 import { useUser } from "@/components/app/Session";
 import { useApi } from "@/hooks/useApi";
 import { etabById } from "@/lib/data";
+import { profileCompletion } from "@/components/espace/completion";
 
 const STEPS = ["Profil complété", "Test d'orientation", "Recommandations", "Candidatures", "Admission", "Logement"];
 const PROGRESS: Record<string, number> = { brouillon: 1, soumise: 2, paiement_confirme: 2, en_verification: 3, piece_demandee: 3, complet: 4, en_traitement: 4, liste_attente: 4, acceptee: 5, refusee: 5, desistee: 5 };
-type Me = { profile: { level: string | null; serie: string | null; currentSchool: string | null; riasec: { top: string[] } | null; preferences: Record<string, unknown> } | null; country: string | null; city: string | null; birthYear: number | null; emailVerifiedAt: string | null; phoneVerifiedAt: string | null };
+type Me = { profile: { level: string | null; serie: string | null; currentSchool: string | null; skills: string[]; riasec: { top: string[] } | null; preferences: { pays?: string[] } } | null; country: string | null; city: string | null; birthYear: number | null; emailVerifiedAt: string | null; phoneVerifiedAt: string | null };
 type Cand = { a: { id: string; number: string; status: string; updatedAt: string }; p: { title: string }; e: { id: string; sigle: string; nom: string; logo: string | null } };
 type Reco = { profil: string[]; offres: { programId: string; title: string; score: number; etablissement: { id: string; nom: string; sigle: string; ville: string; logo: string | null } }[] };
 type Camp = { id: string; title: string; kind: string; endsAt: string; establishmentId: string };
@@ -27,8 +28,7 @@ export function Dashboard() {
   const books = useApi<Booking[]>("/reservations");
   const guards = useApi<Guardian>("/moi/tuteurs");
   const p = me.data?.profile;
-  const fields = [me.data?.country, me.data?.city, me.data?.birthYear, p?.level, p?.serie, p?.currentSchool, me.data?.emailVerifiedAt || me.data?.phoneVerifiedAt];
-  const completion = me.data ? Math.round((fields.filter(Boolean).length / fields.length) * 100) : 0;
+  const completion = me.data ? profileCompletion(me.data) : 0;
   const list = cands.data ?? [];
   const admitted = list.find((c) => c.a.status === "acceptee");
   const housed = (books.data ?? []).some((b) => !["demande", "acceptee", "attente_garant", "refusee", "annulee"].includes(b.b.status));
@@ -75,7 +75,7 @@ export function Dashboard() {
 
       <Stagger className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {([[Brain, p?.riasec ? "Repasser le test" : "Passer le test d'orientation", "from-brand-600 to-brand-400", "/orientation"], [Briefcase, "Découvrir les métiers", "from-[#0f8a46] to-[#34d399]", "/metiers"], [GraduationCap, "Rechercher une formation", "from-sun-500 to-sun-300", "/formations"], [KeyRound, "Trouver un logement", "from-[#6a3df0] to-[#a78bfa]", "/navilease/logements"]] as const).map(([I, t, g, href]) => (
-          <StaggerItem key={t}>
+          <StaggerItem key={href}>
             <Link href={href} className={`group relative flex h-32 flex-col justify-between overflow-hidden rounded-[20px] bg-gradient-to-br p-4 text-white transition hover:-translate-y-1 hover:shadow-lift ${g}`}>
               <I size={110} strokeWidth={1.5} className="absolute -bottom-6 -right-4 opacity-25 transition duration-500 group-hover:rotate-6 group-hover:scale-110" />
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20"><I size={20} /></span>

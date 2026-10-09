@@ -26,7 +26,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   // Session : le site public reste statique ; l'état connecté est lu côté navigateur.
   const [me, setMe] = useState<{ firstName: string; role: string } | null>(null);
-  useEffect(() => { fetch("/api/moi/").then((r) => (r.ok ? r.json() : null)).then(setMe).catch(() => setMe(null)); }, []);
+  useEffect(() => { fetch("/api/session/").then((r) => (r.ok ? r.json() : null)).then((d) => setMe(d?.user ?? null)).catch(() => setMe(null)); }, []);
   const home = me ? ({ eleve: "/espace", etudiant: "/espace", parent: "/parent", etablissement: "/etablissement", bailleur: "/bailleur", conseiller: "/conseiller", admin: "/admin" } as Record<string, string>)[me.role] ?? "/" : null;
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0;

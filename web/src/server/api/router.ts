@@ -78,6 +78,7 @@ route("POST", "/auth/deconnexion", "Authentification", "Se déconnecter", "publi
 });
 
 // ---------------------------------------------------------------- Compte et profil
+route("GET", "/session", "Compte", "Session courante (utilisateur ou null), sans erreur si déconnecté", "public", async ({ user }) => ({ user: user ? { firstName: user.firstName, role: user.role } : null }));
 route("GET", "/moi", "Compte", "Utilisateur connecté et profil", "user", async ({ me }) => accounts.getMe(me.id));
 route("PATCH", "/moi", "Compte", "Mettre à jour le profil", "user", async ({ me, body }) => accounts.updateProfile(me.id, await body()));
 route("POST", "/moi/mot-de-passe", "Compte", "Changer de mot de passe", "user", async ({ me, body }) => { const b = await body(); await accounts.changePassword(me.id, b.actuel, b.nouveau); return ok; });

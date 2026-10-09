@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, CheckCircle2, ChevronRight, Info, Loader2, X, type LucideIcon } from "lucide-react";
-import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useId, useState, type ReactNode } from "react";
 
 // ---------------------------------------------------------------- Boutons
 type BtnProps = React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "ghost" | "sun" | "danger" | "quiet"; loading?: boolean; icon?: LucideIcon; size?: "sm" | "md" };
@@ -104,11 +104,12 @@ export const StatusBadge = ({ status, label }: { status: string; label?: string 
 
 // ---------------------------------------------------------------- Onglets, tableau, chronologie
 export function Tabs<T extends string>({ value, onChange, items }: { value: T; onChange: (v: T) => void; items: [T, ReactNode][] }) {
+  const uid = useId(); // un identifiant d'animation par barre d'onglets
   return (
     <div className="flex max-w-full gap-1 overflow-x-auto rounded-xl bg-[#eef1f8] p-1" role="tablist">
       {items.map(([k, l]) => (
         <button key={k} role="tab" aria-selected={value === k} onClick={() => onChange(k)} className={`relative shrink-0 whitespace-nowrap rounded-[10px] px-3.5 py-2 text-[13px] font-bold ${value === k ? "text-brand-600" : "text-ink-mute hover:text-ink"}`}>
-          {value === k && <motion.span layoutId="tab-pill" className="absolute inset-0 rounded-[10px] bg-white shadow-sm" />}<span className="relative">{l}</span>
+          {value === k && <motion.span layoutId={`tab-pill-${uid}`} className="absolute inset-0 rounded-[10px] bg-white shadow-sm" />}<span className="relative">{l}</span>
         </button>
       ))}
     </div>

@@ -79,8 +79,11 @@ describe("candidature", () => {
     const d2 = await docs.uploadDocument(student, "releve_notes", { name: "notes.png", bytes: PNG });
     await apps.updateDraft(student, appId, { motivation: "Je veux devenir manager.", documentIds: [d1.id, d2.id] });
     const r = await apps.submitApplication(student, appId, { method: "wave", payerId: parent.id });
-    expect(r.redirectUrl).toMatch(/^\/paiement\/NG-PAY-/);
-    const ref = r.redirectUrl!.split("/").pop()!;
+    // Paiement demandé au parent : l'élève revient sur sa candidature, le parent reçoit le lien de paiement.
+    expect(r.redirectUrl).toBe(`/espace/candidatures/${appId}?paiement=parent`);
+    const demande = (await notif.listNotifications(parent.id)).find((n) => n.kind === "paiement_demande");
+    expect(demande?.link).toMatch(/^\/paiement\/NG-PAY-/);
+    const ref = demande!.link!.split("/").pop()!;
     await expect(pay.sandboxConfirm(student, ref, true)).rejects.toThrow(/refusé/); // seul le payeur (le parent) confirme
     await pay.sandboxConfirm(parent, ref, true);
     const d = await apps.getApplication(student, appId);
