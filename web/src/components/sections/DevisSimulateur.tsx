@@ -136,7 +136,7 @@ export function DevisSimulateur() {
               </Reveal>
               <Reveal delay={0.1} className="card flex flex-col gap-3 rounded-3xl p-6"><h3 className="text-lg font-extrabold">Cadre de vie à {e.ville.split(/[ /(]/)[0]}</h3>
                 {env.map(([I, t, s]) => <div key={t} className="flex items-start gap-3"><span className="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-xl bg-[#e8f8ef] text-[#0f8a46]"><I size={18} /></span><span><b className="block text-sm">{t}</b><span className="text-[13px] text-ink-mute">{s}</span></span></div>)}
-                <Link href={`/pays/${e.pays}/`} className="text-[13px] font-bold text-brand-600">Étudier au {P.nom} : la fiche pays →</Link>
+                <Link href={`/pays/${e.pays.toLowerCase()}/`} className="text-[13px] font-bold text-brand-600">Étudier au {P.nom} : la fiche pays →</Link>
               </Reveal>
             </div>
           </div>

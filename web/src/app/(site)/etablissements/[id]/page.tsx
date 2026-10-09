@@ -77,7 +77,7 @@ export default function EtabPage({ params }: { params: { id: string } }) {
           <section id="admission" className="scroll-mt-32"><Reveal className="card flex flex-col gap-3 rounded-[22px] p-6">
             <h3 className="text-lg font-extrabold">Admission des étudiants internationaux</h3>
             {ADMISSION.map((t, k) => <div key={k} className="flex items-start gap-3"><span className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full bg-brand-50 text-[13px] font-extrabold text-brand-600">{k + 1}</span><span className="pt-1 text-sm text-ink-soft">{t}</span></div>)}
-            <Link href={`/pays/${e.pays}/`} className="text-[13px] font-bold text-brand-600">Visa et carte de séjour : lire la fiche {P.nom} →</Link>
+            <Link href={`/pays/${e.pays.toLowerCase()}/`} className="text-[13px] font-bold text-brand-600">Visa et carte de séjour : lire la fiche {P.nom} →</Link>
           </Reveal></section>
         </div>
 
@@ -102,7 +102,7 @@ export default function EtabPage({ params }: { params: { id: string } }) {
           </div>
           <div className="card flex flex-col gap-2 rounded-[22px] p-5">
             <b>Étudier au {P.nom}</b><span className="text-[13px] text-ink-mute">Visa, coût de la vie, reconnaissance des diplômes.</span>
-            <Link href={`/pays/${e.pays}/`} className="text-[13px] font-bold text-brand-600">Lire la fiche pays →</Link>
+            <Link href={`/pays/${e.pays.toLowerCase()}/`} className="text-[13px] font-bold text-brand-600">Lire la fiche pays →</Link>
             {e.site_web && <a href={e.site_web} target="_blank" rel="noopener noreferrer" className="mt-1 flex items-center gap-1.5 text-[13px] font-bold text-ink-soft hover:text-brand-600">Site officiel <ExternalLink size={14} /></a>}
           </div>
         </aside>

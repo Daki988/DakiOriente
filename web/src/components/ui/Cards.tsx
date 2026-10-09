@@ -72,7 +72,7 @@ export function PaysCard({ code }: { code: PaysCode }) {
         </div>
         <div className="mt-auto flex items-center justify-between">
           <div className="flex pl-2">{withLogo.map((e) => <EtabLogo key={e.id} e={e} size={38} className="-ml-2 shadow-sm" />)}</div>
-          <Link href={`/pays/${code}/`} className="btn-ghost px-3.5 py-2.5">Découvrir <ArrowRight size={16} /></Link>
+          <Link href={`/pays/${code.toLowerCase()}/`} className="btn-ghost px-3.5 py-2.5">Découvrir <ArrowRight size={16} /></Link>
         </div>
       </div>
     </Tilt>

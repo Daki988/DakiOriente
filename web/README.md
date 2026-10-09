@@ -19,7 +19,7 @@ Maquettes de référence (à valider avant tout changement visuel) : https://www
 | `/formations`, `/formations/[id]` | Recherche filtrable des offres, fiche formation (compatibilité, admission, débouchés, logement) |
 | `/metiers`, `/metiers/[id]` | 96 fiches métiers ; parcours série → formations → écoles → métier |
 | `/etablissements`, `/etablissements/[id]` | 79 écoles privées et inter-États ; fiche avec galerie photos, formations reliées aux métiers, budget, écoles comparables |
-| `/pays`, `/pays/[code]` | Fiches pays (Gabon, Maroc, Sénégal) : système d'études, visa, budget, villes, écoles |
+| `/pays`, `/pays/[code]` (ga, ma, sn) | Fiches pays (Gabon, Maroc, Sénégal) : système d'études, visa, budget, villes, écoles |
 | `/comparateur` | Comparaison d'écoles par formation ou par métier visé (coût total, admission, visa, logement) ; paramètres `f`, `m`, `e`, `pays` |
 | `/devis` | Devis parents sur toute la durée des études (moteur `src/lib/devis.ts`), export PDF par impression ; paramètres `etab`, `f`, `o`, `l`, `d` |
 | `/pourquoi` | Valeur ajoutée par type d'utilisateur |

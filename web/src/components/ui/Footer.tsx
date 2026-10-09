@@ -3,7 +3,7 @@ import { Brand } from "./Brand";
 
 const cols = [
   { t: "Plateforme", l: [["Orientation", "/orientation"], ["Métiers", "/metiers"], ["Formations", "/formations"], ["Établissements", "/etablissements"], ["Comparateur", "/comparateur"], ["Navilease", "/navilease"]] },
-  { t: "Pays", l: [["Gabon", "/pays/GA"], ["Maroc", "/pays/MA"], ["Sénégal", "/pays/SN"]] },
+  { t: "Pays", l: [["Gabon", "/pays/ga"], ["Maroc", "/pays/ma"], ["Sénégal", "/pays/sn"]] },
   { t: "Ressources", l: [["Devis parents", "/devis"], ["Espace parent", "/espace/parent"], ["Actualités", "/actualites"], ["Ma série au lycée", "/orientation#series"], ["Mon espace", "/espace"]] },
   { t: "Navigoal", l: [["Pourquoi Navigoal", "/pourquoi"], ["Établissements partenaires", "/etablissements"], ["Bailleurs", "/navilease#bailleurs"], ["Contact", "mailto:contact@navigoal.com"]] },
 ];

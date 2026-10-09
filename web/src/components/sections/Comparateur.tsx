@@ -80,7 +80,7 @@ export function Comparateur() {
     { lab: "FRAIS DE SCOLARITÉ (estim.)", cell: (c) => `${fmt(c.sco.min)} – ${fmt(c.sco.max)} ${c.D.devise}/an` },
     { lab: `COÛT TOTAL ${"{n}"} (devis)`, cell: (c) => <Link href={`/devis/?etab=${c.e.id}&f=${c.ref}&o=${origine}`} className="hover:text-brand-600">{fmt(c.tot[0])} – {fmt(c.tot[1])} {DEVISE_COURT[dev]}<span className="block text-xs font-semibold text-ink-mute">sur {c.D.years} an{c.D.years > 1 ? "s" : ""} · voir le devis →</span></Link>, good: (c) => c.tot[1] === cheapest },
     { lab: "COÛT DE LA VIE / MOIS", cell: (c) => { const b = paysDetailById[c.e.pays].budget; return `${fmt(b.total_mensuel.min)} – ${fmt(b.total_mensuel.max)} ${b.devise}`; } },
-    { lab: `VISA (au départ du ${PAYS_NOM[origine]})`, cell: (c) => (c.e.pays === origine ? "Aucun (étudiant national)" : <Link href={`/pays/${c.e.pays}/`} className="hover:text-brand-600">{VISA[c.e.pays]}</Link>) },
+    { lab: `VISA (au départ du ${PAYS_NOM[origine]})`, cell: (c) => (c.e.pays === origine ? "Aucun (étudiant national)" : <Link href={`/pays/${c.e.pays.toLowerCase()}/`} className="hover:text-brand-600">{VISA[c.e.pays]}</Link>) },
     { lab: "MÉTIERS VISÉS", cell: () => <div className="flex flex-wrap gap-1.5">{metiersVises.slice(0, 2).map((m) => <span key={m} className="chip bg-[#f1edff] text-[#6a3df0]">{metierById[m].nom}</span>)}</div> },
     { lab: "LOGEMENT NAVILEASE", cell: (c) => { const b = paysDetailById[c.e.pays].budget; return `Logements vérifiés · dès ${fmt(b.lignes[0].min)} ${b.devise}/mois`; } },
     { lab: "AUTRES FORMATIONS LIÉES", cell: (c) => `${c.m.length} programme${c.m.length > 1 ? "s" : ""}`, good: (c) => c.m.length === maxLiees && maxLiees > 0 },

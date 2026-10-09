@@ -11,11 +11,12 @@ import { PAYS_STYLE } from "@/components/ui/Cards";
 import { PhotoCollage } from "@/components/sections/PhotoCollage";
 import { STATUT_LONG, etablissements, fmt, paysDetailById, paysDetails, vitrine, type PaysCode } from "@/lib/data";
 
-export const generateStaticParams = () => paysDetails.map((p) => ({ code: p.id }));
-export const generateMetadata = ({ params }: { params: { code: PaysCode } }): Metadata => ({ title: `Étudier au ${paysDetailById[params.code]?.nom}`, description: paysDetailById[params.code]?.accroche });
+export const generateStaticParams = () => paysDetails.map((p) => ({ code: p.id.toLowerCase() }));
+const byCode = (c: string) => paysDetailById[c.toUpperCase() as PaysCode];
+export const generateMetadata = ({ params }: { params: { code: string } }): Metadata => ({ title: `Étudier au ${byCode(params.code)?.nom}`, description: byCode(params.code)?.accroche });
 
-export default function PaysDetailPage({ params }: { params: { code: PaysCode } }) {
-  const P = paysDetailById[params.code];
+export default function PaysDetailPage({ params }: { params: { code: string } }) {
+  const P = byCode(params.code);
   const code = P.id;
   const etabs = etablissements.filter((e) => e.pays === code);
   const B = P.budget;
