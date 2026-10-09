@@ -31,7 +31,7 @@ const MENUS: Record<string, { label: string; tint: string; items: Item[] }> = {
     { href: "/bailleur/profil", Icon: ShieldCheck, t: "Vérification & versements" }, ...COMMON] },
   conseiller: { label: "Espace conseiller", tint: "bg-[#e8f8ef] text-[#0f8a46]", items: [{ href: "/conseiller", Icon: Headset, t: "Rendez-vous" }, ...COMMON] },
   admin: { label: "Back-office", tint: "bg-ink text-white", items: [
-    { href: "/admin", Icon: BarChart3, t: "Statistiques" }, { href: "/admin/utilisateurs", Icon: Users, t: "Utilisateurs" }, { href: "/admin/etablissements", Icon: Building2, t: "Établissements" },
+    { href: "/admin", Icon: BarChart3, t: "Statistiques" }, { href: "/admin/utilisateurs", Icon: Users, t: "Utilisateurs" }, { href: "/admin/etablissements", Icon: Building2, t: "Établissements" }, { href: "/admin/homologations", Icon: ShieldCheck, t: "Homologations" },
     { href: "/admin/referentiels", Icon: BookOpen, t: "Référentiels" }, { href: "/admin/navilease", Icon: KeyRound, t: "Navilease" }, { href: "/admin/paiements", Icon: Wallet, t: "Paiements" },
     { href: "/admin/contenus", Icon: Briefcase, t: "Contenus" }, { href: "/admin/journal", Icon: ScrollText, t: "Journal" }, ...COMMON] },
 };

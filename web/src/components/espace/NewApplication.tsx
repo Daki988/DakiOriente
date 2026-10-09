@@ -8,7 +8,9 @@ import { Alert, Button, Empty, Loading, PageHeader, Panel, money, useToast } fro
 import { Check as Checkbox, FileDrop, FormError, Textarea, docLabel, type Doc } from "@/components/app/form";
 import { api } from "@/lib/api";
 import { useAction, useApi } from "@/hooks/useApi";
-import { PAYS_NOM, etabById, serieById, type PaysCode } from "@/lib/data";
+import { etabById, serieById } from "@/lib/data";
+import { useSession } from "@/components/app/Session";
+import { visaResume } from "@/lib/pays-origine";
 import { useUser } from "@/components/app/Session";
 import type { AppDetail, Program } from "./types";
 
@@ -74,7 +76,9 @@ export function NewApplication() {
   const serie = me.data?.profile?.serie;
   const serieOk = !p?.admission.series?.length || !serie || p.admission.series.includes(serie);
   const words = motivation.trim() ? motivation.trim().split(/\s+/).length : 0;
-  const country = (e?.pays ?? "GA") as PaysCode;
+  // Paiements en dirhams (établissements au Maroc) ; visa selon le pays de l'étudiant.
+  const country = "MA";
+  const session = useSession();
   const parent = guardians.data?.find((g) => g.link.status === "actif" && g.parent)?.parent;
   const minor = !!me.data?.birthYear && new Date().getFullYear() - me.data.birthYear < 18;
   const consent = (guardians.data ?? []).some((g) => g.link.consentAt);
@@ -96,7 +100,7 @@ export function NewApplication() {
     <>
       <PageHeader crumbs={[["Mes candidatures", "/espace/candidatures"], ["Nouvelle candidature"]]}
         title={<span className="flex items-center gap-4"><EtabLogo e={etabById[e.id] ?? e} size={56} /><span>Candidater : {p.title}</span></span>}
-        sub={`${e.nom} · ${e.ville.split("/")[0].trim()}, ${PAYS_NOM[country]} · candidature n° ${d.data.application.number}`}
+        sub={`${e.nom} · ${e.ville}, Maroc · candidature n° ${d.data.application.number}`}
         actions={<Button variant="ghost" icon={Bookmark} loading={save.pending} onClick={async () => { await persist(); toast("Brouillon enregistré"); }}>Enregistrer le brouillon</Button>} />
       <ol className="card mb-6 flex items-center gap-2 overflow-x-auto rounded-[22px] p-4 sm:gap-4 sm:p-5">
         {STEPS.map((t, i) => (
@@ -114,7 +118,7 @@ export function NewApplication() {
           <Panel title="Vérifier les conditions" icon={CheckCircle2}>
             <Cond ok={serieOk} t="Série acceptée" s={p.admission.series?.length ? `Séries admises : ${p.admission.series.map((x) => serieById[x]?.code ?? x).slice(0, 10).join(", ")}${serie ? ` · ta série : ${serieById[serie]?.code ?? serie}` : " · renseigne ta série dans ton profil"}` : "Toutes séries"} />
             {p.admission.noteMin != null && <Cond ok t="Moyenne minimale" s={`Moyenne exigée : ${p.admission.noteMin}/20. Elle sera vérifiée sur tes relevés de notes.`} />}
-            <Cond ok t="Étudiants internationaux" s={`Candidatures ouvertes aux étudiants de tous les pays. Visa et séjour : voir la fiche ${PAYS_NOM[country]}.`} />
+            <Cond ok t="Étudiants internationaux" s={session?.country ? `Visa depuis ton pays : ${visaResume(session.country)}.` : "Candidatures ouvertes aux étudiants de tous les pays. Visa et séjour : voir la fiche Maroc."} />
             {(p.admission.concours || p.admission.entretien) && <Alert tone="warn">Admission {p.admission.concours ? "sur concours" : "avec entretien"}{p.admission.prerequis ? ` : ${p.admission.prerequis}` : " (épreuves organisées par l'établissement, souvent à distance pour l'international)."}</Alert>}
             {minor && !consent && <Alert tone="error" title="Consentement parental requis" action={<Link href="/espace/profil#parent" className="btn-sun py-2.5">Inviter mon parent</Link>}>Tu pourras préparer ton dossier, mais l&apos;envoi nécessite l&apos;accord de ton parent ou tuteur.</Alert>}
             {!serieOk && <Alert tone="warn">Ta série ne figure pas parmi les séries habituellement admises. Tu peux candidater, l&apos;établissement étudiera ton dossier.</Alert>}

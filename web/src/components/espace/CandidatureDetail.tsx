@@ -10,7 +10,7 @@ import { Alert, Button, Loading, PageHeader, Panel, StatusBadge, Timeline, dateF
 import { docLabel } from "@/components/app/form";
 import { api, apiUrl } from "@/lib/api";
 import { useAction, useApi } from "@/hooks/useApi";
-import { PAYS_NOM, etabById, type PaysCode } from "@/lib/data";
+import { etabById } from "@/lib/data";
 import { ConversationThread } from "./Conversation";
 import type { AppDetail, Payment } from "./types";
 
@@ -50,7 +50,7 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
     <>
       <PageHeader crumbs={asParent ? [["Vue d'ensemble", "/parent"], [`#${app.number}`]] : [["Mes candidatures", "/espace/candidatures"], [`#${app.number}`]]}
         title={<span className="flex items-center gap-4"><EtabLogo e={etabById[e.id] ?? e} size={56} /><span>{p.title}</span></span>} badge={<StatusBadge status={app.status} />}
-        sub={`${e.nom} · ${e.ville.split("/")[0].trim()}, ${PAYS_NOM[e.pays as PaysCode]} · candidature #${app.number}`}
+        sub={`${e.nom} · ${e.ville}, Maroc · candidature #${app.number}`}
         actions={<><Button variant="ghost" icon={Printer} onClick={() => window.print()}>Imprimer</Button>{app.submittedAt && <a href={apiUrl(`/candidatures/${id}/bordereau.pdf`)} target="_blank" className="btn-ghost"><Download size={16} />Bordereau PDF</a>}</>} />
       {params.get("paiement") === "parent" && <div className="mb-5"><Alert tone="info" title="Demande de paiement envoyée à ton parent">Ton dossier est enregistré ; il passera au statut « Paiement confirmé » dès que ton parent aura réglé les frais.</Alert></div>}
       {app.status === "piece_demandee" && (

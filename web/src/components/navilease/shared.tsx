@@ -39,7 +39,8 @@ export const GENDERS: [string, string][] = [["mixte", "Mixte"], ["filles", "Fill
 export const genderLabel = (g: string) => GENDERS.find(([k]) => k === g)?.[1] ?? g;
 export const MODES: [string, string][] = [["pied", "à pied"], ["transport", "en transport"], ["voiture", "en voiture"]];
 export const modeLabel = (m: string) => MODES.find(([k]) => k === m)?.[1] ?? m;
-export const PAYS: [string, string][] = [["GA", "Gabon"], ["MA", "Maroc"], ["SN", "Sénégal"]];
+/** Navilease : logements étudiants au Maroc. */
+export const PAYS: [string, string][] = [["MA", "Maroc"]];
 export const COUNTRY_OF_CURRENCY: Record<string, string> = { XAF: "GA", MAD: "MA", XOF: "SN" };
 export const CURRENCY_OF_COUNTRY: Record<string, string> = { GA: "XAF", MA: "MAD", SN: "XOF" };
 

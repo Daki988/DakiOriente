@@ -1,4 +1,5 @@
 "use client";
+import { paysOrigine } from "@/lib/pays-origine";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, RefreshCw } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
@@ -10,8 +11,8 @@ import type { ApiError } from "@/lib/api";
 export const ROLE_LABEL: Record<string, string> = { eleve: "Élève", etudiant: "Étudiant·e", parent: "Parent", etablissement: "Établissement", bailleur: "Bailleur", conseiller: "Conseiller", admin: "Administrateur" };
 export const ROLE_TONE: Record<string, Tone> = { eleve: "blue", etudiant: "blue", parent: "sun", etablissement: "violet", bailleur: "green", conseiller: "green", admin: "grey" };
 export const ROLE_OPTS: [string, string][] = Object.entries(ROLE_LABEL);
-export const PAYS: Record<string, string> = { GA: "Gabon", MA: "Maroc", SN: "Sénégal" };
-export const PAYS_OPTS: [string, string][] = Object.entries(PAYS);
+export const PAYS: Record<string, string> = Object.fromEntries(paysOrigine.map((p) => [p.id, p.nom]));
+export const PAYS_OPTS: [string, string][] = paysOrigine.map((p) => [p.id, p.nom]);
 const FLAG: Record<string, string> = { GA: "🇬🇦", MA: "🇲🇦", SN: "🇸🇳", CI: "🇨🇮", CM: "🇨🇲", CG: "🇨🇬", FR: "🇫🇷" };
 export const Flag = ({ code, withName }: { code: string | null | undefined; withName?: boolean }) =>
   code ? <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><span aria-hidden>{FLAG[code] ?? "🏳️"}</span>{withName ? <span>{PAYS[code] ?? code}</span> : <span className="sr-only">{PAYS[code] ?? code}</span>}</span> : <span className="text-ink-mute">—</span>;

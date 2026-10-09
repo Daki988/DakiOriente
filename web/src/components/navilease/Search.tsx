@@ -146,7 +146,7 @@ export function NavileaseSearch() {
             </label>
             <label className="flex flex-col rounded-xl px-3 py-1.5 hover:bg-[#f6f8fe]">
               <span className="text-[11px] font-bold text-ink-mute">Ville</span>
-              <input className="w-full bg-transparent text-sm font-bold outline-none placeholder:font-normal placeholder:text-ink-mute" placeholder="Libreville, Dakar…" value={f.ville} onChange={(e) => setF({ ...f, ville: e.target.value })} />
+              <input className="w-full bg-transparent text-sm font-bold outline-none placeholder:font-normal placeholder:text-ink-mute" placeholder="Casablanca, Rabat, Marrakech…" value={f.ville} onChange={(e) => setF({ ...f, ville: e.target.value })} />
             </label>
             <label className="flex flex-col rounded-xl px-3 py-1.5 hover:bg-[#f6f8fe]">
               <span className="text-[11px] font-bold text-ink-mute">Budget max / mois</span>

@@ -1,6 +1,6 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, BadgeInfo, CalendarDays, CheckCircle2, GraduationCap, Link2, ListChecks, Plus, Search, Wallet } from "lucide-react";
+import { ArrowLeft, BadgeInfo, CalendarDays, CheckCircle2, GraduationCap, Link2, ListChecks, Plus, Search, ShieldCheck, Wallet } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Alert, Button, Chip, Empty, Loading, PageHeader, money, useToast } from "@/components/app/kit";
 import { Check, Field, FormError, Input, Select, Textarea } from "@/components/app/form";
@@ -12,11 +12,12 @@ import { ChipPicker, PAYS_LABEL, SCHOOL_DOC_TYPES, SubTitle, Toggle, clean, type
 
 type FormState = {
   formationId: string; title: string; description: string; durationYears: string; language: string;
+  faculty: string; diploma: string; level: string; options: string; homologationRef: string;
   tuitionMin: string; tuitionMax: string; currency: string; applicationFee: string;
   series: string[]; noteMin: string; concours: boolean; entretien: boolean; prerequis: string;
   requiredDocuments: string[]; seats: string; startDate: string; active: boolean;
 };
-const CURRENCY: Record<string, string> = { MA: "MAD", GA: "XAF", SN: "XOF" };
+const NIVEAUX: [string, string][] = [["niv-bac2", "Bac+2"], ["niv-bac3", "Bac+3"], ["niv-bac5", "Bac+5"], ["niv-bac7", "Bac+6/7 (doctorat d'exercice)"], ["niv-bac8", "Spécialisation après le doctorat"]];
 const LANGS: [string, string][] = [["fr", "Français"], ["en", "Anglais"], ["fr-en", "Français / anglais"], ["ar", "Arabe"], ["fr-ar", "Français / arabe"]];
 const FORMATION_OPTIONS: [string, string][] = [...formations].sort((a, b) => a.intitule.localeCompare(b.intitule, "fr")).map((f) => [f.id, `${f.intitule} · ${f.diplome}`]);
 const DOCS = SCHOOL_DOC_TYPES.filter(([v]) => !["attestation_admission", "piece_garant", "justificatif_ressources"].includes(v));
@@ -25,7 +26,8 @@ const s = (n: number | null | undefined) => (n == null ? "" : String(n));
 function toForm(p: Program | null, pays: string): FormState {
   return {
     formationId: p?.formationId ?? "", title: p?.title ?? "", description: p?.description ?? "", durationYears: s(p?.durationYears), language: p?.language ?? "fr",
-    tuitionMin: s(p?.tuitionMin), tuitionMax: s(p?.tuitionMax), currency: p?.currency ?? CURRENCY[pays] ?? "XAF", applicationFee: p ? s(p.applicationFee) : "0",
+    faculty: p?.faculty ?? "", diploma: p?.diploma ?? "", level: p?.level ?? "", options: p?.options ?? "", homologationRef: "",
+    tuitionMin: s(p?.tuitionMin), tuitionMax: s(p?.tuitionMax), currency: p?.currency ?? (pays === "MA" ? "MAD" : "MAD"), applicationFee: p ? s(p.applicationFee) : "0",
     series: p?.admission.series ?? [], noteMin: s(p?.admission.noteMin), concours: !!p?.admission.concours, entretien: !!p?.admission.entretien, prerequis: p?.admission.prerequis ?? "",
     requiredDocuments: p?.requiredDocuments ?? ["identite", "releve_notes", "diplome", "photo"], seats: s(p?.seats), startDate: p?.startDate ?? "", active: p?.active ?? true,
   };
@@ -33,7 +35,8 @@ function toForm(p: Program | null, pays: string): FormState {
 const num = (v: string) => (v.trim() === "" ? undefined : Number(v.replace(/\s/g, "").replace(",", ".")));
 function toPayload(f: FormState) {
   return {
-    ...clean({ formationId: f.formationId, title: f.title.trim(), description: f.description.trim(), language: f.language, currency: f.currency, startDate: f.startDate.trim() }),
+    ...clean({ formationId: f.formationId, title: f.title.trim(), description: f.description.trim(), language: f.language, currency: f.currency, startDate: f.startDate.trim(), diploma: f.diploma.trim(), options: f.options.trim(), homologationRef: f.homologationRef.trim() }),
+    faculty: f.faculty.trim(), level: f.level || undefined,
     durationYears: num(f.durationYears), tuitionMin: num(f.tuitionMin), tuitionMax: num(f.tuitionMax), applicationFee: num(f.applicationFee) ?? 0, seats: num(f.seats),
     admission: { ...clean({ prerequis: f.prerequis.trim() }), series: f.series, noteMin: num(f.noteMin), concours: f.concours, entretien: f.entretien },
     requiredDocuments: f.requiredDocuments, active: f.active,
@@ -82,7 +85,7 @@ export function Formations() {
   const saved = (p: Program, created: boolean) => {
     r.setData((l) => (created ? [...(l ?? []), p] : l?.map((x) => (x.id === p.id ? p : x))));
     setSel(p.id);
-    toast(created ? "Formation créée et publiée." : "Formation enregistrée.");
+    toast(created ? "Formation créée : elle sera publiée après vérification de son homologation." : p.homologated ? "Formation enregistrée." : "Formation enregistrée : homologation en cours de vérification.");
   };
 
   return (
@@ -103,7 +106,8 @@ export function Formations() {
                     className={`card flex cursor-pointer flex-col gap-2 rounded-[18px] p-4 text-left transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#e3dbff] ${on ? "border-2 border-[#6a3df0]" : "hover:border-[#d9cffd]"} ${p.active ? "" : "opacity-75"}`}>
                     <div className="flex items-start justify-between gap-3"><b className="text-[15px] leading-snug">{p.title}</b><Toggle size="sm" checked={p.active} disabled={busy === p.id} onChange={(v) => toggle(p, v)} label={`${p.active ? "Masquer" : "Publier"} ${p.title}`} /></div>
                     <div className="flex flex-wrap gap-1.5">
-                      {f && <Chip tone="violet">{f.diplome}</Chip>}
+                      <HomologationChip p={p} />
+                      {(p.diploma || f) && <Chip tone="violet">{p.diploma ?? f?.diplome}</Chip>}
                       {p.durationYears && <Chip tone="grey">{p.durationYears} an{p.durationYears > 1 ? "s" : ""}</Chip>}
                       {p.indicative && <Chip tone="sun"><BadgeInfo size={12} />Offre indicative à confirmer</Chip>}
                     </div>
@@ -116,7 +120,7 @@ export function Formations() {
           <AnimatePresence mode="wait">
             {editing ? (
               <motion.div key={sel} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
-                <ProgramForm program={current} eid={eid} pays={etab.pays} taken={(r.data ?? []).filter((x) => x.id !== current?.id).map((x) => x.formationId)} onBack={() => setSel(null)} onSaved={saved} />
+                <ProgramForm program={current} eid={eid} pays={etab.pays} onBack={() => setSel(null)} onSaved={saved} />
               </motion.div>
             ) : (
               <div className="hidden lg:block"><Empty icon={GraduationCap} title="Sélectionnez une formation" text="Choisissez une formation dans la liste pour la modifier, ou créez-en une nouvelle." /></div>
@@ -128,7 +132,7 @@ export function Formations() {
   );
 }
 
-function ProgramForm({ program, eid, pays, taken, onBack, onSaved }: { program: Program | null; eid: string; pays: string; taken: string[]; onBack: () => void; onSaved: (p: Program, created: boolean) => void }) {
+function ProgramForm({ program, eid, pays, onBack, onSaved }: { program: Program | null; eid: string; pays: string; onBack: () => void; onSaved: (p: Program, created: boolean) => void }) {
   const [f, setF] = useState<FormState>(() => toForm(program, pays));
   const [errs, setErrs] = useState<Partial<Record<keyof FormState, string>>>({});
   const [others, setOthers] = useState(() => f.series.some((x) => !x.startsWith(pays.toLowerCase() + "-")));
@@ -151,7 +155,6 @@ function ProgramForm({ program, eid, pays, taken, onBack, onSaved }: { program: 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     const v = validate(f);
-    if (!v.formationId && taken.includes(f.formationId)) v.formationId = "Vous publiez déjà une formation rattachée à ce type : modifiez-la plutôt.";
     setErrs(v);
     if (Object.keys(v).length) { act.setError("Vérifiez les champs signalés."); return; }
     const body = toPayload(f);
@@ -166,7 +169,7 @@ function ProgramForm({ program, eid, pays, taken, onBack, onSaved }: { program: 
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="flex flex-col gap-1">
           <h2 className="text-xl font-extrabold">{program ? "Modifier la formation" : "Nouvelle formation"}</h2>
-          <span className="text-[13px] text-ink-mute">{program ? `Dernière modification le ${new Date(program.updatedAt).toLocaleDateString("fr-FR")}` : "Elle sera visible des candidats dès l'enregistrement si elle est active."}</span>
+          <span className="text-[13px] text-ink-mute">{program ? `Dernière modification le ${new Date(program.updatedAt).toLocaleDateString("fr-FR")}` : "Elle sera visible des candidats une fois son homologation vérifiée par Navigoal."}</span>
           {program?.indicative && <Chip tone="sun" className="mt-1 self-start"><BadgeInfo size={12} />Offre indicative à confirmer · l&apos;enregistrement la confirme</Chip>}
         </div>
         <label className="flex items-center gap-3 text-sm font-bold">{f.active ? "Active" : "Masquée"}<Toggle checked={f.active} onChange={(v) => set("active", v)} label="Formation active" /></label>
@@ -192,11 +195,24 @@ function ProgramForm({ program, eid, pays, taken, onBack, onSaved }: { program: 
       </section>
 
       <section className="flex flex-col gap-4">
+        <SubTitle icon={<ShieldCheck size={16} />}>Homologation par l&apos;État</SubTitle>
+        {program && <div className="flex flex-wrap items-center gap-2 text-[13px]"><HomologationChip p={program} />{program.homologation?.texte && <span className="text-ink-mute">{program.homologation.texte}</span>}</div>}
+        <p className="text-[13px] text-ink-mute">Seules les filières accréditées par l&apos;État sont publiées sur Navigoal. Indiquez l&apos;arrêté d&apos;accréditation : l&apos;équipe Navigoal le vérifie avant publication (et à chaque changement d&apos;intitulé).</p>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Field label="Faculté ou école (universités)" hint="Laisser vide pour un établissement sans composantes">{(id) => <Input id={id} value={f.faculty} onChange={(e) => set("faculty", e.target.value)} maxLength={200} />}</Field>
+          <Field label="Diplôme délivré" hint="Ex. : Diplôme d'ingénieur, Licence, Master">{(id) => <Input id={id} value={f.diploma} onChange={(e) => set("diploma", e.target.value)} maxLength={160} />}</Field>
+          <Field label="Niveau">{(id) => <Select id={id} value={f.level} onChange={(e) => set("level", e.target.value)} options={NIVEAUX} placeholder="Choisir…" />}</Field>
+          <Field label="Options / parcours">{(id) => <Input id={id} value={f.options} onChange={(e) => set("options", e.target.value)} maxLength={500} />}</Field>
+          <Field label="Arrêté d'accréditation" className="md:col-span-2" hint="N° de l'arrêté et du Bulletin officiel, ex. : Arrêté n° 1246.26 (BO n° 7535)">{(id) => <Input id={id} value={f.homologationRef} onChange={(e) => set("homologationRef", e.target.value)} maxLength={300} placeholder={program?.homologated ? "Renseigner seulement en cas de renouvellement" : ""} />}</Field>
+        </div>
+      </section>
+
+      <section className="flex flex-col gap-4">
         <SubTitle icon={<Wallet size={16} />}>Frais</SubTitle>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Field label="Scolarité min / an" error={errs.tuitionMin}>{(id) => <Input id={id} inputMode="numeric" value={f.tuitionMin} onChange={(e) => set("tuitionMin", e.target.value)} />}</Field>
           <Field label="Scolarité max / an" error={errs.tuitionMax}>{(id) => <Input id={id} inputMode="numeric" value={f.tuitionMax} onChange={(e) => set("tuitionMax", e.target.value)} />}</Field>
-          <Field label="Devise">{(id) => <Select id={id} value={f.currency} onChange={(e) => set("currency", e.target.value)} options={[["MAD", "MAD"], ["XAF", "F CFA (XAF)"], ["XOF", "F CFA (XOF)"], ["EUR", "EUR"]]} />}</Field>
+          <Field label="Devise">{(id) => <Select id={id} value={f.currency} onChange={(e) => set("currency", e.target.value)} options={[["MAD", "Dirham (MAD)"], ["EUR", "Euro (EUR)"]]} />}</Field>
           <Field label="Frais de dossier" error={errs.applicationFee} hint="0 = gratuit">{(id) => <Input id={id} inputMode="numeric" value={f.applicationFee} onChange={(e) => set("applicationFee", e.target.value)} />}</Field>
         </div>
       </section>
@@ -239,4 +255,11 @@ function ProgramForm({ program, eid, pays, taken, onBack, onSaved }: { program: 
       </div>
     </form>
   );
+}
+
+/** Statut d'homologation d'une filière : publiée (accréditée), en vérification ou refusée. */
+function HomologationChip({ p }: { p: Program }) {
+  if (p.homologated) return <Chip tone="green"><ShieldCheck size={12} />Homologuée{p.homologation?.fin ? ` · jusqu'en ${p.homologation.fin}` : ""}</Chip>;
+  if (p.homologation?.statut === "refusee") return <Chip tone="rose">Homologation refusée</Chip>;
+  return <Chip tone="sun"><BadgeInfo size={12} />En vérification par Navigoal</Chip>;
 }

@@ -15,6 +15,8 @@ export type Membership = { e: Etab; role: string };
 
 export type Program = {
   id: string; establishmentId: string; formationId: string; title: string; description: string | null; durationYears: number | null; language: string | null;
+  faculty: string; campus: string | null; diploma: string | null; level: string | null; options: string | null;
+  homologated: boolean; homologation: { statut: string; fin?: string; texte?: string } | null;
   tuitionMin: number | null; tuitionMax: number | null; currency: string | null; feesConfirmed: boolean; applicationFee: number;
   admission: { series?: string[]; noteMin?: number; concours?: boolean; entretien?: boolean; prerequis?: string };
   requiredDocuments: string[]; seats: number | null; startDate: string | null; active: boolean; indicative: boolean; updatedAt: string;

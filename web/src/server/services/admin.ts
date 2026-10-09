@@ -1,4 +1,4 @@
-import { and, count, desc, eq, ilike, inArray, or, sql } from "drizzle-orm";
+import { and, count, desc, eq, ilike, inArray, isNull, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db, schema } from "../db";
 import { audit } from "../lib/audit";
@@ -53,10 +53,10 @@ export async function createStaff(a: User, i: { role: "conseiller" | "admin"; fi
 }
 
 // ---------------------------------------------------------------- Établissements
-export async function listEstablishmentsAdmin(a: User, f: { status?: string; pays?: string; q?: string }) {
+export async function listEstablishmentsAdmin(a: User, f: { status?: string; pays?: string; label?: string; q?: string }) {
   admin(a);
-  return db.select({ e: schema.establishments, members: sql<number>`(select count(*)::int from establishment_members m where m.establishment_id = ${schema.establishments.id})`, programs: sql<number>`(select count(*)::int from programs p where p.establishment_id = ${schema.establishments.id} and p.active)` })
-    .from(schema.establishments).where(and(f.status ? eq(schema.establishments.status, f.status as never) : undefined, f.pays ? eq(schema.establishments.pays, f.pays) : undefined, f.q ? or(ilike(schema.establishments.nom, `%${f.q}%`), ilike(schema.establishments.sigle, `%${f.q}%`)) : undefined))
+  return db.select({ e: schema.establishments, members: sql<number>`(select count(*)::int from establishment_members m where m.establishment_id = ${schema.establishments.id})`, programs: sql<number>`(select count(*)::int from programs p where p.establishment_id = ${schema.establishments.id} and p.active and p.homologated)` })
+    .from(schema.establishments).where(and(f.status ? eq(schema.establishments.status, f.status as never) : undefined, f.pays ? eq(schema.establishments.pays, f.pays) : undefined, f.label === "aucun" ? isNull(schema.establishments.label) : f.label ? eq(schema.establishments.label, f.label) : undefined, f.q ? or(ilike(schema.establishments.nom, `%${f.q}%`), ilike(schema.establishments.sigle, `%${f.q}%`)) : undefined))
     .orderBy(schema.establishments.pays, schema.establishments.nom);
 }
 

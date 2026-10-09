@@ -24,6 +24,7 @@
     },
     "sources": [
       "data/sources/maroc/autorisations_tables.json",
+      "data/sources/maroc/enrichissement.json",
       "data/sources/maroc/filieres_accreditees_eesp_2024-2025.json",
       "data/sources/maroc/rapport_build.json",
       "data/sources/maroc/reconnus_par_l_etat_2026.txt",
@@ -46,7 +47,8 @@
       "reconnaissance_en_cours": false,
       "site_web": "https://www.uir.ac.ma",
       "annee_creation": 2010,
-      "adresse": null,
+      "adresse": "Parc Technopolis, Rocade Rabat-Salé, 11100 Sala Al Jadida",
+      "description": "Université privée créée dans le cadre d'un partenariat avec l'État, regroupant des écoles et facultés en ingénierie (dont aéronautique), business, sciences politiques, architecture, santé (médecine, médecine dentaire) et sciences humaines.",
       "coordonnees": {
         "lat": 33.985001,
         "lng": -6.72376
@@ -488,7 +490,8 @@
       "reconnaissance_en_cours": false,
       "site_web": "https://um6ss.ma",
       "annee_creation": 2014,
-      "adresse": null,
+      "adresse": "Anfa City, Boulevard Mohammed Taïeb Naciri, Commune Hay Hassani, Casablanca",
+      "description": "Université à but non lucratif créée en partenariat avec l'État, consacrée aux sciences de la santé : médecine, médecine dentaire, pharmacie, sciences infirmières, ingénierie biomédicale, santé publique et médecine vétérinaire.",
       "coordonnees": {
         "lat": 33.586004514,
         "lng": -7.627231457
@@ -1384,9 +1387,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 3)",
       "reconnaissance_en_cours": false,
-      "site_web": "http://www.uiass.ma",
+      "site_web": "https://www.uiass.ma",
       "annee_creation": 2014,
-      "adresse": null,
+      "adresse": "Avenue Allal Al Fassi, Madinat Al Irfane (Hay Riad), Rabat",
+      "description": "Université privée à but non lucratif (Fondation Cheikh Zaïd) dédiée aux sciences de la santé : médecine, médecine dentaire, pharmacie, sciences infirmières, ingénierie de la santé, psychologie et institut vétérinaire.",
       "coordonnees": {
         "lat": 33.977470111,
         "lng": -6.869773473
@@ -1731,7 +1735,8 @@
       "reconnaissance_en_cours": false,
       "site_web": "https://ueuromed.org",
       "annee_creation": 2012,
-      "adresse": null,
+      "adresse": "Route Nationale Fès-Meknès (Route de Meknès, BP 51), 30000 Fès",
+      "description": "Université euro-méditerranéenne créée en partenariat avec l'État et labellisée par l'Union pour la Méditerranée ; elle regroupe des écoles d'ingénieurs, une école de commerce, une école d'architecture, ainsi que des facultés de sciences humaines, de médecine, de médecine dentaire et de pharmacie.",
       "coordonnees": {
         "lat": 34.045817664,
         "lng": -5.065275661
@@ -2288,8 +2293,9 @@
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 5)",
       "reconnaissance_en_cours": false,
       "site_web": "https://um6p.ma",
-      "annee_creation": 2017,
-      "adresse": null,
+      "annee_creation": 2013,
+      "adresse": "Lot 660, Hay Moulay Rachid, 43150 Ben Guérir",
+      "description": "Université à but non lucratif orientée vers la recherche, créée à l'initiative du groupe OCP ; elle propose des formations en ingénierie, sciences, agriculture, médecine et pharmacie, économie, gouvernance et sciences humaines.",
       "coordonnees": {
         "lat": 32.21889885,
         "lng": -7.935571869
@@ -2519,7 +2525,8 @@
       "reconnaissance_en_cours": false,
       "site_web": "https://upm.ac.ma",
       "annee_creation": 2005,
-      "adresse": null,
+      "adresse": "Km 13, Route d'Amizmiz (route du barrage Lalla Takerkoust), 42312 Marrakech",
+      "description": "Université privée pluridisciplinaire proposant des formations en management, ingénierie, architecture et design, arts et médias, droit, ainsi que des métiers de la santé et une faculté de médecine.",
       "coordonnees": {
         "lat": 31.51955808,
         "lng": -8.062966984
@@ -2990,8 +2997,9 @@
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 7)",
       "reconnaissance_en_cours": false,
       "site_web": "https://universiapolis.ma",
-      "annee_creation": 2005,
-      "adresse": null,
+      "annee_creation": 1989,
+      "adresse": "Campus Universiapolis, Bab Al Madina, Quartier Tilila, BP 814, Agadir",
+      "description": "Université privée regroupant plusieurs établissements à Agadir : école de commerce (ISIAM), école polytechnique, école de tourisme et d'hôtellerie, faculté de droit et sciences politiques, faculté des sciences de la rééducation et faculté de pharmacie.",
       "coordonnees": {
         "lat": 30.403978621,
         "lng": -9.530693182
@@ -3283,7 +3291,8 @@
       "reconnaissance_en_cours": false,
       "site_web": "https://uic.ac.ma",
       "annee_creation": 2010,
-      "adresse": null,
+      "adresse": "Casa Green Town, Route provinciale 3020, Ville Verte, Bouskoura (province de Nouaceur), Casablanca",
+      "description": "Université privée membre du réseau Honoris United Universities, proposant des formations en médecine, médecine dentaire, pharmacie, ingénierie, architecture, commerce et gestion, hôtellerie et droit.",
       "coordonnees": {
         "lat": 33.495634298,
         "lng": -7.610467916
@@ -3525,7 +3534,8 @@
       "reconnaissance_en_cours": false,
       "site_web": "https://www.mundiapolis.ma",
       "annee_creation": 2009,
-      "adresse": null,
+      "adresse": "Aéropole de Formation Mohammed V, BP 128, 26020 Nouaceur (Casablanca)",
+      "description": "Université privée membre du réseau Honoris United Universities, proposant des formations en management, ingénierie, sciences politiques et juridiques, communication et sciences de la santé.",
       "coordonnees": {
         "lat": 33.3821,
         "lng": -7.56765
@@ -3667,7 +3677,8 @@
       "reconnaissance_en_cours": false,
       "site_web": "https://upf.ac.ma",
       "annee_creation": 2006,
-      "adresse": null,
+      "adresse": "Lotissement Quaraouiyine, Route Ain Chkef, 30000 Fès",
+      "description": "Université privée regroupant une faculté des sciences de l'ingénieur, une école de commerce (Fès Business School), une école d'architecture et du bâtiment, une faculté des sciences paramédicales et une faculté de médecine dentaire.",
       "coordonnees": {
         "lat": 34.007,
         "lng": -5.0165
@@ -4073,9 +4084,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "site_web": "https://upssa.ac.ma",
+      "annee_creation": 2023,
+      "adresse": "Lotissement Marhaba, Rue Isli, RN1, Agadir",
+      "description": "Université privée consacrée aux sciences de la santé, avec des facultés de médecine, pharmacie, médecine dentaire, sciences infirmières et techniques de santé et sciences biomédicales appliquées ; elle propose aussi des formations en management et en ingénierie.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -4151,7 +4163,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-upssa.png",
+        "source_url": "https://www.google.com/s2/favicons?domain=upssa.ac.ma&sz=256",
+        "page_source": "https://upssa.ac.ma",
+        "methode": "favicon",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -4171,9 +4190,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "site_web": "https://www.universiteaverroes.ma",
+      "annee_creation": 2025,
+      "adresse": "Lotissement La Colline 2, Sidi Maârouf, Casablanca",
+      "description": "Université privée adossée au groupe UNA, composée d'une école d'ingénieurs, d'une école de commerce (Averroès Business School, ex-ESIG) et d'une faculté de droit et de sciences politiques.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -4198,7 +4218,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-averroes.png",
+        "source_url": "https://www.una.ma/wp-content/uploads/2025/05/logo-uia-blu.jpg",
+        "page_source": "https://www.universiteaverroes.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -4218,9 +4245,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
+      "site_web": "https://morocco.arabou.edu.kw",
+      "annee_creation": 2026,
       "adresse": null,
+      "description": "Branche marocaine de l'Université Arabe Ouverte (réseau à but non lucratif basé au Koweït, en partenariat avec l'Open University britannique), proposant des formations en informatique et data science, administration des affaires, et langue anglaise et traduction.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -4316,9 +4344,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 9)",
       "reconnaissance_en_cours": false,
-      "site_web": "http://www.ecolearchicasa.com",
+      "site_web": "https://www.ecolearchicasa.com",
       "annee_creation": 2004,
-      "adresse": null,
+      "adresse": "Angle Bd Abou Hanifa Al Noâman et Tarik Al Kheir, Quartier Al Qods, Sidi Bernoussi, Casablanca",
+      "description": "École d'architecture créée dans le cadre d'un partenariat avec l'État, formant des architectes et proposant des formations en architecture du paysage, urbanisme et aménagement, et BIM.",
       "coordonnees": {
         "lat": 33.611870151,
         "lng": -7.492184988
@@ -4422,9 +4451,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 10)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "site_web": "https://centrale-casablanca.ma",
+      "annee_creation": 2015,
+      "adresse": "Ville Verte, Bouskoura (province de Nouaceur), Casablanca",
+      "description": "École d'ingénieurs généraliste créée dans le cadre d'un partenariat avec l'État et CentraleSupélec, formant des ingénieurs centraliens ; elle propose aussi un bachelor en data science.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -4465,7 +4495,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ecc.png",
+        "source_url": "https://centrale-casablanca.ma/wp-content/uploads/2023/01/Logo-150x150.png",
+        "page_source": "https://centrale-casablanca.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -4487,7 +4524,8 @@
       "reconnaissance_en_cours": false,
       "site_web": "https://esca.ma",
       "annee_creation": 1992,
-      "adresse": null,
+      "adresse": "67-3 Avenue de l'Aéropostale, Casablanca Finance City (CFC), 20250 Casablanca",
+      "description": "École de management reconnue par l'État, proposant des programmes en management, finance, marketing digital et ressources humaines.",
       "coordonnees": {
         "lat": 33.561951111,
         "lng": -7.662113888
@@ -4590,6 +4628,7 @@
       "site_web": "https://estem.ma",
       "annee_creation": 1994,
       "adresse": null,
+      "description": null,
       "coordonnees": {
         "lat": 33.595905655,
         "lng": -7.630548645
@@ -4816,6 +4855,7 @@
       "site_web": "http://www.iga.ac.ma",
       "annee_creation": 1981,
       "adresse": null,
+      "description": null,
       "coordonnees": {
         "lat": 33.590977932,
         "lng": -7.591134131
@@ -4951,6 +4991,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5076,7 +5117,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-emsi.png",
+        "source_url": "https://emsi.ma/wp-content/uploads/2024/03/logo-vert.png",
+        "page_source": "https://emsi.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -5099,6 +5147,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5207,7 +5256,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-emsi.png",
+        "source_url": "https://emsi.ma/wp-content/uploads/2024/03/logo-vert.png",
+        "page_source": "https://emsi.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -5230,6 +5286,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5338,7 +5395,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-emsi.png",
+        "source_url": "https://emsi.ma/wp-content/uploads/2024/03/logo-vert.png",
+        "page_source": "https://emsi.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -5361,6 +5425,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5469,7 +5534,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-emsi.png",
+        "source_url": "https://emsi.ma/wp-content/uploads/2024/03/logo-vert.png",
+        "page_source": "https://emsi.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -5492,6 +5564,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5600,7 +5673,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-emsi.png",
+        "source_url": "https://emsi.ma/wp-content/uploads/2024/03/logo-vert.png",
+        "page_source": "https://emsi.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-08",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -5623,6 +5703,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5681,7 +5762,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-isga.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/ISGA_Logo.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:ISGA_Logo.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -5704,6 +5792,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5745,7 +5834,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-isga.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/ISGA_Logo.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:ISGA_Logo.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -5768,6 +5864,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5826,7 +5923,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-isga.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/ISGA_Logo.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:ISGA_Logo.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -5849,6 +5953,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5873,7 +5978,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-isga.png",
+        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/ISGA_Logo.png?width=256",
+        "page_source": "https://commons.wikimedia.org/wiki/File:ISGA_Logo.png",
+        "methode": "wikidata_p154",
+        "date_collecte": "2026-10-08",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -5896,6 +6008,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5994,6 +6107,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6041,6 +6155,7 @@
       "site_web": "https://hem.ac.ma",
       "annee_creation": 1988,
       "adresse": null,
+      "description": null,
       "coordonnees": {
         "lat": 35.786521297,
         "lng": -5.757105034
@@ -6115,6 +6230,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6179,6 +6295,7 @@
       "site_web": "https://www.supmanagement.ma",
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": {
         "lat": 34.035735709,
         "lng": -4.994294269
@@ -6252,6 +6369,7 @@
       "site_web": "https://www.eigsica.ma",
       "annee_creation": 1990,
       "adresse": null,
+      "description": null,
       "coordonnees": {
         "lat": 46.1401,
         "lng": -1.15459
@@ -6309,6 +6427,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6373,6 +6492,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6487,6 +6607,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6534,6 +6655,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6698,6 +6820,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6813,6 +6936,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6860,6 +6984,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6958,6 +7083,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7073,6 +7199,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7120,6 +7247,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7167,6 +7295,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7299,6 +7428,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7396,6 +7526,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7443,6 +7574,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7574,6 +7706,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7736,6 +7869,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7849,6 +7983,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7896,6 +8031,7 @@
       "site_web": "http://www.hightech.edu",
       "annee_creation": 1986,
       "adresse": null,
+      "description": null,
       "coordonnees": {
         "lat": 33.970372221,
         "lng": -6.862155902
@@ -7970,6 +8106,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8118,6 +8255,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8165,6 +8303,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8212,6 +8351,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8326,6 +8466,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8423,6 +8564,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8470,6 +8612,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8615,6 +8758,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8662,6 +8806,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8760,6 +8905,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8824,6 +8970,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8871,6 +9018,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8952,6 +9100,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9029,9 +9178,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "site_web": "https://iheps.ac.ma",
+      "annee_creation": 2016,
+      "adresse": "372, boulevard Ghandi, Casablanca",
+      "description": "Campus casablancais de l'IHEPS, établissement privé de formation paramédicale. Il forme notamment en kinésithérapie, orthophonie et diététique.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9072,7 +9222,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-iheps-casa.png",
+        "source_url": "https://iheps.ac.ma/wp-content/uploads/2024/08/IHEPS-8-55x55.png",
+        "page_source": "https://iheps.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -9092,9 +9249,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "site_web": "https://iheps.ac.ma",
+      "annee_creation": 2007,
+      "adresse": "Targa n°1, en face d'Andalusia Academy, Marrakech",
+      "description": "Institut privé d'enseignement supérieur paramédical créé à Marrakech, siège historique du réseau IHEPS. Il propose des formations en kinésithérapie, orthophonie et diététique.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9119,7 +9277,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-iheps-marrakech.png",
+        "source_url": "https://iheps.ac.ma/wp-content/uploads/2024/08/IHEPS-8-55x55.png",
+        "page_source": "https://iheps.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -9139,9 +9304,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "site_web": "https://www.isfort-maroc.com",
+      "annee_creation": 1995,
+      "adresse": "94, rue Allal Ben Abdellah, Casablanca",
+      "description": "Institut privé d'enseignement supérieur spécialisé dans les technologies agroalimentaires et le génie appliqué. Il couvre aussi la qualité, l'hygiène, la sécurité et l'environnement (QHSE).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9183,7 +9349,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-isfort.webp",
+        "source_url": "https://static.wixstatic.com/media/405d95_88cea4d85b8e452ba8bc41d74952d894~mv2.webp/v1/fill/w_235,h_78,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/logo-isfort-maroc.webp",
+        "page_source": "https://www.isfort-maroc.com/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -9203,9 +9376,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "site_web": "https://ecole.es2im.ma",
+      "annee_creation": 2012,
+      "adresse": "53, rue Allal Ben Abdellah, Centre-ville, Casablanca",
+      "description": "École privée d'enseignement supérieur en informatique et multimédia à Casablanca. Elle propose des licences en développement informatique et un cycle d'ingénierie informatique.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9247,7 +9421,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-es2im.png",
+        "source_url": "https://ecole.es2im.ma/assets/img/logo.png",
+        "page_source": "https://ecole.es2im.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -9267,9 +9448,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "site_web": "https://ilcs.ac.ma",
+      "annee_creation": 1996,
+      "adresse": "29, rue Oukaïmeden, Agdal, 10080 Rabat",
+      "description": "Établissement privé d'enseignement supérieur à Rabat, spécialisé en communication, marketing digital, journalisme et traduction.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9310,7 +9492,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ilcs.svg",
+        "source_url": "https://ilcs.ac.ma/wp-content/uploads/2025/12/INTI-University-Logo-Vector.svg-1.svg",
+        "page_source": "https://ilcs.ac.ma/fr/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -9331,8 +9520,9 @@
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
       "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "annee_creation": 2013,
+      "adresse": "18, rue Oued Baht, Agdal, 10090 Rabat",
+      "description": "École privée d'ingénieurs à Rabat-Agdal. Elle propose un cycle préparatoire intégré puis des cycles d'ingénierie : systèmes industriels, systèmes automatisés, génie civil, etc.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9394,9 +9584,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "site_web": "https://esr.ma",
+      "annee_creation": 2011,
+      "adresse": "32, rue Moulay Ali Cherif, Quartier Hassan, 10010 Rabat",
+      "description": "École privée d'enseignement supérieur à Rabat, qui forme en management et en ingénierie informatique (systèmes d'information, réseaux, cybersécurité, marketing digital).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9438,7 +9629,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esrmi.png",
+        "source_url": "https://esr.ma/wp-content/uploads/2024/06/logo-esr.png",
+        "page_source": "https://esr.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -9458,9 +9656,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.ispsni.ma",
       "annee_creation": null,
-      "adresse": null,
+      "adresse": "Malaliyine, route de M'diq, BP 691, 93200 Tétouan",
+      "description": "Institut privé d'enseignement supérieur à Tétouan, consacré aux métiers de la data, du numérique et de l'intelligence artificielle (cycles Bac+3 et Bac+5).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9522,8 +9721,9 @@
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
       "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "annee_creation": 2022,
+      "adresse": "Douar Oulad Malek, Bouskoura (province de Nouaceur)",
+      "description": "Établissement privé d'enseignement supérieur en management, implanté à Bouskoura, en périphérie de Casablanca.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9569,8 +9769,9 @@
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
       "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "annee_creation": 2006,
+      "adresse": "65, rue Jbel Azourki, Hay Salam, Hay Hassani, Casablanca",
+      "description": "Institut privé de formation aux métiers de la santé à Casablanca, qui prépare notamment au métier de manipulateur en radiologie et imagerie médicale.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9615,9 +9816,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "site_web": "https://aerosup.ma",
+      "annee_creation": 2013,
+      "adresse": "390, boulevard Zerktouni, 20040 Casablanca",
+      "description": "École privée d'ingénieurs à Casablanca, spécialisée en ingénierie aéronautique et spatiale, informatique et systèmes embarqués.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9642,7 +9844,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-aerosup.png",
+        "source_url": "https://aerosup.ma/wp-content/uploads/2022/06/cropped-logolight-4-300x300.png",
+        "page_source": "https://aerosup.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -9664,7 +9873,8 @@
       "reconnaissance_en_cours": false,
       "site_web": "https://www.esa-igensia.ma",
       "annee_creation": 1988,
-      "adresse": null,
+      "adresse": "Boulevard Tarik El Ouahda, Aïn Sebaâ, Casablanca",
+      "description": "École de commerce privée créée par la Chambre Française de Commerce et d'Industrie du Maroc (CFCIM), anciennement École Française des Affaires (EFA). Elle propose des licences, bachelors et masters en gestion et management.",
       "coordonnees": null,
       "wikidata": "Q137430474",
       "formations": [
@@ -9748,8 +9958,9 @@
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
       "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "annee_creation": 2008,
+      "adresse": "8, rue Ibn Khatima, Quartier des Hôpitaux, Casablanca",
+      "description": "École privée d'enseignement supérieur en informatique à Casablanca, qui propose un cursus d'ingénierie informatique.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9794,9 +10005,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
+      "site_web": "https://www.hecgi.ma",
+      "annee_creation": 2010,
+      "adresse": "Immeuble 49, rue Jamil Sidqui Zouhaoui, Résidence Douaa Charq, Ville Haute (Anoual), Kénitra",
+      "description": "Établissement privé d'enseignement supérieur à Kénitra, qui forme en commerce, gestion, finance, logistique et informatique de gestion.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9821,7 +10033,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-hecgi.png",
+        "source_url": "https://hecgi.ma/wp-content/uploads/elementor/thumbs/logo-HECGI-officiel-1-1-r85ropaj0ka6sng5fwfshw98a3kbsel7meiqfa7hp8.png",
+        "page_source": "https://www.hecgi.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -9844,6 +10063,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9891,6 +10111,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9938,6 +10159,7 @@
       "site_web": "https://esavmarrakech.com",
       "annee_creation": 2006,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": "Q3578481",
       "formations": [
@@ -9992,6 +10214,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10039,6 +10262,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10086,6 +10310,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10133,6 +10358,7 @@
       "site_web": "http://www.hec.ac.ma",
       "annee_creation": 1988,
       "adresse": null,
+      "description": null,
       "coordonnees": {
         "lat": 33.957634364,
         "lng": -6.880454902
@@ -10190,6 +10416,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10237,6 +10464,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10284,6 +10512,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10331,6 +10560,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10378,6 +10608,7 @@
       "site_web": "https://esjc.ma",
       "annee_creation": 2008,
       "adresse": null,
+      "description": null,
       "coordonnees": {
         "lat": 33.593166666,
         "lng": -7.617416666
@@ -10467,6 +10698,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10548,6 +10780,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10595,6 +10828,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10642,6 +10876,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10739,6 +10974,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
+      "description": null,
       "coordonnees": null,
       "wikidata": null,
       "formations": [

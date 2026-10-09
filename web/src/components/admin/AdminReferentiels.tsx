@@ -22,7 +22,7 @@ const CONF: Record<Ref, { label: string; main: string; fields: FieldDef[]; cols:
     template: { id: "met-", nom: "", domaine: "", niveau_min: "", description: "", riasec: [], missions: [], secteurs: [], formations: [], competences: [] } },
   series: { label: "Séries", main: "intitule", cols: [["code", "Code"], ["pays", "Pays"], ["filiere", "Filière"]],
     fields: [{ k: "code", l: "Code" }, { k: "pays", l: "Pays (GA, MA, SN)", required: true }, { k: "intitule", l: "Intitulé" }, { k: "filiere", l: "Filière" }],
-    template: { id: "", code: "", pays: "GA", intitule: "", filiere: "générale", riasec: [], domaines_ouverts: [], matieres_dominantes: [] } },
+    template: { id: "", code: "", pays: "MA", intitule: "", filiere: "générale", riasec: [], domaines_ouverts: [], matieres_dominantes: [] } },
   competences: { label: "Compétences", main: "libelle", cols: [["categorie", "Catégorie"], ["domaine", "Domaine"]],
     fields: [{ k: "libelle", l: "Libellé", required: true }, { k: "categorie", l: "Catégorie" }, { k: "domaine", l: "Domaine", list: "domaines" }],
     template: { id: "cmp-", libelle: "", categorie: "transversale", domaine: null } },

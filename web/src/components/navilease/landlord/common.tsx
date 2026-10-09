@@ -7,7 +7,8 @@ import { api } from "@/lib/api";
 import { ACTIVE, Cover, VERIF, type BookingRow, type Housing } from "../shared";
 
 export const KYC: Record<string, [string, "grey" | "sun" | "green" | "rose"]> = { non_soumis: ["Non soumise", "grey"], en_revue: ["En vérification", "sun"], valide: ["Identité vérifiée", "green"], refuse: ["Refusée", "rose"] };
-export const PAYOUT_METHODS: [string, string][] = [["airtel_money", "Airtel Money"], ["moov_money", "Moov Money"], ["wave", "Wave"], ["orange_money", "Orange Money"], ["free_money", "Free Money"], ["inwi_money", "inwi money"], ["virement", "Virement bancaire (RIB / IBAN)"]];
+/** Versements aux bailleurs au Maroc. */
+export const PAYOUT_METHODS: [string, string][] = [["virement", "Virement bancaire (RIB marocain)"], ["orange_money", "Orange Money Maroc"], ["inwi_money", "inwi money"], ["agence", "Cash Plus / Wafacash"]];
 
 /** Occupation : nombre de réservations actives par annonce. */
 export const activeByHousing = (rows: BookingRow[]) => rows.reduce<Record<string, number>>((a, r) => (ACTIVE.includes(r.b.status) ? { ...a, [r.h.id]: (a[r.h.id] ?? 0) + 1 } : a), {});

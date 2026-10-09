@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { Empty, Loading, PageHeader, StatusBadge, Tabs, dateFr } from "@/components/app/kit";
 import { useApi } from "@/hooks/useApi";
-import { PAYS_NOM, etabById, type PaysCode } from "@/lib/data";
+import { etabById } from "@/lib/data";
 import type { AppRow } from "./types";
 
 const STEPS = ["brouillon", "soumise", "en_verification", "complet", "en_traitement", "decision"];
@@ -38,7 +38,7 @@ export function Candidatures() {
                 <Link href={r.a.status === "brouillon" ? `/espace/candidatures/nouvelle?id=${r.a.id}` : `/espace/candidatures/${r.a.id}`} className="card flex flex-col gap-4 rounded-[20px] p-4 transition hover:-translate-y-0.5 hover:shadow-lift sm:flex-row sm:items-center sm:p-5">
                   <div className="flex min-w-0 flex-1 items-center gap-4">
                     <EtabLogo e={etabById[r.e.id] ?? r.e} size={52} />
-                    <div className="min-w-0"><b className="block">{r.p.title}</b><span className="text-[13px] text-ink-mute">{r.e.nom} · {r.e.ville.split("/")[0].trim()}, {PAYS_NOM[r.e.pays as PaysCode]} · n° {r.a.number}</span></div>
+                    <div className="min-w-0"><b className="block">{r.p.title}</b><span className="text-[13px] text-ink-mute">{r.e.nom} · {r.e.ville} · n° {r.a.number}</span></div>
                   </div>
                   <div className="flex flex-col gap-2 sm:w-[300px]">
                     <div className="flex items-center justify-between gap-2"><StatusBadge status={r.a.status} /><span className="text-xs text-ink-mute">maj {dateFr(r.a.updatedAt)}</span></div>

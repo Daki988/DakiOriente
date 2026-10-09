@@ -11,7 +11,8 @@ import { api } from "@/lib/api";
 import { useAction, useApi } from "@/hooks/useApi";
 import { useUser } from "@/components/app/Session";
 import { COUTS } from "@/lib/devis";
-import { PAYS_NOM, etabById, type PaysCode } from "@/lib/data";
+import { etabById } from "@/lib/data";
+import { nomPays } from "@/lib/pays-origine";
 import type { AppRow, Payment } from "@/components/espace/types";
 
 type Child = { link: { id: string; consentAt: string | null; relation: string }; child: { id: string; firstName: string; lastName: string; birthYear: number | null; country: string | null; city: string | null } };
@@ -42,7 +43,7 @@ export function ParentHome() {
   const paid = (pays.data ?? []).filter((p) => p.status === "reussi");
   const guarantee = (books.data ?? []).filter((b) => b.b.status === "attente_garant" || (b.b.status === "demande" && !b.b.guarantorId));
   const admitted = (apps.data ?? []).find((a) => a.a.status === "acceptee");
-  const dem = admitted ? COUTS[admitted.e.pays as PaysCode]?.demarches ?? [] : [];
+  const dem = admitted ? COUTS.MA?.demarches ?? [] : [];
   return (
     <div className="flex flex-col gap-6">
       <PageHeader title={`Bonjour ${user.firstName} 👋`} sub={first ? `Suivi de ${first.firstName}${admitted ? ` · admis·e en ${admitted.p.title} · ${admitted.e.sigle}` : ""}` : undefined}
@@ -63,7 +64,7 @@ export function ParentHome() {
             </Link>
           ))}
         </Panel>
-        <Panel title="Régularisation" icon={ShieldCheck} action={admitted && <span className="chip bg-brand-50 text-brand-700">{PAYS_NOM[admitted.e.pays as PaysCode]}</span>}>
+        <Panel title="Régularisation" icon={ShieldCheck} action={admitted && <span className="chip bg-brand-50 text-brand-700">Maroc</span>}>
           {!admitted ? <p className="text-sm text-ink-mute">Les démarches de visa et de séjour s&apos;affichent ici dès l&apos;admission.</p> : dem.map((d, k) => (
             <motion.div key={k} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: k * 0.05 }} className="flex items-start gap-2.5 border-b border-[#f1f4fb] py-2 text-[13px] last:border-0"><CheckCircle2 size={16} className="mt-0.5 shrink-0 text-brand-300" /><span className="flex-1">{d.etape}</span><span className="shrink-0 text-[11px] text-ink-mute">{d.quand}</span></motion.div>
           ))}
@@ -97,7 +98,7 @@ export function ParentChildren() {
           {kids.loading ? <Loading /> : !kids.data?.length ? <Empty icon={UsersRound} title="Aucun enfant lié" text="Saisissez le code d'invitation reçu pour commencer." /> : kids.data.map((c) => (
             <section key={c.link.id} className="card flex flex-col gap-4 rounded-[22px] p-5 sm:flex-row sm:items-center">
               <Avatar name={`${c.child.firstName} ${c.child.lastName}`} size={56} />
-              <span className="flex-1"><b className="block text-lg">{c.child.firstName} {c.child.lastName}</b><span className="text-[13px] text-ink-mute">{c.child.birthYear ? `${new Date().getFullYear() - c.child.birthYear} ans · ` : ""}{[c.child.city, c.child.country && PAYS_NOM[c.child.country as PaysCode]].filter(Boolean).join(", ")} · lié depuis {dateFr(c.link.consentAt ?? undefined)}</span></span>
+              <span className="flex-1"><b className="block text-lg">{c.child.firstName} {c.child.lastName}</b><span className="text-[13px] text-ink-mute">{c.child.birthYear ? `${new Date().getFullYear() - c.child.birthYear} ans · ` : ""}{[c.child.city, c.child.country && nomPays(c.child.country)].filter(Boolean).join(", ")} · lié depuis {dateFr(c.link.consentAt ?? undefined)}</span></span>
               <span className="flex flex-wrap items-center gap-2">
                 {c.link.consentAt ? <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><CheckCircle2 size={13} className="mr-1 inline" />Consentement donné</span> : <span className="chip bg-sun-100 text-[#a55a00]">Consentement en attente</span>}
                 <Button size="sm" variant="ghost" onClick={() => toggle(c)}>{c.link.consentAt ? "Retirer" : "Donner mon consentement"}</Button>
@@ -105,7 +106,7 @@ export function ParentChildren() {
               </span>
             </section>
           ))}
-          <p className="flex items-center gap-2 text-xs text-ink-mute"><ShieldCheck size={14} />Conforme aux lois de protection des données du Gabon (loi 001/2011), du Maroc (loi 09-08) et du Sénégal (loi 2008-12).</p>
+          <p className="flex items-center gap-2 text-xs text-ink-mute"><ShieldCheck size={14} />Données protégées conformément à la loi 09-08 (Maroc, CNDP) et à la loi de votre pays de résidence.</p>
         </div>
       </div>
     </>

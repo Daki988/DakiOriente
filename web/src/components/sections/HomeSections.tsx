@@ -7,7 +7,7 @@ import { EtabLogo } from "@/components/ui/EtabLogo";
 import { MetierCard } from "@/components/ui/Cards";
 import { Marquee } from "@/components/motion/Marquee";
 import { Stagger, StaggerItem, Reveal } from "@/components/motion/Reveal";
-import { etabById, metierById } from "@/lib/data";
+import { etabById, etablissements, metierById } from "@/lib/data";
 
 export function QuickLinks() {
   const q = [
@@ -31,7 +31,8 @@ export function QuickLinks() {
   );
 }
 
-const MARQUEE = ["ma-um6p", "sn-esmt", "ga-ista", "ma-uir", "sn-ism", "ma-hem", "sn-cesag", "ma-emsi", "ga-ufgse", "sn-supdeco", "ma-uic", "sn-daust", "ma-esa-casa", "sn-iam", "ma-iihem", "ga-esgis", "sn-ucao", "ma-tbs-casa"];
+// Établissements publiés ayant un logo (un seul par réseau multi-villes)
+const MARQUEE = etablissements.filter((e, i, all) => e.logo && all.findIndex((x) => x.logo === e.logo) === i).slice(0, 18).map((e) => e.id);
 export function LogosMarquee() {
   return (
     <section className="border-y border-[#eef1f8] bg-white py-7">

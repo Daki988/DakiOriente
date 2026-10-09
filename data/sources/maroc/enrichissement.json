@@ -1,0 +1,206 @@
+{
+  "ma-uir": {
+    "site_web": "https://www.uir.ac.ma",
+    "annee_creation": 2010,
+    "adresse": "Parc Technopolis, Rocade Rabat-Salé, 11100 Sala Al Jadida",
+    "description": "Université privée créée dans le cadre d'un partenariat avec l'État, regroupant des écoles et facultés en ingénierie (dont aéronautique), business, sciences politiques, architecture, santé (médecine, médecine dentaire) et sciences humaines.",
+    "notes": "Campus situé à Sala Al Jadida (agglomération Rabat-Salé, préfecture de Salé), pas dans la commune de Rabat. Adresse issue de la liste ministérielle des universités autorisées 2025-2026."
+  },
+  "ma-um6ss": {
+    "site_web": "https://um6ss.ma",
+    "annee_creation": 2014,
+    "adresse": "Anfa City, Boulevard Mohammed Taïeb Naciri, Commune Hay Hassani, Casablanca",
+    "description": "Université à but non lucratif créée en partenariat avec l'État, consacrée aux sciences de la santé : médecine, médecine dentaire, pharmacie, sciences infirmières, ingénierie biomédicale, santé publique et médecine vétérinaire.",
+    "notes": "um6ss.ma redirige vers fm6ss.ma/fr/um6ss (site de la Fondation). Annexes à Rabat (Madinat Al Irfane), Dakhla, Agadir et Marrakech. Adresse du campus de Casablanca issue d'annuaires (non confirmée sur le site officiel) ; la liste ministérielle indique « Quartier Anfa – Casablanca ». Les coordonnées existantes (33.586, -7.627) semblent correspondre au centre-ville et non au campus Anfa City : à vérifier."
+  },
+  "ma-uiass": {
+    "site_web": "https://www.uiass.ma",
+    "annee_creation": 2014,
+    "adresse": "Avenue Allal Al Fassi, Madinat Al Irfane (Hay Riad), Rabat",
+    "description": "Université privée à but non lucratif (Fondation Cheikh Zaïd) dédiée aux sciences de la santé : médecine, médecine dentaire, pharmacie, sciences infirmières, ingénierie de la santé, psychologie et institut vétérinaire.",
+    "notes": "La liste ministérielle indique « Avenue Allal Al Fassi – Hay Riyad », le site officiel « Madinat Al Irfane »."
+  },
+  "ma-ueuromed": {
+    "site_web": "https://ueuromed.org",
+    "annee_creation": 2012,
+    "adresse": "Route Nationale Fès-Meknès (Route de Meknès, BP 51), 30000 Fès",
+    "description": "Université euro-méditerranéenne créée en partenariat avec l'État et labellisée par l'Union pour la Méditerranée ; elle regroupe des écoles d'ingénieurs, une école de commerce, une école d'architecture, ainsi que des facultés de sciences humaines, de médecine, de médecine dentaire et de pharmacie.",
+    "notes": "Création juridique en 2012 ; les premiers établissements sont autorisés avec effet 2014-2015 / 2015-2016. Nom officiel : Université Euro-Méditerranéenne de Fès."
+  },
+  "ma-um6p": {
+    "site_web": "https://um6p.ma",
+    "annee_creation": 2013,
+    "adresse": "Lot 660, Hay Moulay Rachid, 43150 Ben Guérir",
+    "description": "Université à but non lucratif orientée vers la recherche, créée à l'initiative du groupe OCP ; elle propose des formations en ingénierie, sciences, agriculture, médecine et pharmacie, économie, gouvernance et sciences humaines.",
+    "notes": "Année de création discutée : 2013 (Wikipédia) vs 2017 (inauguration du campus de Ben Guérir et valeur actuelle du fichier). Adresse issue d'offres d'emploi et d'annuaires, non vue sur le site officiel. Campus secondaires (Rabat, Laâyoune…) non traités."
+  },
+  "ma-upm": {
+    "site_web": "https://upm.ac.ma",
+    "annee_creation": 2005,
+    "adresse": "Km 13, Route d'Amizmiz (route du barrage Lalla Takerkoust), 42312 Marrakech",
+    "description": "Université privée pluridisciplinaire proposant des formations en management, ingénierie, architecture et design, arts et médias, droit, ainsi que des métiers de la santé et une faculté de médecine.",
+    "notes": "Dates divergentes selon les sources : 2005 (Wikipédia), 2006 (brochure UPM), 2012 (publi-reportage Telquel 2026 ; reconnaissance comme université), héritage revendiqué depuis 1987. Nom officiel ministériel : Université Privée Marrakech Tensift El Haouz."
+  },
+  "ma-universiapolis": {
+    "site_web": "https://universiapolis.ma",
+    "annee_creation": 1989,
+    "adresse": "Campus Universiapolis, Bab Al Madina, Quartier Tilila, BP 814, Agadir",
+    "description": "Université privée regroupant plusieurs établissements à Agadir : école de commerce (ISIAM), école polytechnique, école de tourisme et d'hôtellerie, faculté de droit et sciences politiques, faculté des sciences de la rééducation et faculté de pharmacie.",
+    "notes": "1989 = création de l'ISIAM ; les établissements ont été regroupés en université à partir de 2012-2013. La valeur antérieure (2005) n'est confirmée par aucune source. Annexes à Laâyoune."
+  },
+  "ma-uic": {
+    "site_web": "https://uic.ac.ma",
+    "annee_creation": 2010,
+    "adresse": "Casa Green Town, Route provinciale 3020, Ville Verte, Bouskoura (province de Nouaceur), Casablanca",
+    "description": "Université privée membre du réseau Honoris United Universities, proposant des formations en médecine, médecine dentaire, pharmacie, ingénierie, architecture, commerce et gestion, hôtellerie et droit.",
+    "notes": "Campus à Bouskoura (province de Nouaceur), pas dans la commune de Casablanca ; l'école d'architecture est à la Marina de Casablanca. Coordonnées existantes non vérifiées."
+  },
+  "ma-mundiapolis": {
+    "site_web": "https://www.mundiapolis.ma",
+    "annee_creation": 2009,
+    "adresse": "Aéropole de Formation Mohammed V, BP 128, 26020 Nouaceur (Casablanca)",
+    "description": "Université privée membre du réseau Honoris United Universities, proposant des formations en management, ingénierie, sciences politiques et juridiques, communication et sciences de la santé.",
+    "notes": "Issue de la fusion de Polyfinance, IMADE et EMIAE. Deuxième campus au 380, Bd Brahim Roudani (Maârif, Casablanca) selon le site officiel."
+  },
+  "ma-upf": {
+    "site_web": "https://upf.ac.ma",
+    "annee_creation": 2006,
+    "adresse": "Lotissement Quaraouiyine, Route Ain Chkef, 30000 Fès",
+    "description": "Université privée regroupant une faculté des sciences de l'ingénieur, une école de commerce (Fès Business School), une école d'architecture et du bâtiment, une faculté des sciences paramédicales et une faculté de médecine dentaire.",
+    "notes": "Une antenne (Technologia, institut supérieur des sciences de l'ingénieur) est située à Rabat."
+  },
+  "ma-upssa": {
+    "site_web": "https://upssa.ac.ma",
+    "annee_creation": 2023,
+    "adresse": "Lotissement Marhaba, Rue Isli, RN1, Agadir",
+    "description": "Université privée consacrée aux sciences de la santé, avec des facultés de médecine, pharmacie, médecine dentaire, sciences infirmières et techniques de santé et sciences biomédicales appliquées ; elle propose aussi des formations en management et en ingénierie.",
+    "notes": "Adresse reconstituée à partir de la liste ministérielle 2025-2026, dont la mise en page mélange les colonnes (OCR) : à confirmer. Présidée par El Houssaine Louardi (ancien ministre de la Santé)."
+  },
+  "ma-averroes": {
+    "site_web": "https://www.universiteaverroes.ma",
+    "annee_creation": 2025,
+    "adresse": "Lotissement La Colline 2, Sidi Maârouf, Casablanca",
+    "description": "Université privée adossée au groupe UNA, composée d'une école d'ingénieurs, d'une école de commerce (Averroès Business School, ex-ESIG) et d'une faculté de droit et de sciences politiques.",
+    "notes": "Nommée « Université Internationale Averroès (UIA) » sur son site ; nom officiel « Université internationale privée Averroès ». La page Facebook porte l'identifiant « atlanticuni »."
+  },
+  "ma-uao": {
+    "site_web": "https://morocco.arabou.edu.kw",
+    "annee_creation": 2026,
+    "description": "Branche marocaine de l'Université Arabe Ouverte (réseau à but non lucratif basé au Koweït, en partenariat avec l'Open University britannique), proposant des formations en informatique et data science, administration des affaires, et langue anglaise et traduction.",
+    "notes": "Ville incertaine : le registre des accréditations indique Casablanca, mais un annuaire tiers mentionne Salé. Adresse introuvable ; site officiel inaccessible depuis cet environnement."
+  },
+  "ma-eac": {
+    "site_web": "https://www.ecolearchicasa.com",
+    "annee_creation": 2004,
+    "adresse": "Angle Bd Abou Hanifa Al Noâman et Tarik Al Kheir, Quartier Al Qods, Sidi Bernoussi, Casablanca",
+    "description": "École d'architecture créée dans le cadre d'un partenariat avec l'État, formant des architectes et proposant des formations en architecture du paysage, urbanisme et aménagement, et BIM.",
+    "notes": "Second campus « Casa Anfa » à l'angle avenue C et Bd de l'Aéropostale (site officiel). Date d'effet ministérielle 2005-2006 alors que le site indique 2004."
+  },
+  "ma-ecc": {
+    "site_web": "https://centrale-casablanca.ma",
+    "annee_creation": 2015,
+    "adresse": "Ville Verte, Bouskoura (province de Nouaceur), Casablanca",
+    "description": "École d'ingénieurs généraliste créée dans le cadre d'un partenariat avec l'État et CentraleSupélec, formant des ingénieurs centraliens ; elle propose aussi un bachelor en data science.",
+    "notes": "La date d'effet ministérielle (2014-2015) précède l'ouverture effective (2015). Première promotion hébergée provisoirement à Sidi Maârouf avant l'achèvement du campus de Bouskoura."
+  },
+  "ma-esca": {
+    "site_web": "https://esca.ma",
+    "annee_creation": 1992,
+    "adresse": "67-3 Avenue de l'Aéropostale, Casablanca Finance City (CFC), 20250 Casablanca",
+    "description": "École de management reconnue par l'État, proposant des programmes en management, finance, marketing digital et ressources humaines.",
+    "notes": "Adresse du site officiel ; la liste ministérielle 2023 indique « Bd de l'Aéropostale, Hay Hassani »."
+  },
+  "ma-iheps-casa": {
+    "site_web": "https://iheps.ac.ma",
+    "annee_creation": 2016,
+    "adresse": "372, boulevard Ghandi, Casablanca",
+    "description": "Campus casablancais de l'IHEPS, établissement privé de formation paramédicale. Il forme notamment en kinésithérapie, orthophonie et diététique.",
+    "notes": "Site commun au réseau IHEPS (Marrakech, Casablanca, Agadir). Le réseau a été fondé à Marrakech en 2006."
+  },
+  "ma-iheps-marrakech": {
+    "site_web": "https://iheps.ac.ma",
+    "annee_creation": 2007,
+    "adresse": "Targa n°1, en face d'Andalusia Academy, Marrakech",
+    "description": "Institut privé d'enseignement supérieur paramédical créé à Marrakech, siège historique du réseau IHEPS. Il propose des formations en kinésithérapie, orthophonie et diététique.",
+    "notes": "Plusieurs annuaires indiquent une création en 2006 alors que la liste ministérielle donne 2007-2008 comme date d'effet. Adresse issue du site officiel ; la liste ministérielle indique « Villa 153, lotissement Boumasmar », ce qui correspond peut-être à une ancienne adresse."
+  },
+  "ma-isfort": {
+    "site_web": "https://www.isfort-maroc.com",
+    "annee_creation": 1995,
+    "adresse": "94, rue Allal Ben Abdellah, Casablanca",
+    "description": "Institut privé d'enseignement supérieur spécialisé dans les technologies agroalimentaires et le génie appliqué. Il couvre aussi la qualité, l'hygiène, la sécurité et l'environnement (QHSE).",
+    "notes": "Nom officiel dans la liste ministérielle : « Institut Supérieur de Formation en Technologie Alimentaire et Biopharmaceutique ». Le site emploie « ISFORT Maroc – Technologie Agroalimentaire et Génie Appliqué ». Une source donne 1994 comme année de création. Le site est protégé par Cloudflare et son contenu n'a pas pu être lu ; le titre de la page a toutefois été vérifié."
+  },
+  "ma-es2im": {
+    "site_web": "https://ecole.es2im.ma",
+    "annee_creation": 2012,
+    "adresse": "53, rue Allal Ben Abdellah, Centre-ville, Casablanca",
+    "description": "École privée d'enseignement supérieur en informatique et multimédia à Casablanca. Elle propose des licences en développement informatique et un cycle d'ingénierie informatique.",
+    "notes": "www.es2im.ma redirige vers ecole.es2im.ma. Telecontact donne 2010 comme date de création de la société et cite une adresse au n°23 de la même rue, alors que le site officiel et la liste ministérielle indiquent le n°53."
+  },
+  "ma-ilcs": {
+    "site_web": "https://ilcs.ac.ma",
+    "annee_creation": 1996,
+    "adresse": "29, rue Oukaïmeden, Agdal, 10080 Rabat",
+    "description": "Établissement privé d'enseignement supérieur à Rabat, spécialisé en communication, marketing digital, journalisme et traduction.",
+    "notes": "Le nom officiel est « Institute for Leadership and Communication Studies » (liste ministérielle et site), et non « Institute for Language and Communication Studies »."
+  },
+  "ma-essti": {
+    "annee_creation": 2013,
+    "adresse": "18, rue Oued Baht, Agdal, 10090 Rabat",
+    "description": "École privée d'ingénieurs à Rabat-Agdal. Elle propose un cycle préparatoire intégré puis des cycles d'ingénierie : systèmes industriels, systèmes automatisés, génie civil, etc.",
+    "notes": "Le site indiqué par les annuaires (www.essti.ac.ma) affiche « Site not installed – OVHcloud » au moment de la vérification, d'où la valeur null. Le nom apparaît aussi sous la forme « Sciences et Technologies de l'Ingénieur »."
+  },
+  "ma-esrmi": {
+    "site_web": "https://esr.ma",
+    "annee_creation": 2011,
+    "adresse": "32, rue Moulay Ali Cherif, Quartier Hassan, 10010 Rabat",
+    "description": "École privée d'enseignement supérieur à Rabat, qui forme en management et en ingénierie informatique (systèmes d'information, réseaux, cybersécurité, marketing digital).",
+    "notes": "www.esrmi.ma redirige vers esr.ma. Membre de la FEDE depuis 2008, ce qui laisse penser à une activité antérieure à l'autorisation de 2011."
+  },
+  "ma-ispsni": {
+    "site_web": "https://www.ispsni.ma",
+    "adresse": "Malaliyine, route de M'diq, BP 691, 93200 Tétouan",
+    "description": "Institut privé d'enseignement supérieur à Tétouan, consacré aux métiers de la data, du numérique et de l'intelligence artificielle (cycles Bac+3 et Bac+5).",
+    "notes": "Établissement récent, absent de la liste ministérielle 2023-2024 : le site annonce l'ouverture des inscriptions pour sa « première promotion » (2026). Il apparaît aussi sous le nom « Institut Supérieur Privé des Sciences du Numérique et de l'Information ». L'année d'ouverture exacte n'est pas confirmée."
+  },
+  "ma-iimc": {
+    "annee_creation": 2022,
+    "adresse": "Douar Oulad Malek, Bouskoura (province de Nouaceur)",
+    "description": "Établissement privé d'enseignement supérieur en management, implanté à Bouskoura, en périphérie de Casablanca.",
+    "notes": "Aucun site officiel trouvé. Il partage son adresse avec l'IIEC (International Institute of Engineering Casablanca). Le lien avec le projet IIEM (Coventry University / British Schools Educational Services) à Bouskoura n'est pas confirmé. La liste ministérielle indique « Province de Bouskoura » ; Bouskoura relève en fait de la province de Nouaceur."
+  },
+  "ma-isps": {
+    "annee_creation": 2006,
+    "adresse": "65, rue Jbel Azourki, Hay Salam, Hay Hassani, Casablanca",
+    "description": "Institut privé de formation aux métiers de la santé à Casablanca, qui prépare notamment au métier de manipulateur en radiologie et imagerie médicale.",
+    "notes": "Aucun site officiel trouvé. Etudiant.ma l'appelle « Institut spécialisé privé de santé »."
+  },
+  "ma-aerosup": {
+    "site_web": "https://aerosup.ma",
+    "annee_creation": 2013,
+    "adresse": "390, boulevard Zerktouni, 20040 Casablanca",
+    "description": "École privée d'ingénieurs à Casablanca, spécialisée en ingénierie aéronautique et spatiale, informatique et systèmes embarqués.",
+    "notes": "Le WHED indique 2011 comme année de fondation, contre 2013-2014 comme date d'effet dans la liste ministérielle."
+  },
+  "ma-esa-casa": {
+    "site_web": "https://www.esa-igensia.ma",
+    "annee_creation": 1988,
+    "adresse": "Boulevard Tarik El Ouahda, Aïn Sebaâ, Casablanca",
+    "description": "École de commerce privée créée par la Chambre Française de Commerce et d'Industrie du Maroc (CFCIM), anciennement École Française des Affaires (EFA). Elle propose des licences, bachelors et masters en gestion et management.",
+    "notes": "Elle s'appelait EFA jusqu'en 2020 et a été reprise par le groupe IGENSIA Education en 2025. Dans la liste ministérielle, elle figure sous le nom « École Supérieure des Affaires de Casablanca » (ESAC), avec une autorisation n°481/2020 et un effet en 2020-2021."
+  },
+  "ma-innov": {
+    "annee_creation": 2008,
+    "adresse": "8, rue Ibn Khatima, Quartier des Hôpitaux, Casablanca",
+    "description": "École privée d'enseignement supérieur en informatique à Casablanca, qui propose un cursus d'ingénierie informatique.",
+    "notes": "Aucun site officiel trouvé ; activité actuelle non confirmée. Un annuaire attribue la même adresse à Maroc Ynov Campus, ce qui peut signaler un changement d'occupant ou de nom."
+  },
+  "ma-hecgi": {
+    "site_web": "https://www.hecgi.ma",
+    "annee_creation": 2010,
+    "adresse": "Immeuble 49, rue Jamil Sidqui Zouhaoui, Résidence Douaa Charq, Ville Haute (Anoual), Kénitra",
+    "description": "Établissement privé d'enseignement supérieur à Kénitra, qui forme en commerce, gestion, finance, logistique et informatique de gestion.",
+    "notes": "Ne pas confondre avec HECI Kénitra, qui appartient à un autre réseau. Etudiant.ma mentionne un second site à Kénitra."
+  }
+}

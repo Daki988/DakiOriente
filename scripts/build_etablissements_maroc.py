@@ -516,7 +516,10 @@ def main():
         if e.get("rec"):
             decrets[e["id"]] = "Liste officielle des universités et établissements reconnus par l'État (n° %d)" % e["rec"]
 
-    ancien = {x["id"]: x for x in json.load(open(os.path.join(REF, "etablissements_superieurs.json"), encoding="utf-8"))["items"]}
+    # Fiches existantes (logos, photos, coordonnées) : version archivée multi-pays puis référentiel courant
+    archive = os.path.join(ROOT, "data", "archives", "etablissements_superieurs_v1_GA_MA_SN.json")
+    ancien = {x["id"]: x for x in json.load(open(archive, encoding="utf-8"))["items"]} if os.path.exists(archive) else {}
+    ancien.update({x["id"]: x for x in json.load(open(os.path.join(REF, "etablissements_superieurs.json"), encoding="utf-8"))["items"]})
     enrich_path = os.path.join(SRC, "enrichissement.json")
     enrich = json.load(open(enrich_path, encoding="utf-8")) if os.path.exists(enrich_path) else {}
 
@@ -541,6 +544,10 @@ def main():
             ))
         label = "reconnu_etat" if e.get("rec") and not e.get("rec_en_cours") else "diplomes_homologues"
         old = ancien.get(e["id"]) or {}
+        # Réseaux désormais scindés par ville (EMSI, ISGA…) : logo de l'ancienne fiche commune
+        parent = next((v for k, v in ancien.items() if e["id"].startswith(k + "-") and v.get("logo")), None)
+        if not old.get("logo") and parent:
+            old = {**old, "logo": parent["logo"]}
         x = enrich.get(e["id"], {})
         item = dict(
             id=e["id"], nom=e["nom"], sigle=e["sigle"], pays="MA", ville=e["ville"],

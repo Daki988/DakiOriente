@@ -7,15 +7,16 @@ import { FormError, Input, Select } from "@/components/app/form";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { useAction, useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
-import { AdminHeader, Flag, LoadError, PAYS, PAYS_OPTS, Pager, Reveal, Toggle, nf, qs, useDebounced } from "./shared";
+import { AdminHeader, Flag, LoadError, Pager, Reveal, Toggle, nf, qs, useDebounced } from "./shared";
+import { LABELS, labelById, type Label } from "@/lib/data";
 
-type E = { id: string; nom: string; sigle: string; pays: string; ville: string; typeLibelle: string; statut: string; siteWeb: string | null; email: string | null; phone: string | null; logo: string | null; status: "importe" | "revendique" | "verifie" | "suspendu"; featured: boolean; plan: string; updatedAt: string };
+type E = { id: string; nom: string; sigle: string; pays: string; ville: string; typeLibelle: string; statut: string; siteWeb: string | null; email: string | null; phone: string | null; logo: string | null; status: "importe" | "revendique" | "verifie" | "suspendu"; featured: boolean; plan: string; updatedAt: string; label: Label | null; recognition: string | null };
 type Row = { e: E; members: number; programs: number };
-type Patch = { status?: E["status"]; featured?: boolean; plan?: string };
+type Patch = { status?: E["status"]; featured?: boolean; plan?: string; label?: Label | null; recognition?: string | null };
 
 const PLANS: { id: string; nom: string; prix: string; items: string[]; dark?: boolean }[] = [
-  { id: "gratuit", nom: "Gratuit", prix: "0 F CFA", items: ["Fiche vérifiée", "Candidatures en ligne", "Statistiques de base"] },
-  { id: "partenaire", nom: "Partenaire", prix: "350 000 F CFA / an", items: ["Mise en avant pays / domaine", "Campagnes & événements", "Statistiques avancées"], dark: true },
+  { id: "gratuit", nom: "Gratuit", prix: "0 MAD", items: ["Fiche vérifiée", "Candidatures en ligne", "Statistiques de base"] },
+  { id: "partenaire", nom: "Partenaire", prix: "5 000 MAD / an", items: ["Mise en avant ville / domaine", "Campagnes & événements", "Statistiques avancées"], dark: true },
   { id: "premium", nom: "Premium", prix: "Sur devis", items: ["Page d'accueil", "Tournées & salons", "Chargé de compte"] },
 ];
 const PLAN_OPTS: [string, string][] = PLANS.map((p) => [p.id, p.nom]);
@@ -23,14 +24,14 @@ const PLAN_OPTS: [string, string][] = PLANS.map((p) => [p.id, p.nom]);
 export function AdminEtablissements() {
   const toast = useToast();
   const [tab, setTab] = useState<"" | "revendique" | "verifie" | "importe" | "suspendu">("");
-  const [pays, setPays] = useState("");
+  const [label, setLabel] = useState("");
   const [q, setQ] = useState("");
   const dq = useDebounced(q.trim());
   const all = useApi<Row[]>("/admin/etablissements");
-  const list = useApi<Row[]>(`/admin/etablissements${qs({ statut: tab, pays, q: dq })}`);
+  const list = useApi<Row[]>(`/admin/etablissements${qs({ statut: tab, label, q: dq })}`);
   const [sel, setSel] = useState<Row | null>(null);
   const [page, setPage] = useState(1);
-  useEffect(() => setPage(1), [tab, pays, dq]);
+  useEffect(() => setPage(1), [tab, label, dq]);
   const act = useAction();
 
   const counts = useMemo(() => {
@@ -60,7 +61,7 @@ export function AdminEtablissements() {
         <Tabs value={tab} onChange={setTab} items={[["", `Tous (${counts[""]})`], ["revendique", `Revendiqués (${counts.revendique})`], ["verifie", `Vérifiés (${counts.verifie})`], ["importe", `Importés (${counts.importe})`], ["suspendu", `Suspendus (${counts.suspendu})`]]} />
         <div className="grid grid-cols-[1fr_auto] gap-2.5 sm:flex">
           <label className="relative sm:w-64"><span className="sr-only">Rechercher un établissement</span><Search size={17} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-mute" /><Input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Nom ou sigle…" className="pl-10" /></label>
-          <Select aria-label="Pays" value={pays} onChange={(e) => setPays(e.target.value)} options={PAYS_OPTS} placeholder="Tous pays" className="w-36" />
+          <Select aria-label="Label" value={label} onChange={(e) => setLabel(e.target.value)} options={[...LABELS.map((l) => [l.id, l.court] as [string, string]), ["aucun", "Non publiés"]]} placeholder="Tous labels" className="w-44" />
         </div>
       </div>
 
@@ -84,10 +85,10 @@ export function AdminEtablissements() {
         <Panel title="Mise en avant" icon={Star} action={<Chip tone="sun">{featured.length}</Chip>}>
           {!featured.length ? <p className="text-sm text-ink-mute">Aucun établissement mis en avant. Ouvrez une fiche pour l&apos;activer.</p> : (
             <div className="grid gap-3 sm:grid-cols-3">
-              {Object.keys(PAYS).map((p) => (
+              {LABELS.map(({ id: p, court }) => (
                 <div key={p} className="flex flex-col gap-2 rounded-2xl border border-slate-200/80 p-3">
-                  <b className="text-sm"><Flag code={p} withName /></b>
-                  <div className="flex flex-wrap gap-1.5">{featured.filter((r) => r.e.pays === p).map((r) => <button key={r.e.id} onClick={() => setSel(r)} title={r.e.nom}><EtabLogo e={r.e} size={34} /></button>)}{!featured.some((r) => r.e.pays === p) && <span className="text-xs text-ink-mute">—</span>}</div>
+                  <b className="text-sm">{court}</b>
+                  <div className="flex flex-wrap gap-1.5">{featured.filter((r) => r.e.label === p).map((r) => <button key={r.e.id} onClick={() => setSel(r)} title={r.e.nom}><EtabLogo e={r.e} size={34} /></button>)}{!featured.some((r) => r.e.label === p) && <span className="text-xs text-ink-mute">—</span>}</div>
                 </div>
               ))}
             </div>
@@ -122,17 +123,18 @@ function Detail({ r, pending, error, patch }: { r: Row; pending: boolean; error:
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-3">
         <EtabLogo e={e} size={52} />
-        <div className="min-w-0"><b className="block">{e.nom}</b><span className="text-sm text-ink-mute"><Flag code={e.pays} /> {e.ville} · {e.typeLibelle}</span></div>
+        <div className="min-w-0"><b className="block">{e.nom}</b><span className="text-sm text-ink-mute">{e.ville} · {e.typeLibelle} · {e.label ? labelById[e.label].libelle : "non publié"}</span></div>
         <div className="ml-auto"><StatusBadge status={e.status} /></div>
       </div>
       <ul className="grid gap-2 sm:grid-cols-2">
         <Fact icon={Users} ok={r.members > 0} t={r.members ? `${r.members} membre${r.members > 1 ? "s" : ""} rattaché${r.members > 1 ? "s" : ""}` : "Aucun compte rattaché"} />
-        <Fact icon={Building2} ok={r.programs > 0} t={`${r.programs} formation${r.programs > 1 ? "s" : ""} active${r.programs > 1 ? "s" : ""}`} />
+        <Fact icon={Building2} ok={r.programs > 0} t={`${r.programs} filière${r.programs > 1 ? "s" : ""} homologuée${r.programs > 1 ? "s" : ""} publiée${r.programs > 1 ? "s" : ""}`} />
         <Fact icon={BadgeCheck} ok={!!e.email && !generic} t={e.email ? (generic ? `${e.email} (domaine générique)` : e.email) : "E-mail non renseigné"} />
         <Fact icon={ExternalLink} ok={!!e.siteWeb} t={e.siteWeb ? e.siteWeb.replace(/^https?:\/\//, "") : "Site web non renseigné"} />
       </ul>
       {e.status === "revendique" && <p className="rounded-2xl bg-[#f1edff] px-4 py-3 text-sm text-[#4b2bb0]">Fiche revendiquée : l&apos;approbation attribue le badge « vérifié » et ouvre l&apos;accès complet à l&apos;espace établissement. Les comptes en attente se valident depuis <Link className="font-bold underline" href="/admin/utilisateurs?statut=en_attente">Utilisateurs</Link>.</p>}
 
+      <LabelEditor r={r} pending={pending} patch={patch} />
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="flex items-center justify-between gap-3 rounded-2xl border border-slate-200/80 p-3.5">
           <span className="flex flex-col"><b className="text-sm">Mise en avant</b><span className="text-xs text-ink-mute">Vitrine pays et page d&apos;accueil</span></span>
@@ -160,3 +162,22 @@ const Fact = ({ icon: I, ok, t }: { icon: typeof Users; ok: boolean; t: string }
     <span className="min-w-0 truncate">{t}</span>
   </li>
 );
+
+/** Label Navigoal (publication) et référence de la reconnaissance par l'État. */
+function LabelEditor({ r, pending, patch }: { r: Row; pending: boolean; patch: (r: Row, p: Patch, m: string) => Promise<boolean> }) {
+  const [rec, setRec] = useState(r.e.recognition ?? "");
+  useEffect(() => setRec(r.e.recognition ?? ""), [r.e.id, r.e.recognition]);
+  return (
+    <div className="grid gap-3 rounded-2xl border border-slate-200/80 p-3.5 sm:grid-cols-[220px_1fr]">
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="label" className="text-sm font-bold">Label</label>
+        <Select id="label" value={r.e.label ?? ""} disabled={pending} onChange={(ev) => patch(r, { label: (ev.target.value || null) as Label | null }, ev.target.value ? "Label mis à jour : établissement publié." : "Établissement retiré de la publication.")} options={LABELS.map((l) => [l.id, l.libelle])} placeholder="Non publié" className="!py-2" />
+        <span className="text-xs text-ink-mute">Seuls les établissements labellisés sont visibles des candidats.</span>
+      </div>
+      <form className="flex flex-col gap-1.5" onSubmit={(ev) => { ev.preventDefault(); patch(r, { recognition: rec.trim() || null }, "Référence enregistrée."); }}>
+        <label htmlFor="recognition" className="text-sm font-bold">Référence officielle</label>
+        <div className="flex gap-2"><Input id="recognition" value={rec} onChange={(ev) => setRec(ev.target.value)} placeholder="Décret de reconnaissance, autorisation, accréditation…" maxLength={300} /><Button size="sm" variant="ghost" disabled={pending || rec === (r.e.recognition ?? "")}>Enregistrer</Button></div>
+      </form>
+    </div>
+  );
+}
