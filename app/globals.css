@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/* ───────── Design tokens — JACKBOY · FEEL THE NIGHT ─────────
+   Valeurs PROVISOIRES : à recaler sur le logo HD (TODO: DONNÉE À CONFIRMER) */
+:root {
+  --color-bg: #0a0c0b;          /* noir profond */
+  --color-surface: #121614;     /* cartes */
+  --color-surface-2: #18201c;
+  --color-secondary: #0e3a2c;   /* vert émeraude sombre */
+  --color-accent: #8cc63f;      /* vert cactus (logo) */
+  --color-accent-ink: #0a0c0b;  /* texte sur accent */
+  --color-text: #f3efe6;        /* blanc cassé */
+  --color-muted: #a9b0a8;
+  --color-line: #26302b;
+  --color-gold: #d2a84e;        /* doré chaud, avec parcimonie */
+  --bottom-nav-h: 64px;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-surface-2: var(--color-surface-2);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-accent-ink: var(--color-accent-ink);
+  --color-text: var(--color-text);
+  --color-muted: var(--color-muted);
+  --color-line: var(--color-line);
+  --color-gold: var(--color-gold);
+  --font-display: var(--font-anton), Impact, "Arial Narrow", sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html { background: var(--color-bg); color-scheme: dark; scroll-behavior: smooth; }
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Espace réservé pour la barre de navigation mobile + safe area iOS */
+.pb-nav { padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom) + 8px); }
+@media (min-width: 768px) { .pb-nav { padding-bottom: 0; } }
+
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 4px; }
+
+.font-display { letter-spacing: 0.01em; text-transform: uppercase; line-height: 0.95; }
+
+/* Grain photographique léger (SVG inline, ~300 o) */
+.grain::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .09; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Texture bois / matière brute (Texas moderne) */
+.wood {
+  background-image:
+    repeating-linear-gradient(92deg, rgba(255,255,255,.018) 0 2px, transparent 2px 9px),
+    repeating-linear-gradient(88deg, rgba(0,0,0,.25) 0 1px, transparent 1px 23px);
+}
+
+/* Barre défilable sans scrollbar visible */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ───────── Animations légères (CSS natif, aucun JS) ───────── */
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+/* Variante sans fondu pour l'élément LCP (titre) : visible dès le premier rendu */
+@keyframes lift { from { transform: translateY(10px); } to { transform: none; } }
+.lift { animation: lift .8s cubic-bezier(.2,.7,.2,1) both; }
+.rise-1 { animation-delay: .1s; } .rise-2 { animation-delay: .3s; } .rise-3 { animation-delay: .5s; }
+
+@keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 0 rgba(140,198,63,.6); } 50% { box-shadow: 0 0 0 6px rgba(140,198,63,0); } }
+.pulse-dot { animation: pulse-dot 2.2s ease-in-out infinite; }
+
+@keyframes glow { 0%,100% { opacity: .55; } 50% { opacity: .85; } }
+.glow { animation: glow 6s ease-in-out infinite; }
+
+/* Apparition au défilement, sans JS ni CLS (navigateurs compatibles) */
+@supports (animation-timeline: view()) {
+  .reveal { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

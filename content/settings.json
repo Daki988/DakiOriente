@@ -1,0 +1,34 @@
+{
+  "demoMode": true,
+  "name": "Jackboy Bar-Restaurant 241",
+  "tagline": "Good food. Great music. Unforgettable nights.",
+  "taglineFr": "La nuit a son adresse.",
+  "phones": [
+    { "label": "Contact principal", "number": "+24100000000", "display": "+241 00 00 00 00" },
+    { "label": "Réservations Loft", "number": "+24100000001", "display": "+241 00 00 00 01" }
+  ],
+  "whatsapp": "",
+  "address": {
+    "street": "Quartier Louis",
+    "city": "Libreville",
+    "country": "Gabon",
+    "landmark": "À environ 100 mètres de l'ambassade de Côte d'Ivoire",
+    "lat": 0.4236,
+    "lng": 9.4392
+  },
+  "hours": [
+    { "day": "lundi", "open": "15:00", "close": "06:00", "closed": false },
+    { "day": "mardi", "open": "15:00", "close": "06:00", "closed": false },
+    { "day": "mercredi", "open": "15:00", "close": "06:00", "closed": false },
+    { "day": "jeudi", "open": "15:00", "close": "06:00", "closed": false },
+    { "day": "vendredi", "open": "15:00", "close": "06:00", "closed": false },
+    { "day": "samedi", "open": "15:00", "close": "06:00", "closed": false },
+    { "day": "dimanche", "open": "15:00", "close": "06:00", "closed": false }
+  ],
+  "hoursNote": "Horaires à confirmer avant publication.",
+  "socials": [
+    { "network": "facebook", "url": null },
+    { "network": "instagram", "url": null },
+    { "network": "tiktok", "url": null }
+  ]
+}

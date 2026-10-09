@@ -1,0 +1,57 @@
+{
+  "categories": [
+    {
+      "name": "Paninis",
+      "slug": "paninis",
+      "visible": true,
+      "intro": "Nos produits emblématiques, pressés minute.",
+      "products": [
+        { "name": "Panini Jackboy", "description": "Le signature de la maison. Description à fournir.", "price": 0, "image": null, "featured": true, "available": true, "isNew": false },
+        { "name": "Panini Poulet", "description": "Description à fournir.", "price": 0, "image": null, "featured": true, "available": true, "isNew": false },
+        { "name": "Panini Bœuf", "description": "Description à fournir.", "price": 0, "image": null, "featured": true, "available": true, "isNew": true },
+        { "name": "Panini Végétarien", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": false, "isNew": false }
+      ]
+    },
+    {
+      "name": "Grillades",
+      "slug": "grillades",
+      "visible": true,
+      "intro": "",
+      "products": [
+        { "name": "Brochettes", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false },
+        { "name": "Poulet braisé", "description": "Description à fournir.", "price": 0, "image": null, "featured": true, "available": true, "isNew": false },
+        { "name": "Poisson braisé", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false }
+      ]
+    },
+    {
+      "name": "Accompagnements",
+      "slug": "accompagnements",
+      "visible": true,
+      "intro": "",
+      "products": [
+        { "name": "Frites", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false },
+        { "name": "Alloco", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false }
+      ]
+    },
+    {
+      "name": "Cocktails",
+      "slug": "cocktails",
+      "visible": true,
+      "intro": "",
+      "products": [
+        { "name": "Cocktail signature", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": true },
+        { "name": "Mojito", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false }
+      ]
+    },
+    {
+      "name": "Bières & softs",
+      "slug": "boissons",
+      "visible": true,
+      "intro": "",
+      "products": [
+        { "name": "Bière locale", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false },
+        { "name": "Soda", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false }
+      ]
+    }
+  ]
+}

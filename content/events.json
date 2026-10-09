@@ -1,0 +1,7 @@
+{
+  "events": [
+    { "title": "Amapiano Night", "date": "2026-10-17", "time": "22:00", "dj": "DJ à confirmer", "description": "Événement de démonstration — à remplacer depuis l'administration.", "poster": null, "visible": true },
+    { "title": "Afrobeats & Afritcham", "date": "2026-10-24", "time": "22:00", "dj": "DJ à confirmer", "description": "Événement de démonstration — à remplacer depuis l'administration.", "poster": null, "visible": true },
+    { "title": "Soirée au Loft", "date": "2026-10-31", "time": "21:00", "dj": "DJ à confirmer", "description": "Événement de démonstration — à remplacer depuis l'administration.", "poster": null, "visible": true }
+  ]
+}
