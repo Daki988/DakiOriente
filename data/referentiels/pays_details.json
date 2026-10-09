@@ -12,12 +12,24 @@
       "id": "MA",
       "nom": "Maroc",
       "accroche": "Hub universitaire du continent : écoles d'ingénieurs et de commerce reconnues, campus modernes, forte communauté étudiante subsaharienne.",
-      "chiffres": { "population": "≈ 37 millions", "capitale": "Rabat", "monnaie": "Dirham (MAD)", "langues": ["Arabe", "Amazighe", "Français (enseignement supérieur)", "Anglais (en croissance)"], "fuseau": "UTC+1", "indicatif": "+212" },
+      "chiffres": {
+        "population": "≈ 37 millions",
+        "capitale": "Rabat",
+        "monnaie": "Dirham (MAD)",
+        "langues": [
+          "Arabe",
+          "Amazighe",
+          "Français (enseignement supérieur)",
+          "Anglais (en croissance)"
+        ],
+        "fuseau": "UTC+1",
+        "indicatif": "+212"
+      },
       "pourquoi": [
         "Large choix d'écoles privées reconnues par l'État (ingénierie, management, santé, architecture).",
         "Diplômes souvent en double diplomation avec des écoles européennes.",
         "Vols directs vers Libreville et Dakar ; dispense de visa pour plusieurs nationalités africaines.",
-        "Communauté de plus de 20 000 étudiants subsahariens, associations et réseaux d'alumni."
+        "Importante communauté d'étudiants subsahariens : associations, réseaux d'alumni, accueil dans les écoles."
       ],
       "systeme": "LMD (licence en 3 ans, master en 5 ans), cycles d'ingénieur en 5 ans (dont 2 ans préparatoires intégrés), bachelors et programmes grande école en 3 à 5 ans.",
       "reconnaissance": "Privilégier les établissements « reconnus par l'État » : leurs diplômes sont équivalents aux diplômes nationaux. Les autres délivrent des diplômes d'établissement ou en partenariat étranger.",
@@ -30,24 +42,70 @@
       "budget": {
         "devise": "MAD",
         "lignes": [
-          { "poste": "Logement (studio ou colocation)", "min": 1500, "max": 4000 },
-          { "poste": "Alimentation", "min": 1000, "max": 2000 },
-          { "poste": "Transport", "min": 200, "max": 500 },
-          { "poste": "Téléphone, internet, loisirs", "min": 400, "max": 1000 }
+          {
+            "poste": "Logement (studio ou colocation)",
+            "min": 1500,
+            "max": 4000
+          },
+          {
+            "poste": "Alimentation",
+            "min": 1000,
+            "max": 2000
+          },
+          {
+            "poste": "Transport",
+            "min": 200,
+            "max": 500
+          },
+          {
+            "poste": "Téléphone, internet, loisirs",
+            "min": 400,
+            "max": 1000
+          }
         ],
-        "total_mensuel": { "min": 3100, "max": 7500 },
+        "total_mensuel": {
+          "min": 3100,
+          "max": 7500
+        },
         "note": "Casablanca et Rabat sont les villes les plus chères ; Fès, Meknès, Oujda et Agadir sont plus abordables."
       },
-      "frais_prive": { "devise": "MAD", "min": 20000, "max": 100000, "unite": "par an", "note": "Écoles de commerce et d'ingénieurs : généralement 40 000 à 90 000 MAD/an ; médecine privée au-delà." },
+      "frais_prive": {
+        "devise": "MAD",
+        "min": 20000,
+        "max": 100000,
+        "unite": "par an",
+        "note": "Écoles de commerce et d'ingénieurs : généralement 40 000 à 90 000 MAD/an ; médecine privée au-delà."
+      },
       "travail": "Le travail étudiant n'est pas autorisé officiellement ; les stages conventionnés le sont.",
       "sante": "Assurance santé obligatoire pour la carte de séjour ; bonne offre de cliniques privées dans les grandes villes.",
-      "paiement": ["CMI (carte bancaire)", "Orange Money", "inwi money", "Cash Plus", "Wafacash"],
+      "paiement": [
+        "CMI (carte bancaire)",
+        "Orange Money",
+        "inwi money",
+        "Cash Plus",
+        "Wafacash"
+      ],
       "villes": [
-        { "nom": "Casablanca", "profil": "Capitale économique : écoles de commerce, d'ingénieurs et d'architecture, stages en entreprise." },
-        { "nom": "Rabat", "profil": "Capitale administrative, universités internationales, vie plus calme." },
-        { "nom": "Marrakech", "profil": "Tourisme, hôtellerie, arts visuels ; coût de la vie modéré." },
-        { "nom": "Fès", "profil": "Ville universitaire historique, campus Euromed, budget plus doux." },
-        { "nom": "Benguerir", "profil": "Campus UM6P : recherche, ingénierie, data, vie sur campus." }
+        {
+          "nom": "Casablanca",
+          "profil": "Capitale économique : écoles de commerce, d'ingénieurs et d'architecture, stages en entreprise."
+        },
+        {
+          "nom": "Rabat",
+          "profil": "Capitale administrative, universités internationales, vie plus calme."
+        },
+        {
+          "nom": "Marrakech",
+          "profil": "Tourisme, hôtellerie, arts visuels ; coût de la vie modéré."
+        },
+        {
+          "nom": "Fès",
+          "profil": "Ville universitaire historique, campus Euromed, budget plus doux."
+        },
+        {
+          "nom": "Benguerir",
+          "profil": "Campus UM6P : recherche, ingénierie, data, vie sur campus."
+        }
       ],
       "bourses": [
         "Bourses et réductions propres aux écoles (mérite, excellence, fratrie).",
@@ -63,7 +121,18 @@
       "id": "SN",
       "nom": "Sénégal",
       "accroche": "Dakar, carrefour de l'Afrique de l'Ouest : écoles de management, d'ingénierie et de santé, écoles inter-États et vie étudiante dynamique.",
-      "chiffres": { "population": "≈ 18 millions", "capitale": "Dakar", "monnaie": "Franc CFA (XOF)", "langues": ["Français (enseignement)", "Wolof", "Anglais (en croissance)"], "fuseau": "UTC+0", "indicatif": "+221" },
+      "chiffres": {
+        "population": "≈ 18 millions",
+        "capitale": "Dakar",
+        "monnaie": "Franc CFA (XOF)",
+        "langues": [
+          "Français (enseignement)",
+          "Wolof",
+          "Anglais (en croissance)"
+        ],
+        "fuseau": "UTC+0",
+        "indicatif": "+221"
+      },
       "pourquoi": [
         "Plus de 100 établissements privés habilités par l'ANAQ-Sup, nombreux campus à Dakar.",
         "Écoles inter-États à vocation internationale (ESMT, EISMV, CESAG).",
@@ -81,22 +150,61 @@
       "budget": {
         "devise": "XOF",
         "lignes": [
-          { "poste": "Logement (chambre ou colocation)", "min": 40000, "max": 100000 },
-          { "poste": "Alimentation", "min": 60000, "max": 100000 },
-          { "poste": "Transport", "min": 15000, "max": 35000 },
-          { "poste": "Téléphone, internet, loisirs", "min": 15000, "max": 40000 }
+          {
+            "poste": "Logement (chambre ou colocation)",
+            "min": 40000,
+            "max": 100000
+          },
+          {
+            "poste": "Alimentation",
+            "min": 60000,
+            "max": 100000
+          },
+          {
+            "poste": "Transport",
+            "min": 15000,
+            "max": 35000
+          },
+          {
+            "poste": "Téléphone, internet, loisirs",
+            "min": 15000,
+            "max": 40000
+          }
         ],
-        "total_mensuel": { "min": 190000, "max": 300000 },
+        "total_mensuel": {
+          "min": 190000,
+          "max": 300000
+        },
         "note": "Les places en cité universitaire sont rares et réservées en priorité aux étudiants du public."
       },
-      "frais_prive": { "devise": "XOF", "min": 600000, "max": 2500000, "unite": "par an", "note": "Pas de grille nationale : chaque établissement fixe ses tarifs. La baisse des frais de 2023 concerne surtout les étudiants sénégalais et de l'UEMOA." },
+      "frais_prive": {
+        "devise": "XOF",
+        "min": 600000,
+        "max": 2500000,
+        "unite": "par an",
+        "note": "Pas de grille nationale : chaque établissement fixe ses tarifs. La baisse des frais de 2023 concerne surtout les étudiants sénégalais et de l'UEMOA."
+      },
       "travail": "Possible avec autorisation ; les stages sont fréquents dans les cursus professionnalisants.",
       "sante": "Assurance santé recommandée (environ 200 à 600 USD par an) ; bonne offre médicale à Dakar.",
-      "paiement": ["Wave", "Orange Money", "Free Money", "Carte bancaire"],
+      "paiement": [
+        "Wave",
+        "Orange Money",
+        "Free Money",
+        "Carte bancaire"
+      ],
       "villes": [
-        { "nom": "Dakar", "profil": "L'essentiel des écoles privées, stages, transports (BRT, TER), vie culturelle." },
-        { "nom": "Thiès", "profil": "Ingénierie et formation professionnelle, à 1 h de Dakar." },
-        { "nom": "Saint-Louis", "profil": "Ville universitaire calme et patrimoniale, loyers bas." }
+        {
+          "nom": "Dakar",
+          "profil": "L'essentiel des écoles privées, stages, transports (BRT, TER), vie culturelle."
+        },
+        {
+          "nom": "Thiès",
+          "profil": "Ingénierie et formation professionnelle, à 1 h de Dakar."
+        },
+        {
+          "nom": "Saint-Louis",
+          "profil": "Ville universitaire calme et patrimoniale, loyers bas."
+        }
       ],
       "bourses": [
         "Réductions et bourses d'excellence proposées par les écoles privées.",
@@ -113,7 +221,17 @@
       "id": "GA",
       "nom": "Gabon",
       "accroche": "Pays pilote de Navigoal : écoles de management, de la mer et du numérique à Libreville, au cœur d'une économie tournée vers l'énergie, les mines et la forêt.",
-      "chiffres": { "population": "≈ 2,5 millions", "capitale": "Libreville", "monnaie": "Franc CFA (XAF)", "langues": ["Français (enseignement)", "Fang, Myènè, Punu…"], "fuseau": "UTC+1", "indicatif": "+241" },
+      "chiffres": {
+        "population": "≈ 2,5 millions",
+        "capitale": "Libreville",
+        "monnaie": "Franc CFA (XAF)",
+        "langues": [
+          "Français (enseignement)",
+          "Fang, Myènè, Punu…"
+        ],
+        "fuseau": "UTC+1",
+        "indicatif": "+241"
+      },
       "pourquoi": [
         "Écoles privées proches des entreprises (pétrole, mines, banques, logistique portuaire).",
         "Petites promotions et encadrement de proximité.",
@@ -131,22 +249,60 @@
       "budget": {
         "devise": "XAF",
         "lignes": [
-          { "poste": "Logement (chambre ou studio)", "min": 80000, "max": 200000 },
-          { "poste": "Alimentation", "min": 80000, "max": 150000 },
-          { "poste": "Transport (taxis partagés)", "min": 20000, "max": 50000 },
-          { "poste": "Téléphone, internet, loisirs", "min": 20000, "max": 50000 }
+          {
+            "poste": "Logement (chambre ou studio)",
+            "min": 80000,
+            "max": 200000
+          },
+          {
+            "poste": "Alimentation",
+            "min": 80000,
+            "max": 150000
+          },
+          {
+            "poste": "Transport (taxis partagés)",
+            "min": 20000,
+            "max": 50000
+          },
+          {
+            "poste": "Téléphone, internet, loisirs",
+            "min": 20000,
+            "max": 50000
+          }
         ],
-        "total_mensuel": { "min": 200000, "max": 450000 },
+        "total_mensuel": {
+          "min": 200000,
+          "max": 450000
+        },
         "note": "Libreville compte parmi les villes les plus chères d'Afrique ; charges (eau, électricité) souvent en plus du loyer."
       },
-      "frais_prive": { "devise": "XAF", "min": 1500000, "max": 4000000, "unite": "par an", "note": "Fourchette indicative pour les universités et écoles privées ; demander un devis écrit." },
+      "frais_prive": {
+        "devise": "XAF",
+        "min": 1500000,
+        "max": 4000000,
+        "unite": "par an",
+        "note": "Fourchette indicative pour les universités et écoles privées ; demander un devis écrit."
+      },
       "travail": "Travail étudiant limité aux stages.",
       "sante": "Assurance privée conseillée (≈ 200 000 à 500 000 XAF par an).",
-      "paiement": ["Airtel Money", "Moov Money", "Carte bancaire"],
+      "paiement": [
+        "Airtel Money",
+        "Moov Money",
+        "Carte bancaire"
+      ],
       "villes": [
-        { "nom": "Libreville", "profil": "Quasi-totalité des écoles privées, administrations, entreprises et ports." },
-        { "nom": "Owendo / Akanda", "profil": "Communes voisines de Libreville, campus en développement." },
-        { "nom": "Franceville / Moanda", "profil": "Pôle sciences et mines du Haut-Ogooué." }
+        {
+          "nom": "Libreville",
+          "profil": "Quasi-totalité des écoles privées, administrations, entreprises et ports."
+        },
+        {
+          "nom": "Owendo / Akanda",
+          "profil": "Communes voisines de Libreville, campus en développement."
+        },
+        {
+          "nom": "Franceville / Moanda",
+          "profil": "Pôle sciences et mines du Haut-Ogooué."
+        }
       ],
       "bourses": [
         "ANBG (Agence nationale des bourses du Gabon) pour les étudiants gabonais, y compris à l'étranger.",
