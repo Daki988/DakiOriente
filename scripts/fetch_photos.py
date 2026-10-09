@@ -211,23 +211,26 @@ def main():
     commons = commons_candidates([it.get("wikidata") for it in todo])
     for it in todo:
         it["_commons"] = commons.get(it.get("wikidata"), [])
-    with ThreadPoolExecutor(max_workers=8) as pool:
-        futures = {it["id"]: pool.submit(collect, it, args.max) for it in todo}
-        for it in todo:
-            try:
-                it["photos"] = futures[it["id"]].result(timeout=240)
-            except FutTimeout:
-                it["photos"] = it.get("photos") or []
-            except Exception:
-                it["photos"] = []
-            it.pop("_commons", None)
-            print(f"{len(it['photos'])} photo(s)  {it['id']}  {[p['methode'] for p in it['photos']]}", flush=True)
-    with open(REF, "w", encoding="utf-8") as fh:
-        json.dump(doc, fh, ensure_ascii=False, indent=2)
-        fh.write("\n")
+    pool = ThreadPoolExecutor(max_workers=8)
+    futures = {it["id"]: pool.submit(collect, it, args.max) for it in todo}
+    started = time.time()
+    for it in todo:
+        try:
+            it["photos"] = futures[it["id"]].result(timeout=max(5, 900 - (time.time() - started)))
+        except FutTimeout:
+            it["photos"] = it.get("photos") or []
+        except Exception:
+            it["photos"] = []
+        it.pop("_commons", None)
+        print(f"{len(it['photos'])} photo(s)  {it['id']}  {[p['methode'] for p in it['photos']]}", flush=True)
+        with open(REF, "w", encoding="utf-8") as fh:  # sauvegarde au fil de l'eau
+            json.dump({**doc, "items": [{k: v for k, v in x.items() if k != "_commons"} for x in doc["items"]]}, fh, ensure_ascii=False, indent=2)
+            fh.write("\n")
+    pool.shutdown(wait=False, cancel_futures=True)
     total = sum(1 for it in doc["items"] if it.get("photos"))
     print(f"{total}/{len(doc['items'])} établissements avec au moins une photo")
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()
+    os._exit(0)  # ne pas attendre les téléchargements bloqués

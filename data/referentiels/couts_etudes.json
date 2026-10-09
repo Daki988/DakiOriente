@@ -1,0 +1,168 @@
+{
+  "_meta": {
+    "referentiel": "couts_etudes",
+    "version": "1.0.0",
+    "date": "2026-10-09",
+    "plateforme": "Navigoal",
+    "description": "Modèle de devis « études à l'étranger » pour les parents : scolarité sur toute la durée, coût de la vie, frais d'installation, régularisation et démarches.",
+    "avertissement": "Estimations Navigoal à partir de grilles publiées et de guides publics (voir sources). Le devis final utilise les frais transmis par l'établissement lorsqu'ils sont disponibles ; sinon il affiche une fourchette.",
+    "taux_change_indicatifs": {
+      "base": "EUR",
+      "XAF": 655.957,
+      "XOF": 655.957,
+      "MAD": 10.9,
+      "note": "XAF et XOF sont à parité fixe avec l'euro (1 € = 655,957 F CFA). Le taux MAD est indicatif et doit être actualisé."
+    },
+    "hypotheses": {
+      "mois_par_an": 10,
+      "inflation_annuelle": 0.04,
+      "frais_transfert": 0.02,
+      "marge_imprevus": 0.08
+    },
+    "sources": [
+      "https://legrandfrere.africa/frais-de-scolarite-ism-dakar-licence-master-mba-admission/",
+      "https://www.sencampus.com/dossiers/bien-choisir-sa-filiere/combien-ca-coute-vraiment",
+      "https://visaconnectafrica.com/guides-pratiques/etudier-au-maroc-depuis-senegal",
+      "https://www.openshores.co/blog/gabon/programmes/ga-etudiant",
+      "https://au-senegal.com/etudier-au-senegal-guide-pratique-pour-etudiants-etrangers,17574.html",
+      "https://adala.justice.gov.ma/api/uploads/2024/04/30/Entrée et au séjour des étrangers au Maroc-1714463632505.pdf"
+    ]
+  },
+  "items": [
+    {
+      "id": "MA",
+      "devise": "MAD",
+      "scolarite_annuelle": {
+        "institut": { "min": 25000, "max": 45000, "libelle": "Institut / BTS / technicien spécialisé" },
+        "ecole_commerce": { "min": 45000, "max": 95000, "libelle": "École de commerce / management" },
+        "ecole_ingenieurs": { "min": 50000, "max": 90000, "libelle": "École d'ingénieurs" },
+        "universite": { "min": 60000, "max": 110000, "libelle": "Université privée" },
+        "grande_ecole": { "min": 55000, "max": 100000, "libelle": "Grande école (architecture, journalisme, arts…)" },
+        "ecole_sante": { "min": 45000, "max": 180000, "libelle": "Santé (paramédical → médecine)" },
+        "cpge": { "min": 40000, "max": 70000, "libelle": "Classes préparatoires privées" }
+      },
+      "frais_annuels_annexes": { "min": 3000, "max": 10000, "libelle": "Inscription / dossier / assurance scolaire" },
+      "vie_mensuelle": {
+        "villes_cheres": ["Casablanca", "Rabat", "Marrakech", "Benguerir"],
+        "ville_chere": { "min": 4000, "max": 7500 },
+        "autre_ville": { "min": 3000, "max": 5500 }
+      },
+      "installation": [
+        { "poste": "Visa d'études (si non dispensé)", "min": 0, "max": 1000, "note": "Dispense de visa pour plusieurs nationalités africaines (Sénégal, Gabon…)." },
+        { "poste": "Carte de séjour étudiant (timbre, photos, copies)", "min": 100, "max": 400, "annuel": true },
+        { "poste": "Caution + 1er mois de loyer", "min": 3000, "max": 8000 },
+        { "poste": "Équipement (literie, ordinateur, fournitures)", "min": 2000, "max": 8000 },
+        { "poste": "Assurance santé annuelle", "min": 1500, "max": 4000, "annuel": true }
+      ],
+      "billet_avion": { "depuis_GA": { "min": 5500, "max": 11000 }, "depuis_SN": { "min": 3000, "max": 7000 }, "depuis_MA": { "min": 0, "max": 0 }, "note": "Aller simple, en MAD." },
+      "demarches": [
+        { "quand": "J-180", "etape": "Comparer les écoles et les formations, vérifier la reconnaissance par l'État." },
+        { "quand": "J-150", "etape": "Candidater (dossier en ligne, relevés de notes, bac ou attestation)." },
+        { "quand": "J-120", "etape": "Admission, paiement des frais de réservation, attestation d'inscription." },
+        { "quand": "J-90", "etape": "Visa d'études type D si la nationalité n'est pas dispensée (ambassade du Maroc)." },
+        { "quand": "J-60", "etape": "Réserver le logement (Navilease) et l'assurance santé ; préparer le justificatif de ressources." },
+        { "quand": "J-30", "etape": "Billet d'avion, légalisation des diplômes, ouverture d'un moyen de paiement (carte, mobile money)." },
+        { "quand": "J0", "etape": "Arrivée, installation, inscription définitive à l'école." },
+        { "quand": "J+90 max", "etape": "Carte de séjour étudiant à la préfecture de police (passeport, attestation d'inscription, domicile, ressources, photos)." },
+        { "quand": "Chaque année", "etape": "Renouveler la carte de séjour avec l'attestation d'inscription et les relevés de notes." }
+      ],
+      "environnement": {
+        "securite": "Bonne dans les quartiers étudiants des grandes villes ; vigilance habituelle dans les transports.",
+        "sante": "Cliniques privées de bon niveau ; assurance obligatoire pour la carte de séjour.",
+        "transports": "Tramway à Rabat et Casablanca, trains (Al Boraq), bus, petits taxis.",
+        "communaute": "Associations d'étudiants subsahariens dans chaque grande ville ; églises et mosquées.",
+        "climat": "Méditerranéen ; hivers frais (prévoir vêtements chauds de décembre à février)."
+      }
+    },
+    {
+      "id": "SN",
+      "devise": "XOF",
+      "scolarite_annuelle": {
+        "institut": { "min": 600000, "max": 1200000, "libelle": "Institut / BTS / DUT" },
+        "ecole_commerce": { "min": 1300000, "max": 2800000, "libelle": "École de commerce / management" },
+        "ecole_ingenieurs": { "min": 1200000, "max": 2500000, "libelle": "École d'ingénieurs" },
+        "universite": { "min": 900000, "max": 1800000, "libelle": "Université privée" },
+        "grande_ecole": { "min": 1000000, "max": 2200000, "libelle": "Grande école / école spécialisée" },
+        "ecole_sante": { "min": 1500000, "max": 3500000, "libelle": "Santé (paramédical → médecine)" },
+        "inter_etats": { "min": 2000000, "max": 4000000, "libelle": "École inter-États" }
+      },
+      "frais_annuels_annexes": { "min": 100000, "max": 450000, "libelle": "Inscription / dossier / soutenance" },
+      "vie_mensuelle": {
+        "villes_cheres": ["Dakar"],
+        "ville_chere": { "min": 190000, "max": 300000 },
+        "autre_ville": { "min": 130000, "max": 220000 }
+      },
+      "installation": [
+        { "poste": "Visa étudiant (hors CEDEAO)", "min": 0, "max": 60000 },
+        { "poste": "Carte de séjour étudiant (timbres, photos, certificats)", "min": 5000, "max": 25000, "annuel": true },
+        { "poste": "Caution + 1er mois de loyer", "min": 80000, "max": 250000 },
+        { "poste": "Équipement (literie, ordinateur, fournitures)", "min": 100000, "max": 400000 },
+        { "poste": "Assurance santé annuelle", "min": 130000, "max": 400000, "annuel": true }
+      ],
+      "billet_avion": { "depuis_GA": { "min": 350000, "max": 700000 }, "depuis_MA": { "min": 200000, "max": 450000 }, "depuis_SN": { "min": 0, "max": 0 }, "note": "Aller simple, en XOF." },
+      "demarches": [
+        { "quand": "J-180", "etape": "Comparer les écoles, vérifier l'habilitation ANAQ-Sup de l'établissement et du diplôme." },
+        { "quand": "J-150", "etape": "Candidater (dossier, relevés de notes, bac ou attestation)." },
+        { "quand": "J-120", "etape": "Admission et lettre d'admission d'un établissement reconnu." },
+        { "quand": "J-90", "etape": "Visa étudiant auprès de l'ambassade du Sénégal (sauf ressortissants CEDEAO)." },
+        { "quand": "J-60", "etape": "Logement (Navilease), assurance santé, preuve de ressources." },
+        { "quand": "J-30", "etape": "Billet d'avion, légalisation des diplômes, moyen de paiement (Wave, Orange Money)." },
+        { "quand": "J0", "etape": "Arrivée et inscription définitive." },
+        { "quand": "Avant J+90", "etape": "Carte de séjour étudiant à Dakar (passeport, inscription, certificat de résidence, photos)." },
+        { "quand": "Chaque année", "etape": "Renouvellement de la carte de séjour avec l'attestation d'inscription." }
+      ],
+      "environnement": {
+        "securite": "Climat généralement calme ; vigilance habituelle (vols à la tire) dans les zones très fréquentées.",
+        "sante": "Bonne offre médicale à Dakar (hôpitaux, cliniques) ; paludisme : prévention recommandée.",
+        "transports": "BRT et TER à Dakar, bus Dakar Dem Dikk, taxis.",
+        "communaute": "Forte présence d'étudiants d'Afrique centrale et de l'Ouest ; vie associative riche.",
+        "climat": "Tropical sec ; saison des pluies de juillet à octobre."
+      }
+    },
+    {
+      "id": "GA",
+      "devise": "XAF",
+      "scolarite_annuelle": {
+        "institut": { "min": 800000, "max": 1500000, "libelle": "Institut / BTS" },
+        "ecole_commerce": { "min": 1800000, "max": 4000000, "libelle": "École de commerce / management" },
+        "ecole_ingenieurs": { "min": 1500000, "max": 3500000, "libelle": "École d'ingénieurs" },
+        "universite": { "min": 1500000, "max": 3000000, "libelle": "Université privée" },
+        "grande_ecole": { "min": 1500000, "max": 3500000, "libelle": "Grande école / école spécialisée" },
+        "inter_etats": { "min": 1500000, "max": 3500000, "libelle": "Institut inter-États" }
+      },
+      "frais_annuels_annexes": { "min": 100000, "max": 300000, "libelle": "Inscription / dossier" },
+      "vie_mensuelle": {
+        "villes_cheres": ["Libreville", "Owendo", "Akanda"],
+        "ville_chere": { "min": 250000, "max": 450000 },
+        "autre_ville": { "min": 180000, "max": 320000 }
+      },
+      "installation": [
+        { "poste": "Visa étudiant / e-visa DGDI", "min": 50000, "max": 120000 },
+        { "poste": "Carte de séjour étudiant (DGDI)", "min": 100000, "max": 200000, "annuel": true },
+        { "poste": "Vaccin fièvre jaune et carnet international", "min": 10000, "max": 25000 },
+        { "poste": "Caution + 1er mois de loyer", "min": 200000, "max": 500000 },
+        { "poste": "Équipement (literie, ordinateur, fournitures)", "min": 150000, "max": 450000 },
+        { "poste": "Assurance santé annuelle", "min": 200000, "max": 500000, "annuel": true }
+      ],
+      "billet_avion": { "depuis_SN": { "min": 350000, "max": 700000 }, "depuis_MA": { "min": 300000, "max": 650000 }, "depuis_GA": { "min": 0, "max": 0 }, "note": "Aller simple, en XAF." },
+      "demarches": [
+        { "quand": "J-180", "etape": "Comparer les écoles, vérifier l'agrément MESRS et la reconnaissance CAMES." },
+        { "quand": "J-150", "etape": "Candidater (dossier ou concours selon l'école)." },
+        { "quand": "J-120", "etape": "Admission et attestation d'inscription." },
+        { "quand": "J-90", "etape": "Visa étudiant (ambassade du Gabon) ; certificat de vaccination fièvre jaune." },
+        { "quand": "J-60", "etape": "Logement (Navilease), assurance santé et rapatriement, justificatif de ressources." },
+        { "quand": "J-30", "etape": "Billet d'avion, légalisation des diplômes, moyen de paiement (Airtel Money, Moov Money)." },
+        { "quand": "J0", "etape": "Arrivée et inscription définitive." },
+        { "quand": "J+30 max", "etape": "Carte de séjour temporaire à la DGDI." },
+        { "quand": "Chaque année", "etape": "Renouvellement avec l'attestation d'inscription et de progression." }
+      ],
+      "environnement": {
+        "securite": "Libreville est globalement calme ; prudence la nuit et dans les taxis non officiels.",
+        "sante": "Offre médicale concentrée à Libreville ; paludisme : prévention indispensable.",
+        "transports": "Taxis partagés (principal moyen), bus Sogatra.",
+        "communaute": "Communautés ouest-africaines et centrafricaines importantes.",
+        "climat": "Équatorial chaud et humide ; grande saison des pluies d'octobre à mai."
+      }
+    }
+  ]
+}
