@@ -19,7 +19,6 @@
     "@fontsource-variable/plus-jakarta-sans": "^5.1.1",
     "@fontsource/caveat": "^5.1.0",
     "@netlify/blobs": "^11.1.4",
-    "@netlify/database": "^2.0.1",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.45.4",

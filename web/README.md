@@ -12,7 +12,7 @@ Maquettes de référence (à valider avant tout changement visuel) : https://www
 
 ## Application (V1)
 
-Next.js full-stack : site public, espaces connectés, back-office et API REST (`/api`, voir [docs/backend.md](../docs/backend.md)). Base PostgreSQL (Netlify DB en production).
+Next.js full-stack : site public, espaces connectés, back-office et API REST (`/api`, voir [docs/backend.md](../docs/backend.md)). Base PostgreSQL (Neon ou Netlify DB en production, via `DATABASE_URL`).
 
 | Espace | Routes |
 |---|---|

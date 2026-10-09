@@ -1,6 +1,6 @@
 # Backend Navigoal V1
 
-Application **Next.js full-stack** (dossier `web/`) : pages, API REST et back-office dans un même projet TypeScript, déployé sur Netlify avec **Netlify DB** (PostgreSQL Neon).
+Application **Next.js full-stack** (dossier `web/`) : pages, API REST et back-office dans un même projet TypeScript, déployé sur Netlify avec une base **PostgreSQL** (Neon recommandé ; Netlify DB possible sur un plan Netlify à crédits).
 
 ## Architecture
 
@@ -36,7 +36,7 @@ npm run db:generate  # nouvelle migration après modification du schéma
 
 | Variable | Rôle |
 |---|---|
-| `NETLIFY_DB_URL` | Fournie automatiquement par Netlify DB (sinon `DATABASE_URL`) |
+| `NETLIFY_DB_URL` | Fournie automatiquement par Netlify DB si activée (plan à crédits + paquet `@netlify/database`) ; sinon utiliser `DATABASE_URL` |
 | `ADMIN_EMAIL`, `ADMIN_PASSWORD` | Premier compte administrateur créé au seed |
 | `APP_URL` | URL publique (liens des e-mails, retours de paiement) |
 | `RESEND_API_KEY`, `MAIL_FROM` | Envoi des e-mails (sinon journalisés) |

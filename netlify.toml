@@ -1,6 +1,6 @@
 [build]
   base = "web"
-  # Migrations et données de démarrage sur Netlify DB (NETLIFY_DB_URL), puis build Next.js (rendu serveur + API).
+  # Migrations et données de démarrage sur la base PostgreSQL (DATABASE_URL, ex. Neon), puis build Next.js (rendu serveur + API).
   command = "npm ci && npm run db:migrate && npm run db:seed && npm run build"
   publish = ".next"
 
