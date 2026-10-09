@@ -1,0 +1,17 @@
+{
+  "items": [
+    { "src": null, "alt": "Ambiance début de soirée", "mood": "early", "caption": "Début de soirée" },
+    { "src": null, "alt": "La salle et le bar", "mood": "early", "caption": "Le bar" },
+    { "src": null, "alt": "Soirée amapiano", "mood": "late", "caption": "23 h – minuit" },
+    { "src": null, "alt": "DJ aux platines", "mood": "late", "caption": "Aux platines" },
+    { "src": null, "alt": "L'équipe Jackboy", "mood": "team", "caption": "L'équipe" },
+    { "src": null, "alt": "Paninis en cuisine", "mood": "food", "caption": "En cuisine" },
+    { "src": null, "alt": "Le Loft", "mood": "late", "caption": "Le Loft" },
+    { "src": null, "alt": "Entre amis", "mood": "early", "caption": "Entre amis" }
+  ],
+  "team": [
+    { "name": "Nom à confirmer", "role": "Chef", "photo": null },
+    { "name": "Nom à confirmer", "role": "Barman", "photo": null },
+    { "name": "Nom à confirmer", "role": "DJ résident", "photo": null }
+  ]
+}
