@@ -1,11 +1,11 @@
 # Navigoal — site web
 
-Next.js 14 (export statique), Tailwind CSS, Framer Motion. Les données viennent des référentiels du dépôt (`../data/referentiels`, `../assets/logos`), copiées automatiquement par `scripts/sync-data.mjs` avant `dev` et `build`.
+Next.js 14 (export statique), Tailwind CSS, Framer Motion. Les données viennent des référentiels du dépôt (`../data/referentiels`, `../assets/logos`, `../assets/photos`), copiées automatiquement par `scripts/sync-data.mjs` avant `dev` et `build`.
 
 ```bash
 npm install
 npm run dev     # http://localhost:3000
-npm run build   # site statique dans out/ (321 pages)
+npm run build   # site statique dans out/ (287 pages)
 ```
 
 Maquettes de référence (à valider avant tout changement visuel) : https://www.figma.com/design/NzAcfIbAFK6tTliGnuE5xq
@@ -17,9 +17,14 @@ Maquettes de référence (à valider avant tout changement visuel) : https://www
 | `/` | Accueil : hero animé, recherche, logos, parcours, pays, domaines, métiers, Navilease, actualités |
 | `/orientation` | Test RIASEC interactif, résultat (radar, domaines, métiers, formations), « Ma série au lycée » |
 | `/formations`, `/formations/[id]` | Recherche filtrable des offres, fiche formation (compatibilité, admission, débouchés, logement) |
-| `/metiers`, `/metiers/[id]` | 96 fiches métiers filtrables par domaine et profil |
-| `/etablissements`, `/etablissements/[id]` | 120 établissements, fiche avec offre de formation |
-| `/pays`, `/navilease`, `/actualites`, `/espace` | Pays, logement étudiant, actualités, tableau de bord étudiant |
+| `/metiers`, `/metiers/[id]` | 96 fiches métiers ; parcours série → formations → écoles → métier |
+| `/etablissements`, `/etablissements/[id]` | 79 écoles privées et inter-États ; fiche avec galerie photos, formations reliées aux métiers, budget, écoles comparables |
+| `/pays`, `/pays/[code]` | Fiches pays (Gabon, Maroc, Sénégal) : système d'études, visa, budget, villes, écoles |
+| `/comparateur` | Comparaison d'écoles par formation ou par métier visé (coût total, admission, visa, logement) ; paramètres `f`, `m`, `e`, `pays` |
+| `/devis` | Devis parents sur toute la durée des études (moteur `src/lib/devis.ts`), export PDF par impression ; paramètres `etab`, `f`, `o`, `l`, `d` |
+| `/pourquoi` | Valeur ajoutée par type d'utilisateur |
+| `/navilease`, `/actualites` | Logement étudiant, actualités |
+| `/espace`, `/espace/parent` | Tableau de bord étudiant, espace parent (démonstration) |
 
 ## Animations
 

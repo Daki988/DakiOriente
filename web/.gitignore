@@ -38,3 +38,4 @@ next-env.d.ts
 # données synchronisées depuis ../data et ../assets
 /src/data/
 /public/logos/
+/public/photos/

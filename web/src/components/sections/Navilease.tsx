@@ -59,7 +59,7 @@ export function Navilease() {
               ))}
             </motion.div>
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.3 }} className="card absolute bottom-4 left-0 flex animate-float items-center gap-3 px-4 py-3.5">
-              <EtabLogo e={etabById["ma-ensias"]} size={46} /><span><b className="block text-sm">38 logements à moins de 20 min</b><span className="text-xs text-ink-mute">de l&apos;ENSIAS · 12 vérifiés</span></span>
+              <EtabLogo e={etabById["ma-uir"]} size={46} /><span><b className="block text-sm">38 logements à moins de 20 min</b><span className="text-xs text-ink-mute">de l&apos;UIR · 12 vérifiés</span></span>
             </motion.div>
           </div>
         </div>

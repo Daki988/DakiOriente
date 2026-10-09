@@ -31,7 +31,7 @@ export function QuickLinks() {
   );
 }
 
-const MARQUEE = ["sn-ucad", "ma-um5", "ga-uob", "ma-um6p", "sn-ugb", "ma-emi", "ma-aui", "sn-esp", "ga-ustm", "ma-inpt", "sn-cesag", "ma-hem", "sn-dit", "ma-uh2c", "ga-ista", "sn-uasz", "ma-ehtp", "ma-insea"];
+const MARQUEE = ["ma-um6p", "sn-esmt", "ga-ista", "ma-uir", "sn-ism", "ma-hem", "sn-cesag", "ma-emsi", "ga-ufgse", "sn-supdeco", "ma-uic", "sn-daust", "ma-esa-casa", "sn-iam", "ma-iihem", "ga-esgis", "sn-ucao", "ma-tbs-casa"];
 export function LogosMarquee() {
   return (
     <section className="border-y border-[#eef1f8] bg-white py-7">
@@ -119,7 +119,7 @@ export function NavileaseTeaser() {
               <div className="relative flex h-[170px] items-center justify-center bg-gradient-to-br from-brand-300 to-brand-600"><Building size={80} className="text-white/55" strokeWidth={1.5} /><span className="chip absolute left-3.5 top-3.5 bg-[#e8f8ef] text-[#0f8a46]">✓ Visité par Navilease</span></div>
               <div className="flex flex-col gap-2 p-4">
                 <div className="flex justify-between font-extrabold"><span>Studio meublé · Agdal</span><span className="text-brand-600">2 800 MAD</span></div>
-                <div className="flex items-center gap-1.5 text-xs text-ink-mute"><MapPin size={14} /> 8 min à pied de l&apos;ENSIAS</div>
+                <div className="flex items-center gap-1.5 text-xs text-ink-mute"><MapPin size={14} /> 8 min à pied de l&apos;UIR</div>
                 <div className="flex gap-1.5">{["Wifi", "Meublé", "Gardien 24h"].map((t) => <span key={t} className="chip bg-brand-50 text-brand-700">{t}</span>)}</div>
               </div>
             </motion.div>

@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Établissements", description: "Univ
 export default function EtablissementsPage() {
   return (
     <>
-      <PageHero crumb="Établissements" title="Universités, écoles" accent="et instituts" sub="120 établissements du supérieur au Gabon, au Maroc et au Sénégal : publics, privés et inter-États." hand="Compare avant de choisir !" />
+      <PageHero crumb="Établissements" title="Écoles et universités" accent="privées" sub="79 établissements privés et inter-États qui accueillent les étudiants internationaux au Gabon, au Maroc et au Sénégal." hand="Compare avant de choisir !" />
       <Suspense><EtabList /></Suspense>
     </>
   );

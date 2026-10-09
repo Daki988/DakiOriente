@@ -10,7 +10,7 @@ import { PROFILE_KEY } from "./OrientationTest";
 const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const OFFERS = etablissements.flatMap((e) => e.formations.map((f) => ({ f: formationById[f], e })).filter((o) => o.f));
 const NIVEAUX = ["niv-bac2", "niv-bac3", "niv-bac5", "niv-bac7", "niv-bac8"];
-const STATUTS: [string, (s: string) => boolean][] = [["Public", (s) => s.startsWith("public") || s === "inter_etats"], ["Privé", (s) => s.startsWith("prive")]];
+const STATUTS: [string, (s: string) => boolean][] = [["Inter-États", (s) => s === "inter_etats"], ["Privé", (s) => s.startsWith("prive")]];
 const ADMISSIONS = [["dossier", "Sur dossier"], ["concours", "Concours"], ["bac", "De droit"], ["dossier+entretien", "Dossier + entretien"]];
 
 function Check2({ on, label, onClick }: { on: boolean; label: string; onClick: () => void }) {
@@ -80,7 +80,7 @@ export function FormationSearch() {
           </div>
           <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-2 pl-5 shadow-[0_20px_50px_-18px_rgba(11,21,51,.3)] focus-within:ring-4 focus-within:ring-brand-100">
             <Search size={20} className="text-ink-mute" />
-            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Ex : informatique Dakar, médecine, BTS, UCAD…" className="min-w-0 flex-1 bg-transparent py-2.5 outline-none" aria-label="Rechercher une formation" />
+            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Ex : informatique Dakar, médecine, BTS, ISM…" className="min-w-0 flex-1 bg-transparent py-2.5 outline-none" aria-label="Rechercher une formation" />
             {q && <button onClick={() => setQ("")} aria-label="Effacer" className="text-ink-mute"><X size={18} /></button>}
             <button onClick={() => setShowFilters(true)} className="btn-ghost relative py-2.5 lg:hidden"><SlidersHorizontal size={16} />{nbFilters > 0 && <span className="absolute -right-1.5 -top-1.5 rounded-full bg-sun-400 px-1.5 text-xs">{nbFilters}</span>}</button>
           </div>

@@ -10,11 +10,11 @@ import { PROFILE_KEY } from "./OrientationTest";
 
 const STEPS = ["Profil complété", "Test d'orientation", "Recommandations", "Candidatures", "Admission", "Logement"];
 const CANDS = [
-  { t: "Licence en Informatique", e: "ga-uob", s: "Soumise", c: "bg-brand-50 text-brand-700", n: 2 },
-  { t: "Cycle ingénieur — CPGE", e: "ma-emi", s: "En cours de traitement", c: "bg-sun-100 text-[#a55a00]", n: 3 },
-  { t: "Licence en Gestion", e: "ga-insg", s: "Acceptée", c: "bg-[#e8f8ef] text-[#0f8a46]", n: 5 },
+  { t: "Licence en Informatique", e: "ga-ufgse", s: "Soumise", c: "bg-brand-50 text-brand-700", n: 2 },
+  { t: "Cycle ingénieur informatique", e: "ma-emsi", s: "En cours de traitement", c: "bg-sun-100 text-[#a55a00]", n: 3 },
+  { t: "Licence en Gestion", e: "ga-bbs", s: "Acceptée", c: "bg-[#e8f8ef] text-[#0f8a46]", n: 5 },
 ];
-const RECOS = [["frm-licence-informatique", "ga-uob"], ["frm-ingenieur-informatique", "ma-emi"], ["frm-master-data-science-ia", "ma-um6p"]];
+const RECOS = [["frm-licence-informatique", "ga-ufgse"], ["frm-ingenieur-informatique", "ma-emsi"], ["frm-master-data-science-ia", "ma-um6p"]];
 
 export function Dashboard() {
   const [top, setTop] = useState<string[] | null>(null);
@@ -95,7 +95,7 @@ export function Dashboard() {
         </div>
         <div className="flex flex-col gap-4">
           <div className="card flex flex-col gap-3 p-5"><h3 className="text-lg font-extrabold">Échéances</h3>
-            {[["15", "NOV", "Clôture UOB", "Licence Informatique", "bg-[#ffecef]"], ["22", "NOV", "Concours CNC", "Inscriptions Maroc", "bg-sun-100"], ["03", "DÉC", "Résultats BBS", "Admission", "bg-brand-50"]].map(([d, m, t, s, bg]) => (
+            {[["15", "NOV", "Clôture UFGSE", "Licence Informatique", "bg-[#ffecef]"], ["22", "NOV", "Entretiens EMSI", "Cycle ingénieur", "bg-sun-100"], ["03", "DÉC", "Résultats BBS", "Admission", "bg-brand-50"]].map(([d, m, t, s, bg]) => (
               <div key={t} className="flex items-center gap-3"><span className={`flex w-12 flex-col items-center rounded-xl py-1.5 ${bg}`}><b className="text-lg">{d}</b><span className="text-[10px] font-bold">{m}</span></span><span><b className="block text-[13px]">{t}</b><span className="text-xs text-ink-mute">{s}</span></span></div>
             ))}
           </div>

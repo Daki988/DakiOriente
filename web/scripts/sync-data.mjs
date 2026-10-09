@@ -10,6 +10,7 @@ const root = path.resolve(web, "..");
 const REF = path.join(root, "data", "referentiels");
 const OUT = path.join(web, "src", "data");
 const LOGOS_OUT = path.join(web, "public", "logos");
+const PHOTOS_OUT = path.join(web, "public", "photos");
 
 const read = (name) => JSON.parse(fs.readFileSync(path.join(REF, `${name}.json`), "utf8"));
 const write = (name, data) => fs.writeFileSync(path.join(OUT, `${name}.json`), JSON.stringify(data));
@@ -21,11 +22,12 @@ for (const name of ["pays", "niveaux", "domaines", "profils_riasec", "competence
 }
 
 const logoUrl = (logo) => (logo ? "/" + logo.fichier.replace(/^assets\//, "") : null);
+const photoOf = (p) => ({ src: "/" + p.fichier.replace(/^assets\//, ""), credit: p.credit, licence: p.licence, page: p.page_source });
 
 const sup = read("etablissements_superieurs").items.map((e) => ({
   id: e.id, nom: e.nom, sigle: e.sigle, pays: e.pays, ville: e.ville, type: e.type, type_libelle: e.type_libelle,
   statut: e.statut, site_web: e.site_web, annee_creation: e.annee_creation, coordonnees: e.coordonnees,
-  formations: e.formations, logo: logoUrl(e.logo),
+  formations: e.formations, logo: logoUrl(e.logo), photos: (e.photos || []).map(photoOf),
 }));
 write("etablissements", sup);
 
@@ -44,6 +46,14 @@ const nav = read("navilease_logements");
 write("navilease", { residences: nav.items, ...nav._meta });
 const seriesDoc = JSON.parse(fs.readFileSync(path.join(REF, "series.json"), "utf8"));
 write("orientation_seconde", seriesDoc._meta.orientation_fin_college);
+
+write("pays_details", read("pays_details").items);
+const couts = read("couts_etudes");
+const coutsMeta = JSON.parse(fs.readFileSync(path.join(REF, "couts_etudes.json"), "utf8"))._meta;
+write("couts", { items: couts.items, taux: coutsMeta.taux_change_indicatifs, hypotheses: coutsMeta.hypotheses, sources: coutsMeta.sources, avertissement: coutsMeta.avertissement });
+
+fs.rmSync(PHOTOS_OUT, { recursive: true, force: true });
+fs.cpSync(path.join(root, "assets", "photos"), PHOTOS_OUT, { recursive: true, filter: (src) => !src.endsWith(".json") });
 
 fs.rmSync(LOGOS_OUT, { recursive: true, force: true });
 fs.cpSync(path.join(root, "assets", "logos"), LOGOS_OUT, {

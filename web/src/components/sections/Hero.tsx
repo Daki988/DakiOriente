@@ -9,7 +9,7 @@ import { WordsReveal } from "@/components/motion/Reveal";
 import { Counter } from "@/components/motion/Counter";
 import { stats } from "@/lib/data";
 
-const POPULAIRES = ["Médecine", "Data analyst", "UCAD", "Ingénieur", "BTS"];
+const POPULAIRES = ["Médecine", "Data analyst", "UM6P", "Ingénieur", "BTS"];
 
 export function Hero() {
   const router = useRouter();
@@ -106,7 +106,7 @@ export function Hero() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3 }} className="absolute bottom-10 left-0 sm:left-4">
             <Link href="/navilease" className="card flex animate-float items-center gap-2.5 px-4 py-3 transition hover:shadow-lift">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sun-100 text-[#a55a00]"><House size={20} /></div>
-              <div><div className="text-[13px] font-extrabold">Studio à 900 m de l&apos;UCAD</div><div className="text-[11px] text-ink-mute">Navilease · vérifié ✓</div></div>
+              <div><div className="text-[13px] font-extrabold">Studio à 900 m de l&apos;ISM</div><div className="text-[11px] text-ink-mute">Navilease · vérifié ✓</div></div>
             </Link>
           </motion.div>
           <p className="absolute right-0 top-4 hidden w-48 -rotate-6 font-hand text-2xl leading-tight text-brand-700 lg:block">« S&apos;orienter aujourd&apos;hui pour construire l&apos;Afrique de demain. »</p>

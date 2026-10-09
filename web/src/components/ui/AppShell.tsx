@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Bell, Briefcase, KeyRound, Building2, Compass, FileText, Folder, GraduationCap, House, LayoutDashboard, MessageCircle, Search, Settings, UserRound } from "lucide-react";
+import { Bell, Briefcase, KeyRound, Building2, Compass, FileText, Folder, GraduationCap, House, LayoutDashboard, MessageCircle, Scale, Search, Settings, UserRound, UsersRound } from "lucide-react";
 import type { ReactNode } from "react";
 import { Brand } from "./Brand";
 
@@ -13,9 +13,11 @@ const ITEMS = [
   { href: "/metiers", Icon: Briefcase, t: "Métiers" },
   { href: "/formations", Icon: GraduationCap, t: "Formations" },
   { href: "/etablissements", Icon: Building2, t: "Établissements" },
+  { href: "/comparateur", Icon: Scale, t: "Comparateur" },
   { href: "/espace#candidatures", Icon: FileText, t: "Mes candidatures" },
   { href: "/espace#documents", Icon: Folder, t: "Mes documents" },
   { href: "/navilease", Icon: House, t: "Mon logement" },
+  { href: "/espace/parent", Icon: UsersRound, t: "Espace parent" },
   { href: "/espace#messages", Icon: MessageCircle, t: "Messages", badge: 2 },
   { href: "/espace#parametres", Icon: Settings, t: "Paramètres" },
 ];
@@ -36,7 +38,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="px-2"><Brand /></div>
         <nav className="flex flex-col gap-1">
           {ITEMS.map(({ href, Icon, t, badge }) => {
-            const on = href === path || (href !== "/espace" && !href.includes("#") && path.startsWith(href)) || (href === "/espace" && path === "/espace");
+            const on = href === path || (href !== "/espace" && !href.includes("#") && path.startsWith(href)) || (href === "/espace" && path.replace(/\/$/, "") === "/espace");
             return (
               <Link key={t} href={href} className={`relative flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-semibold transition ${on ? "text-brand-600" : "text-ink-soft hover:bg-[#f6f8fe]"}`}>
                 {on && <motion.span layoutId="side-pill" className="absolute inset-0 rounded-xl bg-brand-50" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}

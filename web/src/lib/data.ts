@@ -8,6 +8,7 @@ import etablissementsData from "@/data/etablissements.json";
 import lyceesData from "@/data/lycees.json";
 import navileaseData from "@/data/navilease.json";
 import riasecData from "@/data/profils_riasec.json";
+import paysDetailsData from "@/data/pays_details.json";
 
 export type PaysCode = "GA" | "MA" | "SN";
 
@@ -23,7 +24,17 @@ export type Formation = {
 export type Etablissement = {
   id: string; nom: string; sigle: string; pays: PaysCode; ville: string; type: string; type_libelle: string;
   statut: string; site_web: string | null; annee_creation: number | null;
-  coordonnees: { lat: number; lng: number } | null; formations: string[]; logo: string | null;
+  coordonnees: { lat: number; lng: number } | null; formations: string[]; logo: string | null; photos: Photo[];
+};
+export type Photo = { src: string; credit: string | null; licence: string | null; page: string | null };
+type Fourchette = { min: number; max: number };
+export type PaysDetail = {
+  id: PaysCode; nom: string; accroche: string;
+  chiffres: { population: string; capitale: string; monnaie: string; langues: string[]; fuseau: string; indicatif: string };
+  pourquoi: string[]; systeme: string; reconnaissance: string; calendrier: string; visa: string[];
+  budget: { devise: string; lignes: ({ poste: string } & Fourchette)[]; total_mensuel: Fourchette; note: string };
+  frais_prive: { devise: string; unite: string; note: string } & Fourchette;
+  travail: string; sante: string; paiement: string[]; villes: { nom: string; profil: string }[]; bourses: string[]; sources: string[];
 };
 export type Serie = {
   id: string; pays: PaysCode; code: string; intitule: string; filiere: string; matieres_dominantes: string[];
@@ -40,6 +51,7 @@ export const series = seriesData as unknown as Serie[];
 export const etablissements = etablissementsData as unknown as Etablissement[];
 export const lycees = lyceesData as unknown as { total: Record<PaysCode, number>; items: { id: string; nom: string; pays: PaysCode; ville: string; logo: string | null }[] };
 export const residences = (navileaseData as unknown as { residences: Residence[] }).residences;
+export const paysDetails = paysDetailsData as unknown as PaysDetail[];
 export const riasec = riasecData as { code: string; nom: string; profil: string; description: string }[];
 
 const index = <T extends { id: string }>(arr: T[]) => Object.fromEntries(arr.map((x) => [x.id, x])) as Record<string, T>;
@@ -49,6 +61,19 @@ export const etabById = index(etablissements);
 export const domaineById = index(domaines);
 export const competenceById = index(competences);
 export const serieById = index(series);
+export const paysDetailById = index(paysDetails) as Record<PaysCode, PaysDetail>;
+
+export const STATUT_LONG: Record<string, string> = { prive: "Privé", prive_reconnu: "Privé reconnu par l'État", prive_non_lucratif: "Privé à but non lucratif", inter_etats: "Inter-États" };
+export const fmt = (n: number) => Math.round(n).toLocaleString("fr-FR").replace(/[\u202f\u00a0]/g, " ");
+/** Établissements d'un pays, ceux qui ont des photos d'abord. */
+export const vitrine = (code?: PaysCode, needPhoto = false) =>
+  etablissements.filter((e) => (!code || e.pays === code) && (!needPhoto || e.photos.length))
+    .sort((a, b) => b.photos.length - a.photos.length || b.formations.length - a.formations.length);
+/** Formations reliées : même formation ou mêmes métiers visés. */
+export const formationsLiees = (e: Etablissement, fid: string) => {
+  const F = formationById[fid];
+  return e.formations.filter((f) => formationById[f] && (f === fid || formationById[f].metiers.some((m) => F.metiers.includes(m))));
+};
 
 export const PAYS_NOM: Record<PaysCode, string> = { GA: "Gabon", MA: "Maroc", SN: "Sénégal" };
 export const niveauLabel = (n: string) =>
@@ -56,7 +81,7 @@ export const niveauLabel = (n: string) =>
 export const admissionLabel = (m: string) =>
   ({ bac: "De droit", dossier: "Sur dossier", concours: "Concours", "dossier+entretien": "Dossier + entretien" } as Record<string, string>)[m] ?? m;
 export const statutLabel = (s: string) =>
-  ({ public: "Public", public_autonome: "Public autonome", prive: "Privé", prive_reconnu: "Privé reconnu", prive_non_lucratif: "Privé non lucratif", inter_etats: "Inter-États" } as Record<string, string>)[s] ?? s;
+  ({ public: "Public", public_autonome: "Public autonome", prive: "Privé", prive_reconnu: "Privé reconnu par l'État", prive_non_lucratif: "Privé non lucratif", inter_etats: "Inter-États" } as Record<string, string>)[s] ?? s;
 export const competenceLabel = (id: string) => competenceById[id]?.libelle ?? id;
 
 /** Score de compatibilité (démo) entre un profil RIASEC et une formation, à partir des métiers visés. */

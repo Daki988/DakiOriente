@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BarChart3, Briefcase, Code2, Cog, HardHat, Heart, Landmark, Pickaxe, Scale, Sprout, Stethoscope, Megaphone, GraduationCap, Plane, BookOpen, Palette, Users, Shield, Hotel, Building2, MapPin, Clock, Sparkles, type LucideIcon } from "lucide-react";
 import { EtabLogo } from "./EtabLogo";
+import { EtabPhoto } from "./EtabPhoto";
 import { Tilt } from "@/components/motion/Tilt";
 import { PAYS_NOM, competenceLabel, etabById, etablissements, lycees, niveauLabel, statutLabel, type Formation, type Metier, type PaysCode } from "@/lib/data";
 
@@ -50,7 +51,7 @@ export function MetierCard({ m }: { m: Metier }) {
   );
 }
 
-const PAYS_STYLE: Record<PaysCode, { villes: string; tint: string; flag: JSX.Element }> = {
+export const PAYS_STYLE: Record<PaysCode, { villes: string; tint: string; flag: JSX.Element }> = {
   GA: { villes: "Libreville · Franceville · Moanda", tint: "#009e60", flag: <div className="flex h-9 w-[54px] flex-col overflow-hidden rounded-lg shadow"><div className="flex-1 bg-[#009e60]" /><div className="flex-1 bg-[#fcd116]" /><div className="flex-1 bg-[#3a75c4]" /></div> },
   MA: { villes: "Rabat · Casablanca · Marrakech · Fès", tint: "#c1272d", flag: <div className="flex h-9 w-[54px] items-center justify-center overflow-hidden rounded-lg bg-[#c1272d] shadow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#006233" strokeWidth="2.5"><path d="M12 2l3 7h7l-5.5 4.5 2 7.5L12 16.5 5.5 21l2-7.5L2 9h7z" /></svg></div> },
   SN: { villes: "Dakar · Thiès · Saint-Louis · Ziguinchor", tint: "#00853f", flag: <div className="flex h-9 w-[54px] overflow-hidden rounded-lg shadow"><div className="flex-1 bg-[#00853f]" /><div className="flex flex-1 items-center justify-center bg-[#fdef42] text-[10px] text-[#00853f]">★</div><div className="flex-1 bg-[#e31b23]" /></div> },
@@ -71,7 +72,7 @@ export function PaysCard({ code }: { code: PaysCode }) {
         </div>
         <div className="mt-auto flex items-center justify-between">
           <div className="flex pl-2">{withLogo.map((e) => <EtabLogo key={e.id} e={e} size={38} className="-ml-2 shadow-sm" />)}</div>
-          <Link href={`/etablissements/?pays=${code}`} className="btn-ghost px-3.5 py-2.5">Explorer <ArrowRight size={16} /></Link>
+          <Link href={`/pays/${code}/`} className="btn-ghost px-3.5 py-2.5">Découvrir <ArrowRight size={16} /></Link>
         </div>
       </div>
     </Tilt>
@@ -112,12 +113,16 @@ export function EtabCard({ id }: { id: string }) {
   const e = etabById[id];
   return (
     <Tilt className="h-full">
-      <Link href={`/etablissements/${e.id}/`} className="card group flex h-full flex-col gap-4 p-5 transition-shadow hover:shadow-lift">
-        <div className="flex items-center gap-3"><EtabLogo e={e} size={56} /><div className="min-w-0"><div className="font-extrabold">{e.sigle}</div><div className="line-clamp-2 text-[13px] text-ink-soft">{e.nom}</div></div></div>
-        <div className="flex flex-wrap gap-1.5"><span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip bg-[#f6f8fe] text-ink-soft">{statutLabel(e.statut)}</span></div>
-        <div className="mt-auto flex items-center justify-between border-t border-[#eef1f8] pt-3 text-[13px]">
-          <span className="flex items-center gap-1.5 text-ink-mute"><Building2 size={14} />{e.ville.split("(")[0]} · {PAYS_NOM[e.pays]}</span>
-          <span className="font-bold text-brand-600">{e.formations.length} formations</span>
+      <Link href={`/etablissements/${e.id}/`} className="card group flex h-full flex-col overflow-hidden transition-shadow hover:shadow-lift">
+        <div className="relative h-28 overflow-hidden"><EtabPhoto e={e} rounded="rounded-none" className="h-full w-full transition duration-700 group-hover:scale-105" />{e.photos.length > 1 && <span className="absolute right-2.5 top-2.5 rounded-full bg-ink/60 px-2 py-0.5 text-[11px] font-bold text-white">{e.photos.length} photos</span>}</div>
+        <div className="relative flex flex-1 flex-col gap-4 px-5 pb-5 pt-9">
+          <EtabLogo e={e} size={56} className="absolute -top-7 left-4 shadow-sm" />
+          <div className="min-w-0"><div className="font-extrabold">{e.sigle}</div><div className="line-clamp-2 text-[13px] text-ink-soft">{e.nom}</div></div>
+          <div className="flex flex-wrap gap-1.5"><span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip bg-[#f6f8fe] text-ink-soft">{statutLabel(e.statut)}</span></div>
+          <div className="mt-auto flex items-center justify-between border-t border-[#eef1f8] pt-3 text-[13px]">
+            <span className="flex items-center gap-1.5 text-ink-mute"><Building2 size={14} />{e.ville.split("(")[0].split("/")[0].trim()} · {PAYS_NOM[e.pays]}</span>
+            <span className="font-bold text-brand-600">{e.formations.length} formations</span>
+          </div>
         </div>
       </Link>
     </Tilt>

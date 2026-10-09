@@ -4,9 +4,9 @@ import { Footer } from "@/components/ui/Footer";
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Header />
+      <div className="print:hidden"><Header /></div>
       <main>{children}</main>
-      <Footer />
+      <div className="print:hidden"><Footer /></div>
     </>
   );
 }

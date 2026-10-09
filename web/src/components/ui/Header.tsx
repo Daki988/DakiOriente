@@ -12,9 +12,10 @@ export const NAV = [
   { href: "/metiers", label: "Métiers" },
   { href: "/formations", label: "Formations" },
   { href: "/etablissements", label: "Établissements" },
+  { href: "/comparateur", label: "Comparateur" },
   { href: "/pays", label: "Pays" },
+  { href: "/devis", label: "Parents" },
   { href: "/navilease", label: "Navilease" },
-  { href: "/actualites", label: "Actualités" },
 ];
 
 export function Header() {
@@ -40,7 +41,7 @@ export function Header() {
         <Brand />
         <nav className="hidden items-center gap-1 xl:flex" aria-label="Navigation principale">
           {NAV.map((n) => (
-            <Link key={n.href} href={n.href} className={`relative rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${active(n.href) ? "text-brand-600" : "text-ink-soft hover:text-brand-600"}`}>
+            <Link key={n.href} href={n.href} className={`relative whitespace-nowrap rounded-lg px-2.5 py-2 text-sm font-semibold transition-colors ${active(n.href) ? "text-brand-600" : "text-ink-soft hover:text-brand-600"}`}>
               {n.label}
               {active(n.href) && <motion.span layoutId="nav-pill" className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-brand-600" />}
             </Link>
@@ -50,8 +51,8 @@ export function Header() {
           <Link href="/formations" aria-label="Rechercher" className="hidden h-[42px] w-[42px] items-center justify-center rounded-xl bg-[#f1f4fd] text-ink-soft transition hover:bg-brand-50 hover:text-brand-600 sm:flex">
             <Search size={18} />
           </Link>
-          <Link href="/espace" className="btn-ghost hidden py-2.5 sm:inline-flex">Se connecter</Link>
-          <Link href="/espace" className="btn-sun hidden py-2.5 sm:inline-flex">S&apos;inscrire</Link>
+          <Link href="/espace" className="btn-ghost hidden whitespace-nowrap py-2.5 sm:inline-flex xl:hidden 2xl:inline-flex">Se connecter</Link>
+          <Link href="/espace" className="btn-sun hidden whitespace-nowrap py-2.5 sm:inline-flex">S&apos;inscrire</Link>
           <button onClick={() => setOpen(!open)} className="flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-[#f1f4fd] xl:hidden" aria-label="Menu" aria-expanded={open}>
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
