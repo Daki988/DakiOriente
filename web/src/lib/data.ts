@@ -25,7 +25,24 @@ export type Etablissement = {
   id: string; nom: string; sigle: string; pays: PaysCode; ville: string; type: string; type_libelle: string;
   statut: string; site_web: string | null; annee_creation: number | null;
   coordonnees: { lat: number; lng: number } | null; formations: string[]; logo: string | null; photos: Photo[];
+  label: Label; label_libelle: string; reconnaissance: string | null; reconnaissance_en_cours: boolean;
+  adresse: string | null; description: string | null; filieres: Filiere[];
 };
+export type Label = "reconnu_etat" | "diplomes_homologues" | "professionnel";
+/** Filière homologuée par l'État (accréditation en cours). */
+export type Filiere = {
+  intitule: string; options: string | null; composante: string | null; ville: string | null;
+  diplome: string | null; duree_annees: number | null; niveau: string | null; formation: string | null; domaine: string | null;
+  homologation: { statut: string; fin: string; texte: string };
+};
+export const LABELS: { id: Label; libelle: string; court: string; description: string }[] = [
+  { id: "reconnu_etat", libelle: "Reconnu par l'État", court: "Reconnu par l'État", description: "Établissement reconnu par décret : ses diplômes accrédités sont équivalents aux diplômes nationaux." },
+  { id: "diplomes_homologues", libelle: "Diplômes homologués", court: "Diplômes homologués", description: "Établissement autorisé dont les filières publiées sont accréditées par l'État (arrêté au Bulletin officiel)." },
+  { id: "professionnel", libelle: "Établissement professionnel", court: "Professionnel", description: "Établissement de formation professionnelle accrédité : diplômes d'État (technicien, technicien spécialisé)." },
+];
+export const labelById = Object.fromEntries(LABELS.map((l) => [l.id, l])) as Record<Label, (typeof LABELS)[number]>;
+/** Villes d'études (établissements publiés). */
+export const VILLES_ETUDES = Array.from(new Set((etablissementsData as unknown as { ville: string }[]).map((e) => e.ville))).sort((a, b) => a.localeCompare(b, "fr"));
 export type Photo = { src: string; credit: string | null; licence: string | null; page: string | null };
 type Fourchette = { min: number; max: number };
 export type PaysDetail = {
@@ -63,7 +80,7 @@ export const competenceById = index(competences);
 export const serieById = index(series);
 export const paysDetailById = index(paysDetails) as Record<PaysCode, PaysDetail>;
 
-export const STATUT_LONG: Record<string, string> = { prive: "Privé", prive_reconnu: "Privé reconnu par l'État", prive_non_lucratif: "Privé à but non lucratif", inter_etats: "Inter-États" };
+export const STATUT_LONG: Record<string, string> = { prive: "Privé", partenariat_etat: "Privé, en partenariat avec l'État", prive_reconnu: "Privé reconnu par l'État", prive_non_lucratif: "Privé à but non lucratif", inter_etats: "Inter-États" };
 export const fmt = (n: number) => Math.round(n).toLocaleString("fr-FR").replace(/[\u202f\u00a0]/g, " ");
 /** Établissements d'un pays, ceux qui ont des photos d'abord. */
 export const vitrine = (code?: PaysCode, needPhoto = false) =>
@@ -81,7 +98,7 @@ export const niveauLabel = (n: string) =>
 export const admissionLabel = (m: string) =>
   ({ bac: "De droit", dossier: "Sur dossier", concours: "Concours", "dossier+entretien": "Dossier + entretien" } as Record<string, string>)[m] ?? m;
 export const statutLabel = (s: string) =>
-  ({ public: "Public", public_autonome: "Public autonome", prive: "Privé", prive_reconnu: "Privé reconnu par l'État", prive_non_lucratif: "Privé non lucratif", inter_etats: "Inter-États" } as Record<string, string>)[s] ?? s;
+  ({ public: "Public", public_autonome: "Public autonome", prive: "Privé", partenariat_etat: "Partenariat avec l'État", prive_reconnu: "Privé reconnu par l'État", prive_non_lucratif: "Privé non lucratif", inter_etats: "Inter-États" } as Record<string, string>)[s] ?? s;
 export const competenceLabel = (id: string) => competenceById[id]?.libelle ?? id;
 
 /** Score de compatibilité (démo) entre un profil RIASEC et une formation, à partir des métiers visés. */
@@ -98,5 +115,7 @@ export const stats = {
   etablissements: etablissements.length,
   metiers: metiers.length,
   formations: formations.length,
-  pays: pays.length,
+  filieres: etablissements.reduce((n, e) => n + e.filieres.length, 0),
+  villes: VILLES_ETUDES.length,
+  paysOrigine: 54,
 };

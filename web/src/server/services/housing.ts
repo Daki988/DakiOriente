@@ -16,7 +16,7 @@ export const housingSchema = z.object({
   title: z.string().trim().min(5).max(120),
   type: z.enum(HOUSING_TYPES),
   description: z.string().trim().min(30, "Décrivez le logement (30 caractères minimum).").max(5000),
-  pays: z.enum(["GA", "MA", "SN"]),
+  pays: z.literal("MA").default("MA"), // Navilease : logements étudiants au Maroc
   ville: z.string().trim().min(2).max(80),
   quartier: z.string().max(80).optional(),
   address: z.string().max(200).optional(),

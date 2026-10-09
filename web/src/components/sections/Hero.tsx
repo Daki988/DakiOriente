@@ -41,7 +41,7 @@ export function Hero() {
         <div className="flex min-w-0 flex-col gap-6">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap gap-2.5">
             <span className="chip bg-brand-50 text-brand-700"><Sparkles size={14} /> Nouveau : test d&apos;orientation IA</span>
-            <span className="chip bg-sun-100 text-[#a55a00]">🇬🇦 🇲🇦 🇸🇳 3 pays</span>
+            <span className="chip bg-sun-100 text-[#a55a00]">🇲🇦 Étudier au Maroc</span>
           </motion.div>
           <h1 className="h-display lg:text-[68px]">
             <WordsReveal text="Ton avenir commence" />{" "}
@@ -77,7 +77,7 @@ export function Hero() {
             ))}
           </motion.div>
           <div className="mt-2 grid grid-cols-2 gap-6 sm:grid-cols-4">
-            {[[stats.etablissements, "+", "établissements référencés"], [stats.metiers, "", "fiches métiers"], [stats.formations, "", "formations types"], [stats.pays, "", "pays au lancement"]].map(([n, s, l]) => (
+            {[[stats.etablissements, "", "établissements homologués"], [stats.filieres, "", "filières homologuées"], [stats.metiers, "", "fiches métiers"], [stats.villes, "", "villes d'études"]].map(([n, s, l]) => (
               <div key={l as string}><div className="text-3xl font-extrabold tracking-tight"><Counter to={n as number} suffix={s as string} /></div><div className="text-[13px] text-ink-mute">{l}</div></div>
             ))}
           </div>

@@ -1,0 +1,2822 @@
+{
+  "_meta": {
+    "referentiel": "pays_origine",
+    "version": "1.0.0",
+    "date": "2026-10-09",
+    "plateforme": "Navigoal",
+    "description": "Pays d'origine des étudiants (destination unique : le Maroc) : indicatif, devise, régime d'entrée au Maroc, diplôme de fin d'études secondaires.",
+    "regions": {
+      "afrique_nord": "Afrique du Nord",
+      "afrique_ouest": "Afrique de l'Ouest",
+      "afrique_centrale": "Afrique centrale",
+      "afrique_est": "Afrique de l'Est",
+      "afrique_australe": "Afrique australe",
+      "europe": "Europe",
+      "moyen_orient": "Moyen-Orient",
+      "asie": "Asie",
+      "amerique_nord": "Amérique du Nord",
+      "amerique_latine": "Amérique latine et Caraïbes",
+      "oceanie": "Océanie"
+    },
+    "visa": {
+      "national": "Ressortissant marocain",
+      "dispense": "Dispensé de visa",
+      "evisa": "Visa électronique (e-Visa)",
+      "visa": "Visa consulaire requis"
+    },
+    "notes": "visa_maroc concerne les passeports ordinaires et les séjours courts (≤ 90 j) ; un étudiant doit ensuite obtenir une carte de séjour DGSN. « dispense » = sans visa ; si aevm_obligatoire=true, une Autorisation électronique de voyage au Maroc (AEVM, acces-maroc.ma) doit être obtenue avant le départ (Congo, Guinée, Ghana, Équateur à la date du fichier). « evisa » = e-Visa ouvert sans condition (Bénin, Brunei, Cambodge, Guatemala, Inde, Israël, Jordanie, Laos, Thaïlande, Viêt Nam). « visa » = visa consulaire ; evisa_conditionnel=true signifie que l'e-Visa est accessible aux titulaires d'un visa/titre de séjour valide Schengen, US, UK, Canada, Australie, Irlande, Japon, NZ (ou titre de séjour EAU). Iran, Palestine, Syrie, Taïwan, Tuvalu exclus de l'e-Visa. La page officielle consulat.ma n'est pas à jour (liste encore la Côte d'Ivoire comme dispensée et le Mali avec AEVM ; n'inclut pas Cap-Vert, Ghana, Azerbaïdjan, Kazakhstan, Albanie, Équateur) : recoupement avec Wikipedia (Visa policy of Morocco, révision récente) et presse. acces-maroc.ma est une application JS non scrapable depuis cet environnement. Côte d'Ivoire : visa depuis le 01/09/2024, mesure annoncée pour 2 ans ; pas de levée officielle publiée au 09/10/2026 — à revérifier. AMCI : aucune liste officielle par pays trouvée ; amci=null partout (règle générale : admission sur quota des pays partenaires, proposition par les autorités du pays d'origine ; 47 pays africains représentés en 2019/2020). Pour les établissements privés, l'AMCI n'intervient en principe pas (inscription directe). Sahara occidental (EH) non inclus. Kosovo (XK, code non ISO) non inclus ; exclu de l'e-Visa marocain. Indicatifs, devises ISO 4217, langues officielles et diplômes : connaissances générales de référence (ISO 4217, UIT E.164), non sourcés individuellement ; champs marqués « à vérifier » dans note lorsque incertains.",
+    "sources": [
+      "https://www.consulat.ma/fr/liste-des-pays-dont-les-ressortissants-sont-dispenses-du-visa-dentree-au-maroc",
+      "https://www.consulat.ma/en/list-countries-whose-citizens-are-exempted-entry-visa-morocco",
+      "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+      "https://www.acces-maroc.ma/",
+      "https://www.acces-maroc.ma/assets/docs/Conditions%20utilisation%20eVisa%20-%20Fr.pdf",
+      "https://www.action-visas.com/visa/Maroc-e-Visa",
+      "https://www.infomigrants.net/fr/post/59184/cote-divoire--reintroduction-du-visa-pour-se-rendre-au-maroc-afin-denrayer-limmigration-illegale",
+      "https://www.visamundi.co/destinations/maroc/",
+      "https://www.agenceafrique.com/63852-le-maroc-suspend-laevm-pour-les-ressortissants-maliens-des-le-27-avril-a-la-satisfaction-de-bamako.html",
+      "https://www.fragomen.com/insights/bilateral-visa-waiver-agreement-implemented.html",
+      "https://en.hespress.com/113109-ghanaians-can-now-enter-morocco-visa-free.html",
+      "https://www.amci.ma/cooperation-academique",
+      "https://gadem-guide-juridique.info/sejour-travail/carte-travail/autorisation-travail/les-categories-de-personnes-dispensees-de-lautorisation-de-travail-2/",
+      "https://timbuktu-institute.org/index.php/toutes-l-actualites/item/1134-convention-d-etablissement-senegal-maroc-soixante-ans-d-un-commun-perenne"
+    ],
+    "avertissement": "Régimes d'entrée susceptibles d'évoluer : vérifier auprès du consulat du Maroc ou sur acces-maroc.ma avant le départ."
+  },
+  "items": [
+    {
+      "iso2": "ZA",
+      "nom": "Afrique du Sud",
+      "nom_officiel_fr": "République d'Afrique du Sud",
+      "region": "afrique_australe",
+      "indicatif": "+27",
+      "devise": "ZAR",
+      "langues_officielles": [
+        "12 langues officielles (afrikaans, anglais, ndébélé, sepedi, sesotho, swati, tsonga, tswana, venda, xhosa, zoulou, langue des signes sud-africaine)"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "National Senior Certificate (NSC, « Matric ») avec mention Bachelor",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "DZ",
+      "nom": "Algérie",
+      "nom_officiel_fr": "République algérienne démocratique et populaire",
+      "region": "afrique_nord",
+      "indicatif": "+213",
+      "devise": "DZD",
+      "langues_officielles": [
+        "arabe",
+        "tamazight"
+      ],
+      "visa_maroc": "dispense",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": false,
+      "visa_conditions": "Dispense (90 jours). Liste consulat.ma + Wikipedia. AEVM temporairement exigée du 25/09/2025 au 25/01/2026 (CAN), puis levée.",
+      "visa_sources": [
+        "https://www.consulat.ma/fr/liste-des-pays-dont-les-ressortissants-sont-dispenses-du-visa-dentree-au-maroc",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.). Convention d'établissement Maroc–Algérie (1963) : dispense d'autorisation de travail selon le GADEM ; la carte de séjour reste exigée. Contrôles renforcés signalés à l'arrivée pour les ressortissants algériens.",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "arabophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "AO",
+      "nom": "Angola",
+      "nom_officiel_fr": "République d'Angola",
+      "region": "afrique_centrale",
+      "indicatif": "+244",
+      "devise": "AOA",
+      "langues_officielles": [
+        "portugais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Certificat de fin d'enseignement secondaire (12e classe)",
+      "systeme": "lusophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "BJ",
+      "nom": "Bénin",
+      "nom_officiel_fr": "République du Bénin",
+      "region": "afrique_ouest",
+      "indicatif": "+229",
+      "devise": "XOF",
+      "langues_officielles": [
+        "français"
+      ],
+      "visa_maroc": "evisa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": false,
+      "visa_conditions": "e-Visa (AEVM/eVisa) ouvert aux passeports ordinaires béninois sans condition supplémentaire, via acces-maroc.ma (liste Wikipedia ; recoupé par action-visas.com).",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/",
+        "https://www.action-visas.com/visa/Maroc-e-Visa"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "BW",
+      "nom": "Botswana",
+      "nom_officiel_fr": "République du Botswana",
+      "region": "afrique_australe",
+      "indicatif": "+267",
+      "devise": "BWP",
+      "langues_officielles": [
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "BGCSE (Botswana General Certificate of Secondary Education)",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "BF",
+      "nom": "Burkina Faso",
+      "nom_officiel_fr": "Burkina Faso",
+      "region": "afrique_ouest",
+      "indicatif": "+226",
+      "devise": "XOF",
+      "langues_officielles": [
+        "mooré",
+        "dioula",
+        "fulfuldé",
+        "autres langues nationales"
+      ],
+      "visa_maroc": "dispense",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": false,
+      "visa_conditions": "Dispense (90 jours) depuis le 28/01/2021. Liste consulat.ma. AEVM temporaire (CAN) levée le 25/01/2026.",
+      "visa_sources": [
+        "https://www.consulat.ma/fr/liste-des-pays-dont-les-ressortissants-sont-dispenses-du-visa-dentree-au-maroc",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "note": "Révision constitutionnelle de décembre 2023 : les langues nationales deviennent langues officielles ; le français est rétrogradé au rang de langue de travail (enseignement toujours majoritairement en français).",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "BI",
+      "nom": "Burundi",
+      "nom_officiel_fr": "République du Burundi",
+      "region": "afrique_est",
+      "indicatif": "+257",
+      "devise": "BIF",
+      "langues_officielles": [
+        "kirundi",
+        "français",
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Diplôme d'État (Examen d'État)",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "CM",
+      "nom": "Cameroun",
+      "nom_officiel_fr": "République du Cameroun",
+      "region": "afrique_centrale",
+      "indicatif": "+237",
+      "devise": "XAF",
+      "langues_officielles": [
+        "français",
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat (sous-système francophone) / GCE Advanced Level (sous-système anglophone)",
+      "systeme": "mixte",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "CV",
+      "nom": "Cap-Vert",
+      "nom_officiel_fr": "République de Cabo Verde",
+      "region": "afrique_ouest",
+      "indicatif": "+238",
+      "devise": "CVE",
+      "langues_officielles": [
+        "portugais"
+      ],
+      "visa_maroc": "dispense",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": false,
+      "visa_conditions": "Dispense (90 jours) depuis le 08/05/2024 (accord bilatéral ; absent de la liste consulat.ma non mise à jour). AEVM temporaire levée le 25/01/2026.",
+      "visa_sources": [
+        "https://www.consulat.ma/fr/liste-des-pays-dont-les-ressortissants-sont-dispenses-du-visa-dentree-au-maroc",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Diplôme de fin d'enseignement secondaire (12e année)",
+      "systeme": "lusophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "KM",
+      "nom": "Comores",
+      "nom_officiel_fr": "Union des Comores",
+      "region": "afrique_est",
+      "indicatif": "+269",
+      "devise": "KMF",
+      "langues_officielles": [
+        "comorien",
+        "français",
+        "arabe"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "CG",
+      "nom": "Congo",
+      "nom_officiel_fr": "République du Congo",
+      "region": "afrique_centrale",
+      "indicatif": "+242",
+      "devise": "XAF",
+      "langues_officielles": [
+        "français"
+      ],
+      "visa_maroc": "dispense",
+      "aevm_obligatoire": true,
+      "evisa_conditionnel": false,
+      "visa_conditions": "Dispense de visa mais AEVM (autorisation électronique de voyage) obligatoire avant le départ, via acces-maroc.ma (consulat.ma : « Besoin d'une AEVM »).",
+      "visa_sources": [
+        "https://www.consulat.ma/fr/liste-des-pays-dont-les-ressortissants-sont-dispenses-du-visa-dentree-au-maroc",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "CI",
+      "nom": "Côte d'Ivoire",
+      "nom_officiel_fr": "République de Côte d'Ivoire",
+      "region": "afrique_ouest",
+      "indicatif": "+225",
+      "devise": "XOF",
+      "langues_officielles": [
+        "français"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa obligatoire depuis le 01/09/2024 (réintroduit d'un commun accord pour 2 ans ; échéance théorique 01/09/2026 sans levée officielle publiée à ce jour). La page consulat.ma liste encore la Côte d'Ivoire comme dispensée : page non à jour. e-Visa conditionnel possible (titulaires d'un visa/titre de séjour Schengen, US, UK, Canada, Australie, Irlande, Japon, NZ, titre de séjour EAU).",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.infomigrants.net/fr/post/59184/cote-divoire--reintroduction-du-visa-pour-se-rendre-au-maroc-afin-denrayer-limmigration-illegale",
+        "https://afrique.le360.ma/politique/les-ivoiriens-doivent-desormais-avoir-un-visa-pour-se-rendre-au-maroc_ALEWEHHUVNB4FK2MWXPEAVZEQQ",
+        "https://www.visamundi.co/destinations/maroc/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.). Visa d'études (long séjour) à demander au consulat avant le départ.",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "DJ",
+      "nom": "Djibouti",
+      "nom_officiel_fr": "République de Djibouti",
+      "region": "afrique_est",
+      "indicatif": "+253",
+      "devise": "DJF",
+      "langues_officielles": [
+        "français",
+        "arabe"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "EG",
+      "nom": "Égypte",
+      "nom_officiel_fr": "République arabe d'Égypte",
+      "region": "afrique_nord",
+      "indicatif": "+20",
+      "devise": "EGP",
+      "langues_officielles": [
+        "arabe"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Thanaweya Amma (certificat d'enseignement secondaire général)",
+      "systeme": "arabophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "ER",
+      "nom": "Érythrée",
+      "nom_officiel_fr": "État d'Érythrée",
+      "region": "afrique_est",
+      "indicatif": "+291",
+      "devise": "ERN",
+      "langues_officielles": [],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "ESSCE (Eritrean Secondary Education Certificate Examination)",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "note": "Pas de langue officielle de jure ; tigrinya, arabe et anglais langues de travail.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "SZ",
+      "nom": "Eswatini",
+      "nom_officiel_fr": "Royaume d'Eswatini",
+      "region": "afrique_australe",
+      "indicatif": "+268",
+      "devise": "SZL",
+      "langues_officielles": [
+        "swati",
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "EGCSE (Eswatini General Certificate of Secondary Education)",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "ET",
+      "nom": "Éthiopie",
+      "nom_officiel_fr": "République fédérale démocratique d'Éthiopie",
+      "region": "afrique_est",
+      "indicatif": "+251",
+      "devise": "ETB",
+      "langues_officielles": [
+        "amharique",
+        "afaan oromo",
+        "tigrinya",
+        "somali",
+        "afar"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Examen national d'entrée dans l'enseignement supérieur (ex-ESSLCE / EHEECE)",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "note": "Dénomination de l'examen modifiée plusieurs fois ; à vérifier.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "GA",
+      "nom": "Gabon",
+      "nom_officiel_fr": "République gabonaise",
+      "region": "afrique_centrale",
+      "indicatif": "+241",
+      "devise": "XAF",
+      "langues_officielles": [
+        "français"
+      ],
+      "visa_maroc": "dispense",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": false,
+      "visa_conditions": "Dispense (90 jours) depuis le 05/09/2013. Liste consulat.ma. AEVM temporaire levée le 25/01/2026.",
+      "visa_sources": [
+        "https://www.consulat.ma/fr/liste-des-pays-dont-les-ressortissants-sont-dispenses-du-visa-dentree-au-maroc",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "GM",
+      "nom": "Gambie",
+      "nom_officiel_fr": "République de Gambie",
+      "region": "afrique_ouest",
+      "indicatif": "+220",
+      "devise": "GMD",
+      "langues_officielles": [
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "WASSCE",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "GH",
+      "nom": "Ghana",
+      "nom_officiel_fr": "République du Ghana",
+      "region": "afrique_ouest",
+      "indicatif": "+233",
+      "devise": "GHS",
+      "langues_officielles": [
+        "anglais"
+      ],
+      "visa_maroc": "dispense",
+      "aevm_obligatoire": true,
+      "evisa_conditionnel": false,
+      "visa_conditions": "Dispense de visa depuis le 06/06/2025 (accord bilatéral) mais AEVM obligatoire via acces-maroc.ma ; Ghana absent de la liste consulat.ma non mise à jour.",
+      "visa_sources": [
+        "https://www.consulat.ma/fr/liste-des-pays-dont-les-ressortissants-sont-dispenses-du-visa-dentree-au-maroc",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/",
+        "https://www.fragomen.com/insights/bilateral-visa-waiver-agreement-implemented.html"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "WASSCE",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "GN",
+      "nom": "Guinée",
+      "nom_officiel_fr": "République de Guinée",
+      "region": "afrique_ouest",
+      "indicatif": "+224",
+      "devise": "GNF",
+      "langues_officielles": [
+        "français"
+      ],
+      "visa_maroc": "dispense",
+      "aevm_obligatoire": true,
+      "evisa_conditionnel": false,
+      "visa_conditions": "Dispense de visa mais AEVM obligatoire avant le départ, via acces-maroc.ma (consulat.ma : « Besoin d'une AEVM »).",
+      "visa_sources": [
+        "https://www.consulat.ma/fr/liste-des-pays-dont-les-ressortissants-sont-dispenses-du-visa-dentree-au-maroc",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "GQ",
+      "nom": "Guinée équatoriale",
+      "nom_officiel_fr": "République de Guinée équatoriale",
+      "region": "afrique_centrale",
+      "indicatif": "+240",
+      "devise": "XAF",
+      "langues_officielles": [
+        "espagnol",
+        "français",
+        "portugais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Bachillerato",
+      "systeme": "hispanophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "GW",
+      "nom": "Guinée-Bissau",
+      "nom_officiel_fr": "République de Guinée-Bissau",
+      "region": "afrique_ouest",
+      "indicatif": "+245",
+      "devise": "XOF",
+      "langues_officielles": [
+        "portugais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Diplôme de fin d'enseignement secondaire (12e classe)",
+      "systeme": "lusophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "KE",
+      "nom": "Kenya",
+      "nom_officiel_fr": "République du Kenya",
+      "region": "afrique_est",
+      "indicatif": "+254",
+      "devise": "KES",
+      "langues_officielles": [
+        "swahili",
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "KCSE (Kenya Certificate of Secondary Education)",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "LS",
+      "nom": "Lesotho",
+      "nom_officiel_fr": "Royaume du Lesotho",
+      "region": "afrique_australe",
+      "indicatif": "+266",
+      "devise": "LSL",
+      "langues_officielles": [
+        "sesotho",
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "LGCSE (Lesotho General Certificate of Secondary Education)",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "LR",
+      "nom": "Liberia",
+      "nom_officiel_fr": "République du Liberia",
+      "region": "afrique_ouest",
+      "indicatif": "+231",
+      "devise": "LRD",
+      "langues_officielles": [
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "WASSCE",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "note": "Le dollar américain circule aussi couramment.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "LY",
+      "nom": "Libye",
+      "nom_officiel_fr": "État de Libye",
+      "region": "afrique_nord",
+      "indicatif": "+218",
+      "devise": "LYD",
+      "langues_officielles": [
+        "arabe"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa obligatoire (exemption supprimée le 07/02/2014). Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Certificat d'enseignement secondaire (Shahadat al-Thanawiya al-Amma)",
+      "systeme": "arabophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "MG",
+      "nom": "Madagascar",
+      "nom_officiel_fr": "République de Madagascar",
+      "region": "afrique_est",
+      "indicatif": "+261",
+      "devise": "MGA",
+      "langues_officielles": [
+        "malgache",
+        "français"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "MW",
+      "nom": "Malawi",
+      "nom_officiel_fr": "République du Malawi",
+      "region": "afrique_est",
+      "indicatif": "+265",
+      "devise": "MWK",
+      "langues_officielles": [
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "MSCE (Malawi School Certificate of Education)",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "ML",
+      "nom": "Mali",
+      "nom_officiel_fr": "République du Mali",
+      "region": "afrique_ouest",
+      "indicatif": "+223",
+      "devise": "XOF",
+      "langues_officielles": [
+        "13 langues nationales (bambara, peul, soninké, songhaï, tamasheq…)"
+      ],
+      "visa_maroc": "dispense",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": false,
+      "visa_conditions": "Dispense (90 jours). AEVM obligatoire depuis 2018, supprimée à compter du 27/04/2026 (la page consulat.ma mentionne encore « Besoin d'une AEVM »).",
+      "visa_sources": [
+        "https://www.consulat.ma/fr/liste-des-pays-dont-les-ressortissants-sont-dispenses-du-visa-dentree-au-maroc",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.agenceafrique.com/63852-le-maroc-suspend-laevm-pour-les-ressortissants-maliens-des-le-27-avril-a-la-satisfaction-de-bamako.html"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "note": "Constitution de 2023 : les 13 langues nationales sont langues officielles ; le français devient langue de travail.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "MA",
+      "nom": "Maroc",
+      "nom_officiel_fr": "Royaume du Maroc",
+      "region": "afrique_nord",
+      "indicatif": "+212",
+      "devise": "MAD",
+      "langues_officielles": [
+        "arabe",
+        "amazighe"
+      ],
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "mixte",
+      "visa_maroc": "national",
+      "note_sejour": null,
+      "continent": "afrique"
+    },
+    {
+      "iso2": "MU",
+      "nom": "Maurice",
+      "nom_officiel_fr": "République de Maurice",
+      "region": "afrique_est",
+      "indicatif": "+230",
+      "devise": "MUR",
+      "langues_officielles": [],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Higher School Certificate (HSC, Cambridge)",
+      "systeme": "mixte",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "note": "Pas de langue officielle de jure ; anglais (Parlement) et français d'usage administratif ; créole mauricien majoritaire.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "MR",
+      "nom": "Mauritanie",
+      "nom_officiel_fr": "République islamique de Mauritanie",
+      "region": "afrique_ouest",
+      "indicatif": "+222",
+      "devise": "MRU",
+      "langues_officielles": [
+        "arabe"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "mixte",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "note": "Enseignement bilingue arabe/français.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "MZ",
+      "nom": "Mozambique",
+      "nom_officiel_fr": "République du Mozambique",
+      "region": "afrique_est",
+      "indicatif": "+258",
+      "devise": "MZN",
+      "langues_officielles": [
+        "portugais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Certificat de 12e classe (fin d'enseignement secondaire général)",
+      "systeme": "lusophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "NA",
+      "nom": "Namibie",
+      "nom_officiel_fr": "République de Namibie",
+      "region": "afrique_australe",
+      "indicatif": "+264",
+      "devise": "NAD",
+      "langues_officielles": [
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "NSSCAS (Namibia Senior Secondary Certificate Advanced Subsidiary)",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "NE",
+      "nom": "Niger",
+      "nom_officiel_fr": "République du Niger",
+      "region": "afrique_ouest",
+      "indicatif": "+227",
+      "devise": "XOF",
+      "langues_officielles": [
+        "haoussa (langue nationale)"
+      ],
+      "visa_maroc": "dispense",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": false,
+      "visa_conditions": "Dispense (90 jours). Liste consulat.ma. AEVM temporaire levée le 25/01/2026.",
+      "visa_sources": [
+        "https://www.consulat.ma/fr/liste-des-pays-dont-les-ressortissants-sont-dispenses-du-visa-dentree-au-maroc",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "note": "Charte de la refondation (mars 2025) : haoussa langue nationale ; français et anglais langues de travail. À vérifier.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "NG",
+      "nom": "Nigeria",
+      "nom_officiel_fr": "République fédérale du Nigeria",
+      "region": "afrique_ouest",
+      "indicatif": "+234",
+      "devise": "NGN",
+      "langues_officielles": [
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa obligatoire ; e-Visa conditionnel seulement. Les Nigérians ne bénéficient pas du permis d'entrée administratif lors des escales RAM 8–24 h. Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "WASSCE / NECO SSCE (+ UTME-JAMB pour l'université)",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "UG",
+      "nom": "Ouganda",
+      "nom_officiel_fr": "République d'Ouganda",
+      "region": "afrique_est",
+      "indicatif": "+256",
+      "devise": "UGX",
+      "langues_officielles": [
+        "anglais",
+        "swahili"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "UACE (Uganda Advanced Certificate of Education)",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "CF",
+      "nom": "République centrafricaine",
+      "nom_officiel_fr": "République centrafricaine",
+      "region": "afrique_centrale",
+      "indicatif": "+236",
+      "devise": "XAF",
+      "langues_officielles": [
+        "français",
+        "sango"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "CD",
+      "nom": "République démocratique du Congo",
+      "nom_officiel_fr": "République démocratique du Congo",
+      "region": "afrique_centrale",
+      "indicatif": "+243",
+      "devise": "CDF",
+      "langues_officielles": [
+        "français"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Diplôme d'État (Examen d'État)",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "RW",
+      "nom": "Rwanda",
+      "nom_officiel_fr": "République du Rwanda",
+      "region": "afrique_est",
+      "indicatif": "+250",
+      "devise": "RWF",
+      "langues_officielles": [
+        "kinyarwanda",
+        "anglais",
+        "français",
+        "swahili"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Advanced Level Certificate (examens nationaux de fin du secondaire supérieur)",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "ST",
+      "nom": "Sao Tomé-et-Principe",
+      "nom_officiel_fr": "République démocratique de Sao Tomé-et-Principe",
+      "region": "afrique_centrale",
+      "indicatif": "+239",
+      "devise": "STN",
+      "langues_officielles": [
+        "portugais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Diplôme de fin d'enseignement secondaire (12e classe)",
+      "systeme": "lusophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "note": "Dénomination exacte du diplôme à vérifier.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "SN",
+      "nom": "Sénégal",
+      "nom_officiel_fr": "République du Sénégal",
+      "region": "afrique_ouest",
+      "indicatif": "+221",
+      "devise": "XOF",
+      "langues_officielles": [
+        "français"
+      ],
+      "visa_maroc": "dispense",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": false,
+      "visa_conditions": "Dispense (90 jours). Liste consulat.ma. AEVM temporaire levée le 25/01/2026.",
+      "visa_sources": [
+        "https://www.consulat.ma/fr/liste-des-pays-dont-les-ressortissants-sont-dispenses-du-visa-dentree-au-maroc",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.). Convention d'établissement Maroc–Sénégal du 27 mars 1964 : régime favorable (notamment dispense d'autorisation de travail pour les ressortissants sénégalais) ; la carte de séjour reste exigée.",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "SC",
+      "nom": "Seychelles",
+      "nom_officiel_fr": "République des Seychelles",
+      "region": "afrique_est",
+      "indicatif": "+248",
+      "devise": "SCR",
+      "langues_officielles": [
+        "créole seychellois",
+        "anglais",
+        "français"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Cambridge IGCSE / GCE A Level",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "SL",
+      "nom": "Sierra Leone",
+      "nom_officiel_fr": "République de Sierra Leone",
+      "region": "afrique_ouest",
+      "indicatif": "+232",
+      "devise": "SLE",
+      "langues_officielles": [
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "WASSCE",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "note": "Leone redénominé en 2022 (code ISO SLE ; ancien SLL).",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "SO",
+      "nom": "Somalie",
+      "nom_officiel_fr": "République fédérale de Somalie",
+      "region": "afrique_est",
+      "indicatif": "+252",
+      "devise": "SOS",
+      "langues_officielles": [
+        "somali",
+        "arabe"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Certificat national de fin d'études secondaires (examen national)",
+      "systeme": "mixte",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "note": "Diplôme : examens nationaux organisés par le ministère fédéral de l'Éducation ; dénomination exacte à vérifier.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "SD",
+      "nom": "Soudan",
+      "nom_officiel_fr": "République du Soudan",
+      "region": "afrique_nord",
+      "indicatif": "+249",
+      "devise": "SDG",
+      "langues_officielles": [
+        "arabe",
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Sudan School Certificate (certificat d'enseignement secondaire soudanais)",
+      "systeme": "arabophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "SS",
+      "nom": "Soudan du Sud",
+      "nom_officiel_fr": "République du Soudan du Sud",
+      "region": "afrique_est",
+      "indicatif": "+211",
+      "devise": "SSP",
+      "langues_officielles": [
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "South Sudan Certificate of Secondary Education",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "TZ",
+      "nom": "Tanzanie",
+      "nom_officiel_fr": "République-Unie de Tanzanie",
+      "region": "afrique_est",
+      "indicatif": "+255",
+      "devise": "TZS",
+      "langues_officielles": [
+        "swahili",
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "ACSEE (Advanced Certificate of Secondary Education Examination)",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "TD",
+      "nom": "Tchad",
+      "nom_officiel_fr": "République du Tchad",
+      "region": "afrique_centrale",
+      "indicatif": "+235",
+      "devise": "XAF",
+      "langues_officielles": [
+        "français",
+        "arabe"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat (filières francophone et arabophone)",
+      "systeme": "mixte",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "TG",
+      "nom": "Togo",
+      "nom_officiel_fr": "République togolaise",
+      "region": "afrique_ouest",
+      "indicatif": "+228",
+      "devise": "XOF",
+      "langues_officielles": [
+        "français"
+      ],
+      "visa_maroc": "dispense",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": false,
+      "visa_conditions": "Dispense (90 jours) depuis le 09/09/2022. Liste consulat.ma. AEVM temporaire levée le 25/01/2026.",
+      "visa_sources": [
+        "https://www.consulat.ma/fr/liste-des-pays-dont-les-ressortissants-sont-dispenses-du-visa-dentree-au-maroc",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "Baccalauréat (BAC II)",
+      "systeme": "francophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "TN",
+      "nom": "Tunisie",
+      "nom_officiel_fr": "République tunisienne",
+      "region": "afrique_nord",
+      "indicatif": "+216",
+      "devise": "TND",
+      "langues_officielles": [
+        "arabe"
+      ],
+      "visa_maroc": "dispense",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": false,
+      "visa_conditions": "Dispense (90 jours). Liste consulat.ma. AEVM temporaire levée le 25/01/2026.",
+      "visa_sources": [
+        "https://www.consulat.ma/fr/liste-des-pays-dont-les-ressortissants-sont-dispenses-du-visa-dentree-au-maroc",
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.). Convention d'établissement Maroc–Tunisie du 9 décembre 1964 (art. 5 : dispense d'autorisation de travail) ; la carte de séjour reste exigée.",
+      "diplome_fin_secondaire": "Baccalauréat",
+      "systeme": "mixte",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "note": "Bac : enseignement en arabe, sciences/techniques largement en français au lycée (d'où « mixte »).",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "ZM",
+      "nom": "Zambie",
+      "nom_officiel_fr": "République de Zambie",
+      "region": "afrique_est",
+      "indicatif": "+260",
+      "devise": "ZMW",
+      "langues_officielles": [
+        "anglais"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "School Certificate (Grade 12, ECZ)",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "ZW",
+      "nom": "Zimbabwe",
+      "nom_officiel_fr": "République du Zimbabwe",
+      "region": "afrique_est",
+      "indicatif": "+263",
+      "devise": "ZWG",
+      "langues_officielles": [
+        "anglais",
+        "shona",
+        "ndébélé",
+        "et 13 autres langues"
+      ],
+      "visa_maroc": "visa",
+      "aevm_obligatoire": false,
+      "evisa_conditionnel": true,
+      "visa_conditions": "Visa consulaire obligatoire. e-Visa possible uniquement pour les titulaires d'un visa valide (apposé dans le passeport) ou d'un titre de séjour de l'espace Schengen, des États-Unis, du Royaume-Uni, du Canada, de l'Australie, de l'Irlande, du Japon, de la Nouvelle-Zélande, ou d'un titre de séjour des EAU.",
+      "visa_sources": [
+        "https://en.wikipedia.org/wiki/Visa_policy_of_Morocco",
+        "https://www.acces-maroc.ma/"
+      ],
+      "note_sejour": "Pour un séjour d'études, demander la carte de séjour (mention étudiant) auprès du service des étrangers de la DGSN (Sûreté nationale) du lieu de résidence dans les 90 jours suivant l'arrivée (attestation d'inscription, bail/attestation d'hébergement, ressources, etc.).",
+      "diplome_fin_secondaire": "ZIMSEC Advanced Level",
+      "systeme": "anglophone",
+      "amci": null,
+      "amci_note": "Pas de liste officielle par pays publiée en ligne par l'AMCI ; admission via quota attribué aux « pays partenaires » sur proposition officielle des autorités du pays d'origine (ambassade). En 2019/2020, étudiants AMCI issus de 47 pays africains (amci.ma). À confirmer auprès de l'ambassade du Maroc.",
+      "note": "Devise ZWG (Zimbabwe Gold, 2024) ; le dollar américain est largement utilisé.",
+      "continent": "afrique"
+    },
+    {
+      "iso2": "AF",
+      "nom": "Afghanistan",
+      "region": "asie",
+      "indicatif": "+93",
+      "devise": "AFN",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "AL",
+      "nom": "Albanie",
+      "region": "europe",
+      "indicatif": "+355",
+      "devise": "ALL",
+      "visa_maroc": "dispense",
+      "note": "Dispense depuis le 15/08/2026.",
+      "continent": "autre"
+    },
+    {
+      "iso2": "DE",
+      "nom": "Allemagne",
+      "region": "europe",
+      "indicatif": "+49",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "AD",
+      "nom": "Andorre",
+      "region": "europe",
+      "indicatif": "+376",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "AG",
+      "nom": "Antigua-et-Barbuda",
+      "region": "amerique_latine",
+      "indicatif": "+1-268",
+      "devise": "XCD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "SA",
+      "nom": "Arabie saoudite",
+      "region": "moyen_orient",
+      "indicatif": "+966",
+      "devise": "SAR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "AR",
+      "nom": "Argentine",
+      "region": "amerique_latine",
+      "indicatif": "+54",
+      "devise": "ARS",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "AM",
+      "nom": "Arménie",
+      "region": "asie",
+      "indicatif": "+374",
+      "devise": "AMD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "AU",
+      "nom": "Australie",
+      "region": "oceanie",
+      "indicatif": "+61",
+      "devise": "AUD",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "AT",
+      "nom": "Autriche",
+      "region": "europe",
+      "indicatif": "+43",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "AZ",
+      "nom": "Azerbaïdjan",
+      "region": "asie",
+      "indicatif": "+994",
+      "devise": "AZN",
+      "visa_maroc": "dispense",
+      "note": "Dispense depuis le 28/08/2024.",
+      "continent": "autre"
+    },
+    {
+      "iso2": "BS",
+      "nom": "Bahamas",
+      "region": "amerique_latine",
+      "indicatif": "+1-242",
+      "devise": "BSD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "BH",
+      "nom": "Bahreïn",
+      "region": "moyen_orient",
+      "indicatif": "+973",
+      "devise": "BHD",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "BD",
+      "nom": "Bangladesh",
+      "region": "asie",
+      "indicatif": "+880",
+      "devise": "BDT",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "BB",
+      "nom": "Barbade",
+      "region": "amerique_latine",
+      "indicatif": "+1-246",
+      "devise": "BBD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "BE",
+      "nom": "Belgique",
+      "region": "europe",
+      "indicatif": "+32",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "BZ",
+      "nom": "Belize",
+      "region": "amerique_latine",
+      "indicatif": "+501",
+      "devise": "BZD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "BT",
+      "nom": "Bhoutan",
+      "region": "asie",
+      "indicatif": "+975",
+      "devise": "BTN",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "BY",
+      "nom": "Biélorussie",
+      "region": "europe",
+      "indicatif": "+375",
+      "devise": "BYN",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "MM",
+      "nom": "Birmanie (Myanmar)",
+      "region": "asie",
+      "indicatif": "+95",
+      "devise": "MMK",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "BO",
+      "nom": "Bolivie",
+      "region": "amerique_latine",
+      "indicatif": "+591",
+      "devise": "BOB",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "BA",
+      "nom": "Bosnie-Herzégovine",
+      "region": "europe",
+      "indicatif": "+387",
+      "devise": "BAM",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "BR",
+      "nom": "Brésil",
+      "region": "amerique_latine",
+      "indicatif": "+55",
+      "devise": "BRL",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "BN",
+      "nom": "Brunei",
+      "region": "asie",
+      "indicatif": "+673",
+      "devise": "BND",
+      "visa_maroc": "evisa",
+      "continent": "autre"
+    },
+    {
+      "iso2": "BG",
+      "nom": "Bulgarie",
+      "region": "europe",
+      "indicatif": "+359",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "note_devise": "Bulgarie dans la zone euro depuis le 01/01/2026.",
+      "continent": "autre"
+    },
+    {
+      "iso2": "KH",
+      "nom": "Cambodge",
+      "region": "asie",
+      "indicatif": "+855",
+      "devise": "KHR",
+      "visa_maroc": "evisa",
+      "continent": "autre"
+    },
+    {
+      "iso2": "CA",
+      "nom": "Canada",
+      "region": "amerique_nord",
+      "indicatif": "+1",
+      "devise": "CAD",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "CL",
+      "nom": "Chili",
+      "region": "amerique_latine",
+      "indicatif": "+56",
+      "devise": "CLP",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "CN",
+      "nom": "Chine",
+      "region": "asie",
+      "indicatif": "+86",
+      "devise": "CNY",
+      "visa_maroc": "dispense",
+      "note": "Passeports RPC ; 90 jours.",
+      "continent": "autre"
+    },
+    {
+      "iso2": "CY",
+      "nom": "Chypre",
+      "region": "europe",
+      "indicatif": "+357",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "CO",
+      "nom": "Colombie",
+      "region": "amerique_latine",
+      "indicatif": "+57",
+      "devise": "COP",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "KP",
+      "nom": "Corée du Nord",
+      "region": "asie",
+      "indicatif": "+850",
+      "devise": "KPW",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "KR",
+      "nom": "Corée du Sud",
+      "region": "asie",
+      "indicatif": "+82",
+      "devise": "KRW",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "CR",
+      "nom": "Costa Rica",
+      "region": "amerique_latine",
+      "indicatif": "+506",
+      "devise": "CRC",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "HR",
+      "nom": "Croatie",
+      "region": "europe",
+      "indicatif": "+385",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "CU",
+      "nom": "Cuba",
+      "region": "amerique_latine",
+      "indicatif": "+53",
+      "devise": "CUP",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "DK",
+      "nom": "Danemark",
+      "region": "europe",
+      "indicatif": "+45",
+      "devise": "DKK",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "DM",
+      "nom": "Dominique",
+      "region": "amerique_latine",
+      "indicatif": "+1-767",
+      "devise": "XCD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "AE",
+      "nom": "Émirats arabes unis",
+      "region": "moyen_orient",
+      "indicatif": "+971",
+      "devise": "AED",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "EC",
+      "nom": "Équateur",
+      "region": "amerique_latine",
+      "indicatif": "+593",
+      "devise": "USD",
+      "visa_maroc": "dispense",
+      "aevm_obligatoire": true,
+      "note": "Dispense de visa mais AEVM obligatoire via acces-maroc.ma (depuis le 01/08/2025).",
+      "continent": "autre"
+    },
+    {
+      "iso2": "ES",
+      "nom": "Espagne",
+      "region": "europe",
+      "indicatif": "+34",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "EE",
+      "nom": "Estonie",
+      "region": "europe",
+      "indicatif": "+372",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "US",
+      "nom": "États-Unis",
+      "region": "amerique_nord",
+      "indicatif": "+1",
+      "devise": "USD",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "FJ",
+      "nom": "Fidji",
+      "region": "oceanie",
+      "indicatif": "+679",
+      "devise": "FJD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "FI",
+      "nom": "Finlande",
+      "region": "europe",
+      "indicatif": "+358",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "FR",
+      "nom": "France",
+      "region": "europe",
+      "indicatif": "+33",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "GE",
+      "nom": "Géorgie",
+      "region": "asie",
+      "indicatif": "+995",
+      "devise": "GEL",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "GR",
+      "nom": "Grèce",
+      "region": "europe",
+      "indicatif": "+30",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "GD",
+      "nom": "Grenade",
+      "region": "amerique_latine",
+      "indicatif": "+1-473",
+      "devise": "XCD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "GT",
+      "nom": "Guatemala",
+      "region": "amerique_latine",
+      "indicatif": "+502",
+      "devise": "GTQ",
+      "visa_maroc": "evisa",
+      "continent": "autre"
+    },
+    {
+      "iso2": "GY",
+      "nom": "Guyana",
+      "region": "amerique_latine",
+      "indicatif": "+592",
+      "devise": "GYD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "HT",
+      "nom": "Haïti",
+      "region": "amerique_latine",
+      "indicatif": "+509",
+      "devise": "HTG",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "HN",
+      "nom": "Honduras",
+      "region": "amerique_latine",
+      "indicatif": "+504",
+      "devise": "HNL",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "HK",
+      "nom": "Hong Kong",
+      "region": "asie",
+      "indicatif": "+852",
+      "devise": "HKD",
+      "visa_maroc": "dispense",
+      "note": "30 jours.",
+      "continent": "autre"
+    },
+    {
+      "iso2": "HU",
+      "nom": "Hongrie",
+      "region": "europe",
+      "indicatif": "+36",
+      "devise": "HUF",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "MH",
+      "nom": "Îles Marshall",
+      "region": "oceanie",
+      "indicatif": "+692",
+      "devise": "USD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "SB",
+      "nom": "Îles Salomon",
+      "region": "oceanie",
+      "indicatif": "+677",
+      "devise": "SBD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "IN",
+      "nom": "Inde",
+      "region": "asie",
+      "indicatif": "+91",
+      "devise": "INR",
+      "visa_maroc": "evisa",
+      "continent": "autre"
+    },
+    {
+      "iso2": "ID",
+      "nom": "Indonésie",
+      "region": "asie",
+      "indicatif": "+62",
+      "devise": "IDR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "IQ",
+      "nom": "Irak",
+      "region": "moyen_orient",
+      "indicatif": "+964",
+      "devise": "IQD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "IR",
+      "nom": "Iran",
+      "region": "moyen_orient",
+      "indicatif": "+98",
+      "devise": "IRR",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": false,
+      "note": "Visa consulaire obligatoire ; nationalité exclue de l'e-Visa (y compris conditionnel).",
+      "continent": "autre"
+    },
+    {
+      "iso2": "IE",
+      "nom": "Irlande",
+      "region": "europe",
+      "indicatif": "+353",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "IS",
+      "nom": "Islande",
+      "region": "europe",
+      "indicatif": "+354",
+      "devise": "ISK",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "IL",
+      "nom": "Israël",
+      "region": "moyen_orient",
+      "indicatif": "+972",
+      "devise": "ILS",
+      "visa_maroc": "evisa",
+      "continent": "autre"
+    },
+    {
+      "iso2": "IT",
+      "nom": "Italie",
+      "region": "europe",
+      "indicatif": "+39",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "JM",
+      "nom": "Jamaïque",
+      "region": "amerique_latine",
+      "indicatif": "+1-876",
+      "devise": "JMD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "JP",
+      "nom": "Japon",
+      "region": "asie",
+      "indicatif": "+81",
+      "devise": "JPY",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "JO",
+      "nom": "Jordanie",
+      "region": "moyen_orient",
+      "indicatif": "+962",
+      "devise": "JOD",
+      "visa_maroc": "evisa",
+      "continent": "autre"
+    },
+    {
+      "iso2": "KZ",
+      "nom": "Kazakhstan",
+      "region": "asie",
+      "indicatif": "+7",
+      "devise": "KZT",
+      "visa_maroc": "dispense",
+      "note": "30 jours par période de 180 jours (depuis le 19/03/2025).",
+      "continent": "autre"
+    },
+    {
+      "iso2": "KG",
+      "nom": "Kirghizistan",
+      "region": "asie",
+      "indicatif": "+996",
+      "devise": "KGS",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "KI",
+      "nom": "Kiribati",
+      "region": "oceanie",
+      "indicatif": "+686",
+      "devise": "AUD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "KW",
+      "nom": "Koweït",
+      "region": "moyen_orient",
+      "indicatif": "+965",
+      "devise": "KWD",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "LA",
+      "nom": "Laos",
+      "region": "asie",
+      "indicatif": "+856",
+      "devise": "LAK",
+      "visa_maroc": "evisa",
+      "continent": "autre"
+    },
+    {
+      "iso2": "LV",
+      "nom": "Lettonie",
+      "region": "europe",
+      "indicatif": "+371",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "LB",
+      "nom": "Liban",
+      "region": "moyen_orient",
+      "indicatif": "+961",
+      "devise": "LBP",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "LI",
+      "nom": "Liechtenstein",
+      "region": "europe",
+      "indicatif": "+423",
+      "devise": "CHF",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "LT",
+      "nom": "Lituanie",
+      "region": "europe",
+      "indicatif": "+370",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "LU",
+      "nom": "Luxembourg",
+      "region": "europe",
+      "indicatif": "+352",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "MO",
+      "nom": "Macao",
+      "region": "asie",
+      "indicatif": "+853",
+      "devise": "MOP",
+      "visa_maroc": "dispense",
+      "note": "90 jours.",
+      "continent": "autre"
+    },
+    {
+      "iso2": "MK",
+      "nom": "Macédoine du Nord",
+      "region": "europe",
+      "indicatif": "+389",
+      "devise": "MKD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "MY",
+      "nom": "Malaisie",
+      "region": "asie",
+      "indicatif": "+60",
+      "devise": "MYR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "MV",
+      "nom": "Maldives",
+      "region": "asie",
+      "indicatif": "+960",
+      "devise": "MVR",
+      "visa_maroc": "dispense",
+      "note": "30 jours.",
+      "continent": "autre"
+    },
+    {
+      "iso2": "MT",
+      "nom": "Malte",
+      "region": "europe",
+      "indicatif": "+356",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "MX",
+      "nom": "Mexique",
+      "region": "amerique_latine",
+      "indicatif": "+52",
+      "devise": "MXN",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "FM",
+      "nom": "Micronésie",
+      "region": "oceanie",
+      "indicatif": "+691",
+      "devise": "USD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "MD",
+      "nom": "Moldavie",
+      "region": "europe",
+      "indicatif": "+373",
+      "devise": "MDL",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "MC",
+      "nom": "Monaco",
+      "region": "europe",
+      "indicatif": "+377",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "MN",
+      "nom": "Mongolie",
+      "region": "asie",
+      "indicatif": "+976",
+      "devise": "MNT",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "ME",
+      "nom": "Monténégro",
+      "region": "europe",
+      "indicatif": "+382",
+      "devise": "EUR",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "NR",
+      "nom": "Nauru",
+      "region": "oceanie",
+      "indicatif": "+674",
+      "devise": "AUD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "NP",
+      "nom": "Népal",
+      "region": "asie",
+      "indicatif": "+977",
+      "devise": "NPR",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "NI",
+      "nom": "Nicaragua",
+      "region": "amerique_latine",
+      "indicatif": "+505",
+      "devise": "NIO",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "NO",
+      "nom": "Norvège",
+      "region": "europe",
+      "indicatif": "+47",
+      "devise": "NOK",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "NZ",
+      "nom": "Nouvelle-Zélande",
+      "region": "oceanie",
+      "indicatif": "+64",
+      "devise": "NZD",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "OM",
+      "nom": "Oman",
+      "region": "moyen_orient",
+      "indicatif": "+968",
+      "devise": "OMR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "UZ",
+      "nom": "Ouzbékistan",
+      "region": "asie",
+      "indicatif": "+998",
+      "devise": "UZS",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "PK",
+      "nom": "Pakistan",
+      "region": "asie",
+      "indicatif": "+92",
+      "devise": "PKR",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "PW",
+      "nom": "Palaos",
+      "region": "oceanie",
+      "indicatif": "+680",
+      "devise": "USD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "PS",
+      "nom": "Palestine",
+      "region": "moyen_orient",
+      "indicatif": "+970",
+      "devise": "ILS",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": false,
+      "note": "Visa consulaire obligatoire ; nationalité exclue de l'e-Visa (y compris conditionnel).",
+      "continent": "autre"
+    },
+    {
+      "iso2": "PA",
+      "nom": "Panama",
+      "region": "amerique_latine",
+      "indicatif": "+507",
+      "devise": "PAB",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "PG",
+      "nom": "Papouasie-Nouvelle-Guinée",
+      "region": "oceanie",
+      "indicatif": "+675",
+      "devise": "PGK",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "PY",
+      "nom": "Paraguay",
+      "region": "amerique_latine",
+      "indicatif": "+595",
+      "devise": "PYG",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "NL",
+      "nom": "Pays-Bas",
+      "region": "europe",
+      "indicatif": "+31",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "PE",
+      "nom": "Pérou",
+      "region": "amerique_latine",
+      "indicatif": "+51",
+      "devise": "PEN",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "PH",
+      "nom": "Philippines",
+      "region": "asie",
+      "indicatif": "+63",
+      "devise": "PHP",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "PL",
+      "nom": "Pologne",
+      "region": "europe",
+      "indicatif": "+48",
+      "devise": "PLN",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "PT",
+      "nom": "Portugal",
+      "region": "europe",
+      "indicatif": "+351",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "QA",
+      "nom": "Qatar",
+      "region": "moyen_orient",
+      "indicatif": "+974",
+      "devise": "QAR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "DO",
+      "nom": "République dominicaine",
+      "region": "amerique_latine",
+      "indicatif": "+1-809",
+      "devise": "DOP",
+      "visa_maroc": "dispense",
+      "note": "60 jours, renouvelable.",
+      "continent": "autre"
+    },
+    {
+      "iso2": "RO",
+      "nom": "Roumanie",
+      "region": "europe",
+      "indicatif": "+40",
+      "devise": "RON",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "GB",
+      "nom": "Royaume-Uni",
+      "region": "europe",
+      "indicatif": "+44",
+      "devise": "GBP",
+      "visa_maroc": "dispense",
+      "note": "Citoyens britanniques (British citizens) uniquement ; 90 jours.",
+      "continent": "autre"
+    },
+    {
+      "iso2": "RU",
+      "nom": "Russie",
+      "region": "europe",
+      "indicatif": "+7",
+      "devise": "RUB",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "KN",
+      "nom": "Saint-Christophe-et-Niévès",
+      "region": "amerique_latine",
+      "indicatif": "+1-869",
+      "devise": "XCD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "SM",
+      "nom": "Saint-Marin",
+      "region": "europe",
+      "indicatif": "+378",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "VC",
+      "nom": "Saint-Vincent-et-les-Grenadines",
+      "region": "amerique_latine",
+      "indicatif": "+1-784",
+      "devise": "XCD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "LC",
+      "nom": "Sainte-Lucie",
+      "region": "amerique_latine",
+      "indicatif": "+1-758",
+      "devise": "XCD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "SV",
+      "nom": "Salvador",
+      "region": "amerique_latine",
+      "indicatif": "+503",
+      "devise": "USD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "WS",
+      "nom": "Samoa",
+      "region": "oceanie",
+      "indicatif": "+685",
+      "devise": "WST",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "RS",
+      "nom": "Serbie",
+      "region": "europe",
+      "indicatif": "+381",
+      "devise": "RSD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "SG",
+      "nom": "Singapour",
+      "region": "asie",
+      "indicatif": "+65",
+      "devise": "SGD",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "SK",
+      "nom": "Slovaquie",
+      "region": "europe",
+      "indicatif": "+421",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "SI",
+      "nom": "Slovénie",
+      "region": "europe",
+      "indicatif": "+386",
+      "devise": "EUR",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "LK",
+      "nom": "Sri Lanka",
+      "region": "asie",
+      "indicatif": "+94",
+      "devise": "LKR",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "SE",
+      "nom": "Suède",
+      "region": "europe",
+      "indicatif": "+46",
+      "devise": "SEK",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "CH",
+      "nom": "Suisse",
+      "region": "europe",
+      "indicatif": "+41",
+      "devise": "CHF",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "SR",
+      "nom": "Suriname",
+      "region": "amerique_latine",
+      "indicatif": "+597",
+      "devise": "SRD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "SY",
+      "nom": "Syrie",
+      "region": "moyen_orient",
+      "indicatif": "+963",
+      "devise": "SYP",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": false,
+      "note": "Visa consulaire obligatoire ; nationalité exclue de l'e-Visa (y compris conditionnel).",
+      "continent": "autre"
+    },
+    {
+      "iso2": "TJ",
+      "nom": "Tadjikistan",
+      "region": "asie",
+      "indicatif": "+992",
+      "devise": "TJS",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "TW",
+      "nom": "Taïwan",
+      "region": "asie",
+      "indicatif": "+886",
+      "devise": "TWD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": false,
+      "note": "Visa consulaire obligatoire ; nationalité exclue de l'e-Visa (y compris conditionnel).",
+      "continent": "autre"
+    },
+    {
+      "iso2": "CZ",
+      "nom": "Tchéquie",
+      "region": "europe",
+      "indicatif": "+420",
+      "devise": "CZK",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "TH",
+      "nom": "Thaïlande",
+      "region": "asie",
+      "indicatif": "+66",
+      "devise": "THB",
+      "visa_maroc": "evisa",
+      "continent": "autre"
+    },
+    {
+      "iso2": "TL",
+      "nom": "Timor oriental",
+      "region": "asie",
+      "indicatif": "+670",
+      "devise": "USD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "TO",
+      "nom": "Tonga",
+      "region": "oceanie",
+      "indicatif": "+676",
+      "devise": "TOP",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "TT",
+      "nom": "Trinité-et-Tobago",
+      "region": "amerique_latine",
+      "indicatif": "+1-868",
+      "devise": "TTD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "TM",
+      "nom": "Turkménistan",
+      "region": "asie",
+      "indicatif": "+993",
+      "devise": "TMT",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "TR",
+      "nom": "Turquie",
+      "region": "moyen_orient",
+      "indicatif": "+90",
+      "devise": "TRY",
+      "visa_maroc": "dispense",
+      "continent": "autre"
+    },
+    {
+      "iso2": "TV",
+      "nom": "Tuvalu",
+      "region": "oceanie",
+      "indicatif": "+688",
+      "devise": "AUD",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": false,
+      "note": "Visa consulaire obligatoire ; nationalité exclue de l'e-Visa (y compris conditionnel).",
+      "continent": "autre"
+    },
+    {
+      "iso2": "UA",
+      "nom": "Ukraine",
+      "region": "europe",
+      "indicatif": "+380",
+      "devise": "UAH",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "UY",
+      "nom": "Uruguay",
+      "region": "amerique_latine",
+      "indicatif": "+598",
+      "devise": "UYU",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "VU",
+      "nom": "Vanuatu",
+      "region": "oceanie",
+      "indicatif": "+678",
+      "devise": "VUV",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    },
+    {
+      "iso2": "VA",
+      "nom": "Vatican",
+      "region": "europe",
+      "indicatif": "+39",
+      "devise": "EUR",
+      "visa_maroc": null,
+      "note": "Non listé (passeports du Vatican majoritairement diplomatiques/de service) : à vérifier.",
+      "continent": "autre"
+    },
+    {
+      "iso2": "VE",
+      "nom": "Venezuela",
+      "region": "amerique_latine",
+      "indicatif": "+58",
+      "devise": "VES",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "note": "Visa (exemption supprimée en 2019).",
+      "continent": "autre"
+    },
+    {
+      "iso2": "VN",
+      "nom": "Viêt Nam",
+      "region": "asie",
+      "indicatif": "+84",
+      "devise": "VND",
+      "visa_maroc": "evisa",
+      "continent": "autre"
+    },
+    {
+      "iso2": "YE",
+      "nom": "Yémen",
+      "region": "moyen_orient",
+      "indicatif": "+967",
+      "devise": "YER",
+      "visa_maroc": "visa",
+      "evisa_conditionnel": true,
+      "continent": "autre"
+    }
+  ]
+}

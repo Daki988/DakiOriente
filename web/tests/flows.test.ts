@@ -29,7 +29,7 @@ let student: User, parent: User, school: User, landlord: User, adminU: User;
 beforeAll(async () => {
   student = await accounts.register({ role: "etudiant", firstName: "Awa", lastName: "Ndiaye", email: "awa@test.local", password: "Motdepasse1", birthYear: year - 17, country: "SN", city: "Dakar", acceptTerms: true });
   parent = await accounts.register({ role: "parent", firstName: "Moussa", lastName: "Ndiaye", phone: "+221770000001", password: "Motdepasse1", country: "SN", acceptTerms: true });
-  school = await accounts.register({ role: "etablissement", firstName: "Nadia", lastName: "Kane", email: "ecole@test.local", password: "Motdepasse1", establishmentId: "sn-ism", acceptTerms: true });
+  school = await accounts.register({ role: "etablissement", firstName: "Nadia", lastName: "Kane", email: "ecole@test.local", password: "Motdepasse1", establishmentId: "ma-esa-casa", acceptTerms: true });
   landlord = await accounts.register({ role: "bailleur", firstName: "Ibou", lastName: "Fall", email: "bailleur@test.local", password: "Motdepasse1", country: "SN", acceptTerms: true });
   adminU = (await accounts.findByIdentifier("admin@test.local"))!;
 });
@@ -50,7 +50,7 @@ describe("comptes", () => {
   });
   it("le compte établissement attend la validation", async () => {
     expect(school.status).toBe("en_attente");
-    await expect(etab.upsertProgram(school, "sn-ism", { formationId: "frm-licence-gestion", title: "Licence" })).rejects.toThrow(/refusé/);
+    await expect(etab.upsertProgram(school, "ma-esa-casa", { formationId: "frm-licence-gestion", title: "Licence" })).rejects.toThrow(/refusé/);
     await admin.setUserStatus(adminU, school.id, "actif");
     school = await reload(school.id);
     expect(school.status).toBe("actif");
@@ -60,25 +60,33 @@ describe("comptes", () => {
 describe("candidature", () => {
   let appId = "", programId = "";
   it("l'école publie une formation avec frais de dossier", async () => {
-    const p = await etab.upsertProgram(school, "sn-ism", { formationId: "frm-licence-gestion", title: "Licence en gestion (ISM)", tuitionMin: 1_200_000, tuitionMax: 1_500_000, currency: "XOF", applicationFee: 25_000, requiredDocuments: ["identite", "releve_notes"] });
+    const p = await etab.upsertProgram(school, "ma-esa-casa", { formationId: "frm-licence-gestion", title: "Bachelor en gestion (ESA)", diploma: "Licence / Bachelor", level: "niv-bac3", tuitionMin: 60_000, tuitionMax: 75_000, currency: "MAD", applicationFee: 500, requiredDocuments: ["identite", "releve_notes"], homologationRef: "Arrêté n° 1246.26 (BO n° 7535)" });
     programId = p.id;
     expect(p.indicative).toBe(false);
+    // Non publiée tant que l'homologation n'est pas vérifiée par Navigoal
+    expect(p.homologated).toBe(false);
+    expect((await etab.listPrograms("ma-esa-casa")).some((x) => x.id === programId)).toBe(false);
+    await expect(apps.createDraft(student, programId)).rejects.toThrow();
+    expect((await admin.homologationQueue(adminU)).some((x) => x.p.id === programId)).toBe(true);
+    await expect(admin.setProgramHomologation(adminU, programId, { homologated: true })).rejects.toThrow(/arrêté/);
+    await admin.setProgramHomologation(adminU, programId, { homologated: true, fin: "2028-2029", texte: "Arrêté n° 1246.26 (BO n° 7535)" });
+    expect((await etab.listPrograms("ma-esa-casa")).some((x) => x.id === programId)).toBe(true);
   });
   it("un mineur ne peut pas envoyer sans consentement parental", async () => {
     const a = await apps.createDraft(student, programId);
     appId = a.id;
-    await expect(apps.submitApplication(student, appId, { method: "wave" })).rejects.toThrow(/consentement/);
+    await expect(apps.submitApplication(student, appId, { method: "mobile_money_afrique" })).rejects.toThrow(/consentement/);
     const g = await guardians.inviteGuardian(student, "+221770000001");
     await guardians.acceptGuardianInvite(parent, g.inviteCode!, true);
     expect(await guardians.isGuardianOf(parent.id, student.id)).toBe(true);
   });
   it("pièces manquantes puis envoi avec paiement bac à sable", async () => {
-    await expect(apps.submitApplication(student, appId, { method: "wave" })).rejects.toThrow(/Pièces manquantes/);
+    await expect(apps.submitApplication(student, appId, { method: "mobile_money_afrique" })).rejects.toThrow(/Pièces manquantes/);
     await expect(docs.uploadDocument(student, "identite", { name: "x.exe", bytes: new Uint8Array([1, 2, 3, 4]) })).rejects.toThrow(/Format/);
     const d1 = await docs.uploadDocument(student, "identite", { name: "cni.pdf", bytes: PDF });
     const d2 = await docs.uploadDocument(student, "releve_notes", { name: "notes.png", bytes: PNG });
     await apps.updateDraft(student, appId, { motivation: "Je veux devenir manager.", documentIds: [d1.id, d2.id] });
-    const r = await apps.submitApplication(student, appId, { method: "wave", payerId: parent.id });
+    const r = await apps.submitApplication(student, appId, { method: "mobile_money_afrique", payerId: parent.id });
     // Paiement demandé au parent : l'élève revient sur sa candidature, le parent reçoit le lien de paiement.
     expect(r.redirectUrl).toBe(`/espace/candidatures/${appId}?paiement=parent`);
     const demande = (await notif.listNotifications(parent.id)).find((n) => n.kind === "paiement_demande");
@@ -91,7 +99,7 @@ describe("candidature", () => {
     expect((await pay.receipt(parent, ref)).byteLength).toBeGreaterThan(800);
   });
   it("l'école voit le dossier, demande une pièce, puis admet", async () => {
-    const list = await apps.listForEstablishment(school, "sn-ism");
+    const list = await apps.listForEstablishment(school, "ma-esa-casa");
     expect(list.map((x) => x.a.id)).toContain(appId);
     expect(apps.toCsv(list)).toContain("Ndiaye");
     const doc = (await apps.getApplication(school, appId)).documents[0];
@@ -116,15 +124,15 @@ describe("candidature", () => {
 describe("Navilease", () => {
   let hid = "", bid = "";
   it("annonce : brouillon → modération → publication, adresse masquée", async () => {
-    const h = await housing.saveHousing(landlord, { title: "Studio Point E", type: "studio", description: "Studio meublé de 25 m² proche de l'ISM, eau et électricité incluses, gardien.", pays: "SN", ville: "Dakar", quartier: "Point E", address: "12 rue secrète", rent: 150000, charges: 10000, deposit: 150000, amenities: ["wifi", "eau"], nearEstablishments: [{ id: "sn-ism", minutes: 10, mode: "pied" }] });
+    const h = await housing.saveHousing(landlord, { title: "Studio Maârif", type: "studio", description: "Studio meublé de 25 m² proche de l'ESA, eau et électricité incluses, gardien.", pays: "MA", ville: "Casablanca", quartier: "Maârif", address: "12 rue secrète", rent: 3000, charges: 200, deposit: 3000, amenities: ["wifi", "eau"], nearEstablishments: [{ id: "ma-esa-casa", minutes: 10, mode: "pied" }] });
     hid = h.id;
-    expect(h.currency).toBe("XOF");
+    expect(h.currency).toBe("MAD");
     await expect(housing.submitForModeration(landlord, hid)).rejects.toThrow(/3 photos/);
     for (let i = 0; i < 3; i++) await housing.addHousingPhoto(landlord, hid, { bytes: PNG });
     await housing.submitForModeration(landlord, hid);
-    expect(await housing.searchHousings({ pays: "SN" })).toHaveLength(0);
+    expect(await housing.searchHousings({ pays: "MA" })).toHaveLength(0);
     await housing.moderateHousing(adminU, hid, { approve: true });
-    const res = await housing.searchHousings({ etablissement: "sn-ism", budgetMax: 200000 });
+    const res = await housing.searchHousings({ etablissement: "ma-esa-casa", budgetMax: 4000 });
     expect(res.map((r) => r.id)).toContain(hid);
     expect(JSON.stringify(res)).not.toContain("rue secrète");
   });
@@ -137,17 +145,17 @@ describe("Navilease", () => {
     await housing.reviewKyc(adminU, landlord.id, true);
     const b = await book.requestBooking(student, { housingId: hid, startDate: `${year + 1}-09-01`, months: 9, message: "Bonjour, appelez-moi au 77 123 45 67" });
     bid = b.id;
-    expect(b.serviceFee).toBe(7500);
+    expect(b.serviceFee).toBe(150);
     const conv = (await msg.listConversations(landlord.id))[0];
     expect((await msg.getConversation(landlord.id, conv.id)).messages[0].m.body).toContain("[coordonnée masquée]");
     expect(await book.respond(landlord, bid, true)).toBe("attente_garant");
-    await expect(book.payBooking(student, bid, "wave")).rejects.toThrow(/garant/);
+    await expect(book.payBooking(student, bid, "mobile_money_afrique")).rejects.toThrow(/garant/);
     await book.approveAsGuarantor(parent, bid);
     expect((await book.getBooking(student, bid)).revealed).toBe(false);
   });
   it("paiement en séquestre → contrat → entrée → fonds versés → loyer → avis", async () => {
     const r = await book.payBooking(parent, bid, "orange_money");
-    expect(r.payment.amount).toBe(150000 + 10000 + 150000 + 7500);
+    expect(r.payment.amount).toBe(3000 + 200 + 3000 + 150);
     await pay.sandboxConfirm(parent, r.payment.reference, true);
     let d = await book.getBooking(student, bid);
     expect(d.booking.status).toBe("paiement_sequestre");
@@ -162,9 +170,9 @@ describe("Navilease", () => {
     d = await book.getBooking(landlord, bid);
     expect(d.booking.status).toBe("en_cours");
     expect(d.payments.find((p) => p.kind === "reservation")!.escrow).toBe("libere");
-    const rent = await book.payRent(student, bid, "wave", `${year + 1}-10`);
+    const rent = await book.payRent(student, bid, "mobile_money_afrique", `${year + 1}-10`);
     await pay.sandboxConfirm(student, rent.payment.reference, true);
-    await expect(book.payRent(student, bid, "wave", `${year + 1}-10`)).rejects.toThrow(/déjà payé/);
+    await expect(book.payRent(student, bid, "mobile_money_afrique", `${year + 1}-10`)).rejects.toThrow(/déjà payé/);
     expect((await book.rentReceipt(landlord, rent.payment.reference)).byteLength).toBeGreaterThan(800);
     await book.reviewHousing(student, bid, 4, "Calme et propre.");
     expect((await housing.getHousingPublic(hid)).reviews).toHaveLength(1);

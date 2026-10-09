@@ -6,7 +6,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import bcrypt from "bcryptjs";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { eq, sql } from "drizzle-orm";
+import { eq, inArray, sql } from "drizzle-orm";
 import { Pool } from "pg";
 import * as schema from "../src/server/db/schema.ts";
 
@@ -32,22 +32,56 @@ async function seedRefs() {
   await ins(schema.refSeries, read("series").items.map((s: any) => ({ id: s.id, pays: s.pays, data: s })));
 }
 
+const SCOLARITE_TYPE: Record<string, string> = { architecture: "grande_ecole", arts_design: "grande_ecole" };
+
 async function seedEstablishments() {
-  const formations = Object.fromEntries(read("formations").items.map((f: any) => [f.id, f]));
   const couts = Object.fromEntries(read("couts_etudes").items.map((c: any) => [c.id, c]));
-  const etabs = read("etablissements_superieurs").items;
+  const doc = read("etablissements_superieurs");
+  const etabs = doc.items;
   for (const e of etabs) {
+    const sante = (p: any) => /médecine|pharmacie|vétérinaire/i.test(p.diplome ?? "");
     await db.insert(schema.establishments).values({
       id: e.id, nom: e.nom, sigle: e.sigle, pays: e.pays, ville: e.ville, type: e.type, typeLibelle: e.type_libelle, statut: e.statut, siteWeb: e.site_web,
+      label: e.label, recognition: e.reconnaissance, address: e.adresse ?? null, description: e.description ?? null,
       anneeCreation: e.annee_creation, lat: e.coordonnees?.lat ?? null, lng: e.coordonnees?.lng ?? null, logo: logoUrl(e.logo), photos: (e.photos ?? []).map(photo),
-    }).onConflictDoNothing();
-    const sco = couts[e.pays].scolarite_annuelle[e.type] ?? couts[e.pays].scolarite_annuelle.universite;
-    const progs = e.formations.filter((f: string) => formations[f]).map((f: string) => ({
-      establishmentId: e.id, formationId: f, title: formations[f].intitule, durationYears: formations[f].duree_annees, currency: CUR[e.pays],
-      tuitionMin: sco.min, tuitionMax: sco.max, feesConfirmed: false, indicative: true,
-      admission: { series: [...new Set(Object.values(formations[f].series_recommandees).flat())] as string[], concours: formations[f].mode_admission === "concours", entretien: formations[f].mode_admission === "dossier+entretien" },
-    }));
-    if (progs.length) await db.insert(schema.programs).values(progs).onConflictDoNothing();
+    }).onConflictDoUpdate({
+      target: schema.establishments.id,
+      // Données officielles (label, reconnaissance) toujours à jour ; le reste n'écrase pas les saisies de l'établissement.
+      set: {
+        label: sql`excluded.label`, recognition: sql`excluded.recognition`, statut: sql`excluded.statut`, type: sql`excluded.type`, typeLibelle: sql`excluded.type_libelle`,
+        address: sql`coalesce(${schema.establishments.address}, excluded.address)`, siteWeb: sql`coalesce(${schema.establishments.siteWeb}, excluded.site_web)`,
+        description: sql`coalesce(${schema.establishments.description}, excluded.description)`, anneeCreation: sql`coalesce(${schema.establishments.anneeCreation}, excluded.annee_creation)`,
+        lat: sql`coalesce(${schema.establishments.lat}, excluded.lat)`, lng: sql`coalesce(${schema.establishments.lng}, excluded.lng)`,
+        logo: sql`coalesce(${schema.establishments.logo}, excluded.logo)`,
+      },
+    });
+    const c = couts[e.pays];
+    const typ = SCOLARITE_TYPE[e.type] ?? e.type;
+    const sco = c.scolarite_annuelle[typ] ?? c.scolarite_annuelle.universite;
+    const titles = new Set<string>();
+    for (const f of e.filieres) {
+      titles.add(f.intitule + "|" + (f.composante ?? ""));
+      const t = sante(f) ? c.scolarite_annuelle.ecole_sante : sco;
+      await db.insert(schema.programs).values({
+        establishmentId: e.id, formationId: f.formation, title: f.intitule, faculty: f.composante ?? "", campus: f.ville ?? null,
+        diploma: f.diplome ?? null, level: f.niveau ?? null, options: f.options ?? null, durationYears: f.duree_annees ?? null,
+        currency: CUR[e.pays], tuitionMin: t.min, tuitionMax: t.max, feesConfirmed: false, indicative: true,
+        homologated: true, homologation: f.homologation, admission: {},
+      }).onConflictDoUpdate({
+        target: [schema.programs.establishmentId, schema.programs.title, schema.programs.faculty],
+        set: { homologated: true, homologation: sql`excluded.homologation`, diploma: sql`coalesce(${schema.programs.diploma}, excluded.diploma)`, level: sql`coalesce(${schema.programs.level}, excluded.level)` },
+      });
+    }
+    // Filières importées d'un ancien référentiel et dont l'homologation n'est plus en cours : retirées de la publication.
+    const existing = await db.select({ id: schema.programs.id, title: schema.programs.title, faculty: schema.programs.faculty, indicative: schema.programs.indicative }).from(schema.programs).where(eq(schema.programs.establishmentId, e.id));
+    for (const p of existing) if (p.indicative && !titles.has(p.title + "|" + p.faculty)) await db.update(schema.programs).set({ homologated: false, active: false }).where(eq(schema.programs.id, p.id));
+  }
+  // Établissements des anciens référentiels (Gabon, Sénégal, fiches non homologuées) : retirés de la publication, sans supprimer l'historique.
+  const kept = new Set(etabs.map((e: any) => e.id));
+  const archive = path.resolve(REF, "..", "archives", "etablissements_superieurs_v1_GA_MA_SN.json");
+  if (fs.existsSync(archive)) {
+    const old = JSON.parse(fs.readFileSync(archive, "utf8")).items.map((e: any) => e.id).filter((id: string) => !kept.has(id));
+    for (let i = 0; i < old.length; i += 200) await db.update(schema.establishments).set({ label: null }).where(inArray(schema.establishments.id, old.slice(i, i + 200)));
   }
   return etabs.length;
 }

@@ -36,7 +36,7 @@ async function addEvent(applicationId: string, status: Status, authorId: string 
 
 export async function createDraft(student: User, programId: string) {
   if (!["eleve", "etudiant"].includes(student.role)) throw forbidden();
-  const [p] = await db.select().from(schema.programs).where(and(eq(schema.programs.id, programId), eq(schema.programs.active, true)));
+  const [p] = await db.select().from(schema.programs).where(and(eq(schema.programs.id, programId), eq(schema.programs.active, true), eq(schema.programs.homologated, true)));
   if (!p) throw notFound("Formation");
   const existing = await db.select().from(schema.applications).where(and(eq(schema.applications.studentId, student.id), eq(schema.applications.programId, programId), sql`${schema.applications.status} not in ('refusee','desistee')`)).limit(1);
   if (existing[0]) return existing[0];

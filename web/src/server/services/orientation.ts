@@ -1,4 +1,4 @@
-import { and, desc, eq, inArray } from "drizzle-orm";
+import { and, desc, eq, inArray, isNotNull } from "drizzle-orm";
 import { db, schema } from "../db";
 
 /** Enregistre un résultat de test RIASEC et met à jour le profil. */
@@ -26,7 +26,8 @@ export async function recommend(userId: string, opts: { limit?: number } = {}) {
   const scoredMetiers = metiers.map((m) => ({ m, s: m.riasec.reduce((a, c) => a + weight(c), 0) / Math.max(1, m.riasec.length) }))
     .filter((x) => x.s > 0).sort((a, b) => b.s - a.s).slice(0, opts.limit ?? 12);
   const serie = p?.serie;
-  const prefPays = p?.preferences?.pays ?? [];
+  // Destination unique : le Maroc. Préférence éventuelle de villes d'études.
+  const prefVilles = p?.preferences?.villes ?? [];
   const fScore = new Map<string, number>();
   for (const { m, s } of scoredMetiers) for (const fid of m.formations) fScore.set(fid, Math.max(fScore.get(fid) ?? 0, s));
   const forms = formations.filter((f) => fScore.has(f.id)).map((f) => {
@@ -35,7 +36,8 @@ export async function recommend(userId: string, opts: { limit?: number } = {}) {
   }).sort((a, b) => b.s - a.s).slice(0, 12);
   const programs = forms.length ? await db.select({ p: schema.programs, e: schema.establishments }).from(schema.programs)
     .innerJoin(schema.establishments, eq(schema.establishments.id, schema.programs.establishmentId))
-    .where(and(inArray(schema.programs.formationId, forms.map((x) => x.f.id)), eq(schema.programs.active, true), prefPays.length ? inArray(schema.establishments.pays, prefPays) : undefined)) : [];
+    .where(and(inArray(schema.programs.formationId, forms.map((x) => x.f.id)), eq(schema.programs.active, true), eq(schema.programs.homologated, true), isNotNull(schema.establishments.label),
+      prefVilles.length ? inArray(schema.establishments.ville, prefVilles) : undefined)) : [];
   const pct = (s: number) => Math.round(55 + s * 43);
   return {
     profil: top,

@@ -107,7 +107,7 @@ route("GET", "/recommandations", "Orientation", "Recommandations métiers, forma
 
 // ---------------------------------------------------------------- Catalogue public
 route("GET", "/recherche", "Catalogue", "Recherche globale (métiers, formations, établissements, articles, logements)", "public", async ({ query }) => globalSearch(query.get("q") ?? ""));
-route("GET", "/etablissements", "Catalogue", "Établissements (filtres pays, q)", "public", async ({ query }) => etab.searchEstablishments({ pays: query.get("pays") ?? undefined, text: query.get("q") ?? undefined }));
+route("GET", "/etablissements", "Catalogue", "Établissements labellisés (filtres ville, label, q)", "public", async ({ query }) => etab.searchEstablishments({ pays: query.get("pays") ?? undefined, ville: query.get("ville") ?? undefined, label: query.get("label") ?? undefined, text: query.get("q") ?? undefined }));
 route("GET", "/etablissements/:id", "Catalogue", "Fiche établissement", "public", async ({ params }) => etab.getEstablishment(params.id));
 route("GET", "/etablissements/:id/formations", "Catalogue", "Formations publiées d'un établissement", "public", async ({ params }) => etab.listPrograms(params.id));
 route("GET", "/formations-offres/:id", "Catalogue", "Détail d'une formation publiée", "public", async ({ params }) => etab.getProgram(params.id));
@@ -229,6 +229,8 @@ route("POST", "/admin/utilisateurs/:id/statut", "Back-office", "Activer / suspen
 route("POST", "/admin/utilisateurs", "Back-office", "Créer un compte conseiller ou administrateur", ["admin"], async ({ me, body }) => json(await admin.createStaff(me, await body()), 201));
 route("GET", "/admin/etablissements", "Back-office", "Établissements", ["admin"], async ({ me, query }) => admin.listEstablishmentsAdmin(me, { status: query.get("statut") ?? undefined, pays: query.get("pays") ?? undefined, q: query.get("q") ?? undefined }));
 route("PATCH", "/admin/etablissements/:id", "Back-office", "Vérifier, mettre en avant, plan", ["admin"], async ({ me, params, body }) => admin.updateEstablishmentAdmin(me, params.id, await body()));
+route("GET", "/admin/homologations", "Back-office", "Filières à vérifier (homologation par l'État)", ["admin"], async ({ me }) => admin.homologationQueue(me));
+route("PATCH", "/admin/formations/:id/homologation", "Back-office", "Valider ou refuser l'homologation d'une filière", ["admin"], async ({ me, params, body }) => admin.setProgramHomologation(me, params.id, await body()));
 route("GET", "/admin/referentiels/:nom", "Back-office", "Lister un référentiel (format=json|csv pour exporter)", ["admin"], async ({ me, params, query }) => {
   const f = query.get("format");
   if (f === "json" || f === "csv") return new Response(await admin.exportRef(me, params.nom as admin.RefName, f), { headers: { "Content-Type": f === "json" ? "application/json" : "text/csv; charset=utf-8", "Content-Disposition": `attachment; filename="${params.nom}.${f}"` } });

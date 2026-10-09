@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, ilike, or, sql } from "drizzle-orm";
+import { and, asc, desc, eq, ilike, isNotNull, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db, schema } from "../db";
 import { audit } from "../lib/audit";
@@ -26,9 +26,15 @@ export async function getEstablishment(id: string) {
   return e;
 }
 
-export async function searchEstablishments(q: { pays?: string; text?: string; limit?: number }) {
+/** Labels Navigoal : seuls les établissements labellisés (diplômes homologués par l'État) sont publiés. */
+export const LABELS = ["reconnu_etat", "diplomes_homologues", "professionnel"] as const;
+
+export async function searchEstablishments(q: { pays?: string; ville?: string; label?: string; text?: string; limit?: number }) {
   return db.select().from(schema.establishments).where(and(
+    isNotNull(schema.establishments.label),
     q.pays ? eq(schema.establishments.pays, q.pays) : undefined,
+    q.ville ? eq(schema.establishments.ville, q.ville) : undefined,
+    q.label ? eq(schema.establishments.label, q.label) : undefined,
     q.text ? or(ilike(schema.establishments.nom, `%${q.text}%`), ilike(schema.establishments.sigle, `%${q.text}%`), ilike(schema.establishments.ville, `%${q.text}%`)) : undefined,
     sql`${schema.establishments.status} <> 'suspendu'`,
   )).orderBy(desc(schema.establishments.featured), asc(schema.establishments.nom)).limit(q.limit ?? 200);
@@ -55,6 +61,13 @@ export async function updateEstablishment(user: User, id: string, raw: z.input<t
 export const programSchema = z.object({
   formationId: z.string().min(1),
   title: z.string().trim().min(3).max(200),
+  faculty: z.string().trim().max(200).optional(),
+  campus: z.string().trim().max(120).optional(),
+  diploma: z.string().trim().max(160).optional(),
+  level: z.enum(["niv-bac2", "niv-bac3", "niv-bac5", "niv-bac7", "niv-bac8"]).optional(),
+  options: z.string().trim().max(500).optional(),
+  // Référence de l'arrêté d'accréditation, vérifiée par l'équipe Navigoal avant publication
+  homologationRef: z.string().trim().max(300).optional(),
   description: z.string().max(4000).optional(),
   durationYears: z.coerce.number().int().min(1).max(8).optional(),
   language: z.string().max(20).optional(),
@@ -69,8 +82,12 @@ export const programSchema = z.object({
   active: z.boolean().optional(),
 });
 
-export async function listPrograms(establishmentId: string, onlyActive = true) {
-  return db.select().from(schema.programs).where(and(eq(schema.programs.establishmentId, establishmentId), onlyActive ? eq(schema.programs.active, true) : undefined)).orderBy(asc(schema.programs.title));
+/** Formations d'un établissement. Public : seulement les filières actives et homologuées par l'État. */
+export async function listPrograms(establishmentId: string, onlyPublished = true) {
+  return db.select().from(schema.programs).where(and(
+    eq(schema.programs.establishmentId, establishmentId),
+    onlyPublished ? and(eq(schema.programs.active, true), eq(schema.programs.homologated, true)) : undefined,
+  )).orderBy(asc(schema.programs.faculty), asc(schema.programs.title));
 }
 
 export async function getProgram(id: string) {
@@ -83,14 +100,20 @@ export async function upsertProgram(user: User, establishmentId: string, raw: z.
   await assertMember(user, establishmentId);
   const i = programSchema.parse(raw);
   if (i.tuitionMin && i.tuitionMax && i.tuitionMin > i.tuitionMax) throw new AppError("Les frais minimum dépassent les frais maximum.");
-  const values = { ...i, establishmentId, indicative: false, feesConfirmed: i.tuitionMin != null || i.tuitionMax != null };
+  const { homologationRef, ...rest } = i;
+  const values = { ...rest, faculty: rest.faculty ?? "", establishmentId, indicative: false, feesConfirmed: i.tuitionMin != null || i.tuitionMax != null };
   if (id) {
-    const [p] = await db.update(schema.programs).set(values).where(and(eq(schema.programs.id, id), eq(schema.programs.establishmentId, establishmentId))).returning();
+    const [before] = await db.select().from(schema.programs).where(and(eq(schema.programs.id, id), eq(schema.programs.establishmentId, establishmentId)));
+    if (!before) throw notFound("Formation");
+    // Changer l'intitulé d'une filière homologuée impose une nouvelle vérification avant publication.
+    const renamed = before.homologated && (before.title !== values.title || before.faculty !== values.faculty);
+    const pending = homologationRef ? { statut: "a_verifier", texte: homologationRef } : renamed ? { ...(before.homologation ?? { statut: "a_verifier" }), statut: "a_verifier" } : undefined;
+    const [p] = await db.update(schema.programs).set({ ...values, ...(pending ? { homologated: false, homologation: pending } : {}) }).where(and(eq(schema.programs.id, id), eq(schema.programs.establishmentId, establishmentId))).returning();
     if (!p) throw notFound("Formation");
     await audit(user.id, "modification_formation", "program", id);
     return p;
   }
-  const [p] = await db.insert(schema.programs).values(values).returning();
+  const [p] = await db.insert(schema.programs).values({ ...values, homologated: false, homologation: { statut: "a_verifier", texte: homologationRef } }).returning();
   await audit(user.id, "creation_formation", "program", p.id);
   return p;
 }

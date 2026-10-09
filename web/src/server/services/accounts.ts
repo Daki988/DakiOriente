@@ -6,6 +6,7 @@ import { AppError } from "../lib/errors";
 import { sendEmail, sendSms } from "../lib/messaging-channels";
 import { hashPassword, passwordProblem, verifyPassword } from "../auth/password";
 import { otpCode, sha256 } from "../auth/tokens";
+import { isCountryCode } from "@/lib/pays-origine";
 
 export const PUBLIC_ROLES = ["eleve", "etudiant", "parent", "etablissement", "bailleur"] as const;
 const phoneRe = /^\+?[0-9 ]{8,16}$/;
@@ -20,7 +21,7 @@ export const registerSchema = z.object({
   phone: z.string().trim().regex(phoneRe, "Numéro invalide").optional().or(z.literal("")),
   password: z.string(),
   birthYear: z.coerce.number().int().min(1940).max(new Date().getFullYear()).optional(),
-  country: z.enum(["GA", "MA", "SN"]).optional(),
+  country: z.string().trim().toUpperCase().refine(isCountryCode, "Pays inconnu.").optional(),
   city: z.string().trim().max(80).optional(),
   level: z.string().optional(),
   serie: z.string().optional(),
@@ -167,7 +168,7 @@ export const profileSchema = z.object({
   firstName: z.string().trim().min(1).max(80).optional(),
   lastName: z.string().trim().min(1).max(80).optional(),
   birthYear: z.coerce.number().int().min(1940).max(new Date().getFullYear()).optional(),
-  country: z.enum(["GA", "MA", "SN"]).optional(),
+  country: z.string().trim().toUpperCase().refine(isCountryCode, "Pays inconnu.").optional(),
   city: z.string().trim().max(80).optional(),
   level: z.string().max(40).optional(),
   serie: z.string().max(40).optional(),

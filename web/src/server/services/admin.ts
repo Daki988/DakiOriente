@@ -60,8 +60,10 @@ export async function listEstablishmentsAdmin(a: User, f: { status?: string; pay
     .orderBy(schema.establishments.pays, schema.establishments.nom);
 }
 
-export async function updateEstablishmentAdmin(a: User, id: string, patch: { status?: "importe" | "revendique" | "verifie" | "suspendu"; featured?: boolean; plan?: string }) {
+type Label = "reconnu_etat" | "diplomes_homologues" | "professionnel";
+export async function updateEstablishmentAdmin(a: User, id: string, patch: { status?: "importe" | "revendique" | "verifie" | "suspendu"; featured?: boolean; plan?: string; label?: Label | null; recognition?: string | null }) {
   admin(a);
+  if (patch.label !== undefined && patch.label !== null && !["reconnu_etat", "diplomes_homologues", "professionnel"].includes(patch.label)) throw new AppError("Label inconnu.");
   const [e] = await db.update(schema.establishments).set(patch).where(eq(schema.establishments.id, id)).returning();
   if (!e) throw notFound("Établissement");
   await audit(a.id, "maj_etablissement", "establishment", id, patch);
@@ -229,3 +231,24 @@ export async function stats(a: User) {
   return { usersByRole, usersByCountry, activity, orientation, appsByStatus, topFormations, navilease: navi, paymentsByCur, weekly, funnel: funnel[0] };
 }
 
+// ---------------------------------------------------------------- Homologation des filières
+/** Filières en attente de vérification (créées ou renommées par un établissement). */
+export async function homologationQueue(a: User) {
+  admin(a);
+  return db.select({ p: schema.programs, e: { id: schema.establishments.id, nom: schema.establishments.nom, ville: schema.establishments.ville, label: schema.establishments.label } })
+    .from(schema.programs).innerJoin(schema.establishments, eq(schema.establishments.id, schema.programs.establishmentId))
+    .where(and(eq(schema.programs.homologated, false), sql`${schema.programs.homologation}->>'statut' = 'a_verifier'`))
+    .orderBy(desc(schema.programs.updatedAt));
+}
+
+export async function setProgramHomologation(a: User, programId: string, i: { homologated: boolean; fin?: string; texte?: string }) {
+  admin(a);
+  if (i.homologated && !i.texte) throw new AppError("Indiquez la référence de l'arrêté d'accréditation (n° et Bulletin officiel).");
+  const homologation = i.homologated
+    ? { statut: "accreditee", fin: i.fin, texte: i.texte, verifiePar: a.id, verifieLe: new Date().toISOString() }
+    : { statut: "refusee", texte: i.texte, verifiePar: a.id, verifieLe: new Date().toISOString() };
+  const [p] = await db.update(schema.programs).set({ homologated: i.homologated, homologation }).where(eq(schema.programs.id, programId)).returning();
+  if (!p) throw notFound("Formation");
+  await audit(a.id, i.homologated ? "homologation_validee" : "homologation_refusee", "program", programId, i);
+  return p;
+}

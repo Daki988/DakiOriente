@@ -104,7 +104,11 @@ export const establishments = pgTable("establishments", {
   ville: text("ville").notNull(),
   type: text("type").notNull(),
   typeLibelle: text("type_libelle").notNull(),
-  statut: text("statut").notNull(), // prive, prive_reconnu, inter_etats…
+  statut: text("statut").notNull(), // prive, partenariat_etat, prive_non_lucratif
+  // Label Navigoal : reconnu_etat | diplomes_homologues | professionnel. Null = non publié (homologation à vérifier).
+  label: text("label"),
+  recognition: text("recognition"), // référence de la reconnaissance par l'État (décret)
+  address: text("address"),
   siteWeb: text("site_web"),
   anneeCreation: integer("annee_creation"),
   lat: doublePrecision("lat"),
@@ -132,8 +136,16 @@ export const establishmentMembers = pgTable("establishment_members", {
 export const programs = pgTable("programs", {
   id: id(),
   establishmentId: text("establishment_id").notNull().references(() => establishments.id, { onDelete: "cascade" }),
-  formationId: text("formation_id").notNull(), // ref_formations.id
+  formationId: text("formation_id").notNull(), // ref_formations.id (formation générique : métiers, orientation)
   title: text("title").notNull(),
+  faculty: text("faculty").notNull().default(""), // composante (faculté, école) pour les universités
+  campus: text("campus"), // ville, si différente de celle de l'établissement
+  diploma: text("diploma"), // diplôme délivré (ex. Diplôme d'ingénieur)
+  level: text("level"), // niv-bac3, niv-bac5…
+  options: text("options"),
+  // Homologation par l'État : seules les filières homologuées sont publiées
+  homologated: boolean("homologated").notNull().default(false),
+  homologation: jsonb("homologation").$type<{ statut: string; fin?: string; texte?: string; verifiePar?: string; verifieLe?: string }>(),
   description: text("description"),
   durationYears: integer("duration_years"),
   language: text("language").default("fr"),
@@ -150,7 +162,7 @@ export const programs = pgTable("programs", {
   indicative: boolean("indicative").notNull().default(true), // importé depuis le référentiel, à confirmer
   createdAt: createdAt(),
   updatedAt: updatedAt(),
-}, (t) => [index("programs_etab_idx").on(t.establishmentId), uniqueIndex("programs_etab_formation_idx").on(t.establishmentId, t.formationId)]);
+}, (t) => [index("programs_etab_idx").on(t.establishmentId), uniqueIndex("programs_etab_title_idx").on(t.establishmentId, t.title, t.faculty)]);
 
 export const campaignKindEnum = pgEnum("campaign_kind", ["admission", "concours", "inscription", "bourse", "portes_ouvertes", "evenement"]);
 export const campaigns = pgTable("campaigns", {

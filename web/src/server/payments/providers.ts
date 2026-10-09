@@ -54,7 +54,8 @@ export const providerById = (id: string) => (id === "cinetpay" ? cinetpay : sand
 
 export const METHODS: Record<string, { id: string; label: string }[]> = {
   GA: [{ id: "airtel_money", label: "Airtel Money" }, { id: "moov_money", label: "Moov Money" }, { id: "carte", label: "Carte bancaire" }, { id: "virement", label: "Virement international" }],
-  MA: [{ id: "carte", label: "Carte bancaire (CMI)" }, { id: "orange_money", label: "Orange Money" }, { id: "inwi_money", label: "inwi money" }, { id: "agence", label: "Cash Plus / Wafacash" }, { id: "virement", label: "Virement international" }],
+  // Destination Maroc : paiements en dirhams, depuis le Maroc ou l'étranger (parents en Afrique subsaharienne, Europe…)
+  MA: [{ id: "carte", label: "Carte bancaire (Visa, Mastercard, CMI)" }, { id: "mobile_money_afrique", label: "Mobile money Afrique (Wave, Orange Money, MTN, Airtel…)" }, { id: "virement", label: "Virement international" }, { id: "orange_money", label: "Orange Money Maroc" }, { id: "inwi_money", label: "inwi money" }, { id: "agence", label: "Cash Plus / Wafacash (Maroc)" }],
   SN: [{ id: "wave", label: "Wave" }, { id: "orange_money", label: "Orange Money" }, { id: "free_money", label: "Free Money" }, { id: "carte", label: "Carte bancaire" }, { id: "virement", label: "Virement international" }],
 };
 export const CURRENCY: Record<string, string> = { GA: "XAF", MA: "MAD", SN: "XOF" };

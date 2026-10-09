@@ -1,0 +1,557 @@
+{
+  "annee_reference": "2026-2027",
+  "exclus": [
+    {
+      "id": "ma-supdeco-marrakech",
+      "nom": "Sup de Co – École Supérieure de Commerce de Marrakech",
+      "ville": "Marrakech",
+      "reconnu": true,
+      "filieres_echues": 2,
+      "derniere_echeance": "2013-2014"
+    },
+    {
+      "id": "ma-iihem",
+      "nom": "International Institute for Higher Education in Morocco",
+      "ville": "Rabat",
+      "reconnu": true,
+      "filieres_echues": 7,
+      "derniere_echeance": "2025-2026"
+    },
+    {
+      "id": "ma-heci-casa",
+      "nom": "HECI – École des Hautes Études Commerciales et Informatiques (Casablanca)",
+      "ville": "Casablanca",
+      "reconnu": true,
+      "filieres_echues": 13,
+      "derniere_echeance": "2025-2026"
+    },
+    {
+      "id": "ma-essem",
+      "nom": "ESSEM Business School – École Supérieure des Sciences Économiques et de Management",
+      "ville": "Casablanca",
+      "reconnu": true,
+      "filieres_echues": 2,
+      "derniere_echeance": "2025-2026"
+    },
+    {
+      "id": "ma-psychosup",
+      "nom": "École Supérieure de Psychologie",
+      "ville": "Casablanca",
+      "reconnu": true,
+      "filieres_echues": 12,
+      "derniere_echeance": "2025-2026"
+    },
+    {
+      "id": "ma-supemir",
+      "nom": "SUPEMIR – École Supérieure des Multimédia, Informatique et Réseaux",
+      "ville": "Casablanca",
+      "reconnu": true,
+      "filieres_echues": 7,
+      "derniere_echeance": "2025-2026"
+    },
+    {
+      "id": "ma-esisa",
+      "nom": "ESISA – École Supérieure d'Ingénierie en Sciences Appliquées",
+      "ville": "Fès",
+      "reconnu": true,
+      "filieres_echues": 9,
+      "derniere_echeance": "2025-2026"
+    },
+    {
+      "id": "ma-artcomsup-rabat",
+      "nom": "Art'Com Sup – École Supérieure de Design (Rabat)",
+      "ville": "Rabat",
+      "reconnu": true,
+      "filieres_echues": 7,
+      "derniere_echeance": "2025-2026"
+    },
+    {
+      "id": "ma-iheps-agadir",
+      "nom": "IHEPS – Institut des Hautes Études Paramédicales du Souss",
+      "ville": "Agadir",
+      "reconnu": true,
+      "filieres_echues": 9,
+      "derniere_echeance": "2025-2026"
+    },
+    {
+      "id": "ma-esmc",
+      "nom": "ESMC – École Supérieure de Management et de Communication",
+      "ville": "Casablanca",
+      "reconnu": false,
+      "filieres_echues": 9,
+      "derniere_echeance": "2025-2026"
+    }
+  ],
+  "non_rattaches": [
+    [
+      "EPSIEL.M",
+      "Fès",
+      "2022-2023"
+    ],
+    [
+      "EPSIEL.M",
+      "Fès",
+      "2023-2024"
+    ],
+    [
+      "EPSIEL.M",
+      "Fès",
+      "2024-2025"
+    ],
+    [
+      "Institut des hautes études de management",
+      "Marrakech",
+      "2025-2026"
+    ],
+    [
+      "Institut des hautes études de management",
+      "Rabat",
+      "2025-2026"
+    ],
+    [
+      "Institut international de Casablanca d'ingénierie",
+      "Bouskoura",
+      "2023-2024"
+    ],
+    [
+      "Institut international de Casablanca d'ingénierie",
+      "Bouskoura",
+      "2025-2026"
+    ],
+    [
+      "Institut international privé de management et de technologie",
+      "Rabat",
+      "2024-2025"
+    ],
+    [
+      "Institut international privé de management et de technologie",
+      "Rabat",
+      "2025-2026"
+    ],
+    [
+      "Institut privé de management (Adalia)",
+      "Casablanca",
+      "2024-2025"
+    ],
+    [
+      "Institut privé de management (Adalia)",
+      "Casablanca",
+      "2025-2026"
+    ],
+    [
+      "Institut privé des hautes études marocaines d'ingénierie",
+      "Casablanca",
+      "2024-2025"
+    ],
+    [
+      "Institut privé des hautes études marocaines d'ingénierie",
+      "Casablanca",
+      "2025-2026"
+    ],
+    [
+      "Institut supérieur Vinci d'ingénierie informatique et des réseaux de télécommunications",
+      "Rabat",
+      "2022-2023"
+    ],
+    [
+      "Institut supérieur Vinci d'ingénierie informatique et des réseaux de télécommunications",
+      "Rabat",
+      "2023-2024"
+    ],
+    [
+      "Institut supérieur Vinci d'ingénierie informatique et des réseaux de télécommunications",
+      "Rabat",
+      "2024-2025"
+    ],
+    [
+      "Institut supérieur Vinci d'ingénierie informatique et des réseaux de télécommunications",
+      "Rabat",
+      "2025-2026"
+    ],
+    [
+      "Institut supérieur de gestion et de commerce",
+      "Casablanca",
+      "2023-2024"
+    ],
+    [
+      "Institut supérieur de gestion et de commerce",
+      "Casablanca",
+      "2024-2025"
+    ],
+    [
+      "Institut supérieur de journalisme et d'information",
+      "Casablanca",
+      "2022-2023"
+    ],
+    [
+      "Institut supérieur de journalisme et d'information",
+      "Casablanca",
+      "2024-2025"
+    ],
+    [
+      "Institut supérieur de journalisme et d'information",
+      "Casablanca",
+      "2025-2026"
+    ],
+    [
+      "Institut supérieur de journalisme et d'information",
+      "Marrakech",
+      "2023-2024"
+    ],
+    [
+      "Institut supérieur de journalisme et d'information",
+      "Marrakech",
+      "2025-2026"
+    ],
+    [
+      "Institut supérieur de journalisme et de communication",
+      "Casablanca",
+      "2023-2024"
+    ],
+    [
+      "Institut supérieur de journalisme et de communication",
+      "Casablanca",
+      "2025-2026"
+    ],
+    [
+      "Institut supérieur de management et des médias",
+      "Tanger",
+      "2023-2024"
+    ],
+    [
+      "Institut supérieur de management et des médias",
+      "Tanger",
+      "2024-2025"
+    ],
+    [
+      "Institut supérieur des hautes études en développement durable",
+      "Rabat",
+      "2024-2025"
+    ],
+    [
+      "Institut supérieur des hautes études en développement durable",
+      "Rabat",
+      "2025-2026"
+    ],
+    [
+      "Institut supérieur des études paramédicales de Casablanca",
+      "Casablanca",
+      "2025-2026"
+    ],
+    [
+      "Institut supérieur maghrébin d'optique et d'optométrie",
+      "Casablanca",
+      "2025-2026"
+    ],
+    [
+      "Institut supérieur privé d'optique théorique et appliquée",
+      "Casablanca",
+      "2025-2026"
+    ],
+    [
+      "Institut supérieur privé des sciences de l'ingénieur (Technologia)",
+      "Rabat",
+      "2022-2023"
+    ],
+    [
+      "Institut supérieur privé des sciences de l'ingénieur (Technologia)",
+      "Rabat",
+      "2024-2025"
+    ],
+    [
+      "MMBS",
+      "Mohammedia",
+      "2024-2025"
+    ],
+    [
+      "Orient Sup de Management",
+      "Taza",
+      "2024-2025"
+    ],
+    [
+      "PIIMT",
+      "Casablanca",
+      "2023-2024"
+    ],
+    [
+      "École de management (ESLSCA Rabat)",
+      "Rabat",
+      "2024-2025"
+    ],
+    [
+      "École de management (ESLSCA Rabat)",
+      "Rabat",
+      "2025-2026"
+    ],
+    [
+      "École de management d'Agadir (établissement non autrement identifié par l'arrêté)",
+      "Agadir",
+      "2025-2026"
+    ],
+    [
+      "École de management d'Agadir (établissement non autrement identifié par l'arrêté)",
+      "Agadir",
+      "2026-2027"
+    ],
+    [
+      "École de management de Casablanca",
+      "Casablanca",
+      "2023-2024"
+    ],
+    [
+      "École de management de Casablanca",
+      "Casablanca",
+      "2025-2026"
+    ],
+    [
+      "École de management de Casablanca (Toulouse Business School Casablanca)",
+      "Casablanca",
+      "2024-2025"
+    ],
+    [
+      "École de management de Casablanca (Toulouse Business School Casablanca)",
+      "Casablanca",
+      "2025-2026"
+    ],
+    [
+      "École de tourisme et d'hôtellerie (Ostelea)",
+      "Rabat",
+      "2023-2024"
+    ],
+    [
+      "École de tourisme et d'hôtellerie (Ostelea)",
+      "Rabat",
+      "2024-2025"
+    ],
+    [
+      "École des hautes études commerciales et informatiques",
+      "Agadir",
+      "2023-2024"
+    ],
+    [
+      "École des hautes études commerciales et informatiques",
+      "Fès",
+      "2023-2024"
+    ],
+    [
+      "École des hautes études commerciales et informatiques",
+      "Fès",
+      "2025-2026"
+    ],
+    [
+      "École des hautes études commerciales et informatiques",
+      "Kénitra",
+      "2025-2026"
+    ],
+    [
+      "École des hautes études commerciales et informatiques",
+      "Meknès",
+      "2025-2026"
+    ],
+    [
+      "École des hautes études commerciales et informatiques",
+      "Oujda",
+      "2023-2024"
+    ],
+    [
+      "École des hautes études commerciales et informatiques",
+      "Oujda",
+      "2025-2026"
+    ],
+    [
+      "École des hautes études commerciales et informatiques",
+      "Rabat",
+      "2025-2026"
+    ],
+    [
+      "École marocaine de la banque et du commerce international",
+      "Rabat",
+      "2025-2026"
+    ],
+    [
+      "École pluridisciplinaire d'électronique et de gestion",
+      "Fès",
+      "2024-2025"
+    ],
+    [
+      "École privée d'ingénierie numérique et des systèmes d'intelligence artificielle",
+      "Casablanca",
+      "2023-2024"
+    ],
+    [
+      "École privée d'ingénierie numérique et des systèmes d'intelligence artificielle",
+      "Casablanca",
+      "2024-2025"
+    ],
+    [
+      "École privée d'ingénierie numérique et des systèmes d'intelligence artificielle",
+      "Casablanca",
+      "2025-2026"
+    ],
+    [
+      "École privée des métiers du commerce, de la gestion et de l'informatique (EMCGI)",
+      "Tanger",
+      "2023-2024"
+    ],
+    [
+      "École privée des métiers du commerce, de la gestion et de l'informatique (EMCGI)",
+      "Tanger",
+      "2025-2026"
+    ],
+    [
+      "École supérieure d'ingénierie de la santé et de management de projets",
+      "Casablanca",
+      "2023-2024"
+    ],
+    [
+      "École supérieure d'ingénierie de la santé et de management de projets",
+      "Casablanca",
+      "2024-2025"
+    ],
+    [
+      "École supérieure d'ingénierie de la santé et de management de projets",
+      "Casablanca",
+      "2025-2026"
+    ],
+    [
+      "École supérieure d'optique et de lunetterie",
+      "Fès",
+      "2025-2026"
+    ],
+    [
+      "École supérieure de finance et d'audit",
+      "Tanger",
+      "2023-2024"
+    ],
+    [
+      "École supérieure de gestion",
+      "Casablanca",
+      "2022-2023"
+    ],
+    [
+      "École supérieure de kinésithérapie",
+      "Casablanca",
+      "2025-2026"
+    ],
+    [
+      "École supérieure de management du Sud",
+      "Agadir",
+      "2025-2026"
+    ],
+    [
+      "École supérieure des réseaux informatiques et du management",
+      "Settat",
+      "2023-2024"
+    ],
+    [
+      "École supérieure des réseaux informatiques et du management",
+      "Settat",
+      "2025-2026"
+    ],
+    [
+      "École supérieure des sciences commerciales et de gestion",
+      "Tanger",
+      "2025-2026"
+    ],
+    [
+      "École supérieure des sciences techniques et de management",
+      "Tanger",
+      "2023-2024"
+    ],
+    [
+      "École supérieure des sciences techniques et de management",
+      "Tanger",
+      "2024-2025"
+    ],
+    [
+      "École supérieure des sciences techniques et de management",
+      "Tanger",
+      "2025-2026"
+    ],
+    [
+      "École supérieure des télécommunications et du management",
+      "Fès",
+      "2023-2024"
+    ],
+    [
+      "École supérieure des télécommunications et du management",
+      "Fès",
+      "2024-2025"
+    ],
+    [
+      "École supérieure des télécommunications et du management",
+      "Fès",
+      "2025-2026"
+    ],
+    [
+      "École supérieure des études juridiques et économiques",
+      "Mohammedia",
+      "2023-2024"
+    ],
+    [
+      "École supérieure des études juridiques et économiques",
+      "Mohammedia",
+      "2025-2026"
+    ],
+    [
+      "École supérieure internationale de gestion",
+      "Casablanca",
+      "2023-2024"
+    ],
+    [
+      "École supérieure privée d'études en technologies de l'information et de la communication (Sup Technology)",
+      "Casablanca",
+      "2024-2025"
+    ],
+    [
+      "École supérieure privée d'études en technologies de l'information et de la communication (Sup Technology)",
+      "Casablanca",
+      "2025-2026"
+    ],
+    [
+      "École supérieure privée de génie civil",
+      "Oujda",
+      "2024-2025"
+    ],
+    [
+      "École supérieure privée de génie civil",
+      "Oujda",
+      "2025-2026"
+    ],
+    [
+      "École supérieure privée de management de Berrechid",
+      "Berrechid",
+      "2025-2026"
+    ],
+    [
+      "École supérieure privée de management et des technologies de l'information appliquées",
+      "Marrakech",
+      "2024-2025"
+    ],
+    [
+      "École supérieure privée de management et des technologies de l'information appliquées",
+      "Marrakech",
+      "2025-2026"
+    ],
+    [
+      "École supérieure privée des hautes études en management de Tanger",
+      "Tanger",
+      "2025-2026"
+    ],
+    [
+      "École supérieure privée des sciences et de l'ingénierie Abi Regreg",
+      "Salé",
+      "2024-2025"
+    ],
+    [
+      "École supérieure privée des sciences et de l'ingénierie Abi Regreg",
+      "Salé",
+      "2025-2026"
+    ],
+    [
+      "École supérieure privée du paramédical et de la rééducation",
+      "Rabat",
+      "2025-2026"
+    ]
+  ]
+}
