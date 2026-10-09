@@ -70,7 +70,7 @@ export function FileDrop({ type, onUploaded, compact, types = DOC_TYPES }: { typ
         onDrop={(e) => { e.preventDefault(); setOver(false); const f = e.dataTransfer.files[0]; if (f) send(f); }}
         className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed px-4 text-center transition ${compact ? "py-4" : "py-8"} ${over ? "border-brand-500 bg-brand-50" : "border-brand-200 bg-[#fbfcff] hover:border-brand-400"}`}>
         {busy ? <Loader2 className="animate-spin text-brand-600" /> : <UploadCloud className="text-brand-600" />}
-        <b className="text-sm">{busy ? "Envoi en cours…" : "Glisse ton fichier ici ou clique pour choisir"}</b>
+        <b className="text-sm">{busy ? "Envoi en cours…" : "Glissez-déposez le fichier ici ou cliquez pour choisir"}</b>
         <span className="text-xs text-ink-mute">PDF, JPG, PNG ou WebP · 8 Mo maximum</span>
       </button>
       <input ref={input} type="file" accept="application/pdf,image/jpeg,image/png,image/webp" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) send(f); }} />
