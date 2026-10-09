@@ -9,7 +9,7 @@ import { Radar } from "./Radar";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { domStyle } from "@/components/ui/Cards";
 import { Counter } from "@/components/motion/Counter";
-import { domaineById, etabById, formationById, metiers, niveauLabel, riasec, PAYS_NOM, type PaysCode } from "@/lib/data";
+import { VILLES_ETUDES, domaineById, etabById, formationById, metiers, niveauLabel, riasec } from "@/lib/data";
 
 const PALETTE = [["#eef4ff", "#1a47f5"], ["#f1edff", "#6a3df0"], ["#ffecef", "#d42a50"], ["#e8f8ef", "#0f8a46"]];
 const CODES = ["R", "I", "A", "S", "E", "C"];
@@ -29,7 +29,7 @@ export function OrientationTest() {
   const [i, setI] = useState(0);
   const [dir, setDir] = useState(1);
   const [answers, setAnswers] = useState<(number | null)[]>(() => QUESTIONS.map(() => null));
-  const [pays, setPays] = useState<PaysCode | "ALL">("ALL");
+  const [ville, setVille] = useState("");
 
   useEffect(() => {
     try {
@@ -125,7 +125,7 @@ export function OrientationTest() {
   for (const { m, s } of ranked.slice(0, 12)) {
     for (const f of m.formations) {
       if (formRec.some((x) => x.f === f)) continue;
-      const etab = formationById[f]?.etablissements.map((id) => etabById[id]).find((e) => pays === "ALL" || e.pays === pays);
+      const etab = formationById[f]?.etablissements.map((id) => etabById[id]).find((e) => !ville || e.ville === ville);
       if (etab) formRec.push({ f, e: etab.id, s: pct(s) - formRec.length });
       if (formRec.length >= 4) break;
     }
@@ -177,7 +177,7 @@ export function OrientationTest() {
         </div>
         <div className="card flex flex-col gap-3 rounded-3xl p-6">
           <div className="flex flex-wrap items-center justify-between gap-2"><h3 className="text-xl font-extrabold">Formations recommandées</h3>
-            <div className="flex gap-1 rounded-xl bg-[#f6f8fe] p-1 text-xs font-bold">{(["ALL", "GA", "MA", "SN"] as const).map((p) => <button key={p} onClick={() => setPays(p)} className={`rounded-lg px-2.5 py-1.5 transition ${pays === p ? "bg-white text-brand-600 shadow" : "text-ink-mute"}`}>{p === "ALL" ? "Tous" : PAYS_NOM[p]}</button>)}</div></div>
+            <div className="flex gap-1 rounded-xl bg-[#f6f8fe] p-1 text-xs font-bold"><select value={ville} onChange={(e) => setVille(e.target.value)} aria-label="Ville d'études" className="rounded-lg bg-white px-2.5 py-1.5 font-bold text-ink-soft"><option value="">Toutes les villes</option>{VILLES_ETUDES.map((v) => <option key={v}>{v}</option>)}</select></div></div>
           <AnimatePresence mode="popLayout">
             {formRec.map(({ f, e, s }) => (
               <motion.div key={f + e} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}>

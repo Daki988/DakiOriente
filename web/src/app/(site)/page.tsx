@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Hero } from "@/components/sections/Hero";
 import { LogosMarquee, MetiersCarousel, NavileaseTeaser, Parcours, QuickLinks } from "@/components/sections/HomeSections";
 import { SectionTitle } from "@/components/ui/Section";
-import { PaysCard, domStyle } from "@/components/ui/Cards";
+import { LabelCard, PaysCard, domStyle } from "@/components/ui/Cards";
 import { NewsCard } from "@/components/ui/NewsCard";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { Stagger, StaggerItem } from "@/components/motion/Reveal";
@@ -25,9 +25,11 @@ export default function Home() {
       </section>
 
       <section className="container mt-24 flex flex-col gap-8">
-        <SectionTitle eyebrow="Lancement" title="Explore 3 pays, un seul parcours" action={<Link href="/pays" className="btn-ghost">Tous les pays <ArrowRight size={16} /></Link>} />
+        <SectionTitle eyebrow="Étudier au Maroc" title="Des diplômes homologués par l'État, pour les étudiants de toute l'Afrique" action={<Link href="/pays/ma/" className="btn-ghost">Visa, budget, villes <ArrowRight size={16} /></Link>} />
         <Stagger className="grid gap-6 md:grid-cols-3">
-          {(["GA", "MA", "SN"] as const).map((c) => <StaggerItem key={c}><PaysCard code={c} /></StaggerItem>)}
+          <StaggerItem><PaysCard code="MA" /></StaggerItem>
+          <StaggerItem><LabelCard label="reconnu_etat" /></StaggerItem>
+          <StaggerItem><LabelCard label="diplomes_homologues" /></StaggerItem>
         </Stagger>
       </section>
 

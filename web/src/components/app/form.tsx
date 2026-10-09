@@ -16,11 +16,15 @@ export function Field({ label, hint, error, children, required, className = "" }
 
 export const Input = (p: React.InputHTMLAttributes<HTMLInputElement>) => <input {...p} className={`input ${p.className ?? ""}`} />;
 export const Textarea = (p: React.TextareaHTMLAttributes<HTMLTextAreaElement>) => <textarea {...p} className={`input min-h-[110px] resize-y ${p.className ?? ""}`} />;
-export function Select({ options, placeholder, ...p }: React.SelectHTMLAttributes<HTMLSelectElement> & { options: [string, string][]; placeholder?: string }) {
+/** Liste déroulante. Une option peut porter un groupe (3e valeur) : les options sont alors regroupées (optgroup). */
+export function Select({ options, placeholder, ...p }: React.SelectHTMLAttributes<HTMLSelectElement> & { options: ([string, string] | [string, string, string])[]; placeholder?: string }) {
+  const groups = Array.from(new Set(options.map((o) => o[2]).filter(Boolean))) as string[];
   return (
     <select {...p} className={`input appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%236b7493%22 stroke-width=%222%22><path d=%22m6 9 6 6 6-6%22/></svg>')] bg-[right_12px_center] bg-no-repeat pr-10 ${p.className ?? ""}`}>
       {placeholder !== undefined && <option value="">{placeholder}</option>}
-      {options.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+      {groups.length
+        ? groups.map((g) => <optgroup key={g} label={g}>{options.filter((o) => o[2] === g).map(([v, l]) => <option key={v} value={v}>{l}</option>)}</optgroup>)
+        : options.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
     </select>
   );
 }

@@ -4,13 +4,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronDown, Search, SlidersHorizontal, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { FormationOfferCard } from "@/components/ui/Cards";
-import { PAYS_NOM, compatibilite, domaines, etablissements, formationById, metierById, niveauLabel, type PaysCode } from "@/lib/data";
+import { LABELS, VILLES_ETUDES, compatibilite, domaines, etablissements, formationById, metierById, niveauLabel, type Label } from "@/lib/data";
 import { PROFILE_KEY } from "./OrientationTest";
 
 const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const OFFERS = etablissements.flatMap((e) => e.formations.map((f) => ({ f: formationById[f], e })).filter((o) => o.f));
 const NIVEAUX = ["niv-bac2", "niv-bac3", "niv-bac5", "niv-bac7", "niv-bac8"];
-const STATUTS: [string, (s: string) => boolean][] = [["Inter-États", (s) => s === "inter_etats"], ["Privé", (s) => s.startsWith("prive")]];
 const ADMISSIONS = [["dossier", "Sur dossier"], ["concours", "Concours"], ["bac", "De droit"], ["dossier+entretien", "Dossier + entretien"]];
 
 function Check2({ on, label, onClick }: { on: boolean; label: string; onClick: () => void }) {
@@ -24,47 +23,47 @@ function Check2({ on, label, onClick }: { on: boolean; label: string; onClick: (
 export function FormationSearch() {
   const params = useSearchParams();
   const [q, setQ] = useState(params.get("q") ?? "");
-  const [pays, setPays] = useState<PaysCode[]>([]);
+  const [villes, setVilles] = useState<string[]>([]);
   const [niv, setNiv] = useState<string[]>([]);
   const [dom, setDom] = useState<string[]>(params.get("domaine") ? [params.get("domaine")!] : []);
-  const [stat, setStat] = useState<string[]>([]);
+  const [labels, setLabels] = useState<Label[]>([]);
   const [adm, setAdm] = useState<string[]>([]);
   const [sort, setSort] = useState<"compat" | "az">("compat");
   const [limit, setLimit] = useState(12);
   const [profil, setProfil] = useState<string[]>(["I", "C"]);
   const [showFilters, setShowFilters] = useState(false);
   useEffect(() => { try { const p = JSON.parse(localStorage.getItem(PROFILE_KEY) || "null"); if (p?.top) setProfil(p.top); } catch { /* ignore */ } }, []);
-  useEffect(() => setLimit(12), [q, pays, niv, dom, stat, adm]);
+  useEffect(() => setLimit(12), [q, villes, niv, dom, labels, adm]);
 
   const toggle = <T,>(arr: T[], set: (v: T[]) => void, v: T) => set(arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]);
 
   const results = useMemo(() => {
     const terms = norm(q).split(/\s+/).filter(Boolean);
     return OFFERS.filter(({ f, e }) => {
-      if (pays.length && !pays.includes(e.pays)) return false;
+      if (villes.length && !villes.includes(e.ville)) return false;
       if (niv.length && !niv.includes(f.niveau)) return false;
       if (dom.length && !dom.includes(f.domaine)) return false;
       if (adm.length && !adm.includes(f.mode_admission)) return false;
-      if (stat.length && !stat.some((s) => STATUTS.find(([l]) => l === s)![1](e.statut))) return false;
+      if (labels.length && !labels.includes(e.label)) return false;
       if (terms.length) {
-        const hay = norm([f.intitule, f.diplome, e.nom, e.sigle, e.ville, PAYS_NOM[e.pays], ...f.metiers.map((m) => metierById[m]?.nom ?? "")].join(" "));
+        const hay = norm([f.intitule, f.diplome, e.nom, e.sigle, e.ville, ...e.filieres.filter((x) => x.formation === f.id).map((x) => x.intitule), ...f.metiers.map((m) => metierById[m]?.nom ?? "")].join(" "));
         return terms.every((t) => hay.includes(t));
       }
       return true;
     })
       .map((o) => ({ ...o, score: compatibilite(profil, o.f.id) }))
       .sort((a, b) => (sort === "compat" ? b.score - a.score || a.f.intitule.localeCompare(b.f.intitule) : a.f.intitule.localeCompare(b.f.intitule)));
-  }, [q, pays, niv, dom, stat, adm, sort, profil]);
+  }, [q, villes, niv, dom, labels, adm, sort, profil]);
 
-  const reset = () => { setPays([]); setNiv([]); setDom([]); setStat([]); setAdm([]); setQ(""); };
-  const nbFilters = pays.length + niv.length + dom.length + stat.length + adm.length;
+  const reset = () => { setVilles([]); setNiv([]); setDom([]); setLabels([]); setAdm([]); setQ(""); };
+  const nbFilters = villes.length + niv.length + dom.length + labels.length + adm.length;
 
   const filters = (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between"><h3 className="text-lg font-extrabold">Filtres</h3><button onClick={reset} className="text-[13px] font-bold text-brand-600">Réinitialiser</button></div>
-      <div className="flex flex-col gap-2.5"><b className="text-sm">Pays</b>{(["GA", "MA", "SN"] as const).map((p) => <Check2 key={p} on={pays.includes(p)} label={PAYS_NOM[p]} onClick={() => toggle(pays, setPays, p)} />)}</div>
+      <div className="flex flex-col gap-2.5"><b className="text-sm">Label de l&apos;établissement</b>{LABELS.filter((l) => etablissements.some((e) => e.label === l.id)).map((l) => <Check2 key={l.id} on={labels.includes(l.id)} label={l.libelle} onClick={() => toggle(labels, setLabels, l.id)} />)}</div>
+      <div className="flex flex-col gap-2.5"><b className="text-sm">Ville</b>{VILLES_ETUDES.map((v) => <Check2 key={v} on={villes.includes(v)} label={v} onClick={() => toggle(villes, setVilles, v)} />)}</div>
       <div className="flex flex-col gap-2.5"><b className="text-sm">Niveau</b>{NIVEAUX.map((n) => <Check2 key={n} on={niv.includes(n)} label={niveauLabel(n)} onClick={() => toggle(niv, setNiv, n)} />)}</div>
-      <div className="flex flex-col gap-2.5"><b className="text-sm">Statut</b>{STATUTS.map(([l]) => <Check2 key={l} on={stat.includes(l)} label={l} onClick={() => toggle(stat, setStat, l)} />)}</div>
       <div className="flex flex-col gap-2.5"><b className="text-sm">Admission</b>{ADMISSIONS.map(([v, l]) => <Check2 key={v} on={adm.includes(v)} label={l} onClick={() => toggle(adm, setAdm, v)} />)}</div>
       <div className="flex flex-col gap-2.5"><b className="text-sm">Domaine</b>{domaines.map((d) => <Check2 key={d.id} on={dom.includes(d.id)} label={d.libelle} onClick={() => toggle(dom, setDom, d.id)} />)}</div>
     </div>
@@ -80,7 +79,7 @@ export function FormationSearch() {
           </div>
           <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-2 pl-5 shadow-[0_20px_50px_-18px_rgba(11,21,51,.3)] focus-within:ring-4 focus-within:ring-brand-100">
             <Search size={20} className="text-ink-mute" />
-            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Ex : informatique Dakar, médecine, BTS, ISM…" className="min-w-0 flex-1 bg-transparent py-2.5 outline-none" aria-label="Rechercher une formation" />
+            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Ex : informatique Rabat, médecine, kinésithérapie, EMSI…" className="min-w-0 flex-1 bg-transparent py-2.5 outline-none" aria-label="Rechercher une formation" />
             {q && <button onClick={() => setQ("")} aria-label="Effacer" className="text-ink-mute"><X size={18} /></button>}
             <button onClick={() => setShowFilters(true)} className="btn-ghost relative py-2.5 lg:hidden"><SlidersHorizontal size={16} />{nbFilters > 0 && <span className="absolute -right-1.5 -top-1.5 rounded-full bg-sun-400 px-1.5 text-xs">{nbFilters}</span>}</button>
           </div>

@@ -7,7 +7,8 @@ import { useMemo, useState } from "react";
 import { Button, Tabs } from "@/components/app/kit";
 import { Check, Field, FormError, Input, PasswordInput, Select } from "@/components/app/form";
 import { api, ApiError } from "@/lib/api";
-import { PAYS_NOM, etablissements, pays, series, type PaysCode } from "@/lib/data";
+import { etablissements, pays, series } from "@/lib/data";
+import { PAYS_OPTIONS, paysOrigineById } from "@/lib/pays-origine";
 import { useAction } from "@/hooks/useApi";
 
 type Role = "eleve" | "etudiant" | "parent" | "etablissement" | "bailleur";
@@ -43,7 +44,7 @@ export function Signup() {
   const [step, setStep] = useState<1 | 2>(params.get("profil") ? 2 : 1);
   const [role, setRole] = useState<Role>((params.get("profil") as Role) || "etudiant");
   const [via, setVia] = useState<"email" | "phone">("email");
-  const [f, setF] = useState({ firstName: "", lastName: "", birthYear: "", country: "" as PaysCode | "", city: "", level: "", serie: "", currentSchool: "", email: "", phone: "", password: "", establishmentId: "", company: "", guardianContact: "", terms: false });
+  const [f, setF] = useState({ firstName: "", lastName: "", birthYear: "", country: "", city: "", level: "", serie: "", currentSchool: "", email: "", phone: "", password: "", establishmentId: "", company: "", guardianContact: "", terms: false });
   const set = (k: keyof typeof f) => (v: string | boolean) => setF((x) => ({ ...x, [k]: v }));
   const a = useAction();
   const [fieldErr, setFieldErr] = useState<Record<string, string>>({});
@@ -51,7 +52,8 @@ export function Signup() {
   const minor = (role === "eleve" || role === "etudiant") && age !== null && age < 18;
   const R = ROLES.find((r) => r.id === role)!;
   const villes = useMemo(() => (f.country ? pays.find((p) => p.id === f.country)?.villes_universitaires ?? [] : []), [f.country]);
-  const seriesPays = useMemo(() => series.filter((s) => !f.country || s.pays === f.country), [f.country]);
+  // Séries détaillées pour le Gabon, le Maroc et le Sénégal ; saisie libre pour les autres pays
+  const seriesPays = useMemo(() => series.filter((s) => s.pays === f.country), [f.country]);
   const pwScore = [f.password.length >= 8, /\d/.test(f.password), /[A-Za-z]/.test(f.password), f.password.length >= 12].filter(Boolean).length;
 
   const submit = (e: React.FormEvent) => {
@@ -126,12 +128,12 @@ export function Signup() {
         </Section>
         {role === "etablissement" ? (
           <Section n={2} t="Votre établissement">
-            <Field label="Établissement représenté" required hint="Votre rattachement est vérifié par l'équipe Navigoal.">{(i) => <Select id={i} value={f.establishmentId} onChange={(e) => set("establishmentId")(e.target.value)} required placeholder="Choisir…" options={etablissements.slice().sort((x, y) => x.nom.localeCompare(y.nom)).map((e) => [e.id, `${e.nom} (${e.ville.split("/")[0].trim()}, ${PAYS_NOM[e.pays]})`])} />}</Field>
+            <Field label="Établissement représenté" required hint="Votre rattachement est vérifié par l'équipe Navigoal.">{(i) => <Select id={i} value={f.establishmentId} onChange={(e) => set("establishmentId")(e.target.value)} required placeholder="Choisir…" options={etablissements.slice().sort((x, y) => x.nom.localeCompare(y.nom)).map((e) => [e.id, `${e.nom} (${e.ville})`])} />}</Field>
           </Section>
         ) : (
           <Section n={2} t="Où vis-tu ?">
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Pays de résidence">{(i) => <Select id={i} value={f.country} onChange={(e) => setF((x) => ({ ...x, country: e.target.value as PaysCode, city: "", serie: "" }))} placeholder="Choisir…" options={(["GA", "MA", "SN"] as const).map((c) => [c, PAYS_NOM[c]])} />}</Field>
+              <Field label="Pays de résidence" hint={f.country && paysOrigineById[f.country] ? `Indicatif ${paysOrigineById[f.country].indicatif}` : undefined}>{(i) => <Select id={i} value={f.country} onChange={(e) => setF((x) => ({ ...x, country: e.target.value, city: "", serie: "" }))} placeholder="Choisir…" options={PAYS_OPTIONS.map((o) => [o.value, o.label, o.group])} />}</Field>
               <Field label="Ville">{(i) => <><Input id={i} list="villes" value={f.city} onChange={(e) => set("city")(e.target.value)} autoComplete="address-level2" /><datalist id="villes">{villes.map((v) => <option key={v} value={v} />)}</datalist></>}</Field>
             </div>
           </Section>
@@ -140,8 +142,10 @@ export function Signup() {
           <Section n={3} t="Ta scolarité">
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Niveau actuel">{(i) => <Select id={i} value={f.level} onChange={(e) => set("level")(e.target.value)} placeholder="Choisir…" options={LEVELS} />}</Field>
-              <Field label="Série" hint={f.country ? undefined : "Choisis d'abord ton pays."}>{(i) => <Select id={i} value={f.serie} onChange={(e) => set("serie")(e.target.value)} placeholder="Choisir…" disabled={!f.country} options={seriesPays.map((s) => [s.id, `${s.code} — ${s.intitule}`])} />}</Field>
-              <Field label="Établissement actuel" className="sm:col-span-2">{(i) => <Input id={i} value={f.currentSchool} onChange={(e) => set("currentSchool")(e.target.value)} placeholder="Ex. Lycée national Léon Mba" />}</Field>
+              {seriesPays.length > 0
+                ? <Field label="Série">{(i) => <Select id={i} value={f.serie} onChange={(e) => set("serie")(e.target.value)} placeholder="Choisir…" options={seriesPays.map((s) => [s.id, `${s.code} — ${s.intitule}`])} />}</Field>
+                : <Field label="Série / spécialité du bac" hint={f.country ? undefined : "Choisis d'abord ton pays."}>{(i) => <Input id={i} value={f.serie} onChange={(e) => set("serie")(e.target.value)} disabled={!f.country} placeholder="Ex. scientifique, économique, littéraire" maxLength={40} />}</Field>}
+              <Field label="Établissement actuel" className="sm:col-span-2">{(i) => <Input id={i} value={f.currentSchool} onChange={(e) => set("currentSchool")(e.target.value)} placeholder="Nom de ton lycée ou de ton université" />}</Field>
             </div>
           </Section>
         )}

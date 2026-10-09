@@ -1,11 +1,12 @@
 // Moteur de devis « études à l'étranger » (min / max sur toute la durée de la formation).
 // Même calcul que les maquettes validées (design/maquettes/build_v2.py).
 import coutsData from "@/data/couts.json";
-import { etabById, formationById, type PaysCode } from "./data";
+import { etabById, formationById } from "./data";
+import { paysOrigineById } from "./pays-origine";
 
 type F = { min: number; max: number };
 export type CoutsPays = {
-  id: PaysCode; devise: string;
+  id: string; devise: string;
   scolarite_annuelle: Record<string, F & { libelle: string }>;
   frais_annuels_annexes: F & { libelle: string };
   vie_mensuelle: { villes_cheres: string[]; ville_chere: F; autre_ville: F };
@@ -15,7 +16,7 @@ export type CoutsPays = {
   environnement: Record<"securite" | "sante" | "transports" | "communaute" | "climat", string>;
 };
 const C = coutsData as unknown as { items: CoutsPays[]; taux: Record<string, number | string>; hypotheses: Record<string, number>; sources: string[]; avertissement: string };
-export const COUTS = Object.fromEntries(C.items.map((c) => [c.id, c])) as Record<PaysCode, CoutsPays>;
+export const COUTS = Object.fromEntries(C.items.map((c) => [c.id, c])) as Record<string, CoutsPays>;
 export const HYP = C.hypotheses as { mois_par_an: number; inflation_annuelle: number; frais_transfert: number; marge_imprevus: number };
 export const TAUX = C.taux as Record<string, number>;
 export const SOURCES = C.sources;
@@ -31,7 +32,13 @@ export type Devis = {
   rows: { annee: number; scolarite: Pair; annexes: Pair; vie: Pair; renouvellements: Pair; total: Pair }[];
 };
 
-export function devis(eid: string, fid: string, origine: PaysCode = "GA", logement: Logement = "studio"): Devis {
+/** Billet d'avion aller simple vers le Maroc : tarif du pays s'il existe, sinon estimation par région. */
+export function billet(c: CoutsPays, origine: string): F {
+  const region = paysOrigineById[origine]?.region;
+  return (c.billet_avion[`depuis_${origine}`] as F) ?? (region ? (c.billet_avion[`depuis_region_${region}`] as F) : undefined) ?? { min: 0, max: 0 };
+}
+
+export function devis(eid: string, fid: string, origine = "SN", logement: Logement = "studio"): Devis {
   const e = etabById[eid];
   const Fm = formationById[fid];
   const c = COUTS[e.pays];
@@ -57,7 +64,7 @@ export function devis(eid: string, fid: string, origine: PaysCode = "GA", logeme
     rows.push({ annee: y + 1, scolarite: a, annexes: b, vie: v, renouvellements: r, total: row });
     tot = [tot[0] + row[0], tot[1] + row[1]];
   }
-  const vol = (c.billet_avion[`depuis_${origine}`] as F) ?? { min: 0, max: 0 };
+  const vol = billet(c, origine);
   const inst: Pair = [sum(once, "min") + vol.min * 2, sum(once, "max") + vol.max * 2];
   const sub: Pair = [tot[0] + inst[0], tot[1] + inst[1]];
   const imp = sub.map((x) => Math.round(x * HYP.marge_imprevus)) as Pair;
@@ -82,7 +89,8 @@ export const DEVISE_COURT: Record<Devise, string> = { XAF: "F CFA", XOF: "F CFA"
 const rate = (d: string) => (d === "EUR" ? 1 : TAUX[d]);
 /** Conversion via l'euro (taux indicatifs). */
 export const convert = (v: number, from: string, to: string) => (from === to ? v : Math.round((v / rate(from)) * rate(to)));
-export const DEVISE_PAYS: Record<PaysCode, Devise> = { GA: "XAF", SN: "XOF", MA: "MAD" };
+/** Devise d'affichage par défaut selon le pays d'origine (F CFA, dirham, sinon euro). */
+export const devisePays = (c: string): Devise => { const d = paysOrigineById[c]?.devise; return d === "XAF" || d === "XOF" || d === "MAD" || d === "EUR" ? d : "EUR"; };
 
 /** Formation par défaut pour un établissement : la plus longue (devis le plus complet). */
 export const formationParDefaut = (eid: string) => {

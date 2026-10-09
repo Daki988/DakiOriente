@@ -9,9 +9,11 @@ import { EtabLogo } from "@/components/ui/EtabLogo";
 import { EtabPhoto } from "@/components/ui/EtabPhoto";
 import { PAYS_STYLE } from "@/components/ui/Cards";
 import { PhotoCollage } from "@/components/sections/PhotoCollage";
+import { VenirAuMaroc } from "@/components/sections/VenirAuMaroc";
 import { STATUT_LONG, etablissements, fmt, paysDetailById, paysDetails, vitrine, type PaysCode } from "@/lib/data";
 
 export const generateStaticParams = () => paysDetails.map((p) => ({ code: p.id.toLowerCase() }));
+export const dynamicParams = false; // destination unique : le Maroc
 const byCode = (c: string) => paysDetailById[c.toUpperCase() as PaysCode];
 export const generateMetadata = ({ params }: { params: { code: string } }): Metadata => ({ title: `Étudier au ${byCode(params.code)?.nom}`, description: byCode(params.code)?.accroche });
 
@@ -29,7 +31,7 @@ export default function PaysDetailPage({ params }: { params: { code: string } })
         <div className="container grid items-center gap-10 lg:grid-cols-[1fr_1.05fr]">
           <div className="flex min-w-0 flex-col gap-5">
             <nav className="flex items-center gap-1.5 text-[13px] text-ink-mute"><Link href="/">Accueil</Link><ChevronRight size={14} /><Link href="/pays">Pays</Link><ChevronRight size={14} /><span>{P.nom}</span></nav>
-            <Reveal className="flex items-center gap-3">{PAYS_STYLE[code].flag}<span className="chip bg-sun-100 text-[#a55a00]">Écoles privées et inter-États</span></Reveal>
+            <Reveal className="flex items-center gap-3">{PAYS_STYLE[code].flag}<span className="chip bg-sun-100 text-[#a55a00]">Écoles privées aux diplômes homologués</span></Reveal>
             <Reveal delay={0.05}><h1 className="h-display">Étudier au <span className="text-brand-600">{P.nom}</span></h1></Reveal>
             <Reveal delay={0.1}><p className="text-lg leading-relaxed text-ink-soft">{P.accroche}</p></Reveal>
             <Reveal delay={0.15} className="flex flex-wrap gap-3">
@@ -63,8 +65,9 @@ export default function PaysDetailPage({ params }: { params: { code: string } })
               <div className="flex items-start gap-2.5 text-sm"><Calendar size={18} className="shrink-0 text-[#a55a00]" /><span><b>Calendrier :</b> {P.calendrier}</span></div>
             </Reveal>
           </section>
-          <section className="flex flex-col gap-4">
+          <section id="venir" className="flex scroll-mt-28 flex-col gap-4">
             <span className="eyebrow">Visa et séjour</span>
+            <VenirAuMaroc />
             <Reveal className="card flex flex-col gap-4 rounded-[22px] p-6">
               {P.visa.map((t, k) => <div key={k} className="flex items-start gap-4"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-600 text-[15px] font-extrabold text-white">{k + 1}</span><p className="flex-1 pt-2 text-sm leading-relaxed text-ink-soft">{t}</p></div>)}
             </Reveal>
@@ -118,7 +121,7 @@ export default function PaysDetailPage({ params }: { params: { code: string } })
       </section>
 
       <section className="container mt-14 flex flex-col gap-5">
-        <div className="flex items-end justify-between gap-4"><div className="flex flex-col gap-2"><span className="eyebrow">Établissements</span><h2 className="h-section">Écoles et universités privées</h2></div><Link href={`/etablissements/?pays=${code}`} className="btn-ghost hidden sm:inline-flex">Tout voir <ArrowRight size={16} /></Link></div>
+        <div className="flex items-end justify-between gap-4"><div className="flex flex-col gap-2"><span className="eyebrow">Établissements</span><h2 className="h-section">Écoles et universités privées homologuées</h2></div><Link href={`/etablissements/?pays=${code}`} className="btn-ghost hidden sm:inline-flex">Tout voir <ArrowRight size={16} /></Link></div>
         <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {vitrine(code).slice(0, 8).map((e) => (
             <StaggerItem key={e.id}><Link href={`/etablissements/${e.id}/`} className="card group block h-full overflow-hidden rounded-[20px] transition hover:-translate-y-1 hover:shadow-lift">

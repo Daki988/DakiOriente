@@ -12,7 +12,7 @@ import { profileCompletion } from "@/components/espace/completion";
 
 const STEPS = ["Profil complété", "Test d'orientation", "Recommandations", "Candidatures", "Admission", "Logement"];
 const PROGRESS: Record<string, number> = { brouillon: 1, soumise: 2, paiement_confirme: 2, en_verification: 3, piece_demandee: 3, complet: 4, en_traitement: 4, liste_attente: 4, acceptee: 5, refusee: 5, desistee: 5 };
-type Me = { profile: { level: string | null; serie: string | null; currentSchool: string | null; skills: string[]; riasec: { top: string[] } | null; preferences: { pays?: string[] } } | null; country: string | null; city: string | null; birthYear: number | null; emailVerifiedAt: string | null; phoneVerifiedAt: string | null };
+type Me = { profile: { level: string | null; serie: string | null; currentSchool: string | null; skills: string[]; riasec: { top: string[] } | null; preferences: { villes?: string[] } } | null; country: string | null; city: string | null; birthYear: number | null; emailVerifiedAt: string | null; phoneVerifiedAt: string | null };
 type Cand = { a: { id: string; number: string; status: string; updatedAt: string }; p: { title: string }; e: { id: string; sigle: string; nom: string; logo: string | null } };
 type Reco = { profil: string[]; offres: { programId: string; title: string; score: number; etablissement: { id: string; nom: string; sigle: string; ville: string; logo: string | null } }[] };
 type Camp = { id: string; title: string; kind: string; endsAt: string; establishmentId: string };

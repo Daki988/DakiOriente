@@ -5,11 +5,12 @@ import { Alert, Avatar, Button, Loading, PageHeader, Panel, StatusBadge, useToas
 import { Field, FormError, Input, Select, Textarea } from "@/components/app/form";
 import { api } from "@/lib/api";
 import { useAction, useApi } from "@/hooks/useApi";
-import { PAYS_NOM, competences, pays, series, type PaysCode } from "@/lib/data";
+import { VILLES_ETUDES, competences, pays, series } from "@/lib/data";
+import { PAYS_OPTIONS } from "@/lib/pays-origine";
 import { profileCompletion } from "./completion";
 
 type Me = { firstName: string; lastName: string; email: string | null; phone: string | null; birthYear: number | null; country: string | null; city: string | null; emailVerifiedAt: string | null; phoneVerifiedAt: string | null;
-  profile: { level: string | null; serie: string | null; currentSchool: string | null; diploma: string | null; skills: string[]; interests: string[]; goals: string | null; riasec: { top: string[] } | null; preferences: { pays?: string[]; budgetAnnuel?: number; devise?: string; logement?: { budget?: number; type?: string; colocation?: boolean } } } | null };
+  profile: { level: string | null; serie: string | null; currentSchool: string | null; diploma: string | null; skills: string[]; interests: string[]; goals: string | null; riasec: { top: string[] } | null; preferences: { pays?: string[]; villes?: string[]; budgetAnnuel?: number; devise?: string; logement?: { budget?: number; type?: string; colocation?: boolean } } } | null };
 type Guardian = { link: { id: string; status: string; consentAt: string | null; inviteEmail: string | null; invitePhone: string | null; relation: string }; parent: { firstName: string; lastName: string } | null }[];
 const LEVELS: [string, string][] = [["3e", "3e / fin de collège"], ["2nde", "Seconde"], ["1re", "Première"], ["terminale", "Terminale"], ["bachelier", "Bachelier·ère"], ["bac+1", "Bac+1"], ["bac+2", "Bac+2"], ["bac+3", "Bac+3"], ["bac+4", "Bac+4 / 5"]];
 
@@ -21,7 +22,7 @@ export function Profile() {
   const inv = useAction();
   const [f, setF] = useState<Record<string, string>>({});
   const [skills, setSkills] = useState<string[]>([]);
-  const [prefPays, setPrefPays] = useState<string[]>([]);
+  const [prefVilles, setPrefVilles] = useState<string[]>([]);
   const [coloc, setColoc] = useState(false);
   const [contact, setContact] = useState("");
   const [devCode, setDevCode] = useState<string | null>(null);
@@ -30,11 +31,12 @@ export function Profile() {
     if (!d) return;
     const p = d.profile;
     setF({ firstName: d.firstName, lastName: d.lastName, birthYear: d.birthYear ? String(d.birthYear) : "", country: d.country ?? "", city: d.city ?? "", level: p?.level ?? "", serie: p?.serie ?? "", currentSchool: p?.currentSchool ?? "", diploma: p?.diploma ?? "", goals: p?.goals ?? "", budgetAnnuel: p?.preferences.budgetAnnuel ? String(p.preferences.budgetAnnuel) : "", logementBudget: p?.preferences.logement?.budget ? String(p.preferences.logement.budget) : "", logementType: p?.preferences.logement?.type ?? "" });
-    setSkills(p?.skills ?? []); setPrefPays(p?.preferences.pays ?? []); setColoc(!!p?.preferences.logement?.colocation);
+    setSkills(p?.skills ?? []); setPrefVilles(p?.preferences.villes ?? []); setColoc(!!p?.preferences.logement?.colocation);
   }, [me.data]);
   const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setF((x) => ({ ...x, [k]: e.target.value }));
-  const completion = profileCompletion({ country: f.country, city: f.city, birthYear: f.birthYear, profile: { level: f.level, serie: f.serie, currentSchool: f.currentSchool, skills, preferences: { pays: prefPays } } });
-  const seriesPays = useMemo(() => series.filter((s) => !f.country || s.pays === f.country), [f.country]);
+  const completion = profileCompletion({ country: f.country, city: f.city, birthYear: f.birthYear, profile: { level: f.level, serie: f.serie, currentSchool: f.currentSchool, skills, preferences: { villes: prefVilles } } });
+  // Séries détaillées pour le Gabon, le Maroc et le Sénégal ; saisie libre pour les autres pays
+  const seriesPays = useMemo(() => series.filter((s) => s.pays === f.country), [f.country]);
   const villes = pays.find((p) => p.id === f.country)?.villes_universitaires ?? [];
   const minor = !!f.birthYear && new Date().getFullYear() - Number(f.birthYear) < 18;
 
@@ -44,7 +46,7 @@ export function Profile() {
       await api("/moi", { method: "PATCH", body: {
         firstName: f.firstName, lastName: f.lastName, birthYear: f.birthYear ? Number(f.birthYear) : undefined, country: f.country || undefined, city: f.city || undefined,
         level: f.level || undefined, serie: f.serie || undefined, currentSchool: f.currentSchool || undefined, diploma: f.diploma || undefined, goals: f.goals || undefined, skills,
-        preferences: { pays: prefPays, budgetAnnuel: f.budgetAnnuel ? Number(f.budgetAnnuel) : undefined, logement: { budget: f.logementBudget ? Number(f.logementBudget) : undefined, type: f.logementType || undefined, colocation: coloc } },
+        preferences: { villes: prefVilles, budgetAnnuel: f.budgetAnnuel ? Number(f.budgetAnnuel) : undefined, logement: { budget: f.logementBudget ? Number(f.logementBudget) : undefined, type: f.logementType || undefined, colocation: coloc } },
       } });
       toast("Profil enregistré");
       me.reload();
@@ -63,7 +65,7 @@ export function Profile() {
               <Field label="Prénom">{(i) => <Input id={i} value={f.firstName ?? ""} onChange={set("firstName")} required />}</Field>
               <Field label="Nom">{(i) => <Input id={i} value={f.lastName ?? ""} onChange={set("lastName")} required />}</Field>
               <Field label="Année de naissance">{(i) => <Input id={i} type="number" value={f.birthYear ?? ""} onChange={set("birthYear")} />}</Field>
-              <Field label="Pays">{(i) => <Select id={i} value={f.country ?? ""} onChange={(e) => setF((x) => ({ ...x, country: e.target.value, serie: "" }))} placeholder="Choisir…" options={(["GA", "MA", "SN"] as const).map((c) => [c, PAYS_NOM[c]])} />}</Field>
+              <Field label="Pays">{(i) => <Select id={i} value={f.country ?? ""} onChange={(e) => setF((x) => ({ ...x, country: e.target.value, serie: "" }))} placeholder="Choisir…" options={PAYS_OPTIONS.map((o) => [o.value, o.label, o.group])} />}</Field>
               <Field label="Ville">{(i) => <><Input id={i} list="villes-p" value={f.city ?? ""} onChange={set("city")} /><datalist id="villes-p">{villes.map((v) => <option key={v} value={v} />)}</datalist></>}</Field>
               <Field label="Contact">{(i) => <Input id={i} value={me.data!.email ?? me.data!.phone ?? ""} disabled />}</Field>
             </div>
@@ -71,7 +73,9 @@ export function Profile() {
           <Panel title="Scolarité" icon={GraduationCap}>
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Niveau">{(i) => <Select id={i} value={f.level ?? ""} onChange={set("level")} placeholder="Choisir…" options={LEVELS} />}</Field>
-              <Field label="Série">{(i) => <Select id={i} value={f.serie ?? ""} onChange={set("serie")} placeholder="Choisir…" options={seriesPays.map((s) => [s.id, `${s.code} — ${s.intitule}`])} />}</Field>
+              {seriesPays.length > 0
+                ? <Field label="Série">{(i) => <Select id={i} value={f.serie ?? ""} onChange={set("serie")} placeholder="Choisir…" options={seriesPays.map((s) => [s.id, `${s.code} — ${s.intitule}`])} />}</Field>
+                : <Field label="Série / spécialité du bac">{(i) => <Input id={i} value={f.serie ?? ""} onChange={set("serie")} placeholder="Ex. scientifique, économique" maxLength={40} />}</Field>}
               <Field label="Établissement actuel">{(i) => <Input id={i} value={f.currentSchool ?? ""} onChange={set("currentSchool")} />}</Field>
               <Field label="Dernier diplôme">{(i) => <Input id={i} value={f.diploma ?? ""} onChange={set("diploma")} placeholder="Ex. BEPC, baccalauréat…" />}</Field>
             </div>
@@ -82,9 +86,9 @@ export function Profile() {
             <Field label="Mon projet professionnel">{(i) => <Textarea id={i} value={f.goals ?? ""} onChange={set("goals")} placeholder="Ex. devenir ingénieur logiciel dans une fintech africaine." />}</Field>
           </Panel>
           <Panel title="Préférences d'études et de logement" icon={KeyRound}>
-            <Field label="Pays envisagés">{() => <div className="flex gap-2">{(["GA", "MA", "SN"] as PaysCode[]).map((c) => { const on = prefPays.includes(c); return <button type="button" key={c} onClick={() => setPrefPays((s) => on ? s.filter((x) => x !== c) : [...s, c])} className={`chip px-3 py-1.5 ${on ? "bg-brand-600 text-white" : "bg-brand-50 text-brand-700"}`}>{PAYS_NOM[c]}</button>; })}</div>}</Field>
+            <Field label="Villes d'études envisagées (Maroc)">{() => <div className="flex flex-wrap gap-2">{VILLES_ETUDES.map((v) => { const on = prefVilles.includes(v); return <button type="button" key={v} onClick={() => setPrefVilles((s) => on ? s.filter((x) => x !== v) : [...s, v])} className={`chip px-3 py-1.5 ${on ? "bg-brand-600 text-white" : "bg-brand-50 text-brand-700"}`}>{v}</button>; })}</div>}</Field>
             <div className="grid gap-4 sm:grid-cols-3">
-              <Field label="Budget scolarité / an">{(i) => <Input id={i} type="number" value={f.budgetAnnuel ?? ""} onChange={set("budgetAnnuel")} placeholder="en devise locale" />}</Field>
+              <Field label="Budget scolarité / an">{(i) => <Input id={i} type="number" value={f.budgetAnnuel ?? ""} onChange={set("budgetAnnuel")} placeholder="en dirhams (MAD)" />}</Field>
               <Field label="Budget logement / mois">{(i) => <Input id={i} type="number" value={f.logementBudget ?? ""} onChange={set("logementBudget")} />}</Field>
               <Field label="Type de logement">{(i) => <Select id={i} value={f.logementType ?? ""} onChange={set("logementType")} placeholder="Indifférent" options={[["studio", "Studio"], ["chambre", "Chambre"], ["colocation", "Colocation"], ["residence", "Résidence"]]} />}</Field>
             </div>

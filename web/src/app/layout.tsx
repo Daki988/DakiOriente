@@ -5,7 +5,7 @@ import { ScrollProgress } from "@/components/motion/ScrollProgress";
 
 export const metadata: Metadata = {
   title: { default: "Navigoal — Oriente-toi, forme-toi, installe-toi", template: "%s · Navigoal" },
-  description: "Plateforme panafricaine d'orientation, de formation, de candidature et de logement étudiant (Navilease). Gabon, Maroc, Sénégal.",
+  description: "Orientation, candidature et logement étudiant (Navilease) pour étudier au Maroc dans des établissements privés aux diplômes homologués par l'État, depuis toute l'Afrique.",
   icons: { icon: "/favicon.svg" },
 };
 

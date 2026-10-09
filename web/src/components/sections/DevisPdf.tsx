@@ -1,11 +1,12 @@
 "use client";
 import { Info } from "lucide-react";
 import { BrandMark } from "@/components/ui/Brand";
-import { PAYS_NOM, STATUT_LONG, fmt, type Etablissement, type Formation, type PaysCode } from "@/lib/data";
+import { fmt, labelById, type Etablissement, type Formation } from "@/lib/data";
+import { nomPays } from "@/lib/pays-origine";
 import { COUTS, HYP, LOGEMENT_LABEL, convert, type Devis, type Logement } from "@/lib/devis";
 
 /** Version imprimable (A4) du devis, utilisée par « Télécharger le devis PDF ». */
-export function DevisPdf({ e, F, D, origine, logement, eleve, payeur }: { e: Etablissement; F: Formation; D: Devis; origine: PaysCode; logement: Logement; eleve: string; payeur: string }) {
+export function DevisPdf({ e, F, D, origine, logement, eleve, payeur }: { e: Etablissement; F: Formation; D: Devis; origine: string; logement: Logement; eleve: string; payeur: string }) {
   const C = COUTS[e.pays];
   const today = new Date();
   const num = `NG-${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${(Math.abs([...`${e.id}${F.id}${origine}`].reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 7)) % 100000).toString().padStart(5, "0")}`;
@@ -19,8 +20,8 @@ export function DevisPdf({ e, F, D, origine, logement, eleve, payeur }: { e: Eta
           <div className="flex flex-col items-end"><b className="text-xl">DEVIS D&apos;ÉTUDES</b><span className="text-ink-mute">N° {num} · émis le {today.toLocaleDateString("fr-FR")}</span><span className="text-ink-mute">Valable 60 jours</span></div>
         </div>
         <div className="mt-4 grid grid-cols-2 gap-5">
-          <div className="flex flex-col gap-0.5 rounded-xl bg-[#f6f8fe] p-3"><span className="text-[11px] font-extrabold text-ink-mute">ÉTUDIANT·E</span><b>{eleve || "—"}</b><span>Départ : {PAYS_NOM[origine]}</span><span>Responsable financier : {payeur || "—"}</span><span>Logement : {LOGEMENT_LABEL[logement].toLowerCase()}</span></div>
-          <div className="flex flex-col gap-0.5 rounded-xl bg-[#f6f8fe] p-3"><span className="text-[11px] font-extrabold text-ink-mute">FORMATION</span><b>{F.intitule}</b><span>{e.nom}</span><span>{e.ville}, {PAYS_NOM[e.pays]} · {STATUT_LONG[e.statut] ?? "Privé"}</span><span>{F.diplome} · {D.years} an{D.years > 1 ? "s" : ""}</span></div>
+          <div className="flex flex-col gap-0.5 rounded-xl bg-[#f6f8fe] p-3"><span className="text-[11px] font-extrabold text-ink-mute">ÉTUDIANT·E</span><b>{eleve || "—"}</b><span>Départ : {nomPays(origine)}</span><span>Responsable financier : {payeur || "—"}</span><span>Logement : {LOGEMENT_LABEL[logement].toLowerCase()}</span></div>
+          <div className="flex flex-col gap-0.5 rounded-xl bg-[#f6f8fe] p-3"><span className="text-[11px] font-extrabold text-ink-mute">FORMATION</span><b>{F.intitule}</b><span>{e.nom}</span><span>{e.ville}, Maroc · {labelById[e.label]?.libelle}</span><span>{F.diplome} · {D.years} an{D.years > 1 ? "s" : ""}</span></div>
         </div>
         <h3 className="mt-3 text-[14px] font-extrabold">1. Synthèse des coûts sur {D.years} ans ({D.devise})</h3>
         <table className="mt-2 w-full border-collapse">

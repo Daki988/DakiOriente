@@ -3,7 +3,7 @@ import { ArrowRight, BarChart3, Briefcase, Code2, Cog, HardHat, Heart, Landmark,
 import { EtabLogo } from "./EtabLogo";
 import { EtabPhoto } from "./EtabPhoto";
 import { Tilt } from "@/components/motion/Tilt";
-import { PAYS_NOM, competenceLabel, etabById, etablissements, lycees, niveauLabel, statutLabel, type Formation, type Metier, type PaysCode } from "@/lib/data";
+import { LABELS, PAYS_NOM, competenceLabel, etabById, etablissements, labelById, niveauLabel, type Formation, type Label, type Metier, type PaysCode } from "@/lib/data";
 
 export const DOMAIN_STYLE: Record<string, { icon: LucideIcon; bg: string; fg: string; solid: string }> = {
   "dom-sante": { icon: Stethoscope, bg: "#ffecef", fg: "#d42a50", solid: "#d42a50" },
@@ -28,6 +28,18 @@ export const DOMAIN_STYLE: Record<string, { icon: LucideIcon; bg: string; fg: st
   "dom-securite-defense": { icon: Shield, bg: "#f1f5f9", fg: "#334155", solid: "#475569" },
 };
 export const domStyle = (d: string) => DOMAIN_STYLE[d] ?? DOMAIN_STYLE["dom-gestion"];
+
+/** Couleurs des labels Navigoal (diplômes homologués par l'État). */
+export const LABEL_STYLE: Record<Label, string> = {
+  reconnu_etat: "bg-[#e8f8ef] text-[#0f8a46]",
+  diplomes_homologues: "bg-brand-50 text-brand-700",
+  professionnel: "bg-sun-100 text-[#a55a00]",
+};
+export function LabelChip({ label, court = false }: { label: Label; court?: boolean }) {
+  const l = labelById[label];
+  if (!l) return null;
+  return <span className={`chip ${LABEL_STYLE[label]}`} title={l.description}><Shield size={12} /> {court ? l.court : l.libelle}</span>;
+}
 
 export function MetierCard({ m }: { m: Metier }) {
   const s = domStyle(m.domaine);
@@ -67,8 +79,8 @@ export function PaysCard({ code }: { code: PaysCode }) {
         <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-[.08]" style={{ background: st.tint }} />
         <div className="flex items-center gap-4">{st.flag}<div><div className="text-[22px] font-extrabold">{PAYS_NOM[code]}</div><div className="text-[13px] text-ink-mute">{st.villes}</div></div></div>
         <div className="flex gap-6">
-          <div><div className="text-2xl font-extrabold">{etabs.length}</div><div className="text-xs text-ink-mute">établissements sup.</div></div>
-          <div><div className="text-2xl font-extrabold">{lycees.total[code].toLocaleString("fr-FR")}</div><div className="text-xs text-ink-mute">collèges & lycées</div></div>
+          <div><div className="text-2xl font-extrabold">{etabs.length}</div><div className="text-xs text-ink-mute">établissements homologués</div></div>
+          <div><div className="text-2xl font-extrabold">{etabs.reduce((n, e) => n + e.filieres.length, 0)}</div><div className="text-xs text-ink-mute">filières homologuées</div></div>
         </div>
         <div className="mt-auto flex items-center justify-between">
           <div className="flex pl-2">{withLogo.map((e) => <EtabLogo key={e.id} e={e} size={38} className="-ml-2 shadow-sm" />)}</div>
@@ -94,12 +106,12 @@ export function FormationOfferCard({ f, etabId, score, highlight = false }: { f:
           <div><Link href={`/formations/${f.id}/`} className="text-[17px] font-extrabold hover:text-brand-600">{f.intitule}</Link><div className="text-sm font-semibold text-ink-soft">{e.nom}</div></div>
           <button aria-label="Ajouter aux favoris" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#f6f8fe] text-ink-mute transition hover:bg-[#ffecef] hover:text-[#d42a50]"><Heart size={17} /></button>
         </div>
-        <div className="flex items-center gap-1.5 text-[13px] text-ink-mute"><MapPin size={14} />{e.ville.split("(")[0]}, {PAYS_NOM[e.pays]}</div>
+        <div className="flex items-center gap-1.5 text-[13px] text-ink-mute"><MapPin size={14} />{e.ville}, Maroc</div>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap gap-1.5">
             <span className="chip bg-brand-50 text-brand-700">{f.diplome}</span>
             <span className="chip bg-[#f6f8fe] text-ink-soft"><Clock size={12} /> {f.duree_annees} ans</span>
-            <span className="chip bg-[#f6f8fe] text-ink-soft">{statutLabel(e.statut)}</span>
+            <LabelChip label={e.label} court />
             <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><Sparkles size={12} /> {score} % compatible</span>
           </div>
           <Link href={`/formations/${f.id}/?etab=${e.id}`} className={highlight ? "btn-primary py-2.5" : "btn-ghost py-2.5"}>Voir la formation</Link>
@@ -118,13 +130,32 @@ export function EtabCard({ id }: { id: string }) {
         <div className="relative flex flex-1 flex-col gap-4 px-5 pb-5 pt-9">
           <EtabLogo e={e} size={56} className="absolute -top-7 left-4 shadow-sm" />
           <div className="min-w-0"><div className="font-extrabold">{e.sigle}</div><div className="line-clamp-2 text-[13px] text-ink-soft">{e.nom}</div></div>
-          <div className="flex flex-wrap gap-1.5"><span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip bg-[#f6f8fe] text-ink-soft">{statutLabel(e.statut)}</span></div>
+          <div className="flex flex-wrap gap-1.5"><LabelChip label={e.label} court /><span className="chip bg-[#f6f8fe] text-ink-soft">{e.type_libelle}</span></div>
           <div className="mt-auto flex items-center justify-between border-t border-[#eef1f8] pt-3 text-[13px]">
-            <span className="flex items-center gap-1.5 text-ink-mute"><Building2 size={14} />{e.ville.split("(")[0].split("/")[0].trim()} · {PAYS_NOM[e.pays]}</span>
-            <span className="font-bold text-brand-600">{e.formations.length} formations</span>
+            <span className="flex items-center gap-1.5 text-ink-mute"><Building2 size={14} />{e.ville}</span>
+            <span className="font-bold text-brand-600">{e.filieres.length} filière{e.filieres.length > 1 ? "s" : ""} homologuée{e.filieres.length > 1 ? "s" : ""}</span>
           </div>
         </div>
       </Link>
+    </Tilt>
+  );
+}
+
+/** Carte d'un label Navigoal : nombre d'établissements, logos et lien vers la liste filtrée. */
+export function LabelCard({ label }: { label: Label }) {
+  const l = LABELS.find((x) => x.id === label)!;
+  const etabs = etablissements.filter((e) => e.label === label);
+  const withLogo = etabs.filter((e) => e.logo).slice(0, 5);
+  return (
+    <Tilt className="h-full">
+      <div className="card relative flex h-full flex-col gap-4 overflow-hidden rounded-3xl p-6">
+        <LabelChip label={label} />
+        <div><div className="text-2xl font-extrabold">{etabs.length} établissements</div><p className="mt-1 text-[13px] leading-relaxed text-ink-mute">{l.description}</p></div>
+        <div className="mt-auto flex items-center justify-between">
+          <div className="flex pl-2">{withLogo.map((e) => <EtabLogo key={e.id} e={e} size={38} className="-ml-2 shadow-sm" />)}</div>
+          <Link href={`/etablissements/?label=${label}`} className="btn-ghost px-3.5 py-2.5">Voir <ArrowRight size={16} /></Link>
+        </div>
+      </div>
     </Tilt>
   );
 }

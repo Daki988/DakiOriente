@@ -3,7 +3,7 @@ import { Brand } from "./Brand";
 
 const cols = [
   { t: "Plateforme", l: [["Orientation", "/orientation"], ["Métiers", "/metiers"], ["Formations", "/formations"], ["Établissements", "/etablissements"], ["Comparateur", "/comparateur"], ["Navilease", "/navilease"]] },
-  { t: "Pays", l: [["Gabon", "/pays/ga"], ["Maroc", "/pays/ma"], ["Sénégal", "/pays/sn"]] },
+  { t: "Étudier au Maroc", l: [["Visa et séjour", "/pays/ma/#venir"], ["Établissements reconnus", "/etablissements/?label=reconnu_etat"], ["Diplômes homologués", "/etablissements/?label=diplomes_homologues"]] },
   { t: "Ressources", l: [["Devis parents", "/devis"], ["Espace parent", "/espace/parent"], ["Actualités", "/actualites"], ["Ma série au lycée", "/orientation#series"], ["Mon espace", "/espace"]] },
   { t: "Navigoal", l: [["Pourquoi Navigoal", "/pourquoi"], ["Établissements partenaires", "/etablissements"], ["Bailleurs", "/navilease#bailleurs"], ["Contact", "mailto:contact@navigoal.com"]] },
 ];
@@ -15,7 +15,7 @@ export function Footer() {
         <div className="flex flex-col justify-between gap-10 lg:flex-row">
           <div className="flex max-w-xs flex-col gap-4">
             <Brand dark />
-            <p className="text-sm leading-relaxed text-[#a9b6e8]">De l&apos;orientation à la formation, jusqu&apos;au logement étudiant. Gabon · Maroc · Sénégal.</p>
+            <p className="text-sm leading-relaxed text-[#a9b6e8]">De l&apos;orientation à la formation, jusqu&apos;au logement étudiant. Étudier au Maroc, depuis toute l&apos;Afrique.</p>
           </div>
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:gap-16">
             {cols.map((c) => (

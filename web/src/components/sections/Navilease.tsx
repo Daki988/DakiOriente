@@ -8,18 +8,18 @@ import { DynIcon } from "@/components/ui/DynIcon";
 import { Counter } from "@/components/motion/Counter";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { BADGES, LOGEMENTS } from "@/lib/content";
-import { PAYS_NOM, etabById, residences, type PaysCode } from "@/lib/data";
+import { VILLES_ETUDES, etabById, etablissements, residences } from "@/lib/data";
 
 const TYPES = ["Tous", "Studios", "Colocations", "Résidences privées", "Chez l'habitant", "Cités universitaires"];
 const PINS = [{ x: 22, y: 28, p: "2 800" }, { x: 52, y: 14, p: "3 100" }, { x: 40, y: 64, p: "2 400" }, { x: 70, y: 46, p: "3 500" }, { x: 14, y: 76, p: "1 900" }];
 
 export function Navilease() {
   const [type, setType] = useState("Tous");
-  const [pays, setPays] = useState<PaysCode | "">("");
+  const [ville, setVille] = useState("");
   const [verif, setVerif] = useState(false);
   const [favs, setFavs] = useState<string[]>([]);
-  const list = useMemo(() => LOGEMENTS.filter((l) => (type === "Tous" || l.type === type) && (!pays || l.pays === pays) && (!verif || l.badge !== "identite")), [type, pays, verif]);
-  const cites = residences.filter((r) => !pays || r.pays === pays);
+  const list = useMemo(() => LOGEMENTS.filter((l) => (type === "Tous" || l.type === type) && (!ville || l.quartier.endsWith(ville)) && (!verif || l.badge !== "identite")), [type, ville, verif]);
+  const cites = residences.filter((r) => !ville || r.ville.includes(ville));
 
   return (
     <>
@@ -28,15 +28,15 @@ export function Navilease() {
           <div className="flex flex-col gap-5">
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2.5"><span className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-sun-400"><KeyRound size={24} /></span><span className="text-[28px] font-extrabold tracking-tight">Navi<span className="text-brand-600">lease</span></span><span className="chip bg-brand-50 text-brand-700">par Navigoal</span></motion.div>
             <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="h-display lg:text-[60px]">Ton logement étudiant, <span className="text-brand-600">vérifié</span> et <span className="text-gradient">sécurisé.</span></motion.h1>
-            <p className="text-lg leading-relaxed text-ink-soft">Studios, colocations, résidences et cités universitaires près de ton établissement au Gabon, au Maroc et au Sénégal.</p>
-            <form onSubmit={(e) => { e.preventDefault(); const t = ({ Studios: "studio", Colocations: "colocation", "Résidences privées": "residence", "Chez l'habitant": "chez_habitant" } as Record<string, string>)[type]; window.location.href = `/navilease/logements/?${new URLSearchParams({ ...(pays ? { pays } : {}), ...(t ? { type: t } : {}) })}`; }} className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_20px_50px_-18px_rgba(11,21,51,.3)] sm:flex-row sm:items-center">
-              <div className="flex flex-1 items-center gap-2.5 px-3 py-1.5"><GraduationCap size={18} className="text-brand-600" /><div className="flex flex-col"><span className="text-[11px] font-bold text-ink-mute">Pays</span>
-                <select value={pays} onChange={(e) => setPays(e.target.value as PaysCode | "")} className="bg-transparent text-sm font-bold outline-none"><option value="">Gabon, Maroc, Sénégal</option>{(["GA", "MA", "SN"] as const).map((p) => <option key={p} value={p}>{PAYS_NOM[p]}</option>)}</select></div></div>
+            <p className="text-lg leading-relaxed text-ink-soft">Studios, colocations, résidences et cités universitaires près de ton établissement au Maroc : Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir…</p>
+            <form onSubmit={(e) => { e.preventDefault(); const t = ({ Studios: "studio", Colocations: "colocation", "Résidences privées": "residence", "Chez l'habitant": "chez_habitant" } as Record<string, string>)[type]; window.location.href = `/navilease/logements/?${new URLSearchParams({ ...(ville ? { ville } : {}), ...(t ? { type: t } : {}) })}`; }} className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_20px_50px_-18px_rgba(11,21,51,.3)] sm:flex-row sm:items-center">
+              <div className="flex flex-1 items-center gap-2.5 px-3 py-1.5"><GraduationCap size={18} className="text-brand-600" /><div className="flex flex-col"><span className="text-[11px] font-bold text-ink-mute">Ville</span>
+                <select value={ville} onChange={(e) => setVille(e.target.value)} className="bg-transparent text-sm font-bold outline-none"><option value="">Toutes les villes</option>{VILLES_ETUDES.map((v) => <option key={v}>{v}</option>)}</select></div></div>
               <div className="flex flex-1 flex-col px-3 py-1.5 sm:border-l sm:border-[#eef1f8]"><span className="text-[11px] font-bold text-ink-mute">Type</span>
                 <select value={type} onChange={(e) => setType(e.target.value)} className="bg-transparent text-sm font-bold outline-none">{TYPES.map((t) => <option key={t}>{t}</option>)}</select></div>
               <button className="btn-primary btn-shine"><Search size={16} /> Chercher</button>
             </form>
-            <div className="flex gap-8">{[[79, "", "écoles partenaires couvertes"], [3, "", "pays couverts"], [100, " %", "paiements protégés"]].map(([n, s, l]) => <div key={l as string}><b className="text-[22px]"><Counter to={n as number} suffix={s as string} /></b><span className="block text-[13px] text-ink-mute">{l}</span></div>)}</div>
+            <div className="flex gap-8">{[[etablissements.length, "", "écoles couvertes"], [VILLES_ETUDES.length, "", "villes d'études"], [100, " %", "paiements protégés"]].map(([n, s, l]) => <div key={l as string}><b className="text-[22px]"><Counter to={n as number} suffix={s as string} /></b><span className="block text-[13px] text-ink-mute">{l}</span></div>)}</div>
           </div>
           <div className="relative mx-auto aspect-square w-full max-w-[520px]">
             <motion.div initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="absolute inset-[4%_0_0_6%] overflow-hidden rounded-[32px] border-[6px] border-white bg-gradient-to-br from-brand-100 to-brand-50 shadow-[0_40px_80px_-30px_rgba(11,21,51,.35)]">
@@ -78,7 +78,7 @@ export function Navilease() {
             {type === "Cités universitaires"
               ? cites.map((r) => (
                   <motion.div key={r.id} layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="card flex flex-col gap-3 p-5">
-                    <div className="flex items-center justify-between"><span className="chip bg-brand-50 text-brand-700">Cité universitaire · {r.gestionnaire}</span><span className="text-xs text-ink-mute">{PAYS_NOM[r.pays]}</span></div>
+                    <div className="flex items-center justify-between"><span className="chip bg-brand-50 text-brand-700">Cité universitaire · {r.gestionnaire}</span><span className="text-xs text-ink-mute">{"Maroc"}</span></div>
                     <b className="text-lg">{r.nom}</b><span className="flex items-center gap-1.5 text-sm text-ink-mute"><MapPin size={14} />{r.ville}</span>
                     <div className="flex flex-wrap gap-1.5">{r.etablissements_desservis.map((id) => <Link key={id} href={`/etablissements/${id}/`} className="chip border border-slate-200 bg-white text-ink-soft hover:border-brand-300">{etabById[id].sigle}</Link>)}</div>
                   </motion.div>))

@@ -8,11 +8,10 @@ import { AnimatedNumber } from "@/components/motion/AnimatedNumber";
 import { Reveal } from "@/components/motion/Reveal";
 import { DONUT_COLORS, Donut } from "./Donut";
 import { DevisPdf } from "./DevisPdf";
-import { PAYS_NOM, STATUT_LONG, etabById, etablissements, fmt, formationById, paysDetailById, type PaysCode } from "@/lib/data";
-import { COUTS, DEVISE_COURT, DEVISE_LABEL, HYP, LOGEMENT_LABEL, SOURCES, TAUX, convert, devis, formationParDefaut, type Devise, type Logement } from "@/lib/devis";
+import { STATUT_LONG, VILLES_ETUDES, etabById, etablissements, fmt, formationById, labelById, paysDetailById } from "@/lib/data";
+import { paysOrigine, paysOrigineById, visaResume } from "@/lib/pays-origine";
+import { COUTS, DEVISE_COURT, DEVISE_LABEL, HYP, LOGEMENT_LABEL, SOURCES, TAUX, convert, devis, devisePays, formationParDefaut, type Devise, type Logement } from "@/lib/devis";
 
-const FLAG: Record<PaysCode, string> = { GA: "🇬🇦", SN: "🇸🇳", MA: "🇲🇦" };
-const VILLE: Record<PaysCode, string> = { GA: "Libreville", SN: "Dakar", MA: "Casablanca" };
 const field = "w-full rounded-xl border-[1.5px] border-slate-200 bg-white px-3.5 py-3 text-sm font-bold outline-none focus:border-brand-400 focus:ring-4 focus:ring-brand-100";
 
 export function DevisSimulateur() {
@@ -20,9 +19,9 @@ export function DevisSimulateur() {
   const router = useRouter();
   const [eid, setEid] = useState(etabById[params.get("etab") ?? ""] ? params.get("etab")! : "ma-esa-casa");
   const [fid, setFid] = useState(() => { const f = params.get("f"); return f && etabById[eid].formations.includes(f) ? f : formationParDefaut(eid); });
-  const [origine, setOrigine] = useState<PaysCode>((["GA", "SN", "MA"].includes(params.get("o") ?? "") ? params.get("o") : "GA") as PaysCode);
+  const [origine, setOrigine] = useState(paysOrigineById[params.get("o") ?? ""] ? params.get("o")! : "SN");
   const [logement, setLogement] = useState<Logement>(params.get("l") === "colocation" ? "colocation" : "studio");
-  const [devise, setDevise] = useState<Devise>((params.get("d") as Devise) || "XAF");
+  const [devise, setDevise] = useState<Devise>((params.get("d") as Devise) || devisePays(origine));
   const [eleve, setEleve] = useState("");
   const [payeur, setPayeur] = useState("");
   const e = etabById[eid];
@@ -45,16 +44,16 @@ export function DevisSimulateur() {
 
   const nbMetiers = new Set(e.formations.flatMap((f) => formationById[f]?.metiers ?? [])).size;
   const qual = [
-    [ShieldCheck, "Reconnaissance", e.statut === "prive_reconnu" ? "Privé reconnu par l'État : diplôme équivalent au diplôme national" : e.statut === "inter_etats" ? "Établissement inter-États, diplômes reconnus par les États membres" : "Établissement agréé ; vérifier l'accréditation du programme"],
+    [ShieldCheck, "Reconnaissance", labelById[e.label]?.description ?? "Établissement autorisé"],
     [Calendar, "Ancienneté", e.annee_creation ? `Créé en ${e.annee_creation}` : "Date de création à confirmer"],
-    [GraduationCap, "Programmes", `${e.formations.length} programmes, reliés à ${nbMetiers} métiers`],
+    [GraduationCap, "Programmes", `${e.filieres.length} filières homologuées, reliées à ${nbMetiers} métiers`],
     [Handshake, "Ouverture internationale", "Accueil des étudiants étrangers, accompagnement visa et logement via Navigoal"],
   ] as const;
   const env = [[Shield, "Sécurité", C.environnement.securite], [HeartPulse, "Santé", C.environnement.sante], [Bus, "Transports", C.environnement.transports], [Users, "Communauté", C.environnement.communaute], [CloudSun, "Climat", C.environnement.climat]] as const;
   const cats = Object.entries(D.cats);
   const resume = `Devis Navigoal : ${F.intitule} à ${e.sigle} (${e.ville}) — ${fmt(cv(D.total[0]))} à ${fmt(cv(D.total[1]))} ${unit} sur ${D.years} an${D.years > 1 ? "s" : ""}, tout compris.`;
   const url = typeof window !== "undefined" ? window.location.href : "";
-  const parPays = (["MA", "SN", "GA"] as const).map((p) => [p, etablissements.filter((x) => x.pays === p).sort((a, b) => a.sigle.localeCompare(b.sigle))] as const);
+  const parVille = VILLES_ETUDES.map((v) => [v, etablissements.filter((x) => x.ville === v).sort((a, b) => a.sigle.localeCompare(b.sigle))] as const);
 
   return (
     <>
@@ -71,9 +70,9 @@ export function DevisSimulateur() {
         <div className="container relative -mt-16">
           <Reveal className="card grid gap-3 rounded-3xl p-4 shadow-[0_30px_60px_-24px_rgba(11,21,51,.35)] sm:grid-cols-2 lg:grid-cols-[1fr_1.2fr_1.6fr_.9fr_.9fr]">
             <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Votre enfant part de</span>
-              <select value={origine} onChange={(ev) => setOrigine(ev.target.value as PaysCode)} className={field}>{(["GA", "SN", "MA"] as const).map((p) => <option key={p} value={p}>{FLAG[p]} {PAYS_NOM[p]} ({VILLE[p]})</option>)}</select></label>
+              <select value={origine} onChange={(ev) => { setOrigine(ev.target.value); setDevise(devisePays(ev.target.value)); }} className={field}><optgroup label="Afrique">{paysOrigine.filter((p) => p.continent === "afrique").map((p) => <option key={p.id} value={p.id}>{p.nom}</option>)}</optgroup><optgroup label="Autres pays">{paysOrigine.filter((p) => p.continent === "autre").map((p) => <option key={p.id} value={p.id}>{p.nom}</option>)}</optgroup></select></label>
             <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Établissement</span>
-              <select value={eid} onChange={(ev) => setEid(ev.target.value)} className={field}>{parPays.map(([p, xs]) => <optgroup key={p} label={PAYS_NOM[p]}>{xs.map((x) => <option key={x.id} value={x.id}>{x.sigle} · {x.ville.split("/")[0].trim()}</option>)}</optgroup>)}</select></label>
+              <select value={eid} onChange={(ev) => setEid(ev.target.value)} className={field}>{parVille.map(([v, xs]) => <optgroup key={v} label={v}>{xs.map((x) => <option key={x.id} value={x.id}>{x.sigle}</option>)}</optgroup>)}</select></label>
             <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Formation</span>
               <select value={fid} onChange={(ev) => setFid(ev.target.value)} className={field}>{e.formations.filter((f) => formationById[f]).map((f) => <option key={f} value={f}>{formationById[f].intitule} ({formationById[f].duree_annees} ans)</option>)}</select></label>
             <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Logement</span>
@@ -158,6 +157,7 @@ export function DevisSimulateur() {
             </div>
             <div className="card flex flex-col gap-3.5 rounded-3xl p-5">
               <div className="flex items-center justify-between"><b className="text-[17px]">Démarches de régularisation</b><span className="chip bg-brand-50 text-brand-700">{P.nom}</span></div>
+              <p className="rounded-xl bg-[#f6f8fe] p-3 text-[13px] text-ink-soft"><b>Visa depuis {paysOrigineById[origine]?.nom} :</b> {visaResume(origine)}.</p>
               <span className="text-xs text-ink-mute">Cochez les étapes au fur et à mesure ({faits.length}/{C.demarches.length}).</span>
               <div className="flex flex-col">
                 {C.demarches.map((d, k) => { const ok = faits.includes(k); return (

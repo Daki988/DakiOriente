@@ -15,14 +15,14 @@ export const TONES: Record<string, string> = {
 
 export const LOGEMENTS = [
   { id: "l1", titre: "Studio meublé", quartier: "Agdal, Rabat", pays: "MA", prix: "2 800 MAD", trajet: "8 min · UIR", etab: "ma-uir", badge: "visite", grad: "from-brand-600 to-brand-400", icon: "building", type: "Studios", note: "4,8" },
-  { id: "l2", titre: "Chambre en colocation", quartier: "Fann, Dakar", pays: "SN", prix: "75 000 FCFA", trajet: "6 min · ISM", etab: "sn-ism", badge: "identite", grad: "from-[#0f8a46] to-[#34d399]", icon: "users", type: "Colocations", note: "4,7" },
+  { id: "l2", titre: "Chambre en colocation", quartier: "Gauthier, Casablanca", pays: "MA", prix: "2 300 MAD", trajet: "10 min · UM6SS", etab: "ma-um6ss", badge: "identite", grad: "from-[#0f8a46] to-[#34d399]", icon: "users", type: "Colocations", note: "4,7" },
   { id: "l3", titre: "Résidence étudiante privée", quartier: "Maârif, Casablanca", pays: "MA", prix: "3 500 MAD", trajet: "15 min · ESA", etab: "ma-esa-casa", badge: "partenaire", grad: "from-[#6a3df0] to-[#a78bfa]", icon: "hotel", type: "Résidences privées", note: "4,6" },
-  { id: "l4", titre: "Chambre chez l'habitant", quartier: "Akébé, Libreville", pays: "GA", prix: "90 000 FCFA", trajet: "10 min · BBS", etab: "ga-bbs", badge: "visite", grad: "from-[#c2410c] to-[#fb923c]", icon: "house", type: "Chez l'habitant", note: "4,8" },
-  { id: "l5", titre: "Studio", quartier: "Sacré-Cœur, Dakar", pays: "SN", prix: "150 000 FCFA", trajet: "18 min · ESMT", etab: "sn-esmt", badge: "identite", grad: "from-[#0e7490] to-[#22d3ee]", icon: "building-2", type: "Studios", note: "4,7" },
+  { id: "l4", titre: "Chambre chez l'habitant", quartier: "Ville nouvelle, Fès", pays: "MA", prix: "1 500 MAD", trajet: "10 min · UPF", etab: "ma-upf", badge: "visite", grad: "from-[#c2410c] to-[#fb923c]", icon: "house", type: "Chez l'habitant", note: "4,8" },
+  { id: "l5", titre: "Studio", quartier: "Malabata, Tanger", pays: "MA", prix: "2 600 MAD", trajet: "12 min · EMSI", etab: "ma-emsi-tanger", badge: "identite", grad: "from-[#0e7490] to-[#22d3ee]", icon: "building-2", type: "Studios", note: "4,7" },
   { id: "l6", titre: "Appartement 2 chambres (coloc)", quartier: "Guéliz, Marrakech", pays: "MA", prix: "2 200 MAD", trajet: "12 min · UPM", etab: "ma-upm", badge: "partenaire", grad: "from-[#d42a50] to-[#fb7185]", icon: "house", type: "Colocations", note: "4,6" },
-  { id: "l7", titre: "Chambre en résidence", quartier: "Louis, Libreville", pays: "GA", prix: "65 000 FCFA", trajet: "12 min · ISTA", etab: "ga-ista", badge: "identite", grad: "from-[#1336e0] to-[#8eb4ff]", icon: "hotel", type: "Résidences privées", note: "4,5" },
-  { id: "l8", titre: "Studio meublé", quartier: "Sanar, Saint-Louis", pays: "SN", prix: "60 000 FCFA", trajet: "5 min · UKB", etab: "sn-ukb", badge: "visite", grad: "from-[#0f8a46] to-[#86efac]", icon: "building", type: "Studios", note: "4,9" },
-  { id: "l9", titre: "Colocation 3 chambres", quartier: "Hay Riad, Rabat", pays: "MA", prix: "1 900 MAD", trajet: "14 min · IIHEM", etab: "ma-iihem", badge: "partenaire", grad: "from-[#f9a806] to-[#ffd34a]", icon: "users", type: "Colocations", note: "4,7" },
+  { id: "l7", titre: "Chambre en résidence", quartier: "Souissi, Rabat", pays: "MA", prix: "2 000 MAD", trajet: "12 min · UIASS", etab: "ma-uiass", badge: "identite", grad: "from-[#1336e0] to-[#8eb4ff]", icon: "hotel", type: "Résidences privées", note: "4,5" },
+  { id: "l8", titre: "Studio meublé", quartier: "Talborjt, Agadir", pays: "MA", prix: "1 800 MAD", trajet: "8 min · Universiapolis", etab: "ma-universiapolis", badge: "visite", grad: "from-[#0f8a46] to-[#86efac]", icon: "building", type: "Studios", note: "4,9" },
+  { id: "l9", titre: "Colocation 3 chambres", quartier: "Hay Riad, Rabat", pays: "MA", prix: "1 900 MAD", trajet: "14 min · ISGA", etab: "ma-isga-rabat", badge: "partenaire", grad: "from-[#f9a806] to-[#ffd34a]", icon: "users", type: "Colocations", note: "4,7" },
 ] as const;
 
 export const BADGES: Record<string, [string, string]> = {

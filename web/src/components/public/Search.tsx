@@ -11,7 +11,7 @@ import { PAYS_NOM, etabById, formationById, metierById, type PaysCode } from "@/
 
 type R = { metiers: { id: string; nom: string }[]; formations: { id: string; intitule: string }[]; etablissements: { id: string; nom: string; sigle: string; ville: string; pays: string; logo: string | null }[]; articles: { slug: string; title: string; category: string }[]; logements: { id: string; title: string; ville: string; rent: number; currency: string }[] };
 const EMPTY: R = { metiers: [], formations: [], etablissements: [], articles: [], logements: [] };
-const SUGGEST = ["informatique", "médecine", "commerce", "ingénieur", "Casablanca", "Dakar", "data", "BTS"];
+const SUGGEST = ["informatique", "médecine", "commerce", "ingénieur", "Casablanca", "Rabat", "data", "kinésithérapie"];
 
 /** Recherche globale (maquette 48) : résultats instantanés pendant la frappe. */
 export function GlobalSearch() {
