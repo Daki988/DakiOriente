@@ -1,4 +1,4 @@
-import { and, desc, eq, isNull, or } from "drizzle-orm";
+import { and, desc, eq, gt, isNull, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db, schema } from "../db";
 import { audit } from "../lib/audit";
@@ -84,9 +84,18 @@ export async function findByIdentifier(identifier: string) {
   return u ?? null;
 }
 
+const MAX_FAILS = 8;
 export async function login(identifier: string, password: string) {
+  const key = identifier.includes("@") ? normEmail(identifier) : normPhone(identifier);
+  // Anti force brute : 8 échecs maximum par identifiant sur 15 minutes.
+  const [{ n }] = await db.select({ n: sql<number>`count(*)::int` }).from(schema.auditLogs)
+    .where(and(eq(schema.auditLogs.action, "connexion_echec"), eq(schema.auditLogs.entityId, key), gt(schema.auditLogs.createdAt, new Date(Date.now() - 15 * 60_000))));
+  if (n >= MAX_FAILS) throw new AppError("Trop de tentatives. Réessayez dans 15 minutes ou connectez-vous par code SMS.", 429, "trop_de_tentatives");
   const u = await findByIdentifier(identifier);
-  if (!u?.passwordHash || !(await verifyPassword(password, u.passwordHash))) throw new AppError("Identifiants incorrects.", 401, "identifiants");
+  if (!u?.passwordHash || !(await verifyPassword(password, u.passwordHash))) {
+    await audit(u?.id ?? null, "connexion_echec", "login", key);
+    throw new AppError(`Identifiants incorrects.${n + 1 >= MAX_FAILS - 2 ? ` Encore ${Math.max(0, MAX_FAILS - n - 1)} essai(s).` : ""}`, 401, "identifiants");
+  }
   if (u.status === "suspendu") throw new AppError("Ce compte est suspendu. Contactez le support.", 403, "suspendu");
   await audit(u.id, "connexion", "user", u.id);
   return u;

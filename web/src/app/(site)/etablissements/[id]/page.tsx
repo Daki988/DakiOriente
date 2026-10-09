@@ -6,13 +6,17 @@ import { EtabLogo } from "@/components/ui/EtabLogo";
 import { PhotoGallery } from "@/components/sections/PhotoGallery";
 import { PAYS_NOM, STATUT_LONG, domaineById, etabById, etablissements, fmt, formationById, metierById, paysDetailById, residences, type Formation } from "@/lib/data";
 import { COUTS, devis, formationParDefaut } from "@/lib/devis";
+import { establishmentLive } from "@/server/content-ui";
 
 export const generateStaticParams = () => etablissements.map((e) => ({ id: e.id }));
+export const revalidate = 300; // reflète les mises à jour faites par l'établissement
 export const generateMetadata = ({ params }: { params: { id: string } }): Metadata => ({ title: etabById[params.id]?.nom, description: `${etabById[params.id]?.nom} : formations, métiers, frais, admission des étudiants internationaux et logement.` });
 
 const ADMISSION = ["Dossier en ligne via Navigoal (bac ou relevés de notes, CV, lettre de motivation).", "Étude du dossier et, selon le programme, test ou entretien à distance.", "Admission, paiement des frais de réservation, attestation pour le visa.", "Arrivée : carte de séjour, logement Navilease, intégration."];
 
-export default function EtabPage({ params }: { params: { id: string } }) {
+export default async function EtabPage({ params }: { params: { id: string } }) {
+  const live = await establishmentLive(params.id);
+  const confirmed = (live?.programs ?? []).filter((p) => p.feesConfirmed || !p.indicative);
   const e = etabById[params.id];
   const P = paysDetailById[e.pays];
   const C = COUTS[e.pays];
@@ -57,6 +61,13 @@ export default function EtabPage({ params }: { params: { id: string } }) {
             {[["#formations", "Formations & métiers"], ["#admission", "Admission"], ["#frais", "Frais & bourses"], ["#logement", "Logement"]].map(([h, t], k) => <a key={h} href={h} className={`shrink-0 whitespace-nowrap py-3 text-sm font-bold ${k === 0 ? "border-b-[3px] border-brand-600 text-brand-600" : "text-ink-mute hover:text-brand-600"}`}>{t}</a>)}
           </nav>
           <section id="formations" className="flex scroll-mt-32 flex-col gap-6">
+            {live?.description && <div className="card flex flex-col gap-2 rounded-[22px] p-6"><h2 className="text-lg font-extrabold">Présentation</h2><p className="whitespace-pre-line leading-relaxed text-ink-soft">{live.description}</p></div>}
+            {confirmed.length > 0 && (
+              <div className="card flex flex-col gap-3 rounded-[22px] p-6">
+                <div className="flex items-center justify-between"><h2 className="text-lg font-extrabold">Frais confirmés par l&apos;établissement</h2><span className="chip bg-[#e8f8ef] text-[#0f8a46]">Vérifié</span></div>
+                {confirmed.map((p) => <div key={p.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-[#f1f4fb] pb-2 text-sm last:border-0"><span className="font-semibold">{p.title}{p.startDate ? <span className="text-ink-mute"> · rentrée {p.startDate}</span> : null}</span><span className="text-ink-soft">{p.tuitionMin != null ? `${fmt(p.tuitionMin)}${p.tuitionMax && p.tuitionMax !== p.tuitionMin ? ` – ${fmt(p.tuitionMax)}` : ""} ${p.currency ?? ""}/an` : "sur demande"}{p.applicationFee ? ` · dossier ${fmt(p.applicationFee)} ${p.currency ?? ""}` : ""}</span></div>)}
+              </div>
+            )}
             <div><h2 className="text-[28px] font-extrabold tracking-tight">Formations et débouchés</h2><p className="text-ink-mute">Chaque programme est relié aux métiers qu&apos;il prépare et aux séries du bac qui y donnent accès.</p></div>
             {Object.entries(byDom).map(([d, fs]) => (
               <div key={d} className="flex flex-col gap-3">

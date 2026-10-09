@@ -5,26 +5,46 @@ Next.js 14 (export statique), Tailwind CSS, Framer Motion. Les données viennent
 ```bash
 npm install
 npm run dev     # http://localhost:3000
-npm run build   # site statique dans out/ (287 pages)
+npm run build   # application Next.js (rendu statique + serveur)
 ```
 
 Maquettes de référence (à valider avant tout changement visuel) : https://www.figma.com/design/NzAcfIbAFK6tTliGnuE5xq
 
-## Pages
+## Application (V1)
 
-| Route | Contenu |
+Next.js full-stack : site public, espaces connectés, back-office et API REST (`/api`, voir [docs/backend.md](../docs/backend.md)). Base PostgreSQL (Netlify DB en production).
+
+| Espace | Routes |
 |---|---|
-| `/` | Accueil : hero animé, recherche, logos, parcours, pays, domaines, métiers, Navilease, actualités |
-| `/orientation` | Test RIASEC interactif, résultat (radar, domaines, métiers, formations), « Ma série au lycée » |
-| `/formations`, `/formations/[id]` | Recherche filtrable des offres, fiche formation (compatibilité, admission, débouchés, logement) |
-| `/metiers`, `/metiers/[id]` | 96 fiches métiers ; parcours série → formations → écoles → métier |
-| `/etablissements`, `/etablissements/[id]` | 79 écoles privées et inter-États ; fiche avec galerie photos, formations reliées aux métiers, budget, écoles comparables |
-| `/pays`, `/pays/[code]` (ga, ma, sn) | Fiches pays (Gabon, Maroc, Sénégal) : système d'études, visa, budget, villes, écoles |
-| `/comparateur` | Comparaison d'écoles par formation ou par métier visé (coût total, admission, visa, logement) ; paramètres `f`, `m`, `e`, `pays` |
-| `/devis` | Devis parents sur toute la durée des études (moteur `src/lib/devis.ts`), export PDF par impression ; paramètres `etab`, `f`, `o`, `l`, `d` |
-| `/pourquoi` | Valeur ajoutée par type d'utilisateur |
-| `/navilease`, `/actualites` | Logement étudiant, actualités |
-| `/espace`, `/espace/parent` | Tableau de bord étudiant, espace parent (démonstration) |
+| Public | `/`, `/orientation`, `/metiers[/id]`, `/formations[/id]`, `/etablissements[/id]`, `/pays[/code]`, `/comparateur`, `/devis`, `/pourquoi`, `/navilease`, `/navilease/logements[/id]`, `/recherche`, `/actualites[/slug]`, `/cgu`, `/confidentialite`, `/mentions-legales`, `/cookies` |
+| Compte | `/connexion`, `/inscription`, `/verification`, `/mot-de-passe-oublie`, `/compte`, `/paiement/[ref]` |
+| Élève / étudiant | `/espace`, `/espace/profil`, `/espace/candidatures` (+ `/nouvelle`, `/[id]`), `/espace/documents`, `/espace/paiements`, `/espace/logement`, `/espace/conseiller` |
+| Parent | `/parent`, `/parent/enfants`, `/parent/candidatures/[id]`, `/parent/paiements`, `/parent/logement`, `/parent/conseiller` |
+| Établissement | `/etablissement`, `/etablissement/candidatures[/id]`, `/etablissement/formations`, `/etablissement/campagnes`, `/etablissement/fiche` |
+| Bailleur | `/bailleur`, `/bailleur/annonces` (+ `/nouvelle`, `/[id]`), `/bailleur/reservations`, `/bailleur/profil` |
+| Navilease | `/navilease/reservations/[id]` (locataire, parent garant, bailleur) |
+| Conseiller | `/conseiller` |
+| Back-office | `/admin`, `/admin/utilisateurs`, `/admin/etablissements`, `/admin/referentiels`, `/admin/navilease`, `/admin/paiements`, `/admin/contenus`, `/admin/journal` |
+| Commun | `/messages[/id]`, `/notifications` |
+
+### Développement local
+
+```bash
+# PostgreSQL local puis :
+echo 'DATABASE_URL=postgres://…' > .env.local
+npm run db:migrate && SEED_DEMO=1 ADMIN_EMAIL=… ADMIN_PASSWORD=… npm run db:seed
+npm run dev
+npm test   # tests d'intégration (TEST_DATABASE_URL)
+```
+
+Comptes de démonstration (`SEED_DEMO=1`, mot de passe `DEMO_PASSWORD`, par défaut Navigoal2026) : amina.demo@ (étudiante), parent.demo@, ecole.demo@ (ESA Casablanca), bailleur.demo@, conseiller.demo@ — domaine navigoal.com.
+
+### Mise en production (checklist)
+
+- Variables Netlify : `ADMIN_EMAIL`, `ADMIN_PASSWORD` (premier administrateur), `APP_URL`.
+- E-mails : `RESEND_API_KEY` + `MAIL_FROM` ; SMS/WhatsApp : `SMS_WEBHOOK_URL`. Sans eux, les codes de vérification et notifications ne partent pas (journalisés seulement).
+- Paiements : `CINETPAY_API_KEY` + `CINETPAY_SITE_ID` ; en recette, `PAYMENTS_MODE=sandbox` active la confirmation simulée.
+- Relecture juridique des pages `/cgu`, `/confidentialite`, `/mentions-legales` (raison sociale, siège, directeur de la publication).
 
 ## Animations
 

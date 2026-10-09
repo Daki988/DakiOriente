@@ -27,3 +27,14 @@ export async function articleBySlug(slug: string) {
     return null;
   }
 }
+
+/** Données saisies par l'établissement (description, contacts, formations publiées) pour la fiche publique. */
+export async function establishmentLive(id: string) {
+  try {
+    const { getEstablishment, listPrograms } = await import("./services/establishments");
+    const [e, programs] = await Promise.all([getEstablishment(id), listPrograms(id)]);
+    return { description: e.description, email: e.email, phone: e.phone, siteWeb: e.siteWeb, status: e.status, programs };
+  } catch {
+    return null;
+  }
+}

@@ -201,3 +201,11 @@ describe("back-office et recommandations", () => {
     expect(outbox.some((o) => o.text.includes("code Navigoal"))).toBe(true);
   });
 });
+
+describe("sécurité", () => {
+  it("bloque la force brute après 8 échecs", async () => {
+    await accounts.register({ role: "etudiant", firstName: "B", lastName: "F", email: "bf@test.local", password: "Motdepasse1", acceptTerms: true });
+    for (let i = 0; i < 8; i++) await expect(accounts.login("bf@test.local", "faux")).rejects.toThrow(/incorrects/);
+    await expect(accounts.login("bf@test.local", "Motdepasse1")).rejects.toThrow(/Trop de tentatives/);
+  });
+});
