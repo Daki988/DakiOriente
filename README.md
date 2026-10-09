@@ -1,8 +1,8 @@
 # Navigoal
 
-Plateforme panafricaine d'orientation, d'éducation, d'accès aux formations — et de logement étudiant avec **Navilease**.
+Plateforme d'orientation, d'éducation, d'accès aux formations — et de logement étudiant avec **Navilease**.
 
-Lancement : **Gabon · Maroc · Sénégal**.
+Destination : **le Maroc** — établissements privés aux diplômes homologués par l'État, pour les étudiants de toute l'Afrique.
 
 ## Contenu du dépôt
 

@@ -36,8 +36,8 @@ export function EtabList() {
         </div>
       </div>
       <div className="flex flex-wrap gap-2">
-        <select value={ville} onChange={(e) => setVille(e.target.value)} aria-label="Ville" className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold"><option value="">Toutes les villes</option>{VILLES_ETUDES.map((v) => <option key={v}>{v}</option>)}</select>
-        <select value={type} onChange={(e) => setType(e.target.value)} aria-label="Type d'établissement" className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold"><option value="">Tous les types</option>{TYPES.map((t) => <option key={t}>{t}</option>)}</select>
+        <select value={ville} onChange={(e) => setVille(e.target.value)} aria-label="Ville" className="min-w-0 max-w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold"><option value="">Toutes les villes</option>{VILLES_ETUDES.map((v) => <option key={v}>{v}</option>)}</select>
+        <select value={type} onChange={(e) => setType(e.target.value)} aria-label="Type d'établissement" className="min-w-0 max-w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold"><option value="">Tous les types</option>{TYPES.map((t) => <option key={t}>{t}</option>)}</select>
       </div>
       <p className="text-sm text-ink-soft"><b className="text-ink">{list.length} établissements</b> · seuls figurent les établissements privés dont les diplômes sont homologués par l&apos;État marocain, avec leurs filières accréditées.</p>
       <motion.div layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

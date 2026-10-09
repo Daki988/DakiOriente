@@ -23,6 +23,9 @@ Application **Next.js full-stack** (dossier `web/`) : pages, API REST et back-of
 - **Paiements** : référence unique, règlement idempotent (webhook + retour), statut revérifié auprès de l'agrégateur, reçus PDF, paiement par un parent pour son enfant.
 - **Back-office** : utilisateurs, établissements (vérification, mise en avant), référentiels éditables et **versionnés** (import/export JSON et CSV), modération, KYC, litiges, paiements et séquestre, articles, témoignages, partenaires, journal d'audit, statistiques (§37) avec entonnoir de conversion.
 
+- **Destination Maroc et homologation** : seuls les établissements labellisés (`establishments.label` : `reconnu_etat`, `diplomes_homologues`, `professionnel` ; `null` = non publié) et leurs filières homologuées (`programs.homologated`) sont visibles et ouverts aux candidatures. Une filière créée ou renommée par un établissement passe en `homologation.statut = "a_verifier"` ; l'administrateur la valide (arrêté + fin d'accréditation) ou la refuse : `GET /admin/homologations`, `PATCH /admin/formations/:id/homologation`. Le label se règle par `PATCH /admin/etablissements/:id`.
+- **Pays d'origine** : tout code ISO 3166-1 du référentiel `pays_origine` est accepté pour les comptes ; paiements en dirhams (carte, mobile money Afrique, virement, moyens marocains).
+
 ## Commandes (dans `web/`)
 
 ```bash
