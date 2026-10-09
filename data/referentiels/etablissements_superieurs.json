@@ -43,7 +43,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q104631945"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ga-ista",
@@ -82,27 +83,7 @@
       "photos": [
         {
           "fichier": "assets/photos/ga/ga-ista-1.jpg",
-          "source_url": "http://www.ista-cemac.org/sites/default/files/gva-sliderlayer-upload/ista-pak4-dmixnc.jpg",
-          "page_source": "http://www.ista-cemac.org/",
-          "credit": "© Institut sous-régional de Statistique et d'Économie Appliquée / ISTA-CEMAC",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-09"
-        },
-        {
-          "fichier": "assets/photos/ga/ga-ista-2.jpg",
-          "source_url": "http://www.ista-cemac.org/sites/default/files/gva-sliderlayer-upload/ista-senghor-rcgmpu.jpg",
-          "page_source": "http://www.ista-cemac.org/",
-          "credit": "© Institut sous-régional de Statistique et d'Économie Appliquée / ISTA-CEMAC",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-09"
-        },
-        {
-          "fichier": "assets/photos/ga/ga-ista-3.jpg",
-          "source_url": "http://www.ista-cemac.org/sites/default/files/gva-sliderlayer-upload/ista-e3mg-4c91lw.jpg",
+          "source_url": "http://www.ista-cemac.org/sites/default/files/gva-sliderlayer-upload/licence1-om3q65.jpg",
           "page_source": "http://www.ista-cemac.org/",
           "credit": "© Institut sous-régional de Statistique et d'Économie Appliquée / ISTA-CEMAC",
           "licence": null,
@@ -137,7 +118,8 @@
       "logo": null,
       "sources": [
         "curation Navigoal"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ga-ufgse",
@@ -171,7 +153,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q55280985"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ga-bbs",
@@ -201,7 +184,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q104631948"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ga-em-gabon",
@@ -231,7 +215,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q104631933"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ga-aum",
@@ -261,7 +246,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q104631932"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ga-afram",
@@ -289,7 +275,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q104631938"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ga-ita",
@@ -318,7 +305,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q104631929"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ga-esgis",
@@ -351,7 +339,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q104631942"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ga-libs",
@@ -379,7 +368,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q104631944"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ga-usia",
@@ -404,7 +394,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q104631939"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-um6p",
@@ -508,7 +499,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q3551785"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-ueuromed",
@@ -546,7 +538,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q5411489"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-um6ss",
@@ -585,7 +578,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q19407257"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-uiass",
@@ -615,7 +609,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q21619282"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-uic",
@@ -652,7 +647,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q16682080"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-mundiapolis",
@@ -689,7 +685,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q20669874"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-upf",
@@ -725,7 +722,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q16511695"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-upm",
@@ -762,7 +760,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q3551829"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-universiapolis",
@@ -798,7 +797,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q100261338"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-hem",
@@ -836,7 +836,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q3152162"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-esca",
@@ -874,6 +875,18 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q18213503"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-esca-1.jpg",
+          "source_url": "https://esca.ma/hubfs/Slide%202.png",
+          "page_source": "https://esca.ma/",
+          "credit": "© ESCA École de Management",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -906,6 +919,18 @@
       },
       "sources": [
         "curation Navigoal"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-emsi-1.jpg",
+          "source_url": "https://emsi.ma/wp-content/uploads/2024/05/Photo-centre-de-carriere.png",
+          "page_source": "https://emsi.ma/",
+          "credit": "© École Marocaine des Sciences de l'Ingénieur",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -941,6 +966,18 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q27961614"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-iga-1.jpg",
+          "source_url": "https://iga.ac.ma/wp-content/uploads/2018/07/17.jpg",
+          "page_source": "https://iga.ac.ma/",
+          "credit": "© Institut Supérieur du Génie Appliqué",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -973,6 +1010,18 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q56316720"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-isga-1.jpg",
+          "source_url": "https://isga.ma/wp-content/uploads/2026/04/Ceremonie-de-remise-des-diplomes-Edvantis-2026-249.jpg",
+          "page_source": "https://isga.ma/",
+          "credit": "© Institut Supérieur d'Ingénierie et des Affaires",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1010,6 +1059,38 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q5333198"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/sn/sn-esmt-1.jpg",
+          "source_url": "https://www.esmt.sn/images/gallery/programmes-esmt.webp",
+          "page_source": "https://www.esmt.sn/",
+          "credit": "© École Supérieure Multinationale des Télécommunications",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/sn/sn-esmt-2.jpg",
+          "source_url": "https://www.esmt.sn/_next/image?url=%2Fapi%2Fmedia%2Ffile%2Fprogrammes-cours-du-soir.webp&w=3840&q=75",
+          "page_source": "https://www.esmt.sn/",
+          "credit": "© École Supérieure Multinationale des Télécommunications",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/sn/sn-esmt-3.jpg",
+          "source_url": "https://www.esmt.sn/_next/image?url=%2Fapi%2Fmedia%2Ffile%2Fpmp-session-esmt.webp&w=3840&q=75",
+          "page_source": "https://www.esmt.sn/",
+          "credit": "© École Supérieure Multinationale des Télécommunications",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1044,6 +1125,28 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q3578018"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/sn/sn-eismv-1.jpg",
+          "source_url": "https://www.eismv.org/wp-content/uploads/2024/02/Couv-EISMV-2.jpg",
+          "page_source": "https://www.eismv.org/",
+          "credit": "© École Inter-États des Sciences et Médecine Vétérinaires",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/sn/sn-eismv-2.jpg",
+          "source_url": "https://www.eismv.org/wp-content/uploads/2024/02/Couv-EISMV1.jpg",
+          "page_source": "https://www.eismv.org/",
+          "credit": "© École Inter-États des Sciences et Médecine Vétérinaires",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1077,7 +1180,8 @@
       },
       "sources": [
         "curation Navigoal"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-ism",
@@ -1114,7 +1218,8 @@
       },
       "sources": [
         "curation Navigoal"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-supdeco",
@@ -1151,6 +1256,18 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q115405571"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/sn/sn-supdeco-1.jpg",
+          "source_url": "https://supdeco.sn/wp-content/uploads/2022/01/Devenez-etudiant-a-Sup-de-CO.jpg",
+          "page_source": "https://supdeco.sn/",
+          "credit": "© Groupe Sup de Co Dakar",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1185,7 +1302,8 @@
       },
       "sources": [
         "curation Navigoal"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-iam",
@@ -1221,6 +1339,18 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q140948263"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/sn/sn-iam-1.jpg",
+          "source_url": "https://groupeiam.sn/wp-content/uploads/2026/06/WhatsApp-Image-2025-01-13-at-15.57.41.jpeg",
+          "page_source": "https://groupeiam.com/",
+          "credit": "© Institut Africain de Management",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1255,6 +1385,18 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q140948264"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/sn/sn-isi-1.jpg",
+          "source_url": "http://www.groupeisi.com/wp-content/uploads/2018/11/IMG_1153.jpg",
+          "page_source": "https://www.groupeisi.com/",
+          "credit": "© Groupe Institut Supérieur d'Informatique",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1291,6 +1433,38 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105475472"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/sn/sn-ipd-1.jpg",
+          "source_url": "https://www.ipd.sn/wp-content/uploads/2025/09/ipd1.webp",
+          "page_source": "https://www.ipd.sn/",
+          "credit": "© Institut Polytechnique de Dakar",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/sn/sn-ipd-2.jpg",
+          "source_url": "https://www.ipd.sn/wp-content/uploads/2025/09/WhatsApp-Image-2025-07-10-at-16.42.06-2.jpeg",
+          "page_source": "https://www.ipd.sn/",
+          "credit": "© Institut Polytechnique de Dakar",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/sn/sn-ipd-3.jpg",
+          "source_url": "https://www.ipd.sn/wp-content/uploads/2025/09/WhatsApp-Image-2025-09-28-a-23.35.28_35e855d3.jpg",
+          "page_source": "https://www.ipd.sn/",
+          "credit": "© Institut Polytechnique de Dakar",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1326,7 +1500,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q125637004"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-daust",
@@ -1358,6 +1533,38 @@
       },
       "sources": [
         "curation Navigoal"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/sn/sn-daust-1.jpg",
+          "source_url": "https://daust.org/images/hero.jpg",
+          "page_source": "https://daust.org/",
+          "credit": "© Dakar American University of Science and Technology",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/sn/sn-daust-2.jpg",
+          "source_url": "https://daust.org/images/news-1.jpg",
+          "page_source": "https://daust.org/",
+          "credit": "© Dakar American University of Science and Technology",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/sn/sn-daust-3.jpg",
+          "source_url": "https://daust.org/images/news-2.jpg",
+          "page_source": "https://daust.org/",
+          "credit": "© Dakar American University of Science and Technology",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1390,6 +1597,18 @@
       },
       "sources": [
         "curation Navigoal"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/sn/sn-uahb-1.jpg",
+          "source_url": "https://univ.uahb.sn/wp-content/uploads/2022/01/uahb-bg-maintenance-1024x576.jpg",
+          "page_source": "https://univ.uahb.sn/",
+          "credit": "© Université Amadou Hampâté Bâ",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1426,7 +1645,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q3551395"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-unis",
@@ -1455,7 +1675,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q3551765"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-ussd",
@@ -1488,6 +1709,28 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q140948261"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/sn/sn-ussd-1.jpg",
+          "source_url": "https://ussd.sn/wp-content/uploads/2026/03/IMG-20250324-WA0089.jpg",
+          "page_source": "https://ussd.sn/",
+          "credit": "© Université des Sciences de la Santé de Dakar",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/sn/sn-ussd-2.jpg",
+          "source_url": "https://ussd.sn/wp-content/uploads/2026/08/etu-trav.jpeg",
+          "page_source": "https://ussd.sn/",
+          "credit": "© Université des Sciences de la Santé de Dakar",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1520,6 +1763,28 @@
       },
       "sources": [
         "curation Navigoal"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/sn/sn-ucao-1.jpg",
+          "source_url": "https://www.st-michel.sn/wp-content/uploads/2024/02/visite-PTN.jpg",
+          "page_source": "https://www.st-michel.sn/",
+          "credit": "© Université Catholique de l'Afrique de l'Ouest – Saint-Michel",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/sn/sn-ucao-2.jpg",
+          "source_url": "https://www.st-michel.sn/wp-content/uploads/2023/01/ISG.jpg",
+          "page_source": "https://www.st-michel.sn/",
+          "credit": "© Université Catholique de l'Afrique de l'Ouest – Saint-Michel",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1555,7 +1820,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105475471"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ga-esgec",
@@ -1580,7 +1846,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q104631934"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ga-uas",
@@ -1609,7 +1876,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q104631947"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-esa-casa",
@@ -1642,6 +1910,38 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q137430474"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-esa-casa-1.jpg",
+          "source_url": "https://www.esa-igensia.ma/app/uploads/sites/7/2025/03/esa-casablanca-homepage-header-alternative.jpg",
+          "page_source": "https://www.esa-igensia.ma/",
+          "credit": "© ESA Casablanca — École Supérieure des Affaires (IGENSIA)",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-esa-casa-2.jpg",
+          "source_url": "https://www.esa-igensia.ma/app/uploads/sites/7/2025/03/esa-casablanca-homepage-campus.jpg",
+          "page_source": "https://www.esa-igensia.ma/",
+          "credit": "© ESA Casablanca — École Supérieure des Affaires (IGENSIA)",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-esa-casa-3.jpg",
+          "source_url": "https://www.esa-igensia.ma/app/uploads/sites/7/2025/03/esa-casablanca-formation-bachelor-business-marketing-header.jpg",
+          "page_source": "https://www.esa-igensia.ma/",
+          "credit": "© ESA Casablanca — École Supérieure des Affaires (IGENSIA)",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1678,7 +1978,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105640665"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-iihem",
@@ -1714,6 +2015,38 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q6051094"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-iihem-1.jpg",
+          "source_url": "https://www.iihem.ac.ma/upload/slider-10.jpg",
+          "page_source": "https://www.iihem.ac.ma/",
+          "credit": "© International Institute for Higher Education in Morocco",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-iihem-2.jpg",
+          "source_url": "https://www.iihem.ac.ma/upload/slider-12.jpg",
+          "page_source": "https://www.iihem.ac.ma/",
+          "credit": "© International Institute for Higher Education in Morocco",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-iihem-3.jpg",
+          "source_url": "https://www.iihem.ac.ma/upload/slider-13.jpg",
+          "page_source": "https://www.iihem.ac.ma/",
+          "credit": "© International Institute for Higher Education in Morocco",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1750,7 +2083,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q30294399"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-psychosup",
@@ -1783,6 +2117,28 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q136338174"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-psychosup-1.jpg",
+          "source_url": "https://psychosup.net/wp-content/uploads/2023/12/IMG_5144-1-1-scaled-e1703768702313.jpg",
+          "page_source": "https://psychosup.net/",
+          "credit": "© École Supérieure de Psychologie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-psychosup-2.jpg",
+          "source_url": "https://psychosup.net/wp-content/uploads/2019/10/Sans-titre-3.png",
+          "page_source": "https://psychosup.net/",
+          "credit": "© École Supérieure de Psychologie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1819,7 +2175,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105640663"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-eac",
@@ -1853,7 +2210,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q30294362"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-hec-maroc",
@@ -1889,7 +2247,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q3577932"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-supdeco-marrakech",
@@ -1925,6 +2284,18 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q3578437"
+      ],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-supdeco-marrakech-1.jpg",
+          "source_url": "https://supdeco.ma/core/uploads/2020/03/Img-bg-03.jpg",
+          "page_source": "https://supdeco.ma/",
+          "credit": "© École Supérieure de Commerce de Marrakech",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-09"
+        }
       ]
     },
     {
@@ -1960,7 +2331,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q136455949"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-esav",
@@ -1991,7 +2363,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q3578481"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-tbs-casa",
@@ -2026,7 +2399,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q3117393"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "ma-eigsi-casa",
@@ -2062,7 +2436,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q3577771"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-atlantic",
@@ -2098,7 +2473,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q106464830"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-euromed",
@@ -2131,7 +2507,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q140948266"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-ensup",
@@ -2159,7 +2536,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105475468"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-hec-dakar",
@@ -2184,7 +2562,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q140948268"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-icagi",
@@ -2216,7 +2595,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q140948267"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-iacom",
@@ -2244,7 +2624,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105475490"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-2im",
@@ -2269,7 +2650,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105475469"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-ipp",
@@ -2302,7 +2684,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q140948262"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-ipformed",
@@ -2330,7 +2713,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105475486"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-isdd",
@@ -2363,7 +2747,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q140948265"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-iued",
@@ -2398,7 +2783,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105475470"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-ihe",
@@ -2426,7 +2812,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q125253753"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-kedge",
@@ -2458,7 +2845,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q16647785"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-mit",
@@ -2486,7 +2874,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105475476"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-uea",
@@ -2515,7 +2904,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q30266542"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-ukb",
@@ -2550,7 +2940,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105475466"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-esebat",
@@ -2586,7 +2977,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105475474"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-esge",
@@ -2614,7 +3006,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105475477"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-estim",
@@ -2643,7 +3036,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105475478"
-      ]
+      ],
+      "photos": []
     },
     {
       "id": "sn-batisup",
@@ -2671,7 +3065,8 @@
       "sources": [
         "curation Navigoal",
         "wikidata:Q105475482"
-      ]
+      ],
+      "photos": []
     }
   ]
 }
