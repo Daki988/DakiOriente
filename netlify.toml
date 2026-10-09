@@ -1,7 +1,8 @@
 [build]
   base = "web"
-  command = "npm ci && npm run build"
-  publish = "out"
+  # Migrations et données de démarrage sur Netlify DB (NETLIFY_DB_URL), puis build Next.js (rendu serveur + API).
+  command = "npm ci && npm run db:migrate && npm run db:seed && npm run build"
+  publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
