@@ -13,7 +13,7 @@ const MODES = {
     tab: "À mesure que la nuit avance",
     img: "/images/ambiance/soiree-bar-jackboy-louis-libreville.webp",
     title: "Musique, énergie, ambiance festive.",
-    text: "Vers 23 h – minuit, la soirée change de rythme : amapiano, afrobeats, afritcham. L'ambiance varie selon les soirs et la programmation.",
+    text: "Vers 23 h – minuit, la soirée change de rythme : amapiano, afrobeats, afrotcham. L'ambiance varie selon les soirs et la programmation.",
   },
 } as const;
 type Mode = keyof typeof MODES;

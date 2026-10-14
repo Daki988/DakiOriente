@@ -5,7 +5,7 @@ import { EventCard } from "@/components/EventCard";
 
 export const metadata: Metadata = {
   title: "Soirées & événements à Libreville",
-  description: "La programmation de Jackboy : soirées amapiano, afrobeats, afritcham, DJs invités.",
+  description: "La programmation de Jackboy : soirées amapiano, afrobeats, afrotcham, DJs invités.",
   alternates: { canonical: "/evenements" },
 };
 

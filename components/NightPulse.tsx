@@ -10,7 +10,7 @@ const STEPS = [
   { at: 15, label: "15 h", title: "Ouverture", text: "Les premiers verres, un panini, on se pose." },
   { at: 18, label: "18 h", title: "Afterwork", text: "Bières fraîches, cocktails, on se retrouve entre amis." },
   { at: 20, label: "20 h", title: "Dîner", text: "Burgers, wings, brochettes : la cuisine tourne à plein." },
-  { at: 23, label: "23 h", title: "La nuit monte", text: "Amapiano, afrobeats, afritcham : le son monte, la piste aussi." },
+  { at: 23, label: "23 h", title: "La nuit monte", text: "Amapiano, afrobeats, afrotcham : le son monte, la piste aussi." },
 ];
 const START = 15, END = 25; // l'échelle s'étend jusqu'à 1 h du matin
 
