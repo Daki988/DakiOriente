@@ -1005,5 +1005,62 @@
       "effet": "2023-2024"
     },
     "adresse_ministere": "Avenue Al Melia, rue Meziata, Hay Ryad- Rabat"
+  },
+  {
+    "id": "ma-esdav",
+    "nom": "École Supérieure de Design et des Arts Visuels",
+    "sigle": "ESDAV",
+    "ville": "Casablanca",
+    "type": "arts_design",
+    "match": [
+      "\\besdav\\b|design et des arts visuels"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N°287/2007",
+      "date": "08/08/2007",
+      "effet": "2007-2008"
+    },
+    "adresse_ministere": "Angle Rue de Tan Tan et Rue Ben Grir, Hay El Manar lot N°4 - Anfa"
+  },
+  {
+    "id": "ma-pbds",
+    "nom": "Private Business and Digital School",
+    "sigle": "PBDS",
+    "ville": "Casablanca",
+    "type": "ecole_commerce",
+    "match": [
+      "private business and digital school"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N°503/2024",
+      "date": "04/04/2025",
+      "effet": "2024-2025"
+    },
+    "adresse_ministere": "Lotissement Annasr, Secteur 15 N° 14-RCE, Commune Oulad Salah, Province Nouaceur, Casablanca"
+  },
+  {
+    "id": "ma-iim-agadir",
+    "nom": "International Institute of Management Agadir",
+    "sigle": "IIM Agadir",
+    "ville": "Agadir",
+    "type": "ecole_commerce",
+    "match": [
+      "international institute of management agadir"
+    ],
+    "villes": [
+      "Agadir"
+    ],
+    "autorisation": {
+      "numero": "N°508/2025",
+      "date": "22/04/2026",
+      "effet": "2025-2026"
+    },
+    "adresse_ministere": "Zone Grand Stade Adrar, Hay Mohammadi, Ida Outanane, Agadir"
   }
 ]

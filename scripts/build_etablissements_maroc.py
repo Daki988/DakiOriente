@@ -557,7 +557,8 @@ def main():
     items, exclus, fermes = [], [], []
     for e in etabs:
         x = enrich.get(e["id"], {})
-        if x.get("statut") == "ferme":
+        # Écartés : fermés, ou introuvables en ligne et absents de la liste des autorisés 2025-2026
+        if x.get("statut") == "ferme" or (e.get("autorise") and x.get("statut") == "inconnu"):
             fermes.append(dict(id=e["id"], nom=e["nom"], ville=e["ville"], notes=x.get("notes")))
             continue
         toutes = list(filieres.get(e["id"], {}).values())
@@ -610,7 +611,8 @@ def main():
             "destination": "MA", "annee_reference": args.annee,
             "regle": "Établissements privés autorisés par le ministère. Label « Reconnu par l'État » ou « Diplômes homologués » : filières accréditées en cours pour l'année de référence. Label « Établissement autorisé » : aucune filière accréditée en cours (diplômes d'établissement, non homologués).",
             "labels": LABEL_LIBELLE, "types": TYPE_LIBELLE,
-            "sources": ["data/sources/maroc/" + n for n in sorted(os.listdir(SRC))],
+            "sources": ["data/sources/maroc/" + n for n in sorted(os.listdir(SRC))] + [
+                "https://www.enssup.gov.ma/storage/enssup%20priv%C3%A9/2026/Liste%20des%20%C3%A9tablissements%20d%E2%80%99enseignement%20sup%C3%A9rieur%20priv%C3%A9%20autoris%C3%A9s%20au%20titre%20de%20l%E2%80%99ann%C3%A9e%20universitaire%202025-2026.pdf"],
         },
         "items": items,
     }

@@ -401,7 +401,6 @@
         "ma-iheps-marrakech",
         "ma-ispts-ouezzane",
         "ma-hek",
-        "ma-isesmo",
         "ma-isep-casa",
         "ma-edumed"
       ]
@@ -594,11 +593,9 @@
         "ma-es2im",
         "ma-hec-maroc",
         "ma-esrim",
-        "ma-vinci",
         "ma-piimt-rabat",
         "ma-sup-technology",
         "ma-orient-sup",
-        "ma-adalia",
         "ma-hem-engineering"
       ]
     },
@@ -650,9 +647,7 @@
         "ma-ueuromed",
         "ma-upf",
         "ma-ismagi",
-        "ma-edge",
-        "ma-vinci",
-        "ma-epsinsia"
+        "ma-edge"
       ]
     },
     {
@@ -764,11 +759,9 @@
         "ma-hecgi",
         "ma-esrim",
         "ma-suptem",
-        "ma-vinci",
         "ma-piimt-rabat",
         "ma-sup-technology",
-        "ma-hem-engineering",
-        "ma-epsinsia"
+        "ma-hem-engineering"
       ]
     },
     {
@@ -822,9 +815,7 @@
         "ma-hightech",
         "ma-sist-tanger",
         "ma-esrmi",
-        "ma-vinci",
-        "ma-sup-technology",
-        "ma-epsinsia"
+        "ma-sup-technology"
       ]
     },
     {
@@ -902,12 +893,9 @@
         "ma-junia",
         "ma-ippc",
         "ma-espii",
-        "ma-epsielm",
         "ma-esma",
         "ma-suptem",
-        "ma-sup-technology",
-        "ma-epsinsia",
-        "ma-essib"
+        "ma-sup-technology"
       ]
     },
     {
@@ -962,7 +950,6 @@
         "ma-emsi-fes",
         "ma-iihem",
         "ma-supemir",
-        "ma-epsielm",
         "ma-suptema",
         "ma-sup-technology"
       ]
@@ -1016,7 +1003,6 @@
         "ma-ensit",
         "ma-supemir",
         "ma-esisa",
-        "ma-epsielm",
         "ma-sup-technology"
       ]
     },
@@ -1072,9 +1058,7 @@
         "ma-esgcnt",
         "ma-es2im",
         "ma-espii",
-        "ma-epsinsia",
-        "ma-iiec",
-        "ma-essib"
+        "ma-iiec"
       ]
     },
     {
@@ -1210,7 +1194,6 @@
       "etablissements": [
         "ma-suptech-sante",
         "ma-iheps-agadir",
-        "ma-epsielm",
         "ma-esismp"
       ]
     },
@@ -1318,7 +1301,6 @@
         "ma-suptech-sante-essaouira",
         "ma-aes",
         "ma-ippc",
-        "ma-epsielm",
         "ma-ifjsup-casa",
         "ma-iiec"
       ]
@@ -1457,13 +1439,10 @@
         "ma-isfort",
         "ma-essti",
         "ma-esma",
-        "ma-mmbs",
         "ma-piimt-rabat",
         "ma-sup-technology",
         "ma-orient-sup",
-        "ma-esismp",
-        "ma-adalia",
-        "ma-epsinsia"
+        "ma-esismp"
       ]
     },
     {
@@ -1514,8 +1493,7 @@
         "ma-upm",
         "ma-universiapolis",
         "ma-eheb",
-        "ma-isfort",
-        "ma-ishedd"
+        "ma-isfort"
       ]
     },
     {
@@ -1702,8 +1680,7 @@
         "ma-esiai",
         "ma-esgcnt",
         "ma-essti",
-        "ma-espii",
-        "ma-essib"
+        "ma-espii"
       ]
     },
     {
@@ -2013,7 +1990,6 @@
         "ma-uic",
         "ma-upf",
         "ma-suptech-environnement",
-        "ma-ishedd",
         "ma-esismp"
       ]
     },
@@ -2717,32 +2693,22 @@
         "ma-essec-sale",
         "ma-medsup",
         "ma-esmc",
-        "ma-isgc",
         "ma-heci-rabat",
         "ma-heci-meknes",
         "ma-heci-fes",
         "ma-heci-kenitra",
         "ma-heci-oujda",
-        "ma-epsielm",
         "ma-hem-rabat",
-        "ma-hem-marrakech",
         "ma-esrim",
-        "ma-mmbs",
         "ma-suptem",
         "ma-ifjsup-casa",
         "ma-eseje",
-        "ma-hep-management",
         "ma-suptema",
         "ma-piimt-rabat",
-        "ma-piimt-casa",
-        "ma-hemt",
         "ma-emcgi",
         "ma-esismp",
         "ma-esms",
         "ma-supmm",
-        "ma-adalia",
-        "ma-esb-berrechid",
-        "ma-emlc",
         "ma-tbs-casa",
         "ma-eslsca"
       ]
@@ -2788,11 +2754,9 @@
         "ma-esisa",
         "ma-emsig",
         "ma-hbfg-oujda",
-        "ma-hbfg-casa",
         "ma-embci",
         "ma-ehesicom",
-        "ma-orient-sup",
-        "ma-finansup"
+        "ma-orient-sup"
       ]
     },
     {
@@ -2983,24 +2947,20 @@
         "ma-escga",
         "ma-supmti-meknes",
         "ma-esmc",
-        "ma-isgc",
         "ma-heci-rabat",
         "ma-heci-meknes",
         "ma-heci-fes",
         "ma-heci-kenitra",
         "ma-heci-oujda",
         "ma-hem-rabat",
-        "ma-hem-marrakech",
         "ma-esrim",
         "ma-embci",
         "ma-suptema",
         "ma-piimt-rabat",
         "ma-sup-technology",
-        "ma-hemt",
         "ma-emcgi",
         "ma-orient-sup",
         "ma-esms",
-        "ma-adalia",
         "ma-tbs-casa",
         "ma-eslsca"
       ]
@@ -3050,23 +3010,18 @@
         "ma-heci-casa",
         "ma-esrmi",
         "ma-esmc",
-        "ma-isgc",
         "ma-heci-rabat",
         "ma-heci-meknes",
         "ma-heci-fes",
         "ma-heci-kenitra",
         "ma-heci-oujda",
         "ma-hem-rabat",
-        "ma-hem-marrakech",
         "ma-esrim",
-        "ma-mmbs",
         "ma-embci",
-        "ma-hemt",
         "ma-emcgi",
         "ma-esms",
         "ma-supmm",
         "ma-esscg",
-        "ma-adalia",
         "ma-tbs-casa",
         "ma-eslsca"
       ]
@@ -3131,17 +3086,12 @@
         "ma-heci-fes",
         "ma-heci-kenitra",
         "ma-heci-oujda",
-        "ma-epsielm",
-        "ma-hem-marrakech",
         "ma-esma",
         "ma-esrim",
         "ma-piimt-rabat",
         "ma-sup-technology",
-        "ma-ishedd",
         "ma-esismp",
-        "ma-esscg",
-        "ma-adalia",
-        "ma-emlc"
+        "ma-esscg"
       ]
     },
     {
@@ -3193,7 +3143,6 @@
         "ma-isga-rabat",
         "ma-esmc",
         "ma-hem-rabat",
-        "ma-mmbs",
         "ma-suptema",
         "ma-piimt-rabat"
       ]
@@ -3238,12 +3187,8 @@
       },
       "etablissements": [
         "ma-esmc",
-        "ma-isgc",
         "ma-hem-rabat",
-        "ma-hem-marrakech",
-        "ma-hemt",
         "ma-orient-sup",
-        "ma-adalia",
         "ma-tbs-casa"
       ]
     },
@@ -3339,8 +3284,7 @@
         "ma-hem",
         "ma-ensit",
         "ma-hecf-fes",
-        "ma-hecf-meknes",
-        "ma-mmbs"
+        "ma-hecf-meknes"
       ]
     },
     {
@@ -4288,7 +4232,6 @@
       "etablissements": [
         "ma-artcomsup-casa",
         "ma-comsup",
-        "ma-ostelea",
         "ma-eslsca"
       ]
     },

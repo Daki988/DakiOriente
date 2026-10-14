@@ -82,14 +82,6 @@
       "derniere_echeance": "2025-2026"
     },
     {
-      "id": "ma-isgc",
-      "nom": "Institut Supérieur de Gestion et de Commerce",
-      "ville": "Casablanca",
-      "reconnu": false,
-      "filieres_echues": 5,
-      "derniere_echeance": "2024-2025"
-    },
-    {
       "id": "ma-heci-rabat",
       "nom": "Ecole des Hautes Etudes Commerciales et Informatiques",
       "ville": "Rabat",
@@ -130,36 +122,12 @@
       "derniere_echeance": "2025-2026"
     },
     {
-      "id": "ma-epsielm",
-      "nom": "Ecole Polyvalente Supérieure d'Informatique et d'Electronique et de Management",
-      "ville": "Fès",
-      "reconnu": false,
-      "filieres_echues": 7,
-      "derniere_echeance": "2024-2025"
-    },
-    {
       "id": "ma-hem-rabat",
       "nom": "Institut des Hautes Etudes de Management",
       "ville": "Rabat",
       "reconnu": false,
       "filieres_echues": 7,
       "derniere_echeance": "2025-2026"
-    },
-    {
-      "id": "ma-hem-marrakech",
-      "nom": "Institut des Hautes Etudes de Management",
-      "ville": "Marrakech",
-      "reconnu": false,
-      "filieres_echues": 8,
-      "derniere_echeance": "2025-2026"
-    },
-    {
-      "id": "ma-hbfg-casa",
-      "nom": "Institut des Hautes Etudes Bancaires, Financières et Managériales",
-      "ville": "Casablanca",
-      "reconnu": false,
-      "filieres_echues": 1,
-      "derniere_echeance": "2021-2022"
     },
     {
       "id": "ma-esol",
@@ -184,14 +152,6 @@
       "reconnu": false,
       "filieres_echues": 8,
       "derniere_echeance": "2025-2026"
-    },
-    {
-      "id": "ma-mmbs",
-      "nom": "Moroccan Computer Sciences And Management Business School Private",
-      "ville": "Mohammedia",
-      "reconnu": false,
-      "filieres_echues": 5,
-      "derniere_echeance": "2024-2025"
     },
     {
       "id": "ma-embci",
@@ -242,14 +202,6 @@
       "derniere_echeance": "2025-2026"
     },
     {
-      "id": "ma-vinci",
-      "nom": "Institut Supérieur Vinci d'Ingénierie Informatique et de Réseaux de Télécommunications",
-      "ville": "Rabat",
-      "reconnu": false,
-      "filieres_echues": 9,
-      "derniere_echeance": "2025-2026"
-    },
-    {
       "id": "ma-ifjsup-casa",
       "nom": "Institut Supérieur du Journalisme et de l'Information",
       "ville": "Casablanca",
@@ -282,14 +234,6 @@
       "derniere_echeance": "2025-2026"
     },
     {
-      "id": "ma-hep-management",
-      "nom": "Ecole des Hautes Etudes Poly Management",
-      "ville": "Oujda",
-      "reconnu": false,
-      "filieres_echues": 2,
-      "derniere_echeance": "2014-2015"
-    },
-    {
       "id": "ma-suptema",
       "nom": "Ecole Supérieure de Telécommunication et de Management",
       "ville": "Fès",
@@ -306,27 +250,11 @@
       "derniere_echeance": "2025-2026"
     },
     {
-      "id": "ma-piimt-casa",
-      "nom": "Private International Institute of Management and Technology",
-      "ville": "Casablanca",
-      "reconnu": false,
-      "filieres_echues": 2,
-      "derniere_echeance": "2023-2024"
-    },
-    {
       "id": "ma-sup-technology",
       "nom": "Ecole Supérieure des Hautes Etudes en Technologie de l'Information et de la Communication Privée",
       "ville": "Casablanca",
       "reconnu": false,
       "filieres_echues": 14,
-      "derniere_echeance": "2025-2026"
-    },
-    {
-      "id": "ma-hemt",
-      "nom": "Ecole Supérieure Privée des Hautes Etudes Managériales de Tanger",
-      "ville": "Tanger",
-      "reconnu": false,
-      "filieres_echues": 5,
       "derniere_echeance": "2025-2026"
     },
     {
@@ -336,22 +264,6 @@
       "reconnu": false,
       "filieres_echues": 5,
       "derniere_echeance": "2025-2026"
-    },
-    {
-      "id": "ma-ishedd",
-      "nom": "Institut Supérieur des Hautes Etudes en Développement Durable",
-      "ville": "Rabat",
-      "reconnu": false,
-      "filieres_echues": 9,
-      "derniere_echeance": "2025-2026"
-    },
-    {
-      "id": "ma-isesmo",
-      "nom": "Institut Supérieur des Etudes de la Santé Privé Mohammedia",
-      "ville": "Mohammedia",
-      "reconnu": false,
-      "filieres_echues": 1,
-      "derniere_echeance": "2016-2017"
     },
     {
       "id": "ma-sup-isi",
@@ -394,43 +306,11 @@
       "derniere_echeance": "2024-2025"
     },
     {
-      "id": "ma-finansup",
-      "nom": "Ecole Supérieure de Finance et d'Audit",
-      "ville": "Tanger",
-      "reconnu": false,
-      "filieres_echues": 1,
-      "derniere_echeance": "2023-2024"
-    },
-    {
       "id": "ma-esscg",
       "nom": "Ecole Supérieure des Sciences Commerciales et de Gestion",
       "ville": "Tanger",
       "reconnu": false,
       "filieres_echues": 3,
-      "derniere_echeance": "2025-2026"
-    },
-    {
-      "id": "ma-adalia",
-      "nom": "ADALIA Private Institute of Management",
-      "ville": "Casablanca",
-      "reconnu": false,
-      "filieres_echues": 12,
-      "derniere_echeance": "2025-2026"
-    },
-    {
-      "id": "ma-esb-berrechid",
-      "nom": "Ecole Supérieure Business de Berrechid Privée",
-      "ville": "Berrechid",
-      "reconnu": false,
-      "filieres_echues": 1,
-      "derniere_echeance": "2025-2026"
-    },
-    {
-      "id": "ma-emlc",
-      "nom": "EMLC business school",
-      "ville": "Casablanca",
-      "reconnu": false,
-      "filieres_echues": 4,
       "derniere_echeance": "2025-2026"
     },
     {
@@ -440,14 +320,6 @@
       "reconnu": false,
       "filieres_echues": 6,
       "derniere_echeance": "2025-2026"
-    },
-    {
-      "id": "ma-ostelea",
-      "nom": "Ostelea Rabat, School of Tourism et Hospitality",
-      "ville": "Rabat",
-      "reconnu": false,
-      "filieres_echues": 6,
-      "derniere_echeance": "2024-2025"
     },
     {
       "id": "ma-eslsca",
@@ -474,27 +346,11 @@
       "derniere_echeance": "2025-2026"
     },
     {
-      "id": "ma-epsinsia",
-      "nom": "Ecole Privée Supérieure d'Ingénierie Numérique et Systèmes d'Intelligence Artificielle",
-      "ville": "Casablanca",
-      "reconnu": false,
-      "filieres_echues": 10,
-      "derniere_echeance": "2025-2026"
-    },
-    {
       "id": "ma-iiec",
       "nom": "International Institute of Engineering Casablanca privé",
       "ville": "Bouskoura",
       "reconnu": false,
       "filieres_echues": 2,
-      "derniere_echeance": "2025-2026"
-    },
-    {
-      "id": "ma-essib",
-      "nom": "Ecole Supérieure des Sciences et de l'Ingénierie Bouregreg Privée",
-      "ville": "Salé",
-      "reconnu": false,
-      "filieres_echues": 3,
       "derniere_echeance": "2025-2026"
     },
     {
@@ -504,9 +360,142 @@
       "reconnu": false,
       "filieres_echues": 3,
       "derniere_echeance": "2025-2026"
+    },
+    {
+      "id": "ma-esdav",
+      "nom": "École Supérieure de Design et des Arts Visuels",
+      "ville": "Casablanca",
+      "reconnu": false,
+      "filieres_echues": 0,
+      "derniere_echeance": null
+    },
+    {
+      "id": "ma-pbds",
+      "nom": "Private Business and Digital School",
+      "ville": "Casablanca",
+      "reconnu": false,
+      "filieres_echues": 0,
+      "derniere_echeance": null
+    },
+    {
+      "id": "ma-iim-agadir",
+      "nom": "International Institute of Management Agadir",
+      "ville": "Agadir",
+      "reconnu": false,
+      "filieres_echues": 0,
+      "derniere_echeance": null
     }
   ],
-  "fermes": [],
+  "fermes": [
+    {
+      "id": "ma-isgc",
+      "nom": "Institut Supérieur de Gestion et de Commerce",
+      "ville": "Casablanca",
+      "notes": "Absent de la liste ministérielle des établissements privés autorisés 2025-2026 (présent en 2023-2024) ; filières encore listées comme accréditées dans la liste des filières 2025-2026 mais avec accréditation 2011-2016. Les annuaires (etudiant.ma) le présentent comme une composante du groupe ISG (fondé en 1984). Pas de site officiel propre identifié. Possible intégration/fusion dans le groupe ISG : non confirmé."
+    },
+    {
+      "id": "ma-epsielm",
+      "nom": "Ecole Polyvalente Supérieure d'Informatique et d'Electronique et de Management",
+      "ville": "Fès",
+      "notes": "L'école indique une création en 1989 (autorisation ministérielle N° 32/88, effet 1993-1994). Le domaine epsiel.net est désormais une page parking « domain may be for sale » (vérifié oct. 2026) et l'école est absente de la liste ministérielle des établissements autorisés 2025-2026 alors qu'elle figurait en 2023-2024. Fermeture probable mais non confirmée par une source explicite."
+    },
+    {
+      "id": "ma-hem-marrakech",
+      "nom": "Institut des Hautes Etudes de Management",
+      "ville": "Marrakech",
+      "notes": "HEM indique aujourd'hui n'avoir que 2 campus (Casablanca, Rabat) ; la presse de sept. 2026 sur le passage à l'Université Internationale HEM ne cite que Casablanca et Rabat ; absent de la liste ministérielle des établissements autorisés 2025-2026. HEM communiquait encore sur 4 campus et une visite à HEM Marrakech en nov. 2024 : fermeture probablement intervenue en 2025, déduite, sans annonce officielle trouvée."
+    },
+    {
+      "id": "ma-hbfg-casa",
+      "nom": "Institut des Hautes Etudes Bancaires, Financières et Managériales",
+      "ville": "Casablanca",
+      "notes": "Connu sous le nom HBF, puis HBFA (« Institut des Hautes Études en Banque, Finance et Assurances ») ; présenté comme membre du Groupe Kawn. Absent de la liste ministérielle des établissements autorisés 2025-2026. Une page Facebook « HBF Officiel » annonce des inscriptions ouvertes (non datée). Société en activité selon un registre commercial. Statut d'établissement autorisé à confirmer. Le domaine hbfa.ma héberge désormais un site de paris en ligne (vérifié oct. 2026) et hbfmaroc.com est injoignable : signes d'arrêt possible."
+    },
+    {
+      "id": "ma-mmbs",
+      "nom": "Moroccan Computer Sciences And Management Business School Private",
+      "ville": "Mohammedia",
+      "notes": "Le domaine mmbs.ac.ma porte le titre « MMBS – Moroccan Management Business School » (nom différent de l'intitulé ministériel). La page Facebook la décrit comme « Campus by Moroccan Business School » (Groupe MBS). Absent de la liste ministérielle des établissements autorisés 2025-2026. Activité récente non vérifiée."
+    },
+    {
+      "id": "ma-vinci",
+      "nom": "Institut Supérieur Vinci d'Ingénierie Informatique et de Réseaux de Télécommunications",
+      "ville": "Rabat",
+      "notes": "Aussi appelée « École Supérieure Vinci » / « Institut Supérieur Vinci ». Site vinci.ma en mode maintenance (© 2025) et injoignable lors de la vérification ; absent de la liste ministérielle des établissements autorisés 2025-2026. Aucune annonce de fermeture trouvée."
+    },
+    {
+      "id": "ma-hep-management",
+      "nom": "Ecole des Hautes Etudes Poly Management",
+      "ville": "Oujda",
+      "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026 ; seules des fiches d'annuaires anciennes ont été trouvées, sans activité récente."
+    },
+    {
+      "id": "ma-piimt-casa",
+      "nom": "Private International Institute of Management and Technology",
+      "ville": "Casablanca",
+      "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026 alors que le campus de Rabat y figure (sous le nom International School of Leadership for Business and Technology). Une page de liens de 2022/2023 mentionnait encore un campus de Casablanca. Fermeture possible, non confirmée."
+    },
+    {
+      "id": "ma-hemt",
+      "nom": "Ecole Supérieure Privée des Hautes Etudes Managériales de Tanger",
+      "ville": "Tanger",
+      "notes": "HEMT correspond au campus HEM Tanger (contact hem.tanger@hem.ac.ma). HEM indique aujourd'hui n'avoir que 2 campus (Casablanca, Rabat) et la presse de sept. 2026 (passage à l'Université Internationale HEM) ne cite que Casablanca et Rabat ; absent de la liste ministérielle 2025-2026. Fermeture déduite, sans annonce officielle trouvée."
+    },
+    {
+      "id": "ma-ishedd",
+      "nom": "Institut Supérieur des Hautes Etudes en Développement Durable",
+      "ville": "Rabat",
+      "notes": "Le site officiel donne une adresse différente de l'adresse ministérielle (15 bis, rue Daraa, Agdal) : déménagement probable. Page d'accueil modifiée en avril 2026, mais aucune actualité ou admission datée récente ; absent de la liste ministérielle des établissements autorisés 2025-2026."
+    },
+    {
+      "id": "ma-isesmo",
+      "nom": "Institut Supérieur des Etudes de la Santé Privé Mohammedia",
+      "ville": "Mohammedia",
+      "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026 ; seule une fiche d'annuaire a été trouvée, sans activité récente."
+    },
+    {
+      "id": "ma-finansup",
+      "nom": "Ecole Supérieure de Finance et d'Audit",
+      "ville": "Tanger",
+      "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026 ; finansup.ma injoignable. L'ancienne page Facebook « FinanSup.ma » s'intitule désormais « CAP SUP' » (N°6 rue 15, Bella Vista, Tanger) : changement de nom ou de propriétaire possible, non confirmé."
+    },
+    {
+      "id": "ma-adalia",
+      "nom": "ADALIA Private Institute of Management",
+      "ville": "Casablanca",
+      "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026. Le site adalia.ac.ma présente désormais ADALIA Institute comme « école supérieure hybride » d'OSE in Africa (formations courtes, programme exécutif, certifications en ligne/sur site), sans licence ni master visibles, alors qu'Instagram annonçait encore Licence/Master/MBA/DBA pour 2024-2025. Repositionnement probable ; statut d'établissement autorisé à confirmer."
+    },
+    {
+      "id": "ma-esb-berrechid",
+      "nom": "Ecole Supérieure Business de Berrechid Privée",
+      "ville": "Berrechid",
+      "notes": "Nom d'usage : ESB Business School (École Supérieure de Business Berrechid). Absent de la liste ministérielle des établissements autorisés 2025-2026 ; esb.ma injoignable lors de la vérification. Pages Facebook/Instagram existantes, activité récente non datée."
+    },
+    {
+      "id": "ma-emlc",
+      "nom": "EMLC business school",
+      "ville": "Casablanca",
+      "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026 ; emlc.ac.ma injoignable lors de la vérification. Dernières activités trouvées : portes ouvertes (2023) sur les réseaux sociaux. Statut à confirmer."
+    },
+    {
+      "id": "ma-ostelea",
+      "nom": "Ostelea Rabat, School of Tourism et Hospitality",
+      "ville": "Rabat",
+      "notes": "Le domaine ostelea.ma redirige (301) vers eslsca.ma (ESLSCA Rabat, même groupe Planeta et même adresse) et Ostelea Rabat n'apparaît plus dans la liste ministérielle 2025-2026, alors qu'ESLSCA Rabat y figure. Intégration probable dans ESLSCA Rabat, sans annonce officielle trouvée ; une page Instagram « Ostelea Rabat » subsiste. Le site ESLSCA indique une création en 2017."
+    },
+    {
+      "id": "ma-epsinsia",
+      "nom": "Ecole Privée Supérieure d'Ingénierie Numérique et Systèmes d'Intelligence Artificielle",
+      "ville": "Casablanca",
+      "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026 (son numéro d'autorisation 491 y est attribué à un autre établissement, EAMR, avec une année différente). Seule une page Facebook (contact@epsinsia.com) a été trouvée ; epsinsia.com/.ma injoignables. Statut à confirmer."
+    },
+    {
+      "id": "ma-essib",
+      "nom": "Ecole Supérieure des Sciences et de l'Ingénierie Bouregreg Privée",
+      "ville": "Salé",
+      "notes": "Communication de lancement en 2023 (essib.ma, réseaux sociaux), mais essib.ma injoignable lors de la vérification et établissement absent de la liste ministérielle des établissements autorisés 2025-2026. Statut à confirmer."
+    }
+  ],
   "non_rattaches": [
     [
       "Institut supérieur privé des sciences de l'ingénieur (Technologia)",

@@ -30,7 +30,8 @@
       "data/sources/maroc/filieres_accreditees_eesp_2024-2025.json",
       "data/sources/maroc/rapport_build.json",
       "data/sources/maroc/reconnus_par_l_etat_2026.txt",
-      "data/sources/maroc/registre_filieres_accreditees_2026-09-13.csv"
+      "data/sources/maroc/registre_filieres_accreditees_2026-09-13.csv",
+      "https://www.enssup.gov.ma/storage/enssup%20priv%C3%A9/2026/Liste%20des%20%C3%A9tablissements%20d%E2%80%99enseignement%20sup%C3%A9rieur%20priv%C3%A9%20autoris%C3%A9s%20au%20titre%20de%20l%E2%80%99ann%C3%A9e%20universitaire%202025-2026.pdf"
     ]
   },
   "items": [
@@ -13161,123 +13162,6 @@
       ]
     },
     {
-      "id": "ma-isgc",
-      "nom": "Institut Supérieur de Gestion et de Commerce",
-      "sigle": "ISGC",
-      "pays": "MA",
-      "ville": "Casablanca",
-      "type": "ecole_commerce",
-      "type_libelle": "École de commerce / management",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 1989,
-      "adresse": "23, Rue Hafid Ibrahim - Quartier Gauthier",
-      "autorisation": "Autorisation n° 36/89 du 09/06/1989",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-licence-gestion",
-        "frm-master-finance-audit",
-        "frm-master-logistique",
-        "frm-master-marketing"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Comptabilité, Contrôle et Audit",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-finance-audit",
-          "domaine": "dom-finance",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Comptabilité-Audit",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Diplôme Bac+5",
-          "duree_annees": 5,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-finance-audit",
-          "domaine": "dom-finance",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2015-2016",
-            "texte": "Liste ministérielle 2024-2025 (N° 6084 - 3 kaada 1433 (20-9-2012))"
-          }
-        },
-        {
-          "intitule": "Logistique",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-logistique",
-          "domaine": "dom-transport-logistique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Management",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Arrêté 1589.22 (BO n° 7175)"
-          }
-        },
-        {
-          "intitule": "Marketing",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-marketing",
-          "domaine": "dom-commerce",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
       "id": "ma-heci-rabat",
       "nom": "Ecole des Hautes Etudes Commerciales et Informatiques",
       "sigle": "HECI",
@@ -13290,11 +13174,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.groupeheci.ac.ma",
       "annee_creation": 1991,
-      "adresse": "89, Rue Sebou - agdal",
+      "adresse": "89, rue Sebou, Avenue de France, Agdal, Rabat",
       "autorisation": "Autorisation n° 54/91 du 25/10/1991",
-      "description": null,
+      "description": "Campus de Rabat du Groupe HECI, école privée de commerce, de management et d'informatique (licences et masters).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -13387,7 +13271,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-heci-rabat.png",
+        "source_url": "https://www.groupeheci.ac.ma/wp-content/uploads/2020/03/logo-sans-groupe.webp",
+        "page_source": "https://www.groupeheci.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -13407,11 +13298,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.groupeheci.ac.ma",
       "annee_creation": 1992,
-      "adresse": "9, Rue de Chinon Es-Saâda",
+      "adresse": "9, rue de Chinon, Es-Saâda, Meknès",
       "autorisation": "Autorisation n° 61/92 du 20/10/1992",
-      "description": null,
+      "description": "Campus de Meknès du Groupe HECI, école privée de commerce, de management et d'informatique.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -13488,7 +13379,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-heci-meknes.png",
+        "source_url": "https://www.groupeheci.ac.ma/wp-content/uploads/2020/03/logo-sans-groupe.webp",
+        "page_source": "https://www.groupeheci.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -13508,11 +13406,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.groupeheci.ac.ma",
       "annee_creation": 1992,
-      "adresse": "Avenue Allal Ben Abdellah - Rue n° 134",
+      "adresse": "Rue 134, Avenue Allal Ben Abdellah, Fès",
       "autorisation": "Autorisation n° 60/92 du 20/10/1992",
-      "description": null,
+      "description": "Campus de Fès du Groupe HECI, école privée de commerce, de management et d'informatique.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -13605,7 +13503,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-heci-fes.png",
+        "source_url": "https://www.groupeheci.ac.ma/wp-content/uploads/2020/03/logo-sans-groupe.webp",
+        "page_source": "https://www.groupeheci.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -13625,11 +13530,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.groupeheci.ac.ma",
       "annee_creation": 1996,
-      "adresse": "535, Boulevard Mohamed V",
+      "adresse": "535, Boulevard Mohammed V, Kénitra",
       "autorisation": "Autorisation n° 114/96 du 17/06/1997",
-      "description": null,
+      "description": "Campus de Kénitra du Groupe HECI, école privée de commerce, de management et d'informatique.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -13706,7 +13611,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-heci-kenitra.png",
+        "source_url": "https://www.groupeheci.ac.ma/wp-content/uploads/2020/03/logo-sans-groupe.webp",
+        "page_source": "https://www.groupeheci.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -13726,12 +13638,15 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.groupeheci.ac.ma",
       "annee_creation": 2001,
-      "adresse": "171 Angle Bd Smara et Bd Dakhla Quartier El Massira",
+      "adresse": "171, angle Bd Smara et Bd Dakhla, Quartier El Massira (ex-quartier Azyncot), Oujda",
       "autorisation": "Autorisation n° 174/2001 du 24/06/2002",
-      "description": null,
-      "coordonnees": null,
+      "description": "Campus d'Oujda du Groupe HECI, école privée de commerce, de management et d'informatique.",
+      "coordonnees": {
+        "lat": 34.6666208,
+        "lng": -1.9080641
+      },
       "wikidata": null,
       "formations": [
         "frm-licence-gestion",
@@ -13807,159 +13722,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
-      "id": "ma-epsielm",
-      "nom": "Ecole Polyvalente Supérieure d'Informatique et d'Electronique et de Management",
-      "sigle": "EPSIEL-M",
-      "pays": "MA",
-      "ville": "Fès",
-      "type": "ecole_ingenieurs",
-      "type_libelle": "École d'ingénieurs",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 1993,
-      "adresse": "N° 4, Immeuble \" Abbou \" Avenue Allal Ben Abdellah 30 000",
-      "autorisation": "Autorisation n° 32/88 du 20/07/1993",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-ingenieur-genie-electrique",
-        "frm-ingenieur-informatique",
-        "frm-ingenieur-telecoms",
-        "frm-licence-genie-electrique",
-        "frm-licence-gestion",
-        "frm-master-management",
-        "frm-master-systemes-information"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Génie Electrique",
-          "options": "Informatique Industrielle, Electronique, Réseaux et Télécommunications",
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-genie-electrique",
-          "domaine": "dom-ingenierie",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Arrêté 1176.23 (BO n° 7194)"
-          }
-        },
-        {
-          "intitule": "Génie Electronique",
-          "options": "1) Informatique Industriel 2) Electronique",
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-ingenieur-genie-electrique",
-          "domaine": "dom-ingenierie",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2019-2020",
-            "texte": "Liste ministérielle 2024-2025 (N° 6796 - 15 Kaada 1440 (15-07-2019))"
-          }
-        },
-        {
-          "intitule": "Informatique",
-          "options": "Sécurité Informatique et Administration des Systèmes, Génie Logiciel et Intelligence Artificielle",
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-ingenieur-informatique",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Arrêté 1176.23 (BO n° 7194)"
-          }
-        },
-        {
-          "intitule": "Informatique appliquée à la gestion",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-systemes-information",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2015-2016",
-            "texte": "Liste ministérielle 2024-2025 (N° 6329- 5 Rabie II 1436 (26-01-2015))"
-          }
-        },
-        {
-          "intitule": "Management",
-          "options": "Commerce International, Finance et Comptabilité",
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 1176.23 (BO n° 7194)"
-          }
-        },
-        {
-          "intitule": "Management de Projets et Ingénierie d’Innovation",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-management",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Réseaux et Télécommunications",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-ingenieur-telecoms",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2015-2016",
-            "texte": "Liste ministérielle 2024-2025 (N° 6329- 5 Rabie II 1436 (26-01-2015))"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-heci-oujda.png",
+        "source_url": "https://www.groupeheci.ac.ma/wp-content/uploads/2020/03/logo-sans-groupe.webp",
+        "page_source": "https://www.groupeheci.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -13979,11 +13749,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://hem.ac.ma",
       "annee_creation": 1993,
-      "adresse": "Intersection Zaïr Akrach, lotissement Mouline n° 3 - Souissi",
+      "adresse": "Intersection Avenue Mohammed VI et Akrache, Lotissement Mouline n° 3, Souissi, Rabat",
       "autorisation": "Autorisation n° 73/94 du 18/01/1994",
-      "description": null,
+      "description": "Campus de Rabat de HEM Business School, école privée de management (programmes Bac+3 à Bac+5 et formation exécutive).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -14125,229 +13895,6 @@
       ]
     },
     {
-      "id": "ma-hem-marrakech",
-      "nom": "Institut des Hautes Etudes de Management",
-      "sigle": "HEM",
-      "pays": "MA",
-      "ville": "Marrakech",
-      "type": "ecole_commerce",
-      "type_libelle": "École de commerce / management",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2003,
-      "adresse": "Lotissement Riad Al Atlas - Mbarka III - Agdal Av Med VI",
-      "autorisation": "Autorisation n° 209/2004 du 24/03/2004",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-licence-gestion",
-        "frm-master-finance-audit",
-        "frm-master-logistique",
-        "frm-master-management",
-        "frm-master-marketing"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "EM-Entrepreneuriat",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-management",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2016-2017",
-            "texte": "Liste ministérielle 2024-2025 (N° 6483 -13 chaoual 1437(18-7-2016))"
-          }
-        },
-        {
-          "intitule": "Entrepreneuriat",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-management",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2016-2017",
-            "texte": "Liste ministérielle 2024-2025 (N° 6483 -13 chaoual 1437(18-7-2016))"
-          }
-        },
-        {
-          "intitule": "Finance",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-finance-audit",
-          "domaine": "dom-finance",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2012-2013",
-            "texte": "Liste ministérielle 2024-2025 (N° 6084 - 3 kaada 1433 (20-9-2012))"
-          }
-        },
-        {
-          "intitule": "Gestion Générale",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2013-2014",
-            "texte": "Liste ministérielle 2024-2025 (N° 6084 - 3 kaada 1433 (20-9-2012))"
-          }
-        },
-        {
-          "intitule": "Management International et Logistique",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-logistique",
-          "domaine": "dom-transport-logistique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2014-2015",
-            "texte": "Liste ministérielle 2024-2025 (N° 6329- 5 Rabie II 1436 (26-01-2015))"
-          }
-        },
-        {
-          "intitule": "Management Internationale & Logistique",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-logistique",
-          "domaine": "dom-transport-logistique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2017-2018",
-            "texte": "Liste ministérielle 2024-2025 (N° 6578 -20 ramadan 1438(15-6-2017))"
-          }
-        },
-        {
-          "intitule": "Management général",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Marketing",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-marketing",
-          "domaine": "dom-commerce",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2012-2013",
-            "texte": "Liste ministérielle 2024-2025 (N° 6084 - 3 kaada 1433 (20-9-2012))"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": {
-        "fichier": "assets/logos/ma/ma-hem.png",
-        "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Logo_HEM.svg?width=256",
-        "page_source": "https://commons.wikimedia.org/wiki/File:Logo_HEM.svg",
-        "methode": "wikidata_p154",
-        "date_collecte": "2026-10-08",
-        "a_verifier": false
-      },
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
-      "id": "ma-hbfg-casa",
-      "nom": "Institut des Hautes Etudes Bancaires, Financières et Managériales",
-      "sigle": "HBFG",
-      "pays": "MA",
-      "ville": "Casablanca",
-      "type": "ecole_commerce",
-      "type_libelle": "École de commerce / management",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 1995,
-      "adresse": "N° 4, Rue Van Zeeland, Angle Boulevard Abdelmoumen, Quartier des Hôpitaux",
-      "autorisation": "Autorisation n° 83/94 du 23/04/1996",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-licence-banque-finance"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Management, Banque et Finance",
-          "options": "- Audit et contrôle de gestion - gestion du commerce International",
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-banque-finance",
-          "domaine": "dom-finance",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2021-2022",
-            "texte": "Liste ministérielle 2024-2025 (N° 6882 - 20 Ramadan 1441 (14/05/2020))"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
       "id": "ma-esol",
       "nom": "Ecole Supérieure d'Optique et de Lunetterie",
       "sigle": "ESOL",
@@ -14360,12 +13907,15 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://esol.ma",
       "annee_creation": 1996,
-      "adresse": "5, Rue Bizert - Route d'Immouzer - Ville Nouvelle",
+      "adresse": "5, rue Bizerte (Benzert), Hay Zouhour II, Route d'Immouzer, Ville Nouvelle, 30000 Fès",
       "autorisation": "Autorisation n° 98/96 du 18/10/1996",
-      "description": null,
-      "coordonnees": null,
+      "description": "École privée de Fès formant aux métiers de l'optique-lunetterie et de l'optométrie.",
+      "coordonnees": {
+        "lat": 34.0031339,
+        "lng": -4.9878372
+      },
       "wikidata": null,
       "formations": [
         "frm-licence-biologie-medicale"
@@ -14390,7 +13940,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esol.png",
+        "source_url": "https://esol.ma/wp-content/uploads/2026/06/LOGO-ESOL-PNG-scaled.png",
+        "page_source": "https://esol.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -14410,11 +13967,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://esmamaroc.ma",
       "annee_creation": 1996,
-      "adresse": "Avenue Prince Moulay Abdellah (ex.safi) Rouidate 1, immeuble Berrada",
+      "adresse": "Avenue Prince Moulay Abdellah (ex-avenue de Safi), Rouidate 1, Immeuble Berrada, Guéliz, Marrakech",
       "autorisation": "Autorisation n° 92/95 du 18/02/1997",
-      "description": null,
+      "description": "École privée de Marrakech proposant des formations en management et en génie informatique (Bac+3 à Bac+5).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -14506,7 +14063,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esma.png",
+        "source_url": "https://esmamaroc.ma/images/logoESMA.jpg",
+        "page_source": "https://esmamaroc.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -14526,12 +14090,15 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.esrim.ma",
       "annee_creation": 1996,
-      "adresse": "46, Avenue Mohamed V - (2ème et 3ème étages) -Settat",
+      "adresse": "46, boulevard Mohammed V, place de la Municipalité, 26000 Settat",
       "autorisation": "Autorisation n° 100/96 du 27/02/1997",
-      "description": null,
-      "coordonnees": null,
+      "description": "École privée de Settat formant en réseaux et informatique, données, ainsi qu'en marketing, finance, comptabilité et management.",
+      "coordonnees": {
+        "lat": 33.0010682,
+        "lng": -7.6186687
+      },
       "wikidata": null,
       "formations": [
         "frm-licence-gestion",
@@ -14673,125 +14240,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
-      "id": "ma-mmbs",
-      "nom": "Moroccan Computer Sciences And Management Business School Private",
-      "sigle": "MMBS",
-      "pays": "MA",
-      "ville": "Mohammedia",
-      "type": "ecole_commerce",
-      "type_libelle": "École de commerce / management",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 1997,
-      "adresse": "13, Bd Hassan II",
-      "autorisation": "Autorisation n° 120/97 du 25/03/1998",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-ingenieur-genie-industriel",
-        "frm-licence-droit-prive",
-        "frm-licence-gestion",
-        "frm-master-grh",
-        "frm-master-marketing"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Management Industriel et logistique",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-ingenieur-genie-industriel",
-          "domaine": "dom-ingenierie",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2015-2016",
-            "texte": "Liste ministérielle 2024-2025 (N° 6468 -19 chaaban 1437(26-5-2016))"
-          }
-        },
-        {
-          "intitule": "Management des Entreprises",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 1176.23 (BO n° 7194)"
-          }
-        },
-        {
-          "intitule": "Management des Ressources Humaines",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-grh",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2017-2018",
-            "texte": "Liste ministérielle 2024-2025 (N° 6578 -20 ramadan 1438(15-6-2017))"
-          }
-        },
-        {
-          "intitule": "Marketing, Achat et Gestion Commerciale",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-marketing",
-          "domaine": "dom-commerce",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2017-2018",
-            "texte": "Liste ministérielle 2024-2025 (N° 6578 -20 ramadan 1438(15-6-2017))"
-          }
-        },
-        {
-          "intitule": "management juridique des affaires",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-droit-prive",
-          "domaine": "dom-droit",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2018-2019",
-            "texte": "Liste ministérielle 2024-2025 (N° 6578 -20 ramadan 1438(15-6-2017))"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esrim.png",
+        "source_url": "https://www.esrim.ma/_next/image/?url=%2Fimages%2Fesrim%2Flogo-esrim.webp&w=3840&q=75",
+        "page_source": "https://www.esrim.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -14811,11 +14267,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://embci.com",
       "annee_creation": 1998,
-      "adresse": "N° 26 bis, Avenue Souissi - Souissi",
+      "adresse": "26 bis, Avenue du Souss, Souissi, Rabat",
       "autorisation": "Autorisation n° 130/98 du 30/06/1998",
-      "description": null,
+      "description": "École privée de Rabat formant aux métiers de la banque, de la finance et du commerce international.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -14875,7 +14331,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-embci.png",
+        "source_url": "https://embci.com/wp-content/uploads/2021/02/Logo-or-150px.png",
+        "page_source": "https://embci.com/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -14895,11 +14358,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "http://www.ismoosarl.ma",
       "annee_creation": 1998,
-      "adresse": "7, Rue Ben Dahan 1er Etage Escalier B",
+      "adresse": "7, rue Ben Dahan, 1er étage, escalier B, Casablanca",
       "autorisation": "Autorisation n° 133/98 du 29/10/1998",
-      "description": null,
+      "description": "Institut privé de Casablanca formant en optique et en optométrie (cycles Bac+3).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -14947,9 +14410,9 @@
       "reconnaissance_en_cours": false,
       "site_web": null,
       "annee_creation": 1999,
-      "adresse": "3, Avenue Mohamed abdou",
+      "adresse": "3, avenue Mohammed Abdou, Quartier Maâmora, 14000 Kénitra",
       "autorisation": "Autorisation n° 151/99 du 19/01/2000",
-      "description": null,
+      "description": "École privée de Kénitra formant en commerce, ingénierie commerciale et gestion.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -14995,11 +14458,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.hek.ma",
       "annee_creation": 2000,
-      "adresse": "14, Rue Tabit Ibnou Kourra Avenue My Driss 1er",
+      "adresse": "14, rue Tabit Ibnou Kourra, Avenue Moulay Driss Ier, Casablanca",
       "autorisation": "Autorisation n° 148/99 du 05/03/2001",
-      "description": null,
+      "description": "École privée de Casablanca formant des kinésithérapeutes.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -15057,7 +14520,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-hek.png",
+        "source_url": "http://www.hek.ma/wp-content/uploads/2020/05/logohek1.png",
+        "page_source": "https://www.hek.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -15077,11 +14547,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://suptembmhs.com",
       "annee_creation": 2001,
-      "adresse": "N° 6, Rue Haj Mohamed TAZI - Marshan - 9000",
+      "adresse": "6, rue Haj Mohamed Tazi, Marshan, 90000 Tanger",
       "autorisation": "Autorisation n° 163/2001 du 26/07/2001",
-      "description": null,
+      "description": "École privée pluridisciplinaire de Tanger (sciences techniques et management), membre du Groupe BMHS.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -15141,7 +14611,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-suptem.png",
+        "source_url": "https://suptembmhs.com/wp-content/uploads/2024/08/IMG_2203.png",
+        "page_source": "https://suptembmhs.com/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -15161,11 +14638,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://isjc-press.ma",
       "annee_creation": 2001,
-      "adresse": "N° 47, Bd Rahal Al Maskini 1er étage",
+      "adresse": "47, boulevard Rahal El Meskini, 1er étage, Casablanca",
       "autorisation": "Autorisation n° 167/2001 du 25/09/2001",
-      "description": null,
+      "description": "Institut privé de Casablanca formant au journalisme et à la communication (télévision, radio, presse, numérique).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -15215,187 +14692,6 @@
       ]
     },
     {
-      "id": "ma-vinci",
-      "nom": "Institut Supérieur Vinci d'Ingénierie Informatique et de Réseaux de Télécommunications",
-      "sigle": "ISVIRT (Vinci)",
-      "pays": "MA",
-      "ville": "Rabat",
-      "type": "ecole_ingenieurs",
-      "type_libelle": "École d'ingénieurs",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2003,
-      "adresse": "10, rue El Yamama",
-      "autorisation": "Autorisation n° 197/2003 du 02/10/2003",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-licence-genie-logiciel",
-        "frm-licence-informatique",
-        "frm-master-cybersecurite",
-        "frm-master-data-science-ia"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "IA, Cybersécurité et Technologies de l'Information",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-cybersecurite",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Liste ministérielle 2024-2025 ()"
-          }
-        },
-        {
-          "intitule": "Ingénierie Web et Développement Mobile",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-genie-logiciel",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Arrêté 1589.22 (BO n° 7175)"
-          }
-        },
-        {
-          "intitule": "Intelligence Artificielle, Cyber Sécurité et Technologies de l'Information",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": null,
-          "duree_annees": null,
-          "niveau": null,
-          "formation": "frm-master-data-science-ia",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 655.25 (BO n° 7431)"
-          }
-        },
-        {
-          "intitule": "Management des Systèmes d’Information",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-informatique",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Arrêté 1589.22 (BO n° 7175)"
-          }
-        },
-        {
-          "intitule": "Technologie de l’Information",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-informatique",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2018-2019",
-            "texte": "Liste ministérielle 2024-2025 (N° 6578 -20 ramadan 1438(15-6-2017))"
-          }
-        },
-        {
-          "intitule": "Technologies de l'Information",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-informatique",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Technologies de l'Information et Sciences de Données",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-data-science-ia",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2022-2023",
-            "texte": "Liste ministérielle 2024-2025 (N° 7175 - 13 Chaaban 1444 ( 06/03/2023))"
-          }
-        },
-        {
-          "intitule": "Technologies de l’Information et Sciences de Données",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": null,
-          "duree_annees": null,
-          "niveau": null,
-          "formation": "frm-master-data-science-ia",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2022-2023",
-            "texte": "Arrêté 1589.22 (BO n° 7175)"
-          }
-        },
-        {
-          "intitule": "Technologies de l’Information et Sciences des Données",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": null,
-          "duree_annees": null,
-          "niveau": null,
-          "formation": "frm-master-data-science-ia",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
       "id": "ma-ifjsup-casa",
       "nom": "Institut Supérieur du Journalisme et de l'Information",
       "sigle": "IFJSUP",
@@ -15408,11 +14704,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.ifjsup.ma",
       "annee_creation": 2003,
-      "adresse": "N° 97, Avenue Hassan SGHIR - Derb Omar",
+      "adresse": "97 C, boulevard Hassan Seghir, Derb Omar, Casablanca",
       "autorisation": "Autorisation n° 202/2003 du 06/10/2003",
-      "description": null,
+      "description": "Institut privé de Casablanca formant au journalisme, à l'information et à la communication.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -15520,7 +14816,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ifjsup-casa.png",
+        "source_url": "https://www.ifjsup.ma/wp-content/uploads/2018/06/cropped-logo_ifjpress-tst-4.png",
+        "page_source": "https://www.ifjsup.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -15540,11 +14843,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.ifjsup.ma",
       "annee_creation": 2015,
-      "adresse": "23, Avenue Yacoub El Mansour, 2ème étage, Guéliz-Marrakech",
+      "adresse": "23, angle avenue Yacoub El Mansour, Espace Guéliz, 2e étage, Marrakech",
       "autorisation": "Autorisation n° 446/2016 du 05/08/2015",
-      "description": null,
+      "description": "Antenne de Marrakech de l'IFJ Sup, institut privé formant au journalisme, à l'information et à la communication.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -15602,7 +14905,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ifjsup-marrakech.png",
+        "source_url": "https://www.ifjsup.ma/wp-content/uploads/2018/06/cropped-logo_ifjpress-tst-4.png",
+        "page_source": "https://www.ifjsup.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -15624,9 +14934,9 @@
       "reconnaissance_en_cours": false,
       "site_web": null,
       "annee_creation": 2004,
-      "adresse": "146, Nice I (Près de Marjane) B.P 1214",
+      "adresse": "146, lotissement Nice I (près de Marjane), B.P. 1214, Mohammedia",
       "autorisation": "Autorisation n° 206/2003 du 08/11/2004",
-      "description": null,
+      "description": "École privée de Mohammedia formant en droit des affaires et en gestion (comptabilité, audit, banque, assurance).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -15706,10 +15016,10 @@
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
       "site_web": null,
-      "annee_creation": 2004,
-      "adresse": "N° 8 Rue Ahmed Akrad loisiss",
+      "annee_creation": 2005,
+      "adresse": "8, rue Ahmed Akrad, Quartier Oasis, Casablanca",
       "autorisation": "Autorisation n° 224/2005 du 22/09/2005",
-      "description": null,
+      "description": "Institut privé de Casablanca formant aux métiers de l'optique (opticien).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -15759,72 +15069,6 @@
       ]
     },
     {
-      "id": "ma-hep-management",
-      "nom": "Ecole des Hautes Etudes Poly Management",
-      "sigle": "HEP Management",
-      "pays": "MA",
-      "ville": "Oujda",
-      "type": "ecole_commerce",
-      "type_libelle": "École de commerce / management",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2005,
-      "adresse": "N° 9, Rue Essakhra - Hay Alquods",
-      "autorisation": "Autorisation n° 223/2005 du 10/11/2005",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-licence-gestion"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Management",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2013-2014",
-            "texte": "Liste ministérielle 2024-2025 (N° 6084 - 3 kaada 1433 (20-9-2012))"
-          }
-        },
-        {
-          "intitule": "Poly management",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Cycle préparatoire intégré",
-          "duree_annees": 2,
-          "niveau": "niv-bac2",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2014-2015",
-            "texte": "Liste ministérielle 2024-2025 (N° 6329- 5 Rabie II 1436 (26-01-2015))"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
       "id": "ma-suptema",
       "nom": "Ecole Supérieure de Telécommunication et de Management",
       "sigle": "SUPTEMA",
@@ -15839,9 +15083,9 @@
       "reconnaissance_en_cours": false,
       "site_web": null,
       "annee_creation": 2005,
-      "adresse": "N°67, Khalid Ibn Oualid Bourmana",
+      "adresse": "67, rue Khalid Ibn Al Oualid, Bourmana, Fès",
       "autorisation": "Autorisation n° 235/2005 du 02/01/2006",
-      "description": null,
+      "description": "École privée de Fès formant en télécommunications, réseaux, systèmes et management.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -15986,11 +15230,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.piimt.us",
       "annee_creation": 2006,
-      "adresse": "45, Avenue Oualed said Bir Kacem - Souissi",
+      "adresse": "45, avenue Ouled Said, Bir Kacem, Souissi, Rabat",
       "autorisation": "Autorisation n° 244/2006 du 07/08/2007",
-      "description": null,
+      "description": "École privée de Rabat de management et de technologie proposant des programmes en français ou en anglais en partenariat avec une université américaine.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -16167,73 +15411,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
-      "id": "ma-piimt-casa",
-      "nom": "Private International Institute of Management and Technology",
-      "sigle": "PIIMT",
-      "pays": "MA",
-      "ville": "Casablanca",
-      "type": "ecole_commerce",
-      "type_libelle": "École de commerce / management",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2013,
-      "adresse": "490, Avenue Panoramique, Polo.",
-      "autorisation": "Autorisation n° 418/2014 du 31/07/2013",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-licence-gestion"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Administration des affaires",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2015-2016",
-            "texte": "Liste ministérielle 2024-2025 (N° 6329- 5 Rabie II 1436 (26-01-2015))"
-          }
-        },
-        {
-          "intitule": "Management",
-          "options": "Project Management, Financial Management, Information Systems Management",
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Arrêté 1176.23 (BO n° 7194)"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-piimt-rabat.png",
+        "source_url": "https://www.piimt.us/wp-content/uploads/piimt.png",
+        "page_source": "https://www.piimt.us/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -16253,11 +15438,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://suptechnology.ma",
       "annee_creation": 2006,
-      "adresse": "4, Av.Cadi Iaas, Maârif",
+      "adresse": "4, avenue Cadi Iass (ex-Mont Cénis), Maârif, 20333 Casablanca",
       "autorisation": "Autorisation n° 246/2006 du 07/08/2007",
-      "description": null,
+      "description": "École privée d'ingénierie informatique et de management de Casablanca (Bac+3 et Bac+5).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -16499,124 +15684,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
-      "id": "ma-hemt",
-      "nom": "Ecole Supérieure Privée des Hautes Etudes Managériales de Tanger",
-      "sigle": "HEMT",
-      "pays": "MA",
-      "ville": "Tanger",
-      "type": "ecole_commerce",
-      "type_libelle": "École de commerce / management",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2008,
-      "adresse": "La Baie de Tanger lotissement N° 88",
-      "autorisation": "Autorisation n° 290/2009 du 12/08/2008",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-licence-gestion",
-        "frm-master-finance-audit",
-        "frm-master-logistique",
-        "frm-master-marketing"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Finance",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-finance-audit",
-          "domaine": "dom-finance",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2014-2015",
-            "texte": "Liste ministérielle 2024-2025 (N° 6329- 5 Rabie II 1436 (26-01-2015))"
-          }
-        },
-        {
-          "intitule": "Gestion Générale",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2013-2014",
-            "texte": "Liste ministérielle 2024-2025 (N° 6084 - 3 kaada 1433 (20-9-2012))"
-          }
-        },
-        {
-          "intitule": "Management Général",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Management International et Logistique",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-logistique",
-          "domaine": "dom-transport-logistique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2014-2015",
-            "texte": "Liste ministérielle 2024-2025 (N° 6329- 5 Rabie II 1436 (26-01-2015))"
-          }
-        },
-        {
-          "intitule": "Marketing",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-marketing",
-          "domaine": "dom-commerce",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2014-2015",
-            "texte": "Liste ministérielle 2024-2025 (N° 6329- 5 Rabie II 1436 (26-01-2015))"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-sup-technology.png",
+        "source_url": "https://suptechnology.ma/public/front/assets/img/logo.png",
+        "page_source": "https://suptechnology.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -16636,11 +15711,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://emcgi.ma",
       "annee_creation": 2008,
-      "adresse": "ksaibi, Rue E, lotissement N°3",
+      "adresse": "Ksaibi, rue E, lotissement n°3, Mara 2, Tanger",
       "autorisation": "Autorisation n° 308 /2009 du 12/08/2008",
-      "description": null,
+      "description": "École privée de Tanger formant aux métiers du commerce, de la gestion et de l'informatique.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -16733,237 +15808,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
-      "id": "ma-ishedd",
-      "nom": "Institut Supérieur des Hautes Etudes en Développement Durable",
-      "sigle": "ISHEDD",
-      "pays": "MA",
-      "ville": "Rabat",
-      "type": "institut",
-      "type_libelle": "Institut",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2008,
-      "adresse": "15Bis Rue Daraa-Agdal",
-      "autorisation": "Autorisation n° n° 304/2009 du 13/10/2008",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-ingenieur-genie-chimique",
-        "frm-master-energies-renouvelables",
-        "frm-master-management"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Energies et Matériaux",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-ingenieur-genie-chimique",
-          "domaine": "dom-ingenierie",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Gestion Intégrée des Ressources et Développement Durable",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-energies-renouvelables",
-          "domaine": "dom-energie-mines",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 655.25 (BO n° 7431)"
-          }
-        },
-        {
-          "intitule": "Gestion et Management des Organisations",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-management",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2013-2014",
-            "texte": "Liste ministérielle 2024-2025 (N° 6202 - 3 moharrem 1435 (7-11-2013))"
-          }
-        },
-        {
-          "intitule": "Gestion, Management et Développement Durable",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-master-energies-renouvelables",
-          "domaine": "dom-energie-mines",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 1176.23 (BO n° 7194)"
-          }
-        },
-        {
-          "intitule": "Management et Développement Durable",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-master-energies-renouvelables",
-          "domaine": "dom-energie-mines",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Sciences de l'Eau et de l'Environnement",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-energies-renouvelables",
-          "domaine": "dom-energie-mines",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 655.25 (BO n° 7431)"
-          }
-        },
-        {
-          "intitule": "Sciences de l'Environnement et du Développement - Durable",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-master-energies-renouvelables",
-          "domaine": "dom-energie-mines",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Sciences de l’Eau et de l’Environnement",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-energies-renouvelables",
-          "domaine": "dom-energie-mines",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2013-2014",
-            "texte": "Liste ministérielle 2024-2025 (N° 6202 - 3 moharrem 1435 (7-11-2013))"
-          }
-        },
-        {
-          "intitule": "Sciences des énergies et matériaux",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-ingenieur-genie-chimique",
-          "domaine": "dom-ingenierie",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2015-2016",
-            "texte": "Liste ministérielle 2024-2025 (N° 6468 -19 chaaban 1437(26-5-2016))"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
-      "id": "ma-isesmo",
-      "nom": "Institut Supérieur des Etudes de la Santé Privé Mohammedia",
-      "sigle": "ISESMO",
-      "pays": "MA",
-      "ville": "Mohammedia",
-      "type": "ecole_sante",
-      "type_libelle": "École de santé",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2008,
-      "adresse": "N°161, Lotissement Nice2",
-      "autorisation": "Autorisation n° 319/2009 du 31/07/2009",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-licence-kinesitherapie"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Kinésithérapie",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-kinesitherapie",
-          "domaine": "dom-sante",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2016-2017",
-            "texte": "Liste ministérielle 2024-2025 (N° 6468 -19 chaaban 1437(26-5-2016))"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-emcgi.png",
+        "source_url": "https://emcgi.ma/wp-content/uploads/2022/06/4.png",
+        "page_source": "https://emcgi.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -16983,18 +15835,25 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://supingenierie.com",
       "annee_creation": 2009,
-      "adresse": "N° 251 Av Abd El khalk TARRIS",
+      "adresse": "251, avenue Abdelkhalek Torres, 93000 Tétouan",
       "autorisation": "Autorisation n° 326/2009 du 31/07/2009",
-      "description": null,
+      "description": "École privée d'ingénierie informatique de Tétouan (Bac+3 et Bac+5).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [],
       "filieres": [],
       "filieres_echues": [],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-sup-isi.png",
+        "source_url": "https://supingenierie.com/image/logo22.png",
+        "page_source": "https://supingenierie.com/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -17016,9 +15875,9 @@
       "reconnaissance_en_cours": false,
       "site_web": null,
       "annee_creation": 2010,
-      "adresse": "Imm Aarab Zawiyat Av med 5 et rue fès",
+      "adresse": "Immeuble Aarab, Zaouiat, angle avenue Mohammed V et rue de Fès, Taza",
       "autorisation": "Autorisation n° 361/2011 du 02/11/2010",
-      "description": null,
+      "description": "École privée de Taza formant en management, finance et ingénierie informatique.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -17164,12 +16023,15 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://esismp.com",
       "annee_creation": 2011,
-      "adresse": "N° 24 rue la fontaine cité Racine",
+      "adresse": "24, rue La Fontaine, Cité Racine, Casablanca",
       "autorisation": "Autorisation n° 378/2012 du 28/11/2011",
-      "description": null,
-      "coordonnees": null,
+      "description": "École privée de Casablanca formant en ingénierie de la santé, management de projets, marketing des produits pharmaceutiques et technologie biomédicale.",
+      "coordonnees": {
+        "lat": 33.5921484,
+        "lng": -7.6379846
+      },
       "wikidata": null,
       "formations": [
         "frm-ingenieur-genie-industriel",
@@ -17377,7 +16239,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esismp.png",
+        "source_url": "https://esismp.com/wp-content/uploads/2023/04/11.png",
+        "page_source": "https://esismp.com/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -17397,11 +16266,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://esms.ma",
       "annee_creation": 2012,
-      "adresse": "Lot, Almassira, Rue Tambaktou, N° 95",
+      "adresse": "N° 2, avenue Ahmed Al Mansour Eddahbi, Cité Dakhla, Agadir",
       "autorisation": "Autorisation n° 394/2013 du 05/07/2012",
-      "description": null,
+      "description": "École privée de management d'Agadir (management, finance, audit, marketing ; Bac+3 et Bac+5).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -17478,7 +16347,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esms.png",
+        "source_url": "https://esms.ma/wp-content/uploads/2026/06/logo-esms-1-2-1024x666-4.jpg",
+        "page_source": "https://esms.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -17500,9 +16376,9 @@
       "reconnaissance_en_cours": false,
       "site_web": null,
       "annee_creation": 2013,
-      "adresse": "N°10, Lotissement Narjis, Malabata BP 12203",
+      "adresse": "N° 10, lotissement Narjis, Malabata, Tanger",
       "autorisation": "Autorisation n° 413/2014 du 08/08/2013",
-      "description": null,
+      "description": "Institut privé de Tanger formant en management et aux métiers du journalisme et des médias.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -17586,56 +16462,6 @@
       ]
     },
     {
-      "id": "ma-finansup",
-      "nom": "Ecole Supérieure de Finance et d'Audit",
-      "sigle": "FINAN SUP",
-      "pays": "MA",
-      "ville": "Tanger",
-      "type": "ecole_commerce",
-      "type_libelle": "École de commerce / management",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2013,
-      "adresse": "18, Rue Ibrahim Ibn Hilal, Cité Souriyine- Tanger,",
-      "autorisation": "Autorisation n° 417/2014 du 20/02/2014",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-licence-banque-finance"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Comptabilité, Finance et audit",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-banque-finance",
-          "domaine": "dom-finance",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Arrêté 1589.22 (BO n° 7175)"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
       "id": "ma-esscg",
       "nom": "Ecole Supérieure des Sciences Commerciales et de Gestion",
       "sigle": "ESSCG",
@@ -17648,11 +16474,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://esscg.ma",
       "annee_creation": 2014,
-      "adresse": "N°8 Avenue My Rachid Résidence Rizk",
+      "adresse": "N° 8, avenue Moulay Rachid, lotissement/résidence Rizk, Tanger",
       "autorisation": "Autorisation n° 435/2015 du 31/07/2014",
-      "description": null,
+      "description": "École privée de management de Tanger (commerce, gestion, ressources humaines, logistique, finance ; Bac+3 et Bac+5).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -17720,387 +16546,6 @@
       ]
     },
     {
-      "id": "ma-adalia",
-      "nom": "ADALIA Private Institute of Management",
-      "sigle": "ADALIA",
-      "pays": "MA",
-      "ville": "Casablanca",
-      "type": "ecole_commerce",
-      "type_libelle": "École de commerce / management",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2015,
-      "adresse": "N° 1, Place Bélair - Quartier Gauthier",
-      "autorisation": "Autorisation n° 448/2016 du 07/08/2015",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-ingenieur-genie-industriel",
-        "frm-licence-gestion",
-        "frm-licence-informatique",
-        "frm-master-finance-audit",
-        "frm-master-logistique",
-        "frm-master-management",
-        "frm-master-marketing"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Administration des Affaires et Innovation Numérique",
-          "options": "Finance, Contrôle et Gestion, Management de l'Innovation et Design Thinking, Marketing et Communication Digitale",
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-informatique",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Comptabilité, Contrôle et Audit",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-finance-audit",
-          "domaine": "dom-finance",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2017-2018",
-            "texte": "Liste ministérielle 2024-2025 (N° 6578 -20 ramadan 1438(15-6-2017))"
-          }
-        },
-        {
-          "intitule": "Corparte finance et marché financier",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-finance-audit",
-          "domaine": "dom-finance",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2017-2018",
-            "texte": "Liste ministérielle 2024-2025 (N° 6578 -20 ramadan 1438(15-6-2017))"
-          }
-        },
-        {
-          "intitule": "Entreprenariat Innovation",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-ingenieur-genie-industriel",
-          "domaine": "dom-ingenierie",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2017-2018",
-            "texte": "Liste ministérielle 2024-2025 (N° 6578 -20 ramadan 1438(15-6-2017))"
-          }
-        },
-        {
-          "intitule": "Management",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2018-2019",
-            "texte": "Liste ministérielle 2024-2025 (N° 6578 -20 ramadan 1438(15-6-2017))"
-          }
-        },
-        {
-          "intitule": "Management Entrepreneuriat et Linnovation",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-management",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2020-2021",
-            "texte": "Liste ministérielle 2024-2025 (N° 6882 - 20 Ramadan 1441 (14/05/2020))"
-          }
-        },
-        {
-          "intitule": "Management de l'innovation et marketing digital",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-marketing",
-          "domaine": "dom-commerce",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2017-2018",
-            "texte": "Liste ministérielle 2024-2025 (N° 6578 -20 ramadan 1438(15-6-2017))"
-          }
-        },
-        {
-          "intitule": "Management d’Entrepreneuriat et Innovation",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": null,
-          "duree_annees": null,
-          "niveau": null,
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Management et Stratégie",
-          "options": "Innovation, Marketing Digital et Entrepreneuriat, Gouvernance, Droit et Gestion des Ressources Humaines, Finance, Contrôle et Audit",
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-management",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 655.25 (BO n° 7431)"
-          }
-        },
-        {
-          "intitule": "Marketing, Communication,Vente et Management",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-marketing",
-          "domaine": "dom-commerce",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2017-2018",
-            "texte": "Liste ministérielle 2024-2025 (N° 6578 -20 ramadan 1438(15-6-2017))"
-          }
-        },
-        {
-          "intitule": "Stratégie et Management",
-          "options": "Entrepreneuriat, Innovation et Marketing Digital, Finance, Comptabilité, Contrôle et Audit, Droit Social et Gestion des Ressources Humaines",
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-management",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Supply chaine Management",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-logistique",
-          "domaine": "dom-transport-logistique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2017-2018",
-            "texte": "Liste ministérielle 2024-2025 (N° 6578 -20 ramadan 1438(15-6-2017))"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
-      "id": "ma-esb-berrechid",
-      "nom": "Ecole Supérieure Business de Berrechid Privée",
-      "sigle": "ESB Berrechid",
-      "pays": "MA",
-      "ville": "Berrechid",
-      "type": "ecole_commerce",
-      "type_libelle": "École de commerce / management",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2015,
-      "adresse": "12, Angle Rue d'Alger, Rue Ibn Tachfine et Rue Omar Ibn El Khattab",
-      "autorisation": "Autorisation n° 454/2016 du 14/11/2016",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-licence-gestion"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Business Management",
-          "options": "E- Commerce et Marketing, Ingénierie Financière",
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
-      "id": "ma-emlc",
-      "nom": "EMLC business school",
-      "sigle": "EMLC",
-      "pays": "MA",
-      "ville": "Casablanca",
-      "type": "ecole_commerce",
-      "type_libelle": "École de commerce / management",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2016,
-      "adresse": "Marina de Casablanca - Tour Crystal 1 (6e étage) & Tour Ivoire 4 ( Immeuble ) - 20000 Casablanca.",
-      "autorisation": "Autorisation n° 459/2016 du 07/08/2017",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-licence-gestion",
-        "frm-master-management"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Administration des Affaires",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Business Administration",
-          "options": "International Business",
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Arrêté 1589.22 (BO n° 7175)"
-          }
-        },
-        {
-          "intitule": "Global Management",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-management",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2019-2020",
-            "texte": "Liste ministérielle 2024-2025 (N° 6796 - 15 Kaada 1440 (15-07-2019))"
-          }
-        },
-        {
-          "intitule": "Management et conduite des Organisations",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Cycle préparatoire intégré",
-          "duree_annees": 2,
-          "niveau": "niv-bac2",
-          "formation": "frm-licence-gestion",
-          "domaine": "dom-gestion",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Arrêté 1589.22 (BO n° 7175)"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
       "id": "ma-tbs-casa",
       "nom": "TBS Casablanca- Business School",
       "sigle": "TBS Casablanca",
@@ -18114,14 +16559,11 @@
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
       "site_web": "https://www.tbs-education.ma",
-      "annee_creation": 1903,
-      "adresse": "Lotissement la Colline II route Nouacer sidi Maârouf (Bâtiment A)",
+      "annee_creation": 2017,
+      "adresse": "Immeuble TBS, angle rue Louwaya et rue de la Cité de l'Air 5, Lot 17, Quartier Anfa Cité de l'Air, Pôle urbain Casa Anfa, Hay Hassani, Casablanca",
       "autorisation": "Autorisation n° 461/2017 du 16/04/2018",
-      "description": null,
-      "coordonnees": {
-        "lat": 43.6097,
-        "lng": 1.43167
-      },
+      "description": "Campus de Casablanca de TBS Education (Toulouse), école de management proposant bachelor, masters et programmes exécutifs.",
+      "coordonnees": null,
       "wikidata": "Q3117393",
       "formations": [
         "frm-licence-gestion",
@@ -18244,136 +16686,6 @@
       ]
     },
     {
-      "id": "ma-ostelea",
-      "nom": "Ostelea Rabat, School of Tourism et Hospitality",
-      "sigle": "Ostelea",
-      "pays": "MA",
-      "ville": "Rabat",
-      "type": "institut",
-      "type_libelle": "Institut",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2018,
-      "adresse": "Avenue Al Melia, rue Meziata, secteur 9, Hay Ryad- Rabat",
-      "autorisation": "Autorisation n° 465/2018 du 23/10/2018",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-licence-hotellerie"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Direction Hotelière et de Gestion d'Entreprises de la Restauration",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-licence-hotellerie",
-          "domaine": "dom-tourisme",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2019-2020",
-            "texte": "Liste ministérielle 2024-2025 (N° 6796 - 15 Kaada 1440 (15-07-2019))"
-          }
-        },
-        {
-          "intitule": "Gestion Internationale du Tourisme",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-licence-hotellerie",
-          "domaine": "dom-tourisme",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2019-2020",
-            "texte": "Liste ministérielle 2024-2025 (N° 6796 - 15 Kaada 1440 (15-07-2019))"
-          }
-        },
-        {
-          "intitule": "Management des Entreprises Touristiques et de l'Evénementiel",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-licence-hotellerie",
-          "domaine": "dom-tourisme",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Management du Tourisme International",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-hotellerie",
-          "domaine": "dom-tourisme",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Arrêté 1589.22 (BO n° 7175)"
-          }
-        },
-        {
-          "intitule": "Organisation d'événements, protocole et tourisme d'affaires",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Master",
-          "duree_annees": 2,
-          "niveau": "niv-bac5",
-          "formation": "frm-licence-hotellerie",
-          "domaine": "dom-tourisme",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2019-2020",
-            "texte": "Liste ministérielle 2024-2025 (N° 6796 - 15 Kaada 1440 (15-07-2019))"
-          }
-        },
-        {
-          "intitule": "Tourisme International",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Licence / Bachelor",
-          "duree_annees": 3,
-          "niveau": "niv-bac3",
-          "formation": "frm-licence-hotellerie",
-          "domaine": "dom-tourisme",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Arrêté 1589.22 (BO n° 7175)"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
       "id": "ma-eslsca",
       "nom": "ESLSCA, Business School",
       "sigle": "ESLSCA",
@@ -18386,11 +16698,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.eslsca.ma",
       "annee_creation": 2019,
-      "adresse": "Avenue Al Melia, rue Meziata, secteur 9, Hay Ryad- Rabat",
+      "adresse": "Avenue Al Melia, rue Meziata, secteur 9, Hay Riad, Rabat",
       "autorisation": "Autorisation n° 472/2019 du 17/03/2020",
-      "description": null,
+      "description": "Campus de Rabat d'ESLSCA, école de commerce et de management (groupe Planeta Formación y Universidades).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -18515,7 +16827,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-eslsca.svg",
+        "source_url": "https://www.eslsca.ma/sites/eslsca.ma/themes/custom/sbx_theme/isologotipo.svg",
+        "page_source": "https://www.eslsca.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -18535,12 +16854,15 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://hem.ac.ma",
       "annee_creation": 2020,
-      "adresse": "Avenue Al Quods - Californie II (Angle Avenue A ;AC57 et AC21)",
+      "adresse": "Avenue Al Qods, Californie, Casablanca",
       "autorisation": "Autorisation n° 476/2019 du 27/05/2020",
-      "description": null,
-      "coordonnees": null,
+      "description": "École d'ingénierie informatique de HEM à Casablanca (développement, réseaux et cloud, données, intelligence artificielle).",
+      "coordonnees": {
+        "lat": 33.5314611,
+        "lng": -7.6214826
+      },
       "wikidata": null,
       "formations": [
         "frm-licence-informatique",
@@ -18625,11 +16947,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://iseparamedical.com",
       "annee_creation": 2021,
-      "adresse": "Boulevard Ouled Haddo, N°5,Quartier les crêtes ,Aïn chock, Casablanca",
+      "adresse": "Boulevard Ouled Haddou, N° 5-7, Quartier Les Crêtes, Aïn Chock, Casablanca",
       "autorisation": "Autorisation n° 483/2021 du 27/07/2021",
-      "description": null,
+      "description": "Institut privé de Casablanca formant aux métiers paramédicaux (infirmier polyvalent, sage-femme, anesthésie-réanimation, bloc opératoire).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -18738,206 +17060,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
-      "id": "ma-epsinsia",
-      "nom": "Ecole Privée Supérieure d'Ingénierie Numérique et Systèmes d'Intelligence Artificielle",
-      "sigle": "EPSINSIA",
-      "pays": "MA",
-      "ville": "Casablanca",
-      "type": "ecole_ingenieurs",
-      "type_libelle": "École d'ingénieurs",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2022,
-      "adresse": "124 Boulevard Ben Aicha, Roches Noires, Casablanca",
-      "autorisation": "Autorisation n° 491/2022 du 01/12/2022",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-cpge-scientifique",
-        "frm-ingenieur-genie-industriel",
-        "frm-ingenieur-informatique",
-        "frm-licence-genie-logiciel",
-        "frm-master-cybersecurite",
-        "frm-master-data-science-ia"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Deux années préparatoires en Sciences de l'Ingénieur en Technologies Numériques Avancées",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Cycle préparatoire intégré",
-          "duree_annees": 2,
-          "niveau": "niv-bac2",
-          "formation": "frm-cpge-scientifique",
-          "domaine": "dom-ingenierie",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Arrêté 1176.23 (BO n° 7194)"
-          }
-        },
-        {
-          "intitule": "Ingénierie de la Cyber Sécurité et Confiance Digitale",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Diplôme d'ingénieur",
-          "duree_annees": 5,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-cybersecurite",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 1176.23 (BO n° 7194)"
-          }
-        },
-        {
-          "intitule": "Ingénierie de la Cybersécurité et Confiance Digitale",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Cycle préparatoire intégré",
-          "duree_annees": 2,
-          "niveau": "niv-bac2",
-          "formation": "frm-master-cybersecurite",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Liste ministérielle 2024-2025 (N° 7194 - 20 Chaoual 1444 (11-05-2023))"
-          }
-        },
-        {
-          "intitule": "Ingénierie des Applications Mobiles et Réalité Virtuelle",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Cycle préparatoire intégré",
-          "duree_annees": 2,
-          "niveau": "niv-bac2",
-          "formation": "frm-licence-genie-logiciel",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 1176.23 (BO n° 7194)"
-          }
-        },
-        {
-          "intitule": "Ingénierie des Méga Données Analytiques",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Diplôme d'ingénieur",
-          "duree_annees": 5,
-          "niveau": "niv-bac5",
-          "formation": "frm-master-data-science-ia",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 1176.23 (BO n° 7194)"
-          }
-        },
-        {
-          "intitule": "Ingénierie des Mégadonnées Analytiques",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Cycle préparatoire intégré",
-          "duree_annees": 2,
-          "niveau": "niv-bac2",
-          "formation": "frm-master-data-science-ia",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2023-2024",
-            "texte": "Liste ministérielle 2024-2025 (N° 7194 - 20 Chaoual 1444 (11-05-2023))"
-          }
-        },
-        {
-          "intitule": "Ingénierie des Objets Connectés Intelligents",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Cycle préparatoire intégré",
-          "duree_annees": 2,
-          "niveau": "niv-bac2",
-          "formation": "frm-ingenieur-genie-industriel",
-          "domaine": "dom-ingenierie",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 1176.23 (BO n° 7194)"
-          }
-        },
-        {
-          "intitule": "Ingénierie des Systèmes d'Intelligence Artificielle",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Cycle préparatoire intégré",
-          "duree_annees": 2,
-          "niveau": "niv-bac2",
-          "formation": "frm-master-data-science-ia",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 1176.23 (BO n° 7194)"
-          }
-        },
-        {
-          "intitule": "Intelligence Artificielle et Sciences des Données",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": null,
-          "duree_annees": null,
-          "niveau": null,
-          "formation": "frm-master-data-science-ia",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Sciences de l'Ingénieur en Technologies Numériques Avancées",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Cycle préparatoire intégré",
-          "duree_annees": 2,
-          "niveau": "niv-bac2",
-          "formation": "frm-ingenieur-informatique",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 655.25 (BO n° 7431)"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-isep-casa.png",
+        "source_url": "https://iseparamedical.com/wp-content/themes/isep/assets/images/isep/iseep_logo.png",
+        "page_source": "https://iseparamedical.com/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -18957,11 +17087,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2022,
-      "adresse": "Douar Oulad Malek- Province de Bouskoura",
+      "site_web": "https://iiem.ac.ma",
+      "annee_creation": 2023,
+      "adresse": "Douar Oulad Malek, Bouskoura (province de Nouaceur)",
       "autorisation": "Autorisation n° 490/2022 du 08/04/2022",
-      "description": null,
+      "description": "Institut privé d'ingénierie de Bouskoura, partie du campus marocain de Coventry University (IIEM), proposant des diplômes britanniques en ingénierie.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -19004,91 +17134,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
-      "photos": [],
-      "sources": [
-        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
-        "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
-    },
-    {
-      "id": "ma-essib",
-      "nom": "Ecole Supérieure des Sciences et de l'Ingénierie Bouregreg Privée",
-      "sigle": "ESSIB",
-      "pays": "MA",
-      "ville": "Salé",
-      "type": "ecole_ingenieurs",
-      "type_libelle": "École d'ingénieurs",
-      "statut": "prive",
-      "label": "autorise",
-      "label_libelle": "Établissement autorisé",
-      "reconnaissance": null,
-      "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": 2023,
-      "adresse": "Lotissement Habouss N°27,hay chmaou- Route de Kénitra-Salé",
-      "autorisation": "Autorisation n° 493/2023 du 13/09/2023",
-      "description": null,
-      "coordonnees": null,
-      "wikidata": null,
-      "formations": [
-        "frm-cpge-scientifique",
-        "frm-ingenieur-genie-civil",
-        "frm-ingenieur-informatique"
-      ],
-      "filieres": [],
-      "filieres_echues": [
-        {
-          "intitule": "Classes Préparatoires Intégrées",
-          "options": null,
-          "composante": null,
-          "ville": null,
-          "diplome": "Cycle préparatoire intégré",
-          "duree_annees": 2,
-          "niveau": "niv-bac2",
-          "formation": "frm-cpge-scientifique",
-          "domaine": "dom-ingenierie",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2024-2025",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Génie Informatique",
-          "options": "Ingénierie Web et Mobile, Ingénierie Data et Intelligence Artificielle",
-          "composante": null,
-          "ville": null,
-          "diplome": "Cycle préparatoire intégré",
-          "duree_annees": 2,
-          "niveau": "niv-bac2",
-          "formation": "frm-ingenieur-informatique",
-          "domaine": "dom-numerique",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        },
-        {
-          "intitule": "Génie civil",
-          "options": "Bâtiments, Ponts et Chaussées, Travaux Publics, Hydraulique et Environnement",
-          "composante": null,
-          "ville": null,
-          "diplome": "Cycle préparatoire intégré",
-          "duree_annees": 2,
-          "niveau": "niv-bac2",
-          "formation": "frm-ingenieur-genie-civil",
-          "domaine": "dom-btp",
-          "homologation": {
-            "statut": "echue",
-            "fin": "2025-2026",
-            "texte": "Arrêté 365.24 (BO n° 7313)"
-          }
-        }
-      ],
-      "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-iiec.png",
+        "source_url": "https://iiem.ac.ma/storage/2022/12/iimc-logo-1.png",
+        "page_source": "https://iiem.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -19108,11 +17161,11 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://edumed.ma",
       "annee_creation": 2023,
-      "adresse": "Avenue Al Melia, rue Meziata, Hay Ryad- Rabat",
+      "adresse": "Avenue Al Melia, rue Meziata, secteur 9, Hay Riad, Rabat",
       "autorisation": "Autorisation n° 495/2023 du 13/10/2023",
-      "description": null,
+      "description": "École privée de Rabat formant aux métiers paramédicaux et de la rééducation.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -19169,6 +17222,113 @@
           }
         }
       ],
+      "offre_indicative": false,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-edumed.png",
+        "source_url": "https://www.edumed.ma/sites/edumed.ma/themes/custom/sbx_theme/isologotipo.webp",
+        "page_source": "https://www.edumed.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
+      "photos": [],
+      "sources": [
+        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
+        "Bulletin officiel — arrêtés d'accréditation des filières"
+      ]
+    },
+    {
+      "id": "ma-esdav",
+      "nom": "École Supérieure de Design et des Arts Visuels",
+      "sigle": "ESDAV",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "arts_design",
+      "type_libelle": "École d'art, de design et d'architecture d'intérieur",
+      "statut": "prive",
+      "label": "autorise",
+      "label_libelle": "Établissement autorisé",
+      "reconnaissance": null,
+      "reconnaissance_en_cours": false,
+      "site_web": "https://www.ecole-design.com",
+      "annee_creation": 2006,
+      "adresse": "Angle Boulevard Tantan et rue Benguerir, Almanar, Anfa, Casablanca",
+      "autorisation": "Autorisation n° 287/2007 du 08/08/2007",
+      "description": "École privée de design créée en 2006, formant en architecture d'intérieur, design et arts visuels (cycles Bac+3 et Masters).",
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [],
+      "filieres": [],
+      "filieres_echues": [],
+      "offre_indicative": false,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esdav.png",
+        "source_url": "https://static.wixstatic.com/media/5221b5_b26b7e372fa7451392e91ab47992f05a~mv2.png/v1/fill/w_54,h_62,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/LOGO.png",
+        "page_source": "https://www.ecole-design.com/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-14",
+        "a_verifier": true
+      },
+      "photos": [],
+      "sources": [
+        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
+        "Bulletin officiel — arrêtés d'accréditation des filières"
+      ]
+    },
+    {
+      "id": "ma-pbds",
+      "nom": "Private Business and Digital School",
+      "sigle": "PBDS",
+      "pays": "MA",
+      "ville": "Casablanca",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "prive",
+      "label": "autorise",
+      "label_libelle": "Établissement autorisé",
+      "reconnaissance": null,
+      "reconnaissance_en_cours": false,
+      "site_web": null,
+      "annee_creation": 2024,
+      "adresse": "Lotissement Annasr, Secteur 15 N° 14-RCE, Commune Oulad Salah, Province Nouaceur, Casablanca",
+      "autorisation": "Autorisation n° 503/2024 du 04/04/2025",
+      "description": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [],
+      "filieres": [],
+      "filieres_echues": [],
+      "offre_indicative": false,
+      "logo": null,
+      "photos": [],
+      "sources": [
+        "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
+        "Bulletin officiel — arrêtés d'accréditation des filières"
+      ]
+    },
+    {
+      "id": "ma-iim-agadir",
+      "nom": "International Institute of Management Agadir",
+      "sigle": "IIM Agadir",
+      "pays": "MA",
+      "ville": "Agadir",
+      "type": "ecole_commerce",
+      "type_libelle": "École de commerce / management",
+      "statut": "prive",
+      "label": "autorise",
+      "label_libelle": "Établissement autorisé",
+      "reconnaissance": null,
+      "reconnaissance_en_cours": false,
+      "site_web": null,
+      "annee_creation": 2025,
+      "adresse": "Zone Grand Stade Adrar, Hay Mohammadi, Ida Outanane, Agadir",
+      "autorisation": "Autorisation n° 508/2025 du 22/04/2026",
+      "description": null,
+      "coordonnees": null,
+      "wikidata": null,
+      "formations": [],
+      "filieres": [],
+      "filieres_echues": [],
       "offre_indicative": false,
       "logo": null,
       "photos": [],

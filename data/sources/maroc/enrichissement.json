@@ -794,5 +794,503 @@
     "description": "École d'ingénieurs privée de Casablanca proposant des classes préparatoires intégrées et des filières en génie civil, génie informatique et génie mécatronique.",
     "coordonnees": null,
     "notes": "Établissement absent de la liste ministérielle 2023-2024 ; ni site, ni adresse, ni année trouvés."
+  },
+  "ma-isgc": {
+    "annee_creation": 1989,
+    "adresse": "23, rue Hafid Ibrahim, Quartier Gauthier, 20060 Casablanca",
+    "description": "Institut d'enseignement supérieur privé de Casablanca formant en gestion et commerce (comptabilité-audit, marketing), rattaché au groupe ISG.",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Absent de la liste ministérielle des établissements privés autorisés 2025-2026 (présent en 2023-2024) ; filières encore listées comme accréditées dans la liste des filières 2025-2026 mais avec accréditation 2011-2016. Les annuaires (etudiant.ma) le présentent comme une composante du groupe ISG (fondé en 1984). Pas de site officiel propre identifié. Possible intégration/fusion dans le groupe ISG : non confirmé."
+  },
+  "ma-heci-rabat": {
+    "site_web": "https://www.groupeheci.ac.ma",
+    "annee_creation": 1991,
+    "adresse": "89, rue Sebou, Avenue de France, Agdal, Rabat",
+    "description": "Campus de Rabat du Groupe HECI, école privée de commerce, de management et d'informatique (licences et masters).",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Groupe HECI fondé en 1986 (Casablanca) ; campus de Rabat autorisé en 1991. Présent dans la liste ministérielle 2025-2026 ; candidatures 2026 relayées par maroccampus.com."
+  },
+  "ma-heci-meknes": {
+    "site_web": "https://www.groupeheci.ac.ma",
+    "annee_creation": 1992,
+    "adresse": "9, rue de Chinon, Es-Saâda, Meknès",
+    "description": "Campus de Meknès du Groupe HECI, école privée de commerce, de management et d'informatique.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026 et sur la page campus du groupe."
+  },
+  "ma-heci-fes": {
+    "site_web": "https://www.groupeheci.ac.ma",
+    "annee_creation": 1992,
+    "adresse": "Rue 134, Avenue Allal Ben Abdellah, Fès",
+    "description": "Campus de Fès du Groupe HECI, école privée de commerce, de management et d'informatique.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026 et sur la page campus du groupe."
+  },
+  "ma-heci-kenitra": {
+    "site_web": "https://www.groupeheci.ac.ma",
+    "annee_creation": 1996,
+    "adresse": "535, Boulevard Mohammed V, Kénitra",
+    "description": "Campus de Kénitra du Groupe HECI, école privée de commerce, de management et d'informatique.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026 et sur la page campus du groupe."
+  },
+  "ma-heci-oujda": {
+    "site_web": "https://www.groupeheci.ac.ma",
+    "annee_creation": 2001,
+    "adresse": "171, angle Bd Smara et Bd Dakhla, Quartier El Massira (ex-quartier Azyncot), Oujda",
+    "description": "Campus d'Oujda du Groupe HECI, école privée de commerce, de management et d'informatique.",
+    "coordonnees": {
+      "lat": 34.6666208,
+      "lng": -1.9080641
+    },
+    "statut": "actif",
+    "notes": "Le site du groupe indique « Hay Massira, Ex-quartier Azyncot ». Présent dans la liste ministérielle 2025-2026."
+  },
+  "ma-epsielm": {
+    "annee_creation": 1989,
+    "adresse": "4, Avenue Allal Ben Abdellah, Immeuble Abbou, Ville Nouvelle, 30000 Fès",
+    "description": "École privée d'ingénierie de Fès formant en informatique, électronique, réseaux et télécommunications, informatique industrielle et management.",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "L'école indique une création en 1989 (autorisation ministérielle N° 32/88, effet 1993-1994). Le domaine epsiel.net est désormais une page parking « domain may be for sale » (vérifié oct. 2026) et l'école est absente de la liste ministérielle des établissements autorisés 2025-2026 alors qu'elle figurait en 2023-2024. Fermeture probable mais non confirmée par une source explicite."
+  },
+  "ma-hem-rabat": {
+    "site_web": "https://hem.ac.ma",
+    "annee_creation": 1993,
+    "adresse": "Intersection Avenue Mohammed VI et Akrache, Lotissement Mouline n° 3, Souissi, Rabat",
+    "description": "Campus de Rabat de HEM Business School, école privée de management (programmes Bac+3 à Bac+5 et formation exécutive).",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "HEM (fondée en 1988) fait partie du réseau LCI Education depuis 2019. Le campus de Rabat est l'un des deux campus actuellement présentés (Casablanca et Rabat). Présent dans la liste ministérielle 2025-2026."
+  },
+  "ma-hem-marrakech": {
+    "site_web": "https://hem.ac.ma",
+    "annee_creation": 2004,
+    "adresse": "Lotissement Les Riads de l'Atlas, Mbarka III, Agdal, Avenue Mohammed VI, Marrakech",
+    "description": "Ancien campus de Marrakech de HEM Business School (école privée de management).",
+    "coordonnees": null,
+    "statut": "ferme",
+    "notes": "HEM indique aujourd'hui n'avoir que 2 campus (Casablanca, Rabat) ; la presse de sept. 2026 sur le passage à l'Université Internationale HEM ne cite que Casablanca et Rabat ; absent de la liste ministérielle des établissements autorisés 2025-2026. HEM communiquait encore sur 4 campus et une visite à HEM Marrakech en nov. 2024 : fermeture probablement intervenue en 2025, déduite, sans annonce officielle trouvée."
+  },
+  "ma-hbfg-casa": {
+    "annee_creation": 1995,
+    "adresse": "4, rue Van Zeeland, angle 113 Bd Abdelmoumen, Quartier des Hôpitaux, Casablanca",
+    "description": "Institut privé d'enseignement supérieur de Casablanca spécialisé en banque, finance, assurance, audit et commerce international (Bac+3 et Bac+5).",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Connu sous le nom HBF, puis HBFA (« Institut des Hautes Études en Banque, Finance et Assurances ») ; présenté comme membre du Groupe Kawn. Absent de la liste ministérielle des établissements autorisés 2025-2026. Une page Facebook « HBF Officiel » annonce des inscriptions ouvertes (non datée). Société en activité selon un registre commercial. Statut d'établissement autorisé à confirmer. Le domaine hbfa.ma héberge désormais un site de paris en ligne (vérifié oct. 2026) et hbfmaroc.com est injoignable : signes d'arrêt possible."
+  },
+  "ma-esol": {
+    "site_web": "https://esol.ma",
+    "annee_creation": 1996,
+    "adresse": "5, rue Bizerte (Benzert), Hay Zouhour II, Route d'Immouzer, Ville Nouvelle, 30000 Fès",
+    "description": "École privée de Fès formant aux métiers de l'optique-lunetterie et de l'optométrie.",
+    "coordonnees": {
+      "lat": 34.0031339,
+      "lng": -4.9878372
+    },
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026 ; site esol.ma actif (© 2026). Ne pas confondre avec ESOL (France)."
+  },
+  "ma-esma": {
+    "site_web": "https://esmamaroc.ma",
+    "annee_creation": 1996,
+    "adresse": "Avenue Prince Moulay Abdellah (ex-avenue de Safi), Rouidate 1, Immeuble Berrada, Guéliz, Marrakech",
+    "description": "École privée de Marrakech proposant des formations en management et en génie informatique (Bac+3 à Bac+5).",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Nom d'usage : « Ecole Supérieure de Management et d'Informatique Appliqués ». Inscriptions 2025-2026 annoncées sur Instagram ; présent dans la liste ministérielle 2025-2026."
+  },
+  "ma-esrim": {
+    "site_web": "https://www.esrim.ma",
+    "annee_creation": 1996,
+    "adresse": "46, boulevard Mohammed V, place de la Municipalité, 26000 Settat",
+    "description": "École privée de Settat formant en réseaux et informatique, données, ainsi qu'en marketing, finance, comptabilité et management.",
+    "coordonnees": {
+      "lat": 33.0010682,
+      "lng": -7.6186687
+    },
+    "statut": "actif",
+    "notes": "Site officiel actif (© 2026) ; présent dans la liste ministérielle 2025-2026."
+  },
+  "ma-mmbs": {
+    "site_web": "https://mmbs.ac.ma",
+    "annee_creation": 1997,
+    "adresse": "13, boulevard Hassan II, Mohammedia",
+    "description": "École privée de management de Mohammedia.",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Le domaine mmbs.ac.ma porte le titre « MMBS – Moroccan Management Business School » (nom différent de l'intitulé ministériel). La page Facebook la décrit comme « Campus by Moroccan Business School » (Groupe MBS). Absent de la liste ministérielle des établissements autorisés 2025-2026. Activité récente non vérifiée."
+  },
+  "ma-embci": {
+    "site_web": "https://embci.com",
+    "annee_creation": 1998,
+    "adresse": "26 bis, Avenue du Souss, Souissi, Rabat",
+    "description": "École privée de Rabat formant aux métiers de la banque, de la finance et du commerce international.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Fondée en 1998 par des professionnels de la banque. L'adresse ministérielle « Avenue Souissi » correspond à l'Avenue du Souss. Présent dans la liste ministérielle 2025-2026 ; pages Facebook/Instagram actives."
+  },
+  "ma-ismoo": {
+    "site_web": "http://www.ismoosarl.ma",
+    "annee_creation": 1998,
+    "adresse": "7, rue Ben Dahan, 1er étage, escalier B, Casablanca",
+    "description": "Institut privé de Casablanca formant en optique et en optométrie (cycles Bac+3).",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Statut « actif » fondé principalement sur sa présence dans la liste ministérielle 2025-2026 ; pas d'activité en ligne récente vérifiée. Site web à confirmer (ismoosarl.ma cité par un annuaire)."
+  },
+  "ma-ehesicom": {
+    "annee_creation": 1999,
+    "adresse": "3, avenue Mohammed Abdou, Quartier Maâmora, 14000 Kénitra",
+    "description": "École privée de Kénitra formant en commerce, ingénierie commerciale et gestion.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Nom complet : École des Hautes Études des Sciences de l'Ingénierie Commerciale et Management (eHESICom). Présent dans la liste ministérielle 2025-2026 ; pages Facebook/Instagram avec annonces d'inscription. Site web officiel non vérifié."
+  },
+  "ma-hek": {
+    "site_web": "https://www.hek.ma",
+    "annee_creation": 2000,
+    "adresse": "14, rue Tabit Ibnou Kourra, Avenue Moulay Driss Ier, Casablanca",
+    "description": "École privée de Casablanca formant des kinésithérapeutes.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Portes ouvertes 2026-2027 annoncées sur ses réseaux sociaux ; présent dans la liste ministérielle 2025-2026."
+  },
+  "ma-suptem": {
+    "site_web": "https://suptembmhs.com",
+    "annee_creation": 2001,
+    "adresse": "6, rue Haj Mohamed Tazi, Marshan, 90000 Tanger",
+    "description": "École privée pluridisciplinaire de Tanger (sciences techniques et management), membre du Groupe BMHS.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026."
+  },
+  "ma-isjc": {
+    "site_web": "https://isjc-press.ma",
+    "annee_creation": 2001,
+    "adresse": "47, boulevard Rahal El Meskini, 1er étage, Casablanca",
+    "description": "Institut privé de Casablanca formant au journalisme et à la communication (télévision, radio, presse, numérique).",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026 ; compte Instagram actif."
+  },
+  "ma-vinci": {
+    "site_web": "https://vinci.ma",
+    "annee_creation": 2003,
+    "adresse": "10, rue El Yamama (à proximité de la gare Rabat-Ville), Rabat",
+    "description": "École privée d'ingénierie de Rabat formant en informatique et en réseaux de télécommunications.",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Aussi appelée « École Supérieure Vinci » / « Institut Supérieur Vinci ». Site vinci.ma en mode maintenance (© 2025) et injoignable lors de la vérification ; absent de la liste ministérielle des établissements autorisés 2025-2026. Aucune annonce de fermeture trouvée."
+  },
+  "ma-ifjsup-casa": {
+    "site_web": "https://www.ifjsup.ma",
+    "annee_creation": 2003,
+    "adresse": "97 C, boulevard Hassan Seghir, Derb Omar, Casablanca",
+    "description": "Institut privé de Casablanca formant au journalisme, à l'information et à la communication.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026 ; site officiel et réseaux sociaux actifs."
+  },
+  "ma-ifjsup-marrakech": {
+    "site_web": "https://www.ifjsup.ma",
+    "annee_creation": 2015,
+    "adresse": "23, angle avenue Yacoub El Mansour, Espace Guéliz, 2e étage, Marrakech",
+    "description": "Antenne de Marrakech de l'IFJ Sup, institut privé formant au journalisme, à l'information et à la communication.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026 (N°446/2016). Page contact Marrakech sur le site officiel."
+  },
+  "ma-eseje": {
+    "annee_creation": 2004,
+    "adresse": "146, lotissement Nice I (près de Marjane), B.P. 1214, Mohammedia",
+    "description": "École privée de Mohammedia formant en droit des affaires et en gestion (comptabilité, audit, banque, assurance).",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Statut « actif » fondé sur sa présence dans la liste ministérielle 2025-2026 ; aucune activité en ligne récente ni site officiel vérifié."
+  },
+  "ma-isota": {
+    "annee_creation": 2005,
+    "adresse": "8, rue Ahmed Akrad, Quartier Oasis, Casablanca",
+    "description": "Institut privé de Casablanca formant aux métiers de l'optique (opticien).",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "L'adresse ministérielle « loisiss » correspond au quartier Oasis. Présent dans la liste ministérielle 2025-2026 ; pages Facebook/Instagram (inscriptions ouvertes, non datées). Pas de site web officiel identifié."
+  },
+  "ma-hep-management": {
+    "annee_creation": 2005,
+    "adresse": "9, rue Essakhra, Hay Al Quds, Oujda",
+    "description": "École privée de management d'Oujda (cycles Bac+3 et Bac+5 en management des affaires, marketing, finance et audit).",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026 ; seules des fiches d'annuaires anciennes ont été trouvées, sans activité récente."
+  },
+  "ma-suptema": {
+    "annee_creation": 2005,
+    "adresse": "67, rue Khalid Ibn Al Oualid, Bourmana, Fès",
+    "description": "École privée de Fès formant en télécommunications, réseaux, systèmes et management.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Statut « actif » fondé uniquement sur sa présence dans la liste ministérielle 2025-2026 ; pas de site officiel ni d'activité récente vérifiés."
+  },
+  "ma-piimt-rabat": {
+    "site_web": "https://www.piimt.us",
+    "annee_creation": 2006,
+    "adresse": "45, avenue Ouled Said, Bir Kacem, Souissi, Rabat",
+    "description": "École privée de Rabat de management et de technologie proposant des programmes en français ou en anglais en partenariat avec une université américaine.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Renommée « International School of Leadership for Business and Technology » (intitulé de la liste ministérielle 2025-2026, sigle PIIMT conservé). Site piimt.us mentionnant les inscriptions 2024/2025 ; publication de janvier 2026 sur ses réseaux. piimt.ac.ma injoignable lors de la vérification."
+  },
+  "ma-piimt-casa": {
+    "site_web": "https://www.piimt.us",
+    "annee_creation": 2013,
+    "adresse": "490, boulevard Panoramique, Polo, Casablanca",
+    "description": "Campus de Casablanca de PIIMT, école privée de management et de technologie.",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026 alors que le campus de Rabat y figure (sous le nom International School of Leadership for Business and Technology). Une page de liens de 2022/2023 mentionnait encore un campus de Casablanca. Fermeture possible, non confirmée."
+  },
+  "ma-sup-technology": {
+    "site_web": "https://suptechnology.ma",
+    "annee_creation": 2006,
+    "adresse": "4, avenue Cadi Iass (ex-Mont Cénis), Maârif, 20333 Casablanca",
+    "description": "École privée d'ingénierie informatique et de management de Casablanca (Bac+3 et Bac+5).",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026 ; site officiel actif."
+  },
+  "ma-hemt": {
+    "annee_creation": 2008,
+    "adresse": "Route de Malabata, lotissement Ghandouri, Baie de Tanger, Tanger",
+    "description": "Ancien campus de Tanger de HEM Business School (école privée de management).",
+    "coordonnees": null,
+    "statut": "ferme",
+    "notes": "HEMT correspond au campus HEM Tanger (contact hem.tanger@hem.ac.ma). HEM indique aujourd'hui n'avoir que 2 campus (Casablanca, Rabat) et la presse de sept. 2026 (passage à l'Université Internationale HEM) ne cite que Casablanca et Rabat ; absent de la liste ministérielle 2025-2026. Fermeture déduite, sans annonce officielle trouvée."
+  },
+  "ma-emcgi": {
+    "site_web": "https://emcgi.ma",
+    "annee_creation": 2008,
+    "adresse": "Ksaibi, rue E, lotissement n°3, Mara 2, Tanger",
+    "description": "École privée de Tanger formant aux métiers du commerce, de la gestion et de l'informatique.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Fondée en 2008 par des enseignants universitaires. Présent dans la liste ministérielle 2025-2026."
+  },
+  "ma-ishedd": {
+    "site_web": "https://ishedd.com",
+    "annee_creation": 2008,
+    "adresse": "21, rue Abou Chouaib Doukkali, 10000 Rabat",
+    "description": "Institut privé de Rabat spécialisé en environnement, développement durable et sciences de l'eau, avec double diplomation au Canada (INRS, Université de Sherbrooke).",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Le site officiel donne une adresse différente de l'adresse ministérielle (15 bis, rue Daraa, Agdal) : déménagement probable. Page d'accueil modifiée en avril 2026, mais aucune actualité ou admission datée récente ; absent de la liste ministérielle des établissements autorisés 2025-2026."
+  },
+  "ma-isesmo": {
+    "annee_creation": 2008,
+    "adresse": "161, lotissement Nice II, 28800 Mohammedia",
+    "description": "Institut privé de Mohammedia formant aux métiers de la santé.",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026 ; seule une fiche d'annuaire a été trouvée, sans activité récente."
+  },
+  "ma-sup-isi": {
+    "site_web": "https://supingenierie.com",
+    "annee_creation": 2009,
+    "adresse": "251, avenue Abdelkhalek Torres, 93000 Tétouan",
+    "description": "École privée d'ingénierie informatique de Tétouan (Bac+3 et Bac+5).",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026 ; site officiel et espace étudiant en ligne actifs."
+  },
+  "ma-orient-sup": {
+    "annee_creation": 2010,
+    "adresse": "Immeuble Aarab, Zaouiat, angle avenue Mohammed V et rue de Fès, Taza",
+    "description": "École privée de Taza formant en management, finance et ingénierie informatique.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Se présente comme membre du groupe SupMTI. Présent dans la liste ministérielle 2025-2026 ; pages Facebook/Instagram. Pas de site officiel identifié."
+  },
+  "ma-esismp": {
+    "site_web": "https://esismp.com",
+    "annee_creation": 2011,
+    "adresse": "24, rue La Fontaine, Cité Racine, Casablanca",
+    "description": "École privée de Casablanca formant en ingénierie de la santé, management de projets, marketing des produits pharmaceutiques et technologie biomédicale.",
+    "coordonnees": {
+      "lat": 33.5921484,
+      "lng": -7.6379846
+    },
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026 ; site officiel en ligne (© 2023). Le point OSM indique le n°22 rue La Fontaine (n°24 selon le ministère et le site)."
+  },
+  "ma-esms": {
+    "site_web": "https://esms.ma",
+    "annee_creation": 2012,
+    "adresse": "N° 2, avenue Ahmed Al Mansour Eddahbi, Cité Dakhla, Agadir",
+    "description": "École privée de management d'Agadir (management, finance, audit, marketing ; Bac+3 et Bac+5).",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "L'adresse a changé : la liste ministérielle 2025-2026 et l'école indiquent l'avenue Al Mansour Eddahbi (Quartier Dakhla) au lieu de « Lot. Almassira, rue Tambouktou, N° 95 ». Site officiel actif (© 2026)."
+  },
+  "ma-supmm": {
+    "annee_creation": 2013,
+    "adresse": "N° 10, lotissement Narjis, Malabata, Tanger",
+    "description": "Institut privé de Tanger formant en management et aux métiers du journalisme et des médias.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026 ; pages Facebook/Instagram officielles. Pas de site officiel identifié."
+  },
+  "ma-finansup": {
+    "annee_creation": 2013,
+    "adresse": "18, rue Ibrahim Ibn Hilal, Quartier Souriyine, Tanger",
+    "description": "École privée de Tanger formant en finance, audit, commerce et gestion.",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026 ; finansup.ma injoignable. L'ancienne page Facebook « FinanSup.ma » s'intitule désormais « CAP SUP' » (N°6 rue 15, Bella Vista, Tanger) : changement de nom ou de propriétaire possible, non confirmé."
+  },
+  "ma-esscg": {
+    "site_web": "https://esscg.ma",
+    "annee_creation": 2014,
+    "adresse": "N° 8, avenue Moulay Rachid, lotissement/résidence Rizk, Tanger",
+    "description": "École privée de management de Tanger (commerce, gestion, ressources humaines, logistique, finance ; Bac+3 et Bac+5).",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026 ; site et réseaux sociaux actifs."
+  },
+  "ma-adalia": {
+    "site_web": "https://www.adalia.ac.ma",
+    "annee_creation": 2015,
+    "adresse": "1, place Bel Air, Quartier Gauthier, Casablanca",
+    "description": "Établissement privé casablancais de commerce et de management.",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026. Le site adalia.ac.ma présente désormais ADALIA Institute comme « école supérieure hybride » d'OSE in Africa (formations courtes, programme exécutif, certifications en ligne/sur site), sans licence ni master visibles, alors qu'Instagram annonçait encore Licence/Master/MBA/DBA pour 2024-2025. Repositionnement probable ; statut d'établissement autorisé à confirmer."
+  },
+  "ma-esb-berrechid": {
+    "annee_creation": 2015,
+    "adresse": "12, angle rue d'Alger, rue Ibn Tachfine et rue Omar Ibn El Khattab, Berrechid",
+    "description": "École privée de commerce et de management de Berrechid.",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Nom d'usage : ESB Business School (École Supérieure de Business Berrechid). Absent de la liste ministérielle des établissements autorisés 2025-2026 ; esb.ma injoignable lors de la vérification. Pages Facebook/Instagram existantes, activité récente non datée."
+  },
+  "ma-emlc": {
+    "annee_creation": 2016,
+    "adresse": "Marina de Casablanca, Tour Ivoire 4, boulevard Sidi Mohammed Ben Abdellah, 20030 Casablanca",
+    "description": "École privée de commerce et de management située à la Marina de Casablanca.",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026 ; emlc.ac.ma injoignable lors de la vérification. Dernières activités trouvées : portes ouvertes (2023) sur les réseaux sociaux. Statut à confirmer."
+  },
+  "ma-tbs-casa": {
+    "site_web": "https://www.tbs-education.ma",
+    "annee_creation": 2017,
+    "adresse": "Immeuble TBS, angle rue Louwaya et rue de la Cité de l'Air 5, Lot 17, Quartier Anfa Cité de l'Air, Pôle urbain Casa Anfa, Hay Hassani, Casablanca",
+    "description": "Campus de Casablanca de TBS Education (Toulouse), école de management proposant bachelor, masters et programmes exécutifs.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Nouveau campus à Casa Anfa (Casablanca Finance City) inauguré en octobre 2025 ; l'adresse ministérielle (Sidi Maârouf) est remplacée par celle de Casa Anfa dans la liste 2025-2026. Portes ouvertes 2026 annoncées."
+  },
+  "ma-ostelea": {
+    "annee_creation": 2018,
+    "adresse": "Avenue Al Melia, rue Meziata, secteur 9, Hay Riad, Rabat",
+    "description": "Ancienne école internationale de management du tourisme et de l'hôtellerie à Rabat (groupe Planeta).",
+    "coordonnees": null,
+    "statut": "ferme",
+    "notes": "Le domaine ostelea.ma redirige (301) vers eslsca.ma (ESLSCA Rabat, même groupe Planeta et même adresse) et Ostelea Rabat n'apparaît plus dans la liste ministérielle 2025-2026, alors qu'ESLSCA Rabat y figure. Intégration probable dans ESLSCA Rabat, sans annonce officielle trouvée ; une page Instagram « Ostelea Rabat » subsiste. Le site ESLSCA indique une création en 2017."
+  },
+  "ma-eslsca": {
+    "site_web": "https://www.eslsca.ma",
+    "annee_creation": 2019,
+    "adresse": "Avenue Al Melia, rue Meziata, secteur 9, Hay Riad, Rabat",
+    "description": "Campus de Rabat d'ESLSCA, école de commerce et de management (groupe Planeta Formación y Universidades).",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Présent dans la liste ministérielle 2025-2026 ; site officiel actif."
+  },
+  "ma-hem-engineering": {
+    "site_web": "https://hem.ac.ma",
+    "annee_creation": 2020,
+    "adresse": "Avenue Al Qods, Californie, Casablanca",
+    "description": "École d'ingénierie informatique de HEM à Casablanca (développement, réseaux et cloud, données, intelligence artificielle).",
+    "coordonnees": {
+      "lat": 33.5314611,
+      "lng": -7.6214826
+    },
+    "statut": "actif",
+    "notes": "Désormais appelée « HEM Averroès Engineering School », composante de l'Université Internationale HEM lancée à la rentrée 2026-2027 (gouvernance LCI Education, CDG Invest, Averroes Holding). Présent dans la liste ministérielle 2025-2026. Coordonnées : point OSM « Hautes Études de Management » (campus HEM Casablanca, Californie), qui héberge l'école d'ingénierie."
+  },
+  "ma-isep-casa": {
+    "site_web": "https://iseparamedical.com",
+    "annee_creation": 2021,
+    "adresse": "Boulevard Ouled Haddou, N° 5-7, Quartier Les Crêtes, Aïn Chock, Casablanca",
+    "description": "Institut privé de Casablanca formant aux métiers paramédicaux (infirmier polyvalent, sage-femme, anesthésie-réanimation, bloc opératoire).",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "Le site de l'école indique le n°7 du boulevard (le ministère indique n°5). Présent dans la liste ministérielle 2025-2026."
+  },
+  "ma-epsinsia": {
+    "annee_creation": 2022,
+    "adresse": "124, boulevard Ben Aïcha, Roches Noires, Casablanca",
+    "description": "École privée d'ingénierie de Casablanca spécialisée dans le numérique et l'intelligence artificielle.",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Absent de la liste ministérielle des établissements autorisés 2025-2026 (son numéro d'autorisation 491 y est attribué à un autre établissement, EAMR, avec une année différente). Seule une page Facebook (contact@epsinsia.com) a été trouvée ; epsinsia.com/.ma injoignables. Statut à confirmer."
+  },
+  "ma-iiec": {
+    "site_web": "https://iiem.ac.ma",
+    "annee_creation": 2023,
+    "adresse": "Douar Oulad Malek, Bouskoura (province de Nouaceur)",
+    "description": "Institut privé d'ingénierie de Bouskoura, partie du campus marocain de Coventry University (IIEM), proposant des diplômes britanniques en ingénierie.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "IIEC et IIMC (management) forment l'IIEM (International Institutes of Engineering and Management), campus de Coventry University avec The British Schools Educational Group ; ouverture en septembre 2023. Présent dans la liste ministérielle 2025-2026. La province est Nouaceur (Bouskoura est une commune)."
+  },
+  "ma-essib": {
+    "annee_creation": 2023,
+    "adresse": "Lotissement Habous N° 27, Hay Chmaou, route de Kénitra, Salé",
+    "description": "École privée d'ingénieurs de Salé.",
+    "coordonnees": null,
+    "statut": "inconnu",
+    "notes": "Communication de lancement en 2023 (essib.ma, réseaux sociaux), mais essib.ma injoignable lors de la vérification et établissement absent de la liste ministérielle des établissements autorisés 2025-2026. Statut à confirmer."
+  },
+  "ma-edumed": {
+    "site_web": "https://edumed.ma",
+    "annee_creation": 2023,
+    "adresse": "Avenue Al Melia, rue Meziata, secteur 9, Hay Riad, Rabat",
+    "description": "École privée de Rabat formant aux métiers paramédicaux et de la rééducation.",
+    "coordonnees": null,
+    "statut": "actif",
+    "notes": "ATTENTION : l'établissement est situé à Rabat (liste ministérielle 2025-2026 et site officiel), pas à Casablanca comme indiqué dans le champ ville d'entrée. Même adresse et même groupe (Planeta Formación) qu'ESLSCA Rabat. Blog actif en 2025."
+  },
+  "ma-esdav": {
+    "site_web": "https://www.ecole-design.com",
+    "annee_creation": 2006,
+    "adresse": "Angle Boulevard Tantan et rue Benguerir, Almanar, Anfa, Casablanca",
+    "description": "École privée de design créée en 2006, formant en architecture d'intérieur, design et arts visuels (cycles Bac+3 et Masters).",
+    "statut": "actif",
+    "notes": "Figure sur la liste des établissements privés autorisés 2025-2026."
+  },
+  "ma-pbds": {
+    "site_web": null,
+    "annee_creation": null,
+    "adresse": null,
+    "description": null,
+    "statut": "actif",
+    "notes": "Figure sur la liste des établissements privés autorisés 2025-2026 ; aucune présence en ligne confirmée à ce jour."
+  },
+  "ma-iim-agadir": {
+    "site_web": null,
+    "annee_creation": null,
+    "adresse": null,
+    "description": null,
+    "statut": "actif",
+    "notes": "Figure sur la liste des établissements privés autorisés 2025-2026 ; aucune présence en ligne confirmée à ce jour."
   }
 }
