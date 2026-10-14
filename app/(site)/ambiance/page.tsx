@@ -10,7 +10,7 @@ import { Media } from "@/components/Media";
 import { IconArrow } from "@/components/Icons";
 
 export const metadata: Metadata = {
-  title: "Ambiance",
+  title: "Ambiance, DJ & soirées amapiano à Libreville",
   description: "Photos, vidéos, DJs et équipe : l'ambiance Jackboy, de l'apéro à la nuit. Amapiano, afrobeats, afritcham.",
   alternates: { canonical: "/ambiance" },
 };

@@ -4,7 +4,7 @@ import { PageHero } from "@/components/PageHero";
 import { EventCard } from "@/components/EventCard";
 
 export const metadata: Metadata = {
-  title: "Événements",
+  title: "Soirées & événements à Libreville",
   description: "La programmation de Jackboy : soirées amapiano, afrobeats, afritcham, DJs invités.",
   alternates: { canonical: "/evenements" },
 };

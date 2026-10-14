@@ -13,7 +13,7 @@ export function Header({ phone, phoneDisplay }: { phone: string; phoneDisplay: s
         Aller au contenu
       </a>
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:h-16">
-        <Link href="/" aria-label="Jackboy — accueil"><Logo /></Link>
+        <Link href="/" title="Accueil Jackboy"><Logo /></Link>
         <nav aria-label="Navigation principale" className="hidden md:block">
           <ul className="flex items-center gap-1">
             {NAV.map((n) => {

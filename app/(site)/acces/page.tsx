@@ -3,7 +3,7 @@ import { PageHero } from "@/components/PageHero";
 import { VisitBlock } from "@/components/VisitBlock";
 
 export const metadata: Metadata = {
-  title: "Accès & horaires",
+  title: "Adresse, horaires & itinéraire — Louis, Libreville",
   description: "Adresse, horaires, itinéraire et téléphone de Jackboy Bar-Restaurant 241, quartier Louis à Libreville.",
   alternates: { canonical: "/acces" },
 };

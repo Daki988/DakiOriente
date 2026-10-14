@@ -7,6 +7,9 @@ Domaine : **www.jackboy241.com**
 - **Animations** : CSS natif uniquement, `prefers-reduced-motion` respecté
 - **Contenu** : fichiers JSON dans `content/` (pas de CMS — décision client)
 - **Commande en ligne** : panier → message WhatsApp pré-rempli au +241 77 93 27 44 (aucun paiement en ligne, aucune donnée stockée)
+- **Menu PDF téléchargeable** : `public/menu/carte-jackboy-241-libreville.pdf` (remplacer ce fichier pour mettre la carte à jour)
+- **Expérience** : néon animé, « pouls de la soirée » en temps réel, composeur de soirée par budget, recherche instantanée dans le menu
+- **SEO** : pages par catégorie, FAQ, données structurées Menu/FAQ/Restaurant — voir `docs/SEO.md`
 - **Hébergement** : Vercel (HTTPS, CDN, aperçus automatiques)
 
 ## Démarrer
@@ -27,6 +30,8 @@ npm run lint       # vérification TypeScript
 | `content/events.json` | événements (les dates passées sont masquées automatiquement) |
 | `content/gallery.json` | photos de la galerie et équipe |
 | `content/loft.json` | présentation du Loft (`"visible": false` tant qu'elle n'est pas fournie) |
+| `content/seo.json` | titres, descriptions et textes des pages catégories (référencement) |
+| `content/faq.json` | questions fréquentes (page /faq + balisage FAQ) |
 
 Modifier le JSON (directement sur GitHub, bouton ✏️) → commit → Vercel republie le site en ~1 minute.
 Voir `docs/GUIDE-CONTENU.md`.
