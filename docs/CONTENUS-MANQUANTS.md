@@ -8,8 +8,8 @@
 | 4 | Horaires | ⚠️ « à partir de 15 h » — jours d'ouverture et heure de fermeture à confirmer |
 | 5 | Adresse | ✅ BP 111, Louis, à 100 m de l'ambassade de Côte d'Ivoire — ⚠️ coordonnées GPS exactes à fournir |
 | 6 | Menu & prix | ✅ saisi depuis la carte officielle (82 produits) |
-| 7 | Photos / vidéos réelles (salle, soirées, équipe) | ⏳ visuels produits issus de la carte ; photos d'ambiance à fournir |
-| 8 | DJ | ✅ DJ Hamed — photo et événements à fournir |
+| 7 | Photos | ✅ 10 photos de soirées intégrées (visages floutés sauf DJ Hamed) + 4 affiches ; une vidéo d'ambiance courte serait un plus |
+| 8 | DJ | ✅ DJ Hamed (photos intégrées) — dates des prochaines soirées à fournir |
 | 9 | Loft | ⏳ masqué tant que la présentation n'est pas fournie |
 | 10 | Réseaux sociaux | ⏳ liens à fournir |
 | 11 | CMS | ✅ décision : pas de CMS (édition JSON) |

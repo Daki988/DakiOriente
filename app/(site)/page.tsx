@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { settings, getSignatureProducts, getUpcomingEvents, gallery, loft, getCategories, getComposerPools, seo } from "@/lib/content";
 import { hoursSummary } from "@/lib/hours";
 import { Button } from "@/components/Button";
@@ -22,7 +23,7 @@ const GENRES = ["Amapiano", "Afrobeats", "Afritcham", "Urban"];
 export default function Home() {
   const signatures = getSignatureProducts(6);
   const events = getUpcomingEvents().slice(0, 2);
-  const moments = gallery.slice(0, 5);
+  const moments = gallery.filter((g) => !g.caption.startsWith("DJ Hamed")).slice(0, 5);
   const pools = getComposerPools();
   const categories = getCategories();
 
@@ -30,13 +31,21 @@ export default function Home() {
     <>
       {/* ───── ACTE 1 — Hero ───── */}
       <section aria-labelledby="hero-title" className="grain relative isolate flex min-h-[calc(100svh-3.5rem-var(--bottom-nav-h))] items-end overflow-hidden md:min-h-[calc(100svh-4rem)]">
-        {/* Fond en CSS pur (0 octet d'image → LCP instantané). Une vidéo d'ambiance pourra s'ajouter ici. */}
-        <div aria-hidden="true" className="absolute inset-0 -z-10 wood" style={{ background: "radial-gradient(70% 55% at 75% 20%, rgba(22,180,127,.28), transparent 60%), radial-gradient(60% 50% at 10% 85%, rgba(14,58,44,.9), transparent 70%), radial-gradient(40% 30% at 85% 90%, rgba(210,168,78,.18), transparent 70%), linear-gradient(180deg,#0b0f0d 0%,#0a0c0b 100%)" }} />
+        {/* Fond : les platines de Jackboy dans la pénombre (photo réelle, ~35 Ko), assombrie pour la lisibilité */}
+        <Image
+          src="/images/ambiance/platines-dj-nuit-jackboy-libreville.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="-z-20 object-cover object-[70%_center] opacity-70"
+        />
+        <div aria-hidden="true" className="absolute inset-0 -z-10" style={{ background: "linear-gradient(180deg, rgba(10,12,11,.55) 0%, rgba(10,12,11,.35) 35%, rgba(10,12,11,.92) 100%), radial-gradient(70% 55% at 75% 20%, rgba(22,180,127,.22), transparent 60%), radial-gradient(60% 50% at 10% 85%, rgba(11,58,46,.7), transparent 70%)" }} />
         <CactusMark className="glow pointer-events-none absolute -right-10 top-6 -z-10 h-[70vmin] w-[70vmin] text-accent/[0.07] md:right-10" />
         <div aria-hidden="true" className="pointer-events-none absolute right-[6%] top-1/2 -z-10 hidden -translate-y-1/2 lg:block">
           <div className="relative h-[460px] w-[420px]">
-            <Media src="/images/menu/burger.webp" alt="" className="absolute right-0 top-0 h-[300px] w-[340px] rotate-3 rounded-3xl border border-white/10 shadow-2xl" sizes="340px" />
-            <Media src="/images/menu/mojito.webp" alt="" className="absolute bottom-0 left-0 h-[240px] w-[170px] -rotate-6 rounded-3xl border border-white/10 shadow-2xl" sizes="170px" />
+            <Media src="/images/ambiance/dj-hamed-aux-platines-jackboy-libreville.webp" alt="" className="absolute right-0 top-0 h-[300px] w-[360px] rotate-3 rounded-3xl border border-white/10 shadow-2xl" sizes="360px" />
+            <Media src="/images/menu/cocktail-passion-jackboy.webp" alt="" className="absolute bottom-0 left-0 h-[250px] w-[175px] -rotate-6 rounded-3xl border border-white/10 shadow-2xl" sizes="175px" />
           </div>
         </div>
         <div className="mx-auto w-full max-w-6xl px-4 pb-8 pt-8 md:pb-20 md:pt-16">
@@ -58,7 +67,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Marquee items={["Good drinks", "Good vibes", "Great people", "Amapiano", "Afrobeats", "Afritcham", "Burgers", "Chicha", "Cocktails", "Louis · Libreville"]} />
+      <Marquee items={["Ton repère, ton rythme, ta vibe", "Good drinks", "Good vibes", "Great people", "Le vrai goût du chill", "Amapiano", "Afrobeats", "Afritcham", "Before & after", "Burgers", "Chicha", "Louis · Libreville"]} />
 
       {/* ───── ACTE 2 — Deux ambiances ───── */}
       <section aria-labelledby="acte2" className="mx-auto max-w-6xl px-4 py-20 md:py-28">
@@ -96,6 +105,18 @@ export default function Home() {
         <SectionTitle id="acte4" kicker="Musique & communauté" title="Le son de Libreville.">
           Aux platines : <strong className="text-text">{settings.residentDj}</strong>. Music, drinks, friends, good mood.
         </SectionTitle>
+        <div className="spotlight reveal mb-10 grid overflow-hidden rounded-3xl border border-white/10 bg-surface md:grid-cols-[1.2fr_1fr]">
+          <Media src="/images/ambiance/dj-hamed-aux-platines-jackboy-libreville.webp" alt="DJ Hamed aux platines chez Jackboy, Libreville" className="aspect-[4/3] md:aspect-auto md:min-h-[420px]" sizes="(min-width:768px) 60vw, 100vw" />
+          <div className="flex flex-col justify-center p-6 sm:p-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold">Aux platines</p>
+            <h3 className="mt-2 font-display text-5xl sm:text-6xl">{settings.residentDj}</h3>
+            <p className="mt-4 text-text/80">
+              Le DJ résident de Jackboy. Il lit la salle, fait monter la pression au bon moment et transforme
+              l&apos;afterwork en vraie soirée : amapiano, afrobeats, afritcham et sons urbains.
+            </p>
+            <p className="mt-6 font-display text-2xl text-accent">Ton repère, ton rythme, ta vibe.</p>
+          </div>
+        </div>
         <ul className="reveal mb-8 flex flex-wrap gap-2" aria-label="Styles musicaux">
           {GENRES.map((g) => (
             <li key={g} className="rounded-full border border-accent/30 bg-secondary/40 px-4 py-2 text-sm font-semibold uppercase tracking-wider text-accent">{g}</li>
