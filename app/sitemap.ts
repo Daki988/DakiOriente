@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
-import { getCategories, loft, MENU_PDF } from "@/lib/content";
+import { getCategories, loft, MENU_PDF, gallery, posters } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     { url: u("/acces"), priority: 0.9, changeFrequency: "monthly" },
     { url: u("/faq"), priority: 0.7, changeFrequency: "monthly" },
-    { url: u("/ambiance"), priority: 0.7, changeFrequency: "weekly" },
+    { url: u("/ambiance"), priority: 0.7, changeFrequency: "weekly", images: [...gallery.filter((g) => g.src).map((g) => u(g.src as string)), ...posters.map((p) => u(p.src))] },
     { url: u("/evenements"), priority: 0.7, changeFrequency: "weekly" },
     ...(loft.visible ? [{ url: u("/loft"), priority: 0.6, changeFrequency: "monthly" as const }] : []),
     { url: u(MENU_PDF.href), priority: 0.6, changeFrequency: "monthly" },

@@ -19,7 +19,7 @@ export function Placeholder({
     <div
       role="img"
       aria-label={`${label} (visuel provisoire)`}
-      className={`grain wood relative overflow-hidden ${className}`}
+      className={`grain wood ${/\b(absolute|fixed)\b/.test(className) ? "" : "relative "}overflow-hidden ${className}`}
       style={{ backgroundImage: moods[mood] ?? moods.late }}
     >
       <CactusMark className="absolute -bottom-6 -right-4 h-40 w-40 text-white/[0.04]" />

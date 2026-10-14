@@ -209,14 +209,14 @@
       "slug": "cocktails",
       "visible": true,
       "intro": "Des saveurs uniques — Mojito, Mojito passion, Chantaco.",
-      "image": "/images/menu/mojito.webp",
+      "image": "/images/menu/cocktails-jackboy.webp",
       "note": "",
       "products": [
         {
           "name": "Cocktail alcoolisé",
           "description": "Mojito, Mojito passion ou Chantaco.",
           "price": 4000,
-          "image": "/images/menu/mojito.webp",
+          "image": "/images/menu/cocktail-passion-jackboy.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -225,7 +225,7 @@
           "name": "Cocktail sans alcool",
           "description": "Mojito, Mojito passion ou Chantaco, version sans alcool.",
           "price": 3000,
-          "image": null,
+          "image": "/images/menu/mojito.webp",
           "featured": false,
           "available": true,
           "isNew": false
@@ -483,7 +483,7 @@
       "slug": "shoot-punch",
       "visible": true,
       "intro": "À partager sans modération.",
-      "image": null,
+      "image": "/images/menu/shoots-flambes-jackboy.webp",
       "note": "Il est possible d'avoir en détail, à partir de 4 verres.",
       "products": [
         {

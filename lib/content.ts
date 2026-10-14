@@ -80,6 +80,8 @@ export function getUpcomingEvents(now = new Date()): JackboyEvent[] {
 
 export const gallery = galleryData.items as GalleryItem[];
 export const team = galleryData.team as TeamMember[];
+export type Poster = { src: string; alt: string; w: number; h: number };
+export const posters = galleryData.posters as Poster[];
 
 /** « 3 500 FCFA » ; un prix à 0 signifie « non renseigné ». */
 export function formatPrice(price: number): string {

@@ -1,15 +1,17 @@
 "use client";
 import { useState } from "react";
-import { Placeholder } from "./Placeholder";
+import { Media } from "./Media";
 
 const MODES = {
   early: {
     tab: "Début de soirée",
+    img: "/images/menu/cocktails-jackboy.webp",
     title: "Restauration, retrouvailles, moments entre amis.",
     text: "On s'installe, on partage un panini, on se retrouve. L'ambiance est conviviale et la musique accompagne la conversation.",
   },
   late: {
     tab: "À mesure que la nuit avance",
+    img: "/images/ambiance/soiree-bar-jackboy-louis-libreville.webp",
     title: "Musique, énergie, ambiance festive.",
     text: "Vers 23 h – minuit, la soirée change de rythme : amapiano, afrobeats, afritcham. L'ambiance varie selon les soirs et la programmation.",
   },
@@ -23,10 +25,12 @@ export function AmbianceSwitch() {
     <div className="reveal overflow-hidden rounded-3xl border border-white/5">
       <div className="relative aspect-[4/5] sm:aspect-[16/9]">
         {(Object.keys(MODES) as Mode[]).map((m) => (
-          <Placeholder
+          <Media
             key={m}
+            src={MODES[m].img}
+            alt={m === "early" ? "Cocktails au bar Jackboy en début de soirée" : "Soirée festive au bar Jackboy, Libreville"}
             mood={m}
-            label={MODES[m].tab}
+            sizes="(min-width:1152px) 1152px, 100vw"
             className={`absolute inset-0 transition-opacity duration-700 ${mode === m ? "opacity-100" : "opacity-0"}`}
           />
         ))}

@@ -1,15 +1,121 @@
 {
   "items": [
-    { "src": "/images/menu/burger.webp", "alt": "Burger gourmet Jackboy", "mood": "food", "caption": "Fast food gourmet" },
-    { "src": null, "alt": "Ambiance début de soirée", "mood": "early", "caption": "Début de soirée" },
-    { "src": "/images/menu/mojito.webp", "alt": "Mojito", "mood": "late", "caption": "Cocktails good mood" },
-    { "src": null, "alt": "DJ Hamed aux platines", "mood": "late", "caption": "DJ Hamed" },
-    { "src": "/images/menu/wings.webp", "alt": "Wings caramélisées", "mood": "food", "caption": "Des wings qui font parler" },
-    { "src": "/images/menu/chicha.webp", "alt": "Chicha", "mood": "late", "caption": "Chicha" },
-    { "src": null, "alt": "Soirée 23 h – minuit", "mood": "late", "caption": "23 h – minuit" },
-    { "src": "/images/menu/brochettes.webp", "alt": "Brochettes grillées", "mood": "food", "caption": "Brochettes" }
+    {
+      "src": "/images/ambiance/soiree-bar-jackboy-louis-libreville.webp",
+      "alt": "Soirée au bar Jackboy, quartier Louis à Libreville",
+      "mood": "late",
+      "caption": "Le bar, un soir de fête"
+    },
+    {
+      "src": "/images/ambiance/dj-hamed-aux-platines-jackboy-libreville.webp",
+      "alt": "DJ Hamed aux platines chez Jackboy, Libreville",
+      "mood": "late",
+      "caption": "DJ Hamed aux platines"
+    },
+    {
+      "src": "/images/ambiance/shots-entre-amies-jackboy-libreville.webp",
+      "alt": "Tournée de shots entre amies près des platines",
+      "mood": "late",
+      "caption": "Une tournée de shots"
+    },
+    {
+      "src": "/images/ambiance/chicha-bar-jackboy-libreville.webp",
+      "alt": "Chicha au comptoir du bar Jackboy",
+      "mood": "late",
+      "caption": "Chicha au comptoir"
+    },
+    {
+      "src": "/images/ambiance/ambiance-piste-jackboy-libreville.webp",
+      "alt": "Ambiance festive sur la piste chez Jackboy",
+      "mood": "late",
+      "caption": "La piste s'anime"
+    },
+    {
+      "src": "/images/menu/shoots-flambes-jackboy.webp",
+      "alt": "Shoots flambés au bar Jackboy",
+      "mood": "late",
+      "caption": "Shoots flambés"
+    },
+    {
+      "src": "/images/ambiance/dj-hamed-chicha-jackboy-libreville.webp",
+      "alt": "DJ Hamed en session chicha et platines",
+      "mood": "late",
+      "caption": "DJ Hamed en session"
+    },
+    {
+      "src": "/images/ambiance/soiree-amis-jackboy-libreville.webp",
+      "alt": "Soirée entre amis chez Jackboy Libreville",
+      "mood": "late",
+      "caption": "Entre amis"
+    },
+    {
+      "src": "/images/menu/cocktails-jackboy.webp",
+      "alt": "Cocktails colorés du bar Jackboy",
+      "mood": "early",
+      "caption": "Cocktails before & after"
+    },
+    {
+      "src": "/images/ambiance/nuit-jackboy-bar-libreville.webp",
+      "alt": "Lumières rouges de la nuit chez Jackboy",
+      "mood": "late",
+      "caption": "Feel the night"
+    },
+    {
+      "src": "/images/ambiance/foule-soiree-jackboy-libreville.webp",
+      "alt": "Foule au bar un soir de fête",
+      "mood": "late",
+      "caption": "Soir de fête"
+    },
+    {
+      "src": "/images/ambiance/platines-dj-nuit-jackboy-libreville.webp",
+      "alt": "Platines du DJ dans la pénombre",
+      "mood": "late",
+      "caption": "Les platines"
+    },
+    {
+      "src": "/images/menu/burger.webp",
+      "alt": "Burger gourmet Jackboy",
+      "mood": "food",
+      "caption": "Fast food gourmet"
+    },
+    {
+      "src": "/images/menu/wings.webp",
+      "alt": "Wings caramélisées",
+      "mood": "food",
+      "caption": "Des wings qui font parler"
+    }
   ],
   "team": [
-    { "name": "DJ Hamed", "role": "DJ résident", "photo": null }
+    {
+      "name": "DJ Hamed",
+      "role": "DJ résident",
+      "photo": "/images/ambiance/dj-hamed-aux-platines-jackboy-libreville.webp"
+    }
+  ],
+  "posters": [
+    {
+      "src": "/images/affiches/le-vrai-gout-du-chill-jackboy-louis.webp",
+      "alt": "Affiche Jackboy : Le vrai goût du chill — une seule adresse, Louis avant l'ambassade de Côte d'Ivoire",
+      "w": 864,
+      "h": 1080
+    },
+    {
+      "src": "/images/affiches/friday-vibe-jackboy-libreville.webp",
+      "alt": "Affiche Jackboy : Friday vibe, come-back",
+      "w": 864,
+      "h": 1080
+    },
+    {
+      "src": "/images/affiches/ton-repere-ton-rythme-ta-vibe-jackboy.webp",
+      "alt": "Bannière Jackboy : Ton repère, ton rythme, ta vibe",
+      "w": 1080,
+      "h": 552
+    },
+    {
+      "src": "/images/affiches/before-after-cocktails-jackboy.webp",
+      "alt": "Bannière Jackboy : cocktails before & after",
+      "w": 1080,
+      "h": 552
+    }
   ]
 }
