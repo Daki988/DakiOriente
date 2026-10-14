@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getCategories, getSignatureProducts, primaryPhone, settings, getComposerPools } from "@/lib/content";
 import { MenuDownload } from "@/components/MenuDownload";
+import { DrinksShowcase } from "@/components/DrinksShowcase";
+import { TakeawayBanner } from "@/components/TakeawayBanner";
 import { SoireeComposer } from "@/components/SoireeComposer";
 import { LdJson, menuSchema, breadcrumbSchema } from "@/components/Schema";
 import { PageHero } from "@/components/PageHero";
@@ -41,7 +43,9 @@ export default function MenuPage() {
         <div className="mt-8 max-w-3xl">
           <MenuBrowser categories={categories} />
         </div>
-        {settings.ordering.enabled && <div className="mt-16"><SoireeComposer pools={getComposerPools()} /></div>}
+        <div className="mt-20"><DrinksShowcase /></div>
+        {settings.ordering.enabled && <div className="mt-16"><TakeawayBanner /></div>}
+        {settings.ordering.enabled && <div className="mt-6"><SoireeComposer pools={getComposerPools()} /></div>}
         <div className="mt-8"><MenuDownload /></div>
         <aside className="my-14 flex flex-col items-start gap-4 rounded-3xl border border-white/5 bg-surface p-6 sm:flex-row sm:items-center sm:justify-between">
           <div>

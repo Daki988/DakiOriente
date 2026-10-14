@@ -1,13 +1,44 @@
 {
   "items": [
-    { "q": "Où se trouve Jackboy à Libreville ?", "a": "Jackboy Bar-Resto 241 est situé dans le quartier Louis à Libreville (BP 111), à 100 mètres de l'ambassade de Côte d'Ivoire, rue Pierre Barrot. Le bouton « Obtenir l'itinéraire » ouvre Google Maps, Waze ou Plans." },
-    { "q": "Quels sont les horaires d'ouverture de Jackboy ?", "a": "Jackboy ouvre tous les jours à partir de 15 h. L'ambiance est conviviale en début de soirée et devient beaucoup plus festive vers 23 h – minuit." },
-    { "q": "Peut-on commander en ligne et se faire livrer ?", "a": "Oui. Ajoutez vos produits au panier depuis le menu, choisissez « À emporter », « Livraison » ou « Sur place », puis envoyez la commande par WhatsApp. Jackboy vous confirme le délai, le montant final et les éventuels frais de livraison. Le paiement se fait à la réception." },
-    { "q": "Combien coûte un burger chez Jackboy ?", "a": "Les burgers vont de 2 000 FCFA (Burger simple) à 6 000 FCFA (Double Cheese à cheval). Les paninis sont à partir de 1 500 FCFA, les wings (6 pièces) à 2 000 FCFA." },
-    { "q": "Y a-t-il de la chicha chez Jackboy ?", "a": "Oui : chicha à 5 000 FCFA (tête à 4 000 FCFA) en saveurs melon, pastèque, citron, pomme, fraise, menthe et autres ; Love ou Menthe crème à 7 000 FCFA (tête à 5 000 FCFA)." },
-    { "q": "Quelle musique passe chez Jackboy ?", "a": "Amapiano, afrobeats, afritcham et influences urbaines, avec DJ Hamed aux platines." },
-    { "q": "Quel est le prix des bières et du whisky ?", "a": "Les bières locales (Regab, Booster, Dopel, Chill, Petite 33…) sont à 1 500 FCFA, les grandes à 2 000 FCFA. Les spiritueux se prennent au shoot (dès 1 000 FCFA), au verre (dès 4 000 FCFA) ou à la bouteille (dès 35 000 FCFA). Toute la carte est sur la page Menu et en PDF téléchargeable." },
-    { "q": "Comment contacter Jackboy ?", "a": "Par téléphone au +241 77 93 27 44, au 077 45 31 67 ou au 074 41 51 18, ou par WhatsApp au +241 77 93 27 44." },
-    { "q": "Peut-on télécharger le menu de Jackboy ?", "a": "Oui, la carte complète (bar et fast food) est téléchargeable en PDF depuis la page Menu." }
+    {
+      "q": "Où se trouve Jackboy à Libreville ?",
+      "a": "Jackboy Bar-Resto 241 est situé dans le quartier Louis à Libreville (BP 111), à 100 mètres de l'ambassade de Côte d'Ivoire, rue Pierre Barrot. Le bouton « Obtenir l'itinéraire » ouvre Google Maps, Waze ou Plans."
+    },
+    {
+      "q": "Quels sont les horaires d'ouverture de Jackboy ?",
+      "a": "Jackboy ouvre tous les jours à partir de 15 h. L'ambiance est conviviale en début de soirée et devient beaucoup plus festive vers 23 h – minuit."
+    },
+    {
+      "q": "Peut-on commander en ligne et se faire livrer ?",
+      "a": "Oui. Ajoutez vos produits au panier depuis le menu, choisissez « À emporter », « Livraison » ou « Sur place », puis envoyez la commande par WhatsApp. Jackboy vous confirme le délai, le montant final et les éventuels frais de livraison. Le paiement se fait à la réception."
+    },
+    {
+      "q": "Combien coûte un burger chez Jackboy ?",
+      "a": "Les burgers vont de 2 000 FCFA (Burger simple) à 6 000 FCFA (Double Cheese à cheval). Les paninis sont à partir de 1 500 FCFA, les wings (6 pièces) à 2 000 FCFA."
+    },
+    {
+      "q": "Y a-t-il de la chicha chez Jackboy ?",
+      "a": "Oui : chicha à 5 000 FCFA (tête à 4 000 FCFA) en saveurs melon, pastèque, citron, pomme, fraise, menthe et autres ; Love ou Menthe crème à 7 000 FCFA (tête à 5 000 FCFA)."
+    },
+    {
+      "q": "Jackboy propose-t-il des milkshakes et des mocktails ?",
+      "a": "Oui : milkshakes (cookies & crème, fraise…) et mocktails pétillants, servis dans les gobelets Jackboy, sur place ou à emporter. Demandez les parfums du jour au bar ou par WhatsApp au +241 77 93 27 44."
+    },
+    {
+      "q": "Quelle musique passe chez Jackboy ?",
+      "a": "Amapiano, afrobeats, afritcham et influences urbaines, avec DJ Hamed aux platines."
+    },
+    {
+      "q": "Quel est le prix des bières et du whisky ?",
+      "a": "Les bières locales (Regab, Booster, Dopel, Chill, Petite 33…) sont à 1 500 FCFA, les grandes à 2 000 FCFA. Les spiritueux se prennent au shoot (dès 1 000 FCFA), au verre (dès 4 000 FCFA) ou à la bouteille (dès 35 000 FCFA). Toute la carte est sur la page Menu et en PDF téléchargeable."
+    },
+    {
+      "q": "Comment contacter Jackboy ?",
+      "a": "Par téléphone au +241 77 93 27 44, au 077 45 31 67 ou au 074 41 51 18, ou par WhatsApp au +241 77 93 27 44."
+    },
+    {
+      "q": "Peut-on télécharger le menu de Jackboy ?",
+      "a": "Oui, la carte complète (bar et fast food) est téléchargeable en PDF depuis la page Menu."
+    }
   ]
 }

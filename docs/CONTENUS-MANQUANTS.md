@@ -2,7 +2,7 @@
 
 | # | Élément | Statut |
 |---|---|---|
-| 1 | Logo | ✅ fourni — version fond sombre générée (`public/brand/`). Un fichier vectoriel (SVG/AI) améliorerait la netteté |
+| 1 | Logo | ✅ version HD fournie — déclinaison fond sombre générée (`public/brand/`) |
 | 2 | Domaine | ✅ www.jackboy241.com — à relier au projet Vercel |
 | 3 | Téléphones | ✅ +241 77 93 27 44 (principal, WhatsApp commandes) · 077 45 31 67 · 074 41 51 18 |
 | 4 | Horaires | ⚠️ « à partir de 15 h » — jours d'ouverture et heure de fermeture à confirmer |
@@ -15,3 +15,4 @@
 | 11 | CMS | ✅ décision : pas de CMS (édition JSON) |
 | 12 | Commande en ligne | ✅ via WhatsApp — confirmer que le +241 77 93 27 44 est bien sur WhatsApp, zone et frais de livraison |
 | — | Mentions légales (raison sociale, RCCM, NIF) | ⏳ |
+| — | Milkshakes & mocktails | ⏳ photos intégrées (vitrine sans prix) — **noms exacts et prix à fournir** pour les ajouter au menu et à la commande |

@@ -78,14 +78,14 @@
       "slug": "paninis",
       "visible": true,
       "intro": "Croustillants & gourmands — nos emblématiques.",
-      "image": "/images/menu/paninis.webp",
+      "image": "/images/menu/panini-planche-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
           "name": "Panini Poulet",
           "description": "Poulet grillé et assaisonné.",
           "price": 1500,
-          "image": "/images/menu/paninis.webp",
+          "image": "/images/menu/panini-planche-jackboy-libreville.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -94,7 +94,7 @@
           "name": "Panini Viande",
           "description": "Viande assaisonnée.",
           "price": 1500,
-          "image": "/images/menu/paninis.webp",
+          "image": "/images/menu/panini-planche-jackboy-libreville.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -134,7 +134,7 @@
       "slug": "brochettes",
       "visible": true,
       "intro": "2 brochettes bien assaisonnées.",
-      "image": "/images/menu/brochettes.webp",
+      "image": "/images/menu/brochettes-boite-jackboy.webp",
       "note": "",
       "products": [
         {
@@ -162,7 +162,7 @@
       "slug": "nems",
       "visible": true,
       "intro": "4 pièces de pur plaisir.",
-      "image": "/images/menu/nems.webp",
+      "image": "/images/menu/nems-boite-jackboy.webp",
       "note": "",
       "products": [
         {

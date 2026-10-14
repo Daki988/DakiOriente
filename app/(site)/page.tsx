@@ -17,6 +17,8 @@ import { NightPulse } from "@/components/NightPulse";
 import { SoireeComposer } from "@/components/SoireeComposer";
 import { MenuDownload } from "@/components/MenuDownload";
 import { Faq } from "@/components/Faq";
+import { DrinksShowcase } from "@/components/DrinksShowcase";
+import { TakeawayBanner } from "@/components/TakeawayBanner";
 
 const GENRES = ["Amapiano", "Afrobeats", "Afritcham", "Urban"];
 
@@ -95,7 +97,9 @@ export default function Home() {
           <div className="mt-8">
             <Button href="/menu" variant="gold">{settings.ordering.enabled ? "Voir le menu & commander" : "Voir le menu complet"} <IconArrow className="h-4 w-4" /></Button>
           </div>
-          {settings.ordering.enabled && <div className="mt-14"><SoireeComposer pools={pools} /></div>}
+          <div className="mt-20"><DrinksShowcase /></div>
+          {settings.ordering.enabled && <div className="mt-16"><TakeawayBanner /></div>}
+          {settings.ordering.enabled && <div className="mt-6"><SoireeComposer pools={pools} /></div>}
           <div className="mt-6"><MenuDownload /></div>
         </div>
       </section>

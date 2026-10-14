@@ -25,6 +25,12 @@
       "caption": "Chicha au comptoir"
     },
     {
+      "src": "/images/menu/boites-a-emporter-jackboy-libreville.webp",
+      "alt": "Brochettes, paninis, nems et wings dans leurs boîtes à emporter Jackboy",
+      "mood": "food",
+      "caption": "Prêt à emporter"
+    },
+    {
       "src": "/images/ambiance/ambiance-piste-jackboy-libreville.webp",
       "alt": "Ambiance festive sur la piste chez Jackboy",
       "mood": "late",
@@ -43,6 +49,24 @@
       "caption": "DJ Hamed en session"
     },
     {
+      "src": "/images/boissons/mojito-jackboy-libreville.webp",
+      "alt": "Mojito dans un gobelet Jackboy au bar",
+      "mood": "early",
+      "caption": "Mojito au bar"
+    },
+    {
+      "src": "/images/boissons/milkshakes-jackboy-bar-libreville.webp",
+      "alt": "Trois milkshakes Jackboy sur le comptoir",
+      "mood": "early",
+      "caption": "Les milkshakes du comptoir"
+    },
+    {
+      "src": "/images/menu/panini-planche-jackboy-libreville.webp",
+      "alt": "Panini Jackboy grillé, coupé sur une planche",
+      "mood": "food",
+      "caption": "Le panini maison"
+    },
+    {
       "src": "/images/ambiance/soiree-amis-jackboy-libreville.webp",
       "alt": "Soirée entre amis chez Jackboy Libreville",
       "mood": "late",
@@ -59,6 +83,18 @@
       "alt": "Lumières rouges de la nuit chez Jackboy",
       "mood": "late",
       "caption": "Feel the night"
+    },
+    {
+      "src": "/images/boissons/milkshake-vanille-jackboy-libreville.webp",
+      "alt": "Milkshake Jackboy à emporter, de nuit en voiture",
+      "mood": "late",
+      "caption": "À emporter, de nuit"
+    },
+    {
+      "src": "/images/boissons/milkshake-fraise-jackboy-libreville.webp",
+      "alt": "Milkshake fraise en soirée",
+      "mood": "late",
+      "caption": "Milkshake fraise"
     },
     {
       "src": "/images/ambiance/foule-soiree-jackboy-libreville.webp",
@@ -83,6 +119,18 @@
       "alt": "Wings caramélisées",
       "mood": "food",
       "caption": "Des wings qui font parler"
+    },
+    {
+      "src": "/images/boissons/soda-rouge-jackboy-libreville.webp",
+      "alt": "Boisson rouge pendant une soirée anniversaire",
+      "mood": "late",
+      "caption": "Soirée anniversaire"
+    },
+    {
+      "src": "/images/boissons/smoothie-jackboy-libreville.webp",
+      "alt": "Smoothie Jackboy",
+      "mood": "early",
+      "caption": "Smoothie"
     }
   ],
   "team": [
@@ -116,6 +164,38 @@
       "alt": "Bannière Jackboy : cocktails before & after",
       "w": 1080,
       "h": 552
+    }
+  ],
+  "drinks": [
+    {
+      "src": "/images/boissons/studio-milkshake-cookies-jackboy.webp",
+      "alt": "Milkshake cookies & crème Jackboy, chantilly et biscuits",
+      "caption": "Milkshake cookies & crème",
+      "bg": "#f4f3f7"
+    },
+    {
+      "src": "/images/boissons/studio-milkshake-fraise-jackboy.webp",
+      "alt": "Milkshake à la fraise dans un gobelet Jackboy",
+      "caption": "Milkshake fraise",
+      "bg": "#f3f3f4"
+    },
+    {
+      "src": "/images/boissons/studio-soda-rouge-jackboy.webp",
+      "alt": "Boisson rouge pétillante Jackboy",
+      "caption": "Rouge pétillant",
+      "bg": "#f4f4f4"
+    },
+    {
+      "src": "/images/boissons/studio-mocktail-bleu-jackboy.webp",
+      "alt": "Mocktail bleu pétillant Jackboy",
+      "caption": "Bleu lagon",
+      "bg": "#f2f3f4"
+    },
+    {
+      "src": "/images/boissons/studio-mocktail-sunrise-jackboy.webp",
+      "alt": "Boisson dégradé jaune et rouge Jackboy",
+      "caption": "Sunrise",
+      "bg": "#f3f3f3"
     }
   ]
 }
