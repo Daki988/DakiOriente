@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 /* ───────── Design tokens — JACKBOY · FEEL THE NIGHT ─────────
-   Valeurs PROVISOIRES : à recaler sur le logo HD (TODO: DONNÉE À CONFIRMER) */
+   Couleurs issues du logo officiel (cactus #00a070 → #007058) */
 :root {
   --color-bg: #0a0c0b;          /* noir profond */
   --color-surface: #121614;     /* cartes */
   --color-surface-2: #18201c;
-  --color-secondary: #0e3a2c;   /* vert émeraude sombre */
-  --color-accent: #8cc63f;      /* vert cactus (logo) */
+  --color-secondary: #0b3a2e;   /* vert émeraude sombre */
+  --color-accent: #16b47f;      /* vert émeraude du cactus (logo) */
   --color-accent-ink: #0a0c0b;  /* texte sur accent */
   --color-text: #f3efe6;        /* blanc cassé */
   --color-muted: #a9b0a8;
@@ -74,7 +74,7 @@ body {
 .lift { animation: lift .8s cubic-bezier(.2,.7,.2,1) both; }
 .rise-1 { animation-delay: .1s; } .rise-2 { animation-delay: .3s; } .rise-3 { animation-delay: .5s; }
 
-@keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 0 rgba(140,198,63,.6); } 50% { box-shadow: 0 0 0 6px rgba(140,198,63,0); } }
+@keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 0 rgba(22,180,127,.6); } 50% { box-shadow: 0 0 0 6px rgba(22,180,127,0); } }
 .pulse-dot { animation: pulse-dot 2.2s ease-in-out infinite; }
 
 @keyframes glow { 0%,100% { opacity: .55; } 50% { opacity: .85; } }

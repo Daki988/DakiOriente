@@ -1,61 +1,58 @@
 # JACKBOY — Feel the night
 
-Site web de **Jackboy Bar-Restaurant 241** (Libreville, Gabon) — réalisé par NEAM.
+Site web de **Jackboy Bar-Restaurant 241** (Louis, Libreville, Gabon) — réalisé par NEAM.
+Domaine : **www.jackboy241.com**
 
 - **Front** : Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS 4
-- **Animations** : CSS natif uniquement (0 Ko de JS d'animation), `prefers-reduced-motion` respecté
-- **Back-office** : [Keystatic](https://keystatic.com) sur `/keystatic` — le contenu vit dans `content/*.json`
-- **Hébergement recommandé** : Vercel (HTTPS, CDN mondial, aperçus automatiques par branche)
+- **Animations** : CSS natif uniquement, `prefers-reduced-motion` respecté
+- **Contenu** : fichiers JSON dans `content/` (pas de CMS — décision client)
+- **Commande en ligne** : panier → message WhatsApp pré-rempli au +241 77 93 27 44 (aucun paiement en ligne, aucune donnée stockée)
+- **Hébergement** : Vercel (HTTPS, CDN, aperçus automatiques)
 
 ## Démarrer
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000  — admin : http://localhost:3000/keystatic
+npm run dev        # http://localhost:3000
 npm run build && npm start
 npm run lint       # vérification TypeScript
 ```
 
-En local, l'administration écrit directement dans `content/` (mode `local`).
+## Modifier le contenu
+
+| Fichier | Contenu |
+|---|---|
+| `content/settings.json` | téléphones, WhatsApp, adresse, horaires, DJ résident, options de commande, réseaux sociaux |
+| `content/menu.json` | catégories, produits, prix FCFA, variantes (Shoot / Verre / Bouteille…), disponibilité, signatures |
+| `content/events.json` | événements (les dates passées sont masquées automatiquement) |
+| `content/gallery.json` | photos de la galerie et équipe |
+| `content/loft.json` | présentation du Loft (`"visible": false` tant qu'elle n'est pas fournie) |
+
+Modifier le JSON (directement sur GitHub, bouton ✏️) → commit → Vercel republie le site en ~1 minute.
+Voir `docs/GUIDE-CONTENU.md`.
+
+Règles :
+- `price` en FCFA, nombre entier sans espace (`2500`). `0` affiche « Prix sur place » et ne peut pas être commandé.
+- `variants` : `[{ "label": "Verre", "price": 5000 }, …]` → un bouton d'ajout par variante.
+- `"available": false` grise le produit et retire le bouton d'ajout.
+- Horaires : `close` vide = heure de fermeture non communiquée (le site affiche « à partir de 15 h »).
+- Coordonnées GPS (`lat`/`lng`) : si renseignées, l'itinéraire pointe exactement sur Jackboy ; sinon il pointe sur le repère (ambassade de Côte d'Ivoire).
 
 ## Arborescence
 
 ```
-app/(site)/          pages publiques (accueil 5 actes, menu, ambiance, accès, événements, loft, légales)
-app/keystatic/       interface d'administration
-app/api/keystatic/   API de l'administration
-components/          composants réutilisables (Hero, BottomNav, ProductCard, EventCard, Gallery, MapEmbed…)
-content/             ★ TOUT le contenu éditable (JSON) — modifié via /keystatic
-lib/content.ts       accès typé au contenu + formatage FCFA
-lib/hours.ts         calcul ouvert/fermé (fuseau Africa/Libreville, créneaux après minuit)
-keystatic.config.tsx schéma du back-office
-public/images/       photos téléversées depuis l'administration
-docs/                guide d'utilisation, contenus manquants
+app/(site)/        pages (accueil 5 actes, menu, ambiance, accès, événements, loft, légales)
+components/        composants (Header, BottomNav, ProductCard, AddToCart, CartDrawer, Gallery, MapEmbed…)
+content/           ★ tout le contenu éditable (JSON)
+lib/content.ts     accès typé au contenu, FCFA, liens itinéraire / WhatsApp
+lib/hours.ts       ouvert/fermé (fuseau Africa/Libreville)
+public/brand/      logo officiel (version fond sombre + cactus)
+public/images/     visuels produits (extraits de la carte officielle)
+docs/              guide de contenu, contenus manquants
 ```
 
-## Variables d'environnement (production)
+## Variables d'environnement
 
 | Variable | Rôle |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | URL publique (canonical, sitemap, Open Graph) |
-| `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` | Active le mode GitHub de l'administration |
-| `KEYSTATIC_GITHUB_CLIENT_ID` / `KEYSTATIC_GITHUB_CLIENT_SECRET` | App GitHub (créée par l'assistant Keystatic) |
-| `KEYSTATIC_SECRET` | Secret de session (chaîne aléatoire longue) |
-| `NEXT_PUBLIC_KEYSTATIC_REPO` | `propriétaire/dépôt` (défaut : `daki988/dakioriente`) |
-
-Aucun secret n'est versionné (`.env*` est ignoré).
-
-## Mise en production de l'administration
-
-1. Déployer le dépôt sur Vercel (import GitHub).
-2. Lancer `npm run dev`, ouvrir `/keystatic` avec `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` défini : l'assistant crée l'App GitHub et fournit les variables.
-3. Renseigner les variables dans Vercel → Settings → Environment Variables, redéployer.
-4. Inviter les membres de l'équipe comme collaborateurs du dépôt :
-   **Write** = éditeur, **Admin/Maintain** = administrateur.
-5. Chaque « Enregistrer » dans l'admin crée un commit → Vercel republie le site automatiquement (~1 min).
-
-## Avant la mise en ligne
-
-- Remplacer toutes les données marquées démo (voir `docs/CONTENUS-MANQUANTS.md`).
-- Décocher **Mode démonstration** dans *Infos pratiques* (retire le bandeau et autorise l'indexation).
-- Remplacer le logo provisoire (`components/Logo.tsx`, `app/icon.svg`) par le logo officiel.
+| `NEXT_PUBLIC_SITE_URL` | URL publique (défaut : `https://www.jackboy241.com`) |

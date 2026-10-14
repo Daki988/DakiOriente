@@ -1,17 +1,15 @@
 {
   "items": [
+    { "src": "/images/menu/burger.webp", "alt": "Burger gourmet Jackboy", "mood": "food", "caption": "Fast food gourmet" },
     { "src": null, "alt": "Ambiance début de soirée", "mood": "early", "caption": "Début de soirée" },
-    { "src": null, "alt": "La salle et le bar", "mood": "early", "caption": "Le bar" },
-    { "src": null, "alt": "Soirée amapiano", "mood": "late", "caption": "23 h – minuit" },
-    { "src": null, "alt": "DJ aux platines", "mood": "late", "caption": "Aux platines" },
-    { "src": null, "alt": "L'équipe Jackboy", "mood": "team", "caption": "L'équipe" },
-    { "src": null, "alt": "Paninis en cuisine", "mood": "food", "caption": "En cuisine" },
-    { "src": null, "alt": "Le Loft", "mood": "late", "caption": "Le Loft" },
-    { "src": null, "alt": "Entre amis", "mood": "early", "caption": "Entre amis" }
+    { "src": "/images/menu/mojito.webp", "alt": "Mojito", "mood": "late", "caption": "Cocktails good mood" },
+    { "src": null, "alt": "DJ Hamed aux platines", "mood": "late", "caption": "DJ Hamed" },
+    { "src": "/images/menu/wings.webp", "alt": "Wings caramélisées", "mood": "food", "caption": "Des wings qui font parler" },
+    { "src": "/images/menu/chicha.webp", "alt": "Chicha", "mood": "late", "caption": "Chicha" },
+    { "src": null, "alt": "Soirée 23 h – minuit", "mood": "late", "caption": "23 h – minuit" },
+    { "src": "/images/menu/brochettes.webp", "alt": "Brochettes grillées", "mood": "food", "caption": "Brochettes" }
   ],
   "team": [
-    { "name": "Nom à confirmer", "role": "Chef", "photo": null },
-    { "name": "Nom à confirmer", "role": "Barman", "photo": null },
-    { "name": "Nom à confirmer", "role": "DJ résident", "photo": null }
+    { "name": "DJ Hamed", "role": "DJ résident", "photo": null }
   ]
 }

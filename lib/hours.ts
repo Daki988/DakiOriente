@@ -22,7 +22,7 @@ function librevilleNow(now: Date) {
   return { day: wd, minutes: Number(get("hour")) * 60 + Number(get("minute")) };
 }
 
-export type OpenStatus = { open: boolean; label: string };
+export type OpenStatus = { open: boolean; label: string; neutral?: boolean };
 
 /**
  * Calcule l'état ouvert/fermé. Gère les créneaux qui passent minuit
@@ -31,6 +31,15 @@ export type OpenStatus = { open: boolean; label: string };
 export function getOpenStatus(hours: DayHours[], now = new Date()): OpenStatus {
   const { day, minutes } = librevilleNow(now);
   const byDay = new Map(hours.map((h) => [DAY_INDEX[h.day], h]));
+
+  // Heure de fermeture non communiquée : on n'affirme que ce qui est sûr.
+  const today0 = byDay.get(day);
+  if (today0 && !today0.closed && !today0.close) {
+    const o = toMinutes(today0.open);
+    if (minutes >= o) return { open: true, label: `Ouvert · depuis ${fmt(today0.open)}` };
+    if (minutes >= 6 * 60) return { open: false, label: `Ouvre à ${fmt(today0.open)}` };
+    return { open: false, label: `Tous les jours dès ${fmt(today0.open)}`, neutral: true };
+  }
 
   // 1. Créneau de la veille qui déborde après minuit
   const prev = byDay.get((day + 6) % 7);
@@ -55,6 +64,7 @@ export function getOpenStatus(hours: DayHours[], now = new Date()): OpenStatus {
 }
 
 export function fmt(hhmm: string): string {
+  if (!hhmm) return "";
   const [h, m] = hhmm.split(":");
   return m === "00" ? `${Number(h)} h` : `${Number(h)} h ${m}`;
 }
@@ -63,6 +73,6 @@ export function fmt(hhmm: string): string {
 export function hoursSummary(hours: DayHours[]): string {
   const open = hours.filter((h) => !h.closed);
   const same = open.length === 7 && open.every((h) => h.open === open[0].open && h.close === open[0].close);
-  if (same) return `Tous les jours, ${fmt(open[0].open)} – ${fmt(open[0].close)}`;
+  if (same) return open[0].close ? `Tous les jours, ${fmt(open[0].open)} – ${fmt(open[0].close)}` : `Tous les jours, à partir de ${fmt(open[0].open)}`;
   return "Horaires variables selon les jours";
 }

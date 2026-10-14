@@ -1,56 +1,1221 @@
 {
   "categories": [
     {
+      "name": "Burgers",
+      "slug": "burgers",
+      "visible": true,
+      "intro": "Des burgers gourmets aux saveurs uniques.",
+      "image": "/images/menu/burger.webp",
+      "note": "",
+      "products": [
+        {
+          "name": "Burger Simple",
+          "description": "Laitue, tomate, oignons, steak.",
+          "price": 2000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Cheese Burger",
+          "description": "Laitue, tomate, oignons, steak, fromage.",
+          "price": 2500,
+          "image": "/images/menu/burger.webp",
+          "featured": true,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Cheese à Cheval",
+          "description": "Laitue, tomate, oignons, steak, fromage, œuf au plat.",
+          "price": 3000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Burger à Cheval",
+          "description": "Laitue, tomate, oignons, steak, œuf au plat.",
+          "price": 2500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Double Burger",
+          "description": "Laitue, tomate, oignons, 2 steaks.",
+          "price": 4000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Double Cheese",
+          "description": "Laitue, tomate, oignons, 2 steaks, 2 fromages.",
+          "price": 5000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Double Cheese à Cheval",
+          "description": "Laitue, tomate, oignons, 2 steaks, 2 fromages, 2 œufs au plat.",
+          "price": 6000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        }
+      ]
+    },
+    {
       "name": "Paninis",
       "slug": "paninis",
       "visible": true,
-      "intro": "Nos produits emblématiques, pressés minute.",
+      "intro": "Croustillants & gourmands — nos emblématiques.",
+      "image": "/images/menu/paninis.webp",
+      "note": "",
       "products": [
-        { "name": "Panini Jackboy", "description": "Le signature de la maison. Description à fournir.", "price": 0, "image": null, "featured": true, "available": true, "isNew": false },
-        { "name": "Panini Poulet", "description": "Description à fournir.", "price": 0, "image": null, "featured": true, "available": true, "isNew": false },
-        { "name": "Panini Bœuf", "description": "Description à fournir.", "price": 0, "image": null, "featured": true, "available": true, "isNew": true },
-        { "name": "Panini Végétarien", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": false, "isNew": false }
+        {
+          "name": "Panini Poulet",
+          "description": "Poulet grillé et assaisonné.",
+          "price": 1500,
+          "image": "/images/menu/paninis.webp",
+          "featured": true,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Panini Viande",
+          "description": "Viande assaisonnée.",
+          "price": 1500,
+          "image": "/images/menu/paninis.webp",
+          "featured": true,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Panini Jambon",
+          "description": "Jambon de porc.",
+          "price": 2000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        }
       ]
     },
     {
-      "name": "Grillades",
-      "slug": "grillades",
+      "name": "Wings",
+      "slug": "wings",
       "visible": true,
-      "intro": "",
+      "intro": "6 pièces au goût unique.",
+      "image": "/images/menu/wings.webp",
+      "note": "",
       "products": [
-        { "name": "Brochettes", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false },
-        { "name": "Poulet braisé", "description": "Description à fournir.", "price": 0, "image": null, "featured": true, "available": true, "isNew": false },
-        { "name": "Poisson braisé", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false }
+        {
+          "name": "Wings (6 pièces)",
+          "description": "Ailes de poulet marinées, précuites à la grille et remmenées à la poêle. Caramélisées ou salées.",
+          "price": 2000,
+          "image": "/images/menu/wings.webp",
+          "featured": true,
+          "available": true,
+          "isNew": false
+        }
       ]
     },
     {
-      "name": "Accompagnements",
-      "slug": "accompagnements",
+      "name": "Brochettes",
+      "slug": "brochettes",
       "visible": true,
-      "intro": "",
+      "intro": "2 brochettes bien assaisonnées.",
+      "image": "/images/menu/brochettes.webp",
+      "note": "",
       "products": [
-        { "name": "Frites", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false },
-        { "name": "Alloco", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false }
+        {
+          "name": "Brochettes de poulet",
+          "description": "Poulet mariné aux épices.",
+          "price": 2000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Brochettes de viande",
+          "description": "Viande de bœuf marinée et grillée.",
+          "price": 3000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        }
+      ]
+    },
+    {
+      "name": "Nems",
+      "slug": "nems",
+      "visible": true,
+      "intro": "4 pièces de pur plaisir.",
+      "image": "/images/menu/nems.webp",
+      "note": "",
+      "products": [
+        {
+          "name": "Nems poulet",
+          "description": "4 nems croustillants au poulet, servis avec sauce.",
+          "price": 2500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Nems crevettes",
+          "description": "4 nems croustillants aux crevettes, servis avec sauce.",
+          "price": 3000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        }
+      ]
+    },
+    {
+      "name": "Frites",
+      "slug": "frites",
+      "visible": true,
+      "intro": "Simplement irrésistibles.",
+      "image": "/images/menu/frites.webp",
+      "note": "",
+      "products": [
+        {
+          "name": "Frites",
+          "description": "Frites croustillantes et dorées.",
+          "price": 1000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        }
       ]
     },
     {
       "name": "Cocktails",
       "slug": "cocktails",
       "visible": true,
-      "intro": "",
+      "intro": "Des saveurs uniques — Mojito, Mojito passion, Chantaco.",
+      "image": "/images/menu/mojito.webp",
+      "note": "",
       "products": [
-        { "name": "Cocktail signature", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": true },
-        { "name": "Mojito", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false }
+        {
+          "name": "Cocktail alcoolisé",
+          "description": "Mojito, Mojito passion ou Chantaco.",
+          "price": 4000,
+          "image": "/images/menu/mojito.webp",
+          "featured": true,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Cocktail sans alcool",
+          "description": "Mojito, Mojito passion ou Chantaco, version sans alcool.",
+          "price": 3000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        }
       ]
     },
     {
-      "name": "Bières & softs",
-      "slug": "boissons",
+      "name": "Bières locales",
+      "slug": "bieres-locales",
       "visible": true,
-      "intro": "",
+      "intro": "Fraîcheur 100 % d'ici.",
+      "image": "/images/menu/regab.webp",
+      "note": "",
       "products": [
-        { "name": "Bière locale", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false },
-        { "name": "Soda", "description": "Description à fournir.", "price": 0, "image": null, "featured": false, "available": true, "isNew": false }
+        {
+          "name": "Regab (canette)",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Booster Gin Tonic",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Booster Sombrero",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Booster Zombie",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Booster Racine",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Booster Whisky Cola",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Booster Banana",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Booster Punch Tropical",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Vino",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Dopel",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Chill",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Petite 33",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Petite Guinness",
+          "description": "",
+          "price": 2000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Grande Beaufort",
+          "description": "",
+          "price": 2000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Grande Sombrero",
+          "description": "",
+          "price": 2000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        }
+      ]
+    },
+    {
+      "name": "Bières étrangères",
+      "slug": "bieres-etrangeres",
+      "visible": true,
+      "intro": "Les classiques du monde.",
+      "image": null,
+      "note": "",
+      "products": [
+        {
+          "name": "Desperados",
+          "description": "",
+          "price": 3000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Heineken",
+          "description": "",
+          "price": 2500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "ICE",
+          "description": "",
+          "price": 2500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Royal",
+          "description": "",
+          "price": 2000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        }
+      ]
+    },
+    {
+      "name": "Jus & boissons énergisantes",
+      "slug": "jus",
+      "visible": true,
+      "intro": "Vitaminez vos soirées.",
+      "image": null,
+      "note": "",
+      "products": [
+        {
+          "name": "Jus Orange, Pomme ou Mangue",
+          "description": "Verre de jus de fruit industriel.",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Jus Passion, Ananas ou Fraise",
+          "description": "Verre de jus de fruit industriel.",
+          "price": 2000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Bavaria",
+          "description": "",
+          "price": 2000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "XXL",
+          "description": "",
+          "price": 2000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Red Bull",
+          "description": "",
+          "price": 2500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        }
+      ]
+    },
+    {
+      "name": "Shoot & punch",
+      "slug": "shoot-punch",
+      "visible": true,
+      "intro": "À partager sans modération.",
+      "image": null,
+      "note": "Il est possible d'avoir en détail, à partir de 4 verres.",
+      "products": [
+        {
+          "name": "Rhum — plateau de 10 verres",
+          "description": "",
+          "price": 5000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Vodka — plateau de 10 verres",
+          "description": "",
+          "price": 10000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Gin — plateau de 10 verres",
+          "description": "",
+          "price": 10000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        }
+      ]
+    },
+    {
+      "name": "Liqueurs & spiritueux",
+      "slug": "spiritueux",
+      "visible": true,
+      "intro": "Des grands classiques, toujours au rendez-vous.",
+      "image": "/images/menu/whisky.webp",
+      "note": "",
+      "products": [
+        {
+          "name": "Jack Daniel's",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1500
+            },
+            {
+              "label": "Verre",
+              "price": 5000
+            },
+            {
+              "label": "Bouteille",
+              "price": 40000
+            }
+          ]
+        },
+        {
+          "name": "Jack Honey",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1500
+            },
+            {
+              "label": "Verre",
+              "price": 6000
+            },
+            {
+              "label": "Bouteille",
+              "price": 45000
+            }
+          ]
+        },
+        {
+          "name": "Jack Pomme",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1500
+            },
+            {
+              "label": "Verre",
+              "price": 5000
+            },
+            {
+              "label": "Bouteille",
+              "price": 40000
+            }
+          ]
+        },
+        {
+          "name": "Jack Fire",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1500
+            },
+            {
+              "label": "Verre",
+              "price": 5000
+            },
+            {
+              "label": "Bouteille",
+              "price": 40000
+            }
+          ]
+        },
+        {
+          "name": "Black Label",
+          "description": "",
+          "price": 2000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 2000
+            },
+            {
+              "label": "Verre",
+              "price": 7000
+            },
+            {
+              "label": "Bouteille",
+              "price": 70000
+            }
+          ]
+        },
+        {
+          "name": "Double Black",
+          "description": "",
+          "price": 2500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 2500
+            },
+            {
+              "label": "Verre",
+              "price": 9000
+            },
+            {
+              "label": "Bouteille",
+              "price": 90000
+            }
+          ]
+        },
+        {
+          "name": "Gentleman Jack",
+          "description": "",
+          "price": 2000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 2000
+            },
+            {
+              "label": "Verre",
+              "price": 9000
+            },
+            {
+              "label": "Bouteille",
+              "price": 90000
+            }
+          ]
+        },
+        {
+          "name": "Ballantine's",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1500
+            },
+            {
+              "label": "Verre",
+              "price": 5000
+            },
+            {
+              "label": "Bouteille",
+              "price": 35000
+            }
+          ]
+        },
+        {
+          "name": "White Horse",
+          "description": "",
+          "price": 1000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1000
+            },
+            {
+              "label": "Verre",
+              "price": 4000
+            }
+          ]
+        },
+        {
+          "name": "Get 27",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1500
+            },
+            {
+              "label": "Verre",
+              "price": 4000
+            }
+          ]
+        },
+        {
+          "name": "Get 31",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1500
+            },
+            {
+              "label": "Verre",
+              "price": 4000
+            }
+          ]
+        },
+        {
+          "name": "Chivas 12 ans",
+          "description": "",
+          "price": 5000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Verre",
+              "price": 5000
+            }
+          ]
+        },
+        {
+          "name": "Negrita",
+          "description": "",
+          "price": 4000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Verre",
+              "price": 4000
+            }
+          ]
+        },
+        {
+          "name": "Diplomático",
+          "description": "",
+          "price": 2000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 2000
+            },
+            {
+              "label": "Verre",
+              "price": 7000
+            }
+          ]
+        },
+        {
+          "name": "Armagnac",
+          "description": "",
+          "price": 1500,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1500
+            },
+            {
+              "label": "Verre",
+              "price": 5000
+            }
+          ]
+        },
+        {
+          "name": "Porto",
+          "description": "",
+          "price": 5000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Verre",
+              "price": 5000
+            }
+          ]
+        },
+        {
+          "name": "Havana Club",
+          "description": "",
+          "price": 5000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Verre",
+              "price": 5000
+            }
+          ]
+        },
+        {
+          "name": "Dimple",
+          "description": "",
+          "price": 7000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Verre",
+              "price": 7000
+            }
+          ]
+        },
+        {
+          "name": "Grand Marnier",
+          "description": "",
+          "price": 7000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Verre",
+              "price": 7000
+            }
+          ]
+        },
+        {
+          "name": "Martini (rouge/blanc)",
+          "description": "",
+          "price": 4000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Verre",
+              "price": 4000
+            }
+          ]
+        },
+        {
+          "name": "Vodka Absolut",
+          "description": "",
+          "price": 1000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1000
+            },
+            {
+              "label": "Verre",
+              "price": 5000
+            },
+            {
+              "label": "Bouteille",
+              "price": 35000
+            }
+          ]
+        },
+        {
+          "name": "Gordon's",
+          "description": "",
+          "price": 1000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1000
+            },
+            {
+              "label": "Verre",
+              "price": 4000
+            }
+          ]
+        },
+        {
+          "name": "Belvédère",
+          "description": "",
+          "price": 7000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Verre",
+              "price": 7000
+            },
+            {
+              "label": "Bouteille",
+              "price": 70000
+            }
+          ]
+        },
+        {
+          "name": "Skyy",
+          "description": "",
+          "price": 1000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1000
+            },
+            {
+              "label": "Verre",
+              "price": 4000
+            }
+          ]
+        },
+        {
+          "name": "Cîroc",
+          "description": "",
+          "price": 7000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Verre",
+              "price": 7000
+            },
+            {
+              "label": "Bouteille",
+              "price": 70000
+            }
+          ]
+        },
+        {
+          "name": "Tequila",
+          "description": "",
+          "price": 1000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1000
+            }
+          ]
+        },
+        {
+          "name": "Baileys",
+          "description": "",
+          "price": 4000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Verre",
+              "price": 4000
+            },
+            {
+              "label": "Bouteille",
+              "price": 40000
+            }
+          ]
+        },
+        {
+          "name": "Saint James Rhum",
+          "description": "",
+          "price": 1000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1000
+            },
+            {
+              "label": "Verre",
+              "price": 4000
+            }
+          ]
+        },
+        {
+          "name": "Black & White",
+          "description": "",
+          "price": 1000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1000
+            },
+            {
+              "label": "Verre",
+              "price": 4000
+            }
+          ]
+        },
+        {
+          "name": "Bombay",
+          "description": "",
+          "price": 1000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Shoot",
+              "price": 1000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vins",
+      "slug": "vins",
+      "visible": true,
+      "intro": "Élégance en toute occasion.",
+      "image": "/images/menu/vin.webp",
+      "note": "",
+      "products": [
+        {
+          "name": "Vin rouge",
+          "description": "Grand Versant, Calvet.",
+          "price": 15000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Bouteille",
+              "price": 15000
+            },
+            {
+              "label": "Bouteille",
+              "price": 20000
+            }
+          ]
+        },
+        {
+          "name": "Vin blanc",
+          "description": "Grand Versant, Chevalac, Calvet.",
+          "price": 10000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Bouteille",
+              "price": 10000
+            },
+            {
+              "label": "Bouteille",
+              "price": 15000
+            }
+          ]
+        },
+        {
+          "name": "Petit JP Chenet",
+          "description": "",
+          "price": 5000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Grand Sud",
+          "description": "",
+          "price": 15000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        },
+        {
+          "name": "Merlot",
+          "description": "",
+          "price": 15000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false
+        }
+      ]
+    },
+    {
+      "name": "Chicha",
+      "slug": "chicha",
+      "visible": true,
+      "intro": "Différentes saveurs.",
+      "image": "/images/menu/chicha.webp",
+      "note": "",
+      "products": [
+        {
+          "name": "Chicha classique",
+          "description": "Melon, pastèque, citron, pomme, fraise, menthe et bien d'autres.",
+          "price": 5000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Chicha",
+              "price": 5000
+            },
+            {
+              "label": "Tête",
+              "price": 4000
+            }
+          ]
+        },
+        {
+          "name": "Chicha Love / Menthe crème",
+          "description": "Saveurs Love ou Menthe crème.",
+          "price": 7000,
+          "image": null,
+          "featured": false,
+          "available": true,
+          "isNew": false,
+          "variants": [
+            {
+              "label": "Chicha",
+              "price": 7000
+            },
+            {
+              "label": "Tête",
+              "price": 5000
+            }
+          ]
+        }
       ]
     }
   ]

@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Category } from "@/lib/content";
 import { ProductCard } from "./ProductCard";
+import { Media } from "./Media";
 
 /**
  * Menu interactif : puces de catégories défilables (collantes) + sections.
@@ -50,8 +51,14 @@ export function MenuBrowser({ categories }: { categories: Category[] }) {
       </div>
       {categories.map((c) => (
         <section key={c.slug} id={c.slug} aria-labelledby={`h-${c.slug}`} className="scroll-mt-32 pt-10">
-          <h2 id={`h-${c.slug}`} className="font-display text-3xl sm:text-4xl">{c.name}</h2>
-          {c.intro && <p className="mt-2 text-sm text-muted">{c.intro}</p>}
+          <div className="flex items-center gap-4">
+            {c.image && <Media src={c.image} alt={c.name} className="h-16 w-16 shrink-0 rounded-2xl sm:h-20 sm:w-20" sizes="80px" />}
+            <div>
+              <h2 id={`h-${c.slug}`} className="font-display text-3xl sm:text-4xl">{c.name}</h2>
+              {c.intro && <p className="mt-1 text-sm text-muted">{c.intro}</p>}
+            </div>
+          </div>
+          {c.note && <p className="mt-3 rounded-xl border border-accent/30 bg-secondary/30 px-3 py-2 text-xs text-accent">N.B. : {c.note}</p>}
           <ul className="mt-2">
             {c.products.map((p) => <ProductCard key={p.name} p={p} />)}
           </ul>

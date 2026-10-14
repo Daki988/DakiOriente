@@ -1,4 +1,4 @@
-import { settings, primaryPhone, directionsLinks, fullAddress } from "@/lib/content";
+import { settings, primaryPhone, directionsLinks, fullAddress, whatsappLink } from "@/lib/content";
 import { hoursSummary, fmt } from "@/lib/hours";
 import { Button } from "./Button";
 import { OpenStatus } from "./OpenStatus";
@@ -23,7 +23,7 @@ export function VisitBlock({ showHoursTable = false }: { showHoursTable?: boolea
           <div>
             <p className="font-semibold">{hoursSummary(settings.hours)}</p>
             <OpenStatus hours={settings.hours} className="mt-2" />
-            {settings.demoMode && <p className="mt-2 text-xs text-gold">{settings.hoursNote}</p>}
+            {settings.hoursNote && <p className="mt-2 text-xs text-gold">{settings.hoursNote}</p>}
           </div>
         </div>
         {showHoursTable && (
@@ -33,7 +33,7 @@ export function VisitBlock({ showHoursTable = false }: { showHoursTable?: boolea
               {settings.hours.map((h) => (
                 <tr key={h.day} className="border-b border-white/5">
                   <th scope="row" className="py-2 text-left font-normal capitalize text-muted">{h.day}</th>
-                  <td className="py-2 text-right">{h.closed ? "Fermé" : `${fmt(h.open)} – ${fmt(h.close)}`}</td>
+                  <td className="py-2 text-right">{h.closed ? "Fermé" : h.close ? `${fmt(h.open)} – ${fmt(h.close)}` : `à partir de ${fmt(h.open)}`}</td>
                 </tr>
               ))}
             </tbody>
@@ -54,6 +54,7 @@ export function VisitBlock({ showHoursTable = false }: { showHoursTable?: boolea
           <Button href={links.google}><IconArrow className="h-4 w-4" /> Obtenir l&apos;itinéraire</Button>
           <Button href={`tel:${primaryPhone.number}`} variant="ghost"><IconPhone className="h-4 w-4" /> Appeler Jackboy</Button>
           <Button href="/menu" variant="gold">Voir le menu</Button>
+          {settings.whatsapp && <Button href={whatsappLink("Bonjour Jackboy !")} variant="ghost">WhatsApp</Button>}
         </div>
         <p className="text-xs text-muted">
           Ouvrir avec{" "}
@@ -61,7 +62,7 @@ export function VisitBlock({ showHoursTable = false }: { showHoursTable?: boolea
           <a className="underline underline-offset-2 hover:text-accent" href={links.apple} target="_blank" rel="noopener noreferrer">Plans (iPhone)</a>
         </p>
       </div>
-      <MapEmbed lat={settings.address.lat} lng={settings.address.lng} label={settings.name} />
+      <MapEmbed src={links.embed} label={settings.name} />
     </div>
   );
 }

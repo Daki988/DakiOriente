@@ -1,7 +1,8 @@
-/**
- * TODO: DONNÉE À CONFIRMER — logo provisoire.
- * Remplacer par le logo officiel HD (SVG) fourni par Jackboy : public/brand/logo.svg
- */
+import Image from "next/image";
+import cactus from "@/public/brand/cactus.png";
+import logoDark from "@/public/brand/logo-dark.png";
+
+/** Cactus stylisé (SVG) — usage décoratif uniquement (fonds, filigranes). */
 export function CactusMark({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 48 48" aria-hidden="true" className={className} fill="currentColor">
@@ -13,13 +14,19 @@ export function CactusMark({ className = "" }: { className?: string }) {
   );
 }
 
+/** Logo officiel complet (version pour fond sombre, générée depuis le logo fourni). */
+export function FullLogo({ className = "", priority = false }: { className?: string; priority?: boolean }) {
+  return <Image src={logoDark} alt="Jack Boy — Bar-Resto 241" className={className} priority={priority} sizes="(min-width:768px) 280px, 200px" />;
+}
+
+/** Version compacte pour l'en-tête : cactus du logo + nom. */
 export function Logo({ className = "", compact = false }: { className?: string; compact?: boolean }) {
   return (
     <span className={`inline-flex items-center gap-2 ${className}`}>
-      <CactusMark className="h-7 w-7 text-accent" />
+      <Image src={cactus} alt="" className="h-9 w-auto" sizes="32px" priority />
       <span className="leading-none">
-        <span className="block font-display text-xl tracking-wide">Jackboy</span>
-        {!compact && <span className="block text-[10px] uppercase tracking-[0.3em] text-muted">Bar-Restaurant 241</span>}
+        <span className="block font-display text-xl tracking-wide">Jack Boy</span>
+        {!compact && <span className="block text-[10px] uppercase tracking-[0.3em] text-muted">Bar-Resto 241</span>}
       </span>
     </span>
   );

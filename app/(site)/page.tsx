@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { settings, getSignatureProducts, getUpcomingEvents, gallery } from "@/lib/content";
+import { settings, getSignatureProducts, getUpcomingEvents, gallery, loft } from "@/lib/content";
 import { hoursSummary } from "@/lib/hours";
 import { Button } from "@/components/Button";
 import { OpenStatus } from "@/components/OpenStatus";
@@ -9,13 +9,13 @@ import { ProductCard } from "@/components/ProductCard";
 import { EventCard } from "@/components/EventCard";
 import { Media } from "@/components/Media";
 import { VisitBlock } from "@/components/VisitBlock";
-import { CactusMark } from "@/components/Logo";
+import { CactusMark, FullLogo } from "@/components/Logo";
 import { IconArrow, IconPin } from "@/components/Icons";
 
 const GENRES = ["Amapiano", "Afrobeats", "Afritcham", "Urban"];
 
 export default function Home() {
-  const signatures = getSignatureProducts(3);
+  const signatures = getSignatureProducts(6);
   const events = getUpcomingEvents().slice(0, 2);
   const moments = gallery.slice(0, 5);
 
@@ -25,22 +25,29 @@ export default function Home() {
       <section aria-labelledby="hero-title" className="grain relative isolate flex min-h-[calc(100svh-3.5rem-var(--bottom-nav-h))] items-end overflow-hidden md:min-h-[calc(100svh-4rem)]">
         {/* Fond : visuel provisoire en CSS pur (0 octet d'image → LCP texte instantané).
             TODO: DONNÉE À CONFIRMER — remplacer par photo hero (poster) + vidéo légère desktop. */}
-        <div aria-hidden="true" className="absolute inset-0 -z-10 wood" style={{ background: "radial-gradient(70% 55% at 75% 20%, rgba(140,198,63,.28), transparent 60%), radial-gradient(60% 50% at 10% 85%, rgba(14,58,44,.9), transparent 70%), radial-gradient(40% 30% at 85% 90%, rgba(210,168,78,.18), transparent 70%), linear-gradient(180deg,#0b0f0d 0%,#0a0c0b 100%)" }} />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 wood" style={{ background: "radial-gradient(70% 55% at 75% 20%, rgba(22,180,127,.28), transparent 60%), radial-gradient(60% 50% at 10% 85%, rgba(14,58,44,.9), transparent 70%), radial-gradient(40% 30% at 85% 90%, rgba(210,168,78,.18), transparent 70%), linear-gradient(180deg,#0b0f0d 0%,#0a0c0b 100%)" }} />
         <CactusMark className="glow pointer-events-none absolute -right-10 top-6 -z-10 h-[70vmin] w-[70vmin] text-accent/[0.07] md:right-10" />
-        <div className="mx-auto w-full max-w-6xl px-4 pb-10 pt-16 md:pb-20">
-          <OpenStatus hours={settings.hours} className="rise mb-6" />
+        <div aria-hidden="true" className="pointer-events-none absolute right-[6%] top-1/2 -z-10 hidden -translate-y-1/2 lg:block">
+          <div className="relative h-[460px] w-[420px]">
+            <Media src="/images/menu/burger.webp" alt="" className="absolute right-0 top-0 h-[300px] w-[340px] rotate-3 rounded-3xl border border-white/10 shadow-2xl" sizes="340px" />
+            <Media src="/images/menu/mojito.webp" alt="" className="absolute bottom-0 left-0 h-[240px] w-[170px] -rotate-6 rounded-3xl border border-white/10 shadow-2xl" sizes="170px" />
+          </div>
+        </div>
+        <div className="mx-auto w-full max-w-6xl px-4 pb-8 pt-8 md:pb-20 md:pt-16">
+          <OpenStatus hours={settings.hours} className="rise mb-4" />
+          <FullLogo priority className="lift mb-4 h-auto w-24 sm:w-44 md:w-56" />
           <p className="rise text-xs font-semibold uppercase tracking-[0.35em] text-accent">Feel the night · Libreville</p>
-          <h1 id="hero-title" className="lift mt-4 font-display text-[clamp(3.2rem,15vw,9rem)]">
+          <h1 id="hero-title" className="lift mt-2 font-display text-[clamp(2.5rem,10.5vw,7rem)]">
             Jackboy<span className="block text-[0.42em] text-text/90">Bar-Restaurant 241</span>
           </h1>
-          <p className="rise rise-2 mt-5 max-w-xl text-lg text-text/85 sm:text-xl">{settings.tagline}</p>
+          <p className="rise rise-2 mt-4 max-w-xl text-base text-text/85 sm:text-xl">{settings.tagline}</p>
           <p className="rise rise-2 mt-1 font-display text-2xl text-gold sm:text-3xl">{settings.taglineFr}</p>
-          <div className="rise rise-3 mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="rise rise-3 mt-6 flex flex-col gap-3 sm:flex-row">
             <Button href="/menu">Découvrir le menu <IconArrow className="h-4 w-4" /></Button>
             <Button href="/acces" variant="ghost"><IconPin className="h-4 w-4" /> Nous trouver</Button>
           </div>
           <p className="rise rise-3 mt-6 text-sm text-muted">
-            Louis, Libreville · {hoursSummary(settings.hours)}
+            Louis, Libreville · {hoursSummary(settings.hours)} · Good drinks · Good vibes · Great people
           </p>
         </div>
       </section>
@@ -56,8 +63,9 @@ export default function Home() {
       {/* ───── ACTE 3 — Cuisine ───── */}
       <section aria-labelledby="acte3" className="wood border-y border-white/5 bg-surface/50 py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-4">
-          <SectionTitle id="acte3" kicker="L'expérience culinaire" title="Nos signatures">
-            Les paninis Jackboy sont la raison pour laquelle on revient. Pressés minute, généreux.
+          <SectionTitle id="acte3" kicker="Fast food gourmet" title="Du goût, du vrai, du plaisir.">
+            Burgers gourmets, paninis croustillants dès 1 500 FCFA, wings caramélisées ou salées, brochettes et nems.
+            {settings.ordering.enabled && " À déguster sur place, à emporter ou en livraison."}
           </SectionTitle>
           <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0">
             {signatures.map((p) => (
@@ -67,7 +75,7 @@ export default function Home() {
             ))}
           </div>
           <div className="mt-8">
-            <Button href="/menu" variant="gold">Voir le menu complet <IconArrow className="h-4 w-4" /></Button>
+            <Button href="/menu" variant="gold">{settings.ordering.enabled ? "Voir le menu & commander" : "Voir le menu complet"} <IconArrow className="h-4 w-4" /></Button>
           </div>
         </div>
       </section>
@@ -75,7 +83,7 @@ export default function Home() {
       {/* ───── ACTE 4 — Musique & communauté ───── */}
       <section aria-labelledby="acte4" className="mx-auto max-w-6xl px-4 py-20 md:py-28">
         <SectionTitle id="acte4" kicker="Musique & communauté" title="Le son de Libreville.">
-          On ne le décrit pas, on le vit.
+          Aux platines : <strong className="text-text">{settings.residentDj}</strong>. Music, drinks, friends, good mood.
         </SectionTitle>
         <ul className="reveal mb-8 flex flex-wrap gap-2" aria-label="Styles musicaux">
           {GENRES.map((g) => (
@@ -107,7 +115,7 @@ export default function Home() {
           </div>
         )}
 
-        <Link href="/loft" className="reveal group mt-16 block overflow-hidden rounded-3xl border border-gold/30">
+        {loft.visible && <Link href="/loft" className="reveal group mt-16 block overflow-hidden rounded-3xl border border-gold/30">
           <div className="relative">
             <Media mood="late" alt="Le Loft" className="aspect-[16/9] md:aspect-[21/9]" />
             <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 to-transparent p-6">
@@ -116,14 +124,14 @@ export default function Home() {
               <span className="mt-2 inline-flex items-center gap-2 text-sm text-gold group-hover:underline">Découvrir <IconArrow className="h-4 w-4" /></span>
             </div>
           </div>
-        </Link>
+        </Link>}
       </section>
 
       {/* ───── ACTE 5 — Passage à l'action ───── */}
       <section aria-labelledby="acte5" className="border-t border-white/5 bg-secondary/25 py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-4">
           <SectionTitle id="acte5" kicker="Rendez-vous" title="On se retrouve chez Jackboy ?">
-            Louis, Libreville, à environ 100 mètres de l&apos;ambassade de Côte d&apos;Ivoire.
+            Louis, Libreville, à 100 mètres de l&apos;ambassade de Côte d&apos;Ivoire. Tous les jours dès 15 h.
           </SectionTitle>
           <VisitBlock />
         </div>
