@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import { getCategories, getSignatureProducts, primaryPhone, settings } from "@/lib/content";
+import { getCategories, getSignatureProducts, primaryPhone, settings, getComposerPools } from "@/lib/content";
+import { MenuDownload } from "@/components/MenuDownload";
+import { SoireeComposer } from "@/components/SoireeComposer";
+import { LdJson, menuSchema, breadcrumbSchema } from "@/components/Schema";
 import { PageHero } from "@/components/PageHero";
 import { MenuBrowser } from "@/components/MenuBrowser";
 import { ProductCard } from "@/components/ProductCard";
@@ -7,8 +10,8 @@ import { Button } from "@/components/Button";
 import { IconPhone } from "@/components/Icons";
 
 export const metadata: Metadata = {
-  title: "Menu",
-  description: "Menu et prix de Jackboy (FCFA) : burgers, paninis, wings, brochettes, nems, cocktails, bières, spiritueux, vins, chicha. Commande par WhatsApp.",
+  title: "Menu & prix — burgers, cocktails, bières, whisky, chicha",
+  description: "Menu complet et prix en FCFA de Jackboy à Libreville : burgers dès 2 000 FCFA, paninis 1 500 FCFA, wings, brochettes, nems, cocktails, bières, whisky, vins, chicha. Menu PDF à télécharger, commande WhatsApp.",
   alternates: { canonical: "/menu" },
 };
 
@@ -17,11 +20,14 @@ export default function MenuPage() {
   const signatures = getSignatureProducts(6);
   return (
     <>
-      <PageHero kicker="La carte" title="Le menu">
+      <LdJson data={menuSchema()} />
+      <LdJson data={breadcrumbSchema([{ name: "Accueil", path: "/" }, { name: "Menu", path: "/menu" }])} />
+      <PageHero kicker="La carte · Prix en FCFA" title="Le menu Jackboy">
         Fast food gourmet & bar : burgers, paninis, wings, cocktails, spiritueux, chicha.
         {settings.ordering.enabled && " Ajoutez vos produits au panier puis envoyez votre commande par WhatsApp — sur place, à emporter ou en livraison."}
       </PageHero>
       <div className="mx-auto max-w-6xl px-4">
+        <div className="pt-6"><MenuDownload compact /></div>
         {signatures.length > 0 && (
           <section aria-labelledby="sig" className="pt-10">
             <h2 id="sig" className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-gold">Signatures Jackboy</h2>
@@ -35,6 +41,8 @@ export default function MenuPage() {
         <div className="mt-8 max-w-3xl">
           <MenuBrowser categories={categories} />
         </div>
+        {settings.ordering.enabled && <div className="mt-16"><SoireeComposer pools={getComposerPools()} /></div>}
+        <div className="mt-8"><MenuDownload /></div>
         <aside className="my-14 flex flex-col items-start gap-4 rounded-3xl border border-white/5 bg-surface p-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="font-display text-2xl">Une question sur la carte ?</p>

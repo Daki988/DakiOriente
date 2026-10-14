@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { settings, getSignatureProducts, getUpcomingEvents, gallery, loft } from "@/lib/content";
+import { settings, getSignatureProducts, getUpcomingEvents, gallery, loft, getCategories, getComposerPools, seo } from "@/lib/content";
 import { hoursSummary } from "@/lib/hours";
 import { Button } from "@/components/Button";
 import { OpenStatus } from "@/components/OpenStatus";
@@ -11,6 +11,11 @@ import { Media } from "@/components/Media";
 import { VisitBlock } from "@/components/VisitBlock";
 import { CactusMark, FullLogo } from "@/components/Logo";
 import { IconArrow, IconPin } from "@/components/Icons";
+import { Marquee } from "@/components/Marquee";
+import { NightPulse } from "@/components/NightPulse";
+import { SoireeComposer } from "@/components/SoireeComposer";
+import { MenuDownload } from "@/components/MenuDownload";
+import { Faq } from "@/components/Faq";
 
 const GENRES = ["Amapiano", "Afrobeats", "Afritcham", "Urban"];
 
@@ -18,13 +23,14 @@ export default function Home() {
   const signatures = getSignatureProducts(6);
   const events = getUpcomingEvents().slice(0, 2);
   const moments = gallery.slice(0, 5);
+  const pools = getComposerPools();
+  const categories = getCategories();
 
   return (
     <>
       {/* ───── ACTE 1 — Hero ───── */}
       <section aria-labelledby="hero-title" className="grain relative isolate flex min-h-[calc(100svh-3.5rem-var(--bottom-nav-h))] items-end overflow-hidden md:min-h-[calc(100svh-4rem)]">
-        {/* Fond : visuel provisoire en CSS pur (0 octet d'image → LCP texte instantané).
-            TODO: DONNÉE À CONFIRMER — remplacer par photo hero (poster) + vidéo légère desktop. */}
+        {/* Fond en CSS pur (0 octet d'image → LCP instantané). Une vidéo d'ambiance pourra s'ajouter ici. */}
         <div aria-hidden="true" className="absolute inset-0 -z-10 wood" style={{ background: "radial-gradient(70% 55% at 75% 20%, rgba(22,180,127,.28), transparent 60%), radial-gradient(60% 50% at 10% 85%, rgba(14,58,44,.9), transparent 70%), radial-gradient(40% 30% at 85% 90%, rgba(210,168,78,.18), transparent 70%), linear-gradient(180deg,#0b0f0d 0%,#0a0c0b 100%)" }} />
         <CactusMark className="glow pointer-events-none absolute -right-10 top-6 -z-10 h-[70vmin] w-[70vmin] text-accent/[0.07] md:right-10" />
         <div aria-hidden="true" className="pointer-events-none absolute right-[6%] top-1/2 -z-10 hidden -translate-y-1/2 lg:block">
@@ -34,23 +40,25 @@ export default function Home() {
           </div>
         </div>
         <div className="mx-auto w-full max-w-6xl px-4 pb-8 pt-8 md:pb-20 md:pt-16">
-          <OpenStatus hours={settings.hours} className="rise mb-4" />
-          <FullLogo priority className="lift mb-4 h-auto w-24 sm:w-44 md:w-56" />
-          <p className="rise text-xs font-semibold uppercase tracking-[0.35em] text-accent">Feel the night · Libreville</p>
+          <OpenStatus hours={settings.hours} className="lift mb-4" />
+          <FullLogo priority className="neon mb-4 h-auto w-24 sm:w-44 md:w-56" />
+          <p className="lift text-xs font-semibold uppercase tracking-[0.35em] text-accent">Bar · Fast food gourmet · Chicha · Libreville</p>
           <h1 id="hero-title" className="lift mt-2 font-display text-[clamp(2.5rem,10.5vw,7rem)]">
-            Jackboy<span className="block text-[0.42em] text-text/90">Bar-Restaurant 241</span>
+            Jackboy{" "}<span className="block text-[0.42em] text-text/90">Bar-Restaurant 241</span>
           </h1>
-          <p className="rise rise-2 mt-4 max-w-xl text-base text-text/85 sm:text-xl">{settings.tagline}</p>
-          <p className="rise rise-2 mt-1 font-display text-2xl text-gold sm:text-3xl">{settings.taglineFr}</p>
-          <div className="rise rise-3 mt-6 flex flex-col gap-3 sm:flex-row">
+          <p className="lift mt-4 max-w-xl text-base text-text/85 sm:text-xl">{settings.tagline}</p>
+          <p className="lift neon-text mt-1 font-display text-2xl text-gold sm:text-3xl">{settings.taglineFr}</p>
+          <div className="lift mt-6 flex flex-col gap-3 sm:flex-row">
             <Button href="/menu">Découvrir le menu <IconArrow className="h-4 w-4" /></Button>
             <Button href="/acces" variant="ghost"><IconPin className="h-4 w-4" /> Nous trouver</Button>
           </div>
-          <p className="rise rise-3 mt-6 text-sm text-muted">
+          <p className="lift mt-6 text-sm text-muted">
             Louis, Libreville · {hoursSummary(settings.hours)} · Good drinks · Good vibes · Great people
           </p>
         </div>
       </section>
+
+      <Marquee items={["Good drinks", "Good vibes", "Great people", "Amapiano", "Afrobeats", "Afritcham", "Burgers", "Chicha", "Cocktails", "Louis · Libreville"]} />
 
       {/* ───── ACTE 2 — Deux ambiances ───── */}
       <section aria-labelledby="acte2" className="mx-auto max-w-6xl px-4 py-20 md:py-28">
@@ -58,6 +66,7 @@ export default function Home() {
           Conviviale en début de soirée, beaucoup plus animée vers 23 h – minuit. L&apos;ambiance varie selon les soirs.
         </SectionTitle>
         <AmbianceSwitch />
+        <div className="mt-6"><NightPulse /></div>
       </section>
 
       {/* ───── ACTE 3 — Cuisine ───── */}
@@ -77,6 +86,8 @@ export default function Home() {
           <div className="mt-8">
             <Button href="/menu" variant="gold">{settings.ordering.enabled ? "Voir le menu & commander" : "Voir le menu complet"} <IconArrow className="h-4 w-4" /></Button>
           </div>
+          {settings.ordering.enabled && <div className="mt-14"><SoireeComposer pools={pools} /></div>}
+          <div className="mt-6"><MenuDownload /></div>
         </div>
       </section>
 
@@ -125,6 +136,57 @@ export default function Home() {
             </div>
           </div>
         </Link>}
+      </section>
+
+      {/* ───── Présentation (contenu riche pour le référencement local) ───── */}
+      <section aria-labelledby="apropos" className="border-t border-white/5 py-20">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-2">
+          <div className="reveal">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent">Jackboy en bref</p>
+            <h2 id="apropos" className="mt-3 font-display text-4xl sm:text-5xl">Votre bar-restaurant à Libreville</h2>
+            <div className="mt-5 space-y-4 text-text/85">
+              <p>
+                Installé dans le <strong>quartier Louis à Libreville</strong>, à 100 mètres de l&apos;ambassade de Côte d&apos;Ivoire,
+                Jackboy Bar-Resto 241 réunit tout ce qu&apos;on attend d&apos;une sortie réussie : un <strong>fast food gourmet</strong>,
+                un <strong>bar</strong> bien fourni et une vraie ambiance.
+              </p>
+              <p>
+                Côté cuisine : <Link className="text-accent underline-offset-2 hover:underline" href="/menu/burgers">burgers</Link>,{" "}
+                <Link className="text-accent underline-offset-2 hover:underline" href="/menu/paninis">paninis</Link>,{" "}
+                <Link className="text-accent underline-offset-2 hover:underline" href="/menu/wings">chicken wings</Link>,{" "}
+                <Link className="text-accent underline-offset-2 hover:underline" href="/menu/brochettes">brochettes</Link> et{" "}
+                <Link className="text-accent underline-offset-2 hover:underline" href="/menu/nems">nems</Link>, à partir de 1 000 FCFA.
+                Côté bar : <Link className="text-accent underline-offset-2 hover:underline" href="/menu/cocktails">cocktails</Link>,{" "}
+                <Link className="text-accent underline-offset-2 hover:underline" href="/menu/bieres-locales">bières gabonaises</Link>,{" "}
+                <Link className="text-accent underline-offset-2 hover:underline" href="/menu/spiritueux">whisky et spiritueux</Link>,{" "}
+                <Link className="text-accent underline-offset-2 hover:underline" href="/menu/vins">vins</Link> et{" "}
+                <Link className="text-accent underline-offset-2 hover:underline" href="/menu/chicha">chicha</Link>.
+              </p>
+              <p>
+                Ouvert tous les jours dès 15 h : afterwork entre collègues, dîner entre amis, anniversaire ou grosse soirée
+                amapiano et afrobeats avec {settings.residentDj}. Commandez aussi à emporter ou en livraison via WhatsApp.
+              </p>
+            </div>
+          </div>
+          <div className="reveal">
+            <h2 className="mb-4 font-display text-3xl">Questions fréquentes</h2>
+            <Faq limit={4} />
+            <Link href="/faq" className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold uppercase tracking-wider text-accent hover:underline">
+              Toutes les questions <IconArrow className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+        <nav aria-label="Catégories du menu" className="mx-auto mt-12 max-w-6xl px-4">
+          <ul className="flex flex-wrap gap-2">
+            {categories.map((c) => (
+              <li key={c.slug}>
+                <Link href={`/menu/${c.slug}`} className="inline-flex min-h-10 items-center rounded-full border border-white/10 px-4 text-sm text-text/80 hover:border-accent hover:text-accent">
+                  {seo.categories[c.slug]?.h1 ?? c.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </section>
 
       {/* ───── ACTE 5 — Passage à l'action ───── */}

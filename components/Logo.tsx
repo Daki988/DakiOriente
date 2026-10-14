@@ -16,7 +16,7 @@ export function CactusMark({ className = "" }: { className?: string }) {
 
 /** Logo officiel complet (version pour fond sombre, générée depuis le logo fourni). */
 export function FullLogo({ className = "", priority = false }: { className?: string; priority?: boolean }) {
-  return <Image src={logoDark} alt="Jack Boy — Bar-Resto 241" className={className} priority={priority} sizes="(min-width:768px) 280px, 200px" />;
+  return <Image src={logoDark} alt="Jack Boy — Bar-Resto 241" className={className} priority={priority} sizes="(min-width:768px) 224px, (min-width:640px) 176px, 96px" />;
 }
 
 /** Version compacte pour l'en-tête : cactus du logo + nom. */

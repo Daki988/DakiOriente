@@ -8,6 +8,8 @@ import menuData from "@/content/menu.json";
 import eventsData from "@/content/events.json";
 import galleryData from "@/content/gallery.json";
 import loftData from "@/content/loft.json";
+import seoData from "@/content/seo.json";
+import faqData from "@/content/faq.json";
 
 export type Phone = { label: string; number: string; display: string };
 /** `close` vide = heure de fermeture non communiquée. */
@@ -112,4 +114,52 @@ export function fullAddress(): string {
 export function whatsappLink(text?: string): string {
   const n = (settings.whatsapp || primaryPhone.number).replace(/\D/g, "");
   return `https://wa.me/${n}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
+}
+
+export type CategorySeo = { h1: string; title: string; description: string; intro: string };
+export const seo = seoData as { home: { title: string; description: string }; categories: Record<string, CategorySeo> };
+export const faq = faqData.items as { q: string; a: string }[];
+
+export function getCategory(slug: string): Category | undefined {
+  return getCategories().find((c) => c.slug === slug);
+}
+
+/** Prix minimum d'un produit (variantes comprises). */
+export function minPrice(p: Product): number {
+  return p.variants?.length ? Math.min(...p.variants.map((v) => v.price)) : p.price;
+}
+
+/** Carte officielle téléchargeable. */
+export const MENU_PDF = {
+  href: "/menu/carte-jackboy-241-libreville.pdf",
+  filename: "Carte-Jackboy-241-Libreville.pdf",
+  sizeLabel: "PDF · 1,9 Mo · 2 pages",
+  pages: [
+    { src: "/menu/carte-bar-jackboy-libreville.webp", alt: "Carte du bar Jackboy Libreville : bières, cocktails, spiritueux, vins, chicha" },
+    { src: "/menu/carte-fast-food-jackboy-libreville.webp", alt: "Carte fast food Jackboy Libreville : burgers, paninis, wings, brochettes, nems, frites" },
+  ],
+};
+
+/** Groupes de produits utilisés par le composeur de soirée. */
+export function getComposerPools() {
+  const by = (slugs: string[], variant?: string) =>
+    getCategories()
+      .filter((c) => slugs.includes(c.slug))
+      .flatMap((c) => c.products)
+      .filter((p) => p.available)
+      .flatMap((p) => {
+        if (p.variants?.length) {
+          const v = variant ? p.variants.find((x) => x.label === variant) : p.variants[0];
+          return v ? [{ name: p.name, variant: v.label, price: v.price }] : [];
+        }
+        return p.price ? [{ name: p.name, price: p.price }] : [];
+      });
+  return {
+    food: by(["burgers", "paninis", "wings", "brochettes", "nems"]),
+    side: by(["frites"]),
+    drink: by(["bieres-locales", "bieres-etrangeres", "cocktails"]),
+    soft: by(["jus"]),
+    share: [...by(["shoot-punch"]), ...by(["chicha"], "Chicha")],
+    bottle: by(["spiritueux"], "Bouteille"),
+  };
 }

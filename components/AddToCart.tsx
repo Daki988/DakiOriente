@@ -27,16 +27,16 @@ export function AddToCart({ p }: { p: Product }) {
             key={i}
             type="button"
             onClick={() => onAdd(o.label, o.price)}
-            aria-label={`Ajouter ${p.name}${o.label ? ` (${o.label})` : ""} au panier — ${formatPrice(o.price)}`}
             className={`inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-xs font-semibold transition active:scale-95 ${
               flash === k ? "border-accent bg-accent text-accent-ink" : "border-white/15 hover:border-accent hover:text-accent"
             }`}
           >
             <span aria-hidden="true" className="text-base leading-none">{flash === k ? "✓" : "+"}</span>
+            {o.label && <span className="sr-only">Ajouter {p.name} au panier : </span>}
             {o.label ? (
-              <><span className="text-muted">{o.label}</span><span>{formatPrice(o.price)}</span></>
+              <><span className="text-muted">{o.label}</span>{" "}<span>{formatPrice(o.price)}</span></>
             ) : (
-              <span>{flash === k ? "Ajouté" : "Ajouter"}</span>
+              <span>{flash === k ? "Ajouté" : "Ajouter"}<span className="sr-only"> {p.name} au panier — {formatPrice(o.price)}</span></span>
             )}
           </button>
         );

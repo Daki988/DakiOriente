@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { settings, fullAddress } from "@/lib/content";
+import { settings, fullAddress, getCategories, seo, MENU_PDF } from "@/lib/content";
 import { hoursSummary } from "@/lib/hours";
 import { NAV } from "./nav";
 
@@ -40,14 +40,24 @@ export function Footer() {
           <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-muted">Explorer</h2>
           <ul className="space-y-1 text-sm">
             {NAV.map((n) => <li key={n.href}><Link className="hover:text-accent" href={n.href}>{n.label}</Link></li>)}
+            <li><Link className="hover:text-accent" href="/faq">Questions fréquentes</Link></li>
+            <li><a className="text-accent hover:underline" href={MENU_PDF.href} download={MENU_PDF.filename}>Télécharger le menu (PDF)</a></li>
           </ul>
         </nav>
       </div>
+      <nav aria-label="La carte" className="mx-auto max-w-6xl px-4 pb-8">
+        <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-muted">À la carte à Libreville</h2>
+        <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-text/70">
+          {getCategories().map((c) => (
+            <li key={c.slug}><Link className="hover:text-accent" href={`/menu/${c.slug}`}>{seo.categories[c.slug]?.h1 ?? c.name}</Link></li>
+          ))}
+        </ul>
+      </nav>
       <div className="border-t border-white/5 px-4 py-5 text-center text-xs text-muted">
         © {new Date().getFullYear()} {settings.name} ·{" "}
         <Link href="/mentions-legales" className="underline-offset-2 hover:underline">Mentions légales</Link> ·{" "}
         <Link href="/confidentialite" className="underline-offset-2 hover:underline">Confidentialité</Link> · Réalisé par NEAM
-        <p className="mt-2 text-white/40">L&apos;abus d&apos;alcool est dangereux pour la santé. À consommer avec modération.</p>
+        <p className="mt-2 text-muted">L&apos;abus d&apos;alcool est dangereux pour la santé. À consommer avec modération.</p>
       </div>
     </footer>
   );

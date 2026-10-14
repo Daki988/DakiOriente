@@ -1,0 +1,92 @@
+{
+  "home": {
+    "title": "Jackboy 241 — Bar, restaurant & fast food à Libreville (Louis) | Burgers, chicha, cocktails",
+    "description": "Bar, fast food gourmet & chicha à Louis (Libreville), à 100 m de l'ambassade de Côte d'Ivoire. Burgers, paninis, cocktails, whisky, DJ. Dès 15 h. Livraison WhatsApp."
+  },
+  "categories": {
+    "burgers": {
+      "h1": "Burgers à Libreville",
+      "title": "Burger à Libreville — Cheese burger, double cheese dès 2 000 FCFA | Jackboy 241",
+      "description": "Burger à Libreville : burger simple, cheese burger, burger à cheval, double cheese… dès 2 000 FCFA chez Jackboy (Louis). Sur place, à emporter ou livré.",
+      "intro": "Chez Jackboy, le burger se fait gourmet : pain moelleux, steak, laitue, tomate, oignons, et toutes les variantes — fromage, œuf au plat « à cheval », double steak. Le fast food comme on l'aime, au cœur du quartier Louis à Libreville."
+    },
+    "paninis": {
+      "h1": "Paninis à Libreville",
+      "title": "Panini à Libreville — Poulet, viande, jambon dès 1 500 FCFA | Jackboy 241",
+      "description": "Paninis croustillants et gourmands à Libreville : panini poulet, panini viande à 1 500 FCFA, panini jambon. Jackboy, quartier Louis. Commande WhatsApp et livraison.",
+      "intro": "Le panini, c'est l'emblème de Jackboy : croustillant dehors, généreux dedans. Poulet grillé assaisonné, viande assaisonnée ou jambon — un classique du soir à Louis, Libreville, à petit prix."
+    },
+    "wings": {
+      "h1": "Chicken wings à Libreville",
+      "title": "Wings à Libreville — 6 ailes de poulet caramélisées ou salées, 2 000 FCFA | Jackboy 241",
+      "description": "Chicken wings à Libreville : 6 ailes de poulet marinées, précuites à la grille puis remmenées à la poêle, caramélisées ou salées, 2 000 FCFA. Jackboy, quartier Louis.",
+      "intro": "Des wings qui font parler : ailes de poulet marinées, précuites à la grille puis remmenées à la poêle. Caramélisées ou salées, à partager (ou pas) avec une bière bien fraîche."
+    },
+    "brochettes": {
+      "h1": "Brochettes à Libreville",
+      "title": "Brochettes à Libreville — poulet & bœuf marinés | Jackboy 241",
+      "description": "Brochettes de poulet mariné aux épices (2 000 FCFA) et brochettes de bœuf marinées et grillées (3 000 FCFA) chez Jackboy, quartier Louis à Libreville.",
+      "intro": "Deux brochettes bien assaisonnées par portion : poulet mariné aux épices ou viande de bœuf marinée et grillée. Le grignotage idéal pour accompagner la soirée."
+    },
+    "nems": {
+      "h1": "Nems à Libreville",
+      "title": "Nems à Libreville — poulet ou crevettes, 4 pièces | Jackboy 241",
+      "description": "Nems croustillants à Libreville : 4 nems au poulet (2 500 FCFA) ou aux crevettes (3 000 FCFA), servis avec sauce. Jackboy, quartier Louis.",
+      "intro": "Quatre nems croustillants, au poulet ou aux crevettes, servis avec leur sauce. Parfait en entrée ou à partager autour d'un cocktail."
+    },
+    "frites": {
+      "h1": "Frites à Libreville",
+      "title": "Frites croustillantes à Libreville — 1 000 FCFA | Jackboy 241",
+      "description": "Frites croustillantes et dorées à 1 000 FCFA chez Jackboy, bar-restaurant fast food du quartier Louis à Libreville.",
+      "intro": "Simplement irrésistibles : des frites croustillantes et dorées, l'accompagnement parfait d'un burger ou de wings."
+    },
+    "cocktails": {
+      "h1": "Cocktails à Libreville",
+      "title": "Cocktails à Libreville — Mojito, Mojito passion, Chantaco dès 3 000 FCFA | Jackboy 241",
+      "description": "Bar à cocktails à Libreville : Mojito, Mojito passion, Chantaco. 4 000 FCFA avec alcool, 3 000 FCFA sans alcool. Jackboy, quartier Louis, ouvert dès 15 h.",
+      "intro": "Cocktails good mood : Mojito, Mojito passion et Chantaco, avec ou sans alcool. Le bon réflexe pour lancer la soirée à Louis, avant que la musique monte."
+    },
+    "bieres-locales": {
+      "h1": "Bières gabonaises à Libreville",
+      "title": "Bières locales à Libreville — Regab, Booster, Beaufort, prix dès 1 500 FCFA | Jackboy 241",
+      "description": "Prix des bières locales à Libreville chez Jackboy : Regab, Booster, Dopel, Chill, Petite 33 à 1 500 FCFA ; Guinness, Grande Beaufort à 2 000 FCFA.",
+      "intro": "Fraîcheur 100 % d'ici : Regab, toute la gamme Booster, Vino, Dopel, Chill, Petite 33, Guinness, Beaufort… Les bières du Gabon, bien fraîches, à prix doux."
+    },
+    "bieres-etrangeres": {
+      "h1": "Bières étrangères à Libreville",
+      "title": "Heineken, Desperados, ICE, Royal à Libreville — prix | Jackboy 241",
+      "description": "Bières étrangères chez Jackboy à Libreville : Desperados 3 000 FCFA, Heineken 2 500 FCFA, ICE 2 500 FCFA, Royal 2 000 FCFA.",
+      "intro": "Les classiques du monde : Desperados, Heineken, ICE et Royal, servies fraîches au bar."
+    },
+    "jus": {
+      "h1": "Jus & boissons énergisantes",
+      "title": "Jus, Red Bull, XXL, Bavaria à Libreville — prix | Jackboy 241",
+      "description": "Jus de fruits (orange, pomme, mangue, passion, ananas, fraise), Bavaria, XXL et Red Bull chez Jackboy, quartier Louis à Libreville.",
+      "intro": "Vitaminez vos soirées : jus de fruits, Bavaria, XXL ou Red Bull, pour ceux qui ne boivent pas d'alcool ou qui veulent tenir jusqu'au bout de la nuit."
+    },
+    "shoot-punch": {
+      "h1": "Shoots & plateaux à partager",
+      "title": "Plateau de shoots à Libreville — rhum, vodka, gin | Jackboy 241",
+      "description": "Plateaux de 10 shoots à partager chez Jackboy à Libreville : rhum 5 000 FCFA, vodka 10 000 FCFA, gin 10 000 FCFA. Possible en détail dès 4 verres.",
+      "intro": "À partager sans modération (mais avec responsabilité) : des plateaux de 10 verres de rhum, vodka ou gin, pour lancer la soirée entre amis."
+    },
+    "spiritueux": {
+      "h1": "Whisky & spiritueux à Libreville",
+      "title": "Whisky à Libreville — prix Jack Daniel's, Black Label, Chivas, Gentleman Jack | Jackboy 241",
+      "description": "Prix du whisky et des spiritueux à Libreville : Jack Daniel's, Black Label, Chivas, Gentleman Jack, Absolut, Cîroc, Baileys… au shoot, au verre ou à la bouteille.",
+      "intro": "Des grands classiques, toujours au rendez-vous : whiskies, vodkas, rhums, liqueurs — au shoot, au verre ou à la bouteille pour la table. Idéal pour les soirées entre amis et les anniversaires."
+    },
+    "vins": {
+      "h1": "Vins à Libreville",
+      "title": "Vin rouge, vin blanc à Libreville — JP Chenet, Merlot, Grand Sud | Jackboy 241",
+      "description": "Vins chez Jackboy à Libreville : vin rouge et blanc (Grand Versant, Calvet, Chevalac), Petit JP Chenet 5 000 FCFA, Grand Sud et Merlot 15 000 FCFA.",
+      "intro": "Élégance en toute occasion : rouges, blancs et quelques valeurs sûres comme JP Chenet, Grand Sud ou Merlot."
+    },
+    "chicha": {
+      "h1": "Chicha à Libreville",
+      "title": "Chicha à Libreville — saveurs melon, menthe, Love dès 5 000 FCFA | Jackboy 241",
+      "description": "Chicha à Libreville chez Jackboy (Louis) : melon, pastèque, citron, pomme, fraise, menthe… dès 5 000 FCFA ; Love et Menthe crème 7 000 FCFA.",
+      "intro": "Un moment de détente : la chicha Jackboy se décline en nombreuses saveurs — melon, pastèque, citron, pomme, fraise, menthe — et en versions Love ou Menthe crème."
+    }
+  }
+}

@@ -51,7 +51,7 @@ body {
 
 /* Grain photographique léger (SVG inline, ~300 o) */
 .grain::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .09; mix-blend-mode: overlay;
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .05;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -87,4 +87,53 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* ───────── Expérience « Feel the night » ───────── */
+
+/* Néon qui s'allume (logo du hero) */
+@keyframes neon-on {
+  0% { opacity: 0; filter: drop-shadow(0 0 0 transparent); }
+  8% { opacity: .9; } 10% { opacity: .15; } 14% { opacity: 1; } 17% { opacity: .3; }
+  22%, 100% { opacity: 1; filter: drop-shadow(0 0 10px rgba(22,180,127,.55)) drop-shadow(0 0 28px rgba(22,180,127,.25)); }
+}
+@keyframes neon-breathe {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(22,180,127,.55)) drop-shadow(0 0 28px rgba(22,180,127,.25)); }
+  50% { filter: drop-shadow(0 0 14px rgba(22,180,127,.75)) drop-shadow(0 0 40px rgba(22,180,127,.35)); }
+}
+.neon { animation: neon-on 1.6s steps(1, end) .2s both, neon-breathe 5s ease-in-out 2s infinite; }
+.neon-text { text-shadow: 0 0 18px rgba(210,168,78,.45), 0 0 2px rgba(210,168,78,.8); }
+
+/* Bandeau défilant */
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee-track { animation: marquee 38s linear infinite; width: max-content; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+/* Barre de progression de lecture (sans JS) */
+@supports (animation-timeline: scroll()) {
+  .scroll-progress { animation: grow linear both; animation-timeline: scroll(root); transform-origin: 0 50%; }
+  @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+@supports not (animation-timeline: scroll()) { .scroll-progress { display: none; } }
+
+/* Halo lumineux qui suit le pointeur (cartes, desktop) */
+.spotlight { position: relative; isolation: isolate; }
+.spotlight::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(22,180,127,.16), transparent 45%);
+}
+@media (hover: hover) { .spotlight:hover::before { opacity: 1; } }
+
+/* Lueur pulsée du curseur « vous êtes ici » */
+@keyframes ping { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(2.6); opacity: 0; } }
+.ping::after { content: ""; position: absolute; inset: 0; border-radius: 9999px; background: inherit; animation: ping 1.8s ease-out infinite; }
+
+/* Range slider aux couleurs Jackboy */
+input[type="range"].jb-range { -webkit-appearance: none; appearance: none; height: 6px; border-radius: 9999px; background: linear-gradient(90deg, var(--color-accent) var(--fill, 50%), rgba(255,255,255,.12) var(--fill, 50%)); }
+input[type="range"].jb-range::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; border-radius: 9999px; background: var(--color-text); border: 4px solid var(--color-accent); box-shadow: 0 0 18px rgba(22,180,127,.6); cursor: pointer; }
+input[type="range"].jb-range::-moz-range-thumb { width: 22px; height: 22px; border-radius: 9999px; background: var(--color-text); border: 4px solid var(--color-accent); cursor: pointer; }
+
+@media (prefers-reduced-motion: reduce) {
+  .neon { opacity: 1; filter: drop-shadow(0 0 10px rgba(22,180,127,.55)); }
+  .marquee-track { transform: none; }
 }
