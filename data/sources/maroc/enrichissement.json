@@ -202,5 +202,597 @@
     "adresse": "Immeuble 49, rue Jamil Sidqui Zouhaoui, Résidence Douaa Charq, Ville Haute (Anoual), Kénitra",
     "description": "Établissement privé d'enseignement supérieur à Kénitra, qui forme en commerce, gestion, finance, logistique et informatique de gestion.",
     "notes": "Ne pas confondre avec HECI Kénitra, qui appartient à un autre réseau. Etudiant.ma mentionne un second site à Kénitra."
+  },
+  "ma-estem": {
+    "site_web": "https://estem.ma",
+    "annee_creation": 1994,
+    "adresse": "4-6, rue Moussa Bnou Noussair, boulevard Moulay Youssef, quartier Gauthier, 20060 Casablanca",
+    "description": "École privée reconnue par l'État regroupant une école d'ingénieurs (génie civil, informatique, télécommunications), une business school (commerce, gestion, finance, droit des affaires) et des classes préparatoires aux grandes écoles de commerce.",
+    "coordonnees": {
+      "lat": 33.5911322,
+      "lng": -7.6276619
+    },
+    "annee_source": "Année 1994 indiquée par le registre ROR (ror.org/018vhc422) ; la liste ministérielle des établissements autorisés 2023-2024 donne une date d'effet 2001-2002 pour l'autorisation actuelle",
+    "notes": "Année de création non confirmée par le site officiel : 1994 (ROR) contre 2001-2002 (autorisation ministérielle). Coordonnées : nœud OSM de l'école (4-6, rue Moussa Bnou Noussair) ; l'ancienne valeur (33.5959, -7.6305) était décalée d'environ 550 m."
+  },
+  "ma-iga": {
+    "site_web": "http://www.iga.ac.ma",
+    "annee_creation": 1981,
+    "adresse": "Place de la gare Casa-Voyageurs (Belvédère), Casablanca",
+    "description": "Institut privé de Casablanca formant en ingénierie (génie informatique, génie électrique) et en management (finance, contrôle, audit).",
+    "coordonnees": {
+      "lat": 33.590977932,
+      "lng": -7.591134131
+    },
+    "annee_source": "Année 1981 revendiquée par le groupe IGA/ISGA ; la liste ministérielle des établissements autorisés 2023-2024 donne une date d'effet 1984-1985",
+    "notes": "Autres sites à Casablanca : IGA Maârif (279, boulevard Bir Anzarane) et IGA 2 Mars (41, avenue 2 Mars). Année 1981 non confirmée par une page du site officiel. Coordonnées existantes conservées : cohérentes avec la gare Casa-Voyageurs, mais non confirmées par un objet OSM de l'école."
+  },
+  "ma-emsi-casablanca": {
+    "site_web": "https://emsi.ma",
+    "annee_creation": 1986,
+    "adresse": "217, boulevard Bir Anzarane, Maârif, Casablanca",
+    "description": "Campus de Casablanca de l'EMSI, école d'ingénieurs privée reconnue par l'État (réseau Honoris United Universities) formant en informatique et réseaux, génie électrique, automatisme, génie civil/BTP, génie industriel et génie financier.",
+    "coordonnees": {
+      "lat": 33.5835885,
+      "lng": -7.6424557
+    },
+    "annee_source": "Brochure officielle EMSI : création de l'EMSI Casablanca en avril 1986 ; liste ministérielle des établissements autorisés 2023-2024 (date d'effet 1986-1987)",
+    "notes": "Plusieurs sites à Casablanca (Maârif, Centre 105 et 135 rue Al Bakri, Les Orangers, Roudani, Moulay Youssef, Anfa) ; adresse retenue : site Maârif."
+  },
+  "ma-emsi-rabat": {
+    "site_web": "https://emsi.ma",
+    "annee_creation": 1996,
+    "adresse": "49, rue Patrice Lumumba, Hassan, Rabat",
+    "description": "Campus de Rabat de l'EMSI, école d'ingénieurs privée reconnue par l'État (réseau Honoris United Universities) formant en informatique et réseaux, génie électrique, automatisme, génie civil/BTP, génie industriel et génie financier.",
+    "coordonnees": null,
+    "annee_source": "Brochure officielle EMSI : ouverture EMSI Rabat en 1996 ; liste ministérielle des établissements autorisés 2023-2024 (1996-1997)",
+    "notes": "Plusieurs sites à Rabat (Centre 1 et 2, Agdal 1 et 2, Souissi, Bouregreg, Hassan) ; adresse retenue : Rabat Centre 1 (adresse principale de l'autorisation ministérielle)."
+  },
+  "ma-emsi-marrakech": {
+    "site_web": "https://emsi.ma",
+    "annee_creation": 2004,
+    "adresse": "05, lotissement Bouizgaren, route de Safi, Marrakech",
+    "description": "Campus de Marrakech de l'EMSI, école d'ingénieurs privée reconnue par l'État (réseau Honoris United Universities) formant en informatique et réseaux, génie électrique, automatisme, génie civil/BTP, génie industriel et génie financier.",
+    "coordonnees": null,
+    "annee_source": "Brochure officielle EMSI : ouverture EMSI Marrakech en 2004 ; liste ministérielle des établissements autorisés 2023-2024 (2004-2005)",
+    "notes": "Deuxième site : angle avenue Hassan II et rue Yougoslavie (Guéliz)."
+  },
+  "ma-emsi-tanger": {
+    "site_web": "https://emsi.ma",
+    "annee_creation": 2019,
+    "adresse": "Angle rue Omar Ibn Abdelaziz et rue Sijelmassa, Tanger",
+    "description": "Campus de Tanger de l'EMSI, école d'ingénieurs privée reconnue par l'État (réseau Honoris United Universities) formant en informatique et réseaux, génie électrique, automatisme, génie civil/BTP, génie industriel et génie financier.",
+    "coordonnees": null,
+    "annee_source": "Brochure officielle EMSI : ouverture EMSI Tanger en 2019 ; liste ministérielle des établissements autorisés 2023-2024 (2019-2020)"
+  },
+  "ma-emsi-fes": {
+    "site_web": "https://emsi.ma",
+    "annee_creation": 2023,
+    "adresse": "5, avenue Lalla Aïcha, Champ de courses, Fès",
+    "description": "Campus de Fès de l'EMSI, école d'ingénieurs privée reconnue par l'État (réseau Honoris United Universities) formant en informatique et réseaux, génie électrique, automatisme, génie civil/BTP, génie industriel et génie financier.",
+    "coordonnees": null,
+    "annee_source": "Brochure officielle EMSI (2025) : ouverture EMSI Fès en 2023",
+    "notes": "Campus absent de la liste ministérielle 2023-2024 (ouverture récente)."
+  },
+  "ma-isga-rabat": {
+    "site_web": "https://isga.ma",
+    "annee_creation": 1996,
+    "adresse": "27, avenue Oqba, Agdal, 10090 Rabat",
+    "description": "Campus de Rabat de l'ISGA (groupe Edvantis), établissement privé reconnu par l'État comprenant une école d'ingénieurs (informatique, systèmes industriels, génie civil) et une école de management (finance, marketing, ressources humaines).",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (ISGA-Rabat, date d'effet 1996-1997)",
+    "notes": "Le réseau ISGA (ex-IGA) revendique une création en 1981 ; l'année retenue est celle de l'autorisation du campus de Rabat."
+  },
+  "ma-isga-fes": {
+    "site_web": "https://isga.ma",
+    "annee_creation": 2011,
+    "adresse": "38, avenue des FAR, Ville Nouvelle, Fès",
+    "description": "Campus de Fès de l'ISGA (groupe Edvantis), établissement privé reconnu par l'État comprenant une école d'ingénieurs (informatique, systèmes industriels, génie civil) et une école de management (finance, marketing, ressources humaines).",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (ISGA-Fès, date d'effet 2011-2012)",
+    "notes": "Wikipédia indique une ouverture de l'IGA Fès en 2008 ; la liste ministérielle donne 2011-2012 pour l'autorisation actuelle."
+  },
+  "ma-isga-marrakech": {
+    "site_web": "https://isga.ma",
+    "annee_creation": 2005,
+    "adresse": "Rue Ibn Habousse, Hivernage, Marrakech",
+    "description": "Campus de Marrakech de l'ISGA (groupe Edvantis), établissement privé reconnu par l'État comprenant une école d'ingénieurs (informatique, systèmes industriels, génie civil) et une école de management (finance, marketing, ressources humaines).",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (ISGA-Marrakech, date d'effet 2005-2006)"
+  },
+  "ma-isga-casablanca": {
+    "site_web": "https://isga.ma",
+    "annee_creation": 2017,
+    "adresse": "393, route d'El Jadida, Oasis, Casablanca",
+    "description": "Campus de Casablanca de l'ISGA (groupe Edvantis), établissement privé reconnu par l'État comprenant une école d'ingénieurs (informatique, systèmes industriels, génie civil) et une école de management (finance, marketing, ressources humaines).",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (ISGA-Casablanca, date d'effet 2017-2018) ; Wikipédia : ouverture du campus en 2017",
+    "notes": "La liste ministérielle indique le n° 392, le site officiel le n° 393."
+  },
+  "ma-emg": {
+    "site_web": "https://emg.ac.ma",
+    "annee_creation": 2008,
+    "adresse": "34, avenue Omar Ibn Khattab, Agdal, Rabat",
+    "description": "École d'ingénieurs privée reconnue par l'État, proposant des cycles préparatoire et ingénieur en génie civil, génie électrique, génie industriel et génie informatique.",
+    "coordonnees": {
+      "lat": 34.0014673,
+      "lng": -6.8455931
+    },
+    "annee_source": "Site officiel EMG : fondée en 2008 ; autorisation ministérielle effective 2009-2010"
+  },
+  "ma-istl": {
+    "site_web": "https://istl.ma",
+    "annee_creation": 2006,
+    "adresse": "Ancienne route de Rabat km 7, rue Guiriane (ex-Vuillanier), Aïn Sebaâ, Casablanca",
+    "description": "Institut privé spécialisé dans les métiers du transport et de la logistique, créé en collaboration avec des professionnels marocains et le groupe français AFT-IFTIM ; il propose des cycles licence, master et ingénieur.",
+    "coordonnees": null,
+    "annee_source": "Site officiel ISTL : créé en 2006, reconnu par l'État depuis 2017 ; liste ministérielle des établissements autorisés 2023-2024 (2006-2007)"
+  },
+  "ma-hem": {
+    "site_web": "https://hem.ac.ma",
+    "annee_creation": 1988,
+    "adresse": "Avenue Al Quds, Californie II, Casablanca",
+    "description": "Business school privée reconnue par l'État (groupe HEM, réseau Honoris United Universities) formant au management, à la finance, au marketing et aux ressources humaines.",
+    "coordonnees": {
+      "lat": 33.5314611,
+      "lng": -7.6214826
+    },
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 1988-1989)",
+    "notes": "Site hem.ac.ma non consulté (erreur 429) ; adresse issue de la liste ministérielle. Coordonnées : nœud OSM « Hautes Études de Management », boulevard Al Quds ; l'ancienne valeur (35.79, -5.76) correspondait à Tanger et était erronée."
+  },
+  "ma-heec": {
+    "site_web": "https://ecoleheec.ma",
+    "annee_creation": 1997,
+    "adresse": "Boulevard Abou Oubeida Al Jarah, Daoudiate, Marrakech",
+    "description": "École privée de commerce, de management et d'ingénierie installée à Marrakech, reconnue par l'État, délivrant des formations de niveau licence et master.",
+    "coordonnees": {
+      "lat": 31.6463648,
+      "lng": -7.994735
+    },
+    "annee_source": "Site officiel HEEC : création en 1997 ; liste ministérielle des établissements autorisés 2023-2024 (1997-1998)"
+  },
+  "ma-supmanagement": {
+    "site_web": "https://www.supmanagement.ma",
+    "annee_creation": 1995,
+    "adresse": "28, place du 11 Janvier, Ville Nouvelle, Fès",
+    "description": "École privée de Fès formant en management, commerce et informatique (licences et masters).",
+    "coordonnees": {
+      "lat": 34.0356936,
+      "lng": -4.9944097
+    },
+    "annee_source": "Site officiel : « SupManagement, fondée en 1995 » ; liste ministérielle des établissements autorisés 2023-2024 (1995-1996)",
+    "notes": "Coordonnées : nœud OSM « Sup management » (rue Omar Al Idrissi, Ville Nouvelle), légèrement différent de l'adresse officielle (place du 11 Janvier)."
+  },
+  "ma-eigsi-casa": {
+    "site_web": "https://www.eigsica.ma",
+    "annee_creation": 2006,
+    "adresse": "282, route de l'Oasis, 20410 Casablanca",
+    "description": "Campus marocain de l'EIGSI (école d'ingénieurs de La Rochelle) proposant une formation d'ingénieur généraliste en cinq ans identique à celle du campus français.",
+    "coordonnees": null,
+    "annee_source": "Site EIGSI (eigsi.fr) : ouverture d'EIGSI Casablanca en 2006 ; autorisation ministérielle effective 2007-2008",
+    "notes": "Ancienne valeur 1990 erronée (EIGSI La Rochelle date de 1901 ; le campus de Casablanca a ouvert en 2006). Anciennes coordonnées (46.14, -1.15) erronées : elles pointaient vers La Rochelle (France) ; aucune coordonnée fiable trouvée pour le campus de Casablanca."
+  },
+  "ma-supmti-rabat": {
+    "site_web": "https://supmti.ac.ma",
+    "annee_creation": 2006,
+    "adresse": "98, avenue Allal Ben Abdellah, Hassan, Rabat",
+    "description": "Centre de Rabat de SUPMTI, école privée reconnue par l'État formant en management, informatique, systèmes d'information et télécommunications (licences, masters et cycle ingénieur).",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (SUPMTI Rabat, date d'effet 2006-2007) ; le site mentionne des lauréats depuis 2006",
+    "notes": "Second site : campus Agdal, 22 avenue Omar Ibn Al Khattab."
+  },
+  "ma-eheio": {
+    "site_web": "https://ehei.ma",
+    "annee_creation": 2011,
+    "adresse": "25, rue Aïn Al Haloua, Hay Al Qods, Oujda",
+    "description": "École d'ingénieurs privée d'Oujda proposant des formations bac+5 en informatique, génie industriel et gestion des entreprises.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2011-2012)",
+    "notes": "Site ehei.ma identifié via l'intitulé du site (« EHEIO - Ecole des Hautes Etudes d'Ingénierie Oujda ») ; contenu du site non vérifié directement. OSM place l'établissement rue Al Houria, Hay Ben Mrah (34.6574, -1.9080), ce qui contredit l'adresse ministérielle : coordonnées laissées à null."
+  },
+  "ma-emaa": {
+    "site_web": "https://emaa.ma",
+    "annee_creation": 2008,
+    "adresse": "105, avenue Hassan Ier, immeuble Ennour, cité Dakhla, Agadir",
+    "description": "École privée de management et d'administration des affaires à Agadir (EMAA Business School), reconnue par l'État, proposant des formations en gestion, commerce et management.",
+    "coordonnees": {
+      "lat": 30.4095341,
+      "lng": -9.5598823
+    },
+    "annee_source": "Site officiel EMAA : établie en 2008 ; liste ministérielle des établissements autorisés 2023-2024 (2008-2009)"
+  },
+  "ma-ismagi": {
+    "site_web": "https://ismagi.ma",
+    "annee_creation": 2013,
+    "adresse": "559, Riad Al Andalous, Hay Riad, Rabat",
+    "description": "Institut privé de Rabat formant en management, administration et génie informatique (licences, masters) et proposant un cycle d'ingénieur (biotechnologie, informatique embarquée et robotique).",
+    "coordonnees": {
+      "lat": 33.9495277,
+      "lng": -6.8865354
+    },
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2013-2014)",
+    "notes": "Coordonnées : bâtiment OSM « iSMAGi Hay Riad » (boulevard Al Boustane) ; un second site OSM « ISMAGI - Campus 2 » existe à Agdal (rue Oued Fès)."
+  },
+  "ma-hestim": {
+    "site_web": "https://www.hestim.ma",
+    "annee_creation": 2006,
+    "adresse": "293-295, boulevard Ghandi, quartier Oasis, Casablanca",
+    "description": "École privée reconnue par l'État comprenant une école d'ingénieurs (génie civil, génie industriel et logistique, informatique/cybersécurité et IA) et une business school (management, marketing digital).",
+    "coordonnees": null,
+    "annee_source": "Site officiel HESTIM : création en 2006 ; autorisation ministérielle effective 2007-2008"
+  },
+  "ma-suprh": {
+    "site_web": "https://www.suprh.com",
+    "annee_creation": 2008,
+    "adresse": "Boulevard Abou Bakr El Kadiri, complexe Panorama, lotissement Al Moustakbal, Sidi Maârouf, Casablanca",
+    "description": "École privée spécialisée en management et gestion des ressources humaines, proposant des formations de niveau licence et master.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2008-2009)",
+    "notes": "Ne pas confondre avec l'école française SUP des RH (supdesrh.com)."
+  },
+  "ma-esss": {
+    "site_web": "https://esss.ac.ma",
+    "annee_creation": 2014,
+    "adresse": "Angle rue Prince Moulay Abdellah et rue Ennakhla, 20000 Casablanca",
+    "description": "École privée spécialisée dans les sciences de la santé : kinésithérapie, psychomotricité, orthophonie, audioprothèse, radiologie, laboratoire, diététique, soins infirmiers et masters en management de la santé.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2014-2015)"
+  },
+  "ma-ensit": {
+    "site_web": "https://ensit.ma",
+    "annee_creation": 2010,
+    "adresse": "5, rue Melilla, 90060 Tanger",
+    "description": "École privée d'ingénierie de Tanger reconnue par l'État, aujourd'hui présentée sous le nom ENSI, proposant des formations d'ingénieur et de management.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (ENSIT, date d'effet 2010-2011)",
+    "notes": "Le site utilise désormais la marque « ENSI » (ensi.ma redirige). La liste ministérielle donne l'adresse « angle avenue de Fès et avenue Essalam » ; adresse retenue : site officiel."
+  },
+  "ma-hecf-fes": {
+    "site_web": "https://hecf.ac.ma",
+    "annee_creation": 2004,
+    "adresse": "6, rue Abi Hamid Al Ghazali, Agdal, Ville Nouvelle, Fès",
+    "description": "École privée de commerce reconnue par l'État, spécialisée en comptabilité, contrôle et audit, banque-finance-assurance, marketing et droit des affaires (licences et masters), avec un second campus à Meknès.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2004-2005)",
+    "notes": "Le site officiel indique « N° 4 », la liste ministérielle « n° 6 » rue Abi Hamid Al Ghazali."
+  },
+  "ma-eamr": {
+    "site_web": "https://artsetmetiers.ma",
+    "annee_creation": 2023,
+    "adresse": "Parc Technopolis, rocade Rabat-Salé, 11100 Sala Al Jadida (Salé)",
+    "description": "Campus marocain du réseau Arts et Métiers (France), géré par une fondation présidée par le ministre de l'Industrie et du Commerce, formant des ingénieurs généralistes en technologies industrielles durables.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2023-2024)",
+    "notes": "Statut particulier : établissement à caractère public géré par une fondation de droit privé."
+  },
+  "ma-suptech-sante": {
+    "site_web": "https://suptech-sante.ma",
+    "annee_creation": 2023,
+    "adresse": "Quartier Hassan II, zone industrielle, Mohammedia",
+    "description": "École d'ingénieurs privée créée par la Fondation de recherche, de développement et d'innovation en sciences et ingénierie (FRDISI), formant en génie biomédical et techniques de santé (classes préparatoires intégrées, licences, cycle ingénieur, masters).",
+    "coordonnees": null,
+    "annee_source": "Annonce de la FRDISI (Le Matin, 6 juillet 2023) : ouverture à la rentrée 2023-2024 ; liste ministérielle des établissements autorisés 2023-2024 (2023-2024)",
+    "notes": "Rattachée depuis à l'Université Internationale Bleu (uib.ma)."
+  },
+  "ma-eheb": {
+    "site_web": "https://eheb.ma",
+    "annee_creation": 1996,
+    "adresse": "183, boulevard de la Résistance (avenue Al Moukawama), Casablanca",
+    "description": "École privée de biotechnologie et de santé reconnue par l'État, proposant des formations en biotechnologie, biomédical, agrotechnologie, bio-industries et bio-informatique.",
+    "coordonnees": null,
+    "annee_source": "Site officiel EHEB : fondée en 1996 (autorisation n° 107/96) ; liste ministérielle des établissements autorisés 2023-2024 (1996-1997)"
+  },
+  "ma-escga": {
+    "site_web": "https://escga.ma",
+    "annee_creation": 2007,
+    "adresse": "144, rue Ahmed Tadili, quartier Essouriyine, Tanger",
+    "description": "École privée de commerce et de gestion de Tanger proposant des licences (commerce, gestion, logistique) et des masters (finance-audit, marketing et commerce international).",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2007-2008)"
+  },
+  "ma-suptech-sante-essaouira": {
+    "site_web": "https://suptech-sante.ma",
+    "annee_creation": 2023,
+    "description": "Campus d'Essaouira de Suptech Santé, école d'ingénieurs privée de la FRDISI formant en génie biomédical et techniques de santé.",
+    "coordonnees": null,
+    "annee_source": "Annonce de la FRDISI (Le Matin, 6 juillet 2023) : lancement de Suptech Santé à Mohammedia et Essaouira à la rentrée 2023",
+    "notes": "Adresse précise non trouvée (code Plus « R9F6+9F3, Essaouira » indiqué par uib.ma). Campus absent de la liste ministérielle 2023-2024."
+  },
+  "ma-suptech-environnement": {
+    "site_web": "https://www.suptech-environnement.ma",
+    "description": "École privée de la FRDISI (campus de Mohammedia) formant en technologies de l'eau, de l'énergie et du développement durable : gestion numérique des systèmes énergétiques, génie de l'eau et de l'environnement, assainissement.",
+    "coordonnees": null,
+    "notes": "Année d'ouverture non trouvée ; établissement absent de la liste ministérielle 2023-2024. Campus de Mohammedia partagé avec Suptech Santé (uib.ma)."
+  },
+  "ma-esiai": {
+    "site_web": "https://www.esiai.ma",
+    "annee_creation": 2018,
+    "adresse": "Boulevard Hassan II, lotissement Sitr Allah (lots 14-15, 20-23), Oujda",
+    "description": "École d'ingénieurs privée d'Oujda reconnue par l'État (ex-École Supérieure d'Ingénierie en Génie Civil Privée), formant en génie civil, génie informatique et IA, et cybersécurité.",
+    "coordonnees": null,
+    "annee_source": "Ancienne ESIGCP (liste ministérielle des établissements autorisés 2023-2024, date d'effet 2018-2019)",
+    "notes": "Adresse issue de la liste ministérielle (au nom de l'ESIGCP) ; le site officiel indique seulement « Oujda »."
+  },
+  "ma-artcomsup-casa": {
+    "site_web": "https://www.ecole-artcom.com",
+    "annee_creation": 2005,
+    "adresse": "15, rue Abderrahmane Abi Leïla, quartier Franceville, Casablanca",
+    "description": "École privée de design (groupe Edvantis) proposant des licences et masters en architecture d'intérieur, design graphique et digital, et communication visuelle.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (Art Com-Sup Casablanca, date d'effet 2005-2006)",
+    "notes": "Adresse issue de 9rayti.com ; la liste ministérielle donne l'ancienne adresse (18, rue Bachir Al Ibrahimi, Belair)."
+  },
+  "ma-hightech": {
+    "site_web": "http://hightech.edu",
+    "annee_creation": 1986,
+    "adresse": "59, rue Jbel Oukaïmeden, Agdal, Rabat",
+    "description": "École privée reconnue par l'État formant en ingénierie et en management (diplômes d'ingénieur, master et licence).",
+    "coordonnees": null,
+    "annee_source": "Site officiel : « depuis 1986 à Rabat » ; la liste ministérielle des établissements autorisés 2023-2024 donne une date d'effet 1987-1988",
+    "notes": "La liste ministérielle donne l'ancienne adresse 34, rue Jabal Al Ayachi, Agdal. Anciennes coordonnées (33.9704, -6.8622) non vérifiables ; elles ne correspondent pas clairement au 59, rue Jbel Oukaïmeden (Agdal) : laissées à null."
+  },
+  "ma-supmti-meknes": {
+    "site_web": "https://supmti.ac.ma",
+    "annee_creation": 2014,
+    "adresse": "35, rue Badr Al Kobra, Ville Nouvelle, Meknès",
+    "description": "Centre de Meknès de SUPMTI, école privée reconnue par l'État formant en management, informatique, systèmes d'information et télécommunications (licences, masters et cycle ingénieur).",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2014-2015)"
+  },
+  "ma-supmti-oujda": {
+    "site_web": "https://supmti.ac.ma",
+    "annee_creation": 2010,
+    "adresse": "67, immeuble Hallou, boulevard Mohammed V, Oujda",
+    "description": "Centre d'Oujda de SUPMTI, école privée reconnue par l'État formant en management, informatique, systèmes d'information et télécommunications (licences, masters et cycle ingénieur).",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2010-2011)",
+    "notes": "La liste ministérielle donne une autre adresse (lotissement Nakhil, route de l'Université) ; adresse retenue : celle du site officiel."
+  },
+  "ma-supmti-benimellal": {
+    "site_web": "https://supmti.ac.ma",
+    "annee_creation": 2012,
+    "adresse": "Angle boulevard Hassan II et rue n° 155, quartier Al Adarissa, Béni Mellal",
+    "description": "Centre de Béni Mellal de SUPMTI, école privée reconnue par l'État formant en management, informatique, systèmes d'information et télécommunications (licences, masters et cycle ingénieur).",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2012-2013)"
+  },
+  "ma-edge": {
+    "site_web": "https://edge.ma",
+    "annee_creation": 2019,
+    "adresse": "52, rue Rahal Nichakra, quartier Foncière, 20250 Casablanca",
+    "description": "École privée de commerce et de management à Casablanca proposant des formations bac+3 et bac+5.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2019-2020)"
+  },
+  "ma-aes": {
+    "site_web": "https://www.una.ma",
+    "annee_creation": 2023,
+    "adresse": "Sidi Maârouf, route de Nouaceur, Casablanca",
+    "description": "École d'ingénieurs privée (génie informatique, génie industriel, génie électrique et énergies). Elle fait partie du pôle UNA, devenu Université Internationale Averroès (autorisée en 2025).",
+    "coordonnees": null,
+    "annee_source": "Le Matin (2023) : démarrage de la formation initiale de l'UNA (Atlantic Engineering School, Atlantic Business School) à la rentrée 2023-2024",
+    "notes": "Probablement renommée « Averroès Engineering School » (una.ma redirige vers universiteaverroes.ma) ; adresse précise non publiée."
+  },
+  "ma-abs": {
+    "site_web": "https://www.una.ma",
+    "annee_creation": 2023,
+    "adresse": "Sidi Maârouf, route de Nouaceur, Casablanca",
+    "description": "École privée de management (licences et masters). Elle fait partie du pôle UNA, devenu Université Internationale Averroès (autorisée en 2025).",
+    "coordonnees": null,
+    "annee_source": "Le Matin (2023) : démarrage de la formation initiale de l'UNA (Atlantic Engineering School, Atlantic Business School) à la rentrée 2023-2024",
+    "notes": "Probablement renommée « Averroès Business School » (una.ma redirige vers universiteaverroes.ma) ; adresse précise non publiée."
+  },
+  "ma-eskp": {
+    "site_web": "https://eskp.ma",
+    "annee_creation": 1997,
+    "adresse": "45, avenue 2 Mars, Casablanca",
+    "description": "École privée de kinésithérapie et du paramédical proposant des formations en kinésithérapie, soins infirmiers et masters en santé.",
+    "coordonnees": null,
+    "annee_source": "Site officiel ESKP : fondée en 1997 ; autorisation ministérielle effective 1999-2000",
+    "notes": "Site aussi accessible sous esk.ma."
+  },
+  "ma-esi2a": {
+    "site_web": "https://esi2a.ma",
+    "annee_creation": 2013,
+    "adresse": "Technopôle Fès Shore, route de Sidi Harazem, 30000 Fès",
+    "description": "École d'ingénieurs privée spécialisée en ingénierie automobile et aéronautique (mécatronique, systèmes embarqués), avec cycle préparatoire intégré de 2 ans et cycle ingénieur de 3 ans.",
+    "coordonnees": {
+      "lat": 34.0085152,
+      "lng": -4.9603262
+    },
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2013-2014)"
+  },
+  "ma-sist-tanger": {
+    "site_web": "https://sist.ac.ma",
+    "annee_creation": 2013,
+    "adresse": "21, rue Nador, lotissement Altamera, Boubana, Tanger",
+    "description": "Campus de Tanger de SIST British Education, établissement privé associé à la Cardiff Metropolitan University proposant des licences et MBA britanniques (business, informatique) enseignés en anglais.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2013-2014)"
+  },
+  "ma-sist-rabat": {
+    "site_web": "https://sist.ac.ma",
+    "annee_creation": 2011,
+    "adresse": "11, avenue Allal Ben Abdellah, Rabat",
+    "description": "Campus de Rabat de SIST British Education, établissement privé associé à la Cardiff Metropolitan University proposant des licences et MBA britanniques (business, informatique) enseignés en anglais.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2011-2012)"
+  },
+  "ma-sist-casablanca": {
+    "site_web": "https://sist.ac.ma",
+    "annee_creation": 2002,
+    "adresse": "87, boulevard Nador, Polo, Casablanca",
+    "description": "Campus de Casablanca de SIST British Education, établissement privé associé à la Cardiff Metropolitan University proposant des licences et MBA britanniques (business, informatique) enseignés en anglais.",
+    "coordonnees": {
+      "lat": 33.5549293,
+      "lng": -7.6105237
+    },
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2002-2003)",
+    "notes": "Tracxn indique 2001 pour la création du groupe SIST."
+  },
+  "ma-esgcnt": {
+    "site_web": "https://esgcnt.com",
+    "annee_creation": 2013,
+    "adresse": "38, rue Kifa, avenue Moulay Idriss II, Ville Nouvelle, 50003 Meknès",
+    "description": "École privée de Meknès formant en génie civil et nouvelles technologies.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2013-2014)",
+    "notes": "La liste ministérielle indique « 38, Résidence Al Bathaa » ; adresse retenue : site officiel."
+  },
+  "ma-eso": {
+    "annee_creation": 1998,
+    "adresse": "13, rue Dimachk (derrière Balima), Rabat",
+    "description": "École privée de Rabat formant en optique-lunetterie, optométrie et métiers paramédicaux.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 1998-1999)",
+    "notes": "Site officiel non trouvé. Des annuaires désignent l'établissement sous le sigle ESOA et indiquent une création en 1997."
+  },
+  "ma-icacsup": {
+    "site_web": "https://icacsup.ma",
+    "annee_creation": 2010,
+    "adresse": "Angle boulevard Homane El Fetouaki et rue Chellah, Ville Haute, Kénitra",
+    "description": "Institut privé de Kénitra formant en management et gestion (finance-comptabilité, commerce-marketing) au niveau licence.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2010-2011)"
+  },
+  "ma-gecm": {
+    "site_web": "https://gecmarrakech.com",
+    "annee_creation": 2013,
+    "adresse": "Quartier Izdihar II, route de Safi, Marrakech",
+    "description": "École privée de management de Marrakech (GEC Marrakech) proposant des licences et masters en management ainsi que des programmes exécutifs.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2013-2014)",
+    "notes": "Le site officiel indique « BP 24077, quartier Izdihar II » ; la liste ministérielle « route de Safi, lotissement Izdihar »."
+  },
+  "ma-esav": {
+    "site_web": "https://esavmarrakech.com",
+    "annee_creation": 2006,
+    "adresse": "B.P. 4006, 40002 Marrakech (quartier Amerchich)",
+    "description": "École privée à but non lucratif d'arts visuels formant aux métiers du cinéma et de l'audiovisuel ainsi qu'au design graphique et numérique ; membre du CILECT.",
+    "coordonnees": null,
+    "annee_source": "Wikipédia et CILECT : fondée en 2006 ; la liste ministérielle des établissements autorisés 2023-2024 indique 2008-2009",
+    "notes": "Adresse postale uniquement sur le site ; la liste ministérielle indique « N° 7-9, rue Lakhdar »."
+  },
+  "ma-hecf-meknes": {
+    "site_web": "https://hecf.ac.ma",
+    "annee_creation": 2009,
+    "adresse": "Rue Pasteur, résidence Pasteur, Hamria, Meknès",
+    "description": "Campus de Meknès de l'école HECF (Hautes Études Comptables et Financières), établissement privé reconnu par l'État formant en comptabilité, finance, banque, marketing et droit des affaires.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2009-2010)"
+  },
+  "ma-emsig": {
+    "site_web": "http://www.emsig.ma",
+    "annee_creation": 2012,
+    "adresse": "40, Kissariat Souk Jdid, Rouamzine, Meknès",
+    "description": "École privée de Meknès formant au niveau bac+3 en gestion des entreprises (finance, management, marketing), développement informatique et réseaux-télécommunications.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2012-2013)",
+    "notes": "Site emsig.ma cité par des annuaires mais inaccessible depuis notre environnement : non vérifié."
+  },
+  "ma-hbfg-oujda": {
+    "annee_creation": 1997,
+    "adresse": "Rue Al Khalil, quartier Al Qods, Oujda",
+    "description": "Antenne d'Oujda de l'Institut des Hautes Études Bancaires, Financières et de Gestion (groupe HBF), formant aux métiers de la banque, de la finance, de l'assurance et du commerce.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 1997-1998)",
+    "notes": "Site officiel non trouvé. Certains annuaires placent l'établissement boulevard Al Aqsa, quartier Al Qods."
+  },
+  "ma-hec-maroc": {
+    "site_web": "http://www.hec.ac.ma",
+    "annee_creation": 1988,
+    "adresse": "4, rue Tulipa, Hay Riad, 10100 Rabat",
+    "description": "École de commerce privée (HEC Rabat) formant au management, à la finance, au marketing, à la communication, à l'audit et au contrôle (bac+3 et bac+5) ainsi qu'en formation continue.",
+    "coordonnees": {
+      "lat": 33.9574491,
+      "lng": -6.8805538
+    },
+    "annee_source": "Site officiel et Wikipédia : fondée en 1988 (décision n° 25/88) ; la liste ministérielle des établissements autorisés 2023-2024 indique 1993-1994 (décision 70/93)"
+  },
+  "ma-junia": {
+    "site_web": "https://ecole-junia.ma",
+    "annee_creation": 2016,
+    "adresse": "17, avenue des Nations Unies, Agdal, 10080 Rabat",
+    "description": "École d'ingénieurs privée de Rabat liée à l'école française JUNIA (Lille), proposant des formations d'ingénieur notamment en informatique et systèmes embarqués.",
+    "coordonnees": null,
+    "annee_source": "Site officiel : création en 2016 à Rabat (sous le nom Yncréa Maroc, devenu JUNIA Maroc en 2021) ; liste ministérielle des établissements autorisés 2023-2024 (2016-2017)"
+  },
+  "ma-esai": {
+    "annee_creation": 1998,
+    "adresse": "7, avenue Ahmed Balafrej, Souissi, Rabat",
+    "description": "Première école privée d'architecture d'intérieur au Maroc, proposant licence et master en architecture d'intérieur.",
+    "coordonnees": {
+      "lat": 33.9767838,
+      "lng": -6.8390044
+    },
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 1998-1999 ; autorisation n° 135/98)",
+    "notes": "Un lien d'inscription pointe vers ecoleesai.com, inaccessible depuis notre environnement : site non vérifié. Un campus ESAI existe aussi à Marrakech."
+  },
+  "ma-essec-sale": {
+    "site_web": "https://www.essec.edu/fr/campus/rabat/",
+    "annee_creation": 2017,
+    "adresse": "Plage des Nations, Sidi Bouknadel, 11000 Salé",
+    "description": "Campus marocain (ESSEC Afrique) de l'ESSEC Business School, école de commerce française, proposant notamment le programme Global BBA.",
+    "coordonnees": {
+      "lat": 34.1403803,
+      "lng": -6.7307322
+    },
+    "annee_source": "Campus inauguré en avril 2017, premiers étudiants en septembre 2017 (ESSEC, Le Matin) ; la liste ministérielle des établissements autorisés 2023-2024 indique 2016-2017",
+    "notes": "Coordonnées : objet OSM « ESSEC » sur la RP4000 (commune d'Ameur, préfecture de Salé)."
+  },
+  "ma-medsup": {
+    "site_web": "https://medsup.ma",
+    "annee_creation": 2008,
+    "adresse": "Avenue Moulay Rachid, lotissement Richard n° 72, Tanger",
+    "description": "École privée de gestion et de management de Tanger proposant des formations de niveau licence et master.",
+    "coordonnees": null,
+    "annee_source": "Site officiel : « pionnière depuis 2008 » ; liste ministérielle des établissements autorisés 2023-2024 (2008-2009)"
+  },
+  "ma-esjc": {
+    "site_web": "https://esjc.ma",
+    "annee_creation": 2008,
+    "adresse": "37, rue Tata, Casablanca",
+    "description": "École privée de journalisme et de communication proposant des formations en journalisme, communication digitale, multimédia et production audiovisuelle.",
+    "coordonnees": {
+      "lat": 33.593166666,
+      "lng": -7.617416666
+    },
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2008-2009)",
+    "notes": "Coordonnées existantes conservées (centre-ville, cohérentes avec la rue Tata) mais non confirmées par un objet OSM."
+  },
+  "ma-ippc": {
+    "annee_creation": 2001,
+    "adresse": "Rue 10, n° 2, lotissement Allaïmoun 1, Casablanca",
+    "description": "Institut privé d'ingénierie de Casablanca proposant des cursus bac+5 en génie électrique et génie électromécanique (cycle préparatoire puis cycle ingénieur), avec des passerelles vers des universités canadiennes.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2001-2002)",
+    "notes": "Site officiel non trouvé."
+  },
+  "ma-ispep": {
+    "annee_creation": 2022,
+    "adresse": "26-28, rue des Pélicans, quartier l'Oasis, Casablanca",
+    "description": "Institut privé de formation paramédicale à Casablanca (notamment technicien en radiologie et imagerie médicale).",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2022-2023)",
+    "notes": "Site officiel non trouvé."
+  },
+  "ma-comsup": {
+    "site_web": "https://www.comsup.ma",
+    "annee_creation": 1996,
+    "adresse": "15, rue Abderrahmane Abi Laïla, quartier Franceville, Casablanca",
+    "description": "École privée de communication et de publicité (groupe Edvantis) proposant des licences et masters en communication, événementiel et médias-journalisme.",
+    "coordonnees": null,
+    "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 1996-1997, autorisation du 04/08/1997)",
+    "notes": "La liste ministérielle donne l'ancienne adresse (18, rue Bachir Al Ibrahimi, Belair)."
+  },
+  "ma-ispts-ouezzane": {
+    "description": "Institut privé de formation aux professions de santé à Ouezzane (soins infirmiers polyvalents, anesthésie-réanimation, sage-femme, orthoptie).",
+    "coordonnees": null,
+    "notes": "Établissement absent de la liste ministérielle 2023-2024 ; ni site, ni adresse, ni année trouvés."
+  },
+  "ma-espii": {
+    "description": "École d'ingénieurs privée de Casablanca proposant des classes préparatoires intégrées et des filières en génie civil, génie informatique et génie mécatronique.",
+    "coordonnees": null,
+    "notes": "Établissement absent de la liste ministérielle 2023-2024 ; ni site, ni adresse, ni année trouvés."
   }
 }

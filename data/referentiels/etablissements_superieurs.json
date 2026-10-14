@@ -2,7 +2,7 @@
   "_meta": {
     "referentiel": "etablissements_superieurs",
     "version": "2.0.0",
-    "date": "2026-10-09",
+    "date": "2026-10-14",
     "plateforme": "Navigoal",
     "destination": "MA",
     "annee_reference": "2026-2027",
@@ -4627,11 +4627,11 @@
       "reconnaissance_en_cours": false,
       "site_web": "https://estem.ma",
       "annee_creation": 1994,
-      "adresse": null,
-      "description": null,
+      "adresse": "4-6, rue Moussa Bnou Noussair, boulevard Moulay Youssef, quartier Gauthier, 20060 Casablanca",
+      "description": "École privée reconnue par l'État regroupant une école d'ingénieurs (génie civil, informatique, télécommunications), une business school (commerce, gestion, finance, droit des affaires) et des classes préparatoires aux grandes écoles de commerce.",
       "coordonnees": {
-        "lat": 33.595905655,
-        "lng": -7.630548645
+        "lat": 33.5911322,
+        "lng": -7.6276619
       },
       "wikidata": "Q105640663",
       "formations": [
@@ -4854,8 +4854,8 @@
       "reconnaissance_en_cours": false,
       "site_web": "http://www.iga.ac.ma",
       "annee_creation": 1981,
-      "adresse": null,
-      "description": null,
+      "adresse": "Place de la gare Casa-Voyageurs (Belvédère), Casablanca",
+      "description": "Institut privé de Casablanca formant en ingénierie (génie informatique, génie électrique) et en management (finance, contrôle, audit).",
       "coordonnees": {
         "lat": 33.590977932,
         "lng": -7.591134131
@@ -4988,11 +4988,14 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 17)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
-      "coordonnees": null,
+      "site_web": "https://emsi.ma",
+      "annee_creation": 1986,
+      "adresse": "217, boulevard Bir Anzarane, Maârif, Casablanca",
+      "description": "Campus de Casablanca de l'EMSI, école d'ingénieurs privée reconnue par l'État (réseau Honoris United Universities) formant en informatique et réseaux, génie électrique, automatisme, génie civil/BTP, génie industriel et génie financier.",
+      "coordonnees": {
+        "lat": 33.5835885,
+        "lng": -7.6424557
+      },
       "wikidata": null,
       "formations": [
         "frm-ingenieur-genie-civil",
@@ -5144,10 +5147,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 18)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://emsi.ma",
+      "annee_creation": 1996,
+      "adresse": "49, rue Patrice Lumumba, Hassan, Rabat",
+      "description": "Campus de Rabat de l'EMSI, école d'ingénieurs privée reconnue par l'État (réseau Honoris United Universities) formant en informatique et réseaux, génie électrique, automatisme, génie civil/BTP, génie industriel et génie financier.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5283,10 +5286,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 19)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://emsi.ma",
+      "annee_creation": 2004,
+      "adresse": "05, lotissement Bouizgaren, route de Safi, Marrakech",
+      "description": "Campus de Marrakech de l'EMSI, école d'ingénieurs privée reconnue par l'État (réseau Honoris United Universities) formant en informatique et réseaux, génie électrique, automatisme, génie civil/BTP, génie industriel et génie financier.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5422,10 +5425,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 41)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://emsi.ma",
+      "annee_creation": 2019,
+      "adresse": "Angle rue Omar Ibn Abdelaziz et rue Sijelmassa, Tanger",
+      "description": "Campus de Tanger de l'EMSI, école d'ingénieurs privée reconnue par l'État (réseau Honoris United Universities) formant en informatique et réseaux, génie électrique, automatisme, génie civil/BTP, génie industriel et génie financier.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5561,10 +5564,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://emsi.ma",
+      "annee_creation": 2023,
+      "adresse": "5, avenue Lalla Aïcha, Champ de courses, Fès",
+      "description": "Campus de Fès de l'EMSI, école d'ingénieurs privée reconnue par l'État (réseau Honoris United Universities) formant en informatique et réseaux, génie électrique, automatisme, génie civil/BTP, génie industriel et génie financier.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5700,10 +5703,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 20)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://isga.ma",
+      "annee_creation": 1996,
+      "adresse": "27, avenue Oqba, Agdal, 10090 Rabat",
+      "description": "Campus de Rabat de l'ISGA (groupe Edvantis), établissement privé reconnu par l'État comprenant une école d'ingénieurs (informatique, systèmes industriels, génie civil) et une école de management (finance, marketing, ressources humaines).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5789,10 +5792,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 21)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://isga.ma",
+      "annee_creation": 2011,
+      "adresse": "38, avenue des FAR, Ville Nouvelle, Fès",
+      "description": "Campus de Fès de l'ISGA (groupe Edvantis), établissement privé reconnu par l'État comprenant une école d'ingénieurs (informatique, systèmes industriels, génie civil) et une école de management (finance, marketing, ressources humaines).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5861,10 +5864,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 22)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://isga.ma",
+      "annee_creation": 2005,
+      "adresse": "Rue Ibn Habousse, Hivernage, Marrakech",
+      "description": "Campus de Marrakech de l'ISGA (groupe Edvantis), établissement privé reconnu par l'État comprenant une école d'ingénieurs (informatique, systèmes industriels, génie civil) et une école de management (finance, marketing, ressources humaines).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -5950,10 +5953,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 33)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://isga.ma",
+      "annee_creation": 2017,
+      "adresse": "393, route d'El Jadida, Oasis, Casablanca",
+      "description": "Campus de Casablanca de l'ISGA (groupe Edvantis), établissement privé reconnu par l'État comprenant une école d'ingénieurs (informatique, systèmes industriels, génie civil) et une école de management (finance, marketing, ressources humaines).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6005,11 +6008,14 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 23)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
-      "coordonnees": null,
+      "site_web": "https://emg.ac.ma",
+      "annee_creation": 2008,
+      "adresse": "34, avenue Omar Ibn Khattab, Agdal, Rabat",
+      "description": "École d'ingénieurs privée reconnue par l'État, proposant des cycles préparatoire et ingénieur en génie civil, génie électrique, génie industriel et génie informatique.",
+      "coordonnees": {
+        "lat": 34.0014673,
+        "lng": -6.8455931
+      },
       "wikidata": null,
       "formations": [
         "frm-ingenieur-genie-civil",
@@ -6084,7 +6090,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-emg.png",
+        "source_url": "https://emg.ac.ma/img/logo_01.png",
+        "page_source": "https://emg.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -6104,10 +6117,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 24)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://istl.ma",
+      "annee_creation": 2006,
+      "adresse": "Ancienne route de Rabat km 7, rue Guiriane (ex-Vuillanier), Aïn Sebaâ, Casablanca",
+      "description": "Institut privé spécialisé dans les métiers du transport et de la logistique, créé en collaboration avec des professionnels marocains et le groupe français AFT-IFTIM ; il propose des cycles licence, master et ingénieur.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6132,7 +6145,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-istl.png",
+        "source_url": "https://istl.ma/wp-content/uploads/2021/04/cropped-Sans-titre-1-2.png",
+        "page_source": "https://istl.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -6154,11 +6174,11 @@
       "reconnaissance_en_cours": false,
       "site_web": "https://hem.ac.ma",
       "annee_creation": 1988,
-      "adresse": null,
-      "description": null,
+      "adresse": "Avenue Al Quds, Californie II, Casablanca",
+      "description": "Business school privée reconnue par l'État (groupe HEM, réseau Honoris United Universities) formant au management, à la finance, au marketing et aux ressources humaines.",
       "coordonnees": {
-        "lat": 35.786521297,
-        "lng": -5.757105034
+        "lat": 33.5314611,
+        "lng": -7.6214826
       },
       "wikidata": "Q3152162",
       "formations": [
@@ -6227,11 +6247,14 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 26)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
-      "coordonnees": null,
+      "site_web": "https://ecoleheec.ma",
+      "annee_creation": 1997,
+      "adresse": "Boulevard Abou Oubeida Al Jarah, Daoudiate, Marrakech",
+      "description": "École privée de commerce, de management et d'ingénierie installée à Marrakech, reconnue par l'État, délivrant des formations de niveau licence et master.",
+      "coordonnees": {
+        "lat": 31.6463648,
+        "lng": -7.994735
+      },
       "wikidata": null,
       "formations": [
         "frm-ingenieur-informatique",
@@ -6272,7 +6295,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-heec.png",
+        "source_url": "https://ecoleheec.ma/wp-content/uploads/2019/04/cropped-logo-icon-2-180x180.png",
+        "page_source": "https://ecoleheec.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -6293,12 +6323,12 @@
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 27)",
       "reconnaissance_en_cours": false,
       "site_web": "https://www.supmanagement.ma",
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "annee_creation": 1995,
+      "adresse": "28, place du 11 Janvier, Ville Nouvelle, Fès",
+      "description": "École privée de Fès formant en management, commerce et informatique (licences et masters).",
       "coordonnees": {
-        "lat": 34.035735709,
-        "lng": -4.994294269
+        "lat": 34.0356936,
+        "lng": -4.9944097
       },
       "wikidata": "Q30294399",
       "formations": [
@@ -6367,13 +6397,10 @@
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 29)",
       "reconnaissance_en_cours": false,
       "site_web": "https://www.eigsica.ma",
-      "annee_creation": 1990,
-      "adresse": null,
-      "description": null,
-      "coordonnees": {
-        "lat": 46.1401,
-        "lng": -1.15459
-      },
+      "annee_creation": 2006,
+      "adresse": "282, route de l'Oasis, 20410 Casablanca",
+      "description": "Campus marocain de l'EIGSI (école d'ingénieurs de La Rochelle) proposant une formation d'ingénieur généraliste en cinq ans identique à celle du campus français.",
+      "coordonnees": null,
       "wikidata": "Q3577771",
       "formations": [
         "frm-ingenieur-genie-industriel"
@@ -6424,10 +6451,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 30)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://supmti.ac.ma",
+      "annee_creation": 2006,
+      "adresse": "98, avenue Allal Ben Abdellah, Hassan, Rabat",
+      "description": "Centre de Rabat de SUPMTI, école privée reconnue par l'État formant en management, informatique, systèmes d'information et télécommunications (licences, masters et cycle ingénieur).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6469,7 +6496,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-supmti-rabat.png",
+        "source_url": "https://supmti.ac.ma/wp-content/uploads/2025/02/cropped-play-180x180.png",
+        "page_source": "https://supmti.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -6489,10 +6523,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 31)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://ehei.ma",
+      "annee_creation": 2011,
+      "adresse": "25, rue Aïn Al Haloua, Hay Al Qods, Oujda",
+      "description": "École d'ingénieurs privée d'Oujda proposant des formations bac+5 en informatique, génie industriel et gestion des entreprises.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6604,11 +6638,14 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 32)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
-      "coordonnees": null,
+      "site_web": "https://emaa.ma",
+      "annee_creation": 2008,
+      "adresse": "105, avenue Hassan Ier, immeuble Ennour, cité Dakhla, Agadir",
+      "description": "École privée de management et d'administration des affaires à Agadir (EMAA Business School), reconnue par l'État, proposant des formations en gestion, commerce et management.",
+      "coordonnees": {
+        "lat": 30.4095341,
+        "lng": -9.5598823
+      },
       "wikidata": null,
       "formations": [
         "frm-licence-informatique"
@@ -6632,7 +6669,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-emaa.png",
+        "source_url": "https://emaa.ma/wp-content/uploads/2021/10/logo_emaa_business_school_web.png",
+        "page_source": "https://emaa.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -6652,11 +6696,14 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 34)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
-      "coordonnees": null,
+      "site_web": "https://ismagi.ma",
+      "annee_creation": 2013,
+      "adresse": "559, Riad Al Andalous, Hay Riad, Rabat",
+      "description": "Institut privé de Rabat formant en management, administration et génie informatique (licences, masters) et proposant un cycle d'ingénieur (biotechnologie, informatique embarquée et robotique).",
+      "coordonnees": {
+        "lat": 33.9495277,
+        "lng": -6.8865354
+      },
       "wikidata": null,
       "formations": [
         "frm-cpge-scientifique",
@@ -6797,7 +6844,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ismagi.png",
+        "source_url": "https://ismagi.ma/wp-content/uploads/2022/09/Vmain-header-logo-ismagi1-21.png",
+        "page_source": "https://ismagi.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -6817,10 +6871,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 35)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://www.hestim.ma",
+      "annee_creation": 2006,
+      "adresse": "293-295, boulevard Ghandi, quartier Oasis, Casablanca",
+      "description": "École privée reconnue par l'État comprenant une école d'ingénieurs (génie civil, génie industriel et logistique, informatique/cybersécurité et IA) et une business school (management, marketing digital).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6913,7 +6967,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-hestim.png",
+        "source_url": "https://www.hestim.ma/web/image/356495-20a55c71/Hestim%20Engr%20Logo%20Full%20Color%20PNG%20%283%29.png",
+        "page_source": "https://www.hestim.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -6933,10 +6994,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 38)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://www.suprh.com",
+      "annee_creation": 2008,
+      "adresse": "Boulevard Abou Bakr El Kadiri, complexe Panorama, lotissement Al Moustakbal, Sidi Maârouf, Casablanca",
+      "description": "École privée spécialisée en management et gestion des ressources humaines, proposant des formations de niveau licence et master.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -6961,7 +7022,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-suprh.png",
+        "source_url": "https://www.suprh.com/lp/assets/images/logo-suprh.png",
+        "page_source": "https://www.suprh.com/lp/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -6981,10 +7049,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 39)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://esss.ac.ma",
+      "annee_creation": 2014,
+      "adresse": "Angle rue Prince Moulay Abdellah et rue Ennakhla, 20000 Casablanca",
+      "description": "École privée spécialisée dans les sciences de la santé : kinésithérapie, psychomotricité, orthophonie, audioprothèse, radiologie, laboratoire, diététique, soins infirmiers et masters en management de la santé.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7060,7 +7128,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esss.png",
+        "source_url": "https://esss.ac.ma/uploads/1/0/8/9/108967865/esss-logo-200-blue_orig.png",
+        "page_source": "https://esss.ac.ma/index.html",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -7080,10 +7155,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 40)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://ensit.ma",
+      "annee_creation": 2010,
+      "adresse": "5, rue Melilla, 90060 Tanger",
+      "description": "École privée d'ingénierie de Tanger reconnue par l'État, aujourd'hui présentée sous le nom ENSI, proposant des formations d'ingénieur et de management.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7196,10 +7271,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 42)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://hecf.ac.ma",
+      "annee_creation": 2004,
+      "adresse": "6, rue Abi Hamid Al Ghazali, Agdal, Ville Nouvelle, Fès",
+      "description": "École privée de commerce reconnue par l'État, spécialisée en comptabilité, contrôle et audit, banque-finance-assurance, marketing et droit des affaires (licences et masters), avec un second campus à Meknès.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7244,10 +7319,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 43)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://artsetmetiers.ma",
+      "annee_creation": 2023,
+      "adresse": "Parc Technopolis, rocade Rabat-Salé, 11100 Sala Al Jadida (Salé)",
+      "description": "Campus marocain du réseau Arts et Métiers (France), géré par une fondation présidée par le ministre de l'Industrie et du Commerce, formant des ingénieurs généralistes en technologies industrielles durables.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7272,7 +7347,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-eamr.png",
+        "source_url": "https://artsetmetiers.ma/sites/site_internet/files/inline-images/logo-trans-322x84_0_.png",
+        "page_source": "https://artsetmetiers.ma/fr",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -7292,10 +7374,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 44)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://suptech-sante.ma",
+      "annee_creation": 2023,
+      "adresse": "Quartier Hassan II, zone industrielle, Mohammedia",
+      "description": "École d'ingénieurs privée créée par la Fondation de recherche, de développement et d'innovation en sciences et ingénierie (FRDISI), formant en génie biomédical et techniques de santé (classes préparatoires intégrées, licences, cycle ingénieur, masters).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7405,7 +7487,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-suptech-sante.png",
+        "source_url": "https://suptech-sante.ma/SUPTECH_SANTE-main/assets/Suptech logo transp.png",
+        "page_source": "https://suptech-sante.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -7425,10 +7514,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 47)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://eheb.ma",
+      "annee_creation": 1996,
+      "adresse": "183, boulevard de la Résistance (avenue Al Moukawama), Casablanca",
+      "description": "École privée de biotechnologie et de santé reconnue par l'État, proposant des formations en biotechnologie, biomédical, agrotechnologie, bio-industries et bio-informatique.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7503,7 +7592,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-eheb.png",
+        "source_url": "https://eheb.ma/wp-content/uploads/2026/08/posts-juillet-2026-EHEB-specialites-par-diplome-3.png",
+        "page_source": "https://eheb.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -7523,10 +7619,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 49)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://escga.ma",
+      "annee_creation": 2007,
+      "adresse": "144, rue Ahmed Tadili, quartier Essouriyine, Tanger",
+      "description": "École privée de commerce et de gestion de Tanger proposant des licences (commerce, gestion, logistique) et des masters (finance-audit, marketing et commerce international).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7551,7 +7647,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-escga.png",
+        "source_url": "https://escga.ma/wp-content/uploads/2025/04/WhatsApp-Image-2025-04-02-at-17.31.58.jpeg",
+        "page_source": "https://escga.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -7571,10 +7674,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 50)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
+      "site_web": "https://suptech-sante.ma",
+      "annee_creation": 2023,
       "adresse": null,
-      "description": null,
+      "description": "Campus d'Essaouira de Suptech Santé, école d'ingénieurs privée de la FRDISI formant en génie biomédical et techniques de santé.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7683,7 +7786,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-suptech-sante-essaouira.png",
+        "source_url": "https://suptech-sante.ma/SUPTECH_SANTE-main/assets/Suptech logo transp.png",
+        "page_source": "https://suptech-sante.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -7703,10 +7813,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 51)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.suptech-environnement.ma",
       "annee_creation": null,
       "adresse": null,
-      "description": null,
+      "description": "École privée de la FRDISI (campus de Mohammedia) formant en technologies de l'eau, de l'énergie et du développement durable : gestion numérique des systèmes énergétiques, génie de l'eau et de l'environnement, assainissement.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7846,7 +7956,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-suptech-environnement.png",
+        "source_url": "https://www.suptech-environnement.ma/S_E/assets/Picture1.png",
+        "page_source": "https://www.suptech-environnement.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -7866,10 +7983,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 52)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://www.esiai.ma",
+      "annee_creation": 2018,
+      "adresse": "Boulevard Hassan II, lotissement Sitr Allah (lots 14-15, 20-23), Oujda",
+      "description": "École d'ingénieurs privée d'Oujda reconnue par l'État (ex-École Supérieure d'Ingénierie en Génie Civil Privée), formant en génie civil, génie informatique et IA, et cybersécurité.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -7960,7 +8077,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esiai.png",
+        "source_url": "https://www.esiai.ma/_next/image?url=%2Flogo-short.png&w=96&q=75",
+        "page_source": "https://www.esiai.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -7980,10 +8104,10 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 53)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://www.ecole-artcom.com",
+      "annee_creation": 2005,
+      "adresse": "15, rue Abderrahmane Abi Leïla, quartier Franceville, Casablanca",
+      "description": "École privée de design (groupe Edvantis) proposant des licences et masters en architecture d'intérieur, design graphique et digital, et communication visuelle.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8008,7 +8132,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-artcomsup-casa.png",
+        "source_url": "https://www.ecole-artcom.com/wp-content/uploads/2025/11/ArtCom_Logo-1.jpg",
+        "page_source": "https://www.ecole-artcom.com/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -8028,14 +8159,11 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 55)",
       "reconnaissance_en_cours": false,
-      "site_web": "http://www.hightech.edu",
+      "site_web": "http://hightech.edu",
       "annee_creation": 1986,
-      "adresse": null,
-      "description": null,
-      "coordonnees": {
-        "lat": 33.970372221,
-        "lng": -6.862155902
-      },
+      "adresse": "59, rue Jbel Oukaïmeden, Agdal, Rabat",
+      "description": "École privée reconnue par l'État formant en ingénierie et en management (diplômes d'ingénieur, master et licence).",
+      "coordonnees": null,
       "wikidata": "Q105640665",
       "formations": [
         "frm-ingenieur-genie-industriel",
@@ -8103,10 +8231,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": true,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://supmti.ac.ma",
+      "annee_creation": 2014,
+      "adresse": "35, rue Badr Al Kobra, Ville Nouvelle, Meknès",
+      "description": "Centre de Meknès de SUPMTI, école privée reconnue par l'État formant en management, informatique, systèmes d'information et télécommunications (licences, masters et cycle ingénieur).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8232,7 +8360,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-supmti-meknes.png",
+        "source_url": "https://supmti.ac.ma/wp-content/uploads/2025/02/cropped-play-180x180.png",
+        "page_source": "https://supmti.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -8252,10 +8387,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://supmti.ac.ma",
+      "annee_creation": 2010,
+      "adresse": "67, immeuble Hallou, boulevard Mohammed V, Oujda",
+      "description": "Centre d'Oujda de SUPMTI, école privée reconnue par l'État formant en management, informatique, systèmes d'information et télécommunications (licences, masters et cycle ingénieur).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8280,7 +8415,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-supmti-oujda.png",
+        "source_url": "https://supmti.ac.ma/wp-content/uploads/2025/02/cropped-play-180x180.png",
+        "page_source": "https://supmti.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -8300,10 +8442,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://supmti.ac.ma",
+      "annee_creation": 2012,
+      "adresse": "Angle boulevard Hassan II et rue n° 155, quartier Al Adarissa, Béni Mellal",
+      "description": "Centre de Béni Mellal de SUPMTI, école privée reconnue par l'État formant en management, informatique, systèmes d'information et télécommunications (licences, masters et cycle ingénieur).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8328,7 +8470,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-supmti-benimellal.png",
+        "source_url": "https://supmti.ac.ma/wp-content/uploads/2025/02/cropped-play-180x180.png",
+        "page_source": "https://supmti.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -8348,10 +8497,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://edge.ma",
+      "annee_creation": 2019,
+      "adresse": "52, rue Rahal Nichakra, quartier Foncière, 20250 Casablanca",
+      "description": "École privée de commerce et de management à Casablanca proposant des formations bac+3 et bac+5.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8443,7 +8592,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-edge.png",
+        "source_url": "https://edge.ma/themes/gavias_zaven/logo.png",
+        "page_source": "https://edge.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -8463,10 +8619,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://www.una.ma",
+      "annee_creation": 2023,
+      "adresse": "Sidi Maârouf, route de Nouaceur, Casablanca",
+      "description": "École d'ingénieurs privée (génie informatique, génie industriel, génie électrique et énergies). Elle fait partie du pôle UNA, devenu Université Internationale Averroès (autorisée en 2025).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8541,7 +8697,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-aes.png",
+        "source_url": "https://www.una.ma/wp-content/uploads/2025/05/logo-uia-blu.jpg",
+        "page_source": "https://www.universiteaverroes.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -8561,10 +8724,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://www.una.ma",
+      "annee_creation": 2023,
+      "adresse": "Sidi Maârouf, route de Nouaceur, Casablanca",
+      "description": "École privée de management (licences et masters). Elle fait partie du pôle UNA, devenu Université Internationale Averroès (autorisée en 2025).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8589,7 +8752,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-abs.png",
+        "source_url": "https://www.una.ma/wp-content/uploads/2025/05/logo-uia-blu.jpg",
+        "page_source": "https://www.universiteaverroes.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -8609,10 +8779,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://eskp.ma",
+      "annee_creation": 1997,
+      "adresse": "45, avenue 2 Mars, Casablanca",
+      "description": "École privée de kinésithérapie et du paramédical proposant des formations en kinésithérapie, soins infirmiers et masters en santé.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8735,7 +8905,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-eskp.jpg",
+        "source_url": "https://eskp.ma/wp-content/uploads/cropped-favicon-180x180.jpg",
+        "page_source": "https://eskp.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -8755,11 +8932,14 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
-      "coordonnees": null,
+      "site_web": "https://esi2a.ma",
+      "annee_creation": 2013,
+      "adresse": "Technopôle Fès Shore, route de Sidi Harazem, 30000 Fès",
+      "description": "École d'ingénieurs privée spécialisée en ingénierie automobile et aéronautique (mécatronique, systèmes embarqués), avec cycle préparatoire intégré de 2 ans et cycle ingénieur de 3 ans.",
+      "coordonnees": {
+        "lat": 34.0085152,
+        "lng": -4.9603262
+      },
       "wikidata": null,
       "formations": [
         "frm-ingenieur-genie-mecanique"
@@ -8783,7 +8963,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esi2a.png",
+        "source_url": "https://esi2a.ma/wp-content/uploads/thegem-logos/logo_994f4558826fb3ef724ba81bff969543_1x.png",
+        "page_source": "https://esi2a.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -8803,10 +8990,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://sist.ac.ma",
+      "annee_creation": 2013,
+      "adresse": "21, rue Nador, lotissement Altamera, Boubana, Tanger",
+      "description": "Campus de Tanger de SIST British Education, établissement privé associé à la Cardiff Metropolitan University proposant des licences et MBA britanniques (business, informatique) enseignés en anglais.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8882,7 +9069,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-sist-tanger.png",
+        "source_url": "https://sist.ac.ma/wp-content/uploads/2026/09/Sist-logo.png",
+        "page_source": "https://sist.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -8902,10 +9096,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://sist.ac.ma",
+      "annee_creation": 2011,
+      "adresse": "11, avenue Allal Ben Abdellah, Rabat",
+      "description": "Campus de Rabat de SIST British Education, établissement privé associé à la Cardiff Metropolitan University proposant des licences et MBA britanniques (business, informatique) enseignés en anglais.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -8947,7 +9141,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-sist-rabat.png",
+        "source_url": "https://sist.ac.ma/wp-content/uploads/2026/09/Sist-logo.png",
+        "page_source": "https://sist.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -8967,11 +9168,14 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
-      "coordonnees": null,
+      "site_web": "https://sist.ac.ma",
+      "annee_creation": 2002,
+      "adresse": "87, boulevard Nador, Polo, Casablanca",
+      "description": "Campus de Casablanca de SIST British Education, établissement privé associé à la Cardiff Metropolitan University proposant des licences et MBA britanniques (business, informatique) enseignés en anglais.",
+      "coordonnees": {
+        "lat": 33.5549293,
+        "lng": -7.6105237
+      },
       "wikidata": null,
       "formations": [
         "frm-licence-informatique"
@@ -8995,7 +9199,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-sist-casablanca.png",
+        "source_url": "https://sist.ac.ma/wp-content/uploads/2026/09/Sist-logo.png",
+        "page_source": "https://sist.ac.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -9015,10 +9226,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://esgcnt.com",
+      "annee_creation": 2013,
+      "adresse": "38, rue Kifa, avenue Moulay Idriss II, Ville Nouvelle, 50003 Meknès",
+      "description": "École privée de Meknès formant en génie civil et nouvelles technologies.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9098,9 +9309,9 @@
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
       "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "annee_creation": 1998,
+      "adresse": "13, rue Dimachk (derrière Balima), Rabat",
+      "description": "École privée de Rabat formant en optique-lunetterie, optométrie et métiers paramédicaux.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -9700,7 +9911,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ispsni.png",
+        "source_url": "https://www.ispsni.ma/assets/logo.png",
+        "page_source": "https://www.ispsni.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -10060,10 +10278,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://icacsup.ma",
+      "annee_creation": 2010,
+      "adresse": "Angle boulevard Homane El Fetouaki et rue Chellah, Ville Haute, Kénitra",
+      "description": "Institut privé de Kénitra formant en management et gestion (finance-comptabilité, commerce-marketing) au niveau licence.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10108,10 +10326,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://gecmarrakech.com",
+      "annee_creation": 2013,
+      "adresse": "Quartier Izdihar II, route de Safi, Marrakech",
+      "description": "École privée de management de Marrakech (GEC Marrakech) proposant des licences et masters en management ainsi que des programmes exécutifs.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10158,8 +10376,8 @@
       "reconnaissance_en_cours": false,
       "site_web": "https://esavmarrakech.com",
       "annee_creation": 2006,
-      "adresse": null,
-      "description": null,
+      "adresse": "B.P. 4006, 40002 Marrakech (quartier Amerchich)",
+      "description": "École privée à but non lucratif d'arts visuels formant aux métiers du cinéma et de l'audiovisuel ainsi qu'au design graphique et numérique ; membre du CILECT.",
       "coordonnees": null,
       "wikidata": "Q3578481",
       "formations": [
@@ -10211,10 +10429,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://hecf.ac.ma",
+      "annee_creation": 2009,
+      "adresse": "Rue Pasteur, résidence Pasteur, Hamria, Meknès",
+      "description": "Campus de Meknès de l'école HECF (Hautes Études Comptables et Financières), établissement privé reconnu par l'État formant en comptabilité, finance, banque, marketing et droit des affaires.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10259,10 +10477,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "http://www.emsig.ma",
+      "annee_creation": 2012,
+      "adresse": "40, Kissariat Souk Jdid, Rouamzine, Meknès",
+      "description": "École privée de Meknès formant au niveau bac+3 en gestion des entreprises (finance, management, marketing), développement informatique et réseaux-télécommunications.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10308,9 +10526,9 @@
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
       "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "annee_creation": 1997,
+      "adresse": "Rue Al Khalil, quartier Al Qods, Oujda",
+      "description": "Antenne d'Oujda de l'Institut des Hautes Études Bancaires, Financières et de Gestion (groupe HBF), formant aux métiers de la banque, de la finance, de l'assurance et du commerce.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10357,11 +10575,11 @@
       "reconnaissance_en_cours": false,
       "site_web": "http://www.hec.ac.ma",
       "annee_creation": 1988,
-      "adresse": null,
-      "description": null,
+      "adresse": "4, rue Tulipa, Hay Riad, 10100 Rabat",
+      "description": "École de commerce privée (HEC Rabat) formant au management, à la finance, au marketing, à la communication, à l'audit et au contrôle (bac+3 et bac+5) ainsi qu'en formation continue.",
       "coordonnees": {
-        "lat": 33.957634364,
-        "lng": -6.880454902
+        "lat": 33.9574491,
+        "lng": -6.8805538
       },
       "wikidata": "Q3577932",
       "formations": [
@@ -10413,10 +10631,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://ecole-junia.ma",
+      "annee_creation": 2016,
+      "adresse": "17, avenue des Nations Unies, Agdal, 10080 Rabat",
+      "description": "École d'ingénieurs privée de Rabat liée à l'école française JUNIA (Lille), proposant des formations d'ingénieur notamment en informatique et systèmes embarqués.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10441,7 +10659,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-junia.png",
+        "source_url": "https://ecole-junia.ma/wp-content/uploads/2025/04/logo-junia.png",
+        "page_source": "https://ecole-junia.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -10462,10 +10687,13 @@
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
       "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
-      "coordonnees": null,
+      "annee_creation": 1998,
+      "adresse": "7, avenue Ahmed Balafrej, Souissi, Rabat",
+      "description": "Première école privée d'architecture d'intérieur au Maroc, proposant licence et master en architecture d'intérieur.",
+      "coordonnees": {
+        "lat": 33.9767838,
+        "lng": -6.8390044
+      },
       "wikidata": null,
       "formations": [
         "frm-licence-design-graphique"
@@ -10509,11 +10737,14 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
-      "coordonnees": null,
+      "site_web": "https://www.essec.edu/fr/campus/rabat/",
+      "annee_creation": 2017,
+      "adresse": "Plage des Nations, Sidi Bouknadel, 11000 Salé",
+      "description": "Campus marocain (ESSEC Afrique) de l'ESSEC Business School, école de commerce française, proposant notamment le programme Global BBA.",
+      "coordonnees": {
+        "lat": 34.1403803,
+        "lng": -6.7307322
+      },
       "wikidata": null,
       "formations": [
         "frm-licence-gestion"
@@ -10557,10 +10788,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://medsup.ma",
+      "annee_creation": 2008,
+      "adresse": "Avenue Moulay Rachid, lotissement Richard n° 72, Tanger",
+      "description": "École privée de gestion et de management de Tanger proposant des formations de niveau licence et master.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10585,7 +10816,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-medsup.png",
+        "source_url": "https://medsup.ma/wp-content/uploads/2024/07/logo_16years_.png",
+        "page_source": "https://medsup.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -10607,8 +10845,8 @@
       "reconnaissance_en_cours": false,
       "site_web": "https://esjc.ma",
       "annee_creation": 2008,
-      "adresse": null,
-      "description": null,
+      "adresse": "37, rue Tata, Casablanca",
+      "description": "École privée de journalisme et de communication proposant des formations en journalisme, communication digitale, multimédia et production audiovisuelle.",
       "coordonnees": {
         "lat": 33.593166666,
         "lng": -7.617416666
@@ -10696,9 +10934,9 @@
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
       "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "annee_creation": 2001,
+      "adresse": "Rue 10, n° 2, lotissement Allaïmoun 1, Casablanca",
+      "description": "Institut privé d'ingénierie de Casablanca proposant des cursus bac+5 en génie électrique et génie électromécanique (cycle préparatoire puis cycle ingénieur), avec des passerelles vers des universités canadiennes.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10778,9 +11016,9 @@
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
       "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "annee_creation": 2022,
+      "adresse": "26-28, rue des Pélicans, quartier l'Oasis, Casablanca",
+      "description": "Institut privé de formation paramédicale à Casablanca (notamment technicien en radiologie et imagerie médicale).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10825,10 +11063,10 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
-      "annee_creation": null,
-      "adresse": null,
-      "description": null,
+      "site_web": "https://www.comsup.ma",
+      "annee_creation": 1996,
+      "adresse": "15, rue Abderrahmane Abi Laïla, quartier Franceville, Casablanca",
+      "description": "École privée de communication et de publicité (groupe Edvantis) proposant des licences et masters en communication, événementiel et médias-journalisme.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10853,7 +11091,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-comsup.png",
+        "source_url": "https://www.comsup.ma/wp-content/uploads/2025/10/Logo_ComSup_Color.png",
+        "page_source": "https://www.comsup.ma/",
+        "methode": "site_officiel",
+        "date_collecte": "2026-10-09",
+        "a_verifier": true
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -10876,7 +11121,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
-      "description": null,
+      "description": "Institut privé de formation aux professions de santé à Ouezzane (soins infirmiers polyvalents, anesthésie-réanimation, sage-femme, orthoptie).",
       "coordonnees": null,
       "wikidata": null,
       "formations": [
@@ -10974,7 +11219,7 @@
       "site_web": null,
       "annee_creation": null,
       "adresse": null,
-      "description": null,
+      "description": "École d'ingénieurs privée de Casablanca proposant des classes préparatoires intégrées et des filières en génie civil, génie informatique et génie mécatronique.",
       "coordonnees": null,
       "wikidata": null,
       "formations": [

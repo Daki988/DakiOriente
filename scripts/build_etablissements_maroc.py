@@ -559,7 +559,7 @@ def main():
             annee_creation=x.get("annee_creation") or old.get("annee_creation"),
             adresse=x.get("adresse"),
             description=x.get("description"),
-            coordonnees=x.get("coordonnees") or old.get("coordonnees"),
+            coordonnees=x["coordonnees"] if "coordonnees" in x else old.get("coordonnees"),  # null explicite = coordonnées précédentes écartées
             wikidata=x.get("wikidata") or old.get("wikidata"),
             formations=sorted({p["formation"] for p in progs if p["formation"]}),
             filieres=progs,
