@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     "bar Libreville", "restaurant Libreville", "fast food Libreville", "burger Libreville", "panini Libreville",
     "chicha Libreville", "cocktails Libreville", "bar à chicha Libreville", "bar quartier Louis", "Louis Libreville",
     "sortir à Libreville", "bar ambiance Libreville", "amapiano Libreville", "livraison burger Libreville",
-    "whisky prix Libreville", "Regab", "Jackboy", "Jack Boy 241",
+    "whisky prix Libreville", "milkshake Libreville", "mocktail Libreville", "à emporter Libreville", "Regab", "Jackboy", "Jack Boy 241",
   ],
   alternates: { canonical: "/" },
   formatDetection: { telephone: true, address: true },
