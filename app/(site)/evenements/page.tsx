@@ -23,7 +23,7 @@ export default function EventsPage() {
         {events.length ? (
           <div className="grid gap-4">{events.map((e) => <EventCard key={e.title + e.date} e={e} />)}</div>
         ) : (
-          <p className="text-muted">Aucun événement annoncé pour le moment. Suivez-nous sur les réseaux pour ne rien manquer.</p>
+          <p className="text-muted">Prochaines soirées annoncées très bientôt. Chaque soir, l'ambiance monte avec DJ Hamed aux platines.</p>
         )}
       </div>
     </>

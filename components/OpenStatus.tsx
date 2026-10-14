@@ -20,7 +20,7 @@ export function OpenStatus({ hours, className = "" }: { hours: DayHours[]; class
     >
       <span
         aria-hidden="true"
-        className={`h-2 w-2 rounded-full ${status?.open ? "bg-accent pulse-dot" : status ? "bg-red-400" : "bg-white/30"}`}
+        className={`h-2 w-2 rounded-full ${status?.open ? "bg-accent pulse-dot" : status && !status.neutral ? "bg-red-400" : "bg-white/30"}`}
       />
       {status?.label ?? "Horaires"}
     </span>

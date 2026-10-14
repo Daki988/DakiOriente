@@ -6,6 +6,9 @@ import { BottomNav } from "@/components/BottomNav";
 import { Footer } from "@/components/Footer";
 import { DemoBanner } from "@/components/DemoBanner";
 import { JsonLd } from "@/components/JsonLd";
+import { CartProvider } from "@/components/cart";
+import { CartButton } from "@/components/CartButton";
+import { CartDrawer } from "@/components/CartDrawer";
 import { settings, primaryPhone } from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
 
@@ -16,7 +19,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: "Jackboy Bar-Restaurant 241 — La nuit a son adresse | Libreville", template: "%s · Jackboy 241" },
   description:
-    "Bar-restaurant à Louis, Libreville : paninis signatures, amapiano, afrobeats et afritcham. Menu, horaires, itinéraire et appel en un clic.",
+    "Bar-restaurant à Louis, Libreville (à 100 m de l'ambassade de Côte d'Ivoire) : burgers, paninis, wings, cocktails, chicha, DJ Hamed. Ouvert dès 15 h. Menu, commande, itinéraire et appel en un clic.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website", locale: "fr_FR", siteName: settings.name,
@@ -32,11 +35,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr" className={`${anton.variable} ${inter.variable}`}>
       <body className="pb-nav">
-        <DemoBanner />
-        <Header phone={primaryPhone.number} phoneDisplay={primaryPhone.display} />
-        <main id="contenu">{children}</main>
-        <Footer />
-        <BottomNav phone={primaryPhone.number} />
+        <CartProvider>
+          <DemoBanner />
+          <Header phone={primaryPhone.number} phoneDisplay={primaryPhone.display} />
+          <main id="contenu">{children}</main>
+          <Footer />
+          <CartButton />
+          <CartDrawer />
+          <BottomNav phone={primaryPhone.number} />
+        </CartProvider>
         <JsonLd />
       </body>
     </html>

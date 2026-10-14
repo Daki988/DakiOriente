@@ -1,19 +1,17 @@
-# Contenus à fournir / confirmer (cahier des charges §14)
+# Contenus fournis / restant à fournir
 
-Toutes ces données sont actuellement des **démos** (bandeau visible, site non indexé).
-
-| # | Élément | Où le remplacer | Statut |
-|---|---|---|---|
-| 1 | Logo HD (SVG + PNG) et couleurs exactes | `components/Logo.tsx`, `app/icon.svg`, tokens `app/globals.css` | ⏳ provisoire |
-| 2 | Nom de domaine, ancien hébergement | `NEXT_PUBLIC_SITE_URL` | ⏳ |
-| 3 | Numéros de téléphone (principal en premier) | Admin → Infos pratiques | ⏳ `+241 00 00 00 00` fictif |
-| 4 | Horaires exacts (15 h–6 h tous les jours ?) | Admin → Infos pratiques | ⏳ à confirmer |
-| 5 | Coordonnées GPS précises | Admin → Infos pratiques | ⏳ approximatives (Louis) |
-| 6 | Menu complet + prix FCFA | Admin → Menu & prix | ⏳ noms génériques, prix à 0 |
-| 7 | Photos / vidéos (début de soirée, 23 h–minuit, plats, équipe, Loft) + vidéo hero | Admin → Galerie, Loft ; hero : `app/(site)/page.tsx` | ⏳ visuels provisoires CSS |
-| 8 | DJs et événements | Admin → Événements | ⏳ démos |
-| 9 | Présentation du Loft | Admin → Le Loft | ⏳ |
-| 10 | Réseaux sociaux | Admin → Infos pratiques | ⏳ vides (masqués) |
-| 11 | Budget maintenance / validation CMS | — | ⏳ |
-| 12 | Décision réservation / commande | — | Hors V1 |
-| — | Mentions légales (RCCM, NIF, responsable) | `app/(site)/mentions-legales/page.tsx` | ⏳ |
+| # | Élément | Statut |
+|---|---|---|
+| 1 | Logo | ✅ fourni — version fond sombre générée (`public/brand/`). Un fichier vectoriel (SVG/AI) améliorerait la netteté |
+| 2 | Domaine | ✅ www.jackboy241.com — à relier au projet Vercel |
+| 3 | Téléphones | ✅ +241 77 93 27 44 (principal, WhatsApp commandes) · 077 45 31 67 · 074 41 51 18 |
+| 4 | Horaires | ⚠️ « à partir de 15 h » — jours d'ouverture et heure de fermeture à confirmer |
+| 5 | Adresse | ✅ BP 111, Louis, à 100 m de l'ambassade de Côte d'Ivoire — ⚠️ coordonnées GPS exactes à fournir |
+| 6 | Menu & prix | ✅ saisi depuis la carte officielle (82 produits) |
+| 7 | Photos / vidéos réelles (salle, soirées, équipe) | ⏳ visuels produits issus de la carte ; photos d'ambiance à fournir |
+| 8 | DJ | ✅ DJ Hamed — photo et événements à fournir |
+| 9 | Loft | ⏳ masqué tant que la présentation n'est pas fournie |
+| 10 | Réseaux sociaux | ⏳ liens à fournir |
+| 11 | CMS | ✅ décision : pas de CMS (édition JSON) |
+| 12 | Commande en ligne | ✅ via WhatsApp — confirmer que le +241 77 93 27 44 est bien sur WhatsApp, zone et frais de livraison |
+| — | Mentions légales (raison sociale, RCCM, NIF) | ⏳ |

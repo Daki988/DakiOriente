@@ -1,7 +1,7 @@
 /**
  * Couche d'accès au contenu.
- * Toutes les données éditables vivent dans /content (JSON) et sont modifiées
- * via l'administration Keystatic (/keystatic). Ne jamais coder de contenu en dur ailleurs.
+ * Toutes les données éditables vivent dans /content (JSON). Pour modifier un prix,
+ * un horaire ou un produit : éditer le JSON, committer → le site est republié automatiquement.
  */
 import settingsData from "@/content/settings.json";
 import menuData from "@/content/menu.json";
@@ -10,10 +10,28 @@ import galleryData from "@/content/gallery.json";
 import loftData from "@/content/loft.json";
 
 export type Phone = { label: string; number: string; display: string };
+/** `close` vide = heure de fermeture non communiquée. */
 export type DayHours = { day: string; open: string; close: string; closed: boolean };
 export type Social = { network: string; url: string | null };
-export type Settings = Omit<typeof settingsData, "socials"> & { phones: Phone[]; hours: DayHours[]; socials: Social[] };
+export type Settings = {
+  demoMode: boolean;
+  name: string;
+  tagline: string;
+  taglineFr: string;
+  phones: Phone[];
+  whatsapp: string;
+  address: {
+    street: string; city: string; country: string; landmark: string;
+    mapsQuery: string; lat: number | null; lng: number | null;
+  };
+  hours: DayHours[];
+  hoursNote: string;
+  residentDj: string;
+  ordering: { enabled: boolean; modes: string[]; note: string };
+  socials: Social[];
+};
 
+export type Variant = { label: string; price: number };
 export type Product = {
   name: string;
   description: string;
@@ -22,29 +40,25 @@ export type Product = {
   featured: boolean;
   available: boolean;
   isNew: boolean;
+  variants?: Variant[];
 };
-export type Category = { name: string; slug: string; visible: boolean; intro: string; products: Product[] };
+export type Category = {
+  name: string; slug: string; visible: boolean; intro: string;
+  image: string | null; note: string; products: Product[];
+};
 
 export type JackboyEvent = {
-  title: string;
-  date: string;
-  time: string;
-  dj: string;
-  description: string;
-  poster: string | null;
-  visible: boolean;
+  title: string; date: string; time: string; dj: string; description: string; poster: string | null; visible: boolean;
 };
-
 export type GalleryItem = { src: string | null; alt: string; mood: string; caption: string };
 export type TeamMember = { name: string; role: string; photo: string | null };
 
 export const settings = settingsData as unknown as Settings;
 export const loft = loftData;
-
 export const primaryPhone: Phone = settings.phones[0];
 
 export function getCategories(): Category[] {
-  return (menuData.categories as Category[]).filter((c) => c.visible);
+  return (menuData.categories as unknown as Category[]).filter((c) => c.visible);
 }
 
 export function getSignatureProducts(limit = 4): (Product & { category: string })[] {
@@ -67,7 +81,7 @@ export const team = galleryData.team as TeamMember[];
 
 /** « 3 500 FCFA » ; un prix à 0 signifie « non renseigné ». */
 export function formatPrice(price: number): string {
-  if (!price) return "Prix à confirmer";
+  if (!price) return "Prix sur place";
   return `${new Intl.NumberFormat("fr-FR").format(price).replace(/ | /g, " ")} FCFA`;
 }
 
@@ -77,16 +91,25 @@ export function formatEventDate(date: string): string {
   );
 }
 
+/** Liens d'itinéraire : coordonnées GPS si connues, sinon recherche par repère. */
 export function directionsLinks() {
-  const { lat, lng } = settings.address;
+  const { lat, lng, mapsQuery } = settings.address;
+  const hasGps = lat != null && lng != null;
+  const dest = hasGps ? `${lat},${lng}` : encodeURIComponent(mapsQuery);
   return {
-    google: `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`,
-    waze: `https://waze.com/ul?ll=${lat},${lng}&navigate=yes`,
-    apple: `https://maps.apple.com/?daddr=${lat},${lng}`,
+    google: `https://www.google.com/maps/dir/?api=1&destination=${dest}`,
+    waze: hasGps ? `https://waze.com/ul?ll=${dest}&navigate=yes` : `https://waze.com/ul?q=${dest}&navigate=yes`,
+    apple: `https://maps.apple.com/?daddr=${dest}`,
+    embed: `https://maps.google.com/maps?q=${dest}&z=16&output=embed`,
   };
 }
 
 export function fullAddress(): string {
   const a = settings.address;
   return `${a.street}, ${a.city}, ${a.country}`;
+}
+
+export function whatsappLink(text?: string): string {
+  const n = (settings.whatsapp || primaryPhone.number).replace(/\D/g, "");
+  return `https://wa.me/${n}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { loft, settings } from "@/lib/content";
 import { PageHero } from "@/components/PageHero";
 import { Media } from "@/components/Media";
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default function LoftPage() {
+  if (!loft.visible) notFound();
   const phone = settings.phones[1] ?? settings.phones[0];
   return (
     <>

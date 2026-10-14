@@ -40,7 +40,7 @@ export function BottomNav({ phone }: { phone: string }) {
           <a
             href={`tel:${phone}`}
             aria-label="Appeler Jackboy"
-            className="-mt-5 flex h-13 w-13 items-center justify-center rounded-full bg-accent text-accent-ink shadow-[0_6px_24px_rgba(140,198,63,.35)] ring-4 ring-bg"
+            className="-mt-5 flex h-13 w-13 items-center justify-center rounded-full bg-accent text-accent-ink shadow-[0_6px_24px_rgba(22,180,127,.35)] ring-4 ring-bg"
           >
             <IconPhone className="h-5 w-5" />
           </a>

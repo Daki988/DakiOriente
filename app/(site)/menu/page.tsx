@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getCategories, getSignatureProducts, primaryPhone } from "@/lib/content";
+import { getCategories, getSignatureProducts, primaryPhone, settings } from "@/lib/content";
 import { PageHero } from "@/components/PageHero";
 import { MenuBrowser } from "@/components/MenuBrowser";
 import { ProductCard } from "@/components/ProductCard";
@@ -8,17 +8,18 @@ import { IconPhone } from "@/components/Icons";
 
 export const metadata: Metadata = {
   title: "Menu",
-  description: "Le menu de Jackboy : paninis signatures, grillades, cocktails et boissons. Prix en FCFA.",
+  description: "Menu et prix de Jackboy (FCFA) : burgers, paninis, wings, brochettes, nems, cocktails, bières, spiritueux, vins, chicha. Commande par WhatsApp.",
   alternates: { canonical: "/menu" },
 };
 
 export default function MenuPage() {
   const categories = getCategories();
-  const signatures = getSignatureProducts(3);
+  const signatures = getSignatureProducts(6);
   return (
     <>
       <PageHero kicker="La carte" title="Le menu">
-        Paninis emblématiques, grillades et boissons. Pas de commande en ligne : venez déguster sur place.
+        Fast food gourmet & bar : burgers, paninis, wings, cocktails, spiritueux, chicha.
+        {settings.ordering.enabled && " Ajoutez vos produits au panier puis envoyez votre commande par WhatsApp — sur place, à emporter ou en livraison."}
       </PageHero>
       <div className="mx-auto max-w-6xl px-4">
         {signatures.length > 0 && (

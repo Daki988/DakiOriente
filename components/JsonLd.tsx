@@ -15,7 +15,8 @@ export function JsonLd() {
     slogan: settings.tagline,
     url: SITE_URL,
     telephone: settings.phones[0]?.number,
-    servesCuisine: ["Paninis", "Grillades"],
+    servesCuisine: ["Burgers", "Paninis", "Wings", "Brochettes", "Cocktails"],
+    acceptsReservations: false,
     priceRange: "FCFA",
     hasMenu: `${SITE_URL}/menu`,
     address: {
@@ -25,9 +26,9 @@ export function JsonLd() {
       addressCountry: "GA",
       description: `${fullAddress()} — ${settings.address.landmark}`,
     },
-    geo: { "@type": "GeoCoordinates", latitude: settings.address.lat, longitude: settings.address.lng },
+    ...(settings.address.lat != null ? { geo: { "@type": "GeoCoordinates", latitude: settings.address.lat, longitude: settings.address.lng } } : {}),
     openingHoursSpecification: settings.hours.filter((h) => !h.closed).map((h) => ({
-      "@type": "OpeningHoursSpecification", dayOfWeek: DAY_EN[h.day], opens: h.open, closes: h.close,
+      "@type": "OpeningHoursSpecification", dayOfWeek: DAY_EN[h.day], opens: h.open, ...(h.close ? { closes: h.close } : {}),
     })),
     sameAs: settings.socials.filter((s) => s.url).map((s) => s.url),
   };
