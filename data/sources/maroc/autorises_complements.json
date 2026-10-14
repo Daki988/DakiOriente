@@ -1,0 +1,1009 @@
+[
+  {
+    "id": "ma-isgc",
+    "nom": "Institut Supérieur de Gestion et de Commerce",
+    "sigle": "ISGC",
+    "ville": "Casablanca",
+    "type": "ecole_commerce",
+    "match": [
+      "gestion et de commerce|\\bisgc\\b"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N° 36/89",
+      "date": "09/06/1989",
+      "effet": "1989-1990"
+    },
+    "adresse_ministere": "23, Rue Hafid Ibrahim - Quartier Gauthier"
+  },
+  {
+    "id": "ma-heci-rabat",
+    "nom": "Ecole des Hautes Etudes Commerciales et Informatiques",
+    "sigle": "HECI",
+    "ville": "Rabat",
+    "type": "ecole_commerce",
+    "match": [
+      "hautes etudes commerciales et informatiques|\\bheci\\b"
+    ],
+    "villes": [
+      "Rabat"
+    ],
+    "autorisation": {
+      "numero": "N° 54/91",
+      "date": "25/10/1991",
+      "effet": "1991-1992"
+    },
+    "adresse_ministere": "89, Rue Sebou - agdal"
+  },
+  {
+    "id": "ma-heci-meknes",
+    "nom": "Ecole des Hautes Etudes Commerciales et Informatiques",
+    "sigle": "HECI",
+    "ville": "Meknès",
+    "type": "ecole_commerce",
+    "match": [
+      "hautes etudes commerciales et informatiques|\\bheci\\b"
+    ],
+    "villes": [
+      "Meknès"
+    ],
+    "autorisation": {
+      "numero": "N° 61/92",
+      "date": "20/10/1992",
+      "effet": "1992-1993"
+    },
+    "adresse_ministere": "9, Rue de Chinon Es-Saâda"
+  },
+  {
+    "id": "ma-heci-fes",
+    "nom": "Ecole des Hautes Etudes Commerciales et Informatiques",
+    "sigle": "HECI",
+    "ville": "Fès",
+    "type": "ecole_commerce",
+    "match": [
+      "hautes etudes commerciales et informatiques|\\bheci\\b"
+    ],
+    "villes": [
+      "Fès"
+    ],
+    "autorisation": {
+      "numero": "N° 60/92",
+      "date": "20/10/1992",
+      "effet": "1992-1993"
+    },
+    "adresse_ministere": "Avenue Allal Ben Abdellah - Rue n° 134"
+  },
+  {
+    "id": "ma-heci-kenitra",
+    "nom": "Ecole des Hautes Etudes Commerciales et Informatiques",
+    "sigle": "HECI",
+    "ville": "Kénitra",
+    "type": "ecole_commerce",
+    "match": [
+      "hautes etudes commerciales et informatiques|\\bheci\\b"
+    ],
+    "villes": [
+      "Kénitra"
+    ],
+    "autorisation": {
+      "numero": "N° 114/96",
+      "date": "17/06/1997",
+      "effet": "1996-1997"
+    },
+    "adresse_ministere": "535, Boulevard Mohamed V"
+  },
+  {
+    "id": "ma-heci-oujda",
+    "nom": "Ecole des Hautes Etudes Commerciales et Informatiques",
+    "sigle": "HECI",
+    "ville": "Oujda",
+    "type": "ecole_commerce",
+    "match": [
+      "hautes etudes commerciales et informatiques|\\bheci\\b"
+    ],
+    "villes": [
+      "Oujda"
+    ],
+    "autorisation": {
+      "numero": "N° 174/2001",
+      "date": "24/06/2002",
+      "effet": "2001-2002"
+    },
+    "adresse_ministere": "171 Angle Bd Smara et Bd Dakhla Quartier El Massira"
+  },
+  {
+    "id": "ma-epsielm",
+    "nom": "Ecole Polyvalente Supérieure d'Informatique et d'Electronique et de Management",
+    "sigle": "EPSIEL-M",
+    "ville": "Fès",
+    "type": "ecole_ingenieurs",
+    "match": [
+      "epsiel|polyvalente superieure d informatique"
+    ],
+    "villes": [
+      "Fès"
+    ],
+    "autorisation": {
+      "numero": "N° 32/88",
+      "date": "20/07/1993",
+      "effet": "1993-1994"
+    },
+    "adresse_ministere": "N° 4, Immeuble \" Abbou \" Avenue Allal Ben Abdellah 30 000"
+  },
+  {
+    "id": "ma-hem-rabat",
+    "nom": "Institut des Hautes Etudes de Management",
+    "sigle": "HEM",
+    "ville": "Rabat",
+    "type": "ecole_commerce",
+    "match": [
+      "hautes etudes de management"
+    ],
+    "villes": [
+      "Rabat"
+    ],
+    "autorisation": {
+      "numero": "N° 73/94",
+      "date": "18/01/1994",
+      "effet": "1993-1994"
+    },
+    "adresse_ministere": "Intersection Zaïr Akrach, lotissement Mouline n° 3 - Souissi"
+  },
+  {
+    "id": "ma-hem-marrakech",
+    "nom": "Institut des Hautes Etudes de Management",
+    "sigle": "HEM",
+    "ville": "Marrakech",
+    "type": "ecole_commerce",
+    "match": [
+      "hautes etudes de management"
+    ],
+    "villes": [
+      "Marrakech"
+    ],
+    "autorisation": {
+      "numero": "N° 209/2004",
+      "date": "24/03/2004",
+      "effet": "2003-2004"
+    },
+    "adresse_ministere": "Lotissement Riad Al Atlas - Mbarka III - Agdal Av Med VI"
+  },
+  {
+    "id": "ma-hbfg-casa",
+    "nom": "Institut des Hautes Etudes Bancaires, Financières et Managériales",
+    "sigle": "HBFG",
+    "ville": "Casablanca",
+    "type": "ecole_commerce",
+    "match": [
+      "\\bhbfg\\b|hautes etudes bancaires"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N° 83/94",
+      "date": "23/04/1996",
+      "effet": "1995-1996"
+    },
+    "adresse_ministere": "N° 4, Rue Van Zeeland, Angle Boulevard Abdelmoumen, Quartier des Hôpitaux"
+  },
+  {
+    "id": "ma-esol",
+    "nom": "Ecole Supérieure d'Optique et de Lunetterie",
+    "sigle": "ESOL",
+    "ville": "Fès",
+    "type": "ecole_sante",
+    "match": [
+      "optique et de lunetterie|\\besol\\b"
+    ],
+    "villes": [
+      "Fès"
+    ],
+    "autorisation": {
+      "numero": "N° 98/96",
+      "date": "18/10/1996",
+      "effet": "1996-1997"
+    },
+    "adresse_ministere": "5, Rue Bizert - Route d'Immouzer - Ville Nouvelle"
+  },
+  {
+    "id": "ma-esma",
+    "nom": "Ecole Supérieure de Management et de Technologie Informatique Appliqués Privée",
+    "sigle": "ESMA",
+    "ville": "Marrakech",
+    "type": "ecole_commerce",
+    "match": [
+      "\\besma\\b|management et des technologies de l information appliquee"
+    ],
+    "villes": [
+      "Marrakech"
+    ],
+    "autorisation": {
+      "numero": "N° 92/95",
+      "date": "18/02/1997",
+      "effet": "1996-1997"
+    },
+    "adresse_ministere": "Avenue Prince Moulay Abdellah (ex.safi) Rouidate 1, immeuble Berrada"
+  },
+  {
+    "id": "ma-esrim",
+    "nom": "Ecole Supérieure des Réseaux Informatiques et de Management",
+    "sigle": "ESRIM",
+    "ville": "Settat",
+    "type": "ecole_ingenieurs",
+    "match": [
+      "\\besrim\\b|reseaux informatiques et du management"
+    ],
+    "villes": [
+      "Settat"
+    ],
+    "autorisation": {
+      "numero": "N° 100/96",
+      "date": "27/02/1997",
+      "effet": "1996-1997"
+    },
+    "adresse_ministere": "46, Avenue Mohamed V - (2ème et 3ème étages) -Settat"
+  },
+  {
+    "id": "ma-mmbs",
+    "nom": "Moroccan Computer Sciences And Management Business School Private",
+    "sigle": "MMBS",
+    "ville": "Mohammedia",
+    "type": "ecole_commerce",
+    "match": [
+      "\\bmmbs\\b|moroccan computer"
+    ],
+    "villes": [
+      "Mohammedia"
+    ],
+    "autorisation": {
+      "numero": "N° 120/97",
+      "date": "25/03/1998",
+      "effet": "1997-1998"
+    },
+    "adresse_ministere": "13, Bd Hassan II"
+  },
+  {
+    "id": "ma-embci",
+    "nom": "Ecole Marocaine de Banque et de Commerce International",
+    "sigle": "EMBCI",
+    "ville": "Rabat",
+    "type": "ecole_commerce",
+    "match": [
+      "\\bembci\\b|banque et du commerce international"
+    ],
+    "villes": [
+      "Rabat"
+    ],
+    "autorisation": {
+      "numero": "N° 130/98",
+      "date": "30/06/1998",
+      "effet": "1998-1999"
+    },
+    "adresse_ministere": "N° 26 bis, Avenue Souissi - Souissi"
+  },
+  {
+    "id": "ma-ismoo",
+    "nom": "Institut Supérieur Maghrébin d'Optique et d'Optométrie",
+    "sigle": "ISMOO",
+    "ville": "Casablanca",
+    "type": "ecole_sante",
+    "match": [
+      "\\bismoo\\b|maghrebin d optique"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N° 133/98",
+      "date": "29/10/1998",
+      "effet": "1998-1999"
+    },
+    "adresse_ministere": "7, Rue Ben Dahan 1er Etage Escalier B"
+  },
+  {
+    "id": "ma-ehesicom",
+    "nom": "Ecole des Hautes études de l'Ingénierie Commerciale et Management",
+    "sigle": "EHESICOM",
+    "ville": "Kénitra",
+    "type": "ecole_commerce",
+    "match": [
+      "ehesicom|ingenierie commerciale et management"
+    ],
+    "villes": [
+      "Kénitra"
+    ],
+    "autorisation": {
+      "numero": "N° 151/99",
+      "date": "19/01/2000",
+      "effet": "1999-2000"
+    },
+    "adresse_ministere": "3, Avenue Mohamed abdou"
+  },
+  {
+    "id": "ma-hek",
+    "nom": "Haute Ecole de Kinésithérapie",
+    "sigle": "HEK",
+    "ville": "Casablanca",
+    "type": "ecole_sante",
+    "match": [
+      "haute ecole de kinesitherapie|\\bhek\\b"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N° 148/99",
+      "date": "05/03/2001",
+      "effet": "2000-2001"
+    },
+    "adresse_ministere": "14, Rue Tabit Ibnou Kourra Avenue My Driss 1er"
+  },
+  {
+    "id": "ma-suptem",
+    "nom": "Ecole Supérieure des Sciences Techniques et de Management",
+    "sigle": "SUPTEM",
+    "ville": "Tanger",
+    "type": "ecole_commerce",
+    "match": [
+      "\\bsuptem\\b|sciences techniques et de management"
+    ],
+    "villes": [
+      "Tanger"
+    ],
+    "autorisation": {
+      "numero": "N° 163/2001",
+      "date": "26/07/2001",
+      "effet": "2001-2002"
+    },
+    "adresse_ministere": "N° 6, Rue Haj Mohamed TAZI - Marshan - 9000"
+  },
+  {
+    "id": "ma-isjc",
+    "nom": "Institut Supérieur du Journalisme et de Communication",
+    "sigle": "ISJC",
+    "ville": "Casablanca",
+    "type": "institut",
+    "match": [
+      "institut superieur (du|de) journalisme et de communication|\\bisjc\\b"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N° 167/2001",
+      "date": "25/09/2001",
+      "effet": "2001-2002"
+    },
+    "adresse_ministere": "N° 47, Bd Rahal Al Maskini 1er étage"
+  },
+  {
+    "id": "ma-vinci",
+    "nom": "Institut Supérieur Vinci d'Ingénierie Informatique et de Réseaux de Télécommunications",
+    "sigle": "ISVIRT (Vinci)",
+    "ville": "Rabat",
+    "type": "ecole_ingenieurs",
+    "match": [
+      "vinci"
+    ],
+    "villes": [
+      "Rabat"
+    ],
+    "autorisation": {
+      "numero": "N° 197/2003",
+      "date": "02/10/2003",
+      "effet": "2003-2004"
+    },
+    "adresse_ministere": "10, rue El Yamama"
+  },
+  {
+    "id": "ma-ifjsup-casa",
+    "nom": "Institut Supérieur du Journalisme et de l'Information",
+    "sigle": "IFJSUP",
+    "ville": "Casablanca",
+    "type": "institut",
+    "match": [
+      "journalisme et d(e l )?information|ifjsup"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N° 202/2003",
+      "date": "06/10/2003",
+      "effet": "2003-2004"
+    },
+    "adresse_ministere": "N° 97, Avenue Hassan SGHIR - Derb Omar"
+  },
+  {
+    "id": "ma-ifjsup-marrakech",
+    "nom": "Institut Supérieur du Journalisme et de l'Information",
+    "sigle": "IFJSUP",
+    "ville": "Marrakech",
+    "type": "institut",
+    "match": [
+      "journalisme et d(e l )?information|ifjsup"
+    ],
+    "villes": [
+      "Marrakech"
+    ],
+    "autorisation": {
+      "numero": "N°446/2016",
+      "date": "05/08/2015",
+      "effet": "2015-2016"
+    },
+    "adresse_ministere": "23, Avenue Yacoub El Mansour, 2ème étage, Guéliz-Marrakech"
+  },
+  {
+    "id": "ma-eseje",
+    "nom": "Ecole Supérieure des Etudes Juridiques et Economiques",
+    "sigle": "ESEJE",
+    "ville": "Mohammedia",
+    "type": "ecole_commerce",
+    "match": [
+      "eseje|etudes juridiques et economiques"
+    ],
+    "villes": [
+      "Mohammedia"
+    ],
+    "autorisation": {
+      "numero": "N° 206/2003",
+      "date": "08/11/2004",
+      "effet": "2004-2005"
+    },
+    "adresse_ministere": "146, Nice I (Près de Marjane) B.P 1214"
+  },
+  {
+    "id": "ma-isota",
+    "nom": "Institut Supérieur d'Optique Théorique et Appliquée Privé",
+    "sigle": "ISOTA",
+    "ville": "Casablanca",
+    "type": "ecole_sante",
+    "match": [
+      "isota|optique theorique"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N° 224/2005",
+      "date": "22/09/2005",
+      "effet": "2004-2005"
+    },
+    "adresse_ministere": "N° 8 Rue Ahmed Akrad loisiss"
+  },
+  {
+    "id": "ma-hep-management",
+    "nom": "Ecole des Hautes Etudes Poly Management",
+    "sigle": "HEP Management",
+    "ville": "Oujda",
+    "type": "ecole_commerce",
+    "match": [
+      "poly management|hep management"
+    ],
+    "villes": [
+      "Oujda"
+    ],
+    "autorisation": {
+      "numero": "N° 223/2005",
+      "date": "10/11/2005",
+      "effet": "2005-2006"
+    },
+    "adresse_ministere": "N° 9, Rue Essakhra - Hay Alquods"
+  },
+  {
+    "id": "ma-suptema",
+    "nom": "Ecole Supérieure de Telécommunication et de Management",
+    "sigle": "SUPTEMA",
+    "ville": "Fès",
+    "type": "ecole_ingenieurs",
+    "match": [
+      "suptema|telecommunications et du management"
+    ],
+    "villes": [
+      "Fès"
+    ],
+    "autorisation": {
+      "numero": "N° 235/2005",
+      "date": "02/01/2006",
+      "effet": "2005-2006"
+    },
+    "adresse_ministere": "N°67, Khalid Ibn Oualid Bourmana"
+  },
+  {
+    "id": "ma-piimt-rabat",
+    "nom": "Private International Institut of Management And Technologie",
+    "sigle": "PIIMT",
+    "ville": "Rabat",
+    "type": "ecole_commerce",
+    "match": [
+      "piimt|management et de technologie"
+    ],
+    "villes": [
+      "Rabat"
+    ],
+    "autorisation": {
+      "numero": "N° 244/2006",
+      "date": "07/08/2007",
+      "effet": "2006-2007"
+    },
+    "adresse_ministere": "45, Avenue Oualed said Bir Kacem - Souissi"
+  },
+  {
+    "id": "ma-piimt-casa",
+    "nom": "Private International Institute of Management and Technology",
+    "sigle": "PIIMT",
+    "ville": "Casablanca",
+    "type": "ecole_commerce",
+    "match": [
+      "piimt|management et de technologie"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N°418/2014",
+      "date": "31/07/2013",
+      "effet": "2013-2014"
+    },
+    "adresse_ministere": "490, Avenue Panoramique, Polo."
+  },
+  {
+    "id": "ma-sup-technology",
+    "nom": "Ecole Supérieure des Hautes Etudes en Technologie de l'Information et de la Communication Privée",
+    "sigle": "Sup Technology",
+    "ville": "Casablanca",
+    "type": "ecole_ingenieurs",
+    "match": [
+      "sup technology|technologies de l information et de la communication"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N°246/2006",
+      "date": "07/08/2007",
+      "effet": "2006-2007"
+    },
+    "adresse_ministere": "4, Av.Cadi Iaas, Maârif"
+  },
+  {
+    "id": "ma-hemt",
+    "nom": "Ecole Supérieure Privée des Hautes Etudes Managériales de Tanger",
+    "sigle": "HEMT",
+    "ville": "Tanger",
+    "type": "ecole_commerce",
+    "match": [
+      "\\bhemt\\b|hautes etudes en management de tanger|hautes etudes manageriales"
+    ],
+    "villes": [
+      "Tanger"
+    ],
+    "autorisation": {
+      "numero": "N°290/2009",
+      "date": "12/08/2008",
+      "effet": "2008-2009"
+    },
+    "adresse_ministere": "La Baie de Tanger lotissement N° 88"
+  },
+  {
+    "id": "ma-emcgi",
+    "nom": "Ecole des Métiers, de Commerce, de Gestion et d'Informatique Privée",
+    "sigle": "EMCGI",
+    "ville": "Tanger",
+    "type": "ecole_commerce",
+    "match": [
+      "emcgi"
+    ],
+    "villes": [
+      "Tanger"
+    ],
+    "autorisation": {
+      "numero": "N°308 /2009",
+      "date": "12/08/2008",
+      "effet": "2008-2009"
+    },
+    "adresse_ministere": "ksaibi, Rue E, lotissement N°3"
+  },
+  {
+    "id": "ma-ishedd",
+    "nom": "Institut Supérieur des Hautes Etudes en Développement Durable",
+    "sigle": "ISHEDD",
+    "ville": "Rabat",
+    "type": "institut",
+    "match": [
+      "ishedd|developpement durable"
+    ],
+    "villes": [
+      "Rabat"
+    ],
+    "autorisation": {
+      "numero": "n° 304/2009",
+      "date": "13/10/2008",
+      "effet": "2008-2009"
+    },
+    "adresse_ministere": "15Bis Rue Daraa-Agdal"
+  },
+  {
+    "id": "ma-isesmo",
+    "nom": "Institut Supérieur des Etudes de la Santé Privé Mohammedia",
+    "sigle": "ISESMO",
+    "ville": "Mohammedia",
+    "type": "ecole_sante",
+    "match": [
+      "isesmo|etudes de la sante"
+    ],
+    "villes": [
+      "Mohammedia"
+    ],
+    "autorisation": {
+      "numero": "N° 319/2009",
+      "date": "31/07/2009",
+      "effet": "2008-2009"
+    },
+    "adresse_ministere": "N°161, Lotissement Nice2"
+  },
+  {
+    "id": "ma-sup-isi",
+    "nom": "Institut Supérieur Privé de Génie Informatique",
+    "sigle": "SUP ISI",
+    "ville": "Tétouan",
+    "type": "ecole_ingenieurs",
+    "match": [
+      "sup isi|genie informatique"
+    ],
+    "villes": [
+      "Tétouan"
+    ],
+    "autorisation": {
+      "numero": "N° 326/2009",
+      "date": "31/07/2009",
+      "effet": "2009-2010"
+    },
+    "adresse_ministere": "N° 251 Av Abd El khalk TARRIS"
+  },
+  {
+    "id": "ma-orient-sup",
+    "nom": "Ecole Supérieure de Management et d'Ingénierie de l'Orient",
+    "sigle": "Orient Sup",
+    "ville": "Taza",
+    "type": "ecole_commerce",
+    "match": [
+      "orient"
+    ],
+    "villes": [
+      "Taza"
+    ],
+    "autorisation": {
+      "numero": "N°361/2011",
+      "date": "02/11/2010",
+      "effet": "2010-2011"
+    },
+    "adresse_ministere": "Imm Aarab Zawiyat Av med 5 et rue fès"
+  },
+  {
+    "id": "ma-esismp",
+    "nom": "Ecole Supérieure d'Ingénierie de la santé et de Management de Projets",
+    "sigle": "ESISMP",
+    "ville": "Casablanca",
+    "type": "ecole_sante",
+    "match": [
+      "esismp|ingenierie de la sante et de management"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N°378/2012",
+      "date": "28/11/2011",
+      "effet": "2011-2012"
+    },
+    "adresse_ministere": "N° 24 rue la fontaine cité Racine"
+  },
+  {
+    "id": "ma-esms",
+    "nom": "Ecole Supérieure de Management du Sud Privée",
+    "sigle": "ESMS",
+    "ville": "Agadir",
+    "type": "ecole_commerce",
+    "match": [
+      "\\besms\\b|management du sud"
+    ],
+    "villes": [
+      "Agadir"
+    ],
+    "autorisation": {
+      "numero": "N°394/2013",
+      "date": "05/07/2012",
+      "effet": "2012-2013"
+    },
+    "adresse_ministere": "Lot, Almassira, Rue Tambaktou, N° 95"
+  },
+  {
+    "id": "ma-supmm",
+    "nom": "Institut Supérieur de Management et des Médias",
+    "sigle": "SUP'MM",
+    "ville": "Tanger",
+    "type": "institut",
+    "match": [
+      "sup ?mm|management et des medias"
+    ],
+    "villes": [
+      "Tanger"
+    ],
+    "autorisation": {
+      "numero": "N°413/2014",
+      "date": "08/08/2013",
+      "effet": "2013-2014"
+    },
+    "adresse_ministere": "N°10, Lotissement Narjis, Malabata BP 12203"
+  },
+  {
+    "id": "ma-finansup",
+    "nom": "Ecole Supérieure de Finance et d'Audit",
+    "sigle": "FINAN SUP",
+    "ville": "Tanger",
+    "type": "ecole_commerce",
+    "match": [
+      "finan ?sup|finance et d audit"
+    ],
+    "villes": [
+      "Tanger"
+    ],
+    "autorisation": {
+      "numero": "N°417/2014",
+      "date": "20/02/2014",
+      "effet": "2013-2014"
+    },
+    "adresse_ministere": "18, Rue Ibrahim Ibn Hilal, Cité Souriyine- Tanger,"
+  },
+  {
+    "id": "ma-esscg",
+    "nom": "Ecole Supérieure des Sciences Commerciales et de Gestion",
+    "sigle": "ESSCG",
+    "ville": "Tanger",
+    "type": "ecole_commerce",
+    "match": [
+      "esscg|sciences commerciales et de gestion"
+    ],
+    "villes": [
+      "Tanger"
+    ],
+    "autorisation": {
+      "numero": "N°435/2015",
+      "date": "31/07/2014",
+      "effet": "2014-2015"
+    },
+    "adresse_ministere": "N°8 Avenue My Rachid Résidence Rizk"
+  },
+  {
+    "id": "ma-adalia",
+    "nom": "ADALIA Private Institute of Management",
+    "sigle": "ADALIA",
+    "ville": "Casablanca",
+    "type": "ecole_commerce",
+    "match": [
+      "adalia"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N°448/2016",
+      "date": "07/08/2015",
+      "effet": "2015-2016"
+    },
+    "adresse_ministere": "N° 1, Place Bélair - Quartier Gauthier"
+  },
+  {
+    "id": "ma-esb-berrechid",
+    "nom": "Ecole Supérieure Business de Berrechid Privée",
+    "sigle": "ESB Berrechid",
+    "ville": "Berrechid",
+    "type": "ecole_commerce",
+    "match": [
+      "berrechid"
+    ],
+    "villes": [
+      "Berrechid"
+    ],
+    "autorisation": {
+      "numero": "N°454/2016",
+      "date": "14/11/2016",
+      "effet": "2015-2016"
+    },
+    "adresse_ministere": "12, Angle Rue d'Alger, Rue Ibn Tachfine et Rue Omar Ibn El Khattab"
+  },
+  {
+    "id": "ma-emlc",
+    "nom": "EMLC business school",
+    "sigle": "EMLC",
+    "ville": "Casablanca",
+    "type": "ecole_commerce",
+    "match": [
+      "\\bemlc\\b"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N°459/2016",
+      "date": "07/08/2017",
+      "effet": "2016-2017"
+    },
+    "adresse_ministere": "Marina de Casablanca - Tour Crystal 1 (6e étage) & Tour Ivoire 4 ( Immeuble ) - 20000 Casablanca."
+  },
+  {
+    "id": "ma-tbs-casa",
+    "nom": "TBS Casablanca- Business School",
+    "sigle": "TBS Casablanca",
+    "ville": "Casablanca",
+    "type": "ecole_commerce",
+    "match": [
+      "toulouse business school|\\btbs\\b"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N°461/2017",
+      "date": "16/04/2018",
+      "effet": "2017-2018"
+    },
+    "adresse_ministere": "Lotissement la Colline II route Nouacer sidi Maârouf (Bâtiment A)"
+  },
+  {
+    "id": "ma-ostelea",
+    "nom": "Ostelea Rabat, School of Tourism et Hospitality",
+    "sigle": "Ostelea",
+    "ville": "Rabat",
+    "type": "institut",
+    "match": [
+      "ostelea"
+    ],
+    "villes": [
+      "Rabat"
+    ],
+    "autorisation": {
+      "numero": "N° 465/2018",
+      "date": "23/10/2018",
+      "effet": "2018-2019"
+    },
+    "adresse_ministere": "Avenue Al Melia, rue Meziata, secteur 9, Hay Ryad- Rabat"
+  },
+  {
+    "id": "ma-eslsca",
+    "nom": "ESLSCA, Business School",
+    "sigle": "ESLSCA",
+    "ville": "Rabat",
+    "type": "ecole_commerce",
+    "match": [
+      "eslsca"
+    ],
+    "villes": [
+      "Rabat"
+    ],
+    "autorisation": {
+      "numero": "N° 472/2019",
+      "date": "17/03/2020",
+      "effet": "2019-2020"
+    },
+    "adresse_ministere": "Avenue Al Melia, rue Meziata, secteur 9, Hay Ryad- Rabat"
+  },
+  {
+    "id": "ma-hem-engineering",
+    "nom": "Institut Privé des Hautes Etudes Marocaines d'Ingénierie",
+    "sigle": "HEM Engineering School",
+    "ville": "Casablanca",
+    "type": "ecole_ingenieurs",
+    "match": [
+      "hautes etudes marocaines d ingenierie"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N°476/2019",
+      "date": "27/05/2020",
+      "effet": "2020-2021"
+    },
+    "adresse_ministere": "Avenue Al Quods - Californie II (Angle Avenue A ;AC57 et AC21)"
+  },
+  {
+    "id": "ma-isep-casa",
+    "nom": "Institut Supérieur des Etudes Paramédicales de Casablanca",
+    "sigle": "ISEP",
+    "ville": "Casablanca",
+    "type": "ecole_sante",
+    "match": [
+      "etudes paramedicales de casablanca|\\bisep\\b"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N°483/2021",
+      "date": "27/07/2021",
+      "effet": "2021-2022"
+    },
+    "adresse_ministere": "Boulevard Ouled Haddo, N°5,Quartier les crêtes ,Aïn chock, Casablanca"
+  },
+  {
+    "id": "ma-epsinsia",
+    "nom": "Ecole Privée Supérieure d'Ingénierie Numérique et Systèmes d'Intelligence Artificielle",
+    "sigle": "EPSINSIA",
+    "ville": "Casablanca",
+    "type": "ecole_ingenieurs",
+    "match": [
+      "epsinsia|ingenierie numerique et des systemes d intelligence"
+    ],
+    "villes": [
+      "Casablanca"
+    ],
+    "autorisation": {
+      "numero": "N°491/2022",
+      "date": "01/12/2022",
+      "effet": "2022-2023"
+    },
+    "adresse_ministere": "124 Boulevard Ben Aicha, Roches Noires, Casablanca"
+  },
+  {
+    "id": "ma-iiec",
+    "nom": "International Institute of Engineering Casablanca privé",
+    "sigle": "IIEC",
+    "ville": "Bouskoura",
+    "type": "ecole_ingenieurs",
+    "match": [
+      "institut international de casablanca d ingenierie|\\biiec\\b"
+    ],
+    "villes": [
+      "Bouskoura"
+    ],
+    "autorisation": {
+      "numero": "N° 490/2022",
+      "date": "08/04/2022",
+      "effet": "2022-2023"
+    },
+    "adresse_ministere": "Douar Oulad Malek- Province de Bouskoura"
+  },
+  {
+    "id": "ma-essib",
+    "nom": "Ecole Supérieure des Sciences et de l'Ingénierie Bouregreg Privée",
+    "sigle": "ESSIB",
+    "ville": "Salé",
+    "type": "ecole_ingenieurs",
+    "match": [
+      "essib|abi regreg|bouregreg"
+    ],
+    "villes": [
+      "Salé"
+    ],
+    "autorisation": {
+      "numero": "N° 493/2023",
+      "date": "13/09/2023",
+      "effet": "2023-2024"
+    },
+    "adresse_ministere": "Lotissement Habouss N°27,hay chmaou- Route de Kénitra-Salé"
+  },
+  {
+    "id": "ma-edumed",
+    "nom": "EDUMED Ecole Supérieure Privée du Paramédical et de la Réédication",
+    "sigle": "EDUMED",
+    "ville": "Rabat",
+    "type": "ecole_sante",
+    "match": [
+      "edumed|paramedical et de la reeducation"
+    ],
+    "villes": [
+      "Rabat"
+    ],
+    "autorisation": {
+      "numero": "N° 495/2023",
+      "date": "13/10/2023",
+      "effet": "2023-2024"
+    },
+    "adresse_ministere": "Avenue Al Melia, rue Meziata, Hay Ryad- Rabat"
+  }
+]

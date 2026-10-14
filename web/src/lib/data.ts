@@ -27,8 +27,10 @@ export type Etablissement = {
   coordonnees: { lat: number; lng: number } | null; formations: string[]; logo: string | null; photos: Photo[];
   label: Label; label_libelle: string; reconnaissance: string | null; reconnaissance_en_cours: boolean;
   adresse: string | null; description: string | null; filieres: Filiere[];
+  /** Établissement autorisé : filières dont l'accréditation a pris fin (diplômes d'établissement). */
+  filieres_echues: Filiere[]; autorisation: string | null;
 };
-export type Label = "reconnu_etat" | "diplomes_homologues" | "professionnel";
+export type Label = "reconnu_etat" | "diplomes_homologues" | "professionnel" | "autorise";
 /** Filière homologuée par l'État (accréditation en cours). */
 export type Filiere = {
   intitule: string; options: string | null; composante: string | null; ville: string | null;
@@ -39,6 +41,7 @@ export const LABELS: { id: Label; libelle: string; court: string; description: s
   { id: "reconnu_etat", libelle: "Reconnu par l'État", court: "Reconnu par l'État", description: "Établissement reconnu par décret : ses diplômes accrédités sont équivalents aux diplômes nationaux." },
   { id: "diplomes_homologues", libelle: "Diplômes homologués", court: "Diplômes homologués", description: "Établissement autorisé dont les filières publiées sont accréditées par l'État (arrêté au Bulletin officiel)." },
   { id: "professionnel", libelle: "Établissement professionnel", court: "Professionnel", description: "Établissement de formation professionnelle accrédité : diplômes d'État (technicien, technicien spécialisé)." },
+  { id: "autorise", libelle: "Établissement autorisé", court: "Autorisé", description: "Établissement autorisé par le ministère, sans filière accréditée en cours : il délivre des diplômes d'établissement, non homologués par l'État (pas d'équivalence automatique avec les diplômes nationaux)." },
 ];
 export const labelById = Object.fromEntries(LABELS.map((l) => [l.id, l])) as Record<Label, (typeof LABELS)[number]>;
 /** Villes d'études (établissements publiés). */
@@ -115,6 +118,7 @@ export const stats = {
   etablissements: etablissements.length,
   metiers: metiers.length,
   formations: formations.length,
+  homologues: etablissements.filter((e) => e.label !== "autorise").length,
   filieres: etablissements.reduce((n, e) => n + e.filieres.length, 0),
   villes: VILLES_ETUDES.length,
   paysOrigine: 54,

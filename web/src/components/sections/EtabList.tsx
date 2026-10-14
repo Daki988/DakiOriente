@@ -39,7 +39,7 @@ export function EtabList() {
         <select value={ville} onChange={(e) => setVille(e.target.value)} aria-label="Ville" className="min-w-0 max-w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold"><option value="">Toutes les villes</option>{VILLES_ETUDES.map((v) => <option key={v}>{v}</option>)}</select>
         <select value={type} onChange={(e) => setType(e.target.value)} aria-label="Type d'établissement" className="min-w-0 max-w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold"><option value="">Tous les types</option>{TYPES.map((t) => <option key={t}>{t}</option>)}</select>
       </div>
-      <p className="text-sm text-ink-soft"><b className="text-ink">{list.length} établissements</b> · seuls figurent les établissements privés dont les diplômes sont homologués par l&apos;État marocain, avec leurs filières accréditées.</p>
+      <p className="text-sm text-ink-soft"><b className="text-ink">{list.length} établissements</b> · établissements privés autorisés par le ministère. Le label indique si leurs diplômes sont homologués par l&apos;État (reconnu par l&apos;État, diplômes homologués) ou s&apos;il s&apos;agit de diplômes d&apos;établissement (autorisé).</p>
       <motion.div layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <AnimatePresence mode="popLayout">
           {list.map((e, k) => <motion.div key={e.id} layout initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0, transition: { delay: Math.min(k, 12) * 0.03 } }} exit={{ opacity: 0, scale: 0.95 }}><EtabCard id={e.id} /></motion.div>)}

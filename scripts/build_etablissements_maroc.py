@@ -261,7 +261,8 @@ ETABLISSEMENTS = [
          match=[r"^ecole superieure privee d ingenierie et d innovation"], villes=["Casablanca"]),
 ]
 
-LABEL_LIBELLE = {"reconnu_etat": "Reconnu par l'État", "diplomes_homologues": "Diplômes homologués", "professionnel": "Établissement professionnel"}
+LABEL_LIBELLE = {"reconnu_etat": "Reconnu par l'État", "diplomes_homologues": "Diplômes homologués", "professionnel": "Établissement professionnel",
+                 "autorise": "Établissement autorisé"}
 TYPE_LIBELLE = {
     "universite": "Université", "ecole_ingenieurs": "École d'ingénieurs", "ecole_commerce": "École de commerce / management",
     "ecole_sante": "École de santé", "architecture": "École d'architecture", "arts_design": "École d'art, de design et d'architecture d'intérieur",
@@ -360,7 +361,7 @@ FORMATIONS = [
     (r"biomedica|dispositifs medicaux|technologie medicale|sante digitale|digital health|sante numerique|genie digital en sante", "frm-ingenieur-genie-electrique", "dom-sante"),
     (r"sante publique|management de la sante|management hospitalier", "frm-master-sante-publique", "dom-sante"),
     (r"biotechnolog|sciences biologiques|bio ?informat|neuroscience", "frm-licence-biologie", "dom-sciences"),
-    (r"\bfinanc|\baudit|comptab|controle de gestion|\bbanque|\bassurance", "frm-master-finance-audit", "dom-finance"),
+    (r"\bfinanc|\baudit|comptab|controle de gestion|\bbanque|\bassurance|monetique|transactions", "frm-master-finance-audit", "dom-finance"),
     (r"intelligence artificielle|artificial intelligence|\bdata\b|donnees|big data|\banalytics\b|decisionnel|business intelligence", "frm-master-data-science-ia", "dom-numerique"),
     (r"cyber|securite informatique|securite des (systemes|reseaux)|security", "frm-master-cybersecurite", "dom-numerique"),
     (r"reseaux?|telecom|communication systems", "frm-ingenieur-telecoms", "dom-numerique"),
@@ -385,7 +386,7 @@ FORMATIONS = [
     (r"tourisme|hotel|hotellerie|restauration|evenementiel", "frm-licence-hotellerie", "dom-tourisme"),
     (r"\bdesign|graphi|\barts? visuels|\bart\b|\bmode\b|animation|culture", "frm-licence-design-graphique", "dom-arts-design"),
     (r"\bdroit|juridique|sciences politiques|relations internationales|gouvernance|\blaw\b|patrimoine|foncier", "frm-licence-droit-prive", "dom-droit"),
-    (r"psycholog", "frm-licence-psychologie", "dom-shs"),
+    (r"psycho", "frm-licence-psychologie", "dom-shs"),
     (r"langues?|traduct|anglais|english|linguist|literature", "frm-licence-langues-etrangeres", "dom-lettres-langues"),
     (r"economi|sciences sociales|sociolog|mathematiques", "frm-licence-economie", "dom-shs"),
     (r"education|enseignement|pedagog", "frm-licence-sciences-education", "dom-education"),
@@ -405,7 +406,20 @@ NIVEAU_FORMATION_MASTER = {"frm-licence-gestion": "frm-master-management", "frm-
                            "frm-licence-droit-prive": "frm-master-droit-affaires", "frm-licence-grh": "frm-master-grh"}
 
 
-def formation(intitule, options, diplome_lib):
+TEXTE_ILLISIBLE = re.compile(r"[\uFB50-\uFDFF\uFE70-\uFEFF]|\(cid:")
+# Intitulés en arabe (registre du Bulletin officiel, édition arabe) : quelques domaines reconnaissables
+ARABE = [(r"الصحاف|الإعلام|السمعية", "frm-licence-communication", "dom-communication")]
+# À défaut, formation générique selon le type d'établissement
+PAR_TYPE = {"ecole_commerce": ("frm-licence-gestion", "dom-gestion"), "ecole_ingenieurs": ("frm-ingenieur-informatique", "dom-numerique"),
+            "ecole_sante": ("frm-licence-sciences-infirmieres", "dom-sante"), "institut": ("frm-licence-gestion", "dom-gestion"),
+            "universite": ("frm-licence-gestion", "dom-gestion"), "architecture": ("frm-architecture", "dom-btp"),
+            "arts_design": ("frm-licence-design-graphique", "dom-arts-design")}
+
+
+def formation(intitule, options, diplome_lib, etab_type=None):
+    for motif, frm, dom in ARABE:
+        if re.search(motif, intitule + " " + options):
+            return frm, dom
     for texte in (norm(intitule), norm(options)):
         if not texte:
             continue
@@ -416,7 +430,7 @@ def formation(intitule, options, diplome_lib):
                 if diplome_lib and (diplome_lib.startswith("Master") or "Grande" in diplome_lib):
                     frm = NIVEAU_FORMATION_MASTER.get(frm, frm)
                 return frm, dom
-    return None, None
+    return PAR_TYPE.get(etab_type, (None, None))
 
 
 def mots(s):
@@ -447,7 +461,10 @@ def main():
     args = ap.parse_args()
     ref_year = annee_debut(args.annee)
 
-    compiled = [(e, [re.compile(m) for m in e["match"]]) for e in ETABLISSEMENTS]
+    # Établissements autorisés (liste ministérielle 2023-2024) absents des listes d'accréditation en cours
+    complements = json.load(open(os.path.join(SRC, "autorises_complements.json"), encoding="utf-8"))
+    etabs = ETABLISSEMENTS + [dict(c, statut="prive", autorise=True) for c in complements]
+    compiled = [(e, [re.compile(m) for m in e["match"]]) for e in etabs]
     by_id = {e["id"]: e for e in ETABLISSEMENTS}
 
     def find(etab_txt, ville):
@@ -465,7 +482,7 @@ def main():
     offi = json.load(open(os.path.join(SRC, "filieres_accreditees_eesp_2024-2025.json"), encoding="utf-8"))
     offi_index = {}
     officiel_map = {}
-    for e in ETABLISSEMENTS:
+    for e in etabs:
         for sig, v in e.get("officiel", []):
             officiel_map[(sig, norm(v))] = e["id"]
 
@@ -483,6 +500,9 @@ def main():
             offi_index[(eid, norm(fil))] = (dipl, duree, fin_officielle(fin), bo)
 
     def add(eid, composante, ville, fil, opt, fin, arrete, bo, source):
+        # Lignes de la liste PDF dont l'arabe a été mal extrait (formes de présentation, glyphes « cid ») : inexploitables
+        if TEXTE_ILLISIBLE.search(fil + " " + opt):
+            return
         key = norm(fil) + "|" + norm(composante)
         cur = filieres.setdefault(eid, {})
         prev = cur.get(key)
@@ -523,46 +543,61 @@ def main():
     enrich_path = os.path.join(SRC, "enrichissement.json")
     enrich = json.load(open(enrich_path, encoding="utf-8")) if os.path.exists(enrich_path) else {}
 
-    items, exclus = [], []
-    for e in ETABLISSEMENTS:
+    def programme(e, f, statut):
+        o = offi_index.get((e["id"], norm(f["intitule"])))
+        dlib, duree, niveau = diplome(f["intitule"], f["options"], e["type"], (o[0], o[1]) if o else None, f["composante"])
+        frm, dom = formation(f["intitule"], f["options"], dlib, e["type"])
+        return dict(
+            intitule=f["intitule"], options=f["options"] or None, composante=f["composante"] or None,
+            ville=f["ville"] if f["ville"] != e["ville"] else None,
+            diplome=dlib, duree_annees=duree, niveau=niveau, formation=frm, domaine=dom,
+            homologation=dict(statut=statut, fin=f["fin_accreditation"], texte=f["source"]),
+        )
+
+    items, exclus, fermes = [], [], []
+    for e in etabs:
+        x = enrich.get(e["id"], {})
+        if x.get("statut") == "ferme":
+            fermes.append(dict(id=e["id"], nom=e["nom"], ville=e["ville"], notes=x.get("notes")))
+            continue
         toutes = list(filieres.get(e["id"], {}).values())
         en_cours = [f for f in toutes if annee_debut(f["fin_accreditation"]) >= ref_year]
+        # Sans filière accréditée en cours : établissement « autorisé » (diplômes d'établissement, non homologués),
+        # avec l'historique de ses filières dont l'accréditation a pris fin.
+        echues = [] if en_cours else sorted(toutes, key=lambda f: (f["composante"], f["intitule"]))
         if not en_cours:
             exclus.append(dict(id=e["id"], nom=e["nom"], ville=e["ville"], reconnu=bool(e.get("rec")),
                                filieres_echues=len(toutes), derniere_echeance=max([f["fin_accreditation"] for f in toutes], default=None)))
-            continue
         progs = []
         for f in sorted(en_cours, key=lambda f: (f["composante"], f["intitule"])):
-            o = offi_index.get((e["id"], norm(f["intitule"])))
-            dlib, duree, niveau = diplome(f["intitule"], f["options"], e["type"], (o[0], o[1]) if o else None, f["composante"])
-            frm, dom = formation(f["intitule"], f["options"], dlib)
-            progs.append(dict(
-                intitule=f["intitule"], options=f["options"] or None, composante=f["composante"] or None,
-                ville=f["ville"] if f["ville"] != e["ville"] else None,
-                diplome=dlib, duree_annees=duree, niveau=niveau, formation=frm, domaine=dom,
-                homologation=dict(statut="accreditee", fin=f["fin_accreditation"], texte=f["source"]),
-            ))
-        label = "reconnu_etat" if e.get("rec") and not e.get("rec_en_cours") else "diplomes_homologues"
+            progs.append(programme(e, f, "accreditee"))
+        anciennes = [programme(e, f, "echue") for f in echues]
+        if not en_cours:
+            label = "autorise"
+        else:
+            label = "reconnu_etat" if e.get("rec") and not e.get("rec_en_cours") else "diplomes_homologues"
         old = ancien.get(e["id"]) or {}
         # Réseaux désormais scindés par ville (EMSI, ISGA…) : logo de l'ancienne fiche commune
         parent = next((v for k, v in ancien.items() if e["id"].startswith(k + "-") and v.get("logo")), None)
         if not old.get("logo") and parent:
             old = {**old, "logo": parent["logo"]}
-        x = enrich.get(e["id"], {})
+        aut = e.get("autorisation") or {}
         item = dict(
             id=e["id"], nom=e["nom"], sigle=e["sigle"], pays="MA", ville=e["ville"],
             type=e["type"], type_libelle=TYPE_LIBELLE[e["type"]], statut=e["statut"],
             label=label, label_libelle=LABEL_LIBELLE[label],
-            reconnaissance=decrets.get(e["id"]) if label == "reconnu_etat" else None,
+            reconnaissance=decrets.get(e["id"]),
             reconnaissance_en_cours=bool(e.get("rec_en_cours")),
             site_web=x.get("site_web") or old.get("site_web"),
-            annee_creation=x.get("annee_creation") or old.get("annee_creation"),
-            adresse=x.get("adresse"),
+            annee_creation=x.get("annee_creation") or old.get("annee_creation") or (annee_debut(aut.get("effet")) or None),
+            adresse=x.get("adresse") or e.get("adresse_ministere"),
+            autorisation=(f"Autorisation n° {aut['numero'].replace('N°', '').strip()} du {aut['date']}" if aut.get("numero") else None),
             description=x.get("description"),
             coordonnees=x["coordonnees"] if "coordonnees" in x else old.get("coordonnees"),  # null explicite = coordonnées précédentes écartées
             wikidata=x.get("wikidata") or old.get("wikidata"),
-            formations=sorted({p["formation"] for p in progs if p["formation"]}),
+            formations=sorted({p["formation"] for p in progs + anciennes if p["formation"]}),
             filieres=progs,
+            filieres_echues=anciennes,
             offre_indicative=False,
             logo=old.get("logo"), photos=old.get("photos", []),
             sources=["Ministère de l'Enseignement supérieur (enssup.gov.ma)", "Bulletin officiel — arrêtés d'accréditation des filières"],
@@ -573,7 +608,7 @@ def main():
         "_meta": {
             "referentiel": "etablissements_superieurs", "version": "2.0.0", "date": datetime.date.today().isoformat(), "plateforme": "Navigoal",
             "destination": "MA", "annee_reference": args.annee,
-            "regle": "Seuls figurent les établissements privés délivrant des diplômes homologués par l'État et leurs filières dont l'accréditation est en cours pour l'année de référence.",
+            "regle": "Établissements privés autorisés par le ministère. Label « Reconnu par l'État » ou « Diplômes homologués » : filières accréditées en cours pour l'année de référence. Label « Établissement autorisé » : aucune filière accréditée en cours (diplômes d'établissement, non homologués).",
             "labels": LABEL_LIBELLE, "types": TYPE_LIBELLE,
             "sources": ["data/sources/maroc/" + n for n in sorted(os.listdir(SRC))],
         },
@@ -586,10 +621,10 @@ def main():
     for f in fdoc["items"]:
         f["etablissements"] = [i["id"] for i in items if f["id"] in i["formations"]]
     json.dump(fdoc, open(fpath, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-    json.dump({"annee_reference": args.annee, "exclus": exclus, "non_rattaches": sorted(set(non_rattaches))},
+    json.dump({"annee_reference": args.annee, "autorises_sans_filiere_en_cours": exclus, "fermes": fermes, "non_rattaches": sorted(set(non_rattaches))},
               open(os.path.join(SRC, "rapport_build.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     nprog = sum(len(i["filieres"]) for i in items)
-    print(f"{len(items)} établissements, {nprog} filières homologuées ; {len(exclus)} fiches sans filière en cours ; "
+    print(f"{len(items)} établissements, {nprog} filières homologuées ; {len(exclus)} établissements autorisés sans filière en cours ; {len(fermes)} fermés écartés ; "
           f"{len(set(non_rattaches))} intitulés du registre non rattachés (voir rapport_build.json).")
 
 

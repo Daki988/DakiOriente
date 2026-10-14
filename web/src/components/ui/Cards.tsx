@@ -34,6 +34,7 @@ export const LABEL_STYLE: Record<Label, string> = {
   reconnu_etat: "bg-[#e8f8ef] text-[#0f8a46]",
   diplomes_homologues: "bg-brand-50 text-brand-700",
   professionnel: "bg-sun-100 text-[#a55a00]",
+  autorise: "bg-[#eef1f8] text-ink-soft",
 };
 export function LabelChip({ label, court = false }: { label: Label; court?: boolean }) {
   const l = labelById[label];
@@ -79,7 +80,7 @@ export function PaysCard({ code }: { code: PaysCode }) {
         <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-[.08]" style={{ background: st.tint }} />
         <div className="flex items-center gap-4">{st.flag}<div><div className="text-[22px] font-extrabold">{PAYS_NOM[code]}</div><div className="text-[13px] text-ink-mute">{st.villes}</div></div></div>
         <div className="flex gap-6">
-          <div><div className="text-2xl font-extrabold">{etabs.length}</div><div className="text-xs text-ink-mute">établissements homologués</div></div>
+          <div><div className="text-2xl font-extrabold">{etabs.length}</div><div className="text-xs text-ink-mute">établissements privés</div></div>
           <div><div className="text-2xl font-extrabold">{etabs.reduce((n, e) => n + e.filieres.length, 0)}</div><div className="text-xs text-ink-mute">filières homologuées</div></div>
         </div>
         <div className="mt-auto flex items-center justify-between">
@@ -133,7 +134,7 @@ export function EtabCard({ id }: { id: string }) {
           <div className="flex flex-wrap gap-1.5"><LabelChip label={e.label} court /><span className="chip bg-[#f6f8fe] text-ink-soft">{e.type_libelle}</span></div>
           <div className="mt-auto flex items-center justify-between border-t border-[#eef1f8] pt-3 text-[13px]">
             <span className="flex items-center gap-1.5 text-ink-mute"><Building2 size={14} />{e.ville}</span>
-            <span className="font-bold text-brand-600">{e.filieres.length} filière{e.filieres.length > 1 ? "s" : ""} homologuée{e.filieres.length > 1 ? "s" : ""}</span>
+            <span className="font-bold text-brand-600">{e.label === "autorise" ? "Diplômes d'établissement" : `${e.filieres.length} filière${e.filieres.length > 1 ? "s" : ""} homologuée${e.filieres.length > 1 ? "s" : ""}`}</span>
           </div>
         </div>
       </Link>

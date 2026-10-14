@@ -55,15 +55,15 @@ export async function createStaff(a: User, i: { role: "conseiller" | "admin"; fi
 // ---------------------------------------------------------------- Établissements
 export async function listEstablishmentsAdmin(a: User, f: { status?: string; pays?: string; label?: string; q?: string }) {
   admin(a);
-  return db.select({ e: schema.establishments, members: sql<number>`(select count(*)::int from establishment_members m where m.establishment_id = ${schema.establishments.id})`, programs: sql<number>`(select count(*)::int from programs p where p.establishment_id = ${schema.establishments.id} and p.active and p.homologated)` })
+  return db.select({ e: schema.establishments, members: sql<number>`(select count(*)::int from establishment_members m where m.establishment_id = ${schema.establishments.id})`, programs: sql<number>`(select count(*)::int from programs p where p.establishment_id = ${schema.establishments.id} and p.active and (p.homologated or ${schema.establishments.label} = 'autorise'))` })
     .from(schema.establishments).where(and(f.status ? eq(schema.establishments.status, f.status as never) : undefined, f.pays ? eq(schema.establishments.pays, f.pays) : undefined, f.label === "aucun" ? isNull(schema.establishments.label) : f.label ? eq(schema.establishments.label, f.label) : undefined, f.q ? or(ilike(schema.establishments.nom, `%${f.q}%`), ilike(schema.establishments.sigle, `%${f.q}%`)) : undefined))
     .orderBy(schema.establishments.pays, schema.establishments.nom);
 }
 
-type Label = "reconnu_etat" | "diplomes_homologues" | "professionnel";
+type Label = "reconnu_etat" | "diplomes_homologues" | "professionnel" | "autorise";
 export async function updateEstablishmentAdmin(a: User, id: string, patch: { status?: "importe" | "revendique" | "verifie" | "suspendu"; featured?: boolean; plan?: string; label?: Label | null; recognition?: string | null }) {
   admin(a);
-  if (patch.label !== undefined && patch.label !== null && !["reconnu_etat", "diplomes_homologues", "professionnel"].includes(patch.label)) throw new AppError("Label inconnu.");
+  if (patch.label !== undefined && patch.label !== null && !["reconnu_etat", "diplomes_homologues", "professionnel", "autorise"].includes(patch.label)) throw new AppError("Label inconnu.");
   const [e] = await db.update(schema.establishments).set(patch).where(eq(schema.establishments.id, id)).returning();
   if (!e) throw notFound("Établissement");
   await audit(a.id, "maj_etablissement", "establishment", id, patch);

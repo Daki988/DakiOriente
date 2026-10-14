@@ -56,7 +56,8 @@
         "ma-um6p",
         "ma-upm",
         "ma-uic",
-        "ma-upssa"
+        "ma-upssa",
+        "ma-isep-casa"
       ]
     },
     {
@@ -204,8 +205,11 @@
         "ma-upf",
         "ma-upssa",
         "ma-esss",
+        "ma-iheps-agadir",
         "ma-eskp",
-        "ma-ispts-ouezzane"
+        "ma-ispts-ouezzane",
+        "ma-esismp",
+        "ma-isep-casa"
       ]
     },
     {
@@ -247,7 +251,8 @@
         ]
       },
       "etablissements": [
-        "ma-ispts-ouezzane"
+        "ma-ispts-ouezzane",
+        "ma-isep-casa"
       ]
     },
     {
@@ -293,9 +298,13 @@
         "ma-um6ss",
         "ma-uiass",
         "ma-upm",
+        "ma-iheps-agadir",
         "ma-eso",
         "ma-isps",
-        "ma-ispep"
+        "ma-ispep",
+        "ma-esol",
+        "ma-ismoo",
+        "ma-isota"
       ]
     },
     {
@@ -337,7 +346,9 @@
         ]
       },
       "etablissements": [
-        "ma-esss"
+        "ma-esss",
+        "ma-piimt-rabat",
+        "ma-esismp"
       ]
     },
     {
@@ -382,11 +393,17 @@
         "ma-uir",
         "ma-um6ss",
         "ma-esss",
+        "ma-psychosup",
+        "ma-iheps-agadir",
         "ma-eskp",
         "ma-eso",
         "ma-iheps-casa",
         "ma-iheps-marrakech",
-        "ma-ispts-ouezzane"
+        "ma-ispts-ouezzane",
+        "ma-hek",
+        "ma-isesmo",
+        "ma-isep-casa",
+        "ma-edumed"
       ]
     },
     {
@@ -566,14 +583,23 @@
       },
       "etablissements": [
         "ma-emaa",
+        "ma-supemir",
         "ma-suptech-sante-essaouira",
+        "ma-artcomsup-rabat",
         "ma-supmti-meknes",
         "ma-edge",
         "ma-sist-tanger",
         "ma-sist-rabat",
         "ma-sist-casablanca",
         "ma-es2im",
-        "ma-hec-maroc"
+        "ma-hec-maroc",
+        "ma-esrim",
+        "ma-vinci",
+        "ma-piimt-rabat",
+        "ma-sup-technology",
+        "ma-orient-sup",
+        "ma-adalia",
+        "ma-hem-engineering"
       ]
     },
     {
@@ -624,7 +650,9 @@
         "ma-ueuromed",
         "ma-upf",
         "ma-ismagi",
-        "ma-edge"
+        "ma-edge",
+        "ma-vinci",
+        "ma-epsinsia"
       ]
     },
     {
@@ -669,7 +697,9 @@
           "sn-bac-steg"
         ]
       },
-      "etablissements": []
+      "etablissements": [
+        "ma-supemir"
+      ]
     },
     {
       "id": "frm-master-data-science-ia",
@@ -726,11 +756,19 @@
         "ma-supmanagement",
         "ma-hestim",
         "ma-suptech-sante",
+        "ma-esisa",
         "ma-suptech-sante-essaouira",
         "ma-esiai",
         "ma-edge",
         "ma-ispsni",
-        "ma-hecgi"
+        "ma-hecgi",
+        "ma-esrim",
+        "ma-suptem",
+        "ma-vinci",
+        "ma-piimt-rabat",
+        "ma-sup-technology",
+        "ma-hem-engineering",
+        "ma-epsinsia"
       ]
     },
     {
@@ -779,10 +817,14 @@
         "ma-ueuromed",
         "ma-mundiapolis",
         "ma-upf",
+        "ma-supemir",
         "ma-esiai",
         "ma-hightech",
         "ma-sist-tanger",
-        "ma-esrmi"
+        "ma-esrmi",
+        "ma-vinci",
+        "ma-sup-technology",
+        "ma-epsinsia"
       ]
     },
     {
@@ -850,13 +892,22 @@
         "ma-eheio",
         "ma-ismagi",
         "ma-ensit",
+        "ma-supemir",
+        "ma-esisa",
+        "ma-artcomsup-rabat",
         "ma-supmti-meknes",
         "ma-supmti-oujda",
         "ma-aes",
         "ma-innov",
         "ma-junia",
         "ma-ippc",
-        "ma-espii"
+        "ma-espii",
+        "ma-epsielm",
+        "ma-esma",
+        "ma-suptem",
+        "ma-sup-technology",
+        "ma-epsinsia",
+        "ma-essib"
       ]
     },
     {
@@ -908,7 +959,12 @@
         "ma-emsi-rabat",
         "ma-emsi-marrakech",
         "ma-emsi-tanger",
-        "ma-emsi-fes"
+        "ma-emsi-fes",
+        "ma-iihem",
+        "ma-supemir",
+        "ma-epsielm",
+        "ma-suptema",
+        "ma-sup-technology"
       ]
     },
     {
@@ -957,7 +1013,11 @@
         "ma-uiass",
         "ma-universiapolis",
         "ma-upf",
-        "ma-ensit"
+        "ma-ensit",
+        "ma-supemir",
+        "ma-esisa",
+        "ma-epsielm",
+        "ma-sup-technology"
       ]
     },
     {
@@ -1011,7 +1071,10 @@
         "ma-eheb",
         "ma-esgcnt",
         "ma-es2im",
-        "ma-espii"
+        "ma-espii",
+        "ma-epsinsia",
+        "ma-iiec",
+        "ma-essib"
       ]
     },
     {
@@ -1145,7 +1208,10 @@
         ]
       },
       "etablissements": [
-        "ma-suptech-sante"
+        "ma-suptech-sante",
+        "ma-iheps-agadir",
+        "ma-epsielm",
+        "ma-esismp"
       ]
     },
     {
@@ -1251,7 +1317,10 @@
         "ma-eheb",
         "ma-suptech-sante-essaouira",
         "ma-aes",
-        "ma-ippc"
+        "ma-ippc",
+        "ma-epsielm",
+        "ma-ifjsup-casa",
+        "ma-iiec"
       ]
     },
     {
@@ -1373,18 +1442,28 @@
         "ma-isga-fes",
         "ma-isga-marrakech",
         "ma-emg",
+        "ma-iihem",
         "ma-eigsi-casa",
         "ma-supmti-rabat",
         "ma-eheio",
         "ma-ismagi",
         "ma-hestim",
         "ma-ensit",
+        "ma-esisa",
         "ma-suptech-sante-essaouira",
         "ma-suptech-environnement",
         "ma-hightech",
         "ma-aes",
         "ma-isfort",
-        "ma-essti"
+        "ma-essti",
+        "ma-esma",
+        "ma-mmbs",
+        "ma-piimt-rabat",
+        "ma-sup-technology",
+        "ma-orient-sup",
+        "ma-esismp",
+        "ma-adalia",
+        "ma-epsinsia"
       ]
     },
     {
@@ -1435,7 +1514,8 @@
         "ma-upm",
         "ma-universiapolis",
         "ma-eheb",
-        "ma-isfort"
+        "ma-isfort",
+        "ma-ishedd"
       ]
     },
     {
@@ -1561,7 +1641,8 @@
         ]
       },
       "etablissements": [
-        "ma-suptech-environnement"
+        "ma-suptech-environnement",
+        "ma-esismp"
       ]
     },
     {
@@ -1621,7 +1702,8 @@
         "ma-esiai",
         "ma-esgcnt",
         "ma-essti",
-        "ma-espii"
+        "ma-espii",
+        "ma-essib"
       ]
     },
     {
@@ -1670,7 +1752,8 @@
         "ma-universiapolis",
         "ma-uic",
         "ma-upf",
-        "ma-eac"
+        "ma-eac",
+        "ma-artcomsup-rabat"
       ]
     },
     {
@@ -1929,7 +2012,9 @@
         "ma-ueuromed",
         "ma-uic",
         "ma-upf",
-        "ma-suptech-environnement"
+        "ma-suptech-environnement",
+        "ma-ishedd",
+        "ma-esismp"
       ]
     },
     {
@@ -2304,7 +2389,8 @@
         "ma-ueuromed",
         "ma-universiapolis",
         "ma-ismagi",
-        "ma-suptech-sante"
+        "ma-suptech-sante",
+        "ma-iheps-agadir"
       ]
     },
     {
@@ -2608,9 +2694,13 @@
         "ma-universiapolis",
         "ma-uao",
         "ma-esca",
+        "ma-supdeco-marrakech",
         "ma-hem",
+        "ma-iihem",
         "ma-ismagi",
         "ma-hestim",
+        "ma-heci-casa",
+        "ma-essem",
         "ma-suprh",
         "ma-suptech-sante",
         "ma-suptech-sante-essaouira",
@@ -2625,7 +2715,36 @@
         "ma-icacsup",
         "ma-gecm",
         "ma-essec-sale",
-        "ma-medsup"
+        "ma-medsup",
+        "ma-esmc",
+        "ma-isgc",
+        "ma-heci-rabat",
+        "ma-heci-meknes",
+        "ma-heci-fes",
+        "ma-heci-kenitra",
+        "ma-heci-oujda",
+        "ma-epsielm",
+        "ma-hem-rabat",
+        "ma-hem-marrakech",
+        "ma-esrim",
+        "ma-mmbs",
+        "ma-suptem",
+        "ma-ifjsup-casa",
+        "ma-eseje",
+        "ma-hep-management",
+        "ma-suptema",
+        "ma-piimt-rabat",
+        "ma-piimt-casa",
+        "ma-hemt",
+        "ma-emcgi",
+        "ma-esismp",
+        "ma-esms",
+        "ma-supmm",
+        "ma-adalia",
+        "ma-esb-berrechid",
+        "ma-emlc",
+        "ma-tbs-casa",
+        "ma-eslsca"
       ]
     },
     {
@@ -2666,8 +2785,14 @@
         ]
       },
       "etablissements": [
+        "ma-esisa",
         "ma-emsig",
-        "ma-hbfg-oujda"
+        "ma-hbfg-oujda",
+        "ma-hbfg-casa",
+        "ma-embci",
+        "ma-ehesicom",
+        "ma-orient-sup",
+        "ma-finansup"
       ]
     },
     {
@@ -2796,7 +2921,11 @@
         ]
       },
       "etablissements": [
-        "ma-suptech-sante"
+        "ma-suptech-sante",
+        "ma-esmc",
+        "ma-emcgi",
+        "ma-esms",
+        "ma-esscg"
       ]
     },
     {
@@ -2848,9 +2977,32 @@
         "ma-emsi-marrakech",
         "ma-emsi-tanger",
         "ma-emsi-fes",
+        "ma-iihem",
         "ma-eheio",
+        "ma-heci-casa",
         "ma-escga",
-        "ma-supmti-meknes"
+        "ma-supmti-meknes",
+        "ma-esmc",
+        "ma-isgc",
+        "ma-heci-rabat",
+        "ma-heci-meknes",
+        "ma-heci-fes",
+        "ma-heci-kenitra",
+        "ma-heci-oujda",
+        "ma-hem-rabat",
+        "ma-hem-marrakech",
+        "ma-esrim",
+        "ma-embci",
+        "ma-suptema",
+        "ma-piimt-rabat",
+        "ma-sup-technology",
+        "ma-hemt",
+        "ma-emcgi",
+        "ma-orient-sup",
+        "ma-esms",
+        "ma-adalia",
+        "ma-tbs-casa",
+        "ma-eslsca"
       ]
     },
     {
@@ -2893,8 +3045,30 @@
         "ma-esca",
         "ma-estem",
         "ma-iga",
+        "ma-iihem",
         "ma-hestim",
-        "ma-esrmi"
+        "ma-heci-casa",
+        "ma-esrmi",
+        "ma-esmc",
+        "ma-isgc",
+        "ma-heci-rabat",
+        "ma-heci-meknes",
+        "ma-heci-fes",
+        "ma-heci-kenitra",
+        "ma-heci-oujda",
+        "ma-hem-rabat",
+        "ma-hem-marrakech",
+        "ma-esrim",
+        "ma-mmbs",
+        "ma-embci",
+        "ma-hemt",
+        "ma-emcgi",
+        "ma-esms",
+        "ma-supmm",
+        "ma-esscg",
+        "ma-adalia",
+        "ma-tbs-casa",
+        "ma-eslsca"
       ]
     },
     {
@@ -2945,9 +3119,29 @@
       },
       "etablissements": [
         "ma-uir",
+        "ma-supdeco-marrakech",
+        "ma-iihem",
+        "ma-heci-casa",
+        "ma-essem",
         "ma-supmti-meknes",
         "ma-sist-tanger",
-        "ma-sist-rabat"
+        "ma-sist-rabat",
+        "ma-heci-rabat",
+        "ma-heci-meknes",
+        "ma-heci-fes",
+        "ma-heci-kenitra",
+        "ma-heci-oujda",
+        "ma-epsielm",
+        "ma-hem-marrakech",
+        "ma-esma",
+        "ma-esrim",
+        "ma-piimt-rabat",
+        "ma-sup-technology",
+        "ma-ishedd",
+        "ma-esismp",
+        "ma-esscg",
+        "ma-adalia",
+        "ma-emlc"
       ]
     },
     {
@@ -2996,7 +3190,12 @@
         "ma-ueuromed",
         "ma-upf",
         "ma-esca",
-        "ma-isga-rabat"
+        "ma-isga-rabat",
+        "ma-esmc",
+        "ma-hem-rabat",
+        "ma-mmbs",
+        "ma-suptema",
+        "ma-piimt-rabat"
       ]
     },
     {
@@ -3037,7 +3236,16 @@
           "sn-bac-steg"
         ]
       },
-      "etablissements": []
+      "etablissements": [
+        "ma-esmc",
+        "ma-isgc",
+        "ma-hem-rabat",
+        "ma-hem-marrakech",
+        "ma-hemt",
+        "ma-orient-sup",
+        "ma-adalia",
+        "ma-tbs-casa"
+      ]
     },
     {
       "id": "frm-mba",
@@ -3131,7 +3339,8 @@
         "ma-hem",
         "ma-ensit",
         "ma-hecf-fes",
-        "ma-hecf-meknes"
+        "ma-hecf-meknes",
+        "ma-mmbs"
       ]
     },
     {
@@ -3215,7 +3424,9 @@
       },
       "etablissements": [
         "ma-estem",
-        "ma-supmti-meknes"
+        "ma-supmti-meknes",
+        "ma-hem-rabat",
+        "ma-eseje"
       ]
     },
     {
@@ -3531,7 +3742,8 @@
       },
       "etablissements": [
         "ma-uir",
-        "ma-universiapolis"
+        "ma-universiapolis",
+        "ma-psychosup"
       ]
     },
     {
@@ -3796,9 +4008,14 @@
       },
       "etablissements": [
         "ma-mundiapolis",
+        "ma-artcomsup-rabat",
         "ma-ilcs",
         "ma-esav",
-        "ma-esjc"
+        "ma-esjc",
+        "ma-isjc",
+        "ma-ifjsup-casa",
+        "ma-ifjsup-marrakech",
+        "ma-supmm"
       ]
     },
     {
@@ -3874,6 +4091,7 @@
         "ma-ueuromed",
         "ma-upm",
         "ma-upf",
+        "ma-artcomsup-rabat",
         "ma-esai"
       ]
     },
@@ -4069,7 +4287,9 @@
       },
       "etablissements": [
         "ma-artcomsup-casa",
-        "ma-comsup"
+        "ma-comsup",
+        "ma-ostelea",
+        "ma-eslsca"
       ]
     },
     {

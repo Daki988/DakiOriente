@@ -77,7 +77,7 @@ export function Hero() {
             ))}
           </motion.div>
           <div className="mt-2 grid grid-cols-2 gap-6 sm:grid-cols-4">
-            {[[stats.etablissements, "", "établissements homologués"], [stats.filieres, "", "filières homologuées"], [stats.metiers, "", "fiches métiers"], [stats.villes, "", "villes d'études"]].map(([n, s, l]) => (
+            {[[stats.etablissements, "", "établissements privés"], [stats.filieres, "", "filières homologuées"], [stats.metiers, "", "fiches métiers"], [stats.villes, "", "villes d'études"]].map(([n, s, l]) => (
               <div key={l as string}><div className="text-3xl font-extrabold tracking-tight"><Counter to={n as number} suffix={s as string} /></div><div className="text-[13px] text-ink-mute">{l}</div></div>
             ))}
           </div>

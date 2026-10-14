@@ -29,7 +29,7 @@ const sup = read("etablissements_superieurs").items.map((e) => ({
   statut: e.statut, site_web: e.site_web, annee_creation: e.annee_creation, coordonnees: e.coordonnees,
   label: e.label, label_libelle: e.label_libelle, reconnaissance: e.reconnaissance, reconnaissance_en_cours: e.reconnaissance_en_cours,
   adresse: e.adresse ?? null, description: e.description ?? null,
-  formations: e.formations, filieres: e.filieres, logo: logoUrl(e.logo), photos: (e.photos || []).map(photoOf),
+  formations: e.formations, filieres: e.filieres, filieres_echues: e.filieres_echues ?? [], autorisation: e.autorisation ?? null, logo: logoUrl(e.logo), photos: (e.photos || []).map(photoOf),
 }));
 write("etablissements", sup);
 

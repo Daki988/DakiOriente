@@ -26,8 +26,12 @@ export async function getEstablishment(id: string) {
   return e;
 }
 
-/** Labels Navigoal : seuls les établissements labellisés (diplômes homologués par l'État) sont publiés. */
-export const LABELS = ["reconnu_etat", "diplomes_homologues", "professionnel"] as const;
+/** Labels Navigoal : seuls les établissements labellisés sont publiés. « autorise » : autorisé par le ministère,
+ * sans filière accréditée en cours (diplômes d'établissement, non homologués par l'État). */
+export const LABELS = ["reconnu_etat", "diplomes_homologues", "professionnel", "autorise"] as const;
+
+/** Filière publiable : homologuée par l'État, ou proposée par un établissement « autorisé » (diplôme d'établissement, affiché comme tel). */
+export const publishable = sql`(${schema.programs.homologated} or exists (select 1 from establishments pe where pe.id = ${schema.programs.establishmentId} and pe.label = 'autorise'))`;
 
 export async function searchEstablishments(q: { pays?: string; ville?: string; label?: string; text?: string; limit?: number }) {
   return db.select().from(schema.establishments).where(and(
@@ -86,7 +90,7 @@ export const programSchema = z.object({
 export async function listPrograms(establishmentId: string, onlyPublished = true) {
   return db.select().from(schema.programs).where(and(
     eq(schema.programs.establishmentId, establishmentId),
-    onlyPublished ? and(eq(schema.programs.active, true), eq(schema.programs.homologated, true)) : undefined,
+    onlyPublished ? and(eq(schema.programs.active, true), publishable) : undefined,
   )).orderBy(asc(schema.programs.faculty), asc(schema.programs.title));
 }
 

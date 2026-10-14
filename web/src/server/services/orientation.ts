@@ -1,5 +1,6 @@
 import { and, desc, eq, inArray, isNotNull } from "drizzle-orm";
 import { db, schema } from "../db";
+import { publishable } from "./establishments";
 
 /** Enregistre un résultat de test RIASEC et met à jour le profil. */
 export async function saveResult(userId: string, answers: (number | null)[], scores: Record<string, number>, top: string[]) {
@@ -36,7 +37,7 @@ export async function recommend(userId: string, opts: { limit?: number } = {}) {
   }).sort((a, b) => b.s - a.s).slice(0, 12);
   const programs = forms.length ? await db.select({ p: schema.programs, e: schema.establishments }).from(schema.programs)
     .innerJoin(schema.establishments, eq(schema.establishments.id, schema.programs.establishmentId))
-    .where(and(inArray(schema.programs.formationId, forms.map((x) => x.f.id)), eq(schema.programs.active, true), eq(schema.programs.homologated, true), isNotNull(schema.establishments.label),
+    .where(and(inArray(schema.programs.formationId, forms.map((x) => x.f.id)), eq(schema.programs.active, true), publishable, isNotNull(schema.establishments.label),
       prefVilles.length ? inArray(schema.establishments.ville, prefVilles) : undefined)) : [];
   const pct = (s: number) => Math.round(55 + s * 43);
   return {

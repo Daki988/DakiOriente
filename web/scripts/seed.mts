@@ -42,7 +42,7 @@ async function seedEstablishments() {
     const sante = (p: any) => /médecine|pharmacie|vétérinaire/i.test(p.diplome ?? "");
     await db.insert(schema.establishments).values({
       id: e.id, nom: e.nom, sigle: e.sigle, pays: e.pays, ville: e.ville, type: e.type, typeLibelle: e.type_libelle, statut: e.statut, siteWeb: e.site_web,
-      label: e.label, recognition: e.reconnaissance, address: e.adresse ?? null, description: e.description ?? null,
+      label: e.label, recognition: e.reconnaissance ?? e.autorisation ?? null, address: e.adresse ?? null, description: e.description ?? null,
       anneeCreation: e.annee_creation, lat: e.coordonnees?.lat ?? null, lng: e.coordonnees?.lng ?? null, logo: logoUrl(e.logo), photos: (e.photos ?? []).map(photo),
     }).onConflictDoUpdate({
       target: schema.establishments.id,
@@ -59,17 +59,19 @@ async function seedEstablishments() {
     const typ = SCOLARITE_TYPE[e.type] ?? e.type;
     const sco = c.scolarite_annuelle[typ] ?? c.scolarite_annuelle.universite;
     const titles = new Set<string>();
-    for (const f of e.filieres) {
+    // Filières homologuées ; pour un établissement « autorisé », filières dont l'accréditation a pris fin (diplômes d'établissement)
+    const officielles = [...e.filieres.map((f: any) => ({ ...f, homologuee: true })), ...(e.filieres_echues ?? []).map((f: any) => ({ ...f, homologuee: false }))];
+    for (const f of officielles) {
       titles.add(f.intitule + "|" + (f.composante ?? ""));
       const t = sante(f) ? c.scolarite_annuelle.ecole_sante : sco;
       await db.insert(schema.programs).values({
         establishmentId: e.id, formationId: f.formation, title: f.intitule, faculty: f.composante ?? "", campus: f.ville ?? null,
         diploma: f.diplome ?? null, level: f.niveau ?? null, options: f.options ?? null, durationYears: f.duree_annees ?? null,
         currency: CUR[e.pays], tuitionMin: t.min, tuitionMax: t.max, feesConfirmed: false, indicative: true,
-        homologated: true, homologation: f.homologation, admission: {},
+        homologated: f.homologuee, homologation: f.homologation, admission: {},
       }).onConflictDoUpdate({
         target: [schema.programs.establishmentId, schema.programs.title, schema.programs.faculty],
-        set: { homologated: true, homologation: sql`excluded.homologation`, diploma: sql`coalesce(${schema.programs.diploma}, excluded.diploma)`, level: sql`coalesce(${schema.programs.level}, excluded.level)` },
+        set: { homologated: sql`excluded.homologated`, homologation: sql`excluded.homologation`, diploma: sql`coalesce(${schema.programs.diploma}, excluded.diploma)`, level: sql`coalesce(${schema.programs.level}, excluded.level)` },
       });
     }
     // Filières importées d'un ancien référentiel et dont l'homologation n'est plus en cours : retirées de la publication.

@@ -57,6 +57,18 @@ describe("comptes", () => {
   });
 });
 
+describe("labels", () => {
+  it("établissement autorisé : filières publiées comme diplômes d'établissement (non homologuées)", async () => {
+    const e = await etab.getEstablishment("ma-heci-rabat");
+    expect(e.label).toBe("autorise");
+    const ps = await etab.listPrograms("ma-heci-rabat");
+    expect(ps.length).toBeGreaterThan(0);
+    expect(ps.every((p) => !p.homologated && p.homologation?.statut === "echue")).toBe(true);
+    // Établissement homologué : seules les filières homologuées sont publiées
+    expect((await etab.listPrograms("ma-uir")).every((p) => p.homologated)).toBe(true);
+  });
+});
+
 describe("candidature", () => {
   let appId = "", programId = "";
   it("l'école publie une formation avec frais de dossier", async () => {

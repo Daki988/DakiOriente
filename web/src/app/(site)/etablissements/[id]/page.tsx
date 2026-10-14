@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, Calculator, ChevronRight, ExternalLink, KeyRound, MapPin, Scale } from "lucide-react";
+import { ArrowRight, BadgeCheck, Calculator, ChevronRight, ExternalLink, KeyRound, MapPin, Scale, ShieldAlert } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { PhotoGallery } from "@/components/sections/PhotoGallery";
@@ -23,7 +23,9 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
   const C = COUTS[e.pays];
   // Filières homologuées, regroupées par composante (universités) ou par domaine
   const groupe = (f: Filiere) => f.composante ?? domaineById[f.domaine ?? ""]?.libelle ?? "Autres filières";
-  const groupes = e.filieres.reduce<Record<string, Filiere[]>>((acc, f) => ((acc[groupe(f)] ??= []).push(f), acc), {});
+  const autorise = e.label === "autorise";
+  const liste = autorise ? e.filieres_echues : e.filieres;
+  const groupes = liste.reduce<Record<string, Filiere[]>>((acc, f) => ((acc[groupe(f)] ??= []).push(f), acc), {});
   const shared = (x: typeof e) => x.formations.filter((f) => e.formations.includes(f)).length;
   const similar = etablissements.filter((x) => x.id !== e.id && shared(x) >= 2).sort((a, b) => shared(b) - shared(a)).slice(0, 4);
   const res = residences.filter((r) => r.etablissements_desservis.includes(e.id));
@@ -31,7 +33,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
   const D = fid ? devis(e.id, fid) : null;
   const typ = C.scolarite_annuelle[e.type] ?? C.scolarite_annuelle.universite;
   const B = P.budget;
-  const facts: [string, string][] = [["Label", labelById[e.label]?.libelle ?? "—"], ["Statut", STATUT_LONG[e.statut] ?? "Privé"], ["Ville", e.ville], ["Création", e.annee_creation ? String(e.annee_creation) : "—"], ["Filières homologuées", String(e.filieres.length)], ["Étudiants étrangers", "Accueillis ✓"]];
+  const facts: [string, string][] = [["Label", labelById[e.label]?.libelle ?? "—"], ["Statut", STATUT_LONG[e.statut] ?? "Privé"], ["Ville", e.ville], ["Création", e.annee_creation ? String(e.annee_creation) : "—"], autorise ? ["Diplômes", "D'établissement"] : ["Filières homologuées", String(e.filieres.length)], ["Étudiants étrangers", "Accueillis ✓"]];
   const compare = `/comparateur/?f=${fid}&e=${[e.id, ...similar.slice(0, 2).map((x) => x.id)].join(",")}`;
   return (
     <>
@@ -63,10 +65,12 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
             {[["#formations", "Formations & métiers"], ["#admission", "Admission"], ["#frais", "Frais & bourses"], ["#logement", "Logement"]].map(([h, t], k) => <a key={h} href={h} className={`shrink-0 whitespace-nowrap py-3 text-sm font-bold ${k === 0 ? "border-b-[3px] border-brand-600 text-brand-600" : "text-ink-mute hover:text-brand-600"}`}>{t}</a>)}
           </nav>
           <section id="formations" className="flex scroll-mt-32 flex-col gap-6">
-            <div className="card flex flex-col gap-2 rounded-[22px] border-[#cdeedd] bg-[#f3fbf6] p-5">
-              <div className="flex items-center gap-2 font-extrabold text-[#0f8a46]"><BadgeCheck size={18} /> {labelById[e.label]?.libelle}</div>
+            <div className={`card flex flex-col gap-2 rounded-[22px] p-5 ${autorise ? "border-[#f3e2b4] bg-[#fffaf0]" : "border-[#cdeedd] bg-[#f3fbf6]"}`}>
+              <div className={`flex items-center gap-2 font-extrabold ${autorise ? "text-[#a55a00]" : "text-[#0f8a46]"}`}>{autorise ? <ShieldAlert size={18} /> : <BadgeCheck size={18} />} {labelById[e.label]?.libelle}</div>
               <p className="text-sm text-ink-soft">{labelById[e.label]?.description}{e.reconnaissance_en_cours ? " Reconnaissance par l'État en cours d'attribution." : ""}</p>
-              {e.reconnaissance && <p className="text-xs text-ink-mute">Source : {e.reconnaissance}.</p>}
+              {autorise && e.reconnaissance && <p className="text-sm text-ink-soft">Établissement reconnu par l&apos;État : ses filières doivent être de nouveau accréditées pour délivrer des diplômes équivalents aux diplômes nationaux.</p>}
+              {autorise && <p className="text-sm text-ink-soft">Avant de t&apos;inscrire, demande à l&apos;établissement si la filière visée a obtenu le renouvellement de son accréditation (arrêté au Bulletin officiel).</p>}
+              {(e.reconnaissance || e.autorisation) && <p className="text-xs text-ink-mute">Source : {[e.reconnaissance, e.autorisation ? `liste des établissements privés autorisés 2023-2024 (${e.autorisation})` : null].filter(Boolean).join(" ; ")}.</p>}
             </div>
             {(live?.description ?? e.description) && <div className="card flex flex-col gap-2 rounded-[22px] p-6"><h2 className="text-lg font-extrabold">Présentation</h2><p className="whitespace-pre-line leading-relaxed text-ink-soft">{live?.description ?? e.description}</p>{e.adresse && <p className="flex items-start gap-1.5 text-sm text-ink-mute"><MapPin size={15} className="mt-0.5 shrink-0" />{e.adresse}</p>}</div>}
             {confirmed.length > 0 && (
@@ -75,7 +79,9 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
                 {confirmed.map((p) => <div key={p.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-[#f1f4fb] pb-2 text-sm last:border-0"><span className="font-semibold">{p.title}{p.startDate ? <span className="text-ink-mute"> · rentrée {p.startDate}</span> : null}</span><span className="text-ink-soft">{p.tuitionMin != null ? `${fmt(p.tuitionMin)}${p.tuitionMax && p.tuitionMax !== p.tuitionMin ? ` – ${fmt(p.tuitionMax)}` : ""} ${p.currency ?? ""}/an` : "sur demande"}{p.applicationFee ? ` · dossier ${fmt(p.applicationFee)} ${p.currency ?? ""}` : ""}</span></div>)}
               </div>
             )}
-            <div><h2 className="text-[28px] font-extrabold tracking-tight">Filières homologuées et débouchés</h2><p className="text-ink-mute">Filières accréditées par l&apos;État, avec la fin de leur accréditation et le texte qui la fixe. Chacune est reliée aux métiers qu&apos;elle prépare.</p></div>
+            {autorise
+              ? <div><h2 className="text-[28px] font-extrabold tracking-tight">Formations et débouchés</h2><p className="text-ink-mute">{liste.length ? "Filières autrefois accréditées par l'État, dont l'accréditation a pris fin sans renouvellement publié : elles conduisent à un diplôme d'établissement." : "Programmes à préciser par l'établissement."}</p></div>
+              : <div><h2 className="text-[28px] font-extrabold tracking-tight">Filières homologuées et débouchés</h2><p className="text-ink-mute">Filières accréditées par l&apos;État, avec la fin de leur accréditation et le texte qui la fixe. Chacune est reliée aux métiers qu&apos;elle prépare.</p></div>}
             {Object.entries(groupes).map(([g, fs]) => (
               <div key={g} className="flex flex-col gap-3">
                 <div className="flex items-center gap-2.5"><span className="chip bg-brand-50 px-3 py-1.5 text-[13px] text-brand-700">{g}</span><span className="text-[13px] text-ink-mute">{fs.length} filière{fs.length > 1 ? "s" : ""}</span></div>
@@ -89,7 +95,9 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
                           {F ? <Link href={`/formations/${F.id}/?etab=${e.id}`} className="text-[15px] font-bold hover:text-brand-600">{f.intitule}</Link> : <b className="text-[15px]">{f.intitule}</b>}
                           {f.options && <span className="text-xs text-ink-soft">Options : {f.options}</span>}
                           <span className="text-xs text-ink-mute">{info}</span>
-                          <span className="text-[11px] font-semibold text-[#0f8a46]" title={f.homologation.texte}>Accréditée jusqu&apos;en {f.homologation.fin}</span>
+                          {f.homologation.statut === "echue"
+                            ? <span className="text-[11px] font-semibold text-[#a55a00]" title={f.homologation.texte}>Accréditation échue ({f.homologation.fin}) · diplôme d&apos;établissement</span>
+                            : <span className="text-[11px] font-semibold text-[#0f8a46]" title={f.homologation.texte}>Accréditée jusqu&apos;en {f.homologation.fin}</span>}
                         </div>
                         <div className="flex min-w-0 flex-1 flex-col gap-1.5">{F && F.metiers.length > 0 && <><span className="text-[11px] font-extrabold text-ink-mute">MÈNE AUX MÉTIERS</span><div className="flex flex-wrap gap-1.5">{F.metiers.slice(0, 3).map((m) => metierById[m] && <Link key={m} href={`/metiers/${m}/`} className="chip bg-[#f1edff] text-[#6a3df0] hover:bg-[#e4dcff]">{metierById[m].nom}</Link>)}</div></>}</div>
                         {F && <Link href={`/comparateur/?f=${F.id}&e=${e.id}`} className="btn-ghost shrink-0 self-start px-3 py-2 text-[13px] md:self-center"><Scale size={14} /> Comparer</Link>}
