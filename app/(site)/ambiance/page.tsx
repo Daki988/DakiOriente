@@ -12,7 +12,7 @@ import { IconArrow } from "@/components/Icons";
 
 export const metadata: Metadata = {
   title: "Ambiance, DJ & soirées amapiano à Libreville",
-  description: "Photos des soirées Jackboy à Libreville : DJ Hamed aux platines, chicha, shots, cocktails. Amapiano, afrobeats, afritcham, quartier Louis.",
+  description: "Photos des soirées Jackboy à Libreville : DJ Hamed aux platines, chicha, shots, cocktails. Amapiano, afrobeats, afrotcham, quartier Louis.",
   alternates: { canonical: "/ambiance" },
 };
 

@@ -20,7 +20,7 @@ import { Faq } from "@/components/Faq";
 import { DrinksShowcase } from "@/components/DrinksShowcase";
 import { TakeawayBanner } from "@/components/TakeawayBanner";
 
-const GENRES = ["Amapiano", "Afrobeats", "Afritcham", "Urban"];
+const GENRES = ["Amapiano", "Afrobeats", "Afrotcham", "Urban"];
 
 export default function Home() {
   const signatures = getSignatureProducts(6);
@@ -69,7 +69,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Marquee items={["Ton repère, ton rythme, ta vibe", "Good drinks", "Good vibes", "Great people", "Le vrai goût du chill", "Amapiano", "Afrobeats", "Afritcham", "Before & after", "Burgers", "Chicha", "Louis · Libreville"]} />
+      <Marquee items={["Ton repère, ton rythme, ta vibe", "Good drinks", "Good vibes", "Great people", "Le vrai goût du chill", "Amapiano", "Afrobeats", "Afrotcham", "Before & after", "Burgers", "Chicha", "Louis · Libreville"]} />
 
       {/* ───── ACTE 2 — Deux ambiances ───── */}
       <section aria-labelledby="acte2" className="mx-auto max-w-6xl px-4 py-20 md:py-28">
@@ -116,7 +116,7 @@ export default function Home() {
             <h3 className="mt-2 font-display text-5xl sm:text-6xl">{settings.residentDj}</h3>
             <p className="mt-4 text-text/80">
               Le DJ résident de Jackboy. Il lit la salle, fait monter la pression au bon moment et transforme
-              l&apos;afterwork en vraie soirée : amapiano, afrobeats, afritcham et sons urbains.
+              l&apos;afterwork en vraie soirée : amapiano, afrobeats, afrotcham et sons urbains.
             </p>
             <p className="mt-6 font-display text-2xl text-accent">Ton repère, ton rythme, ta vibe.</p>
           </div>
