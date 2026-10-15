@@ -35,7 +35,7 @@ export function Profile() {
   }, [me.data]);
   const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setF((x) => ({ ...x, [k]: e.target.value }));
   const completion = profileCompletion({ country: f.country, city: f.city, birthYear: f.birthYear, profile: { level: f.level, serie: f.serie, currentSchool: f.currentSchool, skills, preferences: { villes: prefVilles } } });
-  // Séries détaillées pour le Gabon, le Maroc et le Sénégal ; saisie libre pour les autres pays
+  // Séries détaillées pour les pays d'origine décrits dans le référentiel ; saisie libre pour les autres pays
   const seriesPays = useMemo(() => series.filter((s) => s.pays === f.country), [f.country]);
   const villes = pays.find((p) => p.id === f.country)?.villes_universitaires ?? [];
   const minor = !!f.birthYear && new Date().getFullYear() - Number(f.birthYear) < 18;
@@ -65,7 +65,7 @@ export function Profile() {
               <Field label="Prénom">{(i) => <Input id={i} value={f.firstName ?? ""} onChange={set("firstName")} required />}</Field>
               <Field label="Nom">{(i) => <Input id={i} value={f.lastName ?? ""} onChange={set("lastName")} required />}</Field>
               <Field label="Année de naissance">{(i) => <Input id={i} type="number" value={f.birthYear ?? ""} onChange={set("birthYear")} />}</Field>
-              <Field label="Pays">{(i) => <Select id={i} value={f.country ?? ""} onChange={(e) => setF((x) => ({ ...x, country: e.target.value, serie: "" }))} placeholder="Choisir…" options={PAYS_OPTIONS.map((o) => [o.value, o.label, o.group])} />}</Field>
+              <Field label="Pays d'origine">{(i) => <Select id={i} value={f.country ?? ""} onChange={(e) => setF((x) => ({ ...x, country: e.target.value, serie: "" }))} placeholder="Choisir…" options={PAYS_OPTIONS.map((o) => [o.value, o.label, o.group])} />}</Field>
               <Field label="Ville">{(i) => <><Input id={i} list="villes-p" value={f.city ?? ""} onChange={set("city")} /><datalist id="villes-p">{villes.map((v) => <option key={v} value={v} />)}</datalist></>}</Field>
               <Field label="Contact">{(i) => <Input id={i} value={me.data!.email ?? me.data!.phone ?? ""} disabled />}</Field>
             </div>

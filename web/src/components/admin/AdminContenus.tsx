@@ -188,7 +188,7 @@ function Testimonials() {
         <form onSubmit={submit} noValidate className="flex flex-col gap-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Nom affiché" required error={errs.name}>{(id) => <Input id={id} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} placeholder="Ousmane T." />}</Field>
-            <Field label="Profil" required error={errs.role}>{(id) => <Input id={id} value={f.role} onChange={(e) => setF({ ...f, role: e.target.value })} placeholder="ESCA · Sénégalais" />}</Field>
+            <Field label="Profil" required error={errs.role}>{(id) => <Input id={id} value={f.role} onChange={(e) => setF({ ...f, role: e.target.value })} placeholder="Étudiante en 2e année · originaire du Cameroun" />}</Field>
           </div>
           <Field label="Citation" required error={errs.quote}>{(id) => <Textarea id={id} value={f.quote} onChange={(e) => setF({ ...f, quote: e.target.value })} maxLength={600} />}</Field>
           <div className="grid gap-4 sm:grid-cols-2">

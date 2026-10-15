@@ -56,8 +56,8 @@ export async function createStaff(a: User, i: { role: "conseiller" | "admin"; fi
 export async function listEstablishmentsAdmin(a: User, f: { status?: string; pays?: string; label?: string; q?: string }) {
   admin(a);
   return db.select({ e: schema.establishments, members: sql<number>`(select count(*)::int from establishment_members m where m.establishment_id = ${schema.establishments.id})`, programs: sql<number>`(select count(*)::int from programs p where p.establishment_id = ${schema.establishments.id} and p.active and (p.homologated or ${schema.establishments.label} = 'autorise'))` })
-    .from(schema.establishments).where(and(f.status ? eq(schema.establishments.status, f.status as never) : undefined, f.pays ? eq(schema.establishments.pays, f.pays) : undefined, f.label === "aucun" ? isNull(schema.establishments.label) : f.label ? eq(schema.establishments.label, f.label) : undefined, f.q ? or(ilike(schema.establishments.nom, `%${f.q}%`), ilike(schema.establishments.sigle, `%${f.q}%`)) : undefined))
-    .orderBy(schema.establishments.pays, schema.establishments.nom);
+    .from(schema.establishments).where(and(f.status ? eq(schema.establishments.status, f.status as never) : undefined, eq(schema.establishments.pays, f.pays || "MA"), f.label === "aucun" ? isNull(schema.establishments.label) : f.label ? eq(schema.establishments.label, f.label) : undefined, f.q ? or(ilike(schema.establishments.nom, `%${f.q}%`), ilike(schema.establishments.sigle, `%${f.q}%`)) : undefined))
+    .orderBy(schema.establishments.nom); // destination unique : le Maroc (anciennes fiches Gabon/Sénégal archivées)
 }
 
 type Label = "reconnu_etat" | "diplomes_homologues" | "professionnel" | "autorise";
@@ -218,7 +218,7 @@ export async function stats(a: User) {
       (select count(*)::int from bookings) reservations,
       (select count(distinct housing_id)::int from bookings where status in ('en_cours','preavis','fonds_verses','entree')) occupees,
       (select count(*)::int from disputes where status in ('ouvert','en_mediation')) litiges,
-      (select avg(rent)::int from housings where status='publie') loyer_moyen`),
+      (select avg(rent)::int from housings where status='publie' and currency='MAD') loyer_moyen`),
     q<{ currency: string; total: number; sequestre: number }>(sql`select currency, sum(amount) filter (where status='reussi')::int total, sum(amount) filter (where escrow='bloque')::int sequestre from payments group by currency`),
     q<{ semaine: string; n: number }>(sql`select to_char(date_trunc('week', submitted_at), 'YYYY-MM-DD') semaine, count(*)::int n from applications where submitted_at >= now() - interval '12 weeks' group by 1 order by 1`),
   ]);

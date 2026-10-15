@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import { Button, Chip, Kpi, Loading, Panel, money, statusLabel } from "@/components/app/kit";
 import { useApi } from "@/hooks/useApi";
 import { AdminHeader, Bar, Flag, LoadError, nf, pct, ROLE_LABEL, Reveal } from "./shared";
+import { RefSummary } from "./RefSummary";
 
 type Stats = {
   usersByRole: { role: string; n: number }[];
@@ -29,7 +30,7 @@ export function AdminDashboard() {
 
   return (
     <div className="min-w-0">
-      <AdminHeader title="Tableau de bord" sub={`Données au ${now.toLocaleDateString("fr-FR")} · ${now.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })} · tous pays`}
+      <AdminHeader title="Tableau de bord" sub={`Données au ${now.toLocaleDateString("fr-FR")} · ${now.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })} · destination Maroc`}
         actions={<Button variant="ghost" icon={RefreshCw} onClick={() => { reload(); mod.reload(); pend.reload(); }}>Actualiser</Button>} />
       {loading && !s ? <Loading /> : error ? <LoadError error={error} reload={reload} /> : s && <Body s={s} mod={mod.data} pendingSchools={pend.data?.total ?? 0} />}
     </div>
@@ -79,6 +80,8 @@ function Body({ s, mod, pendingSchools }: { s: Stats; mod?: Moderation; pendingS
         </Panel>
       </div>
 
+      <RefSummary />
+
       <div className="grid gap-5 [&>*]:min-w-0 xl:grid-cols-[1.4fr_1fr]">
         <Panel title="Entonnoir de conversion" icon={Filter} action={<Chip tone="grey">Depuis le lancement</Chip>}>
           <Funnel f={f} />
@@ -90,19 +93,19 @@ function Body({ s, mod, pendingSchools }: { s: Stats; mod?: Moderation; pendingS
             <Mini label="Réservations" value={nf(s.navilease.reservations)} sub="depuis le lancement" />
             <Mini label="Litiges ouverts" value={nf(s.navilease.litiges)} sub="ouverts ou en médiation" danger={s.navilease.litiges > 0} />
           </div>
-          <div className="flex items-center justify-between rounded-2xl bg-white/80 px-4 py-3 text-sm"><span className="font-bold">Loyer moyen publié</span><b>{s.navilease.loyer_moyen == null ? "—" : nf(s.navilease.loyer_moyen)}</b></div>
-          <p className="text-xs text-ink-mute">Loyer moyen toutes devises confondues (indicatif).</p>
+          <div className="flex items-center justify-between rounded-2xl bg-white/80 px-4 py-3 text-sm"><span className="font-bold">Loyer moyen publié</span><b>{s.navilease.loyer_moyen == null ? "—" : money(s.navilease.loyer_moyen)}</b></div>
+          <p className="text-xs text-ink-mute">Loyer mensuel moyen des annonces publiées, en dirhams.</p>
         </Panel>
       </div>
 
       <div className="grid gap-5 [&>*]:min-w-0 lg:grid-cols-3">
-        <Panel title="Élèves par pays" icon={Globe2}>
+        <Panel title="Élèves par pays d'origine" icon={Globe2}>
           <Breakdown rows={s.usersByCountry.map((c) => ({ k: c.country ?? "?", label: c.country ? <Flag code={c.country} withName /> : "Non renseigné", n: c.n }))} empty="Aucun élève inscrit." />
         </Panel>
         <Panel title="Utilisateurs par rôle" icon={Users}>
           <Breakdown rows={s.usersByRole.map((r) => ({ k: r.role, label: ROLE_LABEL[r.role] ?? r.role, n: r.n }))} empty="Aucun utilisateur." color="bg-[#6a3df0]" />
         </Panel>
-        <Panel title="Paiements par devise" icon={Wallet} action={<Link href="/admin/paiements" className="text-[13px] font-bold text-brand-600">Détail</Link>}>
+        <Panel title="Paiements encaissés" icon={Wallet} action={<Link href="/admin/paiements" className="text-[13px] font-bold text-brand-600">Détail</Link>}>
           {s.paymentsByCur.length ? (
             <ul className="flex flex-col gap-3">
               {s.paymentsByCur.map((p) => (

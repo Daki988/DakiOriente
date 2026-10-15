@@ -41,7 +41,7 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
   const methods = useApi<Methods>("/paiements/moyens");
   const convs = useApi<Conv[]>("/conversations");
   const conv = convs.data?.find((c) => c.contextKind === "booking" && c.contextId === b.id);
-  const country = COUNTRY_OF_CURRENCY[b.currency] ?? "GA";
+  const country = COUNTRY_OF_CURRENCY[b.currency] ?? "MA";
   const opts: [string, string][] = (methods.data?.[country] ?? []).map((m) => [m.id, m.label]);
   const act = useAction();
   const [dialog, setDialog] = useState<null | "refuse" | "cancel" | "dispute" | "notice" | "checkout" | "review" | "rent">(null);
@@ -386,7 +386,7 @@ function CheckoutForm({ deposit, currency, onSubmit, pending, error }: { deposit
   return (
     <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); if (!err) onSubmit(notes.trim(), Math.round(n)); }}>
       <Field label="Observations de l'état des lieux">{(id) => <Textarea id={id} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="État général, inventaire, clés rendues…" />}</Field>
-      <Field label={`Retenue sur caution (${currency === "MAD" ? "MAD" : "F CFA"})`} error={err} hint={`Caution : ${money(deposit, currency)} · justifiez toute retenue, le locataire peut la contester sous 15 jours.`}>{(id) => <Input id={id} type="number" min={0} max={deposit} value={ret} onChange={(e) => setRet(e.target.value)} />}</Field>
+      <Field label={`Retenue sur caution (${currency})`} error={err} hint={`Caution : ${money(deposit, currency)} · justifiez toute retenue, le locataire peut la contester sous 15 jours.`}>{(id) => <Input id={id} type="number" min={0} max={deposit} value={ret} onChange={(e) => setRet(e.target.value)} />}</Field>
       <FormError error={error} />
       <Button type="submit" icon={LogOut} loading={pending} disabled={!!err}>Valider la sortie et restituer {money(deposit - (err ? 0 : n), currency)}</Button>
     </form>
