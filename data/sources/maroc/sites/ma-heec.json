@@ -9,7 +9,8 @@
     "https://ecoleheec.ma/nos-licences/",
     "https://ecoleheec.ma/cycle-dingenieur/",
     "https://ecoleheec.ma/nos-licences-management/",
-    "https://ecoleheec.ma/nos-masters-management/"
+    "https://ecoleheec.ma/nos-masters-management/",
+    "https://ecoleheec.ma/ecole-citoyenne/"
   ],
   "description": "École d'enseignement supérieur située à Marrakech (boulevard Abou Oubeida Al Jarah), organisée en pôle management et pôle informatique. Elle propose des licences, des masters en management, finance et audit, un cycle d'ingénieur en informatique et intelligence artificielle, ainsi qu'un cycle doctoral (DBA ISTEC Paris). L'admission en première année se fait sur étude de dossier puis test (épreuve écrite et entretien oral), avec une voie d'admission parallèle en 2e année, 3e année et Master 1.",
   "annee_creation": null,
@@ -131,7 +132,7 @@
     "dates": null
   },
   "frais": [],
-  "bourses": null,
+  "bourses": "Bourses d'étude sous forme de dispense partielle ou totale des frais de scolarité, attribuées selon les résultats du baccalauréat et la situation financière de la famille.",
   "international": "Admission possible pour des étudiants étrangers (mentionné sur la page d'accueil) ; le site cite des nationalités et des partenaires académiques.",
   "partenaires": [
     "Partenariats académiques et institutionnels (non détaillés dans le texte)",

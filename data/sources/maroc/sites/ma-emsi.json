@@ -9,13 +9,14 @@
     "https://emsi.ma/frais-et-financement/",
     "https://emsi.ma/candidature/",
     "https://emsi.ma/cursus-des-etudes/",
-    "https://emsi.ma/conditions-generales-dutilisation/"
+    "https://emsi.ma/conditions-generales-dutilisation/",
+    "https://emsi.ma/contact/"
   ],
   "description": "École d'ingénieurs privée présente sur plusieurs campus au Maroc (Casablanca, Rabat, Marrakech, Tanger, Fès et Agadir), avec une adresse à Casablanca. Le parcours combine deux années préparatoires et un cycle ingénieur dans l'informatique et réseaux, le génie électrique, l'automatisme, le génie civil, le génie industriel et le génie financier. Le site met en avant des centres de carrière, des certifications en soft skills et hard skills, des bourses de mérite et l'appartenance au réseau Honoris United Universities.",
   "annee_creation": 1986,
   "adresse": "5 et 7 Rue Abou Youssef el Kinidy Casablanca",
   "telephone": "+212 (0) 522 75 03 75",
-  "email": null,
+  "email": "info.casa@emsi.ma",
   "statut_annonce": "Reconnue par l'État",
   "programmes": [
     {
@@ -115,7 +116,7 @@
   "preuves": {
     "adresse": "5 et 7 Rue Abou Youssef el Kinidy Casablanca",
     "telephone": "+212 (0) 522 75 03 75",
-    "email": null,
+    "email": "Casablanca Maarif 05 22 99 23 23 info.casa@emsi.ma",
     "annee_creation": "Depuis 1986, l’EMSI s’impose comme une référence nationale dans la formation des ingénieurs au Maroc.",
     "frais": [
       "-Frais d’inscription: 3 000 Dh/an",

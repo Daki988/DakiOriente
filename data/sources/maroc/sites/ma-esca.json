@@ -7,7 +7,10 @@
     "https://esca.ma/",
     "https://esca.ma/admissions/formation-initiale",
     "https://esca.ma/programme-grande-ecole",
-    "https://esca.ma/admissions/bourse-de-merite"
+    "https://esca.ma/admissions/bourse-de-merite",
+    "https://esca.ma/frais-de-scolarite",
+    "https://esca.ma/hubfs/FI%20-%20FR-1.pdf?hsLang=fr",
+    "https://esca.ma/hubfs/MS%20-%20FR-1.pdf?hsLang=fr"
   ],
   "description": "École de management installée à Casablanca Finance City. Elle propose un Programme Grande École en 5 ans après le bac (Bac+5) avec plusieurs parcours, des licences (Bac+3) dont un programme IBA enseigné en anglais, et des masters spécialisés (Bac+5) destinés aux titulaires d'un Bac+3. Le site met en avant des stages intégrés au cursus, des places de double diplôme et d'échange avec des partenaires internationaux, plus de 40 nationalités et des bourses de mérite à partir d'une moyenne de 15.",
   "annee_creation": 1992,
@@ -205,7 +208,26 @@
     "concours": null,
     "dates": null
   },
-  "frais": [],
+  "frais": [
+    {
+      "cycle": "Programme Grande École (Bac+5) et Licences en management / IBA (Bac+3)",
+      "inscription_mad": 6000,
+      "scolarite_annuelle_mad": null,
+      "note": "Grille tarifaire 2026-2027 : frais d'étude de 76 000 dhs, sans précision de périodicité (annuelle ou cycle) ; remise de 3 % en cas de paiement intégral."
+    },
+    {
+      "cycle": "Masters spécialisés – M1",
+      "inscription_mad": 6000,
+      "scolarite_annuelle_mad": 53000,
+      "note": "Grille tarifaire 2026-2027."
+    },
+    {
+      "cycle": "Masters spécialisés – M2",
+      "inscription_mad": 6000,
+      "scolarite_annuelle_mad": 60000,
+      "note": "Grille tarifaire 2026-2027 ; double diplomation avec des partenaires (IAE, De Vinci Executive Education)."
+    }
+  ],
   "bourses": "Bourses de mérite partielles attribuées à partir d'une moyenne égale ou supérieure à 15 (note du Bac ou du dernier diplôme et note d'entretien) ; prêt études possible auprès de CIH Bank et Bank of Africa, jusqu'à 50 000 dhs par année d'étude.",
   "international": "Plus de 40 nationalités, plus de 300 étudiants internationaux, 140 partenaires internationaux, plus de 70 places de double diplôme et 360 places d'échange.",
   "partenaires": [
@@ -223,7 +245,11 @@
     "telephone": "Tél :+212(0) 522 20 91 20",
     "email": "admissions@esca.ma",
     "annee_creation": "Depuis sa création en 1992, ESCA Ecole de Management",
-    "frais": [],
+    "frais": [
+      "Marketing Digital et Communication                      6 000 dhs                  76 000 dhs",
+      "Achats et Supply Chain Management                                                  6 000 dhs       53 000 dhs",
+      "6 000 dhs       60 000 dhs"
+    ],
     "admission": [
       "L’admission à la Formation Initiale se fait suite à une étude de dossier et à un entretien oral."
     ]

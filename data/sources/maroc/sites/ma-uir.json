@@ -7,7 +7,10 @@
     "https://www.uir.ac.ma/",
     "https://www.uir.ac.ma/fr/page/frais-de-scolarite",
     "https://www.uir.ac.ma/fr/page/candidats-bacheliers",
-    "https://www.uir.ac.ma/fr/pole/college-of-engineering-et-architecture"
+    "https://www.uir.ac.ma/fr/pole/college-of-engineering-et-architecture",
+    "https://www.uir.ac.ma/fr/pole/school-of-aerospace-automotive-engineering/Fees-and-payments",
+    "https://www.uir.ac.ma/fr/pole/ecole-superieure-dinformatique-et-du-numerique/Frais-de-Formation",
+    "https://www.uir.ac.ma/fr/pole/ecole-superieure-darchitecture-de-rabat/Frais-de-formation"
   ],
   "description": "Université située au Technopolis de Rabat-Shore (rocade Rabat-Salé), organisée en collèges : management (Rabat Business School), sciences sociales (Sciences Po Rabat, école de droit, communication et médias), ingénierie et architecture (informatique, aérospatial, automobile, énergie, génie civil, architecture) et sciences de la santé (médecine, médecine dentaire, sciences paramédicales, ingénierie biomédicale). Elle dispose aussi d’une école des études doctorales et d’un hôpital universitaire. Plusieurs programmes sont proposés en double diplôme avec des universités étrangères, et le campus offre résidence, restauration, transport, complexe sportif et clubs étudiants.",
   "annee_creation": null,
@@ -229,7 +232,26 @@
     "concours": "Concours d’entrée (calendrier publié sur le site)",
     "dates": null
   },
-  "frais": [],
+  "frais": [
+    {
+      "cycle": "School of Aerospace & Automotive Engineering",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 67000,
+      "note": "Frais d'inscription et de réinscription : 5 000 Dhs par an."
+    },
+    {
+      "cycle": "École Supérieure d'Informatique et du Numérique",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 67000,
+      "note": null
+    },
+    {
+      "cycle": "École Supérieure d'Architecture de Rabat",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 88000,
+      "note": "Prêt étudiant « TAMWIL UIR » jusqu'à 60 000 Dhs par an auprès de la CCG."
+    }
+  ],
   "bourses": "Bourses et prêts étudiants : dossier de demande de financement à déposer lors de l’inscription.",
   "international": "Doubles diplômes (ex. Université d’Aix-Marseille pour des masters de droit) ; page dédiée aux étudiants internationaux avec procédure d’inscription.",
   "partenaires": [
@@ -254,7 +276,11 @@
     "email": "- contact@uir.ac.ma",
     "annee_creation": null,
     "frais": [
-      "**Etape 4 :** Règlement des frais de concours : 750 Dhs pour 2 concours et 1500 Dhs pour plus de 2 concours"
+      "**Etape 4 :** Règlement des frais de concours : 750 Dhs pour 2 concours et 1500 Dhs pour plus de 2 concours",
+      "School of Aerospace Engineering : 67 000 dhs/an",
+      "Les frais d'inscription et réinscription sont fixés à 5 000 Dhs.",
+      "67 000 DHS / AN 5 000 DHS / Frais d'Inscription",
+      "88 000 dhs/an 5 000 dhs/ Frais d'inscription"
     ],
     "admission": [
       "La sélection des candidats titulaires d’une licence ou diplôme équivalent s'effectue en deux étapes : une évaluation du dossier suivie d'une épreuve écrit et/ou d'un entretien oral."

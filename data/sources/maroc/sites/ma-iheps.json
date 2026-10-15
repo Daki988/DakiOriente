@@ -12,7 +12,8 @@
     "https://iheps.ac.ma/filiere-biomedicale/",
     "https://iheps.ac.ma/master-kinesitherapie-niveau-bac5/",
     "https://iheps.ac.ma/master-en-dietetique-et-nutrition-bac-5/",
-    "https://iheps.ac.ma/a-propos/"
+    "https://iheps.ac.ma/a-propos/",
+    "https://iheps.ac.ma/presentation/"
   ],
   "description": "Groupe d'établissements privés d'enseignement supérieur paramédical avec des campus à Marrakech, Casablanca et Agadir. Il propose des licences (diététique et nutrition, soins infirmiers, radiologie, kinésithérapie, orthophonie, orthoptie, psychomotricité, sciences biomédicales) et des masters. Le site met en avant une pédagogie pratique, des stages dans des hôpitaux et cliniques partenaires dès la première année et des promotions à effectif limité.",
   "annee_creation": null,
@@ -164,7 +165,7 @@
   },
   "frais": [],
   "bourses": null,
-  "international": null,
+  "international": "Accueil d'étudiants étrangers francophones et stages de lauréats en Europe mentionnés par l'institut.",
   "partenaires": [
     "Conventions avec des hôpitaux et cliniques du Maroc pour les stages"
   ],

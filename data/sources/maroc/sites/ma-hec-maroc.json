@@ -12,13 +12,14 @@
     "https://hec.ac.ma/programme-grande-ecole/marketing-e-business-digital-strategy",
     "https://hec.ac.ma/executive-education",
     "https://hec.ac.ma/executive-education/master/finance",
-    "https://hec.ac.ma/executive-education/master/gestion-de-projets"
+    "https://hec.ac.ma/executive-education/master/gestion-de-projets",
+    "https://hec.ac.ma/about"
   ],
   "description": "École de commerce privée installée à Rabat, qui propose un Programme Grande École en 5 ans (Bac+3 puis Bac+5) avec quatre spécialisations : finance, marketing et e-business, logistique et commerce international, comptabilité-contrôle-audit. Le cursus comprend 12 mois de stages cumulés, des certifications intégrées (TOEIC, IBM, Scrum, CISI, Google, etc.), un semestre d'échange dans une université partenaire en Europe et un parcours entrepreneuriat. L'école propose aussi des Executive Masters et certificats 100 % en ligne pour les professionnels, et une admission parallèle possible en années 2 à 4.",
   "annee_creation": 1988,
   "adresse": "4 Rue Tulipa, Rabat 10100, Maroc",
   "telephone": "+212 5 37 67 12 76",
-  "email": null,
+  "email": "contact@hec.ac.ma",
   "statut_annonce": "Diplôme accrédité par le ministère",
   "programmes": [
     {
@@ -208,7 +209,7 @@
   "preuves": {
     "adresse": "4 Rue Tulipa, Rabat 10100, Maroc",
     "telephone": "+212 5 37 67 12 76",
-    "email": null,
+    "email": "par WhatsApp au +212 658 80 42 49 ou par e-mail à contact@hec.ac.ma",
     "annee_creation": "Depuis 1988, HEC Rabat est un établissement d'enseignement supérieur privé",
     "frais": [
       "par an · dont 3 000 MAD de frais d'inscription",

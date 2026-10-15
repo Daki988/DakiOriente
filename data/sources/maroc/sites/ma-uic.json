@@ -7,7 +7,8 @@
     "https://uic.ac.ma/",
     "https://uic.ac.ma/frais-de-scolarite/",
     "https://uic.ac.ma/decouvrir-uic/",
-    "https://uic.ac.ma/ecole-dingenierie/"
+    "https://uic.ac.ma/ecole-dingenierie/",
+    "https://uic.ac.ma/formation/medecine-dentaire/"
   ],
   "description": "Université privée implantée à Casablanca sur deux campus : Casa Green Town à Bouskoura (10 hectares) et Marina, dans le quartier d’affaires. Elle regroupe des facultés de médecine, pharmacie, médecine dentaire et sciences de la santé, une école d’architecture, une école d’ingénierie, une business school, un pôle droit et un programme de management en hôtellerie internationale, ainsi qu’une formation doctorale. Les cursus comprennent des stages obligatoires en entreprise, et l’université propose des doubles diplômes, des programmes d’échange, une résidence universitaire, un service de transport et un bureau d’accompagnement des étudiants internationaux.",
   "annee_creation": null,
@@ -182,7 +183,14 @@
     "concours": "Calendrier des concours publié sur le site",
     "dates": null
   },
-  "frais": [],
+  "frais": [
+    {
+      "cycle": "Médecine dentaire",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 125000,
+      "note": "Frais de concours : 1 500 dhs (non remboursables)."
+    }
+  ],
   "bourses": "Page « Aide financière et financement des études » signalée, sans détail dans le texte relevé.",
   "international": "Bureau d’accompagnement des étudiants internationaux ; doubles diplômes et programmes d’échange (ex. échange à l’ECE Paris) ; enseignement de l’anglais et de l’espagnol ; étudiants venus notamment de Mauritanie, Tunisie, Sénégal et Burkina Faso.",
   "partenaires": [
@@ -203,7 +211,8 @@
     "email": "[admissions@uic.ac.ma](mailto:admissions@uic.ac.ma)",
     "annee_creation": null,
     "frais": [
-      "Les frais de scolarité varient d’une filière à une autre"
+      "Les frais de scolarité varient d’une filière à une autre",
+      "Frais de scolarité : 125000 dhs /an"
     ],
     "admission": [
       "Le règlement des frais de test d’admission sont à effectuer le jour du test d’admission.",

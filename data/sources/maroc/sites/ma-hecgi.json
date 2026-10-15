@@ -12,7 +12,8 @@
     "https://hecgi.ma/bachelor-europeen/",
     "https://hecgi.ma/logistique/",
     "https://hecgi.ma/finance/",
-    "https://hecgi.ma/marketing-digital/"
+    "https://hecgi.ma/marketing-digital/",
+    "https://hecgi.ma/etudiants-etrangers/"
   ],
   "description": "École de commerce, de gestion et d'informatique située à Kénitra. Elle propose des licences (Bac+3) en commerce et gestion, data science et logistique, un master (Bac+5) en finance, audit et contrôle de gestion, ainsi que des masters et bachelors européens. Le site indique des stages d'un à trois mois chaque année, des intervenants professionnels, des visites d'entreprises et des bourses d'excellence (5 totales et 10 partielles par filière en 2025-2026).",
   "annee_creation": null,
@@ -167,7 +168,7 @@
   },
   "frais": [],
   "bourses": "Bourses d'excellence jusqu'à 100 % : 5 bourses totales et 10 bourses partielles par filière en 2025-2026, avec deux sessions en octobre 2025.",
-  "international": null,
+  "international": "Accueil des étudiants étrangers : aide à la recherche d'hébergement, conseils pratiques pour le séjour au Maroc et accompagnement pour la carte de résidence.",
   "partenaires": [],
   "vie_etudiante": [
     "Bureau d'étudiants actif",

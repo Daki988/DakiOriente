@@ -6,7 +6,8 @@
   "sources": [
     "https://www.mundiapolis.ma/",
     "https://www.mundiapolis.ma/histoire-mission-et-valeurs",
-    "https://www.mundiapolis.ma/sites/default/files/2026-02/FICHE%20TARIFS%20MUNDIAPOLIS%20-%202026-2027.pdf"
+    "https://www.mundiapolis.ma/sites/default/files/2026-02/FICHE%20TARIFS%20MUNDIAPOLIS%20-%202026-2027.pdf",
+    "https://www.mundiapolis.ma/pole-business"
   ],
   "description": "Université privée de Casablanca issue en 1996 de la fusion de plusieurs écoles, avec un campus boulevard Brahim Roudani et un campus à l’Aéropole de Nouaceur. Elle compte quatre pôles : business school, école d’ingénierie (aéronautique, génie industriel, informatique), faculté des sciences de la santé (kinésithérapie, orthophonie, psychologie, sciences infirmières) et droit et sciences politiques, de la licence au doctorat. Membre du réseau Honoris United Universities, elle propose des échanges entre établissements du réseau, des stages intégrés dès la première année, un career center et des admissions parallèles à Bac+1, +2 ou +3.",
   "annee_creation": 1996,
@@ -346,8 +347,21 @@
     "concours": null,
     "dates": "Inscriptions ouvertes pour la rentrée 2026/2027"
   },
-  "frais": [],
-  "bourses": null,
+  "frais": [
+    {
+      "cycle": "Licence Sciences infirmières – Infirmier polyvalent",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 29000,
+      "note": "Fiche « Frais de scolarité annuels » 2026-2027 (même montant pour chacune des 3 années). Les autres montants de la fiche (PDF en image) ne sont pas extractibles en texte."
+    },
+    {
+      "cycle": "Licence Sciences infirmières – Anesthésie-réanimation / Soins d'urgence et soins intensifs",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 33000,
+      "note": "Fiche « Frais de scolarité annuels » 2026-2027 (même montant pour chacune des 3 années)."
+    }
+  ],
+  "bourses": "Bourses d'excellence prenant en charge une partie ou la totalité des frais de scolarité, attribuées sur dossier selon des critères sociaux et académiques.",
   "international": "Membre du réseau Honoris United Universities : programmes d’échanges entre institutions du réseau ; formulaire ouvert aux candidats de nombreux pays africains.",
   "partenaires": [
     "Honoris United Universities"
@@ -365,8 +379,8 @@
     "email": "contact@mundiapolis.ma",
     "annee_creation": "Créée en 1996, l’ **Université Mundiapolis** est née de la fusion de plusieurs grandes écoles pionnières",
     "frais": [
-      "**29 000 DHS 29 000 DHS 29 000 DHS** **SCIENCES INFIRMIÈRES : ANESTHÉSIE ET RÉANIMATION",
-      "**33 000 DHS 33 000 DHS 33 000 DHS** **PSYCHOPATHOLOGIE**"
+      "SCIENCES INFIRMIÈRES : INFIRMIER POLYVALENT 29 000 DHS 29 000 DHS 29 000 DHS",
+      "SOINS D’URGENCES ET SOINS INTENSIFS 33 000 DHS 33 000 DHS 33 000 DHS"
     ],
     "admission": [
       "**Vous avez un Bac+1, +2 ou +3 ?** Rejoignez-nous !"

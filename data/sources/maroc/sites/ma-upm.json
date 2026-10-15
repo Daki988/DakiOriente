@@ -13,7 +13,9 @@
     "https://upm.ac.ma/etudier-a-lupm/management/master-2-bac-5-sciences-de-management-commerce-international/",
     "https://upm.ac.ma/residanat/",
     "https://upm.ac.ma/admission-2/",
-    "https://upm.ac.ma/architecture/"
+    "https://upm.ac.ma/architecture/",
+    "https://sante.upm.ac.ma/admission/",
+    "https://upm.ac.ma/faculte-de-medecine-dentaire/"
   ],
   "description": "Université privée située à Marrakech (route d'Amizmiz) qui se présente comme reconnue par l'État, avec plus de 60 formations réparties en pôles : tourisme et hôtellerie (programme VATEL en double diplôme), business et gouvernance, ingénierie et innovation, sciences de la santé, sport, digital et médias, architecture, ainsi que des facultés privées de médecine, de pharmacie et de médecine dentaire. Elle propose des licences, masters, cycles ingénieur et formations doctorales. L'admission passe par un concours avec étude de dossier, test écrit et entretien. L'université met en avant les stages, l'alternance, les semestres d'échange à l'international, la double diplomation et l'accueil d'étudiants étrangers de plus de 21 nationalités.",
   "annee_creation": null,
@@ -352,7 +354,20 @@
     "concours": "Concours d'admission (écrit et entretien oral après étude de dossier)",
     "dates": null
   },
-  "frais": [],
+  "frais": [
+    {
+      "cycle": "Médecine",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": null,
+      "note": "Frais de scolarité : 130 000 MAD (paiement en un seul versement), périodicité non précisée ; frais d'étude de dossier 1 500 dhs."
+    },
+    {
+      "cycle": "Pharmacie et médecine dentaire",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": null,
+      "note": "Frais de scolarité : 125 000 MAD (page admission santé ; 120 000 dhs sur la page de la faculté de médecine dentaire), périodicité non précisée."
+    }
+  ],
   "bourses": "Rubrique « Financement des études » et vidéo « Aide au financement » mentionnées, sans détail.",
   "international": "Double diplomation avec des partenaires, semestre d'échange international minimum pendant un cycle, stages à l'étranger dès la 2e année, plus de 21 nationalités accueillies en échange, programme Marco Polo (VATEL), projets Erasmus.",
   "partenaires": [
@@ -370,7 +385,11 @@
     "telephone": "+212 5 24 48 70 00",
     "email": "contact@upm.ac.ma",
     "annee_creation": null,
-    "frais": [],
+    "frais": [
+      "Frais d’inscription : 5 000 MAD.",
+      "Frais de scolarité Médecine : 130 000 MAD.",
+      "Frais de scolarité Pharmacie : 125 000 MAD."
+    ],
     "admission": [
       "Admission sur Concours écrit et entretien oral après l’étude de dossier.",
       "Titulaires du baccalauréat toutes filières."

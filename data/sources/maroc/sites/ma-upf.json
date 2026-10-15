@@ -7,7 +7,8 @@
     "https://upf.ac.ma/",
     "https://upf.ac.ma/diplomes_Ingenieur.aspx",
     "https://upf.ac.ma/diplome_master.aspx",
-    "https://upf.ac.ma/diplome_licences.aspx"
+    "https://upf.ac.ma/diplome_licences.aspx",
+    "https://upf.ac.ma/images/Grille%20tarifaire%20Global%20de%20l'Universit%C3%A9%20Priv%C3%A9%20de%20F%C3%A8s-24-25.pdf"
   ],
   "description": "Université privée située à Fès (route Ain Chkef), avec un campus à Rabat (Institut Supérieur des Sciences de l’Ingénieur). Elle regroupe une faculté des sciences de l’ingénieur, une faculté de médecine dentaire, une faculté des sciences paramédicales, une école d’architecture et du bâtiment, la Fès Business School et un institut de sciences politiques et juridiques. L’offre couvre des licences, des masters, des diplômes d’ingénieur d’État et des doctorats, en gestion, ingénierie, architecture, droit et santé. Le campus dispose d’une résidence universitaire, d’un complexe sportif, d’une bibliothèque, d’un service de transport et d’un collectif des étudiants internationaux.",
   "annee_creation": 2006,
@@ -268,7 +269,32 @@
     "concours": null,
     "dates": "Ouverture des inscriptions 2026-2027"
   },
-  "frais": [],
+  "frais": [
+    {
+      "cycle": "Classes préparatoires scientifiques intégrées (Fès)",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 50000,
+      "note": "Grille tarifaire 2024-2025 ; frais de test d'admission 500 DH."
+    },
+    {
+      "cycle": "Cycles ingénieur (Fès) : génie civil, énergies renouvelables, automobile-avionique-robotique, génie informatique",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 60000,
+      "note": "Grille tarifaire 2024-2025."
+    },
+    {
+      "cycle": "Diplômes ENCG et licences (Fès)",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 55000,
+      "note": "Grille tarifaire 2024-2025."
+    },
+    {
+      "cycle": "Médecine dentaire – 1er cycle",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 100000,
+      "note": "Grille tarifaire 2024-2025 ; 110 000 DH par an au 2e cycle ; frais de concours 1 000 DH."
+    }
+  ],
   "bourses": "Bourses de mérite (page dédiée, détails non relevés).",
   "international": "Collectif des étudiants internationaux ; échanges à l’international ; réseau RAMSESS ; 10 écoles et universités partenaires dans le monde.",
   "partenaires": [],
@@ -286,7 +312,12 @@
     "telephone": "- +212 535 610 320",
     "email": "- info@upf.ac.ma",
     "annee_creation": "Elle œuvre depuis 2006 à offrir des formations d’excellence dans les métiers d’avenir.",
-    "frais": null,
+    "frais": [
+      "\"CPSI\"     2 ans après bac        500                   5000             50.000",
+      "Génie Civil                                                  \"GCIV\"   3 ans après bac+2        ...                  5000             60.000",
+      "Comptabilité, Contrôle et Audit                             \"CCA\"     3 ans après bac+2        ...                  5000             55.000",
+      "\"MD\"      2 ans après bac        1000                  5000             100.000"
+    ],
     "admission": [
       "## 🎓 Ouverture des Inscriptions UPF 2026-2027"
     ]

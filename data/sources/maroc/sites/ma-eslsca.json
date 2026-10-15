@@ -13,7 +13,8 @@
     "https://www.eslsca.ma/formation-executive",
     "https://www.eslsca.ma/formation-academique",
     "https://www.eslsca.ma/formation-academique/masters",
-    "https://www.eslsca.ma/parcours-en-double-diplome-rabat"
+    "https://www.eslsca.ma/parcours-en-double-diplome-rabat",
+    "https://www.eslsca.ma/evenements/bourses-learn-africa-2026-10-opportunites-dexcellence-eslsca-business-school-rabat"
   ],
   "description": "École de commerce installée à Rabat, sur un campus d'entreprises de 4 000 m² dans le quartier Hay Riad. Elle propose en formation initiale un bachelor Bac+3 en management des affaires et de projet et des masters Bac+5 (ingénierie financière et innovation, marketing et intelligence artificielle), ainsi que des masters exécutifs et des MBA en formation continue. Le site met en avant un parcours international en double diplôme français (3 ans au Maroc et 2 ans en France), des échanges académiques, des stages dès la première année et un career center.",
   "annee_creation": null,
@@ -190,7 +191,7 @@
       "note": "Prix affiché sur les pages des trois MBA internationaux"
     }
   ],
-  "bourses": null,
+  "bourses": "Programme « Bourses Learn Africa » avec la Fondation Mujeres por Africa : 10 bourses couvrant 100 % des frais de scolarité en licence et en master pour des étudiantes africaines (frais de vie non couverts).",
   "international": "Parcours international en double diplôme français (3 ans au Maroc, 2 ans en France), échanges académiques, possibilité d'études à l'ESLSCA Paris ou à EDC Paris Business School ; MBA internationaux en partenariat avec BIU Miami et EAE Business School (Madrid, Barcelone).",
   "partenaires": [
     "BIU Miami",

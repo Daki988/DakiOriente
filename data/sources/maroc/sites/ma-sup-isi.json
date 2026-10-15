@@ -8,13 +8,14 @@
     "https://supingenierie.com/frais.php?m=7",
     "https://supingenierie.com/formation_passion_programme.php?m=3&i=1",
     "https://supingenierie.com/diplome_bac3.php?m=4&i=1",
-    "https://supingenierie.com/diplome_bac5.php?m=4&i=2"
+    "https://supingenierie.com/diplome_bac5.php?m=4&i=2",
+    "https://supingenierie.com/contact.php?m=10"
   ],
   "description": "Institut supérieur privé de génie informatique, autorisé par le Ministère de l'Enseignement Supérieur et soumis à l'inspection pédagogique de l'Université Abdelmalek Essaâdi. La formation suit le système LMD avec un cycle Bac+3 (6 semestres) et un cycle Bac+5 (4 semestres), fondée sur la pédagogie par projets (au moins cinq projets par an, portfolio, stage ou PFE). Les cours couvrent développement, réseaux (CCNA), bases de données, intelligence artificielle et big data. L'école est membre de la Fédération Européenne des Écoles (FEDE) et propose un Bachelor européen ainsi qu'un titre RNCP de niveau 7.",
   "annee_creation": 2009,
   "adresse": null,
   "telephone": "0661-17-89-88 ou 0539-99-07-70",
-  "email": null,
+  "email": "supingenierie@gmail.com",
   "statut_annonce": "École privée d'enseignement supérieur agréée par le Ministère de l'Enseignement Supérieur",
   "programmes": [
     {
@@ -86,7 +87,7 @@
   "preuves": {
     "adresse": null,
     "telephone": "0661-17-89-88 ou 0539-99-07-70",
-    "email": null,
+    "email": "0539-99-07-70 Email supingenierie@gmail.com",
     "annee_creation": "Depuis 2009, SUP'ISI accompagne les bacheliers vers les métiers du numérique",
     "frais": [
       "16 000 DH ou 17 000 DH",

@@ -6,7 +6,8 @@
   "sources": [
     "https://um6p.ma/",
     "https://um6p.ma/en/enrollment/scholarships",
-    "https://um6p.ma/en/enrollment/admissions"
+    "https://um6p.ma/en/enrollment/admissions",
+    "https://sase.um6p.ma/scholarships"
   ],
   "description": "Université dont le campus principal se trouve à Benguerir (ville verte Mohammed VI, près de Marrakech), avec un campus à Rabat-Salé et une antenne à Laâyoune. L’offre 2026-2027 couvre la santé (médecine, pharmacie, soins infirmiers, kinésithérapie), l’ingénierie (cycles préparatoires intégrés et cycles ingénieur en informatique, génie chimique, physique appliquée, management industriel, agri-environnement), l’architecture, des bachelors en anglais, ainsi que des masters en économie, sciences politiques et management (Africa Business School). Plusieurs programmes sont enseignés en anglais, et l’université propose des bourses sur critères sociaux et d’excellence aux candidats marocains et africains admis au concours.",
   "annee_creation": null,
@@ -208,7 +209,14 @@
     "concours": "Examen d’entrée par programme",
     "dates": "Clôtures 2026 entre le 15/03/2026 (FGSES) et le 24/06/2026 (santé, cycles préparatoires)"
   },
-  "frais": [],
+  "frais": [
+    {
+      "cycle": "Bachelor – School of Applied Science & Engineering (SASE)",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 75000,
+      "note": "Année 2026-2027 ; bourses (FIRSI) jusqu'à 100 % des frais selon la situation socio-économique."
+    }
+  ],
   "bourses": "Bourses attribuées chaque année aux candidats marocains et d’Afrique, sur critères sociaux et d’excellence, pour les admis à l’examen d’entrée ; boursiers de la Mastercard Foundation accueillis.",
   "international": "Hubs internationaux à Paris, Montréal et New York ; programmes enseignés en anglais ; bourses ouvertes aux candidats de toute l’Afrique ; page dédiée aux candidats internationaux.",
   "partenaires": [
@@ -225,7 +233,10 @@
     "telephone": "[+212 525 073 100](tel:+212525073100 \"+212 525 073 100\")",
     "email": "[contact@um6p.ma](mailto:contact@um6p.ma \"contact@um6p.ma\")",
     "annee_creation": null,
-    "frais": null,
+    "frais": [
+      "For the 2026–2027 academic year, the annual tuition fee for the Bachelor program is 75,000 MAD",
+      "the registration fee for the Bachelor program is 5,000 MAD"
+    ],
     "admission": [
       "Mohammed VI Polytechnic University offers several scholarship schemes for candidates who have successfully passed the entrance examination for one of its programs.",
       "Scholarships awarded annually for local applicants and accross Africa, on social basis and excellence."

@@ -13,13 +13,14 @@
     "https://www.polytechnique.ma/formations/genie-electromecanique",
     "https://www.polytechnique.ma/formations/administration-des-affaires",
     "https://www.polytechnique.ma/ecole",
-    "https://www.polytechnique.ma/contact"
+    "https://www.polytechnique.ma/contact",
+    "https://www.polytechnique.ma/uploads/formulaire-V-22Sept25.pdf"
   ],
   "description": "Institut polytechnique privé situé route d'El Jadida à Casablanca, avec une Engineering School (classes préparatoires de 2 ans puis cycle ingénieur en génie informatique, électrique ou électromécanique) et une Business School (licences Bac+3 en administration des affaires, options marketing digital ou comptabilité-finance). L'école met en avant des passerelles vers le Canada (UQAT, Université Sainte-Anne), un accompagnement pour les visas, une formation bilingue français-anglais et des stages obligatoires. Les diplômes sont présentés comme accrédités et reconnus au titre de la loi 59.24.",
   "annee_creation": null,
   "adresse": "Rue 10, No. 2 Lotissement Allaimoun 1, Route d'El Jadida, Casablanca 20190",
   "telephone": "+212 522 936 550",
-  "email": null,
+  "email": "info@polytechnique.ma",
   "statut_annonce": "Diplômes accrédités et reconnus (loi 59.24, Enseignement supérieur, articles 20 et 21)",
   "programmes": [
     {
@@ -135,7 +136,7 @@
   "preuves": {
     "adresse": "Rue 10, No. 2 Lotissement Allaimoun 1, Route d'El Jadida, Casablanca 20190",
     "telephone": "+212 522 936 550",
-    "email": null,
+    "email": "info@polytechnique.ma • www.polytechnique.ma",
     "annee_creation": null,
     "frais": [
       "Sinon, ils s'élèvent à 54 000 DH (5 000 DH d'inscription et 49 000 DH sur trois tranches).",

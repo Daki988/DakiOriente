@@ -7,7 +7,9 @@
     "https://ueuromed.org/fr",
     "https://ueuromed.org/fr/dossier-de-candidature",
     "https://ueuromed.org/fr/poles/pole-sante",
-    "https://ueuromed.org/fr/actualites/mobilite-internationale-l-uemf-ouvre-les-candidatures-pour-un-semestre-d-etudes-a-l-universite-de-chypre"
+    "https://ueuromed.org/fr/actualites/mobilite-internationale-l-uemf-ouvre-les-candidatures-pour-un-semestre-d-etudes-a-l-universite-de-chypre",
+    "https://www.ueuromed.org/frais-de-scolarite",
+    "https://ueuromed.org/fr/bourses-aides-financieres"
   ],
   "description": "Université à but non lucratif située à Fès (route nationale Fès-Meknès), reconnue par l'État marocain. Elle regroupe 11 établissements répartis en trois pôles (ingénierie et architecture, sciences humaines et sociales, santé) et propose des cycles préparatoires, licences, masters, ingénierie, architecture et doctorats. Le site met en avant plus de 50 nationalités, des doubles diplomations avec des universités euro-méditerranéennes, une résidence universitaire et des stages en milieu hospitalier pour la santé.",
   "annee_creation": null,
@@ -76,8 +78,33 @@
     "concours": "Concours spécifiques pour certaines filières, notamment en santé",
     "dates": null
   },
-  "frais": [],
-  "bourses": null,
+  "frais": [
+    {
+      "cycle": "1re et 2e années préparatoires (EPS, EIDIA)",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 65700,
+      "note": "Année 2026-2027, nouveaux inscrits ; montant incluant 5 000 DH d'inscription, payable en 3 tranches (septembre, décembre, mars)."
+    },
+    {
+      "cycle": "Cycle ingénieur (EPS, EIDIA)",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 75700,
+      "note": "Année 2026-2027 ; montant incluant les frais d'inscription."
+    },
+    {
+      "cycle": "Cycle licence (EMADU)",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 55700,
+      "note": "Année 2026-2027 ; montant incluant les frais d'inscription."
+    },
+    {
+      "cycle": "Cycle master (EPS, EIDIA, EMADU)",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 60700,
+      "note": "Année 2026-2027 ; montant incluant les frais d'inscription. Réduction de 5 % pour paiement intégral (non boursiers)."
+    }
+  ],
+  "bourses": "Bourses couvrant 25 %, 50 %, 75 % et jusqu'à 100 % des frais de scolarité, et bourses sociales ; attribuées pour une année et renouvelables selon les critères du règlement.",
   "international": "Plus de 50 nationalités ; doubles diplomations avec des universités euro-méditerranéennes ; mobilité d'un semestre à l'Université de Chypre (printemps 2027) pour les filières de génie.",
   "partenaires": [
     "Université de Chypre",
@@ -94,7 +121,12 @@
     "telephone": "053890-9000",
     "email": "contact@ueuromed.org",
     "annee_creation": null,
-    "frais": [],
+    "frais": [
+      "1ère & 2ème Années Préparatoires (EPS, EIDIA) 65700",
+      "1ère, 2ème et 3ème Années du Cycle Ingénieur (EPS, EIDIA) 75700",
+      "Cycle Licence (1ère, 2ème et 3ème Années) (EMADU) 55700",
+      "Cycle Master (EPS, EIDIA, EMADU) 60700"
+    ],
     "admission": [
       "Une photo d’identité récente (format JPG ou PDF)",
       "Pour certaines filières, notamment en santé, l'admission se fait par le biais de concours spécifiques."

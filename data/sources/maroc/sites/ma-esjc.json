@@ -9,13 +9,15 @@
     "https://esjc.ma/formations-courtes-certifiantes/",
     "https://esjc.ma/licence-journalisme-et-communication/",
     "https://esjc.ma/2025/05/08/lesjc-une-ecole-vivante-et-engagee-au-coeur-de-casablanca/",
-    "https://esjc.ma/contactez-nous/"
+    "https://esjc.ma/contactez-nous/",
+    "https://esjc.ma/bacheliers-passionnes-des-medias-saisissez-votre-chance-des-bourses-jusqua-100-a-lesjc/",
+    "https://esjc.ma/wp-content/uploads/2025/11/Formation-Audiovisuelle-Reda-Bennis-.pdf"
   ],
   "description": "École de journalisme et de communication installée en centre-ville de Casablanca (rue Tata). Elle propose des formations en Bac+3 (journalisme et communication, communication et multimédia, production audiovisuelle) et en Bac+5, ainsi que des formations courtes certifiantes. Le site décrit un apprentissage par la pratique (studio TV, studio radio, médiathèque), des stages obligatoires chaque année et des journées immersives pour les futurs étudiants.",
   "annee_creation": 2008,
   "adresse": "37, Rue tata, Casablanca",
   "telephone": "+212 (0)5 22 264010",
-  "email": null,
+  "email": "contact@esjc.ma",
   "statut_annonce": null,
   "programmes": [
     {
@@ -94,7 +96,7 @@
     "dates": null
   },
   "frais": [],
-  "bourses": null,
+  "bourses": "Programme de bourses d'excellence pour les bacheliers (mention Assez bien, Bien ou Très bien), avec une prise en charge pouvant aller jusqu'à 100 % des frais de scolarité (hors logement, transport et vie courante).",
   "international": "Le site mentionne des partenaires internationaux (nombre non précisé dans le texte).",
   "partenaires": [],
   "vie_etudiante": [
@@ -107,7 +109,7 @@
   "preuves": {
     "adresse": "37, Rue tata, Casablanca",
     "telephone": "+212 (0)5 22 264010",
-    "email": null,
+    "email": "✉️ contact@esjc.ma",
     "annee_creation": "forme, depuis 2008, les étudiants qui souhaitent se lancer dans le journalisme et la communication",
     "frais": [],
     "admission": []

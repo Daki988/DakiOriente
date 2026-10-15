@@ -14,13 +14,15 @@
     "https://esscg.ma/bachelor-finance/",
     "https://esscg.ma/bachelor-marketing/",
     "https://esscg.ma/bachelor-logistique-transport/",
-    "https://esscg.ma/cycles-de-formation-certifiants/"
+    "https://esscg.ma/cycles-de-formation-certifiants/",
+    "https://esscg.ma/etudiants-etrangers/",
+    "https://esscg.ma/contact/"
   ],
   "description": "École de management proposant un cycle normal en trois ans (Bac+3, bachelor « Grande École ») et un cycle master (Bac+5) en comptabilité-contrôle-audit, marketing et commerce international, logistique, ressources humaines et management stratégique. Elle propose aussi des bachelors en un an pour les titulaires d'un Bac+2 (finance, marketing, logistique et transport), en journée ou en soirée et week-end, ainsi que des cycles certifiants. Les stages en entreprise sont intégrés à chaque année du cursus et des doubles diplômes avec des institutions partenaires sont mentionnés. Le site ne précise pas l'adresse de l'école.",
   "annee_creation": null,
   "adresse": null,
-  "telephone": null,
-  "email": null,
+  "telephone": "+212 539 382 124",
+  "email": "contact@esscg.ma",
   "statut_annonce": "Filière accréditée par l'État",
   "programmes": [
     {
@@ -128,8 +130,8 @@
   "logement": null,
   "preuves": {
     "adresse": null,
-    "telephone": null,
-    "email": null,
+    "telephone": "TANGER contact@esscg.ma +212 539 382 124",
+    "email": "TANGER contact@esscg.ma",
     "annee_creation": null,
     "frais": [],
     "admission": [
