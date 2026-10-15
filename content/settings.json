@@ -4,39 +4,100 @@
   "tagline": "Good food. Great music. Unforgettable nights.",
   "taglineFr": "La nuit a son adresse.",
   "phones": [
-    { "label": "Contact principal", "number": "+24177932744", "display": "+241 77 93 27 44" },
-    { "label": "Contact", "number": "+24177453167", "display": "077 45 31 67" },
-    { "label": "Contact", "number": "+24174415118", "display": "074 41 51 18" }
+    {
+      "label": "Contact principal",
+      "number": "+24177932744",
+      "display": "+241 77 93 27 44"
+    },
+    {
+      "label": "Contact",
+      "number": "+24177453167",
+      "display": "077 45 31 67"
+    },
+    {
+      "label": "Contact",
+      "number": "+24174415118",
+      "display": "074 41 51 18"
+    }
   ],
   "whatsapp": "+24177932744",
   "address": {
-    "street": "BP 111, quartier Louis",
+    "street": "BP 45, quartier Louis",
     "city": "Libreville",
     "country": "Gabon",
     "landmark": "À 100 m de l'ambassade de Côte d'Ivoire (rue Pierre Barrot)",
-    "mapsQuery": "Ambassade de Côte d'Ivoire, Rue Pierre Barrot, Louis, Libreville, Gabon",
+    "mapsQuery": "Jack Boy Cactus, Libreville",
     "lat": null,
-    "lng": null
+    "lng": null,
+    "googleName": "Jack Boy Cactus"
   },
   "hours": [
-    { "day": "lundi", "open": "15:00", "close": "", "closed": false },
-    { "day": "mardi", "open": "15:00", "close": "", "closed": false },
-    { "day": "mercredi", "open": "15:00", "close": "", "closed": false },
-    { "day": "jeudi", "open": "15:00", "close": "", "closed": false },
-    { "day": "vendredi", "open": "15:00", "close": "", "closed": false },
-    { "day": "samedi", "open": "15:00", "close": "", "closed": false },
-    { "day": "dimanche", "open": "15:00", "close": "", "closed": false }
+    {
+      "day": "lundi",
+      "open": "15:00",
+      "close": "",
+      "closed": false
+    },
+    {
+      "day": "mardi",
+      "open": "15:00",
+      "close": "",
+      "closed": false
+    },
+    {
+      "day": "mercredi",
+      "open": "15:00",
+      "close": "",
+      "closed": false
+    },
+    {
+      "day": "jeudi",
+      "open": "15:00",
+      "close": "",
+      "closed": false
+    },
+    {
+      "day": "vendredi",
+      "open": "15:00",
+      "close": "",
+      "closed": false
+    },
+    {
+      "day": "samedi",
+      "open": "15:00",
+      "close": "",
+      "closed": false
+    },
+    {
+      "day": "dimanche",
+      "open": "15:00",
+      "close": "",
+      "closed": false
+    }
   ],
   "hoursNote": "",
   "residentDj": "DJ Hamed",
   "ordering": {
     "enabled": true,
-    "modes": ["À emporter", "Livraison", "Sur place"],
+    "modes": [
+      "À emporter",
+      "Livraison",
+      "Sur place"
+    ],
     "note": "Votre commande est envoyée par WhatsApp à Jackboy, qui vous confirme la disponibilité, le délai et les éventuels frais de livraison. Paiement à la réception."
   },
   "socials": [
-    { "network": "facebook", "url": null },
-    { "network": "instagram", "url": null },
-    { "network": "tiktok", "url": null }
+    {
+      "network": "facebook",
+      "url": null
+    },
+    {
+      "network": "instagram",
+      "url": null
+    },
+    {
+      "network": "tiktok",
+      "url": null
+    }
   ]
 }

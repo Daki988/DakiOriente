@@ -6,7 +6,7 @@
 | 2 | Domaine | ✅ www.jackboy241.com — à relier au projet Vercel |
 | 3 | Téléphones | ✅ +241 77 93 27 44 (principal, WhatsApp commandes) · 077 45 31 67 · 074 41 51 18 |
 | 4 | Horaires | ⚠️ « à partir de 15 h » — jours d'ouverture et heure de fermeture à confirmer |
-| 5 | Adresse | ✅ BP 111, Louis, à 100 m de l'ambassade de Côte d'Ivoire — ⚠️ coordonnées GPS exactes à fournir |
+| 5 | Adresse | ✅ BP 45, Louis, à 100 m de l'ambassade de Côte d'Ivoire — fiche Google « Jack Boy Cactus » (itinéraire et carte pointent dessus) |
 | 6 | Menu & prix | ✅ saisi depuis la carte officielle (82 produits) |
 | 7 | Photos | ✅ 10 photos de soirées intégrées (visages floutés sauf DJ Hamed) + 4 affiches ; une vidéo d'ambiance courte serait un plus |
 | 8 | DJ | ✅ DJ Hamed (photos intégrées) — dates des prochaines soirées à fournir |

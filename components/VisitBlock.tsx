@@ -16,6 +16,11 @@ export function VisitBlock({ showHoursTable = false }: { showHoursTable?: boolea
           <div>
             <p className="font-semibold">{fullAddress()}</p>
             <p className="text-sm text-muted">{settings.address.landmark}.</p>
+            {settings.address.googleName && (
+              <p className="mt-1 text-sm">
+                Sur Google Maps : <a href={links.google} target="_blank" rel="noopener noreferrer" className="font-semibold text-accent underline-offset-2 hover:underline">« {settings.address.googleName} »</a>
+              </p>
+            )}
           </div>
         </div>
         <div className="flex items-start gap-3">

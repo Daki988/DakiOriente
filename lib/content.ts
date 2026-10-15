@@ -24,7 +24,7 @@ export type Settings = {
   whatsapp: string;
   address: {
     street: string; city: string; country: string; landmark: string;
-    mapsQuery: string; lat: number | null; lng: number | null;
+    mapsQuery: string; googleName?: string; lat: number | null; lng: number | null;
   };
   hours: DayHours[];
   hoursNote: string;
