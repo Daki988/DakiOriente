@@ -13,7 +13,8 @@
     "https://centrale-casablanca.ma/lecole/institutionnel/reconnaissance-du-diplome/",
     "https://centrale-casablanca.ma/formations-initiales/formation-ingenieur-centralien/presentation-generale/",
     "https://centrale-casablanca.ma/formations-initiales/bachelor-in-data-science-for-responsible-business/presentation-generale/",
-    "https://centrale-casablanca.ma/programme-de-bourses-de-la-fondation-mastercard-a-lecc/"
+    "https://centrale-casablanca.ma/programme-de-bourses-de-la-fondation-mastercard-a-lecc/",
+    "https://centrale-casablanca.ma/formations-initiales/frais-de-scolarite/"
   ],
   "description": "École d'ingénieurs installée à Casablanca (Ville Verte, en lisière de la forêt de Bouskoura), appartenant au Groupe des Écoles Centrale. Elle propose une formation d'ingénieur généraliste, un International Bachelor of Engineering enseigné en anglais et un Bachelor in Data Science for Responsible Business dont les deux dernières années se déroulent à Lyon (emlyon business school et Centrale Lyon). Le diplôme d'ingénieur est présenté comme reconnu par l'État marocain et par l'État français (CTI) et porte le label EUR-ACE. L'admission se fait par concours (CNC, Concours Afrique, Concours sur Licence Maroc, CentraleSupélec) ou sur dossier et entretien pour les bachelors, avec un programme de bourses de la Fondation Mastercard.",
   "annee_creation": null,
@@ -73,7 +74,26 @@
     "concours": "ECC-CNC (120 places indicatives), CentraleSupélec International (15 places), Concours Afrique, Concours sur Licence Maroc",
     "dates": "Bachelors rentrée 2026 : date limite des inscriptions le 15 septembre 2026"
   },
-  "frais": [],
+  "frais": [
+    {
+      "cycle": "Cycle ingénieur",
+      "inscription_mad": 1600,
+      "scolarite_annuelle_mad": 50000,
+      "note": "Logement : 13 500 DH par an (10 mois), caution 2 700 DH. Bourses possibles (prise en charge partielle ou totale)."
+    },
+    {
+      "cycle": "International Bachelor of Engineering",
+      "inscription_mad": 2200,
+      "scolarite_annuelle_mad": 75000,
+      "note": "Logement : 1 900 DH par mois, caution 3 800 DH."
+    },
+    {
+      "cycle": "Bachelor in Data Science for Responsible Business",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 95000,
+      "note": null
+    }
+  ],
   "bourses": "Programme de Bourses de la Fondation Mastercard pour le cursus ingénieur (jeunes du Maroc et d'Afrique subsaharienne) : scolarité prise en charge à 100 %, logement à la résidence du campus, frais de vie, assurance santé, matériel et billet d'avion.",
   "international": "Formation multiculturelle, bachelor en data science avec deux dernières années à Lyon, mobilités et doubles diplômes, épreuves de concours organisées aussi au Liban, en Tunisie et au Gabon.",
   "partenaires": [
@@ -95,7 +115,13 @@
     "telephone": "+212 (0) 5 22 49 35 00",
     "email": "contact@centrale-casablanca.ma",
     "annee_creation": null,
-    "frais": null,
+    "frais": [
+      "Frais de scolarité : 50 000 dirhams par an",
+      "Frais d’inscription : 1 600 dirhams par an",
+      "Frais de scolarité : 75 000 dirhams par an",
+      "Frais d’inscription : 2 200 dirhams",
+      "Frais de scolarité : 95 000 dirhams par an"
+    ],
     "admission": [
       "Date limite des inscriptions : lundi 15 septembre 2026",
       "Etude de dossier (notes de lycée et Baccalauréat / GCE)"

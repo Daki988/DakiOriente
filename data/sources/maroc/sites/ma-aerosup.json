@@ -11,7 +11,8 @@
     "https://aerosup.ma/cursus-formation/",
     "https://aerosup.ma/cycles-de-formation/",
     "https://aerosup.ma/filieres-de-formation/",
-    "https://aerosup.ma/presentation/"
+    "https://aerosup.ma/presentation/",
+    "https://aerosup.ma/wp-content/uploads/2022/07/Frais-de-scolarite-2022.pdf"
   ],
   "description": "École d'ingénieurs en aéronautique située boulevard Zerktouni à Casablanca. Le cursus dure 5 ans : un cycle préparatoire intégré de 2 ans puis un cycle ingénieur de 3 ans, avec trois filières (ingénierie aéronautique et spatiale, informatique et systèmes embarqués, télécommunications et réseaux avancés). Le site mentionne des stages dès la première année, un semestre possible dans une école partenaire en 5e année, une initiation au pilotage d'avion et 15 nationalités sur le campus.",
   "annee_creation": null,
@@ -93,7 +94,26 @@
     "concours": null,
     "dates": "Inscriptions ouvertes 2026-2027"
   },
-  "frais": [],
+  "frais": [
+    {
+      "cycle": "1re et 2e années",
+      "inscription_mad": 3000,
+      "scolarite_annuelle_mad": 42000,
+      "note": "Grille « Frais de scolarité 2022 » publiée par l'école (PDF) ; à confirmer pour l'année en cours."
+    },
+    {
+      "cycle": "3e année",
+      "inscription_mad": 3000,
+      "scolarite_annuelle_mad": 46000,
+      "note": "Parcours Grande École ; 36 000 DH en cours de week-end. Grille 2022 à confirmer."
+    },
+    {
+      "cycle": "4e et 5e années",
+      "inscription_mad": 3000,
+      "scolarite_annuelle_mad": 50000,
+      "note": "Parcours Grande École ; 40 000 DH en cours de week-end. Grille 2022 à confirmer."
+    }
+  ],
   "bourses": "Bourse de la Fondation ISTAT possible à partir de la 2e année : jusqu'à 10 000 USD, scolarité et hébergement pris en charge ; facilités de paiement mentionnées.",
   "international": "15 nationalités sur le campus, principalement du Maroc et d'Afrique subsaharienne ; programmes d'échange avec l'Asie et l'Europe ; semestre académique possible dans une école partenaire en 5e année.",
   "partenaires": [
@@ -111,7 +131,11 @@
     "telephone": "Téléphone : +212 (0)5 22 22 39 39",
     "email": "Email : contact@aerosup.ma",
     "annee_creation": null,
-    "frais": [],
+    "frais": [
+      "1ère année            3.000 DH               42.000 DH",
+      "3ème année            3.000 DH               46.000 DH              36.000 DH",
+      "4ème année            3.000 DH               50.000 DH              40.000 DH"
+    ],
     "admission": [
       "Baccalauréat Scientifique ou Technique.",
       "Recrutement baccalauréat scientifique ou technique et admissions parallèles Bac+1 à Bac+3."

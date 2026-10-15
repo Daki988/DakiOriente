@@ -10,23 +10,124 @@
     "https://www.universiteaverroes.ma/contact/",
     "https://www.universiteaverroes.ma/campus-actuel/",
     "https://www.universiteaverroes.ma/linternational/",
-    "https://www.universiteaverroes.ma/residences-estudiantines/"
+    "https://www.universiteaverroes.ma/residences-estudiantines/",
+    "https://www.universiteaverroes.ma/business-cycle-licence/",
+    "https://www.universiteaverroes.ma/business-cycle-master/",
+    "https://www.universiteaverroes.ma/averroes-business-school/frais-et-financement/",
+    "https://www.universiteaverroes.ma/averroes-business-school/admission/"
   ],
-  "description": null,
+  "description": "École de management du pôle UNA, intégrée à l'Université Internationale Averroès (Averroès Business School) à Sidi Maârouf, Casablanca. Après deux années de tronc commun « Management des Entreprises et Transformation Digitale », l'étudiant se spécialise en licence (gestion comptable et fiscale, ingénierie financière, vente, marketing digital), puis peut suivre un master de deux ans (comptabilité-contrôle-audit, corporate finance, stratégie et marketing digital). Le site officiel de l'école renvoie vers celui de l'université.",
   "annee_creation": null,
-  "adresse": null,
-  "telephone": null,
-  "email": null,
-  "statut_annonce": null,
-  "programmes": [],
+  "adresse": "La Colline, Sidi Maarouf, Route de Nouaceur, Casablanca",
+  "telephone": "+212 5 22 10 62 62",
+  "email": "admission@universiteaverroes.ma",
+  "statut_annonce": "Averroès Business School – Université Internationale Averroès (ex-pôle UNA)",
+  "programmes": [
+    {
+      "intitule": "Licence Gestion Comptable et Fiscale",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.universiteaverroes.ma/business-cycle-licence/"
+    },
+    {
+      "intitule": "Licence Ingénierie Financière",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.universiteaverroes.ma/business-cycle-licence/"
+    },
+    {
+      "intitule": "Licence Vente et Développement Commercial",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.universiteaverroes.ma/business-cycle-licence/"
+    },
+    {
+      "intitule": "Licence Marketing Digital",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.universiteaverroes.ma/business-cycle-licence/"
+    },
+    {
+      "intitule": "Master Comptabilité, Contrôle et Audit",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.universiteaverroes.ma/business-cycle-master/"
+    },
+    {
+      "intitule": "Master Corporate Finance",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.universiteaverroes.ma/business-cycle-master/"
+    },
+    {
+      "intitule": "Master Stratégie et Marketing Digital",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.universiteaverroes.ma/business-cycle-master/"
+    }
+  ],
   "admission": {
-    "conditions": [],
-    "etapes": [],
+    "conditions": [
+      "1re année : baccalauréat (copies certifiées du diplôme et des relevés de notes ; attestation d'authenticité pour les étudiants internationaux)",
+      "Master : licence en gestion ou diplôme équivalent"
+    ],
+    "etapes": [
+      "Dépôt du dossier complet",
+      "Étude de la candidature par la commission pédagogique"
+    ],
     "concours": null,
     "dates": null
   },
-  "frais": [],
-  "bourses": "La Fondation UIA propose un dispositif d'accompagnement au financement des études.",
+  "frais": [
+    {
+      "cycle": "Licence",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 43200,
+      "note": "Tarifs de l'Averroès Business School ; scolarité payable en 4 tranches."
+    },
+    {
+      "cycle": "Master",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 47700,
+      "note": "Tarifs de l'Averroès Business School ; scolarité payable en 4 tranches."
+    }
+  ],
+  "bourses": "Bourse d'excellence académique et bourse de mérite sociale de l'Université Internationale Averroès (20 % à 100 % des frais).",
   "international": "Programmes d'échange, doubles diplômes et poursuite d'études auprès d'universités partenaires.",
   "partenaires": [],
   "vie_etudiante": [
@@ -38,8 +139,14 @@
     "telephone": "Tél : +212 5 22 10 62 62",
     "email": "Mail : admission@universiteaverroes.ma",
     "annee_creation": null,
-    "frais": [],
-    "admission": []
+    "frais": [
+      "Frais d'Inscription Frais de Scolarité Combien ? 5000 Dhs Licence : 43.200dhs/an",
+      "Master : 47.700dhs/an"
+    ],
+    "admission": [
+      "3 copies certifiées conformes du diplôme de baccalauréat, accompagnées de l’attestation d’authenticité pour les étudiants internationaux",
+      "est accessible aux étudiants titulaires d’une Licence en gestion ou d’un diplôme équivalent"
+    ]
   },
   "verification": {
     "date": "2026-10-15",

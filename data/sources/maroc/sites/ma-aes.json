@@ -9,23 +9,102 @@
     "https://www.universiteaverroes.ma/averroes-business-school/",
     "https://www.universiteaverroes.ma/contact/",
     "https://www.universiteaverroes.ma/campus-actuel/",
-    "https://www.universiteaverroes.ma/linternational/"
+    "https://www.universiteaverroes.ma/linternational/",
+    "https://www.universiteaverroes.ma/averroes-engineering-school/",
+    "https://www.universiteaverroes.ma/engineering-school-classes-preparatoires/",
+    "https://www.universiteaverroes.ma/engineering-school-cycle-genie/",
+    "https://www.universiteaverroes.ma/averroes-engineering-school/frais-et-financement/",
+    "https://www.universiteaverroes.ma/averroes-engineering-school/admission/"
   ],
-  "description": null,
+  "description": "École d'ingénieurs du pôle UNA, intégrée à l'Université Internationale Averroès (Averroès Engineering School) à Sidi Maârouf, Casablanca. Le cursus comprend deux années préparatoires puis un cycle ingénieur de trois ans en génie informatique (IA et data, cloud, cybersécurité), génie industriel ou génie électrique et énergies. Le site officiel de l'école renvoie vers celui de l'université.",
   "annee_creation": null,
-  "adresse": null,
-  "telephone": null,
-  "email": null,
-  "statut_annonce": null,
-  "programmes": [],
+  "adresse": "La Colline, Sidi Maarouf, Route de Nouaceur, Casablanca",
+  "telephone": "+212 5 22 10 62 62",
+  "email": "admission@universiteaverroes.ma",
+  "statut_annonce": "Averroès Engineering School – Université Internationale Averroès (ex-pôle UNA)",
+  "programmes": [
+    {
+      "intitule": "Années préparatoires au cycle ingénieur",
+      "niveau": "Bac+2",
+      "diplome": null,
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.universiteaverroes.ma/engineering-school-classes-preparatoires/"
+    },
+    {
+      "intitule": "Cycle ingénieur Génie Informatique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 3,
+      "specialites": [
+        "Intelligence artificielle et Data Analytics",
+        "Développement et Cloud Computing",
+        "Cybersécurité et protection des données"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.universiteaverroes.ma/engineering-school-cycle-genie/"
+    },
+    {
+      "intitule": "Cycle ingénieur Génie Industriel",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 3,
+      "specialites": [
+        "Systèmes industriels",
+        "Ingénierie de la chaîne logistique"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.universiteaverroes.ma/engineering-school-cycle-genie/"
+    },
+    {
+      "intitule": "Cycle ingénieur Génie Électrique et Énergies",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 3,
+      "specialites": [
+        "Génie électrique et automatismes",
+        "Transition et efficacité énergétique"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.universiteaverroes.ma/engineering-school-cycle-genie/"
+    }
+  ],
   "admission": {
-    "conditions": [],
-    "etapes": [],
+    "conditions": [
+      "1re année : baccalauréat (copies certifiées du diplôme et des relevés de notes ; attestation d'authenticité pour les étudiants internationaux)",
+      "Admission en 2e, 3e ou 4e année : relevés et attestations de réussite des années post-baccalauréat"
+    ],
+    "etapes": [
+      "Dépôt du dossier complet",
+      "Étude de la candidature par la commission pédagogique"
+    ],
     "concours": null,
     "dates": null
   },
-  "frais": [],
-  "bourses": "Dispositif d'accompagnement au financement des études proposé par la Fondation UIA.",
+  "frais": [
+    {
+      "cycle": "Années préparatoires",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 43200,
+      "note": "Scolarité payable en 4 tranches."
+    },
+    {
+      "cycle": "Cycle ingénieur",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 47700,
+      "note": "Scolarité payable en 4 tranches."
+    }
+  ],
+  "bourses": "Bourse d'excellence académique et bourse de mérite sociale de l'Université Internationale Averroès (20 % à 100 % des frais).",
   "international": "Programmes d'échange, doubles diplômes et poursuite d'études auprès d'universités partenaires.",
   "partenaires": [],
   "vie_etudiante": [
@@ -37,11 +116,17 @@
   "logement": "Accords avec plusieurs résidences étudiantes (Oasis, RU Anfa City, RU Ziraoui, Bayt Al Maarifa).",
   "preuves": {
     "adresse": "La Colline, Sidi Maarouf, Route de Nouaceur, Casablanca, Maroc",
-    "telephone": "Tél : +212 5 22 10 62 62",
-    "email": "Mail : admission@universiteaverroes.ma",
+    "telephone": "+212 5 22 10 62 62",
+    "email": "admission@universiteaverroes.ma",
     "annee_creation": null,
-    "frais": null,
-    "admission": null
+    "frais": [
+      "Combien ? 5000 Dhs Années Préparatoires : 43.200 dhs/an",
+      "Cycle d'ingénieur : 47.700 dhs/an"
+    ],
+    "admission": [
+      "3 copies certifiées conformes du diplôme de baccalauréat, accompagnées de l’attestation d’authenticité pour les étudiants internationaux",
+      "la commission pédagogique de l'université étudie la candidature et statue sur l’admission du candidat"
+    ]
   },
   "notes": "Texte relevé sur le site de l'Université Internationale Averroès : programmes de la Business School, sans rapport avec l'école d'ingénieurs ; non repris.",
   "verification": {

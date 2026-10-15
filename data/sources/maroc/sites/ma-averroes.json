@@ -10,7 +10,9 @@
     "https://www.universiteaverroes.ma/contact/",
     "https://www.universiteaverroes.ma/campus-actuel/",
     "https://www.universiteaverroes.ma/linternational/",
-    "https://www.universiteaverroes.ma/averroes-executive-center/"
+    "https://www.universiteaverroes.ma/averroes-executive-center/",
+    "https://www.universiteaverroes.ma/averroes-business-school/frais-et-financement/",
+    "https://www.universiteaverroes.ma/averroes-business-school/admission/"
   ],
   "description": "Université privée installée à Casablanca (Sidi Maarouf, route de Nouaceur), structurée autour d'une Business School, d'une Engineering School et d'une Faculté de Droit et Sciences Politiques, avec un pôle Executive Education. La Business School propose des licences et un master en comptabilité, finance, vente et marketing digital. L'université met en avant l'alternance en entreprise, des échanges internationaux, des doubles diplômes et un dispositif de financement des études via sa Fondation. Le campus compte un amphithéâtre, un learning center, une bibliothèque et des résidences étudiantes partenaires.",
   "annee_creation": null,
@@ -76,13 +78,32 @@
     }
   ],
   "admission": {
-    "conditions": [],
-    "etapes": [],
+    "conditions": [
+      "1re année : baccalauréat (copies certifiées du diplôme et des relevés de notes ; attestation d'authenticité pour les étudiants internationaux)",
+      "Admission en 2e, 3e ou 4e année : relevés de notes et attestations de réussite des années post-baccalauréat"
+    ],
+    "etapes": [
+      "Dépôt du dossier complet",
+      "Étude de la candidature par la commission pédagogique, qui statue sur l'admission"
+    ],
     "concours": null,
     "dates": null
   },
-  "frais": [],
-  "bourses": "Dispositif d'accompagnement au financement des études via la Fondation UIA.",
+  "frais": [
+    {
+      "cycle": "Licence (Business School)",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 43200,
+      "note": "Frais d'inscription payables une fois admis ; scolarité payable en 4 tranches."
+    },
+    {
+      "cycle": "Master (Business School)",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 47700,
+      "note": "Frais d'inscription payables une fois admis ; scolarité payable en 4 tranches."
+    }
+  ],
+  "bourses": "Bourse d'excellence académique et bourse de mérite sociale couvrant de 20 % à 100 % des frais d'inscription et de scolarité.",
   "international": "Programmes d'échange, doubles diplômes et poursuite d'études dans des universités partenaires.",
   "partenaires": [],
   "vie_etudiantine": [
@@ -97,8 +118,14 @@
     "telephone": "Tél : +212 5 22 10 62 62",
     "email": "Mail : admission@universiteaverroes.ma",
     "annee_creation": null,
-    "frais": [],
-    "admission": []
+    "frais": [
+      "Frais d'Inscription Frais de Scolarité Combien ? 5000 Dhs Licence : 43.200dhs/an",
+      "Master : 47.700dhs/an"
+    ],
+    "admission": [
+      "3 copies certifiées conformes du diplôme de baccalauréat, accompagnées de l’attestation d’authenticité pour les étudiants internationaux",
+      "la commission pédagogique de l'université étudie la candidature et statue sur l’admission du candidat"
+    ]
   },
   "verification": {
     "date": "2026-10-15",
