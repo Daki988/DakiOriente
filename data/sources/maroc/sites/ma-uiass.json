@@ -1,0 +1,157 @@
+{
+  "id": "ma-uiass",
+  "site_web": "https://www.uiass.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://uiass.ma/",
+    "https://uiass.ma/admissions/candidats-nationaux"
+  ],
+  "description": "Université des sciences de la santé fondée en 2014 par la Fondation Cheikh Zaïd, située à Madinat Al Irfane à Rabat, à côté de l’Hôpital Universitaire International Cheikh Zaïd. Elle forme en médecine, médecine dentaire, pharmacie, médecine vétérinaire, sciences infirmières et management hospitalier, et ingénierie biomédicale, avec un concours de résidanat pour la spécialisation. La formation s’appuie sur un plateau de simulation, des stages cliniques dans l’écosystème hospitalo-universitaire et des mobilités internationales ; des bourses d’excellence couvrant toute la scolarité sont accordées aux bacheliers ayant au moins 19/20.",
+  "annee_creation": 2014,
+  "adresse": "B.P. 6533, Avenue Allal El Fassi, Madinat Al Irfane, Rabat 10 000",
+  "telephone": "+212 (05) 37 13 11 50",
+  "email": "contact@uiass.ma",
+  "statut_annonce": "Accréditation par l’État depuis 2014 ; équivalence totale des diplômes ; accréditation institutionnelle HCERES (2024-2027)",
+  "programmes": [
+    {
+      "intitule": "Médecine (Faculté de Médecine Abulcasis)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://uiass.ma/admissions/candidats-nationaux"
+    },
+    {
+      "intitule": "Médecine dentaire (Faculté de Médecine Dentaire Abulcasis)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://uiass.ma/admissions/candidats-nationaux"
+    },
+    {
+      "intitule": "Pharmacie (Faculté de Pharmacie Abulcasis)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://uiass.ma/admissions/candidats-nationaux"
+    },
+    {
+      "intitule": "Médecine vétérinaire (Institut Vétérinaire Abulcasis)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://uiass.ma/admissions/candidats-nationaux"
+    },
+    {
+      "intitule": "Sciences infirmières et management hospitalier (FASIMH)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://uiass.ma/admissions/candidats-nationaux"
+    },
+    {
+      "intitule": "Ingénierie et technologies de la santé (ISITS)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://uiass.ma/admissions/candidats-nationaux"
+    },
+    {
+      "intitule": "Maintenance biomédicale",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://uiass.ma/"
+    },
+    {
+      "intitule": "Résidanat (spécialisation en médecine, dentaire, pharmacie)",
+      "niveau": null,
+      "diplome": "Diplôme de spécialité",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://uiass.ma/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Baccalauréat scientifique (sciences mathématiques A ou B, SVT, sciences physiques et chimiques)",
+      "Moyenne minimale : médecine 16/20 (bac marocain) ou 15/20 (bac mission) ; médecine dentaire, pharmacie, vétérinaire 15/20 ; FASIMH et ISITS à partir de 12/20",
+      "Passerelle en pharmacie pour titulaires d’un Bac+2 (DEUG, DEUST, CPGE BCPSVT)"
+    ],
+    "etapes": [
+      "Candidature en ligne",
+      "Concours",
+      "Dépôt du dossier (originaux et copies du bac, CIN) et paiement des frais"
+    ],
+    "concours": "Concours d’entrée (sujets, convocations et résultats en ligne)",
+    "dates": null
+  },
+  "frais": [
+    {
+      "cycle": "Formations initiales (candidats nationaux)",
+      "inscription_mad": 120000,
+      "scolarite_annuelle_mad": null,
+      "note": "Le site indique « Frais d'inscription annuels de 120 000 DHS », sans distinguer l’établissement"
+    }
+  ],
+  "bourses": "Bourse d’excellence de scolarité complète pour les bacheliers scientifiques avec au moins 19/20 (médecine, médecine dentaire, pharmacie, vétérinaire), sous réserve de réussite au concours.",
+  "international": "Plus de 300 mobilités internationales par an ; admissions dédiées aux candidats internationaux ; partenaires dont l’Université Paris Descartes et l’Université de Strasbourg.",
+  "partenaires": [
+    "Université Paris Descartes",
+    "Université Strasbourg",
+    "Institut Supérieur d’Ingénieurs de Franche-Comté",
+    "Institut National des Sciences et Techniques Nucléaires",
+    "CNRST"
+  ],
+  "vie_etudiante": [
+    "BDE",
+    "Associations et clubs",
+    "Activités sportives et culturelles",
+    "Plateau de simulation"
+  ],
+  "logement": "Offre « Campus intégré – Pack 360° » signalée (détails non relevés).",
+  "preuves": {
+    "adresse": "B.P. 6533, Avenue Allal El FassiMadinat Al IrfaneRabat 10 000, Maroc",
+    "telephone": "+212 (05) 37 13 11 50",
+    "email": "[contact@uiass.ma](mailto:contact@uiass.ma)",
+    "annee_creation": "Créée en 2014 par la Fondation Cheikh Zaïd Ibn Sultan",
+    "frais": [
+      "- 06Frais d'inscription annuels de 120 000 DHS (chèque, virement ou versement bancaire – télécharger RIB UIASS)."
+    ],
+    "admission": [
+      "- Baccalauréat scientifique (Sciences mathématiques A ou B, Sciences de la vie et de la Terre, Sciences physiques et chimiques).",
+      "| Faculte de Medecine Abulcasis (FMA) | 16/20 | 15/20 |"
+    ]
+  }
+}

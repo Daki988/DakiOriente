@@ -1,0 +1,234 @@
+{
+  "id": "ma-um6p",
+  "site_web": "https://um6p.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://um6p.ma/",
+    "https://um6p.ma/en/enrollment/scholarships",
+    "https://um6p.ma/en/enrollment/admissions"
+  ],
+  "description": "Université dont le campus principal se trouve à Benguerir (ville verte Mohammed VI, près de Marrakech), avec un campus à Rabat-Salé et une antenne à Laâyoune. L’offre 2026-2027 couvre la santé (médecine, pharmacie, soins infirmiers, kinésithérapie), l’ingénierie (cycles préparatoires intégrés et cycles ingénieur en informatique, génie chimique, physique appliquée, management industriel, agri-environnement), l’architecture, des bachelors en anglais, ainsi que des masters en économie, sciences politiques et management (Africa Business School). Plusieurs programmes sont enseignés en anglais, et l’université propose des bourses sur critères sociaux et d’excellence aux candidats marocains et africains admis au concours.",
+  "annee_creation": null,
+  "adresse": "Benguerir (campus principal), ville verte Mohammed VI",
+  "telephone": "+212 525 073 100",
+  "email": "contact@um6p.ma",
+  "statut_annonce": null,
+  "programmes": [
+    {
+      "intitule": "Doctorate in Medicine (FMS)",
+      "niveau": null,
+      "diplome": "Doctorat en médecine",
+      "duree_annees": 6,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Doctorate in Pharmacy (FMS)",
+      "niveau": null,
+      "diplome": "Doctorat en pharmacie",
+      "duree_annees": 6,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Licence Soins Infirmiers, option Infirmier Polyvalent (FMS)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Licence en kinésithérapie",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Cycle Préparatoire au diplôme d’ingénieur en Management Industriel (EMINES)",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 5,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Cycle Préparatoire Intégré au Cycle Ingénieur en Computer Sciences (UM6P-CC)",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 5,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Cycle Préparatoire Intégré au Cycle Ingénieur en Systèmes Agri-Environnementaux",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 5,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Cycle Préparatoire Intégré au Cycle Ingénieur en Génie Chimique, Minéralogique et Biotechnologique (IST&I)",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 5,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Diplôme Architecte (SAP+D)",
+      "niveau": "Bac+6",
+      "diplome": "Diplôme d'architecte",
+      "duree_annees": 6,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Bachelor of Science in Applied Sciences and Business",
+      "niveau": "Bac+4",
+      "diplome": "Bachelor",
+      "duree_annees": 4,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Bachelor Hospitality Business and Management (SHBM)",
+      "niveau": "Bac+4",
+      "diplome": "Bachelor",
+      "duree_annees": 4,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Common Core and FGSES Bachelor’s Degree",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Cycle Ingénieur en Computer Sciences (UM6P-CC)",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Cycle Ingénieur en Physique Appliquée (IST&I)",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Cycle Ingénieur en Management Industriel (EMINES)",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Master Ingénierie Electrique pour les Energies Renouvelables et les Réseaux Intelligents (GTI)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Master Technologies Industrielles pour l’Usine du Futur (GTI)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Masters FGSES",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [
+        "Global Affairs",
+        "Analyse Economique et Politiques Publiques",
+        "Behavioral and Social Sciences for Public Policy",
+        "Economie Quantitative",
+        "Political Science"
+      ],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    },
+    {
+      "intitule": "Masters Africa Business School (ABS)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [
+        "Financial Engineering",
+        "Management",
+        "Business Analytics",
+        "Technology & Innovation Management"
+      ],
+      "campus": null,
+      "url": "https://um6p.ma/en/enrollment/admissions"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Réussite à l’examen d’entrée du programme visé"
+    ],
+    "etapes": [
+      "Candidature en ligne par programme, avant la date de clôture indiquée"
+    ],
+    "concours": "Examen d’entrée par programme",
+    "dates": "Clôtures 2026 entre le 15/03/2026 (FGSES) et le 24/06/2026 (santé, cycles préparatoires)"
+  },
+  "frais": [],
+  "bourses": "Bourses attribuées chaque année aux candidats marocains et d’Afrique, sur critères sociaux et d’excellence, pour les admis à l’examen d’entrée ; boursiers de la Mastercard Foundation accueillis.",
+  "international": "Hubs internationaux à Paris, Montréal et New York ; programmes enseignés en anglais ; bourses ouvertes aux candidats de toute l’Afrique ; page dédiée aux candidats internationaux.",
+  "partenaires": [
+    "Mastercard Foundation"
+  ],
+  "vie_etudiante": [
+    "Application Campus+",
+    "Services aux étudiants",
+    "Hub entrepreneuriat"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": "The Benguerir campus is the main hub of Mohammed VI Polytechnic University. Situated in the heart of the Mohammed VI Green City, near Marrakesh",
+    "telephone": "[+212 525 073 100](tel:+212525073100 \"+212 525 073 100\")",
+    "email": "[contact@um6p.ma](mailto:contact@um6p.ma \"contact@um6p.ma\")",
+    "annee_creation": null,
+    "frais": null,
+    "admission": [
+      "Mohammed VI Polytechnic University offers several scholarship schemes for candidates who have successfully passed the entrance examination for one of its programs.",
+      "Scholarships awarded annually for local applicants and accross Africa, on social basis and excellence."
+    ]
+  }
+}
