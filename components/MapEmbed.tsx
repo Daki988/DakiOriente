@@ -13,7 +13,7 @@ export function MapEmbed({ src, label }: { src: string; label: string }) {
         <button onClick={() => setShow(true)} className="wood grain absolute inset-0 flex flex-col items-center justify-center gap-3 bg-secondary/40 text-center">
           <span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-ink"><IconPin className="h-6 w-6" /></span>
           <span className="font-semibold">Afficher la carte</span>
-          <span className="px-6 text-xs text-muted">Repère : ambassade de Côte d&apos;Ivoire (Jackboy est à 100 m). Chargement à la demande pour économiser vos données.</span>
+          <span className="px-6 text-xs text-muted">« Jack Boy Cactus » sur Google Maps. Chargement à la demande pour économiser vos données.</span>
         </button>
       )}
     </div>
