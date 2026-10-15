@@ -1,0 +1,123 @@
+{
+  "id": "ma-tbs-casa",
+  "site_web": "https://www.tbs-education.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://www.tbs-education.ma/",
+    "https://www.tbs-education.ma/formation/bachelor/admission-concours-bachelor/concours-national-bachelor/",
+    "https://www.tbs-education.ma/formation/msc-audit-controle-finance/"
+  ],
+  "description": "Campus casablancais de TBS Education, école de management française présente aussi à Toulouse, Paris et Barcelone, installé à Casa Anfa (Hay Hassani), dans le pôle Casablanca Finance City. Il propose un Bachelor in Management en trois ans, des Masters of Science (audit-contrôle-finance, marketing, logistique, ressources humaines) en formation initiale ou continue, et un Global Executive MBA. Les étudiants peuvent effectuer une partie de leur parcours sur les autres campus du groupe et le MSc Audit se suit en alternance avec un cabinet d’expertise comptable.",
+  "annee_creation": null,
+  "adresse": "Immeuble TBS, angle rue Louwaya et rue de la Cité de l’Air 5, Casa Anfa Campus (Lot 17), quartier Anfa Cité de l’Air, Hay Hassani, Casablanca",
+  "telephone": "+212 (0)5 29 05 1001",
+  "email": null,
+  "statut_annonce": "Diplômes reconnus par l’État marocain (annonce du 07.07.26) ; accréditations AACSB, AMBA et EQUIS",
+  "programmes": [
+    {
+      "intitule": "Bachelor in Management",
+      "niveau": "Bac+3",
+      "diplome": "Bachelor",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.tbs-education.ma/formation/bachelor/admission-concours-bachelor/concours-national-bachelor/"
+    },
+    {
+      "intitule": "MSc Audit, Contrôle et Finance",
+      "niveau": "Bac+5",
+      "diplome": "Master of Science",
+      "duree_annees": 1.5,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.tbs-education.ma/formation/msc-audit-controle-finance/"
+    },
+    {
+      "intitule": "MSc Marketing Management et Communication",
+      "niveau": "Bac+5",
+      "diplome": "Master of Science",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.tbs-education.ma/"
+    },
+    {
+      "intitule": "MSc Logistique, Achats et Echanges Internationaux",
+      "niveau": "Bac+5",
+      "diplome": "Master of Science",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.tbs-education.ma/"
+    },
+    {
+      "intitule": "MSc Relations et Ressources Humaines (Expert RH)",
+      "niveau": "Bac+5",
+      "diplome": "Master of Science",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.tbs-education.ma/"
+    },
+    {
+      "intitule": "Global Executive MBA",
+      "niveau": null,
+      "diplome": "MBA",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.tbs-education.ma/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Bachelor 1re année : baccalauréat (concours national pour les candidats des établissements français, via Parcoursup, ou concours international)",
+      "Bachelor 3e année : Bac+2 / 120 ECTS en management",
+      "MSc : Bac+4, ou Bac+3 avec plus de 2 ans d’expérience, ou diplôme étranger équivalent ; VAE possible"
+    ],
+    "etapes": [
+      "Candidature en ligne"
+    ],
+    "concours": "Concours national Bachelor (60 places à Casablanca en 1re année) et concours international Bachelor",
+    "dates": null
+  },
+  "frais": [],
+  "bourses": "La Fondation TBS Education distribue des bourses sociales ou au mérite (près de 800 depuis 2008, à l’échelle du groupe).",
+  "international": "Campus du groupe à Toulouse, Paris et Barcelone ; plus de 230 universités partenaires à l’étranger ; 25 % d’étudiants internationaux à l’échelle du groupe.",
+  "partenaires": [
+    "Sciences Po Toulouse",
+    "École des Mines",
+    "INSA"
+  ],
+  "vie_etudiante": [
+    "Vie associative dans le Bachelor",
+    "Accompagnement des étudiants",
+    "Stages en entreprise",
+    "International Career Fair inter-campus"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": "Immeuble TBS, Angle Rue Louwaya et Rue de la Cité de l’Air 5, Casa Anfa Campus (Lot17)",
+    "telephone": "[\\+ 212 (0)5 29 05 1001](tel:+212529051001)",
+    "email": null,
+    "annee_creation": null,
+    "frais": null,
+    "admission": [
+      "Accessible aux **étudiants en poursuite d’études** après un **Bac+4** ou un **Bac+5** (écoles d’ingénieur, écoles de management, universités)",
+      "590 _places sont ouvertes (400 campus de Toulouse, 80 campus de Paris, 60 campus de Casablanca_"
+    ]
+  }
+}
