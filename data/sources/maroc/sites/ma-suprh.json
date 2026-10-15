@@ -1,0 +1,51 @@
+{
+  "id": "ma-suprh",
+  "site_web": "https://www.suprh.com",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://www.suprh.com/lp/", "https://www.suprh.com/lp/bourses-campus-france", "https://www.suprh.com/lp/esg-uqam-montreal", "https://www.suprh.com/lp/master-achat-supply-chain", "https://www.suprh.com/lp/licence-logistique-transport", "https://www.suprh.com/lp/master-marketing-digital-commerce-international", "https://www.suprh.com/lp/master-comptabilite-controle-audit-ingenierie-financiere", "https://www.suprh.com/lp/devinci-paris", "https://www.suprh.com/lp/ucla-los-angeles", "https://www.suprh.com/lp/master-management-rh", "https://www.suprh.com/lp/uqtr-ingenieur-canada"],
+  "description": "École de business et d'intelligence artificielle installée au Technopole de Sidi Maârouf (Casablanca), sur un campus de 2 500 m². Elle propose des licences Bac+3, des masters Bac+5 (ressources humaines, IA et data science, audit et ingénierie financière, supply chain, marketing et commerce international, IA et cybersécurité), un Bachelor Business Administration et des parcours internationaux (UCLA Extension, ESG UQÀM, Pôle Léonard de Vinci, UQTR) avec Campus France et bourses de mérite ou sociales. Les stages sont obligatoires, des horaires aménagés existent pour les professionnels, et l'école annonce que ses diplômes sont reconnus par l'État.",
+  "annee_creation": null,
+  "adresse": "Bd Aboubakr El Kadiri, Complexe Panorama, Lot Al Moustakbal, Sidi-Maârouf, Casablanca 20000, Maroc",
+  "telephone": "+212 6 61 63 96 22",
+  "email": null,
+  "statut_annonce": "Diplômes reconnus par l'État",
+  "programmes": [
+    {"intitule": "Licence Gestion des Ressources Humaines", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.suprh.com/lp/"},
+    {"intitule": "Licence Intelligence Artificielle & Business", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.suprh.com/lp/"},
+    {"intitule": "Licence Finance, Comptabilité & Fiscalité", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.suprh.com/lp/"},
+    {"intitule": "Licence Marketing Digital & Data Analytics", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.suprh.com/lp/"},
+    {"intitule": "Licence Logistique & Transport", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 1, "specialites": [], "campus": ["Casablanca"], "url": "https://www.suprh.com/lp/licence-logistique-transport"},
+    {"intitule": "Master Management des Ressources Humaines", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://www.suprh.com/lp/master-management-rh"},
+    {"intitule": "Master Intelligence Artificielle, Data Science", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://www.suprh.com/lp/"},
+    {"intitule": "Master Audit, Comptabilité, Contrôle de gestion et Ingénierie Financière", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://www.suprh.com/lp/master-comptabilite-controle-audit-ingenierie-financiere"},
+    {"intitule": "Master Achat & Supply Chain Management", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://www.suprh.com/lp/master-achat-supply-chain"},
+    {"intitule": "Master Marketing et Commerce International", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://www.suprh.com/lp/master-marketing-digital-commerce-international"},
+    {"intitule": "Master AI & Cybersécurité des Organisations", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://www.suprh.com/lp/"},
+    {"intitule": "Bachelor Business Administration (BBA)", "niveau": "Bac+3", "diplome": "Bachelor", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://www.suprh.com/lp/"},
+    {"intitule": "Bachelor Administration des Affaires ESG UQÀM (3 ans à Casablanca + 1 an à Montréal)", "niveau": "Bac+4", "diplome": "Bachelor", "duree_annees": 4, "specialites": [], "campus": ["Casablanca", "Montréal"], "url": "https://www.suprh.com/lp/esg-uqam-montreal"},
+    {"intitule": "Parcours UCLA Los Angeles (3 ans à Casablanca + 1 an UCLA Extension)", "niveau": null, "diplome": "Bachelor", "duree_annees": 4, "specialites": [], "campus": ["Casablanca", "Los Angeles"], "url": "https://www.suprh.com/lp/ucla-los-angeles"},
+    {"intitule": "Programme Grande École Pôle Léonard de Vinci (2 ans à Casablanca + 3 ans à Paris)", "niveau": null, "diplome": null, "duree_annees": 5, "specialites": ["EMLV", "ESILV", "IIM"], "campus": ["Casablanca", "Paris"], "url": "https://www.suprh.com/lp/devinci-paris"},
+    {"intitule": "Diplôme d'ingénieur UQTR Canada (1 an à Casablanca + 4 ans au Québec)", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 5, "specialites": ["Génie électrique", "Génie mécanique", "Génie informatique", "Biotechnologies"], "campus": ["Casablanca", "Trois-Rivières"], "url": "https://www.suprh.com/lp/uqtr-ingenieur-canada"}
+  ],
+  "admission": {
+    "conditions": ["Licences : Bac+2 requis (la licence Logistique & Transport est aussi accessible dès le Bac+1 ou le bac)", "Bachelor : baccalauréat toutes filières", "Masters : Bac+3 reconnu", "UQTR : baccalauréat scientifique obligatoire ; UCLA, ESG UQÀM, Devinci : baccalauréat toutes filières"],
+    "etapes": ["Sélection sur dossier", "Entretien oral"],
+    "concours": null,
+    "dates": "Rentrée de septembre 2026, inscriptions ouvertes"
+  },
+  "frais": [],
+  "bourses": "Bourses de mérite et sociales ; accompagnement Campus France pour les parcours à l'étranger.",
+  "international": "Partenariats avec UCLA Extension (USA), ESG UQÀM Montréal et UQTR (Canada), Pôle Léonard de Vinci Paris (France) ; accompagnement visa et logement.",
+  "partenaires": ["UCLA Extension", "ESG UQÀM", "UQTR", "Pôle Léonard de Vinci", "50+ entreprises partenaires (Job Days)"],
+  "vie_etudiante": ["Job Days annuels", "Chromebook par étudiant", "Voyages académiques (Bruxelles)", "Clubs étudiants (Rotaract, artistiques)"],
+  "logement": null,
+  "preuves": {
+    "adresse": "Bd Aboubakr El Kadiri",
+    "telephone": "+212 6 61 63 96 22",
+    "email": null,
+    "annee_creation": null,
+    "frais": null,
+    "admission": ["Sélection sur dossier + entretien oral."]
+  }
+}

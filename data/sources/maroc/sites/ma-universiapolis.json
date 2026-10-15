@@ -1,0 +1,248 @@
+{
+  "id": "ma-universiapolis",
+  "site_web": "https://universiapolis.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://universiapolis.ma/",
+    "https://universiapolis.ma/campus/residences/",
+    "https://universiapolis.ma/actualites/appel-a-candidatures-pour-linscription-au-doctorat-2026-2027/",
+    "https://universiapolis.ma/actualites/appel-a-candidatures-pour-linscription-en-doctorat-annee-universitaire-2026-2027/",
+    "https://universiapolis.ma/formations/",
+    "https://universiapolis.ma/programmes/",
+    "https://universiapolis.ma/les-conditions-generales-dutilisation/",
+    "https://universiapolis.ma/universite/mot-du-fondateur/",
+    "https://universiapolis.ma/universite/origine-et-histoire/"
+  ],
+  "description": "Université privée située à Agadir (campus du Technopole), regroupant sept établissements : ISIAM Business School, École Polytechnique d'Agadir, école de tourisme et d'hôtellerie (SupHcom), école de droit et sciences politiques, UniversiaHealth, ainsi qu'une faculté de pharmacie, une école d'architecture et une annexe à Laâyoune. L'offre va de la licence au doctorat, avec un modèle pédagogique d'inspiration nord-américaine, des parcours francophones et anglophones en gestion, des stages et des programmes d'échange. Le campus propose des résidences étudiantes sur place et hors campus, et l'université indique avoir été reconnue par l'État en 2017.",
+  "annee_creation": 1989,
+  "adresse": "Bab Al Madina, Qr Tilila, B.P. 8143, Agadir",
+  "telephone": "0528 230 230",
+  "email": null,
+  "statut_annonce": "Université reconnue par l'État (2017), diplômes nationaux équivalents aux licences, masters et diplômes d'ingénieur d'État",
+  "programmes": [
+    {
+      "intitule": "ISIAM Business School – formations en gestion (licences et masters)",
+      "niveau": null,
+      "diplome": "Licence / Master",
+      "duree_annees": null,
+      "specialites": [
+        "Logistique",
+        "Business Administration – Marketing Option",
+        "Business Administration – Accounting and Finance Option",
+        "Administration des Entreprises – Option Gestion Commerciale",
+        "Administration des Entreprises – Option Comptabilité Finance",
+        "Informatique Appliquée à la Gestion",
+        "Ressources Humaines",
+        "Comptabilité, Contrôle et Audit (CCA)",
+        "Accounting, Control and Audit",
+        "Marketing et Développement des Produits",
+        "Commerce International",
+        "Management de la Chaîne Logistique",
+        "Ingénierie Financière et Trading",
+        "Digital Marketing",
+        "Marketing Digital",
+        "Digital Branding & Data Marketing",
+        "Gestion des Ressources Humaines (GRH)",
+        "Ingénierie et Gouvernance des Organisations",
+        "Marketing Gestion Commerciale"
+      ],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://universiapolis.ma/programmes/"
+    },
+    {
+      "intitule": "École Polytechnique d'Agadir – formation d'ingénieur d'État",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [
+        "Génie Civil",
+        "Génie Industriel",
+        "Génie Informatique",
+        "Génie Mécanique",
+        "Génie Électrique",
+        "Ingénierie Alimentaire",
+        "Ingénierie Biomédicale",
+        "Technological Innovation Engineering"
+      ],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://universiapolis.ma/programmes/"
+    },
+    {
+      "intitule": "École Supérieure de Tourisme et Technologie Hôtelière (SupHcom) – formations en tourisme, hôtellerie et communication",
+      "niveau": null,
+      "diplome": "Licence / Master",
+      "duree_annees": null,
+      "specialites": [
+        "Communication Digitale et Publicité",
+        "Gestion Événementielle",
+        "Gestion Hôtelière et Touristique",
+        "Management Hôtelier et Touristique",
+        "Communication Corporate",
+        "Relations Publiques & Médias"
+      ],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://universiapolis.ma/programmes/"
+    },
+    {
+      "intitule": "SuphDroit – formations en droit, sciences politiques et humaines",
+      "niveau": null,
+      "diplome": "Licence / Master",
+      "duree_annees": null,
+      "specialites": [
+        "Droit des Affaires, Contentieux et Métiers Judiciaires",
+        "Science Politique, Diplomatie et Relations Internationales",
+        "Psychologie",
+        "Master Dynamiques Migratoires et Développement"
+      ],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://universiapolis.ma/programmes/"
+    },
+    {
+      "intitule": "UniversiaHealth – sciences de la rééducation et techniques de santé",
+      "niveau": null,
+      "diplome": "Licence / Master",
+      "duree_annees": null,
+      "specialites": [
+        "Orthoptie",
+        "Psychomotricité",
+        "Orthophonie",
+        "Kinésithérapie",
+        "Infirmiers en Bloc Opératoire et Plateau Technique",
+        "Infirmier Polyvalent",
+        "Infirmiers en Soins d'Urgence et en Soins Intensifs",
+        "Infirmiers en Anesthésie et Réanimation",
+        "Technique de Santé : Option Laboratoire et Analyses Médicales",
+        "Technique de Santé : Option Radiologie et Imagerie Médicale",
+        "Master Pratiques Avancées en Urgentologie",
+        "Kinésithérapie du Sport",
+        "Management des Établissements de Santé",
+        "Réadaptation Neurologique"
+      ],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://universiapolis.ma/programmes/"
+    },
+    {
+      "intitule": "Universiapolis Laâyoune – gestion, ingénierie et sciences appliquées",
+      "niveau": null,
+      "diplome": "Licence / Master",
+      "duree_annees": null,
+      "specialites": [
+        "Administration des Entreprises, option Comptabilité Finance",
+        "Administration des Entreprises, option Gestion commerciale",
+        "Génie Industriel, option Productique et industrie du futur",
+        "Génie Électrique, option Génie des Systèmes Électriques",
+        "Génie informatique, option Génie Logiciel",
+        "Gestion et Marketing, option Marketing et Gestion Commerciale",
+        "Ingénierie Financière, Contrôle et Audit (options Comptabilité Contrôle et Audit ; Ingénierie Financière et Trading)"
+      ],
+      "campus": [
+        "Laâyoune"
+      ],
+      "url": "https://universiapolis.ma/programmes/"
+    },
+    {
+      "intitule": "Faculté de Pharmacie – Doctorat en pharmacie",
+      "niveau": null,
+      "diplome": "Doctorat en pharmacie",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://universiapolis.ma/programmes/"
+    },
+    {
+      "intitule": "École d'Architecture – Architecture",
+      "niveau": null,
+      "diplome": "Architecte",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://universiapolis.ma/programmes/"
+    },
+    {
+      "intitule": "Doctorat Sciences, Techniques et Ingénierie des systèmes (STIS)",
+      "niveau": null,
+      "diplome": "Doctorat",
+      "duree_annees": null,
+      "specialites": [
+        "Ingénierie des systèmes industriels",
+        "TIC et Intelligence Artificielle",
+        "Génie Electrique et Energétique",
+        "Mécanique, Matériaux et Microstructures"
+      ],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://universiapolis.ma/actualites/appel-a-candidatures-pour-linscription-au-doctorat-2026-2027/"
+    },
+    {
+      "intitule": "Doctorat en Sciences de gestion (Faculté des Sciences de Gestion – ISIAM)",
+      "niveau": "Bac+8",
+      "diplome": "Doctorat",
+      "duree_annees": 3,
+      "specialites": [
+        "Pilotage de la performance et management des chaînes logistiques",
+        "Transformation digitale et management des chaînes logistiques",
+        "Logistique durable et résilience",
+        "Intelligence Artificielle, Finance Quantitative et Marchés Financiers",
+        "Finance Durable, Ingénierie Financière Islamique et Innovation Financière"
+      ],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://universiapolis.ma/actualites/appel-a-candidatures-pour-linscription-en-doctorat-annee-universitaire-2026-2027/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Doctorat STIS : master ou diplôme reconnu équivalent, résultats académiques distingués, mémoire à forte orientation recherche",
+      "Doctorat en sciences de gestion : master 2 en sciences de gestion, niveau B2 en français et B1 en anglais",
+      "Pharmacie : accessible après le baccalauréat scientifique"
+    ],
+    "etapes": [],
+    "concours": null,
+    "dates": "Doctorat 2026-2027 : appel à candidatures publié le 4 septembre 2026"
+  },
+  "frais": [],
+  "bourses": "Rubrique « Bourses » mentionnée sur le site, sans détail dans le texte relevé.",
+  "international": "Plus de 20 nationalités à l'ISIAM Business School ; coopération avec l'Université de Salamanca, l'Université de Lorraine (Boost Hub), des accords historiques avec l'Université du Québec à Rimouski ; programmes d'échange via un réseau d'universités partenaires.",
+  "partenaires": [
+    "Université de Salamanca",
+    "Université de Lorraine",
+    "Université du Québec à Rimouski"
+  ],
+  "vie_etudiante": [
+    "Association des étudiants et clubs thématiques",
+    "Boost Hub",
+    "Résidences étudiantes",
+    "Complexe sportif",
+    "Forum de l'emploi JOB ZONE",
+    "Salon FEECRA Expo"
+  ],
+  "logement": "Résidence universitaire sur le campus (cuisines équipées, sécurité 24h/24, salle de sport, laverie) et résidences hors campus à Agadir (AL KARAMA, Campus EL HOUDA).",
+  "preuves": {
+    "adresse": "Bab Al Madina, Qr Tilila, B.P. 8143, Agadir",
+    "telephone": "0528 230 230",
+    "email": null,
+    "annee_creation": "Fondée en 1989 sous le nom de l’ISIAM",
+    "frais": null,
+    "admission": [
+      "Être titulaire d’un Master ou d’un diplôme reconnu équivalent ;",
+      "Accessible après le baccalauréat scientifique"
+    ]
+  }
+}

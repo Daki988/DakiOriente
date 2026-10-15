@@ -1,0 +1,270 @@
+{
+  "id": "ma-uir",
+  "site_web": "https://www.uir.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://www.uir.ac.ma/",
+    "https://www.uir.ac.ma/fr/page/frais-de-scolarite",
+    "https://www.uir.ac.ma/fr/page/candidats-bacheliers",
+    "https://www.uir.ac.ma/fr/pole/college-of-engineering-et-architecture"
+  ],
+  "description": "Université située au Technopolis de Rabat-Shore (rocade Rabat-Salé), organisée en collèges : management (Rabat Business School), sciences sociales (Sciences Po Rabat, école de droit, communication et médias), ingénierie et architecture (informatique, aérospatial, automobile, énergie, génie civil, architecture) et sciences de la santé (médecine, médecine dentaire, sciences paramédicales, ingénierie biomédicale). Elle dispose aussi d’une école des études doctorales et d’un hôpital universitaire. Plusieurs programmes sont proposés en double diplôme avec des universités étrangères, et le campus offre résidence, restauration, transport, complexe sportif et clubs étudiants.",
+  "annee_creation": null,
+  "adresse": "Technopolis, Rabat-Shore, Rocade Rabat-Salé",
+  "telephone": "+212 (0)5 30 10 30 00",
+  "email": "contact@uir.ac.ma",
+  "statut_annonce": "Reconnaissance par l’État (page « Reconnaissance de l'UIR » signalée)",
+  "programmes": [
+    {
+      "intitule": "Architecture (cycle d’architecture)",
+      "niveau": null,
+      "diplome": "Diplôme d'architecte",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/fr/pole/college-of-engineering-et-architecture"
+    },
+    {
+      "intitule": "Ingénierie Informatique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/fr/pole/college-of-engineering-et-architecture"
+    },
+    {
+      "intitule": "Ingénierie Automobile",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/fr/pole/college-of-engineering-et-architecture"
+    },
+    {
+      "intitule": "Ingénierie Aérospatiale",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/fr/pole/college-of-engineering-et-architecture"
+    },
+    {
+      "intitule": "Ingénierie de l’Energie",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/fr/pole/college-of-engineering-et-architecture"
+    },
+    {
+      "intitule": "Génie civil (École Supérieure de Génie Civil)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/"
+    },
+    {
+      "intitule": "General Engineering and Management (Ingénierie Générale & Management)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/"
+    },
+    {
+      "intitule": "Génie Industriel Avancé",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/"
+    },
+    {
+      "intitule": "Ingénierie biomédicale (École Supérieure d'Ingénierie Biomédicale)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/"
+    },
+    {
+      "intitule": "Médecine (Faculté Internationale de Médecine de Rabat)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/"
+    },
+    {
+      "intitule": "Médecine dentaire (Faculté Internationale de Médecine Dentaire)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/"
+    },
+    {
+      "intitule": "Licence en Orthophonie",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/"
+    },
+    {
+      "intitule": "Management (Rabat Business School)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/"
+    },
+    {
+      "intitule": "Sciences politiques (Sciences Po Rabat)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/"
+    },
+    {
+      "intitule": "Master Droit du sport (double diplomation avec l’Université d’Aix-Marseille)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/"
+    },
+    {
+      "intitule": "Master Droit maritime et des transports (double diplôme AMU)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/"
+    },
+    {
+      "intitule": "Communication & Médias",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/"
+    },
+    {
+      "intitule": "Études doctorales (École des études doctorales)",
+      "niveau": "Bac+8",
+      "diplome": "Doctorat",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.uir.ac.ma/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Candidature en ligne sur candidature.uir.ac.ma",
+      "Sélection en deux étapes : évaluation du dossier puis épreuve écrite et/ou entretien oral (candidats titulaires d’une licence)"
+    ],
+    "etapes": [
+      "Créer un compte candidat sur candidature.uir.ac.ma",
+      "Renseigner ses informations personnelles et académiques",
+      "Sélectionner la ou les filières",
+      "Régler les frais de concours : 750 Dhs pour 2 concours, 1500 Dhs pour plus de 2 concours"
+    ],
+    "concours": "Concours d’entrée (calendrier publié sur le site)",
+    "dates": null
+  },
+  "frais": [
+    {
+      "cycle": "Frais de concours",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": null,
+      "note": "750 Dhs pour 2 concours et 1500 Dhs pour plus de 2 concours ; montants de scolarité non publiés en texte (affichés en image)"
+    }
+  ],
+  "bourses": "Bourses et prêts étudiants : dossier de demande de financement à déposer lors de l’inscription.",
+  "international": "Doubles diplômes (ex. Université d’Aix-Marseille pour des masters de droit) ; page dédiée aux étudiants internationaux avec procédure d’inscription.",
+  "partenaires": [
+    "Université d’Aix-Marseille",
+    "HEC Montréal",
+    "IÉSEG",
+    "Institut Mines-Télécom Business School",
+    "Université de Lorraine",
+    "Brussels school-IHECS"
+  ],
+  "vie_etudiante": [
+    "BDE et clubs",
+    "Complexe sportif et équipes sportives",
+    "Bibliothèque",
+    "Santé et bien-être",
+    "Association des alumni"
+  ],
+  "logement": "Offre résidentielle sur le campus (tarifs sur page dédiée non relevée) ; frais de scolarité hors hébergement, transport et restauration.",
+  "preuves": {
+    "adresse": "Université Internationale de Rabat\nTechnopolis\nRabat-Shore Rocade Rabat-Salé",
+    "telephone": "- +212 (0)5 30 10 30 00",
+    "email": "- contact@uir.ac.ma",
+    "annee_creation": null,
+    "frais": [
+      "**Etape 4 :** Règlement des frais de concours : 750 Dhs pour 2 concours et 1500 Dhs pour plus de 2 concours"
+    ],
+    "admission": [
+      "La sélection des candidats titulaires d’une licence ou diplôme équivalent s'effectue en deux étapes : une évaluation du dossier suivie d'une épreuve écrit et/ou d'un entretien oral."
+    ]
+  }
+}
