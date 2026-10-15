@@ -118,10 +118,79 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-uiass": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.042668,
+   "lon": -6.787963
+  },
+  "precision": "quartier",
+  "requete": "Avenue Allal Al Fassi, Rabat, Maroc",
+  "quartier": "Moulay Ismail",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Tabriquet"
+  ],
+  "tramway": [
+   {
+    "nom": "Hay Essalam",
+    "distance_m": 1055
+   },
+   {
+    "nom": "Zarbia",
+    "distance_m": 1151
+   },
+   {
+    "nom": "Tabriquet",
+    "distance_m": 1313
+   }
+  ],
+  "bus": {
+   "arrets_600m": 11,
+   "plus_proche": {
+    "nom": "Hay Assalam",
+    "distance_m": 267
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare de Salé Tabriquet",
+    "distance_m": 1905
+   },
+   {
+    "nom": "Gare de Salé Ville",
+    "distance_m": 2581
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-ueuromed": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.01328,
+   "lon": -5.008361
+  },
+  "precision": "quartier",
+  "requete": "Meknès (Route de Meknès, Fès, Maroc",
+  "quartier": "Arrondissement de Zouagha",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Hay Nour",
+   "Arrondissement de Saiss",
+   "Hay Atlas"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 1,
+   "plus_proche": {
+    "nom": "Route Aïn Chkef",
+    "distance_m": 44
+   }
+  },
+  "gares": [
+   {
+    "nom": "Fès-Ville",
+    "distance_m": 3788
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-um6p": {
   "coordonnees": {
@@ -172,7 +241,29 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-universiapolis": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 30.403396,
+   "lon": -9.529717
+  },
+  "precision": "adresse",
+  "requete": "Université Internationale d'Agadir, Agadir",
+  "quartier": "Tilila",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Salam",
+   "Tassila",
+   "El Houda"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 1,
+   "plus_proche": {
+    "nom": "Tilila Universiapolis - Les Ecoles Superieures",
+    "distance_m": 160
+   }
+  },
+  "gares": [],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-uic": {
   "coordonnees": {
@@ -273,13 +364,81 @@
   "precision": "introuvable"
  },
  "ma-averroes": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.528612,
+   "lon": -7.646462
+  },
+  "precision": "quartier",
+  "requete": "Sidi Maârouf, Casablanca, Maroc",
+  "quartier": "Sidi Maârouf",
+  "arrondissement": "Préfecture d'arrondissement d'Aïn Chock",
+  "quartiers_voisins": [],
+  "tramway": [
+   {
+    "nom": "Zenith",
+    "distance_m": 1394
+   },
+   {
+    "nom": "Gare Casa Sud",
+    "distance_m": 1536
+   },
+   {
+    "nom": "Technopark",
+    "distance_m": 1940
+   }
+  ],
+  "bus": {
+   "arrets_600m": 5,
+   "plus_proche": {
+    "nom": "Cafe Havana",
+    "distance_m": 235
+   }
+  },
+  "gares": [
+   {
+    "nom": "Facultés",
+    "distance_m": 1444
+   },
+   {
+    "nom": "Gare Ennassim",
+    "distance_m": 1657
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-uao": {
   "precision": "introuvable"
  },
  "ma-eac": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.619069,
+   "lon": -7.500323
+  },
+  "precision": "quartier",
+  "requete": "Sidi Bernoussi, Casablanca, Maroc",
+  "quartier": "Sidi Bernoussi",
+  "arrondissement": "Sidi Bernoussi",
+  "quartiers_voisins": [],
+  "tramway": [
+   {
+    "nom": "Terminus Sidi Bernoussi",
+    "distance_m": 1329
+   }
+  ],
+  "bus": {
+   "arrets_600m": 5,
+   "plus_proche": {
+    "nom": "Hay El Baraka",
+    "distance_m": 228
+   }
+  },
+  "gares": [
+   {
+    "nom": "Aïn-Sebaâ",
+    "distance_m": 2496
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-ecc": {
   "coordonnees": {
@@ -356,10 +515,82 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-supdeco-marrakech": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 31.652717,
+   "lon": -8.018408
+  },
+  "precision": "adresse",
+  "requete": "Sup de Co, Marrakech",
+  "quartier": "Sidi Abbad",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Arrondissement de Gueliz",
+   "Guéliz",
+   "Assif"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 4,
+   "plus_proche": {
+    "nom": "McDonald's",
+    "distance_m": 104
+   }
+  },
+  "gares": [
+   {
+    "nom": "Marrakech",
+    "distance_m": 2479
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-estem": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.591132,
+   "lon": -7.627662
+  },
+  "precision": "adresse",
+  "requete": "ESTEM, Casablanca",
+  "quartier": "Gauthier",
+  "arrondissement": "Casablanca-Anfa",
+  "quartiers_voisins": [
+   "Sour Jdid",
+   "Palmiers",
+   "Centre-Ville",
+   "Racine"
+  ],
+  "tramway": [
+   {
+    "nom": "Parc de la Ligue Arabe",
+    "distance_m": 617
+   },
+   {
+    "nom": "Place Mohammed V",
+    "distance_m": 728
+   },
+   {
+    "nom": "Avenue Hassan II",
+    "distance_m": 887
+   }
+  ],
+  "bus": {
+   "arrets_600m": 10,
+   "plus_proche": {
+    "nom": "Rond Point Mermoz",
+    "distance_m": 237
+   }
+  },
+  "gares": [
+   {
+    "nom": "Casa Port",
+    "distance_m": 1692
+   },
+   {
+    "nom": "Mers Sultan",
+    "distance_m": 2951
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-iga": {
   "coordonnees": {
@@ -457,7 +688,34 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-emsi-marrakech": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 31.653343,
+   "lon": -8.021298
+  },
+  "precision": "adresse",
+  "requete": "EMSI, Marrakech",
+  "quartier": "Sidi Abbad",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Arrondissement de Gueliz",
+   "Guéliz",
+   "Assif"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 4,
+   "plus_proche": {
+    "nom": "Sup De Co - McDonald's",
+    "distance_m": 166
+   }
+  },
+  "gares": [
+   {
+    "nom": "Marrakech",
+    "distance_m": 2571
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-emsi-tanger": {
   "precision": "introuvable"
@@ -511,10 +769,51 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-isga-fes": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.04617,
+   "lon": -4.42354
+  },
+  "precision": "quartier",
+  "requete": "avenue des FAR, Fès, Maroc",
+  "quartier": null,
+  "arrondissement": null,
+  "quartiers_voisins": [],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 0,
+   "plus_proche": null
+  },
+  "gares": [],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-isga-marrakech": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 31.622559,
+   "lon": -8.008313
+  },
+  "precision": "quartier",
+  "requete": "Hivernage, Marrakech, Maroc",
+  "quartier": "L'Hivernage",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Guéliz",
+   "Medina"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 2,
+   "plus_proche": {
+    "nom": "Boulevard Mohammed VI",
+    "distance_m": 265
+   }
+  },
+  "gares": [
+   {
+    "nom": "Marrakech",
+    "distance_m": 1245
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-isga-casablanca": {
   "coordonnees": {
@@ -609,10 +908,82 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-istl": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.605994,
+   "lon": -7.538794
+  },
+  "precision": "quartier",
+  "requete": "Aïn Sebaâ, Casablanca, Maroc",
+  "quartier": "Arrondissement d'Aïn Sebaâ",
+  "arrondissement": "Préfecture d'arrondissements d'Aïn Sebaâ-Hay Mohammadi",
+  "quartiers_voisins": [],
+  "tramway": [
+   {
+    "nom": "Préfecture d'Aïn-Sebaâ",
+    "distance_m": 927
+   },
+   {
+    "nom": "Al Aman",
+    "distance_m": 936
+   },
+   {
+    "nom": "Al Wifaq",
+    "distance_m": 1143
+   }
+  ],
+  "bus": {
+   "arrets_600m": 7,
+   "plus_proche": {
+    "nom": "Marché Vert",
+    "distance_m": 66
+   }
+  },
+  "gares": [
+   {
+    "nom": "Aïn-Sebaâ",
+    "distance_m": 1386
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-hem": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.531461,
+   "lon": -7.621483
+  },
+  "precision": "adresse",
+  "requete": "HEM, Casablanca",
+  "quartier": "Californie",
+  "arrondissement": "Préfecture d'arrondissement d'Aïn Chock",
+  "quartiers_voisins": [
+   "Arrondissement d'Aïn-Chock",
+   "Hay Mandarona",
+   "Sidi Maârouf"
+  ],
+  "tramway": [
+   {
+    "nom": "Panoramique",
+    "distance_m": 1995
+   }
+  ],
+  "bus": {
+   "arrets_600m": 7,
+   "plus_proche": {
+    "nom": "H.E.M.",
+    "distance_m": 93
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare de l'Oasis",
+    "distance_m": 2750
+   },
+   {
+    "nom": "Facultés",
+    "distance_m": 2853
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-heec": {
   "coordonnees": {
@@ -645,7 +1016,37 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-supmanagement": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.035694,
+   "lon": -4.99441
+  },
+  "precision": "adresse",
+  "requete": "Sup'Management, Fès",
+  "quartier": "Hay Atlas",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Agdal",
+   "Dar Dbibagh"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 4,
+   "plus_proche": {
+    "nom": "Avenue Mohamed Es Slaoui",
+    "distance_m": 321
+   }
+  },
+  "gares": [
+   {
+    "nom": "Fès-Ville",
+    "distance_m": 1629
+   },
+   {
+    "nom": "Fès-Médina",
+    "distance_m": 4445
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-iihem": {
   "precision": "introuvable"
@@ -744,16 +1145,133 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-eheio": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.659808,
+   "lon": -1.900638
+  },
+  "precision": "quartier",
+  "requete": "Hay Al Qods, Oujda, Maroc",
+  "quartier": "Hay Al Qods",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Hay Al Maksam",
+   "Village Faguig",
+   "Hay Al Irfane"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 0,
+   "plus_proche": null
+  },
+  "gares": [
+   {
+    "nom": "Oujda",
+    "distance_m": 3128
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-emaa": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 30.409534,
+   "lon": -9.559882
+  },
+  "precision": "adresse",
+  "requete": "EMAA, Agadir",
+  "quartier": "El Massira",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Lirak",
+   "Al Farah",
+   "Dakhla"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 8,
+   "plus_proche": {
+    "nom": "Hassan I - L'Ghazali",
+    "distance_m": 26
+   }
+  },
+  "gares": [],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-ismagi": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.949528,
+   "lon": -6.886535
+  },
+  "precision": "adresse",
+  "requete": "ISMAGI, Rabat",
+  "quartier": "Riad",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Guich Loudaya",
+   "Hay Al Fath"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 2,
+   "plus_proche": {
+    "nom": "Ecole Riad Al Andalous",
+    "distance_m": 339
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare Rabat Riad",
+    "distance_m": 1656
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-hestim": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.564847,
+   "lon": -7.636149
+  },
+  "precision": "quartier",
+  "requete": "boulevard Ghandi, Casablanca, Maroc",
+  "quartier": "Riviera",
+  "arrondissement": "Casablanca-Anfa",
+  "quartiers_voisins": [
+   "Val Fleuri",
+   "Bachkou",
+   "L'Hermitage",
+   "Ferme Bretonne"
+  ],
+  "tramway": [
+   {
+    "nom": "Riviera",
+    "distance_m": 678
+   },
+   {
+    "nom": "Derb Ghalef",
+    "distance_m": 711
+   },
+   {
+    "nom": "Bachkou",
+    "distance_m": 867
+   }
+  ],
+  "bus": {
+   "arrets_600m": 5,
+   "plus_proche": {
+    "nom": "Stendhal - Ghandi",
+    "distance_m": 177
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare de l'Oasis",
+    "distance_m": 1203
+   },
+   {
+    "nom": "Mers Sultan",
+    "distance_m": 2592
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-heci-casa": {
   "precision": "introuvable"
@@ -762,7 +1280,49 @@
   "precision": "introuvable"
  },
  "ma-suprh": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.536608,
+   "lon": -7.644859
+  },
+  "precision": "quartier",
+  "requete": "Boulevard Abou Bakr El Kadiri, Casablanca, Maroc",
+  "quartier": "Sidi Maârouf",
+  "arrondissement": "Préfecture d'arrondissement d'Aïn Chock",
+  "quartiers_voisins": [
+   "Californie"
+  ],
+  "tramway": [
+   {
+    "nom": "Zenith",
+    "distance_m": 497
+   },
+   {
+    "nom": "Gare Casa Sud",
+    "distance_m": 802
+   },
+   {
+    "nom": "Technopark",
+    "distance_m": 1088
+   }
+  ],
+  "bus": {
+   "arrets_600m": 4,
+   "plus_proche": {
+    "nom": "Carrefour Market",
+    "distance_m": 215
+   }
+  },
+  "gares": [
+   {
+    "nom": "Facultés",
+    "distance_m": 699
+   },
+   {
+    "nom": "Gare de l'Oasis",
+    "distance_m": 2360
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-esss": {
   "precision": "introuvable"
@@ -792,10 +1352,58 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-hecf-fes": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.037963,
+   "lon": -4.999747
+  },
+  "precision": "quartier",
+  "requete": "Agdal, Fès, Maroc",
+  "quartier": "Agdal",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Dar Dbibagh",
+   "Hay Atlas"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 8,
+   "plus_proche": {
+    "nom": "Lalla Amina",
+    "distance_m": 218
+   }
+  },
+  "gares": [
+   {
+    "nom": "Fès-Ville",
+    "distance_m": 1152
+   },
+   {
+    "nom": "Fès-Médina",
+    "distance_m": 4678
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-eamr": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.997148,
+   "lon": -6.742739
+  },
+  "precision": "quartier",
+  "requete": "Sala Al Jadida (Salé), Salé, Maroc",
+  "quartier": "Salé El Jadida",
+  "arrondissement": null,
+  "quartiers_voisins": [],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 9,
+   "plus_proche": {
+    "nom": "Av mly youssef",
+    "distance_m": 121
+   }
+  },
+  "gares": [],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-suptech-sante": {
   "precision": "introuvable"
@@ -810,7 +1418,34 @@
   "precision": "introuvable"
  },
  "ma-esisa": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.0246,
+   "lon": -4.995841
+  },
+  "precision": "adresse",
+  "requete": "ESISA, Fès",
+  "quartier": "Dar Dbibagh",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Hay Atlas",
+   "Sidi Brahim",
+   "Hay Zaza"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 1,
+   "plus_proche": {
+    "nom": "Fes cité bus",
+    "distance_m": 182
+   }
+  },
+  "gares": [
+   {
+    "nom": "Fès-Ville",
+    "distance_m": 2664
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-escga": {
   "precision": "introuvable"
@@ -822,31 +1457,241 @@
   "precision": "introuvable"
  },
  "ma-esiai": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.664811,
+   "lon": -1.910146
+  },
+  "precision": "quartier",
+  "requete": "Boulevard Hassan II, Oujda, Maroc",
+  "quartier": "Cité Inara",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Lotissement Ben Kachour",
+   "Hay Saada",
+   "Hay Al Maksam",
+   "Hay Essalam"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 0,
+   "plus_proche": null
+  },
+  "gares": [
+   {
+    "nom": "Oujda",
+    "distance_m": 2137
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-artcomsup-casa": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.591619,
+   "lon": -7.626108
+  },
+  "precision": "adresse",
+  "requete": "Art'Com Sup, Casablanca",
+  "quartier": "Arrondissement de Sidi Belyout",
+  "arrondissement": "Casablanca-Anfa",
+  "quartiers_voisins": [
+   "Sour Jdid",
+   "Palmiers",
+   "Centre-Ville",
+   "Racine"
+  ],
+  "tramway": [
+   {
+    "nom": "Parc de la Ligue Arabe",
+    "distance_m": 543
+   },
+   {
+    "nom": "Place Mohammed V",
+    "distance_m": 609
+   },
+   {
+    "nom": "Place des Nations Unies",
+    "distance_m": 839
+   }
+  ],
+  "bus": {
+   "arrets_600m": 8,
+   "plus_proche": {
+    "nom": "Parc Ligue Arabe",
+    "distance_m": 236
+   }
+  },
+  "gares": [
+   {
+    "nom": "Casa Port",
+    "distance_m": 1542
+   },
+   {
+    "nom": "Mers Sultan",
+    "distance_m": 2913
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-artcomsup-rabat": {
   "precision": "introuvable"
  },
  "ma-hightech": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.998312,
+   "lon": -6.854291
+  },
+  "precision": "quartier",
+  "requete": "Agdal, Rabat, Maroc",
+  "quartier": "Agdal",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Yacoub El Mansour"
+  ],
+  "tramway": [
+   {
+    "nom": "Ibn Sina",
+    "distance_m": 389
+   },
+   {
+    "nom": "Agdal-Avenue de France",
+    "distance_m": 478
+   },
+   {
+    "nom": "Nations Unies",
+    "distance_m": 965
+   }
+  ],
+  "bus": {
+   "arrets_600m": 10,
+   "plus_proche": {
+    "nom": "Rue Mohamed Bel Hassan Al Wazani",
+    "distance_m": 215
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare Rabat Agdal",
+    "distance_m": 424
+   },
+   {
+    "nom": "Gare Rabat Ville",
+    "distance_m": 2539
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-iheps-agadir": {
   "precision": "introuvable"
  },
  "ma-supmti-meknes": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.034314,
+   "lon": -4.998004
+  },
+  "precision": "quartier",
+  "requete": "Ville Nouvelle, Meknès, Maroc",
+  "quartier": "Hay Atlas",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Agdal",
+   "Dar Dbibagh"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 6,
+   "plus_proche": {
+    "nom": "Station El Mizane",
+    "distance_m": 89
+   }
+  },
+  "gares": [
+   {
+    "nom": "Fès-Ville",
+    "distance_m": 1587
+   },
+   {
+    "nom": "Fès-Médina",
+    "distance_m": 4797
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-supmti-oujda": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.694195,
+   "lon": -1.90522
+  },
+  "precision": "quartier",
+  "requete": "boulevard Mohammed V, Oujda, Maroc",
+  "quartier": "Hay Mauritanie",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Hay Charbon",
+   "Hay Al Amal",
+   "Lotissement Al Kawtar",
+   "Village Toba Interieur"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 0,
+   "plus_proche": null
+  },
+  "gares": [
+   {
+    "nom": "Oujda",
+    "distance_m": 2364
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-supmti-benimellal": {
   "precision": "introuvable"
  },
  "ma-edge": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.594936,
+   "lon": -7.607351
+  },
+  "precision": "quartier",
+  "requete": "rue Rahal Nichakra, Casablanca, Maroc",
+  "quartier": "Centre-Ville",
+  "arrondissement": "Casablanca-Anfa",
+  "quartiers_voisins": [
+   "Assoukhour Assawda",
+   "Ancienne Medina"
+  ],
+  "tramway": [
+   {
+    "nom": "La Résistance",
+    "distance_m": 421
+   },
+   {
+    "nom": "Casa Port",
+    "distance_m": 565
+   },
+   {
+    "nom": "Place de la Victoire",
+    "distance_m": 679
+   }
+  ],
+  "bus": {
+   "arrets_600m": 4,
+   "plus_proche": {
+    "nom": "Colis Postaux",
+    "distance_m": 238
+   }
+  },
+  "gares": [
+   {
+    "nom": "Casa Voyageurs",
+    "distance_m": 1681
+   },
+   {
+    "nom": "Mers Sultan",
+    "distance_m": 2804
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-aes": {
   "coordonnees": {
@@ -960,10 +1805,60 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-esi2a": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.008515,
+   "lon": -4.960326
+  },
+  "precision": "adresse",
+  "requete": "ESI2A, Fès",
+  "quartier": "Arrondissement de Saiss",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Awint Al Hajaj",
+   "Saiss"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 0,
+   "plus_proche": null
+  },
+  "gares": [],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-sist-tanger": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 35.74559,
+   "lon": -5.807103
+  },
+  "precision": "quartier",
+  "requete": "rue Nador, Tanger, Maroc",
+  "quartier": "Jirari",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "arrondissement de Charf-Mghogha",
+   "Hay el Haddad",
+   "arrondissement de Bni Makada",
+   "Bni Makada"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 4,
+   "plus_proche": {
+    "nom": "Hawma Al Aouda",
+    "distance_m": 108
+   }
+  },
+  "gares": [
+   {
+    "nom": "Tangier Mghouga",
+    "distance_m": 1726
+   },
+   {
+    "nom": "Tanger Ville",
+    "distance_m": 3353
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-sist-rabat": {
   "coordonnees": {
@@ -1011,10 +1906,84 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-sist-casablanca": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.554929,
+   "lon": -7.610524
+  },
+  "precision": "adresse",
+  "requete": "SIST, Casablanca",
+  "quartier": "Californie",
+  "arrondissement": "Préfecture d'arrondissement d'Aïn Chock",
+  "quartiers_voisins": [
+   "Bouchentouf",
+   "Quartier Derb Lakdim",
+   "Polo"
+  ],
+  "tramway": [
+   {
+    "nom": "El Fida",
+    "distance_m": 1321
+   },
+   {
+    "nom": "2 Mars",
+    "distance_m": 1588
+   },
+   {
+    "nom": "Ifriquia",
+    "distance_m": 1655
+   }
+  ],
+  "bus": {
+   "arrets_600m": 4,
+   "plus_proche": {
+    "nom": "Ecole Fathallah",
+    "distance_m": 389
+   }
+  },
+  "gares": [
+   {
+    "nom": "Mers Sultan",
+    "distance_m": 1655
+   },
+   {
+    "nom": "Gare de l'Oasis",
+    "distance_m": 1951
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-esgcnt": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.034314,
+   "lon": -4.998004
+  },
+  "precision": "quartier",
+  "requete": "Ville Nouvelle, Meknès, Maroc",
+  "quartier": "Hay Atlas",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Agdal",
+   "Dar Dbibagh"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 6,
+   "plus_proche": {
+    "nom": "Station El Mizane",
+    "distance_m": 89
+   }
+  },
+  "gares": [
+   {
+    "nom": "Fès-Ville",
+    "distance_m": 1587
+   },
+   {
+    "nom": "Fès-Médina",
+    "distance_m": 4797
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-eso": {
   "precision": "introuvable"
@@ -1067,7 +2036,33 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-iheps-marrakech": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 31.652163,
+   "lon": -8.062633
+  },
+  "precision": "quartier",
+  "requete": "Targa n°1, Marrakech, Maroc",
+  "quartier": "Arrondissement de Ménara",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Massira 3",
+   "Masmoudi"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 3,
+   "plus_proche": {
+    "nom": "Impots",
+    "distance_m": 16
+   }
+  },
+  "gares": [
+   {
+    "nom": "Marrakech",
+    "distance_m": 4894
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-isfort": {
   "coordonnees": {
@@ -1254,16 +2249,151 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-esrmi": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.01345,
+   "lon": -6.827574
+  },
+  "precision": "quartier",
+  "requete": "rue Moulay Ali Cherif, Rabat, Maroc",
+  "quartier": "Océan",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "OLM-La Pinède",
+   "Youssoufia",
+   "Agdal"
+  ],
+  "tramway": [
+   {
+    "nom": "Place Al Joulane L1",
+    "distance_m": 625
+   },
+   {
+    "nom": "Tour Hassan",
+    "distance_m": 663
+   },
+   {
+    "nom": "Place Al Joulane L2",
+    "distance_m": 699
+   }
+  ],
+  "bus": {
+   "arrets_600m": 7,
+   "plus_proche": {
+    "nom": "Hassan",
+    "distance_m": 188
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare Rabat Ville",
+    "distance_m": 901
+   },
+   {
+    "nom": "Gare de Salé Ville",
+    "distance_m": 3002
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-ispsni": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 35.91104,
+   "lon": -5.38291
+  },
+  "precision": "quartier",
+  "requete": "route de M'diq, Tétouan, Maroc",
+  "quartier": null,
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "La Cabililla"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 1,
+   "plus_proche": {
+    "nom": "Benzú IV - Biliones",
+    "distance_m": 298
+   }
+  },
+  "gares": [],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-iimc": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.50532,
+   "lon": -7.69776
+  },
+  "precision": "quartier",
+  "requete": "Bouskoura (province de Nouaceur), Bouskoura, Maroc",
+  "quartier": null,
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Almaz"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 0,
+   "plus_proche": null
+  },
+  "gares": [
+   {
+    "nom": "Sidi Maârouf",
+    "distance_m": 3516
+   },
+   {
+    "nom": "Gare Ennassim",
+    "distance_m": 3894
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-isps": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.545675,
+   "lon": -7.673596
+  },
+  "precision": "quartier",
+  "requete": "Hay Salam, Casablanca, Maroc",
+  "quartier": "Hay Salam",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "El Oulfa",
+   "Al Quds",
+   "Anfa Préfecture",
+   "Hay Zoubair"
+  ],
+  "tramway": [
+   {
+    "nom": "Al Laymoun",
+    "distance_m": 916
+   },
+   {
+    "nom": "Lissasfa Terminus",
+    "distance_m": 1227
+   },
+   {
+    "nom": "Facultés Terminus",
+    "distance_m": 1522
+   }
+  ],
+  "bus": {
+   "arrets_600m": 7,
+   "plus_proche": {
+    "nom": "Terminus Hay Salam",
+    "distance_m": 83
+   }
+  },
+  "gares": [
+   {
+    "nom": "Facultés",
+    "distance_m": 2248
+   },
+   {
+    "nom": "Gare Ennassim",
+    "distance_m": 3435
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-aerosup": {
   "coordonnees": {
@@ -1299,34 +2429,278 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-esa-casa": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.605994,
+   "lon": -7.538794
+  },
+  "precision": "quartier",
+  "requete": "Aïn Sebaâ, Casablanca, Maroc",
+  "quartier": "Arrondissement d'Aïn Sebaâ",
+  "arrondissement": "Préfecture d'arrondissements d'Aïn Sebaâ-Hay Mohammadi",
+  "quartiers_voisins": [],
+  "tramway": [
+   {
+    "nom": "Préfecture d'Aïn-Sebaâ",
+    "distance_m": 927
+   },
+   {
+    "nom": "Al Aman",
+    "distance_m": 936
+   },
+   {
+    "nom": "Al Wifaq",
+    "distance_m": 1143
+   }
+  ],
+  "bus": {
+   "arrets_600m": 7,
+   "plus_proche": {
+    "nom": "Marché Vert",
+    "distance_m": 66
+   }
+  },
+  "gares": [
+   {
+    "nom": "Aïn-Sebaâ",
+    "distance_m": 1386
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-innov": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.580193,
+   "lon": -7.622335
+  },
+  "precision": "quartier",
+  "requete": "rue Ibn Khatima, Casablanca, Maroc",
+  "quartier": "Les Hôpitaux",
+  "arrondissement": "Casablanca-Anfa",
+  "quartiers_voisins": [
+   "Centre-Ville",
+   "L'Hermitage",
+   "Mers Sultan",
+   "Palmiers"
+  ],
+  "tramway": [
+   {
+    "nom": "Parc de la Ligue Arabe",
+    "distance_m": 885
+   },
+   {
+    "nom": "Mers Sultan",
+    "distance_m": 982
+   },
+   {
+    "nom": "Anoual",
+    "distance_m": 1222
+   }
+  ],
+  "bus": {
+   "arrets_600m": 11,
+   "plus_proche": {
+    "nom": "CIMR",
+    "distance_m": 221
+   }
+  },
+  "gares": [
+   {
+    "nom": "Casa Port",
+    "distance_m": 2298
+   },
+   {
+    "nom": "Gare de l'Oasis",
+    "distance_m": 2959
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-hecgi": {
   "precision": "introuvable"
  },
  "ma-icacsup": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.260915,
+   "lon": -6.590281
+  },
+  "precision": "quartier",
+  "requete": "Ville Haute, Kénitra, Maroc",
+  "quartier": "La Ville Haute",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Maamora",
+   "Le Valon"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 6,
+   "plus_proche": {
+    "nom": "01-11",
+    "distance_m": 214
+   }
+  },
+  "gares": [
+   {
+    "nom": "Kénitra",
+    "distance_m": 1289
+   },
+   {
+    "nom": "Kenitra Medina",
+    "distance_m": 2083
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-gecm": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 31.648561,
+   "lon": -8.05093
+  },
+  "precision": "quartier",
+  "requete": "route de Safi, Marrakech, Maroc",
+  "quartier": "Masmoudi",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Inara",
+   "Arrondissement de Ménara",
+   "Massira 3"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 4,
+   "plus_proche": {
+    "nom": "Hammam Hilton Marrakech",
+    "distance_m": 167
+   }
+  },
+  "gares": [
+   {
+    "nom": "Marrakech",
+    "distance_m": 3739
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-esav": {
   "precision": "introuvable"
  },
  "ma-hecf-meknes": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.900909,
+   "lon": -5.548035
+  },
+  "precision": "quartier",
+  "requete": "Rue Pasteur, Meknès, Maroc",
+  "quartier": "Qobbat Souk",
+  "arrondissement": null,
+  "quartiers_voisins": [],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 7,
+   "plus_proche": {
+    "nom": "Beaugosse",
+    "distance_m": 166
+   }
+  },
+  "gares": [
+   {
+    "nom": "Meknès - Al Amir Abdelkader",
+    "distance_m": 326
+   },
+   {
+    "nom": "Meknès",
+    "distance_m": 1579
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-emsig": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.894259,
+   "lon": -5.560096
+  },
+  "precision": "quartier",
+  "requete": "Rouamzine, Meknès, Maroc",
+  "quartier": "Qobbat Souk",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Jnane Ben Halima",
+   "Mellah"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 4,
+   "plus_proche": {
+    "nom": "Bab Bouamayer",
+    "distance_m": 202
+   }
+  },
+  "gares": [
+   {
+    "nom": "Meknès - Al Amir Abdelkader",
+    "distance_m": 1488
+   },
+   {
+    "nom": "Meknès",
+    "distance_m": 2630
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-hbfg-oujda": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.660437,
+   "lon": -1.896826
+  },
+  "precision": "quartier",
+  "requete": "Rue Al Khalil, Oujda, Maroc",
+  "quartier": "Hay Al Qods",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Lotissement Haj Hmida",
+   "Haj Tahar",
+   "Cité Inara"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 0,
+   "plus_proche": null
+  },
+  "gares": [
+   {
+    "nom": "Oujda",
+    "distance_m": 3334
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-hec-maroc": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.957358,
+   "lon": -6.880041
+  },
+  "precision": "quartier",
+  "requete": "rue Tulipa, Rabat, Maroc",
+  "quartier": "Riad",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Hay Al Fath"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 6,
+   "plus_proche": {
+    "nom": "Mosquee saif",
+    "distance_m": 108
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare Rabat Riad",
+    "distance_m": 780
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-junia": {
   "coordonnees": {
@@ -1408,10 +2782,53 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-essec-sale": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.14038,
+   "lon": -6.730732
+  },
+  "precision": "adresse",
+  "requete": "ESSEC, Salé",
+  "quartier": null,
+  "arrondissement": null,
+  "quartiers_voisins": [],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 1,
+   "plus_proche": {
+    "nom": "Plage des Nation1",
+    "distance_m": 422
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare de Sidi Bouknadel",
+    "distance_m": 1944
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-medsup": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 35.629559,
+   "lon": -5.283501
+  },
+  "precision": "quartier",
+  "requete": "Avenue Moulay Rachid, Tanger, Maroc",
+  "quartier": "Hay Oued Elmalh",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Hay Mixta"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 3,
+   "plus_proche": {
+    "nom": "Ahrik",
+    "distance_m": 180
+   }
+  },
+  "gares": [],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-esjc": {
   "coordonnees": {
@@ -1443,13 +2860,98 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-ippc": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.52771,
+   "lon": -7.674509
+  },
+  "precision": "quartier",
+  "requete": "Rue 10, Casablanca, Maroc",
+  "quartier": "Lissasfa",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Al Quds",
+   "Riad Sofia",
+   "Kasbat Al Amine"
+  ],
+  "tramway": [
+   {
+    "nom": "Lissasfa Terminus",
+    "distance_m": 914
+   },
+   {
+    "nom": "Al Laymoun",
+    "distance_m": 1570
+   }
+  ],
+  "bus": {
+   "arrets_600m": 1,
+   "plus_proche": {
+    "nom": "Lissasfa",
+    "distance_m": 390
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare Ennassim",
+    "distance_m": 1877
+   },
+   {
+    "nom": "Sidi Maârouf",
+    "distance_m": 2091
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-ispep": {
   "precision": "introuvable"
  },
  "ma-comsup": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.591619,
+   "lon": -7.626108
+  },
+  "precision": "adresse",
+  "requete": "Com'Sup, Casablanca",
+  "quartier": "Arrondissement de Sidi Belyout",
+  "arrondissement": "Casablanca-Anfa",
+  "quartiers_voisins": [
+   "Sour Jdid",
+   "Palmiers",
+   "Centre-Ville",
+   "Racine"
+  ],
+  "tramway": [
+   {
+    "nom": "Parc de la Ligue Arabe",
+    "distance_m": 543
+   },
+   {
+    "nom": "Place Mohammed V",
+    "distance_m": 609
+   },
+   {
+    "nom": "Place des Nations Unies",
+    "distance_m": 839
+   }
+  ],
+  "bus": {
+   "arrets_600m": 8,
+   "plus_proche": {
+    "nom": "Parc Ligue Arabe",
+    "distance_m": 236
+   }
+  },
+  "gares": [
+   {
+    "nom": "Casa Port",
+    "distance_m": 1542
+   },
+   {
+    "nom": "Mers Sultan",
+    "distance_m": 2913
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-esmc": {
   "precision": "introuvable"
@@ -1461,13 +2963,100 @@
   "precision": "introuvable"
  },
  "ma-heci-rabat": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.258421,
+   "lon": -6.577882
+  },
+  "precision": "quartier",
+  "requete": "rue Sebou, Rabat, Maroc",
+  "quartier": "Maamora",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "El Mellah",
+   "Hay Al Inara",
+   "La Ville Haute"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 6,
+   "plus_proche": {
+    "nom": "03-08-16",
+    "distance_m": 235
+   }
+  },
+  "gares": [
+   {
+    "nom": "Kénitra",
+    "distance_m": 854
+   },
+   {
+    "nom": "Kenitra Medina",
+    "distance_m": 1148
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-heci-meknes": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.882001,
+   "lon": -5.568218
+  },
+  "precision": "quartier",
+  "requete": "Saâda, Meknès, Maroc",
+  "quartier": "Lotissement Saramito",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Mellah",
+   "Camélia"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 9,
+   "plus_proche": {
+    "nom": "Lycée Omar Bnou Lkhattab",
+    "distance_m": 117
+   }
+  },
+  "gares": [
+   {
+    "nom": "Meknès - Al Amir Abdelkader",
+    "distance_m": 2866
+   },
+   {
+    "nom": "Meknès",
+    "distance_m": 3737
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-heci-fes": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.058667,
+   "lon": -5.040926
+  },
+  "precision": "quartier",
+  "requete": "Rue 134, Fès, Maroc",
+  "quartier": "Hay Oued fes",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Arrondissement d'El Mariniyine",
+   "El Mariniyine"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 1,
+   "plus_proche": {
+    "nom": "Oued fes",
+    "distance_m": 219
+   }
+  },
+  "gares": [
+   {
+    "nom": "Fès-Ville",
+    "distance_m": 3521
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-heci-kenitra": {
   "precision": "introuvable"
@@ -1476,7 +3065,37 @@
   "precision": "introuvable"
  },
  "ma-hem-rabat": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.968842,
+   "lon": -6.834816
+  },
+  "precision": "quartier",
+  "requete": "Souissi, Rabat, Maroc",
+  "quartier": "Souissi",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Bir Kacem",
+   "Souissi-Les Princesses"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 1,
+   "plus_proche": {
+    "nom": "Groupe Scolaire Atlas",
+    "distance_m": 569
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare Rabat Agdal",
+    "distance_m": 4149
+   },
+   {
+    "nom": "Gare Rabat Riad",
+    "distance_m": 4436
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-esol": {
   "coordonnees": {
@@ -1500,25 +3119,197 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-esma": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 31.63369,
+   "lon": -8.001069
+  },
+  "precision": "quartier",
+  "requete": "avenue de Safi), Marrakech, Maroc",
+  "quartier": "El Hara",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Guéliz",
+   "Mouassine"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 7,
+   "plus_proche": {
+    "nom": "Bab Doukkala Cimetière",
+    "distance_m": 108
+   }
+  },
+  "gares": [
+   {
+    "nom": "Marrakech",
+    "distance_m": 1613
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-esrim": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.023852,
+   "lon": -7.622545
+  },
+  "precision": "quartier",
+  "requete": "boulevard Mohammed V, Settat, Maroc",
+  "quartier": "Hay Al Irak",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Hay ALOUANE"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 0,
+   "plus_proche": null
+  },
+  "gares": [
+   {
+    "nom": "Gare de Settat",
+    "distance_m": 3323
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-embci": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.968842,
+   "lon": -6.834816
+  },
+  "precision": "quartier",
+  "requete": "Souissi, Rabat, Maroc",
+  "quartier": "Souissi",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Bir Kacem",
+   "Souissi-Les Princesses"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 1,
+   "plus_proche": {
+    "nom": "Groupe Scolaire Atlas",
+    "distance_m": 569
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare Rabat Agdal",
+    "distance_m": 4149
+   },
+   {
+    "nom": "Gare Rabat Riad",
+    "distance_m": 4436
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-ismoo": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.595153,
+   "lon": -7.617268
+  },
+  "precision": "quartier",
+  "requete": "rue Ben Dahan, Casablanca, Maroc",
+  "quartier": "Centre-Ville",
+  "arrondissement": "Casablanca-Anfa",
+  "quartiers_voisins": [
+   "Ancienne Medina",
+   "Sour Jdid"
+  ],
+  "tramway": [
+   {
+    "nom": "Marche Central",
+    "distance_m": 432
+   },
+   {
+    "nom": "Place Mohammed V",
+    "distance_m": 664
+   },
+   {
+    "nom": "Mers Sultan",
+    "distance_m": 810
+   }
+  ],
+  "bus": {
+   "arrets_600m": 11,
+   "plus_proche": {
+    "nom": "Place Maréchal",
+    "distance_m": 184
+   }
+  },
+  "gares": [
+   {
+    "nom": "Casa Port",
+    "distance_m": 646
+   },
+   {
+    "nom": "Casa Voyageurs",
+    "distance_m": 2586
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-ehesicom": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 34.258341,
+   "lon": -6.583017
+  },
+  "precision": "quartier",
+  "requete": "Quartier Maâmora, Kénitra, Maroc",
+  "quartier": "Maamora",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "La Cigogne",
+   "La Ville Haute"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 8,
+   "plus_proche": {
+    "nom": "02-30",
+    "distance_m": 111
+   }
+  },
+  "gares": [
+   {
+    "nom": "Kénitra",
+    "distance_m": 761
+   },
+   {
+    "nom": "Kenitra Medina",
+    "distance_m": 1544
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-hek": {
   "precision": "introuvable"
  },
  "ma-suptem": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 35.740923,
+   "lon": -5.866356
+  },
+  "precision": "quartier",
+  "requete": "Marshan, Tanger, Maroc",
+  "quartier": "arrondissement de Tanger-Medina",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Mesnana",
+   "arrondissement de Bni Makada"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 2,
+   "plus_proche": {
+    "nom": "El Bir",
+    "distance_m": 264
+   }
+  },
+  "gares": [],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-isjc": {
   "coordonnees": {
@@ -1567,13 +3358,109 @@
   "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-ifjsup-casa": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.575662,
+   "lon": -7.643477
+  },
+  "precision": "quartier",
+  "requete": "C, Casablanca, Maroc",
+  "quartier": "Berger",
+  "arrondissement": "Casablanca-Anfa",
+  "quartiers_voisins": [
+   "Maârif Extension",
+   "Riviera",
+   "Derb Ghallef",
+   "CIL"
+  ],
+  "tramway": [
+   {
+    "nom": "Ghandi",
+    "distance_m": 771
+   },
+   {
+    "nom": "Riviera",
+    "distance_m": 843
+   },
+   {
+    "nom": "Derb Ghalef",
+    "distance_m": 1260
+   }
+  ],
+  "bus": {
+   "arrets_600m": 8,
+   "plus_proche": {
+    "nom": "Carrefour",
+    "distance_m": 233
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare de l'Oasis",
+    "distance_m": 2577
+   },
+   {
+    "nom": "Mers Sultan",
+    "distance_m": 3280
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-ifjsup-marrakech": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 31.640633,
+   "lon": -7.999345
+  },
+  "precision": "quartier",
+  "requete": "Espace Guéliz, Marrakech, Maroc",
+  "quartier": "Guéliz",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Bab Doukkala",
+   "Derb Lalla Aouich"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 8,
+   "plus_proche": {
+    "nom": "Alfa 2000",
+    "distance_m": 84
+   }
+  },
+  "gares": [
+   {
+    "nom": "Marrakech",
+    "distance_m": 2073
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-eseje": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.701104,
+   "lon": -7.353021
+  },
+  "precision": "quartier",
+  "requete": "B.P. 1214, Mohammedia, Maroc",
+  "quartier": "Facultés",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Lotissement Monica"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 5,
+   "plus_proche": {
+    "nom": "Terminus Nahda",
+    "distance_m": 118
+   }
+  },
+  "gares": [
+   {
+    "nom": "Mohammedia",
+    "distance_m": 3262
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-isota": {
   "precision": "introuvable"
@@ -1582,13 +3469,118 @@
   "precision": "introuvable"
  },
  "ma-piimt-rabat": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.96575,
+   "lon": -6.837505
+  },
+  "precision": "quartier",
+  "requete": "Bir Kacem, Rabat, Maroc",
+  "quartier": "Bir Kacem",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Souissi",
+   "Orangeraie-Dar Essalam",
+   "Les Ambassadeurs",
+   "Souissi-Les Princesses"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 0,
+   "plus_proche": null
+  },
+  "gares": [
+   {
+    "nom": "Gare Rabat Riad",
+    "distance_m": 4160
+   },
+   {
+    "nom": "Gare Rabat Agdal",
+    "distance_m": 4339
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-sup-technology": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.570807,
+   "lon": -7.628298
+  },
+  "precision": "quartier",
+  "requete": "Maârif, Casablanca, Maroc",
+  "quartier": "Derb Ghallef",
+  "arrondissement": "Casablanca-Anfa",
+  "quartiers_voisins": [
+   "Palmiers",
+   "Bachkou",
+   "L'Hermitage",
+   "Berger"
+  ],
+  "tramway": [
+   {
+    "nom": "Abdelmoumen",
+    "distance_m": 221
+   },
+   {
+    "nom": "Derb Ghalef",
+    "distance_m": 324
+   },
+   {
+    "nom": "Anoual",
+    "distance_m": 348
+   }
+  ],
+  "bus": {
+   "arrets_600m": 6,
+   "plus_proche": {
+    "nom": "Visabel",
+    "distance_m": 162
+   }
+  },
+  "gares": [
+   {
+    "nom": "Mers Sultan",
+    "distance_m": 1811
+   },
+   {
+    "nom": "Gare de l'Oasis",
+    "distance_m": 1814
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-emcgi": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 35.747409,
+   "lon": -5.800149
+  },
+  "precision": "quartier",
+  "requete": "rue E, Tanger, Maroc",
+  "quartier": "arrondissement de Bni Makada",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Charf-Mghogha",
+   "Hay el Haddad",
+   "Bni Makada"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 3,
+   "plus_proche": {
+    "nom": "Marché Centrale",
+    "distance_m": 214
+   }
+  },
+  "gares": [
+   {
+    "nom": "Tangier Mghouga",
+    "distance_m": 1063
+   },
+   {
+    "nom": "Tanger Ville",
+    "distance_m": 2849
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-sup-isi": {
   "coordonnees": {
@@ -1628,42 +3620,424 @@
   "precision": "introuvable"
  },
  "ma-esismp": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.591654,
+   "lon": -7.637536
+  },
+  "precision": "quartier",
+  "requete": "rue La Fontaine, Casablanca, Maroc",
+  "quartier": "Racine",
+  "arrondissement": "Casablanca-Anfa",
+  "quartiers_voisins": [
+   "Sour Jdid",
+   "Maârif",
+   "Ancienne Medina",
+   "Bourgogne"
+  ],
+  "tramway": [
+   {
+    "nom": "Parc de la Ligue Arabe",
+    "distance_m": 1487
+   },
+   {
+    "nom": "Avenue Hassan II",
+    "distance_m": 1583
+   },
+   {
+    "nom": "Place Mohammed V",
+    "distance_m": 1639
+   }
+  ],
+  "bus": {
+   "arrets_600m": 7,
+   "plus_proche": {
+    "nom": "Résidence Shemsi",
+    "distance_m": 92
+   }
+  },
+  "gares": [
+   {
+    "nom": "Casa Port",
+    "distance_m": 2499
+   },
+   {
+    "nom": "Mers Sultan",
+    "distance_m": 3609
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-esms": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 30.407119,
+   "lon": -9.541252
+  },
+  "precision": "quartier",
+  "requete": "Cité Dakhla, Agadir, Maroc",
+  "quartier": "Salam",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Al Farah",
+   "El Houda"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 6,
+   "plus_proche": {
+    "nom": "Al Houda",
+    "distance_m": 420
+   }
+  },
+  "gares": [],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-supmm": {
   "precision": "introuvable"
  },
  "ma-esscg": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 35.631139,
+   "lon": -5.284811
+  },
+  "precision": "quartier",
+  "requete": "avenue Moulay Rachid, Tanger, Maroc",
+  "quartier": "Hay Oued Elmalh",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Hay Catalan"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 3,
+   "plus_proche": {
+    "nom": "Ahrik",
+    "distance_m": 33
+   }
+  },
+  "gares": [],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-tbs-casa": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.570289,
+   "lon": -7.678495
+  },
+  "precision": "quartier",
+  "requete": "Hay Hassani, Casablanca, Maroc",
+  "quartier": "El Oulfa",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Ain Diab",
+   "CIL",
+   "Lotissement Yaksour"
+  ],
+  "tramway": [
+   {
+    "nom": "Sidi Abderrahmane",
+    "distance_m": 861
+   },
+   {
+    "nom": "Hay Hassani",
+    "distance_m": 864
+   },
+   {
+    "nom": "Littoral",
+    "distance_m": 1233
+   }
+  ],
+  "bus": {
+   "arrets_600m": 11,
+   "plus_proche": {
+    "nom": "Café Tafoukt",
+    "distance_m": 68
+   }
+  },
+  "gares": [
+   {
+    "nom": "Facultés",
+    "distance_m": 4174
+   },
+   {
+    "nom": "Gare de l'Oasis",
+    "distance_m": 4680
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-eslsca": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.972831,
+   "lon": -6.87059
+  },
+  "precision": "quartier",
+  "requete": "Avenue Al Melia, Rabat, Maroc",
+  "quartier": null,
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Riad",
+   "Souissi-Les Princesses",
+   "Yacoub El Mansour"
+  ],
+  "tramway": [
+   {
+    "nom": "Madinat Al Irfane",
+    "distance_m": 1236
+   },
+   {
+    "nom": "Cité Universitaire Souissi",
+    "distance_m": 1729
+   }
+  ],
+  "bus": {
+   "arrets_600m": 5,
+   "plus_proche": {
+    "nom": "Allal Al Fassi",
+    "distance_m": 155
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare Rabat Riad",
+    "distance_m": 1474
+   },
+   {
+    "nom": "Gare Rabat Agdal",
+    "distance_m": 3369
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-hem-engineering": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.229569,
+   "lon": -8.526077
+  },
+  "precision": "quartier",
+  "requete": "Avenue Al Qods, Casablanca, Maroc",
+  "quartier": "Al Qods",
+  "arrondissement": "8ème Arrondissement",
+  "quartiers_voisins": [
+   "Hay Al Amal",
+   "Palmiers 10",
+   "Lot. Assadaka",
+   "Palmiers 11"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 5,
+   "plus_proche": {
+    "nom": "Hay Al Matar",
+    "distance_m": 185
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare d'El Jadida",
+    "distance_m": 1886
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-isep-casa": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.541809,
+   "lon": -7.605782
+  },
+  "precision": "quartier",
+  "requete": "Boulevard Ouled Haddou, Casablanca, Maroc",
+  "quartier": "Californie",
+  "arrondissement": "Préfecture d'arrondissement d'Aïn Chock",
+  "quartiers_voisins": [
+   "Arrondissement d'Aïn-Chock"
+  ],
+  "tramway": [
+   {
+    "nom": "Ifriquia",
+    "distance_m": 1902
+   },
+   {
+    "nom": "Dar Touzani",
+    "distance_m": 1948
+   }
+  ],
+  "bus": {
+   "arrets_600m": 4,
+   "plus_proche": {
+    "nom": "Faculté D'Aïn-Chock",
+    "distance_m": 410
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare de l'Oasis",
+    "distance_m": 2788
+   },
+   {
+    "nom": "Mers Sultan",
+    "distance_m": 3119
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-iiec": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.50532,
+   "lon": -7.69776
+  },
+  "precision": "quartier",
+  "requete": "Bouskoura (province de Nouaceur), Bouskoura, Maroc",
+  "quartier": null,
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Almaz"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 0,
+   "plus_proche": null
+  },
+  "gares": [
+   {
+    "nom": "Sidi Maârouf",
+    "distance_m": 3516
+   },
+   {
+    "nom": "Gare Ennassim",
+    "distance_m": 3894
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-edumed": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.972831,
+   "lon": -6.87059
+  },
+  "precision": "quartier",
+  "requete": "Avenue Al Melia, Rabat, Maroc",
+  "quartier": null,
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Riad",
+   "Souissi-Les Princesses",
+   "Yacoub El Mansour"
+  ],
+  "tramway": [
+   {
+    "nom": "Madinat Al Irfane",
+    "distance_m": 1236
+   },
+   {
+    "nom": "Cité Universitaire Souissi",
+    "distance_m": 1729
+   }
+  ],
+  "bus": {
+   "arrets_600m": 5,
+   "plus_proche": {
+    "nom": "Allal Al Fassi",
+    "distance_m": 155
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare Rabat Riad",
+    "distance_m": 1474
+   },
+   {
+    "nom": "Gare Rabat Agdal",
+    "distance_m": 3369
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-esdav": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.578557,
+   "lon": -7.690557
+  },
+  "precision": "quartier",
+  "requete": "Anfa, Casablanca, Maroc",
+  "quartier": "Ain Diab",
+  "arrondissement": "Casablanca-Anfa",
+  "quartiers_voisins": [
+   "Lotissement Yaksour",
+   "Arrondissement d'Anfa"
+  ],
+  "tramway": [
+   {
+    "nom": "Ain Diab Plage",
+    "distance_m": 1338
+   },
+   {
+    "nom": "Littoral",
+    "distance_m": 1479
+   },
+   {
+    "nom": "Hay Hassani",
+    "distance_m": 1645
+   }
+  ],
+  "bus": {
+   "arrets_600m": 0,
+   "plus_proche": null
+  },
+  "gares": [],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-pbds": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 33.212481,
+   "lon": -8.487904
+  },
+  "precision": "quartier",
+  "requete": "Secteur 15 N° 14, Casablanca, Maroc",
+  "quartier": "Abou El Faraj",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Cité Universitaire",
+   "Résidence Palmiers 6",
+   "Résidence Ben Allal"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 1,
+   "plus_proche": {
+    "nom": "Quartier Industrielle",
+    "distance_m": 509
+   }
+  },
+  "gares": [
+   {
+    "nom": "Gare d'El Jadida",
+    "distance_m": 2216
+   }
+  ],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  },
  "ma-iim-agadir": {
-  "precision": "introuvable"
+  "coordonnees": {
+   "lat": 30.422951,
+   "lon": -9.604042
+  },
+  "precision": "quartier",
+  "requete": "Ida Outanane, Agadir, Maroc",
+  "quartier": "Quartier administratif",
+  "arrondissement": null,
+  "quartiers_voisins": [
+   "Cité Suisse",
+   "Talborjt",
+   "Marina d'Agadir"
+  ],
+  "tramway": [],
+  "bus": {
+   "arrets_600m": 14,
+   "plus_proche": {
+    "nom": "Wilaya",
+    "distance_m": 241
+   }
+  },
+  "gares": [],
+  "source": "OpenStreetMap (Nominatim), © contributeurs OSM, ODbL"
  }
 }

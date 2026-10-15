@@ -44,7 +44,7 @@ export type Campus = {
   id: string; ville: string; adresse: string | null; label: Label; label_libelle: string; reconnaissance: string | null;
   autorisation: string | null; site_web: string | null; geo: Geo | null;
 };
-export type MobiliteVille = { reseaux: string[]; gares: string[]; aeroport: string; quartiers_etudiants: string[]; conseil: string };
+export type MobiliteVille = { reseaux: string[]; gares: string[]; aeroport: string; quartiers_etudiants: string[]; conseil: string; couverture?: Photo };
 export type Label = "reconnu_etat" | "diplomes_homologues" | "professionnel" | "autorise";
 /** Filière homologuée par l'État (accréditation en cours). */
 export type Filiere = {

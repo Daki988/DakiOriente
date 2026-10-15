@@ -51,7 +51,9 @@ const seriesDoc = JSON.parse(fs.readFileSync(path.join(REF, "series.json"), "utf
 write("orientation_seconde", seriesDoc._meta.orientation_fin_college);
 
 write("pays_details", read("pays_details").items);
-write("mobilite", JSON.parse(fs.readFileSync(path.join(REF, "mobilite_villes.json"), "utf8")).items);
+const mob = JSON.parse(fs.readFileSync(path.join(REF, "mobilite_villes.json"), "utf8")).items;
+for (const v of Object.values(mob)) if (v.couverture) v.couverture = photoOf(v.couverture);
+write("mobilite", mob);
 const origine = JSON.parse(fs.readFileSync(path.join(REF, "pays_origine.json"), "utf8"));
 write("pays_origine", {
   regions: origine._meta.regions, visa: origine._meta.visa, avertissement: origine._meta.avertissement,

@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Images, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { EtabPhoto, creditText } from "@/components/ui/EtabPhoto";
-import type { Etablissement } from "@/lib/data";
+import { mobilite, type Etablissement } from "@/lib/data";
 
 /** Galerie de l'établissement : mosaïque, zoom au survol, visionneuse plein écran (clavier et swipe). */
 export function PhotoGallery({ e }: { e: Etablissement }) {
@@ -24,9 +24,9 @@ export function PhotoGallery({ e }: { e: Etablissement }) {
   return (
     <>
       {n <= 1 ? (
-        <div className={`relative ${n ? "h-[300px] sm:h-[400px]" : "h-[160px] sm:h-[190px]"}`}>
+        <div className={`relative ${n || mobilite[e.ville]?.couverture ? "h-[300px] sm:h-[400px]" : "h-[160px] sm:h-[190px]"}`}>
           {tile(0, "h-full w-full")}
-          <span className={`pointer-events-none absolute bottom-4 left-4 max-w-[80%] truncate rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur ${n ? "bg-ink/65 text-white" : "bg-white/90 font-bold text-ink-soft"}`}>{n ? creditText(e.photos[0]) : "Photos bientôt fournies par l'établissement"}</span>
+          <span className={`pointer-events-none absolute bottom-4 left-4 max-w-[80%] truncate rounded-full px-3 py-1.5 text-xs font-semibold backdrop-blur ${n ? "bg-ink/65 text-white" : "bg-white/90 font-bold text-ink-soft"}`}>{n ? creditText(e.photos[0]) : mobilite[e.ville]?.couverture ? `Vue de ${e.ville} · ${creditText(mobilite[e.ville]!.couverture!)}` : "Photos bientôt fournies par l'établissement"}</span>
         </div>
       ) : (
       <div className="grid h-[300px] grid-cols-1 grid-rows-1 gap-3 sm:h-[420px] sm:grid-cols-[1.6fr_1fr]">

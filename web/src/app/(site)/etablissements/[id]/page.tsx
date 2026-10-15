@@ -52,12 +52,12 @@ function CampusMobilite({ e }: { e: Etablissement }) {
             <div key={c.id} className="card flex flex-col gap-3 rounded-[22px] p-5">
               <div className="flex flex-wrap items-center justify-between gap-2"><b className="flex items-center gap-1.5 text-lg"><MapPin size={17} className="text-brand-600" />{campus.length > 1 ? `Campus de ${c.ville}` : c.ville}</b>{campus.length > 1 && <LabelChip label={c.label} />}</div>
               {c.adresse && <p className="text-sm text-ink-soft">{c.adresse}</p>}
-              {g?.quartier && <p className="text-sm"><b>Quartier :</b> <span className="text-ink-soft">{g.quartier}{g.arrondissement && g.arrondissement !== g.quartier ? ` (${g.arrondissement})` : ""}</span>{g.quartiers_voisins.length > 0 && <span className="text-ink-mute"> · à proximité : {g.quartiers_voisins.join(", ")}</span>}</p>}
+              {g?.quartier && <p className="text-sm"><b>Quartier :</b> <span className="text-ink-soft">{g.quartier}{g.arrondissement && g.arrondissement !== g.quartier ? ` (${g.arrondissement})` : ""}</span>{g.quartiers_voisins.length > 0 && <span className="text-ink-mute"> · à proximité : {g.quartiers_voisins.map((q) => q.replace(/^(Arrondissement|Préfecture d'arrondissements) de /, "")).join(", ")}</span>}</p>}
               {g && (g.tramway.length > 0 || g.gares.length > 0 || g.bus.arrets_600m > 0) && (
                 <ul className="flex flex-col gap-1.5 text-sm">
                   {g.tramway.slice(0, 2).map((t) => <li key={t.nom} className="flex items-center gap-2"><TramFront size={15} className="shrink-0 text-brand-600" />Tramway <b>{t.nom}</b><span className="text-ink-mute">· {m(t.distance_m)}{t.distance_m < 1600 ? ` (${aPied(t.distance_m)})` : ""}</span></li>)}
                   {g.bus.arrets_600m > 0 && <li className="flex items-center gap-2"><Bus size={15} className="shrink-0 text-brand-600" />{g.bus.arrets_600m} arrêt{g.bus.arrets_600m > 1 ? "s" : ""} de bus à moins de 600 m{g.bus.plus_proche ? <span className="text-ink-mute"> · le plus proche : {g.bus.plus_proche.nom} ({m(g.bus.plus_proche.distance_m)})</span> : null}</li>}
-                  {g.gares.slice(0, 1).map((t) => <li key={t.nom} className="flex items-center gap-2"><TrainFront size={15} className="shrink-0 text-brand-600" />Gare <b>{t.nom}</b><span className="text-ink-mute">· {m(t.distance_m)}</span></li>)}
+                  {g.gares.slice(0, 1).map((t) => <li key={t.nom} className="flex items-center gap-2"><TrainFront size={15} className="shrink-0 text-brand-600" />{/^gare/i.test(t.nom) ? "" : "Gare "}<b>{t.nom}</b><span className="text-ink-mute">· {m(t.distance_m)}</span></li>)}
                 </ul>
               )}
               {V && <div className="mt-auto flex flex-col gap-1.5 rounded-2xl bg-[#f6f8fe] p-3 text-[13px] text-ink-soft">

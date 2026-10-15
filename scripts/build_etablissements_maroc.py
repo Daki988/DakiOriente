@@ -21,6 +21,7 @@ Labels :
 
 Usage : python3 scripts/build_etablissements_maroc.py [--annee 2026-2027]
 """
+import hashlib
 import argparse
 import csv
 import datetime
@@ -469,6 +470,12 @@ RANG_LABEL = {"reconnu_etat": 0, "diplomes_homologues": 1, "professionnel": 2, "
 CHAMPS_CAMPUS = ("id", "ville", "adresse", "label", "label_libelle", "reconnaissance", "reconnaissance_en_cours", "autorisation", "annee_creation", "site_web", "coordonnees", "geo")
 
 
+def empreinte(ph):
+    """Même image publiée pour plusieurs campus d'un réseau : une seule fois dans la galerie."""
+    f = os.path.join(ROOT, ph["fichier"])
+    return hashlib.md5(open(f, "rb").read()).hexdigest() if os.path.exists(f) else ph["fichier"]
+
+
 def regrouper(items):
     par_id = {i["id"]: i for i in items}
     vus, out = set(), []
@@ -486,7 +493,7 @@ def regrouper(items):
         g["reconnaissance"] = next((m["reconnaissance"] for m in ms if m.get("reconnaissance")), None)
         for k in ("site_web", "description", "logo", "wikidata", "annee_creation", "autorisation"):
             g[k] = next((m[k] for m in ms if m.get(k)), None)
-        g["photos"] = list({ph["fichier"]: ph for m in ms for ph in (m.get("photos") or [])}.values())[:6]
+        g["photos"] = list({empreinte(ph): ph for m in ms for ph in (m.get("photos") or [])}.values())[:6]
         g["formations"] = sorted({f for m in ms for f in m["formations"]})
 
         def fusion(cle):
@@ -694,8 +701,9 @@ def main():
     json.dump(fdoc, open(fpath, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     json.dump({"annee_reference": args.annee, "autorises_sans_filiere_en_cours": exclus, "fermes": fermes, "non_rattaches": sorted(set(non_rattaches))},
               open(os.path.join(SRC, "rapport_build.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-    nprog = sum(len(i["filieres"]) for i in items)
-    print(f"{len(items)} établissements, {nprog} filières homologuées ; {len(exclus)} établissements autorisés sans filière en cours ; {len(fermes)} fermés écartés ; "
+    nprog = sum(1 for i in items for f in i["filieres"] if f["homologation"]["statut"] == "accreditee")
+    nrec = sum(1 for i in items for f in i["filieres"] if f["homologation"]["statut"] == "recente")
+    print(f"{len(items)} établissements, {nprog} filières accréditées en cours + {nrec} « Accrédité » (échéance < 2 ans) ; {len(exclus)} établissements autorisés sans filière en cours ; {len(fermes)} fermés écartés ; "
           f"{len(set(non_rattaches))} intitulés du registre non rattachés (voir rapport_build.json).")
 
 

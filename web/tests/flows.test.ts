@@ -64,8 +64,10 @@ describe("labels", () => {
     const ps = await etab.listPrograms("ma-heci");
     expect(ps.length).toBeGreaterThan(0);
     expect(ps.every((p) => !p.homologated && ["echue", "recente"].includes(p.homologation?.statut ?? ""))).toBe(true);
-    // Établissement homologué : seules les filières homologuées sont publiées
-    expect((await etab.listPrograms("ma-uir")).every((p) => p.homologated)).toBe(true);
+    // Établissement homologué : filières homologuées, plus celles « Accrédité » (échéance depuis moins de 2 ans)
+    const uir = await etab.listPrograms("ma-uir");
+    expect(uir.some((p) => p.homologated)).toBe(true);
+    expect(uir.every((p) => p.homologated || p.homologation?.statut === "recente")).toBe(true);
   });
 });
 
