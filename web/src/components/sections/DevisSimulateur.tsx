@@ -10,7 +10,9 @@ import { DONUT_COLORS, Donut } from "./Donut";
 import { DevisPdf } from "./DevisPdf";
 import { STATUT_LONG, VILLES_ETUDES, etabById, etablissements, fmt, formationById, labelById, paysDetailById } from "@/lib/data";
 import { paysOrigine, paysOrigineById, visaResume } from "@/lib/pays-origine";
-import { COUTS, DEVISE_COURT, DEVISE_LABEL, HYP, LOGEMENT_LABEL, SOURCES, TAUX, convert, devis, devisePays, formationParDefaut, type Devise, type Logement } from "@/lib/devis";
+import { COUTS, HYP, LOGEMENT_LABEL, SOURCES, devis, formationParDefaut, type Logement } from "@/lib/devis";
+import { Prix, useDevise } from "@/components/ui/Devise";
+import { MARGE_PRUDENCE, convertir, formatMontant } from "@/lib/devises";
 
 const field = "w-full rounded-xl border-[1.5px] border-slate-200 bg-white px-3.5 py-3 text-sm font-bold outline-none focus:border-brand-400 focus:ring-4 focus:ring-brand-100";
 
@@ -19,9 +21,11 @@ export function DevisSimulateur() {
   const router = useRouter();
   const [eid, setEid] = useState(etabById[params.get("etab") ?? ""] ? params.get("etab")! : "ma-esa-casa");
   const [fid, setFid] = useState(() => { const f = params.get("f"); return f && etabById[eid].formations.includes(f) ? f : formationParDefaut(eid); });
-  const [origine, setOrigine] = useState(paysOrigineById[params.get("o") ?? ""] ? params.get("o")! : "SN");
+  const { pays, devise, taux, setPays } = useDevise();
+  const [origine, setOrigine] = useState(paysOrigineById[params.get("o") ?? ""] ? params.get("o")! : "");
+  useEffect(() => { if (!origine && pays && paysOrigineById[pays]) setOrigine(pays); }, [pays]); // eslint-disable-line react-hooks/exhaustive-deps
+  const choisirOrigine = (o: string) => { setOrigine(o); if (o && o !== "MA") setPays(o); };
   const [logement, setLogement] = useState<Logement>(params.get("l") === "colocation" ? "colocation" : "studio");
-  const [devise, setDevise] = useState<Devise>((params.get("d") as Devise) || devisePays(origine));
   const [eleve, setEleve] = useState("");
   const [payeur, setPayeur] = useState("");
   const e = etabById[eid];
@@ -29,14 +33,16 @@ export function DevisSimulateur() {
   const P = paysDetailById[e.pays];
   const C = COUTS[e.pays];
   const D = useMemo(() => devis(eid, fid, origine, logement), [eid, fid, origine, logement]);
-  const cv = (v: number) => convert(v, D.devise, devise);
-  const unit = DEVISE_COURT[devise];
+  const cv = (v: number) => v;
+  const unit = "MAD";
+  const conv = (v: number) => (devise ? convertir(v, devise, taux) : null);
 
   useEffect(() => { if (!etabById[eid].formations.includes(fid)) setFid(formationParDefaut(eid)); }, [eid, fid]);
   useEffect(() => {
-    const q = new URLSearchParams({ etab: eid, f: fid, o: origine, l: logement, d: devise });
+    const q = new URLSearchParams({ etab: eid, f: fid, l: logement });
+    if (origine) q.set("o", origine);
     router.replace(`/devis/?${q.toString()}`, { scroll: false });
-  }, [eid, fid, origine, logement, devise, router]);
+  }, [eid, fid, origine, logement, router]);
 
   const [faits, setFaits] = useState<number[]>([]);
   useEffect(() => { try { setFaits(JSON.parse(localStorage.getItem(`navigoal-demarches-${e.pays}`) || "[]")); } catch { setFaits([]); } }, [e.pays]);
@@ -68,17 +74,15 @@ export function DevisSimulateur() {
         </section>
 
         <div className="container relative -mt-16">
-          <Reveal className="card grid gap-3 rounded-3xl p-4 shadow-[0_30px_60px_-24px_rgba(11,21,51,.35)] sm:grid-cols-2 lg:grid-cols-[1fr_1.2fr_1.6fr_.9fr_.9fr]">
+          <Reveal className="card grid gap-3 rounded-3xl p-4 shadow-[0_30px_60px_-24px_rgba(11,21,51,.35)] sm:grid-cols-2 lg:grid-cols-[1fr_1.2fr_1.6fr_.9fr]">
             <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Votre enfant part de</span>
-              <select value={origine} onChange={(ev) => { setOrigine(ev.target.value); setDevise(devisePays(ev.target.value)); }} className={field}><optgroup label="Afrique">{paysOrigine.filter((p) => p.continent === "afrique").map((p) => <option key={p.id} value={p.id}>{p.nom}</option>)}</optgroup><optgroup label="Autres pays">{paysOrigine.filter((p) => p.continent === "autre").map((p) => <option key={p.id} value={p.id}>{p.nom}</option>)}</optgroup></select></label>
+              <select value={origine} onChange={(ev) => choisirOrigine(ev.target.value)} className={field}><option value="">Choisir un pays…</option><optgroup label="Afrique">{paysOrigine.filter((p) => p.continent === "afrique").map((p) => <option key={p.id} value={p.id}>{p.nom}</option>)}</optgroup><optgroup label="Autres pays">{paysOrigine.filter((p) => p.continent === "autre").map((p) => <option key={p.id} value={p.id}>{p.nom}</option>)}</optgroup></select></label>
             <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Établissement</span>
               <select value={eid} onChange={(ev) => setEid(ev.target.value)} className={field}>{parVille.map(([v, xs]) => <optgroup key={v} label={v}>{xs.map((x) => <option key={x.id} value={x.id}>{x.sigle}</option>)}</optgroup>)}</select></label>
             <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Formation</span>
               <select value={fid} onChange={(ev) => setFid(ev.target.value)} className={field}>{e.formations.filter((f) => formationById[f]).map((f) => <option key={f} value={f}>{formationById[f].intitule} ({formationById[f].duree_annees} ans)</option>)}</select></label>
             <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Logement</span>
               <select value={logement} onChange={(ev) => setLogement(ev.target.value as Logement)} className={field}>{(["studio", "colocation"] as const).map((l) => <option key={l} value={l}>{LOGEMENT_LABEL[l]}</option>)}</select></label>
-            <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Devise d&apos;affichage</span>
-              <select value={devise} onChange={(ev) => setDevise(ev.target.value as Devise)} className={field}>{(Object.keys(DEVISE_LABEL) as Devise[]).map((d) => <option key={d} value={d}>{DEVISE_LABEL[d]}</option>)}</select></label>
           </Reveal>
         </div>
 
@@ -89,7 +93,7 @@ export function DevisSimulateur() {
                 <div className="flex min-w-0 flex-col gap-1.5">
                   <span className="text-[13px] font-bold uppercase text-ink-mute">Coût total estimé · {D.years} an{D.years > 1 ? "s" : ""} · {F.diplome}</span>
                   <div className="text-[28px] font-extrabold leading-tight tracking-tight sm:text-[40px]"><span className="whitespace-nowrap"><AnimatedNumber value={cv(D.total[0])} /> –</span> <span className="whitespace-nowrap"><AnimatedNumber value={cv(D.total[1])} /> <span className="text-xl">{unit}</span></span></div>
-                  <span className="text-sm text-ink-mute">soit {fmt(D.total[0])} – {fmt(D.total[1])} {D.devise} · {fmt(convert(D.total[0], D.devise, "EUR"))} – {fmt(convert(D.total[1], D.devise, "EUR"))} € · environ {fmt(cv(D.total[0]) / (D.years * 12))} – {fmt(cv(D.total[1]) / (D.years * 12))} {unit} par mois</span>
+                  <span className="text-sm text-ink-mute">{devise && conv(D.total[0]) != null ? <>≈ {formatMontant(conv(D.total[0])!, devise)} – {formatMontant(conv(D.total[1])!, devise)} (taux du jour + {MARGE_PRUDENCE * 100} %) · </> : null}environ <Prix mad={D.total[0] / (D.years * 12)} /> – <Prix mad={D.total[1] / (D.years * 12)} /> par mois{origine ? "" : " · choisissez le pays de départ pour inclure les billets d'avion"}</span>
                 </div>
                 <div className="flex shrink-0 flex-wrap items-start gap-2 2xl:flex-col 2xl:items-end">
                   <span className="chip bg-sun-100 text-[#a55a00]"><Info size={14} className="mr-1 inline" />Estimation · frais à confirmer par l&apos;école</span>
@@ -157,7 +161,7 @@ export function DevisSimulateur() {
             </div>
             <div className="card flex flex-col gap-3.5 rounded-3xl p-5">
               <div className="flex items-center justify-between"><b className="text-[17px]">Démarches de régularisation</b><span className="chip bg-brand-50 text-brand-700">{P.nom}</span></div>
-              <p className="rounded-xl bg-[#f6f8fe] p-3 text-[13px] text-ink-soft"><b>Visa depuis {paysOrigineById[origine]?.nom} :</b> {visaResume(origine)}.</p>
+              <p className="rounded-xl bg-[#f6f8fe] p-3 text-[13px] text-ink-soft">{origine ? <><b>Visa depuis {paysOrigineById[origine]?.nom} :</b> {visaResume(origine)}.</> : <>Choisissez le pays de départ pour connaître le régime d&apos;entrée au Maroc.</>}</p>
               <span className="text-xs text-ink-mute">Cochez les étapes au fur et à mesure ({faits.length}/{C.demarches.length}).</span>
               <div className="flex flex-col">
                 {C.demarches.map((d, k) => { const ok = faits.includes(k); return (
@@ -173,11 +177,11 @@ export function DevisSimulateur() {
           </aside>
         </div>
         <p className="container mt-5 text-xs leading-relaxed text-ink-mute">
-          Estimation Navigoal basée sur les frais publiés par l&apos;établissement lorsqu&apos;ils sont disponibles, sur des grilles publiques et sur le coût de la vie observé ({SOURCES.slice(0, 4).map((u) => u.split("/")[2]).join(", ")}). Taux indicatif 1 € = 655,957 F CFA = {TAUX.MAD} MAD. Marge d&apos;imprévus {Math.round(HYP.marge_imprevus * 100)} % et frais de transfert {Math.round(HYP.frais_transfert * 100)} % inclus{logement === "colocation" ? " ; colocation : environ −15 % sur le coût de la vie" : ""}. Établissement : {STATUT_LONG[e.statut] ?? "privé"}, catégorie « {D.typ} ».
+          Estimation Navigoal basée sur les frais publiés par l&apos;établissement lorsqu&apos;ils sont disponibles, sur des grilles publiques et sur le coût de la vie observé ({SOURCES.slice(0, 4).map((u) => u.split("/")[2]).join(", ")}). Montants en dirhams (MAD) ; conversion au taux du {new Date(taux.date).toLocaleDateString("fr-FR")}, majorée de {MARGE_PRUDENCE * 100} % par prudence. Marge d&apos;imprévus {Math.round(HYP.marge_imprevus * 100)} % et frais de transfert {Math.round(HYP.frais_transfert * 100)} % inclus{logement === "colocation" ? " ; colocation : environ −15 % sur le coût de la vie" : ""}. Établissement : {STATUT_LONG[e.statut] ?? "privé"}, catégorie « {D.typ} ».
         </p>
         <div className="container mt-8 flex justify-center"><span className="flex items-center gap-2 text-sm text-ink-mute"><Calculator size={16} /> Chaque changement recalcule le devis en direct.</span></div>
       </div>
-      <DevisPdf e={e} F={F} D={D} origine={origine} logement={logement} eleve={eleve} payeur={payeur} />
+      <DevisPdf e={e} F={F} D={D} devise={devise} taux={taux} origine={origine} logement={logement} eleve={eleve} payeur={payeur} />
     </>
   );
 }

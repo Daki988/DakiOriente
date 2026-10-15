@@ -1,25 +1,27 @@
 "use client";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { CalendarCheck, Footprints, GraduationCap, Heart, HousePlus, KeyRound, MapPin, Search, ShieldCheck, Signature, Star, UsersRound } from "lucide-react";
-import { useMemo, useState } from "react";
-import { EtabLogo } from "@/components/ui/EtabLogo";
-import { DynIcon } from "@/components/ui/DynIcon";
+import { CalendarCheck, Footprints, GraduationCap, HousePlus, KeyRound, MapPin, Search, ShieldCheck, Signature, UsersRound } from "lucide-react";
+import { useState } from "react";
 import { Counter } from "@/components/motion/Counter";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
-import { BADGES, LOGEMENTS } from "@/lib/content";
+import { useApi } from "@/hooks/useApi";
+import { Prix } from "@/components/ui/Devise";
+import { Cover, VERIF, nearText, type Housing } from "@/components/navilease/shared";
 import { VILLES_ETUDES, etabById, etablissements, residences } from "@/lib/data";
 
-const TYPES = ["Tous", "Studios", "Colocations", "Résidences privées", "Chez l'habitant", "Cités universitaires"];
-const PINS = [{ x: 22, y: 28, p: "2 800" }, { x: 52, y: 14, p: "3 100" }, { x: 40, y: 64, p: "2 400" }, { x: 70, y: 46, p: "3 500" }, { x: 14, y: 76, p: "1 900" }];
+const PINS = [{ x: 22, y: 28 }, { x: 52, y: 14 }, { x: 40, y: 64 }, { x: 70, y: 46 }, { x: 14, y: 76 }];
+
+const TYPES_API: [string, string][] = [["", "Tous"], ["studio", "Studios"], ["colocation", "Colocations"], ["residence", "Résidences"], ["chambre", "Chambres"], ["appartement", "Appartements"], ["chez_habitant", "Chez l'habitant"]];
 
 export function Navilease() {
-  const [type, setType] = useState("Tous");
+  const [type, setType] = useState("");
   const [ville, setVille] = useState("");
   const [verif, setVerif] = useState(false);
-  const [favs, setFavs] = useState<string[]>([]);
-  const list = useMemo(() => LOGEMENTS.filter((l) => (type === "Tous" || l.type === type) && (!ville || l.quartier.endsWith(ville)) && (!verif || l.badge !== "identite")), [type, ville, verif]);
+  const qs = new URLSearchParams({ ...(ville ? { ville } : {}), ...(type ? { type } : {}), ...(verif ? { verifies: "1" } : {}) }).toString();
+  const { data, error, loading } = useApi<Housing[]>(`/logements${qs ? `?${qs}` : ""}`);
   const cites = residences.filter((r) => !ville || r.ville.includes(ville));
+  const list = data ?? [];
 
   return (
     <>
@@ -29,14 +31,14 @@ export function Navilease() {
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2.5"><span className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-sun-400"><KeyRound size={24} /></span><span className="text-[28px] font-extrabold tracking-tight">Navi<span className="text-brand-600">lease</span></span><span className="chip bg-brand-50 text-brand-700">par Navigoal</span></motion.div>
             <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="h-display lg:text-[60px]">Ton logement étudiant, <span className="text-brand-600">vérifié</span> et <span className="text-gradient">sécurisé.</span></motion.h1>
             <p className="text-lg leading-relaxed text-ink-soft">Studios, colocations, résidences et cités universitaires près de ton établissement au Maroc : Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir…</p>
-            <form onSubmit={(e) => { e.preventDefault(); const t = ({ Studios: "studio", Colocations: "colocation", "Résidences privées": "residence", "Chez l'habitant": "chez_habitant" } as Record<string, string>)[type]; window.location.href = `/navilease/logements/?${new URLSearchParams({ ...(ville ? { ville } : {}), ...(t ? { type: t } : {}) })}`; }} className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_20px_50px_-18px_rgba(11,21,51,.3)] sm:flex-row sm:items-center">
+            <form onSubmit={(e) => { e.preventDefault(); window.location.href = `/navilease/logements/?${new URLSearchParams({ ...(ville ? { ville } : {}), ...(type ? { type } : {}) })}`; }} className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_20px_50px_-18px_rgba(11,21,51,.3)] sm:flex-row sm:items-center">
               <div className="flex flex-1 items-center gap-2.5 px-3 py-1.5"><GraduationCap size={18} className="text-brand-600" /><div className="flex flex-col"><span className="text-[11px] font-bold text-ink-mute">Ville</span>
-                <select value={ville} onChange={(e) => setVille(e.target.value)} className="bg-transparent text-sm font-bold outline-none"><option value="">Toutes les villes</option>{VILLES_ETUDES.map((v) => <option key={v}>{v}</option>)}</select></div></div>
+                <select value={ville} onChange={(e) => setVille(e.target.value)} className="bg-transparent text-sm font-bold outline-none"><option value="">Toutes les villes</option>{VILLES_ETUDES.map((v) => <option key={v} value={v}>{v}</option>)}</select></div></div>
               <div className="flex flex-1 flex-col px-3 py-1.5 sm:border-l sm:border-[#eef1f8]"><span className="text-[11px] font-bold text-ink-mute">Type</span>
-                <select value={type} onChange={(e) => setType(e.target.value)} className="bg-transparent text-sm font-bold outline-none">{TYPES.map((t) => <option key={t}>{t}</option>)}</select></div>
+                <select value={type} onChange={(e) => setType(e.target.value)} className="bg-transparent text-sm font-bold outline-none">{TYPES_API.map(([k, t]) => <option key={k} value={k}>{t}</option>)}</select></div>
               <button className="btn-primary btn-shine"><Search size={16} /> Chercher</button>
             </form>
-            <div className="flex gap-8">{[[etablissements.length, "", "écoles couvertes"], [VILLES_ETUDES.length, "", "villes d'études"], [100, " %", "paiements protégés"]].map(([n, s, l]) => <div key={l as string}><b className="text-[22px]"><Counter to={n as number} suffix={s as string} /></b><span className="block text-[13px] text-ink-mute">{l}</span></div>)}</div>
+            <div className="flex gap-8">{[[etablissements.length, "", "établissements"], [VILLES_ETUDES.length, "", "villes d'études"], [100, " %", "paiements en séquestre"]].map(([n, s, l]) => <div key={l as string}><b className="text-[22px]"><Counter to={n as number} suffix={s as string} /></b><span className="block text-[13px] text-ink-mute">{l}</span></div>)}</div>
           </div>
           <div className="relative mx-auto aspect-square w-full max-w-[520px]">
             <motion.div initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="absolute inset-[4%_0_0_6%] overflow-hidden rounded-[32px] border-[6px] border-white bg-gradient-to-br from-brand-100 to-brand-50 shadow-[0_40px_80px_-30px_rgba(11,21,51,.35)]">
@@ -52,14 +54,14 @@ export function Navilease() {
                 <span className="relative flex h-14 w-14 items-center justify-center rounded-full border-4 border-white bg-brand-600 text-white shadow-glow"><GraduationCap size={24} /></span>
               </div>
               {PINS.map((p, k) => (
-                <motion.span key={k} className={`chip absolute shadow-lg ${k === 0 ? "bg-brand-600 text-white" : "bg-white text-ink"}`} style={{ left: `${p.x}%`, top: `${p.y}%` }}
+                <motion.span key={k} className={`chip absolute h-8 w-8 justify-center p-0 shadow-lg ${k === 0 ? "bg-brand-600 text-white" : "bg-white text-brand-600"}`} style={{ left: `${p.x}%`, top: `${p.y}%` }}
                   initial={{ y: -60, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.6 + k * 0.12, type: "spring", stiffness: 260, damping: 14 }} whileHover={{ scale: 1.15 }}>
-                  {p.p} MAD
+                  <MapPin size={14} />
                 </motion.span>
               ))}
             </motion.div>
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.3 }} className="card absolute bottom-4 left-0 flex animate-float items-center gap-3 px-4 py-3.5">
-              <EtabLogo e={etabById["ma-uir"]} size={46} /><span><b className="block text-sm">38 logements à moins de 20 min</b><span className="text-xs text-ink-mute">de l&apos;UIR · 12 vérifiés</span></span>
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e8f8ef] text-[#0f8a46]"><ShieldCheck size={22} /></span><span><b className="block text-sm">Paiement protégé</b><span className="text-xs text-ink-mute">versé au bailleur après ton entrée</span></span>
             </motion.div>
           </div>
         </div>
@@ -68,41 +70,40 @@ export function Navilease() {
       <section id="logements" className="container mt-12 flex scroll-mt-24 flex-col gap-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="scrollbar-none flex gap-2 overflow-x-auto">
-            {TYPES.map((t) => <button key={t} onClick={() => setType(t)} className={`chip shrink-0 px-3.5 py-2 transition ${type === t ? "bg-brand-600 text-white shadow-glow" : "border border-slate-200 bg-white text-ink-soft hover:border-brand-300"}`}>{t}</button>)}
-            <button onClick={() => setVerif(!verif)} className={`chip shrink-0 px-3.5 py-2 ${verif ? "bg-[#0f8a46] text-white" : "border border-slate-200 bg-white text-ink-soft"}`}><ShieldCheck size={14} /> Vérifiés uniquement</button>
+            {TYPES_API.map(([k, t]) => <button key={k} onClick={() => setType(k)} className={`chip min-h-[38px] shrink-0 px-3.5 transition ${type === k ? "bg-brand-600 text-white shadow-glow" : "border border-slate-200 bg-white text-ink-soft hover:border-brand-300"}`}>{t}</button>)}
+            <button onClick={() => setType("cites")} className={`chip min-h-[38px] shrink-0 px-3.5 transition ${type === "cites" ? "bg-brand-600 text-white shadow-glow" : "border border-slate-200 bg-white text-ink-soft hover:border-brand-300"}`}>Cités universitaires</button>
+            <button onClick={() => setVerif(!verif)} aria-pressed={verif} className={`chip min-h-[38px] shrink-0 px-3.5 ${verif ? "bg-[#0f8a46] text-white" : "border border-slate-200 bg-white text-ink-soft"}`}><ShieldCheck size={14} /> Vérifiés uniquement</button>
           </div>
-          <span className="text-sm text-ink-mute">{type === "Cités universitaires" ? cites.length : list.length} résultats</span>
+          <span className="text-sm text-ink-mute">{type === "cites" ? `${cites.length} cité${cites.length > 1 ? "s" : ""} universitaire${cites.length > 1 ? "s" : ""}` : loading ? "Chargement…" : `${list.length} logement${list.length > 1 ? "s" : ""}${list.length >= 24 ? " (premiers résultats)" : ""}`}</span>
         </div>
+        {type !== "cites" && error && <p className="card p-6 text-center text-ink-mute">Les annonces n&apos;ont pas pu être chargées. <Link href="/navilease/logements" className="font-bold text-brand-600">Ouvrir la recherche</Link></p>}
+        {type !== "cites" && !loading && !error && !list.length && <p className="card p-6 text-center text-ink-mute">Aucune annonce publiée pour ces critères pour le moment.</p>}
         <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
-            {type === "Cités universitaires"
+            {type === "cites"
               ? cites.map((r) => (
                   <motion.div key={r.id} layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="card flex flex-col gap-3 p-5">
-                    <div className="flex items-center justify-between"><span className="chip bg-brand-50 text-brand-700">Cité universitaire · {r.gestionnaire}</span><span className="text-xs text-ink-mute">{"Maroc"}</span></div>
+                    <span className="chip w-fit bg-brand-50 text-brand-700">Cité universitaire · {r.gestionnaire}</span>
                     <b className="text-lg">{r.nom}</b><span className="flex items-center gap-1.5 text-sm text-ink-mute"><MapPin size={14} />{r.ville}</span>
-                    <div className="flex flex-wrap gap-1.5">{r.etablissements_desservis.map((id) => <Link key={id} href={`/etablissements/${id}/`} className="chip border border-slate-200 bg-white text-ink-soft hover:border-brand-300">{etabById[id].sigle}</Link>)}</div>
+                    <div className="flex flex-wrap gap-1.5">{r.etablissements_desservis.filter((id) => etabById[id]).map((id) => <Link key={id} href={`/etablissements/${id}/`} className="chip border border-slate-200 bg-white text-ink-soft hover:border-brand-300">{etabById[id].sigle}</Link>)}</div>
                   </motion.div>))
-              : list.map((l) => {
-                  const [bc, bl] = BADGES[l.badge];
-                  const fav = favs.includes(l.id);
+              : list.slice(0, 6).map((h) => {
+                  const v = VERIF[h.verification] ?? VERIF.non_verifie;
                   return (
-                    <motion.div key={l.id} layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} whileHover={{ y: -6 }} className="card group overflow-hidden rounded-[22px] hover:shadow-lift">
-                      <div className={`relative flex h-44 items-center justify-center overflow-hidden bg-gradient-to-br ${l.grad}`}>
-                        <DynIcon name={l.icon} size={74} strokeWidth={1.4} className="text-white/60 transition duration-500 group-hover:scale-110" />
-                        <span className={`chip absolute left-3 top-3 ${bc}`}>{bl}</span>
-                        <motion.button whileTap={{ scale: 0.8 }} onClick={() => setFavs(fav ? favs.filter((x) => x !== l.id) : [...favs, l.id])} aria-label="Favori" className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#d42a50]"><Heart size={16} fill={fav ? "currentColor" : "none"} /></motion.button>
-                      </div>
+                    <motion.div key={h.id} layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} className="card group relative overflow-hidden rounded-[22px] hover:shadow-lift">
+                      <div className="relative h-44"><Cover h={h} className="transition duration-500 group-hover:scale-105" /><span className={`chip absolute left-3 top-3 ${v.cls}`}>{v.label}</span></div>
                       <div className="flex flex-col gap-2 p-4">
-                        <div className="flex justify-between"><b>{l.titre}</b><span className="flex items-center gap-1 text-[13px] font-bold"><Star size={14} className="fill-sun-400 text-sun-400" />{l.note}</span></div>
-                        <span className="flex items-center gap-1.5 text-[13px] text-ink-mute"><MapPin size={14} />{l.quartier}</span>
-                        <span className="flex items-center gap-1.5 text-[13px] font-semibold text-[#0f8a46]"><Footprints size={14} />{l.trajet}</span>
-                        <div className="mt-1 flex items-center justify-between border-t border-[#eef1f8] pt-3"><span><b className="text-lg text-brand-600">{l.prix}</b><span className="text-xs text-ink-mute"> /mois</span></span><button className="btn-ghost px-3 py-2 text-[13px]">Réserver</button></div>
+                        <Link href={`/navilease/logements/${h.id}`} className="font-extrabold after:absolute after:inset-0">{h.title}</Link>
+                        <span className="flex items-center gap-1.5 text-[13px] text-ink-mute"><MapPin size={14} />{[h.quartier, h.ville].filter(Boolean).join(", ")}</span>
+                        {h.nearEstablishments[0] && <span className="flex items-center gap-1.5 text-[13px] font-semibold text-[#0f8a46]"><Footprints size={14} />{nearText(h.nearEstablishments[0])}</span>}
+                        <div className="mt-1 border-t border-[#eef1f8] pt-3"><b className="text-lg text-brand-600">{h.currency === "MAD" ? <Prix mad={h.rent} /> : `${h.rent} ${h.currency}`}</b><span className="text-xs text-ink-mute"> /mois</span></div>
                       </div>
                     </motion.div>
                   );
                 })}
           </AnimatePresence>
         </motion.div>
+        {type !== "cites" && list.length > 6 && <Link href={`/navilease/logements/?${qs}`} className="btn-ghost self-center">Voir les {list.length >= 24 ? "" : `${list.length} `}logements</Link>}
       </section>
 
       <Reveal className="container mt-20">
