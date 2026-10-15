@@ -43,7 +43,7 @@ async function startSession(u: User, req: Request) {
 // ---------------------------------------------------------------- Authentification
 route("POST", "/auth/inscription", "Authentification", "Créer un compte (élève, étudiant, parent, établissement, bailleur)", "public", async ({ req, body }) => {
   const u = await accounts.register(await body());
-  return json({ ...(await startSession(u, req)) }, 201);
+  return json({ ...(await startSession(u, req)), devCode: u.devCode }, 201);
 });
 route("POST", "/auth/connexion", "Authentification", "Connexion par e-mail ou téléphone + mot de passe", "public", async ({ req, body }) => {
   const b = await body();
@@ -52,22 +52,28 @@ route("POST", "/auth/connexion", "Authentification", "Connexion par e-mail ou t�
 route("POST", "/auth/code", "Authentification", "Recevoir un code OTP (connexion, vérification, mot de passe oublié)", "public", async ({ body }) => {
   const b = await body();
   const purpose = ["login", "verify_phone", "verify_email", "reset_password"].includes(b.objet) ? b.objet : "login";
-  if (purpose === "login" || purpose === "reset_password") { if (!(await accounts.findByIdentifier(String(b.cible ?? "")))) return { ok: true }; } // pas d'énumération de comptes
-  const r = await accounts.requestOtp(String(b.cible ?? ""), purpose);
+  const cible = String(b.cible ?? "").trim();
+  if (!cible) throw new AppError("Indiquez votre e-mail ou votre numéro de téléphone.", 400, "cible");
+  // Pas d'énumération de comptes : réponse identique si aucun compte (ou déjà vérifié) ne correspond.
+  const u = await accounts.findByIdentifier(cible);
+  if (!u || u.status === "suspendu") return { ok: true };
+  if (purpose === "verify_email" && (u.emailVerifiedAt || !cible.includes("@"))) return { ok: true };
+  if (purpose === "verify_phone" && (u.phoneVerifiedAt || cible.includes("@"))) return { ok: true };
+  const r = await accounts.requestOtp(u.email && cible.includes("@") ? u.email : u.phone ?? cible, purpose);
   return { ok: true, devCode: r.devCode };
 });
 route("POST", "/auth/code/verifier", "Authentification", "Vérifier un e-mail ou un téléphone avec le code reçu", "public", async ({ body }) => {
   const b = await body();
-  await accounts.verifyOtp(String(b.cible), b.objet === "verify_phone" ? "verify_phone" : "verify_email", String(b.code));
+  await accounts.verifyOtp(String(b.cible ?? ""), b.objet === "verify_phone" ? "verify_phone" : "verify_email", String(b.code ?? ""));
   return ok;
 });
 route("POST", "/auth/code/connexion", "Authentification", "Connexion par code OTP (SMS/e-mail)", "public", async ({ req, body }) => {
   const b = await body();
-  return startSession(await accounts.loginWithOtp(String(b.cible), String(b.code)), req);
+  return startSession(await accounts.loginWithOtp(String(b.cible ?? ""), String(b.code ?? "")), req);
 });
 route("POST", "/auth/mot-de-passe/reinitialiser", "Authentification", "Réinitialiser le mot de passe avec un code", "public", async ({ body }) => {
   const b = await body();
-  await accounts.resetPassword(String(b.cible), String(b.code), String(b.motDePasse));
+  await accounts.resetPassword(String(b.cible ?? ""), String(b.code ?? ""), String(b.motDePasse ?? ""));
   return ok;
 });
 route("POST", "/auth/deconnexion", "Authentification", "Se déconnecter", "public", async ({ req }) => {

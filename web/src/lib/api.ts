@@ -5,6 +5,8 @@ export class ApiError extends Error {
   }
 }
 
+const PRIVATE = /^\/(espace|parent|etablissement|bailleur|admin|conseiller|messages|notifications|compte|paiement|navilease\/reservations)(\/|$)/;
+
 const url = (path: string) => `/api${path.startsWith("/") ? path : `/${path}`}`.replace(/\/?(\?|$)/, "/$1");
 
 export async function api<T = unknown>(path: string, init: { method?: string; body?: unknown; form?: FormData } = {}): Promise<T> {
@@ -18,6 +20,10 @@ export async function api<T = unknown>(path: string, init: { method?: string; bo
   const data = type.includes("json") ? await res.json() : await res.text();
   if (!res.ok) {
     const e = (data as { error?: { message: string; code: string; fields?: { path: string; message: string }[] } }).error;
+    // Session expirée pendant la navigation dans un espace privé : retour à la connexion, puis à la page en cours.
+    if (res.status === 401 && e?.code === "non_connecte" && typeof window !== "undefined" && PRIVATE.test(window.location.pathname)) {
+      window.location.assign(`/connexion/?suite=${encodeURIComponent(window.location.pathname + window.location.search)}&session=expiree`);
+    }
     throw new ApiError(e?.message ?? "Une erreur est survenue.", res.status, e?.code ?? "erreur", e?.fields);
   }
   return data as T;
