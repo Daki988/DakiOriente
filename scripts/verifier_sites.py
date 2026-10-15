@@ -21,7 +21,7 @@ def present(citation, texte_n):
 
 
 def chiffres(s):
-    return set(re.findall(r"\d[\d .]{2,}\d|\d{3,}", (s or "").replace(" ", " ")))
+    return set(re.findall(r"\d{1,3}(?:[ .,\u202f]\d{3})+(?!\d)|\d{3,}", (s or "").replace("\u00a0", " ")))
 
 
 def main():
