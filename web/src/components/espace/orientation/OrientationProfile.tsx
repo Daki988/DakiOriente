@@ -39,7 +39,7 @@ export function OrientationProfile({ scores, top, date, guest = false, onRestart
         </div>
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-[1.25fr_.75fr]">
+      <div className="grid gap-5 lg:grid-cols-[1.25fr_.75fr] [&>*]:min-w-0">
         <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="card flex flex-col gap-5 rounded-3xl p-4 sm:p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -54,7 +54,7 @@ export function OrientationProfile({ scores, top, date, guest = false, onRestart
             <b>Tes traits principaux</b>
             <div className="flex flex-wrap gap-2">{prof.traits.map((t, k) => <span key={t} className={`chip py-1.5 text-[13px] ${TRAIT_TONES[k % TRAIT_TONES.length]}`}><Sparkles size={13} />{t}</span>)}</div>
           </div>
-          <div className="grid items-center gap-4 border-t border-[#eef1f8] pt-4 sm:grid-cols-[220px_1fr]">
+          <div className="grid min-w-0 items-center gap-4 border-t border-[#eef1f8] pt-4 sm:grid-cols-[220px_1fr] [&>*]:min-w-0">
             <div className="mx-auto w-[220px] max-w-full"><Radar values={values} size={220} /></div>
             <ul className="flex flex-col gap-2">
               {CODES.map((c) => { const r = riasec.find((x) => x.code === c)!; return (
