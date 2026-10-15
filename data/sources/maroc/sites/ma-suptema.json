@@ -1,0 +1,34 @@
+{
+  "id": "ma-suptema",
+  "site_web": "https://suptema.net",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://suptema.net/", "https://suptema.net/inscription.html", "https://suptema.net/formations.html", "https://suptema.net/contact.html"],
+  "description": "École supérieure privée de réseaux, télécommunications et management située à Fès. Elle propose deux filières, Réseaux & Télécoms et Management, avec une formation en Bac+3 ou en 2 ans après un Bac+3, des stages en entreprise, une formation continue et une ouverture internationale. Le site indique accueillir des étudiants de plusieurs nationalités (témoignages du Sénégal, du Niger, du Mali, de Guinée) ; les inscriptions 2026/2027 sont annoncées ouvertes.",
+  "annee_creation": null,
+  "adresse": "N° 2, Rue 26, Avenue Taha Houcine, Fès, MAROC",
+  "telephone": "(+212) 674 02 15 12",
+  "email": "suptema@hotmail.fr",
+  "statut_annonce": null,
+  "programmes": [
+    {"intitule": "Réseaux & Télécommunications", "niveau": "Bac+3", "diplome": null, "duree_annees": 3, "specialites": [], "campus": ["Fès"], "url": "https://suptema.net/formations.html"},
+    {"intitule": "Réseaux & Télécommunications (2 ans après Bac+3)", "niveau": "Bac+5", "diplome": null, "duree_annees": 2, "specialites": [], "campus": ["Fès"], "url": "https://suptema.net/formations.html"},
+    {"intitule": "Management", "niveau": "Bac+3", "diplome": null, "duree_annees": 3, "specialites": [], "campus": ["Fès"], "url": "https://suptema.net/formations.html"},
+    {"intitule": "Management (2 ans après Bac+3)", "niveau": "Bac+5", "diplome": null, "duree_annees": 2, "specialites": ["Finance des entreprises", "Gestion des Ressources Humaines"], "campus": ["Fès"], "url": "https://suptema.net/"}
+  ],
+  "admission": {"conditions": [], "etapes": ["Formulaire de préinscription en ligne 2026/2027", "Contact de l'école pour compléter l'inscription"], "concours": null, "dates": null},
+  "frais": [],
+  "bourses": null,
+  "international": "Possibilité de poursuivre ses études supérieures à l'étranger ; accueil d'étudiants de toutes nationalités selon le site.",
+  "partenaires": [],
+  "vie_etudiante": ["Activités para-académiques (tournois sportifs, concours culturels, soirées de gala)", "Conférences et séminaires", "Visites d'entreprises"],
+  "logement": null,
+  "preuves": {
+    "adresse": "N° 2, Rue 26, Avenue Taha Houcine, Fès, MAROC",
+    "telephone": "(+212) 674 02 15 12",
+    "email": "suptema@hotmail.fr",
+    "annee_creation": null,
+    "frais": [],
+    "admission": []
+  }
+}

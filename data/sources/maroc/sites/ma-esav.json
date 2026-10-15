@@ -1,0 +1,36 @@
+{
+  "id": "ma-esav",
+  "site_web": "https://www.esavmarrakech.com",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://www.esavmarrakech.com/", "https://www.esavmarrakech.com/inscription", "https://www.esavmarrakech.com/formation-continue", "https://www.esavmarrakech.com/formation-initiale/design-graphique", "https://www.esavmarrakech.com/formation-initiale/cinema-et-audiovisuel", "https://www.esavmarrakech.com/lecole", "https://www.esavmarrakech.com/contact"],
+  "description": "École supérieure à but non lucratif de Marrakech (Amerchich) dédiée au cinéma, à l'audiovisuel et aux arts visuels, inaugurée en 2007. Elle propose deux formations initiales : Cinéma & Audiovisuel (Bac+3, avec spécialisation en image, son, montage, scénario ou réalisation) et Design & Création Visuelle (3 ans, avec communication visuelle, design d'intérieur ou animation & illustration). Elle propose aussi un Executive Master en production cinématographique de 10 mois. La pédagogie est fondée sur la pratique, avec des intervenants professionnels, et les formations sont annoncées comme accréditées par le Ministère de l'Enseignement Supérieur.",
+  "annee_creation": null,
+  "adresse": "B.P. n° 4006 40002 Marrakech-Amerchich, Maroc",
+  "telephone": "+212 662683243",
+  "email": "admission@esavmarrakech.com",
+  "statut_annonce": "Formations accréditées par le Ministère de l'Enseignement Supérieur",
+  "programmes": [
+    {"intitule": "Cinéma & Audiovisuel", "niveau": "Bac+3", "diplome": "Formation initiale", "duree_annees": null, "specialites": ["Image", "Montage & post-production", "Réalisation", "Scénario", "Son"], "campus": ["Marrakech"], "url": "https://www.esavmarrakech.com/formation-initiale/cinema-et-audiovisuel"},
+    {"intitule": "Design & Création Visuelle", "niveau": "Bac+3", "diplome": "Formation initiale", "duree_annees": 3, "specialites": ["Communication visuelle", "Design d'intérieur", "Animation & illustration"], "campus": ["Marrakech"], "url": "https://www.esavmarrakech.com/formation-initiale/design-graphique"},
+    {"intitule": "Executive Master Production Cinématographique", "niveau": null, "diplome": "Executive Master", "duree_annees": null, "specialites": [], "campus": ["Marrakech"], "url": "https://www.esavmarrakech.com/formation-continue"}
+  ],
+  "admission": {"conditions": ["1re année : baccalauréat (toutes sections) ou équivalent", "2e année (passerelle) : première année validée dans une filière équivalente dans un établissement reconnu"], "etapes": ["Remplir le formulaire de candidature en ligne", "Compléter le dossier avec les pièces administratives", "Validation du dossier", "Test d'admission en ligne à distance"], "concours": null, "dates": "Candidatures 2026-2027 ; rentrée en septembre 2026 (Design & Création Visuelle)"},
+  "frais": [
+    {"cycle": "Design & Création Visuelle (3 ans)", "inscription_mad": 4000, "scolarite_annuelle_mad": 47000, "note": null},
+    {"cycle": "Executive Master Production Cinématographique (10 mois)", "inscription_mad": null, "scolarite_annuelle_mad": null, "note": "Frais de 32 000 MAD pour la formation de 10 mois"}
+  ],
+  "bourses": null,
+  "international": "École parrainée par Martin Scorsese, membre de l'association internationale CILECT ; intervenants nationaux et internationaux.",
+  "partenaires": [],
+  "vie_etudiante": ["Ateliers créatifs", "Masterclass et workshops", "Guide de l'étudiant"],
+  "logement": null,
+  "preuves": {
+    "adresse": "B.P. n° 4006 40002 Marrakech-Amerchich, Maroc",
+    "telephone": "+212 662683243",
+    "email": "admission@esavmarrakech.com",
+    "annee_creation": null,
+    "frais": ["Frais d’inscription :\n4000 MAD", "Frais de scolarité :\n47 000", "FRAIS\n32 000 MAD"],
+    "admission": ["Être titulaire du Baccalauréat (toutes sections confondues) ou équivalent.", "Réussir le test d’admission en ligne."]
+  }
+}

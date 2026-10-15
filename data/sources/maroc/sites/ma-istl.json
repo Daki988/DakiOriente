@@ -1,0 +1,42 @@
+{
+  "id": "ma-istl",
+  "site_web": "https://istl.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://istl.ma/", "https://istl.ma/premiere-et-seule-ecole-entierement-dediee-a-la-logistique-et-au-transport-au-maroc/", "https://istl.ma/cycle-master/", "https://istl.ma/cycle-licence-2/", "https://istl.ma/formation-initiale-cycle-master/", "https://istl.ma/formation-initiale-cycle-licence/"],
+  "description": "Institut de Casablanca (quartier Aïn Sebaâ) entièrement dédié au transport et à la logistique, créé en 2006 avec des professionnels marocains et le groupe français AFT-IFTIM. Il propose en formation initiale des licences professionnelles (Bac+3) et des masters spécialisés (Bac+5) en logistique, achats internationaux, douane et transport, ainsi que de la formation continue (masters, mastère spécialisé, executive MBA, formations courtes certifiantes). L'école indique que ses diplômes sont reconnus par l'État depuis 2017 et des partenariats existent avec l'Université d'Aix-Marseille et l'École des Ponts ParisTech pour certains programmes.",
+  "annee_creation": 2006,
+  "adresse": "Ancienne Route de Rabat KM 7, Rue Guiriane -ex. Vuillanier – Quartier Aïn Sebaa, Casablanca, Maroc",
+  "telephone": "05 22 24 61 61 / 05 22 24 64 64",
+  "email": "contact@istl.ma",
+  "statut_annonce": "École reconnue par l'État (depuis 2017)",
+  "programmes": [
+    {"intitule": "Licence professionnelle Transitaire et Gestionnaire des Opérations Douanières (TGOD)", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://istl.ma/formation-initiale-cycle-licence/"},
+    {"intitule": "Licence professionnelle Achats et Logistique Internationale (ALI)", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://istl.ma/formation-initiale-cycle-licence/"},
+    {"intitule": "Licence professionnelle Responsable d'Unité Opérationnelle Logistique (RUOL)", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://istl.ma/formation-initiale-cycle-licence/"},
+    {"intitule": "Licence professionnelle Organisateur de Transports Multimodaux et Internationaux (OTMI)", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://istl.ma/formation-initiale-cycle-licence/"},
+    {"intitule": "Master spécialisé Logistique Digitale (LD)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://istl.ma/formation-initiale-cycle-master/"},
+    {"intitule": "Master Manager de la Chaîne Logistique (MCL)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://istl.ma/formation-initiale-cycle-master/"},
+    {"intitule": "Master Achats Internationaux (AI)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://istl.ma/formation-initiale-cycle-master/"},
+    {"intitule": "Licence Management du Transport Maritime (MTM) – formation continue", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://istl.ma/cycle-licence-2/"},
+    {"intitule": "Master 1 Responsable Opérationnel des Flux – formation continue", "niveau": "Bac+4", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://istl.ma/cycle-master/"},
+    {"intitule": "Master Management et Droit du Transport Maritime (MDTM) – formation continue", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://istl.ma/cycle-master/"},
+    {"intitule": "Mastère spécialisé Ingénierie et Management des Systèmes Logistiques (IMSL)", "niveau": "Bac+6", "diplome": "Mastère spécialisé", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://istl.ma/cycle-master/"},
+    {"intitule": "Executive MBA Management stratégique de la Supply Chain", "niveau": null, "diplome": "MBA", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://istl.ma/cycle-master/"}
+  ],
+  "admission": {"conditions": [], "etapes": [], "concours": null, "dates": null},
+  "frais": [],
+  "bourses": null,
+  "international": "Partenariats avec l'Université d'Aix-Marseille, le Grand Port de Marseille, l'École des Ponts ParisTech et AFT-IFTIM.",
+  "partenaires": ["AFT-IFTIM", "AFTRI", "Université d'Aix-Marseille", "École des Ponts ParisTech", "EHTP"],
+  "vie_etudiante": [],
+  "logement": null,
+  "preuves": {
+    "adresse": "Ancienne Route de Rabat KM 7, Rue Guiriane -ex. Vuillanier – Quartier Aïn Sebaa, Casablanca, Maroc",
+    "telephone": "05 22 24 61 61 / 05 22 24 64 64",
+    "email": "contact@istl.ma",
+    "annee_creation": "Crée en 2006, et reconnu par l’Etat depuis 2017.",
+    "frais": null,
+    "admission": null
+  }
+}

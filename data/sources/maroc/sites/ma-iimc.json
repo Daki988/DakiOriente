@@ -1,0 +1,35 @@
+{
+  "id": "ma-iimc",
+  "site_web": "https://iiem.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://iiem.ac.ma/", "https://iiem.ac.ma/admission/", "https://iiem.ac.ma/Academics/", "https://iiem.ac.ma/about-us/", "https://iiem.ac.ma/campus/", "https://iiem.ac.ma/contact/", "https://iiem.ac.ma/scholarships/"],
+  "description": "Campus de Bouskoura (Casablanca) présenté comme la première antenne de Coventry University au Maroc, inaugurée en avril 2023. Les programmes sont enseignés à 100 % en anglais, avec une année de fondation pour les étudiants non anglophones, et mènent à un diplôme britannique de Coventry University ainsi qu'à un diplôme marocain Bac+3 ou Bac+5 annoncé comme accrédité par le ministère. L'offre couvre le management (Business Management, MBA), l'ingénierie électrique et électronique et l'Engineering Management. Les étudiants peuvent poursuivre au Royaume-Uni à tout moment et des bourses de pleins frais de scolarité sont proposées en master.",
+  "annee_creation": null,
+  "adresse": "Oulad Malik, Nouaceur, Bouskoura, Maroc",
+  "telephone": "+212 684 51 51 51",
+  "email": null,
+  "statut_annonce": "Diplôme marocain Bac+3/Bac+5 accrédité par le ministère de l'Enseignement supérieur et diplôme britannique de Coventry University",
+  "programmes": [
+    {"intitule": "International Foundation Year", "niveau": null, "diplome": "Année de fondation", "duree_annees": 1, "specialites": [], "campus": ["Bouskoura"], "url": "https://iiem.ac.ma/Academics/"},
+    {"intitule": "Business Management (Cycle Licence)", "niveau": "Bac+3", "diplome": "Bachelor", "duree_annees": 3, "specialites": ["Marketing", "Finance", "Global Business", "HRM"], "campus": ["Bouskoura"], "url": "https://iiem.ac.ma/Academics/"},
+    {"intitule": "Business Administration (Cycle Master)", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": 2, "specialites": [], "campus": ["Bouskoura"], "url": "https://iiem.ac.ma/Academics/"},
+    {"intitule": "Electrical and Electronic Engineering MEng (Hons)", "niveau": "Bac+5", "diplome": "MEng", "duree_annees": null, "specialites": [], "campus": ["Bouskoura"], "url": "https://iiem.ac.ma/Academics/"},
+    {"intitule": "Engineering Management MSc", "niveau": "Bac+5", "diplome": "MSc", "duree_annees": null, "specialites": [], "campus": ["Bouskoura"], "url": "https://iiem.ac.ma/Academics/"}
+  ],
+  "admission": {"conditions": ["Foundation Year : baccalauréat marocain, diplôme de lycée ou équivalent, test de placement d'anglais de niveau A2+", "Bachelors : test APTIS avancé au niveau IELTS 6.0 ou année de fondation validée", "Masters : bachelor d'une université reconnue (GPA 2.7/4.0 ou équivalent UK 2:2) et test APTIS au niveau IELTS 6.5"], "etapes": ["Candidature en ligne via le portail de candidature"], "concours": null, "dates": "Rentrées en janvier et en octobre ; session d'octobre 2026 : date limite de candidature le 16 septembre 2026 (premier cycle)"},
+  "frais": [],
+  "bourses": "Cinq bourses de pleins frais de scolarité par spécialité pour les études de master (cohorte 2026), à Bouskoura ou Agadir ; date limite le 14 juillet 2026.",
+  "international": "Diplôme britannique de Coventry University ; possibilité de poursuivre au Royaume-Uni à tout moment ; remise de diplôme à Coventry.",
+  "partenaires": ["Coventry University"],
+  "vie_etudiante": ["Bibliothèque et salles multimédias", "Laboratoires d'ingénierie", "Cafétérias et terrain de sport"],
+  "logement": null,
+  "preuves": {
+    "adresse": "Address: Oulad Malik, Nouaceur, Bouskoura – Morocco.",
+    "telephone": "+212 684 51 51 51",
+    "email": null,
+    "annee_creation": null,
+    "frais": [],
+    "admission": ["Moroccan Baccalaureate degree, high school diploma, A2 levels or equivalent.", "Application Deadline\n16 September 2026"]
+  }
+}

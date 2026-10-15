@@ -1,0 +1,35 @@
+{
+  "id": "ma-supdeco-marrakech",
+  "site_web": "https://supdeco.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://supdeco.ma/", "https://supdeco.ma/formations/formation-grande-ecole-de-commerce/", "https://supdeco.ma/formations/mba/", "https://supdeco.ma/conditions-dacces/", "https://supdeco.ma/frais-de-scolarite/", "https://supdeco.ma/campus-residentiel/", "https://supdeco.ma/mot-du-president/"],
+  "description": "École supérieure de commerce située à Guéliz, Marrakech, qui indique que ses diplômes sont reconnus par l'État. Le programme Grande École comprend trois années de management fondamental (Bac+3) suivies d'un management spécialisé (Bac+5) avec trois options : commerce international et logistique, marketing et ingénierie commerciale, comptabilité contrôle audit. L'école propose aussi trois MBA d'un an en partenariat avec ISTEC Paris. Un campus résidentiel de trois résidences avec restaurant universitaire est présenté, et l'admission en première année passe par un examen écrit et un entretien.",
+  "annee_creation": null,
+  "adresse": "BD prince My Abdellah B.P.595, Gueliz 40000 Marrakech, Maroc",
+  "telephone": "+212 524 436 000",
+  "email": null,
+  "statut_annonce": "Diplômes reconnus équivalents aux diplômes de l'État",
+  "programmes": [
+    {"intitule": "Management fondamental (Bac+3) - Grande École de commerce", "niveau": "Bac+3", "diplome": "Bachelor", "duree_annees": 3, "specialites": [], "campus": ["Marrakech"], "url": "https://supdeco.ma/formations/formation-grande-ecole-de-commerce/"},
+    {"intitule": "Management spécialisé (Bac+5) - Grande École de commerce", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": ["Commerce International et Logistique", "Marketing et Ingénierie Commerciale", "Comptabilité Contrôle Audit"], "campus": ["Marrakech"], "url": "https://supdeco.ma/formations/formation-grande-ecole-de-commerce/"},
+    {"intitule": "MBA Marketing Digital et Web Management (ISTEC Paris)", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": 1, "specialites": [], "campus": ["Marrakech"], "url": "https://supdeco.ma/formations/mba/"},
+    {"intitule": "MBA Marketing, Achat et Logistique (ISTEC Paris)", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": 1, "specialites": [], "campus": ["Marrakech"], "url": "https://supdeco.ma/formations/mba/"},
+    {"intitule": "MBA Management des Ressources Humaines (ISTEC Paris)", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": 1, "specialites": [], "campus": ["Marrakech"], "url": "https://supdeco.ma/formations/mba/"}
+  ],
+  "admission": {"conditions": ["1re année : baccalauréat", "2e, 3e et 4e années : entretiens avec les chefs de départements, étude du dossier, diplôme ou attestation de la dernière année", "MBA : Bac+4/Bac+5, ou Bac+3 avec expérience professionnelle"], "etapes": ["Examen d'entrée : écrit (mathématiques, anglais, français, culture générale) puis oral (entretien, motivation, profil)"], "concours": "Examen d'admission de Sup de Co", "dates": "Inscriptions ouvertes pour la rentrée 2026-2027"},
+  "frais": [],
+  "bourses": null,
+  "international": "MBA délivrés en partenariat avec ISTEC Paris ; 200 diplômes délivrés chaque année et plusieurs nationalités indiquées.",
+  "partenaires": ["ISTEC Paris"],
+  "vie_etudiante": ["Journées d'orientation et conférences", "Tournoi Enactus", "Forum Emploi & Carrière"],
+  "logement": "Campus résidentiel de trois résidences (Pavillon Filles, Pavillon Garçon, La Citadelle) avec studios individuels ou doubles équipés, restaurant universitaire et surveillance 24h/24.",
+  "preuves": {
+    "adresse": "BD prince My Abdellah B.P.595, Gueliz 40000 MARRAKECH -",
+    "telephone": "+212 524 436 000",
+    "email": null,
+    "annee_creation": null,
+    "frais": [],
+    "admission": ["Ecrit : Mathématiques, Anglais, Français, Culture Générale.", "Diplôme Bac+3 et un an d’expérience professionnelle"]
+  }
+}

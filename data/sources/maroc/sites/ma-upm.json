@@ -1,0 +1,492 @@
+{
+  "id": "ma-upm",
+  "site_web": "https://upm.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://upm.ac.ma/",
+    "https://upm.ac.ma/etudier-a-lupm/management/programme-grande-ecole-bac-5/",
+    "https://upm.ac.ma/international/programmes-dechange/",
+    "https://upm.ac.ma/etudier-a-lupm/hotellerie/master-management-en-hotellerie-internationale/",
+    "https://upm.ac.ma/etudier-a-lupm/hotellerie/licence-management-en-hotellerie-internationale/",
+    "https://upm.ac.ma/etudier-a-lupm/management/master-sciences-politiques-relations-internationales/",
+    "https://upm.ac.ma/etudier-a-lupm/management/master-2-bac-5-sciences-de-management-commerce-international/",
+    "https://upm.ac.ma/residanat/",
+    "https://upm.ac.ma/admission-2/",
+    "https://upm.ac.ma/architecture/"
+  ],
+  "description": "Université privée située à Marrakech (route d'Amizmiz) qui se présente comme reconnue par l'État, avec plus de 60 formations réparties en pôles : tourisme et hôtellerie (programme VATEL en double diplôme), business et gouvernance, ingénierie et innovation, sciences de la santé, sport, digital et médias, architecture, ainsi que des facultés privées de médecine, de pharmacie et de médecine dentaire. Elle propose des licences, masters, cycles ingénieur et formations doctorales. L'admission passe par un concours avec étude de dossier, test écrit et entretien. L'université met en avant les stages, l'alternance, les semestres d'échange à l'international, la double diplomation et l'accueil d'étudiants étrangers de plus de 21 nationalités.",
+  "annee_creation": null,
+  "adresse": "Km 13, route d'Amizmiz (route du barrage Lalla Takerkoust), 42312 Marrakech, Maroc",
+  "telephone": "+212 5 24 48 70 00",
+  "email": "contact@upm.ac.ma",
+  "statut_annonce": "Université reconnue par l'État",
+  "programmes": [
+    {
+      "intitule": "Licence Management en Hôtellerie Internationale (programme VATEL, double diplôme VATEL France)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/etudier-a-lupm/hotellerie/licence-management-en-hotellerie-internationale/"
+    },
+    {
+      "intitule": "Master Management en Hôtellerie Internationale (MBA, double diplôme VATEL)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [
+        "Management Hôtelier",
+        "Management et Entrepreneuriat"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/etudier-a-lupm/hotellerie/master-management-en-hotellerie-internationale/"
+    },
+    {
+      "intitule": "Licences Tourisme & Hôtellerie et Arts Culinaires",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [
+        "Licence Tourisme & Hôtellerie",
+        "Licence Arts Culinaires"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Licences Business & Gouvernance",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [
+        "Gestion Commerce",
+        "Sciences Politiques",
+        "Sciences de Management",
+        "Droit des Affaires"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Licence en Management Fondamental",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [
+        "Commerce International et Logistique",
+        "Marketing et Ingénierie Commerciale",
+        "Comptabilité, Contrôle, Audit (CCA)"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Master Programme Grande Ecole (Études Supérieures en Commerce)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/etudier-a-lupm/management/programme-grande-ecole-bac-5/"
+    },
+    {
+      "intitule": "Master Management Général",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [
+        "Ressources Humaines",
+        "Audit et Contrôle de Gestion"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Master Marketing des Services et Communication Opérationnelle",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Master Sciences Politiques",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [
+        "Relations Internationales",
+        "Gestion des Affaires Publiques"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/etudier-a-lupm/management/master-sciences-politiques-relations-internationales/"
+    },
+    {
+      "intitule": "Master Sciences de Management",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [
+        "Commerce International",
+        "Finance",
+        "Marketing"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/etudier-a-lupm/management/master-2-bac-5-sciences-de-management-commerce-international/"
+    },
+    {
+      "intitule": "Master Droit des Affaires - Ingénierie Contractuelle",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Licences Ingénierie et Innovation",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [
+        "Développement Logiciel",
+        "Sécurité Informatique",
+        "Informatique",
+        "Génie Civil"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Ingénieur en Intelligence Artificielle (IA)",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Ingénieur en Cybersécurité",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Ingénieur en Génie Civil",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [
+        "Infrastructures de transport",
+        "Bâtiment"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Ingénieur en Génie Industriel",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Ingénieur en Aéronautique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Ingénieur en TICSE",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [
+        "Informatique, système d'information",
+        "Génie Électrique, automatique et automatismes, systèmes embarqués",
+        "Réseaux & Télécoms",
+        "Énergies renouvelables"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Ingénieur en Agro-industrie",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [
+        "Agriculture, environnement et gestion des ressources",
+        "Agro-alimentaire : alimentation et management industriel",
+        "Marchés, filières et management d'entreprise",
+        "Territoires et développement rural"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Masters Ingénierie et Innovation",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [
+        "Management de la Qualité, Sécurité et Environnement",
+        "Master Spécialisé Intelligence des données",
+        "Master Spécialisé en Ingénierie et Gestion de l'Eau"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Licences Sciences de la santé",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [
+        "Infirmier en Anesthésie et Réanimation",
+        "Ingénierie de la Santé",
+        "Sciences biomédicales",
+        "Psychologie",
+        "Physiothérapie",
+        "Sage-femme",
+        "Soins infirmiers",
+        "Infirmier en Bloc Opératoire"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Licences professionnelles Santé",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [
+        "Technicien en Radiologie",
+        "Biologie Médicale et Techniques de Laboratoire",
+        "Assistance Médico-sociale"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Masters Sciences de la santé",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [
+        "Physiothérapie",
+        "Ingénierie de la santé - Parcours de spécialisations",
+        "Pratiques Avancées en Urgentologie",
+        "Nutrition Humaine et Diététique",
+        "Neuropsychologie Clinique"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Licence Management du Sport",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Master Management du Sport",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Digital, Médias, Art & Culture",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [
+        "Arts et Culture",
+        "Journalisme & Média",
+        "Production, Communication & Multimédia"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Ingénieur en Architecture d'Intérieur",
+      "niveau": null,
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Architecture (École d'Architecture)",
+      "niveau": null,
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 6,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/architecture/"
+    },
+    {
+      "intitule": "Médecine - Faculté Privée de Médecine de Marrakech",
+      "niveau": null,
+      "diplome": "Doctorat en médecine",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Pharmacie - Faculté Privée de Pharmacie de Marrakech",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Médecine dentaire - Faculté Privée de Médecine Dentaire de Marrakech",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    },
+    {
+      "intitule": "Formations doctorales",
+      "niveau": null,
+      "diplome": "Doctorat",
+      "duree_annees": null,
+      "specialites": [
+        "Sciences de l'ingénieur",
+        "Pratiques et stratégies des organisations"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://upm.ac.ma/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Licence : baccalauréat toutes filières, admissions parallèles possibles (hôtellerie)",
+      "Master Programme Grande Ecole : Bac+2 pour l'accès en ESC1, Bac+3/4 pour l'accès en ESCM1",
+      "Architecture : baccalauréat sciences expérimentales, mathématiques, technique, sciences économiques ou arts appliqués"
+    ],
+    "etapes": [
+      "Inscription en ligne",
+      "Constitution du dossier de candidature",
+      "Étude du dossier par le jury d'admission",
+      "Convocation au concours d'admission (test écrit et oral)",
+      "Résultats communiqués 48h après le concours",
+      "Inscription administrative"
+    ],
+    "concours": "Concours d'admission (écrit et entretien oral après étude de dossier)",
+    "dates": null
+  },
+  "frais": [],
+  "bourses": "Rubrique « Financement des études » et vidéo « Aide au financement » mentionnées, sans détail.",
+  "international": "Double diplomation avec des partenaires, semestre d'échange international minimum pendant un cycle, stages à l'étranger dès la 2e année, plus de 21 nationalités accueillies en échange, programme Marco Polo (VATEL), projets Erasmus.",
+  "partenaires": [
+    "VATEL France"
+  ],
+  "vie_etudiante": [
+    "Hôtel d'application Vatel",
+    "Médiathèque numérique",
+    "Activités de sports et loisirs / Foyer étudiants",
+    "Association et BDE"
+  ],
+  "logement": "Rubrique « Résidence » dans la section Campus, sans détail dans le texte relevé.",
+  "preuves": {
+    "adresse": "Université Privée de Marrakech, Cellule des Admissions, KM 13, route d’Amizmiz, 42312 Marrakech",
+    "telephone": "+212 5 24 48 70 00",
+    "email": "contact@upm.ac.ma",
+    "annee_creation": null,
+    "frais": [],
+    "admission": [
+      "Admission sur Concours écrit et entretien oral après l’étude de dossier.",
+      "Titulaires du baccalauréat toutes filières."
+    ]
+  }
+}

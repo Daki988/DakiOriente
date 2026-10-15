@@ -1,0 +1,34 @@
+{
+  "id": "ma-esiai",
+  "site_web": "https://www.esiai.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://www.esiai.ma/", "https://www.esiai.ma/inscription", "https://www.esiai.ma/annonces/1", "https://www.esiai.ma/formation", "https://www.esiai.ma/formation/genie-civil", "https://www.esiai.ma/formation/cybersecurite", "https://www.esiai.ma/formation/genie-informatique-ia", "https://www.esiai.ma/formation/science-tech-ingenieur", "https://www.esiai.ma/presentation", "https://www.esiai.ma/presentation/partenariats"],
+  "description": "École d'ingénierie privée située à Oujda, annoncée comme reconnue par l'État, dont trois diplômes d'ingénierie sont déclarés équivalents au diplôme national d'ingénieur d'État. Le cursus comprend deux années de cycle préparatoire (STPI) puis trois années de cycle ingénieur en génie civil, génie informatique et intelligence artificielle, ou cybersécurité. L'admission est possible après le bac, le Bac+2 ou le Bac+3 selon la filière. L'école met en avant des ateliers pratiques, des stages, un laboratoire de recherche et des partenariats avec le CNAM (France), l'École Nationale d'Architecture d'Oujda et des entreprises.",
+  "annee_creation": null,
+  "adresse": "Lotissement Kadda Benyoussef, Route Bouknadel 1 et 2, 60 000 Oujda",
+  "telephone": "+212-536542585",
+  "email": "esiai.oujda@gmail.com",
+  "statut_annonce": "École reconnue par l'État",
+  "programmes": [
+    {"intitule": "Sciences et Techniques pour l'Ingénieur (STPI) - Cycle préparatoire", "niveau": "Bac+2", "diplome": "Cycle préparatoire", "duree_annees": 2, "specialites": [], "campus": ["Oujda"], "url": "https://www.esiai.ma/formation/science-tech-ingenieur"},
+    {"intitule": "Cycle ingénieur Génie Civil", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 3, "specialites": [], "campus": ["Oujda"], "url": "https://www.esiai.ma/formation/genie-civil"},
+    {"intitule": "Cycle ingénieur Génie Informatique & Intelligence Artificielle (GIIA)", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 3, "specialites": [], "campus": ["Oujda"], "url": "https://www.esiai.ma/formation/genie-informatique-ia"},
+    {"intitule": "Cycle ingénieur Cybersécurité", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 3, "specialites": [], "campus": ["Oujda"], "url": "https://www.esiai.ma/formation/cybersecurite"}
+  ],
+  "admission": {"conditions": ["STPI 1re année : baccalauréat (séries scientifiques et techniques)", "Entrée en 3e année (GC3, GIIA3, CS3) : Bac+2 validé (CPGE, DUT, BTS, DEUG scientifique) ou STPI2 de l'école", "Entrée directe en 4e année (GC4, GIIA4, CS4) : Bac+3 validé dont l'intitulé correspond à la filière"], "etapes": ["Transmettre le dossier en ligne", "Étude du dossier et entretien", "Finaliser l'inscription à l'école avec le dossier physique"], "concours": null, "dates": "Date limite de dépôt des candidatures 2026-2027 : 30 septembre 2026"},
+  "frais": [],
+  "bourses": "Facilités de paiement et demandes de réduction étudiées au cas par cas.",
+  "international": "Convention avec le CNAM (France) pour la licence en génie civil ; partenariat avec l'Université Sorbonne Paris Nord en cours de signature.",
+  "partenaires": ["CNAM (France)", "École Nationale d'Architecture d'Oujda", "Institut des Mines de Touissit", "LafargeHolcim Maroc", "SMIR TOPO SARL", "NEOXECUTIVE", "Astronet Systems"],
+  "vie_etudiante": ["Ateliers de topographie, géotechnique, matériaux et électricité", "Laboratoire de recherche LSAI"],
+  "logement": null,
+  "preuves": {
+    "adresse": "Lotissement Kadda Benyoussef, Route Bouknadel 1 et 2, 60 000 Oujda",
+    "telephone": "+212-536542585",
+    "email": "esiai.oujda@gmail.com",
+    "annee_creation": null,
+    "frais": [],
+    "admission": ["Titulaires du Baccalauréat (toutes séries scientifiques et techniques)", "La date limite de dépôt des candidatures est fixée au 30 septembre 2026", "Titulaires d'un diplôme Bac+3 validé (Licence, Licence Professionnelle ou équivalent)"]
+  }
+}

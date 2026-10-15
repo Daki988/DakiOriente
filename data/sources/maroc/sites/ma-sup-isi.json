@@ -1,0 +1,41 @@
+{
+  "id": "ma-sup-isi",
+  "site_web": "https://supingenierie.com",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://supingenierie.com/", "https://supingenierie.com/frais.php?m=7", "https://supingenierie.com/formation_passion_programme.php?m=3&i=1", "https://supingenierie.com/diplome_bac3.php?m=4&i=1", "https://supingenierie.com/diplome_bac5.php?m=4&i=2"],
+  "description": "Institut supérieur privé de génie informatique, autorisé par le Ministère de l'Enseignement Supérieur et soumis à l'inspection pédagogique de l'Université Abdelmalek Essaâdi. La formation suit le système LMD avec un cycle Bac+3 (6 semestres) et un cycle Bac+5 (4 semestres), fondée sur la pédagogie par projets (au moins cinq projets par an, portfolio, stage ou PFE). Les cours couvrent développement, réseaux (CCNA), bases de données, intelligence artificielle et big data. L'école est membre de la Fédération Européenne des Écoles (FEDE) et propose un Bachelor européen ainsi qu'un titre RNCP de niveau 7.",
+  "annee_creation": 2009,
+  "adresse": null,
+  "telephone": "0661-17-89-88 ou 0539-99-07-70",
+  "email": null,
+  "statut_annonce": "École privée d'enseignement supérieur agréée par le Ministère de l'Enseignement Supérieur",
+  "programmes": [
+    {"intitule": "Diplôme des études supérieures en Génie Informatique", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": null, "url": "https://supingenierie.com/diplome_bac3.php?m=4&i=1"},
+    {"intitule": "Bachelor européen en Développement Informatique", "niveau": "Bac+3", "diplome": "Bachelor", "duree_annees": 3, "specialites": [], "campus": null, "url": "https://supingenierie.com/diplome_bac3.php?m=4&i=1"},
+    {"intitule": "Master's in Expert IT – Applications intelligentes et Big Data", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": null, "url": "https://supingenierie.com/diplome_bac5.php?m=4&i=2"}
+  ],
+  "admission": {
+    "conditions": ["1re année : baccalauréat obligatoire", "2e année : Bac+1 en informatique ou Bac+2 à dominante scientifique", "3e année : Bac+2 en informatique", "Master : licence fondamentale ou professionnelle en informatique, ou Bac+2 avec VAE"],
+    "etapes": ["Étude de dossier", "Entretien", "Dossier d'inscription (copies légalisées du baccalauréat, bulletins, CIN, photo)"],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [
+    {"cycle": "Bac+3 (2025-2026)", "inscription_mad": null, "scolarite_annuelle_mad": 16000, "note": "16 000 DH ou 17 000 DH selon le mode de paiement (16 000 DH en un versement à l'inscription ; paiement possible en 2 ou 3 versements)"},
+    {"cycle": "Bac+5 (2025-2026)", "inscription_mad": null, "scolarite_annuelle_mad": 18000, "note": "18 000 DH ou 19 000 DH selon le mode de paiement (18 000 DH en un versement ; paiement possible en 2 ou 3 versements)"}
+  ],
+  "bourses": null,
+  "international": "Membre de la Fédération Européenne des Écoles (FEDE) ; niveaux équivalents CEC 6 et 7.",
+  "partenaires": [],
+  "vie_etudiante": ["Activités scolaires et parascolaires", "Visites d'entreprises", "Activités sportives"],
+  "logement": null,
+  "preuves": {
+    "adresse": null,
+    "telephone": "0661-17-89-88 ou 0539-99-07-70",
+    "email": null,
+    "annee_creation": "Depuis 2009, SUP'ISI accompagne les bacheliers vers les métiers du numérique",
+    "frais": ["16 000 DH ou 17 000 DH", "18 000 DH ou 19 000 DH"],
+    "admission": ["Étude de dossier et Entretien"]
+  }
+}

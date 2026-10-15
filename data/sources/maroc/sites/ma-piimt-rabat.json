@@ -1,0 +1,89 @@
+{
+  "id": "ma-piimt-rabat",
+  "site_web": "https://www.piimt.us",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://www.piimt.us/",
+    "https://www.piimt.us/admission/",
+    "https://www.piimt.us/apply-now/",
+    "https://www.piimt.us/bachelor-of-computer-science/",
+    "https://www.piimt.us/bachelor-of-business-administration/",
+    "https://www.piimt.us/master-of-business-administration/",
+    "https://www.piimt.us/about-us/"
+  ],
+  "description": "Institut privé de management et de technologie qui propose un Bachelor of Business Administration, un Bachelor of Computer Science et un MBA, avec un double diplôme marocain et américain selon les programmes. L'enseignement est bilingue (français ou anglais) et possible en ligne, sur site ou en hybride. Le site met en avant des promotions à taille réduite, des études de cas, des stages et des aides financières.",
+  "annee_creation": null,
+  "adresse": null,
+  "telephone": "+212667555923",
+  "email": "contactpiimt@piimt.us",
+  "statut_annonce": null,
+  "programmes": [
+    {
+      "intitule": "Bachelor of Business Administration (BBA)",
+      "niveau": null,
+      "diplome": "Bachelor",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://www.piimt.us/bachelor-of-business-administration/"
+    },
+    {
+      "intitule": "Bachelor of Computer Science",
+      "niveau": "Bac+3",
+      "diplome": "Bachelor",
+      "duree_annees": 3,
+      "specialites": [
+        "Big Data Technologies",
+        "Web and Mobile App Technology",
+        "Cyber Security"
+      ],
+      "campus": null,
+      "url": "https://www.piimt.us/bachelor-of-computer-science/"
+    },
+    {
+      "intitule": "Master of Business Administration (MBA)",
+      "niveau": null,
+      "diplome": "MBA",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://www.piimt.us/master-of-business-administration/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Bachelor 1re année : test général en anglais, français et maths/logique",
+      "Étudiants de premier cycle : titulaires du baccalauréat",
+      "Étudiants de second cycle : titulaires d'un Bachelor ou en cours d'obtention la même année"
+    ],
+    "etapes": [
+      "Formulaire de candidature en ligne",
+      "Confirmation de réception sous deux jours ouvrés",
+      "Examen du dossier",
+      "Entretien",
+      "Paiement des frais"
+    ],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [],
+  "bourses": "Aides financières mentionnées sans détail.",
+  "international": "Double diplôme marocain et américain proposé ; cours en français ou en anglais ; étudiants d'échange.",
+  "partenaires": [],
+  "vie_etudiante": [
+    "E-learning",
+    "Accès gratuit à une plateforme d'anglais pour les inscrits 2024/2025"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": null,
+    "telephone": "+212667555923",
+    "email": "contactpiimt@piimt.us",
+    "annee_creation": null,
+    "frais": [],
+    "admission": [
+      "A general test in English, French and maths/logic."
+    ]
+  }
+}

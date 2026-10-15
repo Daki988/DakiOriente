@@ -1,0 +1,40 @@
+{
+  "id": "ma-hecf",
+  "site_web": "https://hecf.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://hecf.ac.ma/", "https://hecf.ac.ma/formations/", "https://hecf.ac.ma/finance-et-banque-fb/", "https://hecf.ac.ma/finance-dupliquer-1038/", "https://hecf.ac.ma/comptabilite-et-gestion-cg/", "https://hecf.ac.ma/master-en-droit-des-affaires-da/", "https://hecf.ac.ma/licence-en-droit-des-affaires-da/", "https://hecf.ac.ma/mba-gestion-financere-et-fiscale/", "https://hecf.ac.ma/comptabilite-controle-et-audit-cca/"],
+  "description": "École de commerce privée avec des campus à Fès (siège, quartier Agdal) et à Meknès, qui se présente comme reconnue par l'État marocain et par le CAMES. Elle propose des licences Bac+3 en comptabilité et gestion, finance et banque, marketing et commerce et droit des affaires, ainsi que des masters et MBA en comptabilité-contrôle-audit, droit des affaires, gestion financière et fiscale, logistique et transport. Les stages sont intégrés au cursus chaque année. L'école met en avant une ouverture à l'international, notamment vers l'Afrique, et des laboratoires de recherche.",
+  "annee_creation": 2004,
+  "adresse": "N° 4, Rue Abi Hamid Al ghazali , Agdal, FES , MAROC",
+  "telephone": "05-35-94-21-73",
+  "email": "hecffes@hecfsup.com",
+  "statut_annonce": "École reconnue par l'État Marocain et par le CAMES",
+  "programmes": [
+    {"intitule": "Licence Comptabilité et Gestion (CG)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Fès", "Meknès"], "url": "https://hecf.ac.ma/comptabilite-et-gestion-cg/"},
+    {"intitule": "Licence Finance et Banque (FB)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Fès", "Meknès"], "url": "https://hecf.ac.ma/finance-et-banque-fb/"},
+    {"intitule": "Licence Marketing et Commerce (MC)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Fès", "Meknès"], "url": "https://hecf.ac.ma/marketing-et-commerce-mc/"},
+    {"intitule": "Licence Droit des Affaires (DA)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Fès", "Meknès"], "url": "https://hecf.ac.ma/licence-en-droit-des-affaires-da/"},
+    {"intitule": "Master Comptabilité, Contrôle et Audit (CCA)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Fès", "Meknès"], "url": "https://hecf.ac.ma/comptabilite-controle-et-audit-cca/"},
+    {"intitule": "Master Droit des Affaires (DA)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Fès", "Meknès"], "url": "https://hecf.ac.ma/master-en-droit-des-affaires-da/"},
+    {"intitule": "Master Banque, Finance et Assurance (BFA)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Fès", "Meknès"], "url": "https://hecf.ac.ma/finance-dupliquer-1038/"},
+    {"intitule": "MBA Gestion Financière et Fiscale", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": null, "specialites": [], "campus": ["Fès", "Meknès"], "url": "https://hecf.ac.ma/mba-gestion-financere-et-fiscale/"},
+    {"intitule": "MBA Logistique et Transport", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": null, "specialites": [], "campus": ["Fès", "Meknès"], "url": "https://hecf.ac.ma/finance-dupliquer-1038/"},
+    {"intitule": "MBA Marketing Digital et Stratégie Commerciale", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": null, "specialites": [], "campus": ["Fès", "Meknès"], "url": "https://hecf.ac.ma/"}
+  ],
+  "admission": {"conditions": ["Licence : baccalauréat toutes séries ou équivalent", "Master et MBA : diplôme Bac+3 minimum dans une filière compatible", "Bonne maîtrise du français, langue d'enseignement"], "etapes": ["Étude du dossier", "Entretien oral ou de motivation"], "concours": null, "dates": null},
+  "frais": [],
+  "bourses": null,
+  "international": "Stratégie axée sur l'ouverture à l'international, notamment l'Afrique (coopération Sud-Sud).",
+  "partenaires": ["La Banque Populaire", "Maroc Leasing", "Barid Al Maghreb", "AttijariWafa Bank", "CDG Capital", "Poste Maroc", "INWI", "Renault", "Carrefour", "Yazaki"],
+  "vie_etudiante": ["Stages d'observation, opérationnel et fonctionnel", "Laboratoires de recherche LAREM et CIRESS"],
+  "logement": null,
+  "preuves": {
+    "adresse": "N° 4, Rue Abi Hamid Al ghazali , Agdal, FES , MAROC",
+    "telephone": "05-35-94-21-73 / 06-07-30-40-50",
+    "email": "hecffes@hecfsup.com",
+    "annee_creation": "Présent depuis 2004, l’établissement HECF Business School",
+    "frais": [],
+    "admission": ["Baccalauréat toutes séries ou équivalent", "Etre titulaire d’un diplôme de BAC+3", "Entretien : Entretien de motivation pour évaluer les aptitudes du candidat."]
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "id": "ma-upf",
+  "site_web": "https://upf.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://upf.ac.ma/",
+    "https://upf.ac.ma/diplomes_Ingenieur.aspx",
+    "https://upf.ac.ma/diplome_master.aspx",
+    "https://upf.ac.ma/diplome_licences.aspx"
+  ],
+  "description": "Université privée située à Fès (route Ain Chkef), avec un campus à Rabat (Institut Supérieur des Sciences de l’Ingénieur). Elle regroupe une faculté des sciences de l’ingénieur, une faculté de médecine dentaire, une faculté des sciences paramédicales, une école d’architecture et du bâtiment, la Fès Business School et un institut de sciences politiques et juridiques. L’offre couvre des licences, des masters, des diplômes d’ingénieur d’État et des doctorats, en gestion, ingénierie, architecture, droit et santé. Le campus dispose d’une résidence universitaire, d’un complexe sportif, d’une bibliothèque, d’un service de transport et d’un collectif des étudiants internationaux.",
+  "annee_creation": 2006,
+  "adresse": "Lotissement Quaraouiyine, Route Ain Chkef, Fès 30000",
+  "telephone": "+212 535 610 320",
+  "email": "info@upf.ac.ma",
+  "statut_annonce": "Reconnue par l’État depuis mai 2018 (diplômes automatiquement équivalents aux diplômes de l’État)",
+  "programmes": [
+    {
+      "intitule": "Génie informatique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplomes_Ingenieur.aspx"
+    },
+    {
+      "intitule": "Génie Civil",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplomes_Ingenieur.aspx"
+    },
+    {
+      "intitule": "Génie des Energies Renouvelables et Systèmes Energétiques",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplomes_Ingenieur.aspx"
+    },
+    {
+      "intitule": "Système d’Information et Transformation Digitale",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplomes_Ingenieur.aspx"
+    },
+    {
+      "intitule": "Génie des Systèmes Embarqués",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplomes_Ingenieur.aspx"
+    },
+    {
+      "intitule": "Design et Architecture d’Intérieur",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplomes_Ingenieur.aspx"
+    },
+    {
+      "intitule": "Urbanisme et Aménagement",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplomes_Ingenieur.aspx"
+    },
+    {
+      "intitule": "Data Science",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_master.aspx"
+    },
+    {
+      "intitule": "Juriste des Affaires",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_master.aspx"
+    },
+    {
+      "intitule": "Droit Notarial",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_master.aspx"
+    },
+    {
+      "intitule": "Management Hospitalier",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_master.aspx"
+    },
+    {
+      "intitule": "Management du Développement Territorial",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_master.aspx"
+    },
+    {
+      "intitule": "Architecture d’Intérieur et Design",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_master.aspx"
+    },
+    {
+      "intitule": "Psychologie Clinique",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_master.aspx"
+    },
+    {
+      "intitule": "Banque Finance Assurance",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_licences.aspx"
+    },
+    {
+      "intitule": "Commerce Vente et Distribution",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_licences.aspx"
+    },
+    {
+      "intitule": "Logistique et Transport",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_licences.aspx"
+    },
+    {
+      "intitule": "Gestion Comptable et Fiscale",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_licences.aspx"
+    },
+    {
+      "intitule": "Gestion des Ressources Humaines",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_licences.aspx"
+    },
+    {
+      "intitule": "Administration des affaires",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_licences.aspx"
+    },
+    {
+      "intitule": "Sciences Politiques et Juridiques",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_licences.aspx"
+    },
+    {
+      "intitule": "Sciences Infirmières Polyvalentes",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_licences.aspx"
+    },
+    {
+      "intitule": "Sciences Infirmières Anesthésie – Réanimation",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_licences.aspx"
+    },
+    {
+      "intitule": "Technologie de Laboratoire Biomédical",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_licences.aspx"
+    },
+    {
+      "intitule": "Diététique et Nutrition",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_licences.aspx"
+    },
+    {
+      "intitule": "Psychologie Générale",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_licences.aspx"
+    },
+    {
+      "intitule": "Commerce International",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://upf.ac.ma/diplome_licences.aspx"
+    }
+  ],
+  "admission": {
+    "conditions": [],
+    "etapes": [
+      "Candidature en ligne (choix de l’établissement)"
+    ],
+    "concours": null,
+    "dates": "Ouverture des inscriptions 2026-2027"
+  },
+  "frais": [],
+  "bourses": "Bourses de mérite (page dédiée, détails non relevés).",
+  "international": "Collectif des étudiants internationaux ; échanges à l’international ; réseau RAMSESS ; 10 écoles et universités partenaires dans le monde.",
+  "partenaires": [],
+  "vie_etudiante": [
+    "UPF Student Life",
+    "UPF Robotics",
+    "UPF Energetic Club",
+    "Complexe sportif",
+    "Bibliothèque universitaire",
+    "Restaurant universitaire"
+  ],
+  "logement": "Résidence universitaire sur le campus (détails non relevés).",
+  "preuves": {
+    "adresse": "Lotissement Quaraouiyine Route Ain Chkef, Fès 30000",
+    "telephone": "- +212 535 610 320",
+    "email": "- info@upf.ac.ma",
+    "annee_creation": "Elle œuvre depuis 2006 à offrir des formations d’excellence dans les métiers d’avenir.",
+    "frais": null,
+    "admission": [
+      "## 🎓 Ouverture des Inscriptions UPF 2026-2027"
+    ]
+  }
+}

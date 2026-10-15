@@ -1,0 +1,90 @@
+{
+  "id": "ma-junia",
+  "site_web": "https://ecole-junia.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://ecole-junia.ma/",
+    "https://ecole-junia.ma/admission/",
+    "https://ecole-junia.ma/mobilite-internationale/",
+    "https://ecole-junia.ma/cycle-preparatoire/",
+    "https://ecole-junia.ma/filieres-de-specialisation/",
+    "https://ecole-junia.ma/ecole/",
+    "https://ecole-junia.ma/contact/",
+    "https://ecole-junia.ma/vie-etudiante/"
+  ],
+  "description": "École d'ingénierie privée située dans le quartier Agdal à Rabat, devenue école marocaine indépendante en 2022 tout en gardant une alliance académique avec Junia (France). Le cursus comprend un cycle préparatoire intégré de 2 ans puis un cycle d'ingénierie de 3 ans, avec la possibilité de poursuivre en France, à Junia HEI ou ISEN, dans un parcours 3 ans au Maroc puis 2 ans en France. Le site évoque des spécialisations (bâtiment et travaux publics, informatique, industrie et logistique, énergie et environnement, électronique et mécanique, management et finance), des stages en 4e et 5e année, un FabLab, des laboratoires et un BDE actif.",
+  "annee_creation": 2016,
+  "adresse": "17, avenue des Nations Unies, Agdal, Rabat",
+  "telephone": "+212 (0)5 37 63 6797",
+  "email": null,
+  "statut_annonce": null,
+  "programmes": [
+    {
+      "intitule": "Cycle préparatoire intégré",
+      "niveau": "Bac+2",
+      "diplome": "Cycle préparatoire",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ecole-junia.ma/cycle-preparatoire/"
+    },
+    {
+      "intitule": "Cycle d'ingénierie",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 3,
+      "specialites": [
+        "Bâtiment, Travaux Publics et Smart Cities",
+        "Informatique et nouvelles technologies",
+        "Industrie et logistique",
+        "Energie, Environnement et Technologies médicales",
+        "Électronique et mécanique",
+        "Management, finance et entrepreneuriat"
+      ],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ecole-junia.ma/filieres-de-specialisation/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "1re année : baccalauréat scientifique ou technique, après étude du dossier et réussite au test d'admission (mathématiques, physique, français)",
+      "2e année : Bac+1 scientifique ou technique, après étude du dossier et test d'admission",
+      "3e année : Bac+2 scientifique ou technique (test d'admission) ou classes préparatoires (étude du dossier et entretien)",
+      "4e année : Bac+3 ou équivalent scientifique, après étude du dossier et test d'admission"
+    ],
+    "etapes": [
+      "Étude du dossier (résultats du baccalauréat et relevés de notes)",
+      "Test d'admission en mathématiques, physique et français"
+    ],
+    "concours": null,
+    "dates": "Test d'admission annoncé le 9 mai 2026"
+  },
+  "frais": [],
+  "bourses": null,
+  "international": "Partenariat avec Junia (Lille) : séjour d'une semaine à Lille en 2e année du cycle préparatoire, spécialisation en France (HEI, ISEN) en 4e et 5e année, doubles diplômes possibles une fois en France ; procédure d'admission identique pour les candidats marocains et internationaux.",
+  "partenaires": [
+    "Junia (France)"
+  ],
+  "vie_etudiante": [
+    "BDE avec budget et locaux dédiés",
+    "FabLab",
+    "Espace de coworking",
+    "Laboratoires spécialisés"
+  ],
+  "logement": "Le site mentionne des logements étudiants à proximité du campus.",
+  "preuves": {
+    "adresse": "17, avenue des Nations Unies, Agdal, Rabat",
+    "telephone": "+212 (0)5 37 63 6797",
+    "email": null,
+    "annee_creation": "Créée en 2016 à Rabat, forte de ses spécificités locales",
+    "frais": null,
+    "admission": [
+      "Vous pouvez intégrer la 1ʳᵉ année après étude de votre dossier et réussite au test d’admission"
+    ]
+  }
+}

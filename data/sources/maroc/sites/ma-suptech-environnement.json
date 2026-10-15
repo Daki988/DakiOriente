@@ -1,0 +1,200 @@
+{
+  "id": "ma-suptech-environnement",
+  "site_web": "https://www.suptech-environnement.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://www.suptech-environnement.ma/",
+    "https://www.suptech-environnement.ma/Pr%C3%A9inscriptionContinue",
+    "https://www.suptech-environnement.ma/Concours",
+    "https://www.suptech-environnement.ma/Formation",
+    "https://www.suptech-environnement.ma/FormationContinue",
+    "https://www.suptech-environnement.ma/campus"
+  ],
+  "description": "École supérieure spécialisée dans les technologies de l'eau, de l'énergie et du développement durable, dont le campus présenté sur le site se situe dans la zone industrielle de Mohammedia. Elle propose un cycle de classes préparatoires intégrées, des licences (assainissement, QHSE, énergies renouvelables, littoral, métiers subaquatiques, etc.), un cycle ingénieur, des masters et des formations continues. Le site mentionne un concours d'accès aux classes préparatoires, une présence dans plus de 17 préfectures, un accompagnement à l'entrepreneuriat et la possibilité de demander une bourse.",
+  "annee_creation": null,
+  "adresse": "SUPTECH ENVIRONNEMENT : Zone Industrielle, MOHAMMEDIA",
+  "telephone": "+212 661 625 586",
+  "email": "contact@suptech-environnement.ma",
+  "statut_annonce": null,
+  "programmes": [
+    {
+      "intitule": "Cycle Classes Préparatoires Intégrées (1re et 2e année)",
+      "niveau": "Bac+2",
+      "diplome": "Cycle préparatoire",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Mohammedia"
+      ],
+      "url": "https://www.suptech-environnement.ma/Formation"
+    },
+    {
+      "intitule": "Licence Génie de l'Assainissement et des Systèmes de Traitement des Eaux",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Mohammedia"
+      ],
+      "url": "https://www.suptech-environnement.ma/Formation"
+    },
+    {
+      "intitule": "Licence Qualité, Hygiène, Sécurité et Environnement (QHSE)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Mohammedia"
+      ],
+      "url": "https://www.suptech-environnement.ma/Formation"
+    },
+    {
+      "intitule": "Licence Technologies des Énergies Renouvelables",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Mohammedia"
+      ],
+      "url": "https://www.suptech-environnement.ma/Formation"
+    },
+    {
+      "intitule": "Licence Gestion Intégrée du Littoral et Valorisation Halieutique",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Mohammedia"
+      ],
+      "url": "https://www.suptech-environnement.ma/Formation"
+    },
+    {
+      "intitule": "Licence Métiers Subaquatiques et Plongée Sous-Marine",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Mohammedia"
+      ],
+      "url": "https://www.suptech-environnement.ma/Formation"
+    },
+    {
+      "intitule": "Licence Sécurité alimentaire et santé globale",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Mohammedia"
+      ],
+      "url": "https://www.suptech-environnement.ma/"
+    },
+    {
+      "intitule": "Licence Génie plasturgie : Revalorisation & recyclage",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Mohammedia"
+      ],
+      "url": "https://www.suptech-environnement.ma/"
+    },
+    {
+      "intitule": "Cycle Ingénieur – Génie de l'Eau et de l'Environnement",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Mohammedia"
+      ],
+      "url": "https://www.suptech-environnement.ma/Formation"
+    },
+    {
+      "intitule": "Cycle Ingénieur – Génie Digitale des Systèmes Énergétiques",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Mohammedia"
+      ],
+      "url": "https://www.suptech-environnement.ma/Formation"
+    },
+    {
+      "intitule": "Master Sciences et ingénierie de l'eau, de l'agriculture de précision et l'environnement",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Mohammedia"
+      ],
+      "url": "https://www.suptech-environnement.ma/Formation"
+    },
+    {
+      "intitule": "Master Ingénierie et management des systèmes industriels",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Mohammedia"
+      ],
+      "url": "https://www.suptech-environnement.ma/Formation"
+    },
+    {
+      "intitule": "Formation continue – Master Génie de l'Eau, de l'Assainissement et des Aménagements Hydroagricoles",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Mohammedia"
+      ],
+      "url": "https://www.suptech-environnement.ma/FormationContinue"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Classes préparatoires : baccalauréat (concours d'accès avec épreuves de mathématiques, physique-chimie et français)"
+    ],
+    "etapes": [
+      "Pré-inscription en ligne",
+      "Concours d'admission aux classes préparatoires"
+    ],
+    "concours": "Concours d'accès aux classes préparatoires",
+    "dates": "Concours d'admission classes préparatoires : 20/06/2026"
+  },
+  "frais": [],
+  "bourses": "Rubrique « Bourses et Tarifs » avec demande de bourse en ligne (sans détail dans le texte relevé).",
+  "international": null,
+  "partenaires": [
+    "Plus de 50 partenaires (selon le site)"
+  ],
+  "vie_etudiante": [
+    "Salle des jeux",
+    "Ping-pong",
+    "Cafétéria",
+    "Bibliothèque",
+    "Activités parascolaires (échecs, gaming)"
+  ],
+  "logement": "Un règlement d'internat est mentionné dans les documents du site.",
+  "preuves": {
+    "adresse": "SUPTECH ENVIRONNEMENT : Zone\nIndustrielle, MOHAMMEDIA",
+    "telephone": "+212 661 625 586",
+    "email": "contact@suptech-environnement.ma",
+    "annee_creation": null,
+    "frais": null,
+    "admission": [
+      "Cocnours d'admission Classes Préparatoires"
+    ]
+  }
+}

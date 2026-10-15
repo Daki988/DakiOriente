@@ -1,0 +1,231 @@
+{
+  "id": "ma-supemir",
+  "site_web": "https://sup2i.ac",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://sup2i.ac/",
+    "https://sup2i.ac/admissions/",
+    "https://sup2i.ac/programmes/",
+    "https://sup2i.ac/programmes/genie-civil/",
+    "https://sup2i.ac/programmes/genie-informatique/",
+    "https://sup2i.ac/programmes/genie-mecatronique/",
+    "https://sup2i.ac/a-propos/",
+    "https://sup2i.ac/campus/",
+    "https://sup2i.ac/bourses/",
+    "https://sup2i.ac/concours-bourses-excellence/",
+    "https://sup2i.ac/executive/"
+  ],
+  "description": "École d'ingénierie et de management (SUP2I, anciennement SUPEMIR) installée au Km 9 de la route Casa-Rabat à Casablanca. Elle propose un cycle ingénieur d'État en cinq ans (deux ans de classes préparatoires intégrées puis trois ans de cycle) dans trois filières, quatre licences et cinq masters en informatique, ingénierie et management, ainsi qu'une offre exécutive en temps aménagé pour les professionnels. Le site met en avant des projets réels, un incubateur, un centre de recherche, des bourses au mérite, sociales et internationales, et une admission ouverte aux bacheliers étrangers.",
+  "annee_creation": 2004,
+  "adresse": "Km 9, Route Casa-Rabat, Casablanca",
+  "telephone": "+212 5 22 24 91 75",
+  "email": "infos@sup2i.ac",
+  "statut_annonce": "Reconnue par l'État",
+  "programmes": [
+    {
+      "intitule": "Cycle Ingénieur d'État Génie Informatique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 5,
+      "specialites": [
+        "Intelligence Artificielle & Data Science",
+        "Réseaux & Cloud Computing",
+        "Sécurité & Mobilité Informatique"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://sup2i.ac/programmes/genie-informatique/"
+    },
+    {
+      "intitule": "Cycle Ingénieur d'État Génie Mécatronique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 5,
+      "specialites": [
+        "Automatisation des Systèmes Industriels",
+        "Génie Industriel",
+        "Génie Mécanique"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://sup2i.ac/programmes/genie-mecatronique/"
+    },
+    {
+      "intitule": "Cycle Ingénieur d'État Génie Civil",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 5,
+      "specialites": [
+        "Bâtiment & Efficacité Énergétique",
+        "Géotechnique & Infrastructures",
+        "Structures & Ouvrages d'Art"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://sup2i.ac/programmes/genie-civil/"
+    },
+    {
+      "intitule": "Licence IRM (Informatique, Réseaux & Multimédia)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [
+        "Développement Informatique",
+        "Intelligence Artificielle",
+        "Réseaux & Cybersécurité"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://sup2i.ac/programmes/"
+    },
+    {
+      "intitule": "Licence MASI (Management des Affaires & Systèmes d'Information)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [
+        "Développement Commercial & Marketing Digital",
+        "Entrepreneuriat, Audit & Finance",
+        "Logistique & Supply Chain Management"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://sup2i.ac/programmes/"
+    },
+    {
+      "intitule": "Licence Génie Mécatronique",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://sup2i.ac/programmes/"
+    },
+    {
+      "intitule": "Licence Génie Civil",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [
+        "BIM & Modélisation Numérique",
+        "Gestion & Conduite de Travaux"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://sup2i.ac/programmes/"
+    },
+    {
+      "intitule": "Master Génie Informatique & Innovation Technologique",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [
+        "Big Data",
+        "Génie Logiciel"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://sup2i.ac/programmes/"
+    },
+    {
+      "intitule": "Master Réseaux & Cybersécurité",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [
+        "Cybersécurité",
+        "Réseaux Nouvelle Génération"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://sup2i.ac/programmes/"
+    },
+    {
+      "intitule": "Master MASI (Management des Affaires & SI) - Achats, Logistique & Supply Chain Management",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://sup2i.ac/programmes/"
+    },
+    {
+      "intitule": "Master IEMS (Stratégie et Intelligence économique)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://sup2i.ac/programmes/"
+    },
+    {
+      "intitule": "Master QHSE (Qualité, Hygiène, Sécurité & Environnement)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://sup2i.ac/programmes/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Classes préparatoires intégrées : bac scientifique ou technique",
+      "Licences : toutes séries selon la filière",
+      "Admission parallèle en cycle ingénieur ou en 3e année de licence après Bac+2 (DUT, BTS, DEUG, CPGE)",
+      "Masters : licence ou équivalent en lien avec la filière visée"
+    ],
+    "etapes": [
+      "Pré-inscription en ligne",
+      "Étude du dossier (réponse sous 48h)",
+      "Entretien d'orientation et de motivation (test écrit pour le cycle ingénieur)",
+      "Inscription définitive"
+    ],
+    "concours": null,
+    "dates": "Sessions d'admission : mars-avril, mai-juin et juillet-septembre 2026"
+  },
+  "frais": [],
+  "bourses": "Bourses au mérite, aides sociales, bourses internationales, avantage early-bird et facilités de paiement échelonné, étudiés au cas par cas ; concours des Bourses d'Excellence 2026.",
+  "international": "Accueil de titulaires de baccalauréats étrangers étudiés au cas par cas ; bourse internationale pour les étudiants subsahariens et internationaux.",
+  "partenaires": [
+    "Cisco CCNA",
+    "AWS",
+    "Microsoft Azure",
+    "Oracle",
+    "Huawei ICT Academy"
+  ],
+  "vie_etudiante": [
+    "Incubateur SupFactory",
+    "Centre de recherche CERIMO",
+    "Clubs étudiants",
+    "Événements et hackathons"
+  ],
+  "logement": "Quartiers proches du campus (Roches Noires, Belvédère, Hay Mohammadi) avec options de location et colocation ; conseils de l'équipe.",
+  "preuves": {
+    "adresse": "Km 9, Route Casa-Rabat, Casablanca",
+    "telephone": "+212 5 22 24 91 75",
+    "email": "infos@sup2i.ac",
+    "annee_creation": "Fondée en 2004, l’école a formé plus de 1 500 diplômés aujourd’hui en poste.",
+    "frais": [],
+    "admission": [
+      "Prépa : Bac scientifique ou technique · Licences : toutes séries selon filière"
+    ]
+  }
+}

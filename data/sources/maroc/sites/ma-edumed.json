@@ -1,0 +1,33 @@
+{
+  "id": "ma-edumed",
+  "site_web": "https://www.edumed.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://www.edumed.ma/", "https://www.edumed.ma/ecole/campus", "https://www.edumed.ma/ecole/contact", "https://www.edumed.ma/formation-initiale", "https://www.edumed.ma/toutes-les-formations", "https://www.edumed.ma/formation-initiale/licence-bac-3", "https://www.edumed.ma/formation-initiale/licence-bac-3/licence-orthophonie", "https://www.edumed.ma/formation-initiale/licence-bac-3/licence-kinesitherapie", "https://www.edumed.ma/formation-initiale/licence-bac-3/licence-psychomotricite", "https://www.edumed.ma/conditions-generales-dutilisation"],
+  "description": "École supérieure privée du paramédical et de la rééducation située à Rabat, dans le quartier Hay Riad. Elle propose trois licences Bac+3 en rééducation et réhabilitation : kinésithérapie-physiothérapie, orthophonie et psychomotricité, d'une durée de 3 ans, avec des stages en milieu clinique dès la première année. L'école fait partie du groupe Planeta et s'appuie sur des partenariats académiques nationaux et internationaux pour les échanges et la poursuite d'études. Une bourse d'études est possible selon les résultats du concours d'admission.",
+  "annee_creation": null,
+  "adresse": "Avenue Al Milia, Secteur 9, Rue Maziata, Quartier Hay Riad, Rabat 10170, Maroc",
+  "telephone": "+212 5 30 30 95 95",
+  "email": null,
+  "statut_annonce": "Accrédité par le Ministère de l'Enseignement Supérieur (Autorisation n° 495/2023)",
+  "programmes": [
+    {"intitule": "Licence en rééducation et réhabilitation, spécialité kinésithérapie-physiothérapie", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Rabat"], "url": "https://www.edumed.ma/formation-initiale/licence-bac-3/licence-kinesitherapie"},
+    {"intitule": "Licence en rééducation et réhabilitation, spécialité orthophonie", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Rabat"], "url": "https://www.edumed.ma/formation-initiale/licence-bac-3/licence-orthophonie"},
+    {"intitule": "Licence en rééducation et réhabilitation, spécialité psychomotricité", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Rabat"], "url": "https://www.edumed.ma/formation-initiale/licence-bac-3/licence-psychomotricite"}
+  ],
+  "admission": {"conditions": ["Licence 1re année : baccalauréat du système public ou privé marocain, ou des missions étrangères accréditées au Maroc (bac scientifique pour la kinésithérapie, bac général pour l'orthophonie)", "Orthophonie : niveau de français B1 exigé", "Admissions parallèles en 2e et 3e année possibles (bac+1 ou bac+2 de la filière, ou diplôme de Technicien Spécialisé)"], "etapes": ["Étude de dossier", "Épreuve écrite (QCM SVT Biologie, dissertation en langue française)", "Entretien de motivation"], "concours": "Concours d'admission (épreuve écrite et entretien)", "dates": null},
+  "frais": [],
+  "bourses": "Bourse d'études possible en fonction des résultats du concours d'admission.",
+  "international": "Partenariats avec des universités et instituts en France, Belgique, Espagne, Liban et Suisse ; programmes d'échange et stages à l'étranger ; appartient au groupe Planeta.",
+  "partenaires": ["Ministère de la santé et de la protection sociale", "Faculté de Médecine et de pharmacie de Rabat (Université Med V)", "Centre National Mohammed VI des Handicapés", "Haute école Leonardo De Vinci (Belgique)", "Université Saint-Joseph Beyrouth (Liban)"],
+  "vie_etudiante": ["Activités d'intégration", "Stages dans des centres de rééducation, hôpitaux et cliniques"],
+  "logement": null,
+  "preuves": {
+    "adresse": "Planeta De Agostini Formation Maroc, S.A est une société dont le siège est situé Avenue Al Milia, Secteur 9, Rue Maziata, Quartier, Rabat 10170, Maroc.",
+    "telephone": "+212 (0)5 30 30 95 95",
+    "email": null,
+    "annee_creation": null,
+    "frais": [],
+    "admission": ["Epreuve écrite (QCM SVT Biologie, dissertation en langue française)", "le niveau de connaissance de la langue française exigé est B1", "Bourse d’études possible en fonction de tes résultats de concours d’admission"]
+  }
+}

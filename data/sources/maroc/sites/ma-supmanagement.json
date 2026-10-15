@@ -1,0 +1,140 @@
+{
+  "id": "ma-supmanagement",
+  "site_web": "https://www.supmanagement.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://www.supmanagement.ma/",
+    "https://www.supmanagement.ma/?p=inscription",
+    "https://www.supmanagement.ma/?p=ecole-metiers",
+    "https://www.supmanagement.ma/?p=campus",
+    "https://www.supmanagement.ma/?p=bourses",
+    "https://www.supmanagement.ma/?p=contacts",
+    "https://www.supmanagement.ma/?p=accreditations"
+  ],
+  "description": "Établissement d'enseignement supérieur dont le siège est à Fès, fondé en 1995, qui s'adresse à des étudiants marocains et africains et dispose de centres associés dans plusieurs pays d'Afrique. Le site présente des pôles de formation (management, ingénierie, tourisme, santé, droit-diplomatie-gouvernance, énergies renouvelables) sans détailler les intitulés de diplômes sur les pages collectées. Il décrit des services pour les étudiants étrangers (accueil à l'aéroport, aide aux démarches, demande de visa), des bourses d'excellence et sociales, et une école des métiers proposant des certifications informatiques (Microsoft, Cisco, Oracle, LPI).",
+  "annee_creation": 1995,
+  "adresse": "28, Place du 11 Janvier, v.n. Fès - Maroc",
+  "telephone": "(+212) 535 65 34 31 / 535 94 00 39",
+  "email": "contact@supmanagement.ma",
+  "statut_annonce": "Reconnue par l'État",
+  "programmes": [
+    {
+      "intitule": "Pôle de Management",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://www.supmanagement.ma/?p=inscription"
+    },
+    {
+      "intitule": "Pôle d'Ingénierie",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://www.supmanagement.ma/?p=inscription"
+    },
+    {
+      "intitule": "Pôle de Tourisme",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://www.supmanagement.ma/?p=inscription"
+    },
+    {
+      "intitule": "Pôle de Santé",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://www.supmanagement.ma/?p=inscription"
+    },
+    {
+      "intitule": "Pôle de Droit, Diplomatie & Gouvernance",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://www.supmanagement.ma/?p=inscription"
+    },
+    {
+      "intitule": "Pôle des Energies Renouvelables",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://www.supmanagement.ma/?p=inscription"
+    },
+    {
+      "intitule": "Ecole des Métiers : certifications internationales (Microsoft, Cisco, Oracle, LPI)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [
+        "Ingénieur Systèmes Certifié Microsoft/MCSE",
+        "Ingénieur Réseaux Certifié Cisco/CCNP",
+        "Ingénieur Oracle (OCA/OCP/OCM)",
+        "Administrateur Système Linux (LPI)"
+      ],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://www.supmanagement.ma/?p=ecole-metiers"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Pôle de Management : baccalauréat toutes séries",
+      "Pôle d'Ingénierie : baccalauréat séries scientifiques",
+      "Admissions parallèles en 2e, 3e ou 4e année : attestation de réussite ou diplôme post-bac"
+    ],
+    "etapes": [
+      "Formulaire d'inscription",
+      "Copie du baccalauréat et des diplômes post-bac si admission parallèle",
+      "Pièces certifiées conformes à l'accès effectif"
+    ],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [],
+  "bourses": "Bourses d'excellence et bourses sociales octroyées par la Fondation FORCE ; dossier à adresser avant le 10 septembre de chaque année académique.",
+  "international": "Centres associés dans plusieurs pays africains ; accueil à l'aéroport, aide aux démarches administratives et demande de visa pour les étudiants étrangers ; adhésions et accréditations internationales citées (AABS, AACSB).",
+  "partenaires": [
+    "Fondation FORCE"
+  ],
+  "vie_etudiante": [
+    "Cité universitaire (rubrique du site)",
+    "E-learning et bibliothèque numérique"
+  ],
+  "logement": "Rubrique « Cité universitaire » et aide à l'hébergement pour les étudiants étrangers mentionnées sur le site.",
+  "preuves": {
+    "adresse": "28, Place du 11 Janvier, v.n. Fès - Maroc",
+    "telephone": "(+212) 535 65 34 31 / 535 94 00 39",
+    "email": "contact@supmanagement.ma",
+    "annee_creation": "fondée en 1995, forte de lexpérience et de lexcellence de son équipe diri",
+    "frais": [],
+    "admission": [
+      "Une copie du baccalauréat et du diplôme ou de l'attestation de réussite post-bac pour les cas d'admissions parallèles en 2°, 3° ou 4° Année."
+    ]
+  }
+}

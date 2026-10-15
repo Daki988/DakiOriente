@@ -1,0 +1,171 @@
+{
+  "id": "ma-sup-technology",
+  "site_web": "https://suptechnology.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://suptechnology.ma/",
+    "https://suptechnology.ma/programmes",
+    "https://suptechnology.ma/programmes/masters",
+    "https://suptechnology.ma/programmes/licences",
+    "https://suptechnology.ma/programmes/masters/master-miage",
+    "https://suptechnology.ma/programmes/licences/licence-miage",
+    "https://suptechnology.ma/programmes/masters/master-big-data",
+    "https://suptechnology.ma/programmes/masters/master-architecte-ia-",
+    "https://suptechnology.ma/programmes/masters/master-cyber-securite"
+  ],
+  "description": "École privée d'ingénierie informatique située à Casablanca (quartier Maârif). Elle propose des licences (Bac+3, 3 ans) et des masters (Bac+5, 2 ans) en informatique de gestion (MIAGE), réseaux, systèmes et sécurité, big data, intelligence artificielle et cybersécurité. Le site indique que les formations sont accréditées par l'État et proposées avec un parcours marocain ou un parcours international en double diplomation avec l'ULCO (licence) et l'Université de Pau (master), avec stages en entreprise et projet de fin d'études.",
+  "annee_creation": null,
+  "adresse": "immeuble 4 - avenue cadi iass (en face mc donald) - maarif - 20333 casablanca",
+  "telephone": "+212 52299-6566",
+  "email": "contact@suptechnology.ma",
+  "statut_annonce": "Formations accréditées par l'État",
+  "programmes": [
+    {
+      "intitule": "Licence MIAGE",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://suptechnology.ma/programmes/licences/licence-miage"
+    },
+    {
+      "intitule": "Licence Réseaux, Systèmes & Sécurité",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://suptechnology.ma/programmes/licences"
+    },
+    {
+      "intitule": "Licence Développement Internet & Mobile (parcours international, ULCO)",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://suptechnology.ma/programmes/licences"
+    },
+    {
+      "intitule": "Licence Administration & Sécurité des réseaux (parcours international, ULCO)",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://suptechnology.ma/programmes/licences"
+    },
+    {
+      "intitule": "Master MIAGE",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://suptechnology.ma/programmes/masters/master-miage"
+    },
+    {
+      "intitule": "Master Big Data",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://suptechnology.ma/programmes/masters/master-big-data"
+    },
+    {
+      "intitule": "Master Architecte IA",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://suptechnology.ma/programmes/masters/master-architecte-ia-"
+    },
+    {
+      "intitule": "Master en Cyber Sécurité",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://suptechnology.ma/programmes/masters/master-cyber-securite"
+    },
+    {
+      "intitule": "Master Technologies de l'Internet option Logiciel (parcours international, Université de Pau)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://suptechnology.ma/programmes/masters"
+    },
+    {
+      "intitule": "Master Technologies de l'Internet option Réseaux (parcours international, Université de Pau)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://suptechnology.ma/programmes/masters"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Licence : baccalauréat scientifique ou technique ou équivalent, ou Bac+2 scientifique ou technique",
+      "Master : Bac+3 scientifique ou technique, étude du dossier (diplôme ou attestation de réussite et relevés de notes)"
+    ],
+    "etapes": [
+      "Étude du dossier",
+      "Entretien d'évaluation des compétences et des motivations"
+    ],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [],
+  "bourses": null,
+  "international": "Parcours international avec diplôme d'État français délivré par l'ULCO (licence) ou l'Université de Pau (master) ; double diplomation possible ; formations proposées en double diplôme avec des universités étrangères.",
+  "partenaires": [
+    "ULCO",
+    "Université de Pau"
+  ],
+  "vie_etudiante": [
+    "Vie estudiantine et agenda",
+    "Journal'Tech",
+    "Formations gratuites via Formation++"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": "immeuble 4 - avenue cadi iass",
+    "telephone": "+212 52299-6566",
+    "email": "contact@suptechnology.ma",
+    "annee_creation": null,
+    "frais": null,
+    "admission": [
+      "Entretien d’Evaluation des Compétences et des Motivations",
+      "Baccalauréat scientifique ou technique ou équivalent"
+    ]
+  }
+}

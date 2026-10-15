@@ -1,0 +1,32 @@
+{
+  "id": "ma-isjc",
+  "site_web": "https://isjc-press.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://isjc-press.ma/", "https://isjc-press.ma/?p=6604", "https://isjc-press.ma/?page_id=1964"],
+  "description": "Institut de journalisme et de communication situé à Casablanca (boulevard Rahal Meskini), créé en 1998. Il forme en trois ans après le bac au diplôme de l'ISJC (parcours fondamental ou professionnel), puis propose un cycle supérieur de deux ans menant à un master général ou spécialisé. Les spécialités citées sont la presse écrite, l'audiovisuel, la communication institutionnelle et les médias digitaux. La formation associe cours, ateliers pratiques, production audiovisuelle et stages, avec des enseignants universitaires, journalistes et professionnels. Les inscriptions pour la rentrée 2026-2027 sont annoncées ouvertes.",
+  "annee_creation": 1998,
+  "adresse": "47, Boulevard Rahal Meskini, Casablanca, Maroc",
+  "telephone": "+212 522 30 87 10",
+  "email": "info@isjc-press.ma",
+  "statut_annonce": "Accrédité par le Ministère de l'Enseignement Supérieur",
+  "programmes": [
+    {"intitule": "Diplôme de l'ISJC (premier cycle, fondamental ou professionnel)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": ["Presse écrite", "Audiovisuel", "Communication institutionnelle", "Médias et communication digitale"], "campus": ["Casablanca"], "url": "https://isjc-press.ma/"},
+    {"intitule": "Master (général ou spécialisé) - Cycle supérieur", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://isjc-press.ma/"}
+  ],
+  "admission": {"conditions": ["Nouveaux bacheliers pour le premier cycle"], "etapes": [], "concours": null, "dates": "Inscriptions ouvertes pour la rentrée 2026-2027"},
+  "frais": [],
+  "bourses": null,
+  "international": null,
+  "partenaires": [],
+  "vie_etudiante": ["Ateliers pratiques et production audiovisuelle", "Stages"],
+  "logement": null,
+  "preuves": {
+    "adresse": "47, Bd Rahal Meskini, Casablanca – Maroc",
+    "telephone": "+212 522 30 87 10",
+    "email": "info@isjc-press.ma",
+    "annee_creation": "a été créé en 1998 par le père fondateur du Journalisme Moderne au Maroc",
+    "frais": [],
+    "admission": ["propose aux nouveaux bacheliers une formation spécialisée"]
+  }
+}
