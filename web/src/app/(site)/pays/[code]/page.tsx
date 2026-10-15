@@ -31,7 +31,7 @@ export default function PaysDetailPage({ params }: { params: { code: string } })
         <div className="container grid items-center gap-10 lg:grid-cols-[1fr_1.05fr]">
           <div className="flex min-w-0 flex-col gap-5">
             <nav className="flex items-center gap-1.5 text-[13px] text-ink-mute"><Link href="/">Accueil</Link><ChevronRight size={14} /><Link href="/pays">Pays</Link><ChevronRight size={14} /><span>{P.nom}</span></nav>
-            <Reveal className="flex items-center gap-3">{PAYS_STYLE[code].flag}<span className="chip bg-sun-100 text-[#a55a00]">Écoles privées aux diplômes homologués</span></Reveal>
+            <Reveal className="flex items-center gap-3">{PAYS_STYLE.MA.flag}<span className="chip bg-sun-100 text-[#a55a00]">Écoles privées aux diplômes homologués</span></Reveal>
             <Reveal delay={0.05}><h1 className="h-display">Étudier au <span className="text-brand-600">{P.nom}</span></h1></Reveal>
             <Reveal delay={0.1}><p className="text-lg leading-relaxed text-ink-soft">{P.accroche}</p></Reveal>
             <Reveal delay={0.15} className="flex flex-wrap gap-3">

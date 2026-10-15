@@ -48,7 +48,7 @@ export function DeviseSelect({ className = "", dark = false }: { className?: str
   return (
     <label className={`flex flex-wrap items-center gap-2 text-[13px] ${dark ? "text-white/80" : "text-ink-soft"} ${className}`}>
       <span>Montants convertis pour :</span>
-      <select value={pays ?? ""} onChange={(e) => setPays(e.target.value || null)} className={`max-w-[200px] rounded-lg border px-2 py-1 text-[13px] font-semibold ${dark ? "border-white/20 bg-white/10 text-white" : "border-slate-200 bg-white text-ink"}`} aria-label="Pays de provenance">
+      <select value={pays ?? ""} onChange={(e) => setPays(e.target.value || null)} className={`max-w-[200px] rounded-lg border px-2 py-1 text-[13px] font-semibold ${dark ? "border-white/20 bg-white/10 text-white [&_option]:text-ink" : "border-slate-200 bg-white text-ink"}`} aria-label="Pays de provenance">
         <option value="">Dirhams uniquement</option>
         {PAYS_OPTIONS.filter((p) => p.value !== "MA").map((p) => <option key={p.value} value={p.value}>{p.label}</option>)}
       </select>

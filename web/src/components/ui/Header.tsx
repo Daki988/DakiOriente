@@ -8,14 +8,20 @@ import { Brand } from "./Brand";
 
 export const NAV = [
   { href: "/", label: "Accueil" },
-  { href: "/orientation", label: "Orientation" },
   { href: "/metiers", label: "Métiers" },
   { href: "/formations", label: "Formations" },
   { href: "/etablissements", label: "Établissements" },
-  { href: "/comparateur", label: "Comparateur" },
-  { href: "/pays", label: "Pays" },
-  { href: "/devis", label: "Parents" },
+  { href: "/villes", label: "Villes" },
+  { href: "/orientation", label: "Orientation" },
+  { href: "/ressources", label: "Ressources" },
   { href: "/navilease", label: "Navilease" },
+];
+/** Liens secondaires (menu mobile). */
+export const NAV_PLUS = [
+  { href: "/comparateur", label: "Comparateur" },
+  { href: "/devis", label: "Devis parents" },
+  { href: "/pays/ma", label: "Étudier au Maroc" },
+  { href: "/actualites", label: "Actualités" },
 ];
 
 export function Header() {
@@ -34,6 +40,7 @@ export function Header() {
     setScrolled(y > 12);
   });
   const active = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
+  useEffect(() => setOpen(false), [path]);
 
   return (
     <motion.header
@@ -43,16 +50,16 @@ export function Header() {
     >
       <div className="container flex h-[76px] items-center justify-between gap-6">
         <Brand />
-        <nav className="hidden items-center gap-1 xl:flex" aria-label="Navigation principale">
+        <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Navigation principale">
           {NAV.map((n) => (
-            <Link key={n.href} href={n.href} className={`relative whitespace-nowrap rounded-lg px-2.5 py-2 text-sm font-semibold transition-colors ${active(n.href) ? "text-brand-600" : "text-ink-soft hover:text-brand-600"}`}>
+            <Link key={n.href} href={n.href} className={`relative whitespace-nowrap rounded-lg px-2 py-2 text-sm font-semibold 2xl:px-2.5 transition-colors ${active(n.href) ? "text-brand-600" : "text-ink-soft hover:text-brand-600"}`}>
               {n.label}
               {active(n.href) && <motion.span layoutId="nav-pill" className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-brand-600" />}
             </Link>
           ))}
         </nav>
         <div className="flex items-center gap-2.5">
-          <Link href="/recherche" aria-label="Rechercher" className="hidden h-[42px] w-[42px] items-center justify-center rounded-xl bg-[#f1f4fd] text-ink-soft transition hover:bg-brand-50 hover:text-brand-600 sm:flex">
+          <Link href="/recherche" aria-label="Rechercher" className="flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-[#f1f4fd] text-ink-soft transition hover:bg-brand-50 hover:text-brand-600">
             <Search size={18} />
           </Link>
           {me && home ? <Link href={home} className="btn-primary hidden whitespace-nowrap py-2.5 sm:inline-flex">Mon espace · {me.firstName}</Link> : <>
@@ -66,12 +73,13 @@ export function Header() {
       <AnimatePresence>
         {open && (
           <motion.nav initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden border-t border-slate-200 bg-white xl:hidden">
-            <div className="container grid gap-1 py-4">
+            <div className="container grid max-h-[calc(100dvh-76px)] gap-1 overflow-y-auto py-4">
               {NAV.map((n, i) => (
                 <motion.div key={n.href} initial={{ x: -16, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: i * 0.04 }}>
                   <Link href={n.href} onClick={() => setOpen(false)} className={`block rounded-xl px-4 py-3 font-semibold ${active(n.href) ? "bg-brand-50 text-brand-600" : "text-ink-soft"}`}>{n.label}</Link>
                 </motion.div>
               ))}
+              <div className="mt-1 flex flex-wrap gap-2 border-t border-slate-100 px-2 pt-3">{NAV_PLUS.map((n) => <Link key={n.href} href={n.href} onClick={() => setOpen(false)} className={`chip px-3 py-2 text-[13px] ${active(n.href) ? "bg-brand-50 text-brand-600" : "bg-[#f1f4fd] text-ink-soft"}`}>{n.label}</Link>)}</div>
               <div className="mt-2 grid grid-cols-2 gap-2">{me && home ? <Link href={home} className="btn-primary col-span-2">Mon espace</Link> : <><Link href="/connexion" className="btn-ghost">Se connecter</Link><Link href="/inscription" className="btn-sun">S&apos;inscrire</Link></>}</div>
             </div>
           </motion.nav>
