@@ -19,7 +19,7 @@ import * as admin from "../services/admin";
 import * as counsel from "../services/counselor";
 import { globalSearch } from "../services/search";
 import { schoolDashboard } from "../services/school-stats";
-import { applicationPdf, admissionPdf } from "../services/pdf";
+import { applicationPdf, admissionPdf, orientationPdf } from "../services/pdf";
 import { METHODS } from "../payments/providers";
 import { cookies } from "next/headers";
 
@@ -109,6 +109,23 @@ route("DELETE", "/documents/:id", "Documents", "Supprimer un document", "user", 
 // ---------------------------------------------------------------- Orientation
 route("POST", "/orientation/resultats", "Orientation", "Enregistrer un résultat de test RIASEC", "user", async ({ me, body }) => { const b = await body(); return orient.saveResult(me.id, b.answers, b.scores, b.top); });
 route("GET", "/orientation/resultats", "Orientation", "Historique des tests", "user", async ({ me }) => orient.history(me.id));
+route("GET", "/orientation/rapport.pdf", "Orientation", "Rapport du dernier test d'orientation (PDF)", "user", async ({ me }) => {
+  const [last] = await orient.history(me.id);
+  const p = (await accounts.getMe(me.id)).profile?.riasec;
+  if (!p) throw new AppError("Passe d'abord le test d'orientation.", 404, "introuvable");
+  const { CODES, normalize, profileOf, rankDomaines, rankMetiers } = await import("@/lib/riasec");
+  const { riasec } = await import("@/lib/data");
+  const prof = profileOf(p.top)!;
+  const values = normalize(p.scores);
+  const ranked = rankMetiers(p.scores);
+  const reco = await orient.recommend(me.id);
+  const bytes = await orientationPdf({
+    student: `${me.firstName} ${me.lastName}`, date: last?.createdAt ?? new Date(), profil: prof.titre, codes: prof.codes, description: prof.description, traits: prof.traits,
+    scores: CODES.map((c) => [riasec.find((r) => r.code === c)!.nom, values[c]]), domaines: rankDomaines(ranked.slice(0, 40)).slice(0, 5).map((d) => [d.libelle, d.score]),
+    metiers: ranked.slice(0, 8).map(({ m, s }) => [m.nom, s]), formations: reco.offres.slice(0, 8).map((o) => [o.title, o.etablissement.sigle, o.score]),
+  });
+  return file(bytes, "application/pdf", "rapport-orientation-navigoal.pdf", false);
+});
 route("GET", "/recommandations", "Orientation", "Recommandations métiers, formations, offres", "user", async ({ me }) => orient.recommend(me.id));
 
 // ---------------------------------------------------------------- Catalogue public

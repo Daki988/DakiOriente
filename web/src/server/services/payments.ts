@@ -4,7 +4,7 @@ import { audit } from "../lib/audit";
 import { nextNumber } from "../lib/counters";
 import { AppError, forbidden, notFound } from "../lib/errors";
 import { putFile } from "../lib/storage";
-import { CURRENCY, METHODS, providerById, providerFor } from "../payments/providers";
+import { METHODS, methodsFor, providerById, providerFor } from "../payments/providers";
 import { notify } from "./notifications";
 import { receiptPdf } from "./pdf";
 import { isGuardianOf } from "./guardians";
@@ -17,8 +17,7 @@ export const KIND_LABEL: Record<Kind, string> = { frais_candidature: "Frais de d
 /** Crée un paiement et renvoie l'URL de paiement chez l'agrégateur (ou la page bac à sable). */
 export async function initiatePayment(payer: User, p: { kind: Kind; amount: number; currency: string; method: string; description: string; applicationId?: string; bookingId?: string; beneficiaryId?: string; escrow?: boolean; meta?: Record<string, unknown> }) {
   if (p.amount <= 0) throw new AppError("Montant invalide.");
-  const country = Object.entries(CURRENCY).find(([, c]) => c === p.currency)?.[0] ?? "SN";
-  if (!METHODS[country].some((m) => m.id === p.method)) throw new AppError("Moyen de paiement non disponible pour ce pays.");
+  if (!methodsFor(p.currency).some((m) => m.id === p.method)) throw new AppError("Choisissez un moyen de paiement proposé (carte, mobile money, virement…).");
   if (p.beneficiaryId && p.beneficiaryId !== payer.id && !(payer.role === "parent" && (await isGuardianOf(payer.id, p.beneficiaryId)))) throw forbidden();
   const provider = providerFor(p.currency);
   const reference = await nextNumber("NG-PAY", 6);
@@ -74,7 +73,7 @@ async function settlePayment(reference: string, success: boolean) {
     return p;
   }
   await audit(p.payerId, "paiement_reussi", "payment", p.id, { amount: p.amount, currency: p.currency });
-  await notify(p.payerId, { kind: "paiement_confirme", title: "Paiement confirmé", body: `${KIND_LABEL[p.kind]} : ${p.amount} ${p.currency}. Reçu disponible.`, link: `/paiement/${p.reference}`, channels: ["app", "email", "sms"] });
+  await notify(p.payerId, { kind: "paiement_confirme", title: "Paiement confirmé", body: `${KIND_LABEL[p.kind]} : ${p.amount.toLocaleString("fr-FR")} ${p.currency}. Reçu disponible.`, link: `/paiement/${p.reference}`, channels: ["app", "email", "sms"] });
   if (p.applicationId) await (await import("./applications")).onApplicationFeePaid(p.applicationId);
   if (p.bookingId) await (await import("./bookings")).onBookingPaid(p.bookingId, p);
   return p;

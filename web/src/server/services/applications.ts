@@ -105,7 +105,7 @@ export async function submitApplication(student: User, id: string, payment?: { m
   let redirectUrl: string | null = null;
   if (p.applicationFee > 0) {
     if (!payment?.method) throw new AppError("Choisissez un moyen de paiement pour les frais de dossier.");
-    const cur = p.currency ?? CURRENCY[e.pays];
+    const cur = p.currency ?? CURRENCY.MA; // frais de dossier en dirhams (établissements au Maroc)
     const payer = payment.payerId && payment.payerId !== student.id ? (await db.select().from(schema.users).where(eq(schema.users.id, payment.payerId)))[0] : student;
     if (payer.id !== student.id && !(await isGuardianOf(payer.id, student.id))) throw forbidden();
     const r = await initiatePayment(payer, { kind: "frais_candidature", amount: p.applicationFee, currency: cur, method: payment.method, description: `Frais de dossier ${a.number} · ${e.sigle}`, applicationId: id, beneficiaryId: student.id });
@@ -191,7 +191,7 @@ export async function changeStatus(user: User, id: string, raw: z.input<typeof d
   const title = `Candidature ${a.number} : ${STATUS_LABEL[i.status]}`;
   await notify(a.studentId, { kind: "statut_candidature", title, body: msg ?? undefined, link: `/espace/candidatures/${id}`, channels: final || i.status === "piece_demandee" ? ["app", "email", "sms"] : ["app", "email"] });
   const parents = await db.select({ p: schema.guardianships.parentId }).from(schema.guardianships).where(and(eq(schema.guardianships.childId, a.studentId), eq(schema.guardianships.status, "actif")));
-  for (const p of parents) if (p.p) await notify(p.p, { kind: "statut_candidature", title, link: `/espace/parent` });
+  for (const p of parents) if (p.p) await notify(p.p, { kind: "statut_candidature", title, link: `/parent/candidatures/${id}` });
 }
 
 export function toCsv(rows: Awaited<ReturnType<typeof listForEstablishment>>) {

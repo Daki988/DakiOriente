@@ -12,6 +12,7 @@ import { api, apiUrl } from "@/lib/api";
 import { useAction, useApi } from "@/hooks/useApi";
 import { etabById } from "@/lib/data";
 import { ConversationThread } from "./Conversation";
+import { AppProgress } from "./AppProgress";
 import type { AppDetail, Payment } from "./types";
 
 const FLOW = ["brouillon", "soumise", "paiement_confirme", "en_verification", "complet", "en_traitement"];
@@ -49,9 +50,10 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
   return (
     <>
       <PageHeader crumbs={asParent ? [["Vue d'ensemble", "/parent"], [`#${app.number}`]] : [["Mes candidatures", "/espace/candidatures"], [`#${app.number}`]]}
-        title={<span className="flex items-center gap-4"><EtabLogo e={etabById[e.id] ?? e} size={56} /><span>{p.title}</span></span>} badge={<StatusBadge status={app.status} />}
-        sub={`${e.nom} · ${e.ville}, Maroc · candidature #${app.number}`}
+        title={<span className="flex items-center gap-3 sm:gap-4"><EtabLogo e={etabById[e.id] ?? e} size={48} /><span>{p.title}</span></span>} badge={<StatusBadge status={app.status} />}
+        sub={`${e.nom} · ${app.campus ? `campus de ${app.campus}` : e.ville}, Maroc · candidature n° ${app.number}`}
         actions={<><Button variant="ghost" icon={Printer} onClick={() => window.print()}>Imprimer</Button>{app.submittedAt && <a href={apiUrl(`/candidatures/${id}/bordereau.pdf`)} target="_blank" className="btn-ghost"><Download size={16} />Bordereau PDF</a>}</>} />
+      <div className="card mb-5 rounded-[20px] p-4 sm:p-5"><AppProgress status={app.status} fee={p.applicationFee > 0} /></div>
       {params.get("paiement") === "parent" && <div className="mb-5"><Alert tone="info" title="Demande de paiement envoyée à ton parent">Ton dossier est enregistré ; il passera au statut « Paiement confirmé » dès que ton parent aura réglé les frais.</Alert></div>}
       {app.status === "piece_demandee" && (
         <motion.div initial={{ y: -16, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="mb-5">

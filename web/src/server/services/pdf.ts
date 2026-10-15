@@ -2,7 +2,8 @@
 import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 
 const BLUE = rgb(0.1, 0.28, 0.96), INK = rgb(0.04, 0.08, 0.2), MUTE = rgb(0.42, 0.45, 0.58), LIGHT = rgb(0.93, 0.95, 1);
-export const money = (n: number, cur: string) => `${Math.round(n).toLocaleString("fr-FR").replace(/[  ]/g, " ")} ${cur === "XAF" || cur === "XOF" ? "F CFA" : cur}`;
+// Montants en dirhams (destination unique : le Maroc) ; la devise enregistrée est conservée pour les anciens paiements.
+export const money = (n: number, cur = "MAD") => `${Math.round(n).toLocaleString("fr-FR").replace(/[\u202f\u00a0]/g, " ")} ${cur}`;
 const date = (d: Date | string) => new Date(d).toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
 // Les polices standard PDF sont en WinAnsi : on remplace les caractères hors jeu.
 const safe = (s: string) => s.replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/[–—]/g, "-").replace(/…/g, "...").replace(/[^\x00-\xff€]/g, "");
@@ -121,5 +122,34 @@ export async function rentReceiptPdf(p: { reference: string; landlord: string; t
   c.y -= 8;
   rows(c, [["Loyer", money(p.rent, p.currency)], ["Charges", money(p.charges, p.currency)], ["Payé le", date(p.paidAt)], ["Total", money(p.rent + p.charges, p.currency)]], true);
   footer(c, "Quittance émise par Navilease pour le compte du bailleur.");
+  return pdf.save();
+}
+
+/** Rapport du test d'orientation : profil dominant, scores RIASEC, domaines, métiers et formations recommandés. */
+export async function orientationPdf(p: { student: string; date: Date; profil: string; codes: string; description: string; traits: string[]; scores: [string, number][]; domaines: [string, number][]; metiers: [string, number][]; formations: [string, string, number][] }) {
+  const { pdf, c } = await base("Rapport d'orientation", p.date.toISOString().slice(0, 10));
+  text(c, "Élève / étudiant·e", { size: 9, color: MUTE }); text(c, p.student, { bold: true }); text(c, `Test passé le ${date(p.date)}`, { size: 9, color: MUTE });
+  c.y -= 8;
+  text(c, `Profil dominant (${p.codes})`, { size: 9, color: MUTE });
+  text(c, p.profil, { size: 18, bold: true, color: BLUE, gap: 6 });
+  text(c, p.description, { size: 10 });
+  text(c, `Traits principaux : ${p.traits.join(", ")}`, { size: 10 });
+  c.y -= 8; text(c, "Scores RIASEC", { bold: true });
+  for (const [k, v] of p.scores) {
+    c.page.drawText(safe(k), { x: 58, y: c.y, size: 9.5, font: c.font, color: INK });
+    c.page.drawRectangle({ x: 170, y: c.y - 1, width: 300, height: 8, color: LIGHT });
+    c.page.drawRectangle({ x: 170, y: c.y - 1, width: 3 * v, height: 8, color: BLUE });
+    c.page.drawText(`${v} %`, { x: 480, y: c.y, size: 9.5, font: c.bold, color: INK });
+    c.y -= 16;
+  }
+  c.y -= 6; text(c, "Domaines recommandés", { bold: true });
+  rows(c, p.domaines.map(([d, v]) => [d, `${v} % compatible`]));
+  text(c, "Métiers recommandés", { bold: true });
+  rows(c, p.metiers.map(([m, v]) => [m, `${v} % compatible`]));
+  if (p.formations.length && c.y > 200) {
+    text(c, "Formations recommandées au Maroc", { bold: true });
+    rows(c, p.formations.slice(0, Math.max(0, Math.floor((c.y - 100) / 24))).map(([f, e, v]) => [`${f} · ${e}`.slice(0, 80), `${v} %`]));
+  }
+  footer(c, "Modèle RIASEC (Holland). Ce rapport est une aide à la réflexion : à discuter avec tes parents, tes professeurs ou un conseiller Navigoal.");
   return pdf.save();
 }
