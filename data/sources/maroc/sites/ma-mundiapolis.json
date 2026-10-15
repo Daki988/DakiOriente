@@ -374,10 +374,6 @@
   },
   "verification": {
     "date": "2026-10-15",
-    "retraits": [
-      "frais:Sciences infirmières : infirmier polyvalent",
-      "frais:Sciences infirmières : anesthésie et réanimation / soins d’urgences et soins intensifs",
-      "programme:Master en supply chain management"
-    ]
+    "retraits": []
   }
 }

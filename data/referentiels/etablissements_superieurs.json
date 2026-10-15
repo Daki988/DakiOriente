@@ -4608,7 +4608,162 @@
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
         "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
+      ],
+      "site": {
+        "programmes": [
+          {
+            "intitule": "Médecine (Faculté de Médecine Abulcasis)",
+            "diplome": null,
+            "niveau": null,
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Rabat"
+            ],
+            "url": "https://uiass.ma/admissions/candidats-nationaux",
+            "formation": "frm-doctorat-medecine",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Médecine dentaire (Faculté de Médecine Dentaire Abulcasis)",
+            "diplome": null,
+            "niveau": null,
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Rabat"
+            ],
+            "url": "https://uiass.ma/admissions/candidats-nationaux",
+            "formation": "frm-doctorat-chirurgie-dentaire",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Pharmacie (Faculté de Pharmacie Abulcasis)",
+            "diplome": null,
+            "niveau": null,
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Rabat"
+            ],
+            "url": "https://uiass.ma/admissions/candidats-nationaux",
+            "formation": "frm-doctorat-pharmacie",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Médecine vétérinaire (Institut Vétérinaire Abulcasis)",
+            "diplome": null,
+            "niveau": null,
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Rabat"
+            ],
+            "url": "https://uiass.ma/admissions/candidats-nationaux",
+            "formation": "frm-doctorat-veterinaire",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Sciences infirmières et management hospitalier (FASIMH)",
+            "diplome": null,
+            "niveau": null,
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Rabat"
+            ],
+            "url": "https://uiass.ma/admissions/candidats-nationaux",
+            "formation": "frm-licence-sciences-infirmieres",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Ingénierie et technologies de la santé (ISITS)",
+            "diplome": null,
+            "niveau": null,
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Rabat"
+            ],
+            "url": "https://uiass.ma/admissions/candidats-nationaux",
+            "formation": "frm-ingenieur-genie-industriel",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Maintenance biomédicale",
+            "diplome": null,
+            "niveau": null,
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Rabat"
+            ],
+            "url": "https://uiass.ma/",
+            "formation": "frm-ingenieur-genie-electrique",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Résidanat (spécialisation en médecine, dentaire, pharmacie)",
+            "diplome": "Diplôme de spécialité",
+            "niveau": null,
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Rabat"
+            ],
+            "url": "https://uiass.ma/",
+            "formation": "frm-doctorat-chirurgie-dentaire",
+            "domaine": "dom-sante"
+          }
+        ],
+        "admission": {
+          "conditions": [
+            "Baccalauréat scientifique (sciences mathématiques A ou B, SVT, sciences physiques et chimiques)",
+            "Moyenne minimale : médecine 16/20 (bac marocain) ou 15/20 (bac mission) ; médecine dentaire, pharmacie, vétérinaire 15/20 ; FASIMH et ISITS à partir de 12/20",
+            "Passerelle en pharmacie pour titulaires d’un Bac+2 (DEUG, DEUST, CPGE BCPSVT)"
+          ],
+          "etapes": [
+            "Candidature en ligne",
+            "Concours",
+            "Dépôt du dossier (originaux et copies du bac, CIN) et paiement des frais"
+          ],
+          "concours": "Concours d’entrée (sujets, convocations et résultats en ligne)",
+          "dates": null
+        },
+        "frais": [
+          {
+            "cycle": "Formations initiales (candidats nationaux)",
+            "inscription_mad": 120000,
+            "scolarite_annuelle_mad": null,
+            "note": "Le site indique « Frais d'inscription annuels de 120 000 DHS », sans distinguer l’établissement"
+          }
+        ],
+        "bourses": "Bourse d’excellence de scolarité complète pour les bacheliers scientifiques avec au moins 19/20 (médecine, médecine dentaire, pharmacie, vétérinaire), sous réserve de réussite au concours.",
+        "international": "Plus de 300 mobilités internationales par an ; admissions dédiées aux candidats internationaux ; partenaires dont l’Université Paris Descartes et l’Université de Strasbourg.",
+        "logement": "Offre « Campus intégré – Pack 360° » signalée (détails non relevés).",
+        "partenaires": [
+          "Université Paris Descartes",
+          "Université Strasbourg",
+          "Institut Supérieur d’Ingénieurs de Franche-Comté",
+          "Institut National des Sciences et Techniques Nucléaires",
+          "CNRST"
+        ],
+        "vie_etudiante": [
+          "BDE",
+          "Associations et clubs",
+          "Activités sportives et culturelles",
+          "Plateau de simulation"
+        ],
+        "contact": {
+          "telephone": "+212 (05) 37 13 11 50",
+          "email": "contact@uiass.ma"
+        },
+        "sources": [
+          "https://uiass.ma/",
+          "https://uiass.ma/admissions/candidats-nationaux"
+        ],
+        "date": "2026-10-15"
+      }
     },
     {
       "id": "ma-ueuromed",
@@ -6112,10 +6267,12 @@
         "frm-licence-droit-prive",
         "frm-licence-economie",
         "frm-licence-gestion",
+        "frm-licence-kinesitherapie",
         "frm-licence-sciences-infirmieres",
         "frm-master-data-science-ia",
         "frm-master-energies-renouvelables",
-        "frm-master-finance-audit"
+        "frm-master-finance-audit",
+        "frm-master-management"
       ],
       "filieres": [
         {
@@ -6885,7 +7042,263 @@
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
         "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
+      ],
+      "site": {
+        "programmes": [
+          {
+            "intitule": "Doctorate in Medicine (FMS)",
+            "diplome": "Doctorat en médecine",
+            "niveau": null,
+            "duree_annees": 6,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-licence-gestion",
+            "domaine": "dom-gestion"
+          },
+          {
+            "intitule": "Doctorate in Pharmacy (FMS)",
+            "diplome": "Doctorat en pharmacie",
+            "niveau": null,
+            "duree_annees": 6,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-licence-gestion",
+            "domaine": "dom-gestion"
+          },
+          {
+            "intitule": "Licence Soins Infirmiers, option Infirmier Polyvalent (FMS)",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": 3,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-licence-sciences-infirmieres",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Licence en kinésithérapie",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": 3,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-licence-kinesitherapie",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Cycle Préparatoire au diplôme d’ingénieur en Management Industriel (EMINES)",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": 5,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-cpge-scientifique",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Cycle Préparatoire Intégré au Cycle Ingénieur en Computer Sciences (UM6P-CC)",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": 5,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-cpge-scientifique",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Cycle Préparatoire Intégré au Cycle Ingénieur en Systèmes Agri-Environnementaux",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": 5,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-cpge-scientifique",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Cycle Préparatoire Intégré au Cycle Ingénieur en Génie Chimique, Minéralogique et Biotechnologique (IST&I)",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": 5,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-cpge-scientifique",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Diplôme Architecte (SAP+D)",
+            "diplome": "Diplôme d'architecte",
+            "niveau": "bac+5",
+            "duree_annees": 6,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-licence-gestion",
+            "domaine": "dom-gestion"
+          },
+          {
+            "intitule": "Bachelor of Science in Applied Sciences and Business",
+            "diplome": "Bachelor",
+            "niveau": "bac+4",
+            "duree_annees": 4,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-licence-gestion",
+            "domaine": "dom-gestion"
+          },
+          {
+            "intitule": "Bachelor Hospitality Business and Management (SHBM)",
+            "diplome": "Bachelor",
+            "niveau": "bac+4",
+            "duree_annees": 4,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-licence-gestion",
+            "domaine": "dom-gestion"
+          },
+          {
+            "intitule": "Common Core and FGSES Bachelor’s Degree",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": 3,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-licence-gestion",
+            "domaine": "dom-gestion"
+          },
+          {
+            "intitule": "Cycle Ingénieur en Computer Sciences (UM6P-CC)",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": 3,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-ingenieur-informatique",
+            "domaine": "dom-numerique"
+          },
+          {
+            "intitule": "Cycle Ingénieur en Physique Appliquée (IST&I)",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": 3,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-ingenieur-genie-industriel",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Cycle Ingénieur en Management Industriel (EMINES)",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": 3,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-ingenieur-genie-industriel",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Master Ingénierie Electrique pour les Energies Renouvelables et les Réseaux Intelligents (GTI)",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": 2,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-ingenieur-telecoms",
+            "domaine": "dom-numerique"
+          },
+          {
+            "intitule": "Master Technologies Industrielles pour l’Usine du Futur (GTI)",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": 2,
+            "specialites": [],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-ingenieur-genie-industriel",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Masters FGSES",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": 2,
+            "specialites": [
+              "Global Affairs",
+              "Analyse Economique et Politiques Publiques",
+              "Behavioral and Social Sciences for Public Policy",
+              "Economie Quantitative",
+              "Political Science"
+            ],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-licence-economie",
+            "domaine": "dom-shs"
+          },
+          {
+            "intitule": "Masters Africa Business School (ABS)",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": 2,
+            "specialites": [
+              "Financial Engineering",
+              "Management",
+              "Business Analytics",
+              "Technology & Innovation Management"
+            ],
+            "campus": null,
+            "url": "https://um6p.ma/en/enrollment/admissions",
+            "formation": "frm-master-management",
+            "domaine": "dom-gestion"
+          }
+        ],
+        "admission": {
+          "conditions": [
+            "Réussite à l’examen d’entrée du programme visé"
+          ],
+          "etapes": [
+            "Candidature en ligne par programme, avant la date de clôture indiquée"
+          ],
+          "concours": "Examen d’entrée par programme",
+          "dates": "Clôtures 2026 entre le 15/03/2026 (FGSES) et le 24/06/2026 (santé, cycles préparatoires)"
+        },
+        "frais": [],
+        "bourses": "Bourses attribuées chaque année aux candidats marocains et d’Afrique, sur critères sociaux et d’excellence, pour les admis à l’examen d’entrée ; boursiers de la Mastercard Foundation accueillis.",
+        "international": "Hubs internationaux à Paris, Montréal et New York ; programmes enseignés en anglais ; bourses ouvertes aux candidats de toute l’Afrique ; page dédiée aux candidats internationaux.",
+        "logement": null,
+        "partenaires": [
+          "Mastercard Foundation"
+        ],
+        "vie_etudiante": [
+          "Application Campus+",
+          "Services aux étudiants",
+          "Hub entrepreneuriat"
+        ],
+        "contact": {
+          "telephone": "+212 525 073 100",
+          "email": "contact@um6p.ma"
+        },
+        "sources": [
+          "https://um6p.ma/",
+          "https://um6p.ma/en/enrollment/scholarships",
+          "https://um6p.ma/en/enrollment/admissions"
+        ],
+        "date": "2026-10-15"
+      }
     },
     {
       "id": "ma-upm",
@@ -18841,11 +19254,14 @@
       "coordonnees": null,
       "wikidata": null,
       "formations": [
+        "frm-bachelor-business",
         "frm-cpge-scientifique",
         "frm-ingenieur-genie-industriel",
         "frm-ingenieur-informatique",
+        "frm-licence-gestion",
         "frm-licence-logistique",
-        "frm-master-finance-audit"
+        "frm-master-finance-audit",
+        "frm-master-systemes-information"
       ],
       "filieres": [
         {
@@ -18986,7 +19402,115 @@
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
         "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
+      ],
+      "site": {
+        "programmes": [
+          {
+            "intitule": "Cycle préparatoire intégré (Formation d'Ingénieur)",
+            "diplome": "Classes préparatoires intégrées",
+            "niveau": "bac+2",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Oujda"
+            ],
+            "url": "https://eheim.ac.ma/preinscription/",
+            "formation": "frm-cpge-scientifique",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Cycle ingénieur",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Oujda"
+            ],
+            "url": "https://eheim.ac.ma/preinscription/",
+            "formation": "frm-ingenieur-genie-industriel",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Licence en commerce et gestion",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Oujda"
+            ],
+            "url": "https://eheim.ac.ma/preinscription/",
+            "formation": "frm-bachelor-business",
+            "domaine": "dom-commerce"
+          },
+          {
+            "intitule": "MBA – Master of Business Administration",
+            "diplome": "MBA",
+            "niveau": null,
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Oujda"
+            ],
+            "url": "https://eheim.ac.ma/preinscription/",
+            "formation": "frm-licence-gestion",
+            "domaine": "dom-gestion"
+          },
+          {
+            "intitule": "MIAGE – Méthodes Informatiques Appliquées à la Gestion des Entreprises",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Oujda"
+            ],
+            "url": "https://eheim.ac.ma/preinscription/",
+            "formation": "frm-master-systemes-information",
+            "domaine": "dom-numerique"
+          },
+          {
+            "intitule": "Master en Audit et Contrôle de Gestion Digitalisé",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Oujda"
+            ],
+            "url": "https://eheim.ac.ma/preinscription/",
+            "formation": "frm-master-finance-audit",
+            "domaine": "dom-finance"
+          }
+        ],
+        "admission": {
+          "conditions": [
+            "Après le bac : cycle préparatoire intégré ou licence en commerce et gestion",
+            "Après un Bac+2 (DUT, DTS, BTS, DEUG) : cycle ingénieur ou 3e année de licence",
+            "Après un Bac+3 : 4e année du cycle ingénieur, MBA, MIAGE ou master audit"
+          ],
+          "etapes": [
+            "Préinscription en ligne"
+          ],
+          "concours": null,
+          "dates": "Préinscriptions 2026/2027 ouvertes"
+        },
+        "frais": [],
+        "bourses": null,
+        "international": null,
+        "logement": null,
+        "partenaires": [],
+        "vie_etudiante": [],
+        "contact": {
+          "telephone": "(+212) 536 533 076",
+          "email": "ehei.oujda@gmail.com"
+        },
+        "sources": [
+          "https://eheim.ac.ma/preinscription/"
+        ],
+        "date": "2026-10-15"
+      }
     },
     {
       "id": "ma-emaa",

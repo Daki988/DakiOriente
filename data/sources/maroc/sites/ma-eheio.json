@@ -1,0 +1,116 @@
+{
+  "id": "ma-eheio",
+  "site_web": "https://eheim.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://eheim.ac.ma/preinscription/"
+  ],
+  "description": "École d’ingénierie et de management située à Oujda (Hay Al Hikma), dans la région de l’Oriental. D’après son formulaire de préinscription 2026/2027, elle propose un cycle préparatoire intégré suivi d’un cycle ingénieur, une licence en commerce et gestion, un MBA, un master MIAGE et un master en audit et contrôle de gestion digitalisé. Des admissions parallèles sont prévues après un Bac+2 (DUT, DTS, BTS, DEUG) ou un Bac+3.",
+  "annee_creation": null,
+  "adresse": "Rue de la Liberté, Hay Al Hikma, Oujda",
+  "telephone": "(+212) 536 533 076",
+  "email": "ehei.oujda@gmail.com",
+  "statut_annonce": null,
+  "programmes": [
+    {
+      "intitule": "Cycle préparatoire intégré (Formation d'Ingénieur)",
+      "niveau": "Bac+2",
+      "diplome": "Classes préparatoires intégrées",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Oujda"
+      ],
+      "url": "https://eheim.ac.ma/preinscription/"
+    },
+    {
+      "intitule": "Cycle ingénieur",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Oujda"
+      ],
+      "url": "https://eheim.ac.ma/preinscription/"
+    },
+    {
+      "intitule": "Licence en commerce et gestion",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Oujda"
+      ],
+      "url": "https://eheim.ac.ma/preinscription/"
+    },
+    {
+      "intitule": "MBA – Master of Business Administration",
+      "niveau": null,
+      "diplome": "MBA",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Oujda"
+      ],
+      "url": "https://eheim.ac.ma/preinscription/"
+    },
+    {
+      "intitule": "MIAGE – Méthodes Informatiques Appliquées à la Gestion des Entreprises",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Oujda"
+      ],
+      "url": "https://eheim.ac.ma/preinscription/"
+    },
+    {
+      "intitule": "Master en Audit et Contrôle de Gestion Digitalisé",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Oujda"
+      ],
+      "url": "https://eheim.ac.ma/preinscription/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Après le bac : cycle préparatoire intégré ou licence en commerce et gestion",
+      "Après un Bac+2 (DUT, DTS, BTS, DEUG) : cycle ingénieur ou 3e année de licence",
+      "Après un Bac+3 : 4e année du cycle ingénieur, MBA, MIAGE ou master audit"
+    ],
+    "etapes": [
+      "Préinscription en ligne"
+    ],
+    "concours": null,
+    "dates": "Préinscriptions 2026/2027 ouvertes"
+  },
+  "frais": [],
+  "bourses": null,
+  "international": null,
+  "partenaires": [],
+  "vie_etudiante": [],
+  "logement": null,
+  "preuves": {
+    "adresse": "- Rue de la Liberté – Hay Al Hikma – Oujda – Maroc",
+    "telephone": "- (+212) 536 533 076",
+    "email": "- ehei.oujda@gmail.com",
+    "annee_creation": null,
+    "frais": null,
+    "admission": [
+      "Cycle préparatoire intégré (Formation d'Ingénieur)Licence en commerce et gestion",
+      "Cycle ingénieur (4ᵉ année)MBA – Master of Business Administration (1ʳᵉ année)"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
+  }
+}
