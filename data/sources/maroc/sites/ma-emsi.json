@@ -1,0 +1,39 @@
+{
+  "id": "ma-emsi",
+  "site_web": "https://emsi.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://emsi.ma/", "https://emsi.ma/lemsi/", "https://emsi.ma/frais-et-financement/", "https://emsi.ma/candidature/", "https://emsi.ma/cursus-des-etudes/", "https://emsi.ma/conditions-generales-dutilisation/"],
+  "description": "École d'ingénieurs privée présente sur plusieurs campus au Maroc (Casablanca, Rabat, Marrakech, Tanger, Fès et Agadir), avec une adresse à Casablanca. Le parcours combine deux années préparatoires et un cycle ingénieur dans l'informatique et réseaux, le génie électrique, l'automatisme, le génie civil, le génie industriel et le génie financier. Le site met en avant des centres de carrière, des certifications en soft skills et hard skills, des bourses de mérite et l'appartenance au réseau Honoris United Universities.",
+  "annee_creation": 1986,
+  "adresse": "5 et 7 Rue Abou Youssef el Kinidy Casablanca",
+  "telephone": "+212 (0) 522 75 03 75",
+  "email": null,
+  "statut_annonce": "Reconnue par l'État",
+  "programmes": [
+    {"intitule": "Ingénierie Informatique et Réseaux", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 5, "specialites": ["Développement Digital et Systèmes d'Information", "Cybersécurité et Infrastructure Réseaux", "Intelligence Artificielle et Sciences des Données"], "campus": null, "url": "https://emsi.ma/candidature/"},
+    {"intitule": "Génie Électrique et Systèmes Intelligents", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 5, "specialites": [], "campus": null, "url": "https://emsi.ma/candidature/"},
+    {"intitule": "Ingénierie Automatisme et Informatique Industrielle", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 5, "specialites": [], "campus": null, "url": "https://emsi.ma/"},
+    {"intitule": "Génie Civil, Bâtiments et Travaux Publics (BTP)", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 5, "specialites": [], "campus": null, "url": "https://emsi.ma/candidature/"},
+    {"intitule": "Génie Industriel", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 5, "specialites": [], "campus": null, "url": "https://emsi.ma/candidature/"},
+    {"intitule": "Génie Financier et Audit", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 5, "specialites": [], "campus": null, "url": "https://emsi.ma/cursus-des-etudes/"}
+  ],
+  "admission": {"conditions": ["Admission en première année avec le baccalauréat ; bourses de mérite pour les candidats avec mention Très Bien"], "etapes": [], "concours": null, "dates": null},
+  "frais": [
+    {"cycle": "Années préparatoires (1re et 2e années)", "inscription_mad": 3000, "scolarite_annuelle_mad": 40500, "note": "13 500 Dh par trimestre"},
+    {"cycle": "Cycle ingénieur (3e, 4e et 5e années)", "inscription_mad": null, "scolarite_annuelle_mad": 44100, "note": "14 700 Dh par trimestre"}
+  ],
+  "bourses": "Bourses de mérite pour l'accès en première année aux candidats les plus méritants (baccalauréat avec mention Très Bien, dossier complet) ; financement bancaire Avenir Plus jusqu'à 250 000 DH.",
+  "international": "Affiliation au réseau Honoris United Universities (plus de 60 nationalités).",
+  "partenaires": ["Honoris United Universities", "Banque Populaire"],
+  "vie_etudiante": ["6 centres de carrière", "Clubs et BDE", "Certifications soft skills et hard skills", "Laboratoires de recherche"],
+  "logement": null,
+  "preuves": {
+    "adresse": "5 et 7 Rue Abou Youssef el Kinidy Casablanca",
+    "telephone": "+212 (0) 522 75 03 75",
+    "email": null,
+    "annee_creation": "Depuis 1986, l’EMSI s’impose comme une référence nationale dans la formation des ingénieurs au Maroc.",
+    "frais": ["-Frais d’inscription: 3 000 Dh/an", "-Frais de scolarité : 40 500 Dh/an (13 500Dh/trimestre)", "-Frais de scolarité : 44 100 Dh/an (14 700 Dh/trimestre)"],
+    "admission": ["Une copie certifiée conforme du baccalauréat de l’année en cours avec mention Très Bien"]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "id": "ma-esisa",
+  "site_web": "https://esisa.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://esisa.ac.ma/", "https://esisa.ac.ma/ecole-ingenieur-informatique-maroc", "https://esisa.ac.ma/ecole-ingenieur-intelligence-artificielle", "https://esisa.ac.ma/Admis_Etranger"],
+  "description": "École d'ingénierie en informatique et intelligence artificielle située à Fès. Elle propose deux licences (Bac+3) et deux masters (Bac+5) dans le génie logiciel, l'IA appliquée, les systèmes d'information et la transformation numérique, avec une entrée directe après le baccalauréat sans classe préparatoire. Le site met en avant des conventions avec des établissements français pour poursuivre en cycle ingénieur ou en Master 2, des stages, une alternance en master, un incubateur d'entreprises et un service d'aide à l'hébergement.",
+  "annee_creation": 1999,
+  "adresse": "29 bis Av Ibn Khatib Route d'Immouzzer, Fès - Maroc",
+  "telephone": "+212 (0)5 35 65 70 95",
+  "email": "info@esisa.ac.ma",
+  "statut_annonce": "École reconnue par l'État",
+  "programmes": [
+    {"intitule": "Licence Ingénierie Logicielle (IL)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Fès"], "url": "https://esisa.ac.ma/ecole-ingenieur-informatique-maroc"},
+    {"intitule": "Licence Ingénierie Informatique et Logistique appliquée à l'Intelligence Artificielle (IL2IA)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Fès"], "url": "https://esisa.ac.ma/ecole-ingenieur-informatique-maroc"},
+    {"intitule": "Master Ingénierie des Systèmes d'Information et Intelligence Artificielle (IS2IA)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Fès"], "url": "https://esisa.ac.ma/ecole-ingenieur-informatique-maroc"},
+    {"intitule": "Master Ingénierie des Systèmes d'Information et Transformation Numérique (ISITN)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Fès"], "url": "https://esisa.ac.ma/ecole-ingenieur-informatique-maroc"}
+  ],
+  "admission": {"conditions": ["1re année : étude du dossier (notes du baccalauréat), entretien de motivation, test de mathématiques si nécessaire", "Baccalauréats éligibles : Sciences Mathématiques, Sciences Expérimentales, Sciences Économiques et baccalauréats techniques", "Admissions parallèles : Bac+1, Bac+2 ou Bac+3 en informatique, mathématiques appliquées ou sciences et techniques, sur dossier et entretien"], "etapes": ["Pré-inscription en ligne", "Étude de dossier", "Entretien de motivation"], "concours": "Pas de concours national ni de classe préparatoire", "dates": null},
+  "frais": [],
+  "bourses": null,
+  "international": "Conventions avec des établissements publics français (ENSIIE, Polytech Marseille, ISIMA, EILCO, Sorbonne Paris Nord...) permettant une admission en cycle ingénieur ou en Master ; le site indique environ 95 % d'admission en France.",
+  "partenaires": ["ENSIIE", "Polytech Marseille", "ISIMA", "EILCO", "Université Sorbonne Paris Nord"],
+  "vie_etudiante": ["Clubs & Events", "Incubateur d'entreprises ESISA CUBE", "Hackathons", "Service d'aide à l'hébergement", "Formation CCNA (Cisco)"],
+  "logement": "Service d'aide à l'hébergement mentionné.",
+  "preuves": {
+    "adresse": "29 bis Av Ibn Khatib Route d'Immouzzer",
+    "telephone": "+212 (0)5 35 65 70 95",
+    "email": "info@esisa.ac.ma",
+    "annee_creation": "reconnue par l'État et fondée en 1999",
+    "frais": [],
+    "admission": ["Admission en 1re année : étude du dossier (notes du baccalauréat), entretien de motivation, test de mathématiques si nécessaire."]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "ma-eac",
+  "site_web": "https://www.ecolearchicasa.com",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://www.ecolearchicasa.com/", "https://www.ecolearchicasa.com/candidature/", "https://www.ecolearchicasa.com/gouvernance/admissions/", "https://www.ecolearchicasa.com/concours-dadmission-mai-2026/", "https://www.ecolearchicasa.com/cursus/", "https://www.ecolearchicasa.com/cursus/paysage/", "https://www.ecolearchicasa.com/cursus/urbanisme/"],
+  "description": "École d'architecture et de paysage de Casablanca, fondée en 2004, qui forme aux métiers de l'architecture, du paysagisme et de l'urbanisme. Les cursus vont de la licence professionnelle en paysage au master, avec un parcours d'architecture en Bac+6 et un master BIM en collaboration avec le Cnam. L'admission post-bac se fait par concours (épreuve écrite et entretien oral) au campus Casa Anfa ; un second campus est indiqué à Sidi Bernoussi. Le site mentionne plusieurs partenariats internationaux.",
+  "annee_creation": 2004,
+  "adresse": "Campus Casa Anfa : Angle avenue C. et Bd. de l’Aéropostale, Casa Anfa - Casablanca",
+  "telephone": "+212 (0) 522 75 03 75",
+  "email": "contact@ecolearchicasa.com",
+  "statut_annonce": "École reconnue par l'État",
+  "programmes": [
+    {"intitule": "Architecture", "niveau": "Bac+6", "diplome": null, "duree_annees": 6, "specialites": [], "campus": ["Casablanca"], "url": "https://www.ecolearchicasa.com/"},
+    {"intitule": "Paysage - Licence professionnelle", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://www.ecolearchicasa.com/cursus/paysage/"},
+    {"intitule": "Paysage - Master", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://www.ecolearchicasa.com/cursus/paysage/"},
+    {"intitule": "Master Urbanisme", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://www.ecolearchicasa.com/cursus/urbanisme/"},
+    {"intitule": "Master BIM : Transition numérique et environnementale", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.ecolearchicasa.com/"}
+  ],
+  "admission": {
+    "conditions": [
+      "Test d'admission : baccalauréat technique, économique ou scientifique (ou diplôme équivalent)",
+      "Paysage 1ère année : étude de dossier et test d'admission, ouverte aux titulaires de toutes catégories de baccalauréats marocains ou étrangers",
+      "Master Urbanisme : diplôme Bac+3, admission sur dossier et entretien devant un jury"
+    ],
+    "etapes": ["Concours post-bac : épreuve écrite suivie d'un entretien oral"],
+    "concours": "Concours d'admission post-bac (épreuve écrite et entretien oral) au campus Casa-Anfa",
+    "dates": "Concours annoncé le 6 mai 2026 à 12h30"
+  },
+  "frais": [],
+  "bourses": null,
+  "international": "Plusieurs partenariats internationaux ; master BIM en collaboration avec le Conservatoire national des arts et métiers (Cnam).",
+  "partenaires": ["Conservatoire national des arts et métiers (Cnam)"],
+  "vie_etudiante": ["Sorties pédagogiques", "Ateliers artistiques", "Journées portes ouvertes", "Conférences"],
+  "logement": null,
+  "preuves": {
+    "adresse": "Campus Casa Anfa : Angle avenue C. et Bd. de l’Aéropostale, Casa Anfa - Casablanca",
+    "telephone": "+212 (0) 522 75 03 75 / +212 (0) 661 32 76 36",
+    "email": "contact@ecolearchicasa.com",
+    "annee_creation": "Fondée en 2004, l’EAC forme les étudiants aux métiers de l’architecture, de l’urbanisme et du paysagisme.",
+    "frais": [],
+    "admission": [
+      "Etre titulaire d’un baccalauréat technique, baccalauréat économique ou baccalauréat scientifique",
+      "Les candidats sont admis sur dossier et entretien devant un jury de l’EAC."
+    ]
+  }
+}

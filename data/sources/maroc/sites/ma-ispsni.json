@@ -1,0 +1,32 @@
+{
+  "id": "ma-ispsni",
+  "site_web": "https://www.ispsni.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://www.ispsni.ma/", "https://www.ispsni.ma/formations/bac3", "https://www.ispsni.ma/formations/bac5"],
+  "description": "Institut supérieur privé installé à Tétouan, tourné vers la data, le numérique et l'intelligence artificielle. Il propose un cycle licence (6 semestres) en ingénierie des données et un cycle master (4 semestres) en ingénierie des données et IA, avec projet tutoré et projet de fin d'études. Le site annonce l'ouverture des inscriptions pour la première promotion.",
+  "annee_creation": null,
+  "adresse": "Malaliyine, route de mdiq, 93200 BP N 691, Tetouan, Maroc",
+  "telephone": "+212 808 500 236",
+  "email": "contact@ispsni.ma",
+  "statut_annonce": null,
+  "programmes": [
+    {"intitule": "Ingénierie des Données : Cycle Licence", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Tétouan"], "url": "https://www.ispsni.ma/formations/bac3"},
+    {"intitule": "Ingénierie des Données & AI : Cycle Master", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Tétouan"], "url": "https://www.ispsni.ma/formations/bac5"}
+  ],
+  "admission": {"conditions": [], "etapes": [], "concours": null, "dates": null},
+  "frais": [],
+  "bourses": null,
+  "international": null,
+  "partenaires": [],
+  "vie_etudiante": [],
+  "logement": null,
+  "preuves": {
+    "adresse": "Malaliyine, route de mdiq, 93200 BP N 691, Tetouan, Maroc",
+    "telephone": "+212 808 500 236",
+    "email": "contact@ispsni.ma",
+    "annee_creation": null,
+    "frais": [],
+    "admission": []
+  }
+}

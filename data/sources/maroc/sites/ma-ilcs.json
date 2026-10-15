@@ -1,0 +1,157 @@
+{
+  "id": "ma-ilcs",
+  "site_web": "https://ilcs.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://ilcs.ac.ma/fr/",
+    "https://ilcs.ac.ma/fr/processus-admission/",
+    "https://ilcs.ac.ma/fr/frais-et-financement/",
+    "https://ilcs.ac.ma/fr/programmes/",
+    "https://ilcs.ac.ma/fr/bourses/"
+  ],
+  "description": "Institute for Leadership and Communication Studies, établissement privé d'enseignement supérieur situé à Rabat (Agdal), spécialisé en communication, journalisme, traduction et interprétation, data et métiers du digital. Il propose des programmes Bac+3 en marketing digital, journalisme et chinois, des programmes Bac+5, des formations Executive pour professionnels, ainsi que des options flexibles et en ligne. Le site mentionne des partenariats internationaux avec possibilité de doubles diplômes, des stages, des clubs étudiants et des bourses au mérite ou sociales.",
+  "annee_creation": 1996,
+  "adresse": "29 Rue Oukaimeden Agdal,10 080, Rabat",
+  "telephone": "+212 537 67 59 68/63",
+  "email": "ilcs.adm@ilcs.ac.ma",
+  "statut_annonce": "Établissement privé reconnu et accrédité ; formations accréditées par le Ministère marocain de l'Enseignement Supérieur",
+  "programmes": [
+    {
+      "intitule": "AI & Marketing Digital and Communication",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ilcs.ac.ma/fr/programmes/"
+    },
+    {
+      "intitule": "AI & Journalisme and Communication",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ilcs.ac.ma/fr/programmes/"
+    },
+    {
+      "intitule": "AI & Chinese and Communication",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ilcs.ac.ma/fr/programmes/"
+    },
+    {
+      "intitule": "AI and Digital Communication & Marketing",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ilcs.ac.ma/fr/"
+    },
+    {
+      "intitule": "AI, Journalism, and Sports & Health Journalism",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ilcs.ac.ma/fr/"
+    },
+    {
+      "intitule": "AI, Interpreting, and Communication",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ilcs.ac.ma/fr/"
+    },
+    {
+      "intitule": "Marketing Digital & Communication (Pro)",
+      "niveau": "Executive",
+      "diplome": "Executive",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ilcs.ac.ma/fr/"
+    },
+    {
+      "intitule": "Journalisme & Sports / Santé (Pro)",
+      "niveau": "Executive",
+      "diplome": "Executive",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ilcs.ac.ma/fr/"
+    },
+    {
+      "intitule": "Traduction & Interprétation (Pro)",
+      "niveau": "Executive",
+      "diplome": "Executive",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ilcs.ac.ma/fr/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Bac+3 : baccalauréat ou diplôme équivalent, relevé de notes du baccalauréat",
+      "Authentification du diplôme étranger le cas échéant"
+    ],
+    "etapes": [
+      "Préinscription en ligne",
+      "Étude du dossier",
+      "Test d'admission écrit",
+      "Entretien de motivation",
+      "Décision d'admission"
+    ],
+    "concours": null,
+    "dates": "Admissions ouvertes toute l'année ; rentrée en février possible pour certains programmes"
+  },
+  "frais": [],
+  "bourses": "Bourses au mérite, aides sociales et bourses spéciales, sous forme de réductions partielles des frais de scolarité valables une année académique ; paiement annuel, semestriel ou mensuel (sous conditions).",
+  "international": "Collaborations avec des universités en Europe, Amérique du Nord, Afrique et Asie, avec des opportunités de doubles diplômes et d'échanges ; accueil d'étudiants internationaux.",
+  "partenaires": [],
+  "vie_etudiante": [
+    "Associations et clubs (agence de communication étudiante Motiv'Ad)",
+    "Magazine ILCS Dialna",
+    "Radio ILCS",
+    "Service communautaire",
+    "Espaces de coworking"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": "29 Rue Oukaimeden Agdal,10 080",
+    "telephone": "Tél : +212 537 67 59 68/63",
+    "email": "Email : ilcs.adm@ilcs.ac.ma",
+    "annee_creation": "Fondé en 1996 par des visionnaires marocains",
+    "frais": [],
+    "admission": [
+      "Baccalauréat ou diplôme équivalent (Baccalauréat marocain ou équivalent international)"
+    ]
+  }
+}

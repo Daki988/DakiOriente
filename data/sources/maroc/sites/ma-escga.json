@@ -1,0 +1,49 @@
+{
+  "id": "ma-escga",
+  "site_web": "https://escga.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://escga.ma/", "https://escga.ma/contact/", "https://escga.ma/escga-tanger/master-lt-2/", "https://escga.ma/escga-tanger/master-mrh/", "https://escga.ma/escga-tanger/master-imci/", "https://escga.ma/escga-tanger/master-ifacg/", "https://escga.ma/escga-tanger/filiere-gestion-objectifs/", "https://escga.ma/escga-tanger/filiere-commerce-objectifs/", "https://escga.ma/about/"],
+  "description": "École supérieure de commerce et de gestion installée à Tanger (quartier Essouriyine), créée en 2010 et présentée comme établissement d'enseignement supérieur privé reconnu par l'État. Elle propose des licences d'État (filières commerce et gestion) et quatre masters d'État en 18 mois, avec formule jour pour les étudiants et formule week-end pour les cadres. Les masters sont préparés en double diplomation avec des écoles de commerce françaises (ESC Clermont-Ferrand, ESC Saint-Étienne) ; le site cite aussi des bourses d'études et une possibilité de poursuite d'études en France.",
+  "annee_creation": 2010,
+  "adresse": "Quartier Essouriyine (à 50 mètres de la MAIRIE DE Tanger) Tanger",
+  "telephone": "+212 5 39 95 43 10",
+  "email": "contact@escg.ma",
+  "statut_annonce": "Établissement d'enseignement supérieur privé reconnu par l'État",
+  "programmes": [
+    {"intitule": "Licence d'État Filière Commerce", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": ["Ingénierie marketing et commerce international", "Transport et Logistique"], "campus": ["Tanger"], "url": "https://escga.ma/escga-tanger/filiere-commerce-objectifs/"},
+    {"intitule": "Licence d'État Filière Gestion", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": ["Ingénierie Finance, Audit et Contrôle de Gestion (FACG)", "Management des Ressources Humaines (MRH)"], "campus": ["Tanger"], "url": "https://escga.ma/escga-tanger/filiere-gestion-objectifs/"},
+    {"intitule": "Master Ingénierie Financière, Audit & Contrôle de Gestion (IFACG)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 1.5, "specialites": [], "campus": ["Tanger"], "url": "https://escga.ma/escga-tanger/master-ifacg/"},
+    {"intitule": "Master Ingénierie Marketing & Commerce International (IMCI)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 1.5, "specialites": [], "campus": ["Tanger"], "url": "https://escga.ma/escga-tanger/master-imci/"},
+    {"intitule": "Master Logistique et Transport (L&T)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 1.5, "specialites": [], "campus": ["Tanger"], "url": "https://escga.ma/escga-tanger/master-lt-2/"},
+    {"intitule": "Master Management des Ressources Humaines (MRH)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 1.5, "specialites": [], "campus": ["Tanger"], "url": "https://escga.ma/escga-tanger/master-mrh/"},
+    {"intitule": "DBA", "niveau": "Bac+8", "diplome": "Doctorat", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://escga.ma/"}
+  ],
+  "admission": {
+    "conditions": [
+      "Master MRH, accès en M1 : Bac+3 en économie, gestion, informatique, diplôme d'ingénieur ou équivalent ; étude du dossier et entretien oral de motivation",
+      "Master L&T, accès en M1 : Bac+3 scientifique ou technique ; étude du dossier et entretien oral de motivation",
+      "Masters IMCI et IFACG : ouverts aux diplômés des ENCG et de l'ISCAE, aux titulaires d'une licence en sciences économiques et gestion et à d'autres Bac+3 avec prérequis ; présélection sur dossier puis entretien oral"
+    ],
+    "etapes": ["Présélection sur dossier", "Entretien oral de motivation"],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [],
+  "bourses": "Mention de « 100 Bourses d'études à gagner » et d'une bourse d'excellence ; rubrique Financement.",
+  "international": "Double diplomation des masters avec l'ESC Clermont-Ferrand et l'ESC Saint-Étienne ; poursuite d'études possible en France.",
+  "partenaires": ["ESC Clermont-Ferrand", "ESC Saint-Étienne", "Polydesign", "Yazaki", "APM Terminals"],
+  "vie_etudiante": ["Activités parascolaires et associatives (sport, théâtre, solidarité, voyages, conférences)", "Centre carrière"],
+  "logement": "Rubrique « Logement » mentionnée sur le site.",
+  "preuves": {
+    "adresse": "Quartier Essouriyine (à 50 mètres de la MAIRIE DE Tanger) Tanger",
+    "telephone": "Téléphone : +212 5 39 95 43 10",
+    "email": "Email : contact@escg.ma",
+    "annee_creation": "2010 : CRÉATION DE L’ESCGA",
+    "frais": [],
+    "admission": [
+      "Présélection sur dossier",
+      "Entretien oral de motivation"
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "id": "ma-iga",
+  "site_web": "http://www.iga.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://iga.ac.ma/", "https://iga.ac.ma/contact", "https://iga.ac.ma/international/masters-detat-francais", "https://iga.ac.ma/international/licences-detat-francais", "https://iga.ac.ma/international/masters-detat-francais/master-en-droit", "https://iga.ac.ma/international/masters-detat-francais/comptabilite-controle-audit-cca-universite-rennes-1", "https://iga.ac.ma/international/masters-detat-francais/master-en-controle-de-gestion-et-direction-financiere", "https://iga.ac.ma/international/masters-detat-francais/master-en-administration-des-entreprises-de-luniversite-de-perpignan", "https://iga.ac.ma/international/masters-detat-francais/master-en-innovation-et-marketing-digital-de-luniversite-de-perpignan", "https://iga.ac.ma/conditions-dinscription"],
+  "description": "L'Institut Supérieur du Génie Appliqué (IGA) est une grande école d'ingénierie et de management implantée sur trois sites à Casablanca (Belvédère, Maârif et 2 Mars). Le site annonce une filière Ingénierie (diplômes d'ingénieur d'État, licences et masters) et une filière Management (licences et masters), ainsi que des licences et masters d'État français délivrés en partenariat avec des universités (Lyon, Rennes, Perpignan, Haute-Alsace, Lorraine). Il met en avant des stages et projets en entreprise, des possibilités de poursuite d'études à l'étranger dès la 3e année et des étudiants de plusieurs nationalités.",
+  "annee_creation": null,
+  "adresse": "IGA Belvédère : Place de la gare Casa Voyageurs, Casablanca Maroc. (autres sites : 279 Bd Bir Anzarane et 41 Avenue 2 Mars, Casablanca)",
+  "telephone": "+212 (0) 522 24 06 05/42",
+  "email": null,
+  "statut_annonce": "École reconnue par l'État",
+  "programmes": [
+    {"intitule": "Diplôme d'Ingénieur d'État", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/"},
+    {"intitule": "Diplôme d'Ingénieur d'État en GFA", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/"},
+    {"intitule": "Licences et Masters en Ingénierie", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/"},
+    {"intitule": "Licences et Masters en Management", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/"},
+    {"intitule": "Master d'État français Technologies de l'Information et Web (TIW) - Université de Lyon 1", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/international/masters-detat-francais"},
+    {"intitule": "Master d'État français (M2) Systèmes Réseaux et Sécurité (SRS) - Université Claude Bernard Lyon", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/international/masters-detat-francais"},
+    {"intitule": "Master d'État français Comptabilité Contrôle Audit (CCA) - Université de Rennes", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/international/masters-detat-francais/comptabilite-controle-audit-cca-universite-rennes-1"},
+    {"intitule": "Master d'État français Droit - Université de Perpignan", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": ["Droit comparé des affaires (professionnel)", "Droit privé (recherche)"], "campus": ["Casablanca"], "url": "https://iga.ac.ma/international/masters-detat-francais/master-en-droit"},
+    {"intitule": "Master d'État français Contrôle de Gestion et Direction Financière - Université de Perpignan", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/international/masters-detat-francais/master-en-controle-de-gestion-et-direction-financiere"},
+    {"intitule": "Master d'État français Management des Organisations - Université de Perpignan", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/international/masters-detat-francais/master-en-administration-des-entreprises-de-luniversite-de-perpignan"},
+    {"intitule": "Master d'État français Innovation et Marketing Digital - Université de Perpignan", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/international/masters-detat-francais/master-en-innovation-et-marketing-digital-de-luniversite-de-perpignan"},
+    {"intitule": "Licence d'État français (L3) MIAGE - Université de Haute Alsace", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/international/licences-detat-francais"},
+    {"intitule": "Licence d'État français (L3) Génie Civil - Université de Lorraine", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/international/licences-detat-francais"},
+    {"intitule": "Licence d'État français (L3) Informatique", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/international/licences-detat-francais"},
+    {"intitule": "Licence d'État français (L3) Administration et Sécurité des Réseaux (ASUR)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/international/licences-detat-francais"},
+    {"intitule": "Licence d'État français (L3) Gestion de la Production Industrielle", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iga.ac.ma/international/licences-detat-francais"}
+  ],
+  "admission": {
+    "conditions": [
+      "1ère année Ingénierie : baccalauréat scientifique ou technique",
+      "1ère année Management : baccalauréat toutes options",
+      "Master 1 des masters d'État français : diplôme Bac+3 ; Master 2 : diplôme Bac+4 ou équivalent",
+      "Années 2 à 4 : réussite d'un nombre suffisant d'années d'études supérieures dans une formation similaire"
+    ],
+    "etapes": ["Dossier d'inscription", "Entretien de sélection devant une commission (test écrit pour certains masters)"],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [],
+  "bourses": null,
+  "international": "Diplômes d'État français (L3, M1, M2) en partenariat avec des universités françaises ; poursuite d'études possible à l'étranger dès la 3e et 4e année ; étudiants de plusieurs nationalités.",
+  "partenaires": ["Université de Lyon 1", "Université de Rennes", "Université de Perpignan", "Université de Haute Alsace", "Université de Lorraine"],
+  "vie_etudiante": ["Vie associative", "Club humanitaire", "Compétitions et forums de recrutement (SmartElec, Job Day)"],
+  "logement": null,
+  "preuves": {
+    "adresse": "Place de la gare Casa Voyageurs, Casablanca Maroc.",
+    "telephone": "Tél : +212 (0) 522 24 06 05/42",
+    "email": null,
+    "annee_creation": null,
+    "frais": [],
+    "admission": [
+      "Avoir le Baccalauréat scientifique ou technique pour la filière d’Ingénierie.",
+      "Avoir Baccalauréat toutes options pour la filière de Management de l’IGA."
+    ]
+  }
+}

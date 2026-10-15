@@ -1,0 +1,38 @@
+{
+  "id": "ma-hek",
+  "site_web": "https://www.hek.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://www.hek.ma/", "https://www.hek.ma/frais-de-scolarite/", "https://www.hek.ma/procedures-dadmission/", "https://www.hek.ma/conditions-dinscription/", "https://www.hek.ma/cursus/", "https://www.hek.ma/formation-pratique/", "https://www.hek.ma/formation-initiale/"],
+  "description": "Établissement d'enseignement supérieur privé de Casablanca (quartier des Hôpitaux) spécialisé en kinésithérapie, appartenant au groupe CHEP. La formation dure trois ans, avec alternance entre enseignement à l'école et stages en structures de soins, un mémoire de fin d'études et des stages de perfectionnement possibles dans des hôpitaux européens. L'école s'adresse aux bacheliers scientifiques, marocains et étrangers (procédure d'équivalence du baccalauréat pour ces derniers), et la filière est présentée comme accréditée par l'État.",
+  "annee_creation": null,
+  "adresse": "14, rue Tabit Bnou Kourra (en face de l’église Charles de Foulcault) 20000 Casablanca",
+  "telephone": "+212 5 22 86 49 45",
+  "email": "contact@hek.ma",
+  "statut_annonce": "Établissement autorisé sous le n° 148/99 ; filière Kinésithérapie accréditée par l'État (loi 01-00)",
+  "programmes": [
+    {"intitule": "Kinésithérapie", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://www.hek.ma/cursus/"}
+  ],
+  "admission": {
+    "conditions": ["Baccalauréat scientifique (sciences expérimentales ou mathématiques) ou équivalent", "Être âgé d'au moins 17 ans", "Conditions d'aptitude physique et mentale (certificats médicaux)", "Étudiants étrangers : authentification et équivalence du baccalauréat"],
+    "etapes": ["Préinscription via le site", "Dépôt du dossier complet", "Entretien avec la commission d'admission"],
+    "concours": null,
+    "dates": "Étudiants étrangers : préinscription du 1er mars au 15 septembre ; étudiants marocains : préinscription à partir du 15 avril, dossiers avant le 15 octobre"
+  },
+  "frais": [
+    {"cycle": "Kinésithérapie (par année)", "inscription_mad": 2500, "scolarite_annuelle_mad": 43500, "note": "Total annoncé : 46 000 Dh par an (environ 4 600 euros), incluant inscription, scolarité, stages et assurances ; la page « Frais de scolarité » mentionne 46 000 Dh pour la scolarité seule alors que la page « Conditions d'inscription » indique 43 500 Dh en plus de 2 500 Dh d'inscription. Paiement unique avant le 5 octobre ou exceptionnellement en trois versements de 14 500 Dh."}
+  ],
+  "bourses": null,
+  "international": "Page dédiée aux étudiants étrangers, aux étudiants français et aux étudiants africains ; stages de perfectionnement dans des hôpitaux européens ; programme inspiré de celui en vigueur en Belgique.",
+  "partenaires": ["Institutions partenaires pour les stages de 3e année"],
+  "vie_etudiante": ["Activités parascolaires", "Outils e-learning (Google Classroom)"],
+  "logement": null,
+  "preuves": {
+    "adresse": "14, rue Tabit Bnou Kourra (en face de l’église Charles de Foulcault) 20000 Casablanca",
+    "telephone": "+212 5 22 86 49 45",
+    "email": "contact@hek.ma",
+    "annee_creation": null,
+    "frais": ["Les Frais scolaires sont fixés à 46 000 Dh par année (soit +/- 4 600 euros)", "Frais d’inscription et de réinscription: en un versement de 2 500 Dh (250 euros) avant le début de chaque année académique", "Frais de scolarité : en un seul versement de 43 500 Dh (4300 euros) avant le 5 Octobre"],
+    "admission": ["Etre titulaire d’un baccalauréat scientifique", "Pré-inscription ouverte du 1er mars au 15 septembre"]
+  }
+}

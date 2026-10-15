@@ -1,0 +1,52 @@
+{
+  "id": "ma-ippc",
+  "site_web": "https://www.polytechnique.ma/",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://www.polytechnique.ma/", "https://www.polytechnique.ma/admission", "https://www.polytechnique.ma/formations", "https://www.polytechnique.ma/formations/genie-electrique", "https://www.polytechnique.ma/formations/genie-informatique", "https://www.polytechnique.ma/formations/classes-preparatoires", "https://www.polytechnique.ma/formations/genie-electromecanique", "https://www.polytechnique.ma/formations/administration-des-affaires", "https://www.polytechnique.ma/ecole", "https://www.polytechnique.ma/contact"],
+  "description": "Institut polytechnique privé situé route d'El Jadida à Casablanca, avec une Engineering School (classes préparatoires de 2 ans puis cycle ingénieur en génie informatique, électrique ou électromécanique) et une Business School (licences Bac+3 en administration des affaires, options marketing digital ou comptabilité-finance). L'école met en avant des passerelles vers le Canada (UQAT, Université Sainte-Anne), un accompagnement pour les visas, une formation bilingue français-anglais et des stages obligatoires. Les diplômes sont présentés comme accrédités et reconnus au titre de la loi 59.24.",
+  "annee_creation": null,
+  "adresse": "Rue 10, No. 2 Lotissement Allaimoun 1, Route d'El Jadida, Casablanca 20190",
+  "telephone": "+212 522 936 550",
+  "email": null,
+  "statut_annonce": "Diplômes accrédités et reconnus (loi 59.24, Enseignement supérieur, articles 20 et 21)",
+  "programmes": [
+    {"intitule": "Classes Préparatoires", "niveau": "Bac+2", "diplome": null, "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://www.polytechnique.ma/formations/classes-preparatoires"},
+    {"intitule": "Génie Informatique", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 5, "specialites": ["Développement logiciel", "IA & Data Science", "Cybersécurité"], "campus": ["Casablanca"], "url": "https://www.polytechnique.ma/formations/genie-informatique"},
+    {"intitule": "Génie Électrique", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 5, "specialites": ["Électronique de puissance", "Automatisation", "Énergies renouvelables"], "campus": ["Casablanca"], "url": "https://www.polytechnique.ma/formations/genie-electrique"},
+    {"intitule": "Génie Électromécanique", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 5, "specialites": ["Conception Mécanique & Robotique", "Électromécanique Minière"], "campus": ["Casablanca"], "url": "https://www.polytechnique.ma/formations/genie-electromecanique"},
+    {"intitule": "Administration des Affaires — Marketing Digital & Techniques de vente", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://www.polytechnique.ma/formations/administration-des-affaires"},
+    {"intitule": "Administration des Affaires — Comptabilité, Finance et Audit", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://www.polytechnique.ma/formations/administration-des-affaires"}
+  ],
+  "admission": {
+    "conditions": [
+      "Engineering School : baccalauréat scientifique ou technique, dossier scolaire satisfaisant, entretien de motivation si applicable ; Bac+2 pour accès direct au cycle ingénieur",
+      "Business School : baccalauréat toutes séries ; Bac+1 ou Bac+2 pour admission par passerelle"
+    ],
+    "etapes": ["Inscription en ligne", "Dossier de candidature", "Étude du dossier", "Décision d'admission"],
+    "concours": null,
+    "dates": "Candidatures ouvertes toute l'année ; étude des dossiers le 15 octobre 2026 (session 2026)"
+  },
+  "frais": [
+    {"cycle": "Non précisé (indication de la page d'accueil)", "inscription_mad": 5000, "scolarite_annuelle_mad": 49000, "note": "54 000 DH au total (5 000 DH d'inscription et 49 000 DH en trois tranches) ; 41 000 DH (36 000 DH de scolarité) avec la bourse d'excellence de 13 000 DH"}
+  ],
+  "bourses": "Bourse d'excellence de 13 000 DH sous condition d'obtention ; réduction systématique des frais des deux dernières années à l'Université Sainte-Anne (Canada).",
+  "international": "Parcours 1 an au Maroc + 4 ans à l'UQAT (Québec) pour devenir ingénieur ; Bachelor canadien en 2 + 2 ans avec l'Université Sainte-Anne (Nouvelle-Écosse) ; accompagnement visa.",
+  "partenaires": ["UQAT (Université du Québec en Abitibi-Témiscamingue)", "Université Sainte-Anne"],
+  "vie_etudiante": ["Campus avec salles équipées, bibliothèque et laboratoires"],
+  "logement": null,
+  "preuves": {
+    "adresse": "Rue 10, No. 2 Lotissement Allaimoun 1, Route d'El Jadida, Casablanca 20190",
+    "telephone": "+212 522 936 550",
+    "email": null,
+    "annee_creation": null,
+    "frais": [
+      "Sinon, ils s'élèvent à 54 000 DH (5 000 DH d'inscription et 49 000 DH sur trois tranches).",
+      "Frais de scolarité de 41 000 DH (5 000 DH d'inscription et 36 000 DH sur trois tranches)"
+    ],
+    "admission": [
+      "Baccalauréat scientifique ou technique",
+      "Baccalauréat (toutes séries)"
+    ]
+  }
+}

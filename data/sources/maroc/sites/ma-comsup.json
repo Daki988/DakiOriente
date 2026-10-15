@@ -1,0 +1,37 @@
+{
+  "id": "ma-comsup",
+  "site_web": "https://www.comsup.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["http://www.comsup.ma/", "https://www.comsup.ma/licence-communication-des-organisations/", "https://www.comsup.ma/licence-gestion-evenementielle/", "http://www.comsup.ma/master-communication-medias-a-l-ere-des-ia/", "https://www.comsup.ma/master-medias-et-journalisme/", "http://www.comsup.ma/pre-inscription-ecole-communication-maroc/"],
+  "description": "École de communication et de publicité située dans le quartier Franceville à Casablanca, au sein d'Art'Com Sup. Elle propose des licences (Bac+3) en communication des organisations et en gestion événementielle, ainsi que des masters (Bac+5) en communication et médias à l'ère des IA et en médias et journalisme. Le site met en avant des stages chaque année, un Com'Lab de projets réels pour des entreprises, un double diplôme avec Excelia pour l'un des masters, un semestre possible à l'ESJ Paris et des bourses de 10 % à 50 %.",
+  "annee_creation": null,
+  "adresse": "15, rue Abderrahmane Abi Laïla, Quartier Franceville, Casablanca",
+  "telephone": "+212 (0) 522 26 18 54",
+  "email": "comsup@comsup.ma",
+  "statut_annonce": "Établissement d'enseignement supérieur privé reconnu par l'État",
+  "programmes": [
+    {"intitule": "Licence Communication des Organisations", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://www.comsup.ma/licence-communication-des-organisations/"},
+    {"intitule": "Licence Gestion Événementielle", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://www.comsup.ma/licence-gestion-evenementielle/"},
+    {"intitule": "Master Communication & Médias à l'ère des IA", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": ["Communication des organisations", "Médias, contenus et information"], "campus": ["Casablanca"], "url": "http://www.comsup.ma/master-communication-medias-a-l-ere-des-ia/"},
+    {"intitule": "Master Médias et Journalisme", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://www.comsup.ma/master-medias-et-journalisme/"}
+  ],
+  "admission": {"conditions": ["Licence : ouverte à tous les titulaires du baccalauréat, admission via un entretien", "Master : Bac+3"], "etapes": ["Entretien"], "concours": null, "dates": null},
+  "frais": [
+    {"cycle": "Licence (Bac+3)", "inscription_mad": 5000, "scolarite_annuelle_mad": 48000, "note": "Paiement échelonné possible"},
+    {"cycle": "Master Communication & Médias à l'ère des IA (Bac+5)", "inscription_mad": 5000, "scolarite_annuelle_mad": 58000, "note": "Paiement échelonné possible"}
+  ],
+  "bourses": "Bourse d'étude de 10 % à 50 %, attribuée sur dossier pédagogique et selon critères sociaux.",
+  "international": "Double diplôme avec Excelia (MSc Communication Digitale, Influence et Nouvelles Réalités) pour le master Communication & Médias ; semestre possible à l'ESJ Paris.",
+  "partenaires": ["Excelia", "ESJ Paris", "Aivancity"],
+  "vie_etudiante": ["Com'Lab", "Studio podcast/TV et espaces de coworking", "Accès LinkedIn Learning", "Réseau Alumni"],
+  "logement": null,
+  "preuves": {
+    "adresse": "15, rue Abderrahmane Abi Laïla",
+    "telephone": "+212 (0) 522 26 18 54",
+    "email": "comsup@comsup.ma",
+    "annee_creation": null,
+    "frais": ["Les frais d’inscription s’élèvent à 5 000 DH par an et les frais de scolarité de", "48 000\nDH par an, avec la possibilité de paiement échelonné.", "58 000\nDH par an, avec la possibilité de paiement échelonné."],
+    "admission": ["La formation est ouverte à tous les titulaires du baccalauréat. L’admission se fait via un entretien de permettant d’évaluer votre admissibilité."]
+  }
+}

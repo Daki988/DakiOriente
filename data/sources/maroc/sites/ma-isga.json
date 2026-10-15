@@ -1,0 +1,271 @@
+{
+  "id": "ma-isga",
+  "site_web": "https://isga.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://isga.ma/",
+    "https://isga.ma/frais-et-financement/",
+    "https://isga.ma/conditions-d-admission/",
+    "https://isga.ma/master/",
+    "https://isga.ma/licence/",
+    "https://isga.ma/double-diplomes/",
+    "https://isga.ma/cycle-dingenieurs/",
+    "https://isga.ma/cycle-preparatoire/",
+    "https://isga.ma/insertion-des-diplomes/"
+  ],
+  "description": "Établissement d'enseignement supérieur privé, membre du groupe Edvantis, avec une école d'ingénieurs et une école de management présentes à Casablanca, Rabat, Marrakech et Fès. L'offre comprend un cycle préparatoire de 2 ans suivi d'un cycle d'ingénieurs de 3 ans (cinq spécialisations), une licence en informatique et systèmes numériques, des licences et masters en management. Le site met en avant des doubles diplômes avec des partenaires français (Université du Mans, aivancity), un semestre d'échange en 5e année, un career center, des bourses pour bacheliers méritants et le label EUR-ACE pour les formations d'ingénieur.",
+  "annee_creation": 1981,
+  "adresse": null,
+  "telephone": null,
+  "email": null,
+  "statut_annonce": "Établissement reconnu par l'État",
+  "programmes": [
+    {
+      "intitule": "Cycle préparatoire ingénieur (tronc commun)",
+      "niveau": "Bac+2",
+      "diplome": "Cycle préparatoire",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Rabat",
+        "Marrakech",
+        "Fès"
+      ],
+      "url": "https://isga.ma/cycle-preparatoire/"
+    },
+    {
+      "intitule": "Cycle d'ingénieurs",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 3,
+      "specialites": [
+        "Ingénierie du Développement Web et Mobile",
+        "Génie Civil, Bâtiments et Travaux Publics",
+        "Intelligence artificielle et Big Data",
+        "Ingénierie des Réseaux Systèmes et Sécurité",
+        "Systèmes industriels intelligents et contrôle qualité"
+      ],
+      "campus": [
+        "Casablanca",
+        "Rabat",
+        "Marrakech",
+        "Fès"
+      ],
+      "url": "https://isga.ma/cycle-dingenieurs/"
+    },
+    {
+      "intitule": "Licence en Informatique et Systèmes Numériques",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Rabat",
+        "Marrakech",
+        "Fès"
+      ],
+      "url": "https://isga.ma/conditions-d-admission/"
+    },
+    {
+      "intitule": "Licence en Management",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [
+        "Finance et Contrôle",
+        "Marketing et Commerce",
+        "Gestion des Ressources Humaines"
+      ],
+      "campus": [
+        "Casablanca",
+        "Rabat",
+        "Marrakech",
+        "Fès"
+      ],
+      "url": "https://isga.ma/licence/"
+    },
+    {
+      "intitule": "Master Comptabilité, Contrôle et Audit",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Rabat",
+        "Marrakech",
+        "Fès"
+      ],
+      "url": "https://isga.ma/master/"
+    },
+    {
+      "intitule": "Master Marketing, Commerce & Data Intelligence (Marketing Digital et E-commerce)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Rabat",
+        "Marrakech",
+        "Fès"
+      ],
+      "url": "https://isga.ma/master/"
+    },
+    {
+      "intitule": "Master en Management des Ressources Humaines",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://isga.ma/master/"
+    },
+    {
+      "intitule": "Master Finance, Comptabilité et Data Analytics",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Rabat",
+        "Marrakech",
+        "Fès"
+      ],
+      "url": "https://isga.ma/master/"
+    },
+    {
+      "intitule": "Master Ingénierie financière",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Rabat",
+        "Marrakech",
+        "Fès"
+      ],
+      "url": "https://isga.ma/"
+    },
+    {
+      "intitule": "Double diplôme Master Comptabilité Contrôle Audit (CCA) de l'Université du Mans",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": null,
+      "url": "https://isga.ma/double-diplomes/"
+    },
+    {
+      "intitule": "Double diplôme Master of Science Data Engineering d'aivancity",
+      "niveau": "Bac+5",
+      "diplome": "Master of Science",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://isga.ma/double-diplomes/"
+    },
+    {
+      "intitule": "Double diplôme Master Technologies Nouvelles des Systèmes d'Information & Décisionnels (TNSI)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://isga.ma/double-diplomes/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Cycle ingénieur, 1re année : baccalauréat scientifique ou technique",
+      "3e année : Bac+2 (DUT, BTS, DTS ou équivalent)",
+      "4e année : licence scientifique ou équivalente",
+      "Licence Informatique & Systèmes Numériques : baccalauréat scientifique ou technique, test écrit et entretien oral (admission en 1re année uniquement pour 2026-2027)",
+      "École de management, 1re année : baccalauréat toutes séries",
+      "Master : accès Bac+3"
+    ],
+    "etapes": [
+      "Étude du dossier par la commission d'admission",
+      "Entretien de motivation éventuel selon les profils"
+    ],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [
+    {
+      "cycle": "Cursus Ingénieur & Management – 1re et 2e année",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 42000,
+      "note": "Total 47 000 MAD/an ; paiement trimestriel de 14 000 MAD (octobre, janvier, avril) ; réduction de 5 % sur la scolarité pour règlement complet avant le 31 octobre"
+    },
+    {
+      "cycle": "Cursus Ingénieur & Management – 3e, 4e et 5e année",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 45600,
+      "note": "Total affiché 50 600 MAD/an ; paiement trimestriel de 15 200 MAD"
+    },
+    {
+      "cycle": "Licence Informatique & Systèmes Numériques",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 40000,
+      "note": "Total affiché 45 000 MAD/an ; paiement trimestriel de 13 400 MAD"
+    },
+    {
+      "cycle": "Double diplôme Master CCA Le Mans – M1",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 53000,
+      "note": "Total affiché 58 000 MAD/an"
+    },
+    {
+      "cycle": "Double diplôme Master CCA Le Mans – M2",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 63000,
+      "note": "Total affiché 68 000 MAD/an"
+    },
+    {
+      "cycle": "Temps aménagé",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 38000,
+      "note": "Total affiché 43 000 MAD/an ; paiement trimestriel de 12 700 MAD"
+    }
+  ],
+  "bourses": "Aides totales ou partielles pour les bacheliers les plus méritants souhaitant intégrer la 1re année du cursus ingénieur, sur dossier soumis à la commission d'admission.",
+  "international": "Doubles diplômes avec des institutions françaises (Université du Mans, aivancity) dès la 4e année ; semestre d'échange possible en 5e année sans frais d'études supplémentaires ; learning trips.",
+  "partenaires": [
+    "Université du Mans",
+    "aivancity"
+  ],
+  "vie_etudiante": [
+    "Journée d'intégration",
+    "BDE et clubs",
+    "Career Center",
+    "Incubateur Edvantis"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": null,
+    "telephone": null,
+    "email": null,
+    "annee_creation": "Depuis\n1981",
+    "frais": [
+      "Frais d’inscription : 5 000 DHS /an",
+      "Frais de scolarité : 42 000 DHS /an",
+      "Frais de scolarité : 45 600 /an",
+      "Frais de scolarité : 40 000 DHS /an",
+      "Frais de scolarité : 53 000 DHS /an",
+      "Frais de scolarité : 63 000 DHS /an",
+      "Frais de scolarité : 38 000 DHS /an"
+    ],
+    "admission": [
+      "L’admission en première année du cycle ingénieur est ouverte aux bacheliers disposant d’un baccalauréat scientifique ou technique.",
+      "Étude du dossier par la commission d’admission."
+    ]
+  }
+}

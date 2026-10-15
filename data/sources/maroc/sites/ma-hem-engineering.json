@@ -1,0 +1,132 @@
+{
+  "id": "ma-hem-engineering",
+  "site_web": "https://hem.ac.ma",
+  "sources": [
+    "https://hem.lcieducation.com/fr",
+    "https://hem.lcieducation.com/fr/programmes-et-cours/formation-initiale",
+    "https://hem.lcieducation.com/fr/admission-et-aide/formation-initiale"
+  ],
+  "description": "École d’ingénierie de l’Université Internationale HEM, sur le campus de Casablanca. Elle forme en informatique (cybersécurité, intelligence artificielle et big data, génie informatique & IA) via deux années préparatoires intégrées, un parcours Bac+5 en 5 ans, un cycle ingénieur de 3 ans et des masters spécialisés de 2 ans. Les étudiants bénéficient du réseau de HEM (partenaires académiques internationaux, entreprises partenaires) et d’un IT Club étudiant.",
+  "programmes": [
+    {
+      "intitule": "2 années préparatoires au cycle d'ingénieur - Sciences et techniques",
+      "niveau": "Bac+2",
+      "diplome": "Classes préparatoires intégrées",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://hem.lcieducation.com/fr/programmes-et-cours/formation-initiale"
+    },
+    {
+      "intitule": "Cycle Ingénieur - Spécialité Génie Informatique & IA",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 5,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://hem.lcieducation.com/fr/programmes-et-cours/formation-initiale"
+    },
+    {
+      "intitule": "Génie Informatique & IA (cycle d’ingénieur)",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://hem.lcieducation.com/fr/programmes-et-cours/formation-initiale"
+    },
+    {
+      "intitule": "Parcours Ingénierie Informatique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme Bac+5 (Ingénierie)",
+      "duree_annees": 5,
+      "specialites": [
+        "Cybersécurité",
+        "Intelligence artificielle et Big Data"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://hem.lcieducation.com/fr/programmes-et-cours/formation-initiale"
+    },
+    {
+      "intitule": "Ingénierie Informatique (masters spécialisés)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [
+        "Parcours Cybersécurité",
+        "Parcours Intelligence artificielle et Big Data"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://hem.lcieducation.com/fr/programmes-et-cours/formation-initiale"
+    }
+  ],
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "annee_creation": 1988,
+  "adresse": "Avenue Al Qods - Californie, Casablanca ; Intersection Mohammed VI - Akrache, Lot. Mouline N° 3, Souissi, Rabat",
+  "telephone": "+212 5 22 52 52 52",
+  "email": null,
+  "statut_annonce": "Reconnue par l’État marocain ; accréditation AABS",
+  "admission": {
+    "conditions": [
+      "Répondre aux critères d’admission",
+      "Préparer tous les documents nécessaires"
+    ],
+    "etapes": [
+      "Remplir le formulaire d’admission en ligne (5 étapes)",
+      "Payer les frais d’admission de 500 Dh",
+      "Finaliser la demande d’admission et signer le contrat",
+      "Une fois admis, payer les frais d’inscription de 5000 Dh pour réserver sa place"
+    ],
+    "concours": null,
+    "dates": "Inscriptions ouvertes toute l'année"
+  },
+  "frais": [
+    {
+      "cycle": "Tous cycles (formation initiale)",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": null,
+      "note": "Frais d’admission (dossier) de 500 Dh ; frais d’inscription de 5000 Dh après admission ; scolarité annuelle via un calculateur en ligne, non publiée en texte"
+    }
+  ],
+  "bourses": "Plus de 1 000 bourses d’excellence et de mérite accordées aux nouveaux inscrits.",
+  "international": "Plus de 60 partenaires académiques internationaux ; semestres d’échange et doubles diplômes avec l’iaelyon, Paris Dauphine – IAE Paris et l’ESG-UQAM ; guide d’admission dédié aux étudiants internationaux.",
+  "partenaires": [
+    "iaelyon",
+    "Paris Dauphine – IAE Paris",
+    "ESG-UQAM",
+    "EM Normandie",
+    "Fédération Royale Marocaine de Football"
+  ],
+  "vie_etudiante": [
+    "IT Club de l'école d'ingénierie",
+    "Activités étudiantes sur les campus",
+    "LCI Career Expo (forum de recrutement)"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": "[Avenue Al Qods - Californie](https://maps.app.goo.gl/JkE1MDV7dDJanvDb8)",
+    "telephone": "[+212 5 22 52 52 52](tel:+212522525252)",
+    "email": null,
+    "annee_creation": "Depuis 1988, HEM construit son excellence académique",
+    "frais": [
+      "Payer les frais d’admission de 500 Dh par carte de crédit",
+      "S’assurer une place en payant les frais d’inscription de 5000 Dh"
+    ],
+    "admission": [
+      "Répondre aux critères d’admission",
+      "Prévoir 10 minutes pour remplir le formulaire d’admission en 5 étapes faciles",
+      "Les inscriptions sont ouvertes toute l'année."
+    ]
+  }
+}

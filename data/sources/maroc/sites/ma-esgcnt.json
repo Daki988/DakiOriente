@@ -1,0 +1,39 @@
+{
+  "id": "ma-esgcnt",
+  "site_web": "https://esgcnt.com",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://esgcnt.com/", "https://esgcnt.com/m_a1.php?i=ll193000015", "https://esgcnt.com/m_a1.php?i=ll193000021", "https://esgcnt.com/m_a1.php?i=ll50114", "https://esgcnt.com/m_a1.php?i=ll50070"],
+  "description": "École d'ingénierie située à Meknès, spécialisée en génie civil, génie mécanique, génie biomédical, mécatronique et management des ressources humaines. Le cycle ingénieur débute par deux années de préparation intégrée après le bac, suivies de trois années de spécialité. L'école propose aussi des licences et masters professionnels, des doctorats professionnels et de la formation continue, avec des stages et projets de fin d'études. Elle accepte les étudiants étrangers sur dossier et indique envisager des bourses et des prêts à taux préférentiels.",
+  "annee_creation": null,
+  "adresse": "Avenue Moulay Idriss II RUE KIFA No 38 V.N. MEKNÈS MAROC",
+  "telephone": "+212 5 35 51 39 38",
+  "email": "info@esgcnt.com",
+  "statut_annonce": null,
+  "programmes": [
+    {"intitule": "Cycle ingénieur", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 5, "specialites": ["Génie civil et infrastructure", "Génie mécanique", "Génie mécatronique", "Génie biomédical", "Informatique et multimédia", "Management des ressources humaines"], "campus": ["Meknès"], "url": "https://esgcnt.com/m_a1.php?i=ll50070"},
+    {"intitule": "Master professionnel", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": ["Génie civil", "Génie mécanique", "Génie biomédical", "Management des ressources humaines"], "campus": ["Meknès"], "url": "https://esgcnt.com/"},
+    {"intitule": "Licence professionnelle", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": null, "specialites": ["Génie mécanique et productique", "Génie industriel", "Statistique informatique", "Aéronautique"], "campus": ["Meknès"], "url": "https://esgcnt.com/"},
+    {"intitule": "Doctorat professionnel", "niveau": null, "diplome": "Doctorat", "duree_annees": null, "specialites": ["Génie biomédical", "Génie civil", "Bâtiment et travaux publics", "Génie mécanique", "Robotique", "Informatique", "Économie et gestion", "Administration des affaires"], "campus": ["Meknès"], "url": "https://esgcnt.com/"}
+  ],
+  "admission": {
+    "conditions": ["Admission directe : titulaires du baccalauréat marocain", "Accès après décision d'admission : candidats marocains ou étrangers titulaires d'un diplôme étranger jugé équivalent"],
+    "etapes": ["Remplir une demande d'admission", "Envoyer le dossier et les pièces justificatives par email au bureau des admissions", "Admission définitive après acceptation du dossier et règlement des frais"],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [],
+  "bourses": "L'école indique envisager d'octroyer des bourses à des étudiants brillants et avoir engagé des négociations pour des prêts à taux préférentiels.",
+  "international": "Admission possible pour candidats étrangers titulaires d'un diplôme jugé équivalent ; partenariat mentionné avec l'Université de Dakar.",
+  "partenaires": ["MEK PREFAT", "KUKA", "ONCF", "IRS Robotics"],
+  "vie_etudiante": ["Clubs de l'école", "Vie culturelle et loisirs", "Laboratoires (robotique, mécatronique, biomédical)"],
+  "logement": null,
+  "preuves": {
+    "adresse": "Adresse : Avenue Moulay Idriss II RUE KIFA No 38 V.N. MEKNÈS MAROC",
+    "telephone": "Tel.: +212 5 35 51 39 38",
+    "email": "E-mail: info@esgcnt.com",
+    "annee_creation": null,
+    "frais": null,
+    "admission": ["L’admission directe : Elle concerne les étudiants titulaires du baccalauréat marocaine."]
+  }
+}

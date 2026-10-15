@@ -1,0 +1,388 @@
+{
+  "id": "ma-hestim",
+  "site_web": "https://www.hestim.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://www.hestim.ma/",
+    "https://www.hestim.ma/cedoc",
+    "https://www.hestim.ma/a-propos-de-nous",
+    "https://www.hestim.ma/contactus",
+    "https://www.hestim.ma/partenariat-academique",
+    "https://www.hestim.ma/ouverture-internationale-1"
+  ],
+  "description": "École d'ingénierie et de management implantée à Casablanca (boulevard Ghandi, quartier Oasis), comprenant une Engineering School et une Business School. L'offre couvre le génie informatique, le génie civil, le génie industriel et la logistique, ainsi que le marketing, la finance, les achats et le management, en licence, master, diplôme d'ingénieur, formation continue et doctorat (CEDoc). Le site met en avant des doubles diplômes avec des partenaires français (ESTIA, Université Polytechnique Hauts-de-France, ULCO), un career center, un incubateur (CIEL) et un centre de recherche (CERIM).",
+  "annee_creation": null,
+  "adresse": "293,295 Bd Ghandi, Quartier Oasis",
+  "telephone": "+212 5 22 34 17 23",
+  "email": null,
+  "statut_annonce": "École d'ingénierie et de management reconnue par l'État",
+  "programmes": [
+    {
+      "intitule": "Génie Industriel et Logistique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Génie Civil Architectural et Urbain",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Ingénierie Informatique et Intelligence Artificielle",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [
+        "Cybersécurité",
+        "Génie logiciel",
+        "Intelligence artificielle & Big data"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Marketing Digital et Innovation",
+      "niveau": null,
+      "diplome": "Diplôme d'État (management)",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Marketing et Communication Stratégique",
+      "niveau": null,
+      "diplome": "Diplôme d'État (management)",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Management des Entreprises et des Organisations",
+      "niveau": null,
+      "diplome": "Diplôme d'État (management)",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Marketing et Transformation Digitale",
+      "niveau": null,
+      "diplome": "Diplôme d'État (management)",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Achats et Supply Chain Management",
+      "niveau": null,
+      "diplome": "Diplôme d'État (management)",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Finance, Audit et Contrôle",
+      "niveau": null,
+      "diplome": "Diplôme d'État (management)",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Licence professionnelle Ingénierie Informatique Full Stack, DevOps & Cybersécurité",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Licence professionnelle Génie Civil - Conduite de travaux et technologies BIM",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Licence professionnelle Génie Civil - Ingénierie de la construction et technologies BIM",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Licence professionnelle Gestion de la Qualité-Hygiène-Sécurité",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Licence professionnelle Maintenance Industrielle",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Licence professionnelle Logistique et Transport",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Licence professionnelle Finance - Assurance - Banque",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Licence professionnelle Marketing digital & gestion force de ventes",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Master professionnel Ingénierie en Cybersécurité Avancée",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Master professionnel Management Industriel et Excellence Opérationnelle",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Master professionnel Qualité, Hygiène, Sécurité et Environnement (QHSE)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Master professionnel Génie civil - BTP et BIM management",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Master professionnel Finance-audit-contrôle de gestion",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Master professionnel Digital marketing & Business development",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Executive Master Logistique Industrielle - Logistique 4.0",
+      "niveau": null,
+      "diplome": "Executive Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Executive Master Lean Six Sigma - Industrie 4.0",
+      "niveau": null,
+      "diplome": "Executive Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Executive Master Génie Civil - BIM & Lean construction",
+      "niveau": null,
+      "diplome": "Executive Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Executive Master Gouvernance stratégique - RSE - capital humain",
+      "niveau": null,
+      "diplome": "Executive Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Executive Master Project Management & ESG",
+      "niveau": null,
+      "diplome": "Executive Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/"
+    },
+    {
+      "intitule": "Doctorat – Sciences de l'Ingénieur, Management et Innovation (CEDoc)",
+      "niveau": null,
+      "diplome": "Doctorat",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.hestim.ma/cedoc"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Admissions parallèles possibles après un Bac+2 (3e année, licence professionnelle ou cycle ingénieur adapté) ou un Bac+3 (1re année de master ou cycle ingénieur)",
+      "Doctorat : master, master spécialisé, diplôme d'ingénieur ou équivalent"
+    ],
+    "etapes": [
+      "Candidature en ligne",
+      "Étude du dossier et entretien de motivation (doctorat : dossier 60 % et entretien oral 40 %)"
+    ],
+    "concours": null,
+    "dates": "Doctorat 2026-2027 : candidatures du 23 septembre au 15 octobre 2026"
+  },
+  "frais": [],
+  "bourses": null,
+  "international": "Doubles diplômes avec ESTIA (double diplôme d'ingénieur) et avec l'Université Polytechnique Hauts-de-France / INSA Hauts-de-France (depuis 2010), parcours délocalisés de l'ULCO ; mobilités entrantes et sortantes ; communauté étudiante multiculturelle.",
+  "partenaires": [
+    "ESTIA",
+    "Université Polytechnique Hauts-de-France",
+    "INSA Hauts-de-France",
+    "ULCO",
+    "Arts et Métiers – Campus de Metz",
+    "ENSET Mohammedia",
+    "ENSAM Casablanca",
+    "Faculté des Sciences Ben M'Sik"
+  ],
+  "vie_etudiante": [
+    "Vie associative et clubs",
+    "Incubateur CIEL",
+    "Career Center",
+    "Rooftop de 270 m²",
+    "Santé et bien-être"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": "293,295 Bd Ghandi, Quartier Oasis",
+    "telephone": "+212 5 22 34 17 23",
+    "email": null,
+    "annee_creation": null,
+    "frais": null,
+    "admission": [
+      "Aujourd’hui, les admissions parallèles permettent à des profils issus de BTS, DUT ou licences de rejoindre directement des cycles avancés."
+    ]
+  }
+}

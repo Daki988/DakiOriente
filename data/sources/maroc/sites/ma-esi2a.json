@@ -1,0 +1,37 @@
+{
+  "id": "ma-esi2a",
+  "site_web": "https://esi2a.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://esi2a.ma/", "https://esi2a.ma/about/contact-us/", "https://esi2a.ma/admissions/", "https://esi2a.ma/demande-dinscription/", "https://esi2a.ma/conditions-dadmissions/", "https://esi2a.ma/formations/", "https://esi2a.ma/cycles-ingenieur/", "https://esi2a.ma/informations-pratiques/", "https://esi2a.ma/cycles-preparatoire-integre/", "https://esi2a.ma/about/about-us/"],
+  "description": "École d'ingénierie privée implantée à Fès, dans le parc Fès Shore. Elle propose un parcours de 5 ans : un cycle préparatoire intégré de 2 ans puis un cycle ingénieur de 3 ans en mécatronique, avec une dominante automobile ou aéronautique choisie à mi-parcours de la 2e année du cycle. Le site met en avant la pédagogie par projets, des partenariats avec des industriels, une bourse interne sur critères sociaux et scolaires, des partenariats bancaires pour les prêts étudiants et un restaurant sur le site.",
+  "annee_creation": null,
+  "adresse": "Fès shore ,Route de sidi Hrazem (à côté de la faculté de médecine et de pharmacie). 30000 Fès – Maroc",
+  "telephone": "+212.532.027.020",
+  "email": null,
+  "statut_annonce": null,
+  "programmes": [
+    {"intitule": "Cycle Préparatoire Intégré", "niveau": "Bac+2", "diplome": "Cycle préparatoire", "duree_annees": 2, "specialites": [], "campus": ["Fès"], "url": "https://esi2a.ma/cycles-preparatoire-integre/"},
+    {"intitule": "Cycle Ingénieur (mécatronique)", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 3, "specialites": ["Dominante Automobile", "Dominante Aéronautique"], "campus": ["Fès"], "url": "https://esi2a.ma/cycles-ingenieur/"}
+  ],
+  "admission": {
+    "conditions": ["Cycle préparatoire intégré : baccalauréat scientifique ou technique ou diplôme reconnu équivalent", "Présélection sur la moyenne du baccalauréat puis entretien de motivation", "1re année du cycle ingénieur : deux années préparatoires validées ou concours (DEUG, DEUT, DUT, DISTA ou équivalent)", "2e année du cycle ingénieur : concours ou étude de dossier (licence, LP, LST ou équivalent)"],
+    "etapes": ["Formulaire de pré-inscription", "Présélection", "Entretien de motivation"],
+    "concours": "Concours d'admission au cycle ingénieur",
+    "dates": null
+  },
+  "frais": [],
+  "bourses": "Bourse interne attribuée selon le quotient familial et les résultats scolaires ; partenariats avec des banques marocaines pour des prêts étudiants.",
+  "international": null,
+  "partenaires": ["FEV", "Sherpa Engineering", "Magneti Marelli", "Alten Maroc"],
+  "vie_etudiante": ["Restaurant et cafétéria au parc Fès Shore", "Assurance sociale étudiante", "Visites d'usines"],
+  "logement": null,
+  "preuves": {
+    "adresse": "Fès shore ,Route de sidi Hrazem (à côté de la faculté de médecine et de pharmacie). 30000 Fès – Maroc",
+    "telephone": "+212.532.027.020",
+    "email": null,
+    "annee_creation": null,
+    "frais": null,
+    "admission": ["La présélection se fait sur la base de la moyenne obtenue au baccalauréat."]
+  }
+}

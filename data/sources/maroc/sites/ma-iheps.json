@@ -1,0 +1,49 @@
+{
+  "id": "ma-iheps",
+  "site_web": "https://iheps.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://iheps.ac.ma/", "https://iheps.ac.ma/preinscription/", "https://iheps.ac.ma/inscription-concours/", "https://iheps.ac.ma/nos-masters/", "https://iheps.ac.ma/nos-licences/", "https://iheps.ac.ma/filiere-biomedicale/", "https://iheps.ac.ma/master-kinesitherapie-niveau-bac5/", "https://iheps.ac.ma/master-en-dietetique-et-nutrition-bac-5/", "https://iheps.ac.ma/a-propos/"],
+  "description": "Groupe d'établissements privés d'enseignement supérieur paramédical avec des campus à Marrakech, Casablanca et Agadir. Il propose des licences (diététique et nutrition, soins infirmiers, radiologie, kinésithérapie, orthophonie, orthoptie, psychomotricité, sciences biomédicales) et des masters. Le site met en avant une pédagogie pratique, des stages dans des hôpitaux et cliniques partenaires dès la première année et des promotions à effectif limité.",
+  "annee_creation": null,
+  "adresse": "Marrakech : TARGA N°1 en face Andalusia Academy ; Casablanca : 372 Boulevard GHANDI ; Agadir : N°17 Bloc F, cité Al Houda",
+  "telephone": "+212 6 59 70 11 11",
+  "email": "info@iheps.ac.ma",
+  "statut_annonce": "Établissements privés d'enseignement supérieur autorisés par le Ministère de l'Enseignement Supérieur, de la Recherche Scientifique et de l'Innovation",
+  "programmes": [
+    {"intitule": "Licence Diététique et Nutrition", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/"},
+    {"intitule": "Licence Infirmier polyvalent", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/"},
+    {"intitule": "Licence Infirmier en anesthésie et réanimation", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/"},
+    {"intitule": "Licence Radiologie", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/"},
+    {"intitule": "Licence Kinésithérapie", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/"},
+    {"intitule": "Licence Orthophonie", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/"},
+    {"intitule": "Licence Orthoptie", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/"},
+    {"intitule": "Licence Psychomotricité", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/"},
+    {"intitule": "Licence Sciences Biomédicales", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/"},
+    {"intitule": "Master Neurosciences et réhabilitation", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/"},
+    {"intitule": "Master Leadership et management de santé", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/"},
+    {"intitule": "Master Ingénierie Biomédicale", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/filiere-biomedicale/"},
+    {"intitule": "Master Kinésithérapie", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/master-kinesitherapie-niveau-bac5/"},
+    {"intitule": "Master Diététique et Nutrition", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": null, "url": "https://iheps.ac.ma/master-en-dietetique-et-nutrition-bac-5/"}
+  ],
+  "admission": {
+    "conditions": ["Master Ingénierie Biomédicale : baccalauréat scientifique", "Masters Kinésithérapie / Diététique et Nutrition : niveau Licence (Bac+3) dans la discipline", "Concours d'admission en ligne"],
+    "etapes": ["Pré-inscription via formulaire", "Concours d'accès en ligne (examen de 20 minutes)", "Sélection sur dossier et entretien (masters)"],
+    "concours": "Concours d'accès 2026/2027 en ligne",
+    "dates": null
+  },
+  "frais": [],
+  "bourses": null,
+  "international": null,
+  "partenaires": ["Conventions avec des hôpitaux et cliniques du Maroc pour les stages"],
+  "vie_etudiante": [],
+  "logement": null,
+  "preuves": {
+    "adresse": "372 Boulevard GHANDI, Casablanca",
+    "telephone": "+212 6 59 70 11 11",
+    "email": "info@iheps.ac.ma",
+    "annee_creation": null,
+    "frais": [],
+    "admission": ["Baccalauréat scientifique", "Sélection sur dossier et entretien", "Niveau Licence (BAC+3) en Kinésithérapie"]
+  }
+}

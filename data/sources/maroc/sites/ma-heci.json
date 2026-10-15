@@ -1,0 +1,48 @@
+{
+  "id": "ma-heci",
+  "site_web": "https://www.groupeheci.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://www.groupeheci.ac.ma/", "https://www.groupeheci.ac.ma/faq/", "https://www.groupeheci.ac.ma/processus-admission/", "https://www.groupeheci.ac.ma/programmes-de-formation/", "https://www.groupeheci.ac.ma/formations-certifiantes/", "https://www.groupeheci.ac.ma/masters-specialises-bac5/", "https://www.groupeheci.ac.ma/executive-mba-pour-cadres/"],
+  "description": "HECI Business School est un réseau d'écoles de management, de commerce et de gestion dont le siège est à Casablanca (route d'El Jadida), avec des campus au Maroc (Casablanca, Rabat, Kénitra, Meknès, Fès, Oujda) ainsi qu'à Dakar et Abidjan. Elle propose des licences (Bac+3) en administration des affaires, marketing digital, finance-audit et management de projets, des diplômes de niveau master (Bac+5), un Executive MBA et des certificats professionnels. Le site met en avant des stages (100 % des diplômés avec au moins trois stages), une double diplomation et un réseau d'anciens ; l'admission se fait sur dossier, test et entretien avec deux sessions annuelles.",
+  "annee_creation": 1986,
+  "adresse": "HECI Business School, Rond point HECI Route d’El Jadida 1077 N° 3 (à coté de l’hôtel Zenith) Casablanca",
+  "telephone": "(+212) 5 22 50 02 02",
+  "email": "contact@groupeheci.ac.ma",
+  "statut_annonce": "Programmes annoncés comme accrédités et reconnus",
+  "programmes": [
+    {"intitule": "Licence (Bac+3) : Tronc commun 1ère et 2ème années", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": ["Administration des Affaires", "Marketing et Communication Digitale", "Finance, Audit et Contrôle de Gestion", "Management de Projets et Entrepreneuriat"], "campus": ["Casablanca", "Rabat", "Kénitra", "Meknès", "Fès", "Oujda"], "url": "https://www.groupeheci.ac.ma/programmes-de-formation/"},
+    {"intitule": "Diplôme en Marketing et Communication Digitale", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.groupeheci.ac.ma/masters-specialises-bac5/"},
+    {"intitule": "Diplôme en Finance, Audit et Contrôle de Gestion", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.groupeheci.ac.ma/masters-specialises-bac5/"},
+    {"intitule": "Diplôme en Management de Projets & Entrepreneuriat", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.groupeheci.ac.ma/masters-specialises-bac5/"},
+    {"intitule": "Executive MBA pour Cadres", "niveau": null, "diplome": "MBA", "duree_annees": 1.5, "specialites": ["Leadership, GRH et Intelligence Émotionnelle", "Marketing et Communication Digitale", "Finance, Audit et Contrôle de gestion", "Management Stratégique", "Management de Projets et Entrepreneuriat"], "campus": null, "url": "https://www.groupeheci.ac.ma/executive-mba-pour-cadres/"},
+    {"intitule": "Formations certifiantes (7 certificats professionnels)", "niveau": null, "diplome": null, "duree_annees": null, "specialites": ["Leadership, GRH et Intelligence Émotionnelle", "Finance, Audit & Contrôle de Gestion", "Marketing & Communication Digitale", "Management Stratégique : de l'opération à la Stratégie", "Management de Projets & Entrepreneuriat", "Intelligence Artificielle Appliquée", "Innovation et Entrepreneuriat Numérique"], "campus": null, "url": "https://www.groupeheci.ac.ma/formations-certifiantes/"}
+  ],
+  "admission": {
+    "conditions": [
+      "Bachelor (Bac+3) : baccalauréat toutes filières ou diplôme équivalent",
+      "Master (Bac+5) : diplôme Bac+3 en sciences de gestion ou équivalent",
+      "Executive MBA : diplôme Bac+2 à Bac+5 avec 2 ans d'expérience professionnelle minimum"
+    ],
+    "etapes": ["Dossier de candidature en ligne", "Test écrit (culture générale, français) pour le Bachelor", "Entretien de sélection ou de motivation"],
+    "concours": null,
+    "dates": "Candidatures avant le 15 juillet (1re session) ou le 30 septembre (2e session)"
+  },
+  "frais": [],
+  "bourses": "Bourses et financements proposés ; crédit remboursable après les études auprès de banques partenaires ; le site indique que 90 % des étudiants du premier cycle reçoivent une aide financière.",
+  "international": "Campus à Dakar et Abidjan ; double diplomation et échanges culturels mentionnés.",
+  "partenaires": [],
+  "vie_etudiante": ["Bureau des Étudiants (BDE)", "Activités sportives", "Leadership Co", "Réseau Alumni"],
+  "logement": null,
+  "preuves": {
+    "adresse": "HECI Business School, Rond point HECI Route d’El Jadida 1077 N° 3 (à coté de l’hôtel Zenith) Casablanca",
+    "telephone": "(+212) 5 22 50 02 02",
+    "email": "contact@groupeheci.ac.ma",
+    "annee_creation": "Depuis sa création en 1986, HECI Business School s’est résolument engagée",
+    "frais": [],
+    "admission": [
+      "Candidat titulaire d’un baccalaureat toutes filières confondues oun un Diplôme éqivalent",
+      "Etre titulaire d’un Diplome de Bac + 3 en Sciences de Gestion ou Diplome Equivalent"
+    ]
+  }
+}

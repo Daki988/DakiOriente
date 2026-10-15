@@ -1,0 +1,159 @@
+{
+ "id": "ma-heec",
+ "site_web": "https://ecoleheec.ma",
+ "date_collecte": "2026-10-15",
+ "accessible": true,
+ "sources": [
+  "https://ecoleheec.ma/",
+  "https://ecoleheec.ma/conditions-dacces/",
+  "https://ecoleheec.ma/nos-licences/",
+  "https://ecoleheec.ma/cycle-dingenieur/",
+  "https://ecoleheec.ma/nos-licences-management/",
+  "https://ecoleheec.ma/nos-masters-management/"
+ ],
+ "description": "École d'enseignement supérieur située à Marrakech (boulevard Abou Oubeida Al Jarah), organisée en pôle management et pôle informatique. Elle propose des licences, des masters en management, finance et audit, un cycle d'ingénieur en informatique et intelligence artificielle, ainsi qu'un cycle doctoral (DBA ISTEC Paris). L'admission en première année se fait sur étude de dossier puis test (épreuve écrite et entretien oral), avec une voie d'admission parallèle en 2e année, 3e année et Master 1.",
+ "annee_creation": null,
+ "adresse": "BOULEVARD ABOU OUBEIDA AL JARAH, MARRAKECH, MAROC",
+ "telephone": "+212 5243-14410",
+ "email": "contact@eheec.ac.ma",
+ "statut_annonce": "École reconnue par l'État",
+ "programmes": [
+  {
+   "intitule": "Licence en Management des Affaires",
+   "niveau": "Bac+3",
+   "diplome": "Licence",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Marrakech"
+   ],
+   "url": "https://ecoleheec.ma/nos-licences-management/"
+  },
+  {
+   "intitule": "Licence Informatique et Systèmes Intelligents",
+   "niveau": "Bac+3",
+   "diplome": "Licence",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Marrakech"
+   ],
+   "url": "https://ecoleheec.ma/"
+  },
+  {
+   "intitule": "Licence en Informatique Appliquée au Management",
+   "niveau": "Bac+3",
+   "diplome": "Licence",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Marrakech"
+   ],
+   "url": "https://ecoleheec.ma/nos-licences/"
+  },
+  {
+   "intitule": "Master Management et Marketing Digital",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Marrakech"
+   ],
+   "url": "https://ecoleheec.ma/"
+  },
+  {
+   "intitule": "Master Ingénierie et Management Financier",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Marrakech"
+   ],
+   "url": "https://ecoleheec.ma/"
+  },
+  {
+   "intitule": "Master Comptabilité Contrôle Audit",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Marrakech"
+   ],
+   "url": "https://ecoleheec.ma/nos-masters-management/"
+  },
+  {
+   "intitule": "Master Management des ressources humaines et gestion du changement",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Marrakech"
+   ],
+   "url": "https://ecoleheec.ma/nos-masters-management/"
+  },
+  {
+   "intitule": "Cycle d'ingénieur Ingénierie Informatique et Intelligence Artificielle",
+   "niveau": "Bac+5",
+   "diplome": "Diplôme d'ingénieur",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Marrakech"
+   ],
+   "url": "https://ecoleheec.ma/cycle-dingenieur/"
+  },
+  {
+   "intitule": "DBA ISTEC Paris",
+   "niveau": null,
+   "diplome": "DBA",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Marrakech"
+   ],
+   "url": "https://ecoleheec.ma/"
+  }
+ ],
+ "admission": {
+  "conditions": [
+   "1ère année : copies certifiées du baccalauréat et des relevés de notes, extrait d'acte de naissance, photos d'identité, copie de la CIN, formulaire d'inscription",
+   "Admission parallèle (2e année, 3e année, Master 1) : attestations de réussite post-bac, dernier diplôme, extrait d'acte de naissance, copies de la CIN, photos"
+  ],
+  "etapes": [
+   "Étude de dossier",
+   "Test d'admission : épreuve écrite et entretien oral"
+  ],
+  "concours": null,
+  "dates": null
+ },
+ "frais": [],
+ "bourses": null,
+ "international": "Admission possible pour des étudiants étrangers (mentionné sur la page d'accueil) ; le site cite des nationalités et des partenaires académiques.",
+ "partenaires": [
+  "Partenariats académiques et institutionnels (non détaillés dans le texte)",
+  "ISTEC Paris (DBA)"
+ ],
+ "vie_etudiante": [
+  "Journées d'intégration",
+  "Printemps de l'Entreprise",
+  "Remise des diplômes",
+  "Activités parascolaires",
+  "Médiathèque"
+ ],
+ "logement": null,
+ "preuves": {
+  "adresse": "BOULEVARD ABOU OUBEIDA AL JARAH, MARRAKECH, MAROC",
+  "telephone": "+212 5243-14410",
+  "email": "CONTACT@EHEEC.AC.MA",
+  "annee_creation": null,
+  "frais": [],
+  "admission": [
+   "02 copies du Baccalauréat certifiées conformes à l’original",
+   "Le test d’admission comprend deux épreuves :"
+  ]
+ }
+}

@@ -1,0 +1,247 @@
+{
+  "id": "ma-ismagi",
+  "site_web": "https://ismagi.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://ismagi.ma/",
+    "https://ismagi.ma/frais-de-scolarite/",
+    "https://ismagi.ma/frais-dhebergement/",
+    "https://ismagi.ma/admission-post-bac/",
+    "https://ismagi.ma/admissions-paralleles/",
+    "https://ismagi.ma/dossier-dinscription/",
+    "https://ismagi.ma/admission-etudiants-internationaux/",
+    "https://ismagi.ma/master-cca/"
+  ],
+  "description": "Institut supérieur de management, d'administration et de génie informatique présent sur deux campus à Rabat (Hay Riad et Agdal). Il propose des licences en informatique et en management, des classes préparatoires intégrées, un cycle d'ingénieur d'État (informatique, data sciences et biotech, informatique embarquée et robotique) et plusieurs masters. Le site met en avant une résidence estudiantine, des bourses, des stages dès la première année, des partenariats internationaux (Canada, France) et plus de 17 nationalités africaines.",
+  "annee_creation": null,
+  "adresse": "559, avenue Al Boustane, Hay Riad, 10100 Rabat",
+  "telephone": "+212 (0)5 37 72 04 00",
+  "email": "admission@ismagi.ma",
+  "statut_annonce": "Établissement d'enseignement supérieur reconnu par l'État",
+  "programmes": [
+    {
+      "intitule": "Licence en Génie Informatique",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    },
+    {
+      "intitule": "Licence en Sciences de Management",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    },
+    {
+      "intitule": "Classes Préparatoires Intégrées au cycle d'ingénieur",
+      "niveau": "Bac+2",
+      "diplome": null,
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    },
+    {
+      "intitule": "Cycle d'ingénieur d'État Ingénierie Informatique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    },
+    {
+      "intitule": "Cycle d'ingénieur d'État Ingénierie Data sciences et Biotech",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    },
+    {
+      "intitule": "Cycle d'ingénieur d'État Ingénierie Informatique embarquée et robotique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    },
+    {
+      "intitule": "Master Comptabilité, Contrôle et Audit",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/master-cca/"
+    },
+    {
+      "intitule": "Master Qualité, hygiène, sécurité, environnement",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    },
+    {
+      "intitule": "Master Management numérique des organisations de la santé",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    },
+    {
+      "intitule": "Master Digital Marketing and Communication",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    },
+    {
+      "intitule": "Master Management ressources humaines et transformations digitales",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    },
+    {
+      "intitule": "Master Supply Chain Management and E_Logistique",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    },
+    {
+      "intitule": "Master Réalité Virtuelle et Développement des Jeux Vidéo",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    },
+    {
+      "intitule": "Master Développement Logiciel, Mobile et IoT",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    },
+    {
+      "intitule": "Master Management du sport et innovation",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://ismagi.ma/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Pôle management : baccalauréat (toutes séries), test d'admission écrit et entretien oral",
+      "Classes préparatoires intégrées : baccalauréat scientifique",
+      "Licence en informatique : baccalauréat scientifique, économique ou technique",
+      "Admissions parallèles possibles en 2e, 3e ou 4e année sur dossier et test"
+    ],
+    "etapes": [
+      "Envoi du dossier d'inscription par courriel",
+      "Étude du dossier",
+      "Épreuve écrite en présentiel"
+    ],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [
+    {
+      "cycle": "Licence et classes préparatoires intégrées (2026-2027)",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 40000,
+      "note": "Montant affiché sans devise ; frais d'inscription et réinscription de 5000, non remboursables"
+    },
+    {
+      "cycle": "Cycle d'ingénieur et Master (2026-2027)",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 45000,
+      "note": "Montant affiché sans devise ; frais d'inscription et réinscription de 5000, non remboursables"
+    }
+  ],
+  "bourses": "Bourses octroyées par l'ISMAGI aux étudiants en difficulté pour financer leurs études.",
+  "international": "Partenariats avec UQTR, CNAM, INSA Polytechnique et Boréal ; possibilité de poursuivre au CEGEP de Sherbrooke (Canada) ; plus de 17 nationalités africaines.",
+  "partenaires": [
+    "UQTR",
+    "CNAM",
+    "INSA Polytechnique",
+    "Boréal"
+  ],
+  "vie_etudiante": [
+    "BDE et clubs",
+    "Activités sportives",
+    "Restauration",
+    "Hackathons"
+  ],
+  "logement": "Résidence estudiantine : chambre double équipée à 1850 DH/mois, chambre triple à 1450 DH (2026-2027).",
+  "preuves": {
+    "adresse": "559, avenue Al Boustane, Hay Riad, 10100 Rabat",
+    "telephone": "+212 (0)5 37 72 04 00",
+    "email": "admission@ismagi.ma",
+    "annee_creation": null,
+    "frais": [
+      "Cycle Licence et classes préparatoires intégrées\n40000\n/an",
+      "Cycle d'Ingénieur et Master\n45000",
+      "Frais d'inscription et réinscription\n5000"
+    ],
+    "admission": [
+      "L’admission en première année est ouverte aux titulaires du baccalauréat (toutes séries) après examen de leur dossier, et réussite du test d’admission (test écrit et entretien oral)."
+    ]
+  }
+}

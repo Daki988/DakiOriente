@@ -1,0 +1,216 @@
+{
+ "id": "ma-emaa",
+ "site_web": "https://emaa.ma",
+ "date_collecte": "2026-10-15",
+ "accessible": true,
+ "sources": [
+  "https://emaa.ma/",
+  "https://emaa.ma/admission-emaa-executive-education/",
+  "https://emaa.ma/admissions/",
+  "https://emaa.ma/formation-continue-emaa-executive/",
+  "https://emaa.ma/programmes-de-licence-et-de-master/",
+  "https://emaa.ma/presentation/",
+  "https://emaa.ma/contact/"
+ ],
+ "description": "École de commerce et de management installée à Agadir (avenue Hassan 1er), reconnue par l'État marocain selon son site. Elle propose des licences (Bac+3, 6 semestres) en commerce et management, en anglais et en business analytics, des masters (Bac+5), ainsi qu'une offre de formation continue en temps aménagé : licences professionnelles, MBA, doctorat exécutif et certificats. Le site indique des classes de moins de 25 étudiants, des stages d'immersion en entreprise et des bourses de formation étudiées au cas par cas.",
+ "annee_creation": 2008,
+ "adresse": "105 Avenue Hassan 1er , Agadir – Maroc",
+ "telephone": "05 28 21 49 70",
+ "email": "info@emaa.ma",
+ "statut_annonce": "École supérieure de commerce et de management reconnue par l'État marocain",
+ "programmes": [
+  {
+   "intitule": "Licence en Commerce et Management (parcours bilingue)",
+   "niveau": "Bac+3",
+   "diplome": "Licence",
+   "duree_annees": 3,
+   "specialites": [
+    "Finance et Contrôle de Gestion",
+    "Marketing et Communication",
+    "Logistique et Gestion des Plates-formes"
+   ],
+   "campus": [
+    "Agadir"
+   ],
+   "url": "https://emaa.ma/programmes-de-licence-et-de-master/"
+  },
+  {
+   "intitule": "Licence in Business Administration and Management (enseignée en anglais)",
+   "niveau": "Bac+3",
+   "diplome": "Licence",
+   "duree_annees": 3,
+   "specialites": [
+    "Finance and Management Control",
+    "Marketing and Communication",
+    "Logistics and Platform Management"
+   ],
+   "campus": [
+    "Agadir"
+   ],
+   "url": "https://emaa.ma/programmes-de-licence-et-de-master/"
+  },
+  {
+   "intitule": "Licence en Business Analytics",
+   "niveau": "Bac+3",
+   "diplome": "Licence",
+   "duree_annees": 3,
+   "specialites": [
+    "Big Data",
+    "Intelligence Artificielle"
+   ],
+   "campus": [
+    "Agadir"
+   ],
+   "url": "https://emaa.ma/programmes-de-licence-et-de-master/"
+  },
+  {
+   "intitule": "Licence professionnelle – Métiers de Comptabilité-Contrôle de Gestion",
+   "niveau": "Bac+3",
+   "diplome": "Licence professionnelle",
+   "duree_annees": 1,
+   "specialites": [],
+   "campus": [
+    "Agadir"
+   ],
+   "url": "https://emaa.ma/formation-continue-emaa-executive/"
+  },
+  {
+   "intitule": "Licence professionnelle en Commerce et Administration des Affaires",
+   "niveau": "Bac+3",
+   "diplome": "Licence professionnelle",
+   "duree_annees": 1,
+   "specialites": [],
+   "campus": [
+    "Agadir"
+   ],
+   "url": "https://emaa.ma/formation-continue-emaa-executive/"
+  },
+  {
+   "intitule": "MBA en Administration des Entreprises",
+   "niveau": "Bac+5",
+   "diplome": "MBA",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Agadir"
+   ],
+   "url": "https://emaa.ma/formation-continue-emaa-executive/"
+  },
+  {
+   "intitule": "MBA en Gestion des Ressources Humaines",
+   "niveau": "Bac+5",
+   "diplome": "MBA",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Agadir"
+   ],
+   "url": "https://emaa.ma/formation-continue-emaa-executive/"
+  },
+  {
+   "intitule": "MBA en Marketing",
+   "niveau": "Bac+5",
+   "diplome": "MBA",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Agadir"
+   ],
+   "url": "https://emaa.ma/formation-continue-emaa-executive/"
+  },
+  {
+   "intitule": "MBA Audit et Finance",
+   "niveau": "Bac+5",
+   "diplome": "MBA",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Agadir"
+   ],
+   "url": "https://emaa.ma/formation-continue-emaa-executive/"
+  },
+  {
+   "intitule": "MBA en Logistique",
+   "niveau": "Bac+5",
+   "diplome": "MBA",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Agadir"
+   ],
+   "url": "https://emaa.ma/formation-continue-emaa-executive/"
+  },
+  {
+   "intitule": "MBA Management Portuaire et Maritime",
+   "niveau": "Bac+5",
+   "diplome": "MBA",
+   "duree_annees": 1,
+   "specialites": [],
+   "campus": [
+    "Agadir"
+   ],
+   "url": "https://emaa.ma/formation-continue-emaa-executive/"
+  },
+  {
+   "intitule": "Executive Doctorate (programme doctoral des Sciences de Gestion)",
+   "niveau": null,
+   "diplome": "Doctorat",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Agadir"
+   ],
+   "url": "https://emaa.ma/formation-continue-emaa-executive/"
+  },
+  {
+   "intitule": "Certificats en gestion",
+   "niveau": null,
+   "diplome": "Certificat",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Agadir"
+   ],
+   "url": "https://emaa.ma/formation-continue-emaa-executive/"
+  }
+ ],
+ "admission": {
+  "conditions": [
+   "Licence : baccalauréat, toutes séries confondues",
+   "Master : Licence ou diplôme reconnu équivalent, prérequis et entretien (admission en 1re année uniquement)",
+   "Admission parallèle en 2e ou 3e année de Licence après étude individuelle du dossier"
+  ],
+  "etapes": [
+   "Choisir son programme",
+   "Remplir le formulaire de préinscription",
+   "Échanger avec un conseiller",
+   "Étude du dossier, entretien et éventuel test de positionnement",
+   "Finaliser l'inscription"
+  ],
+  "concours": null,
+  "dates": "Inscriptions ouvertes 2026/2027"
+ },
+ "frais": [],
+ "bourses": "Des bourses peuvent être accordées en Licence ou en Master après étude du dossier par une commission ; elles concernent les frais de formation, pas les frais d'inscription ni de documentation.",
+ "international": "Page dédiée aux étudiants internationaux et à l'étude à l'étranger ; tests TOEIC et TOEFL en partenariat avec Amideast ; possibilité d'études à l'étranger dans le cadre de conventions (formation continue).",
+ "partenaires": [
+  "Amideast"
+ ],
+ "vie_etudiante": [
+  "Vie estudiantine",
+  "Événements",
+  "EMAA Foundation"
+ ],
+ "logement": null,
+ "preuves": {
+  "adresse": "105 Avenue Hassan 1er , Agadir – Maroc",
+  "telephone": "05 28 21 49 70",
+  "email": "info@emaa.ma",
+  "annee_creation": "Créée en 2008 par des Professionnels du secteur de l’Enseignement",
+  "frais": [],
+  "admission": [
+   "Accessible après le baccalauréat, toutes séries confondues.",
+   "Accessible après une Licence ou un diplôme reconnu équivalent, sous réserve des prérequis."
+  ]
+ }
+}

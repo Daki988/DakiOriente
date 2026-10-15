@@ -1,0 +1,243 @@
+{
+ "id": "ma-supmti",
+ "site_web": "https://supmti.ac.ma",
+ "date_collecte": "2026-10-15",
+ "accessible": true,
+ "sources": [
+  "https://supmti.ac.ma/",
+  "https://supmti.ac.ma/master-finance-internationale/",
+  "https://supmti.ac.ma/master-gouvernance-et-relations-internationales/",
+  "https://supmti.ac.ma/management-et-developpement-international-mdi-licence/",
+  "https://supmti.ac.ma/master-management-et-droit-des-affaires-internationales/",
+  "https://supmti.ac.ma/cycle-dingenieur/",
+  "https://supmti.ac.ma/masters-management/",
+  "https://supmti.ac.ma/licences-management/",
+  "https://supmti.ac.ma/master-cyber-security/"
+ ],
+ "description": "École supérieure privée implantée à Rabat (quartiers Agdal et Hassan), SupMTI forme en informatique, management et télécommunication : licences, masters, MBA, classes préparatoires et cycle d'ingénieur (génie informatique, transformation digitale de l'industrie). Le site mentionne des laboratoires de recherche, une bourse d'excellence attribuée sur concours à des étudiants marocains et étrangers, ainsi que des étudiants de plusieurs nationalités. Plusieurs masters et la licence en management comportent des modules de langues et de projet de fin de cycle.",
+ "annee_creation": null,
+ "adresse": "98, Avenue Allal Ben Abdellah, Hassan – Rabat",
+ "telephone": "+212 5 37 73 44 09",
+ "email": "info@supmti.ac.ma",
+ "statut_annonce": "Reconnue par l'État",
+ "programmes": [
+  {
+   "intitule": "Licence en Informatique",
+   "niveau": "Bac+3",
+   "diplome": "Licence",
+   "duree_annees": null,
+   "specialites": [
+    "Ingénierie des Systèmes Informatiques",
+    "Computer Engineering"
+   ],
+   "campus": null,
+   "url": "https://supmti.ac.ma/"
+  },
+  {
+   "intitule": "Licence Management des Affaires",
+   "niveau": "Bac+3",
+   "diplome": "Licence",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": null,
+   "url": "https://supmti.ac.ma/licences-management/"
+  },
+  {
+   "intitule": "Licence Management et Développement International (MDI)",
+   "niveau": "Bac+3",
+   "diplome": "Licence",
+   "duree_annees": 3,
+   "specialites": [],
+   "campus": null,
+   "url": "https://supmti.ac.ma/management-et-developpement-international-mdi-licence/"
+  },
+  {
+   "intitule": "Licence Management Transport et Logistique",
+   "niveau": "Bac+3",
+   "diplome": "Licence",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": null,
+   "url": "https://supmti.ac.ma/licences-management/"
+  },
+  {
+   "intitule": "Licence Business Administration",
+   "niveau": "Bac+3",
+   "diplome": "Licence",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": null,
+   "url": "https://supmti.ac.ma/licences-management/"
+  },
+  {
+   "intitule": "Master en Informatique",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": null,
+   "specialites": [
+    "Ingénierie des Systèmes d’Information",
+    "Administration des Systèmes et Réseaux",
+    "Intelligence Artificielle et Smart Systèmes",
+    "Systèmes d’Informations et Data Science",
+    "Information Technology",
+    "Data Science and Software Engineering"
+   ],
+   "campus": null,
+   "url": "https://supmti.ac.ma/"
+  },
+  {
+   "intitule": "Master Cyber Security",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": 2,
+   "specialites": [],
+   "campus": null,
+   "url": "https://supmti.ac.ma/master-cyber-security/"
+  },
+  {
+   "intitule": "Master Management des Entreprises",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": null,
+   "specialites": [
+    "Comptabilité, Contrôle et Audit",
+    "Marketing et Actions Commerciales",
+    "Management des Banques et Structures Financières",
+    "Management des Ressources Humaines"
+   ],
+   "campus": null,
+   "url": "https://supmti.ac.ma/masters-management/"
+  },
+  {
+   "intitule": "Master Management des Systèmes d'Information",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": null,
+   "specialites": [
+    "Management de la Chaîne Logistique",
+    "Système d’Information Marketing",
+    "Management des systèmes et technologies d’Information et communication"
+   ],
+   "campus": null,
+   "url": "https://supmti.ac.ma/masters-management/"
+  },
+  {
+   "intitule": "Master Management des Relations Internationales",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": null,
+   "specialites": [
+    "Finance Internationale",
+    "Gouvernance et Management des Affaires Internationales"
+   ],
+   "campus": null,
+   "url": "https://supmti.ac.ma/masters-management/"
+  },
+  {
+   "intitule": "Master Finance Internationale",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": null,
+   "url": "https://supmti.ac.ma/master-finance-internationale/"
+  },
+  {
+   "intitule": "Master Gouvernance et Relations Internationales",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": null,
+   "url": "https://supmti.ac.ma/master-gouvernance-et-relations-internationales/"
+  },
+  {
+   "intitule": "Master Management et Droit Des Affaires Internationales",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": null,
+   "url": "https://supmti.ac.ma/master-management-et-droit-des-affaires-internationales/"
+  },
+  {
+   "intitule": "Master Finances, Banques et Assurances",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": null,
+   "url": "https://supmti.ac.ma/"
+  },
+  {
+   "intitule": "Master Business Administration (MBA)",
+   "niveau": "Bac+5",
+   "diplome": "MBA",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": null,
+   "url": "https://supmti.ac.ma/"
+  },
+  {
+   "intitule": "Classes Préparatoires",
+   "niveau": "Bac+2",
+   "diplome": null,
+   "duree_annees": null,
+   "specialites": [
+    "Transformation Digitale de l’Industrie",
+    "Technologies de l’Information"
+   ],
+   "campus": null,
+   "url": "https://supmti.ac.ma/"
+  },
+  {
+   "intitule": "Cycle d’Ingénieur Génie Informatique",
+   "niveau": "Bac+5",
+   "diplome": "Diplôme d'ingénieur",
+   "duree_annees": 3,
+   "specialites": [
+    "Ingénierie Data Science et IoT",
+    "Ingénierie des Systèmes, Réseaux et Cloud",
+    "Ingénierie des Systèmes d’Information"
+   ],
+   "campus": null,
+   "url": "https://supmti.ac.ma/cycle-dingenieur/"
+  },
+  {
+   "intitule": "Cycle d’Ingénieur Transformation Digitale de l'Industrie (TDI)",
+   "niveau": "Bac+5",
+   "diplome": "Diplôme d'ingénieur",
+   "duree_annees": 3,
+   "specialites": [
+    "Transformation Digitale Energétique et Renouvelable",
+    "Transformation Digitale Industrielle et Logistique"
+   ],
+   "campus": null,
+   "url": "https://supmti.ac.ma/cycle-dingenieur/"
+  }
+ ],
+ "admission": {
+  "conditions": [],
+  "etapes": [],
+  "concours": "Concours pour candidats bacheliers, masters et cycle d'ingénieur (calendrier non détaillé dans le texte)",
+  "dates": null
+ },
+ "frais": [],
+ "bourses": "Bourse d'excellence : la direction du groupe SUPMTI Maroc octroie, selon les résultats de concours, des bourses couvrant totalement ou partiellement les frais de scolarité aux étudiants marocains et étrangers.",
+ "international": "Étudiants de plusieurs nationalités ; semaine culturelle africaine ; séminaire international sur la coopération Sud-Sud.",
+ "partenaires": [],
+ "vie_etudiante": [
+  "Activités & évènements",
+  "Bourse d'excellence",
+  "Laboratoires de recherche GENIUS, LGI2E, MFMDI"
+ ],
+ "logement": null,
+ "preuves": {
+  "adresse": "98, Avenue Allal Ben Abdellah, Hassan – Rabat",
+  "telephone": "+212 5 37 73 44 09",
+  "email": "info@supmti.ac.ma",
+  "annee_creation": null,
+  "frais": [],
+  "admission": []
+ }
+}

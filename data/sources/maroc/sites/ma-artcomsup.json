@@ -1,0 +1,42 @@
+{
+  "id": "ma-artcomsup",
+  "site_web": "https://www.ecole-artcom.com",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://www.ecole-artcom.com/", "https://www.ecole-artcom.com/modalites-inscription/", "https://www.ecole-artcom.com/admissions-paralleles-rejoignez-artcom-le-13-juin/", "https://www.ecole-artcom.com/formations/architecture-dinterieur/", "https://www.ecole-artcom.com/formations/licence-professionnelle/", "https://www.ecole-artcom.com/formations/design-graphique-et-digital/", "https://www.ecole-artcom.com/artcom-rentree-2026-design-ia-creation/", "https://www.ecole-artcom.com/formations/master-architecture-dinterieur/", "https://www.ecole-artcom.com/formations/communication-des-organisations/"],
+  "description": "École supérieure privée de design et de communication présente à Casablanca (quartier Franceville) et à Rabat. Elle propose des licences en design graphique et digital, architecture d'intérieur et communication des organisations, une licence professionnelle en communication visuelle en un an, ainsi que des masters en architecture d'intérieur et en design (dont un master en double diplôme avec l'École de Design de Troyes). Le site mentionne des workshops internationaux, des projets avec des entreprises partenaires, des bourses de 10 % à 50 % pour le master et des admissions parallèles en 2e, 3e ou 4e année.",
+  "annee_creation": null,
+  "adresse": "15 rue Abderrahmane Abi Laïla — Quartier Franceville, Campus de Casablanca",
+  "telephone": null,
+  "email": null,
+  "statut_annonce": "Reconnue par l'État",
+  "programmes": [
+    {"intitule": "Licence Design Graphique et Digital", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca", "Rabat"], "url": "https://www.ecole-artcom.com/formations/design-graphique-et-digital/"},
+    {"intitule": "Licence Architecture d'Intérieur", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca", "Rabat"], "url": "https://www.ecole-artcom.com/formations/architecture-dinterieur/"},
+    {"intitule": "Licence Pro Communication visuelle (en 1 an)", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": 1, "specialites": [], "campus": null, "url": "https://www.ecole-artcom.com/formations/licence-professionnelle/"},
+    {"intitule": "Licence Communication des Organisations", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.ecole-artcom.com/formations/communication-des-organisations/"},
+    {"intitule": "Master Design digital à l'ère de l'IA", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.ecole-artcom.com/artcom-rentree-2026-design-ia-creation/"},
+    {"intitule": "Master Design Graphique et Digital", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": ["Design interactif", "Identité de marque", "Édition"], "campus": null, "url": "https://www.ecole-artcom.com/formations/design-graphique-et-digital/"},
+    {"intitule": "Master Architecture d'Intérieur", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca", "Rabat"], "url": "https://www.ecole-artcom.com/formations/master-architecture-dinterieur/"}
+  ],
+  "admission": {"conditions": ["Première année : baccalauréat (copies certifiées conformes)", "Master : diplôme Bac+3 dans le domaine", "Admissions parallèles en 2e, 3e ou 4e année sur dossier (relevés de notes, attestation de réussite, portfolio)", "Licence professionnelle : Bac+2 dans une filière du design", "Test d'admission possible ; certificat de cours de français pour les étudiants sans niveau B2"], "etapes": ["Pré-inscription", "Constitution du dossier déposé à l'administration de l'école"], "concours": null, "dates": null},
+  "frais": [
+    {"cycle": "Licence Design Graphique et Digital / Architecture d'Intérieur", "inscription_mad": 5000, "scolarite_annuelle_mad": 50000, "note": "Possibilité de payer en plusieurs fois"},
+    {"cycle": "Licence Communication des Organisations", "inscription_mad": 5000, "scolarite_annuelle_mad": 48000, "note": "Possibilité de payer en plusieurs fois"},
+    {"cycle": "Master Design Graphique et Digital", "inscription_mad": 5000, "scolarite_annuelle_mad": 50000, "note": "Possibilité de payer en plusieurs fois"},
+    {"cycle": "Master Architecture d'Intérieur", "inscription_mad": 5000, "scolarite_annuelle_mad": 51000, "note": "Possibilité de payer en plusieurs fois"}
+  ],
+  "bourses": "Bourse d'étude de 10 % à 50 % pour le master, attribuée sur dossier pédagogique et selon critères sociaux.",
+  "international": "Master Design Graphique et Digital en double diplôme avec l'École de Design de Troyes ; workshops internationaux avec des écoles partenaires ; programmes d'échange sur un réseau de 61 pays.",
+  "partenaires": ["IKEA", "Institut français", "ARTCO", "aivancity", "École de design de Nantes Atlantique"],
+  "vie_etudiante": ["Workshops internationaux", "Stages et emplois", "Réalisations étudiants"],
+  "logement": null,
+  "preuves": {
+    "adresse": "15 rue Abderrahmane Abi Laïla — Quartier Franceville",
+    "telephone": null,
+    "email": null,
+    "annee_creation": null,
+    "frais": ["50 000 DH / An", "48 000 DH / An", "51 000 DH / An", "5 000 DH / An"],
+    "admission": ["2 Photocopies certifiées conformes du Baccalauréat", "Admissions parallèles ouvertes", "accessible aux détenteurs d'un diplôme Bac+3 dans le domaine"]
+  }
+}

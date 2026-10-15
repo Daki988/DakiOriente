@@ -1,0 +1,213 @@
+{
+  "id": "ma-uic",
+  "site_web": "https://uic.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://uic.ac.ma/",
+    "https://uic.ac.ma/frais-de-scolarite/",
+    "https://uic.ac.ma/decouvrir-uic/",
+    "https://uic.ac.ma/ecole-dingenierie/"
+  ],
+  "description": "Université privée implantée à Casablanca sur deux campus : Casa Green Town à Bouskoura (10 hectares) et Marina, dans le quartier d’affaires. Elle regroupe des facultés de médecine, pharmacie, médecine dentaire et sciences de la santé, une école d’architecture, une école d’ingénierie, une business school, un pôle droit et un programme de management en hôtellerie internationale, ainsi qu’une formation doctorale. Les cursus comprennent des stages obligatoires en entreprise, et l’université propose des doubles diplômes, des programmes d’échange, une résidence universitaire, un service de transport et un bureau d’accompagnement des étudiants internationaux.",
+  "annee_creation": null,
+  "adresse": "Campus Casa Green Town, Route provinciale 3020, Casablanca 50169",
+  "telephone": "+212 5 22 36 76 88",
+  "email": "admissions@uic.ac.ma",
+  "statut_annonce": "Reconnue par l’État (équivalence automatique aux diplômes nationaux)",
+  "programmes": [
+    {
+      "intitule": "Parcours d’Ingénieur d’Etat (classes préparatoires intégrées + cycle ingénieur)",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 5,
+      "specialites": [
+        "Génie Civil",
+        "Génie Electrique",
+        "Génie Industriel",
+        "Génie Informatique",
+        "Génie Mécatronique",
+        "Génie Énergétique et Environnement",
+        "Génie Mécanique"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://uic.ac.ma/ecole-dingenierie/"
+    },
+    {
+      "intitule": "Cycle licence (École d’Ingénierie)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://uic.ac.ma/ecole-dingenierie/"
+    },
+    {
+      "intitule": "Cycle master (École d’Ingénierie)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://uic.ac.ma/ecole-dingenierie/"
+    },
+    {
+      "intitule": "Médecine (Faculté privée de médecine)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://uic.ac.ma/"
+    },
+    {
+      "intitule": "Pharmacie (Faculté privée de pharmacie)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://uic.ac.ma/"
+    },
+    {
+      "intitule": "Médecine dentaire (Faculté de médecine dentaire de Casablanca)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://uic.ac.ma/"
+    },
+    {
+      "intitule": "Sciences de la santé (Faculté des sciences de la santé)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [
+        "Psychomotricité"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://uic.ac.ma/"
+    },
+    {
+      "intitule": "Architecture (École privée d’architecture de Casablanca)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://uic.ac.ma/"
+    },
+    {
+      "intitule": "Commerce et gestion (Business School)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [
+        "Master Contrôle, comptabilité et audit"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://uic.ac.ma/"
+    },
+    {
+      "intitule": "Droit - Licences",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://uic.ac.ma/"
+    },
+    {
+      "intitule": "Droit - Masters",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://uic.ac.ma/"
+    },
+    {
+      "intitule": "Management en hôtellerie internationale",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://uic.ac.ma/"
+    },
+    {
+      "intitule": "Formation doctorale (sciences de la gestion, de la santé, de l’ingénierie)",
+      "niveau": "Bac+8",
+      "diplome": "Doctorat",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://uic.ac.ma/"
+    }
+  ],
+  "admission": {
+    "conditions": [],
+    "etapes": [
+      "Candidature en ligne (formulaire formation initiale)",
+      "Test d’admission (frais réglés le jour du test)",
+      "Paiement des frais d’inscription pour confirmer l’inscription"
+    ],
+    "concours": "Calendrier des concours publié sur le site",
+    "dates": null
+  },
+  "frais": [],
+  "bourses": "Page « Aide financière et financement des études » signalée, sans détail dans le texte relevé.",
+  "international": "Bureau d’accompagnement des étudiants internationaux ; doubles diplômes et programmes d’échange (ex. échange à l’ECE Paris) ; enseignement de l’anglais et de l’espagnol ; étudiants venus notamment de Mauritanie, Tunisie, Sénégal et Burkina Faso.",
+  "partenaires": [
+    "ENCG Casablanca",
+    "ECE Paris"
+  ],
+  "vie_etudiante": [
+    "Bureau de la vie étudiante",
+    "Activités para-universitaires (clubs, sport)",
+    "Espace santé et soutien psychologique",
+    "Centre de carrière",
+    "Restaurant"
+  ],
+  "logement": "Résidence universitaire et service de transport proposés (tarifs sur pages dédiées non relevées).",
+  "preuves": {
+    "adresse": "Campus de l'Université Internationale de Casablanca Casa Green Town. ROUTE PROVINCIALE 3020, Casablanca 50169",
+    "telephone": "[+212 5 22 36 76 88](tel:00212522367688)",
+    "email": "[admissions@uic.ac.ma](mailto:admissions@uic.ac.ma)",
+    "annee_creation": null,
+    "frais": [
+      "Les frais de scolarité varient d’une filière à une autre"
+    ],
+    "admission": [
+      "Le règlement des frais de test d’admission sont à effectuer le jour du test d’admission.",
+      "Les frais d’inscription sont nécessaires pour confirmer votre inscription"
+    ]
+  }
+}

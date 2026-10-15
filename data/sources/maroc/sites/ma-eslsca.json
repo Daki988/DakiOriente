@@ -1,0 +1,51 @@
+{
+  "id": "ma-eslsca",
+  "site_web": "https://www.eslsca.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://www.eslsca.ma/", "https://www.eslsca.ma/formation-executive/MBA_nternational/AI_et_Digital_Strategy", "https://www.eslsca.ma/formation-executive/MBA_nternational/Business%20%26%20Innovation", "https://www.eslsca.ma/formation-executive/MBA_nternational/Entrepreneuriat_nnovation_Strategy", "https://www.eslsca.ma/ecole/contactez-nous", "https://www.eslsca.ma/programmes-planeta", "https://www.eslsca.ma/formation-executive", "https://www.eslsca.ma/formation-academique", "https://www.eslsca.ma/formation-academique/masters", "https://www.eslsca.ma/parcours-en-double-diplome-rabat"],
+  "description": "École de commerce installée à Rabat, sur un campus d'entreprises de 4 000 m² dans le quartier Hay Riad. Elle propose en formation initiale un bachelor Bac+3 en management des affaires et de projet et des masters Bac+5 (ingénierie financière et innovation, marketing et intelligence artificielle), ainsi que des masters exécutifs et des MBA en formation continue. Le site met en avant un parcours international en double diplôme français (3 ans au Maroc et 2 ans en France), des échanges académiques, des stages dès la première année et un career center.",
+  "annee_creation": null,
+  "adresse": null,
+  "telephone": "+212 537 543 000",
+  "email": null,
+  "statut_annonce": null,
+  "programmes": [
+    {"intitule": "Bachelor (Bac+3) Management des affaires et de projet", "niveau": "Bac+3", "diplome": "Bachelor", "duree_annees": 3, "specialites": [], "campus": ["Rabat"], "url": "https://www.eslsca.ma/formation-academique"},
+    {"intitule": "Master en Ingénierie Financière & Innovation", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.eslsca.ma/formation-academique/masters"},
+    {"intitule": "Master en Marketing & Intelligence Artificielle", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.eslsca.ma/formation-academique/masters"},
+    {"intitule": "Master Exécutif en Management Stratégique des Organisations", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.eslsca.ma/formation-executive"},
+    {"intitule": "Master Exécutif en Management du Sport et Evénementiel Sportif", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.eslsca.ma/formation-executive"},
+    {"intitule": "Master Exécutif Big Data & Analytics", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.eslsca.ma/formation-executive"},
+    {"intitule": "Master Exécutif Marketing, Sales & Business Development", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.eslsca.ma/formation-executive"},
+    {"intitule": "MBA Spécialisé Management de Projet et de la Transformation", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.eslsca.ma/formation-executive"},
+    {"intitule": "MBA Spécialisé Finance et Ingénierie Financière", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.eslsca.ma/formation-executive"},
+    {"intitule": "Exécutive MBA Online Finance de Marché et Gestion des Risques", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.eslsca.ma/formation-executive"},
+    {"intitule": "Exécutive MBA Online Management et Data Science", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.eslsca.ma/formation-executive"},
+    {"intitule": "MBA International AI et Digital Strategy", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": 1, "specialites": [], "campus": ["Rabat"], "url": "https://www.eslsca.ma/formation-executive/MBA_nternational/AI_et_Digital_Strategy"},
+    {"intitule": "MBA International Business & Innovation", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": 1, "specialites": [], "campus": ["Rabat"], "url": "https://www.eslsca.ma/formation-executive/MBA_nternational/Business%20%26%20Innovation"},
+    {"intitule": "MBA International Stratégies d'innovation et Entrepreneuriat", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": 1, "specialites": [], "campus": ["Rabat"], "url": "https://www.eslsca.ma/formation-executive/MBA_nternational/Entrepreneuriat_nnovation_Strategy"}
+  ],
+  "admission": {
+    "conditions": ["MBA internationaux : minimum Bac+3 et expérience professionnelle", "Double diplôme : sélection sur les résultats à l'ESLSCA Rabat, le niveau de langue et le comportement ; admissions parallèles sur dossier et entretien"],
+    "etapes": [],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [
+    {"cycle": "MBA International (AI et Digital Strategy ; Business & Innovation ; Stratégies d'innovation et Entrepreneuriat), part-time 12 mois", "inscription_mad": null, "scolarite_annuelle_mad": 86000, "note": "Prix affiché sur les pages des trois MBA internationaux"}
+  ],
+  "bourses": null,
+  "international": "Parcours international en double diplôme français (3 ans au Maroc, 2 ans en France), échanges académiques, possibilité d'études à l'ESLSCA Paris ou à EDC Paris Business School ; MBA internationaux en partenariat avec BIU Miami et EAE Business School (Madrid, Barcelone).",
+  "partenaires": ["BIU Miami", "EAE Business School Madrid", "EAE Business School Barcelona", "ESLSCA Paris", "EDC Paris Business School"],
+  "vie_etudiante": ["Career center et forums de recrutement", "Réseau alumni", "Événements"],
+  "logement": null,
+  "preuves": {
+    "adresse": null,
+    "telephone": "+212 537 543 000",
+    "email": null,
+    "annee_creation": null,
+    "frais": ["PART-TIME 12 MOIS\n86000 dh"],
+    "admission": ["MIN BAC+3 + EXP. PRO", "Les étudiants sont sélectionnés en fonction des résultats obtenus au cours de leur cursus à ESLSCA Business School Rabat"]
+  }
+}

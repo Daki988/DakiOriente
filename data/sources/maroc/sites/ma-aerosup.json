@@ -1,0 +1,120 @@
+{
+ "id": "ma-aerosup",
+ "site_web": "https://aerosup.ma",
+ "date_collecte": "2026-10-15",
+ "accessible": true,
+ "sources": [
+  "https://aerosup.ma/",
+  "https://aerosup.ma/tarifs-financement/",
+  "https://aerosup.ma/conditions-admission/",
+  "https://aerosup.ma/dossier-de-candidature/",
+  "https://aerosup.ma/cursus-formation/",
+  "https://aerosup.ma/cycles-de-formation/",
+  "https://aerosup.ma/filieres-de-formation/",
+  "https://aerosup.ma/presentation/"
+ ],
+ "description": "École d'ingénieurs en aéronautique située boulevard Zerktouni à Casablanca. Le cursus dure 5 ans : un cycle préparatoire intégré de 2 ans puis un cycle ingénieur de 3 ans, avec trois filières (ingénierie aéronautique et spatiale, informatique et systèmes embarqués, télécommunications et réseaux avancés). Le site mentionne des stages dès la première année, un semestre possible dans une école partenaire en 5e année, une initiation au pilotage d'avion et 15 nationalités sur le campus.",
+ "annee_creation": null,
+ "adresse": "390, Boulevard Zerktouni, 20040 Casablanca, Maroc",
+ "telephone": "+212 (0)5 22 22 39 39",
+ "email": "contact@aerosup.ma",
+ "statut_annonce": "Établissement d'enseignement supérieur privé, formations Bac+5 d'ingénieur accréditées par l'État marocain",
+ "programmes": [
+  {
+   "intitule": "Cycle préparatoire intégré",
+   "niveau": "Bac+2",
+   "diplome": null,
+   "duree_annees": 2,
+   "specialites": [],
+   "campus": [
+    "Casablanca"
+   ],
+   "url": "https://aerosup.ma/cycles-de-formation/"
+  },
+  {
+   "intitule": "Ingénierie Aéronautique et Spatiale (IAS)",
+   "niveau": "Bac+5",
+   "diplome": "Diplôme d'ingénieur",
+   "duree_annees": 3,
+   "specialites": [],
+   "campus": [
+    "Casablanca"
+   ],
+   "url": "https://aerosup.ma/filieres-de-formation/"
+  },
+  {
+   "intitule": "Informatique et Systèmes Embarqués (ISE)",
+   "niveau": "Bac+5",
+   "diplome": "Diplôme d'ingénieur",
+   "duree_annees": 3,
+   "specialites": [],
+   "campus": [
+    "Casablanca"
+   ],
+   "url": "https://aerosup.ma/filieres-de-formation/"
+  },
+  {
+   "intitule": "Télécommunications et Réseaux Avancés (TRA)",
+   "niveau": "Bac+5",
+   "diplome": "Diplôme d'ingénieur",
+   "duree_annees": 3,
+   "specialites": [],
+   "campus": [
+    "Casablanca"
+   ],
+   "url": "https://aerosup.ma/filieres-de-formation/"
+  },
+  {
+   "intitule": "Formation Ingénieur Professionnel (admission en alternance, cours le week-end)",
+   "niveau": "Bac+5",
+   "diplome": "Diplôme d'ingénieur",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Casablanca"
+   ],
+   "url": "https://aerosup.ma/conditions-admission/"
+  }
+ ],
+ "admission": {
+  "conditions": [
+   "1ère année : baccalauréat scientifique ou technique",
+   "Admissions parallèles Bac+1 à Bac+3 (2e, 3e et 4e année)",
+   "Alternance : diplôme Bac+2 scientifique ou technique validé avec une expérience professionnelle significative",
+   "Admission sous réserve de validation par le Ministère de l'Enseignement Supérieur"
+  ],
+  "etapes": [
+   "Pré-inscription en ligne",
+   "Dossier de candidature",
+   "Test psychotechnique aéronautique en ligne (1 heure) et entretien",
+   "Décision du jury environ deux jours après le test",
+   "Inscription"
+  ],
+  "concours": null,
+  "dates": "Inscriptions ouvertes 2026-2027"
+ },
+ "frais": [],
+ "bourses": "Bourse de la Fondation ISTAT possible à partir de la 2e année : jusqu'à 10 000 USD, scolarité et hébergement pris en charge ; facilités de paiement mentionnées.",
+ "international": "15 nationalités sur le campus, principalement du Maroc et d'Afrique subsaharienne ; programmes d'échange avec l'Asie et l'Europe ; semestre académique possible dans une école partenaire en 5e année.",
+ "partenaires": [
+  "OACI",
+  "USAIRE",
+  "MAPA Aviation",
+  "Shenzhen University"
+ ],
+ "vie_etudiante": [
+  "Initiation au pilotage d'avion (brevet de pilote en option)"
+ ],
+ "logement": null,
+ "preuves": {
+  "adresse": "390, Boulevard Zerktouni, 20040 Casablanca, Maroc",
+  "telephone": "Téléphone : +212 (0)5 22 22 39 39",
+  "email": "Email : contact@aerosup.ma",
+  "annee_creation": null,
+  "frais": [],
+  "admission": [
+   "Baccalauréat Scientifique ou Technique.",
+   "Recrutement baccalauréat scientifique ou technique et admissions parallèles Bac+1 à Bac+3."
+  ]
+ }
+}

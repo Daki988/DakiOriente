@@ -1,0 +1,35 @@
+{
+  "id": "ma-averroes",
+  "site_web": "https://www.universiteaverroes.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://www.universiteaverroes.ma/", "https://www.universiteaverroes.ma/apropos/", "https://www.universiteaverroes.ma/averroes-business-school/", "https://www.universiteaverroes.ma/contact/", "https://www.universiteaverroes.ma/campus-actuel/", "https://www.universiteaverroes.ma/linternational/", "https://www.universiteaverroes.ma/averroes-executive-center/"],
+  "description": "Université privée installée à Casablanca (Sidi Maarouf, route de Nouaceur), structurée autour d'une Business School, d'une Engineering School et d'une Faculté de Droit et Sciences Politiques, avec un pôle Executive Education. La Business School propose des licences et un master en comptabilité, finance, vente et marketing digital. L'université met en avant l'alternance en entreprise, des échanges internationaux, des doubles diplômes et un dispositif de financement des études via sa Fondation. Le campus compte un amphithéâtre, un learning center, une bibliothèque et des résidences étudiantes partenaires.",
+  "annee_creation": null,
+  "adresse": "La Colline, Sidi Maarouf, Route de Nouaceur, Casablanca, Maroc",
+  "telephone": "+212 5 22 10 62 62",
+  "email": "admission@universiteaverroes.ma",
+  "statut_annonce": null,
+  "programmes": [
+    {"intitule": "Licence Gestion Comptable et Fiscale", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.universiteaverroes.ma/averroes-business-school/"},
+    {"intitule": "Licence Ingénierie Financière", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.universiteaverroes.ma/averroes-business-school/"},
+    {"intitule": "Licence Vente et Développement Commercial", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.universiteaverroes.ma/averroes-business-school/"},
+    {"intitule": "Licence Marketing Digital", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.universiteaverroes.ma/averroes-business-school/"},
+    {"intitule": "Master Comptabilité, Contrôle et Audit", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.universiteaverroes.ma/averroes-business-school/"}
+  ],
+  "admission": {"conditions": [], "etapes": [], "concours": null, "dates": null},
+  "frais": [],
+  "bourses": "Dispositif d'accompagnement au financement des études via la Fondation UIA.",
+  "international": "Programmes d'échange, doubles diplômes et poursuite d'études dans des universités partenaires.",
+  "partenaires": [],
+  "vie_etudiantine": ["Salle de sport", "Learning Center", "Espaces de coworking", "Résidences étudiantines partenaires"],
+  "logement": "Accords avec la résidence Oasis, les résidences universitaires RU Anfa City et RU Ziraoui, et Bayt Al Maarifa Casablanca.",
+  "preuves": {
+    "adresse": "La Colline, Sidi Maarouf, Route de Nouaceur, Casablanca, Maroc",
+    "telephone": "Tél : +212 5 22 10 62 62",
+    "email": "Mail : admission@universiteaverroes.ma",
+    "annee_creation": null,
+    "frais": [],
+    "admission": []
+  }
+}

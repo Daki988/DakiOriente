@@ -1,0 +1,190 @@
+{
+  "id": "ma-esmc",
+  "site_web": "https://esmcbs.com",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://esmcbs.com/",
+    "https://esmcbs.com/admission",
+    "https://esmcbs.com/preinscription",
+    "https://esmcbs.com/management-des-systemes-d-information-et-intelligence-artificielle",
+    "https://esmcbs.com/management-des-ressources-humaines-et-transformation-digitale-organisationnelle"
+  ],
+  "description": "École supérieure de management et de communication située boulevard Abdelmoumen à Casablanca, dans le quartier des sièges de grandes banques, accessible en tramway. Elle propose un programme en 3+2 avec des formations Bac+3 (développement commercial, finance et comptabilité, logistique, data et IA, marketing digital) et Bac+5 (big data, systèmes d'information, ressources humaines, audit, finance, achats et supply chain). Le site met en avant une pédagogie par la pratique, un career centre, des stages et un double diplôme avec l'ESCO WESFORD.",
+  "annee_creation": null,
+  "adresse": "57, Bd Abdelmoumen - Résidence Al Hadi A - Casablanca Station",
+  "telephone": "05 22 20 61 84",
+  "email": "contact@esmcbs.com",
+  "statut_annonce": null,
+  "programmes": [
+    {
+      "intitule": "Développement Commercial & Relation Client",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esmcbs.com/"
+    },
+    {
+      "intitule": "Finance et comptabilité",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esmcbs.com/"
+    },
+    {
+      "intitule": "Logistique & Commerce International",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esmcbs.com/"
+    },
+    {
+      "intitule": "Business Data et Intelligence Artificielle",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esmcbs.com/"
+    },
+    {
+      "intitule": "Marketing Digital et Intelligence Artificielle",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esmcbs.com/"
+    },
+    {
+      "intitule": "Big Data et IA pour le Management",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esmcbs.com/"
+    },
+    {
+      "intitule": "Développement Commercial et Marketing Digital",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esmcbs.com/"
+    },
+    {
+      "intitule": "Comptabilité, Contrôle de Gestion et Audit",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esmcbs.com/"
+    },
+    {
+      "intitule": "Finance, Banques et Assurance",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esmcbs.com/"
+    },
+    {
+      "intitule": "Achats, Logistique et Supply Chain Management",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esmcbs.com/"
+    },
+    {
+      "intitule": "Management des SI et IA",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esmcbs.com/management-des-systemes-d-information-et-intelligence-artificielle"
+    },
+    {
+      "intitule": "Ressources Humaines & Transformation Digitale",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esmcbs.com/management-des-ressources-humaines-et-transformation-digitale-organisationnelle"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "1re année : baccalauréat et entretien de motivation",
+      "Admission parallèle : années d'études post-bac réussies",
+      "Master : licence ou diplôme équivalent (Bac+3)"
+    ],
+    "etapes": [
+      "Choisir sa formation",
+      "Préparer le dossier de candidature",
+      "Dépôt du dossier en ligne"
+    ],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [],
+  "bourses": "Formulaire de candidature et bourse mentionné ; aucun détail donné.",
+  "international": "Double diplôme avec l'ESCO WESFORD donnant accès à un diplôme reconnu par les ministères marocain et français de l'enseignement supérieur selon le site.",
+  "partenaires": [
+    "ESCO WESFORD"
+  ],
+  "vie_etudiante": [
+    "Activités et événements",
+    "Career centre",
+    "Stages"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": "57, Bd Abdelmoumen - Résidence Al Hadi A - Casablanca Station",
+    "telephone": "05 22 20 61 84",
+    "email": "contact@esmcbs.com",
+    "annee_creation": null,
+    "frais": [],
+    "admission": [
+      "Entretien de motivation",
+      "Être titulaire d’une licence ou diplôme équivalent (BAC +3 )"
+    ]
+  }
+}

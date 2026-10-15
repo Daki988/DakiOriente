@@ -1,0 +1,39 @@
+{
+  "id": "ma-gecm",
+  "site_web": "https://gecmarrakech.com",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://gecmarrakech.com/", "https://gecmarrakech.com/nos-master", "https://gecmarrakech.com/nos-licences", "https://gecmarrakech.com/formation/bac3-licence-management-de-organisations", "https://gecmarrakech.com/formation/bac5-master-marketing-digital-supply-chain", "https://gecmarrakech.com/a-propos", "https://gecmarrakech.com/campus-gec", "https://gecmarrakech.com/nous-contacter"],
+  "description": "École de management de Marrakech (quartier Izdihar II) installée sur un campus d'environ 10 000 m² avec résidence étudiante. Elle propose deux licences Bac+3 (Management des organisations ; Technologie & Management Digital) en 6 semestres avec un stage mission de 8 semaines, puis deux masters Bac+5 en 4 semestres avec un stage de fin d'études de 4 mois. Le site indique un recrutement de bacheliers toutes séries, nationaux et internationaux, des certifications intégrées (Google, ERP) et des programmes collaboratifs (certificats exécutifs, MBA, DBA) avec IPM Afrique.",
+  "annee_creation": null,
+  "adresse": "BP 24077, Quartier IZDIHAR II - Marrakech",
+  "telephone": "+212676764804",
+  "email": null,
+  "statut_annonce": "École supérieure accréditée par le Ministère de l'Enseignement Supérieur",
+  "programmes": [
+    {"intitule": "Licence Management des organisations", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": ["Finance, Comptabilité, Audit", "Marketing, Ventes et Communication digitale", "Management, Achats et Logistique"], "campus": ["Marrakech"], "url": "https://gecmarrakech.com/formation/bac3-licence-management-de-organisations"},
+    {"intitule": "Licence Technologie & Management Digital", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": ["Data & AI for Business Intelligence", "FinTech & Financial Innovation", "Cybersecurity, Governance & Digital Trust"], "campus": ["Marrakech"], "url": "https://gecmarrakech.com/nos-licences"},
+    {"intitule": "Master Marketing Digital & Supply Chain", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": ["Marketing Digital & Commerce Électronique", "Supply Chain Management, Achats & Logistique"], "campus": ["Marrakech"], "url": "https://gecmarrakech.com/formation/bac5-master-marketing-digital-supply-chain"},
+    {"intitule": "Master Finance, Audit & Contrôle de Gestion", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": ["Comptabilité, Contrôle & Audit", "Ingénierie Financière & Data Finance"], "campus": ["Marrakech"], "url": "https://gecmarrakech.com/nos-master"}
+  ],
+  "admission": {
+    "conditions": ["Licence : baccalauréat toutes séries, nationaux et internationaux", "Master : Bac+3 (gestion, marketing, commerce, logistique pour le master Marketing Digital & Supply Chain)"],
+    "etapes": ["Formulaire de préinscription en ligne", "Contact par un conseiller aux admissions", "Finalisation de la candidature et inscription"],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [],
+  "bourses": null,
+  "international": "Partenariats internationaux avec écoles privées partenaires, programmes collaboratifs avec IPM Afrique (certificats exécutifs, MBA, DBA), anglais des affaires intégré.",
+  "partenaires": ["IPM Afrique"],
+  "vie_etudiante": ["Piscine", "Salle de sport", "Terrain multisport", "Auditorium et salle de spectacles", "Bibliothèque", "Événements culturels et sportifs"],
+  "logement": "Campus résidentiel de studios individuels ou doubles, réservés pour 10 à 11 mois, avec surveillance 24h/24.",
+  "preuves": {
+    "adresse": "BP 24077, Quartier IZDIHAR II - Marrakech",
+    "telephone": "+212676764804",
+    "email": null,
+    "annee_creation": null,
+    "frais": null,
+    "admission": ["Baccalauréat toutes séries, nationaux et internationaux.", "Après l’envoi de votre formulaire, un conseiller aux admissions vous contactera"]
+  }
+}

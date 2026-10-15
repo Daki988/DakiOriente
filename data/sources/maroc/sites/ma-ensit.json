@@ -1,0 +1,74 @@
+{
+  "id": "ma-ensit",
+  "site_web": "https://ensit.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://ensit.ma/", "https://ensit.ma/inscription/", "https://ensit.ma/ecole-dingenieurs/", "https://ensit.ma/mba/", "https://ensit.ma/cycle-preparatoire/", "https://ensit.ma/master-professionnel/", "https://ensit.ma/licence-professionnelle/", "https://ensit.ma/master-informatique-appliquee-a-la-gestion/", "https://ensit.ma/master-finance-audit-et-controle-de-gestion/", "https://ensit.ma/master-logistique-et-supply-chain-management/"],
+  "description": "École des Nouvelles Sciences et Ingénierie (ENSI), établissement de Tanger comprenant une école d'ingénierie (classes préparatoires intégrées puis cycle d'ingénieur en génie informatique, industriel et civil) et une école de management (licences et masters d'État). Une offre de formation continue (licences et masters professionnels, Executive MBA) est aussi proposée à temps partiel, à Tanger et sur des sites à Casablanca, Rabat et Kénitra. Certains masters offrent une double diplomation avec l'INSA Hauts-de-France ; des diplômes d'État français sont mentionnés pour les licences et masters professionnels.",
+  "annee_creation": 2004,
+  "adresse": "5 Rue Melilla, Tanger 90060 - Maroc",
+  "telephone": "(+212) 5 39 94 22 24",
+  "email": null,
+  "statut_annonce": "École reconnue par l'État",
+  "programmes": [
+    {"intitule": "Cycle préparatoire - Classes Préparatoires Intégrées", "niveau": "Bac+2", "diplome": null, "duree_annees": 2, "specialites": ["Génie Civil", "Génie Industriel", "Génie Informatique"], "campus": ["Tanger"], "url": "https://ensit.ma/cycle-preparatoire/"},
+    {"intitule": "Diplôme d'Ingénieur d'État", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": null, "specialites": ["Génie Informatique", "Génie Industriel", "Génie Civil"], "campus": ["Tanger"], "url": "https://ensit.ma/ecole-dingenieurs/"},
+    {"intitule": "Licence d'État Marketing et Techniques Commerciales", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://ensit.ma/"},
+    {"intitule": "Licence d'État Finance, Audit et Contrôle de Gestion", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://ensit.ma/"},
+    {"intitule": "Licence d'État Logistique et Commerce International", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://ensit.ma/"},
+    {"intitule": "Master d'État Marketing, communication et stratégie Digitale", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Tanger"], "url": "https://ensit.ma/"},
+    {"intitule": "Master Finance, Audit et contrôle de gestion", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Tanger"], "url": "https://ensit.ma/master-finance-audit-et-controle-de-gestion/"},
+    {"intitule": "Master Logistique et Supply Chain Management", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Tanger"], "url": "https://ensit.ma/master-logistique-et-supply-chain-management/"},
+    {"intitule": "Master Gouvernance, management RH et ingénierie de formation", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Tanger"], "url": "https://ensit.ma/"},
+    {"intitule": "Master Management public et gouvernance territoriale", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Tanger"], "url": "https://ensit.ma/"},
+    {"intitule": "Master Informatique Appliquée à la Gestion", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Tanger"], "url": "https://ensit.ma/master-informatique-appliquee-a-la-gestion/"},
+    {"intitule": "Master Gestion de Patrimoine et Procédures Foncières", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Tanger"], "url": "https://ensit.ma/"},
+    {"intitule": "Licence Professionnelle (formation continue, diplômes internationaux)", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": 1, "specialites": ["Maintenance et Sûreté des process", "Comptabilité et paie", "Marketing Digital", "QLIO", "BIM", "Intelligence Artificielle", "Cybersécurité", "Génie Industriel", "Génie Civil", "Développement Web Full Stack et DevOps", "Supply Chain Management", "Logistique et Transport"], "campus": ["Tanger", "Casablanca", "Rabat", "Kénitra"], "url": "https://ensit.ma/licence-professionnelle/"},
+    {"intitule": "Master Professionnel (Executive Masters, formation continue)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": ["Génie Industriel", "Génie Civil", "Informatique & Ingénierie des Systèmes", "Supply Chain Management", "Marketing Digital", "Finance, Audit et contrôle de gestion", "Gestion des Ressources Humaines", "Building Information Modeling (BIM)"], "campus": ["Tanger", "Casablanca", "Rabat", "Kénitra"], "url": "https://ensit.ma/master-professionnel/"},
+    {"intitule": "Executive MBA Management & Stratégie", "niveau": null, "diplome": "MBA", "duree_annees": null, "specialites": [], "campus": null, "url": "https://ensit.ma/mba/"}
+  ],
+  "admission": {
+    "conditions": [
+      "Cycle préparatoire 1ère année : baccalauréat scientifique ou technique, sur étude de dossier",
+      "Cycle préparatoire 2ème année (admission parallèle) : sur étude de dossier",
+      "Masters d'État : Bac+3 dans une filière en harmonie avec la spécialisation",
+      "Licence professionnelle (formation continue) : Bac+2 en harmonie avec la spécialité, ou VAP",
+      "Master professionnel : Bac+3 minimum avec expérience professionnelle",
+      "Executive MBA : Bac+5 avec expérience professionnelle"
+    ],
+    "etapes": [],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [
+    {"cycle": "Cycle préparatoire (classes préparatoires intégrées)", "inscription_mad": 3000, "scolarite_annuelle_mad": 37000, "note": "Réduction de 5 % sur la scolarité si les frais sont payés avant le 31 octobre"},
+    {"cycle": "Masters d'État (4ème et 5ème années), ex. Finance-Audit, Logistique, Informatique appliquée à la gestion", "inscription_mad": 3000, "scolarite_annuelle_mad": 45000, "note": "45 000 DHS par an, soit 14 000 DHS par trimestre ; réduction de 5 % si payé avant le 31 octobre"},
+    {"cycle": "Master professionnel (formation continue)", "inscription_mad": 5000, "scolarite_annuelle_mad": 35000, "note": "35 000 DHS/an pour l'accès en M1 ; 40 000 DHS pour l'accès direct en M2 ; paiement possible en trois tranches"},
+    {"cycle": "Licence professionnelle (formation continue)", "inscription_mad": 5000, "scolarite_annuelle_mad": 28000, "note": "Prix de la formation 28 000 DHS ; paiement possible en trois tranches"},
+    {"cycle": "Executive MBA Management & Stratégie", "inscription_mad": null, "scolarite_annuelle_mad": 77000, "note": "Frais de formation de 77 000 DHS"}
+  ],
+  "bourses": null,
+  "international": "Double diplomation avec l'INSA Hauts-de-France (UPHF) pour certains masters ; licences et masters professionnels avec diplômes d'État français ; section « Universités partenaires ».",
+  "partenaires": ["INSA Hauts-de-France (UPHF)", "Cnam (BIM)", "IUT de Nice", "Gustave Eiffel", "Esaipe"],
+  "vie_etudiante": ["Bureau des Étudiants (BDE)", "Activités para-universitaires"],
+  "logement": null,
+  "preuves": {
+    "adresse": "5 Rue Melilla, Tanger 90060 - Maroc",
+    "telephone": "(+212) 5 39 94 22 24",
+    "email": null,
+    "annee_creation": "Depuis 2004",
+    "frais": [
+      "Frais d’inscription: 3000 DHs/an",
+      "Frais de scolarité: 37000 DHs/an",
+      "4ÈME ET 5ÈME ANNÉES : 45 000 DHS /an",
+      "Frais de scolarité: 14 000 DHS /trimestre",
+      "Accès en M1 : 35 000 Dhs / an",
+      "Prix de la formation : 28 000 Dhs",
+      "Frais de formation: 77 000.00 Dhs"
+    ],
+    "admission": [
+      "L’accès en 1ère année est ouvert sur étude de dossiers des candidats titulaires d’un Baccalauréat scientifique ou technique",
+      "Ce Master est ouvert aux étudiants titulaires d’un Bac+3 en commerce, gestion, finance, comptabilité"
+    ]
+  }
+}

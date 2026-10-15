@@ -1,0 +1,189 @@
+{
+  "id": "ma-hecgi",
+  "site_web": "https://www.hecgi.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://www.hecgi.ma/",
+    "https://hecgi.ma/a-propos/",
+    "https://hecgi.ma/filiere-accreditees/",
+    "https://hecgi.ma/nos-diplomes/",
+    "https://hecgi.ma/master-europeen/",
+    "https://hecgi.ma/bachelor-europeen/",
+    "https://hecgi.ma/logistique/",
+    "https://hecgi.ma/finance/",
+    "https://hecgi.ma/marketing-digital/"
+  ],
+  "description": "École de commerce, de gestion et d'informatique située à Kénitra. Elle propose des licences (Bac+3) en commerce et gestion, data science et logistique, un master (Bac+5) en finance, audit et contrôle de gestion, ainsi que des masters et bachelors européens. Le site indique des stages d'un à trois mois chaque année, des intervenants professionnels, des visites d'entreprises et des bourses d'excellence (5 totales et 10 partielles par filière en 2025-2026).",
+  "annee_creation": null,
+  "adresse": "immeuble 49, Rue Jamil Sidqui Zouhaoui, Résidence Douaa Charq, la Ville Haute Anoual, Kénitra - Maroc",
+  "telephone": "+212 537 373 347",
+  "email": "kenitra.hecgi@gmail.com",
+  "statut_annonce": "Diplômes accrédités par l'État",
+  "programmes": [
+    {
+      "intitule": "Licence Commerce et Gestion",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://hecgi.ma/nos-diplomes/"
+    },
+    {
+      "intitule": "Licence Data Science et Management Digital",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://hecgi.ma/nos-diplomes/"
+    },
+    {
+      "intitule": "Licence Management et Stratégies Logistiques",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://hecgi.ma/nos-diplomes/"
+    },
+    {
+      "intitule": "Master Finance, Audit et Contrôle de Gestion",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://hecgi.ma/nos-diplomes/"
+    },
+    {
+      "intitule": "Master Européen Logistique",
+      "niveau": "Bac+5",
+      "diplome": "Master européen",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://hecgi.ma/logistique/"
+    },
+    {
+      "intitule": "Master Européen Management et Stratégie d'Entreprise",
+      "niveau": "Bac+5",
+      "diplome": "Master européen",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://hecgi.ma/master-europeen/"
+    },
+    {
+      "intitule": "Master Européen Management et Stratégies Financières",
+      "niveau": "Bac+5",
+      "diplome": "Master européen",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://hecgi.ma/master-europeen/"
+    },
+    {
+      "intitule": "Master Européen Manager de Projets Informatiques",
+      "niveau": "Bac+5",
+      "diplome": "Master européen",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://hecgi.ma/master-europeen/"
+    },
+    {
+      "intitule": "Bachelor Européen Logistique et Transport",
+      "niveau": "Bac+3",
+      "diplome": "Bachelor",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://hecgi.ma/bachelor-europeen/"
+    },
+    {
+      "intitule": "Bachelor Européen Finance",
+      "niveau": "Bac+3",
+      "diplome": "Bachelor",
+      "duree_annees": 1,
+      "specialites": [],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://hecgi.ma/finance/"
+    },
+    {
+      "intitule": "Bachelor Européen Qualité, Sécurité et Environnement",
+      "niveau": "Bac+3",
+      "diplome": "Bachelor",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://hecgi.ma/bachelor-europeen/"
+    },
+    {
+      "intitule": "Bachelor Européen Marketing Digital",
+      "niveau": "Bac+3",
+      "diplome": "Bachelor",
+      "duree_annees": 1,
+      "specialites": [],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://hecgi.ma/marketing-digital/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Bachelor européen : diplôme de niveau 5 du CEC (120 crédits ECTS) ou VAE avec au moins un an d'expérience",
+      "Master européen : diplôme de niveau 5 du CEC (180 crédits ECTS) ou VAE avec au moins un an d'expérience"
+    ],
+    "etapes": [
+      "Pré-inscription en ligne"
+    ],
+    "concours": null,
+    "dates": null
+  },
+  "frais": [],
+  "bourses": "Bourses d'excellence jusqu'à 100 % : 5 bourses totales et 10 bourses partielles par filière en 2025-2026, avec deux sessions en octobre 2025.",
+  "international": null,
+  "partenaires": [],
+  "vie_etudiante": [
+    "Bureau d'étudiants actif",
+    "Activités culturelles et sportives",
+    "Visites d'entreprises",
+    "Cérémonie de remise des diplômes"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": "immeuble 49, Rue Jamil Sidqui Zouhaoui, Résidence Douaa Charq, la Ville Haute Anoual, Kénitra",
+    "telephone": "+212 537 373 347",
+    "email": "kenitra.hecgi@gmail.com",
+    "annee_creation": null,
+    "frais": [],
+    "admission": [
+      "Aux étudiants ayant validé un diplôme de niveau 5 du Cadre Européen des Certifications (CEC), leur ayant permis d’acquérir 120 crédits ECTS"
+    ]
+  }
+}

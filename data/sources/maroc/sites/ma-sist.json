@@ -1,0 +1,182 @@
+{
+ "id": "ma-sist",
+ "site_web": "https://sist.ac.ma",
+ "date_collecte": "2026-10-15",
+ "accessible": true,
+ "sources": [
+  "https://sist.ac.ma/",
+  "https://sist.ac.ma/admission/",
+  "https://sist.ac.ma/bachelor/",
+  "https://sist.ac.ma/programmes/",
+  "https://sist.ac.ma/masters-mba/",
+  "https://sist.ac.ma/bsc-software-engineering-2/",
+  "https://sist.ac.ma/about-us/",
+  "https://sist.ac.ma/campus/",
+  "https://sist.ac.ma/contact/",
+  "https://sist.ac.ma/scholarships/"
+ ],
+ "description": "Institut d'enseignement supérieur privé présent à Casablanca, Rabat et Tanger, associé à la Cardiff Metropolitan University (Royaume-Uni). Les programmes sont enseignés entièrement en anglais : une session de langue anglaise, des cycles Bac+3 (management, cybersécurité, management du sport, génie logiciel) et des Bac+5 (MBA et masters). Le site indique la possibilité de poursuivre en troisième année au Royaume-Uni avec une bourse, un stage de placement en 2e année et un diplôme marocain Bac+3/Bac+5 accrédité par le ministère de l'Enseignement supérieur.",
+ "annee_creation": null,
+ "adresse": "87 Bd Nador, Quartier Polo, Casablanca",
+ "telephone": "+212 522 211 680",
+ "email": "admissions@sist.ac.ma",
+ "statut_annonce": "Accrédité par le ministère de l'Enseignement supérieur du Maroc ; associate college de Cardiff Metropolitan University",
+ "programmes": [
+  {
+   "intitule": "English Language Session",
+   "niveau": null,
+   "diplome": null,
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Casablanca",
+    "Rabat",
+    "Tanger"
+   ],
+   "url": "https://sist.ac.ma/programmes/"
+  },
+  {
+   "intitule": "Bac+3 Business Management",
+   "niveau": "Bac+3",
+   "diplome": "Bachelor",
+   "duree_annees": 3,
+   "specialites": [
+    "International Trade",
+    "Marketing Management",
+    "Human Resources Management",
+    "Finance Management"
+   ],
+   "campus": [
+    "Casablanca",
+    "Rabat",
+    "Tanger"
+   ],
+   "url": "https://sist.ac.ma/bachelor/"
+  },
+  {
+   "intitule": "Bac+3 Computer Security (Cyber Security)",
+   "niveau": "Bac+3",
+   "diplome": "Bachelor",
+   "duree_annees": 3,
+   "specialites": [],
+   "campus": [
+    "Casablanca",
+    "Rabat",
+    "Tanger"
+   ],
+   "url": "https://sist.ac.ma/bachelor/"
+  },
+  {
+   "intitule": "Bac+3 Sports Management",
+   "niveau": "Bac+3",
+   "diplome": "Bachelor",
+   "duree_annees": 3,
+   "specialites": [],
+   "campus": [
+    "Casablanca",
+    "Rabat",
+    "Tanger"
+   ],
+   "url": "https://sist.ac.ma/bachelor/"
+  },
+  {
+   "intitule": "Bac+3 Software Engineering",
+   "niveau": "Bac+3",
+   "diplome": "Bachelor",
+   "duree_annees": 3,
+   "specialites": [
+    "Web Technology",
+    "Augmented & Virtual Reality",
+    "Network Security",
+    "Data Security"
+   ],
+   "campus": [
+    "Casablanca",
+    "Rabat",
+    "Tanger"
+   ],
+   "url": "https://sist.ac.ma/bsc-software-engineering-2/"
+  },
+  {
+   "intitule": "Master of Business Administration (MBA)",
+   "niveau": "Bac+5",
+   "diplome": "MBA",
+   "duree_annees": 2,
+   "specialites": [
+    "Finance",
+    "Marketing Management",
+    "Project Management",
+    "Supply Chain and Logistics Management",
+    "Business Analytics"
+   ],
+   "campus": [
+    "Casablanca",
+    "Rabat",
+    "Tanger"
+   ],
+   "url": "https://sist.ac.ma/masters-mba/"
+  },
+  {
+   "intitule": "Advanced Cybersecurity (postgraduate)",
+   "niveau": "Bac+5",
+   "diplome": null,
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Casablanca",
+    "Rabat",
+    "Tanger"
+   ],
+   "url": "https://sist.ac.ma/scholarships/"
+  },
+  {
+   "intitule": "Master TESOL",
+   "niveau": "Bac+5",
+   "diplome": "Master",
+   "duree_annees": null,
+   "specialites": [],
+   "campus": [
+    "Casablanca",
+    "Rabat",
+    "Tanger"
+   ],
+   "url": "https://sist.ac.ma/scholarships/"
+  }
+ ],
+ "admission": {
+  "conditions": [
+   "Foundation Year : baccalauréat marocain, diplôme de fin d'études secondaires, A-levels ou équivalent",
+   "Bachelors : Oxford Placement Test à un niveau IELTS 6.0 ou équivalent",
+   "Masters : licence d'une université reconnue (GPA 2.7/4.0 ou équivalent UK 2:2) et niveau IELTS 6.5 ou équivalent"
+  ],
+  "etapes": [
+   "Candidature en ligne via le portail",
+   "Prise de contact du bureau des admissions",
+   "Transmission à la Cardiff Metropolitan University pour examen"
+  ],
+  "concours": null,
+  "dates": "Rentrée d'octobre 2026 : date limite 20 septembre 2026 (premier cycle), 23 septembre 2026 (second cycle)"
+ },
+ "frais": [],
+ "bourses": "Bourse complète couvrant la 3e année au Royaume-Uni ; cinq bourses de frais de scolarité complets par spécialité pour les études de troisième cycle (cohorte 2026).",
+ "international": "Possibilité de transfert au Royaume-Uni à tout moment ; double diplôme (diplôme public britannique Cardiff Met et diplôme privé marocain Bac+3/Bac+5) ; étudiants de nationalités diverses.",
+ "partenaires": [
+  "Cardiff Metropolitan University"
+ ],
+ "vie_etudiante": [
+  "Activités extra-curriculaires",
+  "Job fair annuel avec des multinationales"
+ ],
+ "logement": null,
+ "preuves": {
+  "adresse": "87 Bd Nador, Quartier Polo, Casablanca",
+  "telephone": "+212 522 211 680",
+  "email": "admissions@sist.ac.ma",
+  "annee_creation": null,
+  "frais": [],
+  "admission": [
+   "Moroccan Baccalaureate degree, high school diploma, A2 levels or equivalent.",
+   "All applicants to have passed the Oxford Placement test with a score at IELTS 6.0 level, or other IELTS equivalent."
+  ]
+ }
+}

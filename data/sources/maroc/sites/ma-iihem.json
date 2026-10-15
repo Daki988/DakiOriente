@@ -1,0 +1,104 @@
+{
+  "id": "ma-iihem",
+  "site_web": "http://www.iihem.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://www.iihem.ac.ma/",
+    "https://www.iihem.ac.ma/apply_to_iihem",
+    "https://www.iihem.ac.ma/cursus",
+    "https://www.iihem.ac.ma/aboutus",
+    "https://www.iihem.ac.ma/campus",
+    "https://www.iihem.ac.ma/contact",
+    "https://www.iihem.ac.ma/internationals"
+  ],
+  "description": "Institut d'enseignement supérieur privé anglophone, installé à Souissi (Rabat), qui propose une formation en management de type nord-américain dispensée en anglais ou en français. Le cursus va d'une année Foundation Year (tremplin vers des universités étrangères) au Bac+3 puis au Bac+5, avec possibilité de double diplomation. Le site met en avant des partenariats avec des universités étrangères, des programmes Erasmus+, des semestres à l'étranger, un centre de langue et des bourses de mérite pour les nouveaux bacheliers.",
+  "annee_creation": null,
+  "adresse": "Avenue Mohamed VI, Km 4.2 (Route des Zaërs) Souissi, Rabat 10170, Maroc",
+  "telephone": "(212 - 537) 65 68 68 / 65 92 92",
+  "email": "info@iihem.ac.ma",
+  "statut_annonce": "Diplômes de Bac+3 et Bac+5 accrédités par l'État",
+  "programmes": [
+    {
+      "intitule": "Foundation Year (1re année, tremplin vers l'étranger)",
+      "niveau": null,
+      "diplome": "Foundation Year",
+      "duree_annees": 1,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.iihem.ac.ma/cursus"
+    },
+    {
+      "intitule": "Cursus Bac+3 – Management",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.iihem.ac.ma/cursus"
+    },
+    {
+      "intitule": "Cursus Bac+5 – Management",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.iihem.ac.ma/cursus"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Accès en 1re année Bac+3 : baccalauréat (relevés de notes des trois dernières années, équivalence pour les étudiants étrangers)",
+      "Accès via passerelle : relevé de notes et attestation de réussite de l'établissement d'origine",
+      "Accès au Bac+5 : relevés de notes, descriptif des matières et copies certifiées du diplôme Bac+3"
+    ],
+    "etapes": [
+      "Dépôt du dossier de pré-inscription",
+      "Étude du dossier puis réponse par e-mail ou téléphone"
+    ],
+    "concours": null,
+    "dates": "Semestre d'automne : septembre/octobre ; semestre de printemps : fin janvier ; session d'été : fin mai"
+  },
+  "frais": [],
+  "bourses": "Bourses d'excellence pour l'accès en première année aux nouveaux bacheliers méritants (mention Assez Bien minimum), attribuées par une commission.",
+  "international": "Conventions avec des universités étrangères (American Business School of Paris, CESINE, Johnson and Wales, Rotterdam Business School, SGH Warsaw, Concordia, etc.) ; semestre à l'étranger, double diplomation, programmes Erasmus+.",
+  "partenaires": [
+    "American Business School of Paris",
+    "CESINE University",
+    "Johnson and Wales University",
+    "Kadir Has University",
+    "Rotterdam Business School",
+    "Solbridge Business School",
+    "University of Wollongong Dubai",
+    "Woosong University",
+    "Warsaw School of Economics (SGH)",
+    "Concordia University",
+    "Istanbul Kültür University",
+    "Haliç University"
+  ],
+  "vie_etudiante": [
+    "Associations étudiantes (dont Rotaract, TCC, IIHEM Consult)",
+    "Journées Portes Ouvertes",
+    "Cafétéria, transport universitaire, terrains de sport",
+    "Bibliothèque et laboratoires informatiques"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": "Avenue Mohamed VI, Km 4.2",
+    "telephone": "(212 - 537) 65 68 68 / 65 92 92",
+    "email": "info@iihem.ac.ma",
+    "annee_creation": null,
+    "frais": null,
+    "admission": [
+      "Les frais d’étude du dossier de 200 DHs non remboursables.",
+      "L’admission se fait après étude du dossier."
+    ]
+  }
+}
