@@ -2,7 +2,7 @@
   "_meta": {
     "referentiel": "etablissements_superieurs",
     "version": "2.0.0",
-    "date": "2026-10-14",
+    "date": "2026-10-15",
     "plateforme": "Navigoal",
     "destination": "MA",
     "annee_reference": "2026-2027",
@@ -1722,7 +1722,14 @@
       ],
       "filieres_echues": [],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-uiass.png",
+        "source_url": "https://uiass.ma/build/assets/logo-black-DUlFMqTL.png",
+        "page_source": "https://www.uiass.ma",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -4353,7 +4360,14 @@
       ],
       "filieres_echues": [],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-uao.png",
+        "source_url": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Www.arabou.edu.sa.png",
+        "page_source": "https://morocco.arabou.edu.kw",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -6874,7 +6888,7 @@
       "label_libelle": "Reconnu par l'État",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 31)",
       "reconnaissance_en_cours": false,
-      "site_web": "https://ehei.ma",
+      "site_web": "https://eheim.ac.ma",
       "annee_creation": 2011,
       "adresse": "25, rue Aïn Al Haloua, Hay Al Qods, Oujda",
       "autorisation": null,
@@ -6971,7 +6985,14 @@
       ],
       "filieres_echues": [],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-eheio.png",
+        "source_url": "https://eheim.ac.ma/wp-content/uploads/2025/04/cropped-logo-ehei-270x270.png",
+        "page_source": "https://eheim.ac.ma",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -7353,7 +7374,7 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 36)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.groupeheci.ac.ma",
       "annee_creation": null,
       "adresse": null,
       "autorisation": null,
@@ -7546,7 +7567,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-heci-casa.png",
+        "source_url": "https://www.groupeheci.ac.ma/wp-content/uploads/2020/03/logo-sans-groupe.webp",
+        "page_source": "https://www.groupeheci.ac.ma",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -7566,7 +7594,7 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 37)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.essem-bs.com",
       "annee_creation": null,
       "adresse": null,
       "autorisation": null,
@@ -7896,7 +7924,14 @@
       ],
       "filieres_echues": [],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ensit.png",
+        "source_url": "https://ensit.ma/wp-content/uploads/2024/04/ENSI-1.png",
+        "page_source": "https://ensit.ma",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -7946,7 +7981,14 @@
       ],
       "filieres_echues": [],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-hecf-fes.png",
+        "source_url": "https://hecf.ac.ma/wp-content/uploads/2022/03/cropped-logo-HECF-BLUE-512x458-1.png",
+        "page_source": "https://hecf.ac.ma",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -8423,7 +8465,7 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 46)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://sup2i.ac",
       "annee_creation": null,
       "adresse": null,
       "autorisation": null,
@@ -8681,7 +8723,7 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 48)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://esisa.ac.ma",
       "annee_creation": null,
       "adresse": null,
       "autorisation": null,
@@ -8843,7 +8885,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esisa.png",
+        "source_url": "https://esisa.ac.ma/images/logo/logo1.png",
+        "page_source": "https://esisa.ac.ma",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -9413,7 +9462,7 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 54)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.ecole-artcom.com",
       "annee_creation": null,
       "adresse": null,
       "autorisation": null,
@@ -9543,7 +9592,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-artcomsup-rabat.png",
+        "source_url": "https://www.ecole-artcom.com/wp-content/uploads/2025/11/ArtCom_Logo-1.jpg",
+        "page_source": "https://www.ecole-artcom.com",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -9626,7 +9682,7 @@
     },
     {
       "id": "ma-iheps-agadir",
-      "nom": "IHEPS – Institut des Hautes Études Paramédicales du Souss",
+      "nom": "IHEPS – Institut des Hautes Études Paramédicales du Sud",
       "sigle": "IHEPS",
       "pays": "MA",
       "ville": "Agadir",
@@ -9637,7 +9693,7 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": "Liste officielle des universités et établissements reconnus par l'État (n° 56)",
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://iheps.ac.ma/iheps-agadir/",
       "annee_creation": null,
       "adresse": null,
       "autorisation": null,
@@ -9799,7 +9855,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-iheps-agadir.png",
+        "source_url": "https://iheps.ac.ma/wp-content/uploads/2024/08/IHEPS-1.png",
+        "page_source": "https://iheps.ac.ma/iheps-agadir/",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -10900,7 +10963,14 @@
       ],
       "filieres_echues": [],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esgcnt.png",
+        "source_url": "https://esgcnt.com/img/logo/2021/ecole-ingegneur.png",
+        "page_source": "https://esgcnt.com",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -11568,7 +11638,7 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://iiem.ac.ma/",
       "annee_creation": 2022,
       "adresse": "Douar Oulad Malek, Bouskoura (province de Nouaceur)",
       "autorisation": null,
@@ -11950,7 +12020,14 @@
       ],
       "filieres_echues": [],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-icacsup.png",
+        "source_url": "http://icacsup.ma/wp-content/uploads/2021/03/logo1.png",
+        "page_source": "https://icacsup.ma",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -12000,7 +12077,14 @@
       ],
       "filieres_echues": [],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-gecm.png",
+        "source_url": "https://gecmarrakech.com/wp-content/uploads/2026/04/LOGO-GEC-26-noir.png",
+        "page_source": "https://gecmarrakech.com",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -12107,7 +12191,14 @@
       ],
       "filieres_echues": [],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-hecf-meknes.png",
+        "source_url": "https://hecf.ac.ma/wp-content/uploads/2022/03/LOGO-HECF-OFFICIEL-Business-School.png",
+        "page_source": "https://hecf.ac.ma",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -12344,7 +12435,7 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.ecoleesai.com/",
       "annee_creation": 1998,
       "adresse": "7, avenue Ahmed Balafrej, Souissi, Rabat",
       "autorisation": null,
@@ -12377,7 +12468,14 @@
       ],
       "filieres_echues": [],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esai.png",
+        "source_url": "https://www.ecoleesai.com/esai.png",
+        "page_source": "https://www.ecoleesai.com/",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -12430,7 +12528,14 @@
       ],
       "filieres_echues": [],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-essec-sale.svg",
+        "source_url": "https://images.ctfassets.net/vmb6iqn8sgcm/6yXnJQs5jk9NJ5r90536Vb/d1a7c80ee0409e5d1755be4747487ab8/Logo_essec_noir.svg",
+        "page_source": "https://www.essec.edu/fr/campus/rabat/",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -12599,7 +12704,7 @@
       "label_libelle": "Diplômes homologués",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://www.polytechnique.ma/",
       "annee_creation": 2001,
       "adresse": "Rue 10, n° 2, lotissement Allaïmoun 1, Casablanca",
       "autorisation": null,
@@ -12663,7 +12768,14 @@
       ],
       "filieres_echues": [],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-ippc.png",
+        "source_url": "https://www.polytechnique.ma/logo.png",
+        "page_source": "https://www.polytechnique.ma/",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -12790,7 +12902,7 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://esmcbs.com/",
       "annee_creation": null,
       "adresse": null,
       "autorisation": null,
@@ -12953,7 +13065,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esmc.png",
+        "source_url": "https://esmcbs.com/assets/site/images/logo.png",
+        "page_source": "https://esmcbs.com/",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -14684,7 +14803,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-isjc.jpg",
+        "source_url": "https://isjc-press.ma/wp-content/uploads/2021/09/isjc.jpg",
+        "page_source": "https://isjc-press.ma",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -15015,7 +15141,7 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://isota.ac.ma",
       "annee_creation": 2005,
       "adresse": "8, rue Ahmed Akrad, Quartier Oasis, Casablanca",
       "autorisation": "Autorisation n° 224/2005 du 22/09/2005",
@@ -15061,7 +15187,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-isota.png",
+        "source_url": "https://isota.ac.ma/images/logo.png",
+        "page_source": "https://isota.ac.ma",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -15081,7 +15214,7 @@
       "label_libelle": "Établissement autorisé",
       "reconnaissance": null,
       "reconnaissance_en_cours": false,
-      "site_web": null,
+      "site_web": "https://suptema.net",
       "annee_creation": 2005,
       "adresse": "67, rue Khalid Ibn Al Oualid, Bourmana, Fès",
       "autorisation": "Autorisation n° 235/2005 du 02/01/2006",
@@ -15210,7 +15343,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-suptema.png",
+        "source_url": "https://suptema.net/images/logo@2x.png",
+        "page_source": "https://suptema.net",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -16538,7 +16678,14 @@
         }
       ],
       "offre_indicative": false,
-      "logo": null,
+      "logo": {
+        "fichier": "assets/logos/ma/ma-esscg.png",
+        "source_url": "https://esscg.ma/wp-content/uploads/2018/08/logo_esscg.png",
+        "page_source": "https://esscg.ma",
+        "methode": "source_manuelle",
+        "date_collecte": "2026-10-15",
+        "a_verifier": false
+      },
       "photos": [],
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",

@@ -168,7 +168,8 @@
     "annee_creation": 2022,
     "adresse": "Douar Oulad Malek, Bouskoura (province de Nouaceur)",
     "description": "Établissement privé d'enseignement supérieur en management, implanté à Bouskoura, en périphérie de Casablanca.",
-    "notes": "Aucun site officiel trouvé. Il partage son adresse avec l'IIEC (International Institute of Engineering Casablanca). Le lien avec le projet IIEM (Coventry University / British Schools Educational Services) à Bouskoura n'est pas confirmé. La liste ministérielle indique « Province de Bouskoura » ; Bouskoura relève en fait de la province de Nouaceur."
+    "notes": "Aucun site officiel trouvé. Il partage son adresse avec l'IIEC (International Institute of Engineering Casablanca). Le lien avec le projet IIEM (Coventry University / British Schools Educational Services) à Bouskoura n'est pas confirmé. La liste ministérielle indique « Province de Bouskoura » ; Bouskoura relève en fait de la province de Nouaceur.",
+    "site_web": "https://iiem.ac.ma/"
   },
   "ma-isps": {
     "annee_creation": 2006,
@@ -382,7 +383,7 @@
     "notes": "Second site : campus Agdal, 22 avenue Omar Ibn Al Khattab."
   },
   "ma-eheio": {
-    "site_web": "https://ehei.ma",
+    "site_web": "https://eheim.ac.ma",
     "annee_creation": 2011,
     "adresse": "25, rue Aïn Al Haloua, Hay Al Qods, Oujda",
     "description": "École d'ingénieurs privée d'Oujda proposant des formations bac+5 en informatique, génie industriel et gestion des entreprises.",
@@ -726,7 +727,8 @@
       "lng": -6.8390044
     },
     "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 1998-1999 ; autorisation n° 135/98)",
-    "notes": "Un lien d'inscription pointe vers ecoleesai.com, inaccessible depuis notre environnement : site non vérifié. Un campus ESAI existe aussi à Marrakech."
+    "notes": "Un lien d'inscription pointe vers ecoleesai.com, inaccessible depuis notre environnement : site non vérifié. Un campus ESAI existe aussi à Marrakech.",
+    "site_web": "https://www.ecoleesai.com/"
   },
   "ma-essec-sale": {
     "site_web": "https://www.essec.edu/fr/campus/rabat/",
@@ -766,7 +768,8 @@
     "description": "Institut privé d'ingénierie de Casablanca proposant des cursus bac+5 en génie électrique et génie électromécanique (cycle préparatoire puis cycle ingénieur), avec des passerelles vers des universités canadiennes.",
     "coordonnees": null,
     "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2001-2002)",
-    "notes": "Site officiel non trouvé."
+    "notes": "Site officiel non trouvé.",
+    "site_web": "https://www.polytechnique.ma/"
   },
   "ma-ispep": {
     "annee_creation": 2022,
@@ -1021,7 +1024,8 @@
     "description": "Institut privé de Casablanca formant aux métiers de l'optique (opticien).",
     "coordonnees": null,
     "statut": "actif",
-    "notes": "L'adresse ministérielle « loisiss » correspond au quartier Oasis. Présent dans la liste ministérielle 2025-2026 ; pages Facebook/Instagram (inscriptions ouvertes, non datées). Pas de site web officiel identifié."
+    "notes": "L'adresse ministérielle « loisiss » correspond au quartier Oasis. Présent dans la liste ministérielle 2025-2026 ; pages Facebook/Instagram (inscriptions ouvertes, non datées). Pas de site web officiel identifié.",
+    "site_web": "https://isota.ac.ma"
   },
   "ma-hep-management": {
     "annee_creation": 2005,
@@ -1037,7 +1041,8 @@
     "description": "École privée de Fès formant en télécommunications, réseaux, systèmes et management.",
     "coordonnees": null,
     "statut": "actif",
-    "notes": "Statut « actif » fondé uniquement sur sa présence dans la liste ministérielle 2025-2026 ; pas de site officiel ni d'activité récente vérifiés."
+    "notes": "Statut « actif » fondé uniquement sur sa présence dans la liste ministérielle 2025-2026 ; pas de site officiel ni d'activité récente vérifiés.",
+    "site_web": "https://suptema.net"
   },
   "ma-piimt-rabat": {
     "site_web": "https://www.piimt.us",
@@ -1292,5 +1297,26 @@
     "description": null,
     "statut": "actif",
     "notes": "Figure sur la liste des établissements privés autorisés 2025-2026 ; aucune présence en ligne confirmée à ce jour."
+  },
+  "ma-heci-casa": {
+    "site_web": "https://www.groupeheci.ac.ma"
+  },
+  "ma-essem": {
+    "site_web": "https://www.essem-bs.com"
+  },
+  "ma-supemir": {
+    "site_web": "https://sup2i.ac"
+  },
+  "ma-esisa": {
+    "site_web": "https://esisa.ac.ma"
+  },
+  "ma-artcomsup-rabat": {
+    "site_web": "https://www.ecole-artcom.com"
+  },
+  "ma-iheps-agadir": {
+    "site_web": "https://iheps.ac.ma/iheps-agadir/"
+  },
+  "ma-esmc": {
+    "site_web": "https://esmcbs.com/"
   }
 }

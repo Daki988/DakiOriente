@@ -166,7 +166,7 @@ ETABLISSEMENTS = [
          match=[r"art ?com sup", r"ecole superieure de design"], villes=["Rabat"]),
     dict(id="ma-hightech", nom="HIGH-TECH – High Technology School in Morocco", sigle="HIGH-TECH", ville="Rabat", type="ecole_ingenieurs", statut="prive", rec=55,
          match=[r"high ?tech"]),
-    dict(id="ma-iheps-agadir", nom="IHEPS – Institut des Hautes Études Paramédicales du Souss", sigle="IHEPS", ville="Agadir", type="ecole_sante", statut="prive", rec=56,
+    dict(id="ma-iheps-agadir", nom="IHEPS – Institut des Hautes Études Paramédicales du Sud", sigle="IHEPS", ville="Agadir", type="ecole_sante", statut="prive", rec=56,
          match=[r"paramedicales du souss"]),
     dict(id="ma-supmti-meknes", nom="SUPMTI – École Supérieure de Management, Informatique et Télécommunication (Meknès)", sigle="SUPMTI", ville="Meknès", type="ecole_ingenieurs", statut="prive", rec=57, rec_en_cours=True,
          match=[r"\bsupmti\b", r"management d informatique et de telecommunication"], villes=["Meknès"]),
