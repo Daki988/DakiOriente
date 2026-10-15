@@ -18,13 +18,13 @@ export function Button({ variant = "primary", loading, icon: I, size = "md", cla
 // ---------------------------------------------------------------- Mise en page
 export function PageHeader({ title, sub, crumbs, actions, badge }: { title: ReactNode; sub?: ReactNode; crumbs?: [string, string?][]; actions?: ReactNode; badge?: ReactNode }) {
   return (
-    <div className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
-      <div className="flex min-w-0 flex-col gap-1.5">
+    <div className="mb-4 flex flex-col justify-between gap-3 sm:mb-6 sm:gap-4 lg:flex-row lg:items-end">
+      <div className="flex min-w-0 flex-col gap-1">
         {crumbs && <nav className="flex flex-wrap items-center gap-1 text-[13px] text-ink-mute">{crumbs.map(([t, h], i) => <span key={i} className="flex items-center gap-1">{i > 0 && <ChevronRight size={13} />}{h ? <Link href={h} className="hover:text-brand-600">{t}</Link> : <span>{t}</span>}</span>)}</nav>}
-        <div className="flex flex-wrap items-center gap-3"><h1 className="text-2xl font-extrabold tracking-tight sm:text-[30px]">{title}</h1>{badge}</div>
-        {sub && <p className="text-ink-mute">{sub}</p>}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3"><h1 className="text-[22px] font-extrabold leading-tight tracking-tight sm:text-[30px]">{title}</h1>{badge}</div>
+        {sub && <p className="text-sm text-ink-mute sm:text-base">{sub}</p>}
       </div>
-      {actions && <div className="flex flex-wrap gap-2.5">{actions}</div>}
+      {actions && <div className="flex flex-wrap gap-2 sm:gap-2.5">{actions}</div>}
     </div>
   );
 }
@@ -32,7 +32,7 @@ export function PageHeader({ title, sub, crumbs, actions, badge }: { title: Reac
 export function Panel({ title, icon: I, action, children, className = "", tone }: { title?: ReactNode; icon?: LucideIcon; action?: ReactNode; children: ReactNode; className?: string; tone?: "sun" | "blue" | "green" }) {
   const bg = tone === "sun" ? "bg-gradient-to-br from-white to-[#fff7dd]" : tone === "green" ? "border-[#bfe9cf] bg-gradient-to-br from-white to-[#effbf3]" : tone === "blue" ? "bg-gradient-to-br from-white to-brand-50" : "";
   return (
-    <section className={`card flex flex-col gap-4 rounded-[22px] p-5 sm:p-6 ${bg} ${className}`}>
+    <section className={`card flex min-w-0 flex-col gap-4 rounded-[22px] p-4 sm:p-6 ${bg} ${className}`}>
       {(title || action) && <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">{I && <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-brand-600"><I size={18} /></span>}<h2 className="text-[17px] font-extrabold">{title}</h2></div>
         {action}
@@ -42,13 +42,15 @@ export function Panel({ title, icon: I, action, children, className = "", tone }
   );
 }
 
-export function Kpi({ label, value, sub, icon: I, tone = "blue" }: { label: string; value: ReactNode; sub?: ReactNode; icon?: LucideIcon; tone?: "blue" | "sun" | "green" | "violet" | "rose" }) {
+/** Indicateur. `trend` : variation en % par rapport à la période précédente (null = non calculable). */
+export function Kpi({ label, value, sub, icon: I, tone = "blue", trend }: { label: string; value: ReactNode; sub?: ReactNode; icon?: LucideIcon; tone?: "blue" | "sun" | "green" | "violet" | "rose"; trend?: number | null }) {
   const t = { blue: "bg-brand-50 text-brand-600", sun: "bg-sun-100 text-[#a55a00]", green: "bg-[#e8f8ef] text-[#0f8a46]", violet: "bg-[#f1edff] text-[#6a3df0]", rose: "bg-[#ffecef] text-[#d42a50]" }[tone];
   return (
-    <div className="card flex flex-col gap-1.5 rounded-[20px] p-5">
-      {I && <span className={`mb-1 flex h-10 w-10 items-center justify-center rounded-xl ${t}`}><I size={19} /></span>}
-      <span className="text-xs font-bold uppercase text-ink-mute">{label}</span>
-      <b className="text-[26px] leading-tight">{value}</b>
+    <div className="card flex min-w-0 flex-col gap-1 rounded-[20px] p-4 sm:gap-1.5 sm:p-5">
+      {I && <span className={`mb-1 flex h-9 w-9 items-center justify-center rounded-xl sm:h-10 sm:w-10 ${t}`}><I size={18} /></span>}
+      <span className="truncate text-[11px] font-bold uppercase text-ink-mute sm:text-xs">{label}</span>
+      <b className="text-[22px] leading-tight sm:text-[26px]">{value}</b>
+      {trend != null && <span className={`text-xs font-bold ${trend > 0 ? "text-[#0f8a46]" : trend < 0 ? "text-[#d42a50]" : "text-ink-mute"}`}>{trend > 0 ? "▲ +" : trend < 0 ? "▼ " : "= "}{trend} %<span className="font-normal text-ink-mute"> vs période préc.</span></span>}
       {sub && <span className="text-xs text-ink-mute">{sub}</span>}
     </div>
   );
@@ -116,21 +118,45 @@ export function Tabs<T extends string>({ value, onChange, items }: { value: T; o
   );
 }
 
-export function Table<T>({ rows, cols, empty = "Aucun élément.", onRow, rowKey }: { rows: T[]; cols: { h: ReactNode; c: (r: T) => ReactNode; className?: string }[]; empty?: string; onRow?: (r: T) => void; rowKey: (r: T) => string }) {
+/**
+ * Tableau de données. Sur mobile (< 640 px), chaque ligne devient une carte (`cards`, par défaut) :
+ * la première colonne sert de titre, les autres s'affichent en « libellé : valeur ». `cards={false}` garde un tableau défilable.
+ */
+export function Table<T>({ rows, cols, empty = "Aucun élément.", onRow, rowKey, cards = true }: { rows: T[]; cols: { h: ReactNode; c: (r: T) => ReactNode; className?: string; mobile?: false }[]; empty?: string; onRow?: (r: T) => void; rowKey: (r: T) => string; cards?: boolean }) {
   if (!rows.length) return <p className="py-8 text-center text-sm text-ink-mute">{empty}</p>;
+  const [head, ...rest] = cols;
   return (
-    <div className="-mx-5 overflow-x-auto sm:-mx-6">
-      <table className="w-full min-w-[640px] border-collapse text-sm">
-        <thead><tr className="border-b border-[#eef1f8] text-left text-[11px] font-extrabold uppercase text-ink-mute">{cols.map((c, i) => <th key={i} className={`px-5 py-2.5 sm:px-6 ${c.className ?? ""}`}>{c.h}</th>)}</tr></thead>
-        <tbody>
+    <>
+      {cards && (
+        <ul className="flex flex-col gap-2.5 sm:hidden">
           {rows.map((r) => (
-            <tr key={rowKey(r)} onClick={onRow ? () => onRow(r) : undefined} className={`border-b border-[#f1f4fb] last:border-0 ${onRow ? "cursor-pointer hover:bg-brand-50/50" : ""}`}>
-              {cols.map((c, i) => <td key={i} className={`px-5 py-3 align-middle sm:px-6 ${c.className ?? ""}`}>{c.c(r)}</td>)}
-            </tr>
+            <li key={rowKey(r)} onClick={onRow ? () => onRow(r) : undefined} className={`rounded-2xl border border-[#eef1f8] bg-white p-3.5 text-sm ${onRow ? "cursor-pointer active:bg-brand-50/60" : ""}`}>
+              <div className="mb-2 min-w-0 font-semibold">{head.c(r)}</div>
+              <dl className="flex flex-col gap-1.5">
+                {rest.filter((c) => c.mobile !== false).map((c, i) => (
+                  <div key={i} className="flex min-w-0 items-start justify-between gap-3">
+                    {c.h ? <dt className="shrink-0 text-xs font-bold uppercase text-ink-mute">{c.h}</dt> : <dt className="sr-only">Action</dt>}
+                    <dd className="min-w-0 text-right [overflow-wrap:anywhere]">{c.c(r)}</dd>
+                  </div>
+                ))}
+              </dl>
+            </li>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </ul>
+      )}
+      <div className={`-mx-5 overflow-x-auto sm:-mx-6 ${cards ? "hidden sm:block" : ""}`}>
+        <table className="w-full min-w-[640px] border-collapse text-sm">
+          <thead><tr className="border-b border-[#eef1f8] text-left text-[11px] font-extrabold uppercase text-ink-mute">{cols.map((c, i) => <th key={i} className={`px-5 py-2.5 sm:px-6 ${c.className ?? ""}`}>{c.h}</th>)}</tr></thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={rowKey(r)} onClick={onRow ? () => onRow(r) : undefined} className={`border-b border-[#f1f4fb] last:border-0 ${onRow ? "cursor-pointer hover:bg-brand-50/50" : ""}`}>
+                {cols.map((c, i) => <td key={i} className={`px-5 py-3 align-middle sm:px-6 ${c.className ?? ""}`}>{c.c(r)}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
 
@@ -212,7 +238,8 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 }
 
 // ---------------------------------------------------------------- Formats
-export const money = (n: number | null | undefined, cur?: string | null) => n == null ? "—" : `${Math.round(n).toLocaleString("fr-FR").replace(/[  ]/g, " ")} ${cur === "XAF" || cur === "XOF" ? "F CFA" : cur ?? ""}`.trim();
+/** Montant formaté, en dirhams par défaut (destination unique : le Maroc). Côté étudiant, préférer <Prix mad={…} /> qui ajoute la conversion. */
+export const money = (n: number | null | undefined, cur: string | null = "MAD") => n == null ? "—" :`${Math.round(n).toLocaleString("fr-FR").replace(/[  ]/g, " ")} ${cur === "XAF" || cur === "XOF" ? "F CFA" : cur ?? "MAD"}`.trim();
 export const dateFr = (d: string | Date | null | undefined, withTime = false) => d ? new Date(d).toLocaleDateString("fr-FR", withTime ? { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" } : { day: "2-digit", month: "short", year: "numeric" }) : "—";
 export const since = (d: string | Date) => {
   const s = (Date.now() - new Date(d).getTime()) / 1000;

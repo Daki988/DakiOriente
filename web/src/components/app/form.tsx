@@ -32,8 +32,8 @@ export function PasswordInput(p: React.InputHTMLAttributes<HTMLInputElement>) {
   const [show, setShow] = useState(false);
   return (
     <div className="relative">
-      <Input {...p} type={show ? "text" : "password"} className="pr-11" />
-      <button type="button" onClick={() => setShow(!show)} className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-mute" aria-label={show ? "Masquer le mot de passe" : "Afficher le mot de passe"}>{show ? <EyeOff size={18} /> : <Eye size={18} />}</button>
+      <Input {...p} type={show ? "text" : "password"} className={`pr-12 ${p.className ?? ""}`} />
+      <button type="button" onClick={() => setShow(!show)} className="absolute right-1 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-lg text-ink-mute hover:bg-[#f1f4fd] hover:text-ink" aria-label={show ? "Masquer le mot de passe" : "Afficher le mot de passe"} aria-pressed={show}>{show ? <EyeOff size={18} /> : <Eye size={18} />}</button>
     </div>
   );
 }

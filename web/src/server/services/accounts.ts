@@ -11,16 +11,19 @@ import { isCountryCode } from "@/lib/pays-origine";
 export const PUBLIC_ROLES = ["eleve", "etudiant", "parent", "etablissement", "bailleur"] as const;
 const phoneRe = /^\+?[0-9 ]{8,16}$/;
 export const normPhone = (p: string) => p.replace(/[^\d+]/g, "").replace(/^00/, "+");
+const isEmail = (s: string) => s.includes("@");
+/** Identifiant normalisé (e-mail en minuscules, téléphone au format international). */
+export const normId = (s: string) => (isEmail(s) ? normEmail(s) : normPhone(s));
 export const normEmail = (e: string) => e.trim().toLowerCase();
 
 export const registerSchema = z.object({
-  role: z.enum(PUBLIC_ROLES),
+  role: z.enum(PUBLIC_ROLES, { message: "Choisissez votre profil (élève, étudiant, parent, établissement ou bailleur)." }),
   firstName: z.string().trim().min(1, "Prénom requis").max(80),
   lastName: z.string().trim().min(1, "Nom requis").max(80),
-  email: z.string().trim().email("E-mail invalide").optional().or(z.literal("")),
-  phone: z.string().trim().regex(phoneRe, "Numéro invalide").optional().or(z.literal("")),
-  password: z.string(),
-  birthYear: z.coerce.number().int().min(1940).max(new Date().getFullYear()).optional(),
+  email: z.string().trim().email("Adresse e-mail invalide.").optional().or(z.literal("")),
+  phone: z.string().trim().regex(phoneRe, "Numéro de téléphone invalide : indiquez-le avec l'indicatif du pays (ex. +212 6 12 34 56 78).").optional().or(z.literal("")),
+  password: z.string({ message: "Mot de passe requis." }),
+  birthYear: z.coerce.number({ message: "Année de naissance invalide." }).int().min(1940, "Année de naissance invalide.").max(new Date().getFullYear() - 8, "Année de naissance invalide.").optional(),
   country: z.string().trim().toUpperCase().refine(isCountryCode, "Pays inconnu.").optional(),
   city: z.string().trim().max(80).optional(),
   level: z.string().optional(),
@@ -28,8 +31,8 @@ export const registerSchema = z.object({
   currentSchool: z.string().max(160).optional(),
   establishmentId: z.string().optional(), // compte établissement : école revendiquée
   company: z.string().max(160).optional(), // bailleur : société / résidence
-  guardianEmail: z.string().email().optional().or(z.literal("")),
-  guardianPhone: z.string().regex(phoneRe).optional().or(z.literal("")),
+  guardianEmail: z.string().trim().email("E-mail du parent invalide.").optional().or(z.literal("")),
+  guardianPhone: z.string().trim().regex(phoneRe, "Numéro du parent invalide (avec l'indicatif du pays).").optional().or(z.literal("")),
   acceptTerms: z.literal(true, { message: "Vous devez accepter les conditions d'utilisation." }),
 });
 export type RegisterInput = z.input<typeof registerSchema>;
@@ -41,6 +44,9 @@ export async function register(raw: RegisterInput) {
   const email = input.email ? normEmail(input.email) : null;
   const phone = input.phone ? normPhone(input.phone) : null;
   if (!email && !phone) throw new AppError("Indiquez un e-mail ou un numéro de téléphone.");
+  if (phone && !phone.startsWith("+")) throw new AppError("Indiquez le numéro avec l'indicatif du pays (ex. +212, +221, +225).");
+  if ((input.role === "eleve" || input.role === "etudiant") && isMinor(input.birthYear) && !input.guardianEmail && !input.guardianPhone)
+    throw new AppError("Tu as moins de 18 ans : indique l'e-mail ou le téléphone de ton parent ou tuteur.");
   const pb = passwordProblem(input.password);
   if (pb) throw new AppError(pb);
   const exists = await db.select({ id: schema.users.id }).from(schema.users)
@@ -74,28 +80,36 @@ export async function register(raw: RegisterInput) {
     if (inv.inviteEmail) await sendEmail({ to: inv.inviteEmail, subject: "Invitation à suivre un parcours Navigoal", text, action: { label: "Créer mon compte parent", url: "/inscription/?role=parent" } });
     else if (inv.invitePhone) await sendSms({ to: inv.invitePhone, text });
   }
-  if (email) await requestOtp(email, "verify_email");
-  else if (phone) await requestOtp(phone, "verify_phone");
-  return user;
+  const otp = email ? await requestOtp(email, "verify_email") : await requestOtp(phone!, "verify_phone");
+  return Object.assign(user, { devCode: otp.devCode });
 }
 
 export async function findByIdentifier(identifier: string) {
-  const id = identifier.includes("@") ? normEmail(identifier) : normPhone(identifier);
-  const [u] = await db.select().from(schema.users).where(identifier.includes("@") ? eq(schema.users.email, id) : eq(schema.users.phone, id)).limit(1);
+  const id = normId(identifier);
+  if (!id) return null;
+  // Téléphone saisi sans « + » (ex. 212612345678) : on essaie aussi la forme internationale.
+  const where = isEmail(identifier) ? eq(schema.users.email, id) : id.startsWith("+") ? eq(schema.users.phone, id) : or(eq(schema.users.phone, id), eq(schema.users.phone, `+${id}`));
+  const [u] = await db.select().from(schema.users).where(where).limit(1);
   return u ?? null;
 }
 
 const MAX_FAILS = 8;
 export async function login(identifier: string, password: string) {
-  const key = identifier.includes("@") ? normEmail(identifier) : normPhone(identifier);
-  // Anti force brute : 8 échecs maximum par identifiant sur 15 minutes.
-  const [{ n }] = await db.select({ n: sql<number>`count(*)::int` }).from(schema.auditLogs)
-    .where(and(eq(schema.auditLogs.action, "connexion_echec"), eq(schema.auditLogs.entityId, key), gt(schema.auditLogs.createdAt, new Date(Date.now() - 15 * 60_000))));
-  if (n >= MAX_FAILS) throw new AppError("Trop de tentatives. Réessayez dans 15 minutes ou connectez-vous par code SMS.", 429, "trop_de_tentatives");
+  if (!identifier.trim() || !password) throw new AppError("Saisissez votre e-mail (ou téléphone) et votre mot de passe.", 400, "champs_requis");
+  const key = normId(identifier);
+  // Anti force brute : 8 échecs maximum par identifiant sur 15 minutes (compteur remis à zéro par une réinitialisation du mot de passe).
   const u = await findByIdentifier(identifier);
+  const since = new Date(Date.now() - 15 * 60_000);
+  const [reset] = u ? await db.select({ at: schema.auditLogs.createdAt }).from(schema.auditLogs)
+    .where(and(eq(schema.auditLogs.action, "reinitialisation_mdp"), eq(schema.auditLogs.entityId, u.id), gt(schema.auditLogs.createdAt, since))).orderBy(desc(schema.auditLogs.createdAt)).limit(1) : [];
+  const [{ n }] = await db.select({ n: sql<number>`count(*)::int` }).from(schema.auditLogs)
+    .where(and(eq(schema.auditLogs.action, "connexion_echec"), eq(schema.auditLogs.entityId, key), gt(schema.auditLogs.createdAt, reset?.at ?? since)));
+  if (n >= MAX_FAILS) throw new AppError("Trop de tentatives. Réessayez dans 15 minutes, connectez-vous par code ou réinitialisez votre mot de passe.", 429, "trop_de_tentatives");
   if (!u?.passwordHash || !(await verifyPassword(password, u.passwordHash))) {
     await audit(u?.id ?? null, "connexion_echec", "login", key);
-    throw new AppError(`Identifiants incorrects.${n + 1 >= MAX_FAILS - 2 ? ` Encore ${Math.max(0, MAX_FAILS - n - 1)} essai(s).` : ""}`, 401, "identifiants");
+    const left = MAX_FAILS - n - 1;
+    throw new AppError(left <= 0 ? "Identifiants incorrects. Connexion bloquée 15 minutes : utilisez la connexion par code ou « Mot de passe oublié »."
+      : `Identifiants incorrects.${left <= 3 ? ` Encore ${left} essai${left > 1 ? "s" : ""} avant blocage temporaire.` : ""}`, 401, "identifiants");
   }
   if (u.status === "suspendu") throw new AppError("Ce compte est suspendu. Contactez le support.", 403, "suspendu");
   await audit(u.id, "connexion", "user", u.id);
@@ -107,9 +121,12 @@ type Purpose = (typeof schema.otpPurposeEnum.enumValues)[number];
 const OTP_TTL = 10 * 60_000;
 
 export async function requestOtp(target: string, purpose: Purpose) {
-  const t = target.includes("@") ? normEmail(target) : normPhone(target);
-  const recent = await db.select().from(schema.otpCodes).where(and(eq(schema.otpCodes.target, t), eq(schema.otpCodes.purpose, purpose))).orderBy(desc(schema.otpCodes.createdAt)).limit(1);
-  if (recent[0] && Date.now() - recent[0].createdAt.getTime() < 45_000) throw new AppError("Patientez quelques secondes avant de redemander un code.", 429, "trop_tot");
+  const t = normId(target);
+  if (!t || (isEmail(t) ? !z.string().email().safeParse(t).success : !phoneRe.test(t))) throw new AppError("Indiquez une adresse e-mail ou un numéro de téléphone valide.", 400, "cible");
+  const recent = await db.select().from(schema.otpCodes).where(and(eq(schema.otpCodes.target, t), eq(schema.otpCodes.purpose, purpose), gt(schema.otpCodes.createdAt, new Date(Date.now() - 3600_000)))).orderBy(desc(schema.otpCodes.createdAt));
+  const wait = recent[0] ? Math.ceil((45_000 - (Date.now() - recent[0].createdAt.getTime())) / 1000) : 0;
+  if (wait > 0) throw new AppError(`Patientez ${wait} s avant de redemander un code.`, 429, "trop_tot");
+  if (recent.length >= 6) throw new AppError("Trop de codes demandés. Réessayez dans une heure.", 429, "trop_de_codes");
   const code = otpCode();
   await db.insert(schema.otpCodes).values({ target: t, purpose, codeHash: sha256(`${t}:${code}`), expiresAt: new Date(Date.now() + OTP_TTL) });
   const text = `Votre code Navigoal : ${code} (valable 10 minutes). Ne le communiquez à personne.`;
@@ -119,13 +136,15 @@ export async function requestOtp(target: string, purpose: Purpose) {
 }
 
 export async function verifyOtp(target: string, purpose: Purpose, code: string) {
-  const t = target.includes("@") ? normEmail(target) : normPhone(target);
+  const t = normId(target);
+  if (!/^\d{6}$/.test(code.trim())) throw new AppError("Le code comporte 6 chiffres.", 400, "otp_format");
   const [o] = await db.select().from(schema.otpCodes).where(and(eq(schema.otpCodes.target, t), eq(schema.otpCodes.purpose, purpose), isNull(schema.otpCodes.consumedAt))).orderBy(desc(schema.otpCodes.createdAt)).limit(1);
-  if (!o || o.expiresAt < new Date()) throw new AppError("Code expiré. Demandez-en un nouveau.", 400, "otp_expire");
+  if (!o || o.expiresAt < new Date()) throw new AppError("Code expiré ou déjà utilisé. Demandez-en un nouveau.", 400, "otp_expire");
   if (o.attempts >= 5) throw new AppError("Trop de tentatives. Demandez un nouveau code.", 429, "otp_bloque");
   if (o.codeHash !== sha256(`${t}:${code.trim()}`)) {
     await db.update(schema.otpCodes).set({ attempts: o.attempts + 1 }).where(eq(schema.otpCodes.id, o.id));
-    throw new AppError("Code incorrect.", 400, "otp_faux");
+    const left = 4 - o.attempts;
+    throw new AppError(left > 0 ? `Code incorrect. Encore ${left} essai${left > 1 ? "s" : ""}.` : "Code incorrect. Demandez un nouveau code.", 400, "otp_faux");
   }
   await db.update(schema.otpCodes).set({ consumedAt: new Date() }).where(eq(schema.otpCodes.id, o.id));
   if (purpose === "verify_email") await db.update(schema.users).set({ emailVerifiedAt: new Date() }).where(eq(schema.users.email, t));
@@ -157,10 +176,11 @@ export async function resetPassword(target: string, code: string, password: stri
 
 export async function changePassword(userId: string, current: string, next: string) {
   const [u] = await db.select().from(schema.users).where(eq(schema.users.id, userId));
-  if (!u.passwordHash || !(await verifyPassword(current, u.passwordHash))) throw new AppError("Mot de passe actuel incorrect.");
-  const pb = passwordProblem(next);
+  if (!u.passwordHash || !(await verifyPassword(String(current ?? ""), u.passwordHash))) throw new AppError("Mot de passe actuel incorrect.");
+  const pb = passwordProblem(String(next ?? ""));
   if (pb) throw new AppError(pb);
   await db.update(schema.users).set({ passwordHash: await hashPassword(next) }).where(eq(schema.users.id, userId));
+  await audit(userId, "changement_mdp", "user", userId);
 }
 
 // ---------------------------------------------------------------- Profil

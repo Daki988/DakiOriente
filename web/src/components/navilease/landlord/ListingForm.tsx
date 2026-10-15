@@ -66,8 +66,8 @@ function Editor({ initial, info }: { initial?: Housing; info: LandlordInfo | nul
   const [busy, setBusy] = useState<"save" | "submit" | null>(null);
   const [savedAt, setSavedAt] = useState<Date | null>(null);
   const set = <K extends keyof S>(k: K, v: S[K]) => { setS((x) => ({ ...x, [k]: v })); if (errors[k as string]) setErrors((e) => { const n = { ...e }; delete n[k as string]; return n; }); };
-  const cur = CURRENCY_OF_COUNTRY[s.pays];
-  const curLabel = cur === "MAD" ? "MAD" : "F CFA";
+  const cur = CURRENCY_OF_COUNTRY[s.pays] ?? "MAD";
+  const curLabel = "MAD";
   const photos = h?.photos ?? [];
 
   const save = async (): Promise<Housing | null> => {

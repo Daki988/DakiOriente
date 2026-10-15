@@ -1,5 +1,6 @@
 // Fournisseurs de paiement. « sandbox » simule un agrégateur (mobile money / carte) pour les tests et la recette.
-// CinetPay : activé dès que CINETPAY_API_KEY et CINETPAY_SITE_ID sont définis (Sénégal, zone CFA).
+// Destination unique : le Maroc, montants en dirhams (MAD), payables depuis le pays d'origine (carte, mobile money, virement).
+// CinetPay (agrégateur mobile money) : activé pour les devises qu'il accepte dès que CINETPAY_API_KEY et CINETPAY_SITE_ID sont définis.
 export type Checkout = { redirectUrl: string; providerRef: string };
 export type ProviderStatus = "reussi" | "echoue" | "en_attente";
 export interface PaymentProvider {
@@ -45,7 +46,7 @@ export const cinetpay: PaymentProvider = {
   },
 };
 
-/** Choix du fournisseur : CinetPay pour les devises CFA si configuré, sinon bac à sable. */
+/** Choix du fournisseur : CinetPay si configuré et la devise acceptée, sinon bac à sable (paiements en MAD). */
 export function providerFor(currency: string): PaymentProvider {
   if (process.env.PAYMENTS_MODE !== "sandbox" && process.env.CINETPAY_API_KEY && ["XOF", "XAF"].includes(currency)) return cinetpay;
   return sandbox;
@@ -53,9 +54,10 @@ export function providerFor(currency: string): PaymentProvider {
 export const providerById = (id: string) => (id === "cinetpay" ? cinetpay : sandbox);
 
 export const METHODS: Record<string, { id: string; label: string }[]> = {
-  GA: [{ id: "airtel_money", label: "Airtel Money" }, { id: "moov_money", label: "Moov Money" }, { id: "carte", label: "Carte bancaire" }, { id: "virement", label: "Virement international" }],
   // Destination Maroc : paiements en dirhams, depuis le Maroc ou l'étranger (parents en Afrique subsaharienne, Europe…)
   MA: [{ id: "carte", label: "Carte bancaire (Visa, Mastercard, CMI)" }, { id: "mobile_money_afrique", label: "Mobile money Afrique (Wave, Orange Money, MTN, Airtel…)" }, { id: "virement", label: "Virement international" }, { id: "orange_money", label: "Orange Money Maroc" }, { id: "inwi_money", label: "inwi money" }, { id: "agence", label: "Cash Plus / Wafacash (Maroc)" }],
-  SN: [{ id: "wave", label: "Wave" }, { id: "orange_money", label: "Orange Money" }, { id: "free_money", label: "Free Money" }, { id: "carte", label: "Carte bancaire" }, { id: "virement", label: "Virement international" }],
 };
-export const CURRENCY: Record<string, string> = { GA: "XAF", MA: "MAD", SN: "XOF" };
+/** Devise des paiements par pays de destination (le Maroc uniquement). */
+export const CURRENCY: Record<string, string> = { MA: "MAD" };
+/** Moyens de paiement acceptés (dirhams). */
+export const methodsFor = (_currency = "MAD") => METHODS.MA;

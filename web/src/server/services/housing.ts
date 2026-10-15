@@ -10,7 +10,8 @@ type User = typeof schema.users.$inferSelect;
 
 export const AMENITIES = ["wifi", "eau", "electricite", "groupe_electrogene", "climatisation", "cuisine", "machine_a_laver", "gardiennage", "parking", "meuble", "bureau", "eau_chaude"] as const;
 export const HOUSING_TYPES = ["studio", "chambre", "colocation", "appartement", "residence", "chez_habitant"] as const;
-export const CURRENCY_BY_COUNTRY: Record<string, string> = { GA: "XAF", MA: "MAD", SN: "XOF" };
+/** Navilease : logements au Maroc, loyers en dirhams. */
+export const CURRENCY_BY_COUNTRY: Record<string, string> = { MA: "MAD" };
 
 export const housingSchema = z.object({
   title: z.string().trim().min(5).max(120),

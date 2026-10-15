@@ -77,7 +77,7 @@ export const programSchema = z.object({
   language: z.string().max(20).optional(),
   tuitionMin: z.coerce.number().int().min(0).optional(),
   tuitionMax: z.coerce.number().int().min(0).optional(),
-  currency: z.enum(["XAF", "XOF", "MAD", "EUR"]).optional(),
+  currency: z.literal("MAD", { message: "Les montants sont exprimés en dirhams (MAD)." }).optional(), // établissements au Maroc
   applicationFee: z.coerce.number().int().min(0).max(10_000_000).optional(),
   admission: z.object({ series: z.array(z.string()).optional(), noteMin: z.number().min(0).max(20).optional(), concours: z.boolean().optional(), entretien: z.boolean().optional(), prerequis: z.string().max(1000).optional() }).optional(),
   requiredDocuments: z.array(z.enum(schema.documentTypeEnum.enumValues)).optional(),

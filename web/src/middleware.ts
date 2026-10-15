@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 // Espaces réservés : redirection vers la connexion si aucune session (le contrôle des rôles est fait côté serveur).
-const PROTECTED = ["/espace", "/parent", "/etablissement", "/bailleur", "/admin", "/conseiller", "/messages", "/notifications", "/paiement", "/compte"];
+const PROTECTED = ["/espace", "/parent", "/etablissement", "/bailleur", "/admin", "/conseiller", "/messages", "/notifications", "/paiement", "/compte", "/navilease/reservations"];
 
 export function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl;

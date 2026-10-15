@@ -9,6 +9,9 @@ import { useApi } from "@/hooks/useApi";
 import type { LandlordInfo } from "@/app/(app)/bailleur/landlord";
 import { addMonths, period, type BookingRow, type Housing } from "../shared";
 import { KycChip, ListingTable, activeByHousing } from "./common";
+import { EtabLogo } from "@/components/ui/EtabLogo";
+import { LabelChip } from "@/components/ui/Cards";
+import { etabById, type Label } from "@/lib/data";
 
 const EARNING = ["entree", "fonds_verses", "en_cours", "preavis", "sortie", "caution_restituee"];
 
@@ -44,6 +47,12 @@ export function LandlordDashboard({ info }: { info: LandlordInfo | null }) {
     });
   }, [B]);
   const max = Math.max(...months.map((m) => m.v), 1);
+  // Établissements (référentiel Maroc) proches des annonces : nombre d'annonces et trajet le plus court.
+  const near = useMemo(() => {
+    const m = new Map<string, { n: number; min: number }>();
+    for (const h of L) for (const x of h.nearEstablishments ?? []) { const c = m.get(x.id); m.set(x.id, c ? { n: c.n + 1, min: Math.min(c.min, x.minutes) } : { n: 1, min: x.minutes }); }
+    return [...m.entries()].filter(([id]) => etabById[id]).map(([id, v]) => ({ e: etabById[id], ...v })).sort((a, b) => b.n - a.n).slice(0, 6);
+  }, [L]);
   const [hover, setHover] = useState<number | null>(null);
 
   const shown = tab === "all" ? L : L.filter((h) => h.status === tab);
@@ -68,7 +77,7 @@ export function LandlordDashboard({ info }: { info: LandlordInfo | null }) {
       </div>
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_380px] [&>*]:min-w-0">
-        <Panel title={`Revenus mensuels estimés (${cur === "MAD" ? "MAD" : "F CFA"})`} icon={BarChart3}>
+        <Panel title={`Revenus mensuels estimés (${cur})`} icon={BarChart3}>
           {loading ? <Loading /> : (
             <div className="relative">
               <div className="flex h-56 items-end gap-1.5 border-b border-[#e4e9f5] sm:gap-3" role="img" aria-label={`Revenus des 12 derniers mois : ${months.map((m) => `${m.label} ${money(m.v, cur)}`).join(", ")}`}>
@@ -110,6 +119,20 @@ export function LandlordDashboard({ info }: { info: LandlordInfo | null }) {
           </Panel>
         </div>
       </div>
+
+      {near.length > 0 && (
+        <Panel title="Établissements desservis par vos annonces" icon={ShieldCheck}>
+          <p className="-mt-2 text-xs text-ink-mute">Les étudiants admis dans ces établissements voient vos logements en priorité (temps de trajet indiqué sur l&apos;annonce).</p>
+          <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+            {near.map(({ e, n, min }) => (
+              <li key={e.id} className="flex min-w-0 items-center gap-3 rounded-2xl border border-slate-200/70 p-3">
+                <EtabLogo e={e} size={40} />
+                <span className="min-w-0 flex-1"><b className="block truncate text-sm">{e.nom}</b><span className="flex flex-wrap items-center gap-1.5 text-xs text-ink-mute">{e.ville} · {n} annonce{n > 1 ? "s" : ""} · dès {min} min{e.label && <LabelChip label={e.label as Label} court />}</span></span>
+              </li>
+            ))}
+          </ul>
+        </Panel>
+      )}
 
       <Panel title="Mes annonces" icon={House} action={<Tabs value={tab} onChange={setTab} items={[["all", `Toutes (${L.length})`], ["publie", "Publiées"], ["en_moderation", "En modération"], ["brouillon", "Brouillons"]]} />}>
         {listings.loading ? <Loading /> : !L.length ? <Empty icon={House} title="Aucune annonce" text="Publiez votre premier logement : il sera visible des étudiants admis dans les écoles proches après modération." action={<Link href="/bailleur/annonces/nouvelle" className="btn-primary">Créer une annonce</Link>} />

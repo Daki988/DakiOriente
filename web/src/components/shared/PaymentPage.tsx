@@ -7,11 +7,12 @@ import { useEffect } from "react";
 import { Brand } from "@/components/ui/Brand";
 import { Alert, Button, Loading, dateFr, money } from "@/components/app/kit";
 import { api, apiUrl } from "@/lib/api";
+import { Prix } from "@/components/ui/Devise";
+import { useSession } from "@/components/app/Session";
 import { useAction, useApi } from "@/hooks/useApi";
 
 type P = { reference: string; kind: string; amount: number; currency: string; method: string; status: string; escrow: string; provider: string; applicationId: string | null; bookingId: string | null; payerId: string; meta: { description?: string; escrow?: boolean }; paidAt: string | null; createdAt: string };
 type Methods = Record<string, { id: string; label: string }[]>;
-const EUR: Record<string, number> = { XAF: 655.957, XOF: 655.957, MAD: 10.9 };
 
 /** Page de paiement : bac à sable (confirmation simulée) ou retour de l'agrégateur, puis reçu (maquette 25). */
 export function PaymentPage({ reference }: { reference: string }) {
@@ -26,7 +27,9 @@ export function PaymentPage({ reference }: { reference: string }) {
     return () => clearInterval(t);
   }, [p.data, p.reload]);
   const label = Object.values(methods.data ?? {}).flat().find((m) => m.id === p.data?.method)?.label ?? p.data?.method;
-  const back = p.data?.applicationId ? `/espace/candidatures/${p.data.applicationId}` : p.data?.bookingId ? `/navilease/reservations/${p.data.bookingId}` : "/";
+  const session = useSession();
+  // Frais de dossier réglés par l'étudiant : retour à l'étape « Confirmation » de sa candidature ; par le parent : à son espace.
+  const back = p.data?.applicationId ? (session?.role === "parent" ? "/parent" : `/espace/candidatures/nouvelle?id=${p.data.applicationId}&etape=confirmation`) : p.data?.bookingId ? `/navilease/reservations/${p.data.bookingId}` : "/";
   const confirm = (ok: boolean) => a.run(async () => { await api(`/paiements/${reference}/simulation`, { body: { succes: ok } }); await p.reload(); });
 
   return (
@@ -60,7 +63,7 @@ export function PaymentPage({ reference }: { reference: string }) {
             <aside className="card flex flex-col gap-3 rounded-3xl p-6">
               <b>Récapitulatif</b>
               <div className="flex justify-between text-sm"><span className="text-ink-mute">Montant</span><b>{money(p.data.amount, p.data.currency)}</b></div>
-              <div className="flex justify-between text-sm"><span className="text-ink-mute">Équivalent</span><span>{Math.round(p.data.amount / (EUR[p.data.currency] ?? 1))} €</span></div>
+              {p.data.currency === "MAD" && <div className="flex justify-between gap-3 text-sm"><span className="text-ink-mute">Montant en dirhams</span><Prix mad={p.data.amount} bloc className="text-right" /></div>}
               <div className="flex justify-between text-sm"><span className="text-ink-mute">Frais opérateur</span><span>0</span></div>
               <div className="flex items-center justify-between rounded-2xl bg-gradient-to-r from-brand-950 to-brand-700 px-4 py-3.5 text-white"><span className="font-bold">Total</span><b className="text-xl">{money(p.data.amount, p.data.currency)}</b></div>
               {p.data.meta.escrow && <p className="text-xs text-ink-mute">Fonds protégés en séquestre : versés au bailleur après l&apos;état des lieux d&apos;entrée.</p>}

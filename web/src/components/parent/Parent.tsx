@@ -4,7 +4,9 @@ import { motion } from "framer-motion";
 import { Calculator, CheckCircle2, FileText, KeyRound, Link2, ShieldCheck, UsersRound, Wallet } from "lucide-react";
 import { useState } from "react";
 import { EtabLogo } from "@/components/ui/EtabLogo";
-import { Alert, Avatar, Button, Empty, Kpi, Loading, PageHeader, Panel, StatusBadge, dateFr, money, useToast } from "@/components/app/kit";
+import { Alert, Avatar, Button, Empty, Kpi, Loading, PageHeader, Panel, StatusBadge, Tabs, dateFr, money, useToast } from "@/components/app/kit";
+import { Prix } from "@/components/ui/Devise";
+import { AppProgress } from "@/components/espace/AppProgress";
 import { Check, FormError } from "@/components/app/form";
 import { CodeBoxes } from "@/components/auth/Otp";
 import { api } from "@/lib/api";
@@ -12,7 +14,7 @@ import { useAction, useApi } from "@/hooks/useApi";
 import { useUser } from "@/components/app/Session";
 import { COUTS } from "@/lib/devis";
 import { etabById } from "@/lib/data";
-import { nomPays } from "@/lib/pays-origine";
+import { nomPays, visaResume } from "@/lib/pays-origine";
 import type { AppRow, Payment } from "@/components/espace/types";
 
 type Child = { link: { id: string; consentAt: string | null; relation: string }; child: { id: string; firstName: string; lastName: string; birthYear: number | null; country: string | null; city: string | null } };
@@ -30,7 +32,8 @@ export function ParentHome() {
   const kids = useApi<Child[]>("/parent/enfants");
   const pays = useApi<Payment[]>("/paiements");
   const books = useApi<Booking[]>("/reservations");
-  const first = kids.data?.[0]?.child ?? null;
+  const [childId, setChildId] = useState<string | null>(null);
+  const first = kids.data?.find((k) => k.child.id === childId)?.child ?? kids.data?.[0]?.child ?? null;
   const apps = useChildApps(first?.id ?? null);
   if (kids.loading) return <Loading />;
   if (!kids.data?.length) return (
@@ -49,23 +52,26 @@ export function ParentHome() {
       <PageHeader title={`Bonjour ${user.firstName} 👋`} sub={first ? `Suivi de ${first.firstName}${admitted ? ` · admis·e en ${admitted.p.title} · ${admitted.e.sigle}` : ""}` : undefined}
         actions={<><Link href="/devis" className="btn-ghost"><Calculator size={16} />Devis études</Link>{toPay[0] && <Link href={`/paiement/${toPay[0].reference}`} className="btn-primary btn-shine"><Wallet size={16} />Payer une échéance</Link>}</>} />
       {toPay.length > 0 && <Alert tone="warn" title={`${toPay.length} paiement${toPay.length > 1 ? "s" : ""} en attente`} action={<Link href={`/paiement/${toPay[0].reference}`} className="btn-sun py-2.5">Payer</Link>}>{toPay.map((p) => `${p.meta.description} (${money(p.amount, p.currency)})`).join(" · ")}</Alert>}
+      {kids.data.length > 1 && <Tabs value={first?.id ?? ""} onChange={setChildId} items={kids.data.map((k) => [k.child.id, `${k.child.firstName} ${k.child.lastName}`] as [string, string])} />}
       {guarantee.length > 0 && <Alert tone="info" title="Validation de garant demandée" action={<Link href={`/navilease/reservations/${guarantee[0].b.id}`} className="btn-primary py-2.5">Examiner</Link>}>{guarantee[0].h.title} ({guarantee[0].h.ville}) · réservation {guarantee[0].b.number}</Alert>}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <Kpi icon={FileText} label="Candidatures" value={(apps.data ?? []).filter((a) => a.a.status !== "brouillon").length} sub={admitted ? "dont 1 admission" : "en cours de traitement"} />
-        <Kpi icon={Wallet} tone="green" label="Déjà payé" value={paid.length ? [...new Set(paid.map((p) => p.currency))].map((c) => money(paid.filter((p) => p.currency === c).reduce((s, p) => s + p.amount, 0), c)).join(" · ") : "—"} sub={`${paid.length} paiement${paid.length > 1 ? "s" : ""}`} />
+        <Kpi icon={Wallet} tone="green" label="Déjà payé" value={paid.length ? <Prix mad={paid.filter((p) => p.currency === "MAD").reduce((s, p) => s + p.amount, 0)} bloc className="text-[22px]" /> : "—"} sub={`${paid.length} paiement${paid.length > 1 ? "s" : ""}`} />
         <Kpi icon={Wallet} tone="sun" label="À régler" value={toPay.length} sub="demandes de paiement" />
         <Kpi icon={KeyRound} tone="violet" label="Logement" value={(books.data ?? []).length ? <StatusBadge status={books.data![0].b.status} /> : "—"} sub={(books.data ?? [])[0]?.h.title ?? "aucune réservation"} />
       </div>
       <div className="grid items-start gap-6 xl:grid-cols-[1.2fr_1fr]">
         <Panel title={`Candidatures de ${first?.firstName}`} icon={FileText}>
           {apps.loading ? <Loading /> : !(apps.data ?? []).length ? <p className="text-sm text-ink-mute">Aucune candidature pour l&apos;instant.</p> : apps.data!.map((r) => (
-            <Link key={r.a.id} href={`/parent/candidatures/${r.a.id}`} className="flex items-center gap-3 rounded-2xl border border-[#eef1f8] p-3 hover:border-brand-200">
-              <EtabLogo e={etabById[r.e.id] ?? r.e} size={42} /><span className="min-w-0 flex-1"><b className="block text-sm">{r.p.title}</b><span className="text-xs text-ink-mute">{r.e.nom} · n° {r.a.number}</span></span><StatusBadge status={r.a.status} />
+            <Link key={r.a.id} href={`/parent/candidatures/${r.a.id}`} className="flex flex-col gap-3 rounded-2xl border border-[#eef1f8] p-3 hover:border-brand-200">
+              <span className="flex items-center gap-3"><EtabLogo e={etabById[r.e.id] ?? r.e} size={42} /><span className="min-w-0 flex-1"><b className="block truncate text-sm">{r.p.title}</b><span className="block truncate text-xs text-ink-mute">{r.e.nom}{r.a.campus ? ` · campus de ${r.a.campus}` : ""} · n° {r.a.number}</span></span><StatusBadge status={r.a.status} /></span>
+              <AppProgress status={r.a.status} fee={r.p.applicationFee > 0} compact />
             </Link>
           ))}
         </Panel>
         <Panel title="Régularisation" icon={ShieldCheck} action={admitted && <span className="chip bg-brand-50 text-brand-700">Maroc</span>}>
-          {!admitted ? <p className="text-sm text-ink-mute">Les démarches de visa et de séjour s&apos;affichent ici dès l&apos;admission.</p> : dem.map((d, k) => (
+          {first?.country && first.country !== "MA" && <p className="rounded-xl bg-brand-50 px-3 py-2 text-[13px] text-brand-800"><b>Depuis {nomPays(first.country)} :</b> {visaResume(first.country)}.</p>}
+          {!admitted ? <p className="text-sm text-ink-mute">Les démarches de visa et de séjour au Maroc s&apos;affichent ici dès l&apos;admission.</p> : dem.map((d, k) => (
             <motion.div key={k} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: k * 0.05 }} className="flex items-start gap-2.5 border-b border-[#f1f4fb] py-2 text-[13px] last:border-0"><CheckCircle2 size={16} className="mt-0.5 shrink-0 text-brand-300" /><span className="flex-1">{d.etape}</span><span className="shrink-0 text-[11px] text-ink-mute">{d.quand}</span></motion.div>
           ))}
         </Panel>

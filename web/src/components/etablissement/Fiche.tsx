@@ -9,7 +9,7 @@ import { useAction, useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
 import { STATUT_LONG } from "@/lib/data";
 import { useEcole } from "./EcoleContext";
-import { ETAB_STATUS, PAYS_LABEL, type Etab } from "./shared";
+import { ETAB_STATUS, type Etab } from "./shared";
 
 type F = { description: string; siteWeb: string; email: string; phone: string; ville: string; anneeCreation: string };
 const toF = (e: Etab): F => ({ description: e.description ?? "", siteWeb: e.siteWeb ?? "", email: e.email ?? "", phone: e.phone ?? "", ville: e.ville ?? "", anneeCreation: e.anneeCreation ? String(e.anneeCreation) : "" });
@@ -63,7 +63,7 @@ export function Fiche() {
         <form onSubmit={submit} noValidate className="card flex flex-col gap-5 rounded-[22px] p-5 sm:p-7">
           <div className="flex items-center gap-4">
             <Logo e={e} size={64} />
-            <div className="min-w-0"><b className="block text-lg leading-snug">{etab.nom}</b><span className="text-sm text-ink-mute">{etab.typeLibelle} · {STATUT_LONG[etab.statut] ?? etab.statut} · {PAYS_LABEL[etab.pays] ?? etab.pays}</span></div>
+            <div className="min-w-0"><b className="block text-lg leading-snug">{etab.nom}</b><span className="text-sm text-ink-mute">{etab.typeLibelle} · {STATUT_LONG[etab.statut] ?? etab.statut} · Maroc</span></div>
           </div>
           <Alert tone="info">Le nom officiel, le logo et les photos sont gérés par l&apos;équipe Navigoal : écrivez à etablissements@navigoal.com pour les modifier.</Alert>
           <Field label="Description" hint={`${f.description.length} / 4000 caractères`}>
@@ -101,7 +101,7 @@ export function Fiche() {
               </div>
               <div className="flex flex-col gap-3 p-5">
                 <div className="relative -mt-12 flex items-end gap-3"><Logo e={e} size={60} className="shadow-card" /></div>
-                <div><b className="block leading-snug">{etab.nom}</b><span className="flex items-center gap-1 text-xs text-ink-mute"><MapPin size={12} />{f.ville || "—"} · {PAYS_LABEL[etab.pays] ?? etab.pays}{f.anneeCreation && <> · <CalendarDays size={12} />depuis {f.anneeCreation}</>}</span></div>
+                <div><b className="block leading-snug">{etab.nom}</b><span className="flex items-center gap-1 text-xs text-ink-mute"><MapPin size={12} />{f.ville || "—"} · Maroc{f.anneeCreation && <> · <CalendarDays size={12} />depuis {f.anneeCreation}</>}</span></div>
                 <p className="line-clamp-4 text-sm text-ink-soft">{f.description || <span className="italic text-ink-mute">Ajoutez une description pour présenter votre établissement.</span>}</p>
                 <div className="flex flex-col gap-1.5 text-xs text-ink-soft">
                   {f.siteWeb && <span className="flex items-center gap-2 truncate"><Globe size={13} />{f.siteWeb.replace(/^https?:\/\//, "")}</span>}

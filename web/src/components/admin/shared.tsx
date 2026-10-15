@@ -13,20 +13,21 @@ export const ROLE_TONE: Record<string, Tone> = { eleve: "blue", etudiant: "blue"
 export const ROLE_OPTS: [string, string][] = Object.entries(ROLE_LABEL);
 export const PAYS: Record<string, string> = Object.fromEntries(paysOrigine.map((p) => [p.id, p.nom]));
 export const PAYS_OPTS: [string, string][] = paysOrigine.map((p) => [p.id, p.nom]);
-const FLAG: Record<string, string> = { GA: "🇬🇦", MA: "🇲🇦", SN: "🇸🇳", CI: "🇨🇮", CM: "🇨🇲", CG: "🇨🇬", FR: "🇫🇷" };
+/** Drapeau emoji à partir du code ISO du pays d'origine. */
+const flag = (iso: string) => (/^[A-Z]{2}$/.test(iso) ? iso.replace(/./g, (c) => String.fromCodePoint(127397 + c.charCodeAt(0))) : "🏳️");
 export const Flag = ({ code, withName }: { code: string | null | undefined; withName?: boolean }) =>
-  code ? <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><span aria-hidden>{FLAG[code] ?? "🏳️"}</span>{withName ? <span>{PAYS[code] ?? code}</span> : <span className="sr-only">{PAYS[code] ?? code}</span>}</span> : <span className="text-ink-mute">—</span>;
+  code ? <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><span aria-hidden>{flag(code)}</span>{withName ? <span>{PAYS[code] ?? code}</span> : <span className="sr-only">{PAYS[code] ?? code}</span>}</span> : <span className="text-ink-mute">—</span>;
 export const nf = (n: number | null | undefined) => (n == null ? "—" : Math.round(n).toLocaleString("fr-FR").replace(/[  ]/g, " "));
 export const pct = (a: number, b: number) => (b > 0 ? `${((a / b) * 100).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} %` : "—");
 
 // ---------------------------------------------------------------- En-tête du back-office
 export function AdminHeader({ title, sub, actions, eyebrow = "Back-office" }: { title: ReactNode; sub?: ReactNode; actions?: ReactNode; eyebrow?: string }) {
   return (
-    <div className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+    <div className="mb-4 flex flex-col justify-between gap-3 sm:mb-6 sm:gap-4 lg:flex-row lg:items-end">
       <div className="flex min-w-0 flex-col gap-1">
         <span className="eyebrow">{eyebrow}</span>
-        <h1 className="text-2xl font-extrabold tracking-tight sm:text-[30px]">{title}</h1>
-        {sub && <p className="text-ink-mute">{sub}</p>}
+        <h1 className="text-[22px] font-extrabold leading-tight tracking-tight sm:text-[30px]">{title}</h1>
+        {sub && <p className="text-sm text-ink-mute sm:text-base">{sub}</p>}
       </div>
       {actions && <div className="flex flex-wrap gap-2.5">{actions}</div>}
     </div>

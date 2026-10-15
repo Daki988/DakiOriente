@@ -8,7 +8,8 @@ import { Input, Select } from "@/components/app/form";
 import { useApi } from "@/hooks/useApi";
 import { apiUrl } from "@/lib/api";
 import { useEcole } from "./EcoleContext";
-import { CountryTag, PAYS_LABEL, TODO_STATUSES, type AppRow, type AppStatus, type Program } from "./shared";
+import { PAYS_OPTIONS } from "@/lib/pays-origine";
+import { CountryTag, TODO_STATUSES, type AppRow, type AppStatus, type Program } from "./shared";
 
 type TabKey = "toutes" | "a_traiter" | AppStatus;
 const TABS: [TabKey, string, (s: AppStatus) => boolean][] = [
@@ -76,7 +77,7 @@ export function Candidatures() {
           <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Nom, prénom, n° de dossier…" aria-label="Rechercher une candidature" className="pl-11" />
         </div>
         <Select aria-label="Filtrer par formation" value={formation} onChange={(e) => setFormation(e.target.value)} placeholder="Formation : toutes" options={(progs.data ?? []).map((p) => [p.id, p.title])} />
-        <Select aria-label="Filtrer par pays" value={pays} onChange={(e) => setPays(e.target.value)} placeholder="Pays : tous" options={Object.entries(PAYS_LABEL)} />
+        <Select aria-label="Filtrer par pays" value={pays} onChange={(e) => setPays(e.target.value)} placeholder="Pays d'origine : tous" options={PAYS_OPTIONS.map((o) => [o.value, o.label, o.group])} />
         {filtered && <Button variant="quiet" icon={X} onClick={reset}>Réinitialiser</Button>}
       </div>
 

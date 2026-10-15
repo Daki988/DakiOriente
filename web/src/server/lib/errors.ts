@@ -1,3 +1,8 @@
+import { z } from "zod";
+
+// Messages de validation en français pour tout le serveur.
+z.config(z.locales.fr());
+
 /** Erreur métier présentable à l'utilisateur (message en français). */
 export class AppError extends Error {
   constructor(message: string, public status = 400, public code = "erreur") {

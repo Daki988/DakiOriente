@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import { DOC_TYPES } from "@/components/app/form";
 import type { Tone } from "@/components/app/kit";
+import { nomPays } from "@/lib/pays-origine";
 
 // ---------------------------------------------------------------- Types renvoyés par l'API
 export type Etab = {
@@ -36,9 +37,11 @@ export type AppRow = {
 };
 
 // ---------------------------------------------------------------- Référentiels d'affichage
-export const PAYS_LABEL: Record<string, string> = { GA: "Gabon", MA: "Maroc", SN: "Sénégal" };
-export const PAYS_COLOR: Record<string, string> = { MA: "#6a3df0", SN: "#1a47f5", GA: "#0f8a46" };
-export const paysLabel = (c: string | null | undefined) => (c ? PAYS_LABEL[c] ?? c : "Non renseigné");
+/** Pays d'origine des candidats (référentiel des pays d'origine ; l'établissement est au Maroc). */
+export const paysLabel = (c: string | null | undefined) => (c ? nomPays(c) || c : "Non renseigné");
+const PALETTE = ["#1a47f5", "#6a3df0", "#0f8a46", "#f26a1b", "#d42a50", "#0891b2", "#a55a00", "#64748b"];
+/** Couleur stable par pays (calculée à partir du code ISO). */
+export const paysColor = (c: string | null | undefined) => (c ? PALETTE[[...c].reduce((a, ch) => a + ch.charCodeAt(0), 0) % PALETTE.length] : "#9aa3bf");
 
 /** Pièces qu'un établissement peut exiger (hors pièces bailleur). */
 export const SCHOOL_DOC_TYPES = DOC_TYPES;
@@ -92,7 +95,7 @@ export function CountryTag({ code }: { code: string | null | undefined }) {
   if (!code) return <span className="text-xs text-ink-mute">—</span>;
   return (
     <span className="inline-flex items-center gap-1.5 text-xs text-ink-mute">
-      <span className="rounded px-1 text-[10px] font-extrabold text-white" style={{ background: PAYS_COLOR[code] ?? "#6b7493" }}>{code}</span>{paysLabel(code)}
+      <span className="rounded px-1 text-[10px] font-extrabold text-white" style={{ background: paysColor(code) }}>{code}</span>{paysLabel(code)}
     </span>
   );
 }

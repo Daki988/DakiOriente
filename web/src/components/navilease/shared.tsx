@@ -41,8 +41,9 @@ export const MODES: [string, string][] = [["pied", "à pied"], ["transport", "en
 export const modeLabel = (m: string) => MODES.find(([k]) => k === m)?.[1] ?? m;
 /** Navilease : logements étudiants au Maroc. */
 export const PAYS: [string, string][] = [["MA", "Maroc"]];
-export const COUNTRY_OF_CURRENCY: Record<string, string> = { XAF: "GA", MAD: "MA", XOF: "SN" };
-export const CURRENCY_OF_COUNTRY: Record<string, string> = { GA: "XAF", MA: "MAD", SN: "XOF" };
+// Navilease : logements au Maroc, loyers en dirhams.
+export const COUNTRY_OF_CURRENCY: Record<string, string> = { MAD: "MA" };
+export const CURRENCY_OF_COUNTRY: Record<string, string> = { MA: "MAD" };
 
 export const AMENITIES: { id: string; label: string; Icon: LucideIcon }[] = [
   { id: "meuble", label: "Meublé", Icon: Armchair }, { id: "wifi", label: "Wifi", Icon: Wifi }, { id: "eau", label: "Eau courante", Icon: Droplets },
@@ -117,6 +118,6 @@ export const monthFr = (d: Date) => d.toLocaleDateString("fr-FR", { month: "long
 export const period = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
 
 /** Conversion indicative en euros (parité fixe du franc CFA, MAD approximatif). */
-export const EUR_RATE: Record<string, number> = { XAF: 655.957, XOF: 655.957, MAD: 10.8 };
+export const EUR_RATE: Record<string, number> = { MAD: 10.8 };
 export const toEur = (n: number, cur: string) => (EUR_RATE[cur] ? Math.round(n / EUR_RATE[cur]) : null);
 export const SERVICE_FEE = 0.05; // frais de service Navilease (5 % du premier loyer)

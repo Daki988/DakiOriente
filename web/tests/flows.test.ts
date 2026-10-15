@@ -27,7 +27,7 @@ const reload = async (id: string) => (await db.select().from(schema.users).where
 let student: User, parent: User, school: User, landlord: User, adminU: User;
 
 beforeAll(async () => {
-  student = await accounts.register({ role: "etudiant", firstName: "Awa", lastName: "Ndiaye", email: "awa@test.local", password: "Motdepasse1", birthYear: year - 17, country: "SN", city: "Dakar", acceptTerms: true });
+  student = await accounts.register({ role: "etudiant", firstName: "Awa", lastName: "Ndiaye", email: "awa@test.local", password: "Motdepasse1", birthYear: year - 17, country: "SN", city: "Dakar", guardianPhone: "+221770000001", acceptTerms: true });
   parent = await accounts.register({ role: "parent", firstName: "Moussa", lastName: "Ndiaye", phone: "+221770000001", password: "Motdepasse1", country: "SN", acceptTerms: true });
   school = await accounts.register({ role: "etablissement", firstName: "Nadia", lastName: "Kane", email: "ecole@test.local", password: "Motdepasse1", establishmentId: "ma-esa-casa", acceptTerms: true });
   landlord = await accounts.register({ role: "bailleur", firstName: "Ibou", lastName: "Fall", email: "bailleur@test.local", password: "Motdepasse1", country: "SN", acceptTerms: true });
@@ -35,7 +35,8 @@ beforeAll(async () => {
 });
 
 describe("comptes", () => {
-  it("refuse les doublons et les mots de passe faibles", async () => {
+  it("refuse les doublons, les mots de passe faibles et les mineurs sans parent", async () => {
+    await expect(accounts.register({ role: "eleve", firstName: "X", lastName: "Y", email: "mineur@test.local", password: "Motdepasse1", birthYear: year - 15, acceptTerms: true })).rejects.toThrow(/parent/);
     await expect(accounts.register({ role: "etudiant", firstName: "X", lastName: "Y", email: "awa@test.local", password: "Motdepasse1", acceptTerms: true })).rejects.toThrow(/existe déjà/);
     await expect(accounts.register({ role: "etudiant", firstName: "X", lastName: "Y", email: "x@test.local", password: "court", acceptTerms: true })).rejects.toThrow(/8 caractères/);
   });
