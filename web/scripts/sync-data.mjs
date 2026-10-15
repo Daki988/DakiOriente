@@ -30,7 +30,7 @@ const sup = read("etablissements_superieurs").items.map((e) => ({
   label: e.label, label_libelle: e.label_libelle, reconnaissance: e.reconnaissance, reconnaissance_en_cours: e.reconnaissance_en_cours,
   adresse: e.adresse ?? null, description: e.description ?? null,
   formations: e.formations, filieres: e.filieres, filieres_echues: e.filieres_echues ?? [], autorisation: e.autorisation ?? null, logo: logoUrl(e.logo), photos: (e.photos || []).map(photoOf),
-  geo: e.geo ?? null, campus: e.campus ?? null, alias: e.alias ?? [],
+  geo: e.geo ?? null, campus: e.campus ?? null, alias: e.alias ?? [], site: e.site ?? null,
 }));
 write("etablissements", sup);
 

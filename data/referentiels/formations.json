@@ -361,9 +361,7 @@
         "ma-uiass",
         "ma-ueuromed",
         "ma-upf",
-        "ma-esss",
-        "ma-piimt-rabat",
-        "ma-esismp"
+        "ma-esss"
       ]
     },
     {
@@ -412,7 +410,6 @@
         "ma-uic",
         "ma-mundiapolis",
         "ma-esss",
-        "ma-psychosup",
         "ma-eskp",
         "ma-hek",
         "ma-isep-casa",
@@ -602,7 +599,6 @@
         "ma-emaa",
         "ma-ismagi",
         "ma-suprh",
-        "ma-supemir",
         "ma-edge",
         "ma-es2im",
         "ma-ilcs",
@@ -616,7 +612,6 @@
         "ma-hem-engineering",
         "ma-supmti",
         "ma-suptech-sante",
-        "ma-artcomsup",
         "ma-sist"
       ]
     },
@@ -920,14 +915,12 @@
         "ma-ensit",
         "ma-eamr",
         "ma-supemir",
-        "ma-esisa",
         "ma-aes",
         "ma-abs",
         "ma-esrmi",
         "ma-junia",
         "ma-ippc",
         "ma-esma",
-        "ma-suptem",
         "ma-sup-technology",
         "ma-isga",
         "ma-supmti",
@@ -980,10 +973,7 @@
         "ma-um6p",
         "ma-estem",
         "ma-supmanagement",
-        "ma-iihem",
-        "ma-supemir",
         "ma-suptema",
-        "ma-sup-technology",
         "ma-emsi"
       ]
     },
@@ -1038,7 +1028,6 @@
         "ma-ensit",
         "ma-supemir",
         "ma-esisa",
-        "ma-sup-technology",
         "ma-supmti"
       ]
     },
@@ -1113,7 +1102,6 @@
         "ma-aerosup",
         "ma-junia",
         "ma-ippc",
-        "ma-iiec",
         "ma-emsi",
         "ma-isga",
         "ma-supmti",
@@ -1361,8 +1349,7 @@
         "ma-iiec",
         "ma-emsi",
         "ma-supmti",
-        "ma-suptech-sante",
-        "ma-ifjsup"
+        "ma-suptech-sante"
       ]
     },
     {
@@ -1479,7 +1466,6 @@
         "ma-estem",
         "ma-iga",
         "ma-emg",
-        "ma-iihem",
         "ma-eigsi-casa",
         "ma-eheio",
         "ma-ismagi",
@@ -1493,9 +1479,6 @@
         "ma-aes",
         "ma-isfort",
         "ma-medsup",
-        "ma-esma",
-        "ma-piimt-rabat",
-        "ma-sup-technology",
         "ma-esismp",
         "ma-emsi",
         "ma-isga",
@@ -1786,8 +1769,7 @@
         "ma-universiapolis",
         "ma-uic",
         "ma-upf",
-        "ma-eac",
-        "ma-artcomsup"
+        "ma-eac"
       ]
     },
     {
@@ -2052,8 +2034,7 @@
         "ma-mundiapolis",
         "ma-upf",
         "ma-supmanagement",
-        "ma-suptech-environnement",
-        "ma-esismp"
+        "ma-suptech-environnement"
       ]
     },
     {
@@ -2752,7 +2733,6 @@
         "ma-estem",
         "ma-heec",
         "ma-supmanagement",
-        "ma-iihem",
         "ma-ismagi",
         "ma-hestim",
         "ma-essem",
@@ -2778,8 +2758,6 @@
         "ma-suptema",
         "ma-piimt-rabat",
         "ma-emcgi",
-        "ma-esismp",
-        "ma-esms",
         "ma-tbs-casa",
         "ma-eslsca",
         "ma-isga",
@@ -2789,7 +2767,6 @@
         "ma-suptech-sante",
         "ma-iheps",
         "ma-sist",
-        "ma-ifjsup",
         "ma-hem"
       ]
     },
@@ -2834,7 +2811,7 @@
         "ma-um6ss",
         "ma-estem",
         "ma-supmanagement",
-        "ma-esisa",
+        "ma-essem",
         "ma-ippc",
         "ma-embci"
       ]
@@ -2979,13 +2956,13 @@
         "ma-esca",
         "ma-estem",
         "ma-ismagi",
+        "ma-essem",
         "ma-ensit",
         "ma-escga",
         "ma-edge",
         "ma-esa-casa",
         "ma-hecgi",
         "ma-esmc",
-        "ma-emcgi",
         "ma-esms",
         "ma-esscg",
         "ma-suptech-sante"
@@ -3048,6 +3025,7 @@
         "ma-eheio",
         "ma-ismagi",
         "ma-hestim",
+        "ma-essem",
         "ma-suprh",
         "ma-ensit",
         "ma-escga",
@@ -3061,10 +3039,7 @@
         "ma-esrim",
         "ma-embci",
         "ma-suptema",
-        "ma-piimt-rabat",
         "ma-sup-technology",
-        "ma-emcgi",
-        "ma-esms",
         "ma-tbs-casa",
         "ma-eslsca",
         "ma-emsi",
@@ -3124,6 +3099,7 @@
         "ma-iihem",
         "ma-ismagi",
         "ma-hestim",
+        "ma-essem",
         "ma-suprh",
         "ma-ensit",
         "ma-escga",
@@ -3133,11 +3109,9 @@
         "ma-gecm",
         "ma-hec-maroc",
         "ma-essec-sale",
-        "ma-esmc",
         "ma-esrim",
         "ma-embci",
         "ma-emcgi",
-        "ma-esms",
         "ma-esscg",
         "ma-tbs-casa",
         "ma-eslsca",
@@ -3200,7 +3174,6 @@
         "ma-esca",
         "ma-supdeco-marrakech",
         "ma-estem",
-        "ma-iihem",
         "ma-ismagi",
         "ma-essem",
         "ma-hightech",
@@ -3211,8 +3184,6 @@
         "ma-medsup",
         "ma-esma",
         "ma-esrim",
-        "ma-piimt-rabat",
-        "ma-sup-technology",
         "ma-esismp",
         "ma-esscg",
         "ma-supmti",
@@ -3279,9 +3250,6 @@
         "ma-escga",
         "ma-hec-maroc",
         "ma-medsup",
-        "ma-esmc",
-        "ma-suptema",
-        "ma-piimt-rabat",
         "ma-isga",
         "ma-supmti",
         "ma-hem"
@@ -3331,6 +3299,7 @@
         "ma-supmanagement",
         "ma-ismagi",
         "ma-hestim",
+        "ma-essem",
         "ma-suprh",
         "ma-ensit",
         "ma-escga",
@@ -3525,8 +3494,7 @@
         "ma-estem",
         "ma-supmanagement",
         "ma-ensit",
-        "ma-supmti",
-        "ma-hem"
+        "ma-supmti"
       ]
     },
     {

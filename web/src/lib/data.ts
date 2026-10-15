@@ -34,6 +34,16 @@ export type Etablissement = {
   geo: Geo | null;
   /** Réseau multi-campus : campus proposés (choix du campus à la candidature). */
   campus: Campus[] | null; alias: string[];
+  /** Informations relevées sur le site officiel de l'établissement. */
+  site: SiteInfos | null;
+};
+export type ProgrammeSite = { intitule: string; diplome: string | null; niveau: string | null; duree_annees: number | null; specialites: string[]; campus: string[] | null; url: string | null; formation: string | null; domaine: string | null };
+export type SiteInfos = {
+  programmes: ProgrammeSite[];
+  admission: { conditions?: string[]; etapes?: string[]; concours?: boolean | null; dates?: string | null } | null;
+  frais: { cycle: string; inscription_mad: number | null; scolarite_annuelle_mad: number | null; note: string | null }[];
+  bourses: string | null; international: string | null; logement: string | null; partenaires: string[]; vie_etudiante: string[];
+  contact: { telephone: string | null; email: string | null }; sources: string[]; date: string | null;
 };
 export type Proche = { nom: string; distance_m: number };
 export type Geo = {

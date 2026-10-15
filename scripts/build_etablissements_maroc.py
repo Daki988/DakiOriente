@@ -470,6 +470,45 @@ RANG_LABEL = {"reconnu_etat": 0, "diplomes_homologues": 1, "professionnel": 2, "
 CHAMPS_CAMPUS = ("id", "ville", "adresse", "label", "label_libelle", "reconnaissance", "reconnaissance_en_cours", "autorisation", "annee_creation", "site_web", "coordonnees", "geo")
 
 
+NIVEAU_BAC = {"Bac+2": "bac+2", "Bac+3": "bac+3", "Bac+4": "bac+4", "Bac+5": "bac+5", "Bac+6": "bac+5", "Bac+8": "bac+8"}
+
+
+def enrichir_sites(items):
+    """Informations relevées sur le site officiel de chaque établissement (data/sources/maroc/sites/<id>.json) :
+    programmes présentés, admission, frais publiés, contact, bourses, international, vie étudiante.
+    Elles complètent les données officielles sans les remplacer (description, adresse, année si absentes)."""
+    dossier = os.path.join(SRC, "sites")
+    for it in items:
+        f = os.path.join(dossier, it["id"] + ".json")
+        if not os.path.exists(f):
+            continue
+        w = json.load(open(f, encoding="utf-8"))
+        if not w.get("accessible", True):
+            continue
+        it["description"] = it.get("description") or w.get("description")
+        it["adresse"] = it.get("adresse") or w.get("adresse")
+        it["annee_creation"] = it.get("annee_creation") or (w.get("annee_creation") if (w.get("annee_creation") or 0) < 2025 else None)
+        progs = []
+        for p in w.get("programmes") or []:
+            if not p.get("intitule"):
+                continue
+            spec = ", ".join(p.get("specialites") or [])
+            frm, dom = formation(p["intitule"], spec, p.get("diplome") or "", it["type"])
+            progs.append(dict(intitule=p["intitule"], diplome=p.get("diplome"), niveau=NIVEAU_BAC.get((p.get("niveau") or "").replace(" ", "")),
+                              duree_annees=p.get("duree_annees"), specialites=p.get("specialites") or [], campus=p.get("campus"),
+                              url=p.get("url"), formation=frm, domaine=dom))
+        it["site"] = dict(
+            programmes=progs,
+            admission=w.get("admission") or None,
+            frais=[x for x in (w.get("frais") or []) if x.get("scolarite_annuelle_mad") or x.get("inscription_mad")],
+            bourses=w.get("bourses"), international=w.get("international"), logement=w.get("logement"),
+            partenaires=(w.get("partenaires") or [])[:8], vie_etudiante=(w.get("vie_etudiante") or [])[:8],
+            contact=dict(telephone=w.get("telephone"), email=w.get("email")),
+            sources=w.get("sources") or [], date=w.get("date_collecte"),
+        )
+        it["formations"] = sorted(set(it["formations"]) | {p["formation"] for p in progs if p["formation"]})
+
+
 def empreinte(ph):
     """Même image publiée pour plusieurs campus d'un réseau : une seule fois dans la galerie."""
     f = os.path.join(ROOT, ph["fichier"])
@@ -636,8 +675,8 @@ def main():
         recentes = [f for f in toutes if ref_year - 2 <= annee_debut(f["fin_accreditation"]) < ref_year]
         # Sans filière accréditée en cours : établissement « autorisé » (diplômes d'établissement, non homologués),
         # avec l'historique de ses filières dont l'accréditation a pris fin.
-        echues = [] if en_cours else sorted([f for f in toutes if f not in recentes], key=lambda f: (f["composante"], f["intitule"]))
-        if not en_cours:
+        echues = [] if en_cours or recentes else sorted([f for f in toutes if f not in recentes], key=lambda f: (f["composante"], f["intitule"]))
+        if not en_cours and not recentes:
             exclus.append(dict(id=e["id"], nom=e["nom"], ville=e["ville"], reconnu=bool(e.get("rec")),
                                filieres_echues=len(toutes), derniere_echeance=max([f["fin_accreditation"] for f in toutes], default=None)))
         progs = []
@@ -646,7 +685,7 @@ def main():
         for f in sorted(recentes, key=lambda f: (f["composante"], f["intitule"])):
             progs.append(programme(e, f, "recente"))
         anciennes = [programme(e, f, "echue") for f in echues]
-        if not en_cours:
+        if not en_cours and not recentes:
             label = "autorise"
         else:
             label = "reconnu_etat" if e.get("rec") and not e.get("rec_en_cours") else "diplomes_homologues"
@@ -680,6 +719,7 @@ def main():
         items.append(item)
 
     items = regrouper(items)
+    enrichir_sites(items)
 
     out = {
         "_meta": {

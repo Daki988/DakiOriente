@@ -1,0 +1,31 @@
+{
+  "id": "ma-essem",
+  "site_web": "https://www.essem-bs.com",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": ["https://www.essem-bs.com/", "https://www.essem-bs.com/presentation-de-l-ecole", "https://www.essem-bs.com/frais-de-scolarite", "https://www.essem-bs.com/admission", "https://www.essem-bs.com/licences", "https://www.essem-bs.com/master"],
+  "description": "École de commerce et de management installée au centre de Casablanca (boulevard Mohammed V). ESSEM forme aux métiers du marketing digital, de la logistique et du commerce international, de la comptabilité, de l'audit et du contrôle de gestion, en licence (Bac+3) et en master (Bac+5). L'école met en avant un environnement multiculturel (plus de 15 nationalités), un centre de carrière, un laboratoire de recherche (LARSEMO) et des bourses pour les bacheliers les plus méritants.",
+  "annee_creation": null,
+  "adresse": "280, boulevard Mohammed V, angle rue Azilal et rue Karachi, Casablanca",
+  "telephone": "+212 522 200 222",
+  "email": "admissions@essem-bs.com",
+  "statut_annonce": "Reconnue par l'État",
+  "programmes": [
+    {"intitule": "Licence Marketing Digital & Communication", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": null, "url": "https://www.essem-bs.com/licence-marketing-digital-and-communication"},
+    {"intitule": "Licence Logistique & Commerce International", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": null, "url": "https://www.essem-bs.com/licence-logistique-commerce-international"},
+    {"intitule": "Licence Comptabilité, Contrôle & Audit", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": null, "url": "https://www.essem-bs.com/licence-comptabilite-controle-audit"},
+    {"intitule": "Master Audit & Contrôle de Gestion", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": null, "url": "https://www.essem-bs.com/master-audit-controle-de-gestion"},
+    {"intitule": "Master Marketing, Marketing Digital & Communication", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": null, "url": "https://www.essem-bs.com/master-marketing-marketing-digital-and-communication"},
+    {"intitule": "Master Achats & Logistique", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": null, "url": "https://www.essem-bs.com/master-achats-logistique"}
+  ],
+  "admission": {"conditions": ["Licence : baccalauréat (admission post-bac)", "Master : diplôme Bac+3"], "etapes": [], "concours": null, "dates": null},
+  "frais": [
+    {"cycle": "Licence (Bac+3)", "inscription_mad": 3000, "scolarite_annuelle_mad": 35000, "note": "Soit 300 € d'inscription et 3 500 € par an"},
+    {"cycle": "Master (Bac+5)", "inscription_mad": 3000, "scolarite_annuelle_mad": 38000, "note": "Soit 300 € d'inscription et 3 800 € par an"}
+  ],
+  "bourses": "Bourses d'études pour les bacheliers et les étudiants les plus méritants.",
+  "international": "Plus de 15 nationalités sur le campus ; page dédiée à la vie à Casablanca.",
+  "partenaires": ["Plus de 50 entreprises partenaires"],
+  "vie_etudiante": ["Activités parascolaires", "Centre de carrière", "Laboratoire de recherche LARSEMO"],
+  "logement": null
+}

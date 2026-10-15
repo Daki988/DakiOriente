@@ -61,6 +61,11 @@ async function seedEstablishments() {
     const titles = new Set<string>();
     // Filières homologuées ; pour un établissement « autorisé », filières dont l'accréditation a pris fin (diplômes d'établissement)
     const officielles = [...e.filieres.map((f: any) => ({ ...f, homologuee: true })), ...(e.filieres_echues ?? []).map((f: any) => ({ ...f, homologuee: false }))];
+    // Établissement autorisé : programmes présentés sur son site (diplômes d'établissement), ouverts à la candidature
+    if (e.label === "autorise")
+      for (const p of e.site?.programmes ?? [])
+        if (p.formation && !officielles.some((f: any) => f.intitule === p.intitule))
+          officielles.push({ intitule: p.intitule, formation: p.formation, composante: null, ville: null, campus: p.campus ?? [], diplome: p.diplome, niveau: p.niveau, options: p.specialites?.join(", ") || null, duree_annees: p.duree_annees, homologuee: false, homologation: { statut: "etablissement", texte: "Programme présenté sur le site de l'établissement" } });
     for (const f of officielles) {
       titles.add(f.intitule + "|" + (f.composante ?? ""));
       const t = sante(f) ? c.scolarite_annuelle.ecole_sante : sco;
