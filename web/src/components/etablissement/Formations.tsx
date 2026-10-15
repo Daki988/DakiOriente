@@ -23,7 +23,7 @@ const FORMATION_OPTIONS: [string, string][] = [...formations].sort((a, b) => a.i
 const DOCS = SCHOOL_DOC_TYPES.filter(([v]) => !["attestation_admission", "piece_garant", "justificatif_ressources"].includes(v));
 
 const s = (n: number | null | undefined) => (n == null ? "" : String(n));
-function toForm(p: Program | null, pays: string): FormState {
+function toForm(p: Program | null, _pays: string): FormState {
   return {
     formationId: p?.formationId ?? "", title: p?.title ?? "", description: p?.description ?? "", durationYears: s(p?.durationYears), language: p?.language ?? "fr",
     faculty: p?.faculty ?? "", diploma: p?.diploma ?? "", level: p?.level ?? "", options: p?.options ?? "", homologationRef: "",
