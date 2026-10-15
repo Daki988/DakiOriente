@@ -15,7 +15,7 @@ export async function inviteGuardian(child: User, contact: string, relation = "p
   const code = otpCode();
   const [g] = await db.insert(schema.guardianships).values({ childId: child.id, inviteEmail: isEmail ? normEmail(contact) : null, invitePhone: isEmail ? null : normPhone(contact), inviteCode: code, relation }).returning();
   const text = `${child.firstName} ${child.lastName} vous invite à suivre son parcours sur Navigoal. Code d'invitation : ${code}. Créez votre compte parent puis saisissez ce code.`;
-  if (isEmail) await sendEmail({ to: normEmail(contact), subject: "Invitation à suivre un parcours Navigoal", text });
+  if (isEmail) await sendEmail({ to: normEmail(contact), subject: "Invitation à suivre un parcours Navigoal", titre: `${child.firstName} vous invite sur Navigoal`, code, text, action: { label: "Créer mon compte parent", url: "/inscription/?role=parent" } });
   else await sendSms({ to: normPhone(contact), text });
   return g;
 }

@@ -10,7 +10,7 @@ export async function notify(userId: string, n: { kind: string; title: string; b
   await db.insert(schema.notifications).values({ userId, kind: n.kind, title: n.title, body: n.body ?? null, link: n.link ?? null, channels });
   const [u] = await db.select({ email: schema.users.email, phone: schema.users.phone }).from(schema.users).where(eq(schema.users.id, userId));
   const text = `${n.body ?? n.title}${n.link ? `\n${APP_URL()}${n.link}` : ""}`;
-  if (channels.includes("email") && u?.email) await sendEmail({ to: u.email, subject: `Navigoal · ${n.title}`, text });
+  if (channels.includes("email") && u?.email) await sendEmail({ to: u.email, subject: `Navigoal · ${n.title}`, titre: n.title, text: n.body ?? n.title, action: n.link ? { label: "Ouvrir dans Navigoal", url: n.link } : undefined });
   if (channels.includes("sms") && u?.phone) await sendSms({ to: u.phone, text: `Navigoal : ${n.title}` });
 }
 

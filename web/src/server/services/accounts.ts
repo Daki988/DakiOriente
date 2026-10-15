@@ -71,7 +71,7 @@ export async function register(raw: RegisterInput) {
   const [inv] = await db.select().from(schema.guardianships).where(eq(schema.guardianships.childId, user.id));
   if (inv?.inviteCode) {
     const text = `${user.firstName} ${user.lastName} vous invite à suivre son parcours sur Navigoal et à valider son inscription. Code d'invitation : ${inv.inviteCode}. Créez votre compte parent puis saisissez ce code.`;
-    if (inv.inviteEmail) await sendEmail({ to: inv.inviteEmail, subject: "Invitation à suivre un parcours Navigoal", text });
+    if (inv.inviteEmail) await sendEmail({ to: inv.inviteEmail, subject: "Invitation à suivre un parcours Navigoal", text, action: { label: "Créer mon compte parent", url: "/inscription/?role=parent" } });
     else if (inv.invitePhone) await sendSms({ to: inv.invitePhone, text });
   }
   if (email) await requestOtp(email, "verify_email");
@@ -113,7 +113,7 @@ export async function requestOtp(target: string, purpose: Purpose) {
   const code = otpCode();
   await db.insert(schema.otpCodes).values({ target: t, purpose, codeHash: sha256(`${t}:${code}`), expiresAt: new Date(Date.now() + OTP_TTL) });
   const text = `Votre code Navigoal : ${code} (valable 10 minutes). Ne le communiquez à personne.`;
-  if (t.includes("@")) await sendEmail({ to: t, subject: "Votre code Navigoal", text });
+  if (t.includes("@")) await sendEmail({ to: t, subject: "Votre code Navigoal", titre: "Votre code de vérification", code, text: "Voici votre code Navigoal, valable 10 minutes. Ne le communiquez à personne, même à un conseiller Navigoal." });
   else await sendSms({ to: t, text });
   return { target: t, devCode: process.env.NODE_ENV !== "production" || process.env.OTP_DEBUG === "1" ? code : undefined };
 }

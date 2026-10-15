@@ -1,9 +1,16 @@
 // Stockage des fichiers déposés (documents, photos d'annonces, PDF générés).
-// Production : Netlify Blobs. Local : dossier .data/uploads.
+// Netlify : Netlify Blobs. Serveur Node (cPanel, VPS) et local : dossier STORAGE_DIR (défaut .data/uploads),
+// à placer hors du dossier public du site.
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const LOCAL = path.join(process.cwd(), ".data", "uploads");
+const LOCAL = path.resolve(process.env.STORAGE_DIR || path.join(process.cwd(), ".data", "uploads"));
+/** Chemin sur disque d'une clé, sans possibilité de sortir du dossier de stockage. */
+const chemin = (key: string) => {
+  const p = path.resolve(LOCAL, key.replace(/\\/g, "/").replace(/^\/+/, ""));
+  if (!p.startsWith(LOCAL + path.sep)) throw new Error("Clé de fichier invalide");
+  return p;
+};
 const blobsEnabled = () => !!(process.env.NETLIFY || process.env.NETLIFY_BLOBS_CONTEXT) && process.env.STORAGE !== "local";
 
 async function store() {
@@ -16,7 +23,7 @@ export async function putFile(key: string, data: Uint8Array | ArrayBuffer, conte
   if (blobsEnabled()) {
     await (await store()).set(key, new Blob([buf as BlobPart], { type: contentType }), { metadata: { contentType } });
   } else {
-    const p = path.join(LOCAL, key);
+    const p = chemin(key);
     await fs.mkdir(path.dirname(p), { recursive: true });
     await fs.writeFile(p, buf);
     await fs.writeFile(p + ".meta", contentType);
@@ -31,7 +38,7 @@ export async function getFile(key: string): Promise<{ data: Uint8Array; contentT
     return { data: new Uint8Array(r.data as ArrayBuffer), contentType: String(r.metadata?.contentType ?? "application/octet-stream") };
   }
   try {
-    const p = path.join(LOCAL, key);
+    const p = chemin(key);
     return { data: new Uint8Array(await fs.readFile(p)), contentType: await fs.readFile(p + ".meta", "utf8").catch(() => "application/octet-stream") };
   } catch {
     return null;
@@ -40,7 +47,7 @@ export async function getFile(key: string): Promise<{ data: Uint8Array; contentT
 
 export async function deleteFile(key: string) {
   if (blobsEnabled()) await (await store()).delete(key);
-  else await fs.rm(path.join(LOCAL, key), { force: true });
+  else await fs.rm(chemin(key), { force: true });
 }
 
 export const ALLOWED_MIME = ["application/pdf", "image/jpeg", "image/png", "image/webp"];

@@ -1,0 +1,2850 @@
+{
+ "_meta": {
+  "date": "2026-10-15",
+  "source": "data/referentiels/etablissements_superieurs.json",
+  "champs": [
+   "description",
+   "adresse",
+   "telephone",
+   "email",
+   "site_web",
+   "annee_creation",
+   "programmes",
+   "frais",
+   "admission",
+   "bourses",
+   "international",
+   "photos",
+   "logo",
+   "geolocalisation"
+  ]
+ },
+ "resume": {
+  "etablissements": 103,
+  "score_moyen": 79.7,
+  "complets": 2,
+  "par_champ": {
+   "description": {
+    "remplis": 103,
+    "pourcentage": 100.0
+   },
+   "adresse": {
+    "remplis": 102,
+    "pourcentage": 99.0
+   },
+   "telephone": {
+    "remplis": 95,
+    "pourcentage": 92.2
+   },
+   "email": {
+    "remplis": 68,
+    "pourcentage": 66.0
+   },
+   "site_web": {
+    "remplis": 103,
+    "pourcentage": 100.0
+   },
+   "annee_creation": {
+    "remplis": 99,
+    "pourcentage": 96.1
+   },
+   "programmes": {
+    "remplis": 100,
+    "pourcentage": 97.1
+   },
+   "frais": {
+    "remplis": 22,
+    "pourcentage": 21.4
+   },
+   "admission": {
+    "remplis": 92,
+    "pourcentage": 89.3
+   },
+   "bourses": {
+    "remplis": 53,
+    "pourcentage": 51.5
+   },
+   "international": {
+    "remplis": 89,
+    "pourcentage": 86.4
+   },
+   "photos": {
+    "remplis": 34,
+    "pourcentage": 33.0
+   },
+   "logo": {
+    "remplis": 101,
+    "pourcentage": 98.1
+   },
+   "geolocalisation": {
+    "remplis": 88,
+    "pourcentage": 85.4
+   }
+  }
+ },
+ "etablissements": [
+  {
+   "id": "ma-uao",
+   "nom": "Université Arabe Ouverte – Maroc",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": false,
+    "telephone": false,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": false,
+    "frais": false,
+    "admission": false,
+    "bourses": false,
+    "international": false,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "adresse",
+    "telephone",
+    "email",
+    "programmes",
+    "frais",
+    "admission",
+    "bourses",
+    "international",
+    "photos",
+    "geolocalisation"
+   ],
+   "score": 28.6
+  },
+  {
+   "id": "ma-abs",
+   "nom": "Atlantic Business School",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": false,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": false,
+    "frais": false,
+    "admission": false,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "telephone",
+    "email",
+    "programmes",
+    "frais",
+    "admission",
+    "photos"
+   ],
+   "score": 57.1
+  },
+  {
+   "id": "ma-aes",
+   "nom": "Atlantic Engineering School",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": false,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": false,
+    "frais": false,
+    "admission": false,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "telephone",
+    "email",
+    "programmes",
+    "frais",
+    "admission",
+    "photos"
+   ],
+   "score": 57.1
+  },
+  {
+   "id": "ma-ispsni",
+   "nom": "Institut Supérieur Privé des Sciences de la Numérisation et de l'Information",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": false,
+    "programmes": true,
+    "frais": false,
+    "admission": false,
+    "bourses": false,
+    "international": false,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "annee_creation",
+    "frais",
+    "admission",
+    "bourses",
+    "international",
+    "photos"
+   ],
+   "score": 57.1
+  },
+  {
+   "id": "ma-esjc",
+   "nom": "ESJC – École Supérieure de Journalisme et de Communication",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": false,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "admission",
+    "bourses",
+    "photos"
+   ],
+   "score": 64.3
+  },
+  {
+   "id": "ma-esms",
+   "nom": "Ecole Supérieure de Management du Sud Privée",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": false,
+    "bourses": false,
+    "international": false,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "admission",
+    "bourses",
+    "international",
+    "photos"
+   ],
+   "score": 64.3
+  },
+  {
+   "id": "ma-esscg",
+   "nom": "Ecole Supérieure des Sciences Commerciales et de Gestion",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": false,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "telephone",
+    "email",
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 64.3
+  },
+  {
+   "id": "ma-esss",
+   "nom": "École Supérieure des Sciences de la Santé",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "bourses",
+    "photos",
+    "geolocalisation"
+   ],
+   "score": 64.3
+  },
+  {
+   "id": "ma-medsup",
+   "nom": "MEDSUP – École Supérieure du Management des Entreprises du Détroit",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": false,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "admission",
+    "bourses",
+    "photos"
+   ],
+   "score": 64.3
+  },
+  {
+   "id": "ma-suptema",
+   "nom": "Ecole Supérieure de Telécommunication et de Management",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": false,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "frais",
+    "admission",
+    "bourses",
+    "photos",
+    "geolocalisation"
+   ],
+   "score": 64.3
+  },
+  {
+   "id": "ma-eheio",
+   "nom": "EHEIO – École des Hautes Études d'Ingénierie",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": false,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "international",
+    "photos"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-esai",
+   "nom": "ESAI – École Supérieure d'Architecture d'Intérieur",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": false,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "international",
+    "photos"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-esma",
+   "nom": "Ecole Supérieure de Management et de Technologie Informatique Appliqués Privée",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-esmc",
+   "nom": "ESMC – École Supérieure de Management et de Communication",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": false,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "annee_creation",
+    "frais",
+    "photos",
+    "geolocalisation"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-esol",
+   "nom": "Ecole Supérieure d'Optique et de Lunetterie",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": false,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "international",
+    "photos"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-essec-sale",
+   "nom": "ESSEC – École des Sciences Économiques et Commerciales (Salé)",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-hightech",
+   "nom": "HIGH-TECH – High Technology School in Morocco",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-iheps",
+   "nom": "IHEPS – Institut des Hautes Études Paramédicales",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": false,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "international",
+    "photos"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-iimc",
+   "nom": "IIMC – International Institute of Management Casablanca",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": false,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "photos",
+    "logo"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-isep-casa",
+   "nom": "Institut Supérieur des Etudes Paramédicales de Casablanca",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": false,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "international",
+    "photos"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-isjc",
+   "nom": "Institut Supérieur du Journalisme et de Communication",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": false,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "international",
+    "photos"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-isota",
+   "nom": "Institut Supérieur d'Optique Théorique et Appliquée Privé",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos",
+    "geolocalisation"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-istl",
+   "nom": "Institut Supérieur du Transport et de la Logistique",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": false,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "admission",
+    "bourses",
+    "photos"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-junia",
+   "nom": "JUNIA Maroc – École d'Ingénierie",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-suptech-environnement",
+   "nom": "SUPTECH Environnement – École Supérieure des Technologies de l'Eau, de l'Énergie et du Développement Durable",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": false,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": false,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "annee_creation",
+    "frais",
+    "international",
+    "geolocalisation"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-suptech-sante",
+   "nom": "SUPTECH Santé – École Supérieure de Génie Biomédical et des Techniques de Santé",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": false,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": false,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "telephone",
+    "email",
+    "international",
+    "geolocalisation"
+   ],
+   "score": 71.4
+  },
+  {
+   "id": "ma-averroes",
+   "nom": "Université Internationale Privée Averroès",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": false,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "admission",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-eac",
+   "nom": "École Supérieure d'Architecture de Casablanca",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-edge",
+   "nom": "EDGE Business School",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-edumed",
+   "nom": "EDUMED Ecole Supérieure Privée du Paramédical et de la Réédication",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-eheb",
+   "nom": "EHEB – École des Hautes Études de Biotechnologie et de Santé",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "geolocalisation"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-embci",
+   "nom": "Ecole Marocaine de Banque et de Commerce International",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-emcgi",
+   "nom": "Ecole des Métiers, de Commerce, de Gestion et d'Informatique Privée",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": false,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "international",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-ensit",
+   "nom": "ENSIT – École des Nouvelles Sciences et Ingénierie",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-esdav",
+   "nom": "École Supérieure de Design et des Arts Visuels",
+   "label": "autorise",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-esi2a",
+   "nom": "ESI2A – École Supérieure d'Ingénierie Automobile et Aéronautique",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": false,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "international"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-eskp",
+   "nom": "École Supérieure de Kinésithérapie et Paramédicale",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-eslsca",
+   "nom": "ESLSCA, Business School",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-esrim",
+   "nom": "Ecole Supérieure des Réseaux Informatiques et de Management",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-esrmi",
+   "nom": "ESRMI – École Supérieure de Rabat en Management et Ingénierie",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-estem",
+   "nom": "ESTEM – École Supérieure en Ingénierie, Management et Génie Civil",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-gecm",
+   "nom": "Grande École de Commerce de Marrakech",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "bourses"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-hec-maroc",
+   "nom": "HEC Maroc – École des Hautes Études Commerciales (Rabat)",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-hecf",
+   "nom": "HECF – École des Hautes Études Comptables et Financières",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-hecgi",
+   "nom": "HECGI – Hautes Études de Commerce, de Gestion et d'Informatique",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": false,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "frais",
+    "international",
+    "geolocalisation"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-hek",
+   "nom": "Haute Ecole de Kinésithérapie",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "bourses",
+    "photos",
+    "geolocalisation"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-hestim",
+   "nom": "HESTIM – École des Hautes Études en Sciences et Techniques de l'Ingénierie et du Management",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "bourses"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-icacsup",
+   "nom": "ICACSUP – Institut Supérieur de Comptabilité, d'Administration et de Commerce",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-ifjsup",
+   "nom": "IFJSUP – Institut Supérieur du Journalisme et de l'Information",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-iga",
+   "nom": "Institut Supérieur du Génie Appliqué",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "bourses"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-iiec",
+   "nom": "International Institute of Engineering Casablanca privé",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-mundiapolis",
+   "nom": "Université Mundiapolis",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-sup-isi",
+   "nom": "Institut Supérieur Privé de Génie Informatique",
+   "label": "autorise",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-sup-technology",
+   "nom": "Ecole Supérieure des Hautes Etudes en Technologie de l'Information et de la Communication Privée",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-supdeco-marrakech",
+   "nom": "Sup de Co – École Supérieure de Commerce de Marrakech",
+   "label": "autorise",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "bourses"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-supemir",
+   "nom": "SUPEMIR – École Supérieure des Multimédia, Informatique et Réseaux",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": false,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "frais",
+    "logo",
+    "geolocalisation"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-supmti",
+   "nom": "SUPMTI – École Supérieure de Management, Informatique et Télécommunication",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": false,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "admission",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-suptem",
+   "nom": "Ecole Supérieure des Sciences Techniques et de Management",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-tbs-casa",
+   "nom": "TBS Casablanca- Business School",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-ueuromed",
+   "nom": "Université Euromed de Fès",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-um6ss",
+   "nom": "Université Mohammed VI des Sciences de la Santé",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": false,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "telephone",
+    "email",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-universiapolis",
+   "nom": "Université Internationale d'Agadir – Universiapolis",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais",
+    "photos"
+   ],
+   "score": 78.6
+  },
+  {
+   "id": "ma-artcomsup",
+   "nom": "Art'Com Sup – École Supérieure de Design et de Communication",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": false,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "telephone",
+    "email"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-emg",
+   "nom": "École Marocaine d'Ingénierie",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "photos"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-es2im",
+   "nom": "ES2IM – École Supérieure d'Ingénierie Informatique et Multimédia",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-esav",
+   "nom": "ESAV – École Supérieure des Arts Visuels de Marrakech",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "bourses",
+    "geolocalisation"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-escga",
+   "nom": "ESCGA – École Supérieure de Commerce et de Gestion des Affaires",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "frais",
+    "geolocalisation"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-esisa",
+   "nom": "ESISA – École Supérieure d'Ingénierie en Sciences Appliquées",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-esismp",
+   "nom": "Ecole Supérieure d'Ingénierie de la santé et de Management de Projets",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "photos"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-essem",
+   "nom": "ESSEM Business School – École Supérieure des Sciences Économiques et de Management",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": false,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "annee_creation",
+    "geolocalisation"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-heec",
+   "nom": "HEEC – École des Hautes Études Économiques, Commerciales et d'Ingénierie",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-hem",
+   "nom": "HEM – Institut des Hautes Études de Management",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "photos"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-hem-engineering",
+   "nom": "Institut Privé des Hautes Etudes Marocaines d'Ingénierie",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "photos"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-ilcs",
+   "nom": "ILCS – Institute for Language and Communication Studies",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "photos"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-ippc",
+   "nom": "Institut Polytechnique Privé de Casablanca",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "photos"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-isfort",
+   "nom": "ISFORT – Institut Supérieur de Formation en Technologies Alimentaires",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "photos"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-isga",
+   "nom": "ISGA – Institut Supérieur d'Ingénierie et des Affaires",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": false,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "telephone",
+    "email"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-piimt-rabat",
+   "nom": "Private International Institut of Management And Technologie",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "photos"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-psychosup",
+   "nom": "École Supérieure de Psychologie",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "bourses"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-supmanagement",
+   "nom": "Sup'Management – École Supérieure de Management, de Commerce et d'Informatique",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "photos"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-suprh",
+   "nom": "SUP'RH – École Supérieure de Management et de Gestion des Ressources Humaines",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email",
+    "frais"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-uic",
+   "nom": "Université Internationale de Casablanca",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "photos"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-uir",
+   "nom": "Université Internationale de Rabat",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "photos"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-upf",
+   "nom": "Université Privée de Fès",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "photos"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-upm",
+   "nom": "Université Privée de Marrakech",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais",
+    "photos"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-upssa",
+   "nom": "Université Privée de Santé et de Sciences d'Agadir",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": false
+   },
+   "manquants": [
+    "photos",
+    "geolocalisation"
+   ],
+   "score": 85.7
+  },
+  {
+   "id": "ma-aerosup",
+   "nom": "AERO'SUP – École Supérieure de l'Aéronautique et des Hautes Technologies",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-comsup",
+   "nom": "Com'Sup – École Supérieure de Communication et de Publicité",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "photos"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-ecc",
+   "nom": "École Centrale Casablanca",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-eigsi-casa",
+   "nom": "EIGSI Casablanca – École d'Ingénierie en Génie des Systèmes Industriels",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "photos"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-emaa",
+   "nom": "EMAA – École de Management et d'Administration des Affaires",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-emsi",
+   "nom": "EMSI – École Marocaine des Sciences de l'Ingénieur",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": false,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "email"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-esa-casa",
+   "nom": "ESA Casablanca – École Supérieure des Affaires",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": false,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "bourses"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-esca",
+   "nom": "ESCA École de Management",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-esgcnt",
+   "nom": "École Supérieure de Génie Civil et des Technologies Nouvelles",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-esiai",
+   "nom": "ESIAI – École Supérieure d'Ingénierie Appliquée et Innovation",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-heci",
+   "nom": "HECI – École des Hautes Études Commerciales et Informatiques",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-iihem",
+   "nom": "International Institute for Higher Education in Morocco",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-sist",
+   "nom": "SIST – Superior Institutes of Sciences and Technology",
+   "label": "diplomes_homologues",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-uiass",
+   "nom": "Université Internationale Abulcasis des Sciences de la Santé",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": false,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "photos"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-um6p",
+   "nom": "Université Mohammed VI Polytechnique",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": false,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [
+    "frais"
+   ],
+   "score": 92.9
+  },
+  {
+   "id": "ma-eamr",
+   "nom": "École Arts et Métiers – Campus de Rabat",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [],
+   "score": 100.0
+  },
+  {
+   "id": "ma-ismagi",
+   "nom": "ISMAGI – Institut Supérieur de Management, d'Administration et de Génie Informatique",
+   "label": "reconnu_etat",
+   "champs": {
+    "description": true,
+    "adresse": true,
+    "telephone": true,
+    "email": true,
+    "site_web": true,
+    "annee_creation": true,
+    "programmes": true,
+    "frais": true,
+    "admission": true,
+    "bourses": true,
+    "international": true,
+    "photos": true,
+    "logo": true,
+    "geolocalisation": true
+   },
+   "manquants": [],
+   "score": 100.0
+  }
+ ]
+}
