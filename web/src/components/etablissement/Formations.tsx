@@ -8,7 +8,7 @@ import { useAction, useApi } from "@/hooks/useApi";
 import { api, ApiError } from "@/lib/api";
 import { formationById, formations, metierById, series } from "@/lib/data";
 import { useEcole } from "./EcoleContext";
-import { ChipPicker, PAYS_LABEL, SCHOOL_DOC_TYPES, SubTitle, Toggle, clean, type Program } from "./shared";
+import { ChipPicker, SCHOOL_DOC_TYPES, SubTitle, Toggle, clean, paysLabel, type Program } from "./shared";
 
 type FormState = {
   formationId: string; title: string; description: string; durationYears: string; language: string;
@@ -27,7 +27,7 @@ function toForm(p: Program | null, pays: string): FormState {
   return {
     formationId: p?.formationId ?? "", title: p?.title ?? "", description: p?.description ?? "", durationYears: s(p?.durationYears), language: p?.language ?? "fr",
     faculty: p?.faculty ?? "", diploma: p?.diploma ?? "", level: p?.level ?? "", options: p?.options ?? "", homologationRef: "",
-    tuitionMin: s(p?.tuitionMin), tuitionMax: s(p?.tuitionMax), currency: p?.currency ?? (pays === "MA" ? "MAD" : "MAD"), applicationFee: p ? s(p.applicationFee) : "0",
+    tuitionMin: s(p?.tuitionMin), tuitionMax: s(p?.tuitionMax), currency: "MAD", applicationFee: p ? s(p.applicationFee) : "0",
     series: p?.admission.series ?? [], noteMin: s(p?.admission.noteMin), concours: !!p?.admission.concours, entretien: !!p?.admission.entretien, prerequis: p?.admission.prerequis ?? "",
     requiredDocuments: p?.requiredDocuments ?? ["identite", "releve_notes", "diplome", "photo"], seats: s(p?.seats), startDate: p?.startDate ?? "", active: p?.active ?? true,
   };
@@ -162,7 +162,8 @@ function ProgramForm({ program, eid, pays, onBack, onSaved }: { program: Program
     if (p) onSaved(p, !program);
   };
 
-  const countries = [pays, ...Object.keys(PAYS_LABEL).filter((c) => c !== pays)];
+  // Séries du bac des pays d'origine décrits dans le référentiel (le Maroc d'abord).
+  const countries = [pays, ...Array.from(new Set(series.map((x) => x.pays as string))).filter((c) => c !== pays)];
   return (
     <form onSubmit={submit} noValidate className="card flex flex-col gap-6 rounded-[22px] p-5 sm:p-7">
       <button type="button" onClick={onBack} className="flex items-center gap-1.5 self-start text-sm font-bold text-[#6a3df0] lg:hidden"><ArrowLeft size={16} />Toutes les formations</button>
@@ -222,8 +223,8 @@ function ProgramForm({ program, eid, pays, onBack, onSaved }: { program: Program
         <div className="flex flex-col gap-3">
           {countries.filter((c, i) => i === 0 || others).map((c) => (
             <div key={c} className="grid gap-2 sm:grid-cols-[90px_1fr] sm:items-start">
-              <b className="pt-1.5 text-sm">{PAYS_LABEL[c] ?? c}</b>
-              <ChipPicker label={`Séries acceptées · ${PAYS_LABEL[c] ?? c}`} value={f.series} onChange={(v) => set("series", v)} options={series.filter((x) => x.pays === c).map((x) => [x.id, x.code])} />
+              <b className="pt-1.5 text-sm">{paysLabel(c)}</b>
+              <ChipPicker label={`Séries acceptées · ${paysLabel(c)}`} value={f.series} onChange={(v) => set("series", v)} options={series.filter((x) => x.pays === c).map((x) => [x.id, x.code])} />
             </div>
           ))}
           <button type="button" onClick={() => setOthers(!others)} className="self-start text-[13px] font-bold text-[#6a3df0] hover:underline">{others ? "Masquer les séries des autres pays" : "Ajouter des séries d'autres pays (candidats internationaux)"}</button>

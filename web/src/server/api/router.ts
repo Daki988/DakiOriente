@@ -161,7 +161,7 @@ route("GET", "/candidatures/:id/attestation.pdf", "Candidatures", "Attestation d
 // ---------------------------------------------------------------- Espace établissement
 route("GET", "/ecole", "Établissement", "Mes établissements", ["etablissement"], async ({ me }) => etab.myEstablishments(me.id));
 route("PATCH", "/ecole/:eid", "Établissement", "Mettre à jour la fiche", ["etablissement", "admin"], async ({ me, params, body }) => etab.updateEstablishment(me, params.eid, await body()));
-route("GET", "/ecole/:eid/tableau-de-bord", "Établissement", "Indicateurs", ["etablissement", "admin"], async ({ me, params }) => schoolDashboard(me, params.eid));
+route("GET", "/ecole/:eid/tableau-de-bord", "Établissement", "Indicateurs (periode=annee|mois|semaine)", ["etablissement", "admin"], async ({ me, params, query }) => schoolDashboard(me, params.eid, (["annee", "mois", "semaine"].includes(query.get("periode") ?? "") ? query.get("periode") : "annee") as "annee"));
 route("GET", "/ecole/:eid/formations", "Établissement", "Formations (y compris inactives)", ["etablissement", "admin"], async ({ me, params }) => { await etab.assertMember(me, params.eid); return etab.listPrograms(params.eid, false); });
 route("POST", "/ecole/:eid/formations", "Établissement", "Publier une formation", ["etablissement", "admin"], async ({ me, params, body }) => json(await etab.upsertProgram(me, params.eid, await body()), 201));
 route("PATCH", "/ecole/:eid/formations/:pid", "Établissement", "Modifier une formation", ["etablissement", "admin"], async ({ me, params, body }) => etab.upsertProgram(me, params.eid, await body(), params.pid));
