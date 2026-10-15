@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { EtabCard } from "@/components/ui/Cards";
-import { LABELS, VILLES_ETUDES, etablissements, type Label } from "@/lib/data";
+import { LABELS, VILLES_ETUDES, villesOf, etablissements, type Label } from "@/lib/data";
 
 const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const TYPES = Array.from(new Set(etablissements.map((e) => e.type_libelle))).sort((a, b) => a.localeCompare(b, "fr"));
@@ -17,8 +17,8 @@ export function EtabList() {
   const [ville, setVille] = useState(params.get("ville") ?? "");
   const [type, setType] = useState("");
   const list = useMemo(() => etablissements.filter((e) =>
-    (!label || e.label === label) && (!ville || e.ville === ville) && (!type || e.type_libelle === type) &&
-    (!q || norm(`${e.nom} ${e.sigle} ${e.ville} ${e.filieres.map((f) => f.intitule).join(" ")}`).includes(norm(q)))
+    (!label || e.label === label) && (!ville || villesOf(e).includes(ville)) && (!type || e.type_libelle === type) &&
+    (!q || norm(`${e.nom} ${e.sigle} ${villesOf(e).join(" ")} ${e.filieres.map((f) => f.intitule).join(" ")}`).includes(norm(q)))
   ).sort((a, b) => b.photos.length - a.photos.length || Number(!!b.logo) - Number(!!a.logo) || b.filieres.length - a.filieres.length), [q, label, ville, type]);
   // Libellés présents dans le référentiel (« professionnel » n'apparaît qu'une fois attribué)
   const labels = LABELS.filter((l) => count(l.id) > 0);

@@ -149,7 +149,8 @@
     "annee_creation": 2013,
     "adresse": "18, rue Oued Baht, Agdal, 10090 Rabat",
     "description": "École privée d'ingénieurs à Rabat-Agdal. Elle propose un cycle préparatoire intégré puis des cycles d'ingénierie : systèmes industriels, systèmes automatisés, génie civil, etc.",
-    "notes": "Le site indiqué par les annuaires (www.essti.ac.ma) affiche « Site not installed – OVHcloud » au moment de la vérification, d'où la valeur null. Le nom apparaît aussi sous la forme « Sciences et Technologies de l'Ingénieur »."
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel).",
+    "statut": "retire"
   },
   "ma-esrmi": {
     "site_web": "https://esr.ma",
@@ -169,13 +170,14 @@
     "adresse": "Douar Oulad Malek, Bouskoura (province de Nouaceur)",
     "description": "Établissement privé d'enseignement supérieur en management, implanté à Bouskoura, en périphérie de Casablanca.",
     "notes": "Aucun site officiel trouvé. Il partage son adresse avec l'IIEC (International Institute of Engineering Casablanca). Le lien avec le projet IIEM (Coventry University / British Schools Educational Services) à Bouskoura n'est pas confirmé. La liste ministérielle indique « Province de Bouskoura » ; Bouskoura relève en fait de la province de Nouaceur.",
-    "site_web": "https://iiem.ac.ma/"
+    "site_web": "https://iiem.ac.ma"
   },
   "ma-isps": {
     "annee_creation": 2006,
     "adresse": "65, rue Jbel Azourki, Hay Salam, Hay Hassani, Casablanca",
     "description": "Institut privé de formation aux métiers de la santé à Casablanca, qui prépare notamment au métier de manipulateur en radiologie et imagerie médicale.",
-    "notes": "Aucun site officiel trouvé. Etudiant.ma l'appelle « Institut spécialisé privé de santé »."
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel).",
+    "statut": "retire"
   },
   "ma-aerosup": {
     "site_web": "https://aerosup.ma",
@@ -195,7 +197,8 @@
     "annee_creation": 2008,
     "adresse": "8, rue Ibn Khatima, Quartier des Hôpitaux, Casablanca",
     "description": "École privée d'enseignement supérieur en informatique à Casablanca, qui propose un cursus d'ingénierie informatique.",
-    "notes": "Aucun site officiel trouvé ; activité actuelle non confirmée. Un annuaire attribue la même adresse à Maroc Ynov Campus, ce qui peut signaler un changement d'occupant ou de nom."
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel).",
+    "statut": "retire"
   },
   "ma-hecgi": {
     "site_web": "https://www.hecgi.ma",
@@ -646,7 +649,8 @@
     "description": "École privée de Rabat formant en optique-lunetterie, optométrie et métiers paramédicaux.",
     "coordonnees": null,
     "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 1998-1999)",
-    "notes": "Site officiel non trouvé. Des annuaires désignent l'établissement sous le sigle ESOA et indiquent une création en 1997."
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel).",
+    "statut": "retire"
   },
   "ma-icacsup": {
     "site_web": "https://icacsup.ma",
@@ -689,7 +693,8 @@
     "description": "École privée de Meknès formant au niveau bac+3 en gestion des entreprises (finance, management, marketing), développement informatique et réseaux-télécommunications.",
     "coordonnees": null,
     "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2012-2013)",
-    "notes": "Site emsig.ma cité par des annuaires mais inaccessible depuis notre environnement : non vérifié."
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel).",
+    "statut": "retire"
   },
   "ma-hbfg-oujda": {
     "annee_creation": 1997,
@@ -697,7 +702,8 @@
     "description": "Antenne d'Oujda de l'Institut des Hautes Études Bancaires, Financières et de Gestion (groupe HBF), formant aux métiers de la banque, de la finance, de l'assurance et du commerce.",
     "coordonnees": null,
     "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 1997-1998)",
-    "notes": "Site officiel non trouvé. Certains annuaires placent l'établissement boulevard Al Aqsa, quartier Al Qods."
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel).",
+    "statut": "retire"
   },
   "ma-hec-maroc": {
     "site_web": "http://www.hec.ac.ma",
@@ -777,7 +783,8 @@
     "description": "Institut privé de formation paramédicale à Casablanca (notamment technicien en radiologie et imagerie médicale).",
     "coordonnees": null,
     "annee_source": "liste ministérielle des établissements autorisés 2023-2024 (date d'effet 2022-2023)",
-    "notes": "Site officiel non trouvé."
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel).",
+    "statut": "retire"
   },
   "ma-comsup": {
     "site_web": "https://www.comsup.ma",
@@ -791,12 +798,14 @@
   "ma-ispts-ouezzane": {
     "description": "Institut privé de formation aux professions de santé à Ouezzane (soins infirmiers polyvalents, anesthésie-réanimation, sage-femme, orthoptie).",
     "coordonnees": null,
-    "notes": "Établissement absent de la liste ministérielle 2023-2024 ; ni site, ni adresse, ni année trouvés."
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel).",
+    "statut": "retire"
   },
   "ma-espii": {
     "description": "École d'ingénieurs privée de Casablanca proposant des classes préparatoires intégrées et des filières en génie civil, génie informatique et génie mécatronique.",
     "coordonnees": null,
-    "notes": "Établissement absent de la liste ministérielle 2023-2024 ; ni site, ni adresse, ni année trouvés."
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel).",
+    "statut": "retire"
   },
   "ma-isgc": {
     "annee_creation": 1989,
@@ -945,16 +954,16 @@
     "adresse": "7, rue Ben Dahan, 1er étage, escalier B, Casablanca",
     "description": "Institut privé de Casablanca formant en optique et en optométrie (cycles Bac+3).",
     "coordonnees": null,
-    "statut": "actif",
-    "notes": "Statut « actif » fondé principalement sur sa présence dans la liste ministérielle 2025-2026 ; pas d'activité en ligne récente vérifiée. Site web à confirmer (ismoosarl.ma cité par un annuaire)."
+    "statut": "retire",
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel)."
   },
   "ma-ehesicom": {
     "annee_creation": 1999,
     "adresse": "3, avenue Mohammed Abdou, Quartier Maâmora, 14000 Kénitra",
     "description": "École privée de Kénitra formant en commerce, ingénierie commerciale et gestion.",
     "coordonnees": null,
-    "statut": "actif",
-    "notes": "Nom complet : École des Hautes Études des Sciences de l'Ingénierie Commerciale et Management (eHESICom). Présent dans la liste ministérielle 2025-2026 ; pages Facebook/Instagram avec annonces d'inscription. Site web officiel non vérifié."
+    "statut": "retire",
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel)."
   },
   "ma-hek": {
     "site_web": "https://www.hek.ma",
@@ -1015,8 +1024,8 @@
     "adresse": "146, lotissement Nice I (près de Marjane), B.P. 1214, Mohammedia",
     "description": "École privée de Mohammedia formant en droit des affaires et en gestion (comptabilité, audit, banque, assurance).",
     "coordonnees": null,
-    "statut": "actif",
-    "notes": "Statut « actif » fondé sur sa présence dans la liste ministérielle 2025-2026 ; aucune activité en ligne récente ni site officiel vérifié."
+    "statut": "retire",
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel)."
   },
   "ma-isota": {
     "annee_creation": 2005,
@@ -1119,8 +1128,8 @@
     "adresse": "Immeuble Aarab, Zaouiat, angle avenue Mohammed V et rue de Fès, Taza",
     "description": "École privée de Taza formant en management, finance et ingénierie informatique.",
     "coordonnees": null,
-    "statut": "actif",
-    "notes": "Se présente comme membre du groupe SupMTI. Présent dans la liste ministérielle 2025-2026 ; pages Facebook/Instagram. Pas de site officiel identifié."
+    "statut": "retire",
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel)."
   },
   "ma-esismp": {
     "site_web": "https://esismp.com",
@@ -1148,8 +1157,8 @@
     "adresse": "N° 10, lotissement Narjis, Malabata, Tanger",
     "description": "Institut privé de Tanger formant en management et aux métiers du journalisme et des médias.",
     "coordonnees": null,
-    "statut": "actif",
-    "notes": "Présent dans la liste ministérielle 2025-2026 ; pages Facebook/Instagram officielles. Pas de site officiel identifié."
+    "statut": "retire",
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel)."
   },
   "ma-finansup": {
     "annee_creation": 2013,
@@ -1287,16 +1296,16 @@
     "annee_creation": null,
     "adresse": null,
     "description": null,
-    "statut": "actif",
-    "notes": "Figure sur la liste des établissements privés autorisés 2025-2026 ; aucune présence en ligne confirmée à ce jour."
+    "statut": "retire",
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel)."
   },
   "ma-iim-agadir": {
     "site_web": null,
     "annee_creation": null,
     "adresse": null,
     "description": null,
-    "statut": "actif",
-    "notes": "Figure sur la liste des établissements privés autorisés 2025-2026 ; aucune présence en ligne confirmée à ce jour."
+    "statut": "retire",
+    "notes": "Retiré de la plateforme (octobre 2026) : aucune présence en ligne vérifiable (site officiel absent, inaccessible ou détourné ; pas de logo officiel)."
   },
   "ma-heci-casa": {
     "site_web": "https://www.groupeheci.ac.ma"

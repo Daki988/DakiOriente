@@ -450,6 +450,63 @@ def proche(a, b):
     return len(x & y) / len(x | y) >= 0.75
 
 
+# Réseaux multi-campus présentés comme un seul établissement ; le campus est choisi à la candidature.
+# Le premier membre est le campus principal.
+GROUPES = {
+    "ma-emsi": ("EMSI – École Marocaine des Sciences de l'Ingénieur", ["ma-emsi-casablanca", "ma-emsi-rabat", "ma-emsi-marrakech", "ma-emsi-tanger", "ma-emsi-fes"]),
+    "ma-isga": ("ISGA – Institut Supérieur d'Ingénierie et des Affaires", ["ma-isga-casablanca", "ma-isga-rabat", "ma-isga-marrakech", "ma-isga-fes"]),
+    "ma-supmti": ("SUPMTI – École Supérieure de Management, Informatique et Télécommunication", ["ma-supmti-rabat", "ma-supmti-meknes", "ma-supmti-oujda", "ma-supmti-benimellal"]),
+    "ma-heci": ("HECI – École des Hautes Études Commerciales et Informatiques", ["ma-heci-casa", "ma-heci-rabat", "ma-heci-fes", "ma-heci-meknes", "ma-heci-kenitra", "ma-heci-oujda"]),
+    "ma-hecf": ("HECF – École des Hautes Études Comptables et Financières", ["ma-hecf-fes", "ma-hecf-meknes"]),
+    "ma-suptech-sante": ("SUPTECH Santé – École Supérieure de Génie Biomédical et des Techniques de Santé", ["ma-suptech-sante", "ma-suptech-sante-essaouira"]),
+    "ma-artcomsup": ("Art'Com Sup – École Supérieure de Design et de Communication", ["ma-artcomsup-casa", "ma-artcomsup-rabat"]),
+    "ma-iheps": ("IHEPS – Institut des Hautes Études Paramédicales", ["ma-iheps-casa", "ma-iheps-marrakech", "ma-iheps-agadir"]),
+    "ma-sist": ("SIST – Superior Institutes of Sciences and Technology", ["ma-sist-casablanca", "ma-sist-rabat", "ma-sist-tanger"]),
+    "ma-ifjsup": ("IFJSUP – Institut Supérieur du Journalisme et de l'Information", ["ma-ifjsup-casa", "ma-ifjsup-marrakech"]),
+    "ma-hem": ("HEM – Institut des Hautes Études de Management", ["ma-hem", "ma-hem-rabat"]),
+}
+RANG_LABEL = {"reconnu_etat": 0, "diplomes_homologues": 1, "professionnel": 2, "autorise": 3}
+CHAMPS_CAMPUS = ("id", "ville", "adresse", "label", "label_libelle", "reconnaissance", "reconnaissance_en_cours", "autorisation", "annee_creation", "site_web", "coordonnees", "geo")
+
+
+def regrouper(items):
+    par_id = {i["id"]: i for i in items}
+    vus, out = set(), []
+    for gid, (nom, membres) in GROUPES.items():
+        ms = [par_id[m] for m in membres if m in par_id]
+        if len(ms) < 2:
+            continue
+        p = ms[0]
+        g = dict(p, id=gid, nom=nom)
+        g["campus"] = [{k: m.get(k) for k in CHAMPS_CAMPUS} for m in ms]
+        g["villes"] = [m["ville"] for m in ms]
+        g["alias"] = [m["id"] for m in ms if m["id"] != gid]
+        g["label"] = min((m["label"] for m in ms), key=RANG_LABEL.get)
+        g["label_libelle"] = LABEL_LIBELLE[g["label"]]
+        g["reconnaissance"] = next((m["reconnaissance"] for m in ms if m.get("reconnaissance")), None)
+        for k in ("site_web", "description", "logo", "wikidata", "annee_creation", "autorisation"):
+            g[k] = next((m[k] for m in ms if m.get(k)), None)
+        g["photos"] = list({ph["fichier"]: ph for m in ms for ph in (m.get("photos") or [])}.values())[:6]
+        g["formations"] = sorted({f for m in ms for f in m["formations"]})
+
+        def fusion(cle):
+            res = {}
+            for m in ms:
+                for f in m[cle]:
+                    k = (f["intitule"], f.get("options"), f.get("composante"), f["homologation"]["statut"])
+                    ville = f.get("ville") or m["ville"]
+                    if k in res:
+                        if ville not in res[k]["campus"]:
+                            res[k]["campus"].append(ville)
+                    else:
+                        res[k] = dict(f, ville=None, campus=[ville])
+            return list(res.values())
+        g["filieres"], g["filieres_echues"] = fusion("filieres"), fusion("filieres_echues")
+        out.append(g)
+        vus.update(m["id"] for m in ms)
+    return [i for i in items if i["id"] not in vus] + out
+
+
 def annee_debut(a):
     m = re.match(r"(\d{4})", a or "")
     return int(m.group(1)) if m else 0
@@ -539,9 +596,14 @@ def main():
     # Fiches existantes (logos, photos, coordonnées) : version archivée multi-pays puis référentiel courant
     archive = os.path.join(ROOT, "data", "archives", "etablissements_superieurs_v1_GA_MA_SN.json")
     ancien = {x["id"]: x for x in json.load(open(archive, encoding="utf-8"))["items"]} if os.path.exists(archive) else {}
-    ancien.update({x["id"]: x for x in json.load(open(os.path.join(REF, "etablissements_superieurs.json"), encoding="utf-8"))["items"]})
+    for x in json.load(open(os.path.join(REF, "etablissements_superieurs.json"), encoding="utf-8"))["items"]:
+        ancien[x["id"]] = x
+        for c in x.get("campus") or []:  # établissements regroupés : logo et photos repris pour chaque campus
+            ancien[c["id"]] = {**x, **{k: v for k, v in c.items() if v is not None}}
     enrich_path = os.path.join(SRC, "enrichissement.json")
     enrich = json.load(open(enrich_path, encoding="utf-8")) if os.path.exists(enrich_path) else {}
+    geo_path = os.path.join(SRC, "geo.json")
+    geo = json.load(open(geo_path, encoding="utf-8")) if os.path.exists(geo_path) else {}
 
     def programme(e, f, statut):
         o = offi_index.get((e["id"], norm(f["intitule"])))
@@ -558,20 +620,24 @@ def main():
     for e in etabs:
         x = enrich.get(e["id"], {})
         # Écartés : fermés, ou introuvables en ligne et absents de la liste des autorisés 2025-2026
-        if x.get("statut") == "ferme" or (e.get("autorise") and x.get("statut") == "inconnu"):
-            fermes.append(dict(id=e["id"], nom=e["nom"], ville=e["ville"], notes=x.get("notes")))
+        if x.get("statut") in ("ferme", "retire") or (e.get("autorise") and x.get("statut") == "inconnu"):
+            fermes.append(dict(id=e["id"], nom=e["nom"], ville=e["ville"], statut=x.get("statut"), notes=x.get("notes")))
             continue
         toutes = list(filieres.get(e["id"], {}).values())
         en_cours = [f for f in toutes if annee_debut(f["fin_accreditation"]) >= ref_year]
+        # Accréditation arrivée à échéance depuis moins de 2 ans : filière publiée avec le label « Accrédité »
+        recentes = [f for f in toutes if ref_year - 2 <= annee_debut(f["fin_accreditation"]) < ref_year]
         # Sans filière accréditée en cours : établissement « autorisé » (diplômes d'établissement, non homologués),
         # avec l'historique de ses filières dont l'accréditation a pris fin.
-        echues = [] if en_cours else sorted(toutes, key=lambda f: (f["composante"], f["intitule"]))
+        echues = [] if en_cours else sorted([f for f in toutes if f not in recentes], key=lambda f: (f["composante"], f["intitule"]))
         if not en_cours:
             exclus.append(dict(id=e["id"], nom=e["nom"], ville=e["ville"], reconnu=bool(e.get("rec")),
                                filieres_echues=len(toutes), derniere_echeance=max([f["fin_accreditation"] for f in toutes], default=None)))
         progs = []
         for f in sorted(en_cours, key=lambda f: (f["composante"], f["intitule"])):
             progs.append(programme(e, f, "accreditee"))
+        for f in sorted(recentes, key=lambda f: (f["composante"], f["intitule"])):
+            progs.append(programme(e, f, "recente"))
         anciennes = [programme(e, f, "echue") for f in echues]
         if not en_cours:
             label = "autorise"
@@ -601,9 +667,12 @@ def main():
             filieres_echues=anciennes,
             offre_indicative=False,
             logo=old.get("logo"), photos=old.get("photos", []),
+            geo=geo.get(e["id"]) if (geo.get(e["id"]) or {}).get("precision") in ("adresse", "quartier") else None,
             sources=["Ministère de l'Enseignement supérieur (enssup.gov.ma)", "Bulletin officiel — arrêtés d'accréditation des filières"],
         )
         items.append(item)
+
+    items = regrouper(items)
 
     out = {
         "_meta": {

@@ -1,17 +1,79 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, Calculator, ChevronRight, ExternalLink, KeyRound, MapPin, Scale, ShieldAlert } from "lucide-react";
+import { ArrowRight, BadgeCheck, Bus, Calculator, ChevronRight, ExternalLink, KeyRound, MapPin, Plane, Scale, ShieldAlert, TrainFront, TramFront } from "lucide-react";
+import { permanentRedirect } from "next/navigation";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { PhotoGallery } from "@/components/sections/PhotoGallery";
-import { STATUT_LONG, domaineById, etabById, etablissements, fmt, labelById, metierById, niveauLabel, paysDetailById, residences, formationById, type Filiere } from "@/lib/data";
+import { STATUT_LONG, mobilite, villesOf, type Campus, type Etablissement, domaineById, etabById, etablissements, fmt, labelById, metierById, niveauLabel, paysDetailById, residences, formationById, type Filiere } from "@/lib/data";
 import { LabelChip } from "@/components/ui/Cards";
 import { COUTS, devis, formationParDefaut } from "@/lib/devis";
 import { establishmentLive } from "@/server/content-ui";
 
 export const generateStaticParams = () => etablissements.map((e) => ({ id: e.id }));
 export const revalidate = 300; // reflète les mises à jour faites par l'établissement
-export const generateMetadata = ({ params }: { params: { id: string } }): Metadata => ({ title: etabById[params.id]?.nom, description: `${etabById[params.id]?.nom} : formations, métiers, frais, admission des étudiants internationaux et logement.` });
+export const generateMetadata = ({ params }: { params: { id: string } }): Metadata => {
+  const e = etabById[params.id];
+  if (!e) return {};
+  const villes = villesOf(e);
+  const nb = e.filieres.length + e.filieres_echues.length;
+  const title = `${e.sigle && !e.nom.startsWith(e.sigle) ? `${e.sigle} – ` : ""}${e.nom} : formations, frais et admission à ${villes.join(", ")}`;
+  const description = `${e.nom} (${villes.join(", ")}, Maroc) · ${labelById[e.label]?.libelle}. ${nb ? `${nb} filière${nb > 1 ? "s" : ""}` : "Programmes"}, débouchés, frais de scolarité, quartier, transports et logement étudiant. Candidature en ligne pour les étudiants de toute l'Afrique.`;
+  const image = e.photos[0]?.src ?? e.logo ?? undefined;
+  return { title, description, alternates: { canonical: `/etablissements/${e.id}/` }, openGraph: { title, description, type: "website", images: image ? [image] : undefined } };
+};
+
+const m = (d: number) => (d < 1000 ? `${Math.round(d / 10) * 10} m` : `${(d / 1000).toFixed(1).replace(".", ",")} km`);
+const aPied = (d: number) => `${Math.max(1, Math.round(d / 80))} min à pied`;
+
+/** Données structurées schema.org (référencement) */
+function jsonLd(e: Etablissement) {
+  const campus = e.campus ?? [{ ville: e.ville, adresse: e.adresse, geo: e.geo } as Campus];
+  return {
+    "@context": "https://schema.org", "@type": e.type === "universite" ? "CollegeOrUniversity" : "EducationalOrganization",
+    name: e.nom, alternateName: e.sigle, url: `https://navigoal.netlify.app/etablissements/${e.id}/`, logo: e.logo ? `https://navigoal.netlify.app${e.logo}` : undefined,
+    image: e.photos.map((p) => `https://navigoal.netlify.app${p.src}`), sameAs: e.site_web ? [e.site_web] : undefined, foundingDate: e.annee_creation ? String(e.annee_creation) : undefined,
+    description: e.description ?? undefined,
+    location: campus.map((c) => ({ "@type": "Place", name: `Campus de ${c.ville}`, address: { "@type": "PostalAddress", streetAddress: c.adresse ?? undefined, addressLocality: c.ville, addressCountry: "MA" }, geo: c.geo ? { "@type": "GeoCoordinates", latitude: c.geo.coordonnees.lat, longitude: c.geo.coordonnees.lon } : undefined })),
+    hasCredential: e.filieres.slice(0, 30).map((f) => ({ "@type": "EducationalOccupationalCredential", name: f.intitule, credentialCategory: f.diplome ?? undefined })),
+  };
+}
+
+/** Campus : quartier, quartiers voisins, transports à proximité et repères de la ville. */
+function CampusMobilite({ e }: { e: Etablissement }) {
+  const campus: Campus[] = e.campus ?? [{ id: e.id, ville: e.ville, adresse: e.adresse, label: e.label, label_libelle: e.label_libelle, reconnaissance: e.reconnaissance, autorisation: e.autorisation, site_web: e.site_web, geo: e.geo }];
+  return (
+    <section id="campus" className="flex scroll-mt-32 flex-col gap-4">
+      <div><h2 className="text-[28px] font-extrabold tracking-tight">{campus.length > 1 ? `${campus.length} campus au Maroc` : "Campus, quartier et mobilité"}</h2><p className="text-ink-mute">{campus.length > 1 ? "Tu choisis ton campus au moment de ta candidature. " : ""}Quartier, transports à proximité et repères pour s&apos;installer.</p></div>
+      <div className={`grid gap-4 ${campus.length > 1 ? "md:grid-cols-2" : ""}`}>
+        {campus.map((c) => {
+          const g = c.geo, V = mobilite[c.ville];
+          return (
+            <div key={c.id} className="card flex flex-col gap-3 rounded-[22px] p-5">
+              <div className="flex flex-wrap items-center justify-between gap-2"><b className="flex items-center gap-1.5 text-lg"><MapPin size={17} className="text-brand-600" />{campus.length > 1 ? `Campus de ${c.ville}` : c.ville}</b>{campus.length > 1 && <LabelChip label={c.label} />}</div>
+              {c.adresse && <p className="text-sm text-ink-soft">{c.adresse}</p>}
+              {g?.quartier && <p className="text-sm"><b>Quartier :</b> <span className="text-ink-soft">{g.quartier}{g.arrondissement && g.arrondissement !== g.quartier ? ` (${g.arrondissement})` : ""}</span>{g.quartiers_voisins.length > 0 && <span className="text-ink-mute"> · à proximité : {g.quartiers_voisins.join(", ")}</span>}</p>}
+              {g && (g.tramway.length > 0 || g.gares.length > 0 || g.bus.arrets_600m > 0) && (
+                <ul className="flex flex-col gap-1.5 text-sm">
+                  {g.tramway.slice(0, 2).map((t) => <li key={t.nom} className="flex items-center gap-2"><TramFront size={15} className="shrink-0 text-brand-600" />Tramway <b>{t.nom}</b><span className="text-ink-mute">· {m(t.distance_m)}{t.distance_m < 1600 ? ` (${aPied(t.distance_m)})` : ""}</span></li>)}
+                  {g.bus.arrets_600m > 0 && <li className="flex items-center gap-2"><Bus size={15} className="shrink-0 text-brand-600" />{g.bus.arrets_600m} arrêt{g.bus.arrets_600m > 1 ? "s" : ""} de bus à moins de 600 m{g.bus.plus_proche ? <span className="text-ink-mute"> · le plus proche : {g.bus.plus_proche.nom} ({m(g.bus.plus_proche.distance_m)})</span> : null}</li>}
+                  {g.gares.slice(0, 1).map((t) => <li key={t.nom} className="flex items-center gap-2"><TrainFront size={15} className="shrink-0 text-brand-600" />Gare <b>{t.nom}</b><span className="text-ink-mute">· {m(t.distance_m)}</span></li>)}
+                </ul>
+              )}
+              {V && <div className="mt-auto flex flex-col gap-1.5 rounded-2xl bg-[#f6f8fe] p-3 text-[13px] text-ink-soft">
+                <span><b className="text-ink">Se déplacer à {c.ville} :</b> {V.reseaux.join(", ")}.</span>
+                <span className="flex items-start gap-1.5"><TrainFront size={14} className="mt-0.5 shrink-0" />{V.gares.join(" · ")}</span>
+                <span className="flex items-start gap-1.5"><Plane size={14} className="mt-0.5 shrink-0" />{V.aeroport}</span>
+                <span><b className="text-ink">Quartiers étudiants :</b> {V.quartiers_etudiants.join(", ")}. {V.conseil}</span>
+              </div>}
+            </div>
+          );
+        })}
+      </div>
+      <p className="text-xs text-ink-mute">Distances à vol d&apos;oiseau calculées à partir d&apos;OpenStreetMap (© contributeurs OSM) ; à vérifier sur place.</p>
+    </section>
+  );
+}
 
 const ADMISSION = ["Dossier en ligne via Navigoal (bac ou relevés de notes, CV, lettre de motivation).", "Étude du dossier et, selon le programme, test ou entretien à distance.", "Admission, paiement des frais de réservation, attestation pour le visa.", "Arrivée : carte de séjour, logement Navilease, intégration."];
 
@@ -19,12 +81,14 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
   const live = await establishmentLive(params.id);
   const confirmed = (live?.programs ?? []).filter((p) => p.feesConfirmed || !p.indicative);
   const e = etabById[params.id];
+  if (e.id !== params.id) permanentRedirect(`/etablissements/${e.id}/`); // ancien campus regroupé
   const P = paysDetailById[e.pays];
   const C = COUTS[e.pays];
   // Filières homologuées, regroupées par composante (universités) ou par domaine
   const groupe = (f: Filiere) => f.composante ?? domaineById[f.domaine ?? ""]?.libelle ?? "Autres filières";
   const autorise = e.label === "autorise";
-  const liste = autorise ? e.filieres_echues : e.filieres;
+  const liste = autorise ? [...e.filieres, ...e.filieres_echues] : e.filieres;
+  const villes = villesOf(e);
   const groupes = liste.reduce<Record<string, Filiere[]>>((acc, f) => ((acc[groupe(f)] ??= []).push(f), acc), {});
   const shared = (x: typeof e) => x.formations.filter((f) => e.formations.includes(f)).length;
   const similar = etablissements.filter((x) => x.id !== e.id && shared(x) >= 2).sort((a, b) => shared(b) - shared(a)).slice(0, 4);
@@ -33,10 +97,11 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
   const D = fid ? devis(e.id, fid) : null;
   const typ = C.scolarite_annuelle[e.type] ?? C.scolarite_annuelle.universite;
   const B = P.budget;
-  const facts: [string, string][] = [["Label", labelById[e.label]?.libelle ?? "—"], ["Statut", STATUT_LONG[e.statut] ?? "Privé"], ["Ville", e.ville], ["Création", e.annee_creation ? String(e.annee_creation) : "—"], autorise ? ["Diplômes", "D'établissement"] : ["Filières homologuées", String(e.filieres.length)], ["Étudiants étrangers", "Accueillis ✓"]];
+  const facts: [string, string][] = [["Label", labelById[e.label]?.libelle ?? "—"], ["Statut", STATUT_LONG[e.statut] ?? "Privé"], e.campus ? ["Campus", villes.join(" · ")] : ["Ville", e.ville], ["Création", e.annee_creation ? String(e.annee_creation) : "—"], autorise ? ["Diplômes", "D'établissement"] : ["Filières homologuées", String(e.filieres.length)], ["Étudiants étrangers", "Accueillis ✓"]];
   const compare = `/comparateur/?f=${fid}&e=${[e.id, ...similar.slice(0, 2).map((x) => x.id)].join(",")}`;
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(e)) }} />
       <div className="container flex flex-col gap-6 pt-7">
         <nav className="flex items-center gap-1.5 text-[13px] text-ink-mute"><Link href="/">Accueil</Link><ChevronRight size={14} /><Link href="/etablissements">Établissements</Link><ChevronRight size={14} /><span>{e.sigle}</span></nav>
         <Reveal className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
@@ -44,7 +109,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
             <EtabLogo e={e} size={88} className="shadow-card" />
             <div className="flex min-w-0 flex-col gap-2">
               <h1 className="text-3xl font-extrabold tracking-tight sm:text-[44px] sm:leading-[1.05]">{e.nom}</h1>
-              <div className="flex flex-wrap gap-2"><LabelChip label={e.label} /><span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip bg-sun-100 text-[#a55a00]"><MapPin size={12} className="mr-1 inline" />{e.ville}, Maroc</span></div>
+              <div className="flex flex-wrap gap-2"><LabelChip label={e.label} /><span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip bg-sun-100 text-[#a55a00]"><MapPin size={12} className="mr-1 inline" />{e.campus ? `${e.campus.length} campus : ${villes.join(", ")}` : `${e.ville}, Maroc`}</span></div>
             </div>
           </div>
           <div className="flex flex-wrap gap-2.5">
@@ -62,7 +127,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
       <div className="container mt-10 grid items-start gap-10 lg:grid-cols-[1fr_380px]">
         <div className="flex min-w-0 flex-col gap-8">
           <nav className="sticky top-[76px] z-10 -mx-1 flex gap-6 overflow-x-auto border-b border-slate-200 bg-[#f6f8fe]/90 px-1 backdrop-blur" aria-label="Sections">
-            {[["#formations", "Formations & métiers"], ["#admission", "Admission"], ["#frais", "Frais & bourses"], ["#logement", "Logement"]].map(([h, t], k) => <a key={h} href={h} className={`shrink-0 whitespace-nowrap py-3 text-sm font-bold ${k === 0 ? "border-b-[3px] border-brand-600 text-brand-600" : "text-ink-mute hover:text-brand-600"}`}>{t}</a>)}
+            {[["#formations", "Formations & métiers"], ["#campus", e.campus ? "Campus & mobilité" : "Quartier & mobilité"], ["#admission", "Admission"], ["#frais", "Frais & bourses"], ["#logement", "Logement"]].map(([h, t], k) => <a key={h} href={h} className={`shrink-0 whitespace-nowrap py-3 text-sm font-bold ${k === 0 ? "border-b-[3px] border-brand-600 text-brand-600" : "text-ink-mute hover:text-brand-600"}`}>{t}</a>)}
           </nav>
           <section id="formations" className="flex scroll-mt-32 flex-col gap-6">
             <div className={`card flex flex-col gap-2 rounded-[22px] p-5 ${autorise ? "border-[#f3e2b4] bg-[#fffaf0]" : "border-[#cdeedd] bg-[#f3fbf6]"}`}>
@@ -70,7 +135,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
               <p className="text-sm text-ink-soft">{labelById[e.label]?.description}{e.reconnaissance_en_cours ? " Reconnaissance par l'État en cours d'attribution." : ""}</p>
               {autorise && e.reconnaissance && <p className="text-sm text-ink-soft">Établissement reconnu par l&apos;État : ses filières doivent être de nouveau accréditées pour délivrer des diplômes équivalents aux diplômes nationaux.</p>}
               {autorise && <p className="text-sm text-ink-soft">Avant de t&apos;inscrire, demande à l&apos;établissement si la filière visée a obtenu le renouvellement de son accréditation (arrêté au Bulletin officiel).</p>}
-              {(e.reconnaissance || e.autorisation) && <p className="text-xs text-ink-mute">Source : {[e.reconnaissance, e.autorisation ? `liste des établissements privés autorisés 2023-2024 (${e.autorisation})` : null].filter(Boolean).join(" ; ")}.</p>}
+              {(e.reconnaissance || e.autorisation) && <p className="text-xs text-ink-mute">Source : {[e.reconnaissance, e.autorisation ? `liste des établissements privés autorisés (${e.autorisation})` : null].filter(Boolean).join(" ; ")}.</p>}
             </div>
             {(live?.description ?? e.description) && <div className="card flex flex-col gap-2 rounded-[22px] p-6"><h2 className="text-lg font-extrabold">Présentation</h2><p className="whitespace-pre-line leading-relaxed text-ink-soft">{live?.description ?? e.description}</p>{e.adresse && <p className="flex items-start gap-1.5 text-sm text-ink-mute"><MapPin size={15} className="mt-0.5 shrink-0" />{e.adresse}</p>}</div>}
             {confirmed.length > 0 && (
@@ -88,7 +153,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
                 <Stagger className="flex flex-col gap-3">
                   {fs.map((f, k) => {
                     const F = f.formation ? formationById[f.formation] : undefined;
-                    const info = [f.diplome ?? "Diplôme à préciser par l'établissement", f.duree_annees ? `${f.duree_annees} an${f.duree_annees > 1 ? "s" : ""}` : null, f.niveau ? niveauLabel(f.niveau) : null, f.ville].filter(Boolean).join(" · ");
+                    const info = [f.diplome ?? "Diplôme à préciser par l'établissement", f.duree_annees ? `${f.duree_annees} an${f.duree_annees > 1 ? "s" : ""}` : null, f.niveau ? niveauLabel(f.niveau) : null, e.campus && f.campus ? `campus : ${f.campus.join(", ")}` : f.ville].filter(Boolean).join(" · ");
                     return (
                       <StaggerItem key={`${f.intitule}-${k}`} className="flex flex-col gap-3 rounded-2xl border border-[#eef1f8] bg-white p-4 md:flex-row md:items-center md:gap-4">
                         <div className="flex flex-col gap-1 md:w-[320px] md:shrink-0">
@@ -97,7 +162,9 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
                           <span className="text-xs text-ink-mute">{info}</span>
                           {f.homologation.statut === "echue"
                             ? <span className="text-[11px] font-semibold text-[#a55a00]" title={f.homologation.texte}>Accréditation échue ({f.homologation.fin}) · diplôme d&apos;établissement</span>
-                            : <span className="text-[11px] font-semibold text-[#0f8a46]" title={f.homologation.texte}>Accréditée jusqu&apos;en {f.homologation.fin}</span>}
+                            : f.homologation.statut === "recente"
+                              ? <span className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold text-brand-700" title={f.homologation.texte}><span className="chip bg-brand-50 px-2 py-0.5 text-[11px] text-brand-700">Accrédité</span>accréditation arrivée à échéance en {f.homologation.fin}, renouvellement à confirmer</span>
+                              : <span className="text-[11px] font-semibold text-[#0f8a46]" title={f.homologation.texte}>Accréditée jusqu&apos;en {f.homologation.fin}</span>}
                         </div>
                         <div className="flex min-w-0 flex-1 flex-col gap-1.5">{F && F.metiers.length > 0 && <><span className="text-[11px] font-extrabold text-ink-mute">MÈNE AUX MÉTIERS</span><div className="flex flex-wrap gap-1.5">{F.metiers.slice(0, 3).map((m) => metierById[m] && <Link key={m} href={`/metiers/${m}/`} className="chip bg-[#f1edff] text-[#6a3df0] hover:bg-[#e4dcff]">{metierById[m].nom}</Link>)}</div></>}</div>
                         {F && <Link href={`/comparateur/?f=${F.id}&e=${e.id}`} className="btn-ghost shrink-0 self-start px-3 py-2 text-[13px] md:self-center"><Scale size={14} /> Comparer</Link>}
@@ -109,6 +176,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
             ))}
             <p className="text-xs text-ink-mute">Sources : listes du ministère de l&apos;Enseignement supérieur et arrêtés d&apos;accréditation publiés au Bulletin officiel. Frais et calendrier à confirmer auprès de l&apos;établissement.</p>
           </section>
+          <CampusMobilite e={e} />
           <section id="admission" className="scroll-mt-32"><Reveal className="card flex flex-col gap-3 rounded-[22px] p-6">
             <h3 className="text-lg font-extrabold">Admission des étudiants internationaux</h3>
             {ADMISSION.map((t, k) => <div key={k} className="flex items-start gap-3"><span className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full bg-brand-50 text-[13px] font-extrabold text-brand-600">{k + 1}</span><span className="pt-1 text-sm text-ink-soft">{t}</span></div>)}
@@ -126,7 +194,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
           </div>
           {similar.length > 0 && <div className="card flex flex-col gap-2.5 rounded-[22px] p-5">
             <b>Établissements comparables</b>
-            {similar.map((x) => <Link key={x.id} href={`/etablissements/${x.id}/`} className="flex items-center gap-3 rounded-2xl border border-[#eef1f8] p-3 transition hover:border-brand-200"><EtabLogo e={x} size={42} /><span className="min-w-0 flex-1"><b className="block text-[13px]">{x.sigle}</b><span className="text-xs text-ink-mute">{x.ville}</span></span><span className="chip shrink-0 bg-[#e8f8ef] text-[#0f8a46]">{shared(x)} en commun</span></Link>)}
+            {similar.map((x) => <Link key={x.id} href={`/etablissements/${x.id}/`} className="flex items-center gap-3 rounded-2xl border border-[#eef1f8] p-3 transition hover:border-brand-200"><EtabLogo e={x} size={42} /><span className="min-w-0 flex-1"><b className="block text-[13px]">{x.sigle}</b><span className="text-xs text-ink-mute">{villesOf(x).join(" · ")}</span></span><span className="chip shrink-0 bg-[#e8f8ef] text-[#0f8a46]">{shared(x)} en commun</span></Link>)}
             <Link href={compare} className="btn-ghost py-2.5"><Scale size={16} /> Ouvrir le comparateur</Link>
           </div>}
           <div id="logement" className="card flex scroll-mt-28 flex-col gap-2.5 rounded-[22px] bg-gradient-to-br from-white to-[#fff7dd] p-5">

@@ -18,4 +18,5 @@ Toute modification visuelle importante d'un écran existant repasse aussi par Fi
 - Logos : `assets/logos/` (collecte : `scripts/fetch_logos.py`)
 - Site web : `web/` (Next.js 14, Tailwind, Framer Motion ; `npm run dev`, `npm run build`)
 - Destination unique : le Maroc (établissements privés aux diplômes homologués par l'État, labels « Reconnu par l'État », « Diplômes homologués », « Établissement professionnel », « Établissement autorisé » (diplômes d'établissement)) ; étudiants de toute l'Afrique et d'ailleurs (`data/referentiels/pays_origine.json`). Langue : français.
-- Référentiel des établissements : `python3 scripts/build_etablissements_maroc.py` (sources officielles dans `data/sources/maroc/`).
+- Référentiel des établissements : `python3 scripts/build_etablissements_maroc.py` (sources officielles dans `data/sources/maroc/` ; réseaux multi-campus regroupés via `GROUPES`). Quartier et mobilité : `python3 scripts/fetch_geo.py [--retry]` ; photos : `scripts/fetch_photos.py`.
+- SEO : `web/src/app/sitemap.ts`, `robots.ts`, métadonnées et JSON-LD (schema.org) par fiche établissement ; logo : `web/public/logo-navigoal.svg`.

@@ -107,7 +107,7 @@ export function FormationOfferCard({ f, etabId, score, highlight = false }: { f:
           <div><Link href={`/formations/${f.id}/`} className="text-[17px] font-extrabold hover:text-brand-600">{f.intitule}</Link><div className="text-sm font-semibold text-ink-soft">{e.nom}</div></div>
           <button aria-label="Ajouter aux favoris" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#f6f8fe] text-ink-mute transition hover:bg-[#ffecef] hover:text-[#d42a50]"><Heart size={17} /></button>
         </div>
-        <div className="flex items-center gap-1.5 text-[13px] text-ink-mute"><MapPin size={14} />{e.ville}, Maroc</div>
+        <div className="flex items-center gap-1.5 text-[13px] text-ink-mute"><MapPin size={14} />{e.campus ? `${e.campus.length} campus : ${e.campus.map((c) => c.ville).join(" · ")}` : `${e.ville}, Maroc`}</div>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap gap-1.5">
             <span className="chip bg-brand-50 text-brand-700">{f.diplome}</span>
@@ -133,7 +133,7 @@ export function EtabCard({ id }: { id: string }) {
           <div className="min-w-0"><div className="font-extrabold">{e.sigle}</div><div className="line-clamp-2 text-[13px] text-ink-soft">{e.nom}</div></div>
           <div className="flex flex-wrap gap-1.5"><LabelChip label={e.label} court /><span className="chip bg-[#f6f8fe] text-ink-soft">{e.type_libelle}</span></div>
           <div className="mt-auto flex items-center justify-between border-t border-[#eef1f8] pt-3 text-[13px]">
-            <span className="flex items-center gap-1.5 text-ink-mute"><Building2 size={14} />{e.ville}</span>
+            <span className="flex items-center gap-1.5 text-ink-mute"><Building2 size={14} />{e.campus ? `${e.campus.length} campus` : e.ville}</span>
             <span className="font-bold text-brand-600">{e.label === "autorise" ? "Diplômes d'établissement" : `${e.filieres.length} filière${e.filieres.length > 1 ? "s" : ""} homologuée${e.filieres.length > 1 ? "s" : ""}`}</span>
           </div>
         </div>

@@ -5,7 +5,7 @@ import { AlertCircle, ArrowLeft, ArrowRight, Bookmark, Check, CheckCircle2, File
 import { useEffect, useMemo, useState } from "react";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { Alert, Button, Empty, Loading, PageHeader, Panel, money, useToast } from "@/components/app/kit";
-import { Check as Checkbox, FileDrop, FormError, Textarea, docLabel, type Doc } from "@/components/app/form";
+import { Check as Checkbox, FileDrop, FormError, Select, Textarea, docLabel, type Doc } from "@/components/app/form";
 import { api } from "@/lib/api";
 import { useAction, useApi } from "@/hooks/useApi";
 import { etabById, serieById } from "@/lib/data";
@@ -59,6 +59,7 @@ export function NewApplication() {
   const [selected, setSelected] = useState<string[]>([]);
   const [method, setMethod] = useState("");
   const [certify, setCertify] = useState(false);
+  const [campus, setCampus] = useState("");
   const save = useAction();
   const submit = useAction();
 
@@ -66,6 +67,7 @@ export function NewApplication() {
     if (!d.data) return;
     if (d.data.application.status !== "brouillon" && d.data.application.status !== "piece_demandee") router.replace(`/espace/candidatures/${d.data.application.id}`);
     setMotivation(d.data.application.motivation ?? "");
+    setCampus(d.data.application.campus ?? (d.data.program.campuses.length === 1 ? d.data.program.campuses[0] : ""));
     setSelected(d.data.application.documentIds);
   }, [d.data, router]);
 
@@ -83,10 +85,10 @@ export function NewApplication() {
   const minor = !!me.data?.birthYear && new Date().getFullYear() - me.data.birthYear < 18;
   const consent = (guardians.data ?? []).some((g) => g.link.consentAt);
 
-  const persist = () => save.run(async () => { await api(`/candidatures/${appId}`, { method: "PATCH", body: { motivation, documentIds: selected } }); });
+  const persist = () => save.run(async () => { await api(`/candidatures/${appId}`, { method: "PATCH", body: { motivation, documentIds: selected, campus: campus || null } }); });
   const go = async (n: number) => { await persist(); setStep(n); window.scrollTo({ top: 0, behavior: "smooth" }); };
   const send = () => submit.run(async () => {
-    await api(`/candidatures/${appId}`, { method: "PATCH", body: { motivation, documentIds: selected } });
+    await api(`/candidatures/${appId}`, { method: "PATCH", body: { motivation, documentIds: selected, campus: campus || null } });
     const r = await api<{ redirectUrl: string | null }>(`/candidatures/${appId}/envoyer`, { body: p!.applicationFee > 0 ? { moyen: method === "parent" ? methods.data?.[country]?.[0]?.id : method, payeur: method === "parent" ? parent?.id : undefined } : {} });
     toast(method === "parent" ? "Candidature envoyée : ton parent a reçu la demande de paiement." : "Candidature envoyée !");
     router.push(r.redirectUrl ?? `/espace/candidatures/${appId}`);
@@ -100,7 +102,7 @@ export function NewApplication() {
     <>
       <PageHeader crumbs={[["Mes candidatures", "/espace/candidatures"], ["Nouvelle candidature"]]}
         title={<span className="flex items-center gap-4"><EtabLogo e={etabById[e.id] ?? e} size={56} /><span>Candidater : {p.title}</span></span>}
-        sub={`${e.nom} · ${e.ville}, Maroc · candidature n° ${d.data.application.number}`}
+        sub={`${e.nom} · ${campus || e.ville}, Maroc · candidature n° ${d.data.application.number}`}
         actions={<Button variant="ghost" icon={Bookmark} loading={save.pending} onClick={async () => { await persist(); toast("Brouillon enregistré"); }}>Enregistrer le brouillon</Button>} />
       <ol className="card mb-6 flex items-center gap-2 overflow-x-auto rounded-[22px] p-4 sm:gap-4 sm:p-5">
         {STEPS.map((t, i) => (
@@ -127,6 +129,13 @@ export function NewApplication() {
         )}
         {step === 1 && (
           <Panel title="Ton dossier" icon={FileText}>
+            {p.campuses.length > 1 && (
+              <div className="mb-4 flex flex-col gap-1.5">
+                <label htmlFor="campus" className="text-[13px] font-bold">Campus souhaité <span className="text-[#c0392b]">*</span></label>
+                <Select id="campus" value={campus} onChange={(ev) => setCampus(ev.target.value)} placeholder="Choisis ton campus" options={p.campuses.map((c) => [c, `Campus de ${c}`])} />
+                <span className="text-xs text-ink-mute">{e.nom} propose cette formation sur {p.campuses.length} campus. Compare quartiers et transports sur <Link href={`/etablissements/${e.id}/#campus`} className="font-bold text-brand-600">la fiche de l&apos;établissement</Link>.</span>
+              </div>
+            )}
             <div className="flex flex-col gap-1.5">
               <div className="flex justify-between text-[13px] font-bold"><label htmlFor="motiv">Lettre de motivation</label><span className="font-normal text-ink-mute">{words} mots</span></div>
               <Textarea id="motiv" value={motivation} onChange={(ev) => setMotivation(ev.target.value)} rows={10} placeholder={`Pourquoi ${p.title} à ${e.sigle} ? Parle de ton parcours, de ce qui te motive et de ton projet professionnel.`} />

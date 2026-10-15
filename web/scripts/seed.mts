@@ -65,13 +65,13 @@ async function seedEstablishments() {
       titles.add(f.intitule + "|" + (f.composante ?? ""));
       const t = sante(f) ? c.scolarite_annuelle.ecole_sante : sco;
       await db.insert(schema.programs).values({
-        establishmentId: e.id, formationId: f.formation, title: f.intitule, faculty: f.composante ?? "", campus: f.ville ?? null,
+        establishmentId: e.id, formationId: f.formation, title: f.intitule, faculty: f.composante ?? "", campus: f.ville ?? null, campuses: f.campus ?? [],
         diploma: f.diplome ?? null, level: f.niveau ?? null, options: f.options ?? null, durationYears: f.duree_annees ?? null,
         currency: CUR[e.pays], tuitionMin: t.min, tuitionMax: t.max, feesConfirmed: false, indicative: true,
-        homologated: f.homologuee, homologation: f.homologation, admission: {},
+        homologated: f.homologuee && f.homologation?.statut !== "recente", homologation: f.homologation, admission: {},
       }).onConflictDoUpdate({
         target: [schema.programs.establishmentId, schema.programs.title, schema.programs.faculty],
-        set: { homologated: sql`excluded.homologated`, homologation: sql`excluded.homologation`, diploma: sql`coalesce(${schema.programs.diploma}, excluded.diploma)`, level: sql`coalesce(${schema.programs.level}, excluded.level)` },
+        set: { homologated: sql`excluded.homologated`, campuses: sql`excluded.campuses`, homologation: sql`excluded.homologation`, diploma: sql`coalesce(${schema.programs.diploma}, excluded.diploma)`, level: sql`coalesce(${schema.programs.level}, excluded.level)` },
       });
     }
     // Filières importées d'un ancien référentiel et dont l'homologation n'est plus en cours : retirées de la publication.

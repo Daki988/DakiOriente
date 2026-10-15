@@ -2,11 +2,28 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
+import { SITE_URL } from "@/lib/site";
+
+const DESCRIPTION = "Étudier au Maroc depuis toute l'Afrique : orientation, comparatif des écoles et universités privées reconnues par l'État, filières accréditées, frais, candidature en ligne et logement étudiant (Navilease).";
 
 export const metadata: Metadata = {
-  title: { default: "Navigoal — Oriente-toi, forme-toi, installe-toi", template: "%s · Navigoal" },
-  description: "Orientation, candidature et logement étudiant (Navilease) pour étudier au Maroc dans des établissements privés aux diplômes homologués par l'État, depuis toute l'Afrique.",
-  icons: { icon: "/favicon.svg" },
+  metadataBase: new URL(SITE_URL),
+  title: { default: "Navigoal — Étudier au Maroc : écoles reconnues, candidature et logement", template: "%s · Navigoal" },
+  description: DESCRIPTION,
+  applicationName: "Navigoal",
+  keywords: ["étudier au Maroc", "école privée Maroc", "université privée Maroc", "établissement reconnu par l'État", "diplôme homologué Maroc", "étudiant africain Maroc", "orientation post-bac", "candidature en ligne", "logement étudiant Casablanca", "logement étudiant Rabat", "visa étudiant Maroc"],
+  alternates: { canonical: "/" },
+  icons: { icon: "/favicon.svg", apple: "/apple-touch-icon.png" },
+  openGraph: { type: "website", locale: "fr_FR", siteName: "Navigoal", title: "Navigoal — Étudier au Maroc", description: DESCRIPTION, url: SITE_URL, images: [{ url: "/og.png", width: 1200, height: 630, alt: "Navigoal — Étudier au Maroc" }] },
+  twitter: { card: "summary_large_image", title: "Navigoal — Étudier au Maroc", description: DESCRIPTION, images: ["/og.png"] },
+  robots: { index: true, follow: true },
+  formatDetection: { telephone: false },
+};
+
+const ORGANISATION = {
+  "@context": "https://schema.org", "@type": "Organization", name: "Navigoal", url: SITE_URL, logo: `${SITE_URL}/logo-navigoal.svg`,
+  description: DESCRIPTION, areaServed: ["Africa", "MA"], knowsLanguage: "fr",
+  potentialAction: { "@type": "SearchAction", target: `${SITE_URL}/recherche/?q={q}`, "query-input": "required name=q" },
 };
 
 export const viewport: Viewport = { themeColor: "#1a47f5" };
@@ -15,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr">
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANISATION) }} />
         <MotionProvider>
           <ScrollProgress />
           {children}

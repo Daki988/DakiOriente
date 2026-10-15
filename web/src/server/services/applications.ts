@@ -46,7 +46,7 @@ export async function createDraft(student: User, programId: string) {
   return a;
 }
 
-export const draftSchema = z.object({ motivation: z.string().max(5000).optional(), answers: z.record(z.string(), z.string().max(2000)).optional(), documentIds: z.array(z.string()).max(30).optional(), campaignId: z.string().optional().nullable() });
+export const draftSchema = z.object({ motivation: z.string().max(5000).optional(), answers: z.record(z.string(), z.string().max(2000)).optional(), documentIds: z.array(z.string()).max(30).optional(), campaignId: z.string().optional().nullable(), campus: z.string().max(80).optional().nullable() });
 
 async function ownApplication(student: User, id: string) {
   const [a] = await db.select().from(schema.applications).where(and(eq(schema.applications.id, id), eq(schema.applications.studentId, student.id)));
@@ -61,6 +61,10 @@ export async function updateDraft(student: User, id: string, raw: z.input<typeof
   if (i.documentIds?.length) {
     const owned = await db.select({ id: schema.documents.id }).from(schema.documents).where(and(eq(schema.documents.ownerId, student.id), inArray(schema.documents.id, i.documentIds)));
     if (owned.length !== new Set(i.documentIds).size) throw forbidden();
+  }
+  if (i.campus) {
+    const [p] = await db.select({ campuses: schema.programs.campuses }).from(schema.programs).where(eq(schema.programs.id, a.programId));
+    if (!p.campuses.includes(i.campus)) throw new AppError("Ce campus ne propose pas cette formation.");
   }
   const [u] = await db.update(schema.applications).set(i).where(eq(schema.applications.id, id)).returning();
   return u;
@@ -82,6 +86,7 @@ export async function submitApplication(student: User, id: string, payment?: { m
   const missing = await missingDocuments(a);
   if (missing.length) throw new AppError(`Pièces manquantes : ${missing.map((m) => DOC_LABEL[m as keyof typeof DOC_LABEL] ?? m).join(", ")}.`, 400, "pieces_manquantes");
   const [p] = await db.select().from(schema.programs).where(eq(schema.programs.id, a.programId));
+  if (p.campuses.length > 1 && !a.campus) throw new AppError("Choisis ton campus avant d'envoyer ta candidature.", 400, "campus_requis");
   const [e] = await db.select().from(schema.establishments).where(eq(schema.establishments.id, a.establishmentId));
 
   if (a.status === "piece_demandee") {

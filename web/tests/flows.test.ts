@@ -59,13 +59,26 @@ describe("comptes", () => {
 
 describe("labels", () => {
   it("établissement autorisé : filières publiées comme diplômes d'établissement (non homologuées)", async () => {
-    const e = await etab.getEstablishment("ma-heci-rabat");
+    const e = await etab.getEstablishment("ma-heci");
     expect(e.label).toBe("autorise");
-    const ps = await etab.listPrograms("ma-heci-rabat");
+    const ps = await etab.listPrograms("ma-heci");
     expect(ps.length).toBeGreaterThan(0);
-    expect(ps.every((p) => !p.homologated && p.homologation?.statut === "echue")).toBe(true);
+    expect(ps.every((p) => !p.homologated && ["echue", "recente"].includes(p.homologation?.statut ?? ""))).toBe(true);
     // Établissement homologué : seules les filières homologuées sont publiées
     expect((await etab.listPrograms("ma-uir")).every((p) => p.homologated)).toBe(true);
+  });
+});
+
+describe("réseau multi-campus", () => {
+  it("un seul établissement, campus choisi à la candidature", async () => {
+    const ps = await etab.listPrograms("ma-emsi");
+    const p = ps.find((x) => x.campuses.length > 1)!;
+    expect(p).toBeTruthy();
+    const s = await accounts.register({ role: "etudiant", firstName: "Awa", lastName: "Campus", email: "campus@test.local", password: "Motdepasse1", birthYear: 2004, country: "SN", city: "Dakar", acceptTerms: true });
+    const a = await apps.createDraft(s, p.id);
+    await expect(apps.updateDraft(s, a.id, { campus: "Ville inconnue" })).rejects.toThrow(/campus/);
+    const u = await apps.updateDraft(s, a.id, { campus: p.campuses[1] });
+    expect(u.campus).toBe(p.campuses[1]);
   });
 });
 

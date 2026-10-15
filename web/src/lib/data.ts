@@ -9,6 +9,7 @@ import lyceesData from "@/data/lycees.json";
 import navileaseData from "@/data/navilease.json";
 import riasecData from "@/data/profils_riasec.json";
 import paysDetailsData from "@/data/pays_details.json";
+import mobiliteData from "@/data/mobilite.json";
 
 export type PaysCode = "GA" | "MA" | "SN";
 
@@ -29,11 +30,25 @@ export type Etablissement = {
   adresse: string | null; description: string | null; filieres: Filiere[];
   /** Établissement autorisé : filières dont l'accréditation a pris fin (diplômes d'établissement). */
   filieres_echues: Filiere[]; autorisation: string | null;
+  /** Localisation et mobilité (OpenStreetMap). */
+  geo: Geo | null;
+  /** Réseau multi-campus : campus proposés (choix du campus à la candidature). */
+  campus: Campus[] | null; alias: string[];
 };
+export type Proche = { nom: string; distance_m: number };
+export type Geo = {
+  coordonnees: { lat: number; lon: number }; quartier: string | null; arrondissement: string | null; quartiers_voisins: string[];
+  tramway: Proche[]; bus: { arrets_600m: number; plus_proche: Proche | null }; gares: Proche[];
+};
+export type Campus = {
+  id: string; ville: string; adresse: string | null; label: Label; label_libelle: string; reconnaissance: string | null;
+  autorisation: string | null; site_web: string | null; geo: Geo | null;
+};
+export type MobiliteVille = { reseaux: string[]; gares: string[]; aeroport: string; quartiers_etudiants: string[]; conseil: string };
 export type Label = "reconnu_etat" | "diplomes_homologues" | "professionnel" | "autorise";
 /** Filière homologuée par l'État (accréditation en cours). */
 export type Filiere = {
-  intitule: string; options: string | null; composante: string | null; ville: string | null;
+  intitule: string; options: string | null; composante: string | null; ville: string | null; campus?: string[];
   diplome: string | null; duree_annees: number | null; niveau: string | null; formation: string | null; domaine: string | null;
   homologation: { statut: string; fin: string; texte: string };
 };
@@ -45,7 +60,9 @@ export const LABELS: { id: Label; libelle: string; court: string; description: s
 ];
 export const labelById = Object.fromEntries(LABELS.map((l) => [l.id, l])) as Record<Label, (typeof LABELS)[number]>;
 /** Villes d'études (établissements publiés). */
-export const VILLES_ETUDES = Array.from(new Set((etablissementsData as unknown as { ville: string }[]).map((e) => e.ville))).sort((a, b) => a.localeCompare(b, "fr"));
+export const VILLES_ETUDES = Array.from(new Set((etablissementsData as unknown as { ville: string; campus: { ville: string }[] | null }[]).flatMap((e) => e.campus?.map((c) => c.ville) ?? [e.ville]))).sort((a, b) => a.localeCompare(b, "fr"));
+/** Villes où l'établissement accueille des étudiants (tous ses campus). */
+export const villesOf = (e: Pick<Etablissement, "ville" | "campus">) => e.campus?.map((c) => c.ville) ?? [e.ville];
 export type Photo = { src: string; credit: string | null; licence: string | null; page: string | null };
 type Fourchette = { min: number; max: number };
 export type PaysDetail = {
@@ -77,7 +94,9 @@ export const riasec = riasecData as { code: string; nom: string; profil: string;
 const index = <T extends { id: string }>(arr: T[]) => Object.fromEntries(arr.map((x) => [x.id, x])) as Record<string, T>;
 export const metierById = index(metiers);
 export const formationById = index(formations);
-export const etabById = index(etablissements);
+/** Inclut les anciens identifiants des campus regroupés (liens existants). */
+export const etabById: Record<string, Etablissement> = { ...Object.fromEntries(etablissements.flatMap((e) => e.alias.map((a) => [a, e]))), ...index(etablissements) };
+export const mobilite = mobiliteData as unknown as Record<string, MobiliteVille>;
 export const domaineById = index(domaines);
 export const competenceById = index(competences);
 export const serieById = index(series);

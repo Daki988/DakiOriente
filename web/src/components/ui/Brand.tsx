@@ -1,11 +1,14 @@
 import Link from "next/link";
 
+/** Logo Navigoal : un « N » tracé comme un itinéraire, du point de départ à l'objectif (point doré). */
 export function BrandMark({ size = 38 }: { size?: number }) {
   return (
     <span className="flex shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-brand-400" style={{ width: size, height: size }} aria-hidden>
-      <svg width={size * 0.7} height={size * 0.7} viewBox="8 6 24 24" fill="none">
-        <path d="M20 8 L27 27 L20 23 L13 27 Z" fill="#fff" />
-        <circle cx="20" cy="20" r="2.4" fill="#ffc21f" />
+      <svg width={size} height={size} viewBox="0 0 40 40" fill="none">
+        <path d="M12.5 28V13.5L27.5 26.5V18" stroke="#fff" strokeWidth="3.6" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="27.5" cy="11.6" r="5.4" stroke="#ffc21f" strokeWidth="1.4" opacity=".6" />
+        <circle cx="27.5" cy="11.6" r="2.8" fill="#ffc21f" />
+        <circle cx="12.5" cy="28" r="2.6" fill="#fff" />
       </svg>
     </span>
   );

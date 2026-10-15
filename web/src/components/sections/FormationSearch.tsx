@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronDown, Search, SlidersHorizontal, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { FormationOfferCard } from "@/components/ui/Cards";
-import { LABELS, VILLES_ETUDES, compatibilite, domaines, etablissements, formationById, metierById, niveauLabel, type Label } from "@/lib/data";
+import { LABELS, VILLES_ETUDES, villesOf, compatibilite, domaines, etablissements, formationById, metierById, niveauLabel, type Label } from "@/lib/data";
 import { PROFILE_KEY } from "./OrientationTest";
 
 const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
@@ -40,7 +40,7 @@ export function FormationSearch() {
   const results = useMemo(() => {
     const terms = norm(q).split(/\s+/).filter(Boolean);
     return OFFERS.filter(({ f, e }) => {
-      if (villes.length && !villes.includes(e.ville)) return false;
+      if (villes.length && !villesOf(e).some((v) => villes.includes(v))) return false;
       if (niv.length && !niv.includes(f.niveau)) return false;
       if (dom.length && !dom.includes(f.domaine)) return false;
       if (adm.length && !adm.includes(f.mode_admission)) return false;

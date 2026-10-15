@@ -12,7 +12,7 @@ import { CountryTag, SCHOOL_DOC_TYPES, SCHOOL_TRANSITIONS, octets, type AppRow, 
 
 type Doc = { id: string; type: string; fileName: string; size: number; mime: string; status: string; createdAt: string; label: string | null };
 type Detail = {
-  application: { id: string; number: string; status: AppStatus; motivation: string | null; answers: Record<string, string>; requestedDocuments: string[]; decisionNote: string | null; submittedAt: string | null; decidedAt: string | null; campaignId: string | null };
+  application: { id: string; number: string; status: AppStatus; campus?: string | null; motivation: string | null; answers: Record<string, string>; requestedDocuments: string[]; decisionNote: string | null; submittedAt: string | null; decidedAt: string | null; campaignId: string | null };
   program: Program;
   student: { id: string; firstName: string; lastName: string; email: string | null; phone: string | null; country: string | null; city: string | null; birthYear: number | null };
   events: { id: string; status: AppStatus; note: string | null; createdAt: string; authorId: string | null }[];
@@ -114,6 +114,7 @@ export function Dossier({ id }: { id: string }) {
               <Row k="N° de dossier" v={`#${a.number}`} />
               <Row k="Envoyée le" v={dateFr(a.submittedAt)} />
               <Row k="Formation" v={p.title} />
+              {a.campus && <Row k="Campus" v={a.campus} />}
               {a.decidedAt && <Row k="Décision le" v={dateFr(a.decidedAt)} />}
             </dl>
             <div className="flex flex-col gap-2 border-t border-[#eef1f8] pt-4 text-sm">

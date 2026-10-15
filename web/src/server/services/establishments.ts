@@ -31,7 +31,7 @@ export async function getEstablishment(id: string) {
 export const LABELS = ["reconnu_etat", "diplomes_homologues", "professionnel", "autorise"] as const;
 
 /** Filière publiable : homologuée par l'État, ou proposée par un établissement « autorisé » (diplôme d'établissement, affiché comme tel). */
-export const publishable = sql`(${schema.programs.homologated} or exists (select 1 from establishments pe where pe.id = ${schema.programs.establishmentId} and pe.label = 'autorise'))`;
+export const publishable = sql`(${schema.programs.homologated} or ${schema.programs.homologation}->>'statut' = 'recente' or exists (select 1 from establishments pe where pe.id = ${schema.programs.establishmentId} and pe.label = 'autorise'))`;
 
 export async function searchEstablishments(q: { pays?: string; ville?: string; label?: string; text?: string; limit?: number }) {
   return db.select().from(schema.establishments).where(and(

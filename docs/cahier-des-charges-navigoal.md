@@ -182,6 +182,14 @@ Navigoal doit permettre de :
 > | **Établissement professionnel** | Établissement de formation professionnelle privée accrédité (diplômes d'État de technicien et technicien spécialisé), attribué par le back-office sur justificatif. |
 > | **Établissement autorisé** | Établissement privé autorisé par le ministère (liste des établissements autorisés 2023-2024) sans filière accréditée en cours : diplômes d'établissement, non homologués. Ajouté à la demande du porteur de projet (octobre 2026) ; la fiche l'indique clairement et présente ses anciennes filières avec la fin de leur accréditation. |
 >
+> **Filières « Accrédité »** : une filière dont l'accréditation est arrivée à échéance depuis moins de 2 ans reste publiée avec le badge « Accrédité » (renouvellement à confirmer auprès de l'établissement).
+>
+> **Réseaux multi-campus** (EMSI, ISGA, SUPMTI, HECI, HECF, SUPTECH Santé, Art'Com Sup, IHEPS, SIST, IFJSUP, HEM) : une seule fiche par établissement, avec la liste de ses campus (adresse, label, quartier, transports). L'étudiant choisit son campus pendant sa candidature ; l'établissement voit le campus choisi dans chaque dossier.
+>
+> **Quartier et mobilité** : pour chaque campus, quartier, quartiers voisins, arrêts de tramway et de bus et gare les plus proches (OpenStreetMap, `scripts/fetch_geo.py`), complétés par un référentiel des transports de chaque ville (`data/referentiels/mobilite_villes.json`).
+>
+> **Retraits** : les établissements sans présence en ligne vérifiable (site officiel absent, inaccessible ou détourné, aucun logo officiel) sont retirés de la plateforme (statut `retire` dans `data/sources/maroc/enrichissement.json`).
+>
 > Les filières créées ou renommées par un établissement ne sont publiées qu'après vérification de l'arrêté d'accréditation par l'équipe Navigoal (back-office « Homologations »). Le référentiel est reconstruit par `scripts/build_etablissements_maroc.py` à partir des sources de `data/sources/maroc/`. Les données Gabon et Sénégal (établissements, coûts, fiches pays) sont archivées dans `data/archives/` ; les séries du bac du Gabon, du Maroc et du Sénégal restent utilisées pour l'orientation des élèves de ces pays.
 
 *Périmètre initial (v1.1), conservé pour référence :* la phase de lancement couvrait **trois pays**, choisis pour leur complémentarité (Afrique centrale, Afrique du Nord, Afrique de l'Ouest) et pour les flux d'étudiants entre eux (de nombreux étudiants gabonais et sénégalais étudient au Maroc).

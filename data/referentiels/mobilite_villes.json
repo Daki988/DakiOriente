@@ -1,0 +1,144 @@
+{
+  "_meta": {
+    "referentiel": "mobilite_villes",
+    "version": "1.0.0",
+    "date": "2026-10-15",
+    "description": "Se déplacer dans les villes étudiantes du Maroc : réseaux de transport, gares, aéroports et quartiers prisés des étudiants. Complète les données de proximité par campus (OpenStreetMap).",
+    "sources": ["ONCF (oncf.ma)", "Casa Tram / Casa Transports", "Tramway Rabat-Salé", "ONDA (onda.ma)", "OpenStreetMap"]
+  },
+  "items": {
+    "Casablanca": {
+      "reseaux": ["Tramway (lignes T1 à T4)", "Busway (BW1, BW2)", "Bus Alsa", "Petits taxis rouges", "Trains Al Bidaoui (TNR)"],
+      "gares": ["Casa-Voyageurs (Al Boraq, grandes lignes)", "Casa-Port (centre-ville)", "Casa-Oasis", "L'Oasis / Ennassim"],
+      "aeroport": "Aéroport Mohammed V (train direct depuis Casa-Voyageurs, ~35 min)",
+      "quartiers_etudiants": ["Maârif", "Gauthier", "Bourgogne", "Oasis", "Sidi Maârouf", "Hay Hassani"],
+      "conseil": "Le tramway et le busway desservent la plupart des campus ; un abonnement étudiant mensuel réduit fortement le coût des trajets."
+    },
+    "Rabat": {
+      "reseaux": ["Tramway Rabat-Salé (lignes L1 et L2)", "Bus Alsa City Bus", "Petits taxis bleus"],
+      "gares": ["Rabat-Agdal (Al Boraq)", "Rabat-Ville (centre)"],
+      "aeroport": "Aéroport Rabat-Salé (~15 min du centre)",
+      "quartiers_etudiants": ["Agdal", "Hassan", "Hay Riad", "Souissi", "Océan"],
+      "conseil": "Capitale calme et sûre : l'Agdal concentre logements étudiants, commerces et tramway."
+    },
+    "Salé": {
+      "reseaux": ["Tramway Rabat-Salé", "Bus Alsa", "Petits taxis"],
+      "gares": ["Salé-Ville", "Salé-Tabriquet"],
+      "aeroport": "Aéroport Rabat-Salé",
+      "quartiers_etudiants": ["Salé Al Jadida", "Tabriquet", "Hay Karima"],
+      "conseil": "Loyers plus accessibles qu'à Rabat, reliés à la capitale par le tramway."
+    },
+    "Fès": {
+      "reseaux": ["Bus urbains (City Bus)", "Petits taxis rouges"],
+      "gares": ["Gare de Fès (trains vers Rabat, Casablanca, Tanger, Oujda)"],
+      "aeroport": "Aéroport Fès-Saïss (~20 min)",
+      "quartiers_etudiants": ["Ville nouvelle", "Route d'Imouzzer", "Narjiss", "Saïss"],
+      "conseil": "Ville universitaire historique au coût de la vie modéré ; la ville nouvelle regroupe la majorité des écoles."
+    },
+    "Marrakech": {
+      "reseaux": ["Bus urbains (Alsa) et BHNS électrique", "Petits taxis beiges"],
+      "gares": ["Gare de Marrakech (trains vers Casablanca, Rabat, Tanger)"],
+      "aeroport": "Aéroport Marrakech-Ménara (~15 min)",
+      "quartiers_etudiants": ["Guéliz", "Hivernage", "Targa", "Massira", "Daoudiate"],
+      "conseil": "Guéliz est le cœur étudiant et commerçant ; prévoir un budget transport pour les campus en périphérie."
+    },
+    "Tanger": {
+      "reseaux": ["Bus urbains (Alsa)", "Petits taxis bleu-vert"],
+      "gares": ["Tanger-Ville (Al Boraq : Rabat en 1 h 20, Casablanca en 2 h 10)"],
+      "aeroport": "Aéroport Tanger Ibn Battouta",
+      "quartiers_etudiants": ["Malabata", "Iberia", "Centre-ville", "Mesnana"],
+      "conseil": "Pôle industriel et logistique (Tanger Med) : nombreux stages et alternances."
+    },
+    "Agadir": {
+      "reseaux": ["Bus urbains et BHNS Amalway", "Petits taxis orange"],
+      "gares": ["Pas de gare ferroviaire : cars Supratours vers Marrakech"],
+      "aeroport": "Aéroport Agadir Al Massira",
+      "quartiers_etudiants": ["Dakhla", "Hay Salam", "Talborjt", "Founty"],
+      "conseil": "Climat doux toute l'année et coût de la vie raisonnable ; le quartier Dakhla regroupe les campus."
+    },
+    "Oujda": {
+      "reseaux": ["Bus urbains", "Petits taxis"],
+      "gares": ["Gare d'Oujda (trains vers Fès et Casablanca)"],
+      "aeroport": "Aéroport Oujda-Angads",
+      "quartiers_etudiants": ["Hay Al Qods", "Centre-ville", "Hay Al Hikma"],
+      "conseil": "Ville étudiante de l'Oriental au coût de la vie parmi les plus bas du pays."
+    },
+    "Meknès": {
+      "reseaux": ["Bus urbains", "Petits taxis bleus"],
+      "gares": ["Meknès-Amir Abdelkader", "Meknès-Al Bassatine"],
+      "aeroport": "Aéroport Fès-Saïss (~45 min)",
+      "quartiers_etudiants": ["Hamria (ville nouvelle)", "Marjane", "Toulal"],
+      "conseil": "À 30 minutes de Fès en train, loyers modérés et cadre calme."
+    },
+    "Kénitra": {
+      "reseaux": ["Bus urbains", "Petits taxis"],
+      "gares": ["Kénitra (Al Boraq : Rabat en 20 min, Tanger en 50 min)"],
+      "aeroport": "Aéroport Rabat-Salé (~40 min)",
+      "quartiers_etudiants": ["Centre-ville", "Bir Rami", "Maamora"],
+      "conseil": "Gare Al Boraq : idéale pour étudier en étant relié rapidement à Rabat et Tanger."
+    },
+    "Mohammedia": {
+      "reseaux": ["Bus urbains", "Trains Al Bidaoui vers Casablanca", "Petits taxis"],
+      "gares": ["Mohammedia (Casablanca en 20 min)"],
+      "aeroport": "Aéroport Mohammed V (~45 min)",
+      "quartiers_etudiants": ["Centre-ville", "El Alia", "Parc"],
+      "conseil": "Ville balnéaire à 25 km de Casablanca, plus calme et moins chère."
+    },
+    "Bouskoura": {
+      "reseaux": ["Bus vers Casablanca", "Navettes des établissements", "Grands taxis"],
+      "gares": ["Casa-Oasis (~15 min en voiture)"],
+      "aeroport": "Aéroport Mohammed V (~20 min)",
+      "quartiers_etudiants": ["Ville Verte", "Casa Green Town", "Bouskoura centre"],
+      "conseil": "Campus verts en périphérie de Casablanca ; vérifier les navettes proposées par l'établissement."
+    },
+    "Tétouan": {
+      "reseaux": ["Bus urbains", "Petits taxis"],
+      "gares": ["Pas de gare : cars vers Tanger (1 h)"],
+      "aeroport": "Aéroport Tétouan Saniat R'mel",
+      "quartiers_etudiants": ["Centre-ville", "Mhannech", "Martil (bord de mer)"],
+      "conseil": "Cadre méditerranéen, proche de Martil et de Tanger."
+    },
+    "Ben Guérir": {
+      "reseaux": ["Navettes universitaires", "Petits taxis"],
+      "gares": ["Ben Guérir (trains vers Marrakech et Casablanca)"],
+      "aeroport": "Aéroport Marrakech-Ménara (~1 h)",
+      "quartiers_etudiants": ["Ville Verte Mohammed VI"],
+      "conseil": "Ville universitaire nouvelle : la vie étudiante se concentre sur le campus."
+    },
+    "Essaouira": {
+      "reseaux": ["Bus urbains", "Petits taxis"],
+      "gares": ["Pas de gare : cars Supratours vers Marrakech"],
+      "aeroport": "Aéroport Essaouira-Mogador",
+      "quartiers_etudiants": ["Centre-ville", "Quartier industriel", "Diabat"],
+      "conseil": "Petite ville côtière, calme et abordable."
+    },
+    "Béni Mellal": {
+      "reseaux": ["Bus urbains", "Petits taxis"],
+      "gares": ["Pas de gare : cars vers Casablanca et Marrakech"],
+      "aeroport": "Aéroport Béni Mellal",
+      "quartiers_etudiants": ["Centre-ville", "Hay Ghiat", "Ouled Hamdan"],
+      "conseil": "Coût de la vie bas, au pied du Moyen Atlas."
+    },
+    "Settat": {
+      "reseaux": ["Bus urbains", "Petits taxis"],
+      "gares": ["Settat (Casablanca en 1 h)"],
+      "aeroport": "Aéroport Mohammed V (~40 min)",
+      "quartiers_etudiants": ["Centre-ville", "Hay Al Majd"],
+      "conseil": "Ville universitaire proche de Casablanca, loyers modérés."
+    },
+    "Taza": {
+      "reseaux": ["Bus urbains", "Petits taxis"],
+      "gares": ["Taza (trains vers Fès et Oujda)"],
+      "aeroport": "Aéroport Fès-Saïss (~1 h 30)",
+      "quartiers_etudiants": ["Ville nouvelle", "Taza Haut"],
+      "conseil": "Coût de la vie parmi les plus bas, entre Fès et l'Oriental."
+    },
+    "Ouezzane": {
+      "reseaux": ["Petits taxis", "Grands taxis"],
+      "gares": ["Pas de gare : cars vers Tanger et Fès"],
+      "aeroport": "Aéroport Tanger Ibn Battouta (~2 h)",
+      "quartiers_etudiants": ["Centre-ville"],
+      "conseil": "Petite ville au pied du Rif."
+    }
+  }
+}

@@ -96,7 +96,7 @@ export function Candidatures() {
                     <motion.tr key={x.a.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.02 }} onClick={() => open(x.a.id)} className="cursor-pointer border-b border-[#f1f4fb] last:border-0 hover:bg-[#f8f6ff]">
                       <td className="px-5 py-3 font-bold text-[#6a3df0]">#{x.a.number}</td>
                       <td className="px-3 py-3"><div className="flex items-center gap-3"><Avatar name={`${x.s.firstName} ${x.s.lastName}`} size={36} /><div className="flex flex-col"><b>{x.s.firstName} {x.s.lastName}</b><CountryTag code={x.s.country} /></div></div></td>
-                      <td className="max-w-[240px] px-3 py-3 text-ink-soft">{x.p.title}</td>
+                      <td className="max-w-[240px] px-3 py-3 text-ink-soft">{x.p.title}{x.a.campus ? <span className="block text-xs text-ink-mute">Campus de {x.a.campus}</span> : null}</td>
                       <td className="px-3 py-3"><StatusBadge status={x.a.status} /></td>
                       <td className="px-3 py-3 text-center"><Pieces row={x} /></td>
                       <td className="px-3 py-3 text-ink-mute">{dateFr(x.a.submittedAt)}</td>

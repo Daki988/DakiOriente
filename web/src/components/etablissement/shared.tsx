@@ -30,7 +30,7 @@ export type CampaignKind = "admission" | "concours" | "inscription" | "bourse" |
 
 export type AppStatus = "brouillon" | "soumise" | "paiement_confirme" | "en_verification" | "complet" | "en_traitement" | "piece_demandee" | "acceptee" | "refusee" | "liste_attente" | "desistee";
 export type AppRow = {
-  a: { id: string; number: string; status: AppStatus; programId: string; documentIds: string[]; submittedAt: string | null; updatedAt: string };
+  a: { id: string; number: string; status: AppStatus; campus?: string | null; programId: string; documentIds: string[]; submittedAt: string | null; updatedAt: string };
   p: Program;
   s: { id: string; firstName: string; lastName: string; country: string | null; city: string | null; email: string | null; phone: string | null };
 };

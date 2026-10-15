@@ -15,6 +15,13 @@
       "when": 1791556459204,
       "tag": "0001_maroc_homologation",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792035358872,
+      "tag": "0002_campus",
+      "breakpoints": true
     }
   ]
 }

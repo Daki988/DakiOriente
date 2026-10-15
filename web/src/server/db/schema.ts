@@ -140,6 +140,7 @@ export const programs = pgTable("programs", {
   title: text("title").notNull(),
   faculty: text("faculty").notNull().default(""), // composante (faculté, école) pour les universités
   campus: text("campus"), // ville, si différente de celle de l'établissement
+  campuses: jsonb("campuses").$type<string[]>().notNull().default([]), // réseau multi-campus : villes où la filière est ouverte
   diploma: text("diploma"), // diplôme délivré (ex. Diplôme d'ingénieur)
   level: text("level"), // niv-bac3, niv-bac5…
   options: text("options"),
@@ -206,6 +207,7 @@ export const applications = pgTable("applications", {
   programId: text("program_id").notNull().references(() => programs.id),
   establishmentId: text("establishment_id").notNull().references(() => establishments.id),
   campaignId: text("campaign_id").references(() => campaigns.id),
+  campus: text("campus"), // campus choisi par l'étudiant (réseau multi-campus)
   status: applicationStatusEnum("status").notNull().default("brouillon"),
   motivation: text("motivation"),
   answers: jsonb("answers").$type<Record<string, string>>().notNull().default({}),

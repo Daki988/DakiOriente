@@ -30,6 +30,7 @@ const sup = read("etablissements_superieurs").items.map((e) => ({
   label: e.label, label_libelle: e.label_libelle, reconnaissance: e.reconnaissance, reconnaissance_en_cours: e.reconnaissance_en_cours,
   adresse: e.adresse ?? null, description: e.description ?? null,
   formations: e.formations, filieres: e.filieres, filieres_echues: e.filieres_echues ?? [], autorisation: e.autorisation ?? null, logo: logoUrl(e.logo), photos: (e.photos || []).map(photoOf),
+  geo: e.geo ?? null, campus: e.campus ?? null, alias: e.alias ?? [],
 }));
 write("etablissements", sup);
 
@@ -50,6 +51,7 @@ const seriesDoc = JSON.parse(fs.readFileSync(path.join(REF, "series.json"), "utf
 write("orientation_seconde", seriesDoc._meta.orientation_fin_college);
 
 write("pays_details", read("pays_details").items);
+write("mobilite", JSON.parse(fs.readFileSync(path.join(REF, "mobilite_villes.json"), "utf8")).items);
 const origine = JSON.parse(fs.readFileSync(path.join(REF, "pays_origine.json"), "utf8"));
 write("pays_origine", {
   regions: origine._meta.regions, visa: origine._meta.visa, avertissement: origine._meta.avertissement,
