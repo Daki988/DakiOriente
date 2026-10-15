@@ -596,6 +596,7 @@
         ]
       },
       "etablissements": [
+        "ma-mundiapolis",
         "ma-iga",
         "ma-heec",
         "ma-supmanagement",
@@ -1351,6 +1352,7 @@
         ]
       },
       "etablissements": [
+        "ma-mundiapolis",
         "ma-supemir"
       ]
     },
@@ -2909,6 +2911,7 @@
       },
       "etablissements": [
         "ma-um6ss",
+        "ma-mundiapolis",
         "ma-upf",
         "ma-averroes",
         "ma-esca",
@@ -2921,6 +2924,7 @@
         "ma-ensit",
         "ma-edge",
         "ma-esa-casa",
+        "ma-icacsup",
         "ma-ippc",
         "ma-esmc",
         "ma-embci",
@@ -3078,6 +3082,7 @@
         ]
       },
       "etablissements": [
+        "ma-mundiapolis",
         "ma-upf",
         "ma-averroes",
         "ma-esca",
@@ -3093,6 +3098,7 @@
         "ma-ilcs",
         "ma-esa-casa",
         "ma-hecgi",
+        "ma-icacsup",
         "ma-ippc",
         "ma-esmc",
         "ma-esms",
@@ -3340,6 +3346,7 @@
         "ma-abs",
         "ma-esrmi",
         "ma-hecgi",
+        "ma-icacsup",
         "ma-gecm",
         "ma-medsup",
         "ma-esmc",
@@ -3421,6 +3428,7 @@
         "ma-medsup",
         "ma-esmc",
         "ma-esscg",
+        "ma-tbs-casa",
         "ma-isga",
         "ma-supmti",
         "ma-hem"
@@ -3675,6 +3683,7 @@
         "ma-uir",
         "ma-upm",
         "ma-uic",
+        "ma-mundiapolis",
         "ma-upf",
         "ma-estem",
         "ma-iga",

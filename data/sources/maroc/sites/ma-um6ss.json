@@ -238,16 +238,6 @@
   },
   "verification": {
     "date": "2026-10-15",
-    "retraits": [
-      "frais:Licence (infirmier polyvalent, technicien de laboratoire, néonatologie pédiatrie)",
-      "frais:Licence (sciences obstétricales, technicien en imagerie médicale, infirmier bloc opératoire)",
-      "frais:Licence (diététique - nutrition)",
-      "frais:Licence (anesthésie et réanimation)",
-      "frais:Licence Maintenance et Génie Biomédical",
-      "frais:Classes Préparatoires Intégrées",
-      "frais:Master Physique Médicale",
-      "programme:Licences Sciences infirmières et profess",
-      "programme:Licences ingénierie en sciences de la sa"
-    ]
+    "retraits": []
   }
 }

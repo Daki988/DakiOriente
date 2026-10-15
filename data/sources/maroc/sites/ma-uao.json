@@ -30,5 +30,9 @@
     "annee_creation": null,
     "frais": null,
     "admission": null
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

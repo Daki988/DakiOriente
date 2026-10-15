@@ -378,14 +378,6 @@
   },
   "verification": {
     "date": "2026-10-15",
-    "retraits": [
-      "programme:Licences Tourisme & Hôtellerie et Arts C",
-      "programme:Licences Business & Gouvernance",
-      "programme:Licences Ingénierie et Innovation",
-      "programme:Masters Ingénierie et Innovation",
-      "programme:Licences Sciences de la santé",
-      "programme:Licences professionnelles Santé",
-      "programme:Masters Sciences de la santé"
-    ]
+    "retraits": []
   }
 }

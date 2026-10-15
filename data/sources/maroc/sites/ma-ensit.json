@@ -284,10 +284,6 @@
   },
   "verification": {
     "date": "2026-10-15",
-    "retraits": [
-      "frais:Master professionnel (formation continue)",
-      "frais:Licence professionnelle (formation continue)",
-      "frais:Executive MBA Management & Stratégie"
-    ]
+    "retraits": []
   }
 }

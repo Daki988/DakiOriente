@@ -1,0 +1,383 @@
+{
+  "id": "ma-mundiapolis",
+  "site_web": "https://www.mundiapolis.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://www.mundiapolis.ma/",
+    "https://www.mundiapolis.ma/histoire-mission-et-valeurs",
+    "https://www.mundiapolis.ma/sites/default/files/2026-02/FICHE%20TARIFS%20MUNDIAPOLIS%20-%202026-2027.pdf"
+  ],
+  "description": "Université privée de Casablanca issue en 1996 de la fusion de plusieurs écoles, avec un campus boulevard Brahim Roudani et un campus à l’Aéropole de Nouaceur. Elle compte quatre pôles : business school, école d’ingénierie (aéronautique, génie industriel, informatique), faculté des sciences de la santé (kinésithérapie, orthophonie, psychologie, sciences infirmières) et droit et sciences politiques, de la licence au doctorat. Membre du réseau Honoris United Universities, elle propose des échanges entre établissements du réseau, des stages intégrés dès la première année, un career center et des admissions parallèles à Bac+1, +2 ou +3.",
+  "annee_creation": 1996,
+  "adresse": "380 Bd Brahim Roudani, Casablanca ; Aéropole de formation, 20180 Nouaceur",
+  "telephone": "+212 (0) 5 29 01 37 00",
+  "email": "contact@mundiapolis.ma",
+  "statut_annonce": "Université reconnue par l’État ; membre du réseau Honoris United Universities",
+  "programmes": [
+    {
+      "intitule": "Cycle préparatoire",
+      "niveau": "Bac+2",
+      "diplome": "Classes préparatoires intégrées",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Licence en génie de la logistique aéronautique",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Cycle ingénieur génie des systèmes aéronautiques",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Cycle ingénieur génie industriel",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Cycle ingénieur génie informatique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Licence en informatique appliquée",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Master data science et intelligence artificielle",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Doctorat en sciences, technologie, ingénierie et développement durable",
+      "niveau": "Bac+8",
+      "diplome": "Doctorat",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Licence en management et gestion des entreprises",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Licence en communication et marketing digital",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Licence en comptabilité finance",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Master comptabilité contrôle et audit",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Master en management des ressources humaines",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Master en marketing stratégique et marketing digital",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Master en finance",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Licence en kinésithérapie",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Licence en orthophonie",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Licence en psychologie",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Licence en psychomotricité",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Master psychologie clinique et psychopathologie",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Sciences infirmières spécialité anesthésie et réanimation",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Sciences infirmières spécialité infirmier polyvalent",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Sciences infirmières spécialité soins d'urgences et soins intensifs",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Licence en relations internationales et sciences politiques",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Licence médias, communication et journalisme",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Licence en droit des affaires",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Master en droit des affaires en alternance",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Master en relations internationales, géopolitique et diplomatie",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    },
+    {
+      "intitule": "Master en droit du contentieux public et administratif",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.mundiapolis.ma/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Admissions parallèles possibles avec un Bac+1, +2 ou +3"
+    ],
+    "etapes": [
+      "Préinscription en ligne (formation initiale ou executive)",
+      "Dossier de candidature téléchargeable"
+    ],
+    "concours": null,
+    "dates": "Inscriptions ouvertes pour la rentrée 2026/2027"
+  },
+  "frais": [],
+  "bourses": null,
+  "international": "Membre du réseau Honoris United Universities : programmes d’échanges entre institutions du réseau ; formulaire ouvert aux candidats de nombreux pays africains.",
+  "partenaires": [
+    "Honoris United Universities"
+  ],
+  "vie_etudiante": [
+    "Sport, culture et engagement citoyen",
+    "Career Center",
+    "Magazine Génération M",
+    "Laboratoires (psychomotricité et kinésithérapie, électronique, systèmes embarqués, génie industriel, salles des marchés)"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": "380 Bd Brahim Roudani, Casablanca +212 (0) 5 29 01 37 00 contact@mundiapolis.ma",
+    "telephone": "[Standard : +212 (0) 05 29 01 37 00](tel:+212529013700)",
+    "email": "contact@mundiapolis.ma",
+    "annee_creation": "Créée en 1996, l’ **Université Mundiapolis** est née de la fusion de plusieurs grandes écoles pionnières",
+    "frais": [
+      "**29 000 DHS 29 000 DHS 29 000 DHS** **SCIENCES INFIRMIÈRES : ANESTHÉSIE ET RÉANIMATION",
+      "**33 000 DHS 33 000 DHS 33 000 DHS** **PSYCHOPATHOLOGIE**"
+    ],
+    "admission": [
+      "**Vous avez un Bac+1, +2 ou +3 ?** Rejoignez-nous !"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": [
+      "frais:Sciences infirmières : infirmier polyvalent",
+      "frais:Sciences infirmières : anesthésie et réanimation / soins d’urgences et soins intensifs",
+      "programme:Master en supply chain management"
+    ]
+  }
+}

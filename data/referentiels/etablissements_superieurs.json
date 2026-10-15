@@ -10935,22 +10935,27 @@
       },
       "wikidata": "Q20669874",
       "formations": [
+        "frm-bachelor-business",
         "frm-cpge-scientifique",
         "frm-ingenieur-genie-civil",
         "frm-ingenieur-genie-electrique",
         "frm-ingenieur-genie-industriel",
         "frm-ingenieur-genie-mecanique",
         "frm-ingenieur-informatique",
+        "frm-licence-banque-finance",
         "frm-licence-communication",
         "frm-licence-droit-prive",
         "frm-licence-economie",
+        "frm-licence-genie-mecanique",
         "frm-licence-gestion",
+        "frm-licence-informatique",
         "frm-licence-kinesitherapie",
         "frm-licence-logistique",
         "frm-licence-psychologie",
         "frm-licence-sciences-infirmieres",
         "frm-master-cybersecurite",
         "frm-master-data-science-ia",
+        "frm-master-droit-affaires",
         "frm-master-energies-renouvelables",
         "frm-master-finance-audit",
         "frm-master-grh",
@@ -11629,7 +11634,422 @@
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
         "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
+      ],
+      "site": {
+        "programmes": [
+          {
+            "intitule": "Cycle préparatoire",
+            "diplome": "Classes préparatoires intégrées",
+            "niveau": "bac+2",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-cpge-scientifique",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Licence en génie de la logistique aéronautique",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-genie-mecanique",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Cycle ingénieur génie des systèmes aéronautiques",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-ingenieur-genie-mecanique",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Cycle ingénieur génie industriel",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-ingenieur-genie-industriel",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Cycle ingénieur génie informatique",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-ingenieur-informatique",
+            "domaine": "dom-numerique"
+          },
+          {
+            "intitule": "Licence en informatique appliquée",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-informatique",
+            "domaine": "dom-numerique"
+          },
+          {
+            "intitule": "Master data science et intelligence artificielle",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-master-data-science-ia",
+            "domaine": "dom-numerique"
+          },
+          {
+            "intitule": "Doctorat en sciences, technologie, ingénierie et développement durable",
+            "diplome": "Doctorat",
+            "niveau": "bac+8",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-master-energies-renouvelables",
+            "domaine": "dom-energie-mines"
+          },
+          {
+            "intitule": "Licence en management et gestion des entreprises",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-gestion",
+            "domaine": "dom-gestion"
+          },
+          {
+            "intitule": "Licence en communication et marketing digital",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-bachelor-business",
+            "domaine": "dom-commerce"
+          },
+          {
+            "intitule": "Licence en comptabilité finance",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-banque-finance",
+            "domaine": "dom-finance"
+          },
+          {
+            "intitule": "Master comptabilité contrôle et audit",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-master-finance-audit",
+            "domaine": "dom-finance"
+          },
+          {
+            "intitule": "Master en management des ressources humaines",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-master-grh",
+            "domaine": "dom-gestion"
+          },
+          {
+            "intitule": "Master en marketing stratégique et marketing digital",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-master-marketing",
+            "domaine": "dom-commerce"
+          },
+          {
+            "intitule": "Master en finance",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-master-finance-audit",
+            "domaine": "dom-finance"
+          },
+          {
+            "intitule": "Licence en kinésithérapie",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-kinesitherapie",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Licence en orthophonie",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-kinesitherapie",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Licence en psychologie",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-psychologie",
+            "domaine": "dom-shs"
+          },
+          {
+            "intitule": "Licence en psychomotricité",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-kinesitherapie",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Master psychologie clinique et psychopathologie",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-psychologie",
+            "domaine": "dom-shs"
+          },
+          {
+            "intitule": "Sciences infirmières spécialité anesthésie et réanimation",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-sciences-infirmieres",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Sciences infirmières spécialité infirmier polyvalent",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-sciences-infirmieres",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Sciences infirmières spécialité soins d'urgences et soins intensifs",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-sciences-infirmieres",
+            "domaine": "dom-sante"
+          },
+          {
+            "intitule": "Licence en relations internationales et sciences politiques",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-droit-prive",
+            "domaine": "dom-droit"
+          },
+          {
+            "intitule": "Licence médias, communication et journalisme",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-communication",
+            "domaine": "dom-communication"
+          },
+          {
+            "intitule": "Licence en droit des affaires",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-licence-droit-prive",
+            "domaine": "dom-droit"
+          },
+          {
+            "intitule": "Master en droit des affaires en alternance",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-master-droit-affaires",
+            "domaine": "dom-droit"
+          },
+          {
+            "intitule": "Master en relations internationales, géopolitique et diplomatie",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-master-droit-affaires",
+            "domaine": "dom-droit"
+          },
+          {
+            "intitule": "Master en droit du contentieux public et administratif",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.mundiapolis.ma/",
+            "formation": "frm-master-droit-affaires",
+            "domaine": "dom-droit"
+          }
+        ],
+        "admission": {
+          "conditions": [
+            "Admissions parallèles possibles avec un Bac+1, +2 ou +3"
+          ],
+          "etapes": [
+            "Préinscription en ligne (formation initiale ou executive)",
+            "Dossier de candidature téléchargeable"
+          ],
+          "concours": null,
+          "dates": "Inscriptions ouvertes pour la rentrée 2026/2027"
+        },
+        "frais": [],
+        "bourses": null,
+        "international": "Membre du réseau Honoris United Universities : programmes d’échanges entre institutions du réseau ; formulaire ouvert aux candidats de nombreux pays africains.",
+        "logement": null,
+        "partenaires": [
+          "Honoris United Universities"
+        ],
+        "vie_etudiante": [
+          "Sport, culture et engagement citoyen",
+          "Career Center",
+          "Magazine Génération M",
+          "Laboratoires (psychomotricité et kinésithérapie, électronique, systèmes embarqués, génie industriel, salles des marchés)"
+        ],
+        "contact": {
+          "telephone": "+212 (0) 5 29 01 37 00",
+          "email": "contact@mundiapolis.ma"
+        },
+        "sources": [
+          "https://www.mundiapolis.ma/",
+          "https://www.mundiapolis.ma/histoire-mission-et-valeurs",
+          "https://www.mundiapolis.ma/sites/default/files/2026-02/FICHE%20TARIFS%20MUNDIAPOLIS%20-%202026-2027.pdf"
+        ],
+        "date": "2026-10-15"
+      }
     },
     {
       "id": "ma-upf",
@@ -30071,7 +30491,10 @@
       "coordonnees": null,
       "wikidata": null,
       "formations": [
-        "frm-licence-gestion"
+        "frm-bachelor-business",
+        "frm-licence-banque-finance",
+        "frm-licence-gestion",
+        "frm-master-management"
       ],
       "filieres": [
         {
@@ -30154,7 +30577,84 @@
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
         "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
+      ],
+      "site": {
+        "programmes": [
+          {
+            "intitule": "Management & Gestion - Finance – Comptabilité",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [
+              "Option finances (3e année)"
+            ],
+            "campus": [
+              "Kénitra"
+            ],
+            "url": "https://icacsup.ma/",
+            "formation": "frm-licence-banque-finance",
+            "domaine": "dom-finance"
+          },
+          {
+            "intitule": "Management & Gestion - Commerce - Marketing",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": null,
+            "specialites": [
+              "Option marketing (3e année)"
+            ],
+            "campus": [
+              "Kénitra"
+            ],
+            "url": "https://icacsup.ma/",
+            "formation": "frm-bachelor-business",
+            "domaine": "dom-commerce"
+          },
+          {
+            "intitule": "Management et Gestion - 4e et 5e année",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": 2,
+            "specialites": [],
+            "campus": [
+              "Kénitra"
+            ],
+            "url": "https://icacsup.ma/presentation/",
+            "formation": "frm-master-management",
+            "domaine": "dom-gestion"
+          }
+        ],
+        "admission": {
+          "conditions": [
+            "Baccalauréat toutes séries",
+            "Présélection : étude de dossier, tests et entretiens"
+          ],
+          "etapes": [
+            "Retrait et dépôt du dossier de candidature au service des tests d’admission (Kénitra)",
+            "Test d’admission d’une journée (QCM de raisonnement, de logique ou de langues)",
+            "Affichage des résultats dans les locaux de l’ICAC SUP",
+            "Les admis demandent le dossier définitif d’inscription"
+          ],
+          "concours": "Test d’admission en 1ère année après le bac (QCM)",
+          "dates": null
+        },
+        "frais": [],
+        "bourses": null,
+        "international": "Partenariats annoncés avec des universités étrangères pour des masters en double diplôme.",
+        "logement": null,
+        "partenaires": [],
+        "vie_etudiante": [],
+        "contact": {
+          "telephone": "05 37 36 45 59",
+          "email": "info@icacsup.ma"
+        },
+        "sources": [
+          "https://icacsup.ma/",
+          "https://icacsup.ma/modalites-dadmission/",
+          "https://icacsup.ma/presentation/"
+        ],
+        "date": "2026-10-15"
+      }
     },
     {
       "id": "ma-gecm",
@@ -36897,6 +37397,7 @@
       "formations": [
         "frm-licence-gestion",
         "frm-master-finance-audit",
+        "frm-master-grh",
         "frm-master-logistique",
         "frm-master-marketing"
       ],
@@ -37043,7 +37544,126 @@
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
         "Bulletin officiel — arrêtés d'accréditation des filières"
-      ]
+      ],
+      "site": {
+        "programmes": [
+          {
+            "intitule": "Bachelor in Management",
+            "diplome": "Bachelor",
+            "niveau": "bac+3",
+            "duree_annees": 3,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.tbs-education.ma/formation/bachelor/admission-concours-bachelor/concours-national-bachelor/",
+            "formation": "frm-licence-gestion",
+            "domaine": "dom-gestion"
+          },
+          {
+            "intitule": "MSc Audit, Contrôle et Finance",
+            "diplome": "Master of Science",
+            "niveau": "bac+5",
+            "duree_annees": 1.5,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.tbs-education.ma/formation/msc-audit-controle-finance/",
+            "formation": "frm-master-finance-audit",
+            "domaine": "dom-finance"
+          },
+          {
+            "intitule": "MSc Marketing Management et Communication",
+            "diplome": "Master of Science",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.tbs-education.ma/",
+            "formation": "frm-master-marketing",
+            "domaine": "dom-commerce"
+          },
+          {
+            "intitule": "MSc Logistique, Achats et Echanges Internationaux",
+            "diplome": "Master of Science",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.tbs-education.ma/",
+            "formation": "frm-master-logistique",
+            "domaine": "dom-transport-logistique"
+          },
+          {
+            "intitule": "MSc Relations et Ressources Humaines (Expert RH)",
+            "diplome": "Master of Science",
+            "niveau": "bac+5",
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.tbs-education.ma/",
+            "formation": "frm-master-grh",
+            "domaine": "dom-gestion"
+          },
+          {
+            "intitule": "Global Executive MBA",
+            "diplome": "MBA",
+            "niveau": null,
+            "duree_annees": null,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.tbs-education.ma/",
+            "formation": "frm-licence-gestion",
+            "domaine": "dom-gestion"
+          }
+        ],
+        "admission": {
+          "conditions": [
+            "Bachelor 1re année : baccalauréat (concours national pour les candidats des établissements français, via Parcoursup, ou concours international)",
+            "Bachelor 3e année : Bac+2 / 120 ECTS en management",
+            "MSc : Bac+4, ou Bac+3 avec plus de 2 ans d’expérience, ou diplôme étranger équivalent ; VAE possible"
+          ],
+          "etapes": [
+            "Candidature en ligne"
+          ],
+          "concours": "Concours national Bachelor (60 places à Casablanca en 1re année) et concours international Bachelor",
+          "dates": null
+        },
+        "frais": [],
+        "bourses": "La Fondation TBS Education distribue des bourses sociales ou au mérite (près de 800 depuis 2008, à l’échelle du groupe).",
+        "international": "Campus du groupe à Toulouse, Paris et Barcelone ; plus de 230 universités partenaires à l’étranger ; 25 % d’étudiants internationaux à l’échelle du groupe.",
+        "logement": null,
+        "partenaires": [
+          "Sciences Po Toulouse",
+          "École des Mines",
+          "INSA"
+        ],
+        "vie_etudiante": [
+          "Vie associative dans le Bachelor",
+          "Accompagnement des étudiants",
+          "Stages en entreprise",
+          "International Career Fair inter-campus"
+        ],
+        "contact": {
+          "telephone": "+212 (0)5 29 05 1001",
+          "email": null
+        },
+        "sources": [
+          "https://www.tbs-education.ma/",
+          "https://www.tbs-education.ma/formation/bachelor/admission-concours-bachelor/concours-national-bachelor/",
+          "https://www.tbs-education.ma/formation/msc-audit-controle-finance/"
+        ],
+        "date": "2026-10-15"
+      }
     },
     {
       "id": "ma-eslsca",
