@@ -1,1 +1,114 @@
-[]
+[
+ {
+  "id": "informatique",
+  "src": "/images/informatique.webp",
+  "alt": "Développeuse travaillant sur un ordinateur portable",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25720834170"
+ },
+ {
+  "id": "data",
+  "src": "/images/data.webp",
+  "alt": "Étudiants programmant sur leurs ordinateurs",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25388747874"
+ },
+ {
+  "id": "gestion",
+  "src": "/images/gestion.webp",
+  "alt": "Réunion de travail autour d'une table",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/22344392878"
+ },
+ {
+  "id": "commerce",
+  "src": "/images/commerce.webp",
+  "alt": "Présentation devant un tableau blanc",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25388854424"
+ },
+ {
+  "id": "finance",
+  "src": "/images/finance.webp",
+  "alt": "Entretien de travail avec un ordinateur portable",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25926810051"
+ },
+ {
+  "id": "communication",
+  "src": "/images/communication.webp",
+  "alt": "Échange en équipe dans un espace de travail",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/22344371908"
+ },
+ {
+  "id": "laptop",
+  "src": "/images/laptop.webp",
+  "alt": "Étudiante qui révise avec un livre et un ordinateur",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25720917600"
+ },
+ {
+  "id": "communaute",
+  "src": "/images/communaute.webp",
+  "alt": "Groupe de jeunes professionnelles",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25168440514"
+ },
+ {
+  "id": "education",
+  "src": "/images/education.webp",
+  "alt": "Séance de tutorat entre étudiants",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25720982610"
+ },
+ {
+  "id": "sante",
+  "src": "/images/sante.webp",
+  "alt": "Médecin dans un couloir d'hôpital",
+  "credit": "AMISOM Public Information (Flickr)",
+  "licence": "CC0",
+  "page": "https://www.flickr.com/photos/61765479@N08/12316144013"
+ },
+ {
+  "id": "medecin",
+  "src": "/images/medecin.webp",
+  "alt": "Consultation médicale",
+  "credit": "DFID - UK Department for International Development (Flickr)",
+  "licence": "CC BY-SA 2.0",
+  "page": "https://www.flickr.com/photos/14214150@N02/7139243509"
+ },
+ {
+  "id": "btp",
+  "src": "/images/btp.webp",
+  "alt": "Grues sur un chantier de construction",
+  "credit": "andrechinn (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/16167252@N00/3525054487"
+ },
+ {
+  "id": "ingenierie",
+  "src": "/images/ingenierie.webp",
+  "alt": "Ingénieure dans un laboratoire",
+  "credit": "U.S. Army Combat Capabilities Development Command (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/34402227@N03/6990230472"
+ },
+ {
+  "id": "agriculture",
+  "src": "/images/agriculture.webp",
+  "alt": "Rizière et équipe sur le terrain",
+  "credit": "Neo-grapher (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/15694753@N00/4774151971"
+ }
+]
