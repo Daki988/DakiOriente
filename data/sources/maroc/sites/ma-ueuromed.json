@@ -1,103 +1,107 @@
 {
- "id": "ma-ueuromed",
- "site_web": "https://ueuromed.org",
- "date_collecte": "2026-10-15",
- "accessible": true,
- "sources": [
-  "https://ueuromed.org/fr",
-  "https://ueuromed.org/fr/dossier-de-candidature",
-  "https://ueuromed.org/fr/poles/pole-sante",
-  "https://ueuromed.org/fr/actualites/mobilite-internationale-l-uemf-ouvre-les-candidatures-pour-un-semestre-d-etudes-a-l-universite-de-chypre"
- ],
- "description": "Université à but non lucratif située à Fès (route nationale Fès-Meknès), reconnue par l'État marocain. Elle regroupe 11 établissements répartis en trois pôles (ingénierie et architecture, sciences humaines et sociales, santé) et propose des cycles préparatoires, licences, masters, ingénierie, architecture et doctorats. Le site met en avant plus de 50 nationalités, des doubles diplomations avec des universités euro-méditerranéennes, une résidence universitaire et des stages en milieu hospitalier pour la santé.",
- "annee_creation": null,
- "adresse": "Route Nationale Fès-Meknès, Fès",
- "telephone": "053890-9000",
- "email": "contact@ueuromed.org",
- "statut_annonce": "Reconnue par l'État marocain",
- "programmes": [
-  {
-   "intitule": "Génie Biomédical",
-   "niveau": null,
-   "diplome": null,
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Fès"
-   ],
-   "url": "https://ueuromed.org/fr/actualites/mobilite-internationale-l-uemf-ouvre-les-candidatures-pour-un-semestre-d-etudes-a-l-universite-de-chypre"
-  },
-  {
-   "intitule": "Génie Informatique",
-   "niveau": null,
-   "diplome": null,
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Fès"
-   ],
-   "url": "https://ueuromed.org/fr/actualites/mobilite-internationale-l-uemf-ouvre-les-candidatures-pour-un-semestre-d-etudes-a-l-universite-de-chypre"
-  },
-  {
-   "intitule": "Génie Électrique",
-   "niveau": null,
-   "diplome": null,
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Fès"
-   ],
-   "url": "https://ueuromed.org/fr/actualites/mobilite-internationale-l-uemf-ouvre-les-candidatures-pour-un-semestre-d-etudes-a-l-universite-de-chypre"
-  },
-  {
-   "intitule": "DU en Implantologie Chirurgicale et Prothétique Digitalisée",
-   "niveau": null,
-   "diplome": "Diplôme universitaire",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Fès"
-   ],
-   "url": "https://ueuromed.org/fr/actualites/le-classement-international-stanford-elsevier-2026-neuf-chercheurs-de-l-uemf-parmi-les-scientifiques-les-plus-impactants-au-monde"
-  }
- ],
- "admission": {
-  "conditions": [
-   "1ère année : photo d'identité, copie de la CIN ou du passeport, relevés de notes du baccalauréat",
-   "Admission parallèle (2e année et plus) et Master : relevés de notes post-baccalauréat, diplômes, équivalence pour diplômes étrangers",
-   "Certaines filières, notamment en santé : admission par concours spécifiques"
+  "id": "ma-ueuromed",
+  "site_web": "https://ueuromed.org",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://ueuromed.org/fr",
+    "https://ueuromed.org/fr/dossier-de-candidature",
+    "https://ueuromed.org/fr/poles/pole-sante",
+    "https://ueuromed.org/fr/actualites/mobilite-internationale-l-uemf-ouvre-les-candidatures-pour-un-semestre-d-etudes-a-l-universite-de-chypre"
   ],
-  "etapes": [
-   "Trouver sa formation",
-   "Préparer le dossier",
-   "Déposer le dossier en ligne ou via concours",
-   "Suivre sa candidature"
-  ],
-  "concours": "Concours spécifiques pour certaines filières, notamment en santé",
-  "dates": null
- },
- "frais": [],
- "bourses": null,
- "international": "Plus de 50 nationalités ; doubles diplomations avec des universités euro-méditerranéennes ; mobilité d'un semestre à l'Université de Chypre (printemps 2027) pour les filières de génie.",
- "partenaires": [
-  "Université de Chypre",
-  "Union pour la Méditerranée (labellisation)"
- ],
- "vie_etudiante": [
-  "Clubs étudiants",
-  "Complexe sportif universitaire",
-  "Incubateurs"
- ],
- "logement": "Résidence universitaire sur le campus (nombre de lits non précisé dans le texte)",
- "preuves": {
+  "description": "Université à but non lucratif située à Fès (route nationale Fès-Meknès), reconnue par l'État marocain. Elle regroupe 11 établissements répartis en trois pôles (ingénierie et architecture, sciences humaines et sociales, santé) et propose des cycles préparatoires, licences, masters, ingénierie, architecture et doctorats. Le site met en avant plus de 50 nationalités, des doubles diplomations avec des universités euro-méditerranéennes, une résidence universitaire et des stages en milieu hospitalier pour la santé.",
+  "annee_creation": null,
   "adresse": "Route Nationale Fès-Meknès, Fès",
   "telephone": "053890-9000",
   "email": "contact@ueuromed.org",
-  "annee_creation": null,
+  "statut_annonce": "Reconnue par l'État marocain",
+  "programmes": [
+    {
+      "intitule": "Génie Biomédical",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://ueuromed.org/fr/actualites/mobilite-internationale-l-uemf-ouvre-les-candidatures-pour-un-semestre-d-etudes-a-l-universite-de-chypre"
+    },
+    {
+      "intitule": "Génie Informatique",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://ueuromed.org/fr/actualites/mobilite-internationale-l-uemf-ouvre-les-candidatures-pour-un-semestre-d-etudes-a-l-universite-de-chypre"
+    },
+    {
+      "intitule": "Génie Électrique",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://ueuromed.org/fr/actualites/mobilite-internationale-l-uemf-ouvre-les-candidatures-pour-un-semestre-d-etudes-a-l-universite-de-chypre"
+    },
+    {
+      "intitule": "DU en Implantologie Chirurgicale et Prothétique Digitalisée",
+      "niveau": null,
+      "diplome": "Diplôme universitaire",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://ueuromed.org/fr/actualites/le-classement-international-stanford-elsevier-2026-neuf-chercheurs-de-l-uemf-parmi-les-scientifiques-les-plus-impactants-au-monde"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "1ère année : photo d'identité, copie de la CIN ou du passeport, relevés de notes du baccalauréat",
+      "Admission parallèle (2e année et plus) et Master : relevés de notes post-baccalauréat, diplômes, équivalence pour diplômes étrangers",
+      "Certaines filières, notamment en santé : admission par concours spécifiques"
+    ],
+    "etapes": [
+      "Trouver sa formation",
+      "Préparer le dossier",
+      "Déposer le dossier en ligne ou via concours",
+      "Suivre sa candidature"
+    ],
+    "concours": "Concours spécifiques pour certaines filières, notamment en santé",
+    "dates": null
+  },
   "frais": [],
-  "admission": [
-   "Une photo d’identité récente (format JPG ou PDF)",
-   "Pour certaines filières, notamment en santé, l'admission se fait par le biais de concours spécifiques."
-  ]
- }
+  "bourses": null,
+  "international": "Plus de 50 nationalités ; doubles diplomations avec des universités euro-méditerranéennes ; mobilité d'un semestre à l'Université de Chypre (printemps 2027) pour les filières de génie.",
+  "partenaires": [
+    "Université de Chypre",
+    "Union pour la Méditerranée (labellisation)"
+  ],
+  "vie_etudiante": [
+    "Clubs étudiants",
+    "Complexe sportif universitaire",
+    "Incubateurs"
+  ],
+  "logement": "Résidence universitaire sur le campus (nombre de lits non précisé dans le texte)",
+  "preuves": {
+    "adresse": "Route Nationale Fès-Meknès, Fès",
+    "telephone": "053890-9000",
+    "email": "contact@ueuromed.org",
+    "annee_creation": null,
+    "frais": [],
+    "admission": [
+      "Une photo d’identité récente (format JPG ou PDF)",
+      "Pour certaines filières, notamment en santé, l'admission se fait par le biais de concours spécifiques."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
+  }
 }

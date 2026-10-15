@@ -3,7 +3,16 @@
   "site_web": "https://iiem.ac.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://iiem.ac.ma/", "https://iiem.ac.ma/admission/", "https://iiem.ac.ma/admission-3/", "https://iiem.ac.ma/Academics/", "https://iiem.ac.ma/about-us/", "https://iiem.ac.ma/campus/", "https://iiem.ac.ma/contact/", "https://iiem.ac.ma/scholarships/"],
+  "sources": [
+    "https://iiem.ac.ma/",
+    "https://iiem.ac.ma/admission/",
+    "https://iiem.ac.ma/admission-3/",
+    "https://iiem.ac.ma/Academics/",
+    "https://iiem.ac.ma/about-us/",
+    "https://iiem.ac.ma/campus/",
+    "https://iiem.ac.ma/contact/",
+    "https://iiem.ac.ma/scholarships/"
+  ],
   "description": "Institut implanté à Bouskoura (Casablanca), présenté comme le campus marocain de Coventry University, avec des cursus en ingénierie et en management enseignés à 100 % en anglais. Le parcours commence par une année de fondation pour les non-anglophones, puis un cycle licence (Bac+3) en Business Management et des masters en ingénierie électrique et électronique, en Engineering Management et en administration des affaires. Les diplômes sont décrits comme un diplôme britannique public et un diplôme marocain privé (Bac+3/Bac+5) accrédité par le ministère de l'Enseignement supérieur, avec possibilité de poursuivre ses études au Royaume-Uni et des bourses de scolarité complète.",
   "annee_creation": null,
   "adresse": "Oulad Malik, Nouaceur, Bouskoura – Morocco.",
@@ -11,23 +20,91 @@
   "email": null,
   "statut_annonce": "Diplôme marocain privé (Bac+3/Bac+5) accrédité par le ministère de l'Enseignement supérieur ; diplôme britannique de Coventry University",
   "programmes": [
-    {"intitule": "International Foundation Year", "niveau": null, "diplome": "Année de fondation", "duree_annees": 1, "specialites": [], "campus": ["Bouskoura"], "url": "https://iiem.ac.ma/Academics/"},
-    {"intitule": "Business Management (cycle licence)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": ["Marketing", "Finance", "Global Business", "HRM"], "campus": ["Bouskoura"], "url": "https://iiem.ac.ma/Academics/"},
-    {"intitule": "Business Administration (cycle master)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Bouskoura"], "url": "https://iiem.ac.ma/Academics/"},
-    {"intitule": "Electrical and Electronic Engineering MEng (Hons)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Bouskoura"], "url": "https://iiem.ac.ma/Academics/"},
-    {"intitule": "Engineering Management MSc", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Bouskoura"], "url": "https://iiem.ac.ma/Academics/"}
+    {
+      "intitule": "International Foundation Year",
+      "niveau": null,
+      "diplome": "Année de fondation",
+      "duree_annees": 1,
+      "specialites": [],
+      "campus": [
+        "Bouskoura"
+      ],
+      "url": "https://iiem.ac.ma/Academics/"
+    },
+    {
+      "intitule": "Business Management (cycle licence)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [
+        "Marketing",
+        "Finance",
+        "Global Business",
+        "HRM"
+      ],
+      "campus": [
+        "Bouskoura"
+      ],
+      "url": "https://iiem.ac.ma/Academics/"
+    },
+    {
+      "intitule": "Business Administration (cycle master)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Bouskoura"
+      ],
+      "url": "https://iiem.ac.ma/Academics/"
+    },
+    {
+      "intitule": "Electrical and Electronic Engineering MEng (Hons)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Bouskoura"
+      ],
+      "url": "https://iiem.ac.ma/Academics/"
+    },
+    {
+      "intitule": "Engineering Management MSc",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Bouskoura"
+      ],
+      "url": "https://iiem.ac.ma/Academics/"
+    }
   ],
   "admission": {
-    "conditions": ["Foundation Year : baccalauréat marocain, diplôme de lycée ou équivalent, test de placement d'anglais niveau A2+", "Bachelors : test Advanced APTIS niveau IELTS 6.0 ou année de fondation validée", "Masters : licence reconnue (GPA 2.7/4.0 ou équivalent) et test Advanced APTIS niveau IELTS 6.5"],
-    "etapes": ["Candidature en ligne via le portail"],
+    "conditions": [
+      "Foundation Year : baccalauréat marocain, diplôme de lycée ou équivalent, test de placement d'anglais niveau A2+",
+      "Bachelors : test Advanced APTIS niveau IELTS 6.0 ou année de fondation validée",
+      "Masters : licence reconnue (GPA 2.7/4.0 ou équivalent) et test Advanced APTIS niveau IELTS 6.5"
+    ],
+    "etapes": [
+      "Candidature en ligne via le portail"
+    ],
     "concours": null,
     "dates": "Rentrée d'octobre 2026 : date limite de candidature le 16 septembre 2026 (premier cycle) ; sessions d'entrée en janvier et en octobre"
   },
   "frais": [],
   "bourses": "Bourses de scolarité complète pour la cohorte 2026 : cinq bourses par filière (Electrical and Electronic Engineering, Global Business Management BA, Global Business Management MBA), date limite le 14 juillet 2026.",
   "international": "Partenariat avec Coventry University ; possibilité de poursuivre au Royaume-Uni à tout moment du cursus ; enseignement 100 % en anglais.",
-  "partenaires": ["Coventry University"],
-  "vie_etudiante": ["Bibliothèque", "Laboratoires d'ingénierie", "Cantine et cafétérias", "Terrain de sport"],
+  "partenaires": [
+    "Coventry University"
+  ],
+  "vie_etudiante": [
+    "Bibliothèque",
+    "Laboratoires d'ingénierie",
+    "Cantine et cafétérias",
+    "Terrain de sport"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "Address: Oulad Malik, Nouaceur, Bouskoura – Morocco.",
@@ -35,6 +112,12 @@
     "email": null,
     "annee_creation": null,
     "frais": null,
-    "admission": ["Moroccan Baccalaureate degree, high school diploma, A2 levels or equivalent."]
+    "admission": [
+      "Moroccan Baccalaureate degree, high school diploma, A2 levels or equivalent."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

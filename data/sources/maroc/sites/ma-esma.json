@@ -3,7 +3,15 @@
   "site_web": "https://esmamaroc.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://esmamaroc.ma/", "https://esmamaroc.ma/pages/gestion.php", "https://esmamaroc.ma/pages/bac5_gi.php", "https://esmamaroc.ma/pages/bac2_mgtop.php", "https://esmamaroc.ma/pages/mba.php", "https://esmamaroc.ma/pages/cycles_fc.php", "https://esmamaroc.ma/pages/club_innov.php"],
+  "sources": [
+    "https://esmamaroc.ma/",
+    "https://esmamaroc.ma/pages/gestion.php",
+    "https://esmamaroc.ma/pages/bac5_gi.php",
+    "https://esmamaroc.ma/pages/bac2_mgtop.php",
+    "https://esmamaroc.ma/pages/mba.php",
+    "https://esmamaroc.ma/pages/cycles_fc.php",
+    "https://esmamaroc.ma/pages/club_innov.php"
+  ],
   "description": "École privée de management et d'informatique appliqués implantée à Guéliz, Marrakech, qui indique exister depuis 1996. Elle propose une filière Gestion et Administration des Entreprises (Bac+2 et Bac+3 accrédités), une filière Génie Informatique (Bac+3 et Bac+5 accrédités) et un MBA E-Business en double diplôme avec une université française. L'école annonce des passerelles vers des licences, masters et cycles d'ingénieurs reconnus, des partenaires universitaires (CNAM, ULCO, Université Paris Nord, Université de Picardie) et un club de l'innovation animé par les étudiants. Elle propose aussi de la formation continue pour cadres.",
   "annee_creation": 1996,
   "adresse": "AV My Abdellah, Rouidate 1 · Guéliz, Marrakech",
@@ -11,18 +19,98 @@
   "email": null,
   "statut_annonce": "Diplômes accrédités (Bac+2, Bac+3, Bac+5) et passerelles vers des diplômes reconnus",
   "programmes": [
-    {"intitule": "Bac+2 Management des Entreprises", "niveau": "Bac+2", "diplome": "Diplôme accrédité (similaire au DUT)", "duree_annees": 2, "specialites": ["E-Logistique et e-Vente", "Comptabilité & Audit"], "campus": ["Marrakech"], "url": "https://esmamaroc.ma/pages/bac2_mgtop.php"},
-    {"intitule": "Bac+3 Gestion et Administration des Entreprises (GAE)", "niveau": "Bac+3", "diplome": "Diplôme accrédité", "duree_annees": 3, "specialites": ["Développement Commercial & Marketing Digital", "Entrepreneuriat, Audit & Finances", "Logistique & Supply Chain Management"], "campus": ["Marrakech"], "url": "https://esmamaroc.ma/"},
-    {"intitule": "Bac+3 Génie Informatique", "niveau": "Bac+3", "diplome": "Diplôme accrédité", "duree_annees": 3, "specialites": [], "campus": ["Marrakech"], "url": "https://esmamaroc.ma/pages/gestion.php"},
-    {"intitule": "Bac+5 Génie Informatique - Développement & NET", "niveau": "Bac+5", "diplome": "Diplôme accrédité", "duree_annees": null, "specialites": ["Développement Nomade et Mobile", "Développement des Applications IA (Python & Data)"], "campus": ["Marrakech"], "url": "https://esmamaroc.ma/pages/bac5_gi.php"},
-    {"intitule": "MBA E-Business", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": 1, "specialites": ["E-Commerce & Marketplace", "Transformation Digitale"], "campus": ["Marrakech"], "url": "https://esmamaroc.ma/pages/mba.php"}
+    {
+      "intitule": "Bac+2 Management des Entreprises",
+      "niveau": "Bac+2",
+      "diplome": "Diplôme accrédité (similaire au DUT)",
+      "duree_annees": 2,
+      "specialites": [
+        "E-Logistique et e-Vente",
+        "Comptabilité & Audit"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://esmamaroc.ma/pages/bac2_mgtop.php"
+    },
+    {
+      "intitule": "Bac+3 Gestion et Administration des Entreprises (GAE)",
+      "niveau": "Bac+3",
+      "diplome": "Diplôme accrédité",
+      "duree_annees": 3,
+      "specialites": [
+        "Développement Commercial & Marketing Digital",
+        "Entrepreneuriat, Audit & Finances",
+        "Logistique & Supply Chain Management"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://esmamaroc.ma/"
+    },
+    {
+      "intitule": "Bac+3 Génie Informatique",
+      "niveau": "Bac+3",
+      "diplome": "Diplôme accrédité",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://esmamaroc.ma/pages/gestion.php"
+    },
+    {
+      "intitule": "Bac+5 Génie Informatique - Développement & NET",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme accrédité",
+      "duree_annees": null,
+      "specialites": [
+        "Développement Nomade et Mobile",
+        "Développement des Applications IA (Python & Data)"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://esmamaroc.ma/pages/bac5_gi.php"
+    },
+    {
+      "intitule": "MBA E-Business",
+      "niveau": "Bac+5",
+      "diplome": "MBA",
+      "duree_annees": 1,
+      "specialites": [
+        "E-Commerce & Marketplace",
+        "Transformation Digitale"
+      ],
+      "campus": [
+        "Marrakech"
+      ],
+      "url": "https://esmamaroc.ma/pages/mba.php"
+    }
   ],
-  "admission": {"conditions": [], "etapes": ["Remplir le formulaire de télé-inscription en ligne", "Appel de l'équipe sous 24 heures"], "concours": null, "dates": "Inscriptions ouvertes pour la rentrée 2026-2027"},
+  "admission": {
+    "conditions": [],
+    "etapes": [
+      "Remplir le formulaire de télé-inscription en ligne",
+      "Appel de l'équipe sous 24 heures"
+    ],
+    "concours": null,
+    "dates": "Inscriptions ouvertes pour la rentrée 2026-2027"
+  },
   "frais": [],
   "bourses": null,
   "international": "MBA E-Business en double diplôme avec une université française ; partenaires : CNAM Paris, ULCO Côte d'Opale, Université Paris Nord, Université de Picardie.",
-  "partenaires": ["CNAM Paris", "ULCO Côte d'Opale", "Université Paris Nord", "Université de Picardie"],
-  "vie_etudiante": ["Club de l'Innovation", "Don de sang et activités sociales", "Activités culturelles et séminaires"],
+  "partenaires": [
+    "CNAM Paris",
+    "ULCO Côte d'Opale",
+    "Université Paris Nord",
+    "Université de Picardie"
+  ],
+  "vie_etudiante": [
+    "Club de l'Innovation",
+    "Don de sang et activités sociales",
+    "Activités culturelles et séminaires"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "AV My Abdellah, Rouidate 1 · Guéliz, Marrakech",
@@ -30,6 +118,12 @@
     "email": null,
     "annee_creation": "30 Ans d'Excellence et d'Innovation depuis 1996",
     "frais": [],
-    "admission": ["Remplissez votre formulaire de Télé-Inscription en ligne."]
+    "admission": [
+      "Remplissez votre formulaire de Télé-Inscription en ligne."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

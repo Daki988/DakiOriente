@@ -3,7 +3,17 @@
   "site_web": "https://www.eigsica.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://www.eigsica.ma/", "https://www.eigsica.ma/ecole-ingenieur-couts-de-la-scolarite/", "https://www.eigsica.ma/ecole-formation-ingenieur-casablanca-candidats-internationaux/", "https://www.eigsica.ma/eigsica-casablanca-ecole-ingenieur-plan-dacces/", "https://www.eigsica.ma/ecole-formation-ingenieur-maroc-france-eigsica-campus-de-casablanca/", "https://www.eigsica.ma/ecole-ingenieur/formation/dominante-logistique-organisation-des-transports/", "https://www.eigsica.ma/admissions-msc-ingenieur-d-affaires/", "https://www.eigsica.ma/admissions-licence-professionnelle-systemes-industriels-aeronautique-logistique/", "https://www.eigsica.ma/ecole-ingenieur-maroc-stages/"],
+  "sources": [
+    "https://www.eigsica.ma/",
+    "https://www.eigsica.ma/ecole-ingenieur-couts-de-la-scolarite/",
+    "https://www.eigsica.ma/ecole-formation-ingenieur-casablanca-candidats-internationaux/",
+    "https://www.eigsica.ma/eigsica-casablanca-ecole-ingenieur-plan-dacces/",
+    "https://www.eigsica.ma/ecole-formation-ingenieur-maroc-france-eigsica-campus-de-casablanca/",
+    "https://www.eigsica.ma/ecole-ingenieur/formation/dominante-logistique-organisation-des-transports/",
+    "https://www.eigsica.ma/admissions-msc-ingenieur-d-affaires/",
+    "https://www.eigsica.ma/admissions-licence-professionnelle-systemes-industriels-aeronautique-logistique/",
+    "https://www.eigsica.ma/ecole-ingenieur-maroc-stages/"
+  ],
   "description": "École d'ingénieurs située dans le quartier Oasis à Casablanca, rattachée à l'EIGSI français. Elle propose une formation d'ingénieur généraliste en 5 ans identique à celle du campus de La Rochelle, avec des options en 4ème année, ainsi qu'une licence professionnelle Bac+3 (aéronautique ou logistique) et un MSc Ingénieur d'Affaires. Le site met en avant des stages dès la 1ère année, des parcours bi-diplômants à l'international et un programme de bourses au mérite et sur critères sociaux. Les candidats internationaux sont admis sur dossier et entretien à distance.",
   "annee_creation": null,
   "adresse": "282, Route de l’Oasis Maârif -20410 Casablanca",
@@ -11,12 +21,80 @@
   "email": "admission@eigsica.ma",
   "statut_annonce": "Reconnue par l'État marocain",
   "programmes": [
-    {"intitule": "Formation d'ingénieur généraliste", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 5, "specialites": ["Bâtiment et Travaux Publics", "Intelligence Artificielle & Big Data", "Ingénierie de la conception & industrialisation Mécanique", "Energie & Environnement", "Management de la Supply Chain & Transport International", "Management de la Performance Industrielle", "Robotique et intelligence embarquée"], "campus": ["Casablanca", "La Rochelle"], "url": "https://www.eigsica.ma/ecole-formation-ingenieur-maroc-france-eigsica-campus-de-casablanca/"},
-    {"intitule": "Licence Professionnelle Systèmes industriels Aéronautique-Logistique", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": 3, "specialites": ["Aéronautique", "Logistique"], "campus": ["Casablanca"], "url": "https://www.eigsica.ma/admissions-licence-professionnelle-systemes-industriels-aeronautique-logistique/"},
-    {"intitule": "MSc Ingénieur d'Affaires (Programme MIND – Management Industriel)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.eigsica.ma/admissions-msc-ingenieur-d-affaires/"},
-    {"intitule": "Master Intelligence Artificielle, Data & Cybersécurité", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.eigsica.ma/"},
-    {"intitule": "Programme Expert Bac+3 Administrateur Systèmes, Réseaux et Cybersécurité", "niveau": "Bac+3", "diplome": null, "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://www.eigsica.ma/"},
-    {"intitule": "Programme Expert Bac+3 Développeur Web Full Stack", "niveau": "Bac+3", "diplome": null, "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://www.eigsica.ma/"}
+    {
+      "intitule": "Formation d'ingénieur généraliste",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 5,
+      "specialites": [
+        "Bâtiment et Travaux Publics",
+        "Intelligence Artificielle & Big Data",
+        "Ingénierie de la conception & industrialisation Mécanique",
+        "Energie & Environnement",
+        "Management de la Supply Chain & Transport International",
+        "Management de la Performance Industrielle",
+        "Robotique et intelligence embarquée"
+      ],
+      "campus": [
+        "Casablanca",
+        "La Rochelle"
+      ],
+      "url": "https://www.eigsica.ma/ecole-formation-ingenieur-maroc-france-eigsica-campus-de-casablanca/"
+    },
+    {
+      "intitule": "Licence Professionnelle Systèmes industriels Aéronautique-Logistique",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": 3,
+      "specialites": [
+        "Aéronautique",
+        "Logistique"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.eigsica.ma/admissions-licence-professionnelle-systemes-industriels-aeronautique-logistique/"
+    },
+    {
+      "intitule": "MSc Ingénieur d'Affaires (Programme MIND – Management Industriel)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://www.eigsica.ma/admissions-msc-ingenieur-d-affaires/"
+    },
+    {
+      "intitule": "Master Intelligence Artificielle, Data & Cybersécurité",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://www.eigsica.ma/"
+    },
+    {
+      "intitule": "Programme Expert Bac+3 Administrateur Systèmes, Réseaux et Cybersécurité",
+      "niveau": "Bac+3",
+      "diplome": null,
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.eigsica.ma/"
+    },
+    {
+      "intitule": "Programme Expert Bac+3 Développeur Web Full Stack",
+      "niveau": "Bac+3",
+      "diplome": null,
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.eigsica.ma/"
+    }
   ],
   "admission": {
     "conditions": [
@@ -24,18 +102,35 @@
       "MSc Ingénieur d'Affaires : Bac+4 ou +5, 240 crédits ECTS, niveau d'anglais minimum B1+",
       "Candidats internationaux : étude du dossier (trois dernières années et baccalauréat), puis entretien de motivation à distance"
     ],
-    "etapes": ["Dossier de candidature", "Épreuves écrites (mathématiques, physique, anglais, français) pour la licence professionnelle", "Entretien de motivation"],
+    "etapes": [
+      "Dossier de candidature",
+      "Épreuves écrites (mathématiques, physique, anglais, français) pour la licence professionnelle",
+      "Entretien de motivation"
+    ],
     "concours": "Concours d'entrée EIGSI Casablanca (Terminale scientifique ou technique) ; Concours Avenir pour les élèves de lycées français",
     "dates": "Concours Avenir : épreuves écrites le 02 mai 2026 en distanciel"
   },
   "frais": [
-    {"cycle": "Cycle ingénieur, 1ère année (2024-2025)", "inscription_mad": 5000, "scolarite_annuelle_mad": 56000, "note": "56 000 MAD dont 5 000 de frais d'inscription ; paiement comptant avec réduction de 3 000 MAD (48 000 MAD) ou en 4 échéances ; 4ème et 5ème années : 8 050 € selon les modalités du parcours"},
-    {"cycle": "Licence professionnelle (2024-2025)", "inscription_mad": 3000, "scolarite_annuelle_mad": 35000, "note": "35 000 MAD dont 3 000 de frais d'inscription"}
+    {
+      "cycle": "Cycle ingénieur, 1ère année (2024-2025)",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": 56000,
+      "note": "56 000 MAD dont 5 000 de frais d'inscription ; paiement comptant avec réduction de 3 000 MAD (48 000 MAD) ou en 4 échéances ; 4ème et 5ème années : 8 050 € selon les modalités du parcours"
+    },
+    {
+      "cycle": "Licence professionnelle (2024-2025)",
+      "inscription_mad": 3000,
+      "scolarite_annuelle_mad": 35000,
+      "note": "35 000 MAD dont 3 000 de frais d'inscription"
+    }
   ],
   "bourses": "Bourses partielles ou complètes pour les candidats les plus méritants inscrits en 1ère année, sur critères d'excellence et sociaux.",
   "international": "45 parcours bi-diplômants à l'international, 80 partenariats dans le monde ; une école, deux campus (Casablanca et La Rochelle).",
   "partenaires": [],
-  "vie_etudiante": ["Vie associative", "Stages obligatoires dès la 1ère année du cycle ingénieur"],
+  "vie_etudiante": [
+    "Vie associative",
+    "Stages obligatoires dès la 1ère année du cycle ingénieur"
+  ],
   "logement": "Rubrique « Se loger » mentionnée sur le site.",
   "preuves": {
     "adresse": "282, Route de l’Oasis Maârif -20410 Casablanca",
@@ -52,5 +147,9 @@
       "Vous pouvez candidater à la première année de cette formation si vous suivez l’une des filières scientifiques suivantes : Bac SP, SM, SVT, AGRO, STE, STM.",
       "Vous devez être titulaire ou en cours d’obtention d’un des diplômes suivant :"
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

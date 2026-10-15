@@ -384,5 +384,9 @@
     "admission": [
       "Aujourd’hui, les admissions parallèles permettent à des profils issus de BTS, DUT ou licences de rejoindre directement des cycles avancés."
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

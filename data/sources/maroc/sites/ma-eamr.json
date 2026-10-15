@@ -3,7 +3,16 @@
   "site_web": "https://artsetmetiers.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://artsetmetiers.ma/fr", "https://artsetmetiers.ma/fr/formation/frais-de-scolarite", "https://artsetmetiers.ma/fr/formation/frais-de-scolarite-0", "https://artsetmetiers.ma/fr/formation/qui-sommes-nous", "https://artsetmetiers.ma/fr/formation/concours-afrique", "https://artsetmetiers.ma/fr/formation/concours-admission", "https://artsetmetiers.ma/fr/formation/concours-admission-0", "https://artsetmetiers.ma/fr/formation/PGE"],
+  "sources": [
+    "https://artsetmetiers.ma/fr",
+    "https://artsetmetiers.ma/fr/formation/frais-de-scolarite",
+    "https://artsetmetiers.ma/fr/formation/frais-de-scolarite-0",
+    "https://artsetmetiers.ma/fr/formation/qui-sommes-nous",
+    "https://artsetmetiers.ma/fr/formation/concours-afrique",
+    "https://artsetmetiers.ma/fr/formation/concours-admission",
+    "https://artsetmetiers.ma/fr/formation/concours-admission-0",
+    "https://artsetmetiers.ma/fr/formation/PGE"
+  ],
   "description": "École d'ingénieurs établie au Parc Technopolis (Salé, campus UM6P), issue d'un partenariat avec Arts et Métiers en France. Elle délivre un diplôme d'ingénieur (Programme Grande École, 3 ans, génie mécanique et industrie 4.0) et un Bachelor/Licence professionnelle des technologies pour l'industrie du futur. Le cursus ingénieur comprend des stages (4 semaines, stage recherche, stage de fin d'études de 6 mois) et une mobilité internationale possible d'un semestre ; un Concours Afrique recrute depuis des CPGE d'Afrique francophone.",
   "annee_creation": null,
   "adresse": "Parc Technopolis, Rocade de Rabat-Salé, 11 100 Sala Al Jadida, Campus UM6P",
@@ -11,30 +20,81 @@
   "email": "contact@artsetmetiers.ma",
   "statut_annonce": "Reconnue par l'État par avis de la CNCES en 2024 ; programmes accrédités par le Ministère de l'Enseignement Supérieur",
   "programmes": [
-    {"intitule": "Programme Grande École (PGE) d'ingénieur Génie Mécanique et Industrie 4.0", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": 3, "specialites": [], "campus": ["Rabat"], "url": "https://artsetmetiers.ma/fr/formation/PGE"},
-    {"intitule": "Bachelor/Licence Professionnelle des Technologies pour l'Industrie du Futur", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://artsetmetiers.ma/fr/formation/qui-sommes-nous"}
+    {
+      "intitule": "Programme Grande École (PGE) d'ingénieur Génie Mécanique et Industrie 4.0",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://artsetmetiers.ma/fr/formation/PGE"
+    },
+    {
+      "intitule": "Bachelor/Licence Professionnelle des Technologies pour l'Industrie du Futur",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://artsetmetiers.ma/fr/formation/qui-sommes-nous"
+    }
   ],
   "admission": {
-    "conditions": ["PGE : recrutement à partir des CPGE scientifiques et des diplômés Bac+3 (Licences Sciences et Techniques, Bachelor)", "Concours Afrique : étudiants en 2e année de CPGE (MP, PSI, TSI) en Côte d'Ivoire, Sénégal et Guinée Conakry (rentrée 2026)", "Bachelor des Technologies : diplôme Bac+2 en sciences et/ou sciences technologiques (DUT, DEUST, BTS, DTS)"],
-    "etapes": ["Bachelor : dossier électronique puis épreuves orales", "Concours Afrique : préinscription en ligne, épreuves écrites, oral à distance"],
+    "conditions": [
+      "PGE : recrutement à partir des CPGE scientifiques et des diplômés Bac+3 (Licences Sciences et Techniques, Bachelor)",
+      "Concours Afrique : étudiants en 2e année de CPGE (MP, PSI, TSI) en Côte d'Ivoire, Sénégal et Guinée Conakry (rentrée 2026)",
+      "Bachelor des Technologies : diplôme Bac+2 en sciences et/ou sciences technologiques (DUT, DEUST, BTS, DTS)"
+    ],
+    "etapes": [
+      "Bachelor : dossier électronique puis épreuves orales",
+      "Concours Afrique : préinscription en ligne, épreuves écrites, oral à distance"
+    ],
     "concours": "Recrutement sur concours (CNC, Concours Afrique, concours Bachelor)",
     "dates": "Bachelor 2026 : dossier du 02 mars au 10 mai 2026 ; Concours Afrique 2026 : préinscription du 15 mars au 22 avril 2026"
   },
   "frais": [
-    {"cycle": "Programme Grande École (ingénieur)", "inscription_mad": null, "scolarite_annuelle_mad": 50000, "note": "Exonérations possibles sur les 3 premiers semestres ; 60 000 MAD par an indiqués pour les candidats du Concours Afrique ; logement en chambre universitaire individuelle : 1 050 Dhs par mois"},
-    {"cycle": "Bachelor des Technologies", "inscription_mad": null, "scolarite_annuelle_mad": null, "note": "30 000 Dhs pour la formation ; logement en chambre universitaire individuelle : 1050 Dh par mois"}
+    {
+      "cycle": "Programme Grande École (ingénieur)",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 50000,
+      "note": "Exonérations possibles sur les 3 premiers semestres ; 60 000 MAD par an indiqués pour les candidats du Concours Afrique ; logement en chambre universitaire individuelle : 1 050 Dhs par mois"
+    }
   ],
   "bourses": "Exonérations de frais de scolarité possibles selon le mérite et les ressources des parents ; exonération des trois premiers semestres pour les « Grands Admis » ; prêts bancaires à taux préférentiels facilités pour les 3 derniers semestres.",
   "international": "Mobilité d'un semestre dans un campus en France ou chez un partenaire académique international, ou stage à l'international ; Concours Afrique pour les étudiants de CPGE d'Afrique francophone.",
-  "partenaires": ["Arts et Métiers (France)", "Ministère de l'Industrie et du Commerce", "École Centrale de Casablanca"],
-  "vie_etudiante": ["Vie associative", "Forum des métiers"],
+  "partenaires": [
+    "Arts et Métiers (France)",
+    "Ministère de l'Industrie et du Commerce",
+    "École Centrale de Casablanca"
+  ],
+  "vie_etudiante": [
+    "Vie associative",
+    "Forum des métiers"
+  ],
   "logement": "Chambre universitaire individuelle : 1 050 Dhs par mois (résidence UM6P – Technopolis Salé : 2 100 MAD par mois indiqués pour le Concours Afrique)",
   "preuves": {
     "adresse": "Rocade de Rabat-Salé, 11 100 Sala Al Jadida,",
     "telephone": "(+212) 538 052 536",
     "email": "contact@artsetmetiers.ma",
     "annee_creation": null,
-    "frais": ["Les frais de scolarité s’élèvent à 50 000 Dhs par an.", "Les frais de scolarité s’élèvent à 30 000 Dhs pour la formation.", "60 000 MAD par an"],
-    "admission": ["Être titulaire a minima d’un diplôme bac+2 en sciences et/ou sciences technologiques ou d’un diplôme jugé équivalent. Liste non exhaustive : DUT, DEUST, BTS, DTS", "Le recrutement des étudiants se fait à partir des CPGE scientifiques et des diplômés bac +3 des Licence Sciences et Techniques et des Bachelor."]
+    "frais": [
+      "Les frais de scolarité s’élèvent à 50 000 Dhs par an.",
+      "Les frais de scolarité s’élèvent à 30 000 Dhs pour la formation.",
+      "60 000 MAD par an"
+    ],
+    "admission": [
+      "Être titulaire a minima d’un diplôme bac+2 en sciences et/ou sciences technologiques ou d’un diplôme jugé équivalent. Liste non exhaustive : DUT, DEUST, BTS, DTS",
+      "Le recrutement des étudiants se fait à partir des CPGE scientifiques et des diplômés bac +3 des Licence Sciences et Techniques et des Bachelor."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": [
+      "frais:Bachelor des Technologies"
+    ]
   }
 }

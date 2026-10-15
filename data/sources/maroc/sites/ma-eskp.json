@@ -3,7 +3,14 @@
   "site_web": "https://eskp.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://eskp.ma/", "https://eskp.ma/form/", "https://eskp.ma/ecole-orthoptie/", "https://eskp.ma/ecole-orthophonie/", "https://eskp.ma/ecole-psychologie/", "https://eskp.ma/ecole-kinesitherapie/"],
+  "sources": [
+    "https://eskp.ma/",
+    "https://eskp.ma/form/",
+    "https://eskp.ma/ecole-orthoptie/",
+    "https://eskp.ma/ecole-orthophonie/",
+    "https://eskp.ma/ecole-psychologie/",
+    "https://eskp.ma/ecole-kinesitherapie/"
+  ],
   "description": "Établissement d'enseignement supérieur privé de Casablanca (avenue 2 Mars) dédié aux métiers paramédicaux : kinésithérapie, soins infirmiers, orthophonie, orthoptie, psychomotricité, psychologie, audiologie-audioprothèse, diététique et nutrition, ainsi que plusieurs masters santé. Les cursus sont présentés en licence (Bac+3), master (Bac+5) et doctorat, avec cours théoriques, travaux pratiques et stages dans les centres hospitaliers universitaires Ibn Rochd (Casablanca) et Ibn Sina (Rabat). Une bourse de mérite peut être accordée aux étudiants classés premiers à l'entretien d'admission.",
   "annee_creation": 1997,
   "adresse": "45, Avenue 2 Mars Casablanca.",
@@ -11,30 +18,170 @@
   "email": null,
   "statut_annonce": "Filière Kinésithérapie accréditée par le Ministère de l'Enseignement Supérieur",
   "programmes": [
-    {"intitule": "Kinésithérapie", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://eskp.ma/ecole-kinesitherapie/"},
-    {"intitule": "Infirmier polyvalent", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eskp.ma/"},
-    {"intitule": "Infirmier en anesthésie réanimation", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eskp.ma/"},
-    {"intitule": "Orthophonie", "niveau": null, "diplome": null, "duree_annees": 4, "specialites": [], "campus": ["Casablanca"], "url": "https://eskp.ma/ecole-orthophonie/"},
-    {"intitule": "Orthoptie", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://eskp.ma/ecole-orthoptie/"},
-    {"intitule": "Psychomotricité", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eskp.ma/"},
-    {"intitule": "Psychologie", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eskp.ma/ecole-psychologie/"},
-    {"intitule": "Audiologie – Audioprothèse", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eskp.ma/"},
-    {"intitule": "Diététique et Nutrition", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eskp.ma/"},
-    {"intitule": "Master Pratiques Avancées en Kinésithérapie Spéciale", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eskp.ma/"},
-    {"intitule": "Master Kinésithérapie Sportive et Réathlétisation", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eskp.ma/"},
-    {"intitule": "Master Pratiques Avancées en Soins Infirmiers", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eskp.ma/"},
-    {"intitule": "Master Management des Établissements de Santé et Développement des Ressources Humaines", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eskp.ma/"}
+    {
+      "intitule": "Kinésithérapie",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eskp.ma/ecole-kinesitherapie/"
+    },
+    {
+      "intitule": "Infirmier polyvalent",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eskp.ma/"
+    },
+    {
+      "intitule": "Infirmier en anesthésie réanimation",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eskp.ma/"
+    },
+    {
+      "intitule": "Orthophonie",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": 4,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eskp.ma/ecole-orthophonie/"
+    },
+    {
+      "intitule": "Orthoptie",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eskp.ma/ecole-orthoptie/"
+    },
+    {
+      "intitule": "Psychomotricité",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eskp.ma/"
+    },
+    {
+      "intitule": "Psychologie",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eskp.ma/ecole-psychologie/"
+    },
+    {
+      "intitule": "Audiologie – Audioprothèse",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eskp.ma/"
+    },
+    {
+      "intitule": "Diététique et Nutrition",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eskp.ma/"
+    },
+    {
+      "intitule": "Master Pratiques Avancées en Kinésithérapie Spéciale",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eskp.ma/"
+    },
+    {
+      "intitule": "Master Kinésithérapie Sportive et Réathlétisation",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eskp.ma/"
+    },
+    {
+      "intitule": "Master Pratiques Avancées en Soins Infirmiers",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eskp.ma/"
+    },
+    {
+      "intitule": "Master Management des Établissements de Santé et Développement des Ressources Humaines",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eskp.ma/"
+    }
   ],
   "admission": {
-    "conditions": ["1re année : baccalauréat ou diplôme admis en équivalence, après sélection", "2e année : réussite de la 1re année dans la même filière", "Bac Sciences indiqué pour les filières Kinésithérapie, Orthophonie et Orthoptie"],
-    "etapes": ["Étude de dossier de candidature", "Entretien"],
+    "conditions": [
+      "1re année : baccalauréat ou diplôme admis en équivalence, après sélection",
+      "2e année : réussite de la 1re année dans la même filière",
+      "Bac Sciences indiqué pour les filières Kinésithérapie, Orthophonie et Orthoptie"
+    ],
+    "etapes": [
+      "Étude de dossier de candidature",
+      "Entretien"
+    ],
     "concours": null,
     "dates": "Inscriptions ouvertes 2026-2027"
   },
   "frais": [],
   "bourses": "Bourse d'étude de mérite pour les étudiants classés premiers à l'entretien d'admission.",
   "international": "Stages possibles au Maroc et/ou à l'étranger.",
-  "partenaires": ["CHU Ibn Rochd Casablanca", "CHU Ibn Sina Rabat"],
+  "partenaires": [
+    "CHU Ibn Rochd Casablanca",
+    "CHU Ibn Sina Rabat"
+  ],
   "vie_etudiante": [],
   "logement": null,
   "preuves": {
@@ -43,6 +190,12 @@
     "email": null,
     "annee_creation": "un établissement d’enseignement Supérieur Privé fondée en 1997",
     "frais": null,
-    "admission": ["après avoir satisfait aux épreuves de sélection (Etude de dossier de candidature et entretien)"]
+    "admission": [
+      "après avoir satisfait aux épreuves de sélection (Etude de dossier de candidature et entretien)"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

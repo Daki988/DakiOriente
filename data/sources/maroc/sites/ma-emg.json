@@ -3,7 +3,12 @@
   "site_web": "https://emg.ac.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://emg.ac.ma/", "https://emg.ac.ma/pr%C3%A9sentation.php", "https://emg.ac.ma/formation_d'ing%C3%A9nieur.php", "https://emg.ac.ma/formation_continue.php"],
+  "sources": [
+    "https://emg.ac.ma/",
+    "https://emg.ac.ma/pr%C3%A9sentation.php",
+    "https://emg.ac.ma/formation_d'ing%C3%A9nieur.php",
+    "https://emg.ac.ma/formation_continue.php"
+  ],
   "description": "École d'ingénierie privée située à Rabat (avenue Omar Ibn Al Khattab), fondée en 2008 et se présentant comme reconnue par l'État. Elle propose un cycle préparatoire intégré de deux ans, accessible aux bacheliers scientifiques et techniques, puis un cycle ingénieur en génie civil, génie électrique, génie industriel et génie informatique, avec des options de spécialisation. La pédagogie est fondée sur les compétences et les projets pratiques, avec des modules de langues, de communication et de management. L'école propose aussi de la formation continue (séminaires, certificats, mastères) et annonce des bourses d'excellence pour 2026-2027.",
   "annee_creation": 2008,
   "adresse": "Av. Omar Ibn Al Khattab, Rabat",
@@ -11,18 +16,93 @@
   "email": "inscription@emg.ac.ma",
   "statut_annonce": "École Reconnue par l'État",
   "programmes": [
-    {"intitule": "Cycle préparatoire intégré", "niveau": "Bac+2", "diplome": "Cycle préparatoire", "duree_annees": 2, "specialites": [], "campus": ["Rabat"], "url": "https://emg.ac.ma/formation_d'ing%C3%A9nieur.php"},
-    {"intitule": "Formation d'ingénieur Génie Civil", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": null, "specialites": ["Bâtiments, ponts et chaussées", "Hydraulique et hydrologie"], "campus": ["Rabat"], "url": "https://emg.ac.ma/"},
-    {"intitule": "Formation d'ingénieur Génie Électrique", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": null, "specialites": ["Automatique, Robotique et Informatique Industrielle", "Électrotechnique, Électronique de Puissance et Énergies Renouvelables"], "campus": ["Rabat"], "url": "https://emg.ac.ma/"},
-    {"intitule": "Formation d'ingénieur Génie Industriel", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": null, "specialites": ["Maintenance et Risques Industriels", "Logistique et Supply Chain", "Qualité et Lean Six Sigma"], "campus": ["Rabat"], "url": "https://emg.ac.ma/"},
-    {"intitule": "Formation d'ingénieur Génie Informatique", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": null, "specialites": ["Systèmes d'information et Cyber-Sécurité", "Big Data et Intelligence Artificielle", "Ingénierie et Qualité Logicielles"], "campus": ["Rabat"], "url": "https://emg.ac.ma/"}
+    {
+      "intitule": "Cycle préparatoire intégré",
+      "niveau": "Bac+2",
+      "diplome": "Cycle préparatoire",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://emg.ac.ma/formation_d'ing%C3%A9nieur.php"
+    },
+    {
+      "intitule": "Formation d'ingénieur Génie Civil",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [
+        "Bâtiments, ponts et chaussées",
+        "Hydraulique et hydrologie"
+      ],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://emg.ac.ma/"
+    },
+    {
+      "intitule": "Formation d'ingénieur Génie Électrique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [
+        "Automatique, Robotique et Informatique Industrielle",
+        "Électrotechnique, Électronique de Puissance et Énergies Renouvelables"
+      ],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://emg.ac.ma/"
+    },
+    {
+      "intitule": "Formation d'ingénieur Génie Industriel",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [
+        "Maintenance et Risques Industriels",
+        "Logistique et Supply Chain",
+        "Qualité et Lean Six Sigma"
+      ],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://emg.ac.ma/"
+    },
+    {
+      "intitule": "Formation d'ingénieur Génie Informatique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [
+        "Systèmes d'information et Cyber-Sécurité",
+        "Big Data et Intelligence Artificielle",
+        "Ingénierie et Qualité Logicielles"
+      ],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://emg.ac.ma/"
+    }
   ],
-  "admission": {"conditions": ["Cycle préparatoire intégré : bacheliers scientifiques et techniques"], "etapes": [], "concours": null, "dates": null},
+  "admission": {
+    "conditions": [
+      "Cycle préparatoire intégré : bacheliers scientifiques et techniques"
+    ],
+    "etapes": [],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
   "bourses": "Bourses d'excellence pour les méritants inscrits au titre de l'année universitaire 2026-2027 (jusqu'au 3 octobre 2026).",
   "international": "Réseau de partenaires académiques étrangers ; programmes développés avec des écoles marocaines et françaises.",
   "partenaires": [],
-  "vie_etudiante": ["Clubs (Intelligence artificielle, Cybersécurité, culture technologique)", "Activités socio-culturelles", "Conférences et écoles thématiques"],
+  "vie_etudiante": [
+    "Clubs (Intelligence artificielle, Cybersécurité, culture technologique)",
+    "Activités socio-culturelles",
+    "Conférences et écoles thématiques"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "Av. Omar Ibn Al Khattab, Rabat",
@@ -30,6 +110,12 @@
     "email": "inscription@emg.ac.ma",
     "annee_creation": "L'EMG fut fondée en 2008 à l'initiative de professeurs universitaires",
     "frais": [],
-    "admission": ["Il est accessible aux bacheliers scientifiques et techniques"]
+    "admission": [
+      "Il est accessible aux bacheliers scientifiques et techniques"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

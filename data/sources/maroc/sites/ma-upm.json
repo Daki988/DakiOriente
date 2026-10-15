@@ -48,36 +48,6 @@
       "url": "https://upm.ac.ma/etudier-a-lupm/hotellerie/master-management-en-hotellerie-internationale/"
     },
     {
-      "intitule": "Licences Tourisme & Hôtellerie et Arts Culinaires",
-      "niveau": "Bac+3",
-      "diplome": "Licence",
-      "duree_annees": null,
-      "specialites": [
-        "Licence Tourisme & Hôtellerie",
-        "Licence Arts Culinaires"
-      ],
-      "campus": [
-        "Marrakech"
-      ],
-      "url": "https://upm.ac.ma/"
-    },
-    {
-      "intitule": "Licences Business & Gouvernance",
-      "niveau": "Bac+3",
-      "diplome": "Licence",
-      "duree_annees": null,
-      "specialites": [
-        "Gestion Commerce",
-        "Sciences Politiques",
-        "Sciences de Management",
-        "Droit des Affaires"
-      ],
-      "campus": [
-        "Marrakech"
-      ],
-      "url": "https://upm.ac.ma/"
-    },
-    {
       "intitule": "Licence en Management Fondamental",
       "niveau": "Bac+3",
       "diplome": "Licence",
@@ -169,22 +139,6 @@
       "url": "https://upm.ac.ma/"
     },
     {
-      "intitule": "Licences Ingénierie et Innovation",
-      "niveau": "Bac+3",
-      "diplome": "Licence",
-      "duree_annees": null,
-      "specialites": [
-        "Développement Logiciel",
-        "Sécurité Informatique",
-        "Informatique",
-        "Génie Civil"
-      ],
-      "campus": [
-        "Marrakech"
-      ],
-      "url": "https://upm.ac.ma/"
-    },
-    {
       "intitule": "Ingénieur en Intelligence Artificielle (IA)",
       "niveau": "Bac+5",
       "diplome": "Diplôme d'ingénieur",
@@ -268,73 +222,6 @@
         "Agro-alimentaire : alimentation et management industriel",
         "Marchés, filières et management d'entreprise",
         "Territoires et développement rural"
-      ],
-      "campus": [
-        "Marrakech"
-      ],
-      "url": "https://upm.ac.ma/"
-    },
-    {
-      "intitule": "Masters Ingénierie et Innovation",
-      "niveau": "Bac+5",
-      "diplome": "Master",
-      "duree_annees": null,
-      "specialites": [
-        "Management de la Qualité, Sécurité et Environnement",
-        "Master Spécialisé Intelligence des données",
-        "Master Spécialisé en Ingénierie et Gestion de l'Eau"
-      ],
-      "campus": [
-        "Marrakech"
-      ],
-      "url": "https://upm.ac.ma/"
-    },
-    {
-      "intitule": "Licences Sciences de la santé",
-      "niveau": "Bac+3",
-      "diplome": "Licence",
-      "duree_annees": null,
-      "specialites": [
-        "Infirmier en Anesthésie et Réanimation",
-        "Ingénierie de la Santé",
-        "Sciences biomédicales",
-        "Psychologie",
-        "Physiothérapie",
-        "Sage-femme",
-        "Soins infirmiers",
-        "Infirmier en Bloc Opératoire"
-      ],
-      "campus": [
-        "Marrakech"
-      ],
-      "url": "https://upm.ac.ma/"
-    },
-    {
-      "intitule": "Licences professionnelles Santé",
-      "niveau": "Bac+3",
-      "diplome": "Licence professionnelle",
-      "duree_annees": null,
-      "specialites": [
-        "Technicien en Radiologie",
-        "Biologie Médicale et Techniques de Laboratoire",
-        "Assistance Médico-sociale"
-      ],
-      "campus": [
-        "Marrakech"
-      ],
-      "url": "https://upm.ac.ma/"
-    },
-    {
-      "intitule": "Masters Sciences de la santé",
-      "niveau": "Bac+5",
-      "diplome": "Master",
-      "duree_annees": null,
-      "specialites": [
-        "Physiothérapie",
-        "Ingénierie de la santé - Parcours de spécialisations",
-        "Pratiques Avancées en Urgentologie",
-        "Nutrition Humaine et Diététique",
-        "Neuropsychologie Clinique"
       ],
       "campus": [
         "Marrakech"
@@ -487,6 +374,18 @@
     "admission": [
       "Admission sur Concours écrit et entretien oral après l’étude de dossier.",
       "Titulaires du baccalauréat toutes filières."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": [
+      "programme:Licences Tourisme & Hôtellerie et Arts C",
+      "programme:Licences Business & Gouvernance",
+      "programme:Licences Ingénierie et Innovation",
+      "programme:Masters Ingénierie et Innovation",
+      "programme:Licences Sciences de la santé",
+      "programme:Licences professionnelles Santé",
+      "programme:Masters Sciences de la santé"
     ]
   }
 }

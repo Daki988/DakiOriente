@@ -3,7 +3,16 @@
   "site_web": "https://www.esa-igensia.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://www.esa-igensia.ma/", "https://www.esa-igensia.ma/formations/bachelor-finance", "https://www.esa-igensia.ma/formations/bachelor-management", "https://www.esa-igensia.ma/formations/bachelor-business-marketing", "https://www.esa-igensia.ma/admissions", "https://www.esa-igensia.ma/campus-vie-etudiante", "https://www.esa-igensia.ma/qui-sommes-nous", "https://www.esa-igensia.ma/contact"],
+  "sources": [
+    "https://www.esa-igensia.ma/",
+    "https://www.esa-igensia.ma/formations/bachelor-finance",
+    "https://www.esa-igensia.ma/formations/bachelor-management",
+    "https://www.esa-igensia.ma/formations/bachelor-business-marketing",
+    "https://www.esa-igensia.ma/admissions",
+    "https://www.esa-igensia.ma/campus-vie-etudiante",
+    "https://www.esa-igensia.ma/qui-sommes-nous",
+    "https://www.esa-igensia.ma/contact"
+  ],
   "description": "École supérieure de gestion, de management et de commerce installée à Aïn Sebaâ (Casablanca), sur un campus de 4 hectares, et rattachée depuis 2025 au groupe IGENSIA Education. Elle propose trois diplômes Bac+3 en 3 ans (Business et Marketing, Gestion des entreprises option Finance, option Management), avec stages à chaque année, mobilité internationale possible via l'IGENSIA School of Business et double diplôme marocain et français. Les admissions se font en 1re année après le bac et en admission parallèle en 2e ou 3e année ; un suivi personnalisé (programme 1 Étudiant 1 Mentor) et une poursuite d'études en mastère à l'étranger sont mentionnés.",
   "annee_creation": 1988,
   "adresse": "Boulevard Tarik El Ouahda – Aïn Sebaâ 20250 Casablanca, Maroc",
@@ -11,32 +20,110 @@
   "email": "admissions@esa.ma",
   "statut_annonce": "Diplômes Bac+3 accrédités par l'État marocain ; Marketing Web et Digital en cours d'accréditation",
   "programmes": [
-    {"intitule": "Diplôme Bac+3 en Business et Marketing (spécialisation Digital Marketing et Intelligence Artificielle)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": ["Digital Marketing et Intelligence Artificielle"], "campus": ["Casablanca"], "url": "https://www.esa-igensia.ma/formations/bachelor-business-marketing"},
-    {"intitule": "Diplôme Bac+3 en Gestion des entreprises – Option Finance", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://www.esa-igensia.ma/formations/bachelor-finance"},
-    {"intitule": "Diplôme Bac+3 en Gestion des entreprises – Option Management", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://www.esa-igensia.ma/formations/bachelor-management"}
+    {
+      "intitule": "Diplôme Bac+3 en Business et Marketing (spécialisation Digital Marketing et Intelligence Artificielle)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [
+        "Digital Marketing et Intelligence Artificielle"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.esa-igensia.ma/formations/bachelor-business-marketing"
+    },
+    {
+      "intitule": "Diplôme Bac+3 en Gestion des entreprises – Option Finance",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.esa-igensia.ma/formations/bachelor-finance"
+    },
+    {
+      "intitule": "Diplôme Bac+3 en Gestion des entreprises – Option Management",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.esa-igensia.ma/formations/bachelor-management"
+    }
   ],
   "admission": {
-    "conditions": ["1re année : baccalauréat validé ou en cours de préparation", "2e année : admission parallèle avec un Bac+1 validé", "3e année : admission parallèle avec un Bac+2 ou Bac+3 en gestion"],
-    "etapes": ["Préinscription en ligne", "Test écrit et oral (oral seul avec un TCF valide d'au moins 300 points ou pour les étrangers)", "Admissions parallèles : étude du dossier, entretien de motivation et échange sur le projet professionnel"],
+    "conditions": [
+      "1re année : baccalauréat validé ou en cours de préparation",
+      "2e année : admission parallèle avec un Bac+1 validé",
+      "3e année : admission parallèle avec un Bac+2 ou Bac+3 en gestion"
+    ],
+    "etapes": [
+      "Préinscription en ligne",
+      "Test écrit et oral (oral seul avec un TCF valide d'au moins 300 points ou pour les étrangers)",
+      "Admissions parallèles : étude du dossier, entretien de motivation et échange sur le projet professionnel"
+    ],
     "concours": null,
     "dates": "Rentrée en septembre 2026"
   },
   "frais": [
-    {"cycle": "Bac+3 – 1re année (étudiants marocains)", "inscription_mad": null, "scolarite_annuelle_mad": 55000, "note": "5 000 euros ; paiement échelonnable en 3 échéances, 5 % d'escompte en cas de règlement comptant"},
-    {"cycle": "Bac+3 – 1re année (étudiants internationaux)", "inscription_mad": null, "scolarite_annuelle_mad": 60000, "note": "5 500 euros"},
-    {"cycle": "Bac+3 – 2e et 3e années (étudiants internationaux)", "inscription_mad": null, "scolarite_annuelle_mad": 55000, "note": "5 000 euros ; tarif des 2e et 3e années pour les étudiants marocains non précisé sur le site"}
+    {
+      "cycle": "Bac+3 – 1re année (étudiants marocains)",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 55000,
+      "note": "5 000 euros ; paiement échelonnable en 3 échéances, 5 % d'escompte en cas de règlement comptant"
+    },
+    {
+      "cycle": "Bac+3 – 1re année (étudiants internationaux)",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 60000,
+      "note": "5 500 euros"
+    },
+    {
+      "cycle": "Bac+3 – 2e et 3e années (étudiants internationaux)",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 55000,
+      "note": "5 000 euros ; tarif des 2e et 3e années pour les étudiants marocains non précisé sur le site"
+    }
   ],
   "bourses": null,
   "international": "Semestre académique possible en université partenaire, stage à l'étranger, mobilité à l'IGENSIA School of Business (Paris, Lyon, Toulouse), double diplôme marocain et français, poursuite en mastère.",
-  "partenaires": ["IGENSIA Education", "CFCIM", "CCI de Seine-et-Marne (UTEC)"],
-  "vie_etudiante": ["BDE", "BDS", "Terrains de sport", "Cafétéria", "Médiathèque", "Navette de transport", "Projet humanitaire en 1re année"],
+  "partenaires": [
+    "IGENSIA Education",
+    "CFCIM",
+    "CCI de Seine-et-Marne (UTEC)"
+  ],
+  "vie_etudiante": [
+    "BDE",
+    "BDS",
+    "Terrains de sport",
+    "Cafétéria",
+    "Médiathèque",
+    "Navette de transport",
+    "Projet humanitaire en 1re année"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "Boulevard Tarik El Ouahda – Aïn Sebaâ 20250 Casablanca, Maroc",
     "telephone": "(+212) 05 22 35 53 53",
     "email": "admissions@esa.ma",
     "annee_creation": "Fondée en 1988 dans le cadre d’une convention entre l’État français",
-    "frais": ["Étudiants marocains : 5 000 euros soit 55 000 Dh", "Étudiants internationaux : 5 500 euros soit 60 000 Dh", "Étudiants internationaux : 5 000 euros soit 55 000 Dh"],
-    "admission": ["Admission sur test écrit et oral", "Sur étude du dossier, entretien de motivation et échange sur le projet professionnel"]
+    "frais": [
+      "Étudiants marocains : 5 000 euros soit 55 000 Dh",
+      "Étudiants internationaux : 5 500 euros soit 60 000 Dh",
+      "Étudiants internationaux : 5 000 euros soit 55 000 Dh"
+    ],
+    "admission": [
+      "Admission sur test écrit et oral",
+      "Sur étude du dossier, entretien de motivation et échange sur le projet professionnel"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

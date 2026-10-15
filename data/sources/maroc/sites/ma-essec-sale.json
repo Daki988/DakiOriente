@@ -3,7 +3,11 @@
   "site_web": "https://www.essec.edu/fr/campus/rabat/",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://www.essec.edu/fr/campus/rabat/", "https://www.essec.edu/fr/programme/programmes-sur-mesure/", "https://www.essec.edu/fr/actualites/revivez-en-images-linauguration-du-campus-essec-afrique-atlantique/"],
+  "sources": [
+    "https://www.essec.edu/fr/campus/rabat/",
+    "https://www.essec.edu/fr/programme/programmes-sur-mesure/",
+    "https://www.essec.edu/fr/actualites/revivez-en-images-linauguration-du-campus-essec-afrique-atlantique/"
+  ],
   "description": "Campus ESSEC Afrique de l'ESSEC Business School, situé à la Plage des Nations à Sidi Bouknadel (Salé), à environ 25 minutes de Rabat. Inauguré en 2017, il accueille des étudiants en formation initiale (Global BBA, International Program in Business Administration, deux masters en finance et en supply chain) ainsi que de la formation continue. Le site mentionne deux résidences universitaires sur le campus, une navette gratuite vers le centre de Rabat et un service de restauration.",
   "annee_creation": null,
   "adresse": "Plage des Nations - Sidi Bouknadel, Salé 11000, Maroc",
@@ -11,17 +15,69 @@
   "email": null,
   "statut_annonce": null,
   "programmes": [
-    {"intitule": "Global BBA", "niveau": "Bac+4", "diplome": "BBA", "duree_annees": 4, "specialites": [], "campus": ["Sidi Bouknadel (Rabat-Salé)"], "url": "https://www.essec.edu/fr/campus/rabat/"},
-    {"intitule": "International Program in Business Administration (IPBA)", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Sidi Bouknadel (Rabat-Salé)"], "url": "https://www.essec.edu/fr/campus/rabat/"},
-    {"intitule": "Master in Financial Engineering and Data Analysis (FEDA)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Sidi Bouknadel (Rabat-Salé)"], "url": "https://www.essec.edu/fr/campus/rabat/"},
-    {"intitule": "Master in International Business & Supply Chain Management (IBSCM)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Sidi Bouknadel (Rabat-Salé)"], "url": "https://www.essec.edu/fr/campus/rabat/"}
+    {
+      "intitule": "Global BBA",
+      "niveau": "Bac+4",
+      "diplome": "BBA",
+      "duree_annees": 4,
+      "specialites": [],
+      "campus": [
+        "Sidi Bouknadel (Rabat-Salé)"
+      ],
+      "url": "https://www.essec.edu/fr/campus/rabat/"
+    },
+    {
+      "intitule": "International Program in Business Administration (IPBA)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Sidi Bouknadel (Rabat-Salé)"
+      ],
+      "url": "https://www.essec.edu/fr/campus/rabat/"
+    },
+    {
+      "intitule": "Master in Financial Engineering and Data Analysis (FEDA)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Sidi Bouknadel (Rabat-Salé)"
+      ],
+      "url": "https://www.essec.edu/fr/campus/rabat/"
+    },
+    {
+      "intitule": "Master in International Business & Supply Chain Management (IBSCM)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Sidi Bouknadel (Rabat-Salé)"
+      ],
+      "url": "https://www.essec.edu/fr/campus/rabat/"
+    }
   ],
-  "admission": {"conditions": ["Global BBA : programme post-bac en 4 ans, qualifié de sélectif par le site"], "etapes": [], "concours": null, "dates": null},
+  "admission": {
+    "conditions": [
+      "Global BBA : programme post-bac en 4 ans, qualifié de sélectif par le site"
+    ],
+    "etapes": [],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
   "bourses": null,
   "international": "Campus de l'ESSEC Business School, qui compte également des campus en France et à Singapour ; le site cite des échanges entre l'Afrique, l'Europe et l'Asie.",
   "partenaires": [],
-  "vie_etudiante": ["Foyer étudiant", "Salle de fitness et de musculation, terrain multisport", "Navette gratuite vers le centre de Rabat", "Restauration (Sodexo)"],
+  "vie_etudiante": [
+    "Foyer étudiant",
+    "Salle de fitness et de musculation, terrain multisport",
+    "Navette gratuite vers le centre de Rabat",
+    "Restauration (Sodexo)"
+  ],
   "logement": "Deux résidences universitaires à proximité du bâtiment (chambres simples ou doubles, laverie, salle de fitness) ; demande de logement par courriel après admission.",
   "preuves": {
     "adresse": "Plage des Nations - Sidi Bouknadel,",
@@ -29,6 +85,12 @@
     "email": null,
     "annee_creation": null,
     "frais": [],
-    "admission": ["Le Global BBA est le programme post-bac, en 4 ans de l’ESSEC. Sélectif, dense et exigeant"]
+    "admission": [
+      "Le Global BBA est le programme post-bac, en 4 ans de l’ESSEC. Sélectif, dense et exigeant"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

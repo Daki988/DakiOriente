@@ -1,0 +1,87 @@
+{
+  "id": "ma-icacsup",
+  "site_web": "https://icacsup.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://icacsup.ma/",
+    "https://icacsup.ma/modalites-dadmission/",
+    "https://icacsup.ma/presentation/"
+  ],
+  "description": "Institut supérieur de comptabilité, d’administration et de commerce situé à Kénitra (Ville Haute). Il propose la filière « Management et Gestion » en trois ans (Bac+3, licence) avec des parcours finance-comptabilité et commerce-marketing, et annonce une poursuite d’études en 4e et 5e année pour un diplôme Bac+5 (master). L’admission se fait après un baccalauréat toutes séries, sur étude de dossier, tests et entretiens, avec un effectif limité.",
+  "annee_creation": null,
+  "adresse": "La Ville Haute, angle Bd. Homane El Fatouaki et rue Challah, Kénitra",
+  "telephone": "05 37 36 45 59",
+  "email": "info@icacsup.ma",
+  "statut_annonce": "Diplôme Supérieur Accrédité",
+  "programmes": [
+    {
+      "intitule": "Management & Gestion - Finance – Comptabilité",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [
+        "Option finances (3e année)"
+      ],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://icacsup.ma/"
+    },
+    {
+      "intitule": "Management & Gestion - Commerce - Marketing",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [
+        "Option marketing (3e année)"
+      ],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://icacsup.ma/"
+    },
+    {
+      "intitule": "Management et Gestion - 4e et 5e année",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Kénitra"
+      ],
+      "url": "https://icacsup.ma/presentation/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Baccalauréat toutes séries",
+      "Présélection : étude de dossier, tests et entretiens"
+    ],
+    "etapes": [
+      "Retrait et dépôt du dossier de candidature au service des tests d’admission (Kénitra)",
+      "Test d’admission d’une journée (QCM de raisonnement, de logique ou de langues)",
+      "Affichage des résultats dans les locaux de l’ICAC SUP",
+      "Les admis demandent le dossier définitif d’inscription"
+    ],
+    "concours": "Test d’admission en 1ère année après le bac (QCM)",
+    "dates": null
+  },
+  "frais": [],
+  "bourses": null,
+  "international": "Partenariats annoncés avec des universités étrangères pour des masters en double diplôme.",
+  "partenaires": [],
+  "vie_etudiante": [],
+  "logement": null,
+  "preuves": {
+    "adresse": "La Ville Haute, Angle Bd. Homane El Fatouaki et Rue Challah - Kénitra.",
+    "telephone": "### Tel : 05 37 36 45 59",
+    "email": "info@icacsup.ma",
+    "annee_creation": null,
+    "frais": null,
+    "admission": [
+      "ICAC SUP ouvre ses portes aux diplômés bac toutes séries pour passer le test d’admission en 1ère. année après BAC.",
+      "Les épreuves se déroulent en une journée (QCM de raisonnement, de logique ou de langues)"
+    ]
+  }
+}

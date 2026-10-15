@@ -1,170 +1,174 @@
 {
- "id": "ma-estem",
- "site_web": "https://estem.ma",
- "date_collecte": "2026-10-15",
- "accessible": true,
- "sources": [
-  "https://estem.ma/",
-  "http://estem.ma/etude-formations/parcours-grande-ecole/",
-  "https://estem.ma/futurs-etudiants/etudiants-en-admission-parallele/conditions-dacces/",
-  "https://estem.ma/mobilite-internationale/",
-  "https://estem.ma/futurs-etudiants/etudiants-internationaux/futurs-etudiants-etudiants-en-admission-parallele/guide-de-letudiant-international/",
-  "https://estem.ma/vieetudiantes/logement-estem/"
- ],
- "description": "École installée à Casablanca (quartier Gautier) avec une école d'ingénieurs, une business school et des classes préparatoires (ESTEM Prépas). Le parcours Grande École en management s'étend sur 5 ans (8 semestres généralistes puis 2 semestres de spécialisation) avec des stages à chaque année, et l'école ingénieur propose des parcours d'ingénieurs d'État, des doubles diplômes et des licences. Le site met en avant des doubles diplomations avec des établissements français et canadien, un guide pour étudiants internationaux et des logements proposés par l'école.",
- "annee_creation": null,
- "adresse": "4-6, Rue Moussa Bnou Nouceir Bd Moulay Youssef Quartier Gautier",
- "telephone": "+212 (0) 522 260 260",
- "email": "information@estem.ma",
- "statut_annonce": "Reconnaissance officielle par l'État marocain (titre d'actualité du site)",
- "programmes": [
-  {
-   "intitule": "Parcours Grande École (Business School)",
-   "niveau": "Bac+5",
-   "diplome": "Master",
-   "duree_annees": 5,
-   "specialites": [
-    "Management",
-    "Finance",
-    "Comptabilité-Contrôle de gestion",
-    "Marketing",
-    "Business"
-   ],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "http://estem.ma/etude-formations/parcours-grande-ecole/"
-  },
-  {
-   "intitule": "Parcours d'Ingénieurs d'État",
-   "niveau": "Bac+5",
-   "diplome": "Diplôme d'ingénieur",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://estem.ma/"
-  },
-  {
-   "intitule": "Licences (École d'ingénieurs)",
-   "niveau": "Bac+3",
-   "diplome": "Licence",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://estem.ma/"
-  },
-  {
-   "intitule": "ESTEM Prépas (classes préparatoires)",
-   "niveau": "Bac+2",
-   "diplome": null,
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://estem.ma/"
-  },
-  {
-   "intitule": "Master Droit et Finance d'Entreprise (double diplomation avec l'Université Jean Moulin Lyon 3)",
-   "niveau": "Bac+5",
-   "diplome": "Master",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://estem.ma/mobilite-internationale/"
-  },
-  {
-   "intitule": "Master Comptabilité – Contrôle – Audit (CCA)",
-   "niveau": "Bac+5",
-   "diplome": "Master",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://estem.ma/mobilite-internationale/"
-  },
-  {
-   "intitule": "Master Ingénierie Financière",
-   "niveau": "Bac+5",
-   "diplome": "Master",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://estem.ma/mobilite-internationale/"
-  },
-  {
-   "intitule": "Génie Civil (double diplomation avec ISA BTP)",
-   "niveau": null,
-   "diplome": "Diplôme d'ingénieur",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://estem.ma/mobilite-internationale/"
-  },
-  {
-   "intitule": "Sciences de Données & Big Data",
-   "niveau": null,
-   "diplome": null,
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://estem.ma/mobilite-internationale/"
-  }
- ],
- "admission": {
-  "conditions": [
-   "Parcours Grande École 1re année : baccalauréat (scientifique, économique, littéraire) ou équivalent",
-   "Admission en parallèle (Bac+1 à Bac+5) : diplôme ou attestation de réussite et relevés de notes de chaque année",
-   "École d'ingénieurs : sélection sur étude de dossier"
+  "id": "ma-estem",
+  "site_web": "https://estem.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://estem.ma/",
+    "http://estem.ma/etude-formations/parcours-grande-ecole/",
+    "https://estem.ma/futurs-etudiants/etudiants-en-admission-parallele/conditions-dacces/",
+    "https://estem.ma/mobilite-internationale/",
+    "https://estem.ma/futurs-etudiants/etudiants-internationaux/futurs-etudiants-etudiants-en-admission-parallele/guide-de-letudiant-international/",
+    "https://estem.ma/vieetudiantes/logement-estem/"
   ],
-  "etapes": [
-   "Remplir le formulaire de renseignements",
-   "Charger les documents sur la plateforme",
-   "Choisir ses formations et attendre la réponse de l'administration"
-  ],
-  "concours": null,
-  "dates": "Rentrée en septembre de chaque année"
- },
- "frais": [],
- "bourses": null,
- "international": "Doubles diplomations et mobilité avec des établissements en France (ESTP Paris, Lyon 3, Le Mans, Savoie Mont Blanc, ISA BTP, Rennes School of Business) et au Canada (Université Saint Francis Xavier) ; 41 conventions de partenariat.",
- "partenaires": [
-  "ESTP Paris",
-  "Université Jean Moulin Lyon 3",
-  "Université Le Mans",
-  "Université Savoie Mont Blanc",
-  "ISA BTP",
-  "Rennes School of Business",
-  "Université Saint Francis Xavier"
- ],
- "vie_etudiante": [
-  "Journée Culturelle",
-  "Journée Stage & Emploi",
-  "Colloque International"
- ],
- "logement": "Résidences Hassan II et Les Provences proposées par l'école ; contrat de 11 mois ; tarifs non cités dans le texte",
- "preuves": {
+  "description": "École installée à Casablanca (quartier Gautier) avec une école d'ingénieurs, une business school et des classes préparatoires (ESTEM Prépas). Le parcours Grande École en management s'étend sur 5 ans (8 semestres généralistes puis 2 semestres de spécialisation) avec des stages à chaque année, et l'école ingénieur propose des parcours d'ingénieurs d'État, des doubles diplômes et des licences. Le site met en avant des doubles diplomations avec des établissements français et canadien, un guide pour étudiants internationaux et des logements proposés par l'école.",
+  "annee_creation": null,
   "adresse": "4-6, Rue Moussa Bnou Nouceir Bd Moulay Youssef Quartier Gautier",
   "telephone": "+212 (0) 522 260 260",
   "email": "information@estem.ma",
-  "annee_creation": null,
+  "statut_annonce": "Reconnaissance officielle par l'État marocain (titre d'actualité du site)",
+  "programmes": [
+    {
+      "intitule": "Parcours Grande École (Business School)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 5,
+      "specialites": [
+        "Management",
+        "Finance",
+        "Comptabilité-Contrôle de gestion",
+        "Marketing",
+        "Business"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "http://estem.ma/etude-formations/parcours-grande-ecole/"
+    },
+    {
+      "intitule": "Parcours d'Ingénieurs d'État",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://estem.ma/"
+    },
+    {
+      "intitule": "Licences (École d'ingénieurs)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://estem.ma/"
+    },
+    {
+      "intitule": "ESTEM Prépas (classes préparatoires)",
+      "niveau": "Bac+2",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://estem.ma/"
+    },
+    {
+      "intitule": "Master Droit et Finance d'Entreprise (double diplomation avec l'Université Jean Moulin Lyon 3)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://estem.ma/mobilite-internationale/"
+    },
+    {
+      "intitule": "Master Comptabilité – Contrôle – Audit (CCA)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://estem.ma/mobilite-internationale/"
+    },
+    {
+      "intitule": "Master Ingénierie Financière",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://estem.ma/mobilite-internationale/"
+    },
+    {
+      "intitule": "Génie Civil (double diplomation avec ISA BTP)",
+      "niveau": null,
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://estem.ma/mobilite-internationale/"
+    },
+    {
+      "intitule": "Sciences de Données & Big Data",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://estem.ma/mobilite-internationale/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Parcours Grande École 1re année : baccalauréat (scientifique, économique, littéraire) ou équivalent",
+      "Admission en parallèle (Bac+1 à Bac+5) : diplôme ou attestation de réussite et relevés de notes de chaque année",
+      "École d'ingénieurs : sélection sur étude de dossier"
+    ],
+    "etapes": [
+      "Remplir le formulaire de renseignements",
+      "Charger les documents sur la plateforme",
+      "Choisir ses formations et attendre la réponse de l'administration"
+    ],
+    "concours": null,
+    "dates": "Rentrée en septembre de chaque année"
+  },
   "frais": [],
-  "admission": [
-   "Admission en parallèle: Au cas par cas selon la réglementation en vigueur et l'autorisation du ministère de tutelle.",
-   "BAC Sci Mathématiques A et B + 1 année validée"
-  ]
- }
+  "bourses": null,
+  "international": "Doubles diplomations et mobilité avec des établissements en France (ESTP Paris, Lyon 3, Le Mans, Savoie Mont Blanc, ISA BTP, Rennes School of Business) et au Canada (Université Saint Francis Xavier) ; 41 conventions de partenariat.",
+  "partenaires": [
+    "ESTP Paris",
+    "Université Jean Moulin Lyon 3",
+    "Université Le Mans",
+    "Université Savoie Mont Blanc",
+    "ISA BTP",
+    "Rennes School of Business",
+    "Université Saint Francis Xavier"
+  ],
+  "vie_etudiante": [
+    "Journée Culturelle",
+    "Journée Stage & Emploi",
+    "Colloque International"
+  ],
+  "logement": "Résidences Hassan II et Les Provences proposées par l'école ; contrat de 11 mois ; tarifs non cités dans le texte",
+  "preuves": {
+    "adresse": "4-6, Rue Moussa Bnou Nouceir Bd Moulay Youssef Quartier Gautier",
+    "telephone": "+212 (0) 522 260 260",
+    "email": "information@estem.ma",
+    "annee_creation": null,
+    "frais": [],
+    "admission": [
+      "Admission en parallèle: Au cas par cas selon la réglementation en vigueur et l'autorisation du ministère de tutelle.",
+      "BAC Sci Mathématiques A et B + 1 année validée"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
+  }
 }

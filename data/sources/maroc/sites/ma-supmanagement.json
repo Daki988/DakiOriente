@@ -136,5 +136,9 @@
     "admission": [
       "Une copie du baccalauréat et du diplôme ou de l'attestation de réussite post-bac pour les cas d'admissions parallèles en 2°, 3° ou 4° Année."
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

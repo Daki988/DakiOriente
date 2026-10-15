@@ -3,7 +3,15 @@
   "site_web": "https://www.esrim.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://www.esrim.ma/", "https://www.esrim.ma/formations/", "https://www.esrim.ma/admissions/conditions-acces/", "https://www.esrim.ma/admissions/", "https://www.esrim.ma/formations/bac-3/", "https://www.esrim.ma/formations/bac-5/", "https://www.esrim.ma/esrim/presentation/"],
+  "sources": [
+    "https://www.esrim.ma/",
+    "https://www.esrim.ma/formations/",
+    "https://www.esrim.ma/admissions/conditions-acces/",
+    "https://www.esrim.ma/admissions/",
+    "https://www.esrim.ma/formations/bac-3/",
+    "https://www.esrim.ma/formations/bac-5/",
+    "https://www.esrim.ma/esrim/presentation/"
+  ],
   "description": "École supérieure d'informatique et de management implantée à Settat (boulevard Mohammed V), fondée au cours de l'année académique 1996-1997. Elle propose des cursus Bac+3 (trois années, six semestres, avec entrée possible en L1, L2 ou L3) et des cycles visant le Bac+5 (entrée en 1re année après un Bac+3 ou en 2e année après un Bac+4 compatible), en informatique, cybersécurité, data et business intelligence, marketing numérique, finance, capital humain et droit des entreprises. Les parcours associent cours, études de cas, projets, stage et PFE selon la formation ; certaines formations Bac+5 existent à distance selon la FAQ du site.",
   "annee_creation": 1996,
   "adresse": "46, boulevard Mohammed V, place de la Municipalité, Settat, Maroc",
@@ -11,21 +19,144 @@
   "email": "contact@esrim.ma",
   "statut_annonce": null,
   "programmes": [
-    {"intitule": "Génie Informatique", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": ["Génie logiciel", "Numérisation et Digitalisation de l'Entreprise"], "campus": ["Settat"], "url": "https://www.esrim.ma/formations/bac-3/"},
-    {"intitule": "Management et Gestion des entreprises", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": ["Marketing et Commerce Numérique", "Comptabilité et Finance"], "campus": ["Settat"], "url": "https://www.esrim.ma/formations/bac-3/"},
-    {"intitule": "Cybersécurité et Systèmes Informatiques", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Settat"], "url": "https://www.esrim.ma/formations/bac-3/"},
-    {"intitule": "Droit des Entreprises", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Settat"], "url": "https://www.esrim.ma/formations/bac-3/"},
-    {"intitule": "Business Intelligence et Intelligence artificielle", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Settat"], "url": "https://www.esrim.ma/formations/bac-5/"},
-    {"intitule": "Cybersécurité Avancée et Sécurité des Systèmes", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Settat"], "url": "https://www.esrim.ma/formations/bac-5/"},
-    {"intitule": "Big Data et Data Analyst", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Settat"], "url": "https://www.esrim.ma/formations/bac-5/"},
-    {"intitule": "Business Intelligence et Management de Projet", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Settat"], "url": "https://www.esrim.ma/formations/bac-5/"},
-    {"intitule": "Gestion Financière de l'Entreprise", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Settat"], "url": "https://www.esrim.ma/formations/bac-5/"},
-    {"intitule": "Management du Capital Humain", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Settat"], "url": "https://www.esrim.ma/formations/bac-5/"},
-    {"intitule": "Marketing et Communication Digitale", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Settat"], "url": "https://www.esrim.ma/formations/bac-5/"}
+    {
+      "intitule": "Génie Informatique",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [
+        "Génie logiciel",
+        "Numérisation et Digitalisation de l'Entreprise"
+      ],
+      "campus": [
+        "Settat"
+      ],
+      "url": "https://www.esrim.ma/formations/bac-3/"
+    },
+    {
+      "intitule": "Management et Gestion des entreprises",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [
+        "Marketing et Commerce Numérique",
+        "Comptabilité et Finance"
+      ],
+      "campus": [
+        "Settat"
+      ],
+      "url": "https://www.esrim.ma/formations/bac-3/"
+    },
+    {
+      "intitule": "Cybersécurité et Systèmes Informatiques",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Settat"
+      ],
+      "url": "https://www.esrim.ma/formations/bac-3/"
+    },
+    {
+      "intitule": "Droit des Entreprises",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Settat"
+      ],
+      "url": "https://www.esrim.ma/formations/bac-3/"
+    },
+    {
+      "intitule": "Business Intelligence et Intelligence artificielle",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Settat"
+      ],
+      "url": "https://www.esrim.ma/formations/bac-5/"
+    },
+    {
+      "intitule": "Cybersécurité Avancée et Sécurité des Systèmes",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Settat"
+      ],
+      "url": "https://www.esrim.ma/formations/bac-5/"
+    },
+    {
+      "intitule": "Big Data et Data Analyst",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Settat"
+      ],
+      "url": "https://www.esrim.ma/formations/bac-5/"
+    },
+    {
+      "intitule": "Business Intelligence et Management de Projet",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Settat"
+      ],
+      "url": "https://www.esrim.ma/formations/bac-5/"
+    },
+    {
+      "intitule": "Gestion Financière de l'Entreprise",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Settat"
+      ],
+      "url": "https://www.esrim.ma/formations/bac-5/"
+    },
+    {
+      "intitule": "Management du Capital Humain",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Settat"
+      ],
+      "url": "https://www.esrim.ma/formations/bac-5/"
+    },
+    {
+      "intitule": "Marketing et Communication Digitale",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Settat"
+      ],
+      "url": "https://www.esrim.ma/formations/bac-5/"
+    }
   ],
   "admission": {
-    "conditions": ["Bac+3 : baccalauréat ou diplôme admis en équivalence (entrée en L1) ; Bac+1 ou Bac+2 compatible pour une entrée en L2 ou L3 lorsqu'elle est ouverte", "Bac+5 : Bac+3 compatible (1re année) ou Bac+4 compatible (2e année lorsqu'elle est ouverte)"],
-    "etapes": ["Étude du dossier", "Préinscription / candidature", "Finalisation de l'inscription après validation"],
+    "conditions": [
+      "Bac+3 : baccalauréat ou diplôme admis en équivalence (entrée en L1) ; Bac+1 ou Bac+2 compatible pour une entrée en L2 ou L3 lorsqu'elle est ouverte",
+      "Bac+5 : Bac+3 compatible (1re année) ou Bac+4 compatible (2e année lorsqu'elle est ouverte)"
+    ],
+    "etapes": [
+      "Étude du dossier",
+      "Préinscription / candidature",
+      "Finalisation de l'inscription après validation"
+    ],
     "concours": null,
     "dates": null
   },
@@ -33,7 +164,10 @@
   "bourses": null,
   "international": "FAQ mentionnant la possibilité de candidater depuis l'Afrique subsaharienne ou un autre pays et l'examen des diplômes étrangers.",
   "partenaires": [],
-  "vie_etudiante": ["Club EPIK LEADERS", "Visites pédagogiques"],
+  "vie_etudiante": [
+    "Club EPIK LEADERS",
+    "Visites pédagogiques"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "46, boulevard Mohammed V, place de la Municipalité, Settat, Maroc",
@@ -41,6 +175,12 @@
     "email": "contact@esrim.ma",
     "annee_creation": "Fondée au cours de l’année académique 1996-1997, l’ESRIM est implantée à Settat.",
     "frais": null,
-    "admission": ["Admission après étude du dossier"]
+    "admission": [
+      "Admission après étude du dossier"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

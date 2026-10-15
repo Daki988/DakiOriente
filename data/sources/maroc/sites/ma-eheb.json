@@ -3,7 +3,14 @@
   "site_web": "https://eheb.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://eheb.ma/", "https://eheb.ma/nos-programmes/", "https://eheb.ma/licence-bac3-2/", "https://eheb.ma/master-bac5/", "https://eheb.ma/master-pro/", "https://eheb.ma/info-contact-preinscription/"],
+  "sources": [
+    "https://eheb.ma/",
+    "https://eheb.ma/nos-programmes/",
+    "https://eheb.ma/licence-bac3-2/",
+    "https://eheb.ma/master-bac5/",
+    "https://eheb.ma/master-pro/",
+    "https://eheb.ma/info-contact-preinscription/"
+  ],
   "description": "École supérieure privée de biotechnologie et de santé installée boulevard de la Résistance à Casablanca. Elle propose un cycle d'ingénieur d'État (génie biomédical, industries agroalimentaires, industries pharmaceutique et cosmétique), des masters Bac+5 et des licences Bac+3 en biotechnologie, analyses biomédicales, technologies alimentaires et contrôle qualité. Le site mentionne des laboratoires équipés, des stages dès la première année, un master en partenariat avec le laboratoire MedBiotech de Rabat et des coopérations avec l'Université de Haute-Alsace et l'ISARA Lyon.",
   "annee_creation": 1996,
   "adresse": "183, Bd de la Résistance, Casablanca - Maroc",
@@ -11,23 +18,145 @@
   "email": "contact@eheb.ma",
   "statut_annonce": "Établissement reconnu par l'État (décret n° 2.25.314) ; autorisation école supérieure privée N° 107/96",
   "programmes": [
-    {"intitule": "Cycle d'ingénieur Génie Biomédical", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eheb.ma/nos-programmes/"},
-    {"intitule": "Cycle d'ingénieur Industries Agroalimentaires", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eheb.ma/nos-programmes/"},
-    {"intitule": "Cycle d'ingénieur Industries Pharmaceutique et Cosmétique", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eheb.ma/nos-programmes/"},
-    {"intitule": "Master Biotechnologie médicale & Bio-informatique", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eheb.ma/master-bac5/"},
-    {"intitule": "Master Technologies alimentaires et Qualité", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eheb.ma/master-bac5/"},
-    {"intitule": "Master Qualité dans les industries pharmaceutiques, cosmétiques et laboratoires", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://eheb.ma/master-bac5/"},
-    {"intitule": "Licence Biotechnologie et Santé", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://eheb.ma/licence-bac3-2/"},
-    {"intitule": "Licence Analyses et Qualité dans les Laboratoires d'analyses biomédicales", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://eheb.ma/licence-bac3-2/"},
-    {"intitule": "Licence Technologies Alimentaires et Qualité", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://eheb.ma/licence-bac3-2/"},
-    {"intitule": "Licence Analyses et Contrôle Qualité en Industries Pharmaceutique et Cosmétique", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://eheb.ma/licence-bac3-2/"}
+    {
+      "intitule": "Cycle d'ingénieur Génie Biomédical",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eheb.ma/nos-programmes/"
+    },
+    {
+      "intitule": "Cycle d'ingénieur Industries Agroalimentaires",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eheb.ma/nos-programmes/"
+    },
+    {
+      "intitule": "Cycle d'ingénieur Industries Pharmaceutique et Cosmétique",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eheb.ma/nos-programmes/"
+    },
+    {
+      "intitule": "Master Biotechnologie médicale & Bio-informatique",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eheb.ma/master-bac5/"
+    },
+    {
+      "intitule": "Master Technologies alimentaires et Qualité",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eheb.ma/master-bac5/"
+    },
+    {
+      "intitule": "Master Qualité dans les industries pharmaceutiques, cosmétiques et laboratoires",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eheb.ma/master-bac5/"
+    },
+    {
+      "intitule": "Licence Biotechnologie et Santé",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eheb.ma/licence-bac3-2/"
+    },
+    {
+      "intitule": "Licence Analyses et Qualité dans les Laboratoires d'analyses biomédicales",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eheb.ma/licence-bac3-2/"
+    },
+    {
+      "intitule": "Licence Technologies Alimentaires et Qualité",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eheb.ma/licence-bac3-2/"
+    },
+    {
+      "intitule": "Licence Analyses et Contrôle Qualité en Industries Pharmaceutique et Cosmétique",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://eheb.ma/licence-bac3-2/"
+    }
   ],
-  "admission": {"conditions": ["Licence : baccalauréat scientifique + étude de dossier ; accès possible en 2e ou 3e année avec entretien", "Master : étude de dossier ; bacheliers scientifiques (cursus complet), accès parallèle possible depuis classes préparatoires, DEUG, BTS ou DUT, accès direct pour les licenciés"], "etapes": ["Pré-inscription en ligne", "Étude de dossier", "Entretien selon le profil"], "concours": "Aucun concours d'entrée", "dates": null},
+  "admission": {
+    "conditions": [
+      "Licence : baccalauréat scientifique + étude de dossier ; accès possible en 2e ou 3e année avec entretien",
+      "Master : étude de dossier ; bacheliers scientifiques (cursus complet), accès parallèle possible depuis classes préparatoires, DEUG, BTS ou DUT, accès direct pour les licenciés"
+    ],
+    "etapes": [
+      "Pré-inscription en ligne",
+      "Étude de dossier",
+      "Entretien selon le profil"
+    ],
+    "concours": "Aucun concours d'entrée",
+    "dates": null
+  },
   "frais": [],
   "bourses": null,
   "international": "Coopérations académiques avec l'Université de Haute-Alsace, l'Université Polytechnique Hauts-de-France et l'ISARA Lyon.",
-  "partenaires": ["Université de Haute-Alsace", "ISARA Lyon", "Université Polytechnique Hauts-de-France", "Laboratoire MedBiotech (Faculté de Médecine et de Pharmacie de Rabat)"],
-  "vie_etudiante": ["Laboratoires équipés", "Bibliothèque", "Amphithéâtre", "Cycle de conférences mensuelles"],
+  "partenaires": [
+    "Université de Haute-Alsace",
+    "ISARA Lyon",
+    "Université Polytechnique Hauts-de-France",
+    "Laboratoire MedBiotech (Faculté de Médecine et de Pharmacie de Rabat)"
+  ],
+  "vie_etudiante": [
+    "Laboratoires équipés",
+    "Bibliothèque",
+    "Amphithéâtre",
+    "Cycle de conférences mensuelles"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "183, Bd de la Résistance",
@@ -35,6 +164,13 @@
     "email": "contact@eheb.ma",
     "annee_creation": "L’EHEB est une École Supérieure Privée créée depuis 1996",
     "frais": [],
-    "admission": ["Admission sur étude de dossier, aucun concours d'entrée", "Être titulaire d'un baccalauréat scientifique + étude de dossier"]
+    "admission": [
+      "Admission sur étude de dossier, aucun concours d'entrée",
+      "Être titulaire d'un baccalauréat scientifique + étude de dossier"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

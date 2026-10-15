@@ -3,7 +3,16 @@
   "site_web": "https://esss.ac.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://esss.ac.ma/index.html", "https://esss.ac.ma/inscription-master.html", "https://esss.ac.ma/inscription-ouverte-2024-25.html", "https://esss.ac.ma/licence-pro-sante.html", "https://esss.ac.ma/programme-allemand.html", "https://esss.ac.ma/master-epidemiologie.html", "https://esss.ac.ma/master-apres-licence.html", "https://esss.ac.ma/master-management-sante.html"],
+  "sources": [
+    "https://esss.ac.ma/index.html",
+    "https://esss.ac.ma/inscription-master.html",
+    "https://esss.ac.ma/inscription-ouverte-2024-25.html",
+    "https://esss.ac.ma/licence-pro-sante.html",
+    "https://esss.ac.ma/programme-allemand.html",
+    "https://esss.ac.ma/master-epidemiologie.html",
+    "https://esss.ac.ma/master-apres-licence.html",
+    "https://esss.ac.ma/master-management-sante.html"
+  ],
   "description": "École supérieure des sciences de la santé de Casablanca, établissement privé qui propose des licences en sciences infirmières, rééducation, technologie médicale et gestion des services de santé, ainsi que des masters en santé. Une licence professionnelle est ouverte aux titulaires d'un DTS paramédical, et un programme allemand, mené avec le Goethe Institut, prépare à l'insertion en Allemagne. Le site mentionne des échanges avec des partenaires étrangers (Allemagne, États-Unis, Canada, France) et des masters en mode mixte (cours à distance le soir ou en présentiel le week-end). Les inscriptions sont présentées comme ouvertes aux étudiants marocains et internationaux.",
   "annee_creation": null,
   "adresse": "Angle de Rue Prince Moulay Abdallah et Rue Ennakhla, 20000 Casablanca, Maroc",
@@ -11,17 +20,143 @@
   "email": null,
   "statut_annonce": "Établissement d'enseignement supérieur privé reconnu par l'État",
   "programmes": [
-    {"intitule": "Licence Sciences infirmières", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": ["Anesthésie et Réanimation", "Infirmier polyvalent", "Sage-femme"], "campus": ["Casablanca"], "url": "https://esss.ac.ma/index.html"},
-    {"intitule": "Licence Rééducation motrice", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": ["Kinésithérapie", "Psychomotricité", "Ergothérapie"], "campus": ["Casablanca"], "url": "https://esss.ac.ma/index.html"},
-    {"intitule": "Licence Rééducation de la communication", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": ["Orthophonie", "Audiologie et audioprothèse"], "campus": ["Casablanca"], "url": "https://esss.ac.ma/index.html"},
-    {"intitule": "Licence Technologie médicale", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": ["Radiologie médicale", "Laboratoire médical", "Technologie pharmaceutique", "Diététique et Nutrition"], "campus": ["Casablanca"], "url": "https://esss.ac.ma/index.html"},
-    {"intitule": "Licence Gestion des services de santé", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esss.ac.ma/index.html"},
-    {"intitule": "Licence professionnelle Santé (pour titulaires d'un DTS paramédical)", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esss.ac.ma/licence-pro-sante.html"},
-    {"intitule": "Master Pratique infirmière avancée", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://esss.ac.ma/index.html"},
-    {"intitule": "Master Épidémiologie", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://esss.ac.ma/master-epidemiologie.html"},
-    {"intitule": "Master Management de la santé", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://esss.ac.ma/master-management-sante.html"},
-    {"intitule": "Master Éducation des sciences de la santé", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://esss.ac.ma/index.html"},
-    {"intitule": "Programme allemand (avec le Goethe Institut)", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esss.ac.ma/programme-allemand.html"}
+    {
+      "intitule": "Licence Sciences infirmières",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [
+        "Anesthésie et Réanimation",
+        "Infirmier polyvalent",
+        "Sage-femme"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esss.ac.ma/index.html"
+    },
+    {
+      "intitule": "Licence Rééducation motrice",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [
+        "Kinésithérapie",
+        "Psychomotricité",
+        "Ergothérapie"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esss.ac.ma/index.html"
+    },
+    {
+      "intitule": "Licence Rééducation de la communication",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [
+        "Orthophonie",
+        "Audiologie et audioprothèse"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esss.ac.ma/index.html"
+    },
+    {
+      "intitule": "Licence Technologie médicale",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [
+        "Radiologie médicale",
+        "Laboratoire médical",
+        "Technologie pharmaceutique",
+        "Diététique et Nutrition"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esss.ac.ma/index.html"
+    },
+    {
+      "intitule": "Licence Gestion des services de santé",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esss.ac.ma/index.html"
+    },
+    {
+      "intitule": "Licence professionnelle Santé (pour titulaires d'un DTS paramédical)",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esss.ac.ma/licence-pro-sante.html"
+    },
+    {
+      "intitule": "Master Pratique infirmière avancée",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esss.ac.ma/index.html"
+    },
+    {
+      "intitule": "Master Épidémiologie",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esss.ac.ma/master-epidemiologie.html"
+    },
+    {
+      "intitule": "Master Management de la santé",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esss.ac.ma/master-management-sante.html"
+    },
+    {
+      "intitule": "Master Éducation des sciences de la santé",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esss.ac.ma/index.html"
+    },
+    {
+      "intitule": "Programme allemand (avec le Goethe Institut)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esss.ac.ma/programme-allemand.html"
+    }
   ],
   "admission": {
     "conditions": [
@@ -36,8 +171,16 @@
   "frais": [],
   "bourses": null,
   "international": "Programme allemand avec le Goethe Institut et coopération avec l'Université de médecine de Berlin ; rubriques d'échanges avec les États-Unis (CUNY), le Canada et la France (CHU Lille) ; membre d'ASPHER.",
-  "partenaires": ["Goethe Institut", "Université de médecine de Berlin", "CUNY", "CHU Lille"],
-  "vie_etudiante": ["Milieu de stage", "Activités extrascolaires et clubs"],
+  "partenaires": [
+    "Goethe Institut",
+    "Université de médecine de Berlin",
+    "CUNY",
+    "CHU Lille"
+  ],
+  "vie_etudiante": [
+    "Milieu de stage",
+    "Activités extrascolaires et clubs"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "Angle de Rue Prince Moulay Abdallah et Rue Ennakhla, 20000 Ccasablanca , Maroc",
@@ -49,5 +192,9 @@
       "Réussir le concours d'admission (épreuves orales et écrites).",
       "Avoir une bonne maîtrise de la langue française."
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

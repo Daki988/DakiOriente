@@ -3,7 +3,12 @@
   "site_web": "https://esol.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://esol.ma/", "https://esol.ma/contact/", "https://esol.ma/services/", "https://esol.ma/about/"],
+  "sources": [
+    "https://esol.ma/",
+    "https://esol.ma/contact/",
+    "https://esol.ma/services/",
+    "https://esol.ma/about/"
+  ],
   "description": "École supérieure d'optique et de lunetterie située à Fès (Zohor II, route d'Immouzzer). Elle forme aux métiers de l'optique, de la lunetterie (BTS) et de l'optométrie, avec des laboratoires techniques. Le site indique une admission sur sélection de dossier, surtout pour les bacheliers scientifiques, et des stages chez des entreprises partenaires.",
   "annee_creation": null,
   "adresse": "5, rue Benzert, Zohor II, Route d'Immouzzer, Fès, 30000, Maroc",
@@ -11,15 +16,54 @@
   "email": "contact@esol-fes.ma",
   "statut_annonce": "Accréditation de l'État",
   "programmes": [
-    {"intitule": "BTS de Lunetterie", "niveau": "Bac+2", "diplome": "BTS", "duree_annees": null, "specialites": [], "campus": ["Fès"], "url": "https://esol.ma/services/"},
-    {"intitule": "Optométrie", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Fès"], "url": "https://esol.ma/services/"},
-    {"intitule": "Formation en Optique", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Fès"], "url": "https://esol.ma/services/"}
+    {
+      "intitule": "BTS de Lunetterie",
+      "niveau": "Bac+2",
+      "diplome": "BTS",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://esol.ma/services/"
+    },
+    {
+      "intitule": "Optométrie",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://esol.ma/services/"
+    },
+    {
+      "intitule": "Formation en Optique",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Fès"
+      ],
+      "url": "https://esol.ma/services/"
+    }
   ],
-  "admission": {"conditions": ["Admission sur sélection de dossier, surtout pour les bacheliers scientifiques"], "etapes": [], "concours": null, "dates": null},
+  "admission": {
+    "conditions": [
+      "Admission sur sélection de dossier, surtout pour les bacheliers scientifiques"
+    ],
+    "etapes": [],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
   "bourses": null,
   "international": null,
-  "partenaires": ["Partenariats avec plus de 30 entreprises"],
+  "partenaires": [
+    "Partenariats avec plus de 30 entreprises"
+  ],
   "vie_etudiante": [],
   "logement": null,
   "preuves": {
@@ -28,6 +72,12 @@
     "email": "Email : contact@esol-fes.ma",
     "annee_creation": null,
     "frais": [],
-    "admission": ["L'admission se fait sur sélection de dossier, surtout pour les bacheliers scientifiques."]
+    "admission": [
+      "L'admission se fait sur sélection de dossier, surtout pour les bacheliers scientifiques."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

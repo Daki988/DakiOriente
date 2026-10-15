@@ -3,7 +3,18 @@
   "site_web": "https://suptech-sante.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://suptech-sante.ma/", "https://suptech-sante.ma/pre-inscription-continue", "https://suptech-sante.ma/concours-planning", "https://suptech-sante.ma/LMM", "https://suptech-sante.ma/LSG", "https://suptech-sante.ma/LBM", "https://suptech-sante.ma/LIP", "https://suptech-sante.ma/LIAR", "https://suptech-sante.ma/MMGB", "https://suptech-sante.ma/MEMT"],
+  "sources": [
+    "https://suptech-sante.ma/",
+    "https://suptech-sante.ma/pre-inscription-continue",
+    "https://suptech-sante.ma/concours-planning",
+    "https://suptech-sante.ma/LMM",
+    "https://suptech-sante.ma/LSG",
+    "https://suptech-sante.ma/LBM",
+    "https://suptech-sante.ma/LIP",
+    "https://suptech-sante.ma/LIAR",
+    "https://suptech-sante.ma/MMGB",
+    "https://suptech-sante.ma/MEMT"
+  ],
   "description": "École supérieure de génie biomédical et des techniques de santé, créée par une fondation de recherche et d'innovation, qui présente délivrer des diplômes d'ingénieur d'État, de master et de technicien. Elle propose des classes préparatoires intégrées, un cycle ingénieur (génie biomédical, génie digital et IA en santé, biotechnologie, industries cosmétiques et pharmaceutiques), de nombreuses licences en santé, maintenance médicale, gestion et soins infirmiers, ainsi que quatre masters. L'accès aux classes préparatoires se fait par concours et le site mentionne des bourses et des inscriptions dans plusieurs provinces. Le site ne précise pas l'adresse de l'école.",
   "annee_creation": null,
   "adresse": null,
@@ -11,40 +22,211 @@
   "email": null,
   "statut_annonce": "Délivre des diplômes d'ingénieur d'État, de Master et de Technicien",
   "programmes": [
-    {"intitule": "Cycle classes préparatoires intégrées", "niveau": "Bac+2", "diplome": "Cycle préparatoire", "duree_annees": 2, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/"},
-    {"intitule": "Cycle ingénieur", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": null, "specialites": ["Génie Biomédical", "Génie digital et Intelligence Artificielle en santé", "Ingénierie Biotechnologie", "Génie Industriel des Industries Cosmétiques et Pharmaceutiques"], "campus": null, "url": "https://suptech-sante.ma/"},
-    {"intitule": "Licence en Maintenance Médicale (L2M)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/LMM"},
-    {"intitule": "Licence en Génie Industriel et Logistique Hospitalière (LGILH)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/"},
-    {"intitule": "Licence Informatique Décisionnelle et e-Santé (LIDe-S)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/"},
-    {"intitule": "Licence en Sciences de Gestion en Milieu Hospitalier et Industrie Médicale (LSG)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/LSG"},
-    {"intitule": "Licence en Techniques de Laboratoires de Biologie Médicale (LTech-Labo)", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/LBM"},
-    {"intitule": "Licence Infirmier Polyvalent (LIP)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/LIP"},
-    {"intitule": "Licence Infirmier en Anesthésie et Réanimation (LIAR)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/LIAR"},
-    {"intitule": "Licence Infirmier en Instrumentalisation de Bloc Opératoire (L2IBO)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/"},
-    {"intitule": "Licence Management et Marketing Digital du Sport et Santé", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/"},
-    {"intitule": "Licence Ingénierie et fabrication des dispositifs médicaux", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/"},
-    {"intitule": "Licence Sciences et Technologies Pharmaceutiques et Biomédicales", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/"},
-    {"intitule": "Master Dispositifs médicaux et affaires réglementaires", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/"},
-    {"intitule": "Master en Maintenance et Génie Biomédical", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/MMGB"},
-    {"intitule": "Master en Entrepreneuriat et Management Technologique", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/MEMT"},
-    {"intitule": "Master Systèmes d'information en Contrôle, Audit et Finance", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://suptech-sante.ma/"}
+    {
+      "intitule": "Cycle classes préparatoires intégrées",
+      "niveau": "Bac+2",
+      "diplome": "Cycle préparatoire",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/"
+    },
+    {
+      "intitule": "Cycle ingénieur",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [
+        "Génie Biomédical",
+        "Génie digital et Intelligence Artificielle en santé",
+        "Ingénierie Biotechnologie",
+        "Génie Industriel des Industries Cosmétiques et Pharmaceutiques"
+      ],
+      "campus": null,
+      "url": "https://suptech-sante.ma/"
+    },
+    {
+      "intitule": "Licence en Maintenance Médicale (L2M)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/LMM"
+    },
+    {
+      "intitule": "Licence en Génie Industriel et Logistique Hospitalière (LGILH)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/"
+    },
+    {
+      "intitule": "Licence Informatique Décisionnelle et e-Santé (LIDe-S)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/"
+    },
+    {
+      "intitule": "Licence en Sciences de Gestion en Milieu Hospitalier et Industrie Médicale (LSG)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/LSG"
+    },
+    {
+      "intitule": "Licence en Techniques de Laboratoires de Biologie Médicale (LTech-Labo)",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/LBM"
+    },
+    {
+      "intitule": "Licence Infirmier Polyvalent (LIP)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/LIP"
+    },
+    {
+      "intitule": "Licence Infirmier en Anesthésie et Réanimation (LIAR)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/LIAR"
+    },
+    {
+      "intitule": "Licence Infirmier en Instrumentalisation de Bloc Opératoire (L2IBO)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/"
+    },
+    {
+      "intitule": "Licence Management et Marketing Digital du Sport et Santé",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/"
+    },
+    {
+      "intitule": "Licence Ingénierie et fabrication des dispositifs médicaux",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/"
+    },
+    {
+      "intitule": "Licence Sciences et Technologies Pharmaceutiques et Biomédicales",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/"
+    },
+    {
+      "intitule": "Master Dispositifs médicaux et affaires réglementaires",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/"
+    },
+    {
+      "intitule": "Master en Maintenance et Génie Biomédical",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/MMGB"
+    },
+    {
+      "intitule": "Master en Entrepreneuriat et Management Technologique",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/MEMT"
+    },
+    {
+      "intitule": "Master Systèmes d'information en Contrôle, Audit et Finance",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://suptech-sante.ma/"
+    }
   ],
-  "admission": {"conditions": ["Licence en maintenance médicale : Bac+2 scientifique reconnu, DUT, DEUST, DTS ou BTS", "Licence en sciences de gestion : DEUST, DEUG scientifique ou économique, BTS économique ou Bac+2 reconnu", "Masters : licence ou diplôme équivalent (Bac+3)"], "etapes": ["Pré-inscription en ligne", "Concours d'accès aux classes préparatoires (matières : mathématiques, physique-chimie, français, SVT, sciences de l'ingénieur)"], "concours": "Concours d'accès aux classes préparatoires (4e session annoncée le 27 juillet 2026)", "dates": "Classes préparatoires 2026-2027"},
+  "admission": {
+    "conditions": [
+      "Licence en maintenance médicale : Bac+2 scientifique reconnu, DUT, DEUST, DTS ou BTS",
+      "Licence en sciences de gestion : DEUST, DEUG scientifique ou économique, BTS économique ou Bac+2 reconnu",
+      "Masters : licence ou diplôme équivalent (Bac+3)"
+    ],
+    "etapes": [
+      "Pré-inscription en ligne",
+      "Concours d'accès aux classes préparatoires (matières : mathématiques, physique-chimie, français, SVT, sciences de l'ingénieur)"
+    ],
+    "concours": "Concours d'accès aux classes préparatoires (4e session annoncée le 27 juillet 2026)",
+    "dates": "Classes préparatoires 2026-2027"
+  },
   "frais": [
-    {"cycle": "Licence en Maintenance Médicale", "inscription_mad": 3550, "scolarite_annuelle_mad": 28000, "note": "Frais de traitement de dossier : 200 DHS ; frais d'inscription et d'assurance : 3 550 DHS"},
-    {"cycle": "Master en Maintenance et Génie Biomédical", "inscription_mad": null, "scolarite_annuelle_mad": 32000, "note": "Montant de 32 000 DHS affiché en fin de la page du master, sans libellé précis"}
+    {
+      "cycle": "Licence en Maintenance Médicale",
+      "inscription_mad": 3550,
+      "scolarite_annuelle_mad": 28000,
+      "note": "Frais de traitement de dossier : 200 DHS ; frais d'inscription et d'assurance : 3 550 DHS"
+    }
   ],
   "bourses": "Rubrique « Bourses et Tarifs » avec demande de bourse en ligne ; bourse d'excellence et d'études du Ministère de la santé et de la protection sociale mentionnée.",
   "international": null,
   "partenaires": [],
-  "vie_etudiante": ["Activités parascolaires (échecs, gaming, ping-pong)"],
+  "vie_etudiante": [
+    "Activités parascolaires (échecs, gaming, ping-pong)"
+  ],
   "logement": null,
   "preuves": {
     "adresse": null,
     "telephone": null,
     "email": null,
     "annee_creation": null,
-    "frais": ["Frais de scolarité cycle Licence\n28 000 DHS.", "Frais d’inscription et d’assurance\n3 550 DHS.", "Frais de traitement de dossier\n200 DHS."],
-    "admission": ["– Bac + 2 scientifiques (reconnu)"]
+    "frais": [
+      "Frais de scolarité cycle Licence\n28 000 DHS.",
+      "Frais d’inscription et d’assurance\n3 550 DHS.",
+      "Frais de traitement de dossier\n200 DHS."
+    ],
+    "admission": [
+      "– Bac + 2 scientifiques (reconnu)"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": [
+      "frais:Master en Maintenance et Génie Biomédical"
+    ]
   }
 }

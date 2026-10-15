@@ -100,5 +100,9 @@
       "Les frais d’étude du dossier de 200 DHs non remboursables.",
       "L’admission se fait après étude du dossier."
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

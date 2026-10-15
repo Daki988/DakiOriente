@@ -86,5 +86,9 @@
     "admission": [
       "Vous pouvez intégrer la 1ʳᵉ année après étude de votre dossier et réussite au test d’admission"
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

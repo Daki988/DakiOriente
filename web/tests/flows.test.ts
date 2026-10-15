@@ -59,11 +59,11 @@ describe("comptes", () => {
 
 describe("labels", () => {
   it("établissement autorisé : filières publiées comme diplômes d'établissement (non homologuées)", async () => {
-    const e = await etab.getEstablishment("ma-heci");
+    const e = await etab.getEstablishment("ma-supdeco-marrakech");
     expect(e.label).toBe("autorise");
-    const ps = await etab.listPrograms("ma-heci");
+    const ps = await etab.listPrograms("ma-supdeco-marrakech");
     expect(ps.length).toBeGreaterThan(0);
-    expect(ps.every((p) => !p.homologated && ["echue", "recente"].includes(p.homologation?.statut ?? ""))).toBe(true);
+    expect(ps.every((p) => !p.homologated && ["echue", "recente", "etablissement"].includes(p.homologation?.statut ?? ""))).toBe(true);
     // Établissement homologué : filières homologuées, plus celles « Accrédité » (échéance depuis moins de 2 ans)
     const uir = await etab.listPrograms("ma-uir");
     expect(uir.some((p) => p.homologated)).toBe(true);

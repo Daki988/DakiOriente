@@ -3,7 +3,13 @@
   "site_web": "https://medsup.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://medsup.ma/", "https://medsup.ma/formations/bachelor/", "https://medsup.ma/formations/master/", "https://medsup.ma/ecole/", "https://medsup.ma/ecole/corps-professoral/"],
+  "sources": [
+    "https://medsup.ma/",
+    "https://medsup.ma/formations/bachelor/",
+    "https://medsup.ma/formations/master/",
+    "https://medsup.ma/ecole/",
+    "https://medsup.ma/ecole/corps-professoral/"
+  ],
   "description": "École de gestion de Tanger, dans le nord du Maroc, fondée en 2008. Elle propose une filière Management en trois ans (Bac+3) avec trois options de spécialisation en troisième année, puis six filières Bac+5 en comptabilité-contrôle-audit, ressources humaines, management des affaires, management industriel et qualité, marketing et vente, logistique et transports. L'école indique que ses professeurs viennent d'universités françaises et marocaines et que la formation intègre des modules d'entrepreneuriat et de soft skills.",
   "annee_creation": 2008,
   "adresse": "Av. Moulay Rachid, Lotissement Richard n°72, Tanger, Maroc",
@@ -11,20 +17,102 @@
   "email": null,
   "statut_annonce": null,
   "programmes": [
-    {"intitule": "Filière Management (Bac+3)", "niveau": "Bac+3", "diplome": null, "duree_annees": 3, "specialites": ["Gestion Administrative et Comptable", "Commerce international et Logistique", "Marketing digital"], "campus": ["Tanger"], "url": "https://medsup.ma/formations/bachelor/"},
-    {"intitule": "Master Comptabilité - Contrôle - Audit", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://medsup.ma/formations/master/"},
-    {"intitule": "Master Management des Ressources Humaines", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://medsup.ma/formations/master/"},
-    {"intitule": "Master Management des affaires", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://medsup.ma/formations/master/"},
-    {"intitule": "Master Management Industriel et Qualité", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://medsup.ma/formations/master/"},
-    {"intitule": "Master Marketing et Vente", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://medsup.ma/formations/master/"},
-    {"intitule": "Master Logistique et Transports", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://medsup.ma/formations/master/"}
+    {
+      "intitule": "Filière Management (Bac+3)",
+      "niveau": "Bac+3",
+      "diplome": null,
+      "duree_annees": 3,
+      "specialites": [
+        "Gestion Administrative et Comptable",
+        "Commerce international et Logistique",
+        "Marketing digital"
+      ],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://medsup.ma/formations/bachelor/"
+    },
+    {
+      "intitule": "Master Comptabilité - Contrôle - Audit",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://medsup.ma/formations/master/"
+    },
+    {
+      "intitule": "Master Management des Ressources Humaines",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://medsup.ma/formations/master/"
+    },
+    {
+      "intitule": "Master Management des affaires",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://medsup.ma/formations/master/"
+    },
+    {
+      "intitule": "Master Management Industriel et Qualité",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://medsup.ma/formations/master/"
+    },
+    {
+      "intitule": "Master Marketing et Vente",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://medsup.ma/formations/master/"
+    },
+    {
+      "intitule": "Master Logistique et Transports",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://medsup.ma/formations/master/"
+    }
   ],
-  "admission": {"conditions": [], "etapes": [], "concours": null, "dates": null},
+  "admission": {
+    "conditions": [],
+    "etapes": [],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
   "bourses": null,
   "international": "Professeurs issus d'universités françaises.",
   "partenaires": [],
-  "vie_etudiante": ["Visites d'entreprise", "Soft skills et activités parascolaires"],
+  "vie_etudiante": [
+    "Visites d'entreprise",
+    "Soft skills et activités parascolaires"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "Adresse : Av. Moulay Rachid, Lotissement Richard n°72, Tanger Maroc",
@@ -33,5 +121,9 @@
     "annee_creation": "Depuis sa fondation en 2008, MedSup Management",
     "frais": [],
     "admission": []
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

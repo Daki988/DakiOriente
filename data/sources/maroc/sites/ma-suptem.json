@@ -3,7 +3,12 @@
   "site_web": "https://suptembmhs.com",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://suptembmhs.com/", "https://suptembmhs.com/index.php/filieres-proposees/", "https://suptembmhs.com/index.php/admission/", "https://suptembmhs.com/index.php/contact-2/"],
+  "sources": [
+    "https://suptembmhs.com/",
+    "https://suptembmhs.com/index.php/filieres-proposees/",
+    "https://suptembmhs.com/index.php/admission/",
+    "https://suptembmhs.com/index.php/contact-2/"
+  ],
   "description": "École supérieure pluridisciplinaire de Tanger (quartier Marshan), membre du groupe BMHS, qui forme en Bac+3 et Bac+5 dans un pôle management et un pôle ingénierie informatique (informatique logicielle et décisionnelle). Elle propose aussi, en partenariat avec des universités françaises (Versailles et Picardie), des licences professionnelles et un master d'État français. Le site mentionne 14 mois de stages pour l'insertion professionnelle, une préparation possible au titre d'ingénieur Microsoft et à la certification Cisco, et un réseau associatif étudiant.",
   "annee_creation": null,
   "adresse": "6 Rue Mohamed Tazi Quartier Merchan, Tanger, Maroc",
@@ -11,18 +16,84 @@
   "email": "bmhs.suptemtanger@gmail.com",
   "statut_annonce": "École dûment agréée par le Ministère de l'Enseignement Supérieur (Suptem Tanger 163/01)",
   "programmes": [
-    {"intitule": "Pôle Management", "niveau": "Bac+3 / Bac+5", "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://suptembmhs.com/index.php/filieres-proposees/"},
-    {"intitule": "Pôle Ingénierie Informatique (ILD)", "niveau": "Bac+3 / Bac+5", "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://suptembmhs.com/index.php/filieres-proposees/"},
-    {"intitule": "Licence professionnelle en gestion des systèmes logistiques", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://suptembmhs.com/index.php/filieres-proposees/"},
-    {"intitule": "Licence professionnelle en informatique et télécom", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://suptembmhs.com/index.php/filieres-proposees/"},
-    {"intitule": "Master E-logistique et supply chain durable", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://suptembmhs.com/index.php/filieres-proposees/"}
+    {
+      "intitule": "Pôle Management",
+      "niveau": "Bac+3 / Bac+5",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://suptembmhs.com/index.php/filieres-proposees/"
+    },
+    {
+      "intitule": "Pôle Ingénierie Informatique (ILD)",
+      "niveau": "Bac+3 / Bac+5",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://suptembmhs.com/index.php/filieres-proposees/"
+    },
+    {
+      "intitule": "Licence professionnelle en gestion des systèmes logistiques",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://suptembmhs.com/index.php/filieres-proposees/"
+    },
+    {
+      "intitule": "Licence professionnelle en informatique et télécom",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://suptembmhs.com/index.php/filieres-proposees/"
+    },
+    {
+      "intitule": "Master E-logistique et supply chain durable",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://suptembmhs.com/index.php/filieres-proposees/"
+    }
   ],
-  "admission": {"conditions": ["Management : baccalauréat (toutes options)", "Ingénierie informatique ILD : baccalauréat scientifique ou technique"], "etapes": [], "concours": null, "dates": null},
+  "admission": {
+    "conditions": [
+      "Management : baccalauréat (toutes options)",
+      "Ingénierie informatique ILD : baccalauréat scientifique ou technique"
+    ],
+    "etapes": [],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
   "bourses": null,
   "international": "Accords avec des universités françaises (Versailles et Picardie) pour préparer des licences et masters d'État français ; séminaires de visiting professors et échange de stagiaires.",
-  "partenaires": ["Université de Versailles", "Université de Picardie", "Microsoft", "Cisco"],
-  "vie_etudiante": ["Réseau associatif géré par les étudiants", "14 mois de stages"],
+  "partenaires": [
+    "Université de Versailles",
+    "Université de Picardie",
+    "Microsoft",
+    "Cisco"
+  ],
+  "vie_etudiante": [
+    "Réseau associatif géré par les étudiants",
+    "14 mois de stages"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "6 Rue Mohamed Tazi Quartier Merchan",
@@ -30,6 +101,12 @@
     "email": "bmhs.suptemtanger@gmail.com",
     "annee_creation": null,
     "frais": [],
-    "admission": ["L’admission en première année est ouverte aux titulaires du baccalauréat (toutes options)"]
+    "admission": [
+      "L’admission en première année est ouverte aux titulaires du baccalauréat (toutes options)"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

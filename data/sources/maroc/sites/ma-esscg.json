@@ -3,7 +3,19 @@
   "site_web": "https://esscg.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://esscg.ma/", "https://esscg.ma/cycle-normal-bac3/", "https://esscg.ma/cycle-master-bac5/", "https://esscg.ma/master-marketing-commerce-international/", "https://esscg.ma/master-logistique/", "https://esscg.ma/master-management-des-ressources-humaines/", "https://esscg.ma/master-management-et-strategie-dentreprise/", "https://esscg.ma/bachelor-finance/", "https://esscg.ma/bachelor-marketing/", "https://esscg.ma/bachelor-logistique-transport/", "https://esscg.ma/cycles-de-formation-certifiants/"],
+  "sources": [
+    "https://esscg.ma/",
+    "https://esscg.ma/cycle-normal-bac3/",
+    "https://esscg.ma/cycle-master-bac5/",
+    "https://esscg.ma/master-marketing-commerce-international/",
+    "https://esscg.ma/master-logistique/",
+    "https://esscg.ma/master-management-des-ressources-humaines/",
+    "https://esscg.ma/master-management-et-strategie-dentreprise/",
+    "https://esscg.ma/bachelor-finance/",
+    "https://esscg.ma/bachelor-marketing/",
+    "https://esscg.ma/bachelor-logistique-transport/",
+    "https://esscg.ma/cycles-de-formation-certifiants/"
+  ],
   "description": "École de management proposant un cycle normal en trois ans (Bac+3, bachelor « Grande École ») et un cycle master (Bac+5) en comptabilité-contrôle-audit, marketing et commerce international, logistique, ressources humaines et management stratégique. Elle propose aussi des bachelors en un an pour les titulaires d'un Bac+2 (finance, marketing, logistique et transport), en journée ou en soirée et week-end, ainsi que des cycles certifiants. Les stages en entreprise sont intégrés à chaque année du cursus et des doubles diplômes avec des institutions partenaires sont mentionnés. Le site ne précise pas l'adresse de l'école.",
   "annee_creation": null,
   "adresse": null,
@@ -11,22 +23,108 @@
   "email": null,
   "statut_annonce": "Filière accréditée par l'État",
   "programmes": [
-    {"intitule": "Cycle Normal (Bac+3) - bachelor « Grande École »", "niveau": "Bac+3", "diplome": "Bachelor", "duree_annees": 3, "specialites": [], "campus": null, "url": "https://esscg.ma/cycle-normal-bac3/"},
-    {"intitule": "Bachelor Finance", "niveau": "Bac+3", "diplome": "Bachelor", "duree_annees": 1, "specialites": [], "campus": null, "url": "https://esscg.ma/bachelor-finance/"},
-    {"intitule": "Bachelor Marketing", "niveau": "Bac+3", "diplome": "Bachelor", "duree_annees": null, "specialites": [], "campus": null, "url": "https://esscg.ma/bachelor-marketing/"},
-    {"intitule": "Bachelor Logistique & Transport", "niveau": "Bac+3", "diplome": "Bachelor", "duree_annees": null, "specialites": [], "campus": null, "url": "https://esscg.ma/bachelor-logistique-transport/"},
-    {"intitule": "Master Comptabilité, Contrôle et Audit (CCA)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://esscg.ma/cycle-master-bac5/"},
-    {"intitule": "Master Spécialisé Marketing et Commerce International (MCI)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": null, "url": "https://esscg.ma/master-marketing-commerce-international/"},
-    {"intitule": "Master Spécialisé Logistique", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://esscg.ma/master-logistique/"},
-    {"intitule": "Master Spécialisé Management des Ressources Humaines (MRH)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://esscg.ma/master-management-des-ressources-humaines/"},
-    {"intitule": "Master Spécialisé Management et Stratégie des Entreprises (MSE)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://esscg.ma/master-management-et-strategie-dentreprise/"}
+    {
+      "intitule": "Cycle Normal (Bac+3) - bachelor « Grande École »",
+      "niveau": "Bac+3",
+      "diplome": "Bachelor",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": null,
+      "url": "https://esscg.ma/cycle-normal-bac3/"
+    },
+    {
+      "intitule": "Bachelor Finance",
+      "niveau": "Bac+3",
+      "diplome": "Bachelor",
+      "duree_annees": 1,
+      "specialites": [],
+      "campus": null,
+      "url": "https://esscg.ma/bachelor-finance/"
+    },
+    {
+      "intitule": "Bachelor Marketing",
+      "niveau": "Bac+3",
+      "diplome": "Bachelor",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://esscg.ma/bachelor-marketing/"
+    },
+    {
+      "intitule": "Bachelor Logistique & Transport",
+      "niveau": "Bac+3",
+      "diplome": "Bachelor",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://esscg.ma/bachelor-logistique-transport/"
+    },
+    {
+      "intitule": "Master Comptabilité, Contrôle et Audit (CCA)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://esscg.ma/cycle-master-bac5/"
+    },
+    {
+      "intitule": "Master Spécialisé Marketing et Commerce International (MCI)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": null,
+      "url": "https://esscg.ma/master-marketing-commerce-international/"
+    },
+    {
+      "intitule": "Master Spécialisé Logistique",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://esscg.ma/master-logistique/"
+    },
+    {
+      "intitule": "Master Spécialisé Management des Ressources Humaines (MRH)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://esscg.ma/master-management-des-ressources-humaines/"
+    },
+    {
+      "intitule": "Master Spécialisé Management et Stratégie des Entreprises (MSE)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://esscg.ma/master-management-et-strategie-dentreprise/"
+    }
   ],
-  "admission": {"conditions": ["Cycle normal 1re année : baccalauréat toutes options", "Bachelors (1 an) : Bac+2 en commerce, gestion ou sciences économiques", "Masters : Bac+3 en commerce et gestion ou licence en sciences économiques"], "etapes": ["Sélection sur dossier et entretien (master MCI)"], "concours": null, "dates": null},
+  "admission": {
+    "conditions": [
+      "Cycle normal 1re année : baccalauréat toutes options",
+      "Bachelors (1 an) : Bac+2 en commerce, gestion ou sciences économiques",
+      "Masters : Bac+3 en commerce et gestion ou licence en sciences économiques"
+    ],
+    "etapes": [
+      "Sélection sur dossier et entretien (master MCI)"
+    ],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
   "bourses": null,
   "international": "Possibilité de double diplomation avec des institutions partenaires ; le bachelor peut être délivré au nom d'une université étrangère partenaire.",
   "partenaires": [],
-  "vie_etudiante": ["Stages en entreprise à chaque année du cursus", "Service des stages avec offres consultables sur l'intranet"],
+  "vie_etudiante": [
+    "Stages en entreprise à chaque année du cursus",
+    "Service des stages avec offres consultables sur l'intranet"
+  ],
   "logement": null,
   "preuves": {
     "adresse": null,
@@ -34,6 +132,14 @@
     "email": null,
     "annee_creation": null,
     "frais": [],
-    "admission": ["Admission BAC toutes options.", "La sélection est faite sur dossier et entretien.", "Le niveau de formation requis est un diplôme Bac+2 des écoles supérieures de commerce et de gestion privées ou publiques"]
+    "admission": [
+      "Admission BAC toutes options.",
+      "La sélection est faite sur dossier et entretien.",
+      "Le niveau de formation requis est un diplôme Bac+2 des écoles supérieures de commerce et de gestion privées ou publiques"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

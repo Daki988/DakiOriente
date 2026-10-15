@@ -1,266 +1,261 @@
 {
- "id": "ma-es2im",
- "site_web": "https://ecole.es2im.ma",
- "date_collecte": "2026-10-15",
- "accessible": true,
- "sources": [
-  "https://ecole.es2im.ma/",
-  "https://ecole.es2im.ma/etudiant/Condidature/inscription",
-  "https://ecole.es2im.ma/formation/Formation%20Initiale/Licences/TNM",
-  "https://ecole.es2im.ma/formation/Formation%20Continue/Bachlors/E-commerce",
-  "https://ecole.es2im.ma/formation/Formation%20Initiale/Masters/Cybesecurite",
-  "https://ecole.es2im.ma/formation/Formation%20Continue/Masters/Cybesecurite",
-  "https://ecole.es2im.ma/formation/Formation%20Initiale/Licences/E-commerce",
-  "https://ecole.es2im.ma/formation/Formation%20Initiale/ingenierie/Ing%C3%A9nierie%20IA",
-  "https://ecole.es2im.ma/formation/Formation%20Initiale/Licences/Web%20et%20Multim%C3%A9dia"
- ],
- "description": "École supérieure d'ingénierie informatique et multimédia située en centre-ville de Casablanca (rue Allal Ben Abdellah). Elle propose des licences, des cycles d'ingénierie, des masters (cybersécurité, IA et Big Data, développement informatique, gestion de projets, communication numérique) et des formations continues (bachelors, formations qualifiantes). Le site met en avant des projets concrets, des stages intégrés et des partenariats (FEDE, Autodesk, Certiport) donnant accès à des diplômes ou certifications.",
- "annee_creation": null,
- "adresse": "53, Rue Allal Ben Abdellah, Centre ville, Casablanca, Maroc",
- "telephone": "+212 652 350 505",
- "email": "contact@es2im.ma",
- "statut_annonce": null,
- "programmes": [
-  {
-   "intitule": "Licence en Technique Numérique et Multimédia",
-   "niveau": "Bac+3",
-   "diplome": "Licence",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/formation/Formation%20Initiale/Licences/TNM"
-  },
-  {
-   "intitule": "Licence en Web Technologie",
-   "niveau": "Bac+3",
-   "diplome": "Licence",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/"
-  },
-  {
-   "intitule": "Licence en E-commerce",
-   "niveau": "Bac+3",
-   "diplome": "Licence",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/formation/Formation%20Initiale/Licences/E-commerce"
-  },
-  {
-   "intitule": "Licence en Marketing Digital et E-Business",
-   "niveau": "Bac+3",
-   "diplome": "Licence",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/"
-  },
-  {
-   "intitule": "Licence en Informatique Réseaux et Sécurité",
-   "niveau": "Bac+3",
-   "diplome": "Licence",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/"
-  },
-  {
-   "intitule": "Licence Développement Informatique",
-   "niveau": "Bac+3",
-   "diplome": "Licence",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/"
-  },
-  {
-   "intitule": "Licence Web & Multimédia",
-   "niveau": "Bac+3",
-   "diplome": "Licence",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/formation/Formation%20Initiale/Licences/Web%20et%20Multim%C3%A9dia"
-  },
-  {
-   "intitule": "Ingénierie Développement Informatique",
-   "niveau": null,
-   "diplome": null,
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/"
-  },
-  {
-   "intitule": "Ingénierie Intelligence Artificielle",
-   "niveau": null,
-   "diplome": null,
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/formation/Formation%20Initiale/ingenierie/Ing%C3%A9nierie%20IA"
-  },
-  {
-   "intitule": "Ingénierie en Développeur Multimédia (IDM)",
-   "niveau": null,
-   "diplome": null,
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/formation/Formation%20Initiale/ingenierie/Ing%C3%A9nierie%20IA"
-  },
-  {
-   "intitule": "Ingénierie en Web technologie / Applications Mobile",
-   "niveau": null,
-   "diplome": null,
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/"
-  },
-  {
-   "intitule": "Master en Cybersécurité",
-   "niveau": "Bac+5",
-   "diplome": "Master",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/formation/Formation%20Initiale/Masters/Cybesecurite"
-  },
-  {
-   "intitule": "Master en Intelligence Artificielle et Big Data",
-   "niveau": "Bac+5",
-   "diplome": "Master",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/"
-  },
-  {
-   "intitule": "Master en Développement Informatique",
-   "niveau": "Bac+5",
-   "diplome": "Master",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/"
-  },
-  {
-   "intitule": "Master en Management des Projets Informatiques",
-   "niveau": "Bac+5",
-   "diplome": "Master",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/"
-  },
-  {
-   "intitule": "Master en Stratégies de Communication Numérique",
-   "niveau": "Bac+5",
-   "diplome": "Master",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/"
-  },
-  {
-   "intitule": "Bachelor Marketing Digital & E-Business (formation continue, 10 mois)",
-   "niveau": null,
-   "diplome": "Bachelor",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/formation/Formation%20Continue/Bachlors/E-commerce"
-  },
-  {
-   "intitule": "Bachelor Développement Informatique (formation continue)",
-   "niveau": null,
-   "diplome": "Bachelor",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/"
-  },
-  {
-   "intitule": "Formations qualifiantes (Web et Mobile, Développement Multimédia, Infographie)",
-   "niveau": null,
-   "diplome": "Certificat",
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://ecole.es2im.ma/"
-  }
- ],
- "admission": {
-  "conditions": [
-   "Bachelors en formation continue : niveau Bac+2"
+  "id": "ma-es2im",
+  "site_web": "https://ecole.es2im.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://ecole.es2im.ma/",
+    "https://ecole.es2im.ma/etudiant/Condidature/inscription",
+    "https://ecole.es2im.ma/formation/Formation%20Initiale/Licences/TNM",
+    "https://ecole.es2im.ma/formation/Formation%20Continue/Bachlors/E-commerce",
+    "https://ecole.es2im.ma/formation/Formation%20Initiale/Masters/Cybesecurite",
+    "https://ecole.es2im.ma/formation/Formation%20Continue/Masters/Cybesecurite",
+    "https://ecole.es2im.ma/formation/Formation%20Initiale/Licences/E-commerce",
+    "https://ecole.es2im.ma/formation/Formation%20Initiale/ingenierie/Ing%C3%A9nierie%20IA",
+    "https://ecole.es2im.ma/formation/Formation%20Initiale/Licences/Web%20et%20Multim%C3%A9dia"
   ],
-  "etapes": [
-   "Candidature / inscription en ligne"
-  ],
-  "concours": null,
-  "dates": null
- },
- "frais": [],
- "bourses": null,
- "international": "FEDE : accès à des diplômes européens d'études supérieures (Bachelor) ; le site mentionne des nationalités sans en préciser le nombre.",
- "partenaires": [
-  "FEDE",
-  "Autodesk",
-  "Certiport"
- ],
- "vie_etudiante": [
-  "Vie estudiantine (rubrique du site)"
- ],
- "logement": null,
- "preuves": {
+  "description": "École supérieure d'ingénierie informatique et multimédia située en centre-ville de Casablanca (rue Allal Ben Abdellah). Elle propose des licences, des cycles d'ingénierie, des masters (cybersécurité, IA et Big Data, développement informatique, gestion de projets, communication numérique) et des formations continues (bachelors, formations qualifiantes). Le site met en avant des projets concrets, des stages intégrés et des partenariats (FEDE, Autodesk, Certiport) donnant accès à des diplômes ou certifications.",
+  "annee_creation": null,
   "adresse": "53, Rue Allal Ben Abdellah, Centre ville, Casablanca, Maroc",
   "telephone": "+212 652 350 505",
   "email": "contact@es2im.ma",
-  "annee_creation": null,
+  "statut_annonce": null,
+  "programmes": [
+    {
+      "intitule": "Licence en Technique Numérique et Multimédia",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/formation/Formation%20Initiale/Licences/TNM"
+    },
+    {
+      "intitule": "Licence en Web Technologie",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/"
+    },
+    {
+      "intitule": "Licence en E-commerce",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/formation/Formation%20Initiale/Licences/E-commerce"
+    },
+    {
+      "intitule": "Licence en Marketing Digital et E-Business",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/"
+    },
+    {
+      "intitule": "Licence en Informatique Réseaux et Sécurité",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/"
+    },
+    {
+      "intitule": "Licence Développement Informatique",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/"
+    },
+    {
+      "intitule": "Licence Web & Multimédia",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/formation/Formation%20Initiale/Licences/Web%20et%20Multim%C3%A9dia"
+    },
+    {
+      "intitule": "Ingénierie Développement Informatique",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/"
+    },
+    {
+      "intitule": "Ingénierie Intelligence Artificielle",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/formation/Formation%20Initiale/ingenierie/Ing%C3%A9nierie%20IA"
+    },
+    {
+      "intitule": "Ingénierie en Développeur Multimédia (IDM)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/formation/Formation%20Initiale/ingenierie/Ing%C3%A9nierie%20IA"
+    },
+    {
+      "intitule": "Ingénierie en Web technologie / Applications Mobile",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/"
+    },
+    {
+      "intitule": "Master en Cybersécurité",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/formation/Formation%20Initiale/Masters/Cybesecurite"
+    },
+    {
+      "intitule": "Master en Intelligence Artificielle et Big Data",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/"
+    },
+    {
+      "intitule": "Master en Développement Informatique",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/"
+    },
+    {
+      "intitule": "Master en Management des Projets Informatiques",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/"
+    },
+    {
+      "intitule": "Master en Stratégies de Communication Numérique",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/"
+    },
+    {
+      "intitule": "Bachelor Marketing Digital & E-Business (formation continue, 10 mois)",
+      "niveau": null,
+      "diplome": "Bachelor",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/formation/Formation%20Continue/Bachlors/E-commerce"
+    },
+    {
+      "intitule": "Bachelor Développement Informatique (formation continue)",
+      "niveau": null,
+      "diplome": "Bachelor",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://ecole.es2im.ma/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Bachelors en formation continue : niveau Bac+2"
+    ],
+    "etapes": [
+      "Candidature / inscription en ligne"
+    ],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
-  "admission": [
-   "Vous avez Bac +2, préparez votre diplôme :"
-  ]
- }
+  "bourses": null,
+  "international": "FEDE : accès à des diplômes européens d'études supérieures (Bachelor) ; le site mentionne des nationalités sans en préciser le nombre.",
+  "partenaires": [
+    "FEDE",
+    "Autodesk",
+    "Certiport"
+  ],
+  "vie_etudiante": [
+    "Vie estudiantine (rubrique du site)"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": "53, Rue Allal Ben Abdellah, Centre ville, Casablanca, Maroc",
+    "telephone": "+212 652 350 505",
+    "email": "contact@es2im.ma",
+    "annee_creation": null,
+    "frais": [],
+    "admission": [
+      "Vous avez Bac +2, préparez votre diplôme :"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": [
+      "programme:Formations qualifiantes (Web et Mobile, "
+    ]
+  }
 }

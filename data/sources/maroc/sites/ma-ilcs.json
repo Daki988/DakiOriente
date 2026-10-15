@@ -153,5 +153,9 @@
     "admission": [
       "Baccalauréat ou diplôme équivalent (Baccalauréat marocain ou équivalent international)"
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

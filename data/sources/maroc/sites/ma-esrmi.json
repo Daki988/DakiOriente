@@ -3,7 +3,18 @@
   "site_web": "https://esr.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://esr.ma/", "https://esr.ma/formation/", "https://esr.ma/formation/pole-management/bac3mge/", "https://esr.ma/formation/pole-informatique/bac3gl/", "https://esr.ma/formation/pole-informatique/bac3ri/", "https://esr.ma/formation/pole-informatique/2bac3-glm/", "https://esr.ma/formation/pole-informatique/bac5audit-des-systemes-dinformation/", "https://esr.ma/formation/pole-management/bac5-management-et-strategie-des-entreprises/", "https://esr.ma/formation/pole-management/bac5-marketing-strategique-et-marketing-digital/", "https://esr.ma/formation/pole-informatique/cybersecurite-des-reseaux-et-des-systemes-dinformation/"],
+  "sources": [
+    "https://esr.ma/",
+    "https://esr.ma/formation/",
+    "https://esr.ma/formation/pole-management/bac3mge/",
+    "https://esr.ma/formation/pole-informatique/bac3gl/",
+    "https://esr.ma/formation/pole-informatique/bac3ri/",
+    "https://esr.ma/formation/pole-informatique/2bac3-glm/",
+    "https://esr.ma/formation/pole-informatique/bac5audit-des-systemes-dinformation/",
+    "https://esr.ma/formation/pole-management/bac5-management-et-strategie-des-entreprises/",
+    "https://esr.ma/formation/pole-management/bac5-marketing-strategique-et-marketing-digital/",
+    "https://esr.ma/formation/pole-informatique/cybersecurite-des-reseaux-et-des-systemes-dinformation/"
+  ],
   "description": "École supérieure privée située à Rabat (quartier Hassan), organisée en deux pôles : informatique et management. Elle propose huit filières, de la licence (Bac+3, 3 ans) au master (Bac+5, 2 ans après Bac+3), couvrant génie logiciel, réseaux, audit des systèmes d'information, cybersécurité, gestion, stratégie et marketing digital. Le site met en avant une pédagogie par projets, des stages d'observation, d'application et de fin d'études, la préparation à des certifications professionnelles et des partenariats avec des établissements à l'étranger.",
   "annee_creation": null,
   "adresse": "32 Rue Moulay Ali Cherif, Quartier Hassan. 10010 Rabat",
@@ -11,21 +22,113 @@
   "email": "info@esr.ma",
   "statut_annonce": "Établissement accrédité par le ministère de l'Enseignement Supérieur",
   "programmes": [
-    {"intitule": "Systèmes d'Information – Option Génie Logiciel", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Rabat"], "url": "https://esr.ma/formation/pole-informatique/bac3gl/"},
-    {"intitule": "Systèmes d'Information – Option Réseaux Informatiques", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Rabat"], "url": "https://esr.ma/formation/pole-informatique/bac3ri/"},
-    {"intitule": "Management et Gestion des Entreprises", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Rabat"], "url": "https://esr.ma/formation/pole-management/bac3mge/"},
-    {"intitule": "Ingénierie des Systèmes d'Information – Option Génie Logiciel et Multimédia", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Rabat"], "url": "https://esr.ma/formation/pole-informatique/2bac3-glm/"},
-    {"intitule": "Ingénierie des Systèmes d'Information – Option Audit des Systèmes d'Information", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Rabat"], "url": "https://esr.ma/formation/pole-informatique/bac5audit-des-systemes-dinformation/"},
-    {"intitule": "Cybersécurité des Réseaux et des Systèmes d'Information", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Rabat"], "url": "https://esr.ma/formation/pole-informatique/cybersecurite-des-reseaux-et-des-systemes-dinformation/"},
-    {"intitule": "Management et Stratégie des Entreprises", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Rabat"], "url": "https://esr.ma/formation/pole-management/bac5-management-et-strategie-des-entreprises/"},
-    {"intitule": "Marketing Stratégique et Marketing Digital", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Rabat"], "url": "https://esr.ma/formation/pole-management/bac5-marketing-strategique-et-marketing-digital/"}
+    {
+      "intitule": "Systèmes d'Information – Option Génie Logiciel",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://esr.ma/formation/pole-informatique/bac3gl/"
+    },
+    {
+      "intitule": "Systèmes d'Information – Option Réseaux Informatiques",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://esr.ma/formation/pole-informatique/bac3ri/"
+    },
+    {
+      "intitule": "Management et Gestion des Entreprises",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://esr.ma/formation/pole-management/bac3mge/"
+    },
+    {
+      "intitule": "Ingénierie des Systèmes d'Information – Option Génie Logiciel et Multimédia",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://esr.ma/formation/pole-informatique/2bac3-glm/"
+    },
+    {
+      "intitule": "Ingénierie des Systèmes d'Information – Option Audit des Systèmes d'Information",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://esr.ma/formation/pole-informatique/bac5audit-des-systemes-dinformation/"
+    },
+    {
+      "intitule": "Cybersécurité des Réseaux et des Systèmes d'Information",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://esr.ma/formation/pole-informatique/cybersecurite-des-reseaux-et-des-systemes-dinformation/"
+    },
+    {
+      "intitule": "Management et Stratégie des Entreprises",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://esr.ma/formation/pole-management/bac5-management-et-strategie-des-entreprises/"
+    },
+    {
+      "intitule": "Marketing Stratégique et Marketing Digital",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://esr.ma/formation/pole-management/bac5-marketing-strategique-et-marketing-digital/"
+    }
   ],
-  "admission": {"conditions": ["Masters Bac+5 : 2 ans après un Bac+3"], "etapes": [], "concours": null, "dates": null},
+  "admission": {
+    "conditions": [
+      "Masters Bac+5 : 2 ans après un Bac+3"
+    ],
+    "etapes": [],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
   "bourses": null,
   "international": "Partenariats avec des écoles supérieures et des universités à l'étranger, en Europe et en Afrique ; développement de programmes proposant des diplômes internationaux ; double diplomation mentionnée pour le master Management et Stratégie des Entreprises.",
   "partenaires": [],
-  "vie_etudiante": ["Séminaires", "Forum Entreprises", "Certifications", "Compétitions CTF inter-écoles"],
+  "vie_etudiante": [
+    "Séminaires",
+    "Forum Entreprises",
+    "Certifications",
+    "Compétitions CTF inter-écoles"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "32 Rue Moulay Ali Cherif, Quartier Hassan. 10010 Rabat",
@@ -33,6 +136,12 @@
     "email": "info@esr.ma",
     "annee_creation": null,
     "frais": null,
-    "admission": ["2 ans après Bac+3"]
+    "admission": [
+      "2 ans après Bac+3"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

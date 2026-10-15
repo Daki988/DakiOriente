@@ -229,14 +229,7 @@
     "concours": "Concours d’entrée (calendrier publié sur le site)",
     "dates": null
   },
-  "frais": [
-    {
-      "cycle": "Frais de concours",
-      "inscription_mad": null,
-      "scolarite_annuelle_mad": null,
-      "note": "750 Dhs pour 2 concours et 1500 Dhs pour plus de 2 concours ; montants de scolarité non publiés en texte (affichés en image)"
-    }
-  ],
+  "frais": [],
   "bourses": "Bourses et prêts étudiants : dossier de demande de financement à déposer lors de l’inscription.",
   "international": "Doubles diplômes (ex. Université d’Aix-Marseille pour des masters de droit) ; page dédiée aux étudiants internationaux avec procédure d’inscription.",
   "partenaires": [
@@ -265,6 +258,12 @@
     ],
     "admission": [
       "La sélection des candidats titulaires d’une licence ou diplôme équivalent s'effectue en deux étapes : une évaluation du dossier suivie d'une épreuve écrit et/ou d'un entretien oral."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": [
+      "frais:Frais de concours"
     ]
   }
 }

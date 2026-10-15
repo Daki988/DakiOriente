@@ -3,7 +3,11 @@
   "site_web": "https://www.ecole-design.com",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://www.ecole-design.com/", "https://www.ecole-design.com/copie-de-evenements", "https://www.ecole-design.com/pr%C3%A9sentation"],
+  "sources": [
+    "https://www.ecole-design.com/",
+    "https://www.ecole-design.com/copie-de-evenements",
+    "https://www.ecole-design.com/pr%C3%A9sentation"
+  ],
   "description": "École supérieure privée de design et d'architecture d'intérieur située à Casablanca (quartier Anfa). Elle forme à l'architecture d'intérieur, au design d'objets, de produits industriels et de mobilier. Le site indique un cycle de 2 ans après un Bac+3 et des admissions passerelles, avec des dossiers distincts pour étudiants nationaux et étrangers.",
   "annee_creation": 2006,
   "adresse": "Angle Boulevard Tantan et rue Benguerir G.H N°4 Almanar Anfa Casablanca 20160 Maroc",
@@ -11,9 +15,33 @@
   "email": "contact@ecole-design.com",
   "statut_annonce": "École accréditée par le ministère de l'enseignement supérieur (autorisation n° 287/07)",
   "programmes": [
-    {"intitule": "Architecture d'intérieur & Design", "niveau": null, "diplome": null, "duree_annees": null, "specialites": ["Architecture d'intérieur", "Design d'objets", "Design de produits industriels", "Design de mobilier"], "campus": ["Casablanca"], "url": "https://www.ecole-design.com/pr%C3%A9sentation"}
+    {
+      "intitule": "Architecture d'intérieur & Design",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [
+        "Architecture d'intérieur",
+        "Design d'objets",
+        "Design de produits industriels",
+        "Design de mobilier"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.ecole-design.com/pr%C3%A9sentation"
+    }
   ],
-  "admission": {"conditions": ["1ère année : baccalauréat, CIN ou passeport, photos d'identité", "Cycle 2 ans après Bac+3 : diplôme Bac+3 accrédité et bulletins S1 à S6 validés", "Admissions passerelles : certificat de scolarité, attestation de réussite et bulletins des années précédentes"], "etapes": [], "concours": null, "dates": null},
+  "admission": {
+    "conditions": [
+      "1ère année : baccalauréat, CIN ou passeport, photos d'identité",
+      "Cycle 2 ans après Bac+3 : diplôme Bac+3 accrédité et bulletins S1 à S6 validés",
+      "Admissions passerelles : certificat de scolarité, attestation de réussite et bulletins des années précédentes"
+    ],
+    "etapes": [],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
   "bourses": null,
   "international": "Dossier de candidature spécifique pour les étudiants étrangers (baccalauréat authentifié, copie du passeport) ; trophées internationaux revendiqués.",
@@ -26,6 +54,13 @@
     "email": "contact@ecole-design.com",
     "annee_creation": "Elle a été fondée en 2006, sous la tutelle du Ministère de l’Enseignement Supérieur",
     "frais": [],
-    "admission": ["- 2 copies du baccalauréat;", "- 2 copies du diplôme Bac+3 accrédité + les bulletins S1 à S6 validés;"]
+    "admission": [
+      "- 2 copies du baccalauréat;",
+      "- 2 copies du diplôme Bac+3 accrédité + les bulletins S1 à S6 validés;"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

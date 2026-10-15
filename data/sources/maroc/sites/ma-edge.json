@@ -3,7 +3,15 @@
   "site_web": "https://edge.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://edge.ma/", "https://edge.ma/index.php/fr/programmes/licences/licence-commerce-international", "https://edge.ma/admissions/licencies", "https://edge.ma/admissions/bacheliers", "https://edge.ma/admissions/admissions-paralleles", "https://edge.ma/index.php/fr/programmes", "https://edge.ma/programmes/masters/e-logistique"],
+  "sources": [
+    "https://edge.ma/",
+    "https://edge.ma/index.php/fr/programmes/licences/licence-commerce-international",
+    "https://edge.ma/admissions/licencies",
+    "https://edge.ma/admissions/bacheliers",
+    "https://edge.ma/admissions/admissions-paralleles",
+    "https://edge.ma/index.php/fr/programmes",
+    "https://edge.ma/programmes/masters/e-logistique"
+  ],
   "description": "École privée de commerce et de management située à Casablanca (quartier Foncière). Elle propose en formation initiale des licences (Bac+3) en management des organisations, développement commercial, marketing digital et management comptable et financier, ainsi que des masters (Bac+5) en transformation digitale, marketing et communication digitale, e-logistique et comptabilité-contrôle-audit. Le site met en avant un enseignement hybride (e-learning, classes inversées), trois stages dans la licence en management des organisations, deux langues vivantes obligatoires et un master e-logistique en double diplomation avec l'Université Polytechnique Hauts-de-France.",
   "annee_creation": null,
   "adresse": "52, rue Rahal Nichakra, 20250, Quartier Foncière, Casablanca",
@@ -11,29 +19,161 @@
   "email": "contact@edge.ma",
   "statut_annonce": "École supérieure autorisée sous le n°471/2019 ; programmes accrédités par l'État",
   "programmes": [
-    {"intitule": "Licence Management des organisations", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://edge.ma/index.php/fr/programmes/licences/licence-commerce-international"},
-    {"intitule": "Licence Développement commercial", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://edge.ma/index.php/fr/programmes"},
-    {"intitule": "Licence Marketing Digital", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://edge.ma/index.php/fr/programmes"},
-    {"intitule": "Licence Management Comptable & Financier", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://edge.ma/index.php/fr/programmes"},
-    {"intitule": "Master Transformation Digitale", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://edge.ma/index.php/fr/programmes"},
-    {"intitule": "Master Marketing & Communication Digitale", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://edge.ma/index.php/fr/programmes"},
-    {"intitule": "Master E-Logistique", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://edge.ma/programmes/masters/e-logistique"},
-    {"intitule": "Master Comptabilité, Contrôle, Audit", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://edge.ma/index.php/fr/programmes"},
-    {"intitule": "Licences professionnelles (E-Commerce & Marketing Numérique, Commerce & Distribution, Finance)", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": null, "specialites": ["E-Commerce & Marketing Numérique", "Commerce & Distribution", "Finance"], "campus": ["Casablanca"], "url": "https://edge.ma/"},
-    {"intitule": "Master professionnel (Marketing & Développement Commercial, Finance d'entreprise, Ressources humaines)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": ["Marketing & Développement Commercial", "Finance d'entreprise", "Ressources humaines"], "campus": ["Casablanca"], "url": "https://edge.ma/"},
-    {"intitule": "MBA E-Business", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://edge.ma/"}
+    {
+      "intitule": "Licence Management des organisations",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://edge.ma/index.php/fr/programmes/licences/licence-commerce-international"
+    },
+    {
+      "intitule": "Licence Développement commercial",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://edge.ma/index.php/fr/programmes"
+    },
+    {
+      "intitule": "Licence Marketing Digital",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://edge.ma/index.php/fr/programmes"
+    },
+    {
+      "intitule": "Licence Management Comptable & Financier",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://edge.ma/index.php/fr/programmes"
+    },
+    {
+      "intitule": "Master Transformation Digitale",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://edge.ma/index.php/fr/programmes"
+    },
+    {
+      "intitule": "Master Marketing & Communication Digitale",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://edge.ma/index.php/fr/programmes"
+    },
+    {
+      "intitule": "Master E-Logistique",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://edge.ma/programmes/masters/e-logistique"
+    },
+    {
+      "intitule": "Master Comptabilité, Contrôle, Audit",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://edge.ma/index.php/fr/programmes"
+    },
+    {
+      "intitule": "Licences professionnelles (E-Commerce & Marketing Numérique, Commerce & Distribution, Finance)",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [
+        "E-Commerce & Marketing Numérique",
+        "Commerce & Distribution",
+        "Finance"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://edge.ma/"
+    },
+    {
+      "intitule": "Master professionnel (Marketing & Développement Commercial, Finance d'entreprise, Ressources humaines)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [
+        "Marketing & Développement Commercial",
+        "Finance d'entreprise",
+        "Ressources humaines"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://edge.ma/"
+    },
+    {
+      "intitule": "MBA E-Business",
+      "niveau": "Bac+5",
+      "diplome": "MBA",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://edge.ma/"
+    }
   ],
   "admission": {
-    "conditions": ["Première année : baccalauréat (séries SVT, Sciences physiques, Sciences mathématiques, Sciences économiques, Techniques de gestion et comptabilité, Sciences humaines, baccalauréats étrangers)", "Quatrième année : Bac+3 en économie ou en gestion ou diplôme équivalent", "Admission parallèle possible en 2e, 3e ou 4e année"],
-    "etapes": ["Pré-candidature en ligne ou rendez-vous avec un conseiller d'orientation", "Dépôt du dossier de candidature", "Entretien de motivation (visioconférence pour les étudiants étrangers)"],
+    "conditions": [
+      "Première année : baccalauréat (séries SVT, Sciences physiques, Sciences mathématiques, Sciences économiques, Techniques de gestion et comptabilité, Sciences humaines, baccalauréats étrangers)",
+      "Quatrième année : Bac+3 en économie ou en gestion ou diplôme équivalent",
+      "Admission parallèle possible en 2e, 3e ou 4e année"
+    ],
+    "etapes": [
+      "Pré-candidature en ligne ou rendez-vous avec un conseiller d'orientation",
+      "Dépôt du dossier de candidature",
+      "Entretien de motivation (visioconférence pour les étudiants étrangers)"
+    ],
     "concours": null,
     "dates": null
   },
   "frais": [],
   "bourses": null,
   "international": "Master E-Logistique en double diplomation avec l'Université Polytechnique Hauts-de-France ; admission possible pour des étudiants étrangers (entretiens en visioconférence).",
-  "partenaires": ["Université Polytechnique Hauts-de-France"],
-  "vie_etudiante": ["Activités parascolaires et coaching", "Stages", "Agenda d'événements"],
+  "partenaires": [
+    "Université Polytechnique Hauts-de-France"
+  ],
+  "vie_etudiante": [
+    "Activités parascolaires et coaching",
+    "Stages",
+    "Agenda d'événements"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "52, rue Rahal Nichakra, 20250, Quartier Foncière, Casablanca",
@@ -41,6 +181,13 @@
     "email": "contact@edge.ma",
     "annee_creation": null,
     "frais": null,
-    "admission": ["L’accès en 1ère année est ouvert aux bacheliers de l’enseignement secondaire", "L’admission parallèle à EDGE est possible en 2ème, 3ème ou 4ème année."]
+    "admission": [
+      "L’accès en 1ère année est ouvert aux bacheliers de l’enseignement secondaire",
+      "L’admission parallèle à EDGE est possible en 2ème, 3ème ou 4ème année."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

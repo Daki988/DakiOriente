@@ -3,7 +3,13 @@
   "site_web": "https://iseparamedical.com",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://iseparamedical.com/", "https://iseparamedical.com/inscription/", "https://iseparamedical.com/formations/", "https://iseparamedical.com/qui-sommes-nous/", "https://iseparamedical.com/contact/"],
+  "sources": [
+    "https://iseparamedical.com/",
+    "https://iseparamedical.com/inscription/",
+    "https://iseparamedical.com/formations/",
+    "https://iseparamedical.com/qui-sommes-nous/",
+    "https://iseparamedical.com/contact/"
+  ],
   "description": "Institut privé de formation paramédicale situé à Aïn Chock, Casablanca. Il propose des formations de niveau Bac+3 en soins infirmiers (polyvalent, anesthésie-réanimation, bloc opératoire, néonatologie-pédiatrie), sage-femme et kinésithérapie. Le site met en avant des stages pratiques en cliniques et hôpitaux et un accompagnement à l'insertion professionnelle.",
   "annee_creation": 2021,
   "adresse": "Boulevard Ouled Hado, N°7, Quartier des Crêtes, Aïn Chock, Casablanca",
@@ -11,18 +17,91 @@
   "email": "isep.casa@gmail.com",
   "statut_annonce": "Établissement privé autorisé par le ministère de l'Enseignement supérieur (autorisation n° 483/2021), filières accréditées",
   "programmes": [
-    {"intitule": "Infirmier en anesthésie et réanimation", "niveau": "Bac+3", "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iseparamedical.com/formations/"},
-    {"intitule": "Infirmier polyvalent", "niveau": "Bac+3", "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iseparamedical.com/formations/"},
-    {"intitule": "Sage-femme", "niveau": "Bac+3", "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iseparamedical.com/formations/"},
-    {"intitule": "Infirmier au bloc opératoire", "niveau": "Bac+3", "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iseparamedical.com/formations/"},
-    {"intitule": "Infirmier en néonatologie et pédiatrie", "niveau": "Bac+3", "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iseparamedical.com/formations/"},
-    {"intitule": "Kinésithérapie", "niveau": "Bac+3", "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://iseparamedical.com/"}
+    {
+      "intitule": "Infirmier en anesthésie et réanimation",
+      "niveau": "Bac+3",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://iseparamedical.com/formations/"
+    },
+    {
+      "intitule": "Infirmier polyvalent",
+      "niveau": "Bac+3",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://iseparamedical.com/formations/"
+    },
+    {
+      "intitule": "Sage-femme",
+      "niveau": "Bac+3",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://iseparamedical.com/formations/"
+    },
+    {
+      "intitule": "Infirmier au bloc opératoire",
+      "niveau": "Bac+3",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://iseparamedical.com/formations/"
+    },
+    {
+      "intitule": "Infirmier en néonatologie et pédiatrie",
+      "niveau": "Bac+3",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://iseparamedical.com/formations/"
+    },
+    {
+      "intitule": "Kinésithérapie",
+      "niveau": "Bac+3",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://iseparamedical.com/"
+    }
   ],
-  "admission": {"conditions": ["Baccalauréat scientifique", "Dossier de candidature complété, original du baccalauréat et des relevés de notes, pièce d'identité, frais de dossier"], "etapes": ["Concours d'entrée éventuel, suivi d'un entretien"], "concours": "Un concours d'entrée peut être organisé", "dates": null},
+  "admission": {
+    "conditions": [
+      "Baccalauréat scientifique",
+      "Dossier de candidature complété, original du baccalauréat et des relevés de notes, pièce d'identité, frais de dossier"
+    ],
+    "etapes": [
+      "Concours d'entrée éventuel, suivi d'un entretien"
+    ],
+    "concours": "Un concours d'entrée peut être organisé",
+    "dates": null
+  },
   "frais": [],
   "bourses": null,
   "international": null,
-  "partenaires": ["German Workshop", "ONCORAD GROUP"],
+  "partenaires": [
+    "German Workshop",
+    "ONCORAD GROUP"
+  ],
   "vie_etudiante": [],
   "logement": null,
   "preuves": {
@@ -31,6 +110,13 @@
     "email": "isep.casa@gmail.com",
     "annee_creation": "L’institut Supérieur des Études Paramédicales (ISEP), créé en 2021, est un établissement privé",
     "frais": [],
-    "admission": ["L’admission est ouverte aux titulaires d’un baccalauréat scientifique .Un concours", "*L’admission est ouverte aux titulaires d’un baccalauréat scientifique"]
+    "admission": [
+      "L’admission est ouverte aux titulaires d’un baccalauréat scientifique .Un concours",
+      "*L’admission est ouverte aux titulaires d’un baccalauréat scientifique"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

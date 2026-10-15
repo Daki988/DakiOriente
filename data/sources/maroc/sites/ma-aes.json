@@ -3,26 +3,37 @@
   "site_web": "https://www.una.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://www.universiteaverroes.ma/", "https://www.universiteaverroes.ma/apropos/", "https://www.universiteaverroes.ma/averroes-business-school/", "https://www.universiteaverroes.ma/contact/", "https://www.universiteaverroes.ma/campus-actuel/", "https://www.universiteaverroes.ma/linternational/"],
-  "description": "Le texte relevé provient du site de l'Université Internationale Averroès (UIA), à Casablanca, qui regroupe une Business School, une Engineering School et une Faculté de Droit et des Sciences Politiques. Aucune page détaillant les formations de l'Engineering School n'a été relevée ; seules celles de la Business School (licences et master en gestion, finance, audit et marketing) apparaissent. L'université met en avant l'alternance, l'immersion en entreprise, des échanges internationaux et des doubles diplômes, ainsi qu'un campus à Sidi Maarouf avec des résidences étudiantes partenaires.",
-  "annee_creation": null,
-  "adresse": "La Colline, Sidi Maarouf, Route de Nouaceur, Casablanca, Maroc",
-  "telephone": "+212 5 22 10 62 62",
-  "email": "admission@universiteaverroes.ma",
-  "statut_annonce": null,
-  "programmes": [
-    {"intitule": "Licence Gestion Comptable et Fiscale", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.universiteaverroes.ma/averroes-business-school/"},
-    {"intitule": "Licence Ingénierie Financière", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.universiteaverroes.ma/averroes-business-school/"},
-    {"intitule": "Licence Vente et Développement Commercial", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.universiteaverroes.ma/averroes-business-school/"},
-    {"intitule": "Licence Marketing Digital", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.universiteaverroes.ma/averroes-business-school/"},
-    {"intitule": "Master Comptabilité, Contrôle et Audit", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": null, "url": "https://www.universiteaverroes.ma/averroes-business-school/"}
+  "sources": [
+    "https://www.universiteaverroes.ma/",
+    "https://www.universiteaverroes.ma/apropos/",
+    "https://www.universiteaverroes.ma/averroes-business-school/",
+    "https://www.universiteaverroes.ma/contact/",
+    "https://www.universiteaverroes.ma/campus-actuel/",
+    "https://www.universiteaverroes.ma/linternational/"
   ],
-  "admission": {"conditions": [], "etapes": [], "concours": null, "dates": null},
+  "description": null,
+  "annee_creation": null,
+  "adresse": null,
+  "telephone": null,
+  "email": null,
+  "statut_annonce": null,
+  "programmes": [],
+  "admission": {
+    "conditions": [],
+    "etapes": [],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
   "bourses": "Dispositif d'accompagnement au financement des études proposé par la Fondation UIA.",
   "international": "Programmes d'échange, doubles diplômes et poursuite d'études auprès d'universités partenaires.",
   "partenaires": [],
-  "vie_etudiante": ["Amphithéâtre de 300 places", "Learning Center", "Salle de sport", "Cafétéria"],
+  "vie_etudiante": [
+    "Amphithéâtre de 300 places",
+    "Learning Center",
+    "Salle de sport",
+    "Cafétéria"
+  ],
   "logement": "Accords avec plusieurs résidences étudiantes (Oasis, RU Anfa City, RU Ziraoui, Bayt Al Maarifa).",
   "preuves": {
     "adresse": "La Colline, Sidi Maarouf, Route de Nouaceur, Casablanca, Maroc",
@@ -31,5 +42,10 @@
     "annee_creation": null,
     "frais": null,
     "admission": null
+  },
+  "notes": "Texte relevé sur le site de l'Université Internationale Averroès : programmes de la Business School, sans rapport avec l'école d'ingénieurs ; non repris.",
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

@@ -3,7 +3,13 @@
   "site_web": "https://psychosup.net",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://psychosup.net/", "https://psychosup.net/masters/", "https://psychosup.net/licence-psychologie/", "https://psychosup.net/formations-continues/", "https://psychosup.net/contact/"],
+  "sources": [
+    "https://psychosup.net/",
+    "https://psychosup.net/masters/",
+    "https://psychosup.net/licence-psychologie/",
+    "https://psychosup.net/formations-continues/",
+    "https://psychosup.net/contact/"
+  ],
   "description": "École Supérieure de Psychologie de Casablanca (avenue des Facultés), créée en 2003 et présentée comme la première institution spécialisée en psychologie au niveau national. Elle propose une licence en psychologie (Bac+3) avec parcours clinique ou du travail, des masters (Bac+5) en psychologie clinique, du travail, psychogérontologie et neuropsychologie, ainsi qu'une formation continue en psychologie du travail. Les filières sont annoncées comme accréditées, avec un enseignement en présentiel et à distance, des stages et un accompagnement pour l'autorisation d'exercer en libéral.",
   "annee_creation": 2003,
   "adresse": "N°30 Ave des Facultés, Casablanca, 20250",
@@ -11,18 +17,107 @@
   "email": "contact@psychosup.net",
   "statut_annonce": "Filières accréditées par le Ministère de l'Enseignement supérieur",
   "programmes": [
-    {"intitule": "Licence en Psychologie (formation initiale)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": ["Psychologie clinique", "Psychologie du travail"], "campus": ["Casablanca"], "url": "https://psychosup.net/licence-psychologie/"},
-    {"intitule": "Formation en Psychomotricité", "niveau": "Bac+3", "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://psychosup.net/"},
-    {"intitule": "Éducateur spécialisé", "niveau": "Bac+3", "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://psychosup.net/"},
-    {"intitule": "Master Psychologie clinique", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://psychosup.net/masters/"},
-    {"intitule": "Master Psychologie du travail", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://psychosup.net/masters/"},
-    {"intitule": "Master Psychogérontologie", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://psychosup.net/masters/"},
-    {"intitule": "Master Neuropsychologie", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://psychosup.net/masters/"},
-    {"intitule": "Formation continue en Psychologie du travail (certificat)", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://psychosup.net/formations-continues/"}
+    {
+      "intitule": "Licence en Psychologie (formation initiale)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [
+        "Psychologie clinique",
+        "Psychologie du travail"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://psychosup.net/licence-psychologie/"
+    },
+    {
+      "intitule": "Formation en Psychomotricité",
+      "niveau": "Bac+3",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://psychosup.net/"
+    },
+    {
+      "intitule": "Éducateur spécialisé",
+      "niveau": "Bac+3",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://psychosup.net/"
+    },
+    {
+      "intitule": "Master Psychologie clinique",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://psychosup.net/masters/"
+    },
+    {
+      "intitule": "Master Psychologie du travail",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://psychosup.net/masters/"
+    },
+    {
+      "intitule": "Master Psychogérontologie",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://psychosup.net/masters/"
+    },
+    {
+      "intitule": "Master Neuropsychologie",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://psychosup.net/masters/"
+    },
+    {
+      "intitule": "Formation continue en Psychologie du travail (certificat)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://psychosup.net/formations-continues/"
+    }
   ],
   "admission": {
-    "conditions": ["Baccalauréat toutes options (anciens diplômes acceptés)", "Bon niveau en français"],
-    "etapes": ["Entretien avec le jury de sélection", "Test écrit de connaissances et linguistique"],
+    "conditions": [
+      "Baccalauréat toutes options (anciens diplômes acceptés)",
+      "Bon niveau en français"
+    ],
+    "etapes": [
+      "Entretien avec le jury de sélection",
+      "Test écrit de connaissances et linguistique"
+    ],
     "concours": null,
     "dates": null
   },
@@ -30,7 +125,11 @@
   "bourses": null,
   "international": "Vidéo-conférences suivies par les étudiants inscrits à l'EPHEP (École Pratique des Hautes Études en Psychopathologies, France) ; environnement multiculturel mentionné par des témoignages.",
   "partenaires": [],
-  "vie_etudiante": ["Conférences avec des professeurs marocains et étrangers", "Stages et ouverture professionnelle", "Plateforme d'anglais E-LIFT"],
+  "vie_etudiante": [
+    "Conférences avec des professeurs marocains et étrangers",
+    "Stages et ouverture professionnelle",
+    "Plateforme d'anglais E-LIFT"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "N°30 Ave des Facultés",
@@ -42,5 +141,9 @@
       "Le Baccalauréat toutes options ; anciens diplômes acceptés",
       "Un test écrit de connaissances et linguistique."
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

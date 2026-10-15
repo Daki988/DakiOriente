@@ -3,7 +3,17 @@
   "site_web": "https://hec.ac.ma/",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://hec.ac.ma/", "https://hec.ac.ma/programme-grande-ecole/logistique-et-commerce-international", "https://hec.ac.ma/programme-grande-ecole", "https://hec.ac.ma/programme-grande-ecole/finance", "https://hec.ac.ma/programme-grande-ecole/comptabilite-controle-et-audit", "https://hec.ac.ma/programme-grande-ecole/marketing-e-business-digital-strategy", "https://hec.ac.ma/executive-education", "https://hec.ac.ma/executive-education/master/finance", "https://hec.ac.ma/executive-education/master/gestion-de-projets"],
+  "sources": [
+    "https://hec.ac.ma/",
+    "https://hec.ac.ma/programme-grande-ecole/logistique-et-commerce-international",
+    "https://hec.ac.ma/programme-grande-ecole",
+    "https://hec.ac.ma/programme-grande-ecole/finance",
+    "https://hec.ac.ma/programme-grande-ecole/comptabilite-controle-et-audit",
+    "https://hec.ac.ma/programme-grande-ecole/marketing-e-business-digital-strategy",
+    "https://hec.ac.ma/executive-education",
+    "https://hec.ac.ma/executive-education/master/finance",
+    "https://hec.ac.ma/executive-education/master/gestion-de-projets"
+  ],
   "description": "École de commerce privée installée à Rabat, qui propose un Programme Grande École en 5 ans (Bac+3 puis Bac+5) avec quatre spécialisations : finance, marketing et e-business, logistique et commerce international, comptabilité-contrôle-audit. Le cursus comprend 12 mois de stages cumulés, des certifications intégrées (TOEIC, IBM, Scrum, CISI, Google, etc.), un semestre d'échange dans une université partenaire en Europe et un parcours entrepreneuriat. L'école propose aussi des Executive Masters et certificats 100 % en ligne pour les professionnels, et une admission parallèle possible en années 2 à 4.",
   "annee_creation": 1988,
   "adresse": "4 Rue Tulipa, Rabat 10100, Maroc",
@@ -11,42 +21,208 @@
   "email": null,
   "statut_annonce": "Diplôme accrédité par le ministère",
   "programmes": [
-    {"intitule": "Programme Grande École – Finance (Finance & Marchés)", "niveau": "Bac+5", "diplome": "Programme Grande École", "duree_annees": 5, "specialites": ["Banque, marchés et ingénierie financière"], "campus": ["Rabat"], "url": "https://hec.ac.ma/programme-grande-ecole/finance"},
-    {"intitule": "Programme Grande École – Marketing, e-Business & Digital Strategy", "niveau": "Bac+5", "diplome": "Programme Grande École", "duree_annees": 5, "specialites": [], "campus": ["Rabat"], "url": "https://hec.ac.ma/programme-grande-ecole/marketing-e-business-digital-strategy"},
-    {"intitule": "Programme Grande École – Logistique & Commerce International", "niveau": "Bac+5", "diplome": "Programme Grande École", "duree_annees": 5, "specialites": [], "campus": ["Rabat"], "url": "https://hec.ac.ma/programme-grande-ecole/logistique-et-commerce-international"},
-    {"intitule": "Programme Grande École – Comptabilité, Contrôle & Audit", "niveau": "Bac+5", "diplome": "Programme Grande École", "duree_annees": 5, "specialites": [], "campus": ["Rabat"], "url": "https://hec.ac.ma/programme-grande-ecole/comptabilite-controle-et-audit"},
-    {"intitule": "Executive Master Finance", "niveau": null, "diplome": "Executive Master", "duree_annees": 1, "specialites": [], "campus": null, "url": "https://hec.ac.ma/executive-education/master/finance"},
-    {"intitule": "Executive Master Gestion de Projets", "niveau": null, "diplome": "Executive Master", "duree_annees": 1, "specialites": [], "campus": null, "url": "https://hec.ac.ma/executive-education/master/gestion-de-projets"},
-    {"intitule": "Executive Master Achats Logistique Supply Chain Management", "niveau": null, "diplome": "Executive Master", "duree_annees": 1, "specialites": [], "campus": null, "url": "https://hec.ac.ma/"},
-    {"intitule": "Executive Master Audit et Contrôle de Gestion", "niveau": null, "diplome": "Executive Master", "duree_annees": 1, "specialites": [], "campus": null, "url": "https://hec.ac.ma/"},
-    {"intitule": "Executive Master Cybersecurity & Digital Trust", "niveau": null, "diplome": "Executive Master", "duree_annees": 1, "specialites": [], "campus": null, "url": "https://hec.ac.ma/"},
-    {"intitule": "Executive Master Data Science, Analytics & Intelligent Automation", "niveau": null, "diplome": "Executive Master", "duree_annees": 1, "specialites": [], "campus": null, "url": "https://hec.ac.ma/"},
-    {"intitule": "Executive Master Management des Ressources Humaines", "niveau": null, "diplome": "Executive Master", "duree_annees": 1, "specialites": [], "campus": null, "url": "https://hec.ac.ma/"},
-    {"intitule": "Executive Master Marketing Digital & E-Business", "niveau": null, "diplome": "Executive Master", "duree_annees": 1, "specialites": [], "campus": null, "url": "https://hec.ac.ma/"},
-    {"intitule": "Executive Certificates (36 programmes Executive en ligne, 3 mois, capitalisables)", "niveau": null, "diplome": "Certificat", "duree_annees": null, "specialites": [], "campus": null, "url": "https://hec.ac.ma/executive-education"}
+    {
+      "intitule": "Programme Grande École – Finance (Finance & Marchés)",
+      "niveau": "Bac+5",
+      "diplome": "Programme Grande École",
+      "duree_annees": 5,
+      "specialites": [
+        "Banque, marchés et ingénierie financière"
+      ],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://hec.ac.ma/programme-grande-ecole/finance"
+    },
+    {
+      "intitule": "Programme Grande École – Marketing, e-Business & Digital Strategy",
+      "niveau": "Bac+5",
+      "diplome": "Programme Grande École",
+      "duree_annees": 5,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://hec.ac.ma/programme-grande-ecole/marketing-e-business-digital-strategy"
+    },
+    {
+      "intitule": "Programme Grande École – Logistique & Commerce International",
+      "niveau": "Bac+5",
+      "diplome": "Programme Grande École",
+      "duree_annees": 5,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://hec.ac.ma/programme-grande-ecole/logistique-et-commerce-international"
+    },
+    {
+      "intitule": "Programme Grande École – Comptabilité, Contrôle & Audit",
+      "niveau": "Bac+5",
+      "diplome": "Programme Grande École",
+      "duree_annees": 5,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://hec.ac.ma/programme-grande-ecole/comptabilite-controle-et-audit"
+    },
+    {
+      "intitule": "Executive Master Finance",
+      "niveau": null,
+      "diplome": "Executive Master",
+      "duree_annees": 1,
+      "specialites": [],
+      "campus": null,
+      "url": "https://hec.ac.ma/executive-education/master/finance"
+    },
+    {
+      "intitule": "Executive Master Gestion de Projets",
+      "niveau": null,
+      "diplome": "Executive Master",
+      "duree_annees": 1,
+      "specialites": [],
+      "campus": null,
+      "url": "https://hec.ac.ma/executive-education/master/gestion-de-projets"
+    },
+    {
+      "intitule": "Executive Master Achats Logistique Supply Chain Management",
+      "niveau": null,
+      "diplome": "Executive Master",
+      "duree_annees": 1,
+      "specialites": [],
+      "campus": null,
+      "url": "https://hec.ac.ma/"
+    },
+    {
+      "intitule": "Executive Master Audit et Contrôle de Gestion",
+      "niveau": null,
+      "diplome": "Executive Master",
+      "duree_annees": 1,
+      "specialites": [],
+      "campus": null,
+      "url": "https://hec.ac.ma/"
+    },
+    {
+      "intitule": "Executive Master Cybersecurity & Digital Trust",
+      "niveau": null,
+      "diplome": "Executive Master",
+      "duree_annees": 1,
+      "specialites": [],
+      "campus": null,
+      "url": "https://hec.ac.ma/"
+    },
+    {
+      "intitule": "Executive Master Data Science, Analytics & Intelligent Automation",
+      "niveau": null,
+      "diplome": "Executive Master",
+      "duree_annees": 1,
+      "specialites": [],
+      "campus": null,
+      "url": "https://hec.ac.ma/"
+    },
+    {
+      "intitule": "Executive Master Management des Ressources Humaines",
+      "niveau": null,
+      "diplome": "Executive Master",
+      "duree_annees": 1,
+      "specialites": [],
+      "campus": null,
+      "url": "https://hec.ac.ma/"
+    },
+    {
+      "intitule": "Executive Master Marketing Digital & E-Business",
+      "niveau": null,
+      "diplome": "Executive Master",
+      "duree_annees": 1,
+      "specialites": [],
+      "campus": null,
+      "url": "https://hec.ac.ma/"
+    },
+    {
+      "intitule": "Executive Certificates (36 programmes Executive en ligne, 3 mois, capitalisables)",
+      "niveau": null,
+      "diplome": "Certificat",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://hec.ac.ma/executive-education"
+    }
   ],
   "admission": {
-    "conditions": ["Programme Grande École : baccalauréat (pièces demandées : baccalauréat, relevés de notes, CV)", "Admission parallèle possible en années 2 à 4", "Executive Master : licence ou diplôme Bac+4 en gestion, économie, informatique ou sciences avec expérience professionnelle"],
-    "etapes": ["Création de l'espace candidat en ligne", "Instruction du dossier (notification sous 48 heures)", "Entretien d'admission en visioconférence ou en présentiel", "Inscription et règlement des frais"],
+    "conditions": [
+      "Programme Grande École : baccalauréat (pièces demandées : baccalauréat, relevés de notes, CV)",
+      "Admission parallèle possible en années 2 à 4",
+      "Executive Master : licence ou diplôme Bac+4 en gestion, économie, informatique ou sciences avec expérience professionnelle"
+    ],
+    "etapes": [
+      "Création de l'espace candidat en ligne",
+      "Instruction du dossier (notification sous 48 heures)",
+      "Entretien d'admission en visioconférence ou en présentiel",
+      "Inscription et règlement des frais"
+    ],
     "concours": null,
     "dates": null
   },
   "frais": [
-    {"cycle": "Programme Grande École – Bac+3 (années 1 à 3)", "inscription_mad": 3000, "scolarite_annuelle_mad": 47000, "note": "Montant annuel dont 3 000 MAD de frais d'inscription ; frais de dossier de 300 MAD ; inscription anticipée à 35 200 MAD avant le 15 septembre 2026 ; paiement par tranches"},
-    {"cycle": "Programme Grande École – Bac+5 (années 4 et 5)", "inscription_mad": null, "scolarite_annuelle_mad": 49000, "note": "Inscription anticipée à 36 800 MAD avant le 15 septembre 2026 ; paiement par tranches"},
-    {"cycle": "Executive Master (100 % en ligne)", "inscription_mad": null, "scolarite_annuelle_mad": 41800, "note": "À partir de 41 800 MAD pour un Executive Master complet"}
+    {
+      "cycle": "Programme Grande École – Bac+3 (années 1 à 3)",
+      "inscription_mad": 3000,
+      "scolarite_annuelle_mad": 47000,
+      "note": "Montant annuel dont 3 000 MAD de frais d'inscription ; frais de dossier de 300 MAD ; inscription anticipée à 35 200 MAD avant le 15 septembre 2026 ; paiement par tranches"
+    },
+    {
+      "cycle": "Programme Grande École – Bac+5 (années 4 et 5)",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 49000,
+      "note": "Inscription anticipée à 36 800 MAD avant le 15 septembre 2026 ; paiement par tranches"
+    },
+    {
+      "cycle": "Executive Master (100 % en ligne)",
+      "inscription_mad": null,
+      "scolarite_annuelle_mad": 41800,
+      "note": "À partir de 41 800 MAD pour un Executive Master complet"
+    }
   ],
   "bourses": null,
   "international": "Semestre d'échange en 4e ou 5e année dans une université partenaire en Europe (UPEC, ESC Amiens, ISTEC, IPAG, Brest Business School, EMLV, IDRAC, HEPL Liège, Sofia University) ; plus de 15 nationalités sur le campus.",
-  "partenaires": ["UPEC", "ESC Amiens Business School", "ISTEC Business School Paris", "IPAG Business School", "Brest Business School", "EMLV", "IDRAC Business School", "HEPL Liège", "Sofia University"],
-  "vie_etudiante": ["BDE élu et clubs (business, sport, art, solidarité)", "Parcours entrepreneuriat", "Career Center", "Centre de recherche CReSC", "Réseau alumni"],
+  "partenaires": [
+    "UPEC",
+    "ESC Amiens Business School",
+    "ISTEC Business School Paris",
+    "IPAG Business School",
+    "Brest Business School",
+    "EMLV",
+    "IDRAC Business School",
+    "HEPL Liège",
+    "Sofia University"
+  ],
+  "vie_etudiante": [
+    "BDE élu et clubs (business, sport, art, solidarité)",
+    "Parcours entrepreneuriat",
+    "Career Center",
+    "Centre de recherche CReSC",
+    "Réseau alumni"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "4 Rue Tulipa, Rabat 10100, Maroc",
     "telephone": "+212 5 37 67 12 76",
     "email": null,
     "annee_creation": "Depuis 1988, HEC Rabat est un établissement d'enseignement supérieur privé",
-    "frais": ["par an · dont 3 000 MAD de frais d'inscription", "47 000 MAD / an", "49 000 MAD / an", "À partir de 41 800 MAD pour un Executive Master complet"],
-    "admission": ["Admission parallèle possible en années 2 à 4", "Licence ou diplôme Bac+4 en gestion, économie, informatique ou sciences avec expérience professionnelle."]
+    "frais": [
+      "par an · dont 3 000 MAD de frais d'inscription",
+      "47 000 MAD / an",
+      "49 000 MAD / an",
+      "À partir de 41 800 MAD pour un Executive Master complet"
+    ],
+    "admission": [
+      "Admission parallèle possible en années 2 à 4",
+      "Licence ou diplôme Bac+4 en gestion, économie, informatique ou sciences avec expérience professionnelle."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

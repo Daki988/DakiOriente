@@ -128,5 +128,9 @@
       "Prévoir 10 minutes pour remplir le formulaire d’admission en 5 étapes faciles",
       "Les inscriptions sont ouvertes toute l'année."
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

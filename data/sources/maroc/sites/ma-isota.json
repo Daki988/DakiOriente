@@ -3,7 +3,12 @@
   "site_web": "https://isota.ac.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://isota.ac.ma/", "https://isota.ac.ma/scolarite.php", "https://isota.ac.ma/formation.php", "https://isota.ac.ma/mot-du-directeur.php"],
+  "sources": [
+    "https://isota.ac.ma/",
+    "https://isota.ac.ma/scolarite.php",
+    "https://isota.ac.ma/formation.php",
+    "https://isota.ac.ma/mot-du-directeur.php"
+  ],
   "description": "Institut d'optique et d'optométrie situé dans le quartier Oasis à Casablanca, créé en 2005. Il propose un cursus Bac+3 en optométrie, contactologie, basse vision et pharmacologie, avec des stages en entreprise répartis sur les trois années. Le site précise que la filière est accréditée par l'État, ouverte aux bacheliers scientifiques ou techniques et, par passerelle, aux licenciés en sciences ou en santé (entrée directe en 2e année), avec des pièces spécifiques pour les étudiants non marocains.",
   "annee_creation": 2005,
   "adresse": "8, Rue Ahmed Akrad, Oasis, Casablanca - Maroc",
@@ -11,7 +16,17 @@
   "email": "contact@isota.ac.ma",
   "statut_annonce": "Filière accréditée par l'État ; enseignement supérieur autorisé par le MEN",
   "programmes": [
-    {"intitule": "Bac+3 en Optométrie, Contactologie, Basse Vision et Pharmacologie", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://isota.ac.ma/formation.php"}
+    {
+      "intitule": "Bac+3 en Optométrie, Contactologie, Basse Vision et Pharmacologie",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://isota.ac.ma/formation.php"
+    }
   ],
   "admission": {
     "conditions": [
@@ -19,15 +34,24 @@
       "Passerelle : licenciés en sciences ou équivalent, ou Bac+3 en santé, paramédical ou scientifique, admis directement en 2e année",
       "Étudiants non marocains : attestation d'authentification du baccalauréat par l'ambassade et équivalence délivrée par le Ministère de l'Éducation nationale"
     ],
-    "etapes": ["Sélection après étude du dossier", "Entretien oral"],
+    "etapes": [
+      "Sélection après étude du dossier",
+      "Entretien oral"
+    ],
     "concours": null,
     "dates": null
   },
   "frais": [],
   "bourses": null,
   "international": "Poursuite d'études diplômantes au Maroc et à l'étranger mentionnée ; partenariat avec la Faculté des Sciences Ben M'sik et le Lycée Fresnel.",
-  "partenaires": ["Faculté des Sciences Ben M'sik", "Lycée Fresnel"],
-  "vie_etudiante": ["Suivi individuel et personnalisé des étudiants", "Équipement pratique de haute technologie"],
+  "partenaires": [
+    "Faculté des Sciences Ben M'sik",
+    "Lycée Fresnel"
+  ],
+  "vie_etudiante": [
+    "Suivi individuel et personnalisé des étudiants",
+    "Équipement pratique de haute technologie"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "8, Rue Ahmed Akrad, Oasis,",
@@ -38,5 +62,9 @@
     "admission": [
       "à tous types de bacheliers scientifiques, à savoir: bac SVT, bac sciences physiques, bac sciences Mathématiques, Bac Technique"
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

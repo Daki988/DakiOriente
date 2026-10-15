@@ -227,5 +227,9 @@
     "admission": [
       "Prépa : Bac scientifique ou technique · Licences : toutes séries selon filière"
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

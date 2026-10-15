@@ -1,115 +1,119 @@
 {
- "id": "ma-esjc",
- "site_web": "https://esjc.ma",
- "date_collecte": "2026-10-15",
- "accessible": true,
- "sources": [
-  "https://esjc.ma/",
-  "https://esjc.ma/inscription/",
-  "https://esjc.ma/formations-courtes-certifiantes/",
-  "https://esjc.ma/licence-journalisme-et-communication/",
-  "https://esjc.ma/2025/05/08/lesjc-une-ecole-vivante-et-engagee-au-coeur-de-casablanca/",
-  "https://esjc.ma/contactez-nous/"
- ],
- "description": "École de journalisme et de communication installée en centre-ville de Casablanca (rue Tata). Elle propose des formations en Bac+3 (journalisme et communication, communication et multimédia, production audiovisuelle) et en Bac+5, ainsi que des formations courtes certifiantes. Le site décrit un apprentissage par la pratique (studio TV, studio radio, médiathèque), des stages obligatoires chaque année et des journées immersives pour les futurs étudiants.",
- "annee_creation": 2008,
- "adresse": "37, Rue tata, Casablanca",
- "telephone": "+212 (0)5 22 264010",
- "email": null,
- "statut_annonce": null,
- "programmes": [
-  {
-   "intitule": "Bac + 3 Journalisme et Communication",
-   "niveau": "Bac+3",
-   "diplome": "Licence",
-   "duree_annees": 3,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://esjc.ma/licence-journalisme-et-communication/"
-  },
-  {
-   "intitule": "Bac+3 Communication et Multimédia",
-   "niveau": "Bac+3",
-   "diplome": null,
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://esjc.ma/"
-  },
-  {
-   "intitule": "Bac+3 en Production Audiovisuelle",
-   "niveau": "Bac+3",
-   "diplome": null,
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://esjc.ma/"
-  },
-  {
-   "intitule": "Bac + 5 Journalisme et Communication",
-   "niveau": "Bac+5",
-   "diplome": null,
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://esjc.ma/"
-  },
-  {
-   "intitule": "Bac+5 en Communication Digitale et Production audiovisuelle",
-   "niveau": "Bac+5",
-   "diplome": null,
-   "duree_annees": null,
-   "specialites": [],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://esjc.ma/"
-  },
-  {
-   "intitule": "Formations courtes certifiantes",
-   "niveau": null,
-   "diplome": "Certificat",
-   "duree_annees": null,
-   "specialites": [
-    "Formation audiovisuelle : maîtrisez votre présence à l’écran"
-   ],
-   "campus": [
-    "Casablanca"
-   ],
-   "url": "https://esjc.ma/formations-courtes-certifiantes/"
-  }
- ],
- "admission": {
-  "conditions": [],
-  "etapes": [],
-  "concours": null,
-  "dates": null
- },
- "frais": [],
- "bourses": null,
- "international": "Le site mentionne des partenaires internationaux (nombre non précisé dans le texte).",
- "partenaires": [],
- "vie_etudiante": [
-  "Journées immersives",
-  "Conférences, projets, workshops, stages",
-  "Studio TV et studio radio",
-  "Médiathèque"
- ],
- "logement": null,
- "preuves": {
+  "id": "ma-esjc",
+  "site_web": "https://esjc.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://esjc.ma/",
+    "https://esjc.ma/inscription/",
+    "https://esjc.ma/formations-courtes-certifiantes/",
+    "https://esjc.ma/licence-journalisme-et-communication/",
+    "https://esjc.ma/2025/05/08/lesjc-une-ecole-vivante-et-engagee-au-coeur-de-casablanca/",
+    "https://esjc.ma/contactez-nous/"
+  ],
+  "description": "École de journalisme et de communication installée en centre-ville de Casablanca (rue Tata). Elle propose des formations en Bac+3 (journalisme et communication, communication et multimédia, production audiovisuelle) et en Bac+5, ainsi que des formations courtes certifiantes. Le site décrit un apprentissage par la pratique (studio TV, studio radio, médiathèque), des stages obligatoires chaque année et des journées immersives pour les futurs étudiants.",
+  "annee_creation": 2008,
   "adresse": "37, Rue tata, Casablanca",
   "telephone": "+212 (0)5 22 264010",
   "email": null,
-  "annee_creation": "forme, depuis 2008, les étudiants qui souhaitent se lancer dans le journalisme et la communication",
+  "statut_annonce": null,
+  "programmes": [
+    {
+      "intitule": "Bac + 3 Journalisme et Communication",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esjc.ma/licence-journalisme-et-communication/"
+    },
+    {
+      "intitule": "Bac+3 Communication et Multimédia",
+      "niveau": "Bac+3",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esjc.ma/"
+    },
+    {
+      "intitule": "Bac+3 en Production Audiovisuelle",
+      "niveau": "Bac+3",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esjc.ma/"
+    },
+    {
+      "intitule": "Bac + 5 Journalisme et Communication",
+      "niveau": "Bac+5",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esjc.ma/"
+    },
+    {
+      "intitule": "Bac+5 en Communication Digitale et Production audiovisuelle",
+      "niveau": "Bac+5",
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esjc.ma/"
+    },
+    {
+      "intitule": "Formations courtes certifiantes",
+      "niveau": null,
+      "diplome": "Certificat",
+      "duree_annees": null,
+      "specialites": [
+        "Formation audiovisuelle : maîtrisez votre présence à l’écran"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esjc.ma/formations-courtes-certifiantes/"
+    }
+  ],
+  "admission": {
+    "conditions": [],
+    "etapes": [],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
-  "admission": []
- }
+  "bourses": null,
+  "international": "Le site mentionne des partenaires internationaux (nombre non précisé dans le texte).",
+  "partenaires": [],
+  "vie_etudiante": [
+    "Journées immersives",
+    "Conférences, projets, workshops, stages",
+    "Studio TV et studio radio",
+    "Médiathèque"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": "37, Rue tata, Casablanca",
+    "telephone": "+212 (0)5 22 264010",
+    "email": null,
+    "annee_creation": "forme, depuis 2008, les étudiants qui souhaitent se lancer dans le journalisme et la communication",
+    "frais": [],
+    "admission": []
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
+  }
 }

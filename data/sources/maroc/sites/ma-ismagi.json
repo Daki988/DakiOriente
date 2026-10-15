@@ -243,5 +243,9 @@
     "admission": [
       "L’admission en première année est ouverte aux titulaires du baccalauréat (toutes séries) après examen de leur dossier, et réussite du test d’admission (test écrit et entretien oral)."
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

@@ -185,5 +185,9 @@
     "admission": [
       "Aux étudiants ayant validé un diplôme de niveau 5 du Cadre Européen des Certifications (CEC), leur ayant permis d’acquérir 120 crédits ECTS"
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

@@ -3,7 +3,19 @@
   "site_web": "https://esismp.com",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://esismp.com/", "https://esismp.com/formations/", "https://esismp.com/master-data-management/", "https://esismp.com/formation-professionnelle/", "https://esismp.com/master-environnement-sante/", "https://esismp.com/licence-sciences-infirmieres/", "https://esismp.com/licence-ingenierie-de-la-sante/", "https://esismp.com/master-marketing-des-produits-de-sante/", "https://esismp.com/master-coordination-des-essais-cliniques/", "https://esismp.com/licence-maintenance-et-technologie-biomedicale/", "https://esismp.com/master-management-des-etablissements-sanitaires/"],
+  "sources": [
+    "https://esismp.com/",
+    "https://esismp.com/formations/",
+    "https://esismp.com/master-data-management/",
+    "https://esismp.com/formation-professionnelle/",
+    "https://esismp.com/master-environnement-sante/",
+    "https://esismp.com/licence-sciences-infirmieres/",
+    "https://esismp.com/licence-ingenierie-de-la-sante/",
+    "https://esismp.com/master-marketing-des-produits-de-sante/",
+    "https://esismp.com/master-coordination-des-essais-cliniques/",
+    "https://esismp.com/licence-maintenance-et-technologie-biomedicale/",
+    "https://esismp.com/master-management-des-etablissements-sanitaires/"
+  ],
   "description": "École supérieure d'ingénierie de la santé et de management de projets, située rue La Fontaine (quartier Racine) à Casablanca. Elle propose des licences (ingénierie de la santé, maintenance et technologie biomédicale, gestion des structures médicales et sociales, sciences infirmières) et des masters en développement clinique, environnement-santé, management sanitaire et marketing des produits de santé, avec une double compétence en management de projets. Le site indique 13 mois de stages sur l'ensemble du cursus, des effectifs à taille humaine et une accréditation par le ministère de l'Enseignement supérieur ; des étudiants de plusieurs pays africains témoignent. Une offre de formation continue (diplômes d'université) est également présentée.",
   "annee_creation": null,
   "adresse": "24, Rue La Fontaine, Casablanca, Maroc",
@@ -11,20 +23,160 @@
   "email": "contact@esismp.com",
   "statut_annonce": "Filières accréditées par le ministère de l'Enseignement supérieur ; diplômes reconnus par l'État marocain",
   "programmes": [
-    {"intitule": "Licence Ingénierie de la santé", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/licence-ingenierie-de-la-sante/"},
-    {"intitule": "Licence Maintenance et technologie biomédicale", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/licence-maintenance-et-technologie-biomedicale/"},
-    {"intitule": "Licence Gestion des structures médicales et sociales", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/formations/"},
-    {"intitule": "Licence Sciences infirmières : infirmier polyvalent", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/licence-sciences-infirmieres/"},
-    {"intitule": "Master Conception et production des produits de santé", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/formations/"},
-    {"intitule": "Master Coordination des essais cliniques", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/master-coordination-des-essais-cliniques/"},
-    {"intitule": "Master Data Management", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/master-data-management/"},
-    {"intitule": "Master Environnement santé (Santé Environnement Travail)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/master-environnement-sante/"},
-    {"intitule": "Master Management des établissements sanitaires et médico-sociaux", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/master-management-des-etablissements-sanitaires/"},
-    {"intitule": "Master Marketing des produits de santé", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/master-marketing-des-produits-de-sante/"},
-    {"intitule": "Diplôme d'université Management et gestion de projet", "niveau": null, "diplome": "Diplôme d'université", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/"},
-    {"intitule": "Diplôme d'université Contamination Environnementale", "niveau": null, "diplome": "Diplôme d'université", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/"},
-    {"intitule": "Diplôme d'université Évaluation et gestion des risques chroniques environnementaux", "niveau": null, "diplome": "Diplôme d'université", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/"},
-    {"intitule": "Diplôme d'université Epidémiologie et Base de Données", "niveau": null, "diplome": "Diplôme d'université", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esismp.com/"}
+    {
+      "intitule": "Licence Ingénierie de la santé",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/licence-ingenierie-de-la-sante/"
+    },
+    {
+      "intitule": "Licence Maintenance et technologie biomédicale",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/licence-maintenance-et-technologie-biomedicale/"
+    },
+    {
+      "intitule": "Licence Gestion des structures médicales et sociales",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/formations/"
+    },
+    {
+      "intitule": "Licence Sciences infirmières : infirmier polyvalent",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/licence-sciences-infirmieres/"
+    },
+    {
+      "intitule": "Master Conception et production des produits de santé",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/formations/"
+    },
+    {
+      "intitule": "Master Coordination des essais cliniques",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/master-coordination-des-essais-cliniques/"
+    },
+    {
+      "intitule": "Master Data Management",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/master-data-management/"
+    },
+    {
+      "intitule": "Master Environnement santé (Santé Environnement Travail)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/master-environnement-sante/"
+    },
+    {
+      "intitule": "Master Management des établissements sanitaires et médico-sociaux",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/master-management-des-etablissements-sanitaires/"
+    },
+    {
+      "intitule": "Master Marketing des produits de santé",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/master-marketing-des-produits-de-sante/"
+    },
+    {
+      "intitule": "Diplôme d'université Management et gestion de projet",
+      "niveau": null,
+      "diplome": "Diplôme d'université",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/"
+    },
+    {
+      "intitule": "Diplôme d'université Contamination Environnementale",
+      "niveau": null,
+      "diplome": "Diplôme d'université",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/"
+    },
+    {
+      "intitule": "Diplôme d'université Évaluation et gestion des risques chroniques environnementaux",
+      "niveau": null,
+      "diplome": "Diplôme d'université",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/"
+    },
+    {
+      "intitule": "Diplôme d'université Epidémiologie et Base de Données",
+      "niveau": null,
+      "diplome": "Diplôme d'université",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esismp.com/"
+    }
   ],
   "admission": {
     "conditions": [
@@ -32,15 +184,24 @@
       "Licence sciences infirmières : baccalauréat toutes séries",
       "Masters : licence ou Bac+3 validé dans un domaine scientifique, de santé ou de gestion selon le master (accès en Bac+4)"
     ],
-    "etapes": ["Candidature en ligne, par courrier ou par email", "Étude de dossier", "Entretien"],
+    "etapes": [
+      "Candidature en ligne, par courrier ou par email",
+      "Étude de dossier",
+      "Entretien"
+    ],
     "concours": null,
     "dates": null
   },
   "frais": [],
   "bourses": "Partenariats avec des organismes de bourse pour le financement des études (selon le site).",
   "international": "Reconnaissance mentionnée en Europe via le CIEP et en Afrique via le CAMES ; partenariats avec des universités et formations en double diplomation.",
-  "partenaires": ["Entreprises, laboratoires et établissements de santé partenaires"],
-  "vie_etudiante": ["Rubrique Vie estudiantine", "Stages cumulant 13 mois sur les 5 années d'études"],
+  "partenaires": [
+    "Entreprises, laboratoires et établissements de santé partenaires"
+  ],
+  "vie_etudiante": [
+    "Rubrique Vie estudiantine",
+    "Stages cumulant 13 mois sur les 5 années d'études"
+  ],
   "logement": "Rubrique « Résider à Casablanca » mentionnée sur le site.",
   "preuves": {
     "adresse": "24, Rue La Fontaine, Casablanca, Maroc",
@@ -52,5 +213,9 @@
       "Pour accéder au Bac+4 l’étudiant doit avoir au moins une licence ou un bac+3 validé",
       "Mode de sélection : étude de dossier et entretien"
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

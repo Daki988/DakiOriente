@@ -1,0 +1,212 @@
+{
+  "id": "ma-upssa",
+  "site_web": "https://upssa.ac.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://upssa.ac.ma/",
+    "https://upssa.ac.ma/financement-frais-upssa/",
+    "https://upssa.ac.ma/service/si/"
+  ],
+  "description": "Université privée d’Agadir centrée sur les métiers de la santé, avec des facultés de médecine, de médecine dentaire, de pharmacie et de sciences infirmières et techniques de santé ; elle propose aussi des licences et masters en management et une école d’ingénieurs (ESPIA) avec cycle préparatoire intégré. Les licences paramédicales durent trois ans et comprennent des stages cliniques au centre hospitalier universitaire affilié. L’université dispose d’un centre de simulation médicale, d’une bibliothèque, de clubs étudiants et d’une page dédiée aux étudiants internationaux.",
+  "annee_creation": null,
+  "adresse": null,
+  "telephone": "+212 528 253 636",
+  "email": "contact@upssa.ac.ma",
+  "statut_annonce": null,
+  "programmes": [
+    {
+      "intitule": "Médecine (Faculté de Médecine)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://upssa.ac.ma/"
+    },
+    {
+      "intitule": "Pharmacie (Faculté de Pharmacie)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://upssa.ac.ma/"
+    },
+    {
+      "intitule": "Médecine dentaire (Faculté de Médecine Dentaire)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://upssa.ac.ma/"
+    },
+    {
+      "intitule": "Infirmier polyvalent",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://upssa.ac.ma/service/si/"
+    },
+    {
+      "intitule": "Infirmier anesthésie-réanimation",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://upssa.ac.ma/service/si/"
+    },
+    {
+      "intitule": "Technicien en laboratoire d’analyses médicales",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://upssa.ac.ma/service/si/"
+    },
+    {
+      "intitule": "Technicien en imagerie médicale",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://upssa.ac.ma/service/si/"
+    },
+    {
+      "intitule": "Licence en Management des Affaires",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [
+        "Finance, Comptabilité & Fiscalité",
+        "Contrôle de Gestion & Pilotage",
+        "Logistique & Commerce International",
+        "Marketing & Gestion Commerciale"
+      ],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://upssa.ac.ma/"
+    },
+    {
+      "intitule": "Masters spécialisés (Bac+5)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [
+        "Audit, Contrôle & Conseil",
+        "Corporate Finance",
+        "Commerce International",
+        "Logistics & Supply Chain Management",
+        "Marketing Digital & E-commerce"
+      ],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://upssa.ac.ma/"
+    },
+    {
+      "intitule": "Cycle Préparatoire Intégré (École d’ingénieur ESPIA)",
+      "niveau": "Bac+2",
+      "diplome": "Classes préparatoires intégrées",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://upssa.ac.ma/"
+    },
+    {
+      "intitule": "Cycle Ingénieur (École d’ingénieur ESPIA)",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [
+        "Génie Civil",
+        "Génie Mécanique",
+        "Génie Industriel",
+        "Génie Informatique",
+        "Génie Biomédical",
+        "Ingénierie Alimentaire"
+      ],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://upssa.ac.ma/"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Licences paramédicales : baccalauréat scientifique (SVT, sciences mathématiques, sciences physiques)",
+      "Sélection sur résultats du baccalauréat et évaluation des aptitudes psychotechniques"
+    ],
+    "etapes": [
+      "Saisie des informations personnelles (préinscription en ligne)",
+      "Indication du parcours académique (diplômes, relevés de notes, lettre de motivation)",
+      "Sélection du programme",
+      "Paiement des frais d’inscription pour finaliser l’inscription"
+    ],
+    "concours": "Frais de concours : 800 Dhs (médecine, pharmacie, médecine dentaire), 500 Dhs (sciences biomédicales)",
+    "dates": null
+  },
+  "frais": [
+    {
+      "cycle": "Médecine, Pharmacie, Médecine dentaire",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": null,
+      "note": "Frais de scolarité affichés : 125.000 Dhs (périodicité non précisée) ; frais de concours 800 Dhs"
+    },
+    {
+      "cycle": "Sciences infirmières et techniques de santé",
+      "inscription_mad": 5000,
+      "scolarite_annuelle_mad": null,
+      "note": "Frais de scolarité affichés : 27.000 Dhs (périodicité non précisée) ; frais de concours sciences biomédicales 500 Dhs"
+    }
+  ],
+  "bourses": "Bourses d’études (bourse de mérite) mentionnées ; détails non relevés.",
+  "international": "Page dédiée aux étudiants internationaux (contenu non relevé).",
+  "partenaires": [],
+  "vie_etudiante": [
+    "Clubs et BDE",
+    "Activités étudiantes",
+    "Bibliothèque",
+    "Centre de simulation médicale"
+  ],
+  "logement": null,
+  "preuves": {
+    "adresse": null,
+    "telephone": "Fixe : +(212) 528-253 636",
+    "email": "contact@upssa.ac.ma",
+    "annee_creation": null,
+    "frais": [
+      "## Les frais d’inscription, quant à eux,  s’élèvent à 5 000 Dhs",
+      "### Faculté de Médecine\n125.000\nDhs",
+      "### • Faculté des Sciences Infirmières et Techniques de Santé\n27.000\nDhs",
+      "### Médecine\n800\nDhs"
+    ],
+    "admission": [
+      "Les programmes de licence sont accessibles aux titulaires d’un baccalauréat scientifique (sciences de la vie et de la terre, sciences mathématiques, sciences physiques).",
+      "- Évaluation des aptitudes psychotechniques."
+    ]
+  }
+}

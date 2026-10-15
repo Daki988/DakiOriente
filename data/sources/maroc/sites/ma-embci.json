@@ -3,7 +3,15 @@
   "site_web": "https://embci.com",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://embci.com/", "https://embci.com/about-us-02/", "https://embci.com/inscription-admissions/", "https://embci.com/les-etudes-a-lembci/", "https://embci.com/conditions-generales-dutilisation-et-mentions-legales/", "https://embci.com/qui-sommes-nous/", "https://embci.com/contact/"],
+  "sources": [
+    "https://embci.com/",
+    "https://embci.com/about-us-02/",
+    "https://embci.com/inscription-admissions/",
+    "https://embci.com/les-etudes-a-lembci/",
+    "https://embci.com/conditions-generales-dutilisation-et-mentions-legales/",
+    "https://embci.com/qui-sommes-nous/",
+    "https://embci.com/contact/"
+  ],
   "description": "École de commerce de taille humaine située à Souissi (Rabat), fondée par des professionnels de la banque pour former des cadres financiers. Elle propose un cycle de 3 ans (Bac+3) polyvalent axé sur la banque et le commerce international, puis un master (Bac+5) en Banque & Finance ou en Commerce & logistique internationale. Les classes ne dépassent pas 15 étudiants, l'école accueille des étudiants de plusieurs nationalités africaines et propose aussi de la formation continue en cours du soir et de week-end.",
   "annee_creation": 1998,
   "adresse": "26 bis, Avenue du Souss, Souissi Rabat Maroc",
@@ -11,13 +19,50 @@
   "email": "contact@embci.com",
   "statut_annonce": "Formation initiale accréditée",
   "programmes": [
-    {"intitule": "Formation Bac+3 (tronc commun banque et commerce international)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Rabat"], "url": "https://embci.com/les-etudes-a-lembci/"},
-    {"intitule": "Master Banque & Finance", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Rabat"], "url": "https://embci.com/les-etudes-a-lembci/"},
-    {"intitule": "Master Commerce & logistique internationale", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Rabat"], "url": "https://embci.com/les-etudes-a-lembci/"}
+    {
+      "intitule": "Formation Bac+3 (tronc commun banque et commerce international)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://embci.com/les-etudes-a-lembci/"
+    },
+    {
+      "intitule": "Master Banque & Finance",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://embci.com/les-etudes-a-lembci/"
+    },
+    {
+      "intitule": "Master Commerce & logistique internationale",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://embci.com/les-etudes-a-lembci/"
+    }
   ],
   "admission": {
-    "conditions": ["1re année : baccalauréat (ou équivalent pour les candidats étrangers) toutes séries confondues", "2e, 3e ou 4e année : diplômes supérieurs équivalents au niveau convoité ou validation des semestres passés"],
-    "etapes": ["Étude de dossier", "Entretien oral avec le corps pédagogique", "Finalisation de l'inscription"],
+    "conditions": [
+      "1re année : baccalauréat (ou équivalent pour les candidats étrangers) toutes séries confondues",
+      "2e, 3e ou 4e année : diplômes supérieurs équivalents au niveau convoité ou validation des semestres passés"
+    ],
+    "etapes": [
+      "Étude de dossier",
+      "Entretien oral avec le corps pédagogique",
+      "Finalisation de l'inscription"
+    ],
     "concours": null,
     "dates": null
   },
@@ -25,7 +70,10 @@
   "bourses": null,
   "international": "Étudiants de plusieurs pays africains ; formations en ligne pour les étudiants étrangers installés hors du Maroc (formation continue).",
   "partenaires": [],
-  "vie_etudiante": ["Classes de 15 étudiants maximum", "Accompagnement personnalisé"],
+  "vie_etudiante": [
+    "Classes de 15 étudiants maximum",
+    "Accompagnement personnalisé"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "26 bis, Avenue du Souss, Souissi Rabat Maroc",
@@ -33,6 +81,13 @@
     "email": "contact@embci.com",
     "annee_creation": "L’EMBCI est une école de commerce fondée en 1998",
     "frais": null,
-    "admission": ["Après étude de dossier, un entretien oral est mené par le corps pédagogique afin d’évaluer les aptitudes et motivations du candidat.", "doivent être titulaires du baccalauréat (ou équivalent pour les candidats étrangers) toutes séries confondues."]
+    "admission": [
+      "Après étude de dossier, un entretien oral est mené par le corps pédagogique afin d’évaluer les aptitudes et motivations du candidat.",
+      "doivent être titulaires du baccalauréat (ou équivalent pour les candidats étrangers) toutes séries confondues."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

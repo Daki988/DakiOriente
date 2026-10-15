@@ -3,7 +3,18 @@
   "site_web": "https://centrale-casablanca.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://centrale-casablanca.ma/", "https://centrale-casablanca.ma/formations-initiales/international-bachelor-of-engineering/admissions/", "https://centrale-casablanca.ma/formations-initiales/international-bachelor-of-engineering/presentation-generale/", "https://centrale-casablanca.ma/ouverture-des-inscriptions-des-deux-bachelors-rentree-2026-2027/", "https://centrale-casablanca.ma/formations-initiales/formation-ingenieur-centralien/voies-dadmission/", "https://centrale-casablanca.ma/formations-initiales/bachelor-in-data-science-for-responsible-business/admissions/", "https://centrale-casablanca.ma/lecole/institutionnel/reconnaissance-du-diplome/", "https://centrale-casablanca.ma/formations-initiales/formation-ingenieur-centralien/presentation-generale/", "https://centrale-casablanca.ma/formations-initiales/bachelor-in-data-science-for-responsible-business/presentation-generale/", "https://centrale-casablanca.ma/programme-de-bourses-de-la-fondation-mastercard-a-lecc/"],
+  "sources": [
+    "https://centrale-casablanca.ma/",
+    "https://centrale-casablanca.ma/formations-initiales/international-bachelor-of-engineering/admissions/",
+    "https://centrale-casablanca.ma/formations-initiales/international-bachelor-of-engineering/presentation-generale/",
+    "https://centrale-casablanca.ma/ouverture-des-inscriptions-des-deux-bachelors-rentree-2026-2027/",
+    "https://centrale-casablanca.ma/formations-initiales/formation-ingenieur-centralien/voies-dadmission/",
+    "https://centrale-casablanca.ma/formations-initiales/bachelor-in-data-science-for-responsible-business/admissions/",
+    "https://centrale-casablanca.ma/lecole/institutionnel/reconnaissance-du-diplome/",
+    "https://centrale-casablanca.ma/formations-initiales/formation-ingenieur-centralien/presentation-generale/",
+    "https://centrale-casablanca.ma/formations-initiales/bachelor-in-data-science-for-responsible-business/presentation-generale/",
+    "https://centrale-casablanca.ma/programme-de-bourses-de-la-fondation-mastercard-a-lecc/"
+  ],
   "description": "École d'ingénieurs installée à Casablanca (Ville Verte, en lisière de la forêt de Bouskoura), appartenant au Groupe des Écoles Centrale. Elle propose une formation d'ingénieur généraliste, un International Bachelor of Engineering enseigné en anglais et un Bachelor in Data Science for Responsible Business dont les deux dernières années se déroulent à Lyon (emlyon business school et Centrale Lyon). Le diplôme d'ingénieur est présenté comme reconnu par l'État marocain et par l'État français (CTI) et porte le label EUR-ACE. L'admission se fait par concours (CNC, Concours Afrique, Concours sur Licence Maroc, CentraleSupélec) ou sur dossier et entretien pour les bachelors, avec un programme de bourses de la Fondation Mastercard.",
   "annee_creation": null,
   "adresse": "Ville Verte Côté Latéral Est à la forêt Boukoura, Casablanca",
@@ -11,21 +22,73 @@
   "email": "contact@centrale-casablanca.ma",
   "statut_annonce": "Établissement d'enseignement supérieur reconnu par l'État marocain",
   "programmes": [
-    {"intitule": "Formation ingénieur centralien", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": null, "specialites": ["Agriculture numérique", "Industrie 4.0", "Entreprendre en Afrique"], "campus": ["Casablanca"], "url": "https://centrale-casablanca.ma/formations-initiales/formation-ingenieur-centralien/presentation-generale/"},
-    {"intitule": "International Bachelor of Engineering", "niveau": null, "diplome": "Bachelor", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://centrale-casablanca.ma/formations-initiales/international-bachelor-of-engineering/presentation-generale/"},
-    {"intitule": "Bachelor in Data Science for Responsible Business", "niveau": null, "diplome": "Bachelor", "duree_annees": 4, "specialites": [], "campus": ["Casablanca", "Lyon"], "url": "https://centrale-casablanca.ma/formations-initiales/bachelor-in-data-science-for-responsible-business/presentation-generale/"}
+    {
+      "intitule": "Formation ingénieur centralien",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [
+        "Agriculture numérique",
+        "Industrie 4.0",
+        "Entreprendre en Afrique"
+      ],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://centrale-casablanca.ma/formations-initiales/formation-ingenieur-centralien/presentation-generale/"
+    },
+    {
+      "intitule": "International Bachelor of Engineering",
+      "niveau": null,
+      "diplome": "Bachelor",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://centrale-casablanca.ma/formations-initiales/international-bachelor-of-engineering/presentation-generale/"
+    },
+    {
+      "intitule": "Bachelor in Data Science for Responsible Business",
+      "niveau": null,
+      "diplome": "Bachelor",
+      "duree_annees": 4,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Lyon"
+      ],
+      "url": "https://centrale-casablanca.ma/formations-initiales/bachelor-in-data-science-for-responsible-business/presentation-generale/"
+    }
   ],
   "admission": {
-    "conditions": ["Bachelors : baccalauréat scientifique, de préférence avec mention Bien ou Très Bien, et bon niveau en anglais (ou GCE avec trois Advanced Levels)", "Cycle ingénieur : concours ECC-CNC, CentraleSupélec International ou France, Concours Afrique (CPGE 2e année, L3 ou M1), Concours sur Licence Maroc (L2 ou L3 mathématiques ou physique), Concours universitaire des Grandes Écoles"],
-    "etapes": ["Bachelors : étude de dossier (notes de lycée et baccalauréat / GCE)", "Bachelors : entretiens individuels de motivation"],
+    "conditions": [
+      "Bachelors : baccalauréat scientifique, de préférence avec mention Bien ou Très Bien, et bon niveau en anglais (ou GCE avec trois Advanced Levels)",
+      "Cycle ingénieur : concours ECC-CNC, CentraleSupélec International ou France, Concours Afrique (CPGE 2e année, L3 ou M1), Concours sur Licence Maroc (L2 ou L3 mathématiques ou physique), Concours universitaire des Grandes Écoles"
+    ],
+    "etapes": [
+      "Bachelors : étude de dossier (notes de lycée et baccalauréat / GCE)",
+      "Bachelors : entretiens individuels de motivation"
+    ],
     "concours": "ECC-CNC (120 places indicatives), CentraleSupélec International (15 places), Concours Afrique, Concours sur Licence Maroc",
     "dates": "Bachelors rentrée 2026 : date limite des inscriptions le 15 septembre 2026"
   },
   "frais": [],
   "bourses": "Programme de Bourses de la Fondation Mastercard pour le cursus ingénieur (jeunes du Maroc et d'Afrique subsaharienne) : scolarité prise en charge à 100 %, logement à la résidence du campus, frais de vie, assurance santé, matériel et billet d'avion.",
   "international": "Formation multiculturelle, bachelor en data science avec deux dernières années à Lyon, mobilités et doubles diplômes, épreuves de concours organisées aussi au Liban, en Tunisie et au Gabon.",
-  "partenaires": ["emlyon business school", "Centrale Lyon", "SHERPA Engineering", "Fondation Mastercard"],
-  "vie_etudiante": ["Vie associative (BDE, BDS, JECC)", "Résidence et foyers sur le campus", "Installations sportives", "Entrepreneuriat et innovation", "Centre de recherche"],
+  "partenaires": [
+    "emlyon business school",
+    "Centrale Lyon",
+    "SHERPA Engineering",
+    "Fondation Mastercard"
+  ],
+  "vie_etudiante": [
+    "Vie associative (BDE, BDS, JECC)",
+    "Résidence et foyers sur le campus",
+    "Installations sportives",
+    "Entrepreneuriat et innovation",
+    "Centre de recherche"
+  ],
   "logement": "Résidence et foyers sur le campus.",
   "preuves": {
     "adresse": "Ville Verte Côté Latéral Est à la forêt Boukoura, Casablanca",
@@ -33,6 +96,13 @@
     "email": "contact@centrale-casablanca.ma",
     "annee_creation": null,
     "frais": null,
-    "admission": ["Date limite des inscriptions : lundi 15 septembre 2026", "Etude de dossier (notes de lycée et Baccalauréat / GCE)"]
+    "admission": [
+      "Date limite des inscriptions : lundi 15 septembre 2026",
+      "Etude de dossier (notes de lycée et Baccalauréat / GCE)"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

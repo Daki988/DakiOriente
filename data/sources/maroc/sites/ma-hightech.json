@@ -3,7 +3,18 @@
   "site_web": "https://www.hightech.edu",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://www.hightech.edu/", "https://www.hightech.edu/admission-en-cycle-dingenierie/", "https://www.hightech.edu/admission-en-cycle-de-management/", "https://www.hightech.edu/admission-en-miage/", "https://www.hightech.edu/cursus-ingenierie/", "https://www.hightech.edu/cursus-management/", "https://www.hightech.edu/devops/", "https://www.hightech.edu/miage-methodes-informatiques-appliquees-a-la-gestion-des-entreprises/", "https://www.hightech.edu/formation-continue/", "https://www.hightech.edu/notre-histoire/"],
+  "sources": [
+    "https://www.hightech.edu/",
+    "https://www.hightech.edu/admission-en-cycle-dingenierie/",
+    "https://www.hightech.edu/admission-en-cycle-de-management/",
+    "https://www.hightech.edu/admission-en-miage/",
+    "https://www.hightech.edu/cursus-ingenierie/",
+    "https://www.hightech.edu/cursus-management/",
+    "https://www.hightech.edu/devops/",
+    "https://www.hightech.edu/miage-methodes-informatiques-appliquees-a-la-gestion-des-entreprises/",
+    "https://www.hightech.edu/formation-continue/",
+    "https://www.hightech.edu/notre-histoire/"
+  ],
   "description": "École d'enseignement supérieur privée en ingénierie et en management, installée à Rabat (Agdal) et fondée en 1986, qui se présente comme reconnue par l'État. Elle propose un cursus d'ingénierie et un cursus de management en cinq ans (deux années de tronc commun ou de classes préparatoires intégrées, puis licence, master ou cycle ingénieur d'État), ainsi que deux formations en double diplomation avec l'Université Lyon 1 (Master MIAGE et Licence professionnelle DevOps). L'école met en avant le coaching, les stages, les projets et une centaine de partenariats, ainsi que la présence de plus de 15 nationalités.",
   "annee_creation": 1986,
   "adresse": "59 Rue Jbel Oukaiemden, Rabat-Agdal",
@@ -11,27 +22,186 @@
   "email": null,
   "statut_annonce": "École d'enseignement supérieur reconnue par l'État",
   "programmes": [
-    {"intitule": "Procédés Industriels et Automatismes", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/"},
-    {"intitule": "Génie Informatique", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/"},
-    {"intitule": "Génie Logiciel", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/"},
-    {"intitule": "Intelligence Artificielle & Big Data", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/"},
-    {"intitule": "Cybersécurité", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/"},
-    {"intitule": "Administration des Entreprises", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/"},
-    {"intitule": "Marketing", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/"},
-    {"intitule": "Finance & Comptabilité", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/"},
-    {"intitule": "Marketing & E-Communication", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/"},
-    {"intitule": "Finance - Audit et Contrôle de Gestion (F-ACG)", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/"},
-    {"intitule": "Gestion des Ressources Humaines", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/"},
-    {"intitule": "Achats et Logistique", "niveau": null, "diplome": null, "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/"},
-    {"intitule": "Licence professionnelle DevOps (double diplomation Université Lyon 1)", "niveau": "Bac+3", "diplome": "Licence professionnelle", "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/devops/"},
-    {"intitule": "Master MIAGE (double diplomation Université Claude Bernard Lyon 1)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Rabat"], "url": "https://www.hightech.edu/miage-methodes-informatiques-appliquees-a-la-gestion-des-entreprises/"}
+    {
+      "intitule": "Procédés Industriels et Automatismes",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/"
+    },
+    {
+      "intitule": "Génie Informatique",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/"
+    },
+    {
+      "intitule": "Génie Logiciel",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/"
+    },
+    {
+      "intitule": "Intelligence Artificielle & Big Data",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/"
+    },
+    {
+      "intitule": "Cybersécurité",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/"
+    },
+    {
+      "intitule": "Administration des Entreprises",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/"
+    },
+    {
+      "intitule": "Marketing",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/"
+    },
+    {
+      "intitule": "Finance & Comptabilité",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/"
+    },
+    {
+      "intitule": "Marketing & E-Communication",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/"
+    },
+    {
+      "intitule": "Finance - Audit et Contrôle de Gestion (F-ACG)",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/"
+    },
+    {
+      "intitule": "Gestion des Ressources Humaines",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/"
+    },
+    {
+      "intitule": "Achats et Logistique",
+      "niveau": null,
+      "diplome": null,
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/"
+    },
+    {
+      "intitule": "Licence professionnelle DevOps (double diplomation Université Lyon 1)",
+      "niveau": "Bac+3",
+      "diplome": "Licence professionnelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/devops/"
+    },
+    {
+      "intitule": "Master MIAGE (double diplomation Université Claude Bernard Lyon 1)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.hightech.edu/miage-methodes-informatiques-appliquees-a-la-gestion-des-entreprises/"
+    }
   ],
-  "admission": {"conditions": ["Cycle ingénierie : baccalauréat scientifique ou technique ; accès en 3e ou 4e année avec une licence ou un diplôme équivalent en sciences et techniques", "Cycle management : tout type de baccalauréat ; accès en 3e ou 4e année avec une licence en économie ou gestion ou équivalent"], "etapes": ["Étude du dossier", "Évaluation et entretien de motivation (ingénierie)", "Décision finale du jury"], "concours": null, "dates": null},
+  "admission": {
+    "conditions": [
+      "Cycle ingénierie : baccalauréat scientifique ou technique ; accès en 3e ou 4e année avec une licence ou un diplôme équivalent en sciences et techniques",
+      "Cycle management : tout type de baccalauréat ; accès en 3e ou 4e année avec une licence en économie ou gestion ou équivalent"
+    ],
+    "etapes": [
+      "Étude du dossier",
+      "Évaluation et entretien de motivation (ingénierie)",
+      "Décision finale du jury"
+    ],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
   "bourses": null,
   "international": "Doubles diplômations avec l'Université Lyon 1 (Master MIAGE, Licence professionnelle DevOps) ; plus de 60 conventions et partenariats et plus de 15 nationalités représentées.",
-  "partenaires": ["Université Claude Bernard Lyon 1", "Avaliance"],
-  "vie_etudiante": ["Bureau des étudiants", "Coaching, mentoring et soft skills", "Stages et projets"],
+  "partenaires": [
+    "Université Claude Bernard Lyon 1",
+    "Avaliance"
+  ],
+  "vie_etudiante": [
+    "Bureau des étudiants",
+    "Coaching, mentoring et soft skills",
+    "Stages et projets"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "59 Rue Jbel Oukaiemden",
@@ -39,6 +209,13 @@
     "email": null,
     "annee_creation": "Fondée en 1986, l’école High-Tech est une école d’enseignement supérieur",
     "frais": [],
-    "admission": ["L’accès est autorisé pour les élèves titulaires d’un baccalauréat scientifique ou technique.", "L’accès est autorisé pour les élèves titulaires de tout type de baccalauréat : scientifique, technique, littéraire"]
+    "admission": [
+      "L’accès est autorisé pour les élèves titulaires d’un baccalauréat scientifique ou technique.",
+      "L’accès est autorisé pour les élèves titulaires de tout type de baccalauréat : scientifique, technique, littéraire"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

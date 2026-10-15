@@ -290,5 +290,9 @@
     "admission": [
       "## 🎓 Ouverture des Inscriptions UPF 2026-2027"
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

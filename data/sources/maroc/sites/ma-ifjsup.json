@@ -3,7 +3,11 @@
   "site_web": "https://www.ifjsup.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://www.ifjsup.ma/", "https://www.ifjsup.ma/2018/06/17/ingenierie-en-technologie-de-linformation-audiovisuelle/", "https://www.ifjsup.ma/contact-marrakech/"],
+  "sources": [
+    "https://www.ifjsup.ma/",
+    "https://www.ifjsup.ma/2018/06/17/ingenierie-en-technologie-de-linformation-audiovisuelle/",
+    "https://www.ifjsup.ma/contact-marrakech/"
+  ],
   "description": "Institut privé de formation au journalisme et à l'audiovisuel, installé à Derb Omar à Casablanca avec une antenne à Marrakech (Guéliz). Il propose six filières, du niveau bac au niveau Bac+3 : journalisme, ingénierie en technologie de l'information audiovisuelle, médias numériques, diplomatie sportive et deux formations de technicien. Le site met en avant des enseignants exerçant le métier, des stages, des ateliers pratiques et des partenariats avec des établissements étrangers.",
   "annee_creation": 1994,
   "adresse": "97 c, boulevard hassan seghir Derb Omar, Casablanca",
@@ -11,19 +15,100 @@
   "email": "Contact@ifjsup.ma",
   "statut_annonce": "Institut privé autorisé par l'État, filières accréditées",
   "programmes": [
-    {"intitule": "Journalisme", "niveau": "Bac+3", "diplome": "Diplôme de Journalisme", "duree_annees": 3, "specialites": [], "campus": ["Casablanca", "Marrakech"], "url": "https://www.ifjsup.ma/"},
-    {"intitule": "Ingénierie en technologie de l'information audiovisuelle", "niveau": "Bac+3", "diplome": "Diplôme d'Ingénierie en technologie de l'information audiovisuelle", "duree_annees": null, "specialites": [], "campus": ["Casablanca", "Marrakech"], "url": "https://www.ifjsup.ma/2018/06/17/ingenierie-en-technologie-de-linformation-audiovisuelle/"},
-    {"intitule": "Médias Numériques", "niveau": "Bac+3", "diplome": "Diplôme Médias Numériques", "duree_annees": null, "specialites": [], "campus": ["Casablanca", "Marrakech"], "url": "https://www.ifjsup.ma/"},
-    {"intitule": "Diplomatie Sportive", "niveau": null, "diplome": "Diplôme de diplomatie sportive", "duree_annees": null, "specialites": [], "campus": ["Casablanca", "Marrakech"], "url": "https://www.ifjsup.ma/"},
-    {"intitule": "Technicien en Journalisme", "niveau": null, "diplome": "Diplôme de Technicien en Journalisme", "duree_annees": 2, "specialites": [], "campus": ["Casablanca", "Marrakech"], "url": "https://www.ifjsup.ma/"},
-    {"intitule": "Technicien en audiovisuel", "niveau": null, "diplome": "Diplôme de Technicien en audiovisuel", "duree_annees": 2, "specialites": [], "campus": ["Casablanca", "Marrakech"], "url": "https://www.ifjsup.ma/"}
+    {
+      "intitule": "Journalisme",
+      "niveau": "Bac+3",
+      "diplome": "Diplôme de Journalisme",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Marrakech"
+      ],
+      "url": "https://www.ifjsup.ma/"
+    },
+    {
+      "intitule": "Ingénierie en technologie de l'information audiovisuelle",
+      "niveau": "Bac+3",
+      "diplome": "Diplôme d'Ingénierie en technologie de l'information audiovisuelle",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Marrakech"
+      ],
+      "url": "https://www.ifjsup.ma/2018/06/17/ingenierie-en-technologie-de-linformation-audiovisuelle/"
+    },
+    {
+      "intitule": "Médias Numériques",
+      "niveau": "Bac+3",
+      "diplome": "Diplôme Médias Numériques",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Marrakech"
+      ],
+      "url": "https://www.ifjsup.ma/"
+    },
+    {
+      "intitule": "Diplomatie Sportive",
+      "niveau": null,
+      "diplome": "Diplôme de diplomatie sportive",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Marrakech"
+      ],
+      "url": "https://www.ifjsup.ma/"
+    },
+    {
+      "intitule": "Technicien en Journalisme",
+      "niveau": null,
+      "diplome": "Diplôme de Technicien en Journalisme",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Marrakech"
+      ],
+      "url": "https://www.ifjsup.ma/"
+    },
+    {
+      "intitule": "Technicien en audiovisuel",
+      "niveau": null,
+      "diplome": "Diplôme de Technicien en audiovisuel",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Marrakech"
+      ],
+      "url": "https://www.ifjsup.ma/"
+    }
   ],
-  "admission": {"conditions": ["Journalisme et Ingénierie en technologie A.V. : baccalauréat", "Médias Numériques et Diplomatie Sportive : Bac+3 / licence", "Techniciens en journalisme et en audiovisuel : niveau bac"], "etapes": [], "concours": null, "dates": null},
+  "admission": {
+    "conditions": [
+      "Journalisme et Ingénierie en technologie A.V. : baccalauréat",
+      "Médias Numériques et Diplomatie Sportive : Bac+3 / licence",
+      "Techniciens en journalisme et en audiovisuel : niveau bac"
+    ],
+    "etapes": [],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
   "bourses": null,
   "international": "Partenariats signés avec des établissements de formation étrangers ; formation de présentateur TV organisée avec l'Institut Al Jazeera (2018).",
-  "partenaires": ["Institut Al Jazeera des Médias"],
-  "vie_etudiante": ["Clubs (football, photographie, littérature)", "Projets personnels audiovisuels", "Stages de formation"],
+  "partenaires": [
+    "Institut Al Jazeera des Médias"
+  ],
+  "vie_etudiante": [
+    "Clubs (football, photographie, littérature)",
+    "Projets personnels audiovisuels",
+    "Stages de formation"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "97 c, boulevard hassan seghir Derb Omar, Casablanca",
@@ -31,6 +116,12 @@
     "email": "Contact@ifjsup.ma",
     "annee_creation": "Depuis sa création en 1994, L’institut supérieur de journalisme",
     "frais": [],
-    "admission": ["Filière Accréditée Conditions d’accès : BAC Diplôme à obtenir : Diplôme de Journalisme BAC + 3"]
+    "admission": [
+      "Filière Accréditée Conditions d’accès : BAC Diplôme à obtenir : Diplôme de Journalisme BAC + 3"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

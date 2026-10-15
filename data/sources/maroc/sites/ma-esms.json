@@ -3,7 +3,12 @@
   "site_web": "https://esms.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://esms.ma/", "https://esms.ma/contact/", "https://esms.ma/gallery/", "https://esms.ma/faculty-of-science/"],
+  "sources": [
+    "https://esms.ma/",
+    "https://esms.ma/contact/",
+    "https://esms.ma/gallery/",
+    "https://esms.ma/faculty-of-science/"
+  ],
   "description": "École supérieure de management installée à Agadir (quartier Dakhla), qui propose des formations en commerce et gestion de niveau Bac+2 à Bac+8. Le site cite des BTS, des Bachelors, des MBA et des DBA, avec plus de 16 formations annoncées. Un module « Ouverture » dès le premier semestre associe conférences, forums et rencontres au cursus. Le site ne détaille ni les intitulés précis des filières, ni les frais, ni les conditions d'admission propres à l'école.",
   "annee_creation": null,
   "adresse": "2 Avenue Al Mansour Eddahbi, Quartier Dakhla, Agadir",
@@ -11,17 +16,64 @@
   "email": "esmsmaroc@gmail.com",
   "statut_annonce": "Formations annoncées comme accréditées",
   "programmes": [
-    {"intitule": "BTS (formations de commerce)", "niveau": "Bac+2", "diplome": "BTS", "duree_annees": 2, "specialites": [], "campus": ["Agadir"], "url": "https://esms.ma/faculty-of-science/"},
-    {"intitule": "Bachelor (formations de commerce)", "niveau": "Bac+3", "diplome": "Bachelor", "duree_annees": 3, "specialites": [], "campus": ["Agadir"], "url": "https://esms.ma/faculty-of-science/"},
-    {"intitule": "MBA (formations de commerce)", "niveau": "Bac+5", "diplome": "MBA", "duree_annees": null, "specialites": [], "campus": ["Agadir"], "url": "https://esms.ma/faculty-of-science/"},
-    {"intitule": "DBA (formations de commerce)", "niveau": "Bac+8", "diplome": "Doctorat", "duree_annees": null, "specialites": [], "campus": ["Agadir"], "url": "https://esms.ma/faculty-of-science/"}
+    {
+      "intitule": "BTS (formations de commerce)",
+      "niveau": "Bac+2",
+      "diplome": "BTS",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://esms.ma/faculty-of-science/"
+    },
+    {
+      "intitule": "Bachelor (formations de commerce)",
+      "niveau": "Bac+3",
+      "diplome": "Bachelor",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://esms.ma/faculty-of-science/"
+    },
+    {
+      "intitule": "MBA (formations de commerce)",
+      "niveau": "Bac+5",
+      "diplome": "MBA",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://esms.ma/faculty-of-science/"
+    },
+    {
+      "intitule": "DBA (formations de commerce)",
+      "niveau": "Bac+8",
+      "diplome": "Doctorat",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Agadir"
+      ],
+      "url": "https://esms.ma/faculty-of-science/"
+    }
   ],
-  "admission": {"conditions": [], "etapes": [], "concours": null, "dates": null},
+  "admission": {
+    "conditions": [],
+    "etapes": [],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
   "bourses": null,
   "international": null,
   "partenaires": [],
-  "vie_etudiante": ["Module « Ouverture » : conférences, forums, rencontres, débats"],
+  "vie_etudiante": [
+    "Module « Ouverture » : conférences, forums, rencontres, débats"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "2 Avenue Al Mansour Eddahbi",
@@ -30,5 +82,9 @@
     "annee_creation": null,
     "frais": [],
     "admission": []
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

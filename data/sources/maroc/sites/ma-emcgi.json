@@ -3,7 +3,16 @@
   "site_web": "https://emcgi.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://emcgi.ma/", "https://emcgi.ma/inscription/", "https://emcgi.ma/a-propos/", "https://emcgi.ma/bachelor-finance/", "https://emcgi.ma/master-logistique-et-transport/", "https://emcgi.ma/bachelor-transport-et-logistique/", "https://emcgi.ma/master-management-et-strategie-des-organisations/", "https://emcgi.ma/contact-3/"],
+  "sources": [
+    "https://emcgi.ma/",
+    "https://emcgi.ma/inscription/",
+    "https://emcgi.ma/a-propos/",
+    "https://emcgi.ma/bachelor-finance/",
+    "https://emcgi.ma/master-logistique-et-transport/",
+    "https://emcgi.ma/bachelor-transport-et-logistique/",
+    "https://emcgi.ma/master-management-et-strategie-des-organisations/",
+    "https://emcgi.ma/contact-3/"
+  ],
   "description": "École privée de management des entreprises installée à Tanger (Mara 2). Elle propose un cycle Bac+3 en management des entreprises, un cycle Bac+5 (ingénierie financière, ingénierie marketing et logistique) et des formations continues (masters et bachelors en logistique, transport et finance). Le site met en avant une pédagogie personnalisée en petits groupes, des stages dès la première année, des visites d'entreprises de la région du Nord et des bourses d'excellence.",
   "annee_creation": 2008,
   "adresse": "Ksaibi, rue E, Lot. N°3, Mara 2, Tanger, Maroc",
@@ -11,25 +20,110 @@
   "email": "emcgi@emcgi.ma",
   "statut_annonce": "Accréditée par l'État depuis 2012 ; diplômes accrédités par l'État",
   "programmes": [
-    {"intitule": "Management des Entreprises", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://emcgi.ma/bachelor-finance/"},
-    {"intitule": "Ingénierie Financière", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://emcgi.ma/"},
-    {"intitule": "Ingénierie Marketing & Logistique", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://emcgi.ma/"},
-    {"intitule": "Master Logistique et Transport", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://emcgi.ma/master-logistique-et-transport/"},
-    {"intitule": "Master Management et Stratégie des Organisations", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://emcgi.ma/master-management-et-strategie-des-organisations/"},
-    {"intitule": "Bachelor Transport et Logistique", "niveau": "Bac+3", "diplome": "Bachelor", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://emcgi.ma/bachelor-transport-et-logistique/"},
-    {"intitule": "Bachelor Finance", "niveau": "Bac+3", "diplome": "Bachelor", "duree_annees": null, "specialites": [], "campus": ["Tanger"], "url": "https://emcgi.ma/bachelor-finance/"}
+    {
+      "intitule": "Management des Entreprises",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://emcgi.ma/bachelor-finance/"
+    },
+    {
+      "intitule": "Ingénierie Financière",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://emcgi.ma/"
+    },
+    {
+      "intitule": "Ingénierie Marketing & Logistique",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://emcgi.ma/"
+    },
+    {
+      "intitule": "Master Logistique et Transport",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://emcgi.ma/master-logistique-et-transport/"
+    },
+    {
+      "intitule": "Master Management et Stratégie des Organisations",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://emcgi.ma/master-management-et-strategie-des-organisations/"
+    },
+    {
+      "intitule": "Bachelor Transport et Logistique",
+      "niveau": "Bac+3",
+      "diplome": "Bachelor",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://emcgi.ma/bachelor-transport-et-logistique/"
+    },
+    {
+      "intitule": "Bachelor Finance",
+      "niveau": "Bac+3",
+      "diplome": "Bachelor",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Tanger"
+      ],
+      "url": "https://emcgi.ma/bachelor-finance/"
+    }
   ],
   "admission": {
-    "conditions": ["Première année : baccalauréat", "Deuxième année : première année validée dans un établissement public ou privé", "Bachelor Transport et Logistique : diplôme Bac+2 en transport, logistique ou équivalent"],
-    "etapes": ["Fiche de préinscription", "Dépôt des pièces (copies légalisées du baccalauréat et de la CIN, extraits d'acte de naissance, photos, enveloppes timbrées)"],
+    "conditions": [
+      "Première année : baccalauréat",
+      "Deuxième année : première année validée dans un établissement public ou privé",
+      "Bachelor Transport et Logistique : diplôme Bac+2 en transport, logistique ou équivalent"
+    ],
+    "etapes": [
+      "Fiche de préinscription",
+      "Dépôt des pièces (copies légalisées du baccalauréat et de la CIN, extraits d'acte de naissance, photos, enveloppes timbrées)"
+    ],
     "concours": null,
     "dates": null
   },
   "frais": [],
   "bourses": "Rubrique « Bourses d'Excellence » mentionnée sur le site, sans détail.",
   "international": null,
-  "partenaires": ["Plus de 30 partenaires (selon le site)"],
-  "vie_etudiante": ["Activités parascolaires", "Centre de documentation", "Salle de lecture", "Cafétéria", "Infirmerie"],
+  "partenaires": [
+    "Plus de 30 partenaires (selon le site)"
+  ],
+  "vie_etudiante": [
+    "Activités parascolaires",
+    "Centre de documentation",
+    "Salle de lecture",
+    "Cafétéria",
+    "Infirmerie"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "Ksaibi, rue E, Lot. N°3, Mara 2, Tanger, Maroc",
@@ -37,6 +131,13 @@
     "email": "emcgi@emcgi.ma",
     "annee_creation": "Fondée en 2008 par une pléiade de professeurs",
     "frais": null,
-    "admission": ["L’accès en Premiere Année de La Filière ME est réservé aux candidats titulaires d’un Baccalauréat.", "Être titulaire d’un diplôme de niveau Bac+2en transport, logistique ou un diplôme équivalent."]
+    "admission": [
+      "L’accès en Premiere Année de La Filière ME est réservé aux candidats titulaires d’un Baccalauréat.",
+      "Être titulaire d’un diplôme de niveau Bac+2en transport, logistique ou un diplôme équivalent."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

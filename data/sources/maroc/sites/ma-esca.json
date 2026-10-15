@@ -3,7 +3,12 @@
   "site_web": "https://esca.ma",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://esca.ma/", "https://esca.ma/admissions/formation-initiale", "https://esca.ma/programme-grande-ecole", "https://esca.ma/admissions/bourse-de-merite"],
+  "sources": [
+    "https://esca.ma/",
+    "https://esca.ma/admissions/formation-initiale",
+    "https://esca.ma/programme-grande-ecole",
+    "https://esca.ma/admissions/bourse-de-merite"
+  ],
   "description": "École de management installée à Casablanca Finance City. Elle propose un Programme Grande École en 5 ans après le bac (Bac+5) avec plusieurs parcours, des licences (Bac+3) dont un programme IBA enseigné en anglais, et des masters spécialisés (Bac+5) destinés aux titulaires d'un Bac+3. Le site met en avant des stages intégrés au cursus, des places de double diplôme et d'échange avec des partenaires internationaux, plus de 40 nationalités et des bourses de mérite à partir d'une moyenne de 15.",
   "annee_creation": 1992,
   "adresse": "67-3 Avenue de l’Aéropostale, Casablanca Finance City (CFC), 20250 Casablanca - Maroc",
@@ -11,29 +16,207 @@
   "email": "admissions@esca.ma",
   "statut_annonce": "1ère École de Management privée reconnue par l'État marocain",
   "programmes": [
-    {"intitule": "PGE Entrepreneuriat et Innovation", "niveau": "Bac+5", "diplome": "Programme Grande École", "duree_annees": 5, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/programme-grande-ecole"},
-    {"intitule": "PGE Finance, Audit et Contrôle", "niveau": "Bac+5", "diplome": "Programme Grande École", "duree_annees": 5, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/programme-grande-ecole"},
-    {"intitule": "PGE International Business", "niveau": "Bac+5", "diplome": "Programme Grande École", "duree_annees": 5, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/programme-grande-ecole"},
-    {"intitule": "PGE Ingénierie Financière", "niveau": "Bac+5", "diplome": "Programme Grande École", "duree_annees": 5, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/programme-grande-ecole"},
-    {"intitule": "PGE Marketing Digital et Communication", "niveau": "Bac+5", "diplome": "Programme Grande École", "duree_annees": 5, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/programme-grande-ecole"},
-    {"intitule": "Licence Management des Entreprises, Gestion Comptable et Financière", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/"},
-    {"intitule": "Licence Management des Entreprises, Achat et logistique internationale", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/"},
-    {"intitule": "Licence Management des Entreprises, E-Business et Marketing Digital", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/"},
-    {"intitule": "IBA Program (100% en anglais)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/"},
-    {"intitule": "Master Spécialisé Management de Projets", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/"},
-    {"intitule": "Master Spécialisé Management des Ressources Humaines", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/"},
-    {"intitule": "Master Spécialisé Management Financier", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/"},
-    {"intitule": "Master Spécialisé Audit et Contrôle de Gestion", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/"},
-    {"intitule": "Master Spécialisé Marketing Digital", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/"},
-    {"intitule": "Master Spécialisé Ingénierie Juridique, Financière et Fiscale", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/"},
-    {"intitule": "Master Spécialisé Achats et Supply Chain Management", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://esca.ma/"}
+    {
+      "intitule": "PGE Entrepreneuriat et Innovation",
+      "niveau": "Bac+5",
+      "diplome": "Programme Grande École",
+      "duree_annees": 5,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/programme-grande-ecole"
+    },
+    {
+      "intitule": "PGE Finance, Audit et Contrôle",
+      "niveau": "Bac+5",
+      "diplome": "Programme Grande École",
+      "duree_annees": 5,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/programme-grande-ecole"
+    },
+    {
+      "intitule": "PGE International Business",
+      "niveau": "Bac+5",
+      "diplome": "Programme Grande École",
+      "duree_annees": 5,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/programme-grande-ecole"
+    },
+    {
+      "intitule": "PGE Ingénierie Financière",
+      "niveau": "Bac+5",
+      "diplome": "Programme Grande École",
+      "duree_annees": 5,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/programme-grande-ecole"
+    },
+    {
+      "intitule": "PGE Marketing Digital et Communication",
+      "niveau": "Bac+5",
+      "diplome": "Programme Grande École",
+      "duree_annees": 5,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/programme-grande-ecole"
+    },
+    {
+      "intitule": "Licence Management des Entreprises, Gestion Comptable et Financière",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/"
+    },
+    {
+      "intitule": "Licence Management des Entreprises, Achat et logistique internationale",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/"
+    },
+    {
+      "intitule": "Licence Management des Entreprises, E-Business et Marketing Digital",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/"
+    },
+    {
+      "intitule": "IBA Program (100% en anglais)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/"
+    },
+    {
+      "intitule": "Master Spécialisé Management de Projets",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/"
+    },
+    {
+      "intitule": "Master Spécialisé Management des Ressources Humaines",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/"
+    },
+    {
+      "intitule": "Master Spécialisé Management Financier",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/"
+    },
+    {
+      "intitule": "Master Spécialisé Audit et Contrôle de Gestion",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/"
+    },
+    {
+      "intitule": "Master Spécialisé Marketing Digital",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/"
+    },
+    {
+      "intitule": "Master Spécialisé Ingénierie Juridique, Financière et Fiscale",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/"
+    },
+    {
+      "intitule": "Master Spécialisé Achats et Supply Chain Management",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://esca.ma/"
+    }
   ],
-  "admission": {"conditions": ["PGE et licences : bacheliers ou futurs bacheliers, admission parallèle possible", "Masters spécialisés : titulaires d'un Bac+3"], "etapes": ["Étude de dossier", "Entretien oral (possible à distance)"], "concours": null, "dates": null},
+  "admission": {
+    "conditions": [
+      "PGE et licences : bacheliers ou futurs bacheliers, admission parallèle possible",
+      "Masters spécialisés : titulaires d'un Bac+3"
+    ],
+    "etapes": [
+      "Étude de dossier",
+      "Entretien oral (possible à distance)"
+    ],
+    "concours": null,
+    "dates": null
+  },
   "frais": [],
   "bourses": "Bourses de mérite partielles attribuées à partir d'une moyenne égale ou supérieure à 15 (note du Bac ou du dernier diplôme et note d'entretien) ; prêt études possible auprès de CIH Bank et Bank of Africa, jusqu'à 50 000 dhs par année d'étude.",
   "international": "Plus de 40 nationalités, plus de 300 étudiants internationaux, 140 partenaires internationaux, plus de 70 places de double diplôme et 360 places d'échange.",
-  "partenaires": ["140 partenaires internationaux", "Plus de 78 entreprises partenaires connectées au campus"],
-  "vie_etudiante": ["Vie associative", "Campus de 16 500 m2 sur 8 étages", "Casablanca Summer Academy"],
+  "partenaires": [
+    "140 partenaires internationaux",
+    "Plus de 78 entreprises partenaires connectées au campus"
+  ],
+  "vie_etudiante": [
+    "Vie associative",
+    "Campus de 16 500 m2 sur 8 étages",
+    "Casablanca Summer Academy"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "67-3 Avenue de l’Aéropostale",
@@ -41,6 +224,12 @@
     "email": "admissions@esca.ma",
     "annee_creation": "Depuis sa création en 1992, ESCA Ecole de Management",
     "frais": [],
-    "admission": ["L’admission à la Formation Initiale se fait suite à une étude de dossier et à un entretien oral."]
+    "admission": [
+      "L’admission à la Formation Initiale se fait suite à une étude de dossier et à un entretien oral."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

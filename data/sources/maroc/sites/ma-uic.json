@@ -209,5 +209,9 @@
       "Le règlement des frais de test d’admission sont à effectuer le jour du test d’admission.",
       "Les frais d’inscription sont nécessaires pour confirmer votre inscription"
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

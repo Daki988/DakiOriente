@@ -196,5 +196,9 @@
     "admission": [
       "Cocnours d'admission Classes Préparatoires"
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

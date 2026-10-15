@@ -3,7 +3,19 @@
   "site_web": "https://www.isfort-maroc.com",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://www.isfort-maroc.com/", "https://www.isfort-maroc.com/diplome-international", "https://www.isfort-maroc.com/pourquoi-isfort", "https://www.isfort-maroc.com/candidature-en-ligne", "https://www.isfort-maroc.com/master", "https://www.isfort-maroc.com/licence", "https://www.isfort-maroc.com/licence-qhse", "https://www.isfort-maroc.com/master-qualite", "https://www.isfort-maroc.com/master-bio-ingenierie", "https://www.isfort-maroc.com/licence-agroalimentaire", "https://www.isfort-maroc.com/ingenieur-agroalimentaire"],
+  "sources": [
+    "https://www.isfort-maroc.com/",
+    "https://www.isfort-maroc.com/diplome-international",
+    "https://www.isfort-maroc.com/pourquoi-isfort",
+    "https://www.isfort-maroc.com/candidature-en-ligne",
+    "https://www.isfort-maroc.com/master",
+    "https://www.isfort-maroc.com/licence",
+    "https://www.isfort-maroc.com/licence-qhse",
+    "https://www.isfort-maroc.com/master-qualite",
+    "https://www.isfort-maroc.com/master-bio-ingenierie",
+    "https://www.isfort-maroc.com/licence-agroalimentaire",
+    "https://www.isfort-maroc.com/ingenieur-agroalimentaire"
+  ],
   "description": "Institut supérieur privé de Casablanca spécialisé en technologies agroalimentaires, management QHSE (qualité, hygiène, sécurité, environnement) et sciences de l'environnement. Il propose des licences Bac+3 en 3 ans (agroalimentaire, QHSE, intelligence artificielle et marketing digital), des masters Bac+5 et un cycle d'ingénieur avec classes préparatoires intégrées. L'école dispose de laboratoires (dont Labosfort, accrédité ISO/IEC 17025), de partenariats avec des établissements en France, au Canada et en Afrique pour la poursuite d'études, et d'un double diplôme avec l'Institut Polytechnique UniLaSalle (France) pour le master QHSE.",
   "annee_creation": 1995,
   "adresse": "94, rue Allal Ben Abdallah, Casablanca, Maroc",
@@ -11,27 +23,135 @@
   "email": "contact@isfort-maroc.com",
   "statut_annonce": "Établissement autorisé par le Ministère de l'Enseignement Supérieur (autorisation n° 77/94) ; filières accréditées",
   "programmes": [
-    {"intitule": "Cycle d'ingénieur en Sciences et Technologies Agroalimentaires (avec classes préparatoires intégrées)", "niveau": "Bac+5", "diplome": "Diplôme d'ingénieur", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.isfort-maroc.com/ingenieur-agroalimentaire"},
-    {"intitule": "Licence en Sciences et Technologies Agroalimentaires", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://www.isfort-maroc.com/licence"},
-    {"intitule": "Licence QHSE (Qualité, Hygiène, Sécurité, Environnement)", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Casablanca"], "url": "https://www.isfort-maroc.com/licence-qhse"},
-    {"intitule": "Licence en Intelligence Artificielle et Marketing Digital", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.isfort-maroc.com/licence"},
-    {"intitule": "Master en Ingénierie du Management de la Qualité, Hygiène, Sécurité et Environnement (QHSE)", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Casablanca"], "url": "https://www.isfort-maroc.com/master-qualite"},
-    {"intitule": "Master en Ingénierie des Technologies Agroalimentaires", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.isfort-maroc.com/master"},
-    {"intitule": "Master en Agro-Business & Supply Chain Management", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.isfort-maroc.com/master"},
-    {"intitule": "Master en Management, Ingénierie et Droit de l'Environnement", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.isfort-maroc.com/master"},
-    {"intitule": "Master en Bio-Ingénierie", "niveau": "Bac+5", "diplome": "Master", "duree_annees": null, "specialites": [], "campus": ["Casablanca"], "url": "https://www.isfort-maroc.com/master-bio-ingenierie"}
+    {
+      "intitule": "Cycle d'ingénieur en Sciences et Technologies Agroalimentaires (avec classes préparatoires intégrées)",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.isfort-maroc.com/ingenieur-agroalimentaire"
+    },
+    {
+      "intitule": "Licence en Sciences et Technologies Agroalimentaires",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.isfort-maroc.com/licence"
+    },
+    {
+      "intitule": "Licence QHSE (Qualité, Hygiène, Sécurité, Environnement)",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.isfort-maroc.com/licence-qhse"
+    },
+    {
+      "intitule": "Licence en Intelligence Artificielle et Marketing Digital",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.isfort-maroc.com/licence"
+    },
+    {
+      "intitule": "Master en Ingénierie du Management de la Qualité, Hygiène, Sécurité et Environnement (QHSE)",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.isfort-maroc.com/master-qualite"
+    },
+    {
+      "intitule": "Master en Ingénierie des Technologies Agroalimentaires",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.isfort-maroc.com/master"
+    },
+    {
+      "intitule": "Master en Agro-Business & Supply Chain Management",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.isfort-maroc.com/master"
+    },
+    {
+      "intitule": "Master en Management, Ingénierie et Droit de l'Environnement",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.isfort-maroc.com/master"
+    },
+    {
+      "intitule": "Master en Bio-Ingénierie",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca"
+      ],
+      "url": "https://www.isfort-maroc.com/master-bio-ingenierie"
+    }
   ],
   "admission": {
-    "conditions": ["Licence : bacheliers scientifiques, techniques ou économiques (QHSE) ; bacheliers scientifiques (agroalimentaire)", "Master : licence ou diplôme équivalent, étude du dossier et entretien de motivation"],
-    "etapes": ["Préinscription en ligne", "Transmission des pièces justificatives (CIN ou passeport, diplômes, dernier relevé de notes)", "Étude pédagogique ; réponse sous 48 heures ouvrables pour un dossier complet"],
+    "conditions": [
+      "Licence : bacheliers scientifiques, techniques ou économiques (QHSE) ; bacheliers scientifiques (agroalimentaire)",
+      "Master : licence ou diplôme équivalent, étude du dossier et entretien de motivation"
+    ],
+    "etapes": [
+      "Préinscription en ligne",
+      "Transmission des pièces justificatives (CIN ou passeport, diplômes, dernier relevé de notes)",
+      "Étude pédagogique ; réponse sous 48 heures ouvrables pour un dossier complet"
+    ],
     "concours": null,
     "dates": null
   },
   "frais": [],
   "bourses": "Page « Bourses d'études » mentionnée pour des étudiants marocains et internationaux en situation difficile (conditions non détaillées dans le texte relevé).",
   "international": "Plus de 20 partenaires académiques internationaux (France, Canada, Allemagne, Sénégal, Côte d'Ivoire, Bénin, Gabon) ; titulaires de la licence agroalimentaire pouvant intégrer la 4e année de cycles d'ingénieur UniLaSalle ; master QHSE avec double diplôme UniLaSalle.",
-  "partenaires": ["Institut Polytechnique UniLaSalle", "Université Laval", "Université de Franche-Comté", "UCAD Dakar", "Plus de 35 à 40 entreprises partenaires"],
-  "vie_etudiante": ["Amphithéâtre", "Bibliothèque spécialisée", "Laboratoires (Labosfort, biologie, chimie, microbiologie)", "Vie culturelle et sportive"],
+  "partenaires": [
+    "Institut Polytechnique UniLaSalle",
+    "Université Laval",
+    "Université de Franche-Comté",
+    "UCAD Dakar",
+    "Plus de 35 à 40 entreprises partenaires"
+  ],
+  "vie_etudiante": [
+    "Amphithéâtre",
+    "Bibliothèque spécialisée",
+    "Laboratoires (Labosfort, biologie, chimie, microbiologie)",
+    "Vie culturelle et sportive"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "94, rue Allal Ben Abdallah, Casablanca, Maroc",
@@ -39,6 +159,13 @@
     "email": "contact@isfort-maroc.com",
     "annee_creation": "Fondé en 1995, l’établissement est autorisé par le Ministère de l’Enseignement Supérieur",
     "frais": null,
-    "admission": ["Étude du dossier et entretien de motivation.", "Être titulaire d’une Licence ou d’un diplôme équivalent."]
+    "admission": [
+      "Étude du dossier et entretien de motivation.",
+      "Être titulaire d’une Licence ou d’un diplôme équivalent."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

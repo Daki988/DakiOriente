@@ -1,0 +1,253 @@
+{
+  "id": "ma-um6ss",
+  "site_web": "https://um6ss.ma",
+  "date_collecte": "2026-10-15",
+  "accessible": true,
+  "sources": [
+    "https://fm6ss.ma/fr/um6ss",
+    "https://fm6ss.ma/fr/um6ss/esm6iss",
+    "https://fm6ss.ma/fr/um6ss/admission",
+    "https://fm6ss.ma/fr/um6ss/nos-formations"
+  ],
+  "description": "Université de sciences de la santé présente à Casablanca (sites Anfa City, Ligue Arabe et Bouskoura), Rabat, Dakhla, Agadir et Marrakech, avec plus de 14 000 étudiants dont plus de 400 internationaux. Elle regroupe des facultés de médecine (filières francophone et anglophone), de médecine dentaire, de pharmacie, des sciences infirmières et professions de la santé, une école de médecine vétérinaire, une école d'ingénieurs en sciences de la santé, une école de santé publique et un institut de biosciences. L'admission se fait par concours pour les filières médicales et par test et dossier pour les licences, masters et cycles d'ingénieur ; l'université annonce des bourses, des résidences et restaurants universitaires.",
+  "annee_creation": null,
+  "adresse": null,
+  "telephone": null,
+  "email": null,
+  "statut_annonce": "Formations reconnues par l'État",
+  "programmes": [
+    {
+      "intitule": "Doctorat en Médecine Générale (filières francophone et anglophone)",
+      "niveau": null,
+      "diplome": "Doctorat",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Casablanca",
+        "Rabat",
+        "Dakhla",
+        "Agadir",
+        "Marrakech"
+      ],
+      "url": "https://fm6ss.ma/fr/um6ss/admission"
+    },
+    {
+      "intitule": "Doctorat en Médecine Dentaire",
+      "niveau": null,
+      "diplome": "Doctorat",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://fm6ss.ma/fr/um6ss/admission"
+    },
+    {
+      "intitule": "Doctorat en Pharmacie",
+      "niveau": null,
+      "diplome": "Doctorat",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://fm6ss.ma/fr/um6ss/admission"
+    },
+    {
+      "intitule": "Doctorat en Médecine Vétérinaire",
+      "niveau": null,
+      "diplome": "Doctorat",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://fm6ss.ma/fr/um6ss/admission"
+    },
+    {
+      "intitule": "Licence en prothèse dentaire",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://fm6ss.ma/fr/um6ss/admission"
+    },
+    {
+      "intitule": "Classes Préparatoires Intégrées (cycle ingénieur)",
+      "niveau": null,
+      "diplome": "Classes préparatoires",
+      "duree_annees": null,
+      "specialites": [],
+      "campus": null,
+      "url": "https://fm6ss.ma/fr/um6ss/admission"
+    },
+    {
+      "intitule": "Diplôme d'Ingénieur d'État en sciences de la santé",
+      "niveau": "Bac+5",
+      "diplome": "Diplôme d'ingénieur",
+      "duree_annees": null,
+      "specialites": [
+        "Génie Biomédical",
+        "Génie Bio-Informatique",
+        "Génie Digital en Santé",
+        "Génie en Technologie Médicale et Industrie Pharmaceutique et Cosmétique"
+      ],
+      "campus": [
+        "Casablanca",
+        "Rabat",
+        "Agadir",
+        "Dakhla",
+        "Marrakech"
+      ],
+      "url": "https://fm6ss.ma/fr/um6ss/esm6iss"
+    },
+    {
+      "intitule": "Masters en sciences infirmières et professions de la santé",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [
+        "Kinésithérapie musculosquelettique et du sport",
+        "Nutrition clinique",
+        "Pratiques infirmières avancées en urgentologie et gestion de catastrophes",
+        "Pratiques infirmières avancées en périnatalité",
+        "Pratiques avancées en oncologie et soins palliatifs",
+        "Audiologie et thérapies auditives",
+        "Psychologie clinique",
+        "Pédagogie et ingénierie en sciences infirmières et professions de la santé"
+      ],
+      "campus": null,
+      "url": "https://fm6ss.ma/fr/um6ss/admission"
+    },
+    {
+      "intitule": "Masters ingénierie en sciences de la santé",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [
+        "Physique médicale",
+        "Big Data et Intelligence Artificielle appliquée à la santé",
+        "Dispositifs médicaux et affaires réglementaires",
+        "Management, qualité et maintenance biomédicale",
+        "Ingénierie bio-informatique et sciences des données"
+      ],
+      "campus": null,
+      "url": "https://fm6ss.ma/fr/um6ss/admission"
+    },
+    {
+      "intitule": "Masters Santé publique et management des établissements de santé",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [
+        "Santé publique",
+        "Management des établissements de santé"
+      ],
+      "campus": null,
+      "url": "https://fm6ss.ma/fr/um6ss/admission"
+    },
+    {
+      "intitule": "Masters biosciences et biotechnologies",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": null,
+      "specialites": [
+        "Biologie des cancers",
+        "Immunité-Infection-Inflammation",
+        "Génétique, épigénétique et bio-informatique",
+        "Qualité, hygiène, sécurité et environnement",
+        "Biotechnologie et santé",
+        "Neurosciences fondamentales et appliquées",
+        "Biologie médicale spécialité génétique et bio-informatique"
+      ],
+      "campus": null,
+      "url": "https://fm6ss.ma/fr/um6ss/admission"
+    }
+  ],
+  "admission": {
+    "conditions": [
+      "Candidats bacheliers : baccalauréat scientifique, économique ou littéraire selon la formation",
+      "Masters : licence ou équivalent, dossier académique, entretien et test d'admission",
+      "Cycles d'ingénieur d'État : classes préparatoires intégrées ou Concours National Commun (CNC)",
+      "Pharmacie : admission en 3e année par concours passerelle"
+    ],
+    "etapes": [
+      "Concours d'accès (médecine francophone et anglophone, médecine dentaire, médecine vétérinaire, pharmacie)",
+      "Test écrit et/ou oral pour les diplômes d'ingénieur d'État, les licences et les masters"
+    ],
+    "concours": "Concours d'accès en médecine, médecine dentaire, médecine vétérinaire et pharmacie",
+    "dates": null
+  },
+  "frais": [
+    {
+      "cycle": "Doctorat en Médecine Générale",
+      "inscription_mad": 1500,
+      "scolarite_annuelle_mad": 130000,
+      "note": "Frais d'assurance de 400 DH si l'étudiant n'est pas pris en charge par ses parents"
+    },
+    {
+      "cycle": "Licence en prothèse dentaire",
+      "inscription_mad": 1500,
+      "scolarite_annuelle_mad": 45000,
+      "note": null
+    },
+    {
+      "cycle": "Doctorat en Médecine Vétérinaire",
+      "inscription_mad": 1500,
+      "scolarite_annuelle_mad": 105000,
+      "note": null
+    },
+    {
+      "cycle": "Licence (kinésithérapie, psychomotricité, orthophonie, orthoptie, ergothérapie)",
+      "inscription_mad": 1500,
+      "scolarite_annuelle_mad": 59000,
+      "note": null
+    },
+    {
+      "cycle": "Master Santé Publique",
+      "inscription_mad": 1500,
+      "scolarite_annuelle_mad": 50400,
+      "note": null
+    }
+  ],
+  "bourses": "Plusieurs catégories de bourses et aides financières, financement par emprunt bancaire ; tarifs subventionnés par la Fondation Mohammed VI des Sciences et de la Santé au campus de Dakhla.",
+  "international": "Plus de 400 étudiants internationaux, faculté de médecine anglophone, page dédiée aux étudiants internationaux.",
+  "partenaires": [],
+  "vie_etudiante": [
+    "Bureaux des étudiants",
+    "Associations et clubs (peinture, musique, danse, théâtre, échecs, débats)",
+    "Caravanes médicales",
+    "Infrastructures sportives",
+    "Résidences universitaires",
+    "Restaurants universitaires"
+  ],
+  "logement": "Résidences universitaires.",
+  "preuves": {
+    "adresse": null,
+    "telephone": null,
+    "email": null,
+    "annee_creation": null,
+    "frais": [
+      "Les frais de première inscription : 1500 DH",
+      "Doctorat en Médecine Générale\n130 000 DH",
+      "Doctorat en Médecine Vétérinaire\n105 000 DH",
+      "Licence en prothèse dentaire\n45 000 DH",
+      "Licence (kinésithérapie, psychomotricité, orthophonie, orthoptie, rééducation et réhabilitation ergothérapie)\n59 000 DH",
+      "Master Santé Publique\n50 400 DH"
+    ],
+    "admission": [
+      "Test écrit et/ou Oral (Pour les diplômes d’ingénieur d’état et le cycle de licence et de master)"
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": [
+      "frais:Licence (infirmier polyvalent, technicien de laboratoire, néonatologie pédiatrie)",
+      "frais:Licence (sciences obstétricales, technicien en imagerie médicale, infirmier bloc opératoire)",
+      "frais:Licence (diététique - nutrition)",
+      "frais:Licence (anesthésie et réanimation)",
+      "frais:Licence Maintenance et Génie Biomédical",
+      "frais:Classes Préparatoires Intégrées",
+      "frais:Master Physique Médicale",
+      "programme:Licences Sciences infirmières et profess",
+      "programme:Licences ingénierie en sciences de la sa"
+    ]
+  }
+}

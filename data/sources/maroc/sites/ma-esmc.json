@@ -186,5 +186,9 @@
       "Entretien de motivation",
       "Être titulaire d’une licence ou diplôme équivalent (BAC +3 )"
     ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }

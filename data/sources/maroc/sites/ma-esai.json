@@ -3,7 +3,13 @@
   "site_web": "https://www.ecoleesai.com/",
   "date_collecte": "2026-10-15",
   "accessible": true,
-  "sources": ["https://www.ecoleesai.com/", "https://www.ecoleesai.com/inscription", "https://www.ecoleesai.com/accreditations", "https://www.ecoleesai.com/filieres/architecture-interieur", "https://www.ecoleesai.com/contact"],
+  "sources": [
+    "https://www.ecoleesai.com/",
+    "https://www.ecoleesai.com/inscription",
+    "https://www.ecoleesai.com/accreditations",
+    "https://www.ecoleesai.com/filieres/architecture-interieur",
+    "https://www.ecoleesai.com/contact"
+  ],
   "description": "École supérieure spécialisée en architecture d'intérieur, située à Souissi (Rabat). Elle propose un cycle Licence de 3 ans (180 ECTS) puis un cycle Master de 2 ans (120 ECTS), soit un parcours de 5 ans après le baccalauréat. Le site indique un stage professionnel en licence, un projet de fin d'études soutenu devant un jury mixte, des ateliers, des voyages d'études et une autorisation ministérielle depuis 1998, avec deux décisions d'accréditation du 5 janvier 2026 (licence et master).",
   "annee_creation": null,
   "adresse": "7, Avenue Ahmed Balafrej, Souissi — Rabat 10170, Maroc",
@@ -11,12 +17,40 @@
   "email": "admissions@ecoleesai.com",
   "statut_annonce": "Autorisée (depuis 1998) et accréditée par le Ministère de l'Enseignement Supérieur (décisions du 5 janvier 2026)",
   "programmes": [
-    {"intitule": "Licence Architecture d'Intérieur", "niveau": "Bac+3", "diplome": "Licence", "duree_annees": 3, "specialites": [], "campus": ["Rabat"], "url": "https://www.ecoleesai.com/filieres/architecture-interieur"},
-    {"intitule": "Master Architecture d'Intérieur", "niveau": "Bac+5", "diplome": "Master", "duree_annees": 2, "specialites": [], "campus": ["Rabat"], "url": "https://www.ecoleesai.com/filieres/architecture-interieur"}
+    {
+      "intitule": "Licence Architecture d'Intérieur",
+      "niveau": "Bac+3",
+      "diplome": "Licence",
+      "duree_annees": 3,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.ecoleesai.com/filieres/architecture-interieur"
+    },
+    {
+      "intitule": "Master Architecture d'Intérieur",
+      "niveau": "Bac+5",
+      "diplome": "Master",
+      "duree_annees": 2,
+      "specialites": [],
+      "campus": [
+        "Rabat"
+      ],
+      "url": "https://www.ecoleesai.com/filieres/architecture-interieur"
+    }
   ],
   "admission": {
-    "conditions": ["Licence : baccalauréat ou diplôme équivalent, toutes séries confondues", "Master : licence en architecture, design ou équivalent (Bac+3), portfolio de projets créatifs"],
-    "etapes": ["Créer un compte", "Remplir le dossier de candidature", "Joindre les documents (CV, relevés de notes, pièce d'identité, portfolio)", "Validation du dossier sous 48 à 72 heures"],
+    "conditions": [
+      "Licence : baccalauréat ou diplôme équivalent, toutes séries confondues",
+      "Master : licence en architecture, design ou équivalent (Bac+3), portfolio de projets créatifs"
+    ],
+    "etapes": [
+      "Créer un compte",
+      "Remplir le dossier de candidature",
+      "Joindre les documents (CV, relevés de notes, pièce d'identité, portfolio)",
+      "Validation du dossier sous 48 à 72 heures"
+    ],
     "concours": null,
     "dates": null
   },
@@ -24,7 +58,13 @@
   "bourses": null,
   "international": null,
   "partenaires": [],
-  "vie_etudiante": ["Ateliers créatifs", "Expositions étudiantes", "Concours", "Voyages d'études", "Sorties pédagogiques"],
+  "vie_etudiante": [
+    "Ateliers créatifs",
+    "Expositions étudiantes",
+    "Concours",
+    "Voyages d'études",
+    "Sorties pédagogiques"
+  ],
   "logement": null,
   "preuves": {
     "adresse": "7, Avenue Ahmed Balafrej, Souissi — Rabat 10170, Maroc",
@@ -32,6 +72,13 @@
     "email": "admissions@ecoleesai.com",
     "annee_creation": null,
     "frais": null,
-    "admission": ["Titulaires du baccalauréat, toutes séries confondues, ou d'un diplôme reconnu équivalent.", "Évaluation de votre dossier sous 48 à 72 heures."]
+    "admission": [
+      "Titulaires du baccalauréat, toutes séries confondues, ou d'un diplôme reconnu équivalent.",
+      "Évaluation de votre dossier sous 48 à 72 heures."
+    ]
+  },
+  "verification": {
+    "date": "2026-10-15",
+    "retraits": []
   }
 }
