@@ -4,20 +4,26 @@
 DirectoryIndex index.html
 Options -Indexes
 
-# Page introuvable : retour à l'accueil
-ErrorDocument 404 /index.html
+# Page introuvable personnalisée
+ErrorDocument 404 /404.html
 
 # L'ancienne page Super App est désormais dans Produits
 Redirect 301 /super-app.html /produits.html#super-app
 
-# Redirection vers HTTPS : à activer UNIQUEMENT une fois le certificat SSL actif
-# (ou utilisez l'option « Forcer HTTPS » du panneau LWS).
-# RewriteEngine On
-# RewriteCond %{HTTPS} off
-# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+# Une seule adresse pour Google : https://www.neamindustry.com
+# (le certificat SSL est actif sur neamindustry.com et www.neamindustry.com)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^neamindustry\.com$ [NC]
+  RewriteRule ^(.*)$ https://www.neamindustry.com/$1 [L,R=301]
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://www.neamindustry.com/$1 [L,R=301]
+</IfModule>
 
 # Manifeste de l'application (icône sur l'écran d'accueil)
 AddType application/manifest+json .webmanifest
+AddType image/webp .webp
 
 # Compression des fichiers texte
 <IfModule mod_deflate.c>
@@ -34,4 +40,14 @@ AddType application/manifest+json .webmanifest
   ExpiresByType image/png "access plus 30 days"
   ExpiresByType image/jpeg "access plus 30 days"
   ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType application/pdf "access plus 7 days"
+</IfModule>
+
+# En-têtes de sécurité
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Strict-Transport-Security "max-age=31536000"
 </IfModule>

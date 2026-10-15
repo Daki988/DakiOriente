@@ -17,6 +17,15 @@ Site vitrine statique, en plusieurs pages (HTML / CSS / JavaScript, sans outil d
 
 L’en-tête et le pied de page sont identiques sur chaque page : pensez à modifier toutes les pages si vous les changez.
 
+### Ajouts du cahier des charges (octobre 2026)
+
+- Pages services détaillées : `creation-site-web-gabon.html`, `logiciels-metiers-gabon.html`, `ia-automatisation-gabon.html`, `conseil-formation-digitale-gabon.html`
+- `realisations.html` (projets NEAM avec statut réel), `mentions-legales.html` (éditeur, données, cookies), `404.html`
+- SEO : titres et descriptions uniques, canonical `https://www.neamindustry.com/`, données structurées (ProfessionalService, Service, FAQPage, BreadcrumbList), sitemap et robots.txt
+- `.htaccess` : redirection vers `https://www.neamindustry.com`, page 404, en-têtes de sécurité
+- Mesure d'audience : événements dans `window.dataLayer` (`cta_click`, `contact_form_*`, `digital_score_*`, `download_resource`) sans donnée personnelle
+- Mentions légales : compléter RCCM, NIF, forme juridique et directeur de la publication dans `LEGAL` (script de génération)
+
 ## Lancer en local
 ```bash
 python3 -m http.server 8000

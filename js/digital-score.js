@@ -50,6 +50,7 @@
     status.textContent = '';
 
     $('#dsRunName').textContent = company;
+    window.neamTrack && neamTrack('digital_score_start');
     $$('[data-engine]', run).forEach(el => { el.dataset.state = ''; });
     show(run);
     try {
@@ -89,6 +90,7 @@
       await wait(500); setEng(6, 'done'); say('Terminé.');
       await wait(400);
       renderPreview(rep.preview);
+      window.neamTrack && neamTrack('digital_score_complete', { score: rep.preview.score });
     } catch (err) {
       show(form);
       status.textContent = err.name === 'AbortError' ? 'L’analyse a pris trop de temps. Merci de réessayer.' : err.message;
@@ -113,6 +115,8 @@
   const prio = p => `<span class="ds-p ds-p--${p}">P${p}</span>`;
   const ord = n => n === 1 ? '1ᵉʳ' : `${n}ᵉ`;
 
+  const cov = x => x.criteria_total ? Math.round(x.criteria_count / x.criteria_total * 100) : 0;
+
   /* ---------- État du site analysé ---------- */
   const siteNote = p => {
     const st = p.site_status || {};
@@ -128,7 +132,7 @@
     const more = Math.max(0, p.action_count - p.problems.length);
     preview.innerHTML = `
       <div class="ds-head">
-        <span class="label">Résultat · ${esc(p.company)}</span>
+        <span class="label">Résultat · ${esc(p.company)} · ${esc(p.date || '')}</span>
         <div class="ds-scorebox">
           ${ring(p.score)}
           <div>
@@ -139,6 +143,7 @@
               ${p.total > 1 ? `<li><b>${ord(p.rank)} / ${p.total}</b><span>position face à vos concurrents</span></li>` : ''}
               <li><b>${p.problem_count}</b><span>problème(s) prioritaire(s)</span></li>
               <li><b>${p.opportunity_count}</b><span>opportunité(s) détectée(s)</span></li>
+              <li><b>${cov(p)} %</b><span>des critères ont pu être évalués</span></li>
             </ul>
           </div>
         </div>
@@ -238,7 +243,7 @@
     const benchRows = r.axes.map(a => `<tr><th>${esc(a.label)}</th><td class="is-self">${a.score ?? '—'}</td>${comps.map(c => `<td>${c.axes[a.key] ?? '—'}</td>`).join('')}</tr>`).join('');
     reportBox.innerHTML = `
       <div class="ds-head">
-        <span class="label">NEAM Digital Audit · ${esc(r.date)}</span>
+        <span class="label">NEAM Digital Audit · ${esc(r.date)}${r.time ? ' à ' + esc(r.time) : ''} · Méthode ${esc(r.method || 'NEAM-DS v2')} · Couverture des données ${cov(r)} %</span>
         <div class="ds-scorebox">
           ${ring(r.score)}
           <div>
@@ -336,7 +341,7 @@
       </section>
 
       <div class="ds-cta"><p class="statement">Envie de passer à l’action&nbsp;? <span class="dim">Un expert NEAM vous explique votre audit et construit avec vous le plan des 30 prochains jours.</span></p>
-        <div class="actions"><a class="btn btn--yellow" href="contact.html?besoin=NEAM%20Digital%20Score">Parler à un expert <span class="arr">→</span></a><button type="button" class="btn btn--line" data-restart>Analyser une autre entreprise</button></div></div>`;
+        <div class="actions"><a class="btn btn--yellow" href="contact.html?besoin=NEAM%20Digital%20Score" data-cta="ds_revue_humaine">Demander une revue humaine <span class="arr">→</span></a><a class="btn btn--line" href="contact.html?besoin=NEAM%20Digital%20Score">Demander un devis</a><button type="button" class="btn btn--line" data-restart>Analyser une autre entreprise</button></div></div>`;
     show(reportBox);
     const roiInputs = ['#roi-clients', '#roi-basket'].map(q => $(q, reportBox));
     roiInputs.forEach(i => i.addEventListener('input', renderRoi));

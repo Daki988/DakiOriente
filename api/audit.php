@@ -438,6 +438,8 @@ if ($step === 'report') {
         'opportunity_count' => count($report['opportunities']),
         'problems' => array_slice(array_map(fn($p) => ['title' => $p['title'], 'priority' => $p['priority']], $report['problems']), 0, 3),
         'criteria_count' => $report['criteria_count'],
+        'criteria_total' => $report['criteria_total'],
+        'date' => $report['date'] . ' à ' . $report['time'],
         'partial' => $report['partial'],
         'site_status' => $report['site_status'],
     ]]);

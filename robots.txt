@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
-Sitemap: https://neamindustry.com/sitemap.xml
+Sitemap: https://www.neamindustry.com/sitemap.xml

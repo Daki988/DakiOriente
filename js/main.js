@@ -1,6 +1,20 @@
 /* =========================================================
    NEAM SOFTWARES INDUSTRY — Interactions
    ========================================================= */
+/* ---------- Mesure d'audience (sans donnée personnelle) ----------
+   Les événements sont placés dans window.dataLayer : ils ne partent nulle part
+   tant qu'aucun outil de mesure n'est installé (et accepté si nécessaire). */
+window.dataLayer = window.dataLayer || [];
+window.neamTrack = (event, params = {}) => {
+  window.dataLayer.push({ event, page: location.pathname, ...params });
+};
+document.addEventListener('click', e => {
+  const a = e.target.closest('a, button');
+  if (!a) return;
+  if (a.dataset.cta) neamTrack('cta_click', { cta: a.dataset.cta });
+  else if (a.hasAttribute('download') || /\.pdf($|\?)/.test(a.getAttribute('href') || '')) neamTrack('download_resource', { file: (a.getAttribute('href') || '').split('/').pop() });
+});
+
 (() => {
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
@@ -122,6 +136,8 @@
       if (msg && !msg.value) msg.value = `Bonjour, je souhaite être informé(e) du lancement de ${wanted}.`;
     }
   }
+  let started = false;
+  form.addEventListener('input', () => { if (!started) { started = true; neamTrack('contact_form_start'); } });
   form.addEventListener('submit', async e => {
     e.preventDefault();
     let valid = true;
@@ -130,8 +146,14 @@
       f.closest('.field')?.classList.toggle('is-invalid', !ok);
       if (!ok) valid = false;
     });
+    // Au moins un moyen de vous répondre : e-mail ou téléphone
+    const em = $('#email', form), tel = $('#telephone', form);
+    if (!em.value.trim() && !tel.value.trim()) {
+      em.closest('.field').classList.add('is-invalid'); tel.closest('.field').classList.add('is-invalid'); valid = false;
+    }
     if (!valid) {
-      status.textContent = 'Merci d’indiquer votre nom, un e-mail valide, votre besoin et un message.';
+      neamTrack('contact_form_error');
+      status.textContent = 'Merci d’indiquer votre nom, un e-mail ou un téléphone, votre besoin et un message.';
       status.classList.add('is-error');
       return;
     }
@@ -144,19 +166,21 @@
       const res = await fetch('api/contact.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(Object.fromEntries(d.entries())),
+        body: JSON.stringify({ ...Object.fromEntries(d.entries()), origine: document.referrer ? new URL(document.referrer).pathname : '', besoin_url: new URLSearchParams(location.search).get('besoin') || '' }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
-      status.textContent = 'Merci, votre message est bien envoyé. Nous vous répondons très vite.';
+      status.textContent = data.ack ? 'Merci, votre demande est bien envoyée. Un accusé de réception vient de partir vers votre boîte e-mail, et nous vous répondons très vite.' : 'Merci, votre demande est bien envoyée. Nous vous répondons très vite.';
+      neamTrack('contact_form_success', { besoin: d.get('besoin') });
       form.reset();
     } catch (err) {
       // Solution de secours : messagerie du visiteur
       const company = d.get('entreprise') ? ` (${d.get('entreprise')})` : '';
       const subject = encodeURIComponent(`[Site NEAM] ${d.get('besoin')} — ${d.get('nom')}${company}`);
       const body = encodeURIComponent(
-        `Nom : ${d.get('nom')}\nEntreprise : ${d.get('entreprise') || '-'}\nE-mail : ${d.get('email')}\nTéléphone : ${d.get('telephone') || '-'}\nBesoin : ${d.get('besoin')}\n\n${d.get('message')}`
+        `Nom : ${d.get('nom')}\nEntreprise : ${d.get('entreprise') || '-'}\nE-mail : ${d.get('email') || '-'}\nTéléphone : ${d.get('telephone') || '-'}\nBesoin : ${d.get('besoin')}\n\n${d.get('message')}`
       );
+      neamTrack('contact_form_error');
       status.classList.add('is-error');
       status.innerHTML = `L’envoi n’a pas abouti. <a class="ulink" href="mailto:contact@neamindustry.com?subject=${subject}&body=${body}">Envoyer par e-mail</a> ou écrivez-nous à contact@neamindustry.com.`;
     }

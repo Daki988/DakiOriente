@@ -249,6 +249,8 @@ function build_report(array $target, array $competitors, array $meta): array
         'city' => $meta['city'],
         'country' => $meta['country'],
         'date' => date('d/m/Y'),
+        'time' => date('H:i'),
+        'method' => 'NEAM-DS v2 · 150 critères',
         'score' => $t['score'],
         'level' => $level,
         'axes' => $axisDetails,
