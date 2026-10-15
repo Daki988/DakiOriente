@@ -3,6 +3,7 @@ import "./globals.css";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { SITE_URL } from "@/lib/site";
+import { DeviseProvider } from "@/components/ui/Devise";
 
 const DESCRIPTION = "Étudier au Maroc depuis toute l'Afrique : orientation, comparatif des écoles et universités privées reconnues par l'État, filières accréditées, frais, candidature en ligne et logement étudiant (Navilease).";
 
@@ -34,8 +35,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANISATION) }} />
         <MotionProvider>
-          <ScrollProgress />
-          {children}
+          <DeviseProvider>
+            <ScrollProgress />
+            {children}
+          </DeviseProvider>
         </MotionProvider>
       </body>
     </html>

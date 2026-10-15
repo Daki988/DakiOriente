@@ -51,6 +51,8 @@ const seriesDoc = JSON.parse(fs.readFileSync(path.join(REF, "series.json"), "utf
 write("orientation_seconde", seriesDoc._meta.orientation_fin_college);
 
 write("pays_details", read("pays_details").items);
+const taux = JSON.parse(fs.readFileSync(path.join(REF, "taux_change.json"), "utf8"));
+write("taux", { date: taux._meta.date, base: "MAD", taux: taux.taux });
 const mob = JSON.parse(fs.readFileSync(path.join(REF, "mobilite_villes.json"), "utf8")).items;
 for (const v of Object.values(mob)) if (v.couverture) v.couverture = photoOf(v.couverture);
 write("mobilite", mob);

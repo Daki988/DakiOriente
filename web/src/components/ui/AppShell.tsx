@@ -9,6 +9,7 @@ import {
 import { useEffect, useState, type ReactNode } from "react";
 import { Brand } from "./Brand";
 import { SessionProvider } from "@/components/app/Session";
+import { DeviseProfil } from "@/components/ui/Devise";
 import { Avatar, ToastProvider } from "@/components/app/kit";
 import { api } from "@/lib/api";
 import type { ClientUser } from "@/server/session-ui";
@@ -83,6 +84,7 @@ export function AppShell({ user, children }: { user: ClientUser | null; children
 
   return (
     <SessionProvider user={user}>
+      <DeviseProfil country={user?.country} />
       <ToastProvider>
         <div className="flex min-h-screen">
           <aside className="sticky top-0 hidden h-screen w-[260px] shrink-0 flex-col gap-5 overflow-y-auto border-r border-slate-200/70 bg-white px-4 py-6 lg:flex">
