@@ -11,7 +11,9 @@ import { Pool } from "pg";
 import * as schema from "../src/server/db/schema.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const REF = path.resolve(here, "..", "..", "data", "referentiels");
+// Référentiels : dépôt (../../data) ou paquet de déploiement (./data), ou REF_DIR.
+const REF = [process.env.REF_DIR, path.resolve(here, "..", "..", "data", "referentiels"), path.resolve(here, "..", "data", "referentiels"), path.resolve(process.cwd(), "data", "referentiels")]
+  .filter((p): p is string => !!p).find((p) => fs.existsSync(path.join(p, "etablissements_superieurs.json")))!;
 const read = (n: string) => JSON.parse(fs.readFileSync(path.join(REF, `${n}.json`), "utf8"));
 const url = process.env.DATABASE_URL || process.env.NETLIFY_DB_URL;
 if (!url) { console.log("Seed ignoré : aucune base configurée."); process.exit(0); }

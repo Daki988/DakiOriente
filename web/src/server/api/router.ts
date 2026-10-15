@@ -280,8 +280,11 @@ export async function dispatch(req: Request, segments: string[]) {
     const params = Object.fromEntries(r.keys.map((k, i) => [k, m[i + 1]]));
     // Protection CSRF simple pour les requêtes avec cookie : l'origine doit être celle du site.
     if (req.method !== "GET" && !req.headers.get("authorization") && r.path !== "/paiements/webhook/:provider") {
+      // Derrière un proxy (Passenger/Apache sur cPanel, Netlify), l'hôte public est dans Host / X-Forwarded-Host.
       const origin = req.headers.get("origin");
-      if (origin && new URL(origin).host !== new URL(req.url).host) throw forbidden();
+      const hotes = new Set([req.headers.get("x-forwarded-host"), req.headers.get("host"), new URL(req.url).host,
+        ...[process.env.APP_URL, process.env.NEXT_PUBLIC_SITE_URL, process.env.URL].filter(Boolean).map((u) => new URL(u!).host)].filter(Boolean) as string[]);
+      if (origin && origin !== "null" && !hotes.has(new URL(origin).host)) throw forbidden();
     }
     const user = await currentUser();
     if (r.auth !== "public") {
