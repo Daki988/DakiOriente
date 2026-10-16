@@ -30,7 +30,7 @@ export function OpportunityList({ items, onOpen }: { items: Selection[]; onOpen:
                 <p className="text-sm font-medium text-ink-2">{marketLabel(s.market)}</p>
               </div>
               <div className="text-right">
-                <p className="text-[11px] text-muted">Cote démo</p>
+                <p className="text-[11px] text-muted">{s.source === 'live' ? (s.bookmaker ? `Cote ${s.bookmaker}` : 'Cote') : 'Cote démo'}</p>
                 <p className="tabular font-mono text-lg font-semibold text-ink">{formatOdds(s.odds)}</p>
               </div>
             </div>

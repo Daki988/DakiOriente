@@ -64,15 +64,15 @@ describe('filtres du centre des matchs', () => {
   it('filtre par marché, cote et probabilité', () => {
     const r = filterMatches(matches, {}, { ...DEFAULT_MATCH_FILTERS, market: 'OVER_1_5', minOdds: 1.2, maxOdds: 1.5, minProbability: 0.7 });
     for (const { offer } of r) {
-      expect(offer.market).toBe('OVER_1_5');
-      expect(offer.odds).toBeGreaterThanOrEqual(1.2);
-      expect(offer.odds).toBeLessThanOrEqual(1.5);
-      expect(offer.probability).toBeGreaterThanOrEqual(0.7);
+      expect(offer!.market).toBe('OVER_1_5');
+      expect(offer!.odds).toBeGreaterThanOrEqual(1.2);
+      expect(offer!.odds).toBeLessThanOrEqual(1.5);
+      expect(offer!.probability).toBeGreaterThanOrEqual(0.7);
     }
   });
   it('tri par probabilité décroissante', () => {
     const r = filterMatches(matches, {}, { ...DEFAULT_MATCH_FILTERS, sort: 'probability', sortDir: 'desc' });
-    for (let i = 1; i < r.length; i++) expect(r[i - 1].offer.probability).toBeGreaterThanOrEqual(r[i].offer.probability);
+    for (let i = 1; i < r.length; i++) expect(r[i - 1].offer!.probability).toBeGreaterThanOrEqual(r[i].offer!.probability);
   });
   it('tri par heure de coup d’envoi', () => {
     const r = filterMatches(matches, {}, DEFAULT_MATCH_FILTERS);

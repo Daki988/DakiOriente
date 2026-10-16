@@ -32,11 +32,12 @@ export interface TeamStats {
   /** Moyennes par match sur l'échantillon simulé. */
   goalsScoredAvg: number;
   goalsConcededAvg: number;
-  xgFor: number;
-  xgAgainst: number;
-  shotsPerMatch: number;
-  shotsOnTargetPerMatch: number;
-  possessionPct: number;
+  /** null quand la source ne fournit pas la donnée (flux réel API-Football). */
+  xgFor: number | null;
+  xgAgainst: number | null;
+  shotsPerMatch: number | null;
+  shotsOnTargetPerMatch: number | null;
+  possessionPct: number | null;
   cleanSheetPct: number;
   /** Bilan à domicile (équipe recevante) ou à l'extérieur (équipe visiteuse). */
   venueRecord: { played: number; won: number; drawn: number; lost: number };
@@ -58,9 +59,14 @@ export interface MarketOffer {
   market: MarketId;
   /** Cote décimale de démonstration. */
   odds: number;
-  /** Probabilité estimée par le moteur déterministe (0–1). */
+  /** Probabilité estimée par le modèle (0–1). */
   probability: number;
+  /** Bookmaker d'origine de la cote (données réelles uniquement). */
+  bookmaker?: string;
 }
+
+/** Origine des données : jeu synthétique local ou flux réel via le backend. */
+export type DataSource = 'demo' | 'live';
 
 export interface Match {
   id: string;
@@ -74,6 +80,9 @@ export interface Match {
   /** Nombre de matchs disponibles dans l'échantillon simulé. */
   sampleSize: number;
   markets: MarketOffer[];
+  /** Buts attendus estimés par le modèle pour cette rencontre. */
+  expectedGoals: { home: number; away: number };
+  source: DataSource;
   /** Résultat simulé, renseigné uniquement pour les matchs « joués » de la démo. */
   simulatedScore?: { home: number; away: number };
 }
@@ -94,6 +103,8 @@ export interface Selection {
   competitionName: string;
   kickoff: string;
   reason: string;
+  bookmaker?: string;
+  source: DataSource;
 }
 
 export interface Settings {
@@ -111,7 +122,8 @@ export interface Settings {
   reduceMotion: boolean;
 }
 
-export type TicketStatus = 'PENDING' | 'WON_SIM' | 'LOST_SIM' | 'CANCELLED';
+/** WON_SIM / LOST_SIM : règlement simulé (démo). WON / LOST : règlement sur le score réel. */
+export type TicketStatus = 'PENDING' | 'WON_SIM' | 'LOST_SIM' | 'WON' | 'LOST' | 'CANCELLED';
 
 export interface TicketLeg {
   selectionId: string;
@@ -124,6 +136,9 @@ export interface TicketLeg {
   competitionName: string;
   kickoff: string;
   reason: string;
+  bookmaker?: string;
+  /** Score final réel (90 min), renseigné au règlement d'un ticket réel. */
+  finalScore?: { home: number; away: number };
   /** Issue simulée de la jambe (renseignée lors du règlement simulé). */
   outcome?: 'WON' | 'LOST';
 }
@@ -139,6 +154,8 @@ export interface Ticket {
   virtualStake: number;
   risks: string[];
   settledAt?: string;
+  /** Absent sur les tickets créés avant l'arrivée des données réelles : traité comme 'demo'. */
+  source?: DataSource;
 }
 
 export type GenerationResult =

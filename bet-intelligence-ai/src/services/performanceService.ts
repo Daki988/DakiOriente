@@ -26,7 +26,8 @@ export interface PerformanceSummary {
   sufficient: boolean;
 }
 
-const isSettled = (t: Ticket) => t.status === 'WON_SIM' || t.status === 'LOST_SIM';
+const isWon = (t: Ticket) => t.status === 'WON_SIM' || t.status === 'WON';
+const isSettled = (t: Ticket) => isWon(t) || t.status === 'LOST_SIM' || t.status === 'LOST';
 
 export function settledTickets(tickets: Ticket[]): Ticket[] {
   return tickets
@@ -36,7 +37,7 @@ export function settledTickets(tickets: Ticket[]): Ticket[] {
 
 export function summarize(tickets: Ticket[]): PerformanceSummary {
   const settled = settledTickets(tickets);
-  const won = settled.filter((t) => t.status === 'WON_SIM');
+  const won = settled.filter(isWon);
   const totalStaked = settled.reduce((a, t) => a + t.virtualStake, 0);
   const totalReturned = won.reduce((a, t) => a + t.virtualStake * t.totalOdds, 0);
   const sufficient = settled.length >= MIN_SETTLED_SAMPLE;
@@ -52,7 +53,7 @@ export function summarize(tickets: Ticket[]): PerformanceSummary {
     totalStaked,
     totalReturned: round(totalReturned),
     roi: totalStaked > 0 ? (totalReturned - totalStaked) / totalStaked : null,
-    brier: brierScore(settled.map((t) => ({ probability: t.probability, outcome: t.status === 'WON_SIM' ? 1 : 0 }))),
+    brier: brierScore(settled.map((t) => ({ probability: t.probability, outcome: isWon(t) ? 1 : 0 }))),
     sufficient,
   };
 }
@@ -67,7 +68,7 @@ export function bankrollSeries(tickets: Ticket[], start = VIRTUAL_BANKROLL_START
   const points: BankrollPoint[] = [{ index: 0, label: 'Départ', bankroll: start }];
   let b = start;
   settledTickets(tickets).forEach((t, i) => {
-    b += t.status === 'WON_SIM' ? t.virtualStake * (t.totalOdds - 1) : -t.virtualStake;
+    b += isWon(t) ? t.virtualStake * (t.totalOdds - 1) : -t.virtualStake;
     points.push({ index: i + 1, label: t.id, bankroll: round(b, 0) });
   });
   return points;
@@ -133,7 +134,7 @@ export function calibration(tickets: Ticket[], step = 0.2): CalibrationPoint[] {
     out.push({
       label: `${Math.round(from * 100)}–${Math.round(to * 100)} %`,
       predicted: mean(inBucket.map((t) => t.probability)),
-      observed: inBucket.filter((t) => t.status === 'WON_SIM').length / inBucket.length,
+      observed: inBucket.filter(isWon).length / inBucket.length,
       count: inBucket.length,
     });
   }

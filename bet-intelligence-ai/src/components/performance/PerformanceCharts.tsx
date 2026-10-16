@@ -15,8 +15,8 @@ export function MarketResultsChart({ data }: { data: MarketResult[] }) {
           <YAxis type="category" dataKey="label" width={150} tick={AXIS_TICK} axisLine={false} tickLine={false} />
           <Tooltip cursor={{ fill: '#ffffff08' }} content={(p) => <ChartTooltip active={p.active} payload={p.payload as never} label={p.label as string} />} />
           <Legend wrapperStyle={{ fontSize: 11 }} iconType="square" iconSize={9} />
-          <Bar isAnimationActive={false} dataKey="won" name="Jambes gagnantes (sim.)" stackId="r" fill={SERIES.good} maxBarSize={18} />
-          <Bar isAnimationActive={false} dataKey="lost" name="Jambes perdantes (sim.)" stackId="r" fill={SERIES.risk} radius={[0, 4, 4, 0]} maxBarSize={18} />
+          <Bar isAnimationActive={false} dataKey="won" name="Sélections gagnantes" stackId="r" fill={SERIES.good} maxBarSize={18} />
+          <Bar isAnimationActive={false} dataKey="lost" name="Sélections perdantes" stackId="r" fill={SERIES.risk} radius={[0, 4, 4, 0]} maxBarSize={18} />
         </BarChart>
       </ResponsiveContainer>
     </div>
@@ -50,7 +50,7 @@ export function CalibrationChart({ data }: { data: CalibrationPoint[] }) {
           <Tooltip content={(p) => <ChartTooltip active={p.active} payload={p.payload as never} label={p.label as string} format={(v) => formatPct(v)} />} />
           <Legend wrapperStyle={{ fontSize: 11 }} iconType="plainline" />
           <Line isAnimationActive={false} type="monotone" dataKey="predicted" name="Probabilité estimée moyenne" stroke={SERIES.s1} strokeWidth={2} dot={{ r: 4 }} />
-          <Line isAnimationActive={false} type="monotone" dataKey="observed" name="Fréquence observée (sim.)" stroke={SERIES.s2} strokeWidth={2} dot={{ r: 4 }} />
+          <Line isAnimationActive={false} type="monotone" dataKey="observed" name="Fréquence observée" stroke={SERIES.s2} strokeWidth={2} dot={{ r: 4 }} />
         </LineChart>
       </ResponsiveContainer>
     </div>

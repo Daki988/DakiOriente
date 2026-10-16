@@ -95,8 +95,10 @@ export function GeneratorPage() {
               {settings.showWarnings && (
                 <Notice tone="warn">
                   Cote totale = produit des cotes ; probabilité indicative = produit des probabilités. Cette approximation suppose l’indépendance des
-                  événements et ne tient pas compte de leurs dépendances. Les probabilités de ce prototype sont synthétiques et ne constituent pas des
-                  estimations sportives réelles. Ticket virtuel sans valeur financière.
+                  événements et ne tient pas compte de leurs dépendances.{' '}
+                  {result.ticket.source === 'live'
+                    ? 'Les probabilités sont des estimations d’un modèle statistique simple, sans garantie de résultat. Ticket virtuel : aucun pari n’est placé.'
+                    : 'Les probabilités de ce prototype sont synthétiques et ne constituent pas des estimations sportives réelles. Ticket virtuel sans valeur financière.'}
                 </Notice>
               )}
               <div>

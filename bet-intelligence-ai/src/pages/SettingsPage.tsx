@@ -12,7 +12,7 @@ import type { ConnectorKey, ConnectorStatus } from '../services/connectorService
 import { runtime } from '../services/runtime';
 
 export function SettingsPage() {
-  const { settings, updateSettings, resetSettings, resetDemo, notify, storageOk, cloud } = useApp();
+  const { settings, updateSettings, resetSettings, resetDemo, notify, storageOk, cloud, dataSource, fallbackReason, quota } = useApp();
   const { availability, statuses } = useConnectors();
   const [confirmReset, setConfirmReset] = useState(false);
 
@@ -63,11 +63,30 @@ export function SettingsPage() {
 
         <Card title="Sources de données" subtitle="État des connexions de cette version">
           <ul className="space-y-3">
-            <SourceRow icon={<FlaskConical size={16} />} label="Mode démonstration" status={<Badge tone="warn">Actif</Badge>} detail="Matchs, cotes et probabilités synthétiques générés localement." />
+            <SourceRow
+              icon={<FlaskConical size={16} />}
+              label="Mode démonstration"
+              status={dataSource === 'live' ? <Badge>Inactif</Badge> : <Badge tone="warn">Actif</Badge>}
+              detail={dataSource === 'live' ? 'Remplacé par les données réelles.' : fallbackReason ?? 'Matchs, cotes et probabilités synthétiques générés localement.'}
+            />
             <SourceRow icon={<Cloud size={16} />} label="Sauvegarde du compte" status={<CloudBadge status={cloud} />} detail="Tickets et paramètres enregistrés dans votre espace privé de l’artefact (version en ligne)." />
-            <SourceRow icon={<Plug size={16} />} label="API football" status={<Badge>Non connectée</Badge>} detail="Aucune source de données sportives réelles : aucun de vos connecteurs n’en fournit." />
+            <SourceRow
+              icon={<Plug size={16} />}
+              label="API football"
+              status={dataSource === 'live' ? <Badge tone="good">API-Football</Badge> : <Badge>Non connectée</Badge>}
+              detail={
+                dataSource === 'live'
+                  ? `Matchs, résultats et cotes (1xBet, Bet365, Pinnacle, Unibet).${quota?.remaining != null ? ` Requêtes restantes aujourd’hui : ${quota.remaining}${quota.limit != null ? ` / ${quota.limit}` : ''}.` : ''}`
+                  : 'Nécessite le backend déployé avec une clé API-Football (voir README).'
+              }
+            />
             <SourceRow icon={<Bot size={16} />} label="Bot Telegram" status={<Badge>Non connecté</Badge>} detail="Aucune notification n’est envoyée." />
-            <SourceRow icon={<Server size={16} />} label="Backend" status={<Badge>Non connecté</Badge>} detail="Prévu : backend Python remplaçant la couche services/." />
+            <SourceRow
+              icon={<Server size={16} />}
+              label="Backend"
+              status={dataSource === 'live' ? <Badge tone="good">Connecté</Badge> : <Badge>Non connecté</Badge>}
+              detail={dataSource === 'live' ? 'Backend Python (FastAPI) : modèle statistique et règlement des tickets.' : 'Backend Python prêt (dossier api/), à déployer.'}
+            />
           </ul>
           <p className="mt-4 text-[11px] leading-relaxed text-muted">Aucun secret ni clé d’API n’est stocké dans cette application.</p>
         </Card>

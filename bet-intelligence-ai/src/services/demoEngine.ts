@@ -134,6 +134,8 @@ export function buildDemoMatches(oddsSeed: number, reference: Date = new Date())
       dataQuality: f.dataQuality,
       sampleSize,
       markets: buildOffers(probs, oddsRand),
+      expectedGoals: { home: xg.home, away: xg.away },
+      source: 'demo' as const,
     };
   });
 }

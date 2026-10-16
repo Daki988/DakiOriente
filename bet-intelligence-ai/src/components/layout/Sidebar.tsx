@@ -4,7 +4,7 @@ import { Logo } from './Logo';
 import { NAV_ITEMS } from './nav';
 
 export function Sidebar() {
-  const { route, navigate, tickets } = useApp();
+  const { route, navigate, tickets, dataSource } = useApp();
   const pending = tickets.filter((t) => t.status === 'PENDING').length;
   return (
     <div className="hidden w-64 shrink-0 border-r border-line bg-night-2 lg:block">
@@ -42,10 +42,17 @@ export function Sidebar() {
           })}
         </ul>
       </nav>
-      <div className="m-3 rounded-xl border border-warn/25 bg-warn-soft p-3 text-[11px] leading-relaxed text-[#f8c56a]">
-        <p className="mb-1 flex items-center gap-1.5 font-semibold"><FlaskConical size={13} aria-hidden /> Mode démonstration</p>
-        Données synthétiques. Aucun pari réel n’est placé ; les tickets n’ont aucune valeur financière.
-      </div>
+      {dataSource === 'live' ? (
+        <div className="m-3 rounded-xl border border-line bg-panel p-3 text-[11px] leading-relaxed text-ink-2">
+          <p className="mb-1 font-semibold text-ink">Données réelles · API-Football</p>
+          Probabilités estimées par un modèle statistique, sans garantie. Aucun pari n’est placé ; les tickets restent virtuels.
+        </div>
+      ) : (
+        <div className="m-3 rounded-xl border border-warn/25 bg-warn-soft p-3 text-[11px] leading-relaxed text-[#f8c56a]">
+          <p className="mb-1 flex items-center gap-1.5 font-semibold"><FlaskConical size={13} aria-hidden /> Mode démonstration</p>
+          Données synthétiques. Aucun pari réel n’est placé ; les tickets n’ont aucune valeur financière.
+        </div>
+      )}
     </aside>
     </div>
   );

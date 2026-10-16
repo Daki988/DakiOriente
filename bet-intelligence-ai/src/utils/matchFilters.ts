@@ -44,21 +44,23 @@ export function referenceOffer(match: Match, f: Pick<MatchFilterState, 'market' 
   return candidates.reduce((best, o) => (o.probability > best.probability ? o : best));
 }
 
-export function filterMatches(matches: Match[], competitionNames: Record<string, string>, f: MatchFilterState): { match: Match; offer: MarketOffer }[] {
+/** `offer` est null pour un match sans cote, conservé seulement quand aucun filtre de cote/marché/probabilité n'est actif. */
+export function filterMatches(matches: Match[], competitionNames: Record<string, string>, f: MatchFilterState): { match: Match; offer: MarketOffer | null }[] {
+  const offerFilter = Boolean(f.market) || f.minOdds != null || f.maxOdds != null || f.minProbability > 0;
   const q = normalize(f.search.trim());
   const rows = matches
     .filter((m) => !q || normalize(`${m.home.name} ${m.away.name}`).includes(q))
     .filter((m) => !f.competitionId || m.competitionId === f.competitionId)
     .filter((m) => !f.day || dayKey(m.kickoff) === f.day)
     .map((m) => ({ match: m, offer: referenceOffer(m, f) }))
-    .filter((r): r is { match: Match; offer: MarketOffer } => r.offer !== null);
+    .filter((r) => r.offer !== null || (!offerFilter && r.match.markets.length === 0));
 
   const dir = f.sortDir === 'asc' ? 1 : -1;
   rows.sort((a, b) => {
     let d = 0;
     if (f.sort === 'kickoff') d = a.match.kickoff.localeCompare(b.match.kickoff);
-    if (f.sort === 'probability') d = a.offer.probability - b.offer.probability;
-    if (f.sort === 'odds') d = a.offer.odds - b.offer.odds;
+    if (f.sort === 'probability') d = (a.offer?.probability ?? -1) - (b.offer?.probability ?? -1);
+    if (f.sort === 'odds') d = (a.offer?.odds ?? 0) - (b.offer?.odds ?? 0);
     return d * dir || (competitionNames[a.match.competitionId] ?? '').localeCompare(competitionNames[b.match.competitionId] ?? '');
   });
   return rows;

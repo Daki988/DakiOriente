@@ -8,6 +8,7 @@ import {
   legSignature,
   NO_COMBINATION_MESSAGE,
   setTicketStatus,
+  settleWithResults,
   simulateSettlement,
 } from '../services/ticketService';
 import { DEMO_COMPETITIONS } from '../data/demoMatches';
@@ -23,7 +24,7 @@ const settings: Settings = { ...DEFAULT_SETTINGS };
 function sel(id: string, matchId: string, odds: number, probability: number): Selection {
   return {
     id, matchId, market: 'OVER_1_5', odds, probability, impliedProbability: 1 / odds, edge: probability - 1 / odds,
-    dataQuality: 'HIGH', homeName: 'A', awayName: 'B', competitionName: 'C', kickoff: REF.toISOString(), reason: '',
+    dataQuality: 'HIGH', homeName: 'A', awayName: 'B', competitionName: 'C', kickoff: REF.toISOString(), reason: '', source: 'demo',
   };
 }
 
@@ -151,5 +152,32 @@ describe('sanitizeSettings', () => {
   });
   it('revient aux valeurs par défaut', () => {
     expect(sanitizeSettings(null)).toEqual(DEFAULT_SETTINGS);
+  });
+});
+
+describe('règlement sur scores réels', () => {
+  const base = generateTicket(matches, selections, settings, [], NOW);
+  if (!base.ok) throw new Error('attendu ok');
+  const live = { ...base.ticket, source: 'live' as const };
+  const ids = live.legs.map((l) => l.matchId);
+  const finished = (h: number, a: number) => ({ finished: true, cancelled: false, home: h, away: a });
+
+  it('reste en attente tant que tous les matchs ne sont pas terminés', () => {
+    const t = settleWithResults(live, {});
+    expect(t.status).toBe('PENDING');
+  });
+  it('perdant dès qu’une sélection est perdue', () => {
+    // 0-0 fait perdre « +1,5 », « +2,5 », « BTTS » et les victoires sèches.
+    const losing = live.legs.findIndex((l) => ['OVER_1_5', 'OVER_2_5', 'BTTS_YES', 'HOME_WIN', 'AWAY_WIN'].includes(l.market));
+    if (losing < 0) return;
+    const t = settleWithResults(live, { [ids[losing]]: finished(0, 0) });
+    expect(t.status).toBe('LOST');
+    expect(t.legs[losing].finalScore).toEqual({ home: 0, away: 0 });
+  });
+  it('annulé si un match est reporté', () => {
+    expect(settleWithResults(live, { [ids[0]]: { finished: false, cancelled: true, home: null, away: null } }).status).toBe('CANCELLED');
+  });
+  it('ignore les tickets de démonstration', () => {
+    expect(settleWithResults(base.ticket, { [ids[0]]: finished(0, 0) })).toBe(base.ticket);
   });
 });

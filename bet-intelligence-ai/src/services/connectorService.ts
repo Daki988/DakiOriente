@@ -127,14 +127,18 @@ export interface CalendarMatchInput {
   competitionName: string;
   kickoff: string;
   detail?: string;
+  live?: boolean;
 }
 
 export function calendarEventInput(m: CalendarMatchInput): Record<string, unknown> {
   const start = new Date(m.kickoff);
   const end = new Date(start.getTime() + 2 * 3600_000);
   return {
-    summary: `${DEMO_TAG} ${m.homeName} – ${m.awayName}`,
-    description: [DISCLAIMER, `Compétition (fictive) : ${m.competitionName}`, m.detail].filter(Boolean).join('\n'),
+    summary: m.live ? `⚽ ${m.homeName} – ${m.awayName}` : `${DEMO_TAG} ${m.homeName} – ${m.awayName}`,
+    description: (m.live
+      ? ['Match ajouté depuis BET INTELLIGENCE AI (données API-Football).', `Compétition : ${m.competitionName}`, m.detail, 'Ticket virtuel : aucun pari n’a été placé.']
+      : [DISCLAIMER, `Compétition (fictive) : ${m.competitionName}`, m.detail]
+    ).filter(Boolean).join('\n'),
     startTime: localIso(start),
     endTime: localIso(end),
     availability: 'AVAILABILITY_FREE',
@@ -142,7 +146,7 @@ export function calendarEventInput(m: CalendarMatchInput): Record<string, unknow
 }
 
 export function addMatchToCalendar(match: Match, competitionName: string): Promise<ActionResult> {
-  return call('calendar', calendarEventInput({ homeName: match.home.name, awayName: match.away.name, competitionName, kickoff: match.kickoff }));
+  return call('calendar', calendarEventInput({ homeName: match.home.name, awayName: match.away.name, competitionName, kickoff: match.kickoff, live: match.source === 'live' }));
 }
 
 export function addLegToCalendar(ticket: Ticket, legIndex: number): Promise<ActionResult> {
@@ -151,14 +155,15 @@ export function addLegToCalendar(ticket: Ticket, legIndex: number): Promise<Acti
     'calendar',
     calendarEventInput({
       ...l,
-      detail: `Ticket virtuel ${ticket.id} · ${marketLabel(l.market)} à ${formatOdds(l.odds)} (probabilité synthétique ${formatPct(l.probability)})`,
+      live: ticket.source === 'live',
+      detail: `Ticket virtuel ${ticket.id} · ${marketLabel(l.market)} à ${formatOdds(l.odds)}${l.bookmaker ? ` (${l.bookmaker})` : ''} · probabilité ${ticket.source === 'live' ? 'estimée' : 'synthétique'} ${formatPct(l.probability)}`,
     }),
   );
 }
 
 export function ticketEmailBody(ticket: Ticket): string {
   const lines = [
-    `Ticket virtuel ${ticket.id} — BET INTELLIGENCE AI (mode démonstration)`,
+    `Ticket virtuel ${ticket.id} — BET INTELLIGENCE AI (${ticket.source === 'live' ? 'données réelles API-Football' : 'mode démonstration'})`,
     `Créé le ${formatDateTime(ticket.createdAt)} · Statut : ${STATUS_LABELS[ticket.status]}`,
     '',
     ...ticket.legs.map(
@@ -172,14 +177,16 @@ export function ticketEmailBody(ticket: Ticket): string {
     'Risques :',
     ...ticket.risks.map((r) => `- ${r}`),
     '',
-    'Avertissement : équipes, compétitions, cotes et probabilités sont synthétiques. Ticket virtuel sans valeur financière ; aucun pari n’a été placé.',
+    ticket.source === 'live'
+      ? 'Avertissement : matchs et cotes réels ; probabilités estimées par un modèle statistique, sans garantie. Ticket virtuel : aucun pari n’a été placé.'
+      : 'Avertissement : équipes, compétitions, cotes et probabilités sont synthétiques. Ticket virtuel sans valeur financière ; aucun pari n’a été placé.',
   ];
   return lines.join('\n');
 }
 
 export function draftTicketEmail(ticket: Ticket): Promise<ActionResult> {
   return call('gmail', {
-    subject: `${DEMO_TAG} Ticket virtuel ${ticket.id} — cote ${formatOdds(ticket.totalOdds)}`,
+    subject: `${ticket.source === 'live' ? '' : `${DEMO_TAG} `}Ticket virtuel ${ticket.id} — cote ${formatOdds(ticket.totalOdds)}`,
     body: ticketEmailBody(ticket),
   });
 }
@@ -191,12 +198,13 @@ function csvCell(v: string | number): string {
 
 /** Une ligne par sélection ; séparateur virgule, décimales au point (lisible par Google Sheets). */
 export function ticketsCsv(tickets: Ticket[]): string {
-  const header = ['ticket', 'cree_le', 'statut', 'cote_totale', 'probabilite_ticket', 'match', 'competition', 'coup_envoi', 'marche', 'cote', 'probabilite', 'issue_simulee'];
+  const header = ['ticket', 'source', 'cree_le', 'statut', 'cote_totale', 'probabilite_ticket', 'match', 'competition', 'coup_envoi', 'marche', 'bookmaker', 'cote', 'probabilite', 'score_final', 'issue'];
   const rows = tickets.flatMap((t) =>
     t.legs.map((l) => [
-      t.id, t.createdAt, STATUS_LABELS[t.status], t.totalOdds, t.probability.toFixed(4),
-      `${l.homeName} - ${l.awayName}`, l.competitionName, l.kickoff, marketLabel(l.market), l.odds, l.probability.toFixed(4),
-      l.outcome === 'WON' ? 'gagnée (sim.)' : l.outcome === 'LOST' ? 'perdue (sim.)' : '',
+      t.id, t.source === 'live' ? 'réel' : 'démo', t.createdAt, STATUS_LABELS[t.status], t.totalOdds, t.probability.toFixed(4),
+      `${l.homeName} - ${l.awayName}`, l.competitionName, l.kickoff, marketLabel(l.market), l.bookmaker ?? '', l.odds, l.probability.toFixed(4),
+      l.finalScore ? `${l.finalScore.home}-${l.finalScore.away}` : '',
+      l.outcome ? `${l.outcome === 'WON' ? 'gagnée' : 'perdue'}${t.source === 'live' ? '' : ' (sim.)'}` : '',
     ]),
   );
   return [header, ...rows].map((r) => r.map(csvCell).join(',')).join('\n');
@@ -204,7 +212,7 @@ export function ticketsCsv(tickets: Ticket[]): string {
 
 export function exportTicketsToDrive(tickets: Ticket[], now = new Date()): Promise<ActionResult> {
   return call('drive', {
-    title: `BET INTELLIGENCE AI – tickets virtuels (démo) ${localIso(now).slice(0, 16).replace('T', ' ')}`,
+    title: `BET INTELLIGENCE AI – tickets virtuels ${localIso(now).slice(0, 16).replace('T', ' ')}`,
     textContent: ticketsCsv(tickets),
     contentMimeType: 'text/csv',
   });

@@ -43,6 +43,8 @@ const statusMeta: Record<TicketStatus, { tone: Tone; Icon: typeof Info }> = {
   PENDING: { tone: 'info', Icon: CircleDashed },
   WON_SIM: { tone: 'good', Icon: CheckCircle2 },
   LOST_SIM: { tone: 'risk', Icon: XCircle },
+  WON: { tone: 'good', Icon: CheckCircle2 },
+  LOST: { tone: 'risk', Icon: XCircle },
   CANCELLED: { tone: 'neutral', Icon: XCircle },
 };
 

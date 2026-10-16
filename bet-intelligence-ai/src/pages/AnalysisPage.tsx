@@ -12,10 +12,13 @@ import { useApp } from '../hooks/useAppStore';
 import { analyzeMatch } from '../services/analysisService';
 import { competitionName } from '../services/matchService';
 import { formatDate, formatNumber, formatOdds, formatPct, formatTime } from '../utils/format';
+import { labels } from '../utils/labels';
 import { marketLabel } from '../utils/markets';
 
 export function AnalysisPage() {
-  const { matches, competitions, selections, analysisMatchId, setAnalysisMatchId } = useApp();
+  const { matches, competitions, selections, analysisMatchId, setAnalysisMatchId, dataSource } = useApp();
+  const live = dataSource === 'live';
+  const L = labels(live);
   const match = matches.find((m) => m.id === analysisMatchId) ?? matches[0];
   const analysis = useMemo(() => (match ? analyzeMatch(match) : null), [match]);
   const matchSelections = useMemo(() => selections.filter((s) => s.matchId === match?.id), [selections, match]);
@@ -25,9 +28,10 @@ export function AnalysisPage() {
   return (
     <div className="space-y-6">
       <Notice tone="info">
-        <strong className="font-semibold">Méthode :</strong> cette version n’utilise pas de modèle d’intelligence artificielle. Les probabilités
-        proviennent d’un moteur déterministe (loi de Poisson appliquée à des profils de force fictifs) et les commentaires sont des textes
-        pré-rédigés, sélectionnés par des règles à partir des statistiques simulées.
+        <strong className="font-semibold">Méthode :</strong> cette version n’utilise pas de modèle d’intelligence artificielle.{' '}
+        {live
+          ? 'Les probabilités proviennent d’un modèle statistique (loi de Poisson appliquée aux buts marqués et encaissés cette saison) ; les cotes sont celles des bookmakers. Les commentaires sont des textes pré-rédigés choisis par des règles. Une probabilité estimée n’est jamais une certitude.'
+          : 'Les probabilités proviennent d’un moteur déterministe (loi de Poisson appliquée à des profils de force fictifs) et les commentaires sont des textes pré-rédigés, sélectionnés par des règles à partir des statistiques simulées.'}
       </Notice>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
@@ -55,37 +59,41 @@ export function AnalysisPage() {
         <h3 className="mb-2 text-xs font-semibold tracking-wide text-muted uppercase">Résumé du match</h3>
         <p className="text-sm leading-relaxed text-ink-2">{analysis.summary}</p>
         <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
-          <Metric label={`xG simulés ${match.home.shortName}`} value={formatNumber(analysis.xg.home)} />
-          <Metric label={`xG simulés ${match.away.shortName}`} value={formatNumber(analysis.xg.away)} />
-          <Metric label="Marché le plus probable" value={marketLabel(analysis.bestMarket.market)} small />
-          <Metric label="Proba. / cote démo" value={`${formatPct(analysis.bestMarket.probability)} · ${formatOdds(analysis.bestMarket.odds)}`} small />
+          <Metric label={`${L.xg} ${match.home.shortName}`} value={formatNumber(analysis.xg.home)} />
+          <Metric label={`${L.xg} ${match.away.shortName}`} value={formatNumber(analysis.xg.away)} />
+          <Metric label="Marché le plus probable" value={analysis.bestMarket ? marketLabel(analysis.bestMarket.market) : 'Aucune cote'} small />
+          <Metric
+            label={live ? 'Proba. estimée / cote' : 'Proba. / cote démo'}
+            value={analysis.bestMarket ? `${formatPct(analysis.bestMarket.probability)} · ${formatOdds(analysis.bestMarket.odds)}` : '—'}
+            small
+          />
         </div>
       </Card>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <Card title="Statistiques offensives" subtitle="Moyennes simulées par match">
+        <Card title="Statistiques offensives" subtitle={L.stats}>
           <StatComparison match={match} kind="offense" />
         </Card>
-        <Card title="Statistiques défensives" subtitle="Moyennes simulées par match">
+        <Card title="Statistiques défensives" subtitle={L.stats}>
           <StatComparison match={match} kind="defense" />
         </Card>
       </div>
 
-      <Card title="Performances à domicile et à l’extérieur" subtitle="Bilan et forme récente simulés">
+      <Card title="Performances à domicile et à l’extérieur" subtitle={L.form}>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="space-y-3">
             <p className="flex items-center gap-2 text-sm font-medium text-ink"><Home size={15} className="text-muted" aria-hidden /> {match.home.name}</p>
-            <VenueRecord label="Bilan simulé à domicile" stats={match.homeStats} />
+            <VenueRecord label={L.venueHome} stats={match.homeStats} />
             <div className="flex items-center justify-between gap-3">
-              <span className="text-[11px] text-muted">5 derniers matchs simulés</span>
+              <span className="text-[11px] text-muted">{L.last5}</span>
               <FormStrip recent={match.homeStats.recent} />
             </div>
           </div>
           <div className="space-y-3">
             <p className="flex items-center gap-2 text-sm font-medium text-ink"><Plane size={15} className="text-muted" aria-hidden /> {match.away.name}</p>
-            <VenueRecord label="Bilan simulé à l’extérieur" stats={match.awayStats} />
+            <VenueRecord label={L.venueAway} stats={match.awayStats} />
             <div className="flex items-center justify-between gap-3">
-              <span className="text-[11px] text-muted">5 derniers matchs simulés</span>
+              <span className="text-[11px] text-muted">{L.last5}</span>
               <FormStrip recent={match.awayStats.recent} />
             </div>
           </div>
@@ -93,12 +101,12 @@ export function AnalysisPage() {
       </Card>
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-5">
-        <Card className="xl:col-span-3" title="Probabilités estimées et cotes de démonstration" subtitle="Écart = probabilité estimée − probabilité implicite">
+        <Card className="xl:col-span-3" title={`Probabilités estimées et ${L.oddsLong}`} subtitle="Écart = probabilité estimée − probabilité implicite">
           <MarketTable match={match} />
         </Card>
         <Card className="xl:col-span-2" title="Comparaison probabilités / cotes" subtitle="Par marché">
           <ProbabilityComparisonChart selections={matchSelections} domainMin={0} labelBy="market" />
-          <SyntheticDataNote className="mt-3" />
+          <SyntheticDataNote className="mt-3" live={live} />
         </Card>
       </div>
 

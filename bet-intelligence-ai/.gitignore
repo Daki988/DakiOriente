@@ -3,3 +3,6 @@ dist
 *.tsbuildinfo
 dist-artifact
 artifact
+.venv
+__pycache__
+.pytest_cache

@@ -16,6 +16,7 @@ import { marketLabel } from '../utils/markets';
 import { combinedOdds, combinedProbability, round } from '../utils/math';
 import { formatOdds, formatPct } from '../utils/format';
 import { hashString, mulberry32 } from '../utils/random';
+import { marketWins } from '../utils/poisson';
 import { checkEligibility, effectiveCriteria } from './matchService';
 import { readJson, STORAGE_KEYS, writeJson } from './storage';
 
@@ -29,6 +30,8 @@ export const STATUS_LABELS: Record<TicketStatus, string> = {
   PENDING: 'En attente',
   WON_SIM: 'Gagnant simulé',
   LOST_SIM: 'Perdant simulé',
+  WON: 'Gagnant',
+  LOST: 'Perdant',
   CANCELLED: 'Annulé',
 };
 
@@ -106,6 +109,7 @@ function toLeg(s: Selection): TicketLeg {
     competitionName: s.competitionName,
     kickoff: s.kickoff,
     reason: s.reason,
+    bookmaker: s.bookmaker,
   };
 }
 
@@ -113,6 +117,9 @@ export function ticketRisks(legs: TicketLeg[], probability: number, settings: Se
   const risks: string[] = [
     'Probabilité calculée en supposant l’indépendance des événements : les dépendances entre rencontres ne sont pas prises en compte.',
   ];
+  if (legs.length > 0 && matches.find((m) => m.id === legs[0].matchId)?.source === 'live') {
+    risks.push('Probabilités estimées par un modèle statistique simple (loi de Poisson sur les buts de la saison) : elles peuvent être fausses, et les bookmakers intègrent une marge.');
+  }
   if (probability < 0.5) {
     risks.push(`La probabilité indicative du combiné (${formatPct(probability)}) est inférieure à 50 % : l’échec est plus probable que la réussite.`);
   }
@@ -195,6 +202,7 @@ export function generateTicket(
     status: 'PENDING',
     virtualStake: VIRTUAL_STAKE,
     risks,
+    source: legs.every((l) => l.source === 'live') ? 'live' : 'demo',
   };
   const reasons = ticketLegs.map(
     (l) => `${l.homeName} – ${l.awayName} · ${marketLabel(l.market)} à ${formatOdds(l.odds)} (${formatPct(l.probability)}) : ${l.reason}`,
@@ -217,6 +225,32 @@ export function simulateSettlement(ticket: Ticket, now = new Date()): Ticket {
   const legs = ticket.legs.map((l) => ({ ...l, outcome: rand() < l.probability ? ('WON' as const) : ('LOST' as const) }));
   const won = legs.every((l) => l.outcome === 'WON');
   return { ...ticket, legs, status: won ? 'WON_SIM' : 'LOST_SIM', settledAt: now.toISOString() };
+}
+
+export interface FinalResult {
+  finished: boolean;
+  cancelled: boolean;
+  home: number | null;
+  away: number | null;
+}
+
+/**
+ * Règlement sur les scores RÉELS (temps réglementaire). Le ticket reste en attente tant qu'un
+ * match n'est pas terminé ; un match annulé/reporté annule le ticket (règle simplifiée, signalée).
+ */
+export function settleWithResults(ticket: Ticket, results: Record<string, FinalResult>, now = new Date()): Ticket {
+  if (ticket.status !== 'PENDING' || ticket.source !== 'live') return ticket;
+  const legs = ticket.legs.map((l) => {
+    const r = results[l.matchId];
+    if (!r?.finished || r.home == null || r.away == null) return l;
+    return { ...l, finalScore: { home: r.home, away: r.away }, outcome: marketWins(l.market, r.home, r.away) ? ('WON' as const) : ('LOST' as const) };
+  });
+  if (ticket.legs.some((l) => results[l.matchId]?.cancelled)) {
+    return { ...ticket, legs, status: 'CANCELLED', settledAt: now.toISOString() };
+  }
+  if (legs.some((l) => l.outcome === 'LOST')) return { ...ticket, legs, status: 'LOST', settledAt: now.toISOString() };
+  if (legs.every((l) => l.outcome === 'WON')) return { ...ticket, legs, status: 'WON', settledAt: now.toISOString() };
+  return { ...ticket, legs };
 }
 
 export function setTicketStatus(ticket: Ticket, status: TicketStatus, now = new Date()): Ticket {

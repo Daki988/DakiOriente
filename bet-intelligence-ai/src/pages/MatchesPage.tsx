@@ -11,7 +11,7 @@ import { dayKey } from '../utils/format';
 import { DEFAULT_MATCH_FILTERS, filterMatches, type MatchFilterState } from '../utils/matchFilters';
 
 export function MatchesPage() {
-  const { matches, competitions, settings, openAnalysis } = useApp();
+  const { matches, competitions, settings, openAnalysis, dataSource } = useApp();
   const [filters, setFilters] = useState<MatchFilterState>(DEFAULT_MATCH_FILTERS);
   const [openId, setOpenId] = useState<string | null>(null);
   const names = useMemo(() => Object.fromEntries(competitions.map((c) => [c.id, c.name])), [competitions]);
@@ -22,7 +22,11 @@ export function MatchesPage() {
   return (
     <div className="space-y-5">
       {settings.showWarnings && (
-        <Notice tone="demo">Rencontres fictives générées pour la démonstration. Cliquez sur un match pour consulter ses statistiques simulées.</Notice>
+        dataSource === 'live' ? (
+          <Notice tone="info">Matchs à venir des championnats suivis (API-Football). Cliquez sur un match pour voir ses statistiques et l’estimation du modèle.</Notice>
+        ) : (
+          <Notice tone="demo">Rencontres fictives générées pour la démonstration. Cliquez sur un match pour consulter ses statistiques simulées.</Notice>
+        )
       )}
       <div className="rounded-2xl border border-line bg-panel p-4 sm:p-5">
         <MatchFilters value={filters} onChange={setFilters} competitions={competitions} days={days} />

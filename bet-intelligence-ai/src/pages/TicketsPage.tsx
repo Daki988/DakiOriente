@@ -1,7 +1,7 @@
-import { CalendarPlus, Dices, Eye, FileSpreadsheet, Mail, RotateCcw, Search, Ticket as TicketIcon, Trash2 } from 'lucide-react';
+import { CalendarPlus, Dices, Eye, FileSpreadsheet, Mail, RefreshCw, RotateCcw, Search, Ticket as TicketIcon, Trash2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { TicketHeader, TicketLegs, TicketRisks, TicketSummary } from '../components/tickets/TicketView';
-import { StatusBadge } from '../components/ui/Badge';
+import { DemoBadge, StatusBadge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { ConnectorButton } from '../components/ui/ConnectorButton';
@@ -20,7 +20,19 @@ type Confirm = { kind: 'delete'; id: string } | { kind: 'reset' } | null;
 const normalize = (s: string) => s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
 
 export function TicketsPage() {
-  const { tickets, updateTicket, deleteTicket, resetDemo, notify, navigate, settings } = useApp();
+  const { tickets, updateTicket, deleteTicket, resetDemo, notify, navigate, settings, dataSource, checkResults } = useApp();
+  const [checking, setChecking] = useState(false);
+  const onCheck = async () => {
+    setChecking(true);
+    try {
+      const n = await checkResults();
+      notify(n > 0 ? `${n} ticket(s) réglé(s) sur les scores réels.` : 'Aucun nouveau résultat final pour vos tickets en attente.', n > 0 ? 'good' : 'info');
+    } catch (e) {
+      notify(`Vérification impossible : ${e instanceof Error ? e.message : 'erreur inconnue'}.`, 'risk');
+    } finally {
+      setChecking(false);
+    }
+  };
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState<TicketStatus | ''>('');
   const [market, setMarket] = useState<MarketId | ''>('');
@@ -47,7 +59,14 @@ export function TicketsPage() {
 
   return (
     <div className="space-y-5">
-      <Notice tone="demo">Tickets virtuels sans valeur financière. Les statuts « gagnant / perdant » sont simulés : aucun résultat sportif réel n’est consulté.</Notice>
+      {dataSource === 'live' ? (
+        <Notice tone="info">
+          Tickets virtuels sans valeur financière : aucun pari n’est placé. Les tickets « réels » sont réglés automatiquement sur le score final
+          (temps réglementaire) ; un match reporté ou annulé annule le ticket. Les anciens tickets de démonstration restent marqués « Démo ».
+        </Notice>
+      ) : (
+        <Notice tone="demo">Tickets virtuels sans valeur financière. Les statuts « gagnant / perdant » sont simulés : aucun résultat sportif réel n’est consulté.</Notice>
+      )}
 
       <div className="grid grid-cols-1 gap-3 rounded-2xl border border-line bg-panel p-4 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_200px_220px_auto] sm:p-5">
         <div className="relative sm:col-span-2 lg:col-span-1">
@@ -91,6 +110,12 @@ export function TicketsPage() {
         <>
           <div className="flex flex-wrap items-start justify-between gap-3">
             <p className="text-xs text-muted" aria-live="polite">{filtered.length} ticket(s) affiché(s) sur {tickets.length}</p>
+            <div className="flex flex-wrap items-start gap-3">
+            {dataSource === 'live' && (
+              <Button size="sm" icon={<RefreshCw size={14} className={checking ? 'animate-spin' : ''} />} onClick={onCheck} disabled={checking}>
+                Vérifier les résultats
+              </Button>
+            )}
             <ConnectorButton
               connector="drive"
               icon={<FileSpreadsheet size={14} />}
@@ -99,6 +124,7 @@ export function TicketsPage() {
             >
               Exporter vers Google Drive
             </ConnectorButton>
+            </div>
           </div>
           <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">
             {filtered.map((t) => (
@@ -108,7 +134,10 @@ export function TicketsPage() {
                     <p className="font-mono text-sm font-semibold text-ink">{t.id}</p>
                     <p className="text-[11px] text-muted">{formatDateTime(t.createdAt)}</p>
                   </div>
-                  <StatusBadge status={t.status} />
+                  <div className="flex items-center gap-1.5">
+                    {(t.source ?? 'demo') === 'demo' ? <DemoBadge /> : null}
+                    <StatusBadge status={t.status} />
+                  </div>
                 </div>
                 <ul className={`my-3 space-y-1 ${settings.compactTables ? 'text-[11px]' : 'text-xs'}`}>
                   {t.legs.map((l) => (
@@ -125,7 +154,7 @@ export function TicketsPage() {
                     <span className="font-semibold text-good">{formatPct(t.probability)}</span>
                   </p>
                   <div className="flex gap-1">
-                    {t.status === 'PENDING' && (
+                    {t.status === 'PENDING' && (t.source ?? 'demo') === 'demo' && (
                       <Button size="sm" variant="ghost" icon={<Dices size={13} />} onClick={() => settle(t)} title="Tirage aléatoire selon les probabilités synthétiques">
                         Simuler le résultat
                       </Button>
@@ -153,7 +182,7 @@ export function TicketsPage() {
               <Button variant="ghost" className="mr-auto text-risk hover:text-risk" icon={<Trash2 size={14} />} onClick={() => setConfirm({ kind: 'delete', id: detail.id })}>
                 Supprimer
               </Button>
-              {detail.status === 'PENDING' && (
+              {detail.status === 'PENDING' && (detail.source ?? 'demo') === 'demo' && (
                 <Button icon={<Dices size={14} />} onClick={() => settle(detail)}>Simuler le résultat</Button>
               )}
               <Button variant="primary" onClick={() => setDetailId(null)}>Fermer</Button>
@@ -164,6 +193,12 @@ export function TicketsPage() {
         {detail && (
           <div className="space-y-5">
             <TicketSummary ticket={detail} />
+            {detail.source === 'live' ? (
+              <p className="text-xs text-ink-2">
+                Ticket sur données réelles : le statut se met à jour automatiquement avec les scores finaux.
+                {detail.legs.some((l) => l.finalScore) && ' Les scores connus sont indiqués sur chaque sélection.'}
+              </p>
+            ) : (
             <div>
               <label htmlFor="d-status" className="mb-1.5 block text-xs font-medium text-ink-2">Statut (simulé)</label>
               <select
@@ -172,12 +207,13 @@ export function TicketsPage() {
                 value={detail.status}
                 onChange={(e) => updateTicket(setTicketStatus(detail, e.target.value as TicketStatus))}
               >
-                {(Object.keys(STATUS_LABELS) as TicketStatus[]).map((s) => (
+                {(['PENDING', 'WON_SIM', 'LOST_SIM', 'CANCELLED'] as TicketStatus[]).map((s) => (
                   <option key={s} value={s}>{STATUS_LABELS[s]}</option>
                 ))}
               </select>
               <p className="mt-1 text-[11px] text-muted">Changement manuel à des fins de démonstration ; « Annulé » exclut le ticket des performances.</p>
             </div>
+            )}
             <TicketLegs ticket={detail} />
             <TicketRisks risks={detail.risks} />
             <section className="rounded-xl border border-line bg-night-2 p-4">

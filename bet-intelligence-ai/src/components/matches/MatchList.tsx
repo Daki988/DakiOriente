@@ -5,14 +5,14 @@ import { marketLabel } from '../../utils/markets';
 import { QualityBadge } from '../ui/Badge';
 
 interface Props {
-  rows: { match: Match; offer: MarketOffer }[];
+  rows: { match: Match; offer: MarketOffer | null }[];
   competitionNames: Record<string, string>;
   onOpen: (m: Match) => void;
   compact: boolean;
 }
 
-function offerOf(m: Match, id: MarketOffer['market']) {
-  return m.markets.find((o) => o.market === id)!;
+function offerOf(m: Match, id: MarketOffer['market']): MarketOffer | undefined {
+  return m.markets.find((o) => o.market === id);
 }
 
 export function MatchList({ rows, competitionNames, onOpen, compact }: Props) {
@@ -37,19 +37,25 @@ export function MatchList({ rows, competitionNames, onOpen, compact }: Props) {
               </div>
               <div className="grid grid-cols-3 gap-1.5" aria-label="Cotes 1X2 et probabilités estimées">
                 {trio.map((o, i) => (
-                  <div key={o.market} className="rounded-lg bg-night-2 px-2 py-1.5 text-center">
+                  <div key={i} className="rounded-lg bg-night-2 px-2 py-1.5 text-center">
                     <p className="text-[10px] text-muted">{['1', 'X', '2'][i]}</p>
-                    <p className="tabular font-mono text-sm font-semibold text-ink">{formatOdds(o.odds)}</p>
-                    <p className="tabular text-[10px] text-ink-2">{formatPct(o.probability)}</p>
+                    <p className="tabular font-mono text-sm font-semibold text-ink">{o ? formatOdds(o.odds) : '—'}</p>
+                    <p className="tabular text-[10px] text-ink-2">{o ? formatPct(o.probability) : 'sans cote'}</p>
                   </div>
                 ))}
               </div>
               <div className="rounded-lg border border-line px-3 py-2">
-                <p className="truncate text-[10px] text-muted">{marketLabel(offer.market)}</p>
-                <p className="tabular flex items-baseline justify-between gap-2">
-                  <span className="font-mono text-sm font-semibold text-ink">{formatOdds(offer.odds)}</span>
-                  <span className="text-xs font-semibold text-good">{formatPct(offer.probability)}</span>
-                </p>
+                {offer ? (
+                  <>
+                    <p className="truncate text-[10px] text-muted">{marketLabel(offer.market)}{offer.bookmaker ? ` · ${offer.bookmaker}` : ''}</p>
+                    <p className="tabular flex items-baseline justify-between gap-2">
+                      <span className="font-mono text-sm font-semibold text-ink">{formatOdds(offer.odds)}</span>
+                      <span className="text-xs font-semibold text-good">{formatPct(offer.probability)}</span>
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-[11px] text-muted">Aucune cote disponible</p>
+                )}
               </div>
               <div className="flex items-center justify-between gap-2 md:justify-end">
                 <QualityBadge quality={m.dataQuality} compact />

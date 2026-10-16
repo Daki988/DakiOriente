@@ -5,6 +5,9 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig(({ mode }) => ({
   plugins: [react(), tailwindcss()],
+  // En local, /api est servi par le backend FastAPI (uvicorn api.index:app --port 8000).
+  server: { proxy: { '/api': 'http://127.0.0.1:8000' } },
+  preview: { proxy: { '/api': 'http://127.0.0.1:8000' } },
   build: mode === 'artifact' ? {
     // Version en ligne (Artifact claude.ai) : un seul script IIFE, inliné ensuite dans une page unique.
     outDir: 'dist-artifact',

@@ -7,7 +7,7 @@ const resultTitle = { W: 'Victoire', D: 'Nul', L: 'Défaite' };
 
 export function FormStrip({ recent }: { recent: RecentMatch[] }) {
   return (
-    <ul className="flex gap-1" aria-label="Forme récente simulée">
+    <ul className="flex gap-1" aria-label="Forme récente">
       {recent.map((r, i) => (
         <li
           key={i}
@@ -44,7 +44,7 @@ export function RecentTable({ name, recent }: { name: string; recent: RecentMatc
   );
 }
 
-type Row = { label: string; home: number; away: number; fmt?: (n: number) => string; higherIsBetter?: boolean };
+type Row = { label: string; home: number | null; away: number | null; fmt?: (n: number) => string; higherIsBetter?: boolean };
 
 /** Comparaison côte à côte des statistiques simulées des deux équipes. */
 export function StatComparison({ match, kind }: { match: Match; kind: 'offense' | 'defense' }) {
@@ -57,7 +57,7 @@ export function StatComparison({ match, kind }: { match: Match; kind: 'offense' 
     kind === 'offense'
       ? [
           { label: 'Buts marqués / match', home: h.goalsScoredAvg, away: a.goalsScoredAvg, fmt: f2 },
-          { label: 'xG simulés / match', home: h.xgFor, away: a.xgFor, fmt: f2 },
+          { label: 'xG / match', home: h.xgFor, away: a.xgFor, fmt: f2 },
           { label: 'Tirs / match', home: h.shotsPerMatch, away: a.shotsPerMatch, fmt: f1 },
           { label: 'Tirs cadrés / match', home: h.shotsOnTargetPerMatch, away: a.shotsOnTargetPerMatch, fmt: f1 },
           { label: 'Possession moyenne', home: h.possessionPct, away: a.possessionPct, fmt: pct },
@@ -69,7 +69,7 @@ export function StatComparison({ match, kind }: { match: Match; kind: 'offense' 
         ];
   return (
     <table className="w-full text-xs">
-      <caption className="sr-only">{kind === 'offense' ? 'Statistiques offensives simulées' : 'Statistiques défensives simulées'}</caption>
+      <caption className="sr-only">{kind === 'offense' ? 'Statistiques offensives' : 'Statistiques défensives'}</caption>
       <thead>
         <tr className="text-[11px] text-muted">
           <th scope="col" className="pb-2 text-left font-medium">{match.home.shortName}</th>
@@ -78,7 +78,8 @@ export function StatComparison({ match, kind }: { match: Match; kind: 'offense' 
         </tr>
       </thead>
       <tbody>
-        {rows.map((r) => {
+        {rows.filter((r) => r.home != null && r.away != null).map((raw) => {
+          const r = raw as Row & { home: number; away: number };
           const better = r.higherIsBetter === false ? (x: number, y: number) => x < y : (x: number, y: number) => x > y;
           const fmt = r.fmt ?? String;
           const total = r.home + r.away || 1;

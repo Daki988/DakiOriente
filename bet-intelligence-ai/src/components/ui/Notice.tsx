@@ -1,5 +1,6 @@
 import { AlertTriangle, FlaskConical, Info, ShieldAlert } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { labels } from '../../utils/labels';
 
 type NoticeTone = 'demo' | 'warn' | 'risk' | 'info';
 
@@ -20,10 +21,10 @@ export function Notice({ tone = 'info', children, className = '' }: { tone?: Not
   );
 }
 
-export function SyntheticDataNote({ className = '' }: { className?: string }) {
+export function SyntheticDataNote({ className = '', live = false }: { className?: string; live?: boolean }) {
   return (
     <p className={`flex items-center gap-1.5 text-[11px] text-muted ${className}`}>
-      <FlaskConical size={12} aria-hidden /> Graphique fondé sur des données synthétiques de démonstration.
+      <FlaskConical size={12} aria-hidden /> {labels(live).chartNote}
     </p>
   );
 }

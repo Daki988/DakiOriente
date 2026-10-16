@@ -5,22 +5,83 @@
  * des objets `Match` — le reste de l'application n'a pas à changer.
  */
 import { MIN_SAMPLE_SIZE } from '../data/demoStatistics';
-import type { Competition, Match, MarketId, Selection, Settings } from '../types';
+import type { Competition, DataSource, Match, MarketId, Selection, Settings } from '../types';
 import { VOLATILE_MARKETS } from '../utils/markets';
 import { impliedProbability, round } from '../utils/math';
 import { formatNumber, formatPct } from '../utils/format';
-import { buildDemoMatches, demoCompetitions, expectedGoals } from './demoEngine';
+import { buildDemoMatches, demoCompetitions } from './demoEngine';
 
-export const DATA_SOURCE = { mode: 'demo' as const, label: 'Données synthétiques de démonstration' };
+/** Adresse du backend : même origine par défaut (déploiement Vercel), surchargeable au build. */
+const API_BASE: string = (import.meta.env?.VITE_API_BASE as string | undefined) ?? '';
 
-export async function fetchMatches(oddsSeed: number, reference = new Date()): Promise<Match[]> {
-  // Simule une latence réseau légère pour exercer les états de chargement.
-  await new Promise((r) => setTimeout(r, 250));
-  return buildDemoMatches(oddsSeed, reference);
+export interface MatchFeed {
+  source: DataSource;
+  matches: Match[];
+  competitions: Competition[];
+  /** Problèmes partiels signalés par le backend (une ligue sans cotes, quota…). */
+  warnings: string[];
+  /** Pourquoi on est resté en démonstration, le cas échéant. */
+  fallbackReason?: string;
+  quota?: { limit: number | null; remaining: number | null };
 }
 
-export async function fetchCompetitions(): Promise<Competition[]> {
-  return demoCompetitions;
+async function getJson<T>(path: string, timeoutMs: number): Promise<T> {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    const res = await fetch(`${API_BASE}${path}`, { signal: ctrl.signal, headers: { accept: 'application/json' } });
+    if (!res.ok) {
+      const body = (await res.json().catch(() => null)) as { detail?: string } | null;
+      throw new Error(body?.detail ?? `HTTP ${res.status}`);
+    }
+    return (await res.json()) as T;
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+interface LivePayload {
+  matches: Match[];
+  competitions: Competition[];
+  errors: { league: number; message: string }[];
+  quota?: { limit: number | null; remaining: number | null };
+}
+
+/** Données réelles si le backend est configuré, sinon jeu de démonstration (jamais l'inverse en silence). */
+export async function fetchMatchFeed(oddsSeed: number, reference = new Date()): Promise<MatchFeed> {
+  let fallbackReason: string | undefined;
+  try {
+    const health = await getJson<{ live: boolean }>('/api/health', 4000);
+    if (health.live) {
+      const data = await getJson<LivePayload>('/api/matches', 30000);
+      return {
+        source: 'live',
+        matches: data.matches,
+        competitions: data.competitions,
+        warnings: data.errors.map((e) => e.message),
+        quota: data.quota,
+      };
+    }
+    fallbackReason = 'Le backend est en ligne mais aucune clé API-Football n’est configurée.';
+  } catch (e) {
+    // Pas de backend joignable (version claude.ai, copie locale) : mode démonstration.
+    fallbackReason = e instanceof Error && e.name !== 'AbortError' && !/fetch|network|load/i.test(e.message) ? `Backend : ${e.message}` : undefined;
+  }
+  return { source: 'demo', matches: buildDemoMatches(oddsSeed, reference), competitions: demoCompetitions, warnings: [], fallbackReason };
+}
+
+export interface FixtureResult {
+  status: string;
+  finished: boolean;
+  cancelled: boolean;
+  home: number | null;
+  away: number | null;
+}
+
+export async function fetchResults(ids: string[]): Promise<Record<string, FixtureResult>> {
+  if (ids.length === 0) return {};
+  const data = await getJson<{ results: Record<string, FixtureResult> }>(`/api/results?ids=${ids.map(encodeURIComponent).join(',')}`, 20000);
+  return data.results;
 }
 
 export function competitionName(competitions: Competition[], id: string): string {
@@ -33,29 +94,31 @@ export function hasSufficientData(match: Pick<Match, 'sampleSize' | 'dataQuality
 
 /** Motif de sélection pré-rédigé, cohérent avec les statistiques simulées. */
 export function selectionReason(match: Match, market: MarketId): string {
-  const xg = expectedGoals(match.home.id, match.away.id);
+  const xg = match.expectedGoals;
+  const sim = match.source === 'live' ? '' : ' simulé';
+  const sims = match.source === 'live' ? '' : ' simulés';
   const h = match.homeStats;
   const a = match.awayStats;
   const total = formatNumber(xg.home + xg.away);
   switch (market) {
     case 'HOME_WIN':
-      return `${match.home.name} génère ${formatNumber(xg.home)} buts attendus simulés contre ${formatNumber(xg.away)} pour ${match.away.name}.`;
+      return `${match.home.name} génère ${formatNumber(xg.home)} buts attendus${sims} contre ${formatNumber(xg.away)} pour ${match.away.name}.`;
     case 'AWAY_WIN':
-      return `${match.away.name} domine le rapport de force simulé (${formatNumber(xg.away)} xG contre ${formatNumber(xg.home)}).`;
+      return `${match.away.name} domine le rapport de force${sim} (${formatNumber(xg.away)} buts attendus contre ${formatNumber(xg.home)}).`;
     case 'DRAW':
       return `Rapport de force équilibré : écart de buts attendus de ${formatNumber(Math.abs(xg.home - xg.away))}.`;
     case 'DOUBLE_CHANCE_1X':
-      return `${match.home.name} n'a perdu que ${h.venueRecord.lost} de ses ${h.venueRecord.played} matchs simulés à domicile.`;
+      return `${match.home.name} n'a perdu que ${h.venueRecord.lost} de ses ${h.venueRecord.played} matchs${sims} à domicile.`;
     case 'DOUBLE_CHANCE_X2':
-      return `${match.away.name} n'a perdu que ${a.venueRecord.lost} de ses ${a.venueRecord.played} matchs simulés à l'extérieur.`;
+      return `${match.away.name} n'a perdu que ${a.venueRecord.lost} de ses ${a.venueRecord.played} matchs${sims} à l'extérieur.`;
     case 'OVER_1_5':
-      return `Total de buts attendus simulé de ${total} pour cette rencontre.`;
+      return `Total de buts attendus${sim} de ${total} pour cette rencontre.`;
     case 'OVER_2_5':
-      return `Deux attaques productives : ${total} buts attendus simulés au total.`;
+      return `Deux attaques productives : ${total} buts attendus${sims} au total.`;
     case 'UNDER_3_5':
-      return `Profil fermé : ${total} buts attendus simulés, ${formatPct(h.cleanSheetPct / 100)} de clean sheets pour ${match.home.name}.`;
+      return `Profil fermé : ${total} buts attendus${sims}, ${formatPct(h.cleanSheetPct / 100)} de clean sheets pour ${match.home.name}.`;
     case 'BTTS_YES':
-      return `Les deux équipes dépassent ${formatNumber(Math.min(xg.home, xg.away))} xG simulé et concèdent régulièrement.`;
+      return `Les deux équipes dépassent ${formatNumber(Math.min(xg.home, xg.away))} buts attendus${sim} et concèdent régulièrement.`;
   }
 }
 
@@ -77,6 +140,8 @@ export function toSelections(matches: Match[], competitions: Competition[]): Sel
         competitionName: competitionName(competitions, m.competitionId),
         kickoff: m.kickoff,
         reason: selectionReason(m, o.market),
+        bookmaker: o.bookmaker,
+        source: m.source,
       };
     }),
   );

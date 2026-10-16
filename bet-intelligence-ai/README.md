@@ -39,8 +39,47 @@ En ligne, l'application utilise les connecteurs claude.ai **de la personne qui l
 Chaque erreur est traduite selon son code (connecteur absent, connexion expirée, accès refusé, délai dépassé…) ;
 une écriture n'est jamais relancée automatiquement. Les tickets et paramètres sont aussi sauvegardés dans
 l'espace privé de chaque utilisateur de l'artefact (`data/users/<id>/state`, 80 tickets au plus), en plus du localStorage.
-Aucun connecteur ne fournit de données sportives réelles : le mode démonstration reste actif. En local (`npm run dev`),
+Les données réelles passent par le backend (voir ci-dessous), que la version claude.ai ne peut pas joindre : elle reste en mode démonstration. En local (`npm run dev`),
 les boutons de connecteurs sont désactivés.
+
+## Données réelles : backend Python + API-Football
+
+Fournisseur retenu : **[API-Football](https://www.api-football.com)** (api-sports.io). Il fournit en une seule API
+les matchs, les résultats, les statistiques et les cotes pré-match de 15 bookmakers, dont **1xBet**, Bet365,
+Pinnacle et Unibet (cotes rafraîchies toutes les 3 h). Offre gratuite : 100 requêtes/jour, mais les saisons
+accessibles y sont limitées ; pour la saison en cours, compter l’offre Pro (19 $/mois, 7 500 requêtes/jour).
+
+Le backend (`api/`, FastAPI) :
+- récupère les matchs à venir (7 jours) et les résultats de la saison des ligues suivies ;
+- calcule les probabilités avec un **modèle statistique** (forces offensives/défensives domicile/extérieur
+  rétrécies vers la moyenne, puis loi de Poisson) — ce n’est pas de l’IA et rien n’est garanti ;
+- associe à chaque marché la cote du premier bookmaker disponible dans l’ordre 1xBet → Bet365 → Pinnacle → Unibet ;
+- règle les tickets sur le score final (temps réglementaire) ; un match reporté ou annulé annule le ticket ;
+- met en cache (mémoire + CDN 30 min) pour préserver le quota ; une ligue en erreur n’empêche pas les autres.
+
+Le frontend interroge `/api/health` au démarrage : si le backend répond avec une clé configurée, il affiche
+« DONNÉES RÉELLES » ; sinon il reste en **mode démonstration** (cas de la version claude.ai, qui ne peut pas
+joindre de serveur extérieur). Tickets réels et tickets de démonstration sont comptés séparément dans Performances.
+
+| Variable | Rôle | Défaut |
+|---|---|---|
+| `API_FOOTBALL_KEY` | Clé API-Football (**secrète**, jamais dans le code) | — (sans clé : démo) |
+| `LEAGUES` | Ligues suivies (ids API-Football) | `39,140,135,78,61` (PL, Liga, Serie A, Bundesliga, Ligue 1) |
+| `BOOKMAKERS` | Ordre de préférence des bookmakers | `11,8,4,16` (1xBet, Bet365, Pinnacle, Unibet) |
+| `SEASON` | Forcer une saison | saison en cours |
+| `TIMEZONE` | Fuseau des horaires | `Africa/Libreville` |
+| `DAYS_AHEAD` | Horizon des matchs à venir | `7` |
+
+En local :
+```bash
+python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt
+API_FOOTBALL_KEY=... .venv/bin/uvicorn api.index:app --port 8000   # backend
+npm run dev                                                          # frontend, /api relayé vers :8000
+.venv/bin/python -m pytest tests                                     # tests backend (sans réseau)
+```
+
+Déploiement Vercel : importer le dossier `bet-intelligence-ai/` comme projet (`vercel.json` fourni :
+build Vite + fonction Python `api/index.py`), puis ajouter `API_FOOTBALL_KEY` dans Settings → Environment Variables.
 
 ## Stack
 

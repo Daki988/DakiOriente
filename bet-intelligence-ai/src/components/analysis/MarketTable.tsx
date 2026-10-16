@@ -6,6 +6,9 @@ import { ProbabilityBar } from '../ui/ProbabilityBar';
 
 /** Probabilités estimées, cotes de démonstration et écart estimé − implicite pour chaque marché. */
 export function MarketTable({ match }: { match: Match }) {
+  if (match.markets.length === 0) {
+    return <p className="text-xs text-muted">Aucune cote disponible pour ce match chez les bookmakers suivis.</p>;
+  }
   return (
     <div className="overflow-x-auto">
       <table className="w-full min-w-[520px] text-xs">
@@ -13,7 +16,7 @@ export function MarketTable({ match }: { match: Match }) {
         <thead>
           <tr className="text-left text-[11px] text-muted">
             <th scope="col" className="pb-2 font-medium">Marché</th>
-            <th scope="col" className="pb-2 text-right font-medium">Cote démo</th>
+            <th scope="col" className="pb-2 text-right font-medium">{match.source === 'live' ? 'Cote' : 'Cote démo'}</th>
             <th scope="col" className="pb-2 text-right font-medium">Implicite</th>
             <th scope="col" className="pb-2 pl-4 font-medium">Estimée</th>
             <th scope="col" className="pb-2 text-right font-medium">Écart</th>
@@ -27,7 +30,10 @@ export function MarketTable({ match }: { match: Match }) {
               const edge = o.probability - implied;
               return (
                 <tr key={o.market} className="border-t border-line/60">
-                  <td className="py-2 text-ink-2">{marketLabel(o.market)}</td>
+                  <td className="py-2 text-ink-2">
+                    {marketLabel(o.market)}
+                    {o.bookmaker && <span className="ml-1.5 text-[10px] text-muted">{o.bookmaker}</span>}
+                  </td>
                   <td className="tabular py-2 text-right font-mono font-semibold text-ink">{formatOdds(o.odds)}</td>
                   <td className="tabular py-2 text-right text-muted">{formatPct(implied)}</td>
                   <td className="py-2 pl-4">

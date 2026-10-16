@@ -5,6 +5,7 @@ import { addMatchToCalendar } from '../../services/connectorService';
 import { competitionName } from '../../services/matchService';
 import type { Competition, Match } from '../../types';
 import { formatDate, formatNumber, formatTime } from '../../utils/format';
+import { labels } from '../../utils/labels';
 import { ArgumentsRisks } from '../analysis/ArgumentsRisks';
 import { ConfidenceMeter } from '../analysis/ConfidenceMeter';
 import { MarketTable } from '../analysis/MarketTable';
@@ -25,6 +26,8 @@ interface Props {
 export function MatchDetailsModal({ match, competitions, onClose, onAnalyze }: Props) {
   const analysis = useMemo(() => (match ? analyzeMatch(match) : null), [match]);
   if (!match || !analysis) return null;
+  const live = match.source === 'live';
+  const L = labels(live);
   return (
     <Modal
       open
@@ -44,7 +47,7 @@ export function MatchDetailsModal({ match, competitions, onClose, onAnalyze }: P
               connector="calendar"
               icon={<CalendarPlus size={14} />}
               action={() => addMatchToCalendar(match, competitionName(competitions, match.competitionId))}
-              successMessage="Match fictif ajouté à votre Google Calendar (marqué [DÉMO])."
+              successMessage={live ? 'Match ajouté à votre Google Calendar.' : 'Match fictif ajouté à votre Google Calendar (marqué [DÉMO]).'}
             >
               Ajouter à Google Calendar
             </ConnectorButton>
@@ -55,11 +58,11 @@ export function MatchDetailsModal({ match, competitions, onClose, onAnalyze }: P
       }
     >
       <div className="space-y-6">
-        <Notice tone="demo">Rencontre, équipes et statistiques entièrement fictives, générées pour la démonstration.</Notice>
+        <Notice tone={live ? 'info' : 'demo'}>{L.matchNotice}</Notice>
 
         <div className="grid grid-cols-3 gap-3 text-center">
           <div className="rounded-xl bg-night-2 p-3">
-            <p className="text-[11px] text-muted">xG simulés {match.home.shortName}</p>
+            <p className="text-[11px] text-muted">{L.xg} {match.home.shortName}</p>
             <p className="tabular mt-1 font-mono text-xl font-semibold text-ink">{formatNumber(analysis.xg.home)}</p>
           </div>
           <div className="rounded-xl bg-night-2 p-3">
@@ -67,13 +70,13 @@ export function MatchDetailsModal({ match, competitions, onClose, onAnalyze }: P
             <p className="tabular mt-1 font-mono text-xl font-semibold text-ink">{formatNumber(analysis.xg.total)}</p>
           </div>
           <div className="rounded-xl bg-night-2 p-3">
-            <p className="text-[11px] text-muted">xG simulés {match.away.shortName}</p>
+            <p className="text-[11px] text-muted">{L.xg} {match.away.shortName}</p>
             <p className="tabular mt-1 font-mono text-xl font-semibold text-ink">{formatNumber(analysis.xg.away)}</p>
           </div>
         </div>
 
         <section>
-          <h3 className="mb-3 text-xs font-semibold tracking-wide text-muted uppercase">Dernières performances simulées</h3>
+          <h3 className="mb-3 text-xs font-semibold tracking-wide text-muted uppercase">{L.recentTitle}</h3>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <RecentTable name={match.home.name} recent={match.homeStats.recent} />
             <RecentTable name={match.away.name} recent={match.awayStats.recent} />

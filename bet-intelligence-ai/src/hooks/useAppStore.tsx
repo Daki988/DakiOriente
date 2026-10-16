@@ -1,10 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { loadCloudState, saveCloudState } from '../services/cloudSync';
-import { fetchCompetitions, fetchMatches, toSelections } from '../services/matchService';
+import { fetchMatchFeed, fetchResults, toSelections, type MatchFeed } from '../services/matchService';
 import { loadSettings, saveSettings, sanitizeSettings, DEFAULT_SETTINGS } from '../services/settingsService';
 import { readJson, removeKey, STORAGE_KEYS, writeJson } from '../services/storage';
-import { loadTickets, saveTickets } from '../services/ticketService';
-import type { Competition, Match, Selection, Settings, Ticket } from '../types';
+import { loadTickets, saveTickets, settleWithResults } from '../services/ticketService';
+import type { Competition, DataSource, Match, Selection, Settings, Ticket } from '../types';
 import { useHashRoute, type RouteId } from './useHashRoute';
 
 export interface Toast {
@@ -38,6 +38,13 @@ interface AppState {
   notify: (message: string, tone?: Toast['tone']) => void;
   dismissToast: (id: number) => void;
   storageOk: boolean;
+  /** Origine des matchs affichés : 'live' = API-Football via le backend. */
+  dataSource: DataSource;
+  feedWarnings: string[];
+  fallbackReason?: string;
+  quota?: MatchFeed['quota'];
+  /** Vérifie les scores réels des tickets en attente (données réelles). */
+  checkResults: () => Promise<number>;
   /** Sauvegarde liée au compte claude.ai (version en ligne uniquement). */
   cloud: CloudStatus;
 }
@@ -51,6 +58,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [oddsSeed, setOddsSeed] = useState<number>(() => readJson<number>(STORAGE_KEYS.seed, 1));
   const [matches, setMatches] = useState<Match[]>([]);
   const [competitions, setCompetitions] = useState<Competition[]>([]);
+  const [feed, setFeed] = useState<Pick<MatchFeed, 'source' | 'warnings' | 'fallbackReason' | 'quota'>>({ source: 'demo', warnings: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
@@ -75,11 +83,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
     let cancelled = false;
     setLoading(true);
     setError(null);
-    Promise.all([fetchMatches(oddsSeed), fetchCompetitions()])
-      .then(([m, c]) => {
+    fetchMatchFeed(oddsSeed)
+      .then((f) => {
         if (cancelled) return;
-        setMatches(m);
-        setCompetitions(c);
+        setMatches(f.matches);
+        setCompetitions(f.competitions);
+        setFeed({ source: f.source, warnings: f.warnings, fallbackReason: f.fallbackReason, quota: f.quota });
         setLastUpdated(new Date());
       })
       .catch((e: unknown) => {
@@ -164,12 +173,41 @@ export function AppProvider({ children }: { children: ReactNode }) {
     [navigate],
   );
 
+  // Règlement des tickets réels sur les scores finaux (temps réglementaire).
+  const ticketsRef = useRef(tickets);
+  ticketsRef.current = tickets;
+  const checkResults = useCallback(async (): Promise<number> => {
+    const now = Date.now();
+    const pending = ticketsRef.current.filter((t) => t.status === 'PENDING' && t.source === 'live');
+    const ids = [...new Set(pending.flatMap((t) => t.legs.filter((l) => new Date(l.kickoff).getTime() + 105 * 60_000 < now).map((l) => l.matchId)))];
+    if (ids.length === 0) return 0;
+    const results = await fetchResults(ids);
+    let changed = 0;
+    setTickets((all) =>
+      all.map((t) => {
+        const next = settleWithResults(t, results);
+        if (next !== t && (next.status !== t.status || JSON.stringify(next.legs) !== JSON.stringify(t.legs))) {
+          changed += next.status !== t.status ? 1 : 0;
+          return next;
+        }
+        return t;
+      }),
+    );
+    return changed;
+  }, []);
+
+  useEffect(() => {
+    if (feed.source !== 'live') return;
+    checkResults().catch(() => undefined);
+  }, [feed.source, checkResults]);
+
   const selections = useMemo(() => toSelections(matches, competitions), [matches, competitions]);
 
   const value: AppState = {
     route, navigate, matches, competitions, selections, loading, error, lastUpdated, refresh,
     settings, updateSettings, resetSettings, tickets, addTicket, updateTicket, deleteTicket, resetDemo,
     analysisMatchId, openAnalysis, setAnalysisMatchId, toasts, notify, dismissToast, storageOk, cloud,
+    dataSource: feed.source, feedWarnings: feed.warnings, fallbackReason: feed.fallbackReason, quota: feed.quota, checkResults,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

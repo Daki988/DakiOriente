@@ -39,7 +39,11 @@ export function TicketLegs({ ticket, showReasons = true }: { ticket: Ticket; sho
                 <span className="tabular">#{i + 1}</span> · {l.competitionName} · {formatDate(l.kickoff)} {formatTime(l.kickoff)}
               </p>
               <p className="mt-0.5 truncate text-sm font-semibold text-ink">{l.homeName} – {l.awayName}</p>
-              <p className="text-xs text-ink-2">{marketLabel(l.market)}</p>
+              <p className="text-xs text-ink-2">
+                {marketLabel(l.market)}
+                {l.bookmaker && <span className="text-muted"> · {l.bookmaker}</span>}
+                {l.finalScore && <span className="tabular ml-1.5 font-mono font-semibold text-ink">Score final {l.finalScore.home}-{l.finalScore.away}</span>}
+              </p>
             </div>
             <div className="shrink-0 text-right">
               <p className="tabular font-mono text-base font-semibold text-ink">{formatOdds(l.odds)}</p>
@@ -47,7 +51,8 @@ export function TicketLegs({ ticket, showReasons = true }: { ticket: Ticket; sho
               {l.outcome && (
                 <p className={`mt-1 inline-flex items-center gap-1 text-[10px] font-medium ${l.outcome === 'WON' ? 'text-good' : 'text-risk'}`}>
                   {l.outcome === 'WON' ? <CheckCircle2 size={11} aria-hidden /> : <XCircle size={11} aria-hidden />}
-                  {l.outcome === 'WON' ? 'Gagnée (sim.)' : 'Perdue (sim.)'}
+                  {l.outcome === 'WON' ? 'Gagnée' : 'Perdue'}
+                  {ticket.source === 'live' ? '' : ' (sim.)'}
                 </p>
               )}
             </div>
