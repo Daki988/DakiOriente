@@ -1351,7 +1351,18 @@
         "date_collecte": "2026-10-08",
         "a_verifier": false
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-uir-1.jpg",
+          "source_url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/B%C3%A2timent_UIR.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "page_source": "https://commons.wikimedia.org/wiki/File%3AB%C3%A2timent_UIR.jpg",
+          "credit": "Université Internationale de Rabat",
+          "licence": "CC BY-SA 4.0",
+          "methode": "wikimedia_commons",
+          "a_verifier": false,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.98497,
@@ -6099,7 +6110,38 @@
         "date_collecte": "2026-10-08",
         "a_verifier": false
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-ueuromed-1.jpg",
+          "source_url": "https://ueuromed.org/_next/image?url=https%3A%2F%2Fbackend.ueuromed.org%2Fuploads%2F17919991473281_d5e02b215a.jpg&w=3840&q=75",
+          "page_source": "https://ueuromed.org/fr",
+          "credit": "© Université Euromed de Fès",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-ueuromed-2.jpg",
+          "source_url": "https://backend.ueuromed.org/uploads/BANNER_3_MOD_2a4fd3e2a1.webp",
+          "page_source": "https://ueuromed.org/fr",
+          "credit": "© Université Euromed de Fès",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-ueuromed-3.jpg",
+          "source_url": "https://backend.ueuromed.org/uploads/Classement_RUR_UEMF_2026_1920_X1080px_d318405b67.jpg",
+          "page_source": "https://ueuromed.org/fr",
+          "credit": "© Université Euromed de Fès",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 34.01328,
@@ -17088,7 +17130,38 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-emg-1.jpg",
+          "source_url": "https://emg.ac.ma/img/slider/slider_03.jpg",
+          "page_source": "https://emg.ac.ma/",
+          "credit": "© École Marocaine d'Ingénierie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-emg-2.jpg",
+          "source_url": "https://emg.ac.ma/img/slider/slider_04.jpg",
+          "page_source": "https://emg.ac.ma/",
+          "credit": "© École Marocaine d'Ingénierie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-emg-3.jpg",
+          "source_url": "https://emg.ac.ma/img/slider/slider_05.jpg",
+          "page_source": "https://emg.ac.ma/",
+          "credit": "© École Marocaine d'Ingénierie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.996026,
@@ -22454,7 +22527,18 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-esss-1.jpg",
+          "source_url": "https://esss.ac.ma/uploads/1/0/8/9/108967865/edited/esss-casablanca-01aa.jpg?1689941145",
+          "page_source": "https://esss.ac.ma/index.html",
+          "credit": "© École Supérieure des Sciences de la Santé",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": null,
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -22919,7 +23003,38 @@
         "date_collecte": "2026-10-15",
         "a_verifier": false
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-ensit-1.jpg",
+          "source_url": "https://ensit.ma/wp-content/uploads/2024/04/portrait-of-smiling-male-college-student-in-busy-communal-campus-building.jpg",
+          "page_source": "https://ensit.ma/",
+          "credit": "© ENSIT – École des Nouvelles Sciences et Ingénierie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-ensit-2.jpg",
+          "source_url": "https://ensit.ma/wp-content/uploads/2024/08/etudiants-etrangeres.jpg",
+          "page_source": "https://ensit.ma/",
+          "credit": "© ENSIT – École des Nouvelles Sciences et Ingénierie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-ensit-3.jpg",
+          "source_url": "https://ensit.ma/wp-content/uploads/2024/07/Evenement.jpg",
+          "page_source": "https://ensit.ma/",
+          "credit": "© ENSIT – École des Nouvelles Sciences et Ingénierie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 35.571387,
@@ -26712,7 +26827,18 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-edge-1.jpg",
+          "source_url": "https://edge.ma/sites/default/files/styles/medium/public/articles/MBA__2.jpg?itok=EKul6jkZ",
+          "page_source": "https://edge.ma/",
+          "credit": "© EDGE Business School",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.594936,
@@ -30003,7 +30129,38 @@
       "filieres_echues": [],
       "offre_indicative": false,
       "logo": null,
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-iimc-1.jpg",
+          "source_url": "https://iiem.ac.ma/storage/2022/12/admission-scaled-1.webp",
+          "page_source": "https://iiem.ac.ma/",
+          "credit": "© IIMC – International Institute of Management Casablanca",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-iimc-2.jpg",
+          "source_url": "https://iiem.ac.ma/storage/2022/10/MBA-PROGRAMME-BRITISH-UNIVERSITY.webp",
+          "page_source": "https://iiem.ac.ma/",
+          "credit": "© IIMC – International Institute of Management Casablanca",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-iimc-3.jpg",
+          "source_url": "https://iiem.ac.ma/storage/2022/10/SIST-British-Education-Morocco-G.webp",
+          "page_source": "https://iiem.ac.ma/",
+          "credit": "© IIMC – International Institute of Management Casablanca",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.50532,
@@ -32249,7 +32406,28 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-junia-1.jpg",
+          "source_url": "https://ecole-junia.ma/wp-content/uploads/2025/04/Mask-group-3-1200x628.png",
+          "page_source": "https://ecole-junia.ma/",
+          "credit": "© JUNIA Maroc – École d'Ingénierie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-junia-2.jpg",
+          "source_url": "https://ecole-junia.ma/wp-content/uploads/2025/04/Mask-group-4.png",
+          "page_source": "https://ecole-junia.ma/",
+          "credit": "© JUNIA Maroc – École d'Ingénierie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.998132,
@@ -32433,7 +32611,38 @@
         "date_collecte": "2026-10-15",
         "a_verifier": false
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-esai-1.jpg",
+          "source_url": "https://ecoleesai.com/esai-documents/assets/esai-img-1.png",
+          "page_source": "https://www.ecoleesai.com/",
+          "credit": "© ESAI – École Supérieure d'Architecture d'Intérieur",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-esai-2.jpg",
+          "source_url": "https://www.ecoleesai.com/_next/image?url=%2Fesai-documents%2Fassets%2Fesai-img-2.png&w=3840&q=75",
+          "page_source": "https://www.ecoleesai.com/",
+          "credit": "© ESAI – École Supérieure d'Architecture d'Intérieur",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-esai-3.jpg",
+          "source_url": "https://www.ecoleesai.com/_next/image?url=%2Fesai-documents%2Fassets%2Fesai-img-3.png&w=3840&q=75",
+          "page_source": "https://www.ecoleesai.com/",
+          "credit": "© ESAI – École Supérieure d'Architecture d'Intérieur",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.974501,
@@ -32646,7 +32855,38 @@
         "date_collecte": "2026-10-15",
         "a_verifier": false
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-essec-sale-1.jpg",
+          "source_url": "https://images.ctfassets.net/vmb6iqn8sgcm/1PM8uoJBh7fEh20Cl8PAgS/6ed80e6b430f9cbdb394b47a0f7da66c/Visuel-campus-Rabat.jpeg",
+          "page_source": "https://www.essec.edu/fr/campus/rabat/",
+          "credit": "© ESSEC – École des Sciences Économiques et Commerciales (Salé)",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-essec-sale-2.jpg",
+          "source_url": "https://images.ctfassets.net/vmb6iqn8sgcm/1PM8uoJBh7fEh20Cl8PAgS/6ed80e6b430f9cbdb394b47a0f7da66c/Visuel-campus-Rabat.jpeg?w=1920",
+          "page_source": "https://www.essec.edu/fr/campus/rabat/",
+          "credit": "© ESSEC – École des Sciences Économiques et Commerciales (Salé)",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-essec-sale-3.jpg",
+          "source_url": "https://images.ctfassets.net/vmb6iqn8sgcm/51eOkW6qVrZTUxp8ypUulg/755395ebb791efbff23dfc2149c48280/image.png?h=700",
+          "page_source": "https://www.essec.edu/fr/campus/rabat/",
+          "credit": "© ESSEC – École des Sciences Économiques et Commerciales (Salé)",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 34.14038,
@@ -32884,7 +33124,38 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-medsup-1.jpg",
+          "source_url": "https://medsup.ma/wp-content/uploads/2024/08/med-sup-featured.jpg",
+          "page_source": "https://medsup.ma/",
+          "credit": "© MEDSUP – École Supérieure du Management des Entreprises du Détroit",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-medsup-2.jpg",
+          "source_url": "https://medsup.ma/wp-content/uploads/2024/06/visite_yazaki_-4.jpg",
+          "page_source": "https://medsup.ma/",
+          "credit": "© MEDSUP – École Supérieure du Management des Entreprises du Détroit",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-medsup-3.jpg",
+          "source_url": "https://medsup.ma/wp-content/uploads/2024/06/CRD-4.jpg",
+          "page_source": "https://medsup.ma/",
+          "credit": "© MEDSUP – École Supérieure du Management des Entreprises du Détroit",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 35.629559,
@@ -33459,7 +33730,18 @@
         "date_collecte": "2026-10-15",
         "a_verifier": false
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-ippc-1.jpg",
+          "source_url": "https://www.polytechnique.ma/images/polytechnique_casablanca.jpg",
+          "page_source": "https://www.polytechnique.ma/",
+          "credit": "© Institut Polytechnique Privé de Casablanca",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.52771,
@@ -33767,7 +34049,38 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-comsup-1.jpg",
+          "source_url": "https://www.comsup.ma/wp-content/uploads/2025/08/d5b6218c0fa7742a5c6876861166e697c95db06b-scaled.jpg",
+          "page_source": "https://www.comsup.ma/",
+          "credit": "© Com'Sup – École Supérieure de Communication et de Publicité",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-comsup-2.jpg",
+          "source_url": "https://www.comsup.ma/wp-content/uploads/2025/12/comsup_master-communication.jpg",
+          "page_source": "https://www.comsup.ma/",
+          "credit": "© Com'Sup – École Supérieure de Communication et de Publicité",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-comsup-3.jpg",
+          "source_url": "https://www.comsup.ma/wp-content/uploads/2025/12/comsup_campus.jpg",
+          "page_source": "https://www.comsup.ma/",
+          "credit": "© Com'Sup – École Supérieure de Communication et de Publicité",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.591619,
@@ -34316,7 +34629,38 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-esol-1.jpg",
+          "source_url": "https://images.pexels.com/photos/5752240/pexels-photo-5752240.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&pl=kkol&w=1000&h=750",
+          "page_source": "https://esol.ma/",
+          "credit": "© Ecole Supérieure d'Optique et de Lunetterie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-esol-2.jpg",
+          "source_url": "https://esol.ma/wp-content/uploads/2026/06/practice-fitness.jpg",
+          "page_source": "https://esol.ma/",
+          "credit": "© Ecole Supérieure d'Optique et de Lunetterie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-esol-3.jpg",
+          "source_url": "https://images.pexels.com/photos/15770389/pexels-photo-15770389.jpeg",
+          "page_source": "https://esol.ma/",
+          "credit": "© Ecole Supérieure d'Optique et de Lunetterie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 34.003134,
@@ -34499,7 +34843,38 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-esma-1.jpg",
+          "source_url": "https://esmamaroc.ma/images/slider/slide1.jpg",
+          "page_source": "https://esmamaroc.ma/",
+          "credit": "© Ecole Supérieure de Management et de Technologie Informatique Appliqués Privée",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-esma-2.jpg",
+          "source_url": "https://esmamaroc.ma/images/slider/slide5.jpg",
+          "page_source": "https://esmamaroc.ma/",
+          "credit": "© Ecole Supérieure de Management et de Technologie Informatique Appliqués Privée",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-esma-3.jpg",
+          "source_url": "https://esmamaroc.ma/images/slider/slide3.jpg",
+          "page_source": "https://esmamaroc.ma/",
+          "credit": "© Ecole Supérieure de Management et de Technologie Informatique Appliqués Privée",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 31.63369,
@@ -34812,7 +35187,38 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-esrim-1.jpg",
+          "source_url": "https://www.esrim.ma/images/esrim/home/hero-etudiants.webp",
+          "page_source": "https://www.esrim.ma/",
+          "credit": "© Ecole Supérieure des Réseaux Informatiques et de Management",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-esrim-2.jpg",
+          "source_url": "https://www.esrim.ma/_next/image/?url=%2Fimages%2Fesrim%2Fhome%2Fhero-etudiants.webp&w=3840&q=75",
+          "page_source": "https://www.esrim.ma/",
+          "credit": "© Ecole Supérieure des Réseaux Informatiques et de Management",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-esrim-3.jpg",
+          "source_url": "https://www.esrim.ma/_next/image/?url=%2Fimages%2Fesrim%2Fschool%2Fsalle-informatique.webp&w=3840&q=75",
+          "page_source": "https://www.esrim.ma/",
+          "credit": "© Ecole Supérieure des Réseaux Informatiques et de Management",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.023852,
@@ -35117,7 +35523,38 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-embci-1.jpg",
+          "source_url": "https://embci.com/wp-content/uploads/2022/07/Groupe-183.png",
+          "page_source": "https://embci.com/",
+          "credit": "© Ecole Marocaine de Banque et de Commerce International",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-embci-2.jpg",
+          "source_url": "https://embci.com/wp-content/uploads/2022/07/5.png",
+          "page_source": "https://embci.com/",
+          "credit": "© Ecole Marocaine de Banque et de Commerce International",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-embci-3.jpg",
+          "source_url": "https://embci.com/wp-content/uploads/2022/07/Payroll-Lite-Blog-Image-scaled-1.png",
+          "page_source": "https://embci.com/",
+          "credit": "© Ecole Marocaine de Banque et de Commerce International",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.968842,
@@ -35318,7 +35755,38 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-hek-1.jpg",
+          "source_url": "https://www.hek.ma/wp-content/uploads/2020/05/slide1-Hek.jpg",
+          "page_source": "https://www.hek.ma/",
+          "credit": "© Haute Ecole de Kinésithérapie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-hek-2.jpg",
+          "source_url": "https://www.hek.ma/wp-content/uploads/2020/05/okIMG_7556.jpg",
+          "page_source": "https://www.hek.ma/",
+          "credit": "© Haute Ecole de Kinésithérapie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-hek-3.jpg",
+          "source_url": "https://www.hek.ma/wp-content/uploads/2020/05/P1020370-copie.jpg",
+          "page_source": "https://www.hek.ma/",
+          "credit": "© Haute Ecole de Kinésithérapie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": null,
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -35646,7 +36114,28 @@
         "date_collecte": "2026-10-15",
         "a_verifier": false
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-isjc-1.jpg",
+          "source_url": "https://isjc-press.ma/wp-content/uploads/2021/10/ISJC-FB.jpg",
+          "page_source": "https://isjc-press.ma/",
+          "credit": "© Institut Supérieur du Journalisme et de Communication",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-isjc-2.jpg",
+          "source_url": "https://isjc-press.ma/wp-content/uploads/2021/09/slider.jpg",
+          "page_source": "https://isjc-press.ma/",
+          "credit": "© Institut Supérieur du Journalisme et de Communication",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.587738,
@@ -35811,7 +36300,38 @@
         "date_collecte": "2026-10-15",
         "a_verifier": false
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-isota-1.jpg",
+          "source_url": "https://isota.ac.ma/images/categories-1.jpg",
+          "page_source": "https://isota.ac.ma/",
+          "credit": "© Institut Supérieur d'Optique Théorique et Appliquée Privé",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-isota-2.jpg",
+          "source_url": "https://isota.ac.ma/images/categories-2.jpg",
+          "page_source": "https://isota.ac.ma/",
+          "credit": "© Institut Supérieur d'Optique Théorique et Appliquée Privé",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-isota-3.jpg",
+          "source_url": "https://isota.ac.ma/images/home2-course-1.jpg",
+          "page_source": "https://isota.ac.ma/",
+          "credit": "© Institut Supérieur d'Optique Théorique et Appliquée Privé",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": null,
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -36004,7 +36524,38 @@
         "date_collecte": "2026-10-15",
         "a_verifier": false
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-suptema-1.jpg",
+          "source_url": "https://suptema.net/images/accueil4.jpg",
+          "page_source": "https://suptema.net/",
+          "credit": "© Ecole Supérieure de Telécommunication et de Management",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-suptema-2.jpg",
+          "source_url": "https://suptema.net/images/accueil.jpg",
+          "page_source": "https://suptema.net/",
+          "credit": "© Ecole Supérieure de Telécommunication et de Management",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-suptema-3.jpg",
+          "source_url": "https://suptema.net/images/videosbg.jpg",
+          "page_source": "https://suptema.net/",
+          "credit": "© Ecole Supérieure de Telécommunication et de Management",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": null,
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -36424,7 +36975,38 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-sup-technology-1.jpg",
+          "source_url": "https://suptechnology.ma/public/front/assets/img/slide/slide-1.jpg",
+          "page_source": "https://suptechnology.ma/",
+          "credit": "© Ecole Supérieure des Hautes Etudes en Technologie de l'Information et de la Communication Privée",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-sup-technology-2.jpg",
+          "source_url": "https://suptechnology.ma/public/front/assets/img/slide/slide-2.jpg",
+          "page_source": "https://suptechnology.ma/",
+          "credit": "© Ecole Supérieure des Hautes Etudes en Technologie de l'Information et de la Communication Privée",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-sup-technology-3.jpg",
+          "source_url": "https://suptechnology.ma/suptechbeta/assets/img/filiere/000012-removebg-preview.png",
+          "page_source": "https://suptechnology.ma/",
+          "credit": "© Ecole Supérieure des Hautes Etudes en Technologie de l'Information et de la Communication Privée",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.570807,
@@ -36938,7 +37520,38 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-sup-isi-1.jpg",
+          "source_url": "https://supingenierie.com/image/4.png",
+          "page_source": "https://supingenierie.com/",
+          "credit": "© Institut Supérieur Privé de Génie Informatique",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-sup-isi-2.jpg",
+          "source_url": "https://supingenierie.com/image/5.png",
+          "page_source": "https://supingenierie.com/",
+          "credit": "© Institut Supérieur Privé de Génie Informatique",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-sup-isi-3.jpg",
+          "source_url": "https://supingenierie.com/image/parlapratique.png",
+          "page_source": "https://supingenierie.com/",
+          "credit": "© Institut Supérieur Privé de Génie Informatique",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 35.755497,
@@ -37727,7 +38340,18 @@
         "date_collecte": "2026-10-15",
         "a_verifier": false
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-esscg-1.jpg",
+          "source_url": "https://esscg.ma/wp-content/uploads/2026/09/3_types_maintenance_site_internet-1024x682.jpg",
+          "page_source": "https://esscg.ma/",
+          "credit": "© Ecole Supérieure des Sciences Commerciales et de Gestion",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 35.631139,
@@ -38326,7 +38950,38 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-eslsca-1.jpg",
+          "source_url": "https://www.eslsca.ma/sites/eslsca.ma/files/styles/12_5_1920/public/images/1111.png.webp?itok=Jhhm6QGd",
+          "page_source": "https://www.eslsca.ma/",
+          "credit": "© ESLSCA, Business School",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-eslsca-2.jpg",
+          "source_url": "https://www.eslsca.ma/sites/eslsca.ma/files/styles/12_5_1920/public/images/slider%20site%20web-02_0.jpg.webp?itok=FDRGOzo-",
+          "page_source": "https://www.eslsca.ma/",
+          "credit": "© ESLSCA, Business School",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-eslsca-3.jpg",
+          "source_url": "https://www.eslsca.ma/sites/eslsca.ma/files/styles/12_5_1920/public/images/slider%20site%20web-04_0.jpg.webp?itok=l9Su4qr6",
+          "page_source": "https://www.eslsca.ma/",
+          "credit": "© ESLSCA, Business School",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-10-15"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.972831,
