@@ -627,7 +627,7 @@
       "secteurs": [
         "Industrie",
         "BTP",
-        "Sociétés d'électricité (SEEG, ONEE, Senelec)"
+        "Sociétés d'électricité (ONEE, Lydec, Amendis)"
       ]
     },
     {
@@ -1056,7 +1056,7 @@
         "frm-ingenieur-mines"
       ],
       "secteurs": [
-        "Compagnies minières (Comilog, OCP...)",
+        "Compagnies minières (OCP, Managem...)",
         "Pétrole",
         "Services géologiques"
       ]
@@ -1139,7 +1139,7 @@
         "frm-licence-genie-electrique"
       ],
       "secteurs": [
-        "Énergie (MASEN, Senelec...)",
+        "Énergie (MASEN, ONEE...)",
         "Installateurs"
       ]
     },
@@ -1891,7 +1891,7 @@
         "frm-master-logistique"
       ],
       "secteurs": [
-        "Ports (Owendo, Tanger Med, Dakar)",
+        "Ports (Tanger Med, Casablanca, Nador West Med)",
         "Transitaires",
         "Industrie"
       ]

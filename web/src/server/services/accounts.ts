@@ -73,6 +73,18 @@ export async function register(raw: RegisterInput) {
     return u;
   });
   await audit(user.id, "inscription", "user", user.id, { role: user.role });
+  // E-mail de bienvenue (gabarit Navigoal), adapté au rôle.
+  if (user.email) {
+    const BIENVENUE: Record<string, [string, string, string]> = {
+      eleve: ["Fais le test d'orientation, explore les métiers et les formations, puis candidate en ligne aux établissements du Maroc.", "Commencer mon parcours", "/espace/"],
+      etudiant: ["Fais le test d'orientation, explore les métiers et les formations, puis candidate en ligne aux établissements du Maroc.", "Commencer mon parcours", "/espace/"],
+      parent: ["Suis le parcours de ton enfant : candidatures, paiements sécurisés et logement étudiant au Maroc.", "Ouvrir mon espace parent", "/parent/"],
+      etablissement: ["Votre compte établissement est en cours de vérification par l'équipe Navigoal. Vous serez prévenu par e-mail dès son activation.", "Découvrir Navigoal", "/"],
+      bailleur: ["Publiez vos logements pour étudiants : ils seront proposés sur Navilease après modération.", "Publier une annonce", "/bailleur/"],
+    };
+    const [msg, label, url] = BIENVENUE[user.role] ?? BIENVENUE.etudiant;
+    await sendEmail({ to: user.email, subject: "Bienvenue sur Navigoal", titre: `Bienvenue ${user.firstName} !`, text: msg, action: { label, url } }).catch(() => {});
+  }
   // Invitation du parent/tuteur saisi à l'inscription (code à saisir dans son espace parent).
   const [inv] = await db.select().from(schema.guardianships).where(eq(schema.guardianships.childId, user.id));
   if (inv?.inviteCode) {
