@@ -78,6 +78,13 @@ npm run dev                                                          # frontend,
 .venv/bin/python -m pytest tests                                     # tests backend (sans réseau)
 ```
 
+Deux implémentations identiques du backend (mêmes routes `/api/health`, `/api/matches`, `/api/results`) :
+- **Netlify** (recommandé) : fonction TypeScript `netlify/functions/api.mts` + logique dans `server/`
+  (`netlify.toml` fourni, dossier de base `bet-intelligence-ai`). Clé : Project configuration →
+  Environment variables → `API_FOOTBALL_KEY`, portée « Functions ». Projet créé : `bet-intelligence-ai`
+  (équipe DakiOriente) → https://bet-intelligence-ai.netlify.app
+- **Python / FastAPI** (`api/`) : pour Vercel ou tout hébergeur Python.
+
 Déploiement Vercel : importer le dossier `bet-intelligence-ai/` comme projet (`vercel.json` fourni :
 build Vite + fonction Python `api/index.py`), puis ajouter `API_FOOTBALL_KEY` dans Settings → Environment Variables.
 

@@ -6,3 +6,4 @@ artifact
 .venv
 __pycache__
 .pytest_cache
+.netlify

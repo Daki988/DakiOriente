@@ -1,0 +1,8 @@
+# Site Netlify de BET INTELLIGENCE AI (dossier de base : bet-intelligence-ai).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
