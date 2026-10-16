@@ -1,5 +1,5 @@
 // Questionnaire d'orientation RIASEC (version lycée). Chaque choix renforce un ou deux profils.
-// Photos : Pexels (licence libre), crédits dans public/images/credits.json.
+// Photos : Pexels (licence libre), crédits dans public/images/credits-orientation.json.
 export type Choice = { t: string; icon: string; codes: string[]; img?: string };
 export type Question = { q: string; choices: Choice[] };
 
