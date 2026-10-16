@@ -2,7 +2,7 @@
   "_meta": {
     "referentiel": "etablissements_superieurs",
     "version": "2.0.0",
-    "date": "2026-10-15",
+    "date": "2026-10-16",
     "plateforme": "Navigoal",
     "destination": "MA",
     "annee_reference": "2026-2027",
@@ -26,6 +26,7 @@
     "sources": [
       "data/sources/maroc/autorisations_tables.json",
       "data/sources/maroc/autorises_complements.json",
+      "data/sources/maroc/completude.json",
       "data/sources/maroc/enrichissement.json",
       "data/sources/maroc/filieres_accreditees_eesp_2024-2025.json",
       "data/sources/maroc/geo.json",
@@ -1641,7 +1642,26 @@
           "concours": "Concours d’entrée (calendrier publié sur le site)",
           "dates": null
         },
-        "frais": [],
+        "frais": [
+          {
+            "cycle": "School of Aerospace & Automotive Engineering",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 67000,
+            "note": "Frais d'inscription et de réinscription : 5 000 Dhs par an."
+          },
+          {
+            "cycle": "École Supérieure d'Informatique et du Numérique",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 67000,
+            "note": null
+          },
+          {
+            "cycle": "École Supérieure d'Architecture de Rabat",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 88000,
+            "note": "Prêt étudiant « TAMWIL UIR » jusqu'à 60 000 Dhs par an auprès de la CCG."
+          }
+        ],
         "bourses": "Bourses et prêts étudiants : dossier de demande de financement à déposer lors de l’inscription.",
         "international": "Doubles diplômes (ex. Université d’Aix-Marseille pour des masters de droit) ; page dédiée aux étudiants internationaux avec procédure d’inscription.",
         "logement": "Offre résidentielle sur le campus (tarifs sur page dédiée non relevée) ; frais de scolarité hors hébergement, transport et restauration.",
@@ -1668,7 +1688,10 @@
           "https://www.uir.ac.ma/",
           "https://www.uir.ac.ma/fr/page/frais-de-scolarite",
           "https://www.uir.ac.ma/fr/page/candidats-bacheliers",
-          "https://www.uir.ac.ma/fr/pole/college-of-engineering-et-architecture"
+          "https://www.uir.ac.ma/fr/pole/college-of-engineering-et-architecture",
+          "https://www.uir.ac.ma/fr/pole/school-of-aerospace-automotive-engineering/Fees-and-payments",
+          "https://www.uir.ac.ma/fr/pole/ecole-superieure-dinformatique-et-du-numerique/Frais-de-Formation",
+          "https://www.uir.ac.ma/fr/pole/ecole-superieure-darchitecture-de-rabat/Frais-de-formation"
         ],
         "date": "2026-10-15"
       }
@@ -3867,14 +3890,15 @@
           "Restaurants universitaires"
         ],
         "contact": {
-          "telephone": null,
-          "email": null
+          "telephone": "+212 5 29 08 91 02",
+          "email": "Informations@um6ss.ma"
         },
         "sources": [
           "https://fm6ss.ma/fr/um6ss",
           "https://fm6ss.ma/fr/um6ss/esm6iss",
           "https://fm6ss.ma/fr/um6ss/admission",
-          "https://fm6ss.ma/fr/um6ss/nos-formations"
+          "https://fm6ss.ma/fr/um6ss/nos-formations",
+          "https://um6ss.ma/contact"
         ],
         "date": "2026-10-15"
       }
@@ -6110,38 +6134,7 @@
         "date_collecte": "2026-10-08",
         "a_verifier": false
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-ueuromed-1.jpg",
-          "source_url": "https://ueuromed.org/_next/image?url=https%3A%2F%2Fbackend.ueuromed.org%2Fuploads%2F17919991473281_d5e02b215a.jpg&w=3840&q=75",
-          "page_source": "https://ueuromed.org/fr",
-          "credit": "© Université Euromed de Fès",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-ueuromed-2.jpg",
-          "source_url": "https://backend.ueuromed.org/uploads/BANNER_3_MOD_2a4fd3e2a1.webp",
-          "page_source": "https://ueuromed.org/fr",
-          "credit": "© Université Euromed de Fès",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-ueuromed-3.jpg",
-          "source_url": "https://backend.ueuromed.org/uploads/Classement_RUR_UEMF_2026_1920_X1080px_d318405b67.jpg",
-          "page_source": "https://ueuromed.org/fr",
-          "credit": "© Université Euromed de Fès",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 34.01328,
@@ -6246,8 +6239,33 @@
           "concours": "Concours spécifiques pour certaines filières, notamment en santé",
           "dates": null
         },
-        "frais": [],
-        "bourses": null,
+        "frais": [
+          {
+            "cycle": "1re et 2e années préparatoires (EPS, EIDIA)",
+            "inscription_mad": null,
+            "scolarite_annuelle_mad": 65700,
+            "note": "Année 2026-2027, nouveaux inscrits ; montant incluant 5 000 DH d'inscription, payable en 3 tranches (septembre, décembre, mars)."
+          },
+          {
+            "cycle": "Cycle ingénieur (EPS, EIDIA)",
+            "inscription_mad": null,
+            "scolarite_annuelle_mad": 75700,
+            "note": "Année 2026-2027 ; montant incluant les frais d'inscription."
+          },
+          {
+            "cycle": "Cycle licence (EMADU)",
+            "inscription_mad": null,
+            "scolarite_annuelle_mad": 55700,
+            "note": "Année 2026-2027 ; montant incluant les frais d'inscription."
+          },
+          {
+            "cycle": "Cycle master (EPS, EIDIA, EMADU)",
+            "inscription_mad": null,
+            "scolarite_annuelle_mad": 60700,
+            "note": "Année 2026-2027 ; montant incluant les frais d'inscription. Réduction de 5 % pour paiement intégral (non boursiers)."
+          }
+        ],
+        "bourses": "Bourses couvrant 25 %, 50 %, 75 % et jusqu'à 100 % des frais de scolarité, et bourses sociales ; attribuées pour une année et renouvelables selon les critères du règlement.",
         "international": "Plus de 50 nationalités ; doubles diplomations avec des universités euro-méditerranéennes ; mobilité d'un semestre à l'Université de Chypre (printemps 2027) pour les filières de génie.",
         "logement": "Résidence universitaire sur le campus (nombre de lits non précisé dans le texte)",
         "partenaires": [
@@ -6267,7 +6285,9 @@
           "https://ueuromed.org/fr",
           "https://ueuromed.org/fr/dossier-de-candidature",
           "https://ueuromed.org/fr/poles/pole-sante",
-          "https://ueuromed.org/fr/actualites/mobilite-internationale-l-uemf-ouvre-les-candidatures-pour-un-semestre-d-etudes-a-l-universite-de-chypre"
+          "https://ueuromed.org/fr/actualites/mobilite-internationale-l-uemf-ouvre-les-candidatures-pour-un-semestre-d-etudes-a-l-universite-de-chypre",
+          "https://www.ueuromed.org/frais-de-scolarite",
+          "https://ueuromed.org/fr/bourses-aides-financieres"
         ],
         "date": "2026-10-15"
       }
@@ -7318,7 +7338,14 @@
           "concours": "Examen d’entrée par programme",
           "dates": "Clôtures 2026 entre le 15/03/2026 (FGSES) et le 24/06/2026 (santé, cycles préparatoires)"
         },
-        "frais": [],
+        "frais": [
+          {
+            "cycle": "Bachelor – School of Applied Science & Engineering (SASE)",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 75000,
+            "note": "Année 2026-2027 ; bourses (FIRSI) jusqu'à 100 % des frais selon la situation socio-économique."
+          }
+        ],
         "bourses": "Bourses attribuées chaque année aux candidats marocains et d’Afrique, sur critères sociaux et d’excellence, pour les admis à l’examen d’entrée ; boursiers de la Mastercard Foundation accueillis.",
         "international": "Hubs internationaux à Paris, Montréal et New York ; programmes enseignés en anglais ; bourses ouvertes aux candidats de toute l’Afrique ; page dédiée aux candidats internationaux.",
         "logement": null,
@@ -7337,7 +7364,8 @@
         "sources": [
           "https://um6p.ma/",
           "https://um6p.ma/en/enrollment/scholarships",
-          "https://um6p.ma/en/enrollment/admissions"
+          "https://um6p.ma/en/enrollment/admissions",
+          "https://sase.um6p.ma/scholarships"
         ],
         "date": "2026-10-15"
       }
@@ -8856,7 +8884,20 @@
           "concours": "Concours d'admission (écrit et entretien oral après étude de dossier)",
           "dates": null
         },
-        "frais": [],
+        "frais": [
+          {
+            "cycle": "Médecine",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": null,
+            "note": "Frais de scolarité : 130 000 MAD (paiement en un seul versement), périodicité non précisée ; frais d'étude de dossier 1 500 dhs."
+          },
+          {
+            "cycle": "Pharmacie et médecine dentaire",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": null,
+            "note": "Frais de scolarité : 125 000 MAD (page admission santé ; 120 000 dhs sur la page de la faculté de médecine dentaire), périodicité non précisée."
+          }
+        ],
         "bourses": "Rubrique « Financement des études » et vidéo « Aide au financement » mentionnées, sans détail.",
         "international": "Double diplomation avec des partenaires, semestre d'échange international minimum pendant un cycle, stages à l'étranger dès la 2e année, plus de 21 nationalités accueillies en échange, programme Marco Polo (VATEL), projets Erasmus.",
         "logement": "Rubrique « Résidence » dans la section Campus, sans détail dans le texte relevé.",
@@ -8883,7 +8924,9 @@
           "https://upm.ac.ma/etudier-a-lupm/management/master-2-bac-5-sciences-de-management-commerce-international/",
           "https://upm.ac.ma/residanat/",
           "https://upm.ac.ma/admission-2/",
-          "https://upm.ac.ma/architecture/"
+          "https://upm.ac.ma/architecture/",
+          "https://sante.upm.ac.ma/admission/",
+          "https://upm.ac.ma/faculte-de-medecine-dentaire/"
         ],
         "date": "2026-10-15"
       }
@@ -11338,7 +11381,14 @@
           "concours": "Calendrier des concours publié sur le site",
           "dates": null
         },
-        "frais": [],
+        "frais": [
+          {
+            "cycle": "Médecine dentaire",
+            "inscription_mad": null,
+            "scolarite_annuelle_mad": 125000,
+            "note": "Frais de concours : 1 500 dhs (non remboursables)."
+          }
+        ],
         "bourses": "Page « Aide financière et financement des études » signalée, sans détail dans le texte relevé.",
         "international": "Bureau d’accompagnement des étudiants internationaux ; doubles diplômes et programmes d’échange (ex. échange à l’ECE Paris) ; enseignement de l’anglais et de l’espagnol ; étudiants venus notamment de Mauritanie, Tunisie, Sénégal et Burkina Faso.",
         "logement": "Résidence universitaire et service de transport proposés (tarifs sur pages dédiées non relevées).",
@@ -11361,7 +11411,8 @@
           "https://uic.ac.ma/",
           "https://uic.ac.ma/frais-de-scolarite/",
           "https://uic.ac.ma/decouvrir-uic/",
-          "https://uic.ac.ma/ecole-dingenierie/"
+          "https://uic.ac.ma/ecole-dingenierie/",
+          "https://uic.ac.ma/formation/medecine-dentaire/"
         ],
         "date": "2026-10-15"
       }
@@ -12481,8 +12532,21 @@
           "concours": null,
           "dates": "Inscriptions ouvertes pour la rentrée 2026/2027"
         },
-        "frais": [],
-        "bourses": null,
+        "frais": [
+          {
+            "cycle": "Licence Sciences infirmières – Infirmier polyvalent",
+            "inscription_mad": null,
+            "scolarite_annuelle_mad": 29000,
+            "note": "Fiche « Frais de scolarité annuels » 2026-2027 (même montant pour chacune des 3 années). Les autres montants de la fiche (PDF en image) ne sont pas extractibles en texte."
+          },
+          {
+            "cycle": "Licence Sciences infirmières – Anesthésie-réanimation / Soins d'urgence et soins intensifs",
+            "inscription_mad": null,
+            "scolarite_annuelle_mad": 33000,
+            "note": "Fiche « Frais de scolarité annuels » 2026-2027 (même montant pour chacune des 3 années)."
+          }
+        ],
+        "bourses": "Bourses d'excellence prenant en charge une partie ou la totalité des frais de scolarité, attribuées sur dossier selon des critères sociaux et académiques.",
         "international": "Membre du réseau Honoris United Universities : programmes d’échanges entre institutions du réseau ; formulaire ouvert aux candidats de nombreux pays africains.",
         "logement": null,
         "partenaires": [
@@ -12501,7 +12565,8 @@
         "sources": [
           "https://www.mundiapolis.ma/",
           "https://www.mundiapolis.ma/histoire-mission-et-valeurs",
-          "https://www.mundiapolis.ma/sites/default/files/2026-02/FICHE%20TARIFS%20MUNDIAPOLIS%20-%202026-2027.pdf"
+          "https://www.mundiapolis.ma/sites/default/files/2026-02/FICHE%20TARIFS%20MUNDIAPOLIS%20-%202026-2027.pdf",
+          "https://www.mundiapolis.ma/pole-business"
         ],
         "date": "2026-10-15"
       }
@@ -13743,7 +13808,32 @@
           "concours": null,
           "dates": "Ouverture des inscriptions 2026-2027"
         },
-        "frais": [],
+        "frais": [
+          {
+            "cycle": "Classes préparatoires scientifiques intégrées (Fès)",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 50000,
+            "note": "Grille tarifaire 2024-2025 ; frais de test d'admission 500 DH."
+          },
+          {
+            "cycle": "Cycles ingénieur (Fès) : génie civil, énergies renouvelables, automobile-avionique-robotique, génie informatique",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 60000,
+            "note": "Grille tarifaire 2024-2025."
+          },
+          {
+            "cycle": "Diplômes ENCG et licences (Fès)",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 55000,
+            "note": "Grille tarifaire 2024-2025."
+          },
+          {
+            "cycle": "Médecine dentaire – 1er cycle",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 100000,
+            "note": "Grille tarifaire 2024-2025 ; 110 000 DH par an au 2e cycle ; frais de concours 1 000 DH."
+          }
+        ],
         "bourses": "Bourses de mérite (page dédiée, détails non relevés).",
         "international": "Collectif des étudiants internationaux ; échanges à l’international ; réseau RAMSESS ; 10 écoles et universités partenaires dans le monde.",
         "logement": "Résidence universitaire sur le campus (détails non relevés).",
@@ -13764,7 +13854,8 @@
           "https://upf.ac.ma/",
           "https://upf.ac.ma/diplomes_Ingenieur.aspx",
           "https://upf.ac.ma/diplome_master.aspx",
-          "https://upf.ac.ma/diplome_licences.aspx"
+          "https://upf.ac.ma/diplome_licences.aspx",
+          "https://upf.ac.ma/images/Grille%20tarifaire%20Global%20de%20l'Universit%C3%A9%20Priv%C3%A9%20de%20F%C3%A8s-24-25.pdf"
         ],
         "date": "2026-10-15"
       }
@@ -14332,13 +14423,32 @@
           }
         ],
         "admission": {
-          "conditions": [],
-          "etapes": [],
+          "conditions": [
+            "1re année : baccalauréat (copies certifiées du diplôme et des relevés de notes ; attestation d'authenticité pour les étudiants internationaux)",
+            "Admission en 2e, 3e ou 4e année : relevés de notes et attestations de réussite des années post-baccalauréat"
+          ],
+          "etapes": [
+            "Dépôt du dossier complet",
+            "Étude de la candidature par la commission pédagogique, qui statue sur l'admission"
+          ],
           "concours": null,
           "dates": null
         },
-        "frais": [],
-        "bourses": "Dispositif d'accompagnement au financement des études via la Fondation UIA.",
+        "frais": [
+          {
+            "cycle": "Licence (Business School)",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 43200,
+            "note": "Frais d'inscription payables une fois admis ; scolarité payable en 4 tranches."
+          },
+          {
+            "cycle": "Master (Business School)",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 47700,
+            "note": "Frais d'inscription payables une fois admis ; scolarité payable en 4 tranches."
+          }
+        ],
+        "bourses": "Bourse d'excellence académique et bourse de mérite sociale couvrant de 20 % à 100 % des frais d'inscription et de scolarité.",
         "international": "Programmes d'échange, doubles diplômes et poursuite d'études dans des universités partenaires.",
         "logement": "Accords avec la résidence Oasis, les résidences universitaires RU Anfa City et RU Ziraoui, et Bayt Al Maarifa Casablanca.",
         "partenaires": [],
@@ -14354,7 +14464,9 @@
           "https://www.universiteaverroes.ma/contact/",
           "https://www.universiteaverroes.ma/campus-actuel/",
           "https://www.universiteaverroes.ma/linternational/",
-          "https://www.universiteaverroes.ma/averroes-executive-center/"
+          "https://www.universiteaverroes.ma/averroes-executive-center/",
+          "https://www.universiteaverroes.ma/averroes-business-school/frais-et-financement/",
+          "https://www.universiteaverroes.ma/averroes-business-school/admission/"
         ],
         "date": "2026-10-15"
       }
@@ -14905,7 +15017,26 @@
           "concours": "ECC-CNC (120 places indicatives), CentraleSupélec International (15 places), Concours Afrique, Concours sur Licence Maroc",
           "dates": "Bachelors rentrée 2026 : date limite des inscriptions le 15 septembre 2026"
         },
-        "frais": [],
+        "frais": [
+          {
+            "cycle": "Cycle ingénieur",
+            "inscription_mad": 1600,
+            "scolarite_annuelle_mad": 50000,
+            "note": "Logement : 13 500 DH par an (10 mois), caution 2 700 DH. Bourses possibles (prise en charge partielle ou totale)."
+          },
+          {
+            "cycle": "International Bachelor of Engineering",
+            "inscription_mad": 2200,
+            "scolarite_annuelle_mad": 75000,
+            "note": "Logement : 1 900 DH par mois, caution 3 800 DH."
+          },
+          {
+            "cycle": "Bachelor in Data Science for Responsible Business",
+            "inscription_mad": null,
+            "scolarite_annuelle_mad": 95000,
+            "note": null
+          }
+        ],
         "bourses": "Programme de Bourses de la Fondation Mastercard pour le cursus ingénieur (jeunes du Maroc et d'Afrique subsaharienne) : scolarité prise en charge à 100 %, logement à la résidence du campus, frais de vie, assurance santé, matériel et billet d'avion.",
         "international": "Formation multiculturelle, bachelor en data science avec deux dernières années à Lyon, mobilités et doubles diplômes, épreuves de concours organisées aussi au Liban, en Tunisie et au Gabon.",
         "logement": "Résidence et foyers sur le campus.",
@@ -14936,7 +15067,8 @@
           "https://centrale-casablanca.ma/lecole/institutionnel/reconnaissance-du-diplome/",
           "https://centrale-casablanca.ma/formations-initiales/formation-ingenieur-centralien/presentation-generale/",
           "https://centrale-casablanca.ma/formations-initiales/bachelor-in-data-science-for-responsible-business/presentation-generale/",
-          "https://centrale-casablanca.ma/programme-de-bourses-de-la-fondation-mastercard-a-lecc/"
+          "https://centrale-casablanca.ma/programme-de-bourses-de-la-fondation-mastercard-a-lecc/",
+          "https://centrale-casablanca.ma/formations-initiales/frais-de-scolarite/"
         ],
         "date": "2026-10-15"
       }
@@ -15516,7 +15648,26 @@
           "concours": null,
           "dates": null
         },
-        "frais": [],
+        "frais": [
+          {
+            "cycle": "Programme Grande École (Bac+5) et Licences en management / IBA (Bac+3)",
+            "inscription_mad": 6000,
+            "scolarite_annuelle_mad": null,
+            "note": "Grille tarifaire 2026-2027 : frais d'étude de 76 000 dhs, sans précision de périodicité (annuelle ou cycle) ; remise de 3 % en cas de paiement intégral."
+          },
+          {
+            "cycle": "Masters spécialisés – M1",
+            "inscription_mad": 6000,
+            "scolarite_annuelle_mad": 53000,
+            "note": "Grille tarifaire 2026-2027."
+          },
+          {
+            "cycle": "Masters spécialisés – M2",
+            "inscription_mad": 6000,
+            "scolarite_annuelle_mad": 60000,
+            "note": "Grille tarifaire 2026-2027 ; double diplomation avec des partenaires (IAE, De Vinci Executive Education)."
+          }
+        ],
         "bourses": "Bourses de mérite partielles attribuées à partir d'une moyenne égale ou supérieure à 15 (note du Bac ou du dernier diplôme et note d'entretien) ; prêt études possible auprès de CIH Bank et Bank of Africa, jusqu'à 50 000 dhs par année d'étude.",
         "international": "Plus de 40 nationalités, plus de 300 étudiants internationaux, 140 partenaires internationaux, plus de 70 places de double diplôme et 360 places d'échange.",
         "logement": null,
@@ -15537,7 +15688,10 @@
           "https://esca.ma/",
           "https://esca.ma/admissions/formation-initiale",
           "https://esca.ma/programme-grande-ecole",
-          "https://esca.ma/admissions/bourse-de-merite"
+          "https://esca.ma/admissions/bourse-de-merite",
+          "https://esca.ma/frais-de-scolarite",
+          "https://esca.ma/hubfs/FI%20-%20FR-1.pdf?hsLang=fr",
+          "https://esca.ma/hubfs/MS%20-%20FR-1.pdf?hsLang=fr"
         ],
         "date": "2026-10-15"
       }
@@ -16991,7 +17145,7 @@
         ],
         "contact": {
           "telephone": "+212 (0) 522 24 06 05/42",
-          "email": null
+          "email": "inscription.bel@iga.ac.ma"
         },
         "sources": [
           "https://iga.ac.ma/",
@@ -17003,7 +17157,8 @@
           "https://iga.ac.ma/international/masters-detat-francais/master-en-controle-de-gestion-et-direction-financiere",
           "https://iga.ac.ma/international/masters-detat-francais/master-en-administration-des-entreprises-de-luniversite-de-perpignan",
           "https://iga.ac.ma/international/masters-detat-francais/master-en-innovation-et-marketing-digital-de-luniversite-de-perpignan",
-          "https://iga.ac.ma/conditions-dinscription"
+          "https://iga.ac.ma/conditions-dinscription",
+          "https://iga.ac.ma/vie-estudiantine/etudiant-etranger"
         ],
         "date": "2026-10-15"
       }
@@ -17130,38 +17285,7 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-emg-1.jpg",
-          "source_url": "https://emg.ac.ma/img/slider/slider_03.jpg",
-          "page_source": "https://emg.ac.ma/",
-          "credit": "© École Marocaine d'Ingénierie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-emg-2.jpg",
-          "source_url": "https://emg.ac.ma/img/slider/slider_04.jpg",
-          "page_source": "https://emg.ac.ma/",
-          "credit": "© École Marocaine d'Ingénierie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-emg-3.jpg",
-          "source_url": "https://emg.ac.ma/img/slider/slider_05.jpg",
-          "page_source": "https://emg.ac.ma/",
-          "credit": "© École Marocaine d'Ingénierie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 33.996026,
@@ -18145,7 +18269,7 @@
           "dates": null
         },
         "frais": [],
-        "bourses": null,
+        "bourses": "Bourses d'étude sous forme de dispense partielle ou totale des frais de scolarité, attribuées selon les résultats du baccalauréat et la situation financière de la famille.",
         "international": "Admission possible pour des étudiants étrangers (mentionné sur la page d'accueil) ; le site cite des nationalités et des partenaires académiques.",
         "logement": null,
         "partenaires": [
@@ -18169,7 +18293,8 @@
           "https://ecoleheec.ma/nos-licences/",
           "https://ecoleheec.ma/cycle-dingenieur/",
           "https://ecoleheec.ma/nos-licences-management/",
-          "https://ecoleheec.ma/nos-masters-management/"
+          "https://ecoleheec.ma/nos-masters-management/",
+          "https://ecoleheec.ma/ecole-citoyenne/"
         ],
         "date": "2026-10-15"
       }
@@ -18987,7 +19112,14 @@
           "concours": null,
           "dates": "Semestre d'automne : septembre/octobre ; semestre de printemps : fin janvier ; session d'été : fin mai"
         },
-        "frais": [],
+        "frais": [
+          {
+            "cycle": "Master 2",
+            "inscription_mad": null,
+            "scolarite_annuelle_mad": 68100,
+            "note": "Frais annuels Fall + Spring + Summer (cours + PFE), tarifs 2022-2023 ; majoration annuelle de 1 % à 3 %. Licence et Master 1 : 25 100 dhs par semestre."
+          }
+        ],
         "bourses": "Bourses d'excellence pour l'accès en première année aux nouveaux bacheliers méritants (mention Assez Bien minimum), attribuées par une commission.",
         "international": "Conventions avec des universités étrangères (American Business School of Paris, CESINE, Johnson and Wales, Rotterdam Business School, SGH Warsaw, Concordia, etc.) ; semestre à l'étranger, double diplomation, programmes Erasmus+.",
         "logement": null,
@@ -19018,7 +19150,8 @@
           "https://www.iihem.ac.ma/aboutus",
           "https://www.iihem.ac.ma/campus",
           "https://www.iihem.ac.ma/contact",
-          "https://www.iihem.ac.ma/internationals"
+          "https://www.iihem.ac.ma/internationals",
+          "https://www.iihem.ac.ma/files/dossier_inscription_IIHEM.pdf"
         ],
         "date": "2026-10-15"
       }
@@ -22527,18 +22660,7 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-esss-1.jpg",
-          "source_url": "https://esss.ac.ma/uploads/1/0/8/9/108967865/edited/esss-casablanca-01aa.jpg?1689941145",
-          "page_source": "https://esss.ac.ma/index.html",
-          "credit": "© École Supérieure des Sciences de la Santé",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": null,
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -23006,7 +23128,7 @@
       "photos": [
         {
           "fichier": "assets/photos/ma/ma-ensit-1.jpg",
-          "source_url": "https://ensit.ma/wp-content/uploads/2024/04/portrait-of-smiling-male-college-student-in-busy-communal-campus-building.jpg",
+          "source_url": "https://ensit.ma/wp-content/uploads/2024/08/etudiants-etrangeres.jpg",
           "page_source": "https://ensit.ma/",
           "credit": "© ENSIT – École des Nouvelles Sciences et Ingénierie",
           "licence": null,
@@ -23016,7 +23138,7 @@
         },
         {
           "fichier": "assets/photos/ma/ma-ensit-2.jpg",
-          "source_url": "https://ensit.ma/wp-content/uploads/2024/08/etudiants-etrangeres.jpg",
+          "source_url": "https://ensit.ma/wp-content/uploads/2024/07/Evenement.jpg",
           "page_source": "https://ensit.ma/",
           "credit": "© ENSIT – École des Nouvelles Sciences et Ingénierie",
           "licence": null,
@@ -26827,18 +26949,7 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-edge-1.jpg",
-          "source_url": "https://edge.ma/sites/default/files/styles/medium/public/articles/MBA__2.jpg?itok=EKul6jkZ",
-          "page_source": "https://edge.ma/",
-          "credit": "© EDGE Business School",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 33.594936,
@@ -27106,6 +27217,7 @@
       "coordonnees": null,
       "wikidata": null,
       "formations": [
+        "frm-cpge-scientifique",
         "frm-ingenieur-genie-electrique",
         "frm-ingenieur-genie-industriel",
         "frm-ingenieur-informatique"
@@ -27240,15 +27352,97 @@
         "Bulletin officiel — arrêtés d'accréditation des filières"
       ],
       "site": {
-        "programmes": [],
+        "programmes": [
+          {
+            "intitule": "Années préparatoires au cycle ingénieur",
+            "diplome": null,
+            "niveau": "bac+2",
+            "duree_annees": 2,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.universiteaverroes.ma/engineering-school-classes-preparatoires/",
+            "formation": "frm-cpge-scientifique",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Cycle ingénieur Génie Informatique",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": 3,
+            "specialites": [
+              "Intelligence artificielle et Data Analytics",
+              "Développement et Cloud Computing",
+              "Cybersécurité et protection des données"
+            ],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.universiteaverroes.ma/engineering-school-cycle-genie/",
+            "formation": "frm-ingenieur-informatique",
+            "domaine": "dom-numerique"
+          },
+          {
+            "intitule": "Cycle ingénieur Génie Industriel",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": 3,
+            "specialites": [
+              "Systèmes industriels",
+              "Ingénierie de la chaîne logistique"
+            ],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.universiteaverroes.ma/engineering-school-cycle-genie/",
+            "formation": "frm-ingenieur-genie-industriel",
+            "domaine": "dom-ingenierie"
+          },
+          {
+            "intitule": "Cycle ingénieur Génie Électrique et Énergies",
+            "diplome": "Diplôme d'ingénieur",
+            "niveau": "bac+5",
+            "duree_annees": 3,
+            "specialites": [
+              "Génie électrique et automatismes",
+              "Transition et efficacité énergétique"
+            ],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.universiteaverroes.ma/engineering-school-cycle-genie/",
+            "formation": "frm-ingenieur-genie-electrique",
+            "domaine": "dom-ingenierie"
+          }
+        ],
         "admission": {
-          "conditions": [],
-          "etapes": [],
+          "conditions": [
+            "1re année : baccalauréat (copies certifiées du diplôme et des relevés de notes ; attestation d'authenticité pour les étudiants internationaux)",
+            "Admission en 2e, 3e ou 4e année : relevés et attestations de réussite des années post-baccalauréat"
+          ],
+          "etapes": [
+            "Dépôt du dossier complet",
+            "Étude de la candidature par la commission pédagogique"
+          ],
           "concours": null,
           "dates": null
         },
-        "frais": [],
-        "bourses": "Dispositif d'accompagnement au financement des études proposé par la Fondation UIA.",
+        "frais": [
+          {
+            "cycle": "Années préparatoires",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 43200,
+            "note": "Scolarité payable en 4 tranches."
+          },
+          {
+            "cycle": "Cycle ingénieur",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 47700,
+            "note": "Scolarité payable en 4 tranches."
+          }
+        ],
+        "bourses": "Bourse d'excellence académique et bourse de mérite sociale de l'Université Internationale Averroès (20 % à 100 % des frais).",
         "international": "Programmes d'échange, doubles diplômes et poursuite d'études auprès d'universités partenaires.",
         "logement": "Accords avec plusieurs résidences étudiantes (Oasis, RU Anfa City, RU Ziraoui, Bayt Al Maarifa).",
         "partenaires": [],
@@ -27259,8 +27453,8 @@
           "Cafétéria"
         ],
         "contact": {
-          "telephone": null,
-          "email": null
+          "telephone": "+212 5 22 10 62 62",
+          "email": "admission@universiteaverroes.ma"
         },
         "sources": [
           "https://www.universiteaverroes.ma/",
@@ -27268,7 +27462,12 @@
           "https://www.universiteaverroes.ma/averroes-business-school/",
           "https://www.universiteaverroes.ma/contact/",
           "https://www.universiteaverroes.ma/campus-actuel/",
-          "https://www.universiteaverroes.ma/linternational/"
+          "https://www.universiteaverroes.ma/linternational/",
+          "https://www.universiteaverroes.ma/averroes-engineering-school/",
+          "https://www.universiteaverroes.ma/engineering-school-classes-preparatoires/",
+          "https://www.universiteaverroes.ma/engineering-school-cycle-genie/",
+          "https://www.universiteaverroes.ma/averroes-engineering-school/frais-et-financement/",
+          "https://www.universiteaverroes.ma/averroes-engineering-school/admission/"
         ],
         "date": "2026-10-15"
       }
@@ -27294,7 +27493,9 @@
       "coordonnees": null,
       "wikidata": null,
       "formations": [
+        "frm-bachelor-business",
         "frm-ingenieur-informatique",
+        "frm-licence-banque-finance",
         "frm-licence-droit-prive",
         "frm-licence-gestion",
         "frm-master-finance-audit",
@@ -27495,15 +27696,126 @@
         "Bulletin officiel — arrêtés d'accréditation des filières"
       ],
       "site": {
-        "programmes": [],
+        "programmes": [
+          {
+            "intitule": "Licence Gestion Comptable et Fiscale",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": 3,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.universiteaverroes.ma/business-cycle-licence/",
+            "formation": "frm-licence-banque-finance",
+            "domaine": "dom-finance"
+          },
+          {
+            "intitule": "Licence Ingénierie Financière",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": 3,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.universiteaverroes.ma/business-cycle-licence/",
+            "formation": "frm-licence-banque-finance",
+            "domaine": "dom-finance"
+          },
+          {
+            "intitule": "Licence Vente et Développement Commercial",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": 3,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.universiteaverroes.ma/business-cycle-licence/",
+            "formation": "frm-bachelor-business",
+            "domaine": "dom-commerce"
+          },
+          {
+            "intitule": "Licence Marketing Digital",
+            "diplome": "Licence",
+            "niveau": "bac+3",
+            "duree_annees": 3,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.universiteaverroes.ma/business-cycle-licence/",
+            "formation": "frm-bachelor-business",
+            "domaine": "dom-commerce"
+          },
+          {
+            "intitule": "Master Comptabilité, Contrôle et Audit",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": 2,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.universiteaverroes.ma/business-cycle-master/",
+            "formation": "frm-master-finance-audit",
+            "domaine": "dom-finance"
+          },
+          {
+            "intitule": "Master Corporate Finance",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": 2,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.universiteaverroes.ma/business-cycle-master/",
+            "formation": "frm-master-finance-audit",
+            "domaine": "dom-finance"
+          },
+          {
+            "intitule": "Master Stratégie et Marketing Digital",
+            "diplome": "Master",
+            "niveau": "bac+5",
+            "duree_annees": 2,
+            "specialites": [],
+            "campus": [
+              "Casablanca"
+            ],
+            "url": "https://www.universiteaverroes.ma/business-cycle-master/",
+            "formation": "frm-master-marketing",
+            "domaine": "dom-commerce"
+          }
+        ],
         "admission": {
-          "conditions": [],
-          "etapes": [],
+          "conditions": [
+            "1re année : baccalauréat (copies certifiées du diplôme et des relevés de notes ; attestation d'authenticité pour les étudiants internationaux)",
+            "Master : licence en gestion ou diplôme équivalent"
+          ],
+          "etapes": [
+            "Dépôt du dossier complet",
+            "Étude de la candidature par la commission pédagogique"
+          ],
           "concours": null,
           "dates": null
         },
-        "frais": [],
-        "bourses": "La Fondation UIA propose un dispositif d'accompagnement au financement des études.",
+        "frais": [
+          {
+            "cycle": "Licence",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 43200,
+            "note": "Tarifs de l'Averroès Business School ; scolarité payable en 4 tranches."
+          },
+          {
+            "cycle": "Master",
+            "inscription_mad": 5000,
+            "scolarite_annuelle_mad": 47700,
+            "note": "Tarifs de l'Averroès Business School ; scolarité payable en 4 tranches."
+          }
+        ],
+        "bourses": "Bourse d'excellence académique et bourse de mérite sociale de l'Université Internationale Averroès (20 % à 100 % des frais).",
         "international": "Programmes d'échange, doubles diplômes et poursuite d'études auprès d'universités partenaires.",
         "logement": "Accords avec l'UIA : résidence Oasis, résidences universitaires (RU Anfa City, RU Ziraoui), Bayt Al Maarifa Casablanca.",
         "partenaires": [],
@@ -27511,8 +27823,8 @@
           "Campus de 11 700 m2 avec amphithéâtre de 300 places, Learning Center, bibliothèque, salle de sport"
         ],
         "contact": {
-          "telephone": null,
-          "email": null
+          "telephone": "+212 5 22 10 62 62",
+          "email": "admission@universiteaverroes.ma"
         },
         "sources": [
           "https://www.universiteaverroes.ma/",
@@ -27521,7 +27833,11 @@
           "https://www.universiteaverroes.ma/contact/",
           "https://www.universiteaverroes.ma/campus-actuel/",
           "https://www.universiteaverroes.ma/linternational/",
-          "https://www.universiteaverroes.ma/residences-estudiantines/"
+          "https://www.universiteaverroes.ma/residences-estudiantines/",
+          "https://www.universiteaverroes.ma/business-cycle-licence/",
+          "https://www.universiteaverroes.ma/business-cycle-master/",
+          "https://www.universiteaverroes.ma/averroes-business-school/frais-et-financement/",
+          "https://www.universiteaverroes.ma/averroes-business-school/admission/"
         ],
         "date": "2026-10-15"
       }
@@ -27974,7 +28290,7 @@
         "vie_etudiante": [],
         "contact": {
           "telephone": "+212 522 26 34 00 / 02",
-          "email": null
+          "email": "eskmaroc@gmail.com"
         },
         "sources": [
           "https://eskp.ma/",
@@ -30129,38 +30445,7 @@
       "filieres_echues": [],
       "offre_indicative": false,
       "logo": null,
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-iimc-1.jpg",
-          "source_url": "https://iiem.ac.ma/storage/2022/12/admission-scaled-1.webp",
-          "page_source": "https://iiem.ac.ma/",
-          "credit": "© IIMC – International Institute of Management Casablanca",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-iimc-2.jpg",
-          "source_url": "https://iiem.ac.ma/storage/2022/10/MBA-PROGRAMME-BRITISH-UNIVERSITY.webp",
-          "page_source": "https://iiem.ac.ma/",
-          "credit": "© IIMC – International Institute of Management Casablanca",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-iimc-3.jpg",
-          "source_url": "https://iiem.ac.ma/storage/2022/10/SIST-British-Education-Morocco-G.webp",
-          "page_source": "https://iiem.ac.ma/",
-          "credit": "© IIMC – International Institute of Management Casablanca",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 33.50532,
@@ -30522,7 +30807,26 @@
           "concours": null,
           "dates": "Inscriptions ouvertes 2026-2027"
         },
-        "frais": [],
+        "frais": [
+          {
+            "cycle": "1re et 2e années",
+            "inscription_mad": 3000,
+            "scolarite_annuelle_mad": 42000,
+            "note": "Grille « Frais de scolarité 2022 » publiée par l'école (PDF) ; à confirmer pour l'année en cours."
+          },
+          {
+            "cycle": "3e année",
+            "inscription_mad": 3000,
+            "scolarite_annuelle_mad": 46000,
+            "note": "Parcours Grande École ; 36 000 DH en cours de week-end. Grille 2022 à confirmer."
+          },
+          {
+            "cycle": "4e et 5e années",
+            "inscription_mad": 3000,
+            "scolarite_annuelle_mad": 50000,
+            "note": "Parcours Grande École ; 40 000 DH en cours de week-end. Grille 2022 à confirmer."
+          }
+        ],
         "bourses": "Bourse de la Fondation ISTAT possible à partir de la 2e année : jusqu'à 10 000 USD, scolarité et hébergement pris en charge ; facilités de paiement mentionnées.",
         "international": "15 nationalités sur le campus, principalement du Maroc et d'Afrique subsaharienne ; programmes d'échange avec l'Asie et l'Europe ; semestre académique possible dans une école partenaire en 5e année.",
         "logement": null,
@@ -30547,7 +30851,8 @@
           "https://aerosup.ma/cursus-formation/",
           "https://aerosup.ma/cycles-de-formation/",
           "https://aerosup.ma/filieres-de-formation/",
-          "https://aerosup.ma/presentation/"
+          "https://aerosup.ma/presentation/",
+          "https://aerosup.ma/wp-content/uploads/2022/07/Frais-de-scolarite-2022.pdf"
         ],
         "date": "2026-10-15"
       }
@@ -30809,7 +31114,7 @@
             "note": "5 000 euros ; tarif des 2e et 3e années pour les étudiants marocains non précisé sur le site"
           }
         ],
-        "bourses": null,
+        "bourses": "Bourses de mobilité (programmes Erasmus+ du groupe) pour des périodes d'études ou de stage en Europe et à l'international.",
         "international": "Semestre académique possible en université partenaire, stage à l'étranger, mobilité à l'IGENSIA School of Business (Paris, Lyon, Toulouse), double diplôme marocain et français, poursuite en mastère.",
         "logement": null,
         "partenaires": [
@@ -30838,7 +31143,8 @@
           "https://www.esa-igensia.ma/admissions",
           "https://www.esa-igensia.ma/campus-vie-etudiante",
           "https://www.esa-igensia.ma/qui-sommes-nous",
-          "https://www.esa-igensia.ma/contact"
+          "https://www.esa-igensia.ma/contact",
+          "https://www.esa-igensia.ma/insertion-professionnelle"
         ],
         "date": "2026-10-15"
       }
@@ -31124,7 +31430,7 @@
         },
         "frais": [],
         "bourses": "Bourses d'excellence jusqu'à 100 % : 5 bourses totales et 10 bourses partielles par filière en 2025-2026, avec deux sessions en octobre 2025.",
-        "international": null,
+        "international": "Accueil des étudiants étrangers : aide à la recherche d'hébergement, conseils pratiques pour le séjour au Maroc et accompagnement pour la carte de résidence.",
         "logement": null,
         "partenaires": [],
         "vie_etudiante": [
@@ -31146,7 +31452,8 @@
           "https://hecgi.ma/bachelor-europeen/",
           "https://hecgi.ma/logistique/",
           "https://hecgi.ma/finance/",
-          "https://hecgi.ma/marketing-digital/"
+          "https://hecgi.ma/marketing-digital/",
+          "https://hecgi.ma/etudiants-etrangers/"
         ],
         "date": "2026-10-15"
       }
@@ -32305,7 +32612,7 @@
         ],
         "contact": {
           "telephone": "+212 5 37 67 12 76",
-          "email": null
+          "email": "contact@hec.ac.ma"
         },
         "sources": [
           "https://hec.ac.ma/",
@@ -32316,7 +32623,8 @@
           "https://hec.ac.ma/programme-grande-ecole/marketing-e-business-digital-strategy",
           "https://hec.ac.ma/executive-education",
           "https://hec.ac.ma/executive-education/master/finance",
-          "https://hec.ac.ma/executive-education/master/gestion-de-projets"
+          "https://hec.ac.ma/executive-education/master/gestion-de-projets",
+          "https://hec.ac.ma/about"
         ],
         "date": "2026-10-15"
       }
@@ -32406,28 +32714,7 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-junia-1.jpg",
-          "source_url": "https://ecole-junia.ma/wp-content/uploads/2025/04/Mask-group-3-1200x628.png",
-          "page_source": "https://ecole-junia.ma/",
-          "credit": "© JUNIA Maroc – École d'Ingénierie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-junia-2.jpg",
-          "source_url": "https://ecole-junia.ma/wp-content/uploads/2025/04/Mask-group-4.png",
-          "page_source": "https://ecole-junia.ma/",
-          "credit": "© JUNIA Maroc – École d'Ingénierie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 33.998132,
@@ -32625,16 +32912,6 @@
         {
           "fichier": "assets/photos/ma/ma-esai-2.jpg",
           "source_url": "https://www.ecoleesai.com/_next/image?url=%2Fesai-documents%2Fassets%2Fesai-img-2.png&w=3840&q=75",
-          "page_source": "https://www.ecoleesai.com/",
-          "credit": "© ESAI – École Supérieure d'Architecture d'Intérieur",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-esai-3.jpg",
-          "source_url": "https://www.ecoleesai.com/_next/image?url=%2Fesai-documents%2Fassets%2Fesai-img-3.png&w=3840&q=75",
           "page_source": "https://www.ecoleesai.com/",
           "credit": "© ESAI – École Supérieure d'Architecture d'Intérieur",
           "licence": null,
@@ -32868,7 +33145,7 @@
         },
         {
           "fichier": "assets/photos/ma/ma-essec-sale-2.jpg",
-          "source_url": "https://images.ctfassets.net/vmb6iqn8sgcm/1PM8uoJBh7fEh20Cl8PAgS/6ed80e6b430f9cbdb394b47a0f7da66c/Visuel-campus-Rabat.jpeg?w=1920",
+          "source_url": "https://images.ctfassets.net/vmb6iqn8sgcm/51eOkW6qVrZTUxp8ypUulg/755395ebb791efbff23dfc2149c48280/image.png?h=700",
           "page_source": "https://www.essec.edu/fr/campus/rabat/",
           "credit": "© ESSEC – École des Sciences Économiques et Commerciales (Salé)",
           "licence": null,
@@ -33124,38 +33401,7 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-medsup-1.jpg",
-          "source_url": "https://medsup.ma/wp-content/uploads/2024/08/med-sup-featured.jpg",
-          "page_source": "https://medsup.ma/",
-          "credit": "© MEDSUP – École Supérieure du Management des Entreprises du Détroit",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-medsup-2.jpg",
-          "source_url": "https://medsup.ma/wp-content/uploads/2024/06/visite_yazaki_-4.jpg",
-          "page_source": "https://medsup.ma/",
-          "credit": "© MEDSUP – École Supérieure du Management des Entreprises du Détroit",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-medsup-3.jpg",
-          "source_url": "https://medsup.ma/wp-content/uploads/2024/06/CRD-4.jpg",
-          "page_source": "https://medsup.ma/",
-          "credit": "© MEDSUP – École Supérieure du Management des Entreprises du Détroit",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 35.629559,
@@ -33552,7 +33798,7 @@
           "dates": null
         },
         "frais": [],
-        "bourses": null,
+        "bourses": "Programme de bourses d'excellence pour les bacheliers (mention Assez bien, Bien ou Très bien), avec une prise en charge pouvant aller jusqu'à 100 % des frais de scolarité (hors logement, transport et vie courante).",
         "international": "Le site mentionne des partenaires internationaux (nombre non précisé dans le texte).",
         "logement": null,
         "partenaires": [],
@@ -33564,7 +33810,7 @@
         ],
         "contact": {
           "telephone": "+212 (0)5 22 264010",
-          "email": null
+          "email": "contact@esjc.ma"
         },
         "sources": [
           "https://esjc.ma/",
@@ -33572,7 +33818,9 @@
           "https://esjc.ma/formations-courtes-certifiantes/",
           "https://esjc.ma/licence-journalisme-et-communication/",
           "https://esjc.ma/2025/05/08/lesjc-une-ecole-vivante-et-engagee-au-coeur-de-casablanca/",
-          "https://esjc.ma/contactez-nous/"
+          "https://esjc.ma/contactez-nous/",
+          "https://esjc.ma/bacheliers-passionnes-des-medias-saisissez-votre-chance-des-bourses-jusqua-100-a-lesjc/",
+          "https://esjc.ma/wp-content/uploads/2025/11/Formation-Audiovisuelle-Reda-Bennis-.pdf"
         ],
         "date": "2026-10-15"
       }
@@ -33915,7 +34163,7 @@
         ],
         "contact": {
           "telephone": "+212 522 936 550",
-          "email": null
+          "email": "info@polytechnique.ma"
         },
         "sources": [
           "https://www.polytechnique.ma/",
@@ -33927,7 +34175,8 @@
           "https://www.polytechnique.ma/formations/genie-electromecanique",
           "https://www.polytechnique.ma/formations/administration-des-affaires",
           "https://www.polytechnique.ma/ecole",
-          "https://www.polytechnique.ma/contact"
+          "https://www.polytechnique.ma/contact",
+          "https://www.polytechnique.ma/uploads/formulaire-V-22Sept25.pdf"
         ],
         "date": "2026-10-15"
       }
@@ -34052,7 +34301,7 @@
       "photos": [
         {
           "fichier": "assets/photos/ma/ma-comsup-1.jpg",
-          "source_url": "https://www.comsup.ma/wp-content/uploads/2025/08/d5b6218c0fa7742a5c6876861166e697c95db06b-scaled.jpg",
+          "source_url": "https://www.comsup.ma/wp-content/uploads/2025/12/comsup_master-communication.jpg",
           "page_source": "https://www.comsup.ma/",
           "credit": "© Com'Sup – École Supérieure de Communication et de Publicité",
           "licence": null,
@@ -34062,7 +34311,7 @@
         },
         {
           "fichier": "assets/photos/ma/ma-comsup-2.jpg",
-          "source_url": "https://www.comsup.ma/wp-content/uploads/2025/12/comsup_master-communication.jpg",
+          "source_url": "https://www.comsup.ma/wp-content/uploads/2025/12/comsup_campus.jpg",
           "page_source": "https://www.comsup.ma/",
           "credit": "© Com'Sup – École Supérieure de Communication et de Publicité",
           "licence": null,
@@ -34629,38 +34878,7 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-esol-1.jpg",
-          "source_url": "https://images.pexels.com/photos/5752240/pexels-photo-5752240.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&pl=kkol&w=1000&h=750",
-          "page_source": "https://esol.ma/",
-          "credit": "© Ecole Supérieure d'Optique et de Lunetterie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-esol-2.jpg",
-          "source_url": "https://esol.ma/wp-content/uploads/2026/06/practice-fitness.jpg",
-          "page_source": "https://esol.ma/",
-          "credit": "© Ecole Supérieure d'Optique et de Lunetterie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-esol-3.jpg",
-          "source_url": "https://images.pexels.com/photos/15770389/pexels-photo-15770389.jpeg",
-          "page_source": "https://esol.ma/",
-          "credit": "© Ecole Supérieure d'Optique et de Lunetterie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 34.003134,
@@ -34843,38 +35061,7 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-esma-1.jpg",
-          "source_url": "https://esmamaroc.ma/images/slider/slide1.jpg",
-          "page_source": "https://esmamaroc.ma/",
-          "credit": "© Ecole Supérieure de Management et de Technologie Informatique Appliqués Privée",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-esma-2.jpg",
-          "source_url": "https://esmamaroc.ma/images/slider/slide5.jpg",
-          "page_source": "https://esmamaroc.ma/",
-          "credit": "© Ecole Supérieure de Management et de Technologie Informatique Appliqués Privée",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-esma-3.jpg",
-          "source_url": "https://esmamaroc.ma/images/slider/slide3.jpg",
-          "page_source": "https://esmamaroc.ma/",
-          "credit": "© Ecole Supérieure de Management et de Technologie Informatique Appliqués Privée",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 31.63369,
@@ -35015,7 +35202,7 @@
         ],
         "contact": {
           "telephone": "+212 5 24 33 11 25",
-          "email": null
+          "email": "contact@esmamaroc.ma"
         },
         "sources": [
           "https://esmamaroc.ma/",
@@ -35200,7 +35387,7 @@
         },
         {
           "fichier": "assets/photos/ma/ma-esrim-2.jpg",
-          "source_url": "https://www.esrim.ma/_next/image/?url=%2Fimages%2Fesrim%2Fhome%2Fhero-etudiants.webp&w=3840&q=75",
+          "source_url": "https://www.esrim.ma/_next/image/?url=%2Fimages%2Fesrim%2Fschool%2Fsalle-informatique.webp&w=3840&q=75",
           "page_source": "https://www.esrim.ma/",
           "credit": "© Ecole Supérieure des Réseaux Informatiques et de Management",
           "licence": null,
@@ -35523,38 +35710,7 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-embci-1.jpg",
-          "source_url": "https://embci.com/wp-content/uploads/2022/07/Groupe-183.png",
-          "page_source": "https://embci.com/",
-          "credit": "© Ecole Marocaine de Banque et de Commerce International",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-embci-2.jpg",
-          "source_url": "https://embci.com/wp-content/uploads/2022/07/5.png",
-          "page_source": "https://embci.com/",
-          "credit": "© Ecole Marocaine de Banque et de Commerce International",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-embci-3.jpg",
-          "source_url": "https://embci.com/wp-content/uploads/2022/07/Payroll-Lite-Blog-Image-scaled-1.png",
-          "page_source": "https://embci.com/",
-          "credit": "© Ecole Marocaine de Banque et de Commerce International",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 33.968842,
@@ -35755,38 +35911,7 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-hek-1.jpg",
-          "source_url": "https://www.hek.ma/wp-content/uploads/2020/05/slide1-Hek.jpg",
-          "page_source": "https://www.hek.ma/",
-          "credit": "© Haute Ecole de Kinésithérapie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-hek-2.jpg",
-          "source_url": "https://www.hek.ma/wp-content/uploads/2020/05/okIMG_7556.jpg",
-          "page_source": "https://www.hek.ma/",
-          "credit": "© Haute Ecole de Kinésithérapie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-hek-3.jpg",
-          "source_url": "https://www.hek.ma/wp-content/uploads/2020/05/P1020370-copie.jpg",
-          "page_source": "https://www.hek.ma/",
-          "credit": "© Haute Ecole de Kinésithérapie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": null,
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -36114,28 +36239,7 @@
         "date_collecte": "2026-10-15",
         "a_verifier": false
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-isjc-1.jpg",
-          "source_url": "https://isjc-press.ma/wp-content/uploads/2021/10/ISJC-FB.jpg",
-          "page_source": "https://isjc-press.ma/",
-          "credit": "© Institut Supérieur du Journalisme et de Communication",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-isjc-2.jpg",
-          "source_url": "https://isjc-press.ma/wp-content/uploads/2021/09/slider.jpg",
-          "page_source": "https://isjc-press.ma/",
-          "credit": "© Institut Supérieur du Journalisme et de Communication",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 33.587738,
@@ -36300,38 +36404,7 @@
         "date_collecte": "2026-10-15",
         "a_verifier": false
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-isota-1.jpg",
-          "source_url": "https://isota.ac.ma/images/categories-1.jpg",
-          "page_source": "https://isota.ac.ma/",
-          "credit": "© Institut Supérieur d'Optique Théorique et Appliquée Privé",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-isota-2.jpg",
-          "source_url": "https://isota.ac.ma/images/categories-2.jpg",
-          "page_source": "https://isota.ac.ma/",
-          "credit": "© Institut Supérieur d'Optique Théorique et Appliquée Privé",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-isota-3.jpg",
-          "source_url": "https://isota.ac.ma/images/home2-course-1.jpg",
-          "page_source": "https://isota.ac.ma/",
-          "credit": "© Institut Supérieur d'Optique Théorique et Appliquée Privé",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": null,
       "sources": [
         "Ministère de l'Enseignement supérieur (enssup.gov.ma)",
@@ -36527,7 +36600,7 @@
       "photos": [
         {
           "fichier": "assets/photos/ma/ma-suptema-1.jpg",
-          "source_url": "https://suptema.net/images/accueil4.jpg",
+          "source_url": "https://suptema.net/images/accueil.jpg",
           "page_source": "https://suptema.net/",
           "credit": "© Ecole Supérieure de Telécommunication et de Management",
           "licence": null,
@@ -36538,16 +36611,6 @@
         {
           "fichier": "assets/photos/ma/ma-suptema-2.jpg",
           "source_url": "https://suptema.net/images/accueil.jpg",
-          "page_source": "https://suptema.net/",
-          "credit": "© Ecole Supérieure de Telécommunication et de Management",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-suptema-3.jpg",
-          "source_url": "https://suptema.net/images/videosbg.jpg",
           "page_source": "https://suptema.net/",
           "credit": "© Ecole Supérieure de Telécommunication et de Management",
           "licence": null,
@@ -36975,38 +37038,7 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-sup-technology-1.jpg",
-          "source_url": "https://suptechnology.ma/public/front/assets/img/slide/slide-1.jpg",
-          "page_source": "https://suptechnology.ma/",
-          "credit": "© Ecole Supérieure des Hautes Etudes en Technologie de l'Information et de la Communication Privée",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-sup-technology-2.jpg",
-          "source_url": "https://suptechnology.ma/public/front/assets/img/slide/slide-2.jpg",
-          "page_source": "https://suptechnology.ma/",
-          "credit": "© Ecole Supérieure des Hautes Etudes en Technologie de l'Information et de la Communication Privée",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-sup-technology-3.jpg",
-          "source_url": "https://suptechnology.ma/suptechbeta/assets/img/filiere/000012-removebg-preview.png",
-          "page_source": "https://suptechnology.ma/",
-          "credit": "© Ecole Supérieure des Hautes Etudes en Technologie de l'Information et de la Communication Privée",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 33.570807,
@@ -37520,38 +37552,7 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-sup-isi-1.jpg",
-          "source_url": "https://supingenierie.com/image/4.png",
-          "page_source": "https://supingenierie.com/",
-          "credit": "© Institut Supérieur Privé de Génie Informatique",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-sup-isi-2.jpg",
-          "source_url": "https://supingenierie.com/image/5.png",
-          "page_source": "https://supingenierie.com/",
-          "credit": "© Institut Supérieur Privé de Génie Informatique",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-sup-isi-3.jpg",
-          "source_url": "https://supingenierie.com/image/parlapratique.png",
-          "page_source": "https://supingenierie.com/",
-          "credit": "© Institut Supérieur Privé de Génie Informatique",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 35.755497,
@@ -37666,14 +37667,15 @@
         ],
         "contact": {
           "telephone": "0661-17-89-88 ou 0539-99-07-70",
-          "email": null
+          "email": "supingenierie@gmail.com"
         },
         "sources": [
           "https://supingenierie.com/",
           "https://supingenierie.com/frais.php?m=7",
           "https://supingenierie.com/formation_passion_programme.php?m=3&i=1",
           "https://supingenierie.com/diplome_bac3.php?m=4&i=1",
-          "https://supingenierie.com/diplome_bac5.php?m=4&i=2"
+          "https://supingenierie.com/diplome_bac5.php?m=4&i=2",
+          "https://supingenierie.com/contact.php?m=10"
         ],
         "date": "2026-10-15"
       }
@@ -38340,18 +38342,7 @@
         "date_collecte": "2026-10-15",
         "a_verifier": false
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-esscg-1.jpg",
-          "source_url": "https://esscg.ma/wp-content/uploads/2026/09/3_types_maintenance_site_internet-1024x682.jpg",
-          "page_source": "https://esscg.ma/",
-          "credit": "© Ecole Supérieure des Sciences Commerciales et de Gestion",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 35.631139,
@@ -38503,8 +38494,8 @@
           "Service des stages avec offres consultables sur l'intranet"
         ],
         "contact": {
-          "telephone": null,
-          "email": null
+          "telephone": "+212 539 382 124",
+          "email": "contact@esscg.ma"
         },
         "sources": [
           "https://esscg.ma/",
@@ -38517,7 +38508,9 @@
           "https://esscg.ma/bachelor-finance/",
           "https://esscg.ma/bachelor-marketing/",
           "https://esscg.ma/bachelor-logistique-transport/",
-          "https://esscg.ma/cycles-de-formation-certifiants/"
+          "https://esscg.ma/cycles-de-formation-certifiants/",
+          "https://esscg.ma/etudiants-etrangers/",
+          "https://esscg.ma/contact/"
         ],
         "date": "2026-10-15"
       }
@@ -38960,26 +38953,6 @@
           "methode": "site_officiel",
           "a_verifier": true,
           "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-eslsca-2.jpg",
-          "source_url": "https://www.eslsca.ma/sites/eslsca.ma/files/styles/12_5_1920/public/images/slider%20site%20web-02_0.jpg.webp?itok=FDRGOzo-",
-          "page_source": "https://www.eslsca.ma/",
-          "credit": "© ESLSCA, Business School",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-eslsca-3.jpg",
-          "source_url": "https://www.eslsca.ma/sites/eslsca.ma/files/styles/12_5_1920/public/images/slider%20site%20web-04_0.jpg.webp?itok=l9Su4qr6",
-          "page_source": "https://www.eslsca.ma/",
-          "credit": "© ESLSCA, Business School",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-10-15"
         }
       ],
       "geo": {
@@ -39227,7 +39200,7 @@
             "note": "Prix affiché sur les pages des trois MBA internationaux"
           }
         ],
-        "bourses": null,
+        "bourses": "Programme « Bourses Learn Africa » avec la Fondation Mujeres por Africa : 10 bourses couvrant 100 % des frais de scolarité en licence et en master pour des étudiantes africaines (frais de vie non couverts).",
         "international": "Parcours international en double diplôme français (3 ans au Maroc, 2 ans en France), échanges académiques, possibilité d'études à l'ESLSCA Paris ou à EDC Paris Business School ; MBA internationaux en partenariat avec BIU Miami et EAE Business School (Madrid, Barcelone).",
         "logement": null,
         "partenaires": [
@@ -39256,7 +39229,8 @@
           "https://www.eslsca.ma/formation-executive",
           "https://www.eslsca.ma/formation-academique",
           "https://www.eslsca.ma/formation-academique/masters",
-          "https://www.eslsca.ma/parcours-en-double-diplome-rabat"
+          "https://www.eslsca.ma/parcours-en-double-diplome-rabat",
+          "https://www.eslsca.ma/evenements/bourses-learn-africa-2026-10-opportunites-dexcellence-eslsca-business-school-rabat"
         ],
         "date": "2026-10-15"
       }
@@ -41220,7 +41194,7 @@
         ],
         "contact": {
           "telephone": "+212 (0) 522 75 03 75",
-          "email": null
+          "email": "info.casa@emsi.ma"
         },
         "sources": [
           "https://emsi.ma/",
@@ -41228,7 +41202,8 @@
           "https://emsi.ma/frais-et-financement/",
           "https://emsi.ma/candidature/",
           "https://emsi.ma/cursus-des-etudes/",
-          "https://emsi.ma/conditions-generales-dutilisation/"
+          "https://emsi.ma/conditions-generales-dutilisation/",
+          "https://emsi.ma/contact/"
         ],
         "date": "2026-10-15"
       }
@@ -42192,7 +42167,7 @@
           "Incubateur Edvantis"
         ],
         "contact": {
-          "telephone": null,
+          "telephone": "05 22 25 55 96",
           "email": null
         },
         "sources": [
@@ -42204,7 +42179,8 @@
           "https://isga.ma/double-diplomes/",
           "https://isga.ma/cycle-dingenieurs/",
           "https://isga.ma/cycle-preparatoire/",
-          "https://isga.ma/insertion-des-diplomes/"
+          "https://isga.ma/insertion-des-diplomes/",
+          "https://isga.ma/contact/"
         ],
         "date": "2026-10-15"
       }
@@ -44503,7 +44479,7 @@
           "dates": null
         },
         "frais": [],
-        "bourses": null,
+        "bourses": "Bourses d'études partielles ou totales (réduction ou exonération des frais de scolarité, éventuellement du logement) pour les étudiants talentueux en difficulté financière ; demande en ligne puis entretien.",
         "international": "Stratégie axée sur l'ouverture à l'international, notamment l'Afrique (coopération Sud-Sud).",
         "logement": null,
         "partenaires": [
@@ -44533,7 +44509,8 @@
           "https://hecf.ac.ma/master-en-droit-des-affaires-da/",
           "https://hecf.ac.ma/licence-en-droit-des-affaires-da/",
           "https://hecf.ac.ma/mba-gestion-financere-et-fiscale/",
-          "https://hecf.ac.ma/comptabilite-controle-et-audit-cca/"
+          "https://hecf.ac.ma/comptabilite-controle-et-audit-cca/",
+          "https://hecf.ac.ma/bourse/"
         ],
         "date": "2026-10-15"
       }
@@ -45899,8 +45876,8 @@
           "Réalisations étudiants"
         ],
         "contact": {
-          "telephone": null,
-          "email": null
+          "telephone": "05 22 26 18 54",
+          "email": "artcomcasa@ecole-artcom.com"
         },
         "sources": [
           "https://www.ecole-artcom.com/",
@@ -46624,7 +46601,7 @@
         },
         "frais": [],
         "bourses": null,
-        "international": null,
+        "international": "Accueil d'étudiants étrangers francophones et stages de lauréats en Europe mentionnés par l'institut.",
         "logement": null,
         "partenaires": [
           "Conventions avec des hôpitaux et cliniques du Maroc pour les stages"
@@ -46643,7 +46620,8 @@
           "https://iheps.ac.ma/filiere-biomedicale/",
           "https://iheps.ac.ma/master-kinesitherapie-niveau-bac5/",
           "https://iheps.ac.ma/master-en-dietetique-et-nutrition-bac-5/",
-          "https://iheps.ac.ma/a-propos/"
+          "https://iheps.ac.ma/a-propos/",
+          "https://iheps.ac.ma/presentation/"
         ],
         "date": "2026-10-15"
       }

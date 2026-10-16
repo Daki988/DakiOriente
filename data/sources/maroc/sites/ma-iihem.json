@@ -69,16 +69,10 @@
   },
   "frais": [
     {
-      "cycle": "Licence et Master 1 (Business Administration)",
-      "inscription_mad": null,
-      "scolarite_annuelle_mad": null,
-      "note": "25 100 dhs par semestre (tarifs 2022-2023, majoration annuelle de 1 % à 3 %)."
-    },
-    {
       "cycle": "Master 2",
       "inscription_mad": null,
       "scolarite_annuelle_mad": 68100,
-      "note": "Frais annuels Fall + Spring + Summer (cours + PFE), tarifs 2022-2023 ; majoration annuelle de 1 % à 3 %."
+      "note": "Frais annuels Fall + Spring + Summer (cours + PFE), tarifs 2022-2023 ; majoration annuelle de 1 % à 3 %. Licence et Master 1 : 25 100 dhs par semestre."
     }
   ],
   "bourses": "Bourses d'excellence pour l'accès en première année aux nouveaux bacheliers méritants (mention Assez Bien minimum), attribuées par une commission.",
@@ -120,6 +114,8 @@
   },
   "verification": {
     "date": "2026-10-15",
-    "retraits": []
+    "retraits": [
+      "frais:Licence et Master 1 (Business Administration)"
+    ]
   }
 }
