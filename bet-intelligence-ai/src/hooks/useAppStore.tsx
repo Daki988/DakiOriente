@@ -45,6 +45,8 @@ interface AppState {
   quota?: MatchFeed['quota'];
   /** Vérifie les scores réels des tickets en attente (données réelles). */
   checkResults: () => Promise<number>;
+  provider?: MatchFeed['provider'];
+  feedFetchedAt?: string;
   /** Sauvegarde liée au compte claude.ai (version en ligne uniquement). */
   cloud: CloudStatus;
 }
@@ -58,7 +60,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [oddsSeed, setOddsSeed] = useState<number>(() => readJson<number>(STORAGE_KEYS.seed, 1));
   const [matches, setMatches] = useState<Match[]>([]);
   const [competitions, setCompetitions] = useState<Competition[]>([]);
-  const [feed, setFeed] = useState<Pick<MatchFeed, 'source' | 'warnings' | 'fallbackReason' | 'quota'>>({ source: 'demo', warnings: [] });
+  const [feed, setFeed] = useState<Pick<MatchFeed, 'source' | 'warnings' | 'fallbackReason' | 'quota' | 'provider' | 'fetchedAt' | 'results'>>({ source: 'demo', warnings: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
@@ -88,7 +90,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         if (cancelled) return;
         setMatches(f.matches);
         setCompetitions(f.competitions);
-        setFeed({ source: f.source, warnings: f.warnings, fallbackReason: f.fallbackReason, quota: f.quota });
+        setFeed({ source: f.source, warnings: f.warnings, fallbackReason: f.fallbackReason, quota: f.quota, provider: f.provider, fetchedAt: f.fetchedAt, results: f.results });
         setLastUpdated(new Date());
       })
       .catch((e: unknown) => {
@@ -174,6 +176,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 
   // Règlement des tickets réels sur les scores finaux (temps réglementaire).
+  const feedRef = useRef(feed);
+  feedRef.current = feed;
   const ticketsRef = useRef(tickets);
   ticketsRef.current = tickets;
   const checkResults = useCallback(async (): Promise<number> => {
@@ -181,7 +185,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const pending = ticketsRef.current.filter((t) => t.status === 'PENDING' && t.source === 'live');
     const ids = [...new Set(pending.flatMap((t) => t.legs.filter((l) => new Date(l.kickoff).getTime() + 105 * 60_000 < now).map((l) => l.matchId)))];
     if (ids.length === 0) return 0;
-    const results = await fetchResults(ids);
+    // Données ESPN : scores déjà présents dans l'instantané ; sinon, backend.
+    const results = feedRef.current.provider === 'espn' ? (feedRef.current.results ?? {}) : await fetchResults(ids);
     let changed = 0;
     setTickets((all) =>
       all.map((t) => {
@@ -199,7 +204,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (feed.source !== 'live') return;
     checkResults().catch(() => undefined);
-  }, [feed.source, checkResults]);
+  }, [feed.source, feed.fetchedAt, checkResults]);
 
   const selections = useMemo(() => toSelections(matches, competitions), [matches, competitions]);
 
@@ -207,7 +212,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     route, navigate, matches, competitions, selections, loading, error, lastUpdated, refresh,
     settings, updateSettings, resetSettings, tickets, addTicket, updateTicket, deleteTicket, resetDemo,
     analysisMatchId, openAnalysis, setAnalysisMatchId, toasts, notify, dismissToast, storageOk, cloud,
-    dataSource: feed.source, feedWarnings: feed.warnings, fallbackReason: feed.fallbackReason, quota: feed.quota, checkResults,
+    dataSource: feed.source, provider: feed.provider, feedFetchedAt: feed.fetchedAt, feedWarnings: feed.warnings, fallbackReason: feed.fallbackReason, quota: feed.quota, checkResults,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

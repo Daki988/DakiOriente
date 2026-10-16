@@ -12,7 +12,7 @@ export function FormStrip({ recent }: { recent: RecentMatch[] }) {
         <li
           key={i}
           className={`grid size-6 place-items-center rounded text-[10px] font-bold ${resultStyle[r.result]}`}
-          title={`${resultTitle[r.result]} ${r.goalsFor}-${r.goalsAgainst} contre ${r.opponent} (${r.venue === 'DOM' ? 'domicile' : 'extérieur'})`}
+          title={r.goalsFor == null ? resultTitle[r.result] : `${resultTitle[r.result]} ${r.goalsFor}-${r.goalsAgainst} contre ${r.opponent} (${r.venue === 'DOM' ? 'domicile' : 'extérieur'})`}
         >
           {resultLabel[r.result]}
         </li>
@@ -32,11 +32,13 @@ export function RecentTable({ name, recent }: { name: string; recent: RecentMatc
               {resultLabel[r.result]}
             </span>
             <span className="min-w-0 flex-1 truncate text-ink-2">
-              {r.venue === 'DOM' ? 'vs' : '@'} {r.opponent}
+              {r.goalsFor == null ? resultTitle[r.result] : `${r.venue === 'DOM' ? 'vs' : '@'} ${r.opponent}`}
             </span>
-            <span className="tabular font-mono font-semibold text-ink">
-              {r.goalsFor}-{r.goalsAgainst}
-            </span>
+            {r.goalsFor != null && (
+              <span className="tabular font-mono font-semibold text-ink">
+                {r.goalsFor}-{r.goalsAgainst}
+              </span>
+            )}
           </li>
         ))}
       </ul>

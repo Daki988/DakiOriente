@@ -6,13 +6,14 @@ import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { Toggle } from '../components/ui/Fields';
+import { RealDataRefresh } from '../components/ui/RealDataRefresh';
 import { useApp, type CloudStatus } from '../hooks/useAppStore';
 import { useConnectors } from '../hooks/useConnectors';
 import type { ConnectorKey, ConnectorStatus } from '../services/connectorService';
 import { runtime } from '../services/runtime';
 
 export function SettingsPage() {
-  const { settings, updateSettings, resetSettings, resetDemo, notify, storageOk, cloud, dataSource, fallbackReason, quota } = useApp();
+  const { settings, updateSettings, resetSettings, resetDemo, notify, storageOk, cloud, dataSource, fallbackReason, quota, provider } = useApp();
   const { availability, statuses } = useConnectors();
   const [confirmReset, setConfirmReset] = useState(false);
 
@@ -46,6 +47,10 @@ export function SettingsPage() {
       </div>
 
       <div className="space-y-6">
+        <Card title="Données réelles" subtitle="ESPN via votre connecteur Firecrawl">
+          <RealDataRefresh />
+        </Card>
+
         <Card title="Vos connecteurs claude.ai" subtitle="Utilisés uniquement quand vous cliquez sur une action">
           {availability === 'offline' ? (
             <p className="text-xs leading-relaxed text-ink-2">
@@ -73,9 +78,11 @@ export function SettingsPage() {
             <SourceRow
               icon={<Plug size={16} />}
               label="API football"
-              status={dataSource === 'live' ? <Badge tone="good">API-Football</Badge> : <Badge>Non connectée</Badge>}
+              status={dataSource === 'live' ? <Badge tone="good">{provider === 'espn' ? 'ESPN · Firecrawl' : 'API-Football'}</Badge> : <Badge>Non connectée</Badge>}
               detail={
-                dataSource === 'live'
+                dataSource === 'live' && provider === 'espn'
+                  ? 'Matchs, scores et classements réels. Aucune cote de bookmaker : cotes calculées par le modèle.'
+                  : dataSource === 'live'
                   ? `Matchs, résultats et cotes (1xBet, Bet365, Pinnacle, Unibet).${quota?.remaining != null ? ` Requêtes restantes aujourd’hui : ${quota.remaining}${quota.limit != null ? ` / ${quota.limit}` : ''}.` : ''}`
                   : 'Nécessite le backend déployé avec une clé API-Football (voir README).'
               }
@@ -84,8 +91,8 @@ export function SettingsPage() {
             <SourceRow
               icon={<Server size={16} />}
               label="Backend"
-              status={dataSource === 'live' ? <Badge tone="good">Connecté</Badge> : <Badge>Non connecté</Badge>}
-              detail={dataSource === 'live' ? 'Backend Python (FastAPI) : modèle statistique et règlement des tickets.' : 'Backend Python prêt (dossier api/), à déployer.'}
+              status={dataSource === 'live' && provider !== 'espn' ? <Badge tone="good">Connecté</Badge> : <Badge>Non connecté</Badge>}
+              detail={dataSource === 'live' && provider !== 'espn' ? 'Backend : modèle statistique et règlement des tickets.' : 'Non requis pour les données ESPN ; backend API-Football prêt à déployer (Netlify).'}
             />
           </ul>
           <p className="mt-4 text-[11px] leading-relaxed text-muted">Aucun secret ni clé d’API n’est stocké dans cette application.</p>

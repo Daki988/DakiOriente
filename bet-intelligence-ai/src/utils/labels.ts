@@ -13,9 +13,9 @@ export function labels(live: boolean) {
         venueHome: 'Bilan à domicile',
         venueAway: 'Bilan à l’extérieur',
         recentTitle: 'Dernières performances',
-        chartNote: 'Probabilités estimées par le modèle statistique ; cotes réelles des bookmakers.',
+        chartNote: 'Probabilités estimées par le modèle statistique à partir de données réelles.',
         matchesHint: 'Rencontres à venir',
-        matchNotice: 'Données réelles (API-Football). Les probabilités sont des estimations du modèle statistique, sans garantie.',
+        matchNotice: 'Données réelles. Les probabilités sont des estimations du modèle statistique, sans garantie.',
       }
     : {
         sim: ' simulé',

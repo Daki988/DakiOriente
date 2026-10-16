@@ -54,7 +54,7 @@ export function analyzeMatch(match: Match): MatchAnalysis {
   if (hAtt >= 1.8) args.push(`${match.home.name} produit ${formatNumber(hAtt)} ${unit} par match à domicile.`);
   if (aDef >= 1.6) args.push(`${match.away.name} concède ${formatNumber(aDef)} ${unit} par match à l’extérieur.`);
   if (aAtt >= 1.6) args.push(`${match.away.name} reste dangereux en déplacement (${formatNumber(aAtt)} ${unit} par match).`);
-  if (h.cleanSheetPct >= 35) args.push(`${match.home.name} garde sa cage inviolée dans ${h.cleanSheetPct} % de ses matchs à domicile${live ? '' : ' simulés'}.`);
+  if (h.cleanSheetPct != null && h.cleanSheetPct >= 35) args.push(`${match.home.name} garde sa cage inviolée dans ${h.cleanSheetPct} % de ses matchs à domicile${live ? '' : ' simulés'}.`);
   const hf = formPoints(h);
   const af = formPoints(a);
   if (hf >= 10) args.push(`Bonne dynamique${sim === '' ? '' : ' simulée'} de ${match.home.name} : ${hf} points sur les 5 derniers matchs.`);

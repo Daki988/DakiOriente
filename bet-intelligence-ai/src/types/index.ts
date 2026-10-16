@@ -23,8 +23,9 @@ export type FormResult = 'W' | 'D' | 'L';
 export interface RecentMatch {
   opponent: string;
   venue: 'DOM' | 'EXT';
-  goalsFor: number;
-  goalsAgainst: number;
+  /** null quand la source ne donne que le résultat (forme ESPN « VNDDV »). */
+  goalsFor: number | null;
+  goalsAgainst: number | null;
   result: FormResult;
 }
 
@@ -38,7 +39,7 @@ export interface TeamStats {
   shotsPerMatch: number | null;
   shotsOnTargetPerMatch: number | null;
   possessionPct: number | null;
-  cleanSheetPct: number;
+  cleanSheetPct: number | null;
   /** Bilan à domicile (équipe recevante) ou à l'extérieur (équipe visiteuse). */
   venueRecord: { played: number; won: number; drawn: number; lost: number };
   recent: RecentMatch[];

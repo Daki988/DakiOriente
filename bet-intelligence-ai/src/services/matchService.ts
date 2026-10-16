@@ -10,12 +10,26 @@ import { VOLATILE_MARKETS } from '../utils/markets';
 import { impliedProbability, round } from '../utils/math';
 import { formatNumber, formatPct } from '../utils/format';
 import { buildDemoMatches, demoCompetitions } from './demoEngine';
+import { buildFromFeed } from './espnFeed';
+import { loadEspnFeed } from './espnSync';
+import { isOnline } from './runtime';
 
 /** Adresse du backend : même origine par défaut (déploiement Vercel), surchargeable au build. */
 const API_BASE: string = (import.meta.env?.VITE_API_BASE as string | undefined) ?? '';
 
+export type LiveProvider = 'api-football' | 'espn';
+
+export const ESPN_ODDS_WARNING =
+  'Cotes affichées = 1 / probabilité du modèle (sans marge) : ESPN ne fournit aucune cote de bookmaker. Comparez toujours avec la cote réelle proposée par votre bookmaker.';
+
 export interface MatchFeed {
   source: DataSource;
+  /** Fournisseur des données réelles, quand source = 'live'. */
+  provider?: LiveProvider;
+  /** Date de l'instantané (données ESPN). */
+  fetchedAt?: string;
+  /** Scores connus par identifiant de match (données ESPN), pour régler les tickets. */
+  results?: Record<string, FixtureResult>;
   matches: Match[];
   competitions: Competition[];
   /** Problèmes partiels signalés par le backend (une ligue sans cotes, quota…). */
@@ -60,7 +74,8 @@ export function explainProviderError(message: string): string {
 /** Données réelles si le backend est configuré, sinon jeu de démonstration (jamais l'inverse en silence). */
 export async function fetchMatchFeed(oddsSeed: number, reference = new Date()): Promise<MatchFeed> {
   let fallbackReason: string | undefined;
-  try {
+  // Dans la version claude.ai, aucun backend n'est joignable : on passe directement à l'instantané ESPN.
+  if (!isOnline()) try {
     const health = await getJson<{ live: boolean }>('/api/health', 4000);
     if (health.live) {
       const data = await getJson<LivePayload>('/api/matches', 30000);
@@ -77,6 +92,7 @@ export async function fetchMatchFeed(oddsSeed: number, reference = new Date()): 
       }
       return {
         source: 'live',
+        provider: 'api-football',
         matches: data.matches,
         competitions: data.competitions,
         warnings: data.errors.map((e) => e.message),
@@ -87,6 +103,29 @@ export async function fetchMatchFeed(oddsSeed: number, reference = new Date()): 
   } catch (e) {
     // Pas de backend joignable (version claude.ai, copie locale) : mode démonstration.
     fallbackReason = e instanceof Error && e.name !== 'AbortError' && !/fetch|network|load/i.test(e.message) ? `Backend : ${e.message}` : undefined;
+  }
+  // Version claude.ai : instantané ESPN (mis à jour via le connecteur Firecrawl).
+  try {
+    const feed = await loadEspnFeed(reference);
+    if (feed) {
+      const built = buildFromFeed(feed, reference);
+      if (built.matches.length > 0) {
+        const results: Record<string, FixtureResult> = {};
+        for (const [id, r] of Object.entries(built.results)) results[id] = { status: r.finished ? 'FT' : r.cancelled ? 'CANC' : 'NS', ...r };
+        return {
+          source: 'live',
+          provider: 'espn',
+          fetchedAt: feed.fetchedAt,
+          matches: built.matches,
+          competitions: built.competitions,
+          warnings: [ESPN_ODDS_WARNING, ...feed.errors],
+          results,
+        };
+      }
+      fallbackReason = 'L’instantané ESPN ne contient plus de match à venir : actualisez les données réelles dans Paramètres.';
+    }
+  } catch {
+    /* base indisponible : démonstration */
   }
   return { source: 'demo', matches: buildDemoMatches(oddsSeed, reference), competitions: demoCompetitions, warnings: [], fallbackReason };
 }
@@ -137,7 +176,9 @@ export function selectionReason(match: Match, market: MarketId): string {
     case 'OVER_2_5':
       return `Deux attaques productives : ${total} buts attendus${sims} au total.`;
     case 'UNDER_3_5':
-      return `Profil fermé : ${total} buts attendus${sims}, ${formatPct(h.cleanSheetPct / 100)} de clean sheets pour ${match.home.name}.`;
+      return h.cleanSheetPct != null
+        ? `Profil fermé : ${total} buts attendus${sims}, ${formatPct(h.cleanSheetPct / 100)} de clean sheets pour ${match.home.name}.`
+        : `Profil fermé : ${total} buts attendus${sims} pour cette rencontre.`;
     case 'BTTS_YES':
       return `Les deux équipes dépassent ${formatNumber(Math.min(xg.home, xg.away))} buts attendus${sim} et concèdent régulièrement.`;
   }

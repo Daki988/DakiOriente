@@ -10,14 +10,17 @@ import { Card } from '../components/ui/Card';
 import { EmptyState } from '../components/ui/EmptyState';
 import { Notice, SyntheticDataNote } from '../components/ui/Notice';
 import { StatCard } from '../components/ui/StatCard';
+import { RealDataRefresh } from '../components/ui/RealDataRefresh';
+import { useConnectors } from '../hooks/useConnectors';
 import { useApp } from '../hooks/useAppStore';
 import { useEligible } from '../hooks/useEligible';
 import { bankrollSeries, settledTickets, VIRTUAL_BANKROLL_START } from '../services/performanceService';
 import { formatInt, formatOdds, formatPct } from '../utils/format';
 
 export function DashboardPage() {
-  const { matches, competitions, tickets, settings, navigate, openAnalysis, dataSource, feedWarnings, fallbackReason } = useApp();
+  const { matches, competitions, tickets, settings, navigate, openAnalysis, dataSource, feedWarnings, fallbackReason, provider } = useApp();
   const live = dataSource === 'live';
+  const { availability } = useConnectors();
   const eligible = useEligible();
   const [openId, setOpenId] = useState<string | null>(null);
   const pendingTickets = tickets.filter((t) => t.status === 'PENDING');
@@ -32,7 +35,8 @@ export function DashboardPage() {
       {settings.showWarnings &&
         (live ? (
           <Notice tone="info">
-            <strong className="font-semibold">Données réelles (API-Football).</strong> Matchs et cotes sont réels ; les probabilités sont des
+            <strong className="font-semibold">Données réelles ({provider === 'espn' ? 'ESPN via Firecrawl' : 'API-Football'}).</strong>{' '}
+            {provider === 'espn' ? 'Matchs, scores et classements sont réels' : 'Matchs et cotes sont réels'} ; les probabilités sont des
             estimations d’un modèle statistique simple et ne garantissent aucun résultat. Ce n’est pas un conseil de pari.
           </Notice>
         ) : (
@@ -42,9 +46,17 @@ export function DashboardPage() {
           </Notice>
         ))}
       {!live && fallbackReason && <Notice tone="warn">Données réelles indisponibles : {fallbackReason}</Notice>}
+      {!live && availability === 'online' && (
+        <div className="flex flex-col gap-3 rounded-2xl border border-good/30 bg-good-soft p-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-ink">
+            Passez aux vrais matchs du week-end : matchs, scores et classements ESPN récupérés via votre connecteur Firecrawl.
+          </p>
+          <RealDataRefresh compact />
+        </div>
+      )}
       {live && feedWarnings.length > 0 && (
         <Notice tone="warn">
-          Données partielles : {feedWarnings.slice(0, 3).join(' · ')}
+          {feedWarnings.slice(0, 3).join(' · ')}
           {feedWarnings.length > 3 && ` (+${feedWarnings.length - 3})`}
         </Notice>
       )}

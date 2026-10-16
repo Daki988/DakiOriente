@@ -4,7 +4,7 @@ import { Logo } from './Logo';
 import { NAV_ITEMS } from './nav';
 
 export function Sidebar() {
-  const { route, navigate, tickets, dataSource } = useApp();
+  const { route, navigate, tickets, dataSource, provider } = useApp();
   const pending = tickets.filter((t) => t.status === 'PENDING').length;
   return (
     <div className="hidden w-64 shrink-0 border-r border-line bg-night-2 lg:block">
@@ -44,8 +44,8 @@ export function Sidebar() {
       </nav>
       {dataSource === 'live' ? (
         <div className="m-3 rounded-xl border border-line bg-panel p-3 text-[11px] leading-relaxed text-ink-2">
-          <p className="mb-1 font-semibold text-ink">Données réelles · API-Football</p>
-          Probabilités estimées par un modèle statistique, sans garantie. Aucun pari n’est placé ; les tickets restent virtuels.
+          <p className="mb-1 font-semibold text-ink">Données réelles · {provider === 'espn' ? 'ESPN' : 'API-Football'}</p>
+          Probabilités estimées par un modèle statistique, sans garantie.{provider === 'espn' && ' Cotes calculées par le modèle (pas de bookmaker).'} Aucun pari n’est placé ; les tickets restent virtuels.
         </div>
       ) : (
         <div className="m-3 rounded-xl border border-warn/25 bg-warn-soft p-3 text-[11px] leading-relaxed text-[#f8c56a]">

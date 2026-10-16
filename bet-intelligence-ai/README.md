@@ -42,6 +42,20 @@ l'espace privé de chaque utilisateur de l'artefact (`data/users/<id>/state`, 80
 Les données réelles passent par le backend (voir ci-dessous), que la version claude.ai ne peut pas joindre : elle reste en mode démonstration. En local (`npm run dev`),
 les boutons de connecteurs sont désactivés.
 
+## Données réelles dans la version claude.ai : ESPN via Firecrawl
+
+Sans serveur à héberger : sur la page claude.ai, Paramètres → **Données réelles** → « Charger / Actualiser les
+données réelles ». La page appelle le connecteur **Firecrawl** de la personne (fournisseur catalogué `espn-com` :
+`sports-data/standings` + `sports-data/scoreboard`, une requête groupée par championnat) pour Premier League, LaLiga,
+Serie A, Bundesliga et Ligue 1, de la veille à J+4 — environ 175 crédits Firecrawl par actualisation.
+
+- L'instantané est enregistré dans la base de l'artefact (`feeds/espn`, lisible par tous, modifiable par les éditeurs)
+  et tous les visiteurs l'utilisent ensuite ; il est ignoré au-delà de 4 jours.
+- Le modèle utilise les buts marqués/encaissés de la saison (classement ESPN) et l'avantage du terrain.
+- **ESPN ne fournit aucune cote de bookmaker** : les cotes affichées sont celles du modèle (1 / probabilité,
+  sans marge), marquées « Modèle (sans marge) ». Les sites de bookmakers ne sont pas lus.
+- Les tickets sur données ESPN se règlent avec les scores finaux présents dans l'instantané suivant.
+
 ## Données réelles : backend Python + API-Football
 
 Fournisseur retenu : **[API-Football](https://www.api-football.com)** (api-sports.io). Il fournit en une seule API

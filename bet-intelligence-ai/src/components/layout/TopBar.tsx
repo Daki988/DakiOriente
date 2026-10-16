@@ -1,11 +1,11 @@
 import { FlaskConical, Radio, RefreshCw, Settings } from 'lucide-react';
 import { useApp } from '../../hooks/useAppStore';
-import { formatLongDate, formatTime } from '../../utils/format';
+import { formatDateTime, formatLongDate, formatTime } from '../../utils/format';
 import { Logo } from './Logo';
 import { NAV_ITEMS } from './nav';
 
 export function TopBar() {
-  const { route, navigate, refresh, loading, lastUpdated, notify, dataSource } = useApp();
+  const { route, navigate, refresh, loading, lastUpdated, notify, dataSource, provider, feedFetchedAt } = useApp();
   const live = dataSource === 'live';
   const current = NAV_ITEMS.find((n) => n.id === route);
   const today = formatLongDate(new Date());
@@ -19,7 +19,14 @@ export function TopBar() {
           <h1 className="truncate text-base font-semibold tracking-tight text-ink sm:text-lg">{current?.label}</h1>
           <p className="truncate text-xs text-muted first-letter:uppercase">
             {today}
-            {lastUpdated && <span className="hidden sm:inline"> · {live ? 'données API-Football chargées' : 'données simulées générées'} à {formatTime(lastUpdated.toISOString())}</span>}
+            {lastUpdated && (
+              <span className="hidden sm:inline">
+                {' · '}
+                {provider === 'espn' && feedFetchedAt
+                  ? `données ESPN du ${formatDateTime(feedFetchedAt)}`
+                  : `${live ? 'données API-Football chargées' : 'données simulées générées'} à ${formatTime(lastUpdated.toISOString())}`}
+              </span>
+            )}
           </p>
         </div>
         {live ? (
@@ -46,7 +53,7 @@ export function TopBar() {
           type="button"
           onClick={() => {
             refresh();
-            notify(live ? 'Données rechargées depuis le backend (cache de 30 min pour préserver le quota).' : 'Données simulées régénérées (nouvelles cotes de démonstration).', 'info');
+            notify(provider === 'espn' ? 'Instantané ESPN rechargé. Pour récupérer de nouvelles données, utilisez « Actualiser les données réelles » dans Paramètres.' : live ? 'Données rechargées depuis le backend (cache de 30 min pour préserver le quota).' : 'Données simulées régénérées (nouvelles cotes de démonstration).', 'info');
           }}
           disabled={loading}
           className="grid size-9 place-items-center rounded-lg border border-line bg-panel text-ink-2 hover:bg-panel-2 hover:text-ink disabled:opacity-50"
