@@ -1,6 +1,7 @@
-import { BrainCircuit } from 'lucide-react';
+import { BrainCircuit, CalendarPlus } from 'lucide-react';
 import { useMemo } from 'react';
 import { analyzeMatch } from '../../services/analysisService';
+import { addMatchToCalendar } from '../../services/connectorService';
 import { competitionName } from '../../services/matchService';
 import type { Competition, Match } from '../../types';
 import { formatDate, formatNumber, formatTime } from '../../utils/format';
@@ -10,6 +11,7 @@ import { MarketTable } from '../analysis/MarketTable';
 import { RecentTable, StatComparison } from '../analysis/StatBlocks';
 import { QualityBadge } from '../ui/Badge';
 import { Button } from '../ui/Button';
+import { ConnectorButton } from '../ui/ConnectorButton';
 import { Modal } from '../ui/Modal';
 import { Notice } from '../ui/Notice';
 
@@ -37,6 +39,16 @@ export function MatchDetailsModal({ match, competitions, onClose, onAnalyze }: P
       }
       footer={
         <>
+          <div className="mr-auto">
+            <ConnectorButton
+              connector="calendar"
+              icon={<CalendarPlus size={14} />}
+              action={() => addMatchToCalendar(match, competitionName(competitions, match.competitionId))}
+              successMessage="Match fictif ajouté à votre Google Calendar (marqué [DÉMO])."
+            >
+              Ajouter à Google Calendar
+            </ConnectorButton>
+          </div>
           <Button variant="ghost" onClick={onClose}>Fermer</Button>
           <Button variant="primary" icon={<BrainCircuit size={15} />} onClick={() => onAnalyze(match.id)}>Ouvrir l’analyse détaillée</Button>
         </>

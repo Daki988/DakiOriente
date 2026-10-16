@@ -1,4 +1,4 @@
-import { Bot, Database, FlaskConical, Plug, RotateCcw, Server, Trash2 } from 'lucide-react';
+import { Bot, CalendarDays, Cloud, Database, FileSpreadsheet, FlaskConical, Mail, Plug, RotateCcw, Server, ShieldCheck, Trash2 } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
 import { CriteriaForm } from '../components/tickets/CriteriaForm';
 import { Badge } from '../components/ui/Badge';
@@ -6,10 +6,14 @@ import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { Toggle } from '../components/ui/Fields';
-import { useApp } from '../hooks/useAppStore';
+import { useApp, type CloudStatus } from '../hooks/useAppStore';
+import { useConnectors } from '../hooks/useConnectors';
+import type { ConnectorKey, ConnectorStatus } from '../services/connectorService';
+import { runtime } from '../services/runtime';
 
 export function SettingsPage() {
-  const { settings, updateSettings, resetSettings, resetDemo, notify, storageOk } = useApp();
+  const { settings, updateSettings, resetSettings, resetDemo, notify, storageOk, cloud } = useApp();
+  const { availability, statuses } = useConnectors();
   const [confirmReset, setConfirmReset] = useState(false);
 
   return (
@@ -42,16 +46,30 @@ export function SettingsPage() {
       </div>
 
       <div className="space-y-6">
+        <Card title="Vos connecteurs claude.ai" subtitle="Utilisés uniquement quand vous cliquez sur une action">
+          {availability === 'offline' ? (
+            <p className="text-xs leading-relaxed text-ink-2">
+              Les connecteurs fonctionnent dans la version en ligne de l’application, ouverte sur claude.ai. Cette copie locale n’y a pas accès.
+            </p>
+          ) : (
+            <ul className="space-y-3">
+              <ConnectorRow k="calendar" icon={<CalendarDays size={16} />} label="Google Calendar" use="Ajouter un match fictif à votre agenda" statuses={statuses} checking={availability === 'checking'} />
+              <ConnectorRow k="gmail" icon={<Mail size={16} />} label="Gmail" use="Créer un brouillon (jamais envoyé automatiquement)" statuses={statuses} checking={availability === 'checking'} />
+              <ConnectorRow k="drive" icon={<FileSpreadsheet size={16} />} label="Google Drive" use="Exporter l’historique en feuille de calcul" statuses={statuses} checking={availability === 'checking'} />
+            </ul>
+          )}
+          {availability === 'online' && <PermissionsButton />}
+        </Card>
+
         <Card title="Sources de données" subtitle="État des connexions de cette version">
           <ul className="space-y-3">
-            <SourceRow icon={<FlaskConical size={16} />} label="Mode démonstration" status={<Badge tone="warn">Actif</Badge>} detail="Données synthétiques générées localement." />
-            <SourceRow icon={<Plug size={16} />} label="API football" status={<Badge>Non connectée</Badge>} detail="Aucune API sportive n’est interrogée." />
+            <SourceRow icon={<FlaskConical size={16} />} label="Mode démonstration" status={<Badge tone="warn">Actif</Badge>} detail="Matchs, cotes et probabilités synthétiques générés localement." />
+            <SourceRow icon={<Cloud size={16} />} label="Sauvegarde du compte" status={<CloudBadge status={cloud} />} detail="Tickets et paramètres enregistrés dans votre espace privé de l’artefact (version en ligne)." />
+            <SourceRow icon={<Plug size={16} />} label="API football" status={<Badge>Non connectée</Badge>} detail="Aucune source de données sportives réelles : aucun de vos connecteurs n’en fournit." />
             <SourceRow icon={<Bot size={16} />} label="Bot Telegram" status={<Badge>Non connecté</Badge>} detail="Aucune notification n’est envoyée." />
             <SourceRow icon={<Server size={16} />} label="Backend" status={<Badge>Non connecté</Badge>} detail="Prévu : backend Python remplaçant la couche services/." />
           </ul>
-          <p className="mt-4 text-[11px] leading-relaxed text-muted">
-            Ces connexions seront disponibles dans une version ultérieure. Aucun secret ni clé d’API n’est stocké dans cette application.
-          </p>
+          <p className="mt-4 text-[11px] leading-relaxed text-muted">Aucun secret ni clé d’API n’est stocké dans cette application.</p>
         </Card>
 
         <Card title="Stockage local">
@@ -96,5 +114,51 @@ function SourceRow({ icon, label, status, detail }: { icon: ReactNode; label: st
         <p className="mt-0.5 text-[11px] text-muted">{detail}</p>
       </div>
     </li>
+  );
+}
+
+const statusMeta: Record<ConnectorStatus, { tone: 'good' | 'warn' | 'risk' | 'neutral'; label: string }> = {
+  connected: { tone: 'good', label: 'Connecté' },
+  unknown: { tone: 'neutral', label: 'Autorisation au 1er usage' },
+  needs_reauth: { tone: 'warn', label: 'À reconnecter' },
+  not_connected: { tone: 'risk', label: 'Non connecté' },
+};
+
+function ConnectorRow({ k, icon, label, use, statuses, checking }: { k: ConnectorKey; icon: ReactNode; label: string; use: string; statuses: Record<ConnectorKey, ConnectorStatus> | null; checking: boolean }) {
+  const st = statuses?.[k];
+  const meta = st ? statusMeta[st] : null;
+  return (
+    <SourceRow
+      icon={icon}
+      label={label}
+      status={checking ? <Badge>Vérification…</Badge> : meta ? <Badge tone={meta.tone}>{meta.label}</Badge> : <Badge>Inconnu</Badge>}
+      detail={st === 'not_connected' ? `Ajoutez ${label} dans claude.ai → Paramètres → Connecteurs.` : st === 'needs_reauth' ? `Reconnectez ${label} dans claude.ai → Paramètres → Connecteurs.` : use}
+    />
+  );
+}
+
+function CloudBadge({ status }: { status: CloudStatus }) {
+  if (status === 'synced') return <Badge tone="good">Synchronisée</Badge>;
+  if (status === 'saving' || status === 'loading') return <Badge tone="info">Enregistrement…</Badge>;
+  if (status === 'error') return <Badge tone="risk">Erreur</Badge>;
+  return <Badge>Hors ligne</Badge>;
+}
+
+function PermissionsButton() {
+  const [failed, setFailed] = useState(false);
+  const open = async () => {
+    try {
+      const p = await runtime()?.use('permissions');
+      if (!p) throw new Error('unavailable');
+      await p.manage();
+    } catch {
+      setFailed(true);
+    }
+  };
+  return (
+    <div className="mt-4">
+      <Button size="sm" variant="ghost" icon={<ShieldCheck size={14} />} onClick={open}>Gérer les autorisations</Button>
+      {failed && <p className="mt-1 text-[11px] text-muted">Utilisez le menu Autorisations de l’artefact dans claude.ai.</p>}
+    </div>
   );
 }

@@ -19,6 +19,29 @@ npm run build      # vérification TypeScript + build de production dans dist/
 npm run preview    # sert le build de production
 ```
 
+## Version en ligne (claude.ai)
+
+L'application est publiée comme Artifact claude.ai : https://claude.ai/artifact/Nvw3gts9tLL5T4Nj2EhtmM
+(privé par défaut ; le partage se règle depuis le menu Partager de la page).
+
+```bash
+npm run build:artifact   # → artifact/bet-intelligence-ai.html (page unique, CSS et JS inlinés)
+```
+
+En ligne, l'application utilise les connecteurs claude.ai **de la personne qui l'ouvre**, avec son accord, et uniquement sur clic :
+
+| Connecteur | Action | Où |
+|---|---|---|
+| Google Calendar (`create_event`) | Ajoute un match à l'agenda, titre préfixé `[DÉMO]`, description rappelant que le match est fictif | Fenêtre de détails d'un match ; détails d'un ticket (une action par sélection) |
+| Gmail (`create_draft`) | Crée un **brouillon** récapitulant un ticket (jamais envoyé) | Détails d'un ticket |
+| Google Drive (`create_file`) | Exporte les tickets affichés en CSV, converti en feuille Google Sheets | Mes tickets |
+
+Chaque erreur est traduite selon son code (connecteur absent, connexion expirée, accès refusé, délai dépassé…) ;
+une écriture n'est jamais relancée automatiquement. Les tickets et paramètres sont aussi sauvegardés dans
+l'espace privé de chaque utilisateur de l'artefact (`data/users/<id>/state`, 80 tickets au plus), en plus du localStorage.
+Aucun connecteur ne fournit de données sportives réelles : le mode démonstration reste actif. En local (`npm run dev`),
+les boutons de connecteurs sont désactivés.
+
 ## Stack
 
 React 19 · TypeScript · Vite · Tailwind CSS 4 · Lucide React · Recharts · Vitest. Aucune autre dépendance d’exécution.

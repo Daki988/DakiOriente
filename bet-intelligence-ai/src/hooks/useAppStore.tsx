@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { loadCloudState, saveCloudState } from '../services/cloudSync';
 import { fetchCompetitions, fetchMatches, toSelections } from '../services/matchService';
 import { loadSettings, saveSettings, sanitizeSettings, DEFAULT_SETTINGS } from '../services/settingsService';
 import { readJson, removeKey, STORAGE_KEYS, writeJson } from '../services/storage';
@@ -37,7 +38,11 @@ interface AppState {
   notify: (message: string, tone?: Toast['tone']) => void;
   dismissToast: (id: number) => void;
   storageOk: boolean;
+  /** Sauvegarde liée au compte claude.ai (version en ligne uniquement). */
+  cloud: CloudStatus;
 }
+
+export type CloudStatus = 'off' | 'loading' | 'synced' | 'saving' | 'error';
 
 const Ctx = createContext<AppState | null>(null);
 
@@ -55,6 +60,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [storageOk, setStorageOk] = useState(true);
   const toastId = useRef(0);
+  const [cloud, setCloud] = useState<CloudStatus>('loading');
+  const hydrated = useRef(false);
+  const [cloudCheck, setCloudCheck] = useState(0);
 
   const notify = useCallback((message: string, tone: Toast['tone'] = 'info') => {
     const id = ++toastId.current;
@@ -98,6 +106,43 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setStorageOk(saveTickets(tickets));
   }, [tickets]);
 
+  // Restaure l'état sauvegardé sur le compte (en ligne) ; sinon y pousse l'état local.
+  useEffect(() => {
+    let cancelled = false;
+    loadCloudState()
+      .then((remote) => {
+        if (cancelled) return;
+        if (remote) {
+          setSettings(remote.settings);
+          setTickets(remote.tickets);
+          setOddsSeed(remote.oddsSeed);
+          writeJson(STORAGE_KEYS.seed, remote.oddsSeed);
+        }
+        hydrated.current = true;
+        setCloud(remote ? 'synced' : 'loading');
+        if (!remote) setCloudCheck((n) => n + 1);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        hydrated.current = true;
+        setCloud('error');
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated.current) return;
+    const t = window.setTimeout(() => {
+      setCloud((c) => (c === 'off' ? c : 'saving'));
+      saveCloudState({ settings: sanitizeSettings(settings), tickets, oddsSeed })
+        .then((r) => setCloud(r === 'saved' ? 'synced' : 'off'))
+        .catch(() => setCloud('error'));
+    }, 800);
+    return () => window.clearTimeout(t);
+  }, [settings, tickets, oddsSeed, cloudCheck]);
+
   const updateSettings = useCallback((patch: Partial<Settings>) => setSettings((s) => ({ ...s, ...patch })), []);
   const resetSettings = useCallback(() => setSettings(sanitizeSettings(DEFAULT_SETTINGS)), []);
   const addTicket = useCallback((t: Ticket) => setTickets((all) => [t, ...all]), []);
@@ -124,7 +169,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const value: AppState = {
     route, navigate, matches, competitions, selections, loading, error, lastUpdated, refresh,
     settings, updateSettings, resetSettings, tickets, addTicket, updateTicket, deleteTicket, resetDemo,
-    analysisMatchId, openAnalysis, setAnalysisMatchId, toasts, notify, dismissToast, storageOk,
+    analysisMatchId, openAnalysis, setAnalysisMatchId, toasts, notify, dismissToast, storageOk, cloud,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

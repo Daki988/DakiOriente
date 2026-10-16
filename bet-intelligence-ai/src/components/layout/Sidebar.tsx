@@ -8,7 +8,7 @@ export function Sidebar() {
   const pending = tickets.filter((t) => t.status === 'PENDING').length;
   return (
     <div className="hidden w-64 shrink-0 border-r border-line bg-night-2 lg:block">
-    <aside className="sticky top-0 flex h-dvh flex-col">
+    <aside className="sticky top-[env(safe-area-inset-top,0px)] flex h-dvh flex-col">
       <div className="px-5 py-5">
         <button type="button" onClick={() => navigate('dashboard')} aria-label="Retour au dashboard">
           <Logo />
@@ -21,7 +21,7 @@ export function Sidebar() {
             return (
               <li key={id}>
                 <a
-                  href={`#/${id}`}
+                  href={`#${id}`}
                   onClick={(e) => {
                     e.preventDefault();
                     navigate(id);

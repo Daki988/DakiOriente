@@ -1,13 +1,15 @@
-import { Dices, Eye, RotateCcw, Search, Ticket as TicketIcon, Trash2 } from 'lucide-react';
+import { CalendarPlus, Dices, Eye, FileSpreadsheet, Mail, RotateCcw, Search, Ticket as TicketIcon, Trash2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { TicketHeader, TicketLegs, TicketRisks, TicketSummary } from '../components/tickets/TicketView';
 import { StatusBadge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
+import { ConnectorButton } from '../components/ui/ConnectorButton';
 import { EmptyState } from '../components/ui/EmptyState';
 import { Modal } from '../components/ui/Modal';
 import { Notice } from '../components/ui/Notice';
 import { useApp } from '../hooks/useAppStore';
+import { addLegToCalendar, draftTicketEmail, exportTicketsToDrive } from '../services/connectorService';
 import { setTicketStatus, simulateSettlement, STATUS_LABELS } from '../services/ticketService';
 import type { MarketId, Ticket, TicketStatus } from '../types';
 import { formatDateTime, formatOdds, formatPct } from '../utils/format';
@@ -87,7 +89,17 @@ export function TicketsPage() {
         <EmptyState icon={<Search size={20} />} title="Aucun ticket ne correspond à la recherche" />
       ) : (
         <>
-          <p className="text-xs text-muted" aria-live="polite">{filtered.length} ticket(s) affiché(s) sur {tickets.length}</p>
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <p className="text-xs text-muted" aria-live="polite">{filtered.length} ticket(s) affiché(s) sur {tickets.length}</p>
+            <ConnectorButton
+              connector="drive"
+              icon={<FileSpreadsheet size={14} />}
+              action={() => exportTicketsToDrive(filtered)}
+              successMessage={`${filtered.length} ticket(s) exporté(s) vers Google Drive (feuille de calcul).`}
+            >
+              Exporter vers Google Drive
+            </ConnectorButton>
+          </div>
           <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">
             {filtered.map((t) => (
               <li key={t.id} className="flex flex-col rounded-2xl border border-line bg-panel p-4">
@@ -168,6 +180,32 @@ export function TicketsPage() {
             </div>
             <TicketLegs ticket={detail} />
             <TicketRisks risks={detail.risks} />
+            <section className="rounded-xl border border-line bg-night-2 p-4">
+              <h3 className="text-xs font-semibold tracking-wide text-muted uppercase">Vos connecteurs</h3>
+              <p className="mt-1 mb-3 text-[11px] text-muted">Actions exécutées avec votre compte, uniquement sur clic. Tout contenu créé est marqué [DÉMO].</p>
+              <div className="flex flex-wrap gap-4">
+                <ConnectorButton
+                  key={`mail-${detail.id}`}
+                  connector="gmail"
+                  icon={<Mail size={14} />}
+                  action={() => draftTicketEmail(detail)}
+                  successMessage="Brouillon créé dans Gmail (non envoyé)."
+                >
+                  Créer un brouillon Gmail
+                </ConnectorButton>
+                {detail.legs.map((l, i) => (
+                  <ConnectorButton
+                    key={`cal-${detail.id}-${l.selectionId}`}
+                    connector="calendar"
+                    icon={<CalendarPlus size={14} />}
+                    action={() => addLegToCalendar(detail, i)}
+                    successMessage={`${l.homeName} – ${l.awayName} ajouté à Google Calendar.`}
+                  >
+                    Agenda : {l.homeName.split(' ').slice(-1)[0]} – {l.awayName.split(' ').slice(-1)[0]}
+                  </ConnectorButton>
+                ))}
+              </div>
+            </section>
           </div>
         )}
       </Modal>

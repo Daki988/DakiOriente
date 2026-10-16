@@ -17,7 +17,7 @@ export function useHashRoute(): [RouteId, (r: RouteId) => void] {
     return () => window.removeEventListener('hashchange', onChange);
   }, []);
   const navigate = useCallback((r: RouteId) => {
-    if (parse(window.location.hash) !== r) window.location.hash = `/${r}`;
+    if (parse(window.location.hash) !== r) window.location.hash = r;
     else setRoute(r);
     window.scrollTo({ top: 0 });
   }, []);
