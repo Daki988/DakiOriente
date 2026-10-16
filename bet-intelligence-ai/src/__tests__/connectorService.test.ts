@@ -30,3 +30,11 @@ describe('connecteurs', () => {
     expect(connectorErrorMessage({ code: 'server_unavailable' }, 'Gmail')).toContain('peut-être abouti');
   });
 });
+
+import { explainProviderError } from '../services/matchService';
+describe('erreurs fournisseur', () => {
+  it('traduit le refus de saison de l’offre gratuite', () => {
+    expect(explainProviderError('Cotes indisponibles : plan: Free plans do not have access to this season, try from 2022 to 2024.')).toContain('offre Pro');
+    expect(explainProviderError('token: Error/Missing application key.')).toContain('API_FOOTBALL_KEY');
+  });
+});

@@ -16,7 +16,7 @@ import { bankrollSeries, settledTickets, VIRTUAL_BANKROLL_START } from '../servi
 import { formatInt, formatOdds, formatPct } from '../utils/format';
 
 export function DashboardPage() {
-  const { matches, competitions, tickets, settings, navigate, openAnalysis, dataSource, feedWarnings } = useApp();
+  const { matches, competitions, tickets, settings, navigate, openAnalysis, dataSource, feedWarnings, fallbackReason } = useApp();
   const live = dataSource === 'live';
   const eligible = useEligible();
   const [openId, setOpenId] = useState<string | null>(null);
@@ -41,6 +41,7 @@ export function DashboardPage() {
             synthétiques et ne constituent ni des informations sportives actuelles ni un conseil de pari.
           </Notice>
         ))}
+      {!live && fallbackReason && <Notice tone="warn">Données réelles indisponibles : {fallbackReason}</Notice>}
       {live && feedWarnings.length > 0 && (
         <Notice tone="warn">
           Données partielles : {feedWarnings.slice(0, 3).join(' · ')}

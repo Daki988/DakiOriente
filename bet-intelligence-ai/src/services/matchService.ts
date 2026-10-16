@@ -47,6 +47,16 @@ interface LivePayload {
   quota?: { limit: number | null; remaining: number | null };
 }
 
+/** Traduit les refus courants d'API-Football en consigne compréhensible. */
+export function explainProviderError(message: string): string {
+  if (/free plans? do not have access to this season/i.test(message)) {
+    return 'Votre offre API-Football gratuite ne donne pas accès à la saison en cours. Passez à l’offre Pro pour afficher les vrais matchs ; en attendant, l’application reste en démonstration.';
+  }
+  if (/token|application key/i.test(message)) return 'La clé API-Football est invalide ou absente. Vérifiez la variable API_FOOTBALL_KEY.';
+  if (/request limit|too many requests|rate/i.test(message)) return 'Quota quotidien API-Football atteint. Les données réelles reviendront après la remise à zéro (minuit UTC).';
+  return `API-Football : ${message}`;
+}
+
 /** Données réelles si le backend est configuré, sinon jeu de démonstration (jamais l'inverse en silence). */
 export async function fetchMatchFeed(oddsSeed: number, reference = new Date()): Promise<MatchFeed> {
   let fallbackReason: string | undefined;
@@ -54,6 +64,17 @@ export async function fetchMatchFeed(oddsSeed: number, reference = new Date()): 
     const health = await getJson<{ live: boolean }>('/api/health', 4000);
     if (health.live) {
       const data = await getJson<LivePayload>('/api/matches', 30000);
+      if (data.matches.length === 0 && data.errors.length > 0) {
+        // Aucune donnée exploitable (ex. saison non couverte par l'offre gratuite) : démonstration, raison affichée.
+        return {
+          source: 'demo',
+          matches: buildDemoMatches(oddsSeed, reference),
+          competitions: demoCompetitions,
+          warnings: [],
+          fallbackReason: explainProviderError(data.errors[0].message),
+          quota: data.quota,
+        };
+      }
       return {
         source: 'live',
         matches: data.matches,
