@@ -7,6 +7,8 @@ import { EtabLogo } from "@/components/ui/EtabLogo";
 import { PhotoGallery } from "@/components/sections/PhotoGallery";
 import { STATUT_LONG, mobilite, villesOf, type Campus, type Etablissement, domaineById, etabById, etablissements, fmt, labelById, metierById, niveauLabel, paysDetailById, residences, formationById, type Filiere } from "@/lib/data";
 import { LabelChip } from "@/components/ui/Cards";
+import { Prix } from "@/components/ui/Devise";
+import { villeHref } from "@/lib/catalogue";
 import { COUTS, devis, formationParDefaut } from "@/lib/devis";
 import { establishmentLive } from "@/server/content-ui";
 
@@ -83,7 +85,7 @@ function CampusMobilite({ e }: { e: Etablissement }) {
           const g = c.geo, V = mobilite[c.ville];
           return (
             <div key={c.id} className="card flex flex-col gap-3 rounded-[22px] p-5">
-              <div className="flex flex-wrap items-center justify-between gap-2"><b className="flex items-center gap-1.5 text-lg"><MapPin size={17} className="text-brand-600" />{campus.length > 1 ? `Campus de ${c.ville}` : c.ville}</b>{campus.length > 1 && <LabelChip label={c.label} />}</div>
+              <div className="flex flex-wrap items-center justify-between gap-2"><Link href={villeHref(c.ville)} className="flex items-center gap-1.5 text-lg font-extrabold hover:text-brand-600"><MapPin size={17} className="text-brand-600" />{campus.length > 1 ? `Campus de ${c.ville}` : c.ville}<ChevronRight size={16} className="text-ink-mute" /></Link>{campus.length > 1 && <LabelChip label={c.label} />}</div>
               {c.adresse && <p className="text-sm text-ink-soft">{c.adresse}</p>}
               {g?.quartier && <p className="text-sm"><b>Quartier :</b> <span className="text-ink-soft">{g.quartier}{g.arrondissement && g.arrondissement !== g.quartier ? ` (${g.arrondissement})` : ""}</span>{g.quartiers_voisins.length > 0 && <span className="text-ink-mute"> · à proximité : {g.quartiers_voisins.map((q) => q.replace(/^(Arrondissement|Préfecture d'arrondissements) de /, "")).join(", ")}</span>}</p>}
               {g && (g.tramway.length > 0 || g.gares.length > 0 || g.bus.arrets_600m > 0) && (
@@ -98,6 +100,7 @@ function CampusMobilite({ e }: { e: Etablissement }) {
                 <span className="flex items-start gap-1.5"><TrainFront size={14} className="mt-0.5 shrink-0" />{V.gares.join(" · ")}</span>
                 <span className="flex items-start gap-1.5"><Plane size={14} className="mt-0.5 shrink-0" />{V.aeroport}</span>
                 <span><b className="text-ink">Quartiers étudiants :</b> {V.quartiers_etudiants.join(", ")}. {V.conseil}</span>
+                <Link href={villeHref(c.ville)} className="font-bold text-brand-600">Étudier à {c.ville} : écoles, coût de la vie, logement →</Link>
               </div>}
             </div>
           );
@@ -142,7 +145,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
             <EtabLogo e={e} size={88} className="shadow-card" />
             <div className="flex min-w-0 flex-col gap-2">
               <h1 className="text-3xl font-extrabold tracking-tight sm:text-[44px] sm:leading-[1.05]">{e.nom}</h1>
-              <div className="flex flex-wrap gap-2"><LabelChip label={e.label} /><span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip bg-sun-100 text-[#a55a00]"><MapPin size={12} className="mr-1 inline" />{e.campus ? `${e.campus.length} campus : ${villes.join(", ")}` : `${e.ville}, Maroc`}</span></div>
+              <div className="flex flex-wrap gap-2"><LabelChip label={e.label} /><span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip bg-sun-100 text-[#a55a00]"><MapPin size={12} className="mr-1 inline" />{e.campus ? `${e.campus.length} campus : ` : ""}{villes.map((v, k) => <span key={v}>{k ? ", " : ""}<Link href={villeHref(v)} className="hover:underline">{v}</Link></span>)}{e.campus ? "" : ", Maroc"}</span></div>
             </div>
           </div>
           <div className="flex flex-wrap gap-2.5">
@@ -174,7 +177,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
             {confirmed.length > 0 && (
               <div className="card flex flex-col gap-3 rounded-[22px] p-6">
                 <div className="flex items-center justify-between"><h2 className="text-lg font-extrabold">Frais confirmés par l&apos;établissement</h2><span className="chip bg-[#e8f8ef] text-[#0f8a46]">Vérifié</span></div>
-                {confirmed.map((p) => <div key={p.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-[#f1f4fb] pb-2 text-sm last:border-0"><span className="font-semibold">{p.title}{p.startDate ? <span className="text-ink-mute"> · rentrée {p.startDate}</span> : null}</span><span className="text-ink-soft">{p.tuitionMin != null ? `${fmt(p.tuitionMin)}${p.tuitionMax && p.tuitionMax !== p.tuitionMin ? ` – ${fmt(p.tuitionMax)}` : ""} ${p.currency ?? ""}/an` : "sur demande"}{p.applicationFee ? ` · dossier ${fmt(p.applicationFee)} ${p.currency ?? ""}` : ""}</span></div>)}
+                {confirmed.map((p) => <div key={p.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-[#f1f4fb] pb-2 text-sm last:border-0"><span className="font-semibold">{p.title}{p.startDate ? <span className="text-ink-mute"> · rentrée {p.startDate}</span> : null}</span><span className="text-ink-soft">{p.tuitionMin != null ? (p.currency ?? "MAD") === "MAD" ? <><Prix mad={p.tuitionMin} />{p.tuitionMax && p.tuitionMax !== p.tuitionMin ? <> – <Prix mad={p.tuitionMax} /></> : null}/an</> : `${fmt(p.tuitionMin)}${p.tuitionMax && p.tuitionMax !== p.tuitionMin ? ` – ${fmt(p.tuitionMax)}` : ""} ${p.currency}/an` : "sur demande"}{p.applicationFee ? (p.currency ?? "MAD") === "MAD" ? <> · dossier <Prix mad={p.applicationFee} /></> : ` · dossier ${fmt(p.applicationFee)} ${p.currency}` : ""}</span></div>)}
               </div>
             )}
             {autorise
@@ -229,12 +232,12 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
         <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
           <div id="frais" className="card flex scroll-mt-28 flex-col gap-3.5 rounded-3xl p-6 shadow-[0_30px_60px_-24px_rgba(26,71,245,.4)]">
             <div className="flex items-center justify-between"><b>Budget annuel estimé</b><span className="chip bg-sun-100 text-[#a55a00]">estimation</span></div>
-            {([["Frais de scolarité", `${fmt(typ.min)} – ${fmt(typ.max)} ${C.devise}`], ["Vie (10 mois)", `${fmt(B.total_mensuel.min * 10)} – ${fmt(B.total_mensuel.max * 10)} ${B.devise}`], ["Visa & séjour", "selon la nationalité"]] as const).map(([a, b]) => <div key={a} className="flex justify-between gap-3 text-sm"><span className="text-ink-mute">{a}</span><b className="text-right">{b}</b></div>)}
+            {([["Frais de scolarité", <><Prix mad={typ.min} bloc /> – <Prix mad={typ.max} bloc /></>], ["Vie (10 mois)", <><Prix mad={B.total_mensuel.min * 10} bloc /> – <Prix mad={B.total_mensuel.max * 10} bloc /></>], ["Visa & séjour", "selon la nationalité"]] as const).map(([a, b]) => <div key={a} className="flex justify-between gap-3 text-sm"><span className="text-ink-mute">{a}</span><b className="text-right">{b}</b></div>)}
             {(e.site?.frais.length ?? 0) > 0 && <div className="flex flex-col gap-1.5 rounded-2xl border border-[#cdeedd] bg-[#f3fbf6] p-3 text-[13px]">
               <b className="text-[#0f8a46]">Frais publiés par l&apos;établissement</b>
-              {e.site!.frais.map((f) => <div key={f.cycle} className="flex justify-between gap-3"><span className="text-ink-soft">{f.cycle}</span><b className="text-right">{f.scolarite_annuelle_mad ? `${fmt(f.scolarite_annuelle_mad)} MAD/an` : "—"}{f.inscription_mad ? <span className="block text-[11px] font-semibold text-ink-mute">+ inscription {fmt(f.inscription_mad)} MAD</span> : null}</b></div>)}
+              {e.site!.frais.map((f) => <div key={f.cycle} className="flex justify-between gap-3"><span className="text-ink-soft">{f.cycle}</span><b className="text-right">{f.scolarite_annuelle_mad ? <Prix mad={f.scolarite_annuelle_mad} suffixe="/an" bloc /> : "—"}{f.inscription_mad ? <span className="block text-[11px] font-semibold text-ink-mute">+ inscription <Prix mad={f.inscription_mad} /></span> : null}</b></div>)}
             </div>}
-            {D && <div className="rounded-2xl bg-brand-50 p-3 text-[13px]"><span className="text-ink-mute">Coût total sur {D.years} an{D.years > 1 ? "s" : ""} (tout compris) :</span><b className="block text-brand-700">{fmt(D.total[0])} – {fmt(D.total[1])} {D.devise}</b></div>}
+            {D && <div className="rounded-2xl bg-brand-50 p-3 text-[13px]"><span className="text-ink-mute">Coût total sur {D.years} an{D.years > 1 ? "s" : ""} (tout compris) :</span><b className="block text-brand-700"><Prix mad={D.total[0]} /> – <Prix mad={D.total[1]} /></b></div>}
             <Link href={`/devis/?etab=${e.id}`} className="btn-primary btn-shine py-2.5"><Calculator size={17} /> Obtenir le devis complet</Link>
             <span className="text-center text-xs text-ink-mute">Frais exacts transmis par l&apos;établissement sous 72 h via Navigoal</span>
           </div>
@@ -246,8 +249,8 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
           <div id="logement" className="card flex scroll-mt-28 flex-col gap-2.5 rounded-[22px] bg-gradient-to-br from-white to-[#fff7dd] p-5">
             <div className="flex items-center gap-2.5"><span className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-sun-400"><KeyRound size={18} /></span><b>Logements à proximité</b></div>
             {res.map((r) => <div key={r.id} className="rounded-xl border border-[#f3e6bd] bg-white p-3 text-[13px]"><b>{r.nom}</b><span className="block text-ink-mute">{r.gestionnaire}</span></div>)}
-            <span className="text-[13px] text-ink-mute">Studios et colocations vérifiés · dès {fmt(B.lignes[0].min)} {B.devise}/mois</span>
-            <Link href="/navilease" className="btn-primary py-2.5">Voir sur Navilease</Link>
+            <span className="text-[13px] text-ink-mute">Studios et colocations vérifiés · dès <Prix mad={B.lignes[0].min} suffixe="/mois" /></span>
+            <Link href={`/navilease/logements/?etablissement=${e.id}`} className="btn-primary py-2.5">Voir sur Navilease</Link>
           </div>
           <div className="card flex flex-col gap-2 rounded-[22px] p-5">
             <b>Étudier au {P.nom}</b><span className="text-[13px] text-ink-mute">Visa, coût de la vie, reconnaissance des diplômes.</span>

@@ -8,8 +8,9 @@ import { Button, Dialog, Empty, Loading, Alert, money, useToast } from "@/compon
 import { useSession } from "@/components/app/Session";
 import { useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
-import { etablissements, etabById } from "@/lib/data";
-import { AMENITIES, Cover, GENDERS, PAYS, TYPES, VERIF, etabName, modeLabel, typeLabel, type Housing, type Verification } from "./shared";
+import { VILLES_ETUDES, etablissements, etabById, villesOf } from "@/lib/data";
+import { Prix } from "@/components/ui/Devise";
+import { AMENITIES, Cover, GENDERS, TYPES, VERIF, etabName, modeLabel, typeLabel, type Housing, type Verification } from "./shared";
 import { PseudoMap, pricePin } from "./PseudoMap";
 
 type F = { pays: string; ville: string; etablissement: string; budget: string; type: string; genre: string; equipement: string[]; verifies: boolean };
@@ -41,14 +42,30 @@ export function NavileaseSearch() {
   const [mapOpen, setMapOpen] = useState(false);
   const [alertBusy, setAlertBusy] = useState(false);
   const qs = toQuery(applied);
-  const { data, error, loading, reload } = useApi<Housing[]>(`/logements${qs ? `?${qs}` : ""}`);
+  const { data: page1, error, loading, reload } = useApi<Housing[]>(`/logements${qs ? `?${qs}` : ""}`);
+  // L'API renvoie 24 annonces par page : on charge les suivantes pour un compteur exact.
+  const [suite, setSuite] = useState<Housing[]>([]);
+  useEffect(() => {
+    setSuite([]);
+    if (!page1 || page1.length < 24) return;
+    let actif = true;
+    (async () => {
+      const acc: Housing[] = [];
+      for (let p = 2; p < 40; p++) {
+        try { const r = await api<Housing[]>(`/logements?${qs ? `${qs}&` : ""}page=${p}`); acc.push(...r); if (r.length < 24) break; } catch { break; }
+      }
+      if (actif) setSuite(acc);
+    })();
+    return () => { actif = false; };
+  }, [page1, qs]);
+  const data = useMemo(() => (page1 ? [...page1, ...suite] : undefined), [page1, suite]);
 
   useEffect(() => { router.replace(`${pathname}${qs ? `?${qs}` : ""}`, { scroll: false }); }, [qs, pathname, router]);
 
   const apply = (next: F = f) => { setApplied(next); setFiltersOpen(false); };
   const set = <K extends keyof F>(k: K, v: F[K], live = false) => { const n = { ...f, [k]: v }; setF(n); if (live) setApplied(n); };
   const etab = applied.etablissement ? etabById[applied.etablissement] : null;
-  const schools = useMemo(() => etablissements.filter((e) => !f.pays || e.pays === f.pays).sort((a, b) => a.nom.localeCompare(b.nom)), [f.pays]);
+  const schools = useMemo(() => etablissements.filter((e) => !f.ville || villesOf(e).includes(f.ville)).sort((a, b) => a.nom.localeCompare(b.nom, "fr")), [f.ville]);
 
   const near = (h: Housing) => (applied.etablissement ? h.nearEstablishments.find((n) => n.id === applied.etablissement) : null) ?? [...h.nearEstablishments].sort((a, b) => a.minutes - b.minutes)[0];
   const rows = useMemo(() => {
@@ -73,14 +90,14 @@ export function NavileaseSearch() {
     } catch (e) { toast(e instanceof Error ? e.message : "Impossible de créer l'alerte.", "error"); } finally { setAlertBusy(false); }
   };
 
-  const title = loading && !data ? "Logements étudiants" : `${rows.length} logement${rows.length > 1 ? "s" : ""} ${etab ? `près de ${etabName(etab.id)}` : applied.ville ? `à ${applied.ville}` : applied.pays ? `au ${PAYS.find(([k]) => k === applied.pays)?.[1]}` : "disponibles"}`;
+  const title = loading && !data ? "Logements étudiants" : `${rows.length} logement${rows.length > 1 ? "s" : ""} ${etab && applied.ville ? `près de ${etabName(etab.id)} à ${applied.ville}` : etab ? `près de ${etabName(etab.id)}` : applied.ville ? `à ${applied.ville}` : "disponibles"}`;
   const activeCount = [applied.type, applied.genre, applied.budget, applied.verifies ? "1" : ""].filter(Boolean).length + applied.equipement.length;
 
   const filters = (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between"><h2 className="text-lg font-extrabold">Filtres</h2><button type="button" className="text-sm font-bold text-brand-600 hover:underline" onClick={() => { setF(EMPTY); apply(EMPTY); }}>Effacer</button></div>
       <fieldset className="flex flex-col gap-2">
-        <legend className="mb-2 text-[13px] font-bold">Budget mensuel max{f.pays ? ` (${({ GA: "F CFA", SN: "F CFA", MA: "MAD" } as Record<string, string>)[f.pays]})` : ""}</legend>
+        <legend className="mb-2 text-[13px] font-bold">Budget mensuel max (MAD)</legend>
         <input type="number" min={0} inputMode="numeric" className="input" placeholder="Ex. 3500" value={f.budget} onChange={(e) => set("budget", e.target.value)} aria-label="Budget mensuel maximum" />
       </fieldset>
       <fieldset className="flex flex-col gap-1.5">
@@ -130,26 +147,20 @@ export function NavileaseSearch() {
             </div>
             <Button variant="ghost" icon={Bell} loading={alertBusy} onClick={createAlert}>Créer une alerte</Button>
           </div>
-          <form onSubmit={(e) => { e.preventDefault(); apply(); }} className="card mt-5 grid grid-cols-2 gap-1 rounded-[22px] p-2 sm:gap-2 lg:grid-cols-[1.4fr_.8fr_1fr_.9fr_auto]">
+          <form onSubmit={(e) => { e.preventDefault(); apply(); }} className="card mt-5 grid grid-cols-2 gap-1 rounded-[22px] p-2 sm:gap-2 lg:grid-cols-[1.5fr_1fr_.9fr_auto]">
             <label className="col-span-2 flex flex-col rounded-xl px-3 py-1.5 hover:bg-[#f6f8fe] lg:col-span-1">
               <span className="flex items-center gap-1.5 text-[11px] font-bold text-ink-mute"><GraduationCap size={13} />Mon établissement</span>
-              <select className="w-full bg-transparent text-sm font-bold outline-none" value={f.etablissement} onChange={(e) => { const id = e.target.value; const s = etabById[id]; setF({ ...f, etablissement: id, pays: s ? s.pays : f.pays, ville: s ? s.ville : f.ville }); }}>
+              <select className="w-full bg-transparent text-sm font-bold outline-none" value={f.etablissement} onChange={(e) => setF({ ...f, etablissement: e.target.value })}>
                 <option value="">Tous les établissements</option>
-                {schools.map((e) => <option key={e.id} value={e.id}>{e.nom.length > 60 ? e.sigle : e.nom} · {e.ville}</option>)}
-              </select>
-            </label>
-            <label className="flex flex-col rounded-xl px-3 py-1.5 hover:bg-[#f6f8fe]">
-              <span className="text-[11px] font-bold text-ink-mute">Pays</span>
-              <select className="w-full bg-transparent text-sm font-bold outline-none" value={f.pays} onChange={(e) => setF({ ...f, pays: e.target.value, etablissement: e.target.value && etabById[f.etablissement]?.pays !== e.target.value ? "" : f.etablissement })}>
-                <option value="">Tous</option>{PAYS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}
+                {schools.map((e) => <option key={e.id} value={e.id}>{e.nom.length > 60 ? e.sigle : e.nom} · {villesOf(e).join(", ")}</option>)}
               </select>
             </label>
             <label className="flex flex-col rounded-xl px-3 py-1.5 hover:bg-[#f6f8fe]">
               <span className="text-[11px] font-bold text-ink-mute">Ville</span>
-              <input className="w-full bg-transparent text-sm font-bold outline-none placeholder:font-normal placeholder:text-ink-mute" placeholder="Casablanca, Rabat, Marrakech…" value={f.ville} onChange={(e) => setF({ ...f, ville: e.target.value })} />
+              <select className="w-full bg-transparent text-sm font-bold outline-none" value={f.ville} onChange={(e) => { const v = e.target.value; setF({ ...f, ville: v, etablissement: v && f.etablissement && !villesOf(etabById[f.etablissement]).includes(v) ? "" : f.etablissement }); }}><option value="">Toutes les villes</option>{VILLES_ETUDES.map((v) => <option key={v} value={v}>{v}</option>)}</select>
             </label>
             <label className="flex flex-col rounded-xl px-3 py-1.5 hover:bg-[#f6f8fe]">
-              <span className="text-[11px] font-bold text-ink-mute">Budget max / mois</span>
+              <span className="text-[11px] font-bold text-ink-mute">Budget max / mois (MAD)</span>
               <input type="number" min={0} inputMode="numeric" className="w-full bg-transparent text-sm font-bold outline-none placeholder:font-normal placeholder:text-ink-mute" placeholder="Sans limite" value={f.budget} onChange={(e) => setF({ ...f, budget: e.target.value })} />
             </label>
             <Button type="submit" icon={SearchIcon} className="col-span-2 lg:col-span-1">Rechercher</Button>
@@ -214,7 +225,7 @@ function ResultCard({ h, i, near, hovered, onHover }: { h: Housing; i: number; n
           <span className="chip bg-[#f1f4fb] text-ink-soft">{GENDERS.find(([k]) => k === h.gender)?.[1]}</span>
         </div>
         <div className="mt-auto flex flex-wrap items-end justify-between gap-2 border-t border-[#eef1f8] pt-3">
-          <p><b className="text-xl text-brand-600">{money(h.rent, h.currency)}</b> <span className="text-xs text-ink-mute">/mois{h.charges ? ` + ${money(h.charges, h.currency)} ch.` : " charges incl."}</span></p>
+          <p><b className="text-xl text-brand-600">{h.currency === "MAD" ? <Prix mad={h.rent} /> : money(h.rent, h.currency)}</b> <span className="text-xs text-ink-mute">/mois{h.charges ? <> + {h.currency === "MAD" ? <Prix mad={h.charges} /> : money(h.charges, h.currency)} ch.</> : " charges incl."}</span></p>
           <span className="text-xs text-ink-mute">{h.availableFrom ? `dispo. ${new Date(h.availableFrom).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" })}` : "disponible"} · {h.minMonths} mois min.</span>
         </div>
       </div>

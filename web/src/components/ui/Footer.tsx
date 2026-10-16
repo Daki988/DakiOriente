@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { Brand } from "./Brand";
+import { DeviseSelect } from "./Devise";
+import { VILLES, villeHref } from "@/lib/catalogue";
 
 const cols = [
   { t: "Plateforme", l: [["Orientation", "/orientation"], ["Métiers", "/metiers"], ["Formations", "/formations"], ["Établissements", "/etablissements"], ["Comparateur", "/comparateur"], ["Navilease", "/navilease"]] },
-  { t: "Étudier au Maroc", l: [["Visa et séjour", "/pays/ma/#venir"], ["Établissements reconnus", "/etablissements/?label=reconnu_etat"], ["Diplômes homologués", "/etablissements/?label=diplomes_homologues"]] },
-  { t: "Ressources", l: [["Devis parents", "/devis"], ["Espace parent", "/espace/parent"], ["Actualités", "/actualites"], ["Ma série au lycée", "/orientation#series"], ["Mon espace", "/espace"]] },
-  { t: "Navigoal", l: [["Pourquoi Navigoal", "/pourquoi"], ["Établissements partenaires", "/etablissements"], ["Bailleurs", "/navilease#bailleurs"], ["Contact", "mailto:contact@navigoal.com"]] },
+  { t: "Étudier au Maroc", l: [["Visa et séjour", "/ressources/visa-carte-de-sejour/"], ["Toutes les villes", "/villes"], ...VILLES.slice(0, 4).map((v) => [`Étudier à ${v.nom}`, villeHref(v.nom)]), ["Reconnus par l'État", "/etablissements/?label=reconnu_etat"]] },
+  { t: "Ressources", l: [["Guides et outils", "/ressources"], ["Devis parents", "/devis"], ["Calculateur de moyenne", "/ressources/#outils"], ["Actualités", "/actualites"], ["Ma série au lycée", "/orientation#series"]] },
+  { t: "Navigoal", l: [["Pourquoi Navigoal", "/pourquoi"], ["Mon espace", "/espace"], ["Bailleurs", "/navilease#bailleurs"], ["Contact", "mailto:contact@navigoal.com"]] },
 ];
 
 export function Footer() {
@@ -16,10 +18,12 @@ export function Footer() {
           <div className="flex max-w-xs flex-col gap-4">
             <Brand dark />
             <p className="text-sm leading-relaxed text-[#a9b6e8]">De l&apos;orientation à la formation, jusqu&apos;au logement étudiant. Étudier au Maroc, depuis toute l&apos;Afrique.</p>
+            <DeviseSelect dark className="mt-2" />
+            <p className="text-xs leading-relaxed text-[#7f8fcf]">Les montants sont en dirhams (MAD). La conversion utilise le taux du jour, majoré de 3 % par prudence.</p>
           </div>
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:gap-16">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 lg:gap-12">
             {cols.map((c) => (
-              <div key={c.t} className="flex flex-col gap-3">
+              <div key={c.t} className="flex min-w-0 flex-col gap-3">
                 <div className="text-sm font-extrabold">{c.t}</div>
                 {c.l.map(([label, href]) => (
                   <Link key={label} href={href} className="text-sm text-[#a9b6e8] transition hover:text-white">{label}</Link>

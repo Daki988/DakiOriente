@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { PageHero } from "@/components/ui/PageHero";
 import { MetierList } from "@/components/sections/MetierList";
+import { metiers } from "@/lib/data";
 
-export const metadata: Metadata = { title: "Métiers", description: "96 fiches métiers : missions, compétences, formations et débouchés en Afrique." };
+export const metadata: Metadata = {
+  title: "Métiers : missions, compétences et formations au Maroc",
+  description: `${metiers.length} fiches métiers : missions, compétences, niveau d'études, secteurs qui recrutent et formations pour y accéder dans les écoles privées du Maroc.`,
+  alternates: { canonical: "/metiers/" },
+};
 
 export default function MetiersPage() {
-  return (
-    <>
-      <PageHero crumb="Métiers" title="Découvre les métiers" accent="qui te ressemblent" sub="Missions, compétences, profil d'intérêts, formations et employeurs : tout pour choisir en connaissance de cause." hand="Et toi, tu veux devenir quoi ?" />
-      <Suspense><MetierList /></Suspense>
-    </>
-  );
+  return <Suspense><MetierList /></Suspense>;
 }

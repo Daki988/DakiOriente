@@ -3,7 +3,7 @@ import { ArrowRight, BarChart3, Briefcase, Code2, Cog, HardHat, Heart, Landmark,
 import { EtabLogo } from "./EtabLogo";
 import { EtabPhoto } from "./EtabPhoto";
 import { Tilt } from "@/components/motion/Tilt";
-import { LABELS, PAYS_NOM, competenceLabel, etabById, etablissements, labelById, niveauLabel, type Formation, type Label, type Metier, type PaysCode } from "@/lib/data";
+import { LABELS, competenceLabel, etabById, etablissements, labelById, niveauLabel, type Formation, type Label, type Metier } from "@/lib/data";
 
 export const DOMAIN_STYLE: Record<string, { icon: LucideIcon; bg: string; fg: string; solid: string }> = {
   "dom-sante": { icon: Stethoscope, bg: "#ffecef", fg: "#d42a50", solid: "#d42a50" },
@@ -64,13 +64,11 @@ export function MetierCard({ m }: { m: Metier }) {
   );
 }
 
-export const PAYS_STYLE: Record<PaysCode, { villes: string; tint: string; flag: JSX.Element }> = {
-  GA: { villes: "Libreville · Franceville · Moanda", tint: "#009e60", flag: <div className="flex h-9 w-[54px] flex-col overflow-hidden rounded-lg shadow"><div className="flex-1 bg-[#009e60]" /><div className="flex-1 bg-[#fcd116]" /><div className="flex-1 bg-[#3a75c4]" /></div> },
-  MA: { villes: "Rabat · Casablanca · Marrakech · Fès", tint: "#c1272d", flag: <div className="flex h-9 w-[54px] items-center justify-center overflow-hidden rounded-lg bg-[#c1272d] shadow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#006233" strokeWidth="2.5"><path d="M12 2l3 7h7l-5.5 4.5 2 7.5L12 16.5 5.5 21l2-7.5L2 9h7z" /></svg></div> },
-  SN: { villes: "Dakar · Thiès · Saint-Louis · Ziguinchor", tint: "#00853f", flag: <div className="flex h-9 w-[54px] overflow-hidden rounded-lg shadow"><div className="flex-1 bg-[#00853f]" /><div className="flex flex-1 items-center justify-center bg-[#fdef42] text-[10px] text-[#00853f]">★</div><div className="flex-1 bg-[#e31b23]" /></div> },
-};
+/** Destination unique : le Maroc. */
+export const DRAPEAU_MA = <div className="flex h-9 w-[54px] items-center justify-center overflow-hidden rounded-lg bg-[#c1272d] shadow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#006233" strokeWidth="2.5" aria-hidden><path d="M12 2l3 7h7l-5.5 4.5 2 7.5L12 16.5 5.5 21l2-7.5L2 9h7z" /></svg></div>;
+export const PAYS_STYLE = { MA: { villes: "Casablanca · Rabat · Marrakech · Fès · Tanger", tint: "#c1272d", flag: DRAPEAU_MA } };
 
-export function PaysCard({ code }: { code: PaysCode }) {
+export function PaysCard({ code }: { code: "MA" }) {
   const st = PAYS_STYLE[code];
   const etabs = etablissements.filter((e) => e.pays === code);
   const withLogo = etabs.filter((e) => e.logo).slice(0, 5);
@@ -78,7 +76,7 @@ export function PaysCard({ code }: { code: PaysCode }) {
     <Tilt className="h-full">
       <div id={code} className="card relative flex h-full scroll-mt-28 flex-col gap-5 overflow-hidden rounded-3xl p-6">
         <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-[.08]" style={{ background: st.tint }} />
-        <div className="flex items-center gap-4">{st.flag}<div><div className="text-[22px] font-extrabold">{PAYS_NOM[code]}</div><div className="text-[13px] text-ink-mute">{st.villes}</div></div></div>
+        <div className="flex items-center gap-4">{st.flag}<div><div className="text-[22px] font-extrabold">Maroc</div><div className="text-[13px] text-ink-mute">{st.villes}</div></div></div>
         <div className="flex gap-6">
           <div><div className="text-2xl font-extrabold">{etabs.length}</div><div className="text-xs text-ink-mute">établissements privés</div></div>
           <div><div className="text-2xl font-extrabold">{etabs.reduce((n, e) => n + e.filieres.length, 0)}</div><div className="text-xs text-ink-mute">filières homologuées</div></div>
@@ -92,7 +90,7 @@ export function PaysCard({ code }: { code: PaysCode }) {
   );
 }
 
-export function FormationOfferCard({ f, etabId, score, highlight = false }: { f: Formation; etabId: string; score: number; highlight?: boolean }) {
+export function FormationOfferCard({ f, etabId, score, highlight = false, villes }: { f: Formation; etabId: string; score: number; highlight?: boolean; villes?: string[] }) {
   const e = etabById[etabId];
   const s = domStyle(f.domaine);
   const Icon = s.icon;
@@ -107,7 +105,7 @@ export function FormationOfferCard({ f, etabId, score, highlight = false }: { f:
           <div><Link href={`/formations/${f.id}/`} className="text-[17px] font-extrabold hover:text-brand-600">{f.intitule}</Link><div className="text-sm font-semibold text-ink-soft">{e.nom}</div></div>
           <button aria-label="Ajouter aux favoris" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#f6f8fe] text-ink-mute transition hover:bg-[#ffecef] hover:text-[#d42a50]"><Heart size={17} /></button>
         </div>
-        <div className="flex items-center gap-1.5 text-[13px] text-ink-mute"><MapPin size={14} />{e.campus ? `${e.campus.length} campus : ${e.campus.map((c) => c.ville).join(" · ")}` : `${e.ville}, Maroc`}</div>
+        <div className="flex items-center gap-1.5 text-[13px] text-ink-mute"><MapPin size={14} className="shrink-0" />{villes ? (villes.length > 1 ? `Campus : ${villes.join(" · ")}` : `${villes[0]}, Maroc${e.campus ? " (campus)" : ""}`) : e.campus ? `${e.campus.length} campus : ${e.campus.map((c) => c.ville).join(" · ")}` : `${e.ville}, Maroc`}</div>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap gap-1.5">
             <span className="chip bg-brand-50 text-brand-700">{f.diplome}</span>
@@ -115,7 +113,7 @@ export function FormationOfferCard({ f, etabId, score, highlight = false }: { f:
             <LabelChip label={e.label} court />
             <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><Sparkles size={12} /> {score} % compatible</span>
           </div>
-          <Link href={`/formations/${f.id}/?etab=${e.id}`} className={highlight ? "btn-primary py-2.5" : "btn-ghost py-2.5"}>Voir la formation</Link>
+          <Link href={`/formations/${f.id}/?etab=${e.id}${villes?.length === 1 && e.campus ? `&ville=${encodeURIComponent(villes[0])}` : ""}`} className={highlight ? "btn-primary py-2.5" : "btn-ghost py-2.5"}>Voir la formation</Link>
         </div>
       </div>
     </div>

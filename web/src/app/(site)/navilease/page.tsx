@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Navilease } from "@/components/sections/Navilease";
 import { CtaBand } from "@/components/ui/CtaBand";
 
-export const metadata: Metadata = { title: "Navilease — logement étudiant", description: "Logements étudiants vérifiés, paiement protégé, contrat numérique. Gabon, Maroc, Sénégal." };
+export const metadata: Metadata = { title: "Navilease — logement étudiant", description: "Logements étudiants vérifiés au Maroc (Casablanca, Rabat, Marrakech, Fès, Tanger…) : bailleurs contrôlés, paiement protégé en séquestre, contrat numérique." };
 
 export default function NavileasePage() {
   return (

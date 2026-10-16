@@ -38,7 +38,7 @@ export function billet(c: CoutsPays, origine: string): F {
   return (c.billet_avion[`depuis_${origine}`] as F) ?? (region ? (c.billet_avion[`depuis_region_${region}`] as F) : undefined) ?? { min: 0, max: 0 };
 }
 
-export function devis(eid: string, fid: string, origine = "SN", logement: Logement = "studio"): Devis {
+export function devis(eid: string, fid: string, origine = "", logement: Logement = "studio"): Devis {
   const e = etabById[eid];
   const Fm = formationById[fid];
   const c = COUTS[e.pays];

@@ -1,266 +1,114 @@
-{
- "_meta": {
-  "description": "Crédits des photos d'illustration de web/public/images (libres de droits)."
+[
+ {
+  "id": "informatique",
+  "src": "/images/informatique.webp",
+  "alt": "Développeuse travaillant sur un ordinateur portable",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25720834170"
  },
- "items": [
-  {
-   "fichier": "/images/orientation/9429550.webp",
-   "source": "https://www.pexels.com/photo/9429550/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/11679118.webp",
-   "source": "https://www.pexels.com/photo/11679118/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/3880749.webp",
-   "source": "https://www.pexels.com/photo/3880749/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/19915770.webp",
-   "source": "https://www.pexels.com/photo/19915770/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/11242855.webp",
-   "source": "https://www.pexels.com/photo/11242855/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/6550399.webp",
-   "source": "https://www.pexels.com/photo/6550399/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/20576428.webp",
-   "source": "https://www.pexels.com/photo/20576428/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/6646770.webp",
-   "source": "https://www.pexels.com/photo/6646770/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/6238297.webp",
-   "source": "https://www.pexels.com/photo/6238297/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/3938022.webp",
-   "source": "https://www.pexels.com/photo/3938022/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/31245740.webp",
-   "source": "https://www.pexels.com/photo/31245740/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/7173026.webp",
-   "source": "https://www.pexels.com/photo/7173026/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/6172586.webp",
-   "source": "https://www.pexels.com/photo/6172586/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/6592678.webp",
-   "source": "https://www.pexels.com/photo/6592678/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/6925422.webp",
-   "source": "https://www.pexels.com/photo/6925422/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/16850260.webp",
-   "source": "https://www.pexels.com/photo/16850260/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/5240008.webp",
-   "source": "https://www.pexels.com/photo/5240008/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/34526422.webp",
-   "source": "https://www.pexels.com/photo/34526422/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/3825580.webp",
-   "source": "https://www.pexels.com/photo/3825580/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/6592729.webp",
-   "source": "https://www.pexels.com/photo/6592729/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/33055499.webp",
-   "source": "https://www.pexels.com/photo/33055499/",
-   "auteur": "Skylight Views",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/3861923.webp",
-   "source": "https://www.pexels.com/photo/3861923/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/442151.webp",
-   "source": "https://www.pexels.com/photo/442151/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/8296974.webp",
-   "source": "https://www.pexels.com/photo/8296974/",
-   "auteur": "Mikhail Nilov",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/1154089.webp",
-   "source": "https://www.pexels.com/photo/1154089/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/9158712.webp",
-   "source": "https://www.pexels.com/photo/9158712/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/34162714.webp",
-   "source": "https://www.pexels.com/photo/34162714/",
-   "auteur": "Tosin Olowoleni",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/5682054.webp",
-   "source": "https://www.pexels.com/photo/5682054/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/37198875.webp",
-   "source": "https://www.pexels.com/photo/37198875/",
-   "auteur": "Harrun Muhammad",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/4989174.webp",
-   "source": "https://www.pexels.com/photo/4989174/",
-   "auteur": "Ivan S",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/9301840.webp",
-   "source": "https://www.pexels.com/photo/9301840/",
-   "auteur": "Mikhail Nilov",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/36707740.webp",
-   "source": "https://www.pexels.com/photo/36707740/",
-   "auteur": "Aj Collins Artistry",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/7428866.webp",
-   "source": "https://www.pexels.com/photo/7428866/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/11025018.webp",
-   "source": "https://www.pexels.com/photo/11025018/",
-   "auteur": "Roman Odintsov",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/3861811.webp",
-   "source": "https://www.pexels.com/photo/3861811/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/5234504.webp",
-   "source": "https://www.pexels.com/photo/5234504/",
-   "auteur": "Contributeur Pexels",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  },
-  {
-   "fichier": "/images/orientation/19416414.webp",
-   "source": "https://www.pexels.com/photo/19416414/",
-   "auteur": "Workman House",
-   "licence": "Licence Pexels (utilisation libre et gratuite)",
-   "usage": "Test d'orientation (choix illustrés)"
-  }
- ]
-}
+ {
+  "id": "data",
+  "src": "/images/data.webp",
+  "alt": "Étudiants programmant sur leurs ordinateurs",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25388747874"
+ },
+ {
+  "id": "gestion",
+  "src": "/images/gestion.webp",
+  "alt": "Réunion de travail autour d'une table",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/22344392878"
+ },
+ {
+  "id": "commerce",
+  "src": "/images/commerce.webp",
+  "alt": "Présentation devant un tableau blanc",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25388854424"
+ },
+ {
+  "id": "finance",
+  "src": "/images/finance.webp",
+  "alt": "Entretien de travail avec un ordinateur portable",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25926810051"
+ },
+ {
+  "id": "communication",
+  "src": "/images/communication.webp",
+  "alt": "Échange en équipe dans un espace de travail",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/22344371908"
+ },
+ {
+  "id": "laptop",
+  "src": "/images/laptop.webp",
+  "alt": "Étudiante qui révise avec un livre et un ordinateur",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25720917600"
+ },
+ {
+  "id": "communaute",
+  "src": "/images/communaute.webp",
+  "alt": "Groupe de jeunes professionnelles",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25168440514"
+ },
+ {
+  "id": "education",
+  "src": "/images/education.webp",
+  "alt": "Séance de tutorat entre étudiants",
+  "credit": "wocintechchat.com (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/136629440@N06/25720982610"
+ },
+ {
+  "id": "sante",
+  "src": "/images/sante.webp",
+  "alt": "Médecin dans un couloir d'hôpital",
+  "credit": "AMISOM Public Information (Flickr)",
+  "licence": "CC0",
+  "page": "https://www.flickr.com/photos/61765479@N08/12316144013"
+ },
+ {
+  "id": "medecin",
+  "src": "/images/medecin.webp",
+  "alt": "Consultation médicale",
+  "credit": "DFID - UK Department for International Development (Flickr)",
+  "licence": "CC BY-SA 2.0",
+  "page": "https://www.flickr.com/photos/14214150@N02/7139243509"
+ },
+ {
+  "id": "btp",
+  "src": "/images/btp.webp",
+  "alt": "Grues sur un chantier de construction",
+  "credit": "andrechinn (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/16167252@N00/3525054487"
+ },
+ {
+  "id": "ingenierie",
+  "src": "/images/ingenierie.webp",
+  "alt": "Ingénieure dans un laboratoire",
+  "credit": "U.S. Army Combat Capabilities Development Command (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/34402227@N03/6990230472"
+ },
+ {
+  "id": "agriculture",
+  "src": "/images/agriculture.webp",
+  "alt": "Rizière et équipe sur le terrain",
+  "credit": "Neo-grapher (Flickr)",
+  "licence": "CC BY 2.0",
+  "page": "https://www.flickr.com/photos/15694753@N00/4774151971"
+ }
+]
