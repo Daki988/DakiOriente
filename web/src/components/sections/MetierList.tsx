@@ -114,14 +114,14 @@ export function MetierList() {
         </div>
       </div>
 
-      <div className="container mt-8 grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_300px]">
+      <div className="container mt-8 grid grid-cols-1 items-start gap-8 [&>*]:min-w-0 lg:grid-cols-[1fr_300px]">
         <div className="flex min-w-0 flex-col gap-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-xl font-extrabold sm:text-2xl">{f.domaine ? court(domaineById[f.domaine].libelle) : "Tous les métiers"} <span className="text-ink-mute">({list.length})</span></h2>
-            <div className="flex items-center gap-2">
+            <div className="flex min-w-0 flex-wrap items-center gap-2">
               <button onClick={() => setPanneau(true)} className="btn-ghost relative min-h-[42px] px-3.5 py-2 lg:hidden"><SlidersHorizontal size={16} />Filtres{actifs > 0 && <span className="rounded-full bg-sun-400 px-1.5 text-xs text-ink">{actifs}</span>}</button>
-              <label className="relative flex items-center gap-2 text-sm text-ink-mute"><span className="hidden sm:inline">Tri :</span>
-                <select value={f.tri} onChange={(e) => set({ tri: e.target.value })} className="min-h-[42px] appearance-none rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 font-semibold text-ink outline-none" aria-label="Trier les métiers">{TRIS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select>
+              <label className="relative flex min-w-0 items-center gap-2 text-sm text-ink-mute"><span className="hidden sm:inline">Tri :</span>
+                <select value={f.tri} onChange={(e) => set({ tri: e.target.value })} className="min-h-[42px] max-w-[170px] appearance-none truncate rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 font-semibold text-ink outline-none" aria-label="Trier les métiers">{TRIS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select>
                 <ChevronDown size={14} className="pointer-events-none absolute right-2.5" />
               </label>
             </div>
@@ -136,7 +136,7 @@ export function MetierList() {
               <button onClick={tout} className="chip py-1.5 font-bold text-brand-600">Tout effacer</button>
             </div>
           )}
-          <motion.div layout className="grid gap-5 min-[520px]:grid-cols-2 xl:grid-cols-3">
+          <motion.div layout className="grid gap-5 [&>*]:min-w-0 min-[520px]:grid-cols-2 xl:grid-cols-3">
             <AnimatePresence mode="popLayout">
               {list.slice(0, limit).map((m, k) => <motion.div key={m.id} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1, transition: { delay: Math.min(k, 9) * 0.03 } }} exit={{ opacity: 0, scale: 0.96 }}><MetierCarte m={m} /></motion.div>)}
             </AnimatePresence>

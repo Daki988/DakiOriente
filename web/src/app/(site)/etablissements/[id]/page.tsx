@@ -145,7 +145,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
             <EtabLogo e={e} size={88} className="shadow-card" />
             <div className="flex min-w-0 flex-col gap-2">
               <h1 className="text-3xl font-extrabold tracking-tight sm:text-[44px] sm:leading-[1.05]">{e.nom}</h1>
-              <div className="flex flex-wrap gap-2"><LabelChip label={e.label} /><span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip bg-sun-100 text-[#a55a00]"><MapPin size={12} className="mr-1 inline" />{e.campus ? `${e.campus.length} campus : ` : ""}{villes.map((v, k) => <span key={v}>{k ? ", " : ""}<Link href={villeHref(v)} className="hover:underline">{v}</Link></span>)}{e.campus ? "" : ", Maroc"}</span></div>
+              <div className="flex flex-wrap gap-2"><LabelChip label={e.label} /><span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip !inline-block max-w-full whitespace-normal !rounded-2xl bg-sun-100 text-[#a55a00]"><MapPin size={12} className="mr-1 inline align-[-2px]" />{e.campus ? `${e.campus.length} campus : ` : ""}{villes.map((v, k) => <span key={v}>{k ? ", " : ""}<Link href={villeHref(v)} className="hover:underline">{v}</Link></span>)}{e.campus ? "" : ", Maroc"}</span></div>
             </div>
           </div>
           <div className="flex flex-wrap gap-2.5">

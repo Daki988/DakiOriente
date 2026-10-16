@@ -142,11 +142,11 @@ async function seedDemo() {
     await db.insert(schema.profiles).values({ userId: u.id, level: v.role === "etudiant" ? "terminale" : null, serie: v.role === "etudiant" ? "ga-bac-c" : null, riasec: v.role === "etudiant" ? { scores: { I: 22, C: 18, R: 15, E: 10, S: 9, A: 6 }, top: ["I", "C", "R"] } : null }).onConflictDoNothing();
     return u;
   };
-  const amina = await mk("amina.demo@navigoal.com", { role: "etudiant", firstName: "Amina", lastName: "Mba", birthYear: year - 18, country: "GA", city: "Libreville", phone: "+24107000001" });
-  const parent = await mk("parent.demo@navigoal.com", { role: "parent", firstName: "Jean-Paul", lastName: "Mba", country: "GA", city: "Libreville", phone: "+24107000002" });
-  const ecole = await mk("ecole.demo@navigoal.com", { role: "etablissement", firstName: "Salma", lastName: "Bennani", country: "MA", city: "Casablanca" });
-  const bailleur = await mk("bailleur.demo@navigoal.com", { role: "bailleur", firstName: "Karim", lastName: "Alaoui", country: "MA", city: "Casablanca", phone: "+212600000003" });
-  await mk("conseiller.demo@navigoal.com", { role: "conseiller", firstName: "Fatou", lastName: "Diop", country: "SN", city: "Dakar" });
+  const amina = await mk("amina.demo@demo.navigoal.net", { role: "etudiant", firstName: "Amina", lastName: "Mba", birthYear: year - 18, country: "GA", city: "Libreville", phone: "+24107000001" });
+  const parent = await mk("parent.demo@demo.navigoal.net", { role: "parent", firstName: "Jean-Paul", lastName: "Mba", country: "GA", city: "Libreville", phone: "+24107000002" });
+  const ecole = await mk("ecole.demo@demo.navigoal.net", { role: "etablissement", firstName: "Salma", lastName: "Bennani", country: "MA", city: "Casablanca" });
+  const bailleur = await mk("bailleur.demo@demo.navigoal.net", { role: "bailleur", firstName: "Karim", lastName: "Alaoui", country: "MA", city: "Casablanca", phone: "+212600000003" });
+  await mk("conseiller.demo@demo.navigoal.net", { role: "conseiller", firstName: "Fatou", lastName: "Diop", country: "SN", city: "Dakar" });
   await db.insert(schema.guardianships).values({ parentId: parent.id, childId: amina.id, status: "actif", consentAt: new Date() }).onConflictDoNothing();
   await db.insert(schema.establishmentMembers).values({ userId: ecole.id, establishmentId: "ma-esa-casa", role: "admin_ecole" }).onConflictDoNothing();
   await db.update(schema.establishments).set({ status: "verifie" }).where(eq(schema.establishments.id, "ma-esa-casa"));
@@ -156,7 +156,7 @@ async function seedDemo() {
     { landlordId: bailleur.id, title: "Studio meublé Maârif", type: "studio", description: "Studio lumineux de 28 m² entièrement meublé, coin cuisine équipé, salle d'eau, bureau. Immeuble gardé, à 12 minutes à pied de l'ESA.", pays: "MA", ville: "Casablanca", quartier: "Maârif", address: "Rue Abou Al Waqt, Maârif", lat: 33.5821, lng: -7.6327, rent: 3200, charges: 300, deposit: 3200, currency: "MAD", surface: 28, rooms: 1, amenities: ["wifi", "eau", "electricite", "meuble", "cuisine", "gardiennage", "bureau"], rules: "Non-fumeur. Pas de fêtes après 22 h.", minMonths: 6, availableFrom: `${year}-09-01`, nearEstablishments: [{ id: "ma-esa-casa", minutes: 12, mode: "pied" }, { id: "ma-esca", minutes: 18, mode: "transport" }], status: "publie", verification: "partenaire" },
     { landlordId: bailleur.id, title: "Chambre en colocation · Gauthier", type: "colocation", description: "Chambre privée dans un appartement de 3 chambres partagé entre étudiantes. Salon, cuisine équipée, machine à laver. Tramway à 3 minutes.", pays: "MA", ville: "Casablanca", quartier: "Gauthier", address: "Bd Zerktouni", lat: 33.5899, lng: -7.6261, rent: 2300, charges: 250, deposit: 2300, currency: "MAD", rooms: 3, capacity: 3, gender: "filles", amenities: ["wifi", "eau", "electricite", "meuble", "cuisine", "machine_a_laver"], minMonths: 3, availableFrom: `${year}-09-01`, nearEstablishments: [{ id: "ma-esa-casa", minutes: 15, mode: "transport" }, { id: "ma-um6ss", minutes: 20, mode: "transport" }], status: "publie", verification: "visite" },
   ]);
-  console.log("Comptes de démonstration prêts (…demo@navigoal.com).");
+  console.log("Comptes de démonstration prêts (…demo@demo.navigoal.net).");
 }
 
 const t0 = Date.now();

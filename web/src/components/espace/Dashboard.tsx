@@ -27,6 +27,8 @@ type Camp = { id: string; title: string; kind: string; endsAt: string; establish
 type Guardian = { link: { status: string; consentAt: string | null } }[];
 
 const STEPS = ["Profil complété", "Test d'orientation", "Recommandations", "Candidatures", "Admission"];
+/** Libellés courts pour les petits écrans (sans coupure au milieu des mots). */
+const STEPS_COURTS = ["Profil", "Test", "Conseils", "Dossiers", "Admission"];
 
 /** Étapes du parcours, calculées sur l'état réel du compte. */
 export function parcours(completion: number, tested: boolean, cands: { a: { status: string } }[]) {
@@ -98,7 +100,7 @@ export function Dashboard() {
             return (
               <motion.li key={t} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 + k * 0.1 }} className="relative flex flex-col items-center gap-1.5 text-center" aria-current={cur ? "step" : undefined}>
                 <span className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-extrabold sm:h-10 sm:w-10 ${ok ? "bg-[#0f8a46] text-white" : cur ? "bg-brand-600 text-white ring-[5px] ring-brand-100" : "border-2 border-[#dbe3f7] bg-white text-[#9aa3c0]"}`}>{ok ? <Check size={17} strokeWidth={3} /> : k + 1}</span>
-                <span lang="fr" className={`w-full hyphens-auto px-0.5 text-[10px] font-bold leading-tight [overflow-wrap:anywhere] sm:text-xs ${ok || cur ? "" : "text-[#9aa3c0]"}`}>{t}</span>
+                <span lang="fr" className={`w-full px-0.5 text-[10px] font-bold leading-tight sm:text-xs ${ok || cur ? "" : "text-[#9aa3c0]"}`}><span className="sm:hidden">{STEPS_COURTS[k]}</span><span className="hidden sm:inline">{t}</span></span>
               </motion.li>
             );
           })}

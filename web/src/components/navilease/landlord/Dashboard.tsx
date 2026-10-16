@@ -89,7 +89,7 @@ export function LandlordDashboard({ info }: { info: LandlordInfo | null }) {
                   </div>
                 ))}
               </div>
-              <div className="mt-2 flex gap-1.5 sm:gap-3">{months.map((m) => <span key={m.p} className="flex-1 text-center text-[11px] capitalize text-ink-mute">{m.label.replace(".", "")}</span>)}</div>
+              <div className="mt-2 flex gap-1.5 sm:gap-3">{months.map((m) => <span key={m.p} className="min-w-0 flex-1 overflow-hidden text-center text-[10px] capitalize text-ink-mute sm:text-[11px]">{m.label.replace(".", "")}</span>)}</div>
               {!months.some((m) => m.v) && <p className="mt-3 text-sm text-ink-mute">Les revenus apparaîtront dès la première entrée d&apos;un locataire.</p>}
             </div>
           )}

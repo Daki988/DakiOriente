@@ -33,7 +33,7 @@ export function Panel({ title, icon: I, action, children, className = "", tone }
   const bg = tone === "sun" ? "bg-gradient-to-br from-white to-[#fff7dd]" : tone === "green" ? "border-[#bfe9cf] bg-gradient-to-br from-white to-[#effbf3]" : tone === "blue" ? "bg-gradient-to-br from-white to-brand-50" : "";
   return (
     <section className={`card flex min-w-0 flex-col gap-4 rounded-[22px] p-4 sm:p-6 ${bg} ${className}`}>
-      {(title || action) && <div className="flex items-center justify-between gap-3">
+      {(title || action) && <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">{I && <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-brand-600"><I size={18} /></span>}<h2 className="text-[17px] font-extrabold">{title}</h2></div>
         {action}
       </div>}
@@ -108,7 +108,7 @@ export const StatusBadge = ({ status, label }: { status: string; label?: string 
 export function Tabs<T extends string>({ value, onChange, items }: { value: T; onChange: (v: T) => void; items: [T, ReactNode][] }) {
   const uid = useId(); // un identifiant d'animation par barre d'onglets
   return (
-    <div className="flex max-w-full gap-1 overflow-x-auto rounded-xl bg-[#eef1f8] p-1" role="tablist">
+    <div className="relative flex min-w-0 max-w-full gap-1 overflow-x-auto rounded-xl bg-[#eef1f8] p-1" role="tablist">
       {items.map(([k, l]) => (
         <button key={k} role="tab" aria-selected={value === k} onClick={() => onChange(k)} className={`relative shrink-0 whitespace-nowrap rounded-[10px] px-3.5 py-2 text-[13px] font-bold ${value === k ? "text-brand-600" : "text-ink-mute hover:text-ink"}`}>
           {value === k && <motion.span layoutId={`tab-pill-${uid}`} className="absolute inset-0 rounded-[10px] bg-white shadow-sm" />}<span className="relative">{l}</span>
@@ -144,7 +144,7 @@ export function Table<T>({ rows, cols, empty = "Aucun élément.", onRow, rowKey
           ))}
         </ul>
       )}
-      <div className={`-mx-5 overflow-x-auto sm:-mx-6 ${cards ? "hidden sm:block" : ""}`}>
+      <div className={`relative -mx-5 overflow-x-auto sm:-mx-6 ${cards ? "hidden sm:block" : ""}`}>
         <table className="w-full min-w-[640px] border-collapse text-sm">
           <thead><tr className="border-b border-[#eef1f8] text-left text-[11px] font-extrabold uppercase text-ink-mute">{cols.map((c, i) => <th key={i} className={`px-5 py-2.5 sm:px-6 ${c.className ?? ""}`}>{c.h}</th>)}</tr></thead>
           <tbody>
