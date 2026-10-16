@@ -26,6 +26,8 @@ export function FormationDetail({ id }: { id: string }) {
   const villes = e ? villesOffre(e, f.id) : [];
   const ville = villes.includes(params.get("ville") ?? "") ? params.get("ville")! : villes[0];
   const [tab, setTab] = useState<Tab>("Présentation");
+  const [villeListe, setVilleListe] = useState("");
+  const [nListe, setNListe] = useState(10);
   const [fav, setFav] = useState(false);
   const [profil, setProfil] = useState<string[]>(["I", "C"]);
   useEffect(() => {
@@ -44,6 +46,8 @@ export function FormationDetail({ id }: { id: string }) {
   const series = (Object.entries(f.series_recommandees) as [PaysCode, string[]][]).filter(([, l]) => l?.length);
   const candidater = e ? `/espace/candidatures/nouvelle?etab=${e.id}&formation=${f.id}${ville && e.campus ? `&campus=${encodeURIComponent(ville)}` : ""}` : "/inscription";
   const statut = filieres[0]?.homologation;
+  const villesListe = Object.entries(etabs.reduce<Record<string, number>>((a, x) => { for (const v of villesOffre(x, f.id)) a[v] = (a[v] ?? 0) + 1; return a; }, {})).sort((a, b) => b[1] - a[1]);
+  const listeEtabs = villeListe ? etabs.filter((x) => villesOffre(x, f.id).includes(villeListe)) : etabs;
 
   const infos: [typeof Building2, string, ReactNode][] = [
     [Building2, "Établissement", e ? <Link key="e" href={`/etablissements/${e.id}/`} className="hover:text-brand-600">{e.nom}</Link> : "—"],
@@ -60,12 +64,12 @@ export function FormationDetail({ id }: { id: string }) {
       <section className="relative">
         <div className="relative h-[200px] overflow-hidden sm:h-[260px]">
           <EtabPhoto e={e} rounded="rounded-none" className="h-full w-full" />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-950/80 via-brand-950/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-brand-950/75 via-brand-950/25 to-brand-950/60" />
           <div className="container absolute inset-x-0 top-5"><nav className="flex flex-wrap items-center gap-1.5 text-[13px] font-semibold text-white/90" aria-label="Fil d'Ariane"><Link href="/">Accueil</Link><ChevronRight size={14} /><Link href="/formations">Formations</Link><ChevronRight size={14} /><span className="line-clamp-1">{f.intitule}</span></nav></div>
         </div>
         <div className="container relative -mt-16">
           <div className="card flex flex-col gap-5 rounded-[24px] p-5 sm:p-7 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex min-w-0 items-start gap-4">
+            <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start">
               <EtabLogo e={e} size={72} className="shadow-card" />
               <div className="flex min-w-0 flex-col gap-2">
                 <motion.h1 initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="text-2xl font-extrabold leading-tight tracking-tight sm:text-[34px]">{f.intitule}</motion.h1>
@@ -171,9 +175,12 @@ export function FormationDetail({ id }: { id: string }) {
           </AnimatePresence>
 
           <section id="etablissements" className="flex scroll-mt-28 flex-col gap-3">
-            <h2 className="text-xl font-extrabold">Établissements qui proposent cette formation <span className="text-ink-mute">({etabs.length})</span></h2>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-xl font-extrabold">Établissements qui proposent cette formation <span className="text-ink-mute">({listeEtabs.length}{villeListe ? ` à ${villeListe}` : ""})</span></h2>
+              <select value={villeListe} onChange={(ev) => { setVilleListe(ev.target.value); setNListe(10); }} aria-label="Filtrer par ville" className="min-h-[42px] rounded-xl border border-slate-200 bg-white px-3 text-sm font-semibold"><option value="">Toutes les villes ({etabs.length})</option>{villesListe.map(([v, n]) => <option key={v} value={v}>{v} ({n})</option>)}</select>
+            </div>
             <div className="grid gap-3 sm:grid-cols-2">
-              {etabs.map((x) => {
+              {listeEtabs.slice(0, nListe).map((x) => {
                 const vs = villesOffre(x, f.id);
                 const actif = x.id === e.id;
                 return (
@@ -190,6 +197,7 @@ export function FormationDetail({ id }: { id: string }) {
                 );
               })}
             </div>
+            {nListe < listeEtabs.length && <button onClick={() => setNListe(nListe + 20)} className="btn-ghost self-center">Afficher plus ({listeEtabs.length - nListe} restants)</button>}
           </section>
         </div>
 

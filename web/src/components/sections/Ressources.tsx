@@ -87,9 +87,9 @@ export function Ressources() {
             </form>
           </div>
           <div className="relative mx-auto hidden h-[300px] w-full max-w-[420px] lg:block">
-            <div className="absolute inset-x-[8%] bottom-0 top-[12%] animate-blob bg-gradient-to-br from-brand-500 to-brand-300" />
+            <div className="absolute inset-x-[8%] bottom-0 top-[12%] rounded-[42%_58%_70%_30%/45%_45%_55%_55%] animate-blob bg-gradient-to-br from-brand-500 to-brand-300" />
             <Image src="/images/etudiante.webp" alt="" width={1326} height={1186} sizes="420px" className="absolute inset-x-0 bottom-0 h-auto w-full" />
-            <p className="absolute -right-4 top-0 w-44 -rotate-6 font-hand text-[22px] leading-tight text-brand-800">Apprendre aujourd&apos;hui pour construire l&apos;Afrique de demain.</p>
+            <p className="absolute -left-36 bottom-8 hidden w-40 -rotate-6 xl:block font-hand text-[22px] leading-tight text-brand-800">Apprendre aujourd&apos;hui pour construire l&apos;Afrique de demain.</p>
           </div>
         </div>
       </section>

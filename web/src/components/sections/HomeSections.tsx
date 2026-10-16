@@ -123,7 +123,7 @@ export function FormationsPopulaires() {
         <div><h2 className="h-section">Formations populaires</h2><p className="mt-1 text-ink-mute">Les formations proposées par le plus grand nombre d&apos;établissements au Maroc.</p></div>
         <Link href="/formations" className="flex min-h-[40px] items-center gap-1.5 text-sm font-bold text-brand-600">Voir toutes les formations <ArrowRight size={16} /></Link>
       </Reveal>
-      <Stagger className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
+      <Stagger className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 lg:grid-cols-3">
         {liste.map((f) => {
           const s = domStyle(f.domaine);
           const I = s.icon;

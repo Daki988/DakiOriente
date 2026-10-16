@@ -52,7 +52,7 @@ export function Hero() {
         </div>
 
         <div className="relative mx-auto h-[330px] w-full max-w-[560px] sm:h-[480px] lg:h-[540px]">
-          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8 }} className="absolute left-[8%] top-[6%] h-[80%] w-[84%] animate-blob bg-gradient-to-br from-brand-600 via-brand-500 to-brand-300" />
+          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.8 }} className="absolute left-[8%] top-[6%] h-[80%] w-[84%] rounded-[42%_58%_70%_30%/45%_45%_55%_55%] animate-blob bg-gradient-to-br from-brand-600 via-brand-500 to-brand-300" />
           <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.3, type: "spring" }} className="absolute left-[2%] top-[4%] h-[34%] w-[34%] rounded-[46%_54%_40%_60%] bg-sun-400" />
           <div className="absolute right-[4%] top-[58%] hidden h-24 w-24 animate-spin-slow rounded-full border-[3px] border-dashed border-sun-400 sm:block" />
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }} className="absolute inset-x-[4%] bottom-0">

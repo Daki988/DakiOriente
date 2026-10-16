@@ -91,7 +91,7 @@ export default function VillePage({ params }: { params: { slug: string } }) {
           <section id="etablissements" className="flex scroll-mt-28 flex-col gap-4">
             <div><h2 className="text-2xl font-extrabold tracking-tight sm:text-[28px]">Établissements et campus à {v.nom}</h2><p className="text-ink-mute">Label du campus, quartier et adresse. Les réseaux présents dans plusieurs villes ont un campus ici.</p></div>
             <Stagger className="grid gap-4 sm:grid-cols-2">
-              {etabs.map((e) => {
+              {etabs.slice(0, 12).map((e) => {
                 const c = campusDe(e, v.nom);
                 const n = v.offres.filter((o) => o.e.id === e.id).length;
                 return (
@@ -106,6 +106,7 @@ export default function VillePage({ params }: { params: { slug: string } }) {
                 );
               })}
             </Stagger>
+            {etabs.length > 12 && <Link href={`/etablissements/?ville=${encodeURIComponent(v.nom)}`} className="btn-ghost self-start">Voir les {etabs.length} établissements de {v.nom} <ArrowRight size={16} /></Link>}
           </section>
 
           <section id="formations" className="flex scroll-mt-28 flex-col gap-4">

@@ -97,9 +97,9 @@ export function MetierList() {
             </form>
           </div>
           <div className="relative mx-auto hidden h-[300px] w-full max-w-[420px] lg:block">
-            <div className="absolute inset-x-[8%] bottom-0 top-[12%] animate-blob bg-gradient-to-br from-brand-500 to-brand-300" />
+            <div className="absolute inset-x-[8%] bottom-0 top-[12%] rounded-[42%_58%_70%_30%/45%_45%_55%_55%] animate-blob bg-gradient-to-br from-brand-500 to-brand-300" />
             <Image src="/images/etudiante.webp" alt="" width={1326} height={1186} sizes="420px" className="absolute inset-x-0 bottom-0 h-auto w-full" />
-            <p className="absolute -right-4 top-0 w-44 -rotate-6 font-hand text-[22px] leading-tight text-brand-800">Des métiers d&apos;aujourd&apos;hui pour construire l&apos;Afrique de demain.</p>
+            <p className="absolute -left-36 bottom-8 hidden w-40 -rotate-6 xl:block font-hand text-[22px] leading-tight text-brand-800">Des métiers d&apos;aujourd&apos;hui pour construire l&apos;Afrique de demain.</p>
           </div>
         </div>
       </section>
@@ -114,7 +114,7 @@ export function MetierList() {
         </div>
       </div>
 
-      <div className="container mt-8 grid items-start gap-8 lg:grid-cols-[1fr_300px]">
+      <div className="container mt-8 grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_300px]">
         <div className="flex min-w-0 flex-col gap-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-xl font-extrabold sm:text-2xl">{f.domaine ? court(domaineById[f.domaine].libelle) : "Tous les métiers"} <span className="text-ink-mute">({list.length})</span></h2>
@@ -147,7 +147,7 @@ export function MetierList() {
           <ZoomMetier />
         </div>
 
-        <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
+        <aside className="flex min-w-0 flex-col gap-5 lg:sticky lg:top-24">
           <div className="card hidden p-5 lg:block">{filtres}</div>
           <div className="card flex flex-col gap-3 p-5">
             <div><h2 className="text-lg font-extrabold">Métiers à la une</h2><p className="text-xs text-ink-mute">Ceux auxquels préparent le plus d&apos;établissements au Maroc.</p></div>
@@ -203,7 +203,8 @@ export function MetierList() {
 function ZoomMetier() {
   const m = ZOOM;
   if (!m) return null;
-  const qualites = m.competences.map((c) => competenceById[c]).filter((c) => c && c.categorie === "transversale").slice(0, 2).map((c) => c.libelle);
+  const transv = m.competences.map((c) => competenceById[c]).filter((c) => c && c.categorie === "transversale");
+  const qualites = (transv.length ? transv : m.competences.map((c) => competenceById[c]).filter(Boolean)).slice(0, 2).map((c) => c.libelle);
   const secteurs = SECTEURS.filter((s) => secteursOf(m).includes(s.id)).map((s) => s.libelle);
   return (
     <section className="mt-4 grid overflow-hidden rounded-[24px] bg-gradient-to-r from-brand-950 to-brand-800 text-white sm:grid-cols-[220px_1fr]">
