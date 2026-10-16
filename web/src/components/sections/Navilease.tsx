@@ -74,7 +74,7 @@ export function Navilease() {
             <button onClick={() => setType("cites")} className={`chip min-h-[38px] shrink-0 px-3.5 transition ${type === "cites" ? "bg-brand-600 text-white shadow-glow" : "border border-slate-200 bg-white text-ink-soft hover:border-brand-300"}`}>Cités universitaires</button>
             <button onClick={() => setVerif(!verif)} aria-pressed={verif} className={`chip min-h-[38px] shrink-0 px-3.5 ${verif ? "bg-[#0f8a46] text-white" : "border border-slate-200 bg-white text-ink-soft"}`}><ShieldCheck size={14} /> Vérifiés uniquement</button>
           </div>
-          <span className="text-sm text-ink-mute">{type === "cites" ? `${cites.length} cité${cites.length > 1 ? "s" : ""} universitaire${cites.length > 1 ? "s" : ""}` : loading ? "Chargement…" : `${list.length} logement${list.length > 1 ? "s" : ""}${list.length >= 24 ? " (premiers résultats)" : ""}`}</span>
+          <span className="text-sm text-ink-mute">{type === "cites" ? `${cites.length} cité${cites.length > 1 ? "s" : ""} universitaire${cites.length > 1 ? "s" : ""}` : loading ? "Chargement…" : error ? "" : `${list.length} logement${list.length > 1 ? "s" : ""}${list.length >= 24 ? " (premiers résultats)" : ""}`}</span>
         </div>
         {type !== "cites" && error && <p className="card p-6 text-center text-ink-mute">Les annonces n&apos;ont pas pu être chargées. <Link href="/navilease/logements" className="font-bold text-brand-600">Ouvrir la recherche</Link></p>}
         {type !== "cites" && !loading && !error && !list.length && <p className="card p-6 text-center text-ink-mute">Aucune annonce publiée pour ces critères pour le moment.</p>}

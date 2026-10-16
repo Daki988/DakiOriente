@@ -112,7 +112,7 @@ export function Comparateur() {
             <div className="flex rounded-xl bg-[#f6f8fe] p-[3px]">
               {(["formation", "metier"] as const).map((m) => <button key={m} onClick={() => setMode(m)} className={`relative rounded-[10px] px-3.5 py-2 text-[13px] font-bold ${mode === m ? "text-brand-600" : "text-ink-mute"}`}>{mode === m && <motion.span layoutId="cmp-mode" className="absolute inset-0 rounded-[10px] bg-white shadow-sm" />}<span className="relative">{m === "formation" ? "Formation" : "Métier visé"}</span></button>)}
             </div>
-            <label className="flex min-w-0 flex-1 items-center gap-2.5 px-2 xl:border-l xl:border-[#eef1f8] xl:pl-4">
+            <label className="flex min-w-0 flex-1 items-center gap-2.5 px-2 xl:min-w-[240px] xl:border-l xl:border-[#eef1f8] xl:pl-4">
               <GraduationCap size={18} className="shrink-0 text-brand-600" />
               {mode === "formation"
                 ? <select value={fid} onChange={(ev) => setFid(ev.target.value)} className="min-w-0 flex-1 bg-transparent py-2 text-sm font-bold outline-none" aria-label="Formation">{formations.filter((f) => f.etablissements.some((x) => etabById[x])).sort((a, b) => a.intitule.localeCompare(b.intitule)).map((f) => <option key={f.id} value={f.id}>{f.intitule}</option>)}</select>
