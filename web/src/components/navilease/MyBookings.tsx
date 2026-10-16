@@ -2,13 +2,15 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronRight, KeyRound, Search } from "lucide-react";
-import { Alert, Button, Empty, Loading, PageHeader, StatusBadge, dateFr, money } from "@/components/app/kit";
+import { Alert, Button, Empty, Loading, PageHeader, StatusBadge, dateFr } from "@/components/app/kit";
 import { useUser } from "@/components/app/Session";
 import { useApi } from "@/hooks/useApi";
 import { BOOKING_STATUS, Cover, addMonths, type BookingRow } from "./shared";
+import { useMontant } from "@/components/ui/Devise";
 
 /** Liste des réservations du locataire ou du parent (garant). */
 export function MyBookings() {
+  const { m } = useMontant();
   const me = useUser();
   const { data, error, loading, reload } = useApi<BookingRow[]>("/reservations");
   const parent = me.role === "parent";
@@ -25,7 +27,7 @@ export function MyBookings() {
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2"><b className="truncate">{h.title}</b><StatusBadge status={b.status} label={BOOKING_STATUS[b.status]} /></div>
                 <p className="truncate text-sm text-ink-mute">{b.number} · {[h.quartier, h.ville].filter(Boolean).join(", ")} · {dateFr(b.startDate)} → {dateFr(addMonths(b.startDate, b.months))}</p>
-                <p className="text-sm font-bold text-brand-600">{money(b.rent, b.currency)} <span className="font-normal text-ink-mute">/ mois</span></p>
+                <p className="text-sm font-bold text-brand-600">{m(b.rent, b.currency)} <span className="font-normal text-ink-mute">/ mois</span></p>
               </div>
               <ChevronRight size={18} className="shrink-0 text-ink-mute" />
             </Link>

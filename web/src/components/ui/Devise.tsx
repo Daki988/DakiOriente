@@ -42,6 +42,22 @@ export function Prix({ mad, suffixe = "", bloc = false, className = "" }: { mad:
   );
 }
 
+/** Montants en texte : « 1 500 MAD (≈ 94 000 F CFA) » selon le pays de provenance ; `eq` donne l'équivalent seul. */
+export function useMontant() {
+  const { devise, taux } = useDevise();
+  const eq = (n: number | null | undefined, cur: string | null = "MAD") => {
+    if (n == null || (cur ?? "MAD") !== "MAD" || !devise) return null;
+    const c = convertir(n, devise, taux);
+    return c == null ? null : formatMontant(c, devise);
+  };
+  const m = (n: number | null | undefined, cur: string | null = "MAD") => {
+    if (n == null) return "—";
+    const e = eq(n, cur);
+    return `${formatMontant(n, cur ?? "MAD")}${e ? ` (≈ ${e})` : ""}`;
+  };
+  return { m, eq };
+}
+
 /** Choix du pays de provenance (affichage des montants convertis). */
 export function DeviseSelect({ className = "", dark = false }: { className?: string; dark?: boolean }) {
   const { pays, devise, setPays } = useDevise();

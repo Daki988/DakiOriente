@@ -6,7 +6,7 @@ import { AlertCircle, CheckCircle2, Download, FileText, KeyRound, ListChecks, Me
 import { useState } from "react";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { EtabPhoto } from "@/components/ui/EtabPhoto";
-import { Alert, Button, Loading, PageHeader, Panel, StatusBadge, Timeline, dateFr, money, statusLabel, useToast } from "@/components/app/kit";
+import { Alert, Button, Loading, PageHeader, Panel, StatusBadge, Timeline, dateFr, statusLabel, useToast } from "@/components/app/kit";
 import { docLabel } from "@/components/app/form";
 import { api, apiUrl } from "@/lib/api";
 import { useAction, useApi } from "@/hooks/useApi";
@@ -14,12 +14,14 @@ import { etabById } from "@/lib/data";
 import { ConversationThread } from "./Conversation";
 import { AppProgress } from "./AppProgress";
 import type { AppDetail, Payment } from "./types";
+import { useMontant } from "@/components/ui/Devise";
 
 const FLOW = ["brouillon", "soumise", "paiement_confirme", "en_verification", "complet", "en_traitement"];
 type Conv = { id: string; contextKind: string | null; contextId: string | null; unread: number }[];
 type Housing = { id: string; title: string; quartier: string | null; rent: number; currency: string; verification: string; nearEstablishments: { id: string; minutes: number }[] }[];
 
 export function CandidatureDetail({ id, asParent = false }: { id: string; asParent?: boolean }) {
+  const { m } = useMontant();
   const toast = useToast();
   const params = useSearchParams();
   const d = useApi<AppDetail>(`/candidatures/${id}`);
@@ -92,7 +94,7 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
           <section className="card flex flex-col gap-3 rounded-[22px] p-5">
             <div className="flex items-center gap-3"><EtabLogo e={etabById[e.id] ?? e} size={44} /><span><b className="block">{e.sigle}</b><span className="text-xs text-ink-mute">{e.ville.split("/")[0].trim()}</span></span></div>
             {etabById[e.id] && <EtabPhoto e={etabById[e.id]} className="h-36" />}
-            {[["Formation", p.title], ["Durée", p.durationYears ? `${p.durationYears} ans` : "—"], ["Rentrée", p.startDate ?? "Septembre"], ["Frais de dossier", p.applicationFee ? `${money(p.applicationFee, p.currency)}${fee ? ` · ${statusLabel(fee.status).toLowerCase()}` : ""}` : "Aucun"]].map(([k, v]) => <div key={k} className="flex justify-between gap-3 text-[13px]"><span className="text-ink-mute">{k}</span><b className="text-right">{v}</b></div>)}
+            {[["Formation", p.title], ["Durée", p.durationYears ? `${p.durationYears} ans` : "—"], ["Rentrée", p.startDate ?? "Septembre"], ["Frais de dossier", p.applicationFee ? `${m(p.applicationFee, p.currency)}${fee ? ` · ${statusLabel(fee.status).toLowerCase()}` : ""}` : "Aucun"]].map(([k, v]) => <div key={k} className="flex justify-between gap-3 text-[13px]"><span className="text-ink-mute">{k}</span><b className="text-right">{v}</b></div>)}
             {fee && fee.status === "en_attente" && <Link href={`/paiement/${fee.reference}`} className="btn-primary py-2.5">Finaliser le paiement</Link>}
           </section>
           {app.status === "acceptee" && (
@@ -104,7 +106,7 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
           )}
           {app.status === "acceptee" && (
             <Panel tone="sun" title="Logements Navilease proches" icon={KeyRound}>
-              {(near.data ?? []).slice(0, 3).map((h) => <Link key={h.id} href={`/navilease/logements/${h.id}`} className="flex flex-col rounded-2xl bg-white p-3 text-[13px] hover:shadow-card"><b>{h.title}</b><span className="text-ink-mute">{h.nearEstablishments.find((n) => n.id === e.id)?.minutes ?? "—"} min · {money(h.rent, h.currency)} / mois</span></Link>)}
+              {(near.data ?? []).slice(0, 3).map((h) => <Link key={h.id} href={`/navilease/logements/${h.id}`} className="flex flex-col rounded-2xl bg-white p-3 text-[13px] hover:shadow-card"><b>{h.title}</b><span className="text-ink-mute">{h.nearEstablishments.find((n) => n.id === e.id)?.minutes ?? "—"} min · {m(h.rent, h.currency)} / mois</span></Link>)}
               {near.data && !near.data.length && <p className="text-[13px] text-ink-mute">De nouveaux logements vérifiés arrivent près de {e.sigle}. Crée une alerte pour être prévenu·e.</p>}
               <Link href={`/navilease/logements?etablissement=${e.id}`} className="btn-primary py-2.5">Voir tous les logements</Link>
             </Panel>

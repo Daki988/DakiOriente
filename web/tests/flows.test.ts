@@ -245,3 +245,26 @@ describe("sécurité", () => {
     await expect(accounts.login("bf@test.local", "Motdepasse1")).rejects.toThrow(/Trop de tentatives/);
   });
 });
+
+describe("connexion avec Google", () => {
+  const google = () => import("@/server/services/google");
+  it("relie un compte existant et vérifie son e-mail", async () => {
+    const g = await google();
+    const r = await g.compteGoogle({ email: "AWA@test.local", given_name: "Awa", email_verified: true }, null);
+    expect(r.user?.id).toBe(student.id);
+    expect(r.nouveau).toBe(false);
+    expect((await reload(student.id)).emailVerifiedAt).not.toBeNull();
+  });
+  it("sans profil choisi, ne crée pas de compte", async () => {
+    const r = await (await google()).compteGoogle({ email: "inconnu@gmail.test", email_verified: true }, null);
+    expect(r.user).toBeNull();
+  });
+  it("crée un compte parent sans mot de passe, qui peut ensuite en définir un", async () => {
+    const r = await (await google()).compteGoogle({ email: "maman@gmail.test", given_name: "Fatou", family_name: "Diop", email_verified: true }, "parent");
+    expect(r.nouveau).toBe(true);
+    expect(r.user).toMatchObject({ role: "parent", firstName: "Fatou", lastName: "Diop", passwordHash: null });
+    expect(r.user!.emailVerifiedAt).not.toBeNull();
+    await accounts.changePassword(r.user!.id, "", "Motdepasse1");
+    expect((await accounts.login("maman@gmail.test", "Motdepasse1")).id).toBe(r.user!.id);
+  });
+});

@@ -9,6 +9,7 @@ import { api } from "@/lib/api";
 import { useAction } from "@/hooks/useApi";
 import { CodeBoxes } from "./Otp";
 import { IdentifierInput } from "./inputs";
+import { GoogleButton, MESSAGES_GOOGLE } from "./Google";
 
 type Me = { user: { role: string } };
 export const HOME: Record<string, string> = { eleve: "/espace", etudiant: "/espace", parent: "/parent", etablissement: "/etablissement", bailleur: "/bailleur", conseiller: "/conseiller", admin: "/admin" };
@@ -41,7 +42,8 @@ export function Login() {
 
   const notice = params.get("session") === "expiree" ? { tone: "warn" as const, t: "Ta session a expiré. Reconnecte-toi pour continuer." }
     : params.get("reinitialise") ? { tone: "success" as const, t: "Mot de passe modifié. Connecte-toi avec ton nouveau mot de passe." }
-    : params.get("deconnexion") ? { tone: "info" as const, t: "Tu es déconnecté·e. À bientôt !" } : null;
+    : params.get("deconnexion") ? { tone: "info" as const, t: "Tu es déconnecté·e. À bientôt !" }
+    : MESSAGES_GOOGLE[params.get("google") ?? ""] ?? null;
 
   return (
     <div className="mx-auto flex w-full max-w-[420px] flex-col gap-5">
@@ -50,6 +52,7 @@ export function Login() {
         <p className="text-ink-mute">Connecte-toi pour suivre ton orientation, tes candidatures et ton logement.</p>
       </div>
       {notice && <Alert tone={notice.tone}>{notice.t}</Alert>}
+      <GoogleButton suite={params.get("suite")} />
       <Tabs value={mode} onChange={(m) => { setMode(m); a.setError(null); setSent(null); }} items={[["mdp", "Mot de passe"], ["code", "Code par SMS ou e-mail"]]} />
       {mode === "mdp" ? (
         <form onSubmit={submitPw} className="flex flex-col gap-4" noValidate>

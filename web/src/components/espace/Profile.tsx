@@ -38,6 +38,8 @@ export function Profile() {
   // Séries détaillées pour les pays d'origine décrits dans le référentiel ; saisie libre pour les autres pays
   const seriesPays = useMemo(() => series.filter((s) => s.pays === f.country), [f.country]);
   const villes = pays.find((p) => p.id === f.country)?.villes_universitaires ?? [];
+  const [bienvenue, setBienvenue] = useState(false);
+  useEffect(() => { setBienvenue(new URLSearchParams(window.location.search).get("bienvenue") === "google"); }, []);
   const minor = !!f.birthYear && new Date().getFullYear() - Number(f.birthYear) < 18;
 
   const submit = (e: React.FormEvent) => {
@@ -58,6 +60,7 @@ export function Profile() {
   return (
     <form onSubmit={submit}>
       <PageHeader title="Mon profil" sub="Plus ton profil est complet, plus tes recommandations sont justes." actions={<Button icon={Save} loading={save.pending}>Enregistrer</Button>} />
+      {bienvenue && <div className="mb-6"><Alert tone="success" title={`Bienvenue ${me.data.firstName} !`}>Ton compte est créé avec Google : tu te connectes désormais en un clic. Indique ton pays d&apos;origine et ton année de naissance pour voir les montants dans ta monnaie et recevoir des recommandations adaptées.</Alert></div>}
       <div className="grid items-start gap-6 xl:grid-cols-[1fr_360px]">
         <div className="flex flex-col gap-6">
           <Panel title="Identité" icon={UserRound}>

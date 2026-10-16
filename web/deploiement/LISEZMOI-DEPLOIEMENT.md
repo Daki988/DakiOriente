@@ -29,6 +29,24 @@ Paramètres d'envoi (cPanel › *Connect Devices*) : serveur `mail.navigoal.net`
 Ces informations vont dans `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`.
 Pour la délivrabilité, vérifiez dans cPanel › **Email Deliverability** que SPF et DKIM sont valides.
 
+## 2 bis. Connexion avec Google (facultatif, recommandé)
+
+Le bouton « Continuer avec Google » (connexion et inscription en un clic, sans mot de passe) s'affiche dès que
+`GOOGLE_CLIENT_ID` et `GOOGLE_CLIENT_SECRET` sont renseignés.
+
+1. https://console.cloud.google.com › créez un projet « Navigoal ».
+2. **API et services › Écran de consentement OAuth** : type *Externe*, nom « Navigoal », e-mail d'assistance
+   `contact@navigoal.net`, logo Navigoal, domaine autorisé `navigoal.net`, champs d'application `email`, `profile`, `openid`.
+   Publiez l'application (statut *En production*) pour que tous les comptes Google puissent se connecter.
+3. **API et services › Identifiants › Créer des identifiants › ID client OAuth** : type *Application Web*.
+   - Origines JavaScript autorisées : `https://navigoal.net`
+   - URI de redirection autorisés : `https://navigoal.net/api/auth/google/retour/` (avec la barre finale)
+4. Copiez l'ID client et le code secret dans `GOOGLE_CLIENT_ID` et `GOOGLE_CLIENT_SECRET`, puis **Restart**.
+
+Un compte existant avec la même adresse e-mail est reconnu automatiquement. Un nouvel utilisateur choisit d'abord
+son profil (élève, étudiant, parent, bailleur) sur la page d'inscription, puis « S'inscrire avec Google ».
+Les comptes établissement restent créés par le formulaire (vérification par l'équipe Navigoal).
+
 ## 3. Envoi des fichiers
 
 1. cPanel › **Gestionnaire de fichiers** : placez-vous dans votre dossier personnel `/home/IDENTIFIANT`

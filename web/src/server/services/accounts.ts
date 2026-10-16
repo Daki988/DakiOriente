@@ -188,7 +188,8 @@ export async function resetPassword(target: string, code: string, password: stri
 
 export async function changePassword(userId: string, current: string, next: string) {
   const [u] = await db.select().from(schema.users).where(eq(schema.users.id, userId));
-  if (!u.passwordHash || !(await verifyPassword(String(current ?? ""), u.passwordHash))) throw new AppError("Mot de passe actuel incorrect.");
+  // Compte créé avec Google : pas encore de mot de passe, il peut en définir un.
+  if (u.passwordHash && !(await verifyPassword(String(current ?? ""), u.passwordHash))) throw new AppError("Mot de passe actuel incorrect.");
   const pb = passwordProblem(String(next ?? ""));
   if (pb) throw new AppError(pb);
   await db.update(schema.users).set({ passwordHash: await hashPassword(next) }).where(eq(schema.users.id, userId));

@@ -11,8 +11,9 @@ import { useSession } from "@/components/app/Session";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { useApi } from "@/hooks/useApi";
 import { etabById } from "@/lib/data";
-import { AMENITIES, Cover, MODE_ICON, SERVICE_FEE, Stars, VERIF, VerifBadge, addMonths, etabName, genderLabel, isoDay, modeLabel, toEur, typeLabel, type Housing } from "./shared";
+import { AMENITIES, Cover, MODE_ICON, SERVICE_FEE, Stars, VERIF, VerifBadge, addMonths, etabName, genderLabel, isoDay, modeLabel, typeLabel, type Housing } from "./shared";
 import { PseudoMap, pricePin } from "./PseudoMap";
+import { useMontant } from "@/components/ui/Devise";
 
 type Data = {
   housing: Housing;
@@ -35,6 +36,7 @@ export function HousingPage({ id }: { id: string }) {
 }
 
 function Listing({ d }: { d: Data }) {
+  const { m, eq } = useMontant();
   const h = d.housing;
   const user = useSession();
   const router = useRouter();
@@ -46,7 +48,6 @@ function Listing({ d }: { d: Data }) {
   const [whyOpen, setWhyOpen] = useState(false);
   const fee = Math.round(h.rent * SERVICE_FEE);
   const total = h.rent + h.charges + h.deposit + fee;
-  const eur = toEur(total, h.currency);
   const rating = d.reviews.length ? d.reviews.reduce((a, r) => a + r.r.rating, 0) / d.reviews.length : null;
   const photos = Math.max(h.photos.length, 1);
   const near = useMemo(() => [...h.nearEstablishments].sort((a, b) => a.minutes - b.minutes), [h.nearEstablishments]);
@@ -135,7 +136,7 @@ function Listing({ d }: { d: Data }) {
                 {h.rules ? <ul className="flex flex-col gap-2.5 text-sm text-ink-soft">
                   {h.rules.split(/\n|·|;/).map((r) => r.trim()).filter(Boolean).map((r, i) => <li key={i} className="flex items-start gap-2.5"><Check size={16} className="mt-0.5 shrink-0 text-[#0f8a46]" />{r}</li>)}
                 </ul> : <p className="text-sm text-ink-mute">Pas de règlement particulier indiqué.</p>}
-                <p className="mt-3 text-xs text-ink-mute">Durée minimale : {h.minMonths} mois · caution {money(h.deposit, h.currency)}, conservée en séquestre puis restituée à la sortie.</p>
+                <p className="mt-3 text-xs text-ink-mute">Durée minimale : {h.minMonths} mois · caution {m(h.deposit, h.currency)}, conservée en séquestre puis restituée à la sortie.</p>
               </section>
             </div>
 
@@ -180,7 +181,7 @@ function Listing({ d }: { d: Data }) {
           <aside className="lg:sticky lg:top-24 lg:h-max">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="card flex flex-col gap-4 rounded-[24px] p-5 shadow-lift sm:p-6">
               <div className="flex items-baseline justify-between gap-2">
-                <p><b className="text-[28px] text-brand-600">{money(h.rent, h.currency)}</b><span className="text-sm text-ink-mute"> / mois</span></p>
+                <p><b className="text-[28px] text-brand-600">{money(h.rent, h.currency)}</b><span className="text-sm text-ink-mute"> / mois</span>{eq(h.rent, h.currency) && <span className="block text-sm font-semibold text-ink-mute">≈ {eq(h.rent, h.currency)} / mois</span>}</p>
                 {rating && <span className="flex items-center gap-1 text-sm font-bold"><Star size={14} className="fill-sun-400 text-sun-500" />{rating.toFixed(1).replace(".", ",")}</span>}
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -192,12 +193,12 @@ function Listing({ d }: { d: Data }) {
               <p className="-mt-2 text-xs text-ink-mute">Sortie prévue le {addMonths(start, months).toLocaleDateString("fr-FR")}</p>
               <dl className="flex flex-col gap-1.5 text-sm">
                 {[["Premier loyer", h.rent], [`Charges${h.amenities.includes("wifi") ? " (dont wifi)" : ""}`, h.charges], ["Caution (restituée)", h.deposit], ["Frais de service Navilease (5 %)", fee]].map(([l, v]) => (
-                  <div key={l as string} className="flex justify-between gap-3"><dt className="text-ink-mute">{l}</dt><dd className="font-bold">{money(v as number, h.currency)}</dd></div>
+                  <div key={l as string} className="flex justify-between gap-3"><dt className="text-ink-mute">{l}</dt><dd className="font-bold">{m(v as number, h.currency)}</dd></div>
                 ))}
               </dl>
               <div className="flex items-center justify-between rounded-2xl bg-ink px-4 py-3 text-white">
                 <b className="text-sm">À payer à la réservation</b>
-                <div className="text-right"><b className="text-lg">{money(total, h.currency)}</b>{eur && <span className="block text-[11px] text-white/70">≈ {eur.toLocaleString("fr-FR")} € (indicatif)</span>}</div>
+                <div className="text-right"><b className="text-lg">{money(total, h.currency)}</b>{eq(total, h.currency) && <span className="block text-[11px] text-white/75">≈ {eq(total, h.currency)}</span>}</div>
               </div>
               <Button onClick={book} className="w-full btn-shine">Demander une réservation</Button>
               {!canBook && <p className="text-xs text-ink-mute">La réservation se fait depuis un compte élève ou étudiant.</p>}
@@ -209,7 +210,7 @@ function Listing({ d }: { d: Data }) {
       </div>
 
       <div className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-3 border-t border-slate-200 bg-white/95 px-4 py-3 backdrop-blur lg:hidden">
-        <p className="min-w-0"><b className="text-lg text-brand-600">{money(h.rent, h.currency)}</b><span className="text-xs text-ink-mute"> / mois</span><span className="block truncate text-[11px] text-ink-mute">{money(total, h.currency)} à la réservation</span></p>
+        <p className="min-w-0"><b className="text-lg text-brand-600">{money(h.rent, h.currency)}</b><span className="text-xs text-ink-mute"> / mois</span><span className="block truncate text-[11px] text-ink-mute">{eq(h.rent, h.currency) ? `≈ ${eq(h.rent, h.currency)} / mois · ` : ""}{money(total, h.currency)} à la réservation</span></p>
         <Button onClick={book} size="sm" className="shrink-0">Demander une réservation</Button>
       </div>
       <Dialog open={gallery !== null} onClose={() => setGallery(null)} title={`Photos · ${h.title}`} wide>

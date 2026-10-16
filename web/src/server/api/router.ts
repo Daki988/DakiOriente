@@ -22,6 +22,7 @@ import { schoolDashboard } from "../services/school-stats";
 import { applicationPdf, admissionPdf, orientationPdf } from "../services/pdf";
 import { METHODS } from "../payments/providers";
 import { cookies } from "next/headers";
+import * as google from "../services/google";
 
 type User = typeof schema.users.$inferSelect;
 type Ctx = { req: Request; params: Record<string, string>; query: URLSearchParams; user: User | null; body: () => Promise<any> };
@@ -75,6 +76,38 @@ route("POST", "/auth/mot-de-passe/reinitialiser", "Authentification", "Réinitia
   const b = await body();
   await accounts.resetPassword(String(b.cible ?? ""), String(b.code ?? ""), String(b.motDePasse ?? ""));
   return ok;
+});
+// Connexion avec Google : /auth/google?profil=…&suite=… → Google → /auth/google/retour (état anti-CSRF en cookie).
+const OAUTH_COOKIE = "ng_oauth";
+const HOME: Record<string, string> = { eleve: "/espace/", etudiant: "/espace/", parent: "/parent/", etablissement: "/etablissement/", bailleur: "/bailleur/", conseiller: "/conseiller/", admin: "/admin/" };
+const interne = (s: string | null | undefined) => (s && s.startsWith("/") && !s.startsWith("//") && !s.startsWith("/\\") ? s : null);
+const rediriger = (url: string) => new Response(null, { status: 302, headers: { Location: url, "Cache-Control": "no-store" } });
+route("GET", "/auth/fournisseurs", "Authentification", "Modes de connexion disponibles (Google…)", "public", async () => ({ google: google.googleActif() }));
+route("GET", "/auth/google", "Authentification", "Démarrer la connexion ou l'inscription avec Google", "public", async ({ req, query }) => {
+  if (!google.googleActif()) return rediriger("/connexion/?google=indisponible");
+  const profil = (google.GOOGLE_ROLES as readonly string[]).includes(query.get("profil") ?? "") ? query.get("profil") : null;
+  const state = google.nouvelEtat();
+  cookies().set(OAUTH_COOKIE, JSON.stringify({ state, profil, suite: interne(query.get("suite")) }), { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/api/auth/google", maxAge: 600 });
+  return rediriger(google.authorizeUrl(req, state));
+});
+route("GET", "/auth/google/retour", "Authentification", "Retour de Google (code d'autorisation)", "public", async ({ req, query }) => {
+  let ctx: { state?: string; profil?: google.GoogleRole | null; suite?: string | null } = {};
+  try { ctx = JSON.parse(cookies().get(OAUTH_COOKIE)?.value ?? "{}"); } catch { /* cookie illisible */ }
+  cookies().set(OAUTH_COOKIE, "", { path: "/api/auth/google", maxAge: 0 });
+  const echec = (code: string) => rediriger(`${ctx.profil ? "/inscription/" : "/connexion/"}?google=${code}`);
+  if (query.get("error")) return echec("annule");
+  if (!ctx.state || ctx.state !== query.get("state") || !query.get("code")) return echec("expire");
+  try {
+    const p = await google.profilGoogle(req, query.get("code")!);
+    const { user, nouveau } = await google.compteGoogle(p, ctx.profil ?? null);
+    if (!user) return rediriger(`/inscription/?google=nouveau&email=${encodeURIComponent(p.email)}`);
+    await startSession(user, req);
+    if (nouveau) return rediriger(`${google.PROFIL_A_COMPLETER[user.role as google.GoogleRole] ?? "/"}?bienvenue=google`);
+    return rediriger(interne(ctx.suite) ?? HOME[user.role] ?? "/");
+  } catch (e) {
+    console.error("Connexion Google", (e as Error).message);
+    return echec((e as AppError).code === "suspendu" ? "suspendu" : "erreur");
+  }
 });
 route("POST", "/auth/deconnexion", "Authentification", "Se déconnecter", "public", async ({ req }) => {
   const t = req.headers.get("authorization")?.replace(/^Bearer\s+/i, "") || cookies().get(SESSION_COOKIE)?.value;

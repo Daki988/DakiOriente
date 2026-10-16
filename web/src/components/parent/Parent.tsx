@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Calculator, CheckCircle2, FileText, KeyRound, Link2, ShieldCheck, UsersRound, Wallet } from "lucide-react";
 import { useState } from "react";
 import { EtabLogo } from "@/components/ui/EtabLogo";
-import { Alert, Avatar, Button, Empty, Kpi, Loading, PageHeader, Panel, StatusBadge, Tabs, dateFr, money, useToast } from "@/components/app/kit";
+import { Alert, Avatar, Button, Empty, Kpi, Loading, PageHeader, Panel, StatusBadge, Tabs, dateFr, useToast } from "@/components/app/kit";
 import { Prix } from "@/components/ui/Devise";
 import { AppProgress } from "@/components/espace/AppProgress";
 import { Check, FormError } from "@/components/app/form";
@@ -16,6 +16,7 @@ import { COUTS } from "@/lib/devis";
 import { etabById } from "@/lib/data";
 import { nomPays, visaResume } from "@/lib/pays-origine";
 import type { AppRow, Payment } from "@/components/espace/types";
+import { useMontant } from "@/components/ui/Devise";
 
 type Child = { link: { id: string; consentAt: string | null; relation: string }; child: { id: string; firstName: string; lastName: string; birthYear: number | null; country: string | null; city: string | null } };
 type Booking = { b: { id: string; number: string; status: string; tenantId: string; guarantorId: string | null }; h: { title: string; ville: string } };
@@ -28,6 +29,7 @@ function useChildApps(id: string | null) {
 
 /** Vue d'ensemble parent (maquette 16 avec données réelles). */
 export function ParentHome() {
+  const { m } = useMontant();
   const user = useUser();
   const kids = useApi<Child[]>("/parent/enfants");
   const pays = useApi<Payment[]>("/paiements");
@@ -51,7 +53,7 @@ export function ParentHome() {
     <div className="flex flex-col gap-6">
       <PageHeader title={`Bonjour ${user.firstName} 👋`} sub={first ? `Suivi de ${first.firstName}${admitted ? ` · admis·e en ${admitted.p.title} · ${admitted.e.sigle}` : ""}` : undefined}
         actions={<><Link href="/devis" className="btn-ghost"><Calculator size={16} />Devis études</Link>{toPay[0] && <Link href={`/paiement/${toPay[0].reference}`} className="btn-primary btn-shine"><Wallet size={16} />Payer une échéance</Link>}</>} />
-      {toPay.length > 0 && <Alert tone="warn" title={`${toPay.length} paiement${toPay.length > 1 ? "s" : ""} en attente`} action={<Link href={`/paiement/${toPay[0].reference}`} className="btn-sun py-2.5">Payer</Link>}>{toPay.map((p) => `${p.meta.description} (${money(p.amount, p.currency)})`).join(" · ")}</Alert>}
+      {toPay.length > 0 && <Alert tone="warn" title={`${toPay.length} paiement${toPay.length > 1 ? "s" : ""} en attente`} action={<Link href={`/paiement/${toPay[0].reference}`} className="btn-sun py-2.5">Payer</Link>}>{toPay.map((p) => `${p.meta.description} (${m(p.amount, p.currency)})`).join(" · ")}</Alert>}
       {kids.data.length > 1 && <Tabs value={first?.id ?? ""} onChange={setChildId} items={kids.data.map((k) => [k.child.id, `${k.child.firstName} ${k.child.lastName}`] as [string, string])} />}
       {guarantee.length > 0 && <Alert tone="info" title="Validation de garant demandée" action={<Link href={`/navilease/reservations/${guarantee[0].b.id}`} className="btn-primary py-2.5">Examiner</Link>}>{guarantee[0].h.title} ({guarantee[0].h.ville}) · réservation {guarantee[0].b.number}</Alert>}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

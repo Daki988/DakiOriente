@@ -13,6 +13,7 @@ import { useAction, useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
 import { BOOKING_STATUS, COUNTRY_OF_CURRENCY, Cover, SEQUENCE, addMonths, monthFr, period, seqIndex, type Booking, type Housing, type Payment } from "./shared";
 import { Stepper } from "./Stepper";
+import { useMontant } from "@/components/ui/Devise";
 
 type Person = { id: string; firstName: string; lastName: string; email: string | null; phone: string | null } | null;
 type Ev = { id: string; status: string; note: string | null; authorId: string | null; createdAt: string };
@@ -31,6 +32,7 @@ export function BookingDetail({ id }: { id: string }) {
 }
 
 function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
+  const { m, eq } = useMontant();
   const me = useUser();
   const router = useRouter();
   const toast = useToast();
@@ -148,7 +150,7 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
       <Dialog open={dialog === "checkout"} onClose={() => setDialog(null)} title="État des lieux de sortie"><CheckoutForm deposit={b.deposit} currency={b.currency} pending={act.pending} error={act.error} onSubmit={(notes, retenue) => post("sortie", { notes, retenue }, "Sortie enregistrée, caution restituée.")} /></Dialog>
       <Dialog open={dialog === "review"} onClose={() => setDialog(null)} title="Laisser un avis"><ReviewForm pending={act.pending} error={act.error} onSubmit={(note, commentaire) => post("avis", { note, commentaire }, "Merci pour ton avis !")} /></Dialog>
       <Dialog open={dialog === "rent"} onClose={() => setDialog(null)} title={`Payer le loyer · ${rentPeriod ? monthFr(new Date(rentPeriod + "-01T12:00:00")) : ""}`}>
-        <PayForm amount={money(b.rent + b.charges, b.currency)} options={opts} loading={methods.loading} pending={act.pending} error={act.error} onPay={payRent} cta="Payer ce loyer" />
+        <PayForm amount={m(b.rent + b.charges, b.currency)} options={opts} loading={methods.loading} pending={act.pending} error={act.error} onPay={payRent} cta="Payer ce loyer" />
       </Dialog>
     </div>
   );
@@ -187,11 +189,11 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
           <p className="text-sm text-ink-soft">Le bailleur a accepté. Réglez le premier loyer, les charges, la caution et les frais de service : Navilease conserve les fonds jusqu&apos;à {isTenant ? "ton " : "l'"}entrée dans les lieux.</p>
           {pendingResa && <Alert tone="info" title="Un paiement est déjà en cours" action={<Link href={`/paiement/${pendingResa.reference}/`} className="btn-ghost py-2 text-[13px]">Reprendre le paiement</Link>}>Référence {pendingResa.reference}</Alert>}
           {isParent && !b.guarantorApprovedAt && <Button variant="ghost" icon={BadgeCheck} onClick={() => post("garant", {}, "Vous êtes désormais garant de cette réservation.")}>Me porter garant</Button>}
-          <PayForm amount={money(first, b.currency)} options={opts} loading={methods.loading} pending={act.pending} error={act.error} onPay={pay} cta="Payer en séquestre" />
+          <PayForm amount={m(first, b.currency)} options={opts} loading={methods.loading} pending={act.pending} error={act.error} onPay={pay} cta="Payer en séquestre" />
         </>;
       } else {
         title = "Paiement attendu"; I = Lock;
-        body = <p className="text-sm text-ink-soft">Demande acceptée. Le locataire (ou son garant) doit régler {money(first, b.currency)} en séquestre. Vous serez notifié pour signer le contrat.</p>;
+        body = <p className="text-sm text-ink-soft">Demande acceptée. Le locataire (ou son garant) doit régler {m(first, b.currency)} en séquestre. Vous serez notifié pour signer le contrat.</p>;
       }
     } else if (s === "paiement_sequestre") {
       title = "Signature du contrat"; I = FileSignature;
@@ -215,7 +217,7 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
       tone = "green"; title = "Location terminée"; I = ShieldCheck;
       const ret = b.checkOut?.retenue ?? 0;
       body = <>
-        <p className="text-sm text-ink-soft">Sortie le {dateFr(b.checkOut?.at)}. {ret ? `Caution restituée avec une retenue de ${money(ret, b.currency)} (${money(b.deposit - ret, b.currency)} rendus).` : `Caution de ${money(b.deposit, b.currency)} restituée intégralement.`}{ret && isTenant ? " Tu peux contester la retenue sous 15 jours en signalant un incident." : ""}</p>
+        <p className="text-sm text-ink-soft">Sortie le {dateFr(b.checkOut?.at)}. {ret ? `Caution restituée avec une retenue de ${m(ret, b.currency)} (${m(b.deposit - ret, b.currency)} rendus).` : `Caution de ${m(b.deposit, b.currency)} restituée intégralement.`}{ret && isTenant ? " Tu peux contester la retenue sous 15 jours en signalant un incident." : ""}</p>
         {b.checkOut?.notes && <blockquote className="rounded-2xl bg-[#f6f8fe] p-3 text-sm italic text-ink-soft">« {b.checkOut.notes} »</blockquote>}
         {isTenant && <Button variant="ghost" icon={Star} onClick={() => setDialog("review")}>Laisser un avis</Button>}
       </>;
@@ -282,7 +284,7 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
               {rows.map((r) => (
                 <tr key={r.p} className="border-b border-[#f1f4fb] last:border-0">
                   <td className="px-5 py-2.5 font-bold capitalize sm:px-6">{monthFr(r.dt)}</td>
-                  <td className="px-3 py-2.5">{money(b.rent + b.charges, b.currency)}</td>
+                  <td className="px-3 py-2.5">{m(b.rent + b.charges, b.currency)}</td>
                   <td className="px-3 py-2.5">{r.i === 0 ? <Chip tone="violet">Inclus au séquestre</Chip> : r.paid ? <Chip tone="green">Payé {dateFr(r.paid.paidAt)}</Chip> : r.pending ? <Link href={`/paiement/${r.pending.reference}/`}><Chip tone="sun">En attente · reprendre</Chip></Link> : <Chip tone="grey">À venir · {r.dt.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" })}</Chip>}</td>
                   <td className="px-5 py-2.5 text-right sm:px-6">
                     {r.paid ? <a href={`/api/quittances/${r.paid.reference}.pdf`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-bold text-brand-700 hover:underline"><Download size={14} />PDF</a>
@@ -317,19 +319,19 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
     const payer = resa ? [d.tenant, d.guarantor, d.landlord].find((p) => p?.id === resa.payerId) : null;
     return (
       <Panel title={resa ? (resa.escrow === "rembourse" ? "Paiement remboursé" : ["sortie", "caution_restituee"].includes(b.status) ? "Paiement de réservation" : "Fonds en séquestre") : "Montant de la réservation"} icon={Lock} tone={resa ? "green" : undefined}>
-        <div><b className="text-[28px] leading-none">{money(resa?.amount ?? first, b.currency)}</b>{resa && <p className="mt-1 text-xs text-ink-mute">payés le {dateFr(resa.paidAt)}{payer ? ` par ${full(payer)}` : ""}</p>}</div>
+        <div><b className="text-[28px] leading-none">{money(resa?.amount ?? first, b.currency)}</b>{eq(resa?.amount ?? first, b.currency) && <span className="mt-1 block text-sm font-semibold text-ink-mute">≈ {eq(resa?.amount ?? first, b.currency)}</span>}{resa && <p className="mt-1 text-xs text-ink-mute">payés le {dateFr(resa.paidAt)}{payer ? ` par ${full(payer)}` : ""}</p>}</div>
         <dl className="flex flex-col gap-1.5 text-sm">
-          {[["1er loyer + charges", b.rent + b.charges], ["Caution", b.deposit], ["Frais de service", b.serviceFee]].map(([l, v]) => <div key={l as string} className="flex justify-between"><dt className="text-ink-mute">{l}</dt><dd className="font-bold">{money(v as number, b.currency)}</dd></div>)}
+          {[["1er loyer + charges", b.rent + b.charges], ["Caution", b.deposit], ["Frais de service", b.serviceFee]].map(([l, v]) => <div key={l as string} className="flex justify-between"><dt className="text-ink-mute">{l}</dt><dd className="font-bold">{m(v as number, b.currency)}</dd></div>)}
         </dl>
         {resa ? (
           <>
             <p className={`flex items-start gap-2 rounded-xl p-3 text-xs ${resa.escrow === "libere" ? "bg-[#effbf3] text-[#0b6b37]" : resa.escrow === "rembourse" ? "bg-[#eef1f8] text-ink-soft" : "bg-[#f1edff] text-[#4c2bb8]"}`}>
               <ShieldCheck size={15} className="shrink-0" />
-              {["sortie", "caution_restituee"].includes(b.status) ? `Loyer versé au bailleur ; caution restituée${b.checkOut?.retenue ? ` (retenue de ${money(b.checkOut.retenue, b.currency)})` : " intégralement"}.` : resa.escrow === "libere" ? `Loyer et charges versés au bailleur le ${dateFr(resa.releasedAt)} ; caution conservée jusqu'à la sortie.` : resa.escrow === "rembourse" ? "Montant remboursé au payeur." : resa.escrow === "litige" ? "Fonds gelés pendant la médiation." : "Fonds bloqués : versés au bailleur après l'entrée dans les lieux, sans incident signalé."}
+              {["sortie", "caution_restituee"].includes(b.status) ? `Loyer versé au bailleur ; caution restituée${b.checkOut?.retenue ? ` (retenue de ${m(b.checkOut.retenue, b.currency)})` : " intégralement"}.` : resa.escrow === "libere" ? `Loyer et charges versés au bailleur le ${dateFr(resa.releasedAt)} ; caution conservée jusqu'à la sortie.` : resa.escrow === "rembourse" ? "Montant remboursé au payeur." : resa.escrow === "litige" ? "Fonds gelés pendant la médiation." : "Fonds bloqués : versés au bailleur après l'entrée dans les lieux, sans incident signalé."}
             </p>
             <a href={`/api/paiements/${resa.reference}/recu.pdf`} target="_blank" rel="noreferrer" className="btn-ghost py-2.5 text-[13px]"><Download size={15} />Reçu de paiement</a>
           </>
-        ) : <p className="flex items-start gap-2 text-xs text-ink-mute"><CircleDollarSign size={15} className="shrink-0" />À régler après l&apos;acceptation du bailleur. Loyers suivants : {money(b.rent + b.charges, b.currency)} / mois.</p>}
+        ) : <p className="flex items-start gap-2 text-xs text-ink-mute"><CircleDollarSign size={15} className="shrink-0" />À régler après l&apos;acceptation du bailleur. Loyers suivants : {m(b.rent + b.charges, b.currency)} / mois.</p>}
       </Panel>
     );
   }

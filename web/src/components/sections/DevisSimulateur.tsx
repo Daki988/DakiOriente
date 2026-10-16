@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { BadgeCheck, Bus, Calculator, Calendar, Check, CloudSun, FileDown, GraduationCap, Handshake, HeartPulse, Info, Lightbulb, Mail, MessageCircle, Scale, Share2, Shield, ShieldCheck, Users, UsersRound } from "lucide-react";
+import { BadgeCheck, Bus, Calculator, Calendar, Coins, Check, CloudSun, FileDown, GraduationCap, Handshake, HeartPulse, Info, Lightbulb, Mail, MessageCircle, Scale, Share2, Shield, ShieldCheck, Users, UsersRound } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatedNumber } from "@/components/motion/AnimatedNumber";
 import { Reveal } from "@/components/motion/Reveal";
@@ -11,8 +11,8 @@ import { DevisPdf } from "./DevisPdf";
 import { STATUT_LONG, VILLES_ETUDES, etabById, etablissements, fmt, formationById, labelById, paysDetailById } from "@/lib/data";
 import { paysOrigine, paysOrigineById, visaResume } from "@/lib/pays-origine";
 import { COUTS, HYP, LOGEMENT_LABEL, SOURCES, devis, formationParDefaut, type Logement } from "@/lib/devis";
-import { Prix, useDevise } from "@/components/ui/Devise";
-import { MARGE_PRUDENCE, convertir, formatMontant } from "@/lib/devises";
+import { useDevise } from "@/components/ui/Devise";
+import { MARGE_PRUDENCE, convertir, devisePays, formatMontant, symbole } from "@/lib/devises";
 
 const field = "w-full rounded-xl border-[1.5px] border-slate-200 bg-white px-3.5 py-3 text-sm font-bold outline-none focus:border-brand-400 focus:ring-4 focus:ring-brand-100";
 
@@ -24,7 +24,10 @@ export function DevisSimulateur() {
   const { pays, devise, taux, setPays } = useDevise();
   const [origine, setOrigine] = useState(paysOrigineById[params.get("o") ?? ""] ? params.get("o")! : "");
   useEffect(() => { if (!origine && pays && paysOrigineById[pays]) setOrigine(pays); }, [pays]); // eslint-disable-line react-hooks/exhaustive-deps
-  const choisirOrigine = (o: string) => { setOrigine(o); if (o && o !== "MA") setPays(o); };
+  // Le pays de départ fixe la devise de tout le site : c'est de là que les parents enverront l'argent.
+  useEffect(() => { if (origine && origine !== pays) setPays(origine === "MA" ? null : origine); }, [origine]); // eslint-disable-line react-hooks/exhaustive-deps
+  const choisirOrigine = (o: string) => { setOrigine(o); if (o) setPays(o === "MA" ? null : o); };
+  const [dirhamsSeuls, setDirhamsSeuls] = useState(false);
   const [logement, setLogement] = useState<Logement>(params.get("l") === "colocation" ? "colocation" : "studio");
   const [eleve, setEleve] = useState("");
   const [payeur, setPayeur] = useState("");
@@ -34,8 +37,17 @@ export function DevisSimulateur() {
   const C = COUTS[e.pays];
   const D = useMemo(() => devis(eid, fid, origine, logement), [eid, fid, origine, logement]);
   const cv = (v: number) => v;
-  const unit = "MAD";
-  const conv = (v: number) => (devise ? convertir(v, devise, taux) : null);
+  // Devise de lecture : celle du pays de départ (ou du profil), le dirham restant affiché en dessous.
+  const devLocale = origine ? (origine === "MA" ? null : devisePays(origine)) : devise;
+  const dev = !dirhamsSeuls && devLocale && devLocale !== "MAD" && taux.taux[devLocale] ? devLocale : null;
+  const loc = (v: number) => (dev ? convertir(v, dev, taux) ?? v : v);
+  const unit = dev ? symbole(dev) : "MAD";
+  const nb = (v: number) => fmt(Math.round(v));
+  /** Fourchette dans la devise de lecture, avec l'équivalent en dirhams en dessous. */
+  const Plage = ({ v, className = "" }: { v: readonly number[]; className?: string }) => dev
+    ? <span className={`inline-flex flex-col items-end leading-tight ${className}`}><span>{nb(loc(v[0]))} – {nb(loc(v[1]))}</span><span className="text-[11px] font-semibold text-ink-mute">{nb(v[0])} – {nb(v[1])} MAD</span></span>
+    : <span className={className}>{nb(v[0])} – {nb(v[1])}</span>;
+  const mois = [D.total[0] / (D.years * 12), D.total[1] / (D.years * 12)];
 
   useEffect(() => { if (!etabById[eid].formations.includes(fid)) setFid(formationParDefaut(eid)); }, [eid, fid]);
   useEffect(() => {
@@ -57,7 +69,7 @@ export function DevisSimulateur() {
   ] as const;
   const env = [[Shield, "Sécurité", C.environnement.securite], [HeartPulse, "Santé", C.environnement.sante], [Bus, "Transports", C.environnement.transports], [Users, "Communauté", C.environnement.communaute], [CloudSun, "Climat", C.environnement.climat]] as const;
   const cats = Object.entries(D.cats);
-  const resume = `Devis Navigoal : ${F.intitule} à ${e.sigle} (${e.ville}) — ${fmt(cv(D.total[0]))} à ${fmt(cv(D.total[1]))} ${unit} sur ${D.years} an${D.years > 1 ? "s" : ""}, tout compris.`;
+  const resume = `Devis Navigoal : ${F.intitule} à ${e.sigle} (${e.ville}) — ${dev ? `${nb(loc(D.total[0]))} à ${nb(loc(D.total[1]))} ${unit} (soit ` : ""}${fmt(cv(D.total[0]))} à ${fmt(cv(D.total[1]))} MAD${dev ? ")" : ""} sur ${D.years} an${D.years > 1 ? "s" : ""}, tout compris.`;
   const url = typeof window !== "undefined" ? window.location.href : "";
   const parVille = VILLES_ETUDES.map((v) => [v, etablissements.filter((x) => x.ville === v).sort((a, b) => a.sigle.localeCompare(b.sigle))] as const);
 
@@ -88,12 +100,21 @@ export function DevisSimulateur() {
 
         <div className="container mt-7 grid items-start gap-6 lg:grid-cols-[1fr_400px]">
           <div className="flex min-w-0 flex-col gap-6">
+            {devLocale && devLocale !== "MAD" && (
+              <div className="flex flex-col gap-3 rounded-3xl border border-brand-100 bg-brand-50/70 p-4 text-sm text-ink-soft sm:flex-row sm:items-center sm:justify-between">
+                <span className="flex items-start gap-2.5"><Coins size={18} className="mt-0.5 shrink-0 text-brand-600" /><span>{dev
+                  ? <>Montants en <b className="text-ink">{symbole(dev)} ({dev})</b>{origine ? <>, la monnaie {paysOrigineById[origine] ? `du pays de départ (${paysOrigineById[origine].nom})` : "du pays de départ"}</> : null} : c&apos;est dans cette monnaie que vous enverrez l&apos;argent. Le dirham (MAD), monnaie du Maroc, est indiqué en dessous pour vous familiariser avec les prix sur place. Taux du {new Date(taux.date).toLocaleDateString("fr-FR")} : <b className="whitespace-nowrap text-ink">1 000 MAD ≈ {formatMontant(convertir(1000, dev, taux)!, dev)}</b>, marge de prudence de {MARGE_PRUDENCE * 100} % incluse.</>
+                  : <>Montants affichés en dirhams (MAD) uniquement.</>}</span></span>
+                <button type="button" onClick={() => setDirhamsSeuls((x) => !x)} className="shrink-0 self-start rounded-xl border border-brand-200 bg-white px-3 py-2 text-[13px] font-bold text-brand-700 hover:bg-brand-50 sm:self-center">{dev ? "Afficher en dirhams seulement" : `Afficher aussi en ${symbole(devLocale)}`}</button>
+              </div>
+            )}
             <Reveal className="card flex flex-col gap-6 rounded-[26px] p-6 sm:p-7">
               <div className="flex flex-col justify-between gap-4 2xl:flex-row">
                 <div className="flex min-w-0 flex-col gap-1.5">
                   <span className="text-[13px] font-bold uppercase text-ink-mute">Coût total estimé · {D.years} an{D.years > 1 ? "s" : ""} · {F.diplome}</span>
-                  <div className="text-[28px] font-extrabold leading-tight tracking-tight sm:text-[40px]"><span className="whitespace-nowrap"><AnimatedNumber value={cv(D.total[0])} /> –</span> <span className="whitespace-nowrap"><AnimatedNumber value={cv(D.total[1])} /> <span className="text-xl">{unit}</span></span></div>
-                  <span className="text-sm text-ink-mute">{devise && conv(D.total[0]) != null ? <>≈ {formatMontant(conv(D.total[0])!, devise)} – {formatMontant(conv(D.total[1])!, devise)} (taux du jour + {MARGE_PRUDENCE * 100} %) · </> : null}environ <Prix mad={D.total[0] / (D.years * 12)} /> – <Prix mad={D.total[1] / (D.years * 12)} /> par mois{origine ? "" : " · choisissez le pays de départ pour inclure les billets d'avion"}</span>
+                  <div className="text-[28px] font-extrabold leading-tight tracking-tight sm:text-[40px]"><span className="whitespace-nowrap"><AnimatedNumber value={loc(D.total[0])} /> –</span> <span className="whitespace-nowrap"><AnimatedNumber value={loc(D.total[1])} /> <span className="text-xl">{unit}</span></span></div>
+                  {dev && <span className="text-[15px] font-bold text-ink-soft">soit {nb(D.total[0])} – {nb(D.total[1])} MAD au Maroc</span>}
+                  <span className="text-sm text-ink-mute">environ <b className="text-ink-soft">{dev ? `${nb(loc(mois[0]))} – ${nb(loc(mois[1]))} ${unit}` : `${nb(mois[0])} – ${nb(mois[1])} MAD`}</b> par mois{dev ? <span className="whitespace-nowrap"> ({nb(mois[0])} – {nb(mois[1])} MAD)</span> : ""}{origine ? "" : " · choisissez le pays de départ pour inclure les billets d'avion et lire les montants dans votre monnaie"}</span>
                 </div>
                 <div className="flex shrink-0 flex-wrap items-start gap-2 2xl:flex-col 2xl:items-end">
                   <span className="chip bg-sun-100 text-[#a55a00]"><Info size={14} className="mr-1 inline" />Estimation · frais à confirmer par l&apos;école</span>
@@ -103,30 +124,30 @@ export function DevisSimulateur() {
               <div className="flex flex-col items-center gap-8 sm:flex-row">
                 <div className="relative h-[220px] w-[220px] shrink-0">
                   <Donut key={`${eid}${fid}${origine}${logement}`} values={cats.map(([, v]) => v[1])} />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center"><span className="text-xs text-ink-mute">par an</span><b className="text-lg"><AnimatedNumber value={cv(D.total[1]) / D.years} /></b><span className="text-[11px] text-ink-mute">{unit} max.</span></div>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center"><span className="text-xs text-ink-mute">par an</span><b className="text-lg"><AnimatedNumber value={loc(D.total[1] / D.years)} /></b><span className="text-[11px] text-ink-mute">{unit} max.</span></div>
                 </div>
                 <div className="flex w-full flex-col gap-3">
                   <span className="text-xs font-bold text-ink-mute">RÉPARTITION ({unit})</span>
-                  {cats.map(([k, v], i) => <div key={k} className="flex justify-between gap-3 text-sm"><span className="flex items-center gap-2"><span className="h-3 w-3 rounded" style={{ background: DONUT_COLORS[i] }} />{k}</span><b className="whitespace-nowrap text-right text-[13px] sm:text-sm">{fmt(cv(v[0]))} – {fmt(cv(v[1]))}</b></div>)}
+                  {cats.map(([k, v], i) => <div key={k} className="flex justify-between gap-3 text-sm"><span className="flex items-center gap-2"><span className="h-3 w-3 rounded" style={{ background: DONUT_COLORS[i] }} />{k}</span><Plage v={v} className="whitespace-nowrap text-right text-[13px] font-bold sm:text-sm" /></div>)}
                 </div>
               </div>
             </Reveal>
 
             <Reveal className="card flex flex-col gap-3 rounded-3xl p-6">
-              <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center"><h3 className="text-lg font-extrabold">Échéancier année par année</h3><span className="text-xs text-ink-mute">inflation {Math.round(HYP.inflation_annuelle * 100)} %/an incluse · montants en {unit}</span></div>
+              <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center"><h3 className="text-lg font-extrabold">Échéancier année par année</h3><span className="text-xs text-ink-mute">inflation {Math.round(HYP.inflation_annuelle * 100)} %/an incluse · montants en {dev ? `${unit} (dirhams en dessous)` : unit}</span></div>
               <div className="-mx-2 overflow-x-auto">
-                <table className="w-full min-w-[640px] border-collapse whitespace-nowrap text-sm">
+                <table className={`w-full ${dev ? "min-w-[760px]" : "min-w-[640px]"} border-collapse whitespace-nowrap ${dev ? "text-[13px] [&_td]:px-1.5 [&_th]:px-1.5" : "text-sm"}`}>
                   <thead><tr className="text-left text-xs font-extrabold text-ink-mute"><th className="p-2">ANNÉE</th><th className="p-2 text-right">SCOLARITÉ + FRAIS</th><th className="p-2 text-right">VIE (10 MOIS)</th><th className="p-2 text-right">SÉJOUR & ASSURANCE</th><th className="p-2 text-right">TOTAL</th></tr></thead>
                   <tbody>
                     {D.rows.map((r) => (
                       <motion.tr key={`${r.annee}-${D.total[1]}`} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: r.annee * 0.06 }} className="border-t border-[#eef1f8]">
                         <td className="px-2 py-3 font-bold">Année {r.annee}</td>
-                        {([[r.scolarite[0] + r.annexes[0], r.scolarite[1] + r.annexes[1]], r.vie, r.renouvellements] as const).map((x, j) => <td key={j} className="px-2 py-3 text-right">{fmt(cv(x[0]))} – {fmt(cv(x[1]))}</td>)}
-                        <td className="px-2 py-3 text-right font-extrabold text-brand-600">{fmt(cv(r.total[0]))} – {fmt(cv(r.total[1]))}</td>
+                        {([[r.scolarite[0] + r.annexes[0], r.scolarite[1] + r.annexes[1]], r.vie, r.renouvellements] as const).map((x, j) => <td key={j} className="px-2 py-3 text-right"><Plage v={x} /></td>)}
+                        <td className="px-2 py-3 text-right font-extrabold text-brand-600"><Plage v={r.total} /></td>
                       </motion.tr>
                     ))}
-                    <tr className="border-t-2 border-slate-200"><td className="px-2 py-3 font-bold">Installation & voyages</td><td colSpan={3} className="whitespace-normal px-2 py-3 text-[13px] text-ink-mute">visa, billets aller-retour, caution logement, équipement</td><td className="px-2 py-3 text-right font-extrabold">{fmt(cv(D.installation[0]))} – {fmt(cv(D.installation[1]))}</td></tr>
-                    <tr className="border-t border-[#eef1f8]"><td className="px-2 py-3 font-bold">Imprévus & transferts</td><td colSpan={3} className="whitespace-normal px-2 py-3 text-[13px] text-ink-mute">marge {Math.round(HYP.marge_imprevus * 100)} % + frais de transfert {Math.round(HYP.frais_transfert * 100)} %</td><td className="px-2 py-3 text-right font-extrabold">{fmt(cv(D.cats["Imprévus & transferts"][0]))} – {fmt(cv(D.cats["Imprévus & transferts"][1]))}</td></tr>
+                    <tr className="border-t-2 border-slate-200"><td className="px-2 py-3 font-bold">Installation & voyages</td><td colSpan={3} className="whitespace-normal px-2 py-3 text-[13px] text-ink-mute">visa, billets aller-retour, caution logement, équipement</td><td className="px-2 py-3 text-right font-extrabold"><Plage v={D.installation} /></td></tr>
+                    <tr className="border-t border-[#eef1f8]"><td className="px-2 py-3 font-bold">Imprévus & transferts</td><td colSpan={3} className="whitespace-normal px-2 py-3 text-[13px] text-ink-mute">marge {Math.round(HYP.marge_imprevus * 100)} % + frais de transfert {Math.round(HYP.frais_transfert * 100)} %</td><td className="px-2 py-3 text-right font-extrabold"><Plage v={D.cats["Imprévus & transferts"]} /></td></tr>
                   </tbody>
                 </table>
               </div>
@@ -177,11 +198,11 @@ export function DevisSimulateur() {
           </aside>
         </div>
         <p className="container mt-5 text-xs leading-relaxed text-ink-mute">
-          Estimation Navigoal basée sur les frais publiés par l&apos;établissement lorsqu&apos;ils sont disponibles, sur des grilles publiques et sur le coût de la vie observé ({SOURCES.slice(0, 4).map((u) => u.split("/")[2]).join(", ")}). Montants en dirhams (MAD) ; conversion au taux du {new Date(taux.date).toLocaleDateString("fr-FR")}, majorée de {MARGE_PRUDENCE * 100} % par prudence. Marge d&apos;imprévus {Math.round(HYP.marge_imprevus * 100)} % et frais de transfert {Math.round(HYP.frais_transfert * 100)} % inclus{logement === "colocation" ? " ; colocation : environ −15 % sur le coût de la vie" : ""}. Établissement : {STATUT_LONG[e.statut] ?? "privé"}, catégorie « {D.typ} ».
+          Estimation Navigoal basée sur les frais publiés par l&apos;établissement lorsqu&apos;ils sont disponibles, sur des grilles publiques et sur le coût de la vie observé ({SOURCES.slice(0, 4).map((u) => u.split("/")[2]).join(", ")}). Montants calculés en dirhams (MAD){dev ? ` et convertis en ${symbole(dev)} (${dev})` : ""} ; conversion au taux du {new Date(taux.date).toLocaleDateString("fr-FR")}, majorée de {MARGE_PRUDENCE * 100} % par prudence. Marge d&apos;imprévus {Math.round(HYP.marge_imprevus * 100)} % et frais de transfert {Math.round(HYP.frais_transfert * 100)} % inclus{logement === "colocation" ? " ; colocation : environ −15 % sur le coût de la vie" : ""}. Établissement : {STATUT_LONG[e.statut] ?? "privé"}, catégorie « {D.typ} ».
         </p>
         <div className="container mt-8 flex justify-center"><span className="flex items-center gap-2 text-sm text-ink-mute"><Calculator size={16} /> Chaque changement recalcule le devis en direct.</span></div>
       </div>
-      <DevisPdf e={e} F={F} D={D} devise={devise} taux={taux} origine={origine} logement={logement} eleve={eleve} payeur={payeur} />
+      <DevisPdf e={e} F={F} D={D} devise={dev} taux={taux} origine={origine} logement={logement} eleve={eleve} payeur={payeur} />
     </>
   );
 }

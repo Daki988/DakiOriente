@@ -8,8 +8,9 @@ import { Check, Field, FileDrop, FormError, Textarea, docLabel, type Doc } from 
 import { useUser } from "@/components/app/Session";
 import { useAction, useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
-import { Cover, SERVICE_FEE, VERIF, addMonths, etabName, isoDay, modeLabel, toEur, type Booking, type Housing } from "./shared";
+import { Cover, SERVICE_FEE, VERIF, addMonths, etabName, isoDay, modeLabel, type Booking, type Housing } from "./shared";
 import { Stepper } from "./Stepper";
+import { useMontant } from "@/components/ui/Devise";
 
 const TENANT_DOCS: [string, string][] = [["attestation_admission", "Attestation d'admission"], ["identite", "Pièce d'identité / passeport"], ["attestation_scolarite", "Attestation de scolarité"], ["piece_garant", "Pièce d'identité du garant"], ["justificatif_ressources", "Justificatif de ressources"], ["autre", "Autre document"]];
 
@@ -33,6 +34,7 @@ export function BookingRequest() {
 }
 
 function Form({ h, landlord, initStart, initMonths }: { h: Housing; landlord: string; initStart: string | null; initMonths: number }) {
+  const { m, eq } = useMontant();
   const router = useRouter();
   const toast = useToast();
   const today = isoDay(new Date());
@@ -47,7 +49,6 @@ function Form({ h, landlord, initStart, initMonths }: { h: Housing; landlord: st
   const { pending, error, run } = useAction();
   const fee = Math.round(h.rent * SERVICE_FEE);
   const total = h.rent + h.charges + h.deposit + fee;
-  const eur = toEur(total, h.currency);
   const end = addMonths(start, months);
   const sorted = useMemo(() => [...(docs.data ?? [])].filter((d) => !d.type.startsWith("kyc")).sort((a, b) => (TENANT_DOCS.findIndex(([k]) => k === a.type) + 99) % 99 - (TENANT_DOCS.findIndex(([k]) => k === b.type) + 99) % 99), [docs.data]);
   const dateErr = start < today ? "La date d'entrée est passée." : null;
@@ -120,10 +121,10 @@ function Form({ h, landlord, initStart, initMonths }: { h: Housing; landlord: st
             <div className="h-36 overflow-hidden rounded-2xl"><Cover h={h} /></div>
             <div><b className="text-lg">{h.title}</b><p className="text-xs text-ink-mute">{landlord} · {VERIF[h.verification].label}{h.nearEstablishments[0] ? ` · ${h.nearEstablishments[0].minutes} min ${modeLabel(h.nearEstablishments[0].mode)} de ${etabName(h.nearEstablishments[0].id)}` : ""}</p></div>
             <dl className="flex flex-col gap-1.5 text-sm">
-              {[["Premier loyer", h.rent], ["Charges", h.charges], ["Caution", h.deposit], ["Frais de service (5 %)", fee]].map(([l, v]) => <div key={l as string} className="flex justify-between"><dt className="text-ink-mute">{l}</dt><dd className="font-bold">{money(v as number, h.currency)}</dd></div>)}
+              {[["Premier loyer", h.rent], ["Charges", h.charges], ["Caution", h.deposit], ["Frais de service (5 %)", fee]].map(([l, v]) => <div key={l as string} className="flex justify-between"><dt className="text-ink-mute">{l}</dt><dd className="font-bold">{m(v as number, h.currency)}</dd></div>)}
             </dl>
-            <div className="flex items-center justify-between rounded-2xl bg-ink px-4 py-3 text-white"><b className="text-sm">Total en séquestre</b><b className="text-lg">{money(total, h.currency)}</b></div>
-            <p className="text-xs text-ink-mute">{eur ? `≈ ${eur.toLocaleString("fr-FR")} € (indicatif) · ` : ""}loyers suivants payés chaque mois ({money(h.rent + h.charges, h.currency)})</p>
+            <div className="flex items-center justify-between rounded-2xl bg-ink px-4 py-3 text-white"><b className="text-sm">Total en séquestre</b><span className="text-right"><b className="block text-lg">{money(total, h.currency)}</b>{eq(total, h.currency) && <span className="block text-[11px] text-white/75">≈ {eq(total, h.currency)}</span>}</span></div>
+            <p className="text-xs text-ink-mute">Loyers suivants payés chaque mois ({m(h.rent + h.charges, h.currency)}).</p>
           </section>
           <Panel title="Comment marche le séquestre ?" icon={ShieldCheck}>
             <ol className="flex flex-col gap-3">

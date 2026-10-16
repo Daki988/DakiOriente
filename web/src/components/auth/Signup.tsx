@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Building2, Check as CheckIcon, GraduationCap, Info, KeyRound, School, ShieldCheck, Sparkles, UsersRound, type LucideIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { Button, Tabs } from "@/components/app/kit";
+import { Alert, Button, Tabs } from "@/components/app/kit";
 import { Check, Field, FormError, Input, PasswordInput, Select } from "@/components/app/form";
 import { api, ApiError } from "@/lib/api";
 import { etablissements, series, villesOf } from "@/lib/data";
@@ -12,6 +12,7 @@ import { PAYS_OPTIONS, paysOrigineById } from "@/lib/pays-origine";
 import { useAction } from "@/hooks/useApi";
 import { DEV_CODE_KEY } from "./Otp";
 import { PhoneInput, composePhone, defaultCountry } from "./inputs";
+import { GoogleButton, MESSAGES_GOOGLE } from "./Google";
 
 type Role = "eleve" | "etudiant" | "parent" | "etablissement" | "bailleur";
 const ROLES: { id: Role; I: LucideIcon; t: string; s: string; pts: string[]; bg: string; fg: string }[] = [
@@ -64,6 +65,9 @@ export function Signup() {
   const isStudent = role === "eleve" || role === "etudiant";
   const minor = isStudent && age !== null && age < 18;
   const R = ROLES.find((r) => r.id === role)!;
+  const googleNotice = params.get("google") === "nouveau"
+    ? { tone: "info" as const, t: `Aucun compte Navigoal n'est encore associé à ${params.get("email") ?? "ce compte Google"}. Choisis ton profil, puis « S'inscrire avec Google » : ton compte est créé en un clic.` }
+    : MESSAGES_GOOGLE[params.get("google") ?? ""] ?? null;
   // Séries détaillées pour les pays du référentiel ; saisie libre pour les autres pays d'origine
   const seriesPays = useMemo(() => series.filter((s) => s.pays === f.country), [f.country]);
   const pwScore = [f.password.length >= 8, /\d/.test(f.password), /[A-Za-z]/.test(f.password), f.password.length >= 12].filter(Boolean).length;
@@ -123,6 +127,7 @@ export function Signup() {
           <h1 className="text-[28px] font-extrabold tracking-tight sm:text-4xl">Qui es-tu ?</h1>
           <p className="max-w-xl text-ink-soft">Choisis ton profil : Navigoal adapte ton espace, tes outils et ce que tu vois.</p>
         </div>
+        {googleNotice && <Alert tone={googleNotice.tone}>{googleNotice.t}</Alert>}
         <div className="grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5" role="radiogroup" aria-label="Profil">
           {ROLES.map((r) => {
             const on = r.id === role;
@@ -140,7 +145,10 @@ export function Signup() {
         {(role === "etablissement" || role === "bailleur") && <div className="card flex items-start gap-3 rounded-2xl p-4 text-sm"><ShieldCheck size={20} className="mt-0.5 shrink-0 text-brand-600" /><span><b>Vérification manuelle.</b> {role === "etablissement" ? "Votre compte est activé après vérification de votre rattachement à l'établissement par l'équipe Navigoal" : "Vos annonces sont publiées après vérification de votre identité et de votre titre de propriété (ou mandat) par l'équipe Navigoal"}, sous 48 h ouvrées.</span></div>}
         <div className="sticky bottom-0 -mx-4 flex flex-col items-center justify-between gap-3 border-t border-slate-200/70 bg-[#f6f8fe]/95 px-4 py-3 backdrop-blur sm:static sm:mx-0 sm:flex-row sm:border-0 sm:bg-transparent sm:p-0">
           <span className="hidden items-center gap-2 text-sm text-ink-mute sm:flex"><Info size={16} />Tu as moins de 18 ans ? Ton parent ou tuteur validera ton inscription.</span>
-          <Button onClick={() => setStep(2)} className="min-h-[48px] w-full sm:w-auto">Continuer en tant que {R.t.toLowerCase()} <ArrowRight size={18} /></Button>
+          <div className="flex w-full flex-col-reverse gap-2 sm:w-auto sm:flex-row sm:items-center">
+            {role !== "etablissement" && <div className="sm:w-[260px]"><GoogleButton profil={role} suite={params.get("suite")} label="S'inscrire avec Google" separateur={false} /></div>}
+            <Button onClick={() => setStep(2)} className="min-h-[48px] w-full sm:w-auto">Continuer en tant que {R.t.toLowerCase()} <ArrowRight size={18} /></Button>
+          </div>
         </div>
       </div>
     );

@@ -265,7 +265,7 @@ export function NewApplication() {
               <p className="max-w-lg text-sm text-ink-soft">{editable ? "Termine ton dossier puis envoie-le pour qu'il soit transmis à l'établissement." : `Ton dossier n° ${a.number} a été transmis à ${e.nom}. Tu recevras une notification (et un e-mail) à chaque étape.`}</p>
             </div>
             <div className="rounded-2xl border border-[#eef1f8] p-4"><AppProgress status={a.status} fee={fee > 0} /></div>
-            {a.status === "soumise" && fee > 0 && <Alert tone="warn" title="Paiement des frais de dossier en attente">Ton dossier sera étudié après la confirmation du paiement ({fee.toLocaleString("fr-FR")} MAD).</Alert>}
+            {a.status === "soumise" && fee > 0 && <Alert tone="warn" title="Paiement des frais de dossier en attente">Ton dossier sera étudié après la confirmation du paiement (<Prix mad={fee} />).</Alert>}
             <div className="flex flex-col gap-2 sm:flex-row">
               {editable ? <Button onClick={() => setStep(status === "piece_demandee" ? 1 : 0)} className="min-h-[46px]">Reprendre mon dossier</Button> : <>
                 <Link href={`/espace/candidatures/${a.id}`} className="btn-primary min-h-[46px]">Suivre ma candidature</Link>

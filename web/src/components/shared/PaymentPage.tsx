@@ -10,12 +10,14 @@ import { api, apiUrl } from "@/lib/api";
 import { Prix } from "@/components/ui/Devise";
 import { useSession } from "@/components/app/Session";
 import { useAction, useApi } from "@/hooks/useApi";
+import { useMontant } from "@/components/ui/Devise";
 
 type P = { reference: string; kind: string; amount: number; currency: string; method: string; status: string; escrow: string; provider: string; applicationId: string | null; bookingId: string | null; payerId: string; meta: { description?: string; escrow?: boolean }; paidAt: string | null; createdAt: string };
 type Methods = Record<string, { id: string; label: string }[]>;
 
 /** Page de paiement : bac à sable (confirmation simulée) ou retour de l'agrégateur, puis reçu (maquette 25). */
 export function PaymentPage({ reference }: { reference: string }) {
+  const { m, eq } = useMontant();
   const router = useRouter();
   const p = useApi<P>(`/paiements/${reference}`);
   const methods = useApi<Methods>("/paiements/moyens");
@@ -41,7 +43,7 @@ export function PaymentPage({ reference }: { reference: string }) {
             <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 220, damping: 12 }} className="flex h-20 w-20 items-center justify-center rounded-full bg-[#e8f8ef] text-[#0f8a46]"><CheckCircle2 size={42} /></motion.span>
             <div><h1 className="text-[28px] font-extrabold">Paiement réussi !</h1><p className="text-sm text-ink-mute">{p.data.meta.escrow ? "Les fonds sont conservés en séquestre Navilease jusqu'à ton entrée dans les lieux." : "Ton paiement est confirmé ; le reçu est aussi envoyé par e-mail."}</p></div>
             <div className="flex w-full flex-col gap-2 rounded-2xl bg-[#f6f8fe] p-4 text-left text-[13px]">
-              {[["Reçu n°", p.data.reference], ["Objet", p.data.meta.description ?? p.data.kind], ["Montant", money(p.data.amount, p.data.currency)], ["Moyen", label ?? ""], ["Date", dateFr(p.data.paidAt, true)]].map(([k, v]) => <div key={k} className="flex justify-between gap-4"><span className="text-ink-mute">{k}</span><b className="text-right">{v}</b></div>)}
+              {[["Reçu n°", p.data.reference], ["Objet", p.data.meta.description ?? p.data.kind], ["Montant", m(p.data.amount, p.data.currency)], ["Moyen", label ?? ""], ["Date", dateFr(p.data.paidAt, true)]].map(([k, v]) => <div key={k} className="flex justify-between gap-4"><span className="text-ink-mute">{k}</span><b className="text-right">{v}</b></div>)}
             </div>
             <a href={apiUrl(p.data.kind === "loyer" ? `/quittances/${p.data.reference}.pdf` : `/paiements/${reference}/recu.pdf`)} target="_blank" className="btn-primary w-full"><Download size={17} />Télécharger le {p.data.kind === "loyer" ? "quittance" : "reçu"} PDF</a>
             <Link href={back} className="btn-ghost w-full">{p.data.applicationId ? "Voir ma candidature" : p.data.bookingId ? "Voir ma réservation" : "Retour"}</Link>
@@ -62,10 +64,10 @@ export function PaymentPage({ reference }: { reference: string }) {
             </div>
             <aside className="card flex flex-col gap-3 rounded-3xl p-6">
               <b>Récapitulatif</b>
-              <div className="flex justify-between text-sm"><span className="text-ink-mute">Montant</span><b>{money(p.data.amount, p.data.currency)}</b></div>
+              <div className="flex justify-between text-sm"><span className="text-ink-mute">Montant</span><b>{m(p.data.amount, p.data.currency)}</b></div>
               {p.data.currency === "MAD" && <div className="flex justify-between gap-3 text-sm"><span className="text-ink-mute">Montant en dirhams</span><Prix mad={p.data.amount} bloc className="text-right" /></div>}
               <div className="flex justify-between text-sm"><span className="text-ink-mute">Frais opérateur</span><span>0</span></div>
-              <div className="flex items-center justify-between rounded-2xl bg-gradient-to-r from-brand-950 to-brand-700 px-4 py-3.5 text-white"><span className="font-bold">Total</span><b className="text-xl">{money(p.data.amount, p.data.currency)}</b></div>
+              <div className="flex items-center justify-between rounded-2xl bg-gradient-to-r from-brand-950 to-brand-700 px-4 py-3.5 text-white"><span className="font-bold">Total</span><span className="text-right"><b className="block text-xl">{money(p.data.amount, p.data.currency)}</b>{eq(p.data.amount, p.data.currency) && <span className="block text-xs text-white/75">≈ {eq(p.data.amount, p.data.currency)}</span>}</span></div>
               {p.data.meta.escrow && <p className="text-xs text-ink-mute">Fonds protégés en séquestre : versés au bailleur après l&apos;état des lieux d&apos;entrée.</p>}
             </aside>
           </div>
