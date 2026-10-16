@@ -1,0 +1,106 @@
+# BET INTELLIGENCE AI — Version 1 (démonstration)
+
+Prototype frontend interactif d’analyse footballistique : exploration de rencontres simulées, analyses statistiques de démonstration, génération et suivi de **tickets virtuels**.
+
+> ⚠️ **Mode démonstration.** Toutes les compétitions, équipes, cotes, probabilités et résultats sont **synthétiques**.
+> Aucune API n’est appelée, aucun pari n’est placé, les tickets n’ont **aucune valeur financière**
+> et rien de ce qui est affiché ne constitue une information sportive actuelle ou un conseil de pari.
+
+## Démarrer
+
+Prérequis : Node.js 20+ (testé avec Node 22).
+
+```bash
+cd bet-intelligence-ai
+npm install
+npm run dev        # http://localhost:5173
+npm test           # tests des fonctions de calcul (Vitest)
+npm run build      # vérification TypeScript + build de production dans dist/
+npm run preview    # sert le build de production
+```
+
+## Stack
+
+React 19 · TypeScript · Vite · Tailwind CSS 4 · Lucide React · Recharts · Vitest. Aucune autre dépendance d’exécution.
+
+## Fonctionnalités
+
+| Écran | Contenu |
+|---|---|
+| **Dashboard** | 4 indicateurs (matchs analysés, sélections admissibles, tickets générés, prédictions en attente), meilleures opportunités selon les règles configurées, répartition par marché, probabilité estimée vs implicite, évolution des résultats simulés (vide tant qu’aucun ticket n’est réglé). |
+| **Matchs** | Recherche (insensible aux accents), filtres compétition / date / marché / cote min-max / probabilité minimale, tri par heure, probabilité ou cote. Clic → fenêtre de détails (forme récente, stats offensives/défensives, xG simulés, probabilités par marché, arguments, risques, confiance). |
+| **Analyse IA** | Analyse détaillée d’une rencontre : résumé, statistiques, domicile/extérieur, tableau probabilités/cotes/écart, graphique de comparaison, arguments, risques, niveau de confiance. |
+| **Générateur de tickets** | Mode prudent, probabilité minimale, cotes min/max, nombre de sélections min/max, cote totale cible facultative, marchés autorisés ; aperçu en direct des exclusions ; génération avec raisons et risques. |
+| **Mes tickets** | Historique (localStorage), recherche, filtres statut/marché, détails, changement de statut, règlement simulé, suppression et réinitialisation avec confirmation. |
+| **Performances** | Prédictions enregistrées/réglées, taux de réussite, cote moyenne, ROI simulé, Brier Score ; bankroll virtuelle, résultats par marché, distribution des probabilités, probabilités estimées vs résultats observés. En dessous de 5 tickets réglés : « Données insuffisantes pour évaluer la performance. » |
+| **Paramètres** | Règles de sélection, affichage des avertissements, préférences d’interface, sources de données (démo active ; API football, bot Telegram et backend **non connectés**), réinitialisation. |
+
+Navigation latérale sur grand écran, barre d’onglets + menu « Plus » sur mobile. La page courante est conservée dans l’URL (`#/matchs`, `#/generateur`…).
+
+## Ce qui est simulé (et comment)
+
+- **Données** (`src/data/`) : 4 compétitions et 28 équipes fictives, 20 rencontres positionnées à partir du lendemain de la date d’ouverture, profils de force fictifs.
+- **Probabilités** : *moteur déterministe*, pas d’IA. Buts attendus = moyenne de ligue × attaque × défense adverse × avantage du terrain, puis loi de Poisson → probabilités des 9 marchés (1, X, 2, 1X, X2, +1,5, +2,5, −3,5, BTTS).
+- **Cotes de démonstration** : `1 / (p × (1 + marge))` avec un bruit pseudo-aléatoire de ±7 %. Le bouton « Actualiser » change la graine du bruit.
+- **Analyses** : textes pré-rédigés choisis par des règles à partir des statistiques simulées.
+- **Qualité des données** : élevée / moyenne / faible selon une taille d’échantillon simulée ; les sélections à données faibles sont exclues.
+- **Règlement des tickets** : bouton « Simuler le résultat » → tirage pseudo-aléatoire reproductible de chaque sélection selon sa probabilité synthétique. Le statut peut aussi être modifié manuellement. Aucun résultat réel n’est consulté et aucun historique n’est pré-rempli.
+- **Montants** : mise virtuelle fixe de 1 000 FCFA fictifs par ticket, bankroll virtuelle de départ de 100 000 FCFA fictifs.
+
+## Règles du générateur
+
+1. Lecture des paramètres (le **mode prudent** impose en plus : données de qualité élevée, marchés volatils exclus — nul, BTTS, +2,5 —, probabilité ≥ 78 %, 3 sélections au plus).
+2. Filtrage : marché autorisé, données suffisantes, match non commencé, cote dans la plage, probabilité ≥ seuil.
+3. Tri par probabilité estimée décroissante, **une seule sélection par match**.
+4. Le minimum de sélections est requis ; des sélections supplémentaires ne sont ajoutées que pour approcher la cote cible, sans dépasser le maximum ni assouplir les critères.
+5. Un ticket identique à un ticket déjà en attente n’est jamais recréé.
+6. **Cote totale = produit des cotes ; probabilité indicative = produit des probabilités** (hypothèse d’indépendance, signalée à l’écran).
+7. Si aucune combinaison ne convient : « Aucune combinaison ne satisfait actuellement les critères définis. Modifiez vos paramètres ou réessayez ultérieurement. »
+
+## Architecture
+
+```
+src/
+  components/
+    layout/       Sidebar, MobileNav, TopBar, Logo
+    dashboard/    OpportunityList, graphiques du dashboard
+    matches/      MatchFilters, MatchList, MatchDetailsModal
+    analysis/     StatBlocks, MarketTable, ArgumentsRisks, ConfidenceMeter
+    tickets/      CriteriaForm, TicketView
+    performance/  BankrollChart, PerformanceCharts
+    ui/           Card, Button, Badge, Modal, ConfirmDialog, Fields, Notice…
+  pages/          un composant par écran
+  data/           demoMatches.ts, demoStatistics.ts (données fictives uniquement)
+  services/
+    matchService.ts        accès aux matchs + éligibilité des sélections
+    ticketService.ts       génération, règlement simulé, persistance
+    performanceService.ts  indicateurs et séries
+    analysisService.ts     analyse déterministe
+    settingsService.ts     paramètres + validation
+    demoEngine.ts          fabrique du jeu de données de démonstration
+    storage.ts             accès sécurisé à localStorage
+  hooks/          useAppStore (état global), useHashRoute, useEligible
+  types/          interfaces Match, TeamStats, Selection, Ticket, Settings…
+  utils/          calculs (math, poisson), formats fr-FR, filtres de matchs
+  __tests__/      tests Vitest des calculs
+```
+
+### Brancher un backend Python plus tard
+
+Les écrans ne consomment que des objets typés (`src/types`). Pour passer aux vraies données, remplacer le corps de
+`fetchMatches()` / `fetchCompetitions()` dans `src/services/matchService.ts` par des appels HTTP (ex. `fetch('/api/matches')`)
+renvoyant des `Match[]`, et de même pour la persistance des tickets dans `ticketService.ts`. Les probabilités et cotes
+seraient alors fournies par le backend ; les fonctions de filtrage, de composition et d’évaluation restent valables.
+Ne jamais placer de clé d’API dans ce frontend.
+
+## Persistance
+
+Clés `localStorage` préfixées `bia:v1:` (`settings`, `tickets`, `oddsSeed`). Les données lues sont validées
+(paramètres bornés, tickets mal formés ignorés). Si le stockage est indisponible (navigation privée, quota), un bandeau le signale.
+
+## Tests
+
+`npm test` couvre : produit des cotes et des probabilités, probabilité implicite, Brier Score, cohérence du modèle de Poisson,
+formats français, filtres et tris du centre des matchs, éligibilité (seuils, marchés, mode prudent, matchs commencés),
+composition (une sélection par match, minimum, cote cible, maximum), refus de forcer un ticket, anti-doublon,
+règlement simulé reproductible, normalisation des paramètres et indicateurs de performance.

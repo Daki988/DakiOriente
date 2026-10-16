@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* Le prototype BET INTELLIGENCE AI (sous-projet Vite indépendant) ne doit pas alimenter les classes du site. */
+@source not "../bet-intelligence-ai";
 
 /* ───────── Design tokens — JACKBOY · FEEL THE NIGHT ─────────
    Couleurs issues du logo officiel (cactus #00a070 → #007058) */
