@@ -56,6 +56,9 @@ services:
       - service
     environment:
       CASIER_API_URL: http://service:8080
+      # Connexion OpenID Connect : adresse publique du royaume Keycloak et du portail (vides : comptes de démonstration).
+      OIDC_EMETTEUR: ${OIDC_EMETTEUR:-}
+      PORTAIL_URL: ${PORTAIL_URL:-http://localhost:3000}
     ports:
       - "${PORT_PORTAIL:-3000}:3000"
 
