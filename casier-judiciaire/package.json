@@ -1,5 +1,6 @@
 {
   "name": "casier-judiciaire",
+  "version": "0.1.0",
   "private": true,
   "description": "Plateforme Casier Judiciaire Numérique — interfaces (portail public, design system)",
   "workspaces": [
