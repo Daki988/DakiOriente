@@ -7,7 +7,8 @@ import { colorOf, FIELDS, FONT_PAIRS, PALETTES, type Design, type Field, type Lo
 import { ICONS, PATTERN_IDS, PATTERNS, type IconId, type Prim } from "@/lib/design/motifs";
 import { SECTORS, sectorTexts } from "@/lib/design/sectors";
 import { paletteOf } from "@/lib/design/layout";
-import { familyFor, hasVerso, KINDS, kindFor, mockupFor, MONOGRAM, PREFERRED, templatesFor } from "@/lib/design/templates";
+import { hasVerso, KINDS, kindFor, MOCKUP_LABELS, mockupsFor, type MockupKind } from "@/lib/design/templates";
+import { newDesign as baseDesign, orderedTemplates } from "@/lib/design/defaults";
 import { ArrowRight, Check, Upload } from "@/components/Icons";
 import { DesignSvg } from "./DesignSvg";
 import { Mockup } from "./Mockup";
@@ -45,20 +46,7 @@ type Tab = (typeof TABS)[number][0];
 
 const input = "w-full rounded-xl border border-line bg-white px-3.5 py-3 text-[16px] outline-none focus:border-brand";
 
-/** Modèles de la famille, ceux conseillés pour ce type de produit en premier. */
-export function orderedTemplates(p: EditorProduct) {
-  const all = templatesFor(familyFor(p.wMm, p.hMm));
-  const pref = PREFERRED[kindFor(p.categorySlug, p.slug)] ?? [];
-  // Conseillés pour le produit d'abord, puis les modèles à motifs africains, puis les autres.
-  const rank = (t: (typeof all)[number]) => (pref.includes(t.id) ? pref.indexOf(t.id) : t.pattern ? pref.length : pref.length + 1);
-  return [...all].sort((a, b) => rank(a) - rank(b));
-}
-
-export function newDesign(p: EditorProduct): Design {
-  const tpl = orderedTemplates(p)[0];
-  const kind = kindFor(p.categorySlug, p.slug);
-  return { template: tpl.id, palette: tpl.palette, fonts: tpl.fonts, fields: { ...KINDS[kind].defaults }, monogram: MONOGRAM[kind] };
-}
+export const newDesign = (p: EditorProduct) => baseDesign(p);
 
 /** Éditeur plein écran : modèle, textes, logo, couleurs, polices, aperçu réaliste, puis PDF d'impression. */
 export function Editor({ product, initial, verso: versoWanted = true, onClose, onDone }: {
@@ -67,7 +55,8 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
   const templates = useMemo(() => orderedTemplates(product), [product]);
   const kind = KINDS[kindFor(product.categorySlug, product.slug)];
   const verso = hasVerso(product.categorySlug) && versoWanted;
-  const mock = mockupFor(product.categorySlug, product.slug);
+  const scenes = mockupsFor(product.categorySlug, product.slug);
+  const [scene, setScene] = useState<MockupKind>(scenes[0]);
 
   const [d, setD] = useState<Design>(() => {
     const base = initial ?? newDesign(product);
@@ -209,7 +198,14 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
                 ))}
               </div>
             )}
-            {view === "reel" && mock === "tshirt" && (
+            {view === "reel" && scenes.length > 1 && (
+              <div className="flex rounded-full bg-white p-1 text-sm font-semibold" role="tablist" aria-label="Mise en scène">
+                {scenes.map((k) => (
+                  <button key={k} type="button" role="tab" aria-selected={scene === k} onClick={() => setScene(k)} className={`whitespace-nowrap rounded-full px-3 py-1.5 ${scene === k ? "bg-ink text-white" : ""}`}>{MOCKUP_LABELS[k]}</button>
+                ))}
+              </div>
+            )}
+            {view === "reel" && scene === "tshirt" && (
               <div className="flex gap-1.5" aria-label="Couleur du t-shirt">
                 {(["white", "black"] as const).map((c) => (
                   <button key={c} type="button" aria-pressed={shirt === c} onClick={() => setShirt(c)} className={`size-8 rounded-full border-2 ${shirt === c ? "border-brand" : "border-white"}`} style={{ background: c === "white" ? "#f4f4f2" : "#1f1f22" }} aria-label={c === "white" ? "T-shirt blanc" : "T-shirt noir"} />
@@ -223,7 +219,7 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
             ) : view === "plat" ? (
               <DesignSvg side={current} className="size-full max-h-full drop-shadow-[0_12px_24px_rgba(0,0,0,.18)]" title={`Aperçu ${face ? "verso" : "recto"}`} />
             ) : (
-              <div className="h-full max-h-full w-full max-w-[640px] overflow-hidden" style={{ aspectRatio: "4 / 3", width: "auto" }}><Mockup kind={mock} sides={sides} tshirt={shirt} /></div>
+              <div className="h-full max-h-full w-full max-w-[640px] overflow-hidden" style={{ aspectRatio: "4 / 3", width: "auto" }}><Mockup kind={scene} sides={sides} tshirt={shirt} /></div>
             )}
           </div>
           {view === "plat" && <p className="hidden text-center text-xs text-muted md:block">Le trait rose marque la coupe : ce qui dépasse sera coupé (fond perdu de 3 mm).</p>}

@@ -499,15 +499,35 @@ export const MONOGRAM: Record<Kind, Field | undefined> = { carte: "texte", marqu
 export const hasVerso = (categorySlug: string) => categorySlug === "cartes-de-visite";
 
 /** Mise en scène de l'aperçu réaliste selon le produit. */
-export type MockupKind = "cards" | "invite" | "paper" | "rollup" | "wall" | "banner" | "sticker" | "tshirt" | "box";
-export function mockupFor(categorySlug: string, slug: string): MockupKind {
-  if (categorySlug === "cartes-de-visite") return "cards";
-  if (categorySlug === "cartes-invitations") return slug.startsWith("badge") ? "cards" : "invite";
-  if (slug.startsWith("roll-up")) return "rollup";
-  if (slug.startsWith("bache")) return "banner";
-  if (slug.includes("plaque") || slug.includes("vinyle") || slug.includes("lettrage")) return "wall";
-  if (categorySlug === "stickers-etiquettes") return "sticker";
-  if (categorySlug === "textile") return "tshirt";
-  if (categorySlug === "packaging" || slug.includes("urne")) return "box";
-  return "paper";
+export type MockupKind =
+  | "cards" | "invite" | "paper" | "poster" | "rollup" | "wall" | "banner" | "sticker" | "tshirt" | "box"
+  | "lanyard" | "bottle" | "vehicle" | "window" | "folder" | "brochure" | "plaque";
+
+export const MOCKUP_LABELS: Record<MockupKind, string> = {
+  cards: "Sur le bureau", invite: "Avec l’enveloppe", paper: "Sur la table", poster: "Au mur", rollup: "En salon",
+  wall: "Au mur", banner: "En façade", sticker: "Sur un ordinateur", tshirt: "Sur un t-shirt", box: "En boîte",
+  lanyard: "Au cordon", bottle: "Sur une bouteille", vehicle: "Sur un véhicule", window: "En vitrine",
+  folder: "Chemise", brochure: "En éventail", plaque: "À l’entrée",
+};
+
+/** Mises en scène disponibles pour un produit, la plus parlante en premier. */
+export function mockupsFor(categorySlug: string, slug: string): MockupKind[] {
+  if (categorySlug === "cartes-de-visite") return ["cards"];
+  if (slug.startsWith("badge")) return ["lanyard", "cards"];
+  if (categorySlug === "cartes-invitations") return ["invite", "paper"];
+  if (slug.startsWith("roll-up")) return ["rollup"];
+  if (slug.startsWith("bache")) return ["banner"];
+  if (slug.includes("plaque")) return ["plaque"];
+  if (slug.includes("vinyle")) return ["vehicle", "window"];
+  if (slug.includes("lettrage")) return ["window", "vehicle"];
+  if (slug.includes("urne")) return ["box"];
+  if (slug.includes("chemise")) return ["folder"];
+  if (slug.includes("catalogue") || slug.includes("brochure")) return ["brochure", "paper"];
+  if (slug.includes("etiquette")) return ["bottle", "sticker"];
+  if (categorySlug === "stickers-etiquettes") return ["sticker", "bottle"];
+  if (categorySlug === "textile") return ["tshirt"];
+  if (categorySlug === "packaging") return ["box"];
+  if (categorySlug === "flyers") return ["paper", "poster"];
+  return ["paper", "poster"];
 }
+export const mockupFor = (categorySlug: string, slug: string) => mockupsFor(categorySlug, slug)[0];

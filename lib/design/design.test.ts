@@ -125,3 +125,21 @@ test("ajouts : slogan, photo de fond et logo positionné sur tous les modèles",
     }
   }
 });
+
+test("catalogue : chaque produit a une mise en scène et un modèle de départ", async () => {
+  const { readFileSync } = await import("node:fs");
+  const { mockupsFor, MOCKUP_LABELS } = await import("./templates.ts");
+  const { newDesign, approxMeasure } = await import("./defaults.ts");
+  const products = JSON.parse(readFileSync(new URL("../../content/catalogue.json", import.meta.url), "utf8"));
+  const kinds = new Set<string>();
+  for (const p of products) {
+    const scenes = mockupsFor(p.categorySlug, p.slug);
+    assert.ok(scenes.length > 0 && scenes.every((k) => MOCKUP_LABELS[k]), p.slug);
+    scenes.forEach((k) => kinds.add(k));
+    const [w, h] = p.formatMm ?? [2000, 1000];
+    const d = newDesign({ slug: p.slug, categorySlug: p.categorySlug, wMm: w, hMm: h }, 2);
+    const tpl = TEMPLATES.find((t) => t.id === d.template)!;
+    assert.ok(resolveDesign(tpl, d, w, h, true, approxMeasure).length >= 1, p.slug);
+  }
+  assert.ok(kinds.size >= 14, `seulement ${kinds.size} mises en scène utilisées`);
+});

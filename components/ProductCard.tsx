@@ -2,30 +2,13 @@ import Link from "next/link";
 import type { Product } from "@/lib/catalog";
 import { fcfa, unitLabel } from "@/lib/format";
 import { fromPrice } from "@/lib/pricing";
+import { ProductMockup } from "@/components/ProductMockup";
 
-/** Fond teinté (léger) + feuille arrière dans la couleur pleine de la catégorie. */
-const BG: Record<string, string> = {
-  yellow: "bg-yellow/25", magenta: "bg-magenta/12", cyan: "bg-cyan/12", blue: "bg-blue/12", brand: "bg-brand/10", ink: "bg-ink/8",
-};
-const SHEET: Record<string, string> = {
-  yellow: "bg-yellow", magenta: "bg-magenta", cyan: "bg-cyan", blue: "bg-blue", brand: "bg-brand", ink: "bg-ink",
-};
-
-/** Visuel produit : une feuille au vrai rapport largeur/hauteur du produit, posée sur la couleur de sa catégorie. */
-export function ProductVisual({ product, className = "aspect-[169/138]" }: { product: Product; className?: string }) {
-  const [w, h] = product.formatMm ?? [100, 100];
-  const ratio = Math.min(2.4, Math.max(0.42, w / h));
-  const width = ratio >= 1 ? 58 : Math.round(58 * ratio * 0.9 + 12);
+/** Visuel produit : le support mis en scène avec un modèle de l'éditeur. */
+export function ProductVisual({ product, className = "", rounded = false }: { product: Product; className?: string; rounded?: boolean }) {
   return (
-    <div className={`relative overflow-hidden ${BG[product.color] ?? "bg-yellow"} ${className}`} aria-hidden="true">
-      <div
-        className={`absolute left-1/2 top-1/2 rounded-[3px] ${SHEET[product.color] ?? "bg-ink"}`}
-        style={{ width: `${width}%`, aspectRatio: `${ratio}`, transform: "translate(-44%,-44%) rotate(6deg)" }}
-      />
-      <div
-        className="absolute left-1/2 top-1/2 rounded-[3px] bg-white shadow-[0_10px_18px_-6px_rgba(13,14,18,.25)]"
-        style={{ width: `${width}%`, aspectRatio: `${ratio}`, transform: "translate(-56%,-58%) rotate(-10deg)" }}
-      />
+    <div className={`overflow-hidden ${className}`} aria-hidden="true">
+      <ProductMockup product={product} rounded={rounded} />
     </div>
   );
 }
