@@ -11,7 +11,8 @@ export const ASCENT = 0.8;
 export type RRect = { t: "rect"; x: number; y: number; w: number; h: number; r: number; fill: string; opacity: number };
 export type REllipse = { t: "ellipse"; cx: number; cy: number; rx: number; ry: number; fill: string; opacity: number };
 export type RText = { t: "text"; font: FontKey; size: number; fill: string; align: "left" | "center" | "right"; x: number; lines: { s: string; y: number }[] };
-export type RImage = { t: "image"; x: number; y: number; w: number; h: number; src: string };
+/** Image placée ; `clip` = zone visible (photo de fond recadrée). */
+export type RImage = { t: "image"; x: number; y: number; w: number; h: number; src: string; clip?: { x: number; y: number; w: number; h: number } };
 /** Formes simples en mm, couleur résolue. */
 export type RPrim =
   | { k: "rect"; x: number; y: number; w: number; h: number; r: number; fill: string }
@@ -86,24 +87,53 @@ export function paletteOf(id: string): Palette {
   return PALETTES.find((p) => p.id === id) ?? PALETTES[0];
 }
 
-export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, hMm: number, measure: Measure): RSide {
+/** Hauteur du bandeau de slogan, en fraction de la hauteur, selon la famille. */
+const BAND: Record<Template["family"], number> = { card: 0.16, portrait: 0.08, tall: 0.06, square: 0.15, wide: 0.15 };
+
+/** Image recadrée pour remplir une zone (comme « cover »). */
+function cover(src: string, iw: number, ih: number, box: { x: number; y: number; w: number; h: number }): RImage {
+  const s = Math.max(box.w / iw, box.h / ih);
+  const w = iw * s, h = ih * s;
+  return { t: "image", src, x: box.x + (box.w - w) / 2, y: box.y + (box.h - h) / 2, w, h, clip: box };
+}
+
+export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, hMm: number, measure: Measure, index = 0): RSide {
   const pal = paletteOf(d.palette);
   const pair = FONT_PAIRS.find((f) => f.id === d.fonts) ?? FONT_PAIRS[0];
-  const u = Math.min(wMm, hMm);
+  // Ajouts du client (recto) : le bandeau de slogan réserve une bande, le modèle occupe le reste.
+  const recto = index === 0;
+  const slogan = recto ? (d.slogan ?? "").trim() : "";
+  const band = slogan ? hMm * BAND[tpl.family] : 0;
+  const areaTop = slogan && d.sloganPos === "haut" ? band : 0;
+  const areaH = hMm - band;
+  const touchTop = areaTop === 0, touchBottom = areaTop + areaH >= hMm - 0.01;
+  const overlayLogo = recto && d.logo && ((d.logoPos && d.logoPos !== "modele") || !side.els.some((e) => e.t === "logo"));
+  const u = Math.min(wMm, areaH);
+  // Avec une photo de fond, les grands aplats et motifs deviennent translucides pour la laisser voir.
+  const fade = recto && d.bgImage ? Math.max(d.bgVeil ?? 0.55, 0.3) : 1;
+  const big = (el: { w: number; h: number }) => (el.w * el.h >= 0.25 ? fade : 1);
   const b = BLEED_MM;
   const items: RItem[] = [];
   // Textes déjà placés : un texte ne commence jamais sur un texte placé au-dessus de lui dans la même colonne.
   const placed: { x0: number; x1: number; top: number; bottom: number }[] = [];
 
+  if (recto && d.bgImage) {
+    // Photo de fond sur toute la surface (fond perdu compris), puis un voile de la couleur du fond.
+    const full = { x: -b, y: -b, w: wMm + 2 * b, h: hMm + 2 * b };
+    items.push(cover(d.bgImage.src, d.bgImage.w, d.bgImage.h, full));
+    const veil = d.bgVeil ?? 0.55;
+    if (veil > 0) items.push({ t: "rect", ...full, r: 0, fill: colorOf(pal, side.bg), opacity: veil });
+  }
+
   for (const el of side.els) {
-    const x = el.x * wMm, y = el.y * hMm, w = el.w * wMm, h = el.h * hMm;
+    const x = el.x * wMm, y = areaTop + el.y * areaH, w = el.w * wMm, h = el.h * areaH;
     if (el.t === "rect") {
       // Une forme qui touche un bord déborde dans le fond perdu.
-      const x0 = el.x <= 0.001 ? x - b : x, y0 = el.y <= 0.001 ? y - b : y;
-      const x1 = el.x + el.w >= 0.999 ? x + w + b : x + w, y1 = el.y + el.h >= 0.999 ? y + h + b : y + h;
-      items.push({ t: "rect", x: x0, y: y0, w: x1 - x0, h: y1 - y0, r: (el.r ?? 0) * u, fill: colorOf(pal, el.fill), opacity: el.opacity ?? 1 });
+      const x0 = el.x <= 0.001 ? x - b : x, y0 = el.y <= 0.001 && touchTop ? y - b : y;
+      const x1 = el.x + el.w >= 0.999 ? x + w + b : x + w, y1 = el.y + el.h >= 0.999 && touchBottom ? y + h + b : y + h;
+      items.push({ t: "rect", x: x0, y: y0, w: x1 - x0, h: y1 - y0, r: (el.r ?? 0) * u, fill: colorOf(pal, el.fill), opacity: (el.opacity ?? 1) * big(el) });
     } else if (el.t === "ellipse") {
-      items.push({ t: "ellipse", cx: x + w / 2, cy: y + h / 2, rx: w / 2, ry: h / 2, fill: colorOf(pal, el.fill), opacity: el.opacity ?? 1 });
+      items.push({ t: "ellipse", cx: x + w / 2, cy: y + h / 2, rx: w / 2, ry: h / 2, fill: colorOf(pal, el.fill), opacity: (el.opacity ?? 1) * big(el) });
     } else if (el.t === "text") {
       let text = (d.fields[el.field] ?? "").trim();
       if (!text) continue;
@@ -125,8 +155,8 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
     } else if (el.t === "pattern") {
       const id = el.pattern === "auto" ? d.pattern ?? tpl.pattern ?? "wax" : el.pattern;
       const def = PATTERNS[id];
-      const x0 = el.x <= 0.001 ? x - b : x, y0 = el.y <= 0.001 ? y - b : y;
-      const x1 = el.x + el.w >= 0.999 ? x + w + b : x + w, y1 = el.y + el.h >= 0.999 ? y + h + b : y + h;
+      const x0 = el.x <= 0.001 ? x - b : x, y0 = el.y <= 0.001 && touchTop ? y - b : y;
+      const x1 = el.x + el.w >= 0.999 ? x + w + b : x + w, y1 = el.y + el.h >= 0.999 && touchBottom ? y + h + b : y + h;
       const tile = Math.max(el.tile * u, 2);
       const colors = el.colors.map((c) => colorOf(pal, c));
       // Carreaux alignés sur la zone finie, pour un rendu identique quel que soit le fond perdu.
@@ -135,7 +165,7 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
       for (let ty = startY - tile; ty < y1; ty += tile) {
         for (let tx = startX - tile; tx < x1; tx += tile) prims.push(...place(def.shapes, tx, ty, tile, colors));
       }
-      items.push({ t: "group", clip: { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }, opacity: el.opacity ?? 1, prims });
+      items.push({ t: "group", clip: { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }, opacity: (el.opacity ?? 1) * big(el), prims });
     } else if (el.t === "icon") {
       if (!d.icon) continue;
       const s = Math.min(w, h);
@@ -143,7 +173,9 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
       const ix = align === "left" ? x : align === "right" ? x + w - s : x + (w - s) / 2;
       items.push({ t: "group", opacity: 1, prims: place(ICONS[d.icon], ix, y + (h - s) / 2, s, [colorOf(pal, el.color), colorOf(pal, el.cut)]) });
     } else if (el.t === "logo") {
-      if (d.logo) {
+      // Logo déplacé ailleurs par le client : l'emplacement du modèle reçoit le pictogramme ou les initiales.
+      const moved = Boolean(overlayLogo && d.logoPos && d.logoPos !== "modele");
+      if (d.logo && !moved) {
         const ratio = d.logo.w / d.logo.h;
         let lw = w, lh = w / ratio;
         if (lh > h) { lh = h; lw = h * ratio; }
@@ -167,10 +199,31 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
       }
     }
   }
+  if (overlayLogo && d.logo) {
+    // Logo ajouté à une position choisie (ou en haut à droite si le modèle n'a pas d'emplacement).
+    const pos = d.logoPos && d.logoPos !== "modele" ? d.logoPos : "hd";
+    const m = u * 0.07, box = u * 0.24;
+    const ratio = d.logo.w / d.logo.h;
+    let lw = box * 1.4, lh = lw / ratio;
+    if (lh > box) { lh = box; lw = box * ratio; }
+    const lx = pos === "hg" || pos === "bg" ? m : pos === "centre" ? (wMm - lw) / 2 : wMm - m - lw;
+    const ly = pos === "hg" || pos === "hd" ? areaTop + m : pos === "centre" ? areaTop + (areaH - lh) / 2 : areaTop + areaH - m - lh;
+    items.push({ t: "image", x: lx, y: ly, w: lw, h: lh, src: d.logo.src });
+  }
+  if (slogan) {
+    const y0 = areaTop ? 0 : areaH;
+    items.push({ t: "rect", x: -b, y: areaTop ? -b : y0, w: wMm + 2 * b, h: band + b, r: 0, fill: colorOf(pal, "primary"), opacity: 1 });
+    const font = pair.sub;
+    const lines = tpl.family === "tall" || tpl.family === "portrait" ? 2 : 1;
+    const fit = fitText(slogan, font, band * (lines === 2 ? 0.3 : 0.42), wMm * 0.88, lines, measure);
+    const blockH = fit.size * (1 + (fit.lines.length - 1) * LINE_HEIGHT);
+    const top = y0 + (band - blockH) / 2;
+    items.push({ t: "text", font, size: fit.size, fill: colorOf(pal, "onPrimary"), align: "center", x: wMm / 2, lines: fit.lines.map((s, i) => ({ s, y: top + fit.size * ASCENT + i * fit.size * LINE_HEIGHT })) });
+  }
   return { w: wMm, h: hMm, bleed: b, bg: colorOf(pal, side.bg), items };
 }
 
 export function resolveDesign(tpl: Template, d: Design, wMm: number, hMm: number, withVerso: boolean, measure: Measure): RSide[] {
   const sides = withVerso ? tpl.sides : tpl.sides.slice(0, 1);
-  return sides.map((s) => resolveSide(tpl, s, d, wMm, hMm, measure));
+  return sides.map((s, i) => resolveSide(tpl, s, d, wMm, hMm, measure, i));
 }

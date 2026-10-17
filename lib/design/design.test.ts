@@ -97,3 +97,31 @@ test("motifs : carreaux limités à la zone et en nombre raisonnable", () => {
     }
   }
 });
+
+test("ajouts : slogan, photo de fond et logo positionné sur tous les modèles", () => {
+  const dims: Record<string, [number, number]> = { card: [85, 55], portrait: [148, 210], tall: [850, 2000], square: [50, 50], wide: [3000, 1000] };
+  const img = { src: "data:image/png;base64,AAAA", w: 400, h: 300 };
+  for (const tpl of TEMPLATES) {
+    const [w, h] = dims[tpl.family];
+    for (const sloganPos of ["bas", "haut"] as const) {
+      const d: Design = {
+        template: tpl.id, palette: tpl.palette, fonts: tpl.fonts, fields: { ...KINDS.promo.defaults },
+        logo: img, logoPos: "bd", slogan: "Le goût du Gabon, depuis 2010", sloganPos, bgImage: img, bgVeil: 0.5,
+      };
+      const [recto] = resolveDesign(tpl, d, w, h, false, measure);
+      const photo = recto.items[0];
+      assert.ok(photo.t === "image" && photo.clip && photo.w >= w && photo.h >= h, `${tpl.id} : photo de fond`);
+      const texts = recto.items.filter((i) => i.t === "text");
+      const slogan = texts[texts.length - 1];
+      assert.ok(slogan.t === "text" && slogan.lines.map((l) => l.s).join(" ") === d.slogan, `${tpl.id} : slogan`);
+      if (slogan.t === "text") for (const l of slogan.lines) {
+        assert.ok(measure(l.s, slogan.font, slogan.size) <= w * 0.88 + 0.01, `${tpl.id} : slogan trop large`);
+        assert.ok(sloganPos === "haut" ? l.y < h * 0.2 : l.y > h * 0.8, `${tpl.id} : slogan mal placé`);
+      }
+      const logos = recto.items.filter((i) => i.t === "image" && !i.clip && i.src === img.src);
+      assert.equal(logos.length, 1, `${tpl.id} : un seul logo`);
+      const lg = logos[0];
+      if (lg.t === "image") assert.ok(lg.x + lg.w <= w + 0.01 && lg.y + lg.h <= h + 0.01 && lg.x > w / 2, `${tpl.id} : logo en bas à droite`);
+    }
+  }
+});

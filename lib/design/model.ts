@@ -77,7 +77,10 @@ export type Design = {
   template: string; palette: string; fonts: string; fields: Record<Field, string>; logo?: Logo; monogram?: Field;
   /** Motif africain des zones « auto », pictogramme du métier, secteur d'activité choisi. */
   pattern?: PatternId; icon?: IconId; sector?: string;
+  /** Ajouts du client : position du logo, slogan en bandeau, photo de fond (avec voile de 0 à 0,9). */
+  logoPos?: LogoPos; slogan?: string; sloganPos?: "haut" | "bas"; bgImage?: Logo; bgVeil?: number;
 };
+export type LogoPos = "modele" | "hg" | "hd" | "bg" | "bd" | "centre";
 
 /** Gabarit d'impression : 3 mm de fond perdu autour de la zone finie. */
 export const BLEED_MM = 3;

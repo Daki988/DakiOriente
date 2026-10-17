@@ -44,6 +44,15 @@ export async function buildPrintPdf(sides: RSide[], title: string): Promise<{ by
     return f;
   };
   const images = new Map<string, Awaited<ReturnType<typeof doc.embedPng>>>();
+  const imageOf = async (src: string) => {
+    let img = images.get(src);
+    if (!img) {
+      const bytes = dataUrlBytes(src);
+      img = src.startsWith("data:image/jpeg") ? await doc.embedJpg(bytes) : await doc.embedPng(bytes);
+      images.set(src, img);
+    }
+    return img;
+  };
 
   const longest = Math.max(...sides.flatMap((s) => [s.w, s.h])) + 6;
   const scale = longest > MAX_PAGE_MM ? 0.1 : 1;
@@ -100,9 +109,13 @@ export async function buildPrintPdf(sides: RSide[], title: string): Promise<{ by
         it.prims.forEach(draw);
         if (it.clip) page.pushOperators(popGraphicsState());
       } else if (it.t === "image") {
-        let img = images.get(it.src);
-        if (!img) { img = await doc.embedPng(dataUrlBytes(it.src)); images.set(it.src, img); }
+        const img = await imageOf(it.src);
+        if (it.clip) {
+          const c = it.clip;
+          page.pushOperators(pushGraphicsState(), rectangle(X(c.x), Y(c.y + c.h), c.w * k, c.h * k), clip(), endPath());
+        }
         page.drawImage(img, { x: X(it.x), y: Y(it.y + it.h), width: it.w * k, height: it.h * k });
+        if (it.clip) page.pushOperators(popGraphicsState());
       } else {
         const font = await fontOf(it.font);
         const size = it.size * k;

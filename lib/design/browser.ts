@@ -32,8 +32,13 @@ export const browserMeasure: Measure = (text: string, font: FontKey, sizeMm: num
 /** Vide le cache après le chargement des polices (les mesures d'avant utilisaient une police de secours). */
 export const resetMeasureCache = () => cache.clear();
 
-/** Lit une image (PNG, JPG, WebP, SVG) et la convertit en PNG, limité à 2400 px de côté. */
-export async function readLogo(file: File): Promise<{ src: string; w: number; h: number }> {
+/** Logo : PNG (transparence conservée), 2400 px maximum. */
+export const readLogo = (file: File) => readImage(file, 2400, "image/png");
+/** Photo de fond : JPEG de qualité, 4000 px maximum (assez pour un A3 à 250 dpi). */
+export const readPhoto = (file: File) => readImage(file, 4000, "image/jpeg");
+
+/** Lit une image (PNG, JPG, WebP, SVG) et la réencode, limitée à `max` px de côté. */
+async function readImage(file: File, max: number, type: "image/png" | "image/jpeg"): Promise<{ src: string; w: number; h: number }> {
   const url = URL.createObjectURL(file);
   try {
     const img = await new Promise<HTMLImageElement>((ok, ko) => {
@@ -43,12 +48,14 @@ export async function readLogo(file: File): Promise<{ src: string; w: number; h:
       i.src = url;
     });
     const natW = img.naturalWidth || 800, natH = img.naturalHeight || 800;
-    const scale = Math.min(1, 2400 / Math.max(natW, natH));
+    const scale = Math.min(1, max / Math.max(natW, natH));
     const w = Math.max(1, Math.round(natW * scale)), h = Math.max(1, Math.round(natH * scale));
     const c = document.createElement("canvas");
     c.width = w; c.height = h;
-    c.getContext("2d")!.drawImage(img, 0, 0, w, h);
-    return { src: c.toDataURL("image/png"), w, h };
+    const g = c.getContext("2d")!;
+    if (type === "image/jpeg") { g.fillStyle = "#ffffff"; g.fillRect(0, 0, w, h); }
+    g.drawImage(img, 0, 0, w, h);
+    return { src: c.toDataURL(type, 0.9), w, h };
   } finally {
     URL.revokeObjectURL(url);
   }

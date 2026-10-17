@@ -1,11 +1,12 @@
 import { useId } from "react";
 import type { RPrim, RSide } from "@/lib/design/layout";
 
-function Prim({ p }: { p: RPrim }) {
-  if (p.k === "rect") return <rect x={p.x} y={p.y} width={p.w} height={p.h} rx={p.r} fill={p.fill} />;
-  if (p.k === "ellipse") return <ellipse cx={p.cx} cy={p.cy} rx={p.rx} ry={p.ry} fill={p.fill} />;
-  if (p.k === "ring") return <circle cx={p.cx} cy={p.cy} r={p.r} fill="none" stroke={p.stroke} strokeWidth={p.sw} />;
-  return <polygon points={p.pts.join(" ")} fill={p.fill} />;
+/** Opacité appliquée forme par forme, comme dans le PDF, pour un rendu identique. */
+function Prim({ p, op }: { p: RPrim; op: number }) {
+  if (p.k === "rect") return <rect x={p.x} y={p.y} width={p.w} height={p.h} rx={p.r} fill={p.fill} opacity={op} />;
+  if (p.k === "ellipse") return <ellipse cx={p.cx} cy={p.cy} rx={p.rx} ry={p.ry} fill={p.fill} opacity={op} />;
+  if (p.k === "ring") return <circle cx={p.cx} cy={p.cy} r={p.r} fill="none" stroke={p.stroke} strokeWidth={p.sw} opacity={op} />;
+  return <polygon points={p.pts.join(" ")} fill={p.fill} opacity={op} />;
 }
 
 /**
@@ -27,13 +28,23 @@ export function DesignSvg({ side, trim = false, className, title }: { side: RSid
           if (it.t === "group") {
             const cid = `${id}-g${i}`;
             return (
-              <g key={i} opacity={it.opacity}>
+              <g key={i}>
                 {it.clip && <clipPath id={cid}><rect x={it.clip.x} y={it.clip.y} width={it.clip.w} height={it.clip.h} /></clipPath>}
-                <g clipPath={it.clip ? `url(#${cid})` : undefined}>{it.prims.map((p, j) => <Prim key={j} p={p} />)}</g>
+                <g clipPath={it.clip ? `url(#${cid})` : undefined}>{it.prims.map((p, j) => <Prim key={j} p={p} op={it.opacity} />)}</g>
               </g>
             );
           }
-          if (it.t === "image") return <image key={i} href={it.src} x={it.x} y={it.y} width={it.w} height={it.h} preserveAspectRatio="xMidYMid meet" />;
+          if (it.t === "image") {
+            const img = <image href={it.src} x={it.x} y={it.y} width={it.w} height={it.h} preserveAspectRatio="none" />;
+            if (!it.clip) return <g key={i}>{img}</g>;
+            const cid = `${id}-i${i}`;
+            return (
+              <g key={i}>
+                <clipPath id={cid}><rect x={it.clip.x} y={it.clip.y} width={it.clip.w} height={it.clip.h} /></clipPath>
+                <g clipPath={`url(#${cid})`}>{img}</g>
+              </g>
+            );
+          }
           const anchor = it.align === "center" ? "middle" : it.align === "right" ? "end" : "start";
           return (
             <text key={i} fontFamily={`np-${it.font}`} fontSize={it.size} fill={it.fill} textAnchor={anchor}>

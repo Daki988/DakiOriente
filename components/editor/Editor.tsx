@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { browserMeasure, loadEditorFonts, readLogo, resetMeasureCache } from "@/lib/design/browser";
+import { browserMeasure, loadEditorFonts, readLogo, readPhoto, resetMeasureCache } from "@/lib/design/browser";
 import { resolveDesign, type RSide } from "@/lib/design/layout";
-import { colorOf, FIELDS, FONT_PAIRS, PALETTES, type Design, type Field } from "@/lib/design/model";
+import { colorOf, FIELDS, FONT_PAIRS, PALETTES, type Design, type Field, type LogoPos } from "@/lib/design/model";
 import { ICONS, PATTERN_IDS, PATTERNS, type IconId, type Prim } from "@/lib/design/motifs";
 import { SECTORS, sectorTexts } from "@/lib/design/sectors";
 import { paletteOf } from "@/lib/design/layout";
@@ -37,7 +37,10 @@ function Swatch({ shapes, colors, tiles = 1, className }: { shapes: Prim[]; colo
 export type EditorProduct = { slug: string; name: string; categorySlug: string; wMm: number; hMm: number };
 export type EditorResult = { design: Design; sides: RSide[]; file: File; scale: number };
 
-const TABS = [["modeles", "Modèles"], ["textes", "Textes"], ["logo", "Logo"], ["couleurs", "Couleurs"], ["polices", "Polices"]] as const;
+const TABS = [["modeles", "Modèles"], ["ajouter", "Ajouter"], ["textes", "Textes"], ["couleurs", "Couleurs"], ["polices", "Polices"]] as const;
+const LOGO_POS: [LogoPos, string][] = [["modele", "Selon le modèle"], ["hg", "Haut gauche"], ["hd", "Haut droite"], ["centre", "Centre"], ["bg", "Bas gauche"], ["bd", "Bas droite"]];
+const section = "grid gap-3 border-t border-line pt-5 first:border-t-0 first:pt-0";
+const h3 = "flex items-baseline gap-2 font-display text-lg font-bold";
 type Tab = (typeof TABS)[number][0];
 
 const input = "w-full rounded-xl border border-line bg-white px-3.5 py-3 text-[16px] outline-none focus:border-brand";
@@ -75,6 +78,7 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
   const [view, setView] = useState<"plat" | "reel">("plat");
   const [face, setFace] = useState(0);
   const [logoMsg, setLogoMsg] = useState<string | null>(null);
+  const [photoMsg, setPhotoMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [shirt, setShirt] = useState<"white" | "black">("white");
@@ -123,6 +127,23 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
 
   const setField = (f: Field, v: string) => { setEdited(true); setD({ ...d, fields: { ...d.fields, [f]: v } }); };
   const current = sides[Math.min(face, sides.length - 1)];
+
+  async function pickPhoto(file: File | null) {
+    setPhotoMsg(null);
+    if (!file) return;
+    if (!/^image\/(png|jpe?g|webp)$/.test(file.type)) return setPhotoMsg("Format accepté : JPG, PNG ou WebP.");
+    if (file.size > 25 * 1024 * 1024) return setPhotoMsg("Photo trop lourde (25 Mo maximum).");
+    try {
+      const photo = await readPhoto(file);
+      setD((x) => ({ ...x, bgImage: photo, bgVeil: x.bgVeil ?? 0.55 }));
+      // Netteté estimée à la taille d'impression (fond perdu compris).
+      const dpi = Math.round(Math.min(photo.w / ((product.wMm + 6) / 25.4), photo.h / ((product.hMm + 6) / 25.4)));
+      const need = Math.max(product.wMm, product.hMm) >= 500 ? 60 : 200;
+      if (dpi < need) setPhotoMsg(`Photo un peu petite pour ce format (environ ${dpi} dpi) : elle risque d’être floue. Une photo plus grande sera plus nette.`);
+    } catch {
+      setPhotoMsg("Impossible de lire cette photo.");
+    }
+  }
 
   async function pickLogo(file: File | null) {
     setLogoMsg(null);
@@ -240,6 +261,9 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
                   </button>
                 ))}
               </div>
+              <button type="button" onClick={() => setTab("ajouter")} className="sticky bottom-0 flex items-center justify-center gap-2 rounded-full border-2 border-brand bg-white px-4 py-3 text-sm font-bold text-brand shadow-[0_-8px_16px_rgba(255,255,255,.9)]">
+                Ensuite : ajouter un logo, un slogan ou une photo de fond <ArrowRight className="size-4" />
+              </button>
               </div>
             )}
 
@@ -259,8 +283,10 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
               </div>
             )}
 
-            {tab === "logo" && (
-              <div className="grid gap-3">
+            {tab === "ajouter" && (
+              <div className="grid gap-5">
+                <section className={section} aria-labelledby="aj-logo">
+                  <h3 id="aj-logo" className={h3}><span className="tabular font-sans text-sm font-normal text-muted">(1)</span> Votre logo</h3>
                 {d.logo && (
                   <div className="grid place-items-center rounded-2xl border border-line bg-[conic-gradient(#eee_25%,#fff_0_50%,#eee_0_75%,#fff_0)] bg-[length:16px_16px] p-4">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -273,7 +299,18 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
                   <span className="text-sm text-muted">PNG à fond transparent idéalement · JPG, WebP, SVG acceptés</span>
                   <input type="file" className="sr-only" accept="image/png,image/jpeg,image/webp,image/svg+xml" onChange={(e) => pickLogo(e.target.files?.[0] ?? null)} />
                 </label>
-                {d.logo && <button type="button" onClick={() => setD({ ...d, logo: undefined })} className="text-sm font-semibold text-danger underline">Retirer le logo</button>}
+                {d.logo && (
+                  <fieldset className="grid gap-2">
+                    <legend className="mb-1 text-[13px] font-semibold text-muted">Position du logo</legend>
+                    <div className="flex flex-wrap gap-2">
+                      {LOGO_POS.map(([v, l]) => {
+                        const on = (d.logoPos ?? "modele") === v;
+                        return <button key={v} type="button" aria-pressed={on} onClick={() => setD({ ...d, logoPos: v })} className={`rounded-full px-3 py-1.5 text-sm font-semibold ${on ? "bg-ink text-white" : "border border-line"}`}>{l}</button>;
+                      })}
+                    </div>
+                  </fieldset>
+                )}
+                {d.logo && <button type="button" onClick={() => setD({ ...d, logo: undefined })} className="w-fit text-sm font-semibold text-danger underline">Retirer le logo</button>}
                 {logoMsg && <p role="status" className="rounded-xl bg-warn-soft p-3 text-sm text-warn">{logoMsg}</p>}
                 {!d.logo && (
                   <fieldset className="grid gap-2">
@@ -290,6 +327,44 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
                     </div>
                   </fieldset>
                 )}
+                </section>
+
+                <section className={section} aria-labelledby="aj-slogan">
+                  <h3 id="aj-slogan" className={h3}><span className="tabular font-sans text-sm font-normal text-muted">(2)</span> Un slogan</h3>
+                  <input className={input} value={d.slogan ?? ""} maxLength={90} placeholder="Ex. : Le goût du Gabon, depuis 2010" onChange={(e) => setD({ ...d, slogan: e.target.value })} aria-label="Slogan" />
+                  <div className="flex flex-wrap gap-2" aria-label="Position du slogan">
+                    {([["bas", "Bandeau en bas"], ["haut", "Bandeau en haut"]] as const).map(([v, l]) => {
+                      const on = (d.sloganPos ?? "bas") === v;
+                      return <button key={v} type="button" aria-pressed={on} onClick={() => setD({ ...d, sloganPos: v })} className={`rounded-full px-3 py-1.5 text-sm font-semibold ${on ? "bg-ink text-white" : "border border-line"}`}>{l}</button>;
+                    })}
+                  </div>
+                  <p className="text-xs text-muted">Le slogan s’affiche dans un bandeau à la couleur principale{verso ? ", au recto" : ""}. Laissez vide pour ne pas en mettre.</p>
+                </section>
+
+                <section className={section} aria-labelledby="aj-photo">
+                  <h3 id="aj-photo" className={h3}><span className="tabular font-sans text-sm font-normal text-muted">(3)</span> Une photo en fond</h3>
+                  {d.bgImage && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={d.bgImage.src} alt="Votre photo de fond" className="max-h-36 w-full rounded-2xl object-cover" />
+                  )}
+                  <label className="flex cursor-pointer flex-col items-center gap-1 rounded-2xl border-2 border-dashed border-line bg-paper px-4 py-5 text-center hover:border-brand">
+                    <Upload className="size-6 text-brand" />
+                    <span className="font-bold">{d.bgImage ? "Changer de photo" : "Ajouter une photo"}</span>
+                    <span className="text-sm text-muted">Votre boutique, vos plats, vos réalisations… JPG ou PNG</span>
+                    <input type="file" className="sr-only" accept="image/jpeg,image/png,image/webp" onChange={(e) => pickPhoto(e.target.files?.[0] ?? null)} />
+                  </label>
+                  {d.bgImage && (
+                    <>
+                      <label className="grid gap-1.5">
+                        <span className="flex justify-between text-[13px] font-semibold text-muted">Voile pour garder les textes lisibles <span className="tabular">{Math.round((d.bgVeil ?? 0.55) * 100)} %</span></span>
+                        <input type="range" min={0} max={0.9} step={0.05} value={d.bgVeil ?? 0.55} onChange={(e) => setD({ ...d, bgVeil: Number(e.target.value) })} className="w-full accent-[var(--brand)]" />
+                      </label>
+                      <button type="button" onClick={() => { setD({ ...d, bgImage: undefined }); setPhotoMsg(null); }} className="w-fit text-sm font-semibold text-danger underline">Retirer la photo</button>
+                    </>
+                  )}
+                  {photoMsg && <p role="status" className="rounded-xl bg-warn-soft p-3 text-sm text-warn">{photoMsg}</p>}
+                  <p className="text-xs text-muted">Utilisez uniquement vos propres photos ou des photos dont vous avez les droits.</p>
+                </section>
               </div>
             )}
 
