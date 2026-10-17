@@ -1,7 +1,7 @@
 import 'server-only';
 
 import { config } from './config';
-import { deposerDemo, reclamerDemo, suiviDemo, tarifsDemo, verifierCodeDemo, verifierJetonDemo } from './demo';
+import { deposerDemo, reclamerDemo, suiviDemo, tarifsDemo, verifierCodeDemo, verifierDocumentDemo, verifierJetonDemo } from './demo';
 import type { DemandeDeposee, NouvelleDemande, NouvelleReclamation, ReclamationDeposee, ResultatVerification, SuiviDemande, Tarif } from './types';
 
 /** Le service ne répond pas : la page affiche un message clair, sans code technique (ERG-05, PUB-16). */
@@ -83,4 +83,21 @@ export async function reclamer(r: NouvelleReclamation): Promise<ReclamationDepos
   const res = await appel<{ reference: string }>('/api/public/v1/reclamations', { method: 'POST', body: JSON.stringify(r) });
   if (!res) throw new ServiceIndisponible();
   return { reference: res.reference, demo: false };
+}
+
+/** BUL-08 : contrôle du sceau et de l'intégrité d'un bulletin PDF déposé (analysé en mémoire, jamais conservé). */
+export async function verifierDocument(pdf: Blob): Promise<{ integre: boolean; resultat: ResultatVerification }> {
+  if (!reel()) return verifierDocumentDemo(Buffer.from(await pdf.arrayBuffer()));
+  const corps = new FormData();
+  corps.set('fichier', pdf, 'bulletin.pdf');
+  let r: Response;
+  try {
+    r = await fetch(`${config.apiCasier}/api/public/v1/verifications/document`, { method: 'POST', body: corps, cache: 'no-store', signal: AbortSignal.timeout(15000) });
+  } catch {
+    throw new ServiceIndisponible();
+  }
+  if (r.status === 429) throw new RefusMetier('Trop de vérifications depuis votre connexion. Patientez une minute puis réessayez.');
+  if (r.status === 400) throw new RefusMetier('Le fichier doit être un bulletin PDF de 5 Mo au plus.');
+  if (!r.ok) throw new ServiceIndisponible();
+  return r.json();
 }

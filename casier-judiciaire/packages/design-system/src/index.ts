@@ -6,4 +6,5 @@ export { Bouton, LienBouton, classesBouton, ContenuBouton, type VarianteBouton }
 export { Champ, ChampSelection, ChoixCarte, CaseACocher, ZoneTexte, ChampDate } from './composants/Champ';
 export { FilAriane } from './composants/FilAriane';
 export { IndicateurEtapes, FriseEtat, Alerte, Badge, Carte, TuileIndicateur, ConteneurTableau, Pastille, type EtatFrise } from './composants/Etats';
+export { NavEspace, CarteUtilisateur, ListeDescription, type LienEspace } from './composants/Espace';
 export { ICONES } from './icones';

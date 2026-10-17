@@ -1,8 +1,10 @@
 import 'server-only';
-import { randomInt } from 'node:crypto';
+import { createHash, randomInt } from 'node:crypto';
 
 import bulletinsJson from '../../../referentiels/demo/bulletins-demo.json';
 import tarifsJson from '../../../referentiels/tarifs-proposition-2024-06-25.json';
+
+import { SPECIMEN_B3_SHA256 } from './specimen-b3';
 
 import type { DemandeDeposee, NouvelleDemande, ReclamationDeposee, ResultatVerification, SuiviDemande, Tarif } from './types';
 
@@ -49,6 +51,12 @@ export function verifierJetonDemo(jeton: string) {
 export function verifierCodeDemo(code: string) {
   const canon = (s: string) => s.toUpperCase().replace(/[^0-9A-Z]/g, '').replace(/O/g, '0').replace(/[IL]/g, '1');
   return versResultat(bulletins().find((b) => canon(b.code) === canon(code)));
+}
+
+/** BUL-08 en démonstration : seul le spécimen scellé fourni par le portail est reconnu, octet pour octet. */
+export function verifierDocumentDemo(pdf: Buffer) {
+  const integre = createHash('sha256').update(pdf).digest('hex') === SPECIMEN_B3_SHA256;
+  return { integre, resultat: integre ? verifierCodeDemo('DEMO-VALI-DE26') : INCONNU };
 }
 
 // Dossiers déposés pendant la démonstration : mémoire du processus, effacée au redémarrage (ENV-02 : réinitialisation).

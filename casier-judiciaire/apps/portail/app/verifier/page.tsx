@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { Alerte, Icone } from '@casier/design-system';
 
 import { EntetePage } from '@/components/EntetePage';
+import { FormulaireDocument } from '@/components/FormulaireDocument';
 import { FormulaireVerification } from '@/components/FormulaireVerification';
 import { ResultatVerification } from '@/components/ResultatVerification';
 import { RefusMetier, ServiceIndisponible, verifierCode } from '@/lib/api';
@@ -62,6 +63,7 @@ export default async function Verifier({ searchParams }: { searchParams: Promise
               DEMO-VALI-DE26 (valide), DEMO-REVO-QUE1 (révoqué), DEMO-EXPI-RE01 (expiré). Bulletins fictifs.
             </Alerte>
           )}
+          {!contenu && <FormulaireDocument />}
         </div>
         <aside className="p-encadre cj-pile" aria-label="Ce que la vérification indique">
           <h2 className="p-titre-encadre">Ce que la vérification indique</h2>
