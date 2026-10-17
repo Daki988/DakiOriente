@@ -1,0 +1,78 @@
+# Service Casier — configuration commune. Aucun secret ici (SEC-05) : tout secret vient de l'environnement.
+spring:
+  application:
+    name: service-casier
+  threads:
+    virtual:
+      enabled: true
+  datasource:
+    url: ${CASIER_BD_URL:jdbc:postgresql://localhost:5432/casier}
+    username: ${CASIER_BD_UTILISATEUR:casier}
+    password: ${CASIER_BD_MOT_DE_PASSE:}
+  flyway:
+    locations: classpath:db/migration
+  modulith:
+    events:
+      jdbc:
+        schema-initialization:
+          enabled: true
+      republish-outstanding-events-on-restart: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Clés publiques du fournisseur d'identité (Keycloak) ; chargées à la première requête authentifiée.
+          jwk-set-uri: ${CASIER_OIDC_JWKS:http://localhost:8180/realms/casier/protocol/openid-connect/certs}
+
+server:
+  port: ${PORT:8080}
+  error:
+    include-stacktrace: never
+    include-message: never
+  forward-headers-strategy: framework
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+
+casier:
+  demandes:
+    delai-traitement: 24h
+    seuil-alerte: 4h
+  identification:
+    certitude: 0.90
+    doute: 0.55
+    nom-seul: 0.85
+    ecart-minimal: 0.08
+  public:
+    limite-par-minute: ${CASIER_LIMITE_PAR_MINUTE:30}
+  paiement:
+    secret-notifications: ${CASIER_PAIEMENT_SECRET:}
+    simulateur: false
+  referentiels:
+    import-au-demarrage: false
+    dossier: ${CASIER_REFERENTIELS:../../referentiels}
+    tarifs: tarifs-proposition-2024-06-25.json
+    regles: regles-bulletins-fictives.json
+
+---
+# Poste de développement et démonstration : référentiels chargés au démarrage, simulateur de paiement (ENV-03, PAY-07).
+spring:
+  config:
+    activate:
+      on-profile: local,demo
+casier:
+  referentiels:
+    import-au-demarrage: true
+  paiement:
+    simulateur: true

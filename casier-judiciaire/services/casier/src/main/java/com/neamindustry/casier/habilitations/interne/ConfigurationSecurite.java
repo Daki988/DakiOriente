@@ -19,7 +19,8 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
 
 /**
  * Sécurité HTTP : API sans état authentifiée par jeton OpenID Connect (Keycloak) ;
- * seuls la vérification publique, les tarifs, le suivi de dossier et la santé sont ouverts (SEC-01, SEC-04).
+ * seuls la vérification publique, les tarifs, le suivi de dossier et la santé sont ouverts (SEC-01, SEC-04) ;
+ * les notifications des opérateurs de paiement sont authentifiées par signature (PAY-02).
  */
 @Configuration(proxyBeanMethods = false)
 class ConfigurationSecurite {
@@ -30,7 +31,7 @@ class ConfigurationSecurite {
                 .csrf(c -> c.disable())
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(a -> a
-                        .requestMatchers("/api/public/**", "/actuator/health/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers("/api/public/**", "/api/operateurs/**", "/actuator/health/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(o -> o.jwt(j -> j.jwtAuthenticationConverter(convertisseur())))
                 .headers(h -> h

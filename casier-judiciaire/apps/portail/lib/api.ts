@@ -23,6 +23,7 @@ async function appel<T>(chemin: string, init?: RequestInit): Promise<T | null> {
     throw new ServiceIndisponible();
   }
   if (reponse.status === 404) return null;
+  if (reponse.status === 429) throw new RefusMetier('Trop de demandes depuis votre connexion. Patientez une minute puis réessayez.');
   if (reponse.status === 422 || reponse.status === 409 || reponse.status === 403) {
     const corps = await reponse.json().catch(() => ({}));
     throw new RefusMetier(typeof corps.detail === 'string' ? corps.detail : 'Votre demande ne peut pas être traitée.');
@@ -80,5 +81,6 @@ export async function deposer(demande: NouvelleDemande, jetonUsager?: string): P
 export async function reclamer(r: NouvelleReclamation): Promise<ReclamationDeposee> {
   if (!reel()) return reclamerDemo();
   const res = await appel<{ reference: string }>('/api/public/v1/reclamations', { method: 'POST', body: JSON.stringify(r) });
-  return { reference: res!.reference, demo: false };
+  if (!res) throw new ServiceIndisponible();
+  return { reference: res.reference, demo: false };
 }

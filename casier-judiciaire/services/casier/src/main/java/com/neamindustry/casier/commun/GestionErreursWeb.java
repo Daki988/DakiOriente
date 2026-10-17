@@ -1,5 +1,7 @@
 package com.neamindustry.casier.commun;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,8 +15,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 class GestionErreursWeb {
 
+    private static final Logger SECURITE = LoggerFactory.getLogger("casier.securite");
+
     @ExceptionHandler(ErreurMetier.class)
     ProblemDetail erreurMetier(ErreurMetier e) {
+        if ("REG-09".equals(e.code())) {
+            // SEC-13 : alerte de sécurité, reprise par la supervision (journal « casier.securite »).
+            SECURITE.error("ALERTE SÉCURITÉ {} : {}", e.code(), e.getMessage());
+        }
         HttpStatus statut = switch (e.nature()) {
             case INTROUVABLE -> HttpStatus.NOT_FOUND;
             case ACCES_REFUSE -> HttpStatus.FORBIDDEN;
