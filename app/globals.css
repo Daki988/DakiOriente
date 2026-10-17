@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+/* ───────── Design tokens — Neam Print (maquette Figma « Neam Print — Site mobile-first ») ───────── */
+:root {
+  --ink: #0d0e12;
+  --paper: #f5f2ea;
+  --white: #ffffff;
+  --brand: #6b12ff;        /* violet du logo */
+  --brand-soft: #efe6ff;
+  --yellow: #ffd23f;
+  --magenta: #ff2e88;
+  --cyan: #00b4e6;
+  --blue: #2f6bff;
+  --muted: #6b6a66;
+  --line: #e3ded2;
+  --ok: #067647;  --ok-soft: #e3f8ee;
+  --warn: #b54708; --warn-soft: #fff1d6;
+  --danger: #d92d20; --danger-soft: #fde7e5;
+  --info: #2f6bff; --info-soft: #e4ecff;
+  --mobile-bar-h: 76px;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-white: var(--white);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-yellow: var(--yellow);
+  --color-magenta: var(--magenta);
+  --color-cyan: var(--cyan);
+  --color-blue: var(--blue);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-ok: var(--ok); --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn); --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger); --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info); --color-info-soft: var(--info-soft);
+  --font-display: var(--font-bricolage), "Arial Black", system-ui, sans-serif;
+  --font-sans: var(--font-dm), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html { background: var(--paper); color-scheme: light; scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.025em; text-wrap: balance; }
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; border-radius: 6px; }
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* Barre fixe mobile : réserve la place en bas de page */
+.pb-mobile-bar { padding-bottom: calc(var(--mobile-bar-h) + env(safe-area-inset-bottom)); }
+@media (min-width: 768px) { .pb-mobile-bar { padding-bottom: 0; } }
+
+/* Pastilles d'encre CMJ du hero (mode écran sur fond sombre) */
+.ink { mix-blend-mode: screen; border-radius: 9999px; position: absolute; }
+
+/* Bandeau défilant */
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee { animation: marquee 28s linear infinite; }
+
+/* Trame de points (plan de travail) */
+.dots { background: radial-gradient(circle at 1px 1px, rgb(13 14 18 / .09) 1px, transparent 0) 0 0 / 14px 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee { animation: none; }
+}

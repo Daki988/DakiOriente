@@ -1,0 +1,861 @@
+[
+ {
+  "slug": "carte-de-visite-standard",
+  "name": "Carte de visite standard",
+  "category": "Cartes de visite",
+  "categorySlug": "cartes-de-visite",
+  "color": "yellow",
+  "description": "Papier couché 350 g, pelliculage mat recto-verso. Le format qui fait bonne impression dès le premier contact.",
+  "unit": "ex.",
+  "pricing": "pack",
+  "tiers": [
+   {
+    "qty": 100,
+    "price": 11000
+   },
+   {
+    "qty": 250,
+    "price": 12500
+   },
+   {
+    "qty": 500,
+    "price": 15500
+   },
+   {
+    "qty": 1000,
+    "price": 21000
+   }
+  ],
+  "options": [
+   {
+    "name": "Impression",
+    "choices": [
+     {
+      "label": "Recto-verso",
+      "pct": 0
+     },
+     {
+      "label": "Recto seul",
+      "pct": -10
+     }
+    ]
+   },
+   {
+    "name": "Pelliculage",
+    "choices": [
+     {
+      "label": "Mat",
+      "pct": 0
+     },
+     {
+      "label": "Brillant",
+      "pct": 0
+     },
+     {
+      "label": "Soft touch",
+      "pct": 20
+     }
+    ]
+   },
+   {
+    "name": "Coins",
+    "choices": [
+     {
+      "label": "Carrés",
+      "pct": 0
+     },
+     {
+      "label": "Arrondis",
+      "pct": 10
+     }
+    ]
+   }
+  ],
+  "formatMm": [
+   85,
+   55
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": true,
+  "sort": 0,
+  "sourceUrl": "https://www.24hprint.ma/carte-de-visite/cartes_de_visite/carte-de-visite-standard/"
+ },
+ {
+  "slug": "carte-de-visite-vernis-selectif-3d",
+  "name": "Carte de visite vernis sélectif 3D",
+  "category": "Cartes de visite",
+  "categorySlug": "cartes-de-visite",
+  "color": "yellow",
+  "description": "Relief brillant sur votre logo ou vos textes. Finition haut de gamme.",
+  "unit": "ex.",
+  "pricing": "pack",
+  "tiers": [
+   {
+    "qty": 500,
+    "price": 39000
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   85,
+   55
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 1,
+  "sourceUrl": "https://www.24hprint.ma/carte-de-visite/carte-de-visite-%3E-luxe/carte-vernis-s%C3%A9lectif/"
+ },
+ {
+  "slug": "carte-de-visite-aimantee",
+  "name": "Carte de visite aimantée",
+  "category": "Cartes de visite",
+  "categorySlug": "cartes-de-visite",
+  "color": "yellow",
+  "description": "Se colle sur le frigo de vos clients : idéale pour livreurs, plombiers, restaurants.",
+  "unit": "ex.",
+  "pricing": "pack",
+  "tiers": [
+   {
+    "qty": 25,
+    "price": 18500
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   85,
+   55
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 2,
+  "sourceUrl": "https://www.24hprint.ma/carte-de-visite-%3E-aimant%C3%A9/"
+ },
+ {
+  "slug": "carte-d-invitation",
+  "name": "Carte d'invitation",
+  "category": "Cartes & invitations",
+  "categorySlug": "cartes-invitations",
+  "color": "magenta",
+  "description": "Anniversaires, inaugurations, cérémonies : imprimée sur papier épais.",
+  "unit": "unité",
+  "pricing": "unit",
+  "tiers": [
+   {
+    "qty": 1,
+    "price": 200
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   148,
+   105
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 3,
+  "sourceUrl": "https://www.24hprint.ma/cartes-de-voeux-invitation/"
+ },
+ {
+  "slug": "invitation-de-mariage",
+  "name": "Invitation de mariage",
+  "category": "Cartes & invitations",
+  "categorySlug": "cartes-invitations",
+  "color": "magenta",
+  "description": "Papier premium et finitions soignées pour le grand jour.",
+  "unit": "unité",
+  "pricing": "unit",
+  "tiers": [
+   {
+    "qty": 1,
+    "price": 550
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   148,
+   210
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 4,
+  "sourceUrl": "https://www.24hprint.ma/carte-de-visite/autres-cartes/invitation-de-mariage-213/"
+ },
+ {
+  "slug": "badge-pvc-petit-format",
+  "name": "Badge PVC petit format",
+  "category": "Cartes & invitations",
+  "categorySlug": "cartes-invitations",
+  "color": "magenta",
+  "description": "Badge rigide pour salariés, événements et accès.",
+  "unit": "unité",
+  "pricing": "unit",
+  "tiers": [
+   {
+    "qty": 1,
+    "price": 300
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   86,
+   54
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 5,
+  "sourceUrl": "https://www.24hprint.ma/objets-pub/badge-/badge-%3E-pvc/"
+ },
+ {
+  "slug": "flyer-a6",
+  "name": "Flyer A6",
+  "category": "Flyers",
+  "categorySlug": "flyers",
+  "color": "magenta",
+  "description": "Petit format économique, parfait pour la distribution de rue.",
+  "unit": "ex.",
+  "pricing": "pack",
+  "tiers": [
+   {
+    "qty": 2500,
+    "price": 24500
+   },
+   {
+    "qty": 5000,
+    "price": 42000
+   },
+   {
+    "qty": 10000,
+    "price": 66000
+   }
+  ],
+  "options": [
+   {
+    "name": "Impression",
+    "choices": [
+     {
+      "label": "Recto-verso",
+      "pct": 0
+     },
+     {
+      "label": "Recto seul",
+      "pct": -10
+     }
+    ]
+   },
+   {
+    "name": "Papier",
+    "choices": [
+     {
+      "label": "Couché brillant 135 g",
+      "pct": 0
+     },
+     {
+      "label": "Couché mat 170 g",
+      "pct": 15
+     }
+    ]
+   }
+  ],
+  "formatMm": [
+   105,
+   148
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 6,
+  "sourceUrl": "https://www.24hprint.ma/super-super-promos/super-promo-%3E-flyer-a6/"
+ },
+ {
+  "slug": "flyer-a5",
+  "name": "Flyer A5",
+  "category": "Flyers",
+  "categorySlug": "flyers",
+  "color": "magenta",
+  "description": "Le format le plus demandé pour vos promotions et événements.",
+  "unit": "ex.",
+  "pricing": "pack",
+  "tiers": [
+   {
+    "qty": 2500,
+    "price": 41500
+   },
+   {
+    "qty": 5000,
+    "price": 63000
+   },
+   {
+    "qty": 10000,
+    "price": 116500
+   }
+  ],
+  "options": [
+   {
+    "name": "Impression",
+    "choices": [
+     {
+      "label": "Recto-verso",
+      "pct": 0
+     },
+     {
+      "label": "Recto seul",
+      "pct": -10
+     }
+    ]
+   },
+   {
+    "name": "Papier",
+    "choices": [
+     {
+      "label": "Couché brillant 135 g",
+      "pct": 0
+     },
+     {
+      "label": "Couché mat 170 g",
+      "pct": 15
+     }
+    ]
+   }
+  ],
+  "formatMm": [
+   148,
+   210
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": true,
+  "sort": 7,
+  "sourceUrl": "https://www.24hprint.ma/super-super-promos/super-promo-%3E-flyer-a5/"
+ },
+ {
+  "slug": "flyer-a4",
+  "name": "Flyer A4",
+  "category": "Flyers",
+  "categorySlug": "flyers",
+  "color": "magenta",
+  "description": "Grand format pour menus, tarifs et présentations détaillées.",
+  "unit": "ex.",
+  "pricing": "pack",
+  "tiers": [
+   {
+    "qty": 2500,
+    "price": 82500
+   },
+   {
+    "qty": 5000,
+    "price": 126000
+   },
+   {
+    "qty": 10000,
+    "price": 233000
+   }
+  ],
+  "options": [
+   {
+    "name": "Impression",
+    "choices": [
+     {
+      "label": "Recto-verso",
+      "pct": 0
+     },
+     {
+      "label": "Recto seul",
+      "pct": -10
+     }
+    ]
+   },
+   {
+    "name": "Papier",
+    "choices": [
+     {
+      "label": "Couché brillant 135 g",
+      "pct": 0
+     },
+     {
+      "label": "Couché mat 170 g",
+      "pct": 15
+     }
+    ]
+   }
+  ],
+  "formatMm": [
+   210,
+   297
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 8,
+  "sourceUrl": "https://www.24hprint.ma/super-super-promos/super-promo-%3E-flyers-a5-814/"
+ },
+ {
+  "slug": "flyer-dl",
+  "name": "Flyer DL",
+  "category": "Flyers",
+  "categorySlug": "flyers",
+  "color": "magenta",
+  "description": "Format allongé, élégant pour menus et programmes.",
+  "unit": "ex.",
+  "pricing": "pack",
+  "tiers": [
+   {
+    "qty": 2500,
+    "price": 41500
+   },
+   {
+    "qty": 5000,
+    "price": 63000
+   },
+   {
+    "qty": 10000,
+    "price": 116500
+   }
+  ],
+  "options": [
+   {
+    "name": "Impression",
+    "choices": [
+     {
+      "label": "Recto-verso",
+      "pct": 0
+     },
+     {
+      "label": "Recto seul",
+      "pct": -10
+     }
+    ]
+   },
+   {
+    "name": "Papier",
+    "choices": [
+     {
+      "label": "Couché brillant 135 g",
+      "pct": 0
+     },
+     {
+      "label": "Couché mat 170 g",
+      "pct": 15
+     }
+    ]
+   }
+  ],
+  "formatMm": [
+   99,
+   210
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 9,
+  "sourceUrl": "https://www.24hprint.ma/super-super-promos/super-promo-%3E-flyer-dl/"
+ },
+ {
+  "slug": "chemise-a-rabat-collee",
+  "name": "Chemise à rabat collée",
+  "category": "Papeterie",
+  "categorySlug": "papeterie",
+  "color": "cyan",
+  "description": "Pour présenter devis, contrats et dossiers clients.",
+  "unit": "unité",
+  "pricing": "unit",
+  "tiers": [
+   {
+    "qty": 1,
+    "price": 250
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   220,
+   310
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 10,
+  "sourceUrl": "https://www.24hprint.ma/papeterie-106/chemise-%C3%A0-rabat-222/chemise-%C3%A0-rabat-%3E-coll%C3%A9/"
+ },
+ {
+  "slug": "catalogues-brochures",
+  "name": "Catalogues & brochures",
+  "category": "Papeterie",
+  "categorySlug": "papeterie",
+  "color": "cyan",
+  "description": "Présentez vos produits et services sur plusieurs pages.",
+  "unit": "ex.",
+  "pricing": "pack",
+  "tiers": [
+   {
+    "qty": 100,
+    "price": 57500
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   210,
+   297
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 11,
+  "sourceUrl": "https://www.24hprint.ma/catalogues-et-brochures/categories/"
+ },
+ {
+  "slug": "roll-up-85x200",
+  "name": "Roll-up 85×200 cm",
+  "category": "Roll-up & PLV",
+  "categorySlug": "roll-up-plv",
+  "color": "blue",
+  "description": "Support enrouleur inclus, monté en 30 secondes. Indispensable en salon.",
+  "unit": "unité",
+  "pricing": "unit",
+  "tiers": [
+   {
+    "qty": 1,
+    "price": 33500
+   }
+  ],
+  "options": [
+   {
+    "name": "Impression",
+    "choices": [
+     {
+      "label": "Standard",
+      "pct": 0
+     },
+     {
+      "label": "Premium HP Latex",
+      "pct": 25
+     }
+    ]
+   }
+  ],
+  "formatMm": [
+   850,
+   2000
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": true,
+  "sort": 12,
+  "sourceUrl": "https://www.24hprint.ma/roll-up-plv/roll-up/test-roll-up-895/"
+ },
+ {
+  "slug": "plaque-professionnelle-plexiglas",
+  "name": "Plaque professionnelle plexiglas",
+  "category": "Roll-up & PLV",
+  "categorySlug": "roll-up-plv",
+  "color": "blue",
+  "description": "Plaque de porte ou d'accueil en plexiglas, entretoises incluses.",
+  "unit": "unité",
+  "pricing": "unit",
+  "tiers": [
+   {
+    "qty": 1,
+    "price": 12500
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   300,
+   200
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 13,
+  "sourceUrl": "https://www.24hprint.ma/stand-e-expo/support-rigide-%3E-plexiglas/plaque-professionnelle-519/"
+ },
+ {
+  "slug": "urne-en-plexiglas",
+  "name": "Urne en plexiglas",
+  "category": "Roll-up & PLV",
+  "categorySlug": "roll-up-plv",
+  "color": "blue",
+  "description": "Urne transparente personnalisée pour jeux-concours et collectes.",
+  "unit": "unité",
+  "pricing": "unit",
+  "tiers": [
+   {
+    "qty": 1,
+    "price": 49000
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   250,
+   250
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 14,
+  "sourceUrl": "https://www.24hprint.ma/roll-up-plv/plv-en-plexiglass/urne-en-plexiglass-transparent/"
+ },
+ {
+  "slug": "bache-440-g-brillante-ou-mate",
+  "name": "Bâche 440 g brillante ou mate",
+  "category": "Grand format",
+  "categorySlug": "grand-format",
+  "color": "brand",
+  "description": "Banderole extérieure résistante, œillets inclus. Prix au m².",
+  "unit": "m²",
+  "pricing": "area",
+  "tiers": [
+   {
+    "qty": 10,
+    "price": 3400
+   },
+   {
+    "qty": 25,
+    "price": 3200
+   },
+   {
+    "qty": 50,
+    "price": 3000
+   }
+  ],
+  "options": [
+   {
+    "name": "Finition",
+    "choices": [
+     {
+      "label": "Brillante",
+      "pct": 0
+     },
+     {
+      "label": "Mate",
+      "pct": 0
+     }
+    ]
+   },
+   {
+    "name": "Œillets",
+    "choices": [
+     {
+      "label": "Tous les 50 cm",
+      "pct": 0
+     },
+     {
+      "label": "Sans œillets",
+      "pct": 0
+     }
+    ]
+   }
+  ],
+  "formatMm": null,
+  "customizable": true,
+  "visible": true,
+  "featured": true,
+  "sort": 15,
+  "sourceUrl": "https://www.24hprint.ma/super-super-promos/b%C3%A2che-94/"
+ },
+ {
+  "slug": "vinyle-adhesif-grand-format",
+  "name": "Vinyle adhésif grand format",
+  "category": "Grand format",
+  "categorySlug": "grand-format",
+  "color": "brand",
+  "description": "Adhésif pour vitrines, véhicules et murs. Prix au m².",
+  "unit": "m²",
+  "pricing": "area",
+  "tiers": [
+   {
+    "qty": 10,
+    "price": 4150
+   },
+   {
+    "qty": 25,
+    "price": 3950
+   },
+   {
+    "qty": 100,
+    "price": 3750
+   }
+  ],
+  "options": [],
+  "formatMm": null,
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 16,
+  "sourceUrl": "https://www.24hprint.ma/support-souple/grand-format-%3E-autocollant/products/"
+ },
+ {
+  "slug": "stickers-decoupe-a-la-forme",
+  "name": "Stickers découpe à la forme",
+  "category": "Stickers & étiquettes",
+  "categorySlug": "stickers-etiquettes",
+  "color": "cyan",
+  "description": "Stickers découpés autour de votre logo ou dessin.",
+  "unit": "ex.",
+  "pricing": "pack",
+  "tiers": [
+   {
+    "qty": 25,
+    "price": 11000
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   50,
+   50
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": true,
+  "sort": 17,
+  "sourceUrl": "https://www.24hprint.ma/etiquette/%C3%89tiquettes-%3E-forme-sp%C3%A9ciale/stickers-sur-mesure-426/"
+ },
+ {
+  "slug": "etiquettes-adhesives",
+  "name": "Étiquettes adhésives",
+  "category": "Stickers & étiquettes",
+  "categorySlug": "stickers-etiquettes",
+  "color": "cyan",
+  "description": "Étiquettes pour vos produits, bouteilles et emballages.",
+  "unit": "ex.",
+  "pricing": "pack",
+  "tiers": [
+   {
+    "qty": 500,
+    "price": 21500
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   50,
+   50
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 18,
+  "sourceUrl": "https://www.24hprint.ma/etiquette/categories/"
+ },
+ {
+  "slug": "etiquettes-en-bobine",
+  "name": "Étiquettes en bobine",
+  "category": "Stickers & étiquettes",
+  "categorySlug": "stickers-etiquettes",
+  "color": "cyan",
+  "description": "Étiquettes en rouleau pour conditionnement en série.",
+  "unit": "ex.",
+  "pricing": "pack",
+  "tiers": [
+   {
+    "qty": 500,
+    "price": 24500
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   50,
+   50
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 19,
+  "sourceUrl": "https://www.24hprint.ma/etiquette/etiquettes-en-bobine/etiquettes-en-rouleau-quadri/"
+ },
+ {
+  "slug": "lettrage-vinyle-decoupe",
+  "name": "Lettrage vinyle découpé",
+  "category": "Stickers & étiquettes",
+  "categorySlug": "stickers-etiquettes",
+  "color": "cyan",
+  "description": "Lettres adhésives découpées pour vitrines et véhicules.",
+  "unit": "unité",
+  "pricing": "unit",
+  "tiers": [
+   {
+    "qty": 1,
+    "price": 11000
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   600,
+   300
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 20,
+  "sourceUrl": "https://www.24hprint.ma/produits/supports-marketing/vinyle-d%C3%A9coupe-%3E-lettrage-1-couleur/"
+ },
+ {
+  "slug": "impression-dtf",
+  "name": "Impression DTF",
+  "category": "Textile",
+  "categorySlug": "textile",
+  "color": "ink",
+  "description": "Transfert textile haute définition, à presser sur t-shirts, sweats, sacs.",
+  "unit": "planche",
+  "pricing": "unit",
+  "tiers": [
+   {
+    "qty": 1,
+    "price": 8000
+   }
+  ],
+  "options": [
+   {
+    "name": "Impression",
+    "choices": [
+     {
+      "label": "Quadri HD + blanc",
+      "pct": 0
+     },
+     {
+      "label": "Blanc seul",
+      "pct": 0
+     }
+    ]
+   }
+  ],
+  "formatMm": [
+   560,
+   1000
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": true,
+  "sort": 21,
+  "sourceUrl": "https://www.24hprint.ma/support-souple/supports-de-marquage-textile/impression-dtf/"
+ },
+ {
+  "slug": "packagings-boites",
+  "name": "Packagings & boîtes",
+  "category": "Packaging",
+  "categorySlug": "packaging",
+  "color": "yellow",
+  "description": "Boîtes pliantes personnalisées pour vos produits.",
+  "unit": "ex.",
+  "pricing": "pack",
+  "tiers": [
+   {
+    "qty": 100,
+    "price": 30500
+   }
+  ],
+  "options": [],
+  "formatMm": [
+   150,
+   100
+  ],
+  "customizable": true,
+  "visible": true,
+  "featured": false,
+  "sort": 22,
+  "sourceUrl": "https://www.24hprint.ma/%C3%89tiquette-et-packaging/categories/"
+ }
+]

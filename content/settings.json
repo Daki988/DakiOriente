@@ -1,0 +1,17 @@
+{
+  "name": "Neam Print",
+  "tagline": "Imprimerie en ligne à Libreville",
+  "whatsapp": "24177453167",
+  "phoneDisplay": "+241 77 45 31 67",
+  "email": "",
+  "address": "Libreville, Gabon",
+  "hours": "Lundi au samedi, 8 h – 19 h",
+  "payments": ["Airtel Money", "Moov Money", "Espèces"],
+  "delivery": {
+    "pickup": "Retrait à l’atelier (gratuit)",
+    "libreville": "Livraison à Libreville",
+    "libreville_fee": 2000
+  },
+  "designFee": 10000,
+  "minPrice": 0
+}
