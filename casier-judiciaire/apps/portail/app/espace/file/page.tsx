@@ -33,16 +33,16 @@ export default async function FileDeTravail() {
         ? <Alerte type="succes" titre="File vide">Aucune demande en attente de vérification.</Alerte>
         : (
           <ConteneurTableau libelle="Demandes à traiter">
-            <table className="cj-tableau">
+            <table className="cj-tableau cj-tableau--empile">
               <thead><tr><th>Dossier</th><th>Demandeur</th><th>Motif</th><th>Échéance</th><th>État</th></tr></thead>
               <tbody>
                 {file.map((d) => (
                   <tr key={d.id}>
-                    <td><Link href={`/espace/file/${encodeURIComponent(d.id)}`}>{d.numeroDossier}</Link></td>
-                    <td>{d.identite.nom} {d.identite.prenoms}<br /><small>{libellesProfils[d.profil] ?? d.profil}</small></td>
-                    <td>{d.motif}</td>
-                    <td>{dateHeure(d.echeance)}<br /><small>reste {duree(d.restant)}</small></td>
-                    <td>
+                    <th scope="row"><Link href={`/espace/file/${encodeURIComponent(d.id)}`}>{d.numeroDossier}</Link></th>
+                    <td data-label="Demandeur"><span>{d.identite.nom} {d.identite.prenoms}<br /><small>{libellesProfils[d.profil] ?? d.profil}</small></span></td>
+                    <td data-label="Motif"><span>{d.motif}</span></td>
+                    <td data-label="Échéance"><span>{dateHeure(d.echeance)}<br /><small>reste {duree(d.restant)}</small></span></td>
+                    <td data-label="État">
                       {d.enRetard ? <Badge ton="erreur">En retard</Badge>
                         : d.alerte ? <Badge ton="alerte">Échéance proche</Badge>
                         : d.statut === 'EN_ATTENTE_PIECE' ? <Badge ton="neutre">Pièce demandée</Badge>

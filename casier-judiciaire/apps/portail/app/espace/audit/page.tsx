@@ -15,17 +15,17 @@ export default async function Audit() {
         ? <Alerte type="succes" titre="Journal intègre">{integrite.entreesVerifiees.toLocaleString('fr-FR')} entrées vérifiées.</Alerte>
         : <Alerte type="erreur" titre="Altération détectée">Première entrée altérée : n°{integrite.premiereAlteration}.</Alerte>)}
       <ConteneurTableau libelle="Dernières entrées du journal">
-        <table className="cj-tableau">
+        <table className="cj-tableau cj-tableau--empile">
           <thead><tr><th className="cj-nombre">N°</th><th>Date</th><th>Acteur</th><th>Action</th><th>Objet</th><th>Finalité</th></tr></thead>
           <tbody>
             {entrees.map((e) => (
               <tr key={e.numero}>
-                <td className="cj-nombre">{e.numero}</td>
-                <td>{dateHeure(e.horodatage)}</td>
-                <td>{e.evenement.acteurId}<br /><small>{e.evenement.roles}</small></td>
-                <td>{e.evenement.action}</td>
-                <td>{e.evenement.objetType ?? '—'}{e.evenement.objetId ? <><br /><small>{e.evenement.objetId}</small></> : null}</td>
-                <td>{e.evenement.finalite ?? '—'}</td>
+                <th scope="row">N° {e.numero}</th>
+                <td data-label="Date">{dateHeure(e.horodatage)}</td>
+                <td data-label="Acteur"><span>{e.evenement.acteurId}<br /><small>{e.evenement.roles}</small></span></td>
+                <td data-label="Action">{e.evenement.action}</td>
+                <td data-label="Objet"><span>{e.evenement.objetType ?? '—'}{e.evenement.objetId ? <><br /><small>{e.evenement.objetId}</small></> : null}</span></td>
+                <td data-label="Finalité">{e.evenement.finalite ?? '—'}</td>
               </tr>
             ))}
           </tbody>

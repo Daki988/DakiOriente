@@ -1,4 +1,4 @@
-# Casier judiciaire numérique — paquet d'installation 1.0.0
+# Casier judiciaire numérique — paquet d'installation 1.0.1
 
 République gabonaise · Ministère de la Justice · Version du 17 octobre 2026 (version finale de démonstration)
 
@@ -105,7 +105,7 @@ Au premier démarrage, le service crée la base (migrations), charge le barème 
 
 - Pile complète lancée depuis ce paquet : service démarré, base créée, référentiels chargés ; portail relié au service (tarifs, vérification, toutes les pages).
 - 60 tests du service sur base PostgreSQL réelle (parcours complet, bulletin PDF scellé et détection de falsification, journal inaltérable, registre sans suppression), couverture du cœur métier ≥ 85 %.
-- 126 tests du portail (parcours, paiement au Trésor, impression, transparence, satisfaction, orientation, espaces connectés, dépôt de PDF, accessibilité WCAG 2.1 AA, mobile et ordinateur).
+- 136 tests du portail (affichage sans débordement de 320 px à la tablette, parcours, paiement au Trésor, impression, transparence, satisfaction, orientation, espaces connectés, dépôt de PDF, accessibilité WCAG 2.1 AA, mobile et ordinateur).
 - Analyses de sécurité (Trivy, gitleaks, Semgrep) sans alerte haute ni critique.
 
 ## Avant une mise en service officielle par l'État

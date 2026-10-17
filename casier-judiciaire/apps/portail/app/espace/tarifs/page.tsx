@@ -16,16 +16,16 @@ export default async function Tarifs() {
       <TitreEspace titre="Tarifs" chapo="Aucun tarif n’est écrit dans le code : chaque montant est une donnée datée, validée à quatre yeux." />
       <MessageAction session={s} />
       <ConteneurTableau libelle="Historique des tarifs">
-        <table className="cj-tableau">
+        <table className="cj-tableau cj-tableau--empile">
           <thead><tr><th>Acte et profil</th><th className="cj-nombre">Montant</th><th>Date d’effet</th><th>État</th><th>Action</th></tr></thead>
           <tbody>
             {tarifs.map((t) => (
               <tr key={t.id}>
-                <td>{libellesActes[t.acte] ?? t.acte}<br /><small>{libellesProfils[t.profil] ?? t.profil}</small></td>
-                <td className="cj-nombre">{fcfa(t.montantFcfa)}{t.provisoire && <><br /><small>provisoire</small></>}</td>
-                <td>{dateLongue(t.dateEffet)}</td>
-                <td>{t.statut === 'VALIDE' ? <Badge ton="succes">Validé</Badge> : t.statut === 'PROPOSE' ? <Badge ton="alerte">À valider</Badge> : <Badge ton="erreur">Rejeté</Badge>}</td>
-                <td>
+                <th scope="row">{libellesActes[t.acte] ?? t.acte}<br /><small>{libellesProfils[t.profil] ?? t.profil}</small></th>
+                <td className="cj-nombre" data-label="Montant"><span>{fcfa(t.montantFcfa)}{t.provisoire && <><br /><small>provisoire</small></>}</span></td>
+                <td data-label="Date d’effet">{dateLongue(t.dateEffet)}</td>
+                <td data-label="État">{t.statut === 'VALIDE' ? <Badge ton="succes">Validé</Badge> : t.statut === 'PROPOSE' ? <Badge ton="alerte">À valider</Badge> : <Badge ton="erreur">Rejeté</Badge>}</td>
+                <td data-label="Action">
                   {t.statut === 'PROPOSE' && (t.proposePar === s.sujet
                     ? <small>Proposé par vous</small>
                     : (

@@ -221,3 +221,7 @@
 .p-avis__libelle { font-size: 0.75rem; color: var(--cj-texte-secondaire); }
 .p-avis__note:has(input:checked) { border: 2px solid var(--cj-action-primaire); background: var(--cj-etat-succes-fond); }
 .p-avis__note:has(input:focus-visible) { outline: 3px solid var(--cj-bordure-focus); outline-offset: 2px; }
+
+/* Petits écrans : les colonnes de grille peuvent rétrécir sous la largeur de leur contenu. */
+.p-contenu > *, .p-parcours > *, .p-deux-colonnes > *, .p-page-entete__grille > *, .p-accueil__contenu > * { min-width: 0; }
+.p-prose { overflow-wrap: anywhere; }

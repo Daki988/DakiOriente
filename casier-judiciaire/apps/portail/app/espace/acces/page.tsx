@@ -27,15 +27,15 @@ export default async function AccesDonnees() {
         ? <Alerte type="info" titre="Aucun accès">Aucune action n’est enregistrée sur vos données.</Alerte>
         : (
           <ConteneurTableau libelle="Accès à mes données">
-            <table className="cj-tableau">
+            <table className="cj-tableau cj-tableau--empile">
               <thead><tr><th>Date</th><th>Action</th><th>Par</th><th>Motif</th></tr></thead>
               <tbody>
                 {acces.map((a, i) => (
                   <tr key={i}>
-                    <td>{dateHeure(a.horodatage)}</td>
-                    <td>{ACTIONS[a.action] ?? a.action.toLowerCase().replace(/_/g, ' ')}</td>
-                    <td>{a.auteur}</td>
-                    <td>{a.finalite ?? '—'}</td>
+                    <th scope="row">{dateHeure(a.horodatage)}</th>
+                    <td data-label="Action">{ACTIONS[a.action] ?? a.action.toLowerCase().replace(/_/g, ' ')}</td>
+                    <td data-label="Par">{a.auteur}</td>
+                    <td data-label="Motif">{a.finalite ?? '—'}</td>
                   </tr>
                 ))}
               </tbody>

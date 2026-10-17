@@ -47,8 +47,10 @@
 .cj-pile { display: flex; flex-direction: column; gap: var(--cj-espace-4); }
 .cj-grille { display: grid; gap: var(--cj-espace-6); grid-template-columns: 1fr; }
 @media (min-width: 640px) { .cj-grille--2, .cj-grille--3, .cj-grille--4 { grid-template-columns: repeat(2, 1fr); } }
+/* Tablette : trois colonnes dès 768 px, pour ne pas laisser une carte seule sur sa ligne. */
+@media (min-width: 768px) { .cj-grille--3 { grid-template-columns: repeat(3, 1fr); gap: var(--cj-espace-4); } }
 @media (min-width: 1024px) {
-  .cj-grille--3 { grid-template-columns: repeat(3, 1fr); }
+  .cj-grille--3 { gap: var(--cj-espace-6); }
   .cj-grille--4 { grid-template-columns: repeat(4, 1fr); }
 }
 
@@ -129,7 +131,8 @@
 .cj-pied { background: var(--cj-fond-surface-attenuee); color: var(--cj-texte-principal); margin-top: var(--cj-espace-16); border-top: 1px solid var(--cj-bordure-defaut); }
 .cj-pied a { color: var(--cj-texte-secondaire); }
 .cj-pied__haut { display: grid; gap: var(--cj-espace-8); padding-block: var(--cj-espace-12); grid-template-columns: 1fr; }
-@media (min-width: 768px) { .cj-pied__haut { grid-template-columns: 1.4fr repeat(3, 1fr); } }
+@media (min-width: 640px) { .cj-pied__haut { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .cj-pied__haut { grid-template-columns: 1.4fr repeat(3, 1fr); } }
 .cj-pied__titre { font-size: 0.875rem; font-weight: 700; color: var(--cj-texte-principal); margin-bottom: var(--cj-espace-3); }
 .cj-pied ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--cj-espace-2); }
 .cj-pied ul a { text-decoration: none; font-size: 0.9375rem; }
@@ -358,3 +361,46 @@ button.cj-choix-carte:focus-visible { outline: 3px solid var(--cj-bordure-focus)
 @media (min-width: 640px) { .cj-formulaire-ligne { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); align-items: end; } }
 @media (max-width: 519px) { .cj-en-tete .cj-bloc-marque__devise { display: none; } }
 .cj-panneau .cj-bouton { white-space: normal; text-align: left; padding-block: var(--cj-espace-2); max-width: 100%; }
+
+/* ---------- Petits écrans : aucun débordement horizontal (320 px et plus) ---------- */
+.cj-grille > * { min-width: 0; }
+@media (max-width: 479px) {
+  .cj-bouton { white-space: normal; text-align: center; padding-block: var(--cj-espace-2); }
+  .cj-bouton--l { padding-inline: var(--cj-espace-5); }
+}
+@media (max-width: 400px) {
+  .cj-en-tete__barre { gap: var(--cj-espace-3); min-height: 64px; }
+  .cj-bloc-marque { gap: var(--cj-espace-2); }
+  .cj-bloc-marque__embleme--logo, .cj-bloc-marque__embleme--logo img { width: 48px; height: 32px; }
+  .cj-bloc-marque__republique { font-size: 0.6875rem; letter-spacing: 0.04em; }
+  .cj-bloc-marque__ministere { font-size: 0.875rem; }
+  .cj-menu-mobile summary { padding-inline: var(--cj-espace-3); }
+}
+@media (max-width: 359px) {
+  .cj-menu-mobile summary span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+
+/* Tableaux empilés sur téléphone : chaque ligne devient une fiche, chaque cellule affiche son libellé (data-label). */
+@media (max-width: 639px) {
+  .cj-tableau--empile thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .cj-tableau--empile, .cj-tableau--empile tbody, .cj-tableau--empile tr { display: block; width: 100%; }
+  .cj-tableau--empile tr { padding: var(--cj-espace-3) var(--cj-espace-4); border-top: 1px solid var(--cj-bordure-defaut); }
+  .cj-tableau--empile tr:first-child { border-top: 0; }
+  .cj-tableau--empile th, .cj-tableau--empile td { display: flex; justify-content: space-between; gap: var(--cj-espace-4);
+    padding: var(--cj-espace-1) 0; border: 0; text-align: right; }
+  .cj-tableau--empile th[scope='row'] { display: block; text-align: left; font-size: 1rem; padding-bottom: var(--cj-espace-2); }
+  .cj-tableau--empile td[data-label]::before { content: attr(data-label); flex: none; max-width: 45%; text-align: left;
+    font-size: 0.8125rem; color: var(--cj-texte-secondaire); font-weight: 600; }
+  .cj-tableau--empile td.cj-nombre, .cj-tableau--empile th.cj-nombre { text-align: right; }
+  .cj-tableau-conteneur:has(.cj-tableau--empile) { overflow-x: visible; }
+}
+
+/* Indicateurs : deux par ligne sur téléphone. */
+@media (max-width: 639px) { .cj-grille:has(> .cj-tuile) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cj-espace-4); } }
+
+/* Navigation de l'espace sur téléphone : pastilles sur plusieurs lignes, toutes visibles. */
+@media (max-width: 959px) {
+  .cj-nav-espace ul { flex-wrap: wrap; overflow: visible; gap: var(--cj-espace-2); }
+  .cj-nav-espace a { border: 1px solid var(--cj-bordure-defaut); background: var(--cj-fond-surface); padding: var(--cj-espace-2) var(--cj-espace-3); min-height: 44px; font-size: 0.9375rem; }
+  .cj-nav-espace a[aria-current='page'] { box-shadow: none; border-color: var(--cj-action-primaire); background: var(--cj-etat-succes-fond); }
+}
