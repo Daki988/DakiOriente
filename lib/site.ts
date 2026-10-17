@@ -1,7 +1,7 @@
 import settings from "@/content/settings.json";
 
 export { settings };
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000");
 
 export const waLink = (phone: string, text: string) =>
   `https://wa.me/${phone.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
