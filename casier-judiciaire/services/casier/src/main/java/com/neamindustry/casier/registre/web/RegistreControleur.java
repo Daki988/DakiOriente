@@ -108,6 +108,12 @@ class RegistreControleur {
         return consultation.fiche(acteur.obtenir(), personneId, motif);
     }
 
+    /** DSH-06 : inscriptions à valider par le greffier en chef. */
+    @GetMapping("/inscriptions-en-attente")
+    List<com.neamindustry.casier.registre.InscriptionEnAttente> enAttente() {
+        return consultation.enAttente(acteur.obtenir());
+    }
+
     @GetMapping("/recherche")
     List<ProfilIdentite> rechercher(@RequestParam String nom, @RequestParam(defaultValue = "") String prenoms,
                                     @RequestParam(required = false) LocalDate dateNaissance, @RequestParam(required = false) String cnie,

@@ -21,6 +21,9 @@
     <spring-modulith.version>2.1.1</spring-modulith.version>
     <springdoc.version>3.1.1</springdoc.version>
     <commons-text.version>1.15.0</commons-text.version>
+    <pdfbox.version>3.0.8</pdfbox.version>
+    <zxing.version>3.5.4</zxing.version>
+    <bouncycastle.version>1.86</bouncycastle.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- SEC-09 : correctifs de sécurité en attendant la prochaine version de Spring Boot (analyse Trivy du SBOM, 17/10/2026).
          Tomcat : CVE-2026-65182, CVE-2026-65905, CVE-2026-68525 (critiques). Jackson : CVE-2026-89407, -89425, -68497, -91776, -91777.
@@ -99,6 +102,27 @@
       <version>${commons-text.version}</version>
     </dependency>
 
+    <!-- BUL-01 à BUL-03 : bulletin PDF/A, QR code, sceau électronique PAdES -->
+    <dependency>
+      <groupId>org.apache.pdfbox</groupId>
+      <artifactId>pdfbox</artifactId>
+      <version>${pdfbox.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.pdfbox</groupId>
+      <artifactId>xmpbox</artifactId>
+      <version>${pdfbox.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.zxing</groupId>
+      <artifactId>core</artifactId>
+      <version>${zxing.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcpkix-jdk18on</artifactId>
+      <version>${bouncycastle.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>

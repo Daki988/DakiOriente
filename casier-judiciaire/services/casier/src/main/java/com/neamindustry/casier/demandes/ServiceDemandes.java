@@ -25,6 +25,7 @@ import com.neamindustry.casier.bulletins.IdentiteSurBulletin;
 import com.neamindustry.casier.commun.Empreintes;
 import com.neamindustry.casier.commun.ErreurMetier;
 import com.neamindustry.casier.commun.RessourceIntrouvable;
+import com.neamindustry.casier.demandes.interne.Avis;
 import com.neamindustry.casier.demandes.interne.Demande;
 import com.neamindustry.casier.demandes.interne.DepotDemandes;
 import com.neamindustry.casier.habilitations.AccesRefuse;
@@ -60,10 +61,12 @@ public class ServiceDemandes {
     private final Clock horloge;
     private final TransactionTemplate transactions;
     private final SecureRandom aleatoire = new SecureRandom();
+    private final Avis avis;
 
     ServiceDemandes(DepotDemandes depot, ReferentielTarifs tarifs, RegistreLecture registre, Rapprochement rapprochement,
                     EmissionBulletins bulletins, Habilitations habilitations, JournalAudit journal,
-                    ParametresDemandes parametres, Clock horloge, PlatformTransactionManager gestionnaire) {
+                    ParametresDemandes parametres, Clock horloge, PlatformTransactionManager gestionnaire, Avis avis) {
+        this.avis = avis;
         this.depot = depot;
         this.tarifs = tarifs;
         this.registre = registre;
@@ -88,7 +91,10 @@ public class ServiceDemandes {
                 usager.identifiant(), usager.identiteVerifiee(), StatutDemande.EN_ATTENTE_PAIEMENT, tarif.montantFcfa(),
                 tarif.provisoire(), null, maintenant, null, null, null, null, null, null, null, null, null, null);
         depot.inserer(d);
+        depot.enregistrerContact(d.id(), nouvelle.telephone() == null ? null : nouvelle.telephone().replaceAll("\\s", ""),
+                nouvelle.email());
         depot.ajouterEtape(d.id(), maintenant, d.statut(), d.statut().libelle());
+        avis.depose(d.id(), numero, code);
         journal.enregistrer(EvenementAudit.par(usager, "DEMANDE_B3_DEPOSEE", "Demande", d.id().toString(), null, null,
                 Map.of("numero", numero, "profil", nouvelle.profil().name(), "identiteVerifiee", String.valueOf(usager.identiteVerifiee()))));
         return new DemandeDeposee(d.id(), numero, code, tarif.montantFcfa(), tarif.provisoire());
@@ -192,6 +198,7 @@ public class ServiceDemandes {
         depot.changerStatut(id, StatutDemande.EN_ATTENTE_PIECE, Map.of("suspendu_depuis", maintenant, "motif_agent", "Pièce demandée : " + piece));
         depot.ajouterEtape(id, maintenant, StatutDemande.EN_ATTENTE_PIECE, "Pièce complémentaire demandée : " + piece);
         journal.enregistrer(EvenementAudit.par(agent, "PIECE_DEMANDEE", "Demande", d.id().toString(), null, piece, Map.of()));
+        avis.pieceDemandee(d.id(), d.numeroDossier());
     }
 
     /** RG-09 : la pièce est déposée par le demandeur ; le délai reprend pour la durée restante. */
@@ -248,6 +255,32 @@ public class ServiceDemandes {
         depot.changerStatut(id, StatutDemande.REJETEE, Map.of("motif_rejet", motif));
         depot.ajouterEtape(id, maintenant, StatutDemande.REJETEE, "Demande rejetée : " + motif);
         journal.enregistrer(EvenementAudit.par(agent, "DEMANDE_REJETEE", "Demande", id.toString(), null, motif, Map.of()));
+        avis.rejete(id, d.numeroDossier());
+    }
+
+    /** DSH-01 : demandes de l'usager connecté, avec frise, bulletin et avis reçus. */
+    @Transactional(readOnly = true)
+    public List<DemandeUsager> mesDemandes(Acteur usager) {
+        habilitations.exiger(usager, Permission.DEMANDER_B3_POUR_SOI);
+        return depot.parDemandeur(usager.identifiant()).stream()
+                .map(d -> new DemandeUsager(d.id(), d.numeroDossier(), d.statut(), d.statut().libelle(), d.creeLe(), d.echeance(),
+                        d.montantFcfa(), d.tarifProvisoire(), d.bulletinId(), d.bulletinNumero(),
+                        d.statut() == StatutDemande.EN_ATTENTE_PIECE ? d.motifAgent() : null, d.motifRejet(),
+                        depot.etapes(d.id()), depot.notifications(d.id())))
+                .toList();
+    }
+
+    /** DSH-07, DSH-08 : indicateurs agrégés pour le pilotage national et le tableau de bord stratégique. */
+    @Transactional(readOnly = true)
+    public IndicateursDemandes indicateurs(Acteur acteur) {
+        if (!com.neamindustry.casier.habilitations.MatriceHabilitations.autorise(acteur.roles(), Permission.SUPERVISER_NATIONAL)
+                && !com.neamindustry.casier.habilitations.MatriceHabilitations.autorise(acteur.roles(), Permission.LIRE_TABLEAUX_AGREGES)) {
+            throw new com.neamindustry.casier.habilitations.AccesRefuse("HAB-01", "Votre profil ne permet pas de consulter les indicateurs.");
+        }
+        Map<String, Long> parStatut = depot.nombreParStatut();
+        long total = parStatut.values().stream().mapToLong(Long::longValue).sum();
+        return new IndicateursDemandes(parStatut, total, parStatut.getOrDefault("DELIVREE", 0L), depot.delivreesSansAgent(),
+                depot.delaiMoyenHeures(), depot.enRetard(Instant.now(horloge)), depot.recettes());
     }
 
     /** PUB-07 : suivi public avec le numéro de dossier et le code reçu par SMS. */
@@ -277,7 +310,8 @@ public class ServiceDemandes {
     private ResultatTraitement delivrer(Demande d, Acteur decideur, UUID personneId) {
         IdentiteDeclaree i = d.identite();
         BulletinDelivre b = bulletins.emettreB3(decideur, d.id(), personneId,
-                new IdentiteSurBulletin(i.nom(), i.prenoms(), i.dateNaissance(), i.lieuNaissance(), i.nomPere(), i.nomMere()));
+                new IdentiteSurBulletin(i.nom(), i.prenoms(), i.dateNaissance(), i.lieuNaissance(), i.nomPere(), i.nomMere()),
+                d.demandeurId());
         Instant maintenant = Instant.now(horloge);
         Map<String, Object> champs = new HashMap<>();
         champs.put("bulletin_id", b.id());
@@ -285,6 +319,7 @@ public class ServiceDemandes {
         champs.put("suspendu_depuis", null);
         depot.changerStatut(d.id(), StatutDemande.DELIVREE, champs);
         depot.ajouterEtape(d.id(), maintenant, StatutDemande.DELIVREE, StatutDemande.DELIVREE.libelle());
+        avis.delivre(d.id(), d.numeroDossier());
         return new ResultatTraitement(d.numeroDossier(), StatutDemande.DELIVREE, b);
     }
 

@@ -16,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neamindustry.casier.audit.EvenementAudit;
 import com.neamindustry.casier.audit.JournalAudit;
 import com.neamindustry.casier.bulletins.interne.DepotBulletins;
+import com.neamindustry.casier.bulletins.interne.GenerateurPdf;
 import com.neamindustry.casier.bulletins.interne.GenerateurSecrets;
+import com.neamindustry.casier.bulletins.interne.SceauElectronique;
 import com.neamindustry.casier.commun.CodeCourt;
 import com.neamindustry.casier.commun.Empreintes;
 import com.neamindustry.casier.commun.ErreurMetier;
@@ -48,9 +50,14 @@ public class EmissionBulletins {
     private final JournalAudit journal;
     private final ApplicationEventPublisher evenements;
     private final Clock horloge;
+    private final GenerateurPdf pdf;
+    private final SceauElectronique sceau;
 
     EmissionBulletins(RegistreLecture registre, MoteurDeRegles moteur, DepotBulletins depot, GenerateurSecrets secrets,
-                      Habilitations habilitations, JournalAudit journal, ApplicationEventPublisher evenements, Clock horloge) {
+                      Habilitations habilitations, JournalAudit journal, ApplicationEventPublisher evenements, Clock horloge,
+                      GenerateurPdf pdf, SceauElectronique sceau) {
+        this.pdf = pdf;
+        this.sceau = sceau;
         this.registre = registre;
         this.moteur = moteur;
         this.depot = depot;
@@ -65,11 +72,13 @@ public class EmissionBulletins {
      * Bulletin n°3 au profit de la personne elle-même (RG-01), décidé par le traitement automatique ou par un agent.
      * La personne et son identité ont été établies en amont par le rapprochement (section 12).
      *
-     * @param personneId fiche rapprochée, ou {@code null} si aucune fiche ne correspond (bulletin « néant », RG-06)
+     * @param personneId   fiche rapprochée, ou {@code null} si aucune fiche ne correspond (bulletin « néant », RG-06)
+     * @param destinataire identifiant de l'usager qui pourra seul télécharger son bulletin (RG-01)
      */
     @Transactional
-    public BulletinDelivre emettreB3(Acteur decideur, UUID demandeId, UUID personneId, IdentiteSurBulletin identite) {
-        return emettre(decideur, TypeBulletin.B3, demandeId, personneId, identite, null);
+    public BulletinDelivre emettreB3(Acteur decideur, UUID demandeId, UUID personneId, IdentiteSurBulletin identite,
+                                     String destinataire) {
+        return emettre(decideur, TypeBulletin.B3, demandeId, personneId, identite, null, destinataire, null);
     }
 
     /** RG-02 : bulletin n°2 délivré à une administration habilitée, pour une finalité autorisée. */
@@ -77,7 +86,7 @@ public class EmissionBulletins {
     public BulletinDelivre delivrerB2(Acteur agent, UUID personneId, IdentiteSurBulletin identite, String codeFinalite) {
         habilitations.exigerFinaliteB2(agent, codeFinalite, LocalDate.now(horloge));
         habilitations.exigerSansConflitInterets(agent, personneId);
-        return emettre(agent, TypeBulletin.B2, null, personneId, identite, codeFinalite);
+        return emettre(agent, TypeBulletin.B2, null, personneId, identite, codeFinalite, agent.identifiant(), agent.organisme());
     }
 
     /** RG-03 : bulletin n°1, consulté par un magistrat ou le Parquet avec un numéro de procédure. */
@@ -112,13 +121,60 @@ public class EmissionBulletins {
         evenements.publishEvent(new BulletinRevoque(bulletinId, b.empreinteJeton(), maintenant));
     }
 
+    /**
+     * DSH-01, DSH-03 : téléchargement du bulletin scellé par son seul destinataire (l'usager pour le n°3, l'organisme
+     * pour le n°2). Chaque téléchargement est journalisé.
+     */
+    @Transactional
+    public byte[] telecharger(Acteur acteur, UUID bulletinId) {
+        String[] acces = depot.acces(bulletinId).orElseThrow(() -> new RessourceIntrouvable("Bulletin introuvable."));
+        boolean autorise = acteur.identifiant().equals(acces[0])
+                || (acces[1] != null && acces[1].equals(acteur.organisme()) && acteur.aLeRole(com.neamindustry.casier.habilitations.Role.R03));
+        if (!autorise) {
+            throw new com.neamindustry.casier.habilitations.AccesRefuse("RG-01", "Ce bulletin ne vous est pas destiné.");
+        }
+        byte[] document = depot.document(bulletinId).orElseThrow(() -> new RessourceIntrouvable("Document introuvable."));
+        journal.enregistrer(EvenementAudit.par(acteur, "BULLETIN_TELECHARGE", "Bulletin", bulletinId.toString(), null, null, Map.of()));
+        return document;
+    }
+
+    /** DSH-07 : nombre de bulletins par type et statut (agrégat sans donnée nominative). */
+    @Transactional(readOnly = true)
+    public Map<String, Long> statistiques() {
+        return depot.nombreParType();
+    }
+
+    /** DSH-01 : bulletins reçus par l'acteur connecté. */
+    @Transactional(readOnly = true)
+    public List<BulletinRecu> mesBulletins(Acteur acteur) {
+        return depot.parDestinataire(acteur.identifiant()).stream()
+                .map(b -> new BulletinRecu(b.id(), b.numero(), TypeBulletin.valueOf(b.type()), b.statut(), b.dateEmission(),
+                        b.dateExpiration(), b.neant(), b.demandeId()))
+                .toList();
+    }
+
+    /**
+     * BUL-08 : contrôle d'un PDF déposé par un vérificateur. Renvoie le jeton de vérification si le document est intact et
+     * scellé par la plateforme ; vide sinon. Le fichier n'est jamais conservé.
+     */
+    public java.util.Optional<String> controlerDocument(byte[] document) {
+        if (!sceau.controler(document)) {
+            return java.util.Optional.empty();
+        }
+        try (var doc = org.apache.pdfbox.Loader.loadPDF(document)) {
+            return java.util.Optional.ofNullable(doc.getDocumentInformation().getCustomMetadataValue(GenerateurPdf.CLE_JETON));
+        } catch (java.io.IOException e) {
+            return java.util.Optional.empty();
+        }
+    }
+
     @Transactional(readOnly = true)
     public ContenuBulletin contenu(UUID bulletinId) {
         return depot.contenu(bulletinId).orElseThrow(() -> new RessourceIntrouvable("Bulletin introuvable."));
     }
 
     private BulletinDelivre emettre(Acteur decideur, TypeBulletin type, UUID demandeId, UUID personneId,
-                                    IdentiteSurBulletin identite, String finalite) {
+                                    IdentiteSurBulletin identite, String finalite, String destinataire, String organisme) {
         ContenuBulletin contenu;
         if (personneId == null) {
             JeuDeRegles jeu = moteur.enVigueur(LocalDate.now(horloge));
@@ -139,7 +195,11 @@ public class EmissionBulletins {
         UUID id = UUID.randomUUID();
         String numero = String.format("%s-%d-%07d", type.name(), LocalDate.now(horloge).getYear(), depot.prochainNumero());
         depot.inserer(id, numero, demandeId, personneId, contenu, empreinteJeton, empreinteCode, emission, expiration,
-                decideur.identifiant(), finalite);
+                decideur.identifiant(), finalite, destinataire, organisme);
+        // BUL-01 : document PDF/A généré puis scellé dans la même transaction que l'émission.
+        byte[] document = sceau.sceller(pdf.generer(new GenerateurPdf.Donnees(numero, contenu, emission, expiration, jeton, code,
+                finalite, sceau.demonstration())), emission, "Sceau électronique du casier judiciaire national");
+        depot.insererDocument(id, document, Empreintes.sha256(document), sceau.empreinteCertificat(), sceau.demonstration(), emission);
 
         Map<String, String> details = new HashMap<>();
         details.put("numero", numero);

@@ -42,6 +42,11 @@ class ReglesControleur {
         this.acteur = acteur;
     }
 
+    @GetMapping
+    List<JeuDeRegles> versions() {
+        return parametres.versions(acteur.obtenir());
+    }
+
     @PostMapping
     ResponseEntity<JeuDeRegles> proposer(@Valid @RequestBody Proposition p) {
         JeuDeRegles jeu = parametres.proposer(acteur.obtenir(), p.contenu(), p.dateEffet(), p.casDeTest());

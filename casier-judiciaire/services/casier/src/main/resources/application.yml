@@ -11,6 +11,10 @@ spring:
     password: ${CASIER_BD_MOT_DE_PASSE:}
   flyway:
     locations: classpath:db/migration
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
   modulith:
     events:
       jdbc:
@@ -49,6 +53,7 @@ casier:
   demandes:
     delai-traitement: 24h
     seuil-alerte: 4h
+    adresse-portail: ${CASIER_ADRESSE_PORTAIL:https://casier-judiciaire.neamindustry.com}
   identification:
     certitude: 0.90
     doute: 0.55
@@ -59,6 +64,15 @@ casier:
   paiement:
     secret-notifications: ${CASIER_PAIEMENT_SECRET:}
     simulateur: false
+  bulletins:
+    adresse-verification: ${CASIER_ADRESSE_VERIFICATION:https://casier-judiciaire.neamindustry.com}
+    # BUL-05 : filigrane « Spécimen » tant que la plateforme n'est pas officiellement en service.
+    specimen: true
+    sceau:
+      magasin: ${CASIER_SCEAU_MAGASIN:}
+      mot-de-passe: ${CASIER_SCEAU_MOT_DE_PASSE:}
+      alias: ${CASIER_SCEAU_ALIAS:}
+      exiger-certificat: false
   referentiels:
     import-au-demarrage: false
     dossier: ${CASIER_REFERENTIELS:../../referentiels}
@@ -76,3 +90,19 @@ casier:
     import-au-demarrage: true
   paiement:
     simulateur: true
+
+---
+# Production (datacenter national) : certificat qualifié obligatoire, pas de spécimen, pas de simulateur (BUL-01, ENV-03).
+spring:
+  config:
+    activate:
+      on-profile: prod
+casier:
+  bulletins:
+    specimen: false
+    sceau:
+      exiger-certificat: true
+  paiement:
+    simulateur: false
+  referentiels:
+    import-au-demarrage: false

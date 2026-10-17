@@ -279,4 +279,19 @@ public class DepotRegistre {
     private static List<String> tableau(Array a) throws SQLException {
         return a == null ? List.of() : Arrays.asList((String[]) a.getArray());
     }
+
+    /** DSH-06 : condamnations saisies en attente de validation, avec l'identité de la fiche. */
+    public record EnAttente(CondamnationEnregistree condamnation, IdentitePersonne identite) {
+    }
+
+    public List<EnAttente> condamnationsEnAttente(String juridiction) {
+        List<UUID> ids = jdbc.sql("""
+                        select id from registre.condamnation where statut = 'SAISIE'
+                          and (cast(:j as text) is null or juridiction = :j) order by saisie_le limit 200""")
+                .param("j", juridiction).query(UUID.class).list();
+        return ids.stream().map(id -> {
+            CondamnationEnregistree c = condamnation(id).orElseThrow();
+            return new EnAttente(c, personne(c.personneId()).orElseThrow().identite());
+        }).toList();
+    }
 }

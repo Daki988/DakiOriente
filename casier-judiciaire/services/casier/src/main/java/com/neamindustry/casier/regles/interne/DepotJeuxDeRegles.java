@@ -34,6 +34,10 @@ public class DepotJeuxDeRegles {
         this.json = json;
     }
 
+    public List<JeuDeRegles> tous() {
+        return jdbc.sql("select * from regles.jeu_de_regles order by version desc").query(this::lire).list();
+    }
+
     public int prochaineVersion() {
         return jdbc.sql("select coalesce(max(version), 0) + 1 from regles.jeu_de_regles").query(Integer.class).single();
     }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.neamindustry.casier.demandes.IdentiteDeclaree;
 import com.neamindustry.casier.demandes.ProfilDemandeur;
+import com.neamindustry.casier.demandes.DemandeUsager;
 import com.neamindustry.casier.demandes.StatutDemande;
 import com.neamindustry.casier.demandes.SuiviDemande;
 
@@ -145,5 +146,73 @@ public class DepotDemandes {
     private static Instant instant(ResultSet rs, String colonne) throws SQLException {
         Timestamp t = rs.getTimestamp(colonne);
         return t == null ? null : t.toInstant();
+    }
+
+    // ---------- Espace usager (DSH-01) et avis (NOT-01) ----------
+
+    public void enregistrerContact(UUID id, String telephone, String email) {
+        jdbc.sql("update demandes.demande set telephone = :t, email = :e where id = :id")
+                .param("t", telephone).param("e", email).param("id", id).update();
+    }
+
+    public record Contact(String telephone, String email) {
+    }
+
+    public Contact contact(UUID id) {
+        return jdbc.sql("select telephone, email from demandes.demande where id = :id").param("id", id)
+                .query((rs, n) -> new Contact(rs.getString(1), rs.getString(2))).single();
+    }
+
+    public List<Demande> parDemandeur(String demandeur) {
+        return jdbc.sql("select * from demandes.demande where demandeur_id = :d order by cree_le desc limit 50")
+                .param("d", demandeur).query(this::lire).list();
+    }
+
+    public void ajouterNotification(UUID demandeId, String canal, String destination, String message, String statut, Instant le) {
+        jdbc.sql("""
+                        insert into demandes.notification(demande_id, canal, destination, message, statut, cree_le)
+                        values (:d, :canal, :dest, :msg, :statut, :le)""")
+                .param("d", demandeId).param("canal", canal).param("dest", destination).param("msg", message)
+                .param("statut", statut).param("le", Timestamp.from(le)).update();
+    }
+
+    public List<DemandeUsager.Avis> notifications(UUID demandeId) {
+        return jdbc.sql("select cree_le, canal, message from demandes.notification where demande_id = :d order by cree_le, id")
+                .param("d", demandeId)
+                .query((rs, n) -> new DemandeUsager.Avis(rs.getTimestamp(1).toInstant(), rs.getString(2), rs.getString(3))).list();
+    }
+
+    // ---------- Pilotage (DSH-07, DSH-08) : agrégats, aucune donnée nominative ----------
+
+    public Map<String, Long> nombreParStatut() {
+        Map<String, Long> r = new java.util.LinkedHashMap<>();
+        jdbc.sql("select statut, count(*) from demandes.demande group by statut order by statut")
+                .query(rs -> { r.put(rs.getString(1), rs.getLong(2)); });
+        return r;
+    }
+
+    public long delivreesSansAgent() {
+        return jdbc.sql("""
+                        select count(*) from demandes.demande d where d.statut = 'DELIVREE'
+                          and not exists (select 1 from demandes.etape e where e.demande_id = d.id and e.statut = 'A_TRAITER_PAR_AGENT')""")
+                .query(Long.class).single();
+    }
+
+    public Double delaiMoyenHeures() {
+        return jdbc.sql("""
+                        select avg(extract(epoch from (e.horodatage - d.paye_le)) / 3600.0) from demandes.demande d
+                        join demandes.etape e on e.demande_id = d.id and e.statut = 'DELIVREE' where d.paye_le is not null""")
+                .query(Double.class).optional().orElse(null);
+    }
+
+    public long enRetard(Instant maintenant) {
+        return jdbc.sql("""
+                        select count(*) from demandes.demande where statut in ('EN_TRAITEMENT', 'A_TRAITER_PAR_AGENT')
+                          and echeance < :m""").param("m", Timestamp.from(maintenant)).query(Long.class).single();
+    }
+
+    public long recettes() {
+        return jdbc.sql("select coalesce(sum(montant_fcfa), 0) from demandes.demande where paye_le is not null")
+                .query(Long.class).single();
     }
 }

@@ -97,6 +97,35 @@ class ParcoursDemandeIntegrationTest extends TestIntegration {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.authentique").value(true));
 
+        // BUL-01, DSH-01 : PDF scellé, téléchargeable par le seul demandeur.
+        byte[] pdf = mvc.perform(get("/api/v1/bulletins/{id}/pdf", r.bulletin().id()).with(usager("usager-verif")))
+                .andExpect(status().isOk())
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_PDF))
+                .andReturn().getResponse().getContentAsByteArray();
+        assertThat(new String(pdf, 0, 5, StandardCharsets.ISO_8859_1)).isEqualTo("%PDF-");
+        java.nio.file.Files.createDirectories(java.nio.file.Path.of("target"));
+        java.nio.file.Files.write(java.nio.file.Path.of("target/bulletin-exemple.pdf"), pdf);
+        mvc.perform(get("/api/v1/bulletins/{id}/pdf", r.bulletin().id()).with(usager("autre-usager")))
+                .andExpect(status().isForbidden());
+        mvc.perform(get("/api/v1/bulletins/recus").with(usager("usager-verif")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].numero").value(r.bulletin().numero()))
+                .andExpect(jsonPath("$[0].jeton").doesNotExist());
+
+        // BUL-08 : contrôle d'un PDF déposé, intact puis falsifié d'un seul octet.
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart("/api/public/v1/verifications/document")
+                        .file(new org.springframework.mock.web.MockMultipartFile("fichier", "b.pdf", "application/pdf", pdf)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.integre").value(true))
+                .andExpect(jsonPath("$.resultat.statut").value("VALIDE"));
+        byte[] falsifie = pdf.clone();
+        int i = new String(falsifie, StandardCharsets.ISO_8859_1).indexOf("/Producer");
+        falsifie[i + 2] = (byte) (falsifie[i + 2] == 'r' ? 'R' : 'r');
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart("/api/public/v1/verifications/document")
+                        .file(new org.springframework.mock.web.MockMultipartFile("fichier", "b.pdf", "application/pdf", falsifie)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.integre").value(false));
+
         mvc.perform(post("/api/v1/bulletins/{id}/revocation", r.bulletin().id()).with(greffier("greffier-1"))
                         .contentType(MediaType.APPLICATION_JSON).content(enJson(Map.of("motif", ""))))
                 .andExpect(status().isBadRequest());

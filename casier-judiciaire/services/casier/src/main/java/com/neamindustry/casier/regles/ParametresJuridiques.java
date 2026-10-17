@@ -108,6 +108,16 @@ public class ParametresJuridiques {
         return jeu;
     }
 
+    /** ADM-05 : versions des paramètres juridiques (proposées, publiées, rejetées). */
+    @Transactional(readOnly = true)
+    public List<JeuDeRegles> versions(Acteur acteur) {
+        if (!com.neamindustry.casier.habilitations.MatriceHabilitations.autorise(acteur.roles(), Permission.PROPOSER_PARAMETRE_JURIDIQUE)
+                && !com.neamindustry.casier.habilitations.MatriceHabilitations.autorise(acteur.roles(), Permission.VALIDER_PARAMETRE_JURIDIQUE)) {
+            throw new com.neamindustry.casier.habilitations.AccesRefuse("HAB-01", "Votre profil ne permet pas de consulter les paramètres juridiques.");
+        }
+        return depot.tous();
+    }
+
     public JeuDeRegles jeu(UUID id) {
         return depot.parId(id).orElseThrow(() -> new RessourceIntrouvable("Jeu de règles introuvable."));
     }

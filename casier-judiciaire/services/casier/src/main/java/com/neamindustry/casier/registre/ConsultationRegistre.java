@@ -29,7 +29,11 @@ public class ConsultationRegistre {
     private final Habilitations habilitations;
     private final JournalAudit journal;
 
-    ConsultationRegistre(RegistreLecture lecture, Habilitations habilitations, JournalAudit journal) {
+    private final com.neamindustry.casier.registre.interne.DepotRegistre depot;
+
+    ConsultationRegistre(RegistreLecture lecture, Habilitations habilitations, JournalAudit journal,
+                         com.neamindustry.casier.registre.interne.DepotRegistre depot) {
+        this.depot = depot;
         this.lecture = lecture;
         this.habilitations = habilitations;
         this.journal = journal;
@@ -54,6 +58,19 @@ public class ConsultationRegistre {
         journal.enregistrer(EvenementAudit.par(agent, "REGISTRE_RECHERCHE", "Registre", null, null, motif,
                 Map.of("resultats", String.valueOf(resultats.size()))));
         return resultats;
+    }
+
+    /** DSH-06 : validations en attente dans la juridiction du greffier en chef (toutes pour la direction centrale). */
+    @Transactional(readOnly = true)
+    public List<InscriptionEnAttente> enAttente(Acteur greffier) {
+        habilitations.exiger(greffier, Permission.VALIDER_INSCRIPTION);
+        String juridiction = greffier.aLeRole(com.neamindustry.casier.habilitations.Role.R08) ? null : greffier.juridiction();
+        return depot.condamnationsEnAttente(juridiction).stream().map(e -> {
+            CondamnationEnregistree c = e.condamnation();
+            return new InscriptionEnAttente(c.id(), c.personneId(), e.identite().nom(), e.identite().prenoms(),
+                    e.identite().dateNaissance(), c.version(), c.remplaceId(), c.juridiction(), c.dateDecision(), c.numeroDecision(),
+                    c.infraction(), c.qualification(), c.peines(), c.saisiePar(), c.saisieLe(), c.saisiePar().equals(greffier.identifiant()));
+        }).toList();
     }
 
     private static void exigerAgentDuCasier(Acteur agent, String motif) {

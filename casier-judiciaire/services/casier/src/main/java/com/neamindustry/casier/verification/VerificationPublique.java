@@ -65,6 +65,11 @@ public class VerificationPublique {
 
     /** BUL-11 : nombre de vérifications d'un bulletin, consultable par la personne concernée (à valider). */
     @Transactional(readOnly = true)
+    /** BUL-11 : total anonyme des vérifications, pour les indicateurs. */
+    public long totalVerifications() {
+        return jdbc.sql("select coalesce(sum(nb_verifications), 0) from verification.bulletin_verifiable").query(Long.class).single();
+    }
+
     public long nombreVerifications(String numero) {
         return jdbc.sql("select coalesce(sum(nb_verifications), 0) from verification.bulletin_verifiable where numero = :n")
                 .param("n", numero).query(Long.class).single();

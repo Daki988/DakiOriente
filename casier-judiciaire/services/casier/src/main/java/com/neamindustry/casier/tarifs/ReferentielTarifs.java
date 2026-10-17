@@ -59,6 +59,16 @@ public class ReferentielTarifs {
                 .param("date", date).query(this::lire).list();
     }
 
+    /** ADM-04 : historique complet des tarifs (propositions, validés, rejetés) pour le back-office. */
+    @Transactional(readOnly = true)
+    public List<Tarif> historique(Acteur acteur) {
+        if (!com.neamindustry.casier.habilitations.MatriceHabilitations.autorise(acteur.roles(), Permission.PROPOSER_TARIF)
+                && !com.neamindustry.casier.habilitations.MatriceHabilitations.autorise(acteur.roles(), Permission.VALIDER_TARIF)) {
+            throw new com.neamindustry.casier.habilitations.AccesRefuse("HAB-01", "Votre profil ne permet pas de gérer les tarifs.");
+        }
+        return jdbc.sql("select * from tarifs.tarif order by acte, profil, date_effet desc, propose_le desc").query(this::lire).list();
+    }
+
     /** ADM-04 : proposition d'un tarif ; aucune modification rétroactive (date d'effet postérieure à aujourd'hui). */
     @Transactional
     public Tarif proposer(Acteur acteur, String acte, String profil, long montantFcfa, LocalDate dateEffet, boolean provisoire,

@@ -52,6 +52,11 @@ class TarifsControleur {
                 .toList();
     }
 
+    @GetMapping("/api/v1/tarifs")
+    List<Tarif> historique() {
+        return referentiel.historique(acteur.obtenir());
+    }
+
     @PostMapping("/api/v1/tarifs")
     ResponseEntity<Tarif> proposer(@Valid @RequestBody PropositionTarif p) {
         Tarif t = referentiel.proposer(acteur.obtenir(), p.acte(), p.profil(), p.montantFcfa(), p.dateEffet(), p.provisoire(),

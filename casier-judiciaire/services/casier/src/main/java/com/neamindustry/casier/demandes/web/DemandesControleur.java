@@ -64,6 +64,12 @@ class DemandesControleur {
         return ResponseEntity.ok(demandes.suivi(numero.trim().toUpperCase(), code));
     }
 
+    /** DSH-01 : « Mon espace » — demandes de l'usager connecté. */
+    @GetMapping("/api/v1/usager/demandes")
+    List<com.neamindustry.casier.demandes.DemandeUsager> mesDemandes() {
+        return demandes.mesDemandes(acteur.obtenir());
+    }
+
     @GetMapping("/api/v1/demandes/file")
     List<DossierAgent> fileDeTravail() {
         return demandes.fileDeTravail(acteur.obtenir());
