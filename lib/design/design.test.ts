@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import { fitText, initials, resolveDesign, wrap, type Measure } from "./layout.ts";
 import { FIELDS, FONT_PAIRS, PALETTES, type Design } from "./model.ts";
 import { familyFor, KINDS, TEMPLATES, templatesFor } from "./templates.ts";
+import { ICONS, PATTERNS } from "./motifs.ts";
+import { SECTORS } from "./sectors.ts";
 
 // Mesure simplifiée : chaque caractère fait 0,55 × la taille.
 const measure: Measure = (t, _f, s) => t.length * s * 0.55;
@@ -72,4 +74,26 @@ test("chaque modèle se calcule sans erreur, textes dans la zone finie", () => {
 
 test("libellés complets pour chaque type de produit", () => {
   for (const k of Object.values(KINDS)) for (const f of FIELDS) assert.equal(typeof k.labels[f], "string");
+});
+
+test("secteurs : palette, motif et pictogramme existent, textes complets", () => {
+  assert.equal(SECTORS.length, 9);
+  for (const s of SECTORS) {
+    assert.ok(PALETTES.some((p) => p.id === s.palette), s.id);
+    assert.ok(PATTERNS[s.pattern] && ICONS[s.icon], s.id);
+    for (const t of Object.values(s.texts)) for (const f of FIELDS) assert.equal(typeof t![f], "string", `${s.id}.${f}`);
+  }
+});
+
+test("motifs : carreaux limités à la zone et en nombre raisonnable", () => {
+  for (const tpl of TEMPLATES.filter((t) => t.sides.some((s) => s.els.some((e) => e.t === "pattern")))) {
+    const dims: Record<string, [number, number]> = { card: [85, 55], portrait: [148, 210], tall: [850, 2000], square: [50, 50], wide: [3000, 1000] };
+    const [w, h] = dims[tpl.family];
+    const d: Design = { template: tpl.id, palette: tpl.palette, fonts: tpl.fonts, fields: { ...KINDS.promo.defaults }, icon: "restaurant" };
+    for (const s of resolveDesign(tpl, d, w, h, true, measure)) {
+      const groups = s.items.filter((i) => i.t === "group");
+      assert.ok(groups.length > 0, tpl.id);
+      for (const g of groups) if (g.t === "group") assert.ok(g.prims.length < 6000, `${tpl.id} : ${g.prims.length} formes`);
+    }
+  }
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import type { RSide } from "./layout";
+import type { RPrim, RSide } from "./layout";
 import type { FontKey } from "./model";
 
 const PT = 72 / 25.4; // points par mm
@@ -25,7 +25,7 @@ function dataUrlBytes(src: string) {
  * zone finie déclarée (TrimBox), polices intégrées.
  */
 export async function buildPrintPdf(sides: RSide[], title: string): Promise<{ bytes: Uint8Array; scale: number }> {
-  const { PDFDocument, rgb } = await import("pdf-lib");
+  const { PDFDocument, rgb, pushGraphicsState, popGraphicsState, rectangle, clip, endPath } = await import("pdf-lib");
   const fontkit = (await import("@pdf-lib/fontkit")).default;
   const doc = await PDFDocument.create();
   doc.registerFontkit(fontkit);
@@ -74,6 +74,31 @@ export async function buildPrintPdf(sides: RSide[], title: string): Promise<{ by
         }
       } else if (it.t === "ellipse") {
         page.drawEllipse({ x: X(it.cx), y: Y(it.cy), xScale: it.rx * k, yScale: it.ry * k, color: color(it.fill), opacity: it.opacity });
+      } else if (it.t === "group") {
+        if (it.clip) {
+          const c = it.clip;
+          page.pushOperators(pushGraphicsState(), rectangle(X(c.x), Y(c.y + c.h), c.w * k, c.h * k), clip(), endPath());
+        }
+        const op = it.opacity;
+        const draw = (p: RPrim) => {
+          if (p.k === "rect") {
+            if (p.r > 0) {
+              const r = Math.min(p.r, p.w / 2, p.h / 2) * k, w = p.w * k, h = p.h * k;
+              const d = `M ${r} 0 H ${w - r} A ${r} ${r} 0 0 1 ${w} ${r} V ${h - r} A ${r} ${r} 0 0 1 ${w - r} ${h} H ${r} A ${r} ${r} 0 0 1 0 ${h - r} V ${r} A ${r} ${r} 0 0 1 ${r} 0 Z`;
+              page.drawSvgPath(d, { x: X(p.x), y: Y(p.y), color: color(p.fill), opacity: op, borderWidth: 0 });
+            } else page.drawRectangle({ x: X(p.x), y: Y(p.y + p.h), width: p.w * k, height: p.h * k, color: color(p.fill), opacity: op });
+          } else if (p.k === "ellipse") {
+            page.drawEllipse({ x: X(p.cx), y: Y(p.cy), xScale: p.rx * k, yScale: p.ry * k, color: color(p.fill), opacity: op });
+          } else if (p.k === "ring") {
+            page.drawEllipse({ x: X(p.cx), y: Y(p.cy), xScale: p.r * k, yScale: p.r * k, borderColor: color(p.stroke), borderWidth: p.sw * k, borderOpacity: op });
+          } else {
+            const pts = [];
+            for (let i = 0; i < p.pts.length; i += 2) pts.push(`${(p.pts[i] + b) * k} ${(p.pts[i + 1] + b) * k}`);
+            page.drawSvgPath(`M ${pts.join(" L ")} Z`, { x: 0, y: H, color: color(p.fill), opacity: op, borderWidth: 0 });
+          }
+        };
+        it.prims.forEach(draw);
+        if (it.clip) page.pushOperators(popGraphicsState());
       } else if (it.t === "image") {
         let img = images.get(it.src);
         if (!img) { img = await doc.embedPng(dataUrlBytes(it.src)); images.set(it.src, img); }

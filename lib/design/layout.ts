@@ -1,3 +1,4 @@
+import { ICONS, PATTERNS, type Prim } from "./motifs.ts";
 import { BLEED_MM, colorOf, FONT_PAIRS, PALETTES, type Design, type FontKey, type Palette, type Side, type Template } from "./model.ts";
 
 /** Largeur d'un texte en mm pour une police et une taille (en mm) données. */
@@ -11,7 +12,15 @@ export type RRect = { t: "rect"; x: number; y: number; w: number; h: number; r: 
 export type REllipse = { t: "ellipse"; cx: number; cy: number; rx: number; ry: number; fill: string; opacity: number };
 export type RText = { t: "text"; font: FontKey; size: number; fill: string; align: "left" | "center" | "right"; x: number; lines: { s: string; y: number }[] };
 export type RImage = { t: "image"; x: number; y: number; w: number; h: number; src: string };
-export type RItem = RRect | REllipse | RText | RImage;
+/** Formes simples en mm, couleur résolue. */
+export type RPrim =
+  | { k: "rect"; x: number; y: number; w: number; h: number; r: number; fill: string }
+  | { k: "ellipse"; cx: number; cy: number; rx: number; ry: number; fill: string }
+  | { k: "poly"; pts: number[]; fill: string }
+  | { k: "ring"; cx: number; cy: number; r: number; sw: number; stroke: string };
+/** Groupe de formes (motif ou pictogramme), éventuellement découpé à une zone. */
+export type RGroup = { t: "group"; clip?: { x: number; y: number; w: number; h: number }; opacity: number; prims: RPrim[] };
+export type RItem = RRect | REllipse | RText | RImage | RGroup;
 /** Face prête à dessiner : coordonnées en mm, origine au coin haut-gauche de la zone finie. */
 export type RSide = { w: number; h: number; bleed: number; bg: string; items: RItem[] };
 
@@ -58,7 +67,17 @@ export function initials(text: string) {
   return text.split(/\s+/).filter((w) => /\p{L}/u.test(w[0] ?? "")).slice(0, 2).map((w) => w[0].toUpperCase()).join("") || "★";
 }
 
-/** Calcule une face du modèle aux dimensions réelles (mm). */
+/** Place des formes définies dans un carré unité dans la boîte (x, y, taille s). */
+function place(shapes: Prim[], x: number, y: number, s: number, colors: string[]): RPrim[] {
+  return shapes.map((p): RPrim => {
+    const fill = colors[p.c] ?? colors[0];
+    if (p.k === "rect") return { k: "rect", x: x + p.x * s, y: y + p.y * s, w: p.w * s, h: p.h * s, r: (p.r ?? 0) * s, fill };
+    if (p.k === "ellipse") return { k: "ellipse", cx: x + p.cx * s, cy: y + p.cy * s, rx: p.rx * s, ry: p.ry * s, fill };
+    if (p.k === "ring") return { k: "ring", cx: x + p.cx * s, cy: y + p.cy * s, r: p.r * s, sw: p.sw * s, stroke: fill };
+    return { k: "poly", pts: p.pts.map((v, i) => (i % 2 ? y : x) + v * s), fill };
+  });
+}
+
 /** Palette du design ; « custom:#rrggbb » = palette Violet avec une couleur principale choisie par le client. */
 export function paletteOf(id: string): Palette {
   if (id.startsWith("custom:") && /^#[0-9a-f]{6}$/i.test(id.slice(7))) {
@@ -103,6 +122,26 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
         t: "text", font, size: fit.size, fill: colorOf(pal, el.color), align, x: ax,
         lines: fit.lines.map((s, i) => ({ s, y: top + fit.size * ASCENT + i * fit.size * LINE_HEIGHT })),
       });
+    } else if (el.t === "pattern") {
+      const id = el.pattern === "auto" ? d.pattern ?? tpl.pattern ?? "wax" : el.pattern;
+      const def = PATTERNS[id];
+      const x0 = el.x <= 0.001 ? x - b : x, y0 = el.y <= 0.001 ? y - b : y;
+      const x1 = el.x + el.w >= 0.999 ? x + w + b : x + w, y1 = el.y + el.h >= 0.999 ? y + h + b : y + h;
+      const tile = Math.max(el.tile * u, 2);
+      const colors = el.colors.map((c) => colorOf(pal, c));
+      // Carreaux alignés sur la zone finie, pour un rendu identique quel que soit le fond perdu.
+      const prims: RPrim[] = [{ k: "rect", x: x0, y: y0, w: x1 - x0, h: y1 - y0, r: 0, fill: colors[0] }];
+      const startX = x - Math.ceil((x - x0) / tile) * tile, startY = y - Math.ceil((y - y0) / tile) * tile;
+      for (let ty = startY - tile; ty < y1; ty += tile) {
+        for (let tx = startX - tile; tx < x1; tx += tile) prims.push(...place(def.shapes, tx, ty, tile, colors));
+      }
+      items.push({ t: "group", clip: { x: x0, y: y0, w: x1 - x0, h: y1 - y0 }, opacity: el.opacity ?? 1, prims });
+    } else if (el.t === "icon") {
+      if (!d.icon) continue;
+      const s = Math.min(w, h);
+      const align = el.align ?? "center";
+      const ix = align === "left" ? x : align === "right" ? x + w - s : x + (w - s) / 2;
+      items.push({ t: "group", opacity: 1, prims: place(ICONS[d.icon], ix, y + (h - s) / 2, s, [colorOf(pal, el.color), colorOf(pal, el.cut)]) });
     } else if (el.t === "logo") {
       if (d.logo) {
         const ratio = d.logo.w / d.logo.h;
@@ -111,6 +150,12 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
         const align = el.align ?? "center";
         const lx = align === "left" ? x : align === "right" ? x + w - lw : x + (w - lw) / 2;
         items.push({ t: "image", x: lx, y: y + (h - lh) / 2, w: lw, h: lh, src: d.logo.src });
+      } else if (d.icon) {
+        // Sans logo : le pictogramme du métier…
+        const s = Math.min(w, h) * 0.9;
+        const align = el.align ?? "center";
+        const ix = align === "left" ? x : align === "right" ? x + w - s : x + (w - s) / 2;
+        items.push({ t: "group", opacity: 1, prims: place(ICONS[d.icon], ix, y + (h - s) / 2, s, [colorOf(pal, el.color), colorOf(pal, el.on ?? side.bg)]) });
       } else if (d.monogram && d.fields[d.monogram]?.trim()) {
         // Sans logo : les initiales de la marque (ou du nom) prennent sa place.
         const font = pair.head;

@@ -1,4 +1,12 @@
-import type { RSide } from "@/lib/design/layout";
+import { useId } from "react";
+import type { RPrim, RSide } from "@/lib/design/layout";
+
+function Prim({ p }: { p: RPrim }) {
+  if (p.k === "rect") return <rect x={p.x} y={p.y} width={p.w} height={p.h} rx={p.r} fill={p.fill} />;
+  if (p.k === "ellipse") return <ellipse cx={p.cx} cy={p.cy} rx={p.rx} ry={p.ry} fill={p.fill} />;
+  if (p.k === "ring") return <circle cx={p.cx} cy={p.cy} r={p.r} fill="none" stroke={p.stroke} strokeWidth={p.sw} />;
+  return <polygon points={p.pts.join(" ")} fill={p.fill} />;
+}
 
 /**
  * Dessine une face calculée. `trim` : vue coupée à la zone finie (aperçus) ;
@@ -7,7 +15,7 @@ import type { RSide } from "@/lib/design/layout";
 export function DesignSvg({ side, trim = false, className, title }: { side: RSide; trim?: boolean; className?: string; title?: string }) {
   const b = side.bleed;
   const vb = trim ? `0 0 ${side.w} ${side.h}` : `${-b} ${-b} ${side.w + 2 * b} ${side.h + 2 * b}`;
-  const id = `clip-${Math.round(side.w)}x${Math.round(side.h)}`;
+  const id = `clip-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
   return (
     <svg viewBox={vb} className={className} role="img" aria-label={title} preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
       <defs><clipPath id={id}><rect x={-b} y={-b} width={side.w + 2 * b} height={side.h + 2 * b} /></clipPath></defs>
@@ -16,6 +24,15 @@ export function DesignSvg({ side, trim = false, className, title }: { side: RSid
         {side.items.map((it, i) => {
           if (it.t === "rect") return <rect key={i} x={it.x} y={it.y} width={it.w} height={it.h} rx={it.r} fill={it.fill} opacity={it.opacity} />;
           if (it.t === "ellipse") return <ellipse key={i} cx={it.cx} cy={it.cy} rx={it.rx} ry={it.ry} fill={it.fill} opacity={it.opacity} />;
+          if (it.t === "group") {
+            const cid = `${id}-g${i}`;
+            return (
+              <g key={i} opacity={it.opacity}>
+                {it.clip && <clipPath id={cid}><rect x={it.clip.x} y={it.clip.y} width={it.clip.w} height={it.clip.h} /></clipPath>}
+                <g clipPath={it.clip ? `url(#${cid})` : undefined}>{it.prims.map((p, j) => <Prim key={j} p={p} />)}</g>
+              </g>
+            );
+          }
           if (it.t === "image") return <image key={i} href={it.src} x={it.x} y={it.y} width={it.w} height={it.h} preserveAspectRatio="xMidYMid meet" />;
           const anchor = it.align === "center" ? "middle" : it.align === "right" ? "end" : "start";
           return (

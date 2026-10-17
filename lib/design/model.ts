@@ -1,3 +1,5 @@
+import type { IconId, PatternId } from "./motifs.ts";
+
 /** Modèle de données de l'éditeur en ligne : polices, palettes, éléments de modèle, design du client. */
 
 export const FONT_KEYS = ["display", "sans", "sans-bold", "serif", "geo", "geo-medium", "script"] as const;
@@ -25,6 +27,12 @@ export const PALETTES: Palette[] = [
   { id: "ocean", name: "Océan", bg: "#ffffff", ink: "#0b2545", primary: "#0466c8", accent: "#00b4d8", soft: "#e2f1fb" },
   { id: "corail", name: "Corail", bg: "#fff8f3", ink: "#2b2321", primary: "#f2542d", accent: "#ffb703", soft: "#ffe4d6" },
   { id: "foret", name: "Forêt", bg: "#f7f4ea", ink: "#1b3a2b", primary: "#2d6a4f", accent: "#e9c46a", soft: "#e2eadf" },
+  { id: "terre", name: "Terre", bg: "#fbf5ec", ink: "#2a1a12", primary: "#b5462a", accent: "#e8a33d", soft: "#f3e3cf" },
+  { id: "orchidee", name: "Orchidée", bg: "#fff7f9", ink: "#2b1a22", primary: "#b0185a", accent: "#d4a73a", soft: "#fbe3ec" },
+  { id: "chantier", name: "Chantier", bg: "#ffffff", ink: "#1d1d1f", primary: "#c97c00", accent: "#f5b301", soft: "#fff4cc" },
+  { id: "royal", name: "Royal", bg: "#fbf8f2", ink: "#1e1b3a", primary: "#3b2a8f", accent: "#d4af37", soft: "#ece8f7" },
+  { id: "ivoire", name: "Ivoire", bg: "#fffdf8", ink: "#3a2f28", primary: "#7d6233", accent: "#c9a96e", soft: "#f5efe3" },
+  { id: "clinique", name: "Clinique", bg: "#ffffff", ink: "#0f2d3a", primary: "#0a9a92", accent: "#2f6bff", soft: "#e0f5f3" },
 ];
 
 function luminance(hex: string) {
@@ -52,15 +60,24 @@ export type El =
   | (Box & { t: "rect"; fill: ColorRole; r?: number; opacity?: number })
   | (Box & { t: "ellipse"; fill: ColorRole; opacity?: number })
   | (Box & { t: "text"; field: Field; role: Role; color: ColorRole; size: number; align?: "left" | "center" | "right"; lines?: number; upper?: boolean })
-  | (Box & { t: "logo"; color: ColorRole; align?: "left" | "center" | "right" });
+  /** `on` : couleur sous le logo (sert aux découpes du pictogramme de remplacement). */
+  | (Box & { t: "logo"; color: ColorRole; align?: "left" | "center" | "right"; on?: ColorRole })
+  /** Motif répété dans la zone ; « auto » = motif choisi par le client. `tile` relatif au petit côté. */
+  | (Box & { t: "pattern"; pattern: PatternId | "auto"; tile: number; colors: [ColorRole, ColorRole, ColorRole]; opacity?: number })
+  /** Pictogramme du secteur choisi (rien si aucun). */
+  | (Box & { t: "icon"; color: ColorRole; cut: ColorRole; align?: "left" | "center" | "right" });
 
 export type Side = { bg: ColorRole; els: El[] };
 export type Family = "card" | "portrait" | "tall" | "square" | "wide";
-export type Template = { id: string; name: string; family: Family; sides: Side[]; palette: string; fonts: string };
+export type Template = { id: string; name: string; family: Family; sides: Side[]; palette: string; fonts: string; pattern?: PatternId };
 
 export type Logo = { src: string; w: number; h: number };
 /** `monogram` : champ dont les initiales remplacent le logo absent (aucune si non défini). */
-export type Design = { template: string; palette: string; fonts: string; fields: Record<Field, string>; logo?: Logo; monogram?: Field };
+export type Design = {
+  template: string; palette: string; fonts: string; fields: Record<Field, string>; logo?: Logo; monogram?: Field;
+  /** Motif africain des zones « auto », pictogramme du métier, secteur d'activité choisi. */
+  pattern?: PatternId; icon?: IconId; sector?: string;
+};
 
 /** Gabarit d'impression : 3 mm de fond perdu autour de la zone finie. */
 export const BLEED_MM = 3;

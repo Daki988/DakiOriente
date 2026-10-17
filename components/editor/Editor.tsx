@@ -3,11 +3,36 @@
 import { useEffect, useMemo, useState } from "react";
 import { browserMeasure, loadEditorFonts, readLogo, resetMeasureCache } from "@/lib/design/browser";
 import { resolveDesign, type RSide } from "@/lib/design/layout";
-import { FIELDS, FONT_PAIRS, PALETTES, type Design, type Field } from "@/lib/design/model";
+import { colorOf, FIELDS, FONT_PAIRS, PALETTES, type Design, type Field } from "@/lib/design/model";
+import { ICONS, PATTERN_IDS, PATTERNS, type IconId, type Prim } from "@/lib/design/motifs";
+import { SECTORS, sectorTexts } from "@/lib/design/sectors";
+import { paletteOf } from "@/lib/design/layout";
 import { familyFor, hasVerso, KINDS, kindFor, mockupFor, MONOGRAM, PREFERRED, templatesFor } from "@/lib/design/templates";
 import { ArrowRight, Check, Upload } from "@/components/Icons";
 import { DesignSvg } from "./DesignSvg";
 import { Mockup } from "./Mockup";
+
+/** Aperçu d'un motif (2 × 2 carreaux) ou d'un pictogramme, en unités de carreau. */
+function Swatch({ shapes, colors, tiles = 1, className }: { shapes: Prim[]; colors: string[]; tiles?: number; className?: string }) {
+  const cells = [];
+  for (let ty = 0; ty < tiles; ty++) for (let tx = 0; tx < tiles; tx++) cells.push([tx, ty]);
+  return (
+    <svg viewBox={`0 0 ${tiles} ${tiles}`} className={className} aria-hidden="true">
+      {tiles > 1 && <rect width={tiles} height={tiles} fill={colors[0]} />}
+      <clipPath id={`sw-${tiles}`}><rect width={tiles} height={tiles} /></clipPath>
+      <g clipPath={`url(#sw-${tiles})`}>
+        {cells.map(([tx, ty]) => shapes.map((p, i) => {
+          const c = colors[p.c] ?? colors[0];
+          const key = `${tx}-${ty}-${i}`;
+          if (p.k === "rect") return <rect key={key} x={tx + p.x} y={ty + p.y} width={p.w} height={p.h} rx={p.r ?? 0} fill={c} />;
+          if (p.k === "ellipse") return <ellipse key={key} cx={tx + p.cx} cy={ty + p.cy} rx={p.rx} ry={p.ry} fill={c} />;
+          if (p.k === "ring") return <circle key={key} cx={tx + p.cx} cy={ty + p.cy} r={p.r} fill="none" stroke={c} strokeWidth={p.sw} />;
+          return <polygon key={key} points={p.pts.map((v, j) => v + (j % 2 ? ty : tx)).join(" ")} fill={c} />;
+        }))}
+      </g>
+    </svg>
+  );
+}
 
 export type EditorProduct = { slug: string; name: string; categorySlug: string; wMm: number; hMm: number };
 export type EditorResult = { design: Design; sides: RSide[]; file: File; scale: number };
@@ -21,8 +46,9 @@ const input = "w-full rounded-xl border border-line bg-white px-3.5 py-3 text-[1
 export function orderedTemplates(p: EditorProduct) {
   const all = templatesFor(familyFor(p.wMm, p.hMm));
   const pref = PREFERRED[kindFor(p.categorySlug, p.slug)] ?? [];
-  const rank = (id: string) => (pref.includes(id) ? pref.indexOf(id) : pref.length);
-  return [...all].sort((a, b) => rank(a.id) - rank(b.id));
+  // Conseillés pour le produit d'abord, puis les modèles à motifs africains, puis les autres.
+  const rank = (t: (typeof all)[number]) => (pref.includes(t.id) ? pref.indexOf(t.id) : t.pattern ? pref.length : pref.length + 1);
+  return [...all].sort((a, b) => rank(a) - rank(b));
 }
 
 export function newDesign(p: EditorProduct): Design {
@@ -68,10 +94,26 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
     () => (ready ? resolveDesign(tpl, d, product.wMm, product.hMm, verso, browserMeasure) : []),
     [ready, tpl, d, product.wMm, product.hMm, verso],
   );
+  // Avec un secteur choisi, les miniatures gardent ses couleurs et son motif ; sinon, ceux de chaque modèle.
+  const lookOf = (t: (typeof templates)[number]) => (d.sector ? { fonts: t.fonts } : { palette: t.palette, fonts: t.fonts, pattern: t.pattern ?? d.pattern });
   const thumbs = useMemo(
-    () => (ready ? templates.map((t) => ({ t, side: resolveDesign(t, { ...d, template: t.id, palette: t.palette, fonts: t.fonts }, product.wMm, product.hMm, false, browserMeasure)[0] })) : []),
-    [ready, templates, d, product.wMm, product.hMm],
+    () => (ready ? templates.map((t) => ({ t, side: resolveDesign(t, { ...d, template: t.id, ...lookOf(t) }, product.wMm, product.hMm, false, browserMeasure)[0] })) : []),
+    [ready, templates, d, product.wMm, product.hMm], // eslint-disable-line react-hooks/exhaustive-deps
   );
+  const [edited, setEdited] = useState(false);
+  const hasPattern = tpl.sides.some((s) => s.els.some((e) => e.t === "pattern" && e.pattern === "auto"));
+  const pal = paletteOf(d.palette);
+
+  function pickSector(id: string | null) {
+    const sec = SECTORS.find((x) => x.id === id);
+    if (!sec) return setD({ ...d, sector: undefined, icon: undefined });
+    const k = kindFor(product.categorySlug, product.slug);
+    setD({
+      ...d, sector: sec.id, icon: sec.icon, palette: sec.palette, pattern: sec.pattern,
+      // Les textes d'exemple du métier remplacent les nôtres, jamais ceux saisis par le client.
+      fields: edited ? d.fields : { ...sectorTexts(sec, k) },
+    });
+  }
   const used = useMemo(() => {
     const set = new Set<Field>();
     tpl.sides.slice(0, verso ? 2 : 1).forEach((s) => s.els.forEach((e) => { if (e.t === "text") set.add(e.field); }));
@@ -79,7 +121,7 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
   }, [tpl, verso]);
   const multiline = (f: Field) => tpl.sides.some((s) => s.els.some((e) => e.t === "text" && e.field === f && (e.lines ?? 1) > 1));
 
-  const setField = (f: Field, v: string) => setD({ ...d, fields: { ...d.fields, [f]: v } });
+  const setField = (f: Field, v: string) => { setEdited(true); setD({ ...d, fields: { ...d.fields, [f]: v } }); };
   const current = sides[Math.min(face, sides.length - 1)];
 
   async function pickLogo(file: File | null) {
@@ -176,15 +218,28 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
           </nav>
           <div className="min-h-0 flex-1 overflow-y-auto p-4 md:p-5">
             {tab === "modeles" && (
+              <div className="grid gap-3">
+              <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0" role="radiogroup" aria-label="Votre activité">
+                <button type="button" role="radio" aria-checked={!d.sector} onClick={() => pickSector(null)}
+                  className={`whitespace-nowrap rounded-full px-3.5 py-2 text-sm font-semibold ${!d.sector ? "bg-ink text-white" : "border border-line"}`}>Tous</button>
+                {SECTORS.map((sec) => (
+                  <button key={sec.id} type="button" role="radio" aria-checked={d.sector === sec.id} onClick={() => pickSector(sec.id)}
+                    className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-2 text-sm font-semibold ${d.sector === sec.id ? "bg-ink text-white" : "border border-line"}`}>
+                    <Swatch shapes={ICONS[sec.icon]} colors={[d.sector === sec.id ? "#ffffff" : "#6b12ff", d.sector === sec.id ? "#0d0e12" : "#ffffff"]} className="size-4" />
+                    {sec.name}
+                  </button>
+                ))}
+              </div>
               <div className="grid grid-cols-2 gap-3">
                 {thumbs.map(({ t, side }) => (
                   <button key={t.id} type="button" aria-pressed={d.template === t.id}
-                    onClick={() => { setD({ ...d, template: t.id, palette: t.palette, fonts: t.fonts }); setFace(0); }}
+                    onClick={() => { setD({ ...d, template: t.id, ...lookOf(t) }); setFace(0); }}
                     className={`grid gap-2 rounded-2xl border-2 p-2 text-left ${d.template === t.id ? "border-brand bg-brand-soft" : "border-line bg-paper"}`}>
                     <span className="grid h-28 place-items-center"><DesignSvg side={side} trim className="max-h-28 w-full drop-shadow-md" /></span>
                     <span className="flex items-center justify-between text-sm font-semibold">{t.name}{d.template === t.id && <Check className="size-4 text-brand" />}</span>
                   </button>
                 ))}
+              </div>
               </div>
             )}
 
@@ -220,12 +275,43 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
                 </label>
                 {d.logo && <button type="button" onClick={() => setD({ ...d, logo: undefined })} className="text-sm font-semibold text-danger underline">Retirer le logo</button>}
                 {logoMsg && <p role="status" className="rounded-xl bg-warn-soft p-3 text-sm text-warn">{logoMsg}</p>}
-                {!d.logo && <p className="text-xs text-muted">Sans logo, les initiales de votre nom ou de votre marque prennent sa place.</p>}
+                {!d.logo && (
+                  <fieldset className="grid gap-2">
+                    <legend className="mb-1 text-[13px] font-semibold text-muted">Pas de logo ? Un pictogramme prend sa place</legend>
+                    <div className="grid grid-cols-5 gap-2">
+                      <button type="button" aria-pressed={!d.icon} onClick={() => setD({ ...d, icon: undefined })}
+                        className={`grid aspect-square place-items-center rounded-xl border-2 text-[11px] font-semibold ${!d.icon ? "border-brand bg-brand-soft" : "border-line"}`}>Initiales</button>
+                      {(Object.keys(ICONS) as IconId[]).map((ic) => (
+                        <button key={ic} type="button" aria-pressed={d.icon === ic} aria-label={SECTORS.find((x) => x.icon === ic)?.name ?? ic} onClick={() => setD({ ...d, icon: ic })}
+                          className={`grid aspect-square place-items-center rounded-xl border-2 p-2.5 ${d.icon === ic ? "border-brand bg-brand-soft" : "border-line"}`}>
+                          <Swatch shapes={ICONS[ic]} colors={[pal.primary, d.icon === ic ? "#efe6ff" : "#ffffff"]} className="size-full" />
+                        </button>
+                      ))}
+                    </div>
+                  </fieldset>
+                )}
               </div>
             )}
 
             {tab === "couleurs" && (
               <div className="grid gap-4">
+                {hasPattern && (
+                  <fieldset className="grid gap-2">
+                    <legend className="mb-1 text-[13px] font-semibold text-muted">Motif africain</legend>
+                    <div className="grid grid-cols-3 gap-2">
+                      {PATTERN_IDS.map((id) => {
+                        const on = (d.pattern ?? tpl.pattern) === id;
+                        return (
+                          <button key={id} type="button" aria-pressed={on} onClick={() => setD({ ...d, pattern: id })}
+                            className={`grid gap-1 rounded-xl border-2 p-1.5 text-xs font-semibold ${on ? "border-brand bg-brand-soft" : "border-line"}`}>
+                            <Swatch shapes={PATTERNS[id].shapes} colors={[colorOf(pal, "primary"), colorOf(pal, "accent"), colorOf(pal, "bg")]} tiles={2} className="aspect-square w-full rounded-lg" />
+                            {PATTERNS[id].name}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </fieldset>
+                )}
                 <div className="grid grid-cols-2 gap-2">
                   {PALETTES.map((p) => (
                     <button key={p.id} type="button" aria-pressed={d.palette === p.id} onClick={() => setD({ ...d, palette: p.id })}
