@@ -41,27 +41,34 @@ export function EmblemeNeutre({ taille = 50 }: { taille?: number }) {
   );
 }
 
-export type Embleme = 'officiel' | 'neutre';
+export type Embleme = 'ministere' | 'officiel' | 'neutre';
+
+/** Logo du Ministère de la Justice : drapeau national et sceau de la République (fourni par le Ministère). */
+export const LOGO_MINISTERE = '/emblemes/drapeau-sceau.png';
 
 /**
- * Bloc institutionnel (VIS-02) : emblème, « République gabonaise », devise, ministère.
- * Armoiries officielles en production uniquement, après autorisation du Ministère.
+ * Bloc institutionnel (VIS-02) : logo du Ministère (drapeau et sceau), « République gabonaise », ministère.
+ * Variantes : armoiries officielles, ou emblème neutre si l'usage des symboles n'est pas autorisé.
  */
 export function BlocMarque({ embleme, inverse = false, srcArmoiries = '/emblemes/armoiries.svg', href }: {
   embleme: Embleme; inverse?: boolean; srcArmoiries?: string; href?: string;
 }) {
   const contenu = (
     <>
-      <span className="cj-bloc-marque__embleme">
-        {embleme === 'officiel'
-          ? <img src={srcArmoiries} alt="" width={52} height={50} />
-          : <EmblemeNeutre />}
+      <span className={'cj-bloc-marque__embleme' + (embleme === 'ministere' ? ' cj-bloc-marque__embleme--logo' : '')}>
+        {embleme === 'ministere'
+          ? <img src={LOGO_MINISTERE} alt="" width={66} height={44} />
+          : embleme === 'officiel'
+            ? <img src={srcArmoiries} alt="" width={52} height={50} />
+            : <EmblemeNeutre />}
       </span>
       <span className="cj-bloc-marque__separateur" aria-hidden="true" />
       <span className="cj-bloc-marque__textes">
         <span className="cj-bloc-marque__republique">République gabonaise</span>
-        <span className="cj-bloc-marque__devise">Union – Travail – Justice</span>
         <span className="cj-bloc-marque__ministere">Ministère de la Justice</span>
+        {embleme === 'ministere'
+          ? <span className="cj-bloc-marque__devise">Garde des Sceaux, chargé des Droits humains</span>
+          : <span className="cj-bloc-marque__devise">Union – Travail – Justice</span>}
       </span>
     </>
   );

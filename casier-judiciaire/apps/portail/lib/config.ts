@@ -2,12 +2,13 @@ import type { Embleme } from '@casier/design-system';
 
 /**
  * Marque blanche (ADM-16) et environnement (ENV-08) : même code partout, seule la configuration change.
- * En démonstration, emblème neutre et bandeau imposés (ENV-01, VIS-02).
+ * En démonstration, le bandeau « service non officiel » reste imposé (ENV-01).
  */
 export const config = {
   modeDemo: process.env.NEXT_PUBLIC_MODE_DEMO !== 'false',
-  embleme: (process.env.NEXT_PUBLIC_EMBLEME === 'officiel' && process.env.NEXT_PUBLIC_MODE_DEMO === 'false'
-    ? 'officiel' : 'neutre') as Embleme,
+  /** Logo du Ministère par défaut (décision de l'utilisateur, 17/10/2026) ; « neutre » reste possible. */
+  embleme: (['ministere', 'officiel', 'neutre'].includes(process.env.NEXT_PUBLIC_EMBLEME ?? '')
+    ? process.env.NEXT_PUBLIC_EMBLEME : 'ministere') as Embleme,
   nomService: process.env.NEXT_PUBLIC_NOM_SERVICE ?? 'Casier judiciaire numérique',
   /** Adresse du service Casier (côté serveur uniquement). Absente : réponses simulées de démonstration (ENV-03). */
   apiCasier: process.env.CASIER_API_URL ?? '',

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Carte, EmblemeNeutre, FiletTricolore, Icone, Pastille, classesBouton, type NomIcone } from '@casier/design-system';
+import { Carte, EmblemeNeutre, FiletTricolore, LOGO_MINISTERE, Icone, Pastille, classesBouton, type NomIcone } from '@casier/design-system';
 
 import { BulletinSpecimen } from '@/components/BulletinSpecimen';
 import { tarifs } from '@/lib/api';
@@ -39,9 +39,11 @@ export default async function Accueil() {
       <section className="p-accueil" aria-labelledby="titre-accueil">
         <div className="cj-conteneur p-accueil__contenu">
           <span className="p-accueil__embleme">
-            {config.embleme === 'officiel'
-              ? <img src="/emblemes/armoiries.svg" alt="" width={72} height={69} />
-              : <EmblemeNeutre taille={64} />}
+            {config.embleme === 'ministere'
+              ? <img src={LOGO_MINISTERE} alt="" width={119} height={80} className="p-accueil__logo" />
+              : config.embleme === 'officiel'
+                ? <img src="/emblemes/armoiries.svg" alt="" width={72} height={69} />
+                : <EmblemeNeutre taille={64} />}
           </span>
           <Pastille>Ministère de la Justice · Service public en ligne</Pastille>
           <h1 id="titre-accueil">Votre extrait de casier judiciaire, <em>en ligne</em></h1>

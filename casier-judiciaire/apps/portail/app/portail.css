@@ -159,6 +159,7 @@
   padding-block: var(--cj-espace-16) var(--cj-espace-12); }
 @media (min-width: 768px) { .p-accueil__contenu { padding-block: var(--cj-espace-20) var(--cj-espace-16); } }
 .p-accueil__embleme { display: grid; place-items: center; }
+.p-accueil__logo { display: block; border-radius: 4px; box-shadow: 0 0 0 1px var(--cj-bordure-defaut), var(--cj-ombre-faible); }
 .p-accueil h1 { font-family: var(--cj-police-titres); font-weight: 600; font-size: 2.25rem; line-height: 1.15; letter-spacing: -0.01em;
   max-width: 20ch; color: var(--cj-texte-principal); }
 @media (min-width: 768px) { .p-accueil h1 { font-size: 3.25rem; } }

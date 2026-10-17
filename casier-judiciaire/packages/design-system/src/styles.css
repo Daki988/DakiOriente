@@ -72,6 +72,8 @@
 
 .cj-bloc-marque { display: flex; align-items: center; gap: var(--cj-espace-3); text-decoration: none; color: inherit; }
 .cj-bloc-marque__embleme { flex: none; width: 52px; height: 50px; }
+.cj-bloc-marque__embleme--logo { width: 66px; height: 44px; }
+.cj-bloc-marque__embleme--logo img { display: block; width: 66px; height: 44px; border-radius: 2px; box-shadow: 0 0 0 1px var(--cj-bordure-defaut); }
 .cj-bloc-marque__separateur { flex: none; width: 1px; align-self: stretch; background: var(--cj-bordure-defaut); }
 .cj-bloc-marque__textes { display: flex; flex-direction: column; line-height: 1.2; white-space: nowrap; }
 .cj-bloc-marque__republique { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -354,3 +356,4 @@ button.cj-choix-carte:focus-visible { outline: 3px solid var(--cj-bordure-focus)
 .cj-actions { display: flex; flex-wrap: wrap; gap: var(--cj-espace-3); align-items: center; }
 .cj-formulaire-ligne { display: grid; gap: var(--cj-espace-3); }
 @media (min-width: 640px) { .cj-formulaire-ligne { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); align-items: end; } }
+@media (max-width: 519px) { .cj-en-tete .cj-bloc-marque__devise { display: none; } }
