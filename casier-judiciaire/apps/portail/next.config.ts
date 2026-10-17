@@ -1,3 +1,4 @@
+import path from 'node:path';
 import type { NextConfig } from 'next';
 
 const demo = process.env.NEXT_PUBLIC_MODE_DEMO !== 'false';
@@ -15,8 +16,15 @@ const entetes = [
   ...(demo ? [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] : []),
 ];
 
+// Racine du monorepo : design system et référentiels de démonstration sont hors du dossier de l'application.
+const racine = path.join(__dirname, '..', '..');
+
 const config: NextConfig = {
   poweredByHeader: false,
+  // Serveur autonome (server.js) : installation sur cPanel « Setup Node.js App » ou sur tout serveur Node.
+  output: 'standalone',
+  outputFileTracingRoot: racine,
+  turbopack: { root: racine },
   agentRules: false,
   transpilePackages: ['@casier/design-system'],
   async headers() {

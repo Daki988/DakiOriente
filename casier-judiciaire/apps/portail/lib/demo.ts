@@ -1,7 +1,8 @@
 import 'server-only';
 import { randomInt } from 'node:crypto';
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
+
+import bulletinsJson from '../../../referentiels/demo/bulletins-demo.json';
+import tarifsJson from '../../../referentiels/tarifs-proposition-2024-06-25.json';
 
 import type { DemandeDeposee, NouvelleDemande, ReclamationDeposee, ResultatVerification, SuiviDemande, Tarif } from './types';
 
@@ -9,10 +10,14 @@ import type { DemandeDeposee, NouvelleDemande, ReclamationDeposee, ResultatVerif
  * Mode démonstration (ENV-03) : réponses simulées à partir des référentiels et des données FICTIVES
  * de `casier-judiciaire/referentiels/`. Aucune donnée réelle, aucune somme encaissée.
  */
-const DOSSIER_REFERENTIELS = join(process.cwd(), '..', '..', 'referentiels');
+// Données intégrées au build : le portail se déploie seul (Vercel, cPanel), sans accès au dossier des référentiels.
+const REFERENTIELS: Record<string, unknown> = {
+  'tarifs-proposition-2024-06-25.json': tarifsJson,
+  'demo/bulletins-demo.json': bulletinsJson,
+};
 
 function lire<T>(fichier: string): T {
-  return JSON.parse(readFileSync(join(DOSSIER_REFERENTIELS, fichier), 'utf8')) as T;
+  return structuredClone(REFERENTIELS[fichier]) as T;
 }
 
 export function tarifsDemo(): Tarif[] {
