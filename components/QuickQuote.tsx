@@ -17,7 +17,7 @@ export function QuickQuote({ products }: { products: Product[] }) {
     `rounded-full px-3.5 py-2 text-sm ${on ? "bg-ink font-bold text-white" : "border border-line bg-paper font-medium"}`;
 
   return (
-    <div className="grid gap-5 rounded-3xl border border-line bg-white p-5 shadow-[0_12px_32px_rgba(13,14,18,.08)]">
+    <div className="grid gap-5 rounded-2xl bg-white p-5 md:p-6">
       <fieldset className="grid gap-2">
         <legend className="mb-2 text-[13px] font-semibold text-muted">Produit</legend>
         <div className="flex flex-wrap gap-2">

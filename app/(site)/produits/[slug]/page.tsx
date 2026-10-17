@@ -32,9 +32,9 @@ export default async function ProductPage({ params, searchParams }: Props) {
         <Link href={`/produits#${p.categorySlug}`} className="inline-flex w-fit items-center gap-1 text-sm font-semibold text-muted hover:text-ink">
           <ChevronLeft className="size-4" /> {p.category}
         </Link>
-        <ProductVisual product={p} className="aspect-[4/3] rounded-3xl" />
+        <ProductVisual product={p} className="aspect-[4/3] rounded-2xl" />
         <div className="grid gap-2">
-          <h1 className="text-[36px] font-extrabold leading-none md:text-5xl">{p.name}</h1>
+          <h1 className="text-[34px] font-bold leading-[1.05] md:text-5xl">{p.name}</h1>
           <p className="tabular font-semibold text-brand">Dès {fcfa(from.price)}{p.unit === "m²" ? " le m²" : ` les ${from.qty.toLocaleString("fr-FR")} ${p.unit}`}</p>
           <p className="text-muted">{p.description}</p>
           {p.formatMm && p.pricing !== "area" && (

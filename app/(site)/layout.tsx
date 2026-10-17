@@ -5,8 +5,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   return (
     <div className="pb-mobile-bar">
       {!hasSupabase && (
-        <p className="bg-yellow px-4 py-2 text-center text-sm font-semibold">
-          Version de démonstration : la commande en ligne s’active dès que la base de données est branchée.
+        <p className="border-b border-line bg-white px-4 py-1.5 text-center text-xs text-muted">
+          Version de démonstration · les commandes passent par WhatsApp
         </p>
       )}
       <Header />

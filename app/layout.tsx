@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, DM_Sans } from "next/font/google";
+import { Bricolage_Grotesque, DM_Sans, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, settings } from "@/lib/site";
 
 const bricolage = Bricolage_Grotesque({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-bricolage", display: "swap" });
 const dm = DM_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-dm", display: "swap" });
+const instrument = Instrument_Serif({ subsets: ["latin"], weight: "400", style: "italic", variable: "--font-instrument", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -20,7 +21,7 @@ export const viewport: Viewport = { themeColor: "#0d0e12", width: "device-width"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${bricolage.variable} ${dm.variable}`}>
+    <html lang="fr" className={`${bricolage.variable} ${dm.variable} ${instrument.variable}`}>
       <body>{children}</body>
     </html>
   );

@@ -7,20 +7,30 @@ import { settings, waNeam } from "@/lib/site";
 
 export const revalidate = 300;
 
-const MARQUEE = ["CARTES DE VISITE", "FLYERS", "ROLL-UP", "BÂCHES", "STICKERS", "TEXTILE DTF", "ÉTIQUETTES", "INVITATIONS"];
-
 const STEPS = [
-  ["Choisissez", "Produit, format, quantité : le prix s’affiche tout de suite.", "bg-yellow"],
-  ["Envoyez votre fichier", "Votre PDF ou image, ou bien un graphiste crée le design pour vous.", "bg-magenta"],
-  ["Recevez", "On vérifie le fichier, on imprime, on vous prévient sur WhatsApp. Retrait ou livraison.", "bg-cyan"],
+  ["Vous choisissez", "Produit, format, quantité : le prix s’affiche tout de suite, avant de commander."],
+  ["Vous envoyez votre fichier", "Un PDF ou une image suffit. Pas encore de design ? Un graphiste le crée pour vous."],
+  ["Nous imprimons", "Nous vérifions votre fichier, nous imprimons, puis nous vous prévenons sur WhatsApp. Retrait ou livraison."],
 ] as const;
 
-const PROMISES = [
-  ["Fichier vérifié avant impression", "Résolution, fond perdu, marges : on vous alerte avant d’imprimer."],
-  ["Prix affiché d’avance", "Le total est calculé avant la commande, sans surprise."],
-  ["Paiement Mobile Money", `${settings.payments.join(", ")}.`],
-  ["Suivi en direct", "Un lien de suivi et un message WhatsApp à chaque étape."],
+const FAQ = [
+  ["Combien de temps faut-il pour imprimer ?", "En général 48 à 72 heures après validation du fichier pour les cartes, flyers et stickers. Pour les grands formats, comptez 3 à 4 jours. Le délai exact vous est confirmé sur WhatsApp."],
+  ["Je n’ai pas de fichier prêt. Que faire ?", "C’est normal. Choisissez « Un graphiste le crée » au moment de commander : nous préparons le design avec vous, puis nous vous l’envoyons pour validation avant d’imprimer."],
+  ["Comment je paie ?", `Par ${settings.payments.join(", ").replace(/, ([^,]*)$/, " ou $1")}. Rien à payer en commandant : nous vérifions d’abord votre commande, puis nous vous envoyons le montant exact.`],
+  ["Livrez-vous ?", "Oui, partout à Libreville. Vous pouvez aussi passer récupérer votre commande à l’atelier, gratuitement."],
+  ["Mon fichier est-il vérifié avant impression ?", "Toujours. Résolution, marges, fond perdu : si quelque chose cloche, nous vous prévenons avant d’imprimer, jamais après."],
 ] as const;
+
+/** Titre de section façon Neam : numéro discret, question, mot clé en italique. */
+function SectionHead({ n, label, title, accent, after = "", intro }: { n: string; label: string; title: string; accent: string; after?: string; intro?: string }) {
+  return (
+    <div className="grid max-w-2xl content-start gap-3">
+      <p className="text-sm text-muted"><span className="tabular">({n})</span> {label}</p>
+      <h2 className="text-[32px] font-bold leading-[1.05] md:text-5xl">{title} <em className="accent">{accent}</em>{after}</h2>
+      {intro && <p className="text-muted md:text-lg">{intro}</p>}
+    </div>
+  );
+}
 
 export default async function Home() {
   const products = await getProducts();
@@ -29,90 +39,65 @@ export default async function Home() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-ink text-white">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-12 pt-8 md:grid-cols-2 md:px-6 md:py-20">
-          <div className="relative z-10 grid gap-5">
-            <p className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/[.08] px-3 py-1.5 text-[13px] font-medium text-white/90">
-              <span className="size-2 rounded-full bg-yellow" /> Imprimerie en ligne · Libreville
-            </p>
-            <h1 className="text-[52px] font-extrabold leading-[.94] md:text-[76px]">
-              Vos idées,<br />imprimées<br /><span className="text-yellow">sans détour.</span>
-            </h1>
-            <p className="max-w-md text-base leading-relaxed text-white/72">
-              Cartes de visite, flyers, roll-up, bâches, stickers… Prix immédiat, fichier vérifié, et un message WhatsApp quand c’est prêt.
-            </p>
-            <div className="grid gap-2.5 sm:flex">
-              <Link href="/produits" className="flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-4 font-bold text-white">
-                Voir les produits et les prix <ArrowRight />
-              </Link>
-              <a href={waNeam()} target="_blank" rel="noopener" className="flex items-center justify-center gap-2 rounded-full border-[1.5px] border-white/35 px-6 py-4 font-bold">
-                <Chat /> Devis sur WhatsApp
-              </a>
-            </div>
-            <ul className="flex flex-wrap gap-2 text-xs font-medium text-white/85">
-              {["Airtel & Moov Money", "Retrait ou livraison à Libreville", "Fichier vérifié"].map((t) => (
-                <li key={t} className="rounded-full border border-white/18 px-2.5 py-1.5">{t}</li>
-              ))}
-            </ul>
+      {/* Accroche */}
+      <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-14 pt-10 md:grid-cols-[1.2fr_1fr] md:px-6 md:pb-24 md:pt-20">
+        <div className="grid gap-6">
+          <p className="text-sm text-muted">Libreville, Gabon</p>
+          <h1 className="text-[44px] font-bold leading-[1.02] md:text-[68px]">
+            Et si imprimer devenait <em className="accent">simple</em> ?
+          </h1>
+          <p className="max-w-lg text-lg leading-relaxed text-muted">
+            Cartes de visite, flyers, bâches, stickers… Vous choisissez, vous voyez le prix tout de suite, nous imprimons. Et nous vous prévenons sur WhatsApp quand c’est prêt.
+          </p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Link href="/produits" className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 font-semibold text-white hover:bg-brand">
+              Voir les produits et les prix <ArrowRight className="size-4" />
+            </Link>
+            <a href={waNeam()} target="_blank" rel="noopener" className="font-semibold underline decoration-line decoration-2 underline-offset-4 hover:decoration-brand">
+              Parler de mon projet
+            </a>
           </div>
+        </div>
 
-          {/* Composition encres CMJ + imprimés */}
-          <div className="relative mx-auto h-[260px] w-full max-w-[420px] md:h-[380px]" aria-hidden="true">
-            <span className="ink left-[6%] top-[8%] w-[46%] aspect-square bg-cyan" />
-            <span className="ink left-[34%] top-[2%] w-[46%] aspect-square bg-magenta" />
-            <span className="ink left-[20%] top-[34%] w-[46%] aspect-square bg-yellow" />
-            <div className="absolute right-[2%] top-[22%] w-[34%] rotate-[8deg] overflow-hidden rounded-md bg-white shadow-[0_18px_30px_rgba(0,0,0,.4)]">
-              <div className="aspect-[3/2] bg-blue" />
-              <p className="px-2.5 pb-1 pt-2 font-display text-[clamp(13px,3.6vw,20px)] font-extrabold leading-[.95] text-ink">GRANDE<br />OUVERTURE</p>
-              <div className="mx-2.5 mb-3 h-1.5 w-1/2 rounded bg-magenta" />
-            </div>
-            <div className="absolute bottom-[4%] left-[2%] w-[48%] -rotate-[7deg] rounded-lg border border-white/15 bg-ink p-[4%] shadow-[0_16px_28px_rgba(0,0,0,.45)]" style={{ aspectRatio: "85/55" }}>
-              <p className="font-display text-[clamp(12px,3.4vw,17px)] font-bold">Aïcha N.</p>
-              <p className="text-[clamp(8px,2.2vw,10px)] text-white/60">Directrice · Libreville</p>
-              <span className="absolute bottom-[12%] right-[8%] w-[22%] aspect-square rounded-full bg-yellow" />
-            </div>
+        {/* Encres CMJ : la seule touche de couleur forte de la page */}
+        <div className="relative mx-auto aspect-square w-full max-w-[220px] md:max-w-[340px]" aria-hidden="true">
+          <span className="ink-light left-[4%] top-[6%] bg-cyan" />
+          <span className="ink-light right-[4%] top-[6%] bg-magenta" />
+          <span className="ink-light bottom-[4%] left-[24%] bg-yellow" />
+          <div className="absolute bottom-[14%] left-[50%] w-[58%] -translate-x-1/2 -rotate-6 rounded-md bg-white p-[5%] shadow-[0_18px_40px_-12px_rgba(13,14,18,.35)]" style={{ aspectRatio: "85/55" }}>
+            <p className="font-display text-[clamp(13px,3.6vw,18px)] font-bold">Aïcha N.</p>
+            <p className="text-[clamp(9px,2.3vw,11px)] text-muted">Directrice · Libreville</p>
+            <span className="absolute bottom-[14%] right-[8%] h-1.5 w-1/3 rounded bg-brand" />
           </div>
         </div>
       </section>
 
-      {/* Bandeau défilant */}
-      <div className="overflow-hidden bg-yellow py-3.5" aria-hidden="true">
-        <div className="marquee flex w-max gap-5 font-display text-lg font-extrabold tracking-tight">
-          {[...MARQUEE, ...MARQUEE].map((t, i) => (
-            <span key={i} className="flex items-center gap-5">{t}<span>✺</span></span>
-          ))}
+      {/* (01) Produits */}
+      <section className="border-t border-line">
+        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-14 md:px-6 md:py-20">
+          <SectionHead n="01" label="Nos produits" title="Qu’est-ce que vous voulez" accent="imprimer" after=" ?"
+            intro="Les plus demandés. Le prix affiché est le prix de départ ; le total exact se calcule sur chaque produit." />
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
+            {featured.map((p) => <ProductCard key={p.slug} product={p} />)}
+          </div>
+          <Link href="/produits" className="inline-flex w-fit items-center gap-2 font-semibold hover:text-brand">
+            Voir les {products.length} produits <ArrowRight className="size-4" />
+          </Link>
         </div>
-      </div>
-
-      {/* Produits */}
-      <section className="mx-auto grid max-w-6xl gap-6 px-4 py-12 md:px-6 md:py-16">
-        <div className="grid gap-2">
-          <p className="text-xs font-bold tracking-[.08em] text-brand">NOTRE CATALOGUE</p>
-          <h2 className="text-[34px] font-extrabold leading-none md:text-5xl">Ce qu’on imprime pour vous</h2>
-        </div>
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
-          {featured.map((p, i) => <ProductCard key={p.slug} product={p} badge={i < 2 ? "Top vente" : undefined} />)}
-        </div>
-        <Link href="/produits" className="flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-4 font-bold text-white md:w-fit">
-          Voir les {products.length} produits <ArrowRight />
-        </Link>
       </section>
 
-      {/* Comment ça marche */}
-      <section id="comment" className="bg-ink text-white">
-        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-12 md:px-6 md:py-16">
-          <div className="grid gap-2">
-            <p className="text-xs font-bold tracking-[.08em] text-yellow">SIMPLE COMME BONJOUR</p>
-            <h2 className="text-[34px] font-extrabold leading-none md:text-5xl">Commandez en 3 étapes</h2>
-          </div>
-          <ol className="grid gap-3 md:grid-cols-3">
-            {STEPS.map(([t, d, c], i) => (
-              <li key={t} className="flex gap-4 rounded-[20px] border border-white/10 bg-white/[.06] p-4 md:flex-col">
-                <span className={`grid size-12 flex-none place-items-center rounded-[14px] font-display text-[22px] font-extrabold text-ink ${c}`}>{i + 1}</span>
-                <div className="grid gap-1">
-                  <h3 className="text-[19px] font-bold">{t}</h3>
-                  <p className="text-sm leading-relaxed text-white/65">{d}</p>
+      {/* (02) Méthode */}
+      <section id="comment" className="border-t border-line bg-white">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-[1fr_1.2fr] md:px-6 md:py-20">
+          <SectionHead n="02" label="Comment ça marche" title="Comment ça se" accent="passe" after=" ?"
+            intro="Pas de surprise ni de jargon : trois étapes, et vous savez toujours où en est votre commande." />
+          <ol className="grid">
+            {STEPS.map(([t, d], i) => (
+              <li key={t} className="grid grid-cols-[3rem_1fr] gap-x-2 border-t border-line py-6 first:border-t-0 first:pt-0 md:first:pt-2">
+                <span className="tabular text-sm text-muted">0{i + 1}</span>
+                <div className="grid gap-1.5">
+                  <h3 className="text-xl font-bold">{t}</h3>
+                  <p className="text-muted">{d}</p>
                 </div>
               </li>
             ))}
@@ -120,40 +105,46 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Devis express */}
+      {/* (03) Prix */}
       {quick.length > 0 && (
-        <section className="mx-auto grid max-w-6xl gap-6 px-4 py-12 md:grid-cols-2 md:items-center md:px-6 md:py-16">
-          <div className="grid gap-2">
-            <p className="text-xs font-bold tracking-[.08em] text-brand">PRIX EN DIRECT</p>
-            <h2 className="text-[34px] font-extrabold leading-none md:text-5xl">Votre prix en 10 secondes</h2>
-            <p className="max-w-md text-muted">Choisissez un produit et une quantité. Les options (papier, finition) se règlent sur la page du produit.</p>
+        <section className="border-t border-line">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 md:grid-cols-[1fr_1.1fr] md:px-6 md:py-20">
+            <SectionHead n="03" label="Les prix" title="Combien ça" accent="coûte" after=" ?"
+              intro="Choisissez un produit et une quantité, le prix s’affiche. Papier et finitions se règlent ensuite sur la page du produit." />
+            <QuickQuote products={quick} />
           </div>
-          <QuickQuote products={quick} />
         </section>
       )}
 
-      {/* Engagements */}
-      <section className="bg-brand text-white">
-        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-12 sm:grid-cols-2 md:grid-cols-4 md:px-6">
-          {PROMISES.map(([t, d]) => (
-            <div key={t} className="grid content-start gap-1.5">
-              <h3 className="text-xl font-extrabold leading-tight">{t}</h3>
-              <p className="text-sm text-white/80">{d}</p>
-            </div>
-          ))}
+      {/* (04) Questions */}
+      <section className="border-t border-line bg-white">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-[1fr_1.2fr] md:px-6 md:py-20">
+          <div className="grid content-start gap-3">
+            <SectionHead n="04" label="Questions fréquentes" title="Les questions qu’on nous pose" accent="souvent" after="." />
+            <p className="text-muted">Pas trouvé votre réponse ? <a href={waNeam()} target="_blank" rel="noopener" className="font-semibold text-ink underline underline-offset-4">Écrivez-nous</a>.</p>
+          </div>
+          <div className="grid">
+            {FAQ.map(([q, a]) => (
+              <details key={q} className="group border-t border-line py-5 last:border-b">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold">
+                  {q}<span className="text-2xl font-light text-muted transition group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <p className="mt-3 max-w-xl text-muted">{a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Appel final */}
-      <section className="bg-ink text-white">
-        <div className="mx-auto grid max-w-6xl gap-5 px-4 py-14 md:px-6">
-          <h2 className="text-[44px] font-extrabold leading-[.95] md:text-6xl">Un projet ?<br /><span className="text-yellow">On l’imprime.</span></h2>
-          <p className="max-w-md text-white/70">{settings.hours}. Réponse rapide sur WhatsApp.</p>
-          <div className="grid gap-2.5 sm:flex">
-            <a href={waNeam()} target="_blank" rel="noopener" className="flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-4 font-bold">
-              <Chat /> Écrire sur WhatsApp
+      {/* Contact */}
+      <section className="border-t border-line">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-end justify-between gap-6 px-4 py-14 md:px-6 md:py-20">
+          <h2 className="text-[34px] font-bold leading-[1.05] md:text-5xl">Un projet, une question ?<br /><em className="accent">Parlons-en.</em></h2>
+          <div className="grid gap-2">
+            <a href={waNeam()} target="_blank" rel="noopener" className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3.5 font-semibold text-white">
+              <Chat className="size-5" /> Écrire sur WhatsApp
             </a>
-            <p className="flex items-center justify-center rounded-full border-[1.5px] border-white/35 px-6 py-4 font-bold select-all">{settings.phoneDisplay}</p>
+            <p className="text-sm text-muted">{settings.phoneDisplay} · {settings.hours}</p>
           </div>
         </div>
       </section>

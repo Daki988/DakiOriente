@@ -38,6 +38,7 @@
   --color-info: var(--info); --color-info-soft: var(--info-soft);
   --font-display: var(--font-bricolage), "Arial Black", system-ui, sans-serif;
   --font-sans: var(--font-dm), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-instrument), Georgia, "Times New Roman", serif;
 }
 
 html { background: var(--paper); color-scheme: light; scroll-behavior: smooth; }
@@ -55,17 +56,14 @@ h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.025em; text-wr
 .pb-mobile-bar { padding-bottom: calc(var(--mobile-bar-h) + env(safe-area-inset-bottom)); }
 @media (min-width: 768px) { .pb-mobile-bar { padding-bottom: 0; } }
 
-/* Pastilles d'encre CMJ du hero (mode écran sur fond sombre) */
-.ink { mix-blend-mode: screen; border-radius: 9999px; position: absolute; }
+/* Mot mis en valeur dans les titres (italique à empattements, comme neamindustry.com) */
+.accent { font-family: var(--font-serif); font-style: italic; font-weight: 400; color: var(--brand); letter-spacing: -0.01em; }
 
-/* Bandeau défilant */
-@keyframes marquee { to { transform: translateX(-50%); } }
-.marquee { animation: marquee 28s linear infinite; }
+/* Pastilles d'encre CMJ de l'accroche (superposition comme sur papier) */
+.ink-light { position: absolute; width: 62%; aspect-ratio: 1; border-radius: 9999px; mix-blend-mode: multiply; opacity: .7; }
 
-/* Trame de points (plan de travail) */
-.dots { background: radial-gradient(circle at 1px 1px, rgb(13 14 18 / .09) 1px, transparent 0) 0 0 / 14px 14px; }
+summary::-webkit-details-marker { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .marquee { animation: none; }
 }

@@ -13,7 +13,7 @@ const EXT = ["pdf", "png", "jpg", "jpeg", "ai", "eps", "svg", "psd", "tif", "tif
 const MAX_MB = 100;
 
 const wa = (phone: string, text: string) => `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-const card = "grid gap-4 rounded-3xl border border-line bg-white p-4 md:p-6";
+const card = "grid gap-4 rounded-2xl bg-white p-4 md:p-6";
 const label = "text-[13px] font-semibold text-muted";
 const input = "w-full rounded-xl border border-line bg-paper px-3.5 py-3 text-[16px] outline-none focus:border-brand";
 const chip = (on: boolean) => `rounded-full px-3.5 py-2 text-sm transition ${on ? "bg-ink font-bold text-white" : "border border-line bg-paper font-medium hover:border-ink"}`;
@@ -21,8 +21,8 @@ const chip = (on: boolean) => `rounded-full px-3.5 py-2 text-sm transition ${on 
 function Step({ n, title, children }: { n: number; title: string; children: React.ReactNode }) {
   return (
     <section className={card} aria-labelledby={`step-${n}`}>
-      <h2 id={`step-${n}`} className="flex items-center gap-3 text-xl font-extrabold">
-        <span className="grid size-8 place-items-center rounded-[10px] bg-yellow font-display text-base">{n}</span>{title}
+      <h2 id={`step-${n}`} className="flex items-baseline gap-3 text-xl font-bold">
+        <span className="tabular font-sans text-sm font-normal text-muted">(0{n})</span>{title}
       </h2>
       {children}
     </section>
@@ -161,7 +161,7 @@ export function OrderFlow({ product, settings, initialQty, online }: { product: 
 
   return (
     <form onSubmit={submit} className="grid gap-4" noValidate>
-      <Step n={1} title="Configurez">
+      <Step n={1} title="Combien, et comment ?">
         {p.pricing === "pack" && (
           <fieldset className="grid gap-2">
             <legend className={`${label} mb-2`}>Quantité</legend>
@@ -202,7 +202,7 @@ export function OrderFlow({ product, settings, initialQty, online }: { product: 
         ))}
       </Step>
 
-      <Step n={2} title="Votre design">
+      <Step n={2} title="Vous avez déjà votre fichier ?">
         <div className="grid gap-2 sm:grid-cols-2" role="radiogroup" aria-label="Design">
           {([["file", "J’ai mon fichier", "PDF, image, AI… jusqu’à 100 Mo", Upload], ["design", "Un graphiste le crée", `+ ${fcfa(settings.designFee)}`, Pen]] as const).map(([v, t, d, Icon]) => (
             <button key={v} type="button" role="radio" aria-checked={mode === v} onClick={() => setMode(v)}
@@ -233,7 +233,7 @@ export function OrderFlow({ product, settings, initialQty, online }: { product: 
         )}
       </Step>
 
-      <Step n={3} title="Vos coordonnées">
+      <Step n={3} title="Où vous joindre ?">
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="grid gap-1.5"><span className={label}>Nom et prénom</span><input className={input} autoComplete="name" required value={name} onChange={(e) => setName(e.target.value)} /></label>
           <label className="grid gap-1.5"><span className={label}>Numéro WhatsApp</span><input className={`${input} tabular`} type="tel" autoComplete="tel" inputMode="tel" placeholder="077 00 00 00" required value={phone} onChange={(e) => setPhone(e.target.value)} /></label>
