@@ -28,26 +28,28 @@ export async function GET(req: Request) {
   const url = new URL(req.url);
   if (!allowed(url.searchParams.get("cle"))) return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
 
+  // Base : seulement si Vercel fournit l'accès direct (sinon elle a été installée à part).
   const dbUrl = process.env.POSTGRES_URL_NON_POOLING ?? process.env.POSTGRES_URL;
-  if (!dbUrl) return NextResponse.json({ error: "POSTGRES_URL absente : Supabase n'est pas relié au projet Vercel" }, { status: 500 });
-
   const steps: string[] = [];
-  const sql = postgres(dbUrl, { ssl: "require", max: 1, prepare: false, onnotice: () => {} });
-  try {
-    for (const file of ["schema.sql", "seed.sql"]) {
-      const text = await readFile(path.join(process.cwd(), "supabase", file), "utf8");
-      await sql.unsafe(text);
-      steps.push(`${file} appliqué`);
+  if (dbUrl) {
+    const sql = postgres(dbUrl, { ssl: "require", max: 1, prepare: false, onnotice: () => {} });
+    try {
+      for (const file of ["schema.sql", "seed.sql"]) {
+        const text = await readFile(path.join(process.cwd(), "supabase", file), "utf8");
+        await sql.unsafe(text);
+        steps.push(`${file} appliqué`);
+      }
+    } catch (e) {
+      return NextResponse.json({ error: `Base : ${(e as Error).message}`, steps }, { status: 500 });
+    } finally {
+      await sql.end({ timeout: 5 });
     }
-    const [{ n }] = await sql`select count(*)::int as n from public.products`;
-    steps.push(`${n} produits en base`);
-  } catch (e) {
-    return NextResponse.json({ error: `Base : ${(e as Error).message}`, steps }, { status: 500 });
-  } finally {
-    await sql.end({ timeout: 5 });
   }
 
   const sb = supabaseService();
+  const { count, error: countError } = await sb.from("products").select("*", { count: "exact", head: true });
+  if (countError) return NextResponse.json({ error: `Catalogue : ${countError.message}`, steps }, { status: 500 });
+  steps.push(`${count} produits en base`);
   const { data: list, error: listError } = await sb.auth.admin.listUsers({ perPage: 1000 });
   if (listError) return NextResponse.json({ error: `Comptes : ${listError.message}`, steps }, { status: 500 });
   if (!list.users.some((u) => u.email?.toLowerCase() === SUPER_ADMIN)) {
