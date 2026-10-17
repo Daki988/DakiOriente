@@ -3,6 +3,17 @@
 Environ 15 minutes, une seule fois. Tant que ce n'est pas fait, le site tourne en mode démonstration :
 catalogue visible, commandes envoyées sur WhatsApp, back-office inaccessible.
 
+## Méthode rapide (depuis Vercel, sans copier de clé)
+
+1. Vercel › projet neam-print › **Storage** › **Create Database** › **Supabase** › région Paris/Frankfurt › reliez-le au projet. Les clés sont ajoutées toutes seules.
+2. Ajoutez la variable `SETUP_TOKEN` (longue chaîne aléatoire, type *Sensitive*) et redéployez.
+3. Ouvrez `https://<site>/api/installation?cle=<SETUP_TOKEN>` : tables, catalogue et compte super administrateur sont créés. La réponse contient un lien à usage unique (1 h) pour choisir le mot de passe.
+4. Supprimez ensuite `SETUP_TOKEN` dans Vercel.
+
+Dans Supabase › Authentication › URL Configuration, mettez l'adresse du site en **Site URL** pour que « Mot de passe oublié » fonctionne.
+
+## Méthode manuelle
+
 ## 1. Créer le projet
 
 1. Créez un compte sur https://supabase.com, puis **New project**.
