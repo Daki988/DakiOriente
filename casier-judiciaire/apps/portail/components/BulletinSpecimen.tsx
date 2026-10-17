@@ -1,4 +1,4 @@
-import { EmblemeNeutre, Icone } from '@casier/design-system';
+import { Icone, LOGO_MINISTERE } from '@casier/design-system';
 
 /** Motif de QR code purement illustratif (déterministe), sans aucune donnée encodée. */
 function QrIllustratif() {
@@ -36,7 +36,7 @@ export function BulletinSpecimen() {
       <span className="p-specimen__filigrane" aria-hidden="true">SPÉCIMEN</span>
       <div className="p-specimen__entete">
         <p>République gabonaise<span>Ministère de la Justice · Casier judiciaire national</span></p>
-        <EmblemeNeutre taille={34} />
+        <img src={LOGO_MINISTERE} alt="" width={51} height={34} style={{ borderRadius: 2 }} />
       </div>
       <p className="p-specimen__titre">Bulletin n°3</p>
       <p className="p-specimen__sous-titre">Extrait du casier judiciaire · N° B3-2026-0000412</p>

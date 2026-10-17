@@ -27,6 +27,8 @@ import org.apache.pdfbox.pdmodel.common.PDMetadata;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.graphics.color.PDOutputIntent;
+import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.pdmodel.graphics.state.PDExtendedGraphicsState;
 import org.apache.pdfbox.util.Matrix;
 import org.apache.xmpbox.XMPMetadata;
@@ -121,6 +123,7 @@ public class GenerateurPdf {
         private final Polices p;
         private final Donnees d;
         private PDPageContentStream cs;
+        private PDImageXObject logo;
         private float y;
         private int pages;
 
@@ -185,14 +188,13 @@ public class GenerateurPdf {
                 cs.addRect(i * tiers, HAUTEUR - 6, tiers, 6);
                 cs.fill();
             }
-            emblemeNeutre(MARGE + 22, HAUTEUR - 64);
-            float x = MARGE + 56;
+            logoMinistere(MARGE, HAUTEUR - 82, 60);
+            float x = MARGE + 70;
             couleur(NAVY);
             texte(p.gras, 9, "RÉPUBLIQUE GABONAISE", x, HAUTEUR - 50);
+            texte(p.semi, 9, "Ministère de la Justice, Garde des Sceaux, chargé des Droits humains", x, HAUTEUR - 62);
             couleur(GRIS);
-            texte(p.texte, 8, "Union – Travail – Justice", x, HAUTEUR - 61);
-            couleur(NAVY);
-            texte(p.semi, 9.5f, "Ministère de la Justice · Casier judiciaire national", x, HAUTEUR - 74);
+            texte(p.texte, 8, "Casier judiciaire national", x, HAUTEUR - 74);
             texteDroite(p.semi, 9, "N° " + d.numero(), LARGEUR - MARGE, HAUTEUR - 50);
             couleur(GRIS);
             texteDroite(p.texte, 8, "Page " + pages, LARGEUR - MARGE, HAUTEUR - 62);
@@ -200,33 +202,19 @@ public class GenerateurPdf {
             y = HAUTEUR - 122;
         }
 
-        /** Emblème neutre de démonstration (VIS-02) : les armoiries officielles exigent l'autorisation du Ministère. */
-        private void emblemeNeutre(float cx, float cy) throws IOException {
-            cs.setNonStrokingColor(NAVY[0], NAVY[1], NAVY[2]);
-            cercle(cx, cy, 20);
-            cs.fill();
-            cs.setStrokingColor(0.99f, 0.82f, 0.05f);
-            cs.setLineWidth(1.6f);
-            cercle(cx, cy, 20);
+        /** VIS-02 : logo du Ministère de la Justice (drapeau et sceau), fourni par le Ministère ; chargé une fois par document. */
+        private void logoMinistere(float x, float bas, float largeur) throws IOException {
+            if (logo == null) {
+                try (InputStream in = GenerateurPdf.class.getResourceAsStream("/emblemes/logo-ministere.jpg")) {
+                    logo = JPEGFactory.createFromStream(doc, in);
+                }
+            }
+            float hauteur = largeur * logo.getHeight() / logo.getWidth();
+            cs.drawImage(logo, x, bas, largeur, hauteur);
+            cs.setStrokingColor(0.85f, 0.87f, 0.9f);
+            cs.setLineWidth(0.5f);
+            cs.addRect(x, bas, largeur, hauteur);
             cs.stroke();
-            cs.setStrokingColor(1f, 1f, 1f);
-            cs.setLineWidth(1.2f);
-            cs.moveTo(cx, cy - 10); cs.lineTo(cx, cy + 9);
-            cs.moveTo(cx - 10, cy + 6); cs.lineTo(cx + 10, cy + 6);
-            cs.moveTo(cx - 6, cy - 10); cs.lineTo(cx + 6, cy - 10);
-            cs.moveTo(cx - 10, cy + 6); cs.lineTo(cx - 13, cy - 2); cs.lineTo(cx - 7, cy - 2); cs.closePath();
-            cs.moveTo(cx + 10, cy + 6); cs.lineTo(cx + 7, cy - 2); cs.lineTo(cx + 13, cy - 2); cs.closePath();
-            cs.stroke();
-        }
-
-        private void cercle(float cx, float cy, float r) throws IOException {
-            float k = 0.5523f * r;
-            cs.moveTo(cx + r, cy);
-            cs.curveTo(cx + r, cy + k, cx + k, cy + r, cx, cy + r);
-            cs.curveTo(cx - k, cy + r, cx - r, cy + k, cx - r, cy);
-            cs.curveTo(cx - r, cy - k, cx - k, cy - r, cx, cy - r);
-            cs.curveTo(cx + k, cy - r, cx + r, cy - k, cx + r, cy);
-            cs.closePath();
         }
 
         void corps() throws IOException {
