@@ -24,9 +24,14 @@ export type NouvelleDemande = {
     nomPere?: string; nomMere?: string; nationalite?: string; numeroCnie?: string; numeroPasseport?: string;
   };
   telephone?: string; email?: string;
+  /** Paiement au Trésor public : la demande reste en attente de paiement jusqu'à la saisie de la quittance. */
+  paiementTresor?: boolean;
 };
 
-export type DemandeDeposee = { numeroDossier: string; codeSuivi: string; montantFcfa: number; tarifProvisoire: boolean; demo: boolean };
+export type DemandeDeposee = { numeroDossier: string; codeSuivi: string; montantFcfa: number; tarifProvisoire: boolean; demo: boolean; paiementTresor?: boolean };
+
+/** Résultat de la saisie de l'identifiant de paiement du Trésor. */
+export type PaiementTresorEnregistre = { numeroDossier: string; statut: StatutDemande; numeroBulletin: string | null; demo: boolean };
 
 export type ObjetReclamation = 'SUIVI' | 'PAIEMENT' | 'CONTENU_CASIER' | 'BULLETIN' | 'AUTRE';
 
@@ -96,4 +101,13 @@ export type SaisieCondamnation = {
     nomPere: string | null; nomMere: string | null; nationalites: string[]; numeroCnie: string | null; numeroPasseport: string | null; alias: string[] } | null;
   juridiction: string; dateDecision: string; numeroDecision: string; infraction: string; qualification: string; peines: Peine[];
   dateDefinitive: string | null; referencePieceSource: string;
+};
+
+/** Tableau de bord du validateur : bulletin n°3 émis et état de son impression au guichet. */
+export type EtatImpression = 'A_VALIDER' | 'A_IMPRIMER' | 'IMPRIME' | 'REVOQUE';
+export type BulletinAImprimer = {
+  id: string; numero: string; nom: string; prenoms: string; dateNaissance: string | null; dateEmission: string; etat: EtatImpression;
+  validePar: string | null; valideLe: string | null; imprimeLe: string | null; feuillet: string | null; impressions: number;
+  /** Démonstration seulement : moyen de paiement (le service ne l'expose pas encore). */
+  paiement?: string;
 };

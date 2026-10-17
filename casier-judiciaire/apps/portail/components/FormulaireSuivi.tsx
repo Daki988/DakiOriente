@@ -50,6 +50,11 @@ function Resultat({ suivi }: { suivi: SuiviDemande }) {
         {suivi.statut === 'EN_ATTENTE_PIECE' && (
           <Link href="/connexion" className={classesBouton()}><Icone nom="upload" taille={20} /><span>Déposer la pièce</span></Link>
         )}
+        {suivi.statut === 'EN_ATTENTE_PAIEMENT' && (
+          <Link href={`/paiement-tresor?numero=${encodeURIComponent(suivi.numeroDossier)}`} className={classesBouton()}>
+            <Icone nom="landmark" taille={20} /><span>J’ai payé au Trésor : saisir l’identifiant</span>
+          </Link>
+        )}
         <Link href="/suivi" className={classesBouton({ variante: 'secondaire' })}><span>Suivre un autre dossier</span></Link>
       </div>
     </section>

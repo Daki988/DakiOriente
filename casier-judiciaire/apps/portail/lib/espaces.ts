@@ -7,7 +7,7 @@ import { demoEspaces } from './demo-espaces';
 import { jetonValide } from './oidc';
 import { session, type Session } from './session';
 import type {
-  DemandeUsager, DossierAgent, EntreeJournal, Indicateurs, InscriptionEnAttente, JeuDeRegles, ProfilIdentite, ResultatIntegrite,
+  BulletinAImprimer, DemandeUsager, DossierAgent, EntreeJournal, Indicateurs, InscriptionEnAttente, JeuDeRegles, ProfilIdentite, ResultatIntegrite,
   SaisieCondamnation, TarifComplet,
 } from './types';
 
@@ -136,6 +136,30 @@ export const espaces = {
       return;
     }
     await appel(s, `/api/v1/regles/${encodeURIComponent(id)}/${valider ? 'validation' : 'rejet'}`, post(valider ? {} : { motif }));
+  },
+  /** Tableau de bord du validateur : bulletins n°3 à valider puis imprimer au guichet. */
+  async fileImpression(s: Session): Promise<BulletinAImprimer[]> {
+    return s.demo ? demoEspaces.fileImpression(s) : (await appel<BulletinAImprimer[]>(s, '/api/v1/impressions')) ?? [];
+  },
+  async validerImpression(s: Session, id: string) {
+    if (s.demo) {
+      const erreur = demoEspaces.validerImpression(s, id);
+      if (erreur) throw new RefusMetier(erreur);
+      return;
+    }
+    await appel(s, `/api/v1/impressions/${encodeURIComponent(id)}/validation`, post());
+  },
+  /** Impression sur feuillet sécurisé : renvoie le PDF scellé à imprimer. */
+  async imprimer(s: Session, id: string, feuillet: string, motif: string | null): Promise<Uint8Array> {
+    if (s.demo) {
+      const r = demoEspaces.imprimer(s, id, feuillet, motif);
+      if ('erreur' in r) throw new RefusMetier(r.erreur);
+      return new Uint8Array(r.pdf);
+    }
+    const r = await appel<Response>(s, `/api/v1/impressions/${encodeURIComponent(id)}/impression`,
+      { ...post({ feuillet, motif: motif || undefined }), brut: true, headers: { Accept: 'application/pdf' } });
+    if (!r) throw new RefusMetier('Bulletin introuvable.');
+    return new Uint8Array(await r.arrayBuffer());
   },
   async journal(s: Session): Promise<{ integrite: ResultatIntegrite | null; entrees: EntreeJournal[] }> {
     if (s.demo) {

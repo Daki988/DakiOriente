@@ -1,8 +1,8 @@
 import 'server-only';
 
 import { config } from './config';
-import { deposerDemo, reclamerDemo, suiviDemo, tarifsDemo, verifierCodeDemo, verifierDocumentDemo, verifierJetonDemo } from './demo';
-import type { DemandeDeposee, NouvelleDemande, NouvelleReclamation, ReclamationDeposee, ResultatVerification, SuiviDemande, Tarif } from './types';
+import { deposerDemo, payerTresorDemo, reclamerDemo, suiviDemo, tarifsDemo, verifierCodeDemo, verifierDocumentDemo, verifierJetonDemo } from './demo';
+import type { DemandeDeposee, NouvelleDemande, NouvelleReclamation, PaiementTresorEnregistre, ReclamationDeposee, ResultatVerification, SuiviDemande, Tarif } from './types';
 
 /** Le service ne répond pas : la page affiche un message clair, sans code technique (ERG-05, PUB-16). */
 export class ServiceIndisponible extends Error {}
@@ -71,10 +71,11 @@ export async function deposer(demande: NouvelleDemande, jetonUsager?: string): P
     }
   }
   if (!jetonUsager) throw new RefusMetier('Connectez-vous avec votre identité numérique pour déposer une demande.');
+  const { paiementTresor, ...corps } = demande;
   const r = await appel<Omit<DemandeDeposee, 'demo'>>('/api/v1/demandes', {
-    method: 'POST', body: JSON.stringify(demande), headers: { Authorization: `Bearer ${jetonUsager}` },
+    method: 'POST', body: JSON.stringify(corps), headers: { Authorization: `Bearer ${jetonUsager}` },
   });
-  return { ...r!, demo: false };
+  return { ...r!, demo: false, paiementTresor };
 }
 
 /** Réclamation depuis le formulaire public (parcours « Réclamation », section 8 ; DSH-10). */
@@ -100,4 +101,21 @@ export async function verifierDocument(pdf: Blob): Promise<{ integre: boolean; r
   if (r.status === 400) throw new RefusMetier('Le fichier doit être un bulletin PDF de 5 Mo au plus.');
   if (!r.ok) throw new ServiceIndisponible();
   return r.json();
+}
+
+/**
+ * Paiement au Trésor public : l'usager saisit l'identifiant de paiement (quittance) avec son numéro de dossier et son
+ * code de suivi. Renvoie null si le dossier ou le code est inconnu.
+ */
+export async function payerTresor(numero: string, code: string, quittance: string): Promise<PaiementTresorEnregistre | null> {
+  if (!reel()) {
+    try {
+      return payerTresorDemo(numero, code, quittance);
+    } catch (e) {
+      throw new RefusMetier((e as Error).message);
+    }
+  }
+  const r = await appel<{ numeroDossier: string; statut: PaiementTresorEnregistre['statut']; numeroBulletin: string | null }>(
+    '/api/public/v1/paiements/tresor', { method: 'POST', body: JSON.stringify({ numeroDossier: numero, code, quittance }) });
+  return r && { ...r, demo: false };
 }

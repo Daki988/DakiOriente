@@ -61,6 +61,9 @@ export default async function Accueil() {
           <p className="p-accueil__lien">
             <Link href="/verifier">Vous avez reçu un bulletin ? Vérifiez son authenticité<Icone nom="arrow-right" taille={16} /></Link>
           </p>
+          <p className="p-accueil__lien">
+            <Link href="/paiement-tresor">Vous avez payé au Trésor public ? Saisissez votre identifiant de paiement<Icone nom="arrow-right" taille={16} /></Link>
+          </p>
           <ul className="p-reperes" aria-label="Le service en bref">
             <li><strong>24 h</strong> maximum</li>
             <li><strong>{b3 ? fcfa(b3.montantFcfa) : '—'}</strong> {b3?.provisoire ? 'tarif provisoire' : 'le bulletin'}</li>

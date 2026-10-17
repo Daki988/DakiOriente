@@ -1,6 +1,6 @@
-# Casier judiciaire numérique — paquet d'installation 0.2.2
+# Casier judiciaire numérique — paquet d'installation 0.3.0
 
-République gabonaise · Ministère de la Justice · Version du 17 octobre 2026 (lots L0 à L3)
+République gabonaise · Ministère de la Justice · Version du 17 octobre 2026 (lots L0 à L3, paiement au Trésor et impression)
 
 > **Version de démonstration.** Données fictives, paiement simulé, emblème neutre, bandeau « Démonstration — service non officiel ».
 > Elle ne doit pas recevoir de données réelles (exigences ENV-01 à ENV-03 et DON-06 du cahier des charges).
@@ -50,8 +50,19 @@ Espaces connectés : les comptes de démonstration (identités fictives, un par 
 Pour une présentation, ajoutez la variable `COMPTES_DEMO` = `true` puis redémarrez : la page **Se connecter** propose (et les pages Vérifier et Suivre affichent les codes de test)
 alors un bouton par profil. Sans cette variable et sans Keycloak, la connexion affiche « bientôt disponible ».
 
+Paiement au Trésor public : à la dernière étape de la demande, l'usager choisit « Au Trésor public » et reçoit un avis
+de paiement (numéro de dossier, code de suivi, montant). Après paiement au guichet du Trésor, il saisit l'identifiant de
+paiement (numéro de quittance) sur la page **Payer au Trésor public** (`/paiement-tresor`) et obtient son bulletin.
+Une quittance ne sert qu'une fois. Tant que l'interconnexion avec le Trésor n'existe pas, la quittance est acceptée sur
+sa forme : ce mode n'est actif qu'en démonstration (`casier.paiement.tresor-simule`, profils `local` et `demo`).
+
+Impression au guichet : le profil « Validateur — impression » (rôle greffier en chef, R07) dispose du tableau de bord
+**Impression des bulletins** : bulletins à valider (contrôle de l'identité et du paiement), à imprimer sur un feuillet
+sécurisé numéroté (numéro unique), réimpression avec motif obligatoire ; tout est journalisé.
+
 Données de test (non affichées sur le site) : vérification `DEMO-VALI-DE26` (valide), `DEMO-REVO-QUE1` (révoqué),
-`DEMO-EXPI-RE01` (expiré) ; suivi du dossier `CJ-2026-000123` avec le code `123456`.
+`DEMO-EXPI-RE01` (expiré) ; suivi du dossier `CJ-2026-000123` avec le code `123456` ; paiement au Trésor du dossier `CJ-2026-000140`, code `654321`,
+identifiant de paiement au choix (par exemple `TP-2026-104512`).
 
 ## Option B — Plateforme complète sur un serveur (VPS ou datacenter)
 
@@ -82,8 +93,8 @@ Au premier démarrage, le service crée la base (migrations), charge le barème 
 ## Vérifications effectuées sur ce paquet
 
 - Pile complète lancée depuis ce paquet : service démarré, base créée, référentiels chargés ; portail relié au service (tarifs, vérification, toutes les pages).
-- 57 tests du service sur base PostgreSQL réelle (parcours complet, bulletin PDF scellé et détection de falsification, journal inaltérable, registre sans suppression), couverture du cœur métier ≥ 85 %.
-- 103 tests du portail (parcours, espaces connectés, dépôt de PDF, accessibilité WCAG 2.1 AA, mobile et ordinateur).
+- 59 tests du service sur base PostgreSQL réelle (parcours complet, bulletin PDF scellé et détection de falsification, journal inaltérable, registre sans suppression), couverture du cœur métier ≥ 85 %.
+- 112 tests du portail (parcours, paiement au Trésor, impression, espaces connectés, dépôt de PDF, accessibilité WCAG 2.1 AA, mobile et ordinateur).
 - Analyses de sécurité (Trivy, gitleaks, Semgrep) sans alerte haute ni critique.
 
 ## Avant une mise en service officielle par l'État

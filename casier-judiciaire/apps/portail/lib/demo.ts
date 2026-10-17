@@ -6,7 +6,7 @@ import tarifsJson from '../../../referentiels/tarifs-proposition-2024-06-25.json
 
 import { SPECIMEN_B3_SHA256 } from './specimen-b3';
 
-import type { DemandeDeposee, NouvelleDemande, ReclamationDeposee, ResultatVerification, SuiviDemande, Tarif } from './types';
+import type { DemandeDeposee, NouvelleDemande, PaiementTresorEnregistre, ReclamationDeposee, ResultatVerification, SuiviDemande, Tarif } from './types';
 
 /**
  * Mode démonstration (ENV-03) : réponses simulées à partir des référentiels et des données FICTIVES
@@ -91,6 +91,10 @@ export function deposerDemo(demande: NouvelleDemande): DemandeDeposee {
   const code = String(randomInt(0, 1_000_000)).padStart(6, '0');
   const maintenant = Date.now();
   const iso = (ms: number) => new Date(ms).toISOString();
+  if (demande.paiementTresor) {
+    dossiers.set(numero, { code, suivi: enAttenteTresor(numero, maintenant) });
+    return { numeroDossier: numero, codeSuivi: code, montantFcfa: tarif.montantFcfa, tarifProvisoire: tarif.provisoire, demo: true, paiementTresor: true };
+  }
   dossiers.set(numero, {
     code,
     suivi: {
@@ -104,6 +108,53 @@ export function deposerDemo(demande: NouvelleDemande): DemandeDeposee {
     },
   });
   return { numeroDossier: numero, codeSuivi: code, montantFcfa: tarif.montantFcfa, tarifProvisoire: tarif.provisoire, demo: true };
+}
+
+function enAttenteTresor(numero: string, depuis: number): SuiviDemande {
+  return {
+    numeroDossier: numero, statut: 'EN_ATTENTE_PAIEMENT', libelle: 'En attente du paiement au Trésor public',
+    echeance: null, numeroBulletin: null,
+    frise: [{ horodatage: new Date(depuis).toISOString(), statut: 'EN_ATTENTE_PAIEMENT', libelle: 'Demande enregistrée, à payer au Trésor public' }],
+  };
+}
+
+/** Dossier fictif à payer au Trésor, pour les présentations (DON-06). */
+export const DOSSIER_TRESOR_DEMO = { numero: 'CJ-2026-000140', code: '654321' };
+if (!dossiers.has(DOSSIER_TRESOR_DEMO.numero)) {
+  dossiers.set(DOSSIER_TRESOR_DEMO.numero, { code: DOSSIER_TRESOR_DEMO.code, suivi: enAttenteTresor(DOSSIER_TRESOR_DEMO.numero, Date.parse('2026-10-17T07:30:00Z')) });
+}
+const quittances = new Map<string, string>();
+
+/**
+ * Paiement au Trésor simulé : le numéro de dossier et le code de suivi identifient la demande ; l'identifiant de
+ * paiement (quittance) ne peut servir qu'une fois. Le bulletin fictif est alors délivré.
+ */
+export function payerTresorDemo(numero: string, code: string, quittance: string): PaiementTresorEnregistre | null {
+  const dossier = dossiers.get(numero);
+  if (!dossier || dossier.code !== code) return null;
+  const deja = quittances.get(quittance);
+  if (deja && deja !== numero) throw new Error('Cet identifiant de paiement a déjà été utilisé.');
+  const s = dossier.suivi;
+  if (s.statut === 'EN_ATTENTE_PAIEMENT') {
+    const maintenant = Date.now();
+    quittances.set(quittance, numero);
+    s.statut = 'DELIVREE';
+    s.libelle = 'Bulletin disponible';
+    s.numeroBulletin = 'B3-2026-0000412';
+    s.frise.push(
+      { horodatage: new Date(maintenant).toISOString(), statut: 'EN_TRAITEMENT', libelle: `Paiement au Trésor confirmé (quittance ${quittance})` },
+      { horodatage: new Date(maintenant + 5_000).toISOString(), statut: 'DELIVREE', libelle: 'Bulletin disponible' },
+    );
+  } else if (!deja) {
+    throw new Error('Ce dossier est déjà payé.');
+  }
+  return { numeroDossier: numero, statut: s.statut, numeroBulletin: s.numeroBulletin, demo: true };
+}
+
+/** Bulletin téléchargeable après paiement (démonstration) : dossier délivré, code de suivi exact. */
+export function dossierDelivreDemo(numero: string, code: string) {
+  const dossier = dossiers.get(numero);
+  return !!dossier && dossier.code === code && dossier.suivi.statut === 'DELIVREE';
 }
 
 /** Réclamation simulée : aucune donnée conservée, seule une référence fictive est rendue. */

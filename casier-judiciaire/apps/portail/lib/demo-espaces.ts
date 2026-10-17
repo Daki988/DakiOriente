@@ -3,8 +3,10 @@ import { randomUUID } from 'node:crypto';
 
 import { tarifsDemo } from './demo';
 import type { Session } from './session';
+import { SPECIMEN_B3 } from './specimen-b3';
+import { SPECIMENS_IMPRESSION } from './specimens-impression';
 import type {
-  DemandeUsager, DossierAgent, EntreeJournal, Indicateurs, InscriptionEnAttente, JeuDeRegles, ProfilIdentite,
+  BulletinAImprimer, DemandeUsager, DossierAgent, EntreeJournal, Indicateurs, InscriptionEnAttente, JeuDeRegles, ProfilIdentite,
   SaisieCondamnation, TarifComplet,
 } from './types';
 
@@ -17,6 +19,7 @@ const iso = (decalageHeures: number) => new Date(Date.now() + decalageHeures * 3
 type Etat = {
   demandes: DemandeUsager[]; file: DossierAgent[]; candidats: Record<string, ProfilIdentite[]>;
   attente: InscriptionEnAttente[]; tarifs: TarifComplet[]; regles: JeuDeRegles[]; journal: EntreeJournal[];
+  impressions: BulletinAImprimer[];
 };
 
 function initial(): Etat {
@@ -90,6 +93,20 @@ function initial(): Etat {
           { libelle: 'B3 : sursis total exclu' }, { libelle: 'B2 : amende délictuelle retenue, contravention exclue' }, { libelle: 'B1 : la réhabilitation ne retire pas la condamnation' }] },
     ],
     journal: [],
+    impressions: [
+      { id: 'demo-imp-431', numero: 'B3-2026-0000431', nom: 'KOUMBA FICTIF', prenoms: 'Aline', dateNaissance: '1993-04-11',
+        dateEmission: '2026-10-17T08:40:00Z', etat: 'A_VALIDER', validePar: null, valideLe: null, imprimeLe: null, feuillet: null, impressions: 0,
+        paiement: 'Trésor public · quittance TP-2026-104498' },
+      { id: 'demo-imp-433', numero: 'B3-2026-0000433', nom: 'MBOUMBA FICTIF', prenoms: 'Serge', dateNaissance: '1985-11-02',
+        dateEmission: '2026-10-17T09:15:00Z', etat: 'A_VALIDER', validePar: null, valideLe: null, imprimeLe: null, feuillet: null, impressions: 0,
+        paiement: 'Airtel Money' },
+      { id: 'demo-imp-412', numero: 'B3-2026-0000412', nom: 'NDONG MBA', prenoms: 'Jean-Pierre', dateNaissance: '1988-03-14',
+        dateEmission: '2026-10-14T09:12:00Z', etat: 'A_IMPRIMER', validePar: 'demo-validateur', valideLe: iso(-2), imprimeLe: null, feuillet: null,
+        impressions: 0, paiement: 'Trésor public · quittance TP-2026-104377' },
+      { id: 'demo-imp-420', numero: 'B3-2026-0000420', nom: 'ELLA FICTIF', prenoms: 'Nadège', dateNaissance: '1990-01-25',
+        dateEmission: '2026-10-16T14:05:00Z', etat: 'IMPRIME', validePar: 'demo-validateur', valideLe: '2026-10-16T15:00:00Z',
+        imprimeLe: '2026-10-16T15:02:00Z', feuillet: 'FS-2026-000118', impressions: 1, paiement: 'Moov Money' },
+    ],
   };
 }
 
@@ -190,6 +207,34 @@ export const demoEspaces = {
     r.motifRejet = valider ? null : motif ?? null;
     tracer(s, valider ? 'PARAMETRES_JURIDIQUES_PUBLIES' : 'PARAMETRES_JURIDIQUES_REJETES', 'JeuDeRegles', id);
     return null;
+  },
+  fileImpression: (s: Session) => {
+    rafraichir();
+    tracer(s, 'FILE_IMPRESSION_CONSULTEE', 'Bulletin', null);
+    return etat.impressions;
+  },
+  validerImpression(s: Session, id: string) {
+    const b = etat.impressions.find((x) => x.id === id);
+    if (!b) return 'Bulletin introuvable.';
+    if (b.etat !== 'A_VALIDER') return 'Ce bulletin est déjà validé pour l’impression.';
+    Object.assign(b, { etat: 'A_IMPRIMER', validePar: s.sujet, valideLe: new Date().toISOString() });
+    tracer(s, 'BULLETIN_VALIDE_POUR_IMPRESSION', 'Bulletin', b.numero);
+    return null;
+  },
+  /** Renvoie le PDF scellé à imprimer, ou un message de refus. */
+  imprimer(s: Session, id: string, feuillet: string, motif: string | null): { pdf: Buffer } | { erreur: string } {
+    const b = etat.impressions.find((x) => x.id === id);
+    if (!b) return { erreur: 'Bulletin introuvable.' };
+    if (b.etat === 'A_VALIDER') return { erreur: 'Validez le bulletin avant de l’imprimer.' };
+    if (b.etat === 'REVOQUE') return { erreur: 'Ce bulletin est révoqué : il ne peut pas être imprimé.' };
+    const numeroFeuillet = feuillet.trim().toUpperCase();
+    if (!numeroFeuillet) return { erreur: 'Indiquez le numéro du feuillet sécurisé.' };
+    if (etat.impressions.some((x) => x.feuillet === numeroFeuillet)) return { erreur: 'Ce feuillet a déjà été utilisé.' };
+    const reimpression = b.impressions > 0;
+    if (reimpression && !motif?.trim()) return { erreur: 'Le motif de la réimpression est obligatoire.' };
+    Object.assign(b, { etat: 'IMPRIME', imprimeLe: new Date().toISOString(), feuillet: numeroFeuillet, impressions: b.impressions + 1 });
+    tracer(s, reimpression ? 'BULLETIN_REIMPRIME' : 'BULLETIN_IMPRIME', 'Bulletin', b.numero, reimpression ? motif : null);
+    return { pdf: Buffer.from(SPECIMENS_IMPRESSION[b.numero] ?? SPECIMEN_B3, 'base64') };
   },
   journal: (s: Session) => {
     tracer(s, 'JOURNAL_CONSULTE', 'Journal', null);

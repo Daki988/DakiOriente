@@ -7,6 +7,7 @@ const ENTREES: (LienEspace & { roles: string[] })[] = [
   { href: '/espace/file', libelle: 'File de travail', icone: 'inbox', roles: ['R06'] },
   { href: '/espace/saisie', libelle: 'Saisir une condamnation', icone: 'gavel', roles: ['R06'] },
   { href: '/espace/validations', libelle: 'Validations', icone: 'list-checks', roles: ['R07'] },
+  { href: '/espace/impression', libelle: 'Impression des bulletins', icone: 'printer', roles: ['R07'] },
   { href: '/espace/pilotage', libelle: 'Pilotage', icone: 'chart-column', roles: ['R08', 'R09'] },
   { href: '/espace/tarifs', libelle: 'Tarifs', icone: 'banknote', roles: ['R08', 'R13'] },
   { href: '/espace/regles', libelle: 'Paramètres juridiques', icone: 'scale', roles: ['R05', 'R08'] },

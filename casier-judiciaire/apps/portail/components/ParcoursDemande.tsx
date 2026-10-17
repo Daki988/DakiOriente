@@ -47,10 +47,11 @@ const LIBELLES: Partial<Record<keyof DonneesDemande, string>> = {
   consentement: 'Attestation', modePaiement: 'Moyen de paiement',
 };
 
-const MODES: { code: DonneesDemande['modePaiement']; titre: string; description: string; icone: 'smartphone' | 'credit-card' }[] = [
+const MODES: { code: DonneesDemande['modePaiement']; titre: string; description: string; icone: 'smartphone' | 'credit-card' | 'landmark' }[] = [
   { code: 'AIRTEL_MONEY', titre: 'Airtel Money', description: 'Validation sur votre téléphone', icone: 'smartphone' },
   { code: 'MOOV_MONEY', titre: 'Moov Money', description: 'Validation sur votre téléphone', icone: 'smartphone' },
   { code: 'CARTE', titre: 'Carte bancaire', description: 'Paiement sécurisé', icone: 'credit-card' },
+  { code: 'TRESOR', titre: 'Au Trésor public', description: 'En espèces au guichet, puis saisie de l’identifiant de paiement', icone: 'landmark' },
 ];
 
 /** ENV-04 : identité fictive pour les scénarios guidés de démonstration (DON-06). */
@@ -270,7 +271,9 @@ export function ParcoursDemande({ tarifs, demo }: { tarifs: Partial<Record<CodeP
                 id={i === 0 ? 'modePaiement' : undefined} checked={d.modePaiement === m.code} onChange={() => maj('modePaiement', m.code)} />
             ))}
           </fieldset>
-          <p className="p-note"><Icone nom="lock" taille={18} /><span>Le paiement n’est validé qu’après confirmation de l’opérateur. Vous recevez un reçu numéroté.</span></p>
+          {d.modePaiement === 'TRESOR'
+            ? <p className="p-note"><Icone nom="landmark" taille={18} /><span>Vous recevez un avis de paiement avec votre numéro de dossier. Après paiement au guichet du Trésor, saisissez l’identifiant de paiement figurant sur la quittance pour obtenir votre bulletin.</span></p>
+            : <p className="p-note"><Icone nom="lock" taille={18} /><span>Le paiement n’est validé qu’après confirmation de l’opérateur. Vous recevez un reçu numéroté.</span></p>}
         </>
       )}
 
@@ -283,7 +286,9 @@ export function ParcoursDemande({ tarifs, demo }: { tarifs: Partial<Record<CodeP
         <button type="submit" className={classesBouton()} disabled={envoiEnCours || (etape === 0 && !!d.profil && !tarif)}>
           {etape < ETAPES.length - 1
             ? <><span>Continuer</span><Icone nom="arrow-right" taille={20} /></>
-            : <><Icone nom="lock" taille={20} /><span>{envoiEnCours ? 'Paiement en cours…' : `Payer ${tarif ? fcfa(tarif.montantFcfa) : ''}`}</span></>}
+            : d.modePaiement === 'TRESOR'
+              ? <><Icone nom="landmark" taille={20} /><span>{envoiEnCours ? 'Enregistrement…' : 'Obtenir mon avis de paiement'}</span></>
+              : <><Icone nom="lock" taille={20} /><span>{envoiEnCours ? 'Paiement en cours…' : `Payer ${tarif ? fcfa(tarif.montantFcfa) : ''}`}</span></>}
         </button>
       </div>
       {etape < 4 && <p className="p-note p-note--discrete"><Icone nom="history" taille={16} /><span>Votre saisie est enregistrée automatiquement sur cet appareil.</span></p>}
@@ -330,6 +335,7 @@ function Recapitulatif({ d, modifier }: { d: DonneesDemande; modifier: (etape: n
 }
 
 function Confirmation({ depot, titre }: { depot: DemandeDeposee; titre: RefObject<HTMLHeadingElement | null> }) {
+  if (depot.paiementTresor) return <AvisPaiementTresor depot={depot} titre={titre} />;
   return (
     <section className="p-parcours__panneau p-confirmation">
       <span className="p-confirmation__pictogramme"><Icone nom="circle-check" taille={40} /></span>
@@ -346,6 +352,35 @@ function Confirmation({ depot, titre }: { depot: DemandeDeposee; titre: RefObjec
       <div className="p-page-entete__actions">
         <Link href="/suivi" className={classesBouton()}><Icone nom="search" taille={20} /><span>Suivre ma demande</span></Link>
         <Link href="/" className={classesBouton({ variante: 'secondaire' })}><span>Retour à l’accueil</span></Link>
+      </div>
+    </section>
+  );
+}
+
+/** Paiement au Trésor : avis de paiement à présenter au guichet, puis saisie de l'identifiant de paiement. */
+function AvisPaiementTresor({ depot, titre }: { depot: DemandeDeposee; titre: RefObject<HTMLHeadingElement | null> }) {
+  return (
+    <section className="p-parcours__panneau p-confirmation">
+      <span className="p-confirmation__pictogramme"><Icone nom="landmark" taille={40} /></span>
+      <h2 ref={titre} tabIndex={-1}>Demande enregistrée : à payer au Trésor public</h2>
+      <p>Voici votre avis de paiement. Il vous a aussi été envoyé par SMS. Conservez le code de suivi : il vous sera demandé avec l’identifiant de paiement.</p>
+      <div className="p-identifiants">
+        <div className="p-identifiant"><span>Numéro de dossier</span><strong>{depot.numeroDossier}</strong></div>
+        <div className="p-identifiant"><span>Code de suivi</span><strong>{depot.codeSuivi}</strong></div>
+        <div className="p-identifiant"><span>Montant à payer</span><strong>{fcfa(depot.montantFcfa)}</strong></div>
+      </div>
+      <ol className="p-etapes-liste" style={{ textAlign: 'left' }}>
+        <li><span className="p-etapes-liste__numero" aria-hidden="true" /><div><h3>Payez au Trésor public</h3><p>Présentez le numéro de dossier au guichet du Trésor et réglez {fcfa(depot.montantFcfa)}.</p></div></li>
+        <li><span className="p-etapes-liste__numero" aria-hidden="true" /><div><h3>Gardez la quittance</h3><p>Elle porte l’identifiant de paiement (numéro de quittance).</p></div></li>
+        <li><span className="p-etapes-liste__numero" aria-hidden="true" /><div><h3>Saisissez l’identifiant de paiement</h3><p>Votre bulletin vous est alors délivré.</p></div></li>
+      </ol>
+      <div className="p-page-entete__actions">
+        <Link href={`/paiement-tresor?numero=${encodeURIComponent(depot.numeroDossier)}`} className={classesBouton()}>
+          <Icone nom="landmark" taille={20} /><span>J’ai payé : saisir l’identifiant</span>
+        </Link>
+        <button type="button" className={classesBouton({ variante: 'secondaire' })} onClick={() => window.print()}>
+          <Icone nom="printer" taille={20} /><span>Imprimer l’avis</span>
+        </button>
       </div>
     </section>
   );

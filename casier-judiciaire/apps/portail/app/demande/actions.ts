@@ -40,6 +40,7 @@ export async function deposerAction(brut: DonneesDemande): Promise<ResultatDepot
         numeroPasseport: d.profil === 'ETRANGER_RESIDENT' ? d.numeroPasseport : undefined,
       },
       telephone: d.telephone.replace(/[\s.-]/g, ''), email: facultatif(d.email),
+      paiementTresor: d.modePaiement === 'TRESOR',
     });
     return { ok: true, depot };
   } catch (e) {

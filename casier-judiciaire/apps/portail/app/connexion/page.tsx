@@ -61,7 +61,7 @@ export default async function Connexion({ searchParams }: { searchParams: Promis
             <form action={connexionDemo} className="cj-grille cj-grille--2">
               {PROFILS_DEMO.map((p) => (
                 <button key={p.id} type="submit" name="profil" value={p.id} className="cj-choix-carte">
-                  <span className="cj-choix-carte__icone"><Icone nom={p.id === 'usager' ? 'user' : p.id === 'auditeur' ? 'shield-check' : p.id === 'decideur' || p.id === 'direction' ? 'chart-column' : 'scale'} /></span>
+                  <span className="cj-choix-carte__icone"><Icone nom={p.id === 'validateur' ? 'printer' : p.id === 'usager' ? 'user' : p.id === 'auditeur' ? 'shield-check' : p.id === 'decideur' || p.id === 'direction' ? 'chart-column' : 'scale'} /></span>
                   <span>
                     <span className="cj-choix-carte__titre">{p.libelle}</span>
                     <span className="cj-choix-carte__description">{p.nom} — {p.detail}</span>

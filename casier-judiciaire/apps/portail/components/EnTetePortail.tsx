@@ -32,6 +32,7 @@ export async function EnTetePortail() {
             <nav aria-label="Menu principal">
               <ul>
                 {navigation.map((l) => <li key={l.href}><Link href={l.href}>{l.libelle}</Link></li>)}
+                <li><Link href="/paiement-tresor">Payer au Trésor public</Link></li>
                 <li><Link href="/diaspora">Gabonais de l’étranger</Link></li>
                 <li><Link href="/administrations">Administrations et employeurs</Link></li>
               </ul>

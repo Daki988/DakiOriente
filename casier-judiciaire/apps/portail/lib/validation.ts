@@ -10,7 +10,7 @@ export type DonneesDemande = {
   nomPere: string; nomMere: string; nationalite: string; numeroCnie: string; numeroPasseport: string;
   telephone: string; email: string;
   consentement: boolean;
-  modePaiement: 'AIRTEL_MONEY' | 'MOOV_MONEY' | 'CARTE' | '';
+  modePaiement: 'AIRTEL_MONEY' | 'MOOV_MONEY' | 'CARTE' | 'TRESOR' | '';
 };
 
 export type Erreurs = Partial<Record<keyof DonneesDemande, string>>;
@@ -84,7 +84,7 @@ export function verifierAttestation(d: DonneesDemande): Erreurs {
 }
 
 export function verifierPaiement(d: DonneesDemande): Erreurs {
-  return ['AIRTEL_MONEY', 'MOOV_MONEY', 'CARTE'].includes(d.modePaiement) ? {} : { modePaiement: 'Choisissez un moyen de paiement.' };
+  return ['AIRTEL_MONEY', 'MOOV_MONEY', 'CARTE', 'TRESOR'].includes(d.modePaiement) ? {} : { modePaiement: 'Choisissez un moyen de paiement.' };
 }
 
 /** Contrôle complet, appelé par le serveur avant tout dépôt. */

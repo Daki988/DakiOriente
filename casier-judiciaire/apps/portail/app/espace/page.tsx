@@ -10,6 +10,7 @@ const DESCRIPTIONS: Record<string, string> = {
   '/espace/file': 'Demandes à vérifier : homonymies, pièces, identités non certaines. Délai de 24 heures.',
   '/espace/saisie': 'Enregistrer une décision de condamnation, validée ensuite par le greffier en chef.',
   '/espace/validations': 'Inscriptions saisies par les agents, à valider par une seconde personne (quatre yeux).',
+  '/espace/impression': 'Bulletins à valider puis imprimer sur papier sécurisé au guichet, réimpressions motivées.',
   '/espace/pilotage': 'Volumes, délais, délivrance automatique, recettes et vérifications.',
   '/espace/tarifs': 'Historique des tarifs, propositions et validations à date d’effet.',
   '/espace/regles': 'Versions des règles de contenu des bulletins, cas de test et validation.',

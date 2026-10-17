@@ -108,3 +108,8 @@ export async function validerRegles(f: FormData) {
 export async function rejeterRegles(f: FormData) {
   await agir(['R05', 'R08'], '/espace/regles', 'Version rejetée.', (s) => espaces.decisionRegles(s, texte(f, 'id', 64), false, texte(f, 'motif', 1000)));
 }
+
+// ---------- Validateur : impression au guichet ----------
+export async function validerImpression(f: FormData) {
+  await agir(['R07'], '/espace/impression', 'Bulletin validé : il peut être imprimé.', (s) => espaces.validerImpression(s, texte(f, 'id', 64)));
+}
