@@ -1,0 +1,8 @@
+{
+  "$note": "Bulletins FICTIFS pour la démonstration de la vérification publique (DON-06). Aucune personne réelle.",
+  "bulletins": [
+    { "jeton": "demo-bulletin-valide-7Kq2mW9xP4vB8nR3tY6zA1cE5hJ0sL2d", "code": "DEMO-VALI-DE26", "statut": "VALIDE", "type": "B3", "numero": "B3-2026-0000412", "dateEmission": "2026-10-14T09:12:00Z", "dateExpiration": "2027-01-12T09:12:00Z", "nom": "NDONG MBA", "prenoms": "Jean-Pierre", "dateNaissance": "1988-03-14" },
+    { "jeton": "demo-bulletin-revoque-3Fh8kD1qW6zN4bV9xM2cT7rY5pL0aS8e", "code": "DEMO-REVO-QUE1", "statut": "REVOQUE", "type": "B3", "numero": "B3-2026-0000388", "dateEmission": "2026-09-30T15:40:00Z", "dateExpiration": "2026-12-29T15:40:00Z", "nom": "OBAME", "prenoms": "Sylvie", "dateNaissance": "1995-07-02" },
+    { "jeton": "demo-bulletin-expire-9Gt4nB7vC2xZ6mQ1wE8rT3yU5iO0pA4s", "code": "DEMO-EXPI-RE01", "statut": "EXPIRE", "type": "B3", "numero": "B3-2026-0000017", "dateEmission": "2026-02-03T08:05:00Z", "dateExpiration": "2026-05-04T08:05:00Z", "nom": "MOUSSAVOU", "prenoms": "Christelle", "dateNaissance": "1992-07-30" }
+  ]
+}

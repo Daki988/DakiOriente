@@ -1,0 +1,19 @@
+{
+  "source": "Barème des frais des actes — proposition du 25/06/2024",
+  "dateEffet": "2026-01-01",
+  "provisoire": true,
+  "aDecider": [
+    "Bulletin n°3 des Gabonais nés à l'étranger",
+    "Bulletin n°3 des étrangers résidant au Gabon",
+    "Frais de service du portail (500 FCFA sur e-justice.ci, à titre de comparaison)",
+    "Double ligne « relevé de condamnations, nationaux » du barème"
+  ],
+  "tarifs": [
+    { "acte": "BULLETIN_N3", "profil": "GABONAIS_NE_AU_GABON", "montantFcfa": 1500, "libelle": "Bulletin n°3, Gabonais nés au Gabon (greffe correctionnel)" },
+    { "acte": "BULLETIN_N2", "profil": "ADMINISTRATION", "montantFcfa": 0, "libelle": "Bulletin n°2" },
+    { "acte": "RELEVE_CONDAMNATIONS", "profil": "NATIONAL", "montantFcfa": 5000, "libelle": "Relevé de condamnations, nationaux (administration centrale)" },
+    { "acte": "RELEVE_CONDAMNATIONS", "profil": "NON_NATIONAL", "montantFcfa": 20000, "libelle": "Relevé de condamnations, étrangers" },
+    { "acte": "RELEVE_PERIODIQUE", "profil": "NON_NATIONAL", "montantFcfa": 5000, "libelle": "Relevé périodique de condamnations, non nationaux" },
+    { "acte": "RECHERCHE_ARCHIVES", "profil": "TOUS", "montantFcfa": 10000, "libelle": "Recherche dans les archives, première année (3 000 FCFA les années suivantes)" }
+  ]
+}

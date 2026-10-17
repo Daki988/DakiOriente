@@ -1,0 +1,152 @@
+/* Fichier généré par scripts/generer-jetons.mjs — ne pas modifier à la main (VIS-09). */
+:root {
+  --cj-navy-50: #F1F4F9;
+  --cj-navy-100: #E3E8F2;
+  --cj-navy-300: #9AAACB;
+  --cj-navy-600: #34507F;
+  --cj-navy-700: #233A63;
+  --cj-navy-800: #18294A;
+  --cj-navy-900: #0F1D36;
+  --cj-navy-950: #0A1426;
+  --cj-green-50: #EEF9F3;
+  --cj-green-100: #D7F1E4;
+  --cj-green-300: #6CCB9F;
+  --cj-green-500: #009E60;
+  --cj-green-700: #007A4A;
+  --cj-green-800: #00663E;
+  --cj-green-900: #00512F;
+  --cj-yellow-50: #FFFAE3;
+  --cj-yellow-100: #FFF4C2;
+  --cj-yellow-500: #FCD116;
+  --cj-yellow-700: #8A6D00;
+  --cj-blue-50: #F0F5FC;
+  --cj-blue-100: #E1ECFA;
+  --cj-blue-300: #8DB3E6;
+  --cj-blue-600: #3A75C4;
+  --cj-blue-700: #2D5E9E;
+  --cj-blue-800: #244C82;
+  --cj-gray-0: #FFFFFF;
+  --cj-gray-25: #FBFAF8;
+  --cj-gray-50: #F5F4F0;
+  --cj-gray-100: #ECEAE4;
+  --cj-gray-200: #DDD9D0;
+  --cj-gray-300: #C6C1B6;
+  --cj-gray-400: #A19B8F;
+  --cj-gray-500: #7C766B;
+  --cj-gray-600: #5E5950;
+  --cj-gray-700: #46423B;
+  --cj-gray-800: #2E2B26;
+  --cj-gray-900: #1B1916;
+  --cj-red-50: #FDF1EF;
+  --cj-red-100: #FBE3E0;
+  --cj-red-300: #F19A92;
+  --cj-red-600: #C2261C;
+  --cj-red-700: #A31F17;
+  --cj-orange-50: #FFF5E8;
+  --cj-orange-100: #FFE8CC;
+  --cj-orange-500: #E07A00;
+  --cj-orange-600: #B35400;
+  --cj-orange-700: #8F4300;
+  --cj-fond-page: var(--cj-gray-25);
+  --cj-fond-surface: var(--cj-gray-0);
+  --cj-fond-surface-attenuee: var(--cj-gray-50);
+  --cj-fond-institutionnel: var(--cj-navy-900);
+  --cj-fond-institutionnel-2: var(--cj-navy-800);
+  --cj-fond-accent: var(--cj-yellow-50);
+  --cj-texte-principal: var(--cj-navy-900);
+  --cj-texte-secondaire: var(--cj-gray-600);
+  --cj-texte-discret: var(--cj-gray-500);
+  --cj-texte-inverse: var(--cj-gray-0);
+  --cj-texte-inverse-secondaire: var(--cj-navy-300);
+  --cj-texte-lien: var(--cj-blue-700);
+  --cj-bordure-defaut: var(--cj-gray-200);
+  --cj-bordure-forte: var(--cj-gray-300);
+  --cj-bordure-focus: var(--cj-blue-600);
+  --cj-action-primaire: var(--cj-green-700);
+  --cj-action-primaire-survol: var(--cj-green-800);
+  --cj-action-secondaire: var(--cj-navy-900);
+  --cj-action-desactive: var(--cj-gray-200);
+  --cj-marque-vert: var(--cj-green-500);
+  --cj-marque-jaune: var(--cj-yellow-500);
+  --cj-marque-bleu: var(--cj-blue-600);
+  --cj-etat-succes: var(--cj-green-700);
+  --cj-etat-succes-fond: var(--cj-green-50);
+  --cj-etat-info: var(--cj-blue-700);
+  --cj-etat-info-fond: var(--cj-blue-50);
+  --cj-etat-alerte: var(--cj-orange-700);
+  --cj-etat-alerte-fond: var(--cj-orange-50);
+  --cj-etat-erreur: var(--cj-red-700);
+  --cj-etat-erreur-fond: var(--cj-red-50);
+  --cj-espace-1: 4px;
+  --cj-espace-2: 8px;
+  --cj-espace-3: 12px;
+  --cj-espace-4: 16px;
+  --cj-espace-5: 20px;
+  --cj-espace-6: 24px;
+  --cj-espace-8: 32px;
+  --cj-espace-10: 40px;
+  --cj-espace-12: 48px;
+  --cj-espace-16: 64px;
+  --cj-espace-20: 80px;
+  --cj-rayon-aucun: 0px;
+  --cj-rayon-s: 4px;
+  --cj-rayon-m: 8px;
+  --cj-rayon-l: 12px;
+  --cj-rayon-xl: 16px;
+  --cj-rayon-plein: 999px;
+  --cj-police-titres: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --cj-police-texte: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --cj-ombre-faible: 0 1px 3px rgba(15,29,54,.08);
+  --cj-ombre-moyenne: 0 4px 12px -2px rgba(15,29,54,.10);
+  --cj-ombre-forte: 0 12px 32px -4px rgba(15,29,54,.16);
+}
+
+/* VIS-12 : mode sombre des espaces de travail ; le portail public reste clair par défaut. */
+[data-theme="sombre"] {
+  --cj-fond-page: var(--cj-navy-950);
+  --cj-fond-surface: var(--cj-navy-900);
+  --cj-fond-surface-attenuee: var(--cj-navy-800);
+  --cj-fond-institutionnel: var(--cj-navy-950);
+  --cj-fond-institutionnel-2: var(--cj-navy-900);
+  --cj-fond-accent: var(--cj-navy-800);
+  --cj-texte-principal: var(--cj-gray-50);
+  --cj-texte-secondaire: var(--cj-gray-300);
+  --cj-texte-discret: var(--cj-gray-400);
+  --cj-texte-inverse: var(--cj-gray-0);
+  --cj-texte-inverse-secondaire: var(--cj-navy-300);
+  --cj-texte-lien: var(--cj-blue-300);
+  --cj-bordure-defaut: var(--cj-navy-700);
+  --cj-bordure-forte: var(--cj-navy-600);
+  --cj-bordure-focus: var(--cj-yellow-500);
+  --cj-action-primaire: var(--cj-green-700);
+  --cj-action-primaire-survol: var(--cj-green-800);
+  --cj-action-secondaire: var(--cj-gray-50);
+  --cj-action-desactive: var(--cj-navy-700);
+  --cj-marque-vert: var(--cj-green-500);
+  --cj-marque-jaune: var(--cj-yellow-500);
+  --cj-marque-bleu: var(--cj-blue-600);
+  --cj-etat-succes: var(--cj-green-300);
+  --cj-etat-succes-fond: var(--cj-green-900);
+  --cj-etat-info: var(--cj-blue-300);
+  --cj-etat-info-fond: var(--cj-blue-800);
+  --cj-etat-alerte: var(--cj-orange-500);
+  --cj-etat-alerte-fond: var(--cj-orange-700);
+  --cj-etat-erreur: var(--cj-red-300);
+  --cj-etat-erreur-fond: var(--cj-red-700);
+}
+
+/* Styles de texte (Figma : Titre/…, Texte/…, Libellé/…). */
+.cj-texte-titre-affichage { font-family: var(--cj-police-titres); font-weight: 600; font-size: 3rem; line-height: 1.1667; letter-spacing: -0.0104em; }
+.cj-texte-titre-h1 { font-family: var(--cj-police-titres); font-weight: 600; font-size: 2.25rem; line-height: 1.2222; letter-spacing: -0.0069em; }
+.cj-texte-titre-h2 { font-family: var(--cj-police-titres); font-weight: 600; font-size: 1.75rem; line-height: 1.2857; }
+.cj-texte-titre-h3 { font-family: var(--cj-police-texte); font-weight: 700; font-size: 1.25rem; line-height: 1.4; }
+.cj-texte-titre-h4 { font-family: var(--cj-police-texte); font-weight: 600; font-size: 1.125rem; line-height: 1.4444; }
+.cj-texte-texte-grand { font-family: var(--cj-police-texte); font-weight: 400; font-size: 1.125rem; line-height: 1.5556; }
+.cj-texte-texte-courant { font-family: var(--cj-police-texte); font-weight: 400; font-size: 1rem; line-height: 1.5; }
+.cj-texte-texte-courant-gras { font-family: var(--cj-police-texte); font-weight: 600; font-size: 1rem; line-height: 1.5; }
+.cj-texte-texte-petit { font-family: var(--cj-police-texte); font-weight: 400; font-size: 0.875rem; line-height: 1.4286; }
+.cj-texte-libelle-moyen { font-family: var(--cj-police-texte); font-weight: 600; font-size: 0.875rem; line-height: 1.4286; }
+.cj-texte-libelle-bouton { font-family: var(--cj-police-texte); font-weight: 600; font-size: 1rem; line-height: 1.25; }
+.cj-texte-legende { font-family: var(--cj-police-texte); font-weight: 400; font-size: 0.75rem; line-height: 1.3333; }
+.cj-texte-surtitre { font-family: var(--cj-police-texte); font-weight: 700; font-size: 0.75rem; line-height: 1.3333; letter-spacing: 0.0833em; text-transform: uppercase; }
+.cj-texte-chiffre-indicateur { font-family: var(--cj-police-titres); font-weight: 600; font-size: 2rem; line-height: 1.25; }

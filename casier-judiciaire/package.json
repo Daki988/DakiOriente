@@ -1,0 +1,19 @@
+{
+  "name": "casier-judiciaire",
+  "private": true,
+  "description": "Plateforme Casier Judiciaire Numérique — interfaces (portail public, design system)",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "jetons": "npm run jetons -w @casier/design-system",
+    "dev": "npm run dev -w @casier/portail",
+    "build": "npm run jetons && npm run build -w @casier/portail",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test:e2e": "npm run test:e2e -w @casier/portail"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

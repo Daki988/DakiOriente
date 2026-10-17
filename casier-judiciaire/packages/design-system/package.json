@@ -1,0 +1,24 @@
+{
+  "name": "@casier/design-system",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Jetons et composants partagés par tous les espaces (VIS-09, VIS-10)",
+  "type": "module",
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles.css",
+    "./jetons.css": "./src/jetons.css"
+  },
+  "scripts": {
+    "jetons": "node scripts/generer-jetons.mjs && node scripts/generer-icones.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "typescript": "5.9.3"
+  }
+}

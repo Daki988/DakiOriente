@@ -10,3 +10,6 @@ next-env.d.ts
 casier-judiciaire/**/target/
 casier-judiciaire/**/node_modules/
 casier-judiciaire/**/.next/
+casier-judiciaire/**/test-results/
+casier-judiciaire/**/playwright-report/
+casier-judiciaire/**/*.tsbuildinfo
