@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
-import { Icone } from '@casier/design-system';
+import { Alerte, Icone } from '@casier/design-system';
 
 import { EntetePage } from '@/components/EntetePage';
 import { FormulaireSuivi } from '@/components/FormulaireSuivi';
+import { config } from '@/lib/config';
 
 export const metadata: Metadata = { title: 'Suivre une demande', description: 'Suivez l’état de votre demande de bulletin n°3 avec votre numéro de dossier et le code reçu par SMS.' };
 
@@ -15,6 +16,9 @@ export default function Suivi() {
       <div className="cj-conteneur p-parcours">
         <div className="cj-pile">
           <FormulaireSuivi />
+          {config.comptesDemo && (
+            <Alerte type="info" titre="Dossier de démonstration">Numéro CJ-2026-000123, code 123456. Données fictives.</Alerte>
+          )}
         </div>
         <aside className="p-encadre cj-pile" aria-label="Bon à savoir">
           <h2 className="p-titre-encadre">Bon à savoir</h2>

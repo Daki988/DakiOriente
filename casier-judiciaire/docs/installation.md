@@ -47,7 +47,7 @@ serveur (option B) et reliez le portail par la variable `CASIER_API_URL`.
 5. Cliquez sur **Restart**, puis ouvrez l'adresse du site. Activez le certificat SSL (cPanel → SSL/TLS Status) : le portail impose HTTPS (HSTS).
 
 Espaces connectés : les comptes de démonstration (identités fictives, un par profil) sont **masqués par défaut**.
-Pour une présentation, ajoutez la variable `COMPTES_DEMO` = `true` puis redémarrez : la page **Se connecter** propose
+Pour une présentation, ajoutez la variable `COMPTES_DEMO` = `true` puis redémarrez : la page **Se connecter** propose (et les pages Vérifier et Suivre affichent les codes de test)
 alors un bouton par profil. Sans cette variable et sans Keycloak, la connexion affiche « bientôt disponible ».
 
 Données de test (non affichées sur le site) : vérification `DEMO-VALI-DE26` (valide), `DEMO-REVO-QUE1` (révoqué),

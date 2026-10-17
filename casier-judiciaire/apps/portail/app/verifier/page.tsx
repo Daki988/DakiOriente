@@ -58,6 +58,11 @@ export default async function Verifier({ searchParams }: { searchParams: Promise
       <div className="cj-conteneur p-contenu p-contenu--colonnes">
         <div className="cj-pile" aria-live="polite">
           {contenu ?? <FormulaireVerification valeur={code} erreur={erreur} />}
+          {config.comptesDemo && !contenu && (
+            <Alerte type="info" titre="Codes de démonstration">
+              DEMO-VALI-DE26 (valide), DEMO-REVO-QUE1 (révoqué), DEMO-EXPI-RE01 (expiré). Bulletins fictifs.
+            </Alerte>
+          )}
           {!contenu && <FormulaireDocument />}
         </div>
         <aside className="p-encadre cj-pile" aria-label="Ce que la vérification indique">
