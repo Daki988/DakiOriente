@@ -2,7 +2,7 @@
 export const questions: { id: string; theme: string; q: string; r: string }[] = [
   { id: 'definition', theme: 'Le bulletin', q: 'Qu’est-ce que le bulletin n°3 ?', r: 'C’est l’extrait du casier judiciaire que vous pouvez obtenir pour vous-même, par exemple pour un emploi ou un concours. Il ne mentionne que certaines condamnations, selon les règles du Code de procédure pénale.' },
   { id: 'autrui', theme: 'Le bulletin', q: 'Puis-je demander le bulletin d’une autre personne ?', r: 'Non. Le bulletin n°3 est strictement personnel : seule la personne concernée peut le demander, après vérification de son identité.' },
-  { id: 'validite', theme: 'Le bulletin', q: 'Combien de temps mon bulletin est-il valable ?', r: 'La durée de validité est fixée par le Ministère de la Justice et imprimée sur le bulletin. La page de vérification indique si le bulletin est encore valable.' },
+  { id: 'validite', theme: 'Le bulletin', q: 'Combien de temps mon bulletin est-il valable ?', r: 'La durée de validité est fixée par le Ministère de la Justice, Garde des Sceaux, chargé des Droits humains et imprimée sur le bulletin. La page de vérification indique si le bulletin est encore valable.' },
   { id: 'delai', theme: 'La demande', q: 'Combien de temps faut-il ?', r: '24 heures au plus après le paiement confirmé, et souvent immédiatement lorsque votre identité est certaine. Le délai est suspendu si une pièce complémentaire vous est demandée.' },
   { id: 'pieces', theme: 'La demande', q: 'Quelles pièces dois-je fournir ?', r: 'Avec l’identité numérique nationale, votre CNIE suffit. Sans identité numérique : acte de naissance, acte de mariage si la mention n’y figure pas, passeport ou titre de séjour, et une photo prise pendant la demande.' },
   { id: 'coupure', theme: 'La demande', q: 'Ma connexion a coupé pendant la demande. Dois-je tout recommencer ?', r: 'Non. Votre saisie est enregistrée automatiquement sur votre appareil pendant 24 heures. Revenez sur la page de demande pour reprendre là où vous en étiez.' },
@@ -16,7 +16,7 @@ export const questions: { id: string; theme: string; q: string; r: string }[] = 
 ];
 
 export const glossaire: { terme: string; definition: string }[] = [
-  { terme: 'Casier judiciaire', definition: 'Registre national tenu par le Ministère de la Justice, qui conserve les condamnations prononcées par les juridictions.' },
+  { terme: 'Casier judiciaire', definition: 'Registre national tenu par le Ministère de la Justice, Garde des Sceaux, chargé des Droits humains, qui conserve les condamnations prononcées par les juridictions.' },
   { terme: 'Bulletin n°1', definition: 'Relevé complet du casier, réservé aux magistrats.' },
   { terme: 'Bulletin n°2', definition: 'Extrait réservé aux administrations et organismes habilités par la loi, pour des finalités précises.' },
   { terme: 'Bulletin n°3', definition: 'Extrait le plus court, délivré uniquement à la personne concernée.' },

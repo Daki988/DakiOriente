@@ -130,7 +130,7 @@ public class SceauElectronique {
             PDSignature signature = new PDSignature();
             signature.setFilter(PDSignature.FILTER_ADOBE_PPKLITE);
             signature.setSubFilter(COSName.getPDFName("ETSI.CAdES.detached"));
-            signature.setName("Ministère de la Justice — République gabonaise");
+            signature.setName("Ministère de la Justice, Garde des Sceaux, chargé des Droits humains — République gabonaise");
             signature.setLocation("Libreville, Gabon");
             signature.setReason(motif);
             Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Africa/Libreville"));

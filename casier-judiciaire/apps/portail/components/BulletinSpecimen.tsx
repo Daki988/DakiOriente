@@ -33,9 +33,9 @@ function QrIllustratif() {
 export function BulletinSpecimen() {
   return (
     <figure className="p-specimen" aria-label="Illustration : bulletin n°3 spécimen, scellé et vérifiable par QR code">
-      <span className="p-specimen__filigrane" aria-hidden="true">SPÉCIMEN</span>
+      <span className="p-specimen__filigrane" aria-hidden="true" data-texte="SPÉCIMEN" />
       <div className="p-specimen__entete">
-        <p>République gabonaise<span>Ministère de la Justice · Casier judiciaire national</span></p>
+        <p>République gabonaise<span>Ministère de la Justice, Garde des Sceaux, chargé des Droits humains · Casier judiciaire national</span></p>
         <img src={LOGO_MINISTERE} alt="" width={51} height={34} style={{ borderRadius: 2 }} />
       </div>
       <p className="p-specimen__titre">Bulletin n°3</p>

@@ -1,6 +1,6 @@
 # Casier judiciaire numérique — paquet d'installation 1.0.1
 
-République gabonaise · Ministère de la Justice · Version du 17 octobre 2026 (version finale de démonstration)
+République gabonaise · Ministère de la Justice, Garde des Sceaux, chargé des Droits humains · Version du 17 octobre 2026 (version finale de démonstration)
 
 > **Version de démonstration.** Données fictives, paiement simulé, emblème neutre, bandeau « Démonstration — service non officiel ».
 > Elle ne doit pas recevoir de données réelles (exigences ENV-01 à ENV-03 et DON-06 du cahier des charges).

@@ -10,7 +10,7 @@ export default function Confidentialite() {
   return (
     <PageLegale titre="Confidentialité et données personnelles" chapo="Ce que nous faisons de vos données, et vos droits.">
       <h2>Responsable du traitement</h2>
-      <p>Ministère de la Justice, République gabonaise. Le traitement fait l’objet des formalités prévues auprès de l’autorité de protection des données.</p>
+      <p>Ministère de la Justice, Garde des Sceaux, chargé des Droits humains, République gabonaise. Le traitement fait l’objet des formalités prévues auprès de l’autorité de protection des données.</p>
       <h2>Données collectées</h2>
       <ul>
         <li>Votre identité et votre filiation, pour vous identifier dans le casier judiciaire.</li>

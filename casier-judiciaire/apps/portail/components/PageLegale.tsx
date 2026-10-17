@@ -10,7 +10,7 @@ export function PageLegale({ titre, chapo, children, valide = false }: { titre: 
       <EntetePage fil={[{ libelle: titre }]} titre={titre} chapo={chapo} />
       <div className="cj-conteneur p-contenu">
         <div className="p-prose">
-          {!valide && <Alerte type="avertissement" titre="Projet de texte">Ce texte doit être validé par le Ministère de la Justice avant la mise en service.</Alerte>}
+          {!valide && <Alerte type="avertissement" titre="Projet de texte">Ce texte doit être validé par le Ministère de la Justice, Garde des Sceaux, chargé des Droits humains avant la mise en service.</Alerte>}
           {children}
         </div>
       </div>

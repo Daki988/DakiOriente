@@ -46,7 +46,7 @@ export default function Administrations() {
           </div>
         </section>
         <Alerte type="info" titre="Obtenir l’habilitation de votre organisme">
-          La demande d’habilitation est instruite par le Ministère de la Justice, qui fixe les finalités autorisées et désigne le gestionnaire des comptes de l’organisme.{' '}
+          La demande d’habilitation est instruite par le Ministère de la Justice, Garde des Sceaux, chargé des Droits humains, qui fixe les finalités autorisées et désigne le gestionnaire des comptes de l’organisme.{' '}
           <Link href="/contact">Prendre contact</Link>
         </Alerte>
       </div>

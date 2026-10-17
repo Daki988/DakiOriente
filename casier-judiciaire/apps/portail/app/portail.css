@@ -225,3 +225,4 @@
 /* Petits écrans : les colonnes de grille peuvent rétrécir sous la largeur de leur contenu. */
 .p-contenu > *, .p-parcours > *, .p-deux-colonnes > *, .p-page-entete__grille > *, .p-accueil__contenu > * { min-width: 0; }
 .p-prose { overflow-wrap: anywhere; }
+.p-specimen__filigrane::before { content: attr(data-texte); } /* filigrane décoratif, hors du texte de la page */

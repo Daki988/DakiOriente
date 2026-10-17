@@ -20,7 +20,7 @@ export default async function Contact({ searchParams }: { searchParams: Promise<
           <h2 className="p-titre-encadre">Coordonnées</h2>
           <ul className="p-liste-coches">
             <li><Icone nom="phone" /><span>Support : <a href={`tel:${config.supportTelephone.replace(/\s/g, '')}`}>{config.supportTelephone}</a></span></li>
-            <li><Icone nom="map-pin" /><span>Service central du casier judiciaire, Ministère de la Justice, Libreville</span></li>
+            <li><Icone nom="map-pin" /><span>Service central du casier judiciaire, Ministère de la Justice, Garde des Sceaux, chargé des Droits humains, Libreville</span></li>
             <li><Icone nom="clock" /><span>Horaires d’accueil : publiés par le Ministère à l’ouverture du service</span></li>
           </ul>
           <Alerte type="info" titre="Contester le contenu de votre casier">

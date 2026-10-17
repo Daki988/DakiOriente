@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: 'Accessibilité' };
 export default function Accessibilite() {
   return (
     <PageLegale titre="Déclaration d’accessibilité">
-      <p>Le Ministère de la Justice s’engage à rendre le portail accessible à tous, conformément aux règles WCAG 2.1 de niveau AA.</p>
+      <p>Le Ministère de la Justice, Garde des Sceaux, chargé des Droits humains s’engage à rendre le portail accessible à tous, conformément aux règles WCAG 2.1 de niveau AA.</p>
       <h2>État de conformité</h2>
       <p>Partiellement conforme : l’audit d’accessibilité indépendant sera réalisé avant la mise en service. Des tests automatiques sont exécutés à chaque version.</p>
       <h2>Ce qui est déjà en place</h2>

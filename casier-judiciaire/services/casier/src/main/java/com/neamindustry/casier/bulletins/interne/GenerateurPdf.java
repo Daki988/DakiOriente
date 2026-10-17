@@ -291,7 +291,8 @@ public class GenerateurPdf {
             couleur(NAVY);
             texte(p.gras, 15, d.codeCourt(), x, base + 38);
             couleur(GRIS);
-            texte(p.texte, 8, "Scellé électroniquement par le Ministère de la Justice. Toute modification du fichier le rend invalide.", x, base + 18);
+            texte(p.texte, 8, "Scellé électroniquement par le Ministère de la Justice, Garde des Sceaux, chargé des Droits humains.", x, base + 26);
+            texte(p.texte, 8, "Toute modification du fichier le rend invalide.", x, base + 16);
             texte(p.texte, 8, d.sceauDemonstration()
                     ? "Sceau de DÉMONSTRATION : ce document n’a aucune valeur officielle."
                     : "Le QR code renvoie au registre des bulletins émis ; la vérification est gratuite et sans compte.", x, base + 6);
@@ -426,7 +427,7 @@ public class GenerateurPdf {
         String titre = TITRES.get(d.contenu().type()) + " — " + d.numero();
         PDDocumentInformation info = doc.getDocumentInformation();
         info.setTitle(titre);
-        info.setAuthor("Ministère de la Justice — République gabonaise");
+        info.setAuthor("Ministère de la Justice, Garde des Sceaux, chargé des Droits humains — République gabonaise");
         info.setProducer("Casier judiciaire numérique");
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         cal.setTimeInMillis(d.emission().toEpochMilli());
@@ -439,7 +440,7 @@ public class GenerateurPdf {
             pdfa.setConformance("B");
             DublinCoreSchema dc = xmp.createAndAddDublinCoreSchema();
             dc.setTitle(titre);
-            dc.addCreator("Ministère de la Justice — République gabonaise");
+            dc.addCreator("Ministère de la Justice, Garde des Sceaux, chargé des Droits humains — République gabonaise");
             XMPBasicSchema basic = xmp.createAndAddXMPBasicSchema();
             basic.setCreateDate(cal);
             basic.setCreatorTool("Casier judiciaire numérique");

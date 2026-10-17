@@ -15,7 +15,7 @@ import { config } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: { default: `${config.nomService} — République gabonaise`, template: `%s — ${config.nomService}` },
-  description: 'Demandez votre bulletin n°3 en ligne, suivez votre demande et vérifiez l’authenticité d’un bulletin. Ministère de la Justice, République gabonaise.',
+  description: 'Demandez votre bulletin n°3 en ligne, suivez votre demande et vérifiez l’authenticité d’un bulletin. Ministère de la Justice, Garde des Sceaux, chargé des Droits humains, République gabonaise.',
   robots: config.modeDemo ? { index: false, follow: false } : undefined,
 };
 

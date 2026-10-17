@@ -3,7 +3,7 @@ import { Icone } from '@casier/design-system';
 
 import { EntetePage } from '@/components/EntetePage';
 
-export const metadata: Metadata = { title: 'Actualités', description: 'Communiqués du Ministère de la Justice sur le casier judiciaire numérique.' };
+export const metadata: Metadata = { title: 'Actualités', description: 'Communiqués du Ministère de la Justice, Garde des Sceaux, chargé des Droits humains sur le casier judiciaire numérique.' };
 
 /** PUB-11 : communiqués publiés depuis le back-office (PUB-17). */
 export default function Actualites() {
@@ -15,7 +15,7 @@ export default function Actualites() {
         <div className="p-vide">
           <Icone nom="inbox" taille={40} />
           <p><strong>Aucun communiqué publié pour l’instant.</strong></p>
-          <p>Les communiqués du Ministère de la Justice apparaîtront ici.</p>
+          <p>Les communiqués du Ministère de la Justice, Garde des Sceaux, chargé des Droits humains apparaîtront ici.</p>
         </div>
       </div>
     </>

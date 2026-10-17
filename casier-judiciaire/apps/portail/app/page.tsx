@@ -45,7 +45,7 @@ export default async function Accueil() {
                 ? <img src="/emblemes/armoiries.svg" alt="" width={72} height={69} />
                 : <EmblemeNeutre taille={64} />}
           </span>
-          <Pastille>Ministère de la Justice · Service public en ligne</Pastille>
+          <Pastille>Ministère de la Justice, Garde des Sceaux, chargé des Droits humains · Service public en ligne</Pastille>
           <h1 id="titre-accueil">Votre extrait de casier judiciaire, <em>en ligne</em></h1>
           <p className="p-accueil__chapo">
             Demandez votre bulletin n°3 depuis votre téléphone. Il vous est délivré en 24 heures au plus, scellé et vérifiable par QR code.

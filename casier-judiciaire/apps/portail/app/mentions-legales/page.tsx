@@ -9,7 +9,7 @@ export default function MentionsLegales() {
   return (
     <PageLegale titre="Mentions légales">
       <h2>Éditeur du service</h2>
-      <p>Ministère de la Justice, République gabonaise. Directeur de la publication : désigné par le Ministère.</p>
+      <p>Ministère de la Justice, Garde des Sceaux, chargé des Droits humains, République gabonaise. Directeur de la publication : désigné par le Ministère.</p>
       <h2>Hébergement</h2>
       <p>
         {config.modeDemo

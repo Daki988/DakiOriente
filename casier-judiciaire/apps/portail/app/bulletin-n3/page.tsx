@@ -40,7 +40,7 @@ export default async function BulletinN3() {
           </p>
           <h2>Un document numérique, vérifiable par tous</h2>
           <p>
-            Le bulletin est un fichier PDF scellé électroniquement par le Ministère de la Justice. Il porte un QR code et un code de vérification :
+            Le bulletin est un fichier PDF scellé électroniquement par le Ministère de la Justice, Garde des Sceaux, chargé des Droits humains. Il porte un QR code et un code de vérification :
             la personne à qui vous le remettez peut vérifier en quelques secondes qu’il est authentique et toujours valable.
           </p>
           <h2>Tarifs</h2>
