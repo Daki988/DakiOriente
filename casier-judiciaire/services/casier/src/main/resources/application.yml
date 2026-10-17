@@ -64,6 +64,8 @@ casier:
   paiement:
     secret-notifications: ${CASIER_PAIEMENT_SECRET:}
     simulateur: false
+    # Paiement au Trésor : quittance acceptée sur sa forme tant que l'interconnexion avec le Trésor n'existe pas.
+    tresor-simule: false
   bulletins:
     adresse-verification: ${CASIER_ADRESSE_VERIFICATION:https://casier-judiciaire.neamindustry.com}
     # BUL-05 : filigrane « Spécimen » tant que la plateforme n'est pas officiellement en service.
@@ -90,6 +92,7 @@ casier:
     import-au-demarrage: true
   paiement:
     simulateur: true
+    tresor-simule: true
 
 ---
 # Production (datacenter national) : certificat qualifié obligatoire, pas de spécimen, pas de simulateur (BUL-01, ENV-03).

@@ -293,6 +293,25 @@ public class ServiceDemandes {
                 depot.etapes(d.id()));
     }
 
+    /**
+     * Paiement au Trésor public : l'usager saisit l'identifiant de paiement (quittance) avec son code de suivi. La
+     * référence « TRESOR-quittance » est unique : une quittance ne paie qu'un seul dossier (PAY-04). Le montant retenu
+     * est le tarif en vigueur ; le contrôle auprès du Trésor sera branché avec l'interconnexion.
+     */
+    public ResultatTraitement payerAuTresor(String numeroDossier, String codeSuivi, String quittance, Instant payeLe) {
+        Demande d = transactions.execute(s -> depot.parNumero(numeroDossier)
+                .filter(x -> codeSuivi != null && x.empreinteCodeSuivi().equals(empreinteSuivi(numeroDossier, codeSuivi.trim())))
+                .orElseThrow(() -> new RessourceIntrouvable("Numéro de dossier ou code de suivi incorrect.")));
+        String reference = "TRESOR-" + quittance.trim().toUpperCase(Locale.ROOT);
+        transactions.execute(s -> depot.parReferencePaiement(reference)).ifPresent(autre -> {
+            if (!autre.numeroDossier().equals(d.numeroDossier())) {
+                throw new ErreurMetier(ErreurMetier.Nature.CONFLIT, "PAY-04", "Cet identifiant de paiement a déjà été utilisé.");
+            }
+        });
+        long attendu = tarif(d.profil(), LocalDate.ofInstant(payeLe, horloge.getZone())).montantFcfa();
+        return confirmerPaiement(d.numeroDossier(), reference, attendu, payeLe);
+    }
+
     /** Section 8 : une inscription validée sur une fiche fait repasser par un agent les demandes en cours sur cette personne. */
     @ApplicationModuleListener
     void surInscriptionValidee(CondamnationValidee e) {

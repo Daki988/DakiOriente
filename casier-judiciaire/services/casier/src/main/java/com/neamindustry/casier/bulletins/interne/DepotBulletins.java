@@ -118,4 +118,56 @@ public class DepotBulletins {
                 .query(rs -> { r.put(rs.getString(1), rs.getLong(2)); });
         return r;
     }
+
+    /** Ligne du tableau de bord d'impression : bulletin n°3 émis et état de son impression. */
+    public record LigneImpression(UUID id, String numero, String type, String statut, String nom, String prenoms,
+                                  java.time.LocalDate dateNaissance, Instant dateEmission, String validePar, Instant valideLe,
+                                  Instant imprimeLe, String feuillet, int impressions) {
+    }
+
+    public List<LigneImpression> fileImpression(int limite) {
+        return jdbc.sql("""
+                        select b.id, b.numero, b.type, b.statut, b.nom, b.prenoms, b.date_naissance, b.date_emission,
+                               v.acteur as valide_par, v.horodatage as valide_le,
+                               (select max(i.horodatage) from bulletins.impression i where i.bulletin_id = b.id and i.action <> 'VALIDATION') as imprime_le,
+                               (select i.feuillet from bulletins.impression i where i.bulletin_id = b.id and i.action <> 'VALIDATION'
+                                order by i.horodatage desc limit 1) as feuillet,
+                               (select count(*) from bulletins.impression i where i.bulletin_id = b.id and i.action <> 'VALIDATION') as impressions
+                        from bulletins.bulletin b
+                        left join bulletins.impression v on v.bulletin_id = b.id and v.action = 'VALIDATION'
+                        where b.type = 'B3'
+                        order by b.date_emission desc limit :limite""")
+                .param("limite", limite)
+                .query((rs, n) -> new LigneImpression(rs.getObject("id", UUID.class), rs.getString("numero"), rs.getString("type"),
+                        rs.getString("statut"), rs.getString("nom"), rs.getString("prenoms"),
+                        rs.getDate("date_naissance") == null ? null : rs.getDate("date_naissance").toLocalDate(),
+                        rs.getTimestamp("date_emission").toInstant(), rs.getString("valide_par"),
+                        rs.getTimestamp("valide_le") == null ? null : rs.getTimestamp("valide_le").toInstant(),
+                        rs.getTimestamp("imprime_le") == null ? null : rs.getTimestamp("imprime_le").toInstant(),
+                        rs.getString("feuillet"), rs.getInt("impressions")))
+                .list();
+    }
+
+    public void ajouterImpression(UUID bulletinId, String action, String acteur, String feuillet, String motif, Instant le) {
+        jdbc.sql("""
+                        insert into bulletins.impression(id, bulletin_id, action, acteur, feuillet, motif, horodatage)
+                        values (:id, :b, :action, :acteur, :feuillet, :motif, :le)""")
+                .param("id", UUID.randomUUID()).param("b", bulletinId).param("action", action).param("acteur", acteur)
+                .param("feuillet", feuillet).param("motif", motif).param("le", Timestamp.from(le)).update();
+    }
+
+    public boolean impressionValidee(UUID bulletinId) {
+        return jdbc.sql("select count(*) from bulletins.impression where bulletin_id = :b and action = 'VALIDATION'")
+                .param("b", bulletinId).query(Long.class).single() > 0;
+    }
+
+    public long nombreImpressions(UUID bulletinId) {
+        return jdbc.sql("select count(*) from bulletins.impression where bulletin_id = :b and action <> 'VALIDATION'")
+                .param("b", bulletinId).query(Long.class).single();
+    }
+
+    public boolean feuilletUtilise(String feuillet) {
+        return jdbc.sql("select count(*) from bulletins.impression where feuillet = :f").param("f", feuillet)
+                .query(Long.class).single() > 0;
+    }
 }

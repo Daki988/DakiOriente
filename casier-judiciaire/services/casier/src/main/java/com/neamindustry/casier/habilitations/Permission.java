@@ -22,5 +22,7 @@ public enum Permission {
     PARAMETRER_PLATEFORME,
     PROPOSER_TARIF,
     VALIDER_TARIF,
-    VERIFIER_BULLETIN
+    VERIFIER_BULLETIN,
+    /** Validation et impression des bulletins au guichet (tableau de bord du validateur). */
+    IMPRIMER_BULLETIN
 }

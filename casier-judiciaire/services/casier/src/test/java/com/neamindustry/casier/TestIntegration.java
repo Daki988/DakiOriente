@@ -23,6 +23,7 @@ import tools.jackson.databind.json.JsonMapper;
 @SpringBootTest(properties = {
         "casier.referentiels.import-au-demarrage=true",
         "casier.paiement.simulateur=true",
+        "casier.paiement.tresor-simule=true",
         "casier.paiement.secret-notifications=" + TestIntegration.SECRET_PAIEMENT,
         "casier.public.limite-par-minute=1000"})
 @AutoConfigureMockMvc
