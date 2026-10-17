@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Alerte, Champ, Icone, classesBouton } from '@casier/design-system';
 
 import { enregistrerPaiementTresor, type EtatTresor } from '@/app/paiement-tresor/actions';
+import { AvisSatisfaction } from './AvisSatisfaction';
 
 /** Saisie de l'identifiant de paiement du Trésor, puis accès au bulletin. */
 export function FormulairePaiementTresor({ numeroInitial }: { numeroInitial: string }) {
@@ -32,6 +33,7 @@ export function FormulairePaiementTresor({ numeroInitial }: { numeroInitial: str
               <Link href="/espace/demandes" className={classesBouton()}><Icone nom="download" taille={20} /><span>Télécharger depuis mon espace</span></Link>
             )}
             <p className="p-note"><Icone nom="printer" taille={18} /><span>Vous pouvez aussi le retirer imprimé sur papier sécurisé au greffe, muni de votre pièce d’identité.</span></p>
+            <AvisSatisfaction parcours="TRESOR" />
           </>
         ) : (
           <Alerte type="info" titre="Paiement enregistré">

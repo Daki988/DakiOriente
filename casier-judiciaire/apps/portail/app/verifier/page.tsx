@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { Alerte, Icone } from '@casier/design-system';
 
 import { EntetePage } from '@/components/EntetePage';
+import { AvisSatisfaction } from '@/components/AvisSatisfaction';
 import { FormulaireDocument } from '@/components/FormulaireDocument';
 import { FormulaireVerification } from '@/components/FormulaireVerification';
 import { ResultatVerification } from '@/components/ResultatVerification';
@@ -33,7 +34,7 @@ export default async function Verifier({ searchParams }: { searchParams: Promise
       erreur = 'Le code doit compter 12 lettres ou chiffres, par exemple K7QM-3XRT-9H2P. Vérifiez la saisie.';
     } else {
       try {
-        contenu = <ResultatVerification resultat={await verifierCode(code)} />;
+        contenu = <><ResultatVerification resultat={await verifierCode(code)} /><AvisSatisfaction parcours="VERIFICATION" /></>;
       } catch (e) {
         if (e instanceof RefusMetier) {
           contenu = <Alerte type="avertissement" titre="Trop de vérifications">{e.message}</Alerte>;

@@ -211,3 +211,13 @@
 .p-faq-carte { background: var(--cj-fond-surface); border: 1px solid var(--cj-bordure-defaut); border-radius: var(--cj-rayon-l); padding: 0 var(--cj-espace-6); }
 .p-faq-carte details:last-child { border-bottom: 0; }
 .p-centre { text-align: center; margin-top: var(--cj-espace-6); }
+
+/* Avis de satisfaction */
+.p-avis__notes { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--cj-espace-2); }
+.p-avis__note { display: flex; flex-direction: column; align-items: center; gap: var(--cj-espace-1); padding: var(--cj-espace-3) var(--cj-espace-1);
+  border: 1px solid var(--cj-bordure-forte); border-radius: var(--cj-rayon-m); cursor: pointer; text-align: center; min-height: 44px; }
+.p-avis__note input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.p-avis__note > span:first-of-type { font-size: 1.25rem; font-weight: 700; }
+.p-avis__libelle { font-size: 0.75rem; color: var(--cj-texte-secondaire); }
+.p-avis__note:has(input:checked) { border: 2px solid var(--cj-action-primaire); background: var(--cj-etat-succes-fond); }
+.p-avis__note:has(input:focus-visible) { outline: 3px solid var(--cj-bordure-focus); outline-offset: 2px; }

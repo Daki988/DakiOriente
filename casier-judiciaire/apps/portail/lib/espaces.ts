@@ -7,7 +7,7 @@ import { demoEspaces } from './demo-espaces';
 import { jetonValide } from './oidc';
 import { session, type Session } from './session';
 import type {
-  BulletinAImprimer, DemandeUsager, DossierAgent, EntreeJournal, Indicateurs, InscriptionEnAttente, JeuDeRegles, ProfilIdentite, ResultatIntegrite,
+  AccesDonnees, BulletinAImprimer, DemandeUsager, DossierAgent, EntreeJournal, Indicateurs, InscriptionEnAttente, JeuDeRegles, ProfilIdentite, ResultatIntegrite,
   SaisieCondamnation, TarifComplet,
 } from './types';
 
@@ -55,6 +55,11 @@ const post = (corps?: unknown): RequestInit => ({ method: 'POST', body: JSON.str
 export const espaces = {
   async mesDemandes(s: Session): Promise<DemandeUsager[]> {
     return s.demo ? demoEspaces.mesDemandes(s) : (await appel<DemandeUsager[]>(s, '/api/v1/usager/demandes')) ?? [];
+  },
+  /** Transparence : actions tracées sur les données de l'usager (la plus récente d'abord). */
+  async acces(s: Session): Promise<AccesDonnees[]> {
+    if (s.demo) return demoEspaces.acces(s);
+    return ((await appel<AccesDonnees[]>(s, '/api/v1/usager/acces')) ?? []).reverse();
   },
   async deposerPiece(s: Session, id: string, piece: string) {
     if (s.demo) return demoEspaces.deposerPiece(s, id);

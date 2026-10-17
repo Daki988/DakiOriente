@@ -1,6 +1,6 @@
-# Casier judiciaire numérique — paquet d'installation 0.3.0
+# Casier judiciaire numérique — paquet d'installation 1.0.0
 
-République gabonaise · Ministère de la Justice · Version du 17 octobre 2026 (lots L0 à L3, paiement au Trésor et impression)
+République gabonaise · Ministère de la Justice · Version du 17 octobre 2026 (version finale de démonstration)
 
 > **Version de démonstration.** Données fictives, paiement simulé, emblème neutre, bandeau « Démonstration — service non officiel ».
 > Elle ne doit pas recevoir de données réelles (exigences ENV-01 à ENV-03 et DON-06 du cahier des charges).
@@ -60,6 +60,17 @@ Impression au guichet : le profil « Validateur — impression » (rôle greffie
 **Impression des bulletins** : bulletins à valider (contrôle de l'identité et du paiement), à imprimer sur un feuillet
 sécurisé numéroté (numéro unique), réimpression avec motif obligatoire ; tout est journalisé.
 
+Bonnes pratiques reprises d'autres pays :
+- **Qui a consulté mes données** (Estonie) : l'usager voit dans son espace chaque action sur ses demandes, ses bulletins
+  et sa fiche, l'auteur étant désigné par sa fonction et le motif affiché ; la consultation est elle-même tracée.
+- **Vérification par QR code, code court ou dépôt du PDF** (Espagne, Portugal, Belgique) : gratuite, sans compte, sans
+  jamais afficher le contenu du casier.
+- **Avis de satisfaction** (Royaume-Uni, France) : note de 1 à 5 et commentaire anonymes en fin de parcours ; moyenne
+  dans le tableau de pilotage.
+- **Questionnaire « De quel document ai-je besoin ? »** (Royaume-Uni) : `/quel-bulletin`.
+- **Information en anglais** (Espagne, Estonie) : `/en`, pour les étrangers résidents, la diaspora et les employeurs étrangers.
+- **Paiement mobile et au Trésor, retrait imprimé au greffe** (Rwanda, Sénégal, Maroc).
+
 Données de test (non affichées sur le site) : vérification `DEMO-VALI-DE26` (valide), `DEMO-REVO-QUE1` (révoqué),
 `DEMO-EXPI-RE01` (expiré) ; suivi du dossier `CJ-2026-000123` avec le code `123456` ; paiement au Trésor du dossier `CJ-2026-000140`, code `654321`,
 identifiant de paiement au choix (par exemple `TP-2026-104512`).
@@ -93,8 +104,8 @@ Au premier démarrage, le service crée la base (migrations), charge le barème 
 ## Vérifications effectuées sur ce paquet
 
 - Pile complète lancée depuis ce paquet : service démarré, base créée, référentiels chargés ; portail relié au service (tarifs, vérification, toutes les pages).
-- 59 tests du service sur base PostgreSQL réelle (parcours complet, bulletin PDF scellé et détection de falsification, journal inaltérable, registre sans suppression), couverture du cœur métier ≥ 85 %.
-- 112 tests du portail (parcours, paiement au Trésor, impression, espaces connectés, dépôt de PDF, accessibilité WCAG 2.1 AA, mobile et ordinateur).
+- 60 tests du service sur base PostgreSQL réelle (parcours complet, bulletin PDF scellé et détection de falsification, journal inaltérable, registre sans suppression), couverture du cœur métier ≥ 85 %.
+- 126 tests du portail (parcours, paiement au Trésor, impression, transparence, satisfaction, orientation, espaces connectés, dépôt de PDF, accessibilité WCAG 2.1 AA, mobile et ordinateur).
 - Analyses de sécurité (Trivy, gitleaks, Semgrep) sans alerte haute ni critique.
 
 ## Avant une mise en service officielle par l'État

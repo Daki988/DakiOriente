@@ -321,9 +321,9 @@ button.cj-choix-carte:focus-visible { outline: 3px solid var(--cj-bordure-focus)
 }
 
 /* ---------- Espaces connectés (DSH) ---------- */
-.cj-espace { display: grid; gap: var(--cj-espace-6); padding-block: var(--cj-espace-6) var(--cj-espace-10); }
+.cj-espace { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--cj-espace-6); padding-block: var(--cj-espace-6) var(--cj-espace-10); }
 @media (min-width: 960px) { .cj-espace { grid-template-columns: 260px minmax(0, 1fr); align-items: start; } }
-.cj-espace__lateral { display: flex; flex-direction: column; gap: var(--cj-espace-4); }
+.cj-espace__lateral { display: flex; flex-direction: column; gap: var(--cj-espace-4); min-width: 0; }
 @media (min-width: 960px) { .cj-espace__lateral { position: sticky; top: var(--cj-espace-4); } }
 .cj-espace__principal { display: flex; flex-direction: column; gap: var(--cj-espace-6); min-width: 0; }
 .cj-espace__titre { font-family: var(--cj-police-titres); font-size: clamp(1.5rem, 2.5vw, 2rem); line-height: 1.2; margin: 0; }
@@ -357,3 +357,4 @@ button.cj-choix-carte:focus-visible { outline: 3px solid var(--cj-bordure-focus)
 .cj-formulaire-ligne { display: grid; gap: var(--cj-espace-3); }
 @media (min-width: 640px) { .cj-formulaire-ligne { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); align-items: end; } }
 @media (max-width: 519px) { .cj-en-tete .cj-bloc-marque__devise { display: none; } }
+.cj-panneau .cj-bouton { white-space: normal; text-align: left; padding-block: var(--cj-espace-2); max-width: 100%; }

@@ -7,6 +7,7 @@ import {
 } from '@casier/design-system';
 
 import { deposerAction } from '@/app/demande/actions';
+import { AvisSatisfaction } from './AvisSatisfaction';
 import { fcfa, profils, type CodeProfil } from '@/lib/contenu';
 import type { DemandeDeposee } from '@/lib/types';
 import {
@@ -353,6 +354,7 @@ function Confirmation({ depot, titre }: { depot: DemandeDeposee; titre: RefObjec
         <Link href="/suivi" className={classesBouton()}><Icone nom="search" taille={20} /><span>Suivre ma demande</span></Link>
         <Link href="/" className={classesBouton({ variante: 'secondaire' })}><span>Retour à l’accueil</span></Link>
       </div>
+      <AvisSatisfaction parcours="DEMANDE" />
     </section>
   );
 }

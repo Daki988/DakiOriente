@@ -6,7 +6,7 @@ import type { Session } from './session';
 import { SPECIMEN_B3 } from './specimen-b3';
 import { SPECIMENS_IMPRESSION } from './specimens-impression';
 import type {
-  BulletinAImprimer, DemandeUsager, DossierAgent, EntreeJournal, Indicateurs, InscriptionEnAttente, JeuDeRegles, ProfilIdentite,
+  AccesDonnees, BulletinAImprimer, DemandeUsager, DossierAgent, EntreeJournal, Indicateurs, InscriptionEnAttente, JeuDeRegles, ProfilIdentite,
   SaisieCondamnation, TarifComplet,
 } from './types';
 
@@ -124,7 +124,34 @@ function tracer(s: Session, action: string, objetType: string, objetId: string |
     evenement: { acteurId: s.sujet, roles: s.roles.join(','), action, objetType, objetId, personneConcernee: null, finalite, details: {} } });
 }
 
+/** Avis de satisfaction de la démonstration : base fictive plus les avis donnés pendant la présentation. */
+const avis: { notes: number[] } = ((globalThis as { __cjAvis?: { notes: number[] } }).__cjAvis ??= { notes: [] });
+const BASE_AVIS = { somme: 412 * 4.6, nombre: 412 };
+function avisDemo() {
+  const nombre = BASE_AVIS.nombre + avis.notes.length;
+  const somme = BASE_AVIS.somme + avis.notes.reduce((a, b) => a + b, 0);
+  return { noteMoyenne: Math.round((somme / nombre) * 10) / 10, nombreAvis: nombre };
+}
+export function donnerAvisDemo(note: number) {
+  avis.notes.push(note);
+}
+
+const ACCES_USAGER: AccesDonnees[] = [
+  { horodatage: '2026-10-14T09:05:00Z', action: 'DEMANDE_B3_DEPOSEE', auteur: 'Vous', finalite: null },
+  { horodatage: '2026-10-14T09:11:00Z', action: 'PAIEMENT_CONFIRME', auteur: 'Opérateur de paiement', finalite: null },
+  { horodatage: '2026-10-14T09:11:30Z', action: 'RAPPROCHEMENT_AUTOMATIQUE', auteur: 'Traitement automatique', finalite: null },
+  { horodatage: '2026-10-14T09:12:00Z', action: 'BULLETIN_EMIS', auteur: 'Traitement automatique', finalite: 'Bulletin n°3 au profit de la personne' },
+  { horodatage: '2026-10-14T10:02:00Z', action: 'BULLETIN_TELECHARGE', auteur: 'Vous', finalite: null },
+  { horodatage: '2026-10-16T09:58:00Z', action: 'DEMANDE_B3_DEPOSEE', auteur: 'Vous', finalite: null },
+  { horodatage: '2026-10-16T14:18:00Z', action: 'FICHE_CONSULTEE', auteur: 'Agent du casier (greffe)', finalite: 'Traitement de la demande CJ-2026-000123' },
+  { horodatage: '2026-10-16T14:20:00Z', action: 'PIECE_DEMANDEE', auteur: 'Agent du casier (greffe)', finalite: 'Copie intégrale de l’acte de naissance' },
+];
+
 export const demoEspaces = {
+  acces: (s: Session) => {
+    tracer(s, 'ACCES_DONNEES_CONSULTES', 'Demande', null);
+    return s.roles.includes('R01') ? [...ACCES_USAGER].reverse() : [];
+  },
   mesDemandes: (s: Session) => (rafraichir(), (s.roles.includes('R01') ? etat.demandes : [])),
   deposerPiece(s: Session, id: string) {
     const d = etat.demandes.find((x) => x.id === id && x.statut === 'EN_ATTENTE_PIECE');
@@ -179,7 +206,8 @@ export const demoEspaces = {
   indicateurs: (): Indicateurs => ({
     demandes: { parStatut: { DELIVREE: 1284, A_TRAITER_PAR_AGENT: etat.file.filter((x) => x.statut === 'A_TRAITER_PAR_AGENT').length + 37,
       EN_ATTENTE_PIECE: 12, EN_TRAITEMENT: 4, EN_ATTENTE_PAIEMENT: 58, REJETEE: 9 }, total: 1406, delivrees: 1284,
-      delivreesAutomatiquement: 1093, delaiMoyenHeures: 3.4, enRetard: 2, recettesFcfa: 1926000 },
+      delivreesAutomatiquement: 1093, delaiMoyenHeures: 3.4, enRetard: 2, recettesFcfa: 1926000,
+      satisfaction: avisDemo() },
     bulletins: { B3_EMIS: 1271, B3_REVOQUE: 3, B2_EMIS: 214 }, verifications: 2952,
   }),
   tarifs: () => (rafraichir(), etat.tarifs),

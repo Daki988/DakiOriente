@@ -75,7 +75,8 @@ export type InscriptionEnAttente = {
 
 export type Indicateurs = {
   demandes: { parStatut: Record<string, number>; total: number; delivrees: number; delivreesAutomatiquement: number;
-    delaiMoyenHeures: number | null; enRetard: number; recettesFcfa: number };
+    delaiMoyenHeures: number | null; enRetard: number; recettesFcfa: number;
+    satisfaction?: { noteMoyenne: number | null; nombreAvis: number } };
   bulletins: Record<string, number>; verifications: number;
 };
 
@@ -111,3 +112,8 @@ export type BulletinAImprimer = {
   /** Démonstration seulement : moyen de paiement (le service ne l'expose pas encore). */
   paiement?: string;
 };
+
+/** « Qui a consulté mes données » : action tracée, auteur désigné par sa qualité. */
+export type AccesDonnees = { horodatage: string; action: string; auteur: string; finalite: string | null };
+
+export type ParcoursAvis = 'DEMANDE' | 'SUIVI' | 'TRESOR' | 'VERIFICATION';

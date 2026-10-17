@@ -21,6 +21,7 @@ export function PiedPortail() {
             <ul>
               <li><Link href="/demande">Demander un bulletin n°3</Link></li>
               <li><Link href="/suivi">Suivre une demande</Link></li>
+              <li><Link href="/paiement-tresor">Payer au Trésor public</Link></li>
               <li><Link href="/verifier">Vérifier un bulletin</Link></li>
               <li><Link href="/tarifs">Tarifs</Link></li>
             </ul>
@@ -32,7 +33,9 @@ export function PiedPortail() {
               <li><Link href="/diaspora">Gabonais de l’étranger</Link></li>
               <li><Link href="/etrangers">Étrangers résidant au Gabon</Link></li>
               <li><Link href="/administrations">Administrations et employeurs</Link></li>
+              <li><Link href="/quel-bulletin">De quel document ai-je besoin ?</Link></li>
               <li><Link href="/chiffres">Le service en chiffres</Link></li>
+              <li><Link href="/en" lang="en" hrefLang="en">English</Link></li>
             </ul>
           </div>
           <div>

@@ -29,6 +29,8 @@ export default async function Pilotage() {
         <TuileIndicateur valeur={n(d.enRetard)} libelle="En retard" />
         <TuileIndicateur valeur={fcfa(d.recettesFcfa)} libelle="Recettes encaissées" />
         <TuileIndicateur valeur={n(ind.verifications)} libelle="Vérifications de bulletins" />
+        <TuileIndicateur valeur={d.satisfaction?.noteMoyenne != null ? `${d.satisfaction.noteMoyenne.toLocaleString('fr-FR')} / 5` : '—'}
+          libelle="Satisfaction des usagers" detail={`${n(d.satisfaction?.nombreAvis ?? 0)} avis`} />
       </div>
       <div className="cj-grille cj-grille--2">
         <ConteneurTableau libelle="Demandes par état">

@@ -1,8 +1,9 @@
 import 'server-only';
 
 import { config } from './config';
+import { donnerAvisDemo } from './demo-espaces';
 import { deposerDemo, payerTresorDemo, reclamerDemo, suiviDemo, tarifsDemo, verifierCodeDemo, verifierDocumentDemo, verifierJetonDemo } from './demo';
-import type { DemandeDeposee, NouvelleDemande, NouvelleReclamation, PaiementTresorEnregistre, ReclamationDeposee, ResultatVerification, SuiviDemande, Tarif } from './types';
+import type { DemandeDeposee, NouvelleDemande, ParcoursAvis, NouvelleReclamation, PaiementTresorEnregistre, ReclamationDeposee, ResultatVerification, SuiviDemande, Tarif } from './types';
 
 /** Le service ne répond pas : la page affiche un message clair, sans code technique (ERG-05, PUB-16). */
 export class ServiceIndisponible extends Error {}
@@ -29,6 +30,7 @@ async function appel<T>(chemin: string, init?: RequestInit): Promise<T | null> {
     throw new RefusMetier(typeof corps.detail === 'string' ? corps.detail : 'Votre demande ne peut pas être traitée.');
   }
   if (!reponse.ok) throw new ServiceIndisponible();
+  if (reponse.status === 204) return null;
   return (await reponse.json()) as T;
 }
 
@@ -118,4 +120,10 @@ export async function payerTresor(numero: string, code: string, quittance: strin
   const r = await appel<{ numeroDossier: string; statut: PaiementTresorEnregistre['statut']; numeroBulletin: string | null }>(
     '/api/public/v1/paiements/tresor', { method: 'POST', body: JSON.stringify({ numeroDossier: numero, code, quittance }) });
   return r && { ...r, demo: false };
+}
+
+/** Avis de satisfaction anonyme, à la fin d'un parcours. */
+export async function donnerAvis(note: number, commentaire: string | undefined, parcours: ParcoursAvis): Promise<void> {
+  if (!reel()) return donnerAvisDemo(note);
+  await appel('/api/public/v1/avis-satisfaction', { method: 'POST', body: JSON.stringify({ note, commentaire, parcours }) });
 }

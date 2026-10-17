@@ -121,6 +121,7 @@ export default async function Accueil() {
           <div className="p-entete-centre">
             <Pastille>Pour qui ?</Pastille>
             <h2 id="titre-profils" className="p-titre-section">Une démarche adaptée à votre situation</h2>
+            <p className="p-chapo">Vous hésitez ? <Link href="/quel-bulletin">Répondez à deux questions</Link> pour trouver la bonne démarche.</p>
           </div>
           <ul className="p-profils">
             {PROFILS.map((p) => (

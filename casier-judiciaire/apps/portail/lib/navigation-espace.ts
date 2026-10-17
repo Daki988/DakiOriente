@@ -4,6 +4,7 @@ import type { LienEspace } from '@casier/design-system';
 const ENTREES: (LienEspace & { roles: string[] })[] = [
   { href: '/espace', libelle: 'Tableau de bord', icone: 'layout-dashboard', roles: [] },
   { href: '/espace/demandes', libelle: 'Mes demandes', icone: 'file-text', roles: ['R01'] },
+  { href: '/espace/acces', libelle: 'Accès à mes données', icone: 'eye', roles: ['R01'] },
   { href: '/espace/file', libelle: 'File de travail', icone: 'inbox', roles: ['R06'] },
   { href: '/espace/saisie', libelle: 'Saisir une condamnation', icone: 'gavel', roles: ['R06'] },
   { href: '/espace/validations', libelle: 'Validations', icone: 'list-checks', roles: ['R07'] },

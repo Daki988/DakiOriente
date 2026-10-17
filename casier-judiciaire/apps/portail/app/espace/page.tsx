@@ -7,6 +7,7 @@ import { liensEspace } from '@/lib/navigation-espace';
 
 const DESCRIPTIONS: Record<string, string> = {
   '/espace/demandes': 'Suivez vos demandes, téléchargez vos bulletins scellés et déposez une pièce demandée.',
+  '/espace/acces': 'Qui a consulté ou traité vos données, quand et pourquoi. Chaque accès est tracé.',
   '/espace/file': 'Demandes à vérifier : homonymies, pièces, identités non certaines. Délai de 24 heures.',
   '/espace/saisie': 'Enregistrer une décision de condamnation, validée ensuite par le greffier en chef.',
   '/espace/validations': 'Inscriptions saisies par les agents, à valider par une seconde personne (quatre yeux).',

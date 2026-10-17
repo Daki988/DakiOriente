@@ -4,7 +4,7 @@ import { expect, test } from '@playwright/test';
 /** ERG-01 : WCAG 2.1 AA vérifié automatiquement sur toutes les pages publiques (l'audit humain reste obligatoire). */
 const PAGES = ['/', '/demande', '/suivi', '/verifier', '/verifier?code=DEMO-VALI-DE26', '/verifier?code=DEMO-REVO-QUE1', '/v/jeton-inconnu-0000000000000',
   '/tarifs', '/bulletin-n3', '/diaspora', '/etrangers', '/administrations', '/aide', '/contact', '/connexion', '/actualites', '/chiffres',
-  '/mentions-legales', '/cgu', '/confidentialite', '/cookies', '/accessibilite', '/plan-du-site', '/maintenance', '/session-expiree', '/page-inexistante'];
+  '/mentions-legales', '/cgu', '/confidentialite', '/cookies', '/accessibilite', '/plan-du-site', '/quel-bulletin', '/en', '/paiement-tresor', '/maintenance', '/session-expiree', '/page-inexistante'];
 
 for (const chemin of PAGES) {
   test(`ERG-01 — ${chemin} sans violation WCAG 2.1 AA`, async ({ page }) => {
