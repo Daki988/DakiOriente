@@ -65,10 +65,19 @@ export function BlocMarque({ embleme, inverse = false, srcArmoiries = '/emblemes
       <span className="cj-bloc-marque__separateur" aria-hidden="true" />
       <span className="cj-bloc-marque__textes">
         <span className="cj-bloc-marque__republique">République gabonaise</span>
-        <span className="cj-bloc-marque__ministere">Ministère de la Justice{embleme === 'ministere' ? ',' : ''}</span>
         {embleme === 'ministere'
-          ? <span className="cj-bloc-marque__devise">Garde des Sceaux, chargé des Droits humains</span>
-          : <span className="cj-bloc-marque__devise">Union – Travail – Justice</span>}
+          ? (
+            // Nom officiel complet, en trois lignes régulières (même taille, même graisse).
+            <span className="cj-bloc-marque__nom">
+              <span>Ministère de la Justice,</span>
+              <span>Garde des Sceaux,</span>
+              <span>chargé des Droits humains</span>
+            </span>
+          )
+          : <>
+              <span className="cj-bloc-marque__devise">Union – Travail – Justice</span>
+              <span className="cj-bloc-marque__ministere">Ministère de la Justice</span>
+            </>}
       </span>
     </>
   );

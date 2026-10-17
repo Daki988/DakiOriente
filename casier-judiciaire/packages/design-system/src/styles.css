@@ -359,14 +359,7 @@ button.cj-choix-carte:focus-visible { outline: 3px solid var(--cj-bordure-focus)
 .cj-actions { display: flex; flex-wrap: wrap; gap: var(--cj-espace-3); align-items: center; }
 .cj-formulaire-ligne { display: grid; gap: var(--cj-espace-3); }
 @media (min-width: 640px) { .cj-formulaire-ligne { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); align-items: end; } }
-/* Téléphone : le nom complet du ministère reste affiché, sur plusieurs lignes et en plus petit. */
-@media (max-width: 519px) {
-  .cj-en-tete .cj-bloc-marque__textes { white-space: normal; min-width: 0; }
-  .cj-en-tete .cj-bloc-marque__ministere { font-size: 0.8125rem; line-height: 1.15; }
-  .cj-en-tete .cj-bloc-marque__devise { font-size: 0.6875rem; line-height: 1.2; color: var(--cj-texte-principal); }
-  .cj-en-tete .cj-bloc-marque { min-width: 0; }
-  .cj-en-tete .cj-en-tete__gauche { flex: 1; }
-}
+
 .cj-panneau .cj-bouton { white-space: normal; text-align: left; padding-block: var(--cj-espace-2); max-width: 100%; }
 
 /* ---------- Petits écrans : aucun débordement horizontal (320 px et plus) ---------- */
@@ -411,3 +404,13 @@ button.cj-choix-carte:focus-visible { outline: 3px solid var(--cj-bordure-focus)
   .cj-nav-espace a { border: 1px solid var(--cj-bordure-defaut); background: var(--cj-fond-surface); padding: var(--cj-espace-2) var(--cj-espace-3); min-height: 44px; font-size: 0.9375rem; }
   .cj-nav-espace a[aria-current='page'] { box-shadow: none; border-color: var(--cj-action-primaire); background: var(--cj-etat-succes-fond); }
 }
+
+/* Nom officiel du ministère : trois lignes alignées à gauche, centrées verticalement sur le logo. */
+.cj-bloc-marque__textes { justify-content: center; }
+.cj-bloc-marque__nom { display: flex; flex-direction: column; margin-top: 2px; font-size: 0.875rem; font-weight: 600; line-height: 1.2; color: var(--cj-texte-principal); }
+.cj-bloc-marque--inverse .cj-bloc-marque__nom { color: var(--cj-texte-inverse); }
+.cj-bloc-marque__embleme--logo { align-self: center; }
+@media (max-width: 400px) {
+  .cj-bloc-marque__nom { font-size: 0.8125rem; line-height: 1.15; }
+}
+.cj-en-tete__barre { padding-block: var(--cj-espace-3); }
