@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { Product } from "@/lib/catalog";
 import { fcfa } from "@/lib/format";
 import { ArrowRight } from "@/components/Icons";
+import { CountUp } from "@/components/motion/CountUp";
 
 /** Devis express de l'accueil (produits vendus par lots de quantités fixes). */
 export function QuickQuote({ products }: { products: Product[] }) {
@@ -41,7 +42,7 @@ export function QuickQuote({ products }: { products: Product[] }) {
       <div className="flex items-end justify-between border-t border-line pt-4">
         <div>
           <p className="text-[13px] text-muted">Total estimé</p>
-          <p className="tabular font-display text-3xl font-extrabold tracking-tight" aria-live="polite">{fcfa(tier.price)}</p>
+          <p className="tabular font-display text-3xl font-extrabold tracking-tight" aria-live="polite"><CountUp value={tier.price} /></p>
         </div>
         <p className="text-right text-[13px] font-bold text-brand">{fcfa(Math.round(tier.price / tier.qty))} / ex.</p>
       </div>

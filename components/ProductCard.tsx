@@ -21,7 +21,7 @@ export function ProductCard({ product, badge }: { product: Product; badge?: stri
       className="group flex flex-col overflow-hidden rounded-2xl bg-white transition hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-18px_rgba(13,14,18,.35)]"
     >
       <div className="relative">
-        <ProductVisual product={product} />
+        <ProductVisual product={product} className="transition-transform duration-700 ease-out group-hover:scale-[1.05]" />
         {badge && <span className="absolute left-2.5 top-2.5 rounded-full bg-white px-2 py-1 text-[11px] font-semibold">{badge}</span>}
       </div>
       <div className="grid gap-1 px-3.5 pb-3.5 pt-3">

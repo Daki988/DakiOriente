@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { ProductCard } from "@/components/ProductCard";
+import { Reveal } from "@/components/motion/Reveal";
+import { Tilt } from "@/components/motion/Tilt";
 import { categories, getProducts } from "@/lib/catalog";
 
 export const revalidate = 300;
@@ -29,7 +31,9 @@ export default async function Produits() {
         <section key={c.slug} id={c.slug} className="grid scroll-mt-24 gap-4">
           <h2 className="text-2xl font-bold md:text-3xl">{c.name}</h2>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-            {products.filter((p) => p.categorySlug === c.slug).map((p) => <ProductCard key={p.slug} product={p} />)}
+            {products.filter((p) => p.categorySlug === c.slug).map((p, k) => (
+              <Reveal key={p.slug} delay={(k % 4) * 90}><Tilt className="rounded-2xl"><ProductCard product={p} /></Tilt></Reveal>
+            ))}
           </div>
         </section>
       ))}
