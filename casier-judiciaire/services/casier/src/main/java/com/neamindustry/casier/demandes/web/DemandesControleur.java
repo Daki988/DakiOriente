@@ -70,6 +70,28 @@ class DemandesControleur {
         return demandes.mesDemandes(acteur.obtenir());
     }
 
+    /** Transparence : qui a consulté ou traité les données de l'usager, et pourquoi. */
+    @GetMapping("/api/v1/usager/acces")
+    List<com.neamindustry.casier.demandes.AccesDonnees> acces() {
+        return demandes.accesAMesDonnees(acteur.obtenir());
+    }
+
+    record AvisSatisfaction(@jakarta.validation.constraints.Min(1) @jakarta.validation.constraints.Max(5) int note,
+                            @jakarta.validation.constraints.Size(max = 1000) String commentaire,
+                            @jakarta.validation.constraints.NotNull
+                            @jakarta.validation.constraints.Pattern(regexp = "DEMANDE|SUIVI|TRESOR|VERIFICATION") String parcours) {
+    }
+
+    /** Avis de satisfaction anonyme (GOV.UK, Services Publics+) ; débit limité par adresse réseau. */
+    @PostMapping("/api/public/v1/avis-satisfaction")
+    ResponseEntity<Void> avis(@Valid @RequestBody AvisSatisfaction a, HttpServletRequest requete) {
+        if (!limiteur.autoriser(requete.getRemoteAddr())) {
+            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+        }
+        demandes.donnerAvis(a.note(), a.commentaire(), a.parcours());
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/api/v1/demandes/file")
     List<DossierAgent> fileDeTravail() {
         return demandes.fileDeTravail(acteur.obtenir());

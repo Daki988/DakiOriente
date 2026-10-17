@@ -270,6 +270,49 @@ public class ServiceDemandes {
                 .toList();
     }
 
+    /**
+     * Transparence des accès : toutes les actions tracées sur les demandes de l'usager, ses bulletins et la fiche à
+     * laquelle il a été rapproché. L'auteur est désigné par sa qualité, jamais par son nom ; la consultation est tracée.
+     */
+    @Transactional
+    public List<AccesDonnees> accesAMesDonnees(Acteur usager) {
+        habilitations.exiger(usager, Permission.DEMANDER_B3_POUR_SOI);
+        List<Demande> demandes = depot.parDemandeur(usager.identifiant());
+        java.util.Set<String> objets = new java.util.HashSet<>();
+        java.util.Set<String> personnes = new java.util.HashSet<>();
+        for (Demande d : demandes) {
+            objets.add(d.id().toString());
+            if (d.bulletinId() != null) {
+                objets.add(d.bulletinId().toString());
+            }
+            if (d.personneRapprochee() != null) {
+                personnes.add(d.personneRapprochee().toString());
+            }
+        }
+        List<AccesDonnees> acces = journal.parObjetsOuPersonnes(objets, personnes).stream()
+                .map(e -> new AccesDonnees(e.horodatage(), e.evenement().action(), auteur(usager, e.evenement().acteurId(), e.evenement().roles()),
+                        e.evenement().finalite()))
+                .toList();
+        journal.enregistrer(EvenementAudit.par(usager, "ACCES_DONNEES_CONSULTES", "Demande", null, null, null, Map.of()));
+        return acces;
+    }
+
+    private static String auteur(Acteur usager, String acteurId, String roles) {
+        if (usager.identifiant().equals(acteurId)) {
+            return "Vous";
+        }
+        if (acteurId == null || acteurId.startsWith("systeme:") || acteurId.startsWith("paiement:")) {
+            return acteurId != null && acteurId.startsWith("paiement:") ? "Opérateur de paiement" : "Traitement automatique";
+        }
+        if (roles == null || roles.isBlank()) {
+            return "Agent habilité";
+        }
+        return java.util.Arrays.stream(roles.split(","))
+                .map(String::trim)
+                .map(r -> { try { return com.neamindustry.casier.habilitations.Role.valueOf(r).libelle(); } catch (IllegalArgumentException ex) { return r; } })
+                .distinct().collect(java.util.stream.Collectors.joining(", "));
+    }
+
     /** DSH-07, DSH-08 : indicateurs agrégés pour le pilotage national et le tableau de bord stratégique. */
     @Transactional(readOnly = true)
     public IndicateursDemandes indicateurs(Acteur acteur) {
@@ -280,7 +323,18 @@ public class ServiceDemandes {
         Map<String, Long> parStatut = depot.nombreParStatut();
         long total = parStatut.values().stream().mapToLong(Long::longValue).sum();
         return new IndicateursDemandes(parStatut, total, parStatut.getOrDefault("DELIVREE", 0L), depot.delivreesSansAgent(),
-                depot.delaiMoyenHeures(), depot.enRetard(Instant.now(horloge)), depot.recettes());
+                depot.delaiMoyenHeures(), depot.enRetard(Instant.now(horloge)), depot.recettes(),
+                new IndicateursDemandes.Satisfaction(depot.noteMoyenne(), depot.nombreAvis()));
+    }
+
+    /** Avis de satisfaction anonyme, déposé à la fin d'un parcours. */
+    @Transactional
+    public void donnerAvis(int note, String commentaire, String parcours) {
+        if (note < 1 || note > 5) {
+            throw new ErreurMetier("SAT-01", "La note va de 1 à 5.");
+        }
+        String texte = commentaire == null || commentaire.isBlank() ? null : commentaire.strip();
+        depot.ajouterAvis(note, texte == null ? null : texte.substring(0, Math.min(texte.length(), 1000)), parcours, Instant.now(horloge));
     }
 
     /** PUB-07 : suivi public avec le numéro de dossier et le code reçu par SMS. */

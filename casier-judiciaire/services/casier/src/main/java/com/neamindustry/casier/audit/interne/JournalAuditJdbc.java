@@ -121,6 +121,20 @@ class JournalAuditJdbc implements JournalAudit {
                 .query((rs, i) -> lire(rs)).list();
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<EntreeJournal> parObjetsOuPersonnes(java.util.Collection<String> objets, java.util.Collection<String> personnes) {
+        if (objets.isEmpty() && personnes.isEmpty()) {
+            return List.of();
+        }
+        return jdbc.sql("""
+                        select * from audit.journal
+                        where objet_id = any(:objets) or personne_concernee = any(:personnes)
+                        order by numero""")
+                .param("objets", objets.toArray(String[]::new)).param("personnes", personnes.toArray(String[]::new))
+                .query((rs, i) -> lire(rs)).list();
+    }
+
     private EntreeJournal lire(ResultSet rs) throws SQLException {
         EvenementAudit e = new EvenementAudit(rs.getString("acteur_id"), rs.getString("roles"), rs.getString("action"),
                 rs.getString("objet_type"), rs.getString("objet_id"), rs.getString("personne_concernee"),

@@ -215,4 +215,18 @@ public class DepotDemandes {
         return jdbc.sql("select coalesce(sum(montant_fcfa), 0) from demandes.demande where paye_le is not null")
                 .query(Long.class).single();
     }
+
+    public void ajouterAvis(int note, String commentaire, String parcours, Instant le) {
+        jdbc.sql("insert into demandes.avis_satisfaction(id, note, commentaire, parcours, cree_le) values (:id, :note, :c, :p, :le)")
+                .param("id", UUID.randomUUID()).param("note", note).param("c", commentaire).param("p", parcours)
+                .param("le", java.sql.Timestamp.from(le)).update();
+    }
+
+    public Double noteMoyenne() {
+        return jdbc.sql("select round(avg(note)::numeric, 1)::float8 from demandes.avis_satisfaction").query(Double.class).optional().orElse(null);
+    }
+
+    public long nombreAvis() {
+        return jdbc.sql("select count(*) from demandes.avis_satisfaction").query(Long.class).single();
+    }
 }

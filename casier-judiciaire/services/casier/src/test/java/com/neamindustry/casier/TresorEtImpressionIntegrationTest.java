@@ -91,4 +91,27 @@ class TresorEtImpressionIntegrationTest extends TestIntegration {
                 .andExpect(jsonPath("$[?(@.id == '" + idFinal + "')].impressions").value(org.hamcrest.Matchers.contains(2)))
                 .andExpect(jsonPath("$[?(@.id == '" + idFinal + "')].feuillet").value(org.hamcrest.Matchers.contains("FS-000124")));
     }
+
+    @Test
+    @DisplayName("Transparence : l'usager voit qui a traité ses données, sans nom d'agent ; avis de satisfaction anonyme")
+    void accesEtSatisfaction() throws Exception {
+        DemandeDeposee d = deposer("usager-transparence", "OKOUMA FICTIF");
+        payer(d.numeroDossier(), d.codeSuivi(), "TP-2026-000999", 200);
+        mvc.perform(get("/api/v1/usager/acces").with(usager("usager-transparence")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*].action").value(org.hamcrest.Matchers.hasItems("DEMANDE_B3_DEPOSEE", "PAIEMENT_CONFIRME")))
+                .andExpect(jsonPath("$[*].auteur").value(org.hamcrest.Matchers.hasItems("Vous", "Opérateur de paiement")))
+                .andExpect(jsonPath("$[0].acteurId").doesNotExist());
+        mvc.perform(get("/api/v1/usager/acces").with(usager("usager-sans-demande")))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.length()").value(0));
+        mvc.perform(get("/api/v1/usager/acces").with(agent("agent-x"))).andExpect(status().isForbidden());
+
+        mvc.perform(post("/api/public/v1/avis-satisfaction").contentType(MediaType.APPLICATION_JSON)
+                .content(enJson(Map.of("note", 5, "commentaire", "Rapide et clair", "parcours", "TRESOR")))).andExpect(status().isNoContent());
+        mvc.perform(post("/api/public/v1/avis-satisfaction").contentType(MediaType.APPLICATION_JSON)
+                .content(enJson(Map.of("note", 9, "parcours", "TRESOR")))).andExpect(status().isBadRequest());
+        mvc.perform(get("/api/v1/pilotage/indicateurs").with(acteur("direction-1", null, false, "R08")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.demandes.satisfaction.nombreAvis").value(org.hamcrest.Matchers.greaterThanOrEqualTo(1)));
+    }
 }
