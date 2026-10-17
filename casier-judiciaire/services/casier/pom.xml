@@ -22,6 +22,12 @@
     <springdoc.version>3.1.1</springdoc.version>
     <commons-text.version>1.15.0</commons-text.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- SEC-09 : correctifs de sécurité en attendant la prochaine version de Spring Boot (analyse Trivy du SBOM, 17/10/2026).
+         Tomcat : CVE-2026-65182, CVE-2026-65905, CVE-2026-68525 (critiques). Jackson : CVE-2026-89407, -89425, -68497, -91776, -91777.
+         À retirer dès que spring-boot-dependencies embarque ces versions ou des suivantes. -->
+    <tomcat.version>11.0.27</tomcat.version>
+    <jackson-bom.version>3.1.7</jackson-bom.version>
+    <jackson-2-bom.version>2.21.7</jackson-2-bom.version>
   </properties>
 
   <dependencyManagement>

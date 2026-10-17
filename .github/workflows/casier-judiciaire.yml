@@ -1,0 +1,122 @@
+# Casier judiciaire numérique — intégration continue (section 25, « Définition de terminé »).
+# Tests et couverture (ENF-16), structure modulaire (ARC-02), parcours et accessibilité (ERG-01),
+# analyses de sécurité sans alerte critique : Semgrep, Trivy, gitleaks, SBOM CycloneDX (SEC-09).
+name: Casier judiciaire
+
+on:
+  push:
+    paths:
+      - "casier-judiciaire/**"
+      - ".github/workflows/casier-judiciaire.yml"
+  pull_request:
+    paths:
+      - "casier-judiciaire/**"
+      - ".github/workflows/casier-judiciaire.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: casier-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  service:
+    name: Service Casier — tests, couverture, SBOM
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: casier-judiciaire/services/casier
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      - name: Compiler, tester (Testcontainers), contrôler la couverture et produire le SBOM
+        run: mvn -B verify
+      - name: Trivy — dépendances Java (SBOM)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: sbom
+          scan-ref: casier-judiciaire/services/casier/target/classes/META-INF/sbom/application.cdx.json
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+      - name: Rapports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: service-casier-rapports
+          path: |
+            casier-judiciaire/services/casier/target/site/jacoco
+            casier-judiciaire/services/casier/target/surefire-reports
+            casier-judiciaire/services/casier/target/classes/META-INF/sbom/application.cdx.json
+          if-no-files-found: ignore
+
+  portail:
+    name: Portail — types, build, parcours et accessibilité
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: casier-judiciaire
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: casier-judiciaire/package-lock.json
+      - run: npm ci
+      - name: Vérification des types
+        run: npm run typecheck
+      - name: Build de production (mode démonstration)
+        run: npm run build
+        env:
+          NEXT_PUBLIC_MODE_DEMO: "true"
+      - name: Navigateur de test
+        run: npx playwright install --with-deps chromium
+      - name: Parcours de bout en bout et axe WCAG 2.1 AA (mobile et bureau)
+        run: npm run test:e2e
+        env:
+          CI: "true"
+      - name: SBOM des dépendances JavaScript
+        run: npm sbom --sbom-format cyclonedx --omit dev > portail.cdx.json
+      - name: Rapports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portail-rapports
+          path: |
+            casier-judiciaire/apps/portail/playwright-report
+            casier-judiciaire/portail.cdx.json
+          if-no-files-found: ignore
+
+  securite:
+    name: Sécurité — secrets, analyse statique, dépendances
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: gitleaks — aucun secret dans l'historique (SEC-05)
+        run: docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.21.2 git --no-banner --redact /repo
+      - name: Semgrep — analyse statique (SEC-08)
+        run: >
+          docker run --rm -v "$PWD:/src" -w /src semgrep/semgrep:1.99.0
+          semgrep scan --config p/default --config p/java --config p/typescript --config p/secrets
+          --severity ERROR --error --metrics=off casier-judiciaire
+      - name: Trivy — dépendances npm, secrets et configuration
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: fs
+          scan-ref: casier-judiciaire
+          scanners: vuln,secret,misconfig
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          skip-dirs: casier-judiciaire/node_modules,casier-judiciaire/apps/portail/.next
+          exit-code: "1"

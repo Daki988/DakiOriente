@@ -14,13 +14,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @param regles            fichier du jeu de règles juridiques
  */
 @ConfigurationProperties("casier.referentiels")
-public record ReferentielsInitiaux(boolean importAuDemarrage, Path dossier, String tarifs, String regles) {
+public record ReferentielsInitiaux(boolean importAuDemarrage, String dossier, String tarifs, String regles) {
 
     public ReferentielsInitiaux {
-        dossier = dossier == null ? Path.of("../../referentiels") : dossier;
+        // Chaîne et non Path : un chemin relatif ne doit pas être interprété comme une ressource du classpath.
+        dossier = dossier == null || dossier.isBlank() ? "../../referentiels" : dossier;
     }
 
     public Path fichier(String nom) {
-        return dossier.resolve(nom).normalize();
+        return Path.of(dossier).resolve(nom).toAbsolutePath().normalize();
     }
 }

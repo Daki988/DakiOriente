@@ -14,3 +14,5 @@ casier-judiciaire/**/test-results/
 casier-judiciaire/**/playwright-report/
 casier-judiciaire/**/*.tsbuildinfo
 apercus/
+casier-judiciaire/infra/.env
+!casier-judiciaire/infra/.env.exemple

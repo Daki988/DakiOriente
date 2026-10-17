@@ -121,6 +121,7 @@ export function ParcoursDemande({ tarifs, demo }: { tarifs: Partial<Record<CodeP
   function suivant(ev: FormEvent) {
     ev.preventDefault();
     setMessage(null);
+    // nosemgrep: javascript.lang.security.audit.unsafe-dynamic-method -- index numérique interne (0 à 4), jamais issu d'une saisie
     const e = Object.fromEntries(Object.entries(CONTROLES[etape](d)).filter(([, v]) => v)) as Erreurs;
     if (Object.keys(e).length > 0) return signaler(e);
     if (etape === 0 && !tarif) return;
