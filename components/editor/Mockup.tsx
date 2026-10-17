@@ -62,13 +62,13 @@ export function Mockup({ kind, sides, tshirt = "white" }: { kind: MockupKind; si
   if (kind === "rollup") {
     return (
       <Stage bg={room} label="Roll-up déployé dans un salon">
-        <div className="flex h-[88%] items-end gap-[5%]">
-          <div className="relative h-full" style={{ aspectRatio: `${a.w} / ${a.h + a.w * 0.06}` }}>
+        <div className="flex items-end gap-[5%]" style={{ width: "100%", justifyContent: "center" }}>
+          <div className="relative" style={{ width: `${(64 * a.w) / (a.h + a.w * 0.06)}%`, aspectRatio: `${a.w} / ${a.h + a.w * 0.06}` }}>
             <Print side={a} className="absolute inset-x-0 top-0 w-full" style={{ filter: shadow }} />
             <div className="absolute inset-x-[-9%] bottom-0 h-[2.6%] rounded-sm" style={{ background: "linear-gradient(#c9ccd1,#8e939b)", boxShadow: "0 6px 10px rgba(0,0,0,.25)" }} />
             <div className="absolute -bottom-1.5 left-1/2 h-3 w-[150%] -translate-x-1/2 rounded-[50%] bg-black/15 blur-sm" />
           </div>
-          <svg viewBox="0 0 40 170" className="h-[80%] w-auto opacity-25" aria-hidden="true"><circle cx="20" cy="14" r="11" fill="#333" /><path d="M6 32 Q20 26 34 32 L37 100 L30 100 L29 168 L22 168 L20 108 L18 168 L11 168 L10 100 L3 100 Z" fill="#333" /></svg>
+          <svg viewBox="0 0 40 170" className="w-[11%] opacity-25" aria-hidden="true"><circle cx="20" cy="14" r="11" fill="#333" /><path d="M6 32 Q20 26 34 32 L37 100 L30 100 L29 168 L22 168 L20 108 L18 168 L11 168 L10 100 L3 100 Z" fill="#333" /></svg>
         </div>
       </Stage>
     );

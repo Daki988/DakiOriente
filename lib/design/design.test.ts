@@ -45,6 +45,19 @@ test("chaque modèle se calcule sans erreur, textes dans la zone finie", () => {
       const d: Design = { template: tpl.id, palette: tpl.palette, fonts: tpl.fonts, fields: { ...kind.defaults } };
       const sides = resolveDesign(tpl, d, w, h, true, measure);
       assert.equal(sides.length, tpl.sides.length);
+      for (const s of sides) {
+        const boxes = s.items.filter((it) => it.t === "text").map((it) => {
+          const ws = it.lines.map((l) => measure(l.s, it.font, it.size));
+          const mw = Math.max(...ws);
+          const x0 = it.align === "center" ? it.x - mw / 2 : it.align === "right" ? it.x - mw : it.x;
+          return { x0, x1: x0 + mw, y0: it.lines[0].y - it.size * 0.8, y1: it.lines[it.lines.length - 1].y + it.size * 0.2, s: it.lines[0].s };
+        });
+        for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) {
+          const a = boxes[i], c = boxes[j];
+          const overlap = a.x0 < c.x1 - 0.01 && c.x0 < a.x1 - 0.01 && a.y0 < c.y1 - 0.01 && c.y0 < a.y1 - 0.01;
+          assert.ok(!overlap, `${tpl.id} : « ${a.s} » chevauche « ${c.s} »`);
+        }
+      }
       for (const s of sides) for (const it of s.items) if (it.t === "text") {
         for (const l of it.lines) {
           const lw = measure(l.s, it.font, it.size);
