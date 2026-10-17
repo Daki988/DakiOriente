@@ -1,0 +1,63 @@
+# Pile complète sur un serveur (VPS, datacenter) : PostgreSQL, Keycloak, service Casier, portail.
+# Données fictives et simulateur de paiement tant que CASIER_PROFIL=demo (ENV-01 à ENV-03).
+#   docker compose -f docker-compose.complet.yml --env-file .env up -d --build
+name: casier-judiciaire-plateforme
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: casier
+      POSTGRES_USER: casier
+      POSTGRES_PASSWORD: ${CASIER_BD_MOT_DE_PASSE:?Renseignez CASIER_BD_MOT_DE_PASSE}
+    volumes:
+      - donnees-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U casier -d casier"]
+      interval: 5s
+      retries: 20
+
+  keycloak:
+    image: keycloak/keycloak:26.0.7
+    restart: unless-stopped
+    command: ["start-dev", "--import-realm"]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_MOT_DE_PASSE:?Renseignez KEYCLOAK_ADMIN_MOT_DE_PASSE}
+    ports:
+      - "127.0.0.1:8180:8080"
+    volumes:
+      - ./keycloak/casier-realm.json:/opt/keycloak/data/import/casier-realm.json:ro
+
+  service:
+    build: ${CHEMIN_SERVICE:-../service-casier}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: ${CASIER_PROFIL:-demo}
+      CASIER_BD_URL: jdbc:postgresql://postgres:5432/casier
+      CASIER_BD_UTILISATEUR: casier
+      CASIER_BD_MOT_DE_PASSE: ${CASIER_BD_MOT_DE_PASSE}
+      CASIER_OIDC_JWKS: http://keycloak:8080/realms/casier/protocol/openid-connect/certs
+      CASIER_REFERENTIELS: /referentiels
+      CASIER_PAIEMENT_SECRET: ${CASIER_PAIEMENT_SECRET:-}
+    volumes:
+      - ${CHEMIN_REFERENTIELS:-../referentiels}:/referentiels:ro
+    ports:
+      - "127.0.0.1:8080:8080"
+
+  portail:
+    build: ${CHEMIN_PORTAIL:-../portail}
+    restart: unless-stopped
+    depends_on:
+      - service
+    environment:
+      CASIER_API_URL: http://service:8080
+    ports:
+      - "${PORT_PORTAIL:-3000}:3000"
+
+volumes:
+  donnees-postgres:
