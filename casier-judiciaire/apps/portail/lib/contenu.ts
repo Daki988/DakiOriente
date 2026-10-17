@@ -2,9 +2,9 @@ import type { NomIcone } from '@casier/design-system';
 
 /** Textes partagés du portail, regroupés pour la gestion de contenu (PUB-17) et la traduction (ERG-07). */
 export const navigation = [
-  { libelle: 'Le bulletin n°3', href: '/bulletin-n3' },
-  { libelle: 'Gabonais de l’étranger', href: '/diaspora' },
-  { libelle: 'Administrations', href: '/administrations' },
+  { libelle: 'Faire une demande', href: '/demande' },
+  { libelle: 'Suivre', href: '/suivi' },
+  { libelle: 'Vérifier', href: '/verifier' },
   { libelle: 'Tarifs', href: '/tarifs' },
   { libelle: 'Aide', href: '/aide' },
 ];

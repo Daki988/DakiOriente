@@ -10,34 +10,9 @@
 @media (min-width: 768px) { .p-titre-section { font-size: 2.25rem; } }
 .p-chapo { font-size: 1.125rem; color: var(--cj-texte-secondaire); }
 
-/* ---------- Ouverture ---------- */
-.p-ouverture { background: var(--cj-fond-institutionnel); color: var(--cj-texte-inverse); position: relative; overflow: hidden; }
-.p-ouverture__grille { display: grid; gap: var(--cj-espace-10); padding-block: var(--cj-espace-12) var(--cj-espace-16); align-items: center; }
-@media (min-width: 1024px) { .p-ouverture__grille { grid-template-columns: 1.15fr 0.85fr; padding-block: var(--cj-espace-16) var(--cj-espace-20); } }
-.p-ouverture__surtitre { display: inline-flex; align-items: center; gap: var(--cj-espace-2); color: var(--cj-marque-jaune);
-  font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-.p-ouverture h1 { font-family: var(--cj-police-titres); font-weight: 600; font-size: 2.25rem; line-height: 1.12; letter-spacing: -0.01em; margin-top: var(--cj-espace-4); max-width: 18ch; }
-@media (min-width: 768px) { .p-ouverture h1 { font-size: 3.25rem; } }
-.p-ouverture h1 em { font-style: normal; color: var(--cj-marque-jaune); }
-.p-ouverture__chapo { margin-top: var(--cj-espace-5); font-size: 1.125rem; line-height: 1.6; color: var(--cj-navy-100); max-width: 52ch; }
-.p-ouverture__actions { display: flex; flex-wrap: wrap; gap: var(--cj-espace-3); margin-top: var(--cj-espace-8); }
-.p-ouverture__actions .cj-bouton { flex: 1 1 100%; }
-@media (min-width: 560px) { .p-ouverture__actions .cj-bouton { flex: 0 0 auto; } }
-.p-garanties { display: flex; flex-wrap: wrap; gap: var(--cj-espace-3) var(--cj-espace-6); margin-top: var(--cj-espace-8); list-style: none; padding: 0;
-  color: var(--cj-navy-100); font-size: 0.9375rem; }
-.p-garanties li { display: inline-flex; align-items: center; gap: var(--cj-espace-2); }
-.p-garanties svg { color: var(--cj-green-300); }
-
-.p-visuel { position: relative; min-height: 380px; display: grid; place-items: center; }
-.p-visuel__carte { position: absolute; inset: -40px -20px; width: calc(100% + 40px); height: calc(100% + 80px); object-fit: contain; opacity: .9; }
-.p-visuel__delai { position: absolute; right: 0; top: 8px; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  width: 96px; height: 96px; border-radius: 50%; background: var(--cj-marque-jaune); color: var(--cj-navy-900); box-shadow: var(--cj-ombre-forte);
-  font-family: var(--cj-police-titres); font-weight: 600; font-size: 1.75rem; line-height: 1; text-align: center; }
-.p-visuel__delai small { font-family: var(--cj-police-texte); font-size: 0.75rem; font-weight: 700; margin-top: 4px; }
-
 /* Bulletin spécimen (illustration) */
 .p-specimen { position: relative; z-index: 1; width: min(100%, 360px); background: #fff; color: var(--cj-navy-900); border-radius: var(--cj-rayon-m);
-  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .55); padding: var(--cj-espace-5); transform: rotate(-2deg); overflow: hidden; }
+  box-shadow: 0 24px 48px -24px rgba(15, 29, 54, .35), 0 0 0 1px var(--cj-bordure-defaut); padding: var(--cj-espace-5); transform: rotate(-1.5deg); overflow: hidden; }
 .p-specimen__filigrane { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none;
   font-family: var(--cj-police-titres); font-weight: 600; font-size: 3.4rem; color: rgba(194, 38, 28, .1); transform: rotate(-28deg); letter-spacing: .06em; }
 .p-specimen__entete { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--cj-espace-3); border-bottom: 2px solid var(--cj-navy-900); padding-bottom: var(--cj-espace-3); }
@@ -62,25 +37,7 @@
 @media (min-width: 900px) { .p-chiffres { grid-template-columns: repeat(4, 1fr); } }
 .p-chiffres .cj-tuile { padding-left: var(--cj-espace-4); border-left: 3px solid var(--cj-marque-vert); }
 
-/* ---------- Étapes ---------- */
-.p-etapes { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--cj-espace-6); counter-reset: etape; }
-@media (min-width: 640px) { .p-etapes { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .p-etapes { grid-template-columns: repeat(4, 1fr); } }
-.p-etape { position: relative; display: flex; flex-direction: column; gap: var(--cj-espace-3); padding: var(--cj-espace-6);
-  background: var(--cj-fond-surface); border: 1px solid var(--cj-bordure-defaut); border-radius: var(--cj-rayon-l); counter-increment: etape; }
-.p-etape__haut { display: flex; align-items: center; justify-content: space-between; }
-.p-etape__numero::before { content: counter(etape); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
-  background: var(--cj-fond-institutionnel); color: var(--cj-texte-inverse); font-weight: 700; }
-.p-etape__icone { color: var(--cj-action-primaire); }
-.p-etape h3 { font-size: 1.125rem; font-weight: 700; }
-.p-etape p { color: var(--cj-texte-secondaire); }
-
-/* ---------- Bloc vérification ---------- */
-.p-verifier { display: grid; gap: var(--cj-espace-8); align-items: center; padding: var(--cj-espace-8); border-radius: var(--cj-rayon-xl);
-  background: var(--cj-fond-institutionnel-2); color: var(--cj-texte-inverse); }
-@media (min-width: 900px) { .p-verifier { grid-template-columns: 1fr 1fr; padding: var(--cj-espace-12); } }
-.p-verifier .p-titre-section { color: var(--cj-texte-inverse); }
-.p-verifier .p-chapo { color: var(--cj-navy-100); }
+/* ---------- Formulaire de vérification ---------- */
 .p-verifier__formulaire { display: flex; flex-direction: column; gap: var(--cj-espace-4); background: var(--cj-fond-surface); color: var(--cj-texte-principal);
   padding: var(--cj-espace-6); border-radius: var(--cj-rayon-l); }
 
@@ -195,3 +152,61 @@
 .p-chiffres--cartes .cj-tuile { background: var(--cj-fond-surface); padding: var(--cj-espace-5); border: 1px solid var(--cj-bordure-defaut); border-left: 3px solid var(--cj-marque-vert); border-radius: var(--cj-rayon-m); }
 .p-erreur__pictogramme { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: var(--cj-fond-surface-attenuee); color: var(--cj-action-primaire); }
 .p-reprise--alerte { background: var(--cj-etat-alerte-fond); }
+
+/* ---------- Accueil épuré (PUB-01) ---------- */
+.p-accueil { background: linear-gradient(180deg, var(--cj-fond-surface) 0%, var(--cj-fond-page) 100%); }
+.p-accueil__contenu { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--cj-espace-5);
+  padding-block: var(--cj-espace-16) var(--cj-espace-12); }
+@media (min-width: 768px) { .p-accueil__contenu { padding-block: var(--cj-espace-20) var(--cj-espace-16); } }
+.p-accueil__embleme { display: grid; place-items: center; }
+.p-accueil h1 { font-family: var(--cj-police-titres); font-weight: 600; font-size: 2.25rem; line-height: 1.15; letter-spacing: -0.01em;
+  max-width: 20ch; color: var(--cj-texte-principal); }
+@media (min-width: 768px) { .p-accueil h1 { font-size: 3.25rem; } }
+.p-accueil h1 em { font-style: normal; white-space: nowrap; color: var(--cj-action-primaire); }
+.p-accueil__chapo { font-size: 1.125rem; line-height: 1.6; color: var(--cj-texte-secondaire); max-width: 56ch; }
+.p-accueil__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--cj-espace-3); margin-top: var(--cj-espace-2); width: 100%; }
+.p-accueil__actions .cj-bouton { flex: 1 1 100%; }
+@media (min-width: 560px) { .p-accueil__actions .cj-bouton { flex: 0 0 auto; } }
+.p-accueil__lien a { font-weight: 600; color: var(--cj-texte-lien); }
+.p-accueil__lien svg { display: inline-block; vertical-align: -3px; margin-left: 4px; }
+.p-reperes { display: flex; flex-wrap: wrap; justify-content: center; list-style: none; margin: var(--cj-espace-6) 0 0; padding: 0;
+  color: var(--cj-texte-secondaire); font-size: 0.9375rem; }
+.p-reperes li { padding: var(--cj-espace-1) var(--cj-espace-5); }
+.p-reperes li + li { border-left: 1px solid var(--cj-bordure-defaut); }
+.p-reperes strong { color: var(--cj-texte-principal); font-weight: 700; }
+@media (max-width: 560px) {
+  .p-reperes { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; flex-wrap: nowrap; }
+  .p-reperes li { display: flex; flex-direction: column; padding-inline: var(--cj-espace-2); font-size: 0.8125rem; line-height: 1.3; }
+  .p-reperes strong { font-size: 1rem; }
+}
+
+.p-entete-centre { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--cj-espace-3);
+  margin: 0 auto var(--cj-espace-10); max-width: 60ch; }
+.p-deux-colonnes { display: grid; gap: var(--cj-espace-12); align-items: center; }
+@media (min-width: 960px) { .p-deux-colonnes { grid-template-columns: 1.1fr 0.9fr; } }
+.p-deux-colonnes .cj-pastille { align-self: flex-start; }
+.p-visuel-specimen { display: grid; place-items: center; padding: var(--cj-espace-6); }
+
+.p-etapes-liste { list-style: none; margin: var(--cj-espace-2) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--cj-espace-6);
+  counter-reset: etape; }
+.p-etapes-liste li { display: grid; grid-template-columns: 44px 1fr; gap: var(--cj-espace-4); counter-increment: etape; }
+.p-etapes-liste__numero::before { content: counter(etape, decimal-leading-zero); display: grid; place-items: center; width: 44px; height: 44px;
+  border-radius: 50%; background: var(--cj-action-primaire); color: var(--cj-texte-inverse); font-weight: 700; font-size: 0.875rem; }
+.p-etapes-liste h3 { font-family: var(--cj-police-titres); font-weight: 600; font-size: 1.125rem; }
+.p-etapes-liste p { color: var(--cj-texte-secondaire); margin-top: 2px; }
+
+.p-profils { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--cj-espace-3); }
+@media (min-width: 640px) { .p-profils { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .p-profils { grid-template-columns: repeat(4, 1fr); } }
+.p-profils a { display: flex; align-items: center; gap: var(--cj-espace-3); height: 100%; padding: var(--cj-espace-5);
+  border: 1px solid var(--cj-bordure-defaut); border-radius: var(--cj-rayon-l); background: var(--cj-fond-surface);
+  color: var(--cj-texte-principal); font-weight: 600; text-decoration: none; transition: border-color .15s ease, box-shadow .15s ease; }
+.p-profils a:hover { border-color: var(--cj-action-primaire); box-shadow: var(--cj-ombre-faible); }
+.p-profils a svg:first-child { color: var(--cj-action-primaire); flex: none; }
+.p-profils a svg:last-child { margin-left: auto; flex: none; color: var(--cj-texte-secondaire); }
+.p-profils a:focus-visible { outline: 3px solid var(--cj-bordure-focus); outline-offset: 2px; }
+
+.p-etroit { max-width: 820px; }
+.p-faq-carte { background: var(--cj-fond-surface); border: 1px solid var(--cj-bordure-defaut); border-radius: var(--cj-rayon-l); padding: 0 var(--cj-espace-6); }
+.p-faq-carte details:last-child { border-bottom: 0; }
+.p-centre { text-align: center; margin-top: var(--cj-espace-6); }

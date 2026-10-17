@@ -63,11 +63,11 @@ export function Badge({ ton = 'neutre', children }: { ton?: 'succes' | 'info' | 
   return <span className={`cj-badge cj-badge--${ton}`}>{children}</span>;
 }
 
-export function Carte({ titre, href, icone, children, suite }: {
-  titre: ReactNode; href?: string; icone?: NomIcone; children?: ReactNode; suite?: ReactNode;
+export function Carte({ titre, href, icone, children, suite, accent = false }: {
+  titre: ReactNode; href?: string; icone?: NomIcone; children?: ReactNode; suite?: ReactNode; accent?: boolean;
 }) {
   return (
-    <article className={'cj-carte' + (href ? ' cj-carte--lien' : '')}>
+    <article className={'cj-carte' + (href ? ' cj-carte--lien' : '') + (accent ? ' cj-carte--accent' : '')}>
       {icone && <span className="cj-carte__icone"><Icone nom={icone} /></span>}
       <h3 className="cj-carte__titre">{href ? <a href={href}>{titre}</a> : titre}</h3>
       {children && <div className="cj-carte__texte">{children}</div>}
@@ -89,4 +89,9 @@ export function TuileIndicateur({ valeur, libelle, detail }: { valeur: ReactNode
 /** Conteneur de tableau défilant : atteignable au clavier quand il déborde sur mobile (WCAG 2.1.1). */
 export function ConteneurTableau({ libelle, children }: { libelle: string; children: ReactNode }) {
   return <div className="cj-tableau-conteneur" tabIndex={0} role="region" aria-label={libelle}>{children}</div>;
+}
+
+/** Pastille d'introduction d'une section (« Vos démarches », « FAQ »…). */
+export function Pastille({ children }: { children: ReactNode }) {
+  return <p className="cj-pastille">{children}</p>;
 }

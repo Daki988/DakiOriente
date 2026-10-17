@@ -11,9 +11,9 @@ export function PiedPortail() {
       <div className="cj-conteneur">
         <div className="cj-pied__haut">
           <div>
-            <BlocMarque embleme={config.embleme} inverse />
+            <BlocMarque embleme={config.embleme} />
             <p className="cj-pied__texte">
-              Service public du casier judiciaire. Le service ne vous demandera jamais de code ni de paiement par téléphone (NOT-04).
+              Service public du casier judiciaire. Le service ne vous demandera jamais de code ni de paiement par téléphone.
             </p>
           </div>
           <div>
@@ -30,13 +30,15 @@ export function PiedPortail() {
             <ul>
               <li><Link href="/bulletin-n3">Le bulletin n°3</Link></li>
               <li><Link href="/diaspora">Gabonais de l’étranger</Link></li>
+              <li><Link href="/etrangers">Étrangers résidant au Gabon</Link></li>
               <li><Link href="/administrations">Administrations et employeurs</Link></li>
-              <li><Link href="/aide">Aide et questions fréquentes</Link></li>
+              <li><Link href="/chiffres">Le service en chiffres</Link></li>
             </ul>
           </div>
           <div>
             <p className="cj-pied__titre">Nous joindre</p>
             <ul>
+              <li><Link href="/aide">Aide et questions fréquentes</Link></li>
               <li><Link href="/contact">Contact et réclamation</Link></li>
               <li><a href={`tel:${config.supportTelephone.replace(/\s/g, '')}`}>{config.supportTelephone}</a></li>
             </ul>

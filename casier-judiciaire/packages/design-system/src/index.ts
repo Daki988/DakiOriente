@@ -5,5 +5,5 @@ export { FiletTricolore, BandeauDemo, EmblemeNeutre, BlocMarque, type Embleme } 
 export { Bouton, LienBouton, classesBouton, ContenuBouton, type VarianteBouton } from './composants/Bouton';
 export { Champ, ChampSelection, ChoixCarte, CaseACocher, ZoneTexte, ChampDate } from './composants/Champ';
 export { FilAriane } from './composants/FilAriane';
-export { IndicateurEtapes, FriseEtat, Alerte, Badge, Carte, TuileIndicateur, ConteneurTableau, type EtatFrise } from './composants/Etats';
+export { IndicateurEtapes, FriseEtat, Alerte, Badge, Carte, TuileIndicateur, ConteneurTableau, Pastille, type EtatFrise } from './composants/Etats';
 export { ICONES } from './icones';

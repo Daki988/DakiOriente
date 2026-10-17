@@ -73,7 +73,7 @@
 .cj-bloc-marque { display: flex; align-items: center; gap: var(--cj-espace-3); text-decoration: none; color: inherit; }
 .cj-bloc-marque__embleme { flex: none; width: 52px; height: 50px; }
 .cj-bloc-marque__separateur { flex: none; width: 1px; align-self: stretch; background: var(--cj-bordure-defaut); }
-.cj-bloc-marque__textes { display: flex; flex-direction: column; line-height: 1.2; }
+.cj-bloc-marque__textes { display: flex; flex-direction: column; line-height: 1.2; white-space: nowrap; }
 .cj-bloc-marque__republique { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 .cj-bloc-marque__devise { font-size: 0.75rem; color: var(--cj-texte-secondaire); }
 .cj-bloc-marque__ministere { font-size: 0.9375rem; font-weight: 600; }
@@ -81,31 +81,30 @@
 .cj-bloc-marque--inverse .cj-bloc-marque__devise { color: var(--cj-texte-inverse-secondaire); }
 .cj-bloc-marque--inverse .cj-bloc-marque__separateur { background: var(--cj-navy-600); }
 
-/* ---------- En-tête ---------- */
+/* ---------- En-tête : une seule ligne, sobre ---------- */
 .cj-en-tete { background: var(--cj-fond-surface); border-bottom: 1px solid var(--cj-bordure-defaut); position: relative; z-index: 10; }
-.cj-en-tete__barre { display: flex; align-items: center; justify-content: space-between; gap: var(--cj-espace-4); min-height: 76px; }
+.cj-en-tete__barre { display: flex; align-items: center; justify-content: space-between; gap: var(--cj-espace-6); min-height: 76px; }
 .cj-en-tete__gauche { display: flex; align-items: center; gap: var(--cj-espace-5); min-width: 0; }
 .cj-en-tete__service {
-  display: none; font-family: var(--cj-police-titres); font-weight: 600; font-size: 1.125rem; line-height: 1.2;
+  display: none; white-space: nowrap; font-family: var(--cj-police-titres); font-weight: 600; font-size: 1.0625rem; line-height: 1.2;
   color: var(--cj-texte-principal); text-decoration: none; padding-left: var(--cj-espace-5); border-left: 1px solid var(--cj-bordure-defaut);
 }
 .cj-en-tete__service small { display: block; font-family: var(--cj-police-texte); font-weight: 400; font-size: 0.8125rem; color: var(--cj-texte-secondaire); }
-@media (min-width: 900px) { .cj-en-tete__service { display: block; } }
-.cj-en-tete__actions { display: none; align-items: center; gap: var(--cj-espace-3); }
-@media (min-width: 1024px) { .cj-en-tete__actions { display: flex; } }
-.cj-en-tete__nav { border-top: 1px solid var(--cj-bordure-defaut); display: none; }
-@media (min-width: 1024px) { .cj-en-tete__nav { display: block; } }
-.cj-nav { display: flex; gap: var(--cj-espace-1); list-style: none; padding: 0; margin: 0; }
+@media (min-width: 720px) { .cj-en-tete__service { display: block; } }
+@media (min-width: 1100px) and (max-width: 1299px) { .cj-en-tete__service { display: none; } }
+.cj-en-tete__droite { display: none; align-items: center; gap: var(--cj-espace-4); }
+@media (min-width: 1100px) { .cj-en-tete__droite { display: flex; } }
+.cj-nav { display: flex; align-items: center; gap: var(--cj-espace-1); list-style: none; padding: 0; margin: 0; }
 .cj-nav a {
-  display: block; padding: var(--cj-espace-3) var(--cj-espace-3); color: var(--cj-texte-principal);
-  text-decoration: none; font-weight: 600; font-size: 0.9375rem; border-bottom: 3px solid transparent;
+  display: block; white-space: nowrap; padding: var(--cj-espace-2) var(--cj-espace-3); color: var(--cj-texte-secondaire);
+  text-decoration: none; font-weight: 600; font-size: 0.9375rem; border-radius: var(--cj-rayon-m);
 }
-.cj-nav a:hover { border-bottom-color: var(--cj-bordure-forte); }
-.cj-nav a[aria-current='page'] { border-bottom-color: var(--cj-action-primaire); color: var(--cj-action-primaire); }
+.cj-nav a:hover { color: var(--cj-texte-principal); background: var(--cj-fond-surface-attenuee); }
+.cj-nav a[aria-current='page'] { color: var(--cj-action-primaire); }
 
 /* Menu mobile sans JavaScript (PUB-18) */
 .cj-menu-mobile { position: static; }
-@media (min-width: 1024px) { .cj-menu-mobile { display: none; } }
+@media (min-width: 1100px) { .cj-menu-mobile { display: none; } }
 .cj-menu-mobile > summary {
   list-style: none; display: inline-flex; align-items: center; gap: var(--cj-espace-2); cursor: pointer;
   min-height: 44px; padding: 0 var(--cj-espace-3); border: 1px solid var(--cj-bordure-forte); border-radius: var(--cj-rayon-m);
@@ -124,21 +123,21 @@
 }
 .cj-menu-mobile__panneau .cj-pile { margin-top: var(--cj-espace-4); }
 
-/* ---------- Pied de page ---------- */
-.cj-pied { background: var(--cj-fond-institutionnel); color: var(--cj-texte-inverse); margin-top: var(--cj-espace-16); }
-.cj-pied a { color: var(--cj-texte-inverse); }
+/* ---------- Pied de page : clair et discret ---------- */
+.cj-pied { background: var(--cj-fond-surface-attenuee); color: var(--cj-texte-principal); margin-top: var(--cj-espace-16); border-top: 1px solid var(--cj-bordure-defaut); }
+.cj-pied a { color: var(--cj-texte-secondaire); }
 .cj-pied__haut { display: grid; gap: var(--cj-espace-8); padding-block: var(--cj-espace-12); grid-template-columns: 1fr; }
 @media (min-width: 768px) { .cj-pied__haut { grid-template-columns: 1.4fr repeat(3, 1fr); } }
-.cj-pied__titre { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cj-texte-inverse-secondaire); margin-bottom: var(--cj-espace-3); }
+.cj-pied__titre { font-size: 0.875rem; font-weight: 700; color: var(--cj-texte-principal); margin-bottom: var(--cj-espace-3); }
 .cj-pied ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--cj-espace-2); }
 .cj-pied ul a { text-decoration: none; font-size: 0.9375rem; }
-.cj-pied ul a:hover { text-decoration: underline; }
+.cj-pied ul a:hover { color: var(--cj-texte-principal); text-decoration: underline; }
 .cj-pied__bas {
-  border-top: 1px solid var(--cj-navy-700); padding-block: var(--cj-espace-5);
+  border-top: 1px solid var(--cj-bordure-defaut); padding-block: var(--cj-espace-5);
   display: flex; flex-wrap: wrap; gap: var(--cj-espace-4); justify-content: space-between;
-  font-size: 0.8125rem; color: var(--cj-texte-inverse-secondaire);
+  font-size: 0.8125rem; color: var(--cj-texte-secondaire);
 }
-.cj-pied__texte { color: var(--cj-texte-inverse-secondaire); font-size: 0.9375rem; margin-top: var(--cj-espace-4); max-width: 34ch; }
+.cj-pied__texte { color: var(--cj-texte-secondaire); font-size: 0.9375rem; margin-top: var(--cj-espace-4); max-width: 36ch; }
 
 /* ---------- Boutons ---------- */
 .cj-bouton {
@@ -278,7 +277,15 @@
 .cj-carte__titre a:focus-visible { outline: none; }
 .cj-carte--lien:has(a:focus-visible) { outline: 3px solid var(--cj-bordure-focus); outline-offset: 2px; }
 .cj-carte__texte { color: var(--cj-texte-secondaire); }
+.cj-carte--accent { border-bottom: 3px solid var(--cj-action-primaire); }
+.cj-carte--accent .cj-carte__suite { padding-top: var(--cj-espace-4); border-top: 1px solid var(--cj-bordure-defaut); width: 100%;
+  justify-content: space-between; color: var(--cj-action-primaire); }
 .cj-carte__suite { margin-top: auto; display: inline-flex; align-items: center; gap: var(--cj-espace-1); color: var(--cj-texte-lien); font-weight: 600; }
+
+/* ---------- Pastille de section ---------- */
+.cj-pastille { display: inline-flex; align-items: center; gap: var(--cj-espace-2); padding: 4px var(--cj-espace-3); border-radius: var(--cj-rayon-plein);
+  background: var(--cj-etat-succes-fond); color: var(--cj-action-primaire); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; }
 
 /* ---------- Tuiles d'indicateurs ---------- */
 .cj-tuile { display: flex; flex-direction: column; gap: var(--cj-espace-1); }
