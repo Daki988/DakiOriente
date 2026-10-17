@@ -1,9 +1,9 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('PUB-01 Accueil', () => {
-  test('trois actions principales, bandeau de démonstration et logo du Ministère (ENV-01, VIS-02)', async ({ page }) => {
+  test('trois actions principales, sans bandeau de démonstration, avec le logo du Ministère (VIS-02)', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByText('Démonstration — service non officiel.')).toBeVisible();
+    await expect(page.getByText('Démonstration — service non officiel.')).toHaveCount(0);
     for (const nom of ['Demander mon bulletin', 'Suivre ma demande', 'Vérifier un bulletin']) {
       await expect(page.getByRole('main').getByRole('link', { name: nom }).first()).toBeVisible();
     }

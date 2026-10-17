@@ -2,10 +2,11 @@ import type { Embleme } from '@casier/design-system';
 
 /**
  * Marque blanche (ADM-16) et environnement (ENV-08) : même code partout, seule la configuration change.
- * En démonstration, le bandeau « service non officiel » reste imposé (ENV-01).
+ * Bandeau « Démonstration » masqué par défaut (décision de l'utilisateur, 17/10/2026) ; NEXT_PUBLIC_BANDEAU_DEMO=true le rétablit.
  */
 export const config = {
   modeDemo: process.env.NEXT_PUBLIC_MODE_DEMO !== 'false',
+  bandeauDemo: process.env.NEXT_PUBLIC_BANDEAU_DEMO === 'true',
   /** Logo du Ministère par défaut (décision de l'utilisateur, 17/10/2026) ; « neutre » reste possible. */
   embleme: (['ministere', 'officiel', 'neutre'].includes(process.env.NEXT_PUBLIC_EMBLEME ?? '')
     ? process.env.NEXT_PUBLIC_EMBLEME : 'ministere') as Embleme,

@@ -26,7 +26,7 @@ export default function Racine({ children }: { children: ReactNode }) {
     <html lang="fr">
       <body className="cj-racine">
         <a className="cj-evitement" href="#contenu">Aller au contenu</a>
-        {config.modeDemo && <BandeauDemo />}
+        {config.bandeauDemo && <BandeauDemo />}
         <FiletTricolore />
         <EnTetePortail />
         <main id="contenu" tabIndex={-1}>{children}</main>
