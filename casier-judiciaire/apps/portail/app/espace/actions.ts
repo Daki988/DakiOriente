@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 
 import { RefusMetier, ServiceIndisponible } from '@/lib/api';
 import { espaces, exigerSession } from '@/lib/espaces';
-import type { Session } from '@/lib/session';
+import { poserFlash, type Session } from '@/lib/session';
 
 /** Texte obligatoire, nettoyé et borné (les contrôles métier restent faits par le service). */
 function texte(f: FormData, cle: string, max = 500): string {
@@ -18,10 +18,10 @@ async function agir(roles: string[], retour: string, succes: string, action: (s:
   const s = await exigerSession(...roles);
   try {
     await action(s);
-    s.flash = { type: 'succes', texte: succes };
+    await poserFlash({ type: 'succes', texte: succes });
   } catch (e) {
-    if (e instanceof RefusMetier) s.flash = { type: 'erreur', texte: e.message };
-    else if (e instanceof ServiceIndisponible) s.flash = { type: 'erreur', texte: 'Le service est momentanément indisponible. Réessayez dans quelques minutes.' };
+    if (e instanceof RefusMetier) await poserFlash({ type: 'erreur', texte: e.message });
+    else if (e instanceof ServiceIndisponible) await poserFlash({ type: 'erreur', texte: 'Le service est momentanément indisponible. Réessayez dans quelques minutes.' });
     else throw e;
   }
   redirect(retour);
