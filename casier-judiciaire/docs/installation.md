@@ -1,4 +1,4 @@
-# Casier judiciaire numérique — paquet d'installation 0.2.0
+# Casier judiciaire numérique — paquet d'installation 0.2.2
 
 République gabonaise · Ministère de la Justice · Version du 17 octobre 2026 (lots L0 à L3)
 
@@ -46,11 +46,12 @@ serveur (option B) et reliez le portail par la variable `CASIER_API_URL`.
 4. **Ne pas** cliquer sur « Run NPM Install » : les dépendances sont déjà incluses dans `portail/node_modules`.
 5. Cliquez sur **Restart**, puis ouvrez l'adresse du site. Activez le certificat SSL (cPanel → SSL/TLS Status) : le portail impose HTTPS (HSTS).
 
-Espaces connectés : page **Se connecter** → « Comptes de démonstration » → choisir un profil (identités fictives).
-L'usager télécharge un bulletin n°3 scellé (spécimen) que l'on peut ensuite déposer sur la page « Vérifier ».
+Espaces connectés : les comptes de démonstration (identités fictives, un par profil) sont **masqués par défaut**.
+Pour une présentation, ajoutez la variable `COMPTES_DEMO` = `true` puis redémarrez : la page **Se connecter** propose
+alors un bouton par profil. Sans cette variable et sans Keycloak, la connexion affiche « bientôt disponible ».
 
-Codes de démonstration pour essayer la vérification : `DEMO-VALI-DE26` (valide), `DEMO-REVO-QUE1` (révoqué), `DEMO-EXPI-RE01` (expiré).
-Suivi de dossier de démonstration : numéro `CJ-2026-000123`, code `123456`.
+Données de test (non affichées sur le site) : vérification `DEMO-VALI-DE26` (valide), `DEMO-REVO-QUE1` (révoqué),
+`DEMO-EXPI-RE01` (expiré) ; suivi du dossier `CJ-2026-000123` avec le code `123456`.
 
 ## Option B — Plateforme complète sur un serveur (VPS ou datacenter)
 

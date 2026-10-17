@@ -30,7 +30,7 @@ export default async function Verifier({ searchParams }: { searchParams: Promise
   let erreur: string | undefined;
   if (code !== '') {
     if (!codeValide(code)) {
-      erreur = 'Le code doit compter 12 lettres ou chiffres, par exemple DEMO-VALI-DE26. Vérifiez la saisie.';
+      erreur = 'Le code doit compter 12 lettres ou chiffres, par exemple K7QM-3XRT-9H2P. Vérifiez la saisie.';
     } else {
       try {
         contenu = <ResultatVerification resultat={await verifierCode(code)} />;
@@ -58,11 +58,6 @@ export default async function Verifier({ searchParams }: { searchParams: Promise
       <div className="cj-conteneur p-contenu p-contenu--colonnes">
         <div className="cj-pile" aria-live="polite">
           {contenu ?? <FormulaireVerification valeur={code} erreur={erreur} />}
-          {config.modeDemo && !contenu && (
-            <Alerte type="info" titre="Codes de démonstration">
-              DEMO-VALI-DE26 (valide), DEMO-REVO-QUE1 (révoqué), DEMO-EXPI-RE01 (expiré). Bulletins fictifs.
-            </Alerte>
-          )}
           {!contenu && <FormulaireDocument />}
         </div>
         <aside className="p-encadre cj-pile" aria-label="Ce que la vérification indique">

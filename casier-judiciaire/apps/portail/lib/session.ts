@@ -37,7 +37,7 @@ const options = (maxAge: number) => ({ httpOnly: true, sameSite: 'lax' as const,
 
 /** Session de démonstration sans état serveur : fonctionne aussi sur plusieurs instances (hébergement sans serveur). */
 function sessionDemo(valeur: string | undefined): Session | null {
-  if (connexionReelle()) return null; // en production, seules les sessions OpenID Connect sont admises
+  if (connexionReelle() || process.env.COMPTES_DEMO !== 'true') return null; // en production, seules les sessions OpenID Connect sont admises
   const [id, cree] = (valeur ?? '').split('.');
   const p = PROFILS_DEMO.find((x) => x.id === id);
   const creeLe = Number(cree);

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Alerte, Icone, classesBouton } from '@casier/design-system';
 
 import { EntetePage } from '@/components/EntetePage';
+import { config } from '@/lib/config';
 import { connexionReelle } from '@/lib/oidc';
 import { PROFILS_DEMO } from '@/lib/profils-demo';
 import { connexionDemo } from './actions';
@@ -21,16 +22,18 @@ export const metadata: Metadata = { title: 'Connexion', description: 'Accéder �
  */
 export const dynamic = 'force-dynamic';
 
-export default async function Connexion({ searchParams }: { searchParams: Promise<{ expiree?: string; erreur?: string }> }) {
-  const { expiree, erreur } = await searchParams;
+export default async function Connexion({ searchParams }: { searchParams: Promise<{ expiree?: string; erreur?: string; indisponible?: string }> }) {
+  const { expiree, erreur, indisponible } = await searchParams;
   const reelle = connexionReelle();
-  const lien = reelle ? '/auth/connexion' : '#demonstration';
+  const comptesDemo = !reelle && config.comptesDemo;
+  const lien = reelle ? '/auth/connexion' : comptesDemo ? '#demonstration' : '/auth/connexion';
   return (
     <>
       <EntetePage fil={[{ libelle: 'Connexion' }]} surtitre="Espaces sécurisés" titre="Se connecter"
         chapo="Retrouvez vos demandes, téléchargez vos bulletins et déposez une pièce depuis votre espace." />
       <div className="cj-conteneur p-contenu">
         {expiree && <Alerte type="info" titre="Connexion requise">Connectez-vous pour accéder à votre espace.</Alerte>}
+        {indisponible && <Alerte type="info" titre="Connexion bientôt disponible">La connexion aux espaces sera ouverte à la mise en service. Vous pouvez dès maintenant faire une demande, la suivre et vérifier un bulletin.</Alerte>}
         {erreur && <Alerte type="erreur" titre="Connexion impossible">La connexion n’a pas abouti. Réessayez.</Alerte>}
         <div className="cj-grille cj-grille--2">
           <section className="p-encadre cj-pile" aria-labelledby="titre-usager" id="usager">
@@ -51,7 +54,7 @@ export default async function Connexion({ searchParams }: { searchParams: Promis
             </BoutonConnexion>
           </section>
         </div>
-        {!reelle && (
+        {comptesDemo && (
           <section className="p-encadre cj-pile" aria-labelledby="titre-demo" id="demonstration">
             <h2 id="titre-demo" className="p-titre-encadre">Comptes de démonstration</h2>
             <p>Identités fictives, une par profil. Choisissez un profil pour découvrir son espace : les données sont simulées et réinitialisées régulièrement.</p>

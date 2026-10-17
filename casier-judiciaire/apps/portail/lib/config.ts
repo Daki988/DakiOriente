@@ -7,6 +7,8 @@ import type { Embleme } from '@casier/design-system';
 export const config = {
   modeDemo: process.env.NEXT_PUBLIC_MODE_DEMO !== 'false',
   bandeauDemo: process.env.NEXT_PUBLIC_BANDEAU_DEMO === 'true',
+  /** Comptes de démonstration sur la page de connexion (serveur, lu au démarrage) : masqués sauf COMPTES_DEMO=true. */
+  comptesDemo: process.env.COMPTES_DEMO === 'true',
   /** Logo du Ministère par défaut (décision de l'utilisateur, 17/10/2026) ; « neutre » reste possible. */
   embleme: (['ministere', 'officiel', 'neutre'].includes(process.env.NEXT_PUBLIC_EMBLEME ?? '')
     ? process.env.NEXT_PUBLIC_EMBLEME : 'ministere') as Embleme,

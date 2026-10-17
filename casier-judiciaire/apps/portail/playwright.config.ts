@@ -25,6 +25,6 @@ export default defineConfig({
     command: process.env.CI ? `npm run start -- -p ${port}` : `npm run dev -- -p ${port}`,
     url: `http://localhost:${port}`,
     reuseExistingServer: !process.env.CI,
-    env: { NEXT_PUBLIC_MODE_DEMO: 'true' },
+    env: { NEXT_PUBLIC_MODE_DEMO: 'true', COMPTES_DEMO: 'true' },
   },
 });
