@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronLeft } from "@/components/Icons";
+import { ChevronLeft, Sparkle } from "@/components/Icons";
 import { OrderFlow } from "@/components/OrderFlow";
 import { ProductVisual } from "@/components/ProductCard";
 import { getProduct } from "@/lib/catalog";
@@ -11,7 +11,7 @@ import { settings } from "@/lib/site";
 import { hasSupabase } from "@/lib/supabase";
 
 export const revalidate = 300;
-type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ q?: string }> };
+type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ q?: string; creer?: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = await getProduct((await params).slug);
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProductPage({ params, searchParams }: Props) {
-  const [{ slug }, { q }] = await Promise.all([params, searchParams]);
+  const [{ slug }, { q, creer }] = await Promise.all([params, searchParams]);
   const p = await getProduct(slug);
   if (!p) notFound();
   const from = fromPrice(p);
@@ -40,9 +40,17 @@ export default async function ProductPage({ params, searchParams }: Props) {
           {p.formatMm && p.pricing !== "area" && (
             <p className="text-sm text-muted">Format : <b className="text-ink">{p.formatMm[0]} × {p.formatMm[1]} mm</b> · prévoyez 3 mm de fond perdu</p>
           )}
+          {p.customizable && (
+            <Link href={`/produits/${p.slug}?creer=1#commande`} scroll={false} className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-ink px-5 py-3 font-semibold text-white hover:bg-brand">
+              <Sparkle className="size-5" /> Créer mon design en ligne
+            </Link>
+          )}
         </div>
       </div>
+      <div id="commande" className="scroll-mt-24">
       <OrderFlow
+        key={`${q ?? ""}-${creer ?? ""}`}
+        startDesign={creer === "1"}
         product={p}
         initialQty={q ? Number(q) : undefined}
         online={hasSupabase}
@@ -51,6 +59,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
           pickupLabel: settings.delivery.pickup, deliveryLabel: settings.delivery.libreville,
         }}
       />
+      </div>
     </div>
   );
 }

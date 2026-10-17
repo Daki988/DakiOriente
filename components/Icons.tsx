@@ -19,3 +19,6 @@ export const Check = ({ className = "size-5" }: P) => (
 export const ChevronLeft = ({ className = "size-5" }: P) => (
   <svg viewBox="0 0 24 24" className={className} {...base}><path d="m15 18-6-6 6-6" /></svg>
 );
+export const Sparkle = ({ className = "size-5" }: P) => (
+  <svg viewBox="0 0 24 24" className={className} {...base}><path d="M12 3v4M12 17v4M3 12h4M17 12h4" /><path d="m6.3 6.3 2.1 2.1M15.6 15.6l2.1 2.1M6.3 17.7l2.1-2.1M15.6 8.4l2.1-2.1" /></svg>
+);

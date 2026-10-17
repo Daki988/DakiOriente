@@ -9,13 +9,13 @@ export const revalidate = 300;
 
 const STEPS = [
   ["Vous choisissez", "Produit, format, quantité : le prix s’affiche tout de suite, avant de commander."],
-  ["Vous envoyez votre fichier", "Un PDF ou une image suffit. Pas encore de design ? Un graphiste le crée pour vous."],
+  ["Vous créez ou envoyez votre design", "Partez d’un modèle et personnalisez-le en ligne, gratuitement. Ou envoyez votre fichier, ou confiez-le à un graphiste."],
   ["Nous imprimons", "Nous vérifions votre fichier, nous imprimons, puis nous vous prévenons sur WhatsApp. Retrait ou livraison."],
 ] as const;
 
 const FAQ = [
   ["Combien de temps faut-il pour imprimer ?", "En général 48 à 72 heures après validation du fichier pour les cartes, flyers et stickers. Pour les grands formats, comptez 3 à 4 jours. Le délai exact vous est confirmé sur WhatsApp."],
-  ["Je n’ai pas de fichier prêt. Que faire ?", "C’est normal. Choisissez « Un graphiste le crée » au moment de commander : nous préparons le design avec vous, puis nous vous l’envoyons pour validation avant d’imprimer."],
+  ["Je n’ai pas de fichier prêt. Que faire ?", "Créez-le en ligne : choisissez un modèle, mettez vos textes, votre logo et vos couleurs, et voyez le résultat en situation. C’est gratuit. Vous préférez être accompagné ? Choisissez « Un graphiste le crée »."],
   ["Comment je paie ?", `Par ${settings.payments.join(", ").replace(/, ([^,]*)$/, " ou $1")}. Rien à payer en commandant : nous vérifions d’abord votre commande, puis nous vous envoyons le montant exact.`],
   ["Livrez-vous ?", "Oui, partout à Libreville. Vous pouvez aussi passer récupérer votre commande à l’atelier, gratuitement."],
   ["Mon fichier est-il vérifié avant impression ?", "Toujours. Résolution, marges, fond perdu : si quelque chose cloche, nous vous prévenons avant d’imprimer, jamais après."],

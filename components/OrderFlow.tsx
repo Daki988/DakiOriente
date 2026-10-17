@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { createBrowserClient } from "@supabase/ssr";
 import type { Product } from "@/lib/catalog";
 import { fcfa } from "@/lib/format";
 import { quote, type Selection } from "@/lib/pricing";
-import { ArrowRight, Chat, Check, Pen, Upload } from "@/components/Icons";
+import { ArrowRight, Chat, Check, Pen, Sparkle, Upload } from "@/components/Icons";
+import { DesignSvg } from "@/components/editor/DesignSvg";
+import { Editor, type EditorResult } from "@/components/editor/Editor";
 
 type Settings = { whatsapp: string; designFee: number; deliveryFee: number; pickupLabel: string; deliveryLabel: string };
 const EXT = ["pdf", "png", "jpg", "jpeg", "ai", "eps", "svg", "psd", "tif", "tiff", "zip"];
@@ -29,14 +31,16 @@ function Step({ n, title, children }: { n: number; title: string; children: Reac
   );
 }
 
-export function OrderFlow({ product, settings, initialQty, online }: { product: Product; settings: Settings; initialQty?: number; online: boolean }) {
+export function OrderFlow({ product, settings, initialQty, online, startDesign = false }: { product: Product; settings: Settings; initialQty?: number; online: boolean; startDesign?: boolean }) {
   const p = product;
   const firstQty = p.pricing === "pack" ? (p.tiers.find((t) => t.qty === initialQty)?.qty ?? p.tiers[Math.min(1, p.tiers.length - 1)]?.qty ?? 1) : 1;
   const [qty, setQty] = useState(firstQty);
   const [w, setW] = useState(p.formatMm ? Math.round(p.formatMm[0] / 10) : 200);
   const [h, setH] = useState(p.formatMm ? Math.round(p.formatMm[1] / 10) : 100);
   const [choices, setChoices] = useState<Record<string, string>>(() => Object.fromEntries(p.options.map((o) => [o.name, o.choices[0].label])));
-  const [mode, setMode] = useState<"file" | "design">("file");
+  const [mode, setMode] = useState<"file" | "online" | "design">(startDesign ? "online" : "file");
+  const [editorOpen, setEditorOpen] = useState(startDesign);
+  const [made, setMade] = useState<EditorResult | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [fileMsg, setFileMsg] = useState<{ tone: "ok" | "warn" | "err"; text: string } | null>(null);
   const [brief, setBrief] = useState("");
@@ -49,6 +53,11 @@ export function OrderFlow({ product, settings, initialQty, online }: { product: 
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState<{ code: string; token: string; total: number; uploadFailed?: boolean } | null>(null);
   const [fallback, setFallback] = useState(false);
+
+  // Format réel pour l'éditeur : celui du produit, ou les dimensions saisies pour le grand format.
+  const fmt = p.pricing === "area" || !p.formatMm ? { wMm: Math.max(50, w * 10), hMm: Math.max(50, h * 10) } : { wMm: p.formatMm[0], hMm: p.formatMm[1] };
+  const closeEditor = useCallback(() => setEditorOpen(false), []);
+  const onDesigned = useCallback((r: EditorResult) => { setMade(r); setEditorOpen(false); }, []);
 
   const sel: Selection = { qty, choices, design: mode === "design", ...(p.pricing === "area" ? { widthCm: w, heightCm: h } : {}) };
   const q = useMemo(() => quote(p, sel, settings.designFee), [p, qty, w, h, choices, mode, settings.designFee]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -91,7 +100,12 @@ export function OrderFlow({ product, settings, initialQty, online }: { product: 
     e.preventDefault();
     setError(null);
     if (!q.ok) return setError(q.error);
-    if (mode === "file" && !file) return setError("Ajoutez votre fichier, ou choisissez la création par un graphiste.");
+    if (mode === "file" && !file) return setError("Ajoutez votre fichier, ou choisissez une autre option.");
+    if (mode === "online" && !made) return setError("Créez votre design avec l’éditeur avant de commander.");
+    if (mode === "online" && made && (Math.abs(made.sides[0].w - fmt.wMm) > 1 || Math.abs(made.sides[0].h - fmt.hMm) > 1)) {
+      return setError("Les dimensions ont changé depuis la création du design : ouvrez l’éditeur pour l’adapter.");
+    }
+    const upload = mode === "file" ? file : mode === "online" ? made?.file ?? null : null;
     const honeypot = (e.currentTarget.elements.namedItem("website") as HTMLInputElement | null)?.value;
     setBusy("Enregistrement de la commande…");
     try {
@@ -101,8 +115,9 @@ export function OrderFlow({ product, settings, initialQty, online }: { product: 
         body: JSON.stringify({
           slug: p.slug, selection: sel, website: honeypot,
           customer: { name, phone, email }, delivery: { mode: delivery, address },
-          notes: mode === "design" ? `Brief graphiste : ${brief}` : undefined,
-          file: mode === "file" && file ? { name: file.name, size: file.size } : null,
+          notes: mode === "design" ? `Brief graphiste : ${brief}` : mode === "online" && made
+            ? `Design créé en ligne : modèle « ${made.design.template} », ${made.sides.length > 1 ? "recto-verso" : "recto"}${made.scale !== 1 ? ", PDF à l’échelle 1:10" : ""}.` : undefined,
+          file: upload ? { name: upload.name, size: upload.size } : null,
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -110,10 +125,10 @@ export function OrderFlow({ product, settings, initialQty, online }: { product: 
       if (!res.ok) { setError(data.error ?? "La commande n’a pas pu être envoyée. Réessayez."); return; }
 
       let uploadFailed = false;
-      if (data.upload && file) {
+      if (data.upload && upload) {
         setBusy("Envoi du fichier… (gardez la page ouverte)");
         const sb = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
-        const up = await sb.storage.from("print-files").uploadToSignedUrl(data.upload.path, data.upload.token, file, { contentType: file.type || "application/octet-stream" });
+        const up = await sb.storage.from("print-files").uploadToSignedUrl(data.upload.path, data.upload.token, upload, { contentType: upload.type || "application/octet-stream" });
         uploadFailed = Boolean(up.error);
       }
       setDone({ code: data.code, token: data.token, total: data.total, uploadFailed });
@@ -132,7 +147,7 @@ export function OrderFlow({ product, settings, initialQty, online }: { product: 
       <div className={`${card} border-ok`} role="status">
         <span className="grid size-12 place-items-center rounded-full bg-ok text-white"><Check className="size-6" /></span>
         <h2 className="text-3xl font-extrabold">Commande {done.code} enregistrée</h2>
-        <p className="text-muted">Total : <b className="tabular text-ink">{fcfa(done.total)}</b>. Nous vérifions votre {mode === "design" ? "demande" : "fichier"} et vous confirmons le paiement et le délai sur WhatsApp.</p>
+        <p className="text-muted">Total : <b className="tabular text-ink">{fcfa(done.total)}</b>. Nous vérifions votre {mode === "design" ? "demande" : mode === "online" ? "design" : "fichier"} et vous confirmons le paiement et le délai sur WhatsApp.</p>
         {done.uploadFailed && (
           <p className="rounded-xl bg-warn-soft p-3 text-sm text-warn">Votre fichier n’a pas pu être envoyé. Envoyez-le-nous sur WhatsApp en rappelant le numéro {done.code}.</p>
         )}
@@ -148,11 +163,14 @@ export function OrderFlow({ product, settings, initialQty, online }: { product: 
   }
 
   if (fallback) {
-    const msg = `Bonjour Neam Print, je souhaite commander : ${summary()}. Total affiché : ${fcfa(total)}. ${mode === "design" ? `Besoin d’un graphiste : ${brief}` : "J’ai mon fichier."} Livraison : ${delivery === "libreville" ? address : "retrait"}. Nom : ${name}.`;
+    const msg = `Bonjour Neam Print, je souhaite commander : ${summary()}. Total affiché : ${fcfa(total)}. ${mode === "design" ? `Besoin d’un graphiste : ${brief}` : mode === "online" ? "J’ai créé mon design en ligne (PDF joint)." : "J’ai mon fichier."} Livraison : ${delivery === "libreville" ? address : "retrait"}. Nom : ${name}.`;
     return (
       <div className={card} role="status">
         <h2 className="text-2xl font-extrabold">Finalisez sur WhatsApp</h2>
         <p className="text-muted">La commande en ligne n’est pas encore active. Votre demande est prête : envoyez-la, puis joignez votre fichier dans la conversation.</p>
+        {mode === "online" && made && (
+          <a href={URL.createObjectURL(made.file)} download={made.file.name} className="flex items-center justify-center gap-2 rounded-full border border-line px-6 py-4 font-bold">Télécharger mon design (PDF)</a>
+        )}
         <a href={wa(settings.whatsapp, msg)} target="_blank" rel="noopener" className="flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-4 font-bold text-white"><Chat /> Envoyer sur WhatsApp</a>
         <button type="button" onClick={() => setFallback(false)} className="text-sm font-semibold text-muted underline">Modifier ma commande</button>
       </div>
@@ -203,16 +221,33 @@ export function OrderFlow({ product, settings, initialQty, online }: { product: 
       </Step>
 
       <Step n={2} title="Vous avez déjà votre fichier ?">
-        <div className="grid gap-2 sm:grid-cols-2" role="radiogroup" aria-label="Design">
-          {([["file", "J’ai mon fichier", "PDF, image, AI… jusqu’à 100 Mo", Upload], ["design", "Un graphiste le crée", `+ ${fcfa(settings.designFee)}`, Pen]] as const).map(([v, t, d, Icon]) => (
-            <button key={v} type="button" role="radio" aria-checked={mode === v} onClick={() => setMode(v)}
+        <div className="grid gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Design">
+          {([["online", "Je le crée en ligne", "Modèles prêts · gratuit", Sparkle], ["file", "J’ai mon fichier", "PDF, image, AI… 100 Mo max.", Upload], ["design", "Un graphiste le crée", `+ ${fcfa(settings.designFee)}`, Pen]] as const).map(([v, t, d, Icon]) => (
+            <button key={v} type="button" role="radio" aria-checked={mode === v} onClick={() => { setMode(v); if (v === "online" && !made) setEditorOpen(true); }}
               className={`flex items-center gap-3 rounded-2xl border-2 p-3.5 text-left ${mode === v ? "border-brand bg-brand-soft" : "border-line bg-paper"}`}>
               <Icon className="size-6 flex-none text-brand" />
               <span className="grid"><b>{t}</b><span className="text-sm text-muted">{d}</span></span>
             </button>
           ))}
         </div>
-        {mode === "file" ? (
+        {mode === "online" ? (
+          made ? (
+            <div className="grid gap-3 rounded-2xl border border-line bg-paper p-3 sm:grid-cols-[auto_1fr] sm:items-center">
+              <div className="flex gap-2">
+                {made.sides.map((s, i) => <DesignSvg key={i} side={s} trim className="h-24 w-auto max-w-40 rounded drop-shadow-md" title={i ? "Verso" : "Recto"} />)}
+              </div>
+              <div className="grid gap-1">
+                <p className="flex items-center gap-1.5 font-bold text-ok"><Check className="size-4" /> Design prêt</p>
+                <p className="text-sm text-muted">Fichier d’impression vectoriel, fond perdu 3 mm. Nous le vérifions avant d’imprimer.</p>
+                <button type="button" onClick={() => setEditorOpen(true)} className="w-fit text-sm font-bold text-brand underline">Modifier mon design</button>
+              </div>
+            </div>
+          ) : (
+            <button type="button" onClick={() => setEditorOpen(true)} className="flex items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-brand bg-brand-soft px-4 py-6 font-bold text-brand">
+              <Sparkle className="size-6" /> Ouvrir l’éditeur
+            </button>
+          )
+        ) : mode === "file" ? (
           <div className="grid gap-2">
             <label className="flex cursor-pointer flex-col items-center gap-1 rounded-2xl border-2 border-dashed border-line bg-paper px-4 py-6 text-center hover:border-brand">
               <Upload className="size-7 text-brand" />
@@ -271,6 +306,10 @@ export function OrderFlow({ product, settings, initialQty, online }: { product: 
         </button>
         <p className="text-xs text-muted">Aucun paiement maintenant. Nous vérifions votre commande, puis vous payez par Airtel Money, Moov Money ou en espèces.</p>
       </section>
+      {editorOpen && (
+        <Editor product={{ slug: p.slug, name: p.name, categorySlug: p.categorySlug, ...fmt }} initial={made?.design}
+          verso={choices["Impression"] !== "Recto seul"} onClose={closeEditor} onDone={onDesigned} />
+      )}
     </form>
   );
 }
