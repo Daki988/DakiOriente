@@ -7,3 +7,6 @@ out
 *.tsbuildinfo
 next-env.d.ts
 .vercel
+casier-judiciaire/**/target/
+casier-judiciaire/**/node_modules/
+casier-judiciaire/**/.next/
