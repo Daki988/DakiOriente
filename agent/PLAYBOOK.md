@@ -68,3 +68,10 @@ Le haut vient de Windsor (Instagram) ; les demandes sont comptées depuis les si
 ROI = CA signé ÷ coût de la com. Toujours afficher le coût par demande et le taux de conversion à chaque étape, et l'étape qui bloque.
 Lien bio tracé : https://neamindustry.com/digital-score.html?utm_source=instagram&utm_medium=bio&utm_campaign=lancement
 Si une donnée manque, l'écrire (« non saisi ») au lieu de l'estimer.
+
+## Stories (régularité quotidienne)
+Lundi→samedi, 2 stories par jour, dans la file "queue" (format "story", même validation que les posts) :
+- 10:50 — story conseil (doc_id s-v-<date>) : question du jour, mythe vs réalité, conseil express, méthode NEAM, défi du week-end. Une idée, 2 lignes max, aucun faux chiffre.
+- <heure du post>:05 — story relais (doc_id s-<id du post>) : le post en vignette inclinée + « Sur le profil ↓ ». Ne part que si le post est publié.
+Style : 1080×1920, zone utile entre y=250 et y=1620 (interface Instagram), fonds alternés noir / ivoire / or, Archivo condensé + Instrument Serif italique + IBM Plex Mono, logo NEAM en bas. Modèle : agent/story-example.html et img/stories/plan/.
+Les stories ne portent ni lien ni sondage (impossible via l'API) : l'appel à l'action renvoie au profil ou au lien en bio. Les stickers interactifs (sondage, quiz, question) restent à ajouter à la main par NEAM s'il le souhaite.
