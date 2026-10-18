@@ -61,5 +61,7 @@
   "video/spot-trophee-cover.jpg",
   "video/spot-trophee.mp4"
  ],
- "base_url": "https://raw.githubusercontent.com/Daki988/DakiOriente/neam-media/"
+ "base_url_images": "https://raw.githubusercontent.com/Daki988/DakiOriente/neam-media/",
+ "base_url_videos": "https://cdn.jsdelivr.net/gh/Daki988/DakiOriente@neam-media/",
+ "note": "Images : raw.githubusercontent (immédiat). Vidéos : jsDelivr (type video/mp4, max 20 Mo, cache jusqu’à 12 h après un nouvel ajout)."
 }
