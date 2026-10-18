@@ -127,3 +127,7 @@ Règles de grande agence :
 - Garde-fou : coût par client gagné ≤ 20 % de la valeur moyenne d'un client (settings/agent.client_value). Au-delà, proposer de couper ou de corriger.
 - Les objectifs chiffrés des premières campagnes sont des hypothèses de départ, à réviser après 2 à 3 jours de vrais résultats. Ne jamais présenter une estimation comme un résultat.
 Mesure : résultats saisis par NEAM dans la console (ou lus dans Meta Ads via Windsor si le compte publicitaire est relié) + prospects de l'inbox + clics UTM « paid » + CA de la collection "roi".
+
+## Tarifs et valeur d'un client (CONFIDENTIEL)
+La grille tarifaire interne et la valeur d'un client sont stockées UNIQUEMENT dans la base privée de la console : document settings/pricing (et settings/agent.client_value). Ne jamais les recopier ici, dans un post, une story, un commentaire ou un fichier public. En public, on ne parle jamais de prix : on renvoie vers le diagnostic ou le message privé.
+Usage interne : calculs de ROI, qualification des prospects, garde-fous du sponsoring (coût d'acquisition max par client = 20 % de client_value).
