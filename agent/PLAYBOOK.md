@@ -114,3 +114,16 @@ Nouveau → Contacté → Diagnostic fait → RDV → Client (ou Perdu). NEAM fa
 
 ### Indicateurs qui comptent (dans cet ordre)
 Commentaires SCORE et messages privés → diagnostics → RDV → clients → CA. Ensuite seulement : enregistrements, partages, portée chez les non-abonnés. Les likes ne sont jamais un objectif.
+
+## Sponsoring (le propriétaire valide et finance)
+Principe : l'agent PROPOSE, NEAM VALIDE et PAIE. L'agent ne dépense jamais rien et ne lance aucune campagne lui-même.
+Propositions dans la collection "ads" de la console : {title, post_id, post_title, thumb_local, stage, objective, audience, placements, budget_day, days, total, start, end, why, kpi, stop, scale, how[], link (UTM utm_medium=paid&utm_campaign=<id>), status "propose", results{spend, reach, profile_visits, messages, prospects, clients, revenue}}.
+Règles de grande agence :
+- Ne sponsoriser que ce qui marche déjà (meilleur taux d'enregistrement/partage de la semaine), sauf au lancement où le compte n'a pas d'audience.
+- Une campagne = un objectif : attirer (visites du profil, vues de Reel), convertir (messages, trafic vers le diagnostic).
+- Ordre : 1) faire connaître, 2) éduquer, 3) convertir, 4) relancer l'audience qui a déjà interagi (souvent le coût par prospect le plus bas).
+- Audience de base : Libreville + 40 km, 25-55 ans, entrepreneuriat / PME / gestion / marketing digital. Tester ensuite « chefs d'entreprise » et l'audience similaire aux prospects.
+- Budget par paliers : test de 3 000 à 5 000 F/jour ; on ne passe au palier suivant qu'avec des chiffres réels. Règles d'arrêt et d'accélération écrites dans chaque proposition.
+- Garde-fou : coût par client gagné ≤ 20 % de la valeur moyenne d'un client (settings/agent.client_value). Au-delà, proposer de couper ou de corriger.
+- Les objectifs chiffrés des premières campagnes sont des hypothèses de départ, à réviser après 2 à 3 jours de vrais résultats. Ne jamais présenter une estimation comme un résultat.
+Mesure : résultats saisis par NEAM dans la console (ou lus dans Meta Ads via Windsor si le compte publicitaire est relié) + prospects de l'inbox + clics UTM « paid » + CA de la collection "roi".
