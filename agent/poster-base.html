@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wdth,wght@62..125,500..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--iv:#F3EEE3;--ink:#14161A;--gold:#E2A11B;--coral:#C8564A;--mute:#7C7870;--vio:#2A1F45}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#888;display:flex;flex-wrap:wrap;gap:40px;padding:40px}
+.p{width:1080px;height:1350px;position:relative;overflow:hidden;background:var(--iv);color:var(--ink);font-family:'Archivo',sans-serif}
+.p::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+.dark{background:var(--ink);color:var(--iv)}
+.mono{font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:.04em}
+.serif{font-family:'Instrument Serif',serif;font-weight:400}
+.it{font-style:italic}
+.cond{font-stretch:62%;font-weight:900;text-transform:uppercase;line-height:.84;letter-spacing:-.01em}
+.top{position:absolute;left:72px;right:72px;top:64px;display:flex;justify-content:space-between;font-size:20px}
+.foot{position:absolute;left:72px;right:72px;bottom:60px;display:flex;align-items:flex-end;justify-content:space-between}
+.foot .r{text-align:right;font-size:20px;line-height:1.6}
+.rule{position:absolute;left:72px;right:72px;height:2px;background:currentColor;opacity:.9}
+.logo{height:46px;display:block}
+.strike{position:relative;display:inline-block}
+.strike::after{content:"";position:absolute;left:-2%;right:-2%;top:50%;height:.09em;background:var(--coral);transform:rotate(-3deg)}
+</style></head><body>
+<!-- Chaque visuel = un <div class="p" id="v1">…</div> de 1080×1350. Classes utiles :
+  .p (fond ivoire) · .p.dark (fond noir) · .cond (titre condensé capitales) · .serif .it (italique élégante)
+  .mono (machine à écrire) · .top (bandeau haut) · .foot (pied : logo + texte) · svg.logo data-c="#14161A" (logo NEAM)
+  Couleurs : ivoire #F3EEE3, encre #14161A, or #E2A11B, corail #C8564A, vert #2F6F62, sable #EFE4D2 -->
+<div class="p" id="v1">
+ <div class="top mono"><span>NEAM</span><span>EXEMPLE</span></div>
+ <div class="serif it" style="position:absolute;left:72px;top:150px;font-size:80px;line-height:1">Votre site est beau.</div>
+ <div class="cond" style="position:absolute;left:62px;top:300px;font-size:200px">Et ça<br>rapporte<br><span style="color:#E2A11B">combien ?</span></div>
+ <div class="foot"><svg class="logo" data-c="#14161A"></svg><div class="r mono">#EtÇaRapporteCombien<br>neamindustry.com</div></div>
+</div>
+<script>
+const L={N:[[60,92],[183,92],[408,305],[408,92],[541,92],[541,462],[408,462],[183,253],[183,462],[60,462]],E:[[577,90],[918,90],[918,170],[700,170],[700,236],[865,236],[865,310],[700,310],[700,386],[994,386],[940,462],[577,462]],A:[[1072,88],[1187,88],[1357,378],[1228,378],[1122,212],[1000,378],[870,378]],M:[[1357,90],[1488,90],[1633,268],[1790,90],[1940,90],[1940,462],[1800,462],[1800,258],[1645,430],[1605,430],[1488,265],[1488,462],[1282,462],[1233,386],[1357,386]]};
+const pts=a=>a.map(p=>p.join(',')).join(' ');
+document.querySelectorAll('svg.logo').forEach(s=>{const c=s.dataset.c;s.setAttribute('viewBox','50 80 1900 390');s.style.width=(46*1900/390)+'px';
+ s.innerHTML=Object.values(L).map(p=>`<polygon points="${pts(p)}" fill="${c}"/>`).join('')+`<path d="M1117 318L1207 462L1027 462ZM1117 392L1071 462L1163 462Z" fill="#E2A11B" fill-rule="evenodd"/>`;});
+window.ready=document.fonts.ready.then(()=>new Promise(r=>setTimeout(r,800)));
+</script></body></html>
