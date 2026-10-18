@@ -35,7 +35,7 @@ Pied de chaque visuel : logo NEAM + #EtÇaRapporteCombien + neamindustry.com.
 #EtÇaRapporteCombien #Libreville #Gabon #PMEGabon #EntrepreneurGabonais #TransformationDigitale #Digital241
 
 ## Rythme
-Lundi→samedi, 1 post par jour : 11 h (samedi), 13 h (affiches), 19 h (Reels). 2 Reels par semaine. Équilibre hebdo :
+Lundi→samedi, 1 post par jour (voir « Stratégie d'acquisition » pour le mix exact). Ancien équilibre indicatif :
 2 visuels provocateurs · 1 service · 1 produit · 1 preuve/méthode (carrousel, histoire) · 1 libre selon les stats.
 
 ## Commentaires
@@ -75,3 +75,42 @@ Lundi→samedi, 2 stories par jour, dans la file "queue" (format "story", même 
 - <heure du post>:05 — story relais (doc_id s-<id du post>) : le post en vignette inclinée + « Sur le profil ↓ ». Ne part que si le post est publié.
 Style : 1080×1920, zone utile entre y=250 et y=1620 (interface Instagram), fonds alternés noir / ivoire / or, Archivo condensé + Instrument Serif italique + IBM Plex Mono, logo NEAM en bas. Modèle : agent/story-example.html et img/stories/plan/.
 Les stories ne portent ni lien ni sondage (impossible via l'API) : l'appel à l'action renvoie au profil ou au lien en bio. Les stickers interactifs (sondage, quiz, question) restent à ajouter à la main par NEAM s'il le souhaite.
+
+## Stratégie d'acquisition (niveau agence internationale)
+Objectif : transformer l'attention en rendez-vous qualifiés. Chaque contenu a UNE étape, UN pilier, UN appel à l'action.
+
+### L'entonnoir et le mix hebdomadaire
+| Étape | Rôle | Formats rois | Part | Appel à l'action |
+|---|---|---|---|---|
+| Attirer | Toucher des non-abonnés, faire partager | Reels (hook < 2 s), affiches provocatrices | 50 % (3 posts) | « Envoyez à un entrepreneur qui doit voir ça » + P.S. « commentez SCORE » |
+| Convaincre | Prouver l'expertise, faire enregistrer | Carrousels éducatifs (5-8 slides), histoires (Denise), services | 33 % (2 posts) | « Enregistrez 🔖 » + « commentez SCORE » |
+| Convertir | Faire passer à l'action | Offre diagnostic, contrôle technique, programme 30/30 | 17 % (1 post) | « Commentez SCORE ou lien en bio » |
+Semaine type : lun 19:00 Reel (attirer) · mar 13:00 carrousel (convaincre) · mer 19:00 affiche choc (attirer) · jeu 13:00 service ou preuve (convaincre) · ven 13:00 offre (convertir) · sam 11:00 léger/marque (attirer).
+Stories : 10:50 conseil (convaincre) + relais du post. Le vendredi, la story du matin pousse le diagnostic.
+Piliers à faire tourner : web, logiciels, IA, conseil/formation, méthode, preuve, diagnostic, marque. Jamais 2 fois le même pilier deux jours de suite.
+
+### Le mot-clé de conversion : SCORE
+Tous les posts finissent par « commentez SCORE ». Un commentaire SCORE (ou prix, devis, tarif, diagnostic, intéressé, info) = un prospect.
+Réaction de l'agent dans l'heure qui suit son passage : réponse publique chaleureuse (« Merci [prénom] ! On vous envoie votre lien en message privé 📩 ») + signalement « Prospect » dans la console, avec le lien du commentaire. Ne jamais donner de prix en public.
+NEAM envoie ensuite le message privé (l'API ne permet pas à l'agent d'écrire en DM) avec le script ci-dessous, idéalement en moins de 2 h.
+
+### Script de message privé (à copier)
+1. « Bonjour [prénom] 👋 Merci pour votre intérêt ! Voici votre diagnostic digital gratuit : https://www.neamindustry.com/digital-score.html?utm_source=instagram&utm_medium=dm&utm_campaign=score »
+2. « Pour vous orienter au mieux : quelle est votre activité, et qu'attendez-vous en priorité du digital (plus d'appels, plus de ventes, gagner du temps) ? »
+3. Après le diagnostic : « Votre score est prêt. On vous propose 20 minutes (appel ou WhatsApp) pour vous expliquer les 3 priorités. Plutôt mardi ou jeudi ? »
+Relance unique à J+2 sans réponse : « Je me permets de revenir vers vous : votre diagnostic est toujours disponible ici 👉 [lien]. »
+
+### Pipeline (console → section Prospects)
+Nouveau → Contacté → Diagnostic fait → RDV → Client (ou Perdu). NEAM fait avancer chaque prospect d'un clic. Le bilan du lundi calcule le taux de passage à chaque étape et le chiffre d'affaires généré.
+
+### Règles de création façon grande agence
+- Hook : la première ligne et les 2 premières secondes décident de tout. Une tension (« Votre site vous fait perdre des clients »), un chiffre vérifiable, ou une question qui pique.
+- Une idée par post. Texte lisible en 3 secondes sur téléphone.
+- Recycler ce qui marche : un post du top 3 devient carrousel, story ou Reel le mois suivant.
+- Test A/B chaque semaine : 2 hooks différents sur des posts comparables (noter le hook dans « note »), garder le gagnant.
+- Preuve sociale : dès les premiers clients, demander un avis et une autorisation pour une étude de cas (jamais de faux témoignage).
+- Calendrier marketing : jours fériés gabonais, Black Friday, fin d'année, rentrée : toujours avec l'angle « ça rapporte combien ? ».
+- Interdits : achat d'abonnés, groupes d'engagement, concours sans lien avec le métier, promesses de résultats chiffrés.
+
+### Indicateurs qui comptent (dans cet ordre)
+Commentaires SCORE et messages privés → diagnostics → RDV → clients → CA. Ensuite seulement : enregistrements, partages, portée chez les non-abonnés. Les likes ne sont jamais un objectif.
