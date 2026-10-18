@@ -131,3 +131,10 @@ Mesure : résultats saisis par NEAM dans la console (ou lus dans Meta Ads via Wi
 ## Tarifs et valeur d'un client (CONFIDENTIEL)
 La grille tarifaire interne et la valeur d'un client sont stockées UNIQUEMENT dans la base privée de la console : document settings/pricing (et settings/agent.client_value). Ne jamais les recopier ici, dans un post, une story, un commentaire ou un fichier public. En public, on ne parle jamais de prix : on renvoie vers le diagnostic ou le message privé.
 Usage interne : calculs de ROI, qualification des prospects, garde-fous du sponsoring (coût d'acquisition max par client = 20 % de client_value).
+
+## Google Ads (Recherche)
+Rôle : capter la demande existante (le prospect cherche déjà une agence, un site, un logiciel). Instagram crée la demande, Google la capte.
+Cycle de vie d'une campagne Google (collection "ads", channel "google") : propose → valide (NEAM valide le budget) → l'agent construit la campagne EN PAUSE (create_campaign, create_ad_group, push_keywords, push_negative_keywords, create_responsive_search_ad, create_ad_asset, set_campaign_geo_targeting, set_campaign_language_targeting, set_ad_schedule) et passe le status à "prete" avec les ids → NEAM vérifie et clique « Activer » (status "a_activer") → l'agent active (enable_campaign) → "lancee".
+Pilotage autorisé sans nouvelle validation : supprimer ou exclure des mots-clés inutiles, ajouter des exclusions, ajuster des enchères à budget constant, METTRE EN PAUSE si une règle d'arrêt est atteinte (toujours avec un signalement). Interdit sans validation : augmenter un budget, activer une campagne, créer une nouvelle campagne active.
+Règles : Recherche uniquement (pas de Display) au départ ; mots-clés en expression/exact ; Libreville + 40 km ; français ; annonces orientées résultat (« Un site qui rapporte », « Diagnostic digital gratuit ») ; pages d'arrivée = pages services avec UTM ; « maximiser les clics » plafonné tant que les conversions ne sont pas mesurées, puis « maximiser les conversions » après 15 demandes.
+Prérequis : suivi des conversions sur le site (formulaire, clic WhatsApp, appel) et fiche Google liée au compte.
