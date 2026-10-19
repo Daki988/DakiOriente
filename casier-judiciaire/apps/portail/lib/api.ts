@@ -77,7 +77,13 @@ export async function deposer(demande: NouvelleDemande, jetonUsager?: string): P
   const r = await appel<Omit<DemandeDeposee, 'demo'>>('/api/v1/demandes', {
     method: 'POST', body: JSON.stringify(corps), headers: { Authorization: `Bearer ${jetonUsager}` },
   });
-  return { ...r!, demo: false, paiementTresor };
+  if (paiementTresor) return { ...r!, demo: false, paiementTresor };
+  // Pile de démonstration : le service expose un simulateur de paiement (PAY-07). Sinon, l'opérateur confirme plus tard.
+  if (process.env.PAIEMENT_SIMULE === 'true') {
+    await appel('/api/public/v1/simulateur-paiement', { method: 'POST', body: JSON.stringify({ numeroDossier: r!.numeroDossier, montantFcfa: r!.montantFcfa }) });
+    return { ...r!, demo: false };
+  }
+  return { ...r!, demo: false, paiementEnAttente: true };
 }
 
 /** Réclamation depuis le formulaire public (parcours « Réclamation », section 8 ; DSH-10). */

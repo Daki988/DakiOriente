@@ -96,7 +96,7 @@ docker compose -f docker-compose.complet.yml --env-file .env up -d --build
 
 Connexion réelle des agents et usagers par Keycloak (OpenID Connect, code d'autorisation + PKCE) : dans `.env`,
 renseigner `OIDC_EMETTEUR` (adresse **publique** du royaume, par exemple `https://connexion.exemple.ga/realms/casier`)
-et `PORTAIL_URL` (adresse publique du portail), puis, dans la console Keycloak, ajouter `PORTAIL_URL/*` aux adresses de
+et `PORTAIL_URL` (adresse publique du portail) et `PAIEMENT_SIMULE` (`true` en démonstration, `false` en production), puis, dans la console Keycloak, ajouter `PORTAIL_URL/*` aux adresses de
 redirection du client `portail`. Sans `OIDC_EMETTEUR`, le portail propose les comptes de démonstration.
 
 Au premier démarrage, le service crée la base (migrations), charge le barème et le jeu de règles fictif, et active le simulateur de paiement (profil `demo`).

@@ -59,6 +59,9 @@ services:
       # Connexion OpenID Connect : adresse publique du royaume Keycloak et du portail (vides : comptes de démonstration).
       OIDC_EMETTEUR: ${OIDC_EMETTEUR:-}
       PORTAIL_URL: ${PORTAIL_URL:-http://localhost:3000}
+      # Démonstration : le portail déclenche le simulateur de paiement du service (absent en production).
+      PAIEMENT_SIMULE: ${PAIEMENT_SIMULE:-true}
+      COMPTES_DEMO: ${COMPTES_DEMO:-false}
     ports:
       - "${PORT_PORTAIL:-3000}:3000"
 

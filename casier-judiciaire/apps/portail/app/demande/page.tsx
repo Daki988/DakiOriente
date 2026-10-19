@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
-import { Alerte, Icone } from '@casier/design-system';
+import { Alerte, Icone, classesBouton } from '@casier/design-system';
 
 import { EntetePage } from '@/components/EntetePage';
 import { ParcoursDemande, type TarifProfil } from '@/components/ParcoursDemande';
 import { tarifs } from '@/lib/api';
 import { config } from '@/lib/config';
 import type { CodeProfil } from '@/lib/contenu';
+import { connexionReelle } from '@/lib/oidc';
+import { session } from '@/lib/session';
 
 export const metadata: Metadata = { title: 'Demander un bulletin n°3', description: 'Demandez votre bulletin n°3 en ligne, en cinq étapes.' };
 export const dynamic = 'force-dynamic';
@@ -13,6 +15,9 @@ export const dynamic = 'force-dynamic';
 /** PUB-06 : entrée du parcours de demande (section 8), cinq étapes au plus (ERG-04). Tarifs lus dans le référentiel (RG-10). */
 export default async function Demande() {
   const liste = await tarifs().catch(() => []);
+  const s = await session();
+  const connexionRequise = config.apiCasier !== '' && (!s || s.demo || !s.roles.includes('R01'));
+  const simulateur = config.apiCasier === '' || process.env.PAIEMENT_SIMULE === 'true';
   const parProfil: Partial<Record<CodeProfil, TarifProfil>> = {};
   for (const t of liste.filter((x) => x.acte === 'BULLETIN_N3')) {
     parProfil[t.profil as CodeProfil] = { montantFcfa: t.montantFcfa, provisoire: t.provisoire };
@@ -33,7 +38,15 @@ export default async function Demande() {
               Les tarifs n’ont pas pu être chargés. Réessayez dans quelques minutes ou appelez le {config.supportTelephone}.
             </Alerte>
           )}
-          <ParcoursDemande tarifs={parProfil} demo={config.modeDemo} />
+          {connexionRequise && (
+            <Alerte type="info" titre="Connectez-vous pour déposer votre demande">
+              <p>Votre identité est vérifiée par l’identité numérique nationale avant le dépôt.</p>
+              {connexionReelle() && (
+                <p><a href="/auth/connexion?retour=/demande" className={classesBouton()}><Icone nom="log-in" taille={20} /><span>Se connecter</span></a></p>
+              )}
+            </Alerte>
+          )}
+          <ParcoursDemande tarifs={parProfil} demo={config.modeDemo && simulateur} />
         </div>
         <aside className="p-encadre cj-pile" aria-label="Avant de commencer">
           <h2 className="p-titre-encadre">Avant de commencer</h2>

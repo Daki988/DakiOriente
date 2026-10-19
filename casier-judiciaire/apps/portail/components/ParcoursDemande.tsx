@@ -337,6 +337,23 @@ function Recapitulatif({ d, modifier }: { d: DonneesDemande; modifier: (etape: n
 
 function Confirmation({ depot, titre }: { depot: DemandeDeposee; titre: RefObject<HTMLHeadingElement | null> }) {
   if (depot.paiementTresor) return <AvisPaiementTresor depot={depot} titre={titre} />;
+  if (depot.paiementEnAttente) {
+    return (
+      <section className="p-parcours__panneau p-confirmation">
+        <span className="p-confirmation__pictogramme"><Icone nom="smartphone" taille={40} /></span>
+        <h2 ref={titre} tabIndex={-1}>Demande enregistrée : confirmez le paiement</h2>
+        <p>Validez le paiement sur votre téléphone ou sur la page de paiement. Vous recevez un SMS dès que l’opérateur le confirme.</p>
+        <div className="p-identifiants">
+          <div className="p-identifiant"><span>Numéro de dossier</span><strong>{depot.numeroDossier}</strong></div>
+          <div className="p-identifiant"><span>Code de suivi</span><strong>{depot.codeSuivi}</strong></div>
+          <div className="p-identifiant"><span>Montant</span><strong>{fcfa(depot.montantFcfa)}</strong></div>
+        </div>
+        <div className="p-page-entete__actions">
+          <Link href="/espace/demandes" className={classesBouton()}><Icone nom="file-text" taille={20} /><span>Mes demandes</span></Link>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className="p-parcours__panneau p-confirmation">
       <span className="p-confirmation__pictogramme"><Icone nom="circle-check" taille={40} /></span>

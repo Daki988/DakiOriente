@@ -28,7 +28,11 @@ export type NouvelleDemande = {
   paiementTresor?: boolean;
 };
 
-export type DemandeDeposee = { numeroDossier: string; codeSuivi: string; montantFcfa: number; tarifProvisoire: boolean; demo: boolean; paiementTresor?: boolean };
+export type DemandeDeposee = {
+  numeroDossier: string; codeSuivi: string; montantFcfa: number; tarifProvisoire: boolean; demo: boolean; paiementTresor?: boolean;
+  /** Paiement électronique en attente de la confirmation de l'opérateur (service réel sans simulateur). */
+  paiementEnAttente?: boolean;
+};
 
 /** Résultat de la saisie de l'identifiant de paiement du Trésor. */
 export type PaiementTresorEnregistre = { numeroDossier: string; statut: StatutDemande; numeroBulletin: string | null; demo: boolean };

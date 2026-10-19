@@ -2,6 +2,8 @@
 
 import { RefusMetier, ServiceIndisponible, deposer } from '@/lib/api';
 import { config } from '@/lib/config';
+import { jetonValide } from '@/lib/oidc';
+import { session } from '@/lib/session';
 import type { DemandeDeposee } from '@/lib/types';
 import { neAilleurs, normaliserDate, verifierTout, type DonneesDemande, type Erreurs } from '@/lib/validation';
 
@@ -29,6 +31,8 @@ export async function deposerAction(brut: DonneesDemande): Promise<ResultatDepot
   if (Object.keys(erreurs).length > 0) return { ok: false, erreurs };
 
   const facultatif = (v: string) => v || undefined;
+  const s = await session();
+  const jeton = s && !s.demo ? await jetonValide(s) : undefined;
   try {
     const depot = await deposer({
       profil: d.profil,
@@ -41,7 +45,7 @@ export async function deposerAction(brut: DonneesDemande): Promise<ResultatDepot
       },
       telephone: d.telephone.replace(/[\s.-]/g, ''), email: facultatif(d.email),
       paiementTresor: d.modePaiement === 'TRESOR',
-    });
+    }, jeton);
     return { ok: true, depot };
   } catch (e) {
     if (e instanceof RefusMetier) return { ok: false, message: e.message };
