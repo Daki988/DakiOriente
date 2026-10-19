@@ -147,6 +147,25 @@ public class InscriptionsCasier {
         evenements.publishEvent(new CondamnationValidee(c.personneId(), c.id()));
     }
 
+    /** REG-03 : rejet motivé d'une mention par le greffier en chef. */
+    @Transactional
+    public void rejeterMention(Acteur greffier, UUID mentionId, String motif) {
+        habilitations.exiger(greffier, Permission.VALIDER_INSCRIPTION);
+        if (motif == null || motif.isBlank()) {
+            throw new ErreurMetier("REG-03", "Le motif du rejet est obligatoire.");
+        }
+        MentionEnregistree m = depot.mention(mentionId).orElseThrow(() -> new RessourceIntrouvable("Mention introuvable."));
+        if (m.statut() != StatutInscription.SAISIE) {
+            throw new ErreurMetier(ErreurMetier.Nature.CONFLIT, "REG-03", "Cette mention n'est plus en attente de validation.");
+        }
+        CondamnationEnregistree c = condamnation(m.condamnationId());
+        habilitations.exigerJuridiction(greffier, c.juridiction());
+        habilitations.exigerQuatreYeux(m.saisiePar(), greffier);
+        depot.rejeterMention(m, greffier.identifiant(), Instant.now(horloge));
+        journal.enregistrer(EvenementAudit.par(greffier, "MENTION_REJETEE", "Mention", m.id().toString(),
+                c.personneId().toString(), motif, Map.of("type", m.type().name())));
+    }
+
     /** RG-07 : une contestation ouverte bloque toute émission automatique sur la fiche. */
     @Transactional
     public UUID ouvrirContestation(Acteur agent, UUID personneId, String motif) {

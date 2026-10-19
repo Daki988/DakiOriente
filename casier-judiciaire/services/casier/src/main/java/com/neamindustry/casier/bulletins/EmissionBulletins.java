@@ -81,6 +81,17 @@ public class EmissionBulletins {
         return emettre(decideur, TypeBulletin.B3, demandeId, personneId, identite, null, destinataire, null);
     }
 
+    /** BUL-10 : recherche d'un bulletin par son numéro avant révocation ; la consultation est journalisée. */
+    @Transactional
+    public BulletinTrouve rechercher(Acteur greffier, String numero) {
+        habilitations.exiger(greffier, Permission.REVOQUER_BULLETIN);
+        String n = numero == null ? "" : numero.strip().toUpperCase(java.util.Locale.ROOT);
+        BulletinTrouve b = depot.parNumero(n).orElseThrow(() -> new RessourceIntrouvable("Aucun bulletin ne porte ce numéro."));
+        journal.enregistrer(EvenementAudit.par(greffier, "BULLETIN_RECHERCHE", "Bulletin", b.id().toString(), null, null,
+                Map.of("numero", b.numero())));
+        return b;
+    }
+
     /** BUL-10 : révocation motivée par un greffier en chef ; l'usager est prévenu (NOT, lot suivant). */
     @Transactional
     public void revoquer(Acteur greffier, UUID bulletinId, String motif) {

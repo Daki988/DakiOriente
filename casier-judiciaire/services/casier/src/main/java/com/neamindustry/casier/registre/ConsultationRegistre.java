@@ -73,6 +73,29 @@ public class ConsultationRegistre {
         }).toList();
     }
 
+    /** Mentions à valider dans la juridiction du greffier en chef (toutes pour la direction centrale). */
+    @Transactional(readOnly = true)
+    public List<MentionEnAttente> mentionsEnAttente(Acteur greffier) {
+        habilitations.exiger(greffier, Permission.VALIDER_INSCRIPTION);
+        String juridiction = greffier.aLeRole(com.neamindustry.casier.habilitations.Role.R08) ? null : greffier.juridiction();
+        return depot.mentionsEnAttente(juridiction).stream().map(e -> {
+            var m = e.mention();
+            var c = e.condamnation();
+            return new MentionEnAttente(m.id(), c.id(), c.personneId(), e.identite().nom(), e.identite().prenoms(),
+                    e.identite().dateNaissance(), m.type(), m.dateEffet(), m.details(), c.infraction(), c.dateDecision(),
+                    c.juridiction(), m.saisiePar().equals(greffier.identifiant()));
+        }).toList();
+    }
+
+    /** RG-07 : contestations en cours, pour les agents du casier et les greffiers en chef. */
+    @Transactional(readOnly = true)
+    public List<ContestationOuverte> contestations(Acteur agent) {
+        exigerAgentDuCasier(agent, "contestations");
+        return depot.blocagesOuverts().stream().map(b -> new ContestationOuverte(b.id(), b.personneId(), b.identite().nom(),
+                b.identite().prenoms(), b.identite().dateNaissance(), b.motif(), b.ouvertLe(),
+                b.ouvertPar().equals(agent.identifiant()))).toList();
+    }
+
     private static void exigerAgentDuCasier(Acteur agent, String motif) {
         if (!MatriceHabilitations.autorise(agent.roles(), Permission.TRAITER_CAS_DOUTEUX)
                 && !MatriceHabilitations.autorise(agent.roles(), Permission.VALIDER_INSCRIPTION)) {

@@ -170,4 +170,19 @@ public class DepotBulletins {
         return jdbc.sql("select count(*) from bulletins.impression where feuillet = :f").param("f", feuillet)
                 .query(Long.class).single() > 0;
     }
+
+    /** BUL-10 : bulletin retrouvé par son numéro exact, sans son contenu. */
+    public java.util.Optional<com.neamindustry.casier.bulletins.BulletinTrouve> parNumero(String numero) {
+        return jdbc.sql("""
+                        select id, numero, statut, nom, prenoms, date_naissance, date_emission, date_expiration, revoque_le, motif_revocation
+                        from bulletins.bulletin where numero = :numero""")
+                .param("numero", numero)
+                .query((rs, n) -> new com.neamindustry.casier.bulletins.BulletinTrouve(rs.getObject("id", UUID.class),
+                        rs.getString("numero"), rs.getString("statut"), rs.getString("nom"), rs.getString("prenoms"),
+                        rs.getDate("date_naissance") == null ? null : rs.getDate("date_naissance").toLocalDate(),
+                        rs.getTimestamp("date_emission").toInstant(), rs.getTimestamp("date_expiration").toInstant(),
+                        rs.getTimestamp("revoque_le") == null ? null : rs.getTimestamp("revoque_le").toInstant(),
+                        rs.getString("motif_revocation")))
+                .optional();
+    }
 }

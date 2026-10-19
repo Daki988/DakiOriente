@@ -27,7 +27,7 @@ public final class MatriceHabilitations {
         MATRICE.put(Role.R10, EnumSet.of(GERER_PAIEMENTS));
         MATRICE.put(Role.R11, EnumSet.of(TRAITER_RECLAMATIONS));
         MATRICE.put(Role.R12, EnumSet.of(LIRE_JOURNAL_AUDIT));
-        MATRICE.put(Role.R13, EnumSet.of(PARAMETRER_PLATEFORME, PROPOSER_TARIF, VALIDER_TARIF));
+        MATRICE.put(Role.R13, EnumSet.of(PARAMETRER_PLATEFORME, GERER_AGENTS, PROPOSER_TARIF, VALIDER_TARIF));
         MATRICE.put(Role.R14, EnumSet.of(VERIFIER_BULLETIN));
     }
 

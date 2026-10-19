@@ -195,6 +195,18 @@
           }
         }
       ]
+    },
+    {
+      "clientId": "casier-gestion-agents",
+      "name": "Gestion des agents (service casier)",
+      "enabled": true,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "implicitFlowEnabled": false,
+      "serviceAccountsEnabled": true
     }
   ],
   "components": {
@@ -209,5 +221,19 @@
         }
       }
     ]
-  }
+  },
+  "users": [
+    {
+      "username": "service-account-casier-gestion-agents",
+      "enabled": true,
+      "serviceAccountClientId": "casier-gestion-agents",
+      "clientRoles": {
+        "realm-management": [
+          "view-users",
+          "manage-users",
+          "view-realm"
+        ]
+      }
+    }
+  ]
 }

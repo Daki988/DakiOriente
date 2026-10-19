@@ -17,6 +17,8 @@ public enum Permission {
     TRAITER_RECLAMATIONS,
     LIRE_JOURNAL_AUDIT,
     PARAMETRER_PLATEFORME,
+    /** Création, changement de rôle et désactivation des comptes des agents. */
+    GERER_AGENTS,
     PROPOSER_TARIF,
     VALIDER_TARIF,
     VERIFIER_BULLETIN,

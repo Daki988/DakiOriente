@@ -41,8 +41,11 @@ class DemandesControleur {
     private final ServiceDemandes demandes;
     private final ActeurCourant acteur;
     private final LimiteurDebit limiteur;
+    private final com.neamindustry.casier.demandes.PiecesJustificatives pieces;
 
-    DemandesControleur(ServiceDemandes demandes, ActeurCourant acteur, LimiteurDebit limiteur) {
+    DemandesControleur(ServiceDemandes demandes, ActeurCourant acteur, LimiteurDebit limiteur,
+                       com.neamindustry.casier.demandes.PiecesJustificatives pieces) {
+        this.pieces = pieces;
         this.demandes = demandes;
         this.acteur = acteur;
         this.limiteur = limiteur;
@@ -109,6 +112,33 @@ class DemandesControleur {
     ResponseEntity<Void> pieceDeposee(@PathVariable UUID id, @Valid @RequestBody Piece p) {
         demandes.pieceDeposee(acteur.obtenir(), id, p.piece());
         return ResponseEntity.noContent().build();
+    }
+
+    /** RG-09 : dépôt du fichier de la pièce demandée (PDF, JPEG ou PNG, 5 Mo au plus) ; le délai reprend. */
+    @PostMapping(path = "/api/v1/demandes/{id}/pieces", consumes = org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE)
+    ResponseEntity<com.neamindustry.casier.demandes.PiecesJustificatives.Piece> deposerFichier(
+            @PathVariable UUID id, @org.springframework.web.bind.annotation.RequestParam("fichier") org.springframework.web.multipart.MultipartFile fichier)
+            throws java.io.IOException {
+        return ResponseEntity.status(201).body(pieces.deposer(acteur.obtenir(), id, fichier.getOriginalFilename(), fichier.getBytes()));
+    }
+
+    /** Pièces déposées sur un dossier (agent). */
+    @GetMapping("/api/v1/demandes/{id}/pieces")
+    java.util.List<com.neamindustry.casier.demandes.PiecesJustificatives.Piece> pieces(@PathVariable UUID id) {
+        return pieces.pieces(acteur.obtenir(), id);
+    }
+
+    /** Ouverture d'une pièce par un agent (journalisée). */
+    @GetMapping("/api/v1/demandes/{id}/pieces/{pieceId}")
+    ResponseEntity<byte[]> piece(@PathVariable UUID id, @PathVariable UUID pieceId) {
+        var f = pieces.ouvrir(acteur.obtenir(), id, pieceId);
+        return ResponseEntity.ok()
+                .contentType(org.springframework.http.MediaType.parseMediaType(f.typeMime()))
+                .header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION,
+                        org.springframework.http.ContentDisposition.inline().filename(f.nomFichier(), java.nio.charset.StandardCharsets.UTF_8).build().toString())
+                .header(org.springframework.http.HttpHeaders.CACHE_CONTROL, "no-store")
+                .header("X-Content-Type-Options", "nosniff")
+                .body(f.contenu());
     }
 
     /** IDT-06 : décision motivée de l'agent sur l'identité ; le contenu du bulletin reste calculé par le moteur. */

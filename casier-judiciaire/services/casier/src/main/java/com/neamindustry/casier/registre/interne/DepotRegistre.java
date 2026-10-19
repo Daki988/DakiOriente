@@ -294,4 +294,42 @@ public class DepotRegistre {
             return new EnAttente(c, personne(c.personneId()).orElseThrow().identite());
         }).toList();
     }
+
+    /** Mentions saisies en attente de validation (toutes juridictions si {@code juridiction} est nulle). */
+    public record MentionAValider(MentionEnregistree mention, CondamnationEnregistree condamnation, IdentitePersonne identite) {
+    }
+
+    public List<MentionAValider> mentionsEnAttente(String juridiction) {
+        List<UUID> ids = jdbc.sql("""
+                        select m.id from registre.mention m join registre.condamnation c on c.id = m.condamnation_id
+                        where m.statut = 'SAISIE' and (cast(:j as text) is null or c.juridiction = :j)
+                        order by m.saisie_le limit 200""")
+                .param("j", juridiction).query(UUID.class).list();
+        return ids.stream().map(id -> {
+            MentionEnregistree m = mention(id).orElseThrow();
+            CondamnationEnregistree c = condamnation(m.condamnationId()).orElseThrow();
+            return new MentionAValider(m, c, personne(c.personneId()).orElseThrow().identite());
+        }).toList();
+    }
+
+    /** Contestations ouvertes (blocages RG-07), de la plus ancienne à la plus récente. */
+    public record BlocageOuvert(UUID id, UUID personneId, String motif, String ouvertPar, Instant ouvertLe, IdentitePersonne identite) {
+    }
+
+    public List<BlocageOuvert> blocagesOuverts() {
+        record Ligne(UUID id, UUID personneId, String motif, String ouvertPar, Instant ouvertLe) {
+        }
+        List<Ligne> lignes = jdbc.sql("""
+                        select id, personne_id, motif, ouvert_par, ouvert_le from registre.blocage
+                        where clos_le is null order by ouvert_le limit 200""")
+                .query((rs, n) -> new Ligne(rs.getObject("id", UUID.class), rs.getObject("personne_id", UUID.class),
+                        rs.getString("motif"), rs.getString("ouvert_par"), rs.getTimestamp("ouvert_le").toInstant()))
+                .list();
+        return lignes.stream().map(l -> new BlocageOuvert(l.id(), l.personneId(), l.motif(), l.ouvertPar(), l.ouvertLe(),
+                personne(l.personneId()).orElseThrow().identite())).toList();
+    }
+
+    public void rejeterMention(MentionEnregistree avant, String par, Instant le) {
+        changerStatutMention(avant, StatutInscription.REJETEE, par, le);
+    }
 }

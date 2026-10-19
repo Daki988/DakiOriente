@@ -90,6 +90,24 @@ class RegistreControleur {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/mentions/{id}/rejet")
+    ResponseEntity<Void> rejeterMention(@PathVariable UUID id, @Valid @RequestBody Motif m) {
+        inscriptions.rejeterMention(acteur.obtenir(), id, m.motif());
+        return ResponseEntity.noContent().build();
+    }
+
+    /** Mentions à valider par le greffier en chef. */
+    @GetMapping("/mentions-en-attente")
+    List<com.neamindustry.casier.registre.MentionEnAttente> mentionsEnAttente() {
+        return consultation.mentionsEnAttente(acteur.obtenir());
+    }
+
+    /** RG-07 : contestations en cours. */
+    @GetMapping("/contestations")
+    List<com.neamindustry.casier.registre.ContestationOuverte> contestations() {
+        return consultation.contestations(acteur.obtenir());
+    }
+
     /** RG-07 : une contestation bloque l'émission automatique jusqu'à sa clôture. */
     @PostMapping("/personnes/{personneId}/contestations")
     ResponseEntity<Identifiant> contester(@PathVariable UUID personneId, @Valid @RequestBody Motif m) {

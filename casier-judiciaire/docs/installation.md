@@ -87,7 +87,7 @@ docker compose -f docker-compose.complet.yml --env-file .env up -d --build
 
 - Portail : `http://<serveur>:3000` (placer un proxy HTTPS devant, par exemple Nginx ou Caddy).
 - Service métier : `http://127.0.0.1:8080` (documentation de l'API : `/swagger-ui.html`).
-- Keycloak : `http://127.0.0.1:8180` (royaume `casier`, rôles R01 à R14).
+- Keycloak : `http://127.0.0.1:8180` (royaume `casier`, rôles R01, R02 et R05 à R14).
 - Comptes de démonstration fictifs, un par profil :
   ```sh
   set -a; . ./.env; set +a
@@ -101,10 +101,32 @@ redirection du client `portail`. Sans `OIDC_EMETTEUR`, le portail propose les co
 
 Au premier démarrage, le service crée la base (migrations), charge le barème et le jeu de règles fictif, et active le simulateur de paiement (profil `demo`).
 
+### Gestion des agents depuis la plateforme
+
+L'administrateur (rôle R13) crée les comptes des agents, change leur rôle et les désactive depuis son espace. Le service
+passe par le client Keycloak `casier-gestion-agents` (créé à l'import du royaume, limité à la gestion des utilisateurs) :
+dans la console Keycloak, ouvrir ce client, onglet *Credentials*, copier le secret dans `CASIER_AGENTS_SECRET` (fichier
+`.env`), puis relancer le service. Sans ce secret, l'écran de gestion des agents indique que la fonction n'est pas configurée.
+Le rôle d'administrateur (R13) ne s'attribue jamais depuis la plateforme, seulement dans la console Keycloak.
+
+### Sauvegardes
+
+`sauvegarde/sauvegarder.sh` produit une copie de la base chiffrée en AES-256, avec son empreinte, en garde 30 jours et
+la copie hors site si `CASIER_SAUVEGARDE_DISTANTE` est renseigné. À planifier chaque nuit :
+
+```sh
+head -c 48 /dev/urandom > /root/cle-sauvegarde-casier && chmod 600 /root/cle-sauvegarde-casier   # conserver aussi une copie hors du serveur
+echo "CASIER_CLE_SAUVEGARDE=/root/cle-sauvegarde-casier" >> .env
+crontab -e   # 0 2 * * * cd /opt/casier/infra && ./sauvegarde/sauvegarder.sh >> /var/log/casier-sauvegarde.log 2>&1
+```
+
+Chaque mois, tester la restauration dans une base séparée : `./sauvegarde/restaurer.sh <fichier>` (la base en service
+n'est pas touchée). Sans la clé, une sauvegarde est illisible : la perdre, c'est perdre les sauvegardes.
+
 ## Vérifications effectuées sur ce paquet
 
 - Pile complète lancée depuis ce paquet : service démarré, base créée, référentiels chargés ; portail relié au service (tarifs, vérification, toutes les pages).
-- 60 tests du service sur base PostgreSQL réelle (parcours complet, bulletin PDF scellé et détection de falsification, journal inaltérable, registre sans suppression), couverture du cœur métier ≥ 85 %.
+- 66 tests du service sur base PostgreSQL réelle (parcours complet, réclamations, comptabilité, dépôt de pièces, gestion des agents, bulletin PDF scellé et détection de falsification, journal inaltérable, registre sans suppression), couverture du cœur métier ≥ 85 %.
 - 136 tests du portail (affichage sans débordement de 320 px à la tablette, parcours, paiement au Trésor, impression, transparence, satisfaction, orientation, espaces connectés, dépôt de PDF, accessibilité WCAG 2.1 AA, mobile et ordinateur).
 - Analyses de sécurité (Trivy, gitleaks, Semgrep) sans alerte haute ni critique.
 

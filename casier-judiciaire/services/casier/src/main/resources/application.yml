@@ -75,6 +75,12 @@ casier:
       mot-de-passe: ${CASIER_SCEAU_MOT_DE_PASSE:}
       alias: ${CASIER_SCEAU_ALIAS:}
       exiger-certificat: false
+  agents:
+    # Gestion des comptes des agents via l'administration Keycloak (client technique « casier-gestion-agents »).
+    adresse: ${CASIER_AGENTS_ADRESSE:}
+    royaume: ${CASIER_AGENTS_ROYAUME:casier}
+    client: casier-gestion-agents
+    secret: ${CASIER_AGENTS_SECRET:}
   referentiels:
     import-au-demarrage: false
     dossier: ${CASIER_REFERENTIELS:../../referentiels}

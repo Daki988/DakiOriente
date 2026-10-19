@@ -44,6 +44,12 @@ class BulletinsControleur {
         return bulletins.mesBulletins(acteur.obtenir());
     }
 
+    /** BUL-10 : recherche d'un bulletin par son numéro, avant révocation. */
+    @GetMapping("/recherche")
+    com.neamindustry.casier.bulletins.BulletinTrouve rechercher(@org.springframework.web.bind.annotation.RequestParam String numero) {
+        return bulletins.rechercher(acteur.obtenir(), numero);
+    }
+
     /** BUL-01 : bulletin PDF/A scellé, téléchargé par son seul destinataire. */
     @GetMapping("/{id}/pdf")
     ResponseEntity<byte[]> pdf(@PathVariable UUID id) {

@@ -44,6 +44,9 @@ services:
       CASIER_OIDC_JWKS: http://keycloak:8080/realms/casier/protocol/openid-connect/certs
       CASIER_REFERENTIELS: /referentiels
       CASIER_PAIEMENT_SECRET: ${CASIER_PAIEMENT_SECRET:-}
+      # Gestion des agents : secret du client « casier-gestion-agents », à copier depuis la console Keycloak.
+      CASIER_AGENTS_ADRESSE: http://keycloak:8080
+      CASIER_AGENTS_SECRET: ${CASIER_AGENTS_SECRET:-}
     volumes:
       - ${CHEMIN_REFERENTIELS:-../referentiels}:/referentiels:ro
     ports:
