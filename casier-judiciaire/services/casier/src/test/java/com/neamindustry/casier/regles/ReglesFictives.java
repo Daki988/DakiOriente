@@ -8,7 +8,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
-import com.neamindustry.casier.commun.NaturePeine;
 import com.neamindustry.casier.commun.Peine;
 import com.neamindustry.casier.commun.Qualification;
 import com.neamindustry.casier.commun.Sursis;
@@ -26,16 +25,11 @@ public final class ReglesFictives {
 
     public static ReglesBulletins contenu(boolean effacementAutomatique) {
         return new ReglesBulletins("FICTIF — tests du moteur, sans valeur juridique",
-                Map.of(
-                        TypeBulletin.B1, new RegleBulletin(EnumSet.allOf(Qualification.class), EnumSet.allOf(NaturePeine.class),
-                                false, true, null, false, false),
-                        TypeBulletin.B2, new RegleBulletin(EnumSet.of(CRIME, DELIT), EnumSet.allOf(NaturePeine.class),
-                                false, true, 5, true, true),
-                        TypeBulletin.B3, new RegleBulletin(EnumSet.of(CRIME, DELIT), EnumSet.of(EMPRISONNEMENT),
-                                false, false, null, true, true)),
+                Map.of(TypeBulletin.B3, new RegleBulletin(EnumSet.of(CRIME, DELIT), EnumSet.of(EMPRISONNEMENT),
+                        false, false, 5, true, true)),
                 Map.of(CONTRAVENTION, 3, DELIT, 10, CRIME, 20),
                 effacementAutomatique,
-                Map.of(TypeBulletin.B1, 30, TypeBulletin.B2, 90, TypeBulletin.B3, 90));
+                Map.of(TypeBulletin.B3, 90));
     }
 
     public static Peine prison(int mois, Sursis sursis) {

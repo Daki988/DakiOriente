@@ -55,22 +55,21 @@ class CalculateurBulletinTest {
     }
 
     @Test
-    @DisplayName("RG-04 : le B2 retient l'amende délictuelle mais pas la contravention")
-    void b2() {
-        ResultatCalcul r = calculer(TypeBulletin.B2,
-                condamnation("C4", LocalDate.of(2024, 3, 3), DELIT, List.of(amende(100_000))),
-                condamnation("C5", LocalDate.of(2025, 3, 3), CONTRAVENTION, List.of(amende(10_000))));
+    @DisplayName("RG-04 : le B3 retient l'emprisonnement pour délit mais pas la contravention")
+    void contraventionExclue() {
+        ResultatCalcul r = calculer(TypeBulletin.B3,
+                condamnation("C4", LocalDate.of(2024, 3, 3), DELIT, List.of(prison(3, Sursis.AUCUN))),
+                condamnation("C5", LocalDate.of(2025, 3, 3), CONTRAVENTION, List.of(prison(1, Sursis.AUCUN))));
         assertThat(r.retenues()).containsExactly("C4");
         assertThat(r.exclusions()).extracting(ResultatCalcul.Exclusion::reference).containsExactly("C5");
     }
 
     @Test
-    @DisplayName("RG-04 : la réhabilitation retire la condamnation du B2 mais pas du B1")
+    @DisplayName("RG-04 : la réhabilitation retire la condamnation du B3")
     void rehabilitation() {
         CondamnationPourCalcul c = condamnation("C6", LocalDate.of(2015, 6, 1), CRIME, List.of(prison(36, Sursis.AUCUN)),
                 mention(TypeMention.REHABILITATION, LocalDate.of(2024, 6, 1)));
-        assertThat(calculer(TypeBulletin.B2, c).neant()).isTrue();
-        assertThat(calculer(TypeBulletin.B1, c).retenues()).containsExactly("C6");
+        assertThat(calculer(TypeBulletin.B3, c).neant()).isTrue();
     }
 
     @Test
@@ -94,15 +93,15 @@ class CalculateurBulletinTest {
     @DisplayName("RG-11 : délai d'effacement atteint → condamnation retirée de tous les bulletins (effacement automatique)")
     void effacementAutomatique() {
         CondamnationPourCalcul c = condamnation("C9", LocalDate.of(2012, 4, 1), DELIT, List.of(prison(12, Sursis.AUCUN)));
-        assertThat(calculer(TypeBulletin.B1, c).neant()).isTrue();
-        assertThat(calculer(TypeBulletin.B1, c).exclusions().getFirst().motif()).contains("10 ans");
+        assertThat(calculer(TypeBulletin.B3, c).neant()).isTrue();
+        assertThat(calculer(TypeBulletin.B3, c).exclusions().getFirst().motif()).contains("10 ans");
     }
 
     @Test
     @DisplayName("RG-11 : sans effacement automatique, la condamnation reste et passe en validation du greffier en chef")
     void effacementAValider() {
         CondamnationPourCalcul c = condamnation("C9", LocalDate.of(2012, 4, 1), DELIT, List.of(prison(12, Sursis.AUCUN)));
-        ResultatCalcul r = CalculateurBulletin.calculer(contenu(false), 1, TypeBulletin.B1, List.of(c), AUJOURDHUI);
+        ResultatCalcul r = CalculateurBulletin.calculer(contenu(false), 1, TypeBulletin.B3, List.of(c), AUJOURDHUI);
         assertThat(r.retenues()).containsExactly("C9");
         assertThat(r.effacementsAValider()).containsExactly("C9");
     }
@@ -112,7 +111,7 @@ class CalculateurBulletinTest {
     void mentionEffacement() {
         CondamnationPourCalcul c = condamnation("C10", LocalDate.of(2022, 4, 1), CRIME, List.of(prison(60, Sursis.AUCUN)),
                 mention(TypeMention.EFFACEMENT, LocalDate.of(2026, 1, 1)));
-        assertThat(calculer(TypeBulletin.B1, c).neant()).isTrue();
+        assertThat(calculer(TypeBulletin.B3, c).neant()).isTrue();
     }
 
     @Test
@@ -121,18 +120,18 @@ class CalculateurBulletinTest {
         CondamnationPourCalcul nonDefinitive = new CondamnationPourCalcul("C11", LocalDate.of(2026, 9, 1), DELIT,
                 List.of(prison(3, Sursis.AUCUN)), false, List.of());
         CondamnationPourCalcul future = condamnation("C12", AUJOURDHUI.plusDays(1), DELIT, List.of(prison(3, Sursis.AUCUN)));
-        ResultatCalcul r = calculer(TypeBulletin.B1, nonDefinitive, future);
+        ResultatCalcul r = calculer(TypeBulletin.B3, nonDefinitive, future);
         assertThat(r.neant()).isTrue();
         assertThat(r.exclusions()).extracting(ResultatCalcul.Exclusion::motif)
                 .containsExactly("Décision non définitive", "Décision postérieure à la date de l'état du casier");
     }
 
     @Test
-    @DisplayName("RG-04 : au B2, une peine avec sursis partiel non révoqué disparaît après le délai paramétré")
-    void sursisPartielB2() {
+    @DisplayName("RG-04 : au B3, une peine avec sursis partiel non révoqué disparaît après le délai paramétré")
+    void sursisPartiel() {
         CondamnationPourCalcul ancienne = condamnation("C13", LocalDate.of(2019, 1, 1), DELIT, List.of(prison(12, Sursis.PARTIEL)));
         CondamnationPourCalcul recente = condamnation("C14", LocalDate.of(2023, 1, 1), DELIT, List.of(prison(12, Sursis.PARTIEL)));
-        assertThat(calculer(TypeBulletin.B2, ancienne, recente).retenues()).containsExactly("C14");
+        assertThat(calculer(TypeBulletin.B3, ancienne, recente).retenues()).containsExactly("C14");
     }
 
     @Test

@@ -10,7 +10,6 @@
   ],
   "tarifs": [
     { "acte": "BULLETIN_N3", "profil": "GABONAIS_NE_AU_GABON", "montantFcfa": 1500, "libelle": "Bulletin n°3, Gabonais nés au Gabon (greffe correctionnel)" },
-    { "acte": "BULLETIN_N2", "profil": "ADMINISTRATION", "montantFcfa": 0, "libelle": "Bulletin n°2" },
     { "acte": "RELEVE_CONDAMNATIONS", "profil": "NATIONAL", "montantFcfa": 5000, "libelle": "Relevé de condamnations, nationaux (administration centrale)" },
     { "acte": "RELEVE_CONDAMNATIONS", "profil": "NON_NATIONAL", "montantFcfa": 20000, "libelle": "Relevé de condamnations, étrangers" },
     { "acte": "RELEVE_PERIODIQUE", "profil": "NON_NATIONAL", "montantFcfa": 5000, "libelle": "Relevé périodique de condamnations, non nationaux" },

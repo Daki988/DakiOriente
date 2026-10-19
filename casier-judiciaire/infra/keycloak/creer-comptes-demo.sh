@@ -26,5 +26,4 @@ creer agent.greffe     Clarisse    "MOUSSAVOU" R06 -s 'attributes.juridiction=["
 creer greffier.chef    Hervé       "OBAME"     R07 -s 'attributes.juridiction=["TPI-LIBREVILLE"]'
 creer magistrat.demo   Sylvie      "NZE"       R05 -s 'attributes.juridiction=["TPI-LIBREVILLE"]'
 creer direction.demo   Paul        "MBADINGA"  R08
-creer administration.demo Rose     "KOUMBA"    R03 -s 'attributes.organisme=["FONCTION-PUBLIQUE"]'
 creer auditeur.demo    Marc        "ESSONO"    R12

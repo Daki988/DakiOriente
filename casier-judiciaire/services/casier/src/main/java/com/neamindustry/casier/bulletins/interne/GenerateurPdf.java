@@ -71,12 +71,8 @@ public class GenerateurPdf {
     private static final float[] NAVY = {15 / 255f, 29 / 255f, 54 / 255f};
     private static final float[] GRIS = {0.38f, 0.42f, 0.48f};
     private static final Map<TypeBulletin, String> TITRES = new EnumMap<>(Map.of(
-            TypeBulletin.B1, "Bulletin n°1 du casier judiciaire",
-            TypeBulletin.B2, "Bulletin n°2 du casier judiciaire",
             TypeBulletin.B3, "Bulletin n°3 du casier judiciaire"));
     private static final Map<TypeBulletin, String> DESTINATAIRES = new EnumMap<>(Map.of(
-            TypeBulletin.B1, "Relevé intégral réservé à l’autorité judiciaire",
-            TypeBulletin.B2, "Extrait délivré à une administration habilitée",
             TypeBulletin.B3, "Extrait délivré à la personne concernée"));
 
     private final ParametresBulletins parametres;
@@ -157,8 +153,7 @@ public class GenerateurPdf {
             cs.saveGraphicsState();
             cs.setGraphicsStateParameters(transparence);
             cs.setNonStrokingColor(NAVY[0], NAVY[1], NAVY[2]);
-            texteTourne(p.titre, 64, d.contenu().type() == TypeBulletin.B3 ? "BULLETIN N°3"
-                    : d.contenu().type() == TypeBulletin.B2 ? "BULLETIN N°2" : "BULLETIN N°1", LARGEUR / 2 - 230, HAUTEUR / 2 - 120);
+            texteTourne(p.titre, 64, "BULLETIN N°3", LARGEUR / 2 - 230, HAUTEUR / 2 - 120);
             cs.restoreGraphicsState();
             if (parametres.specimen() || d.sceauDemonstration()) {
                 PDExtendedGraphicsState rouge = new PDExtendedGraphicsState();
@@ -223,8 +218,7 @@ public class GenerateurPdf {
             texte(p.titre, 21, TITRES.get(c.type()), MARGE, y);
             y -= 17;
             couleur(GRIS);
-            texte(p.texte, 10, DESTINATAIRES.get(c.type()) + (d.finalite() != null && c.type() == TypeBulletin.B2
-                    ? " — finalité : " + d.finalite() : ""), MARGE, y);
+            texte(p.texte, 10, DESTINATAIRES.get(c.type()), MARGE, y);
             y -= 28;
 
             IdentiteSurBulletin i = c.identite();

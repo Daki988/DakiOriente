@@ -17,8 +17,6 @@ export const questions: { id: string; theme: string; q: string; r: string }[] = 
 
 export const glossaire: { terme: string; definition: string }[] = [
   { terme: 'Casier judiciaire', definition: 'Registre national tenu par le Ministère de la Justice, Garde des Sceaux, chargé des Droits humains, qui conserve les condamnations prononcées par les juridictions.' },
-  { terme: 'Bulletin n°1', definition: 'Relevé complet du casier, réservé aux magistrats.' },
-  { terme: 'Bulletin n°2', definition: 'Extrait réservé aux administrations et organismes habilités par la loi, pour des finalités précises.' },
   { terme: 'Bulletin n°3', definition: 'Extrait le plus court, délivré uniquement à la personne concernée.' },
   { terme: 'Néant', definition: 'Mention portée sur le bulletin quand aucune condamnation ne doit y figurer.' },
   { terme: 'Réhabilitation', definition: 'Effacement des effets d’une condamnation, de plein droit après un certain délai ou sur décision de justice.' },

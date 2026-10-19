@@ -14,7 +14,7 @@ import com.neamindustry.casier.habilitations.Acteur;
  * @param objetType         type d'objet concerné
  * @param objetId           identifiant de l'objet
  * @param personneConcernee personne dont le casier est touché, sinon {@code null}
- * @param finalite          finalité ou motif déclaré (numéro de procédure, finalité B2, motif de révocation…)
+ * @param finalite          finalité ou motif déclaré (numéro de procédure, motif de révocation…)
  * @param details           détails complémentaires, sans donnée pénale inutile (DON-02)
  */
 public record EvenementAudit(String acteurId, String roles, String action, String objetType, String objetId,

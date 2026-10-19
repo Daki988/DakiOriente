@@ -19,7 +19,6 @@ export const profils: { code: CodeProfil; titre: string; description: string; ic
 
 export const libellesActes: Record<string, string> = {
   BULLETIN_N3: 'Bulletin n°3',
-  BULLETIN_N2: 'Bulletin n°2',
   RELEVE_CONDAMNATIONS: 'Relevé de condamnations',
   RELEVE_PERIODIQUE: 'Relevé périodique de condamnations',
   RECHERCHE_ARCHIVES: 'Recherche dans les archives',
@@ -29,7 +28,6 @@ export const libellesProfils: Record<string, string> = {
   GABONAIS_NE_AU_GABON: 'Gabonais nés au Gabon',
   GABONAIS_NE_A_L_ETRANGER: 'Gabonais nés à l’étranger',
   ETRANGER_RESIDENT: 'Étrangers résidant au Gabon',
-  ADMINISTRATION: 'Administrations habilitées',
   NATIONAL: 'Nationaux',
   NON_NATIONAL: 'Non-nationaux',
   TOUS: 'Tous publics',

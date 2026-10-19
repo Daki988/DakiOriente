@@ -29,14 +29,6 @@
         "description": "Agent consulaire"
       },
       {
-        "name": "R03",
-        "description": "Agent d'administration habilitée"
-      },
-      {
-        "name": "R04",
-        "description": "Référent d'administration"
-      },
-      {
         "name": "R05",
         "description": "Magistrat, Parquet"
       },

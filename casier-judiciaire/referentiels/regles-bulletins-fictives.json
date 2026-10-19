@@ -6,43 +6,6 @@
   "contenu": {
     "reference": "FICTIF — démonstration, sans valeur juridique",
     "parBulletin": {
-      "B1": {
-        "qualifications": [
-          "CRIME",
-          "DELIT",
-          "CONTRAVENTION"
-        ],
-        "natures": [
-          "EMPRISONNEMENT",
-          "AMENDE",
-          "TRAVAIL_INTERET_GENERAL",
-          "PEINE_COMPLEMENTAIRE",
-          "AUTRE"
-        ],
-        "inclureNonDefinitives": false,
-        "inclureSursisTotal": true,
-        "sursisExcluApresAnnees": null,
-        "exclureApresRehabilitation": false,
-        "exclureApresAmnistie": false
-      },
-      "B2": {
-        "qualifications": [
-          "CRIME",
-          "DELIT"
-        ],
-        "natures": [
-          "EMPRISONNEMENT",
-          "AMENDE",
-          "TRAVAIL_INTERET_GENERAL",
-          "PEINE_COMPLEMENTAIRE",
-          "AUTRE"
-        ],
-        "inclureNonDefinitives": false,
-        "inclureSursisTotal": true,
-        "sursisExcluApresAnnees": 5,
-        "exclureApresRehabilitation": true,
-        "exclureApresAmnistie": true
-      },
       "B3": {
         "qualifications": [
           "CRIME",
@@ -65,8 +28,6 @@
     },
     "effacementAutomatique": true,
     "dureeValiditeJours": {
-      "B1": 30,
-      "B2": 90,
       "B3": 90
     }
   },
@@ -144,79 +105,6 @@
         }
       ],
       "retenuesAttendues": []
-    },
-    {
-      "libelle": "B2 : amende délictuelle retenue, contravention exclue",
-      "type": "B2",
-      "dateCalcul": "2026-10-16",
-      "condamnations": [
-        {
-          "reference": "C4",
-          "dateDecision": "2024-03-03",
-          "qualification": "DELIT",
-          "peines": [
-            {
-              "nature": "AMENDE",
-              "dureeMois": null,
-              "montantFcfa": 100000,
-              "sursis": "AUCUN",
-              "dureeSursisMois": null
-            }
-          ],
-          "definitive": true,
-          "mentions": []
-        },
-        {
-          "reference": "C5",
-          "dateDecision": "2025-03-03",
-          "qualification": "CONTRAVENTION",
-          "peines": [
-            {
-              "nature": "AMENDE",
-              "dureeMois": null,
-              "montantFcfa": 10000,
-              "sursis": "AUCUN",
-              "dureeSursisMois": null
-            }
-          ],
-          "definitive": true,
-          "mentions": []
-        }
-      ],
-      "retenuesAttendues": [
-        "C4"
-      ]
-    },
-    {
-      "libelle": "B1 : la réhabilitation ne retire pas la condamnation",
-      "type": "B1",
-      "dateCalcul": "2026-10-16",
-      "condamnations": [
-        {
-          "reference": "C6",
-          "dateDecision": "2015-06-01",
-          "qualification": "CRIME",
-          "peines": [
-            {
-              "nature": "EMPRISONNEMENT",
-              "dureeMois": 36,
-              "montantFcfa": null,
-              "sursis": "AUCUN",
-              "dureeSursisMois": null
-            }
-          ],
-          "definitive": true,
-          "mentions": [
-            {
-              "type": "REHABILITATION",
-              "date": "2024-06-01"
-            }
-          ]
-        }
-      ],
-      "retenuesAttendues": [
-        "C6"
-      ]
     }
   ]
 }

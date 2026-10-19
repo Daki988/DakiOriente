@@ -12,7 +12,7 @@ export default async function Regles() {
   const versions = await espaces.regles(s);
   return (
     <>
-      <TitreEspace titre="Paramètres juridiques" chapo="Règles de contenu des bulletins n°1, n°2 et n°3. Une version ne s’applique qu’après validation et à sa date d’effet." />
+      <TitreEspace titre="Paramètres juridiques" chapo="Règles de contenu du bulletin n°3. Une version ne s’applique qu’après validation et à sa date d’effet." />
       <MessageAction session={s} />
       {versions.some((v) => v.fictif) && (
         <Alerte type="avertissement" titre="Règles fictives">Les règles chargées sont des exemples sans valeur juridique, en attente de validation par le Ministère.</Alerte>

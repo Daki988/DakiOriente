@@ -16,7 +16,7 @@ const PRESENTATION: Record<StatutVerification, { classe: string; icone: NomIcone
     texte: 'Ce code ne correspond à aucun bulletin émis. Vérifiez la saisie ; si le code est exact, le document n’est pas authentique.' },
 };
 
-const TYPES = { B1: 'Bulletin n°1', B2: 'Bulletin n°2', B3: 'Bulletin n°3' } as const;
+const TYPES = { B3: 'Bulletin n°3' } as const;
 
 /**
  * Résultat de vérification (BUL-07) : authenticité, type, dates, statut et identité minimale pour rapprocher

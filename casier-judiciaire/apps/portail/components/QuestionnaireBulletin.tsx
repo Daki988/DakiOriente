@@ -3,14 +3,13 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Alerte, ChoixCarte, Icone, classesBouton, type NomIcone } from '@casier/design-system';
 
-type Qui = 'moi' | 'employeur' | 'autre' | 'justice';
+type Qui = 'moi' | 'employeur' | 'autre';
 type Situation = 'gabon' | 'etranger-ne' | 'etranger-resident';
 
 const QUI: { code: Qui; titre: string; description: string; icone: NomIcone }[] = [
   { code: 'moi', titre: 'Pour moi-même', description: 'Emploi, concours, visa, démarche administrative', icone: 'user' },
   { code: 'employeur', titre: 'Pour recruter ou instruire un dossier', description: 'Employeur, administration, organisme', icone: 'building-2' },
   { code: 'autre', titre: 'Pour une autre personne', description: 'Un proche, un candidat, un salarié', icone: 'users' },
-  { code: 'justice', titre: 'Pour une procédure judiciaire', description: 'Magistrat, greffier, officier de police judiciaire', icone: 'scale' },
 ];
 const SITUATIONS: { code: Situation; titre: string; icone: NomIcone }[] = [
   { code: 'gabon', titre: 'Je suis Gabonais, né au Gabon', icone: 'house' },
@@ -55,12 +54,10 @@ export function QuestionnaireBulletin() {
           </Alerte>
         )}
         {qui === 'employeur' && (
-          <Alerte type="info" titre="Deux possibilités">
-            <p>Un employeur privé demande au candidat son bulletin n°3, puis en vérifie l’authenticité gratuitement. Une administration
-              habilitée par la loi obtient le bulletin n°2 depuis son espace.</p>
+          <Alerte type="info" titre="Demandez le bulletin n°3 à la personne">
+            <p>La personne concernée demande son bulletin n°3 et vous le remet. Vous en vérifiez ensuite l’authenticité, gratuitement et sans compte.</p>
             <p className="cj-actions">
               <Link href="/verifier" className={classesBouton()}><Icone nom="qr-code" taille={20} /><span>Vérifier un bulletin</span></Link>
-              <Link href="/administrations" className={classesBouton({ variante: 'secondaire' })}>Administrations habilitées</Link>
             </p>
           </Alerte>
         )}
@@ -69,12 +66,6 @@ export function QuestionnaireBulletin() {
             <p>Seule la personne concernée peut le demander. Demandez-lui de faire sa demande en ligne et de vous remettre son bulletin :
               vous pourrez en vérifier l’authenticité.</p>
             <p className="cj-actions"><Link href="/verifier" className={classesBouton({ variante: 'secondaire' })}>Vérifier un bulletin reçu</Link></p>
-          </Alerte>
-        )}
-        {qui === 'justice' && (
-          <Alerte type="info" titre="Bulletin n°1, réservé à l’autorité judiciaire">
-            <p>Il se consulte depuis l’accès réservé communiqué par votre juridiction, avec un numéro de procédure.</p>
-            <p className="cj-actions"><Link href="/connexion" className={classesBouton({ variante: 'secondaire' })}>Se connecter</Link></p>
           </Alerte>
         )}
       </div>

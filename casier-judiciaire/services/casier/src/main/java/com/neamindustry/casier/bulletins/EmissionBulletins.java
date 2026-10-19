@@ -81,29 +81,6 @@ public class EmissionBulletins {
         return emettre(decideur, TypeBulletin.B3, demandeId, personneId, identite, null, destinataire, null);
     }
 
-    /** RG-02 : bulletin n°2 délivré à une administration habilitée, pour une finalité autorisée. */
-    @Transactional
-    public BulletinDelivre delivrerB2(Acteur agent, UUID personneId, IdentiteSurBulletin identite, String codeFinalite) {
-        habilitations.exigerFinaliteB2(agent, codeFinalite, LocalDate.now(horloge));
-        habilitations.exigerSansConflitInterets(agent, personneId);
-        return emettre(agent, TypeBulletin.B2, null, personneId, identite, codeFinalite, agent.identifiant(), agent.organisme());
-    }
-
-    /** RG-03 : bulletin n°1, consulté par un magistrat ou le Parquet avec un numéro de procédure. */
-    @Transactional
-    public ContenuBulletin consulterB1(Acteur magistrat, UUID personneId, String numeroProcedure) {
-        habilitations.exiger(magistrat, Permission.CONSULTER_B1);
-        if (numeroProcedure == null || numeroProcedure.isBlank()) {
-            throw new ErreurMetier("RG-03", "Le numéro de procédure est obligatoire pour consulter le bulletin n°1.");
-        }
-        habilitations.exigerSansConflitInterets(magistrat, personneId);
-        FicheCasier fiche = fiche(personneId);
-        ContenuBulletin contenu = calculer(TypeBulletin.B1, fiche, identite(fiche));
-        journal.enregistrer(EvenementAudit.par(magistrat, "B1_CONSULTE", "Fiche", personneId.toString(), personneId.toString(),
-                numeroProcedure, Map.of("neant", String.valueOf(contenu.neant()), "versionRegles", String.valueOf(contenu.versionRegles()))));
-        return contenu;
-    }
-
     /** BUL-10 : révocation motivée par un greffier en chef ; l'usager est prévenu (NOT, lot suivant). */
     @Transactional
     public void revoquer(Acteur greffier, UUID bulletinId, String motif) {
@@ -122,15 +99,12 @@ public class EmissionBulletins {
     }
 
     /**
-     * DSH-01, DSH-03 : téléchargement du bulletin scellé par son seul destinataire (l'usager pour le n°3, l'organisme
-     * pour le n°2). Chaque téléchargement est journalisé.
+     * DSH-01, DSH-03 : téléchargement du bulletin scellé par son seul destinataire. Chaque téléchargement est journalisé.
      */
     @Transactional
     public byte[] telecharger(Acteur acteur, UUID bulletinId) {
         String[] acces = depot.acces(bulletinId).orElseThrow(() -> new RessourceIntrouvable("Bulletin introuvable."));
-        boolean autorise = acteur.identifiant().equals(acces[0])
-                || (acces[1] != null && acces[1].equals(acteur.organisme()) && acteur.aLeRole(com.neamindustry.casier.habilitations.Role.R03));
-        if (!autorise) {
+        if (!acteur.identifiant().equals(acces[0])) {
             throw new com.neamindustry.casier.habilitations.AccesRefuse("RG-01", "Ce bulletin ne vous est pas destiné.");
         }
         byte[] document = depot.document(bulletinId).orElseThrow(() -> new RessourceIntrouvable("Document introuvable."));

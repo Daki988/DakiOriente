@@ -8,7 +8,7 @@ const STATUTS: Record<string, string> = {
   EN_ATTENTE_PAIEMENT: 'En attente de paiement', EN_TRAITEMENT: 'En traitement', A_TRAITER_PAR_AGENT: 'À traiter par un agent',
   EN_ATTENTE_PIECE: 'En attente de pièce', DELIVREE: 'Délivrées', REJETEE: 'Rejetées',
 };
-const BULLETINS: Record<string, string> = { B3_EMIS: 'Bulletins n°3 émis', B3_REVOQUE: 'Bulletins n°3 révoqués', B2_EMIS: 'Bulletins n°2 délivrés', B1_EMIS: 'Bulletins n°1 délivrés' };
+const BULLETINS: Record<string, string> = { B3_EMIS: 'Bulletins n°3 émis', B3_REVOQUE: 'Bulletins n°3 révoqués' };
 const n = (x: number) => x.toLocaleString('fr-FR').replace(/ | /g, ' ');
 
 /** DSH-07, DSH-08 : indicateurs nationaux agrégés, sans donnée nominative (DON-02). */

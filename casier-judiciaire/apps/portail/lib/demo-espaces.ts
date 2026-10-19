@@ -90,7 +90,7 @@ function initial(): Etat {
         proposeLe: '2026-10-01T08:00:00Z', validePar: 'import:regles-bulletins-fictives.json', valideLe: '2026-10-01T08:00:00Z',
         motifRejet: null, fictif: true, contenu: { reference: 'FICTIF — démonstration, sans valeur juridique' },
         casDeTest: [{ libelle: 'B3 : une amende délictuelle n’apparaît pas (néant)' }, { libelle: 'B3 : un emprisonnement ferme pour délit figure' },
-          { libelle: 'B3 : sursis total exclu' }, { libelle: 'B2 : amende délictuelle retenue, contravention exclue' }, { libelle: 'B1 : la réhabilitation ne retire pas la condamnation' }] },
+          { libelle: 'B3 : sursis total exclu' }] },
     ],
     journal: [],
     impressions: [
@@ -208,7 +208,7 @@ export const demoEspaces = {
       EN_ATTENTE_PIECE: 12, EN_TRAITEMENT: 4, EN_ATTENTE_PAIEMENT: 58, REJETEE: 9 }, total: 1406, delivrees: 1284,
       delivreesAutomatiquement: 1093, delaiMoyenHeures: 3.4, enRetard: 2, recettesFcfa: 1926000,
       satisfaction: avisDemo() },
-    bulletins: { B3_EMIS: 1271, B3_REVOQUE: 3, B2_EMIS: 214 }, verifications: 2952,
+    bulletins: { B3_EMIS: 1271, B3_REVOQUE: 3 }, verifications: 2952,
   }),
   tarifs: () => (rafraichir(), etat.tarifs),
   proposerTarif(s: Session, t: Omit<TarifComplet, 'id' | 'statut' | 'proposePar' | 'validePar' | 'source'> & { source?: string }) {

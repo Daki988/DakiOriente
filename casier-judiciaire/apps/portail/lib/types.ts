@@ -6,7 +6,7 @@ export type Tarif = {
 export type StatutVerification = 'VALIDE' | 'EXPIRE' | 'REVOQUE' | 'INCONNU';
 
 export type ResultatVerification = {
-  authentique: boolean; statut: StatutVerification; type: 'B1' | 'B2' | 'B3' | null; numero: string | null;
+  authentique: boolean; statut: StatutVerification; type: 'B3' | null; numero: string | null;
   dateEmission: string | null; dateExpiration: string | null; nom: string | null; prenoms: string | null; dateNaissance: string | null;
 };
 

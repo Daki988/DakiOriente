@@ -1,11 +1,9 @@
 package com.neamindustry.casier.habilitations;
 
-/** Les quatorze rôles de la plateforme (section 5). */
+/** Les rôles de la plateforme (section 5). */
 public enum Role {
     R01("Usager"),
     R02("Agent consulaire"),
-    R03("Agent d'administration habilitée"),
-    R04("Référent d'administration"),
     R05("Magistrat, Parquet"),
     R06("Agent du casier (greffe)"),
     R07("Greffier en chef"),

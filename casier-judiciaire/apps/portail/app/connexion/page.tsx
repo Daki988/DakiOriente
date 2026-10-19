@@ -14,10 +14,10 @@ function BoutonConnexion({ href, variante, children }: { href: string; variante?
   return <a href={href} className={classesBouton({ variante })} style={{ alignSelf: 'flex-start' }}>{children}</a>;
 }
 
-export const metadata: Metadata = { title: 'Connexion', description: 'Accéder à votre espace usager ou à l’espace administration.' };
+export const metadata: Metadata = { title: 'Connexion', description: 'Accéder à votre espace usager ou à l’espace agent.' };
 
 /**
- * PUB-14 : connexion usager (identité numérique nationale) et administrations (double facteur).
+ * PUB-14 : connexion usager (identité numérique nationale) et agents de la Justice (double facteur).
  * Le personnel judiciaire se connecte sur un accès séparé, non référencé ici (section 18).
  */
 export const dynamic = 'force-dynamic';
@@ -45,12 +45,12 @@ export default async function Connexion({ searchParams }: { searchParams: Promis
             </BoutonConnexion>
             <p className="p-note"><Icone nom="info" taille={18} /><span>Pas encore d’identité numérique ? Vous pouvez faire votre demande et déposer vos pièces : <Link href="/demande">commencer</Link>.</span></p>
           </section>
-          <section className="p-encadre cj-pile" aria-labelledby="titre-administrations" id="administrations">
+          <section className="p-encadre cj-pile" aria-labelledby="titre-agents" id="agents">
             <span className="cj-carte__icone"><Icone nom="building-2" /></span>
-            <h2 id="titre-administrations" className="p-titre-encadre">Administrations habilitées</h2>
-            <p>Agents et gestionnaires des organismes habilités : connexion par identifiant et double facteur d’authentification.</p>
+            <h2 id="titre-agents" className="p-titre-encadre">Agents de la Justice</h2>
+            <p>Greffes, magistrats et services du Ministère : connexion par identifiant et double facteur d’authentification.</p>
             <BoutonConnexion href={lien} variante="secondaire">
-              <Icone nom="lock" taille={20} /><span>Accéder à l’espace administration</span>
+              <Icone nom="lock" taille={20} /><span>Accéder à l’espace agent</span>
             </BoutonConnexion>
           </section>
         </div>
