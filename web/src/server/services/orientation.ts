@@ -1,9 +1,18 @@
 import { and, desc, eq, inArray, isNotNull } from "drizzle-orm";
+import { z } from "zod";
 import { db, schema } from "../db";
 import { publishable } from "./establishments";
 
 /** Enregistre un résultat de test RIASEC et met à jour le profil. */
-export async function saveResult(userId: string, answers: (number | null)[], scores: Record<string, number>, top: string[]) {
+const CODE = z.enum(["R", "I", "A", "S", "E", "C"]);
+const resultSchema = z.object({
+  answers: z.array(z.number().nullable()).max(300),
+  scores: z.partialRecord(CODE, z.number().finite()),
+  top: z.array(CODE).min(1).max(6),
+});
+
+export async function saveResult(userId: string, rawAnswers: unknown, rawScores: unknown, rawTop: unknown) {
+  const { answers, scores, top } = resultSchema.parse({ answers: rawAnswers, scores: rawScores, top: rawTop });
   const [r] = await db.insert(schema.orientationResults).values({ userId, answers, scores, top }).returning();
   await db.insert(schema.profiles).values({ userId, riasec: { scores, top } }).onConflictDoUpdate({ target: schema.profiles.userId, set: { riasec: { scores, top } } });
   return r;

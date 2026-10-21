@@ -25,6 +25,7 @@ export async function listAppointments(user: User) {
 
 export async function scheduleAppointment(counselor: User, id: string, scheduledAt: Date, notes?: string) {
   if (counselor.role !== "conseiller" && counselor.role !== "admin") throw forbidden();
+  if (Number.isNaN(scheduledAt.getTime())) throw new AppError("Indiquez une date et une heure valides.");
   const [a] = await db.update(schema.appointments).set({ counselorId: counselor.id, scheduledAt, status: "confirme", notes: notes ?? null }).where(and(eq(schema.appointments.id, id), eq(schema.appointments.status, "demande"))).returning();
   if (!a) throw new AppError("Rendez-vous déjà traité ou introuvable.");
   await findOrCreateConversation(`Conseil d'orientation · ${a.topic}`, [a.studentId, counselor.id], { kind: "conseil", id: a.id });

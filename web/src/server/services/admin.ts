@@ -61,9 +61,18 @@ export async function listEstablishmentsAdmin(a: User, f: { status?: string; pay
 }
 
 type Label = "reconnu_etat" | "diplomes_homologues" | "professionnel" | "autorise";
-export async function updateEstablishmentAdmin(a: User, id: string, patch: { status?: "importe" | "revendique" | "verifie" | "suspendu"; featured?: boolean; plan?: string; label?: Label | null; recognition?: string | null }) {
+const establishmentPatch = z.object({
+  status: z.enum(schema.establishmentStatusEnum.enumValues).optional(),
+  featured: z.boolean().optional(),
+  plan: z.string().trim().min(1).max(40).optional(),
+  label: z.enum(["reconnu_etat", "diplomes_homologues", "professionnel", "autorise"], { message: "Label inconnu." }).nullable().optional(),
+  recognition: z.string().max(500).nullable().optional(),
+}).strict();
+
+export async function updateEstablishmentAdmin(a: User, id: string, raw: { status?: "importe" | "revendique" | "verifie" | "suspendu"; featured?: boolean; plan?: string; label?: Label | null; recognition?: string | null }) {
   admin(a);
-  if (patch.label !== undefined && patch.label !== null && !["reconnu_etat", "diplomes_homologues", "professionnel", "autorise"].includes(patch.label)) throw new AppError("Label inconnu.");
+  const patch = establishmentPatch.parse(raw);
+  if (!Object.keys(patch).length) throw new AppError("Aucune modification.");
   const [e] = await db.update(schema.establishments).set(patch).where(eq(schema.establishments.id, id)).returning();
   if (!e) throw notFound("Établissement");
   await audit(a.id, "maj_etablissement", "establishment", id, patch);
@@ -74,10 +83,14 @@ export async function updateEstablishmentAdmin(a: User, id: string, patch: { sta
 const REF = { metiers: schema.refMetiers, formations: schema.refFormations, series: schema.refSeries, competences: schema.refCompetences, domaines: schema.refDomaines, pays: schema.refPays } as const;
 export type RefName = keyof typeof REF;
 export const refNames = Object.keys(REF) as RefName[];
+const refTable = (name: string) => {
+  if (!Object.hasOwn(REF, name)) throw notFound("Référentiel");
+  return REF[name as RefName];
+};
 
 export async function listRef(a: User, name: RefName, q?: string) {
   admin(a);
-  const t = REF[name];
+  const t = refTable(name);
   const rows = await db.select().from(t);
   const items = rows.map((r) => ({ ...(r.data as object), id: r.id, published: "published" in r ? r.published : true }));
   return q ? items.filter((x) => JSON.stringify(x).toLowerCase().includes(q.toLowerCase())) : items;
@@ -88,7 +101,7 @@ const itemSchema = z.object({ id: z.string().regex(/^[A-Za-z0-9-]+$/, "Identifia
 export async function saveRefItem(a: User, name: RefName, raw: Record<string, unknown>) {
   admin(a);
   const item = itemSchema.parse(raw) as Record<string, unknown> & { id: string };
-  const t = REF[name];
+  const t = refTable(name);
   const [before] = await db.select().from(t).where(eq(t.id, item.id));
   const { published, ...data } = item as { published?: boolean } & typeof item;
   const cols: Record<string, unknown> = { data };
@@ -104,7 +117,7 @@ export async function saveRefItem(a: User, name: RefName, raw: Record<string, un
 
 export async function deleteRefItem(a: User, name: RefName, id: string) {
   admin(a);
-  const t = REF[name];
+  const t = refTable(name);
   const [before] = await db.delete(t).where(eq(t.id, id)).returning();
   if (!before) throw notFound("Élément");
   await db.insert(schema.refVersions).values({ referentiel: name, action: "suppression", itemId: id, before: before.data, after: null, authorId: a.id });
@@ -166,13 +179,18 @@ export async function getArticle(slug: string) {
   return r;
 }
 
-export async function saveTestimonial(a: User, i: { name: string; role: string; quote: string; pays?: string; published?: boolean }, id?: string) {
+const testimonialSchema = z.object({ name: z.string().trim().min(2).max(120), role: z.string().trim().min(2).max(120), quote: z.string().trim().min(10).max(1000), pays: z.string().max(2).optional(), published: z.boolean().optional() });
+const partnerSchema = z.object({ name: z.string().trim().min(2).max(160), kind: z.string().trim().min(2).max(40), url: z.string().url().optional(), logo: z.string().max(500).optional(), featured: z.boolean().optional() });
+
+export async function saveTestimonial(a: User, raw: z.input<typeof testimonialSchema>, id?: string) {
   admin(a);
+  const i = testimonialSchema.parse(raw);
   if (id) return (await db.update(schema.testimonials).set(i).where(eq(schema.testimonials.id, id)).returning())[0];
   return (await db.insert(schema.testimonials).values(i).returning())[0];
 }
-export async function savePartner(a: User, i: { name: string; kind: string; url?: string; logo?: string; featured?: boolean }, id?: string) {
+export async function savePartner(a: User, raw: z.input<typeof partnerSchema>, id?: string) {
   admin(a);
+  const i = partnerSchema.parse(raw);
   if (id) return (await db.update(schema.partners).set(i).where(eq(schema.partners.id, id)).returning())[0];
   return (await db.insert(schema.partners).values(i).returning())[0];
 }

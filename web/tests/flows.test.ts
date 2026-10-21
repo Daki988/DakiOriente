@@ -227,6 +227,17 @@ describe("back-office et recommandations", () => {
     expect(r.metiers.length).toBeGreaterThan(3);
     expect(r.offres.length).toBeGreaterThan(0);
   });
+  it("saisies invalides refusées proprement (audit fonctionnel)", async () => {
+    await expect(orient.saveResult(student.id, { q0: 2 }, { I: 3 }, ["I"])).rejects.toThrow();
+    await expect(orient.saveResult(student.id, [1], { I: 3 }, ["Z"])).rejects.toThrow();
+    await expect(admin.updateEstablishmentAdmin(adminU, "ma-esa-casa", { status: "inconnu" as never })).rejects.toThrow();
+    await expect(admin.updateEstablishmentAdmin(adminU, "ma-esa-casa", {})).rejects.toThrow(/Aucune modification/);
+    await expect(admin.listRef(adminU, "inconnu" as never)).rejects.toThrow(/Référentiel introuvable/);
+    await expect(admin.saveTestimonial(adminU, {} as never)).rejects.toThrow();
+    await expect(housing.reviewKyc(adminU, "inexistant", true)).rejects.toThrow(/Bailleur introuvable/);
+    await expect(housing.moderateHousing(adminU, "x", { approve: true, verification: "documents" as never })).rejects.toThrow(/vérification inconnu/);
+    expect(await accounts.updateProfile(student.id, {})).toBeTruthy();
+  });
   it("statistiques et entonnoir", async () => {
     const s = await admin.stats(adminU);
     expect(s.funnel.candidats).toBeGreaterThanOrEqual(1);

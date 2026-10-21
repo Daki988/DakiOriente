@@ -104,6 +104,7 @@ export async function archiveHousing(user: User, id: string) {
 
 export async function moderateHousing(admin: User, id: string, decision: { approve: boolean; note?: string; verification?: (typeof schema.verificationEnum.enumValues)[number] }) {
   if (admin.role !== "admin") throw forbidden();
+  if (decision.verification && !schema.verificationEnum.enumValues.includes(decision.verification)) throw new AppError("Niveau de vérification inconnu.");
   const [h] = await db.update(schema.housings).set({ status: decision.approve ? "publie" : "refuse", moderationNote: decision.note ?? null, ...(decision.verification ? { verification: decision.verification } : {}) }).where(eq(schema.housings.id, id)).returning();
   if (!h) throw notFound("Logement");
   await audit(admin.id, decision.approve ? "annonce_publiee" : "annonce_refusee", "housing", id, { note: decision.note });
@@ -157,7 +158,8 @@ export async function submitKyc(user: User, documentIds: string[], payout?: { me
 
 export async function reviewKyc(admin: User, landlordId: string, ok: boolean, note?: string) {
   if (admin.role !== "admin") throw forbidden();
-  await db.update(schema.landlords).set({ kycStatus: ok ? "valide" : "refuse", kycNote: note ?? null }).where(eq(schema.landlords.userId, landlordId));
+  const [l] = await db.update(schema.landlords).set({ kycStatus: ok ? "valide" : "refuse", kycNote: note ?? null }).where(eq(schema.landlords.userId, landlordId)).returning();
+  if (!l) throw notFound("Bailleur");
   // Une identité validée fait passer les annonces non vérifiées au niveau « identité vérifiée ».
   if (ok) await db.update(schema.housings).set({ verification: "identite" }).where(and(eq(schema.housings.landlordId, landlordId), eq(schema.housings.verification, "non_verifie")));
   await audit(admin.id, ok ? "kyc_valide" : "kyc_refuse", "landlord", landlordId, { note });

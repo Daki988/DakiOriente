@@ -110,7 +110,7 @@ export function Tabs<T extends string>({ value, onChange, items }: { value: T; o
   return (
     <div className="relative flex min-w-0 max-w-full gap-1 overflow-x-auto rounded-xl bg-[#eef1f8] p-1" role="tablist">
       {items.map(([k, l]) => (
-        <button key={k} role="tab" aria-selected={value === k} onClick={() => onChange(k)} className={`relative shrink-0 whitespace-nowrap rounded-[10px] px-3.5 py-2 text-[13px] font-bold ${value === k ? "text-brand-600" : "text-ink-mute hover:text-ink"}`}>
+        <button key={k} type="button" role="tab" aria-selected={value === k} onClick={() => onChange(k)} className={`relative shrink-0 whitespace-nowrap rounded-[10px] px-3.5 py-2 text-[13px] font-bold ${value === k ? "text-brand-600" : "text-ink-mute hover:text-ink"}`}>
           {value === k && <motion.span layoutId={`tab-pill-${uid}`} className="absolute inset-0 rounded-[10px] bg-white shadow-sm" />}<span className="relative">{l}</span>
         </button>
       ))}

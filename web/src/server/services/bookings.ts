@@ -195,7 +195,7 @@ export async function openDispute(user: User, id: string, reason: string, descri
   await db.update(schema.payments).set({ escrow: "litige" }).where(and(eq(schema.payments.bookingId, id), eq(schema.payments.escrow, "bloque")));
   await event(b, "litige", user.id, reason);
   const admins = await db.select({ id: schema.users.id }).from(schema.users).where(eq(schema.users.role, "admin"));
-  for (const a of admins) await notify(a.id, { kind: "litige", title: `Litige ouvert · ${b.number}`, body: reason, link: `/admin/navilease/litiges/${d.id}` });
+  for (const a of admins) await notify(a.id, { kind: "litige", title: `Litige ouvert · ${b.number}`, body: reason, link: "/admin/navilease/#litiges" });
   return d;
 }
 

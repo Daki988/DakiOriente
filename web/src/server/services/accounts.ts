@@ -230,6 +230,7 @@ export async function updateProfile(userId: string, raw: z.input<typeof profileS
   const clean = <T extends object>(o: T) => Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined)) as Partial<T>;
   if (Object.keys(clean(userPart)).length) await db.update(schema.users).set(clean(userPart)).where(eq(schema.users.id, userId));
   const prof = clean({ level: i.level, serie: i.serie, currentSchool: i.currentSchool, diploma: i.diploma, domain: i.domain, skills: i.skills, interests: i.interests, goals: i.goals, preferences: i.preferences });
-  await db.insert(schema.profiles).values({ userId, ...prof }).onConflictDoUpdate({ target: schema.profiles.userId, set: prof });
+  const ins = db.insert(schema.profiles).values({ userId, ...prof });
+  await (Object.keys(prof).length ? ins.onConflictDoUpdate({ target: schema.profiles.userId, set: prof }) : ins.onConflictDoNothing());
   return getMe(userId);
 }

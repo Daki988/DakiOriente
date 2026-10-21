@@ -11,6 +11,10 @@ export function errorResponse(e: unknown) {
   if (e instanceof AppError) return json({ error: { code: e.code, message: e.message } }, e.status);
   if (e instanceof ZodError) return json({ error: { code: "validation", message: e.issues[0]?.message ?? "Données invalides.", fields: e.issues.map((i) => ({ path: i.path.join("."), message: i.message })) } }, 422);
   if (e instanceof SyntaxError) return json({ error: { code: "json", message: "Corps de requête invalide." } }, 400);
+  if (e instanceof TypeError && /multipart\/form-data/.test(e.message)) return json({ error: { code: "fichier", message: "Fichier manquant : envoyez le formulaire en multipart/form-data." } }, 400);
+  // Valeur refusée par PostgreSQL (enum, type, contrainte) : erreur de saisie, pas une panne.
+  const pg = (e as { cause?: { code?: string }; code?: string })?.cause?.code ?? (e as { code?: string })?.code;
+  if (typeof pg === "string" && /^(22|23)/.test(pg)) return json({ error: { code: pg === "23505" ? "doublon" : "validation", message: pg === "23505" ? "Cet élément existe déjà." : "Données invalides." } }, pg === "23505" ? 409 : 400);
   console.error(e);
   return json({ error: { code: "serveur", message: "Une erreur est survenue. Réessayez dans un instant." } }, 500);
 }
