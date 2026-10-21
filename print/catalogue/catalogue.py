@@ -5,7 +5,8 @@ import os, re, segno
 ROOT = '/home/user/DakiOriente'
 OUT = os.path.join(ROOT, 'print/catalogue')
 A = '../../assets/'          # ressources du site
-FONDATEUR_NOM = ''           # à compléter : nom affiché sous la signature du mot du fondateur
+FONDATEUR_NOM = 'Daril OYE MBA'
+FONDATEUR_TITRE = 'Fondateur · Consultant en transformation digitale'
 SITE = 'https://www.neamindustry.com/'
 
 def qr(url, dark='#0f0f10'):
@@ -67,9 +68,9 @@ page('', 'Sommaire', f'''
   </div>''')
 
 # ---------- 03 Le mot du fondateur ----------
-sign = f'<b>{FONDATEUR_NOM}</b><br>' if FONDATEUR_NOM else ''
+sign = f'<span class="founder__who"><b>{FONDATEUR_NOM}</b>{FONDATEUR_TITRE}<br>NEAM Softwares Industry</span>'
 page('page--photo', '', f'''
-  <div class="founder__photo"><img src="img/fondateur.jpg" alt="Le fondateur de NEAM Softwares Industry"></div>
+  <div class="founder__photo"><img src="img/fondateur.jpg" alt="{FONDATEUR_NOM}, fondateur de NEAM Softwares Industry"></div>
   <div class="founder__body">
     <span class="label label--y2">Le mot du fondateur</span>
     <p class="founder__quote">« Être bon dans son métier ne suffit plus&nbsp;: encore faut-il qu’on vous <em>trouve</em>. »</p>
@@ -79,7 +80,7 @@ page('page--photo', '', f'''
       <p>Nous ne voulons pas être un prestataire de plus, qui livre un site puis disparaît. Nous voulons être le partenaire technologique qui vous aide à aller plus loin, avec une seule question en tête&nbsp;: qu’est-ce que cela vous rapporte&nbsp;?</p>
       <p>Notre ambition est claire&nbsp;: lorsqu’une TPE ou une PME gabonaise souhaite se digitaliser, NEAM doit naturellement faire partie des premiers partenaires auxquels elle pense. Ces pages vous montrent comment nous y travaillons.</p>
     </div>
-    <p class="founder__sign">{sign}Le fondateur · NEAM Softwares Industry<span>Build a better tomorrow !</span></p>
+    <p class="founder__sign">{sign}<span class="founder__motto">Build a better tomorrow !</span></p>
   </div>''')
 
 # ---------- 04 Notre histoire ----------
