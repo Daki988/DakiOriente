@@ -43,6 +43,16 @@ return [
         'anthropic_model'   => 'claude-opus-5-5',
     ],
 
+    // Assistant du site (chatbot, js/chat.js → api/chat.php)
+    // Sans clé, il répond avec des réponses préparées. Avec une clé Claude (la même que
+    // pour le Digital Score suffit), il rédige ses réponses à partir de la présentation de NEAM.
+    'chat' => [
+        'ai'                => true,              // false : réponses préparées uniquement
+        'anthropic_api_key' => '',                // vide : utilise audit → anthropic_api_key
+        'model'             => 'claude-opus-5-5',
+        'rate_limit'        => 30,                // messages par adresse IP sur 10 minutes
+    ],
+
     // Limite anti-abus : nombre d'envois par adresse IP sur 10 minutes
     'rate_limit' => 5,
 ];

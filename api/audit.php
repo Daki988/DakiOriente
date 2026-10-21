@@ -244,6 +244,7 @@ if ($step === 'discover') {
     audit_save($id, [
         'created' => time(),
         'meta' => ['company' => $company, 'sector' => $sector ?: $activity, 'activity' => $activity, 'city' => $city, 'country' => $country, 'query' => $query,
+            'maturity' => maturity_clean($d['maturity'] ?? null),
             'business' => ['clients' => max(0, min(1000000, (int) ($d['clients'] ?? 0))) ?: null, 'basket' => max(0, min(1000000000, (int) preg_replace('/\D/', '', (string) ($d['basket'] ?? '')))) ?: null]],
         'target' => ['name' => $company, 'url' => $website, 'guessed' => $guessed, 'gbp' => $gbp, 'gbp_measured' => $gbpMeasured, 'rank' => $rank, 'socials_declared' => $socials],
         'competitors' => $picked,
@@ -442,6 +443,8 @@ if ($step === 'report') {
         'date' => $report['date'] . ' à ' . $report['time'],
         'partial' => $report['partial'],
         'site_status' => $report['site_status'],
+        'presence_score' => $report['presence_score'],
+        'maturity' => $report['maturity'] ? ['score' => $report['maturity']['score'], 'level' => $report['maturity']['level']] : null,
     ]]);
 }
 
@@ -505,7 +508,8 @@ if ($step === 'mail') {
     }
     $scoreBlock = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 20px"><tr>'
         . '<td style="background:#0f0f10;color:#fff;border-radius:8px;padding:18px 22px;width:45%"><div style="font-size:12px;letter-spacing:1px;color:#a9a9ae">NEAM DIGITAL SCORE™</div><div style="font-size:40px;font-weight:bold;line-height:1.1">' . $report['score'] . '<span style="font-size:18px;color:#a9a9ae">/100</span></div><div style="color:#f5b31b;font-weight:bold">' . h($report['level']['name']) . '</div></td>'
-        . '<td style="padding:0 0 0 18px;font-size:14px;color:#55555a">Position concurrentielle&nbsp;: <b style="color:#0f0f10">' . $report['rank'] . ' / ' . count($report['ranking']) . '</b><br>Actions prioritaires&nbsp;: <b style="color:#0f0f10">' . $report['problem_count'] . '</b><br>Opportunités détectées&nbsp;: <b style="color:#0f0f10">' . count($report['opportunities']) . '</b></td>'
+        . '<td style="padding:0 0 0 18px;font-size:14px;color:#55555a">Position concurrentielle&nbsp;: <b style="color:#0f0f10">' . $report['rank'] . ' / ' . count($report['ranking']) . '</b><br>Actions prioritaires&nbsp;: <b style="color:#0f0f10">' . $report['problem_count'] . '</b><br>Opportunités détectées&nbsp;: <b style="color:#0f0f10">' . count($report['opportunities']) . '</b>'
+        . (!empty($report['maturity']) ? '<br>Présence en ligne&nbsp;: <b style="color:#0f0f10">' . $report['presence_score'] . '/100</b><br>Maturité interne&nbsp;: <b style="color:#0f0f10">' . $report['maturity']['score'] . '/100</b>' : '') . '</td>'
         . '</tr></table>';
 
     // 1. Équipe NEAM
@@ -532,7 +536,8 @@ if ($step === 'mail') {
         . $scoreBlock
         . '<p style="margin:0 0 16px;font-size:15px">' . h($report['analysis']['advice']) . '</p>'
         . '<h2 style="font-size:16px;margin:0 0 8px">Vos premières actions</h2><ul style="padding-left:18px;font-size:14px;margin:0 0 20px">' . $actionsHtml . '</ul>'
-        . '<p style="margin:0 0 20px;font-size:15px">Vous voulez qu’on regarde ensemble comment passer à l’action ? Répondez simplement à cet e-mail : un expert NEAM vous rappelle.</p>'
+        . '<p style="margin:0 0 16px;font-size:15px">Vous voulez qu’on regarde ensemble comment passer à l’action ? Répondez simplement à cet e-mail : un expert NEAM vous rappelle.</p>'
+        . reply_promise_html()
         . '<p style="margin:0"><a href="https://www.neamindustry.com/contact.html?besoin=NEAM%20Digital%20Score" style="display:inline-block;background:#f5b31b;color:#0f0f10;text-decoration:none;font-weight:bold;padding:12px 22px;border-radius:30px">Parler à un expert NEAM</a></p>');
     $clientText = "Bonjour $first,\n\nVotre NEAM Digital Score : {$report['score']}/100 ({$report['level']['name']}).\nVotre audit complet est en pièce jointe.\n\nNEAM Softwares Industry — contact@neamindustry.com";
     $clientOk = send_mail([$lead['email']], 'Votre NEAM Digital Score™ : ' . $report['score'] . '/100', $clientHtml, $clientText, $CONFIG['from_email'], $CONFIG['from_name'], $attachments);

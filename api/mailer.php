@@ -11,7 +11,8 @@ require __DIR__ . '/lib/PHPMailer/Exception.php';
 require __DIR__ . '/lib/PHPMailer/PHPMailer.php';
 require __DIR__ . '/lib/PHPMailer/SMTP.php';
 
-$CONFIG = require __DIR__ . '/config.php';
+// config.php contient vos réglages (mots de passe, clés) ; config.sample.php sert de modèle tant qu'il n'existe pas
+$CONFIG = require (is_file(__DIR__ . '/config.php') ? __DIR__ . '/config.php' : __DIR__ . '/config.sample.php');
 date_default_timezone_set('Africa/Libreville');
 
 /** Réponse JSON puis arrêt. */
@@ -103,6 +104,35 @@ function valid_email(string $email): bool
 function h(string $s): string
 {
     return htmlspecialchars($s, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+}
+
+/**
+ * Date limite de réponse : 48 heures ouvrées (2 jours ouvrés, du lundi au vendredi,
+ * hors jours fériés fixes du Gabon). Une demande reçue après 17 h 30 compte pour le jour ouvré suivant.
+ */
+function reply_deadline(?DateTimeImmutable $now = null): string
+{
+    $now = $now ?? new DateTimeImmutable('now', new DateTimeZone('Africa/Libreville'));
+    $holidays = ['01-01', '04-17', '05-01', '08-15', '08-16', '08-17', '11-01', '12-25'];
+    $isOpen = fn(DateTimeImmutable $d) => (int) $d->format('N') <= 5 && !in_array($d->format('m-d'), $holidays, true);
+    $d = $now;
+    if (!$isOpen($d) || $d->format('H:i') > '17:30') {
+        do { $d = $d->modify('+1 day'); } while (!$isOpen($d));
+    }
+    for ($n = 0; $n < 2; $n++) {
+        do { $d = $d->modify('+1 day'); } while (!$isOpen($d));
+    }
+    $days = ['', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+    $months = ['', 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    return $days[(int) $d->format('N')] . ' ' . (int) $d->format('j') . ' ' . $months[(int) $d->format('n')];
+}
+
+/** Paragraphe d'engagement de délai, commun aux accusés de réception. */
+function reply_promise_html(): string
+{
+    return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 18px"><tr><td style="background:#fff6e0;border-left:4px solid #f5b31b;border-radius:6px;padding:14px 16px;font-size:15px;line-height:1.5">'
+        . '<b>Notre engagement&nbsp;: une réponse sous 48&nbsp;h ouvrées maximum</b>, soit au plus tard le <b>' . h(reply_deadline()) . '</b>.'
+        . '<br><span style="color:#55555a;font-size:13px">Jours ouvrés&nbsp;: du lundi au vendredi. Besoin urgent&nbsp;? WhatsApp au 077 45 31 67.</span></td></tr></table>';
 }
 
 /** Gabarit HTML commun des e-mails. */

@@ -28,6 +28,9 @@ function rule_based_analysis(array $r): array
     $comp = $n
         ? "Sur les " . ($n + 1) . " entreprises comparées, vous êtes {$r['rank']}" . ($r['rank'] === 1 ? 'ᵉʳ' : 'ᵉ') . '. ' . ($r['rank'] === 1 ? 'Vous menez, mais l’écart peut vite se refermer.' : 'Les premières actions du plan suffisent souvent à gagner plusieurs places.')
         : 'Aucun concurrent n’a pu être comparé automatiquement : ajoutez leurs sites pour obtenir un benchmark.';
+    if (!empty($r['maturity'])) {
+        $s .= " Présence en ligne : {$r['presence_score']}/100 ; maturité interne : {$r['maturity']['score']}/100 (« {$r['maturity']['level']['name']} »).";
+    }
     if (!empty($r['partial'])) {
         $s .= ' Attention : votre site est construit en JavaScript, une partie des critères n’a pas pu être lue automatiquement. Ce score est donc partiel.';
     }
@@ -45,7 +48,9 @@ function ai_analysis(array $r): ?array
     }
     $facts = [
         'entreprise' => $r['company'], 'secteur' => $r['sector'], 'ville' => $r['city'], 'pays' => $r['country'],
-        'score' => $r['score'], 'niveau' => $r['level']['name'], 'audit_partiel_site_javascript' => !empty($r['partial']), 'rang' => $r['rank'], 'nb_entreprises_comparees' => count($r['competitors']) + 1,
+        'score' => $r['score'], 'niveau' => $r['level']['name'],
+        'score_presence_en_ligne' => $r['presence_score'] ?? $r['score'],
+        'maturite_interne' => !empty($r['maturity']) ? ['score' => $r['maturity']['score'], 'niveau' => $r['maturity']['level']['name'], 'reponses' => array_map(fn($x) => $x['label'] . ' : ' . $x['answer'], $r['maturity']['dims'])] : null, 'audit_partiel_site_javascript' => !empty($r['partial']), 'rang' => $r['rank'], 'nb_entreprises_comparees' => count($r['competitors']) + 1,
         'axes' => array_map(fn($a) => ['axe' => $a['label'], 'score' => $a['score'], 'moyenne_concurrents' => $a['competitors'], 'problemes' => array_column($a['fail'], 'note')], $r['axes']),
         'concurrents' => array_map(fn($c) => ['nom' => $c['name'], 'score' => $c['score'], 'avis' => $c['reviews'], 'note' => $c['rating']], $r['competitors']),
         'actions_prioritaires' => array_map(fn($a) => ['action' => $a['title'], 'priorite' => 'P' . $a['priority']], array_slice($r['actions'], 0, 6)),

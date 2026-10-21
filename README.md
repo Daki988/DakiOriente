@@ -7,7 +7,9 @@ Site vitrine statique, en plusieurs pages (HTML / CSS / JavaScript, sans outil d
 ## Pages
 - `index.html` — Accueil
 - `services.html` — Les 4 pôles, la méthode, les secteurs
-- `produits.html` — GuruTools et Tremplin
+- `produits.html` — GuruTools, Tremplin, GuruLégal
+- `blog.html` et `blog-*.html` — Blog (8 articles)
+- `ressources.html`, `digital-score.html`, `realisations.html`, `mentions-legales.html` — Ressources, diagnostic, réalisations, mentions légales
 - `produits.html#super-app` — NEAM Super App (téléphone animé en 3D, aperçu, 9 services)
 - `neam-market.html`, `neam-food.html`, `neam-express.html`, `neam-health.html`, `neam-print.html`, `neam-services.html`, `brico-deco.html`, `neam-beauty.html`, `neam-tech.html` — une page par service de la Super App
 - `programme.html` — Programme NEAM × KANIE 30/30
@@ -34,6 +36,17 @@ L’en-tête et le pied de page sont identiques sur chaque page : pensez à modi
 - **WhatsApp** : 077 45 31 67, lien `https://wa.me/24177453167` (si le compte est introuvable, essayer `241077453167`). **Téléphone** : 060 22 94 47 (fiche Google).
 - Image de partage : `assets/og-neam.jpg` (1200×630).
 
+### Blog, vidéos, Instagram et assistant (octobre 2026)
+
+- **Blog** : `blog.html` + 8 articles (`blog-*.html`) écrits pour le référencement local (Libreville, Gabon) : données structurées BlogPosting et FAQPage, fil d'Ariane, sommaire, liens vers les pages services, flux `rss.xml`. Les articles sont dans le script de génération (`BLOG`) ; aucun chiffre n'y figure sans sa source (livre blanc, ARCEP, DataReportal, Global Findex, ANPI).
+- **Vidéos** (`assets/video/`) : `neam-manifeste.mp4` (vidéo institutionnelle, 58 s, format vertical) sur l'accueil et la page À propos ; `neam-histoire-denise.mp4` (cas d'exemple, 1 min 54, histoire illustrative signalée comme telle) dans « Le chemin de la croissance » et dans l'article sur le référencement. Lecture uniquement au clic (`preload="none"`), données structurées VideoObject.
+- **Affiches** (`assets/affiches/`) : campagne #EtÇaRapporteCombien (6 affiches) sur l'accueil et le blog, visionneuse plein écran, chaque affiche renvoie à l'article qui lui répond. Lien Instagram @neam.industry dans le pied de page, la page contact et les sections dédiées.
+- **Assistant NEAM (chatbot)** : `js/chat.js` (fenêtre de discussion, toutes les pages) + `api/chat.php`.
+  - Sans clé : réponses préparées (services, prix, délais, diagnostic, produits, contact…).
+  - Avec la clé Claude renseignée dans `api/config.php` (`audit → anthropic_api_key` suffit, ou `chat → anthropic_api_key`) : réponses rédigées par l'IA, uniquement à partir de `api/lib/chat/knowledge.md` (généré avec le site). La clé reste sur le serveur.
+  - Garde-fous : pas de prix ni de chiffres inventés, pas de collecte de données personnelles, boutons limités à une liste d'adresses autorisées (`api/lib/chat/actions.json`), 30 messages par adresse IP sur 10 minutes. Les conversations ne sont pas enregistrées.
+- **Accusé de réception et réponse sous 48 h ouvrées** : le formulaire de contact envoie automatiquement un e-mail de confirmation au visiteur, avec la date limite de réponse (2 jours ouvrés, jours fériés fixes du Gabon exclus). Pour les e-mails écrits **directement** à contact@neamindustry.com, activez le répondeur de la boîte (voir « Mise en ligne », étape 7).
+
 ## Lancer en local
 ```bash
 python3 -m http.server 8000
@@ -57,7 +70,8 @@ Les formulaires envoient leurs e-mails depuis **contact@neamindustry.com**, grâ
 - `api/candidature.php` : candidature au programme 30/30 →
   1. rapport complet (coordonnées, motivation, score, 14 réponses, PDF joint) envoyé à l’équipe ;
   2. résultats du test + PDF joint envoyés au candidat.
-- `api/config.php` : **le seul fichier à modifier** (destinataires, mot de passe SMTP).
+- `api/chat.php` : assistant du site (voir plus haut).
+- `api/config.php` : **le seul fichier à modifier** (destinataires, mot de passe SMTP, clés). L'archive de mise à jour ne contient **pas** `config.php` : vos réglages déjà en ligne ne sont jamais écrasés. Pour une première installation, copiez `api/config.sample.php` sous le nom `config.php` (à défaut, le site utilise le modèle sans mot de passe ni clé).
 
 ### Réglages (`api/config.php`)
 - `contact_to` : destinataires du formulaire de contact (par défaut contact@neamindustry.com).
@@ -101,6 +115,19 @@ Les audits sont conservés 30 jours dans `api/data/audits/` (dossier protégé, 
 3. Activer le **certificat SSL** (Let’s Encrypt, gratuit) puis l’option **« Forcer HTTPS »** du panneau, ou décommenter les lignes prévues dans `.htaccess`.
 4. Créer l’adresse **contact@neamindustry.com** dans la partie e-mails du panneau (elle est utilisée sur le site).
 5. Renseigner le mot de passe de contact@neamindustry.com dans `api/config.php` (recommandé), puis faire un essai depuis `/contact.html` et `/candidature.html`.
-6. Déclarer le site dans Google Search Console et y envoyer `sitemap.xml`.
+6. Déclarer le site dans Google Search Console et y envoyer `sitemap.xml` (33 pages, blog compris). Le flux `rss.xml` peut aussi y être déclaré comme sitemap.
+7. **Répondeur de la boîte contact@neamindustry.com** (pour les e-mails écrits directement à cette adresse, hors formulaire) : panneau LWS → E-mails → choisir l'adresse → « Répondeur » (ou Webmail Roundcube → Paramètres → Réponses automatiques / Vacances). Activer sans date de fin, une réponse par expéditeur et par jour, avec ce texte :
+
+   > Objet : Nous avons bien reçu votre message — NEAM
+   >
+   > Bonjour,
+   >
+   > Merci pour votre message : il est bien arrivé chez NEAM Softwares Industry. Un membre de l'équipe l'étudie et vous répond sous 48 heures ouvrées maximum (du lundi au vendredi).
+   >
+   > Besoin urgent ? Écrivez-nous sur WhatsApp au 077 45 31 67 ou appelez le 060 22 94 47 (du lundi au samedi, 8 h 30 – 17 h 30).
+   >
+   > En attendant, faites le point sur votre présence en ligne avec notre diagnostic gratuit : https://www.neamindustry.com/digital-score.html
+   >
+   > L'équipe NEAM — Build a better tomorrow !
 
 Fichiers ajoutés pour l’hébergement : `.htaccess` (compression, cache, pas de liste de fichiers), `robots.txt`, `sitemap.xml` (domaine `neamindustry.com` à adapter si besoin).

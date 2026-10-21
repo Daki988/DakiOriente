@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Le blog NEAM</title>
+    <link>https://www.neamindustry.com/blog.html</link>
+    <atom:link href="https://www.neamindustry.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <description>Conseils digitaux pour les TPE et PME de Libreville et du Gabon, par NEAM Softwares Industry.</description>
+    <language>fr-FR</language>
+    <lastBuildDate>Wed, 21 Oct 2026 08:00:00 +0100</lastBuildDate>
+    <item>
+      <title>Apparaître sur Google quand on est une entreprise à Libreville.</title>
+      <link>https://www.neamindustry.com/blog-referencement-google-libreville.html</link>
+      <guid isPermaLink="true">https://www.neamindustry.com/blog-referencement-google-libreville.html</guid>
+      <pubDate>Wed, 21 Oct 2026 08:00:00 +0100</pubDate>
+      <category>Visibilité &amp; SEO</category>
+      <description>Fiche Google, avis, site web, mots de vos clients : la méthode pas à pas pour que votre entreprise sorte en tête quand on cherche votre activité à Libreville.</description>
+    </item>
+    <item>
+      <title>Et ça rapporte combien ?</title>
+      <link>https://www.neamindustry.com/blog-rentabilite-projet-digital.html</link>
+      <guid isPermaLink="true">https://www.neamindustry.com/blog-rentabilite-projet-digital.html</guid>
+      <pubDate>Wed, 21 Oct 2026 08:00:00 +0100</pubDate>
+      <category>Stratégie</category>
+      <description>La question que certaines agences n’aiment pas entendre, et que vous devriez poser avant chaque projet. Notre méthode pour estimer, puis vérifier, ce que le digital vous rapporte.</description>
+    </item>
+    <item>
+      <title>Un beau site qui ne vend rien, c’est une plaquette très chère.</title>
+      <link>https://www.neamindustry.com/blog-site-web-qui-vend.html</link>
+      <guid isPermaLink="true">https://www.neamindustry.com/blog-site-web-qui-vend.html</guid>
+      <pubDate>Wed, 21 Oct 2026 08:00:00 +0100</pubDate>
+      <category>Sites web</category>
+      <description>Votre site est beau, mais votre téléphone ne sonne pas ? Les 8 points qui transforment un site vitrine en machine à demandes, pour les entreprises du Gabon.</description>
+    </item>
+    <item>
+      <title>Les likes ne paient pas le loyer.</title>
+      <link>https://www.neamindustry.com/blog-reseaux-sociaux-clients.html</link>
+      <guid isPermaLink="true">https://www.neamindustry.com/blog-reseaux-sociaux-clients.html</guid>
+      <pubDate>Wed, 21 Oct 2026 08:00:00 +0100</pubDate>
+      <category>Réseaux sociaux</category>
+      <description>Des milliers de likes, et le loyer toujours à payer ? Six étapes pour que vos réseaux sociaux vous apportent des messages, des devis et des ventes.</description>
+    </item>
+    <item>
+      <title>L’IA fait un site en 5 minutes. Faut-il encore une agence ?</title>
+      <link>https://www.neamindustry.com/blog-ia-site-web-agence.html</link>
+      <guid isPermaLink="true">https://www.neamindustry.com/blog-ia-site-web-agence.html</guid>
+      <pubDate>Wed, 21 Oct 2026 08:00:00 +0100</pubDate>
+      <category>IA &amp; automatisation</category>
+      <description>Si l’IA crée un site en cinq minutes, pourquoi payer un projet de trois mois ? Réponse honnête : parfois, vous ne devriez pas. Voici comment choisir.</description>
+    </item>
+    <item>
+      <title>Choisir son agence digitale à Libreville : 7 questions à poser.</title>
+      <link>https://www.neamindustry.com/blog-choisir-agence-digitale-libreville.html</link>
+      <guid isPermaLink="true">https://www.neamindustry.com/blog-choisir-agence-digitale-libreville.html</guid>
+      <pubDate>Wed, 21 Oct 2026 08:00:00 +0100</pubDate>
+      <category>Stratégie</category>
+      <description>Votre agence vous parle de couleurs et de tendances ? Parlez-lui de chiffre d’affaires. Les 7 questions à poser avant de signer un devis, à nous comme aux autres.</description>
+    </item>
+    <item>
+      <title>Cahier, Excel ou logiciel de gestion : quand franchir le pas ?</title>
+      <link>https://www.neamindustry.com/blog-logiciel-gestion-pme-gabon.html</link>
+      <guid isPermaLink="true">https://www.neamindustry.com/blog-logiciel-gestion-pme-gabon.html</guid>
+      <pubDate>Wed, 21 Oct 2026 08:00:00 +0100</pubDate>
+      <category>Outils &amp; gestion</category>
+      <description>Stock qui ne tombe jamais juste, factures oubliées, clients notés dans le téléphone ? Les signes qu’il est temps de passer à un logiciel, et comment bien choisir.</description>
+    </item>
+    <item>
+      <title>Transformation digitale : par où commencer quand on est une PME ?</title>
+      <link>https://www.neamindustry.com/blog-transformation-digitale-pme-gabon.html</link>
+      <guid isPermaLink="true">https://www.neamindustry.com/blog-transformation-digitale-pme-gabon.html</guid>
+      <pubDate>Wed, 21 Oct 2026 08:00:00 +0100</pubDate>
+      <category>Stratégie</category>
+      <description>Le numérique au Gabon en quatre chiffres sourcés, et un plan simple en cinq étapes pour les TPE et PME qui veulent se lancer sans se perdre.</description>
+    </item>
+  </channel>
+</rss>

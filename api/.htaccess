@@ -1,5 +1,5 @@
-# Seuls contact.php, candidature.php et audit.php sont accessibles depuis le web
-<FilesMatch "^(config|mailer)\.php$">
+# contact.php, candidature.php, audit.php et chat.php sont appelés par le site ; les réglages restent privés
+<FilesMatch "^(config|config\.sample|mailer)\.php$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>

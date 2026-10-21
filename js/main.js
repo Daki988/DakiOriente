@@ -178,7 +178,8 @@ document.addEventListener('click', e => {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.ok) throw new Error(data.error || `HTTP ${res.status}`);
-      status.textContent = data.ack ? 'Merci, votre demande est bien envoyée. Un accusé de réception vient de partir vers votre boîte e-mail, et nous vous répondons très vite.' : 'Merci, votre demande est bien envoyée. Nous vous répondons très vite.';
+      const when = data.deadline ? `, au plus tard le ${data.deadline}` : '';
+      status.textContent = data.ack ? `Merci, votre demande est bien envoyée. Un accusé de réception vient de partir vers votre boîte e-mail. Nous vous répondons sous 48 h ouvrées maximum${when}.` : `Merci, votre demande est bien envoyée. Nous vous répondons sous 48 h ouvrées maximum${when}.`;
       neamTrack('contact_form_success', { besoin: d.get('besoin') });
       form.reset();
     } catch (err) {
@@ -217,4 +218,100 @@ document.addEventListener('click', e => {
       target.style.setProperty('--tx', '0deg');
     });
   });
+})();
+
+/* ---------- Vidéos (manifeste, cas d'exemple) ---------- */
+document.querySelectorAll('video[data-film]').forEach(v => {
+  const fig = v.closest('.film');
+  const btn = fig && fig.querySelector('.film__play');
+  // Commandes natives masquées tant que la vidéo n'a pas démarré (le gros bouton suffit)
+  if (btn) { v.controls = false; btn.addEventListener('click', () => { const p = v.play(); if (p && p.catch) p.catch(() => { v.controls = true; fig.classList.add('is-playing'); }); }); }
+  v.addEventListener('play', () => {
+    v.controls = true;
+    if (fig) fig.classList.add('is-playing');
+    // Une seule vidéo à la fois
+    document.querySelectorAll('video[data-film]').forEach(o => { if (o !== v && !o.paused) o.pause(); });
+    if (!v.dataset.tracked) { v.dataset.tracked = '1'; neamTrack('video_play', { video: v.dataset.film }); }
+  });
+  v.addEventListener('ended', () => neamTrack('video_complete', { video: v.dataset.film }));
+});
+
+/* ---------- Visionneuse d'affiches ---------- */
+(() => {
+  const links = [...document.querySelectorAll('a[data-lightbox]')];
+  if (!links.length || typeof HTMLDialogElement !== 'function') return;
+  let dlg, img, cap, more, count, group = [], idx = 0, opener = null;
+  const build = () => {
+    dlg = document.createElement('dialog');
+    dlg.className = 'lb';
+    dlg.setAttribute('aria-label', 'Affiche en grand');
+    dlg.innerHTML = '<div class="lb__top"><span class="label" data-count></span><button type="button" class="lb__btn" data-close aria-label="Fermer">×</button></div>'
+      + '<figure class="lb__fig"><img alt=""></figure>'
+      + '<div class="lb__bar"><p class="lb__cap"></p><button type="button" class="lb__btn" data-prev aria-label="Affiche précédente">←</button><a class="btn btn--yellow" data-more href="#">Lire l’article <span class="arr">→</span></a><button type="button" class="lb__btn" data-next aria-label="Affiche suivante">→</button></div>';
+    document.body.appendChild(dlg);
+    img = dlg.querySelector('img'); cap = dlg.querySelector('.lb__cap'); more = dlg.querySelector('[data-more]'); count = dlg.querySelector('[data-count]');
+    dlg.querySelector('[data-close]').addEventListener('click', () => dlg.close());
+    dlg.querySelector('[data-prev]').addEventListener('click', () => show(idx - 1));
+    dlg.querySelector('[data-next]').addEventListener('click', () => show(idx + 1));
+    dlg.addEventListener('click', e => { if (e.target === dlg || e.target.classList.contains('lb__fig')) dlg.close(); });
+    dlg.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') show(idx - 1); if (e.key === 'ArrowRight') show(idx + 1); });
+    dlg.addEventListener('close', () => { document.documentElement.classList.remove('lb-open'); if (opener) opener.focus(); });
+    let x0 = null;
+    dlg.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+    dlg.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1)); x0 = null; });
+  };
+  const show = i => {
+    idx = (i + group.length) % group.length;
+    const a = group[idx];
+    const thumb = a.querySelector('img');
+    img.src = a.getAttribute('href');
+    img.alt = thumb ? thumb.alt : '';
+    cap.textContent = a.dataset.caption || '';
+    count.textContent = group.length > 1 ? `Affiche ${idx + 1} / ${group.length}` : '#EtÇaRapporteCombien';
+    const m = a.dataset.more;
+    more.hidden = !m || location.pathname.endsWith('/' + m);
+    if (m) more.href = m;
+    dlg.querySelectorAll('[data-prev], [data-next]').forEach(b => { b.hidden = group.length < 2; });
+  };
+  links.forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    if (!dlg) build();
+    opener = a;
+    group = links.filter(l => l.dataset.lightbox === a.dataset.lightbox && !l.closest('[hidden]'));
+    // Les affiches en double (même image) n'apparaissent qu'une fois
+    group = group.filter((l, i) => group.findIndex(o => o.getAttribute('href') === l.getAttribute('href')) === i || l === a);
+    show(Math.max(0, group.indexOf(a)));
+    document.documentElement.classList.add('lb-open');
+    dlg.showModal();
+    neamTrack('poster_open', { poster: a.getAttribute('href').split('/').pop() });
+  }));
+})();
+
+/* ---------- Blog : filtre par thème, sommaire actif ---------- */
+(() => {
+  const chips = [...document.querySelectorAll('.bfilter .chip')];
+  if (chips.length) {
+    const cards = [...document.querySelectorAll('#blogGrid .bcard')];
+    const empty = document.querySelector('.bfilter__empty');
+    chips.forEach(c => c.addEventListener('click', () => {
+      chips.forEach(o => { o.classList.toggle('is-on', o === c); o.setAttribute('aria-pressed', String(o === c)); });
+      const f = c.dataset.filter;
+      let shown = 0;
+      cards.forEach(card => { const ok = !f || card.dataset.cat === f; card.hidden = !ok; if (ok) { shown++; card.classList.add('is-in'); } });
+      if (empty) empty.hidden = shown > 0;
+    }));
+  }
+  const toc = [...document.querySelectorAll('.toc a')];
+  if (toc.length && 'IntersectionObserver' in window) {
+    const map = new Map(toc.map(a => [a.getAttribute('href').slice(1), a]));
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        toc.forEach(a => a.classList.remove('is-on'));
+        const a = map.get(e.target.id);
+        if (a) a.classList.add('is-on');
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    map.forEach((a, id) => { const h = document.getElementById(id); if (h) io.observe(h); });
+  }
 })();

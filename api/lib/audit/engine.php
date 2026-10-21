@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/framework.php';
+require_once __DIR__ . '/maturity.php';
 
 /** Évalue une entité (entreprise ou concurrent) sur tout le référentiel. */
 function score_entity(array $e): array
@@ -200,6 +201,27 @@ function build_report(array $target, array $competitors, array $meta): array
             'weight' => $info['loss'] * $a['impact'],
         ];
     }
+    // Actions issues du test de maturité interne (fusionnées si déjà présentes)
+    $maturity = null;
+    if (!empty($meta['maturity'])) {
+        $maturity = maturity_result($meta['maturity']);
+        foreach (maturity_actions($meta['maturity'], $acts, $roi) as $ma) {
+            $found = false;
+            foreach ($actionsOut as &$ex) {
+                if ($ex['id'] === $ma['id']) {
+                    $ex['why'] = array_values(array_unique(array_merge($ex['why'], $ma['why'])));
+                    $ex['priority'] = min($ex['priority'], $ma['priority']);
+                    $ex['weight'] += $ma['weight'];
+                    $ex['axes'] = array_values(array_unique(array_merge($ex['axes'], $ma['axes'])));
+                    $found = true;
+                }
+            }
+            unset($ex);
+            if (!$found) {
+                $actionsOut[] = $ma;
+            }
+        }
+    }
     usort($actionsOut, fn($x, $y) => [$x['priority'], -$x['weight']] <=> [$y['priority'], -$y['weight']]);
     // Cinq priorités absolues au maximum : au-delà, on passe en P2
     $p1 = 0;
@@ -242,7 +264,10 @@ function build_report(array $target, array $competitors, array $meta): array
         'detail' => $a['why'] ? $a['why'][0] : $a['importance'],
     ], $actionsOut), 0, 5);
 
-    $level = level_for($t['score']);
+    // Score global : présence en ligne pondérée avec la maturité interne déclarée
+    $presence = $t['score'];
+    $global = $maturity ? (int) round($presence * (1 - MATURITY_WEIGHT) + $maturity['score'] * MATURITY_WEIGHT) : $presence;
+    $level = level_for($global);
     return [
         'company' => $meta['company'],
         'sector' => $meta['sector'],
@@ -250,8 +275,10 @@ function build_report(array $target, array $competitors, array $meta): array
         'country' => $meta['country'],
         'date' => date('d/m/Y'),
         'time' => date('H:i'),
-        'method' => 'NEAM-DS v2 · 150 critères',
-        'score' => $t['score'],
+        'method' => $maturity ? 'NEAM-DS v2 · 150 critères + test de maturité' : 'NEAM-DS v2 · 150 critères',
+        'score' => $global,
+        'presence_score' => $presence,
+        'maturity' => $maturity,
         'level' => $level,
         'axes' => $axisDetails,
         'rank' => $rank,
@@ -277,8 +304,8 @@ function build_report(array $target, array $competitors, array $meta): array
             'competitor_reviews' => competitor_review_avg($comps),
         ] : null,
         'sources' => $meta['sources'],
-        'criteria_count' => count(array_filter($t['criteria'], fn($r) => $r['v'] !== null)),
-        'criteria_total' => count($t['criteria']),
+        'criteria_count' => count(array_filter($t['criteria'], fn($r) => $r['v'] !== null)) + ($maturity ? count($maturity['dims']) : 0),
+        'criteria_total' => count($t['criteria']) + ($maturity ? count($maturity['dims']) : 0),
         // Site rendu en JavaScript : une partie des critères n'a pas pu être lue
         'partial' => !empty($target['site']['spa']),
     ];

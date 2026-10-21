@@ -108,7 +108,8 @@ $candidateHtml = email_layout('Vos résultats au test de maturité numérique',
     . $scoreHtml
     . '<h2 style="font-size:16px;margin:0 0 8px">Résultat par axe</h2><table role="presentation" width="100%" cellpadding="0" cellspacing="0">' . $dimsHtml . '</table>'
     . '<h2 style="font-size:16px;margin:24px 0 8px">Vos priorités</h2>' . $priosHtml
-    . '<p style="margin:24px 0 0;font-size:15px;line-height:1.6">Notre équipe étudie votre candidature et revient vers vous rapidement. Une question d’ici là&nbsp;? Répondez simplement à cet e-mail.</p>'
+    . '<p style="margin:24px 0 0;font-size:15px;line-height:1.6">Notre équipe étudie votre candidature. Une question d’ici là&nbsp;? Répondez simplement à cet e-mail.</p>'
+    . '<div style="margin-top:16px">' . reply_promise_html() . '</div>'
     . '<p style="margin:16px 0 0;font-size:15px;line-height:1.6">À très bientôt,<br><b>L’équipe NEAM × KANIE</b></p>'
     . '<p style="margin:20px 0 0;font-size:12px;color:#76767c">Résultat indicatif, établi à partir de vos réponses.</p>');
 $candidateText = "Bonjour {$profile['nom']},\n\nMerci d'avoir passé le test de maturité numérique et candidaté au programme NEAM × KANIE 30/30.\n\n"

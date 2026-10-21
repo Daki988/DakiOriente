@@ -24,6 +24,7 @@ Redirect 301 /super-app.html /produits.html#super-app
 # Manifeste de l'application (icône sur l'écran d'accueil)
 AddType application/manifest+json .webmanifest
 AddType image/webp .webp
+AddType video/mp4 .mp4
 
 # Compression des fichiers texte
 <IfModule mod_deflate.c>
@@ -42,6 +43,7 @@ AddType image/webp .webp
   ExpiresByType image/svg+xml "access plus 30 days"
   ExpiresByType image/webp "access plus 30 days"
   ExpiresByType application/pdf "access plus 7 days"
+  ExpiresByType video/mp4 "access plus 30 days"
 </IfModule>
 
 # En-têtes de sécurité

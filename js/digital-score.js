@@ -47,6 +47,19 @@
       if (bad) ok = false;
     });
     if (!ok) { status.textContent = 'Indiquez le nom de l’entreprise, le secteur, la ville et le pays.'; return; }
+    // Test de maturité : toutes les questions sont nécessaires pour pondérer le score
+    const maturity = {};
+    let missing = null;
+    $$('.ds-q', form).forEach(q => {
+      const key = q.dataset.key, v = d.get(`m_${key}`);
+      q.classList.toggle('is-invalid', v === null);
+      if (v === null) missing = missing || q; else maturity[key] = v;
+    });
+    if (missing) {
+      status.textContent = 'Répondez aux 8 questions de maturité : elles comptent pour 35 % de votre score.';
+      missing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
     status.textContent = '';
 
     $('#dsRunName').textContent = company;
@@ -59,7 +72,7 @@
       const disc = await call('discover', {
         company, sector: d.get('sector'), city: d.get('city'), country: d.get('country'), url: d.get('url'),
         activity: d.get('activity'), socials: d.get('socials'), competitors: d.getAll('competitor').filter(Boolean),
-        clients: d.get('clients'), basket: d.get('basket'),
+        clients: d.get('clients'), basket: d.get('basket'), maturity,
       }, 40000);
       aid = disc.aid;
       await wait(400); setEng(0, 'done');
@@ -139,6 +152,7 @@
             <span class="k">NEAM Digital Score™</span>
             <h2>${esc(p.level.name)}</h2>
             <p>${esc(p.level.text)}</p>
+            ${p.maturity ? `<p class="ds-split"><span>Présence en ligne <b>${p.presence_score}/100</b></span><span>Maturité interne <b>${p.maturity.score}/100</b> · ${esc(p.maturity.level.name)}</span></p>` : ''}
             <ul class="ds-kpis">
               ${p.total > 1 ? `<li><b>${ord(p.rank)} / ${p.total}</b><span>position face à vos concurrents</span></li>` : ''}
               <li><b>${p.problem_count}</b><span>problème(s) prioritaire(s)</span></li>
@@ -270,6 +284,12 @@
           <ul class="ds-checks">${a.fail.map(f => `<li class="${f.partial ? 'is-warn' : 'is-bad'}">${esc(f.note)}</li>`).join('')}${a.pass.map(t => `<li class="is-ok">${esc(t)}</li>`).join('')}</ul></details>`).join('')}</div>
       </section>
 
+      ${r.maturity ? `<section class="ds-block"><h3><span>02b</span>Maturité numérique interne <em class="ds-opp-score">${r.maturity.score}/100 · ${esc(r.maturity.level.name)}</em></h3>
+        <p class="ds-note">${esc(r.maturity.level.text)} Votre Digital Score combine votre présence en ligne (${r.presence_score}/100, 65 %) et cette maturité interne déclarée (35 %).</p>
+        ${bars(r.maturity.dims.map(x => ({ label: x.label, score: x.score, competitors: null })))}
+        <ul class="ds-checks">${r.maturity.dims.map(x => `<li class="${x.score >= 100 ? 'is-ok' : x.score > 0 ? 'is-warn' : 'is-bad'}">${esc(x.question)} <b>${esc(x.answer)}</b></li>`).join('')}</ul>
+      </section>` : ''}
+
       ${r.gbp ? `<section class="ds-block"><h3><span>03</span>Google Business &amp; réputation</h3>
         <div class="ds-gbp"><div class="ds-gbp__score"><b>${r.gbp.score}</b><span>/100</span><small>Google Business Score</small></div>
         <ul class="ds-checks">
@@ -342,6 +362,7 @@
 
       <div class="ds-cta"><p class="statement">Envie de passer à l’action&nbsp;? <span class="dim">Un expert NEAM vous explique votre audit et construit avec vous le plan des 30 prochains jours.</span></p>
         <div class="actions"><a class="btn btn--yellow" href="contact.html?besoin=NEAM%20Digital%20Score" data-cta="ds_revue_humaine">Demander une revue humaine <span class="arr">→</span></a><a class="btn btn--line" href="contact.html?besoin=NEAM%20Digital%20Score">Demander un devis</a><button type="button" class="btn btn--line" data-restart>Analyser une autre entreprise</button></div></div>`;
+    $$('.ds-block h3 > span', reportBox).forEach((el, i) => { el.textContent = String(i + 1).padStart(2, '0'); });
     show(reportBox);
     const roiInputs = ['#roi-clients', '#roi-basket'].map(q => $(q, reportBox));
     roiInputs.forEach(i => i.addEventListener('input', renderRoi));
@@ -404,7 +425,8 @@
       need(lines.length * lh);
       doc.text(lines, M + indent, y); y += lines.length * lh;
     };
-    const h2 = (n, t) => { y += 4; need(14); doc.setFillColor(...yellow); doc.rect(M, y - 4, 1.6, 6, 'F'); txt(`${n}  ${t}`, 13, 'bold'); y += 2; };
+    let sec = 0; // numérotation automatique des sections
+    const h2 = (n, t) => { y += 4; need(14); doc.setFillColor(...yellow); doc.rect(M, y - 4, 1.6, 6, 'F'); txt(`${String(++sec).padStart(2, '0')}  ${t}`, 13, 'bold'); y += 2; };
     const row = (cells, widths, opts = {}) => {
       doc.setFont('helvetica', opts.bold ? 'bold' : 'normal'); doc.setFontSize(opts.size || 9);
       const wrapped = cells.map((c, i) => doc.splitTextToSize(safe(c), widths[i] - 2));
@@ -453,6 +475,13 @@
       if (a.competitors != null) { doc.setFillColor(...yellow); doc.rect(M + CW * a.competitors / 100 - .6, y - 1, 1.2, 4.6, 'F'); }
       y += 8;
     });
+
+    if (r.maturity) {
+      h2('02b', `Maturité numérique interne : ${r.maturity.score}/100 (${r.maturity.level.name})`);
+      txt(`Digital Score = présence en ligne ${r.presence_score}/100 (65 %) + maturité interne ${r.maturity.score}/100 (35 %). ${r.maturity.level.text}`, 9.5, 'normal', muted);
+      y += 2;
+      r.maturity.dims.forEach(x => row([x.label, x.answer, `${x.score}/100`], [44, 110, 24], { size: 9 }));
+    }
 
     h2('03', 'Ce que NEAM a trouvé');
     row(['Donnée', 'Valeur', 'Source', 'Confiance'], [32, 84, 40, 22], { bold: true, fill: [244, 244, 242] });

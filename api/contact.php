@@ -62,10 +62,11 @@ if ($hasEmail) {
     $ackHtml = email_layout('Nous avons bien reçu votre demande',
         '<p style="margin:0 0 16px;font-size:15px">Bonjour ' . h($first) . ',</p>'
         . '<p style="margin:0 0 16px;font-size:15px">Merci pour votre message. Votre demande « ' . h($besoin) . ' » est bien arrivée chez NEAM. Un membre de l’équipe l’étudie et vous répond avec un premier avis sur votre projet.</p>'
+        . reply_promise_html()
         . '<p style="margin:0 0 16px;font-size:15px">En attendant, vous pouvez réaliser votre diagnostic digital gratuit&nbsp;: il nous aidera à préparer notre échange.</p>'
         . '<p style="margin:0 0 20px"><a href="https://www.neamindustry.com/digital-score.html" style="display:inline-block;background:#f5b31b;color:#0f0f10;text-decoration:none;font-weight:bold;padding:12px 22px;border-radius:30px">Réaliser mon diagnostic digital</a></p>'
         . '<p style="margin:0;font-size:13px;color:#76767c">Vous n’êtes pas à l’origine de ce message&nbsp;? Ignorez simplement cet e-mail.</p>');
-    $ackText = "Bonjour $first,\n\nMerci pour votre message. Votre demande « $besoin » est bien arrivée chez NEAM : nous vous répondons avec un premier avis sur votre projet.\n\nNEAM Softwares Industry — contact@neamindustry.com";
+    $ackText = "Bonjour $first,\n\nMerci pour votre message. Votre demande « $besoin » est bien arrivée chez NEAM : nous vous répondons avec un premier avis sur votre projet sous 48 h ouvrées maximum, soit au plus tard le " . reply_deadline() . ".\n\nBesoin urgent ? WhatsApp : 077 45 31 67\n\nNEAM Softwares Industry — contact@neamindustry.com";
     $ack = send_mail([$email], 'Nous avons bien reçu votre demande — NEAM', $ackHtml, $ackText, $CONFIG['from_email'], $CONFIG['from_name']);
 }
-respond(200, ['ok' => true, 'ack' => $ack]);
+respond(200, ['ok' => true, 'ack' => $ack, 'deadline' => reply_deadline()]);
