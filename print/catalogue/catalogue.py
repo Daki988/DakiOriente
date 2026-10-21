@@ -85,9 +85,9 @@ page('page--photo', '', f'''
   </div>''')
 
 # ---------- 04 Parcours du fondateur ----------
-ROLES = [('Févr. – oct. 2024', 'Assistant commercial', 'Bureau International de Conseil et de Promotion · Gabon', 'Stratégie réseaux sociaux, veille concurrentielle, analyse de marché.'),
-         ('Juil. – oct. 2023', 'Assistant marketing', 'Blueprotein · Maroc', 'Communication digitale ; conception et développement d’un ERP.'),
-         ('Janv. – mars 2022', 'Stagiaire en communication', 'TNP Consultants · Maroc', 'Stratégie digitale ; ERP sur Microsoft PowerApps et Power Automate.'),
+ROLES = [('Févr. – oct. 2024', 'Responsable commercial', 'Bureau International de Conseil et de Promotion · Gabon', 'Stratégie réseaux sociaux, veille concurrentielle, analyse de marché.'),
+         ('Juil. – oct. 2023', 'Responsable marketing', 'Blueprotein · Maroc', 'Communication digitale ; conception et développement d’un ERP.'),
+         ('Janv. – mars 2022', 'Community manager', 'TNP Consultants · Maroc', 'Stratégie digitale ; ERP sur Microsoft PowerApps et Power Automate.'),
          ('Juin – nov. 2021', 'Community manager', 'Virtually · Monaco – France', 'Réseaux sociaux pour le secteur du luxe, référencement naturel (SEO).')]
 roles = ''.join(f'<li><span class="tl__d">{d}</span><div><b>{r}</b><i>{o}</i><span>{t}</span></div></li>' for d, r, o, t in ROLES)
 SKILLS = ['Gestion de projet', 'Optimisation des processus', 'Stratégie digitale', 'ERP et PGI', 'Référencement (SEO)', 'Community management', 'Stratégie de contenu', 'Chartes graphiques', 'WordPress', 'Figma', 'PowerApps', 'Power Automate', 'Adobe Creative Suite']
