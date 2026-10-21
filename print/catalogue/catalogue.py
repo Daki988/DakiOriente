@@ -47,10 +47,10 @@ page('page--ink cover', '', f'''
   </div>''', folio=False)
 
 # ---------- 02 Sommaire ----------
-TOC = [('03', 'Le mot du fondateur'), ('04', 'Notre histoire'), ('05', 'Le Gabon numérique'), ('06', 'Vision, mission, valeurs'),
-       ('07', 'Notre positionnement'), ('08', 'Les 5 piliers de la maturité digitale'), ('09', 'Nos expertises'), ('11', 'Notre méthode'),
-       ('12', 'Nos offres'), ('13', 'NEAM Digital Score™'), ('14', 'Nos produits'), ('15', 'NEAM Super App'), ('16', 'Programme NEAM × KANIE 30/30'),
-       ('17', 'Réalisations'), ('18', 'La campagne #EtÇaRapporteCombien'), ('19', 'Notre trajectoire 2027'), ('20', 'Nous contacter')]
+TOC = [('03', 'Le mot du fondateur'), ('04', 'Le parcours du fondateur'), ('05', 'Notre histoire'), ('06', 'Le Gabon numérique'),
+       ('07', 'Vision, mission, valeurs'), ('08', 'Notre positionnement'), ('09', 'Les 5 piliers de la maturité digitale'), ('10', 'Nos expertises'),
+       ('12', 'Notre méthode'), ('13', 'Un exemple concret'), ('14', 'Nos offres'), ('15', 'NEAM Digital Score™'), ('16', 'Programme NEAM × KANIE 30/30'),
+       ('17', 'Expérience et réalisations'), ('18', 'La campagne #EtÇaRapporteCombien'), ('19', 'Notre trajectoire 2027'), ('20', 'Nous contacter')]
 toc = ''.join(f'<li><span class="toc__n">{n}</span><span class="toc__t">{t}</span></li>' for n, t in TOC)
 page('', 'Sommaire', f'''
   <div class="split split--toc">
@@ -60,7 +60,7 @@ page('', 'Sommaire', f'''
       <div class="keyfacts">
         <div><b>4</b><span>expertises complémentaires</span></div>
         <div><b>5</b><span>étapes, du diagnostic à la mesure</span></div>
-        <div><b>3</b><span>produits déjà en ligne</span></div>
+        <div><b>150</b><span>critères dans notre diagnostic</span></div>
         <div><b>48&nbsp;h</b><span>ouvrées maximum pour vous répondre</span></div>
       </div>
     </div>
@@ -76,6 +76,7 @@ page('page--photo', '', f'''
     <p class="founder__quote">« Être bon dans son métier ne suffit plus&nbsp;: encore faut-il qu’on vous <em>trouve</em>. »</p>
     <div class="cols2">
       <p>J’ai fondé NEAM Softwares Industry avec une conviction&nbsp;: la transformation digitale ne doit pas être réservée aux grandes entreprises. Une boulangerie d’Akanda, un cabinet de Libreville ou une PME du BTP peuvent, elles aussi, être visibles, gagner du temps, mieux connaître leurs clients et vendre davantage.</p>
+      <p>Avant NEAM, j’ai conçu des ERP et des progiciels de gestion, piloté des stratégies de communication digitale et travaillé le référencement de sites, pour des entreprises au Gabon, au Maroc et à Monaco. J’y ai vu de près ce qu’un outil bien pensé change dans une entreprise.</p>
       <p>Au Gabon, la base est là&nbsp;: une population largement connectée, qui paie sur mobile. Ce qui manque encore, ce sont les outils et l’accompagnement pour en tirer parti. C’est précisément notre métier&nbsp;: diagnostiquer, construire, déployer, puis rester à vos côtés.</p>
       <p>Nous ne voulons pas être un prestataire de plus, qui livre un site puis disparaît. Nous voulons être le partenaire technologique qui vous aide à aller plus loin, avec une seule question en tête&nbsp;: qu’est-ce que cela vous rapporte&nbsp;?</p>
       <p>Notre ambition est claire&nbsp;: lorsqu’une TPE ou une PME gabonaise souhaite se digitaliser, NEAM doit naturellement faire partie des premiers partenaires auxquels elle pense. Ces pages vous montrent comment nous y travaillons.</p>
@@ -83,12 +84,41 @@ page('page--photo', '', f'''
     <p class="founder__sign">{sign}<span class="founder__motto">Build a better tomorrow !</span></p>
   </div>''')
 
-# ---------- 04 Notre histoire ----------
-BUILT = [('GuruTools', 'Plateforme de recrutement', 'Disponible', 'live'), ('Tremplin', 'Assistant de carrière pour étudiants et jeunes diplômés', 'Disponible', 'live'),
-         ('NEAM Digital Score™', 'Diagnostic sur 150 critères et test de maturité', 'Disponible', 'live'), ('neamindustry.com', 'Site, blog et assistant en ligne', 'Disponible', 'live'),
+# ---------- 04 Parcours du fondateur ----------
+ROLES = [('Févr. – oct. 2024', 'Assistant commercial', 'Bureau International de Conseil et de Promotion · Gabon', 'Stratégie réseaux sociaux, veille concurrentielle, analyse de marché.'),
+         ('Juil. – oct. 2023', 'Assistant marketing', 'Blueprotein · Maroc', 'Communication digitale ; conception et développement d’un ERP.'),
+         ('Janv. – mars 2022', 'Stagiaire en communication', 'TNP Consultants · Maroc', 'Stratégie digitale ; ERP sur Microsoft PowerApps et Power Automate.'),
+         ('Juin – nov. 2021', 'Community manager', 'Virtually · Monaco – France', 'Réseaux sociaux pour le secteur du luxe, référencement naturel (SEO).')]
+roles = ''.join(f'<li><span class="tl__d">{d}</span><div><b>{r}</b><i>{o}</i><span>{t}</span></div></li>' for d, r, o, t in ROLES)
+SKILLS = ['Gestion de projet', 'Optimisation des processus', 'Stratégie digitale', 'ERP et PGI', 'Référencement (SEO)', 'Community management', 'Stratégie de contenu', 'Chartes graphiques', 'WordPress', 'Figma', 'PowerApps', 'Power Automate', 'Adobe Creative Suite']
+page('page--grey', 'Le parcours du fondateur', f'''
+  <div class="split split--bio">
+    <div class="bio">
+      <span class="label">Le parcours du fondateur</span>
+      <h1>{FONDATEUR_NOM}</h1>
+      <p class="bio__role">Consultant en transformation digitale<br>Fondateur de NEAM Softwares Industry</p>
+      <p class="lead">Professionnel du marketing digital et de la gestion d’entreprise, {FONDATEUR_NOM} met ses compétences au service de l’optimisation des processus et de solutions innovantes&nbsp;: marketing digital, gestion de projets et création d’outils digitaux.</p>
+      <div class="bio__figs"><div><b>2021</b><span>premières missions en marketing digital</span></div><div><b>3</b><span>ERP et progiciels de gestion conçus</span></div><div><b>4</b><span>certifications professionnelles</span></div></div>
+      <div class="bio__block"><span class="label">Formation</span>
+        <ul class="bio__list"><li><b>Licence en gestion</b><span>ESMC-BS, Casablanca · 2021 – 2022. Mémoire sur l’optimisation des processus de gestion des données par l’intégration de solutions numériques.</span></li>
+        <li><b>Bac +2 en informatique de gestion</b><span>Suptechnology, Casablanca · 2018 – 2021. Outils informatiques et logiciels de gestion pour les entreprises.</span></li></ul></div>
+      <div class="bio__block bio__engage"><span class="label">Engagements</span>
+        <p>Coordinateur du département NTIC lors des Assises de la Diaspora gabonaise au Maroc (2023). Ancien délégué général à la communication du Bureau exécutif de l’Union des Gabonais au Maroc.</p></div>
+    </div>
+    <div class="bio__side">
+      <span class="label">Expériences professionnelles</span>
+      <ul class="tl">{roles}</ul>
+      <div class="bio__block"><span class="label">Compétences</span><ul class="bio__chips bio__chips--line">{''.join(f'<li>{x}</li>' for x in SKILLS)}</ul></div>
+      <div class="bio__block"><span class="label">Certifications</span>
+        <ul class="bio__chips bio__chips--line"><li>Inbound Marketing · HubSpot Academy</li><li>Marketing digital et réseaux sociaux</li><li>PowerApps, Power Automate et Power BI</li><li>Photoshop, After Effects et Illustrator</li></ul></div>
+    </div>
+  </div>''')
+
+# ---------- 05 Notre histoire ----------
+BUILT = [('NEAM Digital Score™', 'Diagnostic sur 150 critères et test de maturité', 'Disponible', 'live'), ('neamindustry.com', 'Site, blog et assistant en ligne', 'Disponible', 'live'),
          ('Livre blanc', 'La maturité numérique du Gabon', 'Publié', 'live'), ('Company Blueprint 2027', 'Notre feuille de route, en accès libre', 'Publié', 'live'),
          ('NEAM × KANIE 30/30', 'Programme d’accompagnement de 30 TPE et PME', 'Candidatures en ligne', 'live'),
-         ('GuruLégal', 'Solutions juridiques simples pour entrepreneurs', 'Sur demande', 'soon'), ('NEAM Super App', 'Neuf services dans une seule application', 'En développement', 'dev')]
+         ('#EtÇaRapporteCombien', 'Campagne d’affiches et manifeste vidéo', 'Publiée', 'live')]
 built = ''.join(f'<li><div><b>{n}</b><span>{d}</span></div><i class="st st--{k}">{s}</i></li>' for n, d, s, k in BUILT)
 page('page--grey', 'Notre histoire', f'''
   <span class="label">Notre histoire</span>
@@ -97,7 +127,8 @@ page('page--grey', 'Notre histoire', f'''
     <div class="story">
       <p class="lead">NEAM Softwares Industry part d’un constat&nbsp;: beaucoup d’entreprises gabonaises excellent dans leur métier, mais restent invisibles en ligne et gèrent encore leur activité sur papier, sur Excel ou dans des messages éparpillés.</p>
       <p>Plutôt que de livrer des sites puis de passer au projet suivant, nous avons choisi un autre modèle&nbsp;: celui d’un partenaire technologique, qui diagnostique, construit, déploie et accompagne dans la durée.</p>
-      <p>Depuis Libreville, nous avons conçu nos propres produits, notre propre méthode de diagnostic, et un programme d’accompagnement avec KANIE Agency. Notre feuille de route, le Company Blueprint 2027, est publique&nbsp;: nous voulons que nos clients sachent exactement où nous allons.</p>
+      <p>NEAM s’appuie sur le parcours de son fondateur, {FONDATEUR_NOM}&nbsp;: des ERP et progiciels de gestion conçus pour des entreprises, des stratégies digitales et du référencement, au Gabon, au Maroc et à Monaco.</p>
+      <p>Depuis Libreville, nous avons conçu notre propre méthode de diagnostic, le NEAM Digital Score™, et un programme d’accompagnement avec KANIE Agency. Notre feuille de route, le Company Blueprint 2027, est publique&nbsp;: nous voulons que nos clients sachent exactement où nous allons.</p>
       <blockquote>«&nbsp;Vous connaissez votre métier. NEAM construit la technologie qui vous aide à aller plus loin.&nbsp;»<cite>Notre promesse</cite></blockquote>
     </div>
     <div>
@@ -210,7 +241,26 @@ page('page--ink', 'Notre méthode', f'''
   <ol class="method">{meth}</ol>
   <div class="promise"><b>Notre engagement</b><p>Une réponse sous 48&nbsp;heures ouvrées maximum à chaque demande, et un devis détaillé, gratuit et sans engagement avant tout projet.</p></div>''')
 
-# ---------- 12 Offres ----------
+# ---------- 13 Un exemple concret ----------
+STEPS = [('01', 'Être visible', 'Un site clair et une fiche Google à jour&nbsp;: quand on cherche une pâtisserie à Libreville, Denise apparaît enfin.'),
+         ('02', 'Être choisie', 'Une image professionnelle, des photos qui donnent envie et un contact facile&nbsp;: le visiteur devient client.'),
+         ('03', 'Grandir', 'Des outils simples pour les commandes et, surtout, du temps retrouvé pour ce qu’elle fait de mieux.')]
+steps = ''.join(f'<li><span class="m__n">{n}</span><div><h3>{t}</h3><p>{d}</p></div></li>' for n, t, d in STEPS)
+page('', 'Un exemple concret', f'''
+  <span class="label">Un exemple concret · histoire illustrative</span>
+  <h1>L’histoire de <em>Denise</em>, pâtissière à Libreville.</h1>
+  <div class="denise__img"><img src="{A}video/neam-histoire-denise-poster.jpg" alt="Voici Denise, pâtissière à Libreville"></div>
+  <div class="split split--denise">
+    <div class="story">
+      <p class="lead">Les meilleurs gâteaux du quartier. Ses clients l’adorent, en parlent autour d’eux et reviennent. Mais un soir, quelqu’un la cherche sur son téléphone… et ne la trouve pas.</p>
+      <p>Être excellente dans son métier ne suffit plus. Avec NEAM, Denise avance pas à pas, en trois étapes. Aujourd’hui, elle est trouvée, et elle est choisie.</p>
+      <div class="qr"><div class="qr__img">{qr(SITE + 'index.html#croissance')}</div><div><b>Voir l’histoire en vidéo</b><span>1 min 54 · neamindustry.com</span></div></div>
+    </div>
+    <ol class="dsteps">{steps}</ol>
+  </div>
+  <p class="source">Histoire illustrative&nbsp;: Denise est un personnage, pas une cliente réelle. Elle résume ce que nous construisons avec chaque entreprise.</p>''')
+
+# ---------- 14 Offres ----------
 OFF = [('Starter', 'Micro-entreprises', 'Présence digitale, fiche Google, page de présentation, diagnostic.', 1),
        ('Business', 'TPE', 'Site web, identité numérique, référencement, outils commerciaux, accompagnement.', 2),
        ('Growth', 'PME', 'CRM, automatisations, données, acquisition de clients, accompagnement avancé.', 3),
@@ -250,36 +300,6 @@ page('page--yellow', 'NEAM Digital Score™', f'''
     </div>
   </div>''')
 
-# ---------- 14 Produits ----------
-page('', 'Nos produits', f'''
-  <span class="label">Nos produits</span>
-  <h1>Des outils prêts à vous <em>simplifier</em> la vie.</h1>
-  <div class="prods">
-    <article class="prod"><div class="prod__shot"><img src="{A}products/gurutools-ui.jpg" alt="Interface de GuruTools"></div>
-      <div class="prod__top"><img class="prod__logo" src="{A}products/gurutools.png" alt=""><i class="st st--live">Disponible</i></div>
-      <h3>GuruTools · Recrutement</h3><p>Recruter vous prend trop de temps&nbsp;? GuruTools aide les TPE et PME à publier leurs offres, recevoir les candidatures sans compte, lire automatiquement les CV et repérer plus vite les bons profils, avec un matching expliqué.</p><ul class="chips"><li>Plateforme web et mobile</li><li>Moteur de matching</li><li>Tableau de bord recruteur</li></ul><span class="label">gurutools.pro</span></article>
-    <article class="prod"><div class="prod__shot"><img src="{A}products/tremplin-ui.jpg" alt="Interface de Tremplin"></div>
-      <div class="prod__top"><img class="prod__logo" src="{A}products/tremplin.png" alt=""><i class="st st--live">Disponible</i></div>
-      <h3>Tremplin · Carrière</h3><p>Pour les étudiants et jeunes diplômés&nbsp;: un assistant qui accompagne du profil à l’entretien, avec la création et l’analyse du CV, des offres compatibles, des lettres et la préparation aux entretiens.</p><ul class="chips"><li>Application web</li><li>Créateur et analyse de CV</li><li>Matching candidat ↔ offre</li></ul><span class="label">tremplin.neamindustry.com</span></article>
-  </div>
-  <div class="legal-prod"><img src="{A}products/gurulegal.png" alt="GuruLégal by NEAM"><div><h3>GuruLégal · Juridique</h3><p>Statuts, contrats, formalités&nbsp;: les questions juridiques freinent souvent les entrepreneurs. GuruLégal by NEAM propose des solutions juridiques simples pour avancer sereinement. Disponible sur demande.</p></div></div>''')
-
-# ---------- 15 Super App ----------
-MODS = [('market', 'NEAM Market', 'Courses'), ('food', 'NEAM Food', 'Repas'), ('express', 'NEAM Express', 'Livraison'), ('health', 'NEAM Health', 'Santé'), ('print', 'NEAM Print', 'Impression'),
-        ('services', 'NEAM Services', 'Services'), ('brico', 'Brico&amp;Déco', 'Bricolage'), ('beauty', 'NEAM Beauty', 'Beauté'), ('tech', 'NEAM Tech', 'High-tech')]
-mods = ''.join(f'<li><img src="{A}super-app/{k}.png" alt=""><b>{n}</b><span>{s}</span></li>' for k, n, s in MODS)
-page('page--ink', 'NEAM Super App', f'''
-  <div class="split split--sa">
-    <div>
-      <span class="label">Produit en développement</span>
-      <h1>NEAM Super App&nbsp;: tout votre quotidien, <em>une seule</em> application.</h1>
-      <p class="lead">Faire ses courses, se faire livrer, trouver un service&nbsp;: à Libreville, il faut aujourd’hui jongler entre de nombreuses applications. La NEAM Super App réunira neuf services dans une seule.</p>
-      <ul class="mods">{mods}</ul>
-      <p class="note note--dark"><i class="st st--dev">En développement</i> Les écrans présentés sont des maquettes&nbsp;; l’application n’est pas encore téléchargeable.</p>
-    </div>
-    <div class="sa__img"><img src="{A}super-app/presentation.jpg" alt="Présentation de la NEAM Super App"></div>
-  </div>''')
-
 # ---------- 16 Programme 30/30 ----------
 WEEKS = [('Semaine 1', 'Audit &amp; stratégie', ['Réunion de lancement', 'Diagnostic digital', 'Benchmark concurrentiel', 'Plan d’action']),
          ('Semaine 2', 'Web &amp; identité', ['Architecture ou refonte du site', 'Identité visuelle', 'Optimisation mobile', 'Fondations SEO']),
@@ -297,20 +317,26 @@ page('page--grey', 'Programme 30/30', f'''
     <div class="qr"><div class="qr__img">{qr(SITE + 'candidature.html')}</div><div><b>Candidater en 3 minutes</b><span>neamindustry.com/candidature.html</span></div></div>
   </div>''')
 
-# ---------- 17 Réalisations ----------
-CASES = [('gurutools-ui.jpg', 'GuruTools', 'Plateforme de recrutement', 'Conception, développement et mise en ligne d’une plateforme SaaS&nbsp;: offres, candidature sans compte, lecture automatique des CV, matching expliqué.', 'Disponible', 'live'),
-         ('tremplin-ui.jpg', 'Tremplin', 'Assistant de carrière', 'Un assistant qui accompagne le candidat du profil à l’entretien&nbsp;: CV, offres compatibles, lettres et préparation.', 'Disponible', 'live'),
-         (None, 'NEAM Digital Score™', 'Outil de diagnostic', 'Un moteur d’audit de 150 critères, un test de maturité, un benchmark concurrentiel, un plan d’action priorisé et un rapport PDF.', 'Disponible', 'live'),
-         ('neamindustry-ui.jpg', 'neamindustry.com', 'Site institutionnel', 'Conception éditoriale, design, développement, formulaires connectés, référencement local, blog, assistant et outils intégrés.', 'Disponible', 'live'),
-         ('../super-app/presentation.jpg', 'NEAM Super App', 'Application mobile', 'Conception d’une super-application réunissant neuf services. Les écrans présentés sont des maquettes.', 'En développement', 'dev')]
-def case(img, n, k, d, s, st):
-    vis = f'<img src="{A}products/{img}" alt="">' if img else f'<div class="case__ds"><img src="{A}icons/icon-512.png" alt=""></div>'
-    return f'<article class="case"><div class="case__img">{vis}</div><div class="case__body"><div class="case__top"><i class="st st--{st}">{s}</i><span class="label">{k}</span></div><h3>{n}</h3><p>{d}</p></div></article>'
-page('', 'Réalisations', f'''
-  <span class="label">Réalisations</span>
+# ---------- 17 Expérience et réalisations ----------
+NEAMR = [(f'<img src="{A}icons/icon-512.png" alt="">', 'case__ds', 'NEAM Digital Score™', 'Outil de diagnostic', 'Un moteur d’audit de 150 critères, un test de maturité, un benchmark concurrentiel, un plan d’action priorisé et un rapport PDF.', 'Disponible'),
+         (f'<img src="{A}products/neamindustry-ui.jpg" alt="">', '', 'neamindustry.com', 'Site institutionnel', 'Conception éditoriale, design, développement, formulaires connectés, référencement local, blog et assistant en ligne.', 'Disponible'),
+         (f'<img src="{A}docs/livre-blanc/p01.jpg" alt=""><img src="{A}docs/blueprint/p01.jpg" alt="">', 'case__docs', 'Livre blanc et Blueprint 2027', 'Études et stratégie', 'La maturité numérique du Gabon, chiffres sourcés à l’appui, et notre feuille de route publique.', 'Publiés')]
+nr = ''.join(f'<article class="case"><div class="case__img {c}">{v}</div><div class="case__body"><div class="case__top"><i class="st st--live">{st}</i><span class="label">{k}</span></div><h3>{n}</h3><p>{d}</p></div></article>' for v, c, n, k, d, st in NEAMR)
+PROJ = [('2024 – 2025', 'FINAM', 'Gabon', 'Progiciel de gestion intégré (PGI)&nbsp;: analyse des besoins, conception, développement et intégration des modules clés.', 'Logiciels'),
+        ('2024', 'Bureau International de Conseil et de Promotion', 'Gabon', 'Stratégie sur les réseaux sociaux, veille concurrentielle et analyse de marché, pour plus de visibilité et d’engagement.', 'Digital &amp; Conseil'),
+        ('2023', 'Blueprotein', 'Maroc', 'Conception et développement d’un ERP pour optimiser les processus internes&nbsp;; stratégie réseaux sociaux.', 'Logiciels'),
+        ('2022', 'TNP Consultants', 'Maroc', 'ERP sur Microsoft PowerApps et Power Automate pour améliorer la gestion des données.', 'Automatisation'),
+        ('2021', 'Centre de Réflexion pour le Sahel', 'Burkina Faso', 'Site WordPress avec blog et podcast, charte graphique et communication digitale.', 'Web'),
+        ('2021', 'Virtually, CATS, Komo Concept Store', 'Monaco', 'Réseaux sociaux pour le luxe, rédaction d’articles et référencement naturel, campagnes publicitaires.', 'Digital')]
+proj = ''.join(f'<li><span class="pj__d">{d}</span><div><b>{c}</b><i>{pays}</i><span>{t}</span></div><em class="pj__tag">{tag}</em></li>' for d, c, pays, t, tag in PROJ)
+page('', 'Expérience et réalisations', f'''
+  <span class="label">Expérience et réalisations</span>
   <h1>Ce que nous avons <em>déjà construit</em>.</h1>
-  <p class="lead">Chaque réalisation est présentée avec son statut réel. Vous pouvez visiter et tester celles qui sont en ligne.</p>
-  <div class="cases">{''.join(case(*c) for c in CASES)}</div>''')
+  <div class="cases cases--3">{nr}</div>
+  <div class="proj">
+    <div class="proj__head"><span class="label">Projets menés par notre fondateur</span><p>Salarié ou indépendant, {FONDATEUR_NOM} a conduit ces projets au fil de son parcours&nbsp;: l’expérience sur laquelle NEAM s’appuie.</p></div>
+    <ul class="pj">{proj}</ul>
+  </div>''')
 
 # ---------- 18 Campagne ----------
 POST = ['01-et-ca-rapporte-combien', '02-plaquette-tres-chere', '03-les-likes-ne-paient-pas-le-loyer', '04-ia-5-minutes', '05-site-beau-caisse-vide', '06-parlez-lui-de-chiffre-affaires']
