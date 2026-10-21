@@ -403,18 +403,18 @@ p { font-size: 9.3pt; line-height: 1.55; }
 
 /* ---------- Expérience et réalisations ---------- */
 .cases--3 { grid-template-columns: repeat(3, 1fr); }
-.cases--3 .case, .cases--3 .case:first-child { grid-column: auto; grid-template-columns: none; grid-template-rows: 34mm auto; }
+.cases--3 .case, .cases--3 .case:first-child { grid-column: auto; grid-template-columns: none; grid-template-rows: 27mm auto; }
 .cases--3 .case:first-child .case__body { padding: 3.6mm 4.5mm; align-content: start; }
 .cases--3 .case:first-child h3 { font-size: 12.5pt; }
 .case__docs { display: flex; gap: 2.5mm; justify-content: center; align-items: center; background: var(--ink); padding: 3mm; }
 .case__docs img { height: 100%; width: auto; border-radius: 1mm; box-shadow: 0 2mm 5mm rgba(0,0,0,.4); }
-.proj { flex: 1; display: flex; flex-direction: column; gap: 3mm; padding: 5.5mm; border-radius: 2mm; background: var(--paper-2); }
+.proj { flex: 1; display: flex; flex-direction: column; gap: 2.5mm; padding: 4.5mm 5mm; border-radius: 2mm; background: var(--paper-2); }
 .proj__head { display: grid; grid-template-columns: 52mm 1fr; gap: 5mm; align-items: baseline; }
 .proj__head p { font-size: 9pt; }
 .pj { border-top: .3mm solid var(--ink); }
-.pj li { display: grid; grid-template-columns: 22mm 1fr 30mm; gap: 4mm; align-items: start; padding: 2.7mm 0; border-bottom: .25mm solid #dcdcd8; }
+.pj li { display: grid; grid-template-columns: 22mm 1fr 30mm; gap: 4mm; align-items: start; padding: 2.1mm 0; border-bottom: .25mm solid #dcdcd8; }
 .pj__d { font: 500 7pt var(--mono); letter-spacing: .04em; color: #b07c00; padding-top: .6mm; }
 .pj b { font-size: 10pt; color: var(--ink); letter-spacing: -.01em; }
 .pj i { font-style: normal; font: 500 6.8pt var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-left: 2mm; }
-.pj div span { display: block; margin-top: .8mm; font-size: 8.4pt; line-height: 1.4; }
+.pj div span { display: block; margin-top: .6mm; font-size: 8.2pt; line-height: 1.36; }
 .pj__tag { justify-self: end; font-family: var(--sans) !important; font-style: normal !important; padding: 1mm 2.6mm; border-radius: 20mm; background: #fff; border: .25mm solid #dcdcd8; font-size: 7.4pt !important; font-weight: 600; color: var(--ink); white-space: nowrap; }

@@ -87,10 +87,11 @@ page('page--photo', '', f'''
 # ---------- 04 Parcours du fondateur ----------
 ROLES = [('Févr. – oct. 2024', 'Responsable commercial', 'Bureau International de Conseil et de Promotion · Gabon', 'Stratégie réseaux sociaux, veille concurrentielle, analyse de marché.'),
          ('Juil. – oct. 2023', 'Responsable marketing', 'Blueprotein · Maroc', 'Communication digitale ; conception et développement d’un ERP.'),
-         ('Janv. – mars 2022', 'Community manager', 'TNP Consultants · Maroc', 'Stratégie digitale ; ERP sur Microsoft PowerApps et Power Automate.'),
-         ('Juin – nov. 2021', 'Community manager', 'Virtually · Monaco – France', 'Réseaux sociaux pour le secteur du luxe, référencement naturel (SEO).')]
+         ('Janv. – mars 2022', 'Community manager', 'TNP Consultants · Maroc', 'Stratégie médias sociaux, benchmark et veille ; ERP sur PowerApps, Power Automate et Power BI.'),
+         ('Juin – nov. 2021', 'Community manager', 'Virtually · Monaco – France', 'Réseaux sociaux et campagnes publicitaires pour le luxe, référencement naturel (SEO).'),
+         ('Juil. – déc. 2020', 'Community manager', 'Bouenguidi Sports · Gabon', 'Stratégie digitale et image du club pour sa première Ligue des champions africaine.')]
 roles = ''.join(f'<li><span class="tl__d">{d}</span><div><b>{r}</b><i>{o}</i><span>{t}</span></div></li>' for d, r, o, t in ROLES)
-SKILLS = ['Gestion de projet', 'Optimisation des processus', 'Stratégie digitale', 'ERP et PGI', 'Référencement (SEO)', 'Community management', 'Stratégie de contenu', 'Chartes graphiques', 'WordPress', 'Figma', 'PowerApps', 'Power Automate', 'Adobe Creative Suite']
+SKILLS = ['Gestion de projet', 'Optimisation des processus', 'Stratégie digitale', 'ERP et PGI', 'Référencement (SEO)', 'Community management', 'Stratégie de contenu', 'Chartes graphiques', 'WordPress', 'Figma', 'Canva', 'PowerApps', 'Power Automate', 'Adobe Creative Suite']
 page('page--grey', 'Le parcours du fondateur', f'''
   <div class="split split--bio">
     <div class="bio">
@@ -98,7 +99,7 @@ page('page--grey', 'Le parcours du fondateur', f'''
       <h1>{FONDATEUR_NOM}</h1>
       <p class="bio__role">Consultant en transformation digitale<br>Fondateur de NEAM Softwares Industry</p>
       <p class="lead">Professionnel du marketing digital et de la gestion d’entreprise, {FONDATEUR_NOM} met ses compétences au service de l’optimisation des processus et de solutions innovantes&nbsp;: marketing digital, gestion de projets et création d’outils digitaux.</p>
-      <div class="bio__figs"><div><b>2021</b><span>premières missions en marketing digital</span></div><div><b>3</b><span>ERP et progiciels de gestion conçus</span></div><div><b>4</b><span>certifications professionnelles</span></div></div>
+      <div class="bio__figs"><div><b>2020</b><span>premières missions en communication digitale</span></div><div><b>3</b><span>ERP et progiciels de gestion conçus</span></div><div><b>7</b><span>certifications Google, Facebook Blueprint et HubSpot</span></div></div>
       <div class="bio__block"><span class="label">Formation</span>
         <ul class="bio__list"><li><b>Licence en gestion</b><span>ESMC-BS, Casablanca · 2021 – 2022. Mémoire sur l’optimisation des processus de gestion des données par l’intégration de solutions numériques.</span></li>
         <li><b>Bac +2 en informatique de gestion</b><span>Suptechnology, Casablanca · 2018 – 2021. Outils informatiques et logiciels de gestion pour les entreprises.</span></li></ul></div>
@@ -110,7 +111,7 @@ page('page--grey', 'Le parcours du fondateur', f'''
       <ul class="tl">{roles}</ul>
       <div class="bio__block"><span class="label">Compétences</span><ul class="bio__chips bio__chips--line">{''.join(f'<li>{x}</li>' for x in SKILLS)}</ul></div>
       <div class="bio__block"><span class="label">Certifications</span>
-        <ul class="bio__chips bio__chips--line"><li>Inbound Marketing · HubSpot Academy</li><li>Marketing digital et réseaux sociaux</li><li>PowerApps, Power Automate et Power BI</li><li>Photoshop, After Effects et Illustrator</li></ul></div>
+        <ul class="bio__chips bio__chips--line"><li>4 certifications Google</li><li>2 certifications Facebook Blueprint</li><li>Inbound Marketing · HubSpot Academy</li><li>Marketing digital et réseaux sociaux</li><li>PowerApps, Power Automate et Power BI</li><li>Photoshop, After Effects et Illustrator</li></ul></div>
     </div>
   </div>''')
 
@@ -325,9 +326,10 @@ nr = ''.join(f'<article class="case"><div class="case__img {c}">{v}</div><div cl
 PROJ = [('2024 – 2025', 'FINAM', 'Gabon', 'Progiciel de gestion intégré (PGI)&nbsp;: analyse des besoins, conception, développement et intégration des modules clés.', 'Logiciels'),
         ('2024', 'Bureau International de Conseil et de Promotion', 'Gabon', 'Stratégie sur les réseaux sociaux, veille concurrentielle et analyse de marché, pour plus de visibilité et d’engagement.', 'Digital &amp; Conseil'),
         ('2023', 'Blueprotein', 'Maroc', 'Conception et développement d’un ERP pour optimiser les processus internes&nbsp;; stratégie réseaux sociaux.', 'Logiciels'),
-        ('2022', 'TNP Consultants', 'Maroc', 'ERP sur Microsoft PowerApps et Power Automate pour améliorer la gestion des données.', 'Automatisation'),
+        ('2022', 'TNP Consultants', 'Maroc', 'ERP sur Microsoft PowerApps, Power Automate et Power BI pour améliorer la gestion des données.', 'Automatisation'),
         ('2021', 'Centre de Réflexion pour le Sahel', 'Burkina Faso', 'Site WordPress avec blog et podcast, charte graphique et communication digitale.', 'Web'),
-        ('2021', 'Virtually, CATS, Komo Concept Store', 'Monaco', 'Réseaux sociaux pour le luxe, rédaction d’articles et référencement naturel, campagnes publicitaires.', 'Digital')]
+        ('2021', 'Virtually, CATS, Komo Concept Store', 'Monaco', 'Réseaux sociaux pour le luxe, campagnes publicitaires et visuels, rédaction d’articles et référencement naturel.', 'Digital'),
+        ('2020', 'Bouenguidi Sports', 'Gabon', 'Stratégie de communication digitale et réseaux sociaux du club pour sa première participation à une Ligue des champions africaine.', 'Digital')]
 proj = ''.join(f'<li><span class="pj__d">{d}</span><div><b>{c}</b><i>{pays}</i><span>{t}</span></div><em class="pj__tag">{tag}</em></li>' for d, c, pays, t, tag in PROJ)
 page('', 'Expérience et réalisations', f'''
   <span class="label">Expérience et réalisations</span>
