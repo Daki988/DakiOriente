@@ -31,7 +31,7 @@ L’en-tête et le pied de page sont identiques sur chaque page : pensez à modi
 - **Google Analytics 4 et Google Ads** : renseigner les deux identifiants dans `js/analytics.js` (seul fichier à modifier). Tant qu'ils contiennent « XXXX », rien n'est chargé.
   Événements envoyés : `cta_click`, `whatsapp_click`, `contact_form_start`, `contact_form_success`, `contact_form_error`, `digital_score_start`, `digital_score_complete`, `download_resource`.
   À marquer comme événements clés dans GA4 : `contact_form_success`, `digital_score_complete`, `whatsapp_click`.
-- **WhatsApp / téléphone** : numéro 060 22 94 47, lien `https://wa.me/24160229447`. Si ce lien ne trouve pas le compte, utiliser `241060229447` (constantes `WA_NUM` et `TEL_INTL` du script de génération, ou remplacer dans les fichiers HTML).
+- **WhatsApp** : 077 45 31 67, lien `https://wa.me/24177453167` (si le compte est introuvable, essayer `241077453167`). **Téléphone** : 060 22 94 47 (fiche Google).
 - Image de partage : `assets/og-neam.jpg` (1200×630).
 
 ## Lancer en local
