@@ -1,5 +1,6 @@
 import { ZodError } from "zod";
 import { AppError } from "../lib/errors";
+import { signalerErreur } from "../lib/alertes";
 
 export const json = (data: unknown, status = 200, headers: Record<string, string> = {}) =>
   new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", ...headers } });
@@ -16,5 +17,6 @@ export function errorResponse(e: unknown) {
   const pg = (e as { cause?: { code?: string }; code?: string })?.cause?.code ?? (e as { code?: string })?.code;
   if (typeof pg === "string" && /^(22|23)/.test(pg)) return json({ error: { code: pg === "23505" ? "doublon" : "validation", message: pg === "23505" ? "Cet élément existe déjà." : "Données invalides." } }, pg === "23505" ? 409 : 400);
   console.error(e);
+  signalerErreur(e);
   return json({ error: { code: "serveur", message: "Une erreur est survenue. Réessayez dans un instant." } }, 500);
 }

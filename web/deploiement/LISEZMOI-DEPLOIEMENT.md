@@ -82,9 +82,41 @@ Revenez dans Setup Node.js App et cliquez sur **Restart**. Le site est en ligne 
 
 ## 6. Mises à jour
 
-1. Arrêtez l'application (Stop App), remplacez le dossier `navigoal/` par celui du nouveau paquet en conservant
-   votre `.env` et le dossier `stockage/`.
-2. `npm run migrate && npm run seed` dans le terminal, puis **Restart**.
+1. Faites une sauvegarde (`npm run sauvegarde`, voir ci-dessous).
+2. Arrêtez l'application (Stop App), remplacez le dossier `navigoal/` par celui du nouveau paquet en conservant
+   votre `.env` et les dossiers `stockage/` et `sauvegardes/`.
+3. `npm run migrate && npm run seed` dans le terminal, puis **Restart**.
+
+## 7. Sauvegardes
+
+`npm run sauvegarde` (dans le terminal, environnement virtuel activé) écrit dans `sauvegardes/` :
+- `navigoal-AAAA-MM-JJ-HHMM.sql.gz` : toute la base ;
+- `navigoal-AAAA-MM-JJ-HHMM-fichiers.tar.gz` : les fichiers déposés (`stockage/`).
+
+Les 14 plus récentes sont conservées (`SAUVEGARDE_GARDER`). Avec `SAUVEGARDE_EMAIL`, la sauvegarde de la base est aussi
+envoyée par e-mail : c'est la copie hors du serveur. Téléchargez aussi de temps en temps l'archive des fichiers
+depuis le Gestionnaire de fichiers.
+
+**Automatiser** : cPanel › **Tâches Cron** › *Ajouter une tâche*, tous les jours à 3 h :
+```
+0 3 * * * cd /home/IDENTIFIANT/navigoal && /home/IDENTIFIANT/nodevenv/navigoal/22/bin/node outils/env.cjs outils/sauvegarde.mjs >> sauvegardes/journal.log 2>&1
+```
+(adaptez le chemin de `node` à celui affiché par Setup Node.js App).
+
+**Restaurer** (remplace toutes les données, dans une seule transaction : rien n'est modifié en cas d'erreur) :
+```bash
+npm run migrate
+node outils/env.cjs outils/restauration.mjs sauvegardes/navigoal-AAAA-MM-JJ-HHMM.sql.gz --confirmer
+tar -xzf sauvegardes/navigoal-AAAA-MM-JJ-HHMM-fichiers.tar.gz -C /home/IDENTIFIANT/navigoal   # fichiers déposés
+```
+
+## 8. Surveillance
+
+- **Disponibilité** : `https://navigoal.net/api/sante/` répond 200 quand le site et la base fonctionnent, 503 sinon.
+  Créez une sonde gratuite (par exemple UptimeRobot, « HTTP(s) », toutes les 5 minutes) sur cette adresse, avec
+  alerte par e-mail ou SMS.
+- **Erreurs** : renseignez `ALERTE_EMAIL` : chaque erreur serveur inattendue y est signalée (au plus une fois par quart
+  d'heure pour une même erreur), avec le début de la trace technique.
 
 ## Dépannage
 

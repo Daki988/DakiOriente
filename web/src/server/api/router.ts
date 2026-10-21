@@ -1,5 +1,6 @@
 // API REST Navigoal (/api/...). Une table de routes unique sert au routage et à la documentation OpenAPI.
-import { schema } from "../db";
+import { sql } from "drizzle-orm";
+import { db, schema } from "../db";
 import { clearSessionCookie, createSession, currentUser, destroySession, setSessionCookie, SESSION_COOKIE, type Role } from "../auth/session";
 import { AppError, forbidden, unauthorized } from "../lib/errors";
 import { getFile } from "../lib/storage";
@@ -325,6 +326,15 @@ route("GET", "/fichiers/housings/:hid/:fid", "Fichiers", "Photo d'annonce publi�
   return new Response(f.data as BodyInit, { headers: { "Content-Type": f.contentType, "Cache-Control": "public, max-age=86400" } });
 });
 route("GET", "/openapi.json", "Documentation", "Description OpenAPI de l'API", "public", async () => openapi());
+route("GET", "/sante", "Documentation", "État du service (surveillance de disponibilité) : 200 si l'application et la base répondent, 503 sinon", "public", async () => {
+  const debut = Date.now();
+  try {
+    await db.execute(sql`select 1`);
+    return json({ ok: true, base: "ok", ms: Date.now() - debut, version: process.env.npm_package_version ?? null });
+  } catch {
+    return json({ ok: false, base: "injoignable" }, 503);
+  }
+});
 
 // ---------------------------------------------------------------- Dispatcher
 function compile(path: string) {

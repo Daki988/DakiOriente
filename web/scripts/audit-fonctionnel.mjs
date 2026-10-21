@@ -84,3 +84,4 @@ fs.writeFileSync(path.join(OUT, "pages.json"), JSON.stringify(rapport, null, 1))
 const ko = rapport.filter((r) => r.problemes.length);
 console.log(`${rapport.length} pages visitées, ${ko.length} avec au moins un problème`);
 for (const r of ko) console.log(`- [${r.profil}] ${r.url}${r.finale ? ` → ${r.finale}` : ""} : ${r.problemes.map((p) => `${p.type}: ${p.msg}`).join(" | ")}`);
+if (ko.length) process.exitCode = 1;

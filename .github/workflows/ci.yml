@@ -1,0 +1,68 @@
+# Intégration continue du site Navigoal : lint, typage, tests, build, puis audit des actions de chaque profil
+# sur une instance de recette (base jetable, paiements simulés).
+name: CI
+
+on:
+  push:
+    paths: ["web/**", "data/**", ".github/workflows/ci.yml"]
+  pull_request:
+    paths: ["web/**", "data/**", ".github/workflows/ci.yml"]
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: web
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgres://postgres@localhost:5432/postgres
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run sync
+      - name: Lint
+        run: npm run lint
+      - name: Typage
+        run: npx tsc --noEmit
+      - name: Tests
+        run: npm test
+      - name: Build
+        run: npm run build
+      - name: Base de recette (comptes de démonstration)
+        env:
+          DATABASE_URL: postgres://postgres@localhost:5432/recette
+          ADMIN_EMAIL: admin@demo.navigoal.net
+          ADMIN_PASSWORD: Navigoal2026
+          SEED_DEMO: "1"
+        run: |
+          psql postgres://postgres@localhost:5432/postgres -c "create database recette"
+          npx tsx scripts/migrate.mts
+          npx tsx scripts/seed.mts
+      - name: Audit des actions, des droits et de la robustesse
+        env:
+          DATABASE_URL: postgres://postgres@localhost:5432/recette
+          PAYMENTS_MODE: sandbox
+          STORAGE_DIR: /tmp/uploads
+          OTP_DEBUG: "1"
+        run: |
+          npx next start -p 3000 > /tmp/serveur.log 2>&1 &
+          for i in $(seq 1 60); do curl -sf http://localhost:3000/api/sante/ && break; sleep 2; done
+          BASE=http://localhost:3000 OUT=/tmp/audit node scripts/audit-actions.mjs
+      - name: Journal du serveur (en cas d'échec)
+        if: failure()
+        run: tail -200 /tmp/serveur.log || true

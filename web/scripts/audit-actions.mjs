@@ -320,3 +320,4 @@ const ko = resultats.filter((r) => !r.ok);
 const parProfil = Object.entries(Object.groupBy(resultats, (r) => r.profil)).map(([p, rs]) => `${p} ${rs.filter((r) => r.ok).length}/${rs.length}`);
 console.log(`\n${resultats.length} actions, ${ko.length} en échec · ${parProfil.join(" · ")}`);
 console.log(`Matrice des droits : ${matrice.length} appels, ${matrice.filter((m) => !m.ok).length} anomalies`);
+if (ko.length) process.exitCode = 1; // échec visible en intégration continue

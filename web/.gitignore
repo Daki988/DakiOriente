@@ -42,3 +42,6 @@ next-env.d.ts
 
 # fichiers déposés en local
 /.data/
+
+# Sauvegardes de la base (scripts/sauvegarde.mts)
+/sauvegardes/

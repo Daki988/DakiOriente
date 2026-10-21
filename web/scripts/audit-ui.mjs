@@ -219,3 +219,4 @@ await browser.close();
 fs.writeFileSync(path.join(OUT, "ui.json"), JSON.stringify(resultats, null, 1));
 const ko = resultats.filter((r) => !r.ok);
 console.log(`\n${resultats.length} étapes, ${ko.length} en échec`);
+if (ko.length) process.exitCode = 1;
