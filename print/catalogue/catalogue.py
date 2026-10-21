@@ -1,6 +1,8 @@
-# Catalogue NEAM 2026–2027 (A4, 20 pages) : génère print/catalogue/catalogue.html
+# Catalogue NEAM 2026–2027 (A4, 24 pages) : génère print/catalogue/catalogue.html
 # Sources : Company Blueprint 2027, présentation NEAM × KANIE 30/30, contenus du site.
-import os, re, segno
+import os, re, sys, segno
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from visuels import icon, ring, bars, carte
 
 ROOT = '/home/user/DakiOriente'
 OUT = os.path.join(ROOT, 'print/catalogue')
@@ -24,13 +26,27 @@ def typo(html):
     return ''.join(parts)
 
 PAGES = []
-def page(cls, label, body, folio=True):
+TOC = []          # (numéro de page, titre, est_un_chapitre)
+def page(cls, label, body, folio=True, toc=None, chapter=None):
     n = len(PAGES) + 1
+    if chapter:
+        TOC.append((n, chapter, True))
+    if toc:
+        TOC.append((n, toc, False))
     head = '' if not label else f'<div class="runhead"><span>NEAM Softwares Industry · Catalogue 2026 – 2027</span><span>{label}</span></div>'
     foot = f'<div class="folio"><span>{n:02d}</span><span>Build a better tomorrow !</span></div>' if folio else ''
     PAGES.append(f'<section class="page {cls}">{head}{body}{foot}</section>')
 
 CHEVRON = '<svg class="chev" viewBox="0 0 100 70" aria-hidden="true"><path d="M50 0 100 70H74L50 34 26 70H0z"/></svg>'
+
+def divider(num, title, intro, img, alt):
+    page('page--ink page--div', '', f'''
+  <div class="div__img"><img src="img/{img}" alt="{alt}"></div>
+  <div class="div__body">
+    <span class="div__n">{num}</span>
+    <div><span class="label label--y">Chapitre {num}</span><h1>{title}</h1><p class="lead">{intro}</p></div>
+    <ol class="div__toc">@@CH{num}@@</ol>
+  </div>''', chapter=f'{num} · {title}')
 
 # ---------- 01 Couverture ----------
 page('page--ink cover', '', f'''
@@ -47,11 +63,6 @@ page('page--ink cover', '', f'''
   </div>''', folio=False)
 
 # ---------- 02 Sommaire ----------
-TOC = [('03', 'Le mot du fondateur'), ('04', 'Le parcours du fondateur'), ('05', 'Notre histoire'), ('06', 'Le Gabon numérique'),
-       ('07', 'Vision, mission, valeurs'), ('08', 'Notre positionnement'), ('09', 'Les 5 piliers de la maturité digitale'), ('10', 'Nos expertises'),
-       ('12', 'Notre méthode'), ('13', 'Un exemple concret'), ('14', 'Nos offres'), ('15', 'NEAM Digital Score™'), ('16', 'Programme NEAM × KANIE 30/30'),
-       ('17', 'Expérience et réalisations'), ('18', 'La campagne #EtÇaRapporteCombien'), ('19', 'Notre trajectoire 2027'), ('20', 'Nous contacter')]
-toc = ''.join(f'<li><span class="toc__n">{n}</span><span class="toc__t">{t}</span></li>' for n, t in TOC)
 page('', 'Sommaire', f'''
   <div class="split split--toc">
     <div>
@@ -64,8 +75,10 @@ page('', 'Sommaire', f'''
         <div><b>48&nbsp;h</b><span>ouvrées maximum pour vous répondre</span></div>
       </div>
     </div>
-    <ol class="toc">{toc}</ol>
+    <ol class="toc">@@TOC@@</ol>
   </div>''')
+
+divider('01', 'Qui sommes-nous', 'Une entreprise technologique née à Libreville, portée par un fondateur, une conviction et une méthode.', 'film-libreville.jpg', 'Basés à Libreville. Au cœur du Gabon.')
 
 # ---------- 03 Le mot du fondateur ----------
 sign = f'<span class="founder__who"><b>{FONDATEUR_NOM}</b>{FONDATEUR_TITRE}<br>NEAM Softwares Industry</span>'
@@ -82,7 +95,7 @@ page('page--photo', '', f'''
       <p>Notre ambition est claire&nbsp;: lorsqu’une TPE ou une PME gabonaise souhaite se digitaliser, NEAM doit naturellement faire partie des premiers partenaires auxquels elle pense. Ces pages vous montrent comment nous y travaillons.</p>
     </div>
     <p class="founder__sign">{sign}<span class="founder__motto">Build a better tomorrow !</span></p>
-  </div>''')
+  </div>''', toc='Le mot du fondateur')
 
 # ---------- 04 Parcours du fondateur ----------
 ROLES = [('Févr. – oct. 2024', 'Responsable commercial', 'Bureau International de Conseil et de Promotion · Gabon', 'Stratégie réseaux sociaux, veille concurrentielle, analyse de marché.'),
@@ -91,6 +104,9 @@ ROLES = [('Févr. – oct. 2024', 'Responsable commercial', 'Bureau Internationa
          ('Juin – nov. 2021', 'Community manager', 'Virtually · Monaco – France', 'Réseaux sociaux et campagnes publicitaires pour le luxe, référencement naturel (SEO).'),
          ('Juil. – déc. 2020', 'Community manager', 'Bouenguidi Sports · Gabon', 'Stratégie digitale et image du club pour sa première Ligue des champions africaine.')]
 roles = ''.join(f'<li><span class="tl__d">{d}</span><div><b>{r}</b><i>{o}</i><span>{t}</span></div></li>' for d, r, o, t in ROLES)
+MAP = carte(set(),  # aucun pays mis en couleur : seules les villes sont signalées (carte neutre)
+             [('Libreville', 9.45, 0.39, 7, 4, 'start'), ('Casablanca', -7.59, 33.57, 7, -5, 'start'), ('Monaco', 7.42, 43.74, 7, 4, 'start'), ('Ouagadougou', -1.53, 12.37, 7, 4, 'start')],
+             box=(-18.5, 17.5, -5.5, 52.0), width=300)
 SKILLS = ['Gestion de projet', 'Optimisation des processus', 'Stratégie digitale', 'ERP et PGI', 'Référencement (SEO)', 'Community management', 'Stratégie de contenu', 'Chartes graphiques', 'WordPress', 'Figma', 'Canva', 'PowerApps', 'Power Automate', 'Adobe Creative Suite']
 page('page--grey', 'Le parcours du fondateur', f'''
   <div class="split split--bio">
@@ -100,6 +116,7 @@ page('page--grey', 'Le parcours du fondateur', f'''
       <p class="bio__role">Consultant en transformation digitale<br>Fondateur de NEAM Softwares Industry</p>
       <p class="lead">Professionnel du marketing digital et de la gestion d’entreprise, {FONDATEUR_NOM} met ses compétences au service de l’optimisation des processus et de solutions innovantes&nbsp;: marketing digital, gestion de projets et création d’outils digitaux.</p>
       <div class="bio__figs"><div><b>2020</b><span>premières missions en communication digitale</span></div><div><b>3</b><span>ERP et progiciels de gestion conçus</span></div><div><b>7</b><span>certifications Google, Facebook Blueprint et HubSpot</span></div></div>
+      <div class="bio__block"><span class="label">Compétences</span><ul class="bio__chips bio__chips--line">{''.join(f'<li>{x}</li>' for x in SKILLS)}</ul></div>
       <div class="bio__block"><span class="label">Certifications</span>
         <ul class="bio__chips bio__chips--line"><li>4 certifications Google</li><li>2 certifications Facebook Blueprint</li><li>Inbound Marketing · HubSpot Academy</li><li>Marketing digital et réseaux sociaux</li><li>PowerApps, Power Automate et Power BI</li><li>Photoshop, After Effects et Illustrator</li></ul></div>
       <div class="bio__block bio__engage"><span class="label">Engagements</span>
@@ -108,10 +125,10 @@ page('page--grey', 'Le parcours du fondateur', f'''
     <div class="bio__side">
       <span class="label">Expériences professionnelles</span>
       <ul class="tl">{roles}</ul>
-      <div class="bio__block"><span class="label">Compétences</span><ul class="bio__chips bio__chips--line">{''.join(f'<li>{x}</li>' for x in SKILLS)}</ul></div>
-      <div class="bio__block bio__where"><span class="label">Terrains d’expérience</span><p>Gabon · Maroc · Monaco · France · Burkina Faso</p><span>Des missions pour des entreprises, un club de football, une organisation de réflexion et des marques du luxe.</span></div>
+      <div class="bio__block bio__where"><span class="label">Terrains d’expérience</span>
+        <div class="where">{MAP}<ul class="where__list"><li><b>Gabon</b><span>Libreville · conseil, club de football, PGI</span></li><li><b>Maroc</b><span>Casablanca · ERP, communication digitale</span></li><li><b>Monaco · France</b><span>Marques du luxe, référencement</span></li><li><b>Burkina Faso</b><span>Site, blog et podcast</span></li></ul></div></div>
     </div>
-  </div>''')
+  </div>''', toc='Le parcours du fondateur')
 
 # ---------- 05 Notre histoire ----------
 BUILT = [('NEAM Digital Score™', 'Diagnostic sur 150 critères et test de maturité', 'Disponible', 'live'), ('neamindustry.com', 'Site, blog et assistant en ligne', 'Disponible', 'live'),
@@ -133,47 +150,51 @@ page('page--grey', 'Notre histoire', f'''
     <div>
       <span class="label">Ce que nous avons déjà construit</span>
       <ul class="built">{built}</ul>
+      <figure class="still"><img src="img/film-avant-apres.jpg" alt="Avant : papier, Excel et messages éparpillés. Avec NEAM : tout au même endroit."><figcaption>Extrait de notre film&nbsp;: «&nbsp;Papier, Excel et messages éparpillés → tout au même endroit.&nbsp;»</figcaption></figure>
     </div>
-  </div>''')
+  </div>''', toc='Notre histoire')
 
 # ---------- 05 Le Gabon numérique ----------
+VIZ = [ring(71.9, '71,9 %'), ring(94, '94 %'), ring(70, '≈70 %'), ring(93, '93 %'), bars([('Technique', 0, 20), ('Juridique', 20, 20)])]
+VIZ_L = ['en ligne', 'mobiles', 'mobile money', 'créées en ligne', 'cybersécurité']
 FIGS = [('71,9&nbsp;%', 'de la population en ligne, soit 1,87 million d’internautes', 'DataReportal (Kepios), fin 2025'),
         ('2,39&nbsp;M', 'abonnements Internet, dont 94&nbsp;% mobiles', 'ARCEP, T4 2025'),
         ('≈&nbsp;70&nbsp;%', 'des adultes ont un compte mobile money (40&nbsp;% en Afrique subsaharienne)', 'Global Findex 2025'),
         ('4&nbsp;018', 'entreprises créées au premier trimestre 2025, dont 93&nbsp;% en ligne', 'ANPI, T1 2025'),
         ('0&nbsp;/&nbsp;20', 'en mesures techniques de cybersécurité (20&nbsp;/&nbsp;20 sur le volet juridique)', 'UIT, Global Cybersecurity Index 2024')]
-figs = ''.join(f'<div class="fig"><b>{v}</b><span>{t}</span><i>{s}</i></div>' for v, t, s in FIGS)
+figs = ''.join(f'<div class="fig"><div class="fig__viz">{VIZ[k]}<em>{VIZ_L[k]}</em></div><b>{v}</b><span>{t}</span><i>{s}</i></div>' for k, (v, t, s) in enumerate(FIGS))
 page('page--ink', 'Le Gabon numérique', f'''
   <span class="label">Pourquoi maintenant</span>
   <h1>Le Gabon est <em>connecté</em>. Ses entreprises doivent suivre.</h1>
   <div class="figs">{figs}
     <div class="fig fig--read"><span class="label label--y">Lecture NEAM</span><p>La base est connectée et paie sur mobile&nbsp;; l’outillage interne des entreprises reste à construire, sur des canaux qu’elles maîtrisent.</p></div>
   </div>
-  <p class="source">Sources détaillées&nbsp;: livre blanc NEAM, «&nbsp;La maturité numérique du Gabon&nbsp;», à télécharger sur neamindustry.com/ressources.html</p>''')
+  <p class="source">Sources détaillées&nbsp;: livre blanc NEAM, «&nbsp;La maturité numérique du Gabon&nbsp;», à télécharger sur neamindustry.com/ressources.html</p>''', toc='Le Gabon numérique')
 
 # ---------- 06 Vision, mission, valeurs ----------
 page('', 'Vision, mission, valeurs', f'''
   <span class="label">Ce qui nous guide</span>
   <h1>Construire des entreprises plus <em>performantes</em> grâce au numérique.</h1>
   <div class="vmv">
-    <div><span class="k">Vision</span><p>Construire des entreprises plus performantes grâce au numérique, et faire de la technologie un levier de croissance pour les entreprises africaines.</p></div>
-    <div><span class="k">Mission</span><p>Transformer les besoins métiers en solutions digitales concrètes, simples et mesurables, en accompagnant les TPE et PME dans leur transformation digitale.</p></div>
-    <div><span class="k">Ambition 2027</span><p>Devenir la référence gabonaise de la transformation digitale des TPE et PME, puis étendre notre action à la région.</p></div>
+    <div>{icon("oeil", "ico ico--y")}<span class="k">Vision</span><p>Construire des entreprises plus performantes grâce au numérique, et faire de la technologie un levier de croissance pour les entreprises africaines.</p></div>
+    <div>{icon("boussole", "ico ico--y")}<span class="k">Mission</span><p>Transformer les besoins métiers en solutions digitales concrètes, simples et mesurables, en accompagnant les TPE et PME dans leur transformation digitale.</p></div>
+    <div>{icon("drapeau", "ico ico--y")}<span class="k">Ambition 2027</span><p>Devenir la référence gabonaise de la transformation digitale des TPE et PME, puis étendre notre action à la région.</p></div>
   </div>
   <div class="values">
     <span class="label">Nos valeurs</span>
-    <ul><li><b>Innovation</b><span>Chercher la solution la plus utile, pas la plus à la mode.</span></li><li><b>Proximité</b><span>Parler votre langage, comprendre vos réalités.</span></li><li><b>Impact</b><span>Viser un résultat concret pour votre activité.</span></li><li><b>Fiabilité</b><span>Tenir nos engagements et nos délais.</span></li><li><b>Orientation résultat</b><span>Mesurer ce que le digital vous rapporte.</span></li></ul>
+    <ul><li>{icon("idee")}<b>Innovation</b><span>Chercher la solution la plus utile, pas la plus à la mode.</span></li><li>{icon("lieu")}<b>Proximité</b><span>Parler votre langage, comprendre vos réalités.</span></li><li>{icon("impact")}<b>Impact</b><span>Viser un résultat concret pour votre activité.</span></li><li>{icon("fiable")}<b>Fiabilité</b><span>Tenir nos engagements et nos délais.</span></li><li>{icon("resultat")}<b>Orientation résultat</b><span>Mesurer ce que le digital vous rapporte.</span></li></ul>
   </div>
   <div class="manifesto">
     <p>Nous pensons que la transformation digitale ne doit pas être réservée aux grandes entreprises. Une petite entreprise peut, elle aussi, <em>être visible, automatiser, exploiter ses données, mieux connaître ses clients, vendre davantage, gagner du temps</em> et grandir.</p>
     <span class="label">Extrait de notre manifeste</span>
-  </div>''')
+  </div>''', toc='Vision, mission, valeurs')
 
 # ---------- 07 Positionnement ----------
 ADV = [('Proximité', 'Comprendre les réalités opérationnelles et financières des entreprises gabonaises.'), ('Accessibilité', 'Des solutions adaptées au niveau de maturité et aux moyens de chaque client.'),
        ('Intégration', 'Une seule structure pour intervenir sur plusieurs dimensions&nbsp;: web, logiciels, IA, conseil.'), ('Technologie', 'Des briques et des produits propriétaires, réutilisables.'),
        ('Accompagnement', 'Une relation continue plutôt qu’une simple livraison.')]
-adv = ''.join(f'<li><b>{t}</b><span>{d}</span></li>' for t, d in ADV)
+ADV_I = ['lieu', 'cle', 'puzzle', 'puce', 'equipe']
+adv = ''.join(f'<li><b>{icon(ADV_I[k])}{t}</b><span>{d}</span></li>' for k, (t, d) in enumerate(ADV))
 page('page--grey', 'Notre positionnement', f'''
   <span class="label">Notre positionnement</span>
   <h1>Pas une agence web de plus. Un <em>partenaire technologique</em>.</h1>
@@ -185,7 +206,9 @@ page('page--grey', 'Notre positionnement', f'''
     <div><span class="label">Ce qui nous distingue</span><ul class="adv">{adv}</ul></div>
     <div class="refuse"><span class="label">Ce que nous refusons d’être</span><ul><li>Une simple agence de communication</li><li>Un vendeur de sites à bas prix</li><li>Une équipe de freelances isolés</li><li>Une entreprise qui accepte tous les projets, sans stratégie</li></ul>
       <p class="refuse__promise"><b>Relation</b> ponctuelle → <b>durable</b><br><b>Rôle</b> prestataire → <b>partenaire</b><br><b>Objectif</b> un livrable → <b>un résultat mesuré</b></p></div>
-  </div>''')
+  </div>''', toc='Notre positionnement')
+
+divider('02', 'Ce que nous faisons', 'Cinq piliers, quatre expertises, une offre pour chaque niveau de maturité et un outil de diagnostic propriétaire.', 'film-expertises.jpg', 'Quatre expertises. Un seul partenaire.')
 
 # ---------- 08 Les 5 piliers ----------
 PIL = [('Visibilité', 'Être trouvé et reconnu', 'Sites web, fiche Google, référencement (SEO), réseaux sociaux, identité numérique.'),
@@ -193,14 +216,15 @@ PIL = [('Visibilité', 'Être trouvé et reconnu', 'Sites web, fiche Google, ré
        ('Automatisation', 'Réduire les tâches', 'Workflows, notifications, relances, intégrations, IA et automatisations.'),
        ('Data', 'Piloter par les indicateurs', 'Tableaux de bord, indicateurs clés, reporting, analyse commerciale et aide à la décision.'),
        ('Innovation', 'Créer de nouveaux modèles', 'SaaS, plateformes, applications, IA, places de marché et solutions sectorielles.')]
-stairs = ''.join(f'<div class="stair" style="--h:{28 + i * 15}%"><span class="stair__n">{i + 1}</span><b>{t}</b><i>{s}</i></div>' for i, (t, s, d) in enumerate(PIL))
+PIL_I = ['oeil', 'couches', 'engrenage', 'donnees', 'etincelle']
+stairs = ''.join(f'<div class="stair" style="--h:{28 + i * 15}%">{icon(PIL_I[i], "ico stair__ico")}<span class="stair__n">{i + 1}</span><b>{t}</b><i>{s}</i></div>' for i, (t, s, d) in enumerate(PIL))
 pil = ''.join(f'<li><span class="k">0{i + 1}</span><div><b>{t}</b><span>{d}</span></div></li>' for i, (t, s, d) in enumerate(PIL))
 page('', 'Les 5 piliers', f'''
   <span class="label">Notre proposition de valeur</span>
   <h1>Toute la chaîne de la <em>maturité digitale</em>.</h1>
   <p class="lead">Chaque entreprise part d’un point différent. Nous l’accompagnons marche après marche&nbsp;: plus elle gagne en maturité, plus le digital crée de valeur.</p>
   <div class="stairs">{stairs}</div>
-  <ul class="pillist">{pil}</ul>''')
+  <ul class="pillist">{pil}</ul>''', toc='Les 5 piliers de la maturité digitale')
 
 # ---------- 09-10 Expertises ----------
 SVC = [('01', 'Digital &amp; Web', 'Sites · E-commerce · UX/UI', 'Votre site est souvent le premier contact avec un client. Nous le rendons clair, rapide et agréable sur mobile, et nous faisons en sorte qu’il soit trouvé sur Google. Résultat&nbsp;: plus de visites, et surtout plus de demandes.',
@@ -211,9 +235,10 @@ SVC = [('01', 'Digital &amp; Web', 'Sites · E-commerce · UX/UI', 'Votre site e
         ['Assistants IA', 'Workflows', 'Automatisation', 'Optimisation des opérations'], [('Premier workflow automatisé', '1 à 3 semaines'), ('Assistant IA de réponse', '2 à 6 semaines'), ('Extensions', 'au fil de l’eau')]),
        ('04', 'Conseil &amp; Formation', 'Diagnostic · Stratégie · Formation', 'Vous ne savez pas par où commencer&nbsp;? C’est normal. Nous faisons le point avec vous, nous fixons les bonnes priorités et nous formons vos équipes pour que les nouveaux outils soient vraiment utilisés.',
         ['Diagnostic digital', 'Stratégie digitale', 'Accompagnement des équipes', 'Formation'], [('Diagnostic et feuille de route', '1 à 2 semaines'), ('Formation', 'd’une demi-journée à deux jours'), ('Accompagnement', 'mensuel, selon vos besoins')])]
+SVC_I = {'01': 'web', '02': 'logiciel', '03': 'ia', '04': 'conseil'}
 def svc(n, name, tag, desc, items, delays):
     return f'''<article class="svc">
-      <div class="svc__head"><span class="svc__n">{n}</span><div><h2>{name}</h2><span class="label">{tag}</span></div></div>
+      <div class="svc__head"><span class="svc__n">{icon(SVC_I[n])}</span><div><span class="label">Expertise {n}</span><h2>{name}</h2><span class="label">{tag}</span></div></div>
       <p class="svc__desc">{desc}</p>
       <ul class="chips">{''.join(f'<li>{x}</li>' for x in items)}</ul>
       <div class="delays"><span class="label">Délais indicatifs</span>{''.join(f'<div><b>{a}</b><span>{b}</span></div>' for a, b in delays)}</div>
@@ -221,43 +246,11 @@ def svc(n, name, tag, desc, items, delays):
 page('', 'Nos expertises', f'''
   <span class="label">Nos expertises · 1 / 2</span>
   <h1>Quatre expertises, <em>un seul</em> partenaire.</h1>
-  {svc(*SVC[0])}{svc(*SVC[1])}''')
+  {svc(*SVC[0])}{svc(*SVC[1])}''', toc='Nos expertises')
 page('', 'Nos expertises', f'''
   <span class="label">Nos expertises · 2 / 2</span>
   {svc(*SVC[2])}{svc(*SVC[3])}
   <div class="sectors"><span class="label">Secteurs accompagnés</span><p>Commerce · Restauration · Immobilier · Services · Éducation · BTP · Cabinets · PME, à Libreville, Akanda, Owendo et partout au Gabon.</p></div>''')
-
-# ---------- 11 Méthode ----------
-METHOD = [('Audit', 'Nous commençons par regarder où vous en êtes&nbsp;: votre présence en ligne, vos outils, vos habitudes de travail. Le NEAM Digital Score™ chiffre ce point de départ.'),
-          ('Stratégie', 'Ensemble, nous fixons les priorités, les objectifs et une feuille de route réaliste, adaptée à vos moyens.'),
-          ('Production', 'Nous créons les supports, les contenus et les outils dont vous avez besoin.'),
-          ('Déploiement', 'Nous mettons en ligne, nous automatisons et nous formons vos équipes, pour que les outils soient vraiment adoptés.'),
-          ('Mesure', 'Nous suivons les résultats et ajustons ce qui doit l’être. Le digital s’améliore en continu.')]
-meth = ''.join(f'<li><span class="m__n">0{i + 1}</span><div><h3>{t}</h3><p>{d}</p></div></li>' for i, (t, d) in enumerate(METHOD))
-page('page--ink', 'Notre méthode', f'''
-  <span class="label">Notre méthode</span>
-  <h1>Une méthode claire, <em>en 5 étapes</em>.</h1>
-  <ol class="method">{meth}</ol>
-  <div class="promise"><b>Notre engagement</b><p>Une réponse sous 48&nbsp;heures ouvrées maximum à chaque demande, et un devis détaillé, gratuit et sans engagement avant tout projet.</p></div>''')
-
-# ---------- 13 Un exemple concret ----------
-STEPS = [('01', 'Être visible', 'Un site clair et une fiche Google à jour&nbsp;: quand on cherche une pâtisserie à Libreville, Denise apparaît enfin.'),
-         ('02', 'Être choisie', 'Une image professionnelle, des photos qui donnent envie et un contact facile&nbsp;: le visiteur devient client.'),
-         ('03', 'Grandir', 'Des outils simples pour les commandes et, surtout, du temps retrouvé pour ce qu’elle fait de mieux.')]
-steps = ''.join(f'<li><span class="m__n">{n}</span><div><h3>{t}</h3><p>{d}</p></div></li>' for n, t, d in STEPS)
-page('', 'Un exemple concret', f'''
-  <span class="label">Un exemple concret · histoire illustrative</span>
-  <h1>L’histoire de <em>Denise</em>, pâtissière à Libreville.</h1>
-  <div class="denise__img"><img src="{A}video/neam-histoire-denise-poster.jpg" alt="Voici Denise, pâtissière à Libreville"></div>
-  <div class="split split--denise">
-    <div class="story">
-      <p class="lead">Les meilleurs gâteaux du quartier. Ses clients l’adorent, en parlent autour d’eux et reviennent. Mais un soir, quelqu’un la cherche sur son téléphone… et ne la trouve pas.</p>
-      <p>Être excellente dans son métier ne suffit plus. Avec NEAM, Denise avance pas à pas, en trois étapes. Aujourd’hui, elle est trouvée, et elle est choisie.</p>
-      <div class="qr"><div class="qr__img">{qr(SITE + 'index.html#croissance')}</div><div><b>Voir l’histoire en vidéo</b><span>1 min 54 · neamindustry.com</span></div></div>
-    </div>
-    <ol class="dsteps">{steps}</ol>
-  </div>
-  <p class="source">Histoire illustrative&nbsp;: Denise est un personnage, pas une cliente réelle. Elle résume ce que nous construisons avec chaque entreprise.</p>''')
 
 # ---------- 14 Offres ----------
 OFF = [('Starter', 'Micro-entreprises', 'Présence digitale, fiche Google, page de présentation, diagnostic.', 1),
@@ -265,13 +258,14 @@ OFF = [('Starter', 'Micro-entreprises', 'Présence digitale, fiche Google, page 
        ('Growth', 'PME', 'CRM, automatisations, données, acquisition de clients, accompagnement avancé.', 3),
        ('Enterprise', 'Organisations complexes', 'Solutions métiers, intégrations, développement spécifique.', 4),
        ('Custom', 'Besoins spécifiques', 'Architecture et solution conçues entièrement sur mesure.', 5)]
-off = ''.join(f'<li><div class="off__name"><span>NEAM</span><b>{n}</b><i>{c}</i></div><p>{d}</p><div class="off__bar" style="--v:{v}"><span></span></div></li>' for n, c, d, v in OFF)
+OFF_I = ['pousse', 'boutique', 'mesure', 'immeuble', 'reglages']
+off = ''.join(f'<li><span class="off__ico">{icon(OFF_I[k])}</span><div class="off__name"><span>NEAM</span><b>{n}</b><i>{c}</i></div><p>{d}</p><div class="off__bar" style="--v:{v}"><span></span></div></li>' for k, (n, c, d, v) in enumerate(OFF))
 page('page--grey', 'Nos offres', f'''
   <span class="label">Nos offres</span>
   <h1>Une offre pour chaque <em>niveau de maturité</em>.</h1>
   <p class="lead">De la micro-entreprise qui veut être trouvée sur Google à l’organisation qui a besoin d’un logiciel sur mesure&nbsp;: nous servons chaque étape, sans diluer la qualité.</p>
   <ul class="offers">{off}</ul>
-  <p class="note">La barre indique la profondeur de l’accompagnement. Chaque projet fait l’objet d’un devis détaillé, gratuit et sans engagement.</p>''')
+  <p class="note">La barre indique la profondeur de l’accompagnement. Chaque projet fait l’objet d’un devis détaillé, gratuit et sans engagement.</p>''', toc='Nos offres')
 
 # ---------- 13 Digital Score ----------
 page('page--yellow', 'NEAM Digital Score™', f'''
@@ -297,14 +291,52 @@ page('page--yellow', 'NEAM Digital Score™', f'''
       <ol class="dssteps"><li><b>1</b><span>Indiquez votre entreprise&nbsp;: nom, ville, secteur et site web s’il existe.</span></li><li><b>2</b><span>Répondez aux 8 questions de maturité, en une minute.</span></li><li><b>3</b><span>Obtenez votre score tout de suite, puis le rapport complet et le plan d’action par e-mail.</span></li></ol>
       <div class="qr qr--ink"><div class="qr__img">{qr(SITE + 'digital-score.html')}</div><div><b>Faites le test</b><span>neamindustry.com/digital-score.html</span></div></div>
     </div>
-  </div>''')
+  </div>''', toc='NEAM Digital Score™')
+
+divider('03', 'Comment nous travaillons', 'Une méthode claire en cinq étapes, un exemple concret, un programme d’accélération et des réalisations.', 'film-methode.jpg', 'Une méthode claire, en 5 étapes.')
+
+# ---------- 11 Méthode ----------
+METHOD = [('Audit', 'Nous commençons par regarder où vous en êtes&nbsp;: votre présence en ligne, vos outils, vos habitudes de travail. Le NEAM Digital Score™ chiffre ce point de départ.'),
+          ('Stratégie', 'Ensemble, nous fixons les priorités, les objectifs et une feuille de route réaliste, adaptée à vos moyens.'),
+          ('Production', 'Nous créons les supports, les contenus et les outils dont vous avez besoin.'),
+          ('Déploiement', 'Nous mettons en ligne, nous automatisons et nous formons vos équipes, pour que les outils soient vraiment adoptés.'),
+          ('Mesure', 'Nous suivons les résultats et ajustons ce qui doit l’être. Le digital s’améliore en continu.')]
+METH_I = ['audit', 'strategie', 'production', 'deploiement', 'mesure']
+meth = ''.join(f'<li><span class="m__n">0{i + 1}</span><div><h3>{t}</h3><p>{d}</p></div><span class="m__ico">{icon(METH_I[i])}</span></li>' for i, (t, d) in enumerate(METHOD))
+page('page--ink', 'Notre méthode', f'''
+  <span class="label">Notre méthode</span>
+  <h1>Une méthode claire, <em>en 5 étapes</em>.</h1>
+  <ol class="method">{meth}</ol>
+  <div class="promise"><b>Notre engagement</b><p>Une réponse sous 48&nbsp;heures ouvrées maximum à chaque demande, et un devis détaillé, gratuit et sans engagement avant tout projet.</p></div>''', toc='Notre méthode')
+
+# ---------- 13 Un exemple concret ----------
+STEPS = [('01', 'Être visible', 'Un site clair et une fiche Google à jour&nbsp;: quand on cherche une pâtisserie à Libreville, Denise apparaît enfin.', 'denise-visible.jpg'),
+         ('02', 'Être choisie', 'Une image qui inspire confiance et un contact facile&nbsp;: le visiteur devient client.', 'denise-choisie.jpg'),
+         ('03', 'Grandir', 'Des outils simples pour les commandes et, surtout, du temps retrouvé.', 'denise-grandir.jpg')]
+steps = ''.join(f'<li><img src="img/{im}" alt="{t}"><div><span class="dstep__n">{n}</span><h3>{t}</h3><p>{d}</p></div></li>' for n, t, d, im in STEPS)
+page('', 'Un exemple concret', f'''
+  <span class="label">Un exemple concret · histoire illustrative</span>
+  <h1>L’histoire de <em>Denise</em>, pâtissière à Libreville.</h1>
+  <div class="split split--denise">
+    <div class="denise__img"><img src="{A}video/neam-histoire-denise-poster.jpg" alt="Voici Denise, pâtissière à Libreville"></div>
+    <div class="story"><p class="lead">Les meilleurs gâteaux du quartier. Ses clients l’adorent, en parlent autour d’eux et reviennent. Mais un soir, quelqu’un la cherche sur son téléphone… et ne la trouve pas.</p>
+      <p>Être excellente dans son métier ne suffit plus. Avec NEAM, Denise avance pas à pas, en trois étapes.</p></div>
+  </div>
+  <ol class="dscenes">{steps}</ol>
+  <div class="split split--denise2">
+    <div class="denise__img"><img src="img/denise-aujourdhui.jpg" alt="Aujourd’hui : trouvée, choisie, sereine."></div>
+    <div class="story"><p class="lead">Aujourd’hui, Denise est <em>trouvée</em>, <em>choisie</em> et sereine. Elle se consacre enfin à ce qu’elle aime vraiment.</p>
+      <div class="qr"><div class="qr__img">{qr(SITE + 'index.html#croissance')}</div><div><b>Voir l’histoire en vidéo</b><span>1 min 54 · neamindustry.com</span></div></div></div>
+  </div>
+  <p class="source">Histoire illustrative&nbsp;: Denise est un personnage, pas une cliente réelle. Elle résume ce que nous construisons avec chaque entreprise.</p>''', toc='Un exemple concret')
 
 # ---------- 16 Programme 30/30 ----------
 WEEKS = [('Semaine 1', 'Audit &amp; stratégie', ['Réunion de lancement', 'Diagnostic digital', 'Benchmark concurrentiel', 'Plan d’action']),
          ('Semaine 2', 'Web &amp; identité', ['Architecture ou refonte du site', 'Identité visuelle', 'Optimisation mobile', 'Fondations SEO']),
          ('Semaine 3', 'Communication &amp; contenu', ['Stratégie éditoriale', '8 contenus et visuels', 'Optimisation des réseaux', 'Parcours d’acquisition']),
          ('Semaine 4', 'Déploiement &amp; formation', ['Publication et mise en ligne', 'Formation et remise d’outils', 'Suivi des performances', 'Feuille de route 90 jours'])]
-weeks = ''.join(f'<div class="week"><span class="label">{w}</span><h3>{t}</h3><ul>{"".join(f"<li>{x}</li>" for x in it)}</ul></div>' for w, t, it in WEEKS)
+WEEK_I = ['audit', 'web', 'porte_voix', 'deploiement']
+weeks = ''.join(f'<div class="week">{icon(WEEK_I[k], "ico week__ico")}<span class="label">{w}</span><h3>{t}</h3><ul>{"".join(f"<li>{x}</li>" for x in it)}</ul></div>' for k, (w, t, it) in enumerate(WEEKS))
 page('page--grey', 'Programme 30/30', f'''
   <span class="label">Programme d’accélération</span>
   <h1>NEAM × KANIE 30/30&nbsp;: 30 entreprises, 30 jours, <em>1 transformation</em>.</h1>
@@ -314,7 +346,7 @@ page('page--grey', 'Programme 30/30', f'''
   <div class="split split--30">
     <div><span class="label">À la fin du cycle, l’entreprise repart avec</span><ul class="ticks2"><li>Un diagnostic digital et de maturité numérique</li><li>Un benchmark de 5 concurrents</li><li>Un site créé ou optimisé</li><li>8 contenus prêts à publier</li><li>Des recommandations IA et outils numériques</li><li>Un plan d’action à 90 jours</li></ul></div>
     <div class="qr"><div class="qr__img">{qr(SITE + 'candidature.html')}</div><div><b>Candidater en 3 minutes</b><span>neamindustry.com/candidature.html</span></div></div>
-  </div>''')
+  </div>''', toc='Programme NEAM × KANIE 30/30')
 
 # ---------- 17 Expérience et réalisations ----------
 NEAMR = [(f'<img src="{A}icons/icon-512.png" alt="">', 'case__ds', 'NEAM Digital Score™', 'Outil de diagnostic', 'Un moteur d’audit de 150 critères, un test de maturité, un benchmark concurrentiel, un plan d’action priorisé et un rapport PDF.', 'Disponible'),
@@ -336,7 +368,9 @@ page('', 'Expérience et réalisations', f'''
   <div class="proj">
     <div class="proj__head"><span class="label">Projets menés par notre fondateur</span><p>Salarié ou indépendant, {FONDATEUR_NOM} a conduit ces projets au fil de son parcours&nbsp;: l’expérience sur laquelle NEAM s’appuie.</p></div>
     <ul class="pj">{proj}</ul>
-  </div>''')
+  </div>''', toc='Expérience et réalisations')
+
+divider('04', 'Où nous allons', 'Une campagne qui pose la bonne question, une trajectoire publique jusqu’en 2027 et une porte toujours ouverte.', 'film-grandir.jpg', 'Comment le digital fait grandir une entreprise ?')
 
 # ---------- 18 Campagne ----------
 POST = ['01-et-ca-rapporte-combien', '02-plaquette-tres-chere', '03-les-likes-ne-paient-pas-le-loyer', '04-ia-5-minutes', '05-site-beau-caisse-vide', '06-parlez-lui-de-chiffre-affaires']
@@ -354,14 +388,15 @@ page('page--ink', 'Notre campagne', f'''
       </div>
     </div>
     <div class="posters">{posters}</div>
-  </div>''')
+  </div>''', toc='La campagne #EtÇaRapporteCombien')
 
 # ---------- 19 Trajectoire ----------
 ROAD = [('T1', 'Structurer', ['Identité et site', 'Offres et contrats', 'CRM et processus', 'NEAM Digital Score™', 'Portfolio']),
         ('T2', 'Acquérir', ['Programme 100 PME', 'Prospection terrain', 'Contenus', 'Partenariats', 'Récurrence']),
         ('T3', 'Industrialiser', ['SaaS', 'Automatisations', 'Composants réutilisables', 'Abonnements', 'Solutions sectorielles']),
         ('T4', 'Consolider', ['Optimisation', 'Recrutement', 'Nouveaux produits', 'Partenariats', 'Stratégie 2028'])]
-road = ''.join(f'<div class="q"><span class="q__n">{q} 2027</span><h3>{t}</h3><ul>{"".join(f"<li>{x}</li>" for x in it)}</ul></div>' for q, t, it in ROAD)
+ROAD_I = ['plan', 'aimant', 'engrenage', 'sommet']
+road = ''.join(f'<div class="q">{icon(ROAD_I[k], "ico q__ico")}<span class="q__n">{q} 2027</span><h3>{t}</h3><ul>{"".join(f"<li>{x}</li>" for x in it)}</ul></div>' for k, (q, t, it) in enumerate(ROAD))
 CAP = ['Une marque forte', 'Une méthode propriétaire', 'Des clients accompagnés dans la durée', 'Des produits technologiques', 'Une expertise sectorielle', 'Des actifs numériques']
 page('', 'Notre trajectoire', f'''
   <span class="label">Notre trajectoire · objectifs 2027</span>
@@ -374,7 +409,7 @@ page('', 'Notre trajectoire', f'''
     <div><span class="label">Cap 2027</span><ul class="cap">{''.join(f'<li>{c}</li>' for c in CAP)}</ul>
       <p class="horizon"><b>Et après&nbsp;?</b> Devenir la référence gabonaise émergente de la transformation digitale, puis étendre notre action à la région.</p></div>
   </div>
-  <p class="source">Objectifs issus du Company Blueprint 2027, notre feuille de route publique.</p>''')
+  <p class="source">Objectifs issus du Company Blueprint 2027, notre feuille de route publique.</p>''', toc='Notre trajectoire 2027')
 
 # ---------- 20 Contact ----------
 page('page--ink back', '', f'''
@@ -400,7 +435,21 @@ page('page--ink back', '', f'''
     </div>
   </div>
   {CHEVRON}
-  <p class="back__motto">Build a better <em>tomorrow</em>&nbsp;!</p>''', folio=False)
+  <p class="back__motto">Build a better <em>tomorrow</em>&nbsp;!</p>''', folio=False, toc='Nous contacter')
+
+chapters, cur = {}, None
+toc_html = ''
+for n, t, is_ch in TOC:
+    if is_ch:
+        cur = t.split(' · ')[0]; chapters[cur] = []
+        toc_html += f'<li class="toc__ch"><span class="toc__n">{n:02d}</span><span class="toc__t">{t}</span></li>'
+    else:
+        toc_html += f'<li><span class="toc__n">{n:02d}</span><span class="toc__t">{t}</span></li>'
+        if cur:
+            chapters[cur].append(f'<li><span>{n:02d}</span>{t}</li>')
+PAGES = [p.replace('@@TOC@@', toc_html) for p in PAGES]
+for k, items in chapters.items():
+    PAGES = [p.replace(f'@@CH{k}@@', ''.join(items)) for p in PAGES]
 
 html = f'''<!DOCTYPE html>
 <html lang="fr">
