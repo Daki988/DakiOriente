@@ -7,10 +7,12 @@
 window.dataLayer = window.dataLayer || [];
 window.neamTrack = (event, params = {}) => {
   window.dataLayer.push({ event, page: location.pathname, ...params });
+  if (typeof window.gtag === 'function') window.gtag('event', event, params);
 };
 document.addEventListener('click', e => {
   const a = e.target.closest('a, button');
   if (!a) return;
+  if (/wa\.me\//.test(a.getAttribute('href') || '')) neamTrack('whatsapp_click', { from: location.pathname });
   if (a.dataset.cta) neamTrack('cta_click', { cta: a.dataset.cta });
   else if (a.hasAttribute('download') || /\.pdf($|\?)/.test(a.getAttribute('href') || '')) neamTrack('download_resource', { file: (a.getAttribute('href') || '').split('/').pop() });
 });
@@ -65,39 +67,45 @@ document.addEventListener('click', e => {
   if (!loader || reduce) {
     startReveal();
   } else {
-    document.body.classList.add('is-loading');
-    // Version complète à la première visite, version courte ensuite
+    // Animation à la première visite seulement ; ensuite, affichage immédiat
     let quick = false;
     try { quick = sessionStorage.getItem('neam-loader') === '1'; sessionStorage.setItem('neam-loader', '1'); } catch (e) { /* stockage indisponible */ }
-    const icons = $$('.loader__icon', loader);
-    const label = $('#loaderLabel');
-    const bar = $('#loaderBar');
-    const LABELS = ['Le cahier', 'Le tableur', 'Le site web', 'Le mobile', 'L’intelligence artificielle'];
-    const STEP = quick ? 300 : 650;
-    let finished = false;
-    const finish = () => {
-      if (finished) return;
-      finished = true;
-      loader.classList.add('is-done');
+    if (quick) {
+      loader.remove();
       document.body.classList.remove('is-loading');
       startReveal();
-      setTimeout(() => loader.remove(), 1100);
-    };
-    const showLogo = () => {
-      loader.classList.add('is-logo');
-      bar.style.width = '100%';
-      setTimeout(finish, quick ? 500 : 1100);
-    };
-    let i = 0;
-    const next = () => {
-      icons.forEach((ic, j) => ic.classList.toggle('is-on', j === i));
-      label.textContent = LABELS[i];
-      bar.style.width = `${((i + 1) / (icons.length + 1)) * 100}%`;
-      i++;
-      setTimeout(i < icons.length ? next : showLogo, STEP);
-    };
-    next();
-    setTimeout(finish, 9000); // sécurité
+    } else {
+      document.body.classList.add('is-loading');
+      const icons = $$('.loader__icon', loader);
+      const label = $('#loaderLabel');
+      const bar = $('#loaderBar');
+      const LABELS = ['Le cahier', 'Le tableur', 'Le site web', 'Le mobile', 'L’intelligence artificielle'];
+      const STEP = 160; // 5 icônes ≈ 0,8 s
+      let finished = false;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        loader.classList.add('is-done');
+        document.body.classList.remove('is-loading');
+        startReveal();
+        setTimeout(() => loader.remove(), 600);
+      };
+      const showLogo = () => {
+        loader.classList.add('is-logo');
+        bar.style.width = '100%';
+        setTimeout(finish, 350); // logo ≈ 0,35 s
+      };
+      let i = 0;
+      const next = () => {
+        icons.forEach((ic, j) => ic.classList.toggle('is-on', j === i));
+        label.textContent = LABELS[i];
+        bar.style.width = `${((i + 1) / (icons.length + 1)) * 100}%`;
+        i++;
+        setTimeout(i < icons.length ? next : showLogo, STEP);
+      };
+      next();
+      setTimeout(finish, 2500); // sécurité
+    }
   }
 
   /* ---------- Accordéon des expertises ---------- */

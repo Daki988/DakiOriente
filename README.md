@@ -26,6 +26,14 @@ L’en-tête et le pied de page sont identiques sur chaque page : pensez à modi
 - Mesure d'audience : événements dans `window.dataLayer` (`cta_click`, `contact_form_*`, `digital_score_*`, `download_resource`) sans donnée personnelle
 - Mentions légales : compléter RCCM, NIF, forme juridique et directeur de la publication dans `LEGAL` (script de génération)
 
+### Mesure d'audience et contact (octobre 2026)
+
+- **Google Analytics 4 et Google Ads** : renseigner les deux identifiants dans `js/analytics.js` (seul fichier à modifier). Tant qu'ils contiennent « XXXX », rien n'est chargé.
+  Événements envoyés : `cta_click`, `whatsapp_click`, `contact_form_start`, `contact_form_success`, `contact_form_error`, `digital_score_start`, `digital_score_complete`, `download_resource`.
+  À marquer comme événements clés dans GA4 : `contact_form_success`, `digital_score_complete`, `whatsapp_click`.
+- **WhatsApp / téléphone** : numéro 060 22 94 47, lien `https://wa.me/24160229447`. Si ce lien ne trouve pas le compte, utiliser `241060229447` (constantes `WA_NUM` et `TEL_INTL` du script de génération, ou remplacer dans les fichiers HTML).
+- Image de partage : `assets/og-neam.jpg` (1200×630).
+
 ## Lancer en local
 ```bash
 python3 -m http.server 8000
