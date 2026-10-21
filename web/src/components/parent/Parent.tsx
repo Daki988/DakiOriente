@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { motion } from "framer-motion";
 import { Calculator, CheckCircle2, FileText, KeyRound, Link2, ShieldCheck, UsersRound, Wallet } from "lucide-react";
 import { useState } from "react";

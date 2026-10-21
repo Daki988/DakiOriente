@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { ArrowRight, BarChart3, Briefcase, Code2, Cog, HardHat, Heart, Landmark, Pickaxe, Scale, Sprout, Stethoscope, Megaphone, GraduationCap, Plane, BookOpen, Palette, Users, Shield, Hotel, Building2, MapPin, Clock, Sparkles, type LucideIcon } from "lucide-react";
 import { EtabLogo } from "./EtabLogo";
 import { EtabPhoto } from "./EtabPhoto";

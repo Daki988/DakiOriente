@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { ArrowRight, Briefcase, Calculator, Calendar, Check, ChevronRight, HeartPulse, KeyRound, MapPin, Scale, ShieldCheck, Wallet } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { RangeBar } from "@/components/motion/Bar";

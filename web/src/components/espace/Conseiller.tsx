@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { CalendarClock, Headset, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { Button, Empty, Loading, PageHeader, Panel, StatusBadge, dateFr, useToast } from "@/components/app/kit";

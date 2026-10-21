@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { Award, BadgeCheck, Ban, Building2, Check as CheckIcon, ExternalLink, RotateCcw, Search, Star, Users } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Button, Chip, Dialog, Loading, Panel, StatusBadge, Table, Tabs, useToast } from "@/components/app/kit";

@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { useRouter } from "next/navigation";
 import { animate, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, BadgeCheck, CheckCircle2, Download, Globe2, GraduationCap, Hourglass, Inbox, KeyRound, LineChart, MapPin, PieChart } from "lucide-react";

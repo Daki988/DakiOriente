@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, BadgeCheck, Briefcase, Building2, Calculator, Check, ChevronRight, CircleCheck, Clock, GraduationCap, Heart, KeyRound, MapPin, School, ShieldAlert, Sparkles, Users } from "lucide-react";

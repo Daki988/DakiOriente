@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { ArrowRight, Building2, ChevronRight, GraduationCap, MapPin } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { CHIFFRES, VILLES, villeHref } from "@/lib/catalogue";

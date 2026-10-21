@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { ArrowRight, Building2, GraduationCap, House, Sparkles } from "lucide-react";
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/motion/Reveal";

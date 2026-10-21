@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { AnimatePresence, motion } from "framer-motion";
 import { AlertCircle, CheckCircle2, ChevronRight, Info, Loader2, X, type LucideIcon } from "lucide-react";
 import { createContext, useCallback, useContext, useEffect, useId, useState, type ReactNode } from "react";

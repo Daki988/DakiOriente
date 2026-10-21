@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { useRouter } from "next/navigation";
 import { CheckCircle2, Circle, ImagePlus, Info, Loader2, Save, Send, ShieldCheck, Trash2 } from "lucide-react";
 import { useMemo, useRef, useState } from "react";

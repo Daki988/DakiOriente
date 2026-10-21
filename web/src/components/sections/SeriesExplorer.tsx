@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { PAYS_NOM, domaineById, metierById, series, type PaysCode } from "@/lib/data";

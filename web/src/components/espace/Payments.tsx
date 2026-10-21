@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { Download, Wallet } from "lucide-react";
 import { Empty, Kpi, Loading, PageHeader, Panel, StatusBadge, Table, dateFr } from "@/components/app/kit";
 import { apiUrl } from "@/lib/api";

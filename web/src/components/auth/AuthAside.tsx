@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { BadgeCheck, KeyRound, ShieldCheck } from "lucide-react";
 import { etablissements, metiers, VILLES_ETUDES } from "@/lib/data";
 
@@ -10,7 +10,7 @@ export function AuthAside() {
       <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(255,194,31,.35),transparent_70%)]" />
       <Link href="/" className="relative self-start rounded-2xl bg-white px-4 py-3 shadow-lift" aria-label="Navigoal, accueil">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/brand/navigoal-logo.png" alt="Navigoal" width={150} height={116} className="h-[84px] w-auto" />
+        <img src="/brand/navigoal-logo-ui.png" alt="Navigoal" width={150} height={116} className="h-[84px] w-auto" />
       </Link>
       <h2 className="relative mt-10 text-[38px] font-extrabold leading-tight tracking-tight">Ton avenir commence <span className="text-sun-400">ici.</span></h2>
       <p className="relative mt-3 max-w-md text-[16px] text-brand-100">Orientation, formations, candidatures et logement étudiant au Maroc : tout ton parcours au même endroit, sur ordinateur comme sur téléphone.</p>
@@ -27,7 +27,7 @@ export function AuthAside() {
         ))}
       </ul>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/images/etudiante.webp" alt="" className="pointer-events-none absolute -bottom-2 right-0 w-[min(46%,340px)] opacity-95" />
+      <img src="/images/etudiante-840.webp" alt="" className="pointer-events-none absolute -bottom-2 right-0 w-[min(46%,340px)] opacity-95" />
     </aside>
   );
 }

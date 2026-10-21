@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { BadgeCheck, Globe, MapPinned, ShieldCheck } from "lucide-react";
 import { Panel } from "@/components/app/kit";
 import { LABEL_STYLE } from "@/components/ui/Cards";

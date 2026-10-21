@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle2, Download, FileText, KeyRound, ListChecks, MessageCircle, Paperclip, Printer, Upload, UsersRound } from "lucide-react";

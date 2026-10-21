@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { Brand } from "./Brand";
 import { DeviseSelect } from "./Devise";
 import { VILLES, villeHref } from "@/lib/catalogue";

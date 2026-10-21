@@ -11,6 +11,17 @@
         "varsIgnorePattern": "^_",
         "destructuredArrayIgnorePattern": "^_"
       }
+    ],
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "next/link",
+            "message": "Utiliser @/components/ui/Link (sans préchargement automatique)."
+          }
+        ]
+      }
     ]
   },
   "overrides": [
@@ -21,6 +32,14 @@
       ],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off"
+      }
+    },
+    {
+      "files": [
+        "src/components/ui/Link.tsx"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
       }
     }
   ]

@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AlertCircle, ArrowLeft, ArrowRight, Bookmark, Check, CheckCircle2, Clock, Download, FileText, GraduationCap, MapPin, PartyPopper, ShieldCheck, Upload, UsersRound, Wallet } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";

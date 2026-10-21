@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { Bell, KeyRound, Search, Trash2 } from "lucide-react";
 import { Empty, Loading, PageHeader, Panel, StatusBadge, dateFr, useToast } from "@/components/app/kit";
 import { api } from "@/lib/api";

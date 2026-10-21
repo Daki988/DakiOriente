@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { JeuBandeau } from "@/components/campagne/JeuBandeau";
 import { etablissements, fmt, metiers } from "@/lib/data";

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { notFound } from "next/navigation";
 import { ChevronRight, Lightbulb } from "lucide-react";
 import { DynIcon } from "@/components/ui/DynIcon";

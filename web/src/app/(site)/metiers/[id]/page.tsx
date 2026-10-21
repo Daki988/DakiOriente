@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { ArrowRight, Building2, ChevronRight, CircleCheck, GraduationCap, Scale } from "lucide-react";
 import { CompatCard } from "@/components/sections/CompatCard";
 import { ParcoursFlow } from "@/components/sections/ParcoursFlow";

@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { Archive, Eye, Pencil, Send } from "lucide-react";
 import { useState } from "react";
 import { Button, Chip, Dialog, StatusBadge, money, useToast } from "@/components/app/kit";

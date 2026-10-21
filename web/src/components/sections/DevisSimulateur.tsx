@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { BadgeCheck, Bus, Calculator, Calendar, Coins, Check, CloudSun, FileDown, GraduationCap, Handshake, HeartPulse, Info, Lightbulb, Mail, MessageCircle, Scale, Share2, Shield, ShieldCheck, Users, UsersRound } from "lucide-react";

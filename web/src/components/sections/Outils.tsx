@@ -1,6 +1,6 @@
 "use client";
 // Outils pratiques de la page Ressources : checklist de candidature, calculateur de moyenne, convertisseur de devises.
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { ArrowLeftRight, Check, Plus, Printer, RotateCcw, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useDevise } from "@/components/ui/Devise";

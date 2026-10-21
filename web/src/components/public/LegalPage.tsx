@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { Info } from "lucide-react";
 import { LEGAL, LEGAL_VERSION } from "./legal";
 import { Markdown, headings, slugify } from "./markdown";

@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { useSearchParams } from "next/navigation";
 import { Brain } from "lucide-react";
 import { Alert, Empty, Loading } from "@/components/app/kit";

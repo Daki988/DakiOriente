@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Brain, Briefcase, Building2, Check, GraduationCap, Headset, KeyRound, MapPin, MessageCircle, Search, UsersRound } from "lucide-react";
 import { useState } from "react";

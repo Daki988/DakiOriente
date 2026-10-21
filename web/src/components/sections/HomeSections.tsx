@@ -1,5 +1,5 @@
 // Accueil (maquette validée) : catégories, chiffres, parcours, encarts, formations populaires, communauté, établissements.
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { ArrowRight, BadgeCheck, Briefcase, Building2, ChevronRight, Compass, FileCheck2, GraduationCap, Landmark, MapPin, Search, Sparkles, UserRound, Users } from "lucide-react";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { Illustration } from "@/components/ui/Illustration";

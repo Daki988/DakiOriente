@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { motion } from "framer-motion";
 import { ChevronRight, KeyRound, Search } from "lucide-react";
 import { Alert, Button, Empty, Loading, PageHeader, StatusBadge, dateFr } from "@/components/app/kit";

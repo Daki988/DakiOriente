@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { motion } from "framer-motion";
 import { BadgeCheck, Building2, CalendarDays, CheckCircle2, Circle, ExternalLink, Globe, Mail, MapPin, Phone, Save } from "lucide-react";
 import { useState } from "react";

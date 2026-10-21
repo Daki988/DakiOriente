@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight, Briefcase, ChevronRight, GraduationCap, KeyRound, Newspaper, Search as SearchIcon, Sparkles, X } from "lucide-react";

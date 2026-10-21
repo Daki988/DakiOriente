@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 
 /** Symbole Navigoal : le « N » parcouru par l'étudiant, jusqu'au point d'arrivée. */
 export function BrandMark({ size = 38 }: { size?: number }) {
@@ -16,7 +16,7 @@ export function Brand({ dark = false }: { dark?: boolean }) {
         </span>
       ) : (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src="/brand/navigoal-wordmark.png" alt="Navigoal" width={120} height={27} className="h-[27px] w-auto" />
+        <img src="/brand/navigoal-wordmark-ui.png" alt="Navigoal" width={120} height={27} className="h-[27px] w-auto" />
       )}
     </Link>
   );

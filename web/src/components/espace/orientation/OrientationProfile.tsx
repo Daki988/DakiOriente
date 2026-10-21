@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { motion } from "framer-motion";
 import { ChevronRight, Download, Heart, RotateCcw, Share2, Sparkles } from "lucide-react";
 import { useMemo } from "react";

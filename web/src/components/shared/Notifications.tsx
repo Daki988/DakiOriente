@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { Bell, CheckCheck } from "lucide-react";
 import { Button, Empty, Loading, PageHeader, Panel, since } from "@/components/app/kit";
 import { api } from "@/lib/api";

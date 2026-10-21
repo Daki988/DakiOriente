@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Building2, Check as CheckIcon, GraduationCap, Info, KeyRound, School, ShieldCheck, Sparkles, UsersRound, type LucideIcon } from "lucide-react";

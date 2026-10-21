@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { motion } from "framer-motion";
 import { FileText, Plus, Search } from "lucide-react";
 import { useMemo, useState } from "react";

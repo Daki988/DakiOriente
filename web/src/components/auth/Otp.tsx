@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, KeyRound, MailCheck, Smartphone } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";

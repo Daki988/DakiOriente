@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Bell, ChevronRight, Footprints, GraduationCap, Map as MapIcon, MapPin, Search as SearchIcon, ShieldCheck, SlidersHorizontal, Star, X } from "lucide-react";

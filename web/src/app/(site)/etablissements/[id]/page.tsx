@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { ArrowRight, BadgeCheck, Bus, Check, GraduationCap, Mail, Phone, Sparkles, Calculator, ChevronRight, ExternalLink, KeyRound, MapPin, Plane, Scale, ShieldAlert, TrainFront, TramFront } from "lucide-react";
 import { permanentRedirect } from "next/navigation";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";

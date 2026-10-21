@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { AnimatePresence, motion } from "framer-motion";
 import { CalendarCheck, Footprints, GraduationCap, HousePlus, KeyRound, MapPin, Search, ShieldCheck, Signature, UsersRound } from "lucide-react";
 import { useState } from "react";

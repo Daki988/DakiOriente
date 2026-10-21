@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { motion } from "framer-motion";
 import { BarChart3, BedDouble, CheckCircle2, Clock, House, Inbox, Lock, Plus, ShieldCheck, Wallet } from "lucide-react";
 import { useMemo, useState } from "react";

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { notFound } from "next/navigation";
 import { ArrowRight, Building2, Bus, ChevronRight, GraduationCap, KeyRound, Lightbulb, MapPin, Plane, ShieldCheck, TrainFront, Wallet } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";

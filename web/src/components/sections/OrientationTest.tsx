@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check, Download, Lightbulb, RotateCcw, Share2, Sparkles, Timer } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
