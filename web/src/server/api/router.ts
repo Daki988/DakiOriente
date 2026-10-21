@@ -23,6 +23,11 @@ import { applicationPdf, admissionPdf, orientationPdf } from "../services/pdf";
 import { METHODS } from "../payments/providers";
 import { cookies } from "next/headers";
 import * as google from "../services/google";
+import * as campaign from "../services/campaign";
+import { ACQ_COOKIE } from "@/lib/campagne";
+
+/** Origine de l'inscription (cookie de première visite posé par le site). */
+const acquisition = () => campaign.parseAcquisition(cookies().get(ACQ_COOKIE)?.value);
 
 type User = typeof schema.users.$inferSelect;
 type Ctx = { req: Request; params: Record<string, string>; query: URLSearchParams; user: User | null; body: () => Promise<any> };
@@ -44,6 +49,7 @@ async function startSession(u: User, req: Request) {
 // ---------------------------------------------------------------- Authentification
 route("POST", "/auth/inscription", "Authentification", "Créer un compte (élève, étudiant, parent, établissement, bailleur)", "public", async ({ req, body }) => {
   const u = await accounts.register(await body());
+  await campaign.recordAcquisition(u.id, acquisition());
   return json({ ...(await startSession(u, req)), devCode: u.devCode }, 201);
 });
 route("POST", "/auth/connexion", "Authentification", "Connexion par e-mail ou téléphone + mot de passe", "public", async ({ req, body }) => {
@@ -102,6 +108,7 @@ route("GET", "/auth/google/retour", "Authentification", "Retour de Google (code 
     const { user, nouveau } = await google.compteGoogle(p, ctx.profil ?? null);
     if (!user) return rediriger(`/inscription/?google=nouveau&email=${encodeURIComponent(p.email)}`);
     await startSession(user, req);
+    if (nouveau) await campaign.recordAcquisition(user.id, acquisition());
     if (nouveau) return rediriger(`${google.PROFIL_A_COMPLETER[user.role as google.GoogleRole] ?? "/"}?bienvenue=google`);
     return rediriger(interne(ctx.suite) ?? HOME[user.role] ?? "/");
   } catch (e) {
@@ -121,6 +128,7 @@ route("GET", "/session", "Compte", "Session courante (utilisateur ou null), sans
 route("GET", "/moi", "Compte", "Utilisateur connecté et profil", "user", async ({ me }) => accounts.getMe(me.id));
 route("PATCH", "/moi", "Compte", "Mettre à jour le profil", "user", async ({ me, body }) => accounts.updateProfile(me.id, await body()));
 route("POST", "/moi/mot-de-passe", "Compte", "Changer de mot de passe", "user", async ({ me, body }) => { const b = await body(); await accounts.changePassword(me.id, b.actuel, b.nouveau); return ok; });
+route("GET", "/moi/parrainage", "Compte", "Mon code de parrainage et mes amis inscrits", STUDENT, async ({ me }) => campaign.myReferral(me));
 route("GET", "/moi/tuteurs", "Compte", "Parents/tuteurs liés", STUDENT, async ({ me }) => guardians.guardiansOf(me.id));
 route("POST", "/moi/tuteurs", "Compte", "Inviter un parent ou tuteur", STUDENT, async ({ me, body }) => { const b = await body(); const g = await guardians.inviteGuardian(me, String(b.contact), b.relation); return { id: g.id, devCode: process.env.NODE_ENV !== "production" ? g.inviteCode : undefined }; });
 route("GET", "/parent/enfants", "Parent", "Enfants suivis", ["parent"], async ({ me }) => (await guardians.childrenOf(me.id)).map(({ link, child }) => ({ link, child: { id: child.id, firstName: child.firstName, lastName: child.lastName, birthYear: child.birthYear, country: child.country, city: child.city } })));
@@ -280,6 +288,8 @@ route("POST", "/reservations/:id/avis", "Navilease", "Laisser un avis (locataire
 
 // ---------------------------------------------------------------- Back-office
 route("GET", "/admin/statistiques", "Back-office", "Statistiques plateforme", ["admin"], async ({ me }) => admin.stats(me));
+route("GET", "/admin/campagne", "Back-office", "Campagne : inscriptions par source, tests, parrainage", ["admin"], async ({ me, query }) => campaign.campaignStats(me, query.get("depuis")));
+route("GET", "/admin/campagne/export.csv", "Back-office", "Campagne : export CSV des inscriptions par source", ["admin"], async ({ me, query }) => file(new TextEncoder().encode(await campaign.campaignCsv(me, query.get("depuis"))), "text/csv; charset=utf-8", "campagne-sources.csv", false));
 route("GET", "/admin/utilisateurs", "Back-office", "Utilisateurs (filtres role, pays, statut, q, page)", ["admin"], async ({ me, query }) => admin.listUsers(me, { role: query.get("role") ?? undefined, pays: query.get("pays") ?? undefined, status: query.get("statut") ?? undefined, q: query.get("q") ?? undefined, page: Number(query.get("page")) || 1 }));
 route("POST", "/admin/utilisateurs/:id/statut", "Back-office", "Activer / suspendre un compte", ["admin"], async ({ me, params, body }) => admin.setUserStatus(me, params.id, (await body()).statut === "suspendu" ? "suspendu" : "actif"));
 route("POST", "/admin/utilisateurs", "Back-office", "Créer un compte conseiller ou administrateur", ["admin"], async ({ me, body }) => json(await admin.createStaff(me, await body()), 201));

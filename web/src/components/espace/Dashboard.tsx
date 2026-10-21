@@ -13,6 +13,7 @@ import { useApi } from "@/hooks/useApi";
 import { etabById, type Label } from "@/lib/data";
 import { profileCompletion } from "./completion";
 import { AppProgress } from "./AppProgress";
+import { ParrainageCard } from "./Parrainage";
 
 export type Reco = {
   profil: string[];
@@ -118,6 +119,8 @@ export function Dashboard() {
           </StaggerItem>
         ))}
       </Stagger>
+
+      <ParrainageCard />
 
       <div className="grid gap-5 xl:grid-cols-[1.35fr_.65fr] xl:gap-6">
         <div className="flex min-w-0 flex-col gap-5">

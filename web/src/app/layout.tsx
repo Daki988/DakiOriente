@@ -4,6 +4,7 @@ import { MotionProvider } from "@/components/motion/MotionProvider";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { SITE_URL } from "@/lib/site";
 import { DeviseProvider } from "@/components/ui/Devise";
+import { AcquisitionTracker } from "@/components/campagne/AcquisitionTracker";
 
 const DESCRIPTION = "Étudier au Maroc depuis toute l'Afrique : orientation, comparatif des écoles et universités privées reconnues par l'État, filières accréditées, frais, candidature en ligne et logement étudiant (Navilease).";
 
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MotionProvider>
           <DeviseProvider>
             <ScrollProgress />
+            <AcquisitionTracker />
             {children}
           </DeviseProvider>
         </MotionProvider>

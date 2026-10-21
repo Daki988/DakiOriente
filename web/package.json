@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@fontsource-variable/plus-jakarta-sans": "^5.1.1",
+    "@fontsource/anton": "^5.1.0",
     "@fontsource/caveat": "^5.1.0",
     "@netlify/blobs": "^11.1.4",
     "@types/nodemailer": "^6.4.24",

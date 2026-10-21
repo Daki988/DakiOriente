@@ -8,6 +8,7 @@ const config: Config = {
       fontFamily: {
         sans: ['"Plus Jakarta Sans Variable"', "system-ui", "sans-serif"],
         hand: ['"Caveat"', "cursive"],
+        display: ['"Anton"', "Impact", "sans-serif"],
       },
       colors: {
         brand: {

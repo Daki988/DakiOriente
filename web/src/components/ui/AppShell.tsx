@@ -41,7 +41,7 @@ const MENUS: Record<string, Menu> = {
   admin: { label: "Back-office", tint: "bg-ink text-white", tabs: ["/admin", "/admin/utilisateurs", "/admin/etablissements", "/admin/homologations"], items: [
     { href: "/admin", Icon: BarChart3, t: "Statistiques" }, { href: "/admin/utilisateurs", Icon: Users, t: "Utilisateurs" }, { href: "/admin/etablissements", Icon: Building2, t: "Établissements" },
     { href: "/admin/homologations", Icon: ShieldCheck, t: "Homologations" }, { href: "/admin/referentiels", Icon: BookOpen, t: "Référentiels" }, { href: "/admin/navilease", Icon: KeyRound, t: "Navilease" },
-    { href: "/admin/paiements", Icon: Wallet, t: "Paiements" }, { href: "/admin/contenus", Icon: Briefcase, t: "Contenus" }, { href: "/admin/journal", Icon: ScrollText, t: "Journal" }, MSG, NOTIF, SETTINGS] },
+    { href: "/admin/paiements", Icon: Wallet, t: "Paiements" }, { href: "/admin/contenus", Icon: Briefcase, t: "Contenus" }, { href: "/admin/campagne", Icon: Megaphone, t: "Campagne" }, { href: "/admin/journal", Icon: ScrollText, t: "Journal" }, MSG, NOTIF, SETTINGS] },
 };
 MENUS.eleve = { ...MENUS.etudiant, label: "Espace élève" };
 const GUEST: Item[] = [{ href: "/", Icon: House, t: "Accueil" }, { href: "/orientation", Icon: Compass, t: "Test d'orientation", m: "Test" }, { href: "/formations", Icon: GraduationCap, t: "Formations" }, { href: "/etablissements", Icon: Building2, t: "Établissements", m: "Écoles" }, { href: "/navilease", Icon: KeyRound, t: "Navilease" }];

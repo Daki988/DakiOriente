@@ -1,6 +1,9 @@
 // Schéma Navigoal V1 (PostgreSQL, Drizzle). Voir docs/backend.md.
 import { relations, sql } from "drizzle-orm";
-import { boolean, doublePrecision, index, integer, jsonb, pgEnum, pgTable, primaryKey, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
+import { boolean, doublePrecision, index, integer, jsonb, pgEnum, pgTable, primaryKey, text, timestamp, uniqueIndex, type AnyPgColumn } from "drizzle-orm/pg-core";
+
+/** Origine d'une inscription : premier lien suivi (utm_*) ou code parrain, mémorisés au premier passage sur le site. */
+export type Acquisition = { source: string; medium?: string; campaign?: string; content?: string; ref?: string; landing?: string; at?: string };
 
 const id = () => text("id").primaryKey().$defaultFn(() => crypto.randomUUID());
 const createdAt = () => timestamp("created_at", { withTimezone: true }).notNull().defaultNow();
@@ -26,9 +29,13 @@ export const users = pgTable("users", {
   phoneVerifiedAt: timestamp("phone_verified_at", { withTimezone: true }),
   totpSecret: text("totp_secret"),
   lastLoginAt: timestamp("last_login_at", { withTimezone: true }),
+  // Campagnes : code de parrainage personnel, parrain éventuel et source de l'inscription.
+  referralCode: text("referral_code").unique(),
+  referredById: text("referred_by_id").references((): AnyPgColumn => users.id, { onDelete: "set null" }),
+  acquisition: jsonb("acquisition").$type<Acquisition>(),
   createdAt: createdAt(),
   updatedAt: updatedAt(),
-}, (t) => [index("users_role_idx").on(t.role)]);
+}, (t) => [index("users_role_idx").on(t.role), index("users_referred_by_idx").on(t.referredById)]);
 
 export const sessions = pgTable("sessions", {
   id: text("id").primaryKey(), // hash SHA-256 du jeton

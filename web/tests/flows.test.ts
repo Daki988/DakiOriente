@@ -268,3 +268,66 @@ describe("connexion avec Google", () => {
     expect((await accounts.login("maman@gmail.test", "Motdepasse1")).id).toBe(r.user!.id);
   });
 });
+
+describe("campagne : sources d'inscription et parrainage", () => {
+  const campaign = () => import("@/server/services/campaign");
+  const today = new Date().toISOString().slice(0, 10);
+  const inscrire = (prenom: string, email: string) =>
+    accounts.register({ role: "eleve", firstName: prenom, lastName: "Test", email, password: "Motdepasse1", country: "GA", acceptTerms: true });
+
+  it("lit le cookie de première visite en nettoyant les valeurs", async () => {
+    const c = await campaign();
+    const raw = encodeURIComponent(JSON.stringify({ source: "Lycee<script>", campaign: "trouvetavoie", content: "leon-mba", landing: "/orientation/" }));
+    expect(c.parseAcquisition(raw)).toMatchObject({ source: "lyceescript", campaign: "trouvetavoie", content: "leon-mba", landing: "/orientation/" });
+    expect(c.parseAcquisition(encodeURIComponent(JSON.stringify({ source: "fb", ref: "dimi-7k3q" })))).toMatchObject({ source: "parrain", ref: "DIMI-7K3Q" });
+    expect(c.parseAcquisition("%7Bpas du json")).toBeNull();
+    expect(c.parseAcquisition(undefined)).toBeNull();
+  });
+
+  it("donne un code parrain stable, rattache les filleuls et débloque l'entretien à 2 amis", async () => {
+    const c = await campaign();
+    const parrain = await inscrire("Dimitri", "dimitri@test.local");
+    const r0 = await c.myReferral(await reload(parrain.id));
+    expect(r0.code).toMatch(/^DIMI-[A-HJ-NP-Z2-9]{4}$/);
+    expect((await c.myReferral(await reload(parrain.id))).code).toBe(r0.code);
+    expect(r0).toMatchObject({ filleuls: 0, objectif: 2, debloque: false });
+    expect(r0.lien).toContain(`/inscription/?ref=${r0.code}`);
+
+    const ami1 = await inscrire("Grace", "grace@test.local");
+    await c.recordAcquisition(ami1.id, c.parseAcquisition(encodeURIComponent(JSON.stringify({ ref: r0.code.toLowerCase() }))));
+    expect(await reload(ami1.id)).toMatchObject({ referredById: parrain.id, acquisition: { source: "parrain", ref: r0.code } });
+    const ami2 = await inscrire("Yann", "yann@test.local");
+    await c.recordAcquisition(ami2.id, { source: "parrain", ref: r0.code });
+    const r2 = await c.myReferral(await reload(parrain.id));
+    expect(r2).toMatchObject({ filleuls: 2, debloque: true });
+    const notes = await db.select().from(schema.notifications).where(eq(schema.notifications.userId, parrain.id));
+    expect(notes.filter((n) => n.kind === "parrainage")).toHaveLength(1);
+  });
+
+  it("ignore un code inconnu ou son propre code", async () => {
+    const c = await campaign();
+    const u = await inscrire("Lea", "lea@test.local");
+    await c.recordAcquisition(u.id, { source: "parrain", ref: "XXXX-0000" });
+    expect(await reload(u.id)).toMatchObject({ referredById: null, acquisition: { source: "direct" } });
+    const code = (await c.myReferral(await reload(u.id))).code;
+    await c.recordAcquisition(u.id, { source: "parrain", ref: code });
+    expect((await reload(u.id)).referredById).toBeNull();
+  });
+
+  it("compte les inscriptions par source pour l'administration seulement", async () => {
+    const c = await campaign();
+    const v = await inscrire("Paul", "paul@test.local");
+    await c.recordAcquisition(v.id, { source: "lycee", campaign: "trouvetavoie", content: "leon-mba" });
+    await expect(c.campaignStats(student)).rejects.toThrow();
+    const s = await c.campaignStats(adminU, today);
+    expect(s.depuis).toBe(today);
+    expect(s.sources.find((x) => x.source === "lycee")).toMatchObject({ libelle: "Lycée (QR code)", n: 1 });
+    expect(s.sources.find((x) => x.source === "parrain")?.n).toBe(2);
+    expect(s.details).toContainEqual(expect.objectContaining({ source: "lycee", detail: "leon-mba", n: 1 }));
+    expect(s.totaux.parraines).toBe(2);
+    const csv = await c.campaignCsv(adminU, today);
+    expect(csv.split("\n")[0]).toBe("source;libelle;detail;inscriptions");
+    expect(csv).toContain('"lycee";"Lycée (QR code)";"leon-mba";"1"');
+    expect(csv).not.toContain("@test.local");
+  });
+});

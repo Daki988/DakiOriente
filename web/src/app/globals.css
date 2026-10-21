@@ -1,5 +1,6 @@
 @import "@fontsource-variable/plus-jakarta-sans";
 @import "@fontsource/caveat/600.css";
+@import "@fontsource/anton/400.css";
 
 @tailwind base;
 @tailwind components;
