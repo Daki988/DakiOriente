@@ -11,5 +11,7 @@ python3 design/maquettes/build.py /tmp/icons/node_modules/lucide-static/icons   
 
 Campagne « Trouve ta voie » (Gabon) : `python3 design/maquettes/campagne.py <polices> <photo détourée>` → `out/campagne.html` (page de campagne ordinateur et mobile, règlement du jeu, parrainage et sources d'inscription).
 
+Évolutions après l'audit fonctionnel : `python3 design/maquettes/evolutions.py` → `out/evolutions.html` (test d'orientation avec réponse oubliée, résumé du logement d'une réservation, bouton WhatsApp conseiller, page Parents ordinateur et mobile, paiement Airtel Money / Moov Money). Import Figma : `html_to_figma` avec `cssSelector: ".frame"`.
+
 Écrans : design system & motion, accueil (desktop + mobile), test et résultat d'orientation, recherche de formations, fiche formation, Navilease, tableau de bord étudiant.
 Les étiquettes roses sur les maquettes décrivent les animations prévues.
