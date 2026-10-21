@@ -418,3 +418,7 @@ p { font-size: 9.3pt; line-height: 1.55; }
 .pj i { font-style: normal; font: 500 6.8pt var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-left: 2mm; }
 .pj div span { display: block; margin-top: .6mm; font-size: 8.2pt; line-height: 1.36; }
 .pj__tag { justify-self: end; font-family: var(--sans) !important; font-style: normal !important; padding: 1mm 2.6mm; border-radius: 20mm; background: #fff; border: .25mm solid #dcdcd8; font-size: 7.4pt !important; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.bio__where { margin-top: auto; padding: 4.5mm; border-radius: 2mm; background: var(--yellow); }
+.bio__where .label { color: var(--ink) !important; }
+.bio__where p { font-size: 12.5pt; font-weight: 600; letter-spacing: -.02em; color: var(--ink); line-height: 1.25; }
+.bio__where > span:last-child { font-size: 8.4pt; line-height: 1.4; color: var(--ink); }

@@ -100,9 +100,8 @@ page('page--grey', 'Le parcours du fondateur', f'''
       <p class="bio__role">Consultant en transformation digitale<br>Fondateur de NEAM Softwares Industry</p>
       <p class="lead">Professionnel du marketing digital et de la gestion d’entreprise, {FONDATEUR_NOM} met ses compétences au service de l’optimisation des processus et de solutions innovantes&nbsp;: marketing digital, gestion de projets et création d’outils digitaux.</p>
       <div class="bio__figs"><div><b>2020</b><span>premières missions en communication digitale</span></div><div><b>3</b><span>ERP et progiciels de gestion conçus</span></div><div><b>7</b><span>certifications Google, Facebook Blueprint et HubSpot</span></div></div>
-      <div class="bio__block"><span class="label">Formation</span>
-        <ul class="bio__list"><li><b>Licence en gestion</b><span>ESMC-BS, Casablanca · 2021 – 2022. Mémoire sur l’optimisation des processus de gestion des données par l’intégration de solutions numériques.</span></li>
-        <li><b>Bac +2 en informatique de gestion</b><span>Suptechnology, Casablanca · 2018 – 2021. Outils informatiques et logiciels de gestion pour les entreprises.</span></li></ul></div>
+      <div class="bio__block"><span class="label">Certifications</span>
+        <ul class="bio__chips bio__chips--line"><li>4 certifications Google</li><li>2 certifications Facebook Blueprint</li><li>Inbound Marketing · HubSpot Academy</li><li>Marketing digital et réseaux sociaux</li><li>PowerApps, Power Automate et Power BI</li><li>Photoshop, After Effects et Illustrator</li></ul></div>
       <div class="bio__block bio__engage"><span class="label">Engagements</span>
         <p>Coordinateur du département NTIC lors des Assises de la Diaspora gabonaise au Maroc (2023). Ancien délégué général à la communication du Bureau exécutif de l’Union des Gabonais au Maroc.</p></div>
     </div>
@@ -110,8 +109,7 @@ page('page--grey', 'Le parcours du fondateur', f'''
       <span class="label">Expériences professionnelles</span>
       <ul class="tl">{roles}</ul>
       <div class="bio__block"><span class="label">Compétences</span><ul class="bio__chips bio__chips--line">{''.join(f'<li>{x}</li>' for x in SKILLS)}</ul></div>
-      <div class="bio__block"><span class="label">Certifications</span>
-        <ul class="bio__chips bio__chips--line"><li>4 certifications Google</li><li>2 certifications Facebook Blueprint</li><li>Inbound Marketing · HubSpot Academy</li><li>Marketing digital et réseaux sociaux</li><li>PowerApps, Power Automate et Power BI</li><li>Photoshop, After Effects et Illustrator</li></ul></div>
+      <div class="bio__block bio__where"><span class="label">Terrains d’expérience</span><p>Gabon · Maroc · Monaco · France · Burkina Faso</p><span>Des missions pour des entreprises, un club de football, une organisation de réflexion et des marques du luxe.</span></div>
     </div>
   </div>''')
 
