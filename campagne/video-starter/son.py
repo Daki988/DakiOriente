@@ -1,9 +1,9 @@
-# Bande-son originale de la vidéo « Une journée d'entrepreneur » (synthétisée, libre de droits)
+# Bande-son originale de la vidéo « La journée de Brice » (synthétisée, libre de droits)
 import wave, os
 import numpy as np
 
 SR = 44100
-DUR = 36.0
+DUR = 40.0
 N = int(SR * DUR)
 mix = np.zeros(N)
 rng = np.random.default_rng(11)
@@ -46,10 +46,16 @@ def kick():
     f = 48 + 80 * np.exp(-t / .04)
     return np.sin(2 * np.pi * np.cumsum(f) / SR) * env(n, .002, .12)
 
-# Intro : pièce calme
-put(pad([220, 277.18, 329.63], 2.8, .6), 0, .6)
-# Journée : l'horloge accélère
-T0, T1 = 2.6, 13.8
+def pop(f=620):
+    n = int(.12 * SR); t = np.arange(n) / SR
+    fr = f * (1 + 1.4 * np.exp(-t / .015))
+    return np.sin(2 * np.pi * np.cumsum(fr) / SR) * env(n, .001, .04) * .8
+
+# Intro : « Voici Brice »
+put(pad([220, 277.18, 329.63], 4.6, .6), 0, .6)
+put(pop(700), 1.6, .4)
+# Mardi, sans aide : l'horloge accélère, les notifications s'enchaînent
+T0, T1 = 4.6, 15.8
 t = T0; k = 0
 while t < T1:
     put(tick(k % 2 == 0), t, .9)
@@ -61,18 +67,24 @@ DAY = [420, 555, 700, 780, 980, 1125, 1290, 1430]
 for m in DAY:
     tt = T0 + (m - 390) / (1430 - 390) * (T1 - T0)
     put(buzz() if m == 1125 else ping(), tt, .5)
-# Retournement : silence, puis note grave
-put(tone(55, 3.5, 1.6, .02, .1), 14.0, .9)
-put(tone(110, 2.5, 1.2, .02, .1), 15.8, .5)
-# Le lendemain : calme, chaque réponse en place sonne juste
-put(pad([261.63, 329.63, 392.0], 8.6, 1.5), 18.3, .7)
+# Retournement
+put(tone(55, 3.5, 1.6, .02, .1), 16.2, .9)
+put(tone(110, 2.5, 1.2, .02, .1), 17.8, .5)
+# Le lendemain, avec NEAM : chaque réponse en place sonne juste, les clients arrivent
+put(pad([261.63, 329.63, 392.0], 9.8, 1.5), 20.0, .7)
 notes = [523.25, 587.33, 659.25, 783.99, 880.0, 1046.5]
 for i, f in enumerate(notes):
-    put(chime(f), 19.2 + i * 1.05, .35)
-put(pad([293.66, 369.99, 440.0], 4.2, 1.2), 26.6, .6)
+    put(chime(f), 21.0 + i * 1.2, .35)
+for tt in (23.0, 24.6, 26.2):
+    put(pop(760), tt, .45)
+put(tick(True), 29.6, 1.2)
+# Soirée à la maison
+put(pad([293.66, 369.99, 440.0], 4.6, 1.2), 30.4, .7)
+for tt, f in ((31.8, 700), (32.2, 820), (32.6, 940)):
+    put(pop(f), tt, .4)
 # Carte finale
-put(pad([261.63, 329.63, 392.0, 523.25], 5.6, 1.0), 30.3, .9)
-put(chime(1046.5), 30.6, .3)
+put(pad([261.63, 329.63, 392.0, 523.25], 5.2, 1.0), 34.8, .9)
+put(chime(1046.5), 35.1, .3)
 
 mix /= np.max(np.abs(mix)) / .7
 stereo = np.stack([mix, mix], axis=1)

@@ -2,230 +2,374 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>NEAM — Une journée d’entrepreneur (offre Starter)</title>
+<title>NEAM — La journée de Brice (offre Starter)</title>
 <link rel="stylesheet" href="../../print/catalogue/fonts/fonts.css">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
-  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "Instrument Sans", Arial, sans-serif; color: #0f0f10; background: #f3eee3; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "Instrument Sans", Arial, sans-serif; color: #1f2a33; }
   .layer { position: absolute; inset: 0; }
-  em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; }
-  /* En-tête : jour et horloge */
-  #head { position: absolute; left: 0; right: 0; top: 150px; display: grid; justify-items: center; gap: 6px; text-align: center; }
-  #day { font: 500 30px "IBM Plex Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: #6d6a64; }
-  #day b { color: #b07c00; font-weight: 500; }
-  #clock { font-size: 190px; font-weight: 700; letter-spacing: -.05em; line-height: 1; font-variant-numeric: tabular-nums; }
-  /* Téléphone */
-  #phone { position: absolute; left: 190px; top: 470px; width: 700px; height: 1060px; border-radius: 70px; background: #0f0f10; padding: 22px; box-shadow: 0 60px 90px -50px rgba(60,40,10,.55); }
-  #screen { position: relative; width: 100%; height: 100%; border-radius: 50px; overflow: hidden; background: linear-gradient(#e9e4da, #ddd6c8); }
-  #notch { position: absolute; left: 50%; top: 16px; width: 170px; height: 40px; margin-left: -85px; border-radius: 22px; background: #0f0f10; z-index: 5; }
-  #status { position: absolute; left: 44px; right: 44px; top: 22px; display: flex; justify-content: space-between; font: 600 26px "Instrument Sans"; color: #2a2724; z-index: 4; }
-  #list { position: absolute; left: 22px; right: 22px; top: 90px; bottom: 0; }
-  .card { position: absolute; left: 0; right: 0; min-height: 132px; border-radius: 30px; background: rgba(255,255,255,.92); padding: 20px 22px 20px 106px; box-shadow: 0 12px 26px -16px rgba(0,0,0,.35); }
-  .card .ic { position: absolute; left: 22px; top: 22px; width: 64px; height: 64px; border-radius: 16px; display: grid; place-items: center; }
-  .card .ic svg { width: 36px; height: 36px; }
-  .card .meta { display: flex; justify-content: space-between; font: 600 21px "Instrument Sans"; color: #6d6a64; text-transform: uppercase; letter-spacing: .04em; }
-  .card .txt { margin-top: 6px; font-size: 29px; line-height: 1.25; font-weight: 600; letter-spacing: -.01em; }
-  .card.ok { background: #fff; border-left: 10px solid #f5b31b; }
-  .card.ok .ic { background: #0f0f10; color: #f5b31b; }
-  .card .old { display: block; font-size: 22px; font-weight: 500; color: #8f8a80; text-decoration: line-through; margin-bottom: 4px; }
-  #calm { position: absolute; left: 0; right: 0; top: 380px; text-align: center; display: grid; gap: 14px; justify-items: center; }
-  #calm b { font-size: 46px; letter-spacing: -.03em; }
-  #calm span { font: 500 24px "IBM Plex Mono", monospace; color: #6d6a64; letter-spacing: .04em; }
-  /* Bas : énergie et temps */
-  #foot { position: absolute; left: 110px; right: 110px; top: 1600px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-  .gauge { display: grid; gap: 14px; }
-  .gauge .lab { font: 500 24px "IBM Plex Mono", monospace; letter-spacing: .1em; text-transform: uppercase; color: #6d6a64; }
-  .bat { position: relative; height: 54px; border-radius: 14px; border: 4px solid #0f0f10; padding: 5px; }
-  .bat::after { content: ""; position: absolute; right: -14px; top: 13px; width: 8px; height: 20px; border-radius: 0 4px 4px 0; background: #0f0f10; }
-  .bat i { display: block; height: 100%; border-radius: 7px; background: #13a89a; }
-  .val { font-size: 54px; font-weight: 700; letter-spacing: -.04em; line-height: 1; }
-  /* Encarts plein écran */
-  .full { display: grid; place-content: center; text-align: center; padding: 0 90px; }
-  #intro { background: #f3eee3; gap: 26px; }
-  #intro .k { font: 500 30px "IBM Plex Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: #b07c00; }
-  #intro p { font-size: 96px; font-weight: 700; letter-spacing: -.045em; line-height: 1.02; }
-  #twist { background: #0f0f10; color: #fff; gap: 40px; }
-  #twist p { font-size: 84px; font-weight: 700; letter-spacing: -.045em; line-height: 1.05; }
-  #twist p em { color: #f5b31b; font-size: 1.12em; }
-  #twist p.small { font-size: 60px; color: #d0d0d4; }
-  #say { position: absolute; left: 70px; right: 70px; top: 1600px; text-align: center; font-size: 60px; font-weight: 700; letter-spacing: -.04em; line-height: 1.08; }
-  #say em { color: #b07c00; }
-  #end { background: #0f0f10; color: #fff; display: grid; align-content: center; justify-items: center; gap: 42px; text-align: center; padding: 0 70px; }
-  #end img { width: 560px; }
-  #end .k { font: 500 30px "IBM Plex Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: #f5b31b; }
-  #end h2 { font-size: 76px; font-weight: 700; letter-spacing: -.045em; line-height: 1.03; }
-  #end h2 em { color: #f5b31b; }
-  #end .price { background: #f5b31b; color: #0f0f10; border-radius: 34px; padding: 22px 44px 26px; font-size: 76px; font-weight: 700; letter-spacing: -.045em; line-height: 1.05; }
-  #end .price small { display: block; font: 600 26px "Instrument Sans"; letter-spacing: .06em; text-transform: uppercase; }
+  #sky { background: #f3ece0; }
+  #glow { background: radial-gradient(60% 40% at 25% 20%, rgba(255,255,255,.55), transparent 70%), radial-gradient(50% 35% at 85% 60%, rgba(240,200,120,.18), transparent 70%); }
+  svg.full { position: absolute; inset: 0; width: 1080px; height: 1920px; }
+  #logo { position: absolute; left: 70px; top: 70px; width: 190px; }
+  #chapter { position: absolute; right: 70px; top: 86px; font: 600 24px "Instrument Sans"; letter-spacing: .12em; text-transform: uppercase; color: #d99a1c; }
+  #illus { position: absolute; left: 70px; bottom: 60px; font: 500 22px "Instrument Sans"; color: #8f8a80; }
+  /* Intro */
+  #intro { position: absolute; left: 90px; right: 90px; top: 330px; display: grid; gap: 22px; }
+  #intro .k { font: 700 26px "Instrument Sans"; letter-spacing: .14em; text-transform: uppercase; color: #d99a1c; }
+  #intro h1 { font-size: 132px; font-weight: 700; letter-spacing: -.045em; line-height: 1; }
+  #intro h1 i { color: #d99a1c; font-style: italic; }
+  #intro p { font-size: 44px; line-height: 1.35; color: #5b5853; font-weight: 500; }
+  /* Horloge */
+  #head { position: absolute; left: 0; right: 0; top: 190px; display: grid; justify-items: center; gap: 4px; text-align: center; }
+  #day { font: 700 28px "Instrument Sans"; letter-spacing: .14em; text-transform: uppercase; }
+  #clock { font-size: 176px; font-weight: 700; letter-spacing: -.05em; line-height: 1; font-variant-numeric: tabular-nums; }
+  /* Cartes de notification */
+  #cards { position: absolute; left: 150px; right: 150px; top: 500px; height: 520px; }
+  .card { position: absolute; left: 0; right: 0; height: 118px; border-radius: 26px; background: #fffdf8; padding: 18px 22px 0 104px; box-shadow: 0 14px 30px -18px rgba(60,40,10,.45); }
+  .card .ic { position: absolute; left: 20px; top: 22px; width: 64px; height: 64px; border-radius: 18px; display: grid; place-items: center; }
+  .card .ic svg { width: 34px; height: 34px; }
+  .card .meta { display: flex; justify-content: space-between; font: 700 19px "Instrument Sans"; color: #8f8a80; text-transform: uppercase; letter-spacing: .06em; }
+  .card .txt { margin-top: 8px; font-size: 27px; font-weight: 600; letter-spacing: -.01em; white-space: nowrap; }
+  .card.ok { height: 150px; border-left: 10px solid #d99a1c; }
+  .card .old { display: block; font-size: 21px; font-weight: 500; color: #a39d92; text-decoration: line-through; margin: 4px 0 2px; }
+  .card.ok .txt { margin-top: 0; font-size: 25px; }
+  /* Bas */
+  #foot { position: absolute; left: 110px; right: 110px; top: 1640px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; }
+  .gauge { display: grid; gap: 12px; }
+  .gauge .lab { font: 700 22px "Instrument Sans"; letter-spacing: .1em; text-transform: uppercase; color: #8f8a80; }
+  .bat { position: relative; height: 50px; border-radius: 14px; border: 4px solid #1f2a33; padding: 5px; }
+  .bat::after { content: ""; position: absolute; right: -14px; top: 12px; width: 8px; height: 18px; border-radius: 0 4px 4px 0; background: #1f2a33; }
+  .bat i { display: block; height: 100%; border-radius: 7px; background: #2f6b5a; }
+  .val { font-size: 50px; font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+  /* Encarts */
+  #twist { background: #f3ece0; display: grid; place-content: center; text-align: center; gap: 44px; padding: 0 80px; }
+  #twist p { font-size: 86px; font-weight: 700; letter-spacing: -.045em; line-height: 1.05; }
+  #twist i { color: #d99a1c; }
+  #twist p.small { font-size: 54px; color: #5b5853; font-weight: 600; letter-spacing: -.03em; }
+  #home { }
+  #homeText { position: absolute; left: 90px; right: 90px; top: 360px; display: grid; gap: 24px; }
+  #homeText .k { font: 700 26px "Instrument Sans"; letter-spacing: .14em; text-transform: uppercase; color: #d99a1c; }
+  #homeText p { font-size: 84px; font-weight: 700; letter-spacing: -.045em; line-height: 1.03; }
+  #homeText p i { color: #d99a1c; }
+  #end { background: #f3ece0; display: grid; align-content: center; justify-items: center; gap: 40px; text-align: center; padding: 0 70px; }
+  #end .logo { width: 640px; }
+  #end .k { font: 700 28px "Instrument Sans"; letter-spacing: .14em; text-transform: uppercase; color: #d99a1c; }
+  #end h2 { font-size: 80px; font-weight: 700; letter-spacing: -.045em; line-height: 1.03; }
+  #end h2 i { color: #d99a1c; }
+  #end .price { background: #1f2a33; color: #fff; border-radius: 34px; padding: 22px 44px 26px; font-size: 72px; font-weight: 700; letter-spacing: -.045em; line-height: 1.05; }
+  #end .price small { display: block; font: 700 24px "Instrument Sans"; letter-spacing: .1em; text-transform: uppercase; color: #d99a1c; }
   #end ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; max-width: 900px; }
-  #end li { padding: 12px 24px; border-radius: 40px; border: 2px solid rgba(255,255,255,.22); font-size: 32px; font-weight: 600; }
-  #end .cta { font-size: 40px; font-weight: 700; }
-  #end .contact { font: 500 30px "IBM Plex Mono", monospace; color: #bdbdc2; line-height: 1.6; }
+  #end li { padding: 12px 24px; border-radius: 40px; background: #fffdf8; font-size: 30px; font-weight: 600; box-shadow: 0 10px 22px -16px rgba(60,40,10,.5); }
+  #end .cta { background: #d99a1c; color: #1f2a33; border-radius: 50px; padding: 22px 44px; font-size: 40px; font-weight: 700; box-shadow: 0 16px 30px -18px rgba(150,100,10,.7); }
+  #end .contact { font-size: 30px; color: #5b5853; font-weight: 500; }
+  #end .motto { font-size: 40px; font-weight: 700; }
+  #end .motto i { color: #d99a1c; }
 </style>
 </head>
 <body>
 <div id="stage">
-  <div class="layer" id="main">
-    <div id="head"><div id="day"></div><div id="clock">06:30</div></div>
-    <div id="phone"><div id="screen"><div id="notch"></div><div id="status"><span id="stime">06:30</span><span>4G ▮▮▮</span></div><div id="list"></div><div id="calm"><b>Aucune nouvelle notification</b><span>Tes clients ont déjà leurs réponses.</span></div></div></div>
-    <div id="foot">
-      <div class="gauge"><span class="lab">Ton énergie</span><div class="bat"><i id="batFill"></i></div></div>
-      <div class="gauge"><span class="lab">Temps pour toi</span><span class="val" id="mine">2 h</span></div>
-    </div>
-    <div id="say">Toi, tu gardes ton métier.<br><em>NEAM s’occupe de ta présence en ligne.</em></div>
+  <div class="layer" id="sky"></div>
+  <div class="layer" id="glow"></div>
+  <svg class="full" id="scene" viewBox="0 0 1080 1920"></svg>
+  <div id="intro"><span class="k">Libreville · Gabon</span><h1>Voici <i>Brice.</i></h1><p>Il tient une boutique de vêtements à Libreville.<br>Ses clients l’adorent.</p></div>
+  <div id="head"><div id="day"></div><div id="clock">06:30</div></div>
+  <div id="cards"></div>
+  <div id="foot">
+    <div class="gauge"><span class="lab">Énergie de Brice</span><div class="bat"><i id="batFill"></i></div></div>
+    <div class="gauge"><span class="lab">Temps pour lui</span><span class="val" id="mine">2 h</span></div>
   </div>
-  <div class="layer full" id="intro"><span class="k">Libreville · un mardi</span><p>Une journée<br>d’entrepreneur.</p></div>
-  <div class="layer full" id="twist"><p id="tw1">Tu as créé ton entreprise<br>pour être <em>libre</em>.</p><p class="small" id="tw2">Pas pour répondre à tout,<br>tout seul, jusqu’à minuit.</p></div>
+  <div class="layer" id="home"><svg class="full" id="homeSvg" viewBox="0 0 1080 1920"></svg>
+    <div id="homeText"><span class="k">18:45 · à la maison</span><p>Brice garde son métier.<br><i>NEAM s’occupe de sa présence en ligne.</i></p></div></div>
+  <div class="layer" id="twist"><p id="tw1">Brice a créé son entreprise<br>pour être <i>libre</i>.</p><p class="small" id="tw2">Pas pour répondre à tout, tout seul,<br>jusqu’à minuit.</p></div>
+  <img id="logo" src="../../assets/logo-light.png" alt="NEAM">
+  <img id="logoN" src="../../assets/logo-dark.png" alt="" style="position:absolute;left:70px;top:58px;width:190px;opacity:0">
+  <span id="chapter"></span>
+  <span id="illus">Histoire illustrative</span>
   <div class="layer" id="end">
-    <img src="../../assets/logo-dark.png" alt="NEAM Softwares Industry">
+    <img class="logo" src="../../assets/logo-light.png" alt="NEAM Softwares Industry">
     <span class="k">Offre Starter</span>
-    <h2>Reprends le contrôle<br>de <em>ton temps</em>.</h2>
+    <h2>Et toi&nbsp;?<br>Reprends le contrôle<br>de <i>ton temps</i>.</h2>
     <div class="price"><small>À partir de</small>150 000 FCFA / mois</div>
     <ul><li>Diagnostic</li><li>Fiche Google</li><li>Page de présentation</li><li>Présence digitale</li></ul>
     <span class="cta">Diagnostic digital gratuit →</span>
     <p class="contact">neamindustry.com · WhatsApp 077 45 31 67</p>
+    <p class="motto">Build a better <i>tomorrow&nbsp;!</i></p>
   </div>
 </div>
 <script>
-const DUR = 36;
+const NS = 'http://www.w3.org/2000/svg';
+const DUR = 40;
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
 const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
 const backOut = x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const lerp = (a, b, k) => a + (b - a) * k;
 const $ = id => document.getElementById(id);
+const C = { navy: '#1f2a33', mustard: '#d99a1c', cream: '#f7f1e6', creamD: '#efe0bf', green: '#2f6b5a', terra: '#c0654e', slate: '#6d7fa6', pot: '#b8704f', leaf: '#4f8a6a' };
+const SKIN = ['#6b3f25', '#8a5636', '#5a341f', '#7a4a2e'];
+
+function el(tag, attrs = {}, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function html(g, s) { g.insertAdjacentHTML('beforeend', s); return g; }
+const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+const mix = (a, b, k) => { const A = hex(a), B = hex(b); return `rgb(${A.map((v, i) => Math.round(lerp(v, B[i], k))).join(',')})`; };
+function grad(stops, x) { // stops : [[x, couleur]]
+  for (let i = 0; i < stops.length - 1; i++) { const [x0, c0] = stops[i], [x1, c1] = stops[i + 1]; if (x <= x1) return mix(c0, c1, clamp((x - x0) / (x1 - x0))); }
+  return mix(stops[stops.length - 1][1], stops[stops.length - 1][1], 0);
+}
+
+// ---------- Personnage « pion » (tête ronde, corps arrondi, sans visage) ----------
+function pawn(parent, body, skin, s = 1) {
+  const g = el('g', {}, parent);
+  const shadow = el('ellipse', { cx: 0, cy: 2, rx: 46, ry: 9, fill: 'rgba(80,55,20,.16)' }, g);
+  const fig = el('g', {}, g);
+  html(fig, `<path d="M-38 -80 A38 38 0 0 1 38 -80 V-10 Q38 0 28 0 H-28 Q-38 0 -38 -10 Z" fill="${body}"/><circle cx="0" cy="-150" r="31" fill="${skin}"/>`);
+  return { g, fig, shadow, s };
+}
+function place(p, x, y, { bob = 0, tilt = 0, squash = 1, op = 1, sc = 1 } = {}) {
+  p.g.setAttribute('transform', `translate(${x} ${y}) scale(${p.s * sc})`);
+  p.fig.setAttribute('transform', `translate(0 ${bob}) rotate(${tilt}) scale(${1 + (1 - squash) * .4} ${squash})`);
+  p.g.setAttribute('opacity', op);
+}
+// Bulle (cœur, étoile, points, point d'interrogation)
+function bubble(parent, kind) {
+  const g = el('g', { opacity: 0 }, parent);
+  html(g, `<rect x="-34" y="-34" width="68" height="58" rx="22" fill="#fffdf8" filter="url(#sh)"/><path d="M-12 22 -20 36 2 22Z" fill="#fffdf8"/>`);
+  if (kind === 'heart') html(g, `<path d="M0 10 C-18 -2 -14 -18 -4 -16 C-1 -15 0 -12 0 -11 C0 -12 1 -15 4 -16 C14 -18 18 -2 0 10Z" fill="${C.terra}"/>`);
+  if (kind === 'star') html(g, `<path d="M0 -16 4.5 -5.5 16 -5 7 2.5 10 14 0 7.5 -10 14 -7 2.5 -16 -5 -4.5 -5.5Z" fill="${C.mustard}"/>`);
+  if (kind === 'dots') html(g, `<g fill="${C.green}"><circle cx="-12" cy="-4" r="4.5"/><circle cx="0" cy="-4" r="4.5"/><circle cx="12" cy="-4" r="4.5"/></g>`);
+  if (kind === 'q') html(g, `<text x="0" y="9" text-anchor="middle" font-family="Instrument Sans" font-weight="700" font-size="34" fill="${C.navy}">?</text>`);
+  if (kind === 'check') html(g, `<circle cx="0" cy="-4" r="15" fill="${C.green}"/><path d="m-7 -4 5 5 9-10" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`);
+  return g;
+}
+function showBubble(g, x, y, t0, t1, t) {
+  const p = clamp((t - t0) / .3), q = 1 - clamp((t - t1) / .3);
+  const on = t >= t0 && t <= t1 + .3;
+  g.setAttribute('opacity', on ? Math.min(p, q) : 0);
+  g.setAttribute('transform', `translate(${x} ${y + Math.sin(t * 3 + x) * 4}) scale(${on ? .6 + .4 * backOut(p) : 1})`);
+}
+
+// ---------- Décor : boutique « CHEZ BRICE » ----------
+const scene = $('scene');
+html(el('defs', {}, scene), `<filter id="sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#5a3a10" flood-opacity=".18"/></filter>`);
+const stars = el('g', { opacity: 0 }, scene);
+[[120, 330], [210, 460], [900, 430], [1010, 470], [70, 900], [1020, 900]].forEach(([x, y]) => el('circle', { cx: x, cy: y, r: 3.5, fill: '#fff8e0' }, stars));
+const moon = el('g', { opacity: 0 }, scene);
+html(moon, `<circle cx="960" cy="330" r="44" fill="#f6e7b8"/><circle cx="980" cy="315" r="40" fill="#2b3644" id="moonCut"/>`);
+const shop = el('g', { transform: 'translate(-110 0)' }, scene);
+html(shop, `
+  <ellipse cx="540" cy="1508" rx="400" ry="24" fill="rgba(80,55,20,.14)"/>
+  <rect x="270" y="1120" width="540" height="386" rx="6" fill="${C.cream}"/>
+  <rect id="win" x="300" y="1205" width="270" height="200" rx="10" fill="${C.creamD}"/>
+  <path d="M318 1236 H552" stroke="#a3896a" stroke-width="5" stroke-linecap="round"/>
+  <g id="shirts"></g>
+  <rect x="300" y="1395" width="270" height="14" rx="4" fill="#e3cfa6"/>
+  <rect x="612" y="1200" width="150" height="306" rx="6" fill="${C.green}"/>
+  <circle cx="742" cy="1360" r="7" fill="${C.mustard}"/>
+  <rect id="plate" x="632" y="1238" width="110" height="40" rx="8" fill="#fffdf8"/>
+  <text id="plateTxt" x="687" y="1265" text-anchor="middle" font-family="Instrument Sans" font-weight="700" font-size="19" fill="${C.green}" letter-spacing="1">OUVERT</text>
+  <rect x="246" y="1030" width="588" height="76" rx="10" fill="${C.navy}"/>
+  <text x="540" y="1082" text-anchor="middle" font-family="Instrument Sans" font-weight="700" font-size="44" fill="#fff" letter-spacing="7">CHEZ BRICE</text>
+  <g id="awning"></g>
+  <g transform="translate(232 1506)"><path d="M-22 0 L-18 -46 H18 L22 0Z" fill="${C.pot}"/><path d="M0 -46 C-30 -70 -26 -104 -6 -118 C-2 -96 2 -96 6 -118 C26 -104 30 -70 0 -46Z" fill="${C.leaf}"/></g>
+  <g transform="translate(848 1506)"><path d="M-22 0 L-18 -46 H18 L22 0Z" fill="${C.pot}"/><path d="M0 -46 C-30 -70 -26 -104 -6 -118 C-2 -96 2 -96 6 -118 C26 -104 30 -70 0 -46Z" fill="${C.leaf}"/></g>`);
+const aw = $('awning');
+for (let i = 0; i < 10; i++) {
+  const x = 252 + i * 57.6;
+  html(aw, `<path d="M${x} 1106 h57.6 v44 a28.8 28.8 0 0 1 -57.6 0z" fill="${i % 2 ? '#f3e3bf' : C.mustard}"/>`);
+}
+const sh = $('shirts');
+[[350, C.terra], [435, C.green], [520, C.slate]].forEach(([x, c]) => html(sh, `<path d="M${x} 1236 v12" stroke="#a3896a" stroke-width="3"/><path d="M${x - 34} 1262 l20 -12 h28 l20 12 -10 18 -8 -4 v66 h-32 v-66 l-8 4z" fill="${c}"/>`));
+
+// Personnages
+const BRICE = pawn(scene, C.navy, SKIN[0]);
+const phone = el('g', {}, BRICE.fig);
+html(phone, `<rect x="30" y="-104" width="24" height="42" rx="6" fill="#111820"/><rect id="phScreen" x="33" y="-100" width="18" height="32" rx="3" fill="#3a4654"/>`);
+const stress = el('g', { opacity: 0 }, BRICE.fig);
+html(stress, `<g stroke="${C.navy}" stroke-width="4" stroke-linecap="round"><path d="M40 -190 l14 -14"/><path d="M48 -168 l20 -4"/><path d="M28 -200 l2 -20"/></g>`);
+const sweat = el('path', { d: 'M-40 -168 c-6 10 -8 16 0 18 c8 -2 6 -8 0 -18z', fill: '#8fc0de', opacity: 0 }, BRICE.fig);
+const bBrice = bubble(scene, 'heart');
+const CUST = [pawn(scene, C.mustard, SKIN[1]), pawn(scene, C.terra, SKIN[3]), pawn(scene, C.slate, SKIN[2]), pawn(scene, C.green, SKIN[1])];
+const bC = [bubble(scene, 'star'), bubble(scene, 'heart'), bubble(scene, 'heart'), bubble(scene, 'q')];
+const lost = pawn(scene, C.slate, SKIN[3]);
+const lostPhone = el('g', {}, lost.fig); html(lostPhone, `<rect x="-58" y="-104" width="24" height="42" rx="6" fill="#111820"/><rect x="-55" y="-100" width="18" height="32" rx="3" fill="#ffe9a8"/>`);
+const bLost = bubble(scene, 'q');
+
+// ---------- Scène maison (soirée) ----------
+const hs = $('homeSvg');
+html(el('defs', {}, hs), `<linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3dcc0"/><stop offset=".6" stop-color="#f1c98f"/><stop offset="1" stop-color="#e8b878"/></linearGradient>`);
+html(hs, `<rect width="1080" height="1920" fill="url(#dusk)"/><circle id="sun" cx="540" cy="1510" r="300" fill="#f6d89a"/><circle cx="540" cy="1510" r="210" fill="#f9e4b3"/>
+  <rect x="0" y="1505" width="1080" height="415" fill="#e2c79c"/><ellipse cx="540" cy="1512" rx="330" ry="20" fill="rgba(80,55,20,.16)"/>
+  <g transform="translate(230 1506)"><rect x="-10" y="-150" width="20" height="150" fill="#9a6b46"/><circle cx="0" cy="-190" r="78" fill="${C.leaf}"/><circle cx="-46" cy="-150" r="52" fill="#5d9876"/></g>`);
+const FAM = [pawn(hs, C.terra, SKIN[1]), pawn(hs, C.navy, SKIN[0]), pawn(hs, C.slate, SKIN[3], .66)];
+const bHome = [bubble(hs, 'heart'), bubble(hs, 'heart'), bubble(hs, 'star')];
+
+// ---------- Cartes ----------
 const ICON = {
-  shop: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11v9.5h15V11"/><path d="M3 9.5 5 4h14l2 5.5c0 1.5-1.2 2.6-2.6 2.6S15.8 11 15.8 9.5c0 1.5-1.2 2.6-2.6 2.6h-2.4c-1.4 0-2.6-1.1-2.6-2.6 0 1.5-1.2 2.6-2.6 2.6S3 11 3 9.5z"/></svg>',
+  shop: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11v9.5h15V11"/><path d="M3 9.5 5 4h14l2 5.5c0 1.5-1.2 2.6-2.6 2.6S15.8 11 15.8 9.5c0 1.5-1.2 2.6-2.6 2.6h-2.4c-1.4 0-2.6-1.1-2.6-2.6 0 1.5-1.2 2.6-2.6 2.6S3 11 3 9.5z"/></svg>',
   chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.2 3.6c-.5.4-1.3.1-1.3-.6V16A2.5 2.5 0 0 1 4 13.5z"/></svg>',
   task: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>',
   call: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/><path d="M16 3l5 5M21 3l-5 5"/></svg>',
-  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
 };
-const COL = { shop: ['#e8e1d3', '#0f0f10'], chat: ['#dcefe4', '#1e7a4a'], task: ['#fbecc9', '#9a6400'], call: ['#f6dcdc', '#a23b3b'] };
-
-// Journée sans aide : heure (minutes), type, en-tête, texte
+const COL = { shop: ['#efe6d3', C.navy], chat: ['#dcefe4', C.green], task: ['#fbecc9', '#9a6400'], call: ['#f6dcdc', '#a23b3b'], ok: [C.green, '#fff'] };
 const DAY = [
   [420, 'shop', 'Boutique', 'Ouverture. La journée commence.'],
   [555, 'chat', 'WhatsApp · client', '« Vous êtes ouverts aujourd’hui ? »'],
   [700, 'task', 'À faire', 'Refaire l’affiche de la promo'],
   [780, 'task', 'À faire', 'Publier sur Facebook (déjeuner sauté)'],
-  [980, 'chat', 'WhatsApp · client', '« Vous avez un site ? Je veux voir vos produits. »'],
+  [980, 'chat', 'WhatsApp · client', '« Vous avez un site ? »'],
   [1125, 'call', 'Appel manqué', '« Je ne vous trouve pas sur Google… »'],
   [1290, 'chat', 'WhatsApp · client', '« C’est combien, la livraison ? »'],
   [1430, 'chat', 'WhatsApp · client', '« Vous ouvrez à quelle heure demain ? »'],
 ];
-const T0 = 2.6, T1 = 13.8, M0 = 390, M1 = 1430;
-const tOf = m => T0 + (m - M0) / (M1 - M0) * (T1 - T0);
-// Lendemain, avec NEAM : ce que couvre l'offre Starter
 const FIX = [
-  ['« Vous êtes ouverts aujourd’hui ? »', 'Tes horaires à jour sur ta fiche Google'],
-  ['« Je ne vous trouve pas sur Google… »', 'Ta fiche Google complète : on te trouve sur Maps'],
-  ['« Vous avez un site ? »', 'Ta page de présentation : produits, prix, WhatsApp'],
-  ['« C’est combien, la livraison ? »', 'Les réponses utiles, déjà sur ta page'],
-  ['Affiche, publications Facebook…', 'Ta présence digitale, prise en charge par NEAM'],
-  ['« Qu’est-ce qui marche vraiment ? »', 'Un diagnostic : tu sais où tu en es'],
+  ['« Vous êtes ouverts aujourd’hui ? »', 'Ses horaires à jour sur sa fiche Google'],
+  ['« Je ne vous trouve pas sur Google… »', 'Sa fiche Google complète : on le trouve'],
+  ['« Vous avez un site ? »', 'Sa page : produits, prix, bouton WhatsApp'],
+  ['« C’est combien, la livraison ? »', 'Les réponses utiles, déjà sur sa page'],
+  ['Affiche, publications Facebook…', 'Sa présence digitale, gérée par NEAM'],
+  ['« Qu’est-ce qui marche vraiment ? »', 'Un diagnostic : il sait où il en est'],
 ];
-const F0 = 19.2, FSTEP = 1.05;
-
-function card(kind, meta, text, time, ok, old) {
+const T0 = 4.6, T1 = 15.8, M0 = 390, M1 = 1430;
+const tOf = m => T0 + (m - M0) / (M1 - M0) * (T1 - T0);
+const F0 = 21.0, FSTEP = 1.2;
+const fmt = m => `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(Math.floor(m % 60)).padStart(2, '0')}`;
+function card(kind, meta, text, time, old) {
   const d = document.createElement('div');
-  d.className = 'card' + (ok ? ' ok' : '');
-  const [bg, fg] = ok ? ['#0f0f10', '#f5b31b'] : COL[kind];
-  d.innerHTML = `<span class="ic" style="background:${bg};color:${fg}">${ICON[ok ? 'check' : kind]}</span><div class="meta"><span>${meta}</span><span>${time}</span></div><div class="txt">${old ? `<span class="old">${old}</span>` : ''}${text}</div>`;
+  d.className = 'card' + (old ? ' ok' : '');
+  const [bg, fg] = COL[old ? 'ok' : kind];
+  d.innerHTML = `<span class="ic" style="background:${bg};color:${fg}">${ICON[old ? 'check' : kind]}</span><div class="meta"><span>${meta}</span><span>${time}</span></div><div class="txt">${old ? `<span class="old">${old}</span>` : ''}${text}</div>`;
+  $('cards').appendChild(d);
   return d;
 }
-const fmt = m => `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(Math.round(m % 60)).padStart(2, '0')}`;
-let DAYC = [], FIXC = [];
-function build() {
-  const list = $('list');
-  DAYC = DAY.map(([m, k, meta, txt]) => { const c = card(k, meta, txt, fmt(m), false); list.appendChild(c); return c; });
-  FIXC = FIX.map(([old, txt], i) => { const c = card('task', 'NEAM · offre Starter', txt, '✓', true, old); list.appendChild(c); return c; });
-}
+const DAYC = DAY.map(([m, k, meta, txt]) => card(k, meta, txt, fmt(m)));
+const FIXC = FIX.map(([old, txt]) => card('task', 'Avec NEAM · offre Starter', txt, '✓', old));
 
 function renderAt(t) {
-  // ----- Intro -----
-  const io = 1 - clamp((t - 2.2) / .45);
-  $('intro').style.opacity = io;
-  $('intro').style.transform = `scale(${1 + (1 - io) * .04})`;
-
-  const fixed = t >= 18.2;
-  // ----- Horloge -----
-  let m;
-  if (!fixed) m = M0 + clamp((t - T0) / (T1 - T0)) * (M1 - M0);
-  else m = 480 + clamp((t - 18.6) / (26.2 - 18.6)) * (1110 - 480);  // lendemain : 08:00 → 18:30
+  const day = t >= 4.4 && t < 16.2, next = t >= 20 && t < 30.8, home = t >= 30.4;
+  // ---------- Ciel : matin → soir → nuit ; lendemain ----------
+  let m = M0, sky = '#f3ece0', dark = 0;
+  if (t < 16.2) {
+    m = M0 + clamp((t - T0) / (T1 - T0)) * (M1 - M0);
+    sky = grad([[390, '#efe6d6'], [700, '#f6efe0'], [1050, '#f3dcb8'], [1140, '#e8b77f'], [1230, '#3a4656'], [1430, '#232c37']], m);
+    dark = clamp((m - 1150) / 90);
+  } else if (t >= 20) {
+    m = 480 + clamp((t - 20.3) / (29.6 - 20.3)) * (1110 - 480);
+    sky = grad([[480, '#f1e8d8'], [800, '#f6efe0'], [1110, '#f3dcb8']], m);
+  }
+  $('sky').style.background = sky;
+  $('glow').style.opacity = 1 - dark;
+  const ink = mix('#1f2a33', '#f6efe0', dark);
+  $('clock').style.color = !next && m > 1290 ? mix('#f6efe0', '#ff8a7a', clamp((m - 1290) / 140)) : ink;
+  $('day').style.color = next ? '#d99a1c' : mix('#8f8a80', '#c9c2b4', dark);
+  $('day').textContent = next ? 'Le lendemain · avec NEAM' : 'Mardi · sans aide';
   $('clock').textContent = fmt(m);
-  $('stime').textContent = fmt(m);
-  $('day').innerHTML = fixed ? '<b>Le lendemain · avec NEAM</b>' : 'Mardi · sans aide';
-  // pression : l'horloge rougit en fin de journée
-  const late = !fixed ? clamp((m - 1150) / 280) : 0;
-  $('clock').style.color = `rgb(${15 + late * 160}, ${15 + late * 10}, ${16 + late * 10})`;
+  $('illus').style.color = mix('#8f8a80', '#9aa3ad', dark);
+  $('chapter').textContent = next ? 'Avec NEAM' : (day ? 'Sans aide' : '');
+  stars.setAttribute('opacity', dark);
+  moon.setAttribute('opacity', dark);
+  $('moonCut').setAttribute('fill', sky);
+  $('win').setAttribute('fill', dark > .3 ? mix(C.creamD, '#ffe2a0', dark) : C.creamD);
+  const closed = (!next && m >= 1170) || (next && t >= 29.6);
+  $('plateTxt').textContent = closed ? 'FERMÉ' : 'OUVERT';
+  $('plateTxt').setAttribute('fill', closed ? '#a23b3b' : C.green);
 
-  // ----- Notifications de la journée -----
-  const shown = DAY.map(([mm]) => tOf(mm)).filter(st => t >= st).length;
+  // ---------- Intro ----------
+  const io = clamp((t - .2) / .5) * (1 - clamp((t - 4.0) / .4));
+  $('intro').style.opacity = io;
+  [...$('intro').children].forEach((c, k) => { const p = clamp((t - .3 - k * .45) / .45); c.style.opacity = p; c.style.transform = `translateY(${(1 - ease(p)) * 30}px)`; });
+  const hd = (day || next) ? clamp((t - (next ? 20 : 4.4)) / .4) : 0;
+  $('head').style.opacity = hd;
+  $('foot').style.opacity = (day || next) ? hd : 0;
+
+  // ---------- Cartes ----------
+  const shown = DAY.filter(([mm]) => t >= tOf(mm)).length;
   DAYC.forEach((c, i) => {
-    const st = tOf(DAY[i][0]);
-    const vis = !fixed && t >= st;
-    const p = clamp((t - st) / .35);
-    const rank = shown - 1 - i;                  // 0 = la plus récente, en haut
-    const y = rank * 148 + (1 - backOut(p)) * -60;
-    c.style.opacity = vis ? (rank > 6 ? 0 : 1) * ease(p) : 0;
-    c.style.transform = `translateY(${y}px) scale(${1 - Math.min(rank, 6) * .015})`;
+    const st = tOf(DAY[i][0]); const p = clamp((t - st) / .35); const rank = shown - 1 - i;
+    c.style.opacity = day && t >= st ? ease(p) * (rank > 2 ? 0 : 1 - Math.max(0, rank - 1) * .35) : 0;
+    c.style.transform = `translateY(${rank * 132 + (1 - backOut(p)) * -50}px) scale(${1 - Math.min(rank, 4) * .02})`;
     c.style.zIndex = 50 - rank;
   });
-  // ----- Le lendemain : réponses en place -----
+  const fshown = FIX.filter((_, i) => t >= F0 + i * FSTEP).length;
   FIXC.forEach((c, i) => {
-    const st = F0 + i * FSTEP;
-    const p = clamp((t - st) / .4);
-    const vis = fixed && t >= st;
-    const fade = 1 - clamp((t - 26.4) / .5);    // la liste s'efface : téléphone calme
-    c.style.opacity = vis ? ease(p) * fade : 0;
-    c.style.transform = `translateY(${i * 150 + (1 - backOut(p)) * 50}px) scale(${.96 + .04 * backOut(p)})`;
-    c.style.zIndex = 10;
+    const st = F0 + i * FSTEP; const p = clamp((t - st) / .4); const rank = fshown - 1 - i;
+    c.style.opacity = next && t >= st ? ease(p) * (rank > 2 ? 0 : 1 - Math.max(0, rank - 1) * .45) * (1 - clamp((t - 29.4) / .4)) : 0;
+    c.style.transform = `translateY(${rank * 166 + (1 - backOut(p)) * -50}px)`;
+    c.style.zIndex = 50 - rank;
   });
-  const calm = clamp((t - 26.8) / .5) * (1 - clamp((t - 30.2) / .3));
-  $('calm').style.opacity = calm;
 
-  // ----- Énergie et temps pour toi -----
-  let e;
-  if (!fixed) e = 100 - clamp((t - T0) / (T1 - T0)) * 94;              // 100 % → 6 %
-  else e = 6 + clamp((t - 19) / 7) * 94;                               // recharge
+  // ---------- Brice ----------
+  const notifHit = DAY.reduce((a, [mm]) => { const d = t - tOf(mm); return d >= 0 && d < .35 ? Math.max(a, 1 - d / .35) : a; }, 0);
+  const tired = day ? clamp((t - 8) / 7.5) : 0;
+  let bx = 330, bop = t >= .9 ? clamp((t - .9) / .3) : 0, bob = Math.sin(t * 3) * 2, tilt = 0, squash = 1 - tired * .13;
+  if (day) { bob = -notifHit * 26; tilt = Math.sin(t * 40) * notifHit * 6 + tired * 7; }
+  if (next) { bob = Math.sin(t * 4) * 3; squash = 1; if (t >= 29.8) { const w = clamp((t - 29.8) / .8); bx = 330 - w * 420; bob = -Math.abs(Math.sin(t * 14)) * 12; } }
+  if (t >= 16.2 && t < 20) { squash = .87; tilt = 7; }
+  place(BRICE, bx, 1508, { bob, tilt, squash, op: bop * (home ? 0 : 1) });
+  BRICE.g.style.display = home && t > 30.8 ? 'none' : '';
+  stress.setAttribute('opacity', day ? clamp((t - 7) / .5) * (.6 + .4 * Math.abs(Math.sin(t * 6))) : 0);
+  sweat.setAttribute('opacity', day ? clamp((t - 10.5) / .5) : 0);
+  sweat.setAttribute('transform', `translate(0 ${((t * 30) % 20)})`);
+  $('phScreen').setAttribute('fill', day && (notifHit > 0 || dark > .4) ? '#ffe9a8' : '#3a4654');
+  showBubble(bBrice, 360, 1270, 1.6, 3.8, t);
+  // Client perdu (appel manqué : il ne trouve pas Brice sur Google)
+  const lt = tOf(1125);
+  const lin = clamp((t - (lt - 1.1)) / .8), lout = clamp((t - (lt + 1.0)) / .9);
+  place(lost, lerp(1180, 960, ease(lin)) + ease(lout) * 260, 1508, { bob: (lin > 0 && lin < 1) || (lout > 0 && lout < 1) ? -Math.abs(Math.sin(t * 14)) * 12 : 0, op: day && t > lt - 1.1 ? 1 : 0 });
+  showBubble(bLost, 990, 1290, lt - .2, lt + .9, day ? t : -1);
+  // Le lendemain : les clients le trouvent
+  const ARR = [22.0, 23.6, 25.2, 99], QX = [830, 930, 1030, 1200];
+  CUST.forEach((p, i) => {
+    const a = clamp((t - ARR[i]) / 1.0);
+    const walking = a > 0 && a < 1;
+    const leave = clamp((t - 29.3) / .8);
+    place(p, lerp(1200, QX[i], ease(a)) + leave * 300, 1508, { bob: walking || (leave > 0 && leave < 1) ? -Math.abs(Math.sin(t * 14)) * 12 : Math.sin(t * 3 + i) * 2, op: next && t >= ARR[i] ? 1 : 0, sc: i === 1 ? .94 : 1 });
+    showBubble(bC[i], QX[i] - 6, 1290, ARR[i] + 1.0, 29.2, next ? t : -1);
+  });
+
+  // ---------- Énergie ----------
+  let e = 100;
+  if (day) e = 100 - clamp((t - T0) / (T1 - T0)) * 94;
+  else if (next) e = 6 + clamp((t - 21) / 7.5) * 94;
   $('batFill').style.width = e + '%';
-  $('batFill').style.background = e < 25 ? '#d64545' : e < 55 ? '#f5b31b' : '#13a89a';
-  const mine = !fixed ? Math.max(0, 2 - clamp((t - T0) / 4) * 2) : null;
-  $('mine').textContent = !fixed ? (mine > .05 ? `${Math.ceil(mine)} h` : '0 h') : (t < 23 ? '0 h' : 'ta soirée');
-  $('mine').style.color = (!fixed && mine <= .05) ? '#d64545' : (fixed && t < 23 ? '#9a958b' : (fixed ? '#13a89a' : '#0f0f10'));
-  $('mine').style.transform = fixed && t >= 23 ? `scale(${.8 + .2 * backOut(clamp((t - 23) / .4))})` : 'none';
-  $('mine').style.transformOrigin = 'left center';
-  // secousse du téléphone à chaque notification (journée)
-  let shake = 0;
-  if (!fixed) DAY.forEach(([mm]) => { const d = t - tOf(mm); if (d >= 0 && d < .3) shake = Math.sin(d * 80) * 10 * (1 - d / .3); });
-  $('phone').style.transform = `translateX(${shake}px)`;
+  $('batFill').style.background = e < 25 ? '#d64545' : e < 55 ? C.mustard : C.green;
+  const lab = mix('#8f8a80', '#c9c2b4', dark);
+  document.querySelectorAll('.gauge .lab').forEach(l => l.style.color = lab);
+  document.querySelector('.bat').style.borderColor = ink;
+  const mine = day ? Math.max(0, 2 - clamp((t - T0) / 4) * 2) : 0;
+  $('mine').textContent = day ? (mine > .05 ? `${Math.ceil(mine)} h` : '0 h') : (next && t >= 26.5 ? 'sa soirée' : '0 h');
+  $('mine').style.color = day && mine <= .05 ? '#ff6b5a' : (next && t >= 26.5 ? C.green : ink);
 
-  // ----- Message final de la scène -----
-  const s = clamp((t - 27.2) / .5) * (1 - clamp((t - 30.2) / .3));
-  $('say').style.opacity = s;
-  $('say').style.transform = `translateY(${(1 - ease(clamp((t - 27.2) / .5))) * 30}px)`;
-  $('foot').style.opacity = 1 - s;
-
-  // ----- Retournement -----
-  const tw = clamp((t - 14.0) / .35) * (1 - clamp((t - 17.9) / .3));
+  // ---------- Retournement ----------
+  const tw = clamp((t - 16.2) / .35) * (1 - clamp((t - 19.7) / .3));
   $('twist').style.opacity = tw;
-  [['tw1', 14.3], ['tw2', 15.8]].forEach(([id, st]) => {
-    const p = clamp((t - st) / .45);
-    $(id).style.opacity = p;
-    $(id).style.transform = `translateY(${(1 - ease(p)) * 40}px)`;
-  });
-  // ----- Carte finale -----
-  const e2 = clamp((t - 30.3) / .45);
+  [['tw1', 16.5], ['tw2', 17.8]].forEach(([id, st]) => { const p = clamp((t - st) / .45); $(id).style.opacity = p; $(id).style.transform = `translateY(${(1 - ease(p)) * 40}px)`; });
+
+  // ---------- Soirée à la maison ----------
+  const h = clamp((t - 30.6) / .5) * (1 - clamp((t - 34.6) / .4));
+  $('home').style.opacity = h;
+  [...$('homeText').children].forEach((c, k) => { const p = clamp((t - 31.0 - k * .4) / .45); c.style.opacity = p; c.style.transform = `translateY(${(1 - ease(p)) * 30}px)`; });
+  const famIn = clamp((t - 30.8) / .9);
+  place(FAM[0], 430, 1508, { bob: Math.sin(t * 3) * 2, op: 1 });
+  place(FAM[1], lerp(-60, 560, ease(famIn)), 1508, { bob: famIn < 1 ? -Math.abs(Math.sin(t * 14)) * 12 : Math.sin(t * 3 + 1) * 2 });
+  place(FAM[2], 680, 1508, { bob: -Math.abs(Math.sin(t * 6)) * 8, op: 1 });
+  showBubble(bHome[0], 470, 1290, 31.8, 34.4, t);
+  showBubble(bHome[1], 590, 1270, 32.2, 34.4, t);
+  showBubble(bHome[2], 700, 1330, 32.6, 34.4, t);
+  $('illus').style.opacity = 1 - clamp((t - 34.6) / .3);
+
+  // ---------- Carte finale ----------
+  const e2 = clamp((t - 34.8) / .45);
   $('end').style.opacity = e2;
-  [...$('end').children].forEach((c, k) => {
-    const p = clamp((t - 30.5 - k * .2) / .4);
-    c.style.opacity = p;
-    c.style.transform = `translateY(${(1 - ease(p)) * 34}px)`;
-  });
+  $('logo').style.opacity = (1 - e2) * (1 - dark);
+  $('logoN').style.opacity = (1 - e2) * dark;
+  $('chapter').style.opacity = 1 - e2;
+  [...$('end').children].forEach((c, k) => { const p = clamp((t - 35.0 - k * .18) / .4); c.style.opacity = p; c.style.transform = `translateY(${(1 - ease(p)) * 34}px)`; });
 }
 window.renderAt = renderAt;
 window.DUR = DUR;
-document.fonts.ready.then(() => { build(); renderAt(0); window.READY = true; });
+document.fonts.ready.then(() => { renderAt(0); window.READY = true; });
 </script>
 </body>
 </html>
