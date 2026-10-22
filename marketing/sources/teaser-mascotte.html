@@ -49,7 +49,7 @@
     <div class="line" id="s1a" style="top: 200px; font-size: 120px">Libreville, <span style="color:#7cf7bd">18 h.</span></div>
     <div class="line" id="s1b" style="top: 350px; font-size: 84px; font-weight: 700">Le frigo est vide ?</div>
     <div id="sp1"></div>
-    <img class="pose" id="main1" src="m-main.png" style="width: 760px; left: 160px; top: 690px" />
+    <img class="pose" id="main1" src="hd-pouce.png" style="width: 800px; left: 140px; top: 720px" />
     <div class="line" id="s1c" style="top: 1610px; font-size: 120px; color:#7cf7bd; text-align:center">NEAM arrive.</div>
   </div>
 
@@ -59,7 +59,7 @@
     <div class="line" id="s2a" style="top: 300px; font-size: 104px">Vos courses</div>
     <div class="line" id="s2b" style="top: 412px; font-size: 104px; color:#0a9a5c">en quelques clics</div>
     <div id="grid"></div>
-    <img class="pose" id="courses" src="m-courses.png" style="width: 640px; right: -30px; bottom: 0" />
+    <img class="pose" id="courses" src="hd-courses.png" style="width: 600px; right: 10px; bottom: 10px" />
   </div>
 
   <!-- Scène 3 : NEAM Express dans la ville illustrée -->
@@ -74,7 +74,7 @@
     <div class="line" id="s3b" style="top: 412px; font-size: 104px; color:#7cf7bd">à Libreville</div>
     <div id="pins"></div>
     <div id="sp3"></div>
-    <img class="pose" id="scooter" src="m-scooter.png" style="width: 640px; bottom: 0; filter: drop-shadow(0 0 26px rgba(124,247,189,.55)) drop-shadow(0 0 4px rgba(255,255,255,.7)) brightness(1.08)" />
+    <img class="pose" id="scooter" src="hd-scooter.png" style="width: 600px; bottom: 20px; filter: drop-shadow(0 0 22px rgba(124,247,189,.45))" />
   </div>
 
   <!-- Scène 4 : l'application, paiement à la livraison -->
@@ -84,14 +84,14 @@
     <div class="chip" id="c1" style="left: 40px; top: 700px">💵 Paiement à la livraison</div>
     <div class="chip" id="c2" style="right: 40px; top: 940px">📍 Suivi en direct</div>
     <div class="chip" id="c3" style="left: 40px; top: 1180px">🔐 Code de remise</div>
-    <img class="pose" id="phonepose" src="m-phone.png" style="width: 600px; right: -20px; bottom: 0" />
+    <img class="pose" id="phonepose" src="hd-pouce.png" style="width: 500px; left: -70px; bottom: -30px" />
   </div>
 
   <!-- Scène 5 : carte finale -->
   <div class="layer" id="s5" style="background: radial-gradient(90% 55% at 50% 45%, #0f6b47 0%, rgba(0,0,0,0) 70%), #04241b">
     <img id="logo" src="neam-logo.webp" style="position:absolute; left: 50%; top: 200px; width: 820px; margin-left: -410px; opacity: 0" />
     <div class="line" id="s5t" style="top: 520px; font-size: 50px; font-weight: 500; text-align:center; color:#d6fbe8">Plus proche de votre quotidien.</div>
-    <img class="pose" id="main5" src="m-main.png" style="width: 600px; left: 240px; top: 650px" />
+    <img class="pose" id="main5" src="hd-courses.png" style="width: 680px; left: 200px; top: 690px" />
     <div class="line" id="s5a" style="top: 1340px; font-size: 76px; text-align:center">Bientôt disponible</div>
     <div id="badge" style="top: 1480px"><span>📱 Android</span><span>📱 iPhone</span></div>
     <div class="line" id="s5b" style="top: 1660px; font-size: 42px; font-weight: 500; text-align:center; color:#b7f5d6">NEAM Market · NEAM Express · Libreville</div>
@@ -200,9 +200,9 @@ window.render = (t) => {
     const settle = prog(t, 2.5, 0.5);
     const squash = settle > 0 && settle < 1 ? Math.sin(settle * Math.PI) * 0.06 : 0;
     const bob = t > 3 ? Math.sin((t - 3) * 4) * 10 : 0;
-    $('main1').style.transform = `translateX(${(1 - e) * 1150}px) translateY(${bob}px) skewX(${(1 - e) * 10}deg) scale(${1 + squash}, ${1 - squash})`;
+    $('main1').style.transform = `translateX(${(1 - e) * -1200}px) translateY(${bob}px) skewX(${(1 - e) * -10}deg) scale(${1 + squash}, ${1 - squash})`;
     $('main1').style.transformOrigin = '50% 100%';
-    speed('a', t, t > 1.7 && t < 2.9 ? 1 - prog(t, 2.4, 0.5) : 0, 160 + (1 - e) * 1150 + 980, 900, 500, -1);
+    speed('a', t, t > 1.7 && t < 2.9 ? 1 - prog(t, 2.4, 0.5) : 0, 140 + (1 - e) * -1200 + 120, 860, 520, 1);
     line('s1c', t, 3.1, 80);
   }
   // Scène 2
@@ -238,7 +238,7 @@ window.render = (t) => {
     const x = -700 + enter * 930 + exit * 1100;
     $('scooter').style.left = `${x}px`;
     $('scooter').style.transform = `translateY(${Math.sin(t * 24) * 3}px) rotate(${-1 - exit * 3}deg)`;
-    speed('b', t, 1, x + 40, 1560, 300, 1);
+    speed('b', t, 1, x + 60, 1450, 400, 1);
   }
   // Scène 4
   if (t > 14.6 && t < 20.9) {
@@ -249,7 +249,7 @@ window.render = (t) => {
     $('appimg').style.transform = `translateY(${-easeInOut(prog(t, 16.6, 3.4)) * 1250}px)`;
     pop('c1', t, 16.4); pop('c2', t, 17.0); pop('c3', t, 17.6);
     const n = easeOut(prog(t, 18.2, 0.7));
-    $('phonepose').style.transform = `translateY(${(1 - n) * 460}px)`;
+    $('phonepose').style.transform = `translateX(${(1 - n) * -560}px)`;
   }
   // Scène 5
   if (t > 20.1) {
