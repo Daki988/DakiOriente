@@ -1,0 +1,65 @@
+# Mise en ligne automatique du site NEAM et de l'Atelier sur LWS (FTP)
+#
+# Se lance à chaque modification de la branche main, ou à la main (onglet Actions → Run workflow).
+# N'envoie que les fichiers modifiés depuis la dernière mise en ligne, et ne touche jamais :
+#   - api/config.php (vos mots de passe et clés, réglés sur le serveur) ;
+#   - api/data/ (dossiers clients de l'Atelier, accès, audits) ;
+#   - vitrines/ (pages publiées depuis l'Atelier).
+#
+# À régler une fois dans le dépôt GitHub : Settings → Secrets and variables → Actions
+#   Secrets   : FTP_SERVER (ex. ftp.neamindustry.com), FTP_USERNAME, FTP_PASSWORD
+#   Variables : FTP_DIR (dossier du site sur le serveur, ex. /htdocs/), FTP_PROTOCOL (ftp ou ftps, ftp par défaut)
+name: Mise en ligne LWS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploiement-lws
+  cancel-in-progress: false
+
+jobs:
+  deploiement:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vérifier la syntaxe PHP
+        run: |
+          find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 php -l > /dev/null
+
+      - name: Vérifier les réglages
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_DIR: ${{ vars.FTP_DIR }}
+        run: |
+          for v in FTP_SERVER FTP_USERNAME FTP_PASSWORD FTP_DIR; do
+            if [ -z "${!v}" ]; then echo "::error::$v n'est pas réglé (Settings → Secrets and variables → Actions)"; exit 1; fi
+          done
+
+      - name: Envoyer sur LWS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftp' }}
+          server-dir: ${{ vars.FTP_DIR }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            .claude/**
+            clients/**
+            campagne/**
+            print/**
+            README.md
+            CLAUDE.md
+            api/config.php
+            api/data/audits/**
+            api/data/atelier/**
+            vitrines/**

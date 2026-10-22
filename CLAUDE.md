@@ -2,7 +2,7 @@
 
 Site web de NEAM (agence de transformation digitale, Libreville, Gabon) et outils internes.
 
-- Site statique à la racine (HTML/CSS/JS), formulaires et API en PHP dans `api/` (hébergement mutualisé LWS, sans Composer). Le site se déploie en envoyant un ZIP sur LWS.
+- Site statique à la racine (HTML/CSS/JS), formulaires et API en PHP dans `api/` (hébergement mutualisé LWS, sans Composer). Le site se déploie sur LWS : automatiquement par FTP à chaque modification de `main` (`.github/workflows/deploiement-lws.yml`, identifiants dans les secrets GitHub), ou à la main en envoyant un ZIP. Ni `api/config.php`, ni `api/data/`, ni `vitrines/` ne sont jamais écrasés.
 - `atelier/` : back-office de l'équipe (dossiers clients, propositions et ROI, livrables produits par l'API Claude).
 - `campagne/` et `print/` : supports marketing (vidéos, carrousels, catalogue).
 
