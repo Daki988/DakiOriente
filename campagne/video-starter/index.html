@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>NEAM — Une journée d’entrepreneur (offre Starter)</title>
+<link rel="stylesheet" href="../../print/catalogue/fonts/fonts.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "Instrument Sans", Arial, sans-serif; color: #0f0f10; background: #f3eee3; }
+  .layer { position: absolute; inset: 0; }
+  em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; }
+  /* En-tête : jour et horloge */
+  #head { position: absolute; left: 0; right: 0; top: 150px; display: grid; justify-items: center; gap: 6px; text-align: center; }
+  #day { font: 500 30px "IBM Plex Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: #6d6a64; }
+  #day b { color: #b07c00; font-weight: 500; }
+  #clock { font-size: 190px; font-weight: 700; letter-spacing: -.05em; line-height: 1; font-variant-numeric: tabular-nums; }
+  /* Téléphone */
+  #phone { position: absolute; left: 190px; top: 470px; width: 700px; height: 1060px; border-radius: 70px; background: #0f0f10; padding: 22px; box-shadow: 0 60px 90px -50px rgba(60,40,10,.55); }
+  #screen { position: relative; width: 100%; height: 100%; border-radius: 50px; overflow: hidden; background: linear-gradient(#e9e4da, #ddd6c8); }
+  #notch { position: absolute; left: 50%; top: 16px; width: 170px; height: 40px; margin-left: -85px; border-radius: 22px; background: #0f0f10; z-index: 5; }
+  #status { position: absolute; left: 44px; right: 44px; top: 22px; display: flex; justify-content: space-between; font: 600 26px "Instrument Sans"; color: #2a2724; z-index: 4; }
+  #list { position: absolute; left: 22px; right: 22px; top: 90px; bottom: 0; }
+  .card { position: absolute; left: 0; right: 0; min-height: 132px; border-radius: 30px; background: rgba(255,255,255,.92); padding: 20px 22px 20px 106px; box-shadow: 0 12px 26px -16px rgba(0,0,0,.35); }
+  .card .ic { position: absolute; left: 22px; top: 22px; width: 64px; height: 64px; border-radius: 16px; display: grid; place-items: center; }
+  .card .ic svg { width: 36px; height: 36px; }
+  .card .meta { display: flex; justify-content: space-between; font: 600 21px "Instrument Sans"; color: #6d6a64; text-transform: uppercase; letter-spacing: .04em; }
+  .card .txt { margin-top: 6px; font-size: 29px; line-height: 1.25; font-weight: 600; letter-spacing: -.01em; }
+  .card.ok { background: #fff; border-left: 10px solid #f5b31b; }
+  .card.ok .ic { background: #0f0f10; color: #f5b31b; }
+  .card .old { display: block; font-size: 22px; font-weight: 500; color: #8f8a80; text-decoration: line-through; margin-bottom: 4px; }
+  #calm { position: absolute; left: 0; right: 0; top: 380px; text-align: center; display: grid; gap: 14px; justify-items: center; }
+  #calm b { font-size: 46px; letter-spacing: -.03em; }
+  #calm span { font: 500 24px "IBM Plex Mono", monospace; color: #6d6a64; letter-spacing: .04em; }
+  /* Bas : énergie et temps */
+  #foot { position: absolute; left: 110px; right: 110px; top: 1600px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .gauge { display: grid; gap: 14px; }
+  .gauge .lab { font: 500 24px "IBM Plex Mono", monospace; letter-spacing: .1em; text-transform: uppercase; color: #6d6a64; }
+  .bat { position: relative; height: 54px; border-radius: 14px; border: 4px solid #0f0f10; padding: 5px; }
+  .bat::after { content: ""; position: absolute; right: -14px; top: 13px; width: 8px; height: 20px; border-radius: 0 4px 4px 0; background: #0f0f10; }
+  .bat i { display: block; height: 100%; border-radius: 7px; background: #13a89a; }
+  .val { font-size: 54px; font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+  /* Encarts plein écran */
+  .full { display: grid; place-content: center; text-align: center; padding: 0 90px; }
+  #intro { background: #f3eee3; gap: 26px; }
+  #intro .k { font: 500 30px "IBM Plex Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: #b07c00; }
+  #intro p { font-size: 96px; font-weight: 700; letter-spacing: -.045em; line-height: 1.02; }
+  #twist { background: #0f0f10; color: #fff; gap: 40px; }
+  #twist p { font-size: 84px; font-weight: 700; letter-spacing: -.045em; line-height: 1.05; }
+  #twist p em { color: #f5b31b; font-size: 1.12em; }
+  #twist p.small { font-size: 60px; color: #d0d0d4; }
+  #say { position: absolute; left: 70px; right: 70px; top: 1600px; text-align: center; font-size: 60px; font-weight: 700; letter-spacing: -.04em; line-height: 1.08; }
+  #say em { color: #b07c00; }
+  #end { background: #0f0f10; color: #fff; display: grid; align-content: center; justify-items: center; gap: 42px; text-align: center; padding: 0 70px; }
+  #end img { width: 560px; }
+  #end .k { font: 500 30px "IBM Plex Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: #f5b31b; }
+  #end h2 { font-size: 76px; font-weight: 700; letter-spacing: -.045em; line-height: 1.03; }
+  #end h2 em { color: #f5b31b; }
+  #end .price { background: #f5b31b; color: #0f0f10; border-radius: 34px; padding: 22px 44px 26px; font-size: 76px; font-weight: 700; letter-spacing: -.045em; line-height: 1.05; }
+  #end .price small { display: block; font: 600 26px "Instrument Sans"; letter-spacing: .06em; text-transform: uppercase; }
+  #end ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; max-width: 900px; }
+  #end li { padding: 12px 24px; border-radius: 40px; border: 2px solid rgba(255,255,255,.22); font-size: 32px; font-weight: 600; }
+  #end .cta { font-size: 40px; font-weight: 700; }
+  #end .contact { font: 500 30px "IBM Plex Mono", monospace; color: #bdbdc2; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="layer" id="main">
+    <div id="head"><div id="day"></div><div id="clock">06:30</div></div>
+    <div id="phone"><div id="screen"><div id="notch"></div><div id="status"><span id="stime">06:30</span><span>4G ▮▮▮</span></div><div id="list"></div><div id="calm"><b>Aucune nouvelle notification</b><span>Tes clients ont déjà leurs réponses.</span></div></div></div>
+    <div id="foot">
+      <div class="gauge"><span class="lab">Ton énergie</span><div class="bat"><i id="batFill"></i></div></div>
+      <div class="gauge"><span class="lab">Temps pour toi</span><span class="val" id="mine">2 h</span></div>
+    </div>
+    <div id="say">Toi, tu gardes ton métier.<br><em>NEAM s’occupe de ta présence en ligne.</em></div>
+  </div>
+  <div class="layer full" id="intro"><span class="k">Libreville · un mardi</span><p>Une journée<br>d’entrepreneur.</p></div>
+  <div class="layer full" id="twist"><p id="tw1">Tu as créé ton entreprise<br>pour être <em>libre</em>.</p><p class="small" id="tw2">Pas pour répondre à tout,<br>tout seul, jusqu’à minuit.</p></div>
+  <div class="layer" id="end">
+    <img src="../../assets/logo-dark.png" alt="NEAM Softwares Industry">
+    <span class="k">Offre Starter</span>
+    <h2>Reprends le contrôle<br>de <em>ton temps</em>.</h2>
+    <div class="price"><small>À partir de</small>150 000 FCFA / mois</div>
+    <ul><li>Diagnostic</li><li>Fiche Google</li><li>Page de présentation</li><li>Présence digitale</li></ul>
+    <span class="cta">Diagnostic digital gratuit →</span>
+    <p class="contact">neamindustry.com · WhatsApp 077 45 31 67</p>
+  </div>
+</div>
+<script>
+const DUR = 36;
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+const backOut = x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const $ = id => document.getElementById(id);
+const ICON = {
+  shop: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 11v9.5h15V11"/><path d="M3 9.5 5 4h14l2 5.5c0 1.5-1.2 2.6-2.6 2.6S15.8 11 15.8 9.5c0 1.5-1.2 2.6-2.6 2.6h-2.4c-1.4 0-2.6-1.1-2.6-2.6 0 1.5-1.2 2.6-2.6 2.6S3 11 3 9.5z"/></svg>',
+  chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.2 3.6c-.5.4-1.3.1-1.3-.6V16A2.5 2.5 0 0 1 4 13.5z"/></svg>',
+  task: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>',
+  call: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/><path d="M16 3l5 5M21 3l-5 5"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+};
+const COL = { shop: ['#e8e1d3', '#0f0f10'], chat: ['#dcefe4', '#1e7a4a'], task: ['#fbecc9', '#9a6400'], call: ['#f6dcdc', '#a23b3b'] };
+
+// Journée sans aide : heure (minutes), type, en-tête, texte
+const DAY = [
+  [420, 'shop', 'Boutique', 'Ouverture. La journée commence.'],
+  [555, 'chat', 'WhatsApp · client', '« Vous êtes ouverts aujourd’hui ? »'],
+  [700, 'task', 'À faire', 'Refaire l’affiche de la promo'],
+  [780, 'task', 'À faire', 'Publier sur Facebook (déjeuner sauté)'],
+  [980, 'chat', 'WhatsApp · client', '« Vous avez un site ? Je veux voir vos produits. »'],
+  [1125, 'call', 'Appel manqué', '« Je ne vous trouve pas sur Google… »'],
+  [1290, 'chat', 'WhatsApp · client', '« C’est combien, la livraison ? »'],
+  [1430, 'chat', 'WhatsApp · client', '« Vous ouvrez à quelle heure demain ? »'],
+];
+const T0 = 2.6, T1 = 13.8, M0 = 390, M1 = 1430;
+const tOf = m => T0 + (m - M0) / (M1 - M0) * (T1 - T0);
+// Lendemain, avec NEAM : ce que couvre l'offre Starter
+const FIX = [
+  ['« Vous êtes ouverts aujourd’hui ? »', 'Tes horaires à jour sur ta fiche Google'],
+  ['« Je ne vous trouve pas sur Google… »', 'Ta fiche Google complète : on te trouve sur Maps'],
+  ['« Vous avez un site ? »', 'Ta page de présentation : produits, prix, WhatsApp'],
+  ['« C’est combien, la livraison ? »', 'Les réponses utiles, déjà sur ta page'],
+  ['Affiche, publications Facebook…', 'Ta présence digitale, prise en charge par NEAM'],
+  ['« Qu’est-ce qui marche vraiment ? »', 'Un diagnostic : tu sais où tu en es'],
+];
+const F0 = 19.2, FSTEP = 1.05;
+
+function card(kind, meta, text, time, ok, old) {
+  const d = document.createElement('div');
+  d.className = 'card' + (ok ? ' ok' : '');
+  const [bg, fg] = ok ? ['#0f0f10', '#f5b31b'] : COL[kind];
+  d.innerHTML = `<span class="ic" style="background:${bg};color:${fg}">${ICON[ok ? 'check' : kind]}</span><div class="meta"><span>${meta}</span><span>${time}</span></div><div class="txt">${old ? `<span class="old">${old}</span>` : ''}${text}</div>`;
+  return d;
+}
+const fmt = m => `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(Math.round(m % 60)).padStart(2, '0')}`;
+let DAYC = [], FIXC = [];
+function build() {
+  const list = $('list');
+  DAYC = DAY.map(([m, k, meta, txt]) => { const c = card(k, meta, txt, fmt(m), false); list.appendChild(c); return c; });
+  FIXC = FIX.map(([old, txt], i) => { const c = card('task', 'NEAM · offre Starter', txt, '✓', true, old); list.appendChild(c); return c; });
+}
+
+function renderAt(t) {
+  // ----- Intro -----
+  const io = 1 - clamp((t - 2.2) / .45);
+  $('intro').style.opacity = io;
+  $('intro').style.transform = `scale(${1 + (1 - io) * .04})`;
+
+  const fixed = t >= 18.2;
+  // ----- Horloge -----
+  let m;
+  if (!fixed) m = M0 + clamp((t - T0) / (T1 - T0)) * (M1 - M0);
+  else m = 480 + clamp((t - 18.6) / (26.2 - 18.6)) * (1110 - 480);  // lendemain : 08:00 → 18:30
+  $('clock').textContent = fmt(m);
+  $('stime').textContent = fmt(m);
+  $('day').innerHTML = fixed ? '<b>Le lendemain · avec NEAM</b>' : 'Mardi · sans aide';
+  // pression : l'horloge rougit en fin de journée
+  const late = !fixed ? clamp((m - 1150) / 280) : 0;
+  $('clock').style.color = `rgb(${15 + late * 160}, ${15 + late * 10}, ${16 + late * 10})`;
+
+  // ----- Notifications de la journée -----
+  const shown = DAY.map(([mm]) => tOf(mm)).filter(st => t >= st).length;
+  DAYC.forEach((c, i) => {
+    const st = tOf(DAY[i][0]);
+    const vis = !fixed && t >= st;
+    const p = clamp((t - st) / .35);
+    const rank = shown - 1 - i;                  // 0 = la plus récente, en haut
+    const y = rank * 148 + (1 - backOut(p)) * -60;
+    c.style.opacity = vis ? (rank > 6 ? 0 : 1) * ease(p) : 0;
+    c.style.transform = `translateY(${y}px) scale(${1 - Math.min(rank, 6) * .015})`;
+    c.style.zIndex = 50 - rank;
+  });
+  // ----- Le lendemain : réponses en place -----
+  FIXC.forEach((c, i) => {
+    const st = F0 + i * FSTEP;
+    const p = clamp((t - st) / .4);
+    const vis = fixed && t >= st;
+    const fade = 1 - clamp((t - 26.4) / .5);    // la liste s'efface : téléphone calme
+    c.style.opacity = vis ? ease(p) * fade : 0;
+    c.style.transform = `translateY(${i * 150 + (1 - backOut(p)) * 50}px) scale(${.96 + .04 * backOut(p)})`;
+    c.style.zIndex = 10;
+  });
+  const calm = clamp((t - 26.8) / .5) * (1 - clamp((t - 30.2) / .3));
+  $('calm').style.opacity = calm;
+
+  // ----- Énergie et temps pour toi -----
+  let e;
+  if (!fixed) e = 100 - clamp((t - T0) / (T1 - T0)) * 94;              // 100 % → 6 %
+  else e = 6 + clamp((t - 19) / 7) * 94;                               // recharge
+  $('batFill').style.width = e + '%';
+  $('batFill').style.background = e < 25 ? '#d64545' : e < 55 ? '#f5b31b' : '#13a89a';
+  const mine = !fixed ? Math.max(0, 2 - clamp((t - T0) / 4) * 2) : null;
+  $('mine').textContent = !fixed ? (mine > .05 ? `${Math.ceil(mine)} h` : '0 h') : (t < 23 ? '0 h' : 'ta soirée');
+  $('mine').style.color = (!fixed && mine <= .05) ? '#d64545' : (fixed && t < 23 ? '#9a958b' : (fixed ? '#13a89a' : '#0f0f10'));
+  $('mine').style.transform = fixed && t >= 23 ? `scale(${.8 + .2 * backOut(clamp((t - 23) / .4))})` : 'none';
+  $('mine').style.transformOrigin = 'left center';
+  // secousse du téléphone à chaque notification (journée)
+  let shake = 0;
+  if (!fixed) DAY.forEach(([mm]) => { const d = t - tOf(mm); if (d >= 0 && d < .3) shake = Math.sin(d * 80) * 10 * (1 - d / .3); });
+  $('phone').style.transform = `translateX(${shake}px)`;
+
+  // ----- Message final de la scène -----
+  const s = clamp((t - 27.2) / .5) * (1 - clamp((t - 30.2) / .3));
+  $('say').style.opacity = s;
+  $('say').style.transform = `translateY(${(1 - ease(clamp((t - 27.2) / .5))) * 30}px)`;
+  $('foot').style.opacity = 1 - s;
+
+  // ----- Retournement -----
+  const tw = clamp((t - 14.0) / .35) * (1 - clamp((t - 17.9) / .3));
+  $('twist').style.opacity = tw;
+  [['tw1', 14.3], ['tw2', 15.8]].forEach(([id, st]) => {
+    const p = clamp((t - st) / .45);
+    $(id).style.opacity = p;
+    $(id).style.transform = `translateY(${(1 - ease(p)) * 40}px)`;
+  });
+  // ----- Carte finale -----
+  const e2 = clamp((t - 30.3) / .45);
+  $('end').style.opacity = e2;
+  [...$('end').children].forEach((c, k) => {
+    const p = clamp((t - 30.5 - k * .2) / .4);
+    c.style.opacity = p;
+    c.style.transform = `translateY(${(1 - ease(p)) * 34}px)`;
+  });
+}
+window.renderAt = renderAt;
+window.DUR = DUR;
+document.fonts.ready.then(() => { build(); renderAt(0); window.READY = true; });
+</script>
+</body>
+</html>
