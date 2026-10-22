@@ -1,7 +1,7 @@
 # NEAM Softwares Industry — configuration Apache (hébergement LWS)
 
 # Page d'accueil et pas de liste des fichiers
-DirectoryIndex index.html
+DirectoryIndex index.html index.php
 Options -Indexes
 
 # Page introuvable personnalisée
