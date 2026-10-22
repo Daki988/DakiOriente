@@ -96,7 +96,7 @@ await parcours("eleve-mobile", MOBILE, [
     const fin = p.getByRole("button", { name: /Voir mon profil/ });
     for (let i = 0; i < 15 && !(await fin.isVisible() && await fin.isEnabled()); i++) {
       await p.locator("main").getByRole("radio").first().click();
-      await p.waitForTimeout(900);
+      await p.waitForTimeout(1400); // fin de l'animation de sortie de la question précédente
     }
     await fin.click();
     await p.waitForURL(/espace\/orientation/, { timeout: 20000 });

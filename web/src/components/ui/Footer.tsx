@@ -6,8 +6,8 @@ import { VILLES, villeHref } from "@/lib/catalogue";
 const cols = [
   { t: "Plateforme", l: [["Orientation", "/orientation"], ["Métiers", "/metiers"], ["Formations", "/formations"], ["Établissements", "/etablissements"], ["Comparateur", "/comparateur"], ["Navilease", "/navilease"]] },
   { t: "Étudier au Maroc", l: [["Visa et séjour", "/ressources/visa-carte-de-sejour/"], ["Toutes les villes", "/villes"], ...VILLES.slice(0, 4).map((v) => [`Étudier à ${v.nom}`, villeHref(v.nom)]), ["Reconnus par l'État", "/etablissements/?label=reconnu_etat"]] },
-  { t: "Ressources", l: [["Guides et outils", "/ressources"], ["Devis parents", "/devis"], ["Calculateur de moyenne", "/ressources/#outils"], ["Actualités", "/actualites"], ["Ma série au lycée", "/orientation#series"]] },
-  { t: "Navigoal", l: [["Pourquoi Navigoal", "/pourquoi"], ["Mon espace", "/espace"], ["Bailleurs", "/navilease#bailleurs"], ["Contact", "mailto:contact@navigoal.com"]] },
+  { t: "Ressources", l: [["Guides et outils", "/ressources"], ["Espace parents", "/parents"], ["Devis parents", "/devis"], ["Calculateur de moyenne", "/ressources/#outils"], ["Actualités", "/actualites"], ["Ma série au lycée", "/orientation#series"]] },
+  { t: "Navigoal", l: [["Pourquoi Navigoal", "/pourquoi"], ["Mon espace", "/espace"], ["Bailleurs", "/navilease#bailleurs"], ["Contact", "mailto:contact@navigoal.net"]] },
 ];
 
 export function Footer() {

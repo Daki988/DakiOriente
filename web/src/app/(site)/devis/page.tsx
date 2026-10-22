@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { DevisSimulateur } from "@/components/sections/DevisSimulateur";
+import { QuestionWhatsApp } from "@/components/ui/QuestionWhatsApp";
 
 export const metadata: Metadata = { title: "Devis études — parents", description: "Le coût total des études à l'étranger : scolarité, vie quotidienne, installation, visa et carte de séjour, sur toute la durée de la formation." };
 
 export default function DevisPage() {
-  return <Suspense><DevisSimulateur /></Suspense>;
+  return (
+    <>
+      <Suspense><DevisSimulateur /></Suspense>
+      <QuestionWhatsApp sujet="le coût des études au Maroc" />
+    </>
+  );
 }

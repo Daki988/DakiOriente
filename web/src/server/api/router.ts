@@ -326,6 +326,10 @@ route("GET", "/fichiers/housings/:hid/:fid", "Fichiers", "Photo d'annonce publi�
   return new Response(f.data as BodyInit, { headers: { "Content-Type": f.contentType, "Cache-Control": "public, max-age=86400" } });
 });
 route("GET", "/openapi.json", "Documentation", "Description OpenAPI de l'API", "public", async () => openapi());
+route("GET", "/contact", "Documentation", "Coordonnées de contact (numéro WhatsApp des conseillers, lu à l'exécution)", "public", async () => {
+  const n = (process.env.WHATSAPP_CONSEILLER ?? "").replace(/\D/g, "");
+  return { whatsapp: n.length >= 8 ? n : null };
+});
 route("GET", "/sante", "Documentation", "État du service (surveillance de disponibilité) : 200 si l'application et la base répondent, 503 sinon", "public", async () => {
   const debut = Date.now();
   try {

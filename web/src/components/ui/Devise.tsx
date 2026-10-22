@@ -31,9 +31,12 @@ export function DeviseProfil({ country }: { country: string | null | undefined }
 }
 
 /** Montant en dirhams, suivi de son équivalent dans la devise du pays de provenance (marge de prudence incluse). */
-export function Prix({ mad, suffixe = "", bloc = false, className = "" }: { mad: number; suffixe?: string; bloc?: boolean; className?: string }) {
+export function Prix({ mad, suffixe = "", bloc = false, className = "", cfaDabord = false }: { mad: number; suffixe?: string; bloc?: boolean; className?: string; cfaDabord?: boolean }) {
   const { devise, taux } = useDevise();
   const c = devise ? convertir(mad, devise, taux) : null;
+  // Montant à payer vu depuis la zone F CFA : l'équivalent en grand, les dirhams débités en dessous
+  if (cfaDabord && c != null && (devise === "XAF" || devise === "XOF"))
+    return <span className={className}>≈ {formatMontant(c, devise)}{suffixe}<span className="block text-[0.8em] font-semibold text-ink-mute">soit {formatMontant(mad, "MAD")}</span></span>;
   return (
     <span className={className}>
       {formatMontant(mad, "MAD")}{suffixe}
@@ -55,7 +58,12 @@ export function useMontant() {
     const e = eq(n, cur);
     return `${formatMontant(n, cur ?? "MAD")}${e ? ` (≈ ${e})` : ""}`;
   };
-  return { m, eq };
+  /** Pour un payeur de la zone F CFA : l'équivalent d'abord, le montant en dirhams (réellement débité) ensuite. */
+  const ml = (n: number | null | undefined, cur: string | null = "MAD") => {
+    const e = devise === "XAF" || devise === "XOF" ? eq(n, cur) : null;
+    return e && n != null ? `≈ ${e} (${formatMontant(n, cur ?? "MAD")})` : m(n, cur);
+  };
+  return { m, eq, ml };
 }
 
 /** Choix du pays de provenance (affichage des montants convertis). */

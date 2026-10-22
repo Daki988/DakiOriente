@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const page = (path: string, priority: number, changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] = "weekly") => ({ url: `${SITE_URL}${path}`, lastModified: now, changeFrequency, priority });
   return [
     page("/", 1, "daily"),
-    ...["/etablissements/", "/formations/", "/metiers/", "/pays/ma/", "/navilease/", "/devis/", "/comparateur/", "/pourquoi/", "/actualites/", "/villes/", "/ressources/", "/trouve-ta-voie/"].map((p) => page(p, 0.8)),
+    ...["/etablissements/", "/formations/", "/metiers/", "/pays/ma/", "/navilease/", "/devis/", "/parents/", "/comparateur/", "/pourquoi/", "/actualites/", "/villes/", "/ressources/", "/trouve-ta-voie/"].map((p) => page(p, 0.8)),
     page("/trouve-ta-voie/reglement/", 0.3, "monthly"),
     ...etablissements.map((e) => page(`/etablissements/${e.id}/`, 0.9)),
     ...formations.filter((f) => f.etablissements.length).map((f) => page(`/formations/${f.id}/`, 0.7)),

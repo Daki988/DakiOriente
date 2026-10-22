@@ -238,6 +238,14 @@ describe("back-office et recommandations", () => {
     await expect(housing.moderateHousing(adminU, "x", { approve: true, verification: "documents" as never })).rejects.toThrow(/vérification inconnu/);
     expect(await accounts.updateProfile(student.id, {})).toBeTruthy();
   });
+  it("moyens de paiement : Airtel Money et Moov Money proposés en premier au Gabon seulement", async () => {
+    const { moyensPour } = await import("@/lib/paiement");
+    const { METHODS } = await import("@/server/payments/providers");
+    const ga = moyensPour(METHODS.MA, "GA").map((m) => m.id);
+    expect(ga.slice(0, 2)).toEqual(["airtel_money", "moov_money"]);
+    expect(moyensPour(METHODS.MA, "SN").map((m) => m.id)).not.toContain("airtel_money");
+    expect(moyensPour(METHODS.MA, "SN")).toHaveLength(METHODS.MA.length - 2);
+  });
   it("statistiques et entonnoir", async () => {
     const s = await admin.stats(adminU);
     expect(s.funnel.candidats).toBeGreaterThanOrEqual(1);

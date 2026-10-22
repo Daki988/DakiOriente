@@ -22,7 +22,7 @@ export function Account() {
           <div className="text-sm"><span className="text-ink-mute">Nom</span><b className="block">{u.firstName} {u.lastName}</b></div>
           {u.email && <div className="text-sm"><span className="text-ink-mute">E-mail</span><b className="block">{u.email}</b></div>}
           {u.phone && <div className="text-sm"><span className="text-ink-mute">Téléphone</span><b className="block">{u.phone}</b></div>}
-          <p className="text-xs text-ink-mute">Pour modifier ces identifiants ou supprimer ton compte, écris à contact@navigoal.com (vérification d&apos;identité).</p>
+          <p className="text-xs text-ink-mute">Pour modifier ces identifiants ou supprimer ton compte, écris à contact@navigoal.net (vérification d&apos;identité).</p>
         </Panel>
         <Panel title="Changer de mot de passe" icon={KeyRound}>
           <form onSubmit={submit} className="flex flex-col gap-4">

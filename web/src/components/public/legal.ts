@@ -29,10 +29,10 @@ Navigoal met en relation élèves, familles, établissements et bailleurs et n'e
 Les litiges liés à une réservation sont d'abord soumis à la médiation Navilease. À défaut d'accord, ils relèvent des juridictions compétentes du pays de l'utilisateur, conformément au droit applicable.
 
 ## Contact
-Pour toute question : contact@navigoal.com.` },
+Pour toute question : contact@navigoal.net.` },
   confidentialite: { title: "Politique de confidentialité", brief: "Nous collectons uniquement les données utiles à votre orientation, vos candidatures et votre logement ; nous ne les vendons jamais.",
     body: `## Responsable du traitement
-Navigoal est responsable du traitement des données collectées sur la plateforme. Contact : contact@navigoal.com.
+Navigoal est responsable du traitement des données collectées sur la plateforme. Contact : contact@navigoal.net.
 
 ## Données collectées
 - Identité et coordonnées : nom, prénom, année de naissance, e-mail, téléphone, pays, ville.
@@ -54,13 +54,13 @@ Les comptes des mineurs sont liés à un parent ou tuteur, dont le consentement 
 Les données de compte sont conservées tant que le compte est actif, puis 3 ans ; les pièces comptables et contrats, selon les durées légales.
 
 ## Vos droits
-Vous disposez d'un droit d'accès, de rectification, d'opposition et de suppression, conformément à la loi n° 09-08 relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel (Maroc) et, le cas échéant, à la loi de votre pays de résidence. Pour l'exercer : contact@navigoal.com. Vous pouvez également saisir la Commission nationale de contrôle de la protection des données à caractère personnel (CNDP, Maroc) ou l'autorité de protection des données de votre pays.
+Vous disposez d'un droit d'accès, de rectification, d'opposition et de suppression, conformément à la loi n° 09-08 relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel (Maroc) et, le cas échéant, à la loi de votre pays de résidence. Pour l'exercer : contact@navigoal.net. Vous pouvez également saisir la Commission nationale de contrôle de la protection des données à caractère personnel (CNDP, Maroc) ou l'autorité de protection des données de votre pays.
 
 ## Sécurité
 Connexions chiffrées, mots de passe hachés, contrôle d'accès par rôle, journalisation des actions sensibles et vérification du type des fichiers déposés.` },
   "mentions-legales": { title: "Mentions légales", brief: "Informations sur l'éditeur et l'hébergeur de la plateforme.",
     body: `## Éditeur
-Navigoal — plateforme d'orientation, de candidature et de logement étudiant pour étudier au Maroc. Contact : contact@navigoal.com.
+Navigoal — plateforme d'orientation, de candidature et de logement étudiant pour étudier au Maroc. Contact : contact@navigoal.net.
 
 Les informations d'immatriculation de la société éditrice (raison sociale, siège, numéro d'immatriculation, directeur de la publication) sont communiquées sur demande et complétées lors de l'immatriculation.
 

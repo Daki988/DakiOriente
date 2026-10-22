@@ -53,9 +53,12 @@ export function providerFor(currency: string): PaymentProvider {
 }
 export const providerById = (id: string) => (id === "cinetpay" ? cinetpay : sandbox);
 
-export const METHODS: Record<string, { id: string; label: string }[]> = {
+/** `pays` : moyens propres à un pays de payeur (proposés en premier à ce pays, masqués ailleurs). */
+export type MoyenPaiement = { id: string; label: string; detail?: string; pays?: string[] };
+export const METHODS: Record<string, MoyenPaiement[]> = {
   // Destination Maroc : paiements en dirhams, depuis le Maroc ou l'étranger (parents en Afrique subsaharienne, Europe…)
-  MA: [{ id: "carte", label: "Carte bancaire (Visa, Mastercard, CMI)" }, { id: "mobile_money_afrique", label: "Mobile money Afrique (Wave, Orange Money, MTN, Airtel…)" }, { id: "virement", label: "Virement international" }, { id: "orange_money", label: "Orange Money Maroc" }, { id: "inwi_money", label: "inwi money" }, { id: "agence", label: "Cash Plus / Wafacash (Maroc)" }],
+  // Airtel Money et Moov Money (Gabon) : branchés sur l'agrégateur retenu pour le Gabon ; en recette, paiement simulé.
+  MA: [{ id: "airtel_money", label: "Airtel Money", detail: "Code de confirmation sur ton téléphone", pays: ["GA"] }, { id: "moov_money", label: "Moov Money", detail: "Code de confirmation sur ton téléphone", pays: ["GA"] }, { id: "carte", label: "Carte bancaire (Visa, Mastercard, CMI)" }, { id: "mobile_money_afrique", label: "Mobile money Afrique (Wave, Orange Money, MTN, Airtel…)" }, { id: "virement", label: "Virement international" }, { id: "orange_money", label: "Orange Money Maroc" }, { id: "inwi_money", label: "inwi money" }, { id: "agence", label: "Cash Plus / Wafacash (Maroc)" }],
 };
 /** Devise des paiements par pays de destination (le Maroc uniquement). */
 export const CURRENCY: Record<string, string> = { MA: "MAD" };

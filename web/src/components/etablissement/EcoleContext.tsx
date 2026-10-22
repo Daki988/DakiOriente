@@ -99,7 +99,7 @@ function PendingAccount() {
           );
         })}
       </ol>
-      <p className="text-sm text-ink-mute">Une question ? Écrivez-nous à <a className="font-bold text-brand-600" href="mailto:etablissements@navigoal.com">etablissements@navigoal.com</a>.</p>
+      <p className="text-sm text-ink-mute">Une question ? Écrivez-nous à <a className="font-bold text-brand-600" href="mailto:etablissements@navigoal.net">etablissements@navigoal.net</a>.</p>
     </motion.div>
   );
 }

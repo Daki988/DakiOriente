@@ -180,7 +180,7 @@ function CreateStaff({ open, onClose, onDone }: { open: boolean; onClose: () => 
           <Field label="Prénom" required error={errs.firstName}>{(id) => <Input id={id} value={f.firstName} onChange={set("firstName")} autoComplete="off" />}</Field>
           <Field label="Nom" required error={errs.lastName}>{(id) => <Input id={id} value={f.lastName} onChange={set("lastName")} autoComplete="off" />}</Field>
         </div>
-        <Field label="E-mail professionnel" required error={errs.email}>{(id) => <Input id={id} type="email" value={f.email} onChange={set("email")} placeholder="prenom.nom@navigoal.com" autoComplete="off" />}</Field>
+        <Field label="E-mail professionnel" required error={errs.email}>{(id) => <Input id={id} type="email" value={f.email} onChange={set("email")} placeholder="prenom.nom@navigoal.net" autoComplete="off" />}</Field>
         <Field label="Mot de passe provisoire" required error={errs.password} hint="À transmettre par un canal sûr.">{(id) => <PasswordInput id={id} value={f.password} onChange={set("password")} autoComplete="new-password" />}</Field>
         <FormError error={act.error} />
         <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end"><Button type="button" variant="quiet" onClick={onClose}>Annuler</Button><Button type="submit" loading={act.pending} icon={UserPlus}>Créer le compte</Button></div>

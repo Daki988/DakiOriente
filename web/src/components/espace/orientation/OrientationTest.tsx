@@ -22,6 +22,8 @@ export function OrientationTest() {
   const [answers, setAnswers] = useState<(number | null)[]>(() => QUESTIONS.map(() => null));
   const [saved, setSaved] = useState<{ date: string } | null>(null);
   const [saving, setSaving] = useState(false);
+  // Après « Y aller » vers une question oubliée : on enchaîne les questions manquantes puis on revient à la fin
+  const [retour, setRetour] = useState(false);
   const N = QUESTIONS.length;
 
   useEffect(() => {
@@ -31,10 +33,15 @@ export function OrientationTest() {
     } catch { /* stockage indisponible */ }
   }, [N]);
 
-  const start = () => { setAnswers(QUESTIONS.map(() => null)); setI(0); setDir(1); setStep("test"); window.scrollTo({ top: 0 }); };
+  const start = () => { setAnswers(QUESTIONS.map(() => null)); setI(0); setDir(1); setRetour(false); setStep("test"); window.scrollTo({ top: 0 }); };
+  const aller = (k: number) => { setDir(k > i ? 1 : -1); setI(k); };
   const choose = (k: number) => {
     const next = [...answers]; next[i] = k; setAnswers(next);
-    if (i < N - 1) setTimeout(() => { setDir(1); setI((x) => Math.min(x + 1, N - 1)); }, 420);
+    const manquante = next.findIndex((a) => a === null);
+    const cible = retour ? (manquante === -1 ? N - 1 : manquante) : i + 1;
+    if (retour && manquante === -1) setRetour(false);
+    // Avance automatique, sauf si la question a déjà changé entre-temps (clic sur « Suivant ») : sinon on sauterait une question
+    if (cible !== i && cible < N) setTimeout(() => { setDir(cible > i ? 1 : -1); setI((x) => (x === i ? cible : x)); }, 420);
   };
   const finish = async () => {
     const r = computeResult(answers);
@@ -82,14 +89,26 @@ export function OrientationTest() {
 
   const q = QUESTIONS[i];
   const answered = answers.filter((a) => a !== null).length;
-  const pct = Math.round((answered / N) * 100);
+  // Questions sautées : sans réponse alors qu'une question suivante a été atteinte
+  const oubliees = answers.flatMap((a, k) => (a === null && k < i ? [k] : []));
+  const aLaFin = i === N - 1;
   return (
     <div className="flex flex-col gap-4 sm:gap-5">
       <div><h1 className="text-[24px] font-extrabold tracking-tight sm:text-3xl">Test d&apos;orientation</h1><p className="text-sm text-ink-mute sm:text-base">Découvre ton profil et les métiers qui te correspondent.</p></div>
       <div className="card flex flex-col gap-5 rounded-[24px] p-4 sm:gap-7 sm:p-8">
         <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between text-[13px] font-bold"><span>Question {i + 1} sur {N}</span><span className="text-ink-mute">{pct} %</span></div>
-          <div className="h-2 overflow-hidden rounded-full bg-[#e8edfa]" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label="Progression du test"><motion.div className="h-full rounded-full bg-gradient-to-r from-[#0f8a46] to-[#34d399]" animate={{ width: `${pct}%` }} transition={{ type: "spring", stiffness: 120, damping: 20 }} /></div>
+          <div className="flex items-center justify-between text-[13px] font-bold"><span>Question {i + 1} sur {N}</span><span className="text-ink-mute">{answered} réponse{answered > 1 ? "s" : ""} sur {N}</span></div>
+          <div className="flex gap-1" role="group" aria-label="Questions du test">
+            {QUESTIONS.map((_, k) => {
+              const oubliee = oubliees.includes(k);
+              const ouvrable = answers[k] !== null || oubliee || k === i;
+              return (
+                <button key={k} type="button" disabled={!ouvrable} onClick={() => aller(k)} aria-current={k === i ? "step" : undefined}
+                  aria-label={`Question ${k + 1}${answers[k] !== null ? " (répondue)" : oubliee ? " (sans réponse)" : ""}`}
+                  className={`h-2 flex-1 rounded-full transition-colors ${oubliee ? "bg-[#ff8a3d]" : answers[k] !== null ? "bg-brand-600" : k === i ? "bg-brand-200" : "bg-[#e8edfa]"} ${k === i ? "ring-2 ring-brand-600/30 ring-offset-1" : ""}`} />
+              );
+            })}
+          </div>
         </div>
         <AnimatePresence mode="wait" custom={dir}>
           <motion.div key={i} custom={dir} initial={{ opacity: 0, x: dir * 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: dir * -50 }} transition={{ type: "spring", stiffness: 320, damping: 30 }} className="flex flex-col gap-4 sm:gap-6">
@@ -117,11 +136,18 @@ export function OrientationTest() {
           // eslint-disable-next-line @next/next/no-img-element
           <img key={c.t} src={c.img} alt="" loading="eager" />
         ))}</div>
+        {aLaFin && oubliees.length > 0 && (
+          <div className="flex items-center gap-3 rounded-2xl border border-[#ffd2ad] bg-[#fff4e8] px-4 py-3" role="status">
+            <p className="flex-1 text-[13px] font-semibold leading-snug text-[#8a4b00] sm:text-sm">
+              {oubliees.length === 1 ? <>Il te manque une réponse : <b>question {oubliees[0] + 1}</b>.</> : <>Il te manque {oubliees.length} réponses : <b>questions {oubliees.map((k) => k + 1).join(", ")}</b>.</>}
+            </p>
+            <button type="button" onClick={() => { setRetour(true); aller(oubliees[0]); }} className="shrink-0 rounded-xl bg-[#ff8a3d] px-3.5 py-2 text-[13px] font-extrabold text-white">Y aller</button>
+          </div>
+        )}
         <div className="flex items-center justify-between gap-3">
-          <button disabled={i === 0} onClick={() => { setDir(-1); setI(i - 1); }} className="btn-ghost min-h-[44px] disabled:opacity-40"><ArrowLeft size={16} /> Précédent</button>
-          <div className="hidden gap-1.5 md:flex">{QUESTIONS.map((_, k) => <button key={k} onClick={() => { if (k <= answered) { setDir(k > i ? 1 : -1); setI(k); } }} aria-label={`Question ${k + 1}`} className={`h-2 rounded-full transition-all ${k === i ? "w-6 bg-brand-600" : answers[k] !== null ? "w-2 bg-brand-400" : "w-2 bg-[#e8edfa]"}`} />)}</div>
+          <button disabled={i === 0} onClick={() => aller(i - 1)} className="btn-ghost min-h-[44px] disabled:opacity-40"><ArrowLeft size={16} /> Précédent</button>
           {i < N - 1
-            ? <button disabled={answers[i] === null} onClick={() => { setDir(1); setI(i + 1); }} className="btn-primary min-h-[44px] disabled:opacity-40">Suivant <ArrowRight size={16} /></button>
+            ? <button disabled={answers[i] === null} onClick={() => aller(i + 1)} className="btn-primary min-h-[44px] disabled:opacity-40">Suivant <ArrowRight size={16} /></button>
             : <button disabled={answers.some((a) => a === null) || saving} onClick={finish} className="btn-sun btn-shine min-h-[44px] disabled:opacity-40">{saving ? "Enregistrement…" : "Voir mon profil"} <Sparkles size={16} /></button>}
         </div>
       </div>

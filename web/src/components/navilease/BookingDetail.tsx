@@ -11,14 +11,15 @@ import { Field, FormError, Input, Select, Textarea } from "@/components/app/form
 import { useUser } from "@/components/app/Session";
 import { useAction, useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
-import { BOOKING_STATUS, COUNTRY_OF_CURRENCY, Cover, SEQUENCE, addMonths, monthFr, period, seqIndex, type Booking, type Housing, type Payment } from "./shared";
+import { BOOKING_STATUS, COUNTRY_OF_CURRENCY, Cover, SEQUENCE, TYPES, addMonths, monthFr, period, seqIndex, type Booking, type Housing, type Payment } from "./shared";
 import { Stepper } from "./Stepper";
-import { useMontant } from "@/components/ui/Devise";
+import { useDevise, useMontant } from "@/components/ui/Devise";
+import { moyensPour, type Moyen } from "@/lib/paiement";
 
 type Person = { id: string; firstName: string; lastName: string; email: string | null; phone: string | null } | null;
 type Ev = { id: string; status: string; note: string | null; authorId: string | null; createdAt: string };
 type D = { booking: Booking; events: Ev[]; payments: Payment[]; revealed: boolean; housing: Housing; tenant: Person; landlord: Person; guarantor: Person };
-type Methods = Record<string, { id: string; label: string }[]>;
+type Methods = Record<string, Moyen[]>;
 type Conv = { id: string; contextKind: string | null; contextId: string | null };
 
 const STEP_SHORT = ["Demande", "Acceptée", "Paiement séquestre", "Contrat signé", "Entrée", "Fonds versés", "En cours", "Préavis", "Sortie", "Caution restituée"];
@@ -32,7 +33,8 @@ export function BookingDetail({ id }: { id: string }) {
 }
 
 function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
-  const { m, eq } = useMontant();
+  const { m, eq, ml } = useMontant();
+  const { pays } = useDevise();
   const me = useUser();
   const router = useRouter();
   const toast = useToast();
@@ -44,7 +46,7 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
   const convs = useApi<Conv[]>("/conversations");
   const conv = convs.data?.find((c) => c.contextKind === "booking" && c.contextId === b.id);
   const country = COUNTRY_OF_CURRENCY[b.currency] ?? "MA";
-  const opts: [string, string][] = (methods.data?.[country] ?? []).map((m) => [m.id, m.label]);
+  const opts: [string, string][] = moyensPour(methods.data?.[country], pays).map((m) => [m.id, m.label]);
   const act = useAction();
   const [dialog, setDialog] = useState<null | "refuse" | "cancel" | "dispute" | "notice" | "checkout" | "review" | "rent">(null);
   const [rentPeriod, setRentPeriod] = useState("");
@@ -80,13 +82,39 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
 
   const roleLine = isTenant ? `bailleur ${d.landlord?.firstName ?? ""}` : isLandlord ? `locataire ${full(d.tenant)}` : `pour ${full(d.tenant)}`;
 
+  // Résumé du logement, enregistré avec la réservation : reste lisible si le bailleur retire ou archive son annonce
+  function Logement() {
+    const retiree = h.status !== "publie";
+    const type = TYPES.find(([k]) => k === h.type)?.[1] ?? h.type;
+    return (
+      <section className="card overflow-hidden rounded-[22px] sm:flex">
+        <div className="h-44 shrink-0 sm:h-auto sm:w-64"><Cover h={h} iconSize={36} className="h-full w-full" /></div>
+        <div className="flex min-w-0 flex-1 flex-col gap-3 p-4 sm:p-5">
+          {retiree && <span className="chip self-start bg-[#fff4e8] text-[#8a4b00]">Annonce retirée par le bailleur</span>}
+          <div>
+            <h2 className="text-lg font-extrabold leading-snug sm:text-xl">{h.title}</h2>
+            <p className="text-sm text-ink-soft">{[type, [h.quartier, h.ville].filter(Boolean).join(", "), h.surface ? `${h.surface} m²` : null, h.furnished ? "meublé" : null].filter(Boolean).join(" · ")}</p>
+          </div>
+          <dl className="flex flex-wrap gap-x-7 gap-y-2 text-sm">
+            <div><dt className="text-xs font-bold text-ink-mute">Loyer charges comprises</dt><dd className="font-extrabold">{m(b.rent + b.charges, b.currency)}</dd></div>
+            <div><dt className="text-xs font-bold text-ink-mute">Entrée</dt><dd className="font-extrabold">{dateFr(b.startDate)}</dd></div>
+            <div><dt className="text-xs font-bold text-ink-mute">Durée</dt><dd className="font-extrabold">{b.months} mois</dd></div>
+          </dl>
+          {retiree
+            ? <p className="rounded-xl bg-[#f3f7ff] px-3.5 py-2.5 text-[13px] leading-relaxed text-ink-soft">L&apos;annonce n&apos;est plus visible dans la recherche, mais <b>{isTenant ? "ta" : "la"} réservation reste valable</b> : adresse, contrat et paiements restent ici.</p>
+            : <Link href={`/navilease/logements/${h.id}`} className="self-start text-sm font-bold text-brand-600">Voir l&apos;annonce</Link>}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-5">
       <PageHeader
         crumbs={[[isLandlord && me.role !== "admin" ? "Demandes & réservations" : "Mes réservations", isLandlord && me.role !== "admin" ? "/bailleur/reservations" : "/navilease/reservations"], [`Réservation ${b.number}`]]}
-        title={<span className="flex items-center gap-3"><span className="hidden h-14 w-20 overflow-hidden rounded-2xl sm:block"><Cover h={h} iconSize={22} /></span>{h.title}</span>}
+        title={`Réservation ${b.number}`}
         badge={<StatusBadge status={b.status} label={BOOKING_STATUS[b.status]} />}
-        sub={`Réservation ${b.number} · du ${dateFr(b.startDate)} au ${dateFr(end)} · ${roleLine}`}
+        sub={`${h.title} · du ${dateFr(b.startDate)} au ${dateFr(end)} · ${roleLine}`}
         actions={<>
           {conv && <Link href={`/messages/${conv.id}`} className="btn-ghost"><MessageCircle size={17} />{isTenant ? "Écrire au bailleur" : isLandlord ? "Écrire au locataire" : "Messagerie"}</Link>}
           {canDispute && <Button variant="ghost" icon={AlertTriangle} className="border-[#ffd0d9] text-[#d42a50] hover:border-[#d42a50] hover:bg-[#fff1f3]" onClick={() => setDialog("dispute")}>Signaler un incident</Button>}
@@ -100,6 +128,7 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_340px] [&>*]:min-w-0">
         <div className="flex min-w-0 flex-col gap-5">
+          {Logement()}
           {Actions()}
           {["paiement_sequestre", "contrat_signe", "entree", "fonds_verses", "en_cours", "preavis", "sortie", "caution_restituee", "litige"].includes(b.status) && d.revealed && Contract()}
           {["en_cours", "preavis", "sortie", "caution_restituee"].includes(b.status) && Rents()}
@@ -150,7 +179,7 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
       <Dialog open={dialog === "checkout"} onClose={() => setDialog(null)} title="État des lieux de sortie"><CheckoutForm deposit={b.deposit} currency={b.currency} pending={act.pending} error={act.error} onSubmit={(notes, retenue) => post("sortie", { notes, retenue }, "Sortie enregistrée, caution restituée.")} /></Dialog>
       <Dialog open={dialog === "review"} onClose={() => setDialog(null)} title="Laisser un avis"><ReviewForm pending={act.pending} error={act.error} onSubmit={(note, commentaire) => post("avis", { note, commentaire }, "Merci pour ton avis !")} /></Dialog>
       <Dialog open={dialog === "rent"} onClose={() => setDialog(null)} title={`Payer le loyer · ${rentPeriod ? monthFr(new Date(rentPeriod + "-01T12:00:00")) : ""}`}>
-        <PayForm amount={m(b.rent + b.charges, b.currency)} options={opts} loading={methods.loading} pending={act.pending} error={act.error} onPay={payRent} cta="Payer ce loyer" />
+        <PayForm amount={ml(b.rent + b.charges, b.currency)} options={opts} loading={methods.loading} pending={act.pending} error={act.error} onPay={payRent} cta="Payer ce loyer" />
       </Dialog>
     </div>
   );
@@ -189,7 +218,7 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
           <p className="text-sm text-ink-soft">Le bailleur a accepté. Réglez le premier loyer, les charges, la caution et les frais de service : Navilease conserve les fonds jusqu&apos;à {isTenant ? "ton " : "l'"}entrée dans les lieux.</p>
           {pendingResa && <Alert tone="info" title="Un paiement est déjà en cours" action={<Link href={`/paiement/${pendingResa.reference}/`} className="btn-ghost py-2 text-[13px]">Reprendre le paiement</Link>}>Référence {pendingResa.reference}</Alert>}
           {isParent && !b.guarantorApprovedAt && <Button variant="ghost" icon={BadgeCheck} onClick={() => post("garant", {}, "Vous êtes désormais garant de cette réservation.")}>Me porter garant</Button>}
-          <PayForm amount={m(first, b.currency)} options={opts} loading={methods.loading} pending={act.pending} error={act.error} onPay={pay} cta="Payer en séquestre" />
+          <PayForm amount={ml(first, b.currency)} options={opts} loading={methods.loading} pending={act.pending} error={act.error} onPay={pay} cta="Payer en séquestre" />
         </>;
       } else {
         title = "Paiement attendu"; I = Lock;

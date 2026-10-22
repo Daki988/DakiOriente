@@ -65,7 +65,7 @@ export function Fiche() {
             <Logo e={e} size={64} />
             <div className="min-w-0"><b className="block text-lg leading-snug">{etab.nom}</b><span className="text-sm text-ink-mute">{etab.typeLibelle} · {STATUT_LONG[etab.statut] ?? etab.statut} · Maroc</span></div>
           </div>
-          <Alert tone="info">Le nom officiel, le logo et les photos sont gérés par l&apos;équipe Navigoal : écrivez à etablissements@navigoal.com pour les modifier.</Alert>
+          <Alert tone="info">Le nom officiel, le logo et les photos sont gérés par l&apos;équipe Navigoal : écrivez à etablissements@navigoal.net pour les modifier.</Alert>
           <Field label="Description" hint={`${f.description.length} / 4000 caractères`}>
             {(id) => <Textarea id={id} value={f.description} onChange={(ev) => set("description", ev.target.value)} maxLength={4000} className="min-h-[160px]" placeholder="Histoire, pédagogie, accréditations, vie étudiante, partenariats internationaux…" />}
           </Field>

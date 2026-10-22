@@ -5,7 +5,8 @@ import { AlertCircle, ArrowLeft, ArrowRight, Bookmark, Check, CheckCircle2, Cloc
 import { useEffect, useMemo, useState } from "react";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { LabelChip } from "@/components/ui/Cards";
-import { Prix } from "@/components/ui/Devise";
+import { Prix, useDevise } from "@/components/ui/Devise";
+import { moyensPour, type Moyen } from "@/lib/paiement";
 import { Alert, Button, Empty, Loading, PageHeader, Panel, useToast } from "@/components/app/kit";
 import { Check as Checkbox, FileDrop, FormError, Textarea, docLabel, type Doc } from "@/components/app/form";
 import { api, apiUrl } from "@/lib/api";
@@ -16,7 +17,7 @@ import { visaResume } from "@/lib/pays-origine";
 import { AppProgress } from "./AppProgress";
 import type { AppDetail, Program } from "./types";
 
-type Methods = Record<string, { id: string; label: string }[]>;
+type Methods = Record<string, Moyen[]>;
 type Me = { profile: { serie: string | null } | null; birthYear: number | null };
 type Guardian = { link: { status: string; consentAt: string | null }; parent: { id: string; firstName: string; lastName: string } | null }[];
 const STEPS = ["Choix de la formation", "Dossier", "Paiement", "Confirmation"];
@@ -85,7 +86,8 @@ export function NewApplication() {
   const serie = me.data?.profile?.serie;
   const serieOk = !p?.admission.series?.length || !serie || p.admission.series.includes(serie);
   const words = motivation.trim() ? motivation.trim().split(/\s+/).length : 0;
-  const payMethods = methods.data?.MA ?? [];
+  const { pays } = useDevise();
+  const payMethods = moyensPour(methods.data?.MA, pays);
   const parent = guardians.data?.find((g) => g.link.status === "actif" && g.parent)?.parent;
   const minor = !!me.data?.birthYear && new Date().getFullYear() - me.data.birthYear < 18;
   const consent = (guardians.data ?? []).some((g) => g.link.consentAt);
@@ -241,10 +243,10 @@ export function NewApplication() {
             {missing.length > 0 && <Alert tone="error" title="Pièces manquantes" action={<button onClick={() => go(1)} className="btn-ghost py-2">Compléter</button>}>{missing.map(docLabel).join(", ")}.</Alert>}
             {status === "brouillon" && fee > 0 ? (
               <>
-                <div className="flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-brand-950 to-brand-700 px-4 py-4 text-white sm:px-5"><span className="font-bold">Frais de dossier</span><b className="text-right text-lg [&_span]:text-brand-100"><Prix mad={fee} bloc /></b></div>
+                <div className="flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-brand-950 to-brand-700 px-4 py-4 text-white sm:px-5"><span className="font-bold">Frais de dossier</span><b className="text-right text-lg [&_span]:text-brand-100"><Prix mad={fee} bloc cfaDabord /></b></div>
                 <span className="text-[13px] font-bold">Payer avec</span>
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  {payMethods.map((m) => <button key={m.id} type="button" onClick={() => setMethod(m.id)} aria-pressed={method === m.id} className={`min-h-[48px] rounded-2xl border-2 px-3 py-2.5 text-left text-sm font-bold ${method === m.id ? "border-brand-600 bg-brand-50 text-brand-700" : "border-slate-200 bg-white"}`}>{m.label}</button>)}
+                  {payMethods.map((m) => <button key={m.id} type="button" onClick={() => setMethod(m.id)} aria-pressed={method === m.id} className={`min-h-[48px] rounded-2xl border-2 px-3 py-2.5 text-left text-sm font-bold ${method === m.id ? "border-brand-600 bg-brand-50 text-brand-700" : "border-slate-200 bg-white"}`}>{m.label}{m.detail && <span className="block text-xs font-semibold text-ink-mute">{m.detail}</span>}</button>)}
                   {parent && <button type="button" onClick={() => setMethod("parent")} aria-pressed={method === "parent"} className={`flex min-h-[48px] items-center gap-1.5 rounded-2xl border-2 px-3 py-2.5 text-sm font-bold ${method === "parent" ? "border-[#a55a00] bg-sun-100" : "border-slate-200 bg-white"}`}><UsersRound size={16} />Demander à mon parent</button>}
                 </div>
                 {method === "parent" && parent && <p className="text-[13px] text-ink-mute">{parent.firstName} {parent.lastName} recevra la demande de paiement par SMS et e-mail.</p>}

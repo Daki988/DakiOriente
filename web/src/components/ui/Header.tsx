@@ -15,6 +15,7 @@ export const NAV = [
   { href: "/orientation", label: "Orientation" },
   { href: "/ressources", label: "Ressources" },
   { href: "/navilease", label: "Navilease" },
+  { href: "/parents", label: "Parents" },
 ];
 /** Liens secondaires (menu mobile). */
 export const NAV_PLUS = [

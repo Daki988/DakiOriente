@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "@/components/ui/Link";
+import { QuestionWhatsApp } from "@/components/ui/QuestionWhatsApp";
 import { ArrowRight, BadgeCheck, Bus, Check, GraduationCap, Mail, Phone, Sparkles, Calculator, ChevronRight, ExternalLink, KeyRound, MapPin, Plane, Scale, ShieldAlert, TrainFront, TramFront } from "lucide-react";
 import { permanentRedirect } from "next/navigation";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
@@ -261,6 +262,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
           </div>
         </aside>
       </div>
+      <QuestionWhatsApp sujet={`l'établissement ${e.nom}`} cta={{ href: `/espace/candidatures/nouvelle?etab=${e.id}${fid ? `&formation=${fid}` : ""}`, label: "Candidater" }} />
     </>
   );
 }

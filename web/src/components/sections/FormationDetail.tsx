@@ -1,5 +1,6 @@
 "use client";
 import Link from "@/components/ui/Link";
+import { QuestionWhatsApp } from "@/components/ui/QuestionWhatsApp";
 import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, BadgeCheck, Briefcase, Building2, Calculator, Check, ChevronRight, CircleCheck, Clock, GraduationCap, Heart, KeyRound, MapPin, School, ShieldAlert, Sparkles, Users } from "lucide-react";
@@ -216,6 +217,7 @@ export function FormationDetail({ id }: { id: string }) {
           </div>
         </aside>
       </div>
+      <QuestionWhatsApp sujet={`la formation ${f.intitule}${e ? ` (${e.sigle || e.nom})` : ""}`} cta={{ href: candidater, label: "Candidater" }} />
     </>
   );
 }
