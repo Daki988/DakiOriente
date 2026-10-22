@@ -11,10 +11,11 @@ Site web de NEAM (agence de transformation digitale, Libreville, Gabon) et outil
 L'agence de NEAM travaille dans Claude Code : `/neam <client>` à partir d'un NEAM Digital Score, d'un dossier exporté de l'Atelier ou d'un brief.
 - Règles communes : `.claude/skills/neam/charte.md` ; carte des processus (P1 à P16, étapes 🤖 agent / 🧑 tutoriel) : `.claude/skills/neam/processus.md`.
 - Agents : `.claude/agents/` (chef de projet, business analyste, expert métier, designer, expert SEO, community manager, vidéaste, développeur web, expert IA).
-- Skills : `/neam`, `/neam-tutoriel`, `/neam-contenus`, `/neam-site`, `/neam-video`, `/neam-suivi`.
+- Skills : `/neam`, `/neam-tutoriel`, `/neam-contenus`, `/neam-site`, `/neam-video`, `/neam-suivi`, `/neam-autorisations`.
+- Ce qui peut partir sans redemander : `.claude/skills/neam/autorisations.md` ; connecteurs : `.claude/skills/neam/connecteurs.md`.
 
 ## À ne jamais faire
 
 - Mettre des données de clients dans le dépôt (il est public) : elles vont dans `clients/` (ignoré par Git) et dans Google Drive.
 - Écrire une clé d'API ou un mot de passe dans le dépôt (`api/config.php` sur le serveur, ou Réglages de l'Atelier).
-- Inventer des chiffres, des avis ou des témoignages ; envoyer, publier ou partager quoi que ce soit sans accord explicite.
+- Inventer des chiffres, des avis ou des témoignages ; envoyer, publier ou partager hors de ce qu'autorise `autorisations.md` ; engager une dépense ou supprimer sans accord explicite.

@@ -8,7 +8,7 @@ argument-hint: <nom du client> [Digital Score, dossier Atelier ou brief]
 
 Tu diriges l'agence. Tu ne produis pas toi-même les livrables métier : tu fais travailler les agents spécialisés (outil Agent, `subagent_type` = nom de l'agent), en parallèle quand leurs tâches sont indépendantes, et tu tiens le dossier à jour.
 
-Lis d'abord, dans ce dossier : `charte.md` (règles), `processus.md` (carte des processus P1 à P16), `modeles.md` (plan, tutoriel, brief créatif).
+Lis d'abord, dans ce dossier : `charte.md` (règles), `processus.md` (carte des processus P1 à P16), `modeles.md` (plan, tutoriel, brief créatif), `autorisations.md` (ce qui peut partir sans redemander) et `connecteurs.md` (outils disponibles).
 
 ## 1. Ouvrir le dossier du client
 - Slug : nom de l'entreprise en minuscules, avec des tirets. Dossier : `clients/<slug>/` (hors dépôt Git, qui est public).
@@ -43,10 +43,10 @@ Lance `chef-de-projet` en contrôle qualité sur les livrables produits (grille 
 
 ## 6. Livrer
 - Mets à jour `clients/<slug>/livrables.md` (fichiers, liens Canva, Adobe, Figma) et le taux d'automatisation réel dans `plan.md`.
-- Propose d'enregistrer les livrables dans Google Drive (`NEAM — Clients/<Nom du client>/`) ; ne le fais qu'avec l'accord de l'utilisateur.
+- Applique `autorisations.md` : range dans Google Drive (`NEAM — Clients/<Nom du client>/`), envoie ce qui est en « automatique », mets dans `clients/<slug>/envois.md` ce qui est en « groupé » puis fais valider la file en une seule question, et demande pour le reste.
 - Résume à l'utilisateur : ce qui est prêt (avec les liens), les tutoriels à suivre et dans quel ordre, les questions à poser au client, la prochaine étape du planning. Propose un brouillon de message WhatsApp au client si utile.
 
 ## Règles
 - La charte s'applique à tout : rien d'inventé, contexte gabonais, validation humaine avant tout envoi.
-- Aucune publication, aucun e-mail, aucun partage, aucune mise en ligne sans l'accord explicite de l'utilisateur.
+- Envois, publications, partages et mises en ligne : selon `autorisations.md` ; dépenses et suppressions toujours avec l'accord explicite de l'utilisateur.
 - Les données du client ne vont jamais dans le dépôt Git.

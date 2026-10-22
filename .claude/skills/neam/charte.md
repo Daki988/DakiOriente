@@ -41,7 +41,8 @@ Les agents utilisent les connecteurs branchés sur Claude Code quand ils existen
 - Chercher l'outil avec ToolSearch avant de conclure qu'il manque.
 - Suivre les consignes propres à chaque connecteur (par exemple, Adobe demande un appel d'initialisation avant tout autre outil).
 - Si un connecteur manque, produire le livrable autrement (HTML/CSS rendu en image, texte prêt à coller) et le signaler.
-- **Aucun envoi externe** (e-mail, publication, partage de fichier, mise en ligne publique) sans l'accord explicite de l'utilisateur dans la conversation.
+- **Envois, publications, partages, mises en ligne** : suivre `autorisations.md` (mode demander, groupé ou automatique par catégorie et par client). Ce qui n'y est pas autorisé demande l'accord explicite de l'utilisateur dans la conversation. Les dépenses et les suppressions demandent toujours son accord.
+- La liste des connecteurs, de leur usage par agent et de ceux à installer est dans `connecteurs.md`.
 
 ## Où ranger le travail
 

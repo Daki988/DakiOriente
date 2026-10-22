@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Canva",
+      "mcp__Adobe",
+      "mcp__Figma",
+      "mcp__Firecrawl",
+      "mcp__Semrush",
+      "mcp__Parallel_Search",
+      "mcp__Google_Drive",
+      "mcp__Google_Docs",
+      "mcp__Google_Sheets",
+      "mcp__Google_Slides",
+      "mcp__Gmail__search_threads",
+      "mcp__Gmail__get_thread",
+      "mcp__Gmail__get_message",
+      "mcp__Gmail__list_drafts",
+      "mcp__Gmail__get_draft",
+      "mcp__Gmail__create_draft",
+      "mcp__Gmail__update_draft",
+      "mcp__Google_Calendar__list_calendars",
+      "mcp__Google_Calendar__list_events",
+      "mcp__Google_Calendar__search_events",
+      "mcp__Google_Calendar__get_event",
+      "mcp__Google_Calendar__suggest_time"
+    ],
+    "ask": [
+      "mcp__Gmail__send_message",
+      "mcp__Gmail__reply",
+      "mcp__Gmail__forward",
+      "mcp__Google_Drive__share_file",
+      "mcp__Google_Drive__trash_file",
+      "mcp__Google_Calendar__create_event",
+      "mcp__Google_Calendar__update_event",
+      "mcp__Google_Calendar__delete_event"
+    ]
+  }
+}
