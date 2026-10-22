@@ -151,6 +151,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
             $mois = preg_match('/^\d{4}-\d{2}$/', (string) ($_POST['mois'] ?? '')) ? $_POST['mois'] : date('Y-m');
             if ($type === 'diagnostic' && trim((string) ($_POST['digital_score'] ?? '')) !== '') {
                 $extra['resultat_digital_score'] = clean($_POST['digital_score'], 6000);
+                $c['digital_score'] = $extra['resultat_digital_score'];
             }
             if ($type === 'formation') {
                 $extra['duree'] = in_array($c['pack'], ['growth', 'enterprise'], true) ? 'une journée' : 'une demi-journée';
@@ -302,6 +303,12 @@ switch ($p) {
         $c = client_charger((string) ($_GET['id'] ?? '')) ?? introuvable();
         exporter($c, (string) ($_GET['cible'] ?? ''));
         break;
+    case 'agence':
+        $c = client_charger((string) ($_GET['id'] ?? '')) ?? introuvable();
+        header('Content-Type: text/markdown; charset=utf-8');
+        header('Content-Disposition: attachment; filename="dossier-' . $c['slug'] . '.md"');
+        echo dossier_agence($c);
+        exit;
     case 'offres':
         page_offres();
         break;
@@ -490,7 +497,7 @@ function page_client(array $c): void
     $pack = ATELIER_PACKS[$c['pack']];
     page_debut($b['entreprise'] ?? 'Client');
     echo '<div class="tete"><div><a href="./" class="retour">← Tableau de bord</a><h1>' . h($b['entreprise'] ?? '') . '</h1><p class="sous">' . h($pack['nom']) . ' · ' . h(ATELIER_ETAPES[$c['etape']]) . ' · Prochaine action : <b>' . h(prochaine_action($c)) . '</b></p></div>'
-        . '<div class="actions"><a class="btn btn--ghost" href="?p=proposition&id=' . $id . '">Proposition et ROI</a></div></div>';
+        . '<div class="actions"><a class="btn btn--ghost" href="?p=agence&id=' . $id . '" title="Fichier à donner à Claude Code avec /neam">Exporter pour l’agence IA</a> <a class="btn btn--ghost" href="?p=proposition&id=' . $id . '">Proposition et ROI</a></div></div>';
 
     // Parcours
     echo '<ol class="parcours">';
@@ -881,4 +888,36 @@ function page_doc(array $c, string $cible): void
     echo '<article class="doc"><header class="doc__tete"><img src="../assets/logo-light.png" alt="NEAM Softwares Industry"><div><b>' . h(ATELIER_LIVRABLES[$type][0]) . '</b><span>' . date('d/m/Y') . '</span></div></header><h1>' . h($c['brief']['entreprise'] ?? '') . '</h1>'
         . rendu_livrable($type, $l['data']) . '<footer class="doc__pied">NEAM Softwares Industry · Libreville, Gabon · neamindustry.com · WhatsApp 077 45 31 67</footer></article>';
     page_fin();
+}
+
+/** Dossier du client au format Markdown, à donner à l'agence IA dans Claude Code (/neam). */
+function dossier_agence(array $c): string
+{
+    $pack = ATELIER_PACKS[$c['pack']];
+    $t = '# Dossier client — ' . ($c['brief']['entreprise'] ?? '') . "\n\nExporté de l'Atelier NEAM le " . date('d/m/Y') . ". À utiliser avec : /neam " . ($c['brief']['entreprise'] ?? '') . "\n\n## Brief\n\n";
+    foreach (ATELIER_BRIEF as $k => [$label]) {
+        $v = trim((string) ($c['brief'][$k] ?? ''));
+        if ($v !== '') {
+            $t .= str_contains($v, "\n") ? "\n**$label**\n\n$v\n\n" : "- **$label** : $v\n";
+        }
+    }
+    $t .= "\n## Offre\n\n- " . $pack['nom'] . ' (' . $pack['cible'] . '), engagement ' . (int) $c['engagement'] . " mois\n";
+    foreach ($pack['contenu'] as $x) {
+        $t .= "  - $x\n";
+    }
+    foreach ($c['options'] ?? [] as $k) {
+        $t .= '- Service ajouté : ' . (ATELIER_SERVICES[$k][0] ?? $k) . "\n";
+    }
+    $t .= '- Étape du parcours : ' . ATELIER_ETAPES[$c['etape']] . "\n";
+    if (!empty($c['digital_score'])) {
+        $t .= "\n## Résultat du NEAM Digital Score\n\n" . $c['digital_score'] . "\n";
+    }
+    foreach (['diagnostic', 'feuille_de_route', 'charte'] as $k) {
+        if (!empty($c['livrables'][$k]['data'])) {
+            $t .= "\n## " . ATELIER_LIVRABLES[$k][0] . ' (' . ($c['livrables'][$k]['statut'] === 'valide' ? 'validé' : 'à valider') . ")\n\n" . texte_generique($c['livrables'][$k]['data']);
+        }
+    }
+    $faits = array_map(fn($x) => ATELIER_LIVRABLES[$x[1]][0] . ($x[3]['statut'] === 'valide' ? ' (validé)' : ' (à valider)'), livrables_plats($c));
+    $t .= "\n## Déjà produit dans l'Atelier\n\n" . ($faits ? '- ' . implode("\n- ", array_unique($faits)) : '- Rien pour l’instant') . "\n";
+    return $t;
 }
