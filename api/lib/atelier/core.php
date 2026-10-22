@@ -52,9 +52,30 @@ function atelier_cfg(string $key, $default = null)
     return $CONFIG['atelier'][$key] ?? $default;
 }
 
+/** Accès créé à l'installation (mot de passe chiffré, clé Claude facultative). */
+function atelier_acces(): array
+{
+    $f = ATELIER_DATA . '/acces.json';
+    $a = is_file($f) ? json_decode((string) file_get_contents($f), true) : null;
+    return is_array($a) ? $a : [];
+}
+
 function atelier_ouvert(): bool
 {
-    return (string) atelier_cfg('password', '') !== '';
+    return (string) atelier_cfg('password', '') !== '' || !empty(atelier_acces()['hash']);
+}
+
+/** Adresses qui reçoivent le code d'installation : celles déjà réglées pour les alertes du site. */
+function atelier_destinataires(): array
+{
+    global $CONFIG;
+    return array_values(array_filter((array) ($CONFIG['audit']['notify_to'] ?? []) ?: (array) ($CONFIG['candidature_to'] ?? []) ?: (array) ($CONFIG['contact_to'] ?? []), fn($e) => filter_var($e, FILTER_VALIDATE_EMAIL)));
+}
+
+function masquer_email(string $e): string
+{
+    [$u, $d] = explode('@', $e, 2) + [1 => ''];
+    return mb_substr($u, 0, 2) . str_repeat('•', max(2, mb_strlen($u) - 2)) . '@' . $d;
 }
 
 function clean($value, int $max = 3000): string
@@ -94,7 +115,9 @@ function atelier_connexion(string $mdp): bool
     if (count($essais) >= 8) {
         return false;
     }
-    if (atelier_ouvert() && hash_equals((string) atelier_cfg('password'), $mdp)) {
+    $cfg = (string) atelier_cfg('password', '');
+    $hash = (string) (atelier_acces()['hash'] ?? '');
+    if (($cfg !== '' && hash_equals($cfg, $mdp)) || ($hash !== '' && password_verify($mdp, $hash))) {
         session_regenerate_id(true);
         $_SESSION['ok'] = true;
         $_SESSION['seen'] = time();

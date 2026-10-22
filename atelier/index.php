@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 require __DIR__ . '/../api/lib/atelier/ia.php';
 require __DIR__ . '/../api/lib/atelier/rendu.php';
+require __DIR__ . '/../api/mailer.php';
 
 header('X-Robots-Tag: noindex, nofollow');
 header('X-Frame-Options: SAMEORIGIN');
@@ -30,11 +31,10 @@ const MESURES = [
 $p = (string) ($_GET['p'] ?? 'tableau');
 $flash = '';
 
-// ---------- Fermé tant qu'aucun mot de passe n'est réglé ----------
+// ---------- Première visite : installation guidée (code reçu par e-mail, puis mot de passe) ----------
 if (!atelier_ouvert()) {
-    page_debut('Atelier fermé', false);
-    echo '<div class="login"><h1>Atelier NEAM</h1><p>L’Atelier est fermé. Pour l’ouvrir, ajoutez dans <code>api/config.php</code> :</p><pre>\'atelier\' => [\n    \'password\' => \'un mot de passe long et unique\',\n],</pre><p>La clé Claude du Digital Score est utilisée pour produire les livrables.</p></div>';
-    page_fin();
+    atelier_session();
+    installation();
     exit;
 }
 
@@ -80,6 +80,25 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
         client_enregistrer($c);
         header('Location: ?p=client&id=' . $c['id']);
         exit;
+    }
+    if ($a === 'acces') {
+        $acces = atelier_acces();
+        $mdp = (string) ($_POST['mdp'] ?? '');
+        if ($mdp !== '') {
+            if (mb_strlen($mdp) < 10 || $mdp !== (string) ($_POST['mdp2'] ?? '')) {
+                repondre(false, false, 'Le mot de passe doit faire au moins 10 caractères, et les deux saisies doivent être identiques.', '?p=reglages');
+            }
+            $acces['hash'] = password_hash($mdp, PASSWORD_DEFAULT);
+        }
+        $cle = trim((string) ($_POST['cle'] ?? ''));
+        if ($cle !== '') {
+            $acces['cle'] = $cle;
+        }
+        if (!empty($_POST['oublier_cle'])) {
+            unset($acces['cle']);
+        }
+        acces_enregistrer($acces);
+        repondre(false, true, 'Réglages enregistrés.', '?p=reglages');
     }
     $c = client_charger((string) ($_POST['id'] ?? ''));
     if (!$c) {
@@ -263,6 +282,9 @@ switch ($p) {
     case 'offres':
         page_offres();
         break;
+    case 'reglages':
+        page_reglages();
+        break;
     default:
         page_tableau();
 }
@@ -334,7 +356,7 @@ function page_debut(string $titre, bool $nav = true, string $classe = ''): void
         . '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">'
         . '<link rel="stylesheet" href="atelier.css"></head><body class="' . h($classe) . '">';
     if ($nav) {
-        echo '<header class="top"><a href="./" class="logo"><img src="../assets/logo-light.png" alt="NEAM"><span>Atelier</span></a><nav><a href="./">Tableau de bord</a><a href="?p=offres">Offres et tarifs</a><a href="?p=sortir">Se déconnecter</a></nav></header>';
+        echo '<header class="top"><a href="./" class="logo"><img src="../assets/logo-light.png" alt="NEAM"><span>Atelier</span></a><nav><a href="./">Tableau de bord</a><a href="?p=offres">Offres et tarifs</a><a href="?p=reglages">Réglages</a><a href="?p=sortir">Se déconnecter</a></nav></header>';
     }
     echo '<main class="wrap">';
     if ($f && $f[1] !== '') {
@@ -706,5 +728,93 @@ function page_offres(): void
         echo '<tr><td>' . h($nom) . '</td><td class="n">' . fcfa($prix) . ($type === 'mensuel' ? ' / mois' : '') . '</td></tr>';
     }
     echo '</tbody></table>';
+    page_fin();
+}
+
+function acces_enregistrer(array $acces): void
+{
+    atelier_dossier('');
+    file_put_contents(ATELIER_DATA . '/acces.json', json_encode($acces), LOCK_EX);
+    @chmod(ATELIER_DATA . '/acces.json', 0600);
+}
+
+/** Installation : 1) un code à 6 chiffres est envoyé aux adresses du site, 2) on choisit le mot de passe. */
+function installation(): void
+{
+    $f = ATELIER_DATA . '/installation.json';
+    $etat = is_file($f) ? (json_decode((string) file_get_contents($f), true) ?: []) : [];
+    $dest = atelier_destinataires();
+    $msg = '';
+    if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && csrf_ok()) {
+        if (($_POST['a'] ?? '') === 'code') {
+            $envois = array_filter($etat['envois'] ?? [], fn($t) => $t > time() - 3600);
+            if (count($envois) >= 3) {
+                $msg = '<p class="alerte">Trois codes ont déjà été envoyés cette heure-ci. Utilisez le dernier reçu, ou réessayez plus tard.</p>';
+            } else {
+                $code = (string) random_int(100000, 999999);
+                $envois[] = time();
+                $etat = ['code' => password_hash($code, PASSWORD_DEFAULT), 'expire' => time() + 1800, 'essais' => 0, 'envois' => array_values($envois)];
+                atelier_dossier('');
+                file_put_contents($f, json_encode($etat), LOCK_EX);
+                $ok = send_mail($dest, 'Votre code d’installation de l’Atelier NEAM : ' . $code,
+                    email_layout('Installation de l’Atelier NEAM', '<p>Votre code d’installation :</p><p style="font-size:32px;font-weight:bold;letter-spacing:6px;margin:12px 0">' . $code . '</p><p>Il est valable 30 minutes. Si vous n’avez pas demandé ce code, ignorez cet e-mail : personne ne peut ouvrir l’Atelier sans lui.</p>'),
+                    "Votre code d'installation de l'Atelier NEAM : $code (valable 30 minutes).");
+                $msg = $ok ? '<p class="ok">Code envoyé à ' . h(implode(', ', array_map('masquer_email', $dest))) . '. Pensez à regarder dans les spams.</p>' : '<p class="alerte">L’e-mail n’a pas pu partir. Vérifiez que le formulaire de contact du site fonctionne, puis réessayez.</p>';
+            }
+        } elseif (($_POST['a'] ?? '') === 'installer') {
+            $mdp = (string) ($_POST['mdp'] ?? '');
+            if (empty($etat['code']) || ($etat['expire'] ?? 0) < time() || ($etat['essais'] ?? 0) >= 5) {
+                $msg = '<p class="alerte">Code expiré : demandez-en un nouveau.</p>';
+            } elseif (!password_verify(preg_replace('/\D/', '', (string) ($_POST['code'] ?? '')), $etat['code'])) {
+                $etat['essais'] = ($etat['essais'] ?? 0) + 1;
+                file_put_contents($f, json_encode($etat), LOCK_EX);
+                $msg = '<p class="alerte">Code incorrect.</p>';
+            } elseif (mb_strlen($mdp) < 10 || $mdp !== (string) ($_POST['mdp2'] ?? '')) {
+                $msg = '<p class="alerte">Le mot de passe doit faire au moins 10 caractères, et les deux saisies doivent être identiques.</p>';
+            } else {
+                $acces = ['hash' => password_hash($mdp, PASSWORD_DEFAULT), 'installe' => date('c')];
+                $cle = trim((string) ($_POST['cle'] ?? ''));
+                if ($cle !== '') {
+                    $acces['cle'] = $cle;
+                }
+                acces_enregistrer($acces);
+                @unlink($f);
+                atelier_connexion($mdp);
+                header('Location: ./');
+                exit;
+            }
+        }
+    }
+    page_debut('Installation', false);
+    echo '<div class="login"><h1>Installer l’Atelier</h1>' . $msg;
+    if (!$dest) {
+        echo '<p>Aucune adresse e-mail n’est réglée pour le site. Ajoutez votre adresse dans <code>api/config.php</code> (<code>contact_to</code>), puis rechargez cette page.</p></div>';
+        page_fin();
+        return;
+    }
+    echo '<p class="aide"><b>Étape 1.</b> Recevez un code de sécurité à ' . h(implode(', ', array_map('masquer_email', $dest))) . '.</p>'
+        . '<form method="post">' . csrf_champ() . '<input type="hidden" name="a" value="code"><button class="btn btn--ghost">Recevoir mon code par e-mail</button></form>'
+        . '<p class="aide"><b>Étape 2.</b> Saisissez le code et choisissez votre mot de passe.</p>'
+        . '<form method="post">' . csrf_champ() . '<input type="hidden" name="a" value="installer">'
+        . '<label>Code reçu par e-mail<input name="code" inputmode="numeric" autocomplete="one-time-code" required></label>'
+        . '<label>Mot de passe (10 caractères minimum)<input type="password" name="mdp" autocomplete="new-password" minlength="10" required></label>'
+        . '<label>Le même, une seconde fois<input type="password" name="mdp2" autocomplete="new-password" minlength="10" required></label>'
+        . (ia_cle() === '' ? '<label>Clé Claude (facultatif, ajoutable plus tard)<input type="password" name="cle" autocomplete="off" placeholder="sk-ant-…"></label>' : '')
+        . '<button class="btn">Ouvrir l’Atelier</button></form></div>';
+    page_fin();
+}
+
+function page_reglages(): void
+{
+    global $CONFIG;
+    $cfgCle = (string) (atelier_cfg('anthropic_api_key', '') ?: ($CONFIG['audit']['anthropic_api_key'] ?? ''));
+    $cle = atelier_acces()['cle'] ?? '';
+    page_debut('Réglages');
+    echo '<h1>Réglages</h1><div class="bloc etroit"><form method="post">' . csrf_champ() . '<input type="hidden" name="a" value="acces">'
+        . '<h3>Clé Claude</h3><p class="aide">Elle permet à l’Atelier de rédiger les livrables. Elle reste sur le serveur et n’est jamais réaffichée.</p>'
+        . ($cfgCle !== '' ? '<p class="ok">Une clé est déjà réglée pour le site (Digital Score) : l’Atelier l’utilise.</p>' : ($cle !== '' ? '<p class="ok">Clé enregistrée (se termine par ' . h(substr($cle, -4)) . ').</p><label class="case"><input type="checkbox" name="oublier_cle" value="1"> Supprimer cette clé</label>' : '<p class="alerte">Aucune clé : les livrables ne peuvent pas encore être générés.</p>'))
+        . ($cfgCle === '' ? '<label>Nouvelle clé<input type="password" name="cle" autocomplete="off" placeholder="sk-ant-…"></label>' : '')
+        . '<h3>Changer le mot de passe</h3><label>Nouveau mot de passe<input type="password" name="mdp" autocomplete="new-password" minlength="10"></label><label>Le même, une seconde fois<input type="password" name="mdp2" autocomplete="new-password" minlength="10"></label>'
+        . '<button class="btn">Enregistrer</button></form></div>';
     page_fin();
 }

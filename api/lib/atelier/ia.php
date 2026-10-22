@@ -14,7 +14,7 @@ require_once __DIR__ . '/../audit/http.php';
 function ia_cle(): string
 {
     global $CONFIG;
-    return (string) (atelier_cfg('anthropic_api_key', '') ?: ($CONFIG['audit']['anthropic_api_key'] ?? ''));
+    return (string) (atelier_cfg('anthropic_api_key', '') ?: ($CONFIG['audit']['anthropic_api_key'] ?? '') ?: (atelier_acces()['cle'] ?? ''));
 }
 
 const IA_REGLES = <<<TXT
@@ -106,7 +106,7 @@ function ia_generer(string $type, array $c, array $extra = []): array
     }
     $cle = ia_cle();
     if ($cle === '') {
-        return ['ok' => false, 'erreur' => 'Aucune clé Claude dans api/config.php (atelier → anthropic_api_key, ou audit → anthropic_api_key).'];
+        return ['ok' => false, 'erreur' => 'Aucune clé Claude : ajoutez-la dans Réglages (menu du haut).'];
     }
     @set_time_limit(180);
     $prompt = "<brief_client>\n" . json_encode(ia_brief($c), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . "\n</brief_client>\n\n";

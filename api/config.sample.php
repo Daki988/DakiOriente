@@ -55,7 +55,7 @@ return [
     ],
 
     // Atelier NEAM (www.neamindustry.com/atelier/) : back-office de production réservé à l'équipe.
-    // Vide : l'Atelier reste fermé. Choisissez un mot de passe long et unique.
+    // Rien à remplir : à la première visite, un code est envoyé par e-mail et vous choisissez votre mot de passe.
     'atelier' => [
         'password'          => '',
         'anthropic_api_key' => '',                // vide : utilise audit → anthropic_api_key

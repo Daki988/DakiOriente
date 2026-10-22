@@ -101,9 +101,11 @@ function valid_email(string $email): bool
     return (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
-function h(string $s): string
-{
-    return htmlspecialchars($s, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+if (!function_exists('h')) {
+    function h(string $s): string
+    {
+        return htmlspecialchars($s, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
 }
 
 /**
