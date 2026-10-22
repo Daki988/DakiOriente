@@ -49,7 +49,7 @@
     <div class="line" id="s1a" style="top: 200px; font-size: 120px">Libreville, <span style="color:#7cf7bd">18 h.</span></div>
     <div class="line" id="s1b" style="top: 350px; font-size: 84px; font-weight: 700">Le frigo est vide ?</div>
     <div id="sp1"></div>
-    <img class="pose" id="main1" src="hd-pouce.png" style="width: 800px; left: 140px; top: 720px" />
+    <div class="pose" id="main1" style="width: 800px; left: 140px; top: 720px"><canvas id="cv-main1" style="position:absolute"></canvas></div>
     <div class="line" id="s1c" style="top: 1610px; font-size: 120px; color:#7cf7bd; text-align:center">NEAM arrive.</div>
   </div>
 
@@ -59,7 +59,7 @@
     <div class="line" id="s2a" style="top: 300px; font-size: 104px">Vos courses</div>
     <div class="line" id="s2b" style="top: 412px; font-size: 104px; color:#0a9a5c">en quelques clics</div>
     <div id="grid"></div>
-    <img class="pose" id="courses" src="hd-courses.png" style="width: 600px; right: 10px; bottom: 10px" />
+    <div class="pose" id="courses" style="width: 600px; right: 10px; bottom: 10px"><canvas id="cv-courses" style="position:absolute"></canvas></div>
   </div>
 
   <!-- Scène 3 : NEAM Express dans la ville illustrée -->
@@ -74,7 +74,7 @@
     <div class="line" id="s3b" style="top: 412px; font-size: 104px; color:#7cf7bd">à Libreville</div>
     <div id="pins"></div>
     <div id="sp3"></div>
-    <img class="pose" id="scooter" src="hd-scooter.png" style="width: 600px; bottom: 20px; filter: drop-shadow(0 0 22px rgba(124,247,189,.45))" />
+    <div class="pose" id="scooter" style="width: 600px; bottom: 20px; filter: drop-shadow(0 0 22px rgba(124,247,189,.45))"><canvas id="cv-scooter" style="position:absolute"></canvas></div>
   </div>
 
   <!-- Scène 4 : l'application, paiement à la livraison -->
@@ -84,14 +84,14 @@
     <div class="chip" id="c1" style="left: 40px; top: 700px">💵 Paiement à la livraison</div>
     <div class="chip" id="c2" style="right: 40px; top: 940px">📍 Suivi en direct</div>
     <div class="chip" id="c3" style="left: 40px; top: 1180px">🔐 Code de remise</div>
-    <img class="pose" id="phonepose" src="hd-pouce.png" style="width: 500px; left: -70px; bottom: -30px" />
+    <div class="pose" id="phonepose" style="width: 500px; left: -70px; bottom: -30px"><canvas id="cv-phonepose" style="position:absolute"></canvas></div>
   </div>
 
   <!-- Scène 5 : carte finale -->
   <div class="layer" id="s5" style="background: radial-gradient(90% 55% at 50% 45%, #0f6b47 0%, rgba(0,0,0,0) 70%), #04241b">
     <img id="logo" src="neam-logo.webp" style="position:absolute; left: 50%; top: 200px; width: 820px; margin-left: -410px; opacity: 0" />
     <div class="line" id="s5t" style="top: 520px; font-size: 50px; font-weight: 500; text-align:center; color:#d6fbe8">Plus proche de votre quotidien.</div>
-    <img class="pose" id="main5" src="hd-courses.png" style="width: 680px; left: 200px; top: 690px" />
+    <div class="pose" id="main5" style="width: 680px; left: 200px; top: 690px"><canvas id="cv-main5" style="position:absolute"></canvas></div>
     <div class="line" id="s5a" style="top: 1340px; font-size: 76px; text-align:center">Bientôt disponible</div>
     <div id="badge" style="top: 1480px"><span>📱 Android</span><span>📱 iPhone</span></div>
     <div class="line" id="s5b" style="top: 1660px; font-size: 42px; font-weight: 500; text-align:center; color:#b7f5d6">NEAM Market · NEAM Express · Libreville</div>
@@ -110,6 +110,7 @@ const easeInOut = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) 
 const back = (x) => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
 let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 
+const PUP = {};
 const SCENES = [[0, 5], [5, 10], [10, 15], [15, 20.5], [20.5, 25]];
 
 // Particules lumineuses (scène 1)
@@ -149,6 +150,14 @@ $('pins').innerHTML = PINS.map(([n, x, y], i) => `<div class="pin" id="p${i}" st
 
 window.ready = (async () => {
   await document.fonts.load('800 50px P'); await document.fonts.ready;
+  const P = await import('./puppet.js'); window.MOVES = P.MOVES;
+  for (const [id, rig] of [['main1', 'pouce'], ['courses', 'courses'], ['scooter', 'scooter'], ['phonepose', 'pouce'], ['main5', 'courses']]) {
+    const box = $(id), w = parseFloat(box.style.width), R = P.RIGS[rig];
+    const draw = await P.createPuppet($('cv-' + id), R, w);
+    const im = new Image(); im.src = R.src; await im.decode();
+    box.style.height = (w * im.height / im.width) + 'px';
+    PUP[id] = draw;
+  }
   await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
   for (const id of ['r1', 'r2']) { const p = $(id), L = p.getTotalLength(); p.style.strokeDasharray = L; p.dataset.len = L }
   return true;
@@ -183,6 +192,11 @@ function sceneOpacity(i, t) {
 }
 
 window.render = (t) => {
+  if (t < 5.4) PUP.main1(MOVES.run(t, 1.6));
+  if (t > 4.6 && t < 10.4) PUP.courses(MOVES.run(t, 1.4, 0.7));
+  if (t > 9.6 && t < 15.4) PUP.scooter(MOVES.ride(t));
+  if (t > 14.6 && t < 20.9) PUP.phonepose(MOVES.run(t, 0.7, 1.5));
+  if (t > 20.1) PUP.main5(MOVES.run(t, 1.1, 0.4));
   SCENES.forEach((_, i) => { $(`s${i + 1}`).style.opacity = sceneOpacity(i, t) });
   let w = 0, wx = -120;
   for (const [, b] of SCENES.slice(0, -1)) { const p = prog(t, b - 0.25, 0.6); if (p > 0 && p < 1) { w = 1; wx = -120 + easeInOut(p) * 260 } }
