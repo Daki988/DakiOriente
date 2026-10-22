@@ -7,6 +7,8 @@ import { ExpressHome, ExpressPricing, ExpressTracking } from './ExpressPages'
 import { TremplinCompanies, TremplinCV, TremplinFormations, TremplinHome, TremplinOffers } from './TremplinPages'
 import { GuruCandidate, GuruCandidates, GuruDashboard, GuruHome, GuruNewJob, GuruRecruitment } from './GuruToolsPages'
 import { LegalHome } from './LegalHome'
+import { LIVE, isLiveService } from '../../live/supabase'
+import { LiveOrders } from '../../live/ClientOrders'
 
 /** Chaque service NEAM est une « mini-app » avec ses propres pages et sa navigation. */
 export default function ServiceApp() {
@@ -20,7 +22,7 @@ export default function ServiceApp() {
       <Route path="categories" element={<CategoriesPage service={s} />} />
       <Route path="c/:cat" element={<CategoryPage service={s} />} />
       <Route path="promos" element={<PromosPage service={s} />} />
-      <Route path="commandes" element={<Orders serviceId={s.id} />} />
+      <Route path="commandes" element={LIVE && isLiveService(s.id) ? <LiveOrders kind={s.id as "market" | "express"} /> : <Orders serviceId={s.id} />} />
       <Route path="favoris" element={<ServiceFavorites service={s} />} />
     </>
   )
@@ -48,7 +50,7 @@ export default function ServiceApp() {
             <Route index element={<ExpressHome service={s} />} />
             <Route path="suivi" element={<ExpressTracking service={s} />} />
             <Route path="tarifs" element={<ExpressPricing service={s} />} />
-            <Route path="commandes" element={<Orders serviceId={s.id} />} />
+            <Route path="commandes" element={LIVE && isLiveService(s.id) ? <LiveOrders kind={s.id as "market" | "express"} /> : <Orders serviceId={s.id} />} />
           </>
         )}
         {s.kind === 'tremplin' && (

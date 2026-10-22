@@ -1,0 +1,5 @@
+{
+  "name": "neam-livreur-native",
+  "private": true,
+  "description": "Projet natif Capacitor de NEAM Livreur (dépendances résolues depuis la racine du dépôt)."
+}

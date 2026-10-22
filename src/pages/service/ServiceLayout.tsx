@@ -8,6 +8,7 @@ import { NeamMark } from '../../components/Logo'
 import { ServiceWordmark } from '../../components/ServiceTile'
 import { tap } from '../../lib/native'
 import { useBack } from '../../lib/useBack'
+import { isLiveService } from '../../live/supabase'
 
 export const hrefOf = (service: Service, to: string) => (to.startsWith('/') ? to : `/service/${service.id}${to ? `/${to}` : ''}`)
 
@@ -144,7 +145,14 @@ export function ServiceLayout({ service, children }: { service: Service; childre
         </ul>
         <div className="relative mt-8 flex gap-1 text-5xl">{service.visual.slice(0, 3).map((e) => <span key={e} className="animate-float" style={{ animationDelay: `${e.length * 0.2}s` }}>{e}</span>)}</div>
       </aside>
-      <div className="min-h-screen bg-[#f6f7f9] pb-28 lg:min-h-[calc(100vh-130px)] lg:overflow-clip lg:rounded-[32px] lg:pb-8 lg:shadow-2xl">{children}</div>
+      <div className="min-h-screen bg-[#f6f7f9] pb-28 lg:min-h-[calc(100vh-130px)] lg:overflow-clip lg:rounded-[32px] lg:pb-8 lg:shadow-2xl">
+        {!isLiveService(service.id) && (
+          <div className="flex items-center justify-center gap-2 px-4 py-2 pt-[calc(var(--safe-top)+8px)] text-center text-xs font-semibold text-white lg:pt-2" style={{ background: service.color }}>
+            Bientôt disponible à Libreville · aperçu du service
+          </div>
+        )}
+        {children}
+      </div>
     </div>
   )
 }

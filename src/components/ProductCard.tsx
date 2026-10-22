@@ -8,6 +8,7 @@ import { fcfa } from '../lib/format'
 import { tap } from '../lib/native'
 import { Sheet } from './Sheet'
 import { BookingSheet, CustomizeSheet } from './BookingSheet'
+import { isLiveService } from '../live/supabase'
 
 export function FavButton({ id, className = '' }: { id: string; className?: string }) {
   const { favorites, toggleFavorite, toast } = useApp()
@@ -52,6 +53,7 @@ function useAddToServiceCart() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   return (product: Product, qty = 1) => {
+    if (!isLiveService(product.serviceId)) return toast(`${SERVICE_MAP[product.serviceId].name} arrive bientôt à Libreville`)
     addToCart(product, qty)
     const service = SERVICE_MAP[product.serviceId]
     const inside = pathname.startsWith(`/service/${product.serviceId}`)
@@ -69,6 +71,7 @@ export function ProductCard({ product, variant = 'default', compact }: { product
   const primary = (e: React.MouseEvent) => {
     e.stopPropagation()
     tap()
+    if (!isLiveService(product.serviceId)) return add(product)
     if (product.booking) return setOpen('book')
     if (product.custom) return setOpen('custom')
     add(product)

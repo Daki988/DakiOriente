@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ChevronLeft, Clock, Search as SearchIcon, X } from 'lucide-react'
 import { PRODUCTS } from '../data/products'
+import { useProducts } from '../live/catalog'
+import { LIVE } from '../live/supabase'
 import { SERVICES } from '../data/services'
 import { useApp } from '../store/AppContext'
 import { PageShell } from '../components/Navigation'
@@ -17,10 +19,12 @@ export default function Search() {
   const [q, setQ] = useState('')
   const query = norm(q.trim())
 
+  const market = useProducts('market').products
+  const catalog = useMemo(() => (LIVE ? [...market, ...PRODUCTS.filter((p) => p.serviceId !== 'market')] : PRODUCTS), [market])
   const services = useMemo(() => (query ? SERVICES.filter((s) => norm(`${s.name} ${s.description}`).includes(query)) : []), [query])
   const products = useMemo(
-    () => (query ? PRODUCTS.filter((p) => norm(`${p.name} ${p.category} ${p.vendor} ${p.description}`).includes(query)) : PRODUCTS.filter((p) => p.popular)),
-    [query],
+    () => (query ? catalog.filter((p) => norm(`${p.name} ${p.category} ${p.vendor} ${p.description}`).includes(query)) : catalog.filter((p) => p.popular)),
+    [query, catalog],
   )
 
   return (

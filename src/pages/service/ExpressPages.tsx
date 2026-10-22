@@ -9,6 +9,10 @@ import { Sheet } from '../../components/Sheet'
 import { PaymentPicker, paymentLabel, type PaymentId } from '../../components/PaymentPicker'
 import { progressOf } from '../Orders'
 import { ServiceHeader, ServiceSubHeader } from './ServiceLayout'
+import { LIVE, errMsg, sb } from '../../live/supabase'
+import { useAuth } from '../../live/auth'
+import { PhoneLogin } from '../../live/PhoneLogin'
+import { SKIP_GUARD } from '../../lib/cartScope'
 
 const TYPES = [
   { id: 'standard', label: 'Standard', hint: '24-48 h', icon: Clock, factor: 1, eta: 120 },
@@ -74,7 +78,7 @@ export function ParcelTracker({ order, service }: { order: Order; service: Servi
 }
 
 export function ExpressHome({ service }: { service: Service }) {
-  const { city, wallet, orders, placeOrder, payWithWallet, toast } = useApp()
+  const { city, wallet, orders, placeOrder, toast } = useApp()
   const navigate = useNavigate()
   const [tab, setTab] = useState<'send' | 'shop'>('send')
   const [from, setFrom] = useState('')
@@ -85,7 +89,7 @@ export function ExpressHome({ service }: { service: Service }) {
   const [store, setStore] = useState('')
   const [budget, setBudget] = useState(10000)
   const [step, setStep] = useState<'form' | 'pay'>('form')
-  const [payment, setPayment] = useState<PaymentId>('airtel')
+  const [payment, setPayment] = useState<PaymentId>('cash')
   const [error, setError] = useState('')
 
   const t = TYPES.find((x) => x.id === type)!
@@ -102,9 +106,28 @@ export function ExpressHome({ service }: { service: Service }) {
     setStep('pay')
   }
 
+  const { session, profile } = useAuth()
+  const [phone, setPhone] = useState('')
+  const [busy, setBusy] = useState(false)
+
+  const confirmLive = async () => {
+    if (!session) return
+    if (phone.replace(/\D/g, '').length < 8 && !profile?.phone) return setError('Indiquez un numéro de téléphone.')
+    setBusy(true)
+    const { data, error } = await sb().rpc('place_express_order', {
+      p_pickup: from.trim(), p_dropoff: to.trim(), p_size: size, p_speed: type, p_km: km || 1,
+      p_phone: phone.trim() || '+' + profile?.phone, p_name: profile?.full_name ?? '', p_description: null,
+    })
+    setBusy(false)
+    if (error) return setError(errMsg(error))
+    toast('Envoi enregistré · un livreur NEAM va être affecté')
+    setStep('form')
+    navigate(`/suivi/${(data as { id: string }).id}`, { state: SKIP_GUARD })
+  }
+
   const confirm = () => {
-    if (payment === 'wallet' && !payWithWallet(total)) return setError('Solde NEAM Pay insuffisant.')
     tap()
+    if (LIVE) return confirmLive()
     const s = SIZES.find((x) => x.id === size)!
     const order = placeOrder(
       tab === 'send'
@@ -134,8 +157,8 @@ export function ExpressHome({ service }: { service: Service }) {
       <div className="space-y-4 px-4">
         <div className="grid grid-cols-2 gap-2">
           {([['send', 'Envoyer un colis'], ['shop', 'Commander pour moi']] as const).map(([id, label]) => (
-            <button key={id} onClick={() => { setTab(id); setError('') }} className={`rounded-2xl py-3 text-sm font-semibold transition ${tab === id ? 'text-white shadow-md' : 'bg-white text-neutral-700 ring-1 ring-neutral-200'}`} style={tab === id ? { background: service.color } : undefined}>
-              {label}
+            <button key={id} disabled={LIVE && id === 'shop'} title={LIVE && id === 'shop' ? 'Bientôt disponible' : undefined} onClick={() => { setTab(id); setError('') }} className={`rounded-2xl py-3 text-sm font-semibold transition ${tab === id ? 'text-white shadow-md' : 'bg-white text-neutral-700 ring-1 ring-neutral-200'}`} style={tab === id ? { background: service.color } : undefined}>
+              {label}{LIVE && id === 'shop' && <span className="block text-[10px] font-medium opacity-70">Bientôt disponible</span>}
             </button>
           ))}
         </div>
@@ -208,7 +231,12 @@ export function ExpressHome({ service }: { service: Service }) {
           <span>{tab === 'send' && !km ? '' : fcfa(total)}</span>
         </button>
 
-        {last && (
+        {LIVE && (
+          <Link to="/service/express/commandes" className="flex items-center justify-between rounded-2xl bg-white p-4 text-sm font-semibold shadow-sm ring-1 ring-black/5">
+            Suivre mes envois <ArrowRight size={16} style={{ color: service.color }} />
+          </Link>
+        )}
+        {!LIVE && last && (
           <section>
             <h3 className="mb-2 font-bold">Suivi de votre colis</h3>
             <ParcelTracker order={last} service={service} />
@@ -229,10 +257,24 @@ export function ExpressHome({ service }: { service: Service }) {
           <p className="flex justify-between"><span className="text-neutral-600">Service</span><span className="font-medium">{t.label} · {t.hint}</span></p>
           <p className="flex justify-between border-t border-black/5 pt-2 text-base font-bold"><span>Total</span><span>{fcfa(total)}</span></p>
         </div>
-        <h4 className="mb-2 mt-5 text-sm font-semibold text-neutral-700">Paiement</h4>
-        <PaymentPicker value={payment} onChange={setPayment} wallet={wallet} />
-        {error && <p className="mt-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">{error}</p>}
-        <button onClick={confirm} className="mt-5 w-full rounded-2xl py-4 font-semibold text-white shadow-lg" style={{ background: service.gradient }}>Trouver un coursier</button>
+        {LIVE && !session ? (
+          <div className="mt-5"><PhoneLogin accent={service.color} title="Confirmez votre numéro" subtitle="Le livreur vous appellera sur ce numéro." /></div>
+        ) : (
+          <>
+            {LIVE && (
+              <>
+                <h4 className="mb-2 mt-5 text-sm font-semibold text-neutral-700">Téléphone du destinataire ou de l’expéditeur</h4>
+                <input id="ex-phone" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder={profile?.phone ? `+${profile.phone}` : '+241 077 12 34 56'} inputMode="tel" className="h-12 rounded-2xl border border-neutral-200 bg-white px-4 text-sm outline-none" />
+              </>
+            )}
+            <h4 className="mb-2 mt-5 text-sm font-semibold text-neutral-700">Paiement</h4>
+            <PaymentPicker value={payment} onChange={setPayment} wallet={wallet} />
+            {error && <p className="mt-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600">{error}</p>}
+            <button disabled={busy} onClick={confirm} className="mt-5 w-full rounded-2xl py-4 font-semibold text-white shadow-lg disabled:opacity-70" style={{ background: service.gradient }}>
+              {busy ? 'Envoi…' : `Trouver un livreur · ${fcfa(total)} à la livraison`}
+            </button>
+          </>
+        )}
       </Sheet>
     </>
   )

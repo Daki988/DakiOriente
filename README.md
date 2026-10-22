@@ -9,6 +9,17 @@ Application **hybride** : une seule base de code web (React + TypeScript), qui t
 - 🤖 **sur Android**, en APK / AAB via Capacitor
 - 🍏 **sur iOS**, en IPA via Capacitor
 
+## Phase 1 — serveur et espaces professionnels
+
+NEAM Market et NEAM Express fonctionnent avec un **vrai serveur (Supabase)** : connexion par SMS, commandes réelles,
+suivi en direct, paiement à la livraison. Trois espaces professionnels s'ajoutent à l'app client :
+
+- **NEAM Partenaire** (`/marchand`, APK) : commandes en direct avec alerte sonore, catalogue et stock, boutique, finances
+- **NEAM Livreur** (APK) : en ligne / hors ligne, position GPS, courses, validation par code, espèces à reverser
+- **NEAM Admin** (`/admin`) : tableau de bord, affectation des livreurs, commandes, livreurs, boutiques, candidatures, comptes, tarifs
+
+👉 Mise en production pas à pas : [`docs/DEPLOIEMENT.md`](docs/DEPLOIEMENT.md)
+
 ## Les services
 
 Chaque service est une « mini-app » avec son logo officiel, son accueil, ses catégories et sa propre barre de navigation, d’après les interfaces de la charte NEAM.
@@ -37,14 +48,14 @@ Les logos officiels (fond détouré) sont dans `public/brand/` : `<service>-logo
 - Choix de la ville (Libreville, Port-Gentil, Franceville, Oyem…)
 - Recherche globale (services et produits), recherches récentes
 - Fiche produit, favoris, **un panier par service** (quitter un service avec un panier demande confirmation puis l’annule), livraison offerte dès 15 000 FCFA
-- Paiement : **NEAM Pay** (portefeuille), **Airtel Money**, **Moov Money**, carte bancaire, espèces à la livraison
-- Codes promo (`NEAM20`, `BIENVENUE`)
+- Paiement **à la livraison** ; Mobile Money, carte bancaire et NEAM Pay affichés « À venir »
+- Codes promo de démonstration (`NEAM20`, `BIENVENUE`) en mode démo
 - Suivi de commande en temps réel (carte, étapes, coursier, notation)
 - Scanner de QR codes avec la caméra (`neam://service/<id>`, `neam://produit/<id>`)
 - Notifications, profil, portefeuille
 - Côté natif : vibrations au toucher, barre d’état, écran de lancement, bouton retour Android
 
-> ℹ️ Pour l’instant, les données (catalogue, commandes, paiements, offres d’emploi, candidats, analyses « IA ») sont **simulées** et enregistrées sur l’appareil (`localStorage`). Le suivi de commande avance 10× plus vite que le temps réel, pour les démos. Il faudra brancher une API backend pour passer en production.
+> ℹ️ **Deux modes.** Avec `VITE_SUPABASE_URL` et `VITE_SUPABASE_ANON_KEY` : mode production (Market + Express réels, autres services en aperçu). Sans : **mode démonstration**, toutes les données sont simulées sur l’appareil et le suivi avance 10× plus vite.
 
 ## Démarrage
 
@@ -84,10 +95,15 @@ src/
   pages/        Accueil, Panier, Validation, Commandes, Scanner, Profil…
   pages/service Mini-apps des services (boutique, Express, Tremplin, GuruTools, Guru Légal)
   data/         Services, catalogue produits, offres d'emploi et candidats, villes
+  apps/         Espaces professionnels : marchand, livreur, admin
+  live/         Connexion Supabase, authentification SMS, temps réel, suivi des commandes
   store/        État global (panier, favoris, commandes) persisté sur l'appareil
   lib/          Formatage FCFA, pont natif Capacitor
 assets/         Sources des icônes et de l'écran de lancement (npx @capacitor/assets generate)
-android/ ios/   Projets natifs Capacitor
+android/ ios/   Projets natifs Capacitor de l'app client
+native/         Projets natifs NEAM Partenaire et NEAM Livreur
+supabase/       Schéma, règles d'accès et fonctions du serveur (migrations), données de départ, deploy.sql
+scripts/        test-backend.mjs : vérifications automatisées du serveur
 ```
 
 Identifiant de l’application : `com.neam.superapp` (modifiable dans `capacitor.config.ts`).

@@ -22,6 +22,9 @@ export type Product = {
   booking?: boolean
   /** Article personnalisable (envoi d'un visuel) */
   custom?: boolean
+  /** Boutique (catalogue réel Supabase) */
+  storeId?: string
+  inStock?: boolean
 }
 
 type Extra = Partial<Pick<Product, 'oldPrice' | 'badge' | 'popular' | 'rating' | 'sub' | 'from' | 'booking' | 'custom'>>
@@ -179,6 +182,11 @@ export const PRODUCTS: Product[] = Object.entries(rows).flatMap(([serviceId, lis
 export const PRODUCT_MAP = Object.fromEntries(PRODUCTS.map((p) => [p.id, p])) as Record<string, Product>
 
 export const productsOf = (serviceId: ServiceId) => PRODUCTS.filter((p) => p.serviceId === serviceId)
+
+/** Produits du catalogue réel (chargés depuis Supabase), en plus du catalogue de démonstration. */
+const LIVE_REGISTRY = new Map<string, Product>()
+export const registerProducts = (list: Product[]) => list.forEach((p) => LIVE_REGISTRY.set(p.id, p))
+export const getProduct = (id: string): Product | undefined => LIVE_REGISTRY.get(id) ?? PRODUCT_MAP[id]
 
 /** Restaurants partenaires NEAM Food */
 export const RESTAURANTS = [

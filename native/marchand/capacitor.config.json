@@ -1,0 +1,7 @@
+{
+  "appId": "com.neam.partenaire",
+  "appName": "NEAM Partenaire",
+  "webDir": "../../dist-marchand",
+  "backgroundColor": "#ff6a00",
+  "plugins": { "SplashScreen": { "launchShowDuration": 1000, "backgroundColor": "#ff6a00", "showSpinner": false } }
+}

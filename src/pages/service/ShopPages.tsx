@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ArrowRight, ChevronRight, Clock, MapPin, Route as RouteIcon, Search, Star, Timer } from 'lucide-react'
 import type { Quick, Section, Service } from '../../data/services'
-import { productsOf, RESTAURANTS, SPECIALTIES, type Product } from '../../data/products'
+import { RESTAURANTS, SPECIALTIES, type Product } from '../../data/products'
+import { useProducts } from '../../live/catalog'
 import { Icon } from '../../lib/icons'
 import { ProductCard } from '../../components/ProductCard'
 import { useApp } from '../../store/AppContext'
@@ -60,6 +61,14 @@ export function QuickTile({ q, service }: { q: Quick; service: Service }) {
       </span>
       <span className="text-[11px] font-medium leading-tight text-neutral-700">{q.label}</span>
     </Link>
+  )
+}
+
+function RowSkeleton() {
+  return (
+    <div className="flex gap-3 overflow-hidden px-4 pt-6" aria-label="Chargement">
+      {[0, 1, 2].map((i) => <div key={i} className="h-56 w-40 shrink-0 animate-pulse rounded-2xl bg-neutral-200/70" />)}
+    </div>
   )
 }
 
@@ -127,7 +136,7 @@ function SectionBlock({ section, service, products }: { section: Section; servic
 
 export function ShopHome({ service }: { service: Service }) {
   const navigate = useNavigate()
-  const products = useMemo(() => productsOf(service.id), [service.id])
+  const { products, loading, error } = useProducts(service.id)
   const heroTarget = service.id === 'health' ? 'c/Consultation' : 'c/Tous'
   return (
     <>
@@ -138,7 +147,8 @@ export function ShopHome({ service }: { service: Service }) {
           {service.quick.map((q) => <QuickTile key={q.label} q={q} service={service} />)}
         </section>
       )}
-      {service.sections.map((s) => <SectionBlock key={s.title} section={s} service={service} products={products} />)}
+      {error && <p className="mx-4 mt-6 rounded-2xl bg-red-50 p-4 text-sm font-medium text-red-600">{error}</p>}
+      {loading ? <RowSkeleton /> : service.sections.map((s) => <SectionBlock key={s.title} section={s} service={service} products={products} />)}
       {service.banner && (
         <section className="px-4 pt-6">
           <button onClick={() => navigate(hrefOf(service, service.banner?.to ?? 'c/Tous'))} className="relative grid w-full grid-cols-[1.5fr_1fr] overflow-hidden rounded-[24px] text-left text-white shadow-lg" style={{ background: service.gradient }}>
@@ -166,7 +176,7 @@ export function ShopHome({ service }: { service: Service }) {
 }
 
 export function CategoriesPage({ service }: { service: Service }) {
-  const products = productsOf(service.id)
+  const { products } = useProducts(service.id)
   const quickByCat = Object.fromEntries(service.quick.filter((q) => q.cat).map((q) => [q.cat, q]))
   return (
     <>
@@ -199,7 +209,7 @@ const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,
 export function CategoryPage({ service }: { service: Service }) {
   const { cat = 'Tous' } = useParams()
   const category = decodeURIComponent(cat)
-  const all = productsOf(service.id)
+  const { products: all, loading } = useProducts(service.id)
   const inCat = category === 'Tous' ? all : all.filter((p) => p.category === category)
   const subs = [...new Set(inCat.map((p) => p.sub).filter(Boolean))] as string[]
   const chips = subs.length ? ['Tous', ...subs] : category === 'Tous' ? ['Tous', ...service.categories] : []
@@ -241,7 +251,8 @@ export function CategoryPage({ service }: { service: Service }) {
           </div>
         ))}
       </section>
-      {!list.length && (
+      {loading && <RowSkeleton />}
+      {!loading && !list.length && (
         <div className="px-6 py-16 text-center text-neutral-500">
           <div className="text-5xl">🔍</div>
           <p className="mt-3 font-medium">Aucun résultat</p>
@@ -252,7 +263,7 @@ export function CategoryPage({ service }: { service: Service }) {
 }
 
 export function PromosPage({ service }: { service: Service }) {
-  const list = productsOf(service.id).filter((p) => p.oldPrice)
+  const list = useProducts(service.id).products.filter((p) => p.oldPrice)
   return (
     <>
       <ServiceSubHeader service={service} title="Promotions du jour" />
@@ -295,7 +306,7 @@ export function RestaurantsPage({ service }: { service: Service }) {
 export function RestaurantPage({ service }: { service: Service }) {
   const { name = '' } = useParams()
   const r = RESTAURANTS.find((x) => x.name === decodeURIComponent(name)) ?? RESTAURANTS[0]
-  const menu = productsOf(service.id).filter((p) => p.vendor === r.name)
+  const menu = useProducts(service.id).products.filter((p) => p.vendor === r.name)
   return (
     <>
       <ServiceSubHeader service={service} title={r.name} />
@@ -315,7 +326,7 @@ export function RestaurantPage({ service }: { service: Service }) {
 
 export function ServiceFavorites({ service }: { service: Service }) {
   const { favorites } = useApp()
-  const list = productsOf(service.id).filter((p) => favorites.includes(p.id))
+  const list = useProducts(service.id).products.filter((p) => favorites.includes(p.id))
   return (
     <>
       <ServiceSubHeader service={service} title="Mes favoris" />

@@ -3,6 +3,8 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Bell, ChevronDown, ChevronRight, MapPin, ScanLine, Search } from 'lucide-react'
 import { SERVICES } from '../data/services'
 import { PRODUCTS } from '../data/products'
+import { useProducts } from '../live/catalog'
+import { LIVE } from '../live/supabase'
 import { useApp } from '../store/AppContext'
 import { NeamLogo } from '../components/Logo'
 import { ServiceTile } from '../components/ServiceTile'
@@ -20,7 +22,8 @@ export default function Home() {
   const [locOpen, setLocOpen] = useState(false)
   const navigate = useNavigate()
   const unread = notifications.filter((n) => !n.read).length
-  const popular = PRODUCTS.filter((p) => p.popular)
+  const market = useProducts('market').products
+  const popular = LIVE ? market.filter((p) => p.popular).concat(market.filter((p) => !p.popular)).slice(0, 10) : PRODUCTS.filter((p) => p.popular)
 
   useEffect(() => {
     if (params.get('ville')) {

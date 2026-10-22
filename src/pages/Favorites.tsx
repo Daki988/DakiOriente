@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { PRODUCT_MAP } from '../data/products'
+import { getProduct } from '../data/products'
+import { useProducts } from '../live/catalog'
 import { useApp } from '../store/AppContext'
 import { PageHeader } from '../components/PageHeader'
 import { PageShell } from '../components/Navigation'
@@ -7,7 +8,8 @@ import { ProductCard } from '../components/ProductCard'
 
 export default function Favorites() {
   const { favorites } = useApp()
-  const items = favorites.map((id) => PRODUCT_MAP[id]).filter(Boolean)
+  useProducts('market') // charge le catalogue réel pour retrouver les favoris Market
+  const items = favorites.map((id) => getProduct(id)).filter((p): p is NonNullable<typeof p> => !!p)
   return (
     <PageShell>
       <PageHeader title="Mes favoris" subtitle={`${items.length} article${items.length > 1 ? 's' : ''}`} />

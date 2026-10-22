@@ -1,12 +1,16 @@
 import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Bike, MapPin, Minus, Plus, ShieldCheck, Tag, Trash2, Zap } from 'lucide-react'
-import { PRODUCT_MAP, type Product } from '../data/products'
+import { Bike, MapPin, Minus, Phone, Plus, ShieldCheck, Tag, Trash2, User, Zap } from 'lucide-react'
+import type { Product } from '../data/products'
 import { SERVICE_MAP, type ServiceId } from '../data/services'
-import { useApp } from '../store/AppContext'
+import { lineProduct, useApp } from '../store/AppContext'
 import { fcfa } from '../lib/format'
 import { tap } from '../lib/native'
 import { SKIP_GUARD } from '../lib/cartScope'
+import { LIVE, errMsg, normalizePhone, sb } from '../live/supabase'
+import { useAuth } from '../live/auth'
+import { PhoneLogin } from '../live/PhoneLogin'
+import { Sheet } from '../components/Sheet'
 import { PageHeader } from '../components/PageHeader'
 import { PageShell } from '../components/Navigation'
 import { ServiceBadge } from '../components/ServiceTile'
@@ -19,7 +23,7 @@ function useGroups() {
   return useMemo(() => {
     const map = new Map<ServiceId, { product: Product; qty: number }[]>()
     for (const l of cart) {
-      const product = PRODUCT_MAP[l.productId]
+      const product = lineProduct(l)
       if (!product) continue
       map.set(product.serviceId, [...(map.get(product.serviceId) ?? []), { product, qty: l.qty }])
     }
@@ -122,22 +126,38 @@ export function Cart() {
 const PROMOS: Record<string, number> = { NEAM20: 0.2, BIENVENUE: 0.1 }
 
 export function Checkout() {
-  const { city, cartTotal, wallet, placeOrder, clearCart, payWithWallet, toast } = useApp()
+  const { city, cartTotal, placeOrder, clearCart, toast, userName } = useApp()
+  const { session, profile } = useAuth()
   const groups = useGroups()
   const navigate = useNavigate()
+  const live = LIVE && groups.every(([sid]) => sid === 'market')
   const [address, setAddress] = useState('')
+  const [phone, setPhone] = useState(profile?.phone ? '+' + profile.phone : '')
+  const [name, setName] = useState(profile?.full_name || (userName !== 'Invité NEAM' ? userName : ''))
+  const [note, setNote] = useState('')
   const [fast, setFast] = useState(false)
-  const [payment, setPayment] = useState<PaymentId>('airtel')
+  const [payment, setPayment] = useState<PaymentId>('cash')
   const [code, setCode] = useState('')
   const [promo, setPromo] = useState<string | null>(null)
   const [error, setError] = useState('')
   const [paying, setPaying] = useState(false)
+  const [loginOpen, setLoginOpen] = useState(false)
 
   if (!groups.length && !paying) return <Cart />
 
-  const deliveryPer = (sub: number) => (sub >= FREE_FROM ? 0 : 1000) + (fast ? 1500 : 0)
-  const delivery = groups.reduce((n, [, lines]) => n + deliveryPer(lines.reduce((m, l) => m + l.product.price * l.qty, 0)), 0)
-  const discount = promo ? Math.round((cartTotal * PROMOS[promo]) / 100) * 100 : 0
+  // En production, une commande par boutique (frais de livraison calculés par le serveur avec la même règle)
+  const parts = live && groups.length
+    ? Object.values(
+        groups[0][1].reduce<Record<string, { product: Product; qty: number }[]>>((acc, l) => {
+          const k = l.product.storeId ?? 'x'
+          ;(acc[k] ??= []).push(l)
+          return acc
+        }, {}),
+      )
+    : groups.map(([, lines]) => lines)
+  const deliveryPer = (sub: number) => (sub >= FREE_FROM ? 0 : 1000) + (fast && !live ? 1500 : 0)
+  const delivery = parts.reduce((n, lines) => n + deliveryPer(lines.reduce((m, l) => m + l.product.price * l.qty, 0)), 0)
+  const discount = promo && !live ? Math.round((cartTotal * PROMOS[promo]) / 100) * 100 : 0
   const total = cartTotal + delivery - discount
 
   const applyCode = () => {
@@ -148,12 +168,39 @@ export function Checkout() {
     } else setError('Code promo invalide.')
   }
 
+  const confirmLive = async () => {
+    if (!session) return setLoginOpen(true)
+    setPaying(true)
+    try {
+      const ids: string[] = []
+      for (const lines of parts) {
+        const { data, error } = await sb().rpc('place_market_order', {
+          p_store: lines[0].product.storeId,
+          p_items: lines.map((l) => ({ product_id: l.product.id, qty: l.qty })),
+          p_address: address.trim(),
+          p_phone: phone.trim(),
+          p_name: name.trim(),
+          p_note: note.trim() || null,
+        })
+        if (error) throw error
+        ids.push((data as { id: string }).id)
+      }
+      if (name.trim() && profile && !profile.full_name) await sb().rpc('update_my_profile', { p_full_name: name.trim() })
+      clearCart()
+      toast(ids.length > 1 ? `${ids.length} commandes envoyées aux boutiques` : 'Commande envoyée à la boutique')
+      navigate(ids.length === 1 ? `/suivi/${ids[0]}` : '/commandes', { replace: true, state: SKIP_GUARD })
+    } catch (e) {
+      setError(errMsg(e))
+      setPaying(false)
+    }
+  }
+
   const confirm = () => {
     if (!address.trim()) return setError('Indiquez votre adresse ou votre quartier.')
-    if (payment === 'wallet' && !payWithWallet(total)) return setError('Solde NEAM Pay insuffisant.')
+    if (live && phone.replace(/\D/g, '').length < 8) return setError('Indiquez un numéro de téléphone pour le livreur.')
     tap()
+    if (live) return confirmLive()
     setPaying(true)
-    // Simulation de la validation du paiement (Mobile Money / carte)
     setTimeout(() => {
       let last = ''
       for (const [sid, lines] of groups) {
@@ -173,61 +220,78 @@ export function Checkout() {
         }).id
       }
       clearCart()
-      toast('Paiement accepté · commande confirmée')
+      toast('Commande confirmée · paiement à la livraison')
       navigate(groups.length === 1 ? `/commandes/${last}` : '/commandes', { replace: true, state: SKIP_GUARD })
-    }, 1400)
+    }, 900)
   }
 
+  const field = 'flex items-center gap-3 rounded-2xl bg-white px-4 py-3.5 shadow-sm ring-1 ring-black/5'
   return (
     <PageShell className="pb-44">
       <PageHeader title="Validation" subtitle="Livraison et paiement" />
       <div className="space-y-5 px-4 pt-2">
-        <section>
-          <h2 className="mb-2 text-sm font-semibold text-neutral-700">Adresse de livraison</h2>
-          <label className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3.5 shadow-sm ring-1 ring-black/5">
-            <MapPin size={18} className="text-neam-600" />
-            <input value={address} onChange={(e) => { setAddress(e.target.value); setError('') }} placeholder="Quartier, rue, point de repère…" className="flex-1 bg-transparent text-sm outline-none" />
-            <span className="text-xs font-medium text-neutral-400">{city}</span>
+        <section className="space-y-2">
+          <h2 className="text-sm font-semibold text-neutral-700">Livraison</h2>
+          <label className={field}>
+            <MapPin size={18} className="shrink-0 text-neam-600" />
+            <input id="co-address" value={address} onChange={(e) => { setAddress(e.target.value); setError('') }} placeholder="Quartier, rue, point de repère…" className="flex-1 bg-transparent text-sm outline-none" />
+            <span className="shrink-0 text-xs font-medium text-neutral-400">{city}</span>
           </label>
+          <div className="grid grid-cols-2 gap-2">
+            <label className={field}>
+              <User size={17} className="shrink-0 text-neam-600" />
+              <input id="co-name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Votre nom" className="flex-1 bg-transparent text-sm outline-none" autoComplete="name" />
+            </label>
+            <label className={field}>
+              <Phone size={17} className="shrink-0 text-neam-600" />
+              <input id="co-phone" value={phone} onChange={(e) => { setPhone(e.target.value); setError('') }} placeholder="Téléphone" inputMode="tel" className="flex-1 bg-transparent text-sm outline-none" autoComplete="tel" />
+            </label>
+          </div>
+          <textarea id="co-note" value={note} onChange={(e) => setNote(e.target.value)} rows={2} placeholder="Instructions pour le livreur (facultatif)" className="w-full resize-none rounded-2xl bg-white px-4 py-3 text-sm shadow-sm outline-none ring-1 ring-black/5" />
         </section>
 
-        <section>
-          <h2 className="mb-2 text-sm font-semibold text-neutral-700">Mode de livraison</h2>
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              { v: false, icon: Bike, t: 'Standard', d: '30-50 min' },
-              { v: true, icon: Zap, t: 'Express', d: '15-25 min · +1 500' },
-            ].map(({ v, icon: Icon, t, d }) => (
-              <button key={t} onClick={() => setFast(v)} className={`rounded-2xl border bg-white p-3 text-left transition ${fast === v ? 'border-neam-500 ring-2 ring-neam-500/20' : 'border-neutral-200'}`}>
-                <Icon size={20} className="text-neam-600" />
-                <p className="mt-1 text-sm font-semibold">{t}</p>
-                <p className="text-xs text-neutral-500">{d}</p>
-              </button>
-            ))}
-          </div>
-        </section>
+        {!live && (
+          <section>
+            <h2 className="mb-2 text-sm font-semibold text-neutral-700">Mode de livraison</h2>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { v: false, icon: Bike, t: 'Standard', d: '30-50 min' },
+                { v: true, icon: Zap, t: 'Express', d: '15-25 min · +1 500' },
+              ].map(({ v, icon: Icon, t, d }) => (
+                <button key={t} onClick={() => setFast(v)} className={`rounded-2xl border bg-white p-3 text-left transition ${fast === v ? 'border-neam-500 ring-2 ring-neam-500/20' : 'border-neutral-200'}`}>
+                  <Icon size={20} className="text-neam-600" />
+                  <p className="mt-1 text-sm font-semibold">{t}</p>
+                  <p className="text-xs text-neutral-500">{d}</p>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section>
           <h2 className="mb-2 text-sm font-semibold text-neutral-700">Paiement</h2>
-          <PaymentPicker value={payment} onChange={(p) => { setPayment(p); setError('') }} wallet={wallet} />
+          <PaymentPicker value={payment} onChange={(p) => { setPayment(p); setError('') }} />
         </section>
 
-        <section className="flex gap-2">
-          <label className="flex flex-1 items-center gap-2 rounded-2xl bg-white px-4 shadow-sm ring-1 ring-black/5">
-            <Tag size={16} className="text-neutral-400" />
-            <input value={code} onChange={(e) => { setCode(e.target.value); setError('') }} placeholder="Code promo (essayez NEAM20)" className="h-12 flex-1 bg-transparent text-sm uppercase outline-none placeholder:normal-case" />
-          </label>
-          <button onClick={applyCode} className="rounded-2xl bg-neam-950 px-5 text-sm font-semibold text-white">Appliquer</button>
-        </section>
+        {!live && (
+          <section className="flex gap-2">
+            <label className="flex flex-1 items-center gap-2 rounded-2xl bg-white px-4 shadow-sm ring-1 ring-black/5">
+              <Tag size={16} className="shrink-0 text-neutral-400" />
+              <input value={code} onChange={(e) => { setCode(e.target.value); setError('') }} placeholder="Code promo (essayez NEAM20)" className="h-12 flex-1 bg-transparent text-sm uppercase outline-none placeholder:normal-case" />
+            </label>
+            <button onClick={applyCode} className="shrink-0 rounded-2xl bg-neam-950 px-5 text-sm font-semibold text-white">Appliquer</button>
+          </section>
+        )}
 
         <section className="space-y-2 rounded-3xl bg-white p-4 text-sm shadow-sm ring-1 ring-black/5">
           <div className="flex justify-between"><span className="text-neutral-500">Sous-total</span><span>{fcfa(cartTotal)}</span></div>
-          <div className="flex justify-between"><span className="text-neutral-500">Livraison</span><span>{delivery ? fcfa(delivery) : 'Offerte'}</span></div>
+          <div className="flex justify-between"><span className="text-neutral-500">Livraison{parts.length > 1 ? ` (${parts.length} boutiques)` : ''}</span><span>{delivery ? fcfa(delivery) : 'Offerte'}</span></div>
           {discount > 0 && <div className="flex justify-between text-neam-700"><span>Réduction {promo}</span><span>-{fcfa(discount)}</span></div>}
-          <div className="flex justify-between border-t border-dashed border-neutral-200 pt-2 text-base font-bold"><span>Total</span><span>{fcfa(total)}</span></div>
+          <div className="flex justify-between border-t border-dashed border-neutral-200 pt-2 text-base font-bold"><span>Total à payer à la livraison</span><span>{fcfa(total)}</span></div>
         </section>
+        {parts.length > 1 && <p className="rounded-2xl bg-amber-50 p-3 text-xs text-amber-800">Votre panier contient des articles de {parts.length} boutiques : vous recevrez {parts.length} livraisons séparées.</p>}
 
-        <p className="flex items-center justify-center gap-1.5 text-xs text-neutral-500"><ShieldCheck size={14} className="text-neam-600" /> Paiement chiffré et sécurisé</p>
+        <p className="flex items-center justify-center gap-1.5 text-xs text-neutral-500"><ShieldCheck size={14} className="text-neam-600" /> Vous payez en espèces au livreur, à la réception.</p>
         {error && <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert">{error}</p>}
       </div>
 
@@ -235,13 +299,17 @@ export function Checkout() {
         <div className="mx-auto max-w-3xl rounded-t-[28px] bg-white px-5 pb-[calc(16px+var(--safe-bottom))] pt-4 shadow-[0_-10px_30px_-10px_rgba(0,0,0,0.2)] lg:rounded-[28px]">
           <button disabled={paying} onClick={confirm} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-neam-500 to-neam-700 py-4 font-semibold text-white shadow-lg transition active:scale-[0.98] disabled:opacity-80">
             {paying ? (
-              <><span className="h-5 w-5 animate-spin rounded-full border-2 border-white/40 border-t-white" /> Validation du paiement…</>
+              <><span className="h-5 w-5 animate-spin rounded-full border-2 border-white/40 border-t-white" /> Envoi de la commande…</>
             ) : (
-              <>Payer {fcfa(total)}</>
+              <>Commander · {fcfa(total)}</>
             )}
           </button>
         </div>
       </div>
+
+      <Sheet open={loginOpen} onClose={() => setLoginOpen(false)} title="Connexion">
+        <PhoneLogin title="Confirmez votre numéro" subtitle="Le livreur vous appellera sur ce numéro. Recevez un code par SMS." onDone={() => { setLoginOpen(false); if (!phone) setPhone('+' + normalizePhone('')) ; toast('Connecté · validez votre commande') }} />
+      </Sheet>
     </PageShell>
   )
 }

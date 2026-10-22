@@ -9,6 +9,7 @@ import { useApp } from '../store/AppContext'
 import { fcfa } from '../lib/format'
 import { tap } from '../lib/native'
 import { SKIP_GUARD } from '../lib/cartScope'
+import { isLiveService } from '../live/supabase'
 
 const SLOTS = ['08:00', '09:30', '11:00', '13:30', '15:00', '16:30', '18:00']
 
@@ -24,7 +25,7 @@ export type Bookable = Pick<Product, 'serviceId' | 'name' | 'emoji' | 'price' | 
 
 /** Réservation d'une prestation : date, créneau, lieu, paiement → crée un rendez-vous. */
 export function BookingSheet({ item, open, onClose }: { item: Bookable; open: boolean; onClose: () => void }) {
-  const { city, wallet, placeOrder, payWithWallet, toast } = useApp()
+  const { city, wallet, placeOrder, toast } = useApp()
   const navigate = useNavigate()
   const service = SERVICE_MAP[item.serviceId]
   const days = useMemo(() => nextDays(), [])
@@ -32,14 +33,14 @@ export function BookingSheet({ item, open, onClose }: { item: Bookable; open: bo
   const [slot, setSlot] = useState('')
   const [mode, setMode] = useState<'domicile' | 'visio'>(item.serviceId === 'health' || item.serviceId === 'legal' ? 'visio' : 'domicile')
   const [address, setAddress] = useState('')
-  const [payment, setPayment] = useState<PaymentId>('airtel')
+  const [payment, setPayment] = useState<PaymentId>('cash')
   const [error, setError] = useState('')
   const canVisio = item.serviceId === 'health' || item.serviceId === 'legal'
 
   const confirm = () => {
+    if (!isLiveService(item.serviceId)) return setError('Ce service arrive bientôt : la réservation n’est pas encore ouverte.')
     if (!slot) return setError('Choisissez un créneau.')
     if (mode === 'domicile' && !address.trim()) return setError('Indiquez l’adresse de la prestation.')
-    if (payment === 'wallet' && !payWithWallet(item.price)) return setError('Solde NEAM Pay insuffisant.')
     tap()
     const label = `${days[day].toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })} à ${slot}`
     const order = placeOrder({

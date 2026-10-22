@@ -1,0 +1,7 @@
+{
+  "appId": "com.neam.livreur",
+  "appName": "NEAM Livreur",
+  "webDir": "../../dist-livreur",
+  "backgroundColor": "#04241b",
+  "plugins": { "SplashScreen": { "launchShowDuration": 1000, "backgroundColor": "#04241b", "showSpinner": false } }
+}

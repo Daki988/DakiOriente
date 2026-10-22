@@ -12,3 +12,14 @@ export const timeAgo = (ts: number) => {
 }
 
 export const cx = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(' ')
+
+/** Montant comptable : 0 s'affiche « 0 FCFA » (et non « Gratuit » comme pour un prix). */
+export const money = (n: number) => `${nf.format(n)} FCFA`
+
+/** +24107000003 → +241 07 00 00 03 */
+export const formatPhone = (raw?: string | null) => {
+  if (!raw) return ''
+  const d = raw.replace(/\D/g, '')
+  if (!d.startsWith('241')) return raw
+  return '+241 ' + d.slice(3).replace(/(\d{2})(?=\d)/g, '$1 ').trim()
+}

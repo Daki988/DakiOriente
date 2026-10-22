@@ -1,9 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { PRODUCT_MAP, type Product } from '../data/products'
+import { getProduct, type Product } from '../data/products'
 import type { ServiceId } from '../data/services'
 import { SEED_CANDIDATES, SEED_RECRUITMENTS, type Candidate, type Recruitment } from '../data/careers'
 
-export type CartLine = { productId: string; qty: number }
+/** `snap` : copie de l'article au moment de l'ajout (catalogue réel chargé à la demande). */
+export type CartLine = { productId: string; qty: number; snap?: Product }
+
+export const lineProduct = (l: CartLine) => getProduct(l.productId) ?? l.snap
 
 export type OrderLine = { name: string; emoji: string; qty: number; price: number }
 
@@ -141,9 +144,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const api = useMemo<Ctx>(() => {
     const cartCount = state.cart.reduce((n, l) => n + l.qty, 0)
-    const cartTotal = state.cart.reduce((n, l) => n + (PRODUCT_MAP[l.productId]?.price ?? 0) * l.qty, 0)
-    const first = state.cart.find((l) => PRODUCT_MAP[l.productId])
-    const cartService = first ? PRODUCT_MAP[first.productId].serviceId : null
+    const cartTotal = state.cart.reduce((n, l) => n + (lineProduct(l)?.price ?? 0) * l.qty, 0)
+    const first = state.cart.map(lineProduct).find(Boolean)
+    const cartService = first ? first.serviceId : null
     return {
       ...state,
       cartCount,
@@ -155,12 +158,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
       addToCart: (p, qty = 1) =>
         setState((s) => {
           // Un panier = un seul service : un article d'un autre service remplace le panier
-          const owner = s.cart.map((l) => PRODUCT_MAP[l.productId]).find(Boolean)?.serviceId
+          const owner = s.cart.map(lineProduct).find(Boolean)?.serviceId
           if (owner && owner !== p.serviceId) s = { ...s, cart: [] }
           const found = s.cart.find((l) => l.productId === p.id)
           const cart = found
             ? s.cart.map((l) => (l.productId === p.id ? { ...l, qty: l.qty + qty } : l))
-            : [...s.cart, { productId: p.id, qty }]
+            : [...s.cart, { productId: p.id, qty, snap: p.storeId ? p : undefined }]
           return { ...s, cart }
         }),
       setQty: (productId, qty) =>

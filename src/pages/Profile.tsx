@@ -1,22 +1,28 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Bell, Bike, ChevronRight, CreditCard, Globe, Handshake, HelpCircle, Info, MapPin, Pencil, Plus, QrCode, Send, ShieldCheck, Store } from 'lucide-react'
+import { Bell, Bike, ChevronRight, CreditCard, Globe, Handshake, HelpCircle, Info, LogOut, MapPin, Pencil, Plus, QrCode, Send, ShieldCheck, Store } from 'lucide-react'
 import { useApp } from '../store/AppContext'
-import { fcfa } from '../lib/format'
+import { formatPhone } from '../lib/format'
+import { useAuth } from '../live/auth'
+import { PhoneLogin } from '../live/PhoneLogin'
+import { LIVE, errMsg, sb } from '../live/supabase'
 import { NeamMark } from '../components/Logo'
 import { PageShell } from '../components/Navigation'
 import { Sheet } from '../components/Sheet'
 
 export default function Profile() {
-  const { userName, setUserName, wallet, orders, favorites, city, toast } = useApp()
+  const { userName: localName, setUserName, orders, favorites, city, toast } = useApp()
+  const { session, profile, role, signOut, refresh } = useAuth()
+  const userName = LIVE && profile ? profile.full_name || 'Client NEAM' : localName
   const [edit, setEdit] = useState(false)
+  const [login, setLogin] = useState(false)
   const [name, setName] = useState(userName)
 
   const soon = () => toast('Bientôt disponible sur NEAM')
 
   const menu = [
     { icon: MapPin, label: 'Mes adresses', hint: city },
-    { icon: CreditCard, label: 'Moyens de paiement', hint: 'Airtel, Moov, carte' },
+    { icon: CreditCard, label: 'Moyens de paiement', hint: 'À la livraison' },
     { icon: Bell, label: 'Notifications', to: '/notifications' },
     { icon: Globe, label: 'Langue', hint: 'Français' },
     { icon: ShieldCheck, label: 'Sécurité et confidentialité' },
@@ -34,7 +40,7 @@ export default function Profile() {
           </div>
           <div className="flex-1">
             <h1 className="text-xl font-bold">{userName}</h1>
-            <p className="text-sm text-white/70">{city}, Gabon · Membre NEAM</p>
+            <p className="text-sm text-white/70">{LIVE && profile?.phone ? formatPhone(profile.phone) : `${city}, Gabon`} · Membre NEAM</p>
           </div>
           <button onClick={() => setEdit(true)} aria-label="Modifier le profil" className="glass grid h-10 w-10 place-items-center rounded-full"><Pencil size={17} /></button>
         </div>
@@ -46,8 +52,9 @@ export default function Profile() {
             <span className="flex items-center gap-2 text-sm font-semibold"><NeamMark mono className="h-5" /> NEAM Pay</span>
             <span className="rounded-full bg-white/20 px-2.5 py-1 text-[11px] font-medium">Sécurisé</span>
           </div>
-          <p className="mt-4 text-xs text-white/75">Solde disponible</p>
-          <p className="text-3xl font-extrabold tracking-tight">{fcfa(wallet)}</p>
+          <p className="mt-4 text-xs text-white/75">Portefeuille NEAM Pay</p>
+          <p className="text-2xl font-extrabold tracking-tight">Bientôt disponible</p>
+          <p className="text-xs text-white/75">En attendant, vous payez à la livraison.</p>
           <div className="mt-4 grid grid-cols-3 gap-2">
             {[
               { icon: Plus, label: 'Recharger' },
@@ -62,6 +69,21 @@ export default function Profile() {
             )}
           </div>
         </section>
+
+        {LIVE && (
+          <section className="rounded-3xl bg-white p-4 shadow-sm ring-1 ring-black/5">
+            {session ? (
+              <div className="space-y-2">
+                {role === 'merchant' && <Link to="/marchand" className="flex items-center justify-between rounded-2xl bg-orange-50 px-4 py-3 text-sm font-semibold text-orange-800">Mon espace marchand <ChevronRight size={17} /></Link>}
+                {role === 'courier' && <Link to="/livreur" className="flex items-center justify-between rounded-2xl bg-neam-50 px-4 py-3 text-sm font-semibold text-neam-800">Mon espace livreur <ChevronRight size={17} /></Link>}
+                {role === 'admin' && <Link to="/admin" className="flex items-center justify-between rounded-2xl bg-neam-950 px-4 py-3 text-sm font-semibold text-white">Administration NEAM <ChevronRight size={17} /></Link>}
+                <button onClick={() => { signOut(); toast('Déconnecté') }} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-neutral-100 py-3 text-sm font-semibold text-neutral-700"><LogOut size={16} /> Se déconnecter</button>
+              </div>
+            ) : (
+              <button onClick={() => setLogin(true)} className="w-full rounded-2xl bg-neam-600 py-3.5 font-semibold text-white">Se connecter avec mon numéro</button>
+            )}
+          </section>
+        )}
 
         <section className="grid grid-cols-3 gap-2 text-center">
           {[
@@ -92,27 +114,35 @@ export default function Profile() {
         </section>
 
         <section className="grid grid-cols-2 gap-2">
-          <button onClick={soon} className="rounded-3xl bg-neam-950 p-4 text-left text-white">
+          <Link to="/livreur" className="rounded-3xl bg-neam-950 p-4 text-left text-white">
             <Bike className="text-neam-400" />
-            <p className="mt-2 text-sm font-semibold">Devenir coursier</p>
-            <p className="text-xs text-white/60">Gagnez avec NEAM Express</p>
-          </button>
-          <button onClick={soon} className="rounded-3xl bg-white p-4 text-left ring-1 ring-black/5">
+            <p className="mt-2 text-sm font-semibold">Devenir livreur</p>
+            <p className="text-xs text-white/60">Rejoignez l’équipe NEAM</p>
+          </Link>
+          <Link to="/marchand" className="rounded-3xl bg-white p-4 text-left ring-1 ring-black/5">
             <Store className="text-neam-600" />
             <p className="mt-2 text-sm font-semibold">Devenir partenaire</p>
-            <p className="text-xs text-neutral-500">Vendez sur NEAM</p>
-          </button>
+            <p className="text-xs text-neutral-500">Vendez sur NEAM Market</p>
+          </Link>
         </section>
         <p className="flex items-center justify-center gap-1.5 pb-4 text-xs text-neutral-400"><Handshake size={14} /> NEAM — Plus proche de votre quotidien.</p>
       </div>
 
+      <Sheet open={login} onClose={() => setLogin(false)} title="Connexion">
+        <PhoneLogin onDone={() => { setLogin(false); toast('Bienvenue sur NEAM') }} />
+      </Sheet>
       <Sheet open={edit} onClose={() => setEdit(false)} title="Modifier le profil">
         <label className="block text-sm font-medium text-neutral-600">
           Nom complet
           <input value={name} onChange={(e) => setName(e.target.value)} className="mt-1 h-12 w-full rounded-2xl border border-neutral-200 px-4 text-base outline-none focus:border-neam-500" />
         </label>
         <button
-          onClick={() => {
+          onClick={async () => {
+            if (LIVE && session && name.trim()) {
+              const { error } = await sb().rpc('update_my_profile', { p_full_name: name.trim() })
+              if (error) return toast(errMsg(error))
+              await refresh()
+            }
             if (name.trim()) setUserName(name.trim())
             setEdit(false)
             toast('Profil mis à jour')
