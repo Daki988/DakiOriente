@@ -2,7 +2,7 @@
 
 Slides : `NEAM_carrousel_temps_01.png` à `_10.png`, à publier dans l'ordre.
 
-Récit : l'entrepreneur a créé sa boîte pour être libre → peu à peu, il fait tout lui-même → le temps ne se regagne pas → ce qu'il est seul à pouvoir faire, et tout le reste se délègue → NEAM prend en charge visibilité, réseaux, relances et outils → il garde l'essentiel et récupère du temps → appel à l'action (diagnostic gratuit, à partir de 150 000 FCFA / mois).
+Récit : l'entrepreneur a créé sa boîte pour être libre → peu à peu, il fait tout lui-même → le temps ne se regagne pas → ce qu'il est seul à pouvoir faire, et tout le reste se délègue → NEAM prend en charge visibilité, réseaux, relances et outils → il garde l'essentiel et récupère du temps → appel à l'action (diagnostic gratuit, offre Starter à partir de 150 000 FCFA / mois).
 
 Légende proposée :
 > Tu as créé ton entreprise pour être libre. Pas pour répondre à WhatsApp à minuit. ⏳

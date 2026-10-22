@@ -25,7 +25,7 @@
 Votre site est souvent le premier contact avec un client. Nous le rendons clair, rapide et agréable sur mobile, et nous faisons en sorte qu’il soit trouvé sur Google. Résultat : plus de visites, et surtout plus de demandes.
 Prestations : Sites vitrines, Plateformes web, E-commerce, Design UX/UI, Référencement (SEO), Réseaux sociaux.
 Délais indicatifs : Site vitrine : 2 à 4 semaines ; Boutique en ligne ou plateforme : 6 à 12 semaines ; Référencement (SEO) : premiers effets en 3 à 6 mois.
-Ce qui fait varier le prix : Le nombre de pages et de langues ; Les contenus : fournis par vous ou rédigés par nous ; Les fonctionnalités : boutique, paiement Airtel Money / Moov Money, réservation ; Les connexions à vos outils existants ; La maintenance et le suivi après la mise en ligne. Aucun tarif public : devis détaillé et gratuit après un premier échange, sans engagement.
+Ce qui fait varier le prix : Le nombre de pages et de langues ; Les contenus : fournis par vous ou rédigés par nous ; Les fonctionnalités : boutique, paiement Airtel Money / Moov Money, réservation ; Les connexions à vos outils existants ; La maintenance et le suivi après la mise en ligne. Projet sur mesure : devis détaillé et gratuit après un premier échange, sans engagement.
 Questions fréquentes :
 - Combien coûte un site web au Gabon ? → Tout dépend du nombre de pages, des contenus et des fonctionnalités. Nous vous remettons un devis détaillé après un premier échange, sans engagement.
 - Mon site sera-t-il visible sur Google ? → Oui, c’est le but. Chaque site est livré avec les bases du référencement : titres, descriptions, vitesse, données structurées et fiche Google Business. Le référencement se construit ensuite dans le temps.
@@ -36,7 +36,7 @@ Questions fréquentes :
 Encore des cahiers, des fichiers Excel et des messages WhatsApp pour suivre vos clients ? Nous créons des outils simples, pensés pour votre activité, qui rassemblent tout au même endroit et vous font gagner un temps précieux.
 Prestations : Applications métier, CRM, ERP, Tableaux de bord, Outils internes.
 Délais indicatifs : Cadrage : 1 à 2 semaines ; Première version utilisable : 6 à 12 semaines ; Évolutions : en continu.
-Ce qui fait varier le prix : Le nombre de processus à couvrir (ventes, stocks, RH…) ; Le nombre d’utilisateurs et de rôles ; Les connexions à d’autres outils (comptabilité, paiement, SMS) ; La reprise de données existantes ; L’hébergement, la maintenance et l’assistance. Aucun tarif public : devis détaillé et gratuit après un premier échange, sans engagement.
+Ce qui fait varier le prix : Le nombre de processus à couvrir (ventes, stocks, RH…) ; Le nombre d’utilisateurs et de rôles ; Les connexions à d’autres outils (comptabilité, paiement, SMS) ; La reprise de données existantes ; L’hébergement, la maintenance et l’assistance. Projet sur mesure : devis détaillé et gratuit après un premier échange, sans engagement.
 Questions fréquentes :
 - Faut-il remplacer tous mes outils ? → Non. Nous commençons par le processus qui vous fait perdre le plus de temps, puis nous avançons pas à pas.
 - Mes équipes vont-elles s’y retrouver ? → Nous concevons des écrans simples, testés avec vos équipes, et nous les formons avant la mise en service.
@@ -47,7 +47,7 @@ Questions fréquentes :
 Devis, relances, réponses aux questions fréquentes… Une partie de ces tâches peut être confiée à des assistants intelligents. Vous gagnez des heures chaque semaine, et vos équipes se concentrent sur ce qui compte vraiment.
 Prestations : Assistants IA, Workflows, Automatisation, Optimisation des opérations.
 Délais indicatifs : Premier workflow automatisé : 1 à 3 semaines ; Assistant IA de réponse : 2 à 6 semaines ; Extensions : au fil de l’eau.
-Ce qui fait varier le prix : Le nombre de tâches et d’outils à connecter ; Le volume de messages ou de documents traités ; Les services d’IA utilisés et leur coût d’usage ; Le niveau de contrôle humain souhaité ; La maintenance et le suivi. Aucun tarif public : devis détaillé et gratuit après un premier échange, sans engagement.
+Ce qui fait varier le prix : Le nombre de tâches et d’outils à connecter ; Le volume de messages ou de documents traités ; Les services d’IA utilisés et leur coût d’usage ; Le niveau de contrôle humain souhaité ; La maintenance et le suivi. Projet sur mesure : devis détaillé et gratuit après un premier échange, sans engagement.
 Questions fréquentes :
 - L’IA va-t-elle remplacer mes équipes ? → Non. Elle prend en charge les tâches répétitives pour que vos équipes se concentrent sur ce qui demande du jugement et du contact humain.
 - Et si l’IA se trompe ? → Chaque automatisation prévoit des contrôles et une validation humaine pour les décisions importantes.
@@ -58,12 +58,20 @@ Questions fréquentes :
 Vous ne savez pas par où commencer ? C’est normal. Nous faisons le point avec vous, nous fixons les bonnes priorités et nous formons vos équipes pour que les nouveaux outils soient vraiment utilisés.
 Prestations : Diagnostic digital, Stratégie digitale, Accompagnement des équipes, Formation.
 Délais indicatifs : Diagnostic et feuille de route : 1 à 2 semaines ; Formation : sessions d’une demi-journée à deux jours ; Accompagnement : mensuel, selon vos besoins.
-Ce qui fait varier le prix : La taille de l’entreprise et le nombre de services concernés ; La profondeur du diagnostic ; Le nombre de personnes à former et de sessions ; Le format : sur place à Libreville ou à distance ; La durée de l’accompagnement. Aucun tarif public : devis détaillé et gratuit après un premier échange, sans engagement.
+Ce qui fait varier le prix : La taille de l’entreprise et le nombre de services concernés ; La profondeur du diagnostic ; Le nombre de personnes à former et de sessions ; Le format : sur place à Libreville ou à distance ; La durée de l’accompagnement. Projet sur mesure : devis détaillé et gratuit après un premier échange, sans engagement.
 Questions fréquentes :
 - Mon entreprise est petite, est-ce pour moi ? → Oui. Nos accompagnements sont pensés d’abord pour les TPE et PME.
 - Quelle différence avec le Digital Score ? → Le Digital Score est un premier diagnostic gratuit : il analyse votre présence en ligne et votre maturité numérique interne en 8 questions. Le conseil va plus loin : entretiens, analyse de vos outils, de vos équipes et de votre budget.
 - Les formations peuvent-elles avoir lieu dans nos locaux ? → Oui, à Libreville, ou à distance pour les autres villes du Gabon.
 - Que se passe-t-il après la feuille de route ? → Vous pouvez la mettre en œuvre seul, ou avec NEAM : nous réalisons aussi les sites, logiciels et automatisations.
+
+## Offres et tarifs
+- NEAM Starter (micro-entreprises) : présence digitale, fiche Google, page de présentation, diagnostic. À partir de 150 000 FCFA par mois. C’est le seul tarif public.
+- NEAM Business (TPE) : site web, identité numérique, référencement, outils commerciaux, accompagnement. Sur devis.
+- NEAM Growth (PME) : CRM, automatisations, données, acquisition de clients, accompagnement avancé. Sur devis.
+- NEAM Enterprise (organisations complexes) : solutions métiers, intégrations, développement spécifique. Sur devis.
+- NEAM Custom (besoins spécifiques) : architecture et solution conçues sur mesure. Sur devis.
+- Tout devis est détaillé, gratuit et sans engagement ; le contenu exact de l’offre Starter est précisé avec le client lors du premier échange.
 
 ## Produits et réalisations (statut réel)
 - GuruTools (Plateforme de recrutement, statut : Disponible) : Conception, développement et mise en ligne d’une plateforme SaaS : création d’offres, candidature sans compte, lecture automatique des CV, matching expliqué. Lien : https://gurutools.pro

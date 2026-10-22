@@ -253,19 +253,20 @@ page('', 'Nos expertises', f'''
   <div class="sectors"><span class="label">Secteurs accompagnés</span><p>Commerce · Restauration · Immobilier · Services · Éducation · BTP · Cabinets · PME, à Libreville, Akanda, Owendo et partout au Gabon.</p></div>''')
 
 # ---------- 14 Offres ----------
-OFF = [('Starter', 'Micro-entreprises', 'Présence digitale, fiche Google, page de présentation, diagnostic.', 1),
-       ('Business', 'TPE', 'Site web, identité numérique, référencement, outils commerciaux, accompagnement.', 2),
-       ('Growth', 'PME', 'CRM, automatisations, données, acquisition de clients, accompagnement avancé.', 3),
-       ('Enterprise', 'Organisations complexes', 'Solutions métiers, intégrations, développement spécifique.', 4),
-       ('Custom', 'Besoins spécifiques', 'Architecture et solution conçues entièrement sur mesure.', 5)]
+OFF = [('Starter', 'Micro-entreprises', 'Présence digitale, fiche Google, page de présentation, diagnostic.', 1, '<small>À partir de</small>150&nbsp;000 FCFA<small>par mois</small>'),
+       ('Business', 'TPE', 'Site web, identité numérique, référencement, outils commerciaux, accompagnement.', 2, 'Sur devis'),
+       ('Growth', 'PME', 'CRM, automatisations, données, acquisition de clients, accompagnement avancé.', 3, 'Sur devis'),
+       ('Enterprise', 'Organisations complexes', 'Solutions métiers, intégrations, développement spécifique.', 4, 'Sur devis'),
+       ('Custom', 'Besoins spécifiques', 'Architecture et solution conçues entièrement sur mesure.', 5, 'Sur devis')]
 OFF_I = ['pousse', 'boutique', 'mesure', 'immeuble', 'reglages']
-off = ''.join(f'<li><span class="off__ico">{icon(OFF_I[k])}</span><div class="off__name"><span>NEAM</span><b>{n}</b><i>{c}</i></div><p>{d}</p><div class="off__bar" style="--v:{v}"><span></span></div></li>' for k, (n, c, d, v) in enumerate(OFF))
+OFF_CLS = [' class="off--star"', '', '', '', '']
+off = ''.join(f'<li{OFF_CLS[k]}><span class="off__ico">{icon(OFF_I[k])}</span><div class="off__name"><span>NEAM</span><b>{n}</b><i>{c}</i></div><p>{d}</p><div class="off__end"><span class="off__price">{pr}</span><div class="off__bar" style="--v:{v}"><span></span></div></div></li>' for k, (n, c, d, v, pr) in enumerate(OFF))
 page('page--grey', 'Nos offres', f'''
   <span class="label">Nos offres</span>
   <h1>Une offre pour chaque <em>niveau de maturité</em>.</h1>
   <p class="lead">De la micro-entreprise qui veut être trouvée sur Google à l’organisation qui a besoin d’un logiciel sur mesure&nbsp;: nous servons chaque étape, sans diluer la qualité.</p>
   <ul class="offers">{off}</ul>
-  <p class="note">La barre indique la profondeur de l’accompagnement. Chaque projet fait l’objet d’un devis détaillé, gratuit et sans engagement.</p>''', toc='Nos offres')
+  <p class="note">La barre indique la profondeur de l’accompagnement. L’offre Starter démarre à 150&nbsp;000 FCFA par mois&nbsp;; les autres offres font l’objet d’un devis détaillé, gratuit et sans engagement.</p>''', toc='Nos offres')
 
 # ---------- 13 Digital Score ----------
 page('page--yellow', 'NEAM Digital Score™', f'''
