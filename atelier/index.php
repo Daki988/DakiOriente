@@ -152,6 +152,13 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
             if ($type === 'diagnostic' && trim((string) ($_POST['digital_score'] ?? '')) !== '') {
                 $extra['resultat_digital_score'] = clean($_POST['digital_score'], 6000);
             }
+            if ($type === 'formation') {
+                $extra['duree'] = in_array($c['pack'], ['growth', 'enterprise'], true) ? 'une journée' : 'une demi-journée';
+            }
+            if ($type === 'cahier_des_charges') {
+                $besoins = array_map(fn($k) => ATELIER_SERVICES[$k][0], array_intersect($c['options'] ?? [], ['cadrage', 'outil', 'crm', 'dashboard']));
+                $extra['besoin'] = $besoins ? implode(' ; ', $besoins) : ATELIER_PACKS[$c['pack']]['contenu'][0];
+            }
             if ($type === 'calendrier') {
                 $pack = ATELIER_PACKS[$c['pack']];
                 $extra = ['mois' => mois_fr($mois), 'nombre_de_publications' => max(4, $pack['publications']), 'reseaux' => ($c['brief']['reseaux'] ?? '') ?: ($pack['reseaux'] > 1 ? 'Facebook et Instagram' : 'Facebook')];
@@ -227,18 +234,23 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
             $retour .= '#' . $type;
             break;
         case 'publier':
-            $l = $c['livrables']['page'] ?? null;
+            $type = ($_POST['cible'] ?? '') === 'liv:site' ? 'site' : 'page';
+            $l = $c['livrables'][$type] ?? null;
             if (!$l || $l['statut'] !== 'valide') {
-                repondre(false, false, 'Validez d’abord la page de présentation.', $retour);
+                repondre(false, false, 'Validez d’abord le livrable avant de le publier.', $retour);
             }
             $dir = __DIR__ . '/../vitrines/' . $c['slug'];
             if (!is_dir($dir) && !@mkdir($dir, 0755, true)) {
                 repondre(false, false, 'Impossible de créer le dossier vitrines/ sur l’hébergement.', $retour);
             }
-            file_put_contents($dir . '/index.html', vitrine_html($c, $l['data']));
+            $fichiers = $type === 'site' ? site_pages($c, $l['data']) : ['index.html' => vitrine_html($c, $l['data'])];
+            foreach ($fichiers as $nom => $html) {
+                file_put_contents($dir . '/' . basename($nom), $html);
+            }
             $c['vitrine'] = 'vitrines/' . $c['slug'] . '/';
-            journal($c, 'Page publiée : ' . $c['vitrine']);
-            $flash = 'Page publiée.';
+            journal($c, ($type === 'site' ? 'Site publié (' . count($fichiers) . ' pages) : ' : 'Page publiée : ') . $c['vitrine']);
+            $flash = $type === 'site' ? 'Site publié.' : 'Page publiée.';
+            $retour .= '#' . $type;
             break;
         case 'note':
             $n = clean($_POST['note'] ?? '', 600);
@@ -269,11 +281,22 @@ switch ($p) {
         break;
     case 'apercu':
         $c = client_charger((string) ($_GET['id'] ?? '')) ?? introuvable();
-        if (empty($c['livrables']['page'])) {
+        header('Content-Security-Policy: sandbox allow-popups');
+        if (($_GET['t'] ?? '') === 'site' && !empty($c['livrables']['site'])) {
+            $pages = site_pages($c, $c['livrables']['site']['data']);
+            $f = (string) ($_GET['f'] ?? 'index.html');
+            $html = $pages[$f] ?? reset($pages);
+            // les liens du menu restent dans l'aperçu
+            echo preg_replace('/href="([a-z0-9-]+\.html)"/', 'href="?p=apercu&amp;id=' . $c['id'] . '&amp;t=site&amp;f=$1"', (string) $html);
+        } elseif (!empty($c['livrables']['page'])) {
+            echo vitrine_html($c, $c['livrables']['page']['data']);
+        } else {
             introuvable();
         }
-        header('Content-Security-Policy: sandbox');
-        echo vitrine_html($c, $c['livrables']['page']['data']);
+        break;
+    case 'doc':
+        $c = client_charger((string) ($_GET['id'] ?? '')) ?? introuvable();
+        page_doc($c, (string) ($_GET['cible'] ?? ''));
         break;
     case 'export':
         $c = client_charger((string) ($_GET['id'] ?? '')) ?? introuvable();
@@ -485,23 +508,27 @@ function page_client(array $c): void
     echo '<div class="grille"><section class="bloc">';
     // Livrables
     echo '<h2>Livrables</h2><p class="aide">L’IA produit, le contrôle qualité vérifie, un expert valide. Rien n’est livré au client sans validation.</p>';
-    $manquants = array_values(array_filter($pack['livrables'], fn($t) => !in_array($t, ['calendrier', 'rapport'], true) && empty($c['livrables'][$t])));
+    $liste = livrables_client($c);
+    $manquants = array_values(array_filter($liste, fn($t) => !in_array($t, ['calendrier', 'rapport'], true) && empty($c['livrables'][$t])));
     if ($manquants && !empty($b['description'])) {
         echo '<button class="btn" data-tout="' . h(implode(',', $manquants)) . '" data-id="' . $id . '" data-csrf="' . h($_SESSION['csrf']) . '">Tout générer (' . count($manquants) . ' livrables)</button><p class="progression" hidden></p>';
     } elseif (empty($b['description'])) {
         echo '<p class="alerte">Complétez le brief (au moins « Ce que fait l’entreprise ») avant de générer les livrables.</p>';
     }
-    foreach ($pack['livrables'] as $t) {
-        if (in_array($t, ['calendrier', 'rapport'], true)) {
-            continue;
+    foreach (ATELIER_EXPERTISES as $exp) {
+        $ts = array_filter($liste, fn($t) => ATELIER_LIVRABLES[$t][2] === $exp && !in_array($t, ['calendrier', 'rapport'], true));
+        if ($ts) {
+            echo '<h3 class="expertise">' . h($exp) . '</h3>';
         }
-        bloc_livrable($c, 'liv:' . $t, $t, ATELIER_LIVRABLES[$t][0], $c['livrables'][$t] ?? null);
+        foreach ($ts as $t) {
+            bloc_livrable($c, 'liv:' . $t, $t, ATELIER_LIVRABLES[$t][0], $c['livrables'][$t] ?? null);
+        }
     }
 
     // Calendriers
-    if (in_array('calendrier', $pack['livrables'], true)) {
+    if (in_array('calendrier', $liste, true)) {
         echo '<h2 id="calendrier">Calendriers éditoriaux</h2>';
-        echo '<form method="post" class="inline">' . csrf_champ() . '<input type="hidden" name="a" value="generer"><input type="hidden" name="type" value="calendrier"><input type="hidden" name="id" value="' . $id . '"><input type="month" name="mois" value="' . date('Y-m', strtotime('first day of next month')) . '"><button class="btn btn--ghost" data-attente>Générer ' . (int) $pack['publications'] . ' publications</button></form>';
+        echo '<form method="post" class="inline">' . csrf_champ() . '<input type="hidden" name="a" value="generer"><input type="hidden" name="type" value="calendrier"><input type="hidden" name="id" value="' . $id . '"><input type="month" name="mois" value="' . date('Y-m', strtotime('first day of next month')) . '"><button class="btn btn--ghost" data-attente>Générer ' . max(8, (int) $pack['publications']) . ' publications</button></form>';
         foreach (array_reverse($c['calendriers'] ?? [], true) as $m => $l) {
             bloc_livrable($c, 'cal:' . $m, 'calendrier', 'Calendrier ' . mois_fr($m), $l);
         }
@@ -589,11 +616,15 @@ function bloc_livrable(array $c, string $cible, string $type, string $titre, ?ar
     $f = fn(string $a, string $label, string $cls = 'btn btn--ghost') => '<form method="post">' . csrf_champ() . '<input type="hidden" name="a" value="' . $a . '"><input type="hidden" name="id" value="' . $id . '"><input type="hidden" name="cible" value="' . h($cible) . '"><button class="' . $cls . '">' . $label . '</button></form>';
     echo '<div class="livrable__actions">';
     echo $l['statut'] === 'valide' ? $f('devalider', 'Remettre en brouillon') : $f('valider', 'Valider', 'btn');
-    if (in_array($type, ['fiche_google', 'page', 'whatsapp', 'sequences', 'calendrier'], true)) {
-        echo '<a class="btn btn--ghost" href="?p=export&id=' . $id . '&cible=' . h($cible) . '">' . ($type === 'calendrier' ? 'Exporter (CSV)' : ($type === 'page' ? 'Télécharger la page' : 'Exporter (texte)')) . '</a>';
+    $exports = ['calendrier' => 'Exporter (CSV)', 'page' => 'Télécharger la page', 'site' => 'Télécharger le site (ZIP)', 'boutique' => 'Catalogue (CSV)'];
+    if ($type !== 'diagnostic' && $type !== 'rapport') {
+        echo '<a class="btn btn--ghost" href="?p=export&id=' . $id . '&cible=' . h($cible) . '">' . ($exports[$type] ?? 'Exporter (texte)') . '</a>';
     }
-    if ($type === 'page') {
-        echo '<a class="btn btn--ghost" target="_blank" href="?p=apercu&id=' . $id . '">Aperçu</a>';
+    if (in_array($type, ['feuille_de_route', 'cahier_des_charges', 'formation', 'charte', 'workflows', 'assistant_ia', 'boutique', 'diagnostic'], true)) {
+        echo '<a class="btn btn--ghost" target="_blank" href="?p=doc&id=' . $id . '&cible=' . h($cible) . '">Version à imprimer</a>';
+    }
+    if ($type === 'page' || $type === 'site') {
+        echo '<a class="btn btn--ghost" target="_blank" href="?p=apercu&id=' . $id . ($type === 'site' ? '&t=site' : '') . '">Aperçu</a>';
         if ($l['statut'] === 'valide') {
             echo $f('publier', empty($c['vitrine']) ? 'Publier en ligne' : 'Republier');
         }
@@ -622,6 +653,22 @@ function exporter(array $c, string $cible): void
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename="' . $nom . '.csv"');
         echo calendrier_csv($l['data']);
+    } elseif ($type === 'boutique') {
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename="' . $nom . '-produits.csv"');
+        echo boutique_csv($l['data']);
+    } elseif ($type === 'site' && class_exists('ZipArchive')) {
+        $tmp = tempnam(sys_get_temp_dir(), 'site');
+        $zip = new ZipArchive();
+        $zip->open($tmp, ZipArchive::OVERWRITE);
+        foreach (site_pages($c, $l['data']) as $f => $html) {
+            $zip->addFromString($f, $html);
+        }
+        $zip->close();
+        header('Content-Type: application/zip');
+        header('Content-Disposition: attachment; filename="' . $nom . '.zip"');
+        readfile($tmp);
+        @unlink($tmp);
     } elseif ($type === 'page') {
         header('Content-Type: text/html; charset=utf-8');
         header('Content-Disposition: attachment; filename="index.html"');
@@ -724,8 +771,8 @@ function page_offres(): void
         echo '<tr><td><b>' . h($p['nom']) . '</b><br><small>' . h($p['cible']) . '</small></td><td class="n">' . ($p['diagnostic'] ? fcfa($p['diagnostic']) : 'Gratuit') . '</td><td class="n">' . ($p['a_partir_de'] ? 'dès ' : '') . fcfa($p['mise_en_place']) . '</td><td class="n">' . fcfa($p['mensuel']) . '</td><td>' . (int) $p['engagement'] . ' mois</td><td>' . h(implode(', ', array_map(fn($t) => ATELIER_LIVRABLES[$t][0], $p['livrables']))) . '</td></tr>';
     }
     echo '</tbody></table><p class="aide">Engagement de 24 mois : −10 % sur l’abonnement.</p><h2>Services à l’unité</h2><table class="tab"><tbody>';
-    foreach (ATELIER_SERVICES as [$nom, $prix, $type]) {
-        echo '<tr><td>' . h($nom) . '</td><td class="n">' . fcfa($prix) . ($type === 'mensuel' ? ' / mois' : '') . '</td></tr>';
+    foreach (ATELIER_SERVICES as [$nom, $prix, $type, $livs]) {
+        echo '<tr><td>' . h($nom) . '</td><td class="n">' . fcfa($prix) . ($type === 'mensuel' ? ' / mois' : '') . '</td><td>' . h(implode(', ', array_map(fn($t) => ATELIER_LIVRABLES[$t][0], $livs))) . '</td></tr>';
     }
     echo '</tbody></table>';
     page_fin();
@@ -816,5 +863,22 @@ function page_reglages(): void
         . ($cfgCle === '' ? '<label>Nouvelle clé<input type="password" name="cle" autocomplete="off" placeholder="sk-ant-…"></label>' : '')
         . '<h3>Changer le mot de passe</h3><label>Nouveau mot de passe<input type="password" name="mdp" autocomplete="new-password" minlength="10"></label><label>Le même, une seconde fois<input type="password" name="mdp2" autocomplete="new-password" minlength="10"></label>'
         . '<button class="btn">Enregistrer</button></form></div>';
+    page_fin();
+}
+
+function page_doc(array $c, string $cible): void
+{
+    $l = livrable_ref($c, $cible);
+    if (!$l) {
+        introuvable();
+    }
+    [, $type] = cible_type($cible);
+    page_debut(ATELIER_LIVRABLES[$type][0] . ' · ' . ($c['brief']['entreprise'] ?? ''), false, 'imprimable');
+    echo '<p class="ecran"><button class="btn" onclick="print()">Imprimer ou enregistrer en PDF</button> <a class="retour" href="?p=client&id=' . h($c['id']) . '">← Retour au dossier</a></p>';
+    if ($l['statut'] !== 'valide') {
+        echo '<p class="alerte ecran">Ce livrable n’est pas encore validé.</p>';
+    }
+    echo '<article class="doc"><header class="doc__tete"><img src="../assets/logo-light.png" alt="NEAM Softwares Industry"><div><b>' . h(ATELIER_LIVRABLES[$type][0]) . '</b><span>' . date('d/m/Y') . '</span></div></header><h1>' . h($c['brief']['entreprise'] ?? '') . '</h1>'
+        . rendu_livrable($type, $l['data']) . '<footer class="doc__pied">NEAM Softwares Industry · Libreville, Gabon · neamindustry.com · WhatsApp 077 45 31 67</footer></article>';
     page_fin();
 }

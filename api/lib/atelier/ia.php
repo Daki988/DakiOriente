@@ -71,6 +71,55 @@ function ia_generateurs(): array
             'consigne' => "Prépare le calendrier éditorial du mois indiqué : exactement le nombre de publications demandé, réparties sur les 4 semaines et sur les réseaux du client. Varie les thèmes : produits ou services, coulisses, conseils utiles à la clientèle, questions fréquentes, appel à l’action (WhatsApp, visite). Tiens compte des moments du mois au Gabon s’ils sont pertinents (fêtes, rentrée, fin de mois). Pour chaque publication : semaine (1 à 4), jour conseillé, reseau, format (photo, carrousel, vidéo courte, story), theme, texte prêt à publier, visuel (ce qu’il faut photographier ou créer, en une phrase), hashtags (3 à 6, dont la ville).",
             'schema' => $s(['publications' => ['type' => 'array', 'items' => $s(['semaine' => ['type' => 'integer'], 'jour' => $str, 'reseau' => $str, 'format' => $str, 'theme' => $str, 'texte' => $str, 'visuel' => $str, 'hashtags' => $liste])]]),
         ],
+        'feuille_de_route' => [
+            'consigne' => "Établis la feuille de route digitale de l’entreprise à partir du brief et du diagnostic s’il est fourni. objectif : l’objectif principal en une phrase. constat : 2 à 3 phrases. horizons : exactement 3 périodes (« 30 premiers jours », « 3 mois », « 6 mois »), chacune avec 2 à 4 priorités : action concrète, qui la porte (NEAM, Client ou Ensemble), livrable attendu. indicateurs : 3 à 5 indicateurs à suivre et comment les mesurer simplement. risques : 2 à 4 risques et comment les éviter. N’invente aucun budget ni aucun chiffre de résultat.",
+            'schema' => $s(['objectif' => $str, 'constat' => $str,
+                'horizons' => ['type' => 'array', 'items' => $s(['periode' => $str, 'priorites' => ['type' => 'array', 'items' => $s(['action' => $str, 'porteur' => ['type' => 'string', 'enum' => ['NEAM', 'Client', 'Ensemble']], 'livrable' => $str])]])],
+                'indicateurs' => ['type' => 'array', 'items' => $s(['indicateur' => $str, 'mesure' => $str])], 'risques' => $liste]),
+        ],
+        'charte' => [
+            'consigne' => "Rédige l’identité éditoriale de l’entreprise. positionnement : 2 phrases. promesse : une phrase courte. cibles : 2 à 4 profils de clients décrits simplement. messages_cles : 4 à 6 messages à répéter partout. ton_a_faire et ton_a_eviter : 4 points chacun, avec un exemple de formulation. bios : une bio par réseau du brief (Instagram 150 caractères maximum, Facebook, TikTok, LinkedIn si pertinent). signature_email : 3 à 4 lignes, avec seulement les coordonnées du brief. hashtags_marque : 3 à 6.",
+            'schema' => $s(['positionnement' => $str, 'promesse' => $str, 'cibles' => $liste, 'messages_cles' => $liste, 'ton_a_faire' => $liste, 'ton_a_eviter' => $liste,
+                'bios' => ['type' => 'array', 'items' => $s(['reseau' => $str, 'texte' => $str])], 'signature_email' => $str, 'hashtags_marque' => $liste]),
+        ],
+        'site' => [
+            'consigne' => "Rédige un site vitrine de 5 à 8 pages. La première page est l’accueil (slug « accueil »). Prévois ensuite, selon le brief : à propos, une page par grande famille de services ou de produits, une page questions fréquentes si utile, et une page contact (slug « contact »). Pour chaque page : nom_menu (1 à 2 mots), slug (minuscules, tirets), titre_seo (65 caractères maximum, avec l’activité et la ville), meta_description (150 caractères maximum), titre, intro (2 à 3 phrases), 2 à 5 sections (titre, texte de 2 à 5 phrases), appel_action (5 mots maximum). faq : 4 à 6 questions et réponses tirées du brief. message_whatsapp : le message prérempli du bouton WhatsApp.",
+            'schema' => $s(['titre_site' => $str,
+                'pages' => ['type' => 'array', 'items' => $s(['nom_menu' => $str, 'slug' => $str, 'titre_seo' => $str, 'meta_description' => $str, 'titre' => $str, 'intro' => $str,
+                    'sections' => ['type' => 'array', 'items' => $s(['titre' => $str, 'texte' => $str])], 'appel_action' => $str])],
+                'faq' => $qr, 'message_whatsapp' => $str]),
+        ],
+        'boutique' => [
+            'consigne' => "Prépare le contenu de la boutique en ligne. categories : les catégories du catalogue. produits : un produit pour chaque produit du brief (n’en ajoute pas), avec nom, categorie, description_courte (1 phrase), description (3 à 4 phrases vendeuses et concrètes), prix (uniquement s’il figure dans le brief, sinon chaîne vide) et variantes (tailles, couleurs… seulement si le brief les cite). livraison, paiement (Airtel Money, Moov Money, espèces à la livraison si le brief le permet), retours : un paragraphe chacun, sans délai ni frais inventés ; si une information manque, formule la phrase sans elle. faq : 4 à 6 questions et réponses.",
+            'schema' => $s(['categories' => $liste,
+                'produits' => ['type' => 'array', 'items' => $s(['nom' => $str, 'categorie' => $str, 'description_courte' => $str, 'description' => $str, 'prix' => $str, 'variantes' => $liste])],
+                'livraison' => $str, 'paiement' => $str, 'retours' => $str, 'faq' => $qr]),
+        ],
+        'cahier_des_charges' => [
+            'consigne' => "Rédige le cahier des charges du logiciel ou de l’outil à construire (gestion, CRM, ERP, tableau de bord), à partir du brief, du diagnostic et du besoin indiqué. contexte : 3 phrases. objectifs : 3 à 5. utilisateurs : chaque rôle et ses besoins. processus : 2 à 5 processus actuels avec étapes actuelles, problèmes, et fonctionnement cible. fonctionnalites : 8 à 20, avec description, priorité (Indispensable, Important, Plus tard) et numéro de lot (1 = première version utilisable). donnees : les informations à gérer. integrations : outils à connecter (Mobile Money, WhatsApp, comptabilité, SMS…) seulement s’ils sont utiles au brief. lots : 2 à 4 lots livrables, avec contenu et critère de recette vérifiable. questions_ouvertes : ce qu’il faut demander au client. risques : 2 à 4.",
+            'schema' => $s(['contexte' => $str, 'objectifs' => $liste,
+                'utilisateurs' => ['type' => 'array', 'items' => $s(['role' => $str, 'besoins' => $str])],
+                'processus' => ['type' => 'array', 'items' => $s(['nom' => $str, 'aujourd_hui' => $str, 'problemes' => $str, 'demain' => $str])],
+                'fonctionnalites' => ['type' => 'array', 'items' => $s(['nom' => $str, 'description' => $str, 'priorite' => ['type' => 'string', 'enum' => ['Indispensable', 'Important', 'Plus tard']], 'lot' => ['type' => 'integer']])],
+                'donnees' => $liste, 'integrations' => $liste,
+                'lots' => ['type' => 'array', 'items' => $s(['lot' => ['type' => 'integer'], 'contenu' => $str, 'recette' => $str])],
+                'questions_ouvertes' => $liste, 'risques' => $liste]),
+        ],
+        'workflows' => [
+            'consigne' => "Identifie 3 à 6 tâches répétitives de l’entreprise à automatiser, en partant des heures perdues et des questions du brief. Pour chacune : nom, probleme (ce qui fait perdre du temps aujourd’hui), declencheur, etapes (3 à 6 étapes de l’automatisation), outils (simples et disponibles au Gabon : WhatsApp Business, Google Sheets, Google Forms, e-mail, Make ou n8n, SMS, notifications Mobile Money…), controle_humain (ce qu’un humain valide), mesure (comment mesurer le temps gagné, sans inventer de chiffre).",
+            'schema' => $s(['workflows' => ['type' => 'array', 'items' => $s(['nom' => $str, 'probleme' => $str, 'declencheur' => $str, 'etapes' => $liste, 'outils' => $liste, 'controle_humain' => $str, 'mesure' => $str])]]),
+        ],
+        'assistant_ia' => [
+            'consigne' => "Prépare la configuration de l’assistant IA qui répondra aux clients de l’entreprise (site web ou WhatsApp). nom_assistant : un prénom ou un nom simple. mission : 2 phrases. ton : une phrase. regles : 6 à 10 règles (ne jamais inventer de prix ou de disponibilité, renvoyer vers un humain quand…, ne pas demander de données sensibles…). base_de_connaissances : 10 à 20 questions et réponses tirées uniquement du brief. escalade : 3 à 5 situations où l’assistant passe la main à un humain, et comment. message_accueil : 1 à 2 phrases. limites : ce que l’assistant ne fait pas.",
+            'schema' => $s(['nom_assistant' => $str, 'mission' => $str, 'ton' => $str, 'regles' => $liste, 'base_de_connaissances' => $qr,
+                'escalade' => ['type' => 'array', 'items' => $s(['situation' => $str, 'action' => $str])], 'message_accueil' => $str, 'limites' => $liste]),
+        ],
+        'formation' => [
+            'consigne' => "Conçois le programme de formation de l’équipe du client à ses nouveaux outils digitaux (ceux de son offre NEAM), pour la durée indiquée. titre, public, objectifs (3 à 5, formulés « À la fin, vous saurez… »), modules (3 à 6 : titre, durée, contenu en points, exercice pratique sur leurs propres outils), fiches_pratiques (3 à 5 fiches pas à pas que les participants gardent), evaluation : 3 à 5 questions pour vérifier ce qui est acquis.",
+            'schema' => $s(['titre' => $str, 'public' => $str, 'objectifs' => $liste,
+                'modules' => ['type' => 'array', 'items' => $s(['titre' => $str, 'duree' => $str, 'contenu' => $liste, 'exercice' => $str])],
+                'fiches_pratiques' => ['type' => 'array', 'items' => $s(['titre' => $str, 'etapes' => $liste])], 'evaluation' => $liste]),
+        ],
         'rapport' => [
             'consigne' => "Rédige le rapport mensuel du client à partir des mesures fournies (mois en cours et, s’il existe, mois précédent). Utilise uniquement ces chiffres : n’en calcule pas d’autres que des écarts simples, n’en invente aucun. resume : 2 à 3 phrases. faits_marquants : 3 à 5 points. lecture : ce que ces chiffres veulent dire pour l’entreprise, en 3 à 4 phrases, sans jargon. actions : 3 actions pour le mois prochain avec pourquoi. message_client : un message WhatsApp de 3 à 5 lignes qui accompagne l’envoi du rapport au dirigeant.",
             'schema' => $s(['resume' => $str, 'faits_marquants' => $liste, 'lecture' => $str,
@@ -91,6 +140,14 @@ function ia_brief(array $c): array
     }
     $p = ATELIER_PACKS[$c['pack']];
     $b['Offre NEAM souscrite'] = $p['nom'] . ' : ' . implode(' ; ', $p['contenu']);
+    $opts = array_map(fn($k) => ATELIER_SERVICES[$k][0], array_filter($c['options'] ?? [], fn($k) => isset(ATELIER_SERVICES[$k])));
+    if ($opts) {
+        $b['Services NEAM ajoutés'] = implode(' ; ', $opts);
+    }
+    $d = $c['livrables']['diagnostic']['data'] ?? null;
+    if ($d) {
+        $b['Diagnostic NEAM'] = ($d['synthese'] ?? '') . ' Priorités : ' . implode(' ; ', array_map(fn($x) => $x['action'] ?? '', $d['priorites'] ?? []));
+    }
     return $b;
 }
 

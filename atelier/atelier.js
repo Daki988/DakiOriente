@@ -14,7 +14,7 @@
   if (tout) {
     tout.addEventListener('click', async function () {
       var types = tout.dataset.tout.split(','), info = tout.nextElementSibling, erreurs = [];
-      var noms = { diagnostic: 'Diagnostic', fiche_google: 'Fiche Google', page: 'Page de présentation', whatsapp: 'WhatsApp Business', sequences: 'Relances automatiques' };
+      var noms = { diagnostic: 'Diagnostic', feuille_de_route: 'Feuille de route', charte: 'Identité éditoriale', fiche_google: 'Fiche Google', page: 'Page de présentation', site: 'Site vitrine', boutique: 'Boutique en ligne', whatsapp: 'WhatsApp Business', sequences: 'Relances automatiques', workflows: 'Automatisations', assistant_ia: 'Assistant IA', cahier_des_charges: 'Cahier des charges', formation: 'Formation' };
       tout.disabled = true;
       info.hidden = false;
       for (var i = 0; i < types.length; i++) {

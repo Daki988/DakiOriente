@@ -283,6 +283,16 @@ function controle_qualite(string $type, array $data, array $brief): array
             $pb[] = ['bloquant', "« $champ » fait $len caractères (maximum $max)"];
         }
     }
+    if ($type === 'site') {
+        foreach ($data['pages'] ?? [] as $pg) {
+            foreach (['titre_seo' => 65, 'meta_description' => 160] as $champ => $max) {
+                $len = mb_strlen((string) ($pg[$champ] ?? ''));
+                if ($len > $max) {
+                    $pb[] = ['bloquant', 'Page « ' . ($pg['nom_menu'] ?? '') . " » : $champ fait $len caractères (maximum $max)"];
+                }
+            }
+        }
+    }
     if ($type === 'calendrier' && isset($data['_attendu']) && count($data['publications'] ?? []) < $data['_attendu']) {
         $pb[] = ['bloquant', count($data['publications'] ?? []) . ' publications au lieu de ' . $data['_attendu']];
     }
@@ -315,7 +325,7 @@ function prochaine_action(array $c): string
         case 'proposition':
             return 'Relancer le client sur la proposition';
         case 'mise_en_place':
-            foreach ($pack['livrables'] as $k) {
+            foreach (livrables_client($c) as $k) {
                 if (in_array($k, ['diagnostic', 'rapport', 'calendrier'], true)) {
                     continue;
                 }
@@ -331,7 +341,7 @@ function prochaine_action(array $c): string
         case 'en_ligne':
         case 'suivi':
             $mois = date('Y-m');
-            if (in_array('calendrier', $pack['livrables'], true) && empty($c['calendriers'][$mois])) {
+            if (in_array('calendrier', livrables_client($c), true) && empty($c['calendriers'][$mois])) {
                 return 'Générer le calendrier ' . de_mois($mois);
             }
             $prec = date('Y-m', strtotime('first day of last month'));

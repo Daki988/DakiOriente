@@ -17,16 +17,26 @@ const ATELIER_ETAPES = [
     'perdu' => 'Sans suite',
 ];
 
-/** Livrables que l'Atelier sait produire, dans l'ordre du parcours. */
+/** Livrables que l'Atelier sait produire : clé => [nom, description, expertise], dans l'ordre du parcours. */
 const ATELIER_LIVRABLES = [
-    'diagnostic' => ['Diagnostic', 'Synthèse, forces, faiblesses et 3 priorités'],
-    'fiche_google' => ['Fiche Google Business', 'Description, catégories, services, posts, réponses aux avis'],
-    'page' => ['Page de présentation', 'Textes et page web prête à publier'],
-    'whatsapp' => ['WhatsApp Business', 'Accueil, absence, réponses rapides, catalogue'],
-    'sequences' => ['Relances automatiques', 'Messages de relance des devis, des impayés, confirmations, demandes d’avis'],
-    'calendrier' => ['Calendrier du mois', 'Publications prêtes à programmer'],
-    'rapport' => ['Rapport mensuel', 'Résultats du mois et actions suivantes'],
+    'diagnostic' => ['Diagnostic', 'Synthèse, forces, faiblesses et 3 priorités', 'Conseil et formation'],
+    'feuille_de_route' => ['Feuille de route', 'Priorités à 30 jours, 90 jours et 6 mois, indicateurs, risques', 'Conseil et formation'],
+    'charte' => ['Identité éditoriale', 'Positionnement, messages clés, ton, bios des réseaux, signature', 'Site web et visibilité'],
+    'fiche_google' => ['Fiche Google Business', 'Description, catégories, services, posts, réponses aux avis', 'Site web et visibilité'],
+    'page' => ['Page de présentation', 'Textes et page web prête à publier', 'Site web et visibilité'],
+    'site' => ['Site vitrine', 'Site de 5 à 8 pages, rédigé et prêt à publier', 'Site web et visibilité'],
+    'boutique' => ['Boutique en ligne', 'Catalogue produits, livraison, paiement Mobile Money, retours, FAQ', 'Site web et visibilité'],
+    'whatsapp' => ['WhatsApp Business', 'Accueil, absence, réponses rapides, catalogue', 'Site web et visibilité'],
+    'sequences' => ['Relances automatiques', 'Messages de relance des devis, des impayés, confirmations, demandes d’avis', 'IA et automatisation'],
+    'workflows' => ['Automatisations', 'Tâches répétitives à automatiser : déclencheur, étapes, outils, contrôle humain', 'IA et automatisation'],
+    'assistant_ia' => ['Assistant IA', 'Mission, règles, base de connaissances et passage à un humain', 'IA et automatisation'],
+    'cahier_des_charges' => ['Cahier des charges', 'Utilisateurs, processus, fonctionnalités par lot, critères de recette', 'Logiciels métiers'],
+    'formation' => ['Programme de formation', 'Objectifs, modules, exercices et fiches pratiques', 'Conseil et formation'],
+    'calendrier' => ['Calendrier du mois', 'Publications prêtes à programmer', 'Suivi'],
+    'rapport' => ['Rapport mensuel', 'Résultats du mois et actions suivantes', 'Suivi'],
 ];
+
+const ATELIER_EXPERTISES = ['Conseil et formation', 'Site web et visibilité', 'Logiciels métiers', 'IA et automatisation', 'Suivi'];
 
 /**
  * Packs. roi : hypothèses par défaut du client type (remplacées par les chiffres du client).
@@ -46,7 +56,7 @@ const ATELIER_PACKS = [
         'nom' => 'NEAM Business', 'cible' => 'TPE',
         'diagnostic' => 0, 'mise_en_place' => 450000, 'mensuel' => 120000, 'engagement' => 12, 'a_partir_de' => false,
         'contenu' => ['Site vitrine de 5 à 8 pages', 'Fiche Google Business', 'Identité numérique (charte réseaux)', 'Modèles de devis et de factures', 'Relance automatique des devis sans réponse', 'Chaque mois : référencement local, 2 réseaux à 12 publications, maintenance, rapport et un point d’1 h'],
-        'livrables' => ['diagnostic', 'fiche_google', 'page', 'whatsapp', 'sequences', 'calendrier', 'rapport'],
+        'livrables' => ['diagnostic', 'charte', 'fiche_google', 'site', 'whatsapp', 'sequences', 'calendrier', 'rapport'],
         'publications' => 12, 'reseaux' => 2,
         'roi' => ['unite' => 'clients', 'heures_mois' => 32, 'valeur_heure' => 5000, 'debut_temps' => 2, 'debut_ventes' => 4, 'abo_debut' => 1, 'prudent' => 3, 'cible' => 6],
     ],
@@ -54,7 +64,7 @@ const ATELIER_PACKS = [
         'nom' => 'NEAM Growth', 'cible' => 'PME',
         'diagnostic' => 150000, 'mise_en_place' => 1500000, 'mensuel' => 220000, 'engagement' => 12, 'a_partir_de' => false,
         'contenu' => ['CRM paramétré (fiches clients, suivi des devis)', '3 automatisations : relance des devis, relance des impayés, confirmations WhatsApp', 'Tableau de bord des ventes', 'Une journée de formation', 'Chaque mois : acquisition de clients (budget publicitaire en plus), référencement, maintenance, 2 demi-journées d’accompagnement'],
-        'livrables' => ['diagnostic', 'fiche_google', 'page', 'whatsapp', 'sequences', 'calendrier', 'rapport'],
+        'livrables' => ['diagnostic', 'feuille_de_route', 'charte', 'fiche_google', 'site', 'whatsapp', 'sequences', 'workflows', 'cahier_des_charges', 'formation', 'calendrier', 'rapport'],
         'publications' => 12, 'reseaux' => 2,
         'roi' => ['unite' => 'clients', 'heures_mois' => 60, 'valeur_heure' => 6000, 'debut_temps' => 3, 'debut_ventes' => 4, 'abo_debut' => 1, 'prudent' => 3, 'cible' => 6],
     ],
@@ -62,7 +72,7 @@ const ATELIER_PACKS = [
         'nom' => 'NEAM Enterprise', 'cible' => 'Organisations de 10 à 50 utilisateurs',
         'diagnostic' => 300000, 'mise_en_place' => 3500000, 'mensuel' => 300000, 'engagement' => 12, 'a_partir_de' => true,
         'contenu' => ['Logiciel métier livré par lots toutes les 2 à 3 semaines', 'Reprise des données et formation des référents', 'Chaque mois : hébergement, assistance, 2 jours d’évolutions'],
-        'livrables' => ['diagnostic', 'sequences', 'rapport'],
+        'livrables' => ['diagnostic', 'feuille_de_route', 'cahier_des_charges', 'workflows', 'formation', 'rapport'],
         'publications' => 0, 'reseaux' => 0,
         'roi' => ['unite' => 'heures', 'agents' => 20, 'valeur_heure' => 6000, 'debut_temps' => 5, 'debut_ventes' => 99, 'abo_debut' => 4, 'prudent' => 2, 'cible' => 3],
     ],
@@ -70,7 +80,7 @@ const ATELIER_PACKS = [
         'nom' => 'NEAM Custom', 'cible' => 'Besoins spécifiques',
         'diagnostic' => 0, 'mise_en_place' => 0, 'mensuel' => 0, 'engagement' => 12, 'a_partir_de' => true,
         'contenu' => ['Cadrage à 120 000 FCFA la journée de consultant', 'Architecture et solution conçues sur mesure, sur devis'],
-        'livrables' => ['diagnostic', 'rapport'],
+        'livrables' => ['diagnostic', 'feuille_de_route', 'cahier_des_charges', 'rapport'],
         'publications' => 0, 'reseaux' => 0,
         'roi' => ['unite' => 'clients', 'heures_mois' => 0, 'valeur_heure' => 5000, 'debut_temps' => 3, 'debut_ventes' => 4, 'abo_debut' => 1, 'prudent' => 3, 'cible' => 6],
     ],
@@ -78,24 +88,37 @@ const ATELIER_PACKS = [
 
 /** Services vendus à l'unité (options d'une proposition). Prix retenu = milieu de fourchette. */
 const ATELIER_SERVICES = [
-    'fiche' => ['Fiche Google Business', 35000, 'unique'],
-    'page' => ['Page de présentation', 120000, 'unique'],
-    'vitrine' => ['Site vitrine 5 à 8 pages', 425000, 'unique'],
-    'boutique' => ['Boutique en ligne avec Mobile Money', 1125000, 'unique'],
-    'seo' => ['Référencement local', 60000, 'mensuel'],
-    'reseaux' => ['Gestion réseaux sociaux (2 réseaux, 12 publications)', 90000, 'mensuel'],
-    'maintenance' => ['Hébergement, sécurité, maintenance', 20000, 'mensuel'],
-    'cadrage' => ['Cadrage logiciel', 200000, 'unique'],
-    'outil' => ['Outil devis, factures, stock', 900000, 'unique'],
-    'crm' => ['CRM ou ERP sur mesure', 3400000, 'unique'],
-    'workflow' => ['Workflow automatisé', 200000, 'unique'],
-    'assistant' => ['Assistant IA de réponse', 600000, 'unique'],
-    'assistant_suivi' => ['Suivi de l’assistant IA', 40000, 'mensuel'],
-    'dashboard' => ['Tableau de bord des ventes', 325000, 'unique'],
-    'formation' => ['Formation (demi-journée, 10 personnes)', 150000, 'unique'],
-    'accompagnement' => ['Accompagnement mensuel', 150000, 'mensuel'],
-    'consultant' => ['Journée de consultant', 120000, 'unique'],
+    'fiche' => ['Fiche Google Business', 35000, 'unique', ['fiche_google']],
+    'page' => ['Page de présentation', 120000, 'unique', ['page']],
+    'vitrine' => ['Site vitrine 5 à 8 pages', 425000, 'unique', ['charte', 'site']],
+    'boutique' => ['Boutique en ligne avec Mobile Money', 1125000, 'unique', ['boutique', 'site']],
+    'seo' => ['Référencement local', 60000, 'mensuel', ['fiche_google', 'rapport']],
+    'reseaux' => ['Gestion réseaux sociaux (2 réseaux, 12 publications)', 90000, 'mensuel', ['charte', 'calendrier', 'rapport']],
+    'maintenance' => ['Hébergement, sécurité, maintenance', 20000, 'mensuel', []],
+    'cadrage' => ['Cadrage logiciel', 200000, 'unique', ['cahier_des_charges']],
+    'outil' => ['Outil devis, factures, stock', 900000, 'unique', ['cahier_des_charges', 'formation']],
+    'crm' => ['CRM ou ERP sur mesure', 3400000, 'unique', ['cahier_des_charges', 'workflows', 'formation']],
+    'workflow' => ['Workflow automatisé', 200000, 'unique', ['workflows', 'sequences']],
+    'assistant' => ['Assistant IA de réponse', 600000, 'unique', ['assistant_ia']],
+    'assistant_suivi' => ['Suivi de l’assistant IA', 40000, 'mensuel', ['assistant_ia', 'rapport']],
+    'dashboard' => ['Tableau de bord des ventes', 325000, 'unique', ['cahier_des_charges']],
+    'formation' => ['Formation (demi-journée, 10 personnes)', 150000, 'unique', ['formation']],
+    'accompagnement' => ['Accompagnement mensuel', 150000, 'mensuel', ['feuille_de_route', 'rapport']],
+    'consultant' => ['Journée de consultant', 120000, 'unique', ['feuille_de_route']],
 ];
+
+/** Livrables à produire pour un client : ceux de son offre et ceux des services ajoutés, dans l'ordre du parcours. */
+function livrables_client(array $c): array
+{
+    $l = ATELIER_PACKS[$c['pack']]['livrables'];
+    foreach ($c['options'] ?? [] as $k) {
+        array_push($l, ...(ATELIER_SERVICES[$k][3] ?? []));
+    }
+    if (in_array('site', $l, true)) {
+        $l = array_diff($l, ['page']);   // le site remplace la page de présentation
+    }
+    return array_values(array_filter(array_keys(ATELIER_LIVRABLES), fn($k) => in_array($k, $l, true)));
+}
 
 const ATELIER_REMISE_24_MOIS = 0.10;
 

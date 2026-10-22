@@ -93,7 +93,7 @@ function rendu_livrable(string $type, array $d): string
             }
             return '<p>' . para($d['resume'] ?? '') . '</p><h4>Faits marquants</h4>' . ul($d['faits_marquants'] ?? []) . '<h4>Ce que cela veut dire</h4><p>' . para($d['lecture'] ?? '') . '</p><h4>Le mois prochain</h4><ol>' . $a . '</ol><h4>Message d’envoi au client</h4><p class="copie">' . para($d['message_client'] ?? '') . '</p>';
     }
-    return '';
+    return rendu_generique($d);
 }
 
 /** Version texte, à copier-coller dans Google, WhatsApp ou l'outil d'envoi. */
@@ -134,7 +134,7 @@ function export_texte(string $type, array $d, array $c): string
             }
             return $t;
         default:
-            return $t . json_encode($d, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            return $t . texte_generique($d);
     }
 }
 
@@ -152,43 +152,7 @@ function calendrier_csv(array $d): string
 }
 
 /** Page de présentation complète, autonome (une seule page HTML, sans dépendance). */
-function vitrine_html(array $c, array $d): string
-{
-    $b = $c['brief'];
-    $nom = $b['entreprise'] ?? '';
-    $wa = !empty($b['whatsapp']) ? 'https://wa.me/' . wa_num($b['whatsapp']) . '?text=' . rawurlencode($d['message_whatsapp'] ?? 'Bonjour') : '';
-    $tel = $b['telephone'] ?? ($b['whatsapp'] ?? '');
-    $lieu = trim(implode(', ', array_filter([$b['quartier'] ?? '', $b['ville'] ?? ''])));
-    $carte = $lieu !== '' ? 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode($nom . ' ' . $lieu) : '';
-    $svc = implode('', array_map(fn($x) => '<article><h3>' . h($x['titre']) . '</h3><p>' . h($x['texte']) . '</p></article>', $d['services'] ?? []));
-    $pf = implode('', array_map(fn($x) => '<li><b>' . h($x['titre']) . '</b><span>' . h($x['texte']) . '</span></li>', $d['points_forts'] ?? []));
-    $faq = implode('', array_map(fn($x) => '<details><summary>' . h($x['question']) . '</summary><p>' . h($x['reponse']) . '</p></details>', $d['faq'] ?? []));
-    $faqLd = ['@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => array_map(fn($x) => ['@type' => 'Question', 'name' => $x['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $x['reponse']]], $d['faq'] ?? [])];
-    $orgLd = array_filter(['@context' => 'https://schema.org', '@type' => 'LocalBusiness', 'name' => $nom, 'description' => $d['meta_description'] ?? '', 'telephone' => $tel ? '+' . wa_num($tel) : null,
-        'address' => $lieu ? ['@type' => 'PostalAddress', 'streetAddress' => $b['quartier'] ?? '', 'addressLocality' => $b['ville'] ?? '', 'addressCountry' => 'GA'] : null]);
-    $ld = '<script type="application/ld+json">' . json_encode($orgLd, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) . '</script>'
-        . ($faq ? '<script type="application/ld+json">' . json_encode($faqLd, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) . '</script>' : '');
-    $btn = $wa ? '<a class="btn" href="' . h($wa) . '">' . h($d['appel_action'] ?? 'Écrire sur WhatsApp') . '</a>' : '';
-    $infos = ($b['horaires'] ?? '') !== '' ? '<p><b>Horaires</b><br>' . h($b['horaires']) . '</p>' : '';
-    $infos .= $lieu !== '' ? '<p><b>Adresse</b><br>' . h($lieu) . ($carte ? '<br><a href="' . h($carte) . '">Voir sur Google Maps</a>' : '') . '</p>' : '';
-    $infos .= $tel !== '' ? '<p><b>Téléphone</b><br><a href="tel:+' . h(wa_num($tel)) . '">' . h($tel) . '</a></p>' : '';
-    $e = [
-        'titre' => h($d['titre_seo'] ?? $nom), 'meta' => h($d['meta_description'] ?? ''), 'nom' => h($nom),
-        'accroche' => h($d['accroche'] ?? $nom), 'sous' => h($d['sous_titre'] ?? ''), 'apropos' => h($d['a_propos'] ?? ''),
-    ];
-    $flottant = $btn ? str_replace('class="btn"', 'class="btn flottant"', $btn) : '';
-    return <<<HTML
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{$e['titre']}</title>
-<meta name="description" content="{$e['meta']}">
-<meta property="og:title" content="{$e['nom']}">
-<meta property="og:description" content="{$e['meta']}">
-{$ld}
-<style>
+const VITRINE_CSS = <<<'CSS'
 :root{--ink:#14161a;--muted:#5d6068;--accent:#f5b31b;--bg:#faf8f3;--card:#fff;--line:#e8e4da}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;font-size:17px}
@@ -217,7 +181,51 @@ details p{margin-top:8px;color:var(--muted)}
 .infos a{color:var(--ink)}
 footer{padding:28px 0 90px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
 .flottant{position:fixed;right:16px;bottom:16px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
-</style>
+.menu{display:flex;gap:16px;flex-wrap:wrap;font-size:15px}
+.menu a{color:var(--ink);text-decoration:none}
+.menu a[aria-current]{font-weight:700;border-bottom:2px solid var(--accent)}
+header .w{flex-wrap:wrap}
+CSS;
+
+function vitrine_html(array $c, array $d): string
+{
+    $b = $c['brief'];
+    $nom = $b['entreprise'] ?? '';
+    $wa = !empty($b['whatsapp']) ? 'https://wa.me/' . wa_num($b['whatsapp']) . '?text=' . rawurlencode($d['message_whatsapp'] ?? 'Bonjour') : '';
+    $tel = $b['telephone'] ?? ($b['whatsapp'] ?? '');
+    $lieu = trim(implode(', ', array_filter([$b['quartier'] ?? '', $b['ville'] ?? ''])));
+    $carte = $lieu !== '' ? 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode($nom . ' ' . $lieu) : '';
+    $svc = implode('', array_map(fn($x) => '<article><h3>' . h($x['titre']) . '</h3><p>' . h($x['texte']) . '</p></article>', $d['services'] ?? []));
+    $pf = implode('', array_map(fn($x) => '<li><b>' . h($x['titre']) . '</b><span>' . h($x['texte']) . '</span></li>', $d['points_forts'] ?? []));
+    $faq = implode('', array_map(fn($x) => '<details><summary>' . h($x['question']) . '</summary><p>' . h($x['reponse']) . '</p></details>', $d['faq'] ?? []));
+    $faqLd = ['@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => array_map(fn($x) => ['@type' => 'Question', 'name' => $x['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $x['reponse']]], $d['faq'] ?? [])];
+    $orgLd = array_filter(['@context' => 'https://schema.org', '@type' => 'LocalBusiness', 'name' => $nom, 'description' => $d['meta_description'] ?? '', 'telephone' => $tel ? '+' . wa_num($tel) : null,
+        'address' => $lieu ? ['@type' => 'PostalAddress', 'streetAddress' => $b['quartier'] ?? '', 'addressLocality' => $b['ville'] ?? '', 'addressCountry' => 'GA'] : null]);
+    $ld = '<script type="application/ld+json">' . json_encode($orgLd, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) . '</script>'
+        . ($faq ? '<script type="application/ld+json">' . json_encode($faqLd, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) . '</script>' : '');
+    $btn = $wa ? '<a class="btn" href="' . h($wa) . '">' . h($d['appel_action'] ?? 'Écrire sur WhatsApp') . '</a>' : '';
+    $infos = ($b['horaires'] ?? '') !== '' ? '<p><b>Horaires</b><br>' . h($b['horaires']) . '</p>' : '';
+    $infos .= $lieu !== '' ? '<p><b>Adresse</b><br>' . h($lieu) . ($carte ? '<br><a href="' . h($carte) . '">Voir sur Google Maps</a>' : '') . '</p>' : '';
+    $infos .= $tel !== '' ? '<p><b>Téléphone</b><br><a href="tel:+' . h(wa_num($tel)) . '">' . h($tel) . '</a></p>' : '';
+    $e = [
+        'titre' => h($d['titre_seo'] ?? $nom), 'meta' => h($d['meta_description'] ?? ''), 'nom' => h($nom),
+        'accroche' => h($d['accroche'] ?? $nom), 'sous' => h($d['sous_titre'] ?? ''), 'apropos' => h($d['a_propos'] ?? ''),
+    ];
+    $flottant = $btn ? str_replace('class="btn"', 'class="btn flottant"', $btn) : '';
+    $css = VITRINE_CSS;
+    return <<<HTML
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{$e['titre']}</title>
+<meta name="description" content="{$e['meta']}">
+<meta property="og:title" content="{$e['nom']}">
+<meta property="og:description" content="{$e['meta']}">
+{$ld}
+<style>
+{$css}</style>
 </head>
 <body>
 <header><div class="w"><b>{$e['nom']}</b>{$btn}</div></header>
@@ -234,4 +242,120 @@ footer{padding:28px 0 90px;color:var(--muted);font-size:14px;border-top:1px soli
 </body>
 </html>
 HTML;
+}
+
+/** Libellé lisible d'une clé JSON (« base_de_connaissances » → « Base de connaissances »). */
+function libelle(string $k): string
+{
+    $l = ['faq' => 'Questions fréquentes', 'seo' => 'SEO', 'titre_seo' => 'Titre Google', 'meta_description' => 'Description Google', 'aujourd_hui' => 'Aujourd’hui', 'controle_humain' => 'Contrôle humain', 'probleme' => 'Problème', 'priorite' => 'Priorité', 'evaluation' => 'Évaluation', 'etapes' => 'Étapes', 'donnees' => 'Données', 'integrations' => 'Intégrations', 'fonctionnalites' => 'Fonctionnalités', 'periode' => 'Période', 'priorites' => 'Priorités', 'reseau' => 'Réseau', 'ton_a_eviter' => 'Ton à éviter', 'ton_a_faire' => 'Ton à adopter', 'messages_cles' => 'Messages clés', 'hashtags_marque' => 'Hashtags de marque', 'signature_email' => 'Signature e-mail', 'reponse' => 'Réponse', 'duree' => 'Durée', 'regles' => 'Règles', 'escalade' => 'Passage à un humain', 'categorie' => 'Catégorie', 'categories' => 'Catégories', 'description_courte' => 'Description courte', 'recette' => 'Critère de recette', 'declencheur' => 'Déclencheur', 'role' => 'Rôle', 'demain' => 'Demain', 'problemes' => 'Problèmes', 'mesure' => 'Mesure du gain', 'porteur' => 'Qui', 'livrable' => 'Livrable attendu', 'cibles' => 'Clients visés', 'objectifs' => 'Objectifs', 'modules' => 'Modules', 'fiches_pratiques' => 'Fiches pratiques', 'base_de_connaissances' => 'Base de connaissances', 'questions_ouvertes' => 'Questions à poser au client', 'nom_menu' => 'Menu'];
+    return $l[$k] ?? ucfirst(str_replace('_', ' ', $k));
+}
+
+/** Affichage générique d'un livrable structuré (titres, listes, cartes). */
+function rendu_generique($v, int $niveau = 0): string
+{
+    if (!is_array($v)) {
+        return '<span class="copie">' . para((string) $v) . '</span>';
+    }
+    if (array_is_list($v)) {
+        if ($v && !is_array($v[0])) {
+            return ul(array_map('strval', $v));
+        }
+        $s = '';
+        foreach ($v as $x) {
+            $s .= '<div class="carte">' . rendu_generique($x, $niveau + 1) . '</div>';
+        }
+        return $s;
+    }
+    $s = '';
+    foreach ($v as $k => $x) {
+        if (str_starts_with((string) $k, '_') || $x === '' || $x === []) {
+            continue;
+        }
+        $s .= is_array($x) || $niveau === 0
+            ? '<h4>' . h(libelle((string) $k)) . '</h4>' . rendu_generique($x, $niveau + 1)
+            : '<p><b>' . h(libelle((string) $k)) . ' :</b> ' . rendu_generique($x, $niveau + 1) . '</p>';
+    }
+    return $s;
+}
+
+/** Version texte générique, pour copier-coller. */
+function texte_generique($v, int $niveau = 0): string
+{
+    $pad = str_repeat('  ', $niveau);
+    if (!is_array($v)) {
+        return (string) $v;
+    }
+    $t = '';
+    foreach ($v as $k => $x) {
+        if (is_string($k) && str_starts_with($k, '_')) {
+            continue;
+        }
+        $label = is_string($k) ? libelle($k) : '-';
+        if (is_array($x)) {
+            $t .= $pad . (is_string($k) ? mb_strtoupper($label) : '•') . "\n" . texte_generique($x, $niveau + 1) . "\n";
+        } else {
+            $t .= $pad . (is_string($k) ? "$label : " : '- ') . $x . "\n";
+        }
+    }
+    return $t;
+}
+
+/** Catalogue de la boutique au format CSV (import WooCommerce, Shopify ou tableur). */
+function boutique_csv(array $d): string
+{
+    $f = fopen('php://temp', 'r+');
+    fwrite($f, "\xEF\xBB\xBF");
+    fputcsv($f, ['Nom', 'Catégorie', 'Description courte', 'Description', 'Prix', 'Variantes'], ';', '"', '');
+    foreach ($d['produits'] ?? [] as $x) {
+        fputcsv($f, [$x['nom'], $x['categorie'], $x['description_courte'], $x['description'], $x['prix'], implode(', ', $x['variantes'] ?? [])], ';', '"', '');
+    }
+    rewind($f);
+    return (string) stream_get_contents($f);
+}
+
+/** Site vitrine : fichier => HTML (index.html pour l'accueil, puis une page par fichier). */
+function site_pages(array $c, array $d): array
+{
+    $b = $c['brief'];
+    $nom = $b['entreprise'] ?? ($d['titre_site'] ?? '');
+    $wa = !empty($b['whatsapp']) ? 'https://wa.me/' . wa_num($b['whatsapp']) . '?text=' . rawurlencode($d['message_whatsapp'] ?? 'Bonjour') : '';
+    $tel = $b['telephone'] ?? ($b['whatsapp'] ?? '');
+    $lieu = trim(implode(', ', array_filter([$b['quartier'] ?? '', $b['ville'] ?? ''])));
+    $pages = [];
+    $vus = [];
+    foreach ($d['pages'] ?? [] as $i => $p) {
+        $slug = $i === 0 ? 'index' : slugifier((string) ($p['slug'] ?? $p['nom_menu'] ?? 'page'));
+        while (isset($vus[$slug])) {
+            $slug .= '-2';
+        }
+        $vus[$slug] = true;
+        $pages[] = $p + ['_fichier' => $slug . '.html'];
+    }
+    $out = [];
+    foreach ($pages as $i => $p) {
+        $menu = implode('', array_map(fn($q) => '<a href="' . h($q['_fichier']) . '"' . ($q['_fichier'] === $p['_fichier'] ? ' aria-current="page"' : '') . '>' . h($q['nom_menu']) . '</a>', $pages));
+        $btn = $wa ? '<a class="btn" href="' . h($wa) . '">' . h($p['appel_action'] ?: 'Écrire sur WhatsApp') . '</a>' : '';
+        $sections = implode('', array_map(fn($x) => '<section><div class="w"><h2>' . h($x['titre']) . '</h2><p>' . nl2br(h($x['texte'])) . '</p></div></section>', $p['sections'] ?? []));
+        $extra = '';
+        if (($p['slug'] ?? '') === 'contact' || $i === count($pages) - 1) {
+            $infos = ($b['horaires'] ?? '') !== '' ? '<p><b>Horaires</b><br>' . h($b['horaires']) . '</p>' : '';
+            $infos .= $lieu !== '' ? '<p><b>Adresse</b><br>' . h($lieu) . '<br><a href="https://www.google.com/maps/search/?api=1&amp;query=' . h(rawurlencode($nom . ' ' . $lieu)) . '">Voir sur Google Maps</a></p>' : '';
+            $infos .= $tel !== '' ? '<p><b>Téléphone</b><br><a href="tel:+' . h(wa_num($tel)) . '">' . h($tel) . '</a></p>' : '';
+            $extra = $infos ? '<section><div class="w"><h2>Nous trouver</h2><div class="infos">' . $infos . '</div></div></section>' : '';
+        }
+        if ($i === 0 && !empty($d['faq'])) {
+            $extra .= '<section><div class="w"><h2>Questions fréquentes</h2>' . implode('', array_map(fn($x) => '<details><summary>' . h($x['question']) . '</summary><p>' . h($x['reponse']) . '</p></details>', $d['faq'])) . '</div></section>';
+        }
+        $ld = $i === 0 ? '<script type="application/ld+json">' . json_encode(array_filter(['@context' => 'https://schema.org', '@type' => 'LocalBusiness', 'name' => $nom, 'description' => $p['meta_description'] ?? '', 'telephone' => $tel ? '+' . wa_num($tel) : null,
+            'address' => $lieu ? ['@type' => 'PostalAddress', 'streetAddress' => $b['quartier'] ?? '', 'addressLocality' => $b['ville'] ?? '', 'addressCountry' => 'GA'] : null]), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) . '</script>' : '';
+        $flottant = $btn ? str_replace('class="btn"', 'class="btn flottant"', $btn) : '';
+        $out[$p['_fichier']] = '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
+            . '<title>' . h($p['titre_seo'] ?: $nom) . '</title><meta name="description" content="' . h($p['meta_description']) . '"><meta property="og:title" content="' . h($p['titre_seo'] ?: $nom) . '">' . $ld
+            . '<style>' . VITRINE_CSS . '</style></head><body>'
+            . '<header><div class="w"><a href="index.html" style="text-decoration:none;color:inherit"><b>' . h($nom) . '</b></a><nav class="menu">' . $menu . '</nav></div></header><main>'
+            . '<div class="hero"><div class="w"><h1>' . h($p['titre']) . '</h1><p>' . h($p['intro']) . '</p>' . $btn . '</div></div>' . $sections . $extra
+            . '</main><footer><div class="w">© ' . h($nom) . ' · Site réalisé par <a href="https://www.neamindustry.com/">NEAM Softwares Industry</a></div></footer>' . $flottant . '</body></html>';
+    }
+    return $out;
 }
