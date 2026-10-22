@@ -1,3 +1,21 @@
 {
-  "events": []
+  "events": [
+    {
+      "title": "Afro Halloween Party",
+      "date": "2026-10-31",
+      "time": "21:00",
+      "endNote": "jusqu'à la fermeture",
+      "dj": "DJ Hamed",
+      "description": "La nuit la plus effrayante de Louis. Viens déguisé : amapiano, afrobeat, dancehall et hip-hop toute la nuit avec DJ Hamed. Cocktails, food et chichas.",
+      "genres": ["Amapiano", "Afrobeat", "Dancehall", "Hip-hop"],
+      "perks": ["Prix du meilleur déguisement", "Shots spéciaux Halloween", "Cocktails · Food · Chichas"],
+      "infoPhones": ["+24177453167", "+24174415118"],
+      "poster": "/images/evenements/afro-halloween-party-jackboy-31-octobre-2026.webp",
+      "posterWidth": 1116,
+      "posterHeight": 1410,
+      "video": "/videos/afro-halloween-party-jackboy-libreville.mp4",
+      "videoPoster": "/videos/afro-halloween-party-apercu.webp",
+      "visible": true
+    }
+  ]
 }

@@ -7,7 +7,6 @@ import { OpenStatus } from "@/components/OpenStatus";
 import { SectionTitle } from "@/components/SectionTitle";
 import { AmbianceSwitch } from "@/components/AmbianceSwitch";
 import { ProductCard } from "@/components/ProductCard";
-import { EventCard } from "@/components/EventCard";
 import { Media } from "@/components/Media";
 import { VisitBlock } from "@/components/VisitBlock";
 import { CactusMark, FullLogo } from "@/components/Logo";
@@ -19,6 +18,7 @@ import { MenuDownload } from "@/components/MenuDownload";
 import { Faq } from "@/components/Faq";
 import { DrinksShowcase } from "@/components/DrinksShowcase";
 import { TakeawayBanner } from "@/components/TakeawayBanner";
+import { FeaturedEvent } from "@/components/FeaturedEvent";
 
 const GENRES = ["Amapiano", "Afrobeats", "Afrotcham", "Urban"];
 
@@ -70,6 +70,17 @@ export default function Home() {
       </section>
 
       <Marquee items={["Ton repère, ton rythme, ta vibe", "Good drinks", "Good vibes", "Great people", "Le vrai goût du chill", "Amapiano", "Afrobeats", "Afrotcham", "Before & after", "Burgers", "Chicha", "Louis · Libreville"]} />
+
+      {events[0] && (
+        <section aria-label="Prochaine soirée" className="mx-auto max-w-6xl px-4 pt-14">
+          <FeaturedEvent e={events[0]} />
+          <div className="mt-4 text-right">
+            <Link href="/evenements" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold uppercase tracking-wider text-accent hover:underline">
+              Toute la programmation <IconArrow className="h-4 w-4" />
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* ───── ACTE 2 — Deux ambiances ───── */}
       <section aria-labelledby="acte2" className="mx-auto max-w-6xl px-4 py-20 md:py-28">
@@ -139,17 +150,6 @@ export default function Home() {
           </Link>
         </div>
 
-        {events.length > 0 && (
-          <div className="mt-16">
-            <h3 className="mb-5 font-display text-3xl">À venir</h3>
-            <div className="grid gap-4 md:grid-cols-2">
-              {events.map((e) => <EventCard key={e.title + e.date} e={e} />)}
-            </div>
-            <Link href="/evenements" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold uppercase tracking-wider text-accent hover:underline">
-              Toute la programmation <IconArrow className="h-4 w-4" />
-            </Link>
-          </div>
-        )}
 
         {loft.visible && <Link href="/loft" className="reveal group mt-16 block overflow-hidden rounded-3xl border border-gold/30">
           <div className="relative">

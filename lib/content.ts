@@ -51,6 +51,8 @@ export type Category = {
 
 export type JackboyEvent = {
   title: string; date: string; time: string; dj: string; description: string; poster: string | null; visible: boolean;
+  endNote?: string; genres?: string[]; perks?: string[]; infoPhones?: string[];
+  posterWidth?: number; posterHeight?: number; video?: string; videoPoster?: string;
 };
 export type GalleryItem = { src: string | null; alt: string; mood: string; caption: string };
 export type TeamMember = { name: string; role: string; photo: string | null };
@@ -73,7 +75,7 @@ export function getSignatureProducts(limit = 4): (Product & { category: string }
 /** Événements visibles, à venir, triés par date. */
 export function getUpcomingEvents(now = new Date()): JackboyEvent[] {
   const today = now.toISOString().slice(0, 10);
-  return (eventsData.events as JackboyEvent[])
+  return (eventsData.events as unknown as JackboyEvent[])
     .filter((e) => e.visible && e.date >= today)
     .sort((a, b) => a.date.localeCompare(b.date));
 }
