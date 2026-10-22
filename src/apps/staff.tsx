@@ -6,7 +6,7 @@ import { formatPhone } from '../lib/format'
 import { useAuth } from '../live/auth'
 import { PhoneLogin } from '../live/PhoneLogin'
 import { useLiveQuery } from '../live/realtime'
-import { errMsg, LIVE, sb, type Role } from '../live/supabase'
+import { DEMO_STAFF, errMsg, sb, supabase, type Role } from '../live/supabase'
 import { CITIES } from '../data/services'
 
 export type StaffApp = { role: Exclude<Role, 'client'>; title: string; accent: string; gradient: string; tagline: string }
@@ -118,7 +118,7 @@ function ApplicationFlow({ app }: { app: StaffApp }) {
 /** Accès réservé : connexion + rôle attendu, sinon candidature (marchand, livreur) ou refus (admin). */
 export function StaffGate({ app, children }: { app: StaffApp; children: ReactNode }) {
   const { ready, session, profile, signOut } = useAuth()
-  if (!LIVE)
+  if (!supabase)
     return (
       <Centered app={app}>
         <h2 className="text-xl font-bold">Configuration requise</h2>
@@ -129,7 +129,13 @@ export function StaffGate({ app, children }: { app: StaffApp; children: ReactNod
   if (!session) return <Centered app={app}><PhoneLogin accent={app.accent} title={app.title} subtitle={`${app.tagline}. Connectez-vous avec votre numéro.`} /></Centered>
   if (profile && !profile.is_active)
     return <Centered app={app}><h2 className="text-xl font-bold">Compte suspendu</h2><p className="mt-2 text-sm text-neutral-600">Contactez l’équipe NEAM.</p><button onClick={signOut} className="mt-4 text-sm font-medium text-neutral-500">Se déconnecter</button></Centered>
-  if (profile?.role === app.role || (profile?.role === 'admin' && app.role !== 'courier')) return <>{children}</>
+  if (profile?.role === app.role || (profile?.role === 'admin' && app.role !== 'courier'))
+    return (
+      <>
+        {DEMO_STAFF && <p className="bg-amber-400 px-4 pb-1.5 pt-[calc(var(--safe-top)+6px)] text-center text-xs font-semibold text-amber-950">Mode démonstration · commandes simulées sur cet appareil</p>}
+        {children}
+      </>
+    )
   if (app.role === 'admin')
     return <Centered app={app}><h2 className="text-xl font-bold">Accès réservé</h2><p className="mt-2 text-sm text-neutral-600">Ce compte n’a pas les droits d’administration.</p><button onClick={signOut} className="mt-4 text-sm font-medium text-neutral-500">Se déconnecter</button></Centered>
   return <Centered app={app}><ApplicationFlow app={app} /></Centered>

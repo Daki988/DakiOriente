@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
+import { createDemoClient } from './demo'
 
 const url = import.meta.env.VITE_SUPABASE_URL as string | undefined
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
@@ -6,7 +7,15 @@ const key = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
 /** Mode « production » : un projet Supabase est configuré. Sinon, mode démonstration. */
 export const LIVE = !!(url && key)
 
-export const supabase: SupabaseClient | null = LIVE ? createClient(url!, key!, { auth: { persistSession: true, autoRefreshToken: true } }) : null
+/** Sans serveur, les apps Partenaire et Livreur tournent sur un serveur simulé (données sur l'appareil). */
+const FLAVOR = import.meta.env.VITE_APP as string | undefined
+export const DEMO_STAFF = !LIVE && (FLAVOR === 'merchant' || FLAVOR === 'courier')
+
+export const supabase: SupabaseClient | null = LIVE
+  ? createClient(url!, key!, { auth: { persistSession: true, autoRefreshToken: true } })
+  : DEMO_STAFF
+    ? createDemoClient(FLAVOR as 'merchant' | 'courier')
+    : null
 
 /** Services ouverts au lancement (les autres restent en aperçu). */
 export const LIVE_SERVICES = ['market', 'express'] as const

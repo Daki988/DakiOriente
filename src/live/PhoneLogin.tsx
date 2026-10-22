@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ArrowRight, Loader2, Phone, ShieldCheck } from 'lucide-react'
-import { errMsg, normalizePhone, sb } from './supabase'
+import { DEMO_STAFF, errMsg, normalizePhone, sb } from './supabase'
 
 /** Connexion par numéro de téléphone + code SMS à 6 chiffres. */
 export function PhoneLogin({ onDone, accent = '#079b5a', title = 'Connexion', subtitle = 'Recevez un code par SMS pour vous connecter.' }: { onDone?: () => void; accent?: string; title?: string; subtitle?: string }) {
@@ -71,6 +71,7 @@ export function PhoneLogin({ onDone, accent = '#079b5a', title = 'Connexion', su
             className="h-14 w-full rounded-2xl border border-neutral-200 bg-white text-center text-2xl font-bold tracking-[0.5em] outline-none focus:border-neutral-400"
           />
         )}
+        {DEMO_STAFF && <p className="rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-900">Mode démonstration : n’importe quel numéro, puis le code <b>123456</b>.</p>}
         {error && <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600" role="alert">{error}</p>}
         <button disabled={busy} className="flex h-14 w-full items-center justify-center gap-2 rounded-2xl font-semibold text-white shadow-lg disabled:opacity-70" style={{ background: accent }}>
           {busy ? <Loader2 className="animate-spin" size={20} /> : step === 'phone' ? <>Recevoir le code <ArrowRight size={18} /></> : 'Se connecter'}

@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 import type { Session } from '@supabase/supabase-js'
-import { LIVE, supabase, type Role } from './supabase'
+import { supabase, type Role } from './supabase'
 
 export type Profile = { id: string; full_name: string; phone: string | null; role: Role; is_active: boolean }
 
@@ -13,12 +13,12 @@ type AuthCtx = {
   signOut: () => Promise<void>
 }
 
-const Ctx = createContext<AuthCtx>({ ready: !LIVE, session: null, profile: null, role: null, refresh: async () => {}, signOut: async () => {} })
+const Ctx = createContext<AuthCtx>({ ready: !supabase, session: null, profile: null, role: null, refresh: async () => {}, signOut: async () => {} })
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
-  const [ready, setReady] = useState(!LIVE)
+  const [ready, setReady] = useState(!supabase)
 
   const loadProfile = useCallback(async (s: Session | null) => {
     if (!supabase || !s) return setProfile(null)
