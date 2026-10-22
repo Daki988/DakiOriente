@@ -253,7 +253,7 @@ page('', 'Nos expertises', f'''
   <div class="sectors"><span class="label">Secteurs accompagnés</span><p>Commerce · Restauration · Immobilier · Services · Éducation · BTP · Cabinets · PME, à Libreville, Akanda, Owendo et partout au Gabon.</p></div>''')
 
 # ---------- 14 Offres ----------
-OFF = [('Starter', 'Micro-entreprises', 'Présence digitale, fiche Google, page de présentation, diagnostic.', 1, '<small>À partir de</small>150&nbsp;000 FCFA<small>par mois</small>'),
+OFF = [('Starter', 'Micro-entreprises', 'Présence digitale, fiche Google, page de présentation, diagnostic.', 1, '<small>À partir de</small>90&nbsp;000 FCFA<small>par mois</small>'),
        ('Business', 'TPE', 'Site web, identité numérique, référencement, outils commerciaux, accompagnement.', 2, 'Sur devis'),
        ('Growth', 'PME', 'CRM, automatisations, données, acquisition de clients, accompagnement avancé.', 3, 'Sur devis'),
        ('Enterprise', 'Organisations complexes', 'Solutions métiers, intégrations, développement spécifique.', 4, 'Sur devis'),
@@ -266,7 +266,7 @@ page('page--grey', 'Nos offres', f'''
   <h1>Une offre pour chaque <em>niveau de maturité</em>.</h1>
   <p class="lead">De la micro-entreprise qui veut être trouvée sur Google à l’organisation qui a besoin d’un logiciel sur mesure&nbsp;: nous servons chaque étape, sans diluer la qualité.</p>
   <ul class="offers">{off}</ul>
-  <p class="note">La barre indique la profondeur de l’accompagnement. L’offre Starter démarre à 150&nbsp;000 FCFA par mois&nbsp;; les autres offres font l’objet d’un devis détaillé, gratuit et sans engagement.</p>''', toc='Nos offres')
+  <p class="note">La barre indique la profondeur de l’accompagnement. L’offre Starter démarre à 90&nbsp;000 FCFA par mois&nbsp;; les autres offres font l’objet d’un devis détaillé, gratuit et sans engagement.</p>''', toc='Nos offres')
 
 # ---------- 13 Digital Score ----------
 page('page--yellow', 'NEAM Digital Score™', f'''

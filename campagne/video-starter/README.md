@@ -9,7 +9,7 @@ Scénario :
 3. « Brice a créé son entreprise pour être libre. Pas pour répondre à tout, tout seul, jusqu'à minuit. »
 4. Le lendemain, avec NEAM : chaque question trouve sa réponse grâce à ce que couvre l'offre Starter (fiche Google, page de présentation, présence digitale, diagnostic). Les clients arrivent, l'énergie remonte, la boutique ferme à 18:30 et Brice rentre.
 5. 18:45, à la maison avec sa famille : « Brice garde son métier. NEAM s'occupe de sa présence en ligne. »
-6. Carte finale : « Et toi ? Reprends le contrôle de ton temps. » Offre Starter, à partir de 150 000 FCFA / mois, diagnostic gratuit, neamindustry.com, WhatsApp 077 45 31 67.
+6. Carte finale : « Et toi ? Reprends le contrôle de ton temps. » Offre Starter, à partir de 90 000 FCFA / mois, diagnostic gratuit, neamindustry.com, WhatsApp 077 45 31 67.
 
 Refaire la vidéo : textes dans `index.html` (tableaux `DAY` et `FIX`), `python3 son.py`, `node render.js <dossier>` puis
 `ffmpeg -framerate 30 -i <dossier>/f%04d.jpg -i son.wav -c:v libx264 -crf 20 -pix_fmt yuv420p -c:a aac -shortest -movflags +faststart NEAM_Starter_une_journee.mp4`

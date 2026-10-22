@@ -80,7 +80,7 @@ for i, s in enumerate(SLIDES, 1):
         extra = '<span class="swipe">Glisse →</span>'
     if i == len(SLIDES):
         extra = ('<div class="cta"><span class="cta__btn">Diagnostic digital gratuit · neamindustry.com</span>'
-                 '<span class="cta__sub">Offre Starter à partir de 150&nbsp;000&nbsp;FCFA&nbsp;/&nbsp;mois<br>WhatsApp 077 45 31 67</span></div>'
+                 '<span class="cta__sub">Offre Starter à partir de 90&nbsp;000&nbsp;FCFA&nbsp;/&nbsp;mois<br>WhatsApp 077 45 31 67</span></div>'
                  '<div class="sign"><img src="../../assets/logo-light.png" alt="NEAM"><span>@neam.industry</span></div>')
     sections.append(f'<section class="slide" id="s{i}"><div class="txt">{fmt(s)}</div>{extra}<span class="num">{i:02d} / {len(SLIDES):02d}</span></section>')
 

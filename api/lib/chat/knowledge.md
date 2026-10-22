@@ -66,7 +66,7 @@ Questions fréquentes :
 - Que se passe-t-il après la feuille de route ? → Vous pouvez la mettre en œuvre seul, ou avec NEAM : nous réalisons aussi les sites, logiciels et automatisations.
 
 ## Offres et tarifs
-- NEAM Starter (micro-entreprises) : présence digitale, fiche Google, page de présentation, diagnostic. À partir de 150 000 FCFA par mois. C’est le seul tarif public.
+- NEAM Starter (micro-entreprises) : présence digitale, fiche Google, page de présentation, diagnostic. À partir de 90 000 FCFA par mois. C’est le seul tarif public.
 - NEAM Business (TPE) : site web, identité numérique, référencement, outils commerciaux, accompagnement. Sur devis.
 - NEAM Growth (PME) : CRM, automatisations, données, acquisition de clients, accompagnement avancé. Sur devis.
 - NEAM Enterprise (organisations complexes) : solutions métiers, intégrations, développement spécifique. Sur devis.
