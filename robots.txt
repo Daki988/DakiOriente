@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /atelier/
 
 Sitemap: https://www.neamindustry.com/sitemap.xml

@@ -54,6 +54,15 @@ return [
         'rate_limit'        => 30,                // messages par adresse IP sur 10 minutes
     ],
 
+    // Atelier NEAM (www.neamindustry.com/atelier/) : back-office de production réservé à l'équipe.
+    // Vide : l'Atelier reste fermé. Choisissez un mot de passe long et unique.
+    'atelier' => [
+        'password'          => '',
+        'anthropic_api_key' => '',                // vide : utilise audit → anthropic_api_key
+        'model'             => 'claude-opus-5-5',
+        'effort'            => 'medium',          // qualité de rédaction des livrables
+    ],
+
     // Limite anti-abus : nombre d'envois par adresse IP sur 10 minutes
     'rate_limit' => 5,
 ];
