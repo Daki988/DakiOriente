@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<style>
+  @font-face { font-family: P; src: url(poppins-latin-500-normal.woff2) format('woff2'); font-weight: 500; }
+  @font-face { font-family: P; src: url(poppins-latin-700-normal.woff2) format('woff2'); font-weight: 700; }
+  @font-face { font-family: P; src: url(poppins-latin-800-normal.woff2) format('woff2'); font-weight: 800; }
+  html, body { margin: 0; background: #04241b; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: P, 'Noto Color Emoji', sans-serif; color: #fff; background: #04241b; }
+  .layer { position: absolute; inset: 0; opacity: 0; overflow: hidden; }
+  .line { position: absolute; left: 80px; right: 80px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.04; opacity: 0; }
+  .dark .line { color: #04241b; }
+  .pose { position: absolute; display: block; }
+  .chip { position: absolute; display: flex; align-items: center; gap: 20px; padding: 24px 34px; border-radius: 999px; background: #fff; color: #04241b; font-weight: 700; font-size: 42px; box-shadow: 0 20px 50px rgba(0,0,0,.35); opacity: 0; white-space: nowrap; }
+  .head { position: absolute; left: 80px; top: 150px; display: flex; align-items: center; gap: 22px; font-weight: 800; font-size: 54px; opacity: 0; }
+  .head img { height: 96px; }
+  .card { position: absolute; width: 270px; height: 222px; border-radius: 40px; background: #fff; box-shadow: 0 18px 40px rgba(7,90,55,.18); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #04241b; opacity: 0; }
+  .card .e { font-size: 96px; line-height: 1.1; }
+  .card .n { font-size: 32px; font-weight: 700; margin-top: 6px; }
+  .pin { position: absolute; width: 0; height: 0; opacity: 0; }
+  .pin .dot { position: absolute; left: -40px; top: -100px; width: 80px; height: 80px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: linear-gradient(145deg,#4fe8a1,#079b5a); box-shadow: 0 14px 30px rgba(0,0,0,.4); border: 6px solid #fff; }
+  .pin .lbl { position: absolute; left: 50%; top: -4px; transform: translateX(-50%); background: #fff; color: #04241b; font-weight: 800; font-size: 34px; padding: 6px 20px; border-radius: 999px; white-space: nowrap; box-shadow: 0 10px 24px rgba(0,0,0,.35); }
+  .pin .pulse { position: absolute; left: -60px; top: -60px; width: 120px; height: 120px; border-radius: 50%; border: 6px solid #4fe8a1; }
+  .speed { position: absolute; height: 10px; border-radius: 10px; background: linear-gradient(90deg, rgba(124,247,189,0), rgba(124,247,189,.9)); }
+  #wipe { position: absolute; left: -40%; top: -10%; width: 70%; height: 120%; background: linear-gradient(90deg,#10c070,#7cf7bd); transform: skewX(-18deg); opacity: 0; z-index: 10; }
+  #phone { position: absolute; left: 50%; width: 540px; height: 1110px; margin-left: -270px; border-radius: 78px; background: #0b1a14; padding: 22px; box-sizing: border-box; box-shadow: 0 60px 120px rgba(0,0,0,.6), 0 0 0 3px rgba(124,247,189,.25); opacity: 0; }
+  #phone .scr { width: 100%; height: 100%; border-radius: 58px; overflow: hidden; background: #fff; position: relative; }
+  #phone .scr img { width: 100%; display: block; }
+  #phone .notch { position: absolute; left: 50%; top: 22px; width: 160px; height: 44px; margin-left: -80px; border-radius: 0 0 28px 28px; background: #0b1a14; z-index: 2; }
+  #badge { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 18px; opacity: 0; }
+  #badge span { display: flex; align-items: center; gap: 14px; padding: 22px 34px; border-radius: 26px; border: 3px solid rgba(255,255,255,.5); font-size: 38px; font-weight: 700; background: rgba(255,255,255,.08); white-space: nowrap; }
+  .particle { position: absolute; border-radius: 50%; background: #7cf7bd; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- Scène 1 : 18 h, le frigo est vide, Néo arrive -->
+  <div class="layer" id="s1" style="background: radial-gradient(90% 55% at 50% 62%, #0f6b47 0%, rgba(15,107,71,0) 70%), radial-gradient(70% 40% at 100% 0%, #0b4a33 0%, rgba(0,0,0,0) 70%), #04241b">
+    <div id="parts"></div>
+    <svg id="ribbon" viewBox="0 0 1080 1920" style="position:absolute; inset:0; width:100%; height:100%">
+      <defs>
+        <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d884" /><stop offset="1" stop-color="#7cf7bd" /></linearGradient>
+        <filter id="glow"><feGaussianBlur stdDeviation="18" /></filter>
+      </defs>
+      <path id="r1" d="M -100 1500 C 200 1200, 380 1700, 560 1250 S 900 900, 1200 1050" fill="none" stroke="url(#rg)" stroke-width="70" stroke-linecap="round" opacity=".35" filter="url(#glow)" />
+      <path id="r2" d="M -100 1500 C 200 1200, 380 1700, 560 1250 S 900 900, 1200 1050" fill="none" stroke="url(#rg)" stroke-width="26" stroke-linecap="round" opacity=".9" />
+    </svg>
+    <div class="line" id="s1a" style="top: 200px; font-size: 120px">Libreville, <span style="color:#7cf7bd">18 h.</span></div>
+    <div class="line" id="s1b" style="top: 350px; font-size: 84px; font-weight: 700">Le frigo est vide ?</div>
+    <div id="sp1"></div>
+    <img class="pose" id="main1" src="m-main.png" style="width: 760px; left: 160px; top: 690px" />
+    <div class="line" id="s1c" style="top: 1610px; font-size: 120px; color:#7cf7bd; text-align:center">NEAM arrive.</div>
+  </div>
+
+  <!-- Scène 2 : NEAM Market -->
+  <div class="layer dark" id="s2" style="background: radial-gradient(60% 35% at 100% 10%, #c9f7df 0%, rgba(0,0,0,0) 70%), radial-gradient(60% 40% at 0% 100%, #c9f7df 0%, rgba(0,0,0,0) 70%), #eefbf4">
+    <div class="head" id="h2" style="color:#04241b"><img src="market-mark.webp" /> NEAM Market</div>
+    <div class="line" id="s2a" style="top: 300px; font-size: 104px">Vos courses</div>
+    <div class="line" id="s2b" style="top: 412px; font-size: 104px; color:#0a9a5c">en quelques clics</div>
+    <div id="grid"></div>
+    <img class="pose" id="courses" src="m-courses.png" style="width: 640px; right: -30px; bottom: 0" />
+  </div>
+
+  <!-- Scène 3 : NEAM Express dans la ville illustrée -->
+  <div class="layer" id="s3" style="background: linear-gradient(180deg, #052a1f 0%, #0b4a33 38%, #1f7a52 58%, #f3a65a 78%, #f7c77d 84%)">
+    <div id="sun" style="position:absolute; left: 640px; top: 1140px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, #fff3c4 0%, #ffd27a 45%, rgba(255,190,90,0) 72%)"></div>
+    <svg id="city" viewBox="0 0 2400 900" preserveAspectRatio="none" style="position:absolute; left: 0; top: 900px; width: 2400px; height: 760px"></svg>
+    <div style="position:absolute; left:0; right:0; top: 1600px; bottom: 0; background: linear-gradient(180deg,#3b4542,#262d2b)"></div>
+    <div style="position:absolute; left:0; right:0; top: 1590px; height: 18px; background:#c9d6cf"></div>
+    <div id="road" style="position:absolute; left:0; top: 1700px; width: 2400px; height: 14px"></div>
+    <div class="head" id="h3"><img src="express-mark.webp" /> NEAM Express</div>
+    <div class="line" id="s3a" style="top: 300px; font-size: 104px">Livraison rapide</div>
+    <div class="line" id="s3b" style="top: 412px; font-size: 104px; color:#7cf7bd">à Libreville</div>
+    <div id="pins"></div>
+    <div id="sp3"></div>
+    <img class="pose" id="scooter" src="m-scooter.png" style="width: 640px; bottom: 0; filter: drop-shadow(0 0 26px rgba(124,247,189,.55)) drop-shadow(0 0 4px rgba(255,255,255,.7)) brightness(1.08)" />
+  </div>
+
+  <!-- Scène 4 : l'application, paiement à la livraison -->
+  <div class="layer" id="s4" style="background: radial-gradient(120% 80% at 0% 0%, #0d7a4f 0%, rgba(0,0,0,0) 55%), radial-gradient(80% 60% at 100% 100%, #0b5f3e 0%, rgba(0,0,0,0) 60%), #04241b">
+    <div class="line" id="s4a" style="top: 130px; font-size: 92px; text-align:center">Commandez.<br/><span style="color:#7cf7bd">Payez à la livraison.</span></div>
+    <div id="phone" style="top: 430px"><div class="notch"></div><div class="scr"><img id="appimg" src="app.png" /></div></div>
+    <div class="chip" id="c1" style="left: 40px; top: 700px">💵 Paiement à la livraison</div>
+    <div class="chip" id="c2" style="right: 40px; top: 940px">📍 Suivi en direct</div>
+    <div class="chip" id="c3" style="left: 40px; top: 1180px">🔐 Code de remise</div>
+    <img class="pose" id="phonepose" src="m-phone.png" style="width: 600px; right: -20px; bottom: 0" />
+  </div>
+
+  <!-- Scène 5 : carte finale -->
+  <div class="layer" id="s5" style="background: radial-gradient(90% 55% at 50% 45%, #0f6b47 0%, rgba(0,0,0,0) 70%), #04241b">
+    <img id="logo" src="neam-logo.webp" style="position:absolute; left: 50%; top: 200px; width: 820px; margin-left: -410px; opacity: 0" />
+    <div class="line" id="s5t" style="top: 520px; font-size: 50px; font-weight: 500; text-align:center; color:#d6fbe8">Plus proche de votre quotidien.</div>
+    <img class="pose" id="main5" src="m-main.png" style="width: 600px; left: 240px; top: 650px" />
+    <div class="line" id="s5a" style="top: 1340px; font-size: 76px; text-align:center">Bientôt disponible</div>
+    <div id="badge" style="top: 1480px"><span>📱 Android</span><span>📱 iPhone</span></div>
+    <div class="line" id="s5b" style="top: 1660px; font-size: 42px; font-weight: 500; text-align:center; color:#b7f5d6">NEAM Market · NEAM Express · Libreville</div>
+  </div>
+
+  <div id="wipe"></div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, start, dur) => clamp((t - start) / dur);
+const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+const easeIn = (x) => x * x * x;
+const easeInOut = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const back = (x) => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+const SCENES = [[0, 5], [5, 10], [10, 15], [15, 20.5], [20.5, 25]];
+
+// Particules lumineuses (scène 1)
+const PARTS = Array.from({ length: 34 }, () => ({ x: rnd() * 1080, y: rnd() * 1920, r: 4 + rnd() * 10, v: 30 + rnd() * 70, o: 0.15 + rnd() * 0.5 }));
+$('parts').innerHTML = PARTS.map((_, i) => `<div class="particle" id="pt${i}"></div>`).join('');
+
+// Lignes de vitesse
+const speedLines = (host, n, pre) => { $(host).innerHTML = Array.from({ length: n }, (_, i) => `<div class="speed" id="${pre}${i}"></div>`).join('') };
+speedLines('sp1', 7, 'a'); speedLines('sp3', 7, 'b');
+const SP = Array.from({ length: 7 }, () => ({ dy: rnd(), w: 160 + rnd() * 260 }));
+
+// Produits NEAM Market
+const PRODUCTS = [['🍚', 'Riz'], ['🥖', 'Pain'], ['🍅', 'Tomates'], ['🥑', 'Avocats'], ['🍌', 'Bananes'], ['🐟', 'Poisson'], ['🥛', 'Lait'], ['🧃', 'Jus'], ['🧴', 'Hygiène']];
+$('grid').innerHTML = PRODUCTS.map(([e, n], i) => `<div class="card" id="g${i}" style="left:${90 + (i % 3) * 300}px; top:${600 + Math.floor(i / 3) * 250}px"><div class="e">${e}</div><div class="n">${n}</div></div>`).join('');
+
+// Ville illustrée (deux plans + palmiers + fenêtres allumées)
+function city() {
+  let s = '';
+  for (let x = 0; x < 2400;) { const w = 90 + rnd() * 140, h = 180 + rnd() * 380; s += `<rect x="${x}" y="${900 - h - 120}" width="${w}" height="${h + 120}" fill="#0d553a" opacity=".55"/>`; x += w + 10 + rnd() * 30 }
+  for (let x = -40; x < 2400;) {
+    const w = 120 + rnd() * 160, h = 160 + rnd() * 300, y = 900 - h;
+    s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" fill="#06301f"/>`;
+    for (let wy = y + 30; wy < 860; wy += 54) for (let wx = x + 22; wx < x + w - 30; wx += 46) if (rnd() > 0.55) s += `<rect x="${wx}" y="${wy}" width="22" height="28" rx="3" fill="#ffd27a" opacity="${0.5 + rnd() * 0.5}"/>`;
+    x += w + 40 + rnd() * 80;
+  }
+  for (const px of [160, 760, 1300, 1900, 2250]) {
+    s += `<path d="M ${px} 900 C ${px + 10} 760, ${px - 20} 640, ${px + 20} 540" stroke="#041d14" stroke-width="20" fill="none" stroke-linecap="round"/>`;
+    for (const a of [-150, -110, -60, -20, 20, 70]) { const r = (a * Math.PI) / 180; s += `<path d="M ${px + 20} 540 q ${Math.cos(r) * 80} ${Math.sin(r) * 80 - 40} ${Math.cos(r) * 170} ${Math.sin(r) * 170 + 40}" stroke="#041d14" stroke-width="22" fill="none" stroke-linecap="round"/>` }
+  }
+  $('city').innerHTML = s;
+}
+city();
+$('road').innerHTML = Array.from({ length: 24 }, (_, i) => `<div style="position:absolute; left:${i * 110}px; width:60px; height:14px; border-radius:7px; background:#f7c77d; opacity:.7"></div>`).join('');
+
+const PINS = [['Louis', 180, 1000], ['Glass', 760, 930], ['Nkembo', 420, 1190], ['Akanda', 860, 1210], ['Owendo', 260, 1420], ['Mont-Bouët', 700, 1440]];
+$('pins').innerHTML = PINS.map(([n, x, y], i) => `<div class="pin" id="p${i}" style="left:${x}px; top:${y}px"><div class="pulse"></div><div class="dot"></div><div class="lbl">${n}</div></div>`).join('');
+
+window.ready = (async () => {
+  await document.fonts.load('800 50px P'); await document.fonts.ready;
+  await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+  for (const id of ['r1', 'r2']) { const p = $(id), L = p.getTotalLength(); p.style.strokeDasharray = L; p.dataset.len = L }
+  return true;
+})();
+
+function line(id, t, start, dy = 60) {
+  const p = easeOut(prog(t, start, 0.55));
+  const el = $(id);
+  el.style.opacity = p;
+  el.style.transform = `translateY(${(1 - p) * dy}px)`;
+}
+function pop(id, t, start, extra = '') {
+  const q = back(prog(t, start, 0.55));
+  $(id).style.opacity = clamp(q * 2);
+  $(id).style.transform = `${extra} scale(${Math.max(0, q)})`;
+}
+function speed(pre, t, on, x, y, h, dir = 1) {
+  SP.forEach((s, i) => {
+    const el = $(pre + i);
+    el.style.opacity = on * (0.4 + 0.6 * Math.abs(Math.sin(t * 7 + i)));
+    el.style.width = `${s.w}px`;
+    el.style.top = `${y + s.dy * h}px`;
+    el.style.left = `${dir > 0 ? x - s.w - 30 - ((t * 900 + i * 70) % 120) : x + 30 + ((t * 900 + i * 70) % 120)}px`;
+    el.style.transform = dir > 0 ? '' : 'scaleX(-1)';
+  });
+}
+function sceneOpacity(i, t) {
+  const [a, b] = SCENES[i];
+  const fadeIn = i === 0 ? 1 : clamp((t - a) / 0.35);
+  const fadeOut = i === SCENES.length - 1 ? 1 : clamp((b + 0.35 - t) / 0.35);
+  return Math.min(fadeIn, fadeOut);
+}
+
+window.render = (t) => {
+  SCENES.forEach((_, i) => { $(`s${i + 1}`).style.opacity = sceneOpacity(i, t) });
+  let w = 0, wx = -120;
+  for (const [, b] of SCENES.slice(0, -1)) { const p = prog(t, b - 0.25, 0.6); if (p > 0 && p < 1) { w = 1; wx = -120 + easeInOut(p) * 260 } }
+  $('wipe').style.opacity = w;
+  $('wipe').style.left = `${wx}%`;
+
+  // Scène 1
+  if (t < 5.4) {
+    PARTS.forEach((p, i) => { const el = $(`pt${i}`); el.style.cssText = `left:${p.x + Math.sin(t + i) * 20}px; top:${((p.y - t * p.v) % 1920 + 1920) % 1920}px; width:${p.r}px; height:${p.r}px; opacity:${p.o}` });
+    const d = easeInOut(prog(t, 0.2, 1.6));
+    for (const id of ['r1', 'r2']) $(id).style.strokeDashoffset = $(id).dataset.len * (1 - d);
+    line('s1a', t, 0.3); line('s1b', t, 1.0);
+    // Néo arrive en courant depuis la droite, freine et rebondit
+    const e = easeOut(prog(t, 1.7, 0.8));
+    const settle = prog(t, 2.5, 0.5);
+    const squash = settle > 0 && settle < 1 ? Math.sin(settle * Math.PI) * 0.06 : 0;
+    const bob = t > 3 ? Math.sin((t - 3) * 4) * 10 : 0;
+    $('main1').style.transform = `translateX(${(1 - e) * 1150}px) translateY(${bob}px) skewX(${(1 - e) * 10}deg) scale(${1 + squash}, ${1 - squash})`;
+    $('main1').style.transformOrigin = '50% 100%';
+    speed('a', t, t > 1.7 && t < 2.9 ? 1 - prog(t, 2.4, 0.5) : 0, 160 + (1 - e) * 1150 + 980, 900, 500, -1);
+    line('s1c', t, 3.1, 80);
+  }
+  // Scène 2
+  if (t > 4.6 && t < 10.4) {
+    line('h2', t, 5.2, 30); line('s2a', t, 5.4); line('s2b', t, 5.7);
+    PRODUCTS.forEach((_, i) => {
+      const q = back(prog(t, 6.1 + i * 0.13, 0.5));
+      const el = $(`g${i}`);
+      el.style.opacity = clamp(q * 2);
+      el.style.transform = `translateY(${(1 - q) * -120}px) scale(${0.6 + 0.4 * q}) rotate(${(1 - q) * (i % 2 ? 8 : -8)}deg)`;
+    });
+    const c = easeOut(prog(t, 7.6, 0.8));
+    $('courses').style.transform = `translateY(${(1 - c) * 520}px) rotate(${Math.sin(t * 3) * 1.5}deg)`;
+    $('courses').style.transformOrigin = '50% 100%';
+  }
+  // Scène 3
+  if (t > 9.6 && t < 15.4) {
+    const k = t - 9.6;
+    $('city').style.transform = `translateX(${-k * 110}px)`;
+    $('road').style.transform = `translateX(${-((k * 900) % 110)}px)`;
+    line('h3', t, 10.3, 30); line('s3a', t, 10.5); line('s3b', t, 10.8);
+    PINS.forEach((_, i) => {
+      const st = 11.6 + i * 0.32;
+      const p = back(prog(t, st, 0.5));
+      const el = $(`p${i}`);
+      el.style.opacity = clamp(p * 3);
+      el.style.transform = `scale(${Math.max(0, p)})`;
+      const pul = el.querySelector('.pulse'), q = (((t - st) % 1.4) + 1.4) % 1.4 / 1.4;
+      pul.style.transform = `scale(${0.4 + q * 1.4})`;
+      pul.style.opacity = t > st ? (1 - q) * 0.8 : 0;
+    });
+    const enter = easeOut(prog(t, 10.4, 1.3)), exit = easeIn(prog(t, 13.7, 0.9));
+    const x = -700 + enter * 930 + exit * 1100;
+    $('scooter').style.left = `${x}px`;
+    $('scooter').style.transform = `translateY(${Math.sin(t * 24) * 3}px) rotate(${-1 - exit * 3}deg)`;
+    speed('b', t, 1, x + 40, 1560, 300, 1);
+  }
+  // Scène 4
+  if (t > 14.6 && t < 20.9) {
+    line('s4a', t, 15.3);
+    const p = easeOut(prog(t, 15.5, 0.9));
+    $('phone').style.opacity = p;
+    $('phone').style.transform = `translateY(${(1 - p) * 500}px) rotate(${(1 - p) * -8}deg)`;
+    $('appimg').style.transform = `translateY(${-easeInOut(prog(t, 16.6, 3.4)) * 1250}px)`;
+    pop('c1', t, 16.4); pop('c2', t, 17.0); pop('c3', t, 17.6);
+    const n = easeOut(prog(t, 18.2, 0.7));
+    $('phonepose').style.transform = `translateY(${(1 - n) * 460}px)`;
+  }
+  // Scène 5
+  if (t > 20.1) {
+    const l = back(prog(t, 20.8, 0.8));
+    $('logo').style.opacity = clamp(l * 2);
+    $('logo').style.transform = `scale(${0.6 + 0.4 * Math.max(0, l)})`;
+    line('s5t', t, 21.4, 30);
+    const n = back(prog(t, 21.6, 0.8));
+    $('main5').style.opacity = clamp(n * 2);
+    $('main5').style.transform = `translateY(${(1 - n) * 700 + Math.sin(t * 3) * 10}px)`;
+    line('s5a', t, 22.4);
+    const bd = easeOut(prog(t, 22.8, 0.6));
+    $('badge').style.opacity = bd;
+    $('badge').style.transform = `translateX(-50%) translateY(${(1 - bd) * 40}px)`;
+    line('s5b', t, 23.2);
+  }
+};
+</script>
+</body>
+</html>
