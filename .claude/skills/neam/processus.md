@@ -2,7 +2,7 @@
 
 Chaque recommandation du NEAM Digital Score (ou besoin du brief) mène à un **processus standard** (P1 à P16). Chaque processus est découpé en étapes 🤖 (un agent la réalise) ou 🧑 (un humain la fait, en suivant un tutoriel rédigé pour ce client).
 
-**Bilan : 70 étapes 🤖 sur 91, soit 77 %.** Le taux réel d'un client dépend des processus retenus dans son plan ; le chef de projet le calcule dans `plan.md`.
+**Bilan : 71 étapes 🤖 sur 91, soit 78 %.** Le taux réel d'un client dépend des processus retenus dans son plan ; le chef de projet le calcule dans `plan.md`.
 
 Agents : `chef-de-projet`, `business-analyste`, `expert-metier`, `designer`, `expert-seo`, `community-manager`, `videaste`, `developpeur-web`, `expert-ia`.
 
@@ -147,8 +147,8 @@ Un besoin non couvert par le Digital Score (logiciel métier, application, assis
 2. 🤖 `chef-de-projet` : proposition chiffrée et planning.
 3. 🧑 Entretien de décision avec le client (tutoriel : objections fréquentes et réponses).
 
-## P16 Suivi mensuel (4 🤖 / 5)
-1. 🧑 Relever les statistiques Google Business et Meta (tutoriel de 5 minutes ; à automatiser dès que les accès API sont obtenus).
+## P16 Suivi mensuel (5 🤖 / 5)
+1. 🤖 `business-analyste` : relevé des statistiques (Instagram, fiche Google Business, Search Console, publicités) avec Windsor.ai. Si un compte du client n'y est pas encore branché : étape 🧑, tutoriel pour l'y ajouter (lien de `get_connector_connect_info`), puis relevé automatique les mois suivants.
 2. 🤖 `expert-seo` : positions sur les requêtes suivies (Semrush) et contrôle de la fiche.
 3. 🤖 `business-analyste` : rapport mensuel, comparaison au mois précédent et aux hypothèses de ROI.
 4. 🤖 `chef-de-projet` : priorités du mois suivant.

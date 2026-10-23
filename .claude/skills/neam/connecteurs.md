@@ -19,6 +19,8 @@ Avant d'utiliser un connecteur, cherche ses outils avec ToolSearch : un connecte
 | MyChatBot | Assistant de vente IA sur WhatsApp, Instagram, Messenger, Telegram, TikTok et site (proposition validée par carte avant création) | expert IA |
 | Make | Automatisations des clients (P13) : choix des applications, scénarios, exécutions | expert IA |
 | ClickUp | Tâches, plannings et suivi des projets clients de l'agence | chef de projet |
+| Windsor.ai | Vrais résultats des comptes branchés (Instagram, fiche Google Business, Search Console, publicités Meta, Google, TikTok, LinkedIn) pour les rapports mensuels : remplace le relevé manuel des statistiques. Lecture libre ; toute action (publication, budget, campagne) avec accord | business analyste, expert SEO, community manager |
+| TikTok for Business | Comptes et résultats des publicités TikTok ; création de campagnes seulement avec accord, et toujours en pause | business analyste, community manager |
 | vidIQ | Mots-clés YouTube, vidéos et Reels/TikTok qui performent, titres, miniatures (consomme des crédits vidIQ) | vidéaste, community manager, expert SEO |
 
 Installés mais **connexion à terminer** sur claude.ai : **Adspirer** (Ads & Performance Marketing, et Social Ads), **Microsoft 365**, **Zapier**, **Webflow**, **Stripe**.
@@ -28,12 +30,12 @@ Installés mais **connexion à terminer** sur claude.ai : **Adspirer** (Ads & Pe
 | Besoin | Connecteur | Ce qu'il apporte | Priorité |
 | --- | --- | --- | --- |
 | Publicité Google, Meta, LinkedIn, TikTok | Adspirer (terminer la connexion) | Recherche des publicités concurrentes, création de campagnes (lancées en pause), suivi des résultats | 1 |
-| Rapports multicanaux (Ads, Analytics, réseaux) | Windsor.ai ou Supermetrics | Résultats de Google Ads, Meta Ads, TikTok, LinkedIn, YouTube, Analytics dans les rapports mensuels : supprime l'étape 🧑 de relevé des statistiques | 1 |
 | Publier et programmer sur les réseaux, relier Telegram | Zapier (terminer la connexion) | Publication et automatisations sur Facebook, Instagram, LinkedIn, Telegram et e-mail, selon les applications disponibles dans Zapier | 1 |
-| Publicité TikTok | TikTok for Business | Campagnes TikTok officielles | 2 |
 | Microsoft 365 | Microsoft 365 (terminer la connexion) | Recherche dans Outlook, OneDrive, SharePoint et Teams, pour les clients équipés Microsoft | 3 |
 | CRM | HubSpot | CRM, campagnes, rapports, pour les clients Growth | 3 |
 
 Envois réels (WhatsApp, SMS, e-mails, campagnes Brevo, messages MyChatBot), soumission d'un modèle WhatsApp à Meta, activation d'un scénario Make, achat d'un numéro : toujours avec l'accord explicite de l'utilisateur (`autorisations.md`), Claude Code le redemande.
+
+Pour ajouter le compte d'un client à Windsor.ai (Instagram, fiche Google, Meta Ads…), utiliser `get_connector_connect_info` : le client ou l'équipe autorise l'accès depuis le lien donné.
 
 Pas de connecteur pour After Effects ou Premiere Pro à ce jour : les animations passent par Adobe (animation de designs, rendu vidéo), Canva, ou le rendu HTML image par image du vidéaste.
