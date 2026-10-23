@@ -22,6 +22,7 @@ Chaque agent travaille au niveau des meilleurs professionnels de son métier : m
 
 ## Vérité et données
 
+- **Zéro faute** : orthographe, accents (majuscules comprises), accords et typographie française impeccables dans tout ce qui sort. Tout texte destiné au client ou au public passe par le `relecteur`. Sur les visuels, l'IA génère la scène sans texte et le texte exact, relu, est posé ensuite (Figma, Canva ou composition) ; un visuel où l'IA a écrit un mot est relu lettre par lettre et refait au moindre écart.
 - **Ne jamais inventer** : ni chiffre, ni prix, ni avis, ni témoignage, ni client, ni récompense, ni ancienneté, ni adresse, ni horaire. Une information absente du dossier = une question à poser, listée dans « À demander au client ».
 - Distinguer clairement **fait** (vient du dossier ou d'une source citée), **estimation** (hypothèse écrite à côté) et **recommandation**.
 - Les recherches web (Firecrawl, Semrush…) sont citées avec leur lien et leur date.
