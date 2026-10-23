@@ -14,25 +14,26 @@ Avant d'utiliser un connecteur, cherche ses outils avec ToolSearch : un connecte
 | Google Drive, Docs, Sheets, Slides | Dossiers clients, rapports, tableaux de bord, présentations | tous |
 | Gmail, Google Agenda | Brouillons d'e-mails, rendez-vous clients | chef de projet |
 | Netlify, Vercel | Mise en ligne de maquettes et de sites de démonstration | développeur web |
+| Bird | WhatsApp Business (modèles de messages en brouillon, statistiques), SMS, e-mail, robot WhatsApp | expert IA, community manager |
+| Brevo | E-mailing : listes, campagnes créées en brouillon, modèles, statistiques | community manager, expert IA |
+| MyChatBot | Assistant de vente IA sur WhatsApp, Instagram, Messenger, Telegram, TikTok et site (proposition validée par carte avant création) | expert IA |
+| Make | Automatisations des clients (P13) : choix des applications, scénarios, exécutions | expert IA |
+| ClickUp | Tâches, plannings et suivi des projets clients de l'agence | chef de projet |
+| vidIQ | Mots-clés YouTube, vidéos et Reels/TikTok qui performent, titres, miniatures (consomme des crédits vidIQ) | vidéaste, community manager, expert SEO |
 
-Installés mais **connexion à terminer** sur claude.ai : **Zapier** (relie des milliers d'applications : réseaux sociaux, WhatsApp, Telegram, e-mail…), **Webflow** (sites gérables par le client), **Stripe** (peu utile au Gabon tant que le Mobile Money domine).
+Installés mais **connexion à terminer** sur claude.ai : **Adspirer** (Ads & Performance Marketing, et Social Ads), **Microsoft 365**, **Zapier**, **Webflow**, **Stripe**.
 
 ## Recommandés (à installer depuis claude.ai, Réglages → Connecteurs)
 
 | Besoin | Connecteur | Ce qu'il apporte | Priorité |
 | --- | --- | --- | --- |
-| Publier et programmer sur les réseaux, relier WhatsApp et Telegram | Zapier (terminer la connexion) | Publication et automatisations sur Facebook, Instagram, LinkedIn, Telegram, WhatsApp et e-mail, selon les applications disponibles dans Zapier | 1 |
-| Publicité Google, Meta, LinkedIn, TikTok | Adspirer Ads & Performance Marketing | Recherche des publicités concurrentes, création de campagnes (lancées en pause), suivi des résultats | 1 |
+| Publicité Google, Meta, LinkedIn, TikTok | Adspirer (terminer la connexion) | Recherche des publicités concurrentes, création de campagnes (lancées en pause), suivi des résultats | 1 |
 | Rapports multicanaux (Ads, Analytics, réseaux) | Windsor.ai ou Supermetrics | Résultats de Google Ads, Meta Ads, TikTok, LinkedIn, YouTube, Analytics dans les rapports mensuels : supprime l'étape 🧑 de relevé des statistiques | 1 |
-| Robot WhatsApp Business, SMS | Bird ou Sent | Envoi de messages WhatsApp (API WhatsApp Business), SMS et e-mails, campagnes, réponses | 2 |
-| Agent commercial IA sur WhatsApp, Instagram et site | MyChatBot | Assistant de vente avec base de connaissances, catalogue, prise de commande | 2 |
+| Publier et programmer sur les réseaux, relier Telegram | Zapier (terminer la connexion) | Publication et automatisations sur Facebook, Instagram, LinkedIn, Telegram et e-mail, selon les applications disponibles dans Zapier | 1 |
 | Publicité TikTok | TikTok for Business | Campagnes TikTok officielles | 2 |
-| YouTube et vidéos courtes | vidIQ | Recherche de sujets, tendances, statistiques de chaînes | 3 |
-| Automatisations des clients | Make ou n8n | Création et pilotage des scénarios livrés aux clients (P13) | 2 |
-| E-mailing | Brevo ou Mailchimp | Campagnes e-mail, listes, statistiques | 3 |
-| Organisation de l'agence | ClickUp, Notion ou monday.com | Tâches, plannings et suivi des projets clients | 2 |
-| Microsoft 365 | Microsoft 365 | Recherche dans Outlook, OneDrive, SharePoint et Teams, pour les clients équipés Microsoft | 3 |
-| Telegram | AnythingMCP | Connexion à Telegram et à 180 autres services | 3 |
+| Microsoft 365 | Microsoft 365 (terminer la connexion) | Recherche dans Outlook, OneDrive, SharePoint et Teams, pour les clients équipés Microsoft | 3 |
 | CRM | HubSpot | CRM, campagnes, rapports, pour les clients Growth | 3 |
+
+Envois réels (WhatsApp, SMS, e-mails, campagnes Brevo, messages MyChatBot), soumission d'un modèle WhatsApp à Meta, activation d'un scénario Make, achat d'un numéro : toujours avec l'accord explicite de l'utilisateur (`autorisations.md`), Claude Code le redemande.
 
 Pas de connecteur pour After Effects ou Premiere Pro à ce jour : les animations passent par Adobe (animation de designs, rendu vidéo), Canva, ou le rendu HTML image par image du vidéaste.
