@@ -190,4 +190,23 @@ class FonctionsCompletementairesIntegrationTest extends TestIntegration {
         mvc.perform(get("/api/v1/agents").with(agent("agent-a"))).andExpect(status().isForbidden());
         mvc.perform(get("/api/v1/agents").with(acteur("admin-a", null, false, "R13"))).andExpect(status().isServiceUnavailable());
     }
+
+    @Test
+    @DisplayName("Suivi de A à Z : étapes du dossier avec la fonction de chaque auteur, réservé à la direction et à l'audit")
+    void parcoursDuDossier() throws Exception {
+        DemandeDeposee d = deposer("usager-parcours", "MINKO PARCOURS FICTIF", LocalDate.of(1992, 2, 2));
+        payerTresor(d, "TP-2026-555003");
+        mvc.perform(get("/api/v1/pilotage/parcours/{n}", d.numeroDossier()).with(agent("agent-p"))).andExpect(status().isForbidden());
+        mvc.perform(get("/api/v1/pilotage/parcours/{n}", "CJ-0000-000000").with(acteur("dir-1", null, false, "R08"))).andExpect(status().isNotFound());
+        String r = mvc.perform(get("/api/v1/pilotage/parcours/{n}", d.numeroDossier().toLowerCase()).with(acteur("dir-1", null, false, "R08")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.dossier.statut").value("DELIVREE"))
+                .andExpect(jsonPath("$.dossier.moyenPaiement").value("Trésor public"))
+                .andExpect(jsonPath("$.dossier.etapes[0].phase").value("DEMANDE"))
+                .andExpect(jsonPath("$.dossier.etapes[0].acteur").value("Usager"))
+                .andExpect(jsonPath("$.verifications").value(0))
+                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        assertThat(r).contains("\"phase\":\"PAIEMENT\"").contains("\"phase\":\"DELIVRANCE\"").doesNotContain("usager-parcours");
+        mvc.perform(get("/api/v1/pilotage/parcours/{n}", d.numeroDossier()).with(auditeur())).andExpect(status().isOk());
+    }
 }

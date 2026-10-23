@@ -27,8 +27,8 @@ const config: NextConfig = {
   turbopack: { root: racine },
   agentRules: false,
   transpilePackages: ['@casier/design-system'],
-  // BUL-08 : dépôt d'un bulletin PDF (5 Mo au plus, comme le service).
-  experimental: { serverActions: { bodySizeLimit: '5mb' } },
+  // BUL-08 et RG-09 : dépôt d'un PDF ou d'une pièce (5 Mo au plus, comme le service).
+  experimental: { serverActions: { bodySizeLimit: '6mb' } },
   async headers() {
     return [{ source: '/:path*', headers: entetes }];
   },

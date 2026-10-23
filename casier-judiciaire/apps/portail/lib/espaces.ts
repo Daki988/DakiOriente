@@ -7,8 +7,9 @@ import { demoEspaces } from './demo-espaces';
 import { jetonValide } from './oidc';
 import { session, type Session } from './session';
 import type {
-  AccesDonnees, BulletinAImprimer, DemandeUsager, DossierAgent, EntreeJournal, Indicateurs, InscriptionEnAttente, JeuDeRegles, ProfilIdentite, ResultatIntegrite,
-  SaisieCondamnation, TarifComplet,
+  AccesDonnees, BulletinAImprimer, CategorieReclamation, CompteAgent, CompteCree, DemandeUsager, DossierAgent, EntreeJournal, Indicateurs,
+  InscriptionEnAttente, JeuDeRegles, PaiementEncaisse, ParcoursDossier, ProfilIdentite, Reclamation, ResultatIntegrite, ResultatRapprochement,
+  SaisieCondamnation, SyntheseRecettes, TarifComplet,
 } from './types';
 
 /**
@@ -45,12 +46,41 @@ async function appel<T>(s: Session, chemin: string, init?: RequestInit & { brut?
     const corps = await r.json().catch(() => ({}));
     throw new RefusMetier(typeof corps.detail === 'string' ? corps.detail : 'Action refusée.');
   }
+  if (r.status === 503) {
+    // Fonction non configurée sur ce serveur (gestion des agents) : message explicite du service.
+    const corps = await r.json().catch(() => ({}));
+    throw typeof corps.detail === 'string' ? new RefusMetier(corps.detail) : new ServiceIndisponible();
+  }
   if (!r.ok) throw new ServiceIndisponible();
   if (r.status === 204) return null;
   return (init?.brut ? (r as unknown) : await r.json()) as T;
 }
 
 const post = (corps?: unknown): RequestInit => ({ method: 'POST', body: JSON.stringify(corps ?? {}) });
+
+/** Envoi d'un fichier (multipart) avec le jeton de l'utilisateur. */
+async function envoyerFichier<T>(s: Session, chemin: string, fichier: File): Promise<T> {
+  const jeton = await jetonValide(s);
+  if (!jeton) redirect('/session-expiree');
+  const corps = new FormData();
+  corps.append('fichier', fichier, fichier.name);
+  let r: Response;
+  try {
+    r = await fetch(`${config.apiCasier}${chemin}`, { method: 'POST', body: corps, cache: 'no-store',
+      headers: { Accept: 'application/json', Authorization: `Bearer ${jeton}` }, signal: AbortSignal.timeout(30_000) });
+  } catch {
+    throw new ServiceIndisponible();
+  }
+  if (r.status === 401) redirect('/session-expiree');
+  if ([403, 404, 409, 413, 422].includes(r.status)) {
+    const c = await r.json().catch(() => ({}));
+    throw new RefusMetier(typeof c.detail === 'string' ? c.detail : r.status === 413 ? 'Le fichier dépasse 5 Mo.' : 'Dépôt refusé.');
+  }
+  if (!r.ok) throw new ServiceIndisponible();
+  return (await r.json()) as T;
+}
+
+const periode = (du: string, au: string) => new URLSearchParams({ du, au }).toString();
 
 export const espaces = {
   async mesDemandes(s: Session): Promise<DemandeUsager[]> {
@@ -176,5 +206,101 @@ export const espaces = {
       appel<EntreeJournal[]>(s, '/api/v1/audit/entrees?nombre=50'),
     ]);
     return { integrite, entrees: entrees ?? [] };
+  },
+  /** RG-09 : dépôt du fichier de la pièce demandée. */
+  async deposerFichier(s: Session, id: string, fichier: File) {
+    if (s.demo) {
+      const erreur = demoEspaces.deposerFichier(s, id, fichier.name, new Uint8Array(await fichier.arrayBuffer()));
+      if (erreur) throw new RefusMetier(erreur);
+      return;
+    }
+    await envoyerFichier(s, `/api/v1/demandes/${encodeURIComponent(id)}/pieces`, fichier);
+  },
+
+  // ---------- Réclamations ----------
+  async mesReclamations(s: Session): Promise<Reclamation[]> {
+    return s.demo ? demoEspaces.mesReclamations(s) : (await appel<Reclamation[]>(s, '/api/v1/usager/reclamations')) ?? [];
+  },
+  async deposerReclamation(s: Session, r: { categorie: CategorieReclamation; numeroDossier: string | null; message: string }) {
+    if (s.demo) return void demoEspaces.deposerReclamation(s, r);
+    await appel(s, '/api/v1/usager/reclamations', post(r));
+  },
+  async fileReclamations(s: Session): Promise<Reclamation[]> {
+    return s.demo ? demoEspaces.fileReclamations(s) : (await appel<Reclamation[]>(s, '/api/v1/reclamations')) ?? [];
+  },
+  async prendreEnCharge(s: Session, id: string) {
+    if (s.demo) {
+      const erreur = demoEspaces.prendreEnCharge(s, id);
+      if (erreur) throw new RefusMetier(erreur);
+      return;
+    }
+    await appel(s, `/api/v1/reclamations/${encodeURIComponent(id)}/prise-en-charge`, post());
+  },
+  async repondreReclamation(s: Session, id: string, reponse: string) {
+    if (s.demo) {
+      const erreur = demoEspaces.repondreReclamation(s, id, reponse);
+      if (erreur) throw new RefusMetier(erreur);
+      return;
+    }
+    await appel(s, `/api/v1/reclamations/${encodeURIComponent(id)}/reponse`, post({ reponse }));
+  },
+
+  // ---------- Comptabilité ----------
+  async paiements(s: Session, du: string, au: string): Promise<PaiementEncaisse[]> {
+    return s.demo ? demoEspaces.paiements(du, au) : (await appel<PaiementEncaisse[]>(s, `/api/v1/comptabilite/paiements?${periode(du, au)}`)) ?? [];
+  },
+  async synthese(s: Session, du: string, au: string): Promise<SyntheseRecettes | null> {
+    return s.demo ? demoEspaces.synthese(du, au) : appel<SyntheseRecettes>(s, `/api/v1/comptabilite/synthese?${periode(du, au)}`);
+  },
+  async rapprocher(s: Session, du: string, au: string, releve: string): Promise<ResultatRapprochement> {
+    if (s.demo) {
+      const r = demoEspaces.rapprocher(s, du, au, releve);
+      if ('erreur' in r) throw new RefusMetier(r.erreur);
+      return r;
+    }
+    return (await appel<ResultatRapprochement>(s, `/api/v1/comptabilite/rapprochement?${periode(du, au)}`,
+      { method: 'POST', body: releve, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }))!;
+  },
+  async exporterPaiements(s: Session, du: string, au: string): Promise<string> {
+    if (s.demo) return demoEspaces.exporter(s, du, au);
+    const r = await appel<Response>(s, `/api/v1/comptabilite/export?${periode(du, au)}`, { brut: true, headers: { Accept: 'text/csv' } });
+    return r ? r.text() : '';
+  },
+
+  // ---------- Agents ----------
+  async agents(s: Session): Promise<CompteAgent[]> {
+    return s.demo ? demoEspaces.agents() : (await appel<CompteAgent[]>(s, '/api/v1/agents')) ?? [];
+  },
+  async rolesAttribuables(s: Session): Promise<Record<string, string>> {
+    return s.demo ? demoEspaces.rolesAttribuables() : (await appel<Record<string, string>>(s, '/api/v1/agents/roles')) ?? {};
+  },
+  async creerAgent(s: Session, a: { login: string; prenom: string; nom: string; email: string; role: string; juridiction: string | null }): Promise<CompteCree> {
+    if (s.demo) {
+      const r = demoEspaces.creerAgent(s, a);
+      if ('erreur' in r) throw new RefusMetier(r.erreur);
+      return r;
+    }
+    return (await appel<CompteCree>(s, '/api/v1/agents', post(a)))!;
+  },
+  async changerRoleAgent(s: Session, id: string, role: string, juridiction: string | null) {
+    if (s.demo) {
+      const erreur = demoEspaces.changerRoleAgent(s, id, role, juridiction);
+      if (erreur) throw new RefusMetier(erreur);
+      return;
+    }
+    await appel(s, `/api/v1/agents/${encodeURIComponent(id)}/role`, post({ role, juridiction }));
+  },
+  async activerAgent(s: Session, id: string, actif: boolean, motif: string | null) {
+    if (s.demo) {
+      const erreur = demoEspaces.activerAgent(s, id, actif, motif);
+      if (erreur) throw new RefusMetier(erreur);
+      return;
+    }
+    await appel(s, `/api/v1/agents/${encodeURIComponent(id)}/activation`, post({ actif, motif }));
+  },
+
+  // ---------- Suivi d'un dossier de A à Z ----------
+  async parcours(s: Session, numero: string): Promise<ParcoursDossier | null> {
+    return s.demo ? demoEspaces.parcours(s, numero) : appel<ParcoursDossier>(s, `/api/v1/pilotage/parcours/${encodeURIComponent(numero)}`);
   },
 };

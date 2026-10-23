@@ -1,4 +1,4 @@
-import { Alerte, Badge, FriseEtat, Icone, ZoneTexte, classesBouton, type EtatFrise } from '@casier/design-system';
+import { Alerte, Badge, Champ, FriseEtat, Icone, classesBouton, type EtatFrise } from '@casier/design-system';
 import Link from 'next/link';
 
 import { MessageAction } from '@/components/MessageAction';
@@ -7,7 +7,7 @@ import { espaces, exigerSession } from '@/lib/espaces';
 import { fcfa } from '@/lib/contenu';
 import { dateHeure } from '@/lib/format';
 import type { DemandeUsager, StatutDemande } from '@/lib/types';
-import { deposerPiece } from '../actions';
+import { deposerFichierPiece } from '../actions';
 
 const TON: Record<StatutDemande, 'succes' | 'info' | 'alerte' | 'erreur' | 'neutre'> = {
   EN_ATTENTE_PAIEMENT: 'alerte', EN_TRAITEMENT: 'info', A_TRAITER_PAR_AGENT: 'info', EN_ATTENTE_PIECE: 'alerte', DELIVREE: 'succes', REJETEE: 'erreur',
@@ -51,11 +51,12 @@ export default async function MesDemandes() {
             </div>
           )}
           {d.statut === 'EN_ATTENTE_PIECE' && (
-            <form action={deposerPiece} className="cj-pile">
+            <form action={deposerFichierPiece} className="cj-pile">
               <Alerte type="avertissement" titre="Une pièce vous est demandée">{d.pieceDemandee}</Alerte>
               <input type="hidden" name="id" value={d.id} />
-              <ZoneTexte id={`piece-${d.id}`} name="piece" libelle="Pièce transmise" requis rows={2} maxLength={300}
-                aide="Indiquez la pièce transmise (le dépôt de fichier sera relié au stockage sécurisé du Ministère)." />
+              <Champ id={`piece-${d.id}`} name="fichier" type="file" libelle="Fichier de la pièce" requis
+                accept="application/pdf,image/jpeg,image/png"
+                aide="PDF, photo JPEG ou PNG, 5 Mo au plus. Une photo nette, prise à plat, suffit." />
               <button type="submit" className={classesBouton()} style={{ alignSelf: 'flex-start' }}>
                 <Icone nom="upload" taille={20} /><span>Transmettre la pièce</span>
               </button>

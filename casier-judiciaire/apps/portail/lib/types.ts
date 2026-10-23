@@ -121,3 +121,30 @@ export type BulletinAImprimer = {
 export type AccesDonnees = { horodatage: string; action: string; auteur: string; finalite: string | null };
 
 export type ParcoursAvis = 'DEMANDE' | 'SUIVI' | 'TRESOR' | 'VERIFICATION';
+
+/** Réclamation d'un usager, traitée par le support. */
+export type CategorieReclamation = 'PAIEMENT' | 'BULLETIN_NON_RECU' | 'ERREUR_CASIER' | 'AUTRE';
+export type StatutReclamation = 'OUVERTE' | 'EN_COURS' | 'TRAITEE';
+export type Reclamation = {
+  id: string; numero: string; numeroDossier: string | null; categorie: CategorieReclamation; message: string; statut: StatutReclamation;
+  creeLe: string; prisEnChargeLe: string | null; reponse: string | null; traiteLe: string | null;
+};
+
+/** Tableau du comptable. */
+export type PaiementEncaisse = { numeroDossier: string; reference: string; moyen: string; montantFcfa: number; payeLe: string; tarifProvisoire: boolean };
+export type SyntheseRecettes = { du: string; au: string; nombre: number; totalFcfa: number; totalParMoyen: Record<string, number>; nombreParMoyen: Record<string, number> };
+export type EcartRapprochement = { reference: string; montantPlateforme: number | null; montantReleve: number | null; nature: 'ABSENT_DE_LA_PLATEFORME' | 'ABSENT_DU_RELEVE' | 'MONTANT_DIFFERENT' };
+export type ResultatRapprochement = { du: string; au: string; lignesReleve: number; concordantes: number; totalReleveFcfa: number; totalPlateformeFcfa: number; ecarts: EcartRapprochement[] };
+
+/** Gestion des agents par l'administrateur. */
+export type CompteAgent = { identifiant: string; login: string; prenom: string; nom: string; email: string; role: string | null; juridiction: string | null; actif: boolean; creeLe: string | null };
+export type CompteCree = { compte: CompteAgent; motDePasseProvisoire: string };
+
+/** Suivi d'un dossier de A à Z. */
+export type PhaseParcours = 'DEMANDE' | 'PAIEMENT' | 'TRAITEMENT' | 'DELIVRANCE' | 'IMPRESSION' | 'AUTRE';
+export type EtapeParcours = { horodatage: string; phase: PhaseParcours; action: string; libelle: string; acteur: string; precision: string | null; minutes: number };
+export type ParcoursDossier = {
+  dossier: { numeroDossier: string; statut: StatutDemande; profil: string; deposeLe: string; payeLe: string | null; moyenPaiement: string | null;
+    montantFcfa: number; bulletinNumero: string | null; delaiDelivranceMinutes: number | null; etapes: EtapeParcours[] };
+  verifications: number;
+};

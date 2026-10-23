@@ -226,3 +226,24 @@
 .p-contenu > *, .p-parcours > *, .p-deux-colonnes > *, .p-page-entete__grille > *, .p-accueil__contenu > * { min-width: 0; }
 .p-prose { overflow-wrap: anywhere; }
 .p-specimen__filigrane::before { content: attr(data-texte); } /* filigrane décoratif, hors du texte de la page */
+
+/* Mot de passe provisoire, codes : lisible et copiable. */
+.p-code { font-family: ui-monospace, 'DejaVu Sans Mono', monospace; letter-spacing: 0.06em; word-break: break-all; }
+
+/* Suivi d'un dossier de A à Z : bandeau des phases puis chronologie. */
+.p-phases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cj-espace-2); list-style: none; padding: 0; margin: 0; }
+@media (min-width: 768px) { .p-phases { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.p-phases li { display: flex; flex-direction: column; gap: var(--cj-espace-1); padding: var(--cj-espace-3); border-radius: var(--cj-rayon-m);
+  border: 1px solid var(--cj-bordure-defaut); background: var(--cj-fond-surface); min-width: 0; }
+.p-phases li[data-etat='fait'] { border-color: var(--cj-etat-succes); background: var(--cj-etat-succes-fond); }
+.p-phases li[data-etat='attente'] { border-color: var(--cj-etat-alerte); background: var(--cj-etat-alerte-fond); }
+.p-phases__nom { font-weight: 600; }
+.p-phases__detail { font-size: 0.875rem; color: var(--cj-texte-secondaire); }
+.p-chronologie { list-style: none; margin: 0; padding: 0 0 0 var(--cj-espace-6); border-left: 2px solid var(--cj-bordure-defaut); display: grid; gap: var(--cj-espace-5); }
+.p-chronologie li { position: relative; display: grid; gap: var(--cj-espace-1); min-width: 0; }
+.p-chronologie li::before { content: ''; position: absolute; left: calc(-1 * var(--cj-espace-6) - 7px); top: 6px; width: 12px; height: 12px;
+  border-radius: var(--cj-rayon-plein); background: var(--cj-fond-surface); border: 2px solid var(--cj-action-primaire); }
+.p-chronologie__entete { display: flex; flex-wrap: wrap; gap: var(--cj-espace-2); align-items: baseline; }
+.p-chronologie__date { font-size: 0.875rem; color: var(--cj-texte-secondaire); }
+.p-chronologie__libelle { font-weight: 600; }
+.p-chronologie__precision { font-size: 0.9375rem; color: var(--cj-texte-secondaire); overflow-wrap: anywhere; }

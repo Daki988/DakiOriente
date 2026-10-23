@@ -313,6 +313,91 @@ public class ServiceDemandes {
                 .distinct().collect(java.util.stream.Collectors.joining(", "));
     }
 
+    /**
+     * Suivi d'un dossier de A à Z (direction centrale, auditeur) : étapes tirées du journal d'audit, auteurs désignés par
+     * leur fonction. La consultation est journalisée.
+     */
+    @Transactional
+    public ParcoursDossier parcours(Acteur acteur, String numeroDossier) {
+        if (!com.neamindustry.casier.habilitations.MatriceHabilitations.autorise(acteur.roles(), Permission.SUPERVISER_NATIONAL)
+                && !com.neamindustry.casier.habilitations.MatriceHabilitations.autorise(acteur.roles(), Permission.LIRE_JOURNAL_AUDIT)) {
+            throw new AccesRefuse("HAB-01", "Votre profil ne permet pas de suivre un dossier.");
+        }
+        String numero = numeroDossier == null ? "" : numeroDossier.strip().toUpperCase(Locale.ROOT);
+        Demande d = depot.parNumero(numero).orElseThrow(() -> new RessourceIntrouvable("Aucun dossier ne porte ce numéro."));
+        java.util.Set<String> objets = new java.util.HashSet<>();
+        objets.add(d.id().toString());
+        if (d.bulletinId() != null) {
+            objets.add(d.bulletinId().toString());
+        }
+        List<ParcoursDossier.Etape> etapes = journal.parObjetsOuPersonnes(objets, List.of()).stream()
+                .filter(e -> !e.evenement().action().endsWith("_CONSULTEE") || e.evenement().action().equals("FICHE_CONSULTEE")
+                        || e.evenement().action().equals("PIECE_CONSULTEE"))
+                .filter(e -> !e.evenement().action().equals("PARCOURS_CONSULTE") && !e.evenement().action().equals("BULLETIN_RECHERCHE"))
+                .map(e -> {
+                    String[] lib = LIBELLES_PARCOURS.getOrDefault(e.evenement().action(),
+                            new String[] {"AUTRE", e.evenement().action().replace('_', ' ').toLowerCase(Locale.FRENCH)});
+                    long minutes = Math.max(0, Duration.between(d.creeLe(), e.horodatage()).toMinutes());
+                    return new ParcoursDossier.Etape(e.horodatage(), lib[0], e.evenement().action(), lib[1],
+                            fonction(e.evenement().acteurId(), e.evenement().roles()), e.evenement().finalite(), minutes);
+                })
+                .toList();
+        Instant delivre = etapes.stream().filter(e -> e.phase().equals("DELIVRANCE")).map(ParcoursDossier.Etape::horodatage).findFirst().orElse(null);
+        Long delai = d.payeLe() != null && delivre != null ? Math.max(0, Duration.between(d.payeLe(), delivre).toMinutes()) : null;
+        journal.enregistrer(EvenementAudit.par(acteur, "PARCOURS_CONSULTE", "Demande", d.id().toString(), null, null, Map.of("numero", numero)));
+        return new ParcoursDossier(d.numeroDossier(), d.statut(), d.profil(), d.creeLe(), d.payeLe(), moyenPaiement(d.referencePaiement()),
+                d.montantFcfa(), d.bulletinNumero(), delai, etapes);
+    }
+
+    private static final Map<String, String[]> LIBELLES_PARCOURS = Map.ofEntries(
+            Map.entry("DEMANDE_B3_DEPOSEE", new String[] {"DEMANDE", "Demande déposée en ligne"}),
+            Map.entry("PAIEMENT_CONFIRME", new String[] {"PAIEMENT", "Paiement confirmé"}),
+            Map.entry("PAIEMENT_TRESOR_CONFIRME", new String[] {"PAIEMENT", "Paiement au Trésor confirmé"}),
+            Map.entry("RAPPROCHEMENT_AUTOMATIQUE", new String[] {"TRAITEMENT", "Identité rapprochée automatiquement du registre"}),
+            Map.entry("FICHE_CONSULTEE", new String[] {"TRAITEMENT", "Fiche du casier consultée"}),
+            Map.entry("PIECE_DEMANDEE", new String[] {"TRAITEMENT", "Pièce complémentaire demandée"}),
+            Map.entry("PIECE_DEPOSEE", new String[] {"TRAITEMENT", "Pièce déposée par le demandeur"}),
+            Map.entry("PIECE_CONSULTEE", new String[] {"TRAITEMENT", "Pièce ouverte par l'agent"}),
+            Map.entry("IDENTITE_DECIDEE_PAR_AGENT", new String[] {"TRAITEMENT", "Identité tranchée par un agent"}),
+            Map.entry("DEMANDE_REJETEE", new String[] {"TRAITEMENT", "Demande rejetée"}),
+            Map.entry("B3_EMIS", new String[] {"DELIVRANCE", "Bulletin n°3 scellé émis"}),
+            Map.entry("BULLETIN_TELECHARGE", new String[] {"DELIVRANCE", "Bulletin téléchargé"}),
+            Map.entry("BULLETIN_VALIDE_POUR_IMPRESSION", new String[] {"IMPRESSION", "Bulletin validé pour l'impression"}),
+            Map.entry("BULLETIN_IMPRIME", new String[] {"IMPRESSION", "Bulletin imprimé sur feuillet sécurisé"}),
+            Map.entry("BULLETIN_REIMPRIME", new String[] {"IMPRESSION", "Bulletin réimprimé"}),
+            Map.entry("BULLETIN_REVOQUE", new String[] {"AUTRE", "Bulletin révoqué"}));
+
+    static String moyenPaiement(String reference) {
+        if (reference == null) {
+            return null;
+        }
+        if (reference.startsWith("TRESOR-")) {
+            return "Trésor public";
+        }
+        if (reference.startsWith("SIMULATEUR-")) {
+            return "Paiement simulé";
+        }
+        return "Opérateur de paiement";
+    }
+
+    private static String fonction(String acteurId, String roles) {
+        if (acteurId == null || acteurId.startsWith("systeme:")) {
+            return "Traitement automatique";
+        }
+        if (acteurId.startsWith("paiement:")) {
+            return "Opérateur de paiement";
+        }
+        if (roles == null || roles.isBlank()) {
+            return acteurId.startsWith("public") ? "Public" : "Usager";
+        }
+        if (roles.contains("R01")) {
+            return "Usager";
+        }
+        return java.util.Arrays.stream(roles.split(",")).map(String::trim)
+                .map(r -> { try { return com.neamindustry.casier.habilitations.Role.valueOf(r).libelle(); } catch (IllegalArgumentException ex) { return r; } })
+                .distinct().collect(java.util.stream.Collectors.joining(", "));
+    }
+
     /** DSH-07, DSH-08 : indicateurs agrégés pour le pilotage national et le tableau de bord stratégique. */
     @Transactional(readOnly = true)
     public IndicateursDemandes indicateurs(Acteur acteur) {

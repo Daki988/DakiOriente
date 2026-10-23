@@ -6,8 +6,9 @@ import type { Session } from './session';
 import { SPECIMEN_B3 } from './specimen-b3';
 import { SPECIMENS_IMPRESSION } from './specimens-impression';
 import type {
-  AccesDonnees, BulletinAImprimer, DemandeUsager, DossierAgent, EntreeJournal, Indicateurs, InscriptionEnAttente, JeuDeRegles, ProfilIdentite,
-  SaisieCondamnation, TarifComplet,
+  AccesDonnees, BulletinAImprimer, CategorieReclamation, CompteAgent, CompteCree, DemandeUsager, DossierAgent, EcartRapprochement, EntreeJournal,
+  EtapeParcours, Indicateurs, InscriptionEnAttente, JeuDeRegles, PaiementEncaisse, ParcoursDossier, ProfilIdentite, Reclamation,
+  ResultatRapprochement, SaisieCondamnation, SyntheseRecettes, TarifComplet,
 } from './types';
 
 /**
@@ -19,7 +20,7 @@ const iso = (decalageHeures: number) => new Date(Date.now() + decalageHeures * 3
 type Etat = {
   demandes: DemandeUsager[]; file: DossierAgent[]; candidats: Record<string, ProfilIdentite[]>;
   attente: InscriptionEnAttente[]; tarifs: TarifComplet[]; regles: JeuDeRegles[]; journal: EntreeJournal[];
-  impressions: BulletinAImprimer[];
+  impressions: BulletinAImprimer[]; reclamations: (Reclamation & { demandeur: string })[]; agents: CompteAgent[];
 };
 
 function initial(): Etat {
@@ -93,6 +94,29 @@ function initial(): Etat {
           { libelle: 'B3 : sursis total exclu' }] },
     ],
     journal: [],
+    reclamations: [
+      { id: 'demo-rec-1', numero: 'RC-2026-000014', demandeur: 'demo-usager', numeroDossier: 'CJ-2026-000087', categorie: 'BULLETIN_NON_RECU',
+        message: 'Je n’ai pas reçu le SMS m’annonçant que mon bulletin était prêt.', statut: 'TRAITEE', creeLe: '2026-10-14T11:20:00Z',
+        prisEnChargeLe: '2026-10-14T13:02:00Z', reponse: 'Votre bulletin est bien disponible dans votre espace depuis le 14 octobre à 9 h 12. Le SMS a été envoyé au numéro déclaré ; vérifiez-le dans votre profil.',
+        traiteLe: '2026-10-14T13:10:00Z' },
+      { id: 'demo-rec-2', numero: 'RC-2026-000021', demandeur: 'demo-autre-1', numeroDossier: 'CJ-2026-000138', categorie: 'PAIEMENT',
+        message: 'J’ai payé 1 500 FCFA par Airtel Money, l’argent est débité mais le dossier est toujours en attente de paiement.', statut: 'OUVERTE',
+        creeLe: iso(-5), prisEnChargeLe: null, reponse: null, traiteLe: null },
+      { id: 'demo-rec-3', numero: 'RC-2026-000022', demandeur: 'demo-autre-2', numeroDossier: null, categorie: 'ERREUR_CASIER',
+        message: 'Mon bulletin mentionne une condamnation qui ne me concerne pas : il s’agit d’un homonyme né à Oyem.', statut: 'EN_COURS',
+        creeLe: iso(-26), prisEnChargeLe: iso(-20), reponse: null, traiteLe: null },
+    ],
+    agents: [
+      { identifiant: 'demo-agent', login: 'clarisse.moussavou', prenom: 'Clarisse', nom: 'MOUSSAVOU', email: 'clarisse.moussavou@exemple.ga', role: 'R06', juridiction: 'TPI-LIBREVILLE', actif: true, creeLe: '2026-09-02T08:00:00Z' },
+      { identifiant: 'demo-greffier', login: 'herve.obame', prenom: 'Hervé', nom: 'OBAME', email: 'herve.obame@exemple.ga', role: 'R07', juridiction: 'TPI-LIBREVILLE', actif: true, creeLe: '2026-09-02T08:05:00Z' },
+      { identifiant: 'demo-validateur', login: 'jeanne-marie.ndong', prenom: 'Jeanne-Marie', nom: 'NDONG', email: 'jm.ndong@exemple.ga', role: 'R07', juridiction: 'TPI-LIBREVILLE', actif: true, creeLe: '2026-09-03T09:00:00Z' },
+      { identifiant: 'demo-magistrat', login: 'sylvie.nze', prenom: 'Sylvie', nom: 'NZE', email: 'sylvie.nze@exemple.ga', role: 'R05', juridiction: 'TPI-LIBREVILLE', actif: true, creeLe: '2026-09-04T10:00:00Z' },
+      { identifiant: 'demo-direction', login: 'paul.mbadinga', prenom: 'Paul', nom: 'MBADINGA', email: 'paul.mbadinga@exemple.ga', role: 'R08', juridiction: null, actif: true, creeLe: '2026-09-01T08:00:00Z' },
+      { identifiant: 'demo-comptable', login: 'gisele.nziengui', prenom: 'Gisèle', nom: 'NZIENGUI', email: 'gisele.nziengui@exemple.ga', role: 'R10', juridiction: null, actif: true, creeLe: '2026-09-05T08:00:00Z' },
+      { identifiant: 'demo-support', login: 'patrick.mouele', prenom: 'Patrick', nom: 'MOUELE', email: 'patrick.mouele@exemple.ga', role: 'R11', juridiction: null, actif: true, creeLe: '2026-09-05T08:30:00Z' },
+      { identifiant: 'demo-auditeur', login: 'marc.essono', prenom: 'Marc', nom: 'ESSONO', email: 'marc.essono@exemple.ga', role: 'R12', juridiction: null, actif: true, creeLe: '2026-09-06T08:00:00Z' },
+      { identifiant: 'demo-ancien', login: 'luc.bekale', prenom: 'Luc', nom: 'BEKALE', email: 'luc.bekale@exemple.ga', role: 'R06', juridiction: 'TPI-PORT-GENTIL', actif: false, creeLe: '2026-05-10T08:00:00Z' },
+    ],
     impressions: [
       { id: 'demo-imp-431', numero: 'B3-2026-0000431', nom: 'KOUMBA FICTIF', prenoms: 'Aline', dateNaissance: '1993-04-11',
         dateEmission: '2026-10-17T08:40:00Z', etat: 'A_VALIDER', validePar: null, valideLe: null, imprimeLe: null, feuillet: null, impressions: 0,
@@ -146,6 +170,82 @@ const ACCES_USAGER: AccesDonnees[] = [
   { horodatage: '2026-10-16T14:18:00Z', action: 'FICHE_CONSULTEE', auteur: 'Agent du casier (greffe)', finalite: 'Traitement de la demande CJ-2026-000123' },
   { horodatage: '2026-10-16T14:20:00Z', action: 'PIECE_DEMANDEE', auteur: 'Agent du casier (greffe)', finalite: 'Copie intégrale de l’acte de naissance' },
 ];
+
+
+// ---------- Données de démonstration : comptabilité et suivi de dossier ----------
+const MOYENS = ['TRESOR', 'AIRTEL_MONEY', 'MOOV_MONEY', 'TRESOR', 'CARTE', 'AIRTEL_MONEY'] as const;
+const PREFIXES: Record<string, string> = { TRESOR: 'TRESOR-TP-2026-', AIRTEL_MONEY: 'AIRTEL-', MOOV_MONEY: 'MOOV-', CARTE: 'CARTE-' };
+const jour = (decalageJours: number) => new Date(Date.now() - decalageJours * 86_400_000).toISOString().slice(0, 10);
+
+/** Paiements fictifs des 30 derniers jours, stables d'un affichage à l'autre. */
+function paiementsFictifs(): PaiementEncaisse[] {
+  const liste: PaiementEncaisse[] = [];
+  for (let j = 0; j < 30; j++) {
+    const nombre = 3 + ((j * 7) % 5);
+    for (let k = 0; k < nombre; k++) {
+      const n = 104300 + j * 10 + k;
+      const moyen = MOYENS[(j + k) % MOYENS.length];
+      const heure = String(8 + ((k * 3 + j) % 9)).padStart(2, '0');
+      liste.push({ numeroDossier: `CJ-2026-${String(900 - j * 10 - k).padStart(6, '0')}`, reference: `${PREFIXES[moyen]}${n}`, moyen,
+        montantFcfa: 1500, payeLe: `${jour(j)}T${heure}:${String((k * 13) % 60).padStart(2, '0')}:00Z`, tarifProvisoire: true });
+    }
+  }
+  return liste.sort((a, b) => a.payeLe.localeCompare(b.payeLe));
+}
+const dansPeriode = (p: PaiementEncaisse, du: string, au: string) => p.payeLe.slice(0, 10) >= du && p.payeLe.slice(0, 10) <= au;
+
+function lireReleve(releve: string): Map<string, number> | string {
+  const lignes = new Map<string, number>();
+  const brutes = releve.split(/\r?\n/);
+  for (let i = 0; i < brutes.length; i++) {
+    const ligne = brutes[i].trim();
+    if (!ligne) continue;
+    const champs = ligne.split(/[;,\t]/);
+    if (champs.length < 2) return `Ligne ${i + 1} du relevé illisible : « référence;montant » attendu.`;
+    const montant = champs[1].replace(/[\s  ]/g, '');
+    if (!/^\d{1,12}$/.test(montant)) {
+      if (i === 0) continue;
+      return `Ligne ${i + 1} du relevé : montant invalide.`;
+    }
+    const cle = champs[0].trim().toUpperCase();
+    if (lignes.has(cle)) return `La référence ${cle} figure deux fois dans le relevé.`;
+    lignes.set(cle, Number(montant));
+  }
+  return lignes.size ? lignes : 'Le relevé ne contient aucune ligne de paiement.';
+}
+
+const LIBELLES_ROLES_AGENTS: Record<string, string> = {
+  R02: 'Agent consulaire', R05: 'Magistrat, Parquet', R06: 'Agent du casier (greffe)', R07: 'Greffier en chef',
+  R08: 'Direction centrale (affaires pénales)', R09: 'Décideur', R10: 'Comptable, régisseur', R11: 'Support usagers', R12: 'Auditeur', R14: 'Vérificateur public',
+};
+const AVEC_JURIDICTION = ['R05', 'R06', 'R07'];
+
+/** Parcours fictifs : un dossier délivré automatiquement puis imprimé et vérifié, un dossier traité par un agent avec pièce. */
+function etape(depuis: string, h: string, phase: EtapeParcours['phase'], action: string, libelle: string, acteur: string, precision: string | null = null): EtapeParcours {
+  return { horodatage: h, phase, action, libelle, acteur, precision, minutes: Math.round((Date.parse(h) - Date.parse(depuis)) / 60000) };
+}
+const PARCOURS: Record<string, ParcoursDossier> = {
+  'CJ-2026-000087': { verifications: 2, dossier: { numeroDossier: 'CJ-2026-000087', statut: 'DELIVREE', profil: 'GABONAIS_NE_AU_GABON',
+    deposeLe: '2026-10-14T09:05:00Z', payeLe: '2026-10-14T09:11:00Z', moyenPaiement: 'Trésor public', montantFcfa: 1500, bulletinNumero: 'B3-2026-0000412',
+    delaiDelivranceMinutes: 1, etapes: [
+      etape('2026-10-14T09:05:00Z', '2026-10-14T09:05:00Z', 'DEMANDE', 'DEMANDE_B3_DEPOSEE', 'Demande déposée en ligne', 'Usager'),
+      etape('2026-10-14T09:05:00Z', '2026-10-14T09:11:00Z', 'PAIEMENT', 'PAIEMENT_CONFIRME', 'Paiement au Trésor confirmé (quittance TP-2026-104377)', 'Trésor public'),
+      etape('2026-10-14T09:05:00Z', '2026-10-14T09:11:30Z', 'TRAITEMENT', 'RAPPROCHEMENT_AUTOMATIQUE', 'Identité rapprochée automatiquement du registre', 'Traitement automatique', 'Identité certaine : aucune intervention humaine'),
+      etape('2026-10-14T09:05:00Z', '2026-10-14T09:12:00Z', 'DELIVRANCE', 'B3_EMIS', 'Bulletin n°3 scellé émis', 'Traitement automatique', 'B3-2026-0000412'),
+      etape('2026-10-14T09:05:00Z', '2026-10-14T10:02:00Z', 'DELIVRANCE', 'BULLETIN_TELECHARGE', 'Bulletin téléchargé', 'Usager'),
+      etape('2026-10-14T09:05:00Z', '2026-10-15T08:40:00Z', 'IMPRESSION', 'BULLETIN_VALIDE_POUR_IMPRESSION', 'Bulletin validé pour l’impression', 'Greffier en chef', 'Pièce d’identité contrôlée au guichet'),
+      etape('2026-10-14T09:05:00Z', '2026-10-15T08:42:00Z', 'IMPRESSION', 'BULLETIN_IMPRIME', 'Bulletin imprimé sur feuillet sécurisé', 'Greffier en chef', 'Feuillet FS-2026-000101'),
+    ] } },
+  'CJ-2026-000123': { verifications: 0, dossier: { numeroDossier: 'CJ-2026-000123', statut: 'EN_ATTENTE_PIECE', profil: 'GABONAIS_NE_AU_GABON',
+    deposeLe: '2026-10-16T09:58:00Z', payeLe: '2026-10-16T10:04:00Z', moyenPaiement: 'Opérateur de paiement (Airtel Money)', montantFcfa: 1500,
+    bulletinNumero: null, delaiDelivranceMinutes: null, etapes: [
+      etape('2026-10-16T09:58:00Z', '2026-10-16T09:58:00Z', 'DEMANDE', 'DEMANDE_B3_DEPOSEE', 'Demande déposée en ligne', 'Usager'),
+      etape('2026-10-16T09:58:00Z', '2026-10-16T10:04:00Z', 'PAIEMENT', 'PAIEMENT_CONFIRME', 'Paiement confirmé', 'Opérateur de paiement'),
+      etape('2026-10-16T09:58:00Z', '2026-10-16T10:04:30Z', 'TRAITEMENT', 'RAPPROCHEMENT_AUTOMATIQUE', 'Identité rapprochée automatiquement du registre', 'Traitement automatique', 'Identité incertaine : dossier confié à un agent'),
+      etape('2026-10-16T09:58:00Z', '2026-10-16T14:18:00Z', 'TRAITEMENT', 'FICHE_CONSULTEE', 'Fiche du casier consultée', 'Agent du casier (greffe)', 'Traitement de la demande CJ-2026-000123'),
+      etape('2026-10-16T09:58:00Z', '2026-10-16T14:20:00Z', 'TRAITEMENT', 'PIECE_DEMANDEE', 'Pièce complémentaire demandée', 'Agent du casier (greffe)', 'Copie intégrale de l’acte de naissance — délai de 24 heures suspendu'),
+    ] } },
+};
 
 export const demoEspaces = {
   acces: (s: Session) => {
@@ -268,4 +368,136 @@ export const demoEspaces = {
     tracer(s, 'JOURNAL_CONSULTE', 'Journal', null);
     return etat.journal.slice(0, 50);
   },
+  /** RG-09 : contrôle du fichier comme le service (type réel, 5 Mo au plus), puis reprise du traitement. */
+  deposerFichier(s: Session, id: string, nom: string, c: Uint8Array): string | null {
+    if (!c.length) return 'Le fichier est vide.';
+    if (c.length > 5 * 1024 * 1024) return 'Le fichier dépasse 5 Mo.';
+    const pdf = c[0] === 0x25 && c[1] === 0x50 && c[2] === 0x44 && c[3] === 0x46;
+    const jpeg = c[0] === 0xff && c[1] === 0xd8 && c[2] === 0xff;
+    const png = c[0] === 0x89 && c[1] === 0x50 && c[2] === 0x4e && c[3] === 0x47;
+    if (!pdf && !jpeg && !png) return 'Format non accepté : déposez un PDF, une photo JPEG ou PNG.';
+    const d = etat.demandes.find((x) => x.id === id && x.statut === 'EN_ATTENTE_PIECE');
+    if (!d) return 'Aucune pièce n’est attendue pour ce dossier.';
+    demoEspaces.deposerPiece(s, id);
+    d.frise[d.frise.length - 1].libelle = `Pièce reçue (${nom.replace(/^.*[\\/]/, '').slice(0, 80)}), vérification en cours`;
+    return null;
+  },
+
+  // ---------- Réclamations ----------
+  mesReclamations: (s: Session): Reclamation[] => (rafraichir(), etat.reclamations.filter((r) => r.demandeur === s.sujet)),
+  deposerReclamation(s: Session, r: { categorie: CategorieReclamation; numeroDossier: string | null; message: string }) {
+    const numero = `RC-2026-${String(23 + etat.reclamations.length).padStart(6, '0')}`;
+    etat.reclamations.unshift({ id: `demo-rec-${randomUUID().slice(0, 6)}`, numero, demandeur: s.sujet, numeroDossier: r.numeroDossier?.toUpperCase() ?? null,
+      categorie: r.categorie, message: r.message, statut: 'OUVERTE', creeLe: new Date().toISOString(), prisEnChargeLe: null, reponse: null, traiteLe: null });
+    tracer(s, 'RECLAMATION_DEPOSEE', 'Reclamation', numero);
+  },
+  fileReclamations: (s: Session): Reclamation[] => {
+    rafraichir();
+    tracer(s, 'RECLAMATIONS_CONSULTEES', 'Reclamation', null);
+    return [...etat.reclamations].sort((a, b) => Number(a.statut === 'TRAITEE') - Number(b.statut === 'TRAITEE') || a.creeLe.localeCompare(b.creeLe));
+  },
+  prendreEnCharge(s: Session, id: string): string | null {
+    const r = etat.reclamations.find((x) => x.id === id);
+    if (!r) return 'Réclamation introuvable.';
+    if (r.statut !== 'OUVERTE') return 'Cette réclamation est déjà prise en charge.';
+    Object.assign(r, { statut: 'EN_COURS', prisEnChargeLe: new Date().toISOString() });
+    tracer(s, 'RECLAMATION_PRISE_EN_CHARGE', 'Reclamation', r.numero);
+    return null;
+  },
+  repondreReclamation(s: Session, id: string, reponse: string): string | null {
+    const r = etat.reclamations.find((x) => x.id === id);
+    if (!r) return 'Réclamation introuvable.';
+    if (r.statut === 'TRAITEE') return 'Cette réclamation a déjà reçu une réponse.';
+    if (reponse.trim().length < 10) return 'La réponse à l’usager doit être rédigée (10 caractères au moins).';
+    const maintenant = new Date().toISOString();
+    Object.assign(r, { statut: 'TRAITEE', reponse: reponse.trim(), traiteLe: maintenant, prisEnChargeLe: r.prisEnChargeLe ?? maintenant });
+    tracer(s, 'RECLAMATION_TRAITEE', 'Reclamation', r.numero);
+    return null;
+  },
+
+  // ---------- Comptabilité ----------
+  paiements: (du: string, au: string) => paiementsFictifs().filter((p) => dansPeriode(p, du, au)),
+  synthese(du: string, au: string): SyntheseRecettes {
+    const liste = demoEspaces.paiements(du, au);
+    const totalParMoyen: Record<string, number> = {};
+    const nombreParMoyen: Record<string, number> = {};
+    for (const p of liste) {
+      totalParMoyen[p.moyen] = (totalParMoyen[p.moyen] ?? 0) + p.montantFcfa;
+      nombreParMoyen[p.moyen] = (nombreParMoyen[p.moyen] ?? 0) + 1;
+    }
+    return { du, au, nombre: liste.length, totalFcfa: liste.reduce((n, p) => n + p.montantFcfa, 0), totalParMoyen, nombreParMoyen };
+  },
+  rapprocher(s: Session, du: string, au: string, releve: string): ResultatRapprochement | { erreur: string } {
+    const lignes = lireReleve(releve);
+    if (typeof lignes === 'string') return { erreur: lignes };
+    const plateforme = new Map(demoEspaces.paiements(du, au).map((p) => [p.reference.toUpperCase(), p.montantFcfa]));
+    const ecarts: EcartRapprochement[] = [];
+    let concordantes = 0;
+    for (const [reference, montant] of lignes) {
+      const m = plateforme.get(reference);
+      if (m === undefined) ecarts.push({ reference, montantPlateforme: null, montantReleve: montant, nature: 'ABSENT_DE_LA_PLATEFORME' });
+      else if (m !== montant) ecarts.push({ reference, montantPlateforme: m, montantReleve: montant, nature: 'MONTANT_DIFFERENT' });
+      else concordantes++;
+    }
+    for (const [reference, m] of plateforme) {
+      if (!lignes.has(reference)) ecarts.push({ reference, montantPlateforme: m, montantReleve: null, nature: 'ABSENT_DU_RELEVE' });
+    }
+    tracer(s, 'RAPPROCHEMENT_PAIEMENTS', 'Paiements', `${du}/${au}`);
+    return { du, au, lignesReleve: lignes.size, concordantes, totalReleveFcfa: [...lignes.values()].reduce((a, b) => a + b, 0),
+      totalPlateformeFcfa: [...plateforme.values()].reduce((a, b) => a + b, 0), ecarts };
+  },
+  exporter(s: Session, du: string, au: string): string {
+    tracer(s, 'PAIEMENTS_EXPORTES', 'Paiements', `${du}/${au}`);
+    return 'numero_dossier;reference;moyen;montant_fcfa;paye_le;tarif_provisoire\n' + demoEspaces.paiements(du, au)
+      .map((p) => `${p.numeroDossier};${p.reference};${p.moyen};${p.montantFcfa};${p.payeLe};${p.tarifProvisoire ? 'oui' : 'non'}`).join('\n') + '\n';
+  },
+
+  // ---------- Agents ----------
+  agents: (): CompteAgent[] => (rafraichir(), [...etat.agents].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))),
+  rolesAttribuables: () => LIBELLES_ROLES_AGENTS,
+  creerAgent(s: Session, a: { login: string; prenom: string; nom: string; email: string; role: string; juridiction: string | null }): CompteCree | { erreur: string } {
+    const login = a.login.trim().toLowerCase();
+    if (!/^[a-z0-9][a-z0-9._-]{2,49}$/.test(login)) return { erreur: 'Identifiant invalide : 3 à 50 caractères, lettres minuscules, chiffres, point ou tiret.' };
+    if (!LIBELLES_ROLES_AGENTS[a.role]) return { erreur: 'Ce rôle ne s’attribue pas depuis la plateforme.' };
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(a.email.trim())) return { erreur: 'Adresse électronique invalide.' };
+    const juridiction = AVEC_JURIDICTION.includes(a.role) ? (a.juridiction ?? '').trim().toUpperCase() : null;
+    if (juridiction !== null && !/^[A-Z0-9-]{3,40}$/.test(juridiction)) return { erreur: 'La juridiction de rattachement est obligatoire pour ce rôle (par exemple TPI-LIBREVILLE).' };
+    if (etat.agents.some((x) => x.login === login || x.email === a.email.trim().toLowerCase())) return { erreur: 'Cet identifiant ou cette adresse électronique est déjà utilisé.' };
+    const compte: CompteAgent = { identifiant: `demo-agent-${randomUUID().slice(0, 8)}`, login, prenom: a.prenom.trim(), nom: a.nom.trim().toUpperCase(),
+      email: a.email.trim().toLowerCase(), role: a.role, juridiction, actif: true, creeLe: new Date().toISOString() };
+    etat.agents.push(compte);
+    tracer(s, 'AGENT_CREE', 'Compte', compte.identifiant);
+    const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+    const motDePasse = Array.from(crypto.getRandomValues(new Uint8Array(16)), (o) => alphabet[o % alphabet.length]).join('');
+    return { compte, motDePasseProvisoire: motDePasse };
+  },
+  changerRoleAgent(s: Session, id: string, role: string, juridiction: string | null): string | null {
+    if (id === s.sujet) return 'Vous ne pouvez pas modifier votre propre compte.';
+    const c = etat.agents.find((x) => x.identifiant === id);
+    if (!c) return 'Compte introuvable.';
+    if (!LIBELLES_ROLES_AGENTS[role]) return 'Ce rôle ne s’attribue pas depuis la plateforme.';
+    const j = AVEC_JURIDICTION.includes(role) ? (juridiction ?? c.juridiction ?? '').trim().toUpperCase() : null;
+    if (j !== null && !/^[A-Z0-9-]{3,40}$/.test(j)) return 'La juridiction de rattachement est obligatoire pour ce rôle (par exemple TPI-LIBREVILLE).';
+    Object.assign(c, { role, juridiction: j });
+    tracer(s, 'AGENT_ROLE_MODIFIE', 'Compte', id);
+    return null;
+  },
+  activerAgent(s: Session, id: string, actif: boolean, motif: string | null): string | null {
+    if (id === s.sujet) return 'Vous ne pouvez pas modifier votre propre compte.';
+    if (!actif && !motif?.trim()) return 'Le motif de la désactivation est obligatoire.';
+    const c = etat.agents.find((x) => x.identifiant === id);
+    if (!c) return 'Compte introuvable.';
+    if (c.actif === actif) return actif ? 'Ce compte est déjà actif.' : 'Ce compte est déjà désactivé.';
+    c.actif = actif;
+    tracer(s, actif ? 'AGENT_REACTIVE' : 'AGENT_DESACTIVE', 'Compte', id, motif);
+    return null;
+  },
+
+  // ---------- Suivi d'un dossier ----------
+  parcours(s: Session, numero: string): ParcoursDossier | null {
+    const p = PARCOURS[numero.trim().toUpperCase()] ?? null;
+    if (p) tracer(s, 'PARCOURS_CONSULTE', 'Demande', p.dossier.numeroDossier);
+    return p;
+  },
+  exemplesParcours: () => Object.keys(PARCOURS),
 };

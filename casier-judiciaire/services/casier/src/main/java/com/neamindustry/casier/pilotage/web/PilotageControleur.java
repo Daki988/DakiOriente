@@ -18,6 +18,10 @@ class PilotageControleur {
     record Indicateurs(IndicateursDemandes demandes, Map<String, Long> bulletins, long verifications) {
     }
 
+    /** Suivi d'un dossier de A à Z, avec le nombre de vérifications de son bulletin par des tiers. */
+    record Parcours(com.neamindustry.casier.demandes.ParcoursDossier dossier, long verifications) {
+    }
+
     private final ServiceDemandes demandes;
     private final EmissionBulletins bulletins;
     private final VerificationPublique verification;
@@ -34,5 +38,11 @@ class PilotageControleur {
     Indicateurs indicateurs() {
         IndicateursDemandes d = demandes.indicateurs(acteur.obtenir());
         return new Indicateurs(d, bulletins.statistiques(), verification.totalVerifications());
+    }
+
+    @GetMapping("/api/v1/pilotage/parcours/{numero}")
+    Parcours parcours(@org.springframework.web.bind.annotation.PathVariable String numero) {
+        var p = demandes.parcours(acteur.obtenir(), numero);
+        return new Parcours(p, p.bulletinNumero() == null ? 0 : verification.nombreVerifications(p.bulletinNumero()));
     }
 }

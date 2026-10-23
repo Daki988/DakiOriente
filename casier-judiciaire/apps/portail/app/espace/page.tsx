@@ -16,6 +16,10 @@ const DESCRIPTIONS: Record<string, string> = {
   '/espace/tarifs': 'Historique des tarifs, propositions et validations à date d’effet.',
   '/espace/regles': 'Versions des règles de contenu des bulletins, cas de test et validation.',
   '/espace/audit': 'Journal chaîné de toutes les actions, contrôle d’intégrité.',
+  '/espace/reclamations': 'Signaler un problème (paiement, bulletin non reçu, erreur) et suivre la réponse.',
+  '/espace/suivi': 'Un dossier de la demande à la vérification par l’employeur : chaque étape, son auteur et son délai.',
+  '/espace/comptabilite': 'Recettes par moyen de paiement, rapprochement avec les relevés du Trésor et des opérateurs, export.',
+  '/espace/agents': 'Créer les comptes des agents, changer leur rôle, désactiver un compte.',
 };
 
 /** DSH-01 : accueil de l'espace connecté, selon le profil. */

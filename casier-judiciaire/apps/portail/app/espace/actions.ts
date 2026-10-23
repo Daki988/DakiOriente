@@ -113,3 +113,47 @@ export async function rejeterRegles(f: FormData) {
 export async function validerImpression(f: FormData) {
   await agir(['R07'], '/espace/impression', 'Bulletin validé : il peut être imprimé.', (s) => espaces.validerImpression(s, texte(f, 'id', 64)));
 }
+
+// ---------- Usager : pièce déposée en fichier (RG-09) ----------
+export async function deposerFichierPiece(f: FormData) {
+  await agir(['R01'], '/espace/demandes', 'Pièce transmise : le traitement de votre demande reprend.', (s) => {
+    const fichier = f.get('fichier');
+    if (!(fichier instanceof File) || fichier.size === 0) throw new RefusMetier('Choisissez le fichier de la pièce (PDF, JPEG ou PNG).');
+    if (fichier.size > 5 * 1024 * 1024) throw new RefusMetier('Le fichier dépasse 5 Mo.');
+    return espaces.deposerFichier(s, texte(f, 'id', 64), fichier);
+  });
+}
+
+// ---------- Réclamations ----------
+const CATEGORIES = ['PAIEMENT', 'BULLETIN_NON_RECU', 'ERREUR_CASIER', 'AUTRE'] as const;
+
+export async function deposerReclamation(f: FormData) {
+  await agir(['R01'], '/espace/reclamations', 'Réclamation enregistrée : vous serez informé de la réponse dans cet espace.', (s) => {
+    const categorie = texte(f, 'categorie', 30) as (typeof CATEGORIES)[number];
+    if (!CATEGORIES.includes(categorie)) throw new RefusMetier('Choisissez le motif de la réclamation.');
+    const message = texte(f, 'message', 2000);
+    if (message.length < 10) throw new RefusMetier('Décrivez votre réclamation en 10 caractères au moins.');
+    return espaces.deposerReclamation(s, { categorie, numeroDossier: facultatif(f, 'numeroDossier', 30), message });
+  });
+}
+
+export async function prendreEnChargeReclamation(f: FormData) {
+  await agir(['R11'], '/espace/reclamations', 'Réclamation prise en charge.', (s) => espaces.prendreEnCharge(s, texte(f, 'id', 64)));
+}
+
+export async function repondreReclamation(f: FormData) {
+  await agir(['R11'], '/espace/reclamations', 'Réponse envoyée à l’usager : la réclamation est close.', (s) =>
+    espaces.repondreReclamation(s, texte(f, 'id', 64), texte(f, 'reponse', 2000)));
+}
+
+// ---------- Comptes des agents ----------
+export async function changerRoleAgent(f: FormData) {
+  await agir(['R13'], '/espace/agents', 'Rôle modifié et journalisé.', (s) =>
+    espaces.changerRoleAgent(s, texte(f, 'id', 80), texte(f, 'role', 5), facultatif(f, 'juridiction', 40)));
+}
+
+export async function activerAgent(f: FormData) {
+  const actif = f.get('actif') === 'true';
+  await agir(['R13'], '/espace/agents', actif ? 'Compte réactivé.' : 'Compte désactivé : l’agent ne peut plus se connecter.', (s) =>
+    espaces.activerAgent(s, texte(f, 'id', 80), actif, facultatif(f, 'motif', 500)));
+}
