@@ -1,0 +1,50 @@
+# Jack Boy Bar-Resto 241 — configuration Apache (LWS)
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # HTTPS obligatoire
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+  # Domaine principal avec www
+  RewriteCond %{HTTP_HOST} ^jackboy241\.com$ [NC]
+  RewriteRule ^(.*)$ https://www.jackboy241.com/$1 [R=301,L]
+  # /menu → /menu/ (pages exportées en dossier/index.html)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.*[^/])$ /$1/ [R=301,L]
+</IfModule>
+
+# Image de partage (fichier sans extension)
+<FilesMatch "^opengraph-image">
+  ForceType image/png
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+  # Fichiers versionnés : cache 1 an ; pages HTML : toujours fraîches
+  <FilesMatch "\.(js|css|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(webp|png|jpe?g|svg|ico|mp4|pdf)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.(html|txt|xml)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml text/xml application/xml text/plain
+</IfModule>
+
+AddType video/mp4 .mp4
+AddType image/webp .webp
+AddType application/manifest+json .webmanifest

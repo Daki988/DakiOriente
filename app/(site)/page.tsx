@@ -19,6 +19,7 @@ import { Faq } from "@/components/Faq";
 import { DrinksShowcase } from "@/components/DrinksShowcase";
 import { TakeawayBanner } from "@/components/TakeawayBanner";
 import { FeaturedEvent } from "@/components/FeaturedEvent";
+import { HideAfter } from "@/components/HideAfter";
 
 const GENRES = ["Amapiano", "Afrobeats", "Afrotcham", "Urban"];
 
@@ -72,6 +73,7 @@ export default function Home() {
       <Marquee items={["Ton repère, ton rythme, ta vibe", "Good drinks", "Good vibes", "Great people", "Le vrai goût du chill", "Amapiano", "Afrobeats", "Afrotcham", "Before & after", "Burgers", "Chicha", "Louis · Libreville"]} />
 
       {events[0] && (
+        <HideAfter date={events[0].date}>
         <section aria-label="Prochaine soirée" className="mx-auto max-w-6xl px-4 pt-14">
           <FeaturedEvent e={events[0]} />
           <div className="mt-4 text-right">
@@ -80,6 +82,7 @@ export default function Home() {
             </Link>
           </div>
         </section>
+        </HideAfter>
       )}
 
       {/* ───── ACTE 2 — Deux ambiances ───── */}

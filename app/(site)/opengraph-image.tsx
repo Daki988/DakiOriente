@@ -26,3 +26,5 @@ export default async function OgImage() {
     { ...size },
   );
 }
+
+export const dynamic = "force-static";

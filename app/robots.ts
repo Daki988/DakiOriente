@@ -7,3 +7,5 @@ export default function robots(): MetadataRoute.Robots {
   if (settings.demoMode) return { rules: { userAgent: "*", disallow: "/" } };
   return { rules: { userAgent: "*", allow: "/", disallow: ["/api/"] }, sitemap: `${SITE_URL}/sitemap.xml` };
 }
+
+export const dynamic = "force-static";

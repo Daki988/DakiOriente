@@ -3,6 +3,7 @@ import { getUpcomingEvents } from "@/lib/content";
 import { PageHero } from "@/components/PageHero";
 import { EventCard } from "@/components/EventCard";
 import { FeaturedEvent } from "@/components/FeaturedEvent";
+import { HideAfter } from "@/components/HideAfter";
 
 export const metadata: Metadata = {
   title: "Soirées & événements à Libreville",
@@ -23,8 +24,11 @@ export default function EventsPage() {
       <div className="mx-auto max-w-6xl px-4 py-12">
         {events.length ? (
           <div className="grid gap-6">
-            <FeaturedEvent e={events[0]} />
-            {events.slice(1).map((e) => <EventCard key={e.title + e.date} e={e} />)}
+            {events.map((e, i) => (
+              <HideAfter key={e.title + e.date} date={e.date}>
+                {i === 0 ? <FeaturedEvent e={e} /> : <EventCard e={e} />}
+              </HideAfter>
+            ))}
           </div>
         ) : (
           <p className="text-muted">Prochaines soirées annoncées très bientôt. Chaque soir, l'ambiance monte avec DJ Hamed aux platines.</p>

@@ -22,3 +22,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
   return pages.map((p) => ({ lastModified: now, ...p }));
 }
+
+export const dynamic = "force-static";
