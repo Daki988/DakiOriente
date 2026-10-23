@@ -10,7 +10,7 @@ Site web de NEAM (agence de transformation digitale, Libreville, Gabon) et outil
 
 L'agence de NEAM travaille dans Claude Code : `/neam <client>` à partir d'un NEAM Digital Score, d'un dossier exporté de l'Atelier ou d'un brief.
 - Règles communes : `.claude/skills/neam/charte.md` ; carte des processus (P1 à P16, étapes 🤖 agent / 🧑 tutoriel) : `.claude/skills/neam/processus.md`.
-- Agents : `.claude/agents/` (chef de projet, business analyste, expert métier, stratégiste de marque, designer, concepteur-rédacteur, expert SEO, community manager, traffic manager, relations presse et influence, vidéaste, développeur web, expert IA, analyste data, relecteur).
+- Agents : `.claude/agents/` (chef de projet, business analyste, expert métier, stratégiste de marque, designer, concepteur-rédacteur, expert SEO, community manager, traffic manager, relations presse et influence, vidéaste, développeur web, expert IA, analyste data, relecteur) et pôle direction et administration (directeur général, directrice générale adjointe, secrétaire de direction, DAF, comptable, juriste, responsable commercial, relation client).
 - Skills : `/neam`, `/neam-tutoriel`, `/neam-contenus`, `/neam-site`, `/neam-video`, `/neam-suivi`, `/neam-autorisations`.
 - Ce qui peut partir sans redemander : `.claude/skills/neam/autorisations.md` ; connecteurs : `.claude/skills/neam/connecteurs.md`.
 

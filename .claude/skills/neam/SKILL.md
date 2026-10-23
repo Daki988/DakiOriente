@@ -68,6 +68,15 @@ Lance `chef-de-projet` en contrôle qualité sur les livrables produits (grille 
 | `expert-ia` | automatisations, assistant IA |
 | `analyste-data` | indicateurs, relevés Windsor.ai, tableaux de bord, chiffres des rapports |
 | `relecteur` | correction, vérification des faits, conformité à la charte avant toute sortie |
+| **Direction et administration** | |
+| `directeur-general` | revue de direction, priorités, arbitrages (il prépare, le fondateur décide) |
+| `directeur-general-adjoint` | point opérationnel, coordination agence et administration, procédures |
+| `secretaire-direction` | courriers, comptes-rendus, ordres du jour, agenda, brouillons Gmail, classement Drive |
+| `daf` | rentabilité, budget, trésorerie, prix et remises, abonnements |
+| `comptable` | devis, factures, relances de paiement, pièces pour l'expert-comptable |
+| `juriste` | contrats de prestation, CGV, mentions légales, droit à l'image (modèles à faire valider par un avocat) |
+| `responsable-commercial` | prospection, propositions, rendez-vous, pipeline, relances |
+| `relation-client` | bienvenue, suivi, satisfaction, réclamations, fidélisation |
 
 ## 6. Livrer (exécution autonome)
 Enchaîne sans redemander tout ce qui ne sort pas de NEAM : livrables 🤖, tutoriels de toutes les étapes 🧑, campagne du premier mois si l'offre comprend les réseaux (`community-manager`), tâches ClickUp des actions humaines si le connecteur est actif, puis bilan d'exécution du `chef-de-projet` (à valider, actions humaines dans l'ordre, ce que le client doit fournir, indicateurs de rentabilité et leur source, brouillon de message au client) dans `clients/<slug>/execution.md`. Ce qui part vers l'extérieur suit toujours `autorisations.md`.
