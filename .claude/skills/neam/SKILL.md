@@ -52,6 +52,8 @@ Lance `chef-de-projet` en contrôle qualité sur les livrables produits (grille 
 
 Prise en charge d'un dossier, comme dans une agence : dès qu'un dossier est soumis, `relation-client` accuse réception et liste les éléments à fournir ; `expert-seo` audite ; `business-analyste` et `expert-metier` analysent ; `expert-seo` fait la veille ; `stratege-marque` pose la plateforme de marque ; `chef-de-projet` bâtit le plan et répartit les livrables ; `comptable` établit le devis et `juriste` le contrat selon l'offre ; les agents produisent ; `chef-de-projet` exécute et fait le bilan ; `designer`, `community-manager` et `relecteur` préparent le calendrier de publications. Un dossier après l'autre, dans l'ordre d'arrivée ; rien n'est envoyé, publié ni dépensé sans validation.
 
+Informations à obtenir du client : en fin de mission, `chef-de-projet` rassemble tout ce que l'équipe a laissé « À demander au client » ou « [à compléter] » en un questionnaire unique (une question par information, avec type de réponse, exemple et travaux qui l'attendent), écrit dans `clients/<slug>/questionnaire.md`. Quand les réponses arrivent, elles sont ajoutées au dossier (`clients/<slug>/infos-client.md`, prioritaires) et chaque agent reprend le livrable ou le document qui les attendait ; ce qui manque encore reste dans le questionnaire.
+
 Équipe et rôles :
 | Agent | Quand l'appeler |
 | --- | --- |
