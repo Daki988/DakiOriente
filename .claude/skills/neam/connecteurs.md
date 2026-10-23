@@ -14,7 +14,7 @@ Avant d'utiliser un connecteur, cherche ses outils avec ToolSearch : un connecte
 | Firecrawl, Parallel Search, TinyFish | Recherche et lecture du web, fiches concurrentes, automatisation de navigateur | expert SEO, expert métier, business analyste |
 | Google Drive, Docs, Sheets, Slides | Dossiers clients, rapports, tableaux de bord, présentations | tous |
 | Gmail, Google Agenda | Brouillons d'e-mails, rendez-vous clients | chef de projet |
-| Netlify, Vercel | Mise en ligne de maquettes et de sites de démonstration | développeur web |
+| Netlify, Vercel | Mise en ligne directe des sites de démonstration (Netlify : une page autonome ; Vercel : tous les fichiers), après accord explicite | développeur web |
 | Bird | WhatsApp Business (modèles de messages en brouillon, statistiques), SMS, e-mail, robot WhatsApp | expert IA, community manager |
 | Brevo | E-mailing : listes, campagnes créées en brouillon, modèles, statistiques | community manager, expert IA |
 | MyChatBot | Assistant de vente IA sur WhatsApp, Instagram, Messenger, Telegram, TikTok et site (proposition validée par carte avant création) | expert IA |

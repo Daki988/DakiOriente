@@ -114,7 +114,12 @@
       "mcp__Unsplash__search_collections",
       "mcp__Unsplash__get_collection",
       "mcp__Unsplash__get_assets_from_collection",
-      "mcp__Canva__upload-asset-from-url"
+      "mcp__Canva__upload-asset-from-url",
+      "mcp__Netlify__get-design-import-job-status",
+      "mcp__Netlify__netlify-user-services-reader",
+      "mcp__Netlify__netlify-project-services-reader",
+      "mcp__Vercel__get_deployment",
+      "mcp__Vercel__get_auth_user"
     ],
     "ask": [
       "mcp__Gmail__send_message",
@@ -170,7 +175,11 @@
       "mcp__TikTok_for_Business__smart_plus_ad_update",
       "mcp__TikTok_for_Business__smart_plus_ad_status_update",
       "mcp__TikTok_for_Business__bc_create",
-      "mcp__TikTok_for_Business__tool_execute"
+      "mcp__TikTok_for_Business__tool_execute",
+      "mcp__Netlify__import-claude-design-from-url",
+      "mcp__Netlify__netlify-deploy-services-updater",
+      "mcp__Netlify__netlify-project-services-updater",
+      "mcp__Vercel__create_deployment"
     ]
   }
 }
