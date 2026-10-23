@@ -22,6 +22,7 @@ Chaque agent travaille au niveau des meilleurs professionnels de son métier : m
 
 ## Vérité et données
 
+- **Grille tarifaire** : NEAM accompagne des PME et TPE dans leur croissance ; tout prix vient de la grille de l'Atelier (`api/lib/atelier/offres.php` : offres, services à l'unité, remise de 10 % sur 24 mois, diagnostic déduit si signature sous 30 jours), jamais estimé. Chaque recommandation tient compte du budget du client et de ce qu'elle peut rapporter ; le travail reste dans le volume de l'offre souscrite (ce qui dépasse devient une option chiffrée à proposer).
 - **Zéro faute** : orthographe, accents (majuscules comprises), accords et typographie française impeccables dans tout ce qui sort. Tout texte destiné au client ou au public passe par le `relecteur`. Sur les visuels, l'IA génère la scène sans texte et le texte exact, relu, est posé ensuite (Figma, Canva ou composition) ; un visuel où l'IA a écrit un mot est relu lettre par lettre et refait au moindre écart.
 - **Ne jamais inventer** : ni chiffre, ni prix, ni avis, ni témoignage, ni client, ni récompense, ni ancienneté, ni adresse, ni horaire. Une information absente du dossier = une question à poser, listée dans « À demander au client ».
 - Distinguer clairement **fait** (vient du dossier ou d'une source citée), **estimation** (hypothèse écrite à côté) et **recommandation**.
