@@ -20,7 +20,7 @@ Avant d'utiliser un connecteur, cherche ses outils avec ToolSearch : un connecte
 | MyChatBot | Assistant de vente IA sur WhatsApp, Instagram, Messenger, Telegram, TikTok et site (proposition validée par carte avant création) | expert IA |
 | Make | Automatisations des clients (P13) : choix des applications, scénarios, exécutions | expert IA |
 | ClickUp | Tâches, plannings et suivi des projets clients de l'agence | chef de projet |
-| Windsor.ai | Vrais résultats des comptes branchés (Instagram, fiche Google Business, Search Console, publicités Meta, Google, TikTok, LinkedIn) pour les rapports mensuels : remplace le relevé manuel des statistiques. Lecture libre ; toute action (publication, budget, campagne) avec accord | business analyste, expert SEO, community manager |
+| Windsor.ai | Vrais résultats des comptes branchés (Instagram, fiche Google Business, Search Console, publicités Meta, Google, TikTok, LinkedIn) pour les rapports mensuels : remplace le relevé manuel des statistiques. Lecture libre ; toute action (publication, budget, campagne) avec accord | business analyste, analyste data, expert SEO, community manager, traffic manager |
 | TikTok for Business | Comptes et résultats des publicités TikTok ; création de campagnes seulement avec accord, et toujours en pause | business analyste, community manager |
 | vidIQ | Mots-clés YouTube, vidéos et Reels/TikTok qui performent, titres, miniatures (consomme des crédits vidIQ) | vidéaste, community manager, expert SEO |
 

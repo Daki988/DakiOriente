@@ -1,6 +1,6 @@
 ---
 name: neam
-description: Agence IA de NEAM Softwares Industry. À utiliser quand on donne le résultat d'un NEAM Digital Score, un dossier exporté de l'Atelier ou le brief d'une entreprise, pour analyser ses besoins avec un expert de son métier, bâtir le plan d'action (processus 🤖 agent / 🧑 tutoriel, au moins 75 % automatisés), puis faire produire les livrables par les agents (designer, expert SEO, community manager, vidéaste, développeur web, expert IA, business analyste, chef de projet) avec les connecteurs Canva, Adobe, Figma, Semrush, Firecrawl et Google Drive.
+description: Agence IA de NEAM Softwares Industry. À utiliser quand on donne le résultat d'un NEAM Digital Score, un dossier exporté de l'Atelier ou le brief d'une entreprise, pour analyser ses besoins avec un expert de son métier, bâtir le plan d'action (processus 🤖 agent / 🧑 tutoriel, au moins 75 % automatisés), puis faire produire les livrables par les agents (stratégiste de marque, designer, concepteur-rédacteur, expert SEO, community manager, traffic manager, relations presse, vidéaste, développeur web, expert IA, analyste data, relecteur, business analyste, chef de projet) avec les connecteurs Canva, Adobe, Figma, Semrush, Firecrawl et Google Drive.
 argument-hint: <nom du client> [Digital Score, dossier Atelier ou brief]
 ---
 
@@ -48,7 +48,26 @@ Pour chaque processus lancé, suis ses étapes dans l'ordre de `processus.md` en
 - Note chaque étape terminée dans `clients/<slug>/journal.md` (date, agent, livrable).
 
 ## 5. Contrôler
-Lance `chef-de-projet` en contrôle qualité sur les livrables produits (grille de sa fiche). Fais corriger par l'agent concerné ce qui ne passe pas. Fais relire par `expert-metier` les textes qui engagent le métier du client.
+Lance `chef-de-projet` en contrôle qualité sur les livrables produits (grille de sa fiche). Fais corriger par l'agent concerné ce qui ne passe pas. Fais relire par `expert-metier` les textes qui engagent le métier du client, et par `relecteur` tout texte destiné au client ou au public (orthographe, faits conformes au dossier, logo intouchable).
+
+Équipe et rôles :
+| Agent | Quand l'appeler |
+| --- | --- |
+| `chef-de-projet` | plan, planning, répartition, contrôle qualité, messages au client |
+| `business-analyste` | besoins, ROI, cahier des charges, rapport mensuel |
+| `expert-metier` | regard du secteur du client, vocabulaire, saisons, réglementation |
+| `stratege-marque` | plateforme de marque, positionnement, promesse, ton, nom, slogan |
+| `designer` | identité, visuels, affiches, maquettes, calendrier par thématiques |
+| `concepteur-redacteur` | concepts de campagne, accroches, textes d'affiches, annonces, scripts, e-mailings |
+| `expert-seo` | fiche Google, avis, mots-clés, audit et contenus SEO |
+| `community-manager` | stratégie réseaux, légendes, publication, animation, analyse des publications |
+| `traffic-manager` | publicité payante Meta, TikTok, Google : structure, ciblage, budget, optimisation (toujours en pause) |
+| `relations-presse` | communiqués, médias gabonais, influenceurs, partenariats, événements |
+| `videaste` | vidéos courtes, scripts, storyboards, montage |
+| `developpeur-web` | site, boutique, corrections techniques, mise en ligne |
+| `expert-ia` | automatisations, assistant IA |
+| `analyste-data` | indicateurs, relevés Windsor.ai, tableaux de bord, chiffres des rapports |
+| `relecteur` | correction, vérification des faits, conformité à la charte avant toute sortie |
 
 ## 6. Livrer (exécution autonome)
 Enchaîne sans redemander tout ce qui ne sort pas de NEAM : livrables 🤖, tutoriels de toutes les étapes 🧑, campagne du premier mois si l'offre comprend les réseaux (`community-manager`), tâches ClickUp des actions humaines si le connecteur est actif, puis bilan d'exécution du `chef-de-projet` (à valider, actions humaines dans l'ordre, ce que le client doit fournir, indicateurs de rentabilité et leur source, brouillon de message au client) dans `clients/<slug>/execution.md`. Ce qui part vers l'extérieur suit toujours `autorisations.md`.
