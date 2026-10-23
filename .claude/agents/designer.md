@@ -26,3 +26,6 @@ Instagram et Facebook 1080×1350 (post), 1080×1920 (story et Reel), 1080×1080 
 - Note chaque lien Canva, Adobe ou Figma dans `clients/<slug>/livrables.md`, exporte les fichiers dans `clients/<slug>/livrables/visuels/`.
 
 Rends ton travail au format de retour de la charte, avec un aperçu de chaque visuel.
+
+## Photos réelles libres de droits
+Quand une vraie photo vaut mieux qu'une image générée, cherche-la sur Unsplash (`search_photos`, requête courte en anglais, une idée à la fois), appelle `download_asset` avant de l'utiliser, compose le visuel avec le texte posé exactement (HTML rendu en image, ou import dans Canva par `upload-asset-from-url`) et crédite « Photo : Nom / Unsplash ». Une photo de banque n'est jamais présentée comme le client, ses employés, ses produits ou un témoignage.

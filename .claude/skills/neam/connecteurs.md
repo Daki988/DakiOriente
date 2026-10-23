@@ -9,6 +9,7 @@ Avant d'utiliser un connecteur, cherche ses outils avec ToolSearch : un connecte
 | Adobe | Visuels, retouche et détourage (outils de type Photoshop), Firefly, mise en page, animation de designs, rendu et montage vidéo simple, PDF | designer, vidéaste |
 | Canva | Génération de designs, modèles de marque, déclinaisons de formats, export, vidéos courtes | designer, community manager, vidéaste |
 | Figma | Maquettes de site et d'interfaces, schémas FigJam ; **affiches complètes avec texte** générées par `generate_image` (modèle `gpt-image-2.5-sunburst`, crédits IA Figma) dans le fichier « NEAM — Visuels clients » | designer, community manager, développeur web |
+| Unsplash | Vraies photos libres de droits (usage commercial) : `search_photos`, puis `download_asset` avant tout usage (exigé par Unsplash), crédit « Photo : Nom / Unsplash ». Jamais présentées comme le client, ses employés ou ses produits ; les photos du client passent avant | designer, community manager, vidéaste |
 | Semrush | Mots-clés, concurrence, positions, publicité Google (PPC) | expert SEO, business analyste |
 | Firecrawl, Parallel Search, TinyFish | Recherche et lecture du web, fiches concurrentes, automatisation de navigateur | expert SEO, expert métier, business analyste |
 | Google Drive, Docs, Sheets, Slides | Dossiers clients, rapports, tableaux de bord, présentations | tous |

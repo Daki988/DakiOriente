@@ -106,7 +106,15 @@
       "mcp__TikTok_for_Business__identity_video_get",
       "mcp__TikTok_for_Business__pixel_list_get",
       "mcp__TikTok_for_Business__tool_list",
-      "mcp__TikTok_for_Business__tool_get"
+      "mcp__TikTok_for_Business__tool_get",
+      "mcp__Unsplash__search_photos",
+      "mcp__Unsplash__search_illustrations",
+      "mcp__Unsplash__download_asset",
+      "mcp__Unsplash__search_related",
+      "mcp__Unsplash__search_collections",
+      "mcp__Unsplash__get_collection",
+      "mcp__Unsplash__get_assets_from_collection",
+      "mcp__Canva__upload-asset-from-url"
     ],
     "ask": [
       "mcp__Gmail__send_message",
