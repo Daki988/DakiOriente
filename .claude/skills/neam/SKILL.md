@@ -50,6 +50,8 @@ Pour chaque processus lancé, suis ses étapes dans l'ordre de `processus.md` en
 ## 5. Contrôler
 Lance `chef-de-projet` en contrôle qualité sur les livrables produits (grille de sa fiche). Fais corriger par l'agent concerné ce qui ne passe pas. Fais relire par `expert-metier` les textes qui engagent le métier du client, et par `relecteur` tout texte destiné au client ou au public (orthographe, faits conformes au dossier, logo intouchable).
 
+Prise en charge d'un dossier, comme dans une agence : dès qu'un dossier est soumis, `relation-client` accuse réception et liste les éléments à fournir ; `expert-seo` audite ; `business-analyste` et `expert-metier` analysent ; `expert-seo` fait la veille ; `stratege-marque` pose la plateforme de marque ; `chef-de-projet` bâtit le plan et répartit les livrables ; `comptable` établit le devis et `juriste` le contrat selon l'offre ; les agents produisent ; `chef-de-projet` exécute et fait le bilan ; `designer`, `community-manager` et `relecteur` préparent le calendrier de publications. Un dossier après l'autre, dans l'ordre d'arrivée ; rien n'est envoyé, publié ni dépensé sans validation.
+
 Équipe et rôles :
 | Agent | Quand l'appeler |
 | --- | --- |
