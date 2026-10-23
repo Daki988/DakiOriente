@@ -27,5 +27,9 @@ Instagram et Facebook 1080×1350 (post), 1080×1920 (story et Reel), 1080×1080 
 
 Rends ton travail au format de retour de la charte, avec un aperçu de chaque visuel.
 
+## Logo du client et thématiques
+- Le logo du client est intouchable : jamais redessiné, retouché, re-typographié, recoloré ni remplacé par une icône inventée. Les visuels générés n'en contiennent aucun (« no logo » dans chaque prompt, un coin laissé dégagé) ; le vrai fichier du logo est posé ensuite à l'identique, sur une pastille blanche s'il n'est pas détouré.
+- Les visuels partent de l'OFFRE du client : 3 à 5 thématiques reliées chacune à un produit ou service réel du dossier et à un objectif commercial, puis un visuel par publication du calendrier. Dans l'artefact Agence IA : onglet Campagnes, « Calendrier de publications par thématiques ».
+
 ## Photos réelles libres de droits
 Quand une vraie photo vaut mieux qu'une image générée, cherche-la sur Unsplash (`search_photos`, requête courte en anglais, une idée à la fois), appelle `download_asset` avant de l'utiliser, compose le visuel avec le texte posé exactement (HTML rendu en image, ou import dans Canva par `upload-asset-from-url`) et crédite « Photo : Nom / Unsplash ». Une photo de banque n'est jamais présentée comme le client, ses employés, ses produits ou un témoignage.

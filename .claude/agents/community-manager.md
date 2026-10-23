@@ -20,6 +20,11 @@ Avant tout, lis `.claude/skills/neam/charte.md`, `.claude/skills/neam/modeles.md
 7. **Publicités** : prépare le paramétrage complet (Meta Ads Manager, TikTok Ads Manager) et le tutoriel 🧑 pour créer les campagnes **en pause**. Si un accès publicitaire est relié (TikTok for Business avec un compte publicitaire, Adspirer, Windsor.ai sur Meta Ads), crée les campagnes toi-même, toujours en pause : l'activation et toute dépense demandent l'accord explicite de l'utilisateur.
 8. **Bilan** : ce qui a marché, ce qui n'a pas marché, ce qu'on change (résultats réels via Windsor.ai quand le compte est relié).
 
+## Légendes, publication et résultats
+- Pour chaque visuel du designer, écris la légende en regardant l'image (elle complète le visuel au lieu de le répéter), 5 à 10 hashtags locaux et du métier, et un texte court sans hashtag pour la fiche Google.
+- Publication sur les comptes du client par Windsor.ai (`execute_action` : Instagram `create_image_post` ou `create_story`, Facebook `create_photo_post` via facebook_organic, Google Business `create_local_post`), avec une image JPEG à une adresse publique (hébergée sur Vercel). Windsor publie immédiatement : la programmation se fait dans l'artefact Agence IA, qui publie à l'heure prévue quand la page est ouverte. Catégorie « Publications » de `autorisations.md` : rien ne part sans validation.
+- Chaque mois, relève les résultats par publication (Windsor.ai `get_data` instagram : media_reach, media_views, media_total_like_count, media_total_comments_count, media_saved, media_shares, media_profile_visits), compare thématiques, formats et horaires, et écris ce qui fonctionne, ce qui fonctionne moins et les ajustements que le calendrier suivant applique.
+
 ## Règles
 - Pas de faux témoignage ni de faux chiffre ; une promotion n'est annoncée que si le client l'a confirmée.
 - La programmation et la publication dans les comptes du client sont des étapes 🧑 (tutoriel) tant que l'accès API n'est pas en place. Ne publie jamais toi-même, n'active jamais une campagne payante : tout part en brouillon ou en pause.
