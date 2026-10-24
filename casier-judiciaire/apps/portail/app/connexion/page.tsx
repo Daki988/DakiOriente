@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import Link from 'next/link';
-import { Alerte, Icone, classesBouton } from '@casier/design-system';
+import { Alerte, Icone, classesBouton, type NomIcone } from '@casier/design-system';
 
 import { EntetePage } from '@/components/EntetePage';
 import { config } from '@/lib/config';
 import { connexionReelle } from '@/lib/oidc';
-import { PROFILS_DEMO } from '@/lib/profils-demo';
+import { PROFILS_DEMO, type ProfilDemo } from '@/lib/profils-demo';
 import { connexionDemo } from './actions';
 
 /** Sans fournisseur d'identité configuré, le bouton renvoie vers les comptes de démonstration (ENV-04). */
@@ -57,17 +57,17 @@ export default async function Connexion({ searchParams }: { searchParams: Promis
         {comptesDemo && (
           <section className="p-encadre cj-pile" aria-labelledby="titre-demo" id="demonstration">
             <h2 id="titre-demo" className="p-titre-encadre">Comptes de démonstration</h2>
-            <p>Identités fictives, une par profil. Choisissez un profil pour découvrir son espace : les données sont simulées et réinitialisées régulièrement.</p>
-            <form action={connexionDemo} className="cj-grille cj-grille--2">
-              {PROFILS_DEMO.map((p) => (
-                <button key={p.id} type="submit" name="profil" value={p.id} className="cj-choix-carte">
-                  <span className="cj-choix-carte__icone"><Icone nom={p.id === 'validateur' ? 'printer' : p.id === 'usager' ? 'user' : p.id === 'auditeur' ? 'shield-check' : p.id === 'decideur' || p.id === 'direction' ? 'chart-column' : 'scale'} /></span>
-                  <span>
-                    <span className="cj-choix-carte__titre">{p.libelle}</span>
-                    <span className="cj-choix-carte__description">{p.nom} — {p.detail}</span>
-                  </span>
-                </button>
-              ))}
+            <p>Identités fictives. Choisissez un compte pour découvrir son espace : les données sont simulées et réinitialisées régulièrement.</p>
+            <form action={connexionDemo} className="cj-pile">
+              <div className="cj-grille cj-grille--3">
+                {PROFILS_DEMO.filter((p) => 'principal' in p).map((p) => <BoutonProfil key={p.id} p={p} />)}
+              </div>
+              <details className="cj-faq">
+                <summary>Autres profils de la démonstration ({PROFILS_DEMO.filter((p) => !('principal' in p)).length})</summary>
+                <div className="cj-grille cj-grille--2">
+                  {PROFILS_DEMO.filter((p) => !('principal' in p)).map((p) => <BoutonProfil key={p.id} p={p} />)}
+                </div>
+              </details>
             </form>
           </section>
         )}
@@ -77,5 +77,22 @@ export default async function Connexion({ searchParams }: { searchParams: Promis
         <p className="p-note"><Icone nom="scale" taille={18} /><span>Magistrats, greffiers et agents du casier : utilisez l’accès réservé communiqué par votre juridiction.</span></p>
       </div>
     </>
+  );
+}
+
+const ICONES_PROFIL: Record<string, NomIcone> = {
+  usager: 'user', greffier: 'gavel', administrateur: 'settings', validateur: 'printer', auditeur: 'shield-check', decideur: 'chart-column',
+  direction: 'chart-column', comptable: 'banknote', support: 'mail', agent: 'inbox', magistrat: 'scale',
+};
+
+function BoutonProfil({ p }: { p: ProfilDemo }) {
+  return (
+    <button type="submit" name="profil" value={p.id} className="cj-choix-carte">
+      <span className="cj-choix-carte__icone"><Icone nom={ICONES_PROFIL[p.id] ?? 'user'} /></span>
+      <span>
+        <span className="cj-choix-carte__titre">{p.libelle}</span>
+        <span className="cj-choix-carte__description">{p.nom} — {p.detail}</span>
+      </span>
+    </button>
   );
 }

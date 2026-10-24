@@ -55,6 +55,7 @@ test.describe('Paiement au Trésor public', () => {
 test.describe('Tableau de bord du validateur (impression)', () => {
   async function connecterValidateur(page: Page) {
     await page.goto('/connexion');
+    await page.locator('#demonstration details').evaluate((d) => { (d as HTMLDetailsElement).open = true; });
     await page.locator('#demonstration').getByRole('button', { name: /^Validateur — impression/ }).click();
     await expect(page).toHaveURL(/\/espace$/);
   }
@@ -93,7 +94,8 @@ test.describe('Tableau de bord du validateur (impression)', () => {
 
   test('un usager n’accède pas à l’impression', async ({ page, request }) => {
     await page.goto('/connexion');
-    await page.locator('#demonstration').getByRole('button', { name: /^Usager/ }).click();
+    await page.locator('#demonstration details').evaluate((d) => { (d as HTMLDetailsElement).open = true; });
+    await page.locator('#demonstration').getByRole('button', { name: /^Demandeur/ }).click();
     await expect(page).toHaveURL(/\/espace$/);
     await page.goto('/espace/impression');
     await expect(page).toHaveURL(/\/espace\?refus=1/);

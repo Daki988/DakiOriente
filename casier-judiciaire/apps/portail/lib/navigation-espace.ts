@@ -23,7 +23,7 @@ export const liensEspace = (roles: string[]): LienEspace[] =>
   ENTREES.filter((e) => e.roles.length === 0 || e.roles.some((r) => roles.includes(r))).map(({ roles: _r, ...l }) => l);
 
 export const LIBELLES_ROLES: Record<string, string> = {
-  R01: 'Usager', R05: 'Magistrat', R06: 'Agent du casier', R07: 'Greffier en chef', R08: 'Direction centrale',
+  R01: 'Demandeur', R05: 'Magistrat', R06: 'Agent du casier', R07: 'Greffier en chef', R08: 'Direction centrale',
   R09: 'Décideur', R10: 'Comptable', R11: 'Support usagers', R12: 'Auditeur', R13: 'Super administrateur',
 };
 

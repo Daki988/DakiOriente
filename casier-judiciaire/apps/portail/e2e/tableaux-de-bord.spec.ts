@@ -9,6 +9,7 @@ async function sansViolation(page: Page) {
 
 async function connecter(page: Page, profil: RegExp) {
   await page.goto('/connexion');
+  await page.locator('#demonstration details').evaluate((d) => { (d as HTMLDetailsElement).open = true; });
   await page.locator('#demonstration').getByRole('button', { name: profil }).click();
   await expect(page).toHaveURL(/\/espace$/);
 }
@@ -34,7 +35,7 @@ test.describe('Suivi d’un dossier de A à Z', () => {
     await connecter(page, /^Auditeur/);
     await page.goto('/espace/suivi?numero=CJ-2026-000123');
     await expect(page.getByText('Pièce complémentaire demandée')).toBeVisible();
-    await connecter(page, /^Usager/);
+    await connecter(page, /^Demandeur/);
     await page.goto('/espace/suivi');
     await expect(page).toHaveURL(/refus=1/);
   });
@@ -43,7 +44,7 @@ test.describe('Suivi d’un dossier de A à Z', () => {
 test.describe('Réclamations', () => {
   test('l’usager dépose une réclamation, le support la prend en charge et répond', async ({ page }, info) => {
     test.skip(info.project.name !== 'bureau', 'actions modifiant l’état de démonstration');
-    await connecter(page, /^Usager/);
+    await connecter(page, /^Demandeur/);
     await page.goto('/espace/reclamations');
     await expect(page.getByText('RC-2026-000014')).toBeVisible();
     await sansViolation(page);
@@ -66,7 +67,7 @@ test.describe('Réclamations', () => {
     await ficheEnCours.getByRole('button', { name: 'Répondre et clore' }).click();
     await expect(page.getByText('Réponse envoyée à l’usager')).toBeVisible();
 
-    await connecter(page, /^Usager/);
+    await connecter(page, /^Demandeur/);
     await page.goto('/espace/reclamations');
     await expect(page.getByText('Le second débit vous sera remboursé')).toBeVisible();
   });
@@ -125,7 +126,7 @@ test.describe('Comptes des agents', () => {
 test.describe('Dépôt de pièce', () => {
   test('l’usager dépose le fichier demandé ; un faux PDF est refusé', async ({ page }, info) => {
     test.skip(info.project.name !== 'bureau', 'actions modifiant l’état de démonstration');
-    await connecter(page, /^Usager/);
+    await connecter(page, /^Demandeur/);
     await page.goto('/espace/demandes');
     const champ = page.getByLabel('Fichier de la pièce');
     await champ.setInputFiles({ name: 'acte.pdf', mimeType: 'application/pdf', buffer: Buffer.from('<html>pas un pdf</html>') });

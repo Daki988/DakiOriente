@@ -8,12 +8,13 @@ async function sansViolation(page: Page) {
 
 async function seConnecter(page: Page, profil: RegExp) {
   await page.goto('/connexion');
+  await page.locator('#demonstration details').evaluate((d) => { (d as HTMLDetailsElement).open = true; });
   await page.locator('#demonstration').getByRole('button', { name: profil }).click();
   await expect(page).toHaveURL(/\/espace$/);
 }
 
 test('Transparence : l’usager voit qui a consulté ses données', async ({ page }) => {
-  await seConnecter(page, /^Usager/);
+  await seConnecter(page, /^Demandeur/);
   await page.goto('/espace/acces');
   await expect(page.getByRole('heading', { level: 1, name: 'Accès à mes données' })).toBeVisible();
   await expect(page.getByRole('cell', { name: 'Consultation de votre fiche' })).toBeVisible();

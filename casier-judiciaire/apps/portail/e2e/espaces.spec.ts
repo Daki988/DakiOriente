@@ -4,6 +4,7 @@ import { expect, test, type Page } from '@playwright/test';
 /** DSH, ENV-04 : espaces connectés avec les comptes de démonstration fictifs (un par profil). */
 async function seConnecter(page: Page, profil: RegExp) {
   await page.goto('/connexion');
+  await page.locator('#demonstration details').evaluate((d) => { (d as HTMLDetailsElement).open = true; });
   await page.locator('#demonstration').getByRole('button', { name: profil }).click();
   await expect(page).toHaveURL(/\/espace$/);
 }
@@ -20,7 +21,7 @@ test('SEC-01 : l’espace exige une connexion', async ({ page }) => {
 });
 
 test('DSH-01 : usager — demandes, bulletin scellé à télécharger, déconnexion', async ({ page }) => {
-  await seConnecter(page, /^Usager/);
+  await seConnecter(page, /^Demandeur/);
   await expect(page.getByRole('heading', { name: 'Bonjour Jean-Pierre' })).toBeVisible();
   await page.getByRole('navigation', { name: 'Navigation de l’espace' }).getByRole('link', { name: 'Mes demandes' }).click();
   await expect(page.getByRole('heading', { name: 'Dossier CJ-2026-000087' })).toBeVisible();
@@ -39,7 +40,7 @@ test('DSH-01 : usager — demandes, bulletin scellé à télécharger, déconnex
 });
 
 test('HAB-01 : un usager n’accède pas au journal d’audit', async ({ page, request }) => {
-  await seConnecter(page, /^Usager/);
+  await seConnecter(page, /^Demandeur/);
   await page.goto('/espace/audit');
   await expect(page).toHaveURL(/\/espace\?refus=1/);
   await expect(page.getByText('Votre profil ne permet pas d’ouvrir cette page.')).toBeVisible();
