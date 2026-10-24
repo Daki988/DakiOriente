@@ -12,7 +12,10 @@
     "dev": "npm run dev -w @casier/portail",
     "build": "npm run jetons && npm run build -w @casier/portail",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "test:e2e": "npm run test:e2e -w @casier/portail"
+    "test:e2e": "npm run test:e2e -w @casier/portail",
+    "dev:penitentiaire": "npm run dev -w @casier/penitentiaire",
+    "build:penitentiaire": "npm run jetons && npm run build -w @casier/penitentiaire",
+    "test:e2e:penitentiaire": "npm run test:e2e -w @casier/penitentiaire"
   },
   "engines": {
     "node": ">=22"
