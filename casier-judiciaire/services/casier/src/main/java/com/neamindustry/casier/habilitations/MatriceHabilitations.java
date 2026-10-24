@@ -30,6 +30,9 @@ public final class MatriceHabilitations {
         MATRICE.put(Role.R13, EnumSet.of(PARAMETRER_PLATEFORME, GERER_AGENTS, PROPOSER_TARIF, VALIDER_TARIF));
         MATRICE.put(Role.R14, EnumSet.of(VERIFIER_BULLETIN));
         MATRICE.put(Role.R15, EnumSet.of(TRAITER_PREPLAINTES));
+        MATRICE.put(Role.R16, EnumSet.of(GERER_ECROU));
+        MATRICE.put(Role.R17, EnumSet.of(DECIDER_PENITENTIAIRE));
+        MATRICE.put(Role.R18, EnumSet.of(SUPERVISER_PENITENTIAIRE));
     }
 
     private MatriceHabilitations() {

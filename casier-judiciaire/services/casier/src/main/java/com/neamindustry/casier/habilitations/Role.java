@@ -14,7 +14,10 @@ public enum Role {
     R12("Auditeur"),
     R13("Super administrateur"),
     R14("Vérificateur public"),
-    R15("Officier de police judiciaire");
+    R15("Officier de police judiciaire"),
+    R16("Agent du greffe pénitentiaire"),
+    R17("Chef d'établissement pénitentiaire"),
+    R18("Direction de l'administration pénitentiaire");
 
     private final String libelle;
 

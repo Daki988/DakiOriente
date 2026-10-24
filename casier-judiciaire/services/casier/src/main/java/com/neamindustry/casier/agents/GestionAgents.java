@@ -32,7 +32,7 @@ public class GestionAgents {
     /** Rôles attribuables depuis la plateforme. */
     public static final Set<Role> ROLES_GERES = EnumSet.complementOf(EnumSet.of(Role.R01, Role.R13));
     /** Rôles rattachés à une juridiction. */
-    static final Set<Role> ROLES_AVEC_JURIDICTION = EnumSet.of(Role.R05, Role.R06, Role.R07);
+    static final Set<Role> ROLES_AVEC_JURIDICTION = EnumSet.of(Role.R05, Role.R06, Role.R07, Role.R16, Role.R17);
 
     private static final String ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
 

@@ -28,3 +28,6 @@ creer magistrat.demo   Sylvie      "NZE"       R05 -s 'attributes.juridiction=["
 creer direction.demo   Paul        "MBADINGA"  R08
 creer auditeur.demo    Marc        "ESSONO"    R12
 creer opj.demo         Didier      "NGOUA"     R15
+creer greffe.penitentiaire Armel   "MBINA"     R16 -s 'attributes.juridiction=["LBV-PC-01"]'
+creer chef.etablissement   Odette  "NZIGOU"    R17 -s 'attributes.juridiction=["LBV-PC-01"]'
+creer direction.penitentiaire Roger "OBIANG"   R18

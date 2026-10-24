@@ -7,7 +7,7 @@ import java.time.Instant;
  *
  * @param identifiant identifiant du compte dans le fournisseur d'identité
  * @param login       nom de connexion
- * @param role        rôle de l'agent (code R02 à R14)
+ * @param role        rôle de l'agent (code R02 à R18)
  * @param actif       faux si le compte est désactivé
  */
 public record CompteAgent(String identifiant, String login, String prenom, String nom, String email, String role,

@@ -71,6 +71,18 @@
       {
         "name": "R15",
         "description": "Officier de police judiciaire"
+      },
+      {
+        "name": "R16",
+        "description": "Agent du greffe pénitentiaire"
+      },
+      {
+        "name": "R17",
+        "description": "Chef d'établissement pénitentiaire"
+      },
+      {
+        "name": "R18",
+        "description": "Direction de l'administration pénitentiaire"
       }
     ]
   },
@@ -211,6 +223,73 @@
       "directAccessGrantsEnabled": false,
       "implicitFlowEnabled": false,
       "serviceAccountsEnabled": true
+    },
+    {
+      "clientId": "penitentiaire",
+      "name": "Système de gestion pénitentiaire",
+      "enabled": true,
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "implicitFlowEnabled": false,
+      "redirectUris": [
+        "http://localhost:3200/*"
+      ],
+      "webOrigins": [
+        "http://localhost:3200"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:3100/*##http://localhost:3000/*"
+      },
+      "protocolMappers": [
+        {
+          "name": "juridiction",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "juridiction",
+            "claim.name": "juridiction",
+            "jsonType.label": "String",
+            "access.token.claim": "true",
+            "id.token.claim": "false",
+            "userinfo.token.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        },
+        {
+          "name": "organisme",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "organisme",
+            "claim.name": "organisme",
+            "jsonType.label": "String",
+            "access.token.claim": "true",
+            "id.token.claim": "false",
+            "userinfo.token.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        },
+        {
+          "name": "identite_verifiee",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "identite_verifiee",
+            "claim.name": "identite_verifiee",
+            "jsonType.label": "boolean",
+            "access.token.claim": "true",
+            "id.token.claim": "false",
+            "userinfo.token.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        }
+      ]
     }
   ],
   "components": {
