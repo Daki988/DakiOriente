@@ -1,6 +1,8 @@
 import type { RSide } from "@/lib/design/layout";
 import type { MockupKind } from "@/lib/design/templates";
+import { photoFor } from "@/lib/design/photos";
 import { DesignSvg } from "./DesignSvg";
+import { PhotoMockup } from "./PhotoMockup";
 
 const shadow = "drop-shadow(0 18px 22px rgba(20,16,10,.28)) drop-shadow(0 3px 4px rgba(20,16,10,.25))";
 
@@ -28,7 +30,13 @@ const wall = "repeating-linear-gradient(0deg, rgba(0,0,0,.05) 0 1px, transparent
 
 /** Aperçus réalistes, sans photo : mise en scène CSS du design réel. */
 export function Mockup({ rounded = true, ...p }: { kind: MockupKind; sides: RSide[]; tshirt?: "white" | "black"; rounded?: boolean }) {
-  return <div className={rounded ? "overflow-hidden rounded-2xl" : ""}><Scene {...p} /></div>;
+  // Une vraie photo quand il en existe une pour ce support (sauf t-shirt noir), sinon la scène dessinée.
+  const photo = p.tshirt === "black" ? undefined : photoFor(p.kind);
+  return (
+    <div className={rounded ? "overflow-hidden rounded-2xl" : ""}>
+      {photo ? <div className="grid aspect-[4/3] place-items-center overflow-hidden bg-[#e9e4da]"><PhotoMockup photo={photo} sides={p.sides} /></div> : <Scene {...p} />}
+    </div>
+  );
 }
 
 function Scene({ kind, sides, tshirt = "white" }: { kind: MockupKind; sides: RSide[]; tshirt?: "white" | "black" }) {

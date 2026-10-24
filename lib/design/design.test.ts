@@ -143,3 +143,14 @@ test("catalogue : chaque produit a une mise en scène et un modèle de départ",
   }
   assert.ok(kinds.size >= 14, `seulement ${kinds.size} mises en scène utilisées`);
 });
+
+test("perspective : les coins du design tombent exactement sur ceux de la photo", async () => {
+  const { homography, project } = await import("./perspective.ts");
+  const q: [number, number][] = [[412, 210], [890, 260], [860, 610], [380, 540]];
+  const hm = homography(85, 55, q as never);
+  const corners: [number, number][] = [[0, 0], [85, 0], [85, 55], [0, 55]];
+  corners.forEach((c, i) => {
+    const [x, y] = project(hm, c);
+    assert.ok(Math.abs(x - q[i][0]) < 1e-6 && Math.abs(y - q[i][1]) < 1e-6, `coin ${i}`);
+  });
+});
