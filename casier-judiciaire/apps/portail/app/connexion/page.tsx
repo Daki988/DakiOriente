@@ -82,7 +82,7 @@ export default async function Connexion({ searchParams }: { searchParams: Promis
 
 const ICONES_PROFIL: Record<string, NomIcone> = {
   usager: 'user', greffier: 'gavel', administrateur: 'settings', validateur: 'printer', auditeur: 'shield-check', decideur: 'chart-column',
-  direction: 'chart-column', comptable: 'banknote', support: 'mail', agent: 'inbox', magistrat: 'scale',
+  direction: 'chart-column', comptable: 'banknote', support: 'mail', opj: 'shield-alert', agent: 'inbox', magistrat: 'scale',
 };
 
 function BoutonProfil({ p }: { p: ProfilDemo }) {

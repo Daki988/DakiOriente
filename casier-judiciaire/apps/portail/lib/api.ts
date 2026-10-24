@@ -1,9 +1,9 @@
 import 'server-only';
 
 import { config } from './config';
-import { donnerAvisDemo } from './demo-espaces';
+import { deposerPreplainteDemo, donnerAvisDemo, suiviPreplainteDemo } from './demo-espaces';
 import { deposerDemo, payerTresorDemo, reclamerDemo, suiviDemo, tarifsDemo, verifierCodeDemo, verifierDocumentDemo, verifierJetonDemo } from './demo';
-import type { DemandeDeposee, NouvelleDemande, ParcoursAvis, NouvelleReclamation, PaiementTresorEnregistre, ReclamationDeposee, ResultatVerification, SuiviDemande, Tarif } from './types';
+import type { NouvellePreplainte, PreplainteDeposee, SuiviPreplainte, DemandeDeposee, NouvelleDemande, ParcoursAvis, NouvelleReclamation, PaiementTresorEnregistre, ReclamationDeposee, ResultatVerification, SuiviDemande, Tarif } from './types';
 
 /** Le service ne répond pas : la page affiche un message clair, sans code technique (ERG-05, PUB-16). */
 export class ServiceIndisponible extends Error {}
@@ -132,4 +132,15 @@ export async function payerTresor(numero: string, code: string, quittance: strin
 export async function donnerAvis(note: number, commentaire: string | undefined, parcours: ParcoursAvis): Promise<void> {
   if (!reel()) return donnerAvisDemo(note);
   await appel('/api/public/v1/avis-satisfaction', { method: 'POST', body: JSON.stringify({ note, commentaire, parcours }) });
+}
+
+/** Pré-plainte en ligne : dépôt public, récépissé avec numéro et code (montré une seule fois). */
+export async function deposerPreplainte(p: NouvellePreplainte): Promise<PreplainteDeposee> {
+  if (!reel()) return deposerPreplainteDemo(p);
+  return (await appel<PreplainteDeposee>('/api/public/v1/pre-plaintes', { method: 'POST', body: JSON.stringify(p) }))!;
+}
+
+export async function suivrePreplainte(numero: string, code: string): Promise<SuiviPreplainte | null> {
+  if (!reel()) return suiviPreplainteDemo(numero, code);
+  return appel<SuiviPreplainte>(`/api/public/v1/pre-plaintes/suivi?${new URLSearchParams({ numero, code })}`);
 }

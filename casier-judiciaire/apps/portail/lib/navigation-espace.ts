@@ -12,6 +12,7 @@ const ENTREES: (LienEspace & { roles: string[] })[] = [
   { href: '/espace/impression', libelle: 'Impression des bulletins', icone: 'printer', roles: ['R07'] },
   { href: '/espace/pilotage', libelle: 'Pilotage', icone: 'chart-column', roles: ['R08', 'R09'] },
   { href: '/espace/suivi', libelle: 'Suivi d’un dossier', icone: 'history', roles: ['R08', 'R12'] },
+  { href: '/espace/pre-plaintes', libelle: 'Pré-plaintes', icone: 'shield-alert', roles: ['R15', 'R08'] },
   { href: '/espace/comptabilite', libelle: 'Comptabilité', icone: 'banknote', roles: ['R10'] },
   { href: '/espace/agents', libelle: 'Comptes des agents', icone: 'users', roles: ['R13'] },
   { href: '/espace/tarifs', libelle: 'Tarifs', icone: 'banknote', roles: ['R08', 'R13'] },
@@ -24,7 +25,7 @@ export const liensEspace = (roles: string[]): LienEspace[] =>
 
 export const LIBELLES_ROLES: Record<string, string> = {
   R01: 'Demandeur', R05: 'Magistrat', R06: 'Agent du casier', R07: 'Greffier en chef', R08: 'Direction centrale',
-  R09: 'Décideur', R10: 'Comptable', R11: 'Support usagers', R12: 'Auditeur', R13: 'Super administrateur',
+  R09: 'Décideur', R10: 'Comptable', R11: 'Support usagers', R12: 'Auditeur', R13: 'Super administrateur', R15: 'Officier de police judiciaire',
 };
 
 export const libelleProfil = (roles: string[]) => roles.map((r) => LIBELLES_ROLES[r] ?? r).join(', ') || 'Sans profil';

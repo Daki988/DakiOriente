@@ -67,6 +67,10 @@
       {
         "name": "R14",
         "description": "Vérificateur public"
+      },
+      {
+        "name": "R15",
+        "description": "Officier de police judiciaire"
       }
     ]
   },

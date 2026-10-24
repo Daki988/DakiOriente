@@ -146,6 +146,22 @@ export async function repondreReclamation(f: FormData) {
     espaces.repondreReclamation(s, texte(f, 'id', 64), texte(f, 'reponse', 2000)));
 }
 
+// ---------- Pré-plaintes (officier de police judiciaire) ----------
+export async function fixerRendezVousPreplainte(f: FormData) {
+  await agir(['R15'], '/espace/pre-plaintes', 'Rendez-vous fixé : la victime le voit dans son suivi.', (s) => {
+    // Saisie « date et heure » locale : heure de Libreville (UTC+1, sans heure d'été).
+    const le = texte(f, 'le', 20);
+    const date = new Date(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(le) ? `${le}:00+01:00` : le);
+    if (Number.isNaN(date.getTime())) throw new RefusMetier('Indiquez la date et l’heure du rendez-vous.');
+    return espaces.fixerRendezVous(s, texte(f, 'id', 64), date.toISOString(), texte(f, 'lieu', 200));
+  });
+}
+
+export async function constaterSignaturePreplainte(f: FormData) {
+  await agir(['R15'], '/espace/pre-plaintes', 'Plainte signée : la pré-plainte est close.', (s) =>
+    espaces.constaterSignature(s, texte(f, 'id', 64), texte(f, 'numeroProcedure', 60)));
+}
+
 // ---------- Comptes des agents ----------
 export async function changerRoleAgent(f: FormData) {
   await agir(['R13'], '/espace/agents', 'Rôle modifié et journalisé.', (s) =>

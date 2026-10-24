@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 /** ERG-02 : aucune page ne déborde horizontalement, du petit téléphone (320 px) à la tablette. */
 const PAGES = ['/', '/demande', '/suivi', '/verifier', '/verifier?code=DEMO-VALI-DE26', '/tarifs', '/bulletin-n3', '/diaspora', '/etrangers',
-  '/administrations', '/aide', '/contact', '/connexion', '/chiffres', '/plan-du-site', '/quel-bulletin', '/en', '/paiement-tresor'];
+  '/administrations', '/aide', '/contact', '/connexion', '/chiffres', '/plan-du-site', '/quel-bulletin', '/en', '/paiement-tresor', '/pre-plainte', '/pre-plainte/suivi?numero=PP-2026-000029&code=314159'];
 const ESPACES: [RegExp, string[]][] = [
   [/^Demandeur/, ['/espace', '/espace/demandes', '/espace/acces', '/espace/reclamations']],
   [/^Agent du casier/, ['/espace/file', '/espace/saisie']],

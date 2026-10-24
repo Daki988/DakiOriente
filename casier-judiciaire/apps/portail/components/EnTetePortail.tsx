@@ -4,9 +4,10 @@ import { BlocMarque, Icone, classesBouton } from '@casier/design-system';
 import { config } from '@/lib/config';
 import { navigation } from '@/lib/contenu';
 import { session } from '@/lib/session';
+import { MenuMobile } from './MenuMobile';
 import { NavPrincipale } from './NavPrincipale';
 
-/** En-tête institutionnel sur une ligne (VIS-02) : bloc-marque, nom du service, navigation, connexion. Menu mobile sans JavaScript. */
+/** En-tête institutionnel sur une ligne (VIS-02) : bloc-marque, nom du service, navigation, connexion. Menu mobile utilisable sans JavaScript, refermé automatiquement avec. */
 export async function EnTetePortail() {
   const connecte = !!(await session());
   const acces = connecte ? { href: '/espace', libelle: 'Mon espace', icone: 'user' as const } : { href: '/connexion', libelle: 'Se connecter', icone: 'log-in' as const };
@@ -26,9 +27,7 @@ export async function EnTetePortail() {
             <Icone nom={acces.icone} taille={18} /><span>{acces.libelle}</span>
           </Link>
         </div>
-        <details className="cj-menu-mobile">
-          <summary><Icone nom="menu" taille={20} /><span>Menu</span></summary>
-          <div className="cj-menu-mobile__panneau">
+        <MenuMobile>
             <nav aria-label="Menu principal">
               <ul>
                 {navigation.map((l) => <li key={l.href}><Link href={l.href}>{l.libelle}</Link></li>)}
@@ -41,8 +40,7 @@ export async function EnTetePortail() {
               <Link href="/demande" className={classesBouton({ pleineLargeur: true })}>Demander mon bulletin</Link>
               <Link href={acces.href} className={classesBouton({ variante: 'secondaire', pleineLargeur: true })}>{acces.libelle}</Link>
             </div>
-          </div>
-        </details>
+        </MenuMobile>
       </div>
     </header>
   );

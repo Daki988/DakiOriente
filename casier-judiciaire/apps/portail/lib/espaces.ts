@@ -8,7 +8,7 @@ import { jetonValide } from './oidc';
 import { session, type Session } from './session';
 import type {
   AccesDonnees, BulletinAImprimer, CategorieReclamation, CompteAgent, CompteCree, DemandeUsager, DossierAgent, EntreeJournal, Indicateurs,
-  InscriptionEnAttente, JeuDeRegles, PaiementEncaisse, ParcoursDossier, ProfilIdentite, Reclamation, ResultatIntegrite, ResultatRapprochement,
+  InscriptionEnAttente, JeuDeRegles, PaiementEncaisse, Preplainte, ParcoursDossier, ProfilIdentite, Reclamation, ResultatIntegrite, ResultatRapprochement,
   SaisieCondamnation, SyntheseRecettes, TarifComplet,
 } from './types';
 
@@ -302,5 +302,25 @@ export const espaces = {
   // ---------- Suivi d'un dossier de A à Z ----------
   async parcours(s: Session, numero: string): Promise<ParcoursDossier | null> {
     return s.demo ? demoEspaces.parcours(s, numero) : appel<ParcoursDossier>(s, `/api/v1/pilotage/parcours/${encodeURIComponent(numero)}`);
+  },
+  // ---------- Pré-plaintes (officier de police judiciaire) ----------
+  async preplaintes(s: Session): Promise<Preplainte[]> {
+    return s.demo ? demoEspaces.preplaintes(s) : (await appel<Preplainte[]>(s, '/api/v1/pre-plaintes')) ?? [];
+  },
+  async fixerRendezVous(s: Session, id: string, le: string, lieu: string) {
+    if (s.demo) {
+      const erreur = demoEspaces.fixerRendezVous(s, id, le, lieu);
+      if (erreur) throw new RefusMetier(erreur);
+      return;
+    }
+    await appel(s, `/api/v1/pre-plaintes/${encodeURIComponent(id)}/rendez-vous`, post({ le, lieu }));
+  },
+  async constaterSignature(s: Session, id: string, numeroProcedure: string) {
+    if (s.demo) {
+      const erreur = demoEspaces.constaterSignature(s, id, numeroProcedure);
+      if (erreur) throw new RefusMetier(erreur);
+      return;
+    }
+    await appel(s, `/api/v1/pre-plaintes/${encodeURIComponent(id)}/signature`, post({ numeroProcedure }));
   },
 };

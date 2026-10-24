@@ -23,5 +23,7 @@ public enum Permission {
     VALIDER_TARIF,
     VERIFIER_BULLETIN,
     /** Validation et impression des bulletins au guichet (tableau de bord du validateur). */
-    IMPRIMER_BULLETIN
+    IMPRIMER_BULLETIN,
+    /** Traitement des pré-plaintes en ligne : rendez-vous, constat de la signature de la plainte. */
+    TRAITER_PREPLAINTES
 }

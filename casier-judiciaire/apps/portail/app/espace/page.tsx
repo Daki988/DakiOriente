@@ -19,6 +19,7 @@ const DESCRIPTIONS: Record<string, string> = {
   '/espace/reclamations': 'Signaler un problème (paiement, bulletin non reçu, erreur) et suivre la réponse.',
   '/espace/suivi': 'Un dossier de la demande à la vérification par l’employeur : chaque étape, son auteur et son délai.',
   '/espace/comptabilite': 'Recettes par moyen de paiement, rapprochement avec les relevés du Trésor et des opérateurs, export.',
+  '/espace/pre-plaintes': 'Pré-plaintes déposées en ligne : fixer le rendez-vous, constater la signature de la plainte.',
   '/espace/agents': 'Créer les comptes des agents, changer leur rôle, désactiver un compte.',
 };
 

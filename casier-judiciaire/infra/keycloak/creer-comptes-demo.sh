@@ -27,3 +27,4 @@ creer greffier.chef    Hervé       "OBAME"     R07 -s 'attributes.juridiction=[
 creer magistrat.demo   Sylvie      "NZE"       R05 -s 'attributes.juridiction=["TPI-LIBREVILLE"]'
 creer direction.demo   Paul        "MBADINGA"  R08
 creer auditeur.demo    Marc        "ESSONO"    R12
+creer opj.demo         Didier      "NGOUA"     R15

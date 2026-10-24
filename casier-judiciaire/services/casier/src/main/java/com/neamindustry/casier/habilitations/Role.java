@@ -13,7 +13,8 @@ public enum Role {
     R11("Support usagers"),
     R12("Auditeur"),
     R13("Super administrateur"),
-    R14("Vérificateur public");
+    R14("Vérificateur public"),
+    R15("Officier de police judiciaire");
 
     private final String libelle;
 

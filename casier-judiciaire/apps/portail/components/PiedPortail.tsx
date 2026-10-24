@@ -24,6 +24,7 @@ export function PiedPortail() {
               <li><Link href="/paiement-tresor">Payer au Trésor public</Link></li>
               <li><Link href="/verifier">Vérifier un bulletin</Link></li>
               <li><Link href="/tarifs">Tarifs</Link></li>
+              <li><Link href="/pre-plainte">Pré-plainte en ligne</Link></li>
             </ul>
           </div>
           <div>

@@ -6,7 +6,7 @@ import { EntetePage } from '@/components/EntetePage';
 export const metadata: Metadata = { title: 'Plan du site' };
 
 const PLAN: { titre: string; liens: [string, string][] }[] = [
-  { titre: 'Démarches', liens: [['Demander un bulletin n°3', '/demande'], ['Suivre une demande', '/suivi'], ['Payer au Trésor public', '/paiement-tresor'], ['De quel document ai-je besoin ?', '/quel-bulletin'], ['Vérifier un bulletin', '/verifier'], ['Tarifs', '/tarifs'], ['Se connecter', '/connexion']] },
+  { titre: 'Démarches', liens: [['Demander un bulletin n°3', '/demande'], ['Suivre une demande', '/suivi'], ['Payer au Trésor public', '/paiement-tresor'], ['De quel document ai-je besoin ?', '/quel-bulletin'], ['Vérifier un bulletin', '/verifier'], ['Tarifs', '/tarifs'], ['Pré-plainte en ligne', '/pre-plainte'], ['Suivre une pré-plainte', '/pre-plainte/suivi'], ['Se connecter', '/connexion']] },
   { titre: 'Informations', liens: [['Le bulletin n°3', '/bulletin-n3'], ['Gabonais de l’étranger', '/diaspora'], ['Étrangers résidant au Gabon', '/etrangers'], ['Administrations et employeurs', '/administrations'], ['Actualités', '/actualites'], ['Le service en chiffres', '/chiffres']] },
   { titre: 'Aide', liens: [['Aide et questions fréquentes', '/aide'], ['Contact et réclamation', '/contact']] },
   { titre: 'Informations légales', liens: [['Mentions légales', '/mentions-legales'], ['Conditions générales d’utilisation', '/cgu'], ['Confidentialité', '/confidentialite'], ['Cookies', '/cookies'], ['Accessibilité', '/accessibilite']] },

@@ -7,7 +7,7 @@ import { SPECIMEN_B3 } from './specimen-b3';
 import { SPECIMENS_IMPRESSION } from './specimens-impression';
 import type {
   AccesDonnees, BulletinAImprimer, CategorieReclamation, CompteAgent, CompteCree, DemandeUsager, DossierAgent, EcartRapprochement, EntreeJournal,
-  EtapeParcours, Indicateurs, InscriptionEnAttente, JeuDeRegles, PaiementEncaisse, ParcoursDossier, ProfilIdentite, Reclamation,
+  EtapeParcours, Indicateurs, NouvellePreplainte, Preplainte, PreplainteDeposee, SuiviPreplainte, InscriptionEnAttente, JeuDeRegles, PaiementEncaisse, ParcoursDossier, ProfilIdentite, Reclamation,
   ResultatRapprochement, SaisieCondamnation, SyntheseRecettes, TarifComplet,
 } from './types';
 
@@ -16,11 +16,12 @@ import type {
  * Les actions modifient ces données et alimentent un journal simulé, pour présenter les parcours sans service métier.
  */
 const iso = (decalageHeures: number) => new Date(Date.now() + decalageHeures * 3600_000).toISOString();
+const jour = (decalageJours: number) => new Date(Date.now() - decalageJours * 86_400_000).toISOString().slice(0, 10);
 
 type Etat = {
   demandes: DemandeUsager[]; file: DossierAgent[]; candidats: Record<string, ProfilIdentite[]>;
   attente: InscriptionEnAttente[]; tarifs: TarifComplet[]; regles: JeuDeRegles[]; journal: EntreeJournal[];
-  impressions: BulletinAImprimer[]; reclamations: (Reclamation & { demandeur: string })[]; agents: CompteAgent[];
+  impressions: BulletinAImprimer[]; reclamations: (Reclamation & { demandeur: string })[]; agents: CompteAgent[]; preplaintes: (Preplainte & { code: string })[];
 };
 
 function initial(): Etat {
@@ -106,6 +107,18 @@ function initial(): Etat {
         message: 'Mon bulletin mentionne une condamnation qui ne me concerne pas : il s’agit d’un homonyme né à Oyem.', statut: 'EN_COURS',
         creeLe: iso(-26), prisEnChargeLe: iso(-20), reponse: null, traiteLe: null },
     ],
+    preplaintes: [
+      { id: 'demo-pp-1', numero: 'PP-2026-000031', code: '271828', nature: 'VOL', dateFaits: jour(2), heureFaits: 'vers 19 h', ville: 'Libreville',
+        lieu: 'Carrefour Rio, arrêt de taxi', description: 'Deux individus à moto m’ont arraché mon téléphone et mon sac en passant, puis sont partis vers Nzeng-Ayong.',
+        auteurConnu: false, auteurInfos: 'Deux hommes, moto rouge sans plaque visible', biens: 'Téléphone portable, sac à main, 25 000 FCFA en espèces',
+        prejudiceFcfa: 210000, declarant: { nom: 'MBOUMBA FICTIF', prenoms: 'Laure', dateNaissance: '1996-02-14', telephone: '+24177000101', email: null, adresse: 'Libreville', entreprise: null },
+        service: 'Commissariat central de Libreville', statut: 'RECUE', creeLe: iso(-20), expireLe: iso(24 * 29), rendezVousLe: null, rendezVousLieu: null, signeeLe: null, numeroProcedure: null },
+      { id: 'demo-pp-2', numero: 'PP-2026-000029', code: '314159', nature: 'ESCROQUERIE', dateFaits: jour(5), heureFaits: null, ville: 'Owendo',
+        lieu: 'Achat en ligne sur un réseau social', description: 'J’ai payé 85 000 FCFA par mobile money pour un téléphone jamais livré ; le vendeur ne répond plus.',
+        auteurConnu: true, auteurInfos: 'Compte « Bonnes affaires Libreville », numéro +241 66 00 00 00 (fictif)', biens: null, prejudiceFcfa: 85000,
+        declarant: { nom: 'OBIANG FICTIF', prenoms: 'Serge', dateNaissance: '1988-09-30', telephone: '+24166000202', email: 'serge.obiang@exemple.ga', adresse: null, entreprise: null },
+        service: 'Commissariat d’Owendo', statut: 'RENDEZ_VOUS_FIXE', creeLe: iso(-96), expireLe: iso(24 * 26), rendezVousLe: iso(26), rendezVousLieu: 'Commissariat d’Owendo, bureau des plaintes', signeeLe: null, numeroProcedure: null },
+    ],
     agents: [
       { identifiant: 'demo-agent', login: 'clarisse.moussavou', prenom: 'Clarisse', nom: 'MOUSSAVOU', email: 'clarisse.moussavou@exemple.ga', role: 'R06', juridiction: 'TPI-LIBREVILLE', actif: true, creeLe: '2026-09-02T08:00:00Z' },
       { identifiant: 'demo-greffier', login: 'herve.obame', prenom: 'Hervé', nom: 'OBAME', email: 'herve.obame@exemple.ga', role: 'R07', juridiction: 'TPI-LIBREVILLE', actif: true, creeLe: '2026-09-02T08:05:00Z' },
@@ -175,7 +188,6 @@ const ACCES_USAGER: AccesDonnees[] = [
 // ---------- Données de démonstration : comptabilité et suivi de dossier ----------
 const MOYENS = ['TRESOR', 'AIRTEL_MONEY', 'MOOV_MONEY', 'TRESOR', 'CARTE', 'AIRTEL_MONEY'] as const;
 const PREFIXES: Record<string, string> = { TRESOR: 'TRESOR-TP-2026-', AIRTEL_MONEY: 'AIRTEL-', MOOV_MONEY: 'MOOV-', CARTE: 'CARTE-' };
-const jour = (decalageJours: number) => new Date(Date.now() - decalageJours * 86_400_000).toISOString().slice(0, 10);
 
 /** Paiements fictifs des 30 derniers jours, stables d'un affichage à l'autre. */
 function paiementsFictifs(): PaiementEncaisse[] {
@@ -500,4 +512,54 @@ export const demoEspaces = {
     return p;
   },
   exemplesParcours: () => Object.keys(PARCOURS),
+
+  // ---------- Pré-plaintes (officier de police judiciaire) ----------
+  preplaintes(s: Session): Preplainte[] {
+    rafraichir();
+    tracer(s, 'PREPLAINTES_CONSULTEES', 'Preplainte', null);
+    const ordre = { RECUE: 0, RENDEZ_VOUS_FIXE: 1, PLAINTE_SIGNEE: 2, EXPIREE: 3 } as const;
+    return listePreplaintes().map(({ code: _c, ...p }) => p).sort((a, b) => ordre[a.statut] - ordre[b.statut] || a.creeLe.localeCompare(b.creeLe));
+  },
+  fixerRendezVous(s: Session, id: string, le: string, lieu: string): string | null {
+    const p = listePreplaintes().find((x) => x.id === id);
+    if (!p) return 'Pré-plainte introuvable.';
+    if (p.statut !== 'RECUE' && p.statut !== 'RENDEZ_VOUS_FIXE') return 'Cette pré-plainte n’attend plus de rendez-vous.';
+    if (!le || Date.parse(le) < Date.now()) return 'Le rendez-vous doit être fixé dans le futur.';
+    if (!lieu.trim()) return 'Indiquez le lieu du rendez-vous.';
+    Object.assign(p, { statut: 'RENDEZ_VOUS_FIXE', rendezVousLe: new Date(le).toISOString(), rendezVousLieu: lieu.trim() });
+    tracer(s, 'PREPLAINTE_RENDEZ_VOUS_FIXE', 'Preplainte', p.numero);
+    return null;
+  },
+  constaterSignature(s: Session, id: string, numeroProcedure: string): string | null {
+    const p = listePreplaintes().find((x) => x.id === id);
+    if (!p) return 'Pré-plainte introuvable.';
+    if (p.statut !== 'RECUE' && p.statut !== 'RENDEZ_VOUS_FIXE') return 'Cette pré-plainte est déjà close.';
+    if (!numeroProcedure.trim()) return 'Indiquez le numéro de procédure de la plainte signée.';
+    Object.assign(p, { statut: 'PLAINTE_SIGNEE', signeeLe: new Date().toISOString(), numeroProcedure: numeroProcedure.trim() });
+    tracer(s, 'PREPLAINTE_SIGNEE', 'Preplainte', p.numero, numeroProcedure.trim());
+    return null;
+  },
 };
+
+/** Les pré-plaintes de démonstration (état partagé avec l'espace de l'officier de police judiciaire). */
+function listePreplaintes() {
+  return (etat.preplaintes ??= initial().preplaintes);
+}
+
+/** Dépôt public d'une pré-plainte en démonstration : mêmes contrôles que le service, numéro et code fictifs. */
+export function deposerPreplainteDemo(p: NouvellePreplainte): PreplainteDeposee {
+  const liste = listePreplaintes();
+  const numero = `PP-2026-${String(32 + liste.length).padStart(6, '0')}`;
+  const code = String(Math.floor(100000 + Math.random() * 900000));
+  const maintenant = new Date();
+  const expireLe = new Date(maintenant.getTime() + 30 * 86_400_000).toISOString();
+  liste.push({ ...p, id: `demo-pp-${randomUUID().slice(0, 6)}`, numero, code, declarant: { ...p.declarant, nom: p.declarant.nom.toUpperCase() },
+    statut: 'RECUE', creeLe: maintenant.toISOString(), expireLe, rendezVousLe: null, rendezVousLieu: null, signeeLe: null, numeroProcedure: null });
+  return { numero, code, expireLe, service: p.service };
+}
+
+export function suiviPreplainteDemo(numero: string, code: string): SuiviPreplainte | null {
+  const p = listePreplaintes().find((x) => x.numero === numero.trim().toUpperCase() && x.code === code.trim());
+  return p ? { numero: p.numero, statut: p.statut, deposeeLe: p.creeLe, expireLe: p.expireLe, service: p.service,
+    rendezVousLe: p.rendezVousLe, rendezVousLieu: p.rendezVousLieu, signeeLe: p.signeeLe } : null;
+}

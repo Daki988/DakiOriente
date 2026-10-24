@@ -148,3 +148,18 @@ export type ParcoursDossier = {
     montantFcfa: number; bulletinNumero: string | null; delaiDelivranceMinutes: number | null; etapes: EtapeParcours[] };
   verifications: number;
 };
+
+/** Pré-plainte en ligne. */
+export type NaturePreplainte = 'VOL' | 'CAMBRIOLAGE' | 'VOL_VEHICULE' | 'DEGRADATION' | 'ESCROQUERIE' | 'AUTRE_ATTEINTE_BIENS';
+export type StatutPreplainte = 'RECUE' | 'RENDEZ_VOUS_FIXE' | 'PLAINTE_SIGNEE' | 'EXPIREE';
+export type DeclarantPreplainte = { nom: string; prenoms: string; dateNaissance: string; telephone: string; email: string | null; adresse: string | null; entreprise: string | null };
+export type NouvellePreplainte = {
+  nature: NaturePreplainte; dateFaits: string; heureFaits: string | null; ville: string; lieu: string; description: string; auteurConnu: boolean;
+  auteurInfos: string | null; biens: string | null; prejudiceFcfa: number | null; declarant: DeclarantPreplainte; service: string;
+};
+export type PreplainteDeposee = { numero: string; code: string; expireLe: string; service: string };
+export type SuiviPreplainte = { numero: string; statut: StatutPreplainte; deposeeLe: string; expireLe: string; service: string; rendezVousLe: string | null; rendezVousLieu: string | null; signeeLe: string | null };
+export type Preplainte = Omit<NouvellePreplainte, 'declarant'> & {
+  id: string; numero: string; declarant: DeclarantPreplainte; statut: StatutPreplainte; creeLe: string; expireLe: string;
+  rendezVousLe: string | null; rendezVousLieu: string | null; signeeLe: string | null; numeroProcedure: string | null;
+};
