@@ -5,6 +5,7 @@ import { FIELDS, FONT_PAIRS, PALETTES, type Design } from "./model.ts";
 import { familyFor, KINDS, TEMPLATES, templatesFor } from "./templates.ts";
 import { ICONS, PATTERNS } from "./motifs.ts";
 import { SECTORS } from "./sectors.ts";
+import { TEMPLATE_PALETTES } from "./canva.ts";
 
 // Mesure simplifiée : chaque caractère fait 0,55 × la taille.
 const measure: Measure = (t, _f, s) => t.length * s * 0.55;
@@ -40,7 +41,7 @@ test("chaque modèle se calcule sans erreur, textes dans la zone finie", () => {
   const ids = new Set<string>();
   for (const tpl of TEMPLATES) {
     assert.ok(!ids.has(tpl.id), `id en double : ${tpl.id}`); ids.add(tpl.id);
-    assert.ok(PALETTES.some((p) => p.id === tpl.palette) && FONT_PAIRS.some((f) => f.id === tpl.fonts));
+    assert.ok([...PALETTES, ...TEMPLATE_PALETTES].some((p) => p.id === tpl.palette) && FONT_PAIRS.some((f) => f.id === tpl.fonts), tpl.id);
     const dims: Record<string, [number, number]> = { card: [85, 55], portrait: [148, 210], tall: [850, 2000], square: [50, 50], wide: [3000, 1000] };
     const [w, h] = dims[tpl.family];
     for (const kind of Object.values(KINDS)) {
@@ -54,13 +55,14 @@ test("chaque modèle se calcule sans erreur, textes dans la zone finie", () => {
           const x0 = it.align === "center" ? it.x - mw / 2 : it.align === "right" ? it.x - mw : it.x;
           return { x0, x1: x0 + mw, y0: it.lines[0].y - it.size * 0.8, y1: it.lines[it.lines.length - 1].y + it.size * 0.2, s: it.lines[0].s };
         });
-        for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) {
+        // Modèles affiches : composition libre (textes superposés à dessein), contrôlée à l’œil.
+        if (!tpl.free) for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) {
           const a = boxes[i], c = boxes[j];
           const overlap = a.x0 < c.x1 - 0.01 && c.x0 < a.x1 - 0.01 && a.y0 < c.y1 - 0.01 && c.y0 < a.y1 - 0.01;
           assert.ok(!overlap, `${tpl.id} : « ${a.s} » chevauche « ${c.s} »`);
         }
       }
-      for (const s of sides) for (const it of s.items) if (it.t === "text") {
+      for (const s of sides) for (const it of s.items) if (it.t === "text" && !it.rot) {
         for (const l of it.lines) {
           const lw = measure(l.s, it.font, it.size);
           const left = it.align === "center" ? it.x - lw / 2 : it.align === "right" ? it.x - lw : it.x;

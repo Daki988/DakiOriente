@@ -2,7 +2,11 @@ import type { IconId, PatternId } from "./motifs.ts";
 
 /** Modèle de données de l'éditeur en ligne : polices, palettes, éléments de modèle, design du client. */
 
-export const FONT_KEYS = ["display", "sans", "sans-bold", "serif", "geo", "geo-medium", "script"] as const;
+export const FONT_KEYS = [
+  "display", "sans", "sans-bold", "serif", "geo", "geo-medium", "script",
+  // Polices des modèles « affiches » (façon Canva).
+  "bebas", "black", "poppins", "poppins-semi", "poppins-xb", "mont", "mont-semi", "serif-italic",
+] as const;
 export type FontKey = (typeof FONT_KEYS)[number];
 
 /** Rôle typographique d'un texte : la police réelle dépend du duo de polices choisi. */
@@ -18,6 +22,8 @@ export const FONT_PAIRS: FontPair[] = [
 
 /** Couleurs d'un modèle, par rôle. `onPrimary` est calculée (texte lisible sur la couleur principale). */
 export type ColorRole = "bg" | "ink" | "primary" | "accent" | "soft" | "onPrimary" | "white";
+/** Couleur d'un élément : un rôle de la palette (suit la palette choisie) ou une couleur fixe « #rrggbb ». */
+export type Color = ColorRole | `#${string}`;
 export type Palette = { id: string; name: string; bg: string; ink: string; primary: string; accent: string; soft: string };
 
 export const PALETTES: Palette[] = [
@@ -44,10 +50,11 @@ function luminance(hex: string) {
   return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
 }
 
-export function colorOf(p: Palette, role: ColorRole): string {
+export function colorOf(p: Palette, role: Color): string {
+  if (role.startsWith("#")) return role;
   if (role === "white") return "#ffffff";
   if (role === "onPrimary") return luminance(p.primary) > 0.45 ? p.ink : "#ffffff";
-  return p[role];
+  return p[role as Exclude<ColorRole, "white" | "onPrimary">];
 }
 
 /** Champs de texte communs à tous les modèles ; leur libellé dépend du type de produit. */
@@ -56,20 +63,45 @@ export type Field = (typeof FIELDS)[number];
 
 /** Coordonnées relatives (0 → 1) à la zone finie du support. Tailles de texte relatives au petit côté. */
 type Box = { x: number; y: number; w: number; h: number };
+/** Rotation en degrés autour du centre de l'élément. */
+type Turn = { rot?: number };
+/** Contour : couleur, épaisseur (relative au petit côté), tirets (relatifs au petit côté). */
+type Stroke = { stroke?: Color; sw?: number; dash?: number };
+/** Dégradé linéaire de la couleur de remplissage (opacité de l'élément) vers `to` (opacité `op`), vertical par défaut. */
+export type Grad = { to: Color; op?: number; dir?: "v" | "h" };
 export type El =
-  | (Box & { t: "rect"; fill: ColorRole; r?: number; opacity?: number })
-  | (Box & { t: "ellipse"; fill: ColorRole; opacity?: number })
-  | (Box & { t: "text"; field: Field; role: Role; color: ColorRole; size: number; align?: "left" | "center" | "right"; lines?: number; upper?: boolean })
+  | (Box & Turn & Stroke & { t: "rect"; fill?: Color; r?: number; opacity?: number; grad?: Grad })
+  | (Box & Turn & Stroke & { t: "ellipse"; fill?: Color; opacity?: number })
+  /**
+   * Texte : un champ du produit (`field`) ou un texte propre au modèle (`text`, modifiable via son `id`).
+   * `font` impose une police précise ; sinon c'est le rôle dans le duo de polices choisi.
+   * `ls` : espacement des lettres (en fraction de la taille), `lh` : interligne.
+   */
+  | (Box & Turn & {
+      t: "text"; field?: Field; text?: string; id?: string; role?: Role; font?: FontKey; color: Color; size: number;
+      align?: "left" | "center" | "right"; lines?: number; upper?: boolean; ls?: number; lh?: number;
+    })
+  /** Photo du modèle (remplaçable par le client via son `id`) : recadrée pour remplir la zone, coins arrondis ou arche. */
+  | (Box & { t: "photo"; id?: string; src: string; iw: number; ih: number; fx?: number; fy?: number; r?: number; arch?: boolean })
   /** `on` : couleur sous le logo (sert aux découpes du pictogramme de remplacement). */
-  | (Box & { t: "logo"; color: ColorRole; align?: "left" | "center" | "right"; on?: ColorRole })
+  | (Box & { t: "logo"; color: Color; align?: "left" | "center" | "right"; on?: Color })
   /** Motif répété dans la zone ; « auto » = motif choisi par le client. `tile` relatif au petit côté. */
   | (Box & { t: "pattern"; pattern: PatternId | "auto"; tile: number; colors: [ColorRole, ColorRole, ColorRole]; opacity?: number })
   /** Pictogramme du secteur choisi (rien si aucun). */
   | (Box & { t: "icon"; color: ColorRole; cut: ColorRole; align?: "left" | "center" | "right" });
 
-export type Side = { bg: ColorRole; els: El[] };
+export type Side = { bg: Color; els: El[] };
 export type Family = "card" | "portrait" | "tall" | "square" | "wide";
-export type Template = { id: string; name: string; family: Family; sides: Side[]; palette: string; fonts: string; pattern?: PatternId };
+/** Type de produit : fixe les libellés des champs et les exemples de texte. */
+export type Kind = "carte" | "evenement" | "promo" | "marque";
+/**
+ * Modèle. `kinds` : produits pour lesquels il est conçu (proposé en premier) ; `fields` : ses textes d'exemple ;
+ * `free` : composition libre (les textes peuvent se chevaucher, aucun n'est décalé).
+ */
+export type Template = {
+  id: string; name: string; family: Family; sides: Side[]; palette: string; fonts: string; pattern?: PatternId;
+  kinds?: Kind[]; fields?: Partial<Record<Field, string>>; free?: boolean;
+};
 
 export type Logo = { src: string; w: number; h: number };
 /** `monogram` : champ dont les initiales remplacent le logo absent (aucune si non défini). */
@@ -79,6 +111,8 @@ export type Design = {
   pattern?: PatternId; icon?: IconId; sector?: string;
   /** Ajouts du client : position du logo, slogan en bandeau, photo de fond (avec voile de 0 à 0,9). */
   logoPos?: LogoPos; slogan?: string; sloganPos?: "haut" | "bas"; bgImage?: Logo; bgVeil?: number;
+  /** Textes propres au modèle et photos remplacées par le client, par identifiant « modèle:élément ». */
+  texts?: Record<string, string>; photos?: Record<string, Logo>;
 };
 export type LogoPos = "modele" | "hg" | "hd" | "bg" | "bd" | "centre";
 

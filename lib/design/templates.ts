@@ -1,4 +1,6 @@
-import type { Family, Field, Template } from "./model.ts";
+import type { Family, Field, Kind, Template } from "./model.ts";
+import { CANVA } from "./canva.ts";
+export type { Kind } from "./model.ts";
 
 /* Modèles. Coordonnées relatives à la zone finie (0 → 1) ; tailles de texte relatives au petit côté. */
 
@@ -443,7 +445,7 @@ const MOTIF: Template[] = [
   },
 ];
 
-export const TEMPLATES: Template[] = [...CARD, ...PORTRAIT, ...TALL, ...SQUARE, ...WIDE, ...MOTIF];
+export const TEMPLATES: Template[] = [...CANVA, ...CARD, ...PORTRAIT, ...TALL, ...SQUARE, ...WIDE, ...MOTIF];
 
 /** Famille de modèles selon les proportions du support. */
 export function familyFor(wMm: number, hMm: number): Family {
@@ -458,7 +460,6 @@ export function familyFor(wMm: number, hMm: number): Family {
 export const templatesFor = (f: Family) => TEMPLATES.filter((t) => t.family === f);
 
 /* Libellés et exemples de texte selon le type de produit. */
-export type Kind = "carte" | "evenement" | "promo" | "marque";
 type KindInfo = { labels: Record<Field, string>; defaults: Record<Field, string> };
 
 export const KINDS: Record<Kind, KindInfo> = {

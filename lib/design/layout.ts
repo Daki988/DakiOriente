@@ -1,5 +1,6 @@
 import { ICONS, PATTERNS, type Prim } from "./motifs.ts";
-import { BLEED_MM, colorOf, FONT_PAIRS, PALETTES, type Design, type FontKey, type Palette, type Side, type Template } from "./model.ts";
+import { TEMPLATE_PALETTES } from "./canva.ts";
+import { BLEED_MM, colorOf, FONT_PAIRS, PALETTES, type Color, type Design, type FontKey, type Palette, type Side, type Template } from "./model.ts";
 
 /** Largeur d'un texte en mm pour une police et une taille (en mm) données. */
 export type Measure = (text: string, font: FontKey, sizeMm: number) => number;
@@ -8,11 +9,18 @@ export const LINE_HEIGHT = 1.18;
 /** Position de la ligne de base sous le haut de la ligne, en fraction de la taille. */
 export const ASCENT = 0.8;
 
-export type RRect = { t: "rect"; x: number; y: number; w: number; h: number; r: number; fill: string; opacity: number };
-export type REllipse = { t: "ellipse"; cx: number; cy: number; rx: number; ry: number; fill: string; opacity: number };
-export type RText = { t: "text"; font: FontKey; size: number; fill: string; align: "left" | "center" | "right"; x: number; lines: { s: string; y: number }[] };
-/** Image placée ; `clip` = zone visible (photo de fond recadrée). */
-export type RImage = { t: "image"; x: number; y: number; w: number; h: number; src: string; clip?: { x: number; y: number; w: number; h: number } };
+/** Rotation en degrés autour du point (cx, cy), en mm. */
+export type RTurn = { deg: number; cx: number; cy: number };
+/** Dégradé résolu : de `fill` (opacité de l'élément) vers `to` (opacité `op`), vertical ou horizontal. */
+export type RGrad = { to: string; op: number; dir: "v" | "h" };
+/** Contour résolu (mm). `fill: "none"` = forme sans remplissage. */
+export type RStroke = { stroke?: string; sw?: number; dash?: number };
+export type RRect = { t: "rect"; x: number; y: number; w: number; h: number; r: number; fill: string; opacity: number; rot?: RTurn; grad?: RGrad } & RStroke;
+export type REllipse = { t: "ellipse"; cx: number; cy: number; rx: number; ry: number; fill: string; opacity: number; rot?: RTurn } & RStroke;
+/** `ls` : espacement des lettres en mm. */
+export type RText = { t: "text"; font: FontKey; size: number; fill: string; align: "left" | "center" | "right"; x: number; lines: { s: string; y: number }[]; ls?: number; rot?: RTurn };
+/** Image placée ; `clip` = zone visible (photo recadrée), `shape` = coins arrondis (mm) ou arche. */
+export type RImage = { t: "image"; x: number; y: number; w: number; h: number; src: string; clip?: { x: number; y: number; w: number; h: number }; shape?: { r?: number; arch?: boolean } };
 /** Formes simples en mm, couleur résolue. */
 export type RPrim =
   | { k: "rect"; x: number; y: number; w: number; h: number; r: number; fill: string }
@@ -84,18 +92,25 @@ export function paletteOf(id: string): Palette {
   if (id.startsWith("custom:") && /^#[0-9a-f]{6}$/i.test(id.slice(7))) {
     return { ...PALETTES[0], id, name: "Personnalisée", primary: id.slice(7).toLowerCase() };
   }
-  return PALETTES.find((p) => p.id === id) ?? PALETTES[0];
+  return PALETTES.find((p) => p.id === id) ?? TEMPLATE_PALETTES.find((p) => p.id === id) ?? PALETTES[0];
 }
 
 /** Hauteur du bandeau de slogan, en fraction de la hauteur, selon la famille. */
 const BAND: Record<Template["family"], number> = { card: 0.16, portrait: 0.08, tall: 0.06, square: 0.15, wide: 0.15 };
 
-/** Image recadrée pour remplir une zone (comme « cover »). */
-function cover(src: string, iw: number, ih: number, box: { x: number; y: number; w: number; h: number }): RImage {
+/** Image recadrée pour remplir une zone (comme « cover »), centrée sur le point d'intérêt (fx, fy). */
+function cover(src: string, iw: number, ih: number, box: { x: number; y: number; w: number; h: number }, fx = 0.5, fy = 0.5): RImage {
   const s = Math.max(box.w / iw, box.h / ih);
   const w = iw * s, h = ih * s;
-  return { t: "image", src, x: box.x + (box.w - w) / 2, y: box.y + (box.h - h) / 2, w, h, clip: box };
+  return { t: "image", src, x: box.x + (box.w - w) * fx, y: box.y + (box.h - h) * fy, w, h, clip: box };
 }
+
+/** Mesure tenant compte de l'espacement des lettres (`ls` en fraction de la taille). */
+const spaced = (measure: Measure, ls: number): Measure =>
+  ls ? (t, f, s) => measure(t, f, s) + ls * s * Math.max(0, [...t].length - 1) : measure;
+
+/** Clé d'un texte ou d'une photo propre au modèle, dans `Design.texts` / `Design.photos`. */
+export const elKey = (tpl: Template, id: string) => `${tpl.id}:${id}`;
 
 export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, hMm: number, measure: Measure, index = 0): RSide {
   const pal = paletteOf(d.palette);
@@ -127,30 +142,51 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
 
   for (const el of side.els) {
     const x = el.x * wMm, y = areaTop + el.y * areaH, w = el.w * wMm, h = el.h * areaH;
+    const turn = (deg: number | undefined, cx: number, cy: number): RTurn | undefined => (deg ? { deg, cx, cy } : undefined);
+    const stroke = (e: { stroke?: Color; sw?: number; dash?: number }): RStroke =>
+      e.stroke ? { stroke: colorOf(pal, e.stroke), sw: (e.sw ?? 0.004) * u, dash: e.dash ? e.dash * u : undefined } : {};
     if (el.t === "rect") {
       // Une forme qui touche un bord déborde dans le fond perdu.
       const x0 = el.x <= 0.001 ? x - b : x, y0 = el.y <= 0.001 && touchTop ? y - b : y;
       const x1 = el.x + el.w >= 0.999 ? x + w + b : x + w, y1 = el.y + el.h >= 0.999 && touchBottom ? y + h + b : y + h;
-      items.push({ t: "rect", x: x0, y: y0, w: x1 - x0, h: y1 - y0, r: (el.r ?? 0) * u, fill: colorOf(pal, el.fill), opacity: (el.opacity ?? 1) * big(el) });
+      const grad = el.grad ? { to: colorOf(pal, el.grad.to), op: el.grad.op ?? 1, dir: el.grad.dir ?? "v" } as RGrad : undefined;
+      items.push({
+        t: "rect", x: x0, y: y0, w: x1 - x0, h: y1 - y0, r: (el.r ?? 0) * u, fill: el.fill ? colorOf(pal, el.fill) : "none",
+        opacity: (el.opacity ?? 1) * big(el), rot: turn(el.rot, x + w / 2, y + h / 2), grad, ...stroke(el),
+      });
     } else if (el.t === "ellipse") {
-      items.push({ t: "ellipse", cx: x + w / 2, cy: y + h / 2, rx: w / 2, ry: h / 2, fill: colorOf(pal, el.fill), opacity: (el.opacity ?? 1) * big(el) });
+      items.push({
+        t: "ellipse", cx: x + w / 2, cy: y + h / 2, rx: w / 2, ry: h / 2, fill: el.fill ? colorOf(pal, el.fill) : "none",
+        opacity: (el.opacity ?? 1) * big(el), rot: turn(el.rot, x + w / 2, y + h / 2), ...stroke(el),
+      });
+    } else if (el.t === "photo") {
+      const own = el.id ? d.photos?.[elKey(tpl, el.id)] : undefined;
+      const img = own ? { src: own.src, iw: own.w, ih: own.h } : { src: el.src, iw: el.iw, ih: el.ih };
+      const x0 = el.x <= 0.001 ? x - b : x, y0 = el.y <= 0.001 && touchTop ? y - b : y;
+      const x1 = el.x + el.w >= 0.999 ? x + w + b : x + w, y1 = el.y + el.h >= 0.999 && touchBottom ? y + h + b : y + h;
+      const box = { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+      items.push({ ...cover(img.src, img.iw, img.ih, box, own ? 0.5 : el.fx, own ? 0.5 : el.fy), shape: el.r || el.arch ? { r: (el.r ?? 0) * u, arch: el.arch } : undefined });
     } else if (el.t === "text") {
-      let text = (d.fields[el.field] ?? "").trim();
+      const own = el.id ? d.texts?.[elKey(tpl, el.id)] : undefined;
+      let text = (el.field ? d.fields[el.field] ?? "" : own ?? el.text ?? "").trim();
       if (!text) continue;
       if (el.upper) text = text.toLocaleUpperCase("fr-FR");
-      const font = pair[el.role];
-      // Les polices manuscrites sont visuellement plus petites : on les agrandit un peu.
-      const base = el.size * u * (font === "script" ? 1.35 : 1);
-      const fit = fitText(text, font, base, w, el.lines ?? 1, measure);
+      const font = el.font ?? pair[el.role ?? "body"];
+      // Les polices manuscrites choisies par rôle sont visuellement plus petites : on les agrandit un peu.
+      const base = el.size * u * (!el.font && font === "script" ? 1.35 : 1);
+      const ls = el.ls ?? 0;
+      const fit = fitText(text, font, base, w, el.lines ?? 1, spaced(measure, ls));
+      const lh = el.lh ?? LINE_HEIGHT;
       const align = el.align ?? "left";
       const ax = align === "center" ? x + w / 2 : align === "right" ? x + w : x;
-      const above = placed.filter((p) => p.x0 < x + w && x < p.x1 && p.top <= y + 0.01);
+      const above = tpl.free ? [] : placed.filter((p) => p.x0 < x + w && x < p.x1 && p.top <= y + 0.01);
       const top = Math.max(y, ...above.map((p) => p.bottom + fit.size * 0.3));
-      const bottom = top + fit.size * (1 + (fit.lines.length - 1) * LINE_HEIGHT);
+      const bottom = top + fit.size * (1 + (fit.lines.length - 1) * lh);
       placed.push({ x0: x, x1: x + w, top, bottom });
       items.push({
-        t: "text", font, size: fit.size, fill: colorOf(pal, el.color), align, x: ax,
-        lines: fit.lines.map((s, i) => ({ s, y: top + fit.size * ASCENT + i * fit.size * LINE_HEIGHT })),
+        t: "text", font, size: fit.size, fill: colorOf(pal, el.color), align, x: ax, ls: ls ? ls * fit.size : undefined,
+        rot: turn(el.rot, x + w / 2, (top + bottom) / 2),
+        lines: fit.lines.map((s, i) => ({ s, y: top + fit.size * ASCENT + i * fit.size * lh })),
       });
     } else if (el.t === "pattern") {
       const id = el.pattern === "auto" ? d.pattern ?? tpl.pattern ?? "wax" : el.pattern;

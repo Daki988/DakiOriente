@@ -76,6 +76,14 @@ summary::-webkit-details-marker { display: none; }
 @font-face { font-family: "np-geo"; src: url("/fonts/geo.ttf") format("truetype"); font-display: block; }
 @font-face { font-family: "np-geo-medium"; src: url("/fonts/geo-medium.ttf") format("truetype"); font-display: block; }
 @font-face { font-family: "np-script"; src: url("/fonts/script.ttf") format("truetype"); font-display: block; }
+@font-face { font-family: "np-bebas"; src: url("/fonts/bebas.ttf") format("truetype"); font-display: block; }
+@font-face { font-family: "np-black"; src: url("/fonts/black.ttf") format("truetype"); font-display: block; }
+@font-face { font-family: "np-poppins"; src: url("/fonts/poppins.ttf") format("truetype"); font-display: block; }
+@font-face { font-family: "np-poppins-semi"; src: url("/fonts/poppins-semi.ttf") format("truetype"); font-display: block; }
+@font-face { font-family: "np-poppins-xb"; src: url("/fonts/poppins-xb.ttf") format("truetype"); font-display: block; }
+@font-face { font-family: "np-mont"; src: url("/fonts/mont.ttf") format("truetype"); font-display: block; }
+@font-face { font-family: "np-mont-semi"; src: url("/fonts/mont-semi.ttf") format("truetype"); font-display: block; }
+@font-face { font-family: "np-serif-italic"; src: url("/fonts/serif-italic.ttf") format("truetype"); font-display: block; }
 
 /* ───────── Animations ───────── */
 /* Apparition au défilement : l'élément monte et s'éclaircit ; --d = délai (cascade). */

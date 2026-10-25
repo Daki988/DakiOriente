@@ -109,7 +109,7 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
   }
   const used = useMemo(() => {
     const set = new Set<Field>();
-    tpl.sides.slice(0, verso ? 2 : 1).forEach((s) => s.els.forEach((e) => { if (e.t === "text") set.add(e.field); }));
+    tpl.sides.slice(0, verso ? 2 : 1).forEach((s) => s.els.forEach((e) => { if (e.t === "text" && e.field) set.add(e.field); }));
     return FIELDS.filter((f) => set.has(f));
   }, [tpl, verso]);
   const multiline = (f: Field) => tpl.sides.some((s) => s.els.some((e) => e.t === "text" && e.field === f && (e.lines ?? 1) > 1));
