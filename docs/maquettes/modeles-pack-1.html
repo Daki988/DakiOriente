@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+/*FONTS*/
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#ffffff;font-family:Poppins,sans-serif;color:#16141f;padding:40px}
+.tpl{position:relative;overflow:hidden;flex:none}
+.card{width:510px;height:330px}
+.a5{width:444px;height:630px}
+.roll{width:255px;height:600px}
+.sq{width:360px;height:360px}
+.wide{width:720px;height:360px}
+.abs{position:absolute}
+.ph{background-size:cover;background-position:center}
+</style></head><body>
+
+<!-- 1. Carte avocat : marine et or -->
+<div class="tpl card" data-name="Carte — Cabinet (marine & or)" style="background:#0f1e3d">
+  <div class="abs" style="left:0;top:0;width:150px;height:330px;background:#132650"></div>
+  <div class="abs" style="left:38px;top:110px;width:74px;height:74px;border:2px solid #c9a24b;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display';font-size:34px;color:#c9a24b">SO</div>
+  <div class="abs" style="left:186px;top:72px;font-family:'Playfair Display';font-weight:700;font-size:32px;color:#ffffff;letter-spacing:.5px">Sandrine Obame</div>
+  <div class="abs" style="left:188px;top:120px;font-family:Montserrat;font-weight:600;font-size:10.5px;letter-spacing:2.5px;color:#c9a24b">AVOCATE AU BARREAU DU GABON</div>
+  <div class="abs" style="left:188px;top:152px;width:60px;height:2px;background:#c9a24b"></div>
+  <div class="abs" style="left:188px;top:182px;font-family:Montserrat;font-size:13px;line-height:24px;color:#d9deea">+241 77 12 34 56<br>s.obame@cabinet-obame.ga<br>Boulevard Triomphal, Libreville</div>
+</div>
+
+<!-- 2. Carte photo : portrait + bloc orange -->
+<div class="tpl card" data-name="Carte — Portrait (photo & orange)" style="background:#ffffff">
+  <div class="abs ph" style="left:0;top:0;width:205px;height:330px;background-image:url({{IMG:5648101}});background-position:center 20%"></div>
+  <div class="abs" style="left:205px;top:0;width:305px;height:330px;background:#ff6b2c"></div>
+  <div class="abs" style="left:236px;top:58px;font-family:Poppins;font-weight:800;font-size:30px;line-height:32px;color:#ffffff">Jean-Paul<br>Mba Ndong</div>
+  <div class="abs" style="left:238px;top:134px;font-family:Poppins;font-weight:600;font-size:13px;color:#1b1209">Consultant en stratégie</div>
+  <div class="abs" style="left:238px;top:196px;font-family:Poppins;font-size:12.5px;line-height:23px;color:#ffffff">☎ +241 66 45 78 90<br>✉ jp.mba@conseil.ga<br>⌂ Quartier Louis, Libreville</div>
+  <div class="abs" style="left:430px;top:262px;width:48px;height:48px;border-radius:50%;background:#1b1209;color:#ff6b2c;font-family:Poppins;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center">JP</div>
+</div>
+
+<!-- 3. Carte géométrique : jaune & noir -->
+<div class="tpl card" data-name="Carte — Studio (géométrique jaune)" style="background:#ffd23f">
+  <div class="abs" style="left:300px;top:-90px;width:300px;height:300px;border-radius:50%;background:#16141f"></div>
+  <div class="abs" style="left:390px;top:190px;width:170px;height:170px;border-radius:50%;background:#6b12ff"></div>
+  <div class="abs" style="left:250px;top:230px;width:90px;height:90px;background:#ffffff;transform:rotate(45deg)"></div>
+  <div class="abs" style="left:34px;top:46px;font-family:'Archivo Black';font-size:38px;line-height:38px;color:#16141f">KOMBILA<br>DESIGN</div>
+  <div class="abs" style="left:36px;top:140px;font-family:Montserrat;font-weight:600;font-size:12px;letter-spacing:3px;color:#16141f">GRAPHISME · LOGOS · WEB</div>
+  <div class="abs" style="left:36px;top:228px;font-family:Montserrat;font-size:12.5px;line-height:22px;color:#16141f">+241 74 00 11 22<br>hello@kombila.design</div>
+</div>
+
+<!-- 4. Carte beauté : rose & script -->
+<div class="tpl card" data-name="Carte — Institut (rose & script)" style="background:#f9e4e4">
+  <div class="abs" style="left:-60px;top:190px;width:260px;height:260px;border-radius:50%;background:#f2c6c2"></div>
+  <div class="abs" style="left:360px;top:-80px;width:220px;height:220px;border-radius:50%;background:#efd6b8"></div>
+  <div class="abs" style="left:0;top:96px;width:510px;text-align:center;font-family:'Great Vibes';font-size:58px;color:#7a2e3a">Belle d'Ébène</div>
+  <div class="abs" style="left:0;top:178px;width:510px;text-align:center;font-family:Montserrat;font-weight:600;font-size:11px;letter-spacing:5px;color:#7a2e3a">INSTITUT DE BEAUTÉ · ONGLERIE · COIFFURE</div>
+  <div class="abs" style="left:185px;top:206px;width:140px;height:1px;background:#7a2e3a"></div>
+  <div class="abs" style="left:0;top:222px;width:510px;text-align:center;font-family:Montserrat;font-size:12px;color:#5b2730">+241 62 33 44 55 · Akanda, Libreville</div>
+</div>
+
+<!-- 5. Flyer restaurant -->
+<div class="tpl a5" data-name="Flyer — Restaurant (photo plein cadre)" style="background:#1d0f0a">
+  <div class="abs ph" style="left:0;top:0;width:444px;height:400px;background-image:url({{IMG:40262791}})"></div>
+  <div class="abs" style="left:-20px;top:330px;width:500px;height:140px;background:#d7261e;transform:rotate(-6deg)"></div>
+  <div class="abs" style="left:24px;top:352px;font-family:'Bebas Neue';font-size:64px;line-height:58px;color:#ffffff;transform:rotate(-6deg)">Chez Maman Rose</div>
+  <div class="abs" style="left:300px;top:40px;width:118px;height:118px;border-radius:50%;background:#ffd23f;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(10deg)">
+    <span style="font-family:Montserrat;font-weight:800;font-size:12px;color:#1d0f0a">LE PLAT</span>
+    <span style="font-family:'Bebas Neue';font-size:42px;line-height:38px;color:#1d0f0a">3 500 F</span>
+  </div>
+  <div class="abs" style="left:28px;top:480px;font-family:'Bebas Neue';font-size:30px;color:#ffd23f">Cuisine maison · À emporter</div>
+  <div class="abs" style="left:28px;top:524px;width:388px;font-family:Montserrat;font-size:13px;line-height:21px;color:#f1e6df">Poulet braisé, riz jollof, poisson à l'odika, bananes plantains. Ouvert tous les jours de 11 h à 22 h.</div>
+  <div class="abs" style="left:28px;top:584px;font-family:Montserrat;font-weight:800;font-size:15px;color:#ffffff">☎ 077 45 12 89 · Nzeng-Ayong</div>
+</div>
+
+<!-- 6. Flyer soirée -->
+<div class="tpl a5" data-name="Flyer — Soirée (photo & dégradé)" style="background:#120a2a">
+  <div class="abs ph" style="left:0;top:0;width:444px;height:630px;background-image:url({{IMG:2078071}})"></div>
+  <div class="abs" style="left:0;top:0;width:444px;height:630px;background:linear-gradient(180deg,rgba(107,18,255,.35) 0%,rgba(240,40,140,.55) 55%,rgba(18,10,42,.95) 100%)"></div>
+  <div class="abs" style="left:28px;top:34px;font-family:Montserrat;font-weight:800;font-size:13px;letter-spacing:6px;color:#ffffff">SAMEDI 14 DÉCEMBRE · 22 H</div>
+  <div class="abs" style="left:22px;top:300px;font-family:'Bebas Neue';font-size:150px;line-height:122px;color:#ffffff">AFRO<br>NIGHT</div>
+  <div class="abs" style="left:28px;top:556px;font-family:Montserrat;font-weight:600;font-size:14px;color:#ffd23f">DJ Kassav' · Live Ndombolo · Entrée 5 000 F</div>
+  <div class="abs" style="left:28px;top:584px;font-family:Montserrat;font-size:12px;color:#e9ddff">Le Patio, Glass — Réservations : 066 77 88 99</div>
+  <div class="abs" style="left:340px;top:100px;width:80px;height:80px;border:3px solid #ffd23f;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:30px;color:#ffd23f;transform:rotate(-12deg)">VIP</div>
+</div>
+
+<!-- 7. Flyer immobilier -->
+<div class="tpl a5" data-name="Flyer — Immobilier (à vendre)" style="background:#ffffff">
+  <div class="abs ph" style="left:0;top:0;width:444px;height:330px;background-image:url({{IMG:323781}})"></div>
+  <div class="abs" style="left:24px;top:290px;padding:10px 18px;background:#0a7d5a;font-family:'Archivo Black';font-size:26px;color:#ffffff">À VENDRE</div>
+  <div class="abs" style="left:28px;top:368px;font-family:'Playfair Display';font-weight:700;font-size:28px;line-height:32px;color:#0f2d24">Villa moderne avec jardin</div>
+  <div class="abs" style="left:28px;top:410px;font-family:Montserrat;font-size:13px;color:#4c5d57">Angondjé, Akanda · Titre foncier</div>
+  <div class="abs" style="left:28px;top:450px;display:flex;gap:10px">
+    <div style="width:122px;height:66px;background:#e6f3ee;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center"><span style="font-family:'Archivo Black';font-size:22px;color:#0a7d5a">4</span><span style="font-family:Montserrat;font-size:11px;color:#0f2d24">chambres</span></div>
+    <div style="width:122px;height:66px;background:#e6f3ee;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center"><span style="font-family:'Archivo Black';font-size:22px;color:#0a7d5a">3</span><span style="font-family:Montserrat;font-size:11px;color:#0f2d24">salles de bain</span></div>
+    <div style="width:122px;height:66px;background:#e6f3ee;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center"><span style="font-family:'Archivo Black';font-size:22px;color:#0a7d5a">600 m²</span><span style="font-family:Montserrat;font-size:11px;color:#0f2d24">terrain</span></div>
+  </div>
+  <div class="abs" style="left:0;top:548px;width:444px;height:82px;background:#0f2d24"></div>
+  <div class="abs" style="left:28px;top:562px;font-family:Montserrat;font-weight:600;font-size:12px;color:#9fd8c3">PRIX</div>
+  <div class="abs" style="left:28px;top:578px;font-family:'Archivo Black';font-size:28px;color:#ffffff">185 000 000 F</div>
+  <div class="abs" style="left:262px;top:576px;font-family:Montserrat;font-weight:800;font-size:15px;color:#ffd23f">☎ 074 22 33 44</div>
+</div>
+
+<!-- 8. Flyer promo -->
+<div class="tpl a5" data-name="Flyer — Soldes (couleurs vives)" style="background:#ffe14d">
+  <div class="abs" style="left:-80px;top:-60px;width:320px;height:320px;border-radius:50%;background:#ff4f8b"></div>
+  <div class="abs" style="left:250px;top:430px;width:300px;height:300px;border-radius:50%;background:#2f6bff"></div>
+  <div class="abs" style="left:300px;top:60px;width:70px;height:70px;border-radius:50%;background:#16141f"></div>
+  <div class="abs" style="left:0;top:150px;width:444px;text-align:center;font-family:'Archivo Black';font-size:40px;color:#16141f">GRANDES SOLDES</div>
+  <div class="abs" style="left:0;top:200px;width:444px;text-align:center;font-family:'Archivo Black';font-size:146px;line-height:170px;color:#16141f">-50%</div>
+  <div class="abs" style="left:92px;top:388px;width:260px;padding:10px;background:#16141f;text-align:center;font-family:Montserrat;font-weight:800;font-size:16px;letter-spacing:2px;color:#ffe14d">SUR TOUT LE MAGASIN</div>
+  <div class="abs" style="left:0;top:450px;width:444px;text-align:center;font-family:Montserrat;font-weight:600;font-size:14px;color:#16141f">Du 1er au 31 décembre · Boutique Mode Mbolo</div>
+  <div class="abs" style="left:290px;top:560px;width:154px;font-family:Montserrat;font-weight:800;font-size:15px;color:#ffffff">Louis, Libreville</div>
+</div>
+
+<!-- 9. Invitation mariage -->
+<div class="tpl a5" data-name="Invitation — Mariage (arche photo)" style="background:#fbf6ee">
+  <div class="abs" style="left:14px;top:14px;width:416px;height:602px;border:1px solid #c9a24b"></div>
+  <div class="abs ph" style="left:102px;top:46px;width:240px;height:300px;border-radius:120px 120px 0 0;background-image:url({{IMG:32622338}});background-position:center 25%"></div>
+  <div class="abs" style="left:0;top:366px;width:444px;text-align:center;font-family:Montserrat;font-weight:600;font-size:11px;letter-spacing:5px;color:#8a6d2b">NOUS NOUS MARIONS</div>
+  <div class="abs" style="left:0;top:388px;width:444px;text-align:center;font-family:'Great Vibes';font-size:54px;color:#3b2a18">Aïcha & Karim</div>
+  <div class="abs" style="left:0;top:470px;width:444px;text-align:center;font-family:'Playfair Display';font-style:italic;font-size:18px;color:#3b2a18">Samedi 20 juin 2026 à 15 h</div>
+  <div class="abs" style="left:0;top:500px;width:444px;text-align:center;font-family:Montserrat;font-size:12.5px;line-height:20px;color:#5f4d36">Mairie du 1er arrondissement, Libreville<br>suivi d'une réception à l'Hôtel Le Cristal</div>
+  <div class="abs" style="left:0;top:566px;width:444px;text-align:center;font-family:Montserrat;font-weight:600;font-size:11px;letter-spacing:3px;color:#8a6d2b">RSVP · 077 00 11 22</div>
+</div>
+
+<!-- 10. Invitation anniversaire -->
+<div class="tpl a5" data-name="Invitation — Anniversaire (confettis)" style="background:#fff7ea">
+  <div class="abs" style="left:40px;top:40px;width:18px;height:18px;border-radius:50%;background:#ff6b2c"></div>
+  <div class="abs" style="left:370px;top:70px;width:26px;height:26px;border-radius:50%;background:#6b12ff"></div>
+  <div class="abs" style="left:90px;top:120px;width:14px;height:40px;border-radius:7px;background:#2fbf8f;transform:rotate(35deg)"></div>
+  <div class="abs" style="left:330px;top:180px;width:14px;height:40px;border-radius:7px;background:#ffd23f;transform:rotate(-30deg)"></div>
+  <div class="abs" style="left:60px;top:500px;width:22px;height:22px;background:#ff4f8b;transform:rotate(20deg)"></div>
+  <div class="abs" style="left:360px;top:520px;width:16px;height:16px;border-radius:50%;background:#2f6bff"></div>
+  <div class="abs" style="left:0;top:150px;width:444px;text-align:center;font-family:Montserrat;font-weight:800;font-size:14px;letter-spacing:6px;color:#6b12ff">VENEZ FÊTER</div>
+  <div class="abs" style="left:0;top:178px;width:444px;text-align:center;font-family:'Archivo Black';font-size:160px;line-height:160px;color:#ff6b2c">30</div>
+  <div class="abs" style="left:0;top:336px;width:444px;text-align:center;font-family:'Great Vibes';font-size:52px;color:#16141f">ans de Murielle</div>
+  <div class="abs" style="left:0;top:420px;width:444px;text-align:center;font-family:Montserrat;font-weight:600;font-size:15px;color:#16141f">Vendredi 6 mars · 19 h</div>
+  <div class="abs" style="left:0;top:446px;width:444px;text-align:center;font-family:Montserrat;font-size:13px;color:#4a4458">Résidence Les Palmiers, Owendo</div>
+</div>
+
+<!-- 11. Roll-up beauté -->
+<div class="tpl roll" data-name="Roll-up — Institut de beauté" style="background:#f6d6d3">
+  <div class="abs ph" style="left:0;top:150px;width:255px;height:300px;background-image:url({{IMG:5217003}})"></div>
+  <div class="abs" style="left:0;top:0;width:255px;height:150px;background:#7a2e3a"></div>
+  <div class="abs" style="left:0;top:34px;width:255px;text-align:center;font-family:'Great Vibes';font-size:40px;color:#ffffff">Belle d'Ébène</div>
+  <div class="abs" style="left:0;top:96px;width:255px;text-align:center;font-family:Montserrat;font-weight:600;font-size:8.5px;letter-spacing:3px;color:#f6d6d3">INSTITUT DE BEAUTÉ</div>
+  <div class="abs" style="left:0;top:466px;width:255px;text-align:center;font-family:'Playfair Display';font-weight:700;font-size:20px;line-height:24px;color:#7a2e3a">Maquillage · Tresses<br>Onglerie · Soins</div>
+  <div class="abs" style="left:52px;top:534px;width:150px;padding:8px;border-radius:20px;background:#7a2e3a;text-align:center;font-family:Montserrat;font-weight:800;font-size:11px;color:#ffffff">062 33 44 55</div>
+</div>
+
+<!-- 12. Étiquette ronde -->
+<div class="tpl sq" data-name="Étiquette — Jus naturel (ronde)" style="background:#ffffff;border-radius:50%">
+  <div class="abs" style="left:0;top:0;width:360px;height:360px;border-radius:50%;background:#ff8a1f"></div>
+  <div class="abs" style="left:18px;top:18px;width:324px;height:324px;border-radius:50%;border:2px dashed #fff3e0"></div>
+  <div class="abs" style="left:110px;top:44px;width:140px;height:140px;border-radius:50%;background:#ffd23f"></div>
+  <div class="abs" style="left:150px;top:30px;width:30px;height:46px;border-radius:30px 0 30px 0;background:#2fbf8f;transform:rotate(-20deg)"></div>
+  <div class="abs" style="left:0;top:178px;width:360px;text-align:center;font-family:'Archivo Black';font-size:40px;color:#ffffff">MANGUE</div>
+  <div class="abs" style="left:0;top:226px;width:360px;text-align:center;font-family:'Great Vibes';font-size:30px;color:#16141f">Saveurs d'Owendo</div>
+  <div class="abs" style="left:0;top:276px;width:360px;text-align:center;font-family:Montserrat;font-weight:600;font-size:12px;letter-spacing:3px;color:#fff3e0">100 % NATUREL · 50 CL</div>
+</div>
+
+<!-- 13. Bâche ouverture -->
+<div class="tpl wide" data-name="Bâche — Grande ouverture" style="background:#d7261e">
+  <div class="abs ph" style="left:0;top:0;width:300px;height:360px;background-image:url({{IMG:36053652}})"></div>
+  <div class="abs" style="left:270px;top:-40px;width:80px;height:440px;background:#d7261e;transform:rotate(8deg)"></div>
+  <div class="abs" style="left:340px;top:44px;font-family:Montserrat;font-weight:800;font-size:16px;letter-spacing:6px;color:#ffd23f">LE 15 JANVIER</div>
+  <div class="abs" style="left:336px;top:72px;font-family:'Bebas Neue';font-size:96px;line-height:84px;color:#ffffff">GRANDE<br>OUVERTURE</div>
+  <div class="abs" style="left:340px;top:250px;font-family:Montserrat;font-weight:600;font-size:17px;color:#ffffff">Quincaillerie Moderne Ndong & Fils</div>
+  <div class="abs" style="left:340px;top:286px;padding:8px 16px;background:#ffd23f;font-family:Montserrat;font-weight:800;font-size:15px;color:#16141f">-20 % le jour J · 077 88 99 00</div>
+</div>
+
+</body></html>
