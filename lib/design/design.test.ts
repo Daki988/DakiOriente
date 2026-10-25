@@ -154,3 +154,22 @@ test("perspective : les coins du design tombent exactement sur ceux de la photo"
     assert.ok(Math.abs(x - q[i][0]) < 1e-6 && Math.abs(y - q[i][1]) < 1e-6, `coin ${i}`);
   });
 });
+
+test("photos de mise en scène : fichiers présents, zones dans l'image, choix selon le format", async () => {
+  const { existsSync } = await import("node:fs");
+  const { PHOTOS, photoFor } = await import("./photos.ts");
+  assert.ok(PHOTOS.length >= 12);
+  for (const p of PHOTOS) {
+    assert.ok(existsSync(`public${p.src}`), `${p.src} manquante`);
+    assert.ok(p.credit?.url.startsWith("https://unsplash.com/photos/"), `${p.src} : crédit`);
+    for (const z of p.zones) {
+      // Les coins restent dans l'image (une marge est tolérée pour une feuille coupée par le cadrage).
+      for (const [x, y] of z.quad) assert.ok(x >= -100 && x <= p.w + 100 && y >= -100 && y <= p.h + 100, `${p.src} : coin hors image`);
+    }
+  }
+  assert.equal(photoFor("cards", 85 / 55)?.src, "/mockups/cartes-bureau.jpg");
+  assert.equal(photoFor("invite", 148 / 210)?.src, "/mockups/invitation-fleurs.jpg");
+  assert.equal(photoFor("invite", 148 / 105)?.src, "/mockups/invitation-enveloppe.jpg");
+  assert.equal(photoFor("paper", 99 / 210), undefined, "flyer DL trop étroit : scène dessinée");
+  assert.equal(photoFor("rollup", 850 / 2000), undefined);
+});

@@ -30,8 +30,8 @@ const wall = "repeating-linear-gradient(0deg, rgba(0,0,0,.05) 0 1px, transparent
 
 /** Aperçus réalistes, sans photo : mise en scène CSS du design réel. */
 export function Mockup({ rounded = true, ...p }: { kind: MockupKind; sides: RSide[]; tshirt?: "white" | "black"; rounded?: boolean }) {
-  // Une vraie photo quand il en existe une pour ce support (sauf t-shirt noir), sinon la scène dessinée.
-  const photo = p.tshirt === "black" ? undefined : photoFor(p.kind);
+  // Une vraie photo quand il en existe une pour ce support et ce format (sauf t-shirt noir), sinon la scène dessinée.
+  const photo = p.tshirt === "black" ? undefined : photoFor(p.kind, p.sides[0].w / p.sides[0].h);
   return (
     <div className={rounded ? "overflow-hidden rounded-2xl" : ""}>
       {photo ? <div className="grid aspect-[4/3] place-items-center overflow-hidden bg-[#e9e4da]"><PhotoMockup photo={photo} sides={p.sides} /></div> : <Scene {...p} />}
