@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft, Sparkle } from "@/components/Icons";
-import { OrderFlow } from "@/components/OrderFlow";
+import { OrderFromUrl } from "@/components/OrderFromUrl";
 import { ProductVisual } from "@/components/ProductCard";
 import { Tilt } from "@/components/motion/Tilt";
-import { getProduct } from "@/lib/catalog";
+import { getProduct, getProducts } from "@/lib/catalog";
 import { fcfa } from "@/lib/format";
 import { fromPrice } from "@/lib/pricing";
 import { settings } from "@/lib/site";
@@ -13,7 +13,11 @@ import { hasSupabase } from "@/lib/supabase";
 import { photosFor } from "@/lib/product-photos";
 
 export const revalidate = 300;
-type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ q?: string; creer?: string }> };
+type Props = { params: Promise<{ slug: string }> };
+
+export async function generateStaticParams() {
+  return (await getProducts()).map((p) => ({ slug: p.slug }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = await getProduct((await params).slug);
@@ -22,8 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: `${p.name} à Libreville`, description: `${p.description} Dès ${fcfa(from.price)}. Commande en ligne, retrait ou livraison.` };
 }
 
-export default async function ProductPage({ params, searchParams }: Props) {
-  const [{ slug }, { q, creer }] = await Promise.all([params, searchParams]);
+export default async function ProductPage({ params }: Props) {
+  const { slug } = await params;
   const p = await getProduct(slug);
   if (!p) notFound();
   const from = fromPrice(p);
@@ -61,11 +65,8 @@ export default async function ProductPage({ params, searchParams }: Props) {
         </div>
       </div>
       <div id="commande" className="scroll-mt-24">
-      <OrderFlow
-        key={`${q ?? ""}-${creer ?? ""}`}
-        startDesign={creer === "1"}
+      <OrderFromUrl
         product={p}
-        initialQty={q ? Number(q) : undefined}
         online={hasSupabase}
         settings={{
           whatsapp: settings.whatsapp, designFee: settings.designFee, deliveryFee: settings.delivery.libreville_fee,
