@@ -66,12 +66,15 @@ Questions fréquentes :
 - Que se passe-t-il après la feuille de route ? → Vous pouvez la mettre en œuvre seul, ou avec NEAM : nous réalisons aussi les sites, logiciels et automatisations.
 
 ## Offres et tarifs
-- NEAM Starter (micro-entreprises) : présence digitale, fiche Google, page de présentation, diagnostic. À partir de 90 000 FCFA par mois. C’est le seul tarif public.
-- NEAM Business (TPE) : site web, identité numérique, référencement, outils commerciaux, accompagnement. Sur devis.
-- NEAM Growth (PME) : CRM, automatisations, données, acquisition de clients, accompagnement avancé. Sur devis.
-- NEAM Enterprise (organisations complexes) : solutions métiers, intégrations, développement spécifique. Sur devis.
-- NEAM Custom (besoins spécifiques) : architecture et solution conçues sur mesure. Sur devis.
-- Tout devis est détaillé, gratuit et sans engagement ; le contenu exact de l’offre Starter est précisé avec le client lors du premier échange.
+Tous les prix sont hors taxes, en FCFA (page Services, rubrique « Offres et tarifs »).
+- NEAM Starter (micro-entreprises) : 90 000 FCFA par mois, sans frais de mise en place, engagement 6 mois. Diagnostic digital, fiche Google Business gérée, page de présentation avec bouton WhatsApp (domaine et hébergement compris), WhatsApp Business configuré, 8 publications par mois sur un réseau, rapport mensuel.
+- NEAM Business (TPE) : mise en place 450 000 FCFA, puis 120 000 FCFA par mois, engagement 12 mois. Site vitrine de 5 à 8 pages, fiche Google, identité numérique, modèles de devis et factures, relance automatique des devis ; chaque mois : référencement local, 2 réseaux à 12 publications, maintenance, rapport et point d’une heure.
+- NEAM Growth (PME) : diagnostic 150 000 FCFA (déduit si signature sous 30 jours), mise en place 1 500 000 FCFA, puis 220 000 FCFA par mois, engagement 12 mois. CRM paramétré, 3 automatisations, tableau de bord des ventes, une journée de formation ; chaque mois : acquisition de clients (budget publicitaire en plus), référencement, maintenance, 2 demi-journées d’accompagnement.
+- NEAM Enterprise (organisations de 10 à 50 utilisateurs) : diagnostic 300 000 FCFA, mise en place à partir de 3 500 000 FCFA, puis à partir de 300 000 FCFA par mois. Logiciel métier livré par lots, reprise des données, formation ; chaque mois : hébergement, assistance, 2 jours d’évolutions.
+- NEAM Custom (besoins spécifiques) : cadrage à 120 000 FCFA la journée, puis solution sur devis.
+- Engagement de 24 mois : −10 % sur l’abonnement.
+- Prestations à l’unité (tarifs indicatifs, prix exact confirmé au devis) : fiche Google Business 35 000 ; page de présentation 120 000 ; site vitrine 5 à 8 pages 425 000 ; boutique en ligne avec Mobile Money 1 125 000 ; référencement local 60 000 par mois ; gestion réseaux sociaux (2 réseaux, 12 publications) 90 000 par mois ; hébergement, sécurité, maintenance 20 000 par mois ; cadrage logiciel 200 000 ; outil devis, factures, stock 900 000 ; CRM ou ERP sur mesure 3 400 000 ; workflow automatisé 200 000 ; assistant IA de réponse 600 000 ; suivi de l’assistant IA 40 000 par mois ; tableau de bord des ventes 325 000 ; formation (demi-journée, 10 personnes) 150 000 ; accompagnement mensuel 150 000 par mois ; journée de consultant 120 000.
+- Tout devis est détaillé, gratuit et sans engagement.
 
 ## Produits et réalisations (statut réel)
 - GuruTools (Plateforme de recrutement, statut : Disponible) : Conception, développement et mise en ligne d’une plateforme SaaS : création d’offres, candidature sans compte, lecture automatique des CV, matching expliqué. Lien : https://gurutools.pro

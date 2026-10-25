@@ -254,10 +254,10 @@ page('', 'Nos expertises', f'''
 
 # ---------- 14 Offres ----------
 OFF = [('Starter', 'Micro-entreprises', 'Présence digitale, fiche Google, page de présentation, diagnostic.', 1, '<small>À partir de</small>90&nbsp;000 FCFA<small>par mois</small>'),
-       ('Business', 'TPE', 'Site web, identité numérique, référencement, outils commerciaux, accompagnement.', 2, 'Sur devis'),
-       ('Growth', 'PME', 'CRM, automatisations, données, acquisition de clients, accompagnement avancé.', 3, 'Sur devis'),
-       ('Enterprise', 'Organisations complexes', 'Solutions métiers, intégrations, développement spécifique.', 4, 'Sur devis'),
-       ('Custom', 'Besoins spécifiques', 'Architecture et solution conçues entièrement sur mesure.', 5, 'Sur devis')]
+       ('Business', 'TPE', 'Site web, identité numérique, référencement, outils commerciaux, accompagnement.', 2, '<small>Mise en place 450&nbsp;000</small>120&nbsp;000 FCFA<small>par mois</small>'),
+       ('Growth', 'PME', 'CRM, automatisations, données, acquisition de clients, accompagnement avancé.', 3, '<small>Mise en place 1&nbsp;500&nbsp;000</small>220&nbsp;000 FCFA<small>par mois</small>'),
+       ('Enterprise', 'Organisations complexes', 'Solutions métiers, intégrations, développement spécifique.', 4, '<small>Mise en place dès</small>3&nbsp;500&nbsp;000 FCFA<small>puis dès 300&nbsp;000 / mois</small>'),
+       ('Custom', 'Besoins spécifiques', 'Architecture et solution conçues entièrement sur mesure.', 5, '<small>Cadrage</small>120&nbsp;000 FCFA<small>la journée, puis devis</small>')]
 OFF_I = ['pousse', 'boutique', 'mesure', 'immeuble', 'reglages']
 OFF_CLS = [' class="off--star"', '', '', '', '']
 off = ''.join(f'<li{OFF_CLS[k]}><span class="off__ico">{icon(OFF_I[k])}</span><div class="off__name"><span>NEAM</span><b>{n}</b><i>{c}</i></div><p>{d}</p><div class="off__end"><span class="off__price">{pr}</span><div class="off__bar" style="--v:{v}"><span></span></div></div></li>' for k, (n, c, d, v, pr) in enumerate(OFF))
@@ -266,7 +266,7 @@ page('page--grey', 'Nos offres', f'''
   <h1>Une offre pour chaque <em>niveau de maturité</em>.</h1>
   <p class="lead">De la micro-entreprise qui veut être trouvée sur Google à l’organisation qui a besoin d’un logiciel sur mesure&nbsp;: nous servons chaque étape, sans diluer la qualité.</p>
   <ul class="offers">{off}</ul>
-  <p class="note">La barre indique la profondeur de l’accompagnement. L’offre Starter démarre à 90&nbsp;000 FCFA par mois&nbsp;; les autres offres font l’objet d’un devis détaillé, gratuit et sans engagement.</p>''', toc='Nos offres')
+  <p class="note">La barre indique la profondeur de l’accompagnement. Prix hors taxes en FCFA&nbsp;; engagement de 24&nbsp;mois&nbsp;: −10&nbsp;% sur l’abonnement. Prestations à l’unité et détail des offres sur neamindustry.com, page Services. Devis détaillé, gratuit et sans engagement.</p>''', toc='Nos offres')
 
 # ---------- 13 Digital Score ----------
 page('page--yellow', 'NEAM Digital Score™', f'''
