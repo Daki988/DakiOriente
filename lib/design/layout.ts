@@ -2,6 +2,7 @@ import { ICONS, PATTERNS, type Prim } from "./motifs.ts";
 import QRCode from "qrcode";
 import { TEMPLATE_PALETTES } from "./canva.ts";
 import { CLIPARTS } from "./clipart.ts";
+import type { Cut } from "./supports.ts";
 import { BLEED_MM, colorOf, FONT_PAIRS, PALETTES, type Color, type Design, type FontKey, type Palette, type Side, type Template } from "./model.ts";
 
 /** Largeur d'un texte en mm pour une police et une taille (en mm) données. */
@@ -20,9 +21,9 @@ export type RStroke = { stroke?: string; sw?: number; dash?: number };
 export type RRect = { t: "rect"; x: number; y: number; w: number; h: number; r: number; fill: string; opacity: number; rot?: RTurn; grad?: RGrad } & RStroke;
 export type REllipse = { t: "ellipse"; cx: number; cy: number; rx: number; ry: number; fill: string; opacity: number; rot?: RTurn } & RStroke;
 /** `ls` : espacement des lettres en mm. */
-export type RText = { t: "text"; font: FontKey; size: number; fill: string; align: "left" | "center" | "right"; x: number; lines: { s: string; y: number }[]; ls?: number; rot?: RTurn };
+export type RText = { ref?: string; t: "text"; font: FontKey; size: number; fill: string; align: "left" | "center" | "right"; x: number; lines: { s: string; y: number }[]; ls?: number; rot?: RTurn };
 /** Image placée ; `clip` = zone visible (photo recadrée), `shape` = coins arrondis (mm) ou arche. */
-export type RImage = { t: "image"; x: number; y: number; w: number; h: number; src: string; clip?: { x: number; y: number; w: number; h: number }; shape?: { r?: number; arch?: boolean } };
+export type RImage = { ref?: string; t: "image"; x: number; y: number; w: number; h: number; src: string; clip?: { x: number; y: number; w: number; h: number }; shape?: { r?: number; arch?: boolean } };
 /** Formes simples en mm, couleur résolue. */
 export type RPrim =
   | { k: "rect"; x: number; y: number; w: number; h: number; r: number; fill: string }
@@ -30,10 +31,10 @@ export type RPrim =
   | { k: "poly"; pts: number[]; fill: string }
   | { k: "ring"; cx: number; cy: number; r: number; sw: number; stroke: string };
 /** Groupe de formes (motif ou pictogramme), éventuellement découpé à une zone. */
-export type RGroup = { t: "group"; clip?: { x: number; y: number; w: number; h: number }; opacity: number; prims: RPrim[] };
+export type RGroup = { ref?: string; t: "group"; clip?: { x: number; y: number; w: number; h: number }; opacity: number; prims: RPrim[] };
 export type RItem = RRect | REllipse | RText | RImage | RGroup;
 /** Face prête à dessiner : coordonnées en mm, origine au coin haut-gauche de la zone finie. */
-export type RSide = { w: number; h: number; bleed: number; bg: string; items: RItem[] };
+export type RSide = { w: number; h: number; bleed: number; bg: string; items: RItem[]; cut?: Cut };
 
 /** Découpe en lignes ; null si un mot dépasse ou s'il faut plus de `maxLines` lignes. */
 export function wrap(text: string, font: FontKey, size: number, maxW: number, maxLines: number, measure: Measure): string[] | null {
@@ -101,8 +102,8 @@ export function paletteOf(id: string): Palette {
 const BAND: Record<Template["family"], number> = { card: 0.16, portrait: 0.08, tall: 0.06, square: 0.15, wide: 0.15 };
 
 /** Image recadrée pour remplir une zone (comme « cover »), centrée sur le point d'intérêt (fx, fy). */
-function cover(src: string, iw: number, ih: number, box: { x: number; y: number; w: number; h: number }, fx = 0.5, fy = 0.5): RImage {
-  const s = Math.max(box.w / iw, box.h / ih);
+function cover(src: string, iw: number, ih: number, box: { x: number; y: number; w: number; h: number }, fx = 0.5, fy = 0.5, zoom = 1): RImage {
+  const s = Math.max(box.w / iw, box.h / ih) * Math.max(zoom, 1);
   const w = iw * s, h = ih * s;
   return { t: "image", src, x: box.x + (box.w - w) * fx, y: box.y + (box.h - h) * fy, w, h, clip: box };
 }
@@ -137,7 +138,8 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
   if (recto && d.bgImage) {
     // Photo de fond sur toute la surface (fond perdu compris), puis un voile de la couleur du fond.
     const full = { x: -b, y: -b, w: wMm + 2 * b, h: hMm + 2 * b };
-    items.push(cover(d.bgImage.src, d.bgImage.w, d.bgImage.h, full));
+    const cr = d.crop?.bg;
+    items.push({ ...cover(d.bgImage.src, d.bgImage.w, d.bgImage.h, full, cr?.fx, cr?.fy, cr?.z), ref: "bg" });
     const veil = d.bgVeil ?? 0.55;
     if (veil > 0) items.push({ t: "rect", ...full, r: 0, fill: colorOf(pal, side.bg), opacity: veil });
   }
@@ -167,7 +169,11 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
       const x0 = el.x <= 0.001 ? x - b : x, y0 = el.y <= 0.001 && touchTop ? y - b : y;
       const x1 = el.x + el.w >= 0.999 ? x + w + b : x + w, y1 = el.y + el.h >= 0.999 && touchBottom ? y + h + b : y + h;
       const box = { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
-      items.push({ ...cover(img.src, img.iw, img.ih, box, own ? 0.5 : el.fx, own ? 0.5 : el.fy), shape: el.r || el.arch ? { r: (el.r ?? 0) * u, arch: el.arch } : undefined });
+      const cr = el.id ? d.crop?.[elKey(tpl, el.id)] : undefined;
+      items.push({
+        ...cover(img.src, img.iw, img.ih, box, cr?.fx ?? (own ? 0.5 : el.fx), cr?.fy ?? (own ? 0.5 : el.fy), cr?.z),
+        shape: el.r || el.arch ? { r: (el.r ?? 0) * u, arch: el.arch } : undefined, ref: el.id ? `photo:${el.id}` : undefined,
+      });
     } else if (el.t === "text") {
       const own = el.id ? d.texts?.[elKey(tpl, el.id)] : undefined;
       let text = (el.field ? d.fields[el.field] ?? "" : own ?? el.text ?? "").trim();
@@ -186,6 +192,7 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
       const bottom = top + fit.size * (1 + (fit.lines.length - 1) * lh);
       placed.push({ x0: x, x1: x + w, top, bottom });
       items.push({
+        ref: el.field ? `field:${el.field}` : el.id ? `text:${el.id}` : undefined,
         t: "text", font, size: fit.size, fill: colorOf(pal, el.color), align, x: ax, ls: ls ? ls * fit.size : undefined,
         rot: turn(el.rot, x + w / 2, (top + bottom) / 2),
         lines: fit.lines.map((s, i) => ({ s, y: top + fit.size * ASCENT + i * fit.size * lh })),
@@ -219,7 +226,7 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
         if (lh > h) { lh = h; lw = h * ratio; }
         const align = el.align ?? "center";
         const lx = align === "left" ? x : align === "right" ? x + w - lw : x + (w - lw) / 2;
-        items.push({ t: "image", x: lx, y: y + (h - lh) / 2, w: lw, h: lh, src: d.logo.src });
+        items.push({ t: "image", x: lx, y: y + (h - lh) / 2, w: lw, h: lh, src: d.logo.src, ref: "logo" });
       } else if (d.icon) {
         // Sans logo : le pictogramme du métier…
         const s = Math.min(w, h) * 0.9;
@@ -233,7 +240,7 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
         const fit = fitText(text, font, h * 0.75, w, 1, measure);
         const align = el.align ?? "center";
         const ax = align === "center" ? x + w / 2 : align === "right" ? x + w : x;
-        items.push({ t: "text", font, size: fit.size, fill: colorOf(pal, el.color), align, x: ax, lines: [{ s: fit.lines[0] ?? text, y: y + (h - fit.size) / 2 + fit.size * ASCENT }] });
+        items.push({ ref: "logo", t: "text", font, size: fit.size, fill: colorOf(pal, el.color), align, x: ax, lines: [{ s: fit.lines[0] ?? text, y: y + (h - fit.size) / 2 + fit.size * ASCENT }] });
       }
     }
   }
@@ -246,15 +253,15 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
     if (lh > box) { lh = box; lw = box * ratio; }
     const lx = pos === "hg" || pos === "bg" ? m : pos === "centre" ? (wMm - lw) / 2 : wMm - m - lw;
     const ly = pos === "hg" || pos === "hd" ? areaTop + m : pos === "centre" ? areaTop + (areaH - lh) / 2 : areaTop + areaH - m - lh;
-    items.push({ t: "image", x: lx, y: ly, w: lw, h: lh, src: d.logo.src });
+    items.push({ t: "image", x: lx, y: ly, w: lw, h: lh, src: d.logo.src, ref: "logo" });
   }
-  for (const c of d.clips ?? []) {
+  for (const [ci, c] of (d.clips ?? []).entries()) {
     const art = CLIPARTS[c.art];
     if (!art || c.side !== index) continue;
     const s = c.s * Math.min(wMm, hMm);
-    items.push({ t: "group", opacity: 1, prims: place(art.shapes, c.x * wMm - s / 2, c.y * hMm - s / 2, s, [colorOf(pal, c.color), colorOf(pal, side.bg)]) });
+    items.push({ ref: `clip:${ci}`, t: "group", opacity: 1, prims: place(art.shapes, c.x * wMm - s / 2, c.y * hMm - s / 2, s, [colorOf(pal, c.color), colorOf(pal, side.bg)]) });
   }
-  if (d.qr && d.qr.side === index && d.qr.text.trim()) items.push(qrGroup(d.qr.text.trim(), d.qr.pos, wMm, hMm, colorOf(pal, d.qr.color ?? "#0d0e12")));
+  if (d.qr && d.qr.side === index && d.qr.text.trim()) items.push({ ...qrGroup(d.qr.text.trim(), d.qr.pos, wMm, hMm, colorOf(pal, d.qr.color ?? "#0d0e12")), ref: "qr" });
   if (slogan) {
     const y0 = areaTop ? 0 : areaH;
     items.push({ t: "rect", x: -b, y: areaTop ? -b : y0, w: wMm + 2 * b, h: band + b, r: 0, fill: colorOf(pal, "primary"), opacity: 1 });
@@ -263,7 +270,7 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
     const fit = fitText(slogan, font, band * (lines === 2 ? 0.3 : 0.42), wMm * 0.88, lines, measure);
     const blockH = fit.size * (1 + (fit.lines.length - 1) * LINE_HEIGHT);
     const top = y0 + (band - blockH) / 2;
-    items.push({ t: "text", font, size: fit.size, fill: colorOf(pal, "onPrimary"), align: "center", x: wMm / 2, lines: fit.lines.map((s, i) => ({ s, y: top + fit.size * ASCENT + i * fit.size * LINE_HEIGHT })) });
+    items.push({ ref: "slogan", t: "text", font, size: fit.size, fill: colorOf(pal, "onPrimary"), align: "center", x: wMm / 2, lines: fit.lines.map((s, i) => ({ s, y: top + fit.size * ASCENT + i * fit.size * LINE_HEIGHT })) });
   }
   return { w: wMm, h: hMm, bleed: b, bg: colorOf(pal, side.bg), items };
 }

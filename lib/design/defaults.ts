@@ -18,7 +18,9 @@ export function orderedTemplates(p: ProductFormat) {
 }
 
 /** Textes de départ pour un modèle : ses propres exemples s'il en a, sinon ceux du type de produit. */
-export const sampleFields = (tpl: Template, kind: Kind): Record<Field, string> => ({ ...KINDS[kind].defaults, ...(tpl.fields ?? {}) });
+/** Textes d'exemple : ceux du modèle s'il est fait pour ce type de produit, sinon ceux du type. */
+export const sampleFields = (tpl: Template, kind: Kind): Record<Field, string> =>
+  ({ ...KINDS[kind].defaults, ...(!tpl.kinds || tpl.kinds.includes(kind) ? tpl.fields ?? {} : {}) });
 
 /** Design de départ ; `variant` choisit un autre modèle parmi les premiers (variété du catalogue). */
 export function newDesign(p: ProductFormat, variant = 0): Design {

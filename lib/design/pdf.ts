@@ -187,5 +187,28 @@ export async function buildPrintPdf(sides: RSide[], title: string): Promise<{ by
       }
     }
   }
+
+  // Tracé de découpe (forme, patron, trous) sur une page à part, au même format, pour l'atelier.
+  const cutSides = sides.filter((s) => s.cut && (s.cut.shaped || s.cut.folds || s.cut.holes?.length));
+  if (cutSides.length) {
+    const { StandardFonts } = await import("pdf-lib");
+    const helv = await doc.embedFont(StandardFonts.Helvetica);
+    const magenta = rgb(0.93, 0, 0.55), blue = rgb(0.18, 0.42, 1);
+    for (const s of cutSides) {
+      const c = s.cut!;
+      const b = s.bleed;
+      const W = (s.w + 2 * b) * k, H = (s.h + 2 * b) * k;
+      const page = doc.addPage([W, H]);
+      page.setTrimBox(b * k, b * k, s.w * k, s.h * k);
+      const lw = Math.max(0.5, 0.25 * k);
+      page.drawSvgPath(c.d, { x: b * k, y: H - b * k, scale: k, borderColor: magenta, borderWidth: lw / k });
+      for (const [x1, y1, x2, y2] of c.folds ?? []) {
+        page.drawLine({ start: { x: (x1 + b) * k, y: H - (y1 + b) * k }, end: { x: (x2 + b) * k, y: H - (y2 + b) * k }, color: blue, thickness: lw, dashArray: [4, 3] });
+      }
+      for (const h of c.holes ?? []) page.drawCircle({ x: (h.cx + b) * k, y: H - (h.cy + b) * k, size: h.r * k, borderColor: magenta, borderWidth: lw });
+      const fs = Math.max(6, Math.min(14, W / 40));
+      page.drawText("Tracé de découpe (magenta) et plis (bleu) - ne pas imprimer", { x: fs, y: fs * 0.8, size: fs, font: helv, color: rgb(0.3, 0.3, 0.35) });
+    }
+  }
   return { bytes: await doc.save(), scale };
 }

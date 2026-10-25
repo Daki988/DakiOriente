@@ -115,6 +115,10 @@ export type Design = {
   texts?: Record<string, string>; photos?: Record<string, Logo>;
   /** Taille des textes (1 = celle du modèle), cliparts posés librement, code QR. */
   textScale?: number; clips?: Clip[]; qr?: Qr;
+  /** Réglages du support : orientation, forme de découpe, dimensions de boîte (mm). */
+  /** Recadrage des photos (point d’intérêt et zoom), par clé de photo ou « bg ». */
+  crop?: Record<string, { fx: number; fy: number; z: number }>;
+  orient?: "portrait" | "paysage"; shape?: "rect" | "arrondi" | "rond" | "ovale"; box?: { L: number; l: number; H: number };
 };
 /** Clipart posé : `side` = face (0 recto), centre (x, y) et taille `s` relatifs à la zone finie. */
 export type Clip = { art: string; side: number; x: number; y: number; s: number; color: Color };

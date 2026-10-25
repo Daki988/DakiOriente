@@ -102,7 +102,7 @@ export function OrderFlow({ product, settings, initialQty, online, startDesign =
     if (!q.ok) return setError(q.error);
     if (mode === "file" && !file) return setError("Ajoutez votre fichier, ou choisissez une autre option.");
     if (mode === "online" && !made) return setError("Créez votre design avec l’éditeur avant de commander.");
-    if (mode === "online" && made && (Math.abs(made.sides[0].w - fmt.wMm) > 1 || Math.abs(made.sides[0].h - fmt.hMm) > 1)) {
+    if (mode === "online" && made && p.pricing === "area" && (Math.abs(made.format.wMm - fmt.wMm) > 1 || Math.abs(made.format.hMm - fmt.hMm) > 1)) {
       return setError("Les dimensions ont changé depuis la création du design : ouvrez l’éditeur pour l’adapter.");
     }
     const upload = mode === "file" ? file : mode === "online" ? made?.file ?? null : null;
@@ -116,7 +116,7 @@ export function OrderFlow({ product, settings, initialQty, online, startDesign =
           slug: p.slug, selection: sel, website: honeypot,
           customer: { name, phone, email }, delivery: { mode: delivery, address },
           notes: mode === "design" ? `Brief graphiste : ${brief}` : mode === "online" && made
-            ? `Design créé en ligne : modèle « ${made.design.template} », ${made.sides.length > 1 ? "recto-verso" : "recto"}${made.scale !== 1 ? ", PDF à l’échelle 1:10" : ""}.` : undefined,
+            ? `Design créé en ligne : modèle « ${made.design.template} », ${made.sides.length > 1 ? "recto-verso" : "recto"}${made.summary ? `, ${made.summary}` : ""}${made.scale !== 1 ? ", PDF à l’échelle 1:10" : ""}.` : undefined,
           file: upload ? { name: upload.name, size: upload.size } : null,
         }),
       });
@@ -308,7 +308,8 @@ export function OrderFlow({ product, settings, initialQty, online, startDesign =
       </section>
       {editorOpen && (
         <Editor product={{ slug: p.slug, name: p.name, categorySlug: p.categorySlug, ...fmt }} initial={made?.design}
-          verso={choices["Impression"] !== "Recto seul"} onClose={closeEditor} onDone={onDesigned} />
+          verso={choices["Impression"] !== "Recto seul"} options={choices} onClose={closeEditor} onDone={onDesigned}
+          onFormat={p.pricing === "area" ? (wc, hc) => { setW(wc); setH(hc); } : undefined} />
       )}
     </form>
   );

@@ -9,7 +9,8 @@ import { SECTORS, sectorTexts } from "@/lib/design/sectors";
 import { TEMPLATE_PALETTES } from "@/lib/design/canva";
 import { CLIPART_IDS, CLIPARTS } from "@/lib/design/clipart";
 import { drawLogo, renderLogo, type LogoSpec } from "@/lib/design/logo-maker";
-import { hasVerso, KINDS, kindFor, MOCKUP_LABELS, mockupsFor, type MockupKind } from "@/lib/design/templates";
+import { KINDS, kindFor, MOCKUP_LABELS, mockupsFor, type MockupKind } from "@/lib/design/templates";
+import { boxNet, composeBox, cutFor, supportFor, withVerso, type CutShape, type Tool } from "@/lib/design/supports";
 import { newDesign as baseDesign, orderedTemplates, sampleFields } from "@/lib/design/defaults";
 import { Check, Upload } from "@/components/Icons";
 import { DesignSvg } from "./DesignSvg";
@@ -39,10 +40,11 @@ function Swatch({ shapes, colors, tiles = 1, className }: { shapes: Prim[]; colo
 }
 
 export type EditorProduct = { slug: string; name: string; categorySlug: string; wMm: number; hMm: number };
-export type EditorResult = { design: Design; sides: RSide[]; file: File; scale: number };
+/** `format` : dimensions finies utilisées (orientation comprise) ; `summary` : réglages du support, pour l’atelier. */
+export type EditorResult = { design: Design; sides: RSide[]; file: File; scale: number; format: { wMm: number; hMm: number }; summary: string };
 
 type Sheet = "texte" | "images" | "modeles" | "clipart" | "logo" | "qr" | "couleurs";
-const BOTTOM: [Sheet, string, (p: { className?: string }) => React.ReactNode][] = [
+const BOTTOM: [Sheet & Tool, string, (p: { className?: string }) => React.ReactNode][] = [
   ["texte", "Texte", TextIcon], ["images", "Images", ImageIcon], ["modeles", "Modèles", TemplatesIcon],
   ["clipart", "Clipart", ClipartIcon], ["logo", "Créer Logo", LogoIcon], ["qr", "Code QR", QrIcon],
 ];
@@ -65,21 +67,29 @@ export const newDesign = (p: EditorProduct) => baseDesign(p);
  * Éditeur plein écran, disposé comme une appli mobile : barre d'outils en haut, onglets Recto / Verso,
  * plan de travail avec repères (coupe en rouge, zone de sécurité en vert) et barre d'onglets en bas.
  */
-export function Editor({ product, initial, verso: versoWanted = true, onClose, onDone }: {
-  product: EditorProduct; initial?: Design; verso?: boolean; onClose: () => void; onDone: (r: EditorResult) => void;
+export function Editor({ product, initial, verso: versoWanted = true, options = {}, onClose, onDone, onFormat }: {
+  product: EditorProduct; initial?: Design; verso?: boolean; options?: Record<string, string>;
+  onClose: () => void; onDone: (r: EditorResult) => void; onFormat?: (wCm: number, hCm: number) => void;
 }) {
-  const templates = useMemo(() => orderedTemplates(product), [product]);
+  const support = supportFor(product.categorySlug, product.slug);
   const kindId = kindFor(product.categorySlug, product.slug);
   const kind = KINDS[kindId];
-  const verso = hasVerso(product.categorySlug) && versoWanted;
+  const verso = support.verso === "always" || (support.verso === "option" && versoWanted);
   const scenes = mockupsFor(product.categorySlug, product.slug);
   const [scene, setScene] = useState<MockupKind>(scenes[0]);
 
   /* ───── Design et historique (annuler / rétablir) ───── */
-  const [d, setRaw] = useState<Design>(() => {
-    const base = initial ?? newDesign(product);
-    return templates.some((t) => t.id === base.template) ? base : { ...base, template: templates[0].id };
-  });
+  const [d, setRaw] = useState<Design>(() => initial ?? newDesign(product));
+  // Format d'une face : orientation choisie, ou face avant de la boîte.
+  const bx = support.box ? d.box ?? support.box : null;
+  const [fw, fh] = (() => {
+    if (bx) return [bx.L, bx.H];
+    const lo = Math.min(product.wMm, product.hMm), hi = Math.max(product.wMm, product.hMm);
+    if (support.orient && d.orient) return d.orient === "portrait" ? [lo, hi] : [hi, lo];
+    return [product.wMm, product.hMm];
+  })();
+  const fmtProduct = useMemo(() => ({ ...product, wMm: fw, hMm: fh }), [product.slug, product.categorySlug, fw, fh]); // eslint-disable-line react-hooks/exhaustive-deps
+  const templates = useMemo(() => orderedTemplates(fmtProduct), [fmtProduct]);
   const cur = useRef(d);
   cur.current = d;
   const past = useRef<Design[]>([]);
@@ -156,21 +166,26 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
     return () => window.removeEventListener("keydown", key);
   }, [onClose, undo, redo, sheet, menu, view3d]);
 
-  const tpl = templates.find((t) => t.id === d.template) ?? templates[0];
-  const sides = useMemo(
-    () => (ready ? resolveDesign(tpl, d, product.wMm, product.hMm, verso, browserMeasure) : []),
-    [ready, tpl, d, product.wMm, product.hMm, verso],
-  );
-  const faceIdx = Math.min(face, Math.max(sides.length - 1, 0));
-  const current = sides[faceIdx];
+  const baseTpl = templates.find((t) => t.id === d.template) ?? templates[0];
+  const tpl = useMemo(() => (verso ? withVerso(baseTpl) : baseTpl), [baseTpl, verso]);
+  const opts = { rounded: options["Coins"] === "Arrondis", eyelets: options["Œillets"] !== "Sans œillets" };
+  // Faces dessinées (pour l'aperçu réaliste) et planches imprimées (patron pour la boîte).
+  const faces = useMemo(() => {
+    if (!ready) return [];
+    const cut = cutFor(support, d, fw, fh, opts);
+    return resolveDesign(tpl, d, fw, fh, verso, browserMeasure).map((s, i) => ({ ...s, cut: i && support.id === "urne" ? { ...cut, hatch: undefined } : cut }));
+  }, [ready, tpl, d, fw, fh, verso, opts.rounded, opts.eyelets]); // eslint-disable-line react-hooks/exhaustive-deps
+  const faceIdx = Math.min(face, Math.max(faces.length - 1, 0));
+  const sides = useMemo(() => (bx && faces.length ? [composeBox(faces, boxNet(bx), faceIdx)] : faces), [bx, faces, faceIdx]);
+  const current = bx ? sides[0] : sides[faceIdx];
   const pal = paletteOf(d.palette);
   // Avec un secteur choisi, les miniatures gardent ses couleurs et son motif ; sinon, ceux de chaque modèle.
   const lookOf = (t: (typeof templates)[number]) => (d.sector ? { fonts: t.fonts } : { palette: t.palette, fonts: t.fonts, pattern: t.pattern ?? d.pattern });
   const thumbs = useMemo(
     () => (ready && sheet === "modeles"
-      ? templates.map((t) => ({ t, side: resolveDesign(t, { ...d, template: t.id, ...lookOf(t), fields: edited ? d.fields : sampleFields(t, kindId) }, product.wMm, product.hMm, false, browserMeasure)[0] }))
+      ? templates.map((t) => ({ t, side: resolveDesign(t, { ...d, template: t.id, ...lookOf(t), fields: edited ? d.fields : sampleFields(t, kindId) }, fw, fh, false, browserMeasure)[0] }))
       : []),
-    [ready, sheet, templates, d, product.wMm, product.hMm, edited], // eslint-disable-line react-hooks/exhaustive-deps
+    [ready, sheet, templates, d, fw, fh, edited], // eslint-disable-line react-hooks/exhaustive-deps
   );
   const shown = tpl.sides.slice(0, verso ? 2 : 1);
   const hasPattern = shown.some((s) => s.els.some((e) => e.t === "pattern" && e.pattern === "auto"));
@@ -254,8 +269,24 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
     setClipSel(null);
   };
 
+  /* ───── Sélection au toucher ───── */
+  const [picked, setPicked] = useState<string | null>(null);
+  const [crop, setCrop] = useState(false);
+  useEffect(() => { setPicked(null); setCrop(false); }, [d.template, faceIdx]);
+  const pickedClip = picked?.startsWith("clip:") ? Number(picked.slice(5)) : null;
+  const patchClip = (i: number, patch: Partial<(typeof clips)[number]>) =>
+    setD((x) => ({ ...x, clips: (x.clips ?? []).map((c, j) => (j === i ? { ...c, ...patch } : c)) }));
+  /** Ouvre le panneau Texte et place le curseur dans le champ voulu. */
+  const focusInput = (id: string) => { setSheet("texte"); setTimeout(() => document.getElementById(id)?.focus(), 80); };
+  /** Résolution d'une photo à sa taille imprimée (dpi), d'après l'élément dessiné. */
+  const dpiOf = (ref: string, px: number) => {
+    const it = current?.items.find((x) => "ref" in x && x.ref === ref);
+    return it && it.t === "image" ? Math.round(px / (it.w / 25.4)) : null;
+  };
+
   /** Corbeille : retire le clipart choisi, sinon remet le modèle à zéro (annulable). */
   function trash() {
+    if (pickedClip !== null) { setD((x) => ({ ...x, clips: (x.clips ?? []).filter((_, i) => i !== pickedClip) })); return setPicked(null); }
     if (sheet === "clipart" && sel !== null) return removeClip();
     const fresh = newDesign(product);
     setD({ ...fresh, template: tpl.id, palette: tpl.palette, fonts: tpl.fonts, fields: sampleFields(tpl, kindId) });
@@ -271,7 +302,13 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
       const { bytes, scale } = await buildPrintPdf(sides, `${product.name} · design Neam Print`);
       const name = `${product.slug}-design-en-ligne${scale !== 1 ? "-echelle-1-10" : ""}.pdf`;
       const file = new File([bytes as BlobPart], name, { type: "application/pdf" });
-      onDone({ design: d, sides, file, scale });
+      const bits = [
+        support.orient && `${fw > fh ? "paysage" : "portrait"}`,
+        support.shapes && `découpe ${d.shape ?? support.shapes[0]}`,
+        bx && `boîte ${bx.L / 10} × ${bx.l / 10} × ${bx.H / 10} cm (L × l × H), patron fourni`,
+        sides.some((s) => s.cut?.shaped || s.cut?.holes?.length) && "tracé de découpe en page 2",
+      ].filter(Boolean);
+      onDone({ design: { ...d, template: baseTpl.id }, sides, file, scale, format: { wMm: fw, hMm: fh }, summary: bits.join(", ") });
     } catch {
       setError("Le fichier d’impression n’a pas pu être créé. Réessayez, ou choisissez « Un graphiste le crée ».");
     } finally {
@@ -284,7 +321,9 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
   const colorRoles: [Color, string][] = [["primary", pal.primary], ["accent", pal.accent], ["ink", pal.ink], ["soft", pal.soft], ["#ffffff", "#ffffff"], ["#0d0e12", "#0d0e12"]];
 
   return (
-    <div role="dialog" aria-modal="true" aria-label="Créer mon design" className="fixed inset-0 z-[60] flex flex-col bg-[#e9e8ee]">
+    <div role="dialog" aria-modal="true" aria-label="Créer mon design" className="fixed inset-0 z-[60] flex flex-col bg-[#e9e8ee]"
+      // L'éditeur est rendu dans le formulaire de commande : Entrée dans un champ ne doit pas l'envoyer.
+      onKeyDown={(e) => { if (e.key === "Enter" && e.target instanceof HTMLInputElement) e.preventDefault(); }}>
       {/* Barre d'outils */}
       <header className="relative flex items-center gap-0.5 border-b border-line bg-white px-1.5 py-1.5 sm:gap-1 sm:px-3">
         <button type="button" className={toolBtn} aria-label="Menu" aria-expanded={menu === "menu"} onClick={() => setMenu(menu === "menu" ? null : "menu")}><MenuIcon /></button>
@@ -321,7 +360,8 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
                   </button>
                   <p className="px-3 pb-2 text-xs leading-relaxed text-muted">
                     <span className="font-semibold text-[#e5262b]">Rouge</span> : ligne de coupe, ce qui dépasse sera coupé (fond perdu de 3 mm).{" "}
-                    <span className="font-semibold text-[#17a34a]">Vert</span> : zone de sécurité, gardez-y les textes importants.
+                    <span className="font-semibold text-[#17a34a]">Vert</span> : zone de sécurité, gardez-y les textes importants.{" "}
+                    <span className="font-semibold text-[#2f6bff]">Bleu</span> : plis. Les zones hachurées ne sont pas visibles une fois posé.
                   </p>
                   <button type="button" role="menuitem" onClick={() => { setMenu(null); trash(); }} className="rounded-xl px-3 py-2.5 text-left font-semibold hover:bg-paper">Recommencer ce modèle</button>
                 </>
@@ -331,13 +371,26 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
         )}
       </header>
 
+      {/* Réglages du support : orientation, forme, dimensions, patron */}
+      {(support.orient || support.shapes || support.custom || support.box || support.note) && (
+        <SupportBar support={support} d={d} fw={fw} fh={fh}
+          onOrient={(o) => {
+            const lo = Math.min(product.wMm, product.hMm), hi = Math.max(product.wMm, product.hMm);
+            const list = orderedTemplates({ ...product, wMm: o === "portrait" ? lo : hi, hMm: o === "portrait" ? hi : lo });
+            setD((x) => (list.some((t) => t.id === x.template) ? { ...x, orient: o } : { ...x, orient: o, template: list[0].id, palette: list[0].palette, fonts: list[0].fonts, fields: edited ? x.fields : sampleFields(list[0], kindId) }));
+          }}
+          onShape={(sh) => setD((x) => ({ ...x, shape: sh }))}
+          onBox={(b) => setD((x) => ({ ...x, box: b }))}
+          onFormat={onFormat} />
+      )}
+
       {/* Recto / Verso */}
       <div className="flex border-b border-line bg-white" role="tablist" aria-label="Face">
-        {verso && sides.length > 1 ? ["Recto", "Verso"].map((l, i) => (
+        {faces.length > 1 ? support.faces.map((l, i) => (
           <button key={l} type="button" role="tab" aria-selected={faceIdx === i} onClick={() => { setFace(i); setClipSel(null); }}
             className={`flex-1 border-b-[3px] py-2.5 text-sm font-bold ${faceIdx === i ? "border-brand text-brand" : "border-transparent text-muted"}`}>{l}</button>
         )) : (
-          <p className="flex-1 border-b-[3px] border-brand py-2.5 text-center text-sm font-bold text-brand">Recto <span className="font-normal text-muted">· {product.name}</span></p>
+          <p className="flex-1 border-b-[3px] border-brand py-2.5 text-center text-sm font-bold text-brand">{support.faces[0]} <span className="font-normal text-muted">· {product.name}</span></p>
         )}
       </div>
 
@@ -349,10 +402,24 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
               {!ready || !current ? (
                 <p className="text-sm text-muted">Chargement de l’éditeur…</p>
               ) : (
-                <DesignSvg side={current} guides={guides} className="size-full max-h-full drop-shadow-[0_10px_22px_rgba(0,0,0,.16)]" title={`Aperçu ${faceIdx ? "verso" : "recto"}`} />
+                <DesignSvg side={current} guides={guides} className="size-full max-h-full drop-shadow-[0_10px_22px_rgba(0,0,0,.16)]" title={`Aperçu ${faceIdx ? "verso" : "recto"}`}
+                  pick={{
+                    selected: picked,
+                    onPick: (r) => { setPicked(r); setCrop(false); if (r?.startsWith("clip:")) setClipSel(Number(r.slice(5))); },
+                    onDrag: (r, dx, dy) => {
+                      const i = Number(r.slice(5));
+                      setD((x) => ({ ...x, clips: (x.clips ?? []).map((c, j) => (j === i ? { ...c, x: Math.min(1, Math.max(0, c.x + dx / fw)), y: Math.min(1, Math.max(0, c.y + dy / fh)) } : c)) }));
+                    },
+                  }} />
               )}
             </div>
           </div>
+          {picked && current ? (
+            <ContextBar picked={picked} d={d} tpl={tpl} crop={crop} setCrop={setCrop} colorRoles={colorRoles}
+              dpiOf={dpiOf} onClose={() => { setPicked(null); setCrop(false); }}
+              setD={setD} setPicked={setPicked} open={open} focusInput={focusInput} patchClip={patchClip}
+              loadPhoto={loadPhoto} pickLogo={pickLogo} />
+          ) : (
           <div className="flex shrink-0 items-center justify-center gap-2 px-3 pb-3">
             <label className="relative grid size-10 cursor-pointer place-items-center rounded-full bg-[conic-gradient(#f43f5e,#f59e0b,#eab308,#22c55e,#06b6d4,#6366f1,#d946ef,#f43f5e)] shadow" aria-label="Couleur principale">
               <span className="size-4 rounded-full border-2 border-white" style={{ background: pal.primary }} />
@@ -362,6 +429,7 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
             <button type="button" onClick={() => open("images")} className="flex h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-bold shadow"><ImageIcon className="size-5" />Images</button>
             <button type="button" onClick={() => open("couleurs")} className="flex h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-bold shadow"><PaletteIcon className="size-5" />Couleur / Motif</button>
           </div>
+          )}
         </section>
 
         {/* Panneau de l'onglet choisi (en bas sur mobile, à droite sur ordinateur) */}
@@ -378,9 +446,9 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
                     <label key={f} className="grid gap-1.5">
                       <span className={label}>{kind.labels[f]}</span>
                       {multiline(f) || f === "texte" ? (
-                        <textarea className={`${input} min-h-20`} value={d.fields[f]} maxLength={400} onChange={(e) => setField(f, e.target.value)} />
+                        <textarea id={`f-${f}`} className={`${input} min-h-20`} value={d.fields[f]} maxLength={400} onChange={(e) => setField(f, e.target.value)} />
                       ) : (
-                        <input className={input} value={d.fields[f]} maxLength={120} onChange={(e) => setField(f, e.target.value)} />
+                        <input id={`f-${f}`} className={input} value={d.fields[f]} maxLength={120} onChange={(e) => setField(f, e.target.value)} />
                       )}
                     </label>
                   ))}
@@ -388,18 +456,18 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
                     const v = d.texts?.[elKey(tpl, l.id)] ?? l.text;
                     return (
                       <label key={l.id} className="grid gap-1.5">
-                        <span className={label}>Texte du modèle{verso ? ` (${l.face ? "verso" : "recto"})` : ""}</span>
+                        <span className={label}>Texte du modèle{faces.length > 1 ? ` (${support.faces[l.face].toLowerCase()})` : ""}</span>
                         {l.lines > 1 ? (
-                          <textarea className={`${input} min-h-20`} value={v} maxLength={300} onChange={(e) => setLiteral(l.id, e.target.value)} />
+                          <textarea id={`t-${l.id}`} className={`${input} min-h-20`} value={v} maxLength={300} onChange={(e) => setLiteral(l.id, e.target.value)} />
                         ) : (
-                          <input className={input} value={v} maxLength={120} onChange={(e) => setLiteral(l.id, e.target.value)} />
+                          <input id={`t-${l.id}`} className={input} value={v} maxLength={120} onChange={(e) => setLiteral(l.id, e.target.value)} />
                         )}
                       </label>
                     );
                   })}
                   <label className="grid gap-1.5">
                     <span className={label}>Slogan en bandeau (facultatif)</span>
-                    <input className={input} value={d.slogan ?? ""} maxLength={90} placeholder="Ex. : Le goût du Gabon, depuis 2010" onChange={(e) => setD((x) => ({ ...x, slogan: e.target.value }))} />
+                    <input id="slogan" className={input} value={d.slogan ?? ""} maxLength={90} placeholder="Ex. : Le goût du Gabon, depuis 2010" onChange={(e) => setD((x) => ({ ...x, slogan: e.target.value }))} />
                   </label>
                   {d.slogan?.trim() && (
                     <div className="flex gap-2">
@@ -572,7 +640,7 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
                       ))}
                     </div>
                   )}
-                  <p className={label}>Touchez une forme pour l’ajouter {verso ? `au ${faceIdx ? "verso" : "recto"}` : "au design"}</p>
+                  <p className={label}>Touchez une forme pour l’ajouter {faces.length > 1 ? `(${support.faces[faceIdx].toLowerCase()})` : ""}</p>
                   <div className="grid grid-cols-5 gap-2">
                     {CLIPART_IDS.map((id) => (
                       <button key={id} type="button" onClick={() => addClip(id)} aria-label={`Ajouter : ${CLIPARTS[id].name}`} title={CLIPARTS[id].name}
@@ -587,7 +655,7 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
               {sheet === "logo" && <LogoMaker d={d} pal={pal} onUse={(logo) => { setD((x) => ({ ...x, logo })); setSheet(null); }} />}
 
               {sheet === "qr" && (
-                <QrPanel qr={d.qr} verso={sides.length > 1} defaultSide={sides.length > 1 ? 1 : 0}
+                <QrPanel qr={d.qr} faces={faces.length > 1 ? support.faces : null} defaultSide={faces.length > 1 ? 1 : 0}
                   onChange={(qr) => setD((x) => ({ ...x, qr }))} onFace={(i) => setFace(i)} />
               )}
 
@@ -638,7 +706,7 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
       {/* Barre d'onglets */}
       <nav className="flex shrink-0 items-center gap-1 bg-gradient-to-r from-ink to-brand px-1.5 pb-[max(env(safe-area-inset-bottom),6px)] pt-1.5 text-white" aria-label="Outils">
         <div className="flex min-w-0 flex-1">
-          {BOTTOM.map(([s, l, Icon]) => (
+          {BOTTOM.filter(([s]) => support.tools.includes(s)).map(([s, l, Icon]) => (
             <button key={s} type="button" aria-pressed={sheet === s} onClick={() => open(s)}
               className={`grid min-w-[50px] flex-1 content-start justify-items-center gap-0.5 rounded-xl px-0.5 py-1.5 text-center text-[10.5px] font-semibold leading-tight sm:text-[11px] ${sheet === s ? "bg-white/20" : ""}`}>
               <Icon className="size-6" />{l}
@@ -672,7 +740,7 @@ export function Editor({ product, initial, verso: versoWanted = true, onClose, o
             )}
           </div>
           <div className="grid min-h-0 flex-1 place-items-center p-3">
-            <div className="w-full max-w-[720px] overflow-hidden" style={{ aspectRatio: "4 / 3" }}><Mockup kind={scene} sides={sides} tshirt={shirt} /></div>
+            <div className="w-full max-w-[720px] overflow-hidden" style={{ aspectRatio: "4 / 3" }}><Mockup kind={scene} sides={faces} tshirt={shirt} /></div>
           </div>
         </div>
       )}
@@ -747,8 +815,8 @@ function LogoMaker({ d, pal, onUse }: { d: Design; pal: ReturnType<typeof palett
 }
 
 /** Code QR : site, WhatsApp ou téléphone, sur la face et au coin choisis. */
-function QrPanel({ qr, verso, defaultSide, onChange, onFace }: {
-  qr?: Qr; verso: boolean; defaultSide: number; onChange: (qr: Qr | undefined) => void; onFace: (i: number) => void;
+function QrPanel({ qr, faces, defaultSide, onChange, onFace }: {
+  qr?: Qr; faces: [string, string] | null; defaultSide: number; onChange: (qr: Qr | undefined) => void; onFace: (i: number) => void;
 }) {
   const presets: [string, string, string][] = [
     ["Site web", "https://", "https://www.monsite.ga"],
@@ -766,9 +834,9 @@ function QrPanel({ qr, verso, defaultSide, onChange, onFace }: {
         <span className={label}>Lien ou numéro encodé</span>
         <input className={input} value={v.text} maxLength={300} placeholder={presets[0][2]} inputMode="url" onChange={(e) => { set({ text: e.target.value }); onFace(v.side); }} />
       </label>
-      {verso && (
+      {faces && (
         <div className="flex gap-2">
-          {["Recto", "Verso"].map((l, i) => <button key={l} type="button" aria-pressed={v.side === i} onClick={() => { set({ side: i }); onFace(i); }} className={chip(v.side === i)}>{l}</button>)}
+          {faces.map((l, i) => <button key={l} type="button" aria-pressed={v.side === i} onClick={() => { set({ side: i }); onFace(i); }} className={chip(v.side === i)}>{l}</button>)}
         </div>
       )}
       <div className="flex flex-wrap gap-2" aria-label="Position du code QR">
@@ -776,6 +844,188 @@ function QrPanel({ qr, verso, defaultSide, onChange, onFace }: {
       </div>
       {qr && <button type="button" onClick={() => onChange(undefined)} className="w-fit text-sm font-semibold text-danger underline">Retirer le code QR</button>}
       <p className="text-xs text-muted">Le code est vectoriel : il reste net à l’impression. Testez-le avec votre téléphone sur l’aperçu avant de commander.</p>
+    </div>
+  );
+}
+
+const ORIENT_ICON = (portrait: boolean) => (
+  <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+    {portrait ? <rect x="6" y="3" width="12" height="18" rx="1.5" /> : <rect x="3" y="6" width="18" height="12" rx="1.5" />}
+  </svg>
+);
+const SHAPE_LABEL: Record<CutShape, string> = { rect: "Carré", arrondi: "Coins arrondis", rond: "Rond", ovale: "Ovale" };
+
+/** Deuxième barre : réglages propres au support (comme les dimensions de la boîte). */
+function SupportBar({ support, d, fw, fh, onOrient, onShape, onBox, onFormat }: {
+  support: ReturnType<typeof supportFor>; d: Design; fw: number; fh: number;
+  onOrient: (o: "portrait" | "paysage") => void; onShape: (s: CutShape) => void;
+  onBox: (b: { L: number; l: number; H: number }) => void; onFormat?: (wCm: number, hCm: number) => void;
+}) {
+  const box = support.box ? d.box ?? support.box : null;
+  const [dims, setDims] = useState<string[]>(() => (box ? [box.L, box.l, box.H] : [fw, fh]).map((v) => String(Math.round(v / 10 * 10) / 10)));
+  const [note, setNote] = useState(true);
+  const cm = (v: string) => Number(v.replace(",", "."));
+  const field = "h-10 w-16 rounded-lg border border-line bg-paper px-2 text-center text-[16px] font-semibold tabular outline-none focus:border-brand";
+  const labels = box ? ["L", "l", "H"] : ["L", "H"];
+  const valid = dims.every((v) => cm(v) > 0) && (!support.custom || dims.every((v) => cm(v) >= support.custom!.min && cm(v) <= support.custom!.max)) && (!box || dims.every((v) => cm(v) >= 2 && cm(v) <= 60));
+  function apply() {
+    if (!valid) return;
+    if (box) onBox({ L: cm(dims[0]) * 10, l: cm(dims[1]) * 10, H: cm(dims[2]) * 10 });
+    else onFormat?.(cm(dims[0]), cm(dims[1]));
+  }
+  const portrait = fh >= fw;
+  return (
+    <div className="grid gap-1.5 border-b border-line bg-white px-3 py-2">
+      <div className="flex items-center gap-2 overflow-x-auto">
+        {support.orient && (
+          <div className="flex shrink-0 rounded-full bg-paper p-1" role="radiogroup" aria-label="Orientation">
+            {([["portrait", "Portrait"], ["paysage", "Paysage"]] as const).map(([o, l]) => {
+              const on = (o === "portrait") === portrait;
+              return (
+                <button key={o} type="button" role="radio" aria-checked={on} onClick={() => onOrient(o)}
+                  className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-semibold ${on ? "bg-ink text-white" : ""}`}>{ORIENT_ICON(o === "portrait")}{l}</button>
+              );
+            })}
+          </div>
+        )}
+        {support.shapes && (
+          <div className="flex shrink-0 gap-1.5" role="radiogroup" aria-label="Forme de découpe">
+            {support.shapes.map((sh) => {
+              const on = (d.shape ?? support.shapes![0]) === sh;
+              return <button key={sh} type="button" role="radio" aria-checked={on} onClick={() => onShape(sh)} className={chip(on)}>{SHAPE_LABEL[sh]}</button>;
+            })}
+          </div>
+        )}
+        {(support.custom || box) && (
+          <div className="flex shrink-0 items-end gap-1.5" onKeyDown={(e) => { if (e.key === "Enter") apply(); }}>
+            {labels.map((l, i) => (
+              <label key={l} className="grid gap-0.5">
+                <span className="pl-1 text-[11px] font-semibold text-muted">{l}</span>
+                <input className={field} inputMode="decimal" value={dims[i]} aria-label={box ? ["Longueur", "Largeur", "Hauteur"][i] : ["Largeur", "Hauteur"][i]}
+                  onChange={(e) => setDims((x) => x.map((v, j) => (j === i ? e.target.value : v)))} />
+              </label>
+            ))}
+            <span className="pb-2.5 text-sm font-semibold text-muted">cm</span>
+            <button type="button" onClick={apply} disabled={!valid} className="h-10 rounded-lg border-2 border-ink px-3 text-sm font-bold disabled:opacity-40">Appliquer</button>
+          </div>
+        )}
+        {support.note && !note && <button type="button" onClick={() => setNote(true)} className="grid size-8 shrink-0 place-items-center rounded-full bg-paper text-sm font-bold" aria-label="Conseil d’impression">i</button>}
+      </div>
+      {support.custom && !valid && <p className="text-xs text-danger">Entre {support.custom.min} et {support.custom.max} cm.</p>}
+      {box && !valid && <p className="text-xs text-danger">Chaque dimension entre 2 et 60 cm.</p>}
+      {support.note && note && (
+        <p className="flex items-start gap-2 text-xs leading-snug text-muted">
+          <span className="flex-1">{support.note}</span>
+          <button type="button" onClick={() => setNote(false)} className="font-semibold underline">OK</button>
+        </p>
+      )}
+      {box && <p className="text-xs leading-snug text-muted">Patron à plat : <span className="font-semibold text-[#e5262b]">rouge</span> = découpe, <span className="font-semibold text-[#2f6bff]">bleu</span> = plis. L’onglet choisi (face avant ou arrière) est encadré.</p>}
+    </div>
+  );
+}
+
+/**
+ * Barre d'actions de l'élément touché sur le design (comme dans les applis d'édition) :
+ * remplacer, recadrer, modifier, dupliquer, supprimer, avec l'alerte de résolution des photos.
+ */
+function ContextBar({ picked, d, tpl, crop, setCrop, colorRoles, dpiOf, onClose, setD, setPicked, open, focusInput, patchClip, loadPhoto, pickLogo }: {
+  picked: string; d: Design; tpl: { id: string }; crop: boolean; setCrop: (v: boolean) => void; colorRoles: [Color, string][];
+  dpiOf: (ref: string, px: number) => number | null; onClose: () => void;
+  setD: (n: (x: Design) => Design) => void; setPicked: (r: string | null) => void; open: (s: Sheet) => void; focusInput: (id: string) => void;
+  patchClip: (i: number, p: Partial<NonNullable<Design["clips"]>[number]>) => void;
+  loadPhoto: (f: File | null, key: "photo" | "tplPhoto", frac?: number) => Promise<NonNullable<Design["logo"]> | null>;
+  pickLogo: (f: File | null) => Promise<void>;
+}) {
+  const btn = "flex h-10 shrink-0 items-center gap-1.5 rounded-xl border border-line bg-white px-3 text-sm font-bold";
+  const [kind, arg] = [picked.split(":")[0], picked.slice(picked.indexOf(":") + 1)];
+  const photoKey = kind === "photo" ? `${tpl.id}:${arg}` : kind === "bg" ? "bg" : null;
+  const own = kind === "photo" ? d.photos?.[photoKey!] : kind === "bg" ? d.bgImage : undefined;
+  const dpi = own ? dpiOf(picked, own.w) : null;
+  const cr = photoKey ? d.crop?.[photoKey] ?? { fx: 0.5, fy: 0.5, z: 1 } : null;
+  const setCr = (p: Partial<{ fx: number; fy: number; z: number }>) => photoKey && setD((x) => ({ ...x, crop: { ...x.crop, [photoKey]: { ...(x.crop?.[photoKey] ?? { fx: 0.5, fy: 0.5, z: 1 }), ...p } } }));
+  const file = (accept: string, on: (f: File | null) => void, label: string) => (
+    <label className={`${btn} cursor-pointer`}>
+      <Upload className="size-4" />{label}
+      <input type="file" className="sr-only" accept={accept} onChange={(e) => on(e.target.files?.[0] ?? null)} />
+    </label>
+  );
+  const del = (fn: () => void) => <button type="button" className={`${btn} text-danger`} onClick={() => { fn(); setPicked(null); }} aria-label="Supprimer"><TrashIcon className="size-4" /></button>;
+  const ci = kind === "clip" ? Number(arg) : -1;
+  const clip = ci >= 0 ? d.clips?.[ci] : undefined;
+  return (
+    <div className="grid shrink-0 gap-2 px-3 pb-3">
+      {crop && cr && (
+        <div className="grid gap-2 rounded-2xl bg-white p-3 shadow">
+          {(["fx", "fy", "z"] as const).map((k) => (
+            <label key={k} className="flex items-center gap-3 text-sm font-semibold">
+              <span className="w-24 text-muted">{k === "fx" ? "Horizontal" : k === "fy" ? "Vertical" : "Zoom"}</span>
+              <input type="range" min={k === "z" ? 1 : 0} max={k === "z" ? 3 : 1} step={0.01} value={cr[k]} onChange={(e) => setCr({ [k]: Number(e.target.value) })} className="flex-1 accent-[var(--brand)]" />
+            </label>
+          ))}
+          {kind === "bg" && (
+            <label className="flex items-center gap-3 text-sm font-semibold">
+              <span className="w-24 text-muted">Voile</span>
+              <input type="range" min={0} max={0.9} step={0.05} value={d.bgVeil ?? 0.55} onChange={(e) => setD((x) => ({ ...x, bgVeil: Number(e.target.value) }))} className="flex-1 accent-[var(--brand)]" />
+            </label>
+          )}
+        </div>
+      )}
+      <div className="flex items-center gap-2 overflow-x-auto pb-0.5" role="toolbar" aria-label="Élément choisi">
+        <button type="button" onClick={onClose} className="grid size-10 shrink-0 place-items-center rounded-xl bg-ink text-white" aria-label="Désélectionner"><CloseIcon className="size-5" /></button>
+        {dpi !== null && dpi < 150 && (
+          <span className="flex h-10 shrink-0 items-center gap-1 rounded-xl bg-danger-soft px-3 text-xs font-bold text-danger" role="status">! {dpi} dpi : risque de flou</span>
+        )}
+        {kind === "photo" && (
+          <>
+            {file("image/jpeg,image/png,image/webp", async (f) => { const ph = await loadPhoto(f, "tplPhoto", 0.6); if (ph) setD((x) => ({ ...x, photos: { ...x.photos, [photoKey!]: ph } })); }, "Remplacer")}
+            <button type="button" className={btn} aria-pressed={crop} onClick={() => setCrop(!crop)}>Recadrer</button>
+            {(own || d.crop?.[photoKey!]) && (
+              <button type="button" className={btn} onClick={() => setD((x) => { const ph = { ...x.photos }, c = { ...x.crop }; delete ph[photoKey!]; delete c[photoKey!]; return { ...x, photos: ph, crop: c }; })}>Photo d’origine</button>
+            )}
+          </>
+        )}
+        {kind === "bg" && (
+          <>
+            {file("image/jpeg,image/png,image/webp", async (f) => { const ph = await loadPhoto(f, "photo"); if (ph) setD((x) => ({ ...x, bgImage: ph })); }, "Remplacer")}
+            <button type="button" className={btn} aria-pressed={crop} onClick={() => setCrop(!crop)}>Recadrer</button>
+            {del(() => setD((x) => ({ ...x, bgImage: undefined })))}
+          </>
+        )}
+        {kind === "logo" && (
+          <>
+            {file("image/png,image/jpeg,image/webp,image/svg+xml", pickLogo, d.logo ? "Remplacer" : "Mon logo")}
+            <button type="button" className={btn} onClick={() => open("logo")}><LogoIcon className="size-4" />Créer</button>
+            {d.logo && <button type="button" className={btn} onClick={() => open("images")}>Position</button>}
+            {d.logo && del(() => setD((x) => ({ ...x, logo: undefined })))}
+          </>
+        )}
+        {(kind === "field" || kind === "text" || kind === "slogan") && (
+          <>
+            <button type="button" className={btn} onClick={() => focusInput(kind === "field" ? `f-${arg}` : kind === "text" ? `t-${arg}` : "slogan")}><TextIcon className="size-4" />Modifier</button>
+            <button type="button" className={btn} onClick={() => open("texte")}>Police</button>
+            {del(() => setD((x) => kind === "field" ? { ...x, fields: { ...x.fields, [arg]: "" } } : kind === "text" ? { ...x, texts: { ...x.texts, [`${tpl.id}:${arg}`]: "" } } : { ...x, slogan: "" }))}
+          </>
+        )}
+        {clip && (
+          <>
+            <button type="button" className={btn} onClick={() => patchClip(ci, { s: Math.max(0.06, clip.s - 0.04) })} aria-label="Plus petit">−</button>
+            <button type="button" className={btn} onClick={() => patchClip(ci, { s: Math.min(0.7, clip.s + 0.04) })} aria-label="Plus grand">+</button>
+            {colorRoles.map(([role, hex]) => (
+              <button key={role} type="button" aria-label={`Couleur ${role}`} aria-pressed={clip.color === role} onClick={() => patchClip(ci, { color: role })}
+                className={`size-8 shrink-0 rounded-full border-2 ${clip.color === role ? "border-brand" : "border-line"}`} style={{ background: hex }} />
+            ))}
+            <button type="button" className={btn} onClick={() => setD((x) => ({ ...x, clips: [...(x.clips ?? []), { ...clip, x: Math.min(1, clip.x + 0.06), y: Math.min(1, clip.y + 0.06) }] }))}>Dupliquer</button>
+            {del(() => setD((x) => ({ ...x, clips: (x.clips ?? []).filter((_, i) => i !== ci) })))}
+          </>
+        )}
+        {kind === "qr" && (
+          <>
+            <button type="button" className={btn} onClick={() => open("qr")}><QrIcon className="size-4" />Modifier</button>
+            {del(() => setD((x) => ({ ...x, qr: undefined })))}
+          </>
+        )}
+      </div>
+      {clip && <p className="text-center text-xs text-muted">Faites glisser la forme sur le design pour la déplacer.</p>}
     </div>
   );
 }
