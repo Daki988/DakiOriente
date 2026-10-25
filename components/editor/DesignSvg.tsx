@@ -25,9 +25,9 @@ export function clipPathD(c: { x: number; y: number; w: number; h: number }, sha
 
 /**
  * Dessine une face calculée. `trim` : vue coupée à la zone finie (aperçus) ;
- * sinon fond perdu visible avec le trait de coupe (éditeur).
+ * sinon fond perdu visible avec les repères (éditeur) : coupe en rouge, zone de sécurité en vert.
  */
-export function DesignSvg({ side, trim = false, className, title }: { side: RSide; trim?: boolean; className?: string; title?: string }) {
+export function DesignSvg({ side, trim = false, guides = true, className, title }: { side: RSide; trim?: boolean; guides?: boolean; className?: string; title?: string }) {
   const b = side.bleed;
   const vb = trim ? `0 0 ${side.w} ${side.h}` : `${-b} ${-b} ${side.w + 2 * b} ${side.h + 2 * b}`;
   const id = `clip-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
@@ -89,9 +89,16 @@ export function DesignSvg({ side, trim = false, className, title }: { side: RSid
           );
         })}
       </g>
-      {!trim && (
-        <rect x={0} y={0} width={side.w} height={side.h} fill="none" stroke="#ff2e88" strokeWidth={Math.min(side.w, side.h) / 300} strokeDasharray={`${Math.min(side.w, side.h) / 60}`} />
-      )}
+      {!trim && guides && (() => {
+        const u = Math.min(side.w, side.h), sw = u / 260, dash = `${u / 50} ${u / 80}`;
+        const safe = Math.min(3, u * 0.06);
+        return (
+          <g fill="none" strokeWidth={sw} strokeDasharray={dash} aria-hidden="true">
+            <rect x={0} y={0} width={side.w} height={side.h} stroke="#e5262b" />
+            <rect x={safe} y={safe} width={side.w - 2 * safe} height={side.h - 2 * safe} stroke="#17a34a" />
+          </g>
+        );
+      })()}
     </svg>
   );
 }

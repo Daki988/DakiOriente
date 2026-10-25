@@ -1,5 +1,7 @@
 import { ICONS, PATTERNS, type Prim } from "./motifs.ts";
+import QRCode from "qrcode";
 import { TEMPLATE_PALETTES } from "./canva.ts";
+import { CLIPARTS } from "./clipart.ts";
 import { BLEED_MM, colorOf, FONT_PAIRS, PALETTES, type Color, type Design, type FontKey, type Palette, type Side, type Template } from "./model.ts";
 
 /** Largeur d'un texte en mm pour une police et une taille (en mm) données. */
@@ -173,7 +175,7 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
       if (el.upper) text = text.toLocaleUpperCase("fr-FR");
       const font = el.font ?? pair[el.role ?? "body"];
       // Les polices manuscrites choisies par rôle sont visuellement plus petites : on les agrandit un peu.
-      const base = el.size * u * (!el.font && font === "script" ? 1.35 : 1);
+      const base = el.size * u * (!el.font && font === "script" ? 1.35 : 1) * (d.textScale ?? 1);
       const ls = el.ls ?? 0;
       const fit = fitText(text, font, base, w, el.lines ?? 1, spaced(measure, ls));
       const lh = el.lh ?? LINE_HEIGHT;
@@ -246,6 +248,13 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
     const ly = pos === "hg" || pos === "hd" ? areaTop + m : pos === "centre" ? areaTop + (areaH - lh) / 2 : areaTop + areaH - m - lh;
     items.push({ t: "image", x: lx, y: ly, w: lw, h: lh, src: d.logo.src });
   }
+  for (const c of d.clips ?? []) {
+    const art = CLIPARTS[c.art];
+    if (!art || c.side !== index) continue;
+    const s = c.s * Math.min(wMm, hMm);
+    items.push({ t: "group", opacity: 1, prims: place(art.shapes, c.x * wMm - s / 2, c.y * hMm - s / 2, s, [colorOf(pal, c.color), colorOf(pal, side.bg)]) });
+  }
+  if (d.qr && d.qr.side === index && d.qr.text.trim()) items.push(qrGroup(d.qr.text.trim(), d.qr.pos, wMm, hMm, colorOf(pal, d.qr.color ?? "#0d0e12")));
   if (slogan) {
     const y0 = areaTop ? 0 : areaH;
     items.push({ t: "rect", x: -b, y: areaTop ? -b : y0, w: wMm + 2 * b, h: band + b, r: 0, fill: colorOf(pal, "primary"), opacity: 1 });
@@ -257,6 +266,31 @@ export function resolveSide(tpl: Template, side: Side, d: Design, wMm: number, h
     items.push({ t: "text", font, size: fit.size, fill: colorOf(pal, "onPrimary"), align: "center", x: wMm / 2, lines: fit.lines.map((s, i) => ({ s, y: top + fit.size * ASCENT + i * fit.size * LINE_HEIGHT })) });
   }
   return { w: wMm, h: hMm, bleed: b, bg: colorOf(pal, side.bg), items };
+}
+
+/** Code QR vectoriel (modules fusionnés par ligne) sur un fond blanc avec sa marge de silence. */
+export function qrGroup(text: string, pos: string, wMm: number, hMm: number, dark: string): RGroup {
+  const { modules } = QRCode.create(text, { errorCorrectionLevel: "M" });
+  const n = modules.size;
+  const u = Math.min(wMm, hMm);
+  const box = Math.max(Math.min(u * 0.28, 40), 15);
+  const quiet = (box / (n + 4)) * 2;
+  const cell = (box - 2 * quiet) / n;
+  const m = u * 0.05;
+  const x = pos === "hg" || pos === "bg" ? m : pos === "centre" ? (wMm - box) / 2 : wMm - m - box;
+  const y = pos === "hg" || pos === "hd" ? m : pos === "centre" ? (hMm - box) / 2 : hMm - m - box;
+  const prims: RPrim[] = [{ k: "rect", x, y, w: box, h: box, r: quiet / 2, fill: "#ffffff" }];
+  for (let r = 0; r < n; r++) {
+    for (let c = 0; c < n; c++) {
+      if (!modules.get(r, c)) continue;
+      let e = c;
+      while (e + 1 < n && modules.get(r, e + 1)) e++;
+      // Léger chevauchement pour éviter les filets blancs entre modules à l'écran.
+      prims.push({ k: "rect", x: x + quiet + c * cell, y: y + quiet + r * cell, w: (e - c + 1) * cell + cell * 0.02, h: cell * 1.02, r: 0, fill: dark });
+      c = e;
+    }
+  }
+  return { t: "group", opacity: 1, prims };
 }
 
 export function resolveDesign(tpl: Template, d: Design, wMm: number, hMm: number, withVerso: boolean, measure: Measure): RSide[] {

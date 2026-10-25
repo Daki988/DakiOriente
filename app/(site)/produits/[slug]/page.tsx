@@ -10,6 +10,7 @@ import { fcfa } from "@/lib/format";
 import { fromPrice } from "@/lib/pricing";
 import { settings } from "@/lib/site";
 import { hasSupabase } from "@/lib/supabase";
+import { photosFor } from "@/lib/product-photos";
 
 export const revalidate = 300;
 type Props = { params: Promise<{ slug: string }>; searchParams: Promise<{ q?: string; creer?: string }> };
@@ -34,6 +35,17 @@ export default async function ProductPage({ params, searchParams }: Props) {
           <ChevronLeft className="size-4" /> {p.category}
         </Link>
         <Tilt className="rounded-2xl" max={5}><ProductVisual product={p} className="rounded-2xl" /></Tilt>
+        {photosFor(p.slug).length > 0 && (
+          <div className="grid grid-cols-2 gap-3" aria-label="Le produit en photos">
+            {photosFor(p.slug).slice(0, 2).map((ph) => (
+              <figure key={ph.src} className="relative overflow-hidden rounded-2xl bg-white">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={ph.src} alt={ph.alt} loading="lazy" className="aspect-square w-full object-cover" />
+                <figcaption className="absolute bottom-1.5 right-1.5 rounded bg-black/45 px-1.5 py-0.5 text-[10px] text-white">Photo : {ph.credit.author} · {ph.credit.site}</figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
         <div className="grid gap-2">
           <h1 className="text-[34px] font-bold leading-[1.05] md:text-5xl">{p.name}</h1>
           <p className="tabular font-semibold text-brand">Dès {fcfa(from.price)}{p.unit === "m²" ? " le m²" : ` les ${from.qty.toLocaleString("fr-FR")} ${p.unit}`}</p>

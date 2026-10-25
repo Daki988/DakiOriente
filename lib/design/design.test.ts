@@ -175,3 +175,22 @@ test("photos de mise en scène : fichiers présents, zones dans l'image, choix s
   assert.equal(photoFor("paper", 99 / 210), undefined, "flyer DL trop étroit : scène dessinée");
   assert.equal(photoFor("rollup", 850 / 2000), undefined);
 });
+
+test("ajouts libres : clipart sur la bonne face, code QR, taille des textes", () => {
+  const tpl = TEMPLATES.find((t) => t.id === "c-cabinet")!;
+  const base: Design = { template: tpl.id, palette: tpl.palette, fonts: tpl.fonts, fields: { titre: "Nom", sousTitre: "Métier", texte: "Société", l1: "+241 77 00 00 00", l2: "a@b.ga", l3: "Libreville" } };
+  const plain = resolveDesign(tpl, base, 85, 55, true, measure);
+  const d: Design = {
+    ...base, textScale: 1.2,
+    clips: [{ art: "etoile", side: 1, x: 0.5, y: 0.5, s: 0.2, color: "accent" }],
+    qr: { text: "https://neamprint.ga", side: 0, pos: "bd" },
+  };
+  const [recto, verso] = resolveDesign(tpl, d, 85, 55, true, measure);
+  assert.equal(verso.items.length, plain[1].items.length + 1, "clipart au verso");
+  assert.equal(recto.items.length, plain[0].items.length + 1, "QR au recto");
+  const qr = recto.items.at(-1)!;
+  assert.ok(qr.t === "group" && qr.prims.length > 50);
+  const size = (s: typeof recto) => s.items.find((i) => i.t === "text")!;
+  const a = size(plain[0]), b = size(recto);
+  assert.ok(a.t === "text" && b.t === "text" && b.size > a.size);
+});

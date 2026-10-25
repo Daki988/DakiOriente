@@ -113,7 +113,13 @@ export type Design = {
   logoPos?: LogoPos; slogan?: string; sloganPos?: "haut" | "bas"; bgImage?: Logo; bgVeil?: number;
   /** Textes propres au modèle et photos remplacées par le client, par identifiant « modèle:élément ». */
   texts?: Record<string, string>; photos?: Record<string, Logo>;
+  /** Taille des textes (1 = celle du modèle), cliparts posés librement, code QR. */
+  textScale?: number; clips?: Clip[]; qr?: Qr;
 };
+/** Clipart posé : `side` = face (0 recto), centre (x, y) et taille `s` relatifs à la zone finie. */
+export type Clip = { art: string; side: number; x: number; y: number; s: number; color: Color };
+/** Code QR : contenu encodé, face et coin choisis. */
+export type Qr = { text: string; side: number; pos: Exclude<LogoPos, "modele">; color?: Color };
 export type LogoPos = "modele" | "hg" | "hd" | "bg" | "bd" | "centre";
 
 /** Gabarit d'impression : 3 mm de fond perdu autour de la zone finie. */
