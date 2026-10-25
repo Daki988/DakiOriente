@@ -41,9 +41,6 @@ export const PHOTOS: MockupPhoto[] = [
   photo("tshirt", "tshirt-cintre", "T-shirt blanc imprimé sur un cintre", 0.565, [
     { quad: [[564, 324], [877, 324], [877, 878], [564, 878]] },
   ], "Avtar Singh", "https://unsplash.com/photos/a-plain-white-t-shirt-hangs-on-a-wooden-hanger-8ACmRoleM24"),
-  photo("box", "boite-blanche", "Boîte d’expédition imprimée, vue de dessus", 1.7, [
-    { quad: [[240, 252], [1210, 252], [1210, 824], [240, 824]], shade: 0.8 },
-  ], "mockupbee", "https://unsplash.com/photos/a-white-rectangular-object-hDn3V_DPka4"),
   photo("bottle", "flacon", "Étiquette collée sur un flacon", 1, [
     { quad: [[548, 442], [891, 442], [891, 786], [548, 786]], shade: 0.75 },
   ], "Suleman Serwar", "https://unsplash.com/photos/a-bottle-of-medicine-on-a-pink-background-tFTWq1R3ukQ"),
