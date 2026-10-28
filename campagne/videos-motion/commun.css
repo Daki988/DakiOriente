@@ -1,0 +1,8 @@
+@import url("../../print/catalogue/fonts/fonts.css");
+:root { --ink: #0f0f10; --ink-2: #1b1b1d; --paper: #faf8f3; --yellow: #f5b31b; --muted: #8a8a8e;
+  --sans: "Instrument Sans", Arial, sans-serif; --serif: "Instrument Serif", Georgia, serif; --mono: "IBM Plex Mono", monospace; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; }
+body { font-family: var(--sans); background: var(--ink); color: #fff; }
+.scene { position: absolute; inset: 0; opacity: 0; }
+em { font-family: var(--serif); font-style: italic; font-weight: 400; }

@@ -1,0 +1,70 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><link rel="stylesheet" href="commun.css"><style>
+body { background: radial-gradient(60% 40% at 25% 70%, #f2e3c4 0%, transparent 70%), radial-gradient(60% 40% at 80% 25%, #efe7d8 0%, transparent 70%), #f8f5ee; color:#1b1b1d; }
+#titre { position:absolute; left:60px; right:60px; top:150px; text-align:center; font-weight:700; font-size:66px; letter-spacing:-.02em; line-height:1.08; text-transform:uppercase; }
+#titre mark { background:#0f0f10; color:#f5b31b; padding:0 14px; border-radius:6px; }
+#fenetre { position:absolute; left:110px; top:420px; width:860px; height:640px; border-radius:22px; background:#fff; box-shadow:0 30px 80px rgba(80,60,20,.18); overflow:hidden; transform-origin:center; }
+.barre { height:44px; background:#f1eee8; display:flex; align-items:center; gap:10px; padding:0 18px; }
+.barre i { width:13px; height:13px; border-radius:50%; background:#d8d3c8; }
+.barre span { margin-left:20px; flex:1; height:22px; border-radius:11px; background:#e6e1d6; font: 500 14px var(--mono); color:#8a857a; padding-left:14px; line-height:22px; }
+.nav { display:flex; align-items:center; justify-content:space-between; padding:22px 34px; font-size:18px; color:#6b655a; }
+.nav b { font: 600 22px var(--serif); letter-spacing:.12em; color:#3b2f22; }
+.nav div { display:flex; gap:26px; }
+.hero { display:grid; grid-template-columns: 1fr 330px; gap:26px; padding:10px 34px; }
+.hero h1 { font: 400 52px/1.05 var(--serif); color:#2b2118; margin-top:40px; }
+.hero p { margin-top:16px; font-size:17px; color:#8a8070; line-height:1.4; }
+.photo { height:300px; border-radius:16px; background: radial-gradient(60% 50% at 50% 60%, #6b4a2f 0 38%, transparent 39%), linear-gradient(160deg,#e9dcc6,#cdb796); }
+.prods { display:flex; gap:18px; padding:20px 34px; }
+.prods div { flex:1; height:120px; border-radius:12px; background: linear-gradient(160deg,#efe4d1,#d6c2a2); }
+#cta { position:absolute; left:34px; top:330px; display:flex; gap:14px; opacity:0; }
+#cta span { background:#0f0f10; color:#fff; border-radius:40px; padding:16px 28px; font-weight:600; font-size:20px; }
+#cta span.wa { background:#25d366; }
+#bulle { position:absolute; left:640px; top:110px; background:#0f0f10; color:#f5b31b; font: 600 18px var(--mono); letter-spacing:.08em; padding:8px 14px; border-radius:8px; opacity:0; }
+#curseur { position:absolute; width:34px; height:34px; z-index:5; }
+#mascotte { position:absolute; width:300px; height:540px; left:40px; top:990px; z-index:4; }
+#mascotte img { position:absolute; width:100%; left:0; bottom:0; opacity:0; }
+#legende { position:absolute; left:0; right:0; top:1560px; text-align:center; z-index:6; }
+#legende span { display:inline-block; background:#2b211a; color:#fff; font-weight:600; font-size:42px; padding:18px 34px; border-radius:22px; max-width:900px; }
+#logo { position:absolute; left:480px; top:820px; width:470px; opacity:0; }
+#sous { position:absolute; left:480px; width:470px; top:980px; text-align:center; font: 500 24px var(--mono); letter-spacing:.1em; color:#6b655a; opacity:0; }
+</style></head><body>
+<div id="titre"></div>
+<div id="fenetre"><div class="barre"><i></i><i></i><i></i><span>maison-okoume.ga</span></div>
+  <div class="nav"><b>MAISON OKOUMÉ</b><div><span>Collection</span><span>Atelier</span><span>Histoire</span></div></div>
+  <div class="hero"><div><h1>L’art du bois, façonné à la main.</h1><p>Mobilier et objets en okoumé, fabriqués à Libreville.</p></div><div class="photo"></div></div>
+  <div class="prods"><div></div><div></div><div></div><div></div></div>
+  <div id="cta"><span>Demander un devis</span><span class="wa">WhatsApp</span></div>
+  <div id="bulle">CONTACT INTROUVABLE</div>
+</div>
+<svg id="curseur" viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z" fill="#0f0f10" stroke="#fff" stroke-width="1.5"/></svg>
+<div id="mascotte"><img src="mascotte/pose1.png"><img src="mascotte/pose2.png"><img src="mascotte/pose3.png"><img src="mascotte/pose4.png"></div>
+<img id="logo" src="../../assets/logo-light.png" alt=""><p id="sous">DIAGNOSTIC GRATUIT · LIEN EN BIO</p>
+<div id="legende"><span id="leg"></span></div>
+<script>
+const $ = id => document.getElementById(id), cl = (x, a, b) => Math.max(a, Math.min(b, x)), e = x => 1 - Math.pow(1 - cl(x, 0, 1), 3);
+const L = [[.6,'Il est magnifique, ce site !'],[2.6,'Attends…'],[4.2,'Comment je contacte cette entreprise ?'],[7.4,'Je ne trouve pas… je pars.'],[9.2,'Comme vos clients.'],[10.8,'Ah !'],[11.8,'Il manque un bouton bien visible !'],[14.6,'Maintenant, c’est évident.'],[17.2,'Un site clair donne envie d’agir.']];
+const T = [[0,'Votre site <mark>est beau.</mark>'],[2.6,'Mais vos clients <mark>repartent.</mark>'],[10.8,'Il suffit <mark>d’un détail.</mark>'],[17.2,'Votre site est-il vraiment <mark>efficace ?</mark>']];
+const P = [[0,0],[2.6,1],[10.8,2],[14.6,3]];
+const pick = (arr, t) => arr.filter(x => t >= x[0]).pop();
+const path = (pts, t) => { for (let i = 0; i < pts.length - 1; i++) if (t <= pts[i + 1][0]) { const k = (1 - Math.cos(cl((t - pts[i][0]) / (pts[i + 1][0] - pts[i][0]), 0, 1) * Math.PI)) / 2; return [pts[i][1] + (pts[i + 1][1] - pts[i][1]) * k, pts[i][2] + (pts[i + 1][2] - pts[i][2]) * k]; } return pts[pts.length - 1].slice(1); };
+window.seek = t => {
+  const l = pick(L, t); $('leg').textContent = l ? l[1] : ''; $('legende').style.opacity = l ? cl((t - l[0]) / .2, 0, 1) : 0;
+  const ti = pick(T, t); $('titre').innerHTML = ti[1]; $('titre').style.opacity = cl((t - ti[0]) / .3, 0, 1); $('titre').style.transform = `translateY(${(1 - e((t - ti[0]) / .4)) * 20}px)`;
+  const p = pick(P, t)[1]; document.querySelectorAll('#mascotte img').forEach((im, i) => im.style.opacity = i === p ? 1 : 0);
+  const bob = Math.sin(t * 3) * 10, M = $('mascotte'), F = $('fenetre');
+  // fenêtre : entre, tremble quand le client part, disparaît, revient avec les boutons
+  let fo = e(t / .6), fs = 1, fx = 0;
+  if (t > 7.6 && t < 8.6) fx = Math.sin(t * 60) * 10 * (1 - (t - 7.6));
+  if (t > 8.6 && t < 10.6) fo = Math.max(.15, 1 - e((t - 8.6) / .6));
+  if (t >= 10.6) fo = e((t - 10.6) / .5);
+  if (t > 17) { fo = 1 - e((t - 17) / .5); fs = 1 - .15 * e((t - 17) / .5); }
+  F.style.opacity = fo; F.style.transform = `translateX(${fx}px) scale(${fs})`;
+  M.style.transform = `translateY(${bob}px)` + (t > 17 ? ` translate(${e((t - 17) / .6) * 60}px, ${-e((t - 17) / .6) * 380}px) scale(${1 + .25 * e((t - 17) / .6)})` : '');
+  M.style.opacity = e(t / .5);
+  $('bulle').style.opacity = t > 5.2 && t < 8.6 ? 1 : 0;
+  $('cta').style.opacity = e((t - 12.2) / .4); $('cta').style.transform = `scale(${.7 + .3 * e((t - 12.2) / .5)})`;
+  const c = path([[0, 900, 1300], [2.8, 700, 520], [4.4, 860, 500], [5.4, 980, 530], [6.6, 640, 760], [7.4, 760, 980], [8.4, 1100, 1400], [12.4, 1100, 1400], [13.6, 240, 790], [14.6, 250, 795]], t);
+  const C = $('curseur'); C.style.left = c[0] + 'px'; C.style.top = c[1] + 'px'; C.style.opacity = t < 17 ? 1 : 0;
+  C.style.transform = t > 14.2 && t < 14.6 ? 'scale(.8)' : 'none';
+  $('logo').style.opacity = e((t - 17.6) / .5); $('sous').style.opacity = e((t - 18.2) / .5);
+};
+</script></body></html>

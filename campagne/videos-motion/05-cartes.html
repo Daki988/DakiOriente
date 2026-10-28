@@ -1,0 +1,21 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><link rel="stylesheet" href="commun.css"><style>
+#fond { position:absolute; inset:0; }
+#txt { position:absolute; left:40px; right:40px; top:50%; transform:translateY(-50%); text-align:center; }
+#txt b { display:block; font-weight:700; font-size:92px; letter-spacing:-.03em; line-height:1; }
+#txt em { display:block; font-size:96px; line-height:1.05; }
+#logo { position:absolute; left:50%; top:50%; width:640px; transform:translate(-50%,-50%); opacity:0; }
+</style></head><body><div id="fond"></div><div id="txt"></div><img id="logo" src="../../assets/logo-light.png" alt="">
+<script>
+// [début, haut, bas (italique), fond, couleur haut, couleur bas]
+const C = [[0,'Réseaux','sociaux','#fff','#0f0f10','#9a6400'],[.8,'Site','web','#f5b31b','#0f0f10','#0f0f10'],[1.6,'Publicité','en ligne','#fff','#0f0f10','#9a6400'],
+ [2.4,'Référencement','Google','#0f0f10','#f5b31b','#fff'],[3.2,'Vidéo','&amp; design','#fff','#0f0f10','#9a6400'],[4.0,'IA','&amp; WhatsApp','#f5b31b','#0f0f10','#0f0f10'],
+ [4.8,'On est là','pour vous.','#0f0f10','#fff','#f5b31b'],[6.0,'','','#000'],[6.25,'LOGO','','#fff']];
+window.seek = t => {
+  const c = C.filter(x => t >= x[0]).pop(), u = t - c[0], T = document.getElementById('txt'), L = document.getElementById('logo');
+  document.getElementById('fond').style.background = c[3];
+  if (c[1] === 'LOGO') { T.innerHTML = ''; const k = Math.min(1, u / .3); L.style.opacity = k; L.style.transform = `translate(-50%,-50%) scale(${1.15 - .15 * k})`; return; }
+  L.style.opacity = 0;
+  T.innerHTML = c[1] ? `<b style="color:${c[4]}">${c[1]}</b><em style="color:${c[5]}">${c[2]}</em>` : '';
+  const k = Math.min(1, u / .18); T.style.opacity = k; T.style.filter = `blur(${(1 - k) * 12}px)`; T.style.transform = `translateY(-50%) scale(${1.12 - .12 * k})`;
+};
+</script></body></html>
