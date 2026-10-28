@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><title>NEAM — Choisissez un emoji</title>
+<link rel="stylesheet" href="../../print/catalogue/fonts/fonts.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #777; font-family: "Instrument Sans", Arial, sans-serif; }
+  .pano { position: relative; width: 5400px; height: 1350px; background: linear-gradient(#fffdfa, #fbf1e1); overflow: hidden; }
+  .pano svg { position: absolute; inset: 0; }
+  .pano path { fill: none; stroke-width: 30; stroke-linecap: round; }
+  .titre { position: absolute; left: 110px; top: 380px; width: 640px; font-weight: 700; font-size: 70px; line-height: 1.12; letter-spacing: -.02em; color: #2b2a2c; }
+  .titre em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; color: #9a6400; }
+  .sous { position: absolute; left: 110px; top: 640px; width: 560px; font-size: 32px; line-height: 1.45; color: #6b6870; }
+  .glisse { position: absolute; left: 110px; bottom: 120px; font: 500 22px "IBM Plex Mono", monospace; letter-spacing: .16em; text-transform: uppercase; color: #9a6400; }
+  .logo { position: absolute; left: 110px; top: 110px; width: 230px; }
+  .emoji { position: absolute; left: 820px; width: 170px; height: 170px; margin-top: -85px; display: grid; place-items: center; font: 140px/1 "Noto Color Emoji"; filter: drop-shadow(0 6px 8px rgba(0,0,0,.12)); }
+  .carte { position: absolute; left: 4630px; width: 690px; height: 210px; margin-top: -105px; background: #fff; border-radius: 34px; border: 6px solid var(--c);
+    box-shadow: 0 14px 34px rgba(60,40,10,.10); display: flex; align-items: center; gap: 26px; padding: 0 34px; }
+  .carte .ic { font: 84px/1 "Noto Color Emoji"; }
+  .carte h3 { font-size: 40px; font-weight: 700; letter-spacing: -.02em; color: #1f1e20; line-height: 1.1; }
+  .carte p { margin-top: 10px; font-size: 27px; line-height: 1.35; color: #5f5c63; }
+  .pill { position: absolute; right: 26px; top: -34px; background: #fff; border-radius: 40px; padding: 12px 26px 12px 22px; font-weight: 600; font-size: 26px; color: #2b2a2c;
+    box-shadow: 0 8px 22px rgba(60,40,10,.12); display: flex; align-items: center; gap: 12px; }
+  .pill i { width: 20px; height: 20px; border-radius: 50%; background: var(--c); }
+  .fin { width: 1080px; height: 1350px; background: linear-gradient(#fffdfa, #fbf1e1); position: relative; display: grid; place-items: center; text-align: center; padding: 0 110px; margin-top: 20px; }
+  .fin .bloc { display: grid; gap: 46px; justify-items: center; }
+  .fin h2 { font-size: 70px; line-height: 1.1; letter-spacing: -.02em; font-weight: 700; color: #2b2a2c; }
+  .fin h2 em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; color: #9a6400; }
+  .fin p { font-size: 34px; line-height: 1.45; color: #5f5c63; max-width: 800px; }
+  .fin .btn { background: #0f0f10; color: #fff; border-radius: 60px; padding: 30px 52px; font-weight: 600; font-size: 34px; }
+  .fin .btn b { color: #f5b31b; }
+  .fin .site { font: 500 26px "IBM Plex Mono", monospace; letter-spacing: .14em; color: #9a6400; }
+  .fin .logo2 { width: 300px; }
+  .lignes4 { display: flex; gap: 14px; }
+  .lignes4 span { width: 70px; height: 14px; border-radius: 10px; }
+</style></head><body>
+<div class="pano" id="pano">
+  <svg width="5400" height="1350" viewBox="0 0 5400 1350">{{PATHS}}</svg>
+  <img class="logo" src="../../assets/logo-light.png" alt="NEAM">
+  <h1 class="titre">Choisissez un emoji<br>et <em>suivez la ligne&#8239;!</em></h1>
+  <p class="sous">Elle vous mène à la prochaine étape digitale de votre entreprise.</p>
+  <div class="glisse">Glissez →</div>
+  {{EMOJIS}}
+  {{CARTES}}
+</div>
+<div class="fin" id="fin"><div class="bloc">
+  <div class="lignes4"><span style="background:#6f7782"></span><span style="background:#ef9a45"></span><span style="background:#5b8a2e"></span><span style="background:#2a9d8f"></span></div>
+  <h2>Alors, <em>où mène</em> votre ligne&#8239;?</h2>
+  <p>Dites-le en commentaire 👇 Et pour savoir vraiment par où commencer, faites votre diagnostic.</p>
+  <div class="btn">NEAM Digital Score : <b>gratuit</b></div>
+  <div class="site">WWW.NEAMINDUSTRY.COM</div>
+  <img class="logo2" src="../../assets/logo-light.png" alt="NEAM Softwares Industry">
+</div></div>
+</body></html>
