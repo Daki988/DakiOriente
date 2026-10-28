@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>NEAM — Carte découpée « téléphone »</title>
+<link rel="stylesheet" href="../catalogue/fonts/fonts.css">
+<style>
+/* Carte découpée 100 × 55 mm : un téléphone en paysage « emballé » par une étiquette. 6 cartes par A4 paysage. */
+@page { size: 297mm 210mm; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: "Instrument Sans", Arial, sans-serif; background: #fff; }
+.feuille { width: 297mm; height: 210mm; position: relative; }
+.feuille .note { position: absolute; left: 0; right: 0; bottom: 6mm; text-align: center; font: 500 7pt "IBM Plex Mono", monospace; letter-spacing: .08em; color: #8a8a8e; }
+.carte { position: absolute; width: 100mm; height: 55mm; }
+.art { position: absolute; inset: 0; clip-path: path(var(--decoupe)); }
+.trait { position: absolute; inset: 0; overflow: visible; }
+.trait path { fill: none; stroke: #9a9aa0; stroke-width: .2mm; stroke-dasharray: 1.2mm .8mm; }
+.apercu .trait { display: none; }
+
+/* Téléphone */
+.tel { position: absolute; left: 1mm; top: 6.5mm; width: 98mm; height: 42mm; border-radius: 6mm; background: linear-gradient(180deg,#5b5e64,#2a2c30 40%,#3c3f44); padding: .7mm; }
+.tel::after { content: ""; position: absolute; top: -.35mm; left: 14mm; width: 9mm; height: .6mm; border-radius: .3mm; background: #44474c; box-shadow: 12mm 0 0 #44474c, 62mm 0 0 #44474c; }
+.bord { position: absolute; inset: .7mm; border-radius: 5.3mm; background: #050506; padding: 1.5mm; }
+.ecran { position: relative; width: 100%; height: 100%; border-radius: 4mm; overflow: hidden; background: #fff url(ecran-site.png) left top / cover; }
+.ecran::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 32%, rgba(255,255,255,0) 70%, rgba(255,255,255,.12) 100%); }
+.ilot { position: absolute; left: 3mm; top: 50%; width: 2.6mm; height: 10mm; margin-top: -5mm; border-radius: 1.3mm; background: #000; z-index: 2; }
+
+/* Étiquette */
+.etiq { position: absolute; left: 20mm; top: 0; width: 60mm; height: 55mm; background: linear-gradient(90deg,#e9e7e2 0,#fbfaf7 2.2mm,#fff 8mm,#fff 52mm,#fbfaf7 57.8mm,#e9e7e2 100%);
+  box-shadow: -.6mm 0 1.2mm rgba(0,0,0,.35), .6mm 0 1.2mm rgba(0,0,0,.35); display: grid; grid-template-columns: 1fr 19mm; gap: 2.5mm; padding: 5.5mm 4.5mm 5mm 5mm; color: #121214; }
+.g { display: flex; flex-direction: column; justify-content: space-between; }
+.t1 { font-weight: 700; font-size: 10pt; line-height: 1; letter-spacing: -.01em; }
+.t2 { font-weight: 700; font-size: 15.5pt; line-height: .95; letter-spacing: -.03em; margin-top: .8mm; }
+.t2 b { background: linear-gradient(transparent 58%, #f5b31b 58%, #f5b31b 92%, transparent 92%); }
+.serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 9.5pt; line-height: 1.05; color: #3c3c40; }
+.lieu .serif { font-size: 8.6pt; }
+.lieu strong { display: block; font-size: 9.5pt; font-weight: 700; letter-spacing: -.01em; margin-top: .4mm; }
+.lieu small { display: block; font: 500 5.4pt "IBM Plex Mono", monospace; letter-spacing: .02em; color: #6b6b70; margin-top: .3mm; }
+.d { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; }
+.d .t1 { font-size: 9.5pt; }
+.d .serif { font-size: 8.4pt; margin: .5mm 0 2mm; }
+.d img.qr { width: 19mm; height: 19mm; }
+.d .logo { width: 17mm; margin-top: auto; }
+</style></head><body>
+<template id="modele">
+  <div class="art">
+    <div class="tel"><div class="bord"><div class="ecran"></div></div><div class="ilot"></div></div>
+    <div class="etiq">
+      <div class="g">
+        <div>
+          <p class="t1">Votre</p>
+          <p class="t2">diagnostic<br>digital <b>gratuit</b></p>
+          <p class="serif" style="margin-top:1.2mm">le NEAM Digital Score<br>de votre entreprise</p>
+        </div>
+        <div class="lieu">
+          <p class="serif">Rendez-vous sur</p>
+          <strong>neamindustry.com</strong>
+          <small>Louis, Libreville</small><small>WhatsApp +241 77453167</small>
+        </div>
+      </div>
+      <div class="d">
+        <p class="t1">Scannez</p>
+        <p class="serif">et faites le test</p>
+        <img class="qr" src="qr-score.svg" alt="QR code vers le NEAM Digital Score">
+        <img class="logo" src="../../assets/logo-light.png" alt="NEAM">
+      </div>
+    </div>
+  </div>
+  <svg class="trait" viewBox="0 0 100 55" preserveAspectRatio="none"><path d="M20 0H80V6.5H93A6 6 0 0 1 99 12.5V42.5A6 6 0 0 1 93 48.5H80V55H20V48.5H7A6 6 0 0 1 1 42.5V12.5A6 6 0 0 1 7 6.5H20Z" vector-effect="non-scaling-stroke"/></svg>
+</template>
+<section class="feuille" id="feuille"><p class="note">Découper sur les pointillés · cartes 100 × 55 mm · papier 300 g conseillé</p></section>
+<div style="height:10mm"></div>
+<div class="carte apercu" id="apercu" style="position:relative;margin:10mm"></div>
+<script>
+  const mm = 96 / 25.4, m = document.getElementById('modele');
+  const d = `M${20*mm} 0H${80*mm}V${6.5*mm}H${93*mm}A${6*mm} ${6*mm} 0 0 1 ${99*mm} ${12.5*mm}V${42.5*mm}A${6*mm} ${6*mm} 0 0 1 ${93*mm} ${48.5*mm}H${80*mm}V${55*mm}H${20*mm}V${48.5*mm}H${7*mm}A${6*mm} ${6*mm} 0 0 1 ${1*mm} ${42.5*mm}V${12.5*mm}A${6*mm} ${6*mm} 0 0 1 ${7*mm} ${6.5*mm}H${20*mm}Z`;
+  document.documentElement.style.setProperty('--decoupe', `"${d}"`);
+  const f = document.getElementById('feuille');
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 2; c++) {
+    const el = document.createElement('div'); el.className = 'carte';
+    el.style.left = (43.5 + c * 110) + 'mm'; el.style.top = (12 + r * 61) + 'mm';
+    el.appendChild(m.content.cloneNode(true)); f.appendChild(el);
+  }
+  document.getElementById('apercu').appendChild(m.content.cloneNode(true));
+</script>
+</body></html>
