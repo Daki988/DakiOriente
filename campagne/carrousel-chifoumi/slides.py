@@ -5,7 +5,7 @@ PAIRES = [
     ('Répondre aux clients <b>à minuit</b>', 'Une IA qui répond sur WhatsApp avec <b>NEAM</b>'),
     ('Avoir un site <b>qui ne vend rien</b>', 'Encaisser en Mobile Money avec <b>NEAM</b>'),
     ('<b>Booster</b> une pub au hasard', 'Cibler les bons clients avec <b>NEAM</b>'),
-    ('Continuer à <b>tout faire</b> seul', '<b>Commenter «&#8239;SCORE&#8239;»</b> pour un diagnostic gratuit'),
+    ('Continuer à <b>tout faire</b> seul', 'Faire son diagnostic gratuit avec <b>NEAM</b> : <b>lien en bio</b>'),
 ]
 bande = ''.join(('<b>@neam.industry</b>' if i % 2 else '@neam.industry') + ' ' for i in range(8))
 slides = ''.join(f'''<section class="slide"><div class="bande">{bande}</div>

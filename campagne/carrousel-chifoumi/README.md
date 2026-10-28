@@ -9,6 +9,6 @@ Régénérer : `python3 slides.py && node render.js` (textes dans `slides.py`).
 Pierre, feuille, ciseaux… mais en version business ✊✌️
 Lequel de ces combats vous parle le plus ? 👇
 
-Commentez « SCORE » et on vous envoie le lien de votre diagnostic digital gratuit (NEAM Digital Score).
+Faites votre diagnostic digital gratuit, le NEAM Digital Score : lien en bio 🔗
 
 #Libreville #Gabon #PME #TPE #MarketingDigital #NEAM
