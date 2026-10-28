@@ -1,0 +1,36 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><link rel="stylesheet" href="../videos-motion/commun.css"><style>
+body { background: radial-gradient(80% 55% at 50% 45%, #1c1c1f, #09090a); }
+.bande { position:absolute; width:1600px; height:150px; background:#f5b31b; transform:rotate(-38deg); }
+.b1 { left:-900px; top:40px; } .b2 { right:-900px; bottom:40px; }
+.filet { position:absolute; width:1700px; height:4px; background:#f5b31b; transform:rotate(-38deg); opacity:.8; }
+.f1 { left:-860px; top:290px; } .f2 { right:-860px; bottom:290px; }
+#logo { position:absolute; left:50%; top:470px; width:760px; transform:translateX(-50%); }
+#sur { position:absolute; left:0; right:0; top:820px; text-align:center; font: italic 400 70px var(--serif); color:#f5b31b; }
+#services { position:absolute; left:90px; right:90px; top:960px; display:flex; flex-wrap:wrap; justify-content:center; gap:16px; }
+#services span { border:2px solid rgba(255,255,255,.25); border-radius:40px; padding:12px 26px; font-weight:600; font-size:30px; color:#fff; }
+#cta { position:absolute; left:50%; top:1240px; transform:translateX(-50%); background:#f5b31b; color:#0f0f10; border-radius:70px; padding:30px 54px; font-weight:700; font-size:40px; white-space:nowrap; }
+#contacts { position:absolute; left:0; right:0; top:1420px; text-align:center; color:#fff; font-size:38px; line-height:1.6; }
+#contacts b { color:#f5b31b; font-weight:600; }
+#contacts small { display:block; font: 500 26px var(--mono); letter-spacing:.1em; color:rgba(255,255,255,.55); margin-top:6px; }
+.a { opacity:0; }
+</style></head><body>
+<div class="bande b1"></div><div class="bande b2"></div><div class="filet f1"></div><div class="filet f2"></div>
+<img id="logo" class="a" src="../../assets/logo-dark.png" alt="NEAM">
+<p id="sur" class="a">Votre croissance, en digital.</p>
+<div id="services" class="a"><span>Site web</span><span>Réseaux sociaux</span><span>Fiche Google</span><span>Publicité</span><span>Vidéos</span><span>IA &amp; WhatsApp</span></div>
+<div id="cta" class="a">Diagnostic digital gratuit →</div>
+<div id="contacts" class="a"><b>www.neamindustry.com</b><br>WhatsApp <b>+241 77453167</b><small>LOUIS · LIBREVILLE · GABON</small></div>
+<script>
+const $ = id => document.getElementById(id), cl = (x, a, b) => Math.max(a, Math.min(b, x)), e = x => 1 - Math.pow(1 - cl(x, 0, 1), 3);
+window.seek = t => {
+  const k = e(t / .6);
+  document.querySelector('.b1').style.transform = `translate(${-500 * (1 - k)}px, ${-400 * (1 - k)}px) rotate(-38deg)`;
+  document.querySelector('.b2').style.transform = `translate(${500 * (1 - k)}px, ${400 * (1 - k)}px) rotate(-38deg)`;
+  document.querySelectorAll('.filet').forEach(f => f.style.opacity = .8 * e((t - .3) / .5));
+  [['logo', .3], ['sur', .8], ['services', 1.2], ['cta', 1.7], ['contacts', 2.1]].forEach(([id, d]) => {
+    const q = e((t - d) / .5); $(id).style.opacity = q;
+    const base = id === 'logo' || id === 'cta' ? 'translateX(-50%) ' : '';
+    $(id).style.transform = base + `translateY(${(1 - q) * 30}px)` + (id === 'cta' ? ` scale(${.9 + .1 * q})` : '');
+  });
+};
+</script></body></html>
