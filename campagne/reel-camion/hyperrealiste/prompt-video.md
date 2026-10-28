@@ -13,3 +13,8 @@ Négatif (si le modèle l'accepte) : CGI, cartoon, distorted logo, extra text, b
 
 - `NEAM_reel_camion_hyperrealiste.mp4` : version montée, 1080 × 1920, 7,75 s. À 6,3 s, le modèle sautait d'un coup vers l'image de fin : ce saut est remplacé par une transition glissée de 0,25 s.
 - `NEAM_reel_camion_hyperrealiste_brut.mp4` : sortie brute du modèle (768 × 1344, 8 s).
+
+## Essai 2 (Seedance 2, 1080p, 720 crédits vidIQ)
+
+- `NEAM_reel_camion_HD.mp4` : 1080 × 1920, 8 s, plan continu sans coupure, image de départ `image-debut-v2.png` (sans tableau de bord, ciel saturé, comme l'original).
+- Le logo sur le flanc du camion noir est réinterprété par le modèle (lettres empilées) et quelques petits textes illisibles apparaissent sur le châssis ; le logo des portes arrière, en fin de vidéo, est correct.
