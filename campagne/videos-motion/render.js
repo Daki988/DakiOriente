@@ -23,7 +23,7 @@ const FPS = 30, N = Math.round(parseFloat(dur) * FPS);
   await b.close();
   const args = ['-v', 'error', '-y', '-framerate', String(FPS), '-i', `${tmp}/f%05d.jpg`];
   if (audio) args.push('-i', audio, '-shortest', '-c:a', 'aac', '-b:a', '160k');
-  args.push('-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', out);
+  args.push('-c:v', 'libx264', '-preset', 'slow', '-crf', '15', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', out);
   execFileSync('ffmpeg', args);
   fs.rmSync(tmp, { recursive: true });
   console.log('ok', out, N, 'images');

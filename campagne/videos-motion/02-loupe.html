@@ -1,105 +1,137 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8"><link rel="stylesheet" href="commun.css"><style>
-body { background: #111113; }
-.creme { position:absolute; inset:0; background: radial-gradient(90% 60% at 50% 40%, #f4f0e6, #e6e0d2); }
-.noir { position:absolute; inset:0; background: radial-gradient(90% 60% at 50% 40%, #1d1d20, #0b0b0c); }
-#balle { position:absolute; width:56px; height:56px; margin:-28px; border-radius:50%; background: radial-gradient(circle at 35% 30%, #ffe08a, #f5b31b 45%, #b97c00); box-shadow: 0 0 40px rgba(245,179,27,.7); }
-#fil { position:absolute; width:3px; background:#2a2a2c; transform-origin: top center; }
-.titre { position:absolute; left:70px; right:70px; top:760px; color:#1b1b1d; }
-.titre b { display:block; font-weight:700; font-size:104px; letter-spacing:-.04em; line-height:1; }
-.titre em { display:block; font-size:120px; color:#9a6400; line-height:1.1; }
-.titre .l { display:inline-block; }
-.rebond p { position:absolute; font-weight:700; font-size:76px; letter-spacing:-.03em; color:#fff; opacity:0; }
-.marque { position:absolute; top:60px; left:60px; font: 500 22px var(--mono); letter-spacing:.14em; color:rgba(127,127,127,.6); }
-.loupe-t { position:absolute; left:80px; top:380px; font-weight:700; font-size:78px; letter-spacing:-.04em; color:#1b1b1d; }
-.code { position:absolute; left:80px; top:600px; width:920px; font: 400 31px/2 var(--mono); color:#9a978e; white-space:pre; }
+body { background:#ece6d8; }
+.creme { position:absolute; inset:0; background: radial-gradient(90% 60% at 50% 45%, #f6f2e8, #e4ddcc); }
+.noir { position:absolute; inset:0; background: radial-gradient(90% 60% at 50% 40%, #1e1e21, #0b0b0c); }
+.marque { position:absolute; top:70px; left:70px; font: 500 22px var(--mono); letter-spacing:.14em; color:rgba(127,127,127,.65); }
+.phrase { position:absolute; left:0; right:0; top:820px; text-align:center; color:#161618; }
+.phrase b { display:block; font-weight:700; font-size:100px; letter-spacing:-.045em; line-height:1; }
+.phrase em { display:block; font-size:112px; line-height:1.05; }
+#balle { position:absolute; width:60px; height:60px; margin:-30px; border-radius:50%; background: radial-gradient(circle at 35% 30%, #ffe7a3, #f5b31b 45%, #b47800); box-shadow: 0 0 46px rgba(245,179,27,.75); z-index:20; }
+#anneau { position:absolute; border-radius:50%; border:10px solid #f5b31b; box-shadow:0 0 40px rgba(245,179,27,.6); z-index:19; }
+svg#fil { position:absolute; inset:0; z-index:18; overflow:visible; }
+.ligne { position:absolute; font-weight:700; font-size:66px; letter-spacing:-.025em; color:#fff; }
+#signe1 { position:absolute; font: italic 400 84px var(--serif); color:#f5b31b; }
+.loupe-t { position:absolute; left:80px; top:380px; font-weight:700; font-size:80px; letter-spacing:-.04em; color:#161618; }
+.code { position:absolute; left:80px; top:600px; width:1700px; font: 400 31px/2 var(--mono); color:#9a978e; white-space:pre; }
 .code i { font-style:normal; color:#6d6a62; }
-#lentille { position:absolute; width:300px; height:300px; margin:-150px; border-radius:50%; overflow:hidden; border:10px solid #f5b31b; background:#f7f3ea; box-shadow: 0 20px 60px rgba(0,0,0,.25); }
-#lentille .code { left:0; top:0; width:1700px; color:#1b1b1d; font-size:54px; }
+#lentille { position:absolute; width:300px; height:300px; margin:-150px; border-radius:50%; overflow:hidden; border:10px solid #f5b31b; background:#f8f4ea; box-shadow: 0 20px 60px rgba(0,0,0,.25); }
+#lentille .code { left:0; top:0; color:#161618; font-size:54px; transform-origin:0 0; }
 #lentille .code i { color:#9a6400; font-weight:500; }
-#manche { position:absolute; width:26px; height:150px; border-radius:13px; background:#1b1b1d; transform-origin: top center; }
-#revele { position:absolute; inset:0; display:grid; place-items:center; text-align:center; font: italic 400 64px/1 var(--serif); color:#9a6400; opacity:0; background:#fffaf0; }
-#pilule { position:absolute; left:50%; top:900px; height:120px; border-radius:60px; background: linear-gradient(180deg,#ffc94a,#f5b31b); box-shadow:0 0 60px rgba(245,179,27,.45); transform:translateX(-50%); display:grid; place-items:center; color:#0f0f10; font-weight:700; font-size:40px; letter-spacing:.02em; white-space:nowrap; overflow:hidden; }
-#carte { position:absolute; left:110px; right:110px; top:640px; height:560px; border-radius:44px; background: linear-gradient(180deg,#ffc94a,#f5b31b); box-shadow:0 0 90px rgba(245,179,27,.45); color:#0f0f10; text-align:center; display:flex; flex-direction:column; justify-content:center; gap:22px; opacity:0; }
-#carte small { font-weight:600; font-size:34px; }
-#carte em { font-size:150px; line-height:.9; }
-#carte span { font-weight:600; font-size:38px; }
-#signe { position:absolute; left:0; right:0; top:1330px; text-align:center; opacity:0; }
+#manche { position:absolute; width:26px; height:150px; border-radius:13px; background:#161618; transform-origin: top center; }
+#revele { position:absolute; inset:0; display:grid; place-items:center; text-align:center; font: italic 400 64px/1 var(--serif); color:#9a6400; background:#fffaf0; }
+#pilule { position:absolute; left:50%; top:50%; border-radius:60px; background: linear-gradient(180deg,#ffc94a,#f5b31b); box-shadow:0 0 70px rgba(245,179,27,.5); transform:translate(-50%,-50%); overflow:hidden; color:#0f0f10; z-index:21; }
+#ptxt { position:absolute; inset:0; display:grid; place-items:center; font-weight:700; font-size:40px; letter-spacing:.01em; white-space:nowrap; }
+#carte { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:18px; text-align:center; }
+#carte small { font-weight:600; font-size:32px; }
+#carte em { font-size:160px; line-height:.85; }
+#carte span { font-weight:700; font-size:40px; }
+#signe { position:absolute; left:0; right:0; top:1330px; text-align:center; z-index:22; }
 #signe img { width:300px; }
 #signe p { margin-top:18px; font: 500 22px var(--mono); letter-spacing:.14em; color:rgba(255,255,255,.45); }
 </style></head><body>
-<section class="scene" id="s1"><div class="creme"></div>
-  <div class="titre"><b id="t1"></b><em id="t2"></em></div>
+<section class="scene" id="s1"><div class="creme"></div><div class="marque">@NEAM.INDUSTRY</div>
+  <div class="phrase" id="pA"></div><div class="phrase" id="pB"></div>
+  <div class="noir" id="coin"><div class="marque">@NEAM.INDUSTRY</div></div>
 </section>
 <section class="scene" id="s2"><div class="noir"></div><div class="marque">@NEAM.INDUSTRY</div>
-  <div class="rebond"><p id="r1" style="left:110px;top:520px">CHAQUE REBOND,</p><p id="r2" style="left:230px;top:640px">CHAQUE IMAGE,</p><p id="r3" style="left:350px;top:760px">CHAQUE DÉTAIL,</p></div>
+  <p class="ligne" id="l1" style="left:90px;top:790px">CHAQUE REBOND,</p>
+  <p class="ligne" id="l2" style="left:210px;top:890px">CHAQUE IMAGE,</p>
+  <p class="ligne" id="l3" style="left:330px;top:990px">CHAQUE DÉTAIL,</p>
+  <p id="signe1" style="left:120px;top:1080px">fait par NEAM.</p>
 </section>
 <section class="scene" id="s3"><div class="creme"></div><div class="marque">@NEAM.INDUSTRY</div>
   <div class="loupe-t">REGARDEZ DE PLUS PRÈS.</div>
   <div class="code" id="code"></div>
   <div id="manche"></div>
-  <div id="lentille"><div class="code" id="code2"></div><div id="revele">c’est du<br>code.</div></div>
+  <div id="lentille"><div class="code" id="code2"></div><div id="revele">tout est<br>code.</div></div>
 </section>
 <section class="scene" id="s4"><div class="noir"></div><div class="marque">@NEAM.INDUSTRY</div>
-  <div id="pilule"><span id="ptxt">VOTRE SITE PEUT AUSSI BOUGER.</span></div>
-  <div id="carte"><small>Sites web · Applis · Automatisation</small><em>NEAM</em><span>Lien en bio →</span></div>
   <div id="signe"><img src="../../assets/logo-dark.png" alt=""><p>FAIT EN CODE · LIBREVILLE</p></div>
 </section>
-<div id="fil"></div><div id="balle"></div>
+<div id="pilule"><div id="ptxt">VOTRE MARQUE PEUT FAIRE PAREIL.</div>
+  <div id="carte"><small>Sites · Reels · Publicité</small><em>NEAM</em><span>Lien en bio →</span></div></div>
+<svg id="fil" width="1080" height="1920"><line id="fl" stroke="#2a2a2c" stroke-width="3"/></svg>
+<div id="anneau"></div><div id="balle"></div>
 <script>
 const CODE = `<i>const</i> balle = ressort({ de: 0, vers: 1 });
+<i>pendule</i>(balle, { longueur: 1800, amplitude: 21 });
+<i>effacer</i>(phrase, { bord: fil, sens: <i>"droite"</i> });
 <i>rebond</i>(balle, { hauteur: 1.25, amorti: 0.6 });
-<i>scene</i>.ajouter(titre, { flou: 20, durée: 0.6 });
-<i>pour</i> (const mot <i>of</i> [« rebond », « image »]) {
-  apparaitre(mot, { décalage: 0.15 });
+<i>pour</i> (const ligne <i>of</i> lignes) {
+  apparaitre(ligne, { au: <i>"rebond"</i> });
 }
-<i>loupe</i>.suivre(chemin, { zoom: 1.8 });
-<i>const</i> client = visiteur.contacter(<i>"WhatsApp"</i>);
-<i>site</i>.vitesse = <i>"rapide"</i>;
+<i>loupe</i>.suivre(chemin, { zoom: 1.74 });
 <i>bouton</i>.texte = <i>"Demander un devis"</i>;
+<i>client</i>.contacter(<i>"WhatsApp"</i>);
 exporter(<i>"reel.mp4"</i>, { i: 30, format: <i>"9:16"</i> });`;
-document.getElementById('code').innerHTML = CODE; document.getElementById('code2').innerHTML = CODE;
 const $ = id => document.getElementById(id);
-const cl = (x, a, b) => Math.max(a, Math.min(b, x));
-const e = x => 1 - Math.pow(1 - cl(x, 0, 1), 3);
-const show = (id, on) => $(id).style.opacity = on ? 1 : 0;
-const T1 = 'CETTE VIDÉO ?', T2 = 'Écrite en code.';
+$('code').innerHTML = CODE; $('code2').innerHTML = CODE;
+const cl = (x, a, b) => Math.max(a, Math.min(b, x)), e = x => 1 - Math.pow(1 - cl(x, 0, 1), 3), ss = x => { x = cl(x, 0, 1); return x * x * (3 - 2 * x); };
+const PH = ['', '<b>VOICI COMMENT</b><em style="color:#9a6400">on fait nos reels</em>', '<b>QUI ATTIRENT</b><em style="color:#13a89a">des clients.</em>',
+  '<b>TOUT COMMENCE</b><em style="color:#9a6400">par le code.</em>', '<b>CHAQUE LIGNE</b><em style="color:#13a89a">compte.</em>'];
+const PX = 540, PY = -900, LEN = 1800, A = 21 * Math.PI / 180, PASS = 1.4;
+// côté balayé par le fil (polygone de l'écran du côté déjà passé)
+function cote(bx, by, versDroite) {
+  const k0 = (0 - PY) / (by - PY), k1 = (1920 - PY) / (by - PY);
+  const x0 = PX + (bx - PX) * k0, x1 = PX + (bx - PX) * k1;
+  return versDroite ? `polygon(-10px 0, ${x0}px 0, ${x1}px 1920px, -10px 1920px)` : `polygon(${x0}px 0, 1090px 0, 1090px 1920px, ${x1}px 1920px)`;
+}
+function balle(x, y, o = 1, s = 1) { const b = $('balle'); b.style.left = x + 'px'; b.style.top = y + 'px'; b.style.opacity = o; b.style.transform = `scale(${s})`; }
 window.seek = t => {
-  ['s1','s2','s3','s4'].forEach(s => show(s, false));
-  const b = $('balle'), f = $('fil'); f.style.height = '0px'; b.style.opacity = 1;
-  if (t < 4.2) {               // 1. balle au bout d'un fil qui balaie le titre
-    show('s1', true);
-    const ang = Math.sin(t * 2.2) * 38 * Math.exp(-t * .15), L = 900;
-    const x = 540 + Math.sin(ang * Math.PI / 180) * L, y = -40 + Math.cos(ang * Math.PI / 180) * L;
-    f.style.left = '540px'; f.style.top = '-40px'; f.style.height = L + 'px'; f.style.transform = `rotate(${-ang}deg)`;
-    b.style.left = x + 'px'; b.style.top = y + 'px';
-    const n1 = Math.floor(cl((t - .3) / 1.2, 0, 1) * T1.length), n2 = Math.floor(cl((t - 1.4) / 1.2, 0, 1) * T2.length);
-    $('t1').textContent = T1.slice(0, n1); $('t2').textContent = T2.slice(0, n2);
-    if (t > 3.7) { const k = e((t - 3.7) / .5); b.style.top = y + k * 1200 + 'px'; f.style.opacity = 1 - k; } else f.style.opacity = 1;
-  } else if (t < 9.2) {        // 2. rebonds, un mot par rebond
-    show('s2', true); const u = t - 4.2;
-    const P = 1.15, ph = (u % P) / P, n = Math.floor(u / P);
-    const x = 140 + u * 150, y = 1250 - Math.sin(ph * Math.PI) * (520 - n * 60);
-    b.style.left = x + 'px'; b.style.top = y + 'px';
-    ['r1','r2','r3'].forEach((id, i) => { const k = e((u - .55 - i * P) / .3); $(id).style.opacity = k; $(id).style.transform = `translateY(${(1 - k) * 30}px)`; });
-    if (u > 4.4) b.style.opacity = 1 - (u - 4.4) / .6;
-  } else if (t < 15.2) {       // 3. loupe sur le code
-    show('s3', true); b.style.opacity = 0; const u = t - 9.2;
-    const pts = [[300, 700], [720, 840], [400, 980], [760, 1120], [540, 930]];
-    const seg = cl(u / 1.1, 0, pts.length - 1), i = Math.min(Math.floor(seg), pts.length - 2), k = (1 - Math.cos((seg - i) * Math.PI)) / 2;
-    const x = pts[i][0] + (pts[i + 1][0] - pts[i][0]) * k, y = pts[i][1] + (pts[i + 1][1] - pts[i][1]) * k;
-    const z = u > 4.4 ? 1 + e((u - 4.4) / .6) * .7 : 1;
+  ['s1','s2','s3','s4'].forEach(s => $(s).style.opacity = 0);
+  $('fl').style.opacity = 0; $('anneau').style.opacity = 0; $('pilule').style.opacity = 0; balle(-200, -200, 0);
+  if (t < 7.0) {                                   // 1. le pendule efface et réécrit
+    $('s1').style.opacity = 1;
+    const n = Math.min(4, Math.floor(t / PASS)), u = (t - n * PASS) / PASS;
+    const th = -A * Math.cos(Math.PI * (n + u)), droite = n % 2 === 0;
+    const bx = PX + Math.sin(th) * LEN, by = PY + Math.cos(th) * LEN;
+    const f = $('fl'); f.style.opacity = 1; f.setAttribute('x1', PX); f.setAttribute('y1', PY); f.setAttribute('x2', bx); f.setAttribute('y2', by);
+    balle(bx, by);
+    const clip = cote(bx, by, droite), inv = cote(bx, by, !droite);
+    if (n < 4) { $('pA').innerHTML = PH[n]; $('pB').innerHTML = PH[n + 1]; $('pB').style.clipPath = clip; $('pA').style.clipPath = inv; $('coin').style.clipPath = 'polygon(0 0,0 0,0 0)'; }
+    else { $('pA').innerHTML = PH[4]; $('pB').innerHTML = ''; $('pA').style.clipPath = 'none'; $('coin').style.clipPath = clip; }
+  } else if (t < 10.6) {                           // 2. rebonds : chaque contact révèle une ligne
+    $('s2').style.opacity = 1; const u = t - 7.0;
+    const P = [[-.4, 980, 200], [.6, 300, 770], [1.25, 520, 870], [1.9, 700, 970], [2.55, 560, 1060], [3.6, 560, 1060]];
+    let x = 560, y = 1060;
+    for (let i = 0; i < P.length - 1; i++) if (u >= P[i][0] && u < P[i + 1][0]) {
+      const k = (u - P[i][0]) / (P[i + 1][0] - P[i][0]); x = P[i][1] + (P[i + 1][1] - P[i][1]) * k;
+      const h = i === 0 ? 0 : 230; y = P[i][2] + (P[i + 1][2] - P[i][2]) * k - Math.sin(k * Math.PI) * h;
+      if (i === 0) y = P[0][2] + (P[1][2] - P[0][2]) * k * k;
+    }
+    balle(x, y);
+    [['l1', .6], ['l2', 1.25], ['l3', 1.9], ['signe1', 2.55]].forEach(([id, tt]) => { const k = e((u - tt) / .25); $(id).style.opacity = k; $(id).style.transform = `translateY(${(1 - k) * 18}px)`; $(id).style.filter = `blur(${(1 - k) * 8}px)`; });
+    if (u > 3.0) { const k = e((u - 3.0) / .4); ['l1','l2','l3','signe1'].forEach(id => { $(id).style.opacity = 1 - k; $(id).style.filter = `blur(${k * 14}px)`; }); balle(560 + (540 - 560) * k, 1060 + (760 - 1060) * k); }
+  } else if (t < 11.6) {                           // 3. la balle devient un anneau qui ouvre la scène suivante
+    const u = t - 10.6; $('s2').style.opacity = 1; ['l1','l2','l3','signe1'].forEach(id => $(id).style.opacity = 0);
+    const r = 30 + e(u / .35) * 50, R = u < .45 ? 0 : Math.pow(cl((u - .45) / .55, 0, 1), 2) * 1500;
+    const a = $('anneau'); a.style.opacity = 1; a.style.width = a.style.height = 2 * (r + R) + 'px'; a.style.left = 540 - r - R + 'px'; a.style.top = 760 - r - R + 'px';
+    balle(540, 760, 1 - e(u / .3));
+    $('s3').style.opacity = 1; $('s3').style.clipPath = `circle(${R}px at 540px 760px)`; $('lentille').style.opacity = 0; $('manche').style.opacity = 0;
+  } else if (t < 17.6) {                           // 4. loupe sur le code
+    $('s3').style.opacity = 1; $('s3').style.clipPath = 'none'; const u = t - 11.6;
+    $('lentille').style.opacity = 1; $('manche').style.opacity = 1;
+    const pts = [[540, 760], [300, 700], [720, 840], [400, 980], [760, 1120], [540, 930]];
+    const seg = cl(u / 1.0, 0, pts.length - 1), i = Math.min(Math.floor(seg), pts.length - 2), k = ss(seg - i);
+    let x = pts[i][0] + (pts[i + 1][0] - pts[i][0]) * k, y = pts[i][1] + (pts[i + 1][1] - pts[i][1]) * k;
+    let z = u > 4.6 ? 1 + e((u - 4.6) / .5) * .7 : 1;
+    const fin = cl((u - 5.5) / .5, 0, 1); z = z * (1 - fin) + .2 * fin; if (fin > 0) y += Math.pow(fin, 2) * 500;
     const L = $('lentille'); L.style.left = x + 'px'; L.style.top = y + 'px'; L.style.transform = `scale(${z})`;
-    const m = $('manche'); m.style.left = (x + 95 * z) + 'px'; m.style.top = (y + 95 * z) + 'px'; m.style.transform = 'rotate(-45deg)';
-    const c2 = $('code2'), Z = 54 / 31; c2.style.transform = `translate(${150 - (x - 80) * Z}px, ${150 - (y - 600) * Z}px)`; c2.style.transformOrigin = '0 0';
-    $('revele').style.opacity = cl((u - 4.6) / .4, 0, 1);
-  } else {                     // 4. pilule puis carte jaune
-    show('s4', true); const u = t - 15.2;
-    b.style.opacity = u < .5 ? 1 : 0; b.style.left = '540px'; b.style.top = (900 + 0) + 'px';
-    const P = $('pilule'), w = 60 + e((u - .3) / .6) * 840; P.style.width = w + 'px';
-    P.style.opacity = u < 2.6 ? 1 : 1 - e((u - 2.6) / .3);
-    $('ptxt').style.opacity = cl((u - .9) / .3, 0, 1);
-    const c = e((u - 2.7) / .5); $('carte').style.opacity = c; $('carte').style.transform = `scale(${.85 + .15 * c})`;
+    const m = $('manche'); m.style.left = (x + 95 * z) + 'px'; m.style.top = (y + 95 * z) + 'px'; m.style.transform = `rotate(-45deg) scale(${z})`; m.style.opacity = 1 - fin;
+    const Z = 54 / 31; $('code2').style.transform = `translate(${150 - (x - 80) * Z}px, ${150 - (y - 600) * Z}px)`;
+    $('revele').style.opacity = cl((u - 4.8) / .4, 0, 1) * (1 - fin);
+    if (fin > .6) { balle(x, y, (fin - .6) / .4); L.style.opacity = 1 - (fin - .6) / .4; }
+  } else {                                         // 5. capsule puis carte
+    $('s4').style.opacity = 1; const u = t - 17.6;
+    const P = $('pilule'); P.style.opacity = 1;
+    let w = 60 + e((u - .2) / .6) * 860, h = 60 + e((u - .2) / .3) * 60, rr = 60;
+    const c = e((u - 2.6) / .6); w = w + (860 - w) * c; h = h + (560 - h) * c; rr = 60 - 16 * c;
+    P.style.width = w + 'px'; P.style.height = h + 'px'; P.style.borderRadius = rr + 'px'; P.style.top = (960 - 160 * c) + 'px';
+    $('ptxt').style.opacity = cl((u - .7) / .3, 0, 1) * (1 - cl((u - 2.4) / .2, 0, 1));
+    $('carte').style.opacity = cl((u - 3.0) / .4, 0, 1);
     $('signe').style.opacity = cl((u - 3.4) / .5, 0, 1);
+    balle(540, 960, u < .25 ? 1 : 0);
+    if (u > 5.4) document.body.style.filter = `brightness(${1 - cl((u - 5.4) / .5, 0, 1)})`; else document.body.style.filter = 'none';
   }
 };
 </script></body></html>
