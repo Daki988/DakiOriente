@@ -12,7 +12,7 @@ import { useSession } from "@/components/app/Session";
 import { useAction, useApi } from "@/hooks/useApi";
 import { useMontant } from "@/components/ui/Devise";
 
-type P = { reference: string; kind: string; amount: number; currency: string; method: string; status: string; escrow: string; provider: string; applicationId: string | null; bookingId: string | null; payerId: string; meta: { description?: string; escrow?: boolean }; paidAt: string | null; createdAt: string };
+type P = { simulation?: boolean; reference: string; kind: string; amount: number; currency: string; method: string; status: string; escrow: string; provider: string; applicationId: string | null; bookingId: string | null; payerId: string; meta: { description?: string; escrow?: boolean }; paidAt: string | null; createdAt: string };
 type Methods = Record<string, { id: string; label: string }[]>;
 
 /** Page de paiement : bac à sable (confirmation simulée) ou retour de l'agrégateur, puis reçu (maquette 25). */
@@ -53,7 +53,12 @@ export function PaymentPage({ reference }: { reference: string }) {
             <div className="flex flex-col gap-4">
               <div><span className="chip bg-brand-50 text-brand-700">{p.data.reference}</span><h1 className="mt-2 text-[30px] font-extrabold tracking-tight">Finaliser le paiement</h1><p className="text-ink-mute">{p.data.meta.description}</p></div>
               {p.data.status === "echoue" && <Alert tone="error" title="Le paiement n'a pas abouti">Aucun montant n&apos;a été débité. Tu peux relancer le paiement depuis ta candidature ou ta réservation.</Alert>}
-              {p.data.status === "en_attente" && p.data.provider === "sandbox" ? (
+              {p.data.status === "en_attente" && p.data.provider === "sandbox" && !p.data.simulation ? (
+                <div className="card flex flex-col gap-3 rounded-3xl p-6">
+                  <div className="flex items-center gap-3"><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sun-100 text-[#a55a00]"><Smartphone size={22} /></span><span><b className="block">{label}</b><span className="text-[13px] text-ink-mute">Paiement enregistré, en attente de validation.</span></span></div>
+                  <Alert tone="info" title="Validation par l'équipe Navigoal">Le paiement en ligne n&apos;est pas encore activé : l&apos;équipe Navigoal vous indique comment régler (virement, mobile money) puis confirme la réception. Vous êtes prévenu par e-mail.</Alert>
+                </div>
+              ) : p.data.status === "en_attente" && p.data.provider === "sandbox" ? (
                 <div className="card flex flex-col gap-4 rounded-3xl p-6">
                   <div className="flex items-center gap-3"><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sun-100 text-[#a55a00]"><Smartphone size={22} /></span><span><b className="block">{label}</b><span className="text-[13px] text-ink-mute">Une demande de confirmation est envoyée sur ton téléphone.</span></span></div>
                   <Alert tone="warn" title="Mode recette">Les paiements sont simulés tant que le compte de l&apos;agrégateur n&apos;est pas activé : confirme ou refuse la transaction ci-dessous.</Alert>

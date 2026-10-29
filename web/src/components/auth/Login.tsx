@@ -9,12 +9,13 @@ import { api } from "@/lib/api";
 import { useAction } from "@/hooks/useApi";
 import { CodeBoxes } from "./Otp";
 import { IdentifierInput } from "./inputs";
+import { cheminInterne } from "@/lib/redirection";
 import { GoogleButton, MESSAGES_GOOGLE } from "./Google";
 
 type Me = { user: { role: string } };
 export const HOME: Record<string, string> = { eleve: "/espace", etudiant: "/espace", parent: "/parent", etablissement: "/etablissement", bailleur: "/bailleur", conseiller: "/conseiller", admin: "/admin" };
 /** Destination après connexion : page demandée (interne uniquement) ou espace du rôle. */
-export const destination = (suite: string | null, role: string) => (suite && suite.startsWith("/") && !suite.startsWith("//") && !suite.startsWith("/\\") ? suite : HOME[role] ?? "/");
+export const destination = (suite: string | null, role: string) => cheminInterne(suite) ?? HOME[role] ?? "/";
 
 export function Login() {
   const router = useRouter();

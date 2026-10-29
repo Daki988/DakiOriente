@@ -64,7 +64,7 @@ export default function VillePage({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />
       <section className="relative overflow-hidden bg-brand-950 text-white">
         {v.photo && <Image src={v.photo.src} alt={`Vue de ${v.nom}`} fill priority sizes="100vw" className="object-cover opacity-45" />}
         <div className="absolute inset-0 bg-gradient-to-r from-brand-950 via-brand-950/80 to-brand-950/20" />

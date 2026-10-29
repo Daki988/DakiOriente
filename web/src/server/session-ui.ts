@@ -2,6 +2,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { currentUser, SESSION_COOKIE, type Role } from "./auth/session";
+import { cheminInterne } from "@/lib/redirection";
 
 export type ClientUser = {
   id: string; firstName: string; lastName: string; role: Role; status: string; email: string | null; phone: string | null;
@@ -24,7 +25,7 @@ export async function getSessionUser(): Promise<ClientUser | null> {
 export const HOME: Record<Role, string> = { eleve: "/espace", etudiant: "/espace", parent: "/parent", etablissement: "/etablissement", bailleur: "/bailleur", conseiller: "/conseiller", admin: "/admin" };
 
 /** Chemin interne sûr (pas de redirection ouverte vers un autre site). */
-export const safePath = (p?: string | null) => (p && p.startsWith("/") && !p.startsWith("//") && !p.startsWith("/\\") ? p : null);
+export const safePath = (p?: string | null) => cheminInterne(p);
 
 /** À appeler en tête des layouts d'espace : redirige vers la connexion (session absente ou expirée) ou vers l'espace du rôle. */
 export async function requireRole(roles: Role[], path: string) {

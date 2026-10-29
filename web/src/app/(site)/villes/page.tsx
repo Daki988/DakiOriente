@@ -19,7 +19,7 @@ export default function VillesPage() {
   const ld = { "@context": "https://schema.org", "@type": "ItemList", name: "Villes étudiantes du Maroc", itemListElement: VILLES.map((v, k) => ({ "@type": "ListItem", position: k + 1, url: `${SITE_URL}${villeHref(v.nom)}`, name: `Étudier à ${v.nom}` })) };
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />
       <section className="relative overflow-hidden bg-[radial-gradient(900px_400px_at_85%_0%,#dae6ff,transparent_60%),radial-gradient(600px_300px_at_0%_100%,#fff3c4,transparent_60%)] pb-10 pt-8">
         <div className="container flex flex-col gap-4">
           <nav className="flex items-center gap-1.5 text-[13px] text-ink-mute" aria-label="Fil d'Ariane"><Link href="/">Accueil</Link><ChevronRight size={14} /><span>Villes</span></nav>

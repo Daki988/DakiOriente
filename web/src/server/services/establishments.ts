@@ -158,6 +158,9 @@ export async function listCampaigns(q: { establishmentId?: string; publishedOnly
   )).orderBy(asc(schema.campaigns.endsAt));
 }
 
+/** Membres de l'établissement dont le compte est vérifié (actif) : jamais un compte « en attente » qui revendique l'école. */
 export async function myMembersOf(establishmentId: string) {
-  return (await db.select({ u: schema.establishmentMembers.userId }).from(schema.establishmentMembers).where(eq(schema.establishmentMembers.establishmentId, establishmentId))).map((m) => m.u);
+  return (await db.select({ u: schema.establishmentMembers.userId }).from(schema.establishmentMembers)
+    .innerJoin(schema.users, eq(schema.users.id, schema.establishmentMembers.userId))
+    .where(and(eq(schema.establishmentMembers.establishmentId, establishmentId), eq(schema.users.status, "actif")))).map((m) => m.u);
 }

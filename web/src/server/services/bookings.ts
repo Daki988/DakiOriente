@@ -137,7 +137,10 @@ export async function signContract(user: User, id: string) {
 }
 
 /** Entrée dans les lieux avec état des lieux : déclenche le versement au bailleur (hors caution). */
-export async function checkIn(tenant: User, id: string, report: { photos: string[]; notes?: string }) {
+const rapport = (r: { photos?: unknown; notes?: unknown }) => ({ photos: Array.isArray(r?.photos) ? r.photos.filter((p): p is string => typeof p === "string").slice(0, 20) : [], notes: typeof r?.notes === "string" ? r.notes.slice(0, 2000) : undefined });
+
+export async function checkIn(tenant: User, id: string, raw: { photos: string[]; notes?: string }) {
+  const report = rapport(raw);
   const b = await load(id);
   if (tenant.id !== b.tenantId) throw forbidden();
   if (b.status !== "contrat_signe") throw new AppError("L'entrée se déclare après la signature du contrat.");
@@ -167,7 +170,8 @@ export async function giveNotice(user: User, id: string, note?: string) {
   await notify(user.id === b.tenantId ? b.landlordId : b.tenantId, { kind: "preavis", title: `Préavis donné · ${b.number}`, body: note, link: `/navilease/reservations/${b.id}` });
 }
 
-export async function checkOut(landlord: User, id: string, report: { photos: string[]; notes?: string; retenue?: number }) {
+export async function checkOut(landlord: User, id: string, raw: { photos: string[]; notes?: string; retenue?: number }) {
+  const report = { ...rapport(raw), retenue: Number(raw?.retenue) || 0 };
   const b = await load(id);
   if (landlord.id !== b.landlordId && landlord.role !== "admin") throw forbidden();
   if (!["en_cours", "preavis"].includes(b.status)) throw new AppError("Sortie impossible à ce stade.");

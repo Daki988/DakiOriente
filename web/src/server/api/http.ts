@@ -5,8 +5,14 @@ import { signalerErreur } from "../lib/alertes";
 export const json = (data: unknown, status = 200, headers: Record<string, string> = {}) =>
   new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store", ...headers } });
 
+/** En-tête Content-Disposition sans injection : nom ASCII épuré + nom complet encodé (RFC 5987). */
+const disposition = (name: string, inline: boolean) => {
+  const ascii = name.normalize("NFD").replace(/[^\x20-\x7e]/g, "").replace(/["\\;\r\n]/g, "_").slice(0, 150) || "fichier";
+  return `${inline ? "inline" : "attachment"}; filename="${ascii}"; filename*=UTF-8''${encodeURIComponent(name.slice(0, 150)).replace(/['()*]/g, (c) => "%" + c.charCodeAt(0).toString(16).toUpperCase())}`;
+};
+
 export const file = (bytes: Uint8Array, type: string, name?: string, inline = true) =>
-  new Response(bytes as BodyInit, { headers: { "Content-Type": type, "Cache-Control": "private, no-store", ...(name ? { "Content-Disposition": `${inline ? "inline" : "attachment"}; filename="${name}"` } : {}) } });
+  new Response(bytes as BodyInit, { headers: { "Content-Type": type, "Cache-Control": "private, no-store", ...(name ? { "Content-Disposition": disposition(name, inline) } : {}) } });
 
 export function errorResponse(e: unknown) {
   if (e instanceof AppError) return json({ error: { code: e.code, message: e.message } }, e.status);

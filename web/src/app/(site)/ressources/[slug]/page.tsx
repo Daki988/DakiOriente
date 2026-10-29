@@ -32,7 +32,7 @@ export default function RessourcePage({ params }: { params: { slug: string } }) 
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />
       <section className="bg-gradient-to-b from-brand-50 to-transparent pb-6 pt-8 print:hidden">
         <div className="container flex flex-col gap-3">
           <nav className="flex flex-wrap items-center gap-1.5 text-[13px] text-ink-mute" aria-label="Fil d'Ariane"><Link href="/">Accueil</Link><ChevronRight size={14} /><Link href="/ressources">Ressources</Link><ChevronRight size={14} /><span>{r.titre}</span></nav>

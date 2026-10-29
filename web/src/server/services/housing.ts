@@ -3,7 +3,7 @@ import { z } from "zod";
 import { db, schema } from "../db";
 import { audit } from "../lib/audit";
 import { AppError, forbidden, notFound } from "../lib/errors";
-import { putFile, sniffMime, MAX_SIZE } from "../lib/storage";
+import { deleteFile, putFile, sniffMime, MAX_SIZE } from "../lib/storage";
 import { notify } from "./notifications";
 
 type User = typeof schema.users.$inferSelect;
@@ -87,7 +87,15 @@ export async function addHousingPhoto(user: User, id: string, file: { bytes: Uin
 
 export async function removeHousingPhoto(user: User, id: string, key: string) {
   const h = await ownHousing(user, id);
+  if (!h.photos.includes(key)) return;
   await db.update(schema.housings).set({ photos: h.photos.filter((p) => p !== key) }).where(eq(schema.housings.id, id));
+  await deleteFile(key).catch(() => {}); // une photo retirée n'est plus accessible
+}
+
+/** La photo fait-elle partie de l'annonce ? (seule condition pour la servir publiquement) */
+export async function hasPhoto(id: string, key: string) {
+  const [h] = await db.select({ photos: schema.housings.photos }).from(schema.housings).where(eq(schema.housings.id, id));
+  return !!h?.photos.includes(key);
 }
 
 export async function submitForModeration(user: User, id: string) {

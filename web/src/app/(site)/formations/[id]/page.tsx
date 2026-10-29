@@ -33,7 +33,7 @@ export default function FormationPage({ params }: { params: { id: string } }) {
   const ld = jsonLd(params.id);
   return (
     <>
-      {ld && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />}
+      {ld && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />}
       <Suspense><FormationDetail id={params.id} /></Suspense>
     </>
   );

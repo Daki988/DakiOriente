@@ -57,7 +57,14 @@ export async function compteGoogle(p: Profil, role: GoogleRole | null) {
   const [u] = await db.select().from(schema.users).where(eq(schema.users.email, email)).limit(1);
   if (u) {
     if (u.status === "suspendu") throw new AppError("Ce compte est suspendu. Contactez contact@navigoal.net.", 403, "suspendu");
-    if (!u.emailVerifiedAt) await db.update(schema.users).set({ emailVerifiedAt: new Date() }).where(eq(schema.users.id, u.id));
+    // E-mail jamais vérifié : le compte a pu être créé par quelqu'un d'autre avec cette adresse.
+    // Google prouve que l'adresse appartient à la personne qui se connecte : on retire le mot de passe
+    // et on ferme les sessions existantes, pour que le créateur éventuel perde tout accès.
+    if (!u.emailVerifiedAt) {
+      await db.update(schema.users).set({ emailVerifiedAt: new Date(), passwordHash: null }).where(eq(schema.users.id, u.id));
+      await db.delete(schema.sessions).where(eq(schema.sessions.userId, u.id));
+      await audit(u.id, "compte_repris_google", "user", u.id);
+    }
     await audit(u.id, "connexion_google", "user", u.id);
     return { user: u, nouveau: false };
   }

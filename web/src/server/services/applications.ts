@@ -124,7 +124,9 @@ export async function onApplicationFeePaid(applicationId: string) {
 }
 
 async function notifySchool(establishmentId: string, title: string, link: string) {
-  const members = await db.select({ u: schema.establishmentMembers.userId }).from(schema.establishmentMembers).where(eq(schema.establishmentMembers.establishmentId, establishmentId));
+  const members = await db.select({ u: schema.establishmentMembers.userId }).from(schema.establishmentMembers)
+    .innerJoin(schema.users, eq(schema.users.id, schema.establishmentMembers.userId))
+    .where(and(eq(schema.establishmentMembers.establishmentId, establishmentId), eq(schema.users.status, "actif")));
   for (const m of members) await notify(m.u, { kind: "candidature_ecole", title, link });
 }
 
@@ -195,7 +197,8 @@ export async function changeStatus(user: User, id: string, raw: z.input<typeof d
 }
 
 export function toCsv(rows: Awaited<ReturnType<typeof listForEstablishment>>) {
-  const esc = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  // Une cellule commençant par = + - @ serait exécutée comme formule par Excel : on la préfixe d'une apostrophe.
+  const esc = (v: unknown) => { const t = String(v ?? ""); return `"${(/^[=+\-@\t\r]/.test(t) ? `'${t}` : t).replace(/"/g, '""')}"`; };
   const head = ["Numéro", "Nom", "Prénom", "Pays", "Ville", "E-mail", "Téléphone", "Formation", "Statut", "Envoyée le"];
   return [head.join(";"), ...rows.map((r) => [r.a.number, r.s.lastName, r.s.firstName, r.s.country, r.s.city, r.s.email, r.s.phone, r.p.title, STATUS_LABEL[r.a.status], r.a.submittedAt?.toISOString().slice(0, 10)].map(esc).join(";"))].join("\n");
 }

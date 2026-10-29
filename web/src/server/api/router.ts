@@ -24,6 +24,8 @@ import { applicationPdf, admissionPdf, orientationPdf } from "../services/pdf";
 import { METHODS } from "../payments/providers";
 import { cookies } from "next/headers";
 import * as google from "../services/google";
+import { sha256 } from "../auth/tokens";
+import { cheminInterne } from "@/lib/redirection";
 import * as campaign from "../services/campaign";
 import { ACQ_COOKIE } from "@/lib/campagne";
 
@@ -37,6 +39,8 @@ type Handler = (c: Ctx & { me: User }) => Promise<Response | unknown>;
 export type RouteDef = { method: string; path: string; summary: string; tag: string; auth: Role[] | "user" | "public"; handler: Handler };
 
 const R: RouteDef[] = [];
+/** Refuse d'emblée un envoi de plus de 9 Mo (le contrôle fin, 8 Mo, est fait après lecture). */
+const tailleMax = (req: Request) => { if (Number(req.headers.get("content-length") ?? 0) > 9 * 1024 * 1024) throw new AppError("Fichier trop volumineux (8 Mo maximum).", 413, "trop_volumineux"); };
 const route = (method: string, path: string, tag: string, summary: string, auth: RouteDef["auth"], handler: Handler) => R.push({ method, path, tag, summary, auth, handler });
 const STUDENT: Role[] = ["eleve", "etudiant"];
 const ok = { ok: true };
@@ -87,7 +91,7 @@ route("POST", "/auth/mot-de-passe/reinitialiser", "Authentification", "Réinitia
 // Connexion avec Google : /auth/google?profil=…&suite=… → Google → /auth/google/retour (état anti-CSRF en cookie).
 const OAUTH_COOKIE = "ng_oauth";
 const HOME: Record<string, string> = { eleve: "/espace/", etudiant: "/espace/", parent: "/parent/", etablissement: "/etablissement/", bailleur: "/bailleur/", conseiller: "/conseiller/", admin: "/admin/" };
-const interne = (s: string | null | undefined) => (s && s.startsWith("/") && !s.startsWith("//") && !s.startsWith("/\\") ? s : null);
+const interne = cheminInterne;
 const rediriger = (url: string) => new Response(null, { status: 302, headers: { Location: url, "Cache-Control": "no-store" } });
 route("GET", "/auth/fournisseurs", "Authentification", "Modes de connexion disponibles (Google…)", "public", async () => ({ google: google.googleActif() }));
 route("GET", "/auth/google", "Authentification", "Démarrer la connexion ou l'inscription avec Google", "public", async ({ req, query }) => {
@@ -128,7 +132,7 @@ route("POST", "/auth/deconnexion", "Authentification", "Se déconnecter", "publi
 route("GET", "/session", "Compte", "Session courante (utilisateur ou null), sans erreur si déconnecté", "public", async ({ user }) => ({ user: user ? { firstName: user.firstName, role: user.role } : null }));
 route("GET", "/moi", "Compte", "Utilisateur connecté et profil", "user", async ({ me }) => accounts.getMe(me.id));
 route("PATCH", "/moi", "Compte", "Mettre à jour le profil", "user", async ({ me, body }) => accounts.updateProfile(me.id, await body()));
-route("POST", "/moi/mot-de-passe", "Compte", "Changer de mot de passe", "user", async ({ me, body }) => { const b = await body(); await accounts.changePassword(me.id, b.actuel, b.nouveau); return ok; });
+route("POST", "/moi/mot-de-passe", "Compte", "Changer de mot de passe", "user", async ({ me, body }) => { const b = await body(); const t = cookies().get(SESSION_COOKIE)?.value; await accounts.changePassword(me.id, b.actuel, b.nouveau, t ? sha256(t) : undefined); return ok; });
 route("GET", "/moi/parrainage", "Compte", "Mon code de parrainage et mes amis inscrits", STUDENT, async ({ me }) => campaign.myReferral(me));
 route("GET", "/moi/tuteurs", "Compte", "Parents/tuteurs liés", STUDENT, async ({ me }) => guardians.guardiansOf(me.id));
 route("POST", "/moi/tuteurs", "Compte", "Inviter un parent ou tuteur", STUDENT, async ({ me, body }) => { const b = await body(); const g = await guardians.inviteGuardian(me, String(b.contact), b.relation); return { id: g.id, devCode: process.env.NODE_ENV !== "production" ? g.inviteCode : undefined }; });
@@ -140,6 +144,7 @@ route("GET", "/parent/enfants/:id/candidatures", "Parent", "Candidatures d'un en
 // ---------------------------------------------------------------- Documents
 route("GET", "/documents", "Documents", "Mes documents", "user", async ({ me }) => docs.listDocuments(me.id));
 route("POST", "/documents", "Documents", "Déposer un document (multipart : fichier, type, libelle)", "user", async ({ me, req }) => {
+  tailleMax(req);
   const fd = await req.formData();
   const f = fd.get("fichier");
   if (!(f instanceof File)) throw new AppError("Fichier manquant.");
@@ -219,7 +224,7 @@ route("POST", "/ecole/candidatures/:id/statut", "Établissement", "Changer le st
 
 // ---------------------------------------------------------------- Paiements
 route("GET", "/paiements", "Paiements", "Mes paiements (et ceux de mes enfants)", "user", async ({ me }) => pay.listPaymentsFor(me));
-route("GET", "/paiements/:ref", "Paiements", "Statut d'un paiement", "user", async ({ me, params }) => { await pay.getPayment(me, params.ref); return pay.syncPayment(params.ref); });
+route("GET", "/paiements/:ref", "Paiements", "Statut d'un paiement", "user", async ({ me, params }) => { await pay.getPayment(me, params.ref); const p = await pay.syncPayment(params.ref); return { ...p, simulation: pay.simulationAutorisee(me, p) }; });
 route("POST", "/paiements/:ref/simulation", "Paiements", "Bac à sable : confirmer ou refuser un paiement simulé", "user", async ({ me, params, body }) => pay.sandboxConfirm(me, params.ref, !!(await body()).succes));
 route("GET", "/paiements/:ref/recu.pdf", "Paiements", "Reçu de paiement (PDF)", "user", async ({ me, params }) => file(await pay.receipt(me, params.ref), "application/pdf", `recu-${params.ref}.pdf`));
 route("POST", "/paiements/webhook/:provider", "Paiements", "Notification de l'agrégateur (webhook)", "public", async ({ req, params }) => {
@@ -265,7 +270,7 @@ route("GET", "/bailleur/logements", "Bailleur", "Mes annonces", ["bailleur"], as
 route("POST", "/bailleur/logements", "Bailleur", "Créer une annonce (brouillon)", ["bailleur"], async ({ me, body }) => json(await housing.saveHousing(me, await body()), 201));
 route("GET", "/bailleur/logements/:id", "Bailleur", "Mon annonce", ["bailleur", "admin"], async ({ me, params }) => housing.getOwnHousing(me, params.id));
 route("PATCH", "/bailleur/logements/:id", "Bailleur", "Modifier une annonce (repasse en modération)", ["bailleur"], async ({ me, params, body }) => housing.saveHousing(me, await body(), params.id));
-route("POST", "/bailleur/logements/:id/photos", "Bailleur", "Ajouter une photo (multipart : fichier)", ["bailleur"], async ({ me, params, req }) => { const f = (await req.formData()).get("fichier"); if (!(f instanceof File)) throw new AppError("Fichier manquant."); return json({ key: await housing.addHousingPhoto(me, params.id, { bytes: new Uint8Array(await f.arrayBuffer()) }) }, 201); });
+route("POST", "/bailleur/logements/:id/photos", "Bailleur", "Ajouter une photo (multipart : fichier)", ["bailleur"], async ({ me, params, req }) => { tailleMax(req); const f = (await req.formData()).get("fichier"); if (!(f instanceof File)) throw new AppError("Fichier manquant."); return json({ key: await housing.addHousingPhoto(me, params.id, { bytes: new Uint8Array(await f.arrayBuffer()) }) }, 201); });
 route("DELETE", "/bailleur/logements/:id/photos", "Bailleur", "Retirer une photo (?cle=)", ["bailleur"], async ({ me, params, query }) => { await housing.removeHousingPhoto(me, params.id, query.get("cle") ?? ""); return ok; });
 route("POST", "/bailleur/logements/:id/moderation", "Bailleur", "Soumettre l'annonce à la modération", ["bailleur"], async ({ me, params }) => { await housing.submitForModeration(me, params.id); return ok; });
 route("POST", "/bailleur/logements/:id/archiver", "Bailleur", "Archiver l'annonce", ["bailleur"], async ({ me, params }) => { await housing.archiveHousing(me, params.id); return ok; });
@@ -321,11 +326,18 @@ route("GET", "/admin/journal", "Back-office", "Journal des actions sensibles", [
 
 // ---------------------------------------------------------------- Fichiers publics (photos d'annonces)
 route("GET", "/fichiers/housings/:hid/:fid", "Fichiers", "Photo d'annonce publiée", "public", async ({ params }) => {
-  const f = await getFile(`housings/${params.hid}/${params.fid}`);
+  // Seules les photos encore rattachées à l'annonce sont servies (jamais un autre fichier du stockage).
+  const key = `housings/${params.hid}/${params.fid}`;
+  const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+  if (!uuid.test(params.hid) || !/^[\w-]+(\.\w+)?$/.test(params.fid) || !(await housing.hasPhoto(params.hid, key))) throw new AppError("Fichier introuvable.", 404);
+  const f = await getFile(key);
   if (!f) throw new AppError("Fichier introuvable.", 404);
   return new Response(f.data as BodyInit, { headers: { "Content-Type": f.contentType, "Cache-Control": "public, max-age=86400" } });
 });
-route("GET", "/openapi.json", "Documentation", "Description OpenAPI de l'API", "public", async () => openapi());
+route("GET", "/openapi.json", "Documentation", "Description OpenAPI de l'API (administrateurs en production)", "public", async ({ user }) => {
+  if (process.env.NODE_ENV === "production" && user?.role !== "admin") throw new AppError("Route inconnue.", 404, "introuvable");
+  return openapi();
+});
 route("GET", "/contact", "Documentation", "Coordonnées de contact (numéro WhatsApp des conseillers, lu à l'exécution)", "public", async () => {
   const n = (process.env.WHATSAPP_CONSEILLER ?? "").replace(/\D/g, "");
   return { whatsapp: n.length >= 8 ? n : null };
@@ -351,7 +363,8 @@ const COMPILED = R.map((r) => ({ ...r, ...compile(r.path) })).sort((a, b) => a.k
 
 export async function dispatch(req: Request, segments: string[]) {
   try {
-    const path = "/" + segments.map(decodeURIComponent).join("/");
+    let path: string;
+    try { path = "/" + segments.map(decodeURIComponent).join("/"); } catch { return json({ error: { code: "requete", message: "Adresse invalide." } }, 400); }
     const candidates = COMPILED.filter((r) => r.re.test(path));
     if (!candidates.length) return json({ error: { code: "introuvable", message: "Route inconnue." } }, 404);
     const r = candidates.find((c) => c.method === req.method);
@@ -370,7 +383,8 @@ export async function dispatch(req: Request, segments: string[]) {
     if (r.auth !== "public") {
       if (!user) throw unauthorized();
       if (Array.isArray(r.auth) && !r.auth.includes(user.role)) throw forbidden();
-      if (user.status === "en_attente" && user.role === "etablissement" && r.path.startsWith("/ecole")) throw new AppError("Votre compte établissement est en cours de vérification par l'équipe Navigoal.", 403, "en_attente");
+      // Compte établissement non vérifié : seulement son propre compte, jamais les données des étudiants.
+      if (user.status === "en_attente" && user.role === "etablissement" && !/^\/(moi|notifications)(\/|$)/.test(r.path)) throw new AppError("Votre compte établissement est en cours de vérification par l'équipe Navigoal.", 403, "en_attente");
     }
     const url = new URL(req.url);
     const res = await r.handler({ req, params, query: url.searchParams, user, me: user!, body: () => req.json() });

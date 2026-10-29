@@ -1,4 +1,4 @@
-import { and, desc, eq, gt, isNull, or, sql } from "drizzle-orm";
+import { and, desc, eq, ne, gt, isNull, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db, schema } from "../db";
 import { audit } from "../lib/audit";
@@ -108,9 +108,10 @@ export async function findByIdentifier(identifier: string) {
 const MAX_FAILS = 8;
 export async function login(identifier: string, password: string) {
   if (!identifier.trim() || !password) throw new AppError("Saisissez votre e-mail (ou téléphone) et votre mot de passe.", 400, "champs_requis");
-  const key = normId(identifier);
-  // Anti force brute : 8 échecs maximum par identifiant sur 15 minutes (compteur remis à zéro par une réinitialisation du mot de passe).
+  // Anti force brute : 8 échecs maximum par compte sur 15 minutes, quel que soit l'identifiant saisi (e-mail, téléphone
+  // avec ou sans « + ») ; compteur remis à zéro par une réinitialisation du mot de passe.
   const u = await findByIdentifier(identifier);
+  const key = u?.id ?? normId(identifier);
   const since = new Date(Date.now() - 15 * 60_000);
   const [reset] = u ? await db.select({ at: schema.auditLogs.createdAt }).from(schema.auditLogs)
     .where(and(eq(schema.auditLogs.action, "reinitialisation_mdp"), eq(schema.auditLogs.entityId, u.id), gt(schema.auditLogs.createdAt, since))).orderBy(desc(schema.auditLogs.createdAt)).limit(1) : [];
@@ -186,13 +187,15 @@ export async function resetPassword(target: string, code: string, password: stri
   await audit(u.id, "reinitialisation_mdp", "user", u.id);
 }
 
-export async function changePassword(userId: string, current: string, next: string) {
+export async function changePassword(userId: string, current: string, next: string, keepSessionId?: string) {
   const [u] = await db.select().from(schema.users).where(eq(schema.users.id, userId));
   // Compte créé avec Google : pas encore de mot de passe, il peut en définir un.
   if (u.passwordHash && !(await verifyPassword(String(current ?? ""), u.passwordHash))) throw new AppError("Mot de passe actuel incorrect.");
   const pb = passwordProblem(String(next ?? ""));
   if (pb) throw new AppError(pb);
   await db.update(schema.users).set({ passwordHash: await hashPassword(next) }).where(eq(schema.users.id, userId));
+  // Les autres appareils sont déconnectés (session volée, ordinateur partagé).
+  await db.delete(schema.sessions).where(keepSessionId ? and(eq(schema.sessions.userId, userId), ne(schema.sessions.id, keepSessionId)) : eq(schema.sessions.userId, userId));
   await audit(userId, "changement_mdp", "user", userId);
 }
 

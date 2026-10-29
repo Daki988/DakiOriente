@@ -5,9 +5,12 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const LOCAL = path.resolve(process.env.STORAGE_DIR || path.join(process.cwd(), ".data", "uploads"));
+/** Clé valide : segments [A-Za-z0-9._-], sans « .. », ni barre oblique inverse, ni chemin absolu. */
+export const cleValide = (key: string) => /^[\w-]+(\/[\w.-]+)*$/.test(key) && !key.split("/").some((s) => s === "." || s === "..");
 /** Chemin sur disque d'une clé, sans possibilité de sortir du dossier de stockage. */
 const chemin = (key: string) => {
-  const p = path.resolve(LOCAL, key.replace(/\\/g, "/").replace(/^\/+/, ""));
+  if (!cleValide(key)) throw new Error("Clé de fichier invalide");
+  const p = path.resolve(LOCAL, key);
   if (!p.startsWith(LOCAL + path.sep)) throw new Error("Clé de fichier invalide");
   return p;
 };

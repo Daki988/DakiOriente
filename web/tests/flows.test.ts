@@ -350,3 +350,58 @@ describe("campagne : sources d'inscription et parrainage", () => {
     expect(csv).not.toContain("@test.local");
   });
 });
+
+describe("sécurité : attaques rejouées (test d'intrusion)", () => {
+  it("code d'invitation parent : réservé au parent invité, essais limités", async () => {
+    const kid = await accounts.register({ role: "eleve", firstName: "Mineur", lastName: "Cible", email: "cible@test.local", password: "Motdepasse1", birthYear: year - 15, acceptTerms: true, guardianEmail: "vraie.maman@test.local" });
+    const [inv] = await db.select().from(schema.guardianships).where(eq(schema.guardianships.childId, kid.id));
+    const intrus = await accounts.register({ role: "parent", firstName: "Faux", lastName: "Parent", email: "intrus@test.local", password: "Motdepasse1", acceptTerms: true });
+    await expect(guardians.acceptGuardianInvite(intrus, inv.inviteCode!, true)).rejects.toThrow(/autre e-mail/);
+    for (let i = 0; i < 9; i++) await guardians.acceptGuardianInvite(intrus, "000000", true).catch(() => {});
+    await expect(guardians.acceptGuardianInvite(intrus, "000001", true)).rejects.toThrow(/Trop de codes/);
+    const maman = await accounts.register({ role: "parent", firstName: "Vraie", lastName: "Maman", email: "vraie.maman@test.local", password: "Motdepasse1", acceptTerms: true });
+    expect(await guardians.acceptGuardianInvite(maman, inv.inviteCode!, true)).toBe(kid.id);
+    const t = await guardians.guardiansOf(kid.id);
+    expect(JSON.stringify(t)).not.toMatch(/passwordHash|password_hash|\$2[aby]\$/);
+  });
+  it("paiement simulé : jamais validé par le payeur en production", async () => {
+    const { simulationAutorisee } = await import("@/server/services/payments");
+    const p = { provider: "sandbox", payerId: student.id };
+    const env = process.env.NODE_ENV;
+    (process.env as Record<string, string>).NODE_ENV = "production";
+    try {
+      expect(simulationAutorisee(student, p)).toBe(false);
+      expect(simulationAutorisee(adminU, p)).toBe(true);
+    } finally { (process.env as Record<string, string>).NODE_ENV = env!; }
+    expect(simulationAutorisee(student, { provider: "cinetpay", payerId: student.id })).toBe(false);
+  });
+  it("école non vérifiée : exclue des conversations et notifications", async () => {
+    const faux = await accounts.register({ role: "etablissement", firstName: "Faux", lastName: "Directeur", email: "faux.dir@test.local", password: "Motdepasse1", acceptTerms: true, establishmentId: "ma-esa-casa" });
+    expect(faux.status).toBe("en_attente");
+    expect(await etab.myMembersOf("ma-esa-casa")).not.toContain(faux.id);
+  });
+  it("redirections et clés de stockage piégées refusées", async () => {
+    const { cheminInterne } = await import("@/lib/redirection");
+    for (const s of ["//evil.com", "/\\evil.com", "/\t/evil.com", "/\n/evil.com", "https://evil.com", "evil.com"]) expect(cheminInterne(s)).toBeNull();
+    expect(cheminInterne("/espace/?a=1")).toBe("/espace/?a=1");
+    const { cleValide } = await import("@/server/lib/storage");
+    for (const k of ["housings/x/..\\..\\documents/a/b", "housings/x/../../documents/a/b", "/etc/passwd", "a//b"]) expect(cleValide(k)).toBe(false);
+    expect(cleValide("housings/0b0c/1f2e-3d4c.jpg")).toBe(true);
+  });
+  it("Google sur un compte jamais vérifié : mot de passe et sessions du créateur supprimés", async () => {
+    const g = await import("@/server/services/google");
+    const pre = await accounts.register({ role: "etudiant", firstName: "Pré", lastName: "Créé", email: "victime@gmail.test", password: "Motdepasse1", acceptTerms: true });
+    const { createSession } = await import("@/server/auth/session");
+    await createSession(pre.id);
+    const r = await g.compteGoogle({ email: "victime@gmail.test", email_verified: true }, null);
+    const u = await reload(r.user!.id);
+    expect(u.passwordHash).toBeNull();
+    expect(await db.select().from(schema.sessions).where(eq(schema.sessions.userId, pre.id))).toHaveLength(0);
+  });
+  it("force brute : compteur par compte, quel que soit le format de l'identifiant", async () => {
+    await accounts.register({ role: "parent", firstName: "T", lastName: "Tel", phone: "+212611223344", password: "Motdepasse1", acceptTerms: true });
+    for (let i = 0; i < 4; i++) await accounts.login("+212611223344", "faux").catch(() => {});
+    for (let i = 0; i < 4; i++) await accounts.login("212611223344", "faux").catch(() => {});
+    await expect(accounts.login("00212611223344", "Motdepasse1")).rejects.toThrow(/Trop de tentatives/);
+  });
+});

@@ -51,11 +51,22 @@ export async function syncPayment(reference: string) {
   return settlePayment(reference, st === "reussi");
 }
 
-/** Bac à sable : le payeur confirme ou refuse la transaction simulée. */
+/**
+ * Paiement sans agrégateur (bac à sable) : qui peut le déclarer réglé ou refusé ?
+ * - l'administrateur, toujours (après réception d'un virement ou d'un mobile money, ou pour un test) ;
+ * - le payeur lui-même seulement hors production, ou si ALLOW_SANDBOX_PAYMENTS=1 (environnement de recette fermé).
+ * Sans cette règle, n'importe quel utilisateur validerait ses frais ou son séquestre sans payer.
+ */
+export function simulationAutorisee(viewer: User, p: { provider: string; payerId: string | null }) {
+  if (p.provider !== "sandbox") return false;
+  if (viewer.role === "admin") return true;
+  return p.payerId === viewer.id && (process.env.NODE_ENV !== "production" || process.env.ALLOW_SANDBOX_PAYMENTS === "1");
+}
+
 export async function sandboxConfirm(viewer: User, reference: string, success: boolean) {
   const p = await getPayment(viewer, reference);
-  if (p.provider !== "sandbox" || p.payerId !== viewer.id) throw forbidden();
-  if (process.env.NODE_ENV === "production" && process.env.PAYMENTS_MODE !== "sandbox" && !process.env.ALLOW_SANDBOX_PAYMENTS) throw new AppError("Le paiement simulé est désactivé en production.");
+  if (p.provider !== "sandbox" || (viewer.role !== "admin" && p.payerId !== viewer.id)) throw forbidden();
+  if (!simulationAutorisee(viewer, p)) throw new AppError("Paiement en attente de confirmation par l'équipe Navigoal.", 403, "interdit");
   return settlePayment(reference, success);
 }
 

@@ -138,7 +138,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
   const compare = `/comparateur/?f=${fid}&e=${[e.id, ...similar.slice(0, 2).map((x) => x.id)].join(",")}`;
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(e)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(e)).replace(/</g, "\\u003c") }} />
       <div className="container flex flex-col gap-6 pt-7">
         <nav className="flex items-center gap-1.5 text-[13px] text-ink-mute"><Link href="/">Accueil</Link><ChevronRight size={14} /><Link href="/etablissements">Établissements</Link><ChevronRight size={14} /><span>{e.sigle}</span></nav>
         <Reveal className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end">

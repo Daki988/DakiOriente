@@ -140,4 +140,6 @@ tar -xzf sauvegardes/navigoal-AAAA-MM-JJ-HHMM-fichiers.tar.gz -C /home/IDENTIFIA
 - **E-mails non reçus** : vérifiez le mot de passe SMTP, le port 465 et la délivrabilité (SPF/DKIM) ; en attendant,
   les envois sont journalisés dans `stderr.log`.
 - **Fichiers déposés introuvables après mise à jour** : le dossier `stockage/` (ou `STORAGE_DIR`) doit être conservé.
-- Les paiements sont en mode « sandbox » (`PAYMENTS_MODE=sandbox`) pendant l'essai : aucun débit réel.
+- Les paiements sont en mode « sandbox » (`PAYMENTS_MODE=sandbox`) pendant l'essai : aucun débit réel. Un paiement
+  reste « en attente » jusqu'à sa confirmation par un administrateur (page du paiement, connecté en admin), une fois
+  le règlement reçu par virement ou mobile money. Ne définissez jamais `ALLOW_SANDBOX_PAYMENTS` sur le site public.
