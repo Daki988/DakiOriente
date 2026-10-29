@@ -32,7 +32,12 @@ $d = read_request($step === 'mail' ? 3000000 : 20000, $limits[$step], $step);
 /* ---------- Stockage des audits en cours ---------- */
 function audit_dir(): string
 {
-    $dir = __DIR__ . '/data/audits';
+    global $CONFIG;
+    // Par défaut dans api/data (protégé par .htaccess). Pour une défense en profondeur,
+    // réglez $CONFIG['data_dir'] sur un dossier situé HORS de la racine web (hors public_html) :
+    // ainsi, même si .htaccess était ignoré, les coordonnées des prospects resteraient inaccessibles.
+    $base = isset($CONFIG['data_dir']) && $CONFIG['data_dir'] !== '' ? rtrim((string) $CONFIG['data_dir'], '/') : __DIR__ . '/data';
+    $dir = $base . '/audits';
     if (!is_dir($dir)) {
         @mkdir($dir, 0750, true);
     }
@@ -532,15 +537,17 @@ if ($step === 'mail') {
     $first = explode(' ', $lead['nom'])[0];
     $clientHtml = email_layout('Votre NEAM Digital Score™',
         '<p style="margin:0 0 16px;font-size:15px">Bonjour ' . h($first) . ',</p>'
-        . '<p style="margin:0 0 16px;font-size:15px">Merci d’avoir testé la présence digitale de <b>' . h($report['company']) . '</b>. Vous trouverez votre audit complet en pièce jointe : diagnostic, benchmark concurrentiel et plan d’action priorisé.</p>'
+        . '<p style="margin:0 0 16px;font-size:15px">Merci d’avoir testé la présence digitale de <b>' . h($report['company']) . '</b>. Voici la synthèse de votre audit complet : diagnostic, benchmark concurrentiel et plan d’action priorisé. Vous pouvez aussi télécharger le PDF depuis la page du diagnostic.</p>'
         . $scoreBlock
         . '<p style="margin:0 0 16px;font-size:15px">' . h($report['analysis']['advice']) . '</p>'
         . '<h2 style="font-size:16px;margin:0 0 8px">Vos premières actions</h2><ul style="padding-left:18px;font-size:14px;margin:0 0 20px">' . $actionsHtml . '</ul>'
         . '<p style="margin:0 0 16px;font-size:15px">Vous voulez qu’on regarde ensemble comment passer à l’action ? Répondez simplement à cet e-mail : un expert NEAM vous rappelle.</p>'
         . reply_promise_html()
         . '<p style="margin:0"><a href="https://www.neamindustry.com/contact.html?besoin=NEAM%20Digital%20Score" style="display:inline-block;background:#f5b31b;color:#0f0f10;text-decoration:none;font-weight:bold;padding:12px 22px;border-radius:30px">Parler à un expert NEAM</a></p>');
-    $clientText = "Bonjour $first,\n\nVotre NEAM Digital Score : {$report['score']}/100 ({$report['level']['name']}).\nVotre audit complet est en pièce jointe.\n\nNEAM Softwares Industry — contact@neamindustry.com";
-    $clientOk = send_mail([$lead['email']], 'Votre NEAM Digital Score™ : ' . $report['score'] . '/100', $clientHtml, $clientText, $CONFIG['from_email'], $CONFIG['from_name'], $attachments);
+    $clientText = "Bonjour $first,\n\nVotre NEAM Digital Score : {$report['score']}/100 ({$report['level']['name']}).\nVotre audit complet est détaillé ci-dessus (et dans le PDF que vous avez téléchargé).\n\nNEAM Softwares Industry — contact@neamindustry.com";
+    // Sécurité : le PDF est fourni par le navigateur du visiteur ; on ne le renvoie qu'à l'équipe (destinataires de confiance),
+    // jamais vers l'adresse saisie dans le formulaire. Cela évite qu'on se serve de notre domaine pour expédier un PDF à un tiers.
+    $clientOk = send_mail([$lead['email']], 'Votre NEAM Digital Score™ : ' . $report['score'] . '/100', $clientHtml, $clientText, $CONFIG['from_email'], $CONFIG['from_name']);
 
     if ($teamOk || $clientOk) {
         audit_save($id, ['at' => time(), 'team' => $teamOk, 'client' => $clientOk], 'sent');

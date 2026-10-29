@@ -59,7 +59,30 @@ function read_request(int $maxBytes, ?int $limit = null, string $bucket = ''): a
     }
 
     rate_limit($limit ?? (int) $CONFIG['rate_limit'], $bucket);
+    // Plafond journalier global (protège la facturation des API externes contre un abus distribué)
+    $caps = $CONFIG['daily_caps'] ?? [];
+    if ($bucket !== '' && isset($caps[$bucket])) {
+        daily_cap('ep_' . $bucket, (int) $caps[$bucket]);
+    }
     return $data;
+}
+
+/**
+ * Plafond journalier global pour une opération coûteuse (indépendant de l'IP).
+ * Empêche qu'un attaquant qui change d'adresse IP ne fasse exploser la facture
+ * Google / Anthropic ou la bande passante. Réinitialisé chaque jour.
+ */
+function daily_cap(string $key, int $max): void
+{
+    if ($max <= 0) {
+        return;
+    }
+    $file = sys_get_temp_dir() . '/neam_cap_' . md5($key) . '_' . date('Ymd');
+    $n = is_file($file) ? (int) file_get_contents($file) : 0;
+    if ($n >= $max) {
+        respond(429, ['ok' => false, 'error' => 'Service très sollicité aujourd’hui. Merci de réessayer plus tard ou de nous écrire via le formulaire de contact.']);
+    }
+    @file_put_contents($file, (string) ($n + 1), LOCK_EX);
 }
 
 /** Limite le nombre d'envois par adresse IP (fenêtre de 10 minutes). */

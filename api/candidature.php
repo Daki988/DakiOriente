@@ -104,7 +104,7 @@ $teamOk = send_mail(
 /* ---------- 2. Résultats au candidat ---------- */
 $candidateHtml = email_layout('Vos résultats au test de maturité numérique',
     '<p style="margin:0 0 16px;font-size:15px;line-height:1.6">Bonjour ' . h($profile['nom']) . ',</p>'
-    . '<p style="margin:0 0 20px;font-size:15px;line-height:1.6">Merci d’avoir passé le test de maturité numérique et candidaté au programme <b>NEAM × KANIE 30/30</b> pour <b>' . h($profile['entreprise']) . '</b>. Voici vos résultats&nbsp;; vous les retrouvez aussi dans le PDF joint.</p>'
+    . '<p style="margin:0 0 20px;font-size:15px;line-height:1.6">Merci d’avoir passé le test de maturité numérique et candidaté au programme <b>NEAM × KANIE 30/30</b> pour <b>' . h($profile['entreprise']) . '</b>. Voici vos résultats&nbsp;; vous pouvez aussi les télécharger en PDF depuis la page du test.</p>'
     . $scoreHtml
     . '<h2 style="font-size:16px;margin:0 0 8px">Résultat par axe</h2><table role="presentation" width="100%" cellpadding="0" cellspacing="0">' . $dimsHtml . '</table>'
     . '<h2 style="font-size:16px;margin:24px 0 8px">Vos priorités</h2>' . $priosHtml
@@ -119,10 +119,12 @@ $candidateText .= "\nVos priorités :\n";
 foreach ($prios as $i => $pr) { $candidateText .= ($i + 1) . ". {$pr['label']} : {$pr['reco']}\n"; }
 $candidateText .= "\nNotre équipe étudie votre candidature et revient vers vous rapidement.\n\nL'équipe NEAM × KANIE\nhttps://www.neamindustry.com";
 
+// Sécurité : le PDF vient du navigateur du candidat ; on ne le joint qu'au rapport interne (équipe),
+// pas à l'e-mail envoyé à l'adresse saisie dans le formulaire.
 $candidateOk = send_mail(
     [$profile['email']],
     'Vos résultats — Test de maturité numérique NEAM × KANIE 30/30',
-    $candidateHtml, $candidateText, $CONFIG['from_email'], $CONFIG['from_name'], $attachments
+    $candidateHtml, $candidateText, $CONFIG['from_email'], $CONFIG['from_name']
 );
 
 if (!$teamOk) {

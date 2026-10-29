@@ -65,4 +65,21 @@ return [
 
     // Limite anti-abus : nombre d'envois par adresse IP sur 10 minutes
     'rate_limit' => 5,
+
+    // Plafonds journaliers GLOBAUX par type d'opération (toutes IP confondues).
+    // Protègent la facturation Google / Anthropic et la bande passante contre un abus
+    // distribué (quelqu'un qui change d'adresse IP pour contourner la limite par IP).
+    // Mettez une valeur à 0 pour désactiver un plafond. Relevez-les si le trafic légitime augmente.
+    'daily_caps' => [
+        'discover' => 400,   // diagnostics lancés par jour
+        'site'     => 1500,  // sites analysés par jour
+        'chat'     => 1000,  // messages de l'assistant IA par jour
+        'mail'     => 400,   // rapports envoyés par jour
+    ],
+
+    // Défense en profondeur (facultatif) : dossier de stockage des audits et prospects.
+    // Laissez vide pour utiliser api/data (déjà protégé par .htaccess). Pour une sécurité maximale,
+    // indiquez un chemin ABSOLU situé HORS de la racine web (hors public_html), par exemple
+    // '/home/VOTRECOMPTE/neam-data' : même si .htaccess était ignoré, les coordonnées resteraient inaccessibles.
+    'data_dir' => '',
 ];

@@ -51,5 +51,10 @@ AddType video/mp4 .mp4
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
-  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  # Politique de sécurité du contenu : empêche le chargement de plugins/objets, verrouille la
+  # balise <base>, interdit que le site soit mis dans une iframe, et limite les cibles des formulaires.
+  # NB : le site utilise des scripts en ligne ; une restriction script-src complète les casserait,
+  # elle demanderait de sortir ces scripts dans des fichiers. Ici on durcit sans rien casser.
+  Header always set Content-Security-Policy "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self' https://wa.me https://api.whatsapp.com; upgrade-insecure-requests"
 </IfModule>
