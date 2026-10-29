@@ -6,14 +6,29 @@ et une base **PostgreSQL**.
 
 ## 0. Vérifications préalables (cPanel)
 
-1. Dans cPanel, rubrique **Logiciels**, l'icône **Setup Node.js App** doit être présente.
-   Selon la documentation LWS, elle est incluse dans les offres cPanel **L, XL, 2XL, 3XL et CloudCP**.
-   Si elle est absente de votre offre cPanel M, demandez son activation au support LWS ou passez à l'offre supérieure.
-2. Rubrique **Bases de données** : **Bases de données PostgreSQL** doit être disponible.
+1. Dans cPanel, rubrique **Logiciels**, l'icône **Setup Node.js App** doit être présente
+   (incluse dans les offres LWS cPanel L, XL et Cloud cPanel).
+2. Les offres mutualisées cPanel M, L et XL de LWS ne proposent **pas** PostgreSQL (seulement MySQL) :
+   la base est alors hébergée chez **Neon** (gratuit pendant l'essai), voir l'étape 1.
+   Sur une offre **Cloud cPanel**, PostgreSQL est inclus : utilisez plutôt l'étape 1 bis.
 3. Le domaine **navigoal.net** doit pointer vers l'hébergement (et le certificat SSL être actif :
    cPanel › **SSL/TLS Status** › *Run AutoSSL*).
 
-## 1. Base de données PostgreSQL
+## 1. Base de données PostgreSQL chez Neon (offres cPanel M, L, XL)
+
+1. Créez un compte sur https://neon.tech (offre *Free*), puis **New project** :
+   nom `navigoal`, version PostgreSQL 16 ou plus récente, région **AWS Europe (Frankfurt)** (la plus proche de LWS, en France).
+2. Sur le tableau de bord du projet, bouton **Connect** : copiez la chaîne de connexion. Elle ressemble à
+   `postgresql://navigoal_owner:MOT_DE_PASSE@ep-xxxx.eu-central-1.aws.neon.tech/neondb?sslmode=require`
+   C'est la valeur de `DATABASE_URL` (étape 3).
+3. Après l'installation (étape 4), lancez `npm run verifier` : il confirme que le serveur LWS joint bien la base.
+   S'il indique un délai dépassé (*timeout*), demandez au support LWS d'autoriser les connexions sortantes
+   vers le port **5432** de l'hôte Neon (`ep-xxxx…neon.tech`).
+
+L'offre gratuite de Neon (0,5 Go) suffit largement pour l'essai ; la base se met en veille sans visite et se
+réveille en une seconde environ à la première requête.
+
+## 1 bis. Base PostgreSQL incluse (offres Cloud cPanel uniquement)
 
 cPanel › **Bases de données PostgreSQL** :
 1. Créez une base, par exemple `navigoal` (cPanel la préfixe : `identifiant_navigoal`).
@@ -74,6 +89,7 @@ cPanel › **Terminal** (ou SSH). En haut de la page Setup Node.js App, copiez l
 « Enter to the virtual environment » (elle ressemble à `source /home/IDENTIFIANT/nodevenv/navigoal/22/bin/activate && cd /home/IDENTIFIANT/navigoal`), puis :
 
 ```bash
+npm run verifier  # contrôle Node.js, .env, base de données et e-mail
 npm run migrate   # crée / met à jour les tables
 npm run seed      # référentiels : établissements, formations, métiers, articles, compte administrateur
 ```
@@ -120,7 +136,7 @@ tar -xzf sauvegardes/navigoal-AAAA-MM-JJ-HHMM-fichiers.tar.gz -C /home/IDENTIFIA
 
 ## Dépannage
 
-- **Erreur 503 / page blanche** : consultez `navigoal/stderr.log` (créé par Passenger) ; vérifiez `DATABASE_URL`.
+- **Erreur 503 / page blanche** : consultez `navigoal/stderr.log` (créé par Passenger) et lancez `npm run verifier`.
 - **E-mails non reçus** : vérifiez le mot de passe SMTP, le port 465 et la délivrabilité (SPF/DKIM) ; en attendant,
   les envois sont journalisés dans `stderr.log`.
 - **Fichiers déposés introuvables après mise à jour** : le dossier `stockage/` (ou `STORAGE_DIR`) doit être conservé.

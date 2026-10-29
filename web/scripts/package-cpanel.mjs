@@ -36,10 +36,12 @@ for (const f of ["app.js", ".env.example", "LISEZMOI-DEPLOIEMENT.md"]) fs.copyFi
 // package.json minimal : « type » non défini (server.js et app.js en CommonJS), scripts utiles dans cPanel
 fs.writeFileSync(path.join(out, "package.json"), JSON.stringify({
   name: "navigoal", private: true, version: date, main: "app.js",
-  scripts: { start: "node app.js", migrate: "node outils/env.cjs outils/migrate.mjs", seed: "node outils/env.cjs outils/seed.mjs", sauvegarde: "node outils/env.cjs outils/sauvegarde.mjs" },
+  scripts: { start: "node app.js", verifier: "node outils/verifier.cjs", migrate: "node outils/env.cjs outils/migrate.mjs", seed: "node outils/env.cjs outils/seed.mjs", sauvegarde: "node outils/env.cjs outils/sauvegarde.mjs" },
   engines: { node: ">=20" },
 }, null, 2));
-fs.copyFileSync(path.join(web, "deploiement", "env.cjs"), path.join(out, "outils", "env.cjs"));
+// nodemailer (sans dépendance) pour l'outil de vérification ; le site l'intègre déjà à son code compilé.
+if (!fs.existsSync(path.join(out, "node_modules", "nodemailer"))) copy(path.join(web, "node_modules", "nodemailer"), path.join(out, "node_modules", "nodemailer"));
+for (const f of ["env.cjs", "verifier.cjs"]) fs.copyFileSync(path.join(web, "deploiement", f), path.join(out, "outils", f));
 
 console.log("4/4 Archive ZIP");
 execSync(`cd "${path.join(root, "livraison")}" && zip -qr -9 "${zip}" navigoal`, { stdio: "inherit" });
