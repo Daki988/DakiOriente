@@ -21,7 +21,8 @@
     "apk:livreur": "npm run build:livreur && cd native/livreur && npx cap sync android && cd android && ./gradlew assembleDebug",
     "db:start": "supabase start",
     "db:reset": "supabase db reset",
-    "test:backend": "node scripts/test-backend.mjs"
+    "test:backend": "node scripts/test-backend.mjs",
+    "test:security": "node scripts/test-security.mjs"
   },
   "dependencies": {
     "@capacitor/app": "^8.1.2",

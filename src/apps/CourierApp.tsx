@@ -151,9 +151,11 @@ function CourseDetail() {
   const act = async (action: 'pickup' | 'deliver') => {
     setBusy(true)
     setError('')
-    const { error } = await sb().rpc('courier_update_order', { p_order: o.id, p_action: action, p_code: action === 'deliver' ? code : null })
+    const { data: res, error } = await sb().rpc('courier_update_order', { p_order: o.id, p_action: action, p_code: action === 'deliver' ? code : null })
     setBusy(false)
     if (error) return setError(errMsg(error))
+    // Code faux : le serveur compte l'essai (5 maximum) et renvoie une commande vide
+    if (action === 'deliver' && !(res as { id?: string } | null)?.id) return setError('Code de remise incorrect. Après 5 essais, la remise est bloquée.')
     toast(action === 'pickup' ? 'Récupération confirmée · en route vers le client' : `Livraison validée · ${money(o.total)} encaissés`)
     reload()
   }

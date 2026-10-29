@@ -74,6 +74,25 @@ Numéros de test en local : `+241 07 00 00 01` à `+241 07 00 00 05`, code `1234
   et chaque étape est journalisée (qui, quand).
 - Les fonctions d'administration refusent tout compte non admin.
 
+## Mettre à jour un serveur déjà installé
+
+Chaque fichier de `supabase/migrations/` postérieur à l'installation se colle une fois, dans l'ordre, dans le SQL Editor.
+- `20261029000001_security.sql` — durcissement de sécurité : historique des commandes protégé, code de remise tiré
+  au hasard cryptographique et limité à 5 essais (déblocage par l'admin), 3 commandes en attente maximum par client,
+  tailles maximales des textes, espèces dues visibles uniquement par le livreur concerné.
+
+Vérifications : `npm run test:backend` (parcours complet) et `npm run test:security` (tentatives d'abus) sur le serveur local.
+
+## Réglages de sécurité Supabase (à faire avant l'ouverture au public)
+
+- **Numéros de test** : un numéro listé dans *Test phone numbers* se connecte avec un code fixe, sans SMS.
+  N'y laissez jamais le numéro d'un administrateur avec un code devinable ; retirez tous les numéros de test
+  dès que le fournisseur SMS est configuré.
+- **Clés** : la clé secrète (`sb_secret_…`) et les jetons d'accès (`sbp_…`) ne vont jamais dans une application.
+  Régénérez-les s'ils ont été partagés.
+- **APK de production** : les APK actuelles sont des versions de test (signature de débogage). Pour le Play Store,
+  construire une version *release* signée avec la clé de l'entreprise.
+
 ## Limites de la phase 1
 
 - Position du livreur partagée **quand l'app est ouverte** (pas encore en arrière-plan).
