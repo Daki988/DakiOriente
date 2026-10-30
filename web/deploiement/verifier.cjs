@@ -57,6 +57,12 @@ let erreurs = 0;
   } else console.log("  • SMTP non configuré : les e-mails seront seulement journalisés");
 
   process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET ? ok("Connexion Google configurée") : console.log("  • Connexion Google non configurée (facultatif)");
+  if (process.env.ANTHROPIC_API_KEY) {
+    try {
+      const r = await fetch("https://api.anthropic.com/v1/models?limit=1", { headers: { "x-api-key": process.env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01" }, signal: AbortSignal.timeout(10000) });
+      r.ok ? ok("Navi (assistant IA) : clé Anthropic acceptée") : ko(`Navi : clé Anthropic refusée (HTTP ${r.status})`);
+    } catch (e) { ko(`Navi : API Anthropic injoignable (${e.message})`); }
+  } else console.log("  • Navi (assistant IA) non configuré : ANTHROPIC_API_KEY absente (facultatif)");
   console.log(erreurs ? `\n${erreurs} point(s) à corriger.` : "\nTout est prêt.");
   process.exit(erreurs ? 1 : 0);
 })();

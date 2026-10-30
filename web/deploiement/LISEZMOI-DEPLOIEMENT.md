@@ -62,6 +62,20 @@ Un compte existant avec la même adresse e-mail est reconnu automatiquement. Un 
 son profil (élève, étudiant, parent, bailleur) sur la page d'inscription, puis « S'inscrire avec Google ».
 Les comptes établissement restent créés par le formulaire (vérification par l'équipe Navigoal).
 
+## 2 ter. Navi, l'assistant IA (facultatif)
+
+Le bouton Navi (en bas à droite de toutes les pages) s'affiche dès que `ANTHROPIC_API_KEY` est renseignée.
+
+1. https://console.anthropic.com › **API Keys › Create Key** (nom « navigoal-production »), puis ajoutez un moyen
+   de paiement et, dans **Limits**, un plafond de dépenses mensuel.
+2. Copiez la clé dans `ANTHROPIC_API_KEY` du fichier `.env` (gestionnaire de fichiers cPanel), puis **Restart**.
+3. `npm run verifier` confirme que la clé est acceptée.
+
+Navi lit le catalogue, les devis et, pour une personne connectée, ses propres candidatures, paiements et réservations ;
+il n'agit jamais à sa place. Quotas par jour : 30 messages par visiteur, 60 par compte, 2 000 pour tout le site
+(`NAVI_LIMITE_VISITEUR`, `NAVI_LIMITE_MEMBRE`, `NAVI_LIMITE_GLOBALE`). Si une demande est refusée par le modèle
+principal, l'API la confie automatiquement à un modèle de secours (option `fallbacks: "default"`).
+
 ## 3. Envoi des fichiers
 
 1. cPanel › **Gestionnaire de fichiers** : placez-vous dans votre dossier personnel `/home/IDENTIFIANT`

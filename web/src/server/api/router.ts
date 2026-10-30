@@ -27,6 +27,7 @@ import * as google from "../services/google";
 import { sha256 } from "../auth/tokens";
 import { cheminInterne } from "@/lib/redirection";
 import * as campaign from "../services/campaign";
+import * as navi from "../services/navi";
 import { ACQ_COOKIE } from "@/lib/campagne";
 
 /** Origine de l'inscription (cookie de première visite posé par le site). */
@@ -341,6 +342,23 @@ route("GET", "/openapi.json", "Documentation", "Description OpenAPI de l'API (ad
 route("GET", "/contact", "Documentation", "Coordonnées de contact (numéro WhatsApp des conseillers, lu à l'exécution)", "public", async () => {
   const n = (process.env.WHATSAPP_CONSEILLER ?? "").replace(/\D/g, "");
   return { whatsapp: n.length >= 8 ? n : null };
+});
+// ---------------------------------------------------------------- Navi (assistant IA)
+route("GET", "/navi", "Navi", "Navi est-il disponible (clé API configurée) ?", "public", async () => ({ actif: navi.naviActif() }));
+route("POST", "/navi", "Navi", "Converser avec Navi (réponse en flux NDJSON : texte, cartes, fin)", "public", async ({ req, user, body }) => {
+  if (!navi.naviActif()) throw new AppError("Navi n'est pas encore activé.", 503, "navi_inactif");
+  const r = navi.naviSchema.parse(await body());
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || req.headers.get("x-real-ip") || "inconnue";
+  await navi.verifierQuota(user, ip);
+  const enc = new TextEncoder();
+  const flux = new ReadableStream({
+    async start(c) {
+      try { for await (const e of navi.converser(r, user)) c.enqueue(enc.encode(JSON.stringify(e) + "\n")); }
+      catch (e) { console.error("Navi :", e); c.enqueue(enc.encode(JSON.stringify({ t: "erreur", v: "Navi est momentanément indisponible." }) + "\n")); }
+      c.close();
+    },
+  });
+  return new Response(flux, { headers: { "Content-Type": "application/x-ndjson; charset=utf-8", "Cache-Control": "no-store", "X-Accel-Buffering": "no" } });
 });
 route("GET", "/sante", "Documentation", "État du service (surveillance de disponibilité) : 200 si l'application et la base répondent, 503 sinon", "public", async () => {
   const debut = Date.now();

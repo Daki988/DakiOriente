@@ -26,7 +26,7 @@ export function QuestionWhatsApp({ sujet, cta }: { sujet: string; cta?: { href: 
         {cta && <Link href={cta.href} className="btn-primary min-h-[46px] flex-1">{cta.label}</Link>}
         {bouton(`min-h-[46px] px-4 text-[15px] ${cta ? "" : "flex-1"}`)}
       </div>
-      <div className="fixed bottom-6 right-6 z-30 hidden lg:block">{bouton("px-5 py-3.5 text-[15px] shadow-[0_12px_30px_-10px_rgba(11,21,51,.45)]")}</div>
+      <div className="fixed bottom-6 right-[96px] z-30 hidden lg:block">{bouton("px-5 py-3.5 text-[15px] shadow-[0_12px_30px_-10px_rgba(11,21,51,.45)]")}</div>
     </>
   );
 }

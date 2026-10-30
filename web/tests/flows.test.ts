@@ -405,3 +405,42 @@ describe("sécurité : attaques rejouées (test d'intrusion)", () => {
     await expect(accounts.login("00212611223344", "Motdepasse1")).rejects.toThrow(/Trop de tentatives/);
   });
 });
+
+describe("Navi (assistant IA) : outils et garde-fous, sans appel au modèle", async () => {
+  const navi = await import("@/server/services/navi");
+  const o = navi._outils;
+  it("recherche : un métier en langage naturel mène aux formations et aux écoles", () => {
+    const r = o.chercherFormations({ texte: "je veux devenir infirmière", ville: null, niveau: null, label: null, limite: null });
+    expect(r.formations.length).toBeGreaterThan(0);
+    expect(r.formations[0].intitule).toMatch(/infirmi/i);
+    expect(r.formations[0].etablissements.length).toBeGreaterThan(0);
+    expect(o.chercherEtablissements({ texte: "UIR", ville: null, label: null, formation_id: null, limite: null }).etablissements[0].sigle).toBe("UIR");
+  });
+  it("devis : mêmes calculs que la page Devis, montants en F CFA pour le Gabon", async () => {
+    const r = await o.estimerCout({ etablissement_id: "ma-esa-casa", formation_id: null, pays_origine: "GA", logement: null }, null);
+    expect(r).toHaveProperty("total_toute_la_formation.XAF");
+    expect((r as { page_devis: string }).page_devis).toMatch(/^\/devis\/\?etab=ma-esa-casa&f=.+&o=GA$/);
+  });
+  it("cartes : liens externes ou piégés écartés, établissements inconnus ignorés", async () => {
+    const c = await o.construireCartes({ etablissements: ["ma-esa-casa", "inconnu"], formation_id: null, devis: null, conseiller: true, suggestions: ["Quelles bourses ?"],
+      liens: [{ libelle: "Piège", chemin: "https://evil.com" }, { libelle: "Piège 2", chemin: "//evil.com/devis" }, { libelle: "Admin", chemin: "/admin/" }, { libelle: "Comparer", chemin: "/comparateur/?e=a,b" }] }, "GA");
+    expect(c.filter((x) => x.type === "etablissement")).toHaveLength(1);
+    expect(c.find((x) => x.type === "liens")).toEqual({ type: "liens", liens: [{ libelle: "Comparer", href: "/comparateur/?e=a,b", principal: true }] });
+    expect(c.some((x) => x.type === "conseiller")).toBe(true);
+  });
+  it("espace personnel : visiteur sans données, élève limité à ses propres dossiers", async () => {
+    expect(await o.monEspace(null)).toMatchObject({ connecte: false });
+    const autre = await accounts.register({ role: "etudiant", firstName: "Zed", lastName: "Autre", email: "zed.navi@test.local", password: "Motdepasse1", acceptTerms: true });
+    const e = (await o.monEspace(autre)) as { candidatures: unknown[] };
+    expect(e.candidatures).toHaveLength(0);
+    const s = (await o.monEspace(student)) as { candidatures: { page: string }[] };
+    for (const a of s.candidatures) expect(a.page).toMatch(/^\/espace\/candidatures\//);
+  });
+  it("quota journalier par visiteur", async () => {
+    process.env.NAVI_LIMITE_VISITEUR = "2";
+    await navi.verifierQuota(null, "203.0.113.9");
+    await navi.verifierQuota(null, "203.0.113.9");
+    await expect(navi.verifierQuota(null, "203.0.113.9")).rejects.toThrow(/limite de 2 messages/);
+    delete process.env.NAVI_LIMITE_VISITEUR;
+  });
+});
