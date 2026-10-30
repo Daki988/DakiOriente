@@ -17,3 +17,5 @@ Assistant IA (proposition, octobre 2026) : `python3 design/maquettes/chatbot.py 
 
 Écrans : design system & motion, accueil (desktop + mobile), test et résultat d'orientation, recherche de formations, fiche formation, Navilease, tableau de bord étudiant.
 Les étiquettes roses sur les maquettes décrivent les animations prévues.
+
+Relais administrateur et Premium établissements (proposition, octobre 2026) : `python3 design/maquettes/premium.py <icônes lucide>` → `out/premium.html` (toutes les candidatures et tous les fils pour l'admin, reprise d'un échange au nom de Navigoal, mode accompagné écoles et bailleurs, filtres Premium résultats / projet / financement, vivier de candidats consentants, campagne de prospection, profil « Mes attentes » et invitations côté élève, offre Gratuit / Premium, règles). Import Figma : `html_to_figma` avec `cssSelector: ".frame"`.
