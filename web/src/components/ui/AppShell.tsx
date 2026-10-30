@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   BarChart3, Bell, BookOpen, Briefcase, Building2, Calculator, ChevronDown, Compass, FileCheck2, FileText, Folder, GraduationCap, Headset, House, KeyRound, LayoutDashboard, LogOut,
-  MailWarning, Megaphone, Menu, MessageCircle, ScrollText, Search, Settings2, ShieldCheck, Sparkles, UserRound, Users, UsersRound, Wallet, X, type LucideIcon,
+  Inbox, LifeBuoy, MailOpen, MailWarning, Megaphone, Menu, MessageCircle, MessagesSquare, ScrollText, Search, Send, Settings2, ShieldCheck, Sparkles, UserRound, Users, UsersRound, Wallet, X, type LucideIcon,
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Brand, BrandMark } from "./Brand";
@@ -26,20 +26,22 @@ const MENUS: Record<string, Menu> = {
     { href: "/metiers", Icon: Briefcase, t: "Métiers", group: "Explorer" }, { href: "/formations", Icon: GraduationCap, t: "Formations", group: "Explorer" }, { href: "/etablissements", Icon: Building2, t: "Établissements", group: "Explorer" },
     { href: "/espace/candidatures", Icon: FileText, t: "Mes candidatures", m: "Candidatures", group: "Mes démarches" }, { href: "/espace/documents", Icon: Folder, t: "Mes documents", group: "Mes démarches" },
     { href: "/espace/paiements", Icon: Wallet, t: "Paiements", group: "Mes démarches" }, { href: "/espace/logement", Icon: KeyRound, t: "Mon logement", group: "Mes démarches" },
-    { href: "/espace/conseiller", Icon: Headset, t: "Conseiller", group: "Mes démarches" }, MSG, NOTIF, SETTINGS] },
+    { href: "/espace/conseiller", Icon: Headset, t: "Conseiller", group: "Mes démarches" }, { href: "/espace/invitations", Icon: MailOpen, t: "Invitations des écoles", group: "Mes démarches" }, MSG, NOTIF, SETTINGS] },
   parent: { label: "Espace parent", tint: "bg-sun-100 text-[#a55a00]", tabs: ["/parent", "/parent/enfants", "/parent/paiements", "/messages"], items: [
     { href: "/parent", Icon: LayoutDashboard, t: "Vue d'ensemble", m: "Accueil" }, { href: "/parent/enfants", Icon: UsersRound, t: "Mes enfants", m: "Enfants" }, { href: "/devis", Icon: Calculator, t: "Devis & budget" },
     { href: "/parent/paiements", Icon: Wallet, t: "Paiements" }, { href: "/parent/logement", Icon: KeyRound, t: "Logement" }, { href: "/parent/conseiller", Icon: Headset, t: "Conseiller" }, MSG, NOTIF, SETTINGS] },
   etablissement: { label: "Espace établissement", tint: "bg-[#f1edff] text-[#6a3df0]", tabs: ["/etablissement", "/etablissement/candidatures", "/etablissement/formations", "/messages"], items: [
     { href: "/etablissement", Icon: LayoutDashboard, t: "Tableau de bord", m: "Accueil" }, { href: "/etablissement/fiche", Icon: Building2, t: "Mon établissement" },
     { href: "/etablissement/formations", Icon: GraduationCap, t: "Formations" }, { href: "/etablissement/candidatures", Icon: FileCheck2, t: "Candidatures" },
-    { href: "/etablissement/campagnes", Icon: Megaphone, t: "Campagnes" }, MSG, NOTIF, SETTINGS] },
+    { href: "/etablissement/campagnes", Icon: Megaphone, t: "Campagnes" },
+    { href: "/etablissement/vivier", Icon: UsersRound, t: "Vivier de candidats", group: "Premium" }, { href: "/etablissement/prospection", Icon: Send, t: "Prospection", group: "Premium" }, MSG, NOTIF, SETTINGS] },
   bailleur: { label: "Espace bailleur Navilease", tint: "bg-[#ffecef] text-[#d42a50]", tabs: ["/bailleur", "/bailleur/annonces", "/bailleur/reservations", "/messages"], items: [
     { href: "/bailleur", Icon: LayoutDashboard, t: "Tableau de bord", m: "Accueil" }, { href: "/bailleur/annonces", Icon: House, t: "Mes annonces", m: "Annonces" },
     { href: "/bailleur/reservations", Icon: KeyRound, t: "Demandes & réservations", m: "Réservations" }, { href: "/bailleur/profil", Icon: ShieldCheck, t: "Vérification & versements" }, MSG, NOTIF, SETTINGS] },
   conseiller: { label: "Espace conseiller", tint: "bg-[#e8f8ef] text-[#0f8a46]", tabs: ["/conseiller", "/messages", "/notifications"], items: [{ href: "/conseiller", Icon: Headset, t: "Rendez-vous" }, MSG, NOTIF, SETTINGS] },
   admin: { label: "Back-office", tint: "bg-ink text-white", tabs: ["/admin", "/admin/utilisateurs", "/admin/etablissements", "/admin/homologations"], items: [
-    { href: "/admin", Icon: BarChart3, t: "Statistiques" }, { href: "/admin/utilisateurs", Icon: Users, t: "Utilisateurs" }, { href: "/admin/etablissements", Icon: Building2, t: "Établissements" },
+    { href: "/admin", Icon: BarChart3, t: "Statistiques" }, { href: "/admin/candidatures", Icon: Inbox, t: "Candidatures", group: "Relais Navigoal" }, { href: "/admin/messagerie", Icon: MessagesSquare, t: "Messagerie", group: "Relais Navigoal" },
+    { href: "/admin/accompagnement", Icon: LifeBuoy, t: "Mode accompagné", group: "Relais Navigoal" }, { href: "/admin/prospection", Icon: Send, t: "Prospection des écoles", group: "Relais Navigoal" }, { href: "/admin/utilisateurs", Icon: Users, t: "Utilisateurs" }, { href: "/admin/etablissements", Icon: Building2, t: "Établissements" },
     { href: "/admin/homologations", Icon: ShieldCheck, t: "Homologations" }, { href: "/admin/referentiels", Icon: BookOpen, t: "Référentiels" }, { href: "/admin/navilease", Icon: KeyRound, t: "Navilease" },
     { href: "/admin/paiements", Icon: Wallet, t: "Paiements" }, { href: "/admin/contenus", Icon: Briefcase, t: "Contenus" }, { href: "/admin/campagne", Icon: Megaphone, t: "Campagne" }, { href: "/admin/journal", Icon: ScrollText, t: "Journal" }, MSG, NOTIF, SETTINGS] },
 };

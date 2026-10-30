@@ -233,7 +233,10 @@ export async function updateProfile(userId: string, raw: z.input<typeof profileS
   const userPart = { firstName: i.firstName, lastName: i.lastName, birthYear: i.birthYear, country: i.country, city: i.city };
   const clean = <T extends object>(o: T) => Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined)) as Partial<T>;
   if (Object.keys(clean(userPart)).length) await db.update(schema.users).set(clean(userPart)).where(eq(schema.users.id, userId));
-  const prof = clean({ level: i.level, serie: i.serie, currentSchool: i.currentSchool, diploma: i.diploma, domain: i.domain, skills: i.skills, interests: i.interests, goals: i.goals, preferences: i.preferences });
+  // Préférences fusionnées : le profil et « Mes attentes » écrivent chacun leurs propres clés (budget et monnaie, villes, logement).
+  const [avant] = i.preferences ? await db.select({ p: schema.profiles.preferences }).from(schema.profiles).where(eq(schema.profiles.userId, userId)) : [];
+  const preferences = i.preferences ? { ...(avant?.p ?? {}), ...clean(i.preferences) } : undefined;
+  const prof = clean({ level: i.level, serie: i.serie, currentSchool: i.currentSchool, diploma: i.diploma, domain: i.domain, skills: i.skills, interests: i.interests, goals: i.goals, preferences });
   const ins = db.insert(schema.profiles).values({ userId, ...prof });
   await (Object.keys(prof).length ? ins.onConflictDoUpdate({ target: schema.profiles.userId, set: prof }) : ins.onConflictDoNothing());
   return getMe(userId);

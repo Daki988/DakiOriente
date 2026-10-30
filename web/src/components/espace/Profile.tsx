@@ -48,7 +48,7 @@ export function Profile() {
       await api("/moi", { method: "PATCH", body: {
         firstName: f.firstName, lastName: f.lastName, birthYear: f.birthYear ? Number(f.birthYear) : undefined, country: f.country || undefined, city: f.city || undefined,
         level: f.level || undefined, serie: f.serie || undefined, currentSchool: f.currentSchool || undefined, diploma: f.diploma || undefined, goals: f.goals || undefined, skills,
-        preferences: { villes: prefVilles, budgetAnnuel: f.budgetAnnuel ? Number(f.budgetAnnuel) : undefined, logement: { budget: f.logementBudget ? Number(f.logementBudget) : undefined, type: f.logementType || undefined, colocation: coloc } },
+        preferences: { villes: prefVilles, logement: { budget: f.logementBudget ? Number(f.logementBudget) : undefined, type: f.logementType || undefined, colocation: coloc } },
       } });
       toast("Profil enregistré");
       me.reload();
@@ -91,7 +91,6 @@ export function Profile() {
           <Panel title="Préférences d'études et de logement" icon={KeyRound}>
             <Field label="Villes d'études envisagées (Maroc)">{() => <div className="flex flex-wrap gap-2">{VILLES_ETUDES.map((v) => { const on = prefVilles.includes(v); return <button type="button" key={v} onClick={() => setPrefVilles((s) => on ? s.filter((x) => x !== v) : [...s, v])} className={`chip px-3 py-1.5 ${on ? "bg-brand-600 text-white" : "bg-brand-50 text-brand-700"}`}>{v}</button>; })}</div>}</Field>
             <div className="grid gap-4 sm:grid-cols-3">
-              <Field label="Budget scolarité / an">{(i) => <Input id={i} type="number" value={f.budgetAnnuel ?? ""} onChange={set("budgetAnnuel")} placeholder="en dirhams (MAD)" />}</Field>
               <Field label="Budget logement / mois">{(i) => <Input id={i} type="number" value={f.logementBudget ?? ""} onChange={set("logementBudget")} />}</Field>
               <Field label="Type de logement">{(i) => <Select id={i} value={f.logementType ?? ""} onChange={set("logementType")} placeholder="Indifférent" options={[["studio", "Studio"], ["chambre", "Chambre"], ["colocation", "Colocation"], ["residence", "Résidence"]]} />}</Field>
             </div>

@@ -1,5 +1,6 @@
 "use client";
 import Link from "@/components/ui/Link";
+import { VisibiliteEnfants } from "@/components/espace/Attentes";
 import { motion } from "framer-motion";
 import { Calculator, CheckCircle2, FileText, KeyRound, Link2, ShieldCheck, UsersRound, Wallet } from "lucide-react";
 import { useState } from "react";
@@ -94,6 +95,7 @@ export function ParentChildren() {
   return (
     <>
       <PageHeader title="Mes enfants" sub="Suivez le parcours de vos enfants et validez les étapes sensibles." />
+      <div className="mb-6"><VisibiliteEnfants /></div>
       <div className="grid items-start gap-6 xl:grid-cols-[420px_1fr]">
         <Panel title="Lier un enfant" icon={Link2} tone="sun">
           <p className="text-[13px] text-ink-mute">Votre enfant vous invite depuis son profil (rubrique « Parent / tuteur ») : vous recevez un code à 6 chiffres par SMS ou e-mail.</p>

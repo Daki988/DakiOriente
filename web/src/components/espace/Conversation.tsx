@@ -6,7 +6,7 @@ import { api } from "@/lib/api";
 import { useApi } from "@/hooks/useApi";
 import { useUser } from "@/components/app/Session";
 
-export type Thread = { conversation: { id: string; subject: string; contextKind: string | null; contextId: string | null }; masked: boolean; messages: { m: { id: string; body: string; masked: boolean; createdAt: string; authorId: string }; a: { id: string; firstName: string; lastName: string; role: string } }[] };
+export type Thread = { conversation: { id: string; subject: string; contextKind: string | null; contextId: string | null }; masked: boolean; messages: { m: { id: string; body: string; masked: boolean; createdAt: string; authorId: string; onBehalfOf?: string | null; internal?: boolean }; a: { id: string; firstName: string; lastName: string; role: string } }[] };
 
 /** Fil de discussion réutilisable (messagerie, candidature, réservation). Rafraîchi toutes les 15 s. */
 export function ConversationThread({ id, compact }: { id: string; compact?: boolean }) {
@@ -31,12 +31,16 @@ export function ConversationThread({ id, compact }: { id: string; compact?: bool
         {!t.data.messages.length && <p className="py-6 text-center text-sm text-ink-mute">Aucun message pour l&apos;instant.</p>}
         {t.data.messages.map(({ m, a }) => {
           const mine = a.id === me.id;
+          // Équipe Navigoal (relais) : signée comme telle, jamais au nom de l'école ; notes internes en jaune (professionnels seulement).
+          const equipe = a.role === "admin";
+          const nom = mine ? "Moi" : equipe ? `${a.firstName}, équipe Navigoal${m.onBehalfOf ? ` · pour le compte de ${m.onBehalfOf}` : ""}` : `${a.firstName} ${a.lastName}`;
+          const bulle = m.internal ? "rounded-bl-md border border-[#ffe59a] bg-[#fff7dd]" : mine ? "rounded-br-md bg-brand-600 text-white" : equipe ? "rounded-bl-md border border-[#c9d6ff] bg-brand-50" : "rounded-bl-md bg-[#f1f4fb]";
           return (
             <div key={m.id} className={`flex items-end gap-2.5 ${mine ? "flex-row-reverse" : ""}`}>
               <Avatar name={`${a.firstName} ${a.lastName}`} size={32} />
               <div className={`flex max-w-[78%] flex-col gap-1 ${mine ? "items-end" : ""}`}>
-                <span className="text-[11px] font-bold text-ink-mute">{mine ? "Moi" : `${a.firstName} ${a.lastName}`} · {since(m.createdAt)}</span>
-                <p className={`whitespace-pre-wrap rounded-2xl px-4 py-2.5 text-sm ${mine ? "rounded-br-md bg-brand-600 text-white" : "rounded-bl-md bg-[#f1f4fb]"}`}>{m.body}</p>
+                <span className="text-[11px] font-bold text-ink-mute">{nom} · {since(m.createdAt)}{equipe && !mine && <span className="ml-1.5 rounded-full bg-brand-100 px-1.5 py-0.5 text-[10px] text-brand-700">NAVIGOAL</span>}{m.internal && <span className="ml-1.5 rounded-full bg-sun-100 px-1.5 py-0.5 text-[10px] text-[#a55a00]">NOTE INTERNE</span>}</span>
+                <p className={`whitespace-pre-wrap rounded-2xl px-4 py-2.5 text-sm ${bulle}`}>{m.body}</p>
                 {m.masked && <span className="text-[11px] font-semibold text-[#a55a00]">Coordonnées masquées automatiquement</span>}
               </div>
             </div>

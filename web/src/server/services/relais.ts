@@ -171,7 +171,7 @@ export async function setLandlordAssisted(admin: User, userId: string, on: boole
 
 export async function listAssisted(admin: User) {
   assertAdmin(admin);
-  const ecoles = await db.select({ id: schema.establishments.id, nom: schema.establishments.nom, sigle: schema.establishments.sigle, logo: schema.establishments.logo, ville: schema.establishments.ville, assisted: schema.establishments.assisted,
+  const ecoles = await db.select({ id: schema.establishments.id, nom: schema.establishments.nom, sigle: schema.establishments.sigle, logo: schema.establishments.logo, ville: schema.establishments.ville, assisted: schema.establishments.assisted, plan: schema.establishments.plan, premiumUntil: schema.establishments.premiumUntil,
     attente: sql<number>`(select count(*) from applications a where a.establishment_id = ${schema.establishments.id} and a.status in ('soumise','paiement_confirme','en_verification','complet','en_traitement'))::int`,
     membres: sql<number>`(select count(*) from establishment_members m join users u on u.id = m.user_id where m.establishment_id = ${schema.establishments.id} and u.status = 'actif')::int` })
     .from(schema.establishments).orderBy(desc(schema.establishments.assisted), schema.establishments.sigle);
