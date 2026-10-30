@@ -5,7 +5,7 @@
       "slug": "burgers",
       "visible": true,
       "intro": "Des burgers gourmets aux saveurs uniques.",
-      "image": "/images/menu/mini-burger-jackboy-libreville.webp",
+      "image": "/images/menu/burger-cheese-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
@@ -21,7 +21,7 @@
           "name": "Cheese Burger",
           "description": "Laitue, tomate, oignons, steak, fromage.",
           "price": 2500,
-          "image": "/images/menu/mini-burger-jackboy-libreville.webp",
+          "image": "/images/menu/burger-cheese-jackboy-libreville.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -78,14 +78,14 @@
       "slug": "paninis",
       "visible": true,
       "intro": "Croustillants & gourmands — nos emblématiques.",
-      "image": "/images/menu/paninis-planche-ardoise-jackboy.webp",
+      "image": "/images/menu/panini-grille-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
           "name": "Panini Poulet",
           "description": "Poulet grillé et assaisonné.",
           "price": 1500,
-          "image": "/images/menu/panini-planche-jackboy-libreville.webp",
+          "image": "/images/menu/panini-grille-jackboy-libreville.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -94,7 +94,7 @@
           "name": "Panini Viande",
           "description": "Viande assaisonnée.",
           "price": 1500,
-          "image": "/images/menu/panini-planche-jackboy-libreville.webp",
+          "image": "/images/menu/panini-grille-jackboy-libreville.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -115,14 +115,14 @@
       "slug": "wings",
       "visible": true,
       "intro": "6 pièces au goût unique.",
-      "image": "/images/menu/wings.webp",
+      "image": "/images/menu/wings-sauce-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
           "name": "Wings (6 pièces)",
           "description": "Ailes de poulet marinées, précuites à la grille et remmenées à la poêle. Caramélisées ou salées.",
           "price": 2000,
-          "image": "/images/menu/wings.webp",
+          "image": "/images/menu/wings-sauce-jackboy-libreville.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -134,7 +134,7 @@
       "slug": "brochettes",
       "visible": true,
       "intro": "2 brochettes bien assaisonnées.",
-      "image": "/images/menu/brochettes-poulet-ardoise-jackboy.webp",
+      "image": "/images/menu/brochettes-poulet-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
@@ -162,7 +162,7 @@
       "slug": "nems",
       "visible": true,
       "intro": "4 pièces de pur plaisir.",
-      "image": "/images/menu/nems-ardoise-jackboy-libreville.webp",
+      "image": "/images/menu/nems-croustillants-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
@@ -190,7 +190,7 @@
       "slug": "frites",
       "visible": true,
       "intro": "Simplement irrésistibles.",
-      "image": "/images/menu/poulet-frites-jackboy-libreville.webp",
+      "image": "/images/menu/frites-maison-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
