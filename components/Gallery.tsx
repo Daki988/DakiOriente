@@ -20,7 +20,7 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
               className="group block h-full w-full overflow-hidden rounded-2xl text-left"
               aria-label={`Agrandir : ${it.alt}`}
             >
-              <Media src={it.src} alt={it.alt} mood={it.mood} className={`h-full w-full transition duration-500 group-hover:scale-[1.03] ${i % 5 === 0 ? "aspect-square" : "aspect-[4/5]"}`} sizes="(min-width:768px) 25vw, 50vw" />
+              <Media src={it.src} alt={it.alt} mood={it.mood} className={`h-full w-full transition duration-500 group-hover:scale-[1.03] ${i % 5 === 0 ? "aspect-square" : "aspect-[4/5]"}`} sizes={i % 5 === 0 ? "(min-width:1152px) 576px, (min-width:768px) 50vw, 100vw" : "(min-width:1152px) 288px, (min-width:768px) 25vw, 50vw"} />
             </button>
           </li>
         ))}

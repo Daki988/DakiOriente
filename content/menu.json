@@ -216,7 +216,7 @@
           "name": "Cocktail alcoolisé",
           "description": "Mojito, Mojito passion ou Chantaco.",
           "price": 4000,
-          "image": "/images/menu/cocktail-passion-jackboy.webp",
+          "image": "/images/menu/cocktail-mojito-passion-jackboy.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -225,7 +225,7 @@
           "name": "Cocktail sans alcool",
           "description": "Mojito, Mojito passion ou Chantaco, version sans alcool.",
           "price": 3000,
-          "image": "/images/menu/mojito.webp",
+          "image": "/images/boissons/studio-mocktail-bleu-jackboy.webp",
           "featured": false,
           "available": true,
           "isNew": false
@@ -1175,7 +1175,7 @@
       "slug": "chicha",
       "visible": true,
       "intro": "Différentes saveurs.",
-      "image": "/images/menu/chicha.webp",
+      "image": "/images/ambiance/chicha-bar-jackboy-libreville.webp",
       "note": "",
       "products": [
         {

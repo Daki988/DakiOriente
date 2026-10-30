@@ -8,7 +8,7 @@ export function Media({
   if (!src) return <Placeholder mood={mood} label={alt} className={className} />;
   return (
     <div className={`${/\b(absolute|fixed)\b/.test(className) ? "" : "relative "}overflow-hidden ${className}`}>
-      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover" />
+      <Image src={src} alt={alt} fill sizes={sizes} quality={90} priority={priority} className="object-cover" />
     </div>
   );
 }

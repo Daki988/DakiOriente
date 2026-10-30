@@ -15,7 +15,7 @@ const nextConfig: NextConfig = isStatic
   ? { output: "export", trailingSlash: true, poweredByHeader: false, images: { unoptimized: true } }
   : {
       poweredByHeader: false,
-      images: { formats: ["image/avif", "image/webp"] },
+      images: { formats: ["image/avif", "image/webp"], qualities: [75, 90] },
       async headers() {
         return [{ source: "/:path*", headers: securityHeaders }];
       },
