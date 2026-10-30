@@ -20,7 +20,7 @@ console.log("2/4 Scripts de base de données (migrations, données de démarrage
 fs.rmSync(path.join(root, "livraison"), { recursive: true, force: true });
 fs.mkdirSync(path.join(out, "outils"), { recursive: true });
 const banner = "import { createRequire as __cr } from 'module'; const require = __cr(import.meta.url);";
-for (const s of ["migrate", "seed", "sauvegarde", "restauration"])
+for (const s of ["migrate", "seed", "sauvegarde", "restauration", "acces-ecoles"])
   run(`npx esbuild scripts/${s}.mts --bundle --platform=node --format=esm --target=node20 --external:pg-native --banner:js="${banner}" --outfile=${path.join(out, "outils", s + ".mjs")} --log-level=warning`);
 
 console.log("3/4 Assemblage");
@@ -39,7 +39,7 @@ for (const f of ["app.js", ".env.example", "LISEZMOI-DEPLOIEMENT.md"]) fs.copyFi
 // package.json minimal : « type » non défini (server.js et app.js en CommonJS), scripts utiles dans cPanel
 fs.writeFileSync(path.join(out, "package.json"), JSON.stringify({
   name: "navigoal", private: true, version: date, main: "app.js",
-  scripts: { start: "node app.js", verifier: "node outils/verifier.cjs", migrate: "node outils/env.cjs outils/migrate.mjs", seed: "node outils/env.cjs outils/seed.mjs", sauvegarde: "node outils/env.cjs outils/sauvegarde.mjs" },
+  scripts: { start: "node app.js", verifier: "node outils/verifier.cjs", migrate: "node outils/env.cjs outils/migrate.mjs", seed: "node outils/env.cjs outils/seed.mjs", sauvegarde: "node outils/env.cjs outils/sauvegarde.mjs", "acces-ecoles": "node outils/env.cjs outils/acces-ecoles.mjs" },
   engines: { node: ">=20" },
 }, null, 2));
 // nodemailer (sans dépendance) pour l'outil de vérification ; le site l'intègre déjà à son code compilé.

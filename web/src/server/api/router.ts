@@ -375,6 +375,7 @@ route("POST", "/admin/etablissements/:id/collaborateurs", "Accès écoles", "Ajo
 
 // ---------------------------------------------------------------- Premium (établissements)
 const liste = (v: string | null) => (v ? v.split(",").filter(Boolean) : undefined);
+route("GET", "/ecole/:eid/guide", "Établissement", "Guide de la plateforme : premiers pas réalisés", ["etablissement", "admin"], async ({ me, params }) => acces.guideProgress(me, params.eid));
 route("GET", "/ecole/:eid/premium", "Premium", "Offre de l'établissement (Premium ou gratuit, tarif)", ["etablissement", "admin"], async ({ me, params }) => premium.premiumStatus(me, params.eid));
 route("GET", "/ecole/:eid/candidatures-filtrees", "Premium", "Candidatures reçues avec résultats, projet, financement et score (filtres)", ["etablissement", "admin"], async ({ me, params, query }) => premium.filteredApplications(me, params.eid, {
   moyenneMin: query.get("moyenneMin") ?? undefined, series: liste(query.get("series")), mentionMin: (query.get("mentionMin") ?? undefined) as never, domaine: query.get("domaine") ?? undefined, metier: query.get("metier") ?? undefined,

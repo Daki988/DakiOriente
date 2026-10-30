@@ -468,6 +468,9 @@ describe("relais Navigoal, Premium et accès des établissements", async () => {
     expect((await accounts.login(uir.email, r.motDePasse)).mustChangePassword).toBe(true);
     expect(acces.accesCsv([r])).toMatch(/contact@uir\.ac\.ma/);
     await expect(acces.resetAccess(student, u.id)).rejects.toThrow();
+    const g = await acces.guideProgress(u, "ma-uir");
+    expect(g.total).toBe(5);
+    await expect(acces.guideProgress(u, "ma-esa-casa")).rejects.toThrow();
     const sans = crees.find((c) => c.provisoire);
     if (sans) await expect(acces.sendAccess(adminU, (await accounts.findByIdentifier(sans.email))!.id)).rejects.toThrow(/provisoire/);
   });

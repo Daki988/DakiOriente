@@ -33,7 +33,7 @@ const MENUS: Record<string, Menu> = {
   etablissement: { label: "Espace établissement", tint: "bg-[#f1edff] text-[#6a3df0]", tabs: ["/etablissement", "/etablissement/candidatures", "/etablissement/formations", "/messages"], items: [
     { href: "/etablissement", Icon: LayoutDashboard, t: "Tableau de bord", m: "Accueil" }, { href: "/etablissement/fiche", Icon: Building2, t: "Mon établissement" },
     { href: "/etablissement/formations", Icon: GraduationCap, t: "Formations" }, { href: "/etablissement/candidatures", Icon: FileCheck2, t: "Candidatures" },
-    { href: "/etablissement/campagnes", Icon: Megaphone, t: "Campagnes" },
+    { href: "/etablissement/campagnes", Icon: Megaphone, t: "Campagnes" }, { href: "/etablissement/guide", Icon: BookOpen, t: "Guide de la plateforme" },
     { href: "/etablissement/vivier", Icon: UsersRound, t: "Vivier de candidats", group: "Premium" }, { href: "/etablissement/prospection", Icon: Send, t: "Prospection", group: "Premium" }, MSG, NOTIF, SETTINGS] },
   bailleur: { label: "Espace bailleur Navilease", tint: "bg-[#ffecef] text-[#d42a50]", tabs: ["/bailleur", "/bailleur/annonces", "/bailleur/reservations", "/messages"], items: [
     { href: "/bailleur", Icon: LayoutDashboard, t: "Tableau de bord", m: "Accueil" }, { href: "/bailleur/annonces", Icon: House, t: "Mes annonces", m: "Annonces" },
@@ -41,7 +41,7 @@ const MENUS: Record<string, Menu> = {
   conseiller: { label: "Espace conseiller", tint: "bg-[#e8f8ef] text-[#0f8a46]", tabs: ["/conseiller", "/messages", "/notifications"], items: [{ href: "/conseiller", Icon: Headset, t: "Rendez-vous" }, MSG, NOTIF, SETTINGS] },
   admin: { label: "Back-office", tint: "bg-ink text-white", tabs: ["/admin", "/admin/utilisateurs", "/admin/etablissements", "/admin/homologations"], items: [
     { href: "/admin", Icon: BarChart3, t: "Statistiques" }, { href: "/admin/candidatures", Icon: Inbox, t: "Candidatures", group: "Relais Navigoal" }, { href: "/admin/messagerie", Icon: MessagesSquare, t: "Messagerie", group: "Relais Navigoal" },
-    { href: "/admin/accompagnement", Icon: LifeBuoy, t: "Mode accompagné", group: "Relais Navigoal" }, { href: "/admin/prospection", Icon: Send, t: "Prospection des écoles", group: "Relais Navigoal" }, { href: "/admin/utilisateurs", Icon: Users, t: "Utilisateurs" }, { href: "/admin/etablissements", Icon: Building2, t: "Établissements" },
+    { href: "/admin/accompagnement", Icon: LifeBuoy, t: "Mode accompagné", group: "Relais Navigoal" }, { href: "/admin/prospection", Icon: Send, t: "Prospection des écoles", group: "Relais Navigoal" }, { href: "/admin/utilisateurs", Icon: Users, t: "Utilisateurs" }, { href: "/admin/etablissements", Icon: Building2, t: "Établissements" }, { href: "/admin/acces", Icon: KeyRound, t: "Accès écoles" },
     { href: "/admin/homologations", Icon: ShieldCheck, t: "Homologations" }, { href: "/admin/referentiels", Icon: BookOpen, t: "Référentiels" }, { href: "/admin/navilease", Icon: KeyRound, t: "Navilease" },
     { href: "/admin/paiements", Icon: Wallet, t: "Paiements" }, { href: "/admin/contenus", Icon: Briefcase, t: "Contenus" }, { href: "/admin/campagne", Icon: Megaphone, t: "Campagne" }, { href: "/admin/journal", Icon: ScrollText, t: "Journal" }, MSG, NOTIF, SETTINGS] },
 };

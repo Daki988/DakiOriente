@@ -152,3 +152,21 @@ export function accesCsv(rows: AccesCree[]) {
   const esc = (v: string) => `"${(/^[=+\-@]/.test(v) ? `'${v}` : v).replace(/"/g, '""')}"`;
   return ["Établissement;Sigle;Identifiant;Mot de passe provisoire;Adresse à compléter", ...rows.map((r) => [r.nom, r.sigle, r.email, r.motDePasse, r.provisoire ? "oui" : "non"].map(esc).join(";"))].join("\n");
 }
+
+/** Guide de la plateforme : premiers pas cochés d'après ce que l'école a déjà fait dans son espace. */
+export async function guideProgress(user: User, establishmentId: string) {
+  const { assertMember } = await import("./establishments");
+  await assertMember(user, establishmentId);
+  const [e] = await db.select().from(schema.establishments).where(eq(schema.establishments.id, establishmentId));
+  if (!e) throw notFound("Établissement");
+  const n = async (q: ReturnType<typeof sql>) => Number((await db.execute<{ n: number }>(q)).rows[0]?.n ?? 0);
+  const membres = sql`(select m.user_id from establishment_members m where m.establishment_id = ${establishmentId})`;
+  const etapes = {
+    fiche: !!(e.description && e.address && (e.phone || e.email)),
+    formations: (await n(sql`select count(*)::int n from programs where establishment_id = ${establishmentId} and active and fees_confirmed`)) > 0,
+    campagne: (await n(sql`select count(*)::int n from campaigns where establishment_id = ${establishmentId} and published`)) > 0,
+    candidature: (await n(sql`select count(*)::int n from application_events ev join applications a on a.id = ev.application_id where a.establishment_id = ${establishmentId} and ev.author_id in ${membres}`)) > 0,
+    message: (await n(sql`select count(*)::int n from messages where author_id in ${membres}`)) > 0,
+  };
+  return { etapes, faites: Object.values(etapes).filter(Boolean).length, total: Object.keys(etapes).length };
+}

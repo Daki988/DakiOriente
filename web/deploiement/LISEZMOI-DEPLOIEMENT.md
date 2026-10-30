@@ -76,6 +76,13 @@ il n'agit jamais à sa place. Quotas par jour : 30 messages par visiteur, 60 par
 (`NAVI_LIMITE_VISITEUR`, `NAVI_LIMITE_MEMBRE`, `NAVI_LIMITE_GLOBALE`). Si une demande est refusée par le modèle
 principal, l'API la confie automatiquement à un modèle de secours (option `fallbacks: "default"`).
 
+## 2 quater. Accès des établissements
+
+`npm run acces-ecoles` crée un compte pour chaque établissement qui n'en a pas (identifiant : e-mail officiel publié
+par l'école, sinon adresse provisoire `@acces.navigoal.net` à compléter dans le back-office › Accès écoles) et écrit
+les mots de passe provisoires dans `navigoal/acces/` (dossier privé). Transmettez-les aux écoles (ou utilisez
+« Envoyer les accès non utilisés » dans le back-office), puis supprimez le fichier.
+
 ## 3. Envoi des fichiers
 
 1. cPanel › **Gestionnaire de fichiers** : placez-vous dans votre dossier personnel `/home/IDENTIFIANT`
