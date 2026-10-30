@@ -1,9 +1,9 @@
 "use client";
 import Link from "@/components/ui/Link";
-import { useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download, GraduationCap, MessageCircle, Plus, Share2, Target, X } from "lucide-react";
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { LireUrl } from "@/hooks/useFiltres";
 import { ScoreBar } from "@/components/motion/Bar";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { EtabPhoto } from "@/components/ui/EtabPhoto";
@@ -18,16 +18,30 @@ type Mode = "formation" | "metier";
 const RECONNU = ["prive_reconnu", "prive_non_lucratif", "inter_etats"];
 
 export function Comparateur() {
-  const params = useSearchParams();
-  const router = useRouter();
-  const [mode, setMode] = useState<Mode>(params.get("m") ? "metier" : "formation");
-  const [fid, setFid] = useState(params.get("f") && formationById[params.get("f")!] ? params.get("f")! : "frm-ingenieur-informatique");
-  const [mid, setMid] = useState(params.get("m") && metierById[params.get("m")!] ? params.get("m")! : "met-data-analyst");
-  const [label, setLabel] = useState<Label | "">((params.get("label") as Label) || "");
-  const [origine, setOrigine] = useState(paysOrigineById[params.get("o") ?? ""] ? params.get("o")! : "");
-  const [ville, setVille] = useState(VILLES_ETUDES.includes(params.get("v") ?? "") ? params.get("v")! : "");
+  // Choix initiaux lus dans l'URL côté navigateur (LireUrl) : la page reste rendue côté serveur.
+  const [luUrl, setLuUrl] = useState(false);
+  const [mode, setMode] = useState<Mode>("formation");
+  const [fid, setFid] = useState("frm-ingenieur-informatique");
+  const [mid, setMid] = useState("met-data-analyst");
+  const [label, setLabel] = useState<Label | "">("");
+  const [origine, setOrigine] = useState("");
+  const [ville, setVille] = useState("");
+  const [initial, setInitial] = useState<string[]>([]);
+  const onUrl = useCallback((qs: string) => {
+    if (luUrl) return;
+    const p = new URLSearchParams(qs);
+    if (p.get("m") && metierById[p.get("m")!]) { setMode("metier"); setMid(p.get("m")!); }
+    if (p.get("f") && formationById[p.get("f")!]) setFid(p.get("f")!);
+    if (p.get("label")) setLabel(p.get("label") as Label);
+    if (paysOrigineById[p.get("o") ?? ""]) setOrigine(p.get("o")!);
+    if (VILLES_ETUDES.includes(p.get("v") ?? "")) setVille(p.get("v")!);
+    const e = (p.get("e") ?? "").split(",").filter((id) => etabById[id]);
+    if (e.length) { setInitial(e); setIds(e); }
+    setLuUrl(true);
+  }, [luUrl]);
   const { pays } = useDevise();
-  useEffect(() => { if (!origine && pays && paysOrigineById[pays]) setOrigine(pays); }, [pays]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Pays devinés (profil, navigateur) seulement après lecture de l'URL, qui reste prioritaire.
+  useEffect(() => { if (luUrl && !origine && pays && paysOrigineById[pays]) setOrigine(pays); }, [pays, luUrl]); // eslint-disable-line react-hooks/exhaustive-deps
   const [profil, setProfil] = useState<string[]>(["I", "C"]);
   useEffect(() => { try { const t = JSON.parse(localStorage.getItem(PROFILE_KEY) || "null")?.top; if (t) setProfil(t); } catch { /* ignore */ } }, []);
 
@@ -42,8 +56,7 @@ export function Comparateur() {
   const candidats = useMemo(() => etablissements.filter((e) => (!label || e.label === label) && e.formations.some((f) => cibles.includes(f)) && (!ville || villesDe(e).includes(ville)))
     .sort((a, b) => b.photos.length - a.photos.length || b.formations.length - a.formations.length), [cibles, label, ville]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const initial = (params.get("e") ?? "").split(",").filter((id) => etabById[id]);
-  const [ids, setIds] = useState<string[]>(initial);
+  const [ids, setIds] = useState<string[]>([]);
   useEffect(() => {
     setIds((cur) => {
       const keep = cur.filter((id) => candidats.some((c) => c.id === id) || initial.includes(id));
@@ -53,16 +66,17 @@ export function Comparateur() {
       return [...keep, ...fill].slice(0, Math.max(3, Math.min(keep.length, 4)));
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [candidats]);
+  }, [candidats, initial]);
   useEffect(() => {
+    if (!luUrl) return;
     const q = new URLSearchParams();
     if (mode === "formation") q.set("f", fid); else q.set("m", mid);
     if (label) q.set("label", label);
     if (ville) q.set("v", ville);
     if (origine) q.set("o", origine);
     if (ids.length) q.set("e", ids.join(","));
-    router.replace(`/comparateur/?${q.toString()}`, { scroll: false });
-  }, [mode, fid, mid, label, ville, origine, ids, router]);
+    window.history.replaceState(window.history.state, "", `/comparateur/?${q.toString()}`);
+  }, [mode, fid, mid, label, ville, origine, ids, luUrl]);
 
   const cols = ids.map((id) => {
     const e = etabById[id];
@@ -101,6 +115,7 @@ export function Comparateur() {
 
   return (
     <>
+      <LireUrl onUrl={onUrl} />
       <section className="bg-gradient-to-b from-brand-50 to-[#f6f8fe] pb-7 pt-10 print:hidden">
         <div className="container flex flex-col gap-5">
           <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">

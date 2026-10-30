@@ -9,7 +9,7 @@ import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Villes étudiantes du Maroc : où étudier ?",
-  description: `Casablanca, Rabat, Fès, Marrakech, Tanger, Agadir… Les ${CHIFFRES.villes} villes où étudier au Maroc : établissements et campus, formations, transports, quartiers étudiants, coût de la vie et logement.`,
+  description: `Casablanca, Rabat, Fès, Marrakech, Tanger… Les ${CHIFFRES.villes} villes où étudier au Maroc : écoles, formations, quartiers, transports, budget et logement.`,
   alternates: { canonical: "/villes/" },
 };
 

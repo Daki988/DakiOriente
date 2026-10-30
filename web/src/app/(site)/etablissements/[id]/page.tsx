@@ -13,6 +13,7 @@ import { villeHref } from "@/lib/catalogue";
 import { COUTS, devis, formationParDefaut } from "@/lib/devis";
 import { establishmentLive } from "@/server/content-ui";
 import { SITE_URL } from "@/lib/site";
+import { descriptionSeo, titreSeo } from "@/lib/seo";
 
 export const generateStaticParams = () => etablissements.map((e) => ({ id: e.id }));
 export const revalidate = 300; // reflète les mises à jour faites par l'établissement
@@ -21,8 +22,17 @@ export const generateMetadata = ({ params }: { params: { id: string } }): Metada
   if (!e) return {};
   const villes = villesOf(e);
   const nb = e.filieres.length + e.filieres_echues.length;
-  const title = `${e.sigle && !e.nom.startsWith(e.sigle) ? `${e.sigle} – ` : ""}${e.nom} : formations, frais et admission à ${villes.join(", ")}`;
-  const description = `${e.nom} (${villes.join(", ")}, Maroc) · ${labelById[e.label]?.libelle}. ${nb ? `${nb} filière${nb > 1 ? "s" : ""}` : "Programmes"}, débouchés, frais de scolarité, quartier, transports et logement étudiant. Candidature en ligne pour les étudiants de toute l'Afrique.`;
+  const v1 = villes.length > 1 ? `${villes[0]} et ${villes.length - 1} autre${villes.length > 2 ? "s" : ""} ville${villes.length > 2 ? "s" : ""}` : villes[0];
+  const court = e.sigle && [...e.sigle].length < [...e.nom].length ? e.sigle : e.nom;
+  // Titre ≤ 60 caractères (suffixe compris), description ≤ 155 : du plus complet au plus court.
+  const title = titreSeo(`${e.nom} : formations et frais`, `${e.nom} (${villes[0]})`, `${court} ${villes[0]} : formations, frais, admission`, `${court} ${villes[0]} : formations et frais`, `${court} : formations et frais`, e.nom);
+  const fil = nb ? `${nb} filière${nb > 1 ? "s" : ""}` : "Programmes";
+  const label = labelById[e.label]?.libelle ?? "Établissement privé";
+  const description = descriptionSeo(
+    `${e.nom} à ${v1} (Maroc) · ${label}. ${fil}, frais, admission, campus et logement étudiant. Candidature en ligne.`,
+    `${court} à ${v1} · ${label}. ${fil}, frais, admission, campus et logement. Candidature en ligne.`,
+    `${court} à ${villes[0]} · ${label}. ${fil}, frais, admission et logement étudiant.`,
+  );
   const image = e.photos[0]?.src ?? e.logo ?? undefined;
   return { title, description, alternates: { canonical: `/etablissements/${e.id}/` }, openGraph: { title, description, type: "website", images: image ? [image] : undefined } };
 };

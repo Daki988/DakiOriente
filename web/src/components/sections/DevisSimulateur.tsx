@@ -1,9 +1,9 @@
 "use client";
 import Link from "@/components/ui/Link";
-import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { BadgeCheck, Bus, Calculator, Calendar, Coins, Check, CloudSun, FileDown, GraduationCap, Handshake, HeartPulse, Info, Lightbulb, Mail, MessageCircle, Scale, Share2, Shield, ShieldCheck, Users, UsersRound } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { LireUrl } from "@/hooks/useFiltres";
 import { AnimatedNumber } from "@/components/motion/AnimatedNumber";
 import { Reveal } from "@/components/motion/Reveal";
 import { DONUT_COLORS, Donut } from "./Donut";
@@ -17,18 +17,29 @@ import { MARGE_PRUDENCE, convertir, devisePays, formatMontant, symbole } from "@
 const field = "w-full rounded-xl border-[1.5px] border-slate-200 bg-white px-3.5 py-3 text-sm font-bold outline-none focus:border-brand-400 focus:ring-4 focus:ring-brand-100";
 
 export function DevisSimulateur() {
-  const params = useSearchParams();
-  const router = useRouter();
-  const [eid, setEid] = useState(etabById[params.get("etab") ?? ""] ? params.get("etab")! : "ma-esa-casa");
-  const [fid, setFid] = useState(() => { const f = params.get("f"); return f && etabById[eid].formations.includes(f) ? f : formationParDefaut(eid); });
+  // Choix initiaux lus dans l'URL côté navigateur (LireUrl) : la page reste rendue côté serveur.
+  const [luUrl, setLuUrl] = useState(false);
+  const [eid, setEid] = useState("ma-esa-casa");
+  const [fid, setFid] = useState(() => formationParDefaut("ma-esa-casa"));
   const { pays, devise, taux, setPays } = useDevise();
-  const [origine, setOrigine] = useState(paysOrigineById[params.get("o") ?? ""] ? params.get("o")! : "");
-  useEffect(() => { if (!origine && pays && paysOrigineById[pays]) setOrigine(pays); }, [pays]); // eslint-disable-line react-hooks/exhaustive-deps
+  const [origine, setOrigine] = useState("");
+  // Pays devinés (profil, navigateur) seulement après lecture de l'URL, qui reste prioritaire.
+  useEffect(() => { if (luUrl && !origine && pays && paysOrigineById[pays]) setOrigine(pays); }, [pays, luUrl]); // eslint-disable-line react-hooks/exhaustive-deps
   // Le pays de départ fixe la devise de tout le site : c'est de là que les parents enverront l'argent.
   useEffect(() => { if (origine && origine !== pays) setPays(origine === "MA" ? null : origine); }, [origine]); // eslint-disable-line react-hooks/exhaustive-deps
   const choisirOrigine = (o: string) => { setOrigine(o); if (o) setPays(o === "MA" ? null : o); };
   const [dirhamsSeuls, setDirhamsSeuls] = useState(false);
-  const [logement, setLogement] = useState<Logement>(params.get("l") === "colocation" ? "colocation" : "studio");
+  const [logement, setLogement] = useState<Logement>("studio");
+  const onUrl = useCallback((qs: string) => {
+    if (luUrl) return; // seule la première lecture compte : ensuite, c'est le simulateur qui écrit l'URL
+    const p = new URLSearchParams(qs);
+    const e = etabById[p.get("etab") ?? ""] ? p.get("etab")! : "ma-esa-casa";
+    const f = p.get("f");
+    setEid(e); setFid(f && etabById[e].formations.includes(f) ? f : formationParDefaut(e));
+    if (paysOrigineById[p.get("o") ?? ""]) setOrigine(p.get("o")!);
+    setLogement(p.get("l") === "colocation" ? "colocation" : "studio");
+    setLuUrl(true);
+  }, [luUrl]);
   const [eleve, setEleve] = useState("");
   const [payeur, setPayeur] = useState("");
   const e = etabById[eid];
@@ -51,10 +62,11 @@ export function DevisSimulateur() {
 
   useEffect(() => { if (!etabById[eid].formations.includes(fid)) setFid(formationParDefaut(eid)); }, [eid, fid]);
   useEffect(() => {
+    if (!luUrl) return;
     const q = new URLSearchParams({ etab: eid, f: fid, l: logement });
     if (origine) q.set("o", origine);
-    router.replace(`/devis/?${q.toString()}`, { scroll: false });
-  }, [eid, fid, origine, logement, router]);
+    window.history.replaceState(window.history.state, "", `/devis/?${q.toString()}`);
+  }, [eid, fid, origine, logement, luUrl]);
 
   const [faits, setFaits] = useState<number[]>([]);
   useEffect(() => { try { setFaits(JSON.parse(localStorage.getItem(`navigoal-demarches-${e.pays}`) || "[]")); } catch { setFaits([]); } }, [e.pays]);
@@ -75,6 +87,7 @@ export function DevisSimulateur() {
 
   return (
     <>
+      <LireUrl onUrl={onUrl} />
       <div className="print:hidden">
         <section className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-700 to-brand-400 pb-24 pt-10 text-white">
           <div className="absolute -right-32 -top-32 h-[420px] w-[420px] animate-float rounded-full bg-[radial-gradient(circle,rgba(255,194,31,.35),transparent_70%)]" />

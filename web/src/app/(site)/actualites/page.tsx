@@ -5,7 +5,7 @@ import { CtaBand } from "@/components/ui/CtaBand";
 import { Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { articleCards } from "@/server/content-ui";
 
-export const metadata: Metadata = { title: "Actualités", description: "Bourses, concours, orientation et vie étudiante en Afrique." };
+export const metadata: Metadata = { title: "Actualités", description: "Bourses, concours, rentrées et vie étudiante : l'actualité des études au Maroc pour les élèves et étudiants de toute l'Afrique." };
 export const revalidate = 300;
 
 export default async function ActualitesPage() {

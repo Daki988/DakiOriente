@@ -5,8 +5,8 @@ import { CtaBand } from "@/components/ui/CtaBand";
 import { PHOTOS } from "@/lib/photos";
 
 export const metadata: Metadata = {
-  title: "Ressources : guides, fiches métiers, modèles et outils",
-  description: "Guides pratiques pour étudier au Maroc (visa, carte de séjour, logement, budget, labels officiels), fiches métiers, modèles de CV et de lettre de motivation, checklist de candidature, calculateur de moyenne et convertisseur de devises.",
+  title: "Ressources : guides, modèles et outils",
+  description: "Guides pour étudier au Maroc (visa, séjour, logement, budget), modèles de CV et de lettre, checklist de candidature, calcul de moyenne et convertisseur.",
   alternates: { canonical: "/ressources/" },
 };
 

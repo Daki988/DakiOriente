@@ -11,6 +11,7 @@ import { VILLES, norm, villeBySlug, villeHref, type VilleInfo } from "@/lib/cata
 import { COUTS } from "@/lib/devis";
 import { domaineById, labelById, mobilite, paysDetailById, type Etablissement, type Label } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
+import { descriptionSeo, titreSeo } from "@/lib/seo";
 
 export const generateStaticParams = () => VILLES.map((v) => ({ slug: v.slug }));
 export const dynamicParams = false;
@@ -34,8 +35,12 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
   const v = villeBySlug[params.slug];
   if (!v) return {};
   const { nf } = resume(v);
-  const title = `Étudier à ${v.nom} : écoles, formations, logement et coût de la vie`;
-  const description = `${v.etabs.length} établissement${v.etabs.length > 1 ? "s" : ""} privé${v.etabs.length > 1 ? "s" : ""} et ${nf} formation${nf > 1 ? "s" : ""} à ${v.nom} (Maroc) : campus, quartiers étudiants, transports, budget mensuel en dirhams et logement étudiant Navilease.`;
+  const title = titreSeo(`Étudier à ${v.nom} : écoles et logement`, `Étudier à ${v.nom}`);
+  const ne = v.etabs.length;
+  const description = descriptionSeo(
+    `${ne} école${ne > 1 ? "s" : ""} privée${ne > 1 ? "s" : ""} et ${nf} formation${nf > 1 ? "s" : ""} à ${v.nom} (Maroc) : campus, quartiers étudiants, transports, budget mensuel et logement étudiant.`,
+    `${ne} école${ne > 1 ? "s" : ""} et ${nf} formation${nf > 1 ? "s" : ""} à ${v.nom} : campus, quartiers, transports, budget et logement étudiant.`,
+  );
   return { title, description, alternates: { canonical: villeHref(v.nom) }, openGraph: { title, description, images: v.photo ? [v.photo.src] : undefined } };
 };
 

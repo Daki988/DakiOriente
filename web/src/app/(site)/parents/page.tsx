@@ -8,8 +8,8 @@ import { fmt } from "@/lib/data";
 import { COUTS, convert } from "@/lib/devis";
 
 export const metadata: Metadata = {
-  title: "Parents : financer et suivre les études de votre enfant au Maroc",
-  description: "Coût réel des études au Maroc en F CFA, écoles reconnues par l'État, suivi des candidatures, paiement sécurisé et garantie du logement : l'espace parent Navigoal.",
+  title: "Parents : financer les études au Maroc",
+  description: "Coût réel des études au Maroc en F CFA, écoles reconnues par l'État, suivi des candidatures, paiement sécurisé et logement : l'espace parent.",
   alternates: { canonical: "/parents/" },
 };
 

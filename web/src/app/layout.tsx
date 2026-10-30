@@ -6,11 +6,11 @@ import { SITE_URL } from "@/lib/site";
 import { DeviseProvider } from "@/components/ui/Devise";
 import { AcquisitionTracker } from "@/components/campagne/AcquisitionTracker";
 
-const DESCRIPTION = "Étudier au Maroc depuis toute l'Afrique : orientation, comparatif des écoles et universités privées reconnues par l'État, filières accréditées, frais, candidature en ligne et logement étudiant (Navilease).";
+const DESCRIPTION = "Étudier au Maroc depuis toute l'Afrique : orientation, écoles privées reconnues par l'État, frais, candidature en ligne et logement étudiant.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "Navigoal — Étudier au Maroc : écoles reconnues, candidature et logement", template: "%s · Navigoal" },
+  title: { default: "Navigoal — Étudier au Maroc : écoles, candidature, logement", template: "%s · Navigoal" },
   description: DESCRIPTION,
   applicationName: "Navigoal",
   keywords: ["étudier au Maroc", "école privée Maroc", "université privée Maroc", "établissement reconnu par l'État", "diplôme homologué Maroc", "étudiant africain Maroc", "orientation post-bac", "candidature en ligne", "logement étudiant Casablanca", "logement étudiant Rabat", "visa étudiant Maroc"],

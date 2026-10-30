@@ -6,7 +6,7 @@ import { Counter } from "@/components/motion/Counter";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { etablissements, formations, metiers, series } from "@/lib/data";
 
-export const metadata: Metadata = { title: "Pourquoi Navigoal", description: "Ce que Navigoal apporte aux élèves, étudiants, parents, établissements et bailleurs." };
+export const metadata: Metadata = { title: "Pourquoi Navigoal", description: "Ce que Navigoal apporte aux élèves, étudiants, parents, établissements et bailleurs : orientation, candidature, paiement et logement au Maroc." };
 
 const PERSONAS = [
   { I: UserRound, c: "#1a47f5", t: "Élève (collège, lycée)", s: "Comprends ton profil et choisis ta série.", pts: ["Test d'orientation visuel et gratuit", "Ma série au lycée : matières, métiers, études", "Annales, cours et préparation BEPC / BFEM / bac"], kpi: "Un projet construit à partir de ton profil", href: "/orientation", cta: "Passer le test" },

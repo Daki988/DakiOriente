@@ -4,7 +4,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { EtabList } from "@/components/sections/EtabList";
 import { etablissements, stats } from "@/lib/data";
 
-export const metadata: Metadata = { title: "Écoles et universités privées au Maroc : reconnues par l'État, diplômes homologués", description: "Compare les universités et écoles privées du Maroc (Casablanca, Rabat, Marrakech, Fès, Tanger…) : labels officiels, filières accréditées, campus, quartiers, transports et frais. Candidature en ligne.", alternates: { canonical: "/etablissements/" } };
+export const metadata: Metadata = { title: "Écoles et universités privées au Maroc", description: "Compare les écoles et universités privées du Maroc : reconnaissance par l'État, filières accréditées, frais, campus et logement. Candidature en ligne.", alternates: { canonical: "/etablissements/" } };
 
 export default function EtablissementsPage() {
   return (

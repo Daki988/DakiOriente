@@ -4,6 +4,7 @@ import { FormationDetail } from "@/components/sections/FormationDetail";
 import { villesOffre } from "@/lib/catalogue";
 import { etabById, formationById, formations } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
+import { descriptionSeo, titreSeo, variantesNom } from "@/lib/seo";
 
 export const generateStaticParams = () => formations.map((f) => ({ id: f.id }));
 export const generateMetadata = ({ params }: { params: { id: string } }): Metadata => {
@@ -11,8 +12,12 @@ export const generateMetadata = ({ params }: { params: { id: string } }): Metada
   if (!f) return {};
   const n = f.etablissements.length;
   return {
-    title: `${f.intitule} au Maroc : écoles, diplôme, admission et débouchés`,
-    description: `${f.intitule} (${f.diplome}, ${f.duree_annees} an${f.duree_annees > 1 ? "s" : ""}) : ${n} établissement${n > 1 ? "s" : ""} au Maroc, conditions d'admission, programme, frais et métiers visés. Candidature en ligne depuis toute l'Afrique.`,
+    title: titreSeo(`${f.intitule} au Maroc : écoles et admission`, ...variantesNom(f.intitule).flatMap((n) => [`${n} au Maroc : écoles et frais`, `${n} au Maroc`, n])),
+    description: descriptionSeo(
+      `${f.intitule} (${f.diplome}, ${f.duree_annees} an${f.duree_annees > 1 ? "s" : ""}) : ${n} école${n > 1 ? "s" : ""} au Maroc, admission, programme, frais et métiers visés. Candidature en ligne.`,
+      `${f.intitule} (${f.diplome}) : ${n} école${n > 1 ? "s" : ""} au Maroc, admission, programme, frais et métiers visés.`,
+      `${f.intitule} : ${n} école${n > 1 ? "s" : ""} au Maroc, admission, frais et métiers visés.`,
+    ),
     alternates: { canonical: `/formations/${f.id}/` },
   };
 };

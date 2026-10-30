@@ -7,7 +7,7 @@ import { etablissements, fmt, metiers } from "@/lib/data";
 import { COUTS, convert } from "@/lib/devis";
 
 export const metadata: Metadata = {
-  title: "Trouve ta voie au Maroc — orientation gratuite pour les bacheliers gabonais",
+  title: "Trouve ta voie : orientation gratuite (Gabon)",
   description: "Ton métier, ta filière, ton école : test d'orientation gratuit, écoles au statut officiel affiché et devis complet en F CFA pour étudier au Maroc.",
   alternates: { canonical: "/trouve-ta-voie/" },
   openGraph: { title: "Trouve ta voie au Maroc · Navigoal", description: "Test d'orientation gratuit, écoles au statut affiché, budget en F CFA.", images: [{ url: "/og.png", width: 1200, height: 630 }] },

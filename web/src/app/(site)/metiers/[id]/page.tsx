@@ -7,9 +7,19 @@ import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { MetierCard, domStyle } from "@/components/ui/Cards";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { PAYS_NOM, admissionLabel, competenceLabel, domaineById, etabById, formationById, metierById, metiers, niveauLabel, riasec, serieById } from "@/lib/data";
+import { descriptionSeo, titreSeo, variantesNom } from "@/lib/seo";
 
 export const generateStaticParams = () => metiers.map((m) => ({ id: m.id }));
-export const generateMetadata = ({ params }: { params: { id: string } }): Metadata => ({ title: metierById[params.id]?.nom, description: metierById[params.id]?.description });
+export const generateMetadata = ({ params }: { params: { id: string } }): Metadata => {
+  const m = metierById[params.id];
+  if (!m) return {};
+  const d = m.description.replace(/\.?\s*$/, ".");
+  return {
+    title: titreSeo(...variantesNom(m.nom).flatMap((n) => [`${n} : métier et formations au Maroc`, `${n} : métier et formations`, `${n} : fiche métier`, n])),
+    description: descriptionSeo(`${d} Missions, compétences et formations pour y accéder au Maroc.`, `${d} Formations pour y accéder au Maroc.`, d),
+    alternates: { canonical: `/metiers/${m.id}/` },
+  };
+};
 
 export default function MetierPage({ params }: { params: { id: string } }) {
   const m = metierById[params.id];
