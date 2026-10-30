@@ -13,5 +13,7 @@ Campagne « Trouve ta voie » (Gabon) : `python3 design/maquettes/campagne.py <p
 
 Évolutions après l'audit fonctionnel : `python3 design/maquettes/evolutions.py` → `out/evolutions.html` (test d'orientation avec réponse oubliée, résumé du logement d'une réservation, bouton WhatsApp conseiller, page Parents ordinateur et mobile, paiement Airtel Money / Moov Money). Import Figma : `html_to_figma` avec `cssSelector: ".frame"`.
 
+Assistant IA (proposition, octobre 2026) : `python3 design/maquettes/chatbot.py <icônes lucide>` → `out/chatbot.html` (accueil et bouton flottant, recherche guidée profil + budget, suivi de dossier connecté, devis express parent et passage à un conseiller, règles de l'assistant). Import Figma : `html_to_figma` avec `cssSelector: ".frame"`.
+
 Écrans : design system & motion, accueil (desktop + mobile), test et résultat d'orientation, recherche de formations, fiche formation, Navilease, tableau de bord étudiant.
 Les étiquettes roses sur les maquettes décrivent les animations prévues.
