@@ -1,5 +1,5 @@
 import { drizzle } from "drizzle-orm/node-postgres";
-import { Pool } from "pg";
+import { creerPool } from "./pool";
 import * as schema from "./schema";
 
 /** URL de connexion : DATABASE_URL (local, CI) ou base Netlify (NETLIFY_DB_URL, injectée par Netlify DB). */
@@ -12,7 +12,7 @@ export function databaseUrl() {
 type DB = ReturnType<typeof make>;
 function make() {
   const url = databaseUrl();
-  const pool = new Pool({ connectionString: url, max: process.env.NETLIFY ? 3 : 10, ssl: /localhost|127\.0\.0\.1/.test(url) ? undefined : { rejectUnauthorized: false } });
+  const pool = creerPool(url, process.env.NETLIFY ? 3 : 10);
   return drizzle({ client: pool, schema });
 }
 

@@ -7,7 +7,7 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
-import { Pool } from "pg";
+import { creerPool } from "../src/server/db/pool";
 
 const url = process.env.DATABASE_URL || process.env.NETLIFY_DB_URL;
 if (!url) throw new Error("DATABASE_URL non défini.");
@@ -15,7 +15,7 @@ const dossier = path.resolve(process.env.SAUVEGARDE_DOSSIER || "sauvegardes");
 const garder = Number(process.env.SAUVEGARDE_GARDER || 14);
 const LOT = 500;
 
-const pool = new Pool({ connectionString: url, ssl: /localhost|127\.0\.0\.1/.test(url) ? undefined : { rejectUnauthorized: false } });
+const pool = creerPool(url);
 const q = async <T = Record<string, unknown>>(sql: string, p: unknown[] = []) => (await pool.query(sql, p)).rows as T[];
 const ident = (s: string) => `"${s.replace(/"/g, '""')}"`;
 

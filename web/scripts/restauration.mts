@@ -3,7 +3,7 @@
 // Usage : node outils/env.cjs outils/restauration.mjs sauvegardes/navigoal-AAAA-MM-JJ-HHMM.sql.gz --confirmer
 import fs from "node:fs";
 import zlib from "node:zlib";
-import { Pool } from "pg";
+import { creerPool } from "../src/server/db/pool";
 
 const url = process.env.DATABASE_URL || process.env.NETLIFY_DB_URL;
 const fichier = process.argv[2];
@@ -17,7 +17,7 @@ const tables = sql.find((l) => l.startsWith("-- TABLES "))?.slice(10).split(",")
 if (!tables?.length) throw new Error("Fichier de sauvegarde invalide.");
 const ident = (s: string) => `"${s.replace(/"/g, '""')}"`;
 
-const pool = new Pool({ connectionString: url, ssl: /localhost|127\.0\.0\.1/.test(url) ? undefined : { rejectUnauthorized: false } });
+const pool = creerPool(url);
 const c = await pool.connect();
 try {
   await c.query("begin");

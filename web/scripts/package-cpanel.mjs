@@ -43,7 +43,9 @@ fs.writeFileSync(path.join(out, "package.json"), JSON.stringify({
   engines: { node: ">=20" },
 }, null, 2));
 // nodemailer (sans dépendance) pour l'outil de vérification ; le site l'intègre déjà à son code compilé.
-if (!fs.existsSync(path.join(srv, "node_modules", "nodemailer"))) copy(path.join(web, "node_modules", "nodemailer"), path.join(srv, "node_modules", "nodemailer"));
+// nodemailer et le pilote Neon (sans dépendance d'exécution) pour l'outil de vérification ; le site les intègre déjà.
+for (const m of ["nodemailer", "@neondatabase/serverless"])
+  if (!fs.existsSync(path.join(srv, "node_modules", m))) copy(path.join(web, "node_modules", m), path.join(srv, "node_modules", m));
 for (const f of ["env.cjs", "verifier.cjs"]) fs.copyFileSync(path.join(web, "deploiement", f), path.join(out, "outils", f));
 
 console.log("4/4 Archive ZIP");

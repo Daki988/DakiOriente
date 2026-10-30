@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import bcrypt from "bcryptjs";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { eq, inArray, sql } from "drizzle-orm";
-import { Pool } from "pg";
+import { creerPool } from "../src/server/db/pool";
 import * as schema from "../src/server/db/schema.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -17,7 +17,7 @@ const REF = [process.env.REF_DIR, path.resolve(here, "..", "..", "data", "refere
 const read = (n: string) => JSON.parse(fs.readFileSync(path.join(REF, `${n}.json`), "utf8"));
 const url = process.env.DATABASE_URL || process.env.NETLIFY_DB_URL;
 if (!url) { console.log("Seed ignoré : aucune base configurée."); process.exit(0); }
-const pool = new Pool({ connectionString: url, ssl: /localhost|127\.0\.0\.1/.test(url) ? undefined : { rejectUnauthorized: false } });
+const pool = creerPool(url);
 const db = drizzle({ client: pool, schema });
 
 const logoUrl = (l?: { fichier: string }) => (l ? "/" + l.fichier.replace(/^assets\//, "") : null);

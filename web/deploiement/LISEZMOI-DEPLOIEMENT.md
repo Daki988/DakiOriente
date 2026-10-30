@@ -21,9 +21,9 @@ et une base **PostgreSQL**.
 2. Sur le tableau de bord du projet, bouton **Connect** : copiez la chaîne de connexion. Elle ressemble à
    `postgresql://navigoal_owner:MOT_DE_PASSE@ep-xxxx.eu-central-1.aws.neon.tech/neondb?sslmode=require`
    C'est la valeur de `DATABASE_URL` (étape 3).
-3. Après l'installation (étape 4), lancez `npm run verifier` : il confirme que le serveur LWS joint bien la base.
-   S'il indique un délai dépassé (*timeout*), demandez au support LWS d'autoriser les connexions sortantes
-   vers le port **5432** de l'hôte Neon (`ep-xxxx…neon.tech`).
+3. LWS bloque les connexions sortantes vers le port 5432 : le site se connecte donc automatiquement à Neon par
+   WebSocket sur le port 443 (pilote officiel Neon), sans aucun réglage. `npm run verifier` l'indique
+   (« Base PostgreSQL joignable (Neon, port 443) »).
 
 L'offre gratuite de Neon (0,5 Go) suffit largement pour l'essai ; la base se met en veille sans visite et se
 réveille en une seconde environ à la première requête.

@@ -27,12 +27,15 @@ let erreurs = 0;
 
   if (process.env.DATABASE_URL) {
     const url = process.env.DATABASE_URL;
-    const { Client } = req("pg");
-    const c = new Client({ connectionString: url, ssl: /localhost|127\.0\.0\.1/.test(url) ? undefined : { rejectUnauthorized: false }, connectionTimeoutMillis: 10000 });
+    // Base Neon : WebSocket sur le port 443 (comme le site), le port 5432 étant souvent bloqué en mutualisé.
+    let neon = false; try { neon = process.env.DATABASE_DRIVER !== "pg" && (process.env.DATABASE_DRIVER === "neon-websocket" || new URL(url).hostname.endsWith(".neon.tech")); } catch {}
+    let c;
+    if (neon) { const m = req("@neondatabase/serverless"); if (!m.neonConfig.webSocketConstructor) m.neonConfig.webSocketConstructor = globalThis.WebSocket; c = new m.Client({ connectionString: url }); }
+    else { const { Client } = req("pg"); c = new Client({ connectionString: url, ssl: /localhost|127\.0\.0\.1/.test(url) ? undefined : { rejectUnauthorized: false }, connectionTimeoutMillis: 10000 }); }
     try {
       await c.connect();
       const r = await c.query("select version() as v, current_database() as db");
-      ok(`Base PostgreSQL joignable : ${r.rows[0].db} (${String(r.rows[0].v).split(" ").slice(0, 2).join(" ")})`);
+      ok(`Base PostgreSQL joignable${neon ? " (Neon, port 443)" : ""} : ${r.rows[0].db} (${String(r.rows[0].v).split(" ").slice(0, 2).join(" ")})`);
       const t = await c.query("select count(*)::int as n from information_schema.tables where table_schema = 'public'");
       t.rows[0].n > 0 ? ok(`${t.rows[0].n} tables présentes`) : console.log("  • Base vide : lancez « npm run migrate » puis « npm run seed »");
     } catch (e) {
