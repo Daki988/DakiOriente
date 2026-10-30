@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { OrdrePartenaires, PartenaireMarque } from "@/components/ui/Partenaires";
 import Image from "next/image";
 import Link from "@/components/ui/Link";
 import { notFound } from "next/navigation";
@@ -96,12 +97,13 @@ export default function VillePage({ params }: { params: { slug: string } }) {
           <section id="etablissements" className="flex scroll-mt-28 flex-col gap-4">
             <div><h2 className="text-2xl font-extrabold tracking-tight sm:text-[28px]">Établissements et campus à {v.nom}</h2><p className="text-ink-mute">Label du campus, quartier et adresse. Les réseaux présents dans plusieurs villes ont un campus ici.</p></div>
             <Stagger className="grid gap-4 sm:grid-cols-2">
-              {etabs.slice(0, 12).map((e) => {
+              <OrdrePartenaires limite={12}>{etabs.map((e) => {
                 const c = campusDe(e, v.nom);
                 const n = v.offres.filter((o) => o.e.id === e.id).length;
                 return (
                   <StaggerItem key={e.id}>
-                    <Link href={`/etablissements/${e.id}/#campus`} className="card group flex h-full flex-col gap-3 p-4 transition hover:-translate-y-0.5 hover:shadow-lift">
+                    <Link href={`/etablissements/${e.id}/#campus`} className="card group relative flex h-full flex-col gap-3 p-4 transition hover:-translate-y-0.5 hover:shadow-lift">
+                      <PartenaireMarque id={e.id} coin="droite" />
                       <div className="flex items-center gap-3"><EtabLogo e={e} size={52} /><span className="min-w-0"><b className="line-clamp-2 leading-snug">{e.nom}</b><span className="text-xs text-ink-mute">{e.type_libelle}{e.campus ? ` · campus de ${v.nom}` : ""}</span></span></div>
                       <div className="flex flex-wrap gap-1.5"><LabelChip label={c.label} court />{n > 0 && <span className="chip bg-brand-50 text-brand-700"><GraduationCap size={12} />{n} formation{n > 1 ? "s" : ""}</span>}</div>
                       {(c.quartier || c.adresse) && <p className="flex items-start gap-1.5 text-[13px] text-ink-soft"><MapPin size={14} className="mt-0.5 shrink-0 text-brand-600" /><span>{c.quartier && <b className="text-ink">{c.quartier}</b>}{c.quartier && c.adresse ? " · " : ""}{c.adresse}</span></p>}
@@ -109,7 +111,7 @@ export default function VillePage({ params }: { params: { slug: string } }) {
                     </Link>
                   </StaggerItem>
                 );
-              })}
+              })}</OrdrePartenaires>
             </Stagger>
             {etabs.length > 12 && <Link href={`/etablissements/?ville=${encodeURIComponent(v.nom)}`} className="btn-ghost self-start">Voir les {etabs.length} établissements de {v.nom} <ArrowRight size={16} /></Link>}
           </section>

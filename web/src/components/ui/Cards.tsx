@@ -2,6 +2,7 @@ import Link from "@/components/ui/Link";
 import { ArrowRight, BarChart3, Briefcase, Code2, Cog, HardHat, Heart, Landmark, Pickaxe, Scale, Sprout, Stethoscope, Megaphone, GraduationCap, Plane, BookOpen, Palette, Users, Shield, Hotel, Building2, MapPin, Clock, Sparkles, type LucideIcon } from "lucide-react";
 import { EtabLogo } from "./EtabLogo";
 import { EtabPhoto } from "./EtabPhoto";
+import { PartenaireMarque } from "./Partenaires";
 import { Tilt } from "@/components/motion/Tilt";
 import { LABELS, competenceLabel, etabById, etablissements, labelById, niveauLabel, type Formation, type Label, type Metier } from "@/lib/data";
 
@@ -95,7 +96,8 @@ export function FormationOfferCard({ f, etabId, score, highlight = false, villes
   const s = domStyle(f.domaine);
   const Icon = s.icon;
   return (
-    <div className={`card flex flex-col gap-5 p-4 transition-all hover:-translate-y-1 hover:shadow-lift sm:flex-row ${highlight ? "border-brand-200 shadow-lift" : ""}`}>
+    <div className={`card relative flex flex-col gap-5 p-4 transition-all hover:-translate-y-1 hover:shadow-lift sm:flex-row ${highlight ? "border-brand-200 shadow-lift" : ""}`}>
+      <PartenaireMarque id={etabId} />
       <div className="relative flex h-28 w-full shrink-0 items-center justify-center rounded-2xl sm:w-36" style={{ background: `linear-gradient(135deg, ${s.solid}, ${s.fg}99)` }}>
         <Icon size={46} className="text-white/75" strokeWidth={1.6} />
         <div className="absolute -bottom-3 left-3"><EtabLogo e={e} size={44} className="shadow" /></div>
@@ -124,7 +126,8 @@ export function EtabCard({ id }: { id: string }) {
   const e = etabById[id];
   return (
     <Tilt className="h-full">
-      <Link href={`/etablissements/${e.id}/`} className="card group flex h-full flex-col overflow-hidden transition-shadow hover:shadow-lift">
+      <Link href={`/etablissements/${e.id}/`} className="card group relative flex h-full flex-col overflow-hidden transition-shadow hover:shadow-lift">
+        <PartenaireMarque id={e.id} />
         <div className="relative h-28 overflow-hidden"><EtabPhoto e={e} rounded="rounded-none" className="h-full w-full transition duration-700 group-hover:scale-105" />{e.photos.length > 1 && <span className="absolute right-2.5 top-2.5 rounded-full bg-ink/60 px-2 py-0.5 text-[11px] font-bold text-white">{e.photos.length} photos</span>}</div>
         <div className="relative flex flex-1 flex-col gap-4 px-5 pb-5 pt-9">
           <EtabLogo e={e} size={56} className="absolute -top-7 left-4 shadow-sm" />

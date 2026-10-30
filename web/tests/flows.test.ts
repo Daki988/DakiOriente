@@ -409,12 +409,12 @@ describe("sécurité : attaques rejouées (test d'intrusion)", () => {
 describe("Navi (assistant IA) : outils et garde-fous, sans appel au modèle", async () => {
   const navi = await import("@/server/services/navi");
   const o = navi._outils;
-  it("recherche : un métier en langage naturel mène aux formations et aux écoles", () => {
-    const r = o.chercherFormations({ texte: "je veux devenir infirmière", ville: null, niveau: null, label: null, limite: null });
+  it("recherche : un métier en langage naturel mène aux formations et aux écoles", async () => {
+    const r = await o.chercherFormations({ texte: "je veux devenir infirmière", ville: null, niveau: null, label: null, limite: null });
     expect(r.formations.length).toBeGreaterThan(0);
     expect(r.formations[0].intitule).toMatch(/infirmi/i);
     expect(r.formations[0].etablissements.length).toBeGreaterThan(0);
-    expect(o.chercherEtablissements({ texte: "UIR", ville: null, label: null, formation_id: null, limite: null }).etablissements[0].sigle).toBe("UIR");
+    expect((await o.chercherEtablissements({ texte: "UIR", ville: null, label: null, formation_id: null, limite: null })).etablissements[0].sigle).toBe("UIR");
   });
   it("devis : mêmes calculs que la page Devis, montants en F CFA pour le Gabon", async () => {
     const r = await o.estimerCout({ etablissement_id: "ma-esa-casa", formation_id: null, pays_origine: "GA", logement: null }, null);
@@ -503,7 +503,8 @@ describe("relais Navigoal, Premium et accès des établissements", async () => {
 
   it("Premium : réservé à l'offre, filtres, vivier anonyme consentant et prospection relue", async () => {
     await expect(premium.vivier(school, "ma-esa-casa", {})).rejects.toThrow(/Premium/);
-    await premium.setPremium(adminU, "ma-esa-casa", true);
+    const offresSvc = await import("@/server/services/offres");
+    await offresSvc.activate(adminU, { etablissement: "ma-esa-casa", service: "premium", months: 12, method: "virement", reference: "TEST-1" });
     // Étudiante majeure, visible ; mineure visible sans accord parental : exclue
     const majeure = await accounts.register({ role: "etudiant", firstName: "Grâce", lastName: "Obiang", email: "grace.vivier@test.local", password: "Motdepasse1", birthYear: year - 19, country: "GA", acceptTerms: true });
     await premium.updateAttentes(majeure, { average: 15.2, mention: "bien", domain: "dom-gestion", targetJobs: [], budgetAnnuel: 9000000, devise: "XAF", funding: { garant: true }, startYear: year + 1, villes: ["Casablanca"], visibleToSchools: true });
@@ -532,5 +533,37 @@ describe("relais Navigoal, Premium et accès des établissements", async () => {
     await expect(premium.createProspection(school, "ma-esa-casa", { offer: "candidature", subject: "Bachelor à l'ESA", body: "Votre projet correspond à notre bachelor en gestion, candidatures ouvertes.", criteria: { refs: [ref] } })).rejects.toThrow(/Aucun profil/);
     await premium.stopContact(majeure);
     expect((await premium.vivier(school, "ma-esa-casa", {})).profils.some((x) => x.ref === ref)).toBe(false);
+  });
+});
+
+describe("offres payantes : abonnements, effets réels, échéances", async () => {
+  const offres = await import("@/server/services/offres");
+  it("mise en avant : effet sur le site public, prolongation sans interruption, arrêt immédiat", async () => {
+    await expect(offres.activate(school, { etablissement: "ma-uir", service: "mise_en_avant", months: 3 })).rejects.toThrow();
+    const s1 = await offres.activate(adminU, { etablissement: "ma-uir", service: "mise_en_avant", months: 3, method: "cheque", reference: "CHQ-1" });
+    expect(s1.amount).toBe(900); // tarif du catalogue
+    expect((await offres.partenaires()).some((p) => p.id === "ma-uir")).toBe(true);
+    const s2 = await offres.activate(adminU, { etablissement: "ma-uir", service: "mise_en_avant", months: 6, amount: 1500 });
+    expect(s2.startsAt.getTime()).toBe(s1.endsAt.getTime()); // la prolongation démarre à la fin de la période en cours
+    const [e] = await db.select().from(schema.establishments).where(eq(schema.establishments.id, "ma-uir"));
+    expect(e.featuredUntil!.getTime()).toBe(s2.endsAt.getTime());
+    await offres.compterVitrine(["ma-uir", "ma-uir", "ma-inconnue"], "ma-uir");
+    const o = await offres.myOffer(adminU, "ma-uir");
+    expect(o.visibilite.affichages).toBe(1);
+    expect(o.visibilite.clics).toBe(1);
+    await offres.cancel(adminU, s1.id); await offres.cancel(adminU, s2.id);
+    expect((await offres.partenaires()).some((p) => p.id === "ma-uir")).toBe(false);
+  });
+  it("échéance : rappel avant la fin, puis désactivation automatique", async () => {
+    const s = await offres.activate(adminU, { etablissement: "ma-uir", service: "une_accueil", months: 1, startsAt: new Date(Date.now() - 25 * 86400000) });
+    expect((await offres.rappels()).rappels).toBeGreaterThanOrEqual(1);
+    expect((await offres.rappels()).rappels).toBe(0); // pas de doublon
+    await db.update(schema.subscriptions).set({ endsAt: new Date(Date.now() - 1000) }).where(eq(schema.subscriptions.id, s.id));
+    await offres.rappels();
+    const [e] = await db.select().from(schema.establishments).where(eq(schema.establishments.id, "ma-uir"));
+    expect(e.homeUntil).toBeNull();
+    expect(e.featuredUntil).toBeNull();
+    const csv = offres.exportCsv((await offres.overview(adminU)).items);
+    expect(csv.split("\n").length).toBeGreaterThan(2);
   });
 });

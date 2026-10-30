@@ -31,6 +31,7 @@ import * as navi from "../services/navi";
 import * as relais from "../services/relais";
 import * as premium from "../services/premium";
 import * as acces from "../services/acces";
+import * as offres from "../services/offres";
 import { ACQ_COOKIE } from "@/lib/campagne";
 
 /** Origine de l'inscription (cookie de première visite posé par le site). */
@@ -358,7 +359,20 @@ route("POST", "/admin/conversations/:id/messages", "Relais", "Répondre au nom d
 route("GET", "/admin/accompagnement", "Relais", "Écoles et bailleurs : mode accompagné", ["admin"], async ({ me }) => relais.listAssisted(me));
 route("POST", "/admin/etablissements/:id/accompagnement", "Relais", "Activer ou arrêter le mode accompagné d'une école", ["admin"], async ({ me, params, body }) => relais.setEstablishmentAssisted(me, params.id, !!(await body()).actif));
 route("POST", "/admin/bailleurs/:id/accompagnement", "Relais", "Activer ou arrêter le mode accompagné d'un bailleur", ["admin"], async ({ me, params, body }) => relais.setLandlordAssisted(me, params.id, !!(await body()).actif));
-route("POST", "/admin/etablissements/:id/premium", "Relais", "Activer (un an) ou arrêter l'offre Premium", ["admin"], async ({ me, params, body }) => premium.setPremium(me, params.id, !!(await body()).actif));
+// ---------------------------------------------------------------- Offres payantes des établissements
+route("GET", "/admin/offres", "Offres", "Catalogue, abonnements et encaissements", ["admin"], async ({ me }) => offres.overview(me));
+route("GET", "/admin/offres/etablissements", "Offres", "Établissements (pour activer un service)", ["admin"], async ({ me }) => offres.listEtablissementsPourActivation(me));
+route("GET", "/admin/offres/export.csv", "Offres", "Export comptable des abonnements (CSV)", ["admin"], async ({ me }) => file(new TextEncoder().encode("\uFEFF" + offres.exportCsv((await offres.overview(me)).items)), "text/csv; charset=utf-8", `abonnements-${new Date().toISOString().slice(0, 10)}.csv`, false));
+route("PATCH", "/admin/offres/services/:code", "Offres", "Modifier un service du catalogue (nom, description, tarifs, actif)", ["admin"], async ({ me, params, body }) => offres.updateService(me, params.code, await body()));
+route("POST", "/admin/offres/abonnements", "Offres", "Activer ou prolonger un service pour une école", ["admin"], async ({ me, body }) => json(await offres.activate(me, await body()), 201));
+route("POST", "/admin/offres/abonnements/:id/arreter", "Offres", "Arrêter un abonnement immédiatement", ["admin"], async ({ me, params }) => offres.cancel(me, params.id));
+route("GET", "/ecole/:eid/offre", "Établissement", "Mon offre : services actifs, historique, visibilité", ["etablissement", "admin"], async ({ me, params }) => offres.myOffer(me, params.eid));
+route("GET", "/partenaires", "Catalogue", "Écoles mises en avant (partenaires) en ce moment", "public", async () => json(await offres.partenaires(), 200, { "Cache-Control": "public, max-age=120" }));
+route("POST", "/vitrine", "Catalogue", "Affichages et clics des écoles mises en avant (statistiques anonymes)", "public", async ({ body }) => {
+  const b = await body().catch(() => ({}));
+  await offres.compterVitrine(Array.isArray(b.aff) ? b.aff.map(String) : [], b.clic ? String(b.clic) : null);
+  return ok;
+});
 route("POST", "/admin/eleves/:id/moyenne", "Relais", "Moyenne vérifiée sur le relevé de notes", ["admin"], async ({ me, params, body }) => { await premium.verifyAverage(me, params.id, !!(await body()).verifiee); return ok; });
 route("GET", "/admin/prospections", "Relais", "Campagnes de prospection des écoles (à relire)", ["admin"], async ({ me }) => premium.listProspectionsAdmin(me));
 route("POST", "/admin/prospections/:id/validation", "Relais", "Valider (envoi) ou refuser une campagne de prospection", ["admin"], async ({ me, params, body }) => { const b = await body(); return premium.reviewProspection(me, params.id, !!b.valider, b.note ? String(b.note).slice(0, 1000) : undefined); });

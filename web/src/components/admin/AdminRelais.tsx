@@ -7,7 +7,6 @@ import { Alert, Button, Chip, Empty, Kpi, Loading, Panel, StatusBadge, dateFr, s
 import { DOC_TYPES, Field, FormError, Input, Select, Textarea } from "@/components/app/form";
 import { useAction, useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
-import { PRIX_PREMIUM_MAD } from "@/lib/premium";
 import { AdminHeader, Flag, LoadError, PAYS_OPTS, Pager, Toggle, qs, useDebounced } from "./shared";
 
 // ---------------------------------------------------------------- Toutes les candidatures
@@ -198,7 +197,7 @@ export function AdminAccompagnement() {
   const premium = (e: Acc["ecoles"][number]) => (e.plan === "premium" && (!e.premiumUntil || new Date(e.premiumUntil) > new Date()) ? e : null);
   return (
     <div className="min-w-0">
-      <AdminHeader title="Mode accompagné et Premium" sub="Navigoal répond aux candidats et locataires à la place des comptes qui prennent la plateforme en main. Interrupteur manuel, sans bascule automatique." />
+      <AdminHeader title="Mode accompagné" sub="Navigoal répond aux candidats et locataires à la place des comptes qui prennent la plateforme en main. Interrupteur manuel, sans bascule automatique." />
       <FormError error={a.error} />
       {r.error ? <LoadError error={r.error} reload={r.reload} /> : !r.data ? <Loading /> : (
         <div className="grid items-start gap-5 xl:grid-cols-[1.4fr_1fr]">
@@ -211,7 +210,7 @@ export function AdminAccompagnement() {
                     {e.logo ? <img src={e.logo} alt="" className="h-9 w-9 rounded-lg border border-slate-100 object-contain" /> : <Building2 size={20} className="text-ink-mute" />}
                     <span className="min-w-0 flex-1"><b className="text-sm">{e.sigle}</b> <span className="text-xs text-ink-mute">· {e.ville}</span><span className="block text-xs text-ink-mute">{e.attente} dossier{e.attente > 1 ? "s" : ""} en cours · {e.membres ? `${e.membres} compte${e.membres > 1 ? "s" : ""}` : "aucun compte actif"}</span></span>
                     <span className="flex items-center gap-2">
-                      <button onClick={() => basculer(`/admin/etablissements/${e.id}/premium`, !p, p ? "Premium désactivé" : `Premium activé pour un an (${PRIX_PREMIUM_MAD.toLocaleString("fr-FR")} MAD)`)} className={`chip gap-1 px-2.5 py-1.5 ${p ? "bg-gradient-to-br from-[#ffd34a] to-[#f9a806] text-ink" : "bg-[#eef1f8] text-ink-mute"}`} title={p?.premiumUntil ? `Jusqu'au ${dateFr(p.premiumUntil)}` : "Activer Premium (un an)"}><Crown size={12} />{p ? "Premium" : "Gratuit"}</button>
+                      <Link href="/admin/offres" className={`chip gap-1 px-2.5 py-1.5 ${p ? "bg-gradient-to-br from-[#ffd34a] to-[#f9a806] text-ink" : "bg-[#eef1f8] text-ink-mute"}`} title={p?.premiumUntil ? `Premium jusqu'au ${dateFr(p.premiumUntil)}` : "Gérer dans Offres et abonnements"}><Crown size={12} />{p ? "Premium" : "Gratuit"}</Link>
                       <Chip tone={e.assisted ? "blue" : "grey"}>{e.assisted ? "Accompagné" : "Autonome"}</Chip>
                       <Toggle on={e.assisted} label={`Mode accompagné ${e.sigle}`} onChange={(v) => basculer(`/admin/etablissements/${e.id}/accompagnement`, v, v ? `${e.sigle} : mode accompagné activé` : `${e.sigle} : dossiers rendus à l'école`)} />
                     </span>

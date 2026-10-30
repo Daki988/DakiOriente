@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, ilike, isNotNull, or, sql } from "drizzle-orm";
+import { and, asc, eq, ilike, isNotNull, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db, schema } from "../db";
 import { audit } from "../lib/audit";
@@ -41,7 +41,7 @@ export async function searchEstablishments(q: { pays?: string; ville?: string; l
     q.label ? eq(schema.establishments.label, q.label) : undefined,
     q.text ? or(ilike(schema.establishments.nom, `%${q.text}%`), ilike(schema.establishments.sigle, `%${q.text}%`), ilike(schema.establishments.ville, `%${q.text}%`)) : undefined,
     sql`${schema.establishments.status} <> 'suspendu'`,
-  )).orderBy(desc(schema.establishments.featured), asc(schema.establishments.nom)).limit(q.limit ?? 200);
+  )).orderBy(sql`(${schema.establishments.featuredUntil} > now()) desc nulls last`, asc(schema.establishments.nom)).limit(q.limit ?? 200);
 }
 
 export const establishmentUpdateSchema = z.object({

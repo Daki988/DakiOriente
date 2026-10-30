@@ -63,8 +63,7 @@ export async function listEstablishmentsAdmin(a: User, f: { status?: string; pay
 type Label = "reconnu_etat" | "diplomes_homologues" | "professionnel" | "autorise";
 const establishmentPatch = z.object({
   status: z.enum(schema.establishmentStatusEnum.enumValues).optional(),
-  featured: z.boolean().optional(),
-  plan: z.string().trim().min(1).max(40).optional(),
+  // Offre et mise en avant : gérées par les abonnements (services/offres.ts), plus modifiables ici.
   label: z.enum(["reconnu_etat", "diplomes_homologues", "professionnel", "autorise"], { message: "Label inconnu." }).nullable().optional(),
   recognition: z.string().max(500).nullable().optional(),
 }).strict();

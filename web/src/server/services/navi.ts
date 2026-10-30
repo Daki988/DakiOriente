@@ -8,6 +8,7 @@ import { sha256 } from "../auth/tokens";
 import { AppError } from "../lib/errors";
 import { tauxDuJour } from "../lib/taux";
 import { DOC_LABEL } from "./documents";
+import { partenaires } from "./offres";
 import { childrenOf } from "./guardians";
 import { METHODS } from "../payments/providers";
 import { cheminInterne } from "@/lib/redirection";
@@ -53,9 +54,11 @@ const score = (texte: string, ts: string[]) => { const h = norm(texte); return t
 const LABEL_IDS = ["reconnu_etat", "diplomes_homologues", "professionnel", "autorise"] as const;
 const NIVEAUX = ["niv-bac2", "niv-bac3", "niv-bac5", "niv-bac7", "niv-bac8"] as const;
 const villeOk = (e: Etablissement, v: string | null, fid?: string) => !v || (fid ? villesOffre(e, fid) : villesOf(e)).some((x) => norm(x).includes(norm(v)));
-const etabCourt = (e: Etablissement) => ({ id: e.id, sigle: e.sigle, nom: e.nom, villes: villesOf(e), label: e.label_libelle });
+const etabCourt = (e: Etablissement, p?: Set<string>) => ({ id: e.id, sigle: e.sigle, nom: e.nom, villes: villesOf(e), label: e.label_libelle, ...(p?.has(e.id) ? { partenaire_navigoal: true } : {}) });
+/** Écoles mises en avant (abonnement en cours) : à pertinence égale en premier, toujours signalées comme partenaires. */
+const partenairesIds = async () => new Set((await partenaires()).map((x) => x.id));
 
-function chercherFormations(i: { texte: string | null; ville: string | null; niveau: string | null; label: string | null; limite: number | null }) {
+async function chercherFormations(i: { texte: string | null; ville: string | null; niveau: string | null; label: string | null; limite: number | null }) {
   const ts = termes(i.texte);
   const offres = OFFRES.filter((o) => villeOk(o.e, i.ville, o.f.id) && (!i.label || o.e.label === i.label) && (!i.niveau || o.f.niveau === i.niveau));
   const parFormation = new Map<string, { f: (typeof OFFRES)[number]["f"]; etabs: Etablissement[]; s: number }>();
@@ -66,28 +69,31 @@ function chercherFormations(i: { texte: string | null; ville: string | null; niv
     x.etabs.push(o.e);
     parFormation.set(o.f.id, x);
   }
+  const p = await partenairesIds();
   const res = [...parFormation.values()].sort((a, b) => b.s - a.s || b.etabs.length - a.etabs.length).slice(0, Math.min(i.limite ?? 6, 10));
+  for (const x of res) x.etabs.sort((a, b) => Number(p.has(b.id)) - Number(p.has(a.id)));
   return {
     total: parFormation.size,
     formations: res.map(({ f, etabs }) => ({
       id: f.id, intitule: f.intitule, diplome: f.diplome, niveau: niveauLabel(f.niveau), duree_annees: f.duree_annees, domaine: f.domaine,
       admission: admissionLabel(f.mode_admission), series_conseillees: f.series_recommandees,
-      etablissements: etabs.slice(0, 10).map((e) => ({ ...etabCourt(e), villes: villesOffre(e, f.id) })), nb_etablissements: etabs.length,
+      etablissements: etabs.slice(0, 10).map((e) => ({ ...etabCourt(e, p), villes: villesOffre(e, f.id) })), nb_etablissements: etabs.length,
       page: `/formations/${f.id}/`,
     })),
     page_liste: `/formations/?${new URLSearchParams({ ...(i.texte ? { q: i.texte } : {}), ...(i.ville ? { ville: i.ville } : {}), ...(i.niveau ? { niveau: i.niveau } : {}), ...(i.label ? { label: i.label } : {}) })}`,
   };
 }
 
-function chercherEtablissements(i: { texte: string | null; ville: string | null; label: string | null; formation_id: string | null; limite: number | null }) {
+async function chercherEtablissements(i: { texte: string | null; ville: string | null; label: string | null; formation_id: string | null; limite: number | null }) {
+  const p = await partenairesIds();
   const ts = termes(i.texte);
   const res = etablissements
     .filter((e) => villeOk(e, i.ville) && (!i.label || e.label === i.label) && (!i.formation_id || e.formations.includes(i.formation_id)))
     .map((e) => ({ e, s: ts.length ? score(`${e.sigle} ${e.nom} ${e.type_libelle} ${villesOf(e).join(" ")} ${e.alias.join(" ")}`, ts) : 1 }))
-    .filter((x) => x.s > 0).sort((a, b) => b.s - a.s || b.e.formations.length - a.e.formations.length);
+    .filter((x) => x.s > 0).sort((a, b) => b.s - a.s || Number(p.has(b.e.id)) - Number(p.has(a.e.id)) || b.e.formations.length - a.e.formations.length);
   return {
     total: res.length,
-    etablissements: res.slice(0, Math.min(i.limite ?? 8, 12)).map(({ e }) => ({ ...etabCourt(e), type: e.type_libelle, nb_formations: e.formations.length, page: `/etablissements/${e.id}/` })),
+    etablissements: res.slice(0, Math.min(i.limite ?? 8, 12)).map(({ e }) => ({ ...etabCourt(e, p), type: e.type_libelle, nb_formations: e.formations.length, page: `/etablissements/${e.id}/` })),
     page_liste: `/etablissements/?${new URLSearchParams({ ...(i.texte ? { q: i.texte } : {}), ...(i.ville ? { ville: i.ville } : {}), ...(i.label ? { label: i.label } : {}) })}`,
   };
 }
@@ -362,6 +368,7 @@ Style :
 Méthode :
 - Avant de répondre sur une école, une formation ou un coût, appelle l'outil adapté. Pour le suivi d'un dossier, appelle mon_espace.
 - Termine presque toujours par un seul appel à afficher : 2 à 4 établissements pertinents (le moins cher en premier si le budget compte), une estimation de coût si on parle d'argent, 1 à 3 liens issus des outils (comparateur : /comparateur/?f=<formation>&e=<id1>,<id2>,<id3> ; devis : page_devis ; candidater : /espace/candidatures/nouvelle?etab=<id>&formation=<id> ; document demandé : /espace/documents/), et 2 ou 3 relances courtes.
+- Une école marquée partenaire_navigoal a souscrit une mise en avant : tu peux la citer en premier à pertinence égale, en le signalant (« école partenaire de Navigoal »), sans jamais écarter une école plus pertinente.
 - Labels Navigoal : « Reconnu par l'État », « Diplômes homologués », « Établissement professionnel », « Établissement autorisé » (diplômes d'établissement, non homologués : dis-le clairement si c'est pertinent).`;
 
 // ---------------------------------------------------------------- Conversation (flux NDJSON)
@@ -433,8 +440,8 @@ export async function* converser(req: NaviRequete, user: User | null): AsyncGene
         // eslint-disable-next-line @typescript-eslint/no-explicit-any -- validé
         const x = v.data as any; // validé par le schéma Zod de l'outil
         switch (a.name) {
-          case "chercher_formations": r = chercherFormations(x); break;
-          case "chercher_etablissements": r = chercherEtablissements(x); break;
+          case "chercher_formations": r = await chercherFormations(x); break;
+          case "chercher_etablissements": r = await chercherEtablissements(x); break;
           case "fiche_etablissement": r = await ficheEtablissement(x.id); break;
           case "chercher_metiers": r = chercherMetiers(x); break;
           case "estimer_cout": r = await estimerCout(x, paysDefaut); break;

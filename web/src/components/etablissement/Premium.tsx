@@ -23,7 +23,7 @@ export const PremiumBadge = () => <span className="inline-flex items-center gap-
 const LIGNES: [string, boolean][] = [
   ["Fiche école, formations, campagnes d'admission", true], ["Réception et traitement des candidatures", true], ["Messagerie avec les candidats", true], ["Mode accompagné par Navigoal (prise en main)", true],
   ["Filtres : résultats scolaires, projet, financement", false], ["Score d'adéquation et tri des candidats", false], ["Vivier de candidats (profils anonymes consentants)", false],
-  ["Campagnes de prospection (2 000 envois par mois)", false], ["Statistiques de campagne", false],
+  ["Campagnes de prospection (2 000 envois par mois)", false], ["Statistiques de campagne", false], ["Mise en avant : badge « Partenaire Navigoal », en tête des listes et sur l'accueil", false],
 ];
 
 /** Comparatif Gratuit / Premium, affiché à la place d'une fonction Premium tant que l'offre n'est pas active. */

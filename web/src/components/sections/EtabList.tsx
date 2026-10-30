@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight, RotateCcw, Search, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { EtabCard } from "@/components/ui/Cards";
+import { usePartenaires } from "@/components/ui/Partenaires";
 import { useFiltres } from "@/hooks/useFiltres";
 import { norm, villeHref } from "@/lib/catalogue";
 import { LABELS, VILLES_ETUDES, villesOf, etablissements, type Etablissement } from "@/lib/data";
@@ -21,7 +22,9 @@ export function EtabList() {
     (sauf === "ville" || !f.ville || villesOf(e).includes(f.ville)) &&
     (sauf === "type" || !f.type || e.type_libelle === f.type) &&
     (!f.q || norm(`${e.nom} ${e.sigle} ${e.alias.join(" ")} ${villesOf(e).join(" ")} ${e.filieres.map((x) => x.intitule).join(" ")}`).includes(norm(f.q)));
-  const list = useMemo(() => etablissements.filter((e) => passe(e)).sort(ORDRE), [f]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Écoles mises en avant (abonnement en cours) d'abord, signalées « Partenaire Navigoal » sur leur carte.
+  const partenaires = usePartenaires();
+  const list = useMemo(() => { const p = new Set(partenaires.map((x) => x.id)); return etablissements.filter((e) => passe(e)).sort((a, b) => Number(p.has(b.id)) - Number(p.has(a.id)) || ORDRE(a, b)); }, [f, partenaires]); // eslint-disable-line react-hooks/exhaustive-deps
   const n = (k: keyof typeof DEFAUTS, v: string) => etablissements.filter((e) => passe(e, k) && (k === "label" ? !v || e.label === v : k === "ville" ? villesOf(e).includes(v) : e.type_libelle === v)).length;
   const actifs = [f.q, f.label, f.ville, f.type].filter(Boolean).length;
   const maj = (p: Partial<typeof DEFAUTS>) => { set(p); setLimit(24); };

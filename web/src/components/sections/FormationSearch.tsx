@@ -1,5 +1,6 @@
 "use client";
 import Link from "@/components/ui/Link";
+import { usePartenaires } from "@/components/ui/Partenaires";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronDown, ChevronRight, Search, SlidersHorizontal, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -49,9 +50,16 @@ export function FormationSearch() {
   useEffect(() => setLimit(12), [f]);
 
   const terms = useMemo(() => norm(f.q).split(/\s+/).filter(Boolean), [f.q]);
-  const results = useMemo(() => OFFRES.filter((o) => passe(o, f, terms))
+  const partenaires = usePartenaires();
+  const tries = useMemo(() => OFFRES.filter((o) => passe(o, f, terms))
     .map((o) => ({ ...o, score: compatibilite(profil, o.f.id), villesVues: f.ville.length ? o.villes.filter((v) => f.ville.includes(v)) : o.villes }))
     .sort((a, b) => (f.tri === "compat" ? b.score - a.score || a.f.intitule.localeCompare(b.f.intitule, "fr") : f.tri === "duree" ? a.f.duree_annees - b.f.duree_annees || a.f.intitule.localeCompare(b.f.intitule, "fr") : a.f.intitule.localeCompare(b.f.intitule, "fr") || a.e.sigle.localeCompare(b.e.sigle, "fr"))), [f, terms, profil]);
+  // À pertinence égale, 3 offres au plus d'écoles partenaires (mises en avant) passent en tête, signalées sur leur carte.
+  const results = useMemo(() => {
+    const p = new Set(partenaires.map((x) => x.id));
+    const tete = tries.filter((o) => p.has(o.e.id)).slice(0, 3);
+    return tete.length ? [...tete, ...tries.filter((o) => !tete.includes(o))] : tries;
+  }, [tries, partenaires]);
   // Compteurs par option : résultats si l'on cochait cette option (les autres filtres restant actifs).
   const compte = useMemo(() => {
     const c: Record<Cle, Record<string, number>> = { ville: {}, niveau: {}, domaine: {}, label: {}, admission: {} };

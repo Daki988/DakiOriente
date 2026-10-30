@@ -1,25 +1,19 @@
 "use client";
 import Link from "@/components/ui/Link";
-import { Award, BadgeCheck, Ban, Building2, Check as CheckIcon, ExternalLink, RotateCcw, Search, Star, Users } from "lucide-react";
+import { Award, BadgeCheck, Ban, Building2, ExternalLink, RotateCcw, Search, Star, Users } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Button, Chip, Dialog, Loading, Panel, StatusBadge, Table, Tabs, useToast } from "@/components/app/kit";
 import { FormError, Input, Select } from "@/components/app/form";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { useAction, useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
-import { AdminHeader, Flag, LoadError, Pager, Reveal, Toggle, nf, qs, useDebounced } from "./shared";
+import { AdminHeader, Flag, LoadError, Pager, nf, qs, useDebounced } from "./shared";
 import { LABELS, labelById, type Label } from "@/lib/data";
 
 type E = { id: string; nom: string; sigle: string; pays: string; ville: string; typeLibelle: string; statut: string; siteWeb: string | null; email: string | null; phone: string | null; logo: string | null; status: "importe" | "revendique" | "verifie" | "suspendu"; featured: boolean; plan: string; updatedAt: string; label: Label | null; recognition: string | null };
 type Row = { e: E; members: number; programs: number };
 type Patch = { status?: E["status"]; featured?: boolean; plan?: string; label?: Label | null; recognition?: string | null };
 
-const PLANS: { id: string; nom: string; prix: string; items: string[]; dark?: boolean }[] = [
-  { id: "gratuit", nom: "Gratuit", prix: "0 MAD", items: ["Fiche vérifiée", "Candidatures en ligne", "Statistiques de base"] },
-  { id: "partenaire", nom: "Partenaire", prix: "5 000 MAD / an", items: ["Mise en avant ville / domaine", "Campagnes & événements", "Statistiques avancées"], dark: true },
-  { id: "premium", nom: "Premium", prix: "Sur devis", items: ["Page d'accueil", "Tournées & salons", "Chargé de compte"] },
-];
-const PLAN_OPTS: [string, string][] = PLANS.map((p) => [p.id, p.nom]);
 
 export function AdminEtablissements() {
   const toast = useToast();
@@ -73,7 +67,7 @@ export function AdminEtablissements() {
             { h: "Type", c: (r) => <span className="block max-w-[160px] text-xs text-ink-soft">{r.e.typeLibelle}</span> },
             { h: "Membres", className: "text-center", c: (r) => <b>{r.members}</b> },
             { h: "Formations", className: "text-center", c: (r) => <b>{r.programs}</b> },
-            { h: "Plan", c: (r) => <Chip tone={r.e.plan === "gratuit" ? "grey" : r.e.plan === "partenaire" ? "sun" : "violet"}>{PLANS.find((p) => p.id === r.e.plan)?.nom ?? r.e.plan}</Chip> },
+            { h: "Offre", c: (r) => <Chip tone={r.e.plan === "premium" ? "violet" : "grey"}>{r.e.plan === "premium" ? "Premium" : "Gratuit"}</Chip> },
             { h: "Statut", c: (r) => <span className="flex items-center gap-1.5"><StatusBadge status={r.e.status} />{r.e.featured && <Star size={14} className="fill-sun-400 text-sun-500" aria-label="Mis en avant" />}</span> },
             { h: <span className="sr-only">Actions</span>, className: "text-right", c: (r) => r.e.status === "revendique" ? <Button size="sm" onClick={(ev) => { ev.stopPropagation(); setSel(r); }}>Examiner</Button> : <button className="text-[13px] font-bold text-brand-600" aria-label={`Gérer ${r.e.sigle}`}>Gérer</button> },
           ]} />
@@ -94,18 +88,9 @@ export function AdminEtablissements() {
             </div>
           )}
         </Panel>
-        <Panel title="Plans" icon={Award}>
-          <div className="grid gap-3 sm:grid-cols-3">
-            {PLANS.map((p, i) => (
-              <Reveal key={p.id} i={i}>
-                <div className={`flex h-full flex-col gap-2 rounded-2xl p-4 ${p.dark ? "bg-ink text-white" : "border border-slate-200/80"}`}>
-                  <div className="flex items-center justify-between gap-2"><b>{p.nom}</b><span className={`chip ${p.dark ? "bg-sun-400 text-ink" : "bg-[#eef1f8] text-ink-soft"}`}>{nf(plans[p.id] ?? 0)}</span></div>
-                  <b className="text-lg">{p.prix}</b>
-                  <ul className="flex flex-col gap-1 text-xs">{p.items.map((it) => <li key={it} className="flex items-center gap-1.5"><CheckIcon size={13} className={p.dark ? "text-sun-400" : "text-[#0f8a46]"} />{it}</li>)}</ul>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+        <Panel title="Offres payantes" icon={Award} action={<Link href="/admin/offres" className="text-sm font-bold text-brand-600">Gérer les abonnements</Link>}>
+          <p className="text-sm text-ink-mute">Premium, mise en avant, « À la une de l&apos;accueil » et salons s&apos;activent depuis <b>Offres et abonnements</b> : durée, montant encaissé, référence du règlement, échéance et rappels automatiques.</p>
+          <div className="flex flex-wrap gap-2"><Chip tone="violet">{nf(plans.premium ?? 0)} Premium</Chip><Chip tone="sun">{nf(featured.length)} mise{featured.length > 1 ? "s" : ""} en avant</Chip></div>
         </Panel>
       </div>
 
@@ -136,13 +121,9 @@ function Detail({ r, pending, error, patch }: { r: Row; pending: boolean; error:
 
       <LabelEditor r={r} pending={pending} patch={patch} />
       <div className="grid gap-3 sm:grid-cols-2">
-        <label className="flex items-center justify-between gap-3 rounded-2xl border border-slate-200/80 p-3.5">
-          <span className="flex flex-col"><b className="text-sm">Mise en avant</b><span className="text-xs text-ink-mute">Vitrine pays et page d&apos;accueil</span></span>
-          <Toggle on={e.featured} disabled={pending} label="Mise en avant" onChange={(v) => patch(r, { featured: v }, v ? "Établissement mis en avant." : "Mise en avant retirée.")} />
-        </label>
-        <div className="flex flex-col gap-1.5 rounded-2xl border border-slate-200/80 p-3.5">
-          <label htmlFor="plan" className="text-sm font-bold">Plan</label>
-          <Select id="plan" value={e.plan} disabled={pending} onChange={(ev) => patch(r, { plan: ev.target.value }, "Plan mis à jour.")} options={PLAN_OPTS} className="!py-2" />
+        <div className="flex flex-col gap-1 rounded-2xl border border-slate-200/80 p-3.5 text-sm">
+          <b>Offre</b><span className="text-ink-mute">{e.plan === "premium" ? "Premium" : "Gratuit"}{e.featured ? " · mise en avant" : ""}</span>
+          <Link href="/admin/offres" className="font-bold text-brand-600">Activer ou prolonger un service</Link>
         </div>
       </div>
       <FormError error={error} />

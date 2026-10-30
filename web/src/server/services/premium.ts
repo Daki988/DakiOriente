@@ -37,19 +37,6 @@ export async function premiumStatus(user: User, establishmentId: string) {
   return { premium: estPremium(e), premiumUntil: e.premiumUntil, prix: PRIX_PREMIUM_MAD };
 }
 
-/** Activation (un an) ou arrêt par l'équipe Navigoal, après réception du règlement. */
-export async function setPremium(admin: User, establishmentId: string, on: boolean) {
-  if (admin.role !== "admin") throw forbidden();
-  const fin = new Date(); fin.setFullYear(fin.getFullYear() + 1);
-  const [e] = await db.update(schema.establishments).set(on ? { plan: "premium", premiumUntil: fin } : { plan: "gratuit", premiumUntil: null }).where(eq(schema.establishments.id, establishmentId)).returning();
-  if (!e) throw notFound("Établissement");
-  for (const m of await myMembersOf(establishmentId)) await notify(m, on
-    ? { kind: "premium", title: "Offre Premium activée", body: `Filtres avancés, vivier de candidats et campagnes de prospection sont disponibles jusqu'au ${fin.toLocaleDateString("fr-FR")}.`, link: "/etablissement/vivier" }
-    : { kind: "premium", title: "Offre Premium désactivée", link: "/etablissement" });
-  await audit(admin.id, on ? "premium_active" : "premium_desactive", "establishment", establishmentId, { prix: PRIX_PREMIUM_MAD, jusqua: on ? fin.toISOString() : null });
-  return e;
-}
-
 // ---------------------------------------------------------------- « Mes attentes » (élève)
 export const MENTIONS = ["passable", "assez_bien", "bien", "tres_bien"] as const;
 export const attentesSchema = z.object({

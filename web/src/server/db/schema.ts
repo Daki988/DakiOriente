@@ -143,6 +143,9 @@ export const establishments = pgTable("establishments", {
   featured: boolean("featured").notNull().default(false),
   plan: text("plan").notNull().default("gratuit"), // gratuit | premium
   premiumUntil: timestamp("premium_until", { withTimezone: true }),
+  // Effets des abonnements en cours (synchronisés depuis `subscriptions`) : mise en avant et « À la une de l'accueil ».
+  featuredUntil: timestamp("featured_until", { withTimezone: true }),
+  homeUntil: timestamp("home_until", { withTimezone: true }),
   // Mode accompagné : l'équipe Navigoal répond aux candidats et traite les dossiers au nom de l'école.
   assisted: boolean("assisted").notNull().default(false),
   createdAt: createdAt(),
@@ -320,6 +323,38 @@ export const messages = pgTable("messages", {
   internal: boolean("internal").notNull().default(false), // note interne : invisible du candidat ou du locataire
   createdAt: createdAt(),
 }, (t) => [index("messages_conv_idx").on(t.conversationId, t.createdAt)]);
+
+// ---------------------------------------------------------------- Offres payantes des établissements
+/** Catalogue modifiable dans le back-office. `effect` : ce que le service active sur la plateforme. */
+export const offerServices = pgTable("offer_services", {
+  code: text("code").primaryKey(), // premium, mise_en_avant, une_accueil, salons, accompagnement
+  name: text("name").notNull(),
+  description: text("description").notNull().default(""),
+  effect: text("effect").notNull().default("aucun"), // premium | mise_en_avant | une_accueil | aucun
+  prices: jsonb("prices").$type<{ months: number; amount: number | null }[]>().notNull().default([]), // amount null : sur devis
+  active: boolean("active").notNull().default(true),
+  position: integer("position").notNull().default(0),
+  updatedAt: updatedAt(),
+});
+export const subscriptions = pgTable("subscriptions", {
+  id: id(),
+  establishmentId: text("establishment_id").notNull().references(() => establishments.id, { onDelete: "cascade" }),
+  serviceCode: text("service_code").notNull().references(() => offerServices.code),
+  months: integer("months").notNull(),
+  startsAt: timestamp("starts_at", { withTimezone: true }).notNull(),
+  endsAt: timestamp("ends_at", { withTimezone: true }).notNull(),
+  amount: integer("amount"), // MAD encaissés (null : offert ou sur devis)
+  currency: text("currency").notNull().default("MAD"),
+  paymentMethod: text("payment_method"),
+  paymentRef: text("payment_ref"),
+  note: text("note"),
+  createdBy: text("created_by").references(() => users.id, { onDelete: "set null" }),
+  cancelledAt: timestamp("cancelled_at", { withTimezone: true }),
+  reminded30At: timestamp("reminded_30_at", { withTimezone: true }),
+  reminded7At: timestamp("reminded_7_at", { withTimezone: true }),
+  expiredNoticeAt: timestamp("expired_notice_at", { withTimezone: true }),
+  createdAt: createdAt(),
+}, (t) => [index("subscriptions_etab_idx").on(t.establishmentId, t.endsAt)]);
 
 // ---------------------------------------------------------------- Prospection (établissements Premium)
 export const prospectStatusEnum = pgEnum("prospect_status", ["en_validation", "validee", "refusee", "envoyee"]);

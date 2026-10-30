@@ -1,5 +1,6 @@
 // Accueil (maquette validée) : catégories, chiffres, parcours, encarts, formations populaires, communauté, établissements.
 import Link from "@/components/ui/Link";
+import { EcolesPartenaires } from "@/components/ui/Partenaires";
 import { ArrowRight, BadgeCheck, Briefcase, Building2, ChevronRight, Compass, FileCheck2, GraduationCap, Landmark, MapPin, Search, Sparkles, UserRound, Users } from "lucide-react";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { Illustration } from "@/components/ui/Illustration";
@@ -172,6 +173,7 @@ export function Etablissements() {
         <div><h2 className="text-2xl font-extrabold sm:text-[28px]">Ils sont sur Navigoal</h2><p className="mt-1 text-ink-mute">Établissements privés référencés, reconnus ou autorisés par l&apos;État marocain.</p></div>
         <Link href="/etablissements" className="flex min-h-[40px] items-center gap-1.5 text-sm font-bold text-brand-600">Voir tous les établissements <ArrowRight size={16} /></Link>
       </div>
+      <EcolesPartenaires />
       <Marquee>
         {LOGOS.map((e) => (
           <Link key={e.id} href={`/etablissements/${e.id}/`} className="flex shrink-0 items-center gap-2.5 rounded-2xl border border-slate-200/80 bg-white py-2.5 pl-2.5 pr-4 transition hover:border-brand-300 hover:shadow-card" title={e.nom}>
