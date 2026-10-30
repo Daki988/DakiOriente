@@ -10,7 +10,7 @@ if (fs.existsSync(envFile))
     if (m && !ligne.trim().startsWith("#") && process.env[m[1]] === undefined) process.env[m[1]] = m[2].replace(/^(['"])(.*)\1$/, "$2");
   }
 process.chdir(racine);
-const req = (m) => require(require.resolve(m, { paths: [racine, path.join(racine, "node_modules")] }));
+const req = (m) => require(require.resolve(m, { paths: [path.join(racine, "serveur"), racine] }));
 const ok = (t) => console.log(`  ✓ ${t}`);
 const ko = (t) => { console.log(`  ✗ ${t}`); erreurs++; };
 let erreurs = 0;

@@ -24,9 +24,12 @@ for (const s of ["migrate", "seed", "sauvegarde", "restauration"])
   run(`npx esbuild scripts/${s}.mts --bundle --platform=node --format=esm --target=node20 --external:pg-native --banner:js="${banner}" --outfile=${path.join(out, "outils", s + ".mjs")} --log-level=warning`);
 
 console.log("3/4 Assemblage");
-copy(path.join(web, ".next", "standalone"), out);
-copy(path.join(web, ".next", "static"), path.join(out, ".next", "static"));
-copy(path.join(web, "public"), path.join(out, "public"));
+// Serveur Next.js dans « serveur/ » : le gestionnaire Node.js de cPanel (CloudLinux) refuse une application dont la
+// racine contient déjà un dossier node_modules (il y crée son propre lien vers l'environnement virtuel).
+const srv = path.join(out, "serveur");
+fs.cpSync(path.join(web, ".next", "standalone"), srv, { recursive: true, filter: (s) => !/\.(meta|DS_Store)$/.test(s) && !s.includes(`${path.sep}.data`) && !s.endsWith(`${path.sep}.env`) });
+copy(path.join(web, ".next", "static"), path.join(srv, ".next", "static"));
+copy(path.join(web, "public"), path.join(srv, "public"));
 copy(path.join(web, "drizzle"), path.join(out, "drizzle"));
 copy(path.join(root, "data", "referentiels"), path.join(out, "data", "referentiels"));
 if (fs.existsSync(path.join(root, "data", "archives"))) copy(path.join(root, "data", "archives"), path.join(out, "data", "archives"));
@@ -40,7 +43,7 @@ fs.writeFileSync(path.join(out, "package.json"), JSON.stringify({
   engines: { node: ">=20" },
 }, null, 2));
 // nodemailer (sans dépendance) pour l'outil de vérification ; le site l'intègre déjà à son code compilé.
-if (!fs.existsSync(path.join(out, "node_modules", "nodemailer"))) copy(path.join(web, "node_modules", "nodemailer"), path.join(out, "node_modules", "nodemailer"));
+if (!fs.existsSync(path.join(srv, "node_modules", "nodemailer"))) copy(path.join(web, "node_modules", "nodemailer"), path.join(srv, "node_modules", "nodemailer"));
 for (const f of ["env.cjs", "verifier.cjs"]) fs.copyFileSync(path.join(web, "deploiement", f), path.join(out, "outils", f));
 
 console.log("4/4 Archive ZIP");

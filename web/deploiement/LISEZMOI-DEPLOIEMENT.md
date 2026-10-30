@@ -79,7 +79,8 @@ cPanel › **Setup Node.js App** › *Create Application* :
 - **Application root** : `navigoal`
 - **Application URL** : `navigoal.net` (laisser le chemin vide)
 - **Application startup file** : `app.js`
-- *Create*. Ne cliquez pas sur « Run NPM Install » : les dépendances sont déjà incluses.
+- *Create*. Ne cliquez pas sur « Run NPM Install » : les dépendances sont déjà incluses (dans `serveur/node_modules` ;
+  le lien `node_modules` créé par cPanel à la racine reste vide, c'est normal).
 
 Les variables peuvent aussi être saisies dans cette page (« Environment variables ») au lieu du fichier `.env`.
 
