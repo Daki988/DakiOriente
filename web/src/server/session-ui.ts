@@ -7,6 +7,7 @@ import { cheminInterne } from "@/lib/redirection";
 export type ClientUser = {
   id: string; firstName: string; lastName: string; role: Role; status: string; email: string | null; phone: string | null;
   country: string | null; city: string | null; birthYear: number | null; emailVerified: boolean; phoneVerified: boolean;
+  mustChangePassword: boolean;
 };
 
 export async function getSessionUser(): Promise<ClientUser | null> {
@@ -15,7 +16,7 @@ export async function getSessionUser(): Promise<ClientUser | null> {
     if (!u) return null;
     return {
       id: u.id, firstName: u.firstName, lastName: u.lastName, role: u.role, status: u.status, email: u.email, phone: u.phone, country: u.country, city: u.city,
-      birthYear: u.birthYear, emailVerified: !!u.emailVerifiedAt, phoneVerified: !!u.phoneVerifiedAt,
+      birthYear: u.birthYear, emailVerified: !!u.emailVerifiedAt, phoneVerified: !!u.phoneVerifiedAt, mustChangePassword: u.mustChangePassword,
     };
   } catch {
     return null; // base indisponible : pages publiques servies sans session
@@ -34,6 +35,8 @@ export async function requireRole(roles: Role[], path: string) {
     const stale = !!cookies().get(SESSION_COOKIE)?.value; // cookie présent mais session expirée ou révoquée
     redirect(`/connexion/?suite=${encodeURIComponent(path)}${stale ? "&session=expiree" : ""}`);
   }
+  // Accès créé par Navigoal : mot de passe provisoire à remplacer avant tout.
+  if (u.mustChangePassword) redirect(`/premiere-connexion/?suite=${encodeURIComponent(path)}`);
   if (!roles.includes(u.role)) redirect(HOME[u.role]);
   return u;
 }

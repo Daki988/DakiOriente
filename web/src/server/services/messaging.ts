@@ -55,6 +55,13 @@ export async function sendMessage(author: User, conversationId: string, body: st
   return m;
 }
 
+/** Notes internes de l'équipe Navigoal : visibles des professionnels (école, bailleur), jamais du candidat ou du locataire. */
+const PRO = ["etablissement", "bailleur", "admin", "conseiller"];
+async function voitNotesInternes(userId: string) {
+  const [u] = await db.select({ role: schema.users.role }).from(schema.users).where(eq(schema.users.id, userId));
+  return !!u && PRO.includes(u.role);
+}
+
 export async function listConversations(userId: string) {
   const rows = await db.select({ c: schema.conversations, lastReadAt: schema.conversationParticipants.lastReadAt }).from(schema.conversationParticipants)
     .innerJoin(schema.conversations, eq(schema.conversations.id, schema.conversationParticipants.conversationId))
@@ -63,9 +70,10 @@ export async function listConversations(userId: string) {
   const ids = rows.map((r) => r.c.id);
   const parts = await db.select({ cid: schema.conversationParticipants.conversationId, id: schema.users.id, firstName: schema.users.firstName, lastName: schema.users.lastName, role: schema.users.role })
     .from(schema.conversationParticipants).innerJoin(schema.users, eq(schema.users.id, schema.conversationParticipants.userId)).where(inArray(schema.conversationParticipants.conversationId, ids));
-  const last = await db.execute<{ conversation_id: string; body: string; created_at: Date; author_id: string }>(sql`select distinct on (conversation_id) conversation_id, body, created_at, author_id from messages where conversation_id in ${ids} order by conversation_id, created_at desc`);
+  const last = await db.execute<{ conversation_id: string; body: string; created_at: Date; author_id: string; on_behalf_of: string | null }>(sql`select distinct on (conversation_id) conversation_id, body, created_at, author_id, on_behalf_of from messages where conversation_id in ${ids} and not internal order by conversation_id, created_at desc`);
+  const notes = await voitNotesInternes(userId);
   const unread = await Promise.all(rows.map(async (r) => {
-    const [n] = await db.select({ n: sql<number>`count(*)::int` }).from(schema.messages).where(and(eq(schema.messages.conversationId, r.c.id), ne(schema.messages.authorId, userId), r.lastReadAt ? gt(schema.messages.createdAt, r.lastReadAt) : undefined));
+    const [n] = await db.select({ n: sql<number>`count(*)::int` }).from(schema.messages).where(and(eq(schema.messages.conversationId, r.c.id), ne(schema.messages.authorId, userId), notes ? undefined : eq(schema.messages.internal, false), r.lastReadAt ? gt(schema.messages.createdAt, r.lastReadAt) : undefined));
     return n.n;
   }));
   return rows.map((r, k) => ({ ...r.c, unread: unread[k], participants: parts.filter((p) => p.cid === r.c.id && p.id !== userId), last: last.rows.find((l) => l.conversation_id === r.c.id) ?? null }));
@@ -76,7 +84,8 @@ export async function getConversation(userId: string, id: string) {
   const [c] = await db.select().from(schema.conversations).where(eq(schema.conversations.id, id));
   if (!c) throw notFound("Conversation");
   const msgs = await db.select({ m: schema.messages, a: { id: schema.users.id, firstName: schema.users.firstName, lastName: schema.users.lastName, role: schema.users.role } })
-    .from(schema.messages).innerJoin(schema.users, eq(schema.users.id, schema.messages.authorId)).where(eq(schema.messages.conversationId, id)).orderBy(schema.messages.createdAt);
+    .from(schema.messages).innerJoin(schema.users, eq(schema.users.id, schema.messages.authorId))
+    .where(and(eq(schema.messages.conversationId, id), (await voitNotesInternes(userId)) ? undefined : eq(schema.messages.internal, false))).orderBy(schema.messages.createdAt);
   await db.update(schema.conversationParticipants).set({ lastReadAt: new Date() }).where(and(eq(schema.conversationParticipants.conversationId, id), eq(schema.conversationParticipants.userId, userId)));
   return { conversation: c, messages: msgs, masked: await mustMask(c) };
 }

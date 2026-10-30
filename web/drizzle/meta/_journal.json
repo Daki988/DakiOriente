@@ -36,6 +36,13 @@
       "when": 1792619130793,
       "tag": "0004_liens_litiges",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793373272857,
+      "tag": "0005_premium_relais",
+      "breakpoints": true
     }
   ]
 }

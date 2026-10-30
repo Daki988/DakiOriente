@@ -28,6 +28,9 @@ import { sha256 } from "../auth/tokens";
 import { cheminInterne } from "@/lib/redirection";
 import * as campaign from "../services/campaign";
 import * as navi from "../services/navi";
+import * as relais from "../services/relais";
+import * as premium from "../services/premium";
+import * as acces from "../services/acces";
 import { ACQ_COOKIE } from "@/lib/campagne";
 
 /** Origine de l'inscription (cookie de première visite posé par le site). */
@@ -130,7 +133,8 @@ route("POST", "/auth/deconnexion", "Authentification", "Se déconnecter", "publi
 });
 
 // ---------------------------------------------------------------- Compte et profil
-route("GET", "/session", "Compte", "Session courante (utilisateur ou null), sans erreur si déconnecté", "public", async ({ user }) => ({ user: user ? { firstName: user.firstName, role: user.role } : null }));
+route("GET", "/session", "Compte", "Session courante (utilisateur ou null), sans erreur si déconnecté", "public", async ({ user }) => ({ user: user ? { firstName: user.firstName, role: user.role, mustChangePassword: user.mustChangePassword } : null }));
+route("POST", "/moi/premier-mot-de-passe", "Compte", "Première connexion d'un accès créé par Navigoal : choisir son mot de passe", "user", async ({ me, body }) => { await acces.firstPassword(me, String((await body()).nouveau ?? "")); return ok; });
 route("GET", "/moi", "Compte", "Utilisateur connecté et profil", "user", async ({ me }) => accounts.getMe(me.id));
 route("PATCH", "/moi", "Compte", "Mettre à jour le profil", "user", async ({ me, body }) => accounts.updateProfile(me.id, await body()));
 route("POST", "/moi/mot-de-passe", "Compte", "Changer de mot de passe", "user", async ({ me, body }) => { const b = await body(); const t = cookies().get(SESSION_COOKIE)?.value; await accounts.changePassword(me.id, b.actuel, b.nouveau, t ? sha256(t) : undefined); return ok; });
@@ -343,6 +347,53 @@ route("GET", "/contact", "Documentation", "Coordonnées de contact (numéro What
   const n = (process.env.WHATSAPP_CONSEILLER ?? "").replace(/\D/g, "");
   return { whatsapp: n.length >= 8 ? n : null };
 });
+
+// ---------------------------------------------------------------- Relais Navigoal (administrateur)
+const bool = (v: string | null) => v === "1" || v === "true";
+route("GET", "/admin/candidatures", "Relais", "Toutes les candidatures (filtres q, etablissement, statut, pays, gere=navigoal|ecole, attente=1, page)", ["admin"], async ({ me, query }) => relais.listAllApplications(me, { q: query.get("q") ?? undefined, etablissement: query.get("etablissement") ?? undefined, status: query.get("statut") ?? undefined, pays: query.get("pays") ?? undefined, gere: query.get("gere") ?? undefined, attente: bool(query.get("attente")), page: Number(query.get("page") ?? 1) }));
+route("POST", "/admin/candidatures/:id/fil", "Relais", "Ouvrir le fil de discussion d'une candidature", ["admin"], async ({ me, params }) => json(await relais.openApplicationThread(me, params.id), 201));
+route("GET", "/admin/conversations", "Relais", "Tous les échanges (type=application|navilease|conseil, q, attente=1)", ["admin"], async ({ me, query }) => relais.listAllConversations(me, { type: query.get("type") ?? undefined, q: query.get("q") ?? undefined, attente: bool(query.get("attente")) }));
+route("GET", "/admin/conversations/:id", "Relais", "Fil complet (notes internes comprises) et dossier lié", ["admin"], async ({ me, params }) => relais.getConversationAdmin(me, params.id));
+route("POST", "/admin/conversations/:id/messages", "Relais", "Répondre au nom de l'équipe Navigoal, ou note interne (interne=true)", ["admin"], async ({ me, params, body }) => { const b = await body(); return json(await relais.adminPost(me, params.id, String(b.texte ?? ""), !!b.interne), 201); });
+route("GET", "/admin/accompagnement", "Relais", "Écoles et bailleurs : mode accompagné", ["admin"], async ({ me }) => relais.listAssisted(me));
+route("POST", "/admin/etablissements/:id/accompagnement", "Relais", "Activer ou arrêter le mode accompagné d'une école", ["admin"], async ({ me, params, body }) => relais.setEstablishmentAssisted(me, params.id, !!(await body()).actif));
+route("POST", "/admin/bailleurs/:id/accompagnement", "Relais", "Activer ou arrêter le mode accompagné d'un bailleur", ["admin"], async ({ me, params, body }) => relais.setLandlordAssisted(me, params.id, !!(await body()).actif));
+route("POST", "/admin/etablissements/:id/premium", "Relais", "Activer (un an) ou arrêter l'offre Premium", ["admin"], async ({ me, params, body }) => premium.setPremium(me, params.id, !!(await body()).actif));
+route("POST", "/admin/eleves/:id/moyenne", "Relais", "Moyenne vérifiée sur le relevé de notes", ["admin"], async ({ me, params, body }) => { await premium.verifyAverage(me, params.id, !!(await body()).verifiee); return ok; });
+route("GET", "/admin/prospections", "Relais", "Campagnes de prospection des écoles (à relire)", ["admin"], async ({ me }) => premium.listProspectionsAdmin(me));
+route("POST", "/admin/prospections/:id/validation", "Relais", "Valider (envoi) ou refuser une campagne de prospection", ["admin"], async ({ me, params, body }) => { const b = await body(); return premium.reviewProspection(me, params.id, !!b.valider, b.note ? String(b.note).slice(0, 1000) : undefined); });
+
+// ---------------------------------------------------------------- Accès des établissements (administrateur)
+route("GET", "/admin/acces", "Accès écoles", "Accès des établissements (comptes, état, dernière connexion)", ["admin"], async ({ me }) => acces.listAccesses(me));
+route("POST", "/admin/acces/creer", "Accès écoles", "Créer les accès manquants : CSV des identifiants et mots de passe provisoires (affiché une seule fois)", ["admin"], async ({ me }) =>
+  file(new TextEncoder().encode("﻿" + acces.accesCsv(await acces.createMissingAccesses(me))), "text/csv; charset=utf-8", `acces-etablissements-${new Date().toISOString().slice(0, 10)}.csv`, false));
+route("POST", "/admin/acces/envoyer", "Accès écoles", "Envoyer par e-mail les accès jamais utilisés", ["admin"], async ({ me }) => acces.sendUnusedAccesses(me));
+route("POST", "/admin/acces/:uid/reinitialiser", "Accès écoles", "Nouveau mot de passe provisoire (affiché une fois)", ["admin"], async ({ me, params }) => acces.resetAccess(me, params.uid));
+route("POST", "/admin/acces/:uid/envoyer", "Accès écoles", "Envoyer l'accès par e-mail à l'adresse officielle", ["admin"], async ({ me, params }) => acces.sendAccess(me, params.uid));
+route("PATCH", "/admin/acces/:uid", "Accès écoles", "Modifier l'e-mail (identifiant) d'un accès", ["admin"], async ({ me, params, body }) => { await acces.updateAccessEmail(me, params.uid, String((await body()).email ?? "")); return ok; });
+route("POST", "/admin/etablissements/:id/collaborateurs", "Accès écoles", "Ajouter un collaborateur (2e compte pour la même école)", ["admin"], async ({ me, params, body }) => json(await acces.addCollaborator(me, params.id, await body()), 201));
+
+// ---------------------------------------------------------------- Premium (établissements)
+const liste = (v: string | null) => (v ? v.split(",").filter(Boolean) : undefined);
+route("GET", "/ecole/:eid/premium", "Premium", "Offre de l'établissement (Premium ou gratuit, tarif)", ["etablissement", "admin"], async ({ me, params }) => premium.premiumStatus(me, params.eid));
+route("GET", "/ecole/:eid/candidatures-filtrees", "Premium", "Candidatures reçues avec résultats, projet, financement et score (filtres)", ["etablissement", "admin"], async ({ me, params, query }) => premium.filteredApplications(me, params.eid, {
+  moyenneMin: query.get("moyenneMin") ?? undefined, series: liste(query.get("series")), mentionMin: (query.get("mentionMin") ?? undefined) as never, domaine: query.get("domaine") ?? undefined, metier: query.get("metier") ?? undefined,
+  programme: query.get("programme") ?? undefined, rentree: query.get("rentree") ?? undefined, budgetCouvre: bool(query.get("budgetCouvre")) || undefined, garant: bool(query.get("garant")) || undefined, justificatif: bool(query.get("justificatif")) || undefined, bourse: bool(query.get("bourse")) || undefined,
+}));
+route("POST", "/ecole/:eid/vivier", "Premium", "Vivier de candidats consentants (profils anonymes, filtres)", ["etablissement", "admin"], async ({ me, params, body }) => premium.vivier(me, params.eid, await body()));
+route("POST", "/ecole/:eid/prospections/audience", "Premium", "Taille de la cible d'une campagne", ["etablissement", "admin"], async ({ me, params, body }) => premium.audiencePreview(me, params.eid, await body()));
+route("GET", "/ecole/:eid/prospections", "Premium", "Campagnes de prospection et statistiques", ["etablissement", "admin"], async ({ me, params }) => premium.listProspections(me, params.eid));
+route("POST", "/ecole/:eid/prospections", "Premium", "Créer une campagne (relue par Navigoal avant envoi)", ["etablissement", "admin"], async ({ me, params, body }) => json(await premium.createProspection(me, params.eid, await body()), 201));
+
+// ---------------------------------------------------------------- Mes attentes, visibilité et invitations (élève, parent)
+route("GET", "/moi/attentes", "Compte", "Mes résultats, mon projet, mon financement et ma visibilité auprès des écoles", STUDENT, async ({ me }) => premium.getAttentes(me));
+route("PATCH", "/moi/attentes", "Compte", "Mettre à jour mes attentes et ma visibilité", STUDENT, async ({ me, body }) => premium.updateAttentes(me, await body()));
+route("GET", "/moi/invitations", "Compte", "Invitations reçues des établissements", STUDENT, async ({ me }) => premium.myInvitations(me));
+route("POST", "/moi/invitations/:id", "Compte", "Répondre à une invitation (interesse=true révèle mon profil à l'école)", STUDENT, async ({ me, params, body }) => premium.respondInvitation(me, params.id, !!(await body()).interesse));
+route("POST", "/moi/visibilite/arreter", "Compte", "Ne plus être contacté par les écoles", STUDENT, async ({ me }) => { await premium.stopContact(me); return ok; });
+route("GET", "/parent/visibilite", "Parent", "Visibilité de mes enfants auprès des écoles", ["parent"], async ({ me }) => premium.visibilityOfChildren(me));
+route("POST", "/parent/enfants/:id/visibilite", "Parent", "Donner ou retirer mon accord de visibilité", ["parent"], async ({ me, params, body }) => { await premium.parentVisibility(me, params.id, !!(await body()).accord); return ok; });
+
 // ---------------------------------------------------------------- Navi (assistant IA)
 route("GET", "/navi", "Navi", "Navi est-il disponible (clé API configurée) ?", "public", async () => ({ actif: navi.naviActif() }));
 route("POST", "/navi", "Navi", "Converser avec Navi (réponse en flux NDJSON : texte, cartes, fin)", "public", async ({ req, user, body }) => {
@@ -403,6 +454,8 @@ export async function dispatch(req: Request, segments: string[]) {
       if (Array.isArray(r.auth) && !r.auth.includes(user.role)) throw forbidden();
       // Compte établissement non vérifié : seulement son propre compte, jamais les données des étudiants.
       if (user.status === "en_attente" && user.role === "etablissement" && !/^\/(moi|notifications)(\/|$)/.test(r.path)) throw new AppError("Votre compte établissement est en cours de vérification par l'équipe Navigoal.", 403, "en_attente");
+      // Mot de passe provisoire (accès créé par Navigoal) : rien d'autre tant qu'il n'est pas remplacé.
+      if (user.mustChangePassword && !/^\/moi(\/premier-mot-de-passe)?$/.test(r.path)) throw new AppError("Choisissez d'abord votre mot de passe personnel.", 403, "mot_de_passe_provisoire");
     }
     const url = new URL(req.url);
     const res = await r.handler({ req, params, query: url.searchParams, user, me: user!, body: () => req.json() });

@@ -183,7 +183,7 @@ export async function resetPassword(target: string, code: string, password: stri
   const t = await verifyOtp(target, "reset_password", code);
   const u = await findByIdentifier(t);
   if (!u) throw new AppError("Aucun compte associé.", 404, "introuvable");
-  await db.update(schema.users).set({ passwordHash: await hashPassword(password) }).where(eq(schema.users.id, u.id));
+  await db.update(schema.users).set({ passwordHash: await hashPassword(password), mustChangePassword: false }).where(eq(schema.users.id, u.id));
   await db.delete(schema.sessions).where(eq(schema.sessions.userId, u.id));
   await audit(u.id, "reinitialisation_mdp", "user", u.id);
 }
@@ -194,7 +194,7 @@ export async function changePassword(userId: string, current: string, next: stri
   if (u.passwordHash && !(await verifyPassword(String(current ?? ""), u.passwordHash))) throw new AppError("Mot de passe actuel incorrect.");
   const pb = passwordProblem(String(next ?? ""));
   if (pb) throw new AppError(pb);
-  await db.update(schema.users).set({ passwordHash: await hashPassword(next) }).where(eq(schema.users.id, userId));
+  await db.update(schema.users).set({ passwordHash: await hashPassword(next), mustChangePassword: false }).where(eq(schema.users.id, userId));
   // Les autres appareils sont déconnectés (session volée, ordinateur partagé).
   await db.delete(schema.sessions).where(keepSessionId ? and(eq(schema.sessions.userId, userId), ne(schema.sessions.id, keepSessionId)) : eq(schema.sessions.userId, userId));
   await audit(userId, "changement_mdp", "user", userId);

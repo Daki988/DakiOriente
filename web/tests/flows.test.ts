@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from "vitest";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 process.env.DATABASE_URL = process.env.TEST_DATABASE_URL || "postgres://postgres@localhost:5433/navigoal_test";
 process.env.STORAGE = "local";
@@ -442,5 +442,92 @@ describe("Navi (assistant IA) : outils et garde-fous, sans appel au modèle", as
     await navi.verifierQuota(null, "203.0.113.9");
     await expect(navi.verifierQuota(null, "203.0.113.9")).rejects.toThrow(/limite de 2 messages/);
     delete process.env.NAVI_LIMITE_VISITEUR;
+  });
+});
+
+describe("relais Navigoal, Premium et accès des établissements", async () => {
+  const relais = await import("@/server/services/relais");
+  const premium = await import("@/server/services/premium");
+  const acces = await import("@/server/services/acces");
+  const msgSvc = msg;
+
+  it("accès : un compte par école, mot de passe provisoire à changer, puis connexion normale", async () => {
+    const crees = await acces.createMissingAccesses(adminU);
+    expect(crees.length).toBeGreaterThan(50);
+    expect(crees.find((c) => c.etablissement === "ma-esa-casa")).toBeUndefined(); // déjà un compte actif
+    const uir = crees.find((c) => c.etablissement === "ma-uir")!;
+    expect(uir.email).toBe("contact@uir.ac.ma");
+    expect(await acces.createMissingAccesses(adminU)).toHaveLength(0); // idempotent
+    const u = await accounts.login(uir.email, uir.motDePasse);
+    expect(u.mustChangePassword).toBe(true);
+    await expect(acces.firstPassword(u, "court")).rejects.toThrow(/8 caractères/);
+    await acces.firstPassword(u, "NouveauMdp2026");
+    expect((await reload(u.id)).mustChangePassword).toBe(false);
+    await expect(accounts.login(uir.email, uir.motDePasse)).rejects.toThrow(/incorrects/);
+    const r = await acces.resetAccess(adminU, u.id);
+    expect((await accounts.login(uir.email, r.motDePasse)).mustChangePassword).toBe(true);
+    expect(acces.accesCsv([r])).toMatch(/contact@uir\.ac\.ma/);
+    await expect(acces.resetAccess(student, u.id)).rejects.toThrow();
+    const sans = crees.find((c) => c.provisoire);
+    if (sans) await expect(acces.sendAccess(adminU, (await accounts.findByIdentifier(sans.email))!.id)).rejects.toThrow(/provisoire/);
+  });
+
+  it("relais : l'admin voit tout, répond au nom de l'école, notes internes cachées au candidat", async () => {
+    const list = await relais.listAllApplications(adminU, {});
+    expect(list.items.length).toBeGreaterThan(0);
+    await expect(relais.listAllApplications(school, {})).rejects.toThrow();
+    const a = list.items[0];
+    const c = await relais.openApplicationThread(adminU, a.id);
+    await relais.adminPost(adminU, c.id, "Bonjour, votre dossier est complet.");
+    await relais.adminPost(adminU, c.id, "Appelé le service admissions.", true);
+    const vueAdmin = await relais.getConversationAdmin(adminU, c.id);
+    expect(vueAdmin.messages).toHaveLength(2);
+    expect(vueAdmin.messages[0].m.onBehalfOf).toBeTruthy();
+    const candidat = (await reload(a.student.id));
+    const vueCandidat = await msgSvc.getConversation(candidat.id, c.id);
+    expect(vueCandidat.messages.map((m) => m.m.body)).toEqual(["Bonjour, votre dossier est complet."]);
+  });
+
+  it("mode accompagné : décision d'admission par l'admin seulement si activé", async () => {
+    const [a] = await db.select().from(schema.applications).where(sql`${schema.applications.status} in ('complet','en_traitement','soumise','en_verification')`).limit(1);
+    if (!a) return;
+    await db.update(schema.applications).set({ status: "complet" }).where(eq(schema.applications.id, a.id));
+    await expect(apps.changeStatus(adminU, a.id, { status: "acceptee" })).rejects.toThrow(/mode accompagné/);
+    await relais.setEstablishmentAssisted(adminU, a.establishmentId, true);
+    await apps.changeStatus(adminU, a.id, { status: "liste_attente" });
+    await relais.setEstablishmentAssisted(adminU, a.establishmentId, false);
+  });
+
+  it("Premium : réservé à l'offre, filtres, vivier anonyme consentant et prospection relue", async () => {
+    await expect(premium.vivier(school, "ma-esa-casa", {})).rejects.toThrow(/Premium/);
+    await premium.setPremium(adminU, "ma-esa-casa", true);
+    // Étudiante majeure, visible ; mineure visible sans accord parental : exclue
+    const majeure = await accounts.register({ role: "etudiant", firstName: "Grâce", lastName: "Obiang", email: "grace.vivier@test.local", password: "Motdepasse1", birthYear: year - 19, country: "GA", acceptTerms: true });
+    await premium.updateAttentes(majeure, { average: 15.2, mention: "bien", domain: "dom-gestion", targetJobs: [], budgetAnnuel: 9000000, devise: "XAF", funding: { garant: true }, startYear: year + 1, villes: ["Casablanca"], visibleToSchools: true });
+    await premium.updateAttentes(student, { average: 16, visibleToSchools: true }); // Awa, 17 ans
+    const v = await premium.vivier(school, "ma-esa-casa", { moyenneMin: 14 });
+    expect(v.profils.some((p) => p.pays === "Gabon")).toBe(true);
+    expect(JSON.stringify(v)).not.toMatch(/Grâce|Obiang|grace\.vivier|Awa/);
+    await premium.parentVisibility(parent, student.id, true);
+    expect((await premium.vivier(school, "ma-esa-casa", { moyenneMin: 14 })).stats.correspondants).toBe(v.stats.correspondants + 1);
+    const f = await premium.filteredApplications(school, "ma-esa-casa", {});
+    for (const x of f.items) expect(x.score).toBeGreaterThanOrEqual(0);
+    // Campagne : relue, puis envoyée ; l'élève accepte, le profil est révélé à l'école
+    const ref = v.profils.find((p) => p.pays === "Gabon")!.ref;
+    await expect(premium.createProspection(school, "ma-esa-casa", { offer: "candidature", subject: "Bachelor", body: "Trop court", criteria: {} })).rejects.toThrow();
+    await expect(premium.createProspection(school, "ma-esa-casa", { offer: "candidature", subject: "Bachelor à l'ESA", body: "Votre projet correspond à notre bachelor en gestion, candidatures ouvertes.", link: "https://evil.example", criteria: { refs: [ref] } })).rejects.toThrow(/Navigoal/);
+    const p = await premium.createProspection(school, "ma-esa-casa", { offer: "candidature", subject: "Bachelor à l'ESA", body: "Votre projet correspond à notre bachelor en gestion, candidatures ouvertes.", criteria: { refs: [ref] } });
+    expect(p.audience).toBe(1);
+    expect((await premium.reviewProspection(adminU, p.id, true)).envoyes).toBe(1);
+    const inv = await premium.myInvitations(majeure);
+    expect(inv).toHaveLength(1);
+    const r = await premium.respondInvitation(majeure, inv[0].i.id, true);
+    expect(r.conversation).toBeTruthy();
+    const l = await premium.listProspections(school, "ma-esa-casa");
+    expect(l.items[0].interesses[0].nom).toBe("Grâce Obiang");
+    // Re-ciblage dans les 30 jours : exclu
+    await expect(premium.createProspection(school, "ma-esa-casa", { offer: "candidature", subject: "Bachelor à l'ESA", body: "Votre projet correspond à notre bachelor en gestion, candidatures ouvertes.", criteria: { refs: [ref] } })).rejects.toThrow(/Aucun profil/);
+    await premium.stopContact(majeure);
+    expect((await premium.vivier(school, "ma-esa-casa", {})).profils.some((x) => x.ref === ref)).toBe(false);
   });
 });

@@ -29,6 +29,8 @@ export const users = pgTable("users", {
   phoneVerifiedAt: timestamp("phone_verified_at", { withTimezone: true }),
   totpSecret: text("totp_secret"),
   lastLoginAt: timestamp("last_login_at", { withTimezone: true }),
+  // Accès créé par Navigoal (établissements) : mot de passe provisoire à remplacer à la première connexion.
+  mustChangePassword: boolean("must_change_password").notNull().default(false),
   // Campagnes : code de parrainage personnel, parrain éventuel et source de l'inscription.
   referralCode: text("referral_code").unique(),
   referredById: text("referred_by_id").references((): AnyPgColumn => users.id, { onDelete: "set null" }),
@@ -69,6 +71,18 @@ export const profiles = pgTable("profiles", {
   goals: text("goals"),
   preferences: jsonb("preferences").$type<{ pays?: string[]; villes?: string[]; budgetAnnuel?: number; devise?: string; logement?: { budget?: number; type?: string; colocation?: boolean } }>().notNull().default({}),
   riasec: jsonb("riasec").$type<{ scores: Record<string, number>; top: string[] } | null>(),
+  // « Mes attentes » : résultats, projet, financement (filtres Premium et vivier de candidats).
+  average: doublePrecision("average"), // moyenne /20 (bac ou terminale)
+  mention: text("mention"),
+  bacYear: integer("bac_year"),
+  averageVerifiedAt: timestamp("average_verified_at", { withTimezone: true }), // vérifiée par Navigoal sur le relevé de notes
+  targetJobs: jsonb("target_jobs").$type<string[]>().notNull().default([]), // métiers visés (ref_metiers)
+  startYear: integer("start_year"), // rentrée souhaitée
+  funding: jsonb("funding").$type<{ garant?: boolean; bourse?: boolean; pret?: boolean; autofinance?: boolean }>().notNull().default({}),
+  // Vivier : visible des établissements Premium (consentement explicite ; pour un mineur, accord du parent).
+  visibleToSchools: boolean("visible_to_schools").notNull().default(false),
+  visibleToSchoolsAt: timestamp("visible_to_schools_at", { withTimezone: true }),
+  parentConsentVisibilityAt: timestamp("parent_consent_visibility_at", { withTimezone: true }),
   avatarKey: text("avatar_key"),
   updatedAt: updatedAt(),
 });
@@ -127,7 +141,10 @@ export const establishments = pgTable("establishments", {
   photos: jsonb("photos").$type<{ src: string; credit: string | null; licence: string | null; page: string | null }[]>().notNull().default([]),
   status: establishmentStatusEnum("status").notNull().default("importe"),
   featured: boolean("featured").notNull().default(false),
-  plan: text("plan").notNull().default("gratuit"),
+  plan: text("plan").notNull().default("gratuit"), // gratuit | premium
+  premiumUntil: timestamp("premium_until", { withTimezone: true }),
+  // Mode accompagné : l'équipe Navigoal répond aux candidats et traite les dossiers au nom de l'école.
+  assisted: boolean("assisted").notNull().default(false),
   createdAt: createdAt(),
   updatedAt: updatedAt(),
 }, (t) => [index("etab_pays_idx").on(t.pays)]);
@@ -299,8 +316,38 @@ export const messages = pgTable("messages", {
   authorId: text("author_id").notNull().references(() => users.id),
   body: text("body").notNull(),
   masked: boolean("masked").notNull().default(false), // coordonnées masquées (Navilease avant réservation)
+  onBehalfOf: text("on_behalf_of"), // message de l'équipe Navigoal « pour le compte de » (nom de l'école ou du bailleur)
+  internal: boolean("internal").notNull().default(false), // note interne : invisible du candidat ou du locataire
   createdAt: createdAt(),
 }, (t) => [index("messages_conv_idx").on(t.conversationId, t.createdAt)]);
+
+// ---------------------------------------------------------------- Prospection (établissements Premium)
+export const prospectStatusEnum = pgEnum("prospect_status", ["en_validation", "validee", "refusee", "envoyee"]);
+export const prospections = pgTable("prospections", {
+  id: id(),
+  establishmentId: text("establishment_id").notNull().references(() => establishments.id, { onDelete: "cascade" }),
+  authorId: text("author_id").references(() => users.id, { onDelete: "set null" }),
+  offer: text("offer").notNull(), // candidature, portes_ouvertes, bourse, concours
+  subject: text("subject").notNull(),
+  body: text("body").notNull(),
+  link: text("link"),
+  criteria: jsonb("criteria").$type<Record<string, unknown>>().notNull().default({}),
+  status: prospectStatusEnum("status").notNull().default("en_validation"),
+  reviewNote: text("review_note"),
+  audience: integer("audience").notNull().default(0),
+  sentAt: timestamp("sent_at", { withTimezone: true }),
+  createdAt: createdAt(),
+}, (t) => [index("prospections_etab_idx").on(t.establishmentId)]);
+export const invitationStatusEnum = pgEnum("invitation_status", ["envoyee", "lue", "interessee", "refusee"]);
+export const invitations = pgTable("invitations", {
+  id: id(),
+  prospectionId: text("prospection_id").notNull().references(() => prospections.id, { onDelete: "cascade" }),
+  establishmentId: text("establishment_id").notNull().references(() => establishments.id, { onDelete: "cascade" }),
+  studentId: text("student_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  status: invitationStatusEnum("status").notNull().default("envoyee"),
+  respondedAt: timestamp("responded_at", { withTimezone: true }),
+  createdAt: createdAt(),
+}, (t) => [index("invitations_student_idx").on(t.studentId), index("invitations_etab_idx").on(t.establishmentId, t.createdAt), uniqueIndex("invitations_pair_idx").on(t.prospectionId, t.studentId)]);
 
 export const notifications = pgTable("notifications", {
   id: id(),
@@ -340,6 +387,7 @@ export const landlords = pgTable("landlords", {
   payoutMethod: text("payout_method"),
   payoutAccount: text("payout_account"),
   partner: boolean("partner").notNull().default(false),
+  assisted: boolean("assisted").notNull().default(false), // mode accompagné (Navigoal répond aux locataires)
   createdAt: createdAt(),
   updatedAt: updatedAt(),
 });

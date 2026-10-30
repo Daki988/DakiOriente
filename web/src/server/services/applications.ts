@@ -183,6 +183,10 @@ export async function changeStatus(user: User, id: string, raw: z.input<typeof d
   if (!a) throw notFound("Candidature");
   await assertMember(user, a.establishmentId);
   if (!(SCHOOL_TRANSITIONS[a.status] ?? []).includes(i.status) && user.role !== "admin") throw new AppError(`Passage de « ${STATUS_LABEL[a.status]} » à « ${STATUS_LABEL[i.status]} » non autorisé.`);
+  // Relais Navigoal : une décision d'admission par l'équipe seulement pour une école en mode accompagné.
+  const [ecole] = await db.select({ nom: schema.establishments.nom, assisted: schema.establishments.assisted }).from(schema.establishments).where(eq(schema.establishments.id, a.establishmentId));
+  if (user.role === "admin" && ["acceptee", "refusee", "liste_attente"].includes(i.status) && !ecole?.assisted)
+    throw new AppError(`Décision « ${STATUS_LABEL[i.status]} » réservée à l'école : activez d'abord le mode accompagné pour cet établissement.`, 403, "accompagnement_requis");
   if (i.status === "piece_demandee" && !i.requestedDocuments?.length) throw new AppError("Précisez la ou les pièces demandées.");
   const final = ["acceptee", "refusee"].includes(i.status);
   await db.update(schema.applications).set({ status: i.status, decisionNote: i.note ?? a.decisionNote, requestedDocuments: i.requestedDocuments ?? a.requestedDocuments, decidedAt: final ? new Date() : a.decidedAt }).where(eq(schema.applications.id, id));
@@ -194,6 +198,8 @@ export async function changeStatus(user: User, id: string, raw: z.input<typeof d
   await notify(a.studentId, { kind: "statut_candidature", title, body: msg ?? undefined, link: `/espace/candidatures/${id}`, channels: final || i.status === "piece_demandee" ? ["app", "email", "sms"] : ["app", "email"] });
   const parents = await db.select({ p: schema.guardianships.parentId }).from(schema.guardianships).where(and(eq(schema.guardianships.childId, a.studentId), eq(schema.guardianships.status, "actif")));
   for (const p of parents) if (p.p) await notify(p.p, { kind: "statut_candidature", title, link: `/parent/candidatures/${id}` });
+  // L'école est prévenue de chaque action de l'équipe Navigoal sur ses dossiers.
+  if (user.role === "admin") await notifySchool(a.establishmentId, `Équipe Navigoal · candidature ${a.number} passée à « ${STATUS_LABEL[i.status]} »`, `/etablissement/candidatures/${id}`);
 }
 
 export function toCsv(rows: Awaited<ReturnType<typeof listForEstablishment>>) {
