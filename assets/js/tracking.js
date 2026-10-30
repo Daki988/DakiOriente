@@ -75,7 +75,7 @@
     var now = Date.now(), h = 3600000;
     return {
       ref: TRACKING.demoRef, code: TRACKING.demoCode, demo: true,
-      items: [["V09", 1], ["V10", 1], ["L01", 1]], total: 31500,
+      items: [["V09", 1], ["V10", 1], ["L01", 1]], total: 32000,
       name: "Exemple", address: "Louis, près de la pharmacie", slot: "Après-midi (12 h – 17 h)", pay: "Airtel Money",
       status: "en_route", stopsBefore: 3, createdAt: new Date(now - 20 * h).toISOString(),
       windowStart: new Date(now + 0.6 * h).toISOString(), windowEnd: new Date(now + 2.6 * h).toISOString(),

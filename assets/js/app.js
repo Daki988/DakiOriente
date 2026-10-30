@@ -218,7 +218,7 @@
 
   /* ---------- Offre vedette ---------- */
   (function () {
-    var p = byId["PK2"];
+    var p = byId["PK1"];
     $("#feature").outerHTML =
       '<div class="feature art-bg" ' + artBg(p.hue) + '><div class="feature__copy"><span class="label">Offre du moment</span>' +
       "<h2>Envie de pimenter vos soirées à deux&nbsp;?</h2>" +
@@ -273,7 +273,7 @@
   }
 
   /* « Souvent ajoutés ensemble » */
-  var PAIRS = { elle: ["L01", "V09", "V10"], couple: ["L07", "V09", "PK2"], lingerie: ["V01", "V09", "L08"], coffrets: ["V01", "L07", "V10"] };
+  var PAIRS = { elle: ["G01", "P02", "L01"], godes: ["G01", "P01", "D03"], couple: ["P03", "H02", "B01"], lingerie: ["B01", "V09", "L08"], essentiels: ["G01", "P03", "H02"], sensualite: ["B01", "H02", "S01"], coffrets: ["P03", "G01", "L07"] };
   function crossSellHTML(p) {
     var ids = (PAIRS[p.cat] || []).filter(function (id) { return id !== p.id && byId[id]; }).slice(0, 3);
     if (!ids.length) return "";
@@ -338,7 +338,7 @@
       '<div class="grand"><span>Total</span><span>' + fcfa(t.total) + "</span></div></div>" +
       '<button class="btn btn--primary btn--full" id="to-checkout">Commander, payer à la livraison →</button>' +
       '<p class="reassure">📦 Colis neutre · 🔒 Aucun compte · 💵 Rien à payer en ligne</p>';
-    var sugg = ["V09", "V10", "L08", "L01"].filter(function (id) { return !cart[id]; }).slice(0, 2);
+    var sugg = ["P03", "G01", "P01", "V10"].filter(function (id) { return !cart[id]; }).slice(0, 2);
     if (sugg.length) {
       $("#cart-items").insertAdjacentHTML("beforeend", '<div class="xsell xsell--cart"><p class="xsell__title">Pensez-y</p><div class="xsell__list">' + sugg.map(function (id) {
         var q = byId[id];
