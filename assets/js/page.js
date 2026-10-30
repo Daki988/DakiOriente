@@ -58,6 +58,7 @@
   /* ---------- Produits liés à chaque article ---------- */
   $$("[data-products]").forEach(function (box) {
     var ids = box.dataset.products.split(",").filter(function (id) { return byId[id]; });
+    if (!ids.length) { box.remove(); return; }
     box.innerHTML = '<p class="g-products__title">Les produits dont on parle</p><div class="g-products__list">' + ids.map(function (id) {
       var p = byId[id], src = p.img || "assets/img/" + p.id + ".jpg";
       return '<a class="g-prod" href="index.html#p-' + p.id + '"><span class="g-prod__img"><img src="' + src.replace("assets/img/", "assets/img/sm/") + '" alt="" loading="lazy"' + (p.pos ? ' style="object-position:' + p.pos + '"' : "") + "></span>" +

@@ -206,7 +206,7 @@
   }
   $("#hero-product").innerHTML =
     '<div class="hero__photo"><img src="assets/img/hero.jpg" fetchpriority="high" decoding="async" alt="Un couple enlacé, complice, dans un lit aux draps blancs"></div>' +
-    floatHTML("E01", "float--a") + floatHTML("L01", "float--b") +
+    floatHTML("V01", "float--a") + floatHTML("L07", "float--b") +
     '<div class="hero__stamp"><strong>Colis 100&nbsp;% neutre</strong><span>Personne ne saura.</span></div>';
 
   /* ---------- Best-sellers ---------- */
@@ -218,7 +218,7 @@
 
   /* ---------- Offre vedette ---------- */
   (function () {
-    var p = byId["C02"];
+    var p = byId["PK2"];
     $("#feature").outerHTML =
       '<div class="feature art-bg" ' + artBg(p.hue) + '><div class="feature__copy"><span class="label">Offre du moment</span>' +
       "<h2>Envie de pimenter vos soirées à deux&nbsp;?</h2>" +
@@ -226,7 +226,7 @@
       '<div class="feature__price">' + fcfa(p.price) + "<s>" + fcfa(p.old) + '</s><span class="feature__save">-' + fcfa(p.old - p.price) + "</span></div>" +
       '<div class="hero__cta" style="margin:0"><button class="btn btn--primary btn--lg" data-add="' + p.id + '">Ajouter au panier</button>' +
       '<button class="btn btn--outline btn--lg" data-open="' + p.id + '">Voir le détail</button></div></div>' +
-      '<div class="feature__art"><img src="assets/img/sm/feature.jpg" srcset="assets/img/sm/feature.jpg 480w, assets/img/feature.jpg 1200w" sizes="(max-width: 900px) 100vw, 620px" alt="' + esc(p.name) + '" loading="lazy" decoding="async"></div></div>';
+      '<div class="feature__art"><img src="assets/img/sm/' + p.id + '.jpg" srcset="assets/img/sm/' + p.id + '.jpg 480w, assets/img/' + p.id + '.jpg 800w" sizes="(max-width: 900px) 100vw, 620px" alt="' + esc(p.name) + '" loading="lazy" decoding="async"></div></div>';
   })();
 
   /* ---------- Fiche produit ---------- */
@@ -244,7 +244,7 @@
       '<div class="pm__actions"><div class="qty"><button data-q="-1" aria-label="Moins">−</button><span id="pm-qty">1</span><button data-q="1" aria-label="Plus">+</button></div>' +
       '<button class="btn btn--primary" id="pm-add">Ajouter au panier</button></div>' +
       '<p class="pm__eta">' + deliveryText() + "</p>" +
-      '<div class="pm__trust"><span>📦<br>Colis neutre</span><span>💵<br>Payé à la livraison</span><span>✓<br>Matières sûres</span></div>' +
+      '<div class="pm__trust"><span>📦<br>Colis neutre</span><span>💵<br>Payé à la livraison</span><span>✓<br>Contrôlé avant envoi</span></div>' +
       crossSellHTML(p) + "</div>";
     $$("[data-q]", pmModal).forEach(function (b) {
       b.addEventListener("click", function () { qty = Math.max(1, Math.min(10, qty + Number(b.dataset.q))); $("#pm-qty").textContent = qty; });
@@ -273,7 +273,7 @@
   }
 
   /* « Souvent ajoutés ensemble » */
-  var PAIRS = { elle: ["P08", "P07", "P01"], lui: ["P04", "P03", "P07"], couple: ["P08", "S01", "P02"], lingerie: ["S02", "S01", "C03"], essentiels: ["P04", "E05", "S01"], sensualite: ["S03", "L01", "P04"] };
+  var PAIRS = { elle: ["L01", "V09", "V10"], couple: ["L07", "V09", "PK2"], lingerie: ["V01", "V09", "L08"], coffrets: ["V01", "L07", "V10"] };
   function crossSellHTML(p) {
     var ids = (PAIRS[p.cat] || []).filter(function (id) { return id !== p.id && byId[id]; }).slice(0, 3);
     if (!ids.length) return "";
@@ -338,7 +338,7 @@
       '<div class="grand"><span>Total</span><span>' + fcfa(t.total) + "</span></div></div>" +
       '<button class="btn btn--primary btn--full" id="to-checkout">Commander, payer à la livraison →</button>' +
       '<p class="reassure">📦 Colis neutre · 🔒 Aucun compte · 💵 Rien à payer en ligne</p>';
-    var sugg = ["P08", "P07", "P01", "S01"].filter(function (id) { return !cart[id]; }).slice(0, 2);
+    var sugg = ["V09", "V10", "L08", "L01"].filter(function (id) { return !cart[id]; }).slice(0, 2);
     if (sugg.length) {
       $("#cart-items").insertAdjacentHTML("beforeend", '<div class="xsell xsell--cart"><p class="xsell__title">Pensez-y</p><div class="xsell__list">' + sugg.map(function (id) {
         var q = byId[id];
@@ -406,24 +406,17 @@
 
   /* ---------- Quiz ---------- */
   var QUIZ = [
-    { q: "Pour qui cherchez-vous ?", key: "who", opts: [["Pour moi, une femme", "elle"], ["Pour moi, un homme", "lui"], ["Pour nous deux", "couple"], ["Pour faire un cadeau", "cadeau"]] },
+    { q: "Pour qui cherchez-vous ?", key: "who", opts: [["Pour moi", "moi"], ["Pour nous deux", "couple"], ["Pour faire un cadeau", "cadeau"]] },
     { q: "Où en êtes-vous ?", key: "lvl", opts: [["Je découvre, en douceur", "debut"], ["J'ai déjà quelques habitudes", "inter"], ["Je sais ce que j'aime", "pro"]] },
-    { q: "Quelle est votre envie du moment ?", key: "mood", opts: [["Sensualité & tendresse", "doux"], ["Des sensations intenses", "intense"], ["Séduire, surprendre", "seduire"], ["Me protéger, en tout confort", "safe"]] }
+    { q: "Quelle est votre envie du moment ?", key: "mood", opts: [["Sensualité & tendresse", "doux"], ["Des sensations intenses", "intense"], ["Séduire, surprendre", "seduire"], ["Jouer à distance", "distance"]] }
   ];
   var answers = {}, step = 0;
+  // Score d'un produit selon les réponses, à partir de ses tags (voir products.js)
   function scoreProduct(p) {
-    var s = 0, a = answers;
-    var map = { elle: ["elle", "lingerie"], lui: ["lui"], couple: ["couple", "sensualite"], cadeau: ["couple", "lingerie", "sensualite"] };
-    if (map[a.who] && map[a.who].indexOf(p.cat) !== -1) s += 5;
-    if (a.who === "lui" && (p.id === "L05" || p.id === "P03")) s += 3;
-    if (a.who === "elle" && p.cat === "lingerie" && p.id === "L05") s -= 6;
-    if (a.lvl === "debut" && (p.badge === "Idéal pour débuter" || p.price < 15000)) s += 2;
-    if (a.lvl === "pro" && p.price >= 25000) s += 2;
-    if (a.mood === "doux" && (p.cat === "sensualite" || p.art === "feather" || p.art === "candle")) s += 3;
-    if (a.mood === "intense" && (p.cat === "elle" || p.cat === "lui" || p.id === "C01")) s += 3;
-    if (a.mood === "seduire" && (p.cat === "lingerie" || p.id === "C03")) s += 4;
-    if (a.mood === "safe" && p.cat === "essentiels") s += 6;
-    if (a.who === "cadeau" && p.art === "kit") s += 3;
+    var t = p.tags || [], a = answers, s = 0;
+    if (t.indexOf(a.who) !== -1) s += 4;
+    if (t.indexOf(a.mood) !== -1) s += 4;
+    if (t.indexOf(a.lvl) !== -1) s += 2;
     if (p.badge === "Best-seller" || p.badge === "Coup de cœur") s += 1;
     return s;
   }

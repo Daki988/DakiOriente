@@ -6,7 +6,7 @@ Boutique statique au thème clair (HTML/CSS/JS, aucune dépendance). Ouvrez `ind
 - Vérification d'âge 18+ à l'entrée
 - Bouton « Sortie rapide » + double appui sur Échap pour quitter le site instantanément
 - Titre d'onglet neutre, `noindex`, panier stocké uniquement sur l'appareil
-- Catalogue filtrable (6 collections, 26 produits), recherche, tri
+- Catalogue du plan de commande : 10 vibromasseurs, 8 articles de lingerie et 3 packs (voir `docs/catalogue.md`), recherche, tri
 - Fiche produit, panier avec barre « livraison offerte », commande sans compte
 - Commande envoyée en récapitulatif WhatsApp, paiement à la livraison (espèces, Airtel Money, Moov Money)
 - Suivi de commande sur sa propre page (`suivi.html`) : créneau de livraison, étapes, position du livreur, historique, consignes de livraison (voir `docs/SUIVI.md`)
@@ -18,4 +18,4 @@ Boutique statique au thème clair (HTML/CSS/JS, aucune dépendance). Ouvrez `ind
 - `assets/js/app.js` → bloc `CONFIG` : frais et seuil de livraison offerte, heure limite de commande
 - `assets/js/tracking.js` → lien de la feuille de suivi et numéro WhatsApp (voir `docs/SUIVI.md`)
 - `assets/js/products.js` → produits, prix (FCFA), descriptions, catégories
-- Les visuels produits sont des illustrations abstraites : remplacez-les par vos photos quand elles sont prêtes
+- Photos produits : `assets/img/<réf>.jpg` (800 px) et `assets/img/sm/<réf>.jpg` (480 px)
