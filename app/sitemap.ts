@@ -6,7 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const u = (p: string) => `${SITE_URL}${p}`;
   const pages: MetadataRoute.Sitemap = [
-    { url: u("/"), priority: 1, changeFrequency: "weekly", images: [u("/images/menu/burger.webp"), u("/brand/logo-dark.png")] },
+    { url: u("/"), priority: 1, changeFrequency: "weekly", images: [u("/images/ambiance/plateau-aperitif-jackboy-libreville.webp"), u("/brand/logo-dark.png")] },
     { url: u("/menu"), priority: 0.95, changeFrequency: "weekly", images: MENU_PDF.pages.map((p) => u(p.src)) },
     ...getCategories().map((c) => ({
       url: u(`/menu/${c.slug}`), priority: 0.85, changeFrequency: "monthly" as const, ...(c.image ? { images: [u(c.image)] } : {}),

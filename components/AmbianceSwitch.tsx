@@ -5,7 +5,7 @@ import { Media } from "./Media";
 const MODES = {
   early: {
     tab: "Début de soirée",
-    img: "/images/menu/cocktails-jackboy.webp",
+    img: "/images/menu/cocktail-mojito-passion-jackboy.webp",
     title: "Restauration, retrouvailles, moments entre amis.",
     text: "On s'installe, on partage un panini, on se retrouve. L'ambiance est conviviale et la musique accompagne la conversation.",
   },

@@ -5,7 +5,7 @@
       "slug": "burgers",
       "visible": true,
       "intro": "Des burgers gourmets aux saveurs uniques.",
-      "image": "/images/menu/burger.webp",
+      "image": "/images/menu/mini-burger-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
@@ -21,7 +21,7 @@
           "name": "Cheese Burger",
           "description": "Laitue, tomate, oignons, steak, fromage.",
           "price": 2500,
-          "image": "/images/menu/burger.webp",
+          "image": "/images/menu/mini-burger-jackboy-libreville.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -78,7 +78,7 @@
       "slug": "paninis",
       "visible": true,
       "intro": "Croustillants & gourmands — nos emblématiques.",
-      "image": "/images/menu/panini-planche-jackboy-libreville.webp",
+      "image": "/images/menu/paninis-planche-ardoise-jackboy.webp",
       "note": "",
       "products": [
         {
@@ -134,7 +134,7 @@
       "slug": "brochettes",
       "visible": true,
       "intro": "2 brochettes bien assaisonnées.",
-      "image": "/images/menu/brochettes-boite-jackboy.webp",
+      "image": "/images/menu/brochettes-poulet-ardoise-jackboy.webp",
       "note": "",
       "products": [
         {
@@ -162,7 +162,7 @@
       "slug": "nems",
       "visible": true,
       "intro": "4 pièces de pur plaisir.",
-      "image": "/images/menu/nems-boite-jackboy.webp",
+      "image": "/images/menu/nems-ardoise-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
@@ -190,7 +190,7 @@
       "slug": "frites",
       "visible": true,
       "intro": "Simplement irrésistibles.",
-      "image": "/images/menu/frites.webp",
+      "image": "/images/menu/poulet-frites-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
@@ -209,7 +209,7 @@
       "slug": "cocktails",
       "visible": true,
       "intro": "Des saveurs uniques — Mojito, Mojito passion, Chantaco.",
-      "image": "/images/menu/cocktails-jackboy.webp",
+      "image": "/images/menu/cocktail-mojito-passion-jackboy.webp",
       "note": "",
       "products": [
         {
@@ -237,7 +237,7 @@
       "slug": "bieres-locales",
       "visible": true,
       "intro": "Fraîcheur 100 % d'ici.",
-      "image": "/images/menu/regab.webp",
+      "image": "/images/menu/regab-tapas-comptoir-jackboy.webp",
       "note": "",
       "products": [
         {
@@ -483,7 +483,7 @@
       "slug": "shoot-punch",
       "visible": true,
       "intro": "À partager sans modération.",
-      "image": "/images/menu/shoots-flambes-jackboy.webp",
+      "image": "/images/menu/shoots-flambes-bar-jackboy-libreville.webp",
       "note": "Il est possible d'avoir en détail, à partir de 4 verres.",
       "products": [
         {
@@ -520,7 +520,7 @@
       "slug": "spiritueux",
       "visible": true,
       "intro": "Des grands classiques, toujours au rendez-vous.",
-      "image": "/images/menu/whisky.webp",
+      "image": "/images/menu/whisky-jack-daniels-honey-jackboy.webp",
       "note": "",
       "products": [
         {
