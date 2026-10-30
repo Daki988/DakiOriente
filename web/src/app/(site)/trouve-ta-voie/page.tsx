@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Trouve ta voie au Maroc — orientation gratuite pour les bacheliers gabonais",
   description: "Ton métier, ta filière, ton école : test d'orientation gratuit, écoles au statut officiel affiché et devis complet en F CFA pour étudier au Maroc.",
   alternates: { canonical: "/trouve-ta-voie/" },
-  openGraph: { title: "Trouve ta voie au Maroc · Navigoal", description: "Test d'orientation gratuit, écoles au statut affiché, budget en F CFA." },
+  openGraph: { title: "Trouve ta voie au Maroc · Navigoal", description: "Test d'orientation gratuit, écoles au statut affiché, budget en F CFA.", images: [{ url: "/og.png", width: 1200, height: 630 }] },
 };
 
 const MAROC = etablissements.filter((e) => e.pays === "MA");

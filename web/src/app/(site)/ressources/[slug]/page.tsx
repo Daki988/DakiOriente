@@ -17,7 +17,7 @@ const outil = (slug: string) => OUTILS.find((o) => o.slug === slug);
 export const generateMetadata = ({ params }: { params: { slug: string } }): Metadata => {
   const r = guideBySlug[params.slug] ?? outil(params.slug);
   if (!r) return {};
-  return { title: r.titre, description: r.resume, alternates: { canonical: `/ressources/${r.slug}/` }, openGraph: { title: r.titre, description: r.resume, type: "article" } };
+  return { title: r.titre, description: r.resume, alternates: { canonical: `/ressources/${r.slug}/` }, openGraph: { title: r.titre, description: r.resume, type: "article", images: [{ url: "/og.png", width: 1200, height: 630 }] } };
 };
 
 export default function RessourcePage({ params }: { params: { slug: string } }) {

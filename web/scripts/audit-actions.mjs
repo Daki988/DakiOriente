@@ -56,7 +56,7 @@ const an = new Date().getFullYear();
 
 // ------------------------------------------------------------ Visiteur
 const visiteur = client("visiteur");
-for (const u of ["/session", "/auth/fournisseurs", "/recherche?q=informatique", "/etablissements", "/etablissements?ville=Casablanca", "/campagnes", "/articles", "/paiements/moyens", "/logements", "/logements?ville=Rabat&budget=4000", "/openapi.json"])
+for (const u of ["/session", "/auth/fournisseurs", "/recherche?q=informatique", "/etablissements", "/etablissements?ville=Casablanca", "/campagnes", "/articles", "/paiements/moyens", "/logements", "/logements?ville=Rabat&budget=4000"])  // /openapi.json : réservé aux administrateurs en production (vérifié dans le balayage des droits)
   await action("visiteur", `GET ${u}`, () => visiteur.get(u));
 await action("visiteur", "espace privé refusé sans connexion", () => visiteur.get("/moi"), 401);
 await action("visiteur", "connexion avec un mauvais mot de passe refusée", () => visiteur.post("/auth/connexion", { identifiant: DEMO("amina.demo"), motDePasse: "faux-mot-de-passe" }), [400, 401]);

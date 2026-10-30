@@ -42,7 +42,7 @@ function MetierCarte({ m }: { m: Metier }) {
 }
 
 export function MetierList() {
-  const { f, set, reset } = useFiltres(DEFAUTS);
+  const { f, set, reset, sync } = useFiltres(DEFAUTS);
   const [saisie, setSaisie] = useState(f.q);
   const [limit, setLimit] = useState(12);
   const [panneau, setPanneau] = useState(false);
@@ -83,6 +83,7 @@ export function MetierList() {
 
   return (
     <>
+      {sync}
       <section className="relative overflow-hidden bg-[radial-gradient(900px_420px_at_85%_0%,#dae6ff,transparent_60%),radial-gradient(600px_300px_at_0%_100%,#fff3c4,transparent_60%)]">
         <div className="container relative grid items-end gap-6 pt-8 lg:grid-cols-[1.25fr_1fr]">
           <div className="flex min-w-0 flex-col gap-4 pb-8 lg:pb-12">

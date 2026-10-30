@@ -1,10 +1,10 @@
 "use client";
 import Link from "@/components/ui/Link";
 import { QuestionWhatsApp } from "@/components/ui/QuestionWhatsApp";
-import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, BadgeCheck, Briefcase, Building2, Calculator, Check, ChevronRight, CircleCheck, Clock, GraduationCap, Heart, KeyRound, MapPin, School, ShieldAlert, Sparkles, Users } from "lucide-react";
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { LireUrl } from "@/hooks/useFiltres";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { EtabPhoto } from "@/components/ui/EtabPhoto";
 import { LabelChip, domStyle } from "@/components/ui/Cards";
@@ -20,7 +20,9 @@ const FAV = "navigoal.favoris.formations";
 
 export function FormationDetail({ id }: { id: string }) {
   const f = formationById[id];
-  const params = useSearchParams();
+  // Établissement et ville demandés par l'URL, lus dans le navigateur (la page reste rendue côté serveur).
+  const [params, setParams] = useState(() => new URLSearchParams());
+  const onUrl = useCallback((qs: string) => setParams(new URLSearchParams(qs)), []);
   const etabs = useMemo(() => f.etablissements.map((x) => etabById[x]).filter(Boolean).sort((a, b) => b.photos.length - a.photos.length || b.filieres.length - a.filieres.length), [f]);
   const demande = params.get("etab");
   const e: Etablissement | undefined = etabs.find((x) => x.id === demande) ?? etabs[0];
@@ -62,6 +64,7 @@ export function FormationDetail({ id }: { id: string }) {
 
   return (
     <>
+      <LireUrl onUrl={onUrl} />
       <section className="relative">
         <div className="relative h-[200px] overflow-hidden sm:h-[260px]">
           <EtabPhoto e={e} rounded="rounded-none" className="h-full w-full" />

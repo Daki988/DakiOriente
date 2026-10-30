@@ -12,6 +12,7 @@ import { Prix } from "@/components/ui/Devise";
 import { villeHref } from "@/lib/catalogue";
 import { COUTS, devis, formationParDefaut } from "@/lib/devis";
 import { establishmentLive } from "@/server/content-ui";
+import { SITE_URL } from "@/lib/site";
 
 export const generateStaticParams = () => etablissements.map((e) => ({ id: e.id }));
 export const revalidate = 300; // reflète les mises à jour faites par l'établissement
@@ -34,8 +35,8 @@ function jsonLd(e: Etablissement) {
   const campus = e.campus ?? [{ ville: e.ville, adresse: e.adresse, geo: e.geo } as Campus];
   return {
     "@context": "https://schema.org", "@type": e.type === "universite" ? "CollegeOrUniversity" : "EducationalOrganization",
-    name: e.nom, alternateName: e.sigle, url: `https://navigoal.netlify.app/etablissements/${e.id}/`, logo: e.logo ? `https://navigoal.netlify.app${e.logo}` : undefined,
-    image: e.photos.map((p) => `https://navigoal.netlify.app${p.src}`), sameAs: e.site_web ? [e.site_web] : undefined, foundingDate: e.annee_creation ? String(e.annee_creation) : undefined,
+    name: e.nom, alternateName: e.sigle, url: `${SITE_URL}/etablissements/${e.id}/`, logo: e.logo ? `${SITE_URL}${e.logo}` : undefined,
+    image: e.photos.map((p) => `${SITE_URL}${p.src}`), sameAs: e.site_web ? [e.site_web] : undefined, foundingDate: e.annee_creation ? String(e.annee_creation) : undefined,
     description: e.description ?? undefined,
     location: campus.map((c) => ({ "@type": "Place", name: `Campus de ${c.ville}`, address: { "@type": "PostalAddress", streetAddress: c.adresse ?? undefined, addressLocality: c.ville, addressCountry: "MA" }, geo: c.geo ? { "@type": "GeoCoordinates", latitude: c.geo.coordonnees.lat, longitude: c.geo.coordonnees.lon } : undefined })),
     hasCredential: e.filieres.slice(0, 30).map((f) => ({ "@type": "EducationalOccupationalCredential", name: f.intitule, credentialCategory: f.diplome ?? undefined })),

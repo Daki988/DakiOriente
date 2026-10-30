@@ -15,6 +15,8 @@ async function smtp(): Promise<Transport | null> {
   const nodemailer = await import("nodemailer");
   const port = Number(process.env.SMTP_PORT || 465);
   transport = nodemailer.createTransport({
+    // Connexion conservée et réutilisée : évite une négociation TLS par e-mail (inscription, notifications en série).
+    pool: true, maxConnections: 2,
     host: process.env.SMTP_HOST,
     port,
     secure: process.env.SMTP_SECURE ? process.env.SMTP_SECURE === "true" : port === 465,

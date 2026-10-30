@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type Valeurs = Record<string, string | string[]>;
 
@@ -27,28 +27,43 @@ function ecrire<T extends Valeurs>(f: T, defauts: T): string {
 }
 
 /**
+ * Lit l'URL côté navigateur. Isolé dans sa propre frontière Suspense : la page qui l'utilise reste
+ * rendue côté serveur (contenu complet pour Google et les aperçus de liens), au lieu d'être entièrement
+ * rendue dans le navigateur comme le serait tout composant appelant useSearchParams.
+ */
+function Lecteur({ onUrl }: { onUrl: (qs: string) => void }) {
+  const qs = useSearchParams().toString();
+  useEffect(() => { onUrl(qs); }, [qs, onUrl]);
+  return null;
+}
+export function LireUrl({ onUrl }: { onUrl: (qs: string) => void }) {
+  return <Suspense fallback={null}><Lecteur onUrl={onUrl} /></Suspense>;
+}
+
+/**
  * Filtres synchronisés avec l'URL : partageables, conservés au retour arrière et
  * réinitialisés si l'on arrive par un lien qui change les paramètres.
+ * Le composant doit afficher `sync` (lecteur d'URL) quelque part dans son rendu.
  */
 export function useFiltres<T extends Valeurs>(defauts: T) {
-  const sp = useSearchParams();
   const ref = useRef(defauts);
-  const [f, setF] = useState<T>(() => lire(new URLSearchParams(sp.toString()), defauts));
+  // Rendu serveur et premier rendu navigateur : filtres par défaut (liste complète), puis lecture de l'URL.
+  const [f, setF] = useState<T>(defauts);
   const qs = useMemo(() => ecrire(f, ref.current), [f]);
-  const dernier = useRef(qs);
+  const dernier = useRef<string | null>(null); // null : URL pas encore lue
 
   // Navigation externe (lien, retour arrière) : l'URL fait foi.
-  useEffect(() => {
-    const cur = sp.toString();
+  const onUrl = useCallback((cur: string) => {
     if (cur !== dernier.current) { dernier.current = cur; setF(lire(new URLSearchParams(cur), ref.current)); }
-  }, [sp]);
+  }, []);
   // Changement de filtre : mise à jour de l'URL sans rechargement ni défilement.
   useEffect(() => {
-    if (qs === dernier.current) return;
+    if (dernier.current === null || qs === dernier.current) return;
     dernier.current = qs;
     const url = `${window.location.pathname}${qs ? `?${qs}` : ""}${window.location.hash}`;
     window.history.replaceState(window.history.state, "", url);
   }, [qs]);
+  const sync = <LireUrl onUrl={onUrl} />;
 
   const set = useCallback((patch: Partial<T>) => setF((p) => ({ ...p, ...patch })), []);
   const reset = useCallback(() => setF(ref.current), []);
@@ -56,5 +71,5 @@ export function useFiltres<T extends Valeurs>(defauts: T) {
     const cur = p[k] as string[];
     return { ...p, [k]: cur.includes(v) ? cur.filter((x) => x !== v) : [...cur, v] };
   }), []);
-  return { f, set, reset, toggle, qs };
+  return { f, set, reset, toggle, qs, sync };
 }

@@ -41,7 +41,7 @@ function Case({ on, label, n, onClick }: { on: boolean; label: string; n: number
 }
 
 export function FormationSearch() {
-  const { f, set, reset, toggle } = useFiltres(DEFAUTS);
+  const { f, set, reset, toggle, sync } = useFiltres(DEFAUTS);
   const [limit, setLimit] = useState(12);
   const [profil, setProfil] = useState<string[]>(["I", "C"]);
   const [panneau, setPanneau] = useState(false);
@@ -79,6 +79,7 @@ export function FormationSearch() {
 
   return (
     <>
+      {sync}
       <section className="bg-gradient-to-b from-brand-50 to-transparent pb-8 pt-8">
         <div className="container flex flex-col gap-5">
           <nav className="flex items-center gap-1.5 text-[13px] text-ink-mute" aria-label="Fil d'Ariane"><Link href="/">Accueil</Link><ChevronRight size={14} /><span>Formations</span></nav>

@@ -1,5 +1,6 @@
 // Génération des PDF : reçu, bordereau de candidature, attestation, contrat de location, quittance.
 import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from "pdf-lib";
+import { SITE_URL } from "@/lib/site";
 
 const BLUE = rgb(0.1, 0.28, 0.96), INK = rgb(0.04, 0.08, 0.2), MUTE = rgb(0.42, 0.45, 0.58), LIGHT = rgb(0.93, 0.95, 1);
 // Montants en dirhams (destination unique : le Maroc) ; la devise enregistrée est conservée pour les anciens paiements.
@@ -59,7 +60,7 @@ function footer(c: Ctx, note: string) {
   c.page.drawLine({ start: { x: 50, y: 70 }, end: { x: 545, y: 70 }, thickness: 0.5, color: MUTE });
   c.y = 56;
   text(c, note, { size: 8, color: MUTE });
-  text(c, "Navigoal · navigoal.netlify.app · Document généré électroniquement", { size: 8, color: MUTE });
+  text(c, `Navigoal · ${SITE_URL.replace(/^https?:\/\//, "")} · Document généré électroniquement`, { size: 8, color: MUTE });
 }
 
 export async function receiptPdf(p: { reference: string; payer: string; label: string; amount: number; currency: string; method: string; paidAt: Date; escrow: boolean; beneficiary?: string }) {

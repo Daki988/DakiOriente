@@ -83,14 +83,15 @@ export async function register(raw: RegisterInput) {
       bailleur: ["Publiez vos logements pour étudiants : ils seront proposés sur Navilease après modération.", "Publier une annonce", "/bailleur/"],
     };
     const [msg, label, url] = BIENVENUE[user.role] ?? BIENVENUE.etudiant;
-    await sendEmail({ to: user.email, subject: "Bienvenue sur Navigoal", titre: `Bienvenue ${user.firstName} !`, text: msg, action: { label, url } }).catch(() => {});
+    // Envoi sans attendre : l'inscription répond tout de suite (les erreurs d'envoi sont journalisées).
+    void sendEmail({ to: user.email, subject: "Bienvenue sur Navigoal", titre: `Bienvenue ${user.firstName} !`, text: msg, action: { label, url } }).catch(() => {});
   }
   // Invitation du parent/tuteur saisi à l'inscription (code à saisir dans son espace parent).
   const [inv] = await db.select().from(schema.guardianships).where(eq(schema.guardianships.childId, user.id));
   if (inv?.inviteCode) {
     const text = `${user.firstName} ${user.lastName} vous invite à suivre son parcours sur Navigoal et à valider son inscription. Code d'invitation : ${inv.inviteCode}. Créez votre compte parent puis saisissez ce code.`;
-    if (inv.inviteEmail) await sendEmail({ to: inv.inviteEmail, subject: "Invitation à suivre un parcours Navigoal", text, action: { label: "Créer mon compte parent", url: "/inscription/?role=parent" } });
-    else if (inv.invitePhone) await sendSms({ to: inv.invitePhone, text });
+    if (inv.inviteEmail) void sendEmail({ to: inv.inviteEmail, subject: "Invitation à suivre un parcours Navigoal", text, action: { label: "Créer mon compte parent", url: "/inscription/?role=parent" } }).catch(() => {});
+    else if (inv.invitePhone) void sendSms({ to: inv.invitePhone, text }).catch(() => {});
   }
   const otp = email ? await requestOtp(email, "verify_email") : await requestOtp(phone!, "verify_phone");
   return Object.assign(user, { devCode: otp.devCode });

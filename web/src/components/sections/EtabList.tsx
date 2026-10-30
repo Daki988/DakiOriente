@@ -14,7 +14,7 @@ const LABELS_PRESENTS = LABELS.filter((l) => etablissements.some((e) => e.label 
 const ORDRE = (a: Etablissement, b: Etablissement) => b.photos.length - a.photos.length || Number(!!b.logo) - Number(!!a.logo) || b.filieres.length - a.filieres.length;
 
 export function EtabList() {
-  const { f, set, reset } = useFiltres(DEFAUTS);
+  const { f, set, reset, sync } = useFiltres(DEFAUTS);
   const [limit, setLimit] = useState(24);
   const passe = (e: Etablissement, sauf?: keyof typeof DEFAUTS) =>
     (sauf === "label" || !f.label || e.label === f.label) &&
@@ -28,6 +28,7 @@ export function EtabList() {
 
   return (
     <div className="container flex flex-col gap-6">
+      {sync}
       <div className="flex flex-col gap-3 lg:flex-row">
         <div className="flex flex-1 items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 shadow-card focus-within:ring-4 focus-within:ring-brand-100 sm:px-5">
           <Search size={18} className="shrink-0 text-ink-mute" />
