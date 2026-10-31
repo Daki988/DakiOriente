@@ -1,6 +1,6 @@
 # Communiquer sans risque au Gabon
 
-Ce guide fixe les règles de communication de Secret by Neam : site, réseaux sociaux, publicité, messages aux clients.
+Ce guide fixe les règles de communication de Secret by N. : site, réseaux sociaux, publicité, messages aux clients.
 Il ne remplace pas l'avis d'un·e juriste gabonais·e. **Faites-le relire avant le lancement public.**
 
 ## 1. Les textes qui s'appliquent

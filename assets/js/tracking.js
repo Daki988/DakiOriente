@@ -1,5 +1,5 @@
 /* ==========================================================
-   Secret by Neam — suivi de commande
+   Secret by N. — suivi de commande
    Sources de données, dans l'ordre :
    1. les commandes passées sur cet appareil (stockées localement) ;
    2. la feuille de suivi en ligne (TRACKING.csvUrl), mise à jour par la boutique ;
@@ -274,7 +274,7 @@
       '<p class="trk-sent" id="trk-ins-sent" hidden>✓ Instructions enregistrées. <a target="_blank" rel="noopener" href="#">Les envoyer au livreur sur WhatsApp →</a></p>' +
       (o.demo ? '<div class="trk-demo-bar"><span>Mode démonstration : faites avancer la livraison pour voir chaque étape.</span><button class="btn btn--outline btn--sm" data-trk="next">Étape suivante</button><button class="btn btn--sm trk-link" data-trk="reset">Recommencer</button></div>' : "") +
       '<div class="trk-grid">' +
-      '<div class="trk-block"><h4>Livraison discrète</h4><p>Livreur Secret by Neam<br>Numéro de suivi : <strong class=\"nowrap\">' + esc(o.ref) + "</strong></p><p class=\"muted small\">Colis marron sans logo. Expéditeur indiqué : SN Distribution.</p></div>" +
+      '<div class="trk-block"><h4>Livraison discrète</h4><p>Livreur Secret by N.<br>Numéro de suivi : <strong class=\"nowrap\">' + esc(o.ref) + "</strong></p><p class=\"muted small\">Colis marron sans logo. Expéditeur indiqué : SN Distribution.</p></div>" +
       (o.address ? '<div class="trk-block"><h4>Adresse de livraison</h4><p>' + esc(o.name || "") + "<br>" + maskAddress(o.address) + '</p><p class="muted small">Adresse masquée sur cet écran, par discrétion.</p></div>' : "") +
       (o.total ? '<div class="trk-block"><h4>Paiement à la livraison</h4><p><strong>' + fcfa(o.total) + "</strong><br>" + esc(o.pay || "") + "</p></div>" : "") +
       "</div>" + historyHTML(o) + "</article>";

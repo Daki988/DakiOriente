@@ -1,4 +1,4 @@
-// Outils partagés par les fonctions de Secret by Neam.
+// Outils partagés par les fonctions de Secret by N.
 import { getStore } from "@netlify/blobs";
 
 // Les données clients sont stockées dans l'Union européenne (Francfort), et non aux États-Unis

@@ -1,4 +1,4 @@
-# Catalogue Secret by Neam
+# Catalogue Secret by N.
 
 Source : plan de commande « boutique intime — 650 000 FCFA » du 30/10/2026 (vente à Libreville,
 achat AliExpress / Amazon via transitaire). Prix de vente repris tels quels.

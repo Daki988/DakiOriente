@@ -1,4 +1,4 @@
-# Secret by Neam — boutique intime en ligne
+# Secret by N. — boutique intime en ligne
 
 Boutique au thème clair (HTML/CSS/JS sans framework) hébergée sur Netlify, avec un back-office et une petite API (Netlify Functions + Netlify Blobs, données stockées dans l'Union européenne).
 

@@ -1,5 +1,5 @@
 /* ==========================================================
-   Secret by Neam — back-office
+   Secret by N. — back-office
    Commandes, produits, réglages et lettre d'information.
    Le jeton de session reste dans l'onglet (sessionStorage) et expire après 12 h.
    ========================================================== */

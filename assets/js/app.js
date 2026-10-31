@@ -1,5 +1,5 @@
 /* ==========================================================
-   Secret by Neam — logique de la boutique
+   Secret by N. — logique de la boutique
    ========================================================== */
 (function () {
   "use strict";
@@ -115,7 +115,7 @@
   $$("#nav a").forEach(function (a) { a.addEventListener("click", function () { nav.classList.remove("open"); burger.setAttribute("aria-expanded", false); }); });
 
   $$("[data-whatsapp]").forEach(function (a) {
-    a.href = waLink("Bonjour, j'ai une question sur un produit Secret by Neam.");
+    a.href = waLink("Bonjour, j'ai une question sur un produit Secret by N.");
     a.target = "_blank"; a.rel = "noopener";
   });
   $("#year").textContent = new Date().getFullYear();

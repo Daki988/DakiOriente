@@ -4,7 +4,7 @@ Relevé du 8 octobre 2026 sur les pages d'accueil publiques de
 [adameteve.fr](https://www.adameteve.fr), [ruedesplaisirs.com](https://www.ruedesplaisirs.com)
 et [espaceplaisir.fr](https://www.espaceplaisir.fr).
 Seules des données factuelles ont été relevées (prix, catégories, marques, promesses).
-Aucune photo ni aucun texte de ces sites n'est repris dans Secret by Neam.
+Aucune photo ni aucun texte de ces sites n'est repris dans Secret by N.
 
 Conversion indicative : 1 € = 655,957 FCFA (parité fixe).
 
@@ -20,8 +20,8 @@ Conversion indicative : 1 € = 655,957 FCFA (parité fixe).
 | Conseil | Téléphone, WhatsApp, guides, « Toyfinder » (quiz) | Téléphone, boutique physique, blog | Boutiques physiques |
 | Retours | n.c. | 14 jours pour échanger | n.c. |
 
-**À retenir pour Secret by Neam** : la discrétion, la livraison rapide et la preuve sociale (avis)
-sont les trois promesses communes. Secret by Neam couvre déjà les deux premières ;
+**À retenir pour Secret by N.** : la discrétion, la livraison rapide et la preuve sociale (avis)
+sont les trois promesses communes. Secret by N. couvre déjà les deux premières ;
 les avis clients sont le chantier n° 1 après le lancement.
 
 ## 2. Les produits qui se vendent le plus
@@ -54,20 +54,20 @@ affichent 5 797 et 3 797 avis, loin devant tous les jouets.
 | Spray retardant | 13,90 € | 14 € | 9 100 |
 | Jeux de couple / livres | Action ou vérité (19,90 €), livres « sans tabous » (16 €) | 16 € à 20 € | 10 500 à 13 000 |
 
-**Constat** : les prix de Secret by Neam sont dans la bonne fourchette. Le panier type
+**Constat** : les prix de Secret by N. sont dans la bonne fourchette. Le panier type
 (un jouet d'entrée de gamme + un lubrifiant) tourne autour de 30 à 40 € en France,
 soit 20 000 à 26 000 FCFA.
 
 ### Les marques incontournables
 Womanizer (mise en avant par les trois sites), Satisfyer, LELO, We-Vibe, Lovense, Svakom,
 puis les marques maison à petit prix (EasyToys, Teazers, FPPR, Lovehoney).
-Pour la sélection Secret by Neam : une ou deux marques premium reconnues (Womanizer, Satisfyer)
+Pour la sélection Secret by N. : une ou deux marques premium reconnues (Womanizer, Satisfyer)
 pour la crédibilité, et une marque à petit prix pour les premiers achats.
 
 ## 3. Comment les sites sont organisés
 
 - **Navigation par public** : Pour elle, Pour lui, Pour couples, puis Lingerie, Bien-être, BDSM, Coffrets & jeux.
-  Secret by Neam suit déjà ce découpage.
+  Secret by N. suit déjà ce découpage.
 - **« Top 10 » par catégorie** (Adam et Eve) : rassure les indécis·es en montrant ce que les autres achètent.
 - **Packs promo et coffrets** : présents chez les trois, souvent avec la « valeur réelle du contenu » affichée.
 - **Saisonnalité** : calendriers de l'Avent érotiques mis en avant dès octobre (39,99 € à 229,99 €),
@@ -75,7 +75,7 @@ pour la crédibilité, et une marque à petit prix pour les premiers achats.
 - **Guides pour débuter** : « Votre premier sextoy », « Sextoys pour couples »… et un quiz (Toyfinder).
 - **Prix barrés « Prix conseillé »** sur la plupart des produits en promotion.
 
-## 4. Ce qui a été intégré à la démo Secret by Neam
+## 4. Ce qui a été intégré à la démo Secret by N.
 
 - **Pack Essentiel Lubrifiant + Nettoyant** (9 900 FCFA au lieu de 12 800), inspiré du best-seller d'Espace Plaisir.
 - **Pochette de rangement discrète** (2 900 FCFA) : petit prix, parfaite en ajout au panier, cohérente avec la promesse de discrétion.
