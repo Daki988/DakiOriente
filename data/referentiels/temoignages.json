@@ -1212,6 +1212,34 @@
    "citation": "Les journées sont bien remplies mais toujours dans une ambiance bienveillante.",
    "resume": "Il élabore les budgets, analyse les dépenses et propose des améliorations. Il a récemment visité, avant leur aménagement, les nouveaux studios de plus de 16 000 m² de la chaîne.",
    "video": "https://www.youtube-nocookie.com/embed/WSAivpL1fFs"
+  },
+  {
+   "id": "ingenieur-agronome-ange-zoungrana",
+   "metier": "met-ingenieur-agronome",
+   "personne": "Ange Zoungrana",
+   "role": "Économiste agricole, agronome et entrepreneuse",
+   "lieu": "Burkina Faso",
+   "type": "video",
+   "media": "YouTube · Le Grand Frère",
+   "date": "2020-10",
+   "url": "https://www.youtube.com/watch?v=rIyTSSzYBM8",
+   "citation": null,
+   "resume": "Agronome et économiste agricole, elle co-dirige une ferme familiale et a créé une marque de produits à base de plantes médicinales et aromatiques. Elle veut montrer que l'agriculture et l'agronomie sont aussi des métiers de femmes.",
+   "video": "https://www.youtube-nocookie.com/embed/rIyTSSzYBM8"
+  },
+  {
+   "id": "technicien-agricole-arsene-gambo",
+   "metier": "met-technicien-agricole",
+   "personne": "Arsène Gambo",
+   "role": "Ingénieur en développement rural",
+   "lieu": "Burkina Faso",
+   "type": "video",
+   "media": "YouTube · Le Grand Frère",
+   "date": "2023-10",
+   "url": "https://www.youtube.com/watch?v=kdu0QFEf-6s",
+   "citation": "La première motivation, c'est mon environnement notamment à ma famille.",
+   "resume": "Il accompagne les projets agricoles et conseille les producteurs avec des solutions techniques adaptées au terrain. Il raconte comment sa famille et son environnement l'ont conduit vers le développement rural.",
+   "video": "https://www.youtube-nocookie.com/embed/kdu0QFEf-6s"
   }
  ]
 }
