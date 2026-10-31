@@ -94,11 +94,11 @@ window.PRODUCTS = [
     points: ["Porte-jarretelles + bas", "Bandes de dentelle", "Noir ou blanc"] },
 
   // Godes
-  { id: "D01", discreet: true, cat: "godes", name: "Gode Réaliste Toucher Peau", price: 19500, art: "wand", hue: 20,
+  { id: "D01", cat: "godes", name: "Gode Réaliste Toucher Peau", price: 19500, art: "wand", hue: 20,
     tags: ["moi", "inter", "pro", "intense"],
     desc: "Un réalisme bluffant et un toucher qui imite la peau. Sa base ventouse se fixe sur toute surface lisse pour libérer les mains.",
     points: ["Silicone médical", "Toucher peau", "Base ventouse"] },
-  { id: "D02", discreet: true, cat: "godes", name: "Gode Réaliste à Ventouse", price: 32000, art: "wand", hue: 25,
+  { id: "D02", cat: "godes", name: "Gode Réaliste à Ventouse", price: 32000, art: "wand", hue: 25,
     tags: ["moi", "pro", "intense"],
     desc: "Le modèle premium de la sélection : un gode réaliste en silicone, avec une ventouse puissante pour jouer dans toutes les positions.",
     points: ["Silicone", "Ventouse puissante", "Forme réaliste"] },
