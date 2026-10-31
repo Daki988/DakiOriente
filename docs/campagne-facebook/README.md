@@ -73,6 +73,31 @@ Visuels dans `docs/campagne-facebook/visuels/` (carré 1080 × 1080 pour les fil
 - **Description** : Colis neutre
 - **Bouton** : Acheter
 
+### Publicités d'accroche (à tester en priorité)
+
+Pensées pour arrêter le défilement : grands aplats de couleur, titre court, une seule idée. À placer dans l'ensemble A, à côté des cinq publicités ci-dessus ; Meta diffusera davantage celles qui fonctionnent le mieux.
+
+**6. Colis neutre** — `accroche-neutre.jpg`
+- **Texte principal** : Personne ne saura ce qu'il y a dedans. Préservatifs et lubrifiant livrés à Libreville dans un carton sans logo, payés à la réception.
+- **Titre** : Une livraison 100 % discrète — **Description** : Libreville en 24 h — **Bouton** : Acheter
+
+**7. Prix** — `accroche-prix.jpg`
+- **Texte principal** : Des préservatifs livrés chez vous à Libreville, à partir de 3 000 FCFA. Carton neutre, paiement à la réception.
+- **Titre** : Préservatifs dès 3 000 FCFA — **Description** : Hors frais de livraison — **Bouton** : Acheter
+
+**8. Le livreur** — `accroche-sms.jpg`
+- **Texte principal** : Le livreur dit simplement « Livraison pour vous ». Carton neutre, aucun nom de produit, paiement à la réception.
+- **Titre** : Une livraison qui reste entre nous — **Description** : Libreville en 24 h — **Bouton** : En savoir plus
+
+**9. Sans passer au comptoir** — `accroche-comparaison.jpg`
+- **Texte principal** : Des préservatifs sans passer au comptoir : deux minutes sur le téléphone, un carton neutre, et le paiement à la réception.
+- **Titre** : Commandez en 2 minutes — **Description** : Durex, EXS, INTIMY — **Bouton** : Acheter
+
+**10. Vidéo « Qu'y a-t-il dans ce carton ? »** — `video-colis-carre.mp4` (fil) et `video-colis-story.mp4` (Stories, Reels), 9 secondes, sans son
+- Le carton tombe, s'ouvre, les produits en sortent, puis l'écran de fin affiche le logo et « Commander ». Une vidéo qui démarre toute seule dans le fil arrête bien plus le défilement qu'une image fixe.
+- **Texte principal** : Qu'y a-t-il dans ce carton ? Des préservatifs et du lubrifiant, livrés discrètement à Libreville. Commandez en 2 minutes, payez à la réception.
+- **Titre** : Livré discrètement, payé à la réception — **Description** : Colis neutre — **Bouton** : Acheter
+
 ## 4. Ce qu'il ne faut jamais mettre dans une publicité
 
 - Une photo de jouet, de lingerie portée, de corps nu ou de couple dans une pose suggestive.

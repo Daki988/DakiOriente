@@ -57,6 +57,11 @@ section { display: grid; gap: 20px; }
 .copy:hover { border-color: var(--accent); color: var(--accent); }
 .copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .mini { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.videos { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 236px); gap: 16px; align-items: end; }
+.videos figure { margin: 0; display: grid; gap: 6px; }
+.videos video { width: 100%; border-radius: 14px; border: 1px solid var(--line); display: block; background: var(--surface); }
+.videos figcaption { font-size: .85rem; color: var(--muted); }
+@media (max-width: 720px) { .videos { grid-template-columns: minmax(0, 1fr) minmax(0, 0.56fr); } }
 .stories { display: grid; grid-template-columns: repeat(2, minmax(0, 220px)); gap: 16px; }
 .stories figure { margin: 0; display: grid; gap: 6px; }
 .stories img { width: 100%; border-radius: 14px; border: 1px solid var(--line); display: block; }
@@ -119,8 +124,26 @@ a { color: var(--accent); }
   </section>
 
   <section>
+    <span class="eyebrow">À tester en priorité</span>
+    <h2>Vidéo « Qu'y a-t-il dans ce carton ? »</h2>
+    <p class="muted">9 secondes, sans son. Le carton tombe, s'ouvre, les produits en sortent, puis l'écran de fin affiche « Commander ». Une vidéo qui démarre toute seule dans le fil arrête bien plus le défilement qu'une image fixe.</p>
+    <div class="videos">
+      <figure><video src="visuels/video-colis-carre.mp4" muted autoplay loop playsinline controls></video><figcaption>Fil d'actualité · 1080 × 1080</figcaption></figure>
+      <figure><video src="visuels/video-colis-story.mp4" muted autoplay loop playsinline controls></video><figcaption>Stories et Reels · 1080 × 1920</figcaption></figure>
+    </div>
+    <div id="video-copy"></div>
+  </section>
+
+  <section>
+    <span class="eyebrow">Accroches</span>
+    <h2>Quatre visuels qui arrêtent le défilement</h2>
+    <p class="muted">Grands aplats de couleur, titre court, une seule idée. Format carré 1080 × 1080.</p>
+    <div id="hooks"></div>
+  </section>
+
+  <section>
     <span class="eyebrow">Les publicités du fil</span>
-    <h2>Cinq visuels, prêts à mettre en ligne</h2>
+    <h2>Cinq visuels plus classiques</h2>
     <p class="muted">Copiez chaque texte dans le Gestionnaire de publicités. Format carré 1080 × 1080.</p>
     <div id="ads"></div>
   </section>
@@ -191,8 +214,37 @@ const ADS = [
     text: "Une soirée calme à la maison, ça se prépare. Bougies et parfums d'intérieur livrés à Libreville, payés à la livraison.",
     title: "Bougies et diffuseurs dès 10 500 FCFA", desc: "Colis neutre" }
 ];
+const HOOKS = [
+  { n: 6, name: "Colis neutre", set: "Ensemble A", img: "accroche-neutre", cta: "Acheter", url: BASE + "essentiels",
+    text: "Personne ne saura ce qu'il y a dedans. Préservatifs et lubrifiant livrés à Libreville dans un carton sans logo, payés à la réception.",
+    title: "Une livraison 100 % discrète", desc: "Libreville en 24 h" },
+  { n: 7, name: "Prix", set: "Ensemble A", img: "accroche-prix", cta: "Acheter", url: BASE + "essentiels",
+    text: "Des préservatifs livrés chez vous à Libreville, à partir de 3 000 FCFA. Carton neutre, paiement à la réception.",
+    title: "Préservatifs dès 3 000 FCFA", desc: "Hors frais de livraison" },
+  { n: 8, name: "Le livreur", set: "Ensemble A", img: "accroche-sms", cta: "En savoir plus", url: BASE + "essentiels",
+    text: "Le livreur dit simplement « Livraison pour vous ». Carton neutre, aucun nom de produit, paiement à la réception.",
+    title: "Une livraison qui reste entre nous", desc: "Libreville en 24 h" },
+  { n: 9, name: "Sans passer au comptoir", set: "Ensemble A", img: "accroche-comparaison", cta: "Acheter", url: BASE + "essentiels",
+    text: "Des préservatifs sans passer au comptoir : deux minutes sur le téléphone, un carton neutre, et le paiement à la réception.",
+    title: "Commandez en 2 minutes", desc: "Durex, EXS, INTIMY" }
+];
+const VIDEO = { n: 10, cta: "Acheter", url: BASE + "essentiels",
+  text: "Qu'y a-t-il dans ce carton ? Des préservatifs et du lubrifiant, livrés discrètement à Libreville. Commandez en 2 minutes, payez à la réception.",
+  title: "Livré discrètement, payé à la réception", desc: "Colis neutre" };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const row = (label, value, mono) => `<div class="field"><b>${label}</b><div class="copyrow${mono ? " mono" : ""}"><span>${esc(value)}</span><button class="copy" type="button">Copier</button></div></div>`;
+const card = a => `
+  <article class="ad">
+    <img src="visuels/${a.img}.jpg" alt="Publicité ${a.n} : ${esc(a.name)}" loading="lazy">
+    <div class="ad__body">
+      <div class="ad__head"><h3>${a.n}. ${esc(a.name)}</h3><span class="tag">${a.set}</span><span class="tag">Bouton : ${esc(a.cta)}</span></div>
+      ${row("Texte principal", a.text)}
+      <div class="mini">${row("Titre", a.title)}${row("Description", a.desc)}${row("Bouton", a.cta)}</div>
+      ${row("Lien (Instagram : remplacez facebook par instagram)", a.url, true)}
+    </div>
+  </article>`;
+document.getElementById("hooks").innerHTML = HOOKS.map(card).join("");
+document.getElementById("video-copy").innerHTML = `<div class="ad__body">${row("Texte principal", VIDEO.text)}<div class="mini">${row("Titre", VIDEO.title)}${row("Description", VIDEO.desc)}${row("Bouton", VIDEO.cta)}</div>${row("Lien", VIDEO.url, true)}</div>`;
 document.getElementById("ads").innerHTML = ADS.map(a => `
   <article class="ad">
     <img src="visuels/${a.img}.jpg" alt="Publicité ${a.n} : ${esc(a.name)}" loading="lazy">
