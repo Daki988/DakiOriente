@@ -53,8 +53,10 @@
     lock: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>',
   };
   // Barre NEAM pour passer d'un réseau à l'autre
+  const HS = [...P.slug].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+  const PROJ = (a, b) => a + (HS % (b - a));
   const NAMES = { instagram: 'Instagram', facebook: 'Facebook', tiktok: 'TikTok', linkedin: 'LinkedIn' };
-  const bar = `<div class="nbar"><span><b>●</b> Démonstration NEAM Atelier · ${esc(P.n)} — profil préparé par NEAM, non publié</span><div class="sw">${Object.entries(NAMES).map(([k, v]) => `<a href="social.html?slug=${P.slug}&net=${k}" class="${k === NET ? 'on' : ''}">${v}</a>`).join('')}<a href="${site}">Site web ↗</a><a href="recherche.html?q=${encodeURIComponent(P.n)}">← Résultats</a></div></div>`;
+  const bar = `<div class="nbar"><span class="ttl"><b>●</b> <i class="lg">NEAM <em>Atelier</em></i> <span class="long">· ${esc(P.n)} — profil préparé par NEAM, non publié</span></span><div class="sw">${Object.entries(NAMES).map(([k, v]) => `<a href="social.html?slug=${P.slug}&net=${k}" class="${k === NET ? 'on' : ''}">${v}</a>`).join('')}<a href="${site}">Site web ↗</a><a href="recherche.html?q=${encodeURIComponent(P.n)}">← Résultats</a></div></div>`;
   const app = $('#app');
   document.title = `${name} (@${handle}) • ${NAMES[NET]}`;
   const mask = document.createElement('div'); mask.className = 'mask'; document.body.appendChild(mask);
@@ -83,7 +85,7 @@
 
   // ================= INSTAGRAM =================
   function instagram() {
-    const followers = (P.ig || 0) + (NETCFG.user ? 0 : 0);
+    const followers = P.ig || PROJ(900, 2600);
     let following = false;
     const bio = NETCFG.bio || `${P.tagline}\n📍 ${P.address}\n📞 ${P.t}`;
     app.innerHTML = bar + `<div class="ig"><nav class="side"><div class="logo">Instagram</div>${[['home', 'Accueil'], ['search', 'Recherche'], ['compass', 'Découvrir'], ['reel', 'Reels'], ['msg', 'Messages'], ['bell', 'Notifications'], ['plus', 'Créer']].map(([i, t]) => `<a>${I[i].replace(/width="1\d"/, 'width="24"').replace(/height="1\d"/, 'height="24"')}${t}</a>`).join('')}<a class="on">${AV(24)}Profil</a></nav>
@@ -132,7 +134,7 @@
   // ================= FACEBOOK =================
   function facebook() {
     let tab = 'pub', following = false;
-    const likesN = P.fb || 0;
+    const likesN = P.fb || PROJ(700, 2200);
     const cover = NETCFG.cover || (POSTS.find((p) => p.kind !== 'card' && !isCut(p.imgs[0])) || POSTS[0]).imgs[0];
     const photos = POSTS.filter((p) => p.kind !== 'card').flatMap((p) => p.imgs);
     app.innerHTML = bar + `<div class="fb"><div class="top"><div class="f">f</div><div class="srch">Rechercher sur Facebook</div><div class="mid">${[I.home, I.reel, I.compass, I.msg].map((x, k) => `<span class="${k ? '' : 'on'}">${x}</span>`).join('')}</div><div class="rgt"><span>${I.msg}</span><span>${I.bell}</span><span style="background:none">${AV(40)}</span></div></div>
@@ -178,7 +180,7 @@
   let ttIndex = -1;
   function tiktok() {
     let following = false;
-    const fol = P.so.includes('tiktok') ? 1240 : 0, lk = P.so.includes('tiktok') ? 18600 : POSTS.reduce((a, p) => a + p.likes, 0);
+    const fol = P.so.includes('tiktok') ? 1240 : PROJ(1100, 4800), lk = P.so.includes('tiktok') ? 18600 : POSTS.reduce((a, p) => a + p.likes, 0);
     const vids = POSTS.filter((p) => p.kind !== 'card');
     app.innerHTML = bar + `<div class="tt"><nav class="side"><div class="logo"><i>♪</i>TikTok</div><div class="sr">Rechercher</div>${[['home', 'Pour toi'], ['compass', 'Explorer'], ['plus', 'Suivis'], ['msg', 'Messages'], ['reel', 'LIVE']].map(([i, t]) => `<a>${I[i].replace(/1\d"/g, '24"')}${t}</a>`).join('')}<a class="on">${AV(28)}Profil</a></nav>
     <main class="main"><div class="head">${AV(212)}<div><h1>${esc(handle)} ${P.sig ? I.verified : ''}</h1><h2>${esc(P.main)}</h2><div class="btns"><button class="btn red" id="ttf">Suivre</button><button class="btn" id="ttm">Message</button><button class="btn">↗</button></div>
@@ -222,7 +224,7 @@
   // ================= LINKEDIN =================
   function linkedin() {
     let tab = 'home', following = false;
-    const fol = P.so.includes('linkedin') ? 312 : 48;
+    const fol = P.so.includes('linkedin') ? 312 : PROJ(140, 520);
     const cover = NETCFG.cover || (POSTS.find((p) => p.kind !== 'card' && !isCut(p.imgs[0])) || POSTS[0]).imgs[0];
     const similar = (window.PROSPECTS || []).filter((x) => x.k === P.k && x.slug !== P.slug).slice(0, 4);
     const posts = POSTS.filter((p, i) => i % 2 === 0).map((p) => ({ ...p, cap: p.cap.replace(/[😋😍🔥🙏✨👏❤️🎉🏡🔑💼📲🍽️☀️🏊🏾🥐🥭✅📅🩺👩🏾‍⚕️🧼✈️🎄🌍📋🐘🌊🚗📦🔧🌧️📚🎓🏫👨‍👩‍👧💪🏾🛍️🚚🎁🪡💐🤝📩💆🏾‍♀️💕👨🏾‍🍳🎶]/gu, '').trim() }));
@@ -259,5 +261,20 @@
   }
 
   ({ instagram, facebook, tiktok, linkedin }[NET] || instagram)();
+  // Habillage « application mobile » (visible seulement sur petit écran)
+  (() => {
+    const root = app.querySelector(':scope>.ig,:scope>.fb,:scope>.tt,:scope>.li'); if (!root) return;
+    const back = `<a class="bk" href="recherche.html?q=${encodeURIComponent(P.n)}">‹</a>`;
+    const it = (i, t = '') => `<a>${I[i]}${t ? `<small>${t}</small>` : ''}</a>`;
+    const me = `<a class="on"><span class="av" style="width:26px;height:26px">${P.avatar}</span></a>`;
+    const C = {
+      ig: [`${back}<b>${esc(handle)}</b>${P.sig ? I.verified : ''}<span class="sp"></span>${I.bell}${I.plus}`, it('home') + it('search') + it('plus') + it('reel') + me],
+      fb: [`${back}<b>${esc(name)}</b><span class="sp"></span>${I.search}`, it('home', 'Accueil') + it('reel', 'Vidéo') + it('msg', 'Messages') + it('bell', 'Notifs') + `<a class="on"><span class="av" style="width:24px;height:24px">${P.avatar}</span><small>Page</small></a>`],
+      tt: [`${back}<span class="sp"></span><b>${esc(name)}</b><span class="sp"></span>${I.bell}${I.share}`, it('home', 'Accueil') + it('compass', 'Amis') + `<a class="pl"><i>+</i></a>` + it('msg', 'Boîte') + `<a class="on"><span class="av" style="width:24px;height:24px">${P.avatar}</span><small>Profil</small></a>`],
+      li: [`<span class="av" style="width:30px;height:30px;border-radius:50%">${P.avatar}</span><span class="ms">${I.search} ${esc(name)}</span>${I.msg}`, it('home', 'Accueil') + it('compass', 'Réseau') + it('plus', 'Publier') + it('bell', 'Notifications') + it('save', 'Emplois')],
+    }[root.className.split(' ')[0]];
+    root.insertAdjacentHTML('afterbegin', `<div class="mtop">${C[0]}</div>`);
+    root.insertAdjacentHTML('beforeend', `<nav class="mnav">${C[1]}</nav>`);
+  })();
   window.SOCIALUI = { openPost, openStory, NET };
 })();

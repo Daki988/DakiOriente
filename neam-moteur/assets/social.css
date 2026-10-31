@@ -208,7 +208,7 @@ svg{display:block}
 .ttp .ud button{width:44px;height:44px;border-radius:50%;background:rgba(84,84,84,.5);color:#fff;font-size:20px}
 
 /* ================= LINKEDIN ================= */
-.li{background:#f4f2ee;color:rgba(0,0,0,.9);min-height:100vh}
+#app>.li{background:#f4f2ee;color:rgba(0,0,0,.9);min-height:100vh}
 .li .top{background:#fff;height:52px;display:flex;align-items:center;gap:8px;padding:0 max(16px,calc(50% - 560px));border-bottom:1px solid #e8e8e8;position:sticky;top:30px;z-index:50}
 .li .in{width:34px;height:34px;border-radius:4px;background:#0a66c2;color:#fff;font:700 21px/34px Arial;text-align:center}
 .li .srch{background:#edf3f8;border-radius:4px;padding:8px 12px;color:#666;font-size:14px;width:280px}
@@ -277,3 +277,69 @@ svg{display:block}
  .ttp .panel,.ttp .ud{display:none}
  .li .wrap{grid-template-columns:1fr;margin:8px auto}.li .rail{display:none}.li .srch,.li .nv{display:none}.li dl{grid-template-columns:1fr}
 }
+
+/* ================= Habillage mobile soigné ================= */
+.mtop,.mnav{display:none}
+.nbar .lg{font-style:normal;font-weight:700;color:#fff}.nbar .lg em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;color:#ffe309;font-size:14px}
+.main,.wrap,.cols,.card,.head>div{min-width:0}
+@media(max-width:860px){
+ body{overflow-x:hidden}
+ .nbar{flex-wrap:nowrap;padding:6px 10px;gap:8px}.nbar .long{display:none}.nbar .ttl{white-space:nowrap}
+ .nbar .sw{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:0}.nbar .sw::-webkit-scrollbar{display:none}.nbar .sw a{white-space:nowrap;padding:6px 10px}
+ .mtop{display:flex;align-items:center;gap:14px;padding:10px 14px;position:sticky;top:38px;z-index:120;background:inherit;border-bottom:1px solid rgba(0,0,0,.06);font-size:17px}
+ .mtop .bk{font-size:30px;line-height:20px;color:inherit}.mtop .sp{flex:1}.mtop svg{width:24px;height:24px;flex:none}
+ .mtop b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;gap:4px;align-items:center}
+ .mnav{display:flex;justify-content:space-around;align-items:center;position:fixed;left:0;right:0;bottom:0;z-index:150;background:#fff;border-top:1px solid #e5e5e5;padding:6px 0 calc(8px + env(safe-area-inset-bottom))}
+ .mnav a{display:flex;flex-direction:column;align-items:center;gap:2px;color:#111;font-size:10px;min-width:52px;opacity:.75}.mnav a.on{opacity:1}
+ .mnav svg{width:25px;height:25px}.mnav small{font-size:10px}
+ #app>.ig,#app>.fb,#app>.tt,#app>.li{flex-direction:column;padding-bottom:64px}
+ .ig .main,.tt .main{width:100%}
+ /* Instagram : disposition de l'application */
+ .ig .mtop{background:#fff}
+ .ig .main{padding:14px 0 70px}
+ .ig .head{display:grid;grid-template-columns:86px 1fr 1fr 34px;column-gap:8px;row-gap:12px;align-items:center;padding:0 14px 16px}
+ .ig .head>div,.ig .u{display:contents}
+ .ig .ring{width:86px;height:86px;grid-row:1/3;grid-column:1;padding:3px}.ig .ring .av{border-width:3px}
+ .ig .u h2{grid-column:2/5;grid-row:1;font-size:16px;font-weight:600;margin:0;align-self:end}
+ .ig .stats{grid-column:2/5;grid-row:2;margin:0;gap:0;justify-content:space-between;font-size:13px;align-self:start}
+ .ig .stats span{display:flex;flex-direction:column;line-height:1.25}.ig .stats b{font-size:16px}
+ .ig .bio{grid-column:1/5;grid-row:3;padding:0}
+ .ig .u .b{grid-row:4;margin:0;justify-content:center;font-size:14px;padding:8px 6px;white-space:nowrap}
+ .ig .u .b:nth-of-type(1){grid-column:1/3}.ig .u .b:nth-of-type(2){grid-column:3/4}.ig .u .b:nth-of-type(3){grid-column:4/5;padding:8px 0}
+ .ig .hl{padding:4px 14px 16px;gap:14px;scrollbar-width:none}.ig .hl span{width:64px;height:64px}
+ .ig .tabs{gap:0;justify-content:space-around;font-size:0}.ig .tabs a{padding:12px 18px}.ig .tabs a svg{width:24px;height:24px}
+ .ig .grid{gap:2px}
+ /* Facebook */
+ .fb .mtop{background:#fff}
+ .fb .cols{align-items:start}.fb .cols>div{display:flex;flex-direction:column;gap:12px}
+ .fb .id{flex-direction:column;align-items:flex-start;gap:6px}.fb .id>div{padding-bottom:0!important}
+ .fb .id .bt{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fb .id .bt .btn{justify-content:center;padding:9px 8px;font-size:14px;white-space:nowrap}.fb .id .bt .btn.blue{grid-column:1/3}
+ .fb .tb{gap:0;scrollbar-width:none}.fb .tb a{white-space:nowrap;padding:12px 12px}
+ .fb .cover{border-radius:0!important}
+ /* TikTok */
+ .tt .mtop{background:#fff}
+ .tt .main{padding:16px 0 70px}
+ .tt .head{gap:10px;padding:0 16px}.tt .head .av{width:96px!important;height:96px!important}
+ .tt .head h1{font-size:19px;justify-content:center}.tt .head h2{font-size:14px;margin:2px 0 10px}
+ .tt .stats{order:-1;gap:26px;margin:0 0 14px;font-size:13px}.tt .stats span{display:flex;flex-direction:column;align-items:center}.tt .stats b{font-size:17px;margin:0}
+ .tt .head>div{display:flex;flex-direction:column;align-items:center;width:100%}
+ .tt .btns .btn{padding:10px 14px}.tt .btns .btn.red{min-width:150px}
+ .tt .bio{text-align:center;font-size:14px}
+ .tt .tabs{margin-top:18px;justify-content:space-around;gap:0}.tt .tabs a{padding:10px 6px;font-size:13px;flex:1;justify-content:center}
+ .tt .grid{padding:0}
+ /* LinkedIn */
+ .li .mtop{background:#fff;gap:10px}.li .mtop .ms{flex:1;background:#edf3f8;border-radius:6px;padding:8px 10px;font-size:14px;color:#555;display:flex;gap:6px;align-items:center;overflow:hidden;white-space:nowrap}.li .mtop .ms svg{width:16px;height:16px}
+ .li .top{display:none}
+ .li .wrap{padding:0;gap:8px}.li .card{border-radius:0}
+ .li .bts{display:flex;flex-wrap:wrap;gap:8px}.li .bts .bt{flex:1;justify-content:center;text-align:center;white-space:nowrap}.li .bts .bt.gray{flex:0 0 auto}
+ .ig .top,.tt .top{display:none}
+}
+@media(max-width:860px){
+ .fb .top{display:none}
+ .fb .hdr .wrap{padding:0!important;margin:0!important;max-width:none}
+ .fb .id .bt{width:100%;box-sizing:border-box}.fb .id .bt .btn{min-width:0;overflow:hidden;text-overflow:ellipsis}
+ .li .wrap{grid-template-columns:minmax(0,1fr)}.li .wrap>*{min-width:0}
+ .ig .u h2{display:none}.ig .stats{grid-row:1/3;align-self:center}
+ .mnav .pl i{display:block;font-style:normal;font-weight:700;font-size:20px;line-height:28px;width:44px;text-align:center;border-radius:8px;background:#111;color:#fff;box-shadow:-3px 0 0 #25f4ee,3px 0 0 #fe2c55}
+}
+@media(max-width:860px){.ig .ring{grid-row:1}.ig .stats{grid-row:1}.li .bts .bt.gray{display:none}}

@@ -187,3 +187,21 @@ h1,h2,h3,h4,.h{font-family:var(--h),Georgia,serif;line-height:1.08;font-weight:6
  .ft .cols{grid-template-columns:1fr}
  .hero-full .wrap{padding-bottom:60px}
 }
+
+/* Responsive : les grilles et textes longs ne débordent jamais */
+html,body{overflow-x:clip}
+.g2>*,.g3>*,.g4>*,.menu>*,.info>*,.info div>*,.ft .cols>*,.hero-split .wrap>*,.mi .tx{min-width:0}
+.info,.info a,.info span,.ft,.muted{overflow-wrap:anywhere}
+img,video,iframe{max-width:100%}
+@media(max-width:600px){
+ .mi{gap:12px;flex-wrap:wrap}.mi .th{width:60px;height:60px}.mi b{font-size:18px}.mi .tx{flex:1 1 150px}
+ .mi .pr{margin-left:auto}
+ .map{height:300px}
+ h1{overflow-wrap:break-word;hyphens:auto}
+}
+@media(max-width:600px){
+ .info div{flex-wrap:wrap}.info div>b,.info div>strong{flex:1 1 auto}
+ .mi{display:grid;grid-template-columns:60px 1fr auto;column-gap:12px;row-gap:2px;align-items:center}
+ .mi .th{grid-row:1/3}.mi .tx{grid-column:2}.mi .pr{grid-column:2;grid-row:2;margin:0;font-size:14px}.mi .add,.mi .btn{grid-column:3;grid-row:1/3}
+}
+.info>div>div{display:block!important}
