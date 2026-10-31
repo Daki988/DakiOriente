@@ -75,7 +75,7 @@ h1,h2,h3,h4,.h{font-family:var(--h),Georgia,serif;line-height:1.08;font-weight:6
 .feat .ic{width:52px;height:52px;border-radius:16px;background:color-mix(in srgb,var(--ac) 14%,transparent);color:var(--ac);display:flex;align-items:center;justify-content:center;flex:none}
 .feat b{display:block;font-size:18px;margin-bottom:2px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
-.stats b{font-family:var(--h);font-size:clamp(40px,4.5vw,64px);color:var(--ac);display:block;line-height:1}
+.stats b{font-family:var(--h);font-size:clamp(40px,4.5vw,64px);color:var(--stat,var(--ac));display:block;line-height:1}
 .quote{border-radius:22px;padding:30px;background:var(--bg);color:var(--ink);box-shadow:0 14px 36px rgba(0,0,0,.07)}
 .quote p{font-family:var(--h);font-size:20px;line-height:1.4;margin:12px 0 16px}
 .stars{color:#f5b301;letter-spacing:2px}

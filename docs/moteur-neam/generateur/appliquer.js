@@ -72,7 +72,7 @@ function apply(p, b, c) {
   if (list.length) b.photos = list;
   b.gallery = [...new Set((j.gallery || refs).concat(ctx).map(url).filter(Boolean))].slice(0, 12);
   // Publications réseaux : chaque élément avec sa propre photo
-  c.feed = off.filter((o) => o.ph).map((o) => ({ img: url(o.ph).replace('../../', ''), t: o.t, d: o.d, pr: o.pr }));
+  c.feed = off.filter((o) => o.ph && url(o.ph)).map((o) => ({ img: url(o.ph).replace('../../', ''), t: o.t, d: o.d, pr: o.pr }));
   c.ambiance = b.gallery.map((u) => u.replace('../../', ''));
   c.seed = hash(b.slug);
 }

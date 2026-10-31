@@ -73,6 +73,17 @@ const PALETTES = {
   boutique: [P('#fff6ea', '#2b1a10', '#ff6b35', '#2ec4b6', '#ffe7cc'), P('#f6fff8', '#16302b', '#e84a5f', '#2a9d8f', '#dff5e7'), P('#fffbf0', '#2d2a5a', '#6c5ce7', '#fdcb6e', '#f0edff'), P('#fdf2f6', '#3a1530', '#d63384', '#20c997', '#fbe0ec')],
   services: [P('#0a1628', '#eef3fb', '#3b82f6', '#22d3ee', '#12233d'), P('#ffffff', '#101828', '#7c3aed', '#06b6d4', '#f4f0ff')],
 };
+// Palettes tirées des logos réels (fond, texte, couleur principale, secondaire, fond doux)
+const LOGO_PAL = {
+  'ab-location': P('#0b0b0b', '#f2f2f2', '#d0201e', '#b1b0b0', '#1a1a1a'),
+  afram: P('#ffffff', '#1b1c4f', '#25267c', '#8a8aa3', '#eceef8'),
+  biolab: P('#ffffff', '#1d0f55', '#301498', '#c0177f', '#f3eefa'),
+  'gabon-management-services': P('#ffffff', '#14231a', '#2e9c3e', '#d6338f', '#eef7ef'),
+  'home-et-co': P('#ffffff', '#2f3537', '#e8961c', '#3d4547', '#f6f3ea'),
+  'hotel-hibiscus': P('#fffdf6', '#2a1b14', '#d81b4f', '#3aa64a', '#fbeef0'),
+  'wanted-immobilier': P('#ffffff', '#3a4646', '#3b9fa1', '#6b7b7b', '#e9f4f4'),
+  'yeshua-real-estate': P('#fbf8f1', '#2a2112', '#b88b2e', '#deca84', '#f3ecdc'),
+};
 const FONTS = {
   hotel: [['Cormorant Garamond', 'Jost'], ['Playfair Display', 'Inter'], ['Italiana', 'Montserrat'], ['Fraunces', 'Work Sans'], ['DM Serif Display', 'DM Sans'], ['Bodoni Moda', 'Manrope']],
   resto: [['Bebas Neue', 'Inter'], ['Fraunces', 'Work Sans'], ['Abril Fatface', 'Lato'], ['Anton', 'Manrope'], ['DM Serif Display', 'DM Sans'], ['Syne', 'Inter']],
@@ -102,7 +113,8 @@ function brandOf(p, idx, sectorIdx) {
   const initials = (words.length > 1 ? words[0][0] + words[1][0] : words[0].slice(0, 2)).toUpperCase();
   const slug = slugify(p.n);
   const pals = PALETTES[p.k], fts = FONTS[p.k];
-  const pal = pals[(sectorIdx + hash(slug)) % pals.length];
+  // Couleurs reprises du vrai logo quand l'entreprise en a un
+  const pal = LOGO_PAL[slug] || pals[(sectorIdx + hash(slug)) % pals.length];
   const font = fts[sectorIdx % fts.length];
   const domain = p.dom && !/fattal|beachclub|hotel-orchidee/.test(p.dom) ? p.dom : (p.dom || slug.replace(/-/g, '') + '.ga');
   const handle = slugify(main).replace(/-/g, '').slice(0, 18) + (/libreville|lbv/.test(slug) ? '' : '241');

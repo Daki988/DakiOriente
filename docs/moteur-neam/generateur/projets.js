@@ -426,6 +426,7 @@ function photo(ref) {
   const [k, n] = ref.split('#');
   const list = PH[k];
   if (!list) throw new Error('Sujet photo inconnu : ' + ref);
+  if (!list.length) return null; // aucune photo exacte disponible
   return list[Math.min((+n || 1) - 1, list.length - 1)];
 }
 const get = (slug) => ALL[slug] || null;

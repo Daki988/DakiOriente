@@ -114,6 +114,11 @@ function extras(p, b, c) {
   return X;
 }
 
+// Couleur des chiffres clés : l'accent s'il se lit bien sur le bandeau sombre, sinon blanc
+const lum = (hex) => { const n = parseInt(hex.slice(1), 16); const c = [n >> 16, (n >> 8) & 255, n & 255].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
+const contrast = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05); };
+function statColor(pal) { const bg = pal.ink; return contrast(pal.accent, bg) >= 3 ? pal.accent : contrast(pal.accent2, bg) >= 3 ? pal.accent2 : (isLight(pal.ink) ? '#111111' : '#ffffff'); }
+
 // ---------- Gabarit commun ----------
 function shell(p, b, c, pages, file, title, body, x) {
   const { pal, font } = b; const onAc = isLight(pal.accent) ? '#111' : '#fff';
@@ -121,7 +126,7 @@ function shell(p, b, c, pages, file, title, body, x) {
   const ctaPage = pages.find(([f]) => /reserv|rendez|inscri|devis|sur-mesure|louer|confier|demande|estimer|commander|contact/.test(f)) || pages[pages.length - 1];
   return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
 <title>${esc(title)} — ${esc(p.n)}</title><meta name="description" content="${esc(c.tagline)} — ${esc(p.s)} à ${esc(p.c)}."><meta property="og:title" content="${esc(p.n)} — ${esc(p.s)} à ${esc(p.c)}"><meta property="og:description" content="${esc(c.tagline)}"><meta property="og:image" content="${esc(b.photos?.[0] || '')}"><script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': ({ hotel: 'Hotel', resto: 'Restaurant', beaute: 'BeautySalon', sante: 'MedicalClinic', immo: 'RealEstateAgent', voyage: 'TravelAgency', auto: 'AutomotiveBusiness', ecole: 'EducationalOrganization' })[p.k] || 'LocalBusiness', name: p.n, telephone: p.t, email: c.email, address: { '@type': 'PostalAddress', streetAddress: c.address, addressLocality: p.c, addressCountry: 'GA' }, openingHours: c.hours[1], url: 'https://www.' + b.domain })}</script>${fontLink(font)}
-<link rel="stylesheet" href="../../assets/site.css"><style>:root{--bg:${pal.bg};--ink:${pal.ink};--ac:${pal.accent};--ac2:${pal.accent2};--soft:${pal.soft};--h:'${font[0]}';--b:'${font[1]}';--on-ac:${onAc};--on-soft:${isLight(pal.soft) ? (isLight(pal.ink) ? pal.bg : pal.ink) : (isLight(pal.ink) ? pal.ink : pal.bg)}}</style></head><body>
+<link rel="stylesheet" href="../../assets/site.css"><style>:root{--bg:${pal.bg};--ink:${pal.ink};--ac:${pal.accent};--ac2:${pal.accent2};--soft:${pal.soft};--h:'${font[0]}';--b:'${font[1]}';--on-ac:${onAc};--stat:${statColor(pal)};--on-soft:${isLight(pal.soft) ? (isLight(pal.ink) ? pal.bg : pal.ink) : (isLight(pal.ink) ? pal.ink : pal.bg)}}</style></head><body>
 <header class="hd"><div class="wrap"><a class="logo" href="index.html">${headerLogo(p, b, { h: 46 })}</a><nav>${nav}</nav><a class="btn sm" href="${ctaPage[0]}">${esc(c.cta)}</a><button class="burger" aria-label="Menu"><i></i><i></i><i></i></button></div></header>
 <main>${body}</main>
 <footer class="ft"><div class="wrap"><div class="cols"><div><div style="height:48px;margin-bottom:14px">${headerLogo(p, b, { h: 44, onDark: true, ink: pal.bg })}</div><p style="opacity:.75;max-width:340px">${esc(lead(c.intro))}.</p><div class="soc"><a href="../../social.html?slug=${b.slug}&net=instagram">IG</a><a href="../../social.html?slug=${b.slug}&net=facebook">f</a><a href="../../social.html?slug=${b.slug}&net=tiktok">TT</a><a href="../../social.html?slug=${b.slug}&net=linkedin">in</a></div></div>
@@ -169,7 +174,7 @@ function pagesFor(p, b, c, x) {
     <section class="sec"><div class="wrap g2"><div class="rv"><div class="cap">Bienvenue</div><h2>${esc(p.n)}</h2><p class="muted">${esc(x.about)}</p><div style="margin-top:26px">${feats(x.values.map((v) => v))}</div></div><div class="ph rv" style="height:520px;border-radius:28px;background-image:url('${ph[3] || ph[1]}')"></div></div></section>
     <section class="sec alt"><div class="wrap"><div class="sechead"><div><div class="cap">${esc(keyPage[1])}</div><h2>Notre sélection</h2></div><a class="btn o" href="${keyPage[0]}">Tout voir →</a></div>${teaser}</div></section>
     ${stats(x)}${quotes(p, x)}
-    <section class="sec"><div class="wrap"><div class="sechead"><div><div class="cap">Galerie</div><h2>En images</h2></div><a class="btn o" href="galerie.html">Voir la galerie →</a></div>${gallery((b.gallery && b.gallery.length >= 3 ? b.gallery : ph).slice(0, 6))}</div></section>
+    <section class="sec"><div class="wrap"><div class="sechead"><div><div class="cap">Galerie</div><h2>En images</h2></div><a class="btn o" href="galerie.html">Voir la galerie →</a></div>${gallery([...new Set((b.gallery || []).concat(ph))].slice(0, 6))}</div></section>
     ${ctaBand(c, actPage, c.tagline)}`);
 
   // ---- Pages métier ----
