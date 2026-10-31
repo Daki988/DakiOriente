@@ -15,7 +15,7 @@ Il ne remplace pas l'avis d'un·e juriste gabonais·e. **Faites-le relire avant 
 ## 2. Ce que le site fait déjà
 
 - Barrière d'âge à l'entrée, case « J'ai 18 ans ou plus » obligatoire à la commande et à l'inscription à la lettre d'info.
-- Photos sobres : aucun corps nu, aucune scène sexuelle. Les produits sont montrés seuls, sur fond blanc. Les dés coquins (J05) s’affichent en illustration neutre ; l’option « Photo discrète » du back-office permet de faire de même pour tout autre produit.
+- Photos sobres : aucun corps nu, aucune scène sexuelle. Les produits sont montrés seuls, sur fond blanc. L’option « Photo discrète » du back-office permet d’afficher une illustration neutre à la place de la photo d’un produit.
 - Mentions légales, CGV et politique de confidentialité, alimentées par les Réglages du back-office.
 - Récapitulatif de commande et accusé de réception à l'écran (numéro, détail, total).
 - Rétractation 14 jours pour les produits scellés, exclusion d'hygiène expliquée.
