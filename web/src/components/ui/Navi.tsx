@@ -11,6 +11,56 @@ import type { Carte } from "@/server/services/navi";
 
 type Msg = { role: "user" | "assistant"; texte: string; cartes?: Carte[]; erreur?: boolean };
 const CLE = "navigoal-navi";
+
+// Bouton déplaçable : glissé à la souris ou au doigt, calé ensuite contre le bord gauche ou droit le plus proche,
+// position mémorisée sur cet appareil (localStorage). Un clic sans déplacement ouvre Navi.
+type Place = { cote: "gauche" | "droite"; bas: number };
+const TAILLE = 64, MARGE = 16;
+const basMin = () => (window.innerWidth < 1024 ? 88 : MARGE); // au-dessus de la barre de navigation mobile
+const borner = (p: Place): Place => ({ cote: p.cote, bas: Math.round(Math.min(Math.max(p.bas, basMin()), window.innerHeight - TAILLE - MARGE)) });
+function useDeplacable() {
+  const [place, setPlace] = useState<Place | null>(null);
+  const [glisse, setGlisse] = useState<{ x: number; y: number } | null>(null);
+  const depart = useRef<{ px: number; py: number; ox: number; oy: number } | null>(null);
+  const aBouge = useRef(false);
+  useEffect(() => {
+    try { const v = localStorage.getItem(`${CLE}-place`); if (v) setPlace(borner(JSON.parse(v) as Place)); } catch { /* stockage indisponible */ }
+    const redim = () => setPlace((p) => (p ? borner(p) : p));
+    window.addEventListener("resize", redim);
+    return () => window.removeEventListener("resize", redim);
+  }, []);
+  const poignee = {
+    onPointerDown: (e: React.PointerEvent<HTMLElement>) => {
+      const r = e.currentTarget.getBoundingClientRect();
+      depart.current = { px: e.clientX, py: e.clientY, ox: r.left, oy: r.top };
+      aBouge.current = false;
+      e.currentTarget.setPointerCapture(e.pointerId);
+    },
+    onPointerMove: (e: React.PointerEvent<HTMLElement>) => {
+      const d = depart.current;
+      if (!d) return;
+      const dx = e.clientX - d.px, dy = e.clientY - d.py;
+      if (!aBouge.current && Math.hypot(dx, dy) < 6) return;
+      aBouge.current = true;
+      setGlisse({ x: Math.min(Math.max(d.ox + dx, 8), window.innerWidth - TAILLE - 8), y: Math.min(Math.max(d.oy + dy, 8), window.innerHeight - TAILLE - 8) });
+    },
+    onPointerUp: (e: React.PointerEvent<HTMLElement>) => {
+      depart.current = null;
+      if (!aBouge.current) return;
+      const x = e.clientX, y = e.clientY;
+      const p = borner({ cote: x < window.innerWidth / 2 ? "gauche" : "droite", bas: window.innerHeight - y - TAILLE / 2 });
+      setPlace(p);
+      setGlisse(null);
+      try { localStorage.setItem(`${CLE}-place`, JSON.stringify(p)); } catch { /* stockage indisponible */ }
+    },
+  };
+  /** À appeler dans onClick : faux si le geste était un déplacement. */
+  const clicVrai = () => { const ok = !aBouge.current; aBouge.current = false; return ok; };
+  const style: React.CSSProperties | undefined = glisse
+    ? { left: glisse.x, top: glisse.y, right: "auto", bottom: "auto" }
+    : place ? (place.cote === "gauche" ? { left: MARGE, right: "auto", bottom: place.bas } : { right: MARGE, left: "auto", bottom: place.bas }) : undefined;
+  return { poignee, clicVrai, style, enGlisse: !!glisse, aGauche: place?.cote === "gauche" && !glisse };
+}
 const lire = <T,>(k: string, d: T): T => { try { const v = sessionStorage.getItem(k); return v ? (JSON.parse(v) as T) : d; } catch { return d; } };
 const ecrire = (k: string, v: unknown) => { try { sessionStorage.setItem(k, JSON.stringify(v)); } catch { /* stockage indisponible */ } };
 
@@ -95,7 +145,7 @@ function Cartes({ cartes, whatsapp, resume, onSuggestion, fermer }: { cartes: Ca
 
 // Mascotte de Navi : fennec futé en 3D (public/brand/navi-fennec.webp).
 // eslint-disable-next-line @next/next/no-img-element -- petite image statique, déjà optimisée (WebP 8 Ko)
-const Fennec = ({ className }: { className: string }) => <img src="/brand/navi-fennec.webp" alt="" width={200} height={200} className={`shrink-0 bg-white object-cover ${className}`} />;
+const Fennec = ({ className }: { className: string }) => <img src="/brand/navi-fennec.webp" alt="" draggable={false} width={200} height={200} className={`shrink-0 bg-white object-cover ${className}`} />;
 const Avatar = () => <Fennec className="mt-0.5 h-8 w-8 rounded-full ring-1 ring-brand-100" />;
 
 export function Navi() {
@@ -110,6 +160,7 @@ export function Navi() {
   const [whatsapp, setWhatsapp] = useState<string | null>(null);
   const [bulle, setBulle] = useState(false);
   const [ecoute, setEcoute] = useState(false);
+  const deplace = useDeplacable();
   const fil = useRef<HTMLDivElement>(null);
   const champ = useRef<HTMLTextAreaElement>(null);
   const annule = useRef<AbortController | null>(null);
@@ -206,9 +257,9 @@ export function Navi() {
   return (
     <>
       {!ouvert && (
-        <div className="fixed bottom-24 right-4 z-40 flex items-center gap-3 lg:bottom-6 lg:right-6 print:hidden">
-          {bulle && question && <button type="button" onClick={() => { setOuvert(true); void envoyer(question); }} className="hidden rounded-full border border-slate-200 bg-white px-4 py-2.5 text-[13.5px] font-bold text-ink shadow-[0_10px_30px_-12px_rgba(11,21,51,.35)] sm:block">{question}</button>}
-          <button type="button" onClick={() => setOuvert(true)} aria-label="Ouvrir Navi, l'assistant Navigoal" className="relative h-16 w-16 rounded-full bg-white p-0.5 ring-[3px] ring-brand-600 shadow-[0_14px_34px_-10px_rgba(26,71,245,.6)] transition hover:-rotate-6 hover:scale-105">
+        <div style={deplace.style} className={`fixed bottom-24 right-4 z-40 flex items-center gap-3 lg:bottom-6 lg:right-6 print:hidden ${deplace.aGauche ? "flex-row-reverse" : ""}`}>
+          {bulle && question && !deplace.enGlisse && <button type="button" onClick={() => { setOuvert(true); void envoyer(question); }} className="hidden rounded-full border border-slate-200 bg-white px-4 py-2.5 text-[13.5px] font-bold text-ink shadow-[0_10px_30px_-12px_rgba(11,21,51,.35)] sm:block">{question}</button>}
+          <button type="button" {...deplace.poignee} onClick={() => { if (deplace.clicVrai()) setOuvert(true); }} aria-label="Ouvrir Navi, l'assistant Navigoal (vous pouvez déplacer ce bouton)" title="Cliquer pour discuter · glisser pour déplacer" className={`relative h-16 w-16 touch-none select-none rounded-full bg-white p-0.5 ring-[3px] ring-brand-600 shadow-[0_14px_34px_-10px_rgba(26,71,245,.6)] transition ${deplace.enGlisse ? "scale-110 cursor-grabbing shadow-[0_24px_44px_-12px_rgba(26,71,245,.7)]" : "cursor-grab hover:-rotate-6 hover:scale-105"}`}>
             <Fennec className="h-full w-full rounded-full" />
             <span aria-hidden className="absolute -right-0.5 -top-0.5 h-4 w-4 rounded-full border-2 border-white bg-[#22c55e]" />
           </button>
