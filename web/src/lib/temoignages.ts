@@ -6,6 +6,8 @@ import { metierById } from "@/lib/data";
 export type Temoignage = {
   id: string; metier: string; personne: string; role: string; lieu: string;
   type: "article" | "video" | "radio" | "podcast"; media: string; date: string | null; url: string; citation: string | null; resume: string;
+  /** Lecteur officiel intégrable (YouTube sans cookies, Onisep TV), lu sur Navigoal au clic. */
+  video: string | null;
 };
 
 export const temoignages = temoignagesData as Temoignage[];
@@ -22,3 +24,4 @@ export const temoignagesDuDomaine = (id: string, n = 3) => {
 const MOIS = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."];
 export const dateTemoignage = (d: string | null) => (d ? `${MOIS[Number(d.slice(5, 7)) - 1]} ${d.slice(0, 4)}` : null);
 export const initiales = (n: string) => n.replace(/^(Dr|Me|Capitaine)\s+/, "").split(/\s+/).slice(0, 2).map((x) => x[0]).join("").toUpperCase();
+export { plateforme } from "@/lib/plateforme-video";

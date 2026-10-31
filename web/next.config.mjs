@@ -1,5 +1,5 @@
 // Politique de sécurité du contenu : ressources du site uniquement (images https autorisées), pas d'objets ni d'intégration
-// par un autre site. 'unsafe-inline' reste nécessaire aux scripts d'hydratation de Next.js et au JSON-LD.
+// par un autre site ; seules les vidéos des témoignages (lecteurs officiels YouTube sans cookies et Onisep TV) sont intégrées. 'unsafe-inline' reste nécessaire aux scripts d'hydratation de Next.js et au JSON-LD.
 const CSP = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
@@ -7,7 +7,7 @@ const CSP = [
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
   "connect-src 'self'",
-  "frame-src 'self'",
+  "frame-src 'self' https://www.youtube-nocookie.com https://videos.onisep.fr",
   "frame-ancestors 'self'",
   "object-src 'none'",
   "base-uri 'self'",

@@ -1,8 +1,9 @@
 import Link from "@/components/ui/Link";
 import { ArrowRight, Briefcase, CirclePlay, ExternalLink, Library, Mic, Newspaper, Quote, Radio, ShieldCheck } from "lucide-react";
 import { domStyle } from "@/components/ui/Cards";
+import { VideoTemoignage } from "@/components/ui/VideoTemoignage";
 import { metierById } from "@/lib/data";
-import { dateTemoignage, initiales, temoignagesDuDomaine, temoignagesDuMetier, type Temoignage } from "@/lib/temoignages";
+import { dateTemoignage, initiales, plateforme, temoignagesDuDomaine, temoignagesDuMetier, type Temoignage } from "@/lib/temoignages";
 
 const TYPE = { article: [Newspaper, "Article", "Lire le témoignage"], video: [CirclePlay, "Vidéo", "Voir la vidéo"], radio: [Radio, "Radio", "Écouter"], podcast: [Mic, "Podcast", "Écouter"] } as const;
 const couleur = (t: Temoignage) => domStyle(metierById[t.metier]?.domaine ?? "").solid;
@@ -22,6 +23,7 @@ export function TemoignageCarte({ t, grand = false, lienMetier = false }: { t: T
         <div className="min-w-0 flex-1"><b className={grand ? "text-[17px]" : "text-[15px]"}>{t.personne}</b><p className="text-xs text-ink-mute">{t.role} · {t.lieu}</p></div>
         <span className="chip shrink-0 bg-brand-50 text-[11px] text-brand-700"><Icon size={12} />{type}</span>
       </div>
+      {t.video && <VideoTemoignage video={t.video} titre={`${t.personne}, ${t.role}`} media={t.media} couleur={couleur(t)} />}
       {t.citation && (
         <blockquote className={`relative rounded-r-[14px] border-l-4 border-sun-400 bg-[#fffbea] ${grand ? "px-4 py-3.5" : "px-3.5 py-3"}`}>
           <Quote aria-hidden size={18} className="absolute -top-2.5 left-2 fill-sun-400 text-sun-400" />
@@ -31,7 +33,7 @@ export function TemoignageCarte({ t, grand = false, lienMetier = false }: { t: T
       <p className={`leading-relaxed text-ink-soft ${grand ? "text-[15px]" : "text-[13.5px]"}`}>{t.resume}</p>
       <div className="mt-auto flex flex-wrap items-center justify-between gap-2.5 border-t border-[#eef1f8] pt-3">
         <span className="text-xs text-ink-mute">Source : <b className="text-ink-soft">{t.media}</b>{date && ` · ${date}`}</span>
-        <a href={t.url} target="_blank" rel="noopener noreferrer" className="btn-ghost px-3 py-1.5 text-[12.5px]">{lien}<ExternalLink size={13} /></a>
+        <a href={t.url} target="_blank" rel="noopener noreferrer" className="btn-ghost px-3 py-1.5 text-[12.5px]">{t.video ? `Voir sur ${plateforme(t.video)}` : lien}<ExternalLink size={13} /></a>
       </div>
       {lienMetier && metierById[t.metier] && <Link href={`/metiers/${t.metier}/`} className="flex items-center gap-1.5 text-xs font-extrabold text-brand-600 hover:underline"><Briefcase size={12} />Fiche métier : {metierById[t.metier].nom}<ArrowRight size={12} /></Link>}
     </article>
