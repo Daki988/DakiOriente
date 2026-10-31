@@ -273,7 +273,7 @@
   }
 
   /* « Souvent ajoutés ensemble » */
-  var PAIRS = { elle: ["G01", "P02", "L01"], godes: ["G01", "P01", "D03"], couple: ["P03", "H02", "B01"], lingerie: ["B01", "V09", "L08"], essentiels: ["G01", "P03", "H02"], sensualite: ["B01", "H02", "S01"], coffrets: ["P03", "G01", "L07"] };
+  var PAIRS = { elle: ["G01", "P02", "L01"], godes: ["G01", "P01", "D03"], couple: ["J05", "P03", "H02"], lingerie: ["B01", "V09", "L08"], essentiels: ["G01", "P03", "H02"], sensualite: ["B01", "H02", "S01"], coffrets: ["J05", "G01", "L07"], jeux: ["J05", "P03", "B01"] };
   function crossSellHTML(p) {
     var ids = (PAIRS[p.cat] || []).filter(function (id) { return id !== p.id && byId[id]; }).slice(0, 3);
     if (!ids.length) return "";
@@ -338,7 +338,7 @@
       '<div class="grand"><span>Total</span><span>' + fcfa(t.total) + "</span></div></div>" +
       '<button class="btn btn--primary btn--full" id="to-checkout">Commander, payer à la livraison →</button>' +
       '<p class="reassure">📦 Colis neutre · 🔒 Aucun compte · 💵 Rien à payer en ligne</p>';
-    var sugg = ["P03", "G01", "P01", "V10"].filter(function (id) { return !cart[id]; }).slice(0, 2);
+    var sugg = ["J05", "P03", "G01", "P01"].filter(function (id) { return !cart[id]; }).slice(0, 2);
     if (sugg.length) {
       $("#cart-items").insertAdjacentHTML("beforeend", '<div class="xsell xsell--cart"><p class="xsell__title">Pensez-y</p><div class="xsell__list">' + sugg.map(function (id) {
         var q = byId[id];

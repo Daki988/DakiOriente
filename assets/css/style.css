@@ -841,3 +841,14 @@ body.locked .toast.show { transform: translate(-50%, 0); }
 .coll .coll__txt { max-width: 100%; }
 .coll, .coll:nth-child(-n+2), .coll:nth-child(-n+3) { min-height: 330px; }
 .coll:nth-child(-n+3) h3 { font-size: 1.6rem; }
+
+/* Huit collections : deux rangées de quatre */
+.coll, .coll:nth-child(-n+2), .coll:nth-child(-n+3) { grid-column: span 3; min-height: 320px; }
+.coll:nth-child(-n+3) h3 { font-size: 1.25rem; }
+.coll:nth-child(8) { background: #f0eefb; }
+@media (max-width: 1100px) {
+  .coll, .coll:nth-child(-n+2), .coll:nth-child(-n+3), .coll:nth-child(7) { grid-column: span 6; }
+}
+@media (max-width: 560px) {
+  .coll, .coll:nth-child(-n+2), .coll:nth-child(-n+3), .coll:nth-child(n+3), .coll:nth-child(7) { grid-column: auto; }
+}

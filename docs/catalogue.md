@@ -1,6 +1,6 @@
 # Catalogue Daki Oriente
 
-Source : plan de commande « boutique intime — 500 000 FCFA » du 30/10/2026 (vente à Libreville,
+Source : plan de commande « boutique intime — 650 000 FCFA » du 30/10/2026 (vente à Libreville,
 achat AliExpress / Amazon via transitaire). Prix de vente repris tels quels.
 Coût unitaire = achat + fret + taxes d'importation estimées (voir le plan).
 
@@ -30,7 +30,7 @@ Coût unitaire = achat + fret + taxes d'importation estimées (voir le plan).
 | L02 | Ensemble Brodé Push-up | 16 500 F | 7 104 F | 1 | https://fr.aliexpress.com/item/1005007317225540.html |
 | L03 | Ensemble 5 Pièces Porte-jarretelles | 26 000 F | 12 225 F | 1 | https://fr.aliexpress.com/item/3256808102634327.html |
 | L04 | Soutien-gorge & Porte-jarretelles | 23 000 F | 11 437 F | 1 | https://fr.aliexpress.com/item/3256808977081445.html |
-| L05 | Combinaison Résille Intégrale | 11 500 F | 4 887 F | 1 | https://fr.aliexpress.com/item/3256809358675412.html |
+| L05 | Combinaison Résille Intégrale | 11 500 F | 4 887 F | 2 | https://fr.aliexpress.com/item/3256809358675412.html |
 | L06 | Body Résille Manches Longues | 13 000 F | 4 494 F | 1 | https://fr.aliexpress.com/item/3256806177522838.html |
 | L07 | Nuisette Dentelle 2 Pièces | 17 500 F | 8 939 F | 1 | https://fr.aliexpress.com/item/3256810252976023.html |
 | L08 | Porte-jarretelles & Bas Dentelle | 16 500 F | 8 699 F | 2 | https://fr.aliexpress.com/item/3256809228337744.html |
@@ -39,8 +39,8 @@ Coût unitaire = achat + fret + taxes d'importation estimées (voir le plan).
 
 | Réf. | Nom sur le site | Prix de vente | Coût unitaire | Qté | Où acheter |
 |---|---|---|---|---|---|
-| P01 | Préservatifs INTIMY Classic ×14 | 9 000 F | 5 009 F | 1 | https://www.amazon.fr/dp/B082VVRV37 |
-| P02 | Durex Feeling Extra ×20 | 15 000 F | 9 282 F | 1 | https://www.amazon.fr/dp/B0BQRFZR94 |
+| P01 | Préservatifs INTIMY Classic ×14 | 9 000 F | 5 009 F | 3 | https://www.amazon.fr/dp/B082VVRV37 |
+| P02 | Durex Feeling Extra ×20 | 15 000 F | 9 282 F | 2 | https://www.amazon.fr/dp/B0BQRFZR94 |
 | P03 | Préservatifs Fluorescents EXS Glow ×3 | 3 000 F | 1 741 F | 33 | https://condoms.uk/products/exs-glow-in-the-dark-condoms (lot de 100 à reconditionner) |
 | G01 | Lubrifiant INTIMY Classic 150 ml | 11 000 F | 7 747 F | 2 | https://www.amazon.fr/dp/B00APPGBYO |
 | G02 | Lubrifiant à Base d'Eau 200 ml | 11 000 F | 6 561 F | 1 | https://fr.aliexpress.com/item/3256808955182818.html |
@@ -53,16 +53,26 @@ Coût unitaire = achat + fret + taxes d'importation estimées (voir le plan).
 | H02 | Gel de Massage Durex 2-en-1 Ylang-Ylang | 15 000 F | 10 005 F | 2 | https://www.amazon.fr/dp/B007EE2GRK |
 | H03 | Huile Corps Relaxante Vanille | 13 500 F | 7 043 F | 1 | https://fr.aliexpress.com/item/3256809434387691.html |
 | B01 | Bougie de Massage | 17 500 F | 9 513 F | 1 | https://fr.aliexpress.com/item/1005008375638086.html |
-| B02 | Bougie Parfumée Cire de Soja | 12 500 F | 7 434 F | 1 | https://fr.aliexpress.com/item/3256808372813326.html |
+| B02 | Bougie Parfumée Cire de Soja | 12 500 F | 7 434 F | 2 | https://fr.aliexpress.com/item/3256808372813326.html |
 | B03 | Bougie Aromathérapie en Verre | 15 000 F | 8 617 F | 1 | https://fr.aliexpress.com/item/3256807958475935.html |
-| S01 | Diffuseur à Bâtonnets 50 ml | 10 500 F | 5 052 F | 1 | https://fr.aliexpress.com/item/3256808243588807.html |
+| S01 | Diffuseur à Bâtonnets 50 ml | 10 500 F | 5 052 F | 2 | https://fr.aliexpress.com/item/3256808243588807.html |
 | S02 | Diffuseur à Bâtonnets 200 ml | 18 000 F | 10 281 F | 1 | https://fr.aliexpress.com/item/3256809956287949.html |
+
+## Jeux de couple (en français)
+
+| Réf. | Nom sur le site | Prix de vente | Coût unitaire | Qté | Où acheter |
+|---|---|---|---|---|---|
+| J01 | Jeu Osmooz Red pour Couples | 30 000 F | 17 237 F | 1 | https://www.amazon.fr/dp/B0BF6192CK |
+| J02 | Action ou Vérité Hot & Sexy | 19 500 F | 10 483 F | 2 | https://www.amazon.fr/dp/B08J1Y6Y7C |
+| J03 | 69 Défis Hot pour Couple | 15 000 F | 8 010 F | 2 | https://www.amazon.fr/dp/B0CK3MYNN9 |
+| J04 | Cartes Kama Sutra Illustrées | 12 500 F | 6 415 F | 1 | https://www.amazon.fr/dp/B0072JKRPU |
+| J05 | Dés Coquins Phosphorescents ×2 | 6 000 F | 2 346 F | 3 | https://fr.aliexpress.com/item/3256805791724733.html |
 
 ## Coffrets (recommandés dans le plan)
 
 | Réf. | Nom sur le site | Contenu | Prix du coffret | Prix séparés |
 |---|---|---|---|---|
-| PK1 | Coffret Soirée à Deux | B01 + H02 + P03 | 33 000 F | 35 500 F |
+| PK1 | Coffret Soirée à Deux | B01 + H02 + P03 + J05 | 39 000 F | 41 500 F |
 | PK2 | Coffret Découverte | V01 + G01 + S01 | 31 000 F | 39 000 F |
 
 ## Photos

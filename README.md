@@ -6,7 +6,7 @@ Boutique statique au thème clair (HTML/CSS/JS, aucune dépendance). Ouvrez `ind
 - Vérification d'âge 18+ à l'entrée
 - Bouton « Sortie rapide » + double appui sur Échap pour quitter le site instantanément
 - Titre d'onglet neutre, `noindex`, panier stocké uniquement sur l'appareil
-- Catalogue du plan de commande : 34 produits en 6 collections + 2 coffrets (voir `docs/catalogue.md`), recherche, tri
+- Catalogue du plan de commande : 39 produits en 7 collections + 2 coffrets (voir `docs/catalogue.md`), recherche, tri
 - Fiche produit, panier avec barre « livraison offerte », commande sans compte
 - Commande envoyée en récapitulatif WhatsApp, paiement à la livraison (espèces, Airtel Money, Moov Money)
 - Suivi de commande sur sa propre page (`suivi.html`) : créneau de livraison, étapes, position du livreur, historique, consignes de livraison (voir `docs/SUIVI.md`)

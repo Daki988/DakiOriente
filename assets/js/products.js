@@ -10,6 +10,7 @@ window.CATEGORIES = [
   { id: "lingerie", label: "Lingerie", short: "Lingerie", hint: "Dentelle, résille, porte-jarretelles", art: "lingerie", hue: 340 },
   { id: "essentiels", label: "Préservatifs & lubrifiants", short: "Protection", hint: "Grandes marques, confort", art: "bottle", hue: 200 },
   { id: "sensualite", label: "Massage & ambiance", short: "Ambiance", hint: "Huiles, bougies, diffuseurs", art: "candle", hue: 30 },
+  { id: "jeux", label: "Jeux coquins", short: "Jeux", hint: "Cartes, défis et dés pour deux", art: "kit", hue: 350 },
   { id: "coffrets", label: "Coffrets", short: "Coffrets", hint: "Nos duos et trios à prix doux", art: "kit", hue: 345 }
 ];
 
@@ -162,11 +163,33 @@ window.PRODUCTS = [
     desc: "Le grand format, pour une ambiance parfumée qui dure longtemps. Élégant dans une chambre comme dans un salon.",
     points: ["200 ml", "Longue durée", "Sans flamme"] },
 
+  // Jeux de couple (en français)
+  { id: "J01", cat: "jeux", name: "Jeu Osmooz Red pour Couples", price: 30000, art: "kit", hue: 350, badge: "Best-seller",
+    tags: ["couple", "cadeau", "inter", "seduire"],
+    desc: "Le jeu de cartes JUDUKU Osmooz, version Red : des questions et des défis pour se (re)découvrir en profondeur. En français.",
+    points: ["Jeu de cartes pour 2", "En français", "Pour se redécouvrir"] },
+  { id: "J02", cat: "jeux", name: "Action ou Vérité Hot & Sexy", price: 19500, art: "kit", hue: 280,
+    tags: ["couple", "cadeau", "debut", "seduire"],
+    desc: "Le grand classique, version coquine : à chaque tour, une question indiscrète ou un défi à relever. En français.",
+    points: ["Action ou vérité", "Version hot", "En français"] },
+  { id: "J03", cat: "jeux", name: "69 Défis Hot pour Couple", price: 15000, art: "kit", hue: 0,
+    tags: ["couple", "cadeau", "inter", "seduire", "intense"],
+    desc: "69 défis pour pimenter votre vie à deux, à piocher au hasard ou à choisir ensemble. En français.",
+    points: ["69 défis", "Pour tous les couples", "En français"] },
+  { id: "J04", cat: "jeux", name: "Cartes Kama Sutra Illustrées", price: 12500, art: "kit", hue: 330,
+    tags: ["couple", "cadeau", "inter", "seduire"],
+    desc: "Un jeu de 54 cartes illustrées, une position par carte, sans texte. Tirez une carte… et laissez-vous guider.",
+    points: ["54 positions", "Illustrées, sans texte", "Format jeu de cartes"] },
+  { id: "J05", cat: "jeux", name: "Dés Coquins Phosphorescents ×2", price: 6000, art: "kit", hue: 120, badge: "Idéal pour débuter",
+    tags: ["couple", "cadeau", "debut", "seduire"],
+    desc: "Lancez les deux dés : l'un dit quoi, l'autre dit où. Ils brillent dans le noir, pour jouer lumières éteintes.",
+    points: ["Lot de 2 dés", "Phosphorescents", "Petit prix, grand effet"] },
+
   // Coffrets (prix barré = somme des produits achetés séparément)
-  { id: "PK1", cat: "coffrets", name: "Coffret Soirée à Deux", price: 33000, old: 35500, art: "kit", hue: 345, badge: "Malin",
+  { id: "PK1", cat: "coffrets", name: "Coffret Soirée à Deux", price: 39000, old: 41500, art: "kit", hue: 345, badge: "Malin",
     tags: ["couple", "cadeau", "seduire", "doux"],
-    desc: "La bougie de massage, le gel Durex 2-en-1 et des préservatifs fluorescents : tout ce qu'il faut pour une soirée à deux réussie, du massage jusqu'au bout de la nuit.",
-    points: ["Bougie de massage", "Gel de massage Durex 2-en-1", "Préservatifs fluorescents ×3"] },
+    desc: "La bougie de massage, le gel Durex 2-en-1, des préservatifs fluorescents et des dés coquins : tout ce qu'il faut pour une soirée à deux réussie, du massage jusqu'au bout de la nuit.",
+    points: ["Bougie de massage + gel Durex 2-en-1", "Préservatifs fluorescents ×3", "Dés coquins phosphorescents ×2"] },
   { id: "PK2", cat: "coffrets", name: "Coffret Découverte", price: 31000, old: 39000, art: "kit", hue: 330, badge: "Malin",
     tags: ["moi", "cadeau", "debut", "doux", "intense"],
     desc: "Le stimulateur Rose à succion, un lubrifiant INTIMY et un diffuseur parfumé : le trio idéal pour une première découverte, dans une ambiance soignée.",
