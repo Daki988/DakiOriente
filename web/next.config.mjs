@@ -32,7 +32,12 @@ const nextConfig = {
       { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
       { key: "X-Frame-Options", value: "SAMEORIGIN" },
       { key: "Permissions-Policy", value: "camera=(self), geolocation=(self)" },
-    ] }];
+    ] },
+    // Cache de l'hébergeur (LWS Fastest Cache / Varnish) : Next annonce s-maxage=1 an pour les pages pré-rendues ;
+    // CDN-Cache-Control, prioritaire pour Varnish, limite les pages HTML à 5 minutes (les fichiers /_next/static,
+    // versionnés, restent en cache long). Les déploiements purgent en plus tout le cache.
+    { source: "/((?!_next/static|api/).*)", headers: [{ key: "CDN-Cache-Control", value: "public, max-age=300" }] },
+    { source: "/api/:path*", headers: [{ key: "CDN-Cache-Control", value: "no-store" }] }];
   },
 };
 

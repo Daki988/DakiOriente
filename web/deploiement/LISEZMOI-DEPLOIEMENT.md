@@ -83,6 +83,13 @@ par l'école, sinon adresse provisoire `@acces.navigoal.net` à compléter dans 
 les mots de passe provisoires dans `navigoal/acces/` (dossier privé). Transmettez-les aux écoles (ou utilisez
 « Envoyer les accès non utilisés » dans le back-office), puis supprimez le fichier.
 
+## 2 quinquies. Cache de l'hébergeur (Fastest Cache)
+
+LWS place un cache Varnish devant le site. Les pages HTML y restent 5 minutes au plus (en-tête `CDN-Cache-Control`),
+les fichiers `/_next/static` (versionnés) plus longtemps, les réponses `/api` jamais. **Après chaque mise à jour**,
+videz-le (Terminal cPanel ou tâche Cron) : `curl -s -X PURGE 'https://navigoal.net/.*'`, ou cPanel › Performances ›
+Fastest Cache › « Purger le cache ».
+
 ## 3. Envoi des fichiers
 
 1. cPanel › **Gestionnaire de fichiers** : placez-vous dans votre dossier personnel `/home/IDENTIFIANT`
