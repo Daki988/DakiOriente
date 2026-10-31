@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Skin Technology by Latania — Le soin qui vous ressemble</title>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/sig.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Jost,sans-serif;color:#2d2338;background:linear-gradient(160deg,#ead9e6 0%,#d8bfd3 45%,#c4a9c9 100%) fixed;overflow-x:hidden}
+canvas{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
+nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:24px 48px;z-index:10}
+.brand{font-family:Marcellus,serif;font-size:19px;letter-spacing:4px}
+.brand small{display:block;font-family:Jost;font-size:10px;letter-spacing:5px;opacity:.6}
+nav .r{display:flex;gap:26px;font-size:13px;align-items:center}
+.pill{background:#2d2338;color:#fff;padding:11px 20px;border-radius:999px;font-size:13px;text-decoration:none}
+.step{height:100vh;position:relative;z-index:2;display:flex;align-items:center;padding:0 7%}
+.box{max-width:420px}
+.tag{display:inline-block;font-size:11px;letter-spacing:3px;text-transform:uppercase;background:rgba(255,255,255,.55);padding:6px 12px;border-radius:999px;margin-bottom:18px}
+h1,h2{font-family:Marcellus,serif;font-weight:400;line-height:1.02}
+h1{font-size:clamp(46px,5.6vw,86px)}
+h2{font-size:clamp(36px,4.2vw,64px)}
+.box p{font-size:16px;line-height:1.75;margin-top:18px;opacity:.85}
+.right{margin-left:auto;text-align:right}
+.right .box{margin-left:auto}
+.side{position:fixed;right:40px;top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;gap:14px}
+.side i{width:8px;height:8px;border-radius:50%;background:#2d2338;opacity:.25;transition:all .4s;display:block}
+.side i.on{opacity:1;height:28px;border-radius:6px}
+.count{position:fixed;left:48px;bottom:30px;z-index:10;font-size:12px;letter-spacing:2px;opacity:.7}
+.soins{position:relative;z-index:2;background:#f6f1fa;padding:120px 7%}
+.soins h2{margin-bottom:40px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.c{background:#fff;border-radius:22px;padding:28px;transition:transform .4s,box-shadow .4s}
+.c:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(45,35,56,.12)}
+.c b{font-family:Marcellus,serif;font-weight:400;font-size:24px;display:block;margin:14px 0 6px}
+.c span{font-size:13px;opacity:.65}
+.c .pr{margin-top:18px;font-weight:500;color:#8e6bb3}
+.c .ic{width:44px;height:44px;border-radius:12px;background:#e9def4;display:flex;align-items:center;justify-content:center;color:#8e6bb3;font-size:20px}
+.book{position:relative;z-index:2;background:#2d2338;color:#f6f1fa;padding:110px 7%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.slots{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.slots span{border:1px solid rgba(255,255,255,.3);padding:10px 16px;border-radius:12px;cursor:pointer}
+.slots span.on,.slots span:hover{background:#e7a9b8;color:#2d2338;border-color:#e7a9b8}
+footer{position:relative;z-index:2;background:#1f1828;color:#cbbfd6;padding:40px 7%;display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:12px}
+@media(max-width:800px){nav{padding:18px 20px}nav .r span{display:none}.grid{grid-template-columns:1fr 1fr}.book{grid-template-columns:1fr}.side{display:none}.step{align-items:flex-end;padding-bottom:90px}}
+</style></head>
+<body>
+<canvas id="c"></canvas>
+<nav><div class="brand">SKIN TECHNOLOGY<small>BY LATANIA</small></div><div class="r"><span>Soins</span><span>Diagnostic</span><span>Fondatrice</span><a class="pill" href="#rdv">Réserver</a></div></nav>
+<div class="side" id="side"><i class="on"></i><i></i><i></i><i></i></div>
+<div class="count" id="count">01 — La cellule</div>
+
+<div class="step"><div class="box"><div class="tag">Institut · Libreville</div><h1>Le soin qui vous ressemble</h1><p>Diagnostic de peau, protocoles sur mesure et technologies de pointe. Chaque peau a son histoire : nous la lisons avant de la soigner.</p></div></div>
+<div class="step right"><div class="box"><div class="tag">Collagène</div><h2>Relancer ce que le temps ralentit</h2><p>Microneedling et peelings ciblés stimulent la production naturelle de collagène : texture affinée, cicatrices estompées.</p></div></div>
+<div class="step"><div class="box"><div class="tag">La fondatrice</div><h2>Tania « Latania » Akpovi</h2><p>Formée aux protocoles des cliniques de Chicago, Latania rapporte à Libreville une approche scientifique et bienveillante du soin de la peau.</p></div></div>
+<div class="step right"><div class="box"><div class="tag">Hydratation</div><h2>Une peau qui boit, une peau qui brille</h2><p>Hydrafacial et soins éclat : nettoyage profond, extraction douce et sérums infusés. Résultat visible dès la première séance.</p></div></div>
+
+<section class="soins"><h2>Nos protocoles</h2><div class="grid">
+<div class="c"><div class="ic">◎</div><b>Diagnostic de peau</b><span>Analyse et protocole personnalisé</span><div class="pr">10 000 FCFA</div></div>
+<div class="c"><div class="ic">✦</div><b>Peeling éclat</b><span>Taches et teint terne</span><div class="pr">35 000 FCFA</div></div>
+<div class="c"><div class="ic">⁂</div><b>Microneedling</b><span>Texture et cicatrices</span><div class="pr">50 000 FCFA</div></div>
+<div class="c"><div class="ic">◌</div><b>Hydrafacial</b><span>Nettoyage profond</span><div class="pr">40 000 FCFA</div></div>
+</div></section>
+<section class="book" id="rdv"><div><h2>Votre diagnostic, en ligne</h2><p style="margin-top:18px;opacity:.8;line-height:1.8">Choisissez un créneau, nous vous confirmons par WhatsApp au 074 59 26 55.</p></div><div><b>Jeudi 6 novembre</b><div class="slots"><span>10:00</span><span>11:30</span><span class="on">14:00</span><span>15:30</span><span>17:00</span></div></div></section>
+<footer><span>© 2026 Skin Technology by Latania · Libreville</span><span>Instagram · TikTok</span><span>Site réalisé par NEAM</span></footer>
+<a class="neam-back" href="javascript:history.length>1?history.back():location.href='../../index.html'">← <b>Neam</b> · retour aux résultats</a>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+const N = 14000;
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100); camera.position.z = 11;
+
+// ---------- Formes cibles ----------
+const rnd = (a = 1) => (Math.random() - .5) * 2 * a;
+function sphere() { const a = new Float32Array(N * 3); for (let i = 0; i < N; i++) { const u = Math.random(), v = Math.random(), th = 2 * Math.PI * u, ph = Math.acos(2 * v - 1), r = 2.6 + (i % 7 === 0 ? rnd(.9) : rnd(.08)); a.set([r * Math.sin(ph) * Math.cos(th), r * Math.sin(ph) * Math.sin(th), r * Math.cos(ph)], i * 3); } return a; }
+function helix() { const a = new Float32Array(N * 3); for (let i = 0; i < N; i++) { const t = (i / N) * 12 * Math.PI - 6 * Math.PI, strand = i % 3, y = t * 0.17; let x, z; if (strand < 2) { const o = strand * Math.PI; x = Math.cos(t + o) * 1.5; z = Math.sin(t + o) * 1.5; } else { const k = Math.random(); x = Math.cos(t) * 1.5 * (1 - 2 * k); z = Math.sin(t) * 1.5 * (1 - 2 * k); } a.set([x + rnd(.06), y + rnd(.05), z + rnd(.06)], i * 3); } return a; }
+function text(str) { const c = document.createElement('canvas'); c.width = 900; c.height = 220; const g = c.getContext('2d'); g.fillStyle = '#000'; g.font = '170px Marcellus, serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(str, 450, 115); const d = g.getImageData(0, 0, 900, 220).data, pts = []; for (let y = 0; y < 220; y += 2) for (let x = 0; x < 900; x += 2) if (d[(y * 900 + x) * 4 + 3] > 128) pts.push([x, y]); const a = new Float32Array(N * 3); for (let i = 0; i < N; i++) { const p = pts[Math.floor(Math.random() * pts.length)] || [450, 110]; a.set([(p[0] - 450) / 125, -(p[1] - 110) / 125, rnd(.2)], i * 3); } return a; }
+function drop() { const a = new Float32Array(N * 3); for (let i = 0; i < N; i++) { const u = Math.random() * Math.PI, v = Math.random() * 2 * Math.PI; const r = 2.1 * Math.sin(u) * (1 - 0.55 * Math.cos(u)) ; const y = 2.4 * Math.cos(u) - 0.4; a.set([r * Math.cos(v) + rnd(.03), y + rnd(.03), r * Math.sin(v) + rnd(.03)], i * 3); } return a; }
+let shapes = [sphere(), helix(), sphere(), drop()];
+document.fonts.ready.then(() => { shapes[2] = text('LATANIA'); });
+
+const pos = new Float32Array(shapes[0]); const seed = new Float32Array(N); const col = new Float32Array(N * 3);
+const ivory = new THREE.Color('#fffaf5'), orange = new THREE.Color('#ff8a3d'), plum = new THREE.Color('#6b4d8a');
+for (let i = 0; i < N; i++) { seed[i] = Math.random(); const c = seed[i] > .94 ? orange : seed[i] > .75 ? plum : ivory; col.set([c.r, c.g, c.b], i * 3); }
+const geo = new THREE.BufferGeometry();
+geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+geo.setAttribute('seed', new THREE.BufferAttribute(seed, 1));
+const mat = new THREE.ShaderMaterial({
+  transparent: true, depthWrite: false, vertexColors: true,
+  uniforms: { uPx: { value: renderer.getPixelRatio() }, uT: { value: 0 } },
+  vertexShader: `attribute float seed; varying vec3 vC; varying float vS; uniform float uPx; uniform float uT;
+    void main(){ vC = color; vS = seed; vec4 mv = modelViewMatrix * vec4(position,1.); gl_Position = projectionMatrix * mv; gl_PointSize = (seed>.94? 7.:3.2 + seed*2.) * uPx * (9./ -mv.z); }`,
+  fragmentShader: `varying vec3 vC; varying float vS; void main(){ float d = length(gl_PointCoord-.5); if(d>.5) discard; float a = smoothstep(.5,.0,d); gl_FragColor = vec4(vC, a * (vS>.94? 1.: .85)); }`,
+});
+const pts = new THREE.Points(geo, mat); scene.add(pts);
+
+const resize = () => { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); pts.position.x = innerWidth > 800 ? 0 : 0; };
+addEventListener('resize', resize); resize();
+let mx = 0, my = 0; addEventListener('mousemove', (e) => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
+const labels = ['01 — La cellule', '02 — Le collagène', '03 — Latania', '04 — L\'hydratation'];
+const side = [...document.querySelectorAll('.side i')];
+let last = -1, t = 0;
+(function loop() {
+  t += 0.016; mat.uniforms.uT.value = t;
+  const prog = Math.min(scrollY / innerHeight, 3); const idx = Math.min(3, Math.round(prog));
+  if (idx !== last) { last = idx; document.getElementById('count').textContent = labels[idx]; side.forEach((s, k) => s.classList.toggle('on', k === idx)); }
+  const tgt = shapes[idx]; const p = geo.attributes.position.array;
+  for (let i = 0; i < N * 3; i++) { const s = 0.035 + seed[(i / 3) | 0] * 0.05; p[i] += (tgt[i] - p[i]) * s; }
+  // petites ondulations « fibres »
+  for (let i = 0; i < N; i += 7) p[i * 3 + 1] += Math.sin(t * 2 + seed[i] * 20) * 0.004;
+  geo.attributes.position.needsUpdate = true;
+  const side_ = idx % 2 === 0 ? 1 : -1;
+  pts.position.x += ((innerWidth > 800 ? (idx === 2 ? 2.3 : side_ * 2.4) : 0) - pts.position.x) * 0.05;
+  pts.rotation.z += ((idx === 1 ? -0.5 : 0) - pts.rotation.z) * 0.05;
+  pts.rotation.y += idx === 2 ? (mx * 0.4 - pts.rotation.y) * 0.05 : 0.004;
+  pts.rotation.x += (my * 0.3 - pts.rotation.x) * 0.05;
+  if (idx === 2) pts.rotation.y = pts.rotation.y % (Math.PI * 2) * 0.9;
+  renderer.render(scene, camera); requestAnimationFrame(loop);
+})();
+document.querySelectorAll('.slots span').forEach((s) => s.onclick = () => { document.querySelectorAll('.slots span').forEach((x) => x.classList.remove('on')); s.classList.add('on'); });
+</script>
+</body></html>

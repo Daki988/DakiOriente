@@ -11,8 +11,10 @@ const hash = (s) => { let h = 2166136261; for (const c of s) { h ^= c.charCodeAt
 
 // ---------- Photos ----------
 const allPhotos = fs.readdirSync(PHOTOS_DIR).filter((f) => f.endsWith('.jpg'));
-const byId = (id) => { const f = allPhotos.find((x) => x.includes(id)); return f ? 'file://' + path.join(PHOTOS_DIR, f) : null; };
-const sectorPhotos = (k) => allPhotos.filter((f) => f.startsWith(k + '-')).map((f) => 'file://' + path.join(PHOTOS_DIR, f));
+const PHOTO_URL = process.env.PHOTO_URL; // préfixe d'URL relatif pour le mode live
+const purl = (f) => (PHOTO_URL ? PHOTO_URL + f : 'file://' + path.join(PHOTOS_DIR, f));
+const byId = (id) => { const f = allPhotos.find((x) => x.includes(id)); return f ? purl(f) : null; };
+const sectorPhotos = (k) => allPhotos.filter((f) => f.startsWith(k + '-')).map(purl);
 
 // Photos préférées selon le sous-type (sinon celles du secteur)
 const SUBTYPE_PHOTOS = [
@@ -111,7 +113,7 @@ const REAL_LOGOS = {
   'ab-location': 'ab-location.png', afram: 'afram.png', biolab: 'biolab.png', 'gabon-management-services': 'gabon-management-services.png',
   'home-et-co': 'home-co.jpg', 'hotel-hibiscus': 'hotel-hibiscus.png', 'wanted-immobilier': 'wanted-immobilier.jpg', 'yeshua-real-estate': 'yeshua-real-estate.png',
 };
-const realLogo = (slug) => (REAL_LOGOS[slug] ? 'file://' + path.join(REAL_LOGOS_DIR, REAL_LOGOS[slug]) : null);
+const realLogo = (slug) => (REAL_LOGOS[slug] ? (process.env.LOGO_URL ? process.env.LOGO_URL + REAL_LOGOS[slug] : 'file://' + path.join(REAL_LOGOS_DIR, REAL_LOGOS[slug])) : null);
 
 // ---------- Icônes (traits 24px) ----------
 const ICONS = {

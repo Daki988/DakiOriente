@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Artemis Luxury Co — Signez votre présence</title>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/sig.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Jost,sans-serif;color:#f5eef8;background:#1a1020;overflow-x:hidden;transition:background 1.2s}
+#bg{position:fixed;inset:0;z-index:-2;transition:background 1.2s}
+canvas#c{position:fixed;inset:0;width:100vw;height:100vh;z-index:-1;cursor:grab}
+canvas#c:active{cursor:grabbing}
+nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:26px 52px;z-index:10}
+.brand{font-family:Marcellus,serif;font-size:22px;letter-spacing:8px}
+nav .r{display:flex;gap:30px;font-size:12px;letter-spacing:3px;text-transform:uppercase;opacity:.85}
+.hero{height:100vh;position:relative;pointer-events:none}
+.hero .left{position:absolute;left:52px;top:50%;transform:translateY(-50%);max-width:380px}
+.k{font-size:11px;letter-spacing:5px;text-transform:uppercase;opacity:.7}
+h1{font-family:Marcellus,serif;font-weight:400;font-size:clamp(46px,6vw,92px);line-height:.98;margin:18px 0 20px;transition:opacity .5s}
+.notes{font-size:15px;line-height:1.8;opacity:.8;transition:opacity .5s}
+.price{margin-top:22px;font-family:Marcellus,serif;font-size:26px}
+.hero .right{position:absolute;right:52px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:18px;pointer-events:auto}
+.f{display:flex;align-items:center;gap:14px;cursor:pointer;opacity:.55;transition:opacity .4s;font-size:13px;letter-spacing:2px;text-transform:uppercase;justify-content:flex-end}
+.f i{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.5);display:block;transition:transform .4s}
+.f.on,.f:hover{opacity:1}.f.on i{transform:scale(1.18);border-color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.15)}
+.buy{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);display:flex;gap:14px;pointer-events:auto}
+.btn{padding:15px 28px;border:1px solid rgba(255,255,255,.7);font-size:12px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;background:transparent;color:inherit;text-decoration:none}
+.btn.f1{background:#f5eef8;color:#1a1020;border-color:#f5eef8}
+.drag{position:absolute;left:50%;top:calc(50% + 250px);transform:translateX(-50%);font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.6}
+section{min-height:100vh;display:flex;align-items:center;padding:0 8%}
+.pyr{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:60px}
+.pyr .txt{grid-column:2;background:rgba(10,6,14,.35);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);padding:48px}
+.pyr h2,.shop h2{font-family:Marcellus,serif;font-weight:400;font-size:clamp(38px,4vw,62px);margin:14px 0 28px}
+.lvl{display:flex;justify-content:space-between;padding:18px 0;border-top:1px solid rgba(255,255,255,.18);font-size:16px}
+.lvl b{font-weight:400;letter-spacing:3px;text-transform:uppercase;font-size:12px;opacity:.7}
+.shop{flex-direction:column;justify-content:center;text-align:center;background:rgba(0,0,0,.25)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;width:100%;margin-top:30px}
+.card{border:1px solid rgba(255,255,255,.15);padding:30px 20px;background:rgba(255,255,255,.04);transition:transform .5s,background .5s;cursor:pointer}
+.card:hover{transform:translateY(-8px);background:rgba(255,255,255,.09)}
+.card .dot{width:70px;height:110px;margin:0 auto 18px;border-radius:12px 12px 16px 16px;position:relative}
+.card .dot:before{content:'';position:absolute;left:24px;right:24px;top:-18px;height:18px;background:#c8a96a;border-radius:3px}
+.card h3{font-family:Marcellus,serif;font-weight:400;font-size:22px}
+.card p{font-size:13px;opacity:.7;margin-top:6px}
+footer{padding:40px 8%;display:flex;justify-content:space-between;font-size:12px;letter-spacing:2px;opacity:.7;background:rgba(0,0,0,.3);flex-wrap:wrap;gap:12px}
+.rv{opacity:0;transform:translateY(50px);transition:all 1s cubic-bezier(.2,.8,.2,1)}.rv.in{opacity:1;transform:none}
+@media(max-width:800px){nav{padding:18px 20px}nav .r{display:none}.hero .left{left:20px;top:110px;transform:none;right:20px}.hero .right{right:16px;top:auto;bottom:120px;transform:none;flex-direction:row}.f span{display:none}.pyr{grid-template-columns:1fr}.pyr .txt{grid-column:1}.cards{grid-template-columns:1fr 1fr}.drag{display:none}}
+</style></head>
+<body>
+<div id="bg"></div>
+<canvas id="c"></canvas>
+<nav><div class="brand">ARTEMIS</div><div class="r"><span>Parfums</span><span>Coffrets</span><span>Maison</span><span>Akanda</span></div></nav>
+<div class="hero">
+  <div class="left"><div class="k" id="k">Eau de parfum · 100 ml</div><h1 id="t">Oud Royal</h1><div class="notes" id="n"></div><div class="price" id="p"></div></div>
+  <div class="right" id="fr"></div>
+  <div class="drag">⟲ Faites tourner le flacon</div>
+  <div class="buy"><a class="btn f1" href="#shop">Commander</a><a class="btn" href="https://wa.me/24176458181">WhatsApp</a></div>
+</div>
+<section><div class="pyr"><div class="txt rv"><div class="k">Pyramide olfactive</div><h2 id="pt">Oud Royal</h2><div class="lvl"><b>Tête</b><span id="l1"></span></div><div class="lvl"><b>Cœur</b><span id="l2"></span></div><div class="lvl" style="border-bottom:1px solid rgba(255,255,255,.18)"><b>Fond</b><span id="l3"></span></div></div></div></section>
+<section class="shop" id="shop"><div class="k rv">La collection</div><h2 class="rv">Choisissez votre signature</h2><div class="cards" id="cards"></div><p class="rv" style="margin-top:40px;opacity:.75;font-size:14px">Livraison à Libreville et Akanda sous 24 h · Paiement à la livraison ou Airtel Money · 076 45 81 81</p></section>
+<footer><span>© 2026 Artemis Luxury Co · Akanda, Gabon</span><span>Instagram · Facebook · TikTok</span><span>Site réalisé par NEAM</span></footer>
+<a class="neam-back" href="javascript:history.length>1?history.back():location.href='../../index.html'">← <b>Neam</b> · retour aux résultats</a>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const F = [
+  { n: 'Oud Royal', liq: '#b5651d', bg: 'radial-gradient(circle at 50% 45%,#5a2a14 0%,#1d0d07 70%)', notes: 'Bois d\'oud, safran et cuir. Un sillage profond, pour les soirs qui comptent.', p: '85 000 FCFA', py: ['Safran, bergamote', 'Oud, rose de Taïf', 'Cuir, ambre, musc'] },
+  { n: 'Rose d\'Akanda', liq: '#e58fb0', bg: 'radial-gradient(circle at 50% 45%,#8a3d5c 0%,#2a0f1d 70%)', notes: 'Une rose lumineuse, poudrée, posée sur un fond de musc blanc.', p: '65 000 FCFA', py: ['Litchi, poivre rose', 'Rose, pivoine', 'Musc blanc, cèdre'] },
+  { n: 'Ambre Nuit', liq: '#e0a526', bg: 'radial-gradient(circle at 50% 45%,#6b4a0f 0%,#1a1206 70%)', notes: 'Ambre chaud et vanille noire. Enveloppant comme une nuit d\'été à Libreville.', p: '72 000 FCFA', py: ['Mandarine, cardamome', 'Ambre, encens', 'Vanille noire, benjoin'] },
+  { n: 'Musc Blanc', liq: '#cfe3f2', bg: 'radial-gradient(circle at 50% 45%,#3d5566 0%,#0f171d 70%)', notes: 'Propre, aérien, lumineux. La seconde peau qu\'on porte tous les jours.', p: '45 000 FCFA', py: ['Aldéhydes, poire', 'Fleur de coton, iris', 'Musc blanc, santal'] },
+];
+const $ = (id) => document.getElementById(id);
+$('fr').innerHTML = F.map((f, i) => `<div class="f" data-i="${i}"><span>${f.n}</span><i style="background:${f.liq}"></i></div>`).join('');
+$('cards').innerHTML = F.map((f, i) => `<div class="card rv" data-i="${i}"><div class="dot" style="background:linear-gradient(160deg,${f.liq},#0006)"></div><h3>${f.n}</h3><p>${f.p}</p></div>`).join('');
+
+// ---------- Scène 3D ----------
+const canvas = $('c');
+let ok = true, renderer;
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); } catch (e) { ok = false; }
+let liquidMat, group, target = new THREE.Color(F[0].liq), dust;
+if (ok) {
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.15;
+  const scene = new THREE.Scene();
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+  const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+  camera.position.set(0, 0.6, 12.5);
+  const controls = new OrbitControls(camera, canvas);
+  controls.enableZoom = false; controls.enablePan = false; controls.enableDamping = true;
+  controls.autoRotate = true; controls.autoRotateSpeed = 1.6;
+  controls.minPolarAngle = Math.PI * 0.32; controls.maxPolarAngle = Math.PI * 0.62;
+
+  group = new THREE.Group(); scene.add(group);
+  // Verre
+  const glass = new THREE.Mesh(new RoundedBoxGeometry(1.9, 2.3, 1.05, 6, 0.16), new THREE.MeshPhysicalMaterial({ color: '#ffffff', metalness: 0, roughness: 0.02, transparent: true, opacity: 0.22, clearcoat: 1, clearcoatRoughness: 0.02, envMapIntensity: 2.2, depthWrite: false }));
+  group.add(glass);
+  // Parfum
+  liquidMat = new THREE.MeshPhysicalMaterial({ color: target, roughness: 0.18, metalness: 0.1, envMapIntensity: 0.9, clearcoat: 0.6, emissive: target, emissiveIntensity: 0.18 });
+  const liquid = new THREE.Mesh(new RoundedBoxGeometry(1.62, 1.75, 0.8, 4, 0.1), liquidMat);
+  liquid.position.y = -0.2; group.add(liquid);
+  // Col et bouchon
+  const gold = new THREE.MeshStandardMaterial({ color: '#c8a96a', metalness: 1, roughness: 0.22 });
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.26, 0.32, 32), gold); neck.position.y = 1.3; group.add(neck);
+  const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.95, 8), new THREE.MeshStandardMaterial({ color: '#141014', metalness: 0.6, roughness: 0.18 }));
+  cap.position.y = 1.92; cap.rotation.y = Math.PI / 8; group.add(cap);
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(0.63, 0.035, 12, 64), gold); ring.rotation.x = Math.PI / 2; ring.position.y = 1.46; group.add(ring);
+  // Étiquette
+  const lc = document.createElement('canvas'); lc.width = 512; lc.height = 256; const g = lc.getContext('2d');
+  g.fillStyle = 'rgba(0,0,0,0)'; g.fillRect(0, 0, 512, 256); g.fillStyle = '#c8a96a'; g.textAlign = 'center';
+  g.font = '64px Marcellus, serif'; g.fillText('ARTEMIS', 256, 120); g.font = '22px Jost, sans-serif'; g.fillText('L U X U R Y   ·   P A R I S   ·   A K A N D A', 256, 170);
+  const tex = new THREE.CanvasTexture(lc); tex.colorSpace = THREE.SRGBColorSpace;
+  const label = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 0.75), new THREE.MeshBasicMaterial({ map: tex, transparent: true }));
+  label.position.set(0, -0.15, 0.531); group.add(label);
+  document.fonts.ready.then(() => { g.clearRect(0, 0, 512, 256); g.font = '64px Marcellus, serif'; g.fillText('ARTEMIS', 256, 120); g.font = '22px Jost, sans-serif'; g.fillText('L U X U R Y   ·   A K A N D A', 256, 170); tex.needsUpdate = true; });
+  // Socle
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(1.7, 1.85, 0.14, 64), new THREE.MeshStandardMaterial({ color: '#0d0a0e', metalness: 0.4, roughness: 0.35 }));
+  base.position.y = -1.32; scene.add(base);
+  // Poussière dorée
+  const N = 600, pos = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++) { pos[i * 3] = (Math.random() - .5) * 12; pos[i * 3 + 1] = (Math.random() - .5) * 8; pos[i * 3 + 2] = (Math.random() - .5) * 6 - 1; }
+  const dg = new THREE.BufferGeometry(); dg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  dust = new THREE.Points(dg, new THREE.PointsMaterial({ color: '#e8cf9a', size: 0.03, transparent: true, opacity: 0.8 }));
+  scene.add(dust);
+  const key = new THREE.DirectionalLight('#fff', 1.6); key.position.set(3, 5, 4); scene.add(key);
+
+  const resize = () => { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); };
+  addEventListener('resize', resize); resize();
+  let t = 0;
+  (function loop() {
+    t += 0.01;
+    liquidMat.color.lerp(target, 0.06); liquidMat.emissive.lerp(target, 0.06);
+    const sc = scrollY / innerHeight;
+    group.position.x = THREE.MathUtils.lerp(group.position.x, sc > 0.4 && sc < 1.6 ? (innerWidth > 800 ? -2.2 : 0) : 0, 0.06);
+    group.position.y = -0.35 + Math.sin(t) * 0.08 + Math.min(sc, 2) * 0.2;
+    base.position.x = group.position.x; base.position.y = group.position.y - 1.32;
+    dust.rotation.y += 0.0008; dust.position.y = Math.sin(t * .5) * .1;
+    controls.update(); renderer.render(scene, camera);
+    requestAnimationFrame(loop);
+  })();
+}
+// ---------- Choix de la fragrance ----------
+function pick(i) {
+  const f = F[i];
+  document.querySelectorAll('.f').forEach((e, k) => e.classList.toggle('on', k === i));
+  $('bg').style.background = f.bg; target = new THREE.Color(f.liq);
+  ['t', 'n'].forEach((id) => $(id).style.opacity = 0);
+  setTimeout(() => { $('t').textContent = f.n; $('n').textContent = f.notes; $('p').textContent = f.p; $('pt').textContent = f.n; [1, 2, 3].forEach((k) => $('l' + k).textContent = f.py[k - 1]); ['t', 'n'].forEach((id) => $(id).style.opacity = 1); }, 300);
+}
+document.querySelectorAll('.f').forEach((e) => e.onclick = () => pick(+e.dataset.i));
+document.querySelectorAll('.card').forEach((e) => e.onclick = () => { pick(+e.dataset.i); scrollTo({ top: 0, behavior: 'smooth' }); });
+pick(0);
+window.pickFragrance = pick;
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll('.rv').forEach((e) => io.observe(e));
+</script>
+</body></html>

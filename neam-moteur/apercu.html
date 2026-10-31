@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Aperçu — Neam</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sig.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,sans-serif;background:var(--bg,#fff);color:var(--ink,#111)}
+.ph{background-size:cover;background-position:center}
+nav{display:flex;justify-content:space-between;align-items:center;padding:22px 6%}
+.lg{display:flex;gap:12px;align-items:center;font-family:Fraunces,serif;font-size:24px;font-weight:700}
+.lg span{width:48px;height:48px;border-radius:50%;overflow:hidden;display:block}
+.btn{background:var(--ac);color:#fff;padding:14px 24px;border-radius:999px;font-weight:700;text-decoration:none;display:inline-block}
+header{display:grid;grid-template-columns:1fr 1fr;gap:50px;padding:30px 6% 90px;align-items:center}
+h1{font-family:Fraunces,serif;font-size:clamp(46px,6vw,92px);line-height:1}
+header p{font-size:19px;line-height:1.7;margin:22px 0 30px;opacity:.8}
+.hero{height:560px;border-radius:200px 200px 24px 24px}
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:0 6% 90px}
+.info div{background:var(--soft);border-radius:22px;padding:26px}
+.info b{display:block;margin-bottom:6px}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 6% 90px}
+.gal div{height:260px;border-radius:16px}
+footer{background:var(--ink);color:var(--bg);padding:40px 6%;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:14px}
+.phones{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;padding:32px;background:#f1f3f4;min-height:100vh}
+@media(max-width:900px){header,.info{grid-template-columns:1fr}.gal{grid-template-columns:1fr 1fr}.phones{grid-template-columns:1fr 1fr}}
+</style><style id="phcss"></style></head>
+<body>
+<div id="out"></div>
+<a class="neam-back" href="javascript:history.length>1?history.back():location.href='index.html'">← <b>Neam</b> · retour</a>
+<script src="data/prospects.js"></script><script src="assets/store.js"></script>
+<script>
+const q = new URLSearchParams(location.search), S = NEAMSTORE, esc = S.esc;
+const p = PROSPECTS.find((x) => x.slug === q.get('slug'));
+const out = document.getElementById('out');
+if (!p) out.innerHTML = '<p style="padding:60px">Projet introuvable dans ce navigateur.</p>';
+else if (q.get('v') === 'reseaux') {
+  document.getElementById('phcss').textContent = S.PHONE_CSS; document.body.style.background = '#f1f3f4';
+  document.title = p.n + ' — réseaux sociaux';
+  out.innerHTML = `<div style="background:#111;color:#fff;font:12px Arial;padding:6px 20px"><b style="color:#f5b301">●</b> Environnement de démonstration NEAM — aperçus non publiés</div><div class="phones">${S.phones(p)}</div>`;
+} else {
+  const r = document.documentElement.style; r.setProperty('--bg', p.pal.bg); r.setProperty('--ink', p.pal.ink); r.setProperty('--ac', p.pal.accent); r.setProperty('--soft', p.pal.soft);
+  document.title = p.n + ' — ' + p.tagline;
+  out.innerHTML = `<nav><div class="lg"><span>${p.avatar}</span>${esc(p.main)}</div><a class="btn" href="tel:${esc(p.t)}">${esc(p.cta)}</a></nav>
+  <header><div><div style="font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--ac)">${esc(p.s)} · ${esc(p.c)}</div><h1>${esc(p.tagline)}</h1><p>${esc(p.intro || p.desc || '')}</p><a class="btn" href="tel:${esc(p.t)}">${esc(p.cta)}</a></div><div class="ph hero" style="background-image:url('${p.photos[0]}')"></div></header>
+  <section class="info"><div><b>Adresse</b>${esc(p.address)}</div><div><b>Horaires</b>${esc(p.hours[1])}</div><div><b>Contact</b>${esc(p.t)}<br>${esc(p.e || '')}</div></section>
+  <section class="gal">${p.photos.slice(1, 5).map((u) => `<div class="ph" style="background-image:url('${u}')"></div>`).join('')}</section>
+  <footer><span>© 2026 ${esc(p.n)}</span><span>Maquette NEAM — aperçu non publié</span></footer>`;
+}
+</script>
+</body></html>

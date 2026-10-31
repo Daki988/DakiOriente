@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Hôtel Le Refuge — Lambaréné</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/sig.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ac:#e3b66f;--ink:#efe9df;--bg:#13110f}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+body.cursor,body.cursor *{cursor:none}
+.cur{position:fixed;width:34px;height:34px;border:1.5px solid var(--ac);border-radius:50%;pointer-events:none;z-index:2000;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s;mix-blend-mode:difference}
+.cur.big{width:80px;height:80px;background:rgba(227,182,111,.25)}
+nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:26px 48px;z-index:50}
+.brand{font-family:'DM Serif Display',serif;font-size:26px}
+.brand small{display:block;font-family:'DM Sans';font-size:10px;letter-spacing:5px;color:var(--ac)}
+nav .r{display:flex;gap:28px;font-size:14px;align-items:center}
+.book-btn{background:var(--ac);color:#13110f;padding:12px 22px;border-radius:999px;font-weight:700;text-decoration:none}
+/* ---------- Ambiances ---------- */
+.hero{height:100vh;min-height:700px;position:relative;overflow:hidden;transition:background 1.2s}
+.layer{position:absolute;inset:0;background-size:cover;background-position:center;clip-path:circle(0% at 70% 50%);transition:clip-path 1.5s cubic-bezier(.7,0,.2,1)}
+.layer.on{clip-path:circle(150% at 70% 50%)}
+.layer.prev{clip-path:circle(150% at 70% 50%);transition:none}
+.shade{position:absolute;inset:0;z-index:3;background:linear-gradient(90deg,rgba(10,8,6,.85) 0%,rgba(10,8,6,.45) 45%,rgba(10,8,6,.1) 100%);pointer-events:none}
+.copy{position:absolute;left:48px;top:50%;transform:translateY(-50%);max-width:640px;z-index:5}
+.copy .k{font-size:12px;letter-spacing:5px;text-transform:uppercase;color:var(--ac)}
+.copy h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(54px,7.4vw,118px);line-height:.95;margin:20px 0}
+.copy h1 span{display:inline-block;opacity:0;transform:translateY(60%) rotate(4deg);transition:all .9s cubic-bezier(.2,.8,.2,1)}
+.copy h1.in span{opacity:1;transform:none}
+.copy p{font-size:18px;line-height:1.7;max-width:500px;opacity:.85}
+.list{position:absolute;right:48px;top:50%;transform:translateY(-50%);z-index:5;display:flex;flex-direction:column;gap:14px}
+.m{display:flex;align-items:center;gap:16px;cursor:pointer;opacity:.5;transition:opacity .4s;justify-content:flex-end}
+.m.on,.m:hover{opacity:1}
+.m span{font-size:13px;letter-spacing:2px;text-transform:uppercase;text-align:right}
+.m i{width:92px;height:62px;border-radius:10px;background-size:cover;background-position:center;border:2px solid transparent;transition:all .4s;position:relative;overflow:hidden}
+.m.on i{border-color:var(--ac);width:120px;height:78px}
+.m i b{position:absolute;left:0;bottom:0;height:3px;background:var(--ac);width:0}
+.m.on i b{animation:prog 6s linear forwards}
+@keyframes prog{to{width:100%}}
+.idx{position:absolute;left:48px;bottom:90px;z-index:5;font-family:'DM Serif Display',serif;font-size:18px}
+.idx b{font-size:44px;color:var(--ac)}
+/* ---------- Galerie horizontale ---------- */
+.hz{height:340vh;position:relative}
+.hz .stick{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
+.track{display:flex;gap:40px;padding-left:48px;will-change:transform}
+.intro{flex:none;width:520px;padding-right:40px}
+.intro h2{font-family:'DM Serif Display',serif;font-weight:400;font-size:72px;line-height:1}
+.intro p{margin-top:20px;font-size:17px;line-height:1.7;opacity:.75}
+.room{flex:none;width:560px;height:74vh;border-radius:26px;overflow:hidden;position:relative}
+.room .img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.15);transition:transform 1.2s}
+.room:hover .img{transform:scale(1.04)}
+.room .cap{position:absolute;left:0;right:0;bottom:0;padding:30px;background:linear-gradient(transparent,rgba(0,0,0,.85));z-index:2}
+.room h3{font-family:'DM Serif Display',serif;font-weight:400;font-size:40px}
+.room .pr{color:var(--ac);font-weight:700;margin-top:6px}
+.bar{position:absolute;left:48px;right:48px;bottom:40px;height:2px;background:rgba(255,255,255,.15)}
+.bar i{display:block;height:100%;background:var(--ac);width:0}
+/* ---------- Réservation ---------- */
+.res{padding:140px 48px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;background:#1c1915}
+.res h2{font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(44px,5vw,80px);line-height:1}
+.form{background:var(--ink);color:#13110f;border-radius:26px;padding:34px;display:grid;gap:16px}
+.form label{font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.6}
+.form select,.form input{width:100%;margin-top:6px;padding:14px;border-radius:12px;border:1.5px solid #d9d0c2;font:500 16px 'DM Sans';background:#fff}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #d9d0c2;padding-top:16px}
+.total b{font-family:'DM Serif Display',serif;font-size:38px;font-weight:400}
+.go{background:#13110f;color:var(--ac);border:0;padding:18px;border-radius:14px;font:700 16px 'DM Sans';cursor:pointer}
+.reviews{padding:110px 48px;text-align:center}
+.reviews .score{font-family:'DM Serif Display',serif;font-size:120px;color:var(--ac);line-height:1}
+.reviews p{font-family:'DM Serif Display',serif;font-style:italic;font-size:34px;max-width:900px;margin:30px auto;line-height:1.3}
+footer{padding:46px 48px;display:flex;justify-content:space-between;border-top:1px solid #2a2520;font-size:14px;opacity:.75;flex-wrap:wrap;gap:12px}
+@media(max-width:900px){nav{padding:18px 20px}nav .r span{display:none}.copy{left:20px;right:20px;top:auto;bottom:150px;transform:none}.list{right:auto;left:20px;top:auto;bottom:40px;transform:none;flex-direction:row}.m span{display:none}.m i{width:60px;height:44px}.m.on i{width:76px;height:52px}.idx{display:none}.room{width:82vw}.intro{width:80vw}.res{grid-template-columns:1fr;padding:80px 20px}}
+</style></head>
+<body class="cursor">
+<div class="cur" id="cur"></div>
+<nav><div class="brand">Le Refuge<small>HÔTEL · LAMBARÉNÉ</small></div><div class="r"><span>Chambres</span><span>Restaurant</span><span>Excursions</span><a class="book-btn" href="#res">Réserver</a></div></nav>
+
+<header class="hero" id="hero">
+  <div id="layers"></div>
+  <div class="shade"></div>
+  <div class="copy"><div class="k" id="k"></div><h1 id="h"></h1><p id="p"></p></div>
+  <div class="list" id="list"></div>
+  <div class="idx" id="idx"></div>
+</header>
+
+<section class="hz" id="hz"><div class="stick"><div class="track" id="track">
+  <div class="intro"><div class="copy" style="position:static;transform:none"><div class="k">Nos chambres</div></div><h2>Dormir au rythme de l'Ogooué</h2><p>12 chambres et 2 suites, toutes climatisées, ouvertes sur le jardin tropical. Petit-déjeuner local inclus.</p></div>
+</div><div class="bar"><i id="bar"></i></div></div></section>
+
+<section class="res" id="res">
+  <div><div class="copy" style="position:static;transform:none"><div class="k">Réservation directe</div></div><h2 style="margin-top:18px">Le meilleur prix, sans intermédiaire</h2><p style="margin-top:22px;font-size:17px;line-height:1.7;opacity:.8">Réservez en direct : confirmation immédiate par WhatsApp, annulation gratuite jusqu'à 48 h avant l'arrivée.</p></div>
+  <div class="form">
+    <div><label>Chambre</label><select id="room"></select></div>
+    <div class="two"><div><label>Arrivée</label><input type="date" id="d1"></div><div><label>Départ</label><input type="date" id="d2"></div></div>
+    <div class="two"><div><label>Adultes</label><select id="ad"><option>1</option><option selected>2</option><option>3</option></select></div><div><label>Enfants</label><select><option>0</option><option>1</option><option>2</option></select></div></div>
+    <div class="total"><span id="nights">2 nuits</span><b id="tot">—</b></div>
+    <button class="go" onclick="alert('Démonstration NEAM : la réservation serait envoyée à l\'hôtel par WhatsApp.')">Confirmer la réservation</button>
+  </div>
+</section>
+
+<section class="reviews"><div class="score">3,8</div><div style="opacity:.7">334 avis Google</div><p>« Un havre de paix au bord du fleuve. Personnel adorable, chambres propres et le meilleur poisson braisé de Lambaréné. »</p></section>
+<footer><span>© 2026 Hôtel Le Refuge · Lambaréné, Gabon · 074 75 48 40</span><span>direction@lerefuge-hotel.com</span><span>Site réalisé par NEAM</span></footer>
+<a class="neam-back" href="javascript:history.length>1?history.back():location.href='../../index.html'">← <b>Neam</b> · retour aux résultats</a>
+
+<script>
+const ph = (id) => `../../assets/photos/hotel-${id}.jpg`;
+const M = [
+  { k: 'Matin · 6 h 30', t: 'Le réveil sur le fleuve', p: 'Brume sur l\'Ogooué, café servi sur la terrasse et chants d\'oiseaux pour seul réveil.', img: ph('1571896349842-33c89424de2d'), bg: '#2b2418' },
+  { k: 'Midi · 13 h', t: 'La piscine sous les palmiers', p: 'Transats, jus frais et ombre des palmiers : la parenthèse idéale entre deux excursions.', img: ph('1566073771259-6a8506099945'), bg: '#13261f' },
+  { k: 'Soir · 19 h', t: 'La suite et son balcon', p: 'Lit king size, salon privé et balcon pour regarder le jour tomber sur la forêt.', img: ph('1582719478250-c89cae4dc85b'), bg: '#241a14' },
+  { k: 'Nuit · 21 h', t: 'Dîner sous les étoiles', p: 'Poisson braisé, plantain et vins choisis, servis au bord de l\'eau illuminée.', img: ph('1542314831-068cd1dbfeeb'), bg: '#0f1626' },
+];
+const ROOMS = [['Chambre Standard', 35000, '1578683010236-d716f9a3f461'], ['Chambre Supérieure', 48000, '1590490360182-c33d57733427'], ['Chambre Jardin', 52000, '1611892440504-42a792e24d32'], ['Suite Junior', 75000, '1582719478250-c89cae4dc85b'], ['Suite Fleuve', 95000, '1520250497591-112f2f40a3f4']];
+const $ = (id) => document.getElementById(id);
+$('layers').innerHTML = M.map((m) => `<div class="layer" style="background-image:url('${m.img}')"></div>`).join('');
+$('list').innerHTML = M.map((m, i) => `<div class="m" data-i="${i}"><span>${m.t}</span><i style="background-image:url('${m.img}')"><b></b></i></div>`).join('');
+const layers = [...document.querySelectorAll('.layer')], items = [...document.querySelectorAll('.m')];
+let cur = -1, timer;
+function show(i) {
+  if (i === cur) return;
+  layers.forEach((l) => l.classList.remove('prev'));
+  if (cur >= 0) { layers[cur].classList.remove('on'); layers[cur].classList.add('prev'); layers[cur].style.zIndex = 1; }
+  layers[i].style.zIndex = 2; layers[i].classList.remove('prev'); void layers[i].offsetWidth; layers[i].classList.add('on');
+  cur = i; const m = M[i];
+  $('hero').style.background = m.bg;
+  items.forEach((e, k) => { e.classList.remove('on'); if (k === i) { void e.offsetWidth; e.classList.add('on'); } });
+  const h = $('h'); h.classList.remove('in');
+  h.innerHTML = m.t.split(' ').map((w, k) => `<span style="transition-delay:${k * 70}ms">${w}&nbsp;</span>`).join('');
+  requestAnimationFrame(() => requestAnimationFrame(() => h.classList.add('in')));
+  $('k').textContent = m.k; $('p').textContent = m.p;
+  $('idx').innerHTML = `<b>0${i + 1}</b> / 0${M.length}`;
+  clearTimeout(timer); timer = setTimeout(() => show((cur + 1) % M.length), 6000);
+}
+items.forEach((e) => e.onclick = () => show(+e.dataset.i));
+show(0);
+window.showMoment = show;
+// Galerie horizontale pilotée par le défilement
+const track = $('track');
+track.insertAdjacentHTML('beforeend', ROOMS.map(([n, p, id]) => `<div class="room"><div class="img" style="background-image:url('${ph(id)}')"></div><div class="cap"><h3>${n}</h3><div class="pr">${p.toLocaleString('fr-FR')} FCFA / nuit</div></div></div>`).join(''));
+function hz() {
+  const s = $('hz'), r = s.getBoundingClientRect(), max = track.scrollWidth - innerWidth + 96;
+  const prog = Math.min(1, Math.max(0, -r.top / (s.offsetHeight - innerHeight)));
+  track.style.transform = `translateX(${-prog * max}px)`; $('bar').style.width = prog * 100 + '%';
+}
+addEventListener('scroll', hz, { passive: true }); hz();
+// Réservation avec calcul du prix
+$('room').innerHTML = ROOMS.map(([n, p], i) => `<option value="${p}" ${i === 1 ? 'selected' : ''}>${n} — ${p.toLocaleString('fr-FR')} FCFA</option>`).join('');
+const d = new Date(); d.setDate(d.getDate() + 7); $('d1').valueAsDate = d; const d2 = new Date(d); d2.setDate(d.getDate() + 2); $('d2').valueAsDate = d2;
+function total() { const n = Math.max(1, Math.round(($('d2').valueAsDate - $('d1').valueAsDate) / 864e5)); $('nights').textContent = n + (n > 1 ? ' nuits' : ' nuit'); $('tot').textContent = (n * +$('room').value).toLocaleString('fr-FR') + ' FCFA'; }
+['room', 'd1', 'd2'].forEach((id) => $(id).addEventListener('change', total)); total();
+// Curseur personnalisé
+const c = $('cur'); addEventListener('mousemove', (e) => { c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px'; });
+document.querySelectorAll('a,.m,.room,button,select,input').forEach((e) => { e.addEventListener('mouseenter', () => c.classList.add('big')); e.addEventListener('mouseleave', () => c.classList.remove('big')); });
+if (matchMedia('(pointer:coarse)').matches) { document.body.classList.remove('cursor'); c.remove(); }
+</script>
+</body></html>

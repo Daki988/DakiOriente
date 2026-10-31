@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<base href="../"><title>Fiche d'établissement — Back-office Neam</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/admin.css"></head>
+<body>
+<aside class="side"><div class="logo"><span>N</span><span>e</span><span>a</span><span>m</span></div>
+  <a class="it" href="admin/index.html">Projets</a><a class="it" href="index.html">Moteur de recherche ↗</a>
+  <h4>Créer</h4><a class="it on" href="admin/fiche.html">Fiche d'établissement</a><a class="it" href="admin/reseau.html" id="lnkres">Réseaux sociaux</a></aside>
+<main class="content"><h1 id="h"></h1><div class="sub">Mêmes étapes que la création d'une fiche d'établissement réelle. La validation (courrier, appel, vidéo) est ignorée.</div>
+  <div class="filters" id="pick" style="display:none"><select id="ps" style="flex:1"></select></div>
+  <div id="w"></div></main>
+<div class="toast" id="toast"></div>
+<script src="data/prospects.js"></script><script src="assets/store.js"></script><script src="assets/wizard.js"></script>
+<script>
+const S = NEAMSTORE, esc = S.esc, q = new URLSearchParams(location.search);
+const isNew = q.get('new') === '1';
+let slug = q.get('slug');
+if (!slug && !isNew) { const sel = document.getElementById('ps'); document.getElementById('pick').style.display = ''; sel.innerHTML = '<option value="">Choisir un projet…</option>' + PROSPECTS.map((p) => `<option value="${p.slug}">${esc(p.n)}</option>`).join(''); sel.onchange = () => location.href = 'admin/fiche.html?slug=' + sel.value; document.getElementById('h').textContent = 'Fiche d\'établissement'; }
+else start();
+function start() {
+  const p = PROSPECTS.find((x) => x.slug === slug) || null;
+  document.getElementById('h').textContent = p ? 'Fiche d\'établissement — ' + p.n : 'Nouveau projet';
+  if (p) document.getElementById('lnkres').href = 'admin/reseau.html?slug=' + p.slug;
+  const sectorOf = { 'Hôtel': 'hotel', 'Restaurant': 'resto', 'Institut de beauté': 'beaute', 'Agence immobilière': 'immo', 'Cabinet médical': 'sante', 'Dentiste': 'sante', 'Agence de voyage': 'voyage', 'Garage automobile': 'auto', 'Auto-école': 'auto', 'École': 'ecole', 'Boutique de mode': 'luxe', 'Parfumerie': 'luxe', 'Fleuriste': 'boutique', 'Boutique de cadeaux': 'boutique', 'Boulangerie': 'resto', 'Services aux entreprises': 'services' };
+  const d = Object.assign({ n: p ? p.n : '', cat: p ? p.s : '', place: 'oui', addr: p ? '' : '', city: p ? p.c : 'Libreville', area: [], phone: p ? p.t : '', site: p ? 'https://www.' + p.domain : '', desc: p ? p.intro : '' }, p ? (S.get(p.slug).fiche || {}) : {});
+  const DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+  const hoursTxt = (h) => { if (!h) return p ? p.hours[1] : 'Lun – Sam · 8 h – 18 h'; const o = h.map((r, k) => ({ ...r, k })).filter((r) => r.open); if (!o.length) return 'Fermé'; const fmt = (t) => t.replace(':00', ' h').replace(':', ' h '); const same = o.every((r) => r.a === o[0].a && r.b === o[0].b); return same ? `${DAYS[o[0].k]} – ${DAYS[o[o.length - 1].k]} · ${fmt(o[0].a)} – ${fmt(o[0].b)}` : o.map((r) => `${DAYS[r.k]} ${fmt(r.a)}–${fmt(r.b)}`).join(', '); };
+  const steps = [
+    { label: 'Nom et catégorie', t: 'Commencez à créer la fiche de votre établissement', h: 'Saisissez le nom exact, tel que les clients le connaissent.', fields: [{ k: 'n', l: 'Nom de l\'établissement', req: 1 }, { k: 'cat', l: 'Catégorie d\'établissement', list: Object.keys(sectorOf), req: 1, ph: 'Ex. : Restaurant, Hôtel, Dentiste…' }] },
+    { label: 'Lieu physique', t: 'Voulez-vous ajouter un lieu où les clients peuvent se rendre, comme un magasin ou un bureau ?', h: 'Ce lieu apparaîtra sur la carte et dans la fiche.', choice: { k: 'place', o: [['oui', 'Oui'], ['non', 'Non']] } },
+    { label: 'Adresse', t: 'Saisissez l\'adresse de l\'établissement', fields: [{ k: 'country', l: 'Pays / Région', type: 'select', o: ['Gabon'] }, { k: 'addr', l: 'Adresse ou repère', ph: 'Ex. : Batterie IV, à côté de l\'école Gros Bouquet' }, { k: 'city', l: 'Ville', list: ['Libreville', 'Akanda', 'Owendo', 'Port-Gentil', 'Franceville', 'Oyem', 'Lambaréné'] }] },
+    { label: 'Zone desservie', optional: 1, t: 'Proposez-vous la livraison ou des services à domicile ?', h: 'Indiquez les zones desservies (facultatif).', chips: { k: 'area', o: ['Libreville', 'Akanda', 'Owendo', 'Ntoum', 'Port-Gentil', 'Tout le Gabon'] } },
+    { label: 'Coordonnées', t: 'Quelles coordonnées voulez-vous montrer aux clients ?', fields: [{ k: 'phone', l: 'Numéro de téléphone', type: 'tel', ph: '+241 …' }, { k: 'site', l: 'Site Web', type: 'url', ph: 'https://' }], h: 'Pas de site ? NEAM en crée un, visible dans le moteur.' },
+    { label: 'Validation', verif: 1, t: 'Validez votre établissement', h: 'En temps normal : code par courrier, appel, SMS ou vidéo de l\'établissement.', opts: ['Appel', 'SMS', 'Vidéo', 'Courrier'] },
+    { label: 'Horaires', hours: 1, t: 'Ajoutez les horaires d\'ouverture', h: 'Indiquez quand les clients peuvent vous rendre visite.' },
+    { label: 'Description', optional: 1, t: 'Ajoutez une description', fields: [{ k: 'desc', l: 'Description de l\'établissement', type: 'textarea', max: 750, ph: 'Présentez vos services, votre histoire…' }] },
+    { label: 'Logo', optional: 1, upload: { k: 'logo', l: 'Importer le logo' }, t: 'Ajoutez votre logo', h: 'Il apparaît à côté du nom dans le moteur.' },
+    { label: 'Photos', optional: 1, upload: { k: 'photos', l: 'Importer des photos', multi: 1 }, t: 'Ajoutez des photos', h: 'Façade, intérieur, produits : les fiches avec photos reçoivent plus de clics.' },
+    { label: 'Terminé', done: 1, t: 'Votre fiche est en ligne dans Neam', h: 'Recherchez l\'établissement dans le moteur pour la montrer au prospect.', links: [['Voir dans Neam', () => 'recherche.html?q=' + encodeURIComponent(d.n)], ['Créer ses réseaux', () => 'admin/reseau.html?slug=' + (slug || S.slugify(d.n))], ['Retour aux projets', () => 'admin/index.html']] },
+  ];
+  const ph0 = p ? p.photos : PROSPECTS[0].photos;
+  const preview = (d) => { const photos = (d.photos || []).concat(ph0); const logo = d.logo ? `<span style="width:44px;height:44px;border-radius:10px;background:url('${d.logo}') center/cover;flex:none"></span>` : (p ? `<span style="width:44px;height:44px;border-radius:10px;overflow:hidden;flex:none">${p.avatar}</span>` : '');
+    return `<div class="kp"><div class="phs">${photos.slice(0, 3).map((u) => `<div style="background-image:url('${u}')"></div>`).join('')}</div><div class="in"><div style="display:flex;justify-content:space-between;gap:8px"><div style="font-size:21px">${esc(d.n || 'Nom de l\'établissement')}</div>${logo}</div><div style="color:#70757a;margin:4px 0">${p && p.r ? `${String(p.r).replace('.', ',')} ★ · ${p.v} avis · ` : 'Aucun avis · '}${esc(d.cat || 'Catégorie')}</div>${d.desc ? `<div class="row" style="color:#4d5156">${esc(d.desc.slice(0, 140))}${d.desc.length > 140 ? '…' : ''}</div>` : ''}${d.place === 'oui' ? `<div class="row"><b>Adresse : </b>${esc([d.addr, d.city, 'Gabon'].filter(Boolean).join(', '))}</div>` : ''}${(d.area || []).length ? `<div class="row"><b>Zone desservie : </b>${esc(d.area.join(', '))}</div>` : ''}<div class="row"><b>Horaires : </b><span style="color:#188038">Ouvert</span> · ${esc(hoursTxt(d.hrs))}</div>${d.phone ? `<div class="row"><b>Téléphone : </b>${esc(d.phone)}</div>` : ''}${d.site ? `<div class="row"><b>Site Web : </b><span style="color:#1a0dab">${esc(d.site.replace(/^https?:\/\/(www\.)?/, ''))}</span></div>` : ''}</div></div>`; };
+  const save = (d) => {
+    if (!slug) slug = S.slugify(d.n || 'projet');
+    const patch = { fiche: d, n: d.n, s: d.cat, c: d.city || 'Libreville', address: [d.addr, d.city, 'Gabon'].filter(Boolean).join(', '), t: d.phone || '', intro: d.desc || (p ? p.intro : ''), hours: [d.hrs ? 'Ferme à ' + (d.hrs.find((r) => r.open) || { b: '18:00' }).b.replace(':00', ' h').replace(':', ' h ') : (p ? p.hours[0] : 'Ferme à 18 h'), hoursTxt(d.hrs)] };
+    if (!p && d.desc) patch.tagline = d.desc.split(/[:.!]/)[0].trim().slice(0, 60); else if (!p) patch.tagline = d.cat + ' à ' + (d.city || 'Libreville');
+    if (!p) { patch.k = sectorOf[d.cat] || 'services'; patch.main = d.n; }
+    if (d.site) patch.domain = d.site.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+    if (d.logo) patch.logo = d.logo;
+    if (d.photos && d.photos.length) patch.photosUp = d.photos;
+    S.put(slug, patch);
+  };
+  Wizard({ steps, data: d, preview, onSave: save, onFinish: save, mount: '#w' });
+}
+</script>
+</body></html>

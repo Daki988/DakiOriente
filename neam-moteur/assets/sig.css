@@ -1,0 +1,5 @@
+/* Éléments communs aux sites signature */
+.neam-back{position:fixed;left:18px;bottom:18px;z-index:1000;background:#111;color:#fff;font:600 14px Arial,sans-serif;padding:12px 16px;border-radius:999px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.neam-back b{color:#f5b301}
+.neam-tag{position:fixed;right:18px;bottom:18px;z-index:1000;background:rgba(17,17,17,.85);color:#ddd;font:12px Arial,sans-serif;padding:8px 12px;border-radius:8px}
+.neam-tag b{color:#f5b301}

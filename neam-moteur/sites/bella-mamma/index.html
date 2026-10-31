@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Bella Mamma — L'arte della cucina italiana</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/sig.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#fff7ec;--ink:#2b1d12;--red:#c2572b;--green:#2f6b4f}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:22px 46px;z-index:30;background:linear-gradient(var(--bg),rgba(255,247,236,0))}
+.brand{font-family:'DM Serif Display',serif;font-size:28px}
+.brand i{color:var(--red)}
+nav .r{display:flex;gap:26px;font-weight:500;font-size:15px;align-items:center}
+.cta{background:var(--red);color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;text-decoration:none}
+.flag{position:fixed;top:0;left:0;right:0;height:5px;z-index:40;background:linear-gradient(90deg,var(--green) 33%,#fff 33% 66%,var(--red) 66%)}
+.build{height:600vh;position:relative}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;grid-template-columns:1fr 1.1fr;align-items:center;padding:0 6%}
+.txt{position:relative;height:340px}
+.st{position:absolute;inset:0;opacity:0;transform:translateY(40px);transition:all .7s cubic-bezier(.2,.8,.2,1)}
+.st.on{opacity:1;transform:none}
+.st .n{font-family:'DM Serif Display',serif;font-size:110px;line-height:.8;color:var(--red);opacity:.18}
+.st h2{font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(44px,5vw,78px);line-height:1;margin:-30px 0 18px}
+.st p{font-size:18px;line-height:1.7;max-width:460px;opacity:.8}
+.st0 h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(56px,7vw,112px);line-height:.95}
+.st0 h1 i{color:var(--red)}
+.dots{position:absolute;left:6%;bottom:44px;display:flex;gap:10px}
+.dots i{width:30px;height:4px;border-radius:2px;background:rgba(43,29,18,.15);overflow:hidden;position:relative}
+.dots i b{position:absolute;inset:0;background:var(--red);transform-origin:left;transform:scaleX(0)}
+.pz{position:relative;width:min(40vw,68vh,600px);aspect-ratio:1;justify-self:center}
+.pz svg{width:100%;height:100%;overflow:visible;position:relative;z-index:2}
+.board{position:absolute;inset:-6%;border-radius:50%;background:radial-gradient(circle at 40% 35%,#c99a63,#9a6a3a 70%,#7b5230);box-shadow:0 40px 80px rgba(80,40,10,.35)}
+.board:after{content:'';position:absolute;right:-16%;top:46%;width:22%;height:9%;border-radius:20px;background:#8a5c33}
+.steam path{stroke:#fff;stroke-width:6;fill:none;stroke-linecap:round;opacity:0;animation:steam 3s ease-in-out infinite}
+.steam path:nth-child(2){animation-delay:1s}.steam path:nth-child(3){animation-delay:2s}
+@keyframes steam{0%{opacity:0;transform:translateY(20px)}40%{opacity:.6}100%{opacity:0;transform:translateY(-80px)}}
+.flour{position:absolute;inset:0;pointer-events:none;z-index:3;width:100%;height:100%}
+section{padding:130px 8%}
+.menu h2,.resa h2{font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(48px,6vw,90px);line-height:1}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:26px 80px;margin-top:56px}
+.mi{display:flex;align-items:baseline;gap:12px}
+.mi b{font-family:'DM Serif Display',serif;font-weight:400;font-size:30px}
+.mi span{flex:1;border-bottom:2px dotted rgba(43,29,18,.3)}
+.mi i{font-style:normal;color:var(--red);font-weight:700}
+.md{opacity:.65;margin-top:2px}
+.resa{background:var(--green);color:#fff;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.card{background:#fff;color:var(--ink);border-radius:26px;padding:32px;display:grid;gap:12px}
+.card div{border:1.5px solid #eadfcf;border-radius:14px;padding:12px 16px}
+.card small{display:block;font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.55}
+footer{padding:40px 8%;display:flex;justify-content:space-between;font-size:14px;opacity:.75;flex-wrap:wrap;gap:12px}
+@media(max-width:900px){nav{padding:16px 18px}nav .r span{display:none}.stage{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding:90px 20px 20px}.txt{height:220px}.pz{width:78vw}.st .n{font-size:70px}.mgrid,.resa{grid-template-columns:1fr}}
+</style></head>
+<body>
+<div class="flag"></div>
+<nav><div class="brand">Bella <i>Mamma</i></div><div class="r"><span>La carte</span><span>Notre histoire</span><span>Batterie IV</span><a class="cta" href="#resa">Réserver</a></div></nav>
+
+<section class="build" id="build" style="padding:0"><div class="stage">
+  <div class="txt">
+    <div class="st st0 on"><div class="k" style="font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:16px">Restaurant italien · Libreville</div><h1>L'arte della<br>cucina <i>italiana</i></h1><p style="margin-top:22px">Faites défiler : on prépare votre pizza devant vous.</p></div>
+    <div class="st"><div class="n">01</div><h2>La pâte, 48 h de patience</h2><p>Farine italienne, levain maison et 48 heures de fermentation lente. Le secret d'une pâte légère et alvéolée.</p></div>
+    <div class="st"><div class="n">02</div><h2>Sauce San Marzano</h2><p>Tomates San Marzano écrasées à la main, une pincée de sel, rien d'autre. La simplicité, à l'italienne.</p></div>
+    <div class="st"><div class="n">03</div><h2>Fior di latte</h2><p>Une mozzarella fondante, déchirée à la main au dernier moment.</p></div>
+    <div class="st"><div class="n">04</div><h2>Basilico & olio</h2><p>Feuilles de basilic frais et un filet d'huile d'olive extra vierge.</p></div>
+    <div class="st"><div class="n">05</div><h2>Four à bois, 90 secondes</h2><p>450 °C, une croûte léopard, un cœur fondant. Buon appetito !</p></div>
+  </div>
+  <div class="pz"><div class="board"></div><canvas class="flour" id="flour" width="640" height="640"></canvas>
+    <svg viewBox="-220 -220 440 440" id="svg">
+      <defs>
+        <radialGradient id="dough"><stop offset=".72" stop-color="#f3d9a4"/><stop offset=".88" stop-color="#e8c17f"/><stop offset="1" stop-color="#d9a55e"/></radialGradient>
+        <radialGradient id="baked"><stop offset=".7" stop-color="#e9b867"/><stop offset=".86" stop-color="#c98236"/><stop offset="1" stop-color="#8f4b1c"/></radialGradient>
+        <radialGradient id="sauce"><stop offset="0" stop-color="#d23a1f"/><stop offset="1" stop-color="#a8240f"/></radialGradient>
+        <filter id="wob"><feTurbulence baseFrequency=".035" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="14"/></filter>
+      </defs>
+      <g id="rot">
+        <circle id="base" r="200" fill="url(#dough)"/>
+        <circle id="bake" r="200" fill="url(#baked)" opacity="0"/>
+        <g id="char" opacity="0"></g>
+        <circle id="sc" r="168" fill="url(#sauce)" filter="url(#wob)" transform="scale(0)"/>
+        <g id="moz"></g>
+        <g id="basil"></g>
+        <path id="oil" d="M-120 -40 C -60 -90, 0 20, 60 -30 S 140 10, 120 70" fill="none" stroke="#d4b23c" stroke-width="5" stroke-linecap="round" opacity=".75" stroke-dasharray="400" stroke-dashoffset="400"/>
+      </g>
+      <g class="steam" id="steam" style="display:none"><path d="M-60 -40 c-20 -30 20 -50 0 -80"/><path d="M0 -60 c-20 -30 20 -50 0 -80"/><path d="M60 -40 c-20 -30 20 -50 0 -80"/></g>
+    </svg>
+  </div>
+  <div class="dots" id="dots"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+</div></section>
+
+<section class="menu"><div style="font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--red)">La carte</div><h2>Nos incontournables</h2><div class="mgrid">
+<div><div class="mi"><b>Pizza Margherita</b><span></span><i>7 500 FCFA</i></div><div class="md">Tomate San Marzano, mozzarella, basilic</div></div>
+<div><div class="mi"><b>Pizza Diavola</b><span></span><i>9 000 FCFA</i></div><div class="md">Salami piquant, mozzarella</div></div>
+<div><div class="mi"><b>Tagliatelle al ragù</b><span></span><i>8 500 FCFA</i></div><div class="md">Pâtes fraîches maison</div></div>
+<div><div class="mi"><b>Lasagne della Mamma</b><span></span><i>9 000 FCFA</i></div><div class="md">Recette familiale</div></div>
+<div><div class="mi"><b>Tiramisu</b><span></span><i>4 000 FCFA</i></div><div class="md">Mascarpone, café</div></div>
+<div><div class="mi"><b>Panna cotta</b><span></span><i>3 500 FCFA</i></div><div class="md">Coulis de fruits rouges</div></div>
+</div></section>
+<section class="resa" id="resa"><div><h2>Une table vous attend</h2><p style="margin-top:20px;font-size:18px;opacity:.85;line-height:1.7">Batterie IV, à côté de l'école Gros Bouquet. Ouvert tous les jours de 7 h à 22 h. 4,6 ★ sur Google (30 avis).</p></div>
+<div class="card"><div><small>Date</small><b>Samedi 15 novembre</b></div><div><small>Heure</small><b>20 h 00</b></div><div><small>Personnes</small><b>4 personnes</b></div><a class="cta" style="text-align:center" href="https://wa.me/24176348087">Réserver sur WhatsApp · 076 34 80 87</a></div></section>
+<footer><span>© 2026 Bella Mamma · Libreville, Gabon</span><span>@bellamamma.lbv</span><span>Site réalisé par NEAM</span></footer>
+<a class="neam-back" href="javascript:history.length>1?history.back():location.href='../../index.html'">← <b>Neam</b> · retour aux résultats</a>
+
+<script>
+const NS = 'http://www.w3.org/2000/svg';
+const el = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+const $ = (id) => document.getElementById(id);
+$('char').innerHTML = Array.from({ length: 26 }, (_, i) => { const a = i * 2.39, r = 185 + (i % 3) * 6; return `<circle cx="${Math.cos(a) * r}" cy="${Math.sin(a) * r}" r="${4 + (i % 4) * 2}" fill="#3b1f0d" opacity=".55"/>`; }).join('') + Array.from({ length: 10 }, (_, i) => `<circle cx="${Math.cos(i * 1.7) * (40 + i * 11)}" cy="${Math.sin(i * 1.7) * (40 + i * 11)}" r="${10 + i % 3 * 4}" fill="#e7a43a" opacity=".55"/>`).join('');
+// Mozzarella
+const MOZ = [[0, 0, 34], [-90, -60, 30], [80, -80, 28], [-60, 90, 32], [95, 55, 30], [-120, 15, 22], [20, -125, 22], [35, 115, 24], [125, -10, 20], [-20, 60, 18], [-30, -100, 18]];
+const moz = MOZ.map(([x, y, r], i) => { const g = el('g', { transform: `translate(${x} ${y - 500})` }); g.appendChild(el('path', { d: `M${-r} 0 C ${-r} ${-r * 1.1}, ${r} ${-r * 1.2}, ${r} 0 S ${-r * .6} ${r * 1.1}, ${-r} 0Z`, fill: '#fffaf0', stroke: '#efe3c8', 'stroke-width': 2 })); $('moz').appendChild(g); return { g, x, y, i }; });
+// Basilic
+const BAS = [[-40, -30, 20], [70, 10, 140], [-70, 60, 250], [30, 85, 310], [10, -80, 80], [-110, -60, 200]];
+const bas = BAS.map(([x, y, r]) => { const g = el('g', { transform: `translate(${x} ${y}) rotate(${r}) scale(0)` }); g.appendChild(el('path', { d: 'M0 0 C 14 -14, 40 -14, 52 0 C 40 14, 14 14, 0 0Z', fill: '#2f7d3a' })); g.appendChild(el('path', { d: 'M2 0 L48 0', stroke: '#1f5a27', 'stroke-width': 1.5 })); $('basil').appendChild(g); return { g, x, y, r }; });
+const clamp = (v) => Math.max(0, Math.min(1, v));
+const ease = (t) => 1 - Math.pow(1 - t, 3);
+const steps = [...document.querySelectorAll('.st')], bars = [...document.querySelectorAll('.dots b')];
+let lastStep = 0;
+function frame() {
+  const b = $('build'), r = b.getBoundingClientRect();
+  const P = clamp(-r.top / (b.offsetHeight - innerHeight)) * 6; // 0 → 6
+  const step = Math.min(5, Math.floor(P));
+  if (step !== lastStep) { steps.forEach((s, k) => s.classList.toggle('on', k === step)); lastStep = step; }
+  bars.forEach((bb, k) => bb.style.transform = `scaleX(${clamp(P - 1 - k)})`);
+  // 1 : pâte qui s'étale
+  const p1 = ease(clamp(P - 0.6)); $('base').setAttribute('r', 120 + 80 * p1); $('base').setAttribute('opacity', .4 + .6 * p1);
+  flourLevel = clamp(P - 0.3) * (1 - clamp(P - 1.6));
+  // 2 : sauce
+  const p2 = ease(clamp((P - 1.6) * 1.2)); $('sc').setAttribute('transform', `rotate(${p2 * 200}) scale(${p2})`);
+  // 3 : mozzarella qui tombe
+  moz.forEach((m) => { const t = ease(clamp((P - 2.5 - m.i * 0.05) * 2)); const bounce = t < 1 ? 0 : 0; m.g.setAttribute('transform', `translate(${m.x} ${m.y - 520 * (1 - t) + bounce}) rotate(${(1 - t) * 90})`); m.g.style.opacity = t > 0 ? 1 : 0; });
+  // 4 : basilic + huile
+  bas.forEach((bb, i) => { const t = ease(clamp((P - 3.5 - i * 0.07) * 2.5)); bb.g.setAttribute('transform', `translate(${bb.x} ${bb.y}) rotate(${bb.r + (1 - t) * 120}) scale(${t})`); });
+  $('oil').setAttribute('stroke-dashoffset', 400 - 400 * clamp((P - 3.8) * 2));
+  // 5 : cuisson
+  const p5 = clamp((P - 4.5) * 1.6); $('bake').setAttribute('opacity', p5); $('char').setAttribute('opacity', p5);
+  moz.forEach((m) => m.g.firstChild.setAttribute('fill', p5 > .5 ? '#fbe7b5' : '#fffaf0'));
+  $('steam').style.display = p5 > .6 ? '' : 'none';
+  $('rot').setAttribute('transform', `rotate(${P * 18})`);
+  requestAnimationFrame(frame);
+}
+// Farine qui tombe (étape 1)
+const fc = $('flour'), fx = fc.getContext('2d'); let flourLevel = 0;
+const grains = Array.from({ length: 160 }, () => ({ x: Math.random() * 640, y: Math.random() * 640, v: .5 + Math.random() * 1.5, r: .8 + Math.random() * 2 }));
+(function flour() { fx.clearRect(0, 0, 640, 640); if (flourLevel > 0.01) { fx.fillStyle = `rgba(255,255,255,${.85 * flourLevel})`; grains.forEach((g) => { g.y += g.v; if (g.y > 640) g.y = -5; fx.beginPath(); fx.arc(g.x, g.y, g.r, 0, 7); fx.fill(); }); } requestAnimationFrame(flour); })();
+frame();
+</script>
+</body></html>
