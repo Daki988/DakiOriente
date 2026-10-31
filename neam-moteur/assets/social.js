@@ -136,7 +136,7 @@
     let tab = 'pub', following = false;
     const likesN = P.fb || PROJ(700, 2200);
     const cover = NETCFG.cover || (POSTS.find((p) => p.kind !== 'card' && !isCut(p.imgs[0])) || POSTS[0]).imgs[0];
-    const photos = POSTS.filter((p) => p.kind !== 'card').flatMap((p) => p.imgs);
+    const photos = [...new Set(POSTS.filter((p) => p.kind !== 'card').flatMap((p) => p.imgs))];
     app.innerHTML = bar + `<div class="fb"><div class="top"><div class="f">f</div><div class="srch">Rechercher sur Facebook</div><div class="mid">${[I.home, I.reel, I.compass, I.msg].map((x, k) => `<span class="${k ? '' : 'on'}">${x}</span>`).join('')}</div><div class="rgt"><span>${I.msg}</span><span>${I.bell}</span><span style="background:none">${AV(40)}</span></div></div>
     <div class="hdr"><div class="wrap"><div class="cover" style="background-image:url('${cover}')"></div>
     <div class="id"><span class="av" style="border-radius:50%">${P.avatar}</span><div style="padding-bottom:16px"><h1>${esc(name)}</h1><div class="meta"><span id="fbl">${likesN ? nf(likesN) + ' J\'aime' : 'Nouvelle page'}</span> · ${nf(Math.round(likesN * 1.1))} followers</div></div>

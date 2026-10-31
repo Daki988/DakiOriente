@@ -51,3 +51,10 @@ node render.js /tmp/html ../rendus                             # images
 - `generateur/site2.js` : génère les sites multipages selon le secteur (hôtel, restaurant, beauté, immobilier, santé, voyage, auto, école, luxe, boutique, services).
 - `generateur/social-data.js` : génère les publications, stories et offres d'emploi de chaque réseau.
 - `node generateur/gen-live.js` régénère tout (`data/prospects.js`, `data/social.js`, `sites/`).
+
+## Contenus propres à chaque entreprise (novembre 2026)
+
+- `generateur/projets.js` : concept, offre (carte, chambres, soins, biens, destinations, produits…), prix et photos de chacune des 83 entreprises.
+- `generateur/photos.js` : banque de photos indexée par sujet. Chaque photo montre réellement le sujet nommé ; un élément sans photo exacte est affiché sans photo.
+- `generateur/appliquer.js` : applique ces contenus, choisit les photos de l'entreprise et relie chaque publication réseau à la photo de l'élément dont elle parle.
+- Immobilier : pages adaptées au métier (agence : biens et estimation ; SCI : résidences et demande de location ; expertise : expertises et demande ; gestion : gestion locative et « Confier mon bien »).

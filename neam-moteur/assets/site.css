@@ -205,3 +205,7 @@ img,video,iframe{max-width:100%}
  .mi .th{grid-row:1/3}.mi .tx{grid-column:2}.mi .pr{grid-column:2;grid-row:2;margin:0;font-size:14px}.mi .add,.mi .btn{grid-column:3;grid-row:1/3}
 }
 .info>div>div{display:block!important}
+/* Visuel sans photo : aplat sobre plutôt qu'une image hors sujet */
+.pic.nopic,.ph.nopic{background:linear-gradient(135deg,var(--soft),color-mix(in srgb,var(--ac) 18%,var(--soft)));display:grid;place-items:center;color:var(--ac);position:relative}
+.pic.nopic .ico svg{opacity:.55}
+.pic.nopic .ini{font-family:var(--h);font-size:56px;font-weight:600;color:var(--ac);opacity:.8;letter-spacing:.04em}

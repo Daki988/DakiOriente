@@ -54,12 +54,16 @@ for (const p of prospects) {
   counter[p.k] = counter[p.k] || 0;
   const b = lib.brandOf(p, 0, counter[p.k]++);
   const c = lib.content(p, b);
+  require('./appliquer').apply(p, b, c);
   const sig = SIGNATURES.includes(b.slug);
   // Site généré (les sites signature sont écrits à la main dans neam-moteur/sites/<slug>/)
   const sdir = path.join(APP, 'sites', b.slug);
   fs.mkdirSync(sdir, { recursive: true });
   const built = buildSite(p, b, c);
-  const pageList = built.map(([f, h]) => [f, (h.match(/<title>([^<—]+)/) || [])[1]?.trim() || f]);
+  const pageList = built.map(([f, h]) => [f, ((h.match(/<title>([^<—]+)/) || [])[1]?.trim() || f).replace(/&amp;/g, '&').replace(/&#39;|&apos;/g, "'")]);
+  // Supprime les pages qui ne font plus partie du site
+  const keep = new Set(built.map(([f]) => f));
+  for (const f of fs.readdirSync(sdir)) if (f.endsWith('.html') && !keep.has(f)) fs.unlinkSync(path.join(sdir, f));
   for (const [file, html] of built) {
     if (sig && file === 'index.html') continue; // l'accueil des sites signature est écrit à la main
     fs.writeFileSync(path.join(sdir, file), html);

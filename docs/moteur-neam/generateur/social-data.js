@@ -40,17 +40,42 @@ function captions(p, b, c) {
   return S[p.k] || S.services;
 }
 
+const AMB_TXT = {
+  resto: ['La carte vous attend', 'Réservation par WhatsApp', 'Ambiance du soir chez {n} 🔥 Réservez au {t}.', 'Une table vous attend ce week-end chez {n} 🍽️', 'Merci pour vos messages et vos visites ! À très vite chez {n} 🙏'],
+  hotel: ['Votre séjour commence ici', 'Réservation directe, meilleur prix garanti', 'Bienvenue chez {n}, {c} ✨ Réservez en direct au {t}.', 'Moment de détente chez {n} ☀️', 'Merci à nos clients pour leurs avis 🙏'],
+  beaute: ['Nos soins préférés', 'Rendez-vous en ligne ou au WhatsApp', 'Votre moment rien qu\'à vous chez {n} 🌿 RDV au {t}.', 'L\'équipe {n} vous accueille du lundi au samedi ✨', 'Merci pour votre confiance 💕'],
+  immo: ['Nouveaux biens disponibles', 'Visite sur rendez-vous', 'Vous cherchez un bien à {c} ? Appelez-nous au {t} 🔑', 'Visites cette semaine, prenez rendez-vous 📅', 'Merci à nos clients pour leur confiance 🏡'],
+  sante: ['Nos spécialités', 'Rendez-vous en ligne', 'Prenez rendez-vous chez {n} au {t} 📅', 'Notre équipe vous accueille à {c} 🩺', 'Conseil prévention : un contrôle par an, c\'est la base ✅'],
+  voyage: ['Nos destinations du moment', 'Devis gratuit sous 24 h', 'Votre prochain voyage se prépare avec {n} ✈️ {t}', 'Visa, billet, hôtel : on s\'occupe de tout 📋', 'Merci à nos voyageurs pour leurs photos 📸'],
+  auto: ['Notre sélection', 'Demandez votre devis', 'Passez nous voir à {c} ou appelez le {t} 🚗', 'Rapide, propre, garanti ✅', 'Merci à nos clients pour leur fidélité 🙏'],
+  ecole: ['Nos formations', 'Inscriptions ouvertes', 'Inscriptions ouvertes chez {n} 📚 Infos au {t}.', 'Cours d\'essai gratuit ce samedi ✨', 'Bravo à nos élèves 🎓👏'],
+  luxe: ['La collection', 'Disponible en boutique et sur commande', 'Nouvelle collection chez {n} ✨ Rendez-vous au {t}.', 'Livraison à {c} sous 24 h 🚚', 'Merci pour votre fidélité 🤍'],
+  boutique: ['Nos coups de cœur', 'Commande en un message', 'Nouvel arrivage chez {n} 😍 Commandez au {t}.', 'Livraison partout à {c} 🚚', 'Merci pour vos commandes 🙏'],
+  services: ['Nos services', 'Devis gratuit', '{n} à votre service à {c} — {t}', 'Notre équipe sur le terrain cette semaine 💼', 'Merci à nos clients pour leur confiance 🤝'],
+};
+
 function build(p, b, c, pool, sig) {
   const h = hash(b.slug), k = p.k, caps = captions(p, b, c), tags = TAGS[k] || TAGS.services;
   const tagLine = (i) => [tags[i % tags.length], tags[(i + 2) % tags.length], '#' + b.slug.replace(/-/g, '').slice(0, 16)].join(' ');
   const pics = [...(sig || []), ...pool];
   const posts = [];
+  const FI = { f: 0, a: 0 };
   const base = p.so.includes('instagram') ? 120 : 18;
   for (let i = 0; i < 12; i++) {
     const kind = i === 2 || i === 7 ? 'card' : i === 1 || i === 9 ? 'carousel' : i % 4 === 3 ? 'reel' : 'photo';
-    const img = pics[i % pics.length];
-    const imgs = kind === 'carousel' ? [pics[i % pics.length], pics[(i + 3) % pics.length], pics[(i + 6) % pics.length]] : [img];
-    const cap = caps[i % caps.length];
+    let img = pics[i % pics.length];
+    let imgs = kind === 'carousel' ? [pics[i % pics.length], pics[(i + 3) % pics.length], pics[(i + 6) % pics.length]] : [img];
+    let cap = caps[i % caps.length];
+    // Contenu réel de l'entreprise : chaque publication montre l'élément dont elle parle, sans doublon côte à côte
+    if (c.feed && c.feed.length) {
+      const feed = c.feed, amb = (c.ambiance && c.ambiance.length ? c.ambiance : feed.map((x) => x.img)).filter((u) => !feed.slice(0, 3).some((x) => x.img === u)).concat(c.ambiance || []);
+      if (kind === 'card') { imgs = [amb[0]]; }
+      else if (kind === 'carousel') { const st = FI.f; imgs = [0, 1, 2].map((q) => feed[(st + q) % feed.length].img); FI.f += 1; cap = `${[0, 1, 2].map((q) => feed[(st + q) % feed.length].t).filter((x, q, a) => a.indexOf(x) === q).join(', ')} : ${(AMB_TXT[k] || AMB_TXT.services)[0].toLowerCase()} chez ${b.main} ✨`; }
+      else if (i % 2 === 0 || !amb.length) { const fi = feed[FI.f++ % feed.length]; const price = typeof fi.pr === 'number' ? ' · ' + fcfa(fi.pr) : fi.pr && fi.pr !== '—' ? ' · ' + fi.pr : ''; imgs = [fi.img]; cap = `${fi.t} — ${fi.d}${price}. ${(AMB_TXT[k] || AMB_TXT.services)[1]} 📍 ${p.c}`; }
+      else { imgs = [amb[FI.a++ % amb.length]]; cap = (AMB_TXT[k] || AMB_TXT.services)[2 + ((i >> 1) % 3)].replace('{n}', b.main).replace('{t}', p.t).replace('{c}', p.c); }
+      if (posts.length && posts[posts.length - 1].imgs[0] === imgs[0] && kind !== 'card') { imgs = [amb[FI.a++ % amb.length] || imgs[0]]; }
+      img = imgs[0];
+    }
     const likes = Math.round(base * (1 + ((h >> i) % 9) / 3) * (kind === 'reel' ? 3 : 1));
     const ncom = 2 + ((h >> (i + 2)) % 4);
     const comments = Array.from({ length: ncom }, (_, j) => { const u = pick(USERS, h + i * 7 + j * 3); return { u, n: NAMES[u], t: pick(COMMENTS[k] || COMMENTS.services, h + i + j * 5), l: (h >> j) % 12 }; });

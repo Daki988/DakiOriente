@@ -55,6 +55,12 @@
     'flotte.html': ['Flotte de véhicules avec photos et tarif à la journée', 'main .sec .g3|main .sec'],
     'services.html': ['Services et tarifs détaillés', 'main .sec .g3|main .sec'],
     'devis.html': ['Demande de devis en ligne, réponse rapide', 'form'],
+    'expertises.html': ['Présentation des expertises : valeur vénale, bancaire, judiciaire, avant achat', 'main .sec .g3|main .sec'],
+    'demande.html': ['Demande d\'expertise en ligne : type, bien, adresse et échéance', 'form'],
+    'residences.html': ['Résidences à louer en direct, avec fiche détaillée de chaque logement', '#biens|main .sec'],
+    'louer.html': ['Demande de location en ligne, rappel sous 48 h', 'form'],
+    'gestion.html': ['Offre de gestion locative détaillée : locataires, loyers, entretien, compte rendu', 'main .sec .g3|main .sec'],
+    'confier.html': ['Formulaire « Confier mon bien » pour recevoir une proposition de gestion', 'form'],
   };
 
   function plan(p, SD) {
