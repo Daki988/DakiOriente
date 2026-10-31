@@ -56,7 +56,7 @@
   const HS = [...P.slug].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
   const PROJ = (a, b) => a + (HS % (b - a));
   const NAMES = { instagram: 'Instagram', facebook: 'Facebook', tiktok: 'TikTok', linkedin: 'LinkedIn' };
-  const bar = `<div class="nbar"><span class="ttl"><b>●</b> <i class="lg">NEAM <em>Atelier</em></i> <span class="long">· ${esc(P.n)} — profil préparé par NEAM, non publié</span></span><div class="sw">${Object.entries(NAMES).map(([k, v]) => `<a href="social.html?slug=${P.slug}&net=${k}" class="${k === NET ? 'on' : ''}">${v}</a>`).join('')}<a href="${site}">Site web ↗</a><a href="recherche.html?q=${encodeURIComponent(P.n)}">← Résultats</a></div></div>`;
+  const bar = `<div class="nbar"><span class="ttl"><b>●</b> <i class="lg">NEAM <em>Atelier</em></i> <span class="long">· ${esc(P.n)} — profil préparé par NEAM, non publié</span></span><div class="sw">${Object.entries(NAMES).map(([k, v]) => `<a href="social.html?slug=${P.slug}&net=${k}" class="${k === NET ? 'on' : ''}">${v}</a>`).join('')}<a href="score.html?slug=${P.slug}" class="ds">Digital score</a><a href="${site}">Site web ↗</a><a href="recherche.html?q=${encodeURIComponent(P.n)}">← Résultats</a></div></div>`;
   const app = $('#app');
   document.title = `${name} (@${handle}) • ${NAMES[NET]}`;
   const mask = document.createElement('div'); mask.className = 'mask'; document.body.appendChild(mask);

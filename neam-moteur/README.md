@@ -58,3 +58,11 @@ cd docs/moteur-neam/generateur && node gen-live.js
 - `social.html?slug=<slug>&net=instagram|facebook|tiktok|linkedin` : affiche le profil comme sur le vrai réseau, avec les publications prévues. Tout est interactif : stories, j'aime, commentaires, lecteur TikTok, offres d'emploi LinkedIn. Les données viennent de `data/social.js`.
 - `sites/<slug>/` : chaque site contient toutes ses pages (accueil, pages métier, à propos, galerie, contact). Réservation, panier, rendez-vous et formulaires mènent à WhatsApp. Base commune : `assets/site.css` et `assets/site.js`.
 - `assets/photos/` : banque de photos libres (Unsplash) classées par secteur.
+
+## Digital score
+
+- `score.html?slug=<slug>` : note actuelle (barème du tableau de prospection : site 40, fiche Google 25, Facebook 20, Instagram/TikTok 15), plan d'action détaillé et note après accompagnement.
+- Chaque recommandation a un bouton « Voir appliqué » qui ouvre la page d'exemple et surligne l'élément exact (`?hl=<sélecteur>&ht=<texte>`, géré par `assets/reco.js`).
+- `assets/digiscore.js` génère les recommandations à partir des mêmes données que les pages : leur texte correspond donc exactement à ce qui est affiché.
+- `assets/reco.js` ajoute aussi le bouton WhatsApp flottant sur tous les sites.
+- La fiche Google du moteur contient avis avec réponses du propriétaire, questions-réponses, publications et bouton d'action.

@@ -75,7 +75,7 @@ for (const p of prospects) {
   const st = lib.stats(p, b);
   engine.push({
     slug: b.slug, n: p.n, main: b.main, s: p.s, k: p.k, c: p.c, t: p.t, e: c.email, d: p.d || null, r: p.r || null, v: p.v || 0,
-    so: p.so, sc: p.sc, a: p.a, domain: b.domain, handle: b.handle, tagline: c.tagline, intro: c.intro, cta: c.cta,
+    so: p.so, sc: p.sc, a: p.a, w: p.w || null, g: p.g, domain: b.domain, handle: b.handle, tagline: c.tagline, intro: c.intro, cta: c.cta,
     hours: c.hours, address: c.address, pages: pageList.filter(([f]) => f !== 'index.html'), pal: b.pal, font: b.font, sig,
     photos: b.photos.slice(0, 5).map((u) => u.replace('../../', '')),
     avatar: lib.avatarSVG(p, b).replace(/\.\.\/\.\.\//g, ''),

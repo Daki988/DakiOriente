@@ -20,6 +20,7 @@
     }).filter((x) => x.sc > 0).sort((a, b) => b.sc - a.sc).map((x) => x.p);
   }
   const ICON = {
+    img: 'M4 5h16v14H4zM4 15l5-5 4 4 3-3 4 4M15 9h.01',
     arrow: 'M5 12h14M13 6l6 6-6 6', pin: 'M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11zM12 7.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5z', phone: 'M5 3h4l2 5-2.5 1.5a11 11 0 006 6L16 13l5 2v4a2 2 0 01-2 2A17 17 0 013 5a2 2 0 012-2', heart: 'M12 20s-8-4.6-8-10.2A4.8 4.8 0 0112 6a4.8 4.8 0 018 3.8C20 15.4 12 20 12 20z', check: 'M4 12l5 5L20 6', search: 'M11 4a7 7 0 100 14 7 7 0 000-14zM20 20l-4-4', globe: 'M12 3a9 9 0 100 18 9 9 0 000-18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18',
   };
   const ico = (n, s = 18, c = 'currentColor', w = 1.8) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"><path d="${ICON[n]}"/></svg>`;
@@ -106,15 +107,38 @@
 `;
   }
 
+  // Avis clients types par secteur (fiche Google après accompagnement)
+  const REV = {
+    resto: ['Cuisine excellente et service rapide. Les portions sont généreuses, on reviendra !', 'Cadre très agréable, idéal en famille. La réservation par WhatsApp est super pratique.', 'Très bon rapport qualité-prix, mention spéciale au dessert.'],
+    hotel: ['Chambre impeccable, personnel aux petits soins. Le petit-déjeuner est top.', 'Réservation simple sur le site, confirmation immédiate. Séjour parfait.', 'Très calme, bien situé. Je recommande pour les voyages d\'affaires.'],
+    beaute: ['Accueil chaleureux et résultat magnifique. Prise de rendez-vous en ligne très pratique.', 'Personnel professionnel, salon propre et relaxant.', 'Je ressors toujours ravie, les tarifs sont clairs.'],
+    sante: ['Équipe à l\'écoute, rendez-vous obtenu rapidement en ligne.', 'Cabinet moderne et très propre. Explications claires.', 'Peu d\'attente, praticiens rassurants. Je recommande.'],
+    immo: ['Agence sérieuse, j\'ai trouvé mon appartement en deux semaines.', 'Très bon suivi, visites organisées rapidement.', 'Estimation juste et vente réalisée dans les délais.'],
+    voyage: ['Voyage parfaitement organisé, du billet à l\'hôtel.', 'Équipe réactive sur WhatsApp, devis reçu en 24 h.', 'Très bons conseils, je repasse par eux pour les prochaines vacances.'],
+    auto: ['Service rapide et devis respecté. Merci !', 'Véhicule propre et en parfait état.', 'Équipe compétente et honnête, je recommande.'],
+    ecole: ['Formation de qualité, formateurs disponibles.', 'Inscription simple, suivi sérieux des élèves.', 'Mon enfant progresse vraiment, merci à l\'équipe.'],
+  };
+  const WHO = ['Nadège M.', 'Christian O.', 'Larissa N.', 'Patrick E.', 'Gisèle B.', 'Junior M.'];
+
   function panel(p) {
-    const rating = p.r ? `<b style="color:#202124">${String(p.r).replace('.', ',')}</b> <span class="stars">${stars(p.r)}</span> ${p.v} avis Google` : 'Aucun avis pour l\'instant';
+    const S = window.NEAMSCORE, pr = S ? S.proj(p) : { r: p.r, v: p.v };
+    const rating = pr.r ? `<b style="color:#202124">${String(pr.r).replace('.', ',')}</b> <span class="stars">${stars(pr.r)}</span> ${pr.v} avis Google` : 'Aucun avis pour l\'instant';
     const maps = `https://www.google.com/maps/search/${encodeURIComponent(p.n + ' ' + p.c + ' Gabon')}`;
-    return `<aside class="kp"><div class="phs">${p.photos.slice(0, 3).map((ph) => `<div style="background-image:url('${ph}')"></div>`).join('')}</div>
-    <div class="in"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h2>${esc(p.n)}</h2><span class="mini" style="width:46px;height:46px;border-radius:10px">${p.avatar}</span></div><div style="margin:6px 0;color:#70757a">${rating}</div><div style="color:#70757a">${esc(p.s)} à ${esc(p.c)}</div><div style="margin-top:8px;font-size:12px;color:#188038;display:flex;gap:6px;align-items:center">${ico('check', 14, '#188038', 2.4)} Établissement revendiqué par le propriétaire</div></div>
-    <div class="acts"><a href="${siteUrl(p)}"><i>${ico('globe')}</i>Site Web</a><a href="${maps}" target="_blank" rel="noopener"><i>${ico('pin')}</i>Itinéraire</a><a href="${resUrl(p)}"><i>${ico('heart')}</i>Réseaux</a><a href="tel:+241${p.t.replace(/\D/g, '').replace(/^0/, '')}"><i>${ico('phone')}</i>Appeler</a></div>
-    <div class="in"><div class="row" style="color:#4d5156">${esc(lead(p.intro))}.</div><div class="row"><b>Adresse : </b>${esc(p.address)}</div><div class="row"><b>Horaires : </b><span class="ok">Ouvert</span> · ${esc(p.hours[0])} <span style="color:#70757a">(${esc(p.hours[1])})</span></div><div class="row"><b>Téléphone : </b>${esc(p.t)}</div><div class="row"><b>${p.k === 'resto' ? 'Réservations' : p.k === 'hotel' ? 'Réserver' : 'Rendez-vous'} : </b><a style="color:var(--link)" href="${siteUrl(p)}">${esc(p.domain)}</a></div><div class="row"><b>Profils : </b><a style="color:var(--link)" href="${resUrl(p)}">Instagram · TikTok · Facebook · LinkedIn</a></div>${p.d ? `<div class="row"><b>Direction : </b>${esc(p.d)}</div>` : ''}</div>
-    <div class="in" style="padding-top:0"><div style="font-size:16px;margin-bottom:8px">Posts de ${esc(p.main)}</div><div class="posts">${[3, 4].map((i, k) => `<div><span style="background-image:url('${p.photos[i] || p.photos[0]}')"></span><p>${k ? 'Nouveau : ' + esc(p.items[0]) : esc(p.tagline)}</p></div>`).join('')}</div></div></aside>`;
+    const ctaPage = (p.pages || []).find(([f]) => /reserv|rendez|inscri|devis|sur-mesure|contact/.test(f));
+    const cta = ctaPage && !p.custom ? `sites/${p.slug}/${ctaPage[0]}` : siteUrl(p);
+    const h = p.slug.length;
+    const revs = (REV[p.k] || REV.auto).map((t, i) => ({ who: WHO[(h + i) % WHO.length], t, d: ['il y a 2 jours', 'il y a 1 semaine', 'il y a 3 semaines'][i] }));
+    const qa = [[`Peut-on ${p.k === 'resto' ? 'réserver une table' : p.k === 'hotel' ? 'réserver une chambre' : 'prendre rendez-vous'} en ligne ?`, `Oui, directement sur ${p.domain} ou par WhatsApp au ${p.t}. Confirmation rapide.`], ['Quels sont vos horaires ?', `${p.hours[1]}.`]];
+    return `<aside class="kp"><div class="phs">${p.photos.slice(0, 3).map((ph) => `<div style="background-image:url('${ph}')"></div>`).join('')}<span class="nph">${ico('img', 14, '#fff')} ${18 + (h % 20)} photos</span></div>
+    <div class="in"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h2>${esc(p.n)}</h2><span class="mini" style="width:46px;height:46px;border-radius:10px">${p.avatar}</span></div><div style="margin:6px 0;color:#70757a">${rating}</div><div style="color:#70757a">${esc(p.s)} à ${esc(p.c)}</div><div class="claim" style="margin-top:8px;font-size:12px;color:#188038;display:flex;gap:6px;align-items:center">${ico('check', 14, '#188038', 2.4)} Établissement revendiqué par le propriétaire</div></div>
+    <div class="acts"><a href="${siteUrl(p)}"><i>${ico('globe')}</i>Site Web</a><a href="${maps}" target="_blank" rel="noopener"><i>${ico('pin')}</i>Itinéraire</a><a href="${cta}"><i>${ico('check')}</i>${esc(p.cta.length > 14 ? p.cta.split(' ')[0] : p.cta)}</a><a href="tel:+241${p.t.replace(/\D/g, '').replace(/^0/, '')}"><i>${ico('phone')}</i>Appeler</a></div>
+    <div class="in info"><div class="row" style="color:#4d5156">${esc(lead(p.intro))}.</div><div class="row"><b>Adresse : </b>${esc(p.address)}</div><div class="row"><b>Horaires : </b><span class="ok">Ouvert</span> · ${esc(p.hours[0])} <span style="color:#70757a">(${esc(p.hours[1])})</span></div><div class="row"><b>Téléphone : </b>${esc(p.t)}</div><div class="row"><b>${esc(p.cta)} : </b><a style="color:var(--link)" href="${cta}">${esc(p.domain)}</a></div><div class="row"><b>Profils : </b><a style="color:var(--link)" href="${resUrl(p)}">Instagram · TikTok · Facebook · LinkedIn</a></div>${p.d ? `<div class="row"><b>Direction : </b>${esc(p.d)}</div>` : ''}</div>
+    <div class="in qa"><div class="kh">Questions et réponses</div>${qa.map(([q, a]) => `<div class="q"><b>${esc(q)}</b><p><span class="own">Réponse du propriétaire</span> ${esc(a)}</p></div>`).join('')}</div>
+    <div class="in rvw"><div class="kh">Avis</div>${revs.map((r) => `<div class="rv1"><div class="rh"><span class="ri">${r.who[0]}</span><b>${esc(r.who)}</b><span class="stars">★★★★★</span><small>${r.d}</small></div><p>${esc(r.t)}</p><div class="rep"><b>Réponse du propriétaire</b> Merci ${esc(r.who.split(' ')[0])} pour votre confiance, toute l'équipe de ${esc(p.main)} est ravie. À très bientôt !</div></div>`).join('')}</div>
+    <div class="in gposts" style="padding-top:0"><div class="kh">Posts de ${esc(p.main)}</div><div class="posts">${[3, 4].map((i, k) => `<div><span style="background-image:url('${p.photos[i] || p.photos[0]}')"></span><p>${k ? 'Nouveau : ' + esc(p.items[0]) : esc(p.tagline)}</p></div>`).join('')}</div></div>
+    ${p.custom ? '' : `<a class="dsc" href="score.html?slug=${p.slug}">Digital score NEAM <b>${p.sc || 0} → ${S ? S.after(p).total : 95}/100</b> · voir le plan ›</a>`}</aside>`;
   }
+
 
   if (document.body.dataset.page === 'results') resultsPage();
 })();

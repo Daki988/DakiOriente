@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Digital score — NEAM Atelier</title><link rel="icon" href="assets/brand/mark.svg">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/brand/atelier.css">
+<style>
+:root{--bg:#f6f4ef;--ink:#121212;--mut:#6b6b6b;--line:#e6e2d8;--am:#F5AD10;--ye:#FFE309;--ok:#16a34a;--ko:#dc2626;--card:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 'Instrument Sans',system-ui,sans-serif}
+a{color:inherit}
+.top{display:flex;align-items:center;gap:16px;padding:14px 24px;background:#0b0c0d;color:#fff;position:sticky;top:0;z-index:50}
+.top .na-logo{font-size:22px}.top nav{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.top nav a{text-decoration:none;font-size:13px;padding:7px 12px;border-radius:999px;background:#1f2124}.top nav a:hover{background:#2c2f33}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.hero{padding:48px 0 30px}
+.who{display:flex;gap:16px;align-items:center}.who .av{width:64px;height:64px;border-radius:16px;overflow:hidden;flex:none;display:grid;place-items:center;background:#fff;border:1px solid var(--line)}.who .av svg{width:100%;height:100%}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(38px,6vw,64px);line-height:1;margin:18px 0 10px}
+h1 i{color:var(--am)}
+.lede{max-width:720px;color:#3b3b3b;font-size:18px}
+.gauges{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;margin:36px 0 10px}
+.g{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:26px;display:flex;gap:22px;align-items:center}
+.ring{--v:0;--c:var(--ko);width:132px;height:132px;border-radius:50%;flex:none;display:grid;place-items:center;background:conic-gradient(var(--c) calc(var(--v)*1%),#eee 0);position:relative;transition:--v 1.4s}
+.ring:before{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--card)}
+.ring b{position:relative;font-size:38px;font-weight:700;line-height:1}.ring b small{font-size:14px;color:var(--mut);font-weight:500}
+.g h3{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:600}.g p{font-size:15px;margin-top:6px;color:#3b3b3b}
+.arrow{font-size:34px;color:var(--am)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:13px;color:var(--mut)}.bar span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.crit{background:var(--card);border:1px solid var(--line);border-radius:24px;margin:22px 0;overflow:hidden}
+.ch{display:grid;grid-template-columns:1fr 280px;gap:24px;padding:26px 28px;border-bottom:1px solid var(--line);align-items:center}
+.ch h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:34px;line-height:1.05}
+.ch .st{margin-top:8px;color:#7a1f1f;background:#fdecec;display:inline-block;border-radius:10px;padding:6px 10px;font-size:14px}
+.pts{font-size:13px;color:var(--mut)}.pts .ln{height:10px;border-radius:999px;background:#eee;margin:6px 0 10px;overflow:hidden;position:relative}
+.pts .ln i{position:absolute;inset:0 auto 0 0;border-radius:999px;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.pts .b i{background:var(--ko)}.pts .a i{background:var(--ok)}
+.pts b{color:var(--ink)}
+.rl{list-style:none}
+.rl li{display:grid;grid-template-columns:32px 1fr auto;gap:14px;align-items:center;padding:16px 28px;border-bottom:1px solid #f0ede5}
+.rl li:last-child{border:0}
+.rl .ck{width:28px;height:28px;border-radius:50%;background:#dcfce7;color:var(--ok);display:grid;place-items:center;font-weight:700}
+.rl b{font-weight:600}.rl small{display:block;color:var(--mut);font-size:14px;margin-top:2px}
+.rl a{text-decoration:none;background:#0b0c0d;color:#fff;border-radius:999px;padding:9px 14px;font-size:13px;font-weight:600;white-space:nowrap;transition:background .2s}
+.rl a:hover{background:#000}.rl a span{color:var(--ye)}
+.end{background:#0b0c0d;color:#fff;border-radius:28px;padding:40px;margin:30px 0 60px;display:flex;gap:30px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.end h2{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(30px,4vw,44px);line-height:1.05}.end h2 i{color:var(--ye)}
+.end p{color:#bbb;margin-top:8px}.end .bt{display:flex;gap:10px;flex-wrap:wrap}
+.end a{text-decoration:none;border-radius:999px;padding:13px 20px;font-weight:600;background:var(--ye);color:#111}.end a.o{background:#1f2124;color:#fff}
+.note{font-size:12px;color:var(--mut);margin:-40px 0 50px}
+.fade{opacity:0;transform:translateY(16px);transition:opacity .7s,transform .7s}.fade.in{opacity:1;transform:none}
+@property --v{syntax:'<number>';inherits:false;initial-value:0}
+@media(max-width:820px){
+ .top{padding:10px 14px}.top nav{display:none}
+ .gauges{grid-template-columns:1fr}.arrow{transform:rotate(90deg);justify-self:center}
+ .g{padding:20px}.ring{width:104px;height:104px}.ring b{font-size:30px}
+ .ch{grid-template-columns:1fr;padding:22px 18px}.ch h2{font-size:28px}
+ .rl li{grid-template-columns:28px 1fr;padding:14px 18px}.rl a{grid-column:2;justify-self:start}
+ .end{padding:28px}
+}
+</style></head>
+<body>
+<div class="top"><a href="index.html" class="na-logo dark"><img src="assets/brand/neam-wordmark-light.png" alt="NEAM"><span class="at">Atelier</span></a><nav id="nav"></nav></div>
+<main id="app"></main>
+<script src="data/prospects.js"></script><script src="data/social.js"></script><script src="assets/store.js"></script><script src="assets/digiscore.js"></script>
+<script>
+(function () {
+  const q = new URLSearchParams(location.search);
+  const P = window.PROSPECTS.find((x) => x.slug === q.get('slug')) || window.PROSPECTS[0];
+  const S = window.NEAMSCORE, SD = (window.SOCIAL || {})[P.slug];
+  const esc = (s) => String(s ?? '').replace(/&amp;/g, '&').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const b = S.before(P), a = S.after(P), { R, bonus } = S.plan(P, SD);
+  document.title = `Digital score — ${P.n} — NEAM Atelier`;
+  const col = (v) => (v < 15 ? 'var(--ko)' : v < 30 ? '#ea580c' : v < 45 ? '#ca8a04' : 'var(--ok)');
+  document.getElementById('nav').innerHTML = `<a href="recherche.html?q=${encodeURIComponent(P.n)}">Résultat Google</a><a href="sites/${P.slug}/index.html">Site</a><a href="social.html?slug=${P.slug}&net=instagram">Réseaux</a>`;
+  const crit = (k) => `<section class="crit fade"><div class="ch"><div><div class="eyebrow">${S.MAX[k]} points</div><h2>${S.LABEL[k]}</h2><div class="st">Constat : ${esc(R[k].state)}</div></div>
+    <div class="pts"><div>Aujourd'hui <b>${b.pts[k]}/${S.MAX[k]}</b></div><div class="ln b"><i data-w="${(b.pts[k] / S.MAX[k]) * 100}"></i></div><div>Après NEAM <b>${a.pts[k]}/${S.MAX[k]}</b></div><div class="ln a"><i data-w="${(a.pts[k] / S.MAX[k]) * 100}"></i></div></div></div>
+    <ul class="rl">${R[k].recos.map((r) => `<li><span class="ck">✓</span><div><b>${esc(r.t)}</b>${r.d ? `<small>${esc(r.d)}</small>` : ''}</div><a href="${r.url}">Voir appliqué <span>↗</span></a></li>`).join('')}</ul></section>`;
+  document.getElementById('app').innerHTML = `<div class="wrap">
+  <section class="hero fade"><div class="who"><span class="av">${P.avatar}</span><div><div class="eyebrow">Digital score · audit du 27 octobre 2026</div><div style="font-size:20px;font-weight:600">${esc(P.n)}</div><div style="color:var(--mut)">${esc(P.s)} · ${esc(P.c)}</div></div></div>
+  <h1>Votre présence en ligne, <i>aujourd'hui et demain</i></h1>
+  <p class="lede">Chaque recommandation ci-dessous est déjà appliquée dans les pages d'exemple préparées pour ${esc(P.main)}. Cliquez sur « Voir appliqué » pour voir le résultat exact.</p>
+  <div class="gauges"><div class="g"><div class="ring" id="r1" style="--c:${col(b.total)}"><b>${b.total}<small>/100</small></b></div><div><h3>Aujourd'hui</h3><p>${esc(P.a)}</p></div></div><div class="arrow">→</div>
+  <div class="g"><div class="ring" id="r2" style="--c:var(--ok)"><b>${a.total}<small>/100</small></b></div><div><h3>Après NEAM</h3><p>${R.site.recos.length + R.google.recos.length + R.facebook.recos.length + R.social.recos.length + bonus.length} actions réalisées</p></div></div></div>
+  <div class="bar"><span>Barème : site 40</span><span>Fiche Google 25</span><span>Facebook 20</span><span>Instagram / TikTok 15</span></div></section>
+  ${['site', 'google', 'facebook', 'social'].map(crit).join('')}
+  <section class="crit fade"><div class="ch"><div><div class="eyebrow">Inclus en plus</div><h2>Image de marque & recrutement</h2></div><div></div></div><ul class="rl">${bonus.map((r) => `<li><span class="ck">✓</span><div><b>${esc(r.t)}</b>${r.d ? `<small>${esc(r.d)}</small>` : ''}</div><a href="${r.url}">Voir appliqué <span>↗</span></a></li>`).join('')}</ul></section>
+  <section class="end fade"><div><h2>De ${b.total} à <i>${a.total}/100</i></h2><p>Tout ce que vous venez de voir est prêt à être mis en ligne.</p></div><div class="bt"><a href="recherche.html?q=${encodeURIComponent(P.n)}">Voir le résultat sur Google</a><a class="o" href="sites/${P.slug}/index.html">Ouvrir le site</a></div></section>
+  <p class="note">Score actuel issu du relevé des 26 et 27 octobre 2026. Score après NEAM : projection une fois le plan appliqué. Avis, abonnés et chiffres des pages d'exemple sont illustratifs.</p></div>`;
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); e.target.querySelectorAll('.ln i').forEach((i) => (i.style.width = i.dataset.w + '%')); io.unobserve(e.target); } }), { threshold: 0.12 });
+  document.querySelectorAll('.fade').forEach((e) => io.observe(e));
+  document.querySelectorAll('.ln i').forEach((i) => (i.style.width = '0'));
+  requestAnimationFrame(() => setTimeout(() => { document.getElementById('r1').style.setProperty('--v', b.total); document.getElementById('r2').style.setProperty('--v', a.total); }, 300));
+})();
+</script>
+</body></html>
