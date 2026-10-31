@@ -132,6 +132,7 @@
       '<div class="kpi"><span>En cours</span><b>' + open.length + "</b></div>" +
       '<div class="kpi"><span>Livrées ce mois-ci</span><b>' + month.length + "</b></div>" +
       '<div class="kpi"><span>Encaissé ce mois-ci</span><b>' + fcfa(ca) + "</b></div>" +
+      '<div class="kpi"><span>Commandes venues de Facebook (ce mois)</span><b>' + o.filter(function (x) { var d = new Date(x.createdAt); return /^(facebook|fb|instagram|ig)/.test(x.source || "") && d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear(); }).length + "</b></div>" +
       "</div>" +
       '<div class="card"><h2>Avant l\'ouverture au public</h2><ul class="todo-list">' +
       check.map(function (c) { return "<li><span class=\"" + (c[0] ? "okk\">✓" : "ko\">" + (c[0] === null ? "○" : "!")) + "</span><span>" + esc(c[1]) + "</span></li>"; }).join("") +
@@ -184,6 +185,7 @@
         '<dl class="kv"><dt>Nom</dt><dd>' + esc(c.name) + "</dd><dt>Téléphone</dt><dd>" + (tel ? '<a href="tel:' + esc(tel) + '">' + esc(c.phone) + "</a>" : "—") +
         (wa ? ' · <a href="https://wa.me/' + wa + '" target="_blank" rel="noopener">WhatsApp</a>' : "") + "</dd>" +
         "<dt>Adresse</dt><dd>" + esc(c.address) + "</dd><dt>Créneau</dt><dd>" + esc(c.slot || "—") + "</dd><dt>Paiement</dt><dd>" + esc(c.pay || "—") + "</dd>" +
+        "<dt>Origine</dt><dd>" + esc(o.source || "Visite directe") + "</dd>" +
         "<dt>Appel</dt><dd>" + (c.call ? "Souhaite être appelé·e avant la livraison" : "Pas d'appel demandé") + "</dd></dl>") + "</div>" +
       "<div><h3>Panier</h3><table class=\"lines\">" + (o.items || []).map(function (l) { return "<tr><td>" + l.qty + " × " + esc(l.name || l.id) + " <small>(" + esc(l.id) + ")</small></td><td>" + fcfa(l.price * l.qty) + "</td></tr>"; }).join("") +
       "<tr><td>Livraison</td><td>" + (o.ship ? fcfa(o.ship) : "Offerte") + "</td></tr><tr><td>Total à encaisser</td><td>" + fcfa(o.total) + "</td></tr></table></div>" +

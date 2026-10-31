@@ -2,6 +2,12 @@
    puis charge les scripts de la page. Sans serveur (démo, hors ligne), le site garde products.js. */
 (function () {
   var me = document.currentScript;
+  // Origine de la visite (ex. ?utm_source=facebook&utm_campaign=essentiels) : gardée le temps de l'onglet,
+  // puis jointe à la commande pour mesurer la campagne. Aucun traceur tiers.
+  try {
+    var q = new URLSearchParams(location.search), src = q.get("utm_source");
+    if (src) sessionStorage.setItem("do_src", (src + (q.get("utm_campaign") ? "/" + q.get("utm_campaign") : "")).slice(0, 60));
+  } catch (e) { /* navigation privée */ }
   var scripts = (me.getAttribute("data-scripts") || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean);
 
   function load(i) {

@@ -53,6 +53,7 @@ export default async (req: Request) => {
     windowEnd: null,
     note: "",
     events: [{ t: now, label: "Commande reçue", place: "Boutique en ligne" }],
+    source: clean(b.source, 60).toLowerCase().replace(/[^a-z0-9/_-]/g, ""),
   };
 
   const res = await store("orders").setJSON(ref, order, { onlyIfNew: true });

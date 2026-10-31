@@ -426,7 +426,8 @@
     var order = {
       ref: ref, name: String(f.get("name")), phone: phone, address: String(f.get("address")),
       slot: String(f.get("slot")), pay: String(f.get("pay")), call: !!f.get("call"), cgv: !!f.get("cgv"),
-      items: items, prices: prices, names: names, ship: t.ship
+      items: items, prices: prices, names: names, ship: t.ship,
+      source: (function () { try { return sessionStorage.getItem("do_src") || ""; } catch (e) { return ""; } })()
     };
     var btn = form.querySelector('button[type="submit"]'), msg = $("#co-error");
     msg.textContent = ""; btn.disabled = true; btn.textContent = "Envoi en cours…";
@@ -532,5 +533,7 @@
   // Liens depuis les autres pages : #panier ouvre le panier, #p-E05 ouvre la fiche du produit E05
   if (location.hash === "#panier") openCart();
   else if (/^#p-[A-Z0-9]+$/.test(location.hash) && byId[location.hash.slice(3)]) { $("#boutique").scrollIntoView(); openProduct(location.hash.slice(3)); }
+  // #ajout-G01 (page Essentiels) : ajoute le produit puis ouvre le panier
+  else if (/^#ajout-[A-Z0-9]+$/.test(location.hash) && byId[location.hash.slice(7)]) { addToCart(location.hash.slice(7), 1); history.replaceState(null, "", location.pathname); openCart(); }
   renderQuiz();
 })();

@@ -2,7 +2,7 @@
 import { cp, rm, mkdir } from "node:fs/promises";
 
 const OUT = "public";
-const FILES = ["index.html", "guide.html", "suivi.html", "mentions-legales.html", "cgv.html", "confidentialite.html", "robots.txt"];
+const FILES = ["index.html", "essentiels.html", "guide.html", "suivi.html", "mentions-legales.html", "cgv.html", "confidentialite.html", "robots.txt"];
 const DIRS = ["assets", "admin"];
 
 await rm(OUT, { recursive: true, force: true });
