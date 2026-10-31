@@ -180,7 +180,7 @@ window.PRODUCTS = [
     tags: ["couple", "cadeau", "inter", "seduire"],
     desc: "Un jeu de 54 cartes illustrées, une position par carte, sans texte. Tirez une carte… et laissez-vous guider.",
     points: ["54 positions", "Illustrées, sans texte", "Format jeu de cartes"] },
-  { id: "J05", cat: "jeux", name: "Dés Coquins Phosphorescents ×2", price: 6000, art: "kit", hue: 120, badge: "Idéal pour débuter",
+  { id: "J05", discreet: true, cat: "jeux", name: "Dés Coquins Phosphorescents ×2", price: 6000, art: "kit", hue: 120, badge: "Idéal pour débuter",
     tags: ["couple", "cadeau", "debut", "seduire"],
     desc: "Lancez les deux dés : l'un dit quoi, l'autre dit où. Ils brillent dans le noir, pour jouer lumières éteintes.",
     points: ["Lot de 2 dés", "Phosphorescents", "Petit prix, grand effet"] },

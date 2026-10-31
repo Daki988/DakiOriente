@@ -4,5 +4,6 @@
   sous [licence Pexels](https://www.pexels.com/license/) (usage commercial gratuit, sans attribution obligatoire).
 
 Les photos produits viennent des fiches fournisseur des articles du plan de commande
-(AliExpress, Amazon, Condoms.uk) : voir `docs/catalogue.md`. Les coffrets (`PK1`, `PK2`)
-et les images de collections (`cat-*`) sont des montages de ces photos.
+(AliExpress, Amazon, Condoms.uk) : voir `docs/catalogue.md`. Les images de collections (`cat-*`)
+sont des montages de ces photos. Les visuels des coffrets (`PK1`, `PK2`, `cat-coffrets`) sont des
+illustrations de boîtes cadeaux créées pour la boutique (libres de droits).

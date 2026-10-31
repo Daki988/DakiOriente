@@ -15,7 +15,7 @@ Il ne remplace pas l'avis d'un·e juriste gabonais·e. **Faites-le relire avant 
 ## 2. Ce que le site fait déjà
 
 - Barrière d'âge à l'entrée, case « J'ai 18 ans ou plus » obligatoire à la commande et à l'inscription à la lettre d'info.
-- Photos sobres : aucun corps nu, aucune scène sexuelle. Les deux godes réalistes (D01, D02) s'affichent en illustration neutre (option « Photo discrète » du back-office).
+- Photos sobres : aucun corps nu, aucune scène sexuelle. Les deux godes réalistes (D01, D02) et les dés coquins (J05) s’affichent en illustration neutre (option « Photo discrète » du back-office).
 - Mentions légales, CGV et politique de confidentialité, alimentées par les Réglages du back-office.
 - Récapitulatif de commande et accusé de réception à l'écran (numéro, détail, total).
 - Rétractation 14 jours pour les produits scellés, exclusion d'hygiène expliquée.
