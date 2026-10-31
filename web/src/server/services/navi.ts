@@ -395,19 +395,21 @@ export async function* converser(req: NaviRequete, user: User | null): AsyncGene
   const messages: Anthropic.Beta.BetaMessageParam[] = hist.map((m) => ({ role: m.role, content: m.texte.slice(0, 2000) || "…" }));
 
   const cartes: Carte[] = [];
-  for (let tour = 0; tour < 7; tour++) {
+  // Si le modèle termine sans texte (outils et cartes seulement), un dernier tour sans outil lui fait rédiger sa réponse.
+  let ecrit = false, redaction = false;
+  for (let tour = 0; tour < 8; tour++) {
     yield { t: "etape" };
     const flux = client.beta.messages.stream({
       model: MODELE(), max_tokens: 16000,
       betas: ["server-side-fallback-2026-07-01"], fallbacks: "default",
       output_config: { effort: EFFORT() },
       system: [{ type: "text", text: CONSIGNES, cache_control: { type: "ephemeral" } }, { type: "text", text: contexte }],
-      tools: OUTILS, messages,
+      tools: OUTILS, ...(redaction ? { tool_choice: { type: "none" as const } } : {}), messages,
     });
     const file: Evenement[] = [];
     let reveil: (() => void) | null = null;
     const pousser = (e: Evenement) => { file.push(e); reveil?.(); };
-    flux.on("text", (v) => pousser({ t: "texte", v }));
+    flux.on("text", (v) => { if (v.trim()) ecrit = true; pousser({ t: "texte", v }); });
     // Bascule vers le modèle de secours : le texte déjà affiché pour ce tour est remplacé.
     flux.on("streamEvent", (ev) => { if (ev.type === "content_block_start" && (ev.content_block as { type: string }).type === "fallback") pousser({ t: "efface" }); });
     let fini = false;
@@ -433,7 +435,16 @@ export async function* converser(req: NaviRequete, user: User | null): AsyncGene
       return;
     }
     const appels = m.content.filter((b): b is Anthropic.Beta.BetaToolUseBlock => b.type === "tool_use");
-    if (m.stop_reason !== "tool_use" || !appels.length) break;
+    if (m.stop_reason !== "tool_use" || !appels.length || redaction) {
+      if (ecrit || redaction) break;
+      if (m.content.length) messages.push({ role: "assistant", content: m.content as Anthropic.Beta.BetaContentBlockParam[] });
+      const relance: Anthropic.Beta.BetaTextBlockParam = { type: "text", text: "(Navigoal) Rédige maintenant ta réponse à l'utilisateur en texte, sans appeler d'outil : les cartes sont déjà prêtes." };
+      const der = messages[messages.length - 1];
+      if (der.role === "user" && Array.isArray(der.content)) der.content.push(relance);
+      else messages.push({ role: "user", content: [relance] });
+      redaction = true;
+      continue;
+    }
     messages.push({ role: "assistant", content: m.content as Anthropic.Beta.BetaContentBlockParam[] });
     const resultats: Anthropic.Beta.BetaToolResultBlockParam[] = [];
     for (const a of appels) {
