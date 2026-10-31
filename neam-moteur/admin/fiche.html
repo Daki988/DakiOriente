@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
-<base href="../"><title>Fiche d'établissement — Back-office Neam</title>
+<base href="../"><title>Fiche d'établissement — NEAM Atelier</title><link rel="icon" href="assets/brand/mark.svg"><link rel="stylesheet" href="assets/brand/atelier.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/admin.css"></head>
 <body>
-<aside class="side"><div class="logo"><span>N</span><span>e</span><span>a</span><span>m</span></div>
+<aside class="side"><a href="index.html" class="na-logo dark" style="font-size:22px;margin:0 0 22px 12px"><img src="assets/brand/neam-wordmark-light.png" alt="NEAM"><span class="at">Atelier</span></a>
   <a class="it" href="admin/index.html">Projets</a><a class="it" href="index.html">Moteur de recherche ↗</a>
   <h4>Créer</h4><a class="it on" href="admin/fiche.html">Fiche d'établissement</a><a class="it" href="admin/reseau.html" id="lnkres">Réseaux sociaux</a></aside>
 <main class="content"><h1 id="h"></h1><div class="sub">Mêmes étapes que la création d'une fiche d'établissement réelle. La validation (courrier, appel, vidéo) est ignorée.</div>
@@ -37,7 +37,7 @@ function start() {
     { label: 'Description', optional: 1, t: 'Ajoutez une description', fields: [{ k: 'desc', l: 'Description de l\'établissement', type: 'textarea', max: 750, ph: 'Présentez vos services, votre histoire…' }] },
     { label: 'Logo', optional: 1, upload: { k: 'logo', l: 'Importer le logo' }, t: 'Ajoutez votre logo', h: 'Il apparaît à côté du nom dans le moteur.' },
     { label: 'Photos', optional: 1, upload: { k: 'photos', l: 'Importer des photos', multi: 1 }, t: 'Ajoutez des photos', h: 'Façade, intérieur, produits : les fiches avec photos reçoivent plus de clics.' },
-    { label: 'Terminé', done: 1, t: 'Votre fiche est en ligne dans Neam', h: 'Recherchez l\'établissement dans le moteur pour la montrer au prospect.', links: [['Voir dans Neam', () => 'recherche.html?q=' + encodeURIComponent(d.n)], ['Créer ses réseaux', () => 'admin/reseau.html?slug=' + (slug || S.slugify(d.n))], ['Retour aux projets', () => 'admin/index.html']] },
+    { label: 'Terminé', done: 1, t: 'Votre fiche est en ligne dans NEAM Atelier', h: 'Recherchez l\'établissement dans le moteur pour la montrer au prospect.', links: [['Voir dans l\'Atelier', () => 'recherche.html?q=' + encodeURIComponent(d.n)], ['Créer ses réseaux', () => 'admin/reseau.html?slug=' + (slug || S.slugify(d.n))], ['Retour aux projets', () => 'admin/index.html']] },
   ];
   const ph0 = p ? p.photos : PROSPECTS[0].photos;
   const preview = (d) => { const photos = (d.photos || []).concat(ph0); const logo = d.logo ? `<span style="width:44px;height:44px;border-radius:10px;background:url('${d.logo}') center/cover;flex:none"></span>` : (p ? `<span style="width:44px;height:44px;border-radius:10px;overflow:hidden;flex:none">${p.avatar}</span>` : '');

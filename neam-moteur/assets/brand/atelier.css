@@ -1,0 +1,9 @@
+/* Logo NEAM Atelier : mot-symbole officiel NEAM + « Atelier » en Instrument Serif italique */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&display=swap');
+.na-logo{display:inline-flex;align-items:flex-end;gap:.18em;line-height:1;text-decoration:none;font-size:48px}
+.na-logo img{height:1em;width:auto;display:block}
+.na-logo .at{font-family:'Instrument Serif',serif;font-style:italic;font-size:1.32em;line-height:.74;color:#F5AD10;letter-spacing:-.01em;position:relative;padding-right:.05em}
+.na-logo .at:before{content:'';position:absolute;left:.02em;bottom:-.16em;right:.1em;height:.06em;background:linear-gradient(90deg,#F5AD10,rgba(245,173,16,0))}
+.na-logo.dark .at{color:#FFE309}.na-logo.dark .at:before{background:linear-gradient(90deg,#FFE309,rgba(255,227,9,0))}
+.na-logo.stack{flex-direction:column;align-items:center;gap:.12em}
+.na-logo.stack .at{font-size:1.05em}

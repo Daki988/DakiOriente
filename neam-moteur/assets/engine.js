@@ -1,4 +1,4 @@
-// Moteur de recherche Neam : suggestions, résultats, fiche d'établissement.
+// Moteur de recherche NEAM Atelier : suggestions, résultats, fiche d'établissement.
 (function () {
   const P = window.PROSPECTS || [];
   const norm = (s) => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/['’&]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -62,7 +62,7 @@
     const tab = params.get('tab') || 'tous';
     const box = document.querySelector('.sbox');
     box.querySelector('input').value = q;
-    document.title = q + ' - Recherche Neam';
+    document.title = q + ' — NEAM Atelier';
     bindSearch(box, (v) => { location.href = 'recherche.html?q=' + encodeURIComponent(v); });
     document.querySelectorAll('.tabs a').forEach((a) => { a.classList.toggle('on', a.dataset.t === tab); a.href = `recherche.html?q=${encodeURIComponent(q)}&tab=${a.dataset.t}`; });
     const found = search(q);

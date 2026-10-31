@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
-<base href="../"><title>Réseaux sociaux — Back-office Neam</title>
+<base href="../"><title>Réseaux sociaux — NEAM Atelier</title><link rel="icon" href="assets/brand/mark.svg"><link rel="stylesheet" href="assets/brand/atelier.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/admin.css"><style id="phcss"></style><style>.prev .phone{height:700px;transform-origin:top left}</style></head>
 <body>
-<aside class="side"><div class="logo"><span>N</span><span>e</span><span>a</span><span>m</span></div>
+<aside class="side"><a href="index.html" class="na-logo dark" style="font-size:22px;margin:0 0 22px 12px"><img src="assets/brand/neam-wordmark-light.png" alt="NEAM"><span class="at">Atelier</span></a>
   <a class="it" href="admin/index.html">Projets</a><a class="it" href="index.html">Moteur de recherche ↗</a>
   <h4>Créer</h4><a class="it" href="admin/fiche.html" id="lnkf">Fiche d'établissement</a><a class="it on" href="admin/reseau.html">Réseaux sociaux</a></aside>
 <main class="content"><h1 id="h">Réseaux sociaux</h1><div class="sub">Parcours identique à chaque plateforme. Les codes de confirmation par e-mail ou SMS sont ignorés.</div>
@@ -26,7 +26,7 @@ else {
   const prev = S.get(p.slug).nets || {};
   const d = Object.assign({ user: p.handle, name: p.n, cat: p.s, bio: p.tagline, link: p.domain, btn: 'Contacter', type: 'pro', about: p.intro, tag: p.tagline, sector: p.s, size: '11-50 employés', post: p.tagline }, prev[net] || {});
   const CATS = [p.s, 'Restaurant', 'Hôtel', 'Santé/beauté', 'Immobilier', 'Agence de voyage', 'Commerce local', 'Marque', 'Éducation', 'Services'];
-  const done = (extra) => ({ label: 'Terminé', done: 1, t: NAMES[net] + ' prêt', h: 'Le profil apparaît dans les résultats du moteur Neam, comme sur la plateforme.', links: [['Voir le profil', () => `apercu.html?slug=${p.slug}&v=reseaux`], ['Voir dans Neam', () => 'recherche.html?q=' + encodeURIComponent(p.n)], ['Réseau suivant', () => `admin/reseau.html?slug=${p.slug}&net=${{ instagram: 'tiktok', tiktok: 'facebook', facebook: 'linkedin', linkedin: 'instagram' }[net]}`]] });
+  const done = (extra) => ({ label: 'Terminé', done: 1, t: NAMES[net] + ' prêt', h: 'Le profil apparaît dans les résultats de NEAM Atelier, comme sur la plateforme.', links: [['Voir le profil', () => `apercu.html?slug=${p.slug}&v=reseaux`], ['Voir dans l\'Atelier', () => 'recherche.html?q=' + encodeURIComponent(p.n)], ['Réseau suivant', () => `admin/reseau.html?slug=${p.slug}&net=${{ instagram: 'tiktok', tiktok: 'facebook', facebook: 'linkedin', linkedin: 'instagram' }[net]}`]] });
   const FLOWS = {
     instagram: [
       { label: 'Inscription', t: 'Inscrivez-vous avec votre numéro mobile ou votre e-mail', fields: [{ k: 'contact', l: 'Numéro mobile ou e-mail', ph: p.e || p.t }] },

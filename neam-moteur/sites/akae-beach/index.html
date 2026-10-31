@@ -6,98 +6,66 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Manrope,sans-serif;color:#fff;background:#05121c;overflow-x:hidden}
-#sky{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,#1b1640 0%,#7a2e5b 34%,#f0743e 52%,#ffcf5a 60%,#0c3a4f 61%,#05121c 100%);transition:filter .3s}
-#sun{position:fixed;left:50%;top:40%;width:260px;height:260px;margin-left:-130px;border-radius:50%;background:radial-gradient(circle,#fff6c9 0%,#ffcf5a 45%,rgba(255,140,60,0) 72%);z-index:-1;filter:blur(1px)}
-canvas{position:fixed;inset:0;width:100vw;height:100vh;z-index:0}
-nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:24px 44px;z-index:20}
+.bgv{position:fixed;inset:0;z-index:-2;overflow:hidden;background:#0b0f14 url('../../assets/sig/plage.jpg') center/cover}
+.bgv video{width:100%;height:100%;object-fit:cover;transform-origin:center;will-change:transform}
+.shade{position:fixed;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(5,18,28,.25),rgba(5,18,28,.1) 40%,rgba(5,18,28,.65));transition:background .3s}
+nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:24px 44px;z-index:20;transition:background .4s}
+nav.s{background:rgba(5,18,28,.55);backdrop-filter:blur(14px)}
 .brand{font-family:Anton,sans-serif;font-size:30px;letter-spacing:1px}
 nav .r{display:flex;gap:26px;font-weight:600;font-size:14px;align-items:center}
-.cta{background:#ffcf5a;color:#05232e;padding:12px 22px;border-radius:999px;font-weight:800;text-decoration:none}
-.hero{height:100vh;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:16vh;text-align:center}
-.hero h1{font-family:Anton,sans-serif;font-weight:400;font-size:clamp(80px,15vw,230px);line-height:.85;letter-spacing:-1px;text-shadow:0 10px 40px rgba(60,10,40,.45)}
-.hero p{font-size:20px;font-weight:600;margin-top:20px;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+.cta{background:#ffcf5a;color:#05232e;padding:12px 22px;border-radius:999px;font-weight:800;text-decoration:none;display:inline-block}
+.hero{height:100vh;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.hero h1{font-family:Anton,sans-serif;font-weight:400;font-size:clamp(90px,17vw,270px);line-height:.85;text-shadow:0 10px 50px rgba(0,0,0,.35);will-change:transform}
+.hero h1 span{display:block;overflow:hidden;padding-top:.12em;margin-top:-.12em}.hero h1 span i{display:block;font-style:normal;animation:rise 1.2s cubic-bezier(.2,.8,.2,1) both}
+.hero h1 span:nth-child(2) i{animation-delay:.15s}
+@keyframes rise{from{transform:translateY(100%)}}
+.hero p{font-size:20px;font-weight:600;margin-top:18px;animation:fade 1.4s .5s both}
+@keyframes fade{from{opacity:0;transform:translateY(20px)}}
 .scroll{position:absolute;bottom:40px;font-size:12px;letter-spacing:4px;text-transform:uppercase;font-weight:800;animation:bob 2s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(8px)}}
-.panel{position:relative;z-index:2;min-height:100vh;display:flex;align-items:center;padding:0 6%}
+.sound{position:absolute;right:44px;bottom:40px;font-size:12px;letter-spacing:2px;font-weight:800;opacity:.85}
+.panel{min-height:100vh;display:flex;align-items:center;padding:0 6%}
 .glass{background:rgba(5,30,45,.45);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.18);border-radius:30px;padding:46px;max-width:620px}
 .glass h2{font-family:Anton,sans-serif;font-weight:400;font-size:clamp(48px,6vw,88px);line-height:.95}
-.glass p{font-size:17px;line-height:1.7;margin-top:16px;opacity:.9}
-.menu{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1200px;width:100%;margin:0 auto}
+.glass p{font-size:17px;line-height:1.7;margin-top:16px;opacity:.92}
+.events{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap}
+.ev{background:#ffcf5a;color:#05232e;border-radius:18px;padding:16px 20px;font-weight:800}.ev small{display:block;font-weight:600;opacity:.7}
+.menu{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1240px;width:100%;margin:0 auto}
 .dish{background:rgba(5,30,45,.55);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.15);border-radius:26px;overflow:hidden;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 .dish:hover{transform:translateY(-10px) rotate(-1deg)}
-.dish .im{height:220px;background-size:cover;background-position:center}
-.dish div.t{padding:22px}
-.dish b{font-family:Anton,sans-serif;font-weight:400;font-size:28px;display:block}
-.dish span{opacity:.75;font-size:14px}
-.dish i{font-style:normal;color:#ffcf5a;font-weight:800;display:block;margin-top:10px;font-size:18px}
-.events{display:flex;gap:16px;margin-top:26px;flex-wrap:wrap}
-.ev{background:#ffcf5a;color:#05232e;border-radius:18px;padding:16px 20px;font-weight:800}
-.ev small{display:block;font-weight:600;opacity:.7}
-footer{position:relative;z-index:2;background:#03101a;padding:40px 6%;display:flex;justify-content:space-between;font-size:13px;opacity:.85;flex-wrap:wrap;gap:12px}
+.dish .im{height:240px;background-size:cover;background-position:center}
+.dish .t{padding:22px}.dish b{font-family:Anton,sans-serif;font-weight:400;font-size:28px;display:block}.dish span{opacity:.75;font-size:14px}.dish i{font-style:normal;color:#ffcf5a;font-weight:800;display:block;margin-top:10px;font-size:18px}
+.marq{overflow:hidden;white-space:nowrap;padding:26px 0;border-top:1px solid rgba(255,255,255,.2);border-bottom:1px solid rgba(255,255,255,.2);background:rgba(5,18,28,.35);backdrop-filter:blur(8px)}
+.marq div{display:inline-block;font-family:Anton,sans-serif;font-size:64px;animation:mq 22s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+footer{background:#03101a;padding:40px 6%;display:flex;justify-content:space-between;font-size:13px;opacity:.9;flex-wrap:wrap;gap:12px}
 .rv{opacity:0;transform:translateY(60px) scale(.97);transition:all 1s cubic-bezier(.2,.8,.2,1)}.rv.in{opacity:1;transform:none}
-@media(max-width:800px){nav{padding:18px 20px}nav .r span{display:none}.menu{grid-template-columns:1fr}.glass{padding:28px}}
+@media(max-width:800px){nav{padding:18px 20px}nav .r span{display:none}.menu{grid-template-columns:1fr}.glass{padding:28px}.sound{display:none}}
 </style></head>
 <body>
-<div id="sky"></div><div id="sun"></div>
-<canvas id="c"></canvas>
+<div class="bgv"><video id="v" autoplay muted loop playsinline poster="../../assets/sig/plage.jpg"><source src="../../assets/sig/plage-mobile.mp4" media="(max-width:800px)" type="video/mp4"><source src="../../assets/sig/plage.mp4" type="video/mp4"></video></div>
+<div class="shade" id="shade"></div>
 <nav><div class="brand">AKAÉ BEACH</div><div class="r"><span>La carte</span><span>Soirées</span><span>Accès</span><a class="cta" href="#resa">Réserver</a></div></nav>
-<section class="hero"><h1>AKAÉ<br>BEACH</h1><p>Océan, saveurs & good vibes · Libreville</p><div class="scroll">↓ Plongez</div></section>
+<section class="hero"><h1 id="h1"><span><i>AKAÉ</i></span><span><i>BEACH</i></span></h1><p>Océan, saveurs & good vibes · Libreville</p><div class="scroll">↓ Plongez</div><div class="sound">● EN DIRECT DE LA PLAGE</div></section>
 <section class="panel"><div class="glass rv"><h2>LES PIEDS DANS LE SABLE</h2><p>Face à l'Atlantique, Akaé Beach vous accueille du déjeuner au coucher du soleil : grillades de la mer, cocktails maison et musique live le week-end.</p><div class="events"><div class="ev">Ven · 19 h<small>Afro sunset DJ</small></div><div class="ev">Sam · 20 h<small>Soirée live band</small></div><div class="ev">Dim · 12 h<small>Brunch océan</small></div></div></div></section>
+<div class="marq"><div>POISSON BRAISÉ ✦ COCKTAILS ✦ SUNSET ✦ GAMBAS ✦ LIVE BAND ✦ POISSON BRAISÉ ✦ COCKTAILS ✦ SUNSET ✦ GAMBAS ✦ LIVE BAND ✦ </div></div>
 <section class="panel" style="justify-content:center"><div class="menu">
   <div class="dish rv"><div class="im" style="background-image:url('../../assets/photos/resto-1504674900247-0877df9cc836.jpg')"></div><div class="t"><b>POISSON BRAISÉ</b><span>Capitaine ou bar, banane plantain</span><i>12 000 FCFA</i></div></div>
   <div class="dish rv"><div class="im" style="background-image:url('../../assets/photos/resto-1540189549336-e6e99c3679fe.jpg')"></div><div class="t"><b>SALADE OCÉANE</b><span>Crevettes, avocat, mangue</span><i>8 000 FCFA</i></div></div>
   <div class="dish rv"><div class="im" style="background-image:url('../../assets/photos/resto-1414235077428-338989a2e8c0.jpg')"></div><div class="t"><b>GAMBAS GRILLÉES</b><span>Beurre citronné</span><i>15 000 FCFA</i></div></div>
 </div></section>
-<section class="panel" id="resa" style="justify-content:flex-end"><div class="glass rv"><h2>VOTRE TABLE FACE À L'OCÉAN</h2><p>Réservez en 1 message WhatsApp au 076 30 08 01. Groupes, anniversaires et privatisations sur demande.</p><a class="cta" style="display:inline-block;margin-top:24px" href="https://wa.me/24176300801">Réserver sur WhatsApp</a><p style="font-size:14px;opacity:.7">3,9 ★ · 240 avis Google</p></div></section>
-<footer><span>© 2026 Akaé Beach · Libreville, Gabon</span><span>Instagram · Facebook · TikTok</span><span>Site réalisé par NEAM</span></footer>
-<a class="neam-back" href="javascript:history.length>1?history.back():location.href='../../index.html'">← <b>Neam</b> · retour aux résultats</a>
-
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
-<script type="module">
-import * as THREE from 'three';
-const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('c'), antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-const scene = new THREE.Scene();
-scene.fog = new THREE.Fog('#2a1a3a', 20, 80);
-const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 200);
-// Océan de points animé par shader
-const W = 220, D = 160, geo = new THREE.BufferGeometry(), pos = new Float32Array(W * D * 3);
-let k = 0; for (let z = 0; z < D; z++) for (let x = 0; x < W; x++) { pos[k++] = (x - W / 2) * 0.45; pos[k++] = 0; pos[k++] = -z * 0.45 + 10; }
-geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-const mat = new THREE.ShaderMaterial({
-  transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-  uniforms: { uT: { value: 0 }, uPx: { value: renderer.getPixelRatio() }, uM: { value: new THREE.Vector2() } },
-  vertexShader: `uniform float uT; uniform float uPx; uniform vec2 uM; varying float vH; varying float vD;
-    void main(){ vec3 p = position;
-      float h = sin(p.x*.18 + uT*1.1)*.7 + sin(p.z*.22 + uT*1.4)*.8 + sin((p.x+p.z)*.08 + uT*.6)*1.2;
-      h += exp(-pow(length(p.xz - vec2(uM.x*25., -12.)),2.)/30.) * sin(uT*4.)*1.2;
-      p.y = h; vH = h; vec4 mv = modelViewMatrix*vec4(p,1.); vD = -mv.z;
-      gl_Position = projectionMatrix*mv; gl_PointSize = min((2.2 + h*.6) * uPx * (28./-mv.z), 5.5*uPx); }`,
-  fragmentShader: `varying float vH; varying float vD; void main(){ float d = length(gl_PointCoord-.5); if(d>.5) discard;
-      vec3 deep = vec3(.07,.64,.72), crest = vec3(1.,.81,.35); vec3 c = mix(deep, crest, smoothstep(.4, 2.2, vH));
-      float fade = smoothstep(90., 15., vD); gl_FragColor = vec4(c, (1.-d*2.) * fade * .9); }`,
-});
-scene.add(new THREE.Points(geo, mat));
-// Lucioles / embruns
-const F = 400, fp = new Float32Array(F * 3); for (let i = 0; i < F; i++) { fp.set([(Math.random() - .5) * 80, Math.random() * 12 + 1, -Math.random() * 60 + 5], i * 3); }
-const fg = new THREE.BufferGeometry(); fg.setAttribute('position', new THREE.BufferAttribute(fp, 3));
-const flies = new THREE.Points(fg, new THREE.PointsMaterial({ color: '#ffe39a', size: 0.12, transparent: true, opacity: .8, blending: THREE.AdditiveBlending, depthWrite: false }));
-scene.add(flies);
-const resize = () => { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); };
-addEventListener('resize', resize); resize();
-let mx = 0; addEventListener('mousemove', (e) => { mx = e.clientX / innerWidth - .5; });
-const sun = document.getElementById('sun'), sky = document.getElementById('sky');
-let t = 0;
-(function loop() {
-  t += 0.016; mat.uniforms.uT.value = t; mat.uniforms.uM.value.x += (mx - mat.uniforms.uM.value.x) * .05;
-  const s = Math.min(1, scrollY / (document.body.scrollHeight - innerHeight));
-  camera.position.set(mx * 4, 5 - s * 3.2, 16 - s * 22);
-  camera.lookAt(mx * 2, 1.5 + s * 1.5, -30);
-  sun.style.transform = `translateY(${s * 40}px) scale(${1 - s * .2})`; sun.style.opacity = 1 - s * .8;
-  sky.style.filter = `brightness(${1 - s * .45}) saturate(${1 + s * .3})`;
-  flies.rotation.y = Math.sin(t * .1) * .1; flies.position.y = Math.sin(t * .5) * .3;
-  renderer.render(scene, camera); requestAnimationFrame(loop);
-})();
+<section class="panel" id="resa" style="justify-content:flex-end"><div class="glass rv"><h2>VOTRE TABLE FACE À L'OCÉAN</h2><p>Réservez en 1 message WhatsApp au 076 30 08 01. Groupes, anniversaires et privatisations sur demande.</p><a class="cta" style="margin-top:24px" href="https://wa.me/24176300801">Réserver sur WhatsApp</a><p style="font-size:14px;opacity:.75">3,9 ★ · 240 avis Google</p></div></section>
+<footer><span>© 2026 Akaé Beach · Libreville, Gabon</span><span>Instagram · Facebook · TikTok</span><span>Site réalisé par NEAM · vidéo Pexels, photos Unsplash</span></footer>
+<a class="neam-back" href="javascript:history.length>1?history.back():location.href='../../index.html'">← <b>NEAM Atelier</b> · retour</a>
+<script>
+const v = document.getElementById('v'), h1 = document.getElementById('h1'), shade = document.getElementById('shade');
+addEventListener('scroll', () => {
+  const s = Math.min(1, scrollY / innerHeight);
+  v.style.transform = `scale(${1 + s * .18})`;
+  h1.style.transform = `translateY(${scrollY * .45}px)`; h1.style.opacity = 1 - s * 1.2;
+  shade.style.background = `linear-gradient(180deg,rgba(5,18,28,${.25 + s * .35}),rgba(5,18,28,${.1 + s * .4}) 40%,rgba(5,18,28,${.65 + s * .2}))`;
+  document.querySelector('nav').classList.toggle('s', scrollY > 40);
+}, { passive: true });
 const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
 document.querySelectorAll('.rv').forEach((e) => io.observe(e));
 </script>

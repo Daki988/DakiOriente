@@ -1,4 +1,4 @@
-# Moteur de recherche virtuel NEAM
+# NEAM Atelier — moteur de recherche virtuel
 
 Environnement de démonstration pour la prospection : on tape le nom d'une entreprise et on obtient,
 comme sur un vrai moteur, sa fiche d'établissement, son site (cliquable) et ses profils réseaux.
@@ -28,16 +28,18 @@ Une connexion Internet est nécessaire pour les polices et les effets 3D (three.
 | `admin/` | back-office : projets, création de fiche et de réseaux (mêmes étapes qu'en réalité, vérifications ignorées) |
 | `apercu.html` | site et réseaux des projets créés ou modifiés dans le back-office |
 
-## Sites signature (expériences immersives)
+## Sites signature (vraies photos, sans 3D)
 
-| Prospect | Effet |
+Photos et vidéos libres de droits (Unsplash, Pexels), produits détourés : voir `assets/sig/CREDITS.md`.
+
+| Prospect | Expérience |
 |---|---|
-| Chouchou Lazare | portant de vêtements : la pièce avance au clic, motifs wax interchangeables |
-| Artemis Luxury Co | flacon de parfum 3D à faire tourner, 4 fragrances qui changent couleur et ambiance |
-| Skin Technology by Latania | 14 000 particules qui se transforment au défilement (cellule → ADN → nom → goutte) |
-| Hôtel Le Refuge | ambiances plein écran (matin, piscine, suite, dîner), galerie horizontale, réservation avec calcul du prix |
-| Akaé Beach | océan de particules 3D au coucher du soleil, caméra qui avance au défilement |
-| Bella Mamma | la pizza se compose au défilement : pâte, sauce, mozzarella, basilic, cuisson |
+| Artemis Luxury Co | 4 vrais flacons : vignettes à gauche, grand nom derrière le produit, fond qui change de couleur à chaque parfum |
+| Chouchou Lazare | défilé de mannequins en wax : la tenue cliquée avance, fiche et tissus à côté, galerie horizontale |
+| Skin Technology by Latania | portrait et sérums qui flottent (parallaxe), rituel où le flacon pivote au défilement, photos révélées en bandes |
+| Bella Mamma | Diavola / Bianca façon configurateur, tomates en parallaxe, pizza qui tourne au défilement |
+| Akaé Beach | vraie vidéo de plage au coucher du soleil en fond, titre qui s'efface au défilement |
+| Hôtel Le Refuge | ambiances plein écran, galerie horizontale, réservation avec calcul du prix |
 
 ## Back-office
 

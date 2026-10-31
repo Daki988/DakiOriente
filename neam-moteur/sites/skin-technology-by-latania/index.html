@@ -5,121 +5,116 @@
 <link rel="stylesheet" href="../../assets/sig.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Jost,sans-serif;color:#2d2338;background:linear-gradient(160deg,#ead9e6 0%,#d8bfd3 45%,#c4a9c9 100%) fixed;overflow-x:hidden}
-canvas{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
-nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:24px 48px;z-index:10}
-.brand{font-family:Marcellus,serif;font-size:19px;letter-spacing:4px}
-.brand small{display:block;font-family:Jost;font-size:10px;letter-spacing:5px;opacity:.6}
+:root{--bg:#f3e9ef;--ink:#2d2338;--ac:#b4728f}
+body{font-family:Jost,sans-serif;color:var(--ink);background:var(--bg);overflow-x:hidden;transition:background .9s}
+nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:22px 48px;z-index:20}
+.brand{font-family:Marcellus,serif;font-size:19px;letter-spacing:4px}.brand small{display:block;font-family:Jost;font-size:10px;letter-spacing:5px;opacity:.6}
 nav .r{display:flex;gap:26px;font-size:13px;align-items:center}
-.pill{background:#2d2338;color:#fff;padding:11px 20px;border-radius:999px;font-size:13px;text-decoration:none}
-.step{height:100vh;position:relative;z-index:2;display:flex;align-items:center;padding:0 7%}
-.box{max-width:420px}
-.tag{display:inline-block;font-size:11px;letter-spacing:3px;text-transform:uppercase;background:rgba(255,255,255,.55);padding:6px 12px;border-radius:999px;margin-bottom:18px}
-h1,h2{font-family:Marcellus,serif;font-weight:400;line-height:1.02}
-h1{font-size:clamp(46px,5.6vw,86px)}
-h2{font-size:clamp(36px,4.2vw,64px)}
-.box p{font-size:16px;line-height:1.75;margin-top:18px;opacity:.85}
-.right{margin-left:auto;text-align:right}
-.right .box{margin-left:auto}
-.side{position:fixed;right:40px;top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;gap:14px}
-.side i{width:8px;height:8px;border-radius:50%;background:#2d2338;opacity:.25;transition:all .4s;display:block}
-.side i.on{opacity:1;height:28px;border-radius:6px}
-.count{position:fixed;left:48px;bottom:30px;z-index:10;font-size:12px;letter-spacing:2px;opacity:.7}
-.soins{position:relative;z-index:2;background:#f6f1fa;padding:120px 7%}
-.soins h2{margin-bottom:40px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.c{background:#fff;border-radius:22px;padding:28px;transition:transform .4s,box-shadow .4s}
-.c:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(45,35,56,.12)}
-.c b{font-family:Marcellus,serif;font-weight:400;font-size:24px;display:block;margin:14px 0 6px}
-.c span{font-size:13px;opacity:.65}
-.c .pr{margin-top:18px;font-weight:500;color:#8e6bb3}
-.c .ic{width:44px;height:44px;border-radius:12px;background:#e9def4;display:flex;align-items:center;justify-content:center;color:#8e6bb3;font-size:20px}
-.book{position:relative;z-index:2;background:#2d2338;color:#f6f1fa;padding:110px 7%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.pill{background:var(--ink);color:#fff;padding:11px 20px;border-radius:999px;text-decoration:none}
+h1,h2,h3{font-family:Marcellus,serif;font-weight:400;line-height:1.02}
+.hero{height:100vh;min-height:720px;position:relative;overflow:hidden;background:radial-gradient(circle at 70% 40%,#f9e3ec 0%,#e8d3e2 45%,#d9c1d6 100%)}
+.hero .txt{position:absolute;left:7%;top:50%;transform:translateY(-50%);max-width:520px;z-index:4}
+.tag{display:inline-block;font-size:11px;letter-spacing:3px;text-transform:uppercase;background:rgba(255,255,255,.6);padding:7px 13px;border-radius:999px}
+.hero h1{font-size:clamp(52px,6.4vw,104px);margin:22px 0}
+.hero p{font-size:17px;line-height:1.75;opacity:.85;max-width:430px}
+.hero .btn{display:inline-block;margin-top:30px;background:var(--ink);color:#fff;padding:16px 28px;border-radius:999px;text-decoration:none;font-size:14px}
+.portrait{position:absolute;right:6%;bottom:0;height:92vh;z-index:2;will-change:transform}
+.portrait img{height:100%;width:auto;display:block;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 14%),linear-gradient(to top,transparent 0,#000 12%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent 0,#000 14%),linear-gradient(to top,transparent 0,#000 12%);mask-composite:intersect}
+.halo{position:absolute;right:10%;top:18%;width:56vmin;height:56vmin;border-radius:50%;background:radial-gradient(circle,#fff 0%,rgba(255,255,255,0) 70%);opacity:.8;z-index:1}
+.fl{position:absolute;z-index:3;will-change:transform;filter:drop-shadow(0 26px 24px rgba(70,30,60,.28))}
+.fl img{height:100%;width:auto;display:block}
+.f1{height:30vh;right:43%;bottom:12vh}.f2{height:24vh;right:4%;top:16vh}.f3{height:20vh;right:36%;top:14vh}
+@keyframes bob{50%{translate:0 -14px}}
+.f1{animation:bob 6s ease-in-out infinite}.f2{animation:bob 7s -2s ease-in-out infinite}.f3{animation:bob 5s -1s ease-in-out infinite}
+/* Rituel */
+.rit{height:420vh;position:relative}
+.rit .st{position:sticky;top:0;height:100vh;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;padding:0 6%;overflow:hidden}
+.rit .bottle{justify-self:center;height:70vh;transition:transform .2s linear;filter:drop-shadow(0 40px 40px rgba(70,30,60,.3))}
+.rit .bottle img{height:100%;width:auto}
+.stp{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.2,.8,.2,1);position:absolute;max-width:360px}
+.stp.on{opacity:1;transform:none}
+.stp .n{font-family:Marcellus,serif;font-size:90px;line-height:.8;opacity:.18}
+.stp h3{font-size:44px;margin:-20px 0 14px}
+.stp p{font-size:16px;line-height:1.75;opacity:.85}
+.colL,.colR{position:relative;height:300px}
+.colR .stp{right:0;text-align:right}
+.prog{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);display:flex;gap:8px}
+.prog i{width:36px;height:3px;border-radius:2px;background:rgba(45,35,56,.15);overflow:hidden;position:relative}
+.prog i b{position:absolute;inset:0;background:var(--ink);transform-origin:left;transform:scaleX(0)}
+/* Bandes photo */
+.strips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:8px}
+.strip{height:80vh;overflow:hidden;border-radius:6px;clip-path:inset(100% 0 0 0);transition:clip-path 1.3s cubic-bezier(.7,0,.2,1)}
+.strip.in{clip-path:inset(0)}
+.strip:nth-child(2){transition-delay:.12s}.strip:nth-child(3){transition-delay:.24s}.strip:nth-child(4){transition-delay:.36s}
+.strip img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);transition:transform 2s}
+.strip.in img{transform:scale(1)}
+.soins{padding:120px 7%}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+.c{background:#fff;border-radius:24px;padding:28px;transition:transform .4s,box-shadow .4s}
+.c:hover{transform:translateY(-8px);box-shadow:0 22px 44px rgba(45,35,56,.12)}
+.c b{font-family:Marcellus,serif;font-weight:400;font-size:24px;display:block;margin:6px 0}
+.c span{font-size:13px;opacity:.65}.c .pr{margin-top:16px;font-weight:500;color:var(--ac)}
+.book{background:var(--ink);color:#f6f1fa;padding:110px 7%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
 .slots{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
 .slots span{border:1px solid rgba(255,255,255,.3);padding:10px 16px;border-radius:12px;cursor:pointer}
-.slots span.on,.slots span:hover{background:#e7a9b8;color:#2d2338;border-color:#e7a9b8}
-footer{position:relative;z-index:2;background:#1f1828;color:#cbbfd6;padding:40px 7%;display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:12px}
-@media(max-width:800px){nav{padding:18px 20px}nav .r span{display:none}.grid{grid-template-columns:1fr 1fr}.book{grid-template-columns:1fr}.side{display:none}.step{align-items:flex-end;padding-bottom:90px}}
-</style></head>
+.slots span.on,.slots span:hover{background:#f2b6c9;color:var(--ink);border-color:#f2b6c9}
+footer{background:#1f1828;color:#cbbfd6;padding:40px 7%;display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:12px}
+@media(max-width:900px){nav{padding:18px 20px}nav .r span{display:none}.hero .txt{top:100px;transform:none;left:20px;right:20px}.hero h1{font-size:46px}.hero p{display:none}.portrait{height:58vh;right:-10%}.f2,.f3{display:none}.f1{height:20vh;right:auto;left:6%}.rit .st{grid-template-columns:1fr;grid-template-rows:auto 1fr auto}.rit .bottle{height:40vh}.colL,.colR{height:180px}.strips{grid-template-columns:1fr 1fr}.strip{height:50vh}.grid{grid-template-columns:1fr 1fr}.book{grid-template-columns:1fr}}
+nav{transition:background .4s,padding .4s}nav.s{background:rgba(243,233,239,.85);backdrop-filter:blur(12px);padding-top:12px;padding-bottom:12px}</style></head>
 <body>
-<canvas id="c"></canvas>
-<nav><div class="brand">SKIN TECHNOLOGY<small>BY LATANIA</small></div><div class="r"><span>Soins</span><span>Diagnostic</span><span>Fondatrice</span><a class="pill" href="#rdv">Réserver</a></div></nav>
-<div class="side" id="side"><i class="on"></i><i></i><i></i><i></i></div>
-<div class="count" id="count">01 — La cellule</div>
+<nav><div class="brand">SKIN TECHNOLOGY<small>BY LATANIA</small></div><div class="r"><span>Soins</span><span>Rituel</span><span>Fondatrice</span><a class="pill" href="#rdv">Réserver</a></div></nav>
 
-<div class="step"><div class="box"><div class="tag">Institut · Libreville</div><h1>Le soin qui vous ressemble</h1><p>Diagnostic de peau, protocoles sur mesure et technologies de pointe. Chaque peau a son histoire : nous la lisons avant de la soigner.</p></div></div>
-<div class="step right"><div class="box"><div class="tag">Collagène</div><h2>Relancer ce que le temps ralentit</h2><p>Microneedling et peelings ciblés stimulent la production naturelle de collagène : texture affinée, cicatrices estompées.</p></div></div>
-<div class="step"><div class="box"><div class="tag">La fondatrice</div><h2>Tania « Latania » Akpovi</h2><p>Formée aux protocoles des cliniques de Chicago, Latania rapporte à Libreville une approche scientifique et bienveillante du soin de la peau.</p></div></div>
-<div class="step right"><div class="box"><div class="tag">Hydratation</div><h2>Une peau qui boit, une peau qui brille</h2><p>Hydrafacial et soins éclat : nettoyage profond, extraction douce et sérums infusés. Résultat visible dès la première séance.</p></div></div>
+<header class="hero" id="hero">
+  <div class="txt"><div class="tag">Institut · Libreville</div><h1>Le soin qui vous ressemble</h1><p>Diagnostic de peau, protocoles sur mesure et technologies de pointe. Chaque peau a son histoire : nous la lisons avant de la soigner.</p><a class="btn" href="#rdv">Réserver un diagnostic</a></div>
+  <div class="halo"></div>
+  <div class="portrait" data-d="10"><img src="../../assets/sig/portrait-cut.webp" alt=""></div>
+  <div class="fl f1" data-d="40"><img src="../../assets/sig/serum-2.webp" alt=""></div>
+  <div class="fl f2" data-d="-30"><img src="../../assets/sig/serum-1.webp" alt=""></div>
+  <div class="fl f3" data-d="25"><img src="../../assets/sig/serum-3.webp" alt=""></div>
+</header>
 
-<section class="soins"><h2>Nos protocoles</h2><div class="grid">
-<div class="c"><div class="ic">◎</div><b>Diagnostic de peau</b><span>Analyse et protocole personnalisé</span><div class="pr">10 000 FCFA</div></div>
-<div class="c"><div class="ic">✦</div><b>Peeling éclat</b><span>Taches et teint terne</span><div class="pr">35 000 FCFA</div></div>
-<div class="c"><div class="ic">⁂</div><b>Microneedling</b><span>Texture et cicatrices</span><div class="pr">50 000 FCFA</div></div>
-<div class="c"><div class="ic">◌</div><b>Hydrafacial</b><span>Nettoyage profond</span><div class="pr">40 000 FCFA</div></div>
+<section class="rit" id="rit"><div class="st">
+  <div class="colL"><div class="stp" data-s="0"><div class="n">01</div><h3>Diagnostic</h3><p>Analyse de la peau à la loupe : hydratation, taches, sensibilité. Votre protocole est écrit pour vous.</p></div><div class="stp" data-s="2"><div class="n">03</div><h3>Le sérum</h3><p>Vitamine C, niacinamide ou acide hyaluronique : l'actif juste, à la bonne concentration.</p></div></div>
+  <div class="bottle" id="rb"><img src="../../assets/sig/serum-2.webp" alt=""></div>
+  <div class="colR"><div class="stp" data-s="1"><div class="n">02</div><h3>Nettoyage profond</h3><p>Hydrafacial ou peeling doux : les pores respirent, le teint s'éclaircit dès la première séance.</p></div><div class="stp" data-s="3"><div class="n">04</div><h3>Protection</h3><p>Écran solaire adapté au climat de Libreville et routine maison simple, suivie par WhatsApp.</p></div></div>
+  <div class="prog" id="prog"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
 </div></section>
-<section class="book" id="rdv"><div><h2>Votre diagnostic, en ligne</h2><p style="margin-top:18px;opacity:.8;line-height:1.8">Choisissez un créneau, nous vous confirmons par WhatsApp au 074 59 26 55.</p></div><div><b>Jeudi 6 novembre</b><div class="slots"><span>10:00</span><span>11:30</span><span class="on">14:00</span><span>15:30</span><span>17:00</span></div></div></section>
-<footer><span>© 2026 Skin Technology by Latania · Libreville</span><span>Instagram · TikTok</span><span>Site réalisé par NEAM</span></footer>
-<a class="neam-back" href="javascript:history.length>1?history.back():location.href='../../index.html'">← <b>Neam</b> · retour aux résultats</a>
 
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
-<script type="module">
-import * as THREE from 'three';
-const N = 14000;
-const canvas = document.getElementById('c');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100); camera.position.z = 11;
+<section class="strips"><div class="strip"><img src="../../assets/sig/soin-1.jpg" alt=""></div><div class="strip"><img src="../../assets/sig/soin-2.jpg" alt=""></div><div class="strip"><img src="../../assets/sig/soin-3.jpg" alt=""></div><div class="strip"><img src="../../assets/sig/soin-4.jpg" alt=""></div></section>
 
-// ---------- Formes cibles ----------
-const rnd = (a = 1) => (Math.random() - .5) * 2 * a;
-function sphere() { const a = new Float32Array(N * 3); for (let i = 0; i < N; i++) { const u = Math.random(), v = Math.random(), th = 2 * Math.PI * u, ph = Math.acos(2 * v - 1), r = 2.6 + (i % 7 === 0 ? rnd(.9) : rnd(.08)); a.set([r * Math.sin(ph) * Math.cos(th), r * Math.sin(ph) * Math.sin(th), r * Math.cos(ph)], i * 3); } return a; }
-function helix() { const a = new Float32Array(N * 3); for (let i = 0; i < N; i++) { const t = (i / N) * 12 * Math.PI - 6 * Math.PI, strand = i % 3, y = t * 0.17; let x, z; if (strand < 2) { const o = strand * Math.PI; x = Math.cos(t + o) * 1.5; z = Math.sin(t + o) * 1.5; } else { const k = Math.random(); x = Math.cos(t) * 1.5 * (1 - 2 * k); z = Math.sin(t) * 1.5 * (1 - 2 * k); } a.set([x + rnd(.06), y + rnd(.05), z + rnd(.06)], i * 3); } return a; }
-function text(str) { const c = document.createElement('canvas'); c.width = 900; c.height = 220; const g = c.getContext('2d'); g.fillStyle = '#000'; g.font = '170px Marcellus, serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(str, 450, 115); const d = g.getImageData(0, 0, 900, 220).data, pts = []; for (let y = 0; y < 220; y += 2) for (let x = 0; x < 900; x += 2) if (d[(y * 900 + x) * 4 + 3] > 128) pts.push([x, y]); const a = new Float32Array(N * 3); for (let i = 0; i < N; i++) { const p = pts[Math.floor(Math.random() * pts.length)] || [450, 110]; a.set([(p[0] - 450) / 125, -(p[1] - 110) / 125, rnd(.2)], i * 3); } return a; }
-function drop() { const a = new Float32Array(N * 3); for (let i = 0; i < N; i++) { const u = Math.random() * Math.PI, v = Math.random() * 2 * Math.PI; const r = 2.1 * Math.sin(u) * (1 - 0.55 * Math.cos(u)) ; const y = 2.4 * Math.cos(u) - 0.4; a.set([r * Math.cos(v) + rnd(.03), y + rnd(.03), r * Math.sin(v) + rnd(.03)], i * 3); } return a; }
-let shapes = [sphere(), helix(), sphere(), drop()];
-document.fonts.ready.then(() => { shapes[2] = text('LATANIA'); });
-
-const pos = new Float32Array(shapes[0]); const seed = new Float32Array(N); const col = new Float32Array(N * 3);
-const ivory = new THREE.Color('#fffaf5'), orange = new THREE.Color('#ff8a3d'), plum = new THREE.Color('#6b4d8a');
-for (let i = 0; i < N; i++) { seed[i] = Math.random(); const c = seed[i] > .94 ? orange : seed[i] > .75 ? plum : ivory; col.set([c.r, c.g, c.b], i * 3); }
-const geo = new THREE.BufferGeometry();
-geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
-geo.setAttribute('seed', new THREE.BufferAttribute(seed, 1));
-const mat = new THREE.ShaderMaterial({
-  transparent: true, depthWrite: false, vertexColors: true,
-  uniforms: { uPx: { value: renderer.getPixelRatio() }, uT: { value: 0 } },
-  vertexShader: `attribute float seed; varying vec3 vC; varying float vS; uniform float uPx; uniform float uT;
-    void main(){ vC = color; vS = seed; vec4 mv = modelViewMatrix * vec4(position,1.); gl_Position = projectionMatrix * mv; gl_PointSize = (seed>.94? 7.:3.2 + seed*2.) * uPx * (9./ -mv.z); }`,
-  fragmentShader: `varying vec3 vC; varying float vS; void main(){ float d = length(gl_PointCoord-.5); if(d>.5) discard; float a = smoothstep(.5,.0,d); gl_FragColor = vec4(vC, a * (vS>.94? 1.: .85)); }`,
-});
-const pts = new THREE.Points(geo, mat); scene.add(pts);
-
-const resize = () => { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); pts.position.x = innerWidth > 800 ? 0 : 0; };
-addEventListener('resize', resize); resize();
-let mx = 0, my = 0; addEventListener('mousemove', (e) => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
-const labels = ['01 — La cellule', '02 — Le collagène', '03 — Latania', '04 — L\'hydratation'];
-const side = [...document.querySelectorAll('.side i')];
-let last = -1, t = 0;
+<section class="soins"><h2 style="font-size:clamp(40px,4vw,64px)">Nos protocoles</h2><div class="grid">
+<div class="c"><span>01</span><b>Diagnostic de peau</b><span>Analyse et protocole personnalisé</span><div class="pr">10 000 FCFA</div></div>
+<div class="c"><span>02</span><b>Peeling éclat</b><span>Taches et teint terne</span><div class="pr">35 000 FCFA</div></div>
+<div class="c"><span>03</span><b>Microneedling</b><span>Texture et cicatrices</span><div class="pr">50 000 FCFA</div></div>
+<div class="c"><span>04</span><b>Hydrafacial</b><span>Nettoyage profond</span><div class="pr">40 000 FCFA</div></div>
+</div></section>
+<section class="book" id="rdv"><div><h2 style="font-size:clamp(38px,4vw,62px)">Votre diagnostic, en ligne</h2><p style="margin-top:18px;opacity:.8;line-height:1.8">Choisissez un créneau, nous vous confirmons par WhatsApp au 074 59 26 55. Fondatrice : Tania « Latania » Akpovi.</p></div><div><b>Jeudi 6 novembre</b><div class="slots"><span>10:00</span><span>11:30</span><span class="on">14:00</span><span>15:30</span><span>17:00</span></div></div></section>
+<footer><span>© 2026 Skin Technology by Latania · Libreville</span><span>Instagram · TikTok</span><span>Site réalisé par NEAM · photos Unsplash</span></footer>
+<a class="neam-back" href="javascript:history.length>1?history.back():location.href='../../index.html'">← <b>NEAM Atelier</b> · retour</a>
+<script>
+const $ = (id) => document.getElementById(id);
+// Parallaxe souris + défilement du haut de page
+let mx = 0, my = 0;
+addEventListener('mousemove', (e) => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
+const par = [...document.querySelectorAll('[data-d]')];
+const BG = ['#f3e9ef', '#efe4f3', '#f6ece4', '#e8eef0'];
+const steps = [...document.querySelectorAll('.stp')], bars = [...document.querySelectorAll('.prog b')];
+let last = -1;
 (function loop() {
-  t += 0.016; mat.uniforms.uT.value = t;
-  const prog = Math.min(scrollY / innerHeight, 3); const idx = Math.min(3, Math.round(prog));
-  if (idx !== last) { last = idx; document.getElementById('count').textContent = labels[idx]; side.forEach((s, k) => s.classList.toggle('on', k === idx)); }
-  const tgt = shapes[idx]; const p = geo.attributes.position.array;
-  for (let i = 0; i < N * 3; i++) { const s = 0.035 + seed[(i / 3) | 0] * 0.05; p[i] += (tgt[i] - p[i]) * s; }
-  // petites ondulations « fibres »
-  for (let i = 0; i < N; i += 7) p[i * 3 + 1] += Math.sin(t * 2 + seed[i] * 20) * 0.004;
-  geo.attributes.position.needsUpdate = true;
-  const side_ = idx % 2 === 0 ? 1 : -1;
-  pts.position.x += ((innerWidth > 800 ? (idx === 2 ? 2.3 : side_ * 2.4) : 0) - pts.position.x) * 0.05;
-  pts.rotation.z += ((idx === 1 ? -0.5 : 0) - pts.rotation.z) * 0.05;
-  pts.rotation.y += idx === 2 ? (mx * 0.4 - pts.rotation.y) * 0.05 : 0.004;
-  pts.rotation.x += (my * 0.3 - pts.rotation.x) * 0.05;
-  if (idx === 2) pts.rotation.y = pts.rotation.y % (Math.PI * 2) * 0.9;
-  renderer.render(scene, camera); requestAnimationFrame(loop);
+  const sy = scrollY;
+  par.forEach((el) => { const d = +el.dataset.d; el.style.transform = `translate(${mx * d}px, ${my * d * .6 + sy * d / 120}px) rotate(${mx * d / 10}deg)`; });
+  const r = $('rit').getBoundingClientRect(), h = $('rit').offsetHeight - innerHeight;
+  const p = Math.min(1, Math.max(0, -r.top / h)) * 4; const s = Math.min(3, Math.floor(p));
+  if (r.top < innerHeight && r.bottom > 0) {
+    $('rb').style.transform = `rotate(${(p - 2) * 12}deg) scale(${.9 + Math.sin(p * Math.PI / 2) * .08})`;
+    bars.forEach((b, k) => b.style.transform = `scaleX(${Math.min(1, Math.max(0, p - k))})`);
+    if (s !== last) { last = s; steps.forEach((x) => x.classList.toggle('on', +x.dataset.s === s)); document.body.style.background = BG[s]; }
+  } else if (last !== -1 && r.top >= innerHeight) { last = -1; document.body.style.background = ''; }
+  requestAnimationFrame(loop);
 })();
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .2 });
+const io2 = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.querySelectorAll('.strip').forEach((x) => x.classList.add('in')); io2.disconnect(); } }), { threshold: .15 }); io2.observe(document.querySelector('.strips'));
 document.querySelectorAll('.slots span').forEach((s) => s.onclick = () => { document.querySelectorAll('.slots span').forEach((x) => x.classList.remove('on')); s.classList.add('on'); });
+addEventListener('scroll', () => document.querySelector('nav').classList.toggle('s', scrollY > 40), { passive: true });
 </script>
 </body></html>

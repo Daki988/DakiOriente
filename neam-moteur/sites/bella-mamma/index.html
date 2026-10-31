@@ -5,141 +5,135 @@
 <link rel="stylesheet" href="../../assets/sig.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#fff7ec;--ink:#2b1d12;--red:#c2572b;--green:#2f6b4f}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
-nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:22px 46px;z-index:30;background:linear-gradient(var(--bg),rgba(255,247,236,0))}
-.brand{font-family:'DM Serif Display',serif;font-size:28px}
-.brand i{color:var(--red)}
+:root{--bg:#2a0f0a;--fg:#fbefe1;--ac:#e2482b}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--fg);overflow-x:hidden;transition:background 1s}
+.flag{position:fixed;top:0;left:0;right:0;height:5px;z-index:40;background:linear-gradient(90deg,#2f6b4f 33%,#fff 33% 66%,#c2572b 66%)}
+nav{position:fixed;top:5px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:20px 46px;z-index:30;transition:background .4s}
+nav.s{background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px)}
+.brand{font-family:'DM Serif Display',serif;font-size:28px}.brand i{color:var(--ac)}
 nav .r{display:flex;gap:26px;font-weight:500;font-size:15px;align-items:center}
-.cta{background:var(--red);color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;text-decoration:none}
-.flag{position:fixed;top:0;left:0;right:0;height:5px;z-index:40;background:linear-gradient(90deg,var(--green) 33%,#fff 33% 66%,var(--red) 66%)}
-.build{height:600vh;position:relative}
-.stage{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;grid-template-columns:1fr 1.1fr;align-items:center;padding:0 6%}
-.txt{position:relative;height:340px}
-.st{position:absolute;inset:0;opacity:0;transform:translateY(40px);transition:all .7s cubic-bezier(.2,.8,.2,1)}
-.st.on{opacity:1;transform:none}
-.st .n{font-family:'DM Serif Display',serif;font-size:110px;line-height:.8;color:var(--red);opacity:.18}
-.st h2{font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(44px,5vw,78px);line-height:1;margin:-30px 0 18px}
-.st p{font-size:18px;line-height:1.7;max-width:460px;opacity:.8}
-.st0 h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(56px,7vw,112px);line-height:.95}
-.st0 h1 i{color:var(--red)}
-.dots{position:absolute;left:6%;bottom:44px;display:flex;gap:10px}
-.dots i{width:30px;height:4px;border-radius:2px;background:rgba(43,29,18,.15);overflow:hidden;position:relative}
-.dots i b{position:absolute;inset:0;background:var(--red);transform-origin:left;transform:scaleX(0)}
-.pz{position:relative;width:min(40vw,68vh,600px);aspect-ratio:1;justify-self:center}
-.pz svg{width:100%;height:100%;overflow:visible;position:relative;z-index:2}
-.board{position:absolute;inset:-6%;border-radius:50%;background:radial-gradient(circle at 40% 35%,#c99a63,#9a6a3a 70%,#7b5230);box-shadow:0 40px 80px rgba(80,40,10,.35)}
-.board:after{content:'';position:absolute;right:-16%;top:46%;width:22%;height:9%;border-radius:20px;background:#8a5c33}
-.steam path{stroke:#fff;stroke-width:6;fill:none;stroke-linecap:round;opacity:0;animation:steam 3s ease-in-out infinite}
-.steam path:nth-child(2){animation-delay:1s}.steam path:nth-child(3){animation-delay:2s}
-@keyframes steam{0%{opacity:0;transform:translateY(20px)}40%{opacity:.6}100%{opacity:0;transform:translateY(-80px)}}
-.flour{position:absolute;inset:0;pointer-events:none;z-index:3;width:100%;height:100%}
-section{padding:130px 8%}
-.menu h2,.resa h2{font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(48px,6vw,90px);line-height:1}
-.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:26px 80px;margin-top:56px}
-.mi{display:flex;align-items:baseline;gap:12px}
-.mi b{font-family:'DM Serif Display',serif;font-weight:400;font-size:30px}
-.mi span{flex:1;border-bottom:2px dotted rgba(43,29,18,.3)}
-.mi i{font-style:normal;color:var(--red);font-weight:700}
+.cta{background:var(--ac);color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;text-decoration:none;transition:background 1s}
+/* Héros : choix de la pizza */
+.hero{height:100vh;min-height:720px;position:relative;overflow:hidden}
+.big{position:absolute;left:0;right:0;top:13%;text-align:center;font-family:'DM Serif Display',serif;font-size:clamp(90px,16vw,270px);line-height:.85;color:var(--fg);opacity:.95;pointer-events:none;white-space:nowrap}
+.big span{display:inline-block;transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .8s}.big.out span{transform:translateY(50%);opacity:0}
+.pz{position:absolute;left:50%;top:58%;width:min(62vh,640px);aspect-ratio:1;transform:translate(-50%,-50%);transition:transform 1.2s cubic-bezier(.2,.8,.2,1),opacity .9s;z-index:3}
+.pz img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 50px 50px rgba(0,0,0,.55));animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pz.out{transform:translate(70%,-50%) rotate(120deg);opacity:0}.pz.in0{transform:translate(-170%,-50%) rotate(-120deg);opacity:0}
+.tom{position:absolute;z-index:4;filter:drop-shadow(0 20px 18px rgba(0,0,0,.45));will-change:transform}
+.tom img{width:100%;display:block}
+.t1{width:15vw;max-width:230px;left:14%;bottom:8%}.t2{width:11vw;max-width:170px;right:15%;top:30%}.t3{width:20vw;max-width:300px;right:9%;bottom:4%}
+.pick{position:absolute;left:46px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:16px;z-index:6}
+.pk{display:flex;align-items:center;gap:14px;cursor:pointer;opacity:.55;transition:opacity .3s}
+.pk.on,.pk:hover{opacity:1}
+.pk img{width:72px;height:72px;object-fit:contain;transition:transform .5s}
+.pk.on img{transform:scale(1.2) rotate(30deg)}
+.pk b{font-family:'DM Serif Display',serif;font-weight:400;font-size:22px;display:block}.pk span{font-size:13px;opacity:.8}
+.info{position:absolute;right:46px;top:50%;transform:translateY(-50%);width:290px;z-index:6;text-align:right}
+.info .k{font-size:12px;letter-spacing:4px;text-transform:uppercase;opacity:.7}
+.info h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:44px;line-height:1;margin:10px 0}
+.info p{line-height:1.7;opacity:.85;font-size:15px}
+.info .pr{font-family:'DM Serif Display',serif;font-size:30px;margin:16px 0}
+.fade{transition:opacity .4s}.fade.o{opacity:0}
+/* Préparation au défilement */
+.prep{height:420vh;position:relative}
+.prep .st{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.prep .pzz{width:min(70vh,700px);aspect-ratio:1;position:relative;z-index:2}
+.prep .pzz img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 50px 60px rgba(0,0,0,.55))}
+.ing{position:absolute;z-index:3;transition:transform .15s linear;filter:drop-shadow(0 20px 20px rgba(0,0,0,.4))}
+.ing img{width:100%;display:block}
+.s{position:absolute;max-width:320px;opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.2,.8,.2,1);z-index:4}
+.s.on{opacity:1;transform:none}
+.s .n{font-family:'DM Serif Display',serif;font-size:80px;line-height:.8;color:var(--ac);opacity:.5}
+.s h3{font-family:'DM Serif Display',serif;font-weight:400;font-size:40px;line-height:1;margin:-18px 0 10px}
+.s p{line-height:1.7;opacity:.85}
+.s0{left:7%;top:18%}.s1{right:7%;top:18%;text-align:right}.s2{left:7%;bottom:14%}.s3{right:7%;bottom:14%;text-align:right}
+.menu{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.menu .ph{background:url('../../assets/sig/pizza-four.jpg') center/cover}
+.menu .lst{padding:110px 8%;background:#fbefe1;color:#2b1d12}
+.menu h2,.resa h2{font-family:'DM Serif Display',serif;font-weight:400;font-size:clamp(46px,5vw,84px);line-height:1}
+.mi{display:flex;align-items:baseline;gap:12px;margin-top:26px}.mi b{font-family:'DM Serif Display',serif;font-weight:400;font-size:28px}.mi span{flex:1;border-bottom:2px dotted rgba(43,29,18,.3)}.mi i{font-style:normal;color:#c2572b;font-weight:700}
 .md{opacity:.65;margin-top:2px}
-.resa{background:var(--green);color:#fff;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.card{background:#fff;color:var(--ink);border-radius:26px;padding:32px;display:grid;gap:12px}
-.card div{border:1.5px solid #eadfcf;border-radius:14px;padding:12px 16px}
-.card small{display:block;font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.55}
+.resa{background:#2f6b4f;color:#fff;padding:120px 8%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.card{background:#fff;color:#2b1d12;border-radius:26px;padding:32px;display:grid;gap:12px}
+.card div{border:1.5px solid #eadfcf;border-radius:14px;padding:12px 16px}.card small{display:block;font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.55}
 footer{padding:40px 8%;display:flex;justify-content:space-between;font-size:14px;opacity:.75;flex-wrap:wrap;gap:12px}
-@media(max-width:900px){nav{padding:16px 18px}nav .r span{display:none}.stage{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding:90px 20px 20px}.txt{height:220px}.pz{width:78vw}.st .n{font-size:70px}.mgrid,.resa{grid-template-columns:1fr}}
+@media(max-width:900px){nav{padding:16px 18px}nav .r span{display:none}.pick{left:50%;top:auto;bottom:18px;transform:translateX(-50%);flex-direction:row}.pk b,.pk span{display:none}.info{left:20px;right:20px;top:90px;transform:none;width:auto;text-align:left}.info p{display:none}.pz{width:80vw;top:62%}.s{max-width:none;left:20px!important;right:20px!important;text-align:left!important}.s0,.s1{top:90px}.s2,.s3{bottom:40px;top:auto}.menu,.resa{grid-template-columns:1fr}.menu .ph{height:50vh}}
 </style></head>
 <body>
 <div class="flag"></div>
 <nav><div class="brand">Bella <i>Mamma</i></div><div class="r"><span>La carte</span><span>Notre histoire</span><span>Batterie IV</span><a class="cta" href="#resa">Réserver</a></div></nav>
 
-<section class="build" id="build" style="padding:0"><div class="stage">
-  <div class="txt">
-    <div class="st st0 on"><div class="k" style="font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:16px">Restaurant italien · Libreville</div><h1>L'arte della<br>cucina <i>italiana</i></h1><p style="margin-top:22px">Faites défiler : on prépare votre pizza devant vous.</p></div>
-    <div class="st"><div class="n">01</div><h2>La pâte, 48 h de patience</h2><p>Farine italienne, levain maison et 48 heures de fermentation lente. Le secret d'une pâte légère et alvéolée.</p></div>
-    <div class="st"><div class="n">02</div><h2>Sauce San Marzano</h2><p>Tomates San Marzano écrasées à la main, une pincée de sel, rien d'autre. La simplicité, à l'italienne.</p></div>
-    <div class="st"><div class="n">03</div><h2>Fior di latte</h2><p>Une mozzarella fondante, déchirée à la main au dernier moment.</p></div>
-    <div class="st"><div class="n">04</div><h2>Basilico & olio</h2><p>Feuilles de basilic frais et un filet d'huile d'olive extra vierge.</p></div>
-    <div class="st"><div class="n">05</div><h2>Four à bois, 90 secondes</h2><p>450 °C, une croûte léopard, un cœur fondant. Buon appetito !</p></div>
-  </div>
-  <div class="pz"><div class="board"></div><canvas class="flour" id="flour" width="640" height="640"></canvas>
-    <svg viewBox="-220 -220 440 440" id="svg">
-      <defs>
-        <radialGradient id="dough"><stop offset=".72" stop-color="#f3d9a4"/><stop offset=".88" stop-color="#e8c17f"/><stop offset="1" stop-color="#d9a55e"/></radialGradient>
-        <radialGradient id="baked"><stop offset=".7" stop-color="#e9b867"/><stop offset=".86" stop-color="#c98236"/><stop offset="1" stop-color="#8f4b1c"/></radialGradient>
-        <radialGradient id="sauce"><stop offset="0" stop-color="#d23a1f"/><stop offset="1" stop-color="#a8240f"/></radialGradient>
-        <filter id="wob"><feTurbulence baseFrequency=".035" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="14"/></filter>
-      </defs>
-      <g id="rot">
-        <circle id="base" r="200" fill="url(#dough)"/>
-        <circle id="bake" r="200" fill="url(#baked)" opacity="0"/>
-        <g id="char" opacity="0"></g>
-        <circle id="sc" r="168" fill="url(#sauce)" filter="url(#wob)" transform="scale(0)"/>
-        <g id="moz"></g>
-        <g id="basil"></g>
-        <path id="oil" d="M-120 -40 C -60 -90, 0 20, 60 -30 S 140 10, 120 70" fill="none" stroke="#d4b23c" stroke-width="5" stroke-linecap="round" opacity=".75" stroke-dasharray="400" stroke-dashoffset="400"/>
-      </g>
-      <g class="steam" id="steam" style="display:none"><path d="M-60 -40 c-20 -30 20 -50 0 -80"/><path d="M0 -60 c-20 -30 20 -50 0 -80"/><path d="M60 -40 c-20 -30 20 -50 0 -80"/></g>
-    </svg>
-  </div>
-  <div class="dots" id="dots"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+<header class="hero" id="hero">
+  <div class="big" id="big"></div>
+  <div id="pzs"></div>
+  <div class="tom t1" data-d="40"><img src="../../assets/sig/tomates.webp" alt=""></div>
+  <div class="tom t2" data-d="-30"><img src="../../assets/sig/tomate.webp" alt=""></div>
+  <div class="tom t3" data-d="22"><img src="../../assets/sig/tomates-grappe.webp" alt=""></div>
+  <div class="pick" id="pick"></div>
+  <div class="info"><div class="k fade" id="k"></div><h1 class="fade" id="t"></h1><p class="fade" id="d"></p><div class="pr fade" id="p"></div><a class="cta" href="#resa">Commander</a></div>
+</header>
+
+<section class="prep" id="prep"><div class="st">
+  <div class="pzz" id="pzz"><img src="../../assets/sig/pizza-bianca.webp" alt=""></div>
+  <div class="ing" id="i1" style="width:180px"><img src="../../assets/sig/tomate.webp" alt=""></div>
+  <div class="ing" id="i2" style="width:260px"><img src="../../assets/sig/tomates-grappe.webp" alt=""></div>
+  <div class="ing" id="i3" style="width:200px"><img src="../../assets/sig/tomates.webp" alt=""></div>
+  <div class="s s0" data-s="0"><div class="n">01</div><h3>La pâte, 48 h</h3><p>Farine italienne, levain maison et 48 heures de fermentation lente.</p></div>
+  <div class="s s1" data-s="1"><div class="n">02</div><h3>San Marzano</h3><p>Tomates écrasées à la main, une pincée de sel, rien d'autre.</p></div>
+  <div class="s s2" data-s="2"><div class="n">03</div><h3>Fior di latte</h3><p>Une mozzarella fondante, déchirée au dernier moment.</p></div>
+  <div class="s s3" data-s="3"><div class="n">04</div><h3>Four à bois</h3><p>450 °C, 90 secondes, une croûte léopard. Buon appetito !</p></div>
 </div></section>
 
-<section class="menu"><div style="font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--red)">La carte</div><h2>Nos incontournables</h2><div class="mgrid">
-<div><div class="mi"><b>Pizza Margherita</b><span></span><i>7 500 FCFA</i></div><div class="md">Tomate San Marzano, mozzarella, basilic</div></div>
-<div><div class="mi"><b>Pizza Diavola</b><span></span><i>9 000 FCFA</i></div><div class="md">Salami piquant, mozzarella</div></div>
-<div><div class="mi"><b>Tagliatelle al ragù</b><span></span><i>8 500 FCFA</i></div><div class="md">Pâtes fraîches maison</div></div>
-<div><div class="mi"><b>Lasagne della Mamma</b><span></span><i>9 000 FCFA</i></div><div class="md">Recette familiale</div></div>
-<div><div class="mi"><b>Tiramisu</b><span></span><i>4 000 FCFA</i></div><div class="md">Mascarpone, café</div></div>
-<div><div class="mi"><b>Panna cotta</b><span></span><i>3 500 FCFA</i></div><div class="md">Coulis de fruits rouges</div></div>
-</div></section>
+<section class="menu"><div class="ph"></div><div class="lst"><div style="font-size:13px;letter-spacing:4px;text-transform:uppercase;color:#c2572b">La carte</div><h2>Nos incontournables</h2>
+<div class="mi"><b>Pizza Margherita</b><span></span><i>7 500 FCFA</i></div><div class="md">Tomate San Marzano, mozzarella, basilic</div>
+<div class="mi"><b>Pizza Diavola</b><span></span><i>9 000 FCFA</i></div><div class="md">Salami piquant, mozzarella</div>
+<div class="mi"><b>Pizza Bianca</b><span></span><i>8 500 FCFA</i></div><div class="md">Crème, champignons, herbes fraîches</div>
+<div class="mi"><b>Tagliatelle al ragù</b><span></span><i>8 500 FCFA</i></div><div class="md">Pâtes fraîches maison</div>
+<div class="mi"><b>Tiramisu</b><span></span><i>4 000 FCFA</i></div><div class="md">Mascarpone, café</div></div></section>
 <section class="resa" id="resa"><div><h2>Une table vous attend</h2><p style="margin-top:20px;font-size:18px;opacity:.85;line-height:1.7">Batterie IV, à côté de l'école Gros Bouquet. Ouvert tous les jours de 7 h à 22 h. 4,6 ★ sur Google (30 avis).</p></div>
 <div class="card"><div><small>Date</small><b>Samedi 15 novembre</b></div><div><small>Heure</small><b>20 h 00</b></div><div><small>Personnes</small><b>4 personnes</b></div><a class="cta" style="text-align:center" href="https://wa.me/24176348087">Réserver sur WhatsApp · 076 34 80 87</a></div></section>
-<footer><span>© 2026 Bella Mamma · Libreville, Gabon</span><span>@bellamamma.lbv</span><span>Site réalisé par NEAM</span></footer>
-<a class="neam-back" href="javascript:history.length>1?history.back():location.href='../../index.html'">← <b>Neam</b> · retour aux résultats</a>
-
+<footer><span>© 2026 Bella Mamma · Libreville, Gabon</span><span>@bellamamma.lbv</span><span>Site réalisé par NEAM · photos Unsplash</span></footer>
+<a class="neam-back" href="javascript:history.length>1?history.back():location.href='../../index.html'">← <b>NEAM Atelier</b> · retour</a>
 <script>
-const NS = 'http://www.w3.org/2000/svg';
-const el = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+const Z = [
+  { n: 'Diavola', img: 'pizza-diavola', bg: '#2a0f0a', ac: '#e2482b', k: 'La piquante', d: 'Salami piquant, mozzarella fior di latte et sauce San Marzano. Pour ceux qui aiment quand ça relève.', p: '9 000 FCFA' },
+  { n: 'Bianca', img: 'pizza-bianca', bg: '#16241c', ac: '#8fbf6a', k: 'La douce', d: 'Base crème, champignons, herbes fraîches et un filet d\'huile d\'olive. Tout en finesse.', p: '8 500 FCFA' },
+];
 const $ = (id) => document.getElementById(id);
-$('char').innerHTML = Array.from({ length: 26 }, (_, i) => { const a = i * 2.39, r = 185 + (i % 3) * 6; return `<circle cx="${Math.cos(a) * r}" cy="${Math.sin(a) * r}" r="${4 + (i % 4) * 2}" fill="#3b1f0d" opacity=".55"/>`; }).join('') + Array.from({ length: 10 }, (_, i) => `<circle cx="${Math.cos(i * 1.7) * (40 + i * 11)}" cy="${Math.sin(i * 1.7) * (40 + i * 11)}" r="${10 + i % 3 * 4}" fill="#e7a43a" opacity=".55"/>`).join('');
-// Mozzarella
-const MOZ = [[0, 0, 34], [-90, -60, 30], [80, -80, 28], [-60, 90, 32], [95, 55, 30], [-120, 15, 22], [20, -125, 22], [35, 115, 24], [125, -10, 20], [-20, 60, 18], [-30, -100, 18]];
-const moz = MOZ.map(([x, y, r], i) => { const g = el('g', { transform: `translate(${x} ${y - 500})` }); g.appendChild(el('path', { d: `M${-r} 0 C ${-r} ${-r * 1.1}, ${r} ${-r * 1.2}, ${r} 0 S ${-r * .6} ${r * 1.1}, ${-r} 0Z`, fill: '#fffaf0', stroke: '#efe3c8', 'stroke-width': 2 })); $('moz').appendChild(g); return { g, x, y, i }; });
-// Basilic
-const BAS = [[-40, -30, 20], [70, 10, 140], [-70, 60, 250], [30, 85, 310], [10, -80, 80], [-110, -60, 200]];
-const bas = BAS.map(([x, y, r]) => { const g = el('g', { transform: `translate(${x} ${y}) rotate(${r}) scale(0)` }); g.appendChild(el('path', { d: 'M0 0 C 14 -14, 40 -14, 52 0 C 40 14, 14 14, 0 0Z', fill: '#2f7d3a' })); g.appendChild(el('path', { d: 'M2 0 L48 0', stroke: '#1f5a27', 'stroke-width': 1.5 })); $('basil').appendChild(g); return { g, x, y, r }; });
-const clamp = (v) => Math.max(0, Math.min(1, v));
-const ease = (t) => 1 - Math.pow(1 - t, 3);
-const steps = [...document.querySelectorAll('.st')], bars = [...document.querySelectorAll('.dots b')];
-let lastStep = 0;
-function frame() {
-  const b = $('build'), r = b.getBoundingClientRect();
-  const P = clamp(-r.top / (b.offsetHeight - innerHeight)) * 6; // 0 → 6
-  const step = Math.min(5, Math.floor(P));
-  if (step !== lastStep) { steps.forEach((s, k) => s.classList.toggle('on', k === step)); lastStep = step; }
-  bars.forEach((bb, k) => bb.style.transform = `scaleX(${clamp(P - 1 - k)})`);
-  // 1 : pâte qui s'étale
-  const p1 = ease(clamp(P - 0.6)); $('base').setAttribute('r', 120 + 80 * p1); $('base').setAttribute('opacity', .4 + .6 * p1);
-  flourLevel = clamp(P - 0.3) * (1 - clamp(P - 1.6));
-  // 2 : sauce
-  const p2 = ease(clamp((P - 1.6) * 1.2)); $('sc').setAttribute('transform', `rotate(${p2 * 200}) scale(${p2})`);
-  // 3 : mozzarella qui tombe
-  moz.forEach((m) => { const t = ease(clamp((P - 2.5 - m.i * 0.05) * 2)); const bounce = t < 1 ? 0 : 0; m.g.setAttribute('transform', `translate(${m.x} ${m.y - 520 * (1 - t) + bounce}) rotate(${(1 - t) * 90})`); m.g.style.opacity = t > 0 ? 1 : 0; });
-  // 4 : basilic + huile
-  bas.forEach((bb, i) => { const t = ease(clamp((P - 3.5 - i * 0.07) * 2.5)); bb.g.setAttribute('transform', `translate(${bb.x} ${bb.y}) rotate(${bb.r + (1 - t) * 120}) scale(${t})`); });
-  $('oil').setAttribute('stroke-dashoffset', 400 - 400 * clamp((P - 3.8) * 2));
-  // 5 : cuisson
-  const p5 = clamp((P - 4.5) * 1.6); $('bake').setAttribute('opacity', p5); $('char').setAttribute('opacity', p5);
-  moz.forEach((m) => m.g.firstChild.setAttribute('fill', p5 > .5 ? '#fbe7b5' : '#fffaf0'));
-  $('steam').style.display = p5 > .6 ? '' : 'none';
-  $('rot').setAttribute('transform', `rotate(${P * 18})`);
-  requestAnimationFrame(frame);
+$('pzs').innerHTML = Z.map((z) => `<div class="pz in0"><img src="../../assets/sig/${z.img}.webp" alt="Pizza ${z.n}"></div>`).join('');
+$('pick').innerHTML = Z.map((z, i) => `<div class="pk" data-i="${i}"><img src="../../assets/sig/${z.img}.webp" alt=""><div><b>${z.n}</b><span>${z.p}</span></div></div>`).join('');
+const pzs = [...document.querySelectorAll('.pz')], pks = [...document.querySelectorAll('.pk')];
+let cur = -1, timer;
+function pick(i, user) {
+  if (i === cur) return; const old = cur; cur = i; const z = Z[i];
+  document.documentElement.style.setProperty('--bg', z.bg); document.documentElement.style.setProperty('--ac', z.ac);
+  pzs.forEach((p, k) => { p.classList.remove('out', 'in0'); if (k === old) p.classList.add('out'); else if (k !== i) p.classList.add('in0'); });
+  pks.forEach((p, k) => p.classList.toggle('on', k === i));
+  const big = $('big'); big.classList.add('out'); document.querySelectorAll('.fade').forEach((e) => e.classList.add('o'));
+  setTimeout(() => { big.innerHTML = z.n.toUpperCase().split('').map((c, k) => `<span style="transition-delay:${k * 50}ms">${c}</span>`).join(''); requestAnimationFrame(() => requestAnimationFrame(() => big.classList.remove('out'))); $('k').textContent = z.k; $('t').textContent = 'Pizza ' + z.n; $('d').textContent = z.d; $('p').textContent = z.p; document.querySelectorAll('.fade').forEach((e) => e.classList.remove('o')); }, 350);
+  clearTimeout(timer); if (!user) timer = setTimeout(() => pick((cur + 1) % Z.length), 5500);
 }
-// Farine qui tombe (étape 1)
-const fc = $('flour'), fx = fc.getContext('2d'); let flourLevel = 0;
-const grains = Array.from({ length: 160 }, () => ({ x: Math.random() * 640, y: Math.random() * 640, v: .5 + Math.random() * 1.5, r: .8 + Math.random() * 2 }));
-(function flour() { fx.clearRect(0, 0, 640, 640); if (flourLevel > 0.01) { fx.fillStyle = `rgba(255,255,255,${.85 * flourLevel})`; grains.forEach((g) => { g.y += g.v; if (g.y > 640) g.y = -5; fx.beginPath(); fx.arc(g.x, g.y, g.r, 0, 7); fx.fill(); }); } requestAnimationFrame(flour); })();
-frame();
+pks.forEach((p) => p.onclick = () => pick(+p.dataset.i, true));
+window.pickPizza = (i) => pick(i, true);
+pick(0);
+let mx = 0, my = 0; addEventListener('mousemove', (e) => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
+const toms = [...document.querySelectorAll('.tom')], steps = [...document.querySelectorAll('.s')];
+const I = [[$('i1'), -1, -1], [$('i2'), 1, -1], [$('i3'), -1, 1]];
+let last = -1;
+(function loop() {
+  const sy = scrollY;
+  toms.forEach((t) => { const d = +t.dataset.d; t.style.transform = `translate(${mx * d}px, ${my * d + sy * d / 60}px) rotate(${mx * d / 2 + sy / 10}deg)`; });
+  document.querySelector('nav').classList.toggle('s', sy > 40);
+  const r = $('prep').getBoundingClientRect(), h = $('prep').offsetHeight - innerHeight;
+  const p = Math.min(1, Math.max(0, -r.top / h));
+  if (r.top < innerHeight && r.bottom > 0) {
+    $('pzz').style.transform = `rotate(${p * 540}deg) scale(${.55 + Math.min(1, p * 1.6) * .5})`;
+    const s = Math.min(3, Math.floor(p * 4)); if (s !== last) { last = s; steps.forEach((x) => x.classList.toggle('on', +x.dataset.s === s)); }
+    I.forEach(([el, sx, syy], k) => { const t = Math.min(1, Math.max(0, p * 3 - k * .5)); const dist = (1 - t) * 900; el.style.left = `calc(50% + ${sx * (160 + k * 30) + sx * dist}px)`; el.style.top = `calc(50% + ${syy * (150 + k * 20) + syy * dist * .6}px)`; el.style.transform = `translate(-50%,-50%) rotate(${(1 - t) * 300 + p * 90}deg)`; });
+  }
+  requestAnimationFrame(loop);
+})();
 </script>
 </body></html>

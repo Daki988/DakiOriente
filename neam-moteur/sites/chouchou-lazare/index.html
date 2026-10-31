@@ -5,160 +5,112 @@
 <link rel="stylesheet" href="../../assets/sig.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#f1eee8;--ink:#17121b;--rose:#d6a4c4;--gold:#c8a96a;--plum:#1a1020}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow-x:hidden}
-nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:22px 48px;z-index:50;mix-blend-mode:difference;color:#fff}
+:root{--bg:#efe9df;--ink:#17121b;--gold:#b8893a}
+body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow-x:hidden;transition:background .9s}
+nav{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:22px 48px;z-index:50}
 .brand{font-family:'Playfair Display',serif;font-size:22px;letter-spacing:6px}
-nav .links{display:flex;gap:28px;font-size:13px;letter-spacing:2px;text-transform:uppercase}
-/* ---------- Portant ---------- */
-.stage{height:100vh;min-height:680px;position:relative;overflow:hidden;perspective:1400px}
-.stage .bgword{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-size:21vw;color:#e6e1d8;white-space:nowrap;letter-spacing:-.02em;pointer-events:none;transition:opacity .8s}
-.rail{position:absolute;left:6%;right:6%;top:24%;height:3px;background:linear-gradient(90deg,#9b9590,#d9d4cc 30%,#8d8781 70%,#c9c3ba);border-radius:3px;box-shadow:0 2px 4px rgba(0,0,0,.15)}
-.rail:before,.rail:after{content:'';position:absolute;top:-6px;width:14px;height:14px;border-radius:50%;background:#8d8781}
-.rail:before{left:-10px}.rail:after{right:-10px}
-.items{position:absolute;left:8%;right:8%;top:calc(24% - 6px);display:flex;justify-content:space-between;align-items:flex-start;transform-style:preserve-3d}
-.g{width:12.5%;position:relative;cursor:pointer;transform-origin:50% 0;transition:transform 1.1s cubic-bezier(.2,.8,.2,1),opacity .7s,filter .7s;transform-style:preserve-3d;animation:sway 6s ease-in-out infinite}
-.g:nth-child(2n){animation-delay:-2s}.g:nth-child(3n){animation-delay:-4s}
-@keyframes sway{0%,100%{rotate:0deg}50%{rotate:1.2deg}}
-.g:hover{transform:translateZ(60px) translateY(6px)}
-.g svg{width:100%;height:auto;display:block;overflow:visible;filter:drop-shadow(0 26px 22px rgba(40,20,30,.28))}
-.g .lab{position:absolute;left:0;right:0;top:calc(100% + 16px);text-align:center;font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:0;transition:opacity .4s}
-.g:hover .lab{opacity:.7}
-/* sélection */
-.stage.sel .g{opacity:.0;filter:blur(6px);pointer-events:none}
-.stage.sel .g.on{opacity:1;filter:none;pointer-events:auto;animation:none}
-.stage.sel .bgword{opacity:.35}
-.detail{position:absolute;right:7%;top:50%;transform:translate(40px,-50%);width:330px;opacity:0;pointer-events:none;transition:all .9s .25s cubic-bezier(.2,.8,.2,1)}
+nav .links{display:flex;gap:28px;font-size:12px;letter-spacing:2px;text-transform:uppercase}
+.stage{height:100vh;min-height:700px;position:relative;overflow:hidden}
+.bgword{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-size:22vw;color:rgba(23,18,27,.06);white-space:nowrap;pointer-events:none;transition:opacity .8s,transform .8s}
+.rail{position:absolute;left:5%;right:5%;top:15%;height:3px;background:linear-gradient(90deg,#9b9590,#d9d4cc 30%,#8d8781 70%,#c9c3ba);border-radius:3px}
+.rail:before,.rail:after{content:'';position:absolute;top:-6px;width:14px;height:14px;border-radius:50%;background:#8d8781}.rail:before{left:-10px}.rail:after{right:-10px}
+.floor{position:absolute;left:0;right:0;bottom:0;height:20vh;background:linear-gradient(rgba(0,0,0,0),rgba(60,40,20,.08))}
+.looks{position:absolute;left:8%;right:8%;bottom:9vh;top:14%;display:flex;justify-content:space-around;align-items:flex-end}
+.look{height:74vh;position:relative;cursor:pointer;transition:transform 1.1s cubic-bezier(.2,.8,.2,1),opacity .7s,filter .7s;transform-origin:50% 100%}
+.look img{height:100%;width:auto;display:block;filter:drop-shadow(0 30px 25px rgba(40,25,10,.25))}
+.look:after{content:'';position:absolute;left:12%;right:12%;bottom:-10px;height:22px;border-radius:50%;background:radial-gradient(rgba(40,25,10,.28),transparent 70%)}
+.look .hook{position:absolute;left:50%;top:-11vh;width:2px;height:11vh;background:linear-gradient(#8d8781,rgba(141,135,129,0));transform:translateX(-50%);opacity:.7}
+.look:hover{transform:translateY(-12px) scale(1.03)}
+.lab{position:absolute;left:50%;bottom:-38px;transform:translateX(-50%);white-space:nowrap;font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.55}
+.stage.sel .look{opacity:0;filter:blur(8px);pointer-events:none}
+.stage.sel .look.on{opacity:1;filter:none;pointer-events:auto}
+.stage.sel .bgword{opacity:.5;transform:translate(-30%,-50%)}
+.stage.sel .lab{opacity:0}
+.detail{position:absolute;right:7%;top:50%;transform:translate(40px,-50%);width:360px;opacity:0;pointer-events:none;transition:all .9s .25s cubic-bezier(.2,.8,.2,1)}
 .stage.sel .detail{opacity:1;transform:translate(0,-50%);pointer-events:auto}
-.detail .k{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8a7f88}
-.detail h2{font-family:'Playfair Display',serif;font-weight:400;font-size:46px;line-height:1.05;margin:10px 0 14px}
-.detail p{font-size:14px;line-height:1.7;color:#4b4350}
-.sw{display:flex;gap:10px;margin:22px 0}
-.sw button{width:34px;height:34px;border-radius:50%;border:2px solid transparent;cursor:pointer;outline:2px solid transparent;outline-offset:2px;transition:outline-color .3s}
-.sw button.on{outline-color:var(--ink)}
+.detail .k{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#7d7268}
+.detail h2{font-family:'Playfair Display',serif;font-weight:400;font-size:52px;line-height:1.02;margin:12px 0 14px}
+.detail p{font-size:14px;line-height:1.75;color:#4b4350}
+.fab{display:flex;gap:12px;margin:24px 0}
+.fab span{width:58px;height:58px;border-radius:50%;background-size:260%;cursor:pointer;outline:2px solid transparent;outline-offset:3px;transition:outline-color .3s,transform .3s}
+.fab span:hover{transform:scale(1.08)}.fab span.on{outline-color:var(--ink)}
 .sizes{display:flex;gap:8px;margin-bottom:24px}
-.sizes span{border:1px solid #cfc8bf;padding:8px 12px;font-size:12px;cursor:pointer}
+.sizes span{border:1px solid #cfc6b8;padding:8px 12px;font-size:12px;cursor:pointer}
 .sizes span:hover,.sizes span.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .cta{display:inline-block;background:var(--ink);color:#fff;padding:15px 26px;font-size:12px;letter-spacing:3px;text-transform:uppercase;text-decoration:none}
-.close{position:absolute;left:48px;top:50%;font-size:12px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;opacity:0;transition:opacity .6s .4s;display:flex;gap:10px;align-items:center}
+.close{position:absolute;left:48px;top:50%;font-size:12px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;opacity:0;transition:opacity .6s .4s;z-index:6}
 .stage.sel .close{opacity:1}
-.hint{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8a7f88;display:flex;flex-direction:column;align-items:center;gap:10px;transition:opacity .5s}
-.hint i{width:1px;height:38px;background:#8a7f88;animation:drop 2s infinite}
-@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.hint{position:absolute;left:50%;top:92px;transform:translateX(-50%);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#7d7268;transition:opacity .5s}
 .stage.sel .hint{opacity:0}
-.counter{position:absolute;right:48px;bottom:34px;font-family:'Playfair Display',serif;font-size:14px;letter-spacing:2px}
-/* ---------- Sections ---------- */
-section{padding:140px 8%}
-.manifesto{background:var(--plum);color:#f5eef8;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.manifesto h3{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(40px,5vw,76px);line-height:1.02}
-.manifesto h3 em{color:var(--rose)}
-.manifesto p{font-size:17px;line-height:1.8;opacity:.8}
-.press{display:flex;justify-content:space-around;align-items:center;padding:60px 8%;border-bottom:1px solid #d8d1c7;font-family:'Playfair Display',serif;font-size:26px;letter-spacing:4px;color:#8a7f88;flex-wrap:wrap;gap:20px}
-.gal{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px;padding-top:0}
-.gal div{background-size:cover;background-position:center;height:560px;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
-.gal div:nth-child(2){margin-top:120px}
-.gal div:hover{transform:scale(.98)}
-.rdv{text-align:center}
-.rdv h3{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(40px,6vw,96px);line-height:1}
-.rdv p{margin:24px auto 40px;max-width:560px;line-height:1.8;color:#4b4350}
-footer{padding:50px 8%;display:flex;justify-content:space-between;font-size:13px;color:#6b6370;border-top:1px solid #d8d1c7;flex-wrap:wrap;gap:16px}
+.counter{position:absolute;right:48px;top:92px;font-family:'Playfair Display',serif;font-size:14px;letter-spacing:2px}
+.press{display:flex;justify-content:space-around;align-items:center;padding:60px 8%;border-top:1px solid #d8cfc2;border-bottom:1px solid #d8cfc2;font-family:'Playfair Display',serif;font-size:24px;letter-spacing:4px;color:#7d7268;flex-wrap:wrap;gap:20px}
+.hz{height:300vh;position:relative}
+.hz .st{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
+.track{display:flex;gap:30px;padding-left:8%;will-change:transform;align-items:center}
+.track .intro{flex:none;width:460px}
+.track h3{font-family:'Playfair Display',serif;font-weight:400;font-size:64px;line-height:1}
+.track .intro p{margin-top:20px;line-height:1.8;color:#4b4350}
+.track .ph{flex:none;height:76vh;border-radius:6px;overflow:hidden}
+.track .ph img{height:100%;width:auto;display:block;transform:scale(1.08);transition:transform 1.4s}
+.track .ph:hover img{transform:scale(1)}
+.rdv{text-align:center;padding:140px 8%;background:#17121b;color:#f5eef8}
+.rdv h3{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(44px,6vw,96px);line-height:1}
+.rdv p{margin:24px auto 40px;max-width:560px;line-height:1.8;opacity:.8}
+.rdv .cta{background:#f5eef8;color:#17121b}
+footer{padding:46px 8%;display:flex;justify-content:space-between;font-size:13px;color:#6b6370;flex-wrap:wrap;gap:16px}
 .rv{opacity:0;transform:translateY(60px);transition:all 1.1s cubic-bezier(.2,.8,.2,1)}.rv.in{opacity:1;transform:none}
-@media(max-width:800px){nav{padding:18px 20px}nav .links{display:none}.g{width:15%}.detail{left:6%;right:6%;width:auto;top:auto;bottom:40px;transform:translateY(40px)}.stage.sel .detail{transform:none}.close{top:90px;left:20px}.manifesto{grid-template-columns:1fr}.gal{grid-template-columns:1fr}.gal div{height:380px}.gal div:nth-child(2){margin:0}}
-</style></head>
+@media(max-width:900px){nav{padding:18px 20px}nav .links{display:none}.look{height:48vh}.detail{left:20px;right:20px;width:auto;top:auto;bottom:24px;transform:translateY(40px);background:rgba(239,233,223,.92);padding:20px}.stage.sel .detail{transform:none}.detail h2{font-size:34px}.close{top:90px;left:20px}.track .intro{width:80vw}.track .ph{height:60vh}}
+nav{transition:background .4s,padding .4s}nav.s{background:rgba(239,233,223,.88);backdrop-filter:blur(12px);padding-top:12px;padding-bottom:12px}</style></head>
 <body>
 <nav><div class="brand">CHOUCHOU LAZARE</div><div class="links"><span>Collection</span><span>Maison</span><span>Sur-mesure</span><span>Contact</span></div></nav>
-
 <div class="stage" id="stage">
-  <div class="bgword">Héritage</div>
-  <div class="rail"></div>
-  <div class="items" id="items"></div>
+  <div class="bgword">Héritage</div><div class="floor"></div>
+  <div class="hint">Cliquez sur une tenue</div>
+  <div class="looks" id="looks"></div>
   <div class="close" id="close">← Toute la collection</div>
-  <div class="detail" id="detail">
-    <div class="k" id="dk">Collection Héritage · 01</div>
-    <h2 id="dt">Robe Héritage</h2>
-    <p id="dp"></p>
-    <div class="sw" id="sw"></div>
-    <div class="sizes"><span>XS</span><span class="on">S</span><span>M</span><span>L</span><span>Sur-mesure</span></div>
-    <a class="cta" href="#rdv">Réserver un essayage</a>
-  </div>
-  <div class="hint"><span>Cliquez sur une pièce</span><i></i></div>
-  <div class="counter" id="counter">06 pièces</div>
+  <div class="detail" id="detail"><div class="k" id="dk"></div><h2 id="dt"></h2><p id="dp"></p><div class="fab" id="fab"></div><div class="sizes"><span>S</span><span class="on">M</span><span>L</span><span>XL</span><span>Sur-mesure</span></div><a class="cta" href="#rdv">Réserver un essayage</a></div>
+  <div class="counter" id="ct">03 tenues · Collection Héritage</div>
 </div>
-
 <div class="press"><span>FASHION WEEK PARIS</span><span>·</span><span>ORDRE DU MÉRITE</span><span>·</span><span>LIBREVILLE</span></div>
-
-<section class="manifesto"><h3 class="rv">Le <em>wax</em> comme une signature, la coupe comme une évidence.</h3><p class="rv">Styliste-fondateur, Chouchou Lazare habille celles et ceux qui portent l'Afrique avec fierté. Chaque pièce est dessinée à Libreville, coupée à la main et ajustée lors d'essayages privés. De la Fashion Week de Paris aux cérémonies familiales, une même exigence : la justesse du tombé.</p></section>
-
-<section class="gal"><div class="rv" style="background-image:url('../../assets/photos/luxe-1490481651871-ab68de25d43d.jpg')"></div><div class="rv" style="background-image:url('../../assets/photos/luxe-1445205170230-053b83016050.jpg')"></div><div class="rv" style="background-image:url('../../assets/photos/luxe-1515562141207-7a88fb7ce338.jpg')"></div></section>
-
-<section class="rdv" id="rdv"><h3 class="rv">Essayage privé<br><em style="font-style:italic;color:#b07f9e">sur rendez-vous</em></h3><p class="rv">Prises de mesures, choix des tissus et retouches dans l'atelier de Libreville. Comptez 3 à 4 semaines pour une pièce sur-mesure.</p><a class="cta rv" href="tel:+24177362212">Appeler l'atelier · 077 36 22 12</a></section>
-
-<footer><span>© 2026 Chouchou Lazare · Libreville, Gabon</span><span>Instagram · Facebook · TikTok</span><span>Site réalisé par NEAM</span></footer>
-<a class="neam-back" href="javascript:history.length>1?history.back():location.href='../../index.html'">← <b>Neam</b> · retour aux résultats</a>
-
+<section class="hz" id="hz"><div class="st"><div class="track" id="track">
+  <div class="intro"><div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#7d7268">La maison</div><h3 style="margin-top:14px">Le wax comme une signature</h3><p>Styliste-fondateur, Chouchou Lazare habille celles et ceux qui portent l'Afrique avec fierté. Chaque pièce est dessinée à Libreville, coupée à la main et ajustée lors d'essayages privés.</p></div>
+  <div class="ph"><img src="../../assets/sig/wax-portrait.jpg" alt=""></div><div class="ph"><img src="../../assets/sig/wax-1.jpg" alt=""></div><div class="ph"><img src="../../assets/sig/wax-2.jpg" alt=""></div>
+</div></div></section>
+<section class="rdv" id="rdv"><h3 class="rv">Essayage privé<br><em>sur rendez-vous</em></h3><p class="rv">Prises de mesures, choix des tissus et retouches dans l'atelier de Libreville. Comptez 3 à 4 semaines pour une pièce sur-mesure.</p><a class="cta rv" href="tel:+24177362212">Appeler l'atelier · 077 36 22 12</a></section>
+<footer><span>© 2026 Chouchou Lazare · Libreville, Gabon</span><span>Instagram · Facebook · TikTok</span><span>Site réalisé par NEAM · photos Unsplash</span></footer>
+<a class="neam-back" href="javascript:history.length>1?history.back():location.href='../../index.html'">← <b>NEAM Atelier</b> · retour</a>
 <script>
-// Motifs wax dessinés en SVG (aucune image nécessaire)
-const PATTERNS = {
-  cercles: (a, b, c) => `<pattern id="P" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="${a}"/><circle cx="20" cy="20" r="15" fill="none" stroke="${b}" stroke-width="5"/><circle cx="20" cy="20" r="6" fill="${c}"/><circle cx="0" cy="0" r="6" fill="${c}"/><circle cx="40" cy="40" r="6" fill="${c}"/><circle cx="40" cy="0" r="6" fill="${c}"/><circle cx="0" cy="40" r="6" fill="${c}"/></pattern>`,
-  losanges: (a, b, c) => `<pattern id="P" width="36" height="36" patternUnits="userSpaceOnUse"><rect width="36" height="36" fill="${a}"/><path d="M18 2 L34 18 L18 34 L2 18Z" fill="${b}"/><path d="M18 10 L26 18 L18 26 L10 18Z" fill="${c}"/></pattern>`,
-  kente: (a, b, c) => `<pattern id="P" width="48" height="48" patternUnits="userSpaceOnUse"><rect width="48" height="48" fill="${a}"/><rect width="24" height="10" fill="${b}"/><rect x="24" y="24" width="24" height="10" fill="${b}"/><rect y="12" width="24" height="4" fill="${c}"/><rect x="24" y="36" width="24" height="4" fill="${c}"/><rect x="30" width="6" height="24" fill="${c}"/><rect x="6" y="24" width="6" height="24" fill="${c}"/></pattern>`,
-  feuilles: (a, b, c) => `<pattern id="P" width="44" height="44" patternUnits="userSpaceOnUse"><rect width="44" height="44" fill="${a}"/><path d="M8 36 C8 18 22 8 36 8 C36 26 24 36 8 36Z" fill="${b}"/><path d="M8 36 L30 14" stroke="${c}" stroke-width="2"/><circle cx="36" cy="36" r="4" fill="${c}"/></pattern>`,
-  vagues: (a, b, c) => `<pattern id="P" width="40" height="20" patternUnits="userSpaceOnUse"><rect width="40" height="20" fill="${a}"/><path d="M0 10 Q10 0 20 10 T40 10" fill="none" stroke="${b}" stroke-width="5"/><circle cx="10" cy="16" r="2.5" fill="${c}"/><circle cx="30" cy="4" r="2.5" fill="${c}"/></pattern>`,
-  soleil: (a, b, c) => `<pattern id="P" width="50" height="50" patternUnits="userSpaceOnUse"><rect width="50" height="50" fill="${a}"/><circle cx="25" cy="25" r="10" fill="${b}"/>${[0, 45, 90, 135, 180, 225, 270, 315].map((r) => `<rect x="23" y="4" width="4" height="9" fill="${c}" transform="rotate(${r} 25 25)"/>`).join('')}</pattern>`,
-};
-const PALS = [['#c2410c', '#1e3a8a', '#facc15'], ['#14532d', '#f59e0b', '#fef3c7'], ['#7c2d12', '#ea580c', '#fde68a'], ['#1e1b4b', '#d6a4c4', '#c8a96a'], ['#0f766e', '#f97316', '#fff7ed'], ['#831843', '#fbbf24', '#1f2937']];
-const SHAPES = {
-  robe: 'M76 40 Q100 52 124 40 L134 66 Q128 92 124 112 L176 292 Q100 306 24 292 L76 112 Q72 92 66 66 Z',
-  chemise: 'M66 40 Q100 56 134 40 L188 78 L170 108 L148 92 L150 232 Q100 240 50 232 L52 92 L30 108 L12 78 Z',
-  boubou: 'M56 40 Q100 58 144 40 L198 124 Q190 140 178 142 L186 284 Q100 298 14 284 L22 142 Q10 140 2 124 Z',
-  veste: 'M64 40 Q100 52 136 40 L182 82 L176 256 Q150 262 128 258 L120 140 L100 92 L80 140 L72 258 Q50 262 24 256 L18 82 Z',
-  sirene: 'M80 40 Q100 50 120 40 L132 82 Q126 130 118 184 Q150 252 160 294 Q100 304 40 294 Q50 252 82 184 Q74 130 68 82 Z',
-  kaftan: 'M58 40 Q100 56 142 40 L192 104 L162 116 L168 290 Q100 300 32 290 L38 116 L8 104 Z',
-};
-const PIECES = [
-  ['robe', 'Robe Héritage', 'cercles', 'Coton wax certifié, doublure satin. Taille ajustée, jupe évasée pour les cérémonies.'],
-  ['boubou', 'Boubou Royal', 'kente', 'Grand boubou brodé main, encolure travaillée en fil d\'or. Pièce signature de la maison.'],
-  ['chemise', 'Chemise Akanda', 'feuilles', 'Chemise homme en wax léger, coupe droite, boutons nacre. Du bureau au dîner.'],
-  ['veste', 'Veste Ogooué', 'losanges', 'Veste structurée à revers, wax contrecollé. Se porte sur un pantalon uni.'],
-  ['sirene', 'Robe Sirène', 'vagues', 'Silhouette fourreau, traîne légère. Créée pour les soirées et les tapis rouges.'],
-  ['kaftan', 'Kaftan Soirée', 'soleil', 'Kaftan fluide en wax et mousseline, ceinture amovible.'],
+const L = [
+  { img: 'look-1', n: 'Robe Impériale', bg: '#efe4d6', d: 'Robe fourreau imprimée, col montant et manches courtes. Taille ajustée sur mesure, pour les cérémonies et les soirées.', fab: [['wax-1', '30% 40%'], ['wax-2', '60% 50%'], ['wax-1', '80% 70%']] },
+  { img: 'look-2', n: 'Ensemble Soleil', bg: '#f3e6d6', d: 'Top noué et jupe fendue en wax doré. Taille ajustée, tombé fluide pour les soirées d\'été.', fab: [['wax-2', '20% 30%'], ['wax-1', '50% 60%'], ['wax-2', '75% 40%']] },
+  { img: 'look-3', n: 'Kente Moderne', bg: '#ece4ef', d: 'Robe courte en kente tissé, coupe droite et finitions main. Se porte avec talons ou sandales plates.', fab: [['wax-1', '70% 20%'], ['wax-2', '40% 80%'], ['wax-1', '10% 50%']] },
 ];
-const hanger = '<path d="M100 2 q9 0 9 9 q0 7 -9 10 L100 22 M100 22 L36 40 L164 40 Z" fill="none" stroke="#6f6863" stroke-width="3" stroke-linejoin="round"/>';
-function garment(i, palIdx) {
-  const [shape, , pat] = PIECES[i]; const [a, b, c] = PALS[palIdx];
-  const id = 'g' + i + '_' + palIdx;
-  return `<svg viewBox="0 0 200 310"><defs>${PATTERNS[pat](a, b, c).replace('id="P"', `id="${id}"`)}<linearGradient id="sh${id}" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset=".35" stop-color="#fff" stop-opacity=".08"/><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".32"/></linearGradient><linearGradient id="v${id}" y1="0" y2="1" x1="0" x2="0"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset=".15" stop-color="#000" stop-opacity="0"/></linearGradient></defs>${hanger}<path d="${SHAPES[shape]}" fill="url(#${id})"/><path d="${SHAPES[shape]}" fill="url(#sh${id})"/><path d="${SHAPES[shape]}" fill="url(#v${id})"/><path d="${SHAPES[shape]}" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1"/></svg>`;
-}
-const items = document.getElementById('items'), stage = document.getElementById('stage');
-const state = PIECES.map((_, i) => i % PALS.length);
-items.innerHTML = PIECES.map((p, i) => `<div class="g" data-i="${i}">${garment(i, state[i])}<div class="lab">${p[1]}</div></div>`).join('');
-const els = [...items.children];
+const $ = (id) => document.getElementById(id), stage = $('stage');
+$('looks').innerHTML = L.map((l, i) => `<div class="look" data-i="${i}"><img src="../../assets/sig/${l.img}.webp" alt="${l.n}"><span class="lab">${l.n}</span></div>`).join('');
+const els = [...document.querySelectorAll('.look')];
 let cur = -1;
 function open(i) {
-  cur = i; stage.classList.add('sel');
-  els.forEach((e, k) => { e.classList.toggle('on', k === i); });
+  cur = i; stage.classList.add('sel'); const l = L[i];
+  document.body.style.background = l.bg;
+  els.forEach((e, k) => e.classList.toggle('on', k === i));
   const e = els[i], r = e.getBoundingClientRect(), sr = stage.getBoundingClientRect();
-  const dx = sr.width * 0.36 - (r.left - sr.left + r.width / 2);
-  e.style.transform = `translate3d(${dx}px, ${sr.height * 0.02}px, 0) scale(2.15)`;
-  document.getElementById('dk').textContent = 'Collection Héritage · 0' + (i + 1);
-  document.getElementById('dt').textContent = PIECES[i][1];
-  document.getElementById('dp').textContent = PIECES[i][3];
-  document.getElementById('sw').innerHTML = PALS.map((p, k) => `<button class="${k === state[i] ? 'on' : ''}" style="background:conic-gradient(${p[0]} 0 50%, ${p[1]} 0 80%, ${p[2]} 0)" data-k="${k}" aria-label="Coloris ${k + 1}"></button>`).join('');
-  document.getElementById('counter').textContent = '0' + (i + 1) + ' / 06';
+  const dx = sr.width * (innerWidth > 900 ? 0.36 : 0.5) - (r.left - sr.left + r.width / 2);
+  e.style.transform = `translateX(${dx}px) scale(${innerWidth > 900 ? 1.12 : 1})`;
+  $('dk').textContent = 'Collection Héritage · 0' + (i + 1); $('dt').textContent = l.n; $('dp').textContent = l.d;
+  $('fab').innerHTML = l.fab.map(([img, pos], k) => `<span class="${k ? '' : 'on'}" style="background-image:url('../../assets/sig/${img}.jpg');background-position:${pos}"></span>`).join('');
+  $('fab').querySelectorAll('span').forEach((s) => s.onclick = () => { $('fab').querySelectorAll('span').forEach((x) => x.classList.remove('on')); s.classList.add('on'); });
+  $('ct').textContent = '0' + (i + 1) + ' / 03';
 }
-function close() { cur = -1; stage.classList.remove('sel'); els.forEach((e) => { e.style.transform = ''; e.classList.remove('on'); }); document.getElementById('counter').textContent = '06 pièces'; }
+function close() { cur = -1; stage.classList.remove('sel'); document.body.style.background = ''; els.forEach((e) => { e.style.transform = ''; e.classList.remove('on'); }); $('ct').textContent = '03 tenues · Collection Héritage'; }
 els.forEach((e, i) => e.addEventListener('click', (ev) => { ev.stopPropagation(); cur === i ? close() : open(i); }));
-document.getElementById('close').onclick = close;
-document.getElementById('sw').addEventListener('click', (ev) => {
-  const k = ev.target.dataset.k; if (k === undefined || cur < 0) return;
-  state[cur] = +k; els[cur].querySelector('svg').outerHTML = garment(cur, +k);
-  [...ev.currentTarget.children].forEach((b, j) => b.classList.toggle('on', j === +k));
-});
+$('close').onclick = close; window.openLook = open; window.closeLook = close;
 document.querySelectorAll('.sizes span').forEach((s) => s.onclick = () => { document.querySelectorAll('.sizes span').forEach((x) => x.classList.remove('on')); s.classList.add('on'); });
-// Léger mouvement 3D du portant qui suit la souris
-stage.addEventListener('mousemove', (e) => { if (cur >= 0) return; const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5; items.style.transform = `rotateY(${x * 8}deg) rotateX(${-y * 4}deg)`; });
+stage.addEventListener('mousemove', (e) => { if (cur >= 0) return; const x = e.clientX / innerWidth - .5; els.forEach((el, k) => { el.style.transform = `translateX(${x * (k - 1) * -18}px)`; }); });
+const track = $('track');
+function hz() { const s = $('hz'), r = s.getBoundingClientRect(), max = track.scrollWidth - innerWidth + 80; const p = Math.min(1, Math.max(0, -r.top / (s.offsetHeight - innerHeight))); track.style.transform = `translateX(${-p * max}px)`; }
+addEventListener('scroll', hz, { passive: true }); hz();
 const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
 document.querySelectorAll('.rv').forEach((e) => io.observe(e));
+addEventListener('scroll', () => document.querySelector('nav').classList.toggle('s', scrollY > 40), { passive: true });
 </script>
 </body></html>

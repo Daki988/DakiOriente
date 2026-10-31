@@ -37,7 +37,7 @@ window.Wizard = function ({ steps, data, preview, onSave, onFinish, mount }) {
     F.querySelectorAll('[data-up]').forEach((e) => e.onchange = async () => { const arr = []; for (const f of e.files) arr.push(await S.readImage(f)); d[e.dataset.up] = e.dataset.multi === '1' ? [].concat(d[e.dataset.up] || [], arr).slice(-8) : arr[0]; draw(); upd(); });
     if ($('back')) $('back').onclick = () => { i--; draw(); };
     if ($('skip')) $('skip').onclick = () => { i++; draw(); };
-    if ($('next')) $('next').onclick = () => { const miss = (s.fields || []).find((f) => f.req && !String(d[f.k] || '').trim()); if (miss) { toast('Renseignez : ' + miss.l); return; } onSave && onSave(d); i++; if (i === steps.length - 1) { onFinish && onFinish(d); toast('Enregistré · visible dans le moteur Neam'); } draw(); };
+    if ($('next')) $('next').onclick = () => { const miss = (s.fields || []).find((f) => f.req && !String(d[f.k] || '').trim()); if (miss) { toast('Renseignez : ' + miss.l); return; } onSave && onSave(d); i++; if (i === steps.length - 1) { onFinish && onFinish(d); toast('Enregistré · visible dans NEAM Atelier'); } draw(); };
     if (s.verif) setTimeout(() => {}, 0);
     upd();
   }

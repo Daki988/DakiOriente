@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
-<base href="../"><title>Back-office — Neam</title>
+<base href="../"><title>Back-office — NEAM Atelier</title><link rel="icon" href="assets/brand/mark.svg"><link rel="stylesheet" href="assets/brand/atelier.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/admin.css"></head>
 <body>
-<aside class="side"><div class="logo"><span>N</span><span>e</span><span>a</span><span>m</span></div>
+<aside class="side"><a href="index.html" class="na-logo dark" style="font-size:22px;margin:0 0 22px 12px"><img src="assets/brand/neam-wordmark-light.png" alt="NEAM"><span class="at">Atelier</span></a>
   <a class="it on" href="admin/index.html">Projets</a><a class="it" href="index.html">Moteur de recherche ↗</a>
   <h4>Créer</h4><a class="it" href="admin/fiche.html">Fiche d'établissement</a><a class="it" href="admin/reseau.html">Réseaux sociaux</a>
   <h4>Données</h4><a class="it" href="#" id="reset">Réinitialiser mes saisies</a></aside>
@@ -27,7 +27,7 @@ function draw() {
   const net = (p, n) => (p.nets && p.nets[n]) ? 2 : (p.so || []).includes(n) ? 1 : 0;
   document.getElementById('t').innerHTML = `<div class="tr h"><span></span><span>Entreprise</span><span>Angle</span><span>Score</span><span>Fiche</span><span>Site</span><span>Insta</span><span>TikTok</span><span>FB</span><span>LinkedIn</span><span>Actions</span></div>` +
     list.map((p) => `<div class="tr"><span class="mini">${p.avatar}</span><div><b>${esc(p.n)}</b><div style="color:#5f6368;font-size:12px">${esc(p.s)} · ${esc(p.c)}${p.d ? ' · ' + esc(p.d) : ''}</div></div><span style="font-size:12px;color:#5f6368">${esc(p.a)}</span><span class="score" style="background:${col(p.sc)}">${p.sc}</span>${sym(p.fiche ? 2 : 1)}${sym(p.custom ? 1 : 2)}${sym(net(p, 'instagram'))}${sym(net(p, 'tiktok'))}${sym(net(p, 'facebook'))}${sym(net(p, 'linkedin'))}<span class="acts"><a href="admin/fiche.html?slug=${p.slug}">Fiche</a><a href="admin/reseau.html?slug=${p.slug}">Réseaux</a><a href="recherche.html?q=${encodeURIComponent(p.n)}">Voir</a></span></div>`).join('');
-  document.getElementById('sub').textContent = `${list.length} projets · chaque projet est trouvable dans le moteur Neam · ✓ créé dans le back-office · … existant, à reprendre · — à créer`;
+  document.getElementById('sub').textContent = `${list.length} projets · chaque projet est trouvable dans NEAM Atelier · ✓ créé dans le back-office · … existant, à reprendre · — à créer`;
 }
 ['f', 'k', 'o'].forEach((id) => document.getElementById(id).addEventListener('input', draw)); draw();
 document.getElementById('reset').onclick = (e) => { e.preventDefault(); if (confirm('Effacer toutes les fiches et réseaux saisis dans ce navigateur ?')) { localStorage.removeItem('neam-projets'); location.reload(); } };
