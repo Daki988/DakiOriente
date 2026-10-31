@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Gentleman — Novembre Bleu (salon)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Archivo:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F1ECE3;--ink:#15171B;--mute:#6E6A63;--line:#CFC7BA;--blue:#1C3C8E}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#888}
+  .poster{width:1080px;height:1620px;position:relative;overflow:hidden;background:var(--paper);color:var(--ink);
+    font-family:"Archivo",sans-serif;display:flex;flex-direction:column}
+  .poster::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+  .caps{font-size:14px;letter-spacing:.32em;text-transform:uppercase;font-weight:500}
+
+  /* Photo du salon */
+  .photo{position:relative;height:660px;background:#111 url("salon.jpg") center 40%/cover no-repeat}
+  .photo::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,12,.62) 0%,rgba(10,10,12,0) 30%,rgba(10,10,12,0) 72%,rgba(10,10,12,.45) 100%)}
+  .photo header{position:absolute;left:72px;right:72px;top:56px;display:flex;justify-content:space-between;align-items:center;color:#F1ECE3}
+  .photo header img{width:96px;display:block}
+  .photo header .meta{text-align:right;line-height:1.9;opacity:.9}
+  .photo .legend{position:absolute;left:72px;bottom:34px;color:#F1ECE3;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:22px;opacity:.9}
+  .photo .legend b{font-family:"Archivo",sans-serif;font-style:normal;font-weight:500;font-size:12px;letter-spacing:.32em;margin-right:14px}
+  .photo .bar{position:absolute;right:72px;bottom:44px;width:120px;height:2px;background:var(--blue)}
+
+  main{padding:46px 72px 46px;display:flex;flex-direction:column;flex:1}
+
+  .head{display:flex;justify-content:space-between;align-items:flex-end}
+  .head h1{font-family:"Cormorant Garamond",serif;font-weight:300;font-size:132px;line-height:.82;letter-spacing:-.025em}
+  .head h1 em{font-style:italic;font-weight:400;color:var(--blue)}
+  .cause{display:flex;gap:16px;align-items:center;padding-bottom:6px}
+  .cause p{white-space:nowrap;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:22px;line-height:1.2;text-align:right}
+  .cause svg{width:34px;flex:none}
+
+  .price{margin-top:34px;padding-top:22px;border-top:1px solid var(--line);display:flex;align-items:flex-end;gap:34px}
+  .price .l{color:var(--mute);margin-bottom:10px}
+  .price .num{font-family:"Cormorant Garamond",serif;font-variant-numeric:lining-nums;font-weight:300;font-size:172px;line-height:.78;letter-spacing:-.04em}
+  .price .side{padding-bottom:8px}
+  .price .cur{font-weight:800;font-size:24px;letter-spacing:.18em}
+  .price .dates{margin-top:12px;font-size:18px;line-height:1.45}
+  .price .dates span{color:var(--mute)}
+
+  .menu{margin-top:34px}
+  .row{display:flex;align-items:baseline;gap:20px;padding:15px 0;border-bottom:1px solid var(--line)}
+  .row:first-child{border-top:1px solid var(--line)}
+  .row .n{font-size:13px;letter-spacing:.2em;color:var(--blue);font-weight:600;width:30px}
+  .row .t{font-family:"Cormorant Garamond",serif;font-size:31px;font-weight:500}
+  .row .t i{font-weight:400;color:var(--mute);padding:0 .18em}
+  .row .dots{flex:1;border-bottom:1px dotted var(--mute);transform:translateY(-7px);opacity:.6}
+  .row .p{font-size:21px;font-weight:600;letter-spacing:.04em;white-space:nowrap}
+  .row .p small{font-size:12px;letter-spacing:.2em;font-weight:500;margin-left:6px}
+
+  .foot{margin-top:auto;padding-top:30px}
+  .info{display:grid;grid-template-columns:1fr 1.25fr auto;gap:40px;align-items:start}
+  .info h3{font-size:11px;letter-spacing:.32em;text-transform:uppercase;font-weight:600;color:var(--mute);margin-bottom:10px}
+  .info .tel{font-size:31px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+  .info .sub{font-size:14px;color:var(--mute);margin-top:5px}
+  .info .addr{font-size:17px;line-height:1.42}
+  .info .addr b{font-weight:600;letter-spacing:.06em}
+  .tt{display:flex;gap:16px;align-items:flex-start}
+  .tt img{width:88px;height:88px;display:block}
+  .tt .h{font-size:15px;line-height:1.4}
+
+  .services{margin-top:28px;padding-top:18px;border-top:1px solid var(--ink);display:flex;justify-content:space-between;align-items:baseline;gap:24px}
+  .services .list{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;line-height:1.9}
+  .services .list i{font-style:normal;color:var(--blue);padding:0 .5em}
+  .services .sign{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:24px;color:var(--mute);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="poster" id="poster">
+
+  <section class="photo">
+    <header>
+      <img src="logo-clair.png" alt="Gentleman Barbershop">
+      <div class="meta caps">Gentleman Barber &amp; Shop<br>présente</div>
+    </header>
+    <div class="legend"><b>LE SALON</b>Quartier Louis</div>
+    <div class="bar"></div>
+  </section>
+
+  <main>
+    <div class="head">
+      <h1>Novembre <em>Bleu.</em></h1>
+      <div class="cause">
+        <p>Ensemble, luttons<br>contre le cancer<br>de la prostate.</p>
+        <svg viewBox="0 0 100 150" fill="none" stroke="#1C3C8E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M50 70 C 22 42, 24 8, 50 8 C 76 8, 78 42, 50 70 L 16 142"/><path d="M50 70 L 84 142"/>
+        </svg>
+      </div>
+    </div>
+
+    <section class="price">
+      <div>
+        <div class="caps l">Le package complet</div>
+        <div class="num">15 000</div>
+      </div>
+      <div class="side">
+        <div class="cur">FCFA</div>
+        <div class="dates"><span>Du</span> 2 novembre<br><span>au</span> 1<sup style="font-size:.6em">er</sup> décembre 2026</div>
+      </div>
+    </section>
+
+    <section class="menu">
+      <div class="row"><span class="n">01</span><span class="t">Coupe<i>·</i>Noircissage<i>·</i>Gommage</span><span class="dots"></span><span class="p">5 000<small>FCFA</small></span></div>
+      <div class="row"><span class="n">02</span><span class="t">Manucure<i>·</i>Pédicure</span><span class="dots"></span><span class="p">10 000<small>FCFA</small></span></div>
+    </section>
+
+    <footer class="foot">
+      <div class="info">
+        <div><h3>Réservation</h3><div class="tel">062 28 28 83</div><div class="sub">Appel &amp; WhatsApp</div></div>
+        <div><h3>Adresse</h3><div class="addr"><b>LOUIS</b> — entre le restaurant La&nbsp;Roma et le siège du PDG</div></div>
+        <div class="tt"><div><h3>TikTok</h3><div class="h">@gentleman<br>barbershop4</div></div><img src="qr-tiktok.svg" alt="QR TikTok"></div>
+      </div>
+      <div class="services">
+        <div class="list">Coupe homme<i>/</i>Coupe enfant<i>/</i>Onglerie homme &amp; femme<i>/</i>Dreadlocks<br>Coloration<i>/</i>Soins du visage<i>/</i>Massages<i>/</i>Produits cosmétiques</div>
+        <div class="sign">Votre style, notre priorité.</div>
+      </div>
+    </footer>
+  </main>
+</div>
+</body>
+</html>
