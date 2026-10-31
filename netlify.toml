@@ -1,0 +1,23 @@
+# Site public : seul le dossier « public » généré par scripts/build.mjs est mis en ligne.
+# Les documents internes (docs/ : coûts, marges, fournisseurs) ne sont jamais publiés.
+[build]
+  command = "npm run build"
+  publish = "public"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Le back-office ne doit jamais être indexé ni mis en cache
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+    X-Frame-Options = "SAMEORIGIN"

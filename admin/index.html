@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Gestion — Daki Oriente</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23111111'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23ff4d5e'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- ===== Connexion ===== -->
+  <section class="login" id="login" hidden>
+    <form class="login__card" id="login-form">
+      <p class="brand"><span class="dot"></span>daki<span class="light">oriente</span></p>
+      <h1>Espace de gestion</h1>
+      <label>Mot de passe<input type="password" name="password" autocomplete="current-password" required autofocus></label>
+      <button class="btn btn--primary" type="submit">Se connecter</button>
+      <p class="err" id="login-err" role="alert"></p>
+    </form>
+  </section>
+
+  <!-- ===== Application ===== -->
+  <div class="app" id="app" hidden>
+    <header class="top">
+      <p class="brand"><span class="dot"></span>daki<span class="light">oriente</span> <small>gestion</small></p>
+      <nav class="tabs" id="tabs">
+        <button data-tab="dash" class="is-on">Tableau de bord</button>
+        <button data-tab="orders">Commandes <span class="count" id="count-new"></span></button>
+        <button data-tab="products">Produits</button>
+        <button data-tab="settings">Réglages</button>
+        <button data-tab="newsletter">Lettre d'info</button>
+      </nav>
+      <div class="top__right">
+        <a href="../index.html" target="_blank" rel="noopener">Voir la boutique ↗</a>
+        <button class="btn btn--ghost btn--sm" id="logout">Déconnexion</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <section data-panel="dash" id="panel-dash"></section>
+      <section data-panel="orders" hidden>
+        <div class="bar">
+          <input type="search" id="o-search" placeholder="Rechercher : n°, nom, téléphone, quartier…">
+          <select id="o-filter">
+            <option value="open">En cours</option>
+            <option value="all">Toutes</option>
+            <option value="commandee">Commandées</option>
+            <option value="preparee">Préparées</option>
+            <option value="en_route">En livraison</option>
+            <option value="tentative">Tentatives</option>
+            <option value="livree">Livrées</option>
+            <option value="annulee">Annulées</option>
+          </select>
+          <button class="btn btn--ghost btn--sm" id="o-refresh">Actualiser</button>
+        </div>
+        <div class="split">
+          <div class="list" id="o-list"></div>
+          <div class="detail" id="o-detail"><p class="empty">Choisissez une commande à gauche.</p></div>
+        </div>
+      </section>
+      <section data-panel="products" hidden>
+        <div class="bar">
+          <input type="search" id="p-search" placeholder="Rechercher un produit…">
+          <button class="btn btn--ghost btn--sm" id="p-add">+ Ajouter un produit</button>
+          <button class="btn btn--primary btn--sm" id="p-save">Publier les modifications</button>
+        </div>
+        <p class="hint" id="p-hint"></p>
+        <div class="split">
+          <div class="list" id="p-list"></div>
+          <div class="detail" id="p-detail"><p class="empty">Choisissez un produit à gauche.</p></div>
+        </div>
+      </section>
+      <section data-panel="settings" hidden>
+        <form class="card form" id="s-form"></form>
+      </section>
+      <section data-panel="newsletter" hidden>
+        <div class="bar">
+          <p class="hint" id="n-hint"></p>
+          <button class="btn btn--ghost btn--sm" id="n-export">Exporter en CSV</button>
+        </div>
+        <div class="card" id="n-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/products.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

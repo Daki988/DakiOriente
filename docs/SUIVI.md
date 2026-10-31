@@ -1,3 +1,7 @@
+> **Depuis la mise en ligne, le suivi se gère dans le back-office (`/admin/`, onglet Commandes)** :
+> changez le statut, le créneau, le nombre d'arrêts et le message au client ; la page Suivi se met à jour aussitôt.
+> La méthode Google Sheets ci-dessous ne sert plus que pour une version du site sans serveur.
+
 # Mettre à jour le suivi des commandes
 
 Le site est statique : il n'a pas de serveur pour enregistrer l'avancement des livraisons.

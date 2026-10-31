@@ -121,6 +121,18 @@
     };
   }
   function lookupSheet(ref, code) {
+    // En ligne : l'API de la boutique fait foi. Sinon, feuille CSV éventuelle.
+    if (window.DO_CONFIG.online && window.fetch) {
+      if (!code) return Promise.resolve(null);
+      return fetch("/api/track?ref=" + encodeURIComponent(ref) + "&code=" + encodeURIComponent(code))
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (o) {
+          if (!o || !o.ref) return null;
+          o.code = code; o.address = o.area || ""; o.events = o.events || []; o.fromApi = true;
+          return o;
+        })
+        .catch(function () { return null; });
+    }
     if (!TRACKING.csvUrl || !window.fetch) return Promise.resolve(null);
     return fetch(TRACKING.csvUrl + (TRACKING.csvUrl.indexOf("?") > -1 ? "&" : "?") + "t=" + Date.now())
       .then(function (r) { return r.ok ? r.text() : ""; })
@@ -135,7 +147,7 @@
     ref = ref.trim().toUpperCase(); code = code.trim();
     var local = localOrders().filter(function (o) { return o.ref === ref; })[0];
     return lookupSheet(ref, code).then(function (remote) {
-      if (remote && local) { // la feuille fait foi pour le statut, l'appareil garde le détail du panier
+      if (remote && local) { // le serveur fait foi pour le statut, l'appareil garde le détail du panier
         ["status", "stopsBefore", "windowStart", "windowEnd", "deliveredAt", "note"].forEach(function (k) { if (remote[k] != null && remote[k] !== "") local[k] = remote[k]; });
         if (remote.events.length) local.events = remote.events;
         return local;
@@ -256,7 +268,8 @@
       '<div class="trk-actions">' +
       '<button class="trk-action" data-trk="ins"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4z"/></svg>' + (o.instructions ? "Modifier mes instructions" : "Ajouter des instructions pour la livraison") + "</button>" +
       '<button class="trk-action" data-trk="share"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Partager le suivi</button>' +
-      '<a class="trk-action" target="_blank" rel="noopener" href="https://wa.me/' + TRACKING.whatsapp + "?text=" + encodeURIComponent("Bonjour, j'ai une question sur ma commande " + o.ref + ".") + '"><svg viewBox="0 0 24 24"><path d="M4 20l1.5-4A8 8 0 1112 20a8 8 0 01-4-1L4 20z"/></svg>Écrire au livreur</a>' +
+      (TRACKING.whatsapp ? '<a class="trk-action" target="_blank" rel="noopener" href="https://wa.me/' + TRACKING.whatsapp + "?text=" + encodeURIComponent("Bonjour, j'ai une question sur ma commande " + o.ref + ".") + '"><svg viewBox="0 0 24 24"><path d="M4 20l1.5-4A8 8 0 1112 20a8 8 0 01-4-1L4 20z"/></svg>Écrire au livreur</a>'
+        : window.DO_CONFIG.phone ? '<a class="trk-action" href="tel:' + esc(window.DO_CONFIG.phone.replace(/\s/g, "")) + '"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>Appeler la boutique</a>' : "") +
       "</div>" + instructionsForm(o) +
       '<p class="trk-sent" id="trk-ins-sent" hidden>✓ Instructions enregistrées. <a target="_blank" rel="noopener" href="#">Les envoyer au livreur sur WhatsApp →</a></p>' +
       (o.demo ? '<div class="trk-demo-bar"><span>Mode démonstration : faites avancer la livraison pour voir chaque étape.</span><button class="btn btn--outline btn--sm" data-trk="next">Étape suivante</button><button class="btn btn--sm trk-link" data-trk="reset">Recommencer</button></div>' : "") +
@@ -356,7 +369,7 @@
         "• Si absent·e : " + current.instructions.absent + "\n• À annoncer : " + current.instructions.say +
         (current.instructions.note ? "\n• Précision : " + current.instructions.note : "");
       render(current);
-      $("#trk-ins-sent").hidden = false;
+      $("#trk-ins-sent").hidden = !TRACKING.whatsapp;
       $("#trk-ins-sent a").href = "https://wa.me/" + TRACKING.whatsapp + "?text=" + encodeURIComponent(txt);
     });
     renderList();

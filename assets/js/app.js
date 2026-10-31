@@ -5,13 +5,17 @@
   "use strict";
 
   /* ---------- Réglages : à adapter ---------- */
+  // Valeurs de assets/js/config.js, remplacées par celles du back-office quand le site est en ligne
+  var D = window.DO_CONFIG;
   var CONFIG = {
-    whatsapp: window.DO_CONFIG.whatsapp, // à régler dans assets/js/config.js
-    shippingFee: 2000,            // frais de livraison (FCFA)
-    freeShippingFrom: 30000,      // livraison offerte à partir de (FCFA)
-    cutoffHour: 16,               // commande passée avant cette heure (heure de Libreville) = livrée le lendemain
-    exitUrl: window.DO_CONFIG.exitUrl
+    whatsapp: D.whatsapp,             // numéro WhatsApp (facultatif)
+    phone: D.phone,                   // numéro affiché pour être rappelé
+    shippingFee: D.shippingFee,       // frais de livraison (FCFA)
+    freeShippingFrom: D.freeShippingFrom, // livraison offerte à partir de (FCFA)
+    cutoffHour: D.cutoffHour,         // commande avant cette heure (Libreville) = livrée le lendemain
+    exitUrl: D.exitUrl
   };
+  var soldOut = function (p) { return p && p.stock === 0; };
 
   var CATS = window.CATEGORIES;
   var PRODUCTS = window.PRODUCTS;
@@ -59,6 +63,8 @@
   }
   /* Photo produit (assets/img/<id>.jpg), avec repli sur l'illustration si l'image manque */
   function pic(p, sizes) {
+    // Produit marqué « photo discrète » dans le back-office : illustration à la place de la photo
+    if (p.discreet) return art(p.art, p.hue);
     var src = p.img || "assets/img/" + p.id + ".jpg", sm = src.replace("assets/img/", "assets/img/sm/");
     return '<img src="' + sm + '" srcset="' + sm + " 480w, " + src + ' 800w" sizes="' + (sizes || "(max-width: 560px) 50vw, 320px") + '" alt="' + esc(p.name) + '" loading="lazy" decoding="async"' +
       (p.pos ? ' style="object-position:' + p.pos + '"' : "") + ' onerror="this.replaceWith(document.createRange().createContextualFragment(window.__art(\'' + p.art + '\',' + p.hue + ')))">';
@@ -174,7 +180,8 @@
     return '<article class="card" style="animation-delay:' + Math.min(i || 0, 12) * 40 + 'ms">' +
       '<div class="card__media art-bg" ' + artBg(p.hue) + ' data-open="' + p.id + '">' + pic(p) +
       (p.badge ? '<span class="badge">' + esc(p.badge) + "</span>" : "") + promo +
-      '<button class="card__quick" data-add="' + p.id + '" aria-label="Ajouter ' + esc(p.name) + ' au panier">Ajouter au panier</button></div>' +
+      (soldOut(p) ? '<span class="card__quick card__quick--off">Épuisé, bientôt de retour</span></div>'
+        : '<button class="card__quick" data-add="' + p.id + '" aria-label="Ajouter ' + esc(p.name) + ' au panier">Ajouter au panier</button></div>') +
       '<div class="card__body"><span class="card__cat">' + esc(catById[p.cat].label) + "</span>" +
       '<h3 class="card__name" data-open="' + p.id + '">' + esc(p.name) + "</h3>" +
       '<span class="price">' + fcfa(p.price) + (p.old ? "<s>" + fcfa(p.old) + "</s>" : "") + "</span>" +
@@ -242,7 +249,7 @@
       '<p class="muted">' + esc(p.desc) + "</p>" +
       '<ul class="pm__points">' + p.points.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" +
       '<div class="pm__actions"><div class="qty"><button data-q="-1" aria-label="Moins">−</button><span id="pm-qty">1</span><button data-q="1" aria-label="Plus">+</button></div>' +
-      '<button class="btn btn--primary" id="pm-add">Ajouter au panier</button></div>' +
+      (soldOut(p) ? '<button class="btn btn--primary" id="pm-add" disabled>Épuisé, bientôt de retour</button></div>' : '<button class="btn btn--primary" id="pm-add">Ajouter au panier</button></div>') +
       '<p class="pm__eta">' + deliveryText() + "</p>" +
       '<div class="pm__trust"><span>📦<br>Colis neutre</span><span>💵<br>Payé à la livraison</span><span>✓<br>Contrôlé avant envoi</span></div>' +
       crossSellHTML(p) + "</div>";
@@ -298,7 +305,9 @@
 
   function saveCart() { store.set("do_cart", cart); renderCart(); }
   function addToCart(id, n) {
-    cart[id] = Math.min(10, (cart[id] || 0) + n);
+    if (!byId[id] || soldOut(byId[id])) { toast("Ce produit est épuisé pour le moment."); return; }
+    var max = typeof byId[id].stock === "number" ? Math.min(10, byId[id].stock) : 10;
+    cart[id] = Math.min(max, (cart[id] || 0) + n);
     saveCart();
     toast("Ajouté au panier · " + byId[id].name);
     var c = $("#cart-count"); c.classList.add("bump"); setTimeout(function () { c.classList.remove("bump"); }, 300);
@@ -374,34 +383,51 @@
   }
   function submitOrder(e) {
     e.preventDefault();
-    var f = new FormData(e.target), t = totals();
+    var form = e.target, f = new FormData(form), t = totals();
     var ref = "DO-" + Date.now().toString(36).toUpperCase().slice(-6);
-    var lines = Object.keys(cart).map(function (id) { return "• " + cart[id] + " × " + byId[id].name + " (" + fcfa(byId[id].price * cart[id]) + ")"; });
-    var msg = "Bonjour Daki Oriente, voici ma commande " + ref + " :\n\n" + lines.join("\n") +
-      "\n\nLivraison : " + (t.ship ? fcfa(t.ship) : "offerte") + "\nTotal : " + fcfa(t.total) +
-      "\n\nNom : " + f.get("name") + "\nTél : " + f.get("phone") + "\nAdresse : " + f.get("address") +
-      "\nCréneau : " + f.get("slot") + "\nPaiement : " + f.get("pay") +
-      (f.get("call") ? "\nMerci de m'appeler avant de passer." : "");
-    var link = waLink(msg);
-    var phone = String(f.get("phone")).replace(/\D/g, ""), code = phone.slice(-4);
-    // La commande est gardée sur l'appareil pour la page de suivi (suivi.html)
-    var orders = store.get("do_orders", []).filter(function (o) { return o.ref !== ref; });
-    orders.unshift({
-      ref: ref, code: code, status: "commandee", createdAt: new Date().toISOString(),
-      items: Object.keys(cart).map(function (id) { return [id, cart[id]]; }), total: t.total,
-      name: String(f.get("name")), address: String(f.get("address")), slot: String(f.get("slot")), pay: String(f.get("pay")),
-      events: [{ t: new Date().toISOString(), label: "Commande reçue", place: "Boutique en ligne" }]
+    var phone = String(f.get("phone")).trim(), code = phone.replace(/\D/g, "").slice(-4);
+    var items = Object.keys(cart).map(function (id) { return [id, cart[id]]; });
+    var prices = {}, names = {};
+    items.forEach(function (it) { prices[it[0]] = byId[it[0]].price; names[it[0]] = byId[it[0]].name; });
+    var order = {
+      ref: ref, name: String(f.get("name")), phone: phone, address: String(f.get("address")),
+      slot: String(f.get("slot")), pay: String(f.get("pay")), call: !!f.get("call"), cgv: !!f.get("cgv"),
+      items: items, prices: prices, names: names, ship: t.ship
+    };
+    var btn = form.querySelector('button[type="submit"]'), msg = $("#co-error");
+    msg.textContent = ""; btn.disabled = true; btn.textContent = "Envoi en cours…";
+
+    var send = D.online
+      ? fetch("/api/orders", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(order) })
+          .then(function (r) { return r.json().then(function (d) { if (!r.ok) throw new Error(d.error || "Erreur"); return d; }); })
+      : Promise.resolve({ ok: true, ref: ref, code: code, total: t.total, demo: true });
+
+    send.then(function (res) {
+      // Copie locale pour retrouver la commande sur cet appareil (page Suivi)
+      var orders = store.get("do_orders", []).filter(function (o) { return o.ref !== ref; });
+      orders.unshift({
+        ref: ref, code: code, status: "commandee", createdAt: new Date().toISOString(), items: items, total: res.total || t.total,
+        name: order.name, address: order.address, slot: order.slot, pay: order.pay,
+        events: [{ t: new Date().toISOString(), label: "Commande reçue", place: "Boutique en ligne" }]
+      });
+      store.set("do_orders", orders.slice(0, 10));
+      var recap = items.map(function (it) { return "<li>" + it[1] + " × " + esc(byId[it[0]].name) + "<span>" + fcfa(byId[it[0]].price * it[1]) + "</span></li>"; }).join("");
+      var wa = CONFIG.whatsapp ? '<a class="btn btn--outline btn--full" style="margin-top:10px" target="_blank" rel="noopener" href="' +
+        waLink("Bonjour, j'ai passé la commande " + ref + " sur votre site.") + '">Nous écrire (facultatif)</a>' : "";
+      cart = {}; saveCart();
+      // Accusé de réception avec récapitulatif (loi n°025/2021, art. 52)
+      $("#checkout-body").innerHTML =
+        '<div class="success"><div class="success__icon">✓</div><span class="label">Commande ' + ref + " enregistrée</span>" +
+        "<h3>Merci, c'est entre nous.</h3>" +
+        '<p class="muted">Nous vous appelons au <strong>' + esc(phone) + "</strong> pour confirmer le créneau. Votre colis neutre part aussitôt.</p>" +
+        '<ul class="recap">' + recap + "<li><em>Livraison</em><span>" + (t.ship ? fcfa(t.ship) : "Offerte") + '</span></li><li class="recap__total"><em>Total à payer à la livraison</em><span>' + fcfa(res.total || t.total) + "</span></li></ul>" +
+        '<button class="btn btn--primary btn--full" id="co-track">Suivre ma commande</button>' + wa +
+        '<p class="muted small" style="margin-top:14px">Paiement : ' + esc(order.pay) + ". Pour le suivi : commande <strong>" + ref + "</strong>, code <strong>" + esc(code) + "</strong>.<br>Notez ces informations : elles vous seront demandées.</p></div>";
+      $("#co-track").addEventListener("click", function () { location.href = "suivi.html#" + ref; });
+    }).catch(function (err) {
+      btn.disabled = false; btn.textContent = "Confirmer ma commande";
+      msg.textContent = "La commande n'a pas pu être envoyée : " + err.message + " Vérifiez votre connexion et réessayez.";
     });
-    store.set("do_orders", orders.slice(0, 10));
-    cart = {}; saveCart();
-    $("#checkout-body").innerHTML =
-      '<div class="success"><div class="success__icon">✓</div><span class="label">Commande ' + ref + "</span>" +
-      "<h3>Merci, c'est entre nous.</h3>" +
-      '<p class="muted">Envoyez-nous le récapitulatif sur WhatsApp pour confirmer : nous vous répondons en moins d\'une heure et votre colis neutre part aussitôt.</p>' +
-      '<a class="btn btn--primary btn--full" href="' + link + '" target="_blank" rel="noopener">Confirmer sur WhatsApp →</a>' +
-      '<button class="btn btn--outline btn--full" id="co-track" style="margin-top:10px">Suivre ma commande</button>' +
-      '<p class="muted small" style="margin-top:14px">Vous paierez ' + fcfa(t.total) + " à la réception, en " + esc(f.get("pay")) + ".<br>Pour le suivi : commande <strong>" + ref + "</strong>, code <strong>" + esc(code) + "</strong>.</p></div>";
-    $("#co-track").addEventListener("click", function () { location.href = "suivi.html#" + ref; });
   }
 
   /* ---------- Quiz ---------- */
@@ -443,8 +469,13 @@
   /* ---------- Newsletter ---------- */
   $("#newsletter").addEventListener("submit", function (e) {
     e.preventDefault();
-    $("#newsletter-msg").textContent = "C'est noté ! Votre code : SECRET10 (-10 % sur la première commande).";
-    e.target.reset();
+    var form = e.target, out = $("#newsletter-msg");
+    var data = { email: form.email.value, consent: form.consent.checked, adult: true, consentText: form.querySelector(".nl-consent").textContent.trim() };
+    if (!D.online) { out.textContent = "Merci ! Vous recevrez le prochain cahier secret."; form.reset(); return; }
+    fetch("/api/newsletter", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json().then(function (d) { if (!r.ok) throw new Error(d.error); }); })
+      .then(function () { out.textContent = "Merci ! Vous recevrez le prochain cahier secret."; form.reset(); })
+      .catch(function (err) { out.textContent = "Inscription impossible : " + err.message; });
   });
 
   /* ---------- Toast ---------- */

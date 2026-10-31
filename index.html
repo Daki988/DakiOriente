@@ -236,11 +236,11 @@
           </details>
           <details>
             <summary>Et si le produit ne me convient pas&nbsp;?</summary>
-            <p>Pour des raisons d'hygiène, les jouets et la lingerie ouverts ne sont ni repris ni échangés. En revanche, un produit défectueux est remplacé sans discussion sous 30 jours. Et en cas de doute avant d'acheter, demandez-nous conseil.</p>
+            <p>Vous disposez de 14 jours après la livraison pour changer d'avis sur un produit resté dans son emballage scellé. Pour des raisons d'hygiène, un jouet ou une lingerie dont l'emballage a été ouvert ne peut pas être repris. Un produit défectueux est remplacé. Tout est détaillé dans nos <a href="cgv.html">conditions générales de vente</a>.</p>
           </details>
           <details>
             <summary>Que se passe-t-il avec mes données&nbsp;?</summary>
-            <p>Elles servent uniquement à vous livrer. Elles ne sont jamais revendues ni partagées, et sont supprimées après la livraison si vous le souhaitez. Votre panier reste sur votre appareil, et le bouton « Sortie rapide » vous permet de quitter le site en un clic.</p>
+            <p>Elles servent uniquement à vous livrer. Elles ne sont jamais revendues ni partagées, et sont effacées 30 jours après la livraison. Votre panier reste sur votre appareil. Tous les détails sont dans notre <a href="confidentialite.html">politique de confidentialité</a>.</p>
           </details>
         </div>
       </div>
@@ -251,12 +251,13 @@
       <div class="container">
         <div class="cta">
           <div>
-            <h2>-10 % sur votre première commande.</h2>
-            <p>Nouveautés, conseils et ventes privées, une fois par mois. L'e-mail arrive avec un objet neutre, bien sûr.</p>
+            <h2>Le cahier secret, une fois par mois.</h2>
+            <p>Nouveautés, conseils et offres réservées aux abonné·es. L'e-mail arrive avec un objet neutre, bien sûr.</p>
           </div>
           <form class="newsletter" id="newsletter">
-            <input type="email" required placeholder="votre@email.com" aria-label="Votre adresse e-mail">
-            <button class="btn btn--primary" type="submit">Recevoir mon code</button>
+            <input type="email" name="email" required placeholder="votre@email.com" aria-label="Votre adresse e-mail">
+            <button class="btn btn--primary" type="submit">M'inscrire</button>
+            <label class="newsletter__consent"><input type="checkbox" name="consent" required> <span class="nl-consent">J'ai 18 ans ou plus et j'accepte de recevoir la lettre de Daki Oriente. Je peux me désinscrire à tout moment.</span></label>
             <p class="newsletter__msg" id="newsletter-msg" role="status"></p>
           </form>
         </div>
@@ -284,8 +285,8 @@
           <li><a href="guide.html">Le Guide : nos conseils</a></li>
           <li><a href="suivi.html">Suivre ma commande</a></li>
           <li><a href="#faq">Livraison & paiement</a></li>
-          <li><a href="#faq">Retours & garantie</a></li>
-          <li><a href="#faq">Données personnelles</a></li>
+          <li><a href="cgv.html">Retours & garantie</a></li>
+          <li><a href="confidentialite.html">Données personnelles</a></li>
         </ul>
       </div>
       <div>
@@ -298,7 +299,8 @@
       </div>
     </div>
     <div class="container footer__legal">
-      <p>© <span id="year"></span> Daki Oriente. Vente réservée aux personnes majeures. Produits non remboursables une fois ouverts, pour des raisons d'hygiène.</p>
+      <p>© <span id="year"></span> Daki Oriente. Vente réservée aux personnes majeures. Produits ouverts non repris, pour des raisons d'hygiène.</p>
+      <p class="footer__links"><a href="mentions-legales.html">Mentions légales</a> · <a href="cgv.html">Conditions générales de vente</a> · <a href="confidentialite.html">Confidentialité</a></p>
       <p>Astuce discrétion&nbsp;: appuyez deux fois sur <kbd>Échap</kbd> pour quitter le site instantanément.</p>
     </div>
   </footer>
@@ -356,9 +358,11 @@
             </label>
           </div>
           <label class="check"><input type="checkbox" name="call" checked> Le livreur m'appelle avant de passer (il dit simplement « livraison pour vous »)</label>
+          <label class="check"><input type="checkbox" name="cgv" required> J'ai 18 ans ou plus et j'accepte les <a href="cgv.html" target="_blank" class="link">conditions générales de vente</a>. Vous pouvez corriger votre panier et ces informations jusqu'à la confirmation.</label>
           <div class="co-total" id="co-total"></div>
           <button class="btn btn--primary btn--full btn--lg" type="submit">Confirmer ma commande</button>
-          <p class="muted small center">Vos informations servent uniquement à la livraison.</p>
+          <p class="co-error" id="co-error" role="alert"></p>
+          <p class="muted small center">Vos informations servent uniquement à la livraison. <a href="confidentialite.html" target="_blank" class="link">Données personnelles</a></p>
         </form>
       </div>
     </div>
@@ -396,6 +400,6 @@
 
   <script src="assets/js/config.js"></script>
   <script src="assets/js/products.js"></script>
-  <script src="assets/js/app.js"></script>
+  <script src="assets/js/boot.js" data-scripts="assets/js/app.js"></script>
 </body>
 </html>

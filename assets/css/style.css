@@ -852,3 +852,28 @@ body.locked .toast.show { transform: translate(-50%, 0); }
 @media (max-width: 560px) {
   .coll, .coll:nth-child(-n+2), .coll:nth-child(-n+3), .coll:nth-child(n+3), .coll:nth-child(7) { grid-column: auto; }
 }
+
+/* ---------- Commande en ligne : récapitulatif, erreurs, stock, consentements ---------- */
+.recap { list-style: none; margin: 16px 0; padding: 14px 16px; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; font-size: .9rem; text-align: left; }
+.recap li { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; }
+.recap li span:last-child { font-weight: 600; white-space: nowrap; }
+.recap .recap__total { border-top: 1px solid var(--line); margin-top: 6px; padding-top: 8px; font-weight: 700; }
+.co-error { color: #c62828; font-size: .88rem; font-weight: 600; margin: 8px 0 0; min-height: 0; }
+.co-error:empty { display: none; }
+.card__quick--off { background: var(--soft-2) !important; color: var(--muted) !important; cursor: default; }
+.pm-add:disabled, .pm-add[disabled] { opacity: .5; cursor: not-allowed; }
+.newsletter__consent { display: flex; gap: 8px; align-items: flex-start; font-size: .8rem; color: var(--muted); margin-top: 10px; text-align: left; }
+.newsletter__consent input { margin-top: 3px; accent-color: var(--accent); }
+
+/* ---------- Pages légales ---------- */
+.legal-page { max-width: 780px; margin: 0 auto; padding: 48px 20px 80px; }
+.legal-page h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 8px; }
+.legal-page h2 { font-size: 1.2rem; margin: 32px 0 8px; }
+.legal-page p, .legal-page li { color: #333; line-height: 1.65; }
+.legal-page .legal-updated { color: var(--muted); font-size: .9rem; }
+.legal-page dl { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); gap: 6px 16px; }
+.legal-page dt { font-weight: 600; }
+.legal-page .todo { background: #fff4d6; padding: 0 6px; border-radius: 6px; color: #8a5a00; }
+@media (max-width: 560px) { .legal-page dl { grid-template-columns: minmax(0, 1fr); } .legal-page dd { margin: 0 0 8px; } }
+.footer__links a { text-decoration: underline; text-underline-offset: 2px; }
+.legal-body .header__inner > .btn, .header__inner > a.btn { margin-left: auto; }
