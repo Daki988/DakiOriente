@@ -50,6 +50,13 @@
       "when": 1793384182671,
       "tag": "0006_offres",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1793415405208,
+      "tag": "0007_reprise_mise_en_avant",
+      "breakpoints": true
     }
   ]
 }

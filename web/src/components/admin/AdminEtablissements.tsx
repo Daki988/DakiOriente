@@ -10,7 +10,7 @@ import { api } from "@/lib/api";
 import { AdminHeader, Flag, LoadError, Pager, nf, qs, useDebounced } from "./shared";
 import { LABELS, labelById, type Label } from "@/lib/data";
 
-type E = { id: string; nom: string; sigle: string; pays: string; ville: string; typeLibelle: string; statut: string; siteWeb: string | null; email: string | null; phone: string | null; logo: string | null; status: "importe" | "revendique" | "verifie" | "suspendu"; featured: boolean; plan: string; updatedAt: string; label: Label | null; recognition: string | null };
+type E = { id: string; nom: string; sigle: string; pays: string; ville: string; typeLibelle: string; statut: string; featuredUntil?: string | null; siteWeb: string | null; email: string | null; phone: string | null; logo: string | null; status: "importe" | "revendique" | "verifie" | "suspendu"; featured: boolean; plan: string; updatedAt: string; label: Label | null; recognition: string | null };
 type Row = { e: E; members: number; programs: number };
 type Patch = { status?: E["status"]; featured?: boolean; plan?: string; label?: Label | null; recognition?: string | null };
 
@@ -34,7 +34,7 @@ export function AdminEtablissements() {
     return c;
   }, [all.data]);
   const plans = useMemo(() => { const c: Record<string, number> = {}; all.data?.forEach((r) => (c[r.e.plan] = (c[r.e.plan] ?? 0) + 1)); return c; }, [all.data]);
-  const featured = useMemo(() => all.data?.filter((r) => r.e.featured) ?? [], [all.data]);
+  const featured = useMemo(() => all.data?.filter((r) => r.e.featuredUntil && new Date(r.e.featuredUntil) > new Date()) ?? [], [all.data]);
 
   const patch = async (r: Row, p: Patch, msg: string) => {
     const res = await act.run(() => api<E>(`/admin/etablissements/${r.e.id}`, { method: "PATCH", body: p }));
@@ -68,7 +68,7 @@ export function AdminEtablissements() {
             { h: "Membres", className: "text-center", c: (r) => <b>{r.members}</b> },
             { h: "Formations", className: "text-center", c: (r) => <b>{r.programs}</b> },
             { h: "Offre", c: (r) => <Chip tone={r.e.plan === "premium" ? "violet" : "grey"}>{r.e.plan === "premium" ? "Premium" : "Gratuit"}</Chip> },
-            { h: "Statut", c: (r) => <span className="flex items-center gap-1.5"><StatusBadge status={r.e.status} />{r.e.featured && <Star size={14} className="fill-sun-400 text-sun-500" aria-label="Mis en avant" />}</span> },
+            { h: "Statut", c: (r) => <span className="flex items-center gap-1.5"><StatusBadge status={r.e.status} />{r.e.featuredUntil && new Date(r.e.featuredUntil) > new Date() && <Star size={14} className="fill-sun-400 text-sun-500" aria-label="Mis en avant" />}</span> },
             { h: <span className="sr-only">Actions</span>, className: "text-right", c: (r) => r.e.status === "revendique" ? <Button size="sm" onClick={(ev) => { ev.stopPropagation(); setSel(r); }}>Examiner</Button> : <button className="text-[13px] font-bold text-brand-600" aria-label={`Gérer ${r.e.sigle}`}>Gérer</button> },
           ]} />
           {list.data.length > 20 && <Pager page={page} total={list.data.length} size={20} onPage={setPage} />}</>
@@ -77,7 +77,7 @@ export function AdminEtablissements() {
 
       <div className="grid gap-5 [&>*]:min-w-0 lg:grid-cols-[1fr_1.4fr]">
         <Panel title="Mise en avant" icon={Star} action={<Chip tone="sun">{featured.length}</Chip>}>
-          {!featured.length ? <p className="text-sm text-ink-mute">Aucun établissement mis en avant. Ouvrez une fiche pour l&apos;activer.</p> : (
+          {!featured.length ? <p className="text-sm text-ink-mute">Aucun établissement mis en avant. Activez un abonnement dans <Link href="/admin/offres" className="font-bold text-brand-600">Offres et abonnements</Link>.</p> : (
             <div className="grid gap-3 sm:grid-cols-3">
               {LABELS.map(({ id: p, court }) => (
                 <div key={p} className="flex flex-col gap-2 rounded-2xl border border-slate-200/80 p-3">
@@ -122,7 +122,7 @@ function Detail({ r, pending, error, patch }: { r: Row; pending: boolean; error:
       <LabelEditor r={r} pending={pending} patch={patch} />
       <div className="grid gap-3 sm:grid-cols-2">
         <div className="flex flex-col gap-1 rounded-2xl border border-slate-200/80 p-3.5 text-sm">
-          <b>Offre</b><span className="text-ink-mute">{e.plan === "premium" ? "Premium" : "Gratuit"}{e.featured ? " · mise en avant" : ""}</span>
+          <b>Offre</b><span className="text-ink-mute">{e.plan === "premium" ? "Premium" : "Gratuit"}{e.featuredUntil && new Date(e.featuredUntil) > new Date() ? ` · mise en avant jusqu'au ${new Date(e.featuredUntil).toLocaleDateString("fr-FR")}` : ""}</span>
           <Link href="/admin/offres" className="font-bold text-brand-600">Activer ou prolonger un service</Link>
         </div>
       </div>

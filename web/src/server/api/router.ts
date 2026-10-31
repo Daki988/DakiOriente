@@ -367,7 +367,7 @@ route("PATCH", "/admin/offres/services/:code", "Offres", "Modifier un service du
 route("POST", "/admin/offres/abonnements", "Offres", "Activer ou prolonger un service pour une école", ["admin"], async ({ me, body }) => json(await offres.activate(me, await body()), 201));
 route("POST", "/admin/offres/abonnements/:id/arreter", "Offres", "Arrêter un abonnement immédiatement", ["admin"], async ({ me, params }) => offres.cancel(me, params.id));
 route("GET", "/ecole/:eid/offre", "Établissement", "Mon offre : services actifs, historique, visibilité", ["etablissement", "admin"], async ({ me, params }) => offres.myOffer(me, params.eid));
-route("GET", "/partenaires", "Catalogue", "Écoles mises en avant (partenaires) en ce moment", "public", async () => json(await offres.partenaires(), 200, { "Cache-Control": "public, max-age=120" }));
+route("GET", "/partenaires", "Catalogue", "Écoles mises en avant (partenaires) en ce moment", "public", async () => json(await offres.partenaires()));  // no-store : jamais mis en cache par l'hébergeur (Varnish)
 route("POST", "/vitrine", "Catalogue", "Affichages et clics des écoles mises en avant (statistiques anonymes)", "public", async ({ body }) => {
   const b = await body().catch(() => ({}));
   await offres.compterVitrine(Array.isArray(b.aff) ? b.aff.map(String) : [], b.clic ? String(b.clic) : null);

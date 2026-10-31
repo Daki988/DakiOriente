@@ -161,9 +161,9 @@ export async function rappels() {
 
 // ---------------------------------------------------------------- Site public : écoles partenaires et visibilité
 let cache: { at: number; data: { id: string; une: boolean }[] } | null = null;
-/** Écoles mises en avant en ce moment (cache 2 min). `une` : première place de l'accueil. */
+/** Écoles mises en avant en ce moment (cache 30 s). `une` : première place de l'accueil. */
 export async function partenaires() {
-  if (cache && Date.now() - cache.at < 120_000) return cache.data;
+  if (cache && Date.now() - cache.at < 30_000) return cache.data; // plusieurs processus serveur : cache court
   const now = new Date();
   const r = await db.select({ id: schema.establishments.id, homeUntil: schema.establishments.homeUntil }).from(schema.establishments).where(gt(schema.establishments.featuredUntil, now)).orderBy(sql`${schema.establishments.homeUntil} desc nulls last`, asc(schema.establishments.sigle));
   cache = { at: Date.now(), data: r.map((x) => ({ id: x.id, une: !!x.homeUntil && x.homeUntil > now })) };
