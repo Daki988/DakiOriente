@@ -9,7 +9,17 @@ process.env.LOGO_URL = '../../assets/logos/';
 const lib = require('./lib');
 const sites = require('./sites');
 const views = require('./views');
+const { buildSite } = require('./site2');
 const prospects = require('../data/prospects.json');
+const social = require('./social-data');
+const SIG_ASSETS = {
+  'artemis-luxury-co': ['sig/parfum-1.webp', 'sig/parfum-2.webp', 'sig/parfum-3.webp', 'sig/parfum-4.webp'],
+  'chouchou-lazare': ['sig/look-1.webp', 'sig/wax-portrait.jpg', 'sig/look-2.webp', 'sig/wax-1.jpg', 'sig/look-3.webp', 'sig/wax-2.jpg'],
+  'skin-technology-by-latania': ['sig/soin-1.jpg', 'sig/serums-rose.jpg', 'sig/soin-2.jpg', 'sig/soin-3.jpg', 'sig/soin-4.jpg', 'sig/portrait-cut.webp'],
+  'bella-mamma': ['sig/pizza-four.jpg', 'sig/pizza-diavola.webp', 'sig/pizza-bianca.webp'],
+  'akae-beach': ['sig/plage.jpg'],
+};
+const SOCIAL = {};
 
 const SIGNATURES = ['chouchou-lazare', 'artemis-luxury-co', 'skin-technology-by-latania', 'hotel-le-refuge', 'akae-beach', 'bella-mamma'];
 
@@ -48,18 +58,25 @@ for (const p of prospects) {
   // Site généré (les sites signature sont écrits à la main dans neam-moteur/sites/<slug>/)
   const sdir = path.join(APP, 'sites', b.slug);
   fs.mkdirSync(sdir, { recursive: true });
-  const siteHtml = sites[p.k](p, b, c).replace('<head>', '<head>' + meta + `<title>${lib.esc(p.n)} — ${lib.esc(c.tagline)}</title>`).replace(/<\/body>/, LIVE + '</body>');
-  fs.writeFileSync(path.join(sdir, sig ? 'classique.html' : 'index.html'), siteHtml);
-  // Profils réseaux
+  const built = buildSite(p, b, c);
+  const pageList = built.map(([f, h]) => [f, (h.match(/<title>([^<—]+)/) || [])[1]?.trim() || f]);
+  for (const [file, html] of built) {
+    if (sig && file === 'index.html') continue; // l'accueil des sites signature est écrit à la main
+    fs.writeFileSync(path.join(sdir, file), html);
+  }
+  // Ancienne adresse des réseaux → nouvelle page fidèle
   const rdir = path.join(APP, 'reseaux', b.slug);
   fs.mkdirSync(rdir, { recursive: true });
-  fs.writeFileSync(path.join(rdir, 'index.html'), views.reseaux(p, b, c).replace('<head>', '<head>' + meta + `<title>${lib.esc(p.n)} — réseaux sociaux</title>`).replace('</body>', LIVE.split('<script>')[0].replace(/\.rv[^]*?\.neam-back\{/, '.neam-back{') + '</body>'));
+  fs.writeFileSync(path.join(rdir, 'index.html'), `<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=../../social.html?slug=${b.slug}&net=instagram"><a href="../../social.html?slug=${b.slug}&net=instagram">Réseaux</a>`);
+  // Contenu des réseaux sociaux
+  const pool = b.photos.map((u) => u.replace('../../', ''));
+  SOCIAL[b.slug] = social.build(p, b, c, pool, (SIG_ASSETS[b.slug] || []).map((x) => 'assets/' + x));
   // Données pour le moteur
   const st = lib.stats(p, b);
   engine.push({
     slug: b.slug, n: p.n, main: b.main, s: p.s, k: p.k, c: p.c, t: p.t, e: c.email, d: p.d || null, r: p.r || null, v: p.v || 0,
     so: p.so, sc: p.sc, a: p.a, domain: b.domain, handle: b.handle, tagline: c.tagline, intro: c.intro, cta: c.cta,
-    hours: c.hours, address: c.address, pal: b.pal, font: b.font, sig,
+    hours: c.hours, address: c.address, pages: pageList.filter(([f]) => f !== 'index.html'), pal: b.pal, font: b.font, sig,
     photos: b.photos.slice(0, 5).map((u) => u.replace('../../', '')),
     avatar: lib.avatarSVG(p, b).replace(/\.\.\/\.\.\//g, ''),
     items: c.items.slice(0, 3).map((it) => lib.itemTitle(it)),
@@ -68,4 +85,5 @@ for (const p of prospects) {
 }
 fs.mkdirSync(path.join(APP, 'data'), { recursive: true });
 fs.writeFileSync(path.join(APP, 'data', 'prospects.js'), 'window.PROSPECTS = ' + JSON.stringify(engine) + ';\n');
+fs.writeFileSync(path.join(APP, 'data', 'social.js'), 'window.SOCIAL = ' + JSON.stringify(SOCIAL) + ';\n');
 console.log('ok', engine.length, 'signatures:', engine.filter((x) => x.sig).length);

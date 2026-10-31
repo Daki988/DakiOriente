@@ -20,8 +20,8 @@ const sectorPhotos = (k) => allPhotos.filter((f) => f.startsWith(k + '-')).map(p
 const SUBTYPE_PHOTOS = [
   [/plage|beach/i, ['1507525428034', '1519046904884', '1559339352', '1504674900247', '1540189549336', '1414235077428']],
   [/boulangerie|caf[ée]/i, ['1509440159596', '1495474472287', '1555396273', '1517248135467', '1540189549336', '1414235077428']],
-  [/italien|mamma/i, ['1565299624946', '1414235077428', '1551218808', '1517248135467', '1504674900247', '1555396273']],
-  [/burger/i, ['1568901346375', '1555396273', '1504674900247', '1517248135467', '1540189549336', '1551218808']],
+  [/italien|mamma/i, ['1565299624946', '1750127060930', '1414235077428', '1712603166215', '1551218808', '1745031601356', '1517248135467', '1777891257674', '1504674900247', '1555396273']],
+  [/burger/i, ['1568901346375', '1757715378233', '1661312219492', '1555396273', '1504674900247', '1517248135467', '1540189549336', '1551218808']],
   [/musique|music/i, ['1511379938547', '1507838153414', '1503676260728', '1524178232363']],
   [/h[ôo]teli[èe]re/i, ['1556910103', '1414235077428', '1551218808', '1524178232363', '1555396273']],
   [/dentaire|dentiste|sourire/i, ['1629909613654', '1606811971618', '1588776814546', '1519494026892', '1576091160399']],
@@ -54,7 +54,8 @@ function photosFor(p, idx) {
   const rot = list.slice(off).concat(list.slice(0, off));
   // compléter avec des photos du secteur pour avoir toujours 6 visuels
   const extra = sectorPhotos(p.k).filter((x) => !rot.includes(x));
-  return rot.concat(extra, rot, rot).slice(0, 8);
+  const uniq = [...new Set(rot.concat(extra))];
+  return uniq.concat(uniq, uniq).slice(0, Math.max(8, Math.min(16, uniq.length)));
 }
 
 // ---------- Palettes et typographies par secteur ----------

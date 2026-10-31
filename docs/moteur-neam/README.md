@@ -45,3 +45,9 @@ PHOTOS_DIR=/chemin/vers/photos node gen.js /tmp/html          # pages HTML
 node render.js /tmp/html ../rendus                             # images
 ```
 `PHOTOS_DIR` contient les photos Unsplash nommées `<secteur>-<id>.jpg`.
+
+## Générateurs (mise à jour)
+
+- `generateur/site2.js` : génère les sites multipages selon le secteur (hôtel, restaurant, beauté, immobilier, santé, voyage, auto, école, luxe, boutique, services).
+- `generateur/social-data.js` : génère les publications, stories et offres d'emploi de chaque réseau.
+- `node generateur/gen-live.js` régénère tout (`data/prospects.js`, `data/social.js`, `sites/`).

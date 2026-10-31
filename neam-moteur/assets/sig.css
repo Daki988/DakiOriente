@@ -3,3 +3,7 @@
 .neam-back b{color:#f5b301}
 .neam-tag{position:fixed;right:18px;bottom:18px;z-index:1000;background:rgba(17,17,17,.85);color:#ddd;font:12px Arial,sans-serif;padding:8px 12px;border-radius:8px}
 .neam-tag b{color:#f5b301}
+nav a{color:inherit;text-decoration:none}
+nav .r a:not(.pill):not(.cta):not(.book-btn),nav .links a{opacity:.9}
+nav .r a:hover,nav .links a:hover{opacity:1}
+@media(max-width:900px){nav{flex-wrap:wrap;gap:8px}nav .r,nav .links{display:flex!important;width:100%;overflow-x:auto;gap:16px!important;font-size:12px!important;padding-bottom:4px;white-space:nowrap}nav .r span{display:inline!important}}

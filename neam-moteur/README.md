@@ -52,3 +52,9 @@ sur l'appareil qui servira à la présentation. « Réinitialiser mes saisies »
 cd docs/moteur-neam/generateur && node gen-live.js
 ```
 (les 6 sites signature, écrits à la main, ne sont pas écrasés).
+
+## Réseaux sociaux fidèles et sites multipages
+
+- `social.html?slug=<slug>&net=instagram|facebook|tiktok|linkedin` : affiche le profil comme sur le vrai réseau, avec les publications prévues. Tout est interactif : stories, j'aime, commentaires, lecteur TikTok, offres d'emploi LinkedIn. Les données viennent de `data/social.js`.
+- `sites/<slug>/` : chaque site contient toutes ses pages (accueil, pages métier, à propos, galerie, contact). Réservation, panier, rendez-vous et formulaires mènent à WhatsApp. Base commune : `assets/site.css` et `assets/site.js`.
+- `assets/photos/` : banque de photos libres (Unsplash) classées par secteur.

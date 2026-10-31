@@ -29,7 +29,8 @@
   const nf = (n) => (n >= 10000 ? (n / 1000).toFixed(1).replace('.', ',').replace(',0', '') + ' k' : n.toLocaleString('fr-FR'));
   const stars = (r) => '★★★★★'.slice(0, Math.round(r)) + '☆☆☆☆☆'.slice(0, 5 - Math.round(r));
   const siteUrl = (p) => (p.custom ? `apercu.html?slug=${p.slug}` : `sites/${p.slug}/index.html`);
-  const resUrl = (p) => (p.custom || p.nets ? `apercu.html?slug=${p.slug}&v=reseaux` : `reseaux/${p.slug}/index.html`);
+  const resUrl = (p, n = 'instagram') => (p.custom ? `apercu.html?slug=${p.slug}&v=reseaux` : `social.html?slug=${p.slug}&net=${n}`);
+  const SLD = { 'carte.html': 'Plats, boissons et prix', 'reservation.html': 'Confirmation par WhatsApp', 'chambres.html': 'Photos, équipements et tarifs', 'restaurant.html': 'Cuisine et bar', 'soins.html': 'Prestations et tarifs', 'rendez-vous.html': 'Créneaux disponibles en ligne', 'annonces.html': 'Vente et location', 'estimer.html': 'Estimation gratuite', 'equipe.html': 'Nos praticiens', 'destinations.html': 'Séjours et circuits', 'sur-mesure.html': 'Devis sous 24 h', 'catalogue.html': 'Pièces par véhicule', 'flotte.html': 'Véhicules et tarifs', 'formules.html': 'Code, conduite, accéléré', 'inscription.html': 'En ligne en 2 minutes', 'services.html': 'Prestations et tarifs', 'formations.html': 'Programmes et tarifs', 'collection.html': 'Pièces et prix', 'boutique.html': 'Commande WhatsApp', 'devis.html': 'Réponse sous 24 h', 'a-propos.html': 'Notre histoire', 'galerie.html': 'Photos', 'contact.html': 'Adresse, horaires, plan' };
   const lead = (s) => s.split(':')[0].trim().replace(/[.\s]+$/, '');
 
   // ---------- Barre de recherche + suggestions ----------
@@ -97,12 +98,12 @@
       instagram: `${p.ig ? nf(p.ig) + ' followers' : 'Nouveau compte'} — ${p.s} · ${p.c}. ${p.tagline}.`, facebook: `${p.n}, ${p.c}. ${p.fb ? nf(p.fb) + " J'aime" : 'Nouvelle page'} · ${p.s}. ${lead(p.intro)}.`,
       tiktok: `${p.main} sur TikTok : coulisses, nouveautés et bons plans à ${p.c}.`, linkedin: `${p.n} | ${p.s} · ${p.c}, Gabon. Actualités et offres d'emploi.`,
     };
-    const net = (n) => `<div class="res"><div class="src">${fav(n)}<div><div>${NET[n][2]}</div><div class="url">https://${NET[n][3]} › ${esc(p.handle)}</div></div></div><h3><a href="${resUrl(p)}">${esc(p.main)} (@${esc(p.handle)}) • ${NET[n][2]}</a></h3><p>${esc(desc[n])}</p></div>`;
-    return `<div class="res"><div class="src">${mini(p)}<div><div>${esc(p.n)}</div><div class="url">https://www.${esc(p.domain)}</div></div></div><h3><a href="${siteUrl(p)}">${esc(p.n)} — ${esc(p.s)} à ${esc(p.c)} | ${esc(p.tagline)}</a>${p.sig ? '<span class="badge">expérience immersive</span>' : ''}</h3><p>${esc(p.intro)}</p><div class="sitelinks">${links.map(([t, d]) => `<a href="${siteUrl(p)}"><b>${esc(t)}</b>${esc(d)}</a>`).join('')}</div></div>
+    const net = (n) => `<div class="res"><div class="src">${fav(n)}<div><div>${NET[n][2]}</div><div class="url">https://${NET[n][3]} › ${esc(p.handle)}</div></div></div><h3><a href="${resUrl(p, n)}">${esc(p.main)} (@${esc(p.handle)}) • ${NET[n][2]}</a></h3><p>${esc(desc[n])}</p></div>`;
+    return `<div class="res"><div class="src">${mini(p)}<div><div>${esc(p.n)}</div><div class="url">https://www.${esc(p.domain)}</div></div></div><h3><a href="${siteUrl(p)}">${esc(p.n)} — ${esc(p.s)} à ${esc(p.c)} | ${esc(p.tagline)}</a>${p.sig ? '<span class="badge">expérience immersive</span>' : ''}</h3><p>${esc(p.intro)}</p><div class="sitelinks">${(p.pages && !p.custom ? p.pages.slice(0, 6).map(([f, t]) => [t, f]) : links.map(([t]) => [t, ''])).map(([t, f]) => `<a href="${f ? 'sites/' + p.slug + '/' + f : siteUrl(p)}"><b>${esc(t)}</b>${esc(SLD[f] || '')}</a>`).join('')}</div></div>
       ${net('instagram')}${net('facebook')}
-      <div><div style="font-size:20px;margin-bottom:12px">Profils sur les réseaux</div><div class="prof">${['instagram', 'tiktok', 'facebook', 'linkedin'].map((n) => `<a href="${resUrl(p)}">${fav(n)}<b>${NET[n][2]}</b>@${esc(p.handle)}</a>`).join('')}</div></div>
+      <div><div style="font-size:20px;margin-bottom:12px">Profils sur les réseaux</div><div class="prof">${['instagram', 'tiktok', 'facebook', 'linkedin'].map((n) => `<a href="${resUrl(p, n)}">${fav(n)}<b>${NET[n][2]}</b>@${esc(p.handle)}</a>`).join('')}</div></div>
       ${net('tiktok')}${net('linkedin')}
-      ${p.sig ? `<div class="res"><div class="src">${mini(p)}<div><div>${esc(p.n)}</div><div class="url">https://www.${esc(p.domain)} › classique</div></div></div><h3><a href="sites/${p.slug}/classique.html">${esc(p.n)} — version classique du site</a></h3><p>Version sans effets 3D, plus légère pour les connexions lentes.</p></div>` : ''}`;
+`;
   }
 
   function panel(p) {
