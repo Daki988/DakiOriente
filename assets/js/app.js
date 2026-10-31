@@ -223,6 +223,35 @@
     b.addEventListener("click", function () { rail.scrollBy({ left: Number(b.dataset.rail) * rail.clientWidth * 0.8, behavior: "smooth" }); });
   });
 
+  /* ---------- Coffret animé : le cadeau s'ouvre et révèle son contenu ---------- */
+  var BOW = '<svg class="gift__bow" viewBox="0 0 240 120" aria-hidden="true"><path d="M120 96C70 20 10 30 22 70c8 30 68 30 98 26Z"/><path d="M120 96c50-76 110-66 98-26-8 30-68 30-98 26Z"/>' +
+    '<path class="gift__bow-line" d="M120 96C80 50 40 52 46 72M120 96c40-46 80-44 74-24"/><path d="M112 100 84 150l16-4 8 14 10-56Zm16 0 28 50-16-4-8 14-10-56Z"/><ellipse cx="120" cy="98" rx="20" ry="16"/></svg>';
+  function giftHTML(p) {
+    var items = (p.contents || []).map(function (id) { return byId[id]; }).filter(Boolean);
+    if (!items.length) return "";
+    var coffrets = PRODUCTS.filter(function (x) { return x.cat === p.cat; });
+    var theme = coffrets.indexOf(p) % 2 ? "cream" : "night", n = items.length;
+    return '<div class="gift gift--' + theme + '" data-gift>' +
+      '<div class="gift__items">' + items.map(function (it, i) {
+        var t = n === 1 ? 0 : i / (n - 1) - 0.5; // de -0.5 à 0.5
+        return '<button type="button" class="gift__item" data-open="' + it.id + '" tabindex="-1" style="--x:' + (t * 66).toFixed(1) + ";--y:" + (-(1 - 4 * t * t) * 10 - 6).toFixed(1) + ";--r:" + (t * 18).toFixed(1) + "deg;--d:" + (0.18 + i * 0.09).toFixed(2) + 's">' +
+          '<span class="gift__thumb art-bg" ' + artBg(it.hue) + ">" + pic(it, "140px") + '</span><span class="gift__name"><span>' + esc(it.name) + "</span></span></button>";
+      }).join("") + "</div>" +
+      '<button type="button" class="gift__box" data-gift-toggle aria-expanded="false" aria-label="Ouvrir le coffret ' + esc(p.name) + '">' +
+      '<span class="gift__shadow"></span><span class="gift__base"><span class="gift__ribbon-v"></span><span class="gift__ribbon-h"></span></span>' +
+      '<span class="gift__lid"><span class="gift__ribbon-v"></span>' + BOW + "</span></button>" +
+      '<p class="gift__hint"><span class="gift__hint-closed">Touchez le cadeau pour découvrir ce qu\'il contient</span><span class="gift__hint-open">' + n + " articles · touchez-en un pour le voir</span></p>" +
+      "</div>";
+  }
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest("[data-gift-toggle]"); if (!t) return;
+    var g = t.closest("[data-gift]"), open = !g.classList.contains("is-open");
+    g.classList.toggle("is-open", open);
+    t.setAttribute("aria-expanded", open);
+    t.setAttribute("aria-label", (open ? "Refermer" : "Ouvrir") + " le coffret");
+    $$(".gift__item", g).forEach(function (b) { b.tabIndex = open ? 0 : -1; });
+  });
+
   /* ---------- Offre vedette ---------- */
   (function () {
     var p = byId["PK1"];
@@ -233,7 +262,7 @@
       '<div class="feature__price">' + fcfa(p.price) + "<s>" + fcfa(p.old) + '</s><span class="feature__save">-' + fcfa(p.old - p.price) + "</span></div>" +
       '<div class="hero__cta" style="margin:0"><button class="btn btn--primary btn--lg" data-add="' + p.id + '">Ajouter au panier</button>' +
       '<button class="btn btn--outline btn--lg" data-open="' + p.id + '">Voir le détail</button></div></div>' +
-      '<div class="feature__art"><img src="assets/img/sm/' + p.id + '.jpg" srcset="assets/img/sm/' + p.id + '.jpg 480w, assets/img/' + p.id + '.jpg 800w" sizes="(max-width: 900px) 100vw, 620px" alt="' + esc(p.name) + '" loading="lazy" decoding="async"></div></div>';
+      '<div class="feature__art">' + (giftHTML(p) || '<img src="assets/img/sm/' + p.id + '.jpg" srcset="assets/img/sm/' + p.id + '.jpg 480w, assets/img/' + p.id + '.jpg 800w" sizes="(max-width: 900px) 100vw, 620px" alt="' + esc(p.name) + '" loading="lazy" decoding="async">') + "</div></div>";
   })();
 
   /* ---------- Fiche produit ---------- */
@@ -242,7 +271,7 @@
     var p = byId[id]; if (!p) return;
     var qty = 1;
     $("#pm").innerHTML =
-      '<div class="pm__media art-bg" ' + artBg(p.hue) + ">" + pic(p, "(max-width: 900px) 100vw, 520px") + "</div>" +
+      '<div class="pm__media art-bg" ' + artBg(p.hue) + ">" + (giftHTML(p) || pic(p, "(max-width: 900px) 100vw, 520px")) + "</div>" +
       '<div class="pm__body"><span class="label">' + esc(catById[p.cat].label) + (p.badge ? " · " + esc(p.badge) : "") + "</span>" +
       '<h3 id="pm-name">' + esc(p.name) + "</h3>" +
       '<div class="pm__price">' + fcfa(p.price) + (p.old ? "<s>" + fcfa(p.old) + "</s>" : "") + "</div>" +

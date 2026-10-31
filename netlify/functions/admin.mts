@@ -23,6 +23,8 @@ function cleanProduct(p: Record<string, any>) {
     points: (Array.isArray(p.points) ? p.points : []).map((x: unknown) => clean(x, 80)).filter(Boolean).slice(0, 6),
     tags: (Array.isArray(p.tags) ? p.tags : []).map((x: unknown) => clean(x, 20)).filter(Boolean).slice(0, 10),
     ...(p.img ? { img: clean(p.img, 200) } : {}),
+    ...(Array.isArray(p.contents) && p.contents.length
+      ? { contents: p.contents.map((x: unknown) => clean(x, 10).toUpperCase()).filter(Boolean).slice(0, 8) } : {}),
     ...(p.pos ? { pos: clean(p.pos, 20) } : {}),
     art: clean(p.art || "kit", 20),
     hue: num(p.hue, 0, 360, 330),

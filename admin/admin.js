@@ -283,6 +283,7 @@
       '<label>Badge <small>(ex. Best-seller, Nouveau)</small><input name="badge" maxlength="30" value="' + esc(p.badge) + '"></label>' +
       '<label class="full">Description<textarea name="desc" maxlength="600">' + esc(p.desc) + "</textarea></label>" +
       '<label class="full">Points forts <small>(un par ligne, 6 max.)</small><textarea name="points">' + esc((p.points || []).join("\n")) + "</textarea></label>" +
+      '<label class="full">Contenu du coffret <small>(références des articles, séparées par des virgules, ex. : B01, H02. Le cadeau animé les affiche à l\'ouverture. Laisser vide si ce n\'est pas un coffret.)</small><input name="contents" value="' + esc((p.contents || []).join(", ")) + '"></label>' +
       '<label class="full">Mots-clés du quiz <small>(séparés par des virgules : moi, couple, cadeau, debut, inter, pro, doux, intense, seduire, distance)</small><input name="tags" value="' + esc((p.tags || []).join(", ")) + '"></label>' +
       "</fieldset>" +
       '<div class="checks"><label><input type="checkbox" name="hidden"' + (p.hidden ? " checked" : "") + "> Masquer de la boutique</label>" +
@@ -302,6 +303,10 @@
       if (f.badge.value.trim()) p.badge = f.badge.value.trim(); else delete p.badge;
       p.desc = f.desc.value.trim();
       p.points = f.points.value.split("\n").map(function (s) { return s.trim(); }).filter(Boolean).slice(0, 6);
+      var contents = f.contents.value.split(",").map(function (s) { return s.trim().toUpperCase(); }).filter(Boolean);
+      var unknown = contents.filter(function (id) { return !products.some(function (x) { return x.id === id; }); });
+      if (unknown.length) return toast("Référence inconnue dans le coffret : " + unknown.join(", "), true);
+      if (contents.length) p.contents = contents; else delete p.contents;
       p.tags = f.tags.value.split(",").map(function (s) { return s.trim(); }).filter(Boolean);
       p.hidden = f.hidden.checked; p.discreet = f.discreet.checked;
       ui.product = p.id; setDirty(true); renderProductList(); renderProduct(); toast("Modifié. Pensez à publier.");

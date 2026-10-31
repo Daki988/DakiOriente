@@ -186,11 +186,11 @@ window.PRODUCTS = [
     points: ["Lot de 2 dés", "Phosphorescents", "Petit prix, grand effet"] },
 
   // Coffrets (prix barré = somme des produits achetés séparément)
-  { id: "PK1", cat: "coffrets", name: "Coffret Soirée à Deux", price: 39000, old: 41500, art: "kit", hue: 345, badge: "Malin",
+  { id: "PK1", cat: "coffrets", contents: ["B01", "H02", "P03", "J05"], name: "Coffret Soirée à Deux", price: 39000, old: 41500, art: "kit", hue: 345, badge: "Malin",
     tags: ["couple", "cadeau", "seduire", "doux"],
     desc: "La bougie de massage, le gel Durex 2-en-1, des préservatifs fluorescents et des dés coquins : tout ce qu'il faut pour une soirée à deux réussie, du massage jusqu'au bout de la nuit.",
     points: ["Bougie de massage + gel Durex 2-en-1", "Préservatifs fluorescents ×3", "Dés coquins phosphorescents ×2"] },
-  { id: "PK2", cat: "coffrets", name: "Coffret Découverte", price: 31000, old: 39000, art: "kit", hue: 330, badge: "Malin",
+  { id: "PK2", cat: "coffrets", contents: ["V01", "G01", "S01"], name: "Coffret Découverte", price: 31000, old: 39000, art: "kit", hue: 330, badge: "Malin",
     tags: ["moi", "cadeau", "debut", "doux", "intense"],
     desc: "Le stimulateur Rose à succion, un lubrifiant INTIMY et un diffuseur parfumé : le trio idéal pour une première découverte, dans une ambiance soignée.",
     points: ["Stimulateur Rose à succion", "Lubrifiant INTIMY 150 ml", "Diffuseur à bâtonnets 50 ml"] }
