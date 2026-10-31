@@ -126,7 +126,7 @@ a { color: var(--accent); }
   <section>
     <span class="eyebrow">À tester en priorité</span>
     <h2>Vidéo « Qu'y a-t-il dans ce carton ? »</h2>
-    <p class="muted">9 secondes, sans son. Le carton tombe, s'ouvre, les produits en sortent, puis l'écran de fin affiche « Commander ». Une vidéo qui démarre toute seule dans le fil arrête bien plus le défilement qu'une image fixe.</p>
+    <p class="muted">12 secondes, sans son. Le carton tombe et s'ouvre, les préservatifs et le lubrifiant en sortent, puis quatre cartes « ? » annoncent d'autres surprises à découvrir sur le site. L'écran de fin rappelle « Réservé aux 18 ans et plus » et affiche « Commander ».</p>
     <div class="videos">
       <figure><video src="visuels/video-colis-carre.mp4" muted autoplay loop playsinline controls></video><figcaption>Fil d'actualité · 1080 × 1080</figcaption></figure>
       <figure><video src="visuels/video-colis-story.mp4" muted autoplay loop playsinline controls></video><figcaption>Stories et Reels · 1080 × 1920</figcaption></figure>
@@ -135,8 +135,18 @@ a { color: var(--accent); }
   </section>
 
   <section>
+    <span class="eyebrow">Les surprises</span>
+    <h2>Évoquer le reste de la boutique sans le montrer</h2>
+    <p class="muted">La page d'arrivée se termine par un encadré « Le reste est une surprise » qui mène à toute la boutique, après confirmation de l'âge. Dans les publicités, restez vague et neutre : une formule qui laisse deviner des produits pour adultes est vue par Meta comme un contournement de ses règles, et peut tomber sous l'article 313.</p>
+    <div class="rules">
+      <div class="rule rule--ok"><h3>✓ Possible</h3><ul><li>« Et d'autres surprises à découvrir sur le site »</li><li>« Le reste est une surprise »</li><li>« D'autres articles vous attendent, réservé aux 18 ans et plus »</li><li>Des cartes « ? » sans contenu</li></ul></div>
+      <div class="rule rule--no"><h3>✕ À éviter</h3><ul><li>« Les articles qu'on ne peut pas montrer ici »</li><li>« Pour les plus audacieux », « pour pimenter vos soirées »</li><li>Émojis à double sens, clins d'œil</li><li>Une silhouette ou un flou qui laisse deviner un objet</li></ul></div>
+    </div>
+  </section>
+
+  <section>
     <span class="eyebrow">Accroches</span>
-    <h2>Quatre visuels qui arrêtent le défilement</h2>
+    <h2>Cinq visuels qui arrêtent le défilement</h2>
     <p class="muted">Grands aplats de couleur, titre court, une seule idée. Format carré 1080 × 1080.</p>
     <div id="hooks"></div>
   </section>
@@ -224,12 +234,15 @@ const HOOKS = [
   { n: 8, name: "Le livreur", set: "Ensemble A", img: "accroche-sms", cta: "En savoir plus", url: BASE + "essentiels",
     text: "Le livreur dit simplement « Livraison pour vous ». Carton neutre, aucun nom de produit, paiement à la réception.",
     title: "Une livraison qui reste entre nous", desc: "Libreville en 24 h" },
+  { n: 11, name: "La surprise", set: "Ensemble A", img: "accroche-surprise", cta: "En savoir plus", url: BASE + "essentiels",
+    text: "Et ce n'est pas tout. D'autres articles vous attendent sur le site, livrés dans le même carton neutre et payés à la réception. Réservé aux 18 ans et plus.",
+    title: "Le reste est une surprise", desc: "Livraison discrète à Libreville" },
   { n: 9, name: "Sans passer au comptoir", set: "Ensemble A", img: "accroche-comparaison", cta: "Acheter", url: BASE + "essentiels",
     text: "Des préservatifs sans passer au comptoir : deux minutes sur le téléphone, un carton neutre, et le paiement à la réception.",
     title: "Commandez en 2 minutes", desc: "Durex, EXS, INTIMY" }
 ];
 const VIDEO = { n: 10, cta: "Acheter", url: BASE + "essentiels",
-  text: "Qu'y a-t-il dans ce carton ? Des préservatifs et du lubrifiant, livrés discrètement à Libreville. Commandez en 2 minutes, payez à la réception.",
+  text: "Qu'y a-t-il dans ce carton ? Des préservatifs, du lubrifiant, et d'autres surprises à découvrir sur le site. Livré discrètement à Libreville, payé à la réception.",
   title: "Livré discrètement, payé à la réception", desc: "Colis neutre" };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const row = (label, value, mono) => `<div class="field"><b>${label}</b><div class="copyrow${mono ? " mono" : ""}"><span>${esc(value)}</span><button class="copy" type="button">Copier</button></div></div>`;

@@ -999,3 +999,15 @@ body.locked .toast.show { transform: translate(-50%, 0); }
   .lp-card__foot { flex-direction: column; align-items: stretch; text-align: left; }
 }
 .lp-card__foot strong { white-space: nowrap; }
+.lp-surprise__box { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 48px; align-items: center; background: var(--ink); color: #fff; border-radius: 32px; padding: 48px; }
+.lp-surprise__box .lp-sub { color: rgba(255, 255, 255, .72); margin: 0 0 24px; }
+.lp-surprise__box .label { color: var(--accent); }
+.lp-surprise__box .btn--primary { background: var(--accent); }
+.lp-surprise__q { display: flex; gap: 12px; }
+.lp-surprise__q span { width: 92px; height: 92px; border-radius: 20px; background: linear-gradient(145deg, var(--accent), #c9283b); display: grid; place-items: center; font-size: 3.2rem; font-weight: 800; }
+.lp-surprise__q span:nth-child(1) { transform: rotate(-8deg) translateY(10px); }
+.lp-surprise__q span:nth-child(3) { transform: rotate(8deg) translateY(10px); }
+@media (max-width: 720px) {
+  .lp-surprise__box { grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 32px 24px; border-radius: 24px; }
+  .lp-surprise__q span { width: 72px; height: 72px; font-size: 2.4rem; }
+}
