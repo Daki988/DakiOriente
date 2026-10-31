@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "@/components/ui/Link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ChevronDown, ChevronRight, GraduationCap, LayoutGrid, Search, SlidersHorizontal, Sparkles, Target, X } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronRight, GraduationCap, LayoutGrid, Quote, Search, SlidersHorizontal, Sparkles, Target, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { domStyle } from "@/components/ui/Cards";
 import { Illustration } from "@/components/ui/Illustration";
@@ -96,6 +96,7 @@ export function MetierList() {
               {saisie && <button type="button" onClick={() => { setSaisie(""); appliquer({ q: "" }); }} aria-label="Effacer" className="flex h-10 w-10 items-center justify-center text-ink-mute"><X size={18} /></button>}
               <button className="btn-sun min-h-[44px] px-4 sm:px-5"><Search size={17} className="sm:hidden" /><span className="hidden sm:inline">Rechercher</span></button>
             </form>
+            <Link href="/temoignages/" className="flex items-center gap-1.5 self-start text-sm font-extrabold text-brand-600 hover:underline"><Quote size={15} className="fill-sun-400 text-sun-400" />Ils racontent leur métier : témoignages de professionnels<ArrowRight size={15} /></Link>
           </div>
           <div className="relative mx-auto hidden h-[300px] w-full max-w-[420px] lg:block">
             <div className="absolute inset-x-[8%] bottom-0 top-[12%] rounded-[42%_58%_70%_30%/45%_45%_55%_55%] animate-blob bg-gradient-to-br from-brand-500 to-brand-300" />

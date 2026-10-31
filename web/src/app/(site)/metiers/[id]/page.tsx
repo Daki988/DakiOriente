@@ -6,6 +6,7 @@ import { ParcoursFlow } from "@/components/sections/ParcoursFlow";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { MetierCard, domStyle } from "@/components/ui/Cards";
 import { EtabLogo } from "@/components/ui/EtabLogo";
+import { TemoignagesMetier } from "@/components/ui/Temoignages";
 import { PAYS_NOM, admissionLabel, competenceLabel, domaineById, etabById, formationById, metierById, metiers, niveauLabel, riasec, serieById } from "@/lib/data";
 import { descriptionSeo, titreSeo, variantesNom } from "@/lib/seo";
 
@@ -55,6 +56,7 @@ export default function MetierPage({ params }: { params: { id: string } }) {
       <div className="container mt-2">
         <ParcoursFlow steps={[["Série au lycée", seriesCodes.slice(0, 6).join(", ") || "Toutes séries"], [`${forms.length} formation${forms.length > 1 ? "s" : ""}`, niveaux.slice(0, 3).join(" → ") || "—"], [`${ecoles.length} école${ecoles.length > 1 ? "s" : ""}`, paysEcoles.length ? `au ${paysEcoles.join(", ")}` : "bientôt"], [m.nom, "ton futur métier"]]} />
       </div>
+      <TemoignagesMetier metier={m.id} />
       <div className="container mt-10 grid items-start gap-10 lg:grid-cols-[1fr_380px]">
         <section className="flex min-w-0 flex-col gap-4">
           <h2 className="text-[28px] font-extrabold tracking-tight">Les formations et où les suivre</h2>
