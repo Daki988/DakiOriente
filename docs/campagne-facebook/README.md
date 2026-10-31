@@ -44,7 +44,7 @@ Pour Instagram, remplacez `facebook` par `instagram`.
 Visuels dans `docs/campagne-facebook/visuels/` (carré 1080 × 1080 pour les fils, 1080 × 1920 pour les Stories, avec les zones protégées respectées).
 
 ### 1. Protection — `carre-protection.jpg` / `story-protection.jpg`
-- **Texte principal** : Protégez-vous, protégez l'autre. Préservatifs Durex, EXS et INTIMY, livrés à Libreville dans un carton neutre. Vous payez à la réception.
+- **Texte principal** : Protégez-vous, protégez l'autre. Préservatifs Durex, EXS et INTIMY, livrés à Libreville dans un carton neutre. Vous payez à la réception. Et quelques surprises vous attendent sur le site.
 - **Titre** : Préservatifs livrés discrètement
 - **Description** : À partir de 3 000 FCFA
 - **Bouton** : Acheter
@@ -78,7 +78,7 @@ Visuels dans `docs/campagne-facebook/visuels/` (carré 1080 × 1080 pour les fil
 Pensées pour arrêter le défilement : grands aplats de couleur, titre court, une seule idée. À placer dans l'ensemble A, à côté des cinq publicités ci-dessus ; Meta diffusera davantage celles qui fonctionnent le mieux.
 
 **6. Colis neutre** — `accroche-neutre.jpg`
-- **Texte principal** : Personne ne saura ce qu'il y a dedans. Préservatifs et lubrifiant livrés à Libreville dans un carton sans logo, payés à la réception.
+- **Texte principal** : Personne ne saura ce qu'il y a dedans. Préservatifs, lubrifiant… et quelques surprises, livrés à Libreville dans un carton sans logo, payés à la réception.
 - **Titre** : Une livraison 100 % discrète — **Description** : Libreville en 24 h — **Bouton** : Acheter
 
 **7. Prix** — `accroche-prix.jpg`
@@ -93,34 +93,26 @@ Pensées pour arrêter le défilement : grands aplats de couleur, titre court, u
 - **Texte principal** : Des préservatifs sans passer au comptoir : deux minutes sur le téléphone, un carton neutre, et le paiement à la réception.
 - **Titre** : Commandez en 2 minutes — **Description** : Durex, EXS, INTIMY — **Bouton** : Acheter
 
-**10. Vidéo « Qu'y a-t-il dans ce carton ? »** — `video-colis-carre.mp4` (fil) et `video-colis-story.mp4` (Stories, Reels), 12 secondes, sans son
-- Le carton tombe, s'ouvre, les préservatifs et le lubrifiant en sortent ; puis quatre cartes « ? » les remplacent avec « Et d'autres surprises, à découvrir sur le site » ; l'écran de fin affiche le logo, « Réservé aux 18 ans et plus » et « Commander ». Une vidéo qui démarre toute seule dans le fil arrête bien plus le défilement qu'une image fixe.
-- **Texte principal** : Qu'y a-t-il dans ce carton ? Des préservatifs, du lubrifiant, et d'autres surprises à découvrir sur le site. Livré discrètement à Libreville, payé à la réception.
+**10. Vidéo « Qu'y a-t-il dans ce carton ? »** — `video-colis-carre.mp4` (fil) et `video-colis-story.mp4` (Stories, Reels), 9 secondes, sans son
+- Le carton tombe, s'ouvre, les préservatifs et le lubrifiant en sortent ; une petite carte « ? » dépasse du carton, sans explication. L'écran de fin affiche le logo, « … et quelques surprises sur le site · 18 ans et plus » et « Commander ». Une vidéo qui démarre toute seule dans le fil arrête bien plus le défilement qu'une image fixe.
+- **Texte principal** : Qu'y a-t-il dans ce carton ? Des préservatifs, du lubrifiant… et quelques surprises. Livré discrètement à Libreville, payé à la réception.
 - **Titre** : Livré discrètement, payé à la réception — **Description** : Colis neutre — **Bouton** : Acheter
 
-**11. La surprise** — `accroche-surprise.jpg`
-- **Texte principal** : Et ce n'est pas tout. D'autres articles vous attendent sur le site, livrés dans le même carton neutre et payés à la réception. Réservé aux 18 ans et plus.
-- **Titre** : Le reste est une surprise — **Description** : Livraison discrète à Libreville — **Bouton** : En savoir plus
+### Les surprises : une allusion, pas un argument
 
-### Parler des « surprises » sans risque
+La boutique propose d'autres articles que ceux montrés dans les publicités. On y fait **seulement allusion**, en passant, jamais comme sujet principal :
+- quelques mots en fin de texte (« … et quelques surprises sur le site ») dans les publicités 1, 6 et 10 seulement ;
+- une petite carte « ? » qui dépasse du carton dans la vidéo, sans commentaire ;
+- sur la page d'arrivée, une seule ligne : « Et quelques surprises vous attendent dans la boutique ».
 
-La page d'arrivée montre les essentiels, puis un encadré « Le reste est une surprise » renvoie vers toute la boutique (accès après confirmation de l'âge). Les publicités peuvent l'évoquer, à une condition : **rester vague et neutre**.
-
-| ✅ Possible | ❌ À éviter |
-|---|---|
-| « Et d'autres surprises à découvrir sur le site » | « Les articles qu'on ne peut pas montrer ici » |
-| « Le reste est une surprise » | « Pour les plus audacieux », « pour pimenter vos soirées » |
-| « D'autres articles vous attendent, réservé aux 18 ans et plus » | Émojis 😏 🔥 🍆, clins d'œil, « vous voyez de quoi on parle » |
-| Cartes « ? » sans contenu | Silhouette, ombre ou flou laissant deviner un objet |
-
-Une formule qui laisse deviner des produits pour adultes est traitée par Meta comme un **contournement de ses règles** (risque de blocage du compte publicitaire), et peut tomber sous l'article 313 du Code pénal (« attirer publiquement l'attention » sur ce type de produits). Si Meta refuse malgré tout les publicités 10 et 11, gardez les autres : la page d'arrivée mène déjà à la boutique.
+Pas de publicité dédiée aux surprises, pas de formule appuyée (« ce qu'on ne peut pas montrer », « pour les audacieux »), pas d'émoji ni de clin d'œil : Meta y verrait un contournement de ses règles, et l'article 313 vise le fait d'« attirer publiquement l'attention » sur ce type de produits.
 
 ## 4. Ce qu'il ne faut jamais mettre dans une publicité
 
 - Une photo de jouet, de lingerie portée, de corps nu ou de couple dans une pose suggestive.
 - Les mots : plaisir, orgasme, sexy, hot, coquin, érotique, sensuel, « nuit torride », « pimenter », ni d'émojis à double sens (🍆 🍑 💦 🔥).
 - Une promesse de performance (« tenir plus longtemps », « agrandir ») ou de résultat médical.
-- Un lien vers la page d'accueil, la fiche d'un jouet ou le Guide (il parle de jouets) : **toujours `essentiels.html`**. La boutique complète reste accessible depuis cette page, par l'encadré « surprises ».
+- Un lien vers la page d'accueil, la fiche d'un jouet ou le Guide (il parle de jouets) : **toujours `essentiels.html`**. La boutique complète reste accessible depuis cette page, par une simple ligne en bas des produits.
 - Une question ou une phrase qui suppose quelque chose de la personne qui lit (« Vous souffrez de… ? », « Votre couple s'ennuie ? ») : Meta l'interdit (règle « Personal attributes »). Parlez du produit ou de faits généraux.
 - Un message privé envoyé à quelqu'un qui ne vous a pas écrit (art. 50, loi n° 025/2021).
 

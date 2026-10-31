@@ -126,7 +126,7 @@ a { color: var(--accent); }
   <section>
     <span class="eyebrow">À tester en priorité</span>
     <h2>Vidéo « Qu'y a-t-il dans ce carton ? »</h2>
-    <p class="muted">12 secondes, sans son. Le carton tombe et s'ouvre, les préservatifs et le lubrifiant en sortent, puis quatre cartes « ? » annoncent d'autres surprises à découvrir sur le site. L'écran de fin rappelle « Réservé aux 18 ans et plus » et affiche « Commander ».</p>
+    <p class="muted">9 secondes, sans son. Le carton tombe et s'ouvre, les préservatifs et le lubrifiant en sortent, et une petite carte « ? » dépasse du carton, sans commentaire. L'écran de fin glisse « … et quelques surprises sur le site » et affiche « Commander ».</p>
     <div class="videos">
       <figure><video src="visuels/video-colis-carre.mp4" muted autoplay loop playsinline controls></video><figcaption>Fil d'actualité · 1080 × 1080</figcaption></figure>
       <figure><video src="visuels/video-colis-story.mp4" muted autoplay loop playsinline controls></video><figcaption>Stories et Reels · 1080 × 1920</figcaption></figure>
@@ -136,17 +136,13 @@ a { color: var(--accent); }
 
   <section>
     <span class="eyebrow">Les surprises</span>
-    <h2>Évoquer le reste de la boutique sans le montrer</h2>
-    <p class="muted">La page d'arrivée se termine par un encadré « Le reste est une surprise » qui mène à toute la boutique, après confirmation de l'âge. Dans les publicités, restez vague et neutre : une formule qui laisse deviner des produits pour adultes est vue par Meta comme un contournement de ses règles, et peut tomber sous l'article 313.</p>
-    <div class="rules">
-      <div class="rule rule--ok"><h3>✓ Possible</h3><ul><li>« Et d'autres surprises à découvrir sur le site »</li><li>« Le reste est une surprise »</li><li>« D'autres articles vous attendent, réservé aux 18 ans et plus »</li><li>Des cartes « ? » sans contenu</li></ul></div>
-      <div class="rule rule--no"><h3>✕ À éviter</h3><ul><li>« Les articles qu'on ne peut pas montrer ici »</li><li>« Pour les plus audacieux », « pour pimenter vos soirées »</li><li>Émojis à double sens, clins d'œil</li><li>Une silhouette ou un flou qui laisse deviner un objet</li></ul></div>
-    </div>
+    <h2>Une allusion, jamais un argument</h2>
+    <p class="muted">La boutique propose d'autres articles que ceux des publicités. On y fait seulement allusion : quelques mots en fin de texte dans les publicités 1, 6 et 10, une petite carte « ? » qui dépasse du carton dans la vidéo, et une seule ligne sur la page d'arrivée. Pas de publicité dédiée, pas de formule appuyée, pas d'émoji ni de clin d'œil : Meta y verrait un contournement de ses règles, et l'article 313 vise le fait d'attirer publiquement l'attention sur ce type de produits.</p>
   </section>
 
   <section>
     <span class="eyebrow">Accroches</span>
-    <h2>Cinq visuels qui arrêtent le défilement</h2>
+    <h2>Quatre visuels qui arrêtent le défilement</h2>
     <p class="muted">Grands aplats de couleur, titre court, une seule idée. Format carré 1080 × 1080.</p>
     <div id="hooks"></div>
   </section>
@@ -209,7 +205,7 @@ a { color: var(--accent); }
 const BASE = "https://secret-by-n.netlify.app/essentiels.html?utm_source=facebook&utm_campaign=";
 const ADS = [
   { n: 1, name: "Protection", set: "Ensemble A", img: "carre-protection", cta: "Acheter", url: BASE + "essentiels",
-    text: "Protégez-vous, protégez l'autre. Préservatifs Durex, EXS et INTIMY, livrés à Libreville dans un carton neutre. Vous payez à la réception.",
+    text: "Protégez-vous, protégez l'autre. Préservatifs Durex, EXS et INTIMY, livrés à Libreville dans un carton neutre. Vous payez à la réception. Et quelques surprises vous attendent sur le site.",
     title: "Préservatifs livrés discrètement", desc: "À partir de 3 000 FCFA" },
   { n: 2, name: "Discrétion", set: "Ensemble A", img: "carre-discretion", cta: "En savoir plus", url: BASE + "essentiels",
     text: "Des préservatifs sans passer au comptoir : on commande en deux minutes, on reçoit un carton neutre sans logo, et on paie seulement à la réception.",
@@ -226,7 +222,7 @@ const ADS = [
 ];
 const HOOKS = [
   { n: 6, name: "Colis neutre", set: "Ensemble A", img: "accroche-neutre", cta: "Acheter", url: BASE + "essentiels",
-    text: "Personne ne saura ce qu'il y a dedans. Préservatifs et lubrifiant livrés à Libreville dans un carton sans logo, payés à la réception.",
+    text: "Personne ne saura ce qu'il y a dedans. Préservatifs, lubrifiant… et quelques surprises, livrés à Libreville dans un carton sans logo, payés à la réception.",
     title: "Une livraison 100 % discrète", desc: "Libreville en 24 h" },
   { n: 7, name: "Prix", set: "Ensemble A", img: "accroche-prix", cta: "Acheter", url: BASE + "essentiels",
     text: "Des préservatifs livrés chez vous à Libreville, à partir de 3 000 FCFA. Carton neutre, paiement à la réception.",
@@ -234,15 +230,12 @@ const HOOKS = [
   { n: 8, name: "Le livreur", set: "Ensemble A", img: "accroche-sms", cta: "En savoir plus", url: BASE + "essentiels",
     text: "Le livreur dit simplement « Livraison pour vous ». Carton neutre, aucun nom de produit, paiement à la réception.",
     title: "Une livraison qui reste entre nous", desc: "Libreville en 24 h" },
-  { n: 11, name: "La surprise", set: "Ensemble A", img: "accroche-surprise", cta: "En savoir plus", url: BASE + "essentiels",
-    text: "Et ce n'est pas tout. D'autres articles vous attendent sur le site, livrés dans le même carton neutre et payés à la réception. Réservé aux 18 ans et plus.",
-    title: "Le reste est une surprise", desc: "Livraison discrète à Libreville" },
   { n: 9, name: "Sans passer au comptoir", set: "Ensemble A", img: "accroche-comparaison", cta: "Acheter", url: BASE + "essentiels",
     text: "Des préservatifs sans passer au comptoir : deux minutes sur le téléphone, un carton neutre, et le paiement à la réception.",
     title: "Commandez en 2 minutes", desc: "Durex, EXS, INTIMY" }
 ];
 const VIDEO = { n: 10, cta: "Acheter", url: BASE + "essentiels",
-  text: "Qu'y a-t-il dans ce carton ? Des préservatifs, du lubrifiant, et d'autres surprises à découvrir sur le site. Livré discrètement à Libreville, payé à la réception.",
+  text: "Qu'y a-t-il dans ce carton ? Des préservatifs, du lubrifiant… et quelques surprises. Livré discrètement à Libreville, payé à la réception.",
   title: "Livré discrètement, payé à la réception", desc: "Colis neutre" };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const row = (label, value, mono) => `<div class="field"><b>${label}</b><div class="copyrow${mono ? " mono" : ""}"><span>${esc(value)}</span><button class="copy" type="button">Copier</button></div></div>`;
