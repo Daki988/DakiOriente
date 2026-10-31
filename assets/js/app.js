@@ -114,6 +114,11 @@
   });
   $$("#nav a").forEach(function (a) { a.addEventListener("click", function () { nav.classList.remove("open"); burger.setAttribute("aria-expanded", false); }); });
 
+  // Le menu mobile se ferme avec Échap ou en touchant ailleurs
+  function closeNav() { nav.classList.remove("open"); burger.setAttribute("aria-expanded", false); }
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeNav(); });
+  document.addEventListener("click", function (e) { if (nav.classList.contains("open") && !nav.contains(e.target) && !burger.contains(e.target)) closeNav(); });
+
   $$("[data-whatsapp]").forEach(function (a) {
     a.href = waLink("Bonjour, j'ai une question sur un produit Secret by N.");
     a.target = "_blank"; a.rel = "noopener";

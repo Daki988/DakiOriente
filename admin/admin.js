@@ -164,15 +164,17 @@
     }).join("") : '<p class="empty">Aucune commande ici.</p>';
     renderOrder();
   }
-  $("#o-list").addEventListener("click", function (e) { var r = e.target.closest("[data-ref]"); if (r) { ui.order = r.getAttribute("data-ref"); renderOrders(); } });
+  $("#o-list").addEventListener("click", function (e) { var r = e.target.closest("[data-ref]"); if (r) { ui.order = r.getAttribute("data-ref"); renderOrders(); showDetail("#o-detail"); } });
 
+  // Sur mobile, la fiche s'affiche sous la liste : on y descend directement
+  function showDetail(sel) { if (window.matchMedia("(max-width: 860px)").matches) $(sel).scrollIntoView({ behavior: "smooth", block: "start" }); }
   function pad(n) { return String(n).padStart(2, "0"); }
   function dateVal(iso) { if (!iso) return ""; var d = new Date(iso); return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
   function timeVal(iso) { if (!iso) return ""; var d = new Date(iso); return pad(d.getHours()) + ":" + pad(d.getMinutes()); }
 
   function renderOrder() {
     var box = $("#o-detail"), o = data.orders.filter(function (x) { return x.ref === ui.order; })[0];
-    if (!o) { box.innerHTML = '<p class="empty">Choisissez une commande à gauche.</p>'; return; }
+    if (!o) { box.innerHTML = '<p class="empty">Choisissez une commande dans la liste.</p>'; return; }
     var c = o.customer || {}, tel = (c.phone || "").replace(/[^\d+]/g, "");
     var wa = tel.replace(/\D/g, ""); if (wa.length === 8 || wa.length === 9) wa = "241" + wa.replace(/^0/, "");
     box.innerHTML =
@@ -258,7 +260,7 @@
         "<b>" + esc(p.name) + "</b><small>" + fcfa(p.price) + "</small><small>" + esc(p.id) + " · " + esc(catLabel[p.cat] || p.cat) + "</small><small>" + esc(flag) + "</small></button>";
     }).join("");
   }
-  $("#p-list").addEventListener("click", function (e) { var r = e.target.closest("[data-id]"); if (r) { ui.product = r.getAttribute("data-id"); renderProductList(); renderProduct(); } });
+  $("#p-list").addEventListener("click", function (e) { var r = e.target.closest("[data-id]"); if (r) { ui.product = r.getAttribute("data-id"); renderProductList(); renderProduct(); showDetail("#p-detail"); } });
 
   $("#p-add").addEventListener("click", function () {
     ensureCatalog();
@@ -269,7 +271,7 @@
 
   function renderProduct() {
     var box = $("#p-detail"), p = products.filter(function (x) { return x.id === ui.product; })[0];
-    if (!p) { box.innerHTML = '<p class="empty">Choisissez un produit à gauche.</p>'; return; }
+    if (!p) { box.innerHTML = '<p class="empty">Choisissez un produit dans la liste.</p>'; return; }
     box.innerHTML =
       '<form class="form" id="p-form">' +
       '<div class="pimg"><img src="' + esc(imgSrc(p)) + '" alt=""><label>Changer la photo <small>(JPG, PNG ou WebP, 3 Mo max., carrée de préférence. Pas de photo explicite.)</small><input type="file" accept="image/jpeg,image/png,image/webp" id="p-file"></label></div>' +

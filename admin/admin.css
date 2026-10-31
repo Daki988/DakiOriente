@@ -128,3 +128,11 @@ table.nl th { color: var(--muted); font-size: .8rem; }
   .grid2, .form fieldset { grid-template-columns: minmax(0, 1fr); }
   .kv { grid-template-columns: 100px minmax(0, 1fr); }
 }
+@media (max-width: 860px) {
+  .top__right a { padding: 8px 0; }
+  .btn--sm { min-height: 38px; }
+}
+@media (max-width: 860px) {
+  .tabs { flex-wrap: wrap; overflow: visible; width: 100%; }
+  .tabs button { padding: .5em .85em; font-size: .88rem; }
+}

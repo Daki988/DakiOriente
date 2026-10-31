@@ -46,6 +46,11 @@
   var header = $("#header"), nav = $("#nav"), burger = $("#burger");
   burger.addEventListener("click", function () { burger.setAttribute("aria-expanded", nav.classList.toggle("open")); });
   $$("#nav a").forEach(function (a) { a.addEventListener("click", function () { nav.classList.remove("open"); }); });
+
+  // Le menu mobile se ferme avec Échap ou en touchant ailleurs
+  function closeNav() { nav.classList.remove("open"); burger.setAttribute("aria-expanded", false); }
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeNav(); });
+  document.addEventListener("click", function (e) { if (nav.classList.contains("open") && !nav.contains(e.target) && !burger.contains(e.target)) closeNav(); });
   var cart = store.get("do_cart", {}), count = 0;
   Object.keys(cart).forEach(function (id) { if (byId[id]) count += cart[id]; });
   $("#cart-count").textContent = count;
