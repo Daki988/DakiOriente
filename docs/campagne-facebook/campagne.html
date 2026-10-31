@@ -1,0 +1,213 @@
+<title>Campagne Essentiels</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Layout : une colonne de lecture, des fiches publicitaires en grille visuel + textes à copier */
+:root {
+  --bg: #ffffff; --surface: #f7f4f3; --line: #ebe4e2; --fg: #141213; --muted: #6b6466;
+  --accent: #e8374b; --accent-soft: #fdecee; --ok: #1f8a4c; --ok-soft: #e7f5ec; --bad: #c62828; --bad-soft: #fdecea;
+  --display: "Manrope", system-ui, sans-serif; --body: "Manrope", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #151314; --surface: #1f1c1d; --line: #332e30; --fg: #f3eeef; --muted: #a79fa2;
+  --accent: #ff5d70; --accent-soft: #3a1d22; --ok: #5cc98b; --ok-soft: #17301f; --bad: #ff7a72; --bad-soft: #3a1c1a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #151314; --surface: #1f1c1d; --line: #332e30; --fg: #f3eeef; --muted: #a79fa2;
+  --accent: #ff5d70; --accent-soft: #3a1d22; --ok: #5cc98b; --ok-soft: #17301f; --bad: #ff7a72; --bad-soft: #3a1c1a; color-scheme: dark }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 40px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); letter-spacing: -.03em; line-height: 1.1; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; }
+h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 800; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.eyebrow { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; letter-spacing: -.03em; }
+.brand i { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+.brand span { font-weight: 400; color: var(--muted); }
+section { display: grid; gap: 20px; }
+.intro { display: grid; gap: 16px; }
+.intro p { max-width: 64ch; font-size: 1.08rem; color: var(--muted); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.fact { padding: 16px 18px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); min-width: 0; }
+.fact dt { font-size: .78rem; color: var(--muted); font-weight: 600; }
+.fact dd { margin: 2px 0 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+.rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.rule { border-radius: 16px; padding: 20px; display: grid; gap: 10px; align-content: start; }
+.rule--ok { background: var(--ok-soft); }
+.rule--no { background: var(--bad-soft); }
+.rule h3 { display: flex; gap: 8px; align-items: center; }
+.rule--ok h3 { color: var(--ok); } .rule--no h3 { color: var(--bad); }
+.rule ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
+.ad { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 28px; padding-block: 28px; border-top: 1px solid var(--line); align-items: start; }
+.ad img { width: 100%; border-radius: 14px; display: block; border: 1px solid var(--line); }
+.ad__body { display: grid; gap: 14px; min-width: 0; }
+.ad__head { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.tag { font-size: .75rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+.field { display: grid; gap: 4px; }
+.field b { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.copyrow { display: flex; gap: 10px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.copyrow > span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.copyrow.mono > span { font-family: var(--mono); font-size: .8rem; }
+.copy { flex: none; font: inherit; font-size: .78rem; font-weight: 700; border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+.copy:hover { border-color: var(--accent); color: var(--accent); }
+.copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mini { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.stories { display: grid; grid-template-columns: repeat(2, minmax(0, 220px)); gap: 16px; }
+.stories figure { margin: 0; display: grid; gap: 6px; }
+.stories img { width: 100%; border-radius: 14px; border: 1px solid var(--line); display: block; }
+.stories figcaption { font-size: .85rem; color: var(--muted); }
+table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; }
+th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: .78rem; color: var(--muted); font-weight: 700; width: 34%; }
+tr:last-child td, tr:last-child th { border-bottom: 0; }
+ol.steps { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; max-width: 70ch; }
+.note { background: var(--accent-soft); border-radius: 14px; padding: 16px 18px; max-width: 72ch; }
+a { color: var(--accent); }
+@media (max-width: 720px) {
+  .ad { grid-template-columns: minmax(0, 1fr); }
+  .ad img { max-width: 360px; }
+  .rules { grid-template-columns: minmax(0, 1fr); }
+  .mini { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="intro">
+    <span class="brand"><i></i>secret<span>by N.</span></span>
+    <h1>Campagne Essentiels</h1>
+    <p>Une campagne Facebook et Instagram pour faire connaître la boutique à Libreville. Elle parle de protection, de confort et de discrétion, et renvoie vers une page qui ne montre que des préservatifs, du lubrifiant, des bougies et des diffuseurs. Elle respecte ainsi les règles publicitaires de Meta et l'article 313 du Code pénal gabonais.</p>
+    <dl class="facts">
+      <div class="fact"><dt>Objectif Meta</dt><dd>Trafic (vues de page)</dd></div>
+      <div class="fact"><dt>Budget de test</dt><dd>5 000 FCFA / jour · 14 jours</dd></div>
+      <div class="fact"><dt>Zone</dt><dd>Libreville + 20 km</dd></div>
+      <div class="fact"><dt>Âge</dt><dd>21 – 55 ans</dd></div>
+      <div class="fact"><dt>Placements</dt><dd>Fils, Stories, Reels</dd></div>
+      <div class="fact"><dt>Page d'arrivée</dt><dd><a href="https://secret-by-n.netlify.app/essentiels.html">essentiels.html</a></dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <span class="eyebrow">Le cadre</span>
+    <h2>Ce que Meta et la loi permettent</h2>
+    <div class="rules">
+      <div class="rule rule--ok">
+        <h3>✓ Autorisé (public de 18 ans et plus)</h3>
+        <ul>
+          <li>Préservatifs et lubrifiants, présentés sous l'angle de la santé</li>
+          <li>Conseils de santé sexuelle sans contenu suggestif</li>
+          <li>Bien-être de la maison : bougies, parfums d'intérieur</li>
+          <li>La discrétion de la livraison et le paiement à la réception</li>
+        </ul>
+      </div>
+      <div class="rule rule--no">
+        <h3>✕ Interdit</h3>
+        <ul>
+          <li>Jouets, produits érotiques, lingerie portée, nudité, poses suggestives</li>
+          <li>Les mots plaisir, sexy, hot, coquin, érotique, sensuel, « pimenter »</li>
+          <li>Les phrases qui supposent quelque chose du lecteur (« Vous souffrez de… ? »)</li>
+          <li>Un lien vers l'accueil, une fiche de jouet ou le Guide</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow">Les publicités du fil</span>
+    <h2>Cinq visuels, prêts à mettre en ligne</h2>
+    <p class="muted">Copiez chaque texte dans le Gestionnaire de publicités. Format carré 1080 × 1080.</p>
+    <div id="ads"></div>
+  </section>
+
+  <section>
+    <span class="eyebrow">Stories et Reels</span>
+    <h2>Deux formats verticaux</h2>
+    <p class="muted">1080 × 1920. Le texte reste hors des zones couvertes par les boutons de l'application, en haut et en bas.</p>
+    <div class="stories">
+      <figure><img src="visuels/story-protection.jpg" alt="Story : Protégez-vous, protégez l'autre"><figcaption>Avec les textes de la publicité 1</figcaption></figure>
+      <figure><img src="visuels/story-discretion.jpg" alt="Story : Livré dans un carton neutre"><figcaption>Avec les textes de la publicité 2</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow">Réglages</span>
+    <h2>Dans le Gestionnaire de publicités</h2>
+    <div class="tbl"><table>
+      <tr><th>Objectif</th><td>Trafic, optimisé pour les vues de la page de destination. Le site n'utilise volontairement aucun pixel Meta.</td></tr>
+      <tr><th>Budget</th><td>5 000 FCFA par jour pendant 14 jours, soit environ 70 000 FCFA, en budget de campagne.</td></tr>
+      <tr><th>Lieu</th><td>Libreville + 20 km (Akanda, Owendo), personnes qui vivent dans ce lieu.</td></tr>
+      <tr><th>Âge et genre</th><td>21 à 55 ans, tous genres. Meta impose 18 ans minimum ; 21 ans laisse une marge vis-à-vis des mineurs.</td></tr>
+      <tr><th>Ciblage détaillé</th><td>Aucun. Ne jamais cibler d'intérêts liés à la sexualité, à la religion ou à la santé.</td></tr>
+      <tr><th>Placements</th><td>Fils et Stories Facebook et Instagram, Reels. Exclure Audience Network et Messenger.</td></tr>
+      <tr><th>Ensembles</th><td>A — Essentiels : publicités 1, 2, 3 et 5. B — Conseil santé : publicité 4.</td></tr>
+    </table></div>
+  </section>
+
+  <section>
+    <span class="eyebrow">Suivi</span>
+    <h2>Savoir si la campagne rapporte</h2>
+    <ol class="steps">
+      <li>Dans le back-office, chaque commande venue d'une publicité porte l'origine « facebook/essentiels » ; le tableau de bord compte les commandes Facebook du mois.</li>
+      <li>Coût par commande = dépense Meta ÷ commandes venues de Facebook.</li>
+      <li>Après 7 jours, coupez les publicités dont le taux de clic est sous 0,8 % et reportez leur budget sur les meilleures.</li>
+      <li>Après 14 jours, si le coût par commande reste sous votre marge moyenne, augmentez le budget de 20 % par semaine au maximum.</li>
+    </ol>
+  </section>
+
+  <section>
+    <span class="eyebrow">Avant de lancer</span>
+    <h2>Trois choses à régler</h2>
+    <ol class="steps">
+      <li>Créer la page Facebook « Secret by N. » dans la catégorie Santé et bien-être, et relier Instagram. Ne pas activer de boutique Facebook : Meta y interdit les produits pour adultes.</li>
+      <li>Remplir les informations légales dans le back-office (Réglages) : l'annonceur doit être identifiable, pour Meta comme pour la loi n° 025/2021.</li>
+      <li>Créer le compte publicitaire en XAF, fuseau Africa/Libreville, avec un moyen de paiement.</li>
+    </ol>
+    <p class="note">Une publicité refusée ne doit pas être relancée telle quelle : plusieurs refus peuvent bloquer le compte. Corrigez le texte ou l'image, puis demandez un nouvel examen.</p>
+  </section>
+</div>
+
+<script>
+const BASE = "https://secret-by-n.netlify.app/essentiels.html?utm_source=facebook&utm_campaign=";
+const ADS = [
+  { n: 1, name: "Protection", set: "Ensemble A", img: "carre-protection", cta: "Acheter", url: BASE + "essentiels",
+    text: "Protégez-vous, protégez l'autre. Préservatifs Durex, EXS et INTIMY, livrés à Libreville dans un carton neutre. Vous payez à la réception.",
+    title: "Préservatifs livrés discrètement", desc: "À partir de 3 000 FCFA" },
+  { n: 2, name: "Discrétion", set: "Ensemble A", img: "carre-discretion", cta: "En savoir plus", url: BASE + "essentiels",
+    text: "Des préservatifs sans passer au comptoir : on commande en deux minutes, on reçoit un carton neutre sans logo, et on paie seulement à la réception.",
+    title: "Un carton neutre, payé à la livraison", desc: "Livraison à Libreville en 24 h" },
+  { n: 3, name: "Confort", set: "Ensemble A", img: "carre-confort", cta: "Acheter", url: BASE + "essentiels",
+    text: "Une sécheresse intime, c'est fréquent et ça se règle simplement. Gel à base d'eau INTIMY, compatible avec les préservatifs, livré discrètement à Libreville.",
+    title: "Gel intime INTIMY — 11 000 FCFA", desc: "Payé à la livraison" },
+  { n: 4, name: "Conseil santé", set: "Ensemble B", img: "carre-conseils", cta: "En savoir plus", url: BASE + "conseils#protection",
+    text: "Un préservatif bien utilisé protège des IST et des grossesses non désirées. Trois réflexes simples à garder en tête, et des préservatifs livrés discrètement si besoin.",
+    title: "3 réflexes qui protègent", desc: "Conseils de santé intime" },
+  { n: 5, name: "Ambiance", set: "Ensemble A", img: "carre-ambiance", cta: "Acheter", url: BASE + "essentiels",
+    text: "Une soirée calme à la maison, ça se prépare. Bougies et parfums d'intérieur livrés à Libreville, payés à la livraison.",
+    title: "Bougies et diffuseurs dès 10 500 FCFA", desc: "Colis neutre" }
+];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const row = (label, value, mono) => `<div class="field"><b>${label}</b><div class="copyrow${mono ? " mono" : ""}"><span>${esc(value)}</span><button class="copy" type="button">Copier</button></div></div>`;
+document.getElementById("ads").innerHTML = ADS.map(a => `
+  <article class="ad">
+    <img src="visuels/${a.img}.jpg" alt="Publicité ${a.n} : ${esc(a.name)}" loading="lazy">
+    <div class="ad__body">
+      <div class="ad__head"><h3>${a.n}. ${esc(a.name)}</h3><span class="tag">${a.set}</span><span class="tag">Bouton : ${esc(a.cta)}</span></div>
+      ${row("Texte principal", a.text)}
+      <div class="mini">${row("Titre", a.title)}${row("Description", a.desc)}${row("Bouton", a.cta)}</div>
+      ${row("Lien (Instagram : remplacez facebook par instagram)", a.url, true)}
+    </div>
+  </article>`).join("");
+document.addEventListener("click", e => {
+  const b = e.target.closest(".copy"); if (!b) return;
+  const span = b.previousElementSibling, txt = span.textContent;
+  const done = () => { b.textContent = "Copié"; setTimeout(() => { b.textContent = "Copier"; }, 1500); };
+  const select = () => { const r = document.createRange(); r.selectNodeContents(span); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Sélectionné"; setTimeout(() => { b.textContent = "Copier"; }, 1500); };
+  try { navigator.clipboard.writeText(txt).then(done, select); } catch (err) { select(); }
+});
+</script>
