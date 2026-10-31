@@ -84,8 +84,9 @@
   function closeStory() { clearTimeout(stT); story.classList.remove('on'); story.innerHTML = ''; }
 
   // ================= INSTAGRAM =================
+  const MV = {};
   function instagram() {
-    const followers = P.ig || PROJ(900, 2600);
+    const followers = P.ig || PROJ(900, 2600); MV.followers = followers;
     let following = false;
     const bio = NETCFG.bio || `${P.tagline}\n📍 ${P.address}\n📞 ${P.t}`;
     app.innerHTML = bar + `<div class="ig"><nav class="side"><div class="logo">Instagram</div>${[['home', 'Accueil'], ['search', 'Recherche'], ['compass', 'Découvrir'], ['reel', 'Reels'], ['msg', 'Messages'], ['bell', 'Notifications'], ['plus', 'Créer']].map(([i, t]) => `<a>${I[i].replace(/width="1\d"/, 'width="24"').replace(/height="1\d"/, 'height="24"')}${t}</a>`).join('')}<a class="on">${AV(24)}Profil</a></nav>
@@ -134,7 +135,7 @@
   // ================= FACEBOOK =================
   function facebook() {
     let tab = 'pub', following = false;
-    const likesN = P.fb || PROJ(700, 2200);
+    const likesN = P.fb || PROJ(700, 2200); MV.likes = likesN;
     const cover = NETCFG.cover || (POSTS.find((p) => p.kind !== 'card' && !isCut(p.imgs[0])) || POSTS[0]).imgs[0];
     const photos = [...new Set(POSTS.filter((p) => p.kind !== 'card').flatMap((p) => p.imgs))];
     app.innerHTML = bar + `<div class="fb"><div class="top"><div class="f">f</div><div class="srch">Rechercher sur Facebook</div><div class="mid">${[I.home, I.reel, I.compass, I.msg].map((x, k) => `<span class="${k ? '' : 'on'}">${x}</span>`).join('')}</div><div class="rgt"><span>${I.msg}</span><span>${I.bell}</span><span style="background:none">${AV(40)}</span></div></div>
@@ -180,13 +181,13 @@
   let ttIndex = -1;
   function tiktok() {
     let following = false;
-    const fol = P.so.includes('tiktok') ? 1240 : PROJ(1100, 4800), lk = P.so.includes('tiktok') ? 18600 : POSTS.reduce((a, p) => a + p.likes, 0);
+    const fol = P.so.includes('tiktok') ? 1240 : PROJ(1100, 4800), _mv = (MV.tfol = P.so.includes('tiktok') ? 1240 : PROJ(1100, 4800)), lk = P.so.includes('tiktok') ? 18600 : POSTS.reduce((a, p) => a + p.likes, 0);
     const vids = POSTS.filter((p) => p.kind !== 'card');
     app.innerHTML = bar + `<div class="tt"><nav class="side"><div class="logo"><i>♪</i>TikTok</div><div class="sr">Rechercher</div>${[['home', 'Pour toi'], ['compass', 'Explorer'], ['plus', 'Suivis'], ['msg', 'Messages'], ['reel', 'LIVE']].map(([i, t]) => `<a>${I[i].replace(/1\d"/g, '24"')}${t}</a>`).join('')}<a class="on">${AV(28)}Profil</a></nav>
     <main class="main"><div class="head">${AV(212)}<div><h1>${esc(handle)} ${P.sig ? I.verified : ''}</h1><h2>${esc(P.main)}</h2><div class="btns"><button class="btn red" id="ttf">Suivre</button><button class="btn" id="ttm">Message</button><button class="btn">↗</button></div>
     <div class="stats"><span><b>24</b>Suivis</span><span><b id="tfc">${nf(fol)}</b>Followers</span><span><b>${nf(lk)}</b>J'aime</span></div>
     <div class="bio">${esc(NETCFG.bio || P.tagline)} · ${esc(P.c)}<br>📞 ${esc(P.t)}<a href="${site}">${I.link} ${esc(NETCFG.link || P.domain)}</a></div></div></div>
-    <div class="tabs"><a class="on" data-t="v">${I.grid.replace(/12/g, '18')} Vidéos</a><a data-t="r">${I.repost} Republications</a><a data-t="f">${I.save.replace(/24/g, '18')} Favoris</a><a data-t="l">${I.lock} Aimés</a></div><div id="tg"></div></main></div>
+    <div class="tabs"><a class="on" data-t="v">${I.grid.replace(/12/g, '18')} <span class="tx">Vidéos</span></a><a data-t="r">${I.repost} <span class="tx">Republications</span></a><a data-t="f">${I.save.replace(/24/g, '18')} <span class="tx">Favoris</span></a><a data-t="l">${I.lock} <span class="tx">Aimés</span></a></div><div id="tg"></div></main></div>
     <div class="ttp" id="ttp"></div>`;
     const draw = (t) => {
       $$('.tt .tabs a').forEach((a) => a.classList.toggle('on', a.dataset.t === t));
@@ -224,7 +225,7 @@
   // ================= LINKEDIN =================
   function linkedin() {
     let tab = 'home', following = false;
-    const fol = P.so.includes('linkedin') ? 312 : PROJ(140, 520);
+    const fol = P.so.includes('linkedin') ? 312 : PROJ(140, 520); MV.lfol = fol;
     const cover = NETCFG.cover || (POSTS.find((p) => p.kind !== 'card' && !isCut(p.imgs[0])) || POSTS[0]).imgs[0];
     const similar = (window.PROSPECTS || []).filter((x) => x.k === P.k && x.slug !== P.slug).slice(0, 4);
     const posts = POSTS.filter((p, i) => i % 2 === 0).map((p) => ({ ...p, cap: p.cap.replace(/[😋😍🔥🙏✨👏❤️🎉🏡🔑💼📲🍽️☀️🏊🏾🥐🥭✅📅🩺👩🏾‍⚕️🧼✈️🎄🌍📋🐘🌊🚗📦🔧🌧️📚🎓🏫👨‍👩‍👧💪🏾🛍️🚚🎁🪡💐🤝📩💆🏾‍♀️💕👨🏾‍🍳🎶]/gu, '').trim() }));
@@ -260,6 +261,36 @@
     draw();
   }
 
+
+  // ---------- En-têtes mobiles (modèles : Instagram, TikTok, Facebook, LinkedIn sur téléphone) ----------
+  function mobileHead(net, X) {
+    const FRIENDS = ['Rocky Kanick', 'Warimi Ondo', 'Fébry Otha', 'Dieudonné Mba', 'Prisca Nzé', 'Hervé Mintsa'];
+    const fr = (n) => FRIENDS[(HS + n * 2) % FRIENDS.length];
+    const EMO = { resto: '🍽️', hotel: '🏨', beaute: '💅🏾', immo: '🏡', sante: '🩺', voyage: '✈️', auto: '🚗', ecole: '🎓', luxe: '✨', boutique: '🛍️', services: '💼' }[P.k] || '✨';
+    const third = { resto: 'Réserver', hotel: 'Réserver', luxe: 'Boutique', boutique: 'Boutique' }[P.k] || 'Contacter';
+    const siteTxt = esc(NETCFG.link || P.domain);
+    if (net === 'ig') return `<div class="mhead mh-ig"><div class="r1"><div class="ring">${AV(86)}</div><div class="nm"><b>${esc(name)}</b><div class="st"><span><b>${POSTS.length}</b>publications</span><span><b data-mirror="#fc">${nf(MV.followers)}</b>followers</span><span><b>${P.ig ? 180 : 12}</b>suivi(e)s</span></div></div></div>
+      <div class="bio">${EMO} ${esc(NETCFG.bio || P.tagline)}<br>🏷️ ${esc(NETCFG.cat || P.s)}<br>📍 ${esc(P.address)}<br>📞 ${esc(P.t)}</div><a class="lnk" href="${site}">${I.link} ${siteTxt}</a>
+      <div class="bts"><button class="b blue" data-px="#fol" data-on="blue" data-lbl="Suivre" data-lbl2="Suivi(e) ✓">Suivre</button><button class="b" data-toast="Messagerie : démonstration NEAM">Envoyer un…</button><a class="b" href="${site}">${third}</a><button class="b sq" data-toast="Profils suggérés">⌄</button></div></div>`;
+    if (net === 'tt') return `<div class="mhead mh-tt">${AV(110)}<h1>${esc(name)}${P.sig ? ' ' + I.verified : ''}</h1><div class="hd">@${esc(handle)}</div>
+      <div class="st"><span><b>24</b>Suivis</span><i></i><span><b data-mirror="#tfc">${nf(MV.tfol)}</b>Followers</span><i></i><span><b>${$('.tt .stats span:nth-child(3) b')?.textContent || ''}</b>J'aime</span></div>
+      <div class="bts"><button class="red" data-px="#ttf" data-on="red" data-lbl="Suivre" data-lbl2="Abonné(e)">Suivre</button><button data-toast="Messages : démonstration NEAM">Message</button><button class="sq" data-toast="Comptes suggérés">▾</button></div>
+      <div class="bio">${esc(NETCFG.bio || P.tagline)}</div><a class="lnk" href="${site}">${I.link} ${siteTxt}</a>
+      <div class="pls">${(SD.highlights || []).slice(0, 3).map((h, i) => `<a data-toast="Playlist « ${esc(h)} »">${X.store.replace('M4 10h16v10H4zM3 6h18l-1 4H4zM9 20v-5h6v5', 'M4 6h12v12H4zM8 3h12v12')} ${esc(h)} ${['⭐', '🔥', '📍'][i]}</a>`).join('')}</div></div>`;
+    if (net === 'fb') { const cover = ($('.fb .cover')?.style.backgroundImage || '').replace(/"/g, "'"); return `<div class="mhead mh-fb"><div class="cv" style="background-image:${cover}"><a class="ic" href="recherche.html?q=${encodeURIComponent(P.n)}">${X.back}</a><span class="ics"><a class="ic">${X.share}</a><a class="ic">${I.search}</a><a class="ic">${X.dots}</a></span></div>
+      <div class="avw">${AV(150)}</div><h1>${esc(name)} ${P.fb || P.sig ? I.verified : ''}</h1><div class="fl"><b>${nf(Math.round(MV.likes * 1.1))}</b> followers · ${12 + (HS % 60)} suivi(e)s</div>
+      <div class="bio">${EMO} ${esc(NETCFG.bio || P.tagline)}<br>📩 ${esc(P.e || 'contact@' + P.domain)}</div><div class="cat">${X.bag} ${esc(NETCFG.cat || P.s)}</div>
+      <div class="sp"><span class="avs">${[0, 1, 2].map((n) => ini(fr(n), 30)).join('')}</span><span>Suivi(e) par <b>${fr(0)}</b>, <b>${fr(1)}</b> et <b>${fr(2)}</b></span></div>
+      <div class="bts"><button class="blue" data-px="#fbf" data-on="blue" data-lbl="${esc(I.like)} Suivre" data-lbl2="✓ Suivi(e)">${I.like} Suivre</button><button data-toast="Messenger : démonstration NEAM">${I.msg} Message</button></div>
+      <div class="chips"><a class="on" data-tab="pub">Tous</a><a data-tab="pho">Photos</a><a data-tab="vid">Reels</a><a data-tab="rev">Avis</a><a data-tab="about">À propos</a></div>
+      <div class="infos"><h3>Liens</h3><a href="${site}">${I.link}<span>${siteTxt}</span></a><h3>Coordonnées</h3><div>${I.phone}<span>${esc(P.t)}</span></div><div>${I.pin}<span>${esc(P.address)}</span></div></div></div>`; }
+    if (net === 'li') return `<div class="mhead mh-li"><div class="cv" style="background-image:${($('.li .cover')?.style.backgroundImage || '').replace(/"/g, "'")}"></div><div class="lg">${P.avatar}</div><h1>${esc(name)} <span class="sh">${X.shield}</span></h1>
+      <div class="mt">${esc(NETCFG.sector || P.s)} • ${esc(P.c)} • <span data-mirror="#lfc">${MV.lfol}</span> abonnés • ${esc(NETCFG.size || '11-50 employés')}</div>
+      <div class="sp">${ini(fr(3), 40)}<b>${fr(3).split(' ')[0]} et ${8 + (HS % 70)} autres relations suivent cette page</b></div>
+      <div class="bts"><button class="blue" data-px="#lf" data-on="blue" data-lbl="+ Suivre" data-lbl2="✓ Abonné">+ Suivre</button><button class="out" data-toast="Messagerie LinkedIn : démonstration NEAM">${X.send} Message</button><button class="circ" data-toast="Plus d'options">${X.dots}</button></div></div>`;
+    return '';
+  }
+
   ({ instagram, facebook, tiktok, linkedin }[NET] || instagram)();
   // Habillage « application mobile » (visible seulement sur petit écran)
   (() => {
@@ -267,13 +298,19 @@
     const back = `<a class="bk" href="recherche.html?q=${encodeURIComponent(P.n)}">‹</a>`;
     const it = (i, t = '') => `<a>${I[i]}${t ? `<small>${t}</small>` : ''}</a>`;
     const me = `<a class="on"><span class="av" style="width:26px;height:26px">${P.avatar}</span></a>`;
+    const ic = (d) => `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>`;
+    const X = { back: ic('M15 5l-7 7 7 7'), arrow: ic('M20 12H4M10 6l-6 6 6 6'), dots: ic('M5 12h.01M12 12h.01M19 12h.01'), share: ic('M14 4l7 7-7 7M21 11H10a6 6 0 00-6 6v1'), users: ic('M9 11a4 4 0 100-8 4 4 0 000 8zM2 21a7 7 0 0114 0M17 11a3 3 0 100-6M22 21a6 6 0 00-5-6'), store: ic('M4 10h16v10H4zM3 6h18l-1 4H4zM9 20v-5h6v5'), bag: ic('M5 8h14l-1 12H6zM9 8V6a3 3 0 016 0v2'), menu: ic('M4 7h16M4 12h16M4 17h16'), send: ic('M22 2L11 13M22 2l-7 20-4-9-9-4z'), shield: ic('M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z') };
     const C = {
-      ig: [`${back}<b>${esc(handle)}</b>${P.sig ? I.verified : ''}<span class="sp"></span>${I.bell}${I.plus}`, it('home') + it('search') + it('plus') + it('reel') + me],
-      fb: [`${back}<b>${esc(name)}</b><span class="sp"></span>${I.search}`, it('home', 'Accueil') + it('reel', 'Vidéo') + it('msg', 'Messages') + it('bell', 'Notifs') + `<a class="on"><span class="av" style="width:24px;height:24px">${P.avatar}</span><small>Page</small></a>`],
-      tt: [`${back}<span class="sp"></span><b>${esc(name)}</b><span class="sp"></span>${I.bell}${I.share}`, it('home', 'Accueil') + it('compass', 'Amis') + `<a class="pl"><i>+</i></a>` + it('msg', 'Boîte') + `<a class="on"><span class="av" style="width:24px;height:24px">${P.avatar}</span><small>Profil</small></a>`],
-      li: [`<span class="av" style="width:30px;height:30px;border-radius:50%">${P.avatar}</span><span class="ms">${I.search} ${esc(name)}</span>${I.msg}`, it('home', 'Accueil') + it('compass', 'Réseau') + it('plus', 'Publier') + it('bell', 'Notifications') + it('save', 'Emplois')],
+      ig: [`${back}<b>${esc(handle)}</b>${P.sig || P.ig ? I.verified : ''}<span class="sp"></span>${X.dots}`, it('home') + it('search') + it('plus') + it('reel') + me],
+      fb: ['', `<a class="on">${I.home}</a><a>${I.reel}</a><a>${X.users}</a><a>${X.store}</a><a>${I.bell}</a><a><span class="av" style="width:28px;height:28px">${P.avatar}</span></a>`],
+      tt: [`${back}<span class="sp"></span>${I.bell}${X.share}`, it('home', 'Accueil') + it('compass', 'Amis') + `<a class="pl"><i>+</i></a>` + it('msg', 'Boîte') + `<a class="on"><span class="av" style="width:24px;height:24px">${P.avatar}</span><small>Profil</small></a>`],
+      li: [`<a class="bk" href="recherche.html?q=${encodeURIComponent(P.n)}">${X.arrow}</a><span class="ms">${I.search} ${esc(name)}</span>`, `<a class="on">${I.home}<small>Accueil</small></a><a>${X.bag}<small>Emplois</small></a><a>${X.users}<small>Réseau</small></a><a class="nt">${I.bell}<small>Notifications</small><em>&gt;20</em></a><a>${X.menu}<small>Plus</small></a>`],
     }[root.className.split(' ')[0]];
-    root.insertAdjacentHTML('afterbegin', `<div class="mtop">${C[0]}</div>`);
+    root.insertAdjacentHTML('afterbegin', (C[0] ? `<div class="mtop">${C[0]}</div>` : '') + mobileHead(root.className.split(' ')[0], X));
+    // Les boutons mobiles déclenchent les mêmes actions que la version ordinateur et recopient leur état
+    $$('.mhead [data-px]').forEach((bt) => bt.onclick = () => { const el = $(bt.dataset.px); if (!el) return; el.click(); if (bt.dataset.lbl) bt.innerHTML = el.classList.contains(bt.dataset.on) ? bt.dataset.lbl : bt.dataset.lbl2; bt.classList.toggle('done', !el.classList.contains(bt.dataset.on)); $$('.mhead [data-mirror]').forEach((m) => { const src = $(m.dataset.mirror); if (src) m.textContent = src.textContent.replace(/\s*(J'aime|followers)$/i, ''); }); });
+    $$('.mhead [data-toast]').forEach((bt) => bt.onclick = () => toast(bt.dataset.toast));
+    $$('.mhead [data-tab]').forEach((bt) => bt.onclick = () => { $$('.mhead [data-tab]').forEach((x) => x.classList.toggle('on', x === bt)); const t = $(`.fb .tb a[data-t="${bt.dataset.tab}"]`); if (t) t.click(); });
     root.insertAdjacentHTML('beforeend', `<nav class="mnav">${C[1]}</nav>`);
   })();
   window.SOCIALUI = { openPost, openStory, NET };
