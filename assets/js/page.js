@@ -1,5 +1,5 @@
 /* ==========================================================
-   Daki Oriente — pages secondaires (Le Guide, Suivi de commande)
+   Secret by Neam — pages secondaires (Le Guide, Suivi de commande)
    Vérification d'âge, sortie rapide, menu, compteur du panier,
    et pour le guide : sommaire actif, barre de lecture, produits liés.
    ========================================================== */

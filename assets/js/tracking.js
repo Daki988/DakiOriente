@@ -1,9 +1,9 @@
 /* ==========================================================
-   Daki Oriente — suivi de commande
+   Secret by Neam — suivi de commande
    Sources de données, dans l'ordre :
    1. les commandes passées sur cet appareil (stockées localement) ;
    2. la feuille de suivi en ligne (TRACKING.csvUrl), mise à jour par la boutique ;
-   3. la commande d'exemple DO-DEMO24 (code 0000), pour la démonstration.
+   3. la commande d'exemple SN-DEMO24 (code 0000), pour la démonstration.
    ========================================================== */
 (function () {
   "use strict";
@@ -13,7 +13,7 @@
     // Colonnes attendues : voir docs/suivi-modele.csv. Laissez vide pour le mode démonstration.
     csvUrl: "",
     whatsapp: window.DO_CONFIG.whatsapp, // à régler dans assets/js/config.js
-    demoRef: "DO-DEMO24",
+    demoRef: "SN-DEMO24",
     demoCode: "0000"
   };
 
@@ -249,7 +249,7 @@
       '<label>Si vous êtes absent·e<select id="trk-ins-absent" name="absent">' +
       ["Ne pas laisser le colis, me rappeler", "Le remettre au gardien", "Le remettre à un voisin de confiance", "Le déposer en point relais"].map(function (x) { return "<option" + (ins.absent === x ? " selected" : "") + ">" + x + "</option>"; }).join("") + "</select></label>" +
       '<label>Ce que le livreur annonce<select id="trk-ins-say" name="say">' +
-      ["« Livraison pour vous »", "Le nom de l'expéditeur : DO Distribution", "Seulement mon prénom"].map(function (x) { return "<option" + (ins.say === x ? " selected" : "") + ">" + x + "</option>"; }).join("") + "</select></label>" +
+      ["« Livraison pour vous »", "Le nom de l'expéditeur : SN Distribution", "Seulement mon prénom"].map(function (x) { return "<option" + (ins.say === x ? " selected" : "") + ">" + x + "</option>"; }).join("") + "</select></label>" +
       '<label>Autre précision<textarea id="trk-ins-note" name="note" rows="2" placeholder="Ex. : appelez-moi en arrivant, je descends">' + esc(ins.note) + "</textarea></label>" +
       '<div class="trk-ins__actions"><button class="btn btn--primary" type="submit">Enregistrer et prévenir le livreur</button><button class="btn btn--outline" type="button" data-trk="close-ins">Annuler</button></div>' +
       "</form>";
@@ -274,7 +274,7 @@
       '<p class="trk-sent" id="trk-ins-sent" hidden>✓ Instructions enregistrées. <a target="_blank" rel="noopener" href="#">Les envoyer au livreur sur WhatsApp →</a></p>' +
       (o.demo ? '<div class="trk-demo-bar"><span>Mode démonstration : faites avancer la livraison pour voir chaque étape.</span><button class="btn btn--outline btn--sm" data-trk="next">Étape suivante</button><button class="btn btn--sm trk-link" data-trk="reset">Recommencer</button></div>' : "") +
       '<div class="trk-grid">' +
-      '<div class="trk-block"><h4>Livraison discrète</h4><p>Livreur Daki Oriente<br>Numéro de suivi : <strong class=\"nowrap\">' + esc(o.ref) + "</strong></p><p class=\"muted small\">Colis marron sans logo. Expéditeur indiqué : DO Distribution.</p></div>" +
+      '<div class="trk-block"><h4>Livraison discrète</h4><p>Livreur Secret by Neam<br>Numéro de suivi : <strong class=\"nowrap\">' + esc(o.ref) + "</strong></p><p class=\"muted small\">Colis marron sans logo. Expéditeur indiqué : SN Distribution.</p></div>" +
       (o.address ? '<div class="trk-block"><h4>Adresse de livraison</h4><p>' + esc(o.name || "") + "<br>" + maskAddress(o.address) + '</p><p class="muted small">Adresse masquée sur cet écran, par discrétion.</p></div>' : "") +
       (o.total ? '<div class="trk-block"><h4>Paiement à la livraison</h4><p><strong>' + fcfa(o.total) + "</strong><br>" + esc(o.pay || "") + "</p></div>" : "") +
       "</div>" + historyHTML(o) + "</article>";
@@ -332,7 +332,7 @@
   function lookup(ref, code) {
     var msg = $("#trk-msg"); msg.textContent = "Recherche en cours…";
     return findOrder(ref, code).then(function (o) {
-      if (!o) { msg.textContent = "Aucune commande ne correspond. Vérifiez le numéro (ex. : DO-K3F9QZ) et les 4 derniers chiffres de votre téléphone."; $("#trk-result").hidden = true; return; }
+      if (!o) { msg.textContent = "Aucune commande ne correspond. Vérifiez le numéro (ex. : SN-K3F9QZ) et les 4 derniers chiffres de votre téléphone."; $("#trk-result").hidden = true; return; }
       msg.textContent = ""; render(o);
       $("#trk-result").scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -356,7 +356,7 @@
       else if (a === "reset") { store.set("do_demo_order", null); render(demoOrder()); }
       else if (a === "ins") { var f = $("#trk-ins"); f.hidden = !f.hidden; if (!f.hidden) $("#trk-ins-code").focus(); }
       else if (a === "close-ins") $("#trk-ins").hidden = true;
-      else if (a === "share") copy("Suivi de colis DO Distribution, commande " + current.ref + " : " + location.href.split("#")[0] + "#suivi");
+      else if (a === "share") copy("Suivi de colis SN Distribution, commande " + current.ref + " : " + location.href.split("#")[0] + "#suivi");
     });
     $("#suivi").addEventListener("submit", function (e) {
       if (e.target.id !== "trk-ins") return;
@@ -373,9 +373,9 @@
       $("#trk-ins-sent a").href = "https://wa.me/" + TRACKING.whatsapp + "?text=" + encodeURIComponent(txt);
     });
     renderList();
-    // suivi.html#DO-XXXXXX ouvre directement la commande (lien du message de confirmation)
+    // suivi.html#SN-XXXXXX ouvre directement la commande (lien du message de confirmation)
     var ref = location.hash.slice(1).toUpperCase();
-    if (/^DO-[A-Z0-9]+$/.test(ref)) {
+    if (/^SN-[A-Z0-9]+$/.test(ref)) {
       var o = localOrders().filter(function (x) { return x.ref === ref; })[0];
       if (o) { $("#trk-ref").value = o.ref; $("#trk-code").value = o.code || ""; lookup(o.ref, o.code || ""); }
       else if (ref === TRACKING.demoRef) { $("#trk-ref").value = ref; $("#trk-code").value = TRACKING.demoCode; lookup(ref, TRACKING.demoCode); }

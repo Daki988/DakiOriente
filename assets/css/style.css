@@ -1,5 +1,5 @@
 /* ==========================================================
-   Daki Oriente — feuille de style (thème clair)
+   Secret by Neam — feuille de style (thème clair)
    Fond blanc, texte encre, un seul accent corail.
    Les produits portent la couleur.
    ========================================================== */
@@ -877,3 +877,5 @@ body.locked .toast.show { transform: translate(-50%, 0); }
 @media (max-width: 560px) { .legal-page dl { grid-template-columns: minmax(0, 1fr); } .legal-page dd { margin: 0 0 8px; } }
 .footer__links a { text-decoration: underline; text-underline-offset: 2px; }
 .legal-body .header__inner > .btn, .header__inner > a.btn { margin-left: auto; }
+.logo { white-space: nowrap; flex-shrink: 0; }
+@media (max-width: 400px) { .logo { font-size: 1.05rem; } }

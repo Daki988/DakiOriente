@@ -1,5 +1,5 @@
 /* ==========================================================
-   Daki Oriente — logique de la boutique
+   Secret by Neam — logique de la boutique
    ========================================================== */
 (function () {
   "use strict";
@@ -115,7 +115,7 @@
   $$("#nav a").forEach(function (a) { a.addEventListener("click", function () { nav.classList.remove("open"); burger.setAttribute("aria-expanded", false); }); });
 
   $$("[data-whatsapp]").forEach(function (a) {
-    a.href = waLink("Bonjour, j'ai une question sur un produit Daki Oriente.");
+    a.href = waLink("Bonjour, j'ai une question sur un produit Secret by Neam.");
     a.target = "_blank"; a.rel = "noopener";
   });
   $("#year").textContent = new Date().getFullYear();
@@ -384,7 +384,7 @@
   function submitOrder(e) {
     e.preventDefault();
     var form = e.target, f = new FormData(form), t = totals();
-    var ref = "DO-" + Date.now().toString(36).toUpperCase().slice(-6);
+    var ref = "SN-" + Date.now().toString(36).toUpperCase().slice(-6);
     var phone = String(f.get("phone")).trim(), code = phone.replace(/\D/g, "").slice(-4);
     var items = Object.keys(cart).map(function (id) { return [id, cart[id]]; });
     var prices = {}, names = {};

@@ -1,4 +1,4 @@
-/* Réglages communs à toutes les pages de Daki Oriente */
+/* Réglages communs à toutes les pages de Secret by Neam */
 window.DO_CONFIG = {
   // Numéro WhatsApp de la boutique, au format international sans "+" (ex. 24107123456)
   whatsapp: "24100000000",

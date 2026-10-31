@@ -1,4 +1,4 @@
-/* Catalogue Daki Oriente — prix de vente en FCFA (plan de commande « boutique intime », 30/10/2026).
+/* Catalogue Secret by Neam — prix de vente en FCFA (plan de commande « boutique intime », 30/10/2026).
    Pour ajouter un produit : copiez un bloc, changez l'id, mettez la photo dans assets/img/<id>.jpg.
    art / hue : illustration de secours si la photo manque (wand, bullet, egg, ring, sleeve, bottle, box, lingerie, candle, kit)
    tags : utilisés par le quiz « Trouver mon produit idéal »

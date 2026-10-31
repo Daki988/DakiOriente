@@ -1,6 +1,6 @@
 # Communiquer sans risque au Gabon
 
-Ce guide fixe les règles de communication de Daki Oriente : site, réseaux sociaux, publicité, messages aux clients.
+Ce guide fixe les règles de communication de Secret by Neam : site, réseaux sociaux, publicité, messages aux clients.
 Il ne remplace pas l'avis d'un·e juriste gabonais·e. **Faites-le relire avant le lancement public.**
 
 ## 1. Les textes qui s'appliquent
@@ -20,7 +20,7 @@ Il ne remplace pas l'avis d'un·e juriste gabonais·e. **Faites-le relire avant 
 - Récapitulatif de commande et accusé de réception à l'écran (numéro, détail, total).
 - Rétractation 14 jours pour les produits scellés, exclusion d'hygiène expliquée.
 - Pas de compte client, pas de traceur publicitaire, données de livraison effacées 30 jours après la livraison, stockage en Union européenne.
-- Titre d'onglet neutre, colis neutre, expéditeur « DO Distribution », bouton de sortie rapide.
+- Titre d'onglet neutre, colis neutre, expéditeur « SN Distribution », bouton de sortie rapide.
 
 ## 3. Le ton : celui de la boutique, appliqué avec prudence
 
@@ -49,14 +49,14 @@ On garde le style de la maison : vouvoiement, questions directes, phrases courte
 | **TikTok** | Contenu éducatif sobre, sans produit visible. | Publicité pour produits sexuels : interdite. |
 | **Google Ads** | Annonces texte très limitées, avec restrictions « contenu à caractère sexuel ». Mieux vaut s'en passer au début. | Visuels de produits pour adultes. |
 | **WhatsApp** | Répondre aux clients qui vous écrivent, confirmer une livraison avec un message neutre. | **Les règles de WhatsApp Business interdisent la vente de produits pour adultes** : pas de catalogue WhatsApp, pas de liste de diffusion, pas de prise de commande par WhatsApp. C'est pourquoi les commandes passent par le site. |
-| **SMS / appels** | Confirmer une commande passée par le client. Message type : « Bonjour, DO Distribution. Votre livraison est prévue aujourd'hui entre 14 h et 16 h. » | Prospection sans accord préalable (art. 50, loi 025/2021). |
+| **SMS / appels** | Confirmer une commande passée par le client. Message type : « Bonjour, SN Distribution. Votre livraison est prévue aujourd'hui entre 14 h et 16 h. » | Prospection sans accord préalable (art. 50, loi 025/2021). |
 | **E-mail (lettre d'info)** | Uniquement aux personnes inscrites avec la case cochée. Objet neutre (« Le cahier du mois »), lien de désinscription dans chaque envoi. | Achat de fichiers d'adresses, envoi sans consentement. |
 | **Affichage, flyers, radio** | Le nom de marque et « bien-être intime, livraison discrète » au maximum. | Visuels de produits dans l'espace public : c'est précisément ce que vise l'article 313. |
 | **Bouche-à-oreille, parrainage** | Carte discrète dans le colis avec un code de parrainage. | — |
 
 ## 6. Messages aux clients : modèles
 
-- **Confirmation (appel)** : « Bonjour, ici DO Distribution. Je vous appelle pour votre livraison de ce jour. Le créneau de 14 h à 16 h vous convient-il ? »
+- **Confirmation (appel)** : « Bonjour, ici SN Distribution. Je vous appelle pour votre livraison de ce jour. Le créneau de 14 h à 16 h vous convient-il ? »
 - **Livreur sur place** : « Bonjour, livraison pour vous. »
 - **Message de suivi (back-office)** : « Le livreur vous appelle 10 minutes avant. » — jamais le nom d'un produit.
 - **Réponse à une question** : vouvoiement, réponse factuelle, lien vers la fiche ou vers le Guide.

@@ -19,7 +19,7 @@ mettez à jour depuis un téléphone. Le site la lit à chaque recherche du clie
 
 | Colonne | Contenu |
 |---|---|
-| `ref` | Numéro de commande affiché au client (ex. `DO-K3F9QZ`) |
+| `ref` | Numéro de commande affiché au client (ex. `SN-K3F9QZ`) |
 | `code` | 4 derniers chiffres du téléphone du client (protège le suivi) |
 | `statut` | `commandee`, `preparee`, `en_route`, `tentative` ou `livree` |
 | `date_livraison` | Jour prévu, au format `2026-10-08` |
@@ -33,4 +33,4 @@ Le numéro de commande et le code sont générés automatiquement quand le clien
 ils arrivent avec le récapitulatif WhatsApp. Ajoutez simplement la ligne dans la feuille.
 
 Tant que `csvUrl` est vide, le suivi montre les commandes passées sur l'appareil du client
-et la commande d'exemple `DO-DEMO24` (code `0000`), avec un bouton pour simuler chaque étape.
+et la commande d'exemple `SN-DEMO24` (code `0000`), avec un bouton pour simuler chaque étape.

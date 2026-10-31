@@ -1,4 +1,4 @@
-// Outils partagés par les fonctions de Daki Oriente.
+// Outils partagés par les fonctions de Secret by Neam.
 import { getStore } from "@netlify/blobs";
 
 // Les données clients sont stockées dans l'Union européenne (Francfort), et non aux États-Unis
@@ -85,7 +85,7 @@ export async function isAdmin(req: Request) {
 
 // ---------- Petites validations ----------
 export const clean = (v: unknown, max = 200) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, max);
-export const REF_RE = /^DO-[A-Z0-9]{4,10}$/;
+export const REF_RE = /^SN-[A-Z0-9]{4,10}$/;
 export const STATUSES = ["commandee", "preparee", "en_route", "tentative", "livree", "annulee"];
 export const STATUS_LABELS: Record<string, string> = {
   commandee: "Commande reçue",
