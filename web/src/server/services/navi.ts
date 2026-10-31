@@ -300,17 +300,21 @@ async function construireCartes(i: AfficherEntree, paysDefaut: string | null): P
   return cartes;
 }
 
-// ---------------------------------------------------------------- Outils (schémas stricts)
+// ---------------------------------------------------------------- Outils
+// Schémas stricts, sauf les deux recherches à filtres (paramètres simplement optionnels) : l'API limite à 16 le nombre de
+// paramètres nullables (anyOf) dans l'ensemble des outils stricts. Toutes les entrées sont revalidées par zod (VALIDATION).
 const nul = (t: object) => ({ anyOf: [t, { type: "null" }] });
 const STR = { type: "string" }, INT = { type: "integer" };
 const obj = (props: Record<string, object>, desc?: string) => ({ type: "object" as const, properties: props, required: Object.keys(props), additionalProperties: false, ...(desc ? { description: desc } : {}) });
+const optionnels = (props: Record<string, object>) => ({ type: "object" as const, properties: props, additionalProperties: false });
+const NON_STRICTS = new Set(["chercher_formations", "chercher_etablissements"]);
 const DEVIS_PROPS = { etablissement_id: STR, formation_id: nul(STR), pays_origine: nul({ ...STR, description: "Code ISO à 2 lettres du pays de départ (GA, SN, CM…)" }), logement: nul({ type: "string", enum: ["studio", "colocation"] }) };
 
 const OUTILS = [
   { name: "chercher_formations", description: "Cherche les formations proposées au Maroc dans le catalogue Navigoal (texte libre : métier visé, domaine, intitulé), avec filtres. Renvoie les formations et les établissements qui les proposent.",
-    input_schema: obj({ texte: nul(STR), ville: nul(STR), niveau: nul({ type: "string", enum: NIVEAUX }), label: nul({ type: "string", enum: LABEL_IDS }), limite: nul(INT) }) },
+    input_schema: optionnels({ texte: STR, ville: STR, niveau: { type: "string", enum: NIVEAUX }, label: { type: "string", enum: LABEL_IDS }, limite: INT }) },
   { name: "chercher_etablissements", description: "Cherche des établissements (nom, sigle, ville, type) ; filtres : ville, label, formation proposée.",
-    input_schema: obj({ texte: nul(STR), ville: nul(STR), label: nul({ type: "string", enum: LABEL_IDS }), formation_id: nul(STR), limite: nul(INT) }) },
+    input_schema: optionnels({ texte: STR, ville: STR, label: { type: "string", enum: LABEL_IDS }, formation_id: STR, limite: INT }) },
   { name: "fiche_etablissement", description: "Fiche complète d'un établissement : label et reconnaissance, adresse, site, formations, scolarité indicative, campagnes d'admission ouvertes.", input_schema: obj({ id: STR }) },
   { name: "chercher_metiers", description: "Cherche des métiers (description, niveau d'études, formations qui y mènent).", input_schema: obj({ texte: nul(STR), limite: nul(INT) }) },
   { name: "estimer_cout", description: "Estimation du coût total des études (mêmes calculs que la page Devis) : scolarité, vie sur place, installation, voyages, imprévus, en dirhams et dans la monnaie du pays de départ.", input_schema: obj(DEVIS_PROPS) },
@@ -327,15 +331,15 @@ const OUTILS = [
       conseiller: { type: "boolean" },
       suggestions: { type: "array", items: STR },
     }) },
-].map((t) => ({ ...t, strict: true, eager_input_streaming: true })) as Anthropic.Beta.BetaTool[];
+].map((t) => ({ ...t, ...(NON_STRICTS.has(t.name) ? {} : { strict: true }), eager_input_streaming: true })) as Anthropic.Beta.BetaTool[];
 
 type AfficherEntree = { etablissements: string[]; formation_id: string | null; devis: EntreeDevis | null; liens: { libelle: string; chemin: string }[]; conseiller: boolean; suggestions: string[] };
 const nullStr = z.string().max(200).nullable();
 const nullInt = z.number().int().min(1).max(100000000).nullable();
 const DevisZ = z.object({ etablissement_id: z.string().max(100), formation_id: nullStr, pays_origine: nullStr, logement: z.enum(["studio", "colocation"]).nullable() });
 const VALIDATION: Record<string, z.ZodTypeAny> = {
-  chercher_formations: z.object({ texte: nullStr, ville: nullStr, niveau: z.enum(NIVEAUX).nullable(), label: z.enum(LABEL_IDS).nullable(), limite: nullInt }),
-  chercher_etablissements: z.object({ texte: nullStr, ville: nullStr, label: z.enum(LABEL_IDS).nullable(), formation_id: nullStr, limite: nullInt }),
+  chercher_formations: z.object({ texte: nullStr.default(null), ville: nullStr.default(null), niveau: z.enum(NIVEAUX).nullable().default(null), label: z.enum(LABEL_IDS).nullable().default(null), limite: nullInt.default(null) }),
+  chercher_etablissements: z.object({ texte: nullStr.default(null), ville: nullStr.default(null), label: z.enum(LABEL_IDS).nullable().default(null), formation_id: nullStr.default(null), limite: nullInt.default(null) }),
   fiche_etablissement: z.object({ id: z.string().max(100) }),
   chercher_metiers: z.object({ texte: nullStr, limite: nullInt }),
   estimer_cout: DevisZ,
