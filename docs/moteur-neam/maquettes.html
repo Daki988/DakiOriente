@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;color:#202124;background:#e8eaed;padding:40px;display:flex;flex-direction:column;gap:60px}
+.screen{width:1440px;background:#fff;position:relative;overflow:hidden}
+.demo{background:#111;color:#fff;font-size:12px;padding:6px 24px;display:flex;justify-content:space-between}
+.demo b{color:#f5b301}
+.logo{font-family:Georgia,serif;font-weight:700;letter-spacing:-1px}
+.logo span:nth-child(1){color:#1a3cff}.logo span:nth-child(2){color:#e8442e}.logo span:nth-child(3){color:#f5b301}.logo span:nth-child(4){color:#12a150}
+.search{border:1px solid #dfe1e5;border-radius:24px;height:46px;display:flex;align-items:center;padding:0 18px;gap:12px;font-size:16px;box-shadow:0 1px 6px rgba(32,33,36,.18)}
+.ico{width:18px;height:18px;border-radius:50%;border:2px solid #9aa0a6;flex:none}
+.btn{background:#f8f9fa;border:1px solid #f8f9fa;border-radius:4px;padding:10px 16px;font-size:14px;color:#3c4043}
+.top{display:flex;justify-content:flex-end;gap:16px;padding:16px 24px;font-size:13px;align-items:center}
+.avatar{width:32px;height:32px;border-radius:50%;background:#12a150;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+/* Results */
+.rhead{display:flex;align-items:center;gap:32px;padding:20px 28px 0}
+.tabs{display:flex;gap:24px;padding:14px 0 10px 178px;font-size:14px;color:#5f6368;border-bottom:1px solid #ebebeb}
+.tabs .on{color:#1a3cff;border-bottom:3px solid #1a3cff;padding-bottom:8px}
+.cols{display:flex;gap:56px;padding:20px 0 60px 178px}
+.main{width:652px;display:flex;flex-direction:column;gap:30px}
+.res .src{display:flex;align-items:center;gap:12px;font-size:14px}
+.fav{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;flex:none}
+.res .url{font-size:12px;color:#4d5156}
+.res h3{color:#1a0dab;font-size:20px;font-weight:400;margin:6px 0 4px}
+.res p{font-size:14px;color:#4d5156;line-height:1.55}
+.sitelinks{display:grid;grid-template-columns:1fr 1fr;gap:14px 40px;margin:14px 0 0 40px}
+.sitelinks div{font-size:14px}.sitelinks b{color:#1a0dab;font-weight:400;font-size:17px;display:block;margin-bottom:2px}
+.socials{display:flex;gap:12px}
+.sc{flex:1;border:1px solid #dadce0;border-radius:12px;padding:14px;font-size:13px;color:#4d5156}
+.sc .n{color:#202124;font-weight:700;font-size:14px;margin:8px 0 2px}
+/* Knowledge panel */
+.kp{width:370px;border:1px solid #dadce0;border-radius:10px;overflow:hidden;font-size:14px;align-self:flex-start}
+.ph{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:90px 90px;gap:2px;height:182px}
+.ph div{background:linear-gradient(135deg,#2b0b3f,#c2185b)}
+.ph div:first-child{grid-row:span 2;background:linear-gradient(135deg,#0d0d0d,#5b2a86 60%,#f5b301)}
+.ph div:last-child{background:linear-gradient(135deg,#1b5e20,#f5b301)}
+.kp .in{padding:16px}
+.kp h2{font-size:24px;font-weight:400}
+.stars{color:#e7711b}
+.acts{display:flex;justify-content:space-around;padding:14px 0;border-bottom:1px solid #ebebeb}
+.acts div{display:flex;flex-direction:column;align-items:center;gap:6px;color:#1a3cff;font-size:12px}
+.acts i{width:38px;height:38px;border-radius:50%;border:1px solid #dadce0;display:block}
+.kp .row{padding:8px 0;line-height:1.5}.kp .row b{font-weight:700}
+.open{color:#188038}
+/* Home */
+.home{height:820px;display:flex;flex-direction:column}
+.homec{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;margin-top:-80px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:640px}
+.chip{border:1px solid #dadce0;border-radius:18px;padding:8px 14px;font-size:13px;color:#3c4043}
+.foot{background:#f2f2f2;font-size:14px;color:#70757a;padding:14px 28px;display:flex;justify-content:space-between}
+/* Social previews */
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;padding:32px}
+.phone{border:10px solid #111;border-radius:36px;height:760px;overflow:hidden;background:#fff;font-size:12px}
+.phone .bar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-weight:700;font-size:15px;border-bottom:1px solid #eee}
+.prof{display:flex;align-items:center;gap:14px;padding:14px}
+.pp{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#5b2a86,#f5b301);flex:none;border:3px solid #fff;box-shadow:0 0 0 2px #e8442e}
+.stats{display:flex;gap:14px;text-align:center}.stats b{display:block;font-size:15px}
+.bio{padding:0 14px 10px;line-height:1.45}
+.pbtn{margin:0 14px 12px;display:flex;gap:6px}.pbtn div{flex:1;background:#efefef;border-radius:8px;padding:7px;text-align:center;font-weight:700}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.g3 div{aspect-ratio:1/1;background:linear-gradient(135deg,#1a1a1a,#5b2a86)}
+.g3 div:nth-child(3n){background:linear-gradient(135deg,#c2185b,#f5b301)}
+.g3 div:nth-child(4n){background:linear-gradient(135deg,#12a150,#0d0d0d)}
+.tt{background:#000;color:#fff}
+.tt .bar{border-color:#222}
+.tt .g3 div{aspect-ratio:3/4}
+.fb .cover{height:120px;background:linear-gradient(135deg,#0d0d0d,#5b2a86,#f5b301)}
+.fb .pp{margin:-40px 0 0 14px;box-shadow:none}
+.fb .pbtn div:first-child,.li .pbtn div:first-child{background:#1877f2;color:#fff}
+.post{border-top:6px solid #eee;padding:12px 14px;line-height:1.45}
+.post .img{height:150px;border-radius:6px;margin-top:8px;background:linear-gradient(135deg,#2b0b3f,#c2185b)}
+.li{background:#f4f2ee}.li .card{background:#fff;margin-bottom:8px}
+.li .cover{height:80px;background:linear-gradient(90deg,#0d0d0d,#5b2a86)}
+.li .pp{border-radius:8px;margin:-34px 0 0 14px;box-shadow:none}
+.label{font-size:13px;color:#5f6368;text-align:center;margin-top:10px}
+/* Admin */
+.admin{display:flex;min-height:900px;background:#f6f7fb}
+.side{width:260px;background:#111;color:#cfd2da;padding:24px 18px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.side .it{padding:10px 12px;border-radius:8px}.side .on{background:#1a3cff;color:#fff}
+.side h4{color:#777;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:18px 0 4px 12px}
+.content{flex:1;padding:32px 40px}
+.content h1{font-size:26px;margin-bottom:6px}
+.sub{color:#5f6368;font-size:14px;margin-bottom:24px}
+.table{background:#fff;border-radius:12px;border:1px solid #e3e5ea;font-size:14px}
+.tr{display:grid;grid-template-columns:2.2fr 1.4fr repeat(6,1fr) 1fr;padding:14px 20px;border-bottom:1px solid #eee;align-items:center}
+.tr.h{color:#5f6368;font-size:12px;text-transform:uppercase}
+.ok{color:#188038;font-weight:700}.wip{color:#e7711b;font-weight:700}.no{color:#bbb}
+.pill{display:inline-block;padding:4px 10px;border-radius:12px;font-size:12px;background:#e8f0fe;color:#1a3cff}
+.cta{background:#1a3cff;color:#fff;border-radius:8px;padding:11px 18px;font-size:14px;font-weight:700;display:inline-block}
+.wiz{display:flex;gap:32px}
+.steps{width:280px;background:#fff;border:1px solid #e3e5ea;border-radius:12px;padding:20px;font-size:14px;display:flex;flex-direction:column;gap:14px}
+.st{display:flex;gap:10px;align-items:center}
+.st i{width:24px;height:24px;border-radius:50%;background:#e3e5ea;font-style:normal;font-size:12px;display:flex;align-items:center;justify-content:center;flex:none}
+.st.d i{background:#188038;color:#fff}.st.c i{background:#1a3cff;color:#fff}.st.c{font-weight:700}
+.st.skip{color:#9aa0a6;text-decoration:line-through}
+.form{flex:1;background:#fff;border:1px solid #e3e5ea;border-radius:12px;padding:32px;max-width:640px}
+.form h2{font-size:22px;font-weight:400;margin-bottom:8px}
+.field{margin-top:18px;font-size:13px;color:#5f6368}
+.inp{border:1px solid #dadce0;border-radius:6px;padding:13px;font-size:15px;color:#202124;margin-top:6px}
+.hrs{display:grid;grid-template-columns:120px 1fr 1fr;gap:8px;margin-top:8px;font-size:14px;align-items:center}
+.hrs .inp{margin:0;padding:9px}
+.nav{display:flex;justify-content:space-between;margin-top:28px}
+.prev{width:380px;background:#fff;border:1px solid #e3e5ea;border-radius:12px;padding:16px}
+.prev h5{font-size:12px;color:#5f6368;text-transform:uppercase;margin-bottom:10px}
+.netpick{display:flex;gap:10px;margin-top:10px}
+.netpick div{flex:1;border:2px solid #dadce0;border-radius:10px;padding:14px;text-align:center;font-size:13px;font-weight:700}
+.netpick .on{border-color:#1a3cff;background:#e8f0fe}
+/* Site */
+.site{background:#0b0b0f;color:#fff;min-height:860px}
+.browser{background:#dee1e6;padding:8px 12px;display:flex;gap:10px;align-items:center;font-size:13px;color:#333}
+.browser .addr{flex:1;background:#fff;border-radius:16px;padding:6px 14px}
+.sitehero{height:560px;display:flex;flex-direction:column;justify-content:center;padding:0 120px;background:radial-gradient(circle at 70% 40%,#5b2a86,#0b0b0f 60%)}
+.sitehero h1{font-size:84px;letter-spacing:-2px}
+.sitehero p{font-size:20px;color:#cfc6dd;margin:16px 0 28px}
+.y{background:#f5b301;color:#000;padding:14px 22px;border-radius:30px;font-weight:700;display:inline-block}
+.sitenav{display:flex;justify-content:space-between;padding:22px 120px;font-size:14px}
+.ribbon{position:absolute;right:16px;bottom:16px;background:#f5b301;color:#000;font-size:12px;font-weight:700;padding:8px 12px;border-radius:6px}
+</style></head><body>
+
+<!-- 1. ACCUEIL -->
+<div class="screen home" data-name="01 · Accueil du moteur">
+  <div class="demo"><span><b>●</b> Environnement de démonstration NEAM — aperçus non publiés</span><span>Mode présentation prospect</span></div>
+  <div class="top"><span>Projets</span><span>Back-office</span><div class="avatar">N</div></div>
+  <div class="homec">
+    <div class="logo" style="font-size:92px"><span>N</span><span>e</span><span>a</span><span>m</span></div>
+    <div class="search" style="width:584px"><div class="ico"></div><span style="color:#9aa0a6">Rechercher une entreprise…</span></div>
+    <div style="display:flex;gap:12px"><div class="btn">Recherche Neam</div><div class="btn">Projet au hasard</div></div>
+    <div class="chips"><div class="chip">Jackboy Bar-Restaurant 241</div><div class="chip">Boulangerie Akanda</div><div class="chip">Garage Owendo Auto</div><div class="chip">Salon Belle Ève</div></div>
+  </div>
+  <div class="foot"><span>Libreville, Gabon</span><span>Confidentialité · Conditions · Aperçus créés par NEAM</span></div>
+</div>
+
+<!-- 2. RÉSULTATS -->
+<div class="screen" data-name="02 · Résultats de recherche + fiche entreprise">
+  <div class="demo"><span><b>●</b> Environnement de démonstration NEAM — aperçus non publiés</span><span>Mode présentation prospect</span></div>
+  <div class="rhead">
+    <div class="logo" style="font-size:30px;width:118px"><span>N</span><span>e</span><span>a</span><span>m</span></div>
+    <div class="search" style="width:690px;box-shadow:0 1px 6px rgba(32,33,36,.28)"><span style="flex:1">Jackboy</span><div class="ico"></div></div>
+    <div style="flex:1"></div><div class="avatar" style="margin-right:4px">N</div>
+  </div>
+  <div class="tabs"><span class="on">Tous</span><span>Maps</span><span>Images</span><span>Actualités</span><span>Vidéos</span><span>Plus</span></div>
+  <div class="cols">
+    <div class="main">
+      <div style="font-size:13px;color:#70757a;margin-bottom:-14px">Environ 1 240 résultats (0,31 secondes)</div>
+      <div class="res">
+        <div class="src"><div class="fav" style="background:#111;color:#f5b301">J</div><div><div>Jackboy 241</div><div class="url">https://www.jackboy241.com</div></div></div>
+        <h3>JACKBOY — Bar-Restaurant à Louis, Libreville | Feel the night</h3>
+        <p>Bar-restaurant et lounge à Louis (Libreville). Menu, cocktails, soirées DJ, commande à emporter via WhatsApp. Ouvert à partir de 15 h.</p>
+        <div class="sitelinks">
+          <div><b>Menu &amp; prix</b>Burgers, paninis, brochettes, cocktails…</div>
+          <div><b>Événements</b>Soirées DJ Hamed et prochaines dates</div>
+          <div><b>Ambiance</b>Galerie photos des soirées</div>
+          <div><b>Accès</b>À 100 m de l'ambassade de Côte d'Ivoire</div>
+        </div>
+      </div>
+      <div class="res">
+        <div class="src"><div class="fav" style="background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af)">IG</div><div><div>Instagram</div><div class="url">https://www.instagram.com › jackboy241</div></div></div>
+        <h3>Jackboy 241 (@jackboy241) • Photos et vidéos Instagram</h3>
+        <p>2 480 followers · 146 publications — Bar-Restaurant · Louis, Libreville 🌵 Feel the night.</p>
+      </div>
+      <div class="res">
+        <div class="src"><div class="fav" style="background:#1877f2">f</div><div><div>Facebook</div><div class="url">https://www.facebook.com › jackboy241</div></div></div>
+        <h3>Jackboy Bar-Restaurant 241 | Libreville</h3>
+        <p>Jackboy Bar-Restaurant 241, Libreville. 3 912 J'aime · 410 en parlent · 1 820 personnes sont passées ici.</p>
+      </div>
+      <div>
+        <div style="font-size:20px;margin-bottom:12px">Profils sur les réseaux</div>
+        <div class="socials">
+          <div class="sc"><div class="fav" style="background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af)">IG</div><div class="n">Instagram</div>@jackboy241</div>
+          <div class="sc"><div class="fav" style="background:#000">TT</div><div class="n">TikTok</div>@jackboy241</div>
+          <div class="sc"><div class="fav" style="background:#1877f2">f</div><div class="n">Facebook</div>Jackboy 241</div>
+          <div class="sc"><div class="fav" style="background:#0a66c2">in</div><div class="n">LinkedIn</div>Jackboy 241</div>
+        </div>
+      </div>
+      <div class="res">
+        <div class="src"><div class="fav" style="background:#000">TT</div><div><div>TikTok</div><div class="url">https://www.tiktok.com › @jackboy241</div></div></div>
+        <h3>Jackboy 241 (@jackboy241) | TikTok</h3>
+        <p>12,4 k J'aime · 1 106 abonnés. Les nuits de Louis en vidéo 🎶 Regarde la dernière vidéo de Jackboy 241.</p>
+      </div>
+    </div>
+    <div class="kp">
+      <div class="ph"><div></div><div></div><div></div></div>
+      <div class="in">
+        <h2>Jackboy Bar-Restaurant 241</h2>
+        <div style="margin:6px 0;color:#70757a"><b style="color:#202124">4,6</b> <span class="stars">★★★★★</span> 128 avis · Bar-restaurant · €€</div>
+      </div>
+      <div class="acts"><div><i></i>Site Web</div><div><i></i>Itinéraire</div><div><i></i>Enregistrer</div><div><i></i>Appeler</div></div>
+      <div class="in">
+        <div class="row" style="color:#4d5156">Bar-restaurant et lounge à Louis : cuisine, cocktails, soirées DJ et commande WhatsApp.</div>
+        <div class="row"><b>Adresse : </b>BP 45, Louis, Libreville, Gabon</div>
+        <div class="row"><b>Horaires : </b><span class="open">Ouvert</span> · Ferme à 2 h ▾</div>
+        <div class="row"><b>Téléphone : </b>+241 77 93 27 44</div>
+        <div class="row"><b>Commander : </b><span style="color:#1a0dab">jackboy241.com</span></div>
+        <div class="row"><b>Profils : </b>Instagram · TikTok · Facebook · LinkedIn</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. SITE -->
+<div class="screen site" data-name="03 · Site client (aperçu privé)">
+  <div class="browser"><span>◀ ▶ ⟳</span><div class="addr">🔒 jackboy241.com  <span style="color:#999">— aperçu NEAM</span></div></div>
+  <div class="sitenav"><b style="color:#f5b301;font-size:20px">JACKBOY 241</b><span>Menu · Ambiance · Événements · Accès</span></div>
+  <div class="sitehero"><div style="color:#f5b301;font-size:14px;letter-spacing:3px">BAR · RESTAURANT · LOUIS</div><h1>Feel the night.</h1><p>Cuisine, cocktails et soirées DJ au cœur de Libreville.</p><div><span class="y">Voir le menu</span></div></div>
+  <div class="ribbon">← Retour aux résultats Neam</div>
+</div>
+
+<!-- 4. RÉSEAUX -->
+<div class="screen" data-name="04 · Aperçus réseaux sociaux" style="background:#f1f3f4">
+  <div class="demo"><span><b>●</b> Environnement de démonstration NEAM — aperçus non publiés</span><span>Mode présentation prospect</span></div>
+  <div class="grid4">
+    <div><div class="phone">
+      <div class="bar"><span>jackboy241 ▾</span><span>☰</span></div>
+      <div class="prof"><div class="pp"></div><div class="stats"><div><b>146</b>publications</div><div><b>2 480</b>followers</div><div><b>312</b>suivi(e)s</div></div></div>
+      <div class="bio"><b>Jackboy 241</b><br>Bar-restaurant<br>🌵 Feel the night · Louis, Libreville<br>🕒 Dès 15 h · 🎧 DJ Hamed<br><span style="color:#00376b">jackboy241.com</span></div>
+      <div class="pbtn"><div>Suivre</div><div>Message</div><div>Contacter</div></div>
+      <div class="g3"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div><div class="label">Instagram</div></div>
+
+    <div><div class="phone tt">
+      <div class="bar"><span>Jackboy 241</span><span>⋯</span></div>
+      <div style="text-align:center;padding:16px"><div class="pp" style="margin:0 auto;box-shadow:none"></div><div style="font-weight:700;margin-top:8px">@jackboy241</div>
+      <div class="stats" style="justify-content:center;margin:12px 0"><div><b>312</b>Suivis</div><div><b>1 106</b>Followers</div><div><b>12,4 k</b>J'aime</div></div>
+      <div style="background:#fe2c55;border-radius:4px;padding:9px;font-weight:700;width:160px;margin:0 auto">Suivre</div>
+      <div style="margin-top:10px;color:#ccc">Les nuits de Louis 🎶 jackboy241.com</div></div>
+      <div class="g3"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div><div class="label">TikTok</div></div>
+
+    <div><div class="phone fb">
+      <div class="bar"><span style="color:#1877f2">‹ Jackboy 241</span><span>🔍</span></div>
+      <div class="cover"></div><div class="pp"></div>
+      <div style="padding:8px 14px"><div style="font-size:18px;font-weight:700">Jackboy Bar-Restaurant 241</div><div style="color:#65676b">3 912 J'aime · 4 100 followers</div></div>
+      <div class="pbtn"><div>Suivre</div><div>Message</div><div>Commander</div></div>
+      <div style="padding:0 14px 10px;color:#65676b">Bar-restaurant · Louis, Libreville<br>+241 77 93 27 44 · Ouvert dès 15 h</div>
+      <div class="post"><b>Jackboy 241</b> · 2 j<br>Ce samedi, DJ Hamed aux platines 🔥 Réservez votre table !<div class="img"></div></div>
+    </div><div class="label">Facebook</div></div>
+
+    <div><div class="phone li">
+      <div class="card"><div class="bar" style="background:#fff"><span style="color:#0a66c2">in</span><span>🔍 Rechercher</span></div><div class="cover"></div><div class="pp"></div>
+      <div style="padding:10px 14px"><div style="font-size:18px;font-weight:700">Jackboy 241</div><div>Bar-restaurant et lounge à Libreville</div><div style="color:#666;margin-top:4px">Restauration · Libreville · 214 abonnés</div></div>
+      <div class="pbtn"><div>+ Suivre</div><div>Visiter le site</div></div></div>
+      <div class="card" style="padding:14px;line-height:1.5"><b>À propos</b><br>Jackboy est un bar-restaurant situé à Louis. Nous recrutons serveurs et barmans pour la saison.</div>
+      <div class="card post" style="border:0"><b>Jackboy 241</b> · 1 sem.<br>Nous recrutons ! Rejoignez l'équipe Jackboy 🌵<div class="img" style="background:linear-gradient(135deg,#0a66c2,#5b2a86)"></div></div>
+    </div><div class="label">LinkedIn</div></div>
+  </div>
+</div>
+
+<!-- 5. BACK-OFFICE PROJETS -->
+<div class="screen admin" data-name="05 · Back-office — Projets">
+  <div class="side"><div class="logo" style="font-size:30px;margin:0 0 20px 12px"><span>N</span><span>e</span><span>a</span><span>m</span></div>
+    <div class="it on">Projets</div><div class="it">Moteur de recherche ↗</div>
+    <h4>Créer</h4><div class="it">Fiche d'établissement</div><div class="it">Site internet</div><div class="it">Réseaux sociaux</div>
+    <h4>Paramètres</h4><div class="it">Lien de partage prospect</div></div>
+  <div class="content">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start"><div><h1>Projets</h1><div class="sub">Chaque projet devient trouvable dans le moteur Neam.</div></div><span class="cta">+ Nouveau projet</span></div>
+    <div class="table">
+      <div class="tr h"><span>Entreprise</span><span>Statut</span><span>Fiche</span><span>Site</span><span>Instagram</span><span>TikTok</span><span>Facebook</span><span>LinkedIn</span><span></span></div>
+      <div class="tr"><b>Jackboy Bar-Restaurant 241</b><span class="pill">Prospect chaud</span><span class="ok">✓</span><span class="ok">✓</span><span class="ok">✓</span><span class="ok">✓</span><span class="ok">✓</span><span class="wip">…</span><span style="color:#1a3cff">Ouvrir</span></div>
+      <div class="tr"><b>Boulangerie Akanda</b><span class="pill">Démo envoyée</span><span class="ok">✓</span><span class="wip">…</span><span class="ok">✓</span><span class="no">—</span><span class="ok">✓</span><span class="no">—</span><span style="color:#1a3cff">Ouvrir</span></div>
+      <div class="tr"><b>Garage Owendo Auto</b><span class="pill">Brouillon</span><span class="wip">…</span><span class="no">—</span><span class="no">—</span><span class="no">—</span><span class="no">—</span><span class="no">—</span><span style="color:#1a3cff">Ouvrir</span></div>
+      <div class="tr" style="border:0"><b>Salon Belle Ève</b><span class="pill">Brouillon</span><span class="ok">✓</span><span class="no">—</span><span class="wip">…</span><span class="wip">…</span><span class="no">—</span><span class="no">—</span><span style="color:#1a3cff">Ouvrir</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. ASSISTANT FICHE -->
+<div class="screen admin" data-name="06 · Back-office — Créer la fiche d'établissement">
+  <div class="side"><div class="logo" style="font-size:30px;margin:0 0 20px 12px"><span>N</span><span>e</span><span>a</span><span>m</span></div>
+    <div class="it">Projets</div><div class="it">Moteur de recherche ↗</div>
+    <h4>Créer</h4><div class="it on">Fiche d'établissement</div><div class="it">Site internet</div><div class="it">Réseaux sociaux</div></div>
+  <div class="content">
+    <h1>Fiche d'établissement — Jackboy 241</h1><div class="sub">Mêmes étapes que la création réelle. Les vérifications (code postal, appel, vidéo) sont ignorées.</div>
+    <div class="wiz">
+      <div class="steps">
+        <div class="st d"><i>✓</i>Nom de l'établissement</div>
+        <div class="st d"><i>✓</i>Catégorie principale</div>
+        <div class="st d"><i>✓</i>Lieu physique / adresse</div>
+        <div class="st d"><i>✓</i>Zone desservie</div>
+        <div class="st d"><i>✓</i>Téléphone et site web</div>
+        <div class="st skip"><i>–</i>Validation de l'établissement</div>
+        <div class="st c"><i>7</i>Horaires d'ouverture</div>
+        <div class="st"><i>8</i>Description</div>
+        <div class="st"><i>9</i>Photos (logo, couverture)</div>
+        <div class="st"><i>10</i>Services &amp; attributs</div>
+        <div class="st"><i>11</i>Avis de démonstration</div>
+      </div>
+      <div class="form">
+        <h2>Ajoutez vos horaires d'ouverture</h2><div class="sub" style="margin:0">Indiquez quand les clients peuvent venir chez vous.</div>
+        <div class="hrs"><span>Lundi</span><div class="inp">15:00</div><div class="inp">02:00</div><span>Mardi</span><div class="inp">15:00</div><div class="inp">02:00</div><span>Mercredi</span><div class="inp">15:00</div><div class="inp">02:00</div><span>Jeudi</span><div class="inp">15:00</div><div class="inp">02:00</div><span>Vendredi</span><div class="inp">15:00</div><div class="inp">04:00</div><span>Samedi</span><div class="inp">15:00</div><div class="inp">04:00</div><span>Dimanche</span><div class="inp" style="color:#9aa0a6">Fermé</div><div></div></div>
+        <div class="nav"><span class="btn">Retour</span><span class="cta">Suivant</span></div>
+      </div>
+      <div class="prev"><h5>Aperçu en direct</h5>
+        <div class="kp" style="width:100%"><div class="ph" style="height:120px;grid-template-rows:59px 59px"><div></div><div></div><div></div></div>
+        <div class="in"><h2 style="font-size:20px">Jackboy Bar-Restaurant 241</h2><div style="color:#70757a;margin:4px 0">Bar-restaurant</div>
+        <div class="row"><b>Adresse : </b>BP 45, Louis, Libreville</div><div class="row"><b>Horaires : </b><span class="open">Ouvert</span> · Ferme à 2 h</div><div class="row"><b>Téléphone : </b>+241 77 93 27 44</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. ASSISTANT RÉSEAU -->
+<div class="screen admin" data-name="07 · Back-office — Créer un réseau social">
+  <div class="side"><div class="logo" style="font-size:30px;margin:0 0 20px 12px"><span>N</span><span>e</span><span>a</span><span>m</span></div>
+    <div class="it">Projets</div><div class="it">Moteur de recherche ↗</div>
+    <h4>Créer</h4><div class="it">Fiche d'établissement</div><div class="it">Site internet</div><div class="it on">Réseaux sociaux</div></div>
+  <div class="content">
+    <h1>Réseaux sociaux — Jackboy 241</h1><div class="sub">Parcours identique à chaque plateforme, sans e-mail ni SMS de confirmation.</div>
+    <div class="netpick"><div class="on">Instagram</div><div>TikTok</div><div>Facebook</div><div>LinkedIn</div></div>
+    <div class="wiz" style="margin-top:24px">
+      <div class="steps">
+        <div class="st d"><i>✓</i>Type de compte (professionnel)</div>
+        <div class="st skip"><i>–</i>E-mail / téléphone + code</div>
+        <div class="st d"><i>✓</i>Nom d'utilisateur</div>
+        <div class="st c"><i>4</i>Photo de profil</div>
+        <div class="st"><i>5</i>Nom, catégorie, bio, lien</div>
+        <div class="st"><i>6</i>Coordonnées &amp; boutons</div>
+        <div class="st"><i>7</i>Publications (photos / vidéos)</div>
+        <div class="st"><i>8</i>Statistiques affichées</div>
+      </div>
+      <div class="form" style="text-align:center">
+        <h2>Ajouter une photo de profil</h2><div class="sub">Ajoutez une photo pour que vos amis vous reconnaissent.</div>
+        <div class="pp" style="width:150px;height:150px;margin:10px auto 20px;box-shadow:none"></div>
+        <div class="cta" style="display:block">Importer le logo</div>
+        <div style="margin-top:14px;color:#1a3cff;font-size:14px">Ignorer</div>
+      </div>
+      <div class="prev"><h5>Aperçu en direct</h5>
+        <div class="prof" style="padding:0"><div class="pp" style="width:56px;height:56px"></div><div class="stats" style="font-size:11px"><div><b>0</b>publications</div><div><b>2 480</b>followers</div><div><b>312</b>suivis</div></div></div>
+        <div style="margin-top:10px;font-size:13px"><b>jackboy241</b></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>
