@@ -90,6 +90,18 @@ les fichiers `/_next/static` (versionnés) plus longtemps, les réponses `/api` 
 videz-le (Terminal cPanel ou tâche Cron) : `curl -s -X PURGE 'https://navigoal.net/.*'`, ou cPanel › Performances ›
 Fastest Cache › « Purger le cache ».
 
+Côté navigateurs et caches intermédiaires (opérateurs, proxys), Next.js envoie `Cache-Control: s-maxage=31536000` sur
+les pages : une copie pourrait y rester un an. Ajoutez donc dans `public_html/.htaccess`, après le bloc « HTTPS et
+domaine sans www », pour que chaque visite revalide la page (réponse 304 rapide si rien n'a changé) :
+
+```apache
+# BEGIN Navigoal : pages HTML revalidées à chaque visite (Next.js envoie s-maxage d'un an, gardé par les caches intermédiaires)
+<IfModule mod_headers.c>
+Header always set Cache-Control "no-cache" "expr=%{CONTENT_TYPE} =~ m#^text/(html|x-component)#"
+</IfModule>
+# END Navigoal cache
+```
+
 ## 3. Envoi des fichiers
 
 1. cPanel › **Gestionnaire de fichiers** : placez-vous dans votre dossier personnel `/home/IDENTIFIANT`
