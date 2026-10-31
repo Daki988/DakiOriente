@@ -93,7 +93,10 @@ function Cartes({ cartes, whatsapp, resume, onSuggestion, fermer }: { cartes: Ca
   );
 }
 
-const Avatar = () => <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 text-white"><Sparkles size={14} /></span>;
+// Mascotte de Navi : fennec futé en 3D (public/brand/navi-fennec.webp).
+// eslint-disable-next-line @next/next/no-img-element -- petite image statique, déjà optimisée (WebP 8 Ko)
+const Fennec = ({ className }: { className: string }) => <img src="/brand/navi-fennec.webp" alt="" width={200} height={200} className={`shrink-0 bg-white object-cover ${className}`} />;
+const Avatar = () => <Fennec className="mt-0.5 h-8 w-8 rounded-full ring-1 ring-brand-100" />;
 
 export function Navi() {
   const path = usePathname() ?? "/";
@@ -205,15 +208,16 @@ export function Navi() {
       {!ouvert && (
         <div className="fixed bottom-24 right-4 z-40 flex items-center gap-3 lg:bottom-6 lg:right-6 print:hidden">
           {bulle && question && <button type="button" onClick={() => { setOuvert(true); void envoyer(question); }} className="hidden rounded-full border border-slate-200 bg-white px-4 py-2.5 text-[13.5px] font-bold text-ink shadow-[0_10px_30px_-12px_rgba(11,21,51,.35)] sm:block">{question}</button>}
-          <button type="button" onClick={() => setOuvert(true)} aria-label="Ouvrir Navi, l'assistant Navigoal" className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-[0_14px_34px_-10px_rgba(26,71,245,.6)] transition hover:scale-105">
-            <Sparkles size={24} />
+          <button type="button" onClick={() => setOuvert(true)} aria-label="Ouvrir Navi, l'assistant Navigoal" className="relative h-16 w-16 rounded-full bg-white p-0.5 ring-[3px] ring-brand-600 shadow-[0_14px_34px_-10px_rgba(26,71,245,.6)] transition hover:-rotate-6 hover:scale-105">
+            <Fennec className="h-full w-full rounded-full" />
+            <span aria-hidden className="absolute -right-0.5 -top-0.5 h-4 w-4 rounded-full border-2 border-white bg-[#22c55e]" />
           </button>
         </div>
       )}
       {ouvert && (
         <section role="dialog" aria-label="Navi, assistant Navigoal" className="fixed inset-0 z-50 flex flex-col bg-[#f6f8fe] sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(700px,calc(100vh-48px))] sm:w-[410px] sm:overflow-hidden sm:rounded-3xl sm:border sm:border-slate-200 sm:shadow-[0_30px_80px_-20px_rgba(11,21,51,.45)] print:hidden">
           <header className="flex items-center gap-3 border-b border-slate-200/80 bg-white px-4 py-3">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white"><Sparkles size={18} /></span>
+            <Fennec className="h-10 w-10 rounded-full ring-2 ring-brand-100" />
             <div className="min-w-0 flex-1">
               <div className="text-[15.5px] font-extrabold text-ink">Navi</div>
               <div className="flex items-center gap-1.5 truncate text-[12px] text-ink-mute"><span className="h-2 w-2 shrink-0 rounded-full bg-[#22c55e]" /><span className="truncate">Répond avec les données Navigoal</span></div>
