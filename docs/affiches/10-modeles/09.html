@@ -1,0 +1,43 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Magazine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Archivo:wght@400;500;600;700;800;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>
+:root{--paper:#F1ECE3;--ink:#15171B;--mute:#6E6A63;--line:#CFC7BA;--blue:#1C3C8E;--night:#0D1830}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#777}
+#poster{width:1080px;height:1620px;position:relative;overflow:hidden;font-family:Archivo,sans-serif;color:var(--ink);background:var(--paper)}
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;mix-blend-mode:multiply;z-index:50;
+ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.serif{font-family:'Cormorant Garamond',serif}
+.bodoni{font-family:'Bodoni Moda',serif}
+.mono{font-family:'IBM Plex Mono',monospace}
+.caps{text-transform:uppercase;letter-spacing:.3em;font-size:13px;font-weight:500}
+.lining{font-variant-numeric:lining-nums}
+
+#poster{background:#111 url(salon-portrait.jpg) center/cover;color:#F2EDE3}
+.sh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,10,.6) 0%,rgba(8,8,10,.1) 28%,rgba(8,8,10,.15) 55%,rgba(8,8,10,.9) 100%),linear-gradient(90deg,rgba(8,8,10,.75) 0%,rgba(8,8,10,0) 45%)}
+.mh{position:absolute;top:48px;left:0;right:0;text-align:center;font-family:'Bodoni Moda';font-weight:900;font-size:142px;letter-spacing:-.03em;line-height:1}
+.iss{position:absolute;top:212px;left:60px;right:60px;display:flex;justify-content:space-between;font-size:13px;letter-spacing:.3em;text-transform:uppercase;border-top:1px solid rgba(242,237,227,.6);padding-top:12px}
+.cl{position:absolute;left:60px;top:330px;width:330px;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.cl div{margin-bottom:34px}
+.cl b{display:block;font-family:'Bodoni Moda';font-size:34px;font-weight:700;line-height:1.05}
+.cl span{font-size:15px;line-height:1.5;opacity:.9}
+.hd{position:absolute;left:60px;right:60px;bottom:250px}
+.hd h1{font-family:'Bodoni Moda';font-style:italic;font-weight:400;font-size:132px;line-height:.9}
+.hd h1 em{color:#A9BDF0}
+.px{position:absolute;right:60px;top:330px;width:200px;height:200px;border-radius:50%;background:var(--blue);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.px b{font-family:'Bodoni Moda';font-size:52px;line-height:1}
+.px span{font-size:12px;letter-spacing:.24em;margin-top:6px}
+.ft{position:absolute;left:60px;right:60px;bottom:56px;display:flex;justify-content:space-between;align-items:flex-end;font-size:15px;line-height:1.6;border-top:1px solid rgba(242,237,227,.5);padding-top:16px}
+.ft b{font-size:28px;letter-spacing:.03em}
+.ft img{width:84px;background:#F2EDE3;padding:6px}
+</style></head>
+<body><div id="poster" class="grain">
+<div class="sh"></div>
+<div class="mh">GENTLEMAN</div>
+<div class="iss"><span>N° 11 — Novembre 2026</span><span>Barber &amp; Shop</span><span>Édition Bleue</span></div>
+<div class="cl"><div><b>La coupe, version soin</b><span>Coupe, noircissage &amp; gommage — 5 000 FCFA</span></div>
+<div><b>Mains &amp; pieds nets</b><span>Manucure &amp; pédicure — 10 000 FCFA</span></div>
+<div><b>Le combat du mois</b><span>Ensemble, luttons contre le cancer de la prostate.</span></div></div>
+<div class="px"><b class="lining">15 000</b><span>FCFA<br>le package</span></div>
+<div class="hd"><div class="caps">Du 2 novembre au 1<sup>er</sup> décembre</div><h1>Novembre <em>Bleu</em></h1></div>
+<div class="ft"><div><b>062 28 28 83</b><br>Louis, entre le restaurant La&nbsp;Roma et le siège du PDG</div><div style="display:flex;gap:16px;align-items:flex-end">TikTok<br>@gentlemanbarbershop4<img src="qr-tiktok.svg"></div></div>
+</div></body></html>

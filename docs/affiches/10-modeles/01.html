@@ -1,0 +1,43 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Nuit</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Archivo:wght@400;500;600;700;800;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>
+:root{--paper:#F1ECE3;--ink:#15171B;--mute:#6E6A63;--line:#CFC7BA;--blue:#1C3C8E;--night:#0D1830}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#777}
+#poster{width:1080px;height:1620px;position:relative;overflow:hidden;font-family:Archivo,sans-serif;color:var(--ink);background:var(--paper)}
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;mix-blend-mode:multiply;z-index:50;
+ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.serif{font-family:'Cormorant Garamond',serif}
+.bodoni{font-family:'Bodoni Moda',serif}
+.mono{font-family:'IBM Plex Mono',monospace}
+.caps{text-transform:uppercase;letter-spacing:.3em;font-size:13px;font-weight:500}
+.lining{font-variant-numeric:lining-nums}
+
+#poster{background:var(--night);color:#EDE6D8}
+.top{position:absolute;top:72px;left:80px;right:80px;display:flex;justify-content:space-between;align-items:center}
+.top img{width:84px}
+.top .caps{opacity:.7;text-align:right;line-height:1.9}
+.big{position:absolute;left:52px;top:190px;font-family:'Cormorant Garamond';font-weight:300;font-size:760px;line-height:.8;letter-spacing:-.06em;color:#EDE6D8}
+.k{position:absolute;right:80px;top:300px;text-align:right}
+.k .z{font-family:'Cormorant Garamond';font-weight:300;font-size:150px;line-height:.85}
+.k .c{font-weight:700;letter-spacing:.3em;font-size:22px;margin-top:14px}
+.title{position:absolute;left:80px;top:950px;font-family:'Cormorant Garamond';font-style:italic;font-size:96px;line-height:1}
+.title span{color:#7E9BE0}
+.cause{position:absolute;left:80px;top:1075px;font-family:'Cormorant Garamond';font-style:italic;font-size:26px;opacity:.75}
+.list{position:absolute;left:80px;right:80px;top:1170px;border-top:1px solid rgba(237,230,216,.25)}
+.list div{display:flex;justify-content:space-between;padding:20px 0;border-bottom:1px solid rgba(237,230,216,.25);font-size:22px}
+.list b{font-weight:600}
+.foot{position:absolute;left:80px;right:80px;bottom:72px;display:flex;justify-content:space-between;align-items:flex-end;font-size:17px;line-height:1.6}
+.foot .tel{font-size:34px;font-weight:600;letter-spacing:.03em}
+.foot .r{text-align:right;opacity:.75;max-width:420px}
+.rb{position:absolute;right:86px;top:968px;width:46px}
+</style></head>
+<body><div id="poster" class="">
+<div class="top"><img src="logo-clair.png"><div class="caps">Gentleman Barber &amp; Shop<br>Du 2 nov. au 1<sup>er</sup> déc. 2026</div></div>
+<div class="big lining">15</div>
+<div class="k"><div class="z lining">000</div><div class="c">FCFA</div></div>
+<div class="title">Novembre <span>Bleu</span></div>
+<svg class="rb" viewBox="0 0 100 150" fill="none" stroke="#7E9BE0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"><path d="M50 70 C 22 42, 24 8, 50 8 C 76 8, 78 42, 50 70 L 16 142"/><path d="M50 70 L 84 142"/></svg>
+<div class="cause">Ensemble, luttons contre le cancer de la prostate.</div>
+<div class="list"><div><span>Coupe, noircissage &amp; gommage</span><b>5 000</b></div><div><span>Manucure &amp; pédicure</span><b>10 000</b></div></div>
+<div class="foot"><div><div class="tel">062 28 28 83</div>Appel &amp; WhatsApp · TikTok @gentlemanbarbershop4</div><div class="r">Louis, entre le restaurant La&nbsp;Roma et le siège du PDG</div></div>
+</div></body></html>

@@ -1,0 +1,45 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Calendrier</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Archivo:wght@400;500;600;700;800;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>
+:root{--paper:#F1ECE3;--ink:#15171B;--mute:#6E6A63;--line:#CFC7BA;--blue:#1C3C8E;--night:#0D1830}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#777}
+#poster{width:1080px;height:1620px;position:relative;overflow:hidden;font-family:Archivo,sans-serif;color:var(--ink);background:var(--paper)}
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;mix-blend-mode:multiply;z-index:50;
+ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.serif{font-family:'Cormorant Garamond',serif}
+.bodoni{font-family:'Bodoni Moda',serif}
+.mono{font-family:'IBM Plex Mono',monospace}
+.caps{text-transform:uppercase;letter-spacing:.3em;font-size:13px;font-weight:500}
+.lining{font-variant-numeric:lining-nums}
+
+#poster{padding:72px 80px}
+.hd{display:flex;justify-content:space-between;align-items:center}
+.hd img{width:76px}
+.hd .caps{text-align:right;line-height:1.9;color:var(--mute)}
+h1{font-family:'Cormorant Garamond';font-weight:300;font-size:128px;line-height:.9;margin-top:70px;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--blue)}
+.dw{display:grid;grid-template-columns:repeat(7,1fr);margin-top:56px;font-size:12px;letter-spacing:.24em;color:var(--mute);border-bottom:1px solid var(--ink);padding-bottom:12px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);}
+.cal div{height:92px;border-bottom:1px solid var(--line);font-family:'Cormorant Garamond';font-variant-numeric:lining-nums;font-size:42px;padding-top:12px}
+.cal .off{color:#B8B0A3}
+.cal .on{color:var(--ink)}
+.cal .dec{color:var(--blue);font-style:italic}
+.cal .dec small{font-size:16px;margin-left:4px;font-family:Archivo;font-style:normal;letter-spacing:.1em}
+.band{display:flex;justify-content:space-between;align-items:flex-end;margin-top:44px}
+.band .p{font-family:'Cormorant Garamond';font-size:120px;font-weight:300;line-height:.8}
+.band .p small{font-family:Archivo;font-size:18px;font-weight:600;letter-spacing:.24em;margin-left:10px}
+.band .l{text-align:right;font-size:18px;line-height:1.7}
+.ft{position:absolute;left:80px;right:80px;bottom:72px;display:flex;justify-content:space-between;font-size:16px;line-height:1.6;border-top:1px solid var(--ink);padding-top:16px;gap:40px}
+.ft b{font-size:28px;font-weight:600;letter-spacing:.03em}
+.ca{font-family:'Cormorant Garamond';font-style:italic;font-size:26px;margin-top:18px;color:var(--mute)}
+</style></head>
+<body><div id="poster" class="grain">
+<div class="hd"><img src="logo.png"><div class="caps">Gentleman Barber &amp; Shop<br>Novembre 2026</div></div>
+<h1>Tout le mois,<br>en <em>bleu.</em></h1>
+<div class="ca">Ensemble, luttons contre le cancer de la prostate.</div>
+<div class="dw"><span>LUN</span><span>MAR</span><span>MER</span><span>JEU</span><span>VEN</span><span>SAM</span><span>DIM</span></div>
+<div class="cal"><div class="e"></div><div class="e"></div><div class="e"></div><div class="e"></div><div class="e"></div><div class="e"></div><div class="off">1</div><div class="on">2</div><div class="on">3</div><div class="on">4</div><div class="on">5</div><div class="on">6</div><div class="on">7</div><div class="on">8</div><div class="on">9</div><div class="on">10</div><div class="on">11</div><div class="on">12</div><div class="on">13</div><div class="on">14</div><div class="on">15</div><div class="on">16</div><div class="on">17</div><div class="on">18</div><div class="on">19</div><div class="on">20</div><div class="on">21</div><div class="on">22</div><div class="on">23</div><div class="on">24</div><div class="on">25</div><div class="on">26</div><div class="on">27</div><div class="on">28</div><div class="on">29</div><div class="on">30</div><div class="on dec">1<small>déc.</small></div><div class="e"></div><div class="e"></div><div class="e"></div><div class="e"></div><div class="e"></div></div>
+<div class="band"><div><div class="caps" style="color:var(--mute)">Le package complet</div><div class="p lining">15 000<small>FCFA</small></div></div>
+<div class="l">Coupe, noircissage, gommage — 5 000<br>Manucure, pédicure — 10 000</div></div>
+<div class="ft"><div><b>062 28 28 83</b><br>Appel &amp; WhatsApp</div><div style="text-align:right">Louis, entre le restaurant La&nbsp;Roma et le siège du PDG<br>TikTok @gentlemanbarbershop4</div></div>
+</div></body></html>

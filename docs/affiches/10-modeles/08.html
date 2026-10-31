@@ -1,0 +1,37 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Archivo:wght@400;500;600;700;800;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>
+:root{--paper:#F1ECE3;--ink:#15171B;--mute:#6E6A63;--line:#CFC7BA;--blue:#1C3C8E;--night:#0D1830}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#777}
+#poster{width:1080px;height:1620px;position:relative;overflow:hidden;font-family:Archivo,sans-serif;color:var(--ink);background:var(--paper)}
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;mix-blend-mode:multiply;z-index:50;
+ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.serif{font-family:'Cormorant Garamond',serif}
+.bodoni{font-family:'Bodoni Moda',serif}
+.mono{font-family:'IBM Plex Mono',monospace}
+.caps{text-transform:uppercase;letter-spacing:.3em;font-size:13px;font-weight:500}
+.lining{font-variant-numeric:lining-nums}
+
+#poster{background:var(--blue);display:flex;align-items:center;justify-content:center}
+.card{width:840px;height:1340px;background:#F4EFE6;box-shadow:0 40px 80px rgba(0,0,0,.35);padding:96px 90px;text-align:center;position:relative;display:flex;flex-direction:column;align-items:center}
+.card img.l{width:110px;opacity:.9}
+.m{font-family:'Cormorant Garamond';font-style:italic;font-size:44px;margin-top:84px;line-height:1.25}
+.m2{font-family:'Cormorant Garamond';font-size:26px;color:var(--mute);margin-top:22px;line-height:1.5;max-width:560px}
+.h{font-family:'Cormorant Garamond';font-size:84px;letter-spacing:.14em;font-weight:400;margin-top:56px;line-height:1}
+.h em{display:block;font-style:italic;letter-spacing:.02em;color:var(--blue);font-size:64px;margin-top:6px}
+.dt{margin-top:48px}
+.p{font-family:'Cormorant Garamond';font-size:30px;margin-top:40px;line-height:1.6}
+.p b{font-weight:500;font-size:46px;display:block}
+.rs{margin-top:auto;font-size:15px;line-height:1.7;color:var(--ink)}
+.rs .t{font-family:'Cormorant Garamond';font-size:32px;font-weight:500;letter-spacing:.06em}
+.rsvp{font-size:12px;letter-spacing:.3em;color:var(--mute);margin-bottom:6px}
+</style></head>
+<body><div id="poster" class="grain">
+<div class="card"><img class="l" src="logo.png">
+<div class="m">Monsieur,<br>vous êtes attendu.</div>
+<div class="m2">Tout le mois, Gentleman s'engage aux côtés de ceux qui luttent contre le cancer de la prostate.</div>
+<div class="h">NOVEMBRE<em>Bleu</em></div>
+<div class="caps dt">Du 2 novembre au 1<sup>er</sup> décembre 2026</div>
+<div class="p">Coupe, noircissage &amp; gommage — 5 000<br>Manucure &amp; pédicure — 10 000<b class="lining">L'ensemble, 15 000 FCFA</b></div>
+<div class="rs"><div class="rsvp">R.S.V.P.</div><div class="t">062 28 28 83</div>Louis, entre le restaurant La&nbsp;Roma et le siège du PDG<br>TikTok @gentlemanbarbershop4</div></div>
+</div></body></html>
