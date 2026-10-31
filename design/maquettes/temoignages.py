@@ -5,6 +5,7 @@ avec une courte citation, le nom de la personne, la source et le lien vers l'ori
 1. Fiche métier (ordinateur) : encart « Ils racontent leur métier » sous le parcours, puis « D'autres professionnels racontent »
 2. Fiche métier (mobile) : carte de témoignage
 3. Page « Témoignages » : tous les témoignages, filtres par domaine
+4. Vidéo lue directement sur Navigoal : lecteur officiel de la plateforme (YouTube, Onisep TV), chargé au clic, mention de non-propriété et source
 
 Usage : python3 design/maquettes/temoignages.py <dossier icônes lucide>  → design/maquettes/out/temoignages.html
 """
@@ -136,8 +137,41 @@ def page():
 </div>"""
 
 
+T["laurence"] = dict(n="Dr Laurence", r="Médecin généraliste depuis 35 ans", l="Paris, France", c="#d42a50", t="Vidéo", src="YouTube · chaîne du Dr Walid Mekeddem", d="janv. 2023",
+                     resume="Après 35 ans de consultations, elle insiste sur l'écoute et les explications données au patient.", cit="la qualité d'échange avec le médecin c'est 50% du traitement")
+
+
+def lecteur(k, etat):
+    x = T[k]
+    if etat == "avant":
+        ecran = f"""<div style="position:relative;aspect-ratio:16/9;border-radius:14px;background:linear-gradient(135deg,{x["c"]},#0b1533);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:#fff">
+      <span style="width:64px;height:64px;border-radius:99px;background:#fff;display:flex;align-items:center;justify-content:center">{icon("play", 28, x["c"])}</span>
+      <b style="font-size:14px">Lire la vidéo ici</b><span style="font-size:11.5px;opacity:.8">Lecteur officiel {x["src"].split(" ·")[0]} · chargé seulement si vous cliquez</span></div>"""
+    else:
+        ecran = f"""<div style="position:relative;aspect-ratio:16/9;border-radius:14px;background:#000;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(180deg,#2a2a2a,#111)"></div>
+      <div style="position:absolute;left:14px;top:12px;color:#fff;font-size:12.5px;font-weight:700">Médecin depuis 35 ans elle me donne une leçon de métier !</div>
+      <div style="position:absolute;left:0;right:0;bottom:0;height:34px;background:rgba(0,0,0,.6);display:flex;align-items:center;gap:10px;padding:0 12px">{icon("pause", 16, "#fff")}<span style="flex:1;height:4px;border-radius:9px;background:#555"><span style="display:block;width:28%;height:4px;border-radius:9px;background:#ff0033"></span></span><span style="color:#fff;font-size:11px">5:24 / 19:25</span></div></div>"""
+    return f"""<div class="card" style="padding:18px;display:flex;flex-direction:column;gap:12px;width:620px">
+  <div style="display:flex;gap:12px;align-items:center">{avatar(k, 46)}<div style="flex:1"><b style="font-size:15px">{x["n"]}</b><p class="small mute">{x["r"]} · {x["l"]}</p></div>{type_chip("Vidéo")}</div>
+  {ecran}
+  <p style="font-size:11.5px;color:#5b6478;line-height:1.5;background:#f6f8fe;border-radius:10px;padding:8px 10px">{icon("info", 12, "#5b6478")} Vidéo diffusée avec le lecteur officiel de {x["src"].split(" ·")[0]}. Navigoal n'en est pas propriétaire : tous les droits appartiennent à son auteur. Source officielle : <b style="color:#1a47f5">{x["src"]}</b>.</p>
+  <div style="border-left:4px solid #ffc21f;background:#fffbea;border-radius:0 12px 12px 0;padding:10px 12px"><p style="font-size:14px;font-weight:700;font-style:italic">« {x["cit"]} »</p></div>
+  <p style="font-size:13px;line-height:1.6;color:#3b4566">{x["resume"]}</p>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid #eef1f8"><span class="small mute">Source : <b style="color:#3b4566">{x["src"]}</b> · {x["d"]}</span><span class="btn ghost" style="padding:7px 11px;font-size:12.5px">Voir sur YouTube{icon("external-link", 13, "#1a47f5")}</span></div>
+</div>"""
+
+
+def video():
+    return f"""<div class="frame" style="width:1440px;height:940px"><div class="titre-cadre">4 · Vidéo lue directement sur Navigoal (avant et après le clic)</div>
+  <div style="position:absolute;left:60px;top:40px;display:flex;gap:60px">{lecteur("laurence", "avant")}{lecteur("laurence", "apres")}</div>
+  <div {NOTE} style="left:60px;top:860px;max-width:520px">Avant le clic : aucune connexion à YouTube ou Onisep (pas de cookie, page plus rapide). Au clic, le lecteur officiel se charge et la vidéo démarre</div>
+  <div {NOTE} style="left:760px;top:860px;max-width:520px">Mention permanente sous la vidéo : non-propriété de Navigoal, droits à l'auteur, nom de la source officielle, et lien « Voir sur … » vers l'original</div>
+  <div {NOTE} style="left:1090px;top:60px;max-width:300px">Seulement les plateformes qui proposent un lecteur à intégrer (YouTube, Onisep TV). DW et ICI : lien vers l'original</div>
+</div>"""
+
+
 html = f"""<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Navigoal · Ils racontent leur métier</title><style>{CSS}</style></head><body>
-{fiche()}{mobile()}{page()}
+{fiche()}{mobile()}{page()}{video()}
 </body></html>"""
 open(os.path.join(P.OUT, "temoignages.html"), "w").write(html)
 print("→", os.path.join(P.OUT, "temoignages.html"), f"({len(html) // 1024} Ko)")
