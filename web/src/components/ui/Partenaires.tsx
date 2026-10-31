@@ -54,7 +54,7 @@ export function PartenaireMarque({ id, cadre = true, badge = true, coin = "gauch
   if (!actif) return null;
   return (
     <span ref={ref}>
-      {cadre && <span aria-hidden className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] ring-2 ring-sun-400" />}
+      {cadre && <span aria-hidden className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] ring-2 ring-inset ring-sun-400" />}
       {badge && <span className={`absolute ${coin === "droite" ? "right-3" : "left-3"} top-3 z-10 inline-flex items-center gap-1 rounded-full bg-sun-100 px-2 py-0.5 text-[11px] font-bold text-[#a55a00] shadow-sm`}><Star size={11} className="fill-current" />Partenaire Navigoal</span>}
     </span>
   );
