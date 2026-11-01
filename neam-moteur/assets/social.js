@@ -4,6 +4,7 @@
   const NET = q.get('net') || 'instagram';
   const P = (window.PROSPECTS || []).find((x) => x.slug === q.get('slug')) || window.PROSPECTS[0];
   const SD = (window.SOCIAL || {})[P.slug] || { posts: [], highlights: [], jobs: [] };
+  const brandSvg = window.brandSvg || (() => '');
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const NETCFG = (P.nets || {})[NET] || {};
@@ -56,7 +57,7 @@
   const HS = [...P.slug].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
   const PROJ = (a, b) => a + (HS % (b - a));
   const NAMES = { instagram: 'Instagram', facebook: 'Facebook', tiktok: 'TikTok', linkedin: 'LinkedIn' };
-  const bar = `<div class="nbar"><span class="ttl"><b>●</b> <i class="lg">NEAM <em>Atelier</em></i> <span class="long">· ${esc(P.n)} — profil préparé par NEAM, non publié</span></span><div class="sw">${Object.entries(NAMES).map(([k, v]) => `<a href="social.html?slug=${P.slug}&net=${k}" class="${k === NET ? 'on' : ''}">${v}</a>`).join('')}<a href="score.html?slug=${P.slug}" class="ds">Digital score</a><a href="${site}">Site web ↗</a><a href="recherche.html?q=${encodeURIComponent(P.n)}">← Résultats</a></div></div>`;
+  const bar = `<div class="nbar"><span class="ttl"><b>●</b> <i class="lg">NEAM <em>Atelier</em></i> <span class="long">· ${esc(P.n)} — profil préparé par NEAM, non publié</span></span><div class="sw">${Object.entries(NAMES).map(([k, v]) => `<a href="social.html?slug=${P.slug}&net=${k}" class="${k === NET ? 'on' : ''}">${brandSvg(k, 13)} ${v}</a>`).join('')}<a href="score.html?slug=${P.slug}" class="ds">Digital score</a><a href="${site}">Site web ↗</a><a href="recherche.html?q=${encodeURIComponent(P.n)}">← Résultats</a></div></div>`;
   const app = $('#app');
   document.title = `${name} (@${handle}) • ${NAMES[NET]}`;
   const mask = document.createElement('div'); mask.className = 'mask'; document.body.appendChild(mask);
@@ -89,7 +90,7 @@
     const followers = P.ig || PROJ(900, 2600); MV.followers = followers;
     let following = false;
     const bio = NETCFG.bio || `${P.tagline}\n📍 ${P.address}\n📞 ${P.t}`;
-    app.innerHTML = bar + `<div class="ig"><nav class="side"><div class="logo">Instagram</div>${[['home', 'Accueil'], ['search', 'Recherche'], ['compass', 'Découvrir'], ['reel', 'Reels'], ['msg', 'Messages'], ['bell', 'Notifications'], ['plus', 'Créer']].map(([i, t]) => `<a>${I[i].replace(/width="1\d"/, 'width="24"').replace(/height="1\d"/, 'height="24"')}${t}</a>`).join('')}<a class="on">${AV(24)}Profil</a></nav>
+    app.innerHTML = bar + `<div class="ig"><nav class="side"><div class="logo">${brandSvg('instagram', 26)}<span>Instagram</span></div>${[['home', 'Accueil'], ['search', 'Recherche'], ['compass', 'Découvrir'], ['reel', 'Reels'], ['msg', 'Messages'], ['bell', 'Notifications'], ['plus', 'Créer']].map(([i, t]) => `<a>${I[i].replace(/width="1\d"/, 'width="24"').replace(/height="1\d"/, 'height="24"')}${t}</a>`).join('')}<a class="on">${AV(24)}Profil</a></nav>
     <main class="main"><header class="head"><div class="ring" id="ring"><span class="av">${P.avatar}</span></div><div><div class="u"><h2>${esc(handle)}</h2><button class="b blue" id="fol">Suivre</button><button class="b" id="dm">Envoyer un message</button><button class="b">⋯</button></div>
     <div class="stats"><span><b>${POSTS.length}</b> publications</span><span><b id="fc">${nf(followers)}</b> followers</span><span><b>${P.ig ? 180 : 12}</b> suivi(e)s</span></div>
     <div class="bio"><b>${esc(name)}</b><br><span class="cat">${esc(NETCFG.cat || P.s)}</span><br>${esc(bio).replace(/\n/g, '<br>')}<br><a href="${site}">🔗 ${esc(NETCFG.link || P.domain)}</a></div></div></header>
@@ -138,10 +139,10 @@
     const likesN = P.fb || PROJ(700, 2200); MV.likes = likesN;
     const cover = NETCFG.cover || (POSTS.find((p) => p.kind !== 'card' && !isCut(p.imgs[0])) || POSTS[0]).imgs[0];
     const photos = [...new Set(POSTS.filter((p) => p.kind !== 'card').flatMap((p) => p.imgs))];
-    app.innerHTML = bar + `<div class="fb"><div class="top"><div class="f">f</div><div class="srch">Rechercher sur Facebook</div><div class="mid">${[I.home, I.reel, I.compass, I.msg].map((x, k) => `<span class="${k ? '' : 'on'}">${x}</span>`).join('')}</div><div class="rgt"><span>${I.msg}</span><span>${I.bell}</span><span style="background:none">${AV(40)}</span></div></div>
+    app.innerHTML = bar + `<div class="fb"><div class="top"><div class="f">${brandSvg('facebook', 40, '#0866ff')}</div><div class="srch">Rechercher sur Facebook</div><div class="mid">${[I.home, I.reel, I.compass, I.msg].map((x, k) => `<span class="${k ? '' : 'on'}">${x}</span>`).join('')}</div><div class="rgt"><span>${I.msg}</span><span>${I.bell}</span><span style="background:none">${AV(40)}</span></div></div>
     <div class="hdr"><div class="wrap"><div class="cover" style="background-image:url('${cover}')"></div>
     <div class="id"><span class="av" style="border-radius:50%">${P.avatar}</span><div style="padding-bottom:16px"><h1>${esc(name)}</h1><div class="meta"><span id="fbl">${likesN ? nf(likesN) + ' J\'aime' : 'Nouvelle page'}</span> · ${nf(Math.round(likesN * 1.1))} followers</div></div>
-    <div class="bt"><button class="btn blue" id="fbf">${I.like} J'aime</button><button class="btn" id="fbm">${I.msg} Envoyer un message</button><a class="btn" href="${site}">${I.link} ${esc(NETCFG.btn || P.cta)}</a></div></div>
+    <div class="bt"><button class="btn blue" id="fbf">${I.like} J'aime</button><button class="btn" id="fbm">${brandSvg('facebook-messenger', 16)} Envoyer un message</button><a class="btn" href="${site}">${I.link} ${esc(NETCFG.btn || P.cta)}</a></div></div>
     <div class="tb">${[['pub', 'Publications'], ['about', 'À propos'], ['rev', 'Avis'], ['pho', 'Photos'], ['vid', 'Vidéos']].map(([k, v]) => `<a data-t="${k}">${v}</a>`).join('')}</div></div></div>
     <div class="cols" id="fbc"></div></div>`;
     const intro = `<div class="card"><h3>Intro</h3><p style="text-align:center;font-size:15px;padding:0 0 12px;border-bottom:1px solid #e4e6eb;margin-bottom:8px">${esc(NETCFG.bio || P.tagline)}</p><div class="li">${I.info}<span><b>Page</b> · ${esc(NETCFG.cat || P.s)}</span></div><div class="li">${I.pin}<span>${esc(P.address)}</span></div><div class="li">${I.phone}<span>${esc(P.t)}</span></div><div class="li">${I.link}<a href="${site}" style="color:#0866ff">${esc(P.domain)}</a></div><div class="li">${I.clock}<span><b style="color:#31a24c">Ouvert maintenant</b> · ${esc(P.hours[1])}</span></div>${P.r ? `<div class="li">${I.star}<span>Note : ${String(P.r).replace('.', ',')}/5 (${P.v} avis)</span></div>` : ''}</div>`;
@@ -183,7 +184,7 @@
     let following = false;
     const fol = P.so.includes('tiktok') ? 1240 : PROJ(1100, 4800), _mv = (MV.tfol = P.so.includes('tiktok') ? 1240 : PROJ(1100, 4800)), lk = P.so.includes('tiktok') ? 18600 : POSTS.reduce((a, p) => a + p.likes, 0);
     const vids = POSTS.filter((p) => p.kind !== 'card');
-    app.innerHTML = bar + `<div class="tt"><nav class="side"><div class="logo"><i>♪</i>TikTok</div><div class="sr">Rechercher</div>${[['home', 'Pour toi'], ['compass', 'Explorer'], ['plus', 'Suivis'], ['msg', 'Messages'], ['reel', 'LIVE']].map(([i, t]) => `<a>${I[i].replace(/1\d"/g, '24"')}${t}</a>`).join('')}<a class="on">${AV(28)}Profil</a></nav>
+    app.innerHTML = bar + `<div class="tt"><nav class="side"><div class="logo">${brandSvg('tiktok', 30)}<span>TikTok</span></div><div class="sr">Rechercher</div>${[['home', 'Pour toi'], ['compass', 'Explorer'], ['plus', 'Suivis'], ['msg', 'Messages'], ['reel', 'LIVE']].map(([i, t]) => `<a>${I[i].replace(/1\d"/g, '24"')}${t}</a>`).join('')}<a class="on">${AV(28)}Profil</a></nav>
     <main class="main"><div class="head">${AV(212)}<div><h1>${esc(handle)} ${P.sig ? I.verified : ''}</h1><h2>${esc(P.main)}</h2><div class="btns"><button class="btn red" id="ttf">Suivre</button><button class="btn" id="ttm">Message</button><button class="btn">↗</button></div>
     <div class="stats"><span><b>24</b>Suivis</span><span><b id="tfc">${nf(fol)}</b>Followers</span><span><b>${nf(lk)}</b>J'aime</span></div>
     <div class="bio">${esc(NETCFG.bio || P.tagline)} · ${esc(P.c)}<br>📞 ${esc(P.t)}<a href="${site}">${I.link} ${esc(NETCFG.link || P.domain)}</a></div></div></div>
@@ -230,7 +231,7 @@
     const similar = (window.PROSPECTS || []).filter((x) => x.k === P.k && x.slug !== P.slug).slice(0, 4);
     const posts = POSTS.filter((p, i) => i % 2 === 0).map((p) => ({ ...p, cap: p.cap.replace(/[😋😍🔥🙏✨👏❤️🎉🏡🔑💼📲🍽️☀️🏊🏾🥐🥭✅📅🩺👩🏾‍⚕️🧼✈️🎄🌍📋🐘🌊🚗📦🔧🌧️📚🎓🏫👨‍👩‍👧💪🏾🛍️🚚🎁🪡💐🤝📩💆🏾‍♀️💕👨🏾‍🍳🎶]/gu, '').trim() }));
     const jobsPosts = { cap: `Nous recrutons ! ${P.n} renforce son équipe à ${P.c} : ${SD.jobs.join(' et ')}. Candidatures par message ou à ${P.e}.`, imgs: [POSTS[0].imgs[0]], likes: 40, comments: [], date: 'il y a 3 jours', tags: '#recrutement #emploi #Gabon' };
-    app.innerHTML = bar + `<div class="li"><div class="top"><div class="in">in</div><div class="srch">🔍 Recherche</div><div class="nv">${[['home', 'Accueil'], ['compass', 'Réseau'], ['save', 'Emplois'], ['msg', 'Messagerie'], ['bell', 'Notifications']].map(([i, t]) => `<span>${I[i].replace(/24/g, '22')}${t}</span>`).join('')}</div></div>
+    app.innerHTML = bar + `<div class="li"><div class="top"><div class="in">${brandSvg('linkedin', 34, '#0a66c2')}</div><div class="srch">🔍 Recherche</div><div class="nv">${[['home', 'Accueil'], ['compass', 'Réseau'], ['save', 'Emplois'], ['msg', 'Messagerie'], ['bell', 'Notifications']].map(([i, t]) => `<span>${I[i].replace(/24/g, '22')}${t}</span>`).join('')}</div></div>
     <div class="wrap"><div><div class="card"><div class="cover" style="background-image:url('${cover}')"></div><div class="hd"><div class="logo">${P.avatar}</div><h1>${esc(name)}</h1><div class="tg">${esc(NETCFG.tag || P.tagline)}</div><div class="mt">${esc(NETCFG.sector || P.s)} · ${esc(P.c)}, Gabon · <span id="lfc">${fol}</span> abonnés · ${esc(NETCFG.size || '11-50 employés')}</div>
     <div class="bts"><button class="bt blue" id="lf">+ Suivre</button><a class="bt" href="${site}">Voir le site web ↗</a><button class="bt gray">Plus</button></div></div>
     <div class="tabs">${[['home', 'Accueil'], ['about', 'À propos'], ['posts', 'Posts'], ['jobs', 'Emplois'], ['people', 'Personnes']].map(([k, v]) => `<a data-t="${k}">${v}</a>`).join('')}</div></div><div id="lc"></div></div>
@@ -281,7 +282,7 @@
       <div class="avw">${AV(150)}</div><h1>${esc(name)} ${P.fb || P.sig ? I.verified : ''}</h1><div class="fl"><b>${nf(Math.round(MV.likes * 1.1))}</b> followers · ${12 + (HS % 60)} suivi(e)s</div>
       <div class="bio">${EMO} ${esc(NETCFG.bio || P.tagline)}<br>📩 ${esc(P.e || 'contact@' + P.domain)}</div><div class="cat">${X.bag} ${esc(NETCFG.cat || P.s)}</div>
       <div class="sp"><span class="avs">${[0, 1, 2].map((n) => ini(fr(n), 30)).join('')}</span><span>Suivi(e) par <b>${fr(0)}</b>, <b>${fr(1)}</b> et <b>${fr(2)}</b></span></div>
-      <div class="bts"><button class="blue" data-px="#fbf" data-on="blue" data-lbl="${esc(I.like)} Suivre" data-lbl2="✓ Suivi(e)">${I.like} Suivre</button><button data-toast="Messenger : démonstration NEAM">${I.msg} Message</button></div>
+      <div class="bts"><button class="blue" data-px="#fbf" data-on="blue" data-lbl="${esc(I.like)} Suivre" data-lbl2="✓ Suivi(e)">${I.like} Suivre</button><button data-toast="Messenger : démonstration NEAM">${brandSvg('facebook-messenger', 18)} Message</button></div>
       <div class="chips"><a class="on" data-tab="pub">Tous</a><a data-tab="pho">Photos</a><a data-tab="vid">Reels</a><a data-tab="rev">Avis</a><a data-tab="about">À propos</a></div>
       <div class="infos"><h3>Liens</h3><a href="${site}">${I.link}<span>${siteTxt}</span></a><h3>Coordonnées</h3><div>${I.phone}<span>${esc(P.t)}</span></div><div>${I.pin}<span>${esc(P.address)}</span></div></div></div>`; }
     if (net === 'li') return `<div class="mhead mh-li"><div class="cv" style="background-image:${($('.li .cover')?.style.backgroundImage || '').replace(/"/g, "'")}"></div><div class="lg">${P.avatar}</div><h1>${esc(name)} <span class="sh">${X.shield}</span></h1>

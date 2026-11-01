@@ -266,3 +266,7 @@ Toutes les photos proviennent d'Unsplash (licence Unsplash, usage commercial gra
 - x-chant-n-4.jpg — Unsplash, photo-1785829413522-6bdc6ddc5da1
 - x-sourire-n-1.jpg — Unsplash, photo-1784460469850-80838868f4d2
 - x-sourire-n-2.jpg — Unsplash, photo-1646457411048-93db3b3abd14
+
+## Logos des réseaux sociaux
+
+Icônes Instagram, Facebook, Messenger, TikTok, LinkedIn et WhatsApp : Font Awesome Free 6.5.2 (https://fontawesome.com), licence CC BY 4.0. Les logos restent la propriété de leurs marques respectives.

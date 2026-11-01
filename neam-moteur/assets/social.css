@@ -408,3 +408,8 @@ svg{display:block}
  .li .mnav a{position:relative}.li .mnav .nt em{position:absolute;top:-4px;left:50%;background:#cb112d;color:#fff;font-style:normal;font-size:10px;font-weight:700;border-radius:999px;padding:1px 5px}
 }
  @media(max-width:860px){#fbc>div:first-child>.card:first-child{display:none}}
+/* Logos officiels */
+.brand-ic{flex:none;vertical-align:-2px}
+.ig .side .logo{display:flex;gap:10px;align-items:center}.tt .side .logo{display:flex;gap:8px;align-items:center}
+.fb .top .f{background:none!important;width:auto!important;height:auto!important;display:flex}.li .top .in{background:none!important;width:auto!important;height:auto!important;display:flex}
+.nbar .sw a{display:inline-flex;gap:6px;align-items:center}

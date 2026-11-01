@@ -25,7 +25,8 @@
   };
   const ico = (n, s = 18, c = 'currentColor', w = 1.8) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"><path d="${ICON[n]}"/></svg>`;
   const NET = { instagram: ['linear-gradient(135deg,#f58529,#dd2a7b,#8134af)', 'IG', 'Instagram', 'www.instagram.com'], tiktok: ['#000', 'TT', 'TikTok', 'www.tiktok.com'], facebook: ['#1877f2', 'f', 'Facebook', 'www.facebook.com'], linkedin: ['#0a66c2', 'in', 'LinkedIn', 'www.linkedin.com › company'] };
-  const fav = (n) => `<span class="fav" style="background:${NET[n][0]}">${NET[n][1]}</span>`;
+  const BRK = { instagram: 'instagram', tiktok: 'tiktok', facebook: 'facebook', linkedin: 'linkedin' };
+  const fav = (n) => `<span class="fav" style="background:${NET[n][0]}">${window.brandSvg ? window.brandSvg(BRK[n], n === 'facebook' ? 26 : 15, '#fff') : NET[n][1]}</span>`;
   const mini = (p) => `<span class="mini">${p.avatar}</span>`;
   const nf = (n) => (n >= 10000 ? (n / 1000).toFixed(1).replace('.', ',').replace(',0', '') + ' k' : n.toLocaleString('fr-FR'));
   const stars = (r) => '★★★★★'.slice(0, Math.round(r)) + '☆☆☆☆☆'.slice(0, 5 - Math.round(r));
