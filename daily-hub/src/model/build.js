@@ -62,8 +62,16 @@ function makeMaterials() {
 }
 
 // ------------------------------------------------------------------- helpers
+// Emprises au sol des obstacles (pour la grille de circulation)
+let COLLIDE = null;
+const _b = new THREE.Box3();
+function reg(mesh) {
+  if (!COLLIDE) return;
+  _b.setFromObject(mesh);
+  if (_b.max.y > 0.15 && _b.min.y < 1.7) COLLIDE.push([_b.min.x, _b.min.z, _b.max.x, _b.max.z]);
+}
 // Bloc défini par ses coins min/max (coordonnées du plan).
-function blk(parent, mat, x0, y0, z0, x1, y1, z1, { cast = true, receive = true, name } = {}) {
+function blk(parent, mat, x0, y0, z0, x1, y1, z1, { cast = true, receive = true, name, walk = true } = {}) {
   const g = new THREE.BoxGeometry(Math.abs(x1 - x0), Math.abs(y1 - y0), Math.abs(z1 - z0));
   const m = new THREE.Mesh(g, mat);
   m.position.set((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2);
@@ -71,6 +79,7 @@ function blk(parent, mat, x0, y0, z0, x1, y1, z1, { cast = true, receive = true,
   m.receiveShadow = receive;
   if (name) m.name = name;
   parent.add(m);
+  if (walk) reg(m);
   return m;
 }
 
@@ -81,6 +90,7 @@ function cyl(parent, mat, r, h, x, y, z, { seg = 20, axis = 'y', rTop } = {}) {
   if (axis === 'x') m.rotation.z = Math.PI / 2;
   m.castShadow = m.receiveShadow = true;
   parent.add(m);
+  reg(m);
   return m;
 }
 
@@ -154,6 +164,7 @@ const pick = (arr, i) => arr[(i * 7 + (i >> 2)) % arr.length];
 // ================================================================ construction
 export function buildDailyHub() {
   const M = makeMaterials();
+  COLLIDE = [];
   const root = new THREE.Group();
   root.name = 'DAILY_HUB';
   const groups = {
@@ -217,6 +228,7 @@ export function buildDailyHub() {
     m.position.set((bx0 + bx1) / 2, (y0 + y1) / 2, (bz0 + bz1) / 2);
     m.castShadow = m.receiveShadow = true;
     S.add(m);
+    reg(m);
   };
   const innerFor = (side, a, b) => {
     const mid = (a + b) / 2;
@@ -258,10 +270,15 @@ export function buildDailyHub() {
       const p = plane(groups.glass, M.glass, o.to - o.from, y1 - y0, (o.from + o.to) / 2, (y0 + y1) / 2, c);
       p.renderOrder = 2;
     }
+    if (o.type !== 'door') {
+      if (vert) COLLIDE.push([c - 0.05, o.from, c + 0.05, o.to]);
+      else COLLIDE.push([o.from, c - 0.05, o.to, c + 0.05]);
+    }
     // menuiseries métal noir
+    const walk = o.type !== 'door';
     const frame = (a, b, ya, yb) => {
-      if (vert) blk(S, M.metal, c - t, ya, a, c + t, yb, b);
-      else blk(S, M.metal, a, ya, c - t, b, yb, c + t);
+      if (vert) blk(S, M.metal, c - t, ya, a, c + t, yb, b, { walk });
+      else blk(S, M.metal, a, ya, c - t, b, yb, c + t, { walk });
     };
     frame(o.from, o.from + t, y0, y1);
     frame(o.to - t, o.to, y0, y1);
@@ -275,11 +292,11 @@ export function buildDailyHub() {
       const hz = vert ? null : null;
       void hz;
       if (vert) {
-        blk(S, M.chrome, c - 0.09, 0.9, mid - 0.08, c + 0.09, 1.5, mid - 0.06);
-        blk(S, M.chrome, c - 0.09, 0.9, mid + 0.06, c + 0.09, 1.5, mid + 0.08);
+        blk(S, M.chrome, c - 0.09, 0.9, mid - 0.08, c + 0.09, 1.5, mid - 0.06, { walk: false });
+        blk(S, M.chrome, c - 0.09, 0.9, mid + 0.06, c + 0.09, 1.5, mid + 0.08, { walk: false });
       } else {
-        blk(S, M.chrome, mid - 0.08, 0.9, c - 0.09, mid - 0.06, 1.5, c + 0.09);
-        blk(S, M.chrome, mid + 0.06, 0.9, c - 0.09, mid + 0.08, 1.5, c + 0.09);
+        blk(S, M.chrome, mid - 0.08, 0.9, c - 0.09, mid - 0.06, 1.5, c + 0.09, { walk: false });
+        blk(S, M.chrome, mid + 0.06, 0.9, c - 0.09, mid + 0.08, 1.5, c + 0.09, { walk: false });
       }
     }
   }
@@ -313,6 +330,8 @@ export function buildDailyHub() {
           ? plane(groups.glass, M.glass, s1 - s0, 1.6, ax + mid, 1.7, az)
           : plane(groups.glass, M.glass, s1 - s0, 1.6, ax, 1.7, az + mid, Math.PI / 2);
         gp.renderOrder = 2;
+        if (alongX) COLLIDE.push([ax + s0, az - 0.05, ax + s1, az + 0.05]);
+        else COLLIDE.push([ax - 0.05, az + s0, ax + 0.05, az + s1]);
         for (let s = s0; s <= s1 + 1e-6; s += (s1 - s0) / Math.max(1, Math.round((s1 - s0) / 0.9))) seg(s - 0.025, s + 0.025, 0.9, 2.5, M.metal);
       }
       for (const o of ops) seg(o.from, o.to, 2.5, H, M.metal);
@@ -324,11 +343,11 @@ export function buildDailyHub() {
         if (o.door) {
           const dm = M.forestDark;
           if (alongX) {
-            blk(S, dm, ax + o.from + 0.02, 0, az - 0.02, ax + o.to - 0.02, 2.18, az + 0.02);
-            blk(S, M.chrome, ax + o.to - 0.18, 1.0, az - 0.06, ax + o.to - 0.1, 1.04, az + 0.06);
+            blk(S, dm, ax + o.from + 0.02, 0, az - 0.02, ax + o.to - 0.02, 2.18, az + 0.02, { walk: false });
+            blk(S, M.chrome, ax + o.to - 0.18, 1.0, az - 0.06, ax + o.to - 0.1, 1.04, az + 0.06, { walk: false });
           } else {
-            blk(S, dm, ax - 0.02, 0, az + o.from + 0.02, ax + 0.02, 2.18, az + o.to - 0.02);
-            blk(S, M.chrome, ax - 0.06, 1.0, az + o.to - 0.18, ax + 0.06, 1.04, az + o.to - 0.1);
+            blk(S, dm, ax - 0.02, 0, az + o.from + 0.02, ax + 0.02, 2.18, az + o.to - 0.02, { walk: false });
+            blk(S, M.chrome, ax - 0.06, 1.0, az + o.to - 0.18, ax + 0.06, 1.04, az + o.to - 0.1, { walk: false });
             // plaque de porte côté laverie
             const icon = o.door === 'Hommes' ? 'man' : o.door === 'Femmes' ? 'woman' : null;
             const tex = TX.signTexture(o.door, { icon, w: 512, h: 160 });
@@ -576,12 +595,12 @@ export function buildDailyHub() {
   signPanel('Boissons', 4.25, 2.75, 0.02, 0, 2.6, 0.45);
   // Gondoles centrales (allée centrale z 2,35 → 3,45)
   gondola(2.2, 3.9, 1.75, 2.35, PRODUCT_COLORS.epicerie);
-  gondola(4.3, 5.4, 1.75, 2.35, PRODUCT_COLORS.epicerie);
+  gondola(4.3, 5.2, 1.75, 2.35, PRODUCT_COLORS.epicerie);
   gondola(2.2, 3.9, 3.45, 4.05, PRODUCT_COLORS.hygiene);
-  gondola(4.3, 5.4, 3.45, 4.05, PRODUCT_COLORS.hygiene);
+  gondola(4.3, 5.2, 3.45, 4.05, PRODUCT_COLORS.hygiene);
   signPanel('Hygiène & entretien', 3.05, 2.3, 3.75, 0, 1.6, 0.26);
   signPanel('Hygiène & entretien', 3.05, 2.3, 3.75, Math.PI, 1.6, 0.26);
-  for (const gx of [3.05, 4.85]) {
+  for (const gx of [3.05, 4.75]) {
     cyl(groups.ceiling, M.metal, 0.004, 1.1, gx, H - 0.55, 3.75, { seg: 4 });
     cyl(groups.ceiling, M.metal, 0.004, 1.1, gx, H - 0.55, 2.05, { seg: 4 });
   }
@@ -671,9 +690,9 @@ export function buildDailyHub() {
     // enseigne Café
     signPanel('Café', 10.2, 2.4, 0.02, 0, 1.0, 0.9, { icon: 'cup', w: 512, h: 460 });
     // suspensions
-    for (const [px, pz] of [[6.6, 2.9], [7.9, 2.9], [6.6, 4.2], [7.9, 4.2], [9.15, 2.9], [7.0, 1.45], [8.6, 1.45]]) pendant(px, pz, px > 6.9 && pz < 2 ? 1.0 : 1.3);
+    for (const [px, pz] of [[6.85, 2.85], [8.15, 2.85], [6.85, 4.35], [8.15, 4.35], [7.0, 1.45], [8.6, 1.45]]) pendant(px, pz, pz < 2 ? 1.0 : 1.3);
     // tables
-    for (const [tx, tz] of [[6.6, 2.9], [7.9, 2.9], [6.6, 4.2], [7.9, 4.2], [9.15, 2.9]]) {
+    for (const [tx, tz] of [[6.85, 2.85], [8.15, 2.85], [6.85, 4.35], [8.15, 4.35]]) {
       table(tx, tz);
       chair(tx - 0.5, tz, FACE.east);
       chair(tx + 0.5, tz, FACE.west);
@@ -728,14 +747,14 @@ export function buildDailyHub() {
     }
     signPanel('Sèche-linge', 13.1, 2.05, 5.92, Math.PI, 1.6, 0.25);
     // table de pliage centrale
-    blk(S, M.woodLight, 12.2, 0.88, 2.55, 14.4, 0.93, 3.45);
-    blk(S, M.forestDark, 12.3, 0, 2.65, 14.3, 0.88, 3.35);
-    for (let i = 0; i < 6; i++) blk(S, M.linen, 12.4 + i * 0.32, 0.93, 2.75, 12.65 + i * 0.32, 0.93 + 0.05 * (1 + (i % 3)), 3.05, { cast: false });
-    for (let i = 0; i < 4; i++) I.add('box', S, 12.6 + i * 0.5, 0.97, 3.25, 0.3, 0.06 + (i % 2) * 0.05, 0.25, pick(['#9ec1e0', '#f3f1ec', '#e9c46a', '#d98b8b'], i));
+    blk(S, M.woodLight, 12.4, 0.88, 2.6, 14.0, 0.93, 3.4);
+    blk(S, M.forestDark, 12.5, 0, 2.7, 13.9, 0.88, 3.3);
+    for (let i = 0; i < 5; i++) blk(S, M.linen, 12.5 + i * 0.3, 0.93, 2.75, 12.74 + i * 0.3, 0.93 + 0.05 * (1 + (i % 3)), 3.05, { cast: false });
+    for (let i = 0; i < 4; i++) I.add('box', S, 12.65 + i * 0.4, 0.97, 3.22, 0.3, 0.06 + (i % 2) * 0.05, 0.25, pick(['#9ec1e0', '#f3f1ec', '#e9c46a', '#d98b8b'], i));
     signPanel('Pliage & repassage', 15.3, 2.45, 2.25, 0, 1.7, 0.32, { icon: 'hanger' });
     // planche à repasser + fer
     {
-      const ib = placed(S, 15.3, 2.9, 0);
+      const ib = placed(S, 15.6, 3.0, FACE.east);
       blk(ib, M.white, -0.65, 0.88, -0.18, 0.55, 0.91, 0.18);
       blk(ib, M.metal, -0.4, 0, -0.02, -0.36, 0.88, 0.02);
       blk(ib, M.metal, 0.3, 0, -0.02, 0.34, 0.88, 0.02);
@@ -743,7 +762,7 @@ export function buildDailyHub() {
     }
     // portant de vêtements
     {
-      const r = placed(S, 15.35, 3.85, 0);
+      const r = placed(S, 15.6, 4.6, 0);
       blk(r, M.metal, -0.6, 0, -0.02, -0.57, 1.7, 0.02);
       blk(r, M.metal, 0.57, 0, -0.02, 0.6, 1.7, 0.02);
       blk(r, M.chrome, -0.6, 1.62, -0.012, 0.6, 1.64, 0.012);
@@ -765,8 +784,6 @@ export function buildDailyHub() {
     // espace d'attente : banquettes contre la cloison vitrée
     banquette(placed(S, xl + 0.06, 4.45, FACE.east), 1.1);
     banquette(placed(S, xl + 0.06, 1.6, FACE.east), 1.1);
-    table(xl + 0.95, 4.45, 0.25, 0.5, M.wood);
-    table(xl + 0.95, 1.6, 0.25, 0.5, M.wood);
     signPanel('Attente', xl + 0.06, 2.35, 4.45, FACE.east, 0.9, 0.25);
     // enseigne d'accès sur la cloison côté café
     signPanel('Laverie →', xl - 0.06, 2.75, 3.0, FACE.west, 1.4, 0.3, { icon: 'washer' });
@@ -783,7 +800,6 @@ export function buildDailyHub() {
     shelving(r1, 1.7, 0.5, 2.3, 5, PRODUCT_COLORS.carton, { frame: M.steel, open: true });
     const r2 = placed(S, 20, 1.15, FACE.west);
     shelving(r2, 1.9, 0.5, 2.3, 5, PRODUCT_COLORS.carton, { frame: M.steel, open: true });
-    for (let i = 0; i < 6; i++) blk(S, M.cardboard, 17.0 + (i % 3) * 0.45, 0 + Math.floor(i / 3) * 0.35, 1.5, 17.4 + (i % 3) * 0.45, 0.35 + Math.floor(i / 3) * 0.35, 1.9);
     signPanel('Réserve', 17.6, 2.75, 0.02, 0, 1.0, 0.25);
     // local technique
     cyl(S, M.blueTank, 0.35, 1.5, 17.25, 0.75, 3.0);
@@ -963,7 +979,9 @@ export function buildDailyHub() {
     for (const l of pointLights) l.intensity = (l.userData.base ??= l.intensity) * (night ? 1.35 : 1);
   };
 
-  return { root, groups, materials: M, dayNight };
+  const collide = COLLIDE;
+  COLLIDE = null;
+  return { root, groups, materials: M, dayNight, collide };
 }
 
 // Fusionne les maillages statiques par matériau (beaucoup moins d'appels GPU).

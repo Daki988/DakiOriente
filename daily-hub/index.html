@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#12291e" />
+    <title>DAILY HUB – Visite virtuelle</title>
+    <meta name="description" content="Visitez DAILY HUB, concept store supérette, café et laverie, en 3D depuis votre navigateur." />
+    <meta property="og:title" content="DAILY HUB – Visite virtuelle 3D" />
+    <meta property="og:description" content="Supérette, café et laverie réunis dans 120 m². Explorez le lieu avant son ouverture." />
+    <meta property="og:image" content="/thumbs/01.webp" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/tour/tour.css" />
+  </head>
+  <body>
+    <canvas id="scene" aria-label="Vue 3D de DAILY HUB"></canvas>
+    <div id="labels" aria-hidden="true"></div>
+    <div id="fade"></div>
+
+    <header class="top">
+      <div class="brand">
+        <svg viewBox="0 0 24 24" class="ico lime"><path d="M2 4h2.5l2.2 10.2h10.6L19.6 7H6" /><circle cx="9" cy="19" r="1.4" /><circle cx="16.5" cy="19" r="1.4" /></svg>
+        <div><strong>Daily Hub</strong><small>Concept Store</small></div>
+      </div>
+      <div class="where" id="where"><span id="where-zone">—</span><strong id="where-title">—</strong></div>
+      <div class="actions">
+        <button class="ibtn" id="btn-list" title="Points de vue" aria-label="Points de vue">
+          <svg viewBox="0 0 24 24" class="ico"><rect x="3" y="4" width="7" height="7" rx="1.5" /><rect x="14" y="4" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></svg>
+        </button>
+        <button class="ibtn" id="btn-plan" title="Plan" aria-label="Plan">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z" /><path d="M9 4v14M15 6v14" /></svg>
+        </button>
+        <button class="ibtn" id="btn-night" title="Jour / nuit" aria-label="Jour ou nuit">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" /></svg>
+        </button>
+        <button class="ibtn" id="btn-fs" title="Plein écran" aria-label="Plein écran">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="minimap" id="minimap" title="Plan – touchez pour vous y rendre"></div>
+
+    <div class="zoom">
+      <button class="ibtn" id="zoom-in" aria-label="Zoom avant"><svg viewBox="0 0 24 24" class="ico"><path d="M12 5v14M5 12h14" /></svg></button>
+      <button class="ibtn" id="zoom-out" aria-label="Zoom arrière"><svg viewBox="0 0 24 24" class="ico"><path d="M5 12h14" /></svg></button>
+    </div>
+
+    <nav class="zones" id="zones" aria-label="Espaces"></nav>
+
+    <div class="hint" id="hint">Glissez pour regarder · Touchez le sol ou un cercle pour avancer</div>
+
+    <section class="sheet" id="sheet" aria-hidden="true">
+      <div class="sheet-head"><h2>Points de vue</h2><button class="ibtn" data-close aria-label="Fermer">✕</button></div>
+      <div class="sheet-body" id="sheet-body"></div>
+    </section>
+
+    <section class="modal" id="plan" aria-hidden="true">
+      <div class="modal-card">
+        <div class="sheet-head"><h2>Plan d'aménagement · 120 m²</h2><button class="ibtn" data-close aria-label="Fermer">✕</button></div>
+        <div id="plan-svg"></div>
+        <p class="legend">Touchez un numéro pour vous y rendre. <span class="me-dot"></span> Vous êtes ici.</p>
+      </div>
+    </section>
+
+    <div class="loader" id="loader">
+      <div class="loader-card">
+        <svg viewBox="0 0 24 24" class="ico lime big"><path d="M2 4h2.5l2.2 10.2h10.6L19.6 7H6" /><circle cx="9" cy="19" r="1.4" /><circle cx="16.5" cy="19" r="1.4" /></svg>
+        <h1>Daily Hub</h1>
+        <p class="tag">Supérette · Café · Laverie</p>
+        <p class="sub">Visitez le concept store avant son ouverture.</p>
+        <div class="bar"><i id="bar"></i></div>
+        <button class="cta" id="start" disabled>Chargement…</button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/tour/main.js"></script>
+  </body>
+</html>
