@@ -85,6 +85,7 @@ const LOGO_PAL = {
   'yeshua-real-estate': P('#fbf8f1', '#2a2112', '#b88b2e', '#deca84', '#f3ecdc'),
   'escapade-travel-agency': P('#ffffff', '#0E2A47', '#F28C28', '#14A3A0', '#F7F1E6'),
   'ela-expertise': P('#ffffff', '#0B2540', '#0075B5', '#B8D9BA', '#F3F7FA'),
+  'cabinet-de-radiologie-cimel': P('#ffffff', '#0B2A3C', '#0B4F6C', '#0FA3B1', '#F2F8FA'),
 };
 const FONTS = {
   hotel: [['Cormorant Garamond', 'Jost'], ['Playfair Display', 'Inter'], ['Italiana', 'Montserrat'], ['Fraunces', 'Work Sans'], ['DM Serif Display', 'DM Sans'], ['Bodoni Moda', 'Manrope']],
@@ -119,7 +120,7 @@ function brandOf(p, idx, sectorIdx) {
   const pal = LOGO_PAL[slug] || pals[(sectorIdx + hash(slug)) % pals.length];
   const font = fts[sectorIdx % fts.length];
   const domain = p.dom && !/fattal|beachclub|hotel-orchidee/.test(p.dom) ? p.dom : (p.dom || slug.replace(/-/g, '') + '.ga');
-  const HANDLES = { 'escapade-travel-agency': 'escapadetravel241', 'ela-expertise': 'elaexpertise241' };
+  const HANDLES = { 'escapade-travel-agency': 'escapadetravel241', 'ela-expertise': 'elaexpertise241', 'cabinet-de-radiologie-cimel': 'radiologiecimel' };
   const handle = HANDLES[slug] || slugify(main).replace(/-/g, '').slice(0, 18) + (/libreville|lbv/.test(slug) ? '' : '241');
   return { main, kicker, initials, slug, pal, font, domain, handle, variant: p.vr ?? sectorIdx % 3, logoStyle: (sectorIdx + hash(slug)) % 4, photos: photosFor(p, sectorIdx) };
 }
@@ -128,7 +129,7 @@ function brandOf(p, idx, sectorIdx) {
 const REAL_LOGOS = {
   'ab-location': 'ab-location.png', afram: 'afram.png', biolab: 'biolab.png', 'gabon-management-services': 'gabon-management-services.png',
   'home-et-co': 'home-co.jpg', 'hotel-hibiscus': 'hotel-hibiscus.png', 'wanted-immobilier': 'wanted-immobilier.jpg', 'yeshua-real-estate': 'yeshua-real-estate.png',
-  'escapade-travel-agency': 'escapade-travel-agency.svg', 'ela-expertise': 'ela-expertise.svg',
+  'escapade-travel-agency': 'escapade-travel-agency.svg', 'ela-expertise': 'ela-expertise.svg', 'cabinet-de-radiologie-cimel': 'cabinet-de-radiologie-cimel.svg',
 };
 const realLogo = (slug) => (REAL_LOGOS[slug] ? (process.env.LOGO_URL ? process.env.LOGO_URL + REAL_LOGOS[slug] : 'file://' + path.join(REAL_LOGOS_DIR, REAL_LOGOS[slug])) : null);
 

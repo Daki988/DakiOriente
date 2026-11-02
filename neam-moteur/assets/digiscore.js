@@ -43,6 +43,8 @@
     'rendez-vous.html': ['Prise de rendez-vous en ligne : prestation, date et créneau horaire', '[data-steps]|form.form|form'],
     'annonces.html': ['Annonces filtrables (vente, location) avec fiche détaillée pour chaque bien', '[data-tabs]|main .sec'],
     'estimer.html': ['Formulaire d\'estimation gratuite pour capter les propriétaires vendeurs', '[data-estimate]|form'],
+    'examens.html': ['Chaque examen expliqué : ce qui est exploré, préparation, durée et délai des résultats', '.exl|main .sec'],
+    'preparation.html': ['Guide « Préparer mon examen » : consignes affichées selon l\'examen choisi', '[data-pcard]|main .sec'],
     'equipe.html': ['Présentation de l\'équipe et des praticiens pour rassurer les patients', 'main .sec .g3|main .sec'],
     'destinations.html': ['Destinations présentées avec photos, durée et prix « à partir de »', 'main .sec .g3|main .sec'],
     'sur-mesure.html': ['Demande de voyage sur mesure avec budget et dates', '[data-budget]|form'],

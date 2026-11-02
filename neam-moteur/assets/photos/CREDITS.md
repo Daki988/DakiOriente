@@ -269,6 +269,11 @@ Toutes les photos proviennent d'Unsplash (licence Unsplash, usage commercial gra
 - x-expert-chantier-1.jpg — Unsplash, photo-1621905253185-95614217f357
 - x-geometre-1.jpg — Unsplash, photo-1771068807150-2cab0734d25b
 - x-plans-1.jpg — Unsplash, photo-1781888688940-5730c3fd5baf
+- x-mammo-1.jpg — Unsplash, photo-1579154341140-5aa3a445d43b
+- x-echo-grossesse-1.jpg — Unsplash, photo-1654931800911-7a9cfb3b7c17
+- x-radiologue-1.jpg — Unsplash, photo-1666214277730-e9c7e755e5a3
+- x-echographe-1.jpg — Unsplash, photo-1691933880037-ce9d151ab922
+- x-salle-echo-1.jpg — Unsplash, photo-1706065264583-55f1a8549769
 
 ## Logos des réseaux sociaux
 
