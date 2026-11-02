@@ -83,6 +83,7 @@ const LOGO_PAL = {
   'hotel-hibiscus': P('#fffdf6', '#2a1b14', '#d81b4f', '#3aa64a', '#fbeef0'),
   'wanted-immobilier': P('#ffffff', '#3a4646', '#3b9fa1', '#6b7b7b', '#e9f4f4'),
   'yeshua-real-estate': P('#fbf8f1', '#2a2112', '#b88b2e', '#deca84', '#f3ecdc'),
+  'escapade-travel-agency': P('#ffffff', '#0E2A47', '#F28C28', '#14A3A0', '#F7F1E6'),
 };
 const FONTS = {
   hotel: [['Cormorant Garamond', 'Jost'], ['Playfair Display', 'Inter'], ['Italiana', 'Montserrat'], ['Fraunces', 'Work Sans'], ['DM Serif Display', 'DM Sans'], ['Bodoni Moda', 'Manrope']],
@@ -117,7 +118,8 @@ function brandOf(p, idx, sectorIdx) {
   const pal = LOGO_PAL[slug] || pals[(sectorIdx + hash(slug)) % pals.length];
   const font = fts[sectorIdx % fts.length];
   const domain = p.dom && !/fattal|beachclub|hotel-orchidee/.test(p.dom) ? p.dom : (p.dom || slug.replace(/-/g, '') + '.ga');
-  const handle = slugify(main).replace(/-/g, '').slice(0, 18) + (/libreville|lbv/.test(slug) ? '' : '241');
+  const HANDLES = { 'escapade-travel-agency': 'escapadetravel241' };
+  const handle = HANDLES[slug] || slugify(main).replace(/-/g, '').slice(0, 18) + (/libreville|lbv/.test(slug) ? '' : '241');
   return { main, kicker, initials, slug, pal, font, domain, handle, variant: p.vr ?? sectorIdx % 3, logoStyle: (sectorIdx + hash(slug)) % 4, photos: photosFor(p, sectorIdx) };
 }
 
@@ -125,6 +127,7 @@ function brandOf(p, idx, sectorIdx) {
 const REAL_LOGOS = {
   'ab-location': 'ab-location.png', afram: 'afram.png', biolab: 'biolab.png', 'gabon-management-services': 'gabon-management-services.png',
   'home-et-co': 'home-co.jpg', 'hotel-hibiscus': 'hotel-hibiscus.png', 'wanted-immobilier': 'wanted-immobilier.jpg', 'yeshua-real-estate': 'yeshua-real-estate.png',
+  'escapade-travel-agency': 'escapade-travel-agency.svg',
 };
 const realLogo = (slug) => (REAL_LOGOS[slug] ? (process.env.LOGO_URL ? process.env.LOGO_URL + REAL_LOGOS[slug] : 'file://' + path.join(REAL_LOGOS_DIR, REAL_LOGOS[slug])) : null);
 

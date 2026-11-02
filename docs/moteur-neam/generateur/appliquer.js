@@ -58,7 +58,7 @@ function apply(p, b, c) {
   const j = J.get(b.slug);
   if (!j) return;
   c.J = j;
-  for (const k of ['tagline', 'intro', 'about', 'cta']) if (j[k]) c[k] = j[k];
+  for (const k of ['tagline', 'intro', 'about', 'cta', 'hours', 'address', 'email']) if (j[k]) c[k] = j[k];
   if (!c.about) c.about = about(p, b, c, j) || undefined;
   const off = offre(j);
   if (j.services) c.items = j.services.map(([i, t]) => [i, t]);

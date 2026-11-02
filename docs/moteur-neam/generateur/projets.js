@@ -341,7 +341,9 @@ const SANTE = {
 // ---------------- Voyage ----------------
 const D = (t, d, pr, z, ph, days) => ({ t, d, pr, z, ph, days });
 const VOYAGE = {
-  'escapade-travel-agency': { tagline: 'Plages et villes de rêve', hero: 'zanzibar#1', side: 'maurice#1',
+  'escapade-travel-agency': { tagline: 'Partez l\'esprit léger, on s\'occupe de tout', hero: 'zanzibar#1', side: 'maurice#1', cta: 'Demander un devis',
+    intro: 'Billets d\'avion nationaux et internationaux, hôtels, visas et séjours clés en main au départ de Libreville. Devis gratuit sous 24 h.',
+    hours: ['Ferme à 18 h', 'Lun – Ven · 8 h – 18 h · Sam 9 h – 13 h'], address: 'Anciens feux Lalala, face Gaboprix, Libreville', email: 'escapadetravelagency@gmail.com',
     dest: [D('Zanzibar', '7 jours · plages et Stone Town', 1250000, 'Afrique', 'zanzibar#1'), D('Île Maurice', '8 jours · lagons turquoise', 1450000, 'Afrique', 'maurice#1'), D('Dubaï', '5 jours · vol + hôtel', 890000, 'Monde', 'dubai#1'), D('Le Cap', '6 jours · Table Mountain', 1150000, 'Afrique', 'cape-town#1'), D('Marrakech', '6 jours · riads et souks', 980000, 'Afrique', 'marrakech#2'), D('Paris', 'Billet + 4 nuits', 1050000, 'Monde', 'paris#1')] },
   'araa-services': { tagline: 'Billets, visas et séjours', hero: 'passeport', side: 'avion',
     dest: [D('Paris', 'Billet aller-retour', 650000, 'Monde', 'paris#2'), D('Dubaï', 'Billet + visa', 780000, 'Monde', 'dubai#2'), D('Istanbul', '6 jours · vol + hôtel', 1100000, 'Monde', 'istanbul#1'), D('Marrakech', '5 jours · vol + riad', 850000, 'Afrique', 'marrakech#1'), D('Dakar', 'Billet aller-retour', 450000, 'Afrique', 'dakar#2')] },

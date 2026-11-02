@@ -21,6 +21,8 @@ const SIG_ASSETS = {
 };
 const SOCIAL = {};
 
+// Sites entièrement faits à la main (docs/moteur-neam/sur-mesure/<slug>/build.js) : on lit seulement leurs pages
+const HAND = ['escapade-travel-agency'];
 const SIGNATURES = ['chouchou-lazare', 'artemis-luxury-co', 'skin-technology-by-latania', 'hotel-le-refuge', 'akae-beach', 'bella-mamma'];
 
 // Animations ajoutées aux sites générés : apparition au défilement, zoom lent du haut de page, bouton retour.
@@ -59,11 +61,12 @@ for (const p of prospects) {
   // Site généré (les sites signature sont écrits à la main dans neam-moteur/sites/<slug>/)
   const sdir = path.join(APP, 'sites', b.slug);
   fs.mkdirSync(sdir, { recursive: true });
-  const built = buildSite(p, b, c);
-  const pageList = built.map(([f, h]) => [f, ((h.match(/<title>([^<—]+)/) || [])[1]?.trim() || f).replace(/&amp;/g, '&').replace(/&#39;|&apos;/g, "'")]);
+  const hand = HAND.includes(b.slug);
+  const built = hand ? [] : buildSite(p, b, c);
+  const pageList = hand ? JSON.parse(fs.readFileSync(path.join(sdir, 'pages.json'), 'utf8')) : built.map(([f, h]) => [f, ((h.match(/<title>([^<—]+)/) || [])[1]?.trim() || f).replace(/&amp;/g, '&').replace(/&#39;|&apos;/g, "'")]);
   // Supprime les pages qui ne font plus partie du site
   const keep = new Set(built.map(([f]) => f));
-  for (const f of fs.readdirSync(sdir)) if (f.endsWith('.html') && !keep.has(f)) fs.unlinkSync(path.join(sdir, f));
+  if (!hand) for (const f of fs.readdirSync(sdir)) if (f.endsWith('.html') && !keep.has(f)) fs.unlinkSync(path.join(sdir, f));
   for (const [file, html] of built) {
     if (sig && file === 'index.html') continue; // l'accueil des sites signature est écrit à la main
     fs.writeFileSync(path.join(sdir, file), html);
