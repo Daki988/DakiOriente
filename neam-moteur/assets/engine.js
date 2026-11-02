@@ -119,7 +119,7 @@
     auto: ['Service rapide et devis respecté. Merci !', 'Véhicule propre et en parfait état.', 'Équipe compétente et honnête, je recommande.'],
     ecole: ['Formation de qualité, formateurs disponibles.', 'Inscription simple, suivi sérieux des élèves.', 'Mon enfant progresse vraiment, merci à l\'équipe.'],
   };
-  const WHO = ['Nadège M.', 'Christian O.', 'Larissa N.', 'Patrick E.', 'Gisèle B.', 'Junior M.'];
+  const WHO = ['Nadège', 'Christian', 'Larissa', 'Patrick', 'Gisèle', 'Junior'];
 
   function panel(p) {
     const S = window.NEAMSCORE, pr = S ? S.proj(p) : { r: p.r, v: p.v };

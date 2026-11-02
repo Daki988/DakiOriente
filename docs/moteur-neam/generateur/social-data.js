@@ -1,8 +1,8 @@
 // Contenu des réseaux sociaux de chaque prospect : publications, légendes, commentaires, stories, offres d'emploi.
 const { hash, fcfa, itemTitle, itemSub } = require('./lib');
 
-const USERS = ['marie.nguema', 'junior_mba', 'lyne.ondo', 'kevin.obame', 'stessy_241', 'paola.moussavou', 'fabrice.ella', 'nadia.essono', 'chris_mboumba', 'grace.oyane', 'yannick.nze', 'sandra_lbv', 'cedric.mintsa', 'audrey.bekale', 'loic.ndong', 'merveille.koumba'];
-const NAMES = { 'marie.nguema': 'Marie Nguema', junior_mba: 'Junior Mba', 'lyne.ondo': 'Lyne Ondo', 'kevin.obame': 'Kévin Obame', stessy_241: 'Stessy M.', 'paola.moussavou': 'Paola Moussavou', 'fabrice.ella': 'Fabrice Ella', 'nadia.essono': 'Nadia Essono', chris_mboumba: 'Chris Mboumba', 'grace.oyane': 'Grace Oyane', 'yannick.nze': 'Yannick Nze', sandra_lbv: 'Sandra B.', 'cedric.mintsa': 'Cédric Mintsa', 'audrey.bekale': 'Audrey Bekale', 'loic.ndong': 'Loïc Ndong', 'merveille.koumba': 'Merveille Koumba' };
+const USERS = ['marie_241', 'junior.lbv', 'lyne_ga', 'kevin241', 'stessy_241', 'paola.lbv', 'fabrice_241', 'nadia.ga', 'chris_lbv', 'grace241', 'yannick.ga', 'sandra_lbv', 'cedric241', 'audrey.lbv', 'loic_241', 'merveille.ga'];
+const NAMES = {'marie_241': 'Marie', 'junior.lbv': 'Junior', 'lyne_ga': 'Lyne', 'kevin241': 'Kévin', 'stessy_241': 'Stessy', 'paola.lbv': 'Paola', 'fabrice_241': 'Fabrice', 'nadia.ga': 'Nadia', 'chris_lbv': 'Chris', 'grace241': 'Grâce', 'yannick.ga': 'Yannick', 'sandra_lbv': 'Sandra', 'cedric241': 'Cédric', 'audrey.lbv': 'Audrey', 'loic_241': 'Loïc', 'merveille.ga': 'Merveille'};
 const COMMENTS = {
   resto: ['Trop bon 😍', 'On vient ce week-end !', 'Le meilleur de Libreville 🔥', 'Vous livrez à Akanda ?', 'Service au top 👏', 'J\'ai faim rien qu\'à voir 😅'],
   hotel: ['Séjour parfait, merci 🙏', 'Superbe vue !', 'Vous avez de la place pour décembre ?', 'Personnel adorable 👏', 'On reviendra c\'est sûr', 'Magnifique 😍'],

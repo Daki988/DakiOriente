@@ -7,8 +7,8 @@
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const nf = (n) => (n >= 1e6 ? (n / 1e6).toFixed(1).replace('.', ',') + ' M' : n >= 1e4 ? (n / 1e3).toFixed(1).replace('.', ',').replace(',0', '') + ' k' : n >= 1000 ? (n / 1000).toFixed(1).replace('.', ',').replace(',0', '') + ' k' : String(n));
   const pick = (arr, seed, n) => Array.from({ length: Math.min(n, arr.length) }, (_, i) => arr[(seed + i * 7) % arr.length]);
-  const PEOPLE = ['Marie Nguema', 'Junior Mba', 'Lyne Ondo', 'Kévin Obame', 'Stessy Mouele', 'Paola Moussavou', 'Fabrice Ella', 'Nadia Essono', 'Chris Mboumba', 'Grâce Oyane', 'Yannick Nzé', 'Sandra Bekale', 'Hervé Mintsa', 'Prisca Nzamba', 'Aïcha Bongo', 'Rodrigue Koumba'];
-  const user = (n) => n.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '.');
+  const PEOPLE = ['Marie', 'Junior', 'Lyne', 'Kévin', 'Stessy', 'Paola', 'Fabrice', 'Nadia', 'Chris', 'Grâce', 'Yannick', 'Sandra', 'Hervé', 'Prisca', 'Aïcha', 'Rodrigue'];
+  const user = (n) => n.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '.') + ['_241', '.lbv', '241', '.ga'][n.length % 4];
   const COLORS = ['#e1306c', '#0866ff', '#00a86b', '#f39c12', '#8e44ad', '#16a085', '#c0392b', '#2c3e50'];
   const ini = (n, s = 40) => `<span class="ini" style="width:${s}px;height:${s}px;font-size:${Math.round(s / 2.6)}px;background:${COLORS[n.length % COLORS.length]}">${esc(n.split(/[ ._]/).map((x) => x[0]).join('').slice(0, 2).toUpperCase())}</span>`;
   const av = (p, s) => `<span class="av" style="width:${s}px;height:${s}px">${p.avatar}</span>`;

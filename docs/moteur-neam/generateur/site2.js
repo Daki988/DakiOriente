@@ -7,7 +7,7 @@ const PJ = require('./projets');
 const P = (pre) => (u) => u;
 // Bloc image : la photo si elle existe, sinon un aplat sobre avec l'icône du métier (jamais une photo hors sujet)
 const pic = (img, style = '', inner = '', icon = 'sparkle') => img ? `<div class="pic" style="${style}background-image:url('${img}')">${inner}</div>` : `<div class="pic nopic" style="${style}"><span class="ico">${ico(icon, 44)}</span>${inner}</div>`;
-const WHO = ['Nadège M.', 'Christian O.', 'Larissa N.', 'Patrick E.', 'Gisèle B.', 'Junior M.', 'Sandra O.', 'Fabrice E.', 'Prisca N.', 'Hervé M.', 'Aïcha B.', 'Yannick N.'];
+const WHO = ['Nadège', 'Christian', 'Larissa', 'Patrick', 'Gisèle', 'Junior', 'Sandra', 'Fabrice', 'Prisca', 'Hervé', 'Aïcha', 'Yannick'];
 const QUOTES = {
   resto: ['Les plats sont généreux et pleins de goût, on sent le fait maison.', 'Service rapide le midi, parfait pour une pause déjeuner.', 'Réservation par WhatsApp en deux minutes, table prête à notre arrivée.', 'Le meilleur endroit pour un dîner entre amis.', 'Les prix sont justes pour la qualité servie.', 'Accueil chaleureux, on revient chaque semaine.'],
   hotel: ['Chambre impeccable et literie très confortable.', 'Personnel aux petits soins du début à la fin du séjour.', 'Réservation en direct sur le site, confirmation immédiate.', 'Très calme, idéal pour les voyages d\'affaires.', 'Le petit-déjeuner est excellent et varié.', 'Excellent rapport qualité-prix.'],
@@ -47,7 +47,7 @@ const VALS = {
   boutique: [['heart', 'Coups de cœur', 'Une sélection renouvelée chaque mois.'], ['clock', 'Livraison rapide', 'Le jour même en ville.'], ['check', 'Commande simple', 'En un message WhatsApp.']],
   services: [['users', 'Interlocuteur unique', 'Un contact dédié pour chaque client.'], ['clock', 'Réactivité', 'Réponse sous 24 h.'], ['shield', 'Fiabilité', 'Des engagements tenus.']],
 };
-const TEAM = { f: ['Mme Essono', 'Mme Nguema', 'Mme Moussavou', 'Mme Ondo', 'Mme Mintsa', 'Mme Boussougou'], m: ['M. Ndong', 'M. Obame', 'M. Mba', 'M. Ella', 'M. Nze', 'M. Mapangou'], dr: ['Dr Ondo', 'Dr Mintsa', 'Dr Koumba', 'Dr Ella', 'Dr Nzamba', 'Dr Moussavou'] }; // les chemins photos arrivent déjà relatifs ('../../assets/photos/…')
+const TEAM = { f: ['Nadège', 'Larissa', 'Gisèle', 'Prisca', 'Aïcha', 'Ornella'], m: ['Christian', 'Patrick', 'Junior', 'Hervé', 'Yannick', 'Arnaud'], dr: ['Dr Ariane', 'Dr Serge', 'Dr Christelle', 'Dr Alain', 'Dr Murielle', 'Dr Rodrigue'] }; // les chemins photos arrivent déjà relatifs ('../../assets/photos/…')
 const price = (v) => (typeof v === 'number' ? fcfa(v) : esc(v || ''));
 const waNum = (t) => '241' + String(t || '').replace(/\D/g, '').replace(/^241/, '').replace(/^0/, '');
 

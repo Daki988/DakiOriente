@@ -243,7 +243,7 @@
       const C = $('#lc');
       const about = `<div class="card"><div class="sec"><h2>Présentation</h2><p>${esc(NETCFG.about || P.intro)}</p><dl><dt>Site web</dt><dd><a href="${site}" style="color:#0a66c2">${esc(P.domain)}</a></dd><dt>Secteur</dt><dd>${esc(P.s)}</dd><dt>Taille de l'entreprise</dt><dd>${esc(NETCFG.size || '11-50 employés')}</dd><dt>Siège social</dt><dd>${esc(P.c)}, Gabon</dd><dt>Téléphone</dt><dd>${esc(P.t)}</dd>${P.d ? `<dt>Direction</dt><dd>${esc(P.d)}</dd>` : ''}<dt>Spécialisations</dt><dd>${esc(P.items.join(', '))}</dd></dl></div></div>`;
       const jobs = `<div class="card"><div class="sec"><h2>Offres d'emploi récentes</h2><p>${esc(P.n)} recrute à ${esc(P.c)}.</p></div>${SD.jobs.map((j) => `<div class="job"><span class="av" style="border-radius:4px">${P.avatar}</span><div style="flex:1"><b>${esc(j)}</b><small>${esc(P.n)} · ${esc(P.c)}, Gabon (Sur site)</small><small>Il y a 1 semaine · CDI</small></div><button class="bt blue" data-apply="${esc(j)}">Postuler</button></div>`).join('')}</div>`;
-      const people = `<div class="card"><div class="sec"><h2>Personnes</h2><p>${(P.d ? 1 : 0) + 6} employés sur LinkedIn</p></div><div class="people">${[P.d ? [P.d, 'Direction'] : null, ['Marie Nguema', 'Responsable clientèle'], ['Kévin Obame', 'Chargé de projets'], ['Lyne Ondo', 'Assistante de direction'], ['Fabrice Ella', 'Commercial'], ['Nadia Essono', 'Comptable'], ['Loïc Ndong', 'Technicien']].filter(Boolean).map(([n, r]) => `<div class="person">${ini(n, 72)}<b>${esc(n)}</b><br><small style="color:rgba(0,0,0,.6)">${esc(r)} chez ${esc(P.main)}</small><br><button class="bt" style="margin-top:10px;padding:4px 14px;font-size:14px" data-con>Se connecter</button></div>`).join('')}</div></div>`;
+      const people = `<div class="card"><div class="sec"><h2>Personnes</h2><p>${(P.d ? 1 : 0) + 6} employés sur LinkedIn</p></div><div class="people">${[P.d ? [P.d, 'Direction'] : null, ['Marie', 'Responsable clientèle'], ['Kévin', 'Chargé de projets'], ['Lyne', 'Assistante de direction'], ['Fabrice', 'Commercial'], ['Nadia', 'Comptable'], ['Loïc', 'Technicien']].filter(Boolean).map(([n, r]) => `<div class="person">${ini(n, 72)}<b>${esc(n)}</b><br><small style="color:rgba(0,0,0,.6)">${esc(r)} chez ${esc(P.main)}</small><br><button class="bt" style="margin-top:10px;padding:4px 14px;font-size:14px" data-con>Se connecter</button></div>`).join('')}</div></div>`;
       if (tab === 'home') C.innerHTML = about.replace('Présentation', 'Présentation') + all.slice(0, 3).map(postHTML).join('');
       if (tab === 'about') C.innerHTML = about;
       if (tab === 'posts') C.innerHTML = all.map(postHTML).join('');
@@ -265,7 +265,7 @@
 
   // ---------- En-têtes mobiles (modèles : Instagram, TikTok, Facebook, LinkedIn sur téléphone) ----------
   function mobileHead(net, X) {
-    const FRIENDS = ['Rocky Kanick', 'Warimi Ondo', 'Fébry Otha', 'Dieudonné Mba', 'Prisca Nzé', 'Hervé Mintsa'];
+    const FRIENDS = ['Christelle', 'Arnaud', 'Ornella', 'Dieudonné', 'Prisca', 'Hervé'];
     const fr = (n) => FRIENDS[(HS + n * 2) % FRIENDS.length];
     const EMO = { resto: '🍽️', hotel: '🏨', beaute: '💅🏾', immo: '🏡', sante: '🩺', voyage: '✈️', auto: '🚗', ecole: '🎓', luxe: '✨', boutique: '🛍️', services: '💼' }[P.k] || '✨';
     const third = { resto: 'Réserver', hotel: 'Réserver', luxe: 'Boutique', boutique: 'Boutique' }[P.k] || 'Contacter';

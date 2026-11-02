@@ -8,3 +8,7 @@
 ## Communication
 - Commencer chaque réponse par un résumé en une ligne de la demande (« **Demande :** … »).
 - Réponses courtes, en français, limitées à l'essentiel.
+
+## Contenus fictifs
+- Personnages fictifs (clients, abonnés, avis, équipes, messages) : prénom uniquement, jamais de nom de famille, ni d’initiale de nom.
+- Ne jamais réutiliser le nom de personnes réelles (captures d’écran, réseaux) comme personnages.
