@@ -277,6 +277,12 @@ Toutes les photos proviennent d'Unsplash (licence Unsplash, usage commercial gra
 - x-parfum-oud-1.jpg — Unsplash, photo-1780811070739-faa3b575b669
 - x-parfum-femme-n-1.jpg — Unsplash, photo-1747330666503-0f9713851062
 - x-parfum-rouge-1.jpg — Unsplash, photo-1693960794591-fc7c72a15e9f
+- x-dentiste-enfant-n-1.jpg — Unsplash, photo-1565090568947-7293970ba471
+- x-detartrage-n-1.jpg — Unsplash, photo-1684607633080-df59e6874367
+- x-soin-dentaire-n-1.jpg — Unsplash, photo-1684607633251-8a4a8d94ddd2
+- x-fauteuil-n-1.jpg — Unsplash, photo-1684607633062-b31b5d134814
+- x-cabinet-soin-n-1.jpg — Unsplash, photo-1588776814601-a454a8e3a940
+- x-scan-dentaire-1.jpg — Unsplash, photo-1600170311833-c2cf5280ce49
 
 ## Logos des réseaux sociaux
 
