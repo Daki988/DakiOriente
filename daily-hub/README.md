@@ -1,0 +1,52 @@
+# DAILY HUB – modèle 3D, visite virtuelle et film
+
+Projet autonome (indépendant du site Jackboy à la racine du dépôt).
+
+## État d'avancement
+
+| Livrable | État |
+|---|---|
+| Plan coté 20 × 6 m (120 m²) | fait – `src/model/plan.js` |
+| Modèle 3D complet (Three.js) | v1 faite – `src/model/build.js` |
+| 33 rendus de référence | v1 faite – `renders/` (1600 × 1000) |
+| Maquette Figma de l'interface de visite | **bloquée** (quota MCP Figma du siège Collab) |
+| Visite interactive (menu, plan, hotspots, plein écran) | après validation Figma |
+| Film 4K 90–120 s + version verticale | à faire, filmé dans le même modèle |
+
+## Plan retenu
+
+Repère : X = longueur (entrée à x = 0), Z = profondeur (0 = mur arrière, 6 = façade parking).
+
+| Espace | Emprise | Surface |
+|---|---|---|
+| Supérette | x 0 → 5,83 | 35 m² |
+| Café | x 5,83 → 10,83 | 30 m² |
+| Laverie | x 10,83 → 16,67 | 35 m² |
+| Réserve + local technique | x 16,67 → 20, z 0 → 3,6 | 8 + 4 = 12 m² |
+| Sanitaires H / F | x 16,67 → 20, z 3,6 → 6 | 4 + 4 = 8 m² |
+
+- Entrée principale sur le pignon ouest (vues axiales 5, 7, 9), façade longue vitrée côté parking.
+- Café ouvert sur la supérette, porte vers la terrasse ; cloison vitrée avec passage de 1,4 m vers la laverie.
+- Sanitaires et réserve accessibles depuis la laverie ; la circulation est intégrée à la laverie.
+
+## Commandes
+
+```bash
+npm install
+npm run dev                         # http://localhost:5173/preview.html?view=7
+npm run render:views                # régénère les 33 vues dans renders/
+npm run render:views -- --only 1,16 --w 3840 --h 2160
+```
+
+## Organisation du code
+
+- `src/model/plan.js` : cotes, zones, ouvertures, cloisons. **Seul endroit où modifier l'architecture.**
+- `src/model/build.js` : murs, mobilier, équipements, signalétique, extérieur. Les objets répétés (produits, feuillages) sont instanciés et le statique est fusionné par matériau pour rester fluide sur mobile.
+- `src/model/textures.js` : textures procédurales (aucune image à télécharger).
+- `src/model/views.js` : les 33 caméras de référence.
+- `src/model/stage.js` : moteur de rendu, ciel, soleil, jour/nuit, vue en coupe.
+
+## Limites connues (v1)
+
+- Rendu stylisé temps réel, pas photoréaliste (pas de Blender/GPU dans l'environnement).
+- Petites pièces (WC, local technique) encore sommaires.
