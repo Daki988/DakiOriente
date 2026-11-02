@@ -37,6 +37,17 @@ function captions(p, b, c) {
     boutique: [`${it(0).t} 🎁 ${it(0).d}. ${it(0).pr}`, `Nouvel arrivage cette semaine 😍`, `${it(1).t} : ${it(1).d}.`, `Livraison partout à ${city} 🚚`, `Idée cadeau pour la fête des mères 💐`, `Commandez en un message : ${tel} 📲`, `${c.tagline} ✨`, `Merci pour vos commandes 🙏`],
     services: [`${c.tagline} — ${n}, ${city}.`, `${it(0).t} : contactez-nous au ${tel}.`, `Notre équipe sur le terrain cette semaine 💼`, `${it(1).t} : un service pensé pour les entreprises.`, `Devis gratuit sous 24 h ✅`, `Merci à nos partenaires pour leur confiance 🤝`, `Disponibles ${c.hours[1]}`, `Nous recrutons ! Envoyez votre CV 📩`],
   };
+  // Cabinets d'expertise immobilière : on évalue, on ne vend pas
+  if (c.J && c.J.mode === 'expertise') return [
+    `📐 Connaître la juste valeur de votre bien avant de vendre, d'acheter ou d'emprunter. Devis gratuit sous 48 h au ${tel}.`,
+    `🏦 Votre banque demande un rapport d'expertise pour votre crédit ? Nous intervenons à ${city} et dans tout le Gabon.`,
+    `Visite d'expertise cette semaine : relevés, photos, contrôle du titre foncier 📋`,
+    `⚖️ Succession, partage, litige : une valeur neutre, établie par un expert évaluateur près la Cour d'appel.`,
+    `Comparaison, revenu, coût de remplacement : les 3 méthodes croisées dans chacun de nos rapports 📊`,
+    `Entreprises : pensez à la réévaluation de vos immobilisations avant la clôture des comptes 🗂️`,
+    `Terrain : titre foncier, bornage, constructibilité. Avant d'acheter, faites-le expertiser 🌍`,
+    `${n} — ${c.tagline}.`,
+  ];
   return S[p.k] || S.services;
 }
 
@@ -54,8 +65,16 @@ const AMB_TXT = {
   services: ['Nos services', 'Devis gratuit', '{n} à votre service à {c} — {t}', 'Notre équipe sur le terrain cette semaine 💼', 'Merci à nos clients pour leur confiance 🤝'],
 };
 
+const EXPERTISE = {
+  tags: ['#expertiseimmobiliere', '#Libreville', '#Gabon', '#evaluation', '#immobilier'],
+  comments: ['Très professionnel 👏', 'Combien pour un terrain à Akanda ?', 'Je vous écris en privé', 'Rapport clair et rapide, merci', 'Vous intervenez à Port-Gentil ?', 'Merci pour ces conseils'],
+  highlights: ['Expertises', 'Méthode', 'Rapports', 'Avis', 'Cabinet'],
+  jobs: ['Expert immobilier junior', 'Assistant(e) de cabinet'],
+};
+
 function build(p, b, c, pool, sig) {
-  const h = hash(b.slug), k = p.k, caps = captions(p, b, c), tags = TAGS[k] || TAGS.services;
+  const X = c.J && c.J.mode === 'expertise' ? EXPERTISE : null;
+  const h = hash(b.slug), k = p.k, caps = captions(p, b, c), tags = X ? X.tags : TAGS[k] || TAGS.services;
   const tagLine = (i) => [tags[i % tags.length], tags[(i + 2) % tags.length], '#' + b.slug.replace(/-/g, '').slice(0, 16)].join(' ');
   const pics = [...(sig || []), ...pool];
   const posts = [];
@@ -78,12 +97,12 @@ function build(p, b, c, pool, sig) {
     }
     const likes = Math.round(base * (1 + ((h >> i) % 9) / 3) * (kind === 'reel' ? 3 : 1));
     const ncom = 2 + ((h >> (i + 2)) % 4);
-    const comments = Array.from({ length: ncom }, (_, j) => { const u = pick(USERS, h + i * 7 + j * 3); return { u, n: NAMES[u], t: pick(COMMENTS[k] || COMMENTS.services, h + i + j * 5), l: (h >> j) % 12 }; });
+    const comments = Array.from({ length: ncom }, (_, j) => { const u = pick(USERS, h + i * 7 + j * 3); return { u, n: NAMES[u], t: pick(X ? X.comments : COMMENTS[k] || COMMENTS.services, h + i + j * 5), l: (h >> j) % 12 }; });
     posts.push({ kind, imgs, cap, tags: tagLine(i), likes, comments, date: DAYS[i], views: kind === 'reel' ? likes * 14 : 0 });
   }
   const highlights = { resto: ['Menu', 'Plats', 'Ambiance', 'Avis', 'Accès'], hotel: ['Chambres', 'Piscine', 'Resto', 'Avis', 'Accès'], beaute: ['Soins', 'Avant/Après', 'Tarifs', 'Avis', 'Équipe'], immo: ['À vendre', 'À louer', 'Visites', 'Avis', 'Agence'], sante: ['Soins', 'Équipe', 'Conseils', 'Infos', 'Avis'], voyage: ['Offres', 'Gabon', 'Monde', 'Avis', 'Visas'], auto: ['Services', 'Tarifs', 'Atelier', 'Avis', 'Accès'], ecole: ['Cours', 'Élèves', 'Événements', 'Avis', 'Infos'], luxe: ['Collection', 'Atelier', 'Clients', 'Avis', 'Livraison'], boutique: ['Nouveautés', 'Cadeaux', 'Livraison', 'Avis', 'Boutique'], services: ['Services', 'Équipe', 'Clients', 'Avis', 'Contact'] }[k] || ['À propos'];
   const jobs = { resto: ['Serveur / Serveuse', 'Commis de cuisine'], hotel: ['Réceptionniste', 'Femme / Valet de chambre'], beaute: ['Esthéticienne confirmée', 'Prothésiste ongulaire'], immo: ['Agent immobilier', 'Assistant(e) commercial(e)'], sante: ['Assistant(e) dentaire', 'Secrétaire médical(e)'], voyage: ['Conseiller voyage', 'Agent de billetterie'], auto: ['Mécanicien auto', 'Vendeur pièces détachées'], ecole: ['Professeur', 'Responsable administratif'], luxe: ['Conseiller(ère) de vente', 'Couturier(ère)'], boutique: ['Vendeur(se)', 'Livreur'], services: ['Chargé(e) de clientèle', 'Commercial terrain'] }[k] || ['Commercial'];
-  return { posts, highlights, jobs, followers: { ig: p.so.includes('instagram') ? null : 0 } };
+  return { posts, highlights: X ? X.highlights : highlights, jobs: X ? X.jobs : jobs, followers: { ig: p.so.includes('instagram') ? null : 0 } };
 }
 
 module.exports = { build, USERS, NAMES };

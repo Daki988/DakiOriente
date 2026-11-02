@@ -313,7 +313,9 @@ const IMMO = {
   'sci-gloria': { mode: 'sci', tagline: 'Des résidences bien tenues', hero: 'residence#1', side: 'salon-maison#3', picks: ['apptF3', 'apptF4', 'studio', 'bureaux'] },
   'sci-sofiga': { mode: 'sci', tagline: 'Louez en toute sérénité', hero: 'residence#2', side: 'salon-maison#6', picks: ['apptF4', 'villaLoc', 'apptF3', 'studio'] },
   'sci-noh-et-fils': { mode: 'sci', tagline: 'Un patrimoine familial à votre service', hero: 'residence#3', side: 'salon-maison#8', picks: ['villaLoc', 'apptF3', 'bureaux', 'studio'] },
-  'ela-expertise': { mode: 'expertise', tagline: 'La juste valeur de votre bien', hero: 'villa#4', side: 'cles' },
+  'ela-expertise': { mode: 'expertise', tagline: 'L\'expertise pour une approche efficiente de l\'immobilier', hero: 'villa#4', side: 'expert-chantier', gallery: ['expert-chantier', 'geometre', 'plans', 'villa#4', 'residence#1', 'terrain', 'bureaux#3', 'villa#2', 'residence#3'], cta: 'Demander une expertise',
+    intro: 'Expertise immobilière et foncière, évaluation d\'entreprise et des immobilisations, conseil et gestion de patrimoine. Luc Arnold ELA, expert évaluateur près la Cour d\'appel.',
+    hours: ['Ferme à 17 h 30', 'Lun – Ven · 8 h – 17 h 30'], address: 'Route de l\'église Saint-Pierre, Montagne Sainte, Libreville', email: 'lucarnoldela@yahoo.fr' },
   'gabon-management-services': { mode: 'gestion', tagline: 'Votre patrimoine, bien géré', hero: 'residence#2', side: 'bureaux#3', picks: ['apptF3', 'apptF4', 'villaLoc', 'studio', 'bureaux'] },
 };
 

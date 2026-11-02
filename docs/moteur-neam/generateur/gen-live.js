@@ -22,7 +22,7 @@ const SIG_ASSETS = {
 const SOCIAL = {};
 
 // Sites entièrement faits à la main (docs/moteur-neam/sur-mesure/<slug>/build.js) : on lit seulement leurs pages
-const HAND = ['escapade-travel-agency'];
+const HAND = ['escapade-travel-agency', 'ela-expertise'];
 const SIGNATURES = ['chouchou-lazare', 'artemis-luxury-co', 'skin-technology-by-latania', 'hotel-le-refuge', 'akae-beach', 'bella-mamma'];
 
 // Animations ajoutées aux sites générés : apparition au défilement, zoom lent du haut de page, bouton retour.
