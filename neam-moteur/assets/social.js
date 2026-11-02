@@ -314,5 +314,32 @@
     $$('.mhead [data-tab]').forEach((bt) => bt.onclick = () => { $$('.mhead [data-tab]').forEach((x) => x.classList.toggle('on', x === bt)); const t = $(`.fb .tb a[data-t="${bt.dataset.tab}"]`); if (t) t.click(); });
     root.insertAdjacentHTML('beforeend', `<nav class="mnav">${C[1]}</nav>`);
   })();
-  window.SOCIALUI = { openPost, openStory, NET };
+
+  // ---------- Pages des menus ----------
+  (() => {
+    const root = app.querySelector(':scope>.ig,:scope>.fb,:scope>.tt,:scope>.li'); if (!root) return;
+    const k = root.className.split(' ')[0];
+    const V = q.get('v') || '';
+    const href = (v) => `social.html?slug=${P.slug}&net=${NET}${v ? '&v=' + v : ''}`;
+    const MAP = {
+      ig: [['.ig .side a', ['home', 'search', 'explore', 'reels', 'messages', 'notifications', 'create', '']], ['.ig .mnav a', ['home', 'search', 'create', 'reels', '']], ['.ig .side .logo', ['home']]],
+      tt: [['.tt .side a', ['foryou', 'explore', 'following', 'messages', 'live', '']], ['.tt .mnav a', ['foryou', 'following', 'create', 'messages', '']], ['.tt .side .sr', ['explore']], ['.tt .side .logo', ['foryou']]],
+      fb: [['.fb .top .mid span', ['home', 'video', 'marketplace', 'friends']], ['.fb .top .rgt span', ['messages', 'notifications', '']], ['.fb .mnav a', ['home', 'video', 'friends', 'marketplace', 'notifications', '']], ['.fb .top .f', ['home']]],
+      li: [['.li .top .nv span', ['home', 'network', 'jobs', 'messaging', 'notifications']], ['.li .mnav a', ['home', 'jobs', 'network', 'notifications', 'publish']], ['.li .top .in', ['home']]],
+    }[k] || [];
+    for (const [sel, vs] of MAP) $$(sel).forEach((el, i) => { if (vs[i] === undefined) return; el.style.cursor = 'pointer'; el.onclick = () => (location.href = href(vs[i])); el.classList.toggle('on', vs[i] === V); });
+    if (!V) return;
+    const ctx = { P, SD, POSTS, I, AV, NET, handle, name, HS, site };
+    const views = (window.SOCIALVIEWS || {})[NET] || {};
+    if (!views[V]) return;
+    root.classList.add('viewing');
+    const html = views[V](ctx);
+    if (k === 'ig') $('.ig .main').innerHTML = html;
+    else if (k === 'tt') $('.tt .main').innerHTML = html;
+    else if (k === 'li') $('.li .wrap').innerHTML = html;
+    else { const c = document.createElement('div'); c.className = 'fbv'; c.innerHTML = html; $('.fb .cols').after(c); }
+    document.title = ({ home: 'Accueil', search: 'Recherche', explore: 'Découvrir', reels: 'Reels', messages: 'Messages', notifications: 'Notifications', create: 'Créer', video: 'Vidéos', friends: 'Amis', marketplace: 'Marketplace', foryou: 'Pour toi', following: 'Suivis', live: 'LIVE', network: 'Réseau', jobs: 'Emplois', messaging: 'Messagerie', publish: 'Publier' }[V] || '') + ' • ' + NAMES[NET];
+    window.scrollTo(0, 0);
+  })();
+  window.SOCIALUI = { openPost, openStory, NET, toast };
 })();
