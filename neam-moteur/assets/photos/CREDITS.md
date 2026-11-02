@@ -274,6 +274,9 @@ Toutes les photos proviennent d'Unsplash (licence Unsplash, usage commercial gra
 - x-radiologue-1.jpg — Unsplash, photo-1666214277730-e9c7e755e5a3
 - x-echographe-1.jpg — Unsplash, photo-1691933880037-ce9d151ab922
 - x-salle-echo-1.jpg — Unsplash, photo-1706065264583-55f1a8549769
+- x-parfum-oud-1.jpg — Unsplash, photo-1780811070739-faa3b575b669
+- x-parfum-femme-n-1.jpg — Unsplash, photo-1747330666503-0f9713851062
+- x-parfum-rouge-1.jpg — Unsplash, photo-1693960794591-fc7c72a15e9f
 
 ## Logos des réseaux sociaux
 
