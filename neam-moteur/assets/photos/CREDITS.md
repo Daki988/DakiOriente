@@ -266,6 +266,9 @@ Toutes les photos proviennent d'Unsplash (licence Unsplash, usage commercial gra
 - x-chant-n-4.jpg — Unsplash, photo-1785829413522-6bdc6ddc5da1
 - x-sourire-n-1.jpg — Unsplash, photo-1784460469850-80838868f4d2
 - x-sourire-n-2.jpg — Unsplash, photo-1646457411048-93db3b3abd14
+- x-expert-chantier-1.jpg — Unsplash, photo-1621905253185-95614217f357
+- x-geometre-1.jpg — Unsplash, photo-1771068807150-2cab0734d25b
+- x-plans-1.jpg — Unsplash, photo-1781888688940-5730c3fd5baf
 
 ## Logos des réseaux sociaux
 
