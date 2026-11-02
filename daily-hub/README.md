@@ -11,7 +11,7 @@ Projet autonome (indépendant du site Jackboy à la racine du dépôt).
 | 33 rendus de référence | v1 faite – `renders/` (1600 × 1000) |
 | Maquette Figma de l'interface | non faite (exception validée par le client : code direct) |
 | Visite interactive (menu, plan, hotspots, plein écran) | faite – `index.html`, `src/tour/` |
-| Mise en ligne | projet Netlify `daily-hub-visite` créé, premier déploiement à lancer |
+| Mise en ligne | faite – https://daily-hub-visite.netlify.app |
 | Film 4K 90–120 s + version verticale | à faire, filmé dans le même modèle |
 
 ## Plan retenu
