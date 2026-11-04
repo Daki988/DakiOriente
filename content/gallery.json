@@ -1,10 +1,22 @@
 {
   "items": [
     {
+      "src": "/images/ambiance/plateau-aperitif-jackboy-libreville.webp",
+      "alt": "Plateau apéritif Jackboy sur ardoise : mini burger, boulettes, saucisse, nems et sauce",
+      "mood": "food",
+      "caption": "Le plateau à partager"
+    },
+    {
       "src": "/images/ambiance/soiree-bar-jackboy-louis-libreville.webp",
       "alt": "Soirée au bar Jackboy, quartier Louis à Libreville",
       "mood": "late",
       "caption": "Le bar, un soir de fête"
+    },
+    {
+      "src": "/images/ambiance/flambage-shots-comptoir-jackboy.webp",
+      "alt": "Le barman flambe une tournée de shots au comptoir Jackboy",
+      "mood": "late",
+      "caption": "Flambés au comptoir"
     },
     {
       "src": "/images/ambiance/dj-hamed-aux-platines-jackboy-libreville.webp",
@@ -13,10 +25,22 @@
       "caption": "DJ Hamed aux platines"
     },
     {
+      "src": "/images/ambiance/planche-tapas-service-jackboy.webp",
+      "alt": "Planche de paninis, nems et charcuterie servie au bar Jackboy",
+      "mood": "food",
+      "caption": "Servi à table"
+    },
+    {
       "src": "/images/ambiance/shots-entre-amies-jackboy-libreville.webp",
       "alt": "Tournée de shots entre amies près des platines",
       "mood": "late",
       "caption": "Une tournée de shots"
+    },
+    {
+      "src": "/images/ambiance/cocktail-mojito-passion-soiree-jackboy.webp",
+      "alt": "Cocktail mojito passion en soirée chez Jackboy Libreville",
+      "mood": "early",
+      "caption": "Mojito passion"
     },
     {
       "src": "/images/ambiance/chicha-bar-jackboy-libreville.webp",
@@ -25,10 +49,22 @@
       "caption": "Chicha au comptoir"
     },
     {
+      "src": "/images/ambiance/plateau-partage-soiree-jackboy.webp",
+      "alt": "Plateau de bouchées partagé entre amis en soirée",
+      "mood": "late",
+      "caption": "On partage"
+    },
+    {
       "src": "/images/menu/boites-a-emporter-jackboy-libreville.webp",
       "alt": "Brochettes, paninis, nems et wings dans leurs boîtes à emporter Jackboy",
       "mood": "food",
       "caption": "Prêt à emporter"
+    },
+    {
+      "src": "/images/ambiance/tequila-citron-shots-jackboy.webp",
+      "alt": "Shots et tequila servis avec citron vert",
+      "mood": "late",
+      "caption": "Sel, citron, shots"
     },
     {
       "src": "/images/ambiance/ambiance-piste-jackboy-libreville.webp",
@@ -37,10 +73,22 @@
       "caption": "La piste s'anime"
     },
     {
-      "src": "/images/menu/shoots-flambes-jackboy.webp",
+      "src": "/images/ambiance/seau-bieres-desperados-jackboy.webp",
+      "alt": "Seaux de bières fraîches au bar Jackboy",
+      "mood": "late",
+      "caption": "Le seau de bières"
+    },
+    {
+      "src": "/images/menu/shoots-flambes-bar-jackboy-libreville.webp",
       "alt": "Shoots flambés au bar Jackboy",
       "mood": "late",
       "caption": "Shoots flambés"
+    },
+    {
+      "src": "/images/ambiance/plateau-photo-soiree-jackboy.webp",
+      "alt": "Un plateau Jackboy pris en photo par les clients",
+      "mood": "food",
+      "caption": "Ça se photographie"
     },
     {
       "src": "/images/ambiance/dj-hamed-chicha-jackboy-libreville.webp",
@@ -49,10 +97,22 @@
       "caption": "DJ Hamed en session"
     },
     {
+      "src": "/images/ambiance/shots-orange-barman-jackboy.webp",
+      "alt": "Plateau de shots orange servi par le barman",
+      "mood": "late",
+      "caption": "Tournée du barman"
+    },
+    {
       "src": "/images/boissons/mojito-jackboy-libreville.webp",
       "alt": "Mojito dans un gobelet Jackboy au bar",
       "mood": "early",
       "caption": "Mojito au bar"
+    },
+    {
+      "src": "/images/ambiance/plateau-shots-orange-jackboy.webp",
+      "alt": "Plateau de shots orange sur le comptoir en marbre noir",
+      "mood": "late",
+      "caption": "Shots orange"
     },
     {
       "src": "/images/boissons/milkshakes-jackboy-bar-libreville.webp",
@@ -71,12 +131,6 @@
       "alt": "Soirée entre amis chez Jackboy Libreville",
       "mood": "late",
       "caption": "Entre amis"
-    },
-    {
-      "src": "/images/menu/cocktails-jackboy.webp",
-      "alt": "Cocktails colorés du bar Jackboy",
-      "mood": "early",
-      "caption": "Cocktails before & after"
     },
     {
       "src": "/images/ambiance/nuit-jackboy-bar-libreville.webp",
@@ -109,28 +163,10 @@
       "caption": "Les platines"
     },
     {
-      "src": "/images/menu/burger.webp",
-      "alt": "Burger gourmet Jackboy",
-      "mood": "food",
-      "caption": "Fast food gourmet"
-    },
-    {
-      "src": "/images/menu/wings.webp",
-      "alt": "Wings caramélisées",
-      "mood": "food",
-      "caption": "Des wings qui font parler"
-    },
-    {
       "src": "/images/boissons/soda-rouge-jackboy-libreville.webp",
       "alt": "Boisson rouge pendant une soirée anniversaire",
       "mood": "late",
       "caption": "Soirée anniversaire"
-    },
-    {
-      "src": "/images/boissons/smoothie-jackboy-libreville.webp",
-      "alt": "Smoothie Jackboy",
-      "mood": "early",
-      "caption": "Smoothie"
     }
   ],
   "team": [

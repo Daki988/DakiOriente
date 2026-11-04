@@ -5,7 +5,7 @@
       "slug": "burgers",
       "visible": true,
       "intro": "Des burgers gourmets aux saveurs uniques.",
-      "image": "/images/menu/burger.webp",
+      "image": "/images/menu/burger-cheese-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
@@ -21,7 +21,7 @@
           "name": "Cheese Burger",
           "description": "Laitue, tomate, oignons, steak, fromage.",
           "price": 2500,
-          "image": "/images/menu/burger.webp",
+          "image": "/images/menu/burger-cheese-jackboy-libreville.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -78,14 +78,14 @@
       "slug": "paninis",
       "visible": true,
       "intro": "Croustillants & gourmands — nos emblématiques.",
-      "image": "/images/menu/panini-planche-jackboy-libreville.webp",
+      "image": "/images/menu/panini-grille-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
           "name": "Panini Poulet",
           "description": "Poulet grillé et assaisonné.",
           "price": 1500,
-          "image": "/images/menu/panini-planche-jackboy-libreville.webp",
+          "image": "/images/menu/panini-grille-jackboy-libreville.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -94,7 +94,7 @@
           "name": "Panini Viande",
           "description": "Viande assaisonnée.",
           "price": 1500,
-          "image": "/images/menu/panini-planche-jackboy-libreville.webp",
+          "image": "/images/menu/panini-grille-jackboy-libreville.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -115,14 +115,14 @@
       "slug": "wings",
       "visible": true,
       "intro": "6 pièces au goût unique.",
-      "image": "/images/menu/wings.webp",
+      "image": "/images/menu/wings-sauce-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
           "name": "Wings (6 pièces)",
           "description": "Ailes de poulet marinées, précuites à la grille et remmenées à la poêle. Caramélisées ou salées.",
           "price": 2000,
-          "image": "/images/menu/wings.webp",
+          "image": "/images/menu/wings-sauce-jackboy-libreville.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -134,7 +134,7 @@
       "slug": "brochettes",
       "visible": true,
       "intro": "2 brochettes bien assaisonnées.",
-      "image": "/images/menu/brochettes-boite-jackboy.webp",
+      "image": "/images/menu/brochettes-poulet-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
@@ -162,7 +162,7 @@
       "slug": "nems",
       "visible": true,
       "intro": "4 pièces de pur plaisir.",
-      "image": "/images/menu/nems-boite-jackboy.webp",
+      "image": "/images/menu/nems-croustillants-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
@@ -190,7 +190,7 @@
       "slug": "frites",
       "visible": true,
       "intro": "Simplement irrésistibles.",
-      "image": "/images/menu/frites.webp",
+      "image": "/images/menu/frites-maison-jackboy-libreville.webp",
       "note": "",
       "products": [
         {
@@ -209,14 +209,14 @@
       "slug": "cocktails",
       "visible": true,
       "intro": "Des saveurs uniques — Mojito, Mojito passion, Chantaco.",
-      "image": "/images/menu/cocktails-jackboy.webp",
+      "image": "/images/menu/cocktail-mojito-passion-jackboy.webp",
       "note": "",
       "products": [
         {
           "name": "Cocktail alcoolisé",
           "description": "Mojito, Mojito passion ou Chantaco.",
           "price": 4000,
-          "image": "/images/menu/cocktail-passion-jackboy.webp",
+          "image": "/images/menu/cocktail-mojito-passion-jackboy.webp",
           "featured": true,
           "available": true,
           "isNew": false
@@ -225,7 +225,7 @@
           "name": "Cocktail sans alcool",
           "description": "Mojito, Mojito passion ou Chantaco, version sans alcool.",
           "price": 3000,
-          "image": "/images/menu/mojito.webp",
+          "image": "/images/boissons/studio-mocktail-bleu-jackboy.webp",
           "featured": false,
           "available": true,
           "isNew": false
@@ -237,7 +237,7 @@
       "slug": "bieres-locales",
       "visible": true,
       "intro": "Fraîcheur 100 % d'ici.",
-      "image": "/images/menu/regab.webp",
+      "image": "/images/menu/regab-tapas-comptoir-jackboy.webp",
       "note": "",
       "products": [
         {
@@ -483,7 +483,7 @@
       "slug": "shoot-punch",
       "visible": true,
       "intro": "À partager sans modération.",
-      "image": "/images/menu/shoots-flambes-jackboy.webp",
+      "image": "/images/menu/shoots-flambes-bar-jackboy-libreville.webp",
       "note": "Il est possible d'avoir en détail, à partir de 4 verres.",
       "products": [
         {
@@ -520,7 +520,7 @@
       "slug": "spiritueux",
       "visible": true,
       "intro": "Des grands classiques, toujours au rendez-vous.",
-      "image": "/images/menu/whisky.webp",
+      "image": "/images/menu/whisky-jack-daniels-honey-jackboy.webp",
       "note": "",
       "products": [
         {
@@ -1175,7 +1175,7 @@
       "slug": "chicha",
       "visible": true,
       "intro": "Différentes saveurs.",
-      "image": "/images/menu/chicha.webp",
+      "image": "/images/ambiance/chicha-bar-jackboy-libreville.webp",
       "note": "",
       "products": [
         {

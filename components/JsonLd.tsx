@@ -19,7 +19,7 @@ export function JsonLd() {
     slogan: settings.tagline,
     url: SITE_URL,
     logo: `${SITE_URL}/brand/logo-dark.png`,
-    image: [`${SITE_URL}/opengraph-image`, `${SITE_URL}/images/ambiance/soiree-bar-jackboy-louis-libreville.webp`, `${SITE_URL}/images/ambiance/dj-hamed-aux-platines-jackboy-libreville.webp`, `${SITE_URL}/images/menu/burger.webp`, `${SITE_URL}/images/menu/cocktails-jackboy.webp`],
+    image: [`${SITE_URL}/opengraph-image`, `${SITE_URL}/images/ambiance/soiree-bar-jackboy-louis-libreville.webp`, `${SITE_URL}/images/ambiance/dj-hamed-aux-platines-jackboy-libreville.webp`, `${SITE_URL}/images/ambiance/plateau-aperitif-jackboy-libreville.webp`, `${SITE_URL}/images/menu/cocktail-mojito-passion-jackboy.webp`],
     telephone: settings.phones[0]?.number,
     servesCuisine: ["Fast food", "Burgers", "Paninis", "Chicken wings", "Brochettes", "Cocktails"],
     priceRange: "1 000 – 90 000 FCFA",
