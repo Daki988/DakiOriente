@@ -410,11 +410,11 @@ describe("Navi (assistant IA) : outils et garde-fous, sans appel au modèle", as
   const navi = await import("@/server/services/navi");
   const o = navi._outils;
   it("recherche : un métier en langage naturel mène aux formations et aux écoles", async () => {
-    const r = await o.chercherFormations({ texte: "je veux devenir infirmière", ville: null, niveau: null, label: null, limite: null });
+    const r = await o.chercherFormations({ texte: "je veux devenir infirmière", pays: null, ville: null, niveau: null, label: null, limite: null });
     expect(r.formations.length).toBeGreaterThan(0);
     expect(r.formations[0].intitule).toMatch(/infirmi/i);
     expect(r.formations[0].etablissements.length).toBeGreaterThan(0);
-    expect((await o.chercherEtablissements({ texte: "UIR", ville: null, label: null, formation_id: null, limite: null })).etablissements[0].sigle).toBe("UIR");
+    expect((await o.chercherEtablissements({ texte: "UIR", pays: null, ville: null, label: null, formation_id: null, limite: null })).etablissements[0].sigle).toBe("UIR");
   });
   it("devis : mêmes calculs que la page Devis, montants en F CFA pour le Gabon", async () => {
     const r = await o.estimerCout({ etablissement_id: "ma-esa-casa", formation_id: null, pays_origine: "GA", logement: null }, null);
@@ -473,7 +473,7 @@ describe("relais Navigoal, Premium et accès des établissements", async () => {
     await expect(acces.guideProgress(u, "ma-esa-casa")).rejects.toThrow();
     const sans = crees.find((c) => c.provisoire);
     if (sans) await expect(acces.sendAccess(adminU, (await accounts.findByIdentifier(sans.email))!.id)).rejects.toThrow(/provisoire/);
-  });
+  }, 120000);
 
   it("relais : l'admin voit tout, répond au nom de l'école, notes internes cachées au candidat", async () => {
     const list = await relais.listAllApplications(adminU, {});

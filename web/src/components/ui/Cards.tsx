@@ -1,10 +1,11 @@
 import Link from "@/components/ui/Link";
-import { ArrowRight, BarChart3, Briefcase, Code2, Cog, HardHat, Heart, Landmark, Pickaxe, Scale, Sprout, Stethoscope, Megaphone, GraduationCap, Plane, BookOpen, Palette, Users, Shield, Hotel, Building2, MapPin, Clock, Sparkles, type LucideIcon } from "lucide-react";
+import { ArrowRight, BarChart3, Briefcase, Code2, Cog, HardHat, Heart, Landmark, Pickaxe, Scale, Sprout, Stethoscope, Megaphone, GraduationCap, Plane, BookOpen, Palette, Users, Shield, Hotel, MapPin, Clock, Sparkles, type LucideIcon } from "lucide-react";
 import { EtabLogo } from "./EtabLogo";
 import { EtabPhoto } from "./EtabPhoto";
 import { PartenaireMarque } from "./Partenaires";
 import { Tilt } from "@/components/motion/Tilt";
-import { LABELS, competenceLabel, etabById, etablissements, labelById, niveauLabel, type Formation, type Label, type Metier } from "@/lib/data";
+import { Drapeau } from "@/components/ui/Drapeau";
+import { LABELS, competenceLabel, etabById, etablissements, labelById, labelDescriptionPays, labelPays, niveauLabel, type Formation, type Label, type Metier, type PaysCode } from "@/lib/data";
 
 export const DOMAIN_STYLE: Record<string, { icon: LucideIcon; bg: string; fg: string; solid: string }> = {
   "dom-sante": { icon: Stethoscope, bg: "#ffecef", fg: "#d42a50", solid: "#d42a50" },
@@ -37,10 +38,13 @@ export const LABEL_STYLE: Record<Label, string> = {
   professionnel: "bg-sun-100 text-[#a55a00]",
   autorise: "bg-[#eef1f8] text-ink-soft",
 };
-export function LabelChip({ label, court = false }: { label: Label; court?: boolean }) {
+/** Label d'un établissement ; `pays` donne le libellé propre au pays (ex. « Habilité par l'État » au Sénégal), `libelle` l'impose. */
+export function LabelChip({ label, court = false, pays, libelle }: { label: Label; court?: boolean; pays?: PaysCode; libelle?: string }) {
   const l = labelById[label];
   if (!l) return null;
-  return <span className={`chip ${LABEL_STYLE[label]}`} title={l.description}><Shield size={12} /> {court ? l.court : l.libelle}</span>;
+  const propre = pays && pays !== "MA";
+  const texte = libelle && propre ? libelle : propre ? labelPays(label, pays) : court ? l.court : l.libelle;
+  return <span className={`chip ${LABEL_STYLE[label]}`} title={labelDescriptionPays(label, pays)}><Shield size={12} /> {texte}</span>;
 }
 
 export function MetierCard({ m }: { m: Metier }) {
@@ -132,10 +136,10 @@ export function EtabCard({ id }: { id: string }) {
         <div className="relative flex flex-1 flex-col gap-4 px-5 pb-5 pt-9">
           <EtabLogo e={e} size={56} className="absolute -top-7 left-4 shadow-sm" />
           <div className="min-w-0"><div className="font-extrabold">{e.sigle}</div><div className="line-clamp-2 text-[13px] text-ink-soft">{e.nom}</div></div>
-          <div className="flex flex-wrap gap-1.5"><LabelChip label={e.label} court /><span className="chip bg-[#f6f8fe] text-ink-soft">{e.type_libelle}</span></div>
+          <div className="flex flex-wrap gap-1.5"><LabelChip label={e.label} court pays={e.pays} libelle={e.label_libelle} /><span className="chip bg-[#f6f8fe] text-ink-soft">{e.type_libelle}</span></div>
           <div className="mt-auto flex items-center justify-between border-t border-[#eef1f8] pt-3 text-[13px]">
-            <span className="flex items-center gap-1.5 text-ink-mute"><Building2 size={14} />{e.campus ? `${e.campus.length} campus` : e.ville}</span>
-            <span className="font-bold text-brand-600">{e.label === "autorise" ? "Diplômes d'établissement" : `${e.filieres.length} filière${e.filieres.length > 1 ? "s" : ""} homologuée${e.filieres.length > 1 ? "s" : ""}`}</span>
+            <span className="flex min-w-0 items-center gap-1.5 text-ink-mute"><Drapeau code={e.pays} taille={11} />{e.campus ? `${e.campus.length} campus` : e.ville}</span>
+            <span className="text-right font-bold text-brand-600">{e.label === "autorise" ? "Diplômes d'établissement" : e.pays === "MA" ? `${e.filieres.length} filière${e.filieres.length > 1 ? "s" : ""} homologuée${e.filieres.length > 1 ? "s" : ""}` : `${e.filieres.length} programme${e.filieres.length > 1 ? "s" : ""} reconnu${e.filieres.length > 1 ? "s" : ""}`}</span>
           </div>
         </div>
       </Link>

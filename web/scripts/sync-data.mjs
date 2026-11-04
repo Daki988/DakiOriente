@@ -17,14 +17,18 @@ const write = (name, data) => fs.writeFileSync(path.join(OUT, `${name}.json`), J
 
 fs.mkdirSync(OUT, { recursive: true });
 
-for (const name of ["pays", "niveaux", "domaines", "profils_riasec", "competences", "metiers", "formations", "series", "temoignages"]) {
+for (const name of ["pays", "niveaux", "domaines", "profils_riasec", "competences", "metiers", "series", "temoignages"]) {
   write(name, read(name).items);
 }
 
 const logoUrl = (logo) => (logo ? "/" + logo.fichier.replace(/^assets\//, "") : null);
 const photoOf = (p) => ({ src: "/" + p.fichier.replace(/^assets\//, ""), credit: p.credit, licence: p.licence, page: p.page_source });
 
-const sup = read("etablissements_superieurs").items.map((e) => ({
+// Destinations : seuls les pays actifs sont publiés ; leurs référentiels d'établissements sont fusionnés.
+const destDoc = read("destinations").items;
+const actifs = destDoc.filter((d) => d.actif);
+const bruts = actifs.flatMap((d) => (fs.existsSync(path.join(REF, `${d.fichier}.json`)) ? read(d.fichier).items : []));
+const sup = bruts.map((e) => ({
   id: e.id, nom: e.nom, sigle: e.sigle, pays: e.pays, ville: e.ville, type: e.type, type_libelle: e.type_libelle,
   statut: e.statut, site_web: e.site_web, annee_creation: e.annee_creation, coordonnees: e.coordonnees,
   label: e.label, label_libelle: e.label_libelle, reconnaissance: e.reconnaissance, reconnaissance_en_cours: e.reconnaissance_en_cours,
@@ -33,6 +37,14 @@ const sup = read("etablissements_superieurs").items.map((e) => ({
   geo: e.geo ?? null, campus: e.campus ?? null, alias: e.alias ?? [], site: e.site ?? null,
 }));
 write("etablissements", sup);
+write("destinations", destDoc.map((d) => {
+  const es = sup.filter((e) => e.pays === d.code);
+  const villes = {};
+  for (const e of es) for (const v of e.campus?.map((c) => c.ville) ?? [e.ville]) villes[v] = (villes[v] || 0) + 1;
+  return { ...d, etablissements: es.length, villes: Object.entries(villes).sort((a, b) => b[1] - a[1]).map(([nom, n]) => ({ nom, n })) };
+}));
+// Formations génériques -> établissements de tous les pays actifs
+write("formations", read("formations").items.map((f) => ({ ...f, etablissements: sup.filter((e) => e.formations.includes(f.id)).map((e) => e.id) })));
 
 const secDoc = read("etablissements_secondaires");
 const counts = {};

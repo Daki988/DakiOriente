@@ -11,7 +11,7 @@ import { LabelChip, domStyle } from "@/components/ui/Cards";
 import { Prix } from "@/components/ui/Devise";
 import { villeHref, villesOffre } from "@/lib/catalogue";
 import { COUTS } from "@/lib/devis";
-import { PAYS_NOM, admissionLabel, compatibilite, competenceLabel, domaineById, etabById, formationById, labelById, metierById, niveauLabel, paysDetailById, serieById, type Etablissement, type PaysCode } from "@/lib/data";
+import { PAYS_NOM, auPays, destinationById, labelPays, admissionLabel, compatibilite, competenceLabel, domaineById, etabById, formationById, labelById, metierById, niveauLabel, paysDetailById, serieById, type Etablissement, type PaysCode } from "@/lib/data";
 import { PROFILE_KEY } from "./OrientationTest";
 
 const TABS = ["Présentation", "Conditions d'admission", "Programme", "Frais", "Débouchés"] as const;
@@ -43,9 +43,11 @@ export function FormationDetail({ id }: { id: string }) {
   const progs = e?.site?.programmes.filter((p) => p.formation === f.id) ?? [];
   const campus = e?.campus?.find((c) => c.ville === ville);
   const label = campus?.label ?? e?.label;
-  const C = COUTS.MA;
+  const pays = e?.pays ?? "MA";
+  const C = COUTS[pays];
+  const dev = C.devise;
   const typ = e ? C.scolarite_annuelle[e.type] ?? C.scolarite_annuelle.universite : null;
-  const B = paysDetailById.MA.budget;
+  const B = paysDetailById[pays].budget;
   const series = (Object.entries(f.series_recommandees) as [PaysCode, string[]][]).filter(([, l]) => l?.length);
   const candidater = e ? `/espace/candidatures/nouvelle?etab=${e.id}&formation=${f.id}${ville && e.campus ? `&campus=${encodeURIComponent(ville)}` : ""}` : "/inscription";
   const statut = filieres[0]?.homologation;
@@ -54,7 +56,7 @@ export function FormationDetail({ id }: { id: string }) {
 
   const infos: [typeof Building2, string, ReactNode][] = [
     [Building2, "Établissement", e ? <Link key="e" href={`/etablissements/${e.id}/`} className="hover:text-brand-600">{e.nom}</Link> : "—"],
-    [MapPin, "Localisation", ville ? <Link key="v" href={villeHref(ville)} className="hover:text-brand-600">{ville}, Maroc{e?.campus ? " (campus)" : ""}</Link> : "—"],
+    [MapPin, "Localisation", ville ? <Link key="v" href={villeHref(ville)} className="hover:text-brand-600">{ville}, {destinationById[pays]?.nom}{e?.campus ? " (campus)" : ""}</Link> : "—"],
     [Clock, "Durée", `${f.duree_annees} an${f.duree_annees > 1 ? "s" : ""}`],
     [GraduationCap, "Niveau", `${niveauLabel(f.niveau)} · ${f.diplome}`],
     [Users, "Admission", admissionLabel(f.mode_admission)],
@@ -82,7 +84,7 @@ export function FormationDetail({ id }: { id: string }) {
                   <span className="chip bg-[#f6f8fe] text-ink-soft"><MapPin size={12} />{ville}{villes.length > 1 ? ` · ${villes.length} campus` : ""}</span>
                   <span className="chip bg-brand-50 text-brand-700"><GraduationCap size={12} />{niveauLabel(f.niveau)}</span>
                   <span className="chip bg-[#f6f8fe] text-ink-soft"><Clock size={12} />{f.duree_annees} ans</span>
-                  {label && <LabelChip label={label} court />}
+                  {label && e && <LabelChip label={label} court pays={e.pays} libelle={campus?.label_libelle ?? e.label_libelle} />}
                   <span className="chip bg-[#e8f8ef] text-[#0f8a46]" title={`Estimation selon ton profil d'intérêts ${profil.join("+")}`}><Sparkles size={12} />{score} % compatible</span>
                 </div>
               </div>
@@ -112,7 +114,7 @@ export function FormationDetail({ id }: { id: string }) {
                 <div className="card flex flex-col gap-4 p-6 sm:p-7">
                   <h2 className="text-xl font-extrabold">Présentation de la formation</h2>
                   <p className="leading-relaxed text-ink-soft">{f.intitule} : {f.diplome.toLowerCase()} du domaine « {domaineById[f.domaine].libelle.toLowerCase()} », préparé en {f.duree_annees} an{f.duree_annees > 1 ? "s" : ""} (niveau {niveauLabel(f.niveau)}). Elle prépare notamment aux métiers de {f.metiers.slice(0, 3).map((m) => metierById[m]?.nom.toLowerCase()).filter(Boolean).join(", ")}.</p>
-                  <p className="leading-relaxed text-ink-soft">Au Maroc, elle est proposée par <b className="text-ink">{etabs.length} établissement{etabs.length > 1 ? "s" : ""}</b> privé{etabs.length > 1 ? "s" : ""} référencé{etabs.length > 1 ? "s" : ""} sur Navigoal.</p>
+                  <p className="leading-relaxed text-ink-soft">Elle est proposée par <b className="text-ink">{etabs.length} établissement{etabs.length > 1 ? "s" : ""}</b> privé{etabs.length > 1 ? "s" : ""} référencé{etabs.length > 1 ? "s" : ""} sur Navigoal{Array.from(new Set(etabs.map((x) => x.pays))).length ? ` (${Array.from(new Set(etabs.map((x) => x.pays))).map((c) => `${etabs.filter((x) => x.pays === c).length} ${auPays(c)}`).join(", ")})` : ""}.</p>
                   <h3 className="mt-1 text-lg font-extrabold">Objectifs</h3>
                   {f.competences.map((c) => <span key={c} className="flex items-start gap-2.5 text-ink-soft"><CircleCheck size={18} className="mt-0.5 shrink-0 text-[#0f8a46]" />Maîtriser : {competenceLabel(c).toLowerCase()}</span>)}
                 </div>
@@ -159,9 +161,9 @@ export function FormationDetail({ id }: { id: string }) {
                       {e.site!.frais.map((x) => <div key={x.cycle} className="flex flex-col justify-between gap-1 border-b border-[#dff3e7] pb-2 last:border-0 sm:flex-row sm:gap-3"><span className="text-ink-soft">{x.cycle}</span><b className="sm:text-right">{x.scolarite_annuelle_mad ? <Prix mad={x.scolarite_annuelle_mad} suffixe="/an" /> : "—"}{x.inscription_mad ? <span className="block text-xs font-semibold text-ink-mute">+ inscription <Prix mad={x.inscription_mad} /></span> : null}</b></div>)}
                     </div>
                   ) : typ && (
-                    <div className="flex flex-col gap-1 rounded-2xl bg-[#f6f8fe] p-4 text-sm"><span className="text-ink-mute">Fourchette habituelle ({typ.libelle.toLowerCase()}, estimation) :</span><b className="text-lg"><Prix mad={typ.min} /> – <Prix mad={typ.max} suffixe="/an" /></b><span className="text-xs text-ink-mute">Frais exacts à confirmer par l&apos;établissement.</span></div>
+                    <div className="flex flex-col gap-1 rounded-2xl bg-[#f6f8fe] p-4 text-sm"><span className="text-ink-mute">Fourchette habituelle ({typ.libelle.toLowerCase()}, estimation) :</span><b className="text-lg"><Prix mad={typ.min} devise={dev} /> – <Prix mad={typ.max} devise={dev} suffixe="/an" /></b><span className="text-xs text-ink-mute">Frais exacts à confirmer par l&apos;établissement.</span></div>
                   )}
-                  <div className="flex flex-col gap-1.5 text-sm"><b>Coût de la vie étudiante au Maroc (par mois)</b>{B.lignes.map((l) => <div key={l.poste} className="flex justify-between gap-3"><span className="text-ink-soft">{l.poste}</span><b className="text-right"><Prix mad={l.min} /> – <Prix mad={l.max} /></b></div>)}<span className="text-xs text-ink-mute">{B.note}</span></div>
+                  <div className="flex flex-col gap-1.5 text-sm"><b>Coût de la vie étudiante {auPays(pays)} (par mois)</b>{B.lignes.map((l) => <div key={l.poste} className="flex justify-between gap-3"><span className="text-ink-soft">{l.poste}</span><b className="text-right"><Prix mad={l.min} devise={dev} /> – <Prix mad={l.max} devise={dev} /></b></div>)}<span className="text-xs text-ink-mute">{B.note}</span></div>
                   <Link href={`/devis/?etab=${e.id}&f=${f.id}`} className="btn-primary self-start"><Calculator size={16} /> Calculer le coût total</Link>
                 </div>
               )}
@@ -194,7 +196,7 @@ export function FormationDetail({ id }: { id: string }) {
                       <span className="min-w-0"><b className="line-clamp-2 text-sm">{x.nom}</b><span className="text-xs text-ink-mute">{x.type_libelle}</span></span>
                     </Link>
                     <div className="flex flex-wrap items-center gap-1.5">
-                      <LabelChip label={x.label} court />
+                      <LabelChip label={x.label} court pays={x.pays} libelle={x.label_libelle} />
                       {vs.map((v) => <Link key={v} href={`/formations/${f.id}/?etab=${x.id}${x.campus ? `&ville=${encodeURIComponent(v)}` : ""}`} scroll={false} className={`chip min-h-[30px] ${actif && v === ville ? "bg-brand-600 text-white" : "bg-[#f6f8fe] text-ink-soft hover:bg-brand-50"}`}><MapPin size={11} />{v}</Link>)}
                     </div>
                   </div>
@@ -209,13 +211,13 @@ export function FormationDetail({ id }: { id: string }) {
           <div className="card flex flex-col gap-4 rounded-[22px] p-5">
             <h2 className="text-lg font-extrabold">Informations clés</h2>
             {infos.map(([I, a, b]) => <div key={a} className="flex items-start gap-3"><span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600"><I size={17} /></span><span className="min-w-0 text-sm"><span className="block text-xs text-ink-mute">{a}</span><b>{b}</b></span></div>)}
-            <div className="flex items-start gap-3"><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${label === "autorise" ? "bg-sun-100 text-[#a55a00]" : "bg-[#e8f8ef] text-[#0f8a46]"}`}>{label === "autorise" ? <ShieldAlert size={17} /> : <BadgeCheck size={17} />}</span><span className="text-sm"><span className="block text-xs text-ink-mute">Label</span><b>{label ? labelById[label].libelle : "—"}</b>{statut && <span className="block text-xs text-ink-mute">{statut.statut === "echue" ? `Accréditation échue (${statut.fin})` : `Filière accréditée · échéance ${statut.fin}`}</span>}</span></div>
+            <div className="flex items-start gap-3"><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${label === "autorise" ? "bg-sun-100 text-[#a55a00]" : "bg-[#e8f8ef] text-[#0f8a46]"}`}>{label === "autorise" ? <ShieldAlert size={17} /> : <BadgeCheck size={17} />}</span><span className="text-sm"><span className="block text-xs text-ink-mute">Label</span><b>{label ? (pays === "MA" ? labelById[label].libelle : e?.label_libelle ?? labelPays(label, pays)) : "—"}</b>{statut && <span className="block text-xs text-ink-mute">{statut.statut === "echue" ? `Accréditation échue (${statut.fin})` : pays === "MA" ? `Filière accréditée · échéance ${statut.fin}` : statut.fin === "—" ? statut.texte : `Programme reconnu · valable jusqu'en ${statut.fin}`}</span>}</span></div>
             <Link href={candidater} className="btn-primary btn-shine w-full">Candidater <ArrowRight size={16} /></Link>
           </div>
           <div className="card flex flex-col gap-2.5 bg-gradient-to-br from-white to-[#fff7dd] p-5">
             <div className="flex items-center gap-2.5"><span className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-sun-400"><KeyRound size={18} /></span><b>Se loger à {ville}</b></div>
-            <p className="text-[13px] text-ink-soft">Logements vérifiés près de {e.sigle || "l'établissement"} : loyer d&apos;un studio ou d&apos;une colocation entre <Prix mad={B.lignes[0].min} /> et <Prix mad={B.lignes[0].max} /> par mois.</p>
-            <Link href={`/navilease/logements/?etablissement=${e.id}`} className="btn-ghost py-2.5">Logements Navilease</Link>
+            <p className="text-[13px] text-ink-soft">{pays === "MA" ? "Logements vérifiés" : "Logement"} près de {e.sigle || "l'établissement"} : loyer d&apos;un studio ou d&apos;une colocation entre <Prix mad={B.lignes[0].min} devise={dev} /> et <Prix mad={B.lignes[0].max} devise={dev} /> par mois.</p>
+            {pays === "MA" && <Link href={`/navilease/logements/?etablissement=${e.id}`} className="btn-ghost py-2.5">Logements Navilease</Link>}
             {ville && <Link href={villeHref(ville)} className="flex items-center gap-1.5 text-[13px] font-bold text-brand-600"><School size={14} />Vivre et étudier à {ville} →</Link>}
           </div>
         </aside>

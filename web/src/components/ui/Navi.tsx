@@ -1,4 +1,5 @@
 "use client";
+import { useDestination } from "@/components/ui/Destination";
 import { ArrowRight, Calculator, FileText, GraduationCap, Home, Mic, MessageCircle, RotateCcw, Scale, Send, ShieldCheck, Sparkles, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
@@ -181,6 +182,8 @@ const Avatar = () => <Fennec className="mt-0.5 h-8 w-8 rounded-full ring-1 ring-
 export function Navi() {
   const path = usePathname() ?? "/";
   const { pays } = useDevise();
+  const { destination: dest, choisie } = useDestination();
+  const destination = choisie ? dest : null;
   const [actif, setActif] = useState(false);
   const [ouvert, setOuvert] = useState(false);
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -233,7 +236,7 @@ export function Navi() {
     try {
       const r = await fetch("/api/navi/", {
         method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin", signal: ctrl.signal,
-        body: JSON.stringify({ messages: histo.slice(-12).map((m) => ({ role: m.role, texte: m.texte.slice(0, 4000) })), page: { chemin: window.location.pathname + window.location.search, titre: document.title }, pays }),
+        body: JSON.stringify({ messages: histo.slice(-12).map((m) => ({ role: m.role, texte: m.texte.slice(0, 4000) })), page: { chemin: window.location.pathname + window.location.search, titre: document.title }, pays, destination }),
       });
       if (!r.ok || !r.body) {
         const d = await r.json().catch(() => null);
@@ -266,7 +269,7 @@ export function Navi() {
       setEnvoi(false);
       annule.current = null;
     }
-  }, [envoi, msgs, pays]);
+  }, [envoi, msgs, pays, destination]);
 
   const dicter = () => {
     const W = window as unknown as { SpeechRecognition?: new () => SpeechRec; webkitSpeechRecognition?: new () => SpeechRec };

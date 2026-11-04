@@ -116,6 +116,111 @@
         "https://www.maroc.campusfrance.org/system/files/medias/documents/2025-06/Guide%20pre%CC%81paration%20au%20de%CC%81part%202025.pdf",
         "https://www.eigsica.ma/wp-content/uploads/2020/07/LIVRET_ACCUEIL_ETRANGERS_2020.pdf"
       ]
+    },
+    {
+      "id": "SN",
+      "nom": "Sénégal",
+      "accroche": "Grand pôle d'enseignement supérieur francophone d'Afrique de l'Ouest : écoles de management, d'informatique et de santé reconnues, à quelques heures de vol de toute la région.",
+      "chiffres": {
+        "population": "≈ 18 millions",
+        "capitale": "Dakar",
+        "monnaie": "Franc CFA (XOF)",
+        "langues": [
+          "Français (enseignement)",
+          "Wolof",
+          "Pulaar, sérère, diola…"
+        ],
+        "fuseau": "UTC+0",
+        "indicatif": "+221"
+      },
+      "pourquoi": [
+        "Plus de 80 établissements privés habilités ou dont les programmes sont accrédités par l'ANAQ-Sup, surtout à Dakar.",
+        "Enseignement en français, système LMD reconnu dans l'espace CAMES (17 pays d'Afrique francophone).",
+        "Franc CFA à parité fixe avec l'euro : pas de risque de change depuis les pays de la zone CFA (UEMOA et CEMAC).",
+        "Écoles inter-États (ESMT, CESAG, EISMV) et forte communauté étudiante venue de toute l'Afrique."
+      ],
+      "systeme": "LMD : licence en 3 ans, master en 5 ans, doctorat en 8 ans ; BTS et DUT en 2 ans ; diplômes d'ingénieur en 5 ans.",
+      "reconnaissance": "Privilégier les établissements habilités par le MESRI et les programmes accrédités par l'ANAQ-Sup : ce sont eux qui délivrent des diplômes reconnus par l'État. Le MESRI publie aussi une liste d'établissements non reconnus, exclus de Navigoal.",
+      "calendrier": "Rentrée d'octobre à novembre dans la plupart des écoles privées ; inscriptions de juin à octobre ; examens en février et juin–juillet.",
+      "visa": [
+        "Pas de visa pour les ressortissants de la CEDEAO ; beaucoup d'autres nationalités africaines en sont aussi dispensées pour un court séjour. Vérifie ta situation auprès de l'ambassade du Sénégal avant le départ.",
+        "Carte de séjour (ou titre de séjour étudiant) à demander à la Direction de la police des étrangers après l'arrivée, avec l'attestation d'inscription.",
+        "Pièces courantes : passeport, attestation d'inscription, justificatif de logement, extrait de casier judiciaire, certificat médical, photos."
+      ],
+      "budget": {
+        "devise": "XOF",
+        "lignes": [
+          {
+            "poste": "Logement (chambre, studio ou colocation)",
+            "min": 75000,
+            "max": 200000
+          },
+          {
+            "poste": "Alimentation",
+            "min": 60000,
+            "max": 100000
+          },
+          {
+            "poste": "Transport (bus, BRT, TER, taxis)",
+            "min": 15000,
+            "max": 30000
+          },
+          {
+            "poste": "Téléphone, internet, loisirs",
+            "min": 20000,
+            "max": 40000
+          }
+        ],
+        "total_mensuel": {
+          "min": 170000,
+          "max": 370000
+        },
+        "note": "Dakar (Plateau, Point E, Mermoz, Almadies) est la ville la plus chère ; Thiès et Saint-Louis sont nettement plus abordables."
+      },
+      "frais_prive": {
+        "devise": "XOF",
+        "min": 500000,
+        "max": 3500000,
+        "unite": "par an",
+        "note": "Écoles de commerce et d'informatique : souvent 1 à 3 millions F CFA par an ; santé et médecine privées au-delà."
+      },
+      "travail": "Les petits emplois et stages sont possibles ; les stages conventionnés par l'école sont la voie la plus sûre.",
+      "sante": "Assurance santé conseillée (souvent proposée par l'école) ; cliniques privées de bon niveau à Dakar.",
+      "paiement": [
+        "Wave",
+        "Orange Money",
+        "Free Money",
+        "Carte bancaire",
+        "Virement"
+      ],
+      "villes": [
+        {
+          "nom": "Dakar",
+          "profil": "Capitale : la grande majorité des écoles, stages en entreprise, vie étudiante animée."
+        },
+        {
+          "nom": "Thiès",
+          "profil": "À 70 km de Dakar, reliée par le TER ; vie plus calme et moins chère."
+        },
+        {
+          "nom": "Saint-Louis",
+          "profil": "Ville universitaire historique au nord, cadre agréable, budget doux."
+        },
+        {
+          "nom": "Ziguinchor",
+          "profil": "Capitale de la Casamance, au sud : écoles de gestion, coût de la vie bas."
+        }
+      ],
+      "bourses": [
+        "Bourses et réductions propres aux écoles (excellence, fratrie, paiement annuel).",
+        "Bourses de coopération proposées par certains États d'origine pour les écoles inter-États (ESMT, CESAG, EISMV)."
+      ],
+      "sources": [
+        "https://anaqsup.sn",
+        "https://au-senegal.com/etudier-au-senegal-guide-pratique-pour-etudiants-etrangers,17574.html",
+        "https://www.sencampus.com/dossiers/bien-choisir-sa-filiere/combien-ca-coute-vraiment",
+        "https://legrandfrere.africa/frais-de-scolarite-ism-dakar-licence-master-mba-admission/"
+      ]
     }
   ]
 }

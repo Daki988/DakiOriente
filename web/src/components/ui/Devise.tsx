@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { MARGE_PRUDENCE, TAUX_SECOURS, convertir, devisePays, formatMontant, paysNavigateur, type Taux } from "@/lib/devises";
+import { MARGE_PRUDENCE, TAUX_SECOURS, convertir, convertirDe, devisePays, formatMontant, paysNavigateur, type Taux } from "@/lib/devises";
 import { PAYS_OPTIONS, nomPays } from "@/lib/pays-origine";
 
 const CLE = "navigoal.pays";
@@ -30,9 +30,13 @@ export function DeviseProfil({ country }: { country: string | null | undefined }
   return null;
 }
 
-/** Montant en dirhams, suivi de son équivalent dans la devise du pays de provenance (marge de prudence incluse). */
-export function Prix({ mad, suffixe = "", bloc = false, className = "", cfaDabord = false }: { mad: number; suffixe?: string; bloc?: boolean; className?: string; cfaDabord?: boolean }) {
+/** Montant dans la devise du pays d'études (`devise`, dirhams par défaut), suivi de son équivalent dans la devise du pays de provenance (marge de prudence incluse). */
+export function Prix({ mad, devise: source = "MAD", suffixe = "", bloc = false, className = "", cfaDabord = false }: { mad: number; devise?: string; suffixe?: string; bloc?: boolean; className?: string; cfaDabord?: boolean }) {
   const { devise, taux } = useDevise();
+  if (source !== "MAD") {
+    const e = devise ? convertirDe(mad, source, devise, taux) : null;
+    return <span className={className}>{formatMontant(mad, source)}{suffixe}{e != null && <span className={`${bloc ? "block" : "ml-1"} text-[0.85em] font-semibold text-ink-mute`} title={`Taux du ${new Date(taux.date).toLocaleDateString("fr-FR")}, majoré de ${MARGE_PRUDENCE * 100} % par prudence`}>≈ {formatMontant(e, devise!)}{suffixe}</span>}</span>;
+  }
   const c = devise ? convertir(mad, devise, taux) : null;
   // Montant à payer vu depuis la zone F CFA : l'équivalent en grand, les dirhams débités en dessous
   if (cfaDabord && c != null && (devise === "XAF" || devise === "XOF"))

@@ -1,0 +1,961 @@
+{
+ "_meta": {
+  "source": "Fiches Navigoal antérieures (commit 5514bd0), sites et logos relevés sur les sites officiels",
+  "date": "2026-10"
+ },
+ "items": [
+  {
+   "id": "sn-esmt",
+   "nom": "École Supérieure Multinationale des Télécommunications",
+   "sigle": "ESMT",
+   "statut": "inter_etats",
+   "ville": "Dakar",
+   "site_web": "https://www.esmt.sn",
+   "annee_creation": 1981,
+   "coordonnees": {
+    "lat": 14.70002,
+    "lng": -17.4512
+   },
+   "logo": {
+    "fichier": "assets/logos/sn/sn-esmt.png",
+    "source_url": "https://www.esmt.sn/images/logos/logo-web-esmt-black.webp",
+    "page_source": "https://www.esmt.sn",
+    "methode": "source_manuelle",
+    "date_collecte": "2026-10-08",
+    "a_verifier": false
+   },
+   "photos": [
+    {
+     "fichier": "assets/photos/sn/sn-esmt-1.jpg",
+     "source_url": "https://www.esmt.sn/images/gallery/programmes-esmt.webp",
+     "page_source": "https://www.esmt.sn/",
+     "credit": "© École Supérieure Multinationale des Télécommunications",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    },
+    {
+     "fichier": "assets/photos/sn/sn-esmt-2.jpg",
+     "source_url": "https://www.esmt.sn/_next/image?url=%2Fapi%2Fmedia%2Ffile%2Fprogrammes-cours-du-soir.webp&w=3840&q=75",
+     "page_source": "https://www.esmt.sn/",
+     "credit": "© École Supérieure Multinationale des Télécommunications",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    },
+    {
+     "fichier": "assets/photos/sn/sn-esmt-3.jpg",
+     "source_url": "https://www.esmt.sn/_next/image?url=%2Fapi%2Fmedia%2Ffile%2Fpmp-session-esmt.webp&w=3840&q=75",
+     "page_source": "https://www.esmt.sn/",
+     "credit": "© École Supérieure Multinationale des Télécommunications",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    }
+   ],
+   "wikidata": "Q5333198",
+   "type": "ecole_ingenieurs"
+  },
+  {
+   "id": "sn-eismv",
+   "nom": "École Inter-États des Sciences et Médecine Vétérinaires",
+   "sigle": "EISMV",
+   "statut": "inter_etats",
+   "ville": "Dakar",
+   "site_web": "https://www.eismv.org",
+   "annee_creation": 1968,
+   "coordonnees": {
+    "lat": 14.68764,
+    "lng": -17.46173
+   },
+   "logo": {
+    "fichier": "assets/logos/sn/sn-eismv.png",
+    "source_url": "https://www.eismv.org/wp-content/uploads/2022/01/cropped-LOGO_EISMV-scaled-1-180x180.jpg",
+    "page_source": "https://www.eismv.org/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [
+    {
+     "fichier": "assets/photos/sn/sn-eismv-1.jpg",
+     "source_url": "https://www.eismv.org/wp-content/uploads/2024/02/Couv-EISMV-2.jpg",
+     "page_source": "https://www.eismv.org/",
+     "credit": "© École Inter-États des Sciences et Médecine Vétérinaires",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    },
+    {
+     "fichier": "assets/photos/sn/sn-eismv-2.jpg",
+     "source_url": "https://www.eismv.org/wp-content/uploads/2024/02/Couv-EISMV1.jpg",
+     "page_source": "https://www.eismv.org/",
+     "credit": "© École Inter-États des Sciences et Médecine Vétérinaires",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    }
+   ],
+   "wikidata": "Q3578018",
+   "type": "ecole_sante"
+  },
+  {
+   "id": "sn-cesag",
+   "nom": "Centre Africain d'Études Supérieures en Gestion",
+   "sigle": "CESAG",
+   "statut": "inter_etats",
+   "ville": "Dakar",
+   "site_web": "https://www.cesag.sn",
+   "annee_creation": null,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-cesag.png",
+    "source_url": "https://www.cesag.sn/images/sampledata/ja_university/CSGLOG_F.png#joomlaImage://local-images/sampledata/ja_university/CSGLOG_F.png?width=400&height=100",
+    "page_source": "https://www.cesag.sn/index.php/fr/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [],
+   "wikidata": null,
+   "type": "ecole_commerce"
+  },
+  {
+   "id": "sn-ism",
+   "nom": "Groupe ISM – Institut Supérieur de Management",
+   "sigle": "ISM",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://www.groupeism.sn",
+   "annee_creation": null,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-ism.png",
+    "source_url": "https://www.groupeism.sn/sites/default/files/groupeism.sn__1.png",
+    "page_source": "https://www.groupeism.sn/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [],
+   "wikidata": null,
+   "type": "ecole_commerce"
+  },
+  {
+   "id": "sn-supdeco",
+   "nom": "Groupe Sup de Co Dakar",
+   "sigle": "Sup de Co",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://supdeco.sn",
+   "annee_creation": 1993,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-supdeco.png",
+    "source_url": "https://supdeco.sn/wp-content/uploads/2021/09/logo-supdeco.png",
+    "page_source": "https://supdeco.sn/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [
+    {
+     "fichier": "assets/photos/sn/sn-supdeco-1.jpg",
+     "source_url": "https://supdeco.sn/wp-content/uploads/2022/01/Devenez-etudiant-a-Sup-de-CO.jpg",
+     "page_source": "https://supdeco.sn/",
+     "credit": "© Groupe Sup de Co Dakar",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    }
+   ],
+   "wikidata": "Q115405571",
+   "type": "ecole_commerce"
+  },
+  {
+   "id": "sn-bem",
+   "nom": "BEM Dakar – Bordeaux École de Management",
+   "sigle": "BEM Dakar",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://bem.sn",
+   "annee_creation": null,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-bem.png",
+    "source_url": "https://bem.sn/assets/images/Logo-BEM-Neutre1.png",
+    "page_source": "https://bem.sn/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [],
+   "wikidata": null,
+   "type": "ecole_commerce"
+  },
+  {
+   "id": "sn-iam",
+   "nom": "Institut Africain de Management",
+   "sigle": "IAM",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://groupeiam.com",
+   "annee_creation": 1996,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-iam.png",
+    "source_url": "https://groupeiam.com/wp-content/uploads/2026/06/LOGO-IAM-BLANC-scaled.png",
+    "page_source": "https://groupeiam.com/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [
+    {
+     "fichier": "assets/photos/sn/sn-iam-1.jpg",
+     "source_url": "https://groupeiam.sn/wp-content/uploads/2026/06/WhatsApp-Image-2025-01-13-at-15.57.41.jpeg",
+     "page_source": "https://groupeiam.com/",
+     "credit": "© Institut Africain de Management",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    }
+   ],
+   "wikidata": "Q140948263",
+   "type": "ecole_commerce"
+  },
+  {
+   "id": "sn-isi",
+   "nom": "Groupe Institut Supérieur d'Informatique",
+   "sigle": "ISI",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://www.groupeisi.com",
+   "annee_creation": 1994,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-isi.png",
+    "source_url": "http://www.groupeisi.com/wp-content/uploads/2018/11/LOGO-NEW-GROUP.jpg",
+    "page_source": "https://www.groupeisi.com/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [
+    {
+     "fichier": "assets/photos/sn/sn-isi-1.jpg",
+     "source_url": "http://www.groupeisi.com/wp-content/uploads/2018/11/IMG_1153.jpg",
+     "page_source": "https://www.groupeisi.com/",
+     "credit": "© Groupe Institut Supérieur d'Informatique",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    }
+   ],
+   "wikidata": "Q140948264",
+   "type": "ecole_ingenieurs"
+  },
+  {
+   "id": "sn-ipd",
+   "nom": "Institut Polytechnique de Dakar",
+   "sigle": "IPD",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "http://ipd.sn",
+   "annee_creation": 1991,
+   "coordonnees": {
+    "lat": 14.738278965,
+    "lng": -17.464775861
+   },
+   "logo": {
+    "fichier": "assets/logos/sn/sn-ipd.png",
+    "source_url": "https://www.ipd.sn/wp-content/uploads/2025/09/LOGO-01-scaled.png",
+    "page_source": "https://www.ipd.sn/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [
+    {
+     "fichier": "assets/photos/sn/sn-ipd-1.jpg",
+     "source_url": "https://www.ipd.sn/wp-content/uploads/2025/09/ipd1.webp",
+     "page_source": "https://www.ipd.sn/",
+     "credit": "© Institut Polytechnique de Dakar",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    },
+    {
+     "fichier": "assets/photos/sn/sn-ipd-2.jpg",
+     "source_url": "https://www.ipd.sn/wp-content/uploads/2025/09/WhatsApp-Image-2025-07-10-at-16.42.06-2.jpeg",
+     "page_source": "https://www.ipd.sn/",
+     "credit": "© Institut Polytechnique de Dakar",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    },
+    {
+     "fichier": "assets/photos/sn/sn-ipd-3.jpg",
+     "source_url": "https://www.ipd.sn/wp-content/uploads/2025/09/WhatsApp-Image-2025-09-28-a-23.35.28_35e855d3.jpg",
+     "page_source": "https://www.ipd.sn/",
+     "credit": "© Institut Polytechnique de Dakar",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    }
+   ],
+   "wikidata": "Q105475472",
+   "type": "institut"
+  },
+  {
+   "id": "sn-dit",
+   "nom": "Dakar Institute of Technology",
+   "sigle": "DIT",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://dit.sn",
+   "annee_creation": null,
+   "coordonnees": {
+    "lat": 14.7105385,
+    "lng": -17.466467
+   },
+   "logo": {
+    "fichier": "assets/logos/sn/sn-dit.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Logodit.jpg?width=256",
+    "page_source": "https://commons.wikimedia.org/wiki/File:Logodit.jpg",
+    "methode": "wikidata_p154",
+    "date_collecte": "2026-10-08",
+    "a_verifier": false
+   },
+   "photos": [],
+   "wikidata": "Q125637004",
+   "type": "ecole_ingenieurs"
+  },
+  {
+   "id": "sn-daust",
+   "nom": "Dakar American University of Science and Technology",
+   "sigle": "DAUST",
+   "statut": "prive",
+   "ville": "Somone (Thiès)",
+   "site_web": "https://daust.org",
+   "annee_creation": null,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-daust.png",
+    "source_url": "https://daust.org/logos/daust-wordmark-navy.png",
+    "page_source": "https://daust.org/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [
+    {
+     "fichier": "assets/photos/sn/sn-daust-1.jpg",
+     "source_url": "https://daust.org/images/hero.jpg",
+     "page_source": "https://daust.org/",
+     "credit": "© Dakar American University of Science and Technology",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    },
+    {
+     "fichier": "assets/photos/sn/sn-daust-2.jpg",
+     "source_url": "https://daust.org/images/news-1.jpg",
+     "page_source": "https://daust.org/",
+     "credit": "© Dakar American University of Science and Technology",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    },
+    {
+     "fichier": "assets/photos/sn/sn-daust-3.jpg",
+     "source_url": "https://daust.org/images/news-2.jpg",
+     "page_source": "https://daust.org/",
+     "credit": "© Dakar American University of Science and Technology",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    }
+   ],
+   "wikidata": null,
+   "type": "ecole_ingenieurs"
+  },
+  {
+   "id": "sn-uahb",
+   "nom": "Université Amadou Hampâté Bâ",
+   "sigle": "UAHB",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://univ.uahb.sn",
+   "annee_creation": null,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-uahb.png",
+    "source_url": "https://www.google.com/s2/favicons?domain=univ.uahb.sn&sz=256",
+    "page_source": "https://univ.uahb.sn",
+    "methode": "favicon",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [
+    {
+     "fichier": "assets/photos/sn/sn-uahb-1.jpg",
+     "source_url": "https://univ.uahb.sn/wp-content/uploads/2022/01/uahb-bg-maintenance-1024x576.jpg",
+     "page_source": "https://univ.uahb.sn/",
+     "credit": "© Université Amadou Hampâté Bâ",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    }
+   ],
+   "wikidata": null,
+   "type": "universite"
+  },
+  {
+   "id": "sn-udb",
+   "nom": "Université Dakar-Bourguiba",
+   "sigle": "UDB",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "http://www.udb-sn.com",
+   "annee_creation": 1995,
+   "coordonnees": {
+    "lat": 14.7188,
+    "lng": -17.4495
+   },
+   "logo": {
+    "fichier": "assets/logos/sn/sn-udb.png",
+    "source_url": "http://www.udb-sn.com/images/logo.png",
+    "page_source": "http://www.udb-sn.com/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [],
+   "wikidata": "Q3551395",
+   "type": "universite"
+  },
+  {
+   "id": "sn-unis",
+   "nom": "Université du Sahel",
+   "sigle": "UNIS",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "http://unis.sn",
+   "annee_creation": 1998,
+   "coordonnees": {
+    "lat": 14.711516735,
+    "lng": -17.478258432
+   },
+   "logo": null,
+   "photos": [],
+   "wikidata": "Q3551765",
+   "type": "universite"
+  },
+  {
+   "id": "sn-ussd",
+   "nom": "Université des Sciences de la Santé de Dakar",
+   "sigle": "USSD",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://ussd.sn",
+   "annee_creation": 2016,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-ussd.png",
+    "source_url": "https://ussd.sn/wp-content/uploads/2026/03/Logo-USSD1-scaled.png",
+    "page_source": "https://ussd.sn/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [
+    {
+     "fichier": "assets/photos/sn/sn-ussd-1.jpg",
+     "source_url": "https://ussd.sn/wp-content/uploads/2026/03/IMG-20250324-WA0089.jpg",
+     "page_source": "https://ussd.sn/",
+     "credit": "© Université des Sciences de la Santé de Dakar",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    },
+    {
+     "fichier": "assets/photos/sn/sn-ussd-2.jpg",
+     "source_url": "https://ussd.sn/wp-content/uploads/2026/08/etu-trav.jpeg",
+     "page_source": "https://ussd.sn/",
+     "credit": "© Université des Sciences de la Santé de Dakar",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    }
+   ],
+   "wikidata": "Q140948261",
+   "type": "universite"
+  },
+  {
+   "id": "sn-ucao",
+   "nom": "Université Catholique de l'Afrique de l'Ouest – Saint-Michel",
+   "sigle": "UCAO-USM",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://www.st-michel.sn",
+   "annee_creation": null,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-ucao.png",
+    "source_url": "https://www.st-michel.sn/wp-content/uploads/2023/01/Logos_UCAO_ISG.png",
+    "page_source": "https://www.st-michel.sn/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [
+    {
+     "fichier": "assets/photos/sn/sn-ucao-1.jpg",
+     "source_url": "https://www.st-michel.sn/wp-content/uploads/2024/02/visite-PTN.jpg",
+     "page_source": "https://www.st-michel.sn/",
+     "credit": "© Université Catholique de l'Afrique de l'Ouest – Saint-Michel",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    },
+    {
+     "fichier": "assets/photos/sn/sn-ucao-2.jpg",
+     "source_url": "https://www.st-michel.sn/wp-content/uploads/2023/01/ISG.jpg",
+     "page_source": "https://www.st-michel.sn/",
+     "credit": "© Université Catholique de l'Afrique de l'Ouest – Saint-Michel",
+     "licence": null,
+     "methode": "site_officiel",
+     "a_verifier": true,
+     "date_collecte": "2026-10-09"
+    }
+   ],
+   "wikidata": null,
+   "type": "universite"
+  },
+  {
+   "id": "sn-ec2lt",
+   "nom": "École Centrale des Logiciels Libres et des Télécommunications",
+   "sigle": "EC2LT",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://www.ec2lt.sn",
+   "annee_creation": 2009,
+   "coordonnees": {
+    "lat": 14.724111936,
+    "lng": -17.459673945
+   },
+   "logo": {
+    "fichier": "assets/logos/sn/sn-ec2lt.png",
+    "source_url": "https://www.ec2lt.sn/wp-content/uploads/2022/03/LOGO_EC2LT_mob.png",
+    "page_source": "https://www.ec2lt.sn/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-08",
+    "a_verifier": true
+   },
+   "photos": [],
+   "wikidata": "Q105475471",
+   "type": "ecole_ingenieurs"
+  },
+  {
+   "id": "sn-atlantic",
+   "nom": "Atlantic University",
+   "sigle": "UNIVERSAT",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "http://www.universat.sn",
+   "annee_creation": 2011,
+   "coordonnees": {
+    "lat": 14.714678589,
+    "lng": -17.453369018
+   },
+   "logo": {
+    "fichier": "assets/logos/sn/sn-atlantic.png",
+    "source_url": "https://www.universat.sn/images/logo-universat.png",
+    "page_source": "https://www.universat.sn/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-09",
+    "a_verifier": true
+   },
+   "photos": [],
+   "wikidata": "Q106464830",
+   "type": "universite"
+  },
+  {
+   "id": "sn-euromed",
+   "nom": "EUROMED Université Dakar",
+   "sigle": "EUROMED",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://www.euromed.sn",
+   "annee_creation": 2008,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-euromed.png",
+    "source_url": "https://www.euromed.sn/images/logo.png",
+    "page_source": "https://www.euromed.sn/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-09",
+    "a_verifier": true
+   },
+   "photos": [],
+   "wikidata": "Q140948266",
+   "type": "universite"
+  },
+  {
+   "id": "sn-ensup",
+   "nom": "Ensup Afrique",
+   "sigle": "Ensup",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": null,
+   "annee_creation": 2012,
+   "coordonnees": {
+    "lat": 14.731383022,
+    "lng": -17.468514003
+   },
+   "logo": null,
+   "photos": [],
+   "wikidata": "Q105475468",
+   "type": "institut"
+  },
+  {
+   "id": "sn-hec-dakar",
+   "nom": "HEC Dakar Business School",
+   "sigle": "HEC Dakar",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": null,
+   "annee_creation": null,
+   "coordonnees": null,
+   "logo": null,
+   "photos": [],
+   "wikidata": "Q140948268",
+   "type": "ecole_commerce"
+  },
+  {
+   "id": "sn-icagi",
+   "nom": "ICAGI Amadou Mahtar Mbow",
+   "sigle": "ICAGI",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://icagi.sn",
+   "annee_creation": 2006,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-icagi.png",
+    "source_url": "https://icagi.sn/_next/image?url=%2Fimages%2Flogo-icagi.png&w=128&q=75",
+    "page_source": "https://icagi.sn/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-09",
+    "a_verifier": true
+   },
+   "photos": [],
+   "wikidata": "Q140948267",
+   "type": "institut"
+  },
+  {
+   "id": "sn-iacom",
+   "nom": "Institut Africain de Commerce et de Marketing",
+   "sigle": "IACOM",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://www.iacom-formation.com",
+   "annee_creation": 2000,
+   "coordonnees": {
+    "lat": 14.74771299,
+    "lng": -17.397749809
+   },
+   "logo": null,
+   "photos": [],
+   "wikidata": "Q105475490",
+   "type": "ecole_commerce"
+  },
+  {
+   "id": "sn-2im",
+   "nom": "Institut International de Management",
+   "sigle": "2IM",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "http://groupe2im.sn",
+   "annee_creation": 1999,
+   "coordonnees": null,
+   "logo": null,
+   "photos": [],
+   "wikidata": "Q105475469",
+   "type": "ecole_commerce"
+  },
+  {
+   "id": "sn-ipp",
+   "nom": "Institut Polytechnique Panafricain",
+   "sigle": "IPP",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://ippdakar.com",
+   "annee_creation": 2008,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-ipp.png",
+    "source_url": "https://ippdakar.com/wp-content/uploads/2023/03/ipp_png-e1679329772787.png",
+    "page_source": "https://ippdakar.com/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-09",
+    "a_verifier": true
+   },
+   "photos": [],
+   "wikidata": "Q140948262",
+   "type": "institut"
+  },
+  {
+   "id": "sn-ipformed",
+   "nom": "Institut Privé de Formation et de Recherches Médicales",
+   "sigle": "IPFORMED",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "http://www.ipformed.org",
+   "annee_creation": 2009,
+   "coordonnees": {
+    "lat": 14.723127772,
+    "lng": -17.472639145
+   },
+   "logo": null,
+   "photos": [],
+   "wikidata": "Q105475486",
+   "type": "ecole_sante"
+  },
+  {
+   "id": "sn-isdd",
+   "nom": "Institut Supérieur de Droit de Dakar",
+   "sigle": "ISDD",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://isdd.edu.sn",
+   "annee_creation": 2005,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-isdd.png",
+    "source_url": "https://isdd.edu.sn/wp-content/uploads/2025/02/cropped-logo-1.png",
+    "page_source": "https://isdd.edu.sn/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-09",
+    "a_verifier": true
+   },
+   "photos": [],
+   "wikidata": "Q140948265",
+   "type": "institut"
+  },
+  {
+   "id": "sn-iued",
+   "nom": "Institut Universitaire de l'Entreprise et du Développement",
+   "sigle": "IUED",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "http://www.iuedsenegal.org",
+   "annee_creation": 2014,
+   "coordonnees": {
+    "lat": 14.711204066,
+    "lng": -17.466801232
+   },
+   "logo": {
+    "fichier": "assets/logos/sn/sn-iued.png",
+    "source_url": "https://iuedsenegal.org/img/logo.png",
+    "page_source": "https://iuedsenegal.org/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-09",
+    "a_verifier": true
+   },
+   "photos": [],
+   "wikidata": "Q105475470",
+   "type": "institut"
+  },
+  {
+   "id": "sn-ihe",
+   "nom": "Institut des Hautes Études de Dakar",
+   "sigle": "IHE",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": null,
+   "annee_creation": 2013,
+   "coordonnees": {
+    "lat": 14.716094111,
+    "lng": -17.466070865
+   },
+   "logo": null,
+   "photos": [],
+   "wikidata": "Q125253753",
+   "type": "institut"
+  },
+  {
+   "id": "sn-kedge",
+   "nom": "KEDGE Business School — campus de Dakar",
+   "sigle": "KEDGE Dakar",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://kedge.edu",
+   "annee_creation": 2013,
+   "coordonnees": null,
+   "logo": {
+    "fichier": "assets/logos/sn/sn-kedge.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Logo-kedge.JPG?width=256",
+    "page_source": "https://commons.wikimedia.org/wiki/File:Logo-kedge.JPG",
+    "methode": "wikidata_p154",
+    "date_collecte": "2026-10-09",
+    "a_verifier": false
+   },
+   "photos": [],
+   "wikidata": "Q16647785",
+   "type": "ecole_commerce"
+  },
+  {
+   "id": "sn-mit",
+   "nom": "MIT University de Dakar",
+   "sigle": "MIT Dakar",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "http://www.mit-university.net",
+   "annee_creation": 2004,
+   "coordonnees": {
+    "lat": 14.6983983,
+    "lng": -17.459018703
+   },
+   "logo": null,
+   "photos": [],
+   "wikidata": "Q105475476",
+   "type": "universite"
+  },
+  {
+   "id": "sn-uea",
+   "nom": "Université Euro-Afrique",
+   "sigle": "UEA",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "http://www.uea.edu.sn",
+   "annee_creation": 2009,
+   "coordonnees": {
+    "lat": 14.706055,
+    "lng": -17.47766
+   },
+   "logo": null,
+   "photos": [],
+   "wikidata": "Q30266542",
+   "type": "universite"
+  },
+  {
+   "id": "sn-ukb",
+   "nom": "Université Kocc Barma",
+   "sigle": "UKB",
+   "statut": "prive",
+   "ville": "Saint-Louis",
+   "site_web": "http://www.ukb.sn",
+   "annee_creation": null,
+   "coordonnees": {
+    "lat": 16.025798824,
+    "lng": -16.494245545
+   },
+   "logo": {
+    "fichier": "assets/logos/sn/sn-ukb.png",
+    "source_url": "https://www.ukb.sn/sites/default/files/logo_2.png",
+    "page_source": "https://www.ukb.sn/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-09",
+    "a_verifier": true
+   },
+   "photos": [],
+   "wikidata": "Q105475466",
+   "type": "universite"
+  },
+  {
+   "id": "sn-esebat",
+   "nom": "École Supérieure d'Électricité, du Bâtiment et des Travaux Publics",
+   "sigle": "ESEBAT",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://www.esebat.com",
+   "annee_creation": 2009,
+   "coordonnees": {
+    "lat": 14.698209634,
+    "lng": -17.461803932
+   },
+   "logo": {
+    "fichier": "assets/logos/sn/sn-esebat.png",
+    "source_url": "https://www.esebat.com/wp-content/uploads/2024/08/LogoESEBAT-11.png",
+    "page_source": "https://www.esebat.com/",
+    "methode": "site_officiel",
+    "date_collecte": "2026-10-09",
+    "a_verifier": true
+   },
+   "photos": [],
+   "wikidata": "Q105475474",
+   "type": "ecole_ingenieurs"
+  },
+  {
+   "id": "sn-esge",
+   "nom": "École Supérieure de Génies",
+   "sigle": "ESGE",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "http://esgesenegal.org",
+   "annee_creation": 2004,
+   "coordonnees": {
+    "lat": 14.725061413,
+    "lng": -17.473543374
+   },
+   "logo": null,
+   "photos": [],
+   "wikidata": "Q105475477",
+   "type": "ecole_ingenieurs"
+  },
+  {
+   "id": "sn-estim",
+   "nom": "École Supérieure de Télécommunication, d'Informatique et de Management",
+   "sigle": "ESTIM",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "http://www.estim.sn",
+   "annee_creation": 2008,
+   "coordonnees": {
+    "lat": 14.729362365,
+    "lng": -17.445193016
+   },
+   "logo": null,
+   "photos": [],
+   "wikidata": "Q105475478",
+   "type": "ecole_ingenieurs"
+  },
+  {
+   "id": "sn-batisup",
+   "nom": "École Supérieure du Bâtiment",
+   "sigle": "BATISUP",
+   "statut": "prive",
+   "ville": "Dakar",
+   "site_web": "https://www.batisup.com",
+   "annee_creation": 2006,
+   "coordonnees": {
+    "lat": 14.704010174,
+    "lng": -17.463224366
+   },
+   "logo": null,
+   "photos": [],
+   "wikidata": "Q105475482",
+   "type": "ecole_ingenieurs"
+  }
+ ]
+}

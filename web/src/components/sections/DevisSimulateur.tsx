@@ -8,11 +8,12 @@ import { AnimatedNumber } from "@/components/motion/AnimatedNumber";
 import { Reveal } from "@/components/motion/Reveal";
 import { DONUT_COLORS, Donut } from "./Donut";
 import { DevisPdf } from "./DevisPdf";
-import { STATUT_LONG, VILLES_ETUDES, etabById, etablissements, fmt, formationById, labelById, paysDetailById } from "@/lib/data";
-import { paysOrigine, paysOrigineById, visaResume } from "@/lib/pays-origine";
+import { useDestination } from "@/components/ui/Destination";
+import { auPays, destinationById, vitrine, STATUT_LONG, VILLES_ETUDES, etabById, etablissements, fmt, formationById, labelById, paysDetailById } from "@/lib/data";
+import { paysOrigine, paysOrigineById, visaDestination } from "@/lib/pays-origine";
 import { COUTS, HYP, LOGEMENT_LABEL, SOURCES, devis, formationParDefaut, type Logement } from "@/lib/devis";
 import { useDevise } from "@/components/ui/Devise";
-import { MARGE_PRUDENCE, convertir, devisePays, formatMontant, symbole } from "@/lib/devises";
+import { MARGE_PRUDENCE, convertirDe, devisePays, formatMontant, symbole } from "@/lib/devises";
 
 const field = "w-full rounded-xl border-[1.5px] border-slate-200 bg-white px-3.5 py-3 text-sm font-bold outline-none focus:border-brand-400 focus:ring-4 focus:ring-brand-100";
 
@@ -22,6 +23,7 @@ export function DevisSimulateur() {
   const [eid, setEid] = useState("ma-esa-casa");
   const [fid, setFid] = useState(() => formationParDefaut("ma-esa-casa"));
   const { pays, devise, taux, setPays } = useDevise();
+  const { destination } = useDestination();
   const [origine, setOrigine] = useState("");
   // Pays devinés (profil, navigateur) seulement après lecture de l'URL, qui reste prioritaire.
   useEffect(() => { if (luUrl && !origine && pays && paysOrigineById[pays]) setOrigine(pays); }, [pays, luUrl]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -33,13 +35,15 @@ export function DevisSimulateur() {
   const onUrl = useCallback((qs: string) => {
     if (luUrl) return; // seule la première lecture compte : ensuite, c'est le simulateur qui écrit l'URL
     const p = new URLSearchParams(qs);
-    const e = etabById[p.get("etab") ?? ""] ? p.get("etab")! : "ma-esa-casa";
+    // Sans école dans l'adresse : une école vitrine de la destination choisie
+    const defaut = destination !== "tous" && destination !== "MA" ? vitrine(destination)[0]?.id ?? "ma-esa-casa" : "ma-esa-casa";
+    const e = etabById[p.get("etab") ?? ""] ? p.get("etab")! : defaut;
     const f = p.get("f");
     setEid(e); setFid(f && etabById[e].formations.includes(f) ? f : formationParDefaut(e));
     if (paysOrigineById[p.get("o") ?? ""]) setOrigine(p.get("o")!);
     setLogement(p.get("l") === "colocation" ? "colocation" : "studio");
     setLuUrl(true);
-  }, [luUrl]);
+  }, [luUrl, destination]);
   const [eleve, setEleve] = useState("");
   const [payeur, setPayeur] = useState("");
   const e = etabById[eid];
@@ -48,15 +52,18 @@ export function DevisSimulateur() {
   const C = COUTS[e.pays];
   const D = useMemo(() => devis(eid, fid, origine, logement), [eid, fid, origine, logement]);
   const cv = (v: number) => v;
-  // Devise de lecture : celle du pays de départ (ou du profil), le dirham restant affiché en dessous.
-  const devLocale = origine ? (origine === "MA" ? null : devisePays(origine)) : devise;
-  const dev = !dirhamsSeuls && devLocale && devLocale !== "MAD" && taux.taux[devLocale] ? devLocale : null;
-  const loc = (v: number) => (dev ? convertir(v, dev, taux) ?? v : v);
-  const unit = dev ? symbole(dev) : "MAD";
+  // Devise de lecture : celle du pays de départ (ou du profil), la monnaie du pays d'études restant affichée en dessous.
+  const base = D.devise;
+  const nomBase = base === "MAD" ? "dirhams (MAD)" : `${symbole(base)} (${base})`;
+  const devBrute = origine ? devisePays(origine) : devise;
+  const devLocale = devBrute && convertirDe(1000, base, devBrute, taux) != null ? devBrute : null;
+  const dev = !dirhamsSeuls && devLocale ? devLocale : null;
+  const loc = (v: number) => (dev ? convertirDe(v, base, dev, taux) ?? v : v);
+  const unit = dev ? symbole(dev) : symbole(base);
   const nb = (v: number) => fmt(Math.round(v));
   /** Fourchette dans la devise de lecture, avec l'équivalent en dirhams en dessous. */
   const Plage = ({ v, className = "" }: { v: readonly number[]; className?: string }) => dev
-    ? <span className={`inline-flex flex-col items-end leading-tight ${className}`}><span>{nb(loc(v[0]))} – {nb(loc(v[1]))}</span><span className="text-[11px] font-semibold text-ink-mute">{nb(v[0])} – {nb(v[1])} MAD</span></span>
+    ? <span className={`inline-flex flex-col items-end leading-tight ${className}`}><span>{nb(loc(v[0]))} – {nb(loc(v[1]))}</span><span className="text-[11px] font-semibold text-ink-mute">{nb(v[0])} – {nb(v[1])} {symbole(base)}</span></span>
     : <span className={className}>{nb(v[0])} – {nb(v[1])}</span>;
   const mois = [D.total[0] / (D.years * 12), D.total[1] / (D.years * 12)];
 
@@ -81,9 +88,9 @@ export function DevisSimulateur() {
   ] as const;
   const env = [[Shield, "Sécurité", C.environnement.securite], [HeartPulse, "Santé", C.environnement.sante], [Bus, "Transports", C.environnement.transports], [Users, "Communauté", C.environnement.communaute], [CloudSun, "Climat", C.environnement.climat]] as const;
   const cats = Object.entries(D.cats);
-  const resume = `Devis Navigoal : ${F.intitule} à ${e.sigle} (${e.ville}) — ${dev ? `${nb(loc(D.total[0]))} à ${nb(loc(D.total[1]))} ${unit} (soit ` : ""}${fmt(cv(D.total[0]))} à ${fmt(cv(D.total[1]))} MAD${dev ? ")" : ""} sur ${D.years} an${D.years > 1 ? "s" : ""}, tout compris.`;
+  const resume = `Devis Navigoal : ${F.intitule} à ${e.sigle} (${e.ville}) — ${dev ? `${nb(loc(D.total[0]))} à ${nb(loc(D.total[1]))} ${unit} (soit ` : ""}${fmt(cv(D.total[0]))} à ${fmt(cv(D.total[1]))} ${symbole(base)}${dev ? ")" : ""} sur ${D.years} an${D.years > 1 ? "s" : ""}, tout compris.`;
   const url = typeof window !== "undefined" ? window.location.href : "";
-  const parVille = VILLES_ETUDES.map((v) => [v, etablissements.filter((x) => x.ville === v).sort((a, b) => a.sigle.localeCompare(b.sigle))] as const);
+  const parVille = VILLES_ETUDES.map((v) => { const xs = etablissements.filter((x) => x.ville === v).sort((a, b) => a.sigle.localeCompare(b.sigle)); return [xs[0] ? `${v} (${destinationById[xs[0].pays]?.nom})` : v, xs] as const; }).filter(([, xs]) => xs.length);
 
   return (
     <>
@@ -113,12 +120,12 @@ export function DevisSimulateur() {
 
         <div className="container mt-7 grid items-start gap-6 lg:grid-cols-[1fr_400px]">
           <div className="flex min-w-0 flex-col gap-6">
-            {devLocale && devLocale !== "MAD" && (
+            {devLocale && (
               <div className="flex flex-col gap-3 rounded-3xl border border-brand-100 bg-brand-50/70 p-4 text-sm text-ink-soft sm:flex-row sm:items-center sm:justify-between">
                 <span className="flex items-start gap-2.5"><Coins size={18} className="mt-0.5 shrink-0 text-brand-600" /><span>{dev
-                  ? <>Montants en <b className="text-ink">{symbole(dev)} ({dev})</b>{origine ? <>, la monnaie {paysOrigineById[origine] ? `du pays de départ (${paysOrigineById[origine].nom})` : "du pays de départ"}</> : null} : c&apos;est dans cette monnaie que vous enverrez l&apos;argent. Le dirham (MAD), monnaie du Maroc, est indiqué en dessous pour vous familiariser avec les prix sur place. Taux du {new Date(taux.date).toLocaleDateString("fr-FR")} : <b className="whitespace-nowrap text-ink">1 000 MAD ≈ {formatMontant(convertir(1000, dev, taux)!, dev)}</b>, marge de prudence de {MARGE_PRUDENCE * 100} % incluse.</>
-                  : <>Montants affichés en dirhams (MAD) uniquement.</>}</span></span>
-                <button type="button" onClick={() => setDirhamsSeuls((x) => !x)} className="shrink-0 self-start rounded-xl border border-brand-200 bg-white px-3 py-2 text-[13px] font-bold text-brand-700 hover:bg-brand-50 sm:self-center">{dev ? "Afficher en dirhams seulement" : `Afficher aussi en ${symbole(devLocale)}`}</button>
+                  ? <>Montants en <b className="text-ink">{symbole(dev)} ({dev})</b>{origine ? <>, la monnaie {paysOrigineById[origine] ? `du pays de départ (${paysOrigineById[origine].nom})` : "du pays de départ"}</> : null} : c&apos;est dans cette monnaie que vous enverrez l&apos;argent. La monnaie {destinationById[e.pays]?.de}, en {nomBase}, est indiquée en dessous pour vous familiariser avec les prix sur place. Taux du {new Date(taux.date).toLocaleDateString("fr-FR")} : <b className="whitespace-nowrap text-ink">{formatMontant(base === "MAD" ? 1000 : 100000, base)} ≈ {formatMontant(convertirDe(base === "MAD" ? 1000 : 100000, base, dev, taux)!, dev)}</b>, marge de prudence de {MARGE_PRUDENCE * 100} % incluse.</>
+                  : <>Montants affichés en {nomBase} uniquement.</>}</span></span>
+                <button type="button" onClick={() => setDirhamsSeuls((x) => !x)} className="shrink-0 self-start rounded-xl border border-brand-200 bg-white px-3 py-2 text-[13px] font-bold text-brand-700 hover:bg-brand-50 sm:self-center">{dev ? `Afficher en ${symbole(base)} seulement` : `Afficher aussi en ${symbole(devLocale)}`}</button>
               </div>
             )}
             <Reveal className="card flex flex-col gap-6 rounded-[26px] p-6 sm:p-7">
@@ -126,8 +133,8 @@ export function DevisSimulateur() {
                 <div className="flex min-w-0 flex-col gap-1.5">
                   <span className="text-[13px] font-bold uppercase text-ink-mute">Coût total estimé · {D.years} an{D.years > 1 ? "s" : ""} · {F.diplome}</span>
                   <div className="text-[28px] font-extrabold leading-tight tracking-tight sm:text-[40px]"><span className="whitespace-nowrap"><AnimatedNumber value={loc(D.total[0])} /> –</span> <span className="whitespace-nowrap"><AnimatedNumber value={loc(D.total[1])} /> <span className="text-xl">{unit}</span></span></div>
-                  {dev && <span className="text-[15px] font-bold text-ink-soft">soit {nb(D.total[0])} – {nb(D.total[1])} MAD au Maroc</span>}
-                  <span className="text-sm text-ink-mute">environ <b className="text-ink-soft">{dev ? `${nb(loc(mois[0]))} – ${nb(loc(mois[1]))} ${unit}` : `${nb(mois[0])} – ${nb(mois[1])} MAD`}</b> par mois{dev ? <span className="whitespace-nowrap"> ({nb(mois[0])} – {nb(mois[1])} MAD)</span> : ""}{origine ? "" : " · choisissez le pays de départ pour inclure les billets d'avion et lire les montants dans votre monnaie"}</span>
+                  {dev && <span className="text-[15px] font-bold text-ink-soft">soit {nb(D.total[0])} – {nb(D.total[1])} {symbole(base)} {auPays(e.pays)}</span>}
+                  <span className="text-sm text-ink-mute">environ <b className="text-ink-soft">{dev ? `${nb(loc(mois[0]))} – ${nb(loc(mois[1]))} ${unit}` : `${nb(mois[0])} – ${nb(mois[1])} ${symbole(base)}`}</b> par mois{dev ? <span className="whitespace-nowrap"> ({nb(mois[0])} – {nb(mois[1])} {symbole(base)})</span> : ""}{origine ? "" : " · choisissez le pays de départ pour inclure les billets d'avion et lire les montants dans votre monnaie"}</span>
                 </div>
                 <div className="flex shrink-0 flex-wrap items-start gap-2 2xl:flex-col 2xl:items-end">
                   <span className="chip bg-sun-100 text-[#a55a00]"><Info size={14} className="mr-1 inline" />Estimation · frais à confirmer par l&apos;école</span>
@@ -147,7 +154,7 @@ export function DevisSimulateur() {
             </Reveal>
 
             <Reveal className="card flex flex-col gap-3 rounded-3xl p-6">
-              <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center"><h3 className="text-lg font-extrabold">Échéancier année par année</h3><span className="text-xs text-ink-mute">inflation {Math.round(HYP.inflation_annuelle * 100)} %/an incluse · montants en {dev ? `${unit} (dirhams en dessous)` : unit}</span></div>
+              <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center"><h3 className="text-lg font-extrabold">Échéancier année par année</h3><span className="text-xs text-ink-mute">inflation {Math.round(HYP.inflation_annuelle * 100)} %/an incluse · montants en {dev ? `${unit} (${symbole(base)} en dessous)` : unit}</span></div>
               <div className="-mx-2 overflow-x-auto">
                 <table className={`w-full ${dev ? "min-w-[760px]" : "min-w-[640px]"} border-collapse whitespace-nowrap ${dev ? "text-[13px] [&_td]:px-1.5 [&_th]:px-1.5" : "text-sm"}`}>
                   <thead><tr className="text-left text-xs font-extrabold text-ink-mute"><th className="p-2">ANNÉE</th><th className="p-2 text-right">SCOLARITÉ + FRAIS</th><th className="p-2 text-right">VIE (10 MOIS)</th><th className="p-2 text-right">SÉJOUR & ASSURANCE</th><th className="p-2 text-right">TOTAL</th></tr></thead>
@@ -195,7 +202,7 @@ export function DevisSimulateur() {
             </div>
             <div className="card flex flex-col gap-3.5 rounded-3xl p-5">
               <div className="flex items-center justify-between"><b className="text-[17px]">Démarches de régularisation</b><span className="chip bg-brand-50 text-brand-700">{P.nom}</span></div>
-              <p className="rounded-xl bg-[#f6f8fe] p-3 text-[13px] text-ink-soft">{origine ? <><b>Visa depuis {paysOrigineById[origine]?.nom} :</b> {visaResume(origine)}.</> : <>Choisissez le pays de départ pour connaître le régime d&apos;entrée au Maroc.</>}</p>
+              <p className="rounded-xl bg-[#f6f8fe] p-3 text-[13px] text-ink-soft">{origine ? <><b>Visa depuis {paysOrigineById[origine]?.nom} :</b> {visaDestination(e.pays, origine)}.</> : <>Choisissez le pays de départ pour connaître le régime d&apos;entrée {auPays(e.pays)}.</>}</p>
               <span className="text-xs text-ink-mute">Cochez les étapes au fur et à mesure ({faits.length}/{C.demarches.length}).</span>
               <div className="flex flex-col">
                 {C.demarches.map((d, k) => { const ok = faits.includes(k); return (
@@ -211,7 +218,7 @@ export function DevisSimulateur() {
           </aside>
         </div>
         <p className="container mt-5 text-xs leading-relaxed text-ink-mute">
-          Estimation Navigoal basée sur les frais publiés par l&apos;établissement lorsqu&apos;ils sont disponibles, sur des grilles publiques et sur le coût de la vie observé ({SOURCES.slice(0, 4).map((u) => u.split("/")[2]).join(", ")}). Montants calculés en dirhams (MAD){dev ? ` et convertis en ${symbole(dev)} (${dev})` : ""} ; conversion au taux du {new Date(taux.date).toLocaleDateString("fr-FR")}, majorée de {MARGE_PRUDENCE * 100} % par prudence. Marge d&apos;imprévus {Math.round(HYP.marge_imprevus * 100)} % et frais de transfert {Math.round(HYP.frais_transfert * 100)} % inclus{logement === "colocation" ? " ; colocation : environ −15 % sur le coût de la vie" : ""}. Établissement : {STATUT_LONG[e.statut] ?? "privé"}, catégorie « {D.typ} ».
+          Estimation Navigoal basée sur les frais publiés par l&apos;établissement lorsqu&apos;ils sont disponibles, sur des grilles publiques et sur le coût de la vie observé ({SOURCES.slice(0, 4).map((u) => u.split("/")[2]).join(", ")}). Montants calculés en {nomBase}{dev ? ` et convertis en ${symbole(dev)} (${dev})` : ""} ; conversion au taux du {new Date(taux.date).toLocaleDateString("fr-FR")}, majorée de {MARGE_PRUDENCE * 100} % par prudence. Marge d&apos;imprévus {Math.round(HYP.marge_imprevus * 100)} % et frais de transfert {Math.round(HYP.frais_transfert * 100)} % inclus{logement === "colocation" ? " ; colocation : environ −15 % sur le coût de la vie" : ""}. Établissement : {STATUT_LONG[e.statut] ?? "privé"}, catégorie « {D.typ} ».
         </p>
         <div className="container mt-8 flex justify-center"><span className="flex items-center gap-2 text-sm text-ink-mute"><Calculator size={16} /> Chaque changement recalcule le devis en direct.</span></div>
       </div>

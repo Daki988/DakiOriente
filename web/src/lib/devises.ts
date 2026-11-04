@@ -19,6 +19,20 @@ export function convertir(mad: number, devise: string, taux: Taux = TAUX_SECOURS
   return Math.ceil(brut / pas) * pas;
 }
 
+const CFA = new Set(["XOF", "XAF"]);
+/** Montant exprimé dans la devise `source` (MAD, XOF…) converti dans la devise cible ; null si inutile (même devise, ou F CFA ↔ F CFA à parité). */
+export function convertirDe(montant: number, source: string, cible: string, taux: Taux = TAUX_SECOURS): number | null {
+  if (source === cible || (CFA.has(source) && CFA.has(cible))) return null;
+  const enMad = source === "MAD" ? montant : taux.taux[source] ? montant / taux.taux[source] : null;
+  if (enMad == null) return null;
+  if (cible === "MAD") {
+    const brut = enMad * (1 + MARGE_PRUDENCE);
+    const pas = brut >= 100000 ? 1000 : brut >= 10000 ? 100 : brut >= 1000 ? 10 : 1;
+    return Math.ceil(brut / pas) * pas;
+  }
+  return convertir(enMad, cible, taux);
+}
+
 export const formatMontant = (n: number, devise: string) => {
   const s = Math.round(n).toLocaleString("fr-FR").replace(/[  ]/g, " ");
   const sym = symbole(devise);

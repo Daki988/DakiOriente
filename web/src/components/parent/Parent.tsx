@@ -14,8 +14,8 @@ import { api } from "@/lib/api";
 import { useAction, useApi } from "@/hooks/useApi";
 import { useUser } from "@/components/app/Session";
 import { COUTS } from "@/lib/devis";
-import { etabById } from "@/lib/data";
-import { nomPays, visaResume } from "@/lib/pays-origine";
+import { destinationById, etabById } from "@/lib/data";
+import { nomPays, visaDestination } from "@/lib/pays-origine";
 import type { AppRow, Payment } from "@/components/espace/types";
 import { useMontant } from "@/components/ui/Devise";
 
@@ -49,7 +49,8 @@ export function ParentHome() {
   const paid = (pays.data ?? []).filter((p) => p.status === "reussi");
   const guarantee = (books.data ?? []).filter((b) => b.b.status === "attente_garant" || (b.b.status === "demande" && !b.b.guarantorId));
   const admitted = (apps.data ?? []).find((a) => a.a.status === "acceptee");
-  const dem = admitted ? COUTS.MA?.demarches ?? [] : [];
+  const paysEtudes = (admitted && etabById[admitted.e.id]?.pays) || "MA";
+  const dem = admitted ? COUTS[paysEtudes]?.demarches ?? [] : [];
   return (
     <div className="flex flex-col gap-6">
       <PageHeader title={`Bonjour ${user.firstName} 👋`} sub={first ? `Suivi de ${first.firstName}${admitted ? ` · admis·e en ${admitted.p.title} · ${admitted.e.sigle}` : ""}` : undefined}
@@ -72,9 +73,9 @@ export function ParentHome() {
             </Link>
           ))}
         </Panel>
-        <Panel title="Régularisation" icon={ShieldCheck} action={admitted && <span className="chip bg-brand-50 text-brand-700">Maroc</span>}>
-          {first?.country && first.country !== "MA" && <p className="rounded-xl bg-brand-50 px-3 py-2 text-[13px] text-brand-800"><b>Depuis {nomPays(first.country)} :</b> {visaResume(first.country)}.</p>}
-          {!admitted ? <p className="text-sm text-ink-mute">Les démarches de visa et de séjour au Maroc s&apos;affichent ici dès l&apos;admission.</p> : dem.map((d, k) => (
+        <Panel title="Régularisation" icon={ShieldCheck} action={admitted && <span className="chip bg-brand-50 text-brand-700">{destinationById[paysEtudes]?.nom}</span>}>
+          {first?.country && first.country !== paysEtudes && <p className="rounded-xl bg-brand-50 px-3 py-2 text-[13px] text-brand-800"><b>Depuis {nomPays(first.country)} :</b> {visaDestination(paysEtudes, first.country)}.</p>}
+          {!admitted ? <p className="text-sm text-ink-mute">Les démarches de visa et de séjour dans le pays d&apos;études s&apos;affichent ici dès l&apos;admission.</p> : dem.map((d, k) => (
             <motion.div key={k} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: k * 0.05 }} className="flex items-start gap-2.5 border-b border-[#f1f4fb] py-2 text-[13px] last:border-0"><CheckCircle2 size={16} className="mt-0.5 shrink-0 text-brand-300" /><span className="flex-1">{d.etape}</span><span className="shrink-0 text-[11px] text-ink-mute">{d.quand}</span></motion.div>
           ))}
         </Panel>

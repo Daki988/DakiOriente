@@ -7,6 +7,9 @@ import { LireUrl } from "@/hooks/useFiltres";
 import { ScoreBar } from "@/components/motion/Bar";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { EtabPhoto } from "@/components/ui/EtabPhoto";
+import { useDestination } from "@/components/ui/Destination";
+import { TAUX_SECOURS } from "@/lib/devises";
+import { DESTINATIONS_ACTIVES, destinationById, labelPays, type PaysCode } from "@/lib/data";
 import { LABELS, STATUT_LONG, VILLES_ETUDES, admissionLabel, compatibilite, etabById, etablissements, formationById, formations, formationsLiees, labelById, metierById, metiers, paysDetailById, type Etablissement, type Label } from "@/lib/data";
 import { paysOrigine, paysOrigineById, visaResume } from "@/lib/pays-origine";
 import { COUTS, devis } from "@/lib/devis";
@@ -35,11 +38,18 @@ export function Comparateur() {
     if (p.get("label")) setLabel(p.get("label") as Label);
     if (paysOrigineById[p.get("o") ?? ""]) setOrigine(p.get("o")!);
     if (VILLES_ETUDES.includes(p.get("v") ?? "")) setVille(p.get("v")!);
+    const pp = p.get("pays") ?? "";
+    if (pp === "tous" || destinationById[pp as PaysCode]?.actif) setPaysEtude(pp as PaysCode | "tous");
     const e = (p.get("e") ?? "").split(",").filter((id) => etabById[id]);
     if (e.length) { setInitial(e); setIds(e); }
     setLuUrl(true);
   }, [luUrl]);
   const { pays } = useDevise();
+  // Pays d'études : ?pays= dans l'adresse, sinon la destination choisie (le comparateur peut aussi mélanger les pays).
+  const { destination } = useDestination();
+  const [paysEtude, setPaysEtude] = useState<PaysCode | "tous" | null>(null);
+  const choixPays = paysEtude ?? destination;
+  const paysF = choixPays === "tous" ? "" : choixPays;
   // Pays devinés (profil, navigateur) seulement après lecture de l'URL, qui reste prioritaire.
   useEffect(() => { if (luUrl && !origine && pays && paysOrigineById[pays]) setOrigine(pays); }, [pays, luUrl]); // eslint-disable-line react-hooks/exhaustive-deps
   const [profil, setProfil] = useState<string[]>(["I", "C"]);
@@ -53,8 +63,8 @@ export function Comparateur() {
     return direct.length ? direct : mode === "formation" ? formationsLiees(e, fid).filter((f) => f !== fid) : [];
   };
   const villesDe = (e: Etablissement) => Array.from(new Set(e.formations.filter((f) => cibles.includes(f)).flatMap((f) => villesOffre(e, f))));
-  const candidats = useMemo(() => etablissements.filter((e) => (!label || e.label === label) && e.formations.some((f) => cibles.includes(f)) && (!ville || villesDe(e).includes(ville)))
-    .sort((a, b) => b.photos.length - a.photos.length || b.formations.length - a.formations.length), [cibles, label, ville]); // eslint-disable-line react-hooks/exhaustive-deps
+  const candidats = useMemo(() => etablissements.filter((e) => (!paysF || e.pays === paysF) && (!label || e.label === label) && e.formations.some((f) => cibles.includes(f)) && (!ville || villesDe(e).includes(ville)))
+    .sort((a, b) => b.photos.length - a.photos.length || b.formations.length - a.formations.length), [cibles, label, ville, paysF]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [ids, setIds] = useState<string[]>([]);
   useEffect(() => {
@@ -74,9 +84,10 @@ export function Comparateur() {
     if (label) q.set("label", label);
     if (ville) q.set("v", ville);
     if (origine) q.set("o", origine);
+    if (paysEtude) q.set("pays", paysEtude);
     if (ids.length) q.set("e", ids.join(","));
     window.history.replaceState(window.history.state, "", `/comparateur/?${q.toString()}`);
-  }, [mode, fid, mid, label, ville, origine, ids, luUrl]);
+  }, [mode, fid, mid, label, ville, origine, ids, luUrl, paysEtude]);
 
   const cols = ids.map((id) => {
     const e = etabById[id];
@@ -86,10 +97,12 @@ export function Comparateur() {
     const D = devis(e.id, ref, origine);
     const C = COUTS[e.pays];
     const sco = C.scolarite_annuelle[e.type] ?? C.scolarite_annuelle.universite;
-    return { e, m, ref, score, D, sco, tot: D.total, villes: villesDe(e) };
+    // Totaux ramenés en dirhams pour comparer des écoles de pays différents (taux indicatifs)
+    const enMad = (v: number) => (C.devise === "MAD" ? v : v / (TAUX_SECOURS.taux[C.devise] ?? 1));
+    return { e, m, ref, score, D, sco, dev: C.devise, tot: D.total, totMad: [enMad(D.total[0]), enMad(D.total[1])] as [number, number], villes: villesDe(e) };
   });
-  const bestIdx = cols.length ? cols.reduce((b, c, k) => (c.score > cols[b].score || (c.score === cols[b].score && c.tot[1] < cols[b].tot[1]) ? k : b), 0) : -1;
-  const cheapest = cols.length ? Math.min(...cols.map((c) => c.tot[1])) : 0;
+  const bestIdx = cols.length ? cols.reduce((b, c, k) => (c.score > cols[b].score || (c.score === cols[b].score && c.totMad[1] < cols[b].totMad[1]) ? k : b), 0) : -1;
+  const cheapest = cols.length ? Math.min(...cols.map((c) => c.totMad[1])) : 0;
   const maxLiees = cols.length ? Math.max(...cols.map((c) => c.m.length)) : 0;
 
   const rows: { lab: string; cell: (c: (typeof cols)[number], k: number) => ReactNode; good?: (c: (typeof cols)[number]) => boolean }[] = [
@@ -98,13 +111,13 @@ export function Comparateur() {
     { lab: "PROGRAMME CORRESPONDANT", cell: (c) => c.m.slice(0, 2).map((f) => <Link key={f} href={`/formations/${f}/?etab=${c.e.id}`} className="block hover:text-brand-600">{formationById[f].intitule}</Link>) },
     { lab: "DIPLÔME · DURÉE", cell: (c) => `${formationById[c.ref].diplome} · ${formationById[c.ref].duree_annees} ans` },
     { lab: "ADMISSION", cell: (c) => admissionLabel(formationById[c.ref].mode_admission) },
-    { lab: "FRAIS DE SCOLARITÉ (estim.)", cell: (c) => <><Prix mad={c.sco.min} bloc /> – <Prix mad={c.sco.max} suffixe="/an" bloc /></> },
-    { lab: `COÛT TOTAL ${"{n}"} (devis)`, cell: (c) => <Link href={`/devis/?etab=${c.e.id}&f=${c.ref}${origine ? `&o=${origine}` : ""}`} className="hover:text-brand-600"><Prix mad={c.tot[0]} bloc /> – <Prix mad={c.tot[1]} bloc /><span className="block text-xs font-semibold text-ink-mute">sur {c.D.years} an{c.D.years > 1 ? "s" : ""} · voir le devis →</span></Link>, good: (c) => c.tot[1] === cheapest },
-    { lab: "COÛT DE LA VIE / MOIS", cell: () => { const b = paysDetailById.MA.budget; return <><Prix mad={b.total_mensuel.min} bloc /> – <Prix mad={b.total_mensuel.max} bloc /></>; } },
+    { lab: "FRAIS DE SCOLARITÉ (estim.)", cell: (c) => <><Prix mad={c.sco.min} devise={c.dev} bloc /> – <Prix mad={c.sco.max} devise={c.dev} suffixe="/an" bloc /></> },
+    { lab: `COÛT TOTAL ${"{n}"} (devis)`, cell: (c) => <Link href={`/devis/?etab=${c.e.id}&f=${c.ref}${origine ? `&o=${origine}` : ""}`} className="hover:text-brand-600"><Prix mad={c.tot[0]} devise={c.dev} bloc /> – <Prix mad={c.tot[1]} devise={c.dev} bloc /><span className="block text-xs font-semibold text-ink-mute">sur {c.D.years} an{c.D.years > 1 ? "s" : ""} · voir le devis →</span></Link>, good: (c) => c.totMad[1] === cheapest },
+    { lab: "COÛT DE LA VIE / MOIS", cell: (c) => { const b = paysDetailById[c.e.pays].budget; return <><Prix mad={b.total_mensuel.min} devise={c.dev} bloc /> – <Prix mad={b.total_mensuel.max} devise={c.dev} bloc /></>; } },
     { lab: origine ? `VISA (${paysOrigineById[origine]?.nom ?? origine})` : "VISA", cell: () => <Link href="/ressources/visa-carte-de-sejour/" className="hover:text-brand-600">{origine ? visaResume(origine) : "Choisis ton pays de départ"}</Link> },
-    { lab: "LABEL", cell: (c) => labelById[c.e.label]?.libelle ?? "—" },
+    { lab: "LABEL", cell: (c) => (c.e.pays === "MA" ? labelById[c.e.label]?.libelle : c.e.label_libelle) ?? "—" },
     { lab: "MÉTIERS VISÉS", cell: () => <div className="flex flex-wrap gap-1.5">{metiersVises.slice(0, 2).map((m) => <span key={m} className="chip bg-[#f1edff] text-[#6a3df0]">{metierById[m].nom}</span>)}</div> },
-    { lab: "LOGEMENT NAVILEASE", cell: () => { const b = paysDetailById.MA.budget; return <>Logements vérifiés · dès <Prix mad={b.lignes[0].min} suffixe="/mois" /></>; } },
+    { lab: "LOGEMENT", cell: (c) => { const b = paysDetailById[c.e.pays].budget; return <>{c.e.pays === "MA" ? "Logements vérifiés Navilease" : "Logement"} · dès <Prix mad={b.lignes[0].min} devise={c.dev} suffixe="/mois" /></>; } },
     { lab: "AUTRES FORMATIONS LIÉES", cell: (c) => `${c.m.length} programme${c.m.length > 1 ? "s" : ""}`, good: (c) => c.m.length === maxLiees && maxLiees > 0 },
   ];
   const ajoutables = candidats.filter((c) => !ids.includes(c.id));
@@ -123,6 +136,7 @@ export function Comparateur() {
             <p className="hidden -rotate-[4deg] font-hand text-[28px] text-brand-700 lg:block">Tu as vraiment le choix !</p>
           </div>
           <div className="card flex flex-col gap-3 rounded-2xl p-2.5 xl:flex-row xl:items-center">
+            {DESTINATIONS_ACTIVES.length > 1 && <select value={choixPays} onChange={(ev) => setPaysEtude(ev.target.value as PaysCode | "tous")} className="min-h-[40px] rounded-xl border border-slate-200 bg-white px-3 py-2 text-[13px] font-bold" aria-label="Pays d'études"><option value="tous">Étudier : tous les pays</option>{DESTINATIONS_ACTIVES.map((d) => <option key={d.code} value={d.code}>Étudier {d.prep}</option>)}</select>}
             <div className="flex items-center gap-2 rounded-xl bg-brand-50 px-3 py-2 text-[13px] font-bold text-brand-700"><Target size={16} /> Comparer par</div>
             <div className="flex rounded-xl bg-[#f6f8fe] p-[3px]">
               {(["formation", "metier"] as const).map((m) => <button key={m} onClick={() => setMode(m)} className={`relative rounded-[10px] px-3.5 py-2 text-[13px] font-bold ${mode === m ? "text-brand-600" : "text-ink-mute"}`}>{mode === m && <motion.span layoutId="cmp-mode" className="absolute inset-0 rounded-[10px] bg-white shadow-sm" />}<span className="relative">{m === "formation" ? "Formation" : "Métier visé"}</span></button>)}
@@ -139,7 +153,7 @@ export function Comparateur() {
             <select value={ville} onChange={(ev) => setVille(ev.target.value)} className="min-h-[40px] rounded-xl border border-slate-200 bg-white px-3 py-2 text-[13px] font-bold" aria-label="Ville du campus"><option value="">Toutes les villes</option>{VILLES_ETUDES.map((v) => <option key={v} value={v}>{v}</option>)}</select>
             <select value={origine} onChange={(ev) => setOrigine(ev.target.value)} className="min-h-[40px] rounded-xl border border-slate-200 bg-white px-3 py-2 text-[13px] font-bold" aria-label="Pays de départ"><option value="">Je pars de : choisir</option><optgroup label="Afrique">{paysOrigine.filter((p) => p.continent === "afrique").map((p) => <option key={p.id} value={p.id}>Je pars de : {p.nom}</option>)}</optgroup><optgroup label="Autres pays">{paysOrigine.filter((p) => p.continent === "autre").map((p) => <option key={p.id} value={p.id}>Je pars de : {p.nom}</option>)}</optgroup></select>
           </div>
-          <span className="text-[13px] text-ink-mute">{candidats.length} établissement{candidats.length > 1 ? "s" : ""} proposent {mode === "formation" ? "cette formation" : "une formation menant à ce métier"}{ville ? ` à ${ville}` : ""}{label ? ` (label ${labelById[label]?.court})` : ""}.</span>
+          <span className="text-[13px] text-ink-mute">{candidats.length} établissement{candidats.length > 1 ? "s" : ""} proposent {mode === "formation" ? "cette formation" : "une formation menant à ce métier"}{ville ? ` à ${ville}` : ""}{label ? ` (label ${paysF && paysF !== "MA" ? labelPays(label, paysF) : labelById[label]?.court})` : ""}{paysF ? ` ${destinationById[paysF].prep}` : ""}.</span>
         </div>
       </section>
 
@@ -158,7 +172,7 @@ export function Comparateur() {
                       <button onClick={() => setIds(ids.filter((x) => x !== c.e.id))} className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-ink-soft hover:text-[#d42a50]" aria-label={`Retirer ${c.e.sigle}`}><X size={16} /></button>
                       <EtabLogo e={c.e} size={56} className="absolute -bottom-7 left-4 shadow-sm" />
                     </div>
-                    <div className="flex flex-col gap-1 px-[18px] pb-3.5 pt-9"><b className="leading-snug">{c.e.nom}</b><span className="text-xs text-ink-mute">{c.villes.map((v, k) => <span key={v}>{k ? " · " : ""}<Link href={villeHref(v)} className="hover:text-brand-600">{v}</Link></span>)} · {labelById[c.e.label]?.court}</span></div>
+                    <div className="flex flex-col gap-1 px-[18px] pb-3.5 pt-9"><b className="leading-snug">{c.e.nom}</b><span className="text-xs text-ink-mute">{c.villes.map((v, k) => <span key={v}>{k ? " · " : ""}<Link href={villeHref(v)} className="hover:text-brand-600">{v}</Link></span>)} · {c.e.pays === "MA" ? labelById[c.e.label]?.court : c.e.label_libelle}</span></div>
                     {rows.map((r, j) => {
                       const ok = cols.length > 1 && r.good?.(c);
                       return (

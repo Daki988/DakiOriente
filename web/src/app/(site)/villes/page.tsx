@@ -4,26 +4,27 @@ import Link from "@/components/ui/Link";
 import { ArrowRight, Building2, ChevronRight, GraduationCap, MapPin } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { CHIFFRES, VILLES, villeHref } from "@/lib/catalogue";
-import { paysDetailById } from "@/lib/data";
+import { Drapeau } from "@/components/ui/Drapeau";
+import { DESTINATIONS_ACTIVES, PAYS_ACTIFS_TEXTE, paysDetailById } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Villes étudiantes du Maroc : où étudier ?",
-  description: `Casablanca, Rabat, Fès, Marrakech, Tanger… Les ${CHIFFRES.villes} villes où étudier au Maroc : écoles, formations, quartiers, transports, budget et logement.`,
+  title: "Villes étudiantes : où étudier ?",
+  description: `Casablanca, Rabat, Dakar, Fès, Thiès… Les ${CHIFFRES.villes} villes où étudier ${PAYS_ACTIFS_TEXTE} : écoles, formations, quartiers, transports, budget et logement.`,
   alternates: { canonical: "/villes/" },
 };
 
-const PROFILS = Object.fromEntries(paysDetailById.MA.villes.map((v) => [v.nom.replace("Benguerir", "Ben Guérir"), v.profil]));
+const PROFILS = Object.fromEntries(Object.values(paysDetailById).flatMap((p) => p.villes).map((v) => [v.nom.replace("Benguerir", "Ben Guérir"), v.profil]));
 
 export default function VillesPage() {
-  const ld = { "@context": "https://schema.org", "@type": "ItemList", name: "Villes étudiantes du Maroc", itemListElement: VILLES.map((v, k) => ({ "@type": "ListItem", position: k + 1, url: `${SITE_URL}${villeHref(v.nom)}`, name: `Étudier à ${v.nom}` })) };
+  const ld = { "@context": "https://schema.org", "@type": "ItemList", name: "Villes étudiantes", itemListElement: VILLES.map((v, k) => ({ "@type": "ListItem", position: k + 1, url: `${SITE_URL}${villeHref(v.nom)}`, name: `Étudier à ${v.nom}` })) };
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />
       <section className="relative overflow-hidden bg-[radial-gradient(900px_400px_at_85%_0%,#dae6ff,transparent_60%),radial-gradient(600px_300px_at_0%_100%,#fff3c4,transparent_60%)] pb-10 pt-8">
         <div className="container flex flex-col gap-4">
           <nav className="flex items-center gap-1.5 text-[13px] text-ink-mute" aria-label="Fil d'Ariane"><Link href="/">Accueil</Link><ChevronRight size={14} /><span>Villes</span></nav>
-          <h1 className="h-display">Où étudier <span className="text-sun-500">au Maroc</span> ?</h1>
+          <h1 className="h-display">Où étudier <span className="text-sun-500">{DESTINATIONS_ACTIVES.length > 1 ? "en Afrique" : PAYS_ACTIFS_TEXTE}</span> ?</h1>
           <p className="max-w-2xl text-lg text-ink-soft">{CHIFFRES.villes} villes accueillent les {CHIFFRES.campus} campus des {CHIFFRES.etablissements} établissements privés référencés. Pour chacune : écoles, formations, transports, quartiers étudiants, coût de la vie et logement.</p>
         </div>
       </section>
@@ -37,7 +38,7 @@ export default function VillesPage() {
                   <div className="relative h-40 overflow-hidden bg-gradient-to-br from-brand-700 to-brand-400">
                     {v.photo ? <Image src={v.photo.src} alt={`Vue de ${v.nom}`} fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover transition duration-700 group-hover:scale-105" /> : <MapPin size={64} strokeWidth={1.3} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white/40" />}
                     <span className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
-                    <b className="absolute bottom-3 left-4 text-2xl font-extrabold text-white">{v.nom}</b>
+                    <b className="absolute bottom-3 left-4 flex items-center gap-2 text-2xl font-extrabold text-white"><Drapeau code={v.pays} taille={16} />{v.nom}</b>
                   </div>
                   <div className="flex flex-1 flex-col gap-3 p-4">
                     {PROFILS[v.nom] && <p className="text-[13px] leading-relaxed text-ink-soft">{PROFILS[v.nom]}</p>}

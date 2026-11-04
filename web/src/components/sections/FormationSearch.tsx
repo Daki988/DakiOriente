@@ -7,14 +7,16 @@ import { useEffect, useMemo, useState } from "react";
 import { FormationOfferCard } from "@/components/ui/Cards";
 import { useFiltres } from "@/hooks/useFiltres";
 import { OFFRES, norm, villeHref, type Offre } from "@/lib/catalogue";
-import { LABELS, VILLES_ETUDES, compatibilite, domaineById, domaines, labelById, metierById, niveauLabel } from "@/lib/data";
+import { DESTINATIONS_ACTIVES, LABELS, VILLES_ETUDES, compatibilite, destinationById, domaineById, domaines, labelById, labelPays, metierById, niveauLabel, type PaysCode } from "@/lib/data";
+import { Drapeau } from "@/components/ui/Drapeau";
+import { useDestination } from "@/components/ui/Destination";
 import { PROFILE_KEY } from "./OrientationTest";
 
 const NIVEAUX = ["niv-bac2", "niv-bac3", "niv-bac5", "niv-bac7", "niv-bac8"].filter((n) => OFFRES.some((o) => o.f.niveau === n));
 const ADMISSIONS: [string, string][] = ([["dossier", "Sur dossier"], ["concours", "Concours"], ["bac", "De droit"], ["dossier+entretien", "Dossier + entretien"]] as [string, string][]).filter(([v]) => OFFRES.some((o) => o.f.mode_admission === v));
 const DOMAINES = domaines.filter((d) => OFFRES.some((o) => o.f.domaine === d.id));
 const LABELS_PRESENTS = LABELS.filter((l) => OFFRES.some((o) => o.e.label === l.id));
-const DEFAUTS = { q: "", ville: [] as string[], niveau: [] as string[], domaine: [] as string[], label: [] as string[], admission: [] as string[], tri: "compat" };
+const DEFAUTS = { q: "", pays: "", ville: [] as string[], niveau: [] as string[], domaine: [] as string[], label: [] as string[], admission: [] as string[], tri: "compat" };
 type Cle = "ville" | "niveau" | "domaine" | "label" | "admission";
 
 /** Une offre passe-t-elle les filtres (en ignorant éventuellement l'un d'eux, pour les compteurs) ? */
@@ -50,10 +52,18 @@ export function FormationSearch() {
   useEffect(() => setLimit(12), [f]);
 
   const terms = useMemo(() => norm(f.q).split(/\s+/).filter(Boolean), [f.q]);
+  // Pays : ?pays= dans l'adresse (ou « tous »), sinon la destination choisie par le visiteur.
+  const { destination, setDestination } = useDestination();
+  const choix = f.pays || destination;
+  const pays = (choix === "tous" || !destinationById[choix as PaysCode]?.actif ? "" : choix) as PaysCode | "";
+  // Lien reçu avec ?pays= : la destination du site suit.
+  useEffect(() => { if (f.pays && f.pays !== destination && (f.pays === "tous" || destinationById[f.pays as PaysCode]?.actif)) setDestination(f.pays as PaysCode | "tous"); }, [f.pays]); // eslint-disable-line react-hooks/exhaustive-deps
+  const base = useMemo(() => (pays ? OFFRES.filter((o) => o.e.pays === pays) : OFFRES), [pays]);
+  const choisirPays = (c: PaysCode | "tous") => { setDestination(c); set({ pays: c, ville: [], label: [] }); };
   const partenaires = usePartenaires();
-  const tries = useMemo(() => OFFRES.filter((o) => passe(o, f, terms))
+  const tries = useMemo(() => base.filter((o) => passe(o, f, terms))
     .map((o) => ({ ...o, score: compatibilite(profil, o.f.id), villesVues: f.ville.length ? o.villes.filter((v) => f.ville.includes(v)) : o.villes }))
-    .sort((a, b) => (f.tri === "compat" ? b.score - a.score || a.f.intitule.localeCompare(b.f.intitule, "fr") : f.tri === "duree" ? a.f.duree_annees - b.f.duree_annees || a.f.intitule.localeCompare(b.f.intitule, "fr") : a.f.intitule.localeCompare(b.f.intitule, "fr") || a.e.sigle.localeCompare(b.e.sigle, "fr"))), [f, terms, profil]);
+    .sort((a, b) => (f.tri === "compat" ? b.score - a.score || a.f.intitule.localeCompare(b.f.intitule, "fr") : f.tri === "duree" ? a.f.duree_annees - b.f.duree_annees || a.f.intitule.localeCompare(b.f.intitule, "fr") : a.f.intitule.localeCompare(b.f.intitule, "fr") || a.e.sigle.localeCompare(b.e.sigle, "fr"))), [f, terms, profil, base]);
   // À pertinence égale, 3 offres au plus d'écoles partenaires (mises en avant) passent en tête, signalées sur leur carte.
   const results = useMemo(() => {
     const p = new Set(partenaires.map((x) => x.id));
@@ -63,13 +73,13 @@ export function FormationSearch() {
   // Compteurs par option : résultats si l'on cochait cette option (les autres filtres restant actifs).
   const compte = useMemo(() => {
     const c: Record<Cle, Record<string, number>> = { ville: {}, niveau: {}, domaine: {}, label: {}, admission: {} };
-    for (const k of Object.keys(c) as Cle[]) for (const o of OFFRES) if (passe(o, f, terms, k)) for (const v of valeur(o, k)) c[k][v] = (c[k][v] ?? 0) + 1;
+    for (const k of Object.keys(c) as Cle[]) for (const o of base) if (passe(o, f, terms, k)) for (const v of valeur(o, k)) c[k][v] = (c[k][v] ?? 0) + 1;
     return c;
-  }, [f, terms]);
+  }, [f, terms, base]);
   const nbFormations = new Set(results.map((r) => r.f.id)).size;
   const nbEtabs = new Set(results.map((r) => r.e.id)).size;
   const actifs = f.ville.length + f.niveau.length + f.domaine.length + f.label.length + f.admission.length + (f.q ? 1 : 0);
-  const chips: [Cle, string, string][] = [...f.ville.map((v) => ["ville", v, v] as [Cle, string, string]), ...f.niveau.map((v) => ["niveau", v, niveauLabel(v)] as [Cle, string, string]), ...f.domaine.map((v) => ["domaine", v, domaineById[v]?.libelle.split(",")[0] ?? v] as [Cle, string, string]), ...f.label.map((v) => ["label", v, labelById[v as keyof typeof labelById]?.court ?? v] as [Cle, string, string]), ...f.admission.map((v) => ["admission", v, ADMISSIONS.find(([a]) => a === v)?.[1] ?? v] as [Cle, string, string])];
+  const chips: [Cle, string, string][] = [...f.ville.map((v) => ["ville", v, v] as [Cle, string, string]), ...f.niveau.map((v) => ["niveau", v, niveauLabel(v)] as [Cle, string, string]), ...f.domaine.map((v) => ["domaine", v, domaineById[v]?.libelle.split(",")[0] ?? v] as [Cle, string, string]), ...f.label.map((v) => ["label", v, (pays && pays !== "MA" ? labelPays(v as keyof typeof labelById, pays) : labelById[v as keyof typeof labelById]?.court) ?? v] as [Cle, string, string]), ...f.admission.map((v) => ["admission", v, ADMISSIONS.find(([a]) => a === v)?.[1] ?? v] as [Cle, string, string])];
 
   const groupe = (titre: string, k: Cle, opts: [string, string][]) => (
     <div className="flex flex-col gap-1"><b className="mb-1 text-sm">{titre}</b>{opts.map(([v, l]) => <Case key={v} on={(f[k] as string[]).includes(v)} label={l} n={compte[k][v] ?? 0} onClick={() => toggle(k, v)} />)}</div>
@@ -77,10 +87,10 @@ export function FormationSearch() {
   const filtres = (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between"><h2 className="text-lg font-extrabold">Filtres</h2><button onClick={reset} disabled={!actifs} className="min-h-[40px] text-[13px] font-bold text-brand-600 disabled:opacity-40">Réinitialiser</button></div>
-      {groupe("Ville du campus", "ville", VILLES_ETUDES.map((v) => [v, v]))}
+      {groupe("Ville du campus", "ville", VILLES_ETUDES.filter((v) => base.some((o) => o.villes.includes(v))).map((v) => [v, v]))}
       {groupe("Niveau à la sortie", "niveau", NIVEAUX.map((n) => [n, niveauLabel(n)]))}
       {groupe("Domaine", "domaine", DOMAINES.map((d) => [d.id, d.libelle]))}
-      {groupe("Label de l'établissement", "label", LABELS_PRESENTS.map((l) => [l.id, l.libelle]))}
+      {groupe("Label de l'établissement", "label", LABELS_PRESENTS.filter((l) => base.some((o) => o.e.label === l.id)).map((l) => [l.id, pays && pays !== "MA" ? labelPays(l.id, pays) : l.libelle]))}
       {groupe("Admission", "admission", ADMISSIONS)}
     </div>
   );
@@ -92,7 +102,7 @@ export function FormationSearch() {
         <div className="container flex flex-col gap-5">
           <nav className="flex items-center gap-1.5 text-[13px] text-ink-mute" aria-label="Fil d'Ariane"><Link href="/">Accueil</Link><ChevronRight size={14} /><span>Formations</span></nav>
           <div className="flex flex-col justify-between gap-2 md:flex-row md:items-end">
-            <div><h1 className="h-section">Rechercher une formation</h1><p className="mt-2 text-ink-mute">{OFFRES.length.toLocaleString("fr-FR")} offres de formation dans {new Set(OFFRES.map((o) => o.e.id)).size} établissements au Maroc, triées selon ton profil {profil.join("+")}.</p></div>
+            <div><h1 className="h-section">Rechercher une formation</h1><p className="mt-2 text-ink-mute">{base.length.toLocaleString("fr-FR")} offres de formation dans {new Set(base.map((o) => o.e.id)).size} établissements{pays ? ` ${destinationById[pays].prep}` : ""}, triées selon ton profil {profil.join("+")}.</p></div>
             <span className="hidden -rotate-3 font-hand text-[28px] text-brand-700 md:block">Trouve ta voie →</span>
           </div>
           <form role="search" onSubmit={(e) => e.preventDefault()} className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white p-2 pl-4 shadow-[0_20px_50px_-18px_rgba(11,21,51,.3)] focus-within:ring-4 focus-within:ring-brand-100 sm:pl-5">
@@ -101,6 +111,12 @@ export function FormationSearch() {
             {f.q && <button type="button" onClick={() => set({ q: "" })} aria-label="Effacer" className="flex h-10 w-10 items-center justify-center text-ink-mute"><X size={18} /></button>}
             <button type="button" onClick={() => setPanneau(true)} className="btn-ghost relative min-h-[44px] px-3.5 py-2.5 lg:hidden" aria-label="Filtres"><SlidersHorizontal size={16} />{actifs > 0 && <span className="absolute -right-1.5 -top-1.5 rounded-full bg-sun-400 px-1.5 text-xs text-ink">{actifs}</span>}</button>
           </form>
+          {DESTINATIONS_ACTIVES.length > 1 && (
+            <div className="scrollbar-none -mx-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0" role="tablist" aria-label="Pays">
+              <button role="tab" aria-selected={!pays} onClick={() => choisirPays("tous")} className={`chip min-h-[40px] shrink-0 px-3.5 text-[13px] ${!pays ? "bg-brand-600 text-white" : "border border-slate-200 bg-white text-ink-soft"}`}>Tous les pays</button>
+              {DESTINATIONS_ACTIVES.map((d) => <button key={d.code} role="tab" aria-selected={pays === d.code} onClick={() => choisirPays(d.code)} className={`chip min-h-[40px] shrink-0 px-3.5 text-[13px] ${pays === d.code ? "bg-brand-600 text-white" : "border border-slate-200 bg-white text-ink-soft"}`}><Drapeau code={d.code} taille={12} />{d.nom}</button>)}
+            </div>
+          )}
         </div>
       </section>
       <div className="container grid items-start gap-8 lg:grid-cols-[290px_1fr]">

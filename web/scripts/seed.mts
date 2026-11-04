@@ -38,8 +38,9 @@ const SCOLARITE_TYPE: Record<string, string> = { architecture: "grande_ecole", a
 
 async function seedEstablishments() {
   const couts = Object.fromEntries(read("couts_etudes").items.map((c: any) => [c.id, c]));
-  const doc = read("etablissements_superieurs");
-  const etabs = doc.items;
+  // Pays de destination actifs : leurs référentiels d'établissements sont fusionnés (Maroc, Sénégal…).
+  const actifs = read("destinations").items.filter((d: any) => d.actif);
+  const etabs = actifs.flatMap((d: any) => (fs.existsSync(path.join(REF, `${d.fichier}.json`)) ? read(d.fichier).items : []));
   for (const e of etabs) {
     const sante = (p: any) => /médecine|pharmacie|vétérinaire/i.test(p.diplome ?? "");
     await db.insert(schema.establishments).values({

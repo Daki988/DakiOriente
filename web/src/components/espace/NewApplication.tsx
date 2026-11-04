@@ -11,9 +11,9 @@ import { Alert, Button, Empty, Loading, PageHeader, Panel, useToast } from "@/co
 import { Check as Checkbox, FileDrop, FormError, Textarea, docLabel, type Doc } from "@/components/app/form";
 import { api, apiUrl } from "@/lib/api";
 import { useAction, useApi } from "@/hooks/useApi";
-import { etabById, niveauLabel, serieById, type Label } from "@/lib/data";
+import { auPays, destinationById, etabById, niveauLabel, serieById, type Label } from "@/lib/data";
 import { useUser } from "@/components/app/Session";
-import { visaResume } from "@/lib/pays-origine";
+import { visaDestination } from "@/lib/pays-origine";
 import { AppProgress } from "./AppProgress";
 import type { AppDetail, Program } from "./types";
 
@@ -170,13 +170,13 @@ export function NewApplication() {
                     </button>
                   ))}
                 </div>
-              ) : <p className="flex items-center gap-2 text-sm"><MapPin size={16} className="text-brand-600" />{campus || p.campus || e.ville}, Maroc</p>}
+              ) : <p className="flex items-center gap-2 text-sm"><MapPin size={16} className="text-brand-600" />{campus || p.campus || e.ville}, {destinationById[etab?.pays ?? "MA"]?.nom}</p>}
               {needCampus && <span className="text-xs text-ink-mute">{e.nom} est un réseau multi-campus : cette formation est ouverte dans {p.campuses.length} villes. Compare quartiers et transports sur <Link href={`/etablissements/${e.id}/#campus`} className="font-bold text-brand-600">la fiche de l&apos;établissement</Link>.</span>}
             </Panel>
             <Panel title="Conditions d'admission" icon={CheckCircle2}>
               <Cond ok={serieOk} t="Série du bac" s={p.admission.series?.length ? `Séries admises : ${p.admission.series.map((x) => serieById[x]?.code ?? x).slice(0, 10).join(", ")}${serie ? ` · ta série : ${serieById[serie]?.code ?? serie}` : " · renseigne ta série dans ton profil"}` : "Toutes séries acceptées"} />
               {p.admission.noteMin != null && <Cond ok t="Moyenne minimale" s={`Moyenne exigée : ${p.admission.noteMin}/20, vérifiée sur tes relevés de notes.`} />}
-              <Cond ok t="Venir étudier au Maroc" s={user.country && user.country !== "MA" ? `Depuis ton pays : ${visaResume(user.country)}.` : "Candidatures ouvertes aux étudiants de tous les pays."} />
+              <Cond ok t={`Venir étudier ${auPays(etab?.pays ?? "MA")}`} s={user.country && user.country !== (etab?.pays ?? "MA") ? `Depuis ton pays : ${visaDestination(etab?.pays ?? "MA", user.country)}.` : "Candidatures ouvertes aux étudiants de tous les pays."} />
               {(p.admission.concours || p.admission.entretien) && <Alert tone="warn">Admission {p.admission.concours ? "sur concours" : "avec entretien"}{p.admission.prerequis ? ` : ${p.admission.prerequis}` : " (épreuves organisées par l'établissement, souvent à distance pour l'international)."}</Alert>}
               {minor && !consent && <Alert tone="error" title="Consentement parental requis" action={<Link href="/espace/profil#parent" className="btn-sun py-2.5">Inviter mon parent</Link>}>Tu peux préparer ton dossier, mais l&apos;envoi nécessite l&apos;accord de ton parent ou tuteur.</Alert>}
               {!serieOk && <Alert tone="warn">Ta série ne figure pas parmi les séries habituellement admises. Tu peux candidater : l&apos;établissement étudiera ton dossier.</Alert>}

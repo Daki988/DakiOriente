@@ -1,0 +1,164 @@
+{
+  "_meta": {
+    "referentiel": "destinations",
+    "version": "1.0.0",
+    "date": "2026-11-04",
+    "plateforme": "Navigoal",
+    "description": "Pays de destination des études. Un pays « actif » est publié sur le site (établissements, fiche pays, devis, Navi) ; les autres sont préparés et annoncés « bientôt ».",
+    "regle": "Seuls les établissements privés reconnus par l'État du pays (ou inter-États) sont publiés. Deux niveaux de label : reconnu_etat (l'établissement) et diplomes_homologues (ses programmes) ; le libellé dépend du pays."
+  },
+  "items": [
+    {
+      "code": "MA",
+      "nom": "Maroc",
+      "prep": "au Maroc",
+      "de": "du Maroc",
+      "actif": true,
+      "defaut": true,
+      "devise": "MAD",
+      "fichier": "etablissements_superieurs",
+      "regulateur": "Ministère de l'Enseignement supérieur, de la Recherche scientifique et de l'Innovation",
+      "labels": {
+        "reconnu_etat": {
+          "libelle": "Reconnu par l'État",
+          "description": "Université ou établissement reconnu par décret : ses diplômes accrédités sont équivalents aux diplômes nationaux."
+        },
+        "diplomes_homologues": {
+          "libelle": "Diplômes homologués",
+          "description": "Établissement autorisé dont les filières publiées sont accréditées par l'État (arrêté au Bulletin officiel)."
+        }
+      },
+      "reconnaissance": "Au Maroc, un diplôme privé est équivalent au diplôme national quand l'établissement est reconnu par l'État et que la filière est accréditée par arrêté publié au Bulletin officiel."
+    },
+    {
+      "code": "SN",
+      "nom": "Sénégal",
+      "prep": "au Sénégal",
+      "de": "du Sénégal",
+      "actif": true,
+      "devise": "XOF",
+      "fichier": "etablissements_superieurs_sn",
+      "regulateur": "Ministère de l'Enseignement supérieur, de la Recherche et de l'Innovation (MESRI) et Autorité nationale d'Assurance qualité (ANAQ-Sup)",
+      "labels": {
+        "reconnu_etat": {
+          "libelle": "Habilité par l'État",
+          "description": "Habilitation institutionnelle accordée par le MESRI sur avis favorable de l'ANAQ-Sup : l'établissement peut délivrer licence, master ou doctorat."
+        },
+        "diplomes_homologues": {
+          "libelle": "Programmes accrédités",
+          "description": "Programmes accrédités par l'ANAQ-Sup (Autorité nationale d'assurance qualité de l'enseignement supérieur), pour 5 ans."
+        }
+      },
+      "reconnaissance": "Au Sénégal, un diplôme privé est reconnu par l'État quand l'établissement a reçu l'habilitation institutionnelle et que le programme est accrédité par l'ANAQ-Sup (Autorité nationale d'assurance qualité). L'accréditation vaut 5 ans. Les établissements inter-États (ESMT, CESAG, EISMV) délivrent des diplômes reconnus par leurs États membres.",
+      "source_label": "Bases officielles de l'ANAQ-Sup (anaqsup.sn), consultées le 4 novembre 2026"
+    },
+    {
+      "code": "CI",
+      "nom": "Côte d'Ivoire",
+      "prep": "en Côte d'Ivoire",
+      "de": "de Côte d'Ivoire",
+      "actif": false,
+      "devise": "XOF",
+      "fichier": "etablissements_superieurs_ci",
+      "regulateur": null,
+      "labels": {},
+      "reconnaissance": null
+    },
+    {
+      "code": "TN",
+      "nom": "Tunisie",
+      "prep": "en Tunisie",
+      "de": "de Tunisie",
+      "actif": false,
+      "devise": "TND",
+      "fichier": "etablissements_superieurs_tn",
+      "regulateur": null,
+      "labels": {},
+      "reconnaissance": null
+    },
+    {
+      "code": "CM",
+      "nom": "Cameroun",
+      "prep": "au Cameroun",
+      "de": "du Cameroun",
+      "actif": false,
+      "devise": "XAF",
+      "fichier": "etablissements_superieurs_cm",
+      "regulateur": null,
+      "labels": {},
+      "reconnaissance": null
+    },
+    {
+      "code": "BJ",
+      "nom": "Bénin",
+      "prep": "au Bénin",
+      "de": "du Bénin",
+      "actif": false,
+      "devise": "XOF",
+      "fichier": "etablissements_superieurs_bj",
+      "regulateur": null,
+      "labels": {},
+      "reconnaissance": null
+    },
+    {
+      "code": "TG",
+      "nom": "Togo",
+      "prep": "au Togo",
+      "de": "du Togo",
+      "actif": false,
+      "devise": "XOF",
+      "fichier": "etablissements_superieurs_tg",
+      "regulateur": null,
+      "labels": {},
+      "reconnaissance": null
+    },
+    {
+      "code": "GA",
+      "nom": "Gabon",
+      "prep": "au Gabon",
+      "de": "du Gabon",
+      "actif": false,
+      "devise": "XAF",
+      "fichier": "etablissements_superieurs_ga",
+      "regulateur": null,
+      "labels": {},
+      "reconnaissance": null
+    },
+    {
+      "code": "RW",
+      "nom": "Rwanda",
+      "prep": "au Rwanda",
+      "de": "du Rwanda",
+      "actif": false,
+      "devise": "RWF",
+      "fichier": "etablissements_superieurs_rw",
+      "regulateur": null,
+      "labels": {},
+      "reconnaissance": null
+    },
+    {
+      "code": "KE",
+      "nom": "Kenya",
+      "prep": "au Kenya",
+      "de": "du Kenya",
+      "actif": false,
+      "devise": "KES",
+      "fichier": "etablissements_superieurs_ke",
+      "regulateur": null,
+      "labels": {},
+      "reconnaissance": null
+    },
+    {
+      "code": "ZA",
+      "nom": "Afrique du Sud",
+      "prep": "en Afrique du Sud",
+      "de": "d'Afrique du Sud",
+      "actif": false,
+      "devise": "ZAR",
+      "fichier": "etablissements_superieurs_za",
+      "regulateur": null,
+      "labels": {},
+      "reconnaissance": null
+    }
+  ]
+}

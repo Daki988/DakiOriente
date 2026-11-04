@@ -6,7 +6,8 @@ import { permanentRedirect } from "next/navigation";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { PhotoGallery } from "@/components/sections/PhotoGallery";
-import { STATUT_LONG, mobilite, villesOf, type Campus, type Etablissement, domaineById, etabById, etablissements, fmt, labelById, metierById, niveauLabel, paysDetailById, residences, formationById, type Filiere } from "@/lib/data";
+import { STATUT_LONG, auPays, destinationById, labelDescriptionPays, mobilite, villesOf, type Campus, type Etablissement, domaineById, etabById, etablissements, fmt, labelById, metierById, niveauLabel, paysDetailById, residences, formationById, type Filiere } from "@/lib/data";
+import { Drapeau } from "@/components/ui/Drapeau";
 import { LabelChip } from "@/components/ui/Cards";
 import { Prix } from "@/components/ui/Devise";
 import { villeHref } from "@/lib/catalogue";
@@ -27,9 +28,10 @@ export const generateMetadata = ({ params }: { params: { id: string } }): Metada
   // Titre ≤ 60 caractères (suffixe compris), description ≤ 155 : du plus complet au plus court.
   const title = titreSeo(`${e.nom} : formations et frais`, `${e.nom} (${villes[0]})`, `${court} ${villes[0]} : formations, frais, admission`, `${court} ${villes[0]} : formations et frais`, `${court} : formations et frais`, e.nom);
   const fil = nb ? `${nb} filière${nb > 1 ? "s" : ""}` : "Programmes";
-  const label = labelById[e.label]?.libelle ?? "Établissement privé";
+  const label = e.label_libelle || labelById[e.label]?.libelle || "Établissement privé";
+  const pays = destinationById[e.pays]?.nom ?? e.pays;
   const description = descriptionSeo(
-    `${e.nom} à ${v1} (Maroc) · ${label}. ${fil}, frais, admission, campus et logement étudiant. Candidature en ligne.`,
+    `${e.nom} à ${v1} (${pays}) · ${label}. ${fil}, frais, admission, campus et logement étudiant. Candidature en ligne.`,
     `${court} à ${v1} · ${label}. ${fil}, frais, admission, campus et logement. Candidature en ligne.`,
     `${court} à ${villes[0]} · ${label}. ${fil}, frais, admission et logement étudiant.`,
   );
@@ -48,7 +50,7 @@ function jsonLd(e: Etablissement) {
     name: e.nom, alternateName: e.sigle, url: `${SITE_URL}/etablissements/${e.id}/`, logo: e.logo ? `${SITE_URL}${e.logo}` : undefined,
     image: e.photos.map((p) => `${SITE_URL}${p.src}`), sameAs: e.site_web ? [e.site_web] : undefined, foundingDate: e.annee_creation ? String(e.annee_creation) : undefined,
     description: e.description ?? undefined,
-    location: campus.map((c) => ({ "@type": "Place", name: `Campus de ${c.ville}`, address: { "@type": "PostalAddress", streetAddress: c.adresse ?? undefined, addressLocality: c.ville, addressCountry: "MA" }, geo: c.geo ? { "@type": "GeoCoordinates", latitude: c.geo.coordonnees.lat, longitude: c.geo.coordonnees.lon } : undefined })),
+    location: campus.map((c) => ({ "@type": "Place", name: `Campus de ${c.ville}`, address: { "@type": "PostalAddress", streetAddress: c.adresse ?? undefined, addressLocality: c.ville, addressCountry: e.pays }, geo: c.geo ? { "@type": "GeoCoordinates", latitude: c.geo.coordonnees.lat, longitude: c.geo.coordonnees.lon } : undefined })),
     hasCredential: e.filieres.slice(0, 30).map((f) => ({ "@type": "EducationalOccupationalCredential", name: f.intitule, credentialCategory: f.diplome ?? undefined })),
   };
 }
@@ -91,13 +93,13 @@ function CampusMobilite({ e }: { e: Etablissement }) {
   const campus: Campus[] = e.campus ?? [{ id: e.id, ville: e.ville, adresse: e.adresse, label: e.label, label_libelle: e.label_libelle, reconnaissance: e.reconnaissance, autorisation: e.autorisation, site_web: e.site_web, geo: e.geo }];
   return (
     <section id="campus" className="flex scroll-mt-32 flex-col gap-4">
-      <div><h2 className="text-[28px] font-extrabold tracking-tight">{campus.length > 1 ? `${campus.length} campus au Maroc` : "Campus, quartier et mobilité"}</h2><p className="text-ink-mute">{campus.length > 1 ? "Tu choisis ton campus au moment de ta candidature. " : ""}Quartier, transports à proximité et repères pour s&apos;installer.</p></div>
+      <div><h2 className="text-[28px] font-extrabold tracking-tight">{campus.length > 1 ? `${campus.length} campus ${auPays(e.pays)}` : "Campus, quartier et mobilité"}</h2><p className="text-ink-mute">{campus.length > 1 ? "Tu choisis ton campus au moment de ta candidature. " : ""}Quartier, transports à proximité et repères pour s&apos;installer.</p></div>
       <div className={`grid gap-4 ${campus.length > 1 ? "md:grid-cols-2" : ""}`}>
         {campus.map((c) => {
           const g = c.geo, V = mobilite[c.ville];
           return (
             <div key={c.id} className="card flex flex-col gap-3 rounded-[22px] p-5">
-              <div className="flex flex-wrap items-center justify-between gap-2"><Link href={villeHref(c.ville)} className="flex items-center gap-1.5 text-lg font-extrabold hover:text-brand-600"><MapPin size={17} className="text-brand-600" />{campus.length > 1 ? `Campus de ${c.ville}` : c.ville}<ChevronRight size={16} className="text-ink-mute" /></Link>{campus.length > 1 && <LabelChip label={c.label} />}</div>
+              <div className="flex flex-wrap items-center justify-between gap-2"><Link href={villeHref(c.ville)} className="flex items-center gap-1.5 text-lg font-extrabold hover:text-brand-600"><MapPin size={17} className="text-brand-600" />{campus.length > 1 ? `Campus de ${c.ville}` : c.ville}<ChevronRight size={16} className="text-ink-mute" /></Link>{campus.length > 1 && <LabelChip label={c.label} pays={e.pays} libelle={c.label_libelle} />}</div>
               {c.adresse && <p className="text-sm text-ink-soft">{c.adresse}</p>}
               {g?.quartier && <p className="text-sm"><b>Quartier :</b> <span className="text-ink-soft">{g.quartier}{g.arrondissement && g.arrondissement !== g.quartier ? ` (${g.arrondissement})` : ""}</span>{g.quartiers_voisins.length > 0 && <span className="text-ink-mute"> · à proximité : {g.quartiers_voisins.map((q) => q.replace(/^(Arrondissement|Préfecture d'arrondissements) de /, "")).join(", ")}</span>}</p>}
               {g && (g.tramway.length > 0 || g.gares.length > 0 || g.bus.arrets_600m > 0) && (
@@ -132,6 +134,10 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
   if (e.id !== params.id) permanentRedirect(`/etablissements/${e.id}/`); // ancien campus regroupé
   const P = paysDetailById[e.pays];
   const C = COUTS[e.pays];
+  const PD = destinationById[e.pays];
+  const maroc = e.pays === "MA";
+  const dev = C.devise;
+  const interEtats = e.statut === "inter_etats";
   // Filières homologuées, regroupées par composante (universités) ou par domaine
   const groupe = (f: Filiere) => f.composante ?? domaineById[f.domaine ?? ""]?.libelle ?? "Autres filières";
   const autorise = e.label === "autorise";
@@ -139,25 +145,25 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
   const villes = villesOf(e);
   const groupes = liste.reduce<Record<string, Filiere[]>>((acc, f) => ((acc[groupe(f)] ??= []).push(f), acc), {});
   const shared = (x: typeof e) => x.formations.filter((f) => e.formations.includes(f)).length;
-  const similar = etablissements.filter((x) => x.id !== e.id && shared(x) >= 2).sort((a, b) => shared(b) - shared(a)).slice(0, 4);
+  const similar = etablissements.filter((x) => x.id !== e.id && shared(x) >= 2).sort((a, b) => Number(b.pays === e.pays) - Number(a.pays === e.pays) || shared(b) - shared(a)).slice(0, 4);
   const res = residences.filter((r) => r.etablissements_desservis.includes(e.id));
   const fid = formationParDefaut(e.id);
   const D = fid ? devis(e.id, fid) : null;
   const typ = C.scolarite_annuelle[e.type] ?? C.scolarite_annuelle.universite;
   const B = P.budget;
-  const facts: [string, string][] = [["Label", labelById[e.label]?.libelle ?? "—"], ["Statut", STATUT_LONG[e.statut] ?? "Privé"], e.campus ? ["Campus", villes.join(" · ")] : ["Ville", e.ville], ["Création", e.annee_creation ? String(e.annee_creation) : "—"], autorise ? ["Diplômes", "D'établissement"] : ["Filières homologuées", String(e.filieres.length)], ["Étudiants étrangers", "Accueillis ✓"]];
+  const facts: [string, string][] = [["Label", e.label_libelle || labelById[e.label]?.libelle || "—"], ["Statut", STATUT_LONG[e.statut] ?? "Privé"], e.campus ? ["Campus", villes.join(" · ")] : ["Ville", e.ville], ["Création", e.annee_creation ? String(e.annee_creation) : "—"], autorise ? ["Diplômes", "D'établissement"] : [maroc ? "Filières homologuées" : "Programmes reconnus", String(e.filieres.length)], ["Étudiants étrangers", "Accueillis ✓"]];
   const compare = `/comparateur/?f=${fid}&e=${[e.id, ...similar.slice(0, 2).map((x) => x.id)].join(",")}`;
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(e)).replace(/</g, "\\u003c") }} />
       <div className="container flex flex-col gap-6 pt-7">
-        <nav className="flex items-center gap-1.5 text-[13px] text-ink-mute"><Link href="/">Accueil</Link><ChevronRight size={14} /><Link href="/etablissements">Établissements</Link><ChevronRight size={14} /><span>{e.sigle}</span></nav>
+        <nav className="flex items-center gap-1.5 text-[13px] text-ink-mute"><Link href="/">Accueil</Link><ChevronRight size={14} /><Link href="/etablissements">Établissements</Link><ChevronRight size={14} /><Link href={`/etablissements/?pays=${e.pays}`}>{PD?.nom}</Link><ChevronRight size={14} /><span>{e.sigle}</span></nav>
         <Reveal className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
           <div className="flex min-w-0 items-center gap-5">
             <EtabLogo e={e} size={88} className="shadow-card" />
             <div className="flex min-w-0 flex-col gap-2">
               <h1 className="text-3xl font-extrabold tracking-tight sm:text-[44px] sm:leading-[1.05]">{e.nom}</h1>
-              <div className="flex flex-wrap gap-2"><LabelChip label={e.label} /><span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip !inline-block max-w-full whitespace-normal !rounded-2xl bg-sun-100 text-[#a55a00]"><MapPin size={12} className="mr-1 inline align-[-2px]" />{e.campus ? `${e.campus.length} campus : ` : ""}{villes.map((v, k) => <span key={v}>{k ? ", " : ""}<Link href={villeHref(v)} className="hover:underline">{v}</Link></span>)}{e.campus ? "" : ", Maroc"}</span></div>
+              <div className="flex flex-wrap gap-2"><LabelChip label={e.label} pays={e.pays} libelle={e.label_libelle} />{!maroc && !interEtats && e.filieres.length > 0 && e.label === "reconnu_etat" && <span className="chip bg-brand-50 text-brand-700"><BadgeCheck size={12} />{e.filieres.length} programme{e.filieres.length > 1 ? "s" : ""} accrédité{e.filieres.length > 1 ? "s" : ""} ou habilité{e.filieres.length > 1 ? "s" : ""}</span>}<span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip !inline-block max-w-full whitespace-normal !rounded-2xl bg-sun-100 text-[#a55a00]"><MapPin size={12} className="mr-1 inline align-[-2px]" />{e.campus ? `${e.campus.length} campus : ` : ""}{villes.map((v, k) => <span key={v}>{k ? ", " : ""}<Link href={villeHref(v)} className="hover:underline">{v}</Link></span>)}{e.campus ? "" : `, ${PD?.nom}`}</span></div>
             </div>
           </div>
           <div className="flex flex-wrap gap-2.5">
@@ -179,11 +185,12 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
           </nav>
           <section id="formations" className="flex scroll-mt-32 flex-col gap-6">
             <div className={`card flex flex-col gap-2 rounded-[22px] p-5 ${autorise ? "border-[#f3e2b4] bg-[#fffaf0]" : "border-[#cdeedd] bg-[#f3fbf6]"}`}>
-              <div className={`flex items-center gap-2 font-extrabold ${autorise ? "text-[#a55a00]" : "text-[#0f8a46]"}`}>{autorise ? <ShieldAlert size={18} /> : <BadgeCheck size={18} />} {labelById[e.label]?.libelle}</div>
-              <p className="text-sm text-ink-soft">{labelById[e.label]?.description}{e.reconnaissance_en_cours ? " Reconnaissance par l'État en cours d'attribution." : ""}</p>
+              <div className={`flex items-center gap-2 font-extrabold ${autorise ? "text-[#a55a00]" : "text-[#0f8a46]"}`}>{autorise ? <ShieldAlert size={18} /> : <BadgeCheck size={18} />} {maroc ? labelById[e.label]?.libelle : e.label_libelle}</div>
+              <p className="text-sm text-ink-soft">{maroc ? labelById[e.label]?.description : interEtats ? "Institution créée par convention entre plusieurs États africains : ses diplômes sont reconnus par les États membres." : labelDescriptionPays(e.label, e.pays)}{e.reconnaissance_en_cours ? " Reconnaissance par l'État en cours d'attribution." : ""}</p>
+              {!maroc && PD?.reconnaissance && <p className="text-sm text-ink-soft"><b className="text-ink">Reconnaissance des diplômes {auPays(e.pays)} :</b> {PD.reconnaissance}</p>}
               {autorise && e.reconnaissance && <p className="text-sm text-ink-soft">Établissement reconnu par l&apos;État : ses filières doivent être de nouveau accréditées pour délivrer des diplômes équivalents aux diplômes nationaux.</p>}
               {autorise && <p className="text-sm text-ink-soft">Avant de t&apos;inscrire, demande à l&apos;établissement si la filière visée a obtenu le renouvellement de son accréditation (arrêté au Bulletin officiel).</p>}
-              {(e.reconnaissance || e.autorisation) && <p className="text-xs text-ink-mute">Source : {[e.reconnaissance, e.autorisation ? `liste des établissements privés autorisés (${e.autorisation})` : null].filter(Boolean).join(" ; ")}.</p>}
+              {(e.reconnaissance || e.autorisation) && <p className="text-xs text-ink-mute">Source : {[e.reconnaissance, e.autorisation ? `liste des établissements privés autorisés (${e.autorisation})` : null, !maroc && !interEtats ? PD?.source_label : null].filter(Boolean).join(" ; ")}.</p>}
             </div>
             {(live?.description ?? e.description) && <div className="card flex flex-col gap-2 rounded-[22px] p-6"><h2 className="text-lg font-extrabold">Présentation</h2><p className="whitespace-pre-line leading-relaxed text-ink-soft">{live?.description ?? e.description}</p>{e.adresse && <p className="flex items-start gap-1.5 text-sm text-ink-mute"><MapPin size={15} className="mt-0.5 shrink-0" />{e.adresse}</p>}</div>}
             {confirmed.length > 0 && (
@@ -194,10 +201,11 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
             )}
             {autorise
               ? <div><h2 className="text-[28px] font-extrabold tracking-tight">Formations et débouchés</h2><p className="text-ink-mute">{liste.length ? "Filières autrefois accréditées par l'État, dont l'accréditation a pris fin sans renouvellement publié : elles conduisent à un diplôme d'établissement." : "Programmes à préciser par l'établissement."}</p></div>
-              : <div><h2 className="text-[28px] font-extrabold tracking-tight">Filières homologuées et débouchés</h2><p className="text-ink-mute">Filières accréditées par l&apos;État, avec la fin de leur accréditation et le texte qui la fixe. Chacune est reliée aux métiers qu&apos;elle prépare.</p></div>}
+              : maroc ? <div><h2 className="text-[28px] font-extrabold tracking-tight">Filières homologuées et débouchés</h2><p className="text-ink-mute">Filières accréditées par l&apos;État, avec la fin de leur accréditation et le texte qui la fixe. Chacune est reliée aux métiers qu&apos;elle prépare.</p></div>
+              : <div><h2 className="text-[28px] font-extrabold tracking-tight">Programmes reconnus et débouchés ({e.filieres.length})</h2><p className="text-ink-mute">{interEtats ? "Principaux diplômes de l'établissement, reconnus par ses États membres." : "Programmes accrédités par l'ANAQ-Sup ou couverts par l'habilitation de l'établissement, avec l'année de la décision. Les programmes non accrédités ne sont jamais proposés."} Chacun est relié aux métiers qu&apos;il prépare.</p></div>}
             {Object.entries(groupes).map(([g, fs]) => (
               <div key={g} className="flex flex-col gap-3">
-                <div className="flex items-center gap-2.5"><span className="chip bg-brand-50 px-3 py-1.5 text-[13px] text-brand-700">{g}</span><span className="text-[13px] text-ink-mute">{fs.length} filière{fs.length > 1 ? "s" : ""}</span></div>
+                <div className="flex items-center gap-2.5"><span className="chip bg-brand-50 px-3 py-1.5 text-[13px] text-brand-700">{g}</span><span className="text-[13px] text-ink-mute">{fs.length} {maroc ? "filière" : "programme"}{fs.length > 1 ? "s" : ""}</span></div>
                 <Stagger className="flex flex-col gap-3">
                   {fs.map((f, k) => {
                     const F = f.formation ? formationById[f.formation] : undefined;
@@ -212,7 +220,8 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
                             ? <span className="text-[11px] font-semibold text-[#a55a00]" title={f.homologation.texte}>Accréditation échue ({f.homologation.fin}) · diplôme d&apos;établissement</span>
                             : f.homologation.statut === "recente"
                               ? <span className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold text-brand-700" title={f.homologation.texte}><span className="chip bg-brand-50 px-2 py-0.5 text-[11px] text-brand-700">Accrédité</span>accréditation arrivée à échéance en {f.homologation.fin}, renouvellement à confirmer</span>
-                              : <span className="text-[11px] font-semibold text-[#0f8a46]" title={f.homologation.texte}>Accréditée jusqu&apos;en {f.homologation.fin}</span>}
+                              : maroc ? <span className="text-[11px] font-semibold text-[#0f8a46]" title={f.homologation.texte}>Accréditée jusqu&apos;en {f.homologation.fin}</span>
+                              : <span className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold text-[#0f8a46]"><span className="chip bg-[#e8f8ef] px-2 py-0.5 text-[11px] text-[#0f8a46]"><Check size={11} />{interEtats ? "Reconnu" : /Habilitation/.test(f.homologation.texte) ? "Habilité" : "Accrédité"}</span>{interEtats ? f.homologation.texte : `${f.homologation.texte.replace(/^.*?(\d{4})$/, "décision $1")} · valable jusqu'en ${f.homologation.fin}`}</span>}
                         </div>
                         <div className="flex min-w-0 flex-1 flex-col gap-1.5">{F && F.metiers.length > 0 && <><span className="text-[11px] font-extrabold text-ink-mute">MÈNE AUX MÉTIERS</span><div className="flex flex-wrap gap-1.5">{F.metiers.slice(0, 3).map((m) => metierById[m] && <Link key={m} href={`/metiers/${m}/`} className="chip bg-[#f1edff] text-[#6a3df0] hover:bg-[#e4dcff]">{metierById[m].nom}</Link>)}</div></>}</div>
                         {F && <Link href={`/comparateur/?f=${F.id}&e=${e.id}`} className="btn-ghost shrink-0 self-start px-3 py-2 text-[13px] md:self-center"><Scale size={14} /> Comparer</Link>}
@@ -222,7 +231,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
                 </Stagger>
               </div>
             ))}
-            <p className="text-xs text-ink-mute">Sources : listes du ministère de l&apos;Enseignement supérieur et arrêtés d&apos;accréditation publiés au Bulletin officiel. Frais et calendrier à confirmer auprès de l&apos;établissement.</p>
+            <p className="text-xs text-ink-mute">Sources : {maroc ? "listes du ministère de l'Enseignement supérieur et arrêtés d'accréditation publiés au Bulletin officiel" : interEtats ? "site officiel de l'établissement" : PD?.source_label ?? "sources officielles du pays"}. Frais et calendrier à confirmer auprès de l&apos;établissement.</p>
           </section>
           <ProgrammesSite e={e} />
           <CampusMobilite e={e} />
@@ -237,19 +246,19 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
             )}
             {e.site && (e.site.bourses || e.site.international || e.site.logement) && <div className="flex flex-col gap-1 text-sm text-ink-soft">{e.site.bourses && <span><b className="text-ink">Bourses :</b> {e.site.bourses}</span>}{e.site.international && <span><b className="text-ink">International :</b> {e.site.international}</span>}{e.site.logement && <span><b className="text-ink">Logement :</b> {e.site.logement}</span>}</div>}
             {ADMISSION.map((t, k) => <div key={k} className="flex items-start gap-3"><span className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full bg-brand-50 text-[13px] font-extrabold text-brand-600">{k + 1}</span><span className="pt-1 text-sm text-ink-soft">{t}</span></div>)}
-            <Link href="/pays/ma/#venir" className="text-[13px] font-bold text-brand-600">Visa selon ta nationalité et carte de séjour →</Link>
+            <Link href={`/pays/${e.pays.toLowerCase()}/#venir`} className="text-[13px] font-bold text-brand-600">Visa selon ta nationalité et carte de séjour →</Link>
           </Reveal></section>
         </div>
 
         <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
           <div id="frais" className="card flex scroll-mt-28 flex-col gap-3.5 rounded-3xl p-6 shadow-[0_30px_60px_-24px_rgba(26,71,245,.4)]">
             <div className="flex items-center justify-between"><b>Budget annuel estimé</b><span className="chip bg-sun-100 text-[#a55a00]">estimation</span></div>
-            {([["Frais de scolarité", <><Prix mad={typ.min} bloc /> – <Prix mad={typ.max} bloc /></>], ["Vie (10 mois)", <><Prix mad={B.total_mensuel.min * 10} bloc /> – <Prix mad={B.total_mensuel.max * 10} bloc /></>], ["Visa & séjour", "selon la nationalité"]] as const).map(([a, b]) => <div key={a} className="flex justify-between gap-3 text-sm"><span className="text-ink-mute">{a}</span><b className="text-right">{b}</b></div>)}
+            {([["Frais de scolarité", <><Prix mad={typ.min} devise={dev} bloc /> – <Prix mad={typ.max} devise={dev} bloc /></>], ["Vie (10 mois)", <><Prix mad={B.total_mensuel.min * 10} devise={dev} bloc /> – <Prix mad={B.total_mensuel.max * 10} devise={dev} bloc /></>], ["Visa & séjour", "selon la nationalité"]] as const).map(([a, b]) => <div key={a} className="flex justify-between gap-3 text-sm"><span className="text-ink-mute">{a}</span><b className="text-right">{b}</b></div>)}
             {(e.site?.frais.length ?? 0) > 0 && <div className="flex flex-col gap-1.5 rounded-2xl border border-[#cdeedd] bg-[#f3fbf6] p-3 text-[13px]">
               <b className="text-[#0f8a46]">Frais publiés par l&apos;établissement</b>
               {e.site!.frais.map((f) => <div key={f.cycle} className="flex justify-between gap-3"><span className="text-ink-soft">{f.cycle}</span><b className="text-right">{f.scolarite_annuelle_mad ? <Prix mad={f.scolarite_annuelle_mad} suffixe="/an" bloc /> : "—"}{f.inscription_mad ? <span className="block text-[11px] font-semibold text-ink-mute">+ inscription <Prix mad={f.inscription_mad} /></span> : null}</b></div>)}
             </div>}
-            {D && <div className="rounded-2xl bg-brand-50 p-3 text-[13px]"><span className="text-ink-mute">Coût total sur {D.years} an{D.years > 1 ? "s" : ""} (tout compris) :</span><b className="block text-brand-700"><Prix mad={D.total[0]} /> – <Prix mad={D.total[1]} /></b></div>}
+            {D && <div className="rounded-2xl bg-brand-50 p-3 text-[13px]"><span className="text-ink-mute">Coût total sur {D.years} an{D.years > 1 ? "s" : ""} (tout compris) :</span><b className="block text-brand-700"><Prix mad={D.total[0]} devise={dev} /> – <Prix mad={D.total[1]} devise={dev} /></b></div>}
             <Link href={`/devis/?etab=${e.id}`} className="btn-primary btn-shine py-2.5"><Calculator size={17} /> Obtenir le devis complet</Link>
             <span className="text-center text-xs text-ink-mute">Frais exacts transmis par l&apos;établissement sous 72 h via Navigoal</span>
           </div>
@@ -258,15 +267,19 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
             {similar.map((x) => <Link key={x.id} href={`/etablissements/${x.id}/`} className="flex items-center gap-3 rounded-2xl border border-[#eef1f8] p-3 transition hover:border-brand-200"><EtabLogo e={x} size={42} /><span className="min-w-0 flex-1"><b className="block text-[13px]">{x.sigle}</b><span className="text-xs text-ink-mute">{villesOf(x).join(" · ")}</span></span><span className="chip shrink-0 bg-[#e8f8ef] text-[#0f8a46]">{shared(x)} en commun</span></Link>)}
             <Link href={compare} className="btn-ghost py-2.5"><Scale size={16} /> Ouvrir le comparateur</Link>
           </div>}
-          <div id="logement" className="card flex scroll-mt-28 flex-col gap-2.5 rounded-[22px] bg-gradient-to-br from-white to-[#fff7dd] p-5">
+          {maroc ? <div id="logement" className="card flex scroll-mt-28 flex-col gap-2.5 rounded-[22px] bg-gradient-to-br from-white to-[#fff7dd] p-5">
             <div className="flex items-center gap-2.5"><span className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-sun-400"><KeyRound size={18} /></span><b>Logements à proximité</b></div>
             {res.map((r) => <div key={r.id} className="rounded-xl border border-[#f3e6bd] bg-white p-3 text-[13px]"><b>{r.nom}</b><span className="block text-ink-mute">{r.gestionnaire}</span></div>)}
             <span className="text-[13px] text-ink-mute">Studios et colocations vérifiés · dès <Prix mad={B.lignes[0].min} suffixe="/mois" /></span>
             <Link href={`/navilease/logements/?etablissement=${e.id}`} className="btn-primary py-2.5">Voir sur Navilease</Link>
-          </div>
+          </div> : <div id="logement" className="card flex scroll-mt-28 flex-col gap-2 rounded-[22px] bg-gradient-to-br from-white to-[#fff7dd] p-5">
+            <div className="flex items-center gap-2.5"><span className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-sun-400"><KeyRound size={18} /></span><b>Vivre à {e.ville}</b></div>
+            {B.lignes.map((l) => <div key={l.poste} className="flex justify-between gap-3 text-[13px]"><span className="text-ink-soft">{l.poste}</span><b className="shrink-0 text-right"><Prix mad={l.min} devise={dev} bloc /> – <Prix mad={l.max} devise={dev} suffixe="/mois" bloc /></b></div>)}
+            <span className="text-xs text-ink-mute">Fourchettes mensuelles indicatives. {B.note}</span>
+          </div>}
           <div className="card flex flex-col gap-2 rounded-[22px] p-5">
-            <b>Étudier au {P.nom}</b><span className="text-[13px] text-ink-mute">Visa, coût de la vie, reconnaissance des diplômes.</span>
-            <Link href="/pays/ma/" className="text-[13px] font-bold text-brand-600">Lire la fiche Maroc →</Link>
+            <b className="flex items-center gap-2"><Drapeau code={e.pays} taille={14} />Étudier {auPays(e.pays)}</b><span className="text-[13px] text-ink-mute">Visa, coût de la vie, reconnaissance des diplômes.</span>
+            <Link href={`/pays/${e.pays.toLowerCase()}/`} className="text-[13px] font-bold text-brand-600">Lire la fiche {P.nom} →</Link>
             {e.site?.contact.telephone && <a href={`tel:${e.site.contact.telephone.replace(/\s/g, "")}`} className="flex items-center gap-1.5 text-[13px] font-bold text-ink-soft hover:text-brand-600"><Phone size={14} /> {e.site.contact.telephone}</a>}
             {e.site?.contact.email && <a href={`mailto:${e.site.contact.email}`} className="flex items-center gap-1.5 text-[13px] font-bold text-ink-soft hover:text-brand-600"><Mail size={14} /> {e.site.contact.email}</a>}
             {e.site_web && <a href={e.site_web} target="_blank" rel="noopener noreferrer" className="mt-1 flex items-center gap-1.5 text-[13px] font-bold text-ink-soft hover:text-brand-600">Site officiel <ExternalLink size={14} /></a>}

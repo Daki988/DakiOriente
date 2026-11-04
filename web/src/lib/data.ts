@@ -10,8 +10,9 @@ import navileaseData from "@/data/navilease.json";
 import riasecData from "@/data/profils_riasec.json";
 import paysDetailsData from "@/data/pays_details.json";
 import mobiliteData from "@/data/mobilite.json";
+import destinationsData from "@/data/destinations.json";
 
-export type PaysCode = "GA" | "MA" | "SN";
+export type PaysCode = "MA" | "SN" | "CI" | "TN" | "CM" | "BJ" | "TG" | "GA" | "RW" | "KE" | "ZA";
 
 export type Metier = {
   id: string; nom: string; domaine: string; riasec: string[]; niveau_min: string; description: string;
@@ -112,6 +113,26 @@ export const competenceById = index(competences);
 export const serieById = index(series);
 export const paysDetailById = index(paysDetails) as Record<PaysCode, PaysDetail>;
 
+/** Pays de destination des études (référentiel destinations) : actifs (publiés) ou « bientôt ». */
+export type Destination = {
+  code: PaysCode; nom: string; prep: string; de: string; actif: boolean; defaut?: boolean; devise: string; regulateur: string | null;
+  labels: Partial<Record<Label, { libelle: string; description: string }>>; reconnaissance: string | null; source_label?: string;
+  etablissements: number; villes: { nom: string; n: number }[];
+};
+export const destinations = destinationsData as unknown as Destination[];
+export const destinationById = Object.fromEntries(destinations.map((d) => [d.code, d])) as Record<PaysCode, Destination>;
+export const DESTINATIONS_ACTIVES = destinations.filter((d) => d.actif);
+export const DESTINATIONS_BIENTOT = destinations.filter((d) => !d.actif);
+export const DESTINATION_DEFAUT = (DESTINATIONS_ACTIVES.find((d) => d.defaut) ?? DESTINATIONS_ACTIVES[0]).code;
+/** Libellé d'un label dans un pays (ex. « Habilité par l'État » au Sénégal), sinon le libellé générique. */
+export const labelPays = (label: Label, code?: PaysCode) => (code && destinationById[code]?.labels[label]?.libelle) || labelById[label]?.libelle;
+export const labelDescriptionPays = (label: Label, code?: PaysCode) => (code && destinationById[code]?.labels[label]?.description) || labelById[label]?.description;
+const joinFr = (l: string[]) => (l.length < 2 ? l.join("") : `${l.slice(0, -1).join(", ")} et ${l[l.length - 1]}`);
+/** « au Maroc et au Sénégal » : pays de destination publiés. */
+export const PAYS_ACTIFS_TEXTE = joinFr(DESTINATIONS_ACTIVES.map((d) => d.prep));
+/** « au Maroc », « au Sénégal »… */
+export const auPays = (code: PaysCode) => destinationById[code]?.prep ?? `au ${PAYS_NOM[code] ?? code}`;
+
 export const STATUT_LONG: Record<string, string> = { prive: "Privé", partenariat_etat: "Privé, en partenariat avec l'État", prive_reconnu: "Privé reconnu par l'État", prive_non_lucratif: "Privé à but non lucratif", inter_etats: "Inter-États" };
 export const fmt = (n: number) => Math.round(n).toLocaleString("fr-FR").replace(/[\u202f\u00a0]/g, " ");
 /** Établissements d'un pays, ceux qui ont des photos d'abord. */
@@ -124,7 +145,7 @@ export const formationsLiees = (e: Etablissement, fid: string) => {
   return e.formations.filter((f) => formationById[f] && (f === fid || formationById[f].metiers.some((m) => F.metiers.includes(m))));
 };
 
-export const PAYS_NOM: Record<PaysCode, string> = { GA: "Gabon", MA: "Maroc", SN: "Sénégal" };
+export const PAYS_NOM = Object.fromEntries(destinations.map((d) => [d.code, d.nom])) as Record<PaysCode, string>;
 export const niveauLabel = (n: string) =>
   ({ "niv-bac": "Bac", "niv-bac2": "Bac+2", "niv-bac3": "Bac+3", "niv-bac5": "Bac+5", "niv-bac7": "Bac+6/7", "niv-bac8": "Bac+8" } as Record<string, string>)[n] ?? n;
 export const admissionLabel = (m: string) =>
@@ -150,5 +171,6 @@ export const stats = {
   homologues: etablissements.filter((e) => e.label !== "autorise").length,
   filieres: etablissements.reduce((n, e) => n + e.filieres.length, 0),
   villes: VILLES_ETUDES.length,
+  pays: DESTINATIONS_ACTIVES.length,
   paysOrigine: 54,
 };

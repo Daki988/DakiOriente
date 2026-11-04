@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-
 import { Menu, Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Brand } from "./Brand";
+import { SelecteurDestination } from "./Destination";
 
 export const NAV = [
   { href: "/", label: "Accueil" },
@@ -21,7 +22,7 @@ export const NAV = [
 export const NAV_PLUS = [
   { href: "/comparateur", label: "Comparateur" },
   { href: "/devis", label: "Devis parents" },
-  { href: "/pays/ma", label: "Étudier au Maroc" },
+  { href: "/pays", label: "Pays de destination" },
   { href: "/actualites", label: "Actualités" },
 ];
 
@@ -60,6 +61,7 @@ export function Header() {
           ))}
         </nav>
         <div className="flex items-center gap-2.5">
+          <SelecteurDestination />
           <Link href="/recherche" aria-label="Rechercher" className="flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-[#f1f4fd] text-ink-soft transition hover:bg-brand-50 hover:text-brand-600">
             <Search size={18} />
           </Link>

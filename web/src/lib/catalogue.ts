@@ -1,7 +1,7 @@
 // Catalogue public : offres (formation × établissement × campus), villes d'études, secteurs et sélections éditoriales.
 // Tout est calculé à partir des référentiels (aucun chiffre saisi à la main).
 import paysOrigineData from "@/data/pays_origine.json";
-import { VILLES_ETUDES, competenceById, etablissements, formationById, formations, metiers, mobilite, villesOf, type Etablissement, type Formation, type Metier } from "./data";
+import { VILLES_ETUDES, competenceById, etablissements, formationById, formations, metiers, mobilite, villesOf, type Etablissement, type Formation, type Metier, type PaysCode } from "./data";
 
 export const norm = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 export const slugVille = (v: string) => norm(v).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -29,9 +29,10 @@ export const OFFRES: Offre[] = etablissements.flatMap((e) => e.formations.filter
 export const FORMATIONS_OFFERTES = formations.filter((f) => f.etablissements.length > 0);
 
 // ---------------------------------------------------------------- Villes
-export type VilleInfo = { nom: string; slug: string; etabs: Etablissement[]; offres: Offre[]; photo: (typeof mobilite)[string]["couverture"] | null };
+export type VilleInfo = { nom: string; slug: string; pays: PaysCode; etabs: Etablissement[]; offres: Offre[]; photo: (typeof mobilite)[string]["couverture"] | null };
 export const VILLES: VilleInfo[] = VILLES_ETUDES.map((nom) => ({
   nom, slug: slugVille(nom),
+  pays: etablissements.find((e) => villesOf(e).includes(nom))!.pays,
   etabs: etablissements.filter((e) => villesOf(e).includes(nom)),
   offres: OFFRES.filter((o) => o.villes.includes(nom)),
   photo: mobilite[nom]?.couverture ?? null,

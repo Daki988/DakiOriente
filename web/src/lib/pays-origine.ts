@@ -29,3 +29,13 @@ export function visaResume(c: string): string {
   if (p.visa === "visa") return p.evisa_conditionnel ? "Visa consulaire (e-Visa possible avec un visa Schengen, US, UK… valide), puis carte de séjour" : "Visa consulaire auprès de l'ambassade du Maroc, puis carte de séjour";
   return "À vérifier auprès du consulat du Maroc";
 }
+
+// Libre circulation : CEDEAO et pays de l'AES (Mali, Burkina Faso, Niger), qui gardent l'entrée sans visa au Sénégal.
+const SANS_VISA_SN = new Set(["BJ", "BF", "CV", "CI", "GM", "GH", "GN", "GW", "LR", "ML", "NE", "NG", "SL", "TG"]);
+/** Régime d'entrée résumé pour étudier dans le pays de destination `dest` depuis le pays `c`. */
+export function visaDestination(dest: string, c: string): string {
+  if (dest === "MA") return visaResume(c);
+  if (c === dest) return "Aucune formalité (ressortissant du pays)";
+  if (dest === "SN") return SANS_VISA_SN.has(c) ? "Sans visa (libre circulation CEDEAO), puis carte de séjour étudiant" : "Régime d'entrée à vérifier auprès de l'ambassade du Sénégal (beaucoup de nationalités africaines sont dispensées de visa), puis carte de séjour";
+  return "À vérifier auprès de l'ambassade du pays d'études";
+}

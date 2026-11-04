@@ -234,6 +234,205 @@
         "communaute": "Associations d'étudiants subsahariens dans chaque grande ville ; églises et mosquées.",
         "climat": "Méditerranéen ; hivers frais (prévoir vêtements chauds de décembre à février)."
       }
+    },
+    {
+      "id": "SN",
+      "devise": "XOF",
+      "scolarite_annuelle": {
+        "institut": {
+          "min": 500000,
+          "max": 1200000,
+          "libelle": "Institut / BTS / formation professionnelle"
+        },
+        "ecole_commerce": {
+          "min": 1000000,
+          "max": 3500000,
+          "libelle": "École de commerce / management"
+        },
+        "ecole_ingenieurs": {
+          "min": 1200000,
+          "max": 3500000,
+          "libelle": "École d'ingénieurs / informatique"
+        },
+        "universite": {
+          "min": 900000,
+          "max": 3000000,
+          "libelle": "Université privée"
+        },
+        "grande_ecole": {
+          "min": 1200000,
+          "max": 3500000,
+          "libelle": "Grande école"
+        },
+        "ecole_sante": {
+          "min": 900000,
+          "max": 4500000,
+          "libelle": "Santé (paramédical → médecine)"
+        },
+        "ecole_veterinaire": {
+          "min": 1500000,
+          "max": 3000000,
+          "libelle": "École vétérinaire"
+        },
+        "cpge": {
+          "min": 800000,
+          "max": 1500000,
+          "libelle": "Classes préparatoires privées"
+        }
+      },
+      "frais_annuels_annexes": {
+        "min": 100000,
+        "max": 350000,
+        "libelle": "Inscription / dossier / assurance scolaire"
+      },
+      "vie_mensuelle": {
+        "villes_cheres": [
+          "Dakar",
+          "Somone"
+        ],
+        "ville_chere": {
+          "min": 180000,
+          "max": 350000
+        },
+        "autre_ville": {
+          "min": 120000,
+          "max": 230000
+        }
+      },
+      "installation": [
+        {
+          "poste": "Visa (selon la nationalité)",
+          "min": 0,
+          "max": 50000,
+          "note": "Gratuit pour les ressortissants de la CEDEAO et des nationalités dispensées ; à vérifier auprès de l'ambassade du Sénégal."
+        },
+        {
+          "poste": "Carte de séjour étudiant (timbres, photos, copies)",
+          "min": 10000,
+          "max": 40000,
+          "annuel": true
+        },
+        {
+          "poste": "Caution + 1er mois de loyer",
+          "min": 150000,
+          "max": 450000
+        },
+        {
+          "poste": "Équipement (literie, ordinateur, fournitures)",
+          "min": 120000,
+          "max": 450000
+        },
+        {
+          "poste": "Assurance santé annuelle",
+          "min": 60000,
+          "max": 200000,
+          "annuel": true
+        }
+      ],
+      "billet_avion": {
+        "depuis_GA": {
+          "min": 250000,
+          "max": 550000
+        },
+        "depuis_SN": {
+          "min": 0,
+          "max": 0
+        },
+        "depuis_MA": {
+          "min": 180000,
+          "max": 420000
+        },
+        "note": "Aller simple vers Dakar (aéroport Blaise-Diagne), en F CFA. Estimation par région quand le pays n'a pas de tarif dédié.",
+        "depuis_region_afrique_nord": {
+          "min": 90000.0,
+          "max": 270000.0
+        },
+        "depuis_region_afrique_ouest": {
+          "min": 120000,
+          "max": 350000
+        },
+        "depuis_region_afrique_centrale": {
+          "min": 250000,
+          "max": 550000
+        },
+        "depuis_region_afrique_est": {
+          "min": 300000.0,
+          "max": 720000.0
+        },
+        "depuis_region_afrique_australe": {
+          "min": 390000.0,
+          "max": 840000.0
+        },
+        "depuis_region_europe": {
+          "min": 50000.0,
+          "max": 240000.0
+        },
+        "depuis_region_moyen_orient": {
+          "min": 180000.0,
+          "max": 480000.0
+        },
+        "depuis_region_asie": {
+          "min": 330000.0,
+          "max": 840000.0
+        },
+        "depuis_region_amerique_nord": {
+          "min": 300000.0,
+          "max": 720000.0
+        },
+        "depuis_region_amerique_latine": {
+          "min": 420000.0,
+          "max": 960000.0
+        },
+        "depuis_region_oceanie": {
+          "min": 540000.0,
+          "max": 1200000.0
+        }
+      },
+      "demarches": [
+        {
+          "quand": "J-180",
+          "etape": "Comparer les écoles et les formations, vérifier l'habilitation et l'accréditation ANAQ-Sup."
+        },
+        {
+          "quand": "J-150",
+          "etape": "Candidater (dossier en ligne, relevés de notes, bac ou attestation)."
+        },
+        {
+          "quand": "J-120",
+          "etape": "Admission, paiement des frais d'inscription, attestation d'inscription."
+        },
+        {
+          "quand": "J-90",
+          "etape": "Visa si ta nationalité n'est pas dispensée (ambassade du Sénégal)."
+        },
+        {
+          "quand": "J-60",
+          "etape": "Trouver le logement et l'assurance santé ; préparer le justificatif de ressources."
+        },
+        {
+          "quand": "J-30",
+          "etape": "Billet d'avion, légalisation des diplômes, moyen de paiement (carte, Wave, Orange Money)."
+        },
+        {
+          "quand": "J0",
+          "etape": "Arrivée, installation, inscription définitive à l'école."
+        },
+        {
+          "quand": "Après l'arrivée",
+          "etape": "Carte de séjour à la Direction de la police des étrangers (passeport, attestation d'inscription, domicile, photos)."
+        },
+        {
+          "quand": "Chaque année",
+          "etape": "Renouveler l'inscription et le titre de séjour avec les relevés de notes."
+        }
+      ],
+      "environnement": {
+        "securite": "Bonne dans les quartiers étudiants de Dakar ; vigilance habituelle dans les transports et la nuit.",
+        "sante": "Cliniques privées de bon niveau à Dakar ; assurance santé conseillée.",
+        "transports": "TER Dakar–Diamniadio, BRT, bus Dakar Dem Dikk, taxis et VTC.",
+        "communaute": "Étudiants de toute l'Afrique de l'Ouest et du Centre ; associations par nationalité.",
+        "climat": "Tropical sec ; saison des pluies de juillet à octobre, chaleur en mai–juin."
+      }
     }
   ]
 }

@@ -1,20 +1,20 @@
 "use client";
 import { Info } from "lucide-react";
 import { BrandMark } from "@/components/ui/Brand";
-import { fmt, labelById, type Etablissement, type Formation } from "@/lib/data";
+import { destinationById, fmt, labelById, type Etablissement, type Formation } from "@/lib/data";
 import { nomPays } from "@/lib/pays-origine";
 import { COUTS, HYP, LOGEMENT_LABEL, type Devis, type Logement } from "@/lib/devis";
 import { SITE_URL } from "@/lib/site";
-import { MARGE_PRUDENCE, convertir, formatMontant, type Taux } from "@/lib/devises";
+import { MARGE_PRUDENCE, convertirDe, formatMontant, type Taux } from "@/lib/devises";
 
 /** Version imprimable (A4) du devis, utilisée par « Télécharger le devis PDF ». */
 export function DevisPdf({ e, F, D, devise, taux, origine, logement, eleve, payeur }: { e: Etablissement; F: Formation; D: Devis; devise: string | null; taux: Taux; origine: string; logement: Logement; eleve: string; payeur: string }) {
   const C = COUTS[e.pays];
   const today = new Date();
   const num = `NG-${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${(Math.abs([...`${e.id}${F.id}${origine}`].reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 7)) % 100000).toString().padStart(5, "0")}`;
-  const eq = (v: number) => { const c = devise ? convertir(v, devise, taux) : null; return c == null ? null : formatMontant(c, devise!); };
+  const eq = (v: number) => { const c = devise ? convertirDe(v, D.devise, devise, taux) : null; return c == null ? null : formatMontant(c, devise!); };
   const loc = !!devise && eq(1000) != null;
-  /** Montant en dirhams et, si un pays de départ est choisi, son équivalent dans la devise des parents. */
+  /** Montant dans la devise du pays d'études et, si un pays de départ est choisi, son équivalent dans la devise des parents. */
   const M = ({ v }: { v: number }) => <>{fmt(v)}{loc && <span className="block whitespace-nowrap text-[9.5px] font-semibold leading-tight text-brand-600">≈ {eq(v)}</span>}</>;
   const td = `border-b border-slate-200 px-2.5 ${devise ? "py-[2px]" : "py-1"}`;
   return (
@@ -26,10 +26,10 @@ export function DevisPdf({ e, F, D, devise, taux, origine, logement, eleve, paye
         </div>
         <div className="mt-3 grid grid-cols-2 gap-5">
           <div className="flex flex-col gap-0.5 rounded-xl bg-[#f6f8fe] p-3"><span className="text-[11px] font-extrabold text-ink-mute">ÉTUDIANT·E</span><b>{eleve || "—"}</b><span>Départ : {origine ? nomPays(origine) : "—"}</span><span>Responsable financier : {payeur || "—"}</span><span>Logement : {LOGEMENT_LABEL[logement].toLowerCase()}</span></div>
-          <div className="flex flex-col gap-0.5 rounded-xl bg-[#f6f8fe] p-3"><span className="text-[11px] font-extrabold text-ink-mute">FORMATION</span><b>{F.intitule}</b><span>{e.nom}</span><span>{e.ville}, Maroc · {labelById[e.label]?.libelle}</span><span>{F.diplome} · {D.years} an{D.years > 1 ? "s" : ""}</span></div>
+          <div className="flex flex-col gap-0.5 rounded-xl bg-[#f6f8fe] p-3"><span className="text-[11px] font-extrabold text-ink-mute">FORMATION</span><b>{F.intitule}</b><span>{e.nom}</span><span>{e.ville}, {destinationById[e.pays]?.nom} · {e.pays === "MA" ? labelById[e.label]?.libelle : e.label_libelle}</span><span>{F.diplome} · {D.years} an{D.years > 1 ? "s" : ""}</span></div>
         </div>
         <h3 className="mt-3 text-[14px] font-extrabold">1. Synthèse des coûts sur {D.years} ans ({D.devise}{loc ? ` et ${devise}` : ""})</h3>
-        {loc && <p className="mt-1 text-[10.5px] text-ink-mute">Équivalents en {devise}, la monnaie dans laquelle l&apos;argent sera envoyé : taux du {new Date(taux.date).toLocaleDateString("fr-FR")}, 1 000 MAD ≈ {eq(1000)} (marge de prudence de {MARGE_PRUDENCE * 100} % incluse).</p>}
+        {loc && <p className="mt-1 text-[10.5px] text-ink-mute">Équivalents en {devise}, la monnaie dans laquelle l&apos;argent sera envoyé : taux du {new Date(taux.date).toLocaleDateString("fr-FR")}, {formatMontant(D.devise === "MAD" ? 1000 : 100000, D.devise)} ≈ {eq(D.devise === "MAD" ? 1000 : 100000)} (marge de prudence de {MARGE_PRUDENCE * 100} % incluse).</p>}
         <table className="mt-2 w-full border-collapse">
           <thead><tr className="bg-brand-950 text-xs text-white"><td className="px-2.5 py-2">Poste</td><td className="px-2.5 py-2 text-right">Minimum</td><td className="px-2.5 py-2 text-right">Maximum</td></tr></thead>
           <tbody>

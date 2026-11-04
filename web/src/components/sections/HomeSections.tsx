@@ -9,13 +9,13 @@ import { Counter } from "@/components/motion/Counter";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { domStyle } from "@/components/ui/Cards";
 import { CHIFFRES, FORMATIONS_UNE } from "@/lib/catalogue";
-import { etablissements, riasec } from "@/lib/data";
+import { PAYS_ACTIFS_TEXTE, etablissements, riasec } from "@/lib/data";
 import { photo, photoDomaine } from "@/lib/photos";
 
 const CATEGORIES = [
   { href: "/metiers", Icon: Briefcase, bg: "#eef4ff", fg: "#1a47f5", t: "Métiers", s: "Découvre les métiers qui te ressemblent." },
   { href: "/formations", Icon: FileCheck2, bg: "#fff3e3", fg: "#e2701b", t: "Formations", s: "Trouve la formation adaptée à ton projet." },
-  { href: "/etablissements", Icon: Landmark, bg: "#f1edff", fg: "#6a3df0", t: "Établissements", s: "Compare et choisis ton école au Maroc." },
+  { href: "/etablissements", Icon: Landmark, bg: "#f1edff", fg: "#6a3df0", t: "Établissements", s: `Compare et choisis ton école ${PAYS_ACTIFS_TEXTE}.` },
   { href: "/orientation", Icon: Compass, bg: "#eaf1ff", fg: "#1336e0", t: "Orientation", s: "Fais le test et obtiens des recommandations." },
 ];
 export function Categories() {
@@ -36,8 +36,8 @@ export function Categories() {
 
 export function StatsBand() {
   const items: [typeof Users, number, string][] = [
-    [Building2, CHIFFRES.etablissements, "établissements privés au Maroc"],
-    [GraduationCap, CHIFFRES.filieres, "filières accréditées par l'État"],
+    [Building2, CHIFFRES.etablissements, `établissements privés ${PAYS_ACTIFS_TEXTE}`],
+    [GraduationCap, CHIFFRES.filieres, "filières et programmes accrédités"],
     [MapPin, CHIFFRES.villes, "villes d'études"],
     [Users, CHIFFRES.paysAfrique, "pays d'Afrique : démarches détaillées"],
   ];
@@ -58,7 +58,7 @@ export function StatsBand() {
 const ETAPES = [
   { Icon: UserRound, bg: "#eaf1ff", fg: "#1a47f5", t: "Découvre ton profil", s: "Fais le test d'orientation et connais tes forces.", href: "/orientation" },
   { Icon: Search, bg: "#fff3e3", fg: "#e2701b", t: "Explore les métiers", s: "Missions, compétences et formations qui y mènent.", href: "/metiers" },
-  { Icon: GraduationCap, bg: "#e8f8ef", fg: "#0f8a46", t: "Trouve une formation", s: `${CHIFFRES.formations} formations proposées au Maroc.`, href: "/formations" },
+  { Icon: GraduationCap, bg: "#e8f8ef", fg: "#0f8a46", t: "Trouve une formation", s: `${CHIFFRES.formations} formations proposées ${PAYS_ACTIFS_TEXTE}.`, href: "/formations" },
   { Icon: Landmark, bg: "#f1edff", fg: "#6a3df0", t: "Choisis un établissement", s: "Compare labels, campus, frais et logement.", href: "/comparateur" },
   { Icon: FileCheck2, bg: "#ffecef", fg: "#d42a50", t: "Candidate", s: "Constitue ton dossier en ligne et suis son évolution.", href: "/inscription" },
 ];
@@ -106,7 +106,7 @@ export function Encarts() {
         <div className="flex flex-col justify-center gap-3 p-6 sm:p-7">
           <span className="chip w-fit bg-brand-50 text-[11px] uppercase tracking-wider text-brand-700">Établissements</span>
           <h2 className="text-2xl font-extrabold leading-tight sm:text-[28px]">Trouve l&apos;établissement idéal</h2>
-          <p className="text-[15px] text-ink-soft">Explore les {CHIFFRES.etablissements} établissements privés du Maroc : labels officiels, filières accréditées, campus et frais.</p>
+          <p className="text-[15px] text-ink-soft">Explore les {CHIFFRES.etablissements} établissements privés reconnus {PAYS_ACTIFS_TEXTE} : labels officiels, filières accréditées, campus et frais.</p>
           <Link href="/etablissements" className="btn-ghost w-fit">Voir les établissements <ArrowRight size={17} /></Link>
         </div>
       </Reveal>
@@ -121,7 +121,7 @@ export function FormationsPopulaires() {
   return (
     <section className="container mt-16 flex flex-col gap-6">
       <Reveal className="flex flex-col justify-between gap-2 sm:flex-row sm:items-end">
-        <div><h2 className="h-section">Formations populaires</h2><p className="mt-1 text-ink-mute">Les formations proposées par le plus grand nombre d&apos;établissements au Maroc.</p></div>
+        <div><h2 className="h-section">Formations populaires</h2><p className="mt-1 text-ink-mute">Les formations proposées par le plus grand nombre d&apos;établissements.</p></div>
         <Link href="/formations" className="flex min-h-[40px] items-center gap-1.5 text-sm font-bold text-brand-600">Voir toutes les formations <ArrowRight size={16} /></Link>
       </Reveal>
       <Stagger className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 lg:grid-cols-3">
