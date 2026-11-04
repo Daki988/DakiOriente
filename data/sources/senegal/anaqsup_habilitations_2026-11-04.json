@@ -1,0 +1,1203 @@
+[
+ {
+  "nom_hab": "CAT-Colombe Academy of Technology",
+  "list_prog_hab": [
+   "Master en informatique option : Data science et intelligence artificielle",
+   "Master en informatique option : cyber sécurité"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7550"
+ },
+ {
+  "nom_hab": "ESUP-École Supérieure de Commerce et de Gestion de Dakar",
+  "list_prog_hab": [
+   "Licence marketing et communication",
+   "Licence journalisme et communication",
+   "Licence informatique de gestion",
+   "Licence en gestion option : administration et gestion des entreprises",
+   "Licence Informatique option",
+   "Réseaux sociaux - webmasterInfographie",
+   "Master Banque, Assurance Finance",
+   "Master en Ingénierie Juridique et Fiscale"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7549"
+ },
+ {
+  "nom_hab": "EHES-École des Hautes Études en Science",
+  "list_prog_hab": [
+   "Licence en gestion, option : gestion des entreprises et des administrations",
+   "Licence en marketing, option : marketing",
+   "Licence en transport Logistique, option : transport logistique",
+   "Master en gestion, option : gestion des entreprises et des administrations",
+   "Master en marketing, option : marketing",
+   "Master en supply chain management, option : supply chain management",
+   "Master en administration des affaires, option : administration des affaires (MBA"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7548"
+ },
+ {
+  "nom_hab": "IPE-Institut Professionnel de l'entreprise",
+  "list_prog_hab": [
+   "Licence en Qualité, Sécurité, Hygiène et Environnement",
+   "Licence en Agrobusiness, option Industrie agro-Alimentaire",
+   "Licence en Médecine humaine, option Analyse Biologique",
+   "Master en Qualité, Sécurité, Hygiène et Environnement",
+   "Master en Technologie Agro-Alimentaire, option : Nutrition et Sciences Alimentaires",
+   "Master en Médecine Humaine ; option Analyse Biologique."
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7547"
+ },
+ {
+  "nom_hab": "SMI Thiès -Sup’ Management Intelligentsia",
+  "list_prog_hab": [
+   "Licence en gestion, option: comptabilité et Gestion",
+   "Licence en gestion, option: banque assurance finance",
+   "Licence en gestion, option: informatique de gestion",
+   "Master en gestion, option: comptabilité, audit et contrôle"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Thies",
+  "avis_acc": "Avis favorable",
+  "id": "7546"
+ },
+ {
+  "nom_hab": "USSEIN-Université du Sine Saloum El-Hâdj Ibrahima Niass",
+  "list_prog_hab": [
+   "Licence Agriculture biologique et écologique",
+   "Licence Productions horticoles et Travaux paysagers",
+   "Licence Protection phytosanitaire",
+   "Licence Production de semences et plants",
+   "Licence Agroforesterie",
+   "Licence Foresterie",
+   "Département Alimentation et Nutrition",
+   "Licence Nutrition et Sciences des aliments",
+   "Licence Nutrition humaine et Diététique",
+   "Licence Qualité des denrées alimentaires d’origine animale",
+   "Licence Zootechnie et Santé animale",
+   "Licence Pêche",
+   "Licence Aquaculture",
+   "Licence Gestion des ressources halieutiques et des écosystèmes aquatiques",
+   "Licence AgroTIC",
+   "Licence Mathématiques",
+   "Licence Informatique",
+   "Licence Énergies renouvelables et Froid",
+   "Licence Aménagement hydroagricole, Systèmes d’irrigation, Hydraulique et Assainissement",
+   "Licence Machinisme agricole",
+   "Licence Transformation agroalimentaire",
+   "Licence Transformation des agroressources",
+   "Licence Management des entreprises agricoles et agroalimentaires",
+   "Licence Économie, Gestion et Finance rurale",
+   "Licence Commerce des produits agricoles et forestiers",
+   "Licence Droit de l’environnement et du foncier",
+   "Licence Administration des affaires maritimes",
+   "Licence Hôtellerie, Restauration et Gastronomie",
+   "Licence Production touristique et Management culturel",
+   "Licence Aménagement et Gestion des aires protégées",
+   "Licence Géomatique et Climatologie",
+   "Licence Développement local",
+   "Licence Environnement et Développement durable",
+   "Licence Socio-anthropologie du développement rural",
+   "Licence Management des organisations paysannes",
+   "Licence Communication pour le développement",
+   "Licence Conseil agro-sylvo-pastoral et halieutique",
+   "Licence Histoire",
+   "Master Agroécologie et Systèmes Alimentaires Durables",
+   "Master Géomatique",
+   "Master Aménagement Agrotouristique et Ingénierie Culturelle"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Kaolack",
+  "avis_acc": "Avis favorable",
+  "id": "7529"
+ },
+ {
+  "nom_hab": "UASZ-École doctorale École Doctorale Sciences Technologies et Ingénierie (STI)",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Matériaux pour l’Énergie, l’Électronique et la Construction (MEEC)",
+   "Océan, Atmosphère et Surfaces Continentales (OASC)",
+   "Chimie du Solide et des Matériaux (CSM)",
+   "Synthèse organique et produits naturels (SOPN)",
+   "Géographie-Environnement (GE)",
+   "Géographie-Aménagement (GA)",
+   "Agroforesterie et Productions Végétales (APV)",
+   "Informatique appliquée à l’Ingénierie Innovante (IA2I)",
+   "Systèmes et Réseaux (SYR)",
+   "Données et Connaissances (DC)",
+   "Mathématiques Pures (MP)",
+   "Mathématiques appliquées (MA)"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Ziguinchor",
+  "avis_acc": "Avis favorable",
+  "id": "7383"
+ },
+ {
+  "nom_hab": "UCAD-École doctorale Arts, Cultures, Civilisations (ARCIV)",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Études africaines et francophones",
+   "Études françaises, francophones, comparées et Arts du spectacle",
+   "Études espagnoles, italiennes et lusophones",
+   "Études anglophones et comparées",
+   "Études arabes et islamiques",
+   "Études germaniques et comparées",
+   "DECRYPTA",
+   "Inventions culturelles à travers les âges (ICA-FD)",
+   "Science du Langage et de la Communication",
+   "Éducation et Formation"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7382"
+ },
+ {
+  "nom_hab": "ISEG-Institut Supérieur d'Entrepreneurship et de Gestion",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence en comptabilité finance",
+   "Licence en banque assurance finance",
+   "Licence en commerce international",
+   "Licence en création, gestion et administration des entreprises",
+   "Licence en marketing communication",
+   "Licence en journalisme et communication",
+   "Licence en gestion des ressources humaines",
+   "Licence en transport logistique",
+   "Master en comptabilité finance",
+   "Master en banque assurance finance",
+   "Master en commerce international",
+   "Master en création, gestion et administration des entreprises",
+   "Master en marketing communication",
+   "Master en journalisme et communication",
+   "Master en gestion des ressources humaines",
+   "Master en transport logistique",
+   "Master en audit et contrôle de gestion",
+   "Master en management et gestion de projets"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7378"
+ },
+ {
+  "nom_hab": "HEC-Hautes Etudes de Commerce",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Bachelor en administration des affaires (BBA, bac+3)",
+   "Bachelor en informatique de gestion (bac+3)",
+   "Master in business administration, option: finance",
+   "Master in business administration, option: marketing",
+   "Master in business administration, option : management des projets",
+   "Master in business administration, option: Techniques du Commerce International (TCI)",
+   "Master in business administration (MBA)",
+   "Master en hautes études informatiques",
+   "Master en hautes études commerciales."
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7377"
+ },
+ {
+  "nom_hab": "IPAF-SRDH-Institut Panafricain de Formation en Santé de la Reproduction et du Développement Humain",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence en sciences infirmières et obstétricales (LSIO), option : sage femme",
+   "Licence en soins infirmiers et obstétricales (LSIO), option : Infirmier",
+   "Licence en biologie médicale"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7376"
+ },
+ {
+  "nom_hab": "ENSUP AFRIQUE",
+  "list_prog_hab": [
+   "Licence en gestion, option : transport-logistique",
+   "Licence en gestion, option : hôtellerie et tourisme",
+   "Licence en gestion, option : commerce international",
+   "Licence en information et communication, option : communication et journalisme",
+   "Licence en droit des affaires, option : gestion des affaires juridiques et fiscales",
+   "Licence en informatique, option : informatique de gestion"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7375"
+ },
+ {
+  "nom_hab": "UCAD-École Doctorale Physique, Chimie, Sciences de la Terre, de l’Univers et de l’Ingénieur (ED-PCSTUI)",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Chimie moléculaire",
+   "Chimie Physique Appliquée à l’Énergie",
+   "Électronique systèmes télécommunication",
+   "Énergie Solaire",
+   "Matériaux et Systèmes",
+   "Mécanique des Fluides et Applications",
+   "Physique Atomique et Nucléaire",
+   "Physique de la Matière Condensée",
+   "Sciences et Génie des Matériaux",
+   "Génie des Procédés et Environnement",
+   "Sciences de l’Atmosphère, du Climat et de l’Océan",
+   "Systèmes Énergétiques et Environnement",
+   "Dynamique, Environnement et Ressources des Bassins Sédimentaires",
+   "Géologie Structurale et Tectonique ;",
+   "Géo-Ressources, Environnement, Imagerie, Aménagement",
+   "Pétrologie Géochimie et Métallogénie",
+   "Physico-chimie analytique",
+   "Atomes, Molécules, noyaux et particules",
+   "Laser et Optique en Sciences et Technologie",
+   "Modélisation des Systèmes et Phénomènes Physiques",
+   "Systèmes Énergétiques Durables",
+   "Génie Civil, Géomatique et Technologie des Matériaux"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7333"
+ },
+ {
+  "nom_hab": "UCAD- École Doctorale Études de l’Homme et de la Société- ETHOS",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "1. Société, Temps, Espace, Patrimoine",
+   "2. Sciences Sociales Appliquées au Développement",
+   "3. Population, Développement et Santé",
+   "4. Société, Espace, Culture",
+   "5. Éducation et formation",
+   "6. Philosophie et Rationalités",
+   "7. Information Documentaire Communication et Médias",
+   "8. Didactique des mathématiques"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7274"
+ },
+ {
+  "nom_hab": "ECPI-Ecole Centrale Polytechnique d’Ingénieurs de Dakar",
+  "rapport_hab": "voir le rapport",
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis défavorable",
+  "id": "7260"
+ },
+ {
+  "nom_hab": "IDT-Institut Dakar Tech",
+  "list_prog_hab": [
+   "Licence en Informatique"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7259"
+ },
+ {
+  "nom_hab": "ESTG-École Supérieure des Techniques de Gestion",
+  "list_prog_hab": [
+   "Licence en Marketing Communication",
+   "Licence en Management de la force de vente",
+   "Licence en Banque Finance",
+   "Licence en Administration du personnel"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7258"
+ },
+ {
+  "nom_hab": "ESSEN-Ecole supérieure des sciences et de l'Entreprenariat",
+  "list_prog_hab": [
+   "Licence en Informatique, option Génie logiciel, Développement web et mobile",
+   "Licence en Informatique, option Systèmes, Réseaux et Télécommunications",
+   "Licence en Communication et Marketing digital",
+   "Licence en Transport et Logistique",
+   "Licence en Comptabilité - Finance",
+   "Licence en Comptabilité, Audit et Contrôle"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7257"
+ },
+ {
+  "nom_hab": "ESCOA-Ecole supérieure de commerce et de l'Administration",
+  "list_prog_hab": [
+   "Licence en informatique de gestion",
+   "Licence en comptabilité-gestion",
+   "Licence en Transport Logistique",
+   "Licence en Entreprenariat",
+   "Licence en Banque Finance",
+   "Licence en Marketing Communication ;",
+   "Licence en Gestion des Ressources Humaines",
+   "Master en Entreprenariat ;",
+   "Master en Gestion des Ressources Humaines"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7256"
+ },
+ {
+  "nom_hab": "ESP 221-École Supérieure Professionnelle",
+  "list_prog_hab": [
+   "Licence en Marketing et Communication digitale",
+   "Licence en Design Numérique",
+   "Licence en Développement Web Mobile",
+   "Licence en Génie Logiciel",
+   "Licence en Réseaux informatiques."
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7255"
+ },
+ {
+  "nom_hab": "ESEBAT:-Ecole Supérieure d'Electricité du Bâtiment et des Travaux publics",
+  "list_prog_hab": [
+   "Licence en Mines et Géologie",
+   "Master en Mines et Géologie"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7254"
+ },
+ {
+  "nom_hab": "UCAO / SG St Michel-Institut supérieur de Gestion Saint Michel",
+  "list_prog_hab": [
+   "Licence en Transport logistique"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7253"
+ },
+ {
+  "nom_hab": "SOGA-Senegal Oil and Gaz Academy",
+  "list_prog_hab": [
+   "Licence en Sciences de l’ingénieur",
+   "Licence en Management, Option management des affaires",
+   "Licence en Gestion production, logistique, achats, option : Logistique et transports internationaux",
+   "Master en économie Option économie de l’électricité."
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7252"
+ },
+ {
+  "nom_hab": "Institut Supérieur d’Enseignement Professionnel (ISEP) de Bignona",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Énergies renouvelables et production décentralisée (ERPD)",
+   "Gestion des entreprises agricoles (GEA)",
+   "Gestion des unités agroalimentaires (GUA)",
+   "Production animale (PA)",
+   "Productions végétales (PV)",
+   "Gestion durable des écosystèmes naturels (GDEN)",
+   "Agrobusiness et entrepreneuriat (ABE)"
+  ],
+  "annee_hab": "2026",
+  "localisation_hab": "Ziguinchor (Bignona)",
+  "avis_acc": "Avis favorable",
+  "id": "7224"
+ },
+ {
+  "nom_hab": "UCAD-École doctorale Sciences de la Vie, de la Santé et de l'Environnement (ED-SEV)",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Nutrition et alimentation humaine",
+   "Biologie et pathologies humaines",
+   "Santé publique",
+   "Sciences des médicaments",
+   "Neurophysiologie - anthropologie biologique",
+   "Parasitologie",
+   "Entomologie",
+   "Génétique des populations",
+   "Santé et biotechnologies animales",
+   "Production et biotechnologies animales",
+   "Sciences halieutiques",
+   "Biotechnologies végétale et microbienne et amélioration des Plantes",
+   "Ecologie et agroforesterie",
+   "Production et protection des végétaux",
+   "Connaissance, conservation et valorisation de la biodiversité",
+   "Environnement",
+   "Chimie des produits naturels",
+   "Ecologie et gestion des écosystèmes"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7130"
+ },
+ {
+  "nom_hab": "IHED-Institut des Hautes Etudes de Dakar",
+  "list_prog_hab": [
+   "Licence professionnelle en Tourisme, Hôtellerie et Langue",
+   "Licence en Logistique et Transport",
+   "Licence en Droit des Affaires",
+   "Licence en Banque, Assurance et Finance",
+   "Licence en Marketing",
+   "Licence en Informatique de Gestion",
+   "Licence en Comptabilité Gestion",
+   "Licence en Gestion des Ressources Humaines",
+   "Licence en Management"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7122"
+ },
+ {
+  "nom_hab": "BATISUP- Ecole supérieure du Bâtiment",
+  "list_prog_hab": [
+   "Licence Génie Civil Option métré et économie de la construction,",
+   "Licence Génie Civil Option management professionnel et technique du bâtiment,",
+   "Licence Génie Civil Option informatique de la construction",
+   "Master Génie Civil Option structures et mécanique des sol"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7121"
+ },
+ {
+  "nom_hab": "HEMI-Haute Ecole de Management et de l’Informatique",
+  "list_prog_hab": [
+   "Licence en Transport logistique",
+   "Licence en Gestion des ressources humaines",
+   "Licence en Banque Finance Assurance",
+   "Licence en Administration réseaux systèmes et programme"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7120"
+ },
+ {
+  "nom_hab": "IPFORMED- Institut Privé de Formation et de Recherche Médicales",
+  "list_prog_hab": [
+   "Licence en comptabilité-gestion"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7119"
+ },
+ {
+  "nom_hab": "UNIPRO-Univers professionnel",
+  "list_prog_hab": [
+   "Licence en comptabilité-gestion",
+   "Master en comptabilité-gestion"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7118"
+ },
+ {
+  "nom_hab": "UCAK-Université Cheikh Ahmadoul Khadim",
+  "list_prog_hab": [
+   "Licence en Etudes islamique",
+   "Licence en Langue et littérature arabes",
+   "Licence en sciences infirmières et obstétricales, option : infirmier",
+   "Licence en sciences infirmières et obstétricales, option : sage-femme",
+   "Licence en agronomie et production végétales",
+   "Licence en Elevage productions animales",
+   "Licence en technologies alimentaires",
+   "Licence en Bâtiments et travaux publics",
+   "Licence en Génie électromécanique",
+   "Licence en Informatique et Télécommunications : Option : Réseaux Télécoms",
+   "Licence en Informatique et Télécommunications : Option : Administration et Sécurité des Réseaux",
+   "Licence en Informatique et Télécommunications : Option : Développement d'Applications réparties",
+   "Licence en hautes études commerciales : Option : Comptabilité et Contrôle de gestion",
+   "Licence en hautes études commerciales : Option : Entrepreneuriat et Création d'entreprise",
+   "Licence en Archivistique",
+   "Licence en langues appliquées",
+   "Licence en Bibliothéconomie",
+   "Licence en documentation",
+   "Licence en reliure-restauration",
+   "Licence en Edition-librairie",
+   "Licence en Tannerie et Industrie du cuir",
+   "Master en Informatique et télécommunication"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Diourbel",
+  "avis_acc": "Avis favorable",
+  "id": "7117"
+ },
+ {
+  "nom_hab": "UADB-Université Alioune Diop De Bambey de Bambey",
+  "list_prog_hab": [
+   "DUT Agro-business",
+   "Diplôme d’ingénieur de Travaux, Spécialité Élevage",
+   "Diplôme d’ingénieur de Travaux, Spécialité Eaux et Forêts",
+   "Diplôme d’ingénieur de Travaux, Spécialité Agriculture",
+   "Licence agro-business",
+   "Licence en Analyse et Politiques économiques",
+   "Licence Ingénierie Juridique/Administration Publique",
+   "Licence Ingénierie Juridique/Juriste d’Affaires",
+   "Licence Justice, Procès et Procédures",
+   "Licence en Ingénierie des Relations internationales et des Droits humains",
+   "Licence Professionnelle en Conseil agricole et rural",
+   "Licence Ingénierie Technique du Développement Durable et Management de l'Environnement",
+   "Licence Physique Numérique",
+   "Licence Professionnelle Statistique Informatique Décisionnel",
+   "Master Econométrie appliquée : Option, Monnaie Banque Finance",
+   "Master Science de Gestion : Option, Management des hommes et des projets",
+   "Master Science de Gestion : Option, Management de la Qualité Sécurité Hygiène et Environnement",
+   "Master Science de Gestion : Option, Marketing et Stratégies Commerciales",
+   "Master Administration Publique",
+   "Master du Management Foncier et de l’Environnement",
+   "Master Cyber-droit",
+   "Master Droit des Affaires et Fiscalité",
+   "Master Justice, Procès et Procédures (JPP) : Option, Sciences criminelles",
+   "Master Justice, Procès et Procédures (JPP) : Option, Droit processuel",
+   "Master en Ingénierie des Relations internationales et des Droits humains : Option,",
+   "Ingénierie des droits humains",
+   "Master en Ingénierie des Relations internationales et des Droits humain : Option, Ingénierie des Relations internationales",
+   "Master Développement durable : Option gouvernance territoriale et Développement",
+   "Master Développement durable : Option, Énergie et développement Durable",
+   "Master mathematiques et applications, option : probabilités et statistique",
+   "Master de Physique Médicale",
+   "Master Systèmes d’Information",
+   "Master Data Science et Génie Logiciel",
+   "Master Professionnel Statistique Informatique Décisionnel",
+   "Master Professionnel en Développement agricole et rural",
+   "Master Professionnel en Gestion des Aires protégées et de la Faune",
+   "Diplôme d’Etat de Docteur en Médecine"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Diourbel (Bambey)",
+  "avis_acc": "Avis favorable",
+  "id": "7116"
+ },
+ {
+  "nom_hab": "ISEP-Amadou Trawaré de Diamniadio",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "-       DiSEP en Administration de Bases de Données",
+   "-      DiSEP en Analyse de Performance Digitale",
+   "-      DiSEP en Administration Systèmes, Sécurité et Cloud",
+   "-      DiSEP en Développement Back-End",
+   "-      DiSEP en Développement Front-End",
+   "-      DiSEP en Réseaux, Sécurité et Internet des Objets",
+   "-      DiSEP en Froid et Climatisation",
+   "-      DiSEP en Carrosserie Peinture Automobile",
+   "-      DiSEP en Électromécanique Automobile",
+   "-      DiSEP en Électricité et Électronique Automobile"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "7115"
+ },
+ {
+  "nom_hab": "UCAD- École doctorale Physique, Chimie, Sciences de la Terre de l'Univers et de l'Ingénieur (ED-PCSTUI)",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Chimie moléculaire",
+   "Chimie Physique Appliquée à l'Énergie",
+   "Électronique systèmes télécommunication",
+   "Energie Solaire, Matériaux et Systèmes",
+   "Mécanique des Fluides et Applications",
+   "Physique Atomique et Nucléaire",
+   "Physique de la Matière Condensée",
+   "Sciences et Génie des Matériaux",
+   "Génie des Procédés et Environnement",
+   "Sciences de l'Atmosphère, du Climat et de l'Océan",
+   "Systèmes Énergétiques et Environnement",
+   "Dynamique, Environnement et Ressources des Bassins Sédimentaires",
+   "Géologie Structurale et Tectonique",
+   "Géo-Ressources, Environnement, Imagerie, Aménagement",
+   "Pétrologie Géochimie et Métallogénie ; Physico-chimie analytique",
+   "Physico-chimie analytique",
+   "Atomes, Molécules, noyaux et particules",
+   "Laser et Optique en Sciences et Technologie",
+   "Modélisation des Systèmes et Phénomènes Physiques",
+   "Systèmes Énergétiques Durables",
+   "Génie Civil, Géomatique et Technologie des Matériaux"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6933"
+ },
+ {
+  "nom_hab": "ELITE SANTE de Keur Massar",
+  "list_prog_hab": [
+   "Licence en sciences infirmières et obstétricales option Infirmier",
+   "Licence en sciences infirmières et obstétricales option Sage-femme"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar (Keur Massar)",
+  "avis_acc": "Avis favorable",
+  "id": "6973"
+ },
+ {
+  "nom_hab": "UGB- École Doctorale des Sciences et des Technologies de l'Université Gaston Berger de Saint-Louis",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Mathématiques et Applications",
+   "Informatique",
+   "Physique, Chimie et Sciences de l'Ingénieur",
+   "Sciences Agronomiques, Biologiques et Médicales"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Saint-Louis",
+  "avis_acc": "Avis favorable",
+  "id": "6932"
+ },
+ {
+  "nom_hab": "UCAB-Université Cheikh Ahmadou Bamba",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence en Sciences religieuses",
+   "Licence en Histoire et civilisations",
+   "Licence en Agriculture",
+   "Licence en Élevage",
+   "Licence en Pêche et Aquaculture",
+   "Licence en Agroalimentaire",
+   "Licence en Électromécanique",
+   "Licence en informatique de gestion",
+   "Licence en informatique industrielle",
+   "Licence Géomètre topographe",
+   "Licence en Génie civil",
+   "Licence en marketing communication",
+   "Licence en Gestion des ressources Humaines",
+   "Licence en comptabilité",
+   "Licence en finance islamique",
+   "Licence en Tourisme religieux",
+   "Licence en journalisme et communications",
+   "Master en Sciences religieuses et pensée islamique",
+   "Master en Diplomatie et relations internationales"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6856"
+ },
+ {
+  "nom_hab": "FBS-Finama Business School",
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis défavorable",
+  "id": "6805"
+ },
+ {
+  "nom_hab": "ISPP-Institut Santé Plus Privé",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence en Sciences infirmières et obstétricales (LSIO), option infirmier",
+   "Licence en Sciences infirmières et obstétricales (LSIO), option Sage-femme"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6803"
+ },
+ {
+  "nom_hab": "EMAN-Ecole nationale de la Marine",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Master en Sciences Navales et Maritimes"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6672"
+ },
+ {
+  "nom_hab": "SMI-Sup’ Management Intelligentsia de Thiès",
+  "rapport_hab": "voir le rapport",
+  "annee_hab": "2025",
+  "localisation_hab": "Thies",
+  "avis_acc": "Avis défavorable",
+  "id": "6630"
+ },
+ {
+  "nom_hab": "Performics de Thiès",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence en gestion des entreprises",
+   "Licence en informatique"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Thies",
+  "avis_acc": "Avis favorable",
+  "id": "6657"
+ },
+ {
+  "nom_hab": "Hekima Santé-Institut supérieur de Formation professionnelle",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence en sciences infirmières et obstétricales (LSIO), option : infirmier",
+   "Licence en sciences infirmières et obstétricales (LSIO), option : sage-femme",
+   "Master en Management de la santé"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6656"
+ },
+ {
+  "nom_hab": "CIGA-Centre d'Informatique et de Gestion Appliquée",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence professionnelle en Finance Comptabilité"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6655"
+ },
+ {
+  "nom_hab": "IASM-Institut Africain de Santé Moderne",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence en sciences infirmières et obstétricales (LSIO), option : infirmier",
+   "Licence en sciences infirmières et obstétricales (LSIO), option : sage-femme"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6654"
+ },
+ {
+  "nom_hab": "ISEP THIES- Institut Supérieur d’Enseignement Professionnel Thiès",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Gestion des Activités de Contact Humain",
+   "Gestion des Affaires Administratives et Financières",
+   "Conseil Info-Energie",
+   "Energies Renouvelables",
+   "Développement Web et Mobile",
+   "Réseaux et Télécommunications",
+   "Contrôle Technique et Entretien des ouvrages d’Assainissement",
+   "Gestion immobilière",
+   "Gestion et Maintenance des Ouvrages d’Assainissement",
+   "Suivi Technique et Gestion des Ouvrages Hydrauliques",
+   "Conseil Agricole",
+   "Entrepreneuriat Agricole",
+   "Production animale",
+   "Art graphique et numérique",
+   "Journalisme Repoter d’Images",
+   "Production Cinématographique et Audiovisuelle",
+   "Management des Activités de Loisirs",
+   "Management des métiers de l’Alimentation",
+   "Management des Produits et Services Culturels",
+   "Management des Produits touristiques",
+   "Signalisation, Energie et Télécommunications",
+   "Transport, Logistique et Mobilité urbaine"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Thies",
+  "avis_acc": "Avis favorable",
+  "id": "6628"
+ },
+ {
+  "nom_hab": "Centre des Hautes Etudes de Défense et de Sécurité",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Master Défense sécurité et paix"
+  ],
+  "annee_hab": "2025",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6627"
+ },
+ {
+  "nom_hab": "ESUP SANTE-Ecole supérieure de Formation Professionnelle en Santé",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence en Sciences infirmières et obstétricales (LSIO), option : infirmier",
+   "Licence en Sciences infirmières et obstétricales (LSIO), option : sage-femme"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Saint-Louis",
+  "avis_acc": "Avis favorable",
+  "id": "6555"
+ },
+ {
+  "nom_hab": "UPOA-Université Polytechnique de l'Ouest Africain",
+  "list_prog_hab": [
+   "Licence en Technologies Intégrées Option Ingénierie Biomédicale",
+   "Licence en Management et Finance",
+   "Master en Technologies Intégrées Option Ingénierie biomédicale",
+   "Master en Management et Finance : option Finance et Contrôle de Gestion"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6554"
+ },
+ {
+  "nom_hab": "US3T-Université des Sciences et Technologies Tamaro Touré",
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis défavorable",
+  "id": "6553"
+ },
+ {
+  "nom_hab": "EPF AFRICA-Ecole Polytechnique Féminine Africa",
+  "list_prog_hab": [
+   "Licence en Energie et Environnement",
+   "Licence en Informatique",
+   "Licence Management de la Transition Numérique",
+   "Master en Ingénierie de la Donnée",
+   "Master en Travaux publics et Eco-cités",
+   "Master en Energie et Environnement"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6552"
+ },
+ {
+  "nom_hab": "UVS-Université Virtuelle du Sénégal",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence en Arts graphiques et numériques",
+   "Licence en Communication digitale",
+   "Licence en Développement d’applications (web, mobile, gaming) :",
+   "- Parcours Web et Mobile",
+   "- Parcours Gaming",
+   "Licence en Multimédia – Internet – Communication",
+   "Licence en Mathématiques Appliquées et Informatique :",
+   "- Parcours Mathématiques",
+   "- Parcours Réseaux",
+   "- Parcours Génie logiciel",
+   "Licence en Administration Économique et Social",
+   "Licence en Anglais :",
+   "- Parcours Littérature-Civilisation du monde anglophone",
+   "- Parcours Linguistique-Grammaire",
+   "- Parcours Tourisme et Métier culturels",
+   "Licence en Sociologie :",
+   "- Parcours Société, religion, et institutions de socialisation",
+   "- Parcours Sociologie des activités professionnelles et sportives",
+   "- Parcours Sociologie économique, dynamiques territoriales et communication",
+   "Licence en Sciences de l’éducation",
+   "Licence en Sciences Economiques et de Gestion :",
+   "- Parcours finance-Comptabilité",
+   "- Parcours Banque, Microfinance, Assurance",
+   "- Parcours Management des Petites et Moyennes Organisations",
+   "- Parcours Economie –Statistique",
+   "- Parcours Economie Appliquée",
+   "Licence en Science politique",
+   "Licence en Sciences Juridiques",
+   "- Parcours Droit public",
+   "- Parcours Droit privé",
+   "Licence Droit et Informatique (LegalTeh)",
+   "Master Modélisation et calcul scientifique",
+   "Master Ingénierie Logicielle",
+   "Master Systèmes, Réseaux et infrastructures virtuelle",
+   "Master Finance- Comptabilité",
+   "Master Audit et Contrôle de Gestion",
+   "Master Droit public",
+   "Master Droit privé",
+   "Master Sociologie :",
+   "-",
+   "Parcours Société, religion et institutions de socialisation",
+   "- Parcours Sociologie des activités professionnelles et sportives",
+   "- Parcours Sociologie économique, dynamique territoriales et communication",
+   "Master Anglais :",
+   "- Parcours Littérature-Civilisation du monde anglophone",
+   "- Parcours Linguistique-Grammaire",
+   "Master Sciences de l’Éducation :",
+   "- Parcours apprentissages et enseignements scolaires",
+   "- Parcours technologies éducatives",
+   "Master Economie et Gouvernance des territoires",
+   "Master Economie, études quantitatives"
+  ],
+  "annee_hab": "2019",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6421"
+ },
+ {
+  "nom_hab": "ESGIB-Ecole Supérieure de Génie Industriel et Biologique",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Master en Génies des industries agroalimentaires",
+   "Master en Génies des industries chimiques",
+   "Master en Hygiène, Qualité Sécurité et Environnement",
+   "Master en Biotechnologie",
+   "Master en Biosécurité en environnement"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6404"
+ },
+ {
+  "nom_hab": "CAT-Colombe Academy of Technology",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence en informatique option : cyber sécurité",
+   "Licence en informatique option : cloud computing",
+   "Licence en informatique option : data science",
+   "Licence en informatique option : data center"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6402"
+ },
+ {
+  "nom_hab": "IHEE-Institut des Hautes Etudes en Energie",
+  "list_prog_hab": [
+   "Licence en énergie et des procédés industriels",
+   "Licence en énergie électrique"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6353"
+ },
+ {
+  "nom_hab": "IAM-Institut Africain de Management",
+  "list_prog_hab": [
+   "Licence professionnelle en business Administration",
+   "Licence professionnelle en Informatique de gestion",
+   "Licence professionnelle sur les métiers de l’internet",
+   "Bachelor en gestion du transport et de la logistique (bac+3)",
+   "Diplôme d’ingénieur technologue (Bac+4)",
+   "Licence en administration des affaires",
+   "Licence en droit des affaires",
+   "Master in business administration, option : gestion des organisations",
+   "Master en banque et ingénierie financière",
+   "Master marketing et intelligence d’affaires",
+   "Master en comptabilité, contrôle et audit",
+   "Master en management de la qualité",
+   "Master en management du capital humain",
+   "Master en supply chain management",
+   "Master en communication et digital business",
+   "Master in business administration, option: audit",
+   "Master in business administration, option: développement local;",
+   "Master in business administration, option: management de projet",
+   "Master in business administration, option: stratégies management",
+   "Master in business administration, option: communication d’entreprise",
+   "Master in business administration, option: gestion des ressources humaines;",
+   "Master in business administration, option : technologie de l’information et de la communication",
+   "Master in business administration, option: management de la qualité",
+   "Master in business administration, option: finance",
+   "Master in business administration, option: marketing",
+   "Master in business administration, option: communication",
+   "Master in business administration: option: gestion des entreprises",
+   "Master en informatique de gestion",
+   "Master en gestion du transport et de la logistique"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6307"
+ },
+ {
+  "nom_hab": "NIIT-National Institute of Information Technology",
+  "list_prog_hab": [
+   "Licence Professionnelle en Informatique: Option: Génie Logiciel",
+   "Licence Professionnelle en Informatique: Option: Administration -Réseaux",
+   "Master en Informatique: Option: Ingénierie Logicielle",
+   "Master en Informatique: Option: Ingénierie Réseaux"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6306"
+ },
+ {
+  "nom_hab": "ESGIB-Ecole Supérieure de Génie Industrielle et biologique",
+  "list_prog_hab": [
+   "Master en Génies des industries agroalimentaires",
+   "Master en Génies des industries chimiques",
+   "Master en Hygiène, Qualité Sécurité et Environnement",
+   "Master en Biotechnologie",
+   "Master en Biosécurité en environnement"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6305"
+ },
+ {
+  "nom_hab": "IPP-Institut polytechnique panafricain",
+  "list_prog_hab": [
+   "Master en Architecture",
+   "Master en Génie Civil",
+   "Master en Management"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6304"
+ },
+ {
+  "nom_hab": "ISEP THIES- Institut Supérieur d’Enseignement Professionnel Thiès",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Technicien Supérieur en Exploitation Agricole",
+   "Technicien Supérieur en Maintenance du Matériel Roulant Ferroviaire",
+   "Technicien Supérieur en Maintenance des Voies Ferrées",
+   "Technicien Supérieur en Management du Transport Ferroviaire",
+   "Technicien Supérieur en Administration des Systèmes et Réseaux Informatiques",
+   "Technicien Supérieur en Création et Management de produits Multimédias",
+   "Technicien Supérieur en Management de Produits Touristiques et de Loisirs"
+  ],
+  "annee_hab": "2018",
+  "localisation_hab": "Thies",
+  "avis_acc": "Avis favorable",
+  "id": "6301"
+ },
+ {
+  "nom_hab": "BJI-Bill Jobs Institute",
+  "list_prog_hab": [
+   "Licence en réseaux et télécommunication, option : réseaux et télécommunication",
+   "Licence en management des activités touristiques, hôtelières et de restauration",
+   "Licence en Agrobusiness",
+   "Licence en journalisme et communication",
+   "Licence en droit des affaires",
+   "Licence en gestion, option : gestion des ressources humaines",
+   "Licence en gestion, option : marketing commercial",
+   "Licence en gestion, option : commerce international",
+   "Licence en gestion, option : transport logistique",
+   "Licence en gestion, option : banque finance",
+   "Licence en gestion, option : gestion des entreprises",
+   "Licence en gestion, option : comptabilité gestion",
+   "Licence en informatique, option : informatique de gestion"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6195"
+ },
+ {
+  "nom_hab": "ESAEI-Ecole supérieure africaine d'Etudes islamiques",
+  "list_prog_hab": [
+   "Licence Etudes arabo islamiques",
+   "Master Etudes arabo islamiques, option : études arabo-islamiques",
+   "Master Etudes arabo islamiques, option : finances islamiques"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6179"
+ },
+ {
+  "nom_hab": "CIS PAIX-Institut du Centre africain d'Intelligence stratégique",
+  "list_prog_hab": [
+   "Master en Ressources Minérales: Droit et Géopolitique",
+   "Master en Intelligence Stratégique et Compétitivité des Entreprises",
+   "Master en Gouvernance Sécuritaire: Criminologie et Géopolitique",
+   "Master en Sciences Politiques et Relations Internationales"
+  ],
+  "annee_hab": "2023",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6154"
+ },
+ {
+  "nom_hab": "ISDD-Institut supérieur de Droit de Dakar",
+  "list_prog_hab": [
+   "Licence en Droit ;",
+   "Master en Droit des affaires ;",
+   "Master en Droit public."
+  ],
+  "annee_hab": "2023",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6147"
+ },
+ {
+  "nom_hab": "IACD Barack OBAMA-Institut Africain pour le Commerce et le Développement",
+  "list_prog_hab": [
+   "Licence en Finance et Comptabilité ;",
+   "Licence en Gestion des Ressources humaines."
+  ],
+  "annee_hab": "2023",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "6146"
+ },
+ {
+  "nom_hab": "EMIA",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence en Management appliqué ;",
+   "- Licence en Gouvernance publique et Développement ;",
+   "- Licence en Génie civil ;",
+   "- Licence en Statistiques et Informatique décisionnelle ;",
+   "- Licence en Sciences agronomiques option :",
+   "1- Agro-Alimentaire ;",
+   "2- Productions animales et végétales."
+  ],
+  "annee_hab": "2023",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "5872"
+ },
+ {
+  "nom_hab": "IASS MDB-Institut Africain des Sciences de la Santé Mame Diarra Bousso de Dakar",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence en Sciences infirmières et obstétricales, \"Option Sage-Femme\""
+  ],
+  "annee_hab": "2023",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "5853"
+ },
+ {
+  "nom_hab": "IPD Thomas Sankara- Institut Polytechnique de Dakar (IPD)",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence Réseaux et Télécommunications",
+   "Licence Génie Civil",
+   "Licence Marketing - Communication",
+   "Licence Sciences en Techniques de l’Informatique"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "5804"
+ },
+ {
+  "nom_hab": "DIT-Dakar Institute of Technology",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "Licence informatique option Big Data",
+   "Master informatique option Intelligence Artificielle"
+  ],
+  "annee_hab": "2023",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "5793"
+ },
+ {
+  "nom_hab": "ISDB-Institut Supérieur Dakar Banlieue",
+  "rapport_hab": "voir le rapport",
+  "list_prog_hab": [
+   "La Licence Gestion des Entreprises ;",
+   "La Licence Marketing Communication ;",
+   "La Licence en Transport logistique"
+  ],
+  "annee_hab": "2024",
+  "localisation_hab": "Dakar",
+  "avis_acc": "Avis favorable",
+  "id": "5770"
+ }
+]
