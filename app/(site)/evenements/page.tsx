@@ -7,7 +7,7 @@ import { HideAfter } from "@/components/HideAfter";
 
 export const metadata: Metadata = {
   title: "Soirées & événements à Libreville",
-  description: "Soirées à Libreville chez Jackboy (Louis) : Afro Halloween Party le samedi 31 octobre 2026 dès 21 h avec DJ Hamed. Amapiano, afrobeats, afrotcham, dancehall.",
+  description: "Soirées à Libreville chez Jackboy (quartier Louis) : DJ Hamed, amapiano, afrobeats, afrotcham, dancehall. Programmation et événements à venir.",
   alternates: { canonical: "/evenements" },
 };
 
