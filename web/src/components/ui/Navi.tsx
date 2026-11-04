@@ -23,36 +23,66 @@ function useDeplacable() {
   const [glisse, setGlisse] = useState<{ x: number; y: number } | null>(null);
   const depart = useRef<{ px: number; py: number; ox: number; oy: number } | null>(null);
   const aBouge = useRef(false);
+  const bouton = useRef<HTMLButtonElement | null>(null);
   useEffect(() => {
     try { const v = localStorage.getItem(`${CLE}-place`); if (v) setPlace(borner(JSON.parse(v) as Place)); } catch { /* stockage indisponible */ }
     const redim = () => setPlace((p) => (p ? borner(p) : p));
     window.addEventListener("resize", redim);
     return () => window.removeEventListener("resize", redim);
   }, []);
+  const commencer = useCallback((x: number, y: number) => {
+    const r = bouton.current?.getBoundingClientRect();
+    if (!r) return;
+    depart.current = { px: x, py: y, ox: r.left, oy: r.top };
+    aBouge.current = false;
+  }, []);
+  const bouger = useCallback((x: number, y: number) => {
+    const d = depart.current;
+    if (!d) return false;
+    const dx = x - d.px, dy = y - d.py;
+    if (!aBouge.current && Math.hypot(dx, dy) < 6) return false;
+    aBouge.current = true;
+    setGlisse({ x: Math.min(Math.max(d.ox + dx, 8), window.innerWidth - TAILLE - 8), y: Math.min(Math.max(d.oy + dy, 8), window.innerHeight - TAILLE - 8) });
+    return true;
+  }, []);
+  const finir = useCallback((x: number, y: number) => {
+    if (!depart.current) return;
+    depart.current = null;
+    if (!aBouge.current) return;
+    const p = borner({ cote: x < window.innerWidth / 2 ? "gauche" : "droite", bas: window.innerHeight - y - TAILLE / 2 });
+    setPlace(p);
+    setGlisse(null);
+    try { localStorage.setItem(`${CLE}-place`, JSON.stringify(p)); } catch { /* stockage indisponible */ }
+  }, []);
+  // Doigt : événements tactiles natifs non passifs, pour empêcher le défilement de la page pendant le déplacement
+  // (Safari iOS ignore souvent touch-action et annule les événements « pointer » dès que la page défile).
+  const refBouton = useCallback((el: HTMLButtonElement | null) => {
+    const ancien = bouton.current as (HTMLButtonElement & { _detacher?: () => void }) | null;
+    ancien?._detacher?.();
+    bouton.current = el;
+    if (!el) return;
+    let dernier = { x: 0, y: 0 };
+    const debut = (e: TouchEvent) => { const t = e.touches[0]; dernier = { x: t.clientX, y: t.clientY }; commencer(t.clientX, t.clientY); };
+    const deplacement = (e: TouchEvent) => { const t = e.touches[0]; dernier = { x: t.clientX, y: t.clientY }; if (bouger(t.clientX, t.clientY) && e.cancelable) e.preventDefault(); };
+    const fin = (e: TouchEvent) => { if (aBouge.current && e.cancelable) e.preventDefault(); finir(dernier.x, dernier.y); };
+    el.addEventListener("touchstart", debut, { passive: true });
+    el.addEventListener("touchmove", deplacement, { passive: false });
+    el.addEventListener("touchend", fin, { passive: false });
+    el.addEventListener("touchcancel", fin, { passive: false });
+    (el as HTMLButtonElement & { _detacher?: () => void })._detacher = () => {
+      el.removeEventListener("touchstart", debut); el.removeEventListener("touchmove", deplacement);
+      el.removeEventListener("touchend", fin); el.removeEventListener("touchcancel", fin);
+    };
+  }, [commencer, bouger, finir]);
+  // Souris et stylet : événements « pointer » (le doigt passe par les événements tactiles ci-dessus).
+  const souris = (e: React.PointerEvent) => e.pointerType !== "touch";
   const poignee = {
-    onPointerDown: (e: React.PointerEvent<HTMLElement>) => {
-      const r = e.currentTarget.getBoundingClientRect();
-      depart.current = { px: e.clientX, py: e.clientY, ox: r.left, oy: r.top };
-      aBouge.current = false;
-      e.currentTarget.setPointerCapture(e.pointerId);
-    },
-    onPointerMove: (e: React.PointerEvent<HTMLElement>) => {
-      const d = depart.current;
-      if (!d) return;
-      const dx = e.clientX - d.px, dy = e.clientY - d.py;
-      if (!aBouge.current && Math.hypot(dx, dy) < 6) return;
-      aBouge.current = true;
-      setGlisse({ x: Math.min(Math.max(d.ox + dx, 8), window.innerWidth - TAILLE - 8), y: Math.min(Math.max(d.oy + dy, 8), window.innerHeight - TAILLE - 8) });
-    },
-    onPointerUp: (e: React.PointerEvent<HTMLElement>) => {
-      depart.current = null;
-      if (!aBouge.current) return;
-      const x = e.clientX, y = e.clientY;
-      const p = borner({ cote: x < window.innerWidth / 2 ? "gauche" : "droite", bas: window.innerHeight - y - TAILLE / 2 });
-      setPlace(p);
-      setGlisse(null);
-      try { localStorage.setItem(`${CLE}-place`, JSON.stringify(p)); } catch { /* stockage indisponible */ }
-    },
+    ref: refBouton,
+    onPointerDown: (e: React.PointerEvent<HTMLElement>) => { if (!souris(e)) return; commencer(e.clientX, e.clientY); e.currentTarget.setPointerCapture(e.pointerId); },
+    onPointerMove: (e: React.PointerEvent<HTMLElement>) => { if (souris(e)) bouger(e.clientX, e.clientY); },
+    onPointerUp: (e: React.PointerEvent<HTMLElement>) => { if (souris(e)) finir(e.clientX, e.clientY); },
+    onPointerCancel: (e: React.PointerEvent<HTMLElement>) => { if (souris(e)) finir(e.clientX, e.clientY); },
+    onContextMenu: (e: React.MouseEvent) => e.preventDefault(),
   };
   /** À appeler dans onClick : faux si le geste était un déplacement. */
   const clicVrai = () => { const ok = !aBouge.current; aBouge.current = false; return ok; };
@@ -259,7 +289,7 @@ export function Navi() {
       {!ouvert && (
         <div style={deplace.style} className={`fixed bottom-24 right-4 z-40 flex items-center gap-3 lg:bottom-6 lg:right-6 print:hidden ${deplace.aGauche ? "flex-row-reverse" : ""}`}>
           {bulle && question && !deplace.enGlisse && <button type="button" onClick={() => { setOuvert(true); void envoyer(question); }} className="hidden rounded-full border border-slate-200 bg-white px-4 py-2.5 text-[13.5px] font-bold text-ink shadow-[0_10px_30px_-12px_rgba(11,21,51,.35)] sm:block">{question}</button>}
-          <button type="button" {...deplace.poignee} onClick={() => { if (deplace.clicVrai()) setOuvert(true); }} aria-label="Ouvrir Navi, l'assistant Navigoal (vous pouvez déplacer ce bouton)" title="Cliquer pour discuter · glisser pour déplacer" className={`relative h-16 w-16 touch-none select-none rounded-full bg-white p-0.5 ring-[3px] ring-brand-600 shadow-[0_14px_34px_-10px_rgba(26,71,245,.6)] transition ${deplace.enGlisse ? "scale-110 cursor-grabbing shadow-[0_24px_44px_-12px_rgba(26,71,245,.7)]" : "cursor-grab hover:-rotate-6 hover:scale-105"}`}>
+          <button type="button" {...deplace.poignee} onClick={() => { if (deplace.clicVrai()) setOuvert(true); }} aria-label="Ouvrir Navi, l'assistant Navigoal (vous pouvez déplacer ce bouton)" title="Cliquer pour discuter · glisser pour déplacer" style={{ WebkitTouchCallout: "none", WebkitUserSelect: "none" }} className={`relative h-16 w-16 touch-none select-none rounded-full bg-white p-0.5 ring-[3px] ring-brand-600 shadow-[0_14px_34px_-10px_rgba(26,71,245,.6)] transition ${deplace.enGlisse ? "scale-110 cursor-grabbing shadow-[0_24px_44px_-12px_rgba(26,71,245,.7)]" : "cursor-grab hover:-rotate-6 hover:scale-105"}`}>
             <Fennec className="h-full w-full rounded-full" />
             <span aria-hidden className="absolute -right-0.5 -top-0.5 h-4 w-4 rounded-full border-2 border-white bg-[#22c55e]" />
           </button>
