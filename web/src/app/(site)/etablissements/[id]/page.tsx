@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "@/components/ui/Link";
 import { QuestionWhatsApp } from "@/components/ui/QuestionWhatsApp";
 import { ArrowRight, BadgeCheck, Bus, Check, GraduationCap, Mail, Phone, Sparkles, Calculator, ChevronRight, ExternalLink, KeyRound, MapPin, Plane, Scale, ShieldAlert, TrainFront, TramFront } from "lucide-react";
-import { permanentRedirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { PhotoGallery } from "@/components/sections/PhotoGallery";
@@ -131,7 +131,8 @@ const ADMISSION = ["Dossier en ligne via Navigoal (bac ou relevés de notes, CV,
 export default async function EtabPage({ params }: { params: { id: string } }) {
   const live = await establishmentLive(params.id);
   const confirmed = (live?.programs ?? []).filter((p) => p.feesConfirmed || !p.indicative);
-  const e = etabDetail(params.id)!;
+  const e = etabDetail(params.id);
+  if (!e) notFound();
   if (e.id !== params.id) permanentRedirect(`/etablissements/${e.id}/`); // ancien campus regroupé
   const P = paysDetailById[e.pays];
   const C = COUTS[e.pays];

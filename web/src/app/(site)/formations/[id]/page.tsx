@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { FormationDetail } from "@/components/sections/FormationDetail";
@@ -46,6 +47,7 @@ function details(id: string): DetailFormation {
 }
 
 export default function FormationPage({ params }: { params: { id: string } }) {
+  if (!formationById[params.id]) notFound();
   const ld = jsonLd(params.id);
   return (
     <>

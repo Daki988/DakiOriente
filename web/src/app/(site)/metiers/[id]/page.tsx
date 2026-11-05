@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "@/components/ui/Link";
 import { ArrowRight, Building2, ChevronRight, CircleCheck, GraduationCap, Scale } from "lucide-react";
@@ -24,6 +25,7 @@ export const generateMetadata = ({ params }: { params: { id: string } }): Metada
 
 export default function MetierPage({ params }: { params: { id: string } }) {
   const m = metierById[params.id];
+  if (!m) notFound();
   const s = domStyle(m.domaine);
   const Icon = s.icon;
   const forms = m.formations.map((f) => formationById[f]).filter(Boolean);
