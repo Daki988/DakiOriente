@@ -6134,7 +6134,38 @@
         "date_collecte": "2026-10-08",
         "a_verifier": false
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-ueuromed-1.jpg",
+          "source_url": "https://ueuromed.org/_next/image?url=https%3A%2F%2Fbackend.ueuromed.org%2Fuploads%2FCorridor_d_innovation_v2_1920x1080px_5662c75221.jpg&w=3840&q=75",
+          "page_source": "https://ueuromed.org/fr",
+          "credit": "© Université Euromed de Fès",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-11-05"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-ueuromed-2.jpg",
+          "source_url": "https://ueuromed.org/_next/image?url=https%3A%2F%2Fbackend.ueuromed.org%2Fuploads%2F1_FDGFHHJ_bbbe34d454.png&w=3840&q=75",
+          "page_source": "https://ueuromed.org/fr",
+          "credit": "© Université Euromed de Fès",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-11-05"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-ueuromed-3.jpg",
+          "source_url": "https://ueuromed.org/_next/image?url=https%3A%2F%2Fbackend.ueuromed.org%2Fuploads%2F1_745b326f8c.png&w=3840&q=75",
+          "page_source": "https://ueuromed.org/fr",
+          "credit": "© Université Euromed de Fès",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-11-05"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 34.01328,
@@ -9837,7 +9868,28 @@
         "date_collecte": "2026-10-08",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-universiapolis-1.jpg",
+          "source_url": "https://universiapolis.ma/wp-content/uploads/2025/03/POL_2479-1-scaled.jpg",
+          "page_source": "https://universiapolis.ma/",
+          "credit": "© Université Internationale d'Agadir – Universiapolis",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-11-05"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-universiapolis-2.jpg",
+          "source_url": "https://universiapolis.ma/wp-content/themes/wp-u2026/img/hero1.jpg",
+          "page_source": "https://universiapolis.ma/",
+          "credit": "© Université Internationale d'Agadir – Universiapolis",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-11-05"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 30.403396,
@@ -14683,7 +14735,18 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-eac-1.jpg",
+          "source_url": "https://www.ecolearchicasa.com/wp-content/uploads/2026/10/Convention-de-Partenariat-1024x642.jpg",
+          "page_source": "https://www.ecolearchicasa.com/",
+          "credit": "© École Supérieure d'Architecture de Casablanca",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-11-05"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.619069,
@@ -17285,7 +17348,38 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-emg-1.jpg",
+          "source_url": "https://emg.ac.ma/ICAE2S/img/img/08.png",
+          "page_source": "https://emg.ac.ma/",
+          "credit": "© École Marocaine d'Ingénierie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-11-05"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-emg-2.jpg",
+          "source_url": "https://emg.ac.ma/img/génie_civil.png",
+          "page_source": "https://emg.ac.ma/",
+          "credit": "© École Marocaine d'Ingénierie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-11-05"
+        },
+        {
+          "fichier": "assets/photos/ma/ma-emg-3.jpg",
+          "source_url": "https://emg.ac.ma/img/génie_industriel.png",
+          "page_source": "https://emg.ac.ma/",
+          "credit": "© École Marocaine d'Ingénierie",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-11-05"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.996026,
@@ -26949,7 +27043,18 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [],
+      "photos": [
+        {
+          "fichier": "assets/photos/ma/ma-edge-1.jpg",
+          "source_url": "https://edge.ma/sites/default/files/styles/medium/public/articles/IA%26Marketing.jpg?itok=LrHAKIrw",
+          "page_source": "https://edge.ma/",
+          "credit": "© EDGE Business School",
+          "licence": null,
+          "methode": "site_officiel",
+          "a_verifier": true,
+          "date_collecte": "2026-11-05"
+        }
+      ],
       "geo": {
         "coordonnees": {
           "lat": 33.594936,
