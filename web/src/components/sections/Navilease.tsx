@@ -2,7 +2,7 @@
 import Link from "@/components/ui/Link";
 import { AnimatePresence, motion } from "framer-motion";
 import { CalendarCheck, Footprints, GraduationCap, HousePlus, KeyRound, MapPin, Search, ShieldCheck, Signature, UsersRound } from "lucide-react";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Counter } from "@/components/motion/Counter";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { useApi } from "@/hooks/useApi";
@@ -14,7 +14,7 @@ const PINS = [{ x: 22, y: 28 }, { x: 52, y: 14 }, { x: 40, y: 64 }, { x: 70, y: 
 
 const TYPES_API: [string, string][] = [["", "Tous"], ["studio", "Studios"], ["colocation", "Colocations"], ["residence", "Résidences"], ["chambre", "Chambres"], ["appartement", "Appartements"], ["chez_habitant", "Chez l'habitant"]];
 
-export function Navilease() {
+export function Navilease({ residences: rangee }: { residences?: ReactNode }) {
   const [type, setType] = useState("");
   const [ville, setVille] = useState("");
   const [verif, setVerif] = useState(false);
@@ -67,6 +67,7 @@ export function Navilease() {
         </div>
       </section>
 
+      {rangee}
       <section id="logements" className="container mt-12 flex scroll-mt-24 flex-col gap-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="scrollbar-none flex gap-2 overflow-x-auto">

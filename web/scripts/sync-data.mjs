@@ -72,6 +72,8 @@ write("lycees", {
   })),
 });
 
+// Résidences universitaires (Navilease) : réservation sur la plateforme officielle de chaque résidence
+write("residences_etudiantes", read("residences_etudiantes").items.map((r) => ({ ...r, photos: r.photos.map((p) => ({ src: "/" + p.fichier.replace(/^assets\//, ""), credit: p.credit, page: p.page_source })) })));
 const nav = read("navilease_logements");
 write("navilease", { residences: nav.items, ...nav._meta });
 const seriesDoc = JSON.parse(fs.readFileSync(path.join(REF, "series.json"), "utf8"));

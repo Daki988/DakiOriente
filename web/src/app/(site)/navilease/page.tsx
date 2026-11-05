@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Navilease } from "@/components/sections/Navilease";
 import { CtaBand } from "@/components/ui/CtaBand";
+import { RangeeResidences } from "@/components/navilease/Residences";
 
-export const metadata: Metadata = { title: "Navilease — logement étudiant", description: "Logements étudiants vérifiés au Maroc (Casablanca, Rabat, Marrakech, Fès, Tanger…) : bailleurs contrôlés, paiement protégé en séquestre, contrat numérique." };
+export const metadata: Metadata = { title: "Navilease — logement étudiant", description: "Résidences universitaires et logements étudiants vérifiés au Maroc (Casablanca, Rabat, Marrakech, Fès, Tanger…) : bailleurs contrôlés, paiement protégé en séquestre, contrat numérique." };
 
 export default function NavileasePage() {
   return (
     <>
-      <Navilease />
+      <Navilease residences={<RangeeResidences />} />
       <CtaBand title={<>Prêt·e à <span className="text-sun-400">t&apos;installer</span> ?</>} sub="Navilease est intégré à ton parcours Navigoal : dès ton admission, on te propose les logements proches de ton établissement." />
     </>
   );

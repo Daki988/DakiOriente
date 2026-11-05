@@ -4,6 +4,7 @@ import { ACTUALITES } from "@/lib/content";
 import { VILLES, villeHref } from "@/lib/catalogue";
 import { GUIDES, PAGES_OUTILS } from "@/lib/ressources";
 import { SITE_URL } from "@/lib/site";
+import { residencesEtudiantes } from "@/lib/residences";
 
 /** Plan du site pour les moteurs de recherche (pages publiques uniquement). */
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -16,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...etablissements.map((e) => page(`/etablissements/${e.id}/`, 0.9)),
     ...formations.filter((f) => f.etablissements.length).map((f) => page(`/formations/${f.id}/`, 0.7)),
     ...VILLES.map((v) => page(villeHref(v.nom), 0.8)),
+    page("/navilease/residences/", 0.8),
+    ...residencesEtudiantes.map((r) => page(`/navilease/residences/${r.id}/`, 0.7)),
     ...GUIDES.map((g) => page(`/ressources/${g.slug}/`, 0.7, "monthly")),
     ...PAGES_OUTILS.map((s) => page(`/ressources/${s}/`, 0.5, "monthly")),
     ...metiers.map((m) => page(`/metiers/${m.id}/`, 0.6, "monthly")),
