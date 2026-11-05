@@ -1,0 +1,1203 @@
+{
+  "_meta": {
+    "referentiel": "residences_etudiantes",
+    "version": "1.0.0",
+    "date": "2026-11-05",
+    "plateforme": "Navigoal",
+    "description": "Résidences universitaires et étudiantes privées au Maroc, présentées dans Navilease. La réservation se fait sur la plateforme officielle de chaque résidence (Navilease oriente, ne réserve pas).",
+    "regle": "Loyers et conditions recopiés des pages officielles (citations exactes), à la date de vérification ; « à partir de » quand seul un prix d'appel est publié. Photos issues des sites officiels, propriété des opérateurs.",
+    "a_reverifier": "Chaque rentrée (tarifs, disponibilité)."
+  },
+  "items": [
+    {
+      "id": "twenty-casa-anfa",
+      "nom": "Twenty Campus Casa Anfa",
+      "operateur": "Twenty Campus",
+      "type": "log-residence-privee",
+      "ville": "Casablanca",
+      "adresse": "Casa Anfa, près de Casablanca Finance City",
+      "capacite_lits": null,
+      "nb_logements": 192,
+      "public": "Étudiants marocains et internationaux",
+      "ouverture": "Toute l'année",
+      "duree": "3 mois minimum (hors juillet et août)",
+      "logements": [
+        {
+          "type": "Chambre standard (24 m²)",
+          "loyer_min": 6200,
+          "loyer_max": 6200,
+          "unite": "par mois, seul",
+          "surface": "24 m²",
+          "partage": 3100
+        },
+        {
+          "type": "Chambre Deluxe (31 m²)",
+          "loyer_min": 6800,
+          "loyer_max": 6800,
+          "unite": "par mois, seul",
+          "surface": "31 m²",
+          "partage": 3400
+        },
+        {
+          "type": "Suite standard (40 m²)",
+          "loyer_min": 7420,
+          "loyer_max": 7420,
+          "unite": "par mois, seul",
+          "surface": "40 m²",
+          "partage": 3710
+        },
+        {
+          "type": "Suite Deluxe (44 m²)",
+          "loyer_min": 8040,
+          "loyer_max": 8040,
+          "unite": "par mois, seul",
+          "surface": "44 m²",
+          "partage": 4020
+        }
+      ],
+      "frais": [
+        {
+          "libelle": "Pack para-hôtelier (en sus du loyer)",
+          "montant": 850
+        }
+      ],
+      "inclus": [
+        "Internet illimité",
+        "Petit-déjeuner",
+        "Ménage hebdomadaire",
+        "Laverie",
+        "Salle de sport",
+        "Coworking",
+        "Eau et électricité",
+        "Conciergerie",
+        "Assurance",
+        "Sécurité 24 h/24"
+      ],
+      "etablissements": [
+        "ma-esca"
+      ],
+      "proximite": [
+        "ESCA École de Management (13 min à pied)",
+        "Casablanca Finance City (9 min à pied)",
+        "Tramway (station Ghandi, 24 min à pied)"
+      ],
+      "reservation": {
+        "url": "https://twentycampus.ma/contact",
+        "libelle": "Réserver sur twentycampus.ma",
+        "note": "Formulaire « Je veux visiter » puis dossier numérique ; visite virtuelle en ligne"
+      },
+      "contact": {
+        "telephone": "+212 5 22 79 97 72",
+        "email": "contact@twentycampus.ma"
+      },
+      "site_web": "https://twentycampus.ma/",
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/twenty-casa-anfa-1.jpg",
+          "credit": "© Twenty Campus",
+          "page_source": "https://twentycampus.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/twenty-casa-anfa-2.jpg",
+          "credit": "© Twenty Campus",
+          "page_source": "https://twentycampus.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/twenty-casa-anfa-3.jpg",
+          "credit": "© Twenty Campus",
+          "page_source": "https://twentycampus.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/twenty-casa-anfa-4.jpg",
+          "credit": "© Twenty Campus",
+          "page_source": "https://twentycampus.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/twenty-casa-anfa-5.jpg",
+          "credit": "© Twenty Campus",
+          "page_source": "https://twentycampus.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "sources": [
+        "https://twentycampus.ma/",
+        "https://twentycampus.ma/chambre/"
+      ],
+      "statut": null,
+      "a_partir_de": 6200,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    },
+    {
+      "id": "bam-rabat",
+      "nom": "Bayt Al Maârifa Rabat",
+      "operateur": "Bayt Al Maârifa (Dyar Al Madina, groupe CDG)",
+      "type": "log-residence-privee",
+      "ville": "Rabat",
+      "adresse": "Quartier universitaire Al Irfane, près du tramway",
+      "capacite_lits": 1667,
+      "public": "Étudiants marocains et internationaux",
+      "ouverture": "Année universitaire ; séjours courts possibles",
+      "duree": "Paiement mensuel, trimestriel ou annuel",
+      "statut": "Complet pour 2026-2027",
+      "logements": [
+        {
+          "type": "Chambre double",
+          "loyer_min": 1400,
+          "loyer_max": null,
+          "unite": "par mois, à partir de"
+        },
+        {
+          "type": "Chambre individuelle",
+          "loyer_min": 2300,
+          "loyer_max": null,
+          "unite": "par mois, à partir de"
+        },
+        {
+          "type": "Chambre individuelle PMR",
+          "loyer_min": 2600,
+          "loyer_max": 2600,
+          "unite": "par mois"
+        }
+      ],
+      "frais": [
+        {
+          "libelle": "Frais de préinscription (non remboursables)",
+          "montant": 700
+        }
+      ],
+      "inclus": [
+        "Chambre meublée (lit, bureau, placard, réfrigérateur)",
+        "Sécurité et télésurveillance 24 h/24",
+        "Ménage des chambres",
+        "Internet haut débit",
+        "Aide administrative aux résidents internationaux",
+        "Kitchenette et salle d'eau dans la chambre"
+      ],
+      "etablissements": [
+        "ma-uir"
+      ],
+      "proximite": [
+        "Station de tramway",
+        "Universités d'Al Irfane"
+      ],
+      "reservation": {
+        "url": "https://baytalmaarifa.ma/pre-inscription?ville=Rabat",
+        "libelle": "Préinscription sur baytalmaarifa.ma",
+        "note": "Premier arrivé, premier servi ; garant et justificatif d'inscription demandés"
+      },
+      "site_web": "https://baytalmaarifa.ma/",
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/bam-rabat-1.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-2.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-3.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "sources": [
+        "https://baytalmaarifa.ma/bayt-al-maarifa-rabat",
+        "https://baytalmaarifa.ma/2026/08/06/residence-etudiante-a-rabat-bayt-al-maarifa-affiche-complet-pour-la-rentree-2026-2027/",
+        "https://baytalmaarifa.ma/questions-frequemment-posees"
+      ],
+      "contact": null,
+      "nb_logements": null,
+      "a_partir_de": 1400,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    },
+    {
+      "id": "bam-casablanca",
+      "nom": "Bayt Al Maârifa Casablanca",
+      "operateur": "Bayt Al Maârifa (Dyar Al Madina, groupe CDG)",
+      "type": "log-residence-privee",
+      "ville": "Casablanca",
+      "adresse": "Hub universitaire, route d'El Jadida",
+      "capacite_lits": 1148,
+      "public": "Étudiants marocains et internationaux",
+      "ouverture": "Année universitaire ; séjours courts possibles",
+      "duree": "Paiement mensuel, trimestriel ou annuel",
+      "logements": [
+        {
+          "type": "Chambres doubles, individuelles et PMR",
+          "loyer_min": 1300,
+          "loyer_max": null,
+          "unite": "par mois, à partir de"
+        }
+      ],
+      "frais": [
+        {
+          "libelle": "Frais de préinscription (non remboursables)",
+          "montant": 700
+        }
+      ],
+      "inclus": [
+        "Chambre meublée (lit, bureau, placard, réfrigérateur)",
+        "Sécurité et télésurveillance 24 h/24",
+        "Ménage des chambres",
+        "Internet haut débit",
+        "Aide administrative aux résidents internationaux",
+        "Kitchenette et salle d'eau dans la chambre",
+        "Parking"
+      ],
+      "etablissements": [],
+      "proximite": [
+        "Campus universitaire de la route d'El Jadida"
+      ],
+      "reservation": {
+        "url": "https://baytalmaarifa.ma/pre-inscription?ville=Casablanca",
+        "libelle": "Préinscription sur baytalmaarifa.ma",
+        "note": "Premier arrivé, premier servi ; garant et justificatif d'inscription demandés"
+      },
+      "site_web": "https://baytalmaarifa.ma/",
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-1.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "sources": [
+        "https://baytalmaarifa.ma/bayt-al-maarifa-casablanca",
+        "https://baytalmaarifa.ma/2026/07/01/preinscriptions-2026-2027-trouvez-votre-residence-etudiante-bayt-al-maarifa/",
+        "https://baytalmaarifa.ma/questions-frequemment-posees"
+      ],
+      "contact": null,
+      "statut": null,
+      "nb_logements": null,
+      "a_partir_de": 1300,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    },
+    {
+      "id": "bam-meknes",
+      "nom": "Bayt Al Maârifa Meknès",
+      "operateur": "Bayt Al Maârifa (Dyar Al Madina, groupe CDG)",
+      "type": "log-residence-privee",
+      "ville": "Meknès",
+      "adresse": "Pôle d'enseignement supérieur de Meknès",
+      "capacite_lits": 617,
+      "public": "Étudiants marocains et internationaux",
+      "ouverture": "Année universitaire ; séjours courts possibles",
+      "duree": "Paiement mensuel, trimestriel ou annuel",
+      "logements": [
+        {
+          "type": "Chambres doubles et individuelles",
+          "loyer_min": 800,
+          "loyer_max": null,
+          "unite": "par mois, à partir de"
+        }
+      ],
+      "frais": [
+        {
+          "libelle": "Frais de préinscription (non remboursables)",
+          "montant": 350
+        }
+      ],
+      "inclus": [
+        "Chambre meublée (lit, bureau, placard, réfrigérateur)",
+        "Sécurité et télésurveillance 24 h/24",
+        "Ménage des chambres",
+        "Internet haut débit",
+        "Aide administrative aux résidents internationaux",
+        "Cuisines, douches et lavabos communs par étage"
+      ],
+      "etablissements": [],
+      "proximite": [
+        "Station de bus",
+        "Pôle universitaire"
+      ],
+      "reservation": {
+        "url": "https://baytalmaarifa.ma/pre-inscription?ville=Mekn%C3%A8s",
+        "libelle": "Préinscription sur baytalmaarifa.ma",
+        "note": "Premier arrivé, premier servi ; garant et justificatif d'inscription demandés"
+      },
+      "site_web": "https://baytalmaarifa.ma/",
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/bam-meknes-1.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/bayt-al-maarifa-meknes",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-meknes-2.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/bayt-al-maarifa-meknes",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "sources": [
+        "https://baytalmaarifa.ma/bayt-al-maarifa-meknes",
+        "https://baytalmaarifa.ma/2026/07/01/preinscriptions-2026-2027-trouvez-votre-residence-etudiante-bayt-al-maarifa/",
+        "https://baytalmaarifa.ma/questions-frequemment-posees"
+      ],
+      "contact": null,
+      "statut": null,
+      "nb_logements": null,
+      "a_partir_de": 800,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    },
+    {
+      "id": "bam-el-jadida",
+      "nom": "Bayt Al Maârifa El Jadida",
+      "operateur": "Bayt Al Maârifa (Dyar Al Madina, groupe CDG)",
+      "type": "log-residence-privee",
+      "ville": "El Jadida",
+      "adresse": "Centre-ville, navette vers les établissements",
+      "capacite_lits": 478,
+      "public": "Étudiants marocains et internationaux",
+      "ouverture": "Année universitaire ; séjours courts possibles",
+      "duree": "Paiement mensuel, trimestriel ou annuel",
+      "logements": [
+        {
+          "type": "Chambres doubles et individuelles",
+          "loyer_min": 650,
+          "loyer_max": null,
+          "unite": "par mois, à partir de"
+        }
+      ],
+      "frais": [
+        {
+          "libelle": "Frais de préinscription (non remboursables)",
+          "montant": 350
+        }
+      ],
+      "inclus": [
+        "Chambre meublée",
+        "Internet haut débit",
+        "Aide administrative",
+        "Service de transport",
+        "Cuisines, douches et lavabos communs par étage"
+      ],
+      "etablissements": [],
+      "proximite": [
+        "Gare routière",
+        "Supermarché"
+      ],
+      "reservation": {
+        "url": "https://baytalmaarifa.ma/pre-inscription?ville=El%20Jadida",
+        "libelle": "Préinscription sur baytalmaarifa.ma",
+        "note": "Premier arrivé, premier servi ; garant et justificatif d'inscription demandés"
+      },
+      "site_web": "https://baytalmaarifa.ma/",
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/bam-el-jadida-1.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/bayt-al-maarifa-el-jadida",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-el-jadida-2.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/bayt-al-maarifa-el-jadida",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "sources": [
+        "https://baytalmaarifa.ma/bayt-al-maarifa-el-jadida",
+        "https://baytalmaarifa.ma/2026/07/01/preinscriptions-2026-2027-trouvez-votre-residence-etudiante-bayt-al-maarifa/",
+        "https://baytalmaarifa.ma/questions-frequemment-posees"
+      ],
+      "contact": null,
+      "statut": null,
+      "nb_logements": null,
+      "a_partir_de": 650,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    },
+    {
+      "id": "sh-tanger",
+      "nom": "The Student House Tanger",
+      "operateur": "The Student House",
+      "type": "log-residence-privee",
+      "ville": "Tanger",
+      "adresse": "Boukhalef, à côté de l'Université Abdelmalek Essaadi",
+      "capacite_lits": 832,
+      "public": "Étudiants (pavillons filles et garçons séparés)",
+      "ouverture": "Année universitaire",
+      "duree": null,
+      "logements": [
+        {
+          "type": "Studio individuel (17 m²)",
+          "loyer_min": 2100,
+          "loyer_max": 2100,
+          "unite": "par mois",
+          "surface": "17 m²"
+        },
+        {
+          "type": "Chambre double (24 m²)",
+          "loyer_min": 1600,
+          "loyer_max": 1600,
+          "unite": "par personne et par mois",
+          "surface": "24 m²"
+        },
+        {
+          "type": "Studio VIP",
+          "loyer_min": 3200,
+          "loyer_max": 3200,
+          "unite": "par mois"
+        }
+      ],
+      "frais": [],
+      "inclus": [
+        "Studio meublé avec kitchenette et salle d'eau privée",
+        "Salle de sport",
+        "Salle de lecture et bibliothèque",
+        "Restauration",
+        "Laverie",
+        "Infirmerie",
+        "Cinéma et salle de jeux",
+        "Navette vers l'ENCG et la faculté de médecine"
+      ],
+      "etablissements": [],
+      "proximite": [
+        "Université Abdelmalek Essaadi, ENSA, FST",
+        "Transports en commun vers les écoles privées (EMSI…)"
+      ],
+      "reservation": {
+        "url": "https://www.studenthousetanger.ma/je-reserve",
+        "libelle": "Réserver sur studenthousetanger.ma",
+        "note": null
+      },
+      "site_web": "https://www.studenthousetanger.ma/",
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/sh-tanger-1.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-2.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-3.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-4.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "sources": [
+        "https://www.studenthousetanger.ma/"
+      ],
+      "contact": null,
+      "statut": null,
+      "nb_logements": null,
+      "a_partir_de": 1600,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    },
+    {
+      "id": "sh-settat",
+      "nom": "The Student House Settat",
+      "operateur": "The Student House",
+      "type": "log-residence-privee",
+      "ville": "Settat",
+      "adresse": "À 300 m de l'Université Hassan Ier",
+      "capacite_lits": 1360,
+      "public": "Étudiants",
+      "ouverture": "Année universitaire",
+      "duree": null,
+      "logements": [
+        {
+          "type": "Chambre triple",
+          "loyer_min": 1000,
+          "loyer_max": 1000,
+          "unite": "par mois"
+        },
+        {
+          "type": "Chambre double",
+          "loyer_min": 1400,
+          "loyer_max": 1400,
+          "unite": "par mois"
+        },
+        {
+          "type": "Studio individuel",
+          "loyer_min": 1800,
+          "loyer_max": 1800,
+          "unite": "par mois"
+        },
+        {
+          "type": "Studio VIP",
+          "loyer_min": 2800,
+          "loyer_max": 2800,
+          "unite": "par mois"
+        }
+      ],
+      "frais": [],
+      "inclus": [
+        "Logement meublé avec kitchenette et salle d'eau",
+        "Salle de sport",
+        "Salle de jeux"
+      ],
+      "etablissements": [],
+      "proximite": [
+        "Université Hassan Ier (300 m)",
+        "Lignes de transport en commun"
+      ],
+      "reservation": {
+        "url": "https://www.studenthousesettat.ma/je-reserve",
+        "libelle": "Réserver sur studenthousesettat.ma",
+        "note": null
+      },
+      "site_web": "https://www.studenthousesettat.ma/",
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/sh-settat-1.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-2.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-3.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-4.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-5.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "sources": [
+        "https://www.studenthousesettat.ma/"
+      ],
+      "contact": null,
+      "statut": null,
+      "nb_logements": null,
+      "a_partir_de": 1000,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    },
+    {
+      "id": "resu-rabat",
+      "nom": "RESU Rabat (Bayt Al Maârifa)",
+      "ville": "Rabat",
+      "adresse": "Avenue Allal Al Fassi, Madinat Al Irfane",
+      "capacite_lits": 400,
+      "logements": [
+        {
+          "type": "Chambre double",
+          "loyer_min": 1500,
+          "loyer_max": 1500,
+          "unite": "par personne et par mois",
+          "surface": "19 à 25 m²"
+        },
+        {
+          "type": "Chambre individuelle (places très limitées)",
+          "loyer_min": 3500,
+          "loyer_max": 3500,
+          "unite": "par mois",
+          "surface": "19 à 25 m²"
+        }
+      ],
+      "reservation": {
+        "url": "https://resu.ma/residence/ru-rabat/",
+        "libelle": "Demande de logement sur resu.ma",
+        "note": "Demande en ligne ou dans les bureaux après l'inscription définitive à l'UM6SS"
+      },
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/resu-rabat-1.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-rabat/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/resu-rabat-2.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-rabat/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/resu-rabat-3.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-rabat/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/resu-rabat-4.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-rabat/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "operateur": "Résidences Universitaires de l'UM6SS (RESU)",
+      "type": "log-residence-privee",
+      "public": "Réservée aux étudiants admis et inscrits à l'Université Mohammed VI des Sciences et de la Santé (UM6SS)",
+      "ouverture": "Du 1er septembre au 31 juillet (fermée en août)",
+      "duree": "Contrat de 10 mois ; 3 mois minimum",
+      "inclus": [
+        "Loyer, internet, eau et électricité (dans la limite de 20 kWh par an)",
+        "Ménage hebdomadaire",
+        "Sécurité 24 h/24",
+        "Cuisine commune à l'étage (la plupart des résidences)"
+      ],
+      "frais": [],
+      "etablissements": [
+        "ma-um6ss"
+      ],
+      "site_web": "https://resu.ma/",
+      "sources": [
+        "https://resu.ma/residence/ru-rabat/",
+        "https://resu.ma/faq/"
+      ],
+      "contact": null,
+      "statut": null,
+      "nb_logements": null,
+      "proximite": [],
+      "a_partir_de": 1500,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    },
+    {
+      "id": "resu-anfa-city",
+      "nom": "RESU Anfa City",
+      "ville": "Casablanca",
+      "adresse": "Avenue Mohamed Taieb Naciri, campus UM6SS Anfa City",
+      "capacite_lits": 710,
+      "logements": [
+        {
+          "type": "Chambre double",
+          "loyer_min": 1500,
+          "loyer_max": 1500,
+          "unite": "par personne et par mois",
+          "surface": "19 à 25 m²"
+        },
+        {
+          "type": "Chambre individuelle (places très limitées)",
+          "loyer_min": 3500,
+          "loyer_max": 3500,
+          "unite": "par mois",
+          "surface": "19 à 25 m²"
+        },
+        {
+          "type": "Chambre triple (35 m²)",
+          "loyer_min": 1200,
+          "loyer_max": 1200,
+          "unite": "par personne et par mois",
+          "surface": "35 m²"
+        }
+      ],
+      "reservation": {
+        "url": "https://resu.ma/residence/ru-anfa-city/",
+        "libelle": "Demande de logement sur resu.ma",
+        "note": "Demande en ligne ou dans les bureaux après l'inscription définitive à l'UM6SS"
+      },
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/resu-anfa-city-1.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-anfa-city/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/resu-anfa-city-2.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-anfa-city/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/resu-anfa-city-3.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-anfa-city/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/resu-anfa-city-4.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-anfa-city/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "operateur": "Résidences Universitaires de l'UM6SS (RESU)",
+      "type": "log-residence-privee",
+      "public": "Réservée aux étudiants admis et inscrits à l'Université Mohammed VI des Sciences et de la Santé (UM6SS)",
+      "ouverture": "Du 1er septembre au 31 juillet (fermée en août)",
+      "duree": "Contrat de 10 mois ; 3 mois minimum",
+      "inclus": [
+        "Loyer, internet, eau et électricité (dans la limite de 20 kWh par an)",
+        "Ménage hebdomadaire",
+        "Sécurité 24 h/24",
+        "Cuisine commune à l'étage (la plupart des résidences)"
+      ],
+      "frais": [],
+      "etablissements": [
+        "ma-um6ss"
+      ],
+      "site_web": "https://resu.ma/",
+      "sources": [
+        "https://resu.ma/residence/ru-anfa-city/",
+        "https://resu.ma/faq/"
+      ],
+      "contact": null,
+      "statut": null,
+      "nb_logements": null,
+      "proximite": [],
+      "a_partir_de": 1200,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    },
+    {
+      "id": "resu-ziraoui",
+      "nom": "RESU Ziraoui",
+      "ville": "Casablanca",
+      "adresse": "236, boulevard Ziraoui, près du lycée Lyautey",
+      "capacite_lits": 962,
+      "logements": [
+        {
+          "type": "Chambre double",
+          "loyer_min": 1500,
+          "loyer_max": 1500,
+          "unite": "par personne et par mois",
+          "surface": "19 à 25 m²"
+        },
+        {
+          "type": "Chambre individuelle (places très limitées)",
+          "loyer_min": 3500,
+          "loyer_max": 3500,
+          "unite": "par mois",
+          "surface": "19 à 25 m²"
+        },
+        {
+          "type": "Studio (50 m², disponibilité très limitée)",
+          "loyer_min": 6000,
+          "loyer_max": 6000,
+          "unite": "par mois",
+          "surface": "50 m²"
+        }
+      ],
+      "reservation": {
+        "url": "https://resu.ma/residence/ru-ziraoui/",
+        "libelle": "Demande de logement sur resu.ma",
+        "note": "Demande en ligne ou dans les bureaux après l'inscription définitive à l'UM6SS"
+      },
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/resu-ziraoui-1.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-ziraoui/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/resu-ziraoui-2.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-ziraoui/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/resu-ziraoui-3.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-ziraoui/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "operateur": "Résidences Universitaires de l'UM6SS (RESU)",
+      "type": "log-residence-privee",
+      "public": "Réservée aux étudiants admis et inscrits à l'Université Mohammed VI des Sciences et de la Santé (UM6SS)",
+      "ouverture": "Du 1er septembre au 31 juillet (fermée en août)",
+      "duree": "Contrat de 10 mois ; 3 mois minimum",
+      "inclus": [
+        "Loyer, internet, eau et électricité (dans la limite de 20 kWh par an)",
+        "Ménage hebdomadaire",
+        "Sécurité 24 h/24",
+        "Cuisine commune à l'étage (la plupart des résidences)"
+      ],
+      "frais": [],
+      "etablissements": [
+        "ma-um6ss"
+      ],
+      "site_web": "https://resu.ma/",
+      "sources": [
+        "https://resu.ma/residence/ru-ziraoui/",
+        "https://resu.ma/faq/"
+      ],
+      "contact": null,
+      "statut": null,
+      "nb_logements": null,
+      "proximite": [],
+      "a_partir_de": 1500,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    },
+    {
+      "id": "resu-mohammedia",
+      "nom": "RESU Mohammedia",
+      "ville": "Mohammedia",
+      "adresse": "Boulevard Hassan II, près des facultés",
+      "capacite_lits": 866,
+      "logements": [
+        {
+          "type": "Chambre double",
+          "loyer_min": 1500,
+          "loyer_max": 1500,
+          "unite": "par personne et par mois",
+          "surface": "19 à 25 m²"
+        },
+        {
+          "type": "Chambre individuelle (places très limitées)",
+          "loyer_min": 3500,
+          "loyer_max": 3500,
+          "unite": "par mois",
+          "surface": "19 à 25 m²"
+        }
+      ],
+      "reservation": {
+        "url": "https://resu.ma/residence/ru-mohammedia/",
+        "libelle": "Demande de logement sur resu.ma",
+        "note": "Demande en ligne ou dans les bureaux après l'inscription définitive à l'UM6SS"
+      },
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/resu-mohammedia-1.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-mohammedia/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/resu-mohammedia-2.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-mohammedia/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/resu-mohammedia-3.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-mohammedia/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "operateur": "Résidences Universitaires de l'UM6SS (RESU)",
+      "type": "log-residence-privee",
+      "public": "Réservée aux étudiants admis et inscrits à l'Université Mohammed VI des Sciences et de la Santé (UM6SS)",
+      "ouverture": "Du 1er septembre au 31 juillet (fermée en août)",
+      "duree": "Contrat de 10 mois ; 3 mois minimum",
+      "inclus": [
+        "Loyer, internet, eau et électricité (dans la limite de 20 kWh par an)",
+        "Ménage hebdomadaire",
+        "Sécurité 24 h/24",
+        "Cuisine commune à l'étage (la plupart des résidences)"
+      ],
+      "frais": [],
+      "etablissements": [
+        "ma-um6ss"
+      ],
+      "site_web": "https://resu.ma/",
+      "sources": [
+        "https://resu.ma/residence/ru-mohammedia/",
+        "https://resu.ma/faq/"
+      ],
+      "contact": null,
+      "statut": null,
+      "nb_logements": null,
+      "proximite": [],
+      "a_partir_de": 1500,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    },
+    {
+      "id": "resu-marrakech",
+      "nom": "RESU Marrakech",
+      "ville": "Marrakech",
+      "adresse": "Avenue Mohammed VI, campus UM6SS (près du lycée Hassan II)",
+      "capacite_lits": 92,
+      "logements": [
+        {
+          "type": "Chambre double",
+          "loyer_min": 1500,
+          "loyer_max": 1500,
+          "unite": "par personne et par mois",
+          "surface": "19 à 25 m²"
+        },
+        {
+          "type": "Chambre individuelle (places très limitées)",
+          "loyer_min": 3500,
+          "loyer_max": 3500,
+          "unite": "par mois",
+          "surface": "19 à 25 m²"
+        }
+      ],
+      "reservation": {
+        "url": "https://resu.ma/residence/ru-marrakech/",
+        "libelle": "Demande de logement sur resu.ma",
+        "note": "Demande en ligne ou dans les bureaux après l'inscription définitive à l'UM6SS"
+      },
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/resu-marrakech-1.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-marrakech/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "operateur": "Résidences Universitaires de l'UM6SS (RESU)",
+      "type": "log-residence-privee",
+      "public": "Réservée aux étudiants admis et inscrits à l'Université Mohammed VI des Sciences et de la Santé (UM6SS)",
+      "ouverture": "Du 1er septembre au 31 juillet (fermée en août)",
+      "duree": "Contrat de 10 mois ; 3 mois minimum",
+      "inclus": [
+        "Loyer, internet, eau et électricité (dans la limite de 20 kWh par an)",
+        "Ménage hebdomadaire",
+        "Sécurité 24 h/24",
+        "Cuisine commune à l'étage (la plupart des résidences)"
+      ],
+      "frais": [],
+      "etablissements": [
+        "ma-um6ss"
+      ],
+      "site_web": "https://resu.ma/",
+      "sources": [
+        "https://resu.ma/residence/ru-marrakech/",
+        "https://resu.ma/faq/"
+      ],
+      "contact": null,
+      "statut": null,
+      "nb_logements": null,
+      "proximite": [],
+      "a_partir_de": 1500,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    },
+    {
+      "id": "resu-agadir",
+      "nom": "RESU Agadir",
+      "ville": "Agadir",
+      "adresse": "Complexe hospitalo-universitaire international Mohammed VI, avenue Tamsoult, Tilila",
+      "capacite_lits": 876,
+      "logements": [
+        {
+          "type": "Chambre double",
+          "loyer_min": 1500,
+          "loyer_max": 1500,
+          "unite": "par personne et par mois",
+          "surface": "19 à 25 m²"
+        },
+        {
+          "type": "Chambre individuelle (places très limitées)",
+          "loyer_min": 3500,
+          "loyer_max": 3500,
+          "unite": "par mois",
+          "surface": "19 à 25 m²"
+        }
+      ],
+      "reservation": {
+        "url": "https://resu.ma/residence/ru-agadir/",
+        "libelle": "Demande de logement sur resu.ma",
+        "note": "Demande en ligne ou dans les bureaux après l'inscription définitive à l'UM6SS"
+      },
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/resu-agadir-1.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-agadir/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/resu-agadir-2.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-agadir/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/resu-agadir-3.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-agadir/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "operateur": "Résidences Universitaires de l'UM6SS (RESU)",
+      "type": "log-residence-privee",
+      "public": "Réservée aux étudiants admis et inscrits à l'Université Mohammed VI des Sciences et de la Santé (UM6SS)",
+      "ouverture": "Du 1er septembre au 31 juillet (fermée en août)",
+      "duree": "Contrat de 10 mois ; 3 mois minimum",
+      "inclus": [
+        "Loyer, internet, eau et électricité (dans la limite de 20 kWh par an)",
+        "Ménage hebdomadaire",
+        "Sécurité 24 h/24",
+        "Cuisine commune à l'étage (la plupart des résidences)"
+      ],
+      "frais": [],
+      "etablissements": [
+        "ma-um6ss"
+      ],
+      "site_web": "https://resu.ma/",
+      "sources": [
+        "https://resu.ma/residence/ru-agadir/",
+        "https://resu.ma/faq/"
+      ],
+      "contact": null,
+      "statut": null,
+      "nb_logements": null,
+      "proximite": [],
+      "a_partir_de": 1500,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    },
+    {
+      "id": "resu-dakhla",
+      "nom": "RESU Dakhla",
+      "ville": "Dakhla",
+      "adresse": "Complexe hospitalo-universitaire international Mohammed VI, PK 13, route provinciale 1100",
+      "capacite_lits": 396,
+      "logements": [
+        {
+          "type": "Chambre double",
+          "loyer_min": 1300,
+          "loyer_max": 1300,
+          "unite": "par personne et par mois"
+        },
+        {
+          "type": "Chambre individuelle (places très limitées)",
+          "loyer_min": 3000,
+          "loyer_max": 3000,
+          "unite": "par mois"
+        }
+      ],
+      "reservation": {
+        "url": "https://resu.ma/residence/ru-dakhla/",
+        "libelle": "Demande de logement sur resu.ma",
+        "note": "Demande en ligne ou dans les bureaux après l'inscription définitive à l'UM6SS"
+      },
+      "photos": [
+        {
+          "fichier": "assets/photos/residences/resu-dakhla-1.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-dakhla/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/resu-dakhla-2.jpg",
+          "credit": "© Résidences Universitaires UM6SS",
+          "page_source": "https://resu.ma/residence/ru-dakhla/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        }
+      ],
+      "operateur": "Résidences Universitaires de l'UM6SS (RESU)",
+      "type": "log-residence-privee",
+      "public": "Réservée aux étudiants admis et inscrits à l'Université Mohammed VI des Sciences et de la Santé (UM6SS)",
+      "ouverture": "Du 1er septembre au 31 juillet (fermée en août)",
+      "duree": "Contrat de 10 mois ; 3 mois minimum",
+      "inclus": [
+        "Loyer, internet, eau et électricité (dans la limite de 20 kWh par an)",
+        "Ménage hebdomadaire",
+        "Sécurité 24 h/24",
+        "Cuisine commune à l'étage (la plupart des résidences)"
+      ],
+      "frais": [],
+      "etablissements": [
+        "ma-um6ss"
+      ],
+      "site_web": "https://resu.ma/",
+      "sources": [
+        "https://resu.ma/residence/ru-dakhla/",
+        "https://resu.ma/faq/"
+      ],
+      "contact": null,
+      "statut": null,
+      "nb_logements": null,
+      "proximite": [],
+      "a_partir_de": 1300,
+      "devise": "MAD",
+      "pays": "MA",
+      "date_verification": "2026-11-05"
+    }
+  ]
+}
