@@ -6136,16 +6136,6 @@
       },
       "photos": [
         {
-          "fichier": "assets/photos/ma/ma-ueuromed-1.jpg",
-          "source_url": "https://ueuromed.org/_next/image?url=https%3A%2F%2Fbackend.ueuromed.org%2Fuploads%2FCorridor_d_innovation_v2_1920x1080px_5662c75221.jpg&w=3840&q=75",
-          "page_source": "https://ueuromed.org/fr",
-          "credit": "© Université Euromed de Fès",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
-        {
           "fichier": "assets/photos/ma/ma-ueuromed-2.jpg",
           "source_url": "https://ueuromed.org/_next/image?url=https%3A%2F%2Fbackend.ueuromed.org%2Fuploads%2F1_FDGFHHJ_bbbe34d454.png&w=3840&q=75",
           "page_source": "https://ueuromed.org/fr",
@@ -9872,16 +9862,6 @@
         {
           "fichier": "assets/photos/ma/ma-universiapolis-1.jpg",
           "source_url": "https://universiapolis.ma/wp-content/uploads/2025/03/POL_2479-1-scaled.jpg",
-          "page_source": "https://universiapolis.ma/",
-          "credit": "© Université Internationale d'Agadir – Universiapolis",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-universiapolis-2.jpg",
-          "source_url": "https://universiapolis.ma/wp-content/themes/wp-u2026/img/hero1.jpg",
           "page_source": "https://universiapolis.ma/",
           "credit": "© Université Internationale d'Agadir – Universiapolis",
           "licence": null,
@@ -17348,38 +17328,7 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-emg-1.jpg",
-          "source_url": "https://emg.ac.ma/ICAE2S/img/img/08.png",
-          "page_source": "https://emg.ac.ma/",
-          "credit": "© École Marocaine d'Ingénierie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-emg-2.jpg",
-          "source_url": "https://emg.ac.ma/img/génie_civil.png",
-          "page_source": "https://emg.ac.ma/",
-          "credit": "© École Marocaine d'Ingénierie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-emg-3.jpg",
-          "source_url": "https://emg.ac.ma/img/génie_industriel.png",
-          "page_source": "https://emg.ac.ma/",
-          "credit": "© École Marocaine d'Ingénierie",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 33.996026,
@@ -27043,18 +26992,7 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-edge-1.jpg",
-          "source_url": "https://edge.ma/sites/default/files/styles/medium/public/articles/IA%26Marketing.jpg?itok=LrHAKIrw",
-          "page_source": "https://edge.ma/",
-          "credit": "© EDGE Business School",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 33.594936,
@@ -32484,26 +32422,6 @@
       },
       "photos": [
         {
-          "fichier": "assets/photos/ma/ma-hec-maroc-1.jpg",
-          "source_url": "https://hec.ac.ma/og/home.png",
-          "page_source": "https://hec.ac.ma/",
-          "credit": "© HEC Maroc – École des Hautes Études Commerciales (Rabat)",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-hec-maroc-2.jpg",
-          "source_url": "https://hec.ac.ma/_astro/thumbnail%20certif%20pge%20(43).BbZn_c6l_Z2634m1.webp?dpl=dpl_5FSzimQcPZBAxrRQLnevfg9wV7Y3",
-          "page_source": "https://hec.ac.ma/",
-          "credit": "© HEC Maroc – École des Hautes Études Commerciales (Rabat)",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
-        {
           "fichier": "assets/photos/ma/ma-hec-maroc-3.jpg",
           "source_url": "https://hec.ac.ma/_astro/DSC_0703.EN59LaqJ_1sO6Nf.webp?dpl=dpl_5FSzimQcPZBAxrRQLnevfg9wV7Y3",
           "page_source": "https://hec.ac.ma/",
@@ -36428,18 +36346,7 @@
         "date_collecte": "2026-10-15",
         "a_verifier": false
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-isjc-1.jpg",
-          "source_url": "https://isjc-press.ma/wp-content/uploads/2021/10/Mohamed-Talal.jpg",
-          "page_source": "https://isjc-press.ma/",
-          "credit": "© Institut Supérieur du Journalisme et de Communication",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 33.587738,
@@ -36608,16 +36515,6 @@
         {
           "fichier": "assets/photos/ma/ma-isota-1.jpg",
           "source_url": "https://isota.ac.ma/images/categories-4.jpg",
-          "page_source": "https://isota.ac.ma/",
-          "credit": "© Institut Supérieur d'Optique Théorique et Appliquée Privé",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-isota-2.jpg",
-          "source_url": "https://isota.ac.ma/images/home2-course-2.jpg",
           "page_source": "https://isota.ac.ma/",
           "credit": "© Institut Supérieur d'Optique Théorique et Appliquée Privé",
           "licence": null,
@@ -37259,38 +37156,7 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-sup-technology-1.jpg",
-          "source_url": "https://suptechnology.ma/public/events-images/1792086780-agenda-jeu-video.jpg.png",
-          "page_source": "https://suptechnology.ma/",
-          "credit": "© Ecole Supérieure des Hautes Etudes en Technologie de l'Information et de la Communication Privée",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-sup-technology-2.jpg",
-          "source_url": "https://suptechnology.ma/public/events-images/1792086795-agenda-python.jpg.png",
-          "page_source": "https://suptechnology.ma/",
-          "credit": "© Ecole Supérieure des Hautes Etudes en Technologie de l'Information et de la Communication Privée",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-sup-technology-3.jpg",
-          "source_url": "https://suptechnology.ma/public/events-images/1792086816-agenda-angular.jpg.png",
-          "page_source": "https://suptechnology.ma/",
-          "credit": "© Ecole Supérieure des Hautes Etudes en Technologie de l'Information et de la Communication Privée",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 33.570807,
@@ -37804,28 +37670,7 @@
         "date_collecte": "2026-10-14",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-sup-isi-1.jpg",
-          "source_url": "https://supingenierie.com/image/6.png",
-          "page_source": "https://supingenierie.com/",
-          "credit": "© Institut Supérieur Privé de Génie Informatique",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-sup-isi-2.jpg",
-          "source_url": "https://supingenierie.com/image/p16.png",
-          "page_source": "https://supingenierie.com/",
-          "credit": "© Institut Supérieur Privé de Génie Informatique",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 35.755497,
@@ -39894,16 +39739,6 @@
         {
           "fichier": "assets/photos/ma/ma-isep-casa-1.jpg",
           "source_url": "https://iseparamedical.com/wp-content/themes/isep/assets/images/isep/Untitled-1.jpg",
-          "page_source": "https://iseparamedical.com/",
-          "credit": "© Institut Supérieur des Etudes Paramédicales de Casablanca",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-isep-casa-2.jpg",
-          "source_url": "https://iseparamedical.com/wp-content/uploads/2025/08/sage-femme.png",
           "page_source": "https://iseparamedical.com/",
           "credit": "© Institut Supérieur des Etudes Paramédicales de Casablanca",
           "licence": null,
@@ -43353,18 +43188,7 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-supmti-1.jpg",
-          "source_url": "https://supmti.ac.ma/wp-content/uploads/slider/cache/68a2185fe1e9794ee654feb2b56e3ad6/slider-2-cropped.png",
-          "page_source": "https://supmti.ac.ma/",
-          "credit": "© SUPMTI – École Supérieure de Management, Informatique et Télécommunication",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 34.017374,
@@ -44574,16 +44398,6 @@
         "a_verifier": false
       },
       "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-hecf-1.jpg",
-          "source_url": "https://hecf.ac.ma/wp-content/uploads/2022/12/CRI.jpg",
-          "page_source": "https://hecf.ac.ma/",
-          "credit": "© HECF – École des Hautes Études Comptables et Financières",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
         {
           "fichier": "assets/photos/ma/ma-hecf-2.jpg",
           "source_url": "https://hecf.ac.ma/wp-content/uploads/2023/03/99-scaled.jpeg",
@@ -46667,38 +46481,7 @@
         "date_collecte": "2026-10-09",
         "a_verifier": true
       },
-      "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-iheps-1.jpg",
-          "source_url": "https://iheps.ac.ma/wp-content/uploads/2024/08/IHEPS-16.jpg",
-          "page_source": "https://iheps.ac.ma/",
-          "credit": "© IHEPS – Institut des Hautes Études Paramédicales",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-iheps-2.jpg",
-          "source_url": "https://iheps.ac.ma/wp-content/uploads/2024/08/IHEPS-17.jpg",
-          "page_source": "https://iheps.ac.ma/",
-          "credit": "© IHEPS – Institut des Hautes Études Paramédicales",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
-        {
-          "fichier": "assets/photos/ma/ma-iheps-3.jpg",
-          "source_url": "https://iheps.ac.ma/wp-content/uploads/2024/08/IHEPS-18.jpg",
-          "page_source": "https://iheps.ac.ma/",
-          "credit": "© IHEPS – Institut des Hautes Études Paramédicales",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        }
-      ],
+      "photos": [],
       "geo": {
         "coordonnees": {
           "lat": 33.563648,
@@ -47742,16 +47525,6 @@
         "a_verifier": true
       },
       "photos": [
-        {
-          "fichier": "assets/photos/ma/ma-ifjsup-1.jpg",
-          "source_url": "https://www.ifjsup.ma/wp-content/uploads/2018/06/Background_ifjpress-1878x874.jpg",
-          "page_source": "https://www.ifjsup.ma/",
-          "credit": "© IFJSUP – Institut Supérieur du Journalisme et de l'Information",
-          "licence": null,
-          "methode": "site_officiel",
-          "a_verifier": true,
-          "date_collecte": "2026-11-05"
-        },
         {
           "fichier": "assets/photos/ma/ma-ifjsup-2.jpg",
           "source_url": "https://www.ifjsup.ma/wp-content/uploads/2018/06/Slider-Partenariat_ifjpress-e1530733806513.jpg",
