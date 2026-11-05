@@ -14,6 +14,7 @@ import { METHODS } from "../payments/providers";
 import { cheminInterne } from "@/lib/redirection";
 import { DESTINATIONS_ACTIVES, destinationById, etabById, etablissements, formationById, metiers, metierById, niveauLabel, villesOf, admissionLabel, type Etablissement, type PaysCode } from "@/lib/data";
 import { OFFRES, norm, villesOffre } from "@/lib/catalogue";
+import { etabDetail } from "@/lib/etab-detail";
 import { COUTS, LOGEMENT_LABEL, devis, formationParDefaut, type Logement } from "@/lib/devis";
 import { convertirDe, devisePays, formatMontant, symbole, type Taux } from "@/lib/devises";
 import { nomPays, paysOrigine, paysOrigineById, visaDestination } from "@/lib/pays-origine";
@@ -21,7 +22,8 @@ import { nomPays, paysOrigine, paysOrigineById, visaDestination } from "@/lib/pa
 type User = typeof schema.users.$inferSelect;
 
 export const naviActif = () => !!process.env.ANTHROPIC_API_KEY;
-const MODELE = () => process.env.NAVI_MODEL || "claude-opus-5-5";
+// Modèle rapide par défaut (réponses en quelques secondes) ; NAVI_MODEL permet d'en choisir un autre.
+const MODELE = () => process.env.NAVI_MODEL || "claude-sonnet-5-5";
 const EFFORT = () => (["low", "medium", "high"].includes(process.env.NAVI_EFFORT ?? "") ? process.env.NAVI_EFFORT : "low") as "low" | "medium" | "high";
 const limite = (nom: string, defaut: number) => { const n = Number(process.env[nom]); return Number.isFinite(n) && n > 0 ? n : defaut; };
 
@@ -103,7 +105,7 @@ async function chercherEtablissements(i: { texte: string | null; pays: string | 
 }
 
 async function ficheEtablissement(id: string) {
-  const e = etabById[id];
+  const e = etabDetail(id);
   if (!e) return { erreur: "Établissement inconnu : utilise d'abord chercher_etablissements pour obtenir son identifiant." };
   const C = COUTS[e.pays];
   const typ = C?.scolarite_annuelle[e.type] ? e.type : "universite";
@@ -377,6 +379,7 @@ Style :
 - Montants dans la monnaie du pays de départ quand elle est connue (F CFA pour le Gabon, le Cameroun, le Sénégal…), avec la monnaie du pays d'études en complément (dirhams au Maroc, F CFA au Sénégal).
 
 Méthode :
+- Rapidité : appelle en une seule fois, dans le même tour, tous les outils de recherche utiles (ils s'exécutent en parallèle). Au tour suivant, rédige ta réponse puis appelle afficher dans ce même tour : c'est ta dernière action.
 - Avant de répondre sur une école, une formation ou un coût, appelle l'outil adapté. Pour le suivi d'un dossier, appelle mon_espace.
 - Termine presque toujours par un seul appel à afficher : 2 à 4 établissements pertinents (le moins cher en premier si le budget compte), une estimation de coût si on parle d'argent, 1 à 3 liens issus des outils (comparateur : /comparateur/?f=<formation>&e=<id1>,<id2>,<id3> ; devis : page_devis ; candidater : /espace/candidatures/nouvelle?etab=<id>&formation=<id> ; document demandé : /espace/documents/), et 2 ou 3 relances courtes.
 - Une école marquée partenaire_navigoal a souscrit une mise en avant : tu peux la citer en premier à pertinence égale, en le signalant (« école partenaire de Navigoal »), sans jamais écarter une école plus pertinente.
@@ -455,10 +458,10 @@ export async function* converser(req: NaviRequete, user: User | null): AsyncGene
       continue;
     }
     messages.push({ role: "assistant", content: m.content as Anthropic.Beta.BetaContentBlockParam[] });
-    const resultats: Anthropic.Beta.BetaToolResultBlockParam[] = [];
-    for (const a of appels) {
+    // Outils exécutés en parallèle (recherches indépendantes).
+    const resultats: Anthropic.Beta.BetaToolResultBlockParam[] = await Promise.all(appels.map(async (a): Promise<Anthropic.Beta.BetaToolResultBlockParam> => {
       const v = VALIDATION[a.name]?.safeParse(a.input);
-      if (!v?.success) { resultats.push({ type: "tool_result", tool_use_id: a.id, is_error: true, content: JSON.stringify({ INVALID_JSON: JSON.stringify(a.input).slice(0, 500) }) }); continue; }
+      if (!v?.success) return { type: "tool_result", tool_use_id: a.id, is_error: true, content: JSON.stringify({ INVALID_JSON: JSON.stringify(a.input).slice(0, 500) }) };
       let r: unknown;
       try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any -- validé
@@ -480,8 +483,10 @@ export async function* converser(req: NaviRequete, user: User | null): AsyncGene
         console.error("Navi outil", a.name, e);
         r = { erreur: "Données momentanément indisponibles." };
       }
-      resultats.push({ type: "tool_result", tool_use_id: a.id, content: JSON.stringify(r) });
-    }
+      return { type: "tool_result", tool_use_id: a.id, content: JSON.stringify(r) };
+    }));
+    // Réponse rédigée et cartes demandées dans le même tour : inutile de rappeler le modèle.
+    if (ecrit && appels.every((a) => a.name === "afficher")) break;
     messages.push({ role: "user", content: resultats });
   }
   if (cartes.length) yield { t: "cartes", v: cartes };

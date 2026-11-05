@@ -36,7 +36,22 @@ const sup = bruts.map((e) => ({
   formations: e.formations, filieres: e.filieres, filieres_echues: e.filieres_echues ?? [], autorisation: e.autorisation ?? null, logo: logoUrl(e.logo), photos: (e.photos || []).map(photoOf),
   geo: e.geo ?? null, campus: e.campus ?? null, alias: e.alias ?? [], site: e.site ?? null,
 }));
-write("etablissements", sup);
+// Version légère pour le navigateur (listes, recherche, cartes) ; le détail complet (filières homologuées, infos du site,
+// géolocalisation, description…) reste côté serveur : etablissements_detail.json, lu par lib/etab-detail.ts.
+const filiereLite = (f) => ({ intitule: f.intitule, formation: f.formation, ville: f.ville ?? null, ...(f.campus ? { campus: f.campus } : {}), ...(f.homologation?.statut === "recente" ? { recente: true } : {}) });
+const lite = sup.map((e) => ({
+  id: e.id, nom: e.nom, sigle: e.sigle, pays: e.pays, ville: e.ville, type: e.type, type_libelle: e.type_libelle, statut: e.statut,
+  site_web: e.site_web, annee_creation: e.annee_creation, coordonnees: e.coordonnees, label: e.label, label_libelle: e.label_libelle,
+  reconnaissance_en_cours: e.reconnaissance_en_cours, formations: e.formations, logo: e.logo, photos: e.photos, alias: e.alias,
+  filieres: e.filieres.map(filiereLite), filieres_echues: e.filieres_echues.map(filiereLite),
+  campus: e.campus ? e.campus.map((c) => ({ id: c.id, ville: c.ville, label: c.label, label_libelle: c.label_libelle })) : null,
+  site: e.site ? { programmes: (e.site.programmes ?? []).map((p) => ({ intitule: p.intitule, formation: p.formation, campus: p.campus ?? null })) } : null,
+}));
+write("etablissements", lite);
+write("etablissements_detail", Object.fromEntries(sup.map((e) => [e.id, {
+  filieres: e.filieres, filieres_echues: e.filieres_echues, site: e.site, geo: e.geo, campus: e.campus, description: e.description,
+  adresse: e.adresse, reconnaissance: e.reconnaissance, autorisation: e.autorisation,
+}])));
 write("destinations", destDoc.map((d) => {
   const es = sup.filter((e) => e.pays === d.code);
   const villes = {};

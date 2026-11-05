@@ -1,5 +1,6 @@
 import { Building2 } from "lucide-react";
 import { mobilite, type Etablissement } from "@/lib/data";
+import { photo } from "@/lib/photos";
 
 /** Photo d'un établissement, ou visuel de remplacement en attendant celles fournies par l'école. */
 export function EtabPhoto({ e, n = 0, className = "", rounded = "rounded-2xl", showCredit = false }: { e: Etablissement; n?: number; className?: string; rounded?: string; showCredit?: boolean }) {
@@ -13,6 +14,16 @@ export function EtabPhoto({ e, n = 0, className = "", rounded = "rounded-2xl", s
         <img src={ville.src} alt={`Vue de ${e.ville}`} loading="lazy" className="h-full w-full object-cover" />
         <span className="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/10 to-transparent" />
         {showCredit && <PhotoCredit p={ville} />}
+      </div>
+    );
+  // Ni photo de l'école ni vue de la ville : photo d'étudiants (illustration libre de droits)
+  const neutre = photo("communaute");
+  if (!p && neutre)
+    return (
+      <div className={`relative overflow-hidden ${rounded} ${className}`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={neutre.src} alt="" title={`Illustration : ${neutre.credit}`} loading="lazy" className="h-full w-full object-cover" />
+        <span className="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/10 to-transparent" />
       </div>
     );
   if (!p)

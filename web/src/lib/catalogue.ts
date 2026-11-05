@@ -35,7 +35,8 @@ export const VILLES: VilleInfo[] = VILLES_ETUDES.map((nom) => ({
   pays: etablissements.find((e) => villesOf(e).includes(nom))!.pays,
   etabs: etablissements.filter((e) => villesOf(e).includes(nom)),
   offres: OFFRES.filter((o) => o.villes.includes(nom)),
-  photo: mobilite[nom]?.couverture ?? null,
+  // Vue de la ville ; à défaut, photo d'un campus situé dans la ville (école sans campus multiples)
+  photo: mobilite[nom]?.couverture ?? etablissements.find((e) => !e.campus && e.ville === nom && e.photos.length)?.photos[0] ?? null,
 })).sort((a, b) => b.etabs.length - a.etabs.length || a.nom.localeCompare(b.nom, "fr"));
 export const villeBySlug = Object.fromEntries(VILLES.map((v) => [v.slug, v])) as Record<string, VilleInfo>;
 export const villeHref = (nom: string) => `/villes/${slugVille(nom)}/`;

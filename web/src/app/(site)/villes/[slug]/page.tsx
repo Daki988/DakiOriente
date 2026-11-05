@@ -12,6 +12,7 @@ import { VILLES, norm, villeBySlug, villeHref, type VilleInfo } from "@/lib/cata
 import { COUTS } from "@/lib/devis";
 import { auPays, destinationById, domaineById, labelPays, mobilite, paysDetailById, type Etablissement, type Label } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
+import { etabDetail } from "@/lib/etab-detail";
 import { descriptionSeo, titreSeo } from "@/lib/seo";
 
 export const generateStaticParams = () => VILLES.map((v) => ({ slug: v.slug }));
@@ -27,7 +28,8 @@ function resume(v: VilleInfo) {
 }
 
 /** Campus de l'établissement dans la ville (adresse, quartier, label propres au campus). */
-function campusDe(e: Etablissement, ville: string): { label: Label; adresse: string | null; quartier: string | null } {
+function campusDe(e0: Etablissement, ville: string): { label: Label; adresse: string | null; quartier: string | null } {
+  const e = etabDetail(e0.id)!;
   const c = e.campus?.find((x) => x.ville === ville);
   return c ? { label: c.label, adresse: c.adresse, quartier: c.geo?.quartier ?? null } : { label: e.label, adresse: e.adresse, quartier: e.geo?.quartier ?? null };
 }

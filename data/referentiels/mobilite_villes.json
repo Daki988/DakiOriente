@@ -308,7 +308,13 @@
         "Mhannech",
         "Martil (bord de mer)"
       ],
-      "conseil": "Cadre méditerranéen, proche de Martil et de Tanger."
+      "conseil": "Cadre méditerranéen, proche de Martil et de Tanger.",
+      "couverture": {
+        "fichier": "assets/photos/villes/tetouan.jpg",
+        "credit": "Maddie Leopardo (Unsplash)",
+        "licence": "Licence Unsplash",
+        "page_source": "https://unsplash.com/photos/egd0IU4wVy0"
+      }
     },
     "Ben Guérir": {
       "reseaux": [

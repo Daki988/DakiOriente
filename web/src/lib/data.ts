@@ -10,7 +10,6 @@ import navileaseData from "@/data/navilease.json";
 import riasecData from "@/data/profils_riasec.json";
 import paysDetailsData from "@/data/pays_details.json";
 import mobiliteData from "@/data/mobilite.json";
-import destinationsData from "@/data/destinations.json";
 
 export type PaysCode = "MA" | "SN" | "CI" | "TN" | "CM" | "BJ" | "TG" | "GA" | "RW" | "KE" | "ZA";
 
@@ -23,18 +22,28 @@ export type Formation = {
   competences: string[]; mode_admission: string; metiers: string[];
   series_recommandees: Partial<Record<PaysCode, string[]>>; etablissements: string[];
 };
+/** Établissement, version légère (envoyée au navigateur) : listes, recherche, cartes. Détail complet : lib/etab-detail.ts (serveur). */
 export type Etablissement = {
   id: string; nom: string; sigle: string; pays: PaysCode; ville: string; type: string; type_libelle: string;
   statut: string; site_web: string | null; annee_creation: number | null;
   coordonnees: { lat: number; lng: number } | null; formations: string[]; logo: string | null; photos: Photo[];
-  label: Label; label_libelle: string; reconnaissance: string | null; reconnaissance_en_cours: boolean;
-  adresse: string | null; description: string | null; filieres: Filiere[];
+  label: Label; label_libelle: string; reconnaissance_en_cours: boolean;
+  /** Filières homologuées (intitulé, formation générique, ville ou campus). */
+  filieres: FiliereLite[];
   /** Établissement autorisé : filières dont l'accréditation a pris fin (diplômes d'établissement). */
+  filieres_echues: FiliereLite[];
+  /** Réseau multi-campus : campus proposés (choix du campus à la candidature). */
+  campus: { id: string; ville: string; label: Label; label_libelle: string }[] | null; alias: string[];
+  site: { programmes: { intitule: string; formation: string | null; campus: string[] | null }[] } | null;
+};
+export type FiliereLite = { intitule: string; formation: string | null; ville: string | null; campus?: string[]; /** Accréditation arrivée à échéance, renouvellement à confirmer. */ recente?: boolean };
+/** Établissement complet (pages et services côté serveur). */
+export type EtablissementDetail = Omit<Etablissement, "filieres" | "filieres_echues" | "campus" | "site"> & {
+  reconnaissance: string | null; adresse: string | null; description: string | null; filieres: Filiere[];
   filieres_echues: Filiere[]; autorisation: string | null;
   /** Localisation et mobilité (OpenStreetMap). */
   geo: Geo | null;
-  /** Réseau multi-campus : campus proposés (choix du campus à la candidature). */
-  campus: Campus[] | null; alias: string[];
+  campus: Campus[] | null;
   /** Informations relevées sur le site officiel de l'établissement. */
   site: SiteInfos | null;
 };
@@ -113,17 +122,8 @@ export const competenceById = index(competences);
 export const serieById = index(series);
 export const paysDetailById = index(paysDetails) as Record<PaysCode, PaysDetail>;
 
-/** Pays de destination des études (référentiel destinations) : actifs (publiés) ou « bientôt ». */
-export type Destination = {
-  code: PaysCode; nom: string; prep: string; de: string; actif: boolean; defaut?: boolean; devise: string; regulateur: string | null;
-  labels: Partial<Record<Label, { libelle: string; description: string }>>; reconnaissance: string | null; source_label?: string;
-  etablissements: number; villes: { nom: string; n: number }[];
-};
-export const destinations = destinationsData as unknown as Destination[];
-export const destinationById = Object.fromEntries(destinations.map((d) => [d.code, d])) as Record<PaysCode, Destination>;
-export const DESTINATIONS_ACTIVES = destinations.filter((d) => d.actif);
-export const DESTINATIONS_BIENTOT = destinations.filter((d) => !d.actif);
-export const DESTINATION_DEFAUT = (DESTINATIONS_ACTIVES.find((d) => d.defaut) ?? DESTINATIONS_ACTIVES[0]).code;
+export { destinations, destinationById, DESTINATIONS_ACTIVES, DESTINATIONS_BIENTOT, DESTINATION_DEFAUT, type Destination } from "./destinations";
+import { destinations, destinationById, DESTINATIONS_ACTIVES } from "./destinations";
 /** Libellé d'un label dans un pays (ex. « Habilité par l'État » au Sénégal), sinon le libellé générique. */
 export const labelPays = (label: Label, code?: PaysCode) => (code && destinationById[code]?.labels[label]?.libelle) || labelById[label]?.libelle;
 export const labelDescriptionPays = (label: Label, code?: PaysCode) => (code && destinationById[code]?.labels[label]?.description) || labelById[label]?.description;
@@ -134,7 +134,7 @@ export const PAYS_ACTIFS_TEXTE = joinFr(DESTINATIONS_ACTIVES.map((d) => d.prep))
 export const auPays = (code: PaysCode) => destinationById[code]?.prep ?? `au ${PAYS_NOM[code] ?? code}`;
 
 export const STATUT_LONG: Record<string, string> = { prive: "Privé", partenariat_etat: "Privé, en partenariat avec l'État", prive_reconnu: "Privé reconnu par l'État", prive_non_lucratif: "Privé à but non lucratif", inter_etats: "Inter-États" };
-export const fmt = (n: number) => Math.round(n).toLocaleString("fr-FR").replace(/[\u202f\u00a0]/g, " ");
+export { fmt } from "./format";
 /** Établissements d'un pays, ceux qui ont des photos d'abord. */
 export const vitrine = (code?: PaysCode, needPhoto = false) =>
   etablissements.filter((e) => (!code || e.pays === code) && (!needPhoto || e.photos.length))

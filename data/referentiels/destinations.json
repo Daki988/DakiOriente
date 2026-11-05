@@ -5,7 +5,8 @@
     "date": "2026-11-04",
     "plateforme": "Navigoal",
     "description": "Pays de destination des études. Un pays « actif » est publié sur le site (établissements, fiche pays, devis, Navi) ; les autres sont préparés et annoncés « bientôt ».",
-    "regle": "Seuls les établissements privés reconnus par l'État du pays (ou inter-États) sont publiés. Deux niveaux de label : reconnu_etat (l'établissement) et diplomes_homologues (ses programmes) ; le libellé dépend du pays."
+    "regle": "Seuls les établissements privés reconnus par l'État du pays (ou inter-États) sont publiés. Deux niveaux de label : reconnu_etat (l'établissement) et diplomes_homologues (ses programmes) ; le libellé dépend du pays.",
+    "regle_affichage": "« annonce » : pays inactif affiché « bientôt » sur le site (false = masqué). Seul le Maroc est publié à ce jour (demande du 5 novembre 2026) ; le Sénégal est prêt (référentiel construit) et se réactive avec actif: true."
   },
   "items": [
     {
@@ -35,7 +36,7 @@
       "nom": "Sénégal",
       "prep": "au Sénégal",
       "de": "du Sénégal",
-      "actif": true,
+      "actif": false,
       "devise": "XOF",
       "fichier": "etablissements_superieurs_sn",
       "regulateur": "Ministère de l'Enseignement supérieur, de la Recherche et de l'Innovation (MESRI) et Autorité nationale d'Assurance qualité (ANAQ-Sup)",
@@ -50,7 +51,8 @@
         }
       },
       "reconnaissance": "Au Sénégal, un diplôme privé est reconnu par l'État quand l'établissement a reçu l'habilitation institutionnelle et que le programme est accrédité par l'ANAQ-Sup (Autorité nationale d'assurance qualité). L'accréditation vaut 5 ans. Les établissements inter-États (ESMT, CESAG, EISMV) délivrent des diplômes reconnus par leurs États membres.",
-      "source_label": "Bases officielles de l'ANAQ-Sup (anaqsup.sn), consultées le 4 novembre 2026"
+      "source_label": "Bases officielles de l'ANAQ-Sup (anaqsup.sn), consultées le 4 novembre 2026",
+      "annonce": false
     },
     {
       "code": "CI",
@@ -62,7 +64,8 @@
       "fichier": "etablissements_superieurs_ci",
       "regulateur": null,
       "labels": {},
-      "reconnaissance": null
+      "reconnaissance": null,
+      "annonce": false
     },
     {
       "code": "TN",
@@ -74,7 +77,8 @@
       "fichier": "etablissements_superieurs_tn",
       "regulateur": null,
       "labels": {},
-      "reconnaissance": null
+      "reconnaissance": null,
+      "annonce": false
     },
     {
       "code": "CM",
@@ -86,7 +90,8 @@
       "fichier": "etablissements_superieurs_cm",
       "regulateur": null,
       "labels": {},
-      "reconnaissance": null
+      "reconnaissance": null,
+      "annonce": false
     },
     {
       "code": "BJ",
@@ -98,7 +103,8 @@
       "fichier": "etablissements_superieurs_bj",
       "regulateur": null,
       "labels": {},
-      "reconnaissance": null
+      "reconnaissance": null,
+      "annonce": false
     },
     {
       "code": "TG",
@@ -110,7 +116,8 @@
       "fichier": "etablissements_superieurs_tg",
       "regulateur": null,
       "labels": {},
-      "reconnaissance": null
+      "reconnaissance": null,
+      "annonce": false
     },
     {
       "code": "GA",
@@ -122,7 +129,8 @@
       "fichier": "etablissements_superieurs_ga",
       "regulateur": null,
       "labels": {},
-      "reconnaissance": null
+      "reconnaissance": null,
+      "annonce": false
     },
     {
       "code": "RW",
@@ -134,7 +142,8 @@
       "fichier": "etablissements_superieurs_rw",
       "regulateur": null,
       "labels": {},
-      "reconnaissance": null
+      "reconnaissance": null,
+      "annonce": false
     },
     {
       "code": "KE",
@@ -146,7 +155,8 @@
       "fichier": "etablissements_superieurs_ke",
       "regulateur": null,
       "labels": {},
-      "reconnaissance": null
+      "reconnaissance": null,
+      "annonce": false
     },
     {
       "code": "ZA",
@@ -158,7 +168,8 @@
       "fichier": "etablissements_superieurs_za",
       "regulateur": null,
       "labels": {},
-      "reconnaissance": null
+      "reconnaissance": null,
+      "annonce": false
     }
   ]
 }

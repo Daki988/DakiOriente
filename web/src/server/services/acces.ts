@@ -8,7 +8,7 @@ import { audit } from "../lib/audit";
 import { hashPassword, passwordProblem } from "../auth/password";
 import { AppError, forbidden, notFound } from "../lib/errors";
 import { sendEmail } from "../lib/messaging-channels";
-import { etabById } from "@/lib/data";
+import { etabDetail } from "@/lib/etab-detail";
 import { SITE_URL } from "@/lib/site";
 
 type User = typeof schema.users.$inferSelect;
@@ -29,7 +29,7 @@ export function motDePasseProvisoire() {
 
 /** E-mail officiel publié par l'école (site, rubrique contact), s'il existe. */
 const emailOfficiel = (eid: string) => {
-  const c = (etabById[eid]?.site as { contact?: { email?: string } } | null)?.contact?.email?.trim().toLowerCase();
+  const c = etabDetail(eid)?.site?.contact?.email?.trim().toLowerCase();
   return c && /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/.test(c) ? c : null;
 };
 

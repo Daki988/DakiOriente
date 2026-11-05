@@ -1,4 +1,5 @@
 import Link from "@/components/ui/Link";
+import { ParOapsPied } from "@/components/ui/ParOaps";
 import { Brand } from "./Brand";
 import { DeviseSelect } from "./Devise";
 import { VILLES, villeHref } from "@/lib/catalogue";
@@ -33,7 +34,7 @@ export function Footer() {
           </div>
         </div>
         <div className="flex flex-col justify-between gap-3 border-t border-[#1e2f73] pt-6 text-[13px] text-[#7f8fcf] sm:flex-row">
-          <span>© 2026 Navigoal — Navilease est un service Navigoal</span>
+          <span className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5"><span>© 2026 Navigoal — Navilease est un service Navigoal</span><ParOapsPied /></span>
           <span className="flex flex-wrap gap-4"><Link href="/confidentialite" className="hover:text-white">Confidentialité</Link><Link href="/mentions-legales" className="hover:text-white">Mentions légales</Link><Link href="/cgu" className="hover:text-white">CGU</Link><Link href="/cookies" className="hover:text-white">Cookies</Link></span>
         </div>
       </div>

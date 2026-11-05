@@ -3,7 +3,8 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode 
 import { Check, ChevronDown, Globe } from "lucide-react";
 import Link from "@/components/ui/Link";
 import { Drapeau } from "@/components/ui/Drapeau";
-import { DESTINATIONS_ACTIVES, DESTINATIONS_BIENTOT, DESTINATION_DEFAUT, destinationById, type PaysCode } from "@/lib/data";
+import { DESTINATIONS_ACTIVES, DESTINATIONS_BIENTOT, DESTINATION_DEFAUT, destinationById } from "@/lib/destinations";
+import type { PaysCode } from "@/lib/data";
 
 // Pays de destination choisi par le visiteur (maquettes « destinations ») : mémorisé dans le navigateur ;
 // formations, écoles, comparateur, devis et Navi s'adaptent. « tous » = tous pays confondus.

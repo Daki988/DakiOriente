@@ -5,6 +5,8 @@ import { EtabPhoto } from "./EtabPhoto";
 import { PartenaireMarque } from "./Partenaires";
 import { Tilt } from "@/components/motion/Tilt";
 import { Drapeau } from "@/components/ui/Drapeau";
+import { Illustration } from "@/components/ui/Illustration";
+import { photoFormation, photoMetier } from "@/lib/photos";
 import { LABELS, competenceLabel, etabById, etablissements, labelById, labelDescriptionPays, labelPays, niveauLabel, type Formation, type Label, type Metier, type PaysCode } from "@/lib/data";
 
 export const DOMAIN_STYLE: Record<string, { icon: LucideIcon; bg: string; fg: string; solid: string }> = {
@@ -53,6 +55,7 @@ export function MetierCard({ m }: { m: Metier }) {
   return (
     <Tilt className="h-full">
       <Link href={`/metiers/${m.id}/`} className="card group flex h-full flex-col gap-3 p-5 transition-shadow hover:shadow-lift">
+        <Illustration p={photoMetier(m.id, m.domaine)} domaine={m.domaine} className="-mx-5 -mt-5 h-32" rounded="rounded-t-[20px]" />
         <div className="flex items-start justify-between">
           <div className="flex h-12 w-12 items-center justify-center rounded-[14px] text-white" style={{ background: s.solid }}><Icon size={24} /></div>
           <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f6f8fe] text-ink-mute transition group-hover:bg-[#ffecef] group-hover:text-[#d42a50]"><Heart size={17} /></span>
@@ -97,13 +100,11 @@ export function PaysCard({ code }: { code: "MA" }) {
 
 export function FormationOfferCard({ f, etabId, score, highlight = false, villes }: { f: Formation; etabId: string; score: number; highlight?: boolean; villes?: string[] }) {
   const e = etabById[etabId];
-  const s = domStyle(f.domaine);
-  const Icon = s.icon;
   return (
     <div className={`card relative flex flex-col gap-5 p-4 transition-all hover:-translate-y-1 hover:shadow-lift sm:flex-row ${highlight ? "border-brand-200 shadow-lift" : ""}`}>
       <PartenaireMarque id={etabId} />
-      <div className="relative flex h-28 w-full shrink-0 items-center justify-center rounded-2xl sm:w-36" style={{ background: `linear-gradient(135deg, ${s.solid}, ${s.fg}99)` }}>
-        <Icon size={46} className="text-white/75" strokeWidth={1.6} />
+      <div className="relative h-28 w-full shrink-0 sm:w-36">
+        <Illustration p={photoFormation(f.domaine, e)} domaine={f.domaine} className="h-full w-full" rounded="rounded-2xl" />
         <div className="absolute -bottom-3 left-3"><EtabLogo e={e} size={44} className="shadow" /></div>
       </div>
       <div className="flex flex-1 flex-col gap-2 pt-2 sm:pt-0">

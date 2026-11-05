@@ -6,11 +6,12 @@ import { permanentRedirect } from "next/navigation";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { PhotoGallery } from "@/components/sections/PhotoGallery";
-import { STATUT_LONG, auPays, destinationById, labelDescriptionPays, mobilite, villesOf, type Campus, type Etablissement, domaineById, etabById, etablissements, fmt, labelById, metierById, niveauLabel, paysDetailById, residences, formationById, type Filiere } from "@/lib/data";
+import { STATUT_LONG, auPays, destinationById, labelDescriptionPays, mobilite, villesOf, type Campus, type EtablissementDetail as Etablissement, domaineById, etablissements, fmt, labelById, metierById, niveauLabel, paysDetailById, residences, formationById, type Filiere } from "@/lib/data";
 import { Drapeau } from "@/components/ui/Drapeau";
 import { LabelChip } from "@/components/ui/Cards";
 import { Prix } from "@/components/ui/Devise";
 import { villeHref } from "@/lib/catalogue";
+import { etabDetail } from "@/lib/etab-detail";
 import { COUTS, devis, formationParDefaut } from "@/lib/devis";
 import { establishmentLive } from "@/server/content-ui";
 import { SITE_URL } from "@/lib/site";
@@ -19,7 +20,7 @@ import { descriptionSeo, titreSeo } from "@/lib/seo";
 export const generateStaticParams = () => etablissements.map((e) => ({ id: e.id }));
 export const revalidate = 300; // reflète les mises à jour faites par l'établissement
 export const generateMetadata = ({ params }: { params: { id: string } }): Metadata => {
-  const e = etabById[params.id];
+  const e = etabDetail(params.id);
   if (!e) return {};
   const villes = villesOf(e);
   const nb = e.filieres.length + e.filieres_echues.length;
@@ -130,7 +131,7 @@ const ADMISSION = ["Dossier en ligne via Navigoal (bac ou relevés de notes, CV,
 export default async function EtabPage({ params }: { params: { id: string } }) {
   const live = await establishmentLive(params.id);
   const confirmed = (live?.programs ?? []).filter((p) => p.feesConfirmed || !p.indicative);
-  const e = etabById[params.id];
+  const e = etabDetail(params.id)!;
   if (e.id !== params.id) permanentRedirect(`/etablissements/${e.id}/`); // ancien campus regroupé
   const P = paysDetailById[e.pays];
   const C = COUTS[e.pays];
@@ -144,7 +145,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
   const liste = autorise ? [...e.filieres, ...e.filieres_echues] : e.filieres;
   const villes = villesOf(e);
   const groupes = liste.reduce<Record<string, Filiere[]>>((acc, f) => ((acc[groupe(f)] ??= []).push(f), acc), {});
-  const shared = (x: typeof e) => x.formations.filter((f) => e.formations.includes(f)).length;
+  const shared = (x: { formations: string[] }) => x.formations.filter((f) => e.formations.includes(f)).length;
   const similar = etablissements.filter((x) => x.id !== e.id && shared(x) >= 2).sort((a, b) => Number(b.pays === e.pays) - Number(a.pays === e.pays) || shared(b) - shared(a)).slice(0, 4);
   const res = residences.filter((r) => r.etablissements_desservis.includes(e.id));
   const fid = formationParDefaut(e.id);

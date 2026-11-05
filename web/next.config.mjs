@@ -15,6 +15,8 @@ const CSP = [
 ].join("; ");
 
 /** @type {import('next').NextConfig} */
+const PRIVES = ["admin", "bailleur", "compte", "conseiller", "espace", "etablissement", "messages", "notifications", "orientation", "parent", "connexion", "inscription", "mot-de-passe-oublie", "paiement", "premiere-connexion", "verification", "navilease/logements", "navilease/espace"];
+
 const nextConfig = {
   // Paquet autonome (serveur Node seul) pour un hébergement cPanel / VPS : BUILD_STANDALONE=1 npm run build
   ...(process.env.BUILD_STANDALONE ? { output: "standalone" } : {}),
@@ -37,6 +39,9 @@ const nextConfig = {
     // CDN-Cache-Control, prioritaire pour Varnish, limite les pages HTML à 5 minutes (les fichiers /_next/static,
     // versionnés, restent en cache long). Les déploiements purgent en plus tout le cache.
     { source: "/((?!_next/static|api/).*)", headers: [{ key: "CDN-Cache-Control", value: "public, max-age=300" }] },
+    // Espaces connectés et pages d'authentification : jamais gardés par le cache de l'hébergeur (contenu propre à chaque compte).
+    ...PRIVES.map((p) => ({ source: `/${p}/:path*`, headers: [{ key: "CDN-Cache-Control", value: "no-store" }] })),
+    ...PRIVES.map((p) => ({ source: `/${p}`, headers: [{ key: "CDN-Cache-Control", value: "no-store" }] })),
     { source: "/api/:path*", headers: [{ key: "CDN-Cache-Control", value: "no-store" }] }];
   },
 };

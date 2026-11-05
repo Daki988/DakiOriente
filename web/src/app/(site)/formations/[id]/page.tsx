@@ -4,6 +4,8 @@ import { FormationDetail } from "@/components/sections/FormationDetail";
 import { villesOffre } from "@/lib/catalogue";
 import { etabById, formationById, formations } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
+import { etabDetail } from "@/lib/etab-detail";
+import type { DetailFormation } from "@/components/sections/FormationDetail";
 import { descriptionSeo, titreSeo, variantesNom } from "@/lib/seo";
 
 export const generateStaticParams = () => formations.map((f) => ({ id: f.id }));
@@ -34,12 +36,21 @@ function jsonLd(id: string) {
   };
 }
 
+/** Filières et infos du site officiel des seules écoles qui proposent la formation (le reste n'est pas envoyé au navigateur). */
+function details(id: string): DetailFormation {
+  const f = formationById[id];
+  return Object.fromEntries((f?.etablissements ?? []).map((x) => etabDetail(x)).filter((e) => !!e).map((e) => [e!.id, {
+    filieres: [...e!.filieres, ...e!.filieres_echues].filter((x) => x.formation === id),
+    site: e!.site ? { admission: e!.site.admission, frais: e!.site.frais, programmes: e!.site.programmes.filter((p) => p.formation === id) } : null,
+  }]));
+}
+
 export default function FormationPage({ params }: { params: { id: string } }) {
   const ld = jsonLd(params.id);
   return (
     <>
       {ld && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />}
-      <Suspense><FormationDetail id={params.id} /></Suspense>
+      <Suspense><FormationDetail id={params.id} details={details(params.id)} /></Suspense>
     </>
   );
 }

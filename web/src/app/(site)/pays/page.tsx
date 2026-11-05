@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import Link from "@/components/ui/Link";
 import { ArrowRight, ChevronRight, ShieldCheck } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
@@ -13,6 +14,8 @@ export const metadata: Metadata = {
 
 /** Pays de destination (maquettes « destinations », écrans 1 et 5) : pays ouverts, pays à venir et sens des labels dans chaque pays. */
 export default function PaysPage() {
+  // Une seule destination publiée : la fiche pays directement.
+  if (DESTINATIONS_ACTIVES.length === 1) redirect(`/pays/${DESTINATIONS_ACTIVES[0].code.toLowerCase()}/`);
   const [n1, n2] = LABELS;
   return (
     <>

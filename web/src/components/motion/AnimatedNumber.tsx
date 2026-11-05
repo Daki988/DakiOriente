@@ -1,7 +1,7 @@
 "use client";
 import { animate } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { fmt } from "@/lib/data";
+import { fmt } from "@/lib/format";
 
 /** Nombre qui s'anime de l'ancienne à la nouvelle valeur (recalculs en direct). */
 export function AnimatedNumber({ value, duration = 0.9 }: { value: number; duration?: number }) {

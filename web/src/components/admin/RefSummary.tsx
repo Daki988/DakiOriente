@@ -10,7 +10,7 @@ import { paysOrigine } from "@/lib/pays-origine";
 export function RefSummary() {
   const byLabel = LABELS.map((l) => ({ ...l, n: etablissements.filter((e) => e.label === l.id).length }));
   const filieres = etablissements.flatMap((e) => e.filieres);
-  const accredite = filieres.filter((f) => f.homologation?.statut === "recente").length;
+  const accredite = filieres.filter((f) => f.recente).length;
   const homologuees = filieres.length - accredite;
   const echues = etablissements.reduce((n, e) => n + e.filieres_echues.length, 0);
   const reseaux = etablissements.filter((e) => (e.campus?.length ?? 0) > 1);

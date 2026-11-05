@@ -6,7 +6,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import bcrypt from "bcryptjs";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { eq, inArray, sql } from "drizzle-orm";
+import { eq, inArray, notInArray, sql } from "drizzle-orm";
 import { creerPool } from "../src/server/db/pool";
 import * as schema from "../src/server/db/schema.ts";
 
@@ -86,6 +86,9 @@ async function seedEstablishments() {
     const existing = await db.select({ id: schema.programs.id, title: schema.programs.title, faculty: schema.programs.faculty, indicative: schema.programs.indicative }).from(schema.programs).where(eq(schema.programs.establishmentId, e.id));
     for (const p of existing) if (p.indicative && !titles.has(p.title + "|" + p.faculty)) await db.update(schema.programs).set({ homologated: false, active: false }).where(eq(schema.programs.id, p.id));
   }
+  // Pays de destination inactifs (masqués) : leurs établissements sont retirés de la publication, sans suppression.
+  const codes = actifs.map((d: any) => d.code as string);
+  if (codes.length) await db.update(schema.establishments).set({ label: null }).where(notInArray(schema.establishments.pays, codes));
   // Établissements des anciens référentiels (Gabon, Sénégal, fiches non homologuées) : retirés de la publication, sans supprimer l'historique.
   const kept = new Set(etabs.map((e: any) => e.id));
   const archive = path.resolve(REF, "..", "archives", "etablissements_superieurs_v1_GA_MA_SN.json");

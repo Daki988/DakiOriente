@@ -22,7 +22,7 @@ export const NAV = [
 export const NAV_PLUS = [
   { href: "/comparateur", label: "Comparateur" },
   { href: "/devis", label: "Devis parents" },
-  { href: "/pays", label: "Pays de destination" },
+  { href: "/pays/ma", label: "Étudier au Maroc" },
   { href: "/actualites", label: "Actualités" },
 ];
 

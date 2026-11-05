@@ -4,6 +4,7 @@ import { Building2, Check, KeyRound, Plane, Sparkles, UserRound, UsersRound, X }
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { Counter } from "@/components/motion/Counter";
 import { CtaBand } from "@/components/ui/CtaBand";
+import { ParOapsEncart } from "@/components/ui/ParOaps";
 import { etablissements, formations, metiers, series } from "@/lib/data";
 
 export const metadata: Metadata = { title: "Pourquoi Navigoal", description: "Ce que Navigoal apporte aux élèves, étudiants, parents, établissements et bailleurs : orientation, candidature, paiement et logement au Maroc." };
@@ -51,6 +52,7 @@ export default function PourquoiPage() {
           {chiffres.map(([n, l]) => <div key={l} className="flex flex-col items-center gap-1 text-center"><b className="text-4xl font-extrabold text-brand-600"><Counter to={n} /></b><span className="text-[13px] text-ink-mute">{l}</span></div>)}
         </div>
       </Reveal>
+      <ParOapsEncart />
       <CtaBand />
     </>
   );

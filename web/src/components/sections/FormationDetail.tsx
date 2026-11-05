@@ -11,14 +11,17 @@ import { LabelChip, domStyle } from "@/components/ui/Cards";
 import { Prix } from "@/components/ui/Devise";
 import { villeHref, villesOffre } from "@/lib/catalogue";
 import { COUTS } from "@/lib/devis";
-import { PAYS_NOM, auPays, destinationById, labelPays, admissionLabel, compatibilite, competenceLabel, domaineById, etabById, formationById, labelById, metierById, niveauLabel, paysDetailById, serieById, type Etablissement, type PaysCode } from "@/lib/data";
+import { PAYS_NOM, auPays, destinationById, labelPays, admissionLabel, compatibilite, competenceLabel, domaineById, etabById, formationById, labelById, metierById, niveauLabel, paysDetailById, serieById, type Etablissement, type Filiere, type PaysCode, type ProgrammeSite, type SiteInfos } from "@/lib/data";
+
+/** Détail (préparé côté serveur) des écoles qui proposent la formation : filières et infos du site officiel. */
+export type DetailFormation = Record<string, { filieres: Filiere[]; site: (Pick<SiteInfos, "admission" | "frais"> & { programmes: ProgrammeSite[] }) | null }>;
 import { PROFILE_KEY } from "./OrientationTest";
 
 const TABS = ["Présentation", "Conditions d'admission", "Programme", "Frais", "Débouchés"] as const;
 type Tab = (typeof TABS)[number];
 const FAV = "navigoal.favoris.formations";
 
-export function FormationDetail({ id }: { id: string }) {
+export function FormationDetail({ id, details }: { id: string; details: DetailFormation }) {
   const f = formationById[id];
   // Établissement et ville demandés par l'URL, lus dans le navigateur (la page reste rendue côté serveur).
   const [params, setParams] = useState(() => new URLSearchParams());
@@ -39,8 +42,10 @@ export function FormationDetail({ id }: { id: string }) {
   }, [id]);
   const toggleFav = () => { const n = !fav; setFav(n); try { const l = JSON.parse(localStorage.getItem(FAV) || "[]") as string[]; localStorage.setItem(FAV, JSON.stringify(n ? [...new Set([...l, id])] : l.filter((x) => x !== id))); } catch { /* ignore */ } };
   const score = compatibilite(profil, id);
-  const filieres = e ? [...e.filieres, ...e.filieres_echues].filter((x) => x.formation === f.id) : [];
-  const progs = e?.site?.programmes.filter((p) => p.formation === f.id) ?? [];
+  const D = e ? details[e.id] : undefined;
+  const site = D?.site ?? null;
+  const filieres = D?.filieres ?? [];
+  const progs = site?.programmes ?? [];
   const campus = e?.campus?.find((c) => c.ville === ville);
   const label = campus?.label ?? e?.label;
   const pays = e?.pays ?? "MA";
@@ -123,11 +128,11 @@ export function FormationDetail({ id }: { id: string }) {
                 <div className="card flex flex-col gap-4 p-6 sm:p-7">
                   <h2 className="text-xl font-extrabold">Conditions d&apos;admission</h2>
                   <p className="text-ink-soft">Mode d&apos;admission habituel : <b className="text-ink">{admissionLabel(f.mode_admission)}</b>. Les conditions précises (notes, quotas, calendrier) sont fixées par chaque établissement.</p>
-                  {e.site?.admission && ((e.site.admission.conditions?.length ?? 0) + (e.site.admission.etapes?.length ?? 0) > 0) && (
+                  {site?.admission && ((site.admission.conditions?.length ?? 0) + (site.admission.etapes?.length ?? 0) > 0) && (
                     <div className="flex flex-col gap-1.5 rounded-2xl bg-[#f6f8fe] p-4 text-sm text-ink-soft">
                       <b className="text-ink">Selon {e.sigle || e.nom} (site officiel)</b>
-                      {[...(e.site.admission.conditions ?? []), ...(e.site.admission.etapes ?? [])].slice(0, 8).map((t) => <span key={t} className="flex items-start gap-2"><Check size={15} className="mt-0.5 shrink-0 text-[#0f8a46]" />{t}</span>)}
-                      {e.site.admission.dates && <span><b>Calendrier :</b> {e.site.admission.dates}</span>}
+                      {[...(site.admission.conditions ?? []), ...(site.admission.etapes ?? [])].slice(0, 8).map((t) => <span key={t} className="flex items-start gap-2"><Check size={15} className="mt-0.5 shrink-0 text-[#0f8a46]" />{t}</span>)}
+                      {site.admission.dates && <span><b>Calendrier :</b> {site.admission.dates}</span>}
                     </div>
                   )}
                   {series.length > 0 && <div className="flex flex-col gap-3"><b className="text-sm">Séries du baccalauréat conseillées</b>{series.map(([p, l]) => <div key={p} className="flex flex-wrap items-center gap-1.5 text-sm"><span className="w-full text-xs text-ink-mute sm:w-36">Bac obtenu {p === "MA" ? "au Maroc" : `au ${PAYS_NOM[p]}`}</span>{l.map((x) => serieById[x] && <span key={x} title={serieById[x].intitule} className="chip bg-[#f6f8fe] text-ink-soft">{serieById[x].code}</span>)}</div>)}</div>}
@@ -155,10 +160,10 @@ export function FormationDetail({ id }: { id: string }) {
               {tab === "Frais" && (
                 <div className="card flex flex-col gap-4 p-6 sm:p-7">
                   <h2 className="text-xl font-extrabold">Frais de scolarité et budget</h2>
-                  {(e.site?.frais.length ?? 0) > 0 ? (
+                  {(site?.frais.length ?? 0) > 0 ? (
                     <div className="flex flex-col gap-2 rounded-2xl border border-[#cdeedd] bg-[#f3fbf6] p-4 text-sm">
                       <b className="text-[#0f8a46]">Frais publiés par {e.sigle || "l'établissement"} (par cycle)</b>
-                      {e.site!.frais.map((x) => <div key={x.cycle} className="flex flex-col justify-between gap-1 border-b border-[#dff3e7] pb-2 last:border-0 sm:flex-row sm:gap-3"><span className="text-ink-soft">{x.cycle}</span><b className="sm:text-right">{x.scolarite_annuelle_mad ? <Prix mad={x.scolarite_annuelle_mad} suffixe="/an" /> : "—"}{x.inscription_mad ? <span className="block text-xs font-semibold text-ink-mute">+ inscription <Prix mad={x.inscription_mad} /></span> : null}</b></div>)}
+                      {site!.frais.map((x) => <div key={x.cycle} className="flex flex-col justify-between gap-1 border-b border-[#dff3e7] pb-2 last:border-0 sm:flex-row sm:gap-3"><span className="text-ink-soft">{x.cycle}</span><b className="sm:text-right">{x.scolarite_annuelle_mad ? <Prix mad={x.scolarite_annuelle_mad} suffixe="/an" /> : "—"}{x.inscription_mad ? <span className="block text-xs font-semibold text-ink-mute">+ inscription <Prix mad={x.inscription_mad} /></span> : null}</b></div>)}
                     </div>
                   ) : typ && (
                     <div className="flex flex-col gap-1 rounded-2xl bg-[#f6f8fe] p-4 text-sm"><span className="text-ink-mute">Fourchette habituelle ({typ.libelle.toLowerCase()}, estimation) :</span><b className="text-lg"><Prix mad={typ.min} devise={dev} /> – <Prix mad={typ.max} devise={dev} suffixe="/an" /></b><span className="text-xs text-ink-mute">Frais exacts à confirmer par l&apos;établissement.</span></div>
