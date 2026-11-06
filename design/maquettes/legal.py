@@ -29,8 +29,10 @@ LEGAL = os.path.join(WEB, "src", "content", "legal")
 
 SERVICES = {
     "navigoal": {"nom": "Navigoal", "c": "#1a47f5", "fond": "#eef2ff", "base": ""},
-    "navilease": {"nom": "Navilease", "c": "#e08600", "fond": "#fff3d6", "base": "/navilease"},
-    "navitravel": {"nom": "NaviTravel", "c": "#0e8f8a", "fond": "#ddf5f3", "base": "/navitravel"},
+    "navilease": {"nom": "Navilease", "c": "#2b6a4c", "accent": "#e9a33a", "fond": "#e9f4ed", "base": "/navilease",
+                  "menu": ["Logements", "Résidences universitaires", "Comment ça marche", "Bailleurs", "Aide"], "cta": "Publier une annonce", "perso": "Mes réservations"},
+    "navitravel": {"nom": "NaviTravel", "c": "#246c88", "accent": "#ec7d5c", "fond": "#e5f1f6", "base": "/navitravel",
+                  "menu": ["Billet d'avion", "Visa", "Accueil", "Assurance", "Comment ça marche", "Questions"], "cta": "Demander un devis", "perso": "Mes demandes"},
 }
 PAGES = [("cgu", "CGU"), ("confidentialite", "Confidentialité"), ("mentions-legales", "Mentions légales"), ("cookies", "Cookies")]
 
@@ -119,18 +121,37 @@ EXTRA_CSS = """
 """
 
 
+LOGOS = {k: photo(f"web/public/brand/{k}-horizontal.png", 900) for k in ["navilease", "navitravel"]}
+LOGOS_V = {k: photo(f"web/public/brand/{k}-logo.png", 700) for k in ["navilease", "navitravel"]}
+
+
 def logo(service, h=26, clair=False):
-    s = SERVICES[service]
     if service == "navigoal":
         return f'<img src="{WORDMARK}" style="height:{h}px">'
-    return (f'<span style="display:inline-flex;align-items:center;gap:10px"><img src="{WORDMARK}" style="height:{h}px">'
-            f'<span class="logo-ph" style="border-color:{s["c"]};color:{s["c"]};background:{s["fond"]}">{icon("image", 14, s["c"])}Logo {s["nom"]}</span></span>')
+    return f'<img src="{LOGOS[service]}" style="height:{round(h * 1.55)}px">'
+
+
+def barre_services(actif, mobile=False):
+    """Barre fine au-dessus de l'en-tête : passer d'un service à l'autre."""
+    it = "".join(f'<span style="display:flex;align-items:center;gap:6px;padding:0 {10 if mobile else 14}px;height:34px;font-size:{11.5 if mobile else 12.5}px;font-weight:{800 if k == actif else 600};'
+                 f'color:{"#fff" if k == actif else "#aab3c8"};{"background:rgba(255,255,255,.12);" if k == actif else ""}"><span style="width:8px;height:8px;border-radius:3px;background:{v["c"] if k != "navigoal" else "#4f7bff"}"></span>{v["nom"]}</span>' for k, v in SERVICES.items())
+    return f'<div style="height:34px;background:#0b1533;display:flex;align-items:center;padding:0 {8 if mobile else 48}px">{it}{"" if mobile else "<span style=\"margin-left:auto;color:#7d88a6;font-size:12px\">Un seul compte pour les trois services</span>"}</div>'
+
+
+def entete_service(service):
+    """En-tête propre à Navilease ou NaviTravel : logo, menu et options du service."""
+    s = SERVICES[service]
+    liens = "".join(f'<span style="font-weight:{800 if k == 0 else 600};font-size:14px;color:{s["c"] if k == 0 else "#3b4566"}">{t}</span>' for k, t in enumerate(s["menu"]))
+    return f"""{barre_services(service)}<div style="height:72px;background:#fff;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 48px;gap:26px">
+    {logo(service, 26)}<span style="width:1px;height:28px;background:#e6eaf3"></span>{liens}
+    <span style="margin-left:auto;display:flex;gap:10px;align-items:center"><span style="font-weight:700;font-size:14px;color:#3b4566;display:flex;gap:6px;align-items:center">{icon("user-round", 16, "#3b4566")}{s["perso"]}</span>
+    <span class="btn" style="background:{s["c"]};color:#fff">{s["cta"]}</span></span></div>"""
 
 
 def entete_site(actif=None):
     liens = "".join(f'<span style="font-weight:{800 if t == actif else 600};font-size:14px;color:{"#1a47f5" if t == actif else "#3b4566"}">{t}</span>'
                     for t in ["Accueil", "Métiers", "Formations", "Établissements", "Villes", "Orientation", "Navilease", "Parents"])
-    return f"""<div style="height:68px;background:#fff;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 48px;gap:28px">
+    return barre_services("navigoal") + f"""<div style="height:68px;background:#fff;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 48px;gap:28px">
     <img src="{WORDMARK}" style="height:28px">{liens}<span style="margin-left:auto" class="btn" style="background:#ffc21a">S'inscrire</span></div>"""
 
 
@@ -165,7 +186,7 @@ def page_legale(service, page, cartes, titre_cadre, num, hauteur, limite, note="
     toc = [re.sub(r"\*\*", "", l[3:]) for l in corps.split("\n") if l.startswith("## ")]
     toc_html = "".join(f'<span style="display:flex;gap:10px;padding:7px 10px;border-radius:10px;font-size:13.5px;{"background:" + s["fond"] + ";color:" + s["c"] + ";font-weight:800" if k == 0 else "color:#3b4566"}"><span style="color:#8a93a8;width:18px">{k + 1}.</span>{t}</span>' for k, t in enumerate(toc))
     return f"""<div class="frame" style="width:1440px;height:{hauteur}px;background:#f6f8fe"><div class="titre-cadre">{num} · {titre_cadre}</div>
-  {entete_site("Navilease" if service == "navilease" else None)}{bandeau_legal(service, page)}
+  {entete_site() if service == "navigoal" else entete_service(service)}{bandeau_legal(service, page)}
   <div style="display:grid;grid-template-columns:290px 1fr 250px;gap:40px;padding:34px 48px">
     <aside class="card" style="padding:16px;height:fit-content;display:flex;flex-direction:column;gap:2px">
       <span class="small" style="font-weight:800;color:#8a93a8;letter-spacing:.08em;margin:0 0 6px 10px">SOMMAIRE</span>{toc_html}
@@ -217,18 +238,18 @@ def legal_navilease():
         ("lock", "Paiement en séquestre", "Le bailleur est payé après votre entrée dans les lieux."),
         ("badge-check", "Annonces vérifiées", "Chaque annonce est relue avant publication."),
         ("external-link", "Résidences : site officiel", "Réservation directe, sans paiement via Navilease."),
-    ], "Pages légales Navilease : logo et couleur Navilease", 3, 2200, 5,
-        f'<div {NOTE} style="left:620px;top:250px">Logo Navilease : emplacement réservé, en attente de votre fichier</div>')
+    ], "Pages légales Navilease : logo et couleur Navilease", 3, 2240, 5,
+        f'<div {NOTE} style="left:900px;top:40px">Menu et options propres à Navilease</div>')
 
 
 def legal_navitravel_mobile():
     s = SERVICES["navitravel"]
     meta, corps = lire("navitravel", "confidentialite")
-    return f"""<div class="frame" style="width:390px;height:1720px;background:#f6f8fe"><div class="titre-cadre">4 · NaviTravel sur téléphone : confidentialité</div>
-  <div style="height:56px;background:#fff;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 16px;gap:10px"><img src="{WORDMARK}" style="height:22px"><span style="margin-left:auto">{icon("menu", 22, "#0b1533")}</span></div>
+    return f"""<div class="frame" style="width:390px;height:1800px;background:#f6f8fe"><div class="titre-cadre">4 · NaviTravel sur téléphone : confidentialité</div>
+  {barre_services("navitravel", True)}<div style="height:58px;background:#fff;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 16px;gap:10px">{logo("navitravel", 22)}<span style="margin-left:auto">{icon("menu", 22, "#0b1533")}</span></div>
   {bandeau_legal("navitravel", "confidentialite", True)}
   <div style="padding:18px 16px;display:flex;flex-direction:column;gap:12px">
-    <span class="logo-ph" style="border-color:{s["c"]};color:{s["c"]};background:{s["fond"]};width:fit-content">{icon("image", 14, s["c"])}Logo NaviTravel</span>
+    <img src="{LOGOS_V["navitravel"]}" style="height:96px;width:fit-content">
     <h1 style="font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.1">{meta["titre"]}</h1>
     <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip" style="background:#eef1f8;color:#3b4566">Version 2.0</span><span class="chip" style="background:{s["fond"]};color:{s["c"]}">06/11/2026</span></div>
     <div class="card" style="padding:14px;background:{s["fond"]};border:none;box-shadow:none"><b style="font-size:14px">L'essentiel</b><p class="small" style="line-height:1.55;margin-top:6px">{inline(meta["bref"])}</p></div>
@@ -251,6 +272,40 @@ def pied():
     <span>© 2026 Navigoal · Navilease · NaviTravel</span><span style="font-weight:800;color:#fff">BY OAPS</span></div></div>"""
 
 
+# ---------------------------------------------------------------- 0. Menus des services
+def menus():
+    def tiroir(service, options, perso):
+        sv = SERVICES[service]
+        li = "".join(f'<span style="display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid #eef1f8;font-weight:700;font-size:15px">{icon(ic, 19, sv["c"])}{t}<span style="margin-left:auto">{icon("chevron-right", 16, "#8a93a8")}</span></span>' for ic, t in options)
+        pe = "".join(f'<span style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#3b4566">{icon(ic, 17, "#5b6478")}{t}</span>' for ic, t in perso)
+        return f"""<div class="frame" style="width:390px;height:820px;background:#fff;margin:0 20px 0 0"><div class="titre-cadre" style="top:-26px">Menu {sv["nom"]} (téléphone)</div>
+      {barre_services(service, True)}<div style="height:58px;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 16px">{logo(service, 22)}<span style="margin-left:auto">{icon("x", 22, "#0b1533")}</span></div>
+      <div style="padding:10px 18px;display:flex;flex-direction:column">{li}</div>
+      <div style="margin:6px 18px;border-radius:16px;background:{sv["fond"]};padding:14px;display:flex;flex-direction:column;gap:12px"><span class="small" style="font-weight:800;color:{sv["c"]}">MON ESPACE</span>{pe}</div>
+      <div style="padding:14px 18px;display:flex;flex-direction:column;gap:10px"><span class="btn" style="background:{sv["c"]};color:#fff;padding:13px">{sv["cta"]}</span>
+        <span class="small mute" style="text-align:center">Conditions · Confidentialité · Mentions · Cookies</span></div></div>"""
+    lease = tiroir("navilease", [("search", "Chercher un logement"), ("building", "Résidences universitaires"), ("shield-check", "Comment ça marche"), ("key-round", "Espace bailleurs"), ("circle-help", "Aide et litiges")],
+                   [("calendar-check", "Mes réservations"), ("bell", "Mes alertes logement"), ("heart", "Logements favoris"), ("file-text", "Mes contrats et quittances")])
+    travel = tiroir("navitravel", [("plane", "Billet d'avion"), ("stamp", "Visa et démarches"), ("hand-helping", "Accueil à l'arrivée"), ("heart-pulse", "Assurance"), ("list-checks", "Comment ça marche"), ("circle-help", "Questions")],
+                    [("inbox", "Mes demandes et devis"), ("folder-open", "Mes documents de voyage"), ("ticket", "Mes billets"), ("message-circle", "Mon conseiller")])
+    goal = f"""<div class="frame" style="width:1440px;height:150px;background:#f6f8fe;margin:0 0 50px 0"><div class="titre-cadre" style="top:-26px">Navigoal</div>{entete_site()}</div>"""
+    return f"""<div class="frame" style="width:1520px;height:1180px;background:#fff;padding:40px"><div class="titre-cadre">0 · Chaque service a son menu et ses options (barre de services commune en haut)</div>
+  <div style="display:flex;flex-direction:column;gap:56px;margin-top:20px">
+    <div style="position:relative"><b style="display:block;margin-bottom:10px">Navigoal : orientation, formations, écoles, candidatures</b><div style="border:1px solid #e6eaf3;border-radius:14px;overflow:hidden">{entete_site()}</div></div>
+    <div><b style="display:block;margin-bottom:10px">Navilease : logements, résidences, bailleurs · bouton « Publier une annonce » · « Mes réservations »</b><div style="border:1px solid #e6eaf3;border-radius:14px;overflow:hidden">{entete_service("navilease")}</div></div>
+    <div><b style="display:block;margin-bottom:10px">NaviTravel : billet, visa, accueil, assurance · bouton « Demander un devis » · « Mes demandes »</b><div style="border:1px solid #e6eaf3;border-radius:14px;overflow:hidden">{entete_service("navitravel")}</div></div>
+    <div style="display:flex;gap:30px;align-items:flex-start">{lease}{travel}
+      <div class="card" style="padding:22px;width:560px;display:flex;flex-direction:column;gap:12px;box-shadow:none"><b style="font-size:18px">Règles</b>
+        {"".join(f'<span style="display:flex;gap:10px;font-size:14px;line-height:1.5">{icon("check", 17, "#0f8a46")}{t}</span>' for t in [
+            "Barre sombre commune en haut : on passe d'un service à l'autre en un clic ; le service ouvert est mis en avant.",
+            "Chaque service a son logo, sa couleur, son menu, son bouton principal et son pied de page avec ses 4 pages légales.",
+            "Un seul compte Navigoal pour les trois services : « Mon espace » montre les options du service ouvert.",
+            "Adresses : /navilease/… et /navitravel/… ; pages légales : /navilease/cgu, /navitravel/confidentialite, etc.",
+            "Navilease garde ses pages actuelles (logements, résidences, réservations, espace bailleur), avec son propre en-tête.",
+        ])}</div></div>
+  </div></div>"""
+
+
 # ---------------------------------------------------------------- 6-7. Pourquoi Navigoal
 def pourquoi():
     hero = photo("web/public/images/etudiante.webp", 900)
@@ -269,8 +324,8 @@ def pourquoi():
         ("graduation-cap", "#6a3df0", "2. Je choisis une école sûre", "Chaque établissement affiche son statut officiel, vérifié sur les textes publiés : reconnu par l'État, diplômes homologués, établissement professionnel ou simplement autorisé.", campus, "103 écoles · labels vérifiés · comparateur"),
         ("wallet", "#0f8a46", "3. Je connais le vrai coût", "Scolarité publiée par l'école, logement, vie sur place, billets d'avion et imprévus : le devis complet, en F CFA ou dans ta monnaie, avant de t'engager.", parents, "Devis sur toute la formation · taux du jour"),
         ("send", "#e04f2b", "4. Je candidate une seule fois", "Un dossier unique, plusieurs écoles. Tu suis chaque candidature en temps réel, tu réponds aux demandes de pièces et tu paies les frais par mobile money.", groupe, "Un dossier · suivi en direct · paiement mobile"),
-        ("house", "#e08600", "5. Je me loge sans arnaque", "Navilease : résidences universitaires officielles et logements vérifiés, avec paiement en séquestre libéré seulement après ton entrée dans les lieux.", chambre, "Navilease · 14 résidences · séquestre"),
-        ("plane", "#0e8f8a", "6. Je pars l'esprit tranquille", "NaviTravel : billet d'avion, visa, accueil à l'aéroport et assurance, organisés pour toi et suivis par un conseiller.", avion, "NaviTravel · billet · visa · accueil · assurance"),
+        ("house", "#2b6a4c", "5. Je me loge sans arnaque", "Navilease : résidences universitaires officielles et logements vérifiés, avec paiement en séquestre libéré seulement après ton entrée dans les lieux.", chambre, "Navilease · 14 résidences · séquestre"),
+        ("plane", "#246c88", "6. Je pars l'esprit tranquille", "NaviTravel : billet d'avion, visa, accueil à l'aéroport et assurance, organisés pour toi et suivis par un conseiller.", avion, "NaviTravel · billet · visa · accueil · assurance"),
     ]
     blocs = ""
     for k, (ic, c, t, d, img, tag) in enumerate(etapes):
@@ -308,7 +363,7 @@ def pourquoi():
       <span><b style="color:#fff;font-size:16px">{t}</b><span style="display:block;color:#c9d2ea;font-size:14px;line-height:1.55;margin-top:4px">{d}</span></span></div>""" for ic, t, d in confiance)
 
     eco = [("#1a47f5", "Navigoal", "S'orienter, comparer, candidater", "compass"), ("#6a3df0", "Navi", "L'assistant qui répond 24 h/24", "message-circle"),
-           ("#e08600", "Navilease", "Se loger en toute sécurité", "house"), ("#0e8f8a", "NaviTravel", "Voyager et s'installer", "plane")]
+           ("#2b6a4c", "Navilease", "Se loger en toute sécurité", "house"), ("#246c88", "NaviTravel", "Voyager et s'installer", "plane")]
     ecards = "".join(f"""<div class="card" style="padding:20px;display:flex;flex-direction:column;gap:10px;border-top:5px solid {c}">
       <span style="display:flex;align-items:center;gap:10px">{icon(ic, 22, c)}<b style="font-size:19px">{n}</b></span><span class="mute" style="font-size:14px">{d}</span></div>""" for c, n, d, ic in eco)
 
@@ -381,7 +436,7 @@ def pourquoi_mobile():
     casa = photo("web/public/photos/villes/casablanca.jpg", 800)
     etude = photo("web/public/images/laptop.webp", 800)
     chambre = photo("assets/photos/residences/sh-tanger-2.jpg", 800)
-    etapes = [("compass", "#1a47f5", "Je découvre qui je suis", etude), ("house", "#e08600", "Je me loge sans arnaque", chambre)]
+    etapes = [("compass", "#1a47f5", "Je découvre qui je suis", etude), ("house", "#2b6a4c", "Je me loge sans arnaque", chambre)]
     bl = "".join(f"""<div class="card" style="overflow:hidden"><div style="height:170px"><img class="ph" src="{img}"></div>
       <div style="padding:14px;display:flex;gap:10px;align-items:center"><span style="flex:none;width:38px;height:38px;border-radius:12px;background:{c};display:flex;align-items:center;justify-content:center">{icon(ic, 19, "#fff")}</span><b style="font-size:16px">{t}</b></div></div>""" for ic, c, t, img in etapes)
     return f"""<div class="frame" style="width:390px;height:1640px;background:#fff"><div class="titre-cadre">7 · Pourquoi Navigoal (téléphone)</div>
@@ -421,14 +476,13 @@ def navitravel():
     champs = "".join(f'<div style="display:flex;flex-direction:column;gap:6px"><span class="label">{l}</span><div style="height:44px;border:1px solid #dfe4ef;border-radius:12px;background:#fff;padding:0 12px;display:flex;align-items:center;color:#8a93a8;font-size:14px">{p}</div></div>' for l, p in [("Ville de départ", "Libreville (LBV)"), ("Date d'arrivée souhaitée", "Début septembre 2027"), ("École", "ESSEM Business School · Casablanca")])
     besoins = "".join(f'<span class="chip" style="padding:9px 12px;font-size:13px;{"background:" + s["c"] + ";color:#fff" if on else "background:#fff;border:1px solid #dfe4ef;color:#3b4566"}">{icon("check" if on else "plus", 13, "#fff" if on else "#5b6478")}{t}</span>' for t, on in [("Billet", True), ("Visa", True), ("Accueil", True), ("Assurance", False)])
     return f"""<div class="frame" style="width:1440px;height:3060px;background:#fff"><div class="titre-cadre">8 · NaviTravel : page de présentation</div>
-  <div style="height:68px;background:#fff;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 48px;gap:26px">{logo("navitravel", 26)}
-    {"".join(f'<span style="font-weight:600;font-size:14px;color:#3b4566">{t}</span>' for t in ["Services", "Comment ça marche", "Questions", "Retour à Navigoal"])}<span class="btn" style="margin-left:auto;background:{s["c"]};color:#fff">Demander un devis</span></div>
+  {entete_service("navitravel")}
   <section style="position:relative;height:620px;overflow:hidden"><img class="ph" src="{hublot}" style="position:absolute;inset:0;object-position:center 65%;filter:brightness(.5)">
     <div style="position:absolute;left:48px;top:120px;width:660px;display:flex;flex-direction:column;gap:18px">
       <span class="chip" style="background:rgba(255,255,255,.16);color:#fff;width:fit-content">{icon("sparkles", 13, "#fff")}Nouveau service Navigoal</span>
       <h1 class="h-disp" style="color:#fff">Ton départ, organisé de A à Z.</h1>
       <p style="font-size:19px;line-height:1.6;color:#e3e9f7">Billet d'avion, visa, accueil à l'aéroport et assurance : NaviTravel prépare ton voyage vers ton école au Maroc, avec un conseiller qui te suit jusqu'à ton installation.</p>
-      <div style="display:flex;gap:12px"><span class="btn" style="background:#ffc21a;padding:14px 22px">Demander mon devis gratuit</span><span class="btn" style="background:rgba(255,255,255,.16);color:#fff;padding:14px 22px">Voir les services</span></div></div>
+      <div style="display:flex;gap:12px"><span class="btn" style="background:{s["accent"]};color:#fff;padding:14px 22px">Demander mon devis gratuit</span><span class="btn" style="background:rgba(255,255,255,.16);color:#fff;padding:14px 22px">Voir les services</span></div></div>
     <div class="card" style="position:absolute;right:60px;bottom:60px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;width:300px">
       <span class="small mute" style="font-weight:800">TON VOYAGE</span>
       {"".join(f'<span style="display:flex;gap:10px;align-items:center;font-size:14px">{icon(ic, 17, s["c"])}{t}<span style="margin-left:auto">{icon("circle-check", 17, "#0f8a46")}</span></span>' for ic, t in [("plane", "Libreville → Casablanca"), ("stamp", "Visa étudiant"), ("hand-helping", "Accueil à l'aéroport")])}</div>
@@ -446,14 +500,14 @@ def navitravel():
       <span class="btn" style="background:{s["c"]};color:#fff;padding:14px;margin-top:6px">Recevoir mon devis</span><span class="small mute" style="text-align:center">Réponse d'un conseiller sous 48 h ouvrées</span></div></section>
   <section style="padding:10px 48px 60px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
     {"".join(f'<div class="card" style="padding:18px 20px;box-shadow:none"><b style="display:flex;justify-content:space-between;font-size:16px">{q}{icon("plus", 18, s["c"])}</b></div>' for q in ["Le visa est-il garanti ?", "Combien coûte l'accompagnement ?", "Mes parents peuvent-ils payer ?", "Et si mon vol change ?"])}</section>
-  <div style="background:#0b1533;padding:26px 48px;display:flex;align-items:center;gap:22px;color:#aab3c8;font-size:13px">{logo("navitravel", 20)}<span style="margin-left:auto">Conditions d'utilisation</span><span>Confidentialité</span><span>Mentions légales</span><span>Cookies</span><b style="color:#fff">BY OAPS</b></div>
-  <div {NOTE} style="left:300px;top:20px">Logo NaviTravel : emplacement réservé</div>
+  <div style="background:#0b1533;padding:26px 48px;display:flex;align-items:center;gap:22px;color:#aab3c8;font-size:13px"><span style="background:#fff;border-radius:12px;padding:6px 10px">{logo("navitravel", 18)}</span><span style="margin-left:auto">Conditions d'utilisation</span><span>Confidentialité</span><span>Mentions légales</span><span>Cookies</span><b style="color:#fff">BY OAPS</b></div>
+  <div {NOTE} style="left:700px;top:50px">Barre des services + menu NaviTravel</div>
   <div {NOTE} style="left:1100px;top:2120px;max-width:220px">Formulaire de devis : enregistré dans l'espace élève et traité par un conseiller</div>
 </div>"""
 
 
 html_out = f"""<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Navigoal · Pages légales, Pourquoi, NaviTravel</title><style>{CSS}{EXTRA_CSS}</style></head><body>
-{legal_navigoal()}{mentions()}{legal_navilease()}{legal_navitravel_mobile()}{pied()}{pourquoi()}{pourquoi_mobile()}{navitravel()}
+{menus()}{legal_navigoal()}{mentions()}{legal_navilease()}{legal_navitravel_mobile()}{pied()}{pourquoi()}{pourquoi_mobile()}{navitravel()}
 </body></html>"""
 open(os.path.join(P.OUT, "legal.html"), "w").write(html_out)
 print("→", os.path.join(P.OUT, "legal.html"), f"({len(html_out) // 1024} Ko)")
