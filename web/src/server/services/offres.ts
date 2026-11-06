@@ -5,7 +5,7 @@ import { and, asc, desc, eq, gt, isNull, lte, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db, schema } from "../db";
 import { audit } from "../lib/audit";
-import { forbidden, notFound } from "../lib/errors";
+import { AppError, forbidden, notFound } from "../lib/errors";
 import { assertMember, myMembersOf } from "./establishments";
 import { notify } from "./notifications";
 
@@ -30,6 +30,12 @@ export const serviceSchema = z.object({
 export async function updateService(admin: User, code: string, raw: z.input<typeof serviceSchema>) {
   assertAdmin(admin);
   const i = serviceSchema.parse(raw);
+  // Rien à modifier (corps vide ou clés inconnues) : 404 si le service n'existe pas, sinon refus explicite.
+  if (!Object.keys(i).length) {
+    const [ex] = await db.select({ code: schema.offerServices.code }).from(schema.offerServices).where(eq(schema.offerServices.code, code));
+    if (!ex) throw notFound("Service");
+    throw new AppError("Aucune modification à enregistrer.", 400, "validation");
+  }
   const [s] = await db.update(schema.offerServices).set({ ...i, ...(i.prices ? { prices: [...i.prices].sort((a, b) => a.months - b.months) } : {}) }).where(eq(schema.offerServices.code, code)).returning();
   if (!s) throw notFound("Service");
   await audit(admin.id, "tarif_modifie", "offer_service", code, i);

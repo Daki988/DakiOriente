@@ -126,6 +126,55 @@
           "page_source": "https://twentycampus.ma/",
           "methode": "site_officiel",
           "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/twenty-casa-anfa-6.jpg",
+          "credit": "© Twenty Campus",
+          "page_source": "https://twentycampus.ma/chambre/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/twenty-casa-anfa-7.jpg",
+          "credit": "© Twenty Campus",
+          "page_source": "https://twentycampus.ma/chambre/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/twenty-casa-anfa-8.jpg",
+          "credit": "© Twenty Campus",
+          "page_source": "https://twentycampus.ma/chambre/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/twenty-casa-anfa-9.jpg",
+          "credit": "© Twenty Campus",
+          "page_source": "https://twentycampus.ma/chambre/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/twenty-casa-anfa-10.jpg",
+          "credit": "© Twenty Campus",
+          "page_source": "https://twentycampus.ma/chambre/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/twenty-casa-anfa-11.jpg",
+          "credit": "© Twenty Campus",
+          "page_source": "https://twentycampus.ma/chambre/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/twenty-casa-anfa-12.jpg",
+          "credit": "© Twenty Campus",
+          "page_source": "https://twentycampus.ma/chambre/",
+          "methode": "site_officiel",
+          "a_verifier": true
         }
       ],
       "sources": [
@@ -218,6 +267,90 @@
           "page_source": "https://baytalmaarifa.ma/bayt-al-maarifa-rabat",
           "methode": "site_officiel",
           "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-4.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-5.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-6.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-7.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-8.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-9.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-10.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-11.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-12.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-13.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-14.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-rabat-15.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-rabat",
+          "methode": "site_officiel",
+          "a_verifier": true
         }
       ],
       "sources": [
@@ -281,6 +414,118 @@
           "fichier": "assets/photos/residences/bam-casablanca-1.jpg",
           "credit": "© Bayt Al Maârifa",
           "page_source": "https://baytalmaarifa.ma/bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-2.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-3.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-4.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-5.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-6.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-7.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-8.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-9.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-10.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-11.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-12.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-13.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-14.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-15.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-16.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-casablanca-17.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-casablanca",
           "methode": "site_officiel",
           "a_verifier": true
         }
@@ -356,6 +601,55 @@
           "page_source": "https://baytalmaarifa.ma/bayt-al-maarifa-meknes",
           "methode": "site_officiel",
           "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-meknes-3.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-meknes",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-meknes-4.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-meknes",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-meknes-5.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-meknes",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-meknes-6.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-meknes",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-meknes-7.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-meknes",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-meknes-8.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-meknes",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-meknes-9.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-meknes",
+          "methode": "site_officiel",
+          "a_verifier": true
         }
       ],
       "sources": [
@@ -426,6 +720,62 @@
           "fichier": "assets/photos/residences/bam-el-jadida-2.jpg",
           "credit": "© Bayt Al Maârifa",
           "page_source": "https://baytalmaarifa.ma/bayt-al-maarifa-el-jadida",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-el-jadida-3.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-el-jadida",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-el-jadida-4.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-el-jadida",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-el-jadida-5.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-el-jadida",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-el-jadida-6.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-el-jadida",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-el-jadida-7.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-el-jadida",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-el-jadida-8.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-el-jadida",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-el-jadida-9.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-el-jadida",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/bam-el-jadida-10.jpg",
+          "credit": "© Bayt Al Maârifa",
+          "page_source": "https://baytalmaarifa.ma/galerie-bayt-al-maarifa-el-jadida",
           "methode": "site_officiel",
           "a_verifier": true
         }
@@ -522,6 +872,160 @@
         },
         {
           "fichier": "assets/photos/residences/sh-tanger-4.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-5.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-6.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-7.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-8.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-9.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-10.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-11.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-12.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-13.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-14.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-15.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-16.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-17.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-18.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-19.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-20.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-21.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-22.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-23.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-24.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-25.jpg",
+          "credit": "© The Student House Tanger",
+          "page_source": "https://www.studenthousetanger.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-tanger-26.jpg",
           "credit": "© The Student House Tanger",
           "page_source": "https://www.studenthousetanger.ma/",
           "methode": "site_officiel",
@@ -624,6 +1128,104 @@
         },
         {
           "fichier": "assets/photos/residences/sh-settat-5.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-6.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-7.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-8.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-9.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-10.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-11.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-12.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-13.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-14.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-15.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-16.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-17.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-18.jpg",
+          "credit": "© The Student House Settat",
+          "page_source": "https://www.studenthousesettat.ma/",
+          "methode": "site_officiel",
+          "a_verifier": true
+        },
+        {
+          "fichier": "assets/photos/residences/sh-settat-19.jpg",
           "credit": "© The Student House Settat",
           "page_source": "https://www.studenthousesettat.ma/",
           "methode": "site_officiel",

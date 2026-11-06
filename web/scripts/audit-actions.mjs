@@ -263,7 +263,7 @@ if (sid) {
   await action("conseiller suspendu", "connexion refusée au compte suspendu", () => s2.post("/auth/connexion", { identifiant: `audit.conseil.${RUN}@navigoal.net`, motDePasse: MDP }), [401, 403]);
   await action("admin", "réactiver un compte", () => adm.post(`/admin/utilisateurs/${sid}/statut`, { statut: "actif" }));
 }
-await action("admin", "mettre un établissement en avant", () => adm.patch("/admin/etablissements/ma-esa-casa", { featured: true }));
+await action("admin", "mettre un établissement en avant (abonnement)", () => adm.post("/admin/offres/abonnements", { etablissement: "ma-esa-casa", service: "mise_en_avant", months: 3, amount: 0, reference: `AUDIT-${RUN}` }), [201]);
 const homolog = await action("admin", "filières à homologuer", () => adm.get("/admin/homologations"));
 const hp = (homolog ?? []).map((x) => x.p ?? x.program ?? x)[0];
 if (hp?.id) await action("admin", "valider une homologation", () => adm.patch(`/admin/formations/${hp.id}/homologation`, { homologated: true, texte: "Arrêté n° 1234-26 du 2 mars 2026, BO n° 7400" }));

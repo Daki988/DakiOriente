@@ -1,5 +1,6 @@
 import tauxData from "@/data/taux.json";
 import { paysOrigineById } from "@/lib/pays-origine";
+import fuseaux from "@/lib/fuseaux.json";
 
 /** Marge de prudence appliquée aux conversions (fluctuation des taux de change entre aujourd'hui et le paiement). */
 export const MARGE_PRUDENCE = 0.03;
@@ -39,9 +40,18 @@ export const formatMontant = (n: number, devise: string) => {
   return sym === "€" || sym === "$" || sym === "£" ? `${s} ${sym}` : `${s} ${sym}`;
 };
 
-/** Pays déduit de la langue du navigateur (fr-SN → SN), à défaut de profil ou de choix enregistré. */
+/**
+ * Pays du visiteur, à défaut de profil ou de choix enregistré : fuseau horaire de l'appareil d'abord (Africa/Libreville → Gabon,
+ * fiable même avec un navigateur réglé en « fr-FR »), puis région de la langue du navigateur (fr-SN → Sénégal).
+ * Le Maroc renvoie null : les montants restent alors en dirhams seulement.
+ */
 export function paysNavigateur(): string | null {
   if (typeof navigator === "undefined") return null;
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const p = (fuseaux as Record<string, string>)[tz];
+    if (p) return p === "MA" ? null : p;
+  } catch { /* Intl indisponible */ }
   for (const l of navigator.languages ?? [navigator.language]) {
     const m = /-([A-Z]{2})$/i.exec(l);
     if (m && paysOrigineById[m[1].toUpperCase()] && m[1].toUpperCase() !== "MA") return m[1].toUpperCase();

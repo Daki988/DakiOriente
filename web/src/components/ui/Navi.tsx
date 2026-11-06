@@ -113,17 +113,27 @@ function accroche(path: string) {
   return null;
 }
 
-/** Gras (**…**) et listes simples ; aucun HTML interprété. */
+/** Gras (**…**), listes à puces ou numérotées, paragraphes ; aucun HTML interprété. */
+const PUCE = /^\s*(?:[-•*]|\d+[.)])\s+/;
 function Texte({ v }: { v: string }) {
-  const ligne = (l: string, k: number) => <span key={k}>{l.split(/(\*\*[^*]+\*\*)/g).map((p, i) => (p.startsWith("**") && p.endsWith("**") ? <strong key={i} className="font-bold text-ink">{p.slice(2, -2)}</strong> : p))}</span>;
+  const ligne = (l: string) => l.split(/(\*\*[^*]+\*\*)/g).map((p, i) => (p.startsWith("**") && p.endsWith("**") ? <strong key={i} className="font-bold text-ink">{p.slice(2, -2)}</strong> : p));
+  // Regroupe les lignes en paragraphes et en listes (une liste peut suivre une phrase d'introduction sans ligne vide)
+  const blocs: { liste: boolean; num: boolean; lignes: string[] }[] = [];
+  for (const brut of v.trim().replace(/^#+\s*/gm, "").split("\n")) {
+    const l = brut.trimEnd();
+    if (!l.trim()) { blocs.push({ liste: false, num: false, lignes: [] }); continue; }
+    const puce = PUCE.test(l);
+    const der = blocs[blocs.length - 1];
+    if (der && der.lignes.length && der.liste === puce) der.lignes.push(puce ? l.replace(PUCE, "") : l);
+    else blocs.push({ liste: puce, num: puce && /^\s*\d/.test(l), lignes: [puce ? l.replace(PUCE, "") : l] });
+  }
   return (
-    <div className="space-y-2">
-      {v.trim().split(/\n{2,}/).map((bloc, i) => {
-        const lignes = bloc.split("\n");
-        return lignes.every((l) => /^\s*[-•*]\s/.test(l))
-          ? <ul key={i} className="list-disc space-y-1 pl-5">{lignes.map((l, k) => <li key={k}>{ligne(l.replace(/^\s*[-•*]\s/, ""), k)}</li>)}</ul>
-          : <p key={i}>{lignes.map((l, k) => <span key={k}>{k > 0 && <br />}{ligne(l, k)}</span>)}</p>;
-      })}
+    <div className="space-y-2.5 leading-relaxed">
+      {blocs.filter((b) => b.lignes.length).map((b, i) => b.liste
+        ? (b.num
+          ? <ol key={i} className="list-decimal space-y-1.5 pl-5 marker:font-bold marker:text-brand-600">{b.lignes.map((l, k) => <li key={k}>{ligne(l)}</li>)}</ol>
+          : <ul key={i} className="space-y-1.5">{b.lignes.map((l, k) => <li key={k} className="flex gap-2"><span aria-hidden className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" /><span>{ligne(l)}</span></li>)}</ul>)
+        : <p key={i}>{b.lignes.map((l, k) => <span key={k}>{k > 0 && <br />}{ligne(l)}</span>)}</p>)}
     </div>
   );
 }

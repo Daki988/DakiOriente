@@ -18,6 +18,7 @@ export function ResidenceCarte({ r }: { r: Residence }) {
       <div className="relative h-44 overflow-hidden bg-[#e8edfa]">
         {p && <img src={p.src} alt={`${r.nom} : photo de la résidence`} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />}
         {r.statut && <span className="chip absolute left-2.5 top-2.5 bg-[#d42a50] text-white">{r.statut}</span>}
+        {r.photos.length > 1 && <span className="chip absolute bottom-2.5 right-2.5 bg-ink/70 text-white backdrop-blur">{r.photos.length} photos</span>}
         <span className="chip absolute bottom-2.5 left-2.5 bg-ink/70 text-white backdrop-blur"><MapPin size={12} />{r.ville}</span>
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4">

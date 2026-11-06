@@ -461,7 +461,8 @@ export async function dispatch(req: Request, segments: string[]) {
       const origin = req.headers.get("origin");
       const hotes = new Set([req.headers.get("x-forwarded-host"), req.headers.get("host"), new URL(req.url).host,
         ...[process.env.APP_URL, process.env.NEXT_PUBLIC_SITE_URL, process.env.URL].filter(Boolean).map((u) => new URL(u!).host)].filter(Boolean) as string[]);
-      if (origin && origin !== "null" && !hotes.has(new URL(origin).host)) throw forbidden();
+      // Origine « null » (iframe sandbox, redirection opaque) : refusée dès qu'une session est envoyée.
+      if (origin === "null" ? /(?:^|;\s*)ng_session=/.test(req.headers.get("cookie") ?? "") : origin && !hotes.has(new URL(origin).host)) throw forbidden();
     }
     const user = await currentUser();
     if (r.auth !== "public") {

@@ -5,6 +5,7 @@ import { ArrowRight, CalendarDays, Check, ChevronRight, ExternalLink, Graduation
 import { Prix } from "@/components/ui/Devise";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { ChipOfficiel, ResidenceCarte } from "@/components/navilease/Residences";
+import { GalerieResidence } from "@/components/navilease/GalerieResidence";
 import { etabById } from "@/lib/data";
 import { dateVerif, domaine, lienOfficiel, reservee, residenceById, residencesEtudiantes } from "@/lib/residences";
 import { SITE_URL } from "@/lib/site";
@@ -45,13 +46,8 @@ export default function ResidencePage({ params }: { params: { id: string } }) {
           <div className="flex flex-wrap gap-2">{r.statut && <span className="chip bg-[#ffecef] text-[#d42a50]">{r.statut}</span>}{reservee(r) && <span className="chip bg-[#f1edff] text-[#6a3df0]"><GraduationCap size={13} />Étudiants UM6SS</span>}<ChipOfficiel r={r} /></div>
         </div>
 
-        {ph.length > 0 && (
-          <div className={`grid gap-2 overflow-hidden rounded-[22px] ${ph.length >= 3 ? "sm:grid-cols-[2fr_1fr_1fr] sm:grid-rows-[180px_180px]" : ""}`}>
-            <img src={ph[0].src} alt={`${r.nom} : photo 1`} className={`h-64 w-full object-cover sm:h-full ${ph.length >= 3 ? "sm:row-span-2" : "sm:h-[380px]"}`} />
-            {ph.slice(1, 5).map((p, k) => <img key={p.src} src={p.src} alt={`${r.nom} : photo ${k + 2}`} loading="lazy" className={`hidden h-full w-full object-cover sm:block ${ph.length === 4 && k === 2 ? "sm:col-span-2" : ""}`} />)}
-          </div>
-        )}
-        <p className="-mt-3 text-xs text-ink-mute">Photos : {r.photos[0]?.credit ?? r.operateur} (site officiel). Navigoal n&apos;en est pas propriétaire ; retrait sur simple demande.</p>
+        <GalerieResidence photos={ph} nom={r.nom} />
+        <p className="-mt-3 text-xs text-ink-mute">{ph.length} photo{ph.length > 1 ? "s" : ""} : {r.photos[0]?.credit ?? r.operateur} (site officiel). Navigoal n&apos;en est pas propriétaire ; retrait sur simple demande.</p>
 
         <div className="grid items-start gap-8 lg:grid-cols-[1fr_380px]">
           <div className="flex min-w-0 flex-col gap-7">
