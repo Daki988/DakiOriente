@@ -1,3 +1,4 @@
+import { DossierPublic } from "@/components/sections/DossierPublic";
 import type { Metadata } from "next";
 import Link from "@/components/ui/Link";
 import { QuestionWhatsApp } from "@/components/ui/QuestionWhatsApp";
@@ -250,6 +251,7 @@ export default async function EtabPage({ params }: { params: { id: string } }) {
             {ADMISSION.map((t, k) => <div key={k} className="flex items-start gap-3"><span className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full bg-brand-50 text-[13px] font-extrabold text-brand-600">{k + 1}</span><span className="pt-1 text-sm text-ink-soft">{t}</span></div>)}
             <Link href={`/pays/${e.pays.toLowerCase()}/#venir`} className="text-[13px] font-bold text-brand-600">Visa selon ta nationalité et carte de séjour →</Link>
           </Reveal></section>
+          <section id="dossier" className="scroll-mt-32"><DossierPublic eid={e.id} sigle={e.sigle || e.nom} /></section>
         </div>
 
         <aside className="flex flex-col gap-5 lg:sticky lg:top-24">

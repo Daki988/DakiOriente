@@ -34,7 +34,7 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
   const near = useApi<Housing>(d.data?.application.status === "acceptee" && etabId ? `/logements?etablissement=${etabId}` : null);
   if (d.error) return <Alert tone="error" title="Candidature introuvable">{d.error.message}</Alert>;
   if (!d.data) return <Loading />;
-  const { application: app, program: p, establishment: e, events, documents, missing } = d.data;
+  const { application: app, program: p, establishment: e, events, documents, missing, pieces } = d.data;
   const fee = (pays.data ?? []).find((x) => x.applicationId === id);
   const final = ["acceptee", "refusee", "desistee"].includes(app.status);
   const reached = new Set(events.map((x) => x.status));
@@ -74,11 +74,11 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
             {documents.map((doc) => (
               <a key={doc.id} href={apiUrl(`/documents/${doc.id}/fichier`)} target="_blank" className="flex items-center gap-3 rounded-2xl border border-[#eef1f8] p-3 hover:border-brand-200">
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600"><FileText size={18} /></span>
-                <span className="min-w-0 flex-1"><b className="block text-sm">{docLabel(doc.type)}</b><span className="block truncate text-xs text-ink-mute">{doc.fileName} · {(doc.size / 1024).toFixed(0)} Ko</span></span>
+                <span className="min-w-0 flex-1"><b className="block text-sm">{doc.label || docLabel(doc.type)}</b><span className="block truncate text-xs text-ink-mute">{doc.fileName} · {(doc.size / 1024).toFixed(0)} Ko</span></span>
                 <StatusBadge status={doc.status} />
               </a>
             ))}
-            {missing.map((t) => <div key={t} className="flex items-center gap-3 rounded-2xl border border-[#ffd0d9] p-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffecef] text-[#d42a50]"><AlertCircle size={18} /></span><b className="flex-1 text-sm">{docLabel(t)}</b><span className="chip bg-[#ffecef] text-[#d42a50]">Manquante</span></div>)}
+            {missing.map((t) => <div key={t} className="flex items-center gap-3 rounded-2xl border border-[#ffd0d9] p-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffecef] text-[#d42a50]"><AlertCircle size={18} /></span><b className="flex-1 text-sm">{pieces.find((x) => x.code === t)?.libelle ?? docLabel(t)}</b><span className="chip bg-[#ffecef] text-[#d42a50]">Manquante</span></div>)}
             {!documents.length && !missing.length && <p className="text-sm text-ink-mute">Aucune pièce jointe.</p>}
           </Panel>
           <Panel title={`Messages avec ${e.sigle}`} icon={MessageCircle}>

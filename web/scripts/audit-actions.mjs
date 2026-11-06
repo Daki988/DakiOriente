@@ -86,6 +86,7 @@ await action("etudiant", "profil", () => amina.get("/moi"));
 const d1 = await action("etudiant", "déposer une pièce d'identité", () => amina.post("/documents", undefined, { form: { fichier: new File([PDF], "cni.pdf", { type: "application/pdf" }), type: "identite", libelle: "CNI" } }));
 const d2 = await action("etudiant", "déposer un relevé de notes", () => amina.post("/documents", undefined, { form: { fichier: new File([PDF], "releve.pdf", { type: "application/pdf" }), type: "releve_notes" } }));
 const d4 = await action("etudiant", "déposer un diplôme", () => amina.post("/documents", undefined, { form: { fichier: new File([PDF], "bac.pdf", { type: "application/pdf" }), type: "diplome" } }));
+const d5 = await action("etudiant", "déposer un acte de naissance", () => amina.post("/documents", undefined, { form: { fichier: new File([PDF], "acte.pdf", { type: "application/pdf" }), type: "acte_naissance" } }));
 const d3 = await action("etudiant", "déposer une photo", () => amina.post("/documents", undefined, { form: { fichier: new File([PNG], "photo.png", { type: "image/png" }), type: "photo" } }));
 await action("etudiant", "mes documents", () => amina.get("/documents"));
 if (d1?.id) await action("etudiant", "télécharger un document", () => amina.get(`/documents/${d1.id}/fichier`));
@@ -99,7 +100,7 @@ if (prog) await action("etudiant", "détail d'une formation", () => amina.get(`/
 const cand = prog && await action("etudiant", "commencer une candidature", () => amina.post("/candidatures", { programId: prog.id }));
 let paiementCandidature = null;
 if (cand?.id) {
-  const docs = [d1, d2, d3, d4].filter(Boolean).map((d) => d.id);
+  const docs = [d1, d2, d3, d4, d5].filter(Boolean).map((d) => d.id);
   await action("etudiant", "compléter le dossier", () => amina.patch(`/candidatures/${cand.id}`, { motivation: "Je veux étudier la gestion au Maroc et revenir créer mon entreprise à Libreville.", documentIds: docs }));
   const env = await action("etudiant", "envoyer la candidature (+ frais)", () => amina.post(`/candidatures/${cand.id}/envoyer`, { moyen: "mobile_money_afrique" }));
   paiementCandidature = env?.payment?.reference ?? env?.paiement?.reference ?? null;

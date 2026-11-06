@@ -148,9 +148,14 @@ export const establishments = pgTable("establishments", {
   homeUntil: timestamp("home_until", { withTimezone: true }),
   // Mode accompagné : l'équipe Navigoal répond aux candidats et traite les dossiers au nom de l'école.
   assisted: boolean("assisted").notNull().default(false),
+  // Dossier de candidature propre à l'école : pièces ajoutées et fiche de candidature PDF à télécharger, remplir et renvoyer.
+  dossier: jsonb("dossier").$type<DossierEcole>().notNull().default({}),
   createdAt: createdAt(),
   updatedAt: updatedAt(),
 }, (t) => [index("etab_pays_idx").on(t.pays)]);
+export type PieceEcole = { cle: string; libelle: string; obligatoire: boolean };
+export type FicheCandidature = { key: string; nom: string; taille: number; maj: string; source?: string | null; telechargements?: number };
+export type DossierEcole = { pieces?: PieceEcole[]; fiche?: FicheCandidature | null };
 
 export const establishmentMembers = pgTable("establishment_members", {
   userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
@@ -183,7 +188,7 @@ export const programs = pgTable("programs", {
   feesConfirmed: boolean("fees_confirmed").notNull().default(false),
   applicationFee: integer("application_fee").notNull().default(0),
   admission: jsonb("admission").$type<{ series?: string[]; noteMin?: number; concours?: boolean; entretien?: boolean; prerequis?: string }>().notNull().default({}),
-  requiredDocuments: jsonb("required_documents").$type<string[]>().notNull().default(["identite", "releve_notes", "diplome", "photo"]),
+  requiredDocuments: jsonb("required_documents").$type<string[]>().notNull().default(["identite", "photo", "acte_naissance", "releve_notes"]),
   seats: integer("seats"),
   startDate: text("start_date"),
   active: boolean("active").notNull().default(true),
@@ -211,12 +216,15 @@ export const campaigns = pgTable("campaigns", {
 });
 
 // ---------------------------------------------------------------- Documents
-export const documentTypeEnum = pgEnum("document_type", ["identite", "acte_naissance", "diplome", "releve_notes", "certificat", "photo", "attestation_admission", "attestation_scolarite", "piece_garant", "justificatif_ressources", "kyc_identite", "kyc_propriete", "autre"]);
+export const documentTypeEnum = pgEnum("document_type", ["identite", "acte_naissance", "diplome", "releve_notes", "certificat", "photo", "attestation_admission", "attestation_scolarite", "piece_garant", "justificatif_ressources", "kyc_identite", "kyc_propriete", "autre",
+  "fiche_candidature", "releve_bac", "cv", "lettre_motivation", "prise_en_charge", "equivalence_bac", "certificat_medical", "test_langue"]);
 export const documents = pgTable("documents", {
   id: id(),
   ownerId: text("owner_id").notNull().references(() => users.id, { onDelete: "cascade" }),
   type: documentTypeEnum("type").notNull(),
   label: text("label"),
+  // Rattachement d'une pièce propre à une école : « etab:<id> » (fiche de candidature remplie) ou « piece:<id>:<cle> » (pièce ajoutée par l'école).
+  scope: text("scope"),
   fileName: text("file_name").notNull(),
   mime: text("mime").notNull(),
   size: integer("size").notNull(),
@@ -609,3 +617,17 @@ export const participantsRelations = relations(conversationParticipants, ({ one 
 export const messagesRelations = relations(messages, ({ one }) => ({ conversation: one(conversations, { fields: [messages.conversationId], references: [conversations.id] }), author: one(users, { fields: [messages.authorId], references: [users.id] }) }));
 
 export const _sql = sql; // réexport pratique pour les requêtes brutes
+
+// ---------------------------------------------------------------- Audience (sans cookie : ni IP ni identifiant persistant conservés)
+export const pageViews = pgTable("page_views", {
+  id: id(),
+  at: timestamp("at", { withTimezone: true }).notNull().defaultNow(),
+  day: text("day").notNull(), // AAAA-MM-JJ (UTC)
+  path: text("path").notNull(),
+  service: text("service").notNull(), // navigoal | navilease | navitravel
+  country: text("country"), // code ISO déduit de l'adresse IP (base locale), adresse non conservée
+  source: text("source").notNull(), // google, direct, whatsapp, facebook, campagne…
+  device: text("device").notNull(), // mobile | tablette | ordinateur
+  visitor: text("visitor").notNull(), // empreinte anonyme du jour (change chaque jour)
+  connected: boolean("connected").notNull().default(false),
+}, (t) => [index("pv_day_idx").on(t.day), index("pv_at_idx").on(t.at)]);

@@ -32,6 +32,8 @@ import * as relais from "../services/relais";
 import * as premium from "../services/premium";
 import * as acces from "../services/acces";
 import * as offres from "../services/offres";
+import * as dossier from "../services/dossier";
+import * as audience from "../services/audience";
 import { ACQ_COOKIE } from "@/lib/campagne";
 
 /** Origine de l'inscription (cookie de première visite posé par le site). */
@@ -152,9 +154,12 @@ route("GET", "/documents", "Documents", "Mes documents", "user", async ({ me }) 
 route("POST", "/documents", "Documents", "Déposer un document (multipart : fichier, type, libelle)", "user", async ({ me, req }) => {
   tailleMax(req);
   const fd = await req.formData();
-  const f = fd.get("fichier");
-  if (!(f instanceof File)) throw new AppError("Fichier manquant.");
-  return json(await docs.uploadDocument(me, String(fd.get("type") ?? "autre") as never, { name: f.name, bytes: new Uint8Array(await f.arrayBuffer()), label: fd.get("libelle")?.toString() }), 201);
+  const fs = fd.getAll("fichier").filter((x): x is File => x instanceof File).slice(0, 10);
+  if (!fs.length) throw new AppError("Fichier manquant.");
+  // Plusieurs fichiers : photos de plusieurs pages réunies en un seul PDF.
+  const bytes = fs.length > 1 ? await docs.imagesEnPdf(await Promise.all(fs.map(async (f) => new Uint8Array(await f.arrayBuffer())))) : new Uint8Array(await fs[0].arrayBuffer());
+  const name = fs.length > 1 ? `${fs[0].name.replace(/\.[^.]+$/, "")}-${fs.length}-pages.pdf` : fs[0].name;
+  return json(await docs.uploadDocument(me, String(fd.get("type") ?? "autre") as never, { name, bytes, label: fd.get("libelle")?.toString(), scope: fd.get("rattachement")?.toString() || null }), 201);
 });
 route("GET", "/documents/:id/fichier", "Documents", "Télécharger un document (contrôle d'accès)", "user", async ({ me, params }) => { const d = await docs.readDocument(me, params.id); return file(d.data, d.contentType, d.doc.fileName); });
 route("DELETE", "/documents/:id", "Documents", "Supprimer un document", "user", async ({ me, params }) => { await docs.removeDocument(me, params.id); return ok; });
@@ -186,6 +191,8 @@ route("GET", "/recherche", "Catalogue", "Recherche globale (métiers, formations
 route("GET", "/etablissements", "Catalogue", "Établissements labellisés (filtres ville, label, q)", "public", async ({ query }) => etab.searchEstablishments({ pays: query.get("pays") ?? undefined, ville: query.get("ville") ?? undefined, label: query.get("label") ?? undefined, text: query.get("q") ?? undefined }));
 route("GET", "/etablissements/:id", "Catalogue", "Fiche établissement", "public", async ({ params }) => etab.getEstablishment(params.id));
 route("GET", "/etablissements/:id/formations", "Catalogue", "Formations publiées d'un établissement", "public", async ({ params }) => etab.listPrograms(params.id));
+route("GET", "/etablissements/:id/dossier", "Catalogue", "Dossier de candidature : pièces à joindre et fiche de l'école (?programme=)", "public", async ({ params, query }) => dossier.dossierPublic(params.id, query.get("programme")));
+route("GET", "/etablissements/:id/fiche-candidature.pdf", "Catalogue", "Fiche de candidature mise en ligne par l'école (PDF)", "public", async ({ params }) => { const f = await dossier.lireFiche(params.id); return file(f.data, "application/pdf", f.nom, false); });
 route("GET", "/formations-offres/:id", "Catalogue", "Détail d'une formation publiée", "public", async ({ params }) => etab.getProgram(params.id));
 route("GET", "/campagnes", "Catalogue", "Campagnes en cours (admissions, concours, bourses…)", "public", async ({ query }) => etab.listCampaigns({ establishmentId: query.get("etablissement") ?? undefined, publishedOnly: true, current: true }));
 route("GET", "/articles", "Contenus", "Articles publiés", "public", async () => admin.listArticles(true));
@@ -360,6 +367,9 @@ route("GET", "/admin/accompagnement", "Relais", "Écoles et bailleurs : mode acc
 route("POST", "/admin/etablissements/:id/accompagnement", "Relais", "Activer ou arrêter le mode accompagné d'une école", ["admin"], async ({ me, params, body }) => relais.setEstablishmentAssisted(me, params.id, !!(await body()).actif));
 route("POST", "/admin/bailleurs/:id/accompagnement", "Relais", "Activer ou arrêter le mode accompagné d'un bailleur", ["admin"], async ({ me, params, body }) => relais.setLandlordAssisted(me, params.id, !!(await body()).actif));
 // ---------------------------------------------------------------- Offres payantes des établissements
+route("POST", "/vu", "Audience", "Page vue (mesure d'audience sans cookie)", "public", async ({ req, user, body }) => { await audience.enregistrer(req, await body().catch(() => ({})), !!user); return new Response(null, { status: 204 }); });
+route("GET", "/admin/audience", "Audience", "Statistiques d'audience (?periode=jour|7j|30j|12m&service=&pays=)", ["admin"], async ({ me, query }) => audience.statistiques(me, { periode: query.get("periode"), service: query.get("service"), pays: query.get("pays") }));
+route("GET", "/admin/audience/export.csv", "Audience", "Export CSV de l'audience", ["admin"], async ({ me, query }) => file(new TextEncoder().encode("\uFEFF" + audience.csv(await audience.statistiques(me, { periode: query.get("periode"), service: query.get("service"), pays: query.get("pays") }))), "text/csv; charset=utf-8", `audience-${new Date().toISOString().slice(0, 10)}.csv`, false));
 route("GET", "/admin/offres", "Offres", "Catalogue, abonnements et encaissements", ["admin"], async ({ me }) => offres.overview(me));
 route("GET", "/admin/offres/etablissements", "Offres", "Établissements (pour activer un service)", ["admin"], async ({ me }) => offres.listEtablissementsPourActivation(me));
 route("GET", "/admin/offres/export.csv", "Offres", "Export comptable des abonnements (CSV)", ["admin"], async ({ me }) => file(new TextEncoder().encode("\uFEFF" + offres.exportCsv((await offres.overview(me)).items)), "text/csv; charset=utf-8", `abonnements-${new Date().toISOString().slice(0, 10)}.csv`, false));
@@ -389,6 +399,11 @@ route("POST", "/admin/etablissements/:id/collaborateurs", "Accès écoles", "Ajo
 
 // ---------------------------------------------------------------- Premium (établissements)
 const liste = (v: string | null) => (v ? v.split(",").filter(Boolean) : undefined);
+route("GET", "/ecole/:eid/dossier", "Établissement", "Réglages du dossier de candidature (pièces, fiche)", ["etablissement", "admin"], async ({ me, params }) => dossier.reglagesDossier(me, params.eid));
+route("PUT", "/ecole/:eid/dossier", "Établissement", "Enregistrer les pièces demandées (et les appliquer aux formations)", ["etablissement", "admin"], async ({ me, params, body }) => dossier.enregistrerReglages(me, params.eid, await body()));
+route("POST", "/ecole/:eid/dossier/fiche", "Établissement", "Mettre en ligne la fiche de candidature (multipart : fichier PDF)", ["etablissement", "admin"], async ({ me, params, req }) => { tailleMax(req); const f = (await req.formData()).get("fichier"); if (!(f instanceof File)) throw new AppError("Fichier manquant."); return dossier.deposerFiche(me, params.eid, { name: f.name, bytes: new Uint8Array(await f.arrayBuffer()) }); });
+route("DELETE", "/ecole/:eid/dossier/fiche", "Établissement", "Retirer la fiche de candidature", ["etablissement", "admin"], async ({ me, params }) => dossier.retirerFiche(me, params.eid));
+route("GET", "/ecole/candidatures/:id/dossier.zip", "Établissement", "Toutes les pièces d'une candidature (ZIP)", ["etablissement", "admin"], async ({ me, params }) => { const z = await dossier.dossierZip(me, params.id); return file(z.data, "application/zip", z.nom); });
 route("GET", "/ecole/:eid/guide", "Établissement", "Guide de la plateforme : premiers pas réalisés", ["etablissement", "admin"], async ({ me, params }) => acces.guideProgress(me, params.eid));
 route("GET", "/ecole/:eid/premium", "Premium", "Offre de l'établissement (Premium ou gratuit, tarif)", ["etablissement", "admin"], async ({ me, params }) => premium.premiumStatus(me, params.eid));
 route("GET", "/ecole/:eid/candidatures-filtrees", "Premium", "Candidatures reçues avec résultats, projet, financement et score (filtres)", ["etablissement", "admin"], async ({ me, params, query }) => premium.filteredApplications(me, params.eid, {

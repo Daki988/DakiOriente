@@ -15,7 +15,7 @@ import { auPays, destinationById, etabById, niveauLabel, serieById, type Label }
 import { useUser } from "@/components/app/Session";
 import { visaDestination } from "@/lib/pays-origine";
 import { AppProgress } from "./AppProgress";
-import type { AppDetail, Program } from "./types";
+import type { AppDetail, PieceRequise, Program } from "./types";
 
 type Methods = Record<string, Moyen[]>;
 type Me = { profile: { serie: string | null } | null; birthYear: number | null };
@@ -80,9 +80,12 @@ export function NewApplication() {
   }, [d.data]);
 
   const p = d.data?.program, e = d.data?.establishment;
-  const required = useMemo(() => [...new Set([...(p?.requiredDocuments ?? []), ...(d.data?.application.requestedDocuments ?? [])])], [p, d.data]);
-  const chosenTypes = new Set((docs.data ?? []).filter((x) => selected.includes(x.id)).map((x) => x.type));
-  const missing = required.filter((t) => !chosenTypes.has(t));
+  // Pièces exigées par l'école (formation, fiche de candidature, pièces propres à l'école, pièces demandées en complément).
+  const required = useMemo(() => d.data?.pieces ?? [], [d.data]);
+  const correspond = (pc: PieceRequise, x: Doc) => x.type === pc.type && (pc.scope ? x.scope === pc.scope : true);
+  const chosenDocs = (docs.data ?? []).filter((x) => selected.includes(x.id));
+  const missing = required.filter((pc) => pc.obligatoire && !chosenDocs.some((x) => correspond(pc, x)));
+  const nbOblig = required.filter((pc) => pc.obligatoire).length;
   const serie = me.data?.profile?.serie;
   const serieOk = !p?.admission.series?.length || !serie || p.admission.series.includes(serie);
   const words = motivation.trim() ? motivation.trim().split(/\s+/).length : 0;
@@ -189,24 +192,33 @@ export function NewApplication() {
         {step === 1 && (
           <>
             <div className="grid items-start gap-4 lg:grid-cols-[1fr_280px]">
-              <Panel title="Documents requis" icon={FileText} action={<span className="chip bg-brand-50 text-brand-700">{required.length - missing.length} / {required.length}</span>}>
+              <Panel title="Pièces demandées par l'école" icon={FileText} action={<span className="chip bg-brand-50 text-brand-700">{nbOblig - missing.length} / {nbOblig}</span>}>
                 {!!(docs.data ?? []).length && <p className="rounded-xl bg-brand-50 px-3.5 py-2.5 text-[13px] font-semibold text-brand-700">Tes documents déjà déposés sont réutilisables : coche ceux à joindre.</p>}
+                {d.data.fiche && (
+                  <div className="flex flex-col gap-2.5 rounded-2xl border-2 border-brand-600 p-4">
+                    <div className="flex items-center gap-3"><span className="flex h-12 w-10 shrink-0 items-center justify-center rounded-lg bg-[#fdecec] text-[11px] font-extrabold text-[#d42a50]">PDF</span>
+                      <span className="min-w-0 flex-1"><b className="block text-sm">Fiche de candidature {e.sigle}</b><span className="text-xs text-ink-mute">{d.data.fiche.nom} · mise à jour le {new Date(d.data.fiche.maj).toLocaleDateString("fr-FR")}</span></span>
+                      <a href={d.data.fiche.url} target="_blank" rel="noopener" className="btn-ghost shrink-0 px-3 py-2 text-[13px]"><Download size={15} />Télécharger</a></div>
+                    <ol className="flex flex-col gap-1 text-[13px] text-ink-soft"><li><b className="text-brand-600">1.</b> Télécharge la fiche et imprime-la (ou remplis-la sur ton ordinateur).</li><li><b className="text-brand-600">2.</b> Remplis, date et signe (« lu et approuvé »).</li><li><b className="text-brand-600">3.</b> Scanne-la ou prends chaque page en photo, puis envoie-la ci-dessous.</li></ol>
+                  </div>
+                )}
                 <ul className="flex flex-col gap-2">
-                  {required.map((t) => {
-                    const mine = (docs.data ?? []).filter((x) => x.type === t);
+                  {required.map((pc) => {
+                    const mine = (docs.data ?? []).filter((x) => correspond(pc, x));
                     const chosen = mine.find((x) => selected.includes(x.id));
                     return (
-                      <li key={t} className="rounded-2xl border border-[#eef1f8] p-3">
+                      <li key={pc.code} className="rounded-2xl border border-[#eef1f8] p-3">
                         <div className="flex items-center gap-3">
                           <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md ${chosen ? "bg-brand-600 text-white" : "border-2 border-[#dbe3f7]"}`} aria-hidden>{chosen && <Check size={14} strokeWidth={3} />}</span>
-                          <span className="min-w-0 flex-1 text-sm font-semibold">{docLabel(t)}{chosen && <span className="block truncate text-xs font-normal text-ink-mute">{chosen.fileName}</span>}</span>
+                          <span className="min-w-0 flex-1 text-sm font-semibold">{pc.libelle}{!pc.obligatoire && <span className="ml-1.5 text-xs font-normal text-ink-mute">(facultatif)</span>}{pc.ecole && <span className="chip ml-1.5 bg-sun-100 px-2 py-0.5 text-[11px] text-[#a55a00]">propre à {e.sigle}</span>}{chosen && <span className="block truncate text-xs font-normal text-ink-mute">{chosen.fileName}</span>}</span>
                           {chosen ? <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><Check size={12} />Ajouté</span>
-                            : <button type="button" onClick={() => setOpen(open === t ? null : t)} className="btn-ghost min-h-[36px] px-3 py-1.5 text-[13px]"><Upload size={14} />Ajouter</button>}
+                            : <button type="button" onClick={() => setOpen(open === pc.code ? null : pc.code)} className="btn-ghost min-h-[36px] px-3 py-1.5 text-[13px]"><Upload size={14} />{pc.type === "fiche_candidature" ? "Téléverser remplie" : "Ajouter"}</button>}
                         </div>
-                        {(open === t || (!chosen && mine.length > 0)) && (
+                        {(open === pc.code || (!chosen && mine.length > 0)) && (
                           <div className="mt-3 flex flex-col gap-2 border-t border-[#eef1f8] pt-3">
-                            {mine.map((x) => <label key={x.id} className="flex min-h-[36px] cursor-pointer items-center gap-2.5 text-[13px]"><input type="checkbox" className="h-4 w-4 accent-brand-600" checked={selected.includes(x.id)} onChange={(ev) => setSelected((s) => ev.target.checked ? [...s, x.id] : s.filter((y) => y !== x.id))} /><span className="truncate">{x.fileName}</span><span className="shrink-0 text-ink-mute">· {new Date(x.createdAt).toLocaleDateString("fr-FR")}</span></label>)}
-                            {!chosen && <FileDrop type={t} compact onUploaded={(doc) => { docs.setData([doc, ...(docs.data ?? [])]); setSelected((s) => [...s, doc.id]); setOpen(null); toast("Document ajouté"); }} />}
+                            {mine.map((x) => <label key={x.id} className="flex min-h-[36px] cursor-pointer items-center gap-2.5 text-[13px]"><input type="checkbox" className="h-4 w-4 accent-brand-600" checked={selected.includes(x.id)} onChange={(ev) => setSelected((sel) => ev.target.checked ? [...sel, x.id] : sel.filter((y) => y !== x.id))} /><span className="truncate">{x.fileName}</span><span className="shrink-0 text-ink-mute">· {new Date(x.createdAt).toLocaleDateString("fr-FR")}</span></label>)}
+                            {!chosen && mine.length > 0 && open !== pc.code && <button type="button" onClick={() => setOpen(pc.code)} className="self-start text-[13px] font-bold text-brand-600">+ Déposer un nouveau fichier</button>}
+                            {!chosen && (open === pc.code || mine.length === 0) && <FileDrop type={pc.type} scope={pc.scope} libelle={pc.ecole ? pc.libelle : undefined} pages={pc.type === "fiche_candidature" || pc.ecole} compact onUploaded={(doc) => { docs.setData([doc, ...(docs.data ?? [])]); setSelected((sel) => [...sel, doc.id]); setOpen(null); toast("Document ajouté"); }} />}
                           </div>
                         )}
                       </li>
@@ -238,9 +250,9 @@ export function NewApplication() {
         {step === 2 && (
           <Panel title={status === "piece_demandee" ? "Renvoyer le dossier" : "Récapitulatif et paiement"} icon={Wallet}>
             <dl className="flex flex-col gap-2 text-sm">
-              {[["Établissement", e.nom], ["Formation", p.title], ["Campus", campus || e.ville], ["Pièces jointes", `${required.length - missing.length} / ${required.length}`], ["Motivation", `${words} mots`]].map(([k, v]) => <div key={k} className="flex justify-between gap-4"><dt className="text-ink-mute">{k}</dt><dd className="text-right font-bold">{v}</dd></div>)}
+              {[["Établissement", e.nom], ["Formation", p.title], ["Campus", campus || e.ville], ["Pièces jointes", `${nbOblig - missing.length} / ${nbOblig}`], ["Motivation", `${words} mots`]].map(([k, v]) => <div key={k} className="flex justify-between gap-4"><dt className="text-ink-mute">{k}</dt><dd className="text-right font-bold">{v}</dd></div>)}
             </dl>
-            {missing.length > 0 && <Alert tone="error" title="Pièces manquantes" action={<button onClick={() => go(1)} className="btn-ghost py-2">Compléter</button>}>{missing.map(docLabel).join(", ")}.</Alert>}
+            {missing.length > 0 && <Alert tone="error" title="Pièces manquantes" action={<button onClick={() => go(1)} className="btn-ghost py-2">Compléter</button>}>{missing.map((m) => m.libelle).join(", ")}.</Alert>}
             {status === "brouillon" && fee > 0 ? (
               <>
                 <div className="flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-brand-950 to-brand-700 px-4 py-4 text-white sm:px-5"><span className="font-bold">Frais de dossier</span><b className="text-right text-lg [&_span]:text-brand-100"><Prix mad={fee} bloc cfaDabord /></b></div>

@@ -107,6 +107,12 @@ fs.cpSync(path.join(root, "assets", "logos"), LOGOS_OUT, {
   filter: (src) => !src.endsWith(".json"),
 });
 
+// Fiches de candidature officielles des établissements (PDF servis sur /fiches/…)
+write("fiches_candidature", read("fiches_candidature"));
+const FICHES_OUT = path.join(web, "public", "fiches");
+fs.rmSync(FICHES_OUT, { recursive: true, force: true });
+fs.cpSync(path.join(root, "assets", "fiches"), FICHES_OUT, { recursive: true });
+
 // Textes légaux (Navigoal, Navilease, NaviTravel) : src/content/legal/<service>/<page>.md → src/data/legal.json
 const LEGAL = path.join(web, "src", "content", "legal");
 const legal = {};

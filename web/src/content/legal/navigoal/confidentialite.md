@@ -29,6 +29,7 @@ Cette politique s'applique au site navigoal.net, à l'espace connecté et à l'a
 | Échanges | messages, demandes de rendez-vous, conversations avec Navi | vous |
 | Liaison familiale | parent ou tuteur lié, consentements donnés | vous et votre parent |
 | Données techniques | journaux de connexion, adresse IP, type d'appareil, source d'arrivée sur le site (campagne, parrainage) | automatique |
+| Mesure d'audience | page consultée, provenance, type d'appareil, pays (déduit de l'adresse IP, qui n'est pas conservée), empreinte anonyme du jour | automatique, sans cookie |
 
 Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les communiquez pas dans les champs libres ou à Navi.
 
@@ -44,6 +45,7 @@ Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les c
 | Vous proposer, si vous l'acceptez, aux écoles Premium (vivier anonyme, invitations) | votre consentement, et celui de votre parent si vous êtes mineur |
 | Répondre à vos questions avec Navi ou un conseiller | exécution du service |
 | Mesurer l'efficacité de nos campagnes (source d'inscription, parrainage) et produire des statistiques anonymes | intérêt légitime de Navigoal |
+| Mesurer l'audience du site (pages les plus consultées, pays, provenance) pour l'améliorer | intérêt légitime de Navigoal |
 | Prévenir la fraude et les abus, assurer la sécurité | intérêt légitime, obligations légales |
 
 ## Qui peut accéder à vos données ?
@@ -76,6 +78,7 @@ Vos données sont hébergées dans l'Union européenne. Les messages envoyés à
 | Paiements et reçus | 10 ans (obligations comptables) |
 | Conversations avec Navi | non conservées sur nos serveurs : l'historique reste dans votre navigateur, et seul un compteur du nombre de messages du jour est gardé (adresse IP rendue illisible pour les visiteurs) |
 | Journaux de connexion et de sécurité | 12 mois |
+| Mesure d'audience (détail par page vue, sans adresse IP) | 13 mois |
 | Codes de vérification | quelques minutes (usage unique) |
 
 À l'issue de ces durées, les données sont supprimées ou rendues anonymes.

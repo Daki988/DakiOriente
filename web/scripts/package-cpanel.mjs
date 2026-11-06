@@ -32,6 +32,7 @@ copy(path.join(web, ".next", "static"), path.join(srv, ".next", "static"));
 copy(path.join(web, "public"), path.join(srv, "public"));
 copy(path.join(web, "drizzle"), path.join(out, "drizzle"));
 copy(path.join(root, "data", "referentiels"), path.join(out, "data", "referentiels"));
+copy(path.join(root, "data", "geoip"), path.join(out, "data", "geoip")); // base pays-IP (mesure d'audience)
 if (fs.existsSync(path.join(root, "data", "archives"))) copy(path.join(root, "data", "archives"), path.join(out, "data", "archives"));
 fs.mkdirSync(path.join(out, "stockage"), { recursive: true });
 fs.writeFileSync(path.join(out, "stockage", ".htaccess"), "Require all denied\n");

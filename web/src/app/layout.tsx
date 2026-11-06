@@ -8,6 +8,7 @@ import { DESTINATIONS_ACTIVES } from "@/lib/data";
 import { DestinationProvider } from "@/components/ui/Destination";
 import { AcquisitionTracker } from "@/components/campagne/AcquisitionTracker";
 import { Navi } from "@/components/ui/Navi";
+import { Audience } from "@/components/ui/Audience";
 
 const DESCRIPTION = `Étudier ${DESTINATIONS_ACTIVES.map((d) => d.prep).join(" ou ")} depuis toute l'Afrique : orientation, écoles privées reconnues par l'État, frais, candidature en ligne et logement étudiant.`;
 
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
            <DestinationProvider>
             <ScrollProgress />
             <AcquisitionTracker />
+            <Audience />
             {children}
             <Navi />
            </DestinationProvider>

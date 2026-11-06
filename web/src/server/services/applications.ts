@@ -7,7 +7,7 @@ import { AppError, forbidden, notFound } from "../lib/errors";
 import { assertConsentIfMinor, isGuardianOf } from "./guardians";
 import { assertMember, publishable } from "./establishments";
 import { notify } from "./notifications";
-import { DOC_LABEL } from "./documents";
+import { ficheDe, piecesDeCandidature } from "./dossier";
 import { CURRENCY } from "../payments/providers";
 import { initiatePayment } from "./payments";
 
@@ -70,12 +70,9 @@ export async function updateDraft(student: User, id: string, raw: z.input<typeof
   return u;
 }
 
-/** Pièces manquantes par rapport aux exigences de la formation (et aux pièces demandées en complément). */
+/** Pièces obligatoires manquantes (codes) : pièces de la formation, fiche et pièces propres à l'école, pièces demandées en complément. */
 export async function missingDocuments(a: typeof schema.applications.$inferSelect) {
-  const [p] = await db.select().from(schema.programs).where(eq(schema.programs.id, a.programId));
-  const docs = a.documentIds.length ? await db.select({ type: schema.documents.type }).from(schema.documents).where(inArray(schema.documents.id, a.documentIds)) : [];
-  const have = new Set(docs.map((d) => d.type));
-  return [...new Set([...p.requiredDocuments, ...a.requestedDocuments])].filter((t) => !have.has(t as never));
+  return (await piecesDeCandidature(a)).manquantes.map((p) => p.code);
 }
 
 /** Envoi : vérifie pièces et consentement, puis lance le paiement des frais de dossier s'il y en a. */
@@ -84,7 +81,7 @@ export async function submitApplication(student: User, id: string, payment?: { m
   if (a.status !== "brouillon" && a.status !== "piece_demandee") throw new AppError("Candidature déjà envoyée.");
   await assertConsentIfMinor(student);
   const missing = await missingDocuments(a);
-  if (missing.length) throw new AppError(`Pièces manquantes : ${missing.map((m) => DOC_LABEL[m as keyof typeof DOC_LABEL] ?? m).join(", ")}.`, 400, "pieces_manquantes");
+  if (missing.length) { const { manquantes } = await piecesDeCandidature(a); throw new AppError(`Pièces manquantes : ${manquantes.map((m) => m.libelle).join(", ")}.`, 400, "pieces_manquantes"); }
   const [p] = await db.select().from(schema.programs).where(eq(schema.programs.id, a.programId));
   if (p.campuses.length > 1 && !a.campus) throw new AppError("Choisis ton campus avant d'envoyer ta candidature.", 400, "campus_requis");
   const [e] = await db.select().from(schema.establishments).where(eq(schema.establishments.id, a.establishmentId));
@@ -152,7 +149,8 @@ export async function getApplication(viewer: User, id: string) {
   const events = await db.select().from(schema.applicationEvents).where(eq(schema.applicationEvents.applicationId, id)).orderBy(schema.applicationEvents.createdAt);
   const docs = row.a.documentIds.length ? await db.select().from(schema.documents).where(inArray(schema.documents.id, row.a.documentIds)) : [];
   const { passwordHash: _h, totpSecret: _t, ...student } = row.s;
-  return { application: row.a, program: row.p, establishment: row.e, student, events, documents: docs, missing: await missingDocuments(row.a) };
+  const { pieces, manquantes } = await piecesDeCandidature(row.a);
+  return { application: row.a, program: row.p, establishment: row.e, student, events, documents: docs, missing: manquantes.map((m) => m.code), pieces, fiche: ficheDe(row.e) };
 }
 
 export async function listForStudent(studentId: string) {

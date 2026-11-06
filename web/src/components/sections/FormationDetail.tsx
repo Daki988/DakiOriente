@@ -1,4 +1,5 @@
 "use client";
+import { DossierPublic } from "./DossierPublic";
 import Link from "@/components/ui/Link";
 import { QuestionWhatsApp } from "@/components/ui/QuestionWhatsApp";
 import { AnimatePresence, motion } from "framer-motion";
@@ -136,7 +137,7 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
                     </div>
                   )}
                   {series.length > 0 && <div className="flex flex-col gap-3"><b className="text-sm">Séries du baccalauréat conseillées</b>{series.map(([p, l]) => <div key={p} className="flex flex-wrap items-center gap-1.5 text-sm"><span className="w-full text-xs text-ink-mute sm:w-36">Bac obtenu {p === "MA" ? "au Maroc" : `au ${PAYS_NOM[p]}`}</span>{l.map((x) => serieById[x] && <span key={x} title={serieById[x].intitule} className="chip bg-[#f6f8fe] text-ink-soft">{serieById[x].code}</span>)}</div>)}</div>}
-                  <div className="rounded-xl bg-sun-50 p-4 text-sm text-[#8a5a00]">Pièces habituelles : pièce d&apos;identité ou passeport, relevés de notes, diplôme du baccalauréat (ou attestation), photo d&apos;identité. <Link href="/ressources/checklist-candidature/" className="font-bold underline">Voir la checklist de candidature</Link></div>
+                  {e && <DossierPublic eid={e.id} sigle={e.sigle || e.nom} compact />}
                 </div>
               )}
               {tab === "Programme" && (

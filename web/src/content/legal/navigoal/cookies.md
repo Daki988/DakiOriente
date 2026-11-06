@@ -36,7 +36,7 @@ Les vidéos des pages métiers sont lues avec le lecteur YouTube en mode « conf
 
 ## Mesure d'audience et publicité
 
-Navigoal n'utilise aucun outil de mesure d'audience tiers (Google Analytics ou autre), aucun pixel publicitaire et aucun bouton de réseau social traceur. Les statistiques de fréquentation sont calculées à partir de nos propres journaux, de manière agrégée.
+Navigoal mesure son audience avec un outil intégré, **sans cookie et sans service tiers** (ni Google Analytics, ni pixel publicitaire, ni bouton de réseau social traceur). Pour chaque page vue, nous enregistrons l'adresse de la page, le site d'où vous venez, le type d'appareil, le pays (déduit de l'adresse IP par une base installée sur nos serveurs, DB-IP Lite) et le service consulté. L'adresse IP n'est jamais conservée ; les visiteurs sont comptés par une empreinte anonyme qui change chaque jour. Si votre navigateur envoie le signal « Ne pas suivre », aucune mesure n'est faite. Les données détaillées sont gardées 13 mois.
 
 ## Comment gérer les cookies
 

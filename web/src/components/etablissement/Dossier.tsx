@@ -18,6 +18,7 @@ type Detail = {
   events: { id: string; status: AppStatus; note: string | null; createdAt: string; authorId: string | null }[];
   documents: Doc[];
   missing: string[];
+  pieces: { code: string; libelle: string }[];
 };
 type Conv = { id: string; contextKind: string | null; contextId: string | null; unread: number; lastMessageAt: string };
 
@@ -59,7 +60,7 @@ export function Dossier({ id }: { id: string }) {
   if (d.loading) return <><PageHeader title="Dossier candidat" crumbs={crumbs} /><Loading label="Chargement du dossier…" /></>;
   if (d.error) return <><PageHeader title="Dossier candidat" crumbs={crumbs} /><Alert tone="error" title="Dossier inaccessible" action={<Link href={link("/etablissement/candidatures")} className="btn-ghost px-3.5 py-2 text-[13px]">Retour aux candidatures</Link>}>{d.error.message}</Alert></>;
 
-  const { application: a, program: p, student: s, events, documents, missing } = d.data!;
+  const { application: a, program: p, student: s, events, documents, missing, pieces } = d.data!;
   const name = `${s.firstName} ${s.lastName}`;
   const allowed = SCHOOL_TRANSITIONS[a.status] ?? [];
   const doc = documents.find((x) => x.id === docId) ?? documents[0];
@@ -152,6 +153,7 @@ export function Dossier({ id }: { id: string }) {
             </>
           ) : <div className="p-5"><Empty icon={FileText} title="Aucune pièce jointe" text="Le candidat n'a joint aucun document à ce dossier." /></div>}
           <div className="flex flex-col gap-2 p-5">
+            {documents.length > 0 && <a href={apiUrl(`/ecole/candidatures/${a.id}/dossier.zip`)} className="btn-ghost mb-1 self-start px-3 py-2 text-[13px]"><Download size={15} />Tout télécharger (ZIP)</a>}
             <span className="text-[11px] font-extrabold uppercase text-ink-mute">Pièces ({documents.length}{missing.length ? ` · ${missing.length} manquante${missing.length > 1 ? "s" : ""}` : ""})</span>
             {documents.map((x) => (
               <button key={x.id} onClick={() => setDocId(x.id)} aria-pressed={doc?.id === x.id}
@@ -163,7 +165,7 @@ export function Dossier({ id }: { id: string }) {
             ))}
             {missing.map((t) => (
               <div key={t} className="flex items-center gap-3 rounded-xl border border-dashed border-[#ffc2cf] bg-[#fff6f8] px-4 py-3 text-sm">
-                <AlertTriangle size={17} className="shrink-0 text-[#d42a50]" /><span className="flex-1"><b>{docLabel(t)}</b><span className="block text-xs text-ink-mute">{a.requestedDocuments.includes(t) ? "Demandée au candidat" : "Pièce requise manquante"}</span></span>
+                <AlertTriangle size={17} className="shrink-0 text-[#d42a50]" /><span className="flex-1"><b>{pieces.find((x) => x.code === t)?.libelle ?? docLabel(t)}</b><span className="block text-xs text-ink-mute">{a.requestedDocuments.includes(t) ? "Demandée au candidat" : "Pièce requise manquante"}</span></span>
               </div>
             ))}
           </div>

@@ -1,0 +1,10 @@
+{
+  "_meta": {
+    "description": "Fiches de candidature PDF publiées par les établissements sur leur site officiel (à télécharger, remplir et joindre au dossier). Une fiche mise en ligne par l'établissement depuis son espace remplace celle-ci.",
+    "mise_a_jour": "2026-11-06"
+  },
+  "items": [
+    { "etablissement": "ma-iihem", "fichier": "ma-iihem.pdf", "nom": "Dossier d'inscription IIHEM", "source": "https://www.iihem.ac.ma/files/dossier_inscription_IIHEM.pdf", "date": "2026-11-06" },
+    { "etablissement": "ma-ippc", "fichier": "ma-ippc.pdf", "nom": "Demande d'admission Poly.Casa", "source": "https://www.polytechnique.ma/uploads/formulaire-V-22Sept25.pdf", "date": "2026-11-06" }
+  ]
+}
