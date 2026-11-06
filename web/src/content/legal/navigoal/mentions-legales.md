@@ -10,7 +10,7 @@ bref: Navigoal, Navilease et NaviTravel sont des services d'OAPS Consulting Grou
 - Activité : agence de voyage, de tourisme et prestations générales
 - Siège social : quartier Glass, Libreville, Gabon
 - RCCM : GA-LBV-01-2021-B13-00360
-- Capital social : [à compléter : montant] F CFA
+- Capital social : 1 000 000 F CFA
 - Numéro d'identification fiscale (NIF) : [à compléter]
 - Téléphone : +241 077 45 31 67
 - E-mail de la société : oapsconsultinggroup@gmail.com

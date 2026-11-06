@@ -230,7 +230,7 @@ def mentions():
         ("server", "Hébergé en Europe", "LWS (Paris) et Neon (Francfort)."),
         ("copyright", "Crédits et retraits", "Chaque photo est créditée ; retrait sur demande."),
     ], "Mentions légales : champs à compléter (en jaune) avec vos informations", 2, 2480, None,
-        f'<div {NOTE} style="left:1180px;top:820px;max-width:230px">En jaune : reste à fournir (capital, NIF, directeur de la publication, récépissé CNPDCP)</div>')
+        f'<div {NOTE} style="left:1180px;top:820px;max-width:230px">En jaune : reste à fournir (NIF, directeur de la publication, récépissé CNPDCP)</div>')
 
 
 def legal_navilease():
