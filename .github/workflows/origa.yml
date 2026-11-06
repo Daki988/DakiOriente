@@ -35,17 +35,17 @@ jobs:
         with: { node-version: 22, cache: npm, cache-dependency-path: origa/package-lock.json }
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 17 }
-      - uses: android-actions/setup-android@v3
       - run: npm ci
       - run: npm run build
       - run: npx cap sync android
+      # Le SDK Android est préinstallé sur les machines ubuntu de GitHub (ANDROID_HOME).
       - run: chmod +x android/gradlew && cd android && ./gradlew assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
         with: { name: origa-android-apk, path: origa/android/app/build/outputs/apk/debug/app-debug.apk }
 
   ios:
     name: App iOS (simulateur, sans signature)
-    runs-on: macos-14
+    runs-on: macos-latest
     needs: web
     steps:
       - uses: actions/checkout@v4
