@@ -11,12 +11,12 @@ NaviTravel est le service de préparation au départ de Navigoal, édité par OA
 
 | Prestation | Ce que NaviTravel fait | Qui l'exécute |
 |---|---|---|
-| **Billet d'avion** | recherche du meilleur trajet et tarif étudiant, réservation, émission du billet | agence de voyages partenaire agréée, compagnies aériennes |
+| **Billet d'avion** | recherche du meilleur trajet et tarif étudiant, réservation, émission du billet | OAPS Consulting Group (agence de voyage), compagnies aériennes |
 | **Visa et démarches** | liste des pièces selon votre nationalité, vérification du dossier, prise de rendez-vous, suivi ; carte de séjour à l'arrivée | NaviTravel ; décision par le consulat ou l'administration |
 | **Accueil à l'arrivée** | accueil à l'aéroport, transfert jusqu'au logement, aide à l'installation (carte SIM, compte bancaire, premiers achats) | NaviTravel et prestataires locaux |
 | **Assurance voyage et santé** | comparaison et souscription d'une assurance adaptée aux étudiants et aux exigences du visa | assureur ou intermédiaire d'assurance agréé partenaire |
 
-Les partenaires de NaviTravel sont : [à compléter : agence de voyages agréée (licence n°), intermédiaire d'assurance agréé, prestataires d'accueil].
+OAPS Consulting Group, éditeur de NaviTravel, est elle-même une agence de voyage, de tourisme et prestations générales immatriculée à Libreville : elle réserve et émet les billets, organise l'accueil et accompagne les démarches. Assureur partenaire : [à compléter].
 
 ## Demande et devis
 
@@ -69,4 +69,4 @@ Toute réclamation est adressée à contact@navigoal.net (objet : « NaviTravel 
 
 ## Droit applicable
 
-Les CGU NaviTravel sont soumises au droit marocain, notamment à la loi n° 31-08 édictant des mesures de protection du consommateur, sans préjudice des dispositions protectrices de votre pays de résidence.
+Les CGU NaviTravel sont soumises au droit gabonais, OAPS Consulting Group étant immatriculée à Libreville, sans préjudice des dispositions protectrices du pays de résidence du voyageur. Les litiges relèvent des juridictions compétentes de Libreville, après une tentative de règlement amiable.

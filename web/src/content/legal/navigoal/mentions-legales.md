@@ -1,18 +1,20 @@
 ---
 titre: Mentions légales
-bref: Qui édite Navigoal, qui l'héberge, et comment nous joindre. Navigoal, Navilease et NaviTravel sont des services d'OAPS Consulting Group.
+bref: Navigoal, Navilease et NaviTravel sont des services d'OAPS Consulting Group, agence de voyage, de tourisme et prestations générales immatriculée à Libreville (Gabon). Le site est hébergé en Europe.
 ---
 
 ## Éditeur du site
 
-**OAPS Consulting Group**, [à compléter : forme juridique] au capital de [à compléter : montant] dirhams.
+**OAPS Consulting Group**, société à responsabilité limitée unipersonnelle (SARLU) de droit gabonais, créée le 9 août 2021.
 
-- Siège social : [à compléter : adresse complète]
-- Registre du commerce : [à compléter : ville] n° [à compléter]
-- Identifiant commun de l'entreprise (ICE) : [à compléter]
-- Identifiant fiscal (IF) : [à compléter]
-- Téléphone : [à compléter]
-- E-mail : contact@navigoal.net
+- Activité : agence de voyage, de tourisme et prestations générales
+- Siège social : quartier Glass, Libreville, Gabon
+- RCCM : GA-LBV-01-2021-B13-00360
+- Capital social : [à compléter : montant] F CFA
+- Numéro d'identification fiscale (NIF) : [à compléter]
+- Téléphone : +241 077 45 31 67
+- E-mail de la société : oapsconsultinggroup@gmail.com
+- E-mail de la plateforme : contact@navigoal.net
 
 Navigoal, Navilease et NaviTravel sont des marques et services d'OAPS Consulting Group.
 
@@ -29,7 +31,7 @@ Navigoal, Navilease et NaviTravel sont des marques et services d'OAPS Consulting
 
 ## Protection des données personnelles
 
-Le traitement des données est décrit dans la [politique de confidentialité](/confidentialite). Déclaration auprès de la Commission nationale de contrôle de la protection des données à caractère personnel (CNDP) : [à compléter : numéro].
+Le traitement des données est décrit dans la [politique de confidentialité](/confidentialite). Déclaration auprès de la Commission nationale pour la protection des données à caractère personnel du Gabon (CNPDCP) : [à compléter : numéro de récépissé].
 
 ## Propriété intellectuelle
 

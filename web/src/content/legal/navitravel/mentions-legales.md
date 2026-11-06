@@ -1,26 +1,39 @@
 ---
 titre: Mentions légales de NaviTravel
-bref: NaviTravel est le service voyage et installation de Navigoal, édité par OAPS Consulting Group, avec des partenaires agréés pour le transport et l'assurance.
+bref: NaviTravel est le service voyage et installation de Navigoal, opéré directement par OAPS Consulting Group, agence de voyage immatriculée à Libreville. L'assurance est souscrite auprès d'un assureur agréé partenaire.
 ---
 
 ## Éditeur
 
-NaviTravel est un service d'**OAPS Consulting Group**, [à compléter : forme juridique] au capital de [à compléter : montant] dirhams, dont le siège est situé [à compléter : adresse], immatriculée au registre du commerce de [à compléter : ville] sous le n° [à compléter], ICE [à compléter].
+NaviTravel est un service d'**OAPS Consulting Group**, société à responsabilité limitée unipersonnelle (SARLU) de droit gabonais, créée le 9 août 2021.
 
-E-mail : contact@navigoal.net (objet : « NaviTravel »).
+- Activité : agence de voyage, de tourisme et prestations générales
+- Siège social : quartier Glass, Libreville, Gabon
+- RCCM : GA-LBV-01-2021-B13-00360
+- Capital social : [à compléter : montant] F CFA
+- Numéro d'identification fiscale (NIF) : [à compléter]
+- Téléphone : +241 077 45 31 67
+- E-mail de la société : oapsconsultinggroup@gmail.com
+- E-mail de la plateforme : contact@navigoal.net
+
+Pour NaviTravel : contact@navigoal.net (objet : « NaviTravel »).
 
 ## Directeur de la publication
 
 [à compléter : prénom, nom et fonction].
 
-## Partenaires réglementés
+## Activité de voyage
+
+La billetterie, l'organisation des voyages, l'assistance aéroportuaire et l'accompagnement aux démarches de visa sont assurés par **OAPS Consulting Group**, agence de voyage, de tourisme et prestations générales (activité déclarée au RCCM GA-LBV-01-2021-B13-00360). Licence d'exploitation d'agence de voyage : [à compléter : numéro et autorité de délivrance, si applicable].
+
+## Partenaires
 
 | Activité | Partenaire | Autorisation |
 |---|---|---|
-| Vente de billets et voyages | [à compléter : agence de voyages] | licence d'agence de voyages n° [à compléter] (loi n° 31-96) |
-| Assurance voyage et santé | [à compléter : assureur ou intermédiaire] | agrément ACAPS n° [à compléter] |
+| Transport aérien | compagnies aériennes émettrices des billets | selon chaque compagnie |
+| Assurance voyage et santé | [à compléter : assureur ou intermédiaire] | agrément de l'autorité de contrôle des assurances (Code CIMA ou pays de l'assureur) : [à compléter] |
 
-NaviTravel n'exerce elle-même ni l'activité d'assureur, ni celle de transporteur.
+NaviTravel n'exerce ni l'activité d'assureur, ni celle de transporteur aérien.
 
 ## Hébergement
 

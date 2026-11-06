@@ -49,4 +49,4 @@ Bases : exécution du service et du contrat de location, obligations légales (c
 
 ## Vos droits
 
-Vous disposez des droits d'accès, de rectification, d'opposition et de suppression prévus par la loi marocaine n° 09-08 et par la loi de votre pays de résidence. Écrivez à contact@navigoal.net. Certaines données (contrat, paiements) doivent être conservées pendant les durées légales, même si vous fermez votre compte. Vous pouvez saisir la CNDP (www.cndp.ma) ou l'autorité de votre pays.
+Vous disposez des droits d'accès, de rectification, d'opposition et de suppression prévus par la loi gabonaise n° 001/2011 et par la loi de votre pays de résidence (loi n° 09-08 au Maroc, RGPD dans l'Union européenne). Écrivez à contact@navigoal.net. Certaines données (contrat, paiements) doivent être conservées pendant les durées légales, même si vous fermez votre compte. Vous pouvez saisir la CNPDCP (Gabon), la CNDP au Maroc (www.cndp.ma) ou l'autorité de votre pays.

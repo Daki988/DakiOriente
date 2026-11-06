@@ -5,9 +5,18 @@ bref: Navilease est le service de logement étudiant de Navigoal, édité par OA
 
 ## Éditeur
 
-Navilease est un service d'**OAPS Consulting Group**, [à compléter : forme juridique] au capital de [à compléter : montant] dirhams, dont le siège est situé [à compléter : adresse], immatriculée au registre du commerce de [à compléter : ville] sous le n° [à compléter], ICE [à compléter].
+Navilease est un service d'**OAPS Consulting Group**, société à responsabilité limitée unipersonnelle (SARLU) de droit gabonais, créée le 9 août 2021.
 
-E-mail : contact@navigoal.net (objet : « Navilease »).
+- Activité : agence de voyage, de tourisme et prestations générales
+- Siège social : quartier Glass, Libreville, Gabon
+- RCCM : GA-LBV-01-2021-B13-00360
+- Capital social : [à compléter : montant] F CFA
+- Numéro d'identification fiscale (NIF) : [à compléter]
+- Téléphone : +241 077 45 31 67
+- E-mail de la société : oapsconsultinggroup@gmail.com
+- E-mail de la plateforme : contact@navigoal.net
+
+Pour Navilease : contact@navigoal.net (objet : « Navilease »).
 
 ## Directeur de la publication
 

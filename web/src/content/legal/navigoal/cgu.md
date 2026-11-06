@@ -101,7 +101,7 @@ Navigoal peut faire évoluer les CGU, notamment pour suivre l'évolution des ser
 
 ## Droit applicable, médiation et litiges
 
-Les CGU sont régies par le droit marocain, sans préjudice des dispositions impératives protectrices du pays de résidence du consommateur. En cas de difficulté, contactez d'abord l'équipe à contact@navigoal.net : nous répondons sous 10 jours ouvrés et recherchons une solution amiable. À défaut, le litige relève des tribunaux compétents de [à compléter : ville du siège], sauf règle impérative contraire.
+Les CGU sont régies par le droit gabonais, OAPS Consulting Group étant immatriculée à Libreville, sans préjudice des dispositions impératives protectrices du pays de résidence du consommateur. En cas de difficulté, contactez d'abord l'équipe à contact@navigoal.net : nous répondons sous 10 jours ouvrés et recherchons une solution amiable. À défaut, le litige relève des juridictions compétentes de Libreville (Gabon), sauf règle impérative contraire.
 
 ## Contact
 

@@ -63,9 +63,9 @@ Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les c
 
 Nous ne communiquons vos données aux autorités que sur demande légale.
 
-## Transferts hors du Maroc
+## Transferts internationaux
 
-Vos données sont hébergées dans l'Union européenne. Les messages envoyés à Navi sont transmis à Anthropic, aux États-Unis, le temps de produire la réponse ; ils ne servent pas à entraîner ses modèles. Ces transferts sont encadrés par des engagements contractuels de confidentialité et de sécurité, conformément à la loi n° 09-08 et aux autorisations de la CNDP lorsque requises.
+Vos données sont hébergées dans l'Union européenne. Les messages envoyés à Navi sont transmis à Anthropic, aux États-Unis, le temps de produire la réponse ; ils ne servent pas à entraîner ses modèles. Ces transferts sont encadrés par des engagements contractuels de confidentialité et de sécurité, conformément à la loi gabonaise n° 001/2011 et aux autorisations de la CNPDCP lorsque requises.
 
 ## Combien de temps nous les gardons
 
@@ -95,11 +95,11 @@ Vous pouvez à tout moment :
 
 Écrivez à **contact@navigoal.net** en précisant votre demande. Nous répondons sous 30 jours au plus. Une pièce d'identité peut vous être demandée en cas de doute sur votre identité.
 
-Ces droits s'exercent conformément à la loi marocaine n° 09-08 relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel et, selon votre pays de résidence, à la loi qui vous protège (par exemple la loi gabonaise n° 001/2011, ou le RGPD pour les personnes résidant dans l'Union européenne).
+Ces droits s'exercent conformément à la loi gabonaise n° 001/2011 du 25 septembre 2011 relative à la protection des données à caractère personnel, OAPS Consulting Group étant établie au Gabon, et, selon votre pays de résidence, à la loi qui vous protège : loi marocaine n° 09-08 pour les personnes résidant au Maroc et pour les échanges avec les établissements marocains, RGPD pour les personnes résidant dans l'Union européenne, ou loi de votre pays.
 
-Si vous estimez que vos droits ne sont pas respectés, vous pouvez saisir la **CNDP** (Commission nationale de contrôle de la protection des données à caractère personnel, www.cndp.ma) ou l'autorité de protection des données de votre pays.
+Si vous estimez que vos droits ne sont pas respectés, vous pouvez saisir la **CNPDCP** (Commission nationale pour la protection des données à caractère personnel, Gabon), la **CNDP** au Maroc (www.cndp.ma) ou l'autorité de protection des données de votre pays.
 
-Déclaration auprès de la CNDP : [à compléter : numéro de récépissé ou d'autorisation].
+Déclaration auprès de la CNPDCP : [à compléter : numéro de récépissé].
 
 ## Mise à jour de cette politique
 

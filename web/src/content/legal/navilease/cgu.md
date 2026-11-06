@@ -83,4 +83,4 @@ Navilease vérifie les annonces avec soin, mais ne peut garantir l'absence de to
 
 ## Droit applicable et contact
 
-Les CGU Navilease sont soumises au droit marocain. Contact : contact@navigoal.net (objet : « Navilease »), ou la messagerie de votre réservation.
+Les CGU Navilease sont soumises au droit gabonais, OAPS Consulting Group étant immatriculée à Libreville. Le contrat de location, lui, est soumis à la loi du pays où se trouve le logement (au Maroc, la loi n° 67-12), et les litiges qui le concernent relèvent des tribunaux de ce pays. Contact : contact@navigoal.net (objet : « Navilease »), ou la messagerie de votre réservation.

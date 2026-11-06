@@ -226,11 +226,11 @@ def legal_navigoal():
 
 def mentions():
     return page_legale("navigoal", "mentions-legales", [
-        ("building-2", "OAPS Consulting Group", "Éditeur de Navigoal, Navilease et NaviTravel."),
+        ("building-2", "OAPS Consulting Group", "SARLU de droit gabonais, Libreville · RCCM GA-LBV-01-2021-B13-00360."),
         ("server", "Hébergé en Europe", "LWS (Paris) et Neon (Francfort)."),
         ("copyright", "Crédits et retraits", "Chaque photo est créditée ; retrait sur demande."),
     ], "Mentions légales : champs à compléter (en jaune) avec vos informations", 2, 2480, None,
-        f'<div {NOTE} style="left:1180px;top:820px;max-width:230px">En jaune : informations d\'OAPS à me transmettre (forme, capital, siège, RC, ICE, IF, directeur de la publication, CNDP)</div>')
+        f'<div {NOTE} style="left:1180px;top:820px;max-width:230px">En jaune : reste à fournir (capital, NIF, directeur de la publication, récépissé CNPDCP)</div>')
 
 
 def legal_navilease():

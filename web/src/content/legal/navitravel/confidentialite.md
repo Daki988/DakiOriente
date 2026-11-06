@@ -26,13 +26,13 @@ Cette politique complète la [politique de confidentialité de Navigoal](/confid
 ## Destinataires
 
 Uniquement ceux qui exécutent votre prestation :
-- l'**agence de voyages partenaire** et la **compagnie aérienne** (données du billet ; la compagnie les transmet aux autorités aux frontières, comme la loi l'exige) ;
+- la **compagnie aérienne** (données du billet ; la compagnie les transmet aux autorités aux frontières, comme la loi l'exige) ;
 - le **consulat** ou le prestataire officiel de dépôt des visas ;
 - le **prestataire d'accueil** (nom, vol, heure, adresse, téléphone) ;
 - l'**assureur** ou l'intermédiaire d'assurance ;
 - nos prestataires techniques et de paiement (voir la politique de Navigoal).
 
-Certains destinataires sont situés hors du Maroc (compagnies, consulats, assureurs étrangers). Ces transferts sont nécessaires à l'exécution de la prestation que vous demandez.
+Certains destinataires sont situés hors du Gabon et du Maroc (compagnies, consulats, assureurs étrangers). Ces transferts sont nécessaires à l'exécution de la prestation que vous demandez.
 
 ## Durées de conservation
 
@@ -49,4 +49,4 @@ Les pièces d'identité et de visa sont stockées dans votre espace, accessibles
 
 ## Vos droits
 
-Accès, rectification, opposition, suppression : contact@navigoal.net, conformément à la loi marocaine n° 09-08 et à la loi de votre pays. Les données déjà transmises à une compagnie, un assureur ou un consulat relèvent aussi de leur politique propre. Vous pouvez saisir la CNDP (www.cndp.ma) ou l'autorité de votre pays.
+Accès, rectification, opposition, suppression : contact@navigoal.net, conformément à la loi gabonaise n° 001/2011 et à la loi de votre pays (loi n° 09-08 au Maroc, RGPD dans l'Union européenne). Les données déjà transmises à une compagnie, un assureur ou un consulat relèvent aussi de leur politique propre. Vous pouvez saisir la CNPDCP (Gabon) ou l'autorité de votre pays.
