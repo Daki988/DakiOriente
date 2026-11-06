@@ -25,7 +25,7 @@ Cette politique s'applique au site navigoal.net, à l'espace connecté et à l'a
 | Scolarité et projet | classe, série, établissement actuel, moyenne, résultats du test d'orientation, attentes, budget, mode de financement | vous |
 | Documents | pièce d'identité, relevés de notes, diplômes, photo, attestations | vous |
 | Candidatures | formations choisies, motivation, statut, échanges avec l'établissement | vous, les établissements |
-| Paiements | montant, moyen utilisé, référence de transaction, reçu | vous, le prestataire de paiement |
+| Paiements | montant, moyen utilisé, numéro de mobile money, référence de transaction, reçu | vous, le prestataire de paiement |
 | Échanges | messages, demandes de rendez-vous, conversations avec Navi | vous |
 | Liaison familiale | parent ou tuteur lié, consentements donnés | vous et votre parent |
 | Données techniques | journaux de connexion, adresse IP, type d'appareil, source d'arrivée sur le site (campagne, parrainage) | automatique |
@@ -60,7 +60,8 @@ Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les c
 | LWS (Ligne Web Services) | hébergement du site et des fichiers, envoi des e-mails | France (Union européenne) |
 | Neon | base de données | Allemagne (Union européenne) |
 | Anthropic | modèle d'intelligence artificielle de Navi | États-Unis |
-| Prestataires de paiement (mobile money, carte, agences) | encaissement des frais | selon le prestataire |
+| Digitech Africa (E-Billing) | paiements mobile money (Airtel Money, Moov Money) | Gabon |
+| Stripe | paiements par carte bancaire (Navigoal ne reçoit jamais le numéro complet de la carte) | Union européenne, États-Unis |
 | Google | connexion « Continuer avec Google », si vous la choisissez | États-Unis |
 
 Nous ne communiquons vos données aux autorités que sur demande légale.

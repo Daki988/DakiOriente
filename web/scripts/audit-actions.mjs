@@ -102,7 +102,7 @@ let paiementCandidature = null;
 if (cand?.id) {
   const docs = [d1, d2, d3, d4, d5].filter(Boolean).map((d) => d.id);
   await action("etudiant", "compléter le dossier", () => amina.patch(`/candidatures/${cand.id}`, { motivation: "Je veux étudier la gestion au Maroc et revenir créer mon entreprise à Libreville.", documentIds: docs }));
-  const env = await action("etudiant", "envoyer la candidature (+ frais)", () => amina.post(`/candidatures/${cand.id}/envoyer`, { moyen: "mobile_money_afrique" }));
+  const env = await action("etudiant", "envoyer la candidature (+ frais)", () => amina.post(`/candidatures/${cand.id}/envoyer`, { moyen: "especes" }));
   paiementCandidature = env?.payment?.reference ?? env?.paiement?.reference ?? null;
   await action("etudiant", "détail de la candidature", () => amina.get(`/candidatures/${cand.id}`));
   await action("etudiant", "bordereau PDF", () => amina.get(`/candidatures/${cand.id}/bordereau.pdf`));
@@ -225,7 +225,7 @@ if (resa?.id) {
   await action("bailleur", "réservations reçues", () => bailleur.get("/reservations"));
   const rep = await action("bailleur", "accepter la réservation", () => bailleur.post(`/reservations/${resa.id}/reponse`, { accepter: true }));
   if (rep?.statut === "attente_garant") await action("parent", "se porter garant", () => parent.post(`/reservations/${resa.id}/garant`));
-  const pb = await action("parent", "payer la réservation (séquestre)", () => parent.post(`/reservations/${resa.id}/paiement`, { moyen: "mobile_money_afrique" }));
+  const pb = await action("parent", "payer la réservation (séquestre)", () => parent.post(`/reservations/${resa.id}/paiement`, { moyen: "especes" }));
   if (pb?.payment?.reference) await action("parent", "confirmer le paiement (bac à sable)", () => parent.post(`/paiements/${pb.payment.reference}/simulation`, { succes: true }));
   const det = await action("etudiant", "coordonnées révélées après paiement", () => amina.get(`/reservations/${resa.id}`));
   if (det && !det.revealed) resultats.push({ profil: "etudiant", action: "coordonnées révélées après paiement", statut: 200, ok: false, detail: `revealed=${det.revealed}, statut ${det.booking?.status}` });
@@ -233,7 +233,7 @@ if (resa?.id) {
   await action("bailleur", "signer le contrat", () => bailleur.post(`/reservations/${resa.id}/signature`));
   await action("parent", "contrat PDF", () => parent.get(`/reservations/${resa.id}/contrat.pdf`));
   await action("etudiant", "déclarer l'entrée", () => amina.post(`/reservations/${resa.id}/entree`, { photos: [], notes: "RAS" }));
-  const loyer = await action("etudiant", "payer un loyer", () => amina.post(`/reservations/${resa.id}/loyer`, { moyen: "mobile_money_afrique", periode: `${an + 1}-10` }));
+  const loyer = await action("etudiant", "payer un loyer", () => amina.post(`/reservations/${resa.id}/loyer`, { moyen: "especes", periode: `${an + 1}-10` }));
   if (loyer?.payment?.reference) {
     await action("etudiant", "confirmer le loyer (bac à sable)", () => amina.post(`/paiements/${loyer.payment.reference}/simulation`, { succes: true }));
     await action("bailleur", "quittance PDF", () => bailleur.get(`/quittances/${loyer.payment.reference}.pdf`));

@@ -1,16 +1,18 @@
 "use client";
-import { CheckCircle2, Download, FileDown, Lock, RotateCcw, Wallet } from "lucide-react";
+import { Banknote, CheckCircle2, Download, FileDown, Lock, RotateCcw, Settings2, Wallet, XCircle } from "lucide-react";
+import Link from "@/components/ui/Link";
 import { useMemo, useState } from "react";
-import { Button, Chip, Kpi, Loading, Panel, StatusBadge, Table, dateFr, money } from "@/components/app/kit";
-import { Select } from "@/components/app/form";
-import { useApi } from "@/hooks/useApi";
+import { Alert, Button, Chip, Dialog, Kpi, Loading, Panel, StatusBadge, Table, dateFr, money, useToast } from "@/components/app/kit";
+import { FormError, Select } from "@/components/app/form";
+import { api } from "@/lib/api";
+import { useAction, useApi } from "@/hooks/useApi";
 import { AdminHeader, LoadError, Reveal, pct, qs } from "./shared";
 
 type P = { id: string; reference: string; kind: string; amount: number; currency: string; provider: string; method: string; status: string; escrow: string; meta: { description?: string } & Record<string, unknown>; paidAt: string | null; createdAt: string };
 type Row = { p: P; payer: { firstName: string; lastName: string } };
 
 export const KIND: Record<string, string> = { frais_candidature: "Frais de dossier", reservation: "Réservation (1er loyer)", caution: "Dépôt de garantie", loyer: "Loyer", service: "Frais de service Navilease" };
-const METHOD: Record<string, string> = { airtel_money: "Airtel Money", moov_money: "Moov Money", orange_money: "Orange Money", wave: "Wave", free_money: "Free Money", inwi_money: "inwi money", carte: "Carte bancaire", virement: "Virement", agence: "Cash Plus / Wafacash" };
+const METHOD: Record<string, string> = { especes: "Espèces", mobile_money_afrique: "Mobile money", airtel_money: "Airtel Money", moov_money: "Moov Money", orange_money: "Orange Money", wave: "Wave", free_money: "Free Money", inwi_money: "inwi money", carte: "Carte bancaire", virement: "Virement", agence: "Cash Plus / Wafacash" };
 const STATUTS: [string, string][] = [["reussi", "Payé"], ["en_attente", "En attente"], ["initie", "Initié"], ["echoue", "Échoué"], ["rembourse", "Remboursé"], ["annule", "Annulé"]];
 const ESCROW: [string, string][] = [["bloque", "En séquestre"], ["libere", "Versé"], ["rembourse", "Remboursé"], ["litige", "Gelé (litige)"], ["aucun", "Sans séquestre"]];
 
@@ -24,6 +26,17 @@ export function AdminPaiements() {
   const all = useApi<Row[]>("/admin/paiements");
   const list = useApi<Row[]>(`/admin/paiements${qs({ statut, sequestre, type })}`);
   const rows = useMemo(() => all.data ?? [], [all.data]);
+  const aValider = useMemo(() => rows.filter((r) => r.p.method === "especes" && r.p.status === "en_attente" && ["especes", "sandbox"].includes(r.p.provider)), [rows]);
+  const toast = useToast();
+  const [cible, setCible] = useState<{ r: Row; recu: boolean } | null>(null);
+  const [v, setV] = useState({ numeroRecu: "", montantRecu: "", note: "" });
+  const valider = useAction();
+  const ouvrir = (r: Row, recu: boolean) => { setV({ numeroRecu: "", montantRecu: String(r.p.amount), note: "" }); setCible({ r, recu }); };
+  const confirmer = () => cible && valider.run(async () => {
+    await api(`/admin/paiements/${encodeURIComponent(cible.r.p.reference)}/especes`, { body: { recu: cible.recu, numeroRecu: v.numeroRecu.trim() || null, montantRecu: v.montantRecu === "" ? null : Number(v.montantRecu), note: v.note.trim() || null } });
+    toast(cible.recu ? `Paiement ${cible.r.p.reference} confirmé` : `Paiement ${cible.r.p.reference} refusé`);
+    setCible(null); await Promise.all([all.reload(), list.reload()]);
+  });
 
   const k = useMemo(() => {
     const done = rows.filter((r) => ["reussi", "echoue"].includes(r.p.status));
@@ -49,7 +62,7 @@ export function AdminPaiements() {
 
   return (
     <div className="min-w-0">
-      <AdminHeader title="Paiements" sub="Transactions, séquestre Navilease et remboursements" actions={<Button variant="ghost" icon={Download} onClick={exportCsv} disabled={!list.data?.length}>Export comptable (CSV)</Button>} />
+      <AdminHeader title="Paiements" sub="Transactions, séquestre Navilease et remboursements" actions={<><Link href="/admin/paiements/reglages" className="btn-ghost"><Settings2 size={16} />Réglages</Link><Button variant="ghost" icon={Download} onClick={exportCsv} disabled={!list.data?.length}>Export comptable (CSV)</Button></>} />
       {all.error ? <LoadError error={all.error} reload={all.reload} /> : all.loading && !all.data ? <Loading /> : (
         <div className="flex flex-col gap-5">
           <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
@@ -58,6 +71,19 @@ export function AdminPaiements() {
             <Reveal i={2}><Kpi icon={Lock} tone="violet" label="En séquestre" value={<Multi v={k.escrow} />} sub="fonds Navilease bloqués" /></Reveal>
             <Reveal i={3}><Kpi icon={RotateCcw} tone="rose" label="Remboursements" value={k.refunds} sub="paiements ou séquestres remboursés" /></Reveal>
           </div>
+
+          <Panel title="Espèces à valider" icon={Banknote} action={<Chip tone={aValider.length ? "sun" : "grey"}>{aValider.length}</Chip>}>
+            {aValider.length === 0 ? <p className="text-sm text-ink-mute">Aucun paiement en espèces en attente.</p> : (
+              <Table rows={aValider} rowKey={(r) => r.p.id} empty="" cols={[
+                { h: "Référence", c: (r) => <b className="whitespace-nowrap text-brand-700">{r.p.reference}</b> },
+                { h: "Payeur", c: (r) => <span className="whitespace-nowrap font-semibold">{r.payer.firstName} {r.payer.lastName}</span> },
+                { h: "Objet", c: (r) => <span className="block max-w-[240px] truncate">{r.p.meta?.description ?? KIND[r.p.kind] ?? r.p.kind}</span> },
+                { h: "Montant", className: "text-right", c: (r) => <b className="whitespace-nowrap">{money(r.p.amount, r.p.currency)}</b> },
+                { h: "Demandé le", c: (r) => <span className="whitespace-nowrap text-ink-mute">{dateFr(r.p.createdAt, true)}</span> },
+                { h: <span className="sr-only">Actions</span>, className: "text-right", c: (r) => <span className="flex justify-end gap-2"><Button icon={CheckCircle2} onClick={() => ouvrir(r, true)}>Reçu</Button><Button variant="ghost" icon={XCircle} onClick={() => ouvrir(r, false)}>Refuser</Button></span> },
+              ]} />
+            )}
+          </Panel>
 
           <Panel title="Transactions" icon={Wallet} action={list.data && <Chip tone="grey">{list.data.length}{list.data.length >= 300 ? "+" : ""}</Chip>}>
             <div className="grid gap-2.5 sm:grid-cols-3">
@@ -85,6 +111,23 @@ export function AdminPaiements() {
           </Panel>
         </div>
       )}
+      <Dialog open={!!cible} onClose={() => setCible(null)} title={cible?.recu ? "Confirmer la réception des espèces" : "Refuser le paiement en espèces"}>
+        {cible && (
+          <div className="flex flex-col gap-3">
+            <p className="text-sm"><b>{cible.r.p.reference}</b> · {cible.r.payer.firstName} {cible.r.payer.lastName} · <b>{money(cible.r.p.amount, cible.r.p.currency)}</b></p>
+            {cible.recu ? (
+              <>
+                <label className="flex flex-col gap-1.5"><span className="text-[13px] font-bold">Montant reçu ({cible.r.p.currency})</span><input className="input" type="number" min={0} value={v.montantRecu} onChange={(e) => setV({ ...v, montantRecu: e.target.value })} /></label>
+                {v.montantRecu !== "" && Number(v.montantRecu) < cible.r.p.amount && <Alert tone="warn" title="Montant inférieur">Le montant reçu est inférieur au montant dû.</Alert>}
+                <label className="flex flex-col gap-1.5"><span className="text-[13px] font-bold">Numéro du reçu papier</span><input className="input" maxLength={60} value={v.numeroRecu} onChange={(e) => setV({ ...v, numeroRecu: e.target.value })} placeholder="Facultatif" /></label>
+              </>
+            ) : <p className="text-sm text-ink-mute">Le paiement passe en « échoué » ; l&apos;élève pourra choisir un autre moyen.</p>}
+            <label className="flex flex-col gap-1.5"><span className="text-[13px] font-bold">Note interne</span><textarea className="input min-h-[70px]" maxLength={500} value={v.note} onChange={(e) => setV({ ...v, note: e.target.value })} /></label>
+            <FormError error={valider.error} />
+            <div className="flex justify-end gap-2"><Button variant="ghost" onClick={() => setCible(null)}>Annuler</Button><Button loading={valider.pending} onClick={confirmer} icon={cible.recu ? CheckCircle2 : XCircle}>{cible.recu ? "Confirmer le paiement" : "Refuser le paiement"}</Button></div>
+          </div>
+        )}
+      </Dialog>
     </div>
   );
 }

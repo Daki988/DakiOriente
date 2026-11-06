@@ -18,6 +18,10 @@ import { AppProgress } from "./AppProgress";
 import type { AppDetail, PieceRequise, Program } from "./types";
 
 type Methods = Record<string, Moyen[]>;
+type Frais = { montant: number; devise: string; plafonne: boolean; ecole: number };
+const MOBILE = ["airtel_money", "moov_money"];
+/** Montant dans sa monnaie (F CFA sans décimales, euro au centime). */
+export const montantLocal = (n: number, devise: string) => `${n.toLocaleString("fr-FR", { maximumFractionDigits: devise === "XAF" || devise === "XOF" ? 0 : 2 }).replace(/[\u202f\u00a0]/g, " ")} ${devise === "XAF" || devise === "XOF" ? "F CFA" : devise === "EUR" ? "€" : devise}`;
 type Me = { profile: { serie: string | null } | null; birthYear: number | null };
 type Guardian = { link: { status: string; consentAt: string | null }; parent: { id: string; firstName: string; lastName: string } | null }[];
 const STEPS = ["Choix de la formation", "Dossier", "Paiement", "Confirmation"];
@@ -55,8 +59,14 @@ export function NewApplication() {
   const d = useApi<AppDetail>(appId ? `/candidatures/${appId}` : null);
   const me = useApi<Me>("/moi");
   const docs = useApi<Doc[]>("/documents");
-  const methods = useApi<Methods>("/paiements/moyens");
   const guardians = useApi<Guardian>("/moi/tuteurs");
+  const parentId = guardians.data?.find((g) => g.link.status === "actif" && g.parent)?.parent?.id;
+  // Frais dans la monnaie du payeur (élève ou parent), plafonnés par le réglage du back-office.
+  const frais = useApi<Frais>(appId ? `/candidatures/${appId}/frais` : null);
+  const fraisParent = useApi<Frais>(appId && parentId ? `/candidatures/${appId}/frais?payeur=${parentId}` : null);
+  const methods = useApi<Methods>(frais.data ? `/paiements/moyens?devise=${frais.data.devise}` : null);
+  const methodsParent = useApi<Methods>(fraisParent.data ? `/paiements/moyens?devise=${fraisParent.data.devise}` : null);
+  const [tel, setTel] = useState("");
   const [step, setStep] = useState(params.get("etape") === "confirmation" ? 3 : 0);
   const [motivation, setMotivation] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
@@ -92,6 +102,10 @@ export function NewApplication() {
   const { pays } = useDevise();
   const payMethods = moyensPour(methods.data?.MA, pays);
   const parent = guardians.data?.find((g) => g.link.status === "actif" && g.parent)?.parent;
+  // Moyen proposé au parent : carte, sinon espèces, sinon le premier disponible dans sa monnaie.
+  const moyensParent = methodsParent.data?.MA ?? [];
+  const moyenParent = moyensParent.find((m) => m.id === "carte") ?? moyensParent.find((m) => m.id === "especes") ?? moyensParent[0];
+  const fp = method === "parent" ? fraisParent.data : frais.data;
   const minor = !!me.data?.birthYear && new Date().getFullYear() - me.data.birthYear < 18;
   const consent = (guardians.data ?? []).some((g) => g.link.consentAt);
   const needCampus = (p?.campuses.length ?? 0) > 1;
@@ -105,7 +119,7 @@ export function NewApplication() {
   };
   const send = () => submit.run(async () => {
     await api(`/candidatures/${appId}`, { method: "PATCH", body: { motivation, documentIds: selected, campus: campus || null } });
-    const r = await api<{ redirectUrl: string | null }>(`/candidatures/${appId}/envoyer`, { body: status === "brouillon" && fee > 0 ? { moyen: method === "parent" ? payMethods[0]?.id : method, payeur: method === "parent" ? parent?.id : undefined } : {} });
+    const r = await api<{ redirectUrl: string | null }>(`/candidatures/${appId}/envoyer`, { body: status === "brouillon" && fee > 0 ? { moyen: method === "parent" ? moyenParent?.id : method, payeur: method === "parent" ? parent?.id : undefined, telephone: MOBILE.includes(method) ? tel : undefined } : {} });
     if (r.redirectUrl?.startsWith("/paiement/")) { router.push(r.redirectUrl); return; } // paiement par l'étudiant : page de paiement, puis retour à la confirmation
     if (r.redirectUrl && !r.redirectUrl.startsWith("/")) { window.location.assign(r.redirectUrl); return; } // agrégateur externe
     toast(method === "parent" ? "Candidature envoyée : ton parent a reçu la demande de paiement." : "Candidature envoyée !");
@@ -160,7 +174,7 @@ export function NewApplication() {
               <div className="grid gap-2 text-sm sm:grid-cols-2">
                 {p.diploma && <div className="rounded-xl bg-[#f6f8fe] p-3"><span className="block text-xs font-bold uppercase text-ink-mute">Diplôme</span>{p.diploma}</div>}
                 <div className="rounded-xl bg-[#f6f8fe] p-3"><span className="block text-xs font-bold uppercase text-ink-mute">Scolarité annuelle{p.feesConfirmed ? "" : " (indicative)"}</span>{p.tuitionMin ? <Prix mad={p.tuitionMin} /> : "Sur demande"}{p.tuitionMax && p.tuitionMax !== p.tuitionMin ? <> – <Prix mad={p.tuitionMax} /></> : null}</div>
-                <div className="rounded-xl bg-[#f6f8fe] p-3"><span className="block text-xs font-bold uppercase text-ink-mute">Frais de dossier</span>{fee ? <Prix mad={fee} /> : "Aucun"}</div>
+                <div className="rounded-xl bg-[#f6f8fe] p-3"><span className="block text-xs font-bold uppercase text-ink-mute">Frais de dossier</span>{fee ? (frais.data ? montantLocal(frais.data.montant, frais.data.devise) : <Prix mad={fee} />) : "Aucun"}</div>
                 <div className="rounded-xl bg-[#f6f8fe] p-3"><span className="block text-xs font-bold uppercase text-ink-mute">Rentrée</span>{p.startDate ?? "Septembre"}</div>
               </div>
             </Panel>
@@ -255,19 +269,27 @@ export function NewApplication() {
             {missing.length > 0 && <Alert tone="error" title="Pièces manquantes" action={<button onClick={() => go(1)} className="btn-ghost py-2">Compléter</button>}>{missing.map((m) => m.libelle).join(", ")}.</Alert>}
             {status === "brouillon" && fee > 0 ? (
               <>
-                <div className="flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-brand-950 to-brand-700 px-4 py-4 text-white sm:px-5"><span className="font-bold">Frais de dossier</span><b className="text-right text-lg [&_span]:text-brand-100"><Prix mad={fee} bloc cfaDabord /></b></div>
+                <div className="flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-brand-950 to-brand-700 px-4 py-4 text-white sm:px-5"><span className="font-bold">Frais de dossier</span><b className="text-right text-lg">{fp ? montantLocal(fp.montant, fp.devise) : <Prix mad={fee} />}</b></div>
+                {fp?.plafonne && <p className="text-[13px] text-ink-mute">Montant plafonné par Navigoal : l&apos;école demande <Prix mad={fp.ecole} />, tu ne paies pas plus de {montantLocal(fp.montant, fp.devise)}.</p>}
                 <span className="text-[13px] font-bold">Payer avec</span>
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {payMethods.map((m) => <button key={m.id} type="button" onClick={() => setMethod(m.id)} aria-pressed={method === m.id} className={`min-h-[48px] rounded-2xl border-2 px-3 py-2.5 text-left text-sm font-bold ${method === m.id ? "border-brand-600 bg-brand-50 text-brand-700" : "border-slate-200 bg-white"}`}>{m.label}{m.detail && <span className="block text-xs font-semibold text-ink-mute">{m.detail}</span>}</button>)}
                   {parent && <button type="button" onClick={() => setMethod("parent")} aria-pressed={method === "parent"} className={`flex min-h-[48px] items-center gap-1.5 rounded-2xl border-2 px-3 py-2.5 text-sm font-bold ${method === "parent" ? "border-[#a55a00] bg-sun-100" : "border-slate-200 bg-white"}`}><UsersRound size={16} />Demander à mon parent</button>}
                 </div>
-                {method === "parent" && parent && <p className="text-[13px] text-ink-mute">{parent.firstName} {parent.lastName} recevra la demande de paiement par SMS et e-mail.</p>}
+                {payMethods.length === 0 && methods.data && <Alert tone="warn" title="Paiement en ligne indisponible">Aucun moyen de paiement n&apos;est ouvert pour le moment. Contacte l&apos;équipe Navigoal.</Alert>}
+                {MOBILE.includes(method) && (
+                  <label className="flex flex-col gap-1.5"><span className="text-[13px] font-bold">Numéro {method === "moov_money" ? "Moov Money" : "Airtel Money"}</span>
+                    <input className="input" type="tel" inputMode="tel" autoComplete="tel" value={tel} onChange={(ev) => setTel(ev.target.value)} placeholder="077 12 34 56" />
+                    <span className="text-xs text-ink-mute">Tu recevras la demande de paiement sur ce téléphone : valide-la avec ton code secret.</span></label>
+                )}
+                {method === "especes" && <p className="text-[13px] text-ink-mute">Tu règles au bureau Navigoal avec la référence du paiement ; ta candidature part à l&apos;école dès que l&apos;équipe confirme la réception.</p>}
+                {method === "parent" && parent && <p className="text-[13px] text-ink-mute">{parent.firstName} {parent.lastName} recevra la demande de paiement par SMS et e-mail{moyenParent ? ` (${moyenParent.label.toLowerCase()})` : ""}.</p>}
               </>
             ) : status === "brouillon" ? <Alert tone="success">Aucun frais de dossier pour cette candidature.</Alert> : null}
             <Checkbox checked={certify} onChange={setCertify}>Je certifie l&apos;exactitude des informations et j&apos;accepte la transmission de mon dossier à {e.nom}.</Checkbox>
             <FormError error={submit.error} />
             <div className="flex flex-col-reverse justify-between gap-2 sm:flex-row"><Button variant="ghost" onClick={() => go(1)} className="min-h-[46px]"><ArrowLeft size={17} />Précédent</Button>
-              <Button onClick={send} loading={submit.pending} className="min-h-[46px]" disabled={!certify || missing.length > 0 || (status === "brouillon" && fee > 0 && !method)}>{status === "piece_demandee" ? "Renvoyer le dossier" : fee > 0 && method !== "parent" ? "Envoyer et payer" : "Envoyer ma candidature"} <ArrowRight size={17} /></Button></div>
+              <Button onClick={send} loading={submit.pending} className="min-h-[46px]" disabled={!certify || missing.length > 0 || (status === "brouillon" && fee > 0 && (!method || (MOBILE.includes(method) && tel.replace(/\D/g, "").length < 8) || (method === "parent" && !moyenParent)))}>{status === "piece_demandee" ? "Renvoyer le dossier" : fee > 0 && method !== "parent" ? "Envoyer et payer" : "Envoyer ma candidature"} <ArrowRight size={17} /></Button></div>
           </Panel>
         )}
 
@@ -279,7 +301,7 @@ export function NewApplication() {
               <p className="max-w-lg text-sm text-ink-soft">{editable ? "Termine ton dossier puis envoie-le pour qu'il soit transmis à l'établissement." : `Ton dossier n° ${a.number} a été transmis à ${e.nom}. Tu recevras une notification (et un e-mail) à chaque étape.`}</p>
             </div>
             <div className="rounded-2xl border border-[#eef1f8] p-4"><AppProgress status={a.status} fee={fee > 0} /></div>
-            {a.status === "soumise" && fee > 0 && <Alert tone="warn" title="Paiement des frais de dossier en attente">Ton dossier sera étudié après la confirmation du paiement (<Prix mad={fee} />).</Alert>}
+            {a.status === "soumise" && fee > 0 && <Alert tone="warn" title="Paiement des frais de dossier en attente">Ton dossier sera étudié après la confirmation du paiement ({frais.data ? montantLocal(frais.data.montant, frais.data.devise) : <Prix mad={fee} />}).</Alert>}
             <div className="flex flex-col gap-2 sm:flex-row">
               {editable ? <Button onClick={() => setStep(status === "piece_demandee" ? 1 : 0)} className="min-h-[46px]">Reprendre mon dossier</Button> : <>
                 <Link href={`/espace/candidatures/${a.id}`} className="btn-primary min-h-[46px]">Suivre ma candidature</Link>

@@ -631,3 +631,11 @@ export const pageViews = pgTable("page_views", {
   visitor: text("visitor").notNull(), // empreinte anonyme du jour (change chaque jour)
   connected: boolean("connected").notNull().default(false),
 }, (t) => [index("pv_day_idx").on(t.day), index("pv_at_idx").on(t.at)]);
+
+// ---------------------------------------------------------------- Réglages de la plateforme (paiements…) ; secrets chiffrés (AES-256-GCM)
+export const appSettings = pgTable("app_settings", {
+  key: text("key").primaryKey(),
+  value: jsonb("value").$type<Record<string, unknown>>().notNull().default({}),
+  updatedBy: text("updated_by"),
+  updatedAt: updatedAt(),
+});

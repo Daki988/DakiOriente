@@ -2,8 +2,9 @@
 import Link from "@/components/ui/Link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { CheckCircle2, Download, Lock, ShieldCheck, Smartphone, XCircle } from "lucide-react";
+import { Banknote, CheckCircle2, CreditCard, Download, Lock, RefreshCw, ShieldCheck, Smartphone, XCircle } from "lucide-react";
 import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Brand } from "@/components/ui/Brand";
 import { Alert, Button, Loading, dateFr, money } from "@/components/app/kit";
 import { api, apiUrl } from "@/lib/api";
@@ -12,23 +13,25 @@ import { useSession } from "@/components/app/Session";
 import { useAction, useApi } from "@/hooks/useApi";
 import { useMontant } from "@/components/ui/Devise";
 
-type P = { simulation?: boolean; reference: string; kind: string; amount: number; currency: string; method: string; status: string; escrow: string; provider: string; applicationId: string | null; bookingId: string | null; payerId: string; meta: { description?: string; escrow?: boolean }; paidAt: string | null; createdAt: string };
-type Methods = Record<string, { id: string; label: string }[]>;
+type P = { simulation?: boolean; especes?: { instructions: string; delaiJours: number }; reference: string; kind: string; amount: number; currency: string; method: string; status: string; escrow: string; provider: string; applicationId: string | null; bookingId: string | null; payerId: string; meta: { description?: string; escrow?: boolean; telephone?: string; expireLe?: string; lienPaiement?: string }; paidAt: string | null; createdAt: string };
+const LIBELLES: Record<string, string> = { airtel_money: "Airtel Money", moov_money: "Moov Money", carte: "Carte bancaire", especes: "Espèces", mobile_money_afrique: "Mobile money", virement: "Virement" };
 
 /** Page de paiement : bac à sable (confirmation simulée) ou retour de l'agrégateur, puis reçu (maquette 25). */
 export function PaymentPage({ reference }: { reference: string }) {
   const { m, eq } = useMontant();
   const router = useRouter();
   const p = useApi<P>(`/paiements/${reference}`);
-  const methods = useApi<Methods>("/paiements/moyens");
   const a = useAction();
+  const relance = useAction();
+  const retour = useSearchParams().get("retour");
   // Retour d'un agrégateur réel : le statut est revérifié toutes les 5 s tant qu'il est en attente.
   useEffect(() => {
-    if (p.data?.status !== "en_attente" || p.data.provider === "sandbox") return;
+    if (p.data?.status !== "en_attente" || p.data.provider === "sandbox" || p.data.provider === "especes") return;
     const t = setInterval(p.reload, 5000);
     return () => clearInterval(t);
   }, [p.data, p.reload]);
-  const label = Object.values(methods.data ?? {}).flat().find((m) => m.id === p.data?.method)?.label ?? p.data?.method;
+  const label = p.data ? LIBELLES[p.data.method] ?? p.data.method : "";
+  const relancer = () => relance.run(async () => { await api(`/paiements/${reference}/relancer`, { body: {} }); });
   const session = useSession();
   // Frais de dossier réglés par l'étudiant : retour à l'étape « Confirmation » de sa candidature ; par le parent : à son espace.
   const back = p.data?.applicationId ? (session?.role === "parent" ? "/parent" : `/espace/candidatures/nouvelle?id=${p.data.applicationId}&etape=confirmation`) : p.data?.bookingId ? `/navilease/reservations/${p.data.bookingId}` : "/";
@@ -60,10 +63,31 @@ export function PaymentPage({ reference }: { reference: string }) {
                 </div>
               ) : p.data.status === "en_attente" && p.data.provider === "sandbox" ? (
                 <div className="card flex flex-col gap-4 rounded-3xl p-6">
-                  <div className="flex items-center gap-3"><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sun-100 text-[#a55a00]"><Smartphone size={22} /></span><span><b className="block">{label}</b><span className="text-[13px] text-ink-mute">Une demande de confirmation est envoyée sur ton téléphone.</span></span></div>
+                  <div className="flex items-center gap-3"><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sun-100 text-[#a55a00]"><Smartphone size={22} /></span><span><b className="block">{label}</b><span className="text-[13px] text-ink-mute">{p.data.method === "especes" ? "Paiement au bureau, confirmé ensuite par l'équipe Navigoal." : p.data.method === "carte" ? "Paiement par carte sur la page sécurisée." : "Une demande de confirmation est envoyée sur ton téléphone."}</span></span></div>
                   <Alert tone="warn" title="Mode recette">Les paiements sont simulés tant que le compte de l&apos;agrégateur n&apos;est pas activé : confirme ou refuse la transaction ci-dessous.</Alert>
                   <div className="flex flex-col gap-2 sm:flex-row"><Button className="flex-1" loading={a.pending} onClick={() => confirm(true)}><ShieldCheck size={17} />Confirmer le paiement</Button><Button variant="ghost" className="flex-1" disabled={a.pending} onClick={() => confirm(false)}><XCircle size={17} />Refuser</Button></div>
                   {a.error && <p className="text-sm font-semibold text-[#d42a50]">{a.error}</p>}
+                </div>
+              ) : p.data.status === "en_attente" && p.data.provider === "especes" ? (
+                <div className="card flex flex-col gap-4 rounded-3xl p-6">
+                  <div className="flex items-center gap-3"><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e8f8ef] text-[#0f8a46]"><Banknote size={22} /></span><span><b className="block">Paiement en espèces</b><span className="text-[13px] text-ink-mute">À régler{p.data.meta.expireLe ? ` avant le ${dateFr(p.data.meta.expireLe)}` : ""}, puis validé par l&apos;équipe Navigoal.</span></span></div>
+                  <div className="rounded-2xl border-2 border-dashed border-brand-200 bg-brand-50 p-4 text-center"><span className="block text-xs font-bold uppercase text-ink-mute">Référence à donner au guichet</span><b className="text-2xl tracking-wide text-brand-700">{p.data.reference}</b><span className="mt-1 block text-sm font-bold">{money(p.data.amount, p.data.currency)}</span></div>
+                  {p.data.especes && <p className="whitespace-pre-line text-sm">{p.data.especes.instructions}</p>}
+                  <Alert tone="info" title="Et ensuite ?">Dès que l&apos;équipe confirme la réception, tu es prévenu par e-mail et ton reçu est disponible ici.</Alert>
+                </div>
+              ) : p.data.status === "en_attente" && p.data.provider === "stripe" ? (
+                <div className="card flex flex-col gap-4 rounded-3xl p-6">
+                  <div className="flex items-center gap-3"><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-700"><CreditCard size={22} /></span><span><b className="block">Carte bancaire</b><span className="text-[13px] text-ink-mute">Paiement sur la page sécurisée de Stripe.</span></span></div>
+                  {retour === "stripe" ? <Loading label="Confirmation du paiement en cours…" /> : retour === "annule" ? <Alert tone="warn" title="Paiement interrompu">Aucun montant n&apos;a été débité. Tu peux reprendre le paiement.</Alert> : null}
+                  {p.data.meta.lienPaiement && retour !== "stripe" && <a href={p.data.meta.lienPaiement} className="btn-primary"><CreditCard size={17} />Payer par carte</a>}
+                </div>
+              ) : p.data.status === "en_attente" && p.data.provider === "ebilling" ? (
+                <div className="card flex flex-col items-center gap-4 rounded-3xl p-6 text-center">
+                  <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-sun-100 text-[#a55a00]"><span className="absolute inset-0 animate-ping rounded-full bg-sun-100 opacity-60" /><Smartphone size={34} className="relative" /></span>
+                  <div><b className="block text-lg">Valide le paiement sur ton téléphone</b><span className="text-sm text-ink-mute">{label}{p.data.meta.telephone ? ` · ${p.data.meta.telephone.replace(/(\d{3})(\d{2})(\d{2})(\d{2})/, "$1 $2 $3 $4")}` : ""} : une demande de {money(p.data.amount, p.data.currency)} t&apos;a été envoyée. Saisis ton code secret pour confirmer.</span></div>
+                  <Loading label="En attente de la confirmation de l'opérateur…" />
+                  <Button variant="ghost" icon={RefreshCw} loading={relance.pending} onClick={relancer}>Je n&apos;ai rien reçu : renvoyer la demande</Button>
+                  {relance.error && <p className="text-sm font-semibold text-[#d42a50]">{relance.error}</p>}
                 </div>
               ) : p.data.status === "en_attente" ? <div className="card flex items-center gap-3 rounded-3xl p-6"><Loading label="En attente de la confirmation de l'opérateur…" /></div> : null}
             </div>

@@ -3,6 +3,7 @@ import { eq, sql } from "drizzle-orm";
 
 process.env.DATABASE_URL = process.env.TEST_DATABASE_URL || "postgres://postgres@localhost:5433/navigoal_test";
 process.env.STORAGE = "local";
+process.env.PAYMENTS_MODE = "sandbox";
 
 const { db, schema } = await import("@/server/db");
 const accounts = await import("@/server/services/accounts");
@@ -103,18 +104,18 @@ describe("candidature", () => {
   it("un mineur ne peut pas envoyer sans consentement parental", async () => {
     const a = await apps.createDraft(student, programId);
     appId = a.id;
-    await expect(apps.submitApplication(student, appId, { method: "mobile_money_afrique" })).rejects.toThrow(/consentement/);
+    await expect(apps.submitApplication(student, appId, { method: "especes" })).rejects.toThrow(/consentement/);
     const g = await guardians.inviteGuardian(student, "+221770000001");
     await guardians.acceptGuardianInvite(parent, g.inviteCode!, true);
     expect(await guardians.isGuardianOf(parent.id, student.id)).toBe(true);
   });
   it("pièces manquantes puis envoi avec paiement bac à sable", async () => {
-    await expect(apps.submitApplication(student, appId, { method: "mobile_money_afrique" })).rejects.toThrow(/Pièces manquantes/);
+    await expect(apps.submitApplication(student, appId, { method: "especes" })).rejects.toThrow(/Pièces manquantes/);
     await expect(docs.uploadDocument(student, "identite", { name: "x.exe", bytes: new Uint8Array([1, 2, 3, 4]) })).rejects.toThrow(/Format/);
     const d1 = await docs.uploadDocument(student, "identite", { name: "cni.pdf", bytes: PDF });
     const d2 = await docs.uploadDocument(student, "releve_notes", { name: "notes.png", bytes: PNG });
     await apps.updateDraft(student, appId, { motivation: "Je veux devenir manager.", documentIds: [d1.id, d2.id] });
-    const r = await apps.submitApplication(student, appId, { method: "mobile_money_afrique", payerId: parent.id });
+    const r = await apps.submitApplication(student, appId, { method: "especes", payerId: parent.id });
     // Paiement demandé au parent : l'élève revient sur sa candidature, le parent reçoit le lien de paiement.
     expect(r.redirectUrl).toBe(`/espace/candidatures/${appId}?paiement=parent`);
     const demande = (await notif.listNotifications(parent.id)).find((n) => n.kind === "paiement_demande");
@@ -177,12 +178,12 @@ describe("Navilease", () => {
     const conv = (await msg.listConversations(landlord.id))[0];
     expect((await msg.getConversation(landlord.id, conv.id)).messages[0].m.body).toContain("[coordonnée masquée]");
     expect(await book.respond(landlord, bid, true)).toBe("attente_garant");
-    await expect(book.payBooking(student, bid, "mobile_money_afrique")).rejects.toThrow(/garant/);
+    await expect(book.payBooking(student, bid, "especes")).rejects.toThrow(/garant/);
     await book.approveAsGuarantor(parent, bid);
     expect((await book.getBooking(student, bid)).revealed).toBe(false);
   });
   it("paiement en séquestre → contrat → entrée → fonds versés → loyer → avis", async () => {
-    const r = await book.payBooking(parent, bid, "orange_money");
+    const r = await book.payBooking(parent, bid, "carte");
     expect(r.payment.amount).toBe(3000 + 200 + 3000 + 150);
     await pay.sandboxConfirm(parent, r.payment.reference, true);
     let d = await book.getBooking(student, bid);
@@ -198,9 +199,9 @@ describe("Navilease", () => {
     d = await book.getBooking(landlord, bid);
     expect(d.booking.status).toBe("en_cours");
     expect(d.payments.find((p) => p.kind === "reservation")!.escrow).toBe("libere");
-    const rent = await book.payRent(student, bid, "mobile_money_afrique", `${year + 1}-10`);
+    const rent = await book.payRent(student, bid, "especes", `${year + 1}-10`);
     await pay.sandboxConfirm(student, rent.payment.reference, true);
-    await expect(book.payRent(student, bid, "mobile_money_afrique", `${year + 1}-10`)).rejects.toThrow(/déjà payé/);
+    await expect(book.payRent(student, bid, "especes", `${year + 1}-10`)).rejects.toThrow(/déjà payé/);
     expect((await book.rentReceipt(landlord, rent.payment.reference)).byteLength).toBeGreaterThan(800);
     await book.reviewHousing(student, bid, 4, "Calme et propre.");
     expect((await housing.getHousingPublic(hid)).reviews).toHaveLength(1);
@@ -565,5 +566,57 @@ describe("offres payantes : abonnements, effets réels, échéances", async () =
     expect(e.featuredUntil).toBeNull();
     const csv = offres.exportCsv((await offres.overview(adminU)).items);
     expect(csv.split("\n").length).toBeGreaterThan(2);
+  });
+});
+
+describe("paiements : réglages, plafond, espèces, Stripe", () => {
+  const reglagesSvc = () => import("@/server/services/reglages-paiement");
+  const base = { ebilling: { actif: false, env: "lab", apiUrl: "https://lab.billing-easy.net/api/v1", portailUrl: "https://test.billing-easy.net", username: "" }, stripe: { actif: true, publishableKey: "pk_test_abc" }, especes: { actif: true, instructions: "Bureau de Libreville, du lundi au vendredi.", delaiJours: 7 } };
+  it("clés chiffrées en base, masquées pour l'admin, gardées si le champ est vide", async () => {
+    const r = await reglagesSvc();
+    await expect(r.enregistrer(student, {})).rejects.toThrow();
+    await expect(r.enregistrer(adminU, { ...base, stripe: { ...base.stripe, secretKey: "pas-une-cle" }, frais: { plafondXaf: 10000, plafondEur: 15 } })).rejects.toThrow();
+    const v = await r.enregistrer(adminU, { ...base, stripe: { ...base.stripe, secretKey: "sk_test_SECRET1234", webhookSecret: "whsec_signature99" }, frais: { plafondXaf: 10000, plafondEur: 15 } });
+    expect(v.stripe.secretKey).toBe("…1234");
+    expect(JSON.stringify(v)).not.toContain("SECRET1234");
+    const [row] = await db.select().from(schema.appSettings).where(eq(schema.appSettings.key, "paiements"));
+    expect(JSON.stringify(row.value)).not.toContain("sk_test_SECRET1234");
+    await r.enregistrer(adminU, { ...base, frais: { plafondXaf: 10000, plafondEur: 15 } }); // clés non ressaisies : conservées
+    expect((await r.reglages()).stripe.secretKey).toBe("sk_test_SECRET1234");
+  });
+  it("frais de candidature en monnaie locale, plafonnés et réglables", async () => {
+    const r = await reglagesSvc();
+    const ga = await pay.fraisCandidature(2000, { country: "GA" });
+    expect(ga).toMatchObject({ devise: "XAF", montant: 10000, plafonne: true });
+    const fr = await pay.fraisCandidature(2000, { country: "FR" });
+    expect(fr).toMatchObject({ devise: "EUR", montant: 15, plafonne: true });
+    const petit = await pay.fraisCandidature(50, { country: "GA" });
+    expect(petit.plafonne).toBe(false);
+    expect(petit.montant).toBeLessThan(10000);
+    expect(petit.montant % 50).toBe(0);
+    await r.enregistrer(adminU, { ...base, frais: { plafondXaf: 5000, plafondEur: 8 } });
+    expect((await pay.fraisCandidature(2000, { country: "GA" })).montant).toBe(5000);
+    await r.enregistrer(adminU, { ...base, frais: { plafondXaf: 10000, plafondEur: 15 } });
+  });
+  it("espèces : seul l'administrateur confirme la réception", async () => {
+    const { payment } = await pay.initiatePayment(student, { kind: "service", amount: 100, currency: "MAD", method: "especes", description: "Test espèces" });
+    await expect(pay.validerEspeces(student, payment.reference, { recu: true })).rejects.toThrow();
+    await pay.validerEspeces(adminU, payment.reference, { recu: true, numeroRecu: "R-001", montantRecu: 100 });
+    const [p] = await db.select().from(schema.payments).where(eq(schema.payments.reference, payment.reference));
+    expect(p.status).toBe("reussi");
+    expect((p.meta as { validation?: { numeroRecu?: string } }).validation?.numeroRecu).toBe("R-001");
+    await expect(pay.validerEspeces(adminU, payment.reference, { recu: true })).rejects.toThrow(/attente/);
+  });
+  it("webhook Stripe : signature exigée", async () => {
+    const crypto = await import("node:crypto");
+    const { verifierStripe } = await import("@/server/payments/webhooks");
+    const raw = JSON.stringify({ type: "checkout.session.completed", data: { object: { client_reference_id: "NG-PAY-000001" } } });
+    const t = Math.floor(Date.now() / 1000);
+    const sig = crypto.createHmac("sha256", "whsec_signature99").update(`${t}.${raw}`).digest("hex");
+    expect((await verifierStripe(raw, `t=${t},v1=${sig}`))?.type).toBe("checkout.session.completed");
+    expect(await verifierStripe(raw, `t=${t},v1=${"0".repeat(64)}`)).toBeNull();
+    expect(await verifierStripe(raw.replace("000001", "000002"), `t=${t},v1=${sig}`)).toBeNull();
+    expect(await verifierStripe(raw, `t=${t - 3600},v1=${crypto.createHmac("sha256", "whsec_signature99").update(`${t - 3600}.${raw}`).digest("hex")}`)).toBeNull();
+    expect(await verifierStripe(raw, null)).toBeNull();
   });
 });

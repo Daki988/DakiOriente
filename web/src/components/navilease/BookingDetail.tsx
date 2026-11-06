@@ -11,7 +11,7 @@ import { Field, FormError, Input, Select, Textarea } from "@/components/app/form
 import { useUser } from "@/components/app/Session";
 import { useAction, useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
-import { BOOKING_STATUS, COUNTRY_OF_CURRENCY, Cover, SEQUENCE, TYPES, addMonths, monthFr, period, seqIndex, type Booking, type Housing, type Payment } from "./shared";
+import { BOOKING_STATUS, Cover, SEQUENCE, TYPES, addMonths, monthFr, period, seqIndex, type Booking, type Housing, type Payment } from "./shared";
 import { Stepper } from "./Stepper";
 import { useDevise, useMontant } from "@/components/ui/Devise";
 import { moyensPour, type Moyen } from "@/lib/paiement";
@@ -42,11 +42,10 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
   const isTenant = me.id === b.tenantId;
   const isLandlord = me.id === b.landlordId || me.role === "admin";
   const isParent = me.role === "parent" && !isTenant && !isLandlord;
-  const methods = useApi<Methods>("/paiements/moyens");
+  const methods = useApi<Methods>(`/paiements/moyens?devise=${b.currency}`);
   const convs = useApi<Conv[]>("/conversations");
   const conv = convs.data?.find((c) => c.contextKind === "booking" && c.contextId === b.id);
-  const country = COUNTRY_OF_CURRENCY[b.currency] ?? "MA";
-  const opts: [string, string][] = moyensPour(methods.data?.[country], pays).map((m) => [m.id, m.label]);
+  const opts: [string, string][] = moyensPour(methods.data?.MA, pays).map((m) => [m.id, m.label]);
   const act = useAction();
   const [dialog, setDialog] = useState<null | "refuse" | "cancel" | "dispute" | "notice" | "checkout" | "review" | "rent">(null);
   const [rentPeriod, setRentPeriod] = useState("");
@@ -71,12 +70,12 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
     const u = new URL(redirectUrl, window.location.origin);
     if (u.pathname.startsWith("/paiement/")) router.push(u.pathname + u.search); else window.location.href = redirectUrl;
   };
-  const pay = async (moyen: string) => {
-    const r = await act.run(() => api<{ redirectUrl?: string }>(`/reservations/${b.id}/paiement`, { body: { moyen } }));
+  const pay = async (moyen: string, telephone?: string) => {
+    const r = await act.run(() => api<{ redirectUrl?: string }>(`/reservations/${b.id}/paiement`, { body: { moyen, telephone } }));
     if (r) go(r.redirectUrl);
   };
-  const payRent = async (moyen: string) => {
-    const r = await act.run(() => api<{ redirectUrl?: string }>(`/reservations/${b.id}/loyer`, { body: { moyen, periode: rentPeriod } }));
+  const payRent = async (moyen: string, telephone?: string) => {
+    const r = await act.run(() => api<{ redirectUrl?: string }>(`/reservations/${b.id}/loyer`, { body: { moyen, periode: rentPeriod, telephone } }));
     if (r) { setDialog(null); go(r.redirectUrl); }
   };
 
@@ -367,17 +366,21 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
 }
 
 // ------------------------------------------------------------ Formulaires
-function PayForm({ amount, options, loading, pending, error, onPay, cta }: { amount: string; options: [string, string][]; loading: boolean; pending: boolean; error: string | null; onPay: (m: string) => void; cta: string }) {
+function PayForm({ amount, options, loading, pending, error, onPay, cta }: { amount: string; options: [string, string][]; loading: boolean; pending: boolean; error: string | null; onPay: (m: string, telephone?: string) => void; cta: string }) {
   const [m, setM] = useState("");
+  const [tel, setTel] = useState("");
+  const mobile = m === "airtel_money" || m === "moov_money";
   const [err, setErr] = useState<string | null>(null);
   return (
-    <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); if (!m) { setErr("Choisis un moyen de paiement."); return; } setErr(null); onPay(m); }}>
+    <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); if (!m) { setErr("Choisis un moyen de paiement."); return; } if (mobile && tel.replace(/\D/g, "").length < 8) { setErr("Indique ton numéro de mobile money."); return; } setErr(null); onPay(m, mobile ? tel : undefined); }}>
       <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
         <Field label="Moyen de paiement" required error={err}>{(id) => <Select id={id} value={m} onChange={(e) => setM(e.target.value)} options={options} placeholder={loading ? "Chargement…" : "Choisir…"} />}</Field>
         <Button type="submit" icon={Lock} loading={pending}>{cta} · {amount}</Button>
       </div>
+      {mobile && <Field label="Numéro de mobile money" required>{(id) => <input id={id} className="input" type="tel" inputMode="tel" autoComplete="tel" value={tel} onChange={(e) => setTel(e.target.value)} placeholder="077 12 34 56" />}</Field>}
+      {!loading && options.length === 0 && <p className="text-[13px] font-semibold text-[#a55a00]">Aucun moyen de paiement n&apos;est ouvert pour le moment : contactez l&apos;équipe Navigoal.</p>}
       <FormError error={error} />
-      <p className="text-xs text-ink-mute">Paiement sécurisé via notre agrégateur. Vous serez redirigé pour confirmer.</p>
+      <p className="text-xs text-ink-mute">Paiement sécurisé (mobile money, carte via Stripe ou espèces validées par l&apos;équipe Navigoal).</p>
     </form>
   );
 }

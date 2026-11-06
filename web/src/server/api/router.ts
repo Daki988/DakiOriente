@@ -21,7 +21,9 @@ import * as counsel from "../services/counselor";
 import { globalSearch } from "../services/search";
 import { schoolDashboard } from "../services/school-stats";
 import { applicationPdf, admissionPdf, orientationPdf } from "../services/pdf";
-import { METHODS } from "../payments/providers";
+import { moyensDisponibles } from "../payments/providers";
+import * as reglagesPaiement from "../services/reglages-paiement";
+import { verifierStripe } from "../payments/webhooks";
 import { cookies } from "next/headers";
 import * as google from "../services/google";
 import { sha256 } from "../auth/tokens";
@@ -197,14 +199,15 @@ route("GET", "/formations-offres/:id", "Catalogue", "Détail d'une formation pub
 route("GET", "/campagnes", "Catalogue", "Campagnes en cours (admissions, concours, bourses…)", "public", async ({ query }) => etab.listCampaigns({ establishmentId: query.get("etablissement") ?? undefined, publishedOnly: true, current: true }));
 route("GET", "/articles", "Contenus", "Articles publiés", "public", async () => admin.listArticles(true));
 route("GET", "/articles/:slug", "Contenus", "Article", "public", async ({ params }) => admin.getArticle(params.slug));
-route("GET", "/paiements/moyens", "Paiements", "Moyens de paiement par pays", "public", async () => METHODS);
+route("GET", "/paiements/moyens", "Paiements", "Moyens de paiement disponibles (?devise=, défaut MAD)", "public", async ({ query }) => ({ MA: await moyensDisponibles((query.get("devise") ?? "MAD").toUpperCase().slice(0, 3)) }));
 
 // ---------------------------------------------------------------- Candidatures (étudiant)
 route("GET", "/candidatures", "Candidatures", "Mes candidatures", STUDENT, async ({ me }) => apps.listForStudent(me.id));
 route("POST", "/candidatures", "Candidatures", "Commencer une candidature (brouillon)", STUDENT, async ({ me, body }) => json(await apps.createDraft(me, String((await body()).programId)), 201));
 route("GET", "/candidatures/:id", "Candidatures", "Détail d'une candidature", "user", async ({ me, params }) => apps.getApplication(me, params.id));
 route("PATCH", "/candidatures/:id", "Candidatures", "Compléter le dossier (motivation, réponses, pièces)", STUDENT, async ({ me, params, body }) => apps.updateDraft(me, params.id, await body()));
-route("POST", "/candidatures/:id/envoyer", "Candidatures", "Envoyer la candidature (+ paiement des frais)", STUDENT, async ({ me, params, body }) => { const b = await body().catch(() => ({})); return apps.submitApplication(me, params.id, b.moyen ? { method: b.moyen, payerId: b.payeur } : undefined); });
+route("POST", "/candidatures/:id/envoyer", "Candidatures", "Envoyer la candidature (+ paiement des frais)", STUDENT, async ({ me, params, body }) => { const b = await body().catch(() => ({})); return apps.submitApplication(me, params.id, b.moyen ? { method: b.moyen, payerId: b.payeur, telephone: b.telephone } : undefined); });
+route("GET", "/candidatures/:id/frais", "Candidatures", "Frais de dossier dans la monnaie du payeur, plafonnés (?payeur=)", STUDENT, async ({ me, params, query }) => apps.fraisPour(me, params.id, query.get("payeur")));
 route("POST", "/candidatures/:id/desister", "Candidatures", "Se désister", STUDENT, async ({ me, params }) => { await apps.withdraw(me, params.id); return ok; });
 route("GET", "/candidatures/:id/bordereau.pdf", "Candidatures", "Bordereau de candidature (PDF)", "user", async ({ me, params }) => {
   const d = await apps.getApplication(me, params.id);
@@ -237,14 +240,27 @@ route("POST", "/ecole/candidatures/:id/statut", "Établissement", "Changer le st
 
 // ---------------------------------------------------------------- Paiements
 route("GET", "/paiements", "Paiements", "Mes paiements (et ceux de mes enfants)", "user", async ({ me }) => pay.listPaymentsFor(me));
-route("GET", "/paiements/:ref", "Paiements", "Statut d'un paiement", "user", async ({ me, params }) => { await pay.getPayment(me, params.ref); const p = await pay.syncPayment(params.ref); return { ...p, simulation: pay.simulationAutorisee(me, p) }; });
+route("GET", "/paiements/:ref", "Paiements", "Statut d'un paiement", "user", async ({ me, params }) => { await pay.getPayment(me, params.ref); const p = await pay.syncPayment(params.ref); return { ...p, simulation: pay.simulationAutorisee(me, p), ...(p.provider === "especes" && p.status === "en_attente" ? { especes: await pay.instructionsEspeces() } : {}) }; });
+route("POST", "/paiements/:ref/relancer", "Paiements", "Mobile money : renvoyer la demande sur le téléphone", "user", async ({ me, params }) => pay.relancerMobile(me, params.ref));
 route("POST", "/paiements/:ref/simulation", "Paiements", "Bac à sable : confirmer ou refuser un paiement simulé", "user", async ({ me, params, body }) => pay.sandboxConfirm(me, params.ref, !!(await body()).succes));
 route("GET", "/paiements/:ref/recu.pdf", "Paiements", "Reçu de paiement (PDF)", "user", async ({ me, params }) => file(await pay.receipt(me, params.ref), "application/pdf", `recu-${params.ref}.pdf`));
-route("POST", "/paiements/webhook/:provider", "Paiements", "Notification de l'agrégateur (webhook)", "public", async ({ req, params }) => {
-  const raw = await req.text();
-  const ref = new URLSearchParams(raw).get("cpm_trans_id") ?? (() => { try { return JSON.parse(raw).transaction_id; } catch { return null; } })();
-  if (!ref || params.provider !== "cinetpay") throw new AppError("Notification invalide.");
-  await pay.syncPayment(ref); // le statut est revérifié auprès de l'agrégateur : le corps reçu n'est pas cru sur parole
+route("POST", "/paiements/webhook/:provider", "Paiements", "Notification d'une passerelle (E-Billing, Stripe)", "public", async ({ req, params }) => {
+  const raw = (await req.text()).slice(0, 100_000);
+  let ref: string | null = null;
+  if (params.provider === "stripe") {
+    const ev = await verifierStripe(raw, req.headers.get("stripe-signature"));
+    ref = ev?.data?.object?.client_reference_id ?? ev?.data?.object?.metadata?.reference ?? null;
+  } else if (params.provider === "ebilling") {
+    // Le statut est revérifié auprès d'E-Billing : le corps reçu n'est pas cru sur parole.
+    const f = new URLSearchParams(raw);
+    let j: Record<string, string> = {};
+    try { j = JSON.parse(raw); } catch { /* formulaire */ }
+    ref = f.get("reference") ?? j.reference ?? j.external_reference ?? null;
+    const bill = f.get("billingid") ?? j.billingid ?? j.bill_id ?? null;
+    if (!ref && bill) ref = await pay.referenceParFacture(bill);
+  }
+  if (!ref || !/^NG-PAY-\d+$/.test(ref)) throw new AppError("Notification invalide.");
+  await pay.syncPayment(ref);
   return ok;
 });
 
@@ -293,11 +309,11 @@ route("POST", "/reservations", "Navilease", "Demander une réservation", STUDENT
 route("GET", "/reservations/:id", "Navilease", "Détail (coordonnées révélées après paiement)", "user", async ({ me, params }) => book.getBooking(me, params.id));
 route("POST", "/reservations/:id/reponse", "Navilease", "Bailleur : accepter ou refuser", ["bailleur", "admin"], async ({ me, params, body }) => { const b = await body(); return { statut: await book.respond(me, params.id, !!b.accepter, b.note) }; });
 route("POST", "/reservations/:id/garant", "Navilease", "Parent : valider et se porter garant", ["parent"], async ({ me, params }) => { await book.approveAsGuarantor(me, params.id); return ok; });
-route("POST", "/reservations/:id/paiement", "Navilease", "Payer la réservation (séquestre)", "user", async ({ me, params, body }) => book.payBooking(me, params.id, String((await body()).moyen)));
+route("POST", "/reservations/:id/paiement", "Navilease", "Payer la réservation (séquestre)", "user", async ({ me, params, body }) => { const b = await body(); return book.payBooking(me, params.id, String(b.moyen), b.telephone); });
 route("POST", "/reservations/:id/signature", "Navilease", "Signer le contrat", "user", async ({ me, params }) => book.signContract(me, params.id));
 route("GET", "/reservations/:id/contrat.pdf", "Navilease", "Contrat de location (PDF)", "user", async ({ me, params }) => file(await book.contractPdf(me, params.id), "application/pdf", `contrat-${params.id}.pdf`));
 route("POST", "/reservations/:id/entree", "Navilease", "Déclarer l'entrée (état des lieux) : libère le séquestre", STUDENT, async ({ me, params, body }) => { const b = await body(); await book.checkIn(me, params.id, { photos: b.photos ?? [], notes: b.notes }); return ok; });
-route("POST", "/reservations/:id/loyer", "Navilease", "Payer un loyer (période AAAA-MM)", "user", async ({ me, params, body }) => { const b = await body(); return book.payRent(me, params.id, String(b.moyen), String(b.periode)); });
+route("POST", "/reservations/:id/loyer", "Navilease", "Payer un loyer (période AAAA-MM)", "user", async ({ me, params, body }) => { const b = await body(); return book.payRent(me, params.id, String(b.moyen), String(b.periode), b.telephone); });
 route("GET", "/quittances/:ref.pdf", "Navilease", "Quittance de loyer (PDF)", "user", async ({ me, params }) => file(await book.rentReceipt(me, params.ref), "application/pdf", `quittance-${params.ref}.pdf`));
 route("POST", "/reservations/:id/preavis", "Navilease", "Donner son préavis", "user", async ({ me, params, body }) => { await book.giveNotice(me, params.id, (await body().catch(() => ({}))).note); return ok; });
 route("POST", "/reservations/:id/sortie", "Navilease", "Bailleur : état des lieux de sortie et restitution de caution", ["bailleur", "admin"], async ({ me, params, body }) => { const b = await body(); await book.checkOut(me, params.id, { photos: b.photos ?? [], notes: b.notes, retenue: b.retenue }); return ok; });
@@ -329,6 +345,10 @@ route("GET", "/admin/moderation", "Back-office", "Annonces à modérer, KYC à v
 route("POST", "/admin/logements/:id/moderation", "Back-office", "Publier ou refuser une annonce (+ niveau de vérification)", ["admin"], async ({ me, params, body }) => { const b = await body(); return housing.moderateHousing(me, params.id, { approve: !!b.publier, note: b.note, verification: b.verification }); });
 route("POST", "/admin/bailleurs/:id/kyc", "Back-office", "Valider ou refuser un KYC", ["admin"], async ({ me, params, body }) => { const b = await body(); await housing.reviewKyc(me, params.id, !!b.valider, b.note); return ok; });
 route("POST", "/admin/litiges/:id/resolution", "Back-office", "Résoudre un litige (séquestre libere|rembourse)", ["admin"], async ({ me, params, body }) => { const b = await body(); await book.resolveDispute(me, params.id, String(b.resolution), b.sequestre); return ok; });
+route("GET", "/admin/paiements/reglages", "Back-office", "Réglages des paiements (clés masquées)", ["admin"], async ({ me }) => reglagesPaiement.vueAdmin(me));
+route("PUT", "/admin/paiements/reglages", "Back-office", "Enregistrer les réglages des paiements", ["admin"], async ({ me, body }) => reglagesPaiement.enregistrer(me, await body()));
+route("POST", "/admin/paiements/reglages/test", "Back-office", "Tester la connexion à une passerelle (ebilling | stripe)", ["admin"], async ({ me, body }) => reglagesPaiement.tester(me, (await body()).passerelle === "stripe" ? "stripe" : "ebilling"));
+route("POST", "/admin/paiements/:ref/especes", "Back-office", "Confirmer ou refuser un paiement en espèces", ["admin"], async ({ me, params, body }) => { const b = await body(); return pay.validerEspeces(me, params.ref, { recu: !!b.recu, numeroRecu: b.numeroRecu ? String(b.numeroRecu).slice(0, 60) : null, montantRecu: Number.isFinite(Number(b.montantRecu)) && b.montantRecu !== "" && b.montantRecu != null ? Number(b.montantRecu) : null, note: b.note ? String(b.note).slice(0, 500) : null }); });
 route("GET", "/admin/paiements", "Back-office", "Transactions (filtres statut, sequestre, type)", ["admin"], async ({ me, query }) => admin.listPaymentsAdmin(me, { status: query.get("statut") ?? undefined, escrow: query.get("sequestre") ?? undefined, kind: query.get("type") ?? undefined }));
 route("GET", "/admin/articles", "Back-office", "Tous les articles", ["admin"], async () => admin.listArticles(false));
 route("POST", "/admin/articles", "Back-office", "Créer un article", ["admin"], async ({ me, body }) => json(await admin.saveArticle(me, await body()), 201));

@@ -54,7 +54,8 @@ Un élève mineur peut créer un compte et utiliser les services d'information e
 
 ## Frais de dossier et paiements
 
-- Certaines candidatures donnent lieu à des frais de dossier fixés par l'établissement. Ils sont affichés avant validation et encaissés par Navigoal **pour le compte de l'établissement**, par l'intermédiaire de prestataires de paiement (mobile money, carte bancaire, virement, agences).
+- Certaines candidatures donnent lieu à des frais de dossier fixés par l'établissement. Ils sont affichés avant validation, **dans la monnaie du payeur** (F CFA, euro…), et encaissés par Navigoal **pour le compte de l'établissement**. Navigoal plafonne le montant payé par l'élève, même si l'établissement demande davantage ; le plafond en vigueur est indiqué au moment du paiement.
+- Moyens acceptés : mobile money (Airtel Money, Moov Money au Gabon, par la passerelle E-Billing), carte bancaire (par Stripe) et espèces au bureau de Navigoal. Un paiement en espèces n'est pris en compte qu'après confirmation de la réception par l'équipe Navigoal, qui le valide dans son back-office ; la candidature est transmise à l'établissement à ce moment-là.
 - Un reçu est disponible dans votre espace après chaque paiement. Navigoal ne conserve aucune donnée complète de carte bancaire.
 - Les frais de dossier ne sont pas remboursables une fois la candidature transmise, sauf annulation de la formation par l'établissement ou disposition contraire de celui-ci.
 

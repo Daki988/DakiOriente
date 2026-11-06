@@ -102,7 +102,7 @@ if (uidIntrus) {
 for (const id of candA.slice(0, 2)) {
   await controle("IDOR élève", `lire la candidature d'un autre`, () => intrus.get(`/candidatures/${id}`));
   await controle("IDOR élève", `modifier la candidature d'un autre`, () => intrus.patch(`/candidatures/${id}`, { motivation: "piraté" }));
-  await controle("IDOR élève", `envoyer la candidature d'un autre`, () => intrus.post(`/candidatures/${id}/envoyer`, { moyen: "mobile_money_afrique" }));
+  await controle("IDOR élève", `envoyer la candidature d'un autre`, () => intrus.post(`/candidatures/${id}/envoyer`, { moyen: "especes" }));
   await controle("IDOR élève", `désister la candidature d'un autre`, () => intrus.post(`/candidatures/${id}/desister`));
   await controle("IDOR élève", `bordereau PDF d'un autre`, () => intrus.get(`/candidatures/${id}/bordereau.pdf`));
   await controle("IDOR élève", `attestation PDF d'un autre`, () => intrus.get(`/candidatures/${id}/attestation.pdf`));
@@ -190,7 +190,7 @@ await controle("privilèges", "bailleur : publier sans modération", () => baill
 // ------------------------------------------------------------ Paiements
 await controle("paiements", "webhook sans signature refusé", () => client("x", { origin: null }).post("/paiements/webhook/cinetpay", { reference: paiementsA[0] ?? "x", statut: "succes", montant: 1 }), [400, 401, 403, 404]);
 await controle("paiements", "webhook fournisseur inconnu", () => client("x", { origin: null }).post("/paiements/webhook/inconnu", { reference: "x" }), [400, 401, 403, 404]);
-if (maCand?.id) await controle("paiements", "montant imposé par le client ignoré", () => intrus.post(`/candidatures/${maCand.id}/envoyer`, { moyen: "mobile_money_afrique", montant: 1, amount: 1 }), [200, 201, 400, 422], (r) => {
+if (maCand?.id) await controle("paiements", "montant imposé par le client ignoré", () => intrus.post(`/candidatures/${maCand.id}/envoyer`, { moyen: "especes", montant: 1, amount: 1 }), [200, 201, 400, 422], (r) => {
   const m = r.data?.payment?.amount ?? r.data?.paiement?.amount ?? r.data?.amount;
   return m === undefined || m > 1 || `montant accepté : ${m}`;
 });
@@ -214,7 +214,7 @@ if (convsA[0]) await controle("XSS", "message avec balises accepté comme texte"
 await controle("XSS", "export CSV : formules neutralisées", async () => {
   if (maCand?.id) await intrus.patch(`/candidatures/${maCand.id}`, { motivation: "=HYPERLINK(\"http://evil\",\"x\")" });
   await intrus.patch("/moi", { firstName: "=cmd|' /C calc'!A0", lastName: "+1+1" });
-  if (maCand?.id) await intrus.post(`/candidatures/${maCand.id}/envoyer`, { moyen: "mobile_money_afrique" });
+  if (maCand?.id) await intrus.post(`/candidatures/${maCand.id}/envoyer`, { moyen: "especes" });
   return ecole.get(`/ecole/${eid}/candidatures?format=csv`);
 }, [200], (r) => !/(^|[;,\n])"?[=+\-@]cmd/m.test(String(r.data)) || "cellule commençant par = non neutralisée");
 

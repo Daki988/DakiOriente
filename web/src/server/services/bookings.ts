@@ -101,14 +101,14 @@ export async function approveAsGuarantor(parent: User, id: string) {
 }
 
 /** Paiement du premier loyer + charges + caution + frais de service, conservé en séquestre. */
-export async function payBooking(payer: User, id: string, method: string) {
+export async function payBooking(payer: User, id: string, method: string, telephone?: string | null) {
   const b = await load(id);
   if (payer.id !== b.tenantId && payer.id !== b.guarantorId && !(payer.role === "parent" && (await isGuardianOf(payer.id, b.tenantId)))) throw forbidden();
   if (b.status !== "acceptee") throw new AppError(b.status === "attente_garant" ? "En attente de la validation du garant." : "Le bailleur doit d'abord accepter la demande.");
   const [tenant] = await db.select().from(schema.users).where(eq(schema.users.id, b.tenantId));
   await assertConsentIfMinor(tenant);
   const amount = b.rent + b.charges + b.deposit + b.serviceFee;
-  return initiatePayment(payer, { kind: "reservation", amount, currency: b.currency, method, description: `Réservation ${b.number} (1er loyer, charges, caution, frais de service)`, bookingId: b.id, beneficiaryId: b.tenantId, escrow: true, meta: { rent: b.rent, charges: b.charges, deposit: b.deposit, serviceFee: b.serviceFee } });
+  return initiatePayment(payer, { kind: "reservation", amount, currency: b.currency, method, description: `Réservation ${b.number} (1er loyer, charges, caution, frais de service)`, bookingId: b.id, beneficiaryId: b.tenantId, escrow: true, telephone, meta: { rent: b.rent, charges: b.charges, deposit: b.deposit, serviceFee: b.serviceFee } });
 }
 
 /** Appelé quand un paiement lié à la réservation réussit. */
@@ -152,14 +152,14 @@ export async function checkIn(tenant: User, id: string, raw: { photos: string[];
   await notify(b.landlordId, { kind: "fonds_verses", title: `Fonds versés · ${b.number}`, body: `Premier loyer versé. La caution reste en séquestre jusqu'à la sortie.`, link: `/bailleur/reservations/${b.id}` });
 }
 
-export async function payRent(payer: User, id: string, method: string, period: string) {
+export async function payRent(payer: User, id: string, method: string, period: string, telephone?: string | null) {
   const b = await load(id);
   if (payer.id !== b.tenantId && payer.id !== b.guarantorId && !(payer.role === "parent" && (await isGuardianOf(payer.id, b.tenantId)))) throw forbidden();
   if (!["en_cours", "preavis"].includes(b.status)) throw new AppError("Aucun loyer à payer pour cette réservation.");
   if (!/^\d{4}-\d{2}$/.test(period)) throw new AppError("Période invalide.");
   const paid = await db.select().from(schema.payments).where(and(eq(schema.payments.bookingId, id), eq(schema.payments.kind, "loyer"), eq(schema.payments.status, "reussi")));
   if (paid.some((p) => (p.meta as { period?: string }).period === period)) throw new AppError("Ce mois est déjà payé.");
-  return initiatePayment(payer, { kind: "loyer", amount: b.rent + b.charges, currency: b.currency, method, description: `Loyer ${period} · ${b.number}`, bookingId: id, beneficiaryId: b.tenantId, meta: { period } });
+  return initiatePayment(payer, { kind: "loyer", amount: b.rent + b.charges, currency: b.currency, method, description: `Loyer ${period} · ${b.number}`, bookingId: id, beneficiaryId: b.tenantId, telephone, meta: { period } });
 }
 
 export async function giveNotice(user: User, id: string, note?: string) {

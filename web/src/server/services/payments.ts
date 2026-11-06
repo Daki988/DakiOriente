@@ -4,7 +4,10 @@ import { audit } from "../lib/audit";
 import { nextNumber } from "../lib/counters";
 import { AppError, forbidden, notFound } from "../lib/errors";
 import { putFile } from "../lib/storage";
-import { METHODS, methodsFor, providerById, providerFor } from "../payments/providers";
+import { libelleMoyen, moyensDisponibles, msisdnGabon, providerById, providerFor, pousserUssd } from "../payments/providers";
+import { reglages } from "./reglages-paiement";
+import { tauxDuJour } from "../lib/taux";
+import { convertirDe, devisePays } from "@/lib/devises";
 import { notify } from "./notifications";
 import { receiptPdf } from "./pdf";
 import { isGuardianOf } from "./guardians";
@@ -15,23 +18,36 @@ const APP_URL = () => process.env.APP_URL || process.env.URL || "http://localhos
 export const KIND_LABEL: Record<Kind, string> = { frais_candidature: "Frais de dossier", reservation: "Réservation de logement (1er loyer)", caution: "Dépôt de garantie", loyer: "Loyer", service: "Frais de service Navilease" };
 
 /** Crée un paiement et renvoie l'URL de paiement chez l'agrégateur (ou la page bac à sable). */
-export async function initiatePayment(payer: User, p: { kind: Kind; amount: number; currency: string; method: string; description: string; applicationId?: string; bookingId?: string; beneficiaryId?: string; escrow?: boolean; meta?: Record<string, unknown> }) {
+export async function initiatePayment(payer: User, p: { kind: Kind; amount: number; currency: string; method: string; description: string; applicationId?: string; bookingId?: string; beneficiaryId?: string; escrow?: boolean; meta?: Record<string, unknown>; telephone?: string | null }) {
   if (p.amount <= 0) throw new AppError("Montant invalide.");
-  if (!methodsFor(p.currency).some((m) => m.id === p.method)) throw new AppError("Choisissez un moyen de paiement proposé (carte, mobile money, virement…).");
+  if (!(await moyensDisponibles(p.currency)).some((m) => m.id === p.method)) throw new AppError("Choisissez un moyen de paiement proposé (mobile money, carte ou espèces).");
+  const telephone = p.telephone || payer.phone;
+  if ((p.method === "airtel_money" || p.method === "moov_money") && !msisdnGabon(telephone)) throw new AppError("Indiquez un numéro Airtel Money ou Moov Money valide (ex. 077 12 34 56).", 400, "telephone");
   if (p.beneficiaryId && p.beneficiaryId !== payer.id && !(payer.role === "parent" && (await isGuardianOf(payer.id, p.beneficiaryId)))) throw forbidden();
-  const provider = providerFor(p.currency);
+  const provider = providerFor(p.method);
+  const delai = (await reglages()).especes.delaiJours;
   const reference = await nextNumber("NG-PAY", 6);
   const [pay] = await db.insert(schema.payments).values({
     reference, payerId: payer.id, beneficiaryId: p.beneficiaryId ?? null, kind: p.kind, amount: p.amount, currency: p.currency, provider: provider.id, method: p.method,
-    status: "en_attente", applicationId: p.applicationId ?? null, bookingId: p.bookingId ?? null, meta: { ...p.meta, description: p.description, escrow: !!p.escrow },
+    status: "en_attente", applicationId: p.applicationId ?? null, bookingId: p.bookingId ?? null,
+    meta: { ...p.meta, description: p.description, escrow: !!p.escrow, ...(telephone ? { telephone: msisdnGabon(telephone) ?? telephone } : {}), ...(p.method === "especes" ? { expireLe: new Date(Date.now() + delai * 864e5).toISOString() } : {}) },
   }).returning();
-  const co = await provider.createCheckout({
-    reference, amount: p.amount, currency: p.currency, method: p.method, description: p.description,
-    customer: { name: `${payer.firstName} ${payer.lastName}`, email: payer.email, phone: payer.phone },
-    returnUrl: `${APP_URL()}/paiement/${reference}`, notifyUrl: `${APP_URL()}/api/paiements/webhook/${provider.id}`,
-  });
-  await db.update(schema.payments).set({ providerRef: co.providerRef }).where(eq(schema.payments.id, pay.id));
-  return { payment: { ...pay, providerRef: co.providerRef }, redirectUrl: co.redirectUrl };
+  let co;
+  try {
+    co = await provider.createCheckout({
+      reference, amount: p.amount, currency: p.currency, method: p.method, description: p.description,
+      customer: { name: `${payer.firstName} ${payer.lastName}`, email: payer.email, phone: telephone },
+      returnUrl: `${APP_URL()}/paiement/${reference}`, notifyUrl: `${APP_URL()}/api/paiements/webhook/${provider.id}`,
+    });
+  } catch (e) {
+    console.error("Paiement", provider.id, e);
+    await db.update(schema.payments).set({ status: "echoue", meta: { ...(pay.meta as object), erreur: String(e instanceof Error ? e.message : e).slice(0, 200) } }).where(eq(schema.payments.id, pay.id));
+    throw new AppError("La passerelle de paiement n'a pas pu lancer le paiement. Réessayez ou choisissez un autre moyen.", 502, "passerelle");
+  }
+  // Page externe (Stripe) : lien gardé pour reprendre le paiement depuis /paiement/<référence> (ex. parent prévenu par e-mail).
+  const meta = co.redirectUrl.startsWith("/") ? pay.meta : { ...(pay.meta as object), lienPaiement: co.redirectUrl };
+  await db.update(schema.payments).set({ providerRef: co.providerRef, meta }).where(eq(schema.payments.id, pay.id));
+  return { payment: { ...pay, meta, providerRef: co.providerRef }, redirectUrl: co.redirectUrl };
 }
 
 export async function getPayment(viewer: User, reference: string) {
@@ -98,7 +114,7 @@ export async function receipt(viewer: User, reference: string) {
   const bytes = await receiptPdf({
     reference: p.reference, payer: `${payer.firstName} ${payer.lastName}`, beneficiary: benef ? `${benef.firstName} ${benef.lastName}` : undefined,
     label: String((p.meta as { description?: string }).description ?? KIND_LABEL[p.kind]), amount: p.amount, currency: p.currency,
-    method: Object.values(METHODS).flat().find((m) => m.id === p.method)?.label ?? p.method, paidAt: p.paidAt ?? new Date(), escrow: p.escrow !== "aucun",
+    method: libelleMoyen(p.method), paidAt: p.paidAt ?? new Date(), escrow: p.escrow !== "aucun",
   });
   return bytes;
 }
@@ -122,4 +138,49 @@ export async function setEscrow(actorId: string | null, bookingId: string, to: "
 
 export async function storeReceipt(reference: string, bytes: Uint8Array) {
   return putFile(`receipts/${reference}.pdf`, bytes, "application/pdf");
+}
+
+/** Frais de candidature dans la monnaie du payeur, plafonnés (réglable dans le back-office : 10 000 F CFA / 15 € par défaut). */
+export async function fraisCandidature(feeMad: number, payer: Pick<User, "country">) {
+  if (feeMad <= 0) return { montant: 0, devise: "MAD", plafonne: false, ecole: 0 };
+  const devise = payer.country === "MA" ? "MAD" : devisePays(payer.country) ?? "EUR";
+  const [taux, r] = await Promise.all([tauxDuJour(), reglages()]);
+  const cfa = devise === "XAF" || devise === "XOF";
+  const brut = devise === "MAD" ? feeMad : convertirDe(feeMad, "MAD", devise, taux) ?? feeMad;
+  const plafond = cfa ? r.frais.plafondXaf : devise === "EUR" ? r.frais.plafondEur : convertirDe(r.frais.plafondEur, "EUR", devise, taux) ?? r.frais.plafondEur;
+  const arrondi = (n: number) => (cfa ? Math.round(n / 50) * 50 : devise === "EUR" ? Math.round(n * 100) / 100 : Math.round(n));
+  const montant = plafond > 0 ? Math.min(arrondi(brut), arrondi(plafond)) : arrondi(brut);
+  return { montant, devise, plafonne: plafond > 0 && arrondi(brut) > arrondi(plafond), ecole: feeMad };
+}
+
+/** Espèces : l'administrateur confirme (ou refuse) la réception du paiement. */
+export async function validerEspeces(admin: User, reference: string, i: { recu: boolean; numeroRecu?: string | null; montantRecu?: number | null; note?: string | null }) {
+  if (admin.role !== "admin") throw forbidden();
+  const [p] = await db.select().from(schema.payments).where(eq(schema.payments.reference, reference));
+  if (!p) throw notFound("Paiement");
+  if (p.status !== "en_attente" || !["especes", "sandbox"].includes(p.provider)) throw new AppError("Ce paiement n'est pas en attente de validation.");
+  await db.update(schema.payments).set({ meta: { ...(p.meta as object), validation: { par: admin.id, le: new Date().toISOString(), numeroRecu: i.numeroRecu ?? null, montantRecu: i.montantRecu ?? null, note: i.note ?? null } } }).where(eq(schema.payments.id, p.id));
+  await audit(admin.id, i.recu ? "especes_recues" : "especes_refusees", "payment", p.id, { reference, numeroRecu: i.numeroRecu, montantRecu: i.montantRecu });
+  return settlePayment(reference, i.recu);
+}
+
+/** Mobile money : renvoyer la demande de paiement sur le téléphone. */
+export async function relancerMobile(viewer: User, reference: string) {
+  const p = await getPayment(viewer, reference);
+  if (p.provider !== "ebilling" || p.status !== "en_attente" || !p.providerRef) throw new AppError("Rien à relancer pour ce paiement.");
+  const tel = (p.meta as { telephone?: string }).telephone;
+  if (!tel) throw new AppError("Numéro de téléphone manquant.");
+  await pousserUssd(p.providerRef, tel, p.method);
+  return { ok: true };
+}
+
+/** Instructions de paiement en espèces (page de paiement). */
+export async function instructionsEspeces() {
+  const r = await reglages();
+  return { instructions: r.especes.instructions, delaiJours: r.especes.delaiJours };
+}
+
+export async function referenceParFacture(billId: string) {
+  const [p] = await db.select({ r: schema.payments.reference }).from(schema.payments).where(and(eq(schema.payments.providerRef, billId.slice(0, 100)), eq(schema.payments.provider, "ebilling")));
+  return p?.r ?? null;
 }
