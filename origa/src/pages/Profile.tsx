@@ -58,6 +58,7 @@ export function ProfilePage() {
           <button className="cta light" onClick={async () => show((await verifyAuditChain()) ? 'Journal intègre' : 'Journal altéré !')}>Vérifier l'intégrité</button>
         </div>
         {!apiEnabled && <button className="cta light" onClick={async () => { if (confirm('Effacer les données locales de démonstration ?')) { await db.delete(); location.reload(); } }}>Réinitialiser la démonstration</button>}
+        <a className="cta light" href="#/telecharger"><Icon name="share" />Installer l'application sur un téléphone</a>
         <span className="muted" style={{ textAlign: 'center' }}>Origa 0.1.0 · Programme POUFA · Données hébergées au Gabon</span>
       </div>
       {toast}

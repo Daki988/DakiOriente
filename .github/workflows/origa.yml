@@ -115,3 +115,28 @@ jobs:
       - run: cd build/Build/Products/Debug-iphonesimulator && zip -r ../../../../origa-ios-simulator.zip App.app
       - uses: actions/upload-artifact@v4
         with: { name: origa-ios-simulator, path: origa/origa-ios-simulator.zip }
+
+  release:
+    name: Publication des fichiers à télécharger
+    needs: [android, ios]
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions: { contents: write }
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: out }
+      - name: Publier la release « origa-latest »
+        env: { GH_TOKEN: '${{ github.token }}' }
+        run: |
+          cd out
+          cp origa-android-apk/app-debug.apk Origa-Android-HarmonyOS.apk
+          cp origa-ios-simulator/origa-ios-simulator.zip Origa-iOS-simulateur.zip
+          (cd origa-web && zip -qr ../Origa-web.zip .)
+          gh release delete origa-latest --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag || true
+          gh release create origa-latest --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --title "Origa — dernière version (build ${{ github.run_number }})" \
+            --notes "Version de démonstration. APK pour Android et HarmonyOS 2 (installation directe), app iOS pour le simulateur Xcode, version web. Page d'installation : https://origa-ten.vercel.app/#/telecharger" \
+            Origa-Android-HarmonyOS.apk Origa-iOS-simulateur.zip Origa-web.zip

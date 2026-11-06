@@ -17,6 +17,7 @@ import { AlertsPage } from './pages/Alerts';
 import { SettingsPage } from './pages/Settings';
 import { TracePage } from './pages/Trace';
 import { Login } from './pages/Login';
+import { Download } from './pages/Download';
 import { apiEnabled, getToken } from './app/api';
 
 export function App() {
@@ -28,6 +29,7 @@ export function App() {
       <Routes>
         {/* Page publique consommateur : sans compte, sans coque applicative */}
         <Route path="/p/:token" element={<PublicLot />} />
+        <Route path="/telecharger" element={<Download />} />
         {needLogin ? (
           <Route path="*" element={<Login />} />
         ) : pilot ? (
