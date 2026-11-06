@@ -16,16 +16,21 @@ import { FarmsPage, FarmNew } from './pages/Farms';
 import { AlertsPage } from './pages/Alerts';
 import { SettingsPage } from './pages/Settings';
 import { TracePage } from './pages/Trace';
+import { Login } from './pages/Login';
+import { apiEnabled, getToken } from './app/api';
 
 export function App() {
   const s = useSession();
+  const needLogin = apiEnabled && (!getToken() || !s.userLabel);
   const pilot = s.role === 'dge' || s.role === 'veterinaire' || s.role === 'admin' || s.role === 'bceg';
   return (
     <HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Routes>
         {/* Page publique consommateur : sans compte, sans coque applicative */}
         <Route path="/p/:token" element={<PublicLot />} />
-        {pilot ? (
+        {needLogin ? (
+          <Route path="*" element={<Login />} />
+        ) : pilot ? (
           <Route element={<WebShell />}>
             <Route path="/" element={s.role === 'veterinaire' ? <AlertsPage /> : <Dashboard />} />
             <Route path="/national" element={<Dashboard />} />

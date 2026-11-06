@@ -9,6 +9,7 @@ import { fmtInt, useBandStats, useCurrentBand, useSession } from '../app/hooks';
 import { lotId, nextSeq, today, uid } from '../domain/ids';
 import { checkExit, withdrawalBlock } from '../domain/rules';
 import { signLot } from '../domain/qr';
+import { apiEnabled } from '../app/api';
 import type { ExitReason } from '../domain/types';
 
 const REASONS: { k: ExitReason; label: string }[] = [
@@ -50,7 +51,7 @@ export function ExitPage() {
       lid = lotId(band!.id, nextSeq(existing, `${band!.id}-L`, /^(\d{2})$/));
       await save('lots', {
         id: lid, bandId: band!.id, farmId: band!.farmId, count, weightKg: weight, operatorId, cededAt: date,
-        signature: signLot(lid), confirmCode: String(Math.floor(1000 + Math.random() * 9000)),
+        signature: apiEnabled ? '' : signLot(lid), confirmCode: String(Math.floor(1000 + Math.random() * 9000)),
       }, 'cession de lot');
     }
     await save('exits', { id: uid(), bandId: band!.id, date, count, weightKg: weight, reason, operatorId: operatorId || undefined, destination: destination || undefined, unitPriceXaf: price || undefined, lotId: lid }, 'sortie');

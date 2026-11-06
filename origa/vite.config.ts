@@ -24,5 +24,5 @@ export default defineConfig({
       workbox: { navigateFallback: 'index.html', globPatterns: ['**/*.{js,css,html,svg,woff2}'] },
     }),
   ],
-  test: { environment: 'node', setupFiles: ['src/test/setup.ts'] },
+  test: { environment: 'node', setupFiles: ['src/test/setup.ts'], include: ['src/**/*.test.ts'] },
 });

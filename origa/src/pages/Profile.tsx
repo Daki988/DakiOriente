@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../data/db';
 import { verifyAuditChain } from '../data/repo';
-import { flushOutbox } from '../data/sync';
+import { flushOutbox, syncIssues } from '../data/sync';
+import { apiEnabled, logout } from '../app/api';
 import { PROFILES, setSession } from '../app/sessionStore';
 import { useOnline, usePending, useSession } from '../app/hooks';
 import { useToast } from '../components/ui';
@@ -21,6 +22,13 @@ export function ProfilePage() {
     <>
       <div className="back"><div><h2>Profil</h2><div className="sub">{s.userLabel}</div></div></div>
       <div className="content" style={{ maxWidth: 640 }}>
+        {apiEnabled ? (
+          <div className="card">
+            <h3>Compte</h3>
+            <span className="muted">Connecté en tant que {s.userLabel}.</span>
+            <button className="cta light" onClick={() => { if (confirm('Se déconnecter ? Les saisies non envoyées restent sur le téléphone.')) logout(); }}>Se déconnecter</button>
+          </div>
+        ) : (
         <div className="card">
           <h3>Profil de démonstration</h3>
           <span className="muted">En production, la connexion se fait par numéro de téléphone et code à usage unique.</span>
@@ -30,6 +38,7 @@ export function ProfilePage() {
             ))}
           </div>
         </div>
+        )}
         {s.role === 'agent' && (
           <div className="card">
             <h3>Ferme suivie</h3>
@@ -40,14 +49,15 @@ export function ProfilePage() {
         <div className="card">
           <div className="row between"><h3>Synchronisation</h3><span className={`pill ${online ? 'on' : 'off'}`}>{online ? 'En ligne' : 'Hors ligne'}</span></div>
           <span className="muted">{pending} enregistrement(s) en attente d'envoi. Les données restent chiffrées sur l'appareil tant qu'elles ne sont pas envoyées.</span>
-          <button className="cta light" onClick={async () => { const r = await flushOutbox(); show(r.error ?? `${r.sent} envoyé(s)`); }}><Icon name="sync" />Synchroniser maintenant</button>
+          <button className="cta light" onClick={async () => { const r = await flushOutbox(); show(r.error ?? `${r.sent} envoyé(s), ${r.received ?? 0} reçu(s)`); }}><Icon name="sync" />Synchroniser maintenant</button>
+          {syncIssues().slice(-5).map((i) => <div key={i.table + i.key + i.reason} className="note sun"><Icon name="warn" size={18} />{i.table} {i.key} : {i.reason}</div>)}
         </div>
         <div className="card">
           <h3>Journal d'audit</h3>
           <span className="muted">{auditCount} opération(s) tracée(s), scellées par chaînage cryptographique.</span>
           <button className="cta light" onClick={async () => show((await verifyAuditChain()) ? 'Journal intègre' : 'Journal altéré !')}>Vérifier l'intégrité</button>
         </div>
-        <button className="cta light" onClick={async () => { if (confirm('Effacer les données locales de démonstration ?')) { await db.delete(); location.reload(); } }}>Réinitialiser la démonstration</button>
+        {!apiEnabled && <button className="cta light" onClick={async () => { if (confirm('Effacer les données locales de démonstration ?')) { await db.delete(); location.reload(); } }}>Réinitialiser la démonstration</button>}
         <span className="muted" style={{ textAlign: 'center' }}>Origa 0.1.0 · Programme POUFA · Données hébergées au Gabon</span>
       </div>
       {toast}

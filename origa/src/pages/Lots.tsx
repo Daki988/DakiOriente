@@ -48,7 +48,8 @@ export function LotDetail() {
   if (!data) return <><BackBar title="Lot introuvable" /><div className="content"><div className="empty">Ce lot n'existe pas sur cet appareil.</div></div></>;
   const { lot, op, blocked } = data;
   const url = publicUrl(publicBase(), lot.id, lot.signature);
-  const authentic = verifyLot(lot.id, lot.signature);
+  const pending = !lot.signature;
+  const authentic = !pending && verifyLot(lot.id, lot.signature);
 
   async function share() {
     try {
@@ -62,9 +63,10 @@ export function LotDetail() {
       <BackBar title="Lot cédé" sub="Étiquette activée · scannable partout" />
       <div className="content">
         <div className="qrbox">
-          <Qr value={url} />
+          {pending ? <div className="empty" style={{ width: 200, height: 200, display: 'flex', alignItems: 'center' }}>Le QR apparaîtra après la synchronisation, quand le serveur aura signé le lot.</div> : <Qr value={url} />}
           <span className="lotid">{lot.id}</span>
-          <span className={`pill ${authentic ? 'on' : 'red'}`}><span className="dot" style={{ background: authentic ? 'var(--green)' : 'var(--red)' }} />{authentic ? 'Signé · infalsifiable' : 'Signature invalide'}</span>
+          {pending ? <span className="pill off"><span className="dot" style={{ background: 'var(--sun)' }} />Signature en attente de réseau</span>
+            : <span className={`pill ${authentic ? 'on' : 'red'}`}><span className="dot" style={{ background: authentic ? 'var(--green)' : 'var(--red)' }} />{authentic ? 'Signé · infalsifiable' : 'Signature invalide'}</span>}
         </div>
         <div className="card" style={{ gap: 0 }}>
           <Kv k="Destinataire" v={op ? `${op.name}, ${op.locality}` : lot.destination ?? '—'} />
@@ -75,7 +77,7 @@ export function LotDetail() {
           <Kv k="Code de confirmation" v={lot.confirmCode.split('').join(' ')} />
         </div>
         <div className="row">
-          <button className="cta light" style={{ flex: 1, fontSize: 16 }} onClick={share}><Icon name="share" />Partager</button>
+          <button className="cta light" style={{ flex: 1, fontSize: 16 }} disabled={pending} onClick={share}><Icon name="share" />Partager</button>
           <a className="cta green" style={{ flex: 1, fontSize: 16 }} href={url} target="_blank" rel="noreferrer">Page publique</a>
         </div>
       </div>

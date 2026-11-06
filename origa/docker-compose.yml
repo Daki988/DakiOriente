@@ -1,0 +1,29 @@
+# Déploiement complet d'Origa : base PostgreSQL + serveur national + application web.
+# Démarrage :  cp server/.env.example .env  (puis renseigner les secrets)  &&  docker compose up -d --build
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: origa
+      POSTGRES_USER: origa
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?définir POSTGRES_PASSWORD dans .env}
+    volumes: [origa-db:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U origa"], interval: 10s, retries: 5 }
+
+  api:
+    build: ./server
+    restart: unless-stopped
+    depends_on: { db: { condition: service_healthy } }
+    environment:
+      DATABASE_URL: postgresql://origa:${POSTGRES_PASSWORD}@db:5432/origa
+      JWT_SECRET: ${JWT_SECRET:?définir JWT_SECRET}
+      LOT_SIGNING_KEY: ${LOT_SIGNING_KEY:?définir LOT_SIGNING_KEY}
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://origa.ga,capacitor://localhost,http://localhost}
+      SMS_PROVIDER: ${SMS_PROVIDER:-console}
+      SMS_HTTP_URL: ${SMS_HTTP_URL:-}
+      SMS_HTTP_TOKEN: ${SMS_HTTP_TOKEN:-}
+    ports: ["8080:8080"]
+
+volumes:
+  origa-db:

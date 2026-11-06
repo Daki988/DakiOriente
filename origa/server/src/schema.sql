@@ -1,0 +1,74 @@
+-- Schéma du serveur national Origa (PostgreSQL 16). Idempotent.
+
+CREATE TABLE IF NOT EXISTS users (
+  id          SERIAL PRIMARY KEY,
+  phone       TEXT NOT NULL UNIQUE,          -- format E.164, ex. +24107xxxxxx
+  name        TEXT NOT NULL,
+  role        TEXT NOT NULL CHECK (role IN ('eleveur','agent','dge','veterinaire','bceg','admin','operateur')),
+  farm_id     TEXT,                          -- profil éleveur
+  farm_ids    TEXT[] NOT NULL DEFAULT '{}',  -- profil agent technique
+  operator_id TEXT,                          -- abattoir / distributeur sous convention
+  active      BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS otp_codes (
+  id          BIGSERIAL PRIMARY KEY,
+  phone       TEXT NOT NULL,
+  code_hash   TEXT NOT NULL,
+  expires_at  TIMESTAMPTZ NOT NULL,
+  attempts    INT NOT NULL DEFAULT 0,
+  used        BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS otp_phone_idx ON otp_codes (phone, created_at DESC);
+
+-- Enregistrements synchronisés : une ligne par objet métier (ferme, bande, fiche, lot…).
+CREATE TABLE IF NOT EXISTS records (
+  tbl        TEXT NOT NULL,
+  key        TEXT NOT NULL,
+  farm_id    TEXT,
+  payload    JSONB NOT NULL,
+  client_at  TIMESTAMPTZ NOT NULL,           -- horodatage de la saisie sur le terrain
+  server_at  TIMESTAMPTZ NOT NULL DEFAULT clock_timestamp(),
+  seq        BIGSERIAL,                      -- curseur de synchronisation
+  updated_by INT REFERENCES users(id),
+  PRIMARY KEY (tbl, key)
+);
+CREATE INDEX IF NOT EXISTS records_seq_idx ON records (seq);
+CREATE INDEX IF NOT EXISTS records_farm_idx ON records (farm_id);
+
+-- Conflits de synchronisation : jamais perdus en silence, consultables par la DGE.
+CREATE TABLE IF NOT EXISTS conflicts (
+  id        BIGSERIAL PRIMARY KEY,
+  tbl       TEXT NOT NULL,
+  key       TEXT NOT NULL,
+  incoming  JSONB NOT NULL,
+  current   JSONB NOT NULL,
+  user_id   INT REFERENCES users(id),
+  at        TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- Journal d'audit en ajout seul, chaîné par SHA-256 (audits ANINF).
+CREATE TABLE IF NOT EXISTS audit (
+  id        BIGSERIAL PRIMARY KEY,
+  at        TIMESTAMPTZ NOT NULL DEFAULT now(),
+  user_id   INT,
+  action    TEXT NOT NULL,
+  tbl       TEXT,
+  key       TEXT,
+  prev_hash TEXT NOT NULL,
+  hash      TEXT NOT NULL
+);
+
+CREATE OR REPLACE FUNCTION audit_no_change() RETURNS trigger AS $$
+BEGIN RAISE EXCEPTION 'Le journal d''audit est en ajout seul'; END $$ LANGUAGE plpgsql;
+DROP TRIGGER IF EXISTS audit_immutable ON audit;
+CREATE TRIGGER audit_immutable BEFORE UPDATE OR DELETE ON audit FOR EACH ROW EXECUTE FUNCTION audit_no_change();
+
+CREATE TABLE IF NOT EXISTS scans (
+  id      BIGSERIAL PRIMARY KEY,
+  lot_id  TEXT NOT NULL,
+  valid   BOOLEAN NOT NULL,
+  at      TIMESTAMPTZ NOT NULL DEFAULT now()
+);

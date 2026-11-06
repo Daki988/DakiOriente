@@ -25,6 +25,30 @@ jobs:
       - uses: actions/upload-artifact@v4
         with: { name: origa-web, path: origa/dist }
 
+  server:
+    name: Tests du serveur national (PostgreSQL)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_USER: origa, POSTGRES_PASSWORD: origa, POSTGRES_DB: origa_test }
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U origa" --health-interval 5s --health-timeout 5s --health-retries 10
+    defaults:
+      run:
+        working-directory: origa/server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: origa/server/package-lock.json }
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+        env: { TEST_DATABASE_URL: 'postgresql://origa:origa@localhost:5432/origa_test' }
+      - run: npm run build
+      - run: docker build -t origa-server .
+
   android:
     name: APK Android (compatible HarmonyOS 2)
     runs-on: ubuntu-latest
@@ -42,6 +66,32 @@ jobs:
       - run: chmod +x android/gradlew && cd android && ./gradlew assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
         with: { name: origa-android-apk, path: origa/android/app/build/outputs/apk/debug/app-debug.apk }
+      # Version de publication signée (APK pour HarmonyOS / installation directe, AAB pour les magasins).
+      # Sans les secrets ORIGA_KEYSTORE_*, une clé jetable valide la configuration sans rien publier.
+      - name: Préparer la clé de signature
+        env: { KS_B64: '${{ secrets.ORIGA_KEYSTORE_BASE64 }}' }
+        run: |
+          if [ -n "$KS_B64" ]; then
+            echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/origa.jks"; echo "OFFICIAL=1" >> "$GITHUB_ENV"
+          else
+            keytool -genkeypair -keystore "$RUNNER_TEMP/origa.jks" -alias origa -keyalg RSA -keysize 2048 -validity 1 \
+              -storepass jetable-ci -keypass jetable-ci -dname "CN=Origa CI" >/dev/null; echo "OFFICIAL=0" >> "$GITHUB_ENV"
+          fi
+      - name: Construire la version signée
+        env:
+          ORIGA_KEYSTORE_PATH: ${{ runner.temp }}/origa.jks
+          ORIGA_KEYSTORE_PASSWORD: ${{ secrets.ORIGA_KEYSTORE_PASSWORD || 'jetable-ci' }}
+          ORIGA_KEY_ALIAS: ${{ secrets.ORIGA_KEY_ALIAS || 'origa' }}
+          ORIGA_KEY_PASSWORD: ${{ secrets.ORIGA_KEY_PASSWORD || 'jetable-ci' }}
+          ORIGA_VERSION_CODE: ${{ github.run_number }}
+        run: cd android && ./gradlew assembleRelease bundleRelease --no-daemon
+      - uses: actions/upload-artifact@v4
+        if: env.OFFICIAL == '1'
+        with:
+          name: origa-android-release
+          path: |
+            origa/android/app/build/outputs/apk/release/app-release.apk
+            origa/android/app/build/outputs/bundle/release/app-release.aab
 
   ios:
     name: App iOS (simulateur, sans signature)

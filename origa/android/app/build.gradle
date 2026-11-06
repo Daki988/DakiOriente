@@ -7,8 +7,9 @@ android {
         applicationId "ga.origa.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        // Numéro de version fourni par la CI (numéro d'exécution), 1 en local.
+        versionCode (System.getenv("ORIGA_VERSION_CODE") ?: "1").toInteger()
+        versionName System.getenv("ORIGA_VERSION_NAME") ?: "0.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -16,8 +17,22 @@ android {
             ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    // Signature de publication : le keystore n'est jamais versionné, il est fourni par des variables
+    // d'environnement (secrets GitHub ORIGA_KEYSTORE_BASE64, ORIGA_KEYSTORE_PASSWORD, ORIGA_KEY_ALIAS, ORIGA_KEY_PASSWORD).
+    signingConfigs {
+        release {
+            def ks = System.getenv("ORIGA_KEYSTORE_PATH")
+            if (ks) {
+                storeFile file(ks)
+                storePassword System.getenv("ORIGA_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("ORIGA_KEY_ALIAS")
+                keyPassword System.getenv("ORIGA_KEY_PASSWORD")
+            }
+        }
+    }
     buildTypes {
         release {
+            if (System.getenv("ORIGA_KEYSTORE_PATH")) signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
