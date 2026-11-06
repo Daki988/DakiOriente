@@ -5,25 +5,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ChevronRight, Menu, UserRound, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { PAGES_LEGALES, SERVICES, SERVICES_LISTE, lienLegal, serviceDe, type ServiceId } from "@/lib/services";
+import { PAGES_LEGALES, SERVICES, lienLegal, serviceDe, type ServiceId } from "@/lib/services";
 import { ParOapsPied } from "./ParOaps";
-
-/** Barre fine au-dessus de l'en-tête : passer d'un service à l'autre. */
-export function BarreServices({ actif }: { actif: ServiceId }) {
-  return (
-    <div className="bg-ink text-[12.5px]">
-      <div className="container flex h-[34px] items-center gap-0.5 overflow-x-auto">
-        {SERVICES_LISTE.map((s) => (
-          <Link key={s.id} href={s.base || "/"} aria-current={s.id === actif ? "page" : undefined}
-            className={`flex h-full shrink-0 items-center gap-1.5 px-3 font-semibold transition sm:px-3.5 ${s.id === actif ? "bg-white/[.12] font-extrabold text-white" : "text-[#aab3c8] hover:text-white"}`}>
-            <span className="h-2 w-2 rounded-[3px]" style={{ background: s.id === "navigoal" ? "#4f7bff" : s.c }} />{s.nom}
-          </Link>
-        ))}
-        <span className="ml-auto hidden shrink-0 text-xs text-[#7d88a6] md:inline">Un seul compte pour les trois services</span>
-      </div>
-    </div>
-  );
-}
 
 /** En-tête de Navilease ou NaviTravel : logo, menu et options du service, retour sur Navigoal. */
 export function EnteteService({ id }: { id: Exclude<ServiceId, "navigoal"> }) {
@@ -36,7 +19,6 @@ export function EnteteService({ id }: { id: Exclude<ServiceId, "navigoal"> }) {
   const actif = (href: string) => { const [p, h] = href.split("#"); return h ? path === p && hash === `#${h}` : path.startsWith(p); };
   return (
     <header className="sticky top-0 z-50 print:hidden">
-      <BarreServices actif={id} />
       <div className="border-b border-slate-200/80 bg-white/95 backdrop-blur-xl">
         <div className="container flex h-[72px] items-center gap-5">
           <Link href={s.base} aria-label={`${s.nom}, accueil`} className="shrink-0">
@@ -61,7 +43,7 @@ export function EnteteService({ id }: { id: Exclude<ServiceId, "navigoal"> }) {
         <AnimatePresence>
           {open && (
             <motion.nav initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden border-t border-slate-200 bg-white xl:hidden">
-              <div className="container flex max-h-[calc(100dvh-110px)] flex-col gap-1 overflow-y-auto py-3">
+              <div className="container flex max-h-[calc(100dvh-76px)] flex-col gap-1 overflow-y-auto py-3">
                 {s.menu.map((m) => <Link key={m.href} href={m.href} onClick={() => setOpen(false)} className="flex items-center rounded-xl px-3 py-3 font-bold text-ink">{m.label}<ChevronRight size={16} className="ml-auto text-ink-mute" /></Link>)}
                 <div className="mt-2 flex flex-col gap-2 rounded-2xl p-4" style={{ background: s.fond }}>
                   <span className="text-xs font-extrabold tracking-wide" style={{ color: s.c }}>MON ESPACE</span>

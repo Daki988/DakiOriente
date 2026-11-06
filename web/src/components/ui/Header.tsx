@@ -6,7 +6,7 @@ import { Menu, Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Brand } from "./Brand";
 import { SelecteurDestination } from "./Destination";
-import { BarreServices, EnteteService } from "./Services";
+import { EnteteService } from "./Services";
 import { serviceDe } from "@/lib/services";
 
 export const NAV = [
@@ -50,8 +50,6 @@ export function Header() {
   if (service !== "navigoal") return <EnteteService id={service} />;
 
   return (
-    <>
-    <BarreServices actif="navigoal" />
     <motion.header
       animate={{ y: hidden ? -90 : 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
@@ -96,6 +94,5 @@ export function Header() {
         )}
       </AnimatePresence>
     </motion.header>
-    </>
   );
 }
