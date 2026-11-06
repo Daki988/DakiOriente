@@ -6,4 +6,5 @@ module.exports = {"poisson-braise": ["x-poisson-braise-1.jpg", "x-poisson-braise
   'parfum-oud': ['x-parfum-oud-1.jpg'], 'parfum-femme': ['x-parfum-femme-n-1.jpg'], 'parfum-rouge': ['x-parfum-rouge-1.jpg'],
   'dentiste-enfant-n': ['x-dentiste-enfant-n-1.jpg'], detartrage: ['x-detartrage-n-1.jpg'], 'soin-dentaire': ['x-soin-dentaire-n-1.jpg'], fauteuil: ['x-fauteuil-n-1.jpg'], 'cabinet-soin': ['x-cabinet-soin-n-1.jpg'], 'scan-dentaire': ['x-scan-dentaire-1.jpg'],
   conducteur: ['x-conducteur-n-2.jpg'], 'casque-moto': ['x-casque-moto-1.jpg'], 'motos-route': ['x-motos-route-1.jpg'],
+  'bijou-portrait': ['x-bijou-portrait-n-1.jpg'], 'bijou-bracelets': ['x-bijou-bracelets-n-1.jpg'], 'bijou-perles': ['x-bijou-perles-n-1.jpg'], 'bijou-collier': ['x-bijou-collier-n-1.jpg'], bijoutier: ['x-bijoutier-n-1.jpg'], etabli: ['x-etabli-1.jpg'], 'soudure-bijou': ['x-soudure-bijou-1.jpg'], 'creoles-or': ['x-creoles-or-1.jpg'],
 };

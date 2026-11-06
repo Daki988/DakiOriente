@@ -48,6 +48,8 @@
     'bon-cadeau.html': ['Bon cadeau personnalisé, commandé en ligne avec aperçu', '[data-gift]|form'],
     'conseil.html': ['Quiz « Trouver mon parfum » : 3 questions, une sélection personnalisée', '[data-quiz]|main .sec'],
     'code.html': ['Mini-test du code de la route : 8 panneaux, score et explications', '[data-quiz]|main .sec'],
+    'atelier.html': ['Atelier en ligne : création sur mesure, réparation, gravure, avec demande de devis', '[data-atelier]|form'],
+    'taille.html': ['Guide « Trouver ma taille de bague » avec calcul instantané', '[data-sizer]|main .sec'],
     'equipe.html': ['Présentation de l\'équipe et des praticiens pour rassurer les patients', 'main .sec .g3|main .sec'],
     'destinations.html': ['Destinations présentées avec photos, durée et prix « à partir de »', 'main .sec .g3|main .sec'],
     'sur-mesure.html': ['Demande de voyage sur mesure avec budget et dates', '[data-budget]|form'],

@@ -286,6 +286,14 @@ Toutes les photos proviennent d'Unsplash (licence Unsplash, usage commercial gra
 - x-conducteur-n-2.jpg — Unsplash, photo-1583452209071-32ba333e5058
 - x-casque-moto-1.jpg — Unsplash, photo-1643646693158-c9370b7599de
 - x-motos-route-1.jpg — Unsplash, photo-1605669226679-2fd1582023c6
+- x-bijou-portrait-n-1.jpg — Unsplash, photo-1784979196693-d37ddb51cada
+- x-bijou-bracelets-n-1.jpg — Unsplash, photo-1785088602370-72a5f0356e15
+- x-bijou-perles-n-1.jpg — Unsplash, photo-1767396858279-f386711c3a81
+- x-bijou-collier-n-1.jpg — Unsplash, photo-1784412713394-b1ef727ba1ec
+- x-bijoutier-n-1.jpg — Unsplash, photo-1785809998813-ee7a68ec1346
+- x-etabli-1.jpg — Unsplash, photo-1599071338288-49173359e0fd
+- x-soudure-bijou-1.jpg — Unsplash, photo-1609619742069-f5e18afeef17
+- x-creoles-or-1.jpg — Unsplash, photo-1608508644127-ba99d7732fee
 
 ## Logos des réseaux sociaux
 
