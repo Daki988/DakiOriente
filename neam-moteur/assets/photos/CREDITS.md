@@ -283,6 +283,9 @@ Toutes les photos proviennent d'Unsplash (licence Unsplash, usage commercial gra
 - x-fauteuil-n-1.jpg — Unsplash, photo-1684607633062-b31b5d134814
 - x-cabinet-soin-n-1.jpg — Unsplash, photo-1588776814601-a454a8e3a940
 - x-scan-dentaire-1.jpg — Unsplash, photo-1600170311833-c2cf5280ce49
+- x-conducteur-n-2.jpg — Unsplash, photo-1583452209071-32ba333e5058
+- x-casque-moto-1.jpg — Unsplash, photo-1643646693158-c9370b7599de
+- x-motos-route-1.jpg — Unsplash, photo-1605669226679-2fd1582023c6
 
 ## Logos des réseaux sociaux
 

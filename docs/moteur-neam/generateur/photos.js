@@ -5,4 +5,5 @@ module.exports = {"poisson-braise": ["x-poisson-braise-1.jpg", "x-poisson-braise
   mammo: ['x-mammo-1.jpg'], 'echo-grossesse': ['x-echo-grossesse-1.jpg'], radiologue: ['x-radiologue-1.jpg'], echographe: ['x-echographe-1.jpg'], 'salle-echo': ['x-salle-echo-1.jpg'],
   'parfum-oud': ['x-parfum-oud-1.jpg'], 'parfum-femme': ['x-parfum-femme-n-1.jpg'], 'parfum-rouge': ['x-parfum-rouge-1.jpg'],
   'dentiste-enfant-n': ['x-dentiste-enfant-n-1.jpg'], detartrage: ['x-detartrage-n-1.jpg'], 'soin-dentaire': ['x-soin-dentaire-n-1.jpg'], fauteuil: ['x-fauteuil-n-1.jpg'], 'cabinet-soin': ['x-cabinet-soin-n-1.jpg'], 'scan-dentaire': ['x-scan-dentaire-1.jpg'],
+  conducteur: ['x-conducteur-n-2.jpg'], 'casque-moto': ['x-casque-moto-1.jpg'], 'motos-route': ['x-motos-route-1.jpg'],
 };

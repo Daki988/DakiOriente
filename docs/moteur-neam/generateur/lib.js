@@ -90,6 +90,7 @@ const LOGO_PAL = {
   delicatess: P('#111111', '#F6F1EA', '#C5A46D', '#77706A', '#1B1A18'),
   'cabinet-medical-saint-raphael': P('#ffffff', '#0E1C2F', '#12355B', '#D7263D', '#F5F7FB'),
   'cabinet-dentaire-avicenne': P('#ffffff', '#0D2326', '#0F5257', '#14A39A', '#F3F9F8'),
+  '2s-confort-driving': P('#ffffff', '#0D1B3E', '#1B3F8B', '#FFC20E', '#F4F6FA'),
 };
 const FONTS = {
   hotel: [['Cormorant Garamond', 'Jost'], ['Playfair Display', 'Inter'], ['Italiana', 'Montserrat'], ['Fraunces', 'Work Sans'], ['DM Serif Display', 'DM Sans'], ['Bodoni Moda', 'Manrope']],
@@ -124,7 +125,7 @@ function brandOf(p, idx, sectorIdx) {
   const pal = LOGO_PAL[slug] || pals[(sectorIdx + hash(slug)) % pals.length];
   const font = fts[sectorIdx % fts.length];
   const domain = p.dom && !/fattal|beachclub|hotel-orchidee/.test(p.dom) ? p.dom : (p.dom || slug.replace(/-/g, '') + '.ga');
-  const HANDLES = { 'escapade-travel-agency': 'escapadetravel241', 'ela-expertise': 'elaexpertise241', 'cabinet-de-radiologie-cimel': 'radiologiecimel', 'eva-spa-chez-clarisse': 'evaspa241', delicatess: 'contact.delicatess', 'cabinet-medical-saint-raphael': 'cabinetsaintraphael', 'cabinet-dentaire-avicenne': 'cabinet.dentaire' };
+  const HANDLES = { 'escapade-travel-agency': 'escapadetravel241', 'ela-expertise': 'elaexpertise241', 'cabinet-de-radiologie-cimel': 'radiologiecimel', 'eva-spa-chez-clarisse': 'evaspa241', delicatess: 'contact.delicatess', 'cabinet-medical-saint-raphael': 'cabinetsaintraphael', 'cabinet-dentaire-avicenne': 'cabinet.dentaire', '2s-confort-driving': '2sconfortdriving' };
   const handle = HANDLES[slug] || slugify(main).replace(/-/g, '').slice(0, 18) + (/libreville|lbv/.test(slug) ? '' : '241');
   return { main, kicker, initials, slug, pal, font, domain, handle, variant: p.vr ?? sectorIdx % 3, logoStyle: (sectorIdx + hash(slug)) % 4, photos: photosFor(p, sectorIdx) };
 }
@@ -133,7 +134,7 @@ function brandOf(p, idx, sectorIdx) {
 const REAL_LOGOS = {
   'ab-location': 'ab-location.png', afram: 'afram.png', biolab: 'biolab.png', 'gabon-management-services': 'gabon-management-services.png',
   'home-et-co': 'home-co.jpg', 'hotel-hibiscus': 'hotel-hibiscus.png', 'wanted-immobilier': 'wanted-immobilier.jpg', 'yeshua-real-estate': 'yeshua-real-estate.png',
-  'escapade-travel-agency': 'escapade-travel-agency.svg', 'ela-expertise': 'ela-expertise.svg', 'cabinet-de-radiologie-cimel': 'cabinet-de-radiologie-cimel.svg', 'eva-spa-chez-clarisse': 'eva-spa-chez-clarisse.svg', delicatess: 'delicatess.svg', 'cabinet-medical-saint-raphael': 'cabinet-medical-saint-raphael.svg', 'cabinet-dentaire-avicenne': 'cabinet-dentaire-avicenne.svg',
+  'escapade-travel-agency': 'escapade-travel-agency.svg', 'ela-expertise': 'ela-expertise.svg', 'cabinet-de-radiologie-cimel': 'cabinet-de-radiologie-cimel.svg', 'eva-spa-chez-clarisse': 'eva-spa-chez-clarisse.svg', delicatess: 'delicatess.svg', 'cabinet-medical-saint-raphael': 'cabinet-medical-saint-raphael.svg', 'cabinet-dentaire-avicenne': 'cabinet-dentaire-avicenne.svg', '2s-confort-driving': '2s-confort-driving.svg',
 };
 const realLogo = (slug) => (REAL_LOGOS[slug] ? (process.env.LOGO_URL ? process.env.LOGO_URL + REAL_LOGOS[slug] : 'file://' + path.join(REAL_LOGOS_DIR, REAL_LOGOS[slug])) : null);
 

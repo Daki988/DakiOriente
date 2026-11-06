@@ -375,7 +375,10 @@ const VOYAGE = {
 // ---------------- Auto ----------------
 const AUTO = {
   franstel: { tagline: 'Votre permis, sans stress', hero: 'conduite#2', side: 'citadine#1', items: [['Code de la route', 'Cours en salle et examens blancs', 75000], ['Permis B', '20 h de conduite incluses', 350000, 'conduite#2'], ['Formule accélérée', 'Permis en 6 semaines', 450000, 'citadine#1']] },
-  '2s-confort-driving': { tagline: 'Conduire en confiance', hero: 'conduite#1', side: 'chauffeur#1', items: [['Permis B boîte manuelle', '25 h de conduite', 380000, 'conduite#1'], ['Permis boîte automatique', '15 h de conduite', 320000, 'citadine#2'], ['Perfectionnement', 'Remise à niveau, 5 h', 90000, 'chauffeur#1']] },
+  '2s-confort-driving': { tagline: 'Votre permis, en toute confiance', cta: 'Je m\'inscris', hero: 'conduite#1', side: 'conducteur', intro: '2S Confort Driving, auto-école à Nzeng-Ayong : permis B voiture, permis A moto, code de la route et perfectionnement, avec une aire de conduite.',
+    hours: ['Ferme à 18 h 30', 'Lun – Ven · 7 h 30 – 18 h 30 · Sam 8 h – 16 h'], address: 'Nzeng-Ayong, à côté de Prix Import, Libreville', email: 'sergiekoumbandembi@gmail.com',
+    gallery: ['conduite#1', 'conducteur', 'motos-route', 'casque-moto', 'citadine#2'],
+    items: [['Permis B', 'Code + 25 h de conduite', 380000, 'conduite#1'], ['Permis A moto', 'Code + 15 h de pratique', 200000, 'motos-route'], ['Code de la route', 'Cours et tests blancs', 75000, 'casque-moto'], ['Perfectionnement', '5 h avec un moniteur', 90000, 'conducteur']] },
   'first-stop': { tagline: 'Entretien et réparation, sans surprise', hero: 'mecanicien#1', side: 'garage', items: [['Vidange complète', 'Huile + filtres', 45000, 'vidange#1'], ['Diagnostic électronique', 'Toutes marques', 25000, 'moteur'], ['Freinage', 'Plaquettes + disques', 'Sur devis', 'freins#1'], ['Amortisseurs', 'Contrôle et remplacement', 'Sur devis', 'amortisseur'], ['Pneus', 'Montage + équilibrage', 10000, 'pneus#1'], ['Climatisation', 'Recharge + contrôle', 35000]] },
   'asian-auto-gabon': { tagline: 'Pièces pour Toyota, Hyundai, Kia et Nissan', hero: 'freins#1', side: 'amortisseur', focus: 'Marques asiatiques' },
   'deuxaxe-gabon': { tagline: 'Pièces 4x4 et utilitaires', hero: 'hilux#3', side: 'amortisseur', focus: '4x4 et utilitaires' },
