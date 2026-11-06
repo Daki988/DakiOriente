@@ -11,6 +11,10 @@ defaults:
   run:
     working-directory: origa
 
+env:
+  # Adresse publique des pages QR ouvertes par les consommateurs (application web déployée sur Vercel).
+  VITE_PUBLIC_BASE: https://origa-daki11.vercel.app/
+
 jobs:
   web:
     name: Tests et build web (PWA)
