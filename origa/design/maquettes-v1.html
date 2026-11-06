@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Origa — Maquettes v1</title>
+<style>
+  :root{
+    --forest:#0B3D2E; --green:#12805C; --green-50:#E7F4EE; --green-100:#CDEADC;
+    --sun:#F5B700; --sun-50:#FFF6D9; --sky:#2F6FD1; --sky-50:#E8F0FC;
+    --red:#D64545; --red-50:#FCEBEB; --ink:#10201A; --ink-2:#4A5A53; --ink-3:#8A9A93;
+    --line:#E3E9E6; --bg:#F5F7F6; --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter, Arial, sans-serif;background:#DDE4E0;color:var(--ink);padding:40px;display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start}
+  .screen{background:var(--bg);overflow:hidden;position:relative;display:flex;flex-direction:column}
+  .phone{width:390px;height:844px;border-radius:0}
+  .status{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:14px;font-weight:600}
+  .appbar{display:flex;align-items:center;justify-content:space-between;padding:8px 20px 16px}
+  .brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:20px;letter-spacing:-0.3px;color:var(--forest)}
+  .logo{width:32px;height:32px;border-radius:10px;background:var(--forest);display:flex;align-items:center;justify-content:center}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:6px 10px;border-radius:999px}
+  .pill.off{background:var(--sun-50);color:#7A5B00}
+  .pill.on{background:var(--green-50);color:var(--green)}
+  .pill.red{background:var(--red-50);color:var(--red)}
+  .pill.sky{background:var(--sky-50);color:var(--sky)}
+  .dot{width:8px;height:8px;border-radius:50%}
+  .content{padding:0 20px;display:flex;flex-direction:column;gap:16px;flex:1}
+  .hero{background:var(--forest);color:#fff;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:16px}
+  .hero .kicker{font-size:13px;color:#A9D8C3;font-weight:600}
+  .hero h1{font-size:26px;line-height:32px;font-weight:800;letter-spacing:-0.4px}
+  .progress{height:8px;background:rgba(255,255,255,.18);border-radius:8px;overflow:hidden}
+  .progress i{display:block;height:8px;width:51%;background:var(--sun);border-radius:8px}
+  .row{display:flex;gap:12px}
+  .between{justify-content:space-between;align-items:center}
+  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .kpi{background:var(--card);border-radius:18px;padding:14px 16px;border:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+  .kpi .l{font-size:12px;color:var(--ink-2);font-weight:600}
+  .kpi .v{font-size:24px;font-weight:800;letter-spacing:-0.4px}
+  .kpi .s{font-size:12px;font-weight:600}
+  .ok{color:var(--green)} .warn{color:#B07D00} .bad{color:var(--red)}
+  .cta{background:var(--sun);color:var(--forest);border-radius:18px;height:60px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:18px;font-weight:800}
+  .cta.green{background:var(--green);color:#fff}
+  .actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .act{background:var(--card);border:1px solid var(--line);border-radius:16px;height:84px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:600;color:var(--ink-2)}
+  .ico{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px}
+  .card h3{font-size:15px;font-weight:700}
+  .muted{color:var(--ink-2);font-size:13px;line-height:18px}
+  .tabbar{height:84px;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:flex-start;padding-top:10px}
+  .tab{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--ink-3)}
+  .tab.active{color:var(--forest)}
+  .back{display:flex;align-items:center;gap:12px;padding:8px 20px 16px}
+  .back h2{font-size:20px;font-weight:800;letter-spacing:-0.3px}
+  .back .sub{font-size:13px;color:var(--ink-2)}
+  .field{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;display:flex;align-items:center;gap:14px}
+  .field .lab{flex:1;display:flex;flex-direction:column;gap:2px}
+  .field .lab b{font-size:16px} .field .lab span{font-size:12px;color:var(--ink-2)}
+  .stepper{display:flex;align-items:center;gap:10px}
+  .btn-r{width:44px;height:44px;border-radius:14px;background:var(--bg);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--forest)}
+  .num{min-width:64px;text-align:center;font-size:30px;font-weight:800;letter-spacing:-0.5px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:14px;font-weight:600;color:var(--ink-2)}
+  .chip.sel{background:var(--red-50);border-color:#F2B8B8;color:var(--red)}
+  .photo{height:110px;border-radius:18px;border:2px dashed #C9D4CF;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--ink-2);font-weight:600;font-size:14px;background:#fff}
+  .note{display:flex;gap:10px;align-items:flex-start;background:var(--sky-50);color:#1E4C93;border-radius:14px;padding:12px;font-size:13px;line-height:18px}
+  .qrbox{background:#fff;border-radius:24px;border:1px solid var(--line);padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .qr{width:180px;height:180px;display:grid;grid-template-columns:repeat(21,1fr);gap:0}
+  .qr i{display:block;width:100%;aspect-ratio:1}
+  .lotid{font-family:"Roboto Mono",monospace;font-size:15px;font-weight:700;letter-spacing:.5px;color:var(--forest)}
+  .kv{display:flex;justify-content:space-between;font-size:14px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .kv:last-child{border-bottom:none}
+  .kv span{color:var(--ink-2)} .kv b{font-weight:700}
+  .pub-hero{background:linear-gradient(160deg,#0B3D2E 0%,#12805C 100%);color:#fff;padding:28px 24px 36px;display:flex;flex-direction:column;gap:14px}
+  .badge-ga{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.14);border-radius:999px;padding:8px 14px 8px 8px;font-weight:700;font-size:14px;align-self:flex-start}
+  .flag{width:28px;height:20px;border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
+  .flag i{flex:1;display:block}
+  .pub-hero h1{font-size:30px;line-height:36px;font-weight:800;letter-spacing:-0.5px}
+  .timeline{display:flex;flex-direction:column;gap:0}
+  .tl{display:flex;gap:12px}
+  .tl .rail{display:flex;flex-direction:column;align-items:center;width:20px}
+  .tl .rail .c{width:14px;height:14px;border-radius:50%;background:var(--green);border:3px solid var(--green-100)}
+  .tl .rail .ln{width:2px;flex:1;background:var(--green-100);min-height:26px}
+  .tl .tx{padding-bottom:14px;display:flex;flex-direction:column;gap:2px}
+  .tl .tx b{font-size:14px} .tl .tx span{font-size:12px;color:var(--ink-2)}
+  /* Web */
+  .web{width:1440px;height:960px;flex-direction:row}
+  .side{width:248px;background:var(--forest);color:#CFE7DC;padding:24px 16px;display:flex;flex-direction:column;gap:6px}
+  .side .brand{color:#fff;margin-bottom:24px;padding:0 8px}
+  .side .logo{background:var(--sun)}
+  .nav{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;font-size:14px;font-weight:600}
+  .nav.active{background:rgba(255,255,255,.12);color:#fff}
+  .main{flex:1;display:flex;flex-direction:column;padding:28px 32px;gap:20px;overflow:hidden}
+  .top{display:flex;justify-content:space-between;align-items:center}
+  .top h1{font-size:26px;font-weight:800;letter-spacing:-0.4px}
+  .filters{display:flex;gap:8px}
+  .sel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:13px;font-weight:600;color:var(--ink-2)}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .wk{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+  .wk .l{font-size:13px;color:var(--ink-2);font-weight:600}
+  .wk .v{font-size:30px;font-weight:800;letter-spacing:-0.6px}
+  .wk .s{font-size:12px;font-weight:600}
+  .grid2{display:grid;grid-template-columns:1.55fr 1fr;gap:16px;flex:1;min-height:0}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px;min-height:0}
+  .panel h3{font-size:16px;font-weight:700}
+  .bars{display:flex;align-items:flex-end;gap:14px;height:180px;padding-top:10px;border-bottom:1px solid var(--line)}
+  .bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;justify-content:flex-end;height:100%}
+  .bar i{display:block;width:100%;background:var(--green);border-radius:8px 8px 2px 2px}
+  .bar i.proj{background:repeating-linear-gradient(45deg,#CDEADC,#CDEADC 6px,#E7F4EE 6px,#E7F4EE 12px)}
+  .bar span{font-size:11px;color:var(--ink-3);font-weight:600}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;color:var(--ink-3);font-weight:600;font-size:12px;padding:8px 6px;border-bottom:1px solid var(--line)}
+  td{padding:10px 6px;border-bottom:1px solid var(--line);font-weight:500}
+  .meter{width:80px;height:6px;background:var(--line);border-radius:6px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:6px}
+  .meter i{display:block;height:6px;background:var(--green)}
+  .alert{display:flex;gap:12px;padding:12px;border-radius:14px;border:1px solid var(--line);align-items:flex-start}
+  .alert .t{display:flex;flex-direction:column;gap:2px;flex:1}
+  .alert .t b{font-size:13px} .alert .t span{font-size:12px;color:var(--ink-2)}
+  .prov{display:flex;flex-direction:column;gap:8px}
+  .pv{display:flex;align-items:center;gap:10px;font-size:13px}
+  .pv .n{width:120px;font-weight:600}
+  .pv .b{flex:1;height:10px;background:var(--bg);border-radius:6px;overflow:hidden}
+  .pv .b i{display:block;height:10px;background:var(--sky);border-radius:6px}
+  .pv .c{width:46px;text-align:right;color:var(--ink-2);font-weight:600}
+</style>
+</head>
+<body>
+
+<!-- 1. Accueil éleveur -->
+<div class="screen phone" data-name="01 Accueil éleveur">
+  <div class="status"><span>9:41</span><span>▮▮▮ ◔ 82%</span></div>
+  <div class="appbar">
+    <div class="brand"><div class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3c4 3 6 6 6 9a6 6 0 1 1-12 0c0-3 2-6 6-9z" fill="#F5B700"/><circle cx="12" cy="13" r="2.2" fill="#0B3D2E"/></svg></div>Origa</div>
+    <span class="pill off"><span class="dot" style="background:#F5B700"></span>Hors ligne · 3 en attente</span>
+  </div>
+  <div class="content">
+    <div class="hero">
+      <div class="row between"><span class="kicker">Ferme Nkoltang · GA1-0042</span><span class="pill" style="background:rgba(255,255,255,.14);color:#fff">Bande 7</span></div>
+      <h1>Jour 23 sur 45<br>4 812 poulets présents</h1>
+      <div class="progress"><i></i></div>
+      <div class="row between" style="font-size:13px;color:#CFE7DC"><span>Mise en place 14/10/2026</span><span>Sortie prévue 28/11</span></div>
+    </div>
+    <div class="cta"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B3D2E" stroke-width="2.4" stroke-linecap="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg>Remplir la fiche du jour</div>
+    <div class="kpis">
+      <div class="kpi"><span class="l">Mortalité</span><span class="v">3,8 %</span><span class="s ok">▼ sous la référence (4,5 %)</span></div>
+      <div class="kpi"><span class="l">Poids moyen</span><span class="v">1 040 g</span><span class="s ok">GMQ 43 g/jour</span></div>
+      <div class="kpi"><span class="l">Indice de consommation</span><span class="v">1,52</span><span class="s warn">Référence 1,45</span></div>
+      <div class="kpi"><span class="l">Stock d'aliment</span><span class="v">1,9 t</span><span class="s ok">≈ 9 jours</span></div>
+    </div>
+    <div class="actions">
+      <div class="act"><div class="ico" style="background:var(--sky-50)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F6FD1" stroke-width="2" stroke-linecap="round"><path d="M5 20h14l-2-11H7z"/><path d="M9 9a3 3 0 0 1 6 0"/></svg></div>Pesée</div>
+      <div class="act"><div class="ico" style="background:var(--green-50)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#12805C" stroke-width="2" stroke-linecap="round"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div>Sortie</div>
+      <div class="act"><div class="ico" style="background:var(--red-50)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D64545" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg></div>Santé</div>
+      <div class="act"><div class="ico" style="background:var(--sun-50)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B07D00" stroke-width="2" stroke-linecap="round"><path d="M4 7l8-4 8 4v10l-8 4-8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/></svg></div>Intrants</div>
+    </div>
+    <div class="card">
+      <div class="row between"><h3>À faire aujourd'hui</h3><span class="pill sky">2</span></div>
+      <span class="muted">• Vaccin Gumboro (rappel) prévu au jour 24</span>
+      <span class="muted">• Pesée hebdomadaire de 50 sujets</span>
+    </div>
+  </div>
+  <div class="tabbar">
+    <div class="tab active"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B3D2E" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>Accueil</div>
+    <div class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8A9A93" stroke-width="2"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>Bandes</div>
+    <div class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8A9A93" stroke-width="2"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><path d="M14 14h2v2h-2zM18 18h2v2h-2z"/></svg>Lots</div>
+    <div class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8A9A93" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Profil</div>
+  </div>
+</div>
+
+<!-- 2. Fiche du jour -->
+<div class="screen phone" data-name="02 Fiche du jour">
+  <div class="status"><span>9:41</span><span>▮▮▮ ◔ 82%</span></div>
+  <div class="back">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10201A" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+    <div><h2>Fiche du jour</h2><div class="sub">Bande 7 · Jour 23 · jeudi 6 novembre</div></div>
+  </div>
+  <div class="content">
+    <div class="field">
+      <div class="ico" style="background:var(--red-50)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D64545" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></div>
+      <div class="lab"><b>Morts</b><span>Effectif présent : 4 812</span></div>
+      <div class="stepper"><div class="btn-r">−</div><div class="num">6</div><div class="btn-r">+</div></div>
+    </div>
+    <div class="field">
+      <div class="ico" style="background:var(--sun-50)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B07D00" stroke-width="2"><path d="M6 4h12l-1 16H7z"/></svg></div>
+      <div class="lab"><b>Aliment distribué</b><span>en kg · stock 1 940 kg</span></div>
+      <div class="stepper"><div class="btn-r">−</div><div class="num">215</div><div class="btn-r">+</div></div>
+    </div>
+    <div class="field">
+      <div class="ico" style="background:var(--sky-50)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F6FD1" stroke-width="2"><path d="M12 3c3 4 6 7 6 11a6 6 0 1 1-12 0c0-4 3-7 6-11z"/></svg></div>
+      <div class="lab"><b>Eau bue <span style="font-weight:500;color:#8A9A93">(facultatif)</span></b><span>en litres</span></div>
+      <div class="stepper"><div class="btn-r">−</div><div class="num">410</div><div class="btn-r">+</div></div>
+    </div>
+    <div class="card">
+      <div class="row between"><h3>Contrôle automatique</h3><span class="pill on">Cohérent</span></div>
+      <span class="muted">Mortalité du jour 0,12 % : sous le seuil d'alerte vétérinaire (0,5 %).</span>
+    </div>
+    <div class="note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E4C93" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Pas de réseau : la fiche est enregistrée sur le téléphone et sera envoyée automatiquement.</div>
+    <div style="flex:1"></div>
+    <div class="cta green" style="margin-bottom:28px">Enregistrer la fiche</div>
+  </div>
+</div>
+
+<!-- 3. Déclaration sanitaire -->
+<div class="screen phone" data-name="03 Déclaration sanitaire">
+  <div class="status"><span>9:41</span><span>▮▮▮ ◔ 82%</span></div>
+  <div class="back">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10201A" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+    <div><h2>Signaler un problème</h2><div class="sub">Envoyé uniquement aux services vétérinaires</div></div>
+  </div>
+  <div class="content">
+    <div class="card">
+      <h3>Qu'observez-vous ?</h3>
+      <div class="chips">
+        <span class="chip sel">Mortalité soudaine</span><span class="chip sel">Diarrhée</span><span class="chip">Toux, râles</span>
+        <span class="chip">Abattement</span><span class="chip">Baisse d'appétit</span><span class="chip">Boiteries</span><span class="chip">Autre</span>
+      </div>
+    </div>
+    <div class="field">
+      <div class="lab"><b>Animaux touchés</b><span>estimation</span></div>
+      <div class="stepper"><div class="btn-r">−</div><div class="num">40</div><div class="btn-r">+</div></div>
+    </div>
+    <div class="photo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4A5A53" stroke-width="2"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Ajouter une photo</div>
+    <div class="note" style="background:var(--red-50);color:#8E2B2B"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8E2B2B" stroke-width="2"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>Isolez les animaux malades et ne vendez pas ce lot avant l'avis du vétérinaire.</div>
+    <div style="flex:1"></div>
+    <div class="cta" style="background:var(--red);color:#fff;margin-bottom:28px">Envoyer au vétérinaire</div>
+  </div>
+</div>
+
+<!-- 4. Cession et QR -->
+<div class="screen phone" data-name="04 Cession du lot et QR">
+  <div class="status"><span>9:41</span><span>▮▮▮ ◔ 82%</span></div>
+  <div class="back">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10201A" stroke-width="2.2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+    <div><h2>Lot cédé</h2><div class="sub">Étiquette activée · scannable partout</div></div>
+  </div>
+  <div class="content">
+    <div class="qrbox">
+      <div class="qr" id="qr"></div>
+      <span class="lotid">GA1-0042-B07-L03</span>
+      <span class="pill on"><span class="dot" style="background:#12805C"></span>Signé · infalsifiable</span>
+    </div>
+    <div class="card" style="gap:0">
+      <div class="kv"><span>Destinataire</span><b>Abattoir SMAG, Ntoum</b></div>
+      <div class="kv"><span>Poulets</span><b>1 200</b></div>
+      <div class="kv"><span>Poids vif</span><b>2 460 kg</b></div>
+      <div class="kv"><span>Délai d'attente médicaments</span><b class="ok">Respecté</b></div>
+      <div class="kv"><span>Code de confirmation</span><b>7 4 2 9</b></div>
+    </div>
+    <div style="flex:1"></div>
+    <div class="row" style="margin-bottom:28px">
+      <div class="cta" style="flex:1;background:#fff;border:1px solid var(--line);font-size:16px">Partager</div>
+      <div class="cta green" style="flex:1;font-size:16px">Terminer</div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. Page publique -->
+<div class="screen phone" data-name="05 Page publique consommateur">
+  <div class="status" style="background:#0B3D2E;color:#fff"><span>9:41</span><span>origa.ga/01/…</span></div>
+  <div class="pub-hero">
+    <div class="badge-ga"><div class="flag"><i style="background:#009E60"></i><i style="background:#FCD116"></i><i style="background:#3A75C4"></i></div>Élevé au Gabon</div>
+    <h1>Ce poulet vient de Nkoltang, Estuaire</h1>
+    <span style="font-size:14px;color:#CFE7DC">Lot GA1-0042-B07-L03 · origine vérifiée par Origa</span>
+  </div>
+  <div class="content" style="margin-top:-18px">
+    <div class="card" style="gap:0">
+      <div class="kv"><span>Ferme</span><b>Ferme Nkoltang</b></div>
+      <div class="kv"><span>Province</span><b>Estuaire</b></div>
+      <div class="kv"><span>Programme</span><b>POUFA</b></div>
+      <div class="kv"><span>Vaccinations</span><b class="ok">Calendrier respecté</b></div>
+    </div>
+    <div class="card">
+      <h3>Parcours du lot</h3>
+      <div class="timeline">
+        <div class="tl"><div class="rail"><div class="c"></div><div class="ln"></div></div><div class="tx"><b>Arrivée des poussins</b><span>14 octobre 2026 · Nkoltang</span></div></div>
+        <div class="tl"><div class="rail"><div class="c"></div><div class="ln"></div></div><div class="tx"><b>Élevage de 42 jours</b><span>Suivi quotidien, contrôles vétérinaires</span></div></div>
+        <div class="tl"><div class="rail"><div class="c"></div><div class="ln"></div></div><div class="tx"><b>Abattage</b><span>26 novembre 2026 · Abattoir SMAG, Ntoum</span></div></div>
+        <div class="tl"><div class="rail"><div class="c" style="background:#F5B700;border-color:#FFF6D9"></div></div><div class="tx"><b>En magasin</b><span>Libreville</span></div></div>
+      </div>
+    </div>
+    <span class="muted" style="font-size:12px;text-align:center">Ce QR code prouve l'origine du produit. Ce n'est pas un certificat sanitaire.<br><b style="color:#2F6FD1">Signaler un problème</b></span>
+  </div>
+</div>
+
+<!-- 6. Tableau de bord national -->
+<div class="screen web" data-name="06 Web · Tableau de bord national">
+  <div class="side">
+    <div class="brand"><div class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3c4 3 6 6 6 9a6 6 0 1 1-12 0c0-3 2-6 6-9z" fill="#0B3D2E"/><circle cx="12" cy="13" r="2.2" fill="#F5B700"/></svg></div>Origa</div>
+    <div class="nav active">▦ Vue nationale</div>
+    <div class="nav">⌂ Fermes</div>
+    <div class="nav">↻ Bandes</div>
+    <div class="nav">✚ Sanitaire</div>
+    <div class="nav">▣ Intrants</div>
+    <div class="nav">◫ Lots et traçabilité</div>
+    <div class="nav">✎ Rapports</div>
+    <div class="nav">⚙ Paramètres</div>
+    <div style="flex:1"></div>
+    <div style="font-size:12px;color:#8FBFA9;padding:0 12px">Connecté : DGE · Programme POUFA</div>
+  </div>
+  <div class="main">
+    <div class="top">
+      <div><h1>Vue nationale</h1><span class="muted">Données au 6 novembre 2026, 08:00 · 71 fermes synchronisées sur 79</span></div>
+      <div class="filters"><span class="sel">Toutes les provinces ▾</span><span class="sel">Cohortes 1 et 2 ▾</span><span class="sel">30 derniers jours ▾</span><span class="sel" style="background:var(--forest);color:#fff;border-color:var(--forest)">Exporter PDF</span></div>
+    </div>
+    <div class="grid4">
+      <div class="wk"><span class="l">Fermes opérationnelles</span><span class="v">79 <span style="font-size:18px;color:#8A9A93">/ 150</span></span><span class="s ok">+6 ce mois</span></div>
+      <div class="wk"><span class="l">Poulets en élevage</span><span class="v">312 400</span><span class="s ok">142 bandes en cours</span></div>
+      <div class="wk"><span class="l">Production cumulée</span><span class="v">486 t</span><span class="s">Poids vif depuis le 1er septembre</span></div>
+      <div class="wk"><span class="l">Alertes sanitaires</span><span class="v bad">3</span><span class="s bad">1 confirmée · 2 en analyse</span></div>
+    </div>
+    <div class="grid2">
+      <div class="panel">
+        <div class="row between"><h3>Production hebdomadaire (tonnes de poids vif)</h3><span class="pill sky">Prévision à 6 semaines</span></div>
+        <div class="bars">
+          <div class="bar"><i style="height:30%"></i><span>S36</span></div><div class="bar"><i style="height:38%"></i><span>S38</span></div>
+          <div class="bar"><i style="height:45%"></i><span>S40</span></div><div class="bar"><i style="height:52%"></i><span>S42</span></div>
+          <div class="bar"><i style="height:61%"></i><span>S44</span></div><div class="bar"><i style="height:66%"></i><span>S45</span></div>
+          <div class="bar"><i class="proj" style="height:72%"></i><span>S47</span></div><div class="bar"><i class="proj" style="height:80%"></i><span>S49</span></div>
+          <div class="bar"><i class="proj" style="height:88%"></i><span>S51</span></div>
+        </div>
+        <h3>Fermes à accompagner</h3>
+        <table>
+          <tr><th>Ferme</th><th>Province</th><th>Mortalité</th><th>IC</th><th>Complétude</th><th>Statut</th></tr>
+          <tr><td>GA4-0011 Mouila Sud</td><td>Ngounié</td><td class="bad">9,4 %</td><td>1,81</td><td><span class="meter"><i style="width:62%"></i></span>62 %</td><td><span class="pill red">Alerte</span></td></tr>
+          <tr><td>GA9-0007 Oyem Akok</td><td>Woleu-Ntem</td><td class="warn">6,1 %</td><td>1,66</td><td><span class="meter"><i style="width:48%"></i></span>48 %</td><td><span class="pill off">Saisie faible</span></td></tr>
+          <tr><td>GA2-0019 Franceville</td><td>Haut-Ogooué</td><td class="warn">5,7 %</td><td>1,59</td><td><span class="meter"><i style="width:91%"></i></span>91 %</td><td><span class="pill sky">Visite prévue</span></td></tr>
+          <tr><td>GA1-0042 Nkoltang</td><td>Estuaire</td><td class="ok">3,8 %</td><td>1,52</td><td><span class="meter"><i style="width:100%"></i></span>100 %</td><td><span class="pill on">Bon</span></td></tr>
+        </table>
+      </div>
+      <div class="panel">
+        <h3>Alertes sanitaires</h3>
+        <div class="alert" style="border-color:#F2B8B8;background:var(--red-50)"><span class="dot" style="background:#D64545;margin-top:5px"></span><div class="t"><b>Confirmée · GA4-0011 Mouila Sud</b><span>Mortalité 2,1 % du jour · Newcastle suspectée · 4 fermes dans un rayon de 10 km</span></div></div>
+        <div class="alert"><span class="dot" style="background:#F5B700;margin-top:5px"></span><div class="t"><b>En analyse · GA6-0003 Makokou</b><span>Diarrhée signalée, 40 animaux, photo jointe</span></div></div>
+        <div class="alert"><span class="dot" style="background:#F5B700;margin-top:5px"></span><div class="t"><b>En analyse · GA8-0005 Port-Gentil</b><span>Écart à la tendance de mortalité</span></div></div>
+        <h3>Fermes actives par province</h3>
+        <div class="prov">
+          <div class="pv"><span class="n">Estuaire</span><span class="b"><i style="width:100%"></i></span><span class="c">24</span></div>
+          <div class="pv"><span class="n">Haut-Ogooué</span><span class="b"><i style="width:46%"></i></span><span class="c">11</span></div>
+          <div class="pv"><span class="n">Woleu-Ntem</span><span class="b"><i style="width:42%"></i></span><span class="c">10</span></div>
+          <div class="pv"><span class="n">Ngounié</span><span class="b"><i style="width:33%"></i></span><span class="c">8</span></div>
+          <div class="pv"><span class="n">Moyen-Ogooué</span><span class="b"><i style="width:29%"></i></span><span class="c">7</span></div>
+          <div class="pv"><span class="n">Autres provinces</span><span class="b"><i style="width:79%"></i></span><span class="c">19</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // QR décoratif (déterministe)
+  (function(){var q=document.getElementById('qr');if(!q)return;var s=7;function r(){s=(s*9301+49297)%233280;return s/233280}
+  for(var y=0;y<21;y++)for(var x=0;x<21;x++){var f=(x<7&&y<7)||(x>13&&y<7)||(x<7&&y>13);var on;
+  if(f){var lx=x%14>6?x-14:x,ly=y>13?y-14:y;lx=x>13?x-14:x;on=(lx==0||lx==6||ly==0||ly==6)||(lx>1&&lx<5&&ly>1&&ly<5)}else on=r()>0.52;
+  var i=document.createElement('i');i.style.background=on?'#0B3D2E':'#fff';q.appendChild(i)}})();
+</script>
+</body>
+</html>

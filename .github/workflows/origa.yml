@@ -1,0 +1,63 @@
+name: Origa — build web, Android (APK / HarmonyOS 2) et iOS
+
+on:
+  push:
+    paths: ['origa/**', '.github/workflows/origa.yml']
+  pull_request:
+    paths: ['origa/**', '.github/workflows/origa.yml']
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: origa
+
+jobs:
+  web:
+    name: Tests et build web (PWA)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: origa/package-lock.json }
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with: { name: origa-web, path: origa/dist }
+
+  android:
+    name: APK Android (compatible HarmonyOS 2)
+    runs-on: ubuntu-latest
+    needs: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: origa/package-lock.json }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 17 }
+      - uses: android-actions/setup-android@v3
+      - run: npm ci
+      - run: npm run build
+      - run: npx cap sync android
+      - run: chmod +x android/gradlew && cd android && ./gradlew assembleDebug --no-daemon
+      - uses: actions/upload-artifact@v4
+        with: { name: origa-android-apk, path: origa/android/app/build/outputs/apk/debug/app-debug.apk }
+
+  ios:
+    name: App iOS (simulateur, sans signature)
+    runs-on: macos-14
+    needs: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: origa/package-lock.json }
+      - run: npm ci
+      - run: npm run build
+      - run: npx cap sync ios
+      - run: cd ios/App && pod install
+      - run: >
+          xcodebuild -workspace ios/App/App.xcworkspace -scheme App -configuration Debug
+          -sdk iphonesimulator -derivedDataPath build CODE_SIGNING_ALLOWED=NO build
+      - run: cd build/Build/Products/Debug-iphonesimulator && zip -r ../../../../origa-ios-simulator.zip App.app
+      - uses: actions/upload-artifact@v4
+        with: { name: origa-ios-simulator, path: origa/origa-ios-simulator.zip }

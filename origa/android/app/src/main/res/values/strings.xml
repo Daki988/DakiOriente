@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Origa</string>
+    <string name="title_activity_main">Origa</string>
+    <string name="package_name">ga.origa.app</string>
+    <string name="custom_url_scheme">ga.origa.app</string>
+</resources>

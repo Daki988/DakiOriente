@@ -1,0 +1,107 @@
+import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useNational } from '../app/national';
+import { fmt, fmtDate, fmtInt } from '../app/hooks';
+import { PROVINCES, provinceName } from '../domain/provinces';
+import type { ProvinceCode } from '../domain/types';
+
+const STATUS: Record<string, [string, string]> = { nouvelle: ['red', 'Nouvelle'], analyse: ['off', 'En analyse'], confirmee: ['red', 'Confirmée'], informee: ['sky', 'Informée'], close: ['on', 'Close'] };
+
+/** Tableau de bord national (§ 5.4) : indicateurs, production, fermes à accompagner, alertes, carte. */
+export function Dashboard() {
+  const data = useNational();
+  const nav = useNavigate();
+  const [prov, setProv] = useState<ProvinceCode | ''>('');
+  const rows = useMemo(() => (data?.rows ?? []).filter((r) => !prov || r.farm.province === prov), [data, prov]);
+  if (!data) return null;
+
+  const active = rows.filter((r) => r.farm.status === 'operationnelle');
+  const present = active.reduce((s, r) => s + (r.st?.present ?? 0), 0);
+  const openAlerts = data.alerts.filter((a) => ['nouvelle', 'analyse', 'confirmee'].includes(a.status) && (!prov || rows.some((r) => r.farm.id === a.farmId)));
+  const max = Math.max(1, ...data.weeks.map((w) => w.t));
+  const score = (r: (typeof rows)[number]) => r.alerts * 10 + (r.st?.mortalityPct ?? 0) + (100 - (r.st?.completenessPct ?? 100)) / 10;
+  const toFollow = [...active].sort((a, b) => score(b) - score(a)).slice(0, 6);
+  const byProv = Object.entries(PROVINCES).map(([c, p]) => ({ c, name: p.name, n: active.filter((r) => r.farm.province === c).length })).sort((a, b) => b.n - a.n);
+  const maxProv = Math.max(1, ...byProv.map((p) => p.n));
+
+  function exportCsv() {
+    const head = 'Ferme;Nom;Province;Bande;Effectif;Mortalite %;IC;Completude %\n';
+    const body = rows.map((r) => [r.farm.id, r.farm.name, provinceName(r.farm.province), r.band?.id ?? '', r.st?.present ?? '', fmt(r.st?.mortalityPct ?? 0, 2), fmt(r.st?.ic ?? 0, 2), fmt(r.st?.completenessPct ?? 0, 0)].join(';')).join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['﻿' + head + body], { type: 'text/csv;charset=utf-8' }));
+    a.download = `origa-fermes-${new Date().toISOString().slice(0, 10)}.csv`; a.click();
+  }
+
+  return (
+    <>
+      <div className="top">
+        <div><h1>Vue nationale</h1><span className="muted">Données au {fmtDate(new Date().toISOString())} · {active.length} fermes opérationnelles</span></div>
+        <div className="row wrap" style={{ gap: 8 }}>
+          <select className="sel" value={prov} onChange={(e) => setProv(e.target.value as ProvinceCode | '')} aria-label="Province">
+            <option value="">Toutes les provinces</option>
+            {Object.entries(PROVINCES).map(([c, p]) => <option key={c} value={c}>{p.name}</option>)}
+          </select>
+          <button className="sel" onClick={exportCsv}>Exporter CSV</button>
+          <button className="sel dark" onClick={() => window.print()}>Rapport PDF</button>
+        </div>
+      </div>
+      <div className="grid4">
+        <div className="wk"><span className="l">Fermes opérationnelles</span><span className="v">{active.length} <span style={{ fontSize: 18, color: 'var(--ink-3)' }}>/ 150</span></span><span className="s ok">Objectif programme POUFA</span></div>
+        <div className="wk"><span className="l">Poulets en élevage</span><span className="v">{fmtInt(present)}</span><span className="s ok">{active.filter((r) => r.band).length} bandes en cours</span></div>
+        <div className="wk"><span className="l">Production cumulée</span><span className="v">{fmt(data.produced, 1)} t</span><span className="s">Poids vif depuis le 1er septembre</span></div>
+        <div className="wk"><span className="l">Alertes sanitaires ouvertes</span><span className={`v ${openAlerts.length ? 'bad' : 'ok'}`}>{openAlerts.length}</span><span className="s bad">{openAlerts.filter((a) => a.status === 'confirmee').length} confirmée(s)</span></div>
+      </div>
+      <div className="grid2">
+        <div className="panel">
+          <div className="row between"><h3>Production hebdomadaire (tonnes de poids vif)</h3><span className="pill sky">Hachuré : prévision à 6 semaines</span></div>
+          <div className="bars" role="img" aria-label="Production hebdomadaire réalisée et prévue">
+            {data.weeks.map((w, i) => (
+              <div key={i} className="bar"><em>{w.t >= 0.05 ? fmt(w.t, 1) : ''}</em><i className={w.proj ? 'proj' : ''} style={{ height: `${(w.t / max) * 82}%` }} /><span>S{w.w}</span></div>
+            ))}
+          </div>
+          <h3>Fermes à accompagner</h3>
+          <table className="tbl">
+            <thead><tr><th>Ferme</th><th>Province</th><th>Mortalité</th><th>IC</th><th>Complétude</th><th>Statut</th></tr></thead>
+            <tbody>
+              {toFollow.map((r) => {
+                const m = r.st?.mortalityPct ?? 0; const c = r.st?.completenessPct ?? 0;
+                const [cls, label] = r.alerts ? ['red', 'Alerte'] : c < 70 ? ['off', 'Saisie faible'] : m > 5 ? ['sky', 'À visiter'] : ['on', 'Bon'];
+                return (
+                  <tr key={r.farm.id} className="click" onClick={() => nav(`/fermes?q=${r.farm.id}`)}>
+                    <td>{r.farm.id} {r.farm.name.replace('Ferme ', '')}</td><td>{provinceName(r.farm.province)}</td>
+                    <td className={m > 6 ? 'bad' : m > 4.5 ? 'warn' : 'ok'}>{fmt(m, 1)} %</td><td>{r.st?.ic ? fmt(r.st.ic, 2) : '—'}</td>
+                    <td><span className="meter"><i style={{ width: `${c}%` }} /></span>{fmt(c, 0)} %</td><td><span className={`pill ${cls}`}>{label}</span></td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <div className="panel">
+          <h3>Alertes sanitaires</h3>
+          {openAlerts.length === 0 && <div className="empty">Aucune alerte ouverte.</div>}
+          {openAlerts.slice(0, 4).map((a) => (
+            <div key={a.id} className={`alert${a.status === 'confirmee' ? ' hot' : ''}`} onClick={() => nav('/alertes')} style={{ cursor: 'pointer' }}>
+              <span className="dot" style={{ background: a.status === 'confirmee' ? 'var(--red)' : 'var(--sun)', marginTop: 5 }} />
+              <div className="t"><b>{STATUS[a.status][1]} · {a.farmId}</b><span>{a.message}</span></div>
+            </div>
+          ))}
+          <h3>Carte des fermes</h3>
+          <div className="map" role="img" aria-label="Position des fermes au Gabon">
+            {rows.filter((r) => r.farm.lat !== undefined).map((r) => {
+              const x = ((r.farm.lng! - 8.5) / (14.7 - 8.5)) * 100; const y = ((2.4 - r.farm.lat!) / (2.4 + 4.0)) * 100;
+              const color = r.alerts ? 'var(--red)' : (r.st?.mortalityPct ?? 0) > 5 ? 'var(--sun)' : r.farm.status === 'operationnelle' ? 'var(--green)' : 'var(--ink-3)';
+              return <span key={r.farm.id} className="pin" title={`${r.farm.id} ${r.farm.name}`} style={{ left: `${x}%`, top: `${y}%`, background: color }} />;
+            })}
+          </div>
+          <h3>Fermes actives par province</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {byProv.filter((p) => p.n > 0).map((p) => (
+              <div key={p.c} className="pv"><span className="n">{p.name}</span><span className="b"><i style={{ width: `${(p.n / maxProv) * 100}%` }} /></span><span className="c">{p.n}</span></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
