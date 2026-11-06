@@ -1,4 +1,4 @@
-# Origa 1.0 — l'origine prouvée, de la ferme à l'assiette
+# Origa 1.1 — l'origine prouvée, de la ferme à l'assiette
 
 ![Logo Origa](design/logo/origa-logo-horizontal.svg)
 
@@ -29,6 +29,20 @@ Une seule base de code produit les quatre cibles :
 - **Opérateurs (abattoirs)** : réception des lots par scan du QR ou lien, contrôle de l'écart annoncé / reçu.
 - **Identité** : logo, icônes Android et iOS, écran de démarrage, animation de chargement, photos contextuelles.
 - **Serveur national** (`server/`) : connexion par code SMS, synchronisation avec contrôle des droits côté serveur, gestion des conflits, signature des QR, page publique, journal d'audit non modifiable.
+
+## Conformité au cahier des charges (v1.1)
+
+Les 68 fonctionnalités du cahier des charges sont couvertes, y compris celles marquées « phase ultérieure », « à arbitrer » et « évolutive » :
+
+- **Registres d'élevage** : vaccinations (calendrier), traitements avec délai d'attente tiré du catalogue, charges par poste, commandes d'intrants (demande → validation DGE → livraison), réservations d'abattage, grille de biosécurité notée avec actions correctives.
+- **Bandes** : ouverture unique par ferme, saisie de rattrapage, clôture avec bilan technico-économique et courbe de croissance, réouverture réservée à la DGE.
+- **Terrain** : visites géolocalisées de l'agent (stock d'aliment observé → écart d'intrants), diagnostics, téléconsultation vétérinaire.
+- **Traçabilité avancée** : contrôle distributeur, lots dérivés (transformation), mouvements de transport, étiquette et document d'accompagnement imprimables, chronologie complète du lot.
+- **Pilotage** : filtres période / cohorte / statut, taux de lots tracés (cible 95 %), classement pondéré des fermes, économie de filière, rapports hebdomadaires, mensuels et de fin de bande (PDF), notifications.
+- **Diffusion** : statistiques préparées par la DGE, validées par le MAEDR, publiées sur `/statistiques` ; offres et prix de marché.
+- **Gouvernance** : rôles MAEDR (validation des publications) et ANINF (audit seul), matrice des droits paramétrable appliquée par le serveur, listes de référence éditables.
+- **Reprise de l'existant** : import CSV (fermes de l'AMI, fiches, intrants) avec validation ligne à ligne et rapport de rejets.
+- **API** : contrôle distributeur, agrégats, statistiques publiques, export d'événements EMA-i, `GET /openapi.json`.
 
 Deux modes de fonctionnement :
 
@@ -70,6 +84,8 @@ Comptes de démonstration du serveur, avec le code SMS affiché dans le journal 
 | +24100000005 | BCEG |
 | +24100000007 | Opérateur, abattoir de Ntoum |
 | +24100000009 | Administrateur |
+| +24100000010 | MAEDR (validation des publications) |
+| +24100000011 | ANINF (audit) |
 
 ## Variables d'environnement
 
@@ -129,5 +145,6 @@ design/        maquette v1 en HTML, à importer dans Figma « Origa — Maquette
 
 1. Import des écrans dans Figma (bloqué par le quota du siège Figma « Collab »).
 2. Branchement de la passerelle SMS d'un agrégateur Airtel / Moov.
-3. Échange EMA-i+ (FAO), export EPCIS 2.0, rapports PDF automatiques.
-4. Rouleaux d'étiquettes QR pré-signées, pour imprimer un QR valide sans réseau.
+3. EMA-i+ (FAO) : l'export existe, le protocole d'échange reste à formaliser avec la FAO ; export EPCIS 2.0.
+4. Envoi automatique des rapports par e-mail (ils sont aujourd'hui générés dans l'application et exportés en PDF).
+5. Rouleaux d'étiquettes QR pré-signées, pour imprimer un QR valide sans réseau.
