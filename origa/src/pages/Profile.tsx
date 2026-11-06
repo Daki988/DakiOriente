@@ -10,7 +10,7 @@ import { useOnline, usePending, useSession } from '../app/hooks';
 import { useToast } from '../components/ui';
 import { Icon, Logo } from '../components/Icon';
 
-const ROLE: Record<string, string> = { eleveur: 'Éleveur', agent: 'Agent technique', dge: 'POUFA / DGE', veterinaire: 'Services vétérinaires', bceg: 'BCEG', admin: 'Administrateur', operateur: 'Opérateur' };
+const ROLE: Record<string, string> = { eleveur: 'Éleveur', agent: 'Agent technique', dge: 'POUFA / DGE', veterinaire: 'Services vétérinaires', bceg: 'BCEG', admin: 'Administrateur', operateur: 'Opérateur', maedr: 'MAEDR', aninf: 'ANINF' };
 const CREDITS = [
   ['Éleveuse avec une poule', 'Richard Nyoni', 'https://unsplash.com/photos/sDjk3DHv2dY'],
   ['Visite vétérinaire en ferme avicole', 'Creab ThePolymath', 'https://unsplash.com/photos/e83gkmG_yW8'],

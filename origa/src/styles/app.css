@@ -98,9 +98,9 @@ textarea.input{min-height:80px;resize:vertical}
 
 /* Coque web (pilotage) */
 .w-shell{display:flex;min-height:100vh}
-.side{width:248px;background:var(--forest);color:#CFE7DC;padding:24px 16px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;flex:none}
+.side{width:248px;background:var(--forest);color:#CFE7DC;padding:24px 16px;display:flex;flex-direction:column;gap:2px;position:sticky;top:0;height:100vh;flex:none;overflow-y:auto}
 .side .brand{color:#fff;margin-bottom:24px;padding:0 8px}.side .logo{background:var(--sun)}
-.nav{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;font-size:14px;font-weight:600}
+.nav{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:12px;font-size:14px;font-weight:600}
 .nav.active{background:rgba(255,255,255,.12);color:#fff}
 .main{flex:1;display:flex;flex-direction:column;padding:28px 32px;gap:20px;min-width:0}
 .top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
@@ -200,4 +200,22 @@ a.wk:hover{border-color:var(--green-100)}
 .greet{font-size:13px;color:var(--ink-2);font-weight:600;padding:0 20px;margin-top:-6px}
 .update-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + var(--safe-bottom));z-index:70;background:var(--ink);color:#fff;border-radius:14px;padding:10px 12px 10px 16px;display:flex;align-items:center;gap:12px;font-size:14px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .update-bar button{background:var(--sun);color:var(--forest);border-radius:10px;padding:8px 12px;font-weight:800}
-@media print{.side,.tabbar,.sel,.update-bar{display:none!important}.main{padding:0}}
+@media print{.side,.tabbar,.sel,.update-bar,.no-print{display:none!important}.main{padding:0}}
+.print-only{display:none}
+@media print{
+  body *{visibility:hidden}
+  .print-only,.print-only *{visibility:visible}
+  .print-only{display:block;position:absolute;left:0;top:0;width:100%;color:#000;background:#fff}
+  .label{display:flex!important;gap:12px;align-items:center;width:90mm;padding:4mm;border:1px dashed #999}
+  .label div{display:flex;flex-direction:column;gap:2px;font-size:10pt}
+  .doc{padding:12mm;font-size:11pt}.doc h1{font-size:18pt;margin-bottom:6px}.doc table{width:100%;border-collapse:collapse;margin:12px 0}
+  .doc th,.doc td{border:1px solid #999;padding:6px;text-align:left}.doc .sign{display:flex;justify-content:space-between;margin-top:30mm}
+  .report-print,.report-print *{visibility:visible}.report-print{position:absolute;left:0;top:0;width:100%;border:none}
+}
+.badge{position:absolute;top:2px;right:0;min-width:18px;height:18px;border-radius:9px;background:var(--red);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.notif-panel{position:absolute;left:0;top:44px;z-index:80;width:300px;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:var(--r-md);padding:14px;display:flex;flex-direction:column;gap:6px;box-shadow:0 20px 50px rgba(0,0,0,.18)}
+.guide{border-bottom:1px solid var(--line);padding:10px 0}.guide summary{cursor:pointer;font-weight:700;font-size:14px}.guide p{margin-top:6px}
+.side-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding:0 8px}.side-top .brand{margin:0;padding:0}
+.rights td{white-space:nowrap}.rbit{width:22px;height:22px;border-radius:6px;border:1px solid var(--line);margin:1px;font-size:10px;font-weight:800;color:var(--ink-3);background:#fff}
+.rbit.on{background:var(--green);border-color:var(--green);color:#fff}
+fieldset{min-width:0}

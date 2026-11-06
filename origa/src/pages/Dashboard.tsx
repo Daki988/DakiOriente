@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useNational } from '../app/national';
 import { fmt, fmtDate, fmtInt } from '../app/hooks';
 import { PROVINCES, provinceName } from '../domain/provinces';
+import { traceIndicators } from '../domain/analytics';
+import { addDays, today } from '../domain/ids';
 import type { ProvinceCode } from '../domain/types';
 
 const STATUS: Record<string, [string, string]> = { nouvelle: ['red', 'Nouvelle'], analyse: ['off', 'En analyse'], confirmee: ['red', 'Confirmée'], informee: ['sky', 'Informée'], close: ['on', 'Close'] };
@@ -12,10 +14,23 @@ export function Dashboard() {
   const data = useNational();
   const nav = useNavigate();
   const [prov, setProv] = useState<ProvinceCode | ''>('');
-  const rows = useMemo(() => (data?.rows ?? []).filter((r) => !prov || r.farm.province === prov), [data, prov]);
+  const [days, setDays] = useState(30);
+  const [cohort, setCohort] = useState<'' | '1' | '2'>('');
+  const [status, setStatus] = useState('operationnelle');
+  const [unit, setUnit] = useState<'t' | 'kg' | 'tetes'>('t');
+  const rows = useMemo(() => (data?.rows ?? []).filter((r) => (!prov || r.farm.province === prov) && (!cohort || String(r.farm.cohort) === cohort) && (!status || r.farm.status === status)), [data, prov, cohort, status]);
   if (!data) return null;
 
-  const active = rows.filter((r) => r.farm.status === 'operationnelle');
+  const active = rows.filter((r) => r.farm.status === 'operationnelle' || status !== 'operationnelle');
+  const since = days ? addDays(today(), -days) : '0000';
+  const farmIds = new Set(rows.map((r) => r.farm.id));
+  const exitsP = data.exits.filter((x) => x.date >= since && farmIds.has(x.bandId.split('-B')[0]));
+  const sold = exitsP.reduce((a, x) => a + x.count, 0);
+  const soldKg = exitsP.reduce((a, x) => a + x.weightKg, 0);
+  const priced = exitsP.filter((x) => x.unitPriceXaf);
+  const avgPrice = priced.reduce((a, x) => a + (x.unitPriceXaf ?? 0) * x.count, 0) / Math.max(1, priced.reduce((a, x) => a + x.count, 0));
+  const trace = traceIndicators(data.lots.filter((l) => l.cededAt >= since && farmIds.has(l.farmId)), exitsP);
+  const vol = unit === 'tetes' ? `${fmtInt(sold)} têtes` : unit === 'kg' ? `${fmtInt(soldKg)} kg` : `${fmt(soldKg / 1000, 1)} t`;
   const present = active.reduce((s, r) => s + (r.st?.present ?? 0), 0);
   const openAlerts = data.alerts.filter((a) => ['nouvelle', 'analyse', 'confirmee'].includes(a.status) && (!prov || rows.some((r) => r.farm.id === a.farmId)));
   const max = Math.max(1, ...data.weeks.map((w) => w.t));
@@ -41,6 +56,10 @@ export function Dashboard() {
             <option value="">Toutes les provinces</option>
             {Object.entries(PROVINCES).map(([c, p]) => <option key={c} value={c}>{p.name}</option>)}
           </select>
+          <select className="sel" value={days} onChange={(e) => setDays(Number(e.target.value))} aria-label="Période"><option value={7}>7 derniers jours</option><option value={30}>30 derniers jours</option><option value={90}>90 derniers jours</option><option value={0}>Depuis le début</option></select>
+          <select className="sel" value={cohort} onChange={(e) => setCohort(e.target.value as '' | '1' | '2')} aria-label="Cohorte"><option value="">Cohortes 1 et 2</option><option value="1">Cohorte 1</option><option value="2">Cohorte 2</option></select>
+          <select className="sel" value={status} onChange={(e) => setStatus(e.target.value)} aria-label="Statut"><option value="operationnelle">Opérationnelles</option><option value="preparation">En préparation</option><option value="suspendue">Suspendues</option><option value="">Tous statuts</option></select>
+          <select className="sel" value={unit} onChange={(e) => setUnit(e.target.value as 't' | 'kg' | 'tetes')} aria-label="Unité"><option value="t">Tonnes</option><option value="kg">Kilogrammes</option><option value="tetes">Têtes</option></select>
           <button className="sel" onClick={exportCsv}>Exporter CSV</button>
           <button className="sel dark" onClick={() => window.print()}>Rapport PDF</button>
         </div>
@@ -50,6 +69,12 @@ export function Dashboard() {
         <div className="wk"><span className="l">Poulets en élevage</span><span className="v">{fmtInt(present)}</span><span className="s ok">{active.filter((r) => r.band).length} bandes en cours</span></div>
         <div className="wk"><span className="l">Production cumulée</span><span className="v">{fmt(data.produced, 1)} t</span><span className="s">Poids vif depuis le 1er septembre</span></div>
         <div className="wk"><span className="l">Alertes sanitaires ouvertes</span><span className={`v ${openAlerts.length ? 'bad' : 'ok'}`}>{openAlerts.length}</span><span className="s bad">{openAlerts.filter((a) => a.status === 'confirmee').length} confirmée(s)</span></div>
+      </div>
+      <div className="grid4">
+        <div className="wk"><span className="l">Volumes vendus ({days ? `${days} j` : 'total'})</span><span className="v">{vol}</span><span className="s">{fmtInt(sold)} poulets sortis</span></div>
+        <div className="wk"><span className="l">Prix moyen</span><span className="v">{priced.length ? fmtInt(avgPrice) : '—'}</span><span className="s">FCFA par tête vendue</span></div>
+        <div className="wk"><span className="l">Lots avec QR</span><span className={`v ${trace.qrTargetMet ? 'ok' : 'bad'}`}>{fmt(trace.qrPct, 0)} %</span><span className="s">{trace.lots} lot(s) · seuil 95 %</span></div>
+        <div className="wk"><span className="l">Ventes rattachées à un lot</span><span className="v">{fmt(trace.salesLinkedPct, 0)} %</span><span className="s">{fmt(trace.validatedPct, 0)} % des lots validés à l'abattoir</span></div>
       </div>
       <div className="grid2">
         <div className="panel">

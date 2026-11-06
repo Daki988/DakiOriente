@@ -110,3 +110,69 @@ describe('IC sans pesée', () => {
     expect(bandStats(band, e, [], [], DEFAULT_SETTINGS, '2026-10-03').ic).toBe(0);
   });
 });
+
+import { bandEconomics, biosecurityScore, inputGap, lotStatus, periodBounds, rankFarms, traceIndicators } from './analytics';
+
+describe('volet économique', () => {
+  it('calcule chiffre d’affaires, coût de revient et marge', () => {
+    const exits = [{ id: 'x', bandId: 'B', date: '', count: 1000, weightKg: 2000, reason: 'abattoir' as const, unitPriceXaf: 3500 }];
+    const charges = [{ id: 'c', farmId: 'F', date: '', post: 'Aliment', amountXaf: 2_000_000 }, { id: 'd', farmId: 'F', date: '', post: 'Poussins', amountXaf: 500_000 }];
+    const e = bandEconomics(exits, charges);
+    expect(e.revenue).toBe(3_500_000);
+    expect(e.cost).toBe(2_500_000);
+    expect(e.margin).toBe(1_000_000);
+    expect(e.costPerKg).toBe(1250);
+    expect(e.marginRatePct).toBeCloseTo(28.57, 1);
+  });
+});
+
+describe('traçabilité et contrôles', () => {
+  const lot = { id: 'L', bandId: 'B', farmId: 'F', count: 10, weightKg: 20, cededAt: '2026-11-01', signature: 'sig', confirmCode: '1234' };
+  it('valide un lot seulement après cession et réception', () => {
+    expect(lotStatus(lot).validated).toBe(false);
+    expect(lotStatus({ ...lot, receivedAt: '2026-11-02' }).validated).toBe(true);
+  });
+  it('mesure le taux de lots avec QR et de ventes rattachées', () => {
+    const t = traceIndicators([lot, { ...lot, id: 'L2', signature: '' }], [
+      { id: '1', bandId: 'B', date: '', count: 1, weightKg: 1, reason: 'abattoir', lotId: 'L' },
+      { id: '2', bandId: 'B', date: '', count: 1, weightKg: 1, reason: 'vente_directe' },
+    ]);
+    expect(t.qrPct).toBe(50);
+    expect(t.salesLinkedPct).toBe(50);
+    expect(t.qrTargetMet).toBe(false);
+  });
+  it('calcule l’écart sur les intrants à partir du stock constaté', () => {
+    const inputs = [
+      { id: 'a', farmId: 'F', date: '', type: 'aliment' as const, product: '', quantity: 1000, unit: 'kg', kind: 'reception' as const },
+      { id: 'b', farmId: 'F', date: '', type: 'aliment' as const, product: '', quantity: 700, unit: 'kg', kind: 'utilisation' as const },
+    ];
+    expect(inputGap(inputs, []).gapPct).toBeUndefined();
+    expect(inputGap(inputs, [{ id: 'v', farmId: 'F', date: '2026-11-01', agent: '', findings: '', observedFeedStockKg: 200 }]).gapPct).toBe(10);
+  });
+  it('calcule le score de biosécurité', () => {
+    expect(biosecurityScore({ a: true, b: false, c: true, d: true })).toBe(75);
+  });
+  it('classe les fermes selon des pondérations', () => {
+    const r = rankFarms([
+      { id: 'bonne', mortality: 3, ic: 1.5, gmq: 50, completeness: 100 },
+      { id: 'moyenne', mortality: 6, ic: 1.8, gmq: 40, completeness: 60 },
+    ], { mortalite: 35, ic: 30, gmq: 20, regularite: 15 });
+    expect(r[0].id).toBe('bonne');
+  });
+  it('calcule les périodes de rapport', () => {
+    expect(periodBounds('hebdomadaire', '2026-11-06')).toMatchObject({ start: '2026-11-02', end: '2026-11-08' });
+    expect(periodBounds('mensuel', '2026-11-06')).toMatchObject({ start: '2026-11-01', end: '2026-11-30' });
+  });
+});
+
+import { parseCsv, toCsv } from './csv';
+describe('reprise des données (CSV)', () => {
+  it('lit un CSV point-virgule avec guillemets et BOM', () => {
+    const r = parseCsv('﻿nom;telephone\n"Ferme ""A""";+24107\nFerme B;+24106\n');
+    expect(r).toEqual([{ nom: 'Ferme "A"', telephone: '+24107' }, { nom: 'Ferme B', telephone: '+24106' }]);
+  });
+  it('détecte la virgule et réécrit en CSV', () => {
+    expect(parseCsv('a,b\n1,2')[0]).toEqual({ a: '1', b: '2' });
+    expect(toCsv([{ a: 'x;y', b: 2 }])).toContain('"x;y";2');
+  });
+});

@@ -9,7 +9,8 @@ const ISSUES = 'origa.syncIssues';
 export interface SyncIssue { table: string; key: string; reason: string }
 export const syncIssues = (): SyncIssue[] => { try { return JSON.parse(localStorage.getItem(ISSUES) ?? '[]'); } catch { return []; } };
 
-const TABLES = new Set(['farms', 'bands', 'entries', 'weighings', 'exits', 'inputs', 'treatments', 'vaccinations', 'reports', 'alerts', 'operators', 'lots', 'settings']);
+const TABLES = new Set(['farms', 'bands', 'entries', 'weighings', 'exits', 'inputs', 'treatments', 'vaccinations', 'reports', 'alerts', 'operators', 'lots', 'settings',
+  'diagnostics', 'biosecurity', 'visits', 'charges', 'orders', 'slaughter', 'publications', 'prices', 'consultations', 'offers', 'movements']);
 
 export async function flushOutbox(): Promise<{ sent: number; received?: number; error?: string }> {
   if (!apiEnabled) return { sent: 0, error: 'Serveur non configuré (mode démonstration)' };

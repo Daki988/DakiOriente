@@ -5,19 +5,13 @@ import { db } from '../data/db';
 import { save } from '../data/repo';
 import { BackBar, Stepper, useToast } from '../components/ui';
 import { Icon } from '../components/Icon';
-import { fmtInt, useBandStats, useCurrentBand, useSession } from '../app/hooks';
+import { fmtInt, useBandStats, useCurrentBand, useSession, useSettings } from '../app/hooks';
 import { lotId, nextSeq, today, uid } from '../domain/ids';
 import { checkExit, withdrawalBlock } from '../domain/rules';
 import { signLot } from '../domain/qr';
 import { apiEnabled } from '../app/api';
 import type { ExitReason } from '../domain/types';
 
-const REASONS: { k: ExitReason; label: string }[] = [
-  { k: 'abattoir', label: 'Abattoir' },
-  { k: 'vente', label: 'Vente à un acheteur' },
-  { k: 'vente_directe', label: 'Vente directe (marché)' },
-  { k: 'autre', label: 'Autre' },
-];
 
 /** Sortie d'animaux et cession du lot : crée le lot, son QR signé et le code de confirmation (§ 6.1). */
 export function ExitPage() {
@@ -26,6 +20,8 @@ export function ExitPage() {
   const stats = useBandStats(cur?.band);
   const nav = useNavigate();
   const [toast, show] = useToast();
+  const settings = useSettings();
+  const REASONS = settings.exitReasons as { k: ExitReason; label: string }[];
   const band = cur?.band;
   const operators = useLiveQuery(() => db.operators.toArray(), [], []);
   const treatments = useLiveQuery(() => (band ? db.treatments.where('bandId').equals(band.id).toArray() : []), [band?.id], []);

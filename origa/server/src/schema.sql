@@ -92,3 +92,7 @@ CREATE TABLE IF NOT EXISTS access_requests (
   user_id       INT REFERENCES users(id)
 );
 ALTER TABLE users ADD COLUMN IF NOT EXISTS last_login_at TIMESTAMPTZ;
+
+-- v1.1 : profils MAEDR (données agrégées) et ANINF (audit).
+ALTER TABLE users DROP CONSTRAINT IF EXISTS users_role_check;
+ALTER TABLE users ADD CONSTRAINT users_role_check CHECK (role IN ('eleveur','agent','dge','veterinaire','bceg','admin','operateur','maedr','aninf'));

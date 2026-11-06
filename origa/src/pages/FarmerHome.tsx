@@ -33,7 +33,7 @@ export function FarmerHome() {
     return (
       <>
         <div className="appbar"><div className="brand"><Logo />Origa</div><SyncPill /></div>
-        <div className="content"><div className="card"><Empty img="./img/poussin.webp" title="Aucune bande en cours" text="Une bande s’ouvre à la réception des poussins, enregistrée avec votre agent technique." /></div></div>
+        <div className="content"><div className="card"><Empty img="./img/poussin.webp" title="Aucune bande en cours" text="Une bande s’ouvre à la réception des poussins."><Link to="/bande/nouvelle" className="cta" style={{ width: 'auto' }}>Ouvrir une bande</Link></Empty></div></div>
       </>
     );
   }
@@ -82,7 +82,7 @@ export function FarmerHome() {
         <div className="card">
           <div className="row between"><h3>À faire aujourd'hui</h3><span className="pill sky">{due.length + (weighingLate ? 1 : 0) + (extra?.todayDone ? 0 : 1)}</span></div>
           {!extra?.todayDone && <span className="muted">• Fiche du jour : morts et aliment distribué</span>}
-          {due.map((v) => <span key={v.vaccine} className="muted">• Vaccin {v.vaccine} prévu au jour {v.day}</span>)}
+          {due.map((v) => <Link key={v.vaccine} to="/vaccinations" className="muted">• Vaccin {v.vaccine} prévu au jour {v.day} · <b style={{ color: 'var(--green)' }}>enregistrer</b></Link>)}
           {weighingLate && <span className="muted">• Pesée hebdomadaire de {settings.weighingSample} sujets</span>}
           {extra?.todayDone && !due.length && !weighingLate && <span className="muted">Tout est à jour. Bon travail !</span>}
         </div>

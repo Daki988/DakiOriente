@@ -1,9 +1,9 @@
-import { useEffect, useState, useSyncExternalStore } from 'react';
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../data/db';
 import { getSession, subscribeSession } from './sessionStore';
 import { bandStats, type BandStats } from '../domain/kpis';
-import { DEFAULT_SETTINGS } from '../domain/defaults';
+import { DEFAULT_SETTINGS, withDefaults } from '../domain/defaults';
 import { today } from '../domain/ids';
 import type { Band, Farm, Settings } from '../domain/types';
 
@@ -20,7 +20,11 @@ export function useOnline() {
 }
 
 export const usePending = () => useLiveQuery(() => db.outbox.count(), [], 0);
-export const useSettings = (): Settings => useLiveQuery(() => db.settings.get('global'), [], DEFAULT_SETTINGS) ?? DEFAULT_SETTINGS;
+/** Paramètres complétés des valeurs par défaut ; même objet tant que l'enregistrement ne change pas (évite les boucles de rendu). */
+export function useSettings(): Settings {
+  const raw = useLiveQuery(() => db.settings.get('global'), [], DEFAULT_SETTINGS);
+  return useMemo(() => withDefaults(raw), [raw]);
+}
 
 /** Bande en cours d'une ferme (la plus récente non clôturée). */
 export function useCurrentBand(farmId?: string): { farm?: Farm; band?: Band } | undefined {

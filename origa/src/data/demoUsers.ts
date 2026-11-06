@@ -1,4 +1,5 @@
 import { db } from './db';
+import { addDays, today, uid } from '../domain/ids';
 import type { AccessRequest, UserAccount } from '../domain/types';
 
 /** Code de connexion du mode démonstration (aucun SMS n'est envoyé hors serveur). */
@@ -11,6 +12,8 @@ export const DEMO_USERS: UserAccount[] = [
   { id: 'u-vet', phone: '+24100000004', name: 'Services vétérinaires', role: 'veterinaire', active: true, createdAt: '2026-08-20' },
   { id: 'u-bceg', phone: '+24100000005', name: 'BCEG · Suivi des financements', role: 'bceg', active: true, createdAt: '2026-08-20' },
   { id: 'u-operateur', phone: '+24100000007', name: 'Abattoir de Ntoum', role: 'operateur', operatorId: 'OP-001', active: true, createdAt: '2026-08-20' },
+  { id: 'u-maedr', phone: '+24100000010', name: 'MAEDR · Cabinet du ministre', role: 'maedr', active: true, createdAt: '2026-08-20' },
+  { id: 'u-aninf', phone: '+24100000011', name: 'ANINF · Audit', role: 'aninf', active: true, createdAt: '2026-08-20' },
   { id: 'u-admin', phone: '+24100000009', name: 'Administrateur Origa', role: 'admin', active: true, createdAt: '2026-08-20' },
 ];
 
@@ -23,4 +26,33 @@ const DEMO_REQUESTS: AccessRequest[] = [
 export async function ensureDemoAccounts() {
   if ((await db.users.count()) === 0) await db.users.bulkPut(DEMO_USERS);
   if ((await db.requests.count()) === 0) await db.requests.bulkPut(DEMO_REQUESTS);
+}
+
+/** Données de démonstration des registres complémentaires (une seule fois, sans écraser). */
+export async function ensureDemoExtras() {
+  if ((await db.charges.count()) > 0 || (await db.farms.count()) === 0) return;
+  const t = today();
+  const band = (await db.bands.where('farmId').equals('GA1-0042').toArray()).find((b) => !b.closedAt);
+  const prev = (await db.bands.where('farmId').equals('GA1-0042').toArray()).find((b) => b.closedAt);
+  await db.transaction('rw', [db.charges, db.prices, db.orders, db.slaughter, db.biosecurity, db.visits, db.consultations, db.offers, db.publications, db.treatments], async () => {
+    if (prev) await db.charges.bulkPut([
+      { id: uid(), farmId: 'GA1-0042', bandId: prev.id, date: prev.placedAt, post: 'Poussins', amountXaf: 2_700_000 },
+      { id: uid(), farmId: 'GA1-0042', bandId: prev.id, date: addDays(prev.placedAt, 20), post: 'Aliment', amountXaf: 9_800_000 },
+      { id: uid(), farmId: 'GA1-0042', bandId: prev.id, date: addDays(prev.placedAt, 40), post: 'Main-d’œuvre', amountXaf: 900_000 },
+    ]);
+    if (band) await db.charges.bulkPut([{ id: uid(), farmId: 'GA1-0042', bandId: band.id, date: band.placedAt, post: 'Poussins', amountXaf: 2_500_000 }]);
+    await db.prices.bulkPut([
+      { id: uid(), date: addDays(t, -2), product: 'Poulet vif', unit: 'kg', priceXaf: 1900, locality: 'Libreville', source: 'Agent technique · Estuaire' },
+      { id: uid(), date: addDays(t, -5), product: 'Poulet vif', unit: 'kg', priceXaf: 2100, locality: 'Oyem', source: 'DGE' },
+      { id: uid(), date: addDays(t, -3), product: 'Aliment croissance', unit: 'sac de 50 kg', priceXaf: 18500, locality: 'Libreville', source: 'DGE' },
+      { id: uid(), date: addDays(t, -6), product: 'Poussin d’un jour', unit: 'tête', priceXaf: 650, locality: 'Ntoum', source: 'Agent technique · Estuaire' },
+    ]);
+    await db.orders.bulkPut([{ id: uid(), farmId: 'GA1-0042', date: addDays(t, -1), type: 'aliment', product: 'Aliment démarrage', quantity: 3000, unit: 'kg', wishedDate: addDays(t, 20), status: 'demandee' }]);
+    if (band) await db.slaughter.bulkPut([{ id: uid(), farmId: 'GA1-0042', bandId: band.id, operatorId: 'OP-001', date: addDays(band.placedAt, 43), count: 2400, status: 'demande' }]);
+    await db.biosecurity.bulkPut([{ id: uid(), farmId: 'GA1-0042', date: addDays(t, -9), results: { 'Pédiluve à l’entrée, désinfectant renouvelé': true, 'Accès limité et registre des visiteurs': false, 'Vide sanitaire respecté entre deux bandes': true, 'Litière sèche et renouvelée': true, 'Abreuvoirs et mangeoires propres': true, 'Cadavres éliminés le jour même': true, 'Pas d’autres volailles ni animaux en contact': true, 'Tenues et bottes dédiées': false }, scorePct: 75, actions: [{ text: 'Installer un registre des visiteurs à l’entrée', due: addDays(t, 5), done: false }, { text: 'Fournir bottes et tenues dédiées', due: addDays(t, 10), done: false }], by: 'Agent technique · Estuaire' }]);
+    await db.visits.bulkPut([{ id: uid(), farmId: 'GA1-0042', date: addDays(t, -9), agent: 'Agent technique · Estuaire', findings: 'Bonne tenue du bâtiment, litière sèche. Registre des visiteurs absent.', recommendations: 'Mettre en place le registre et des bottes dédiées.', observedFeedStockKg: 11200, lat: 0.405, lng: 9.62 }]);
+    await db.consultations.bulkPut([{ id: uid(), farmId: 'GA1-0042', date: addDays(t, -2), question: 'Quelques poulets boitent depuis deux jours, est-ce grave ?', answer: 'Vérifiez la litière (humidité) et l’apport en vitamines. Si cela s’étend, faites une déclaration sanitaire.', answeredBy: 'Services vétérinaires', status: 'repondue' }]);
+    if (band) await db.offers.bulkPut([{ id: uid(), farmId: 'GA1-0042', date: addDays(t, -1), product: 'Poulets vifs', quantity: 2400, availableFrom: addDays(band.placedAt, 42), priceXaf: 4000, contact: '+241 07 10 00 00', status: 'ouverte' }]);
+    await db.publications.bulkPut([{ id: uid(), period: 'octobre 2026', createdAt: addDays(t, -6) + 'T09:00:00Z', createdBy: 'DGE · Programme POUFA', data: { fermesActives: 12, volumeKg: 104000, pouletsVendus: 49500, prixMoyenTete: 3500, mortaliteMoyennePct: 4.6, lotsTraces: 26, lotsAvecQrPct: 100 }, status: 'validee', decidedBy: 'MAEDR · Cabinet du ministre', decidedAt: addDays(t, -5) }]);
+  });
 }

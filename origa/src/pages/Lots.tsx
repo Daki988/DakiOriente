@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../data/db';
@@ -8,6 +9,7 @@ import { fmtDate, fmtInt, useSession } from '../app/hooks';
 import { publicUrl, verifyLot } from '../domain/qr';
 import { publicBase } from '../app/publicBase';
 import { withdrawalBlock } from '../domain/rules';
+import { lotStatus } from '../domain/analytics';
 
 export function LotsPage() {
   const s = useSession();
@@ -35,21 +37,48 @@ export function LotsPage() {
   );
 }
 
+/** Événements de la bande et du lot, sans ressaisie : historique d'élevage (§ 6.1). */
+async function lotTimeline(bandId: string, lotId: string) {
+  const band = await db.bands.get(bandId);
+  const [inputs, vacc, treat, entries, weighs, reports, bio, moves, lot] = await Promise.all([
+    db.inputs.where('bandId').equals(bandId).toArray(), db.vaccinations.where('bandId').equals(bandId).toArray(),
+    db.treatments.where('bandId').equals(bandId).toArray(), db.entries.where('bandId').equals(bandId).toArray(), db.weighings.where('bandId').equals(bandId).toArray(),
+    db.reports.where('bandId').equals(bandId).toArray(), band ? db.biosecurity.where('farmId').equals(band.farmId).toArray() : [], db.movements.where('lotId').equals(lotId).toArray(), db.lots.get(lotId),
+  ]);
+  const ev: { date: string; title: string; detail: string; tone?: 'bad' | 'ok' }[] = [];
+  if (band) ev.push({ date: band.placedAt, title: 'Mise en place', detail: `${fmtInt(band.chicks)} poussins ${band.strain}` });
+  inputs.filter((i) => i.kind === 'reception').forEach((i) => ev.push({ date: i.date, title: `Intrant reçu : ${i.product}`, detail: `${fmtInt(i.quantity)} ${i.unit}${i.supplierLot ? ` · lot ${i.supplierLot}` : ''}` }));
+  vacc.forEach((v) => ev.push({ date: v.date, title: `Vaccination : ${v.vaccine}`, detail: v.method, tone: 'ok' }));
+  treat.forEach((t) => ev.push({ date: t.startDate, title: `Traitement : ${t.product}`, detail: `${t.reason} · délai d'attente ${t.withdrawalDays} j` }));
+  reports.forEach((r) => ev.push({ date: r.date, title: 'Déclaration sanitaire', detail: r.signs.join(', '), tone: 'bad' }));
+  bio.forEach((b) => ev.push({ date: b.date, title: 'Contrôle de biosécurité', detail: `${Math.round(b.scorePct)} % conforme` }));
+  const deaths = entries.reduce((a, e) => a + e.deaths, 0);
+  if (entries.length) ev.push({ date: entries.map((e) => e.date).sort().pop()!, title: 'Suivi quotidien', detail: `${entries.length} fiches · ${fmtInt(deaths)} morts cumulés · ${weighs.length} pesées` });
+  if (lot) ev.push({ date: lot.cededAt, title: 'Cession', detail: `${fmtInt(lot.count)} poulets · ${fmtInt(lot.weightKg)} kg` });
+  if (lot?.receivedAt) ev.push({ date: lot.receivedAt, title: 'Réception à l’abattoir', detail: `${fmtInt(lot.receivedCount ?? 0)} reçus${lot.receptionNote ? ` · ${lot.receptionNote}` : ''}`, tone: 'ok' });
+  moves.forEach((m) => ev.push({ date: m.date, title: 'Transport', detail: `${m.from} → ${m.to}` }));
+  if (lot?.distributorCheckedAt) ev.push({ date: lot.distributorCheckedAt, title: 'Contrôle par le distributeur', detail: 'Origine confirmée', tone: 'ok' });
+  return ev.sort((a, b) => a.date.localeCompare(b.date));
+}
+
 export function LotDetail() {
   const { id = '' } = useParams();
   const [toast, show] = useToast();
+  const [print, setPrint] = useState<'label' | 'doc' | null>(null);
   const data = useLiveQuery(async () => {
     const lot = await db.lots.get(id);
     if (!lot) return null;
-    const [op, treatments] = await Promise.all([lot.operatorId ? db.operators.get(lot.operatorId) : undefined, db.treatments.where('bandId').equals(lot.bandId).toArray()]);
-    return { lot, op, blocked: withdrawalBlock(treatments, lot.cededAt) };
+    const [op, treatments, farm, timeline] = await Promise.all([lot.operatorId ? db.operators.get(lot.operatorId) : undefined, db.treatments.where('bandId').equals(lot.bandId).toArray(), db.farms.get(lot.farmId), lotTimeline(lot.bandId, lot.id)]);
+    return { lot, op, farm, timeline, blocked: withdrawalBlock(treatments, lot.cededAt) };
   }, [id]);
+  useEffect(() => { if (!print) return; const t = setTimeout(() => { window.print(); setPrint(null); }, 300); return () => clearTimeout(t); }, [print]);
   if (data === undefined) return null;
   if (!data) return <><BackBar title="Lot introuvable" /><div className="content"><div className="empty">Ce lot n'existe pas sur cet appareil.</div></div></>;
-  const { lot, op, blocked } = data;
+  const { lot, op, farm, timeline, blocked } = data;
   const url = publicUrl(publicBase(), lot.id, lot.signature);
   const pending = !lot.signature;
   const authentic = !pending && verifyLot(lot.id, lot.signature);
+  const status = lotStatus(lot);
 
   async function share() {
     try {
@@ -60,13 +89,14 @@ export function LotDetail() {
 
   return (
     <>
-      <BackBar title="Lot cédé" sub="Étiquette activée · scannable partout" />
-      <div className="content">
+      <BackBar title="Lot cédé" sub={status.label} />
+      <div className="content no-print">
         <div className="qrbox">
           {pending ? <div className="empty" style={{ width: 200, height: 200, display: 'flex', alignItems: 'center' }}>Le QR apparaîtra après la synchronisation, quand le serveur aura signé le lot.</div> : <Qr value={url} />}
           <span className="lotid">{lot.id}</span>
           {pending ? <span className="pill off"><span className="dot" style={{ background: 'var(--sun)' }} />Signature en attente de réseau</span>
             : <span className={`pill ${authentic ? 'on' : 'red'}`}><span className="dot" style={{ background: authentic ? 'var(--green)' : 'var(--red)' }} />{authentic ? 'Signé · infalsifiable' : 'Signature invalide'}</span>}
+          <span className={`pill ${status.validated ? 'on' : 'sky'}`}>{status.validated ? 'Validé sur événements vérifiables' : 'En attente de réception à l’abattoir'}</span>
         </div>
         <div className="card" style={{ gap: 0 }}>
           <Kv k="Destinataire" v={op ? `${op.name}, ${op.locality}` : lot.destination ?? '—'} />
@@ -77,10 +107,41 @@ export function LotDetail() {
           <Kv k="Code de confirmation" v={lot.confirmCode.split('').join(' ')} />
         </div>
         <div className="row">
+          <button className="cta light" style={{ flex: 1, fontSize: 15 }} disabled={pending} onClick={() => setPrint('label')}><Icon name="qr" />Étiquette</button>
+          <button className="cta light" style={{ flex: 1, fontSize: 15 }} onClick={() => setPrint('doc')}><Icon name="report" />Document</button>
+        </div>
+        <div className="row">
           <button className="cta light" style={{ flex: 1, fontSize: 16 }} disabled={pending} onClick={share}><Icon name="share" />Partager</button>
           <a className="cta green" style={{ flex: 1, fontSize: 16 }} href={url} target="_blank" rel="noreferrer">Page publique</a>
         </div>
+        <div className="card">
+          <h3>Historique du lot</h3>
+          {timeline.map((e, i) => (
+            <div key={i} className="tl"><div className="rail"><div className="c" style={e.tone === 'bad' ? { background: 'var(--red)', borderColor: 'var(--red-50)' } : undefined} />{i < timeline.length - 1 && <div className="ln" />}</div>
+              <div className="tx"><b>{e.title}</b><span>{fmtDate(e.date)} · {e.detail}</span></div></div>
+          ))}
+        </div>
       </div>
+      {print === 'label' && (
+        <div className="print-only label">
+          <Qr value={url} size={180} /><div><b>{lot.id}</b><span>{farm?.name} · {farm?.locality}</span><span>{fmtInt(lot.count)} poulets · cédé le {fmtDate(lot.cededAt)}</span><span>Élevé au Gabon · origa</span></div>
+        </div>
+      )}
+      {print === 'doc' && (
+        <div className="print-only doc">
+          <h1>Document d'accompagnement du lot</h1>
+          <p>Programme POUFA · Ministère de l'Agriculture, de l'Élevage et du Développement rural</p>
+          <table><tbody>
+            <tr><th>Lot</th><td>{lot.id}</td></tr><tr><th>Ferme d'origine</th><td>{farm?.id} · {farm?.name} · {farm?.locality}</td></tr>
+            <tr><th>Destinataire</th><td>{op ? `${op.name}, ${op.locality}` : lot.destination}</td></tr><tr><th>Date de cession</th><td>{fmtDate(lot.cededAt)}</td></tr>
+            <tr><th>Nombre de poulets</th><td>{fmtInt(lot.count)}</td></tr><tr><th>Poids vif</th><td>{fmtInt(lot.weightKg)} kg</td></tr>
+            <tr><th>Délai d'attente des médicaments</th><td>{blocked ? 'NON RESPECTÉ' : 'Respecté'}</td></tr><tr><th>Code de confirmation</th><td>{lot.confirmCode}</td></tr>
+          </tbody></table>
+          {!pending && <Qr value={url} size={140} />}
+          <p>Historique : {timeline.map((e) => `${fmtDate(e.date)} ${e.title}`).join(' ; ')}.</p>
+          <div className="sign"><span>Signature de l'éleveur</span><span>Signature et cachet de l'abattoir</span></div>
+        </div>
+      )}
       {toast}
     </>
   );

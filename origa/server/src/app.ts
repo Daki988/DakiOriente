@@ -5,7 +5,7 @@ import type { Config } from './config.js';
 import type { Db } from './db.js';
 import { createSms, type SmsSender } from './sms.js';
 import { hashOtp, lotSigner, newOtp, normalizePhone, sameHash, sha256hex, signToken, verifyToken, type Claims } from './security.js';
-import { ALL_TABLES, canRead, canWrite, farmOf } from './scope.js';
+import { ALL_TABLES, canRead, canWrite, farmOf, rightsAllow } from './scope.js';
 
 declare module 'fastify' {
   interface FastifyRequest { user?: Claims }
@@ -103,12 +103,18 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; log
         rejected.push({ table: String(it?.table), key: String(it?.key), reason: 'élément invalide' }); continue;
       }
       if (String(it.payload.id) !== it.key) { rejected.push({ table: it.table, key: it.key, reason: 'identifiant incohérent' }); continue; }
+      if (u.role === 'operateur' && (it.table === 'movements' || (it.table === 'lots' && it.payload.parentId))) {
+        const lotKey = String(it.table === 'movements' ? it.payload.lotId : it.payload.parentId);
+        const parent = (await db.query(`SELECT payload FROM records WHERE tbl='lots' AND key=$1`, [lotKey])).rows[0]?.payload;
+        if (!parent || parent.operatorId !== u.operatorId) { rejected.push({ table: it.table, key: it.key, reason: 'lot non cédé à votre structure' }); continue; }
+      }
       const cur = (await db.query('SELECT payload, client_at FROM records WHERE tbl=$1 AND key=$2', [it.table, it.key])).rows[0];
       let payload = { ...it.payload };
       const farmId = farmOf(it.table, payload);
       // Une fiche existante ne change pas de ferme (empêche de déplacer des données hors périmètre).
       if (cur && farmOf(it.table, cur.payload) !== farmId) { rejected.push({ table: it.table, key: it.key, reason: 'changement de ferme interdit' }); continue; }
-      const denied = canWrite(u, it.table, farmId, payload, cur?.payload);
+      const settingsRow = (await db.query(`SELECT payload FROM records WHERE tbl='settings' AND key='global'`)).rows[0]?.payload;
+      const denied = canWrite(u, it.table, farmId, payload, cur?.payload) ?? rightsAllow(u, it.table, cur?.payload, payload, settingsRow?.rights);
       if (denied) { rejected.push({ table: it.table, key: it.key, reason: denied }); continue; }
       // Règle de conflit documentée : la dernière saisie horodatée l'emporte, l'autre est conservée et signalée.
       if (cur && new Date(cur.client_at) > new Date(it.at)) {
@@ -128,6 +134,11 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; log
       );
       await audit(u.sub, cur ? 'modification' : 'création', it.table, it.key);
       applied.push(`${it.table}/${it.key}`);
+      // Alerte précoce : notification immédiate des services vétérinaires (§ 5.2).
+      if (it.table === 'alerts' && !cur && payload.status === 'nouvelle') {
+        const vets = (await db.query(`SELECT phone FROM users WHERE role='veterinaire' AND active`)).rows;
+        for (const v of vets) await sms(v.phone, `Origa · alerte sanitaire ${farmId} : ${String(payload.message ?? '').slice(0, 100)}. Qualifiez-la dans Origa.`).catch(() => undefined);
+      }
     }
     return { applied: applied.length, conflicts, rejected };
   });
@@ -149,7 +160,7 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; log
   });
 
   app.get('/audit/verify', { preHandler: auth }, async (req, reply) => {
-    if (!['dge', 'admin'].includes(req.user!.role)) return reply.code(403).send({ error: 'Accès réservé.' });
+    if (!['dge', 'admin', 'aninf'].includes(req.user!.role)) return reply.code(403).send({ error: 'Accès réservé.' });
     const rows = (await db.query('SELECT * FROM audit ORDER BY id')).rows;
     const broken = rows.findIndex((r, i) => (i === 0 ? false : r.prev_hash !== rows[i - 1].hash) || r.hash !== sha256hex(JSON.stringify({ prev: r.prev_hash, at: new Date(r.at).toISOString(), userId: r.user_id, action: r.action, tbl: r.tbl ?? undefined, key: r.key ?? undefined })));
     return { entries: rows.length, intact: broken === -1, firstBrokenId: broken === -1 ? null : rows[broken].id };
@@ -186,7 +197,7 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; log
 
   // ---------- Demandes d'accès (publiques) et administration ----------
   const PROFILES = ['eleveur', 'agent', 'operateur', 'veterinaire', 'bceg', 'autre'];
-  const ROLES = ['eleveur', 'agent', 'dge', 'veterinaire', 'bceg', 'admin', 'operateur'];
+  const ROLES = ['eleveur', 'agent', 'dge', 'veterinaire', 'bceg', 'admin', 'operateur', 'maedr', 'aninf'];
   const str = (v: unknown, max = 200) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 
   app.post<{ Body: Record<string, unknown> }>('/access-requests', { config: { rateLimit: { max: Math.max(5, cfg.authRateLimit), timeWindow: '1 hour' } } }, async (req, reply) => {
@@ -204,6 +215,11 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; log
     return { ok: true };
   });
 
+  async function auditors(req: FastifyRequest, reply: FastifyReply) {
+    await auth(req, reply);
+    if (reply.sent) return;
+    if (!['admin', 'aninf'].includes(req.user!.role)) return reply.code(403).send({ error: 'Réservé aux auditeurs.' });
+  }
   async function adminOnly(req: FastifyRequest, reply: FastifyReply) {
     await auth(req, reply);
     if (reply.sent) return;
@@ -272,11 +288,90 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; log
     } catch (e) { return fail(reply, e); }
   });
 
-  app.get<{ Querystring: { limit?: string } }>('/admin/audit', { preHandler: adminOnly }, async (req) => {
+  app.get<{ Querystring: { limit?: string } }>('/admin/audit', { preHandler: auditors }, async (req) => {
     const limit = Math.min(1000, Number(req.query.limit ?? 200) || 200);
     return (await db.query(`SELECT a.id, a.at, COALESCE(u.name, 'système') AS user, a.action, a.tbl, a.key FROM audit a LEFT JOIN users u ON u.id = a.user_id ORDER BY a.id DESC LIMIT $1`, [limit]))
       .rows.map((r) => ({ id: Number(r.id), at: r.at, user: r.user, action: r.action, table: r.tbl ?? undefined, key: r.key ?? undefined }));
   });
+
+  // ---------- Contrôle par le distributeur (§ 6.2) ----------
+  app.post<{ Params: { id: string } }>('/lots/:id/distributor-check', { preHandler: auth }, async (req, reply) => {
+    const u = req.user!;
+    if (u.role !== 'operateur' || !u.operatorId) return reply.code(403).send({ error: 'Réservé aux distributeurs sous convention.' });
+    const op = (await db.query(`SELECT payload FROM records WHERE tbl='operators' AND key=$1`, [u.operatorId])).rows[0]?.payload;
+    if (op?.type !== 'distributeur' || !op.convention) return reply.code(403).send({ error: 'Réservé aux distributeurs sous convention.' });
+    const lot = (await db.query(`SELECT payload FROM records WHERE tbl='lots' AND key=$1`, [req.params.id])).rows[0]?.payload;
+    if (!lot) return reply.code(404).send({ error: 'Lot inconnu.' });
+    const payload = { ...lot, distributorCheckedAt: new Date().toISOString().slice(0, 10), distributorId: u.operatorId };
+    await db.query(`UPDATE records SET payload=$1, client_at=now(), server_at=clock_timestamp(), seq=nextval(pg_get_serial_sequence('records','seq')), updated_by=$2 WHERE tbl='lots' AND key=$3`, [payload, u.sub, req.params.id]);
+    await audit(u.sub, 'contrôle par le distributeur', 'lots', req.params.id);
+    return { ok: true, validatedAtSlaughterhouse: !!lot.receivedAt };
+  });
+
+  // ---------- Agrégats nationaux (diffusion, MAEDR) ----------
+  async function aggregates() {
+    const rows = (await db.query(`SELECT tbl, payload FROM records WHERE tbl IN ('farms','exits','lots','entries','bands')`)).rows;
+    const of = (t: string) => rows.filter((r) => r.tbl === t).map((r) => r.payload);
+    const exits = of('exits'); const lots = of('lots'); const bands = of('bands');
+    const priced = exits.filter((e) => e.unitPriceXaf);
+    const placed = bands.reduce((a, b) => a + (b.chicks ?? 0), 0);
+    return {
+      fermesActives: of('farms').filter((f) => f.status === 'operationnelle').length,
+      volumeKg: Math.round(exits.reduce((a, e) => a + (e.weightKg ?? 0), 0)),
+      pouletsVendus: exits.reduce((a, e) => a + (e.count ?? 0), 0),
+      prixMoyenTete: Math.round(priced.reduce((a, e) => a + e.unitPriceXaf * e.count, 0) / Math.max(1, priced.reduce((a, e) => a + e.count, 0))),
+      mortaliteMoyennePct: Math.round((of('entries').reduce((a, e) => a + (e.deaths ?? 0), 0) / Math.max(1, placed)) * 1000) / 10,
+      lotsTraces: lots.length,
+      lotsAvecQrPct: lots.length ? Math.round((lots.filter((l) => l.signature).length / lots.length) * 100) : 0,
+    };
+  }
+  app.get('/stats/aggregates', { preHandler: auth }, async (req, reply) => {
+    if (!['dge', 'admin', 'maedr'].includes(req.user!.role)) return reply.code(403).send({ error: 'Accès réservé.' });
+    return aggregates();
+  });
+  app.get('/public/stats', async () => {
+    const r = (await db.query(`SELECT payload FROM records WHERE tbl='publications' AND payload->>'status'='validee' ORDER BY server_at DESC LIMIT 1`)).rows[0];
+    return r ? { period: r.payload.period, data: r.payload.data, validatedAt: r.payload.decidedAt } : { period: null, data: null };
+  });
+
+  // ---------- Interopérabilité EMA-i+ (FAO) : export des événements sanitaires confirmés ----------
+  app.get<{ Querystring: { since?: string } }>('/interop/ema-i/events', { preHandler: auth }, async (req, reply) => {
+    if (!['veterinaire', 'dge', 'admin'].includes(req.user!.role)) return reply.code(403).send({ error: 'Réservé aux services vétérinaires.' });
+    const since = req.query.since ?? '1970-01-01';
+    const alerts = (await db.query(`SELECT payload FROM records WHERE tbl='alerts' AND payload->>'status' IN ('confirmee','close') AND server_at >= $1`, [since])).rows.map((r) => r.payload);
+    const farms = new Map((await db.query(`SELECT key, payload FROM records WHERE tbl='farms'`)).rows.map((r) => [r.key, r.payload]));
+    return {
+      format: 'origa-ema-i/1.0', generatedAt: new Date().toISOString(),
+      events: alerts.map((a) => {
+        const f = farms.get(a.farmId) ?? {};
+        return { eventId: a.id, reportDate: a.createdAt, species: 'Gallus gallus domesticus', productionType: 'poulet de chair', country: 'GA', adminLevel1: PROVINCES[f.province] ?? f.province, locality: f.locality, latitude: f.lat ?? null, longitude: f.lng ?? null, farmCode: a.farmId, source: a.source, description: a.message, status: a.status, history: a.history };
+      }),
+    };
+  });
+
+  // ---------- Documentation de l'API (OpenAPI 3) ----------
+  app.get('/openapi.json', async () => ({
+    openapi: '3.0.3',
+    info: { title: 'API du serveur national Origa', version: '1.1.0', description: 'Synchronisation, authentification par code SMS, traçabilité publique, administration, interopérabilité EMA-i+.' },
+    components: { securitySchemes: { bearer: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' } } },
+    paths: {
+      '/auth/otp/request': { post: { summary: 'Demander un code de connexion par SMS', requestBody: { content: { 'application/json': { schema: { type: 'object', properties: { phone: { type: 'string' } } } } } } } },
+      '/auth/otp/verify': { post: { summary: 'Vérifier le code et obtenir un jeton de session' } },
+      '/sync': { post: { summary: 'Envoyer la file locale (règle : dernière saisie horodatée, conflits conservés)', security: [{ bearer: [] }] } },
+      '/sync/pull': { get: { summary: 'Recevoir les données du périmètre depuis un curseur', security: [{ bearer: [] }], parameters: [{ name: 'since', in: 'query', schema: { type: 'integer' } }] } },
+      '/public/lots/{token}': { get: { summary: 'Page publique d’un lot (sans donnée personnelle)' } },
+      '/public/key': { get: { summary: 'Clé publique Ed25519 de vérification des QR' } },
+      '/public/stats': { get: { summary: 'Derniers indicateurs consolidés validés par le MAEDR' } },
+      '/access-requests': { post: { summary: 'Demande d’accès (validée par l’administrateur)' } },
+      '/lots/{id}/distributor-check': { post: { summary: 'Contrôle d’un lot par un distributeur', security: [{ bearer: [] }] } },
+      '/stats/aggregates': { get: { summary: 'Agrégats nationaux (DGE, MAEDR)', security: [{ bearer: [] }] } },
+      '/interop/ema-i/events': { get: { summary: 'Événements sanitaires confirmés au format d’échange EMA-i+', security: [{ bearer: [] }] } },
+      '/admin/users': { get: { summary: 'Comptes (administrateur)', security: [{ bearer: [] }] }, post: { summary: 'Créer un compte', security: [{ bearer: [] }] } },
+      '/admin/requests': { get: { summary: 'Demandes d’accès', security: [{ bearer: [] }] } },
+      '/admin/audit': { get: { summary: 'Journal d’audit (administrateur, ANINF)', security: [{ bearer: [] }] } },
+      '/audit/verify': { get: { summary: 'Vérification du chaînage du journal', security: [{ bearer: [] }] } },
+    },
+  }));
 
   return app;
 }

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { db } from '../data/db';
 import { save } from '../data/repo';
 import { useNational } from '../app/national';
@@ -38,7 +38,7 @@ export function FarmsPage() {
           <tbody>
             {rows.map((r) => (
               <tr key={r.farm.id}>
-                <td className="lotid" style={{ fontSize: 13 }}>{r.farm.id}</td><td>{r.farm.name}<br /><span className="muted" style={{ fontSize: 12 }}>{r.farm.locality}</span></td>
+                <td className="lotid" style={{ fontSize: 13 }}><Link to={`/fermes/${r.farm.id}`}>{r.farm.id}</Link></td><td>{r.farm.name}<br /><span className="muted" style={{ fontSize: 12 }}>{r.farm.locality}</span></td>
                 <td>{provinceName(r.farm.province)}</td>
                 <td><span className={`pill ${r.farm.status === 'operationnelle' ? 'on' : r.farm.status === 'suspendue' ? 'red' : 'off'}`}>{r.farm.status === 'operationnelle' ? 'Opérationnelle' : r.farm.status === 'suspendue' ? 'Suspendue' : 'En préparation'}</span></td>
                 <td>{r.farm.cohort}</td><td>{fmtInt(r.farm.capacity)}</td><td>{r.st ? fmtInt(r.st.present) : '—'}</td>
@@ -99,6 +99,10 @@ export function FarmNew() {
           <label className="f" style={{ flex: 1 }}>Référence AMI<input className="input" value={f.amiRef} onChange={(e) => set('amiRef', e.target.value)} /></label>
         </div>
         <button className="cta light" onClick={locate}><Icon name="pin" />{gps ? `Position : ${gps.lat}, ${gps.lng}` : 'Relever la position GPS sur place'}</button>
+        <div className="row">
+          <label className="f" style={{ flex: 1 }}>Latitude (correction manuelle)<input className="input" inputMode="decimal" value={gps?.lat ?? ''} onChange={(e) => setGps({ lat: Number(e.target.value.replace(',', '.')) || 0, lng: gps?.lng ?? 0 })} /></label>
+          <label className="f" style={{ flex: 1 }}>Longitude<input className="input" inputMode="decimal" value={gps?.lng ?? ''} onChange={(e) => setGps({ lat: gps?.lat ?? 0, lng: Number(e.target.value.replace(',', '.')) || 0 })} /></label>
+        </div>
         {warn.map((w) => <div key={w} className="note sun"><Icon name="warn" size={18} />{w}</div>)}
         <button className="cta green" disabled={!valid} onClick={submit}>{warn.length ? 'Confirmer malgré les avertissements' : 'Enregistrer la ferme'}</button>
       </div>

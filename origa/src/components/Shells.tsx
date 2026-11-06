@@ -2,15 +2,18 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { Icon, Logo } from './Icon';
 import { useSession } from '../app/hooks';
 import { signOut } from '../app/auth';
+import { NotificationBell } from './Notifications';
 
 const FARM_TABS = [
   { to: '/', icon: 'home', label: 'Accueil' },
   { to: '/bandes', icon: 'bands', label: 'Bandes' },
   { to: '/lots', icon: 'qr', label: 'Lots' },
+  { to: '/plus', icon: 'grid', label: 'Plus' },
   { to: '/profil', icon: 'user', label: 'Profil' },
 ];
 const OPERATOR_TABS = [
   { to: '/', icon: 'truck', label: 'Réception' },
+  { to: '/abattage', icon: 'bands', label: 'Abattages' },
   { to: '/profil', icon: 'user', label: 'Profil' },
 ];
 
@@ -36,19 +39,36 @@ export function MobileShell() {
   );
 }
 
+const ALL = ['dge', 'veterinaire', 'admin', 'bceg'];
 const NAV: { to: string; icon: string; label: string; roles: string[]; section?: string }[] = [
   { to: '/', icon: 'grid', label: 'Vue nationale', roles: ['dge', 'bceg'] },
+  { to: '/', icon: 'report', label: 'Diffusion des données', roles: ['maedr'] },
+  { to: '/', icon: 'search', label: "Journal d'audit", roles: ['aninf'] },
   { to: '/', icon: 'gear', label: 'Administration', roles: ['admin'], section: 'Administration' },
   { to: '/admin/comptes', icon: 'user', label: 'Comptes', roles: ['admin'] },
   { to: '/admin/demandes', icon: 'report', label: "Demandes d'accès", roles: ['admin'] },
+  { to: '/admin/droits', icon: 'check', label: 'Matrice des droits', roles: ['admin'] },
   { to: '/admin/operateurs', icon: 'truck', label: 'Opérateurs', roles: ['admin'] },
   { to: '/admin/journal', icon: 'search', label: "Journal d'audit", roles: ['admin'] },
   { to: '/national', icon: 'grid', label: 'Vue nationale', roles: ['admin'], section: 'Pilotage' },
-  { to: '/alertes', icon: 'heart', label: 'Alertes sanitaires', roles: ['dge', 'veterinaire', 'admin'] },
-  { to: '/fermes', icon: 'farm', label: 'Fermes', roles: ['dge', 'veterinaire', 'admin', 'bceg'] },
-  { to: '/tracer', icon: 'qr', label: 'Traçabilité', roles: ['dge', 'veterinaire', 'admin'] },
+  { to: '/rapports', icon: 'report', label: 'Rapports', roles: ['dge', 'admin', 'veterinaire', 'bceg'], section: 'Suivi' },
+  { to: '/fermes', icon: 'farm', label: 'Fermes', roles: ALL },
+  { to: '/classement', icon: 'bands', label: 'Classement', roles: ['dge', 'admin'] },
+  { to: '/economie', icon: 'bands', label: 'Économie', roles: ['dge', 'admin', 'bceg'] },
+  { to: '/commandes', icon: 'box', label: "Commandes d'intrants", roles: ['dge', 'admin'] },
+  { to: '/abattage', icon: 'truck', label: "Rendez-vous d'abattage", roles: ['dge', 'admin'] },
+  { to: '/alertes', icon: 'heart', label: 'Alertes sanitaires', roles: ['dge', 'veterinaire', 'admin'], section: 'Sanitaire' },
+  { to: '/diagnostics', icon: 'report', label: 'Diagnostics', roles: ['veterinaire', 'admin', 'dge'] },
+  { to: '/biosecurite', icon: 'check', label: 'Biosécurité', roles: ['veterinaire', 'admin', 'dge'] },
+  { to: '/assistance', icon: 'heart', label: 'Assistance à distance', roles: ['veterinaire', 'admin'] },
+  { to: '/tracer', icon: 'qr', label: 'Traçabilité', roles: ['dge', 'veterinaire', 'admin'], section: 'Traçabilité' },
+  { to: '/visites', icon: 'pin', label: 'Visites techniques', roles: ['dge', 'admin'] },
+  { to: '/prix', icon: 'bands', label: 'Observatoire des prix', roles: ['dge', 'admin', 'bceg'] },
+  { to: '/offres', icon: 'share', label: 'Mise en relation', roles: ['dge', 'admin'] },
+  { to: '/diffusion', icon: 'report', label: 'Diffusion des données', roles: ['dge', 'admin'], section: 'Données' },
+  { to: '/reprise', icon: 'box', label: 'Reprise des données', roles: ['dge', 'admin'] },
   { to: '/parametres', icon: 'gear', label: 'Paramètres', roles: ['dge', 'veterinaire', 'admin'] },
-  { to: '/profil', icon: 'user', label: 'Profil', roles: ['dge', 'veterinaire', 'admin', 'bceg'], section: 'Compte' },
+  { to: '/profil', icon: 'user', label: 'Profil', roles: ['dge', 'veterinaire', 'admin', 'bceg', 'maedr', 'aninf'], section: 'Compte' },
 ];
 
 /** Coque web de pilotage et d'administration (DGE, vétérinaires, BCEG, administrateur). */
@@ -58,7 +78,7 @@ export function WebShell() {
   return (
     <div className="w-shell">
       <aside className="side">
-        <div className="brand"><Logo dark />Origa</div>
+        <div className="side-top"><div className="brand"><Logo dark />Origa</div><NotificationBell light /></div>
         {NAV.filter((n) => n.roles.includes(s.role)).map((n) => (
           <div key={n.label}>
             {n.section && <div className="side-sec">{n.section}</div>}

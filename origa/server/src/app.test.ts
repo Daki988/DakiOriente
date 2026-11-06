@@ -8,7 +8,14 @@ const URL = process.env.TEST_DATABASE_URL ?? 'postgresql://origa:origa@localhost
 let db: Db; let app: FastifyInstance;
 const outbox: { to: string; text: string }[] = [];
 
+const tokens = new Map<string, string>();
 async function login(phone: string) {
+  if (tokens.has(phone)) return tokens.get(phone)!;
+  const t = await freshLogin(phone);
+  tokens.set(phone, t);
+  return t;
+}
+async function freshLogin(phone: string) {
   await app.inject({ method: 'POST', url: '/auth/otp/request', payload: { phone } });
   const code = outbox.filter((m) => m.to === phone).at(-1)!.text.match(/(\d{6})/)![1];
   const r = await app.inject({ method: 'POST', url: '/auth/otp/verify', payload: { phone, code } });
@@ -26,6 +33,7 @@ beforeAll(async () => {
     ['+24100000001', 'eleveur', 'GA1-0042', []], ['+24100000002', 'agent', null, ['GA1-0042', 'GA1-0003']],
     ['+24100000003', 'dge', null, []], ['+24100000004', 'veterinaire', null, []], ['+24100000005', 'bceg', null, []],
     ['+24100000006', 'eleveur', 'GA1-0003', []], ['+24100000009', 'admin', null, []],
+    ['+24100000010', 'maedr', null, []], ['+24100000011', 'aninf', null, []],
   ] as const) await db.query('INSERT INTO users (phone, name, role, farm_id, farm_ids) VALUES ($1,$1,$2,$3,$4)', [phone, role, farm, farms]);
   app = await buildApp(loadConfig({ jwtSecret: 'x'.repeat(40), authRateLimit: 100 }), db, { sms: async (to, text) => { outbox.push({ to, text }); } });
 });
@@ -200,5 +208,89 @@ describe('demandes d’accès et administration', () => {
   it('expose le journal à l’administrateur', async () => {
     const a = (await req('GET', '/admin/audit?limit=50', admin)).json();
     expect(a.some((x: { action: string }) => x.action === 'demande approuvée')).toBe(true);
+  });
+});
+
+describe('conformité au cahier des charges (v1.1)', () => {
+  let admin: string; let dge: string; let vet: string; let eleveur: string; let maedr: string; let aninf: string;
+  const req = (method: 'GET' | 'POST', url: string, token?: string, payload?: unknown) =>
+    app.inject({ method, url, payload: payload as Record<string, unknown>, headers: token ? { authorization: `Bearer ${token}` } : {} });
+  beforeAll(async () => {
+    admin = await login('+24100000009'); dge = await login('+24100000003'); vet = await login('+24100000004');
+    eleveur = await login('+24100000001'); maedr = await login('+24100000010'); aninf = await login('+24100000011');
+  });
+
+  it('notifie les vétérinaires par SMS dès qu’une alerte arrive', async () => {
+    const before = outbox.length;
+    await sync(eleveur, [item('alerts', { id: 'al-sms', farmId: 'GA1-0042', bandId: 'GA1-0042-B07', status: 'nouvelle', message: 'Mortalité du jour 1,2 %' })]);
+    expect(outbox.slice(before).some((m) => m.to === '+24100000004' && /alerte sanitaire GA1-0042/.test(m.text))).toBe(true);
+  });
+
+  it('garde la bande clôturée en lecture seule, réouverture par la DGE seulement', async () => {
+    const band = (await pull(dge)).items.find((x: { key: string }) => x.key === 'GA1-0042-B07').payload;
+    expect((await sync(eleveur, [item('bands', { ...band, closedAt: '2026-11-28' })])).json().applied).toBe(1);
+    expect((await sync(eleveur, [item('bands', { ...band, closedAt: undefined, chicks: 9999 })])).json().rejected[0].reason).toMatch(/lecture seule/);
+    expect((await sync(dge, [item('bands', { ...band, closedAt: undefined, chicks: 5000 })])).json().applied).toBe(1);
+  });
+
+  it('fait valider les commandes d’intrants par la DGE', async () => {
+    const order = { id: 'cmd-1', farmId: 'GA1-0042', product: 'Aliment démarrage', type: 'aliment', quantity: 3000, unit: 'kg', status: 'demandee' };
+    expect((await sync(eleveur, [item('orders', order)])).json().applied).toBe(1);
+    expect((await sync(eleveur, [item('orders', { ...order, status: 'validee' })])).json().rejected).toHaveLength(1);
+    expect((await sync(dge, [item('orders', { ...order, status: 'validee', decidedBy: 'DGE' })])).json().applied).toBe(1);
+  });
+
+  it('réserve les diagnostics aux vétérinaires', async () => {
+    const d = { id: 'dg-1', farmId: 'GA1-0042', diagnostic: 'Coccidiose', intervention: 'Traitement prescrit', by: 'Vétérinaire' };
+    expect((await sync(eleveur, [item('diagnostics', d)])).json().rejected).toHaveLength(1);
+    expect((await sync(vet, [item('diagnostics', d)])).json().applied).toBe(1);
+  });
+
+  it('applique la matrice des droits paramétrable', async () => {
+    const settings = (await pull(admin)).items.find((x: { key: string }) => x.key === 'global').payload;
+    const rights = { eleveur: { elevage: ['consulter'] }, dge: { fermes: ['consulter', 'creer', 'modifier'], intrants: ['consulter', 'valider'], pilotage: ['consulter', 'creer', 'valider'] }, maedr: { pilotage: ['consulter', 'valider'] } };
+    expect((await sync(dge, [item('settings', { ...settings, rights })])).json().rejected[0].reason).toMatch(/administrateur/);
+    expect((await sync(admin, [item('settings', { ...settings, rights })])).json().applied).toBe(1);
+    const denied = await sync(eleveur, [item('entries', { id: 'e-rights', bandId: 'GA1-0042-B07', date: '2026-11-06', deaths: 1, feedKg: 10 })]);
+    expect(denied.json().rejected[0].reason).toMatch(/droit « creer »/);
+    await sync(admin, [item('settings', { ...settings, rights: undefined })]); // retour aux droits par défaut
+  });
+
+  it('fait valider la diffusion des agrégats par le MAEDR', async () => {
+    const agg = (await req('GET', '/stats/aggregates', dge)).json();
+    expect(agg.lotsTraces).toBeGreaterThanOrEqual(1);
+    expect(agg).toHaveProperty('fermesActives');
+    const pub = { id: 'pub-1', period: 'novembre 2026', createdAt: new Date().toISOString(), createdBy: 'DGE', data: agg, status: 'soumise' };
+    const created = (await sync(dge, [item('publications', pub)])).json();
+    expect(created.rejected).toEqual([]);
+    expect((await sync(maedr, [item('publications', { ...pub, data: { faux: 1 }, status: 'validee' })])).json().rejected).toHaveLength(1);
+    const validated = (await sync(maedr, [item('publications', { ...pub, status: 'validee', decidedBy: 'MAEDR', decidedAt: '2026-11-06' })])).json();
+    expect(validated).toMatchObject({ applied: 1, rejected: [], conflicts: [] });
+    expect((await req('GET', '/public/stats')).json().period).toBe('novembre 2026');
+    expect((await pull(maedr)).items.every((x: { table: string }) => x.table === 'publications' || x.table === 'settings')).toBe(true);
+  });
+
+  it('donne le journal à l’ANINF et rien d’autre', async () => {
+    expect((await req('GET', '/admin/audit?limit=5', aninf)).statusCode).toBe(200);
+    expect((await req('GET', '/audit/verify', aninf)).json().intact).toBe(true);
+    expect((await pull(aninf)).items.filter((x: { table: string }) => x.table !== 'settings')).toHaveLength(0);
+    expect((await req('GET', '/admin/users', aninf)).statusCode).toBe(403);
+  });
+
+  it('exporte les événements confirmés au format EMA-i+ et documente l’API', async () => {
+    await sync(vet, [item('alerts', { id: 'al-sms', farmId: 'GA1-0042', bandId: 'GA1-0042-B07', status: 'confirmee', message: 'Mortalité du jour 1,2 %' })]);
+    const ex = (await req('GET', '/interop/ema-i/events', vet)).json();
+    expect(ex.events.some((e: { eventId: string; species: string }) => e.eventId === 'al-sms' && e.species === 'Gallus gallus domesticus')).toBe(true);
+    expect((await req('GET', '/interop/ema-i/events', eleveur)).statusCode).toBe(403);
+    expect((await req('GET', '/openapi.json')).json().openapi).toBe('3.0.3');
+  });
+
+  it('laisse un distributeur sous convention contrôler un lot', async () => {
+    await sync(dge, [item('operators', { id: 'OP-003', name: 'Distributeur Libreville', type: 'distributeur', locality: 'Libreville', convention: true })]);
+    await req('POST', '/admin/users', admin, { name: 'Distributeur Libreville', phone: '+24107000020', role: 'operateur', operatorId: 'OP-003' });
+    const dist = await login('+24107000020');
+    const r = await req('POST', `/lots/${encodeURIComponent('GA1-0042-B07-L01')}/distributor-check`, dist);
+    expect(r.json()).toMatchObject({ ok: true, validatedAtSlaughterhouse: true });
+    expect((await req('POST', `/lots/${encodeURIComponent('GA1-0042-B07-L01')}/distributor-check`, eleveur)).statusCode).toBe(403);
   });
 });

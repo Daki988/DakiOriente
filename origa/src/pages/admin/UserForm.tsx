@@ -8,6 +8,7 @@ import type { Role, UserAccount } from '../../domain/types';
 export const ROLES: { k: Role | 'operateur'; label: string }[] = [
   { k: 'eleveur', label: 'Éleveur' }, { k: 'agent', label: 'Agent technique' }, { k: 'dge', label: 'POUFA / DGE' },
   { k: 'veterinaire', label: 'Services vétérinaires' }, { k: 'bceg', label: 'BCEG' }, { k: 'operateur', label: 'Opérateur (abattoir, distributeur)' },
+  { k: 'maedr', label: 'MAEDR (données agrégées)' }, { k: 'aninf', label: 'ANINF (audit)' },
   { k: 'admin', label: 'Administrateur' },
 ];
 export const roleLabel = (r: string) => ROLES.find((x) => x.k === r)?.label ?? r;

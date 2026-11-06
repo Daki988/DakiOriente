@@ -6,7 +6,7 @@ import { apiEnabled } from '../app/api';
 import { flushOutbox } from '../data/sync';
 import { DEMO_USERS } from '../data/demoUsers';
 
-const ROLE_LABEL: Record<string, string> = { eleveur: 'Éleveur', agent: 'Agent technique', dge: 'DGE', veterinaire: 'Vétérinaire', bceg: 'BCEG', operateur: 'Abattoir', admin: 'Administrateur' };
+const ROLE_LABEL: Record<string, string> = { eleveur: 'Éleveur', agent: 'Agent technique', dge: 'DGE', veterinaire: 'Vétérinaire', bceg: 'BCEG', operateur: 'Abattoir', maedr: 'MAEDR', aninf: 'ANINF', admin: 'Administrateur' };
 
 /** Connexion par numéro de téléphone et code à usage unique (SMS en production). */
 export function Auth() {

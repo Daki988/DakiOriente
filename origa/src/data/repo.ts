@@ -4,7 +4,10 @@ import { db } from './db';
 import { getSession } from '../app/sessionStore';
 
 type Tables = 'farms' | 'bands' | 'entries' | 'weighings' | 'exits' | 'inputs' | 'treatments' | 'vaccinations'
-  | 'reports' | 'alerts' | 'operators' | 'lots' | 'scans' | 'settings';
+  | 'reports' | 'alerts' | 'operators' | 'lots' | 'scans' | 'settings'
+  | 'diagnostics' | 'biosecurity' | 'visits' | 'charges' | 'orders' | 'slaughter' | 'publications' | 'prices' | 'consultations' | 'offers' | 'movements';
+
+export type SyncTable = Tables;
 
 /** Ajoute une ligne au journal d'audit local, chaînée à la précédente par SHA-256 (à appeler dans une transaction). */
 async function appendAudit(action: string, table: string, key: string, row?: unknown) {

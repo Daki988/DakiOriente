@@ -2,7 +2,7 @@
 
 export type ProvinceCode = 'GA1' | 'GA2' | 'GA3' | 'GA4' | 'GA5' | 'GA6' | 'GA7' | 'GA8' | 'GA9';
 export type FarmStatus = 'preparation' | 'operationnelle' | 'suspendue';
-export type Role = 'eleveur' | 'agent' | 'dge' | 'veterinaire' | 'bceg' | 'admin' | 'operateur';
+export type Role = 'eleveur' | 'agent' | 'dge' | 'veterinaire' | 'bceg' | 'admin' | 'operateur' | 'maedr' | 'aninf';
 
 export interface Farm {
   id: string; // ex. GA1-0042 (code province ISO 3166-2:GA + n° d'ordre)
@@ -20,6 +20,11 @@ export interface Farm {
   cohort: 1 | 2;
   bcegFinanced: boolean;
   bcegConsentAt?: string;
+  bcegConsentRevokedAt?: string;
+  /** Domiciliation des revenus (visible de la BCEG seule). */
+  incomeAccount?: string;
+  infrastructures?: string[];
+  statusHistory?: { at: string; status: FarmStatus; by: string }[];
   createdAt: string;
 }
 
@@ -154,6 +159,12 @@ export interface Lot {
   receivedCount?: number;
   receivedWeightKg?: number;
   receptionNote?: string;
+  /** Contrôle par le distributeur (§ 6.2). */
+  distributorCheckedAt?: string;
+  distributorId?: string;
+  /** Transformation : lots dérivés d'un lot parent. */
+  derivedProduct?: string;
+  documentIssuedAt?: string;
 }
 
 export interface Scan {
@@ -176,7 +187,26 @@ export interface Settings {
   formulas: Record<FormulaKey, string>;
   vaccinationCalendar: { day: number; vaccine: string }[];
   clinicalSigns: string[];
+  /** Listes paramétrables (§ 7.3). */
+  localities: string[];
+  infrastructures: string[];
+  inputCatalog: { type: string; product: string; unit: string }[];
+  exitReasons: ListItem[];
+  chargePosts: string[];
+  treatmentProducts: { product: string; withdrawalDays: number }[];
+  operatorTypes: ListItem[];
+  farmStatuses: ListItem[];
+  biosecurityGrid: string[];
+  rankingWeights: { mortalite: number; ic: number; gmq: number; regularite: number };
+  reports: { hebdomadaire: boolean; finBande: boolean; mensuel: boolean };
+  /** Matrice des droits par profil et par domaine (§ 5.4, paramétrable). */
+  rights: Record<string, Partial<Record<RightDomain, RightAction[]>>>;
 }
+
+export interface ListItem { k: string; label: string }
+
+export type RightAction = 'consulter' | 'creer' | 'modifier' | 'valider' | 'administrer';
+export type RightDomain = 'fermes' | 'elevage' | 'intrants' | 'sanitaire' | 'economie' | 'tracabilite' | 'pilotage' | 'administration';
 
 export type FormulaKey = 'mortalite' | 'viabilite' | 'gmq' | 'ic' | 'epef' | 'occupation';
 
@@ -235,3 +265,26 @@ export interface AccessRequest {
   decisionNote?: string;
   userId?: string;
 }
+
+/** Diagnostics et interventions vétérinaires (§ 5.2). */
+export interface Diagnostic { id: string; farmId: string; bandId?: string; date: string; diagnostic: string; intervention: string; recommendations?: string; photo?: string; by: string }
+/** Contrôle de biosécurité : grille, score, mesures correctives suivies jusqu'à clôture. */
+export interface BiosecurityCheck { id: string; farmId: string; date: string; results: Record<string, boolean>; scorePct: number; actions: { text: string; due: string; done: boolean }[]; by: string }
+/** Visite technique d'un agent (§ 5.4). */
+export interface Visit { id: string; farmId: string; date: string; agent: string; findings: string; recommendations?: string; observedFeedStockKg?: number; lat?: number; lng?: number }
+/** Charge d'exploitation par poste (§ 5.3). */
+export interface Charge { id: string; farmId: string; bandId?: string; date: string; post: string; amountXaf: number; note?: string }
+/** Commande d'intrants pour la bande suivante : demande → validation DGE → livraison. */
+export interface InputOrder { id: string; farmId: string; date: string; type: string; product: string; quantity: number; unit: string; wishedDate: string; status: 'demandee' | 'validee' | 'refusee' | 'livree'; note?: string; decidedBy?: string }
+/** Rendez-vous d'abattage (calendrier par abattoir). */
+export interface SlaughterBooking { id: string; farmId: string; bandId: string; operatorId: string; date: string; count: number; status: 'demande' | 'confirme' | 'realise' | 'annule'; note?: string }
+/** Diffusion de données agrégées, soumise à la validation du MAEDR. */
+export interface Publication { id: string; period: string; createdAt: string; createdBy: string; data: Record<string, number>; status: 'brouillon' | 'soumise' | 'validee' | 'refusee'; decidedBy?: string; decidedAt?: string; note?: string }
+/** Relevé de prix (observatoire). */
+export interface PriceRecord { id: string; date: string; product: string; unit: string; priceXaf: number; locality: string; source: string }
+/** Assistance vétérinaire à distance. */
+export interface Consultation { id: string; farmId: string; date: string; question: string; photo?: string; answer?: string; answeredBy?: string; status: 'ouverte' | 'repondue' }
+/** Offre commerciale (mise en relation producteurs / acheteurs). */
+export interface Offer { id: string; farmId: string; date: string; product: string; quantity: number; availableFrom: string; priceXaf?: number; contact: string; status: 'ouverte' | 'close' }
+/** Mouvement (transport) d'un lot, saisi par scan. */
+export interface Movement { id: string; lotId: string; date: string; from: string; to: string; by: string }

@@ -48,7 +48,7 @@ export function useNational() {
     }
     const since = `${now.slice(0, 4)}-09-01`;
     return {
-      rows, weeks, alerts: alerts.sort((a, b) => b.createdAt.localeCompare(a.createdAt)),
+      rows, weeks, exits, lots: await db.lots.toArray(), alerts: alerts.sort((a, b) => b.createdAt.localeCompare(a.createdAt)),
       produced: exits.filter((x) => x.date >= since).reduce((s, x) => s + x.weightKg, 0) / 1000,
     };
   }, [settings]);
