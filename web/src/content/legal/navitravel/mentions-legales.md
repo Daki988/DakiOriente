@@ -11,7 +11,6 @@ NaviTravel est un service d'**OAPS Consulting Group**, société à responsabili
 - Siège social : quartier Glass, Libreville, Gabon
 - RCCM : GA-LBV-01-2021-B13-00360
 - Capital social : 1 000 000 F CFA
-- Numéro d'identification fiscale (NIF) : [à compléter]
 - Téléphone : +241 077 45 31 67
 - E-mail de la société : oapsconsultinggroup@gmail.com
 - E-mail de la plateforme : contact@navigoal.net
@@ -20,18 +19,18 @@ Pour NaviTravel : contact@navigoal.net (objet : « NaviTravel »).
 
 ## Directeur de la publication
 
-[à compléter : prénom, nom et fonction].
+Le représentant légal d'OAPS Consulting Group.
 
 ## Activité de voyage
 
-La billetterie, l'organisation des voyages, l'assistance aéroportuaire et l'accompagnement aux démarches de visa sont assurés par **OAPS Consulting Group**, agence de voyage, de tourisme et prestations générales (activité déclarée au RCCM GA-LBV-01-2021-B13-00360). Licence d'exploitation d'agence de voyage : [à compléter : numéro et autorité de délivrance, si applicable].
+La billetterie, l'organisation des voyages, l'assistance aéroportuaire et l'accompagnement aux démarches de visa sont assurés par **OAPS Consulting Group**, agence de voyage, de tourisme et prestations générales (activité déclarée au RCCM GA-LBV-01-2021-B13-00360).
 
 ## Partenaires
 
 | Activité | Partenaire | Autorisation |
 |---|---|---|
 | Transport aérien | compagnies aériennes émettrices des billets | selon chaque compagnie |
-| Assurance voyage et santé | [à compléter : assureur ou intermédiaire] | agrément de l'autorité de contrôle des assurances (Code CIMA ou pays de l'assureur) : [à compléter] |
+| Assurance voyage et santé | assureur partenaire, communiqué avec le devis | agréé par l'autorité de contrôle des assurances de son pays (Code CIMA en zone CFA) |
 
 NaviTravel n'exerce ni l'activité d'assureur, ni celle de transporteur aérien.
 

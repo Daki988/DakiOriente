@@ -99,8 +99,6 @@ Ces droits s'exercent conformément à la loi gabonaise n° 001/2011 du 25 septe
 
 Si vous estimez que vos droits ne sont pas respectés, vous pouvez saisir la **CNPDCP** (Commission nationale pour la protection des données à caractère personnel, Gabon), la **CNDP** au Maroc (www.cndp.ma) ou l'autorité de protection des données de votre pays.
 
-Déclaration auprès de la CNPDCP : [à compléter : numéro de récépissé].
-
 ## Mise à jour de cette politique
 
 Cette politique peut évoluer. La version en vigueur et sa date figurent en haut de la page. En cas de changement important, vous en êtes informé par e-mail ou dans votre espace.

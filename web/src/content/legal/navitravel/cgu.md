@@ -16,7 +16,7 @@ NaviTravel est le service de préparation au départ de Navigoal, édité par OA
 | **Accueil à l'arrivée** | accueil à l'aéroport, transfert jusqu'au logement, aide à l'installation (carte SIM, compte bancaire, premiers achats) | NaviTravel et prestataires locaux |
 | **Assurance voyage et santé** | comparaison et souscription d'une assurance adaptée aux étudiants et aux exigences du visa | assureur ou intermédiaire d'assurance agréé partenaire |
 
-OAPS Consulting Group, éditeur de NaviTravel, est elle-même une agence de voyage, de tourisme et prestations générales immatriculée à Libreville : elle réserve et émet les billets, organise l'accueil et accompagne les démarches. Assureur partenaire : [à compléter].
+OAPS Consulting Group, éditeur de NaviTravel, est elle-même une agence de voyage, de tourisme et prestations générales immatriculée à Libreville : elle réserve et émet les billets, organise l'accueil et accompagne les démarches. L'assurance est souscrite auprès d'un assureur partenaire agréé, dont le nom figure sur le devis.
 
 ## Demande et devis
 

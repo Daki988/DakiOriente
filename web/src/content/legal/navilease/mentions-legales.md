@@ -11,7 +11,6 @@ Navilease est un service d'**OAPS Consulting Group**, société à responsabilit
 - Siège social : quartier Glass, Libreville, Gabon
 - RCCM : GA-LBV-01-2021-B13-00360
 - Capital social : 1 000 000 F CFA
-- Numéro d'identification fiscale (NIF) : [à compléter]
 - Téléphone : +241 077 45 31 67
 - E-mail de la société : oapsconsultinggroup@gmail.com
 - E-mail de la plateforme : contact@navigoal.net
@@ -20,7 +19,7 @@ Pour Navilease : contact@navigoal.net (objet : « Navilease »).
 
 ## Directeur de la publication
 
-[à compléter : prénom, nom et fonction].
+Le représentant légal d'OAPS Consulting Group.
 
 ## Hébergement
 
