@@ -28,7 +28,7 @@ export function Navilease({ residences: rangee }: { residences?: ReactNode }) {
       <section className="relative overflow-hidden bg-[radial-gradient(900px_500px_at_80%_30%,#fff1c2,transparent_60%),linear-gradient(180deg,#fffaf0,#f6f8fe)] pb-14 pt-12">
         <div className="container grid items-center gap-12 lg:grid-cols-2">
           <div className="flex flex-col gap-5">
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2.5"><span className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-sun-400"><KeyRound size={24} /></span><span className="text-[28px] font-extrabold tracking-tight">Navi<span className="text-brand-600">lease</span></span><span className="chip bg-brand-50 text-brand-700">par Navigoal</span></motion.div>
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2.5">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/brand/navilease-horizontal.webp" alt="Navilease" width={190} height={53} className="h-[53px] w-auto" /><span className="chip bg-[#e9f4ed] text-[#2b6a4c]">un service Navigoal</span></motion.div>
             <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="h-display lg:text-[60px]">Ton logement étudiant, <span className="text-brand-600">vérifié</span> et <span className="text-gradient">sécurisé.</span></motion.h1>
             <p className="text-lg leading-relaxed text-ink-soft">Studios, colocations, résidences et cités universitaires près de ton établissement au Maroc : Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir…</p>
             <form onSubmit={(e) => { e.preventDefault(); window.location.href = `/navilease/logements/?${new URLSearchParams({ ...(ville ? { ville } : {}), ...(type ? { type } : {}) })}`; }} className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_20px_50px_-18px_rgba(11,21,51,.3)] sm:flex-row sm:items-center">
@@ -107,7 +107,7 @@ export function Navilease({ residences: rangee }: { residences?: ReactNode }) {
         {type !== "cites" && list.length > 6 && <Link href={`/navilease/logements/?${qs}`} className="btn-ghost self-center">Voir les {list.length >= 24 ? "" : `${list.length} `}logements</Link>}
       </section>
 
-      <Reveal className="container mt-20">
+      <Reveal className="container mt-20 scroll-mt-28" id="comment">
         <div className="flex flex-col gap-8 rounded-[28px] border border-[#f3e6bd] bg-[#fffaf0] p-6 sm:p-11">
           <div><span className="text-[13px] font-extrabold uppercase tracking-[.16em] text-[#a55a00]">Comment ça marche</span><h2 className="h-section mt-2">Réserver sans arnaque, en 5 étapes</h2></div>
           <Stagger className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">

@@ -3,9 +3,10 @@ import { ParOapsPied } from "@/components/ui/ParOaps";
 import { Brand } from "./Brand";
 import { DeviseSelect } from "./Devise";
 import { VILLES, villeHref } from "@/lib/catalogue";
+import { PAGES_LEGALES, SERVICES_LISTE, lienLegal } from "@/lib/services";
 
 const cols = [
-  { t: "Plateforme", l: [["Orientation", "/orientation"], ["Métiers", "/metiers"], ["Formations", "/formations"], ["Établissements", "/etablissements"], ["Comparateur", "/comparateur"], ["Navilease", "/navilease"]] },
+  { t: "Plateforme", l: [["Orientation", "/orientation"], ["Métiers", "/metiers"], ["Formations", "/formations"], ["Établissements", "/etablissements"], ["Comparateur", "/comparateur"], ["Navilease", "/navilease"], ["NaviTravel", "/navitravel"]] },
   { t: "Étudier au Maroc", l: [["Visa et séjour", "/ressources/visa-carte-de-sejour/"], ["Toutes les villes", "/villes"], ...VILLES.slice(0, 4).map((v) => [`Étudier à ${v.nom}`, villeHref(v.nom)]), ["Reconnus par l'État", "/etablissements/?label=reconnu_etat"]] },
   { t: "Ressources", l: [["Guides et outils", "/ressources"], ["Espace parents", "/parents"], ["Devis parents", "/devis"], ["Calculateur de moyenne", "/ressources/#outils"], ["Actualités", "/actualites"], ["Ma série au lycée", "/orientation#series"]] },
   { t: "Navigoal", l: [["Pourquoi Navigoal", "/pourquoi"], ["Mon espace", "/espace"], ["Bailleurs", "/navilease#bailleurs"], ["Contact", "mailto:contact@navigoal.net"]] },
@@ -33,9 +34,18 @@ export function Footer() {
             ))}
           </div>
         </div>
+        <div className="grid gap-8 border-t border-[#1e2f73] pt-8 sm:grid-cols-[1.3fr_1fr_1fr_1fr]">
+          <div className="flex flex-col gap-2"><span className="text-sm font-extrabold">Informations légales</span><p className="text-[13px] leading-relaxed text-[#7f8fcf]">Chaque service a ses conditions, sa politique de confidentialité, ses mentions légales et sa politique cookies.</p></div>
+          {SERVICES_LISTE.map((sv) => (
+            <div key={sv.id} className="flex flex-col gap-2">
+              <span className="flex items-center gap-2 text-sm font-extrabold"><span className="h-2.5 w-2.5 rounded-[3px]" style={{ background: sv.id === "navigoal" ? "#4f7bff" : sv.c }} />{sv.nom}</span>
+              {PAGES_LEGALES.map((p) => <Link key={p.id} href={lienLegal(sv.id, p.id)} className="text-[13px] text-[#a9b6e8] hover:text-white">{p.long}</Link>)}
+            </div>
+          ))}
+        </div>
         <div className="flex flex-col justify-between gap-3 border-t border-[#1e2f73] pt-6 text-[13px] text-[#7f8fcf] sm:flex-row">
-          <span className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5"><span>© 2026 Navigoal — Navilease est un service Navigoal</span><ParOapsPied /></span>
-          <span className="flex flex-wrap gap-4"><Link href="/confidentialite" className="hover:text-white">Confidentialité</Link><Link href="/mentions-legales" className="hover:text-white">Mentions légales</Link><Link href="/cgu" className="hover:text-white">CGU</Link><Link href="/cookies" className="hover:text-white">Cookies</Link></span>
+          <span className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5"><span>© 2026 Navigoal · Navilease · NaviTravel — OAPS Consulting Group</span><ParOapsPied /></span>
+          <Link href="mailto:contact@navigoal.net" className="hover:text-white">contact@navigoal.net</Link>
         </div>
       </div>
     </footer>

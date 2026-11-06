@@ -1,5 +1,4 @@
-import type { Metadata } from "next";
-import { LegalPage } from "@/components/public/LegalPage";
+import { LegalPage, legalMetadata } from "@/components/public/LegalPage";
 
-export const metadata: Metadata = { title: "Conditions générales d'utilisation" };
-export default function Page() { return <LegalPage page="cgu" />; }
+export const metadata = legalMetadata("navigoal", "cgu");
+export default function Page() { return <LegalPage service="navigoal" page="cgu" />; }

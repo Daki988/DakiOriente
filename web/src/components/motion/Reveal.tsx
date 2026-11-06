@@ -4,10 +4,11 @@ import type { ReactNode } from "react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-export function Reveal({ children, delay = 0, y = 32, className }: { children: ReactNode; delay?: number; y?: number; className?: string }) {
+export function Reveal({ children, delay = 0, y = 32, className, id }: { children: ReactNode; delay?: number; y?: number; className?: string; id?: string }) {
   return (
     <motion.div
       className={className}
+      id={id}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
@@ -32,9 +33,9 @@ export function Stagger({ children, className }: { children: ReactNode; classNam
   );
 }
 
-export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
+export function StaggerItem({ children, className, style }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
   return (
-    <motion.div className={className} variants={staggerItem}>
+    <motion.div className={className} style={style} variants={staggerItem}>
       {children}
     </motion.div>
   );

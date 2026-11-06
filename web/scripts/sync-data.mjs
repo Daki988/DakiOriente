@@ -107,4 +107,18 @@ fs.cpSync(path.join(root, "assets", "logos"), LOGOS_OUT, {
   filter: (src) => !src.endsWith(".json"),
 });
 
+// Textes légaux (Navigoal, Navilease, NaviTravel) : src/content/legal/<service>/<page>.md → src/data/legal.json
+const LEGAL = path.join(web, "src", "content", "legal");
+const legal = {};
+for (const service of fs.readdirSync(LEGAL)) {
+  legal[service] = {};
+  for (const f of fs.readdirSync(path.join(LEGAL, service)).filter((x) => x.endsWith(".md"))) {
+    const t = fs.readFileSync(path.join(LEGAL, service, f), "utf8");
+    const [, fm, ...corps] = t.split(/^---$/m);
+    const meta = Object.fromEntries([...fm.matchAll(/^(\w+): (.*)$/gm)].map((m) => [m[1], m[2].trim()]));
+    legal[service][f.replace(/\.md$/, "")] = { titre: meta.titre, bref: meta.bref, corps: corps.join("---").trim() };
+  }
+}
+write("legal", legal);
+
 console.log(`Référentiels synchronisés : ${sup.length} établissements, ${read("metiers").items.length} métiers.`);

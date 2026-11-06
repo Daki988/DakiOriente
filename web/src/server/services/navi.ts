@@ -268,7 +268,7 @@ export type Carte =
   | { type: "suggestions"; suggestions: string[] };
 
 // Pages vers lesquelles Navi peut renvoyer (chemins internes uniquement).
-const PREFIXES = /^\/(formations|etablissements|metiers|villes|devis|comparateur|parents|pourquoi|ressources|actualites|pays|trouve-ta-voie|navilease|orientation|espace|parent|connexion|inscription|recherche|messages|notifications|compte)(\/|\?|$)/;
+const PREFIXES = /^\/(formations|etablissements|metiers|villes|devis|comparateur|parents|pourquoi|ressources|actualites|pays|trouve-ta-voie|navilease|navitravel|orientation|espace|parent|connexion|inscription|recherche|messages|notifications|compte)(\/|\?|$)/;
 export const lienAutorise = (c: string) => { const p = cheminInterne(c); return p && PREFIXES.test(p) ? p : null; };
 
 async function construireCartes(i: AfficherEntree, paysDefaut: string | null): Promise<Carte[]> {
