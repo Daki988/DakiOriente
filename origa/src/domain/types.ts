@@ -2,7 +2,7 @@
 
 export type ProvinceCode = 'GA1' | 'GA2' | 'GA3' | 'GA4' | 'GA5' | 'GA6' | 'GA7' | 'GA8' | 'GA9';
 export type FarmStatus = 'preparation' | 'operationnelle' | 'suspendue';
-export type Role = 'eleveur' | 'agent' | 'dge' | 'veterinaire' | 'bceg' | 'admin';
+export type Role = 'eleveur' | 'agent' | 'dge' | 'veterinaire' | 'bceg' | 'admin' | 'operateur';
 
 export interface Farm {
   id: string; // ex. GA1-0042 (code province ISO 3166-2:GA + n° d'ordre)
@@ -152,6 +152,8 @@ export interface Lot {
   confirmCode: string;
   receivedAt?: string;
   receivedCount?: number;
+  receivedWeightKg?: number;
+  receptionNote?: string;
 }
 
 export interface Scan {
@@ -196,4 +198,40 @@ export interface AuditEntry {
   key: string;
   prevHash: string;
   hash: string;
+}
+
+/** Compte utilisateur, créé par l'administrateur (§ 3 : « gère les comptes, les droits et les paramètres »). */
+export interface UserAccount {
+  id: string;
+  phone: string; // E.164, ex. +24107123456
+  name: string;
+  role: Role | 'operateur';
+  farmId?: string;
+  farmIds?: string[];
+  operatorId?: string;
+  active: boolean;
+  createdAt: string;
+  lastLoginAt?: string;
+}
+
+export type RequestedProfile = 'eleveur' | 'agent' | 'operateur' | 'veterinaire' | 'bceg' | 'autre';
+export type RequestStatus = 'en_attente' | 'approuvee' | 'refusee';
+
+/** Demande d'accès : pas d'inscription libre, chaque compte est validé par l'administrateur. */
+export interface AccessRequest {
+  id: string;
+  createdAt: string;
+  name: string;
+  phone: string;
+  profile: RequestedProfile;
+  organisation: string; // ferme, abattoir, service, agence…
+  province?: ProvinceCode;
+  reference?: string; // réf. AMI (éleveur) ou n° de convention (opérateur)
+  message?: string;
+  consent: boolean; // loi n° 025/2023
+  status: RequestStatus;
+  decidedAt?: string;
+  decidedBy?: string;
+  decisionNote?: string;
+  userId?: string;
 }

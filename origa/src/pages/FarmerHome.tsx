@@ -2,12 +2,14 @@ import { Link } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../data/db';
 import { Icon, Logo } from '../components/Icon';
-import { SyncPill } from '../components/ui';
+import { Empty, SyncPill } from '../components/ui';
 import { fmt, fmtDate, fmtInt, useBandStats, useCurrentBand, useSession, useSettings } from '../app/hooks';
 import { addDays, daysBetween, today } from '../domain/ids';
 import { vaccinationsDue } from '../domain/rules';
 import { refWeight } from '../data/seed';
 import { stockByType } from '../domain/kpis';
+
+const greeting = () => { const h = new Date().getHours(); return h < 12 ? 'Bonjour' : h < 18 ? 'Bon après-midi' : 'Bonsoir'; };
 
 export function FarmerHome() {
   const s = useSession();
@@ -31,7 +33,7 @@ export function FarmerHome() {
     return (
       <>
         <div className="appbar"><div className="brand"><Logo />Origa</div><SyncPill /></div>
-        <div className="content"><div className="card"><h3>Aucune bande en cours</h3><span className="muted">Une bande s’ouvre à la réception des poussins.</span></div></div>
+        <div className="content"><div className="card"><Empty img="./img/poussin.webp" title="Aucune bande en cours" text="Une bande s’ouvre à la réception des poussins, enregistrée avec votre agent technique." /></div></div>
       </>
     );
   }
@@ -47,6 +49,7 @@ export function FarmerHome() {
   return (
     <>
       <div className="appbar"><div className="brand"><Logo />Origa</div><SyncPill /></div>
+      <div className="greet">{greeting()}, {s.userLabel.split(' · ')[0]}</div>
       <div className="content">
         <div className="hero">
           <div className="row between"><span className="kicker">{cur.farm?.name} · {cur.farm?.id}</span><span className="pill ghost">Bande {band.rank}</span></div>

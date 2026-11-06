@@ -1,4 +1,6 @@
-# Origa — l'origine prouvée, de la ferme à l'assiette
+# Origa 1.0 — l'origine prouvée, de la ferme à l'assiette
+
+![Logo Origa](design/logo/origa-logo-horizontal.svg)
 
 Plateforme de suivi technico-économique et de traçabilité de la filière avicole gabonaise, conçue pour le
 **Challenge national Agri-Track 241** (CGI, programme POUFA, 150 fermes, arrêt des importations au 1er janvier 2027).
@@ -12,7 +14,7 @@ Une seule base de code produit les quatre cibles :
 | HarmonyOS 2 | Même APK : HarmonyOS 2 exécute les applications Android. Aucune dépendance aux services Google (pas de Firebase, pas de Google Maps). Diffusion par AppGallery ou APK direct. | `app-debug.apk` |
 | iOS | Capacitor | projet Xcode `ios/App` |
 
-## Ce qui fonctionne (v0.1)
+## Ce qui fonctionne (v1.0)
 
 - **Éleveur, hors ligne** : accueil de la bande, fiche du jour en 3 champs avec contrôles, pesée comparée à la courbe de la souche, signalement sanitaire avec photo compressée, sortie d'animaux, cession de lot, intrants et confirmation de réception, historique des bandes.
 - **Traçabilité** : identifiants non réutilisables (`GA1-0042-B07-L01`), QR code signé Ed25519, page publique sans compte, rejet des QR falsifiés, journal des scans, blocage de la cession si le délai d'attente d'un médicament n'est pas écoulé, recherche amont / aval et export pour l'AGASA.
@@ -21,6 +23,11 @@ Une seule base de code produit les quatre cibles :
 - **Paramétrage sans développement** : formules des indicateurs (évaluateur sûr, sans `eval`), seuils, fréquences, calendrier vaccinal.
 - **Sécurité** : journal d'audit en ajout seul, chaîné par SHA-256 ; file d'envoi hors ligne ; accès BCEG limité aux fermes financées avec consentement.
 
+- **Connexion** par numéro de téléphone et code à usage unique (SMS en production, code affiché en démonstration).
+- **Demande d'accès** à la place d'une inscription libre : le cahier des charges confie la création des comptes à l'administrateur, et aucun compte d'opérateur n'est actif sans convention.
+- **Back-office administrateur** : tableau de bord, comptes et périmètres, validation des demandes d'accès avec SMS d'activation, registre des opérateurs et conventions, journal d'audit vérifiable et exportable.
+- **Opérateurs (abattoirs)** : réception des lots par scan du QR ou lien, contrôle de l'écart annoncé / reçu.
+- **Identité** : logo, icônes Android et iOS, écran de démarrage, animation de chargement, photos contextuelles.
 - **Serveur national** (`server/`) : connexion par code SMS, synchronisation avec contrôle des droits côté serveur, gestion des conflits, signature des QR, page publique, journal d'audit non modifiable.
 
 Deux modes de fonctionnement :
@@ -61,6 +68,8 @@ Comptes de démonstration du serveur, avec le code SMS affiché dans le journal 
 | +24100000003 | DGE |
 | +24100000004 | Services vétérinaires |
 | +24100000005 | BCEG |
+| +24100000007 | Opérateur, abattoir de Ntoum |
+| +24100000009 | Administrateur |
 
 ## Variables d'environnement
 
@@ -93,9 +102,32 @@ server/src     serveur national : Fastify, PostgreSQL, droits, conflits, signatu
 design/        maquette v1 en HTML, à importer dans Figma « Origa — Maquettes v1 »
 ```
 
+## Identité visuelle
+
+- Logo : `design/logo/` (symbole, version horizontale). L'œuf marque l'origine, la coche l'origine vérifiée, le liseré les couleurs du Gabon.
+- Icônes et écrans de démarrage natifs : sources dans `resources/`, régénérés par `npx capacitor-assets generate`.
+- Photos : licence Unsplash, crédits dans l'application (Profil, À propos) et ci-dessous.
+
+| Photo | Auteur |
+|---|---|
+| [Éleveuse avec une poule](https://unsplash.com/photos/sDjk3DHv2dY) | Richard Nyoni |
+| [Visite vétérinaire en ferme avicole](https://unsplash.com/photos/e83gkmG_yW8) | Creab ThePolymath |
+| [Poulailler](https://unsplash.com/photos/8YZOdT7CsGk) | Muhammed Minhaj VP |
+| [Poussin](https://unsplash.com/photos/R-1VgUb5f7U) | Darius Cotoi |
+| [Poule au pré](https://unsplash.com/photos/4W8FgDVyUME) | Thomas Iversen |
+
+## Avant la mise en production
+
+1. Héberger le serveur au Gabon (`docker compose up -d --build`) avec de vrais secrets : `JWT_SECRET`, `LOT_SIGNING_KEY`, mot de passe PostgreSQL.
+2. Brancher la passerelle SMS d'un agrégateur Airtel / Moov (`SMS_PROVIDER=http`).
+3. Construire l'application avec `VITE_API_URL`, `VITE_PUBLIC_BASE` et `VITE_LOT_PUBLIC_KEY`.
+4. Créer la clé de signature Android (`scripts/creer-keystore.sh`) et enregistrer les secrets GitHub.
+5. Compte Apple Developer pour publier sur l'App Store.
+6. Formalités auprès de l'autorité de protection des données (loi n° 025/2023).
+
 ## Reste à faire
 
-1. Validation de la maquette par le client, import dans Figma, ajustements des écrans.
+1. Import des écrans dans Figma (bloqué par le quota du siège Figma « Collab »).
 2. Branchement de la passerelle SMS d'un agrégateur Airtel / Moov.
 3. Échange EMA-i+ (FAO), export EPCIS 2.0, rapports PDF automatiques.
 4. Rouleaux d'étiquettes QR pré-signées, pour imprimer un QR valide sans réseau.

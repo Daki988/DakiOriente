@@ -49,3 +49,32 @@ export function useToast(): [ReactNode, (m: string) => void] {
 export function Kv({ k, v, cls }: { k: string; v: ReactNode; cls?: string }) {
   return <div className="kv"><span>{k}</span><b className={cls}>{v}</b></div>;
 }
+
+/** Fenêtre modale accessible (Échap pour fermer, focus sur le contenu). */
+export function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: ReactNode }) {
+  useEffect(() => {
+    const k = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', k);
+    return () => window.removeEventListener('keydown', k);
+  }, [onClose]);
+  return (
+    <div className="modal-bg" onClick={onClose}>
+      <div className="modal" role="dialog" aria-modal="true" aria-label={title} onClick={(e) => e.stopPropagation()}>
+        <div className="row between"><h3>{title}</h3><button className="iconbtn" aria-label="Fermer" onClick={onClose}>✕</button></div>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/** État vide illustré. */
+export function Empty({ img, title, text, children }: { img?: string; title: string; text?: string; children?: ReactNode }) {
+  return (
+    <div className="empty-ill">
+      {img && <img src={img} alt="" loading="lazy" />}
+      <b>{title}</b>
+      {text && <span className="muted">{text}</span>}
+      {children}
+    </div>
+  );
+}

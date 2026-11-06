@@ -35,13 +35,27 @@ export function Icon({ name, size = 20, color = 'currentColor', stroke = 2 }: { 
   );
 }
 
-export function Logo({ dark = false }: { dark?: boolean }) {
+/** Symbole Origa : un œuf (l'origine) marqué d'une coche (origine vérifiée), souligné des couleurs du Gabon. */
+export function Logo({ dark = false, size = 32 }: { dark?: boolean; size?: number }) {
   return (
-    <div className="logo" style={dark ? { background: 'var(--sun)' } : undefined}>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 3c4 3 6 6 6 9a6 6 0 1 1-12 0c0-3 2-6 6-9z" fill={dark ? '#0B3D2E' : '#F5B700'} />
-        <circle cx="12" cy="13" r="2.2" fill={dark ? '#F5B700' : '#0B3D2E'} />
-      </svg>
+    <svg width={size} height={size} viewBox="0 0 512 512" aria-hidden="true" style={{ flex: 'none', borderRadius: size * 0.23 }}>
+      <rect width="512" height="512" rx="116" fill={dark ? '#FFFFFF' : '#0B3D2E'} fillOpacity={dark ? 0.12 : 1} />
+      <path d="M256 84c58 0 128 112 128 208 0 82-56 134-128 134s-128-52-128-134c0-96 70-208 128-208z" fill="#F5B700" />
+      <ellipse cx="206" cy="196" rx="24" ry="40" transform="rotate(24 206 196)" fill="#fff" opacity=".35" />
+      <path d="M192 298l44 44 86-94" fill="none" stroke="#0B3D2E" strokeWidth="36" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="164" y="450" width="60" height="14" rx="7" fill="#009E60" />
+      <rect x="226" y="450" width="60" height="14" rx="7" fill="#FCD116" />
+      <rect x="288" y="450" width="60" height="14" rx="7" fill="#3A75C4" />
+    </svg>
+  );
+}
+
+/** Indicateur de chargement in-app, cohérent avec l'écran de démarrage. */
+export function Loader({ label = 'Chargement…' }: { label?: string }) {
+  return (
+    <div className="loader" role="status" aria-live="polite">
+      <div className="loader-egg"><Logo size={56} /></div>
+      <span>{label}</span>
     </div>
   );
 }

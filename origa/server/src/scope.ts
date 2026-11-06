@@ -23,8 +23,10 @@ function farmsOf(u: Claims): string[] {
 const WIDE = ['dge', 'admin', 'veterinaire'];
 
 /** Lecture : chacun ne voit que ce qui le concerne (§ 8 du cahier des charges). */
-export function canRead(u: Claims, tbl: string, farmId: string | null, bcegFarms: Set<string> = new Set()): boolean {
+export function canRead(u: Claims, tbl: string, farmId: string | null, bcegFarms: Set<string> = new Set(), row?: Row): boolean {
   if (tbl === 'settings' || tbl === 'operators') return true;
+  // Opérateur sous convention : uniquement les lots qui lui sont cédés.
+  if (u.role === 'operateur') return tbl === 'lots' && !!u.operatorId && row?.operatorId === u.operatorId;
   if (WIDE.includes(u.role)) {
     // Les services vétérinaires voient le volet sanitaire et le registre, pas l'économique.
     if (u.role === 'veterinaire') return ['farms', 'bands', 'entries', 'weighings', 'treatments', 'vaccinations', 'reports', 'alerts', 'lots'].includes(tbl);
@@ -51,6 +53,14 @@ export function canWrite(u: Claims, tbl: string, farmId: string | null, row: Row
         return changed.length ? 'seuls les paramètres sanitaires sont modifiables' : null;
       }
       return ['alerts', 'treatments', 'vaccinations', 'reports'].includes(tbl) ? null : 'hors du volet sanitaire';
+    case 'operateur': {
+      // Réception à l'abattoir : seuls les champs de réception d'un lot qui lui est destiné sont modifiables.
+      if (tbl !== 'lots' || !current) return 'opérateur : réception des lots uniquement';
+      if (!u.operatorId || current.operatorId !== u.operatorId) return 'lot destiné à un autre opérateur';
+      const allowed = ['receivedAt', 'receivedCount', 'receivedWeightKg', 'receptionNote'];
+      const changed = Object.keys({ ...row, ...current }).filter((k) => JSON.stringify(row[k]) !== JSON.stringify(current[k]) && !allowed.includes(k));
+      return changed.length ? `champ non modifiable : ${changed[0]}` : null;
+    }
     case 'eleveur':
     case 'agent': {
       if (tbl === 'settings' || tbl === 'operators') return 'paramétrage réservé';

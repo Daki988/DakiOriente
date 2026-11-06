@@ -25,12 +25,12 @@ export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
 
 export const requestOtp = (phone: string) => api<{ sent: boolean; expiresIn: number }>('/auth/otp/request', { method: 'POST', body: JSON.stringify({ phone }) });
 
-interface LoginUser { sub: number; role: Role; name: string; farmId?: string | null; farmIds?: string[] }
+interface LoginUser { sub: number; role: Role; name: string; farmId?: string | null; farmIds?: string[]; operatorId?: string | null }
 
 export async function verifyOtp(phone: string, code: string) {
   const r = await api<{ token: string; user: LoginUser }>('/auth/otp/verify', { method: 'POST', body: JSON.stringify({ phone, code }) });
   setToken(r.token);
-  const s: Session = { role: r.user.role, userLabel: r.user.name, farmId: r.user.farmId ?? r.user.farmIds?.[0] ?? undefined, farmIds: r.user.farmIds };
+  const s: Session = { role: r.user.role, userLabel: r.user.name, userId: String(r.user.sub), operatorId: r.user.operatorId ?? undefined, farmId: r.user.farmId ?? r.user.farmIds?.[0] ?? undefined, farmIds: r.user.farmIds };
   setSession(s);
   return s;
 }

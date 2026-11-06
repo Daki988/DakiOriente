@@ -83,7 +83,7 @@ export function PublicLot() {
   }
   return (
     <div className="m-shell">
-      <div className="pub-hero">
+      <div className="pub-hero bg-photo" style={{ backgroundImage: 'linear-gradient(160deg,rgba(11,61,46,.9),rgba(18,128,92,.78)),url(./img/poule.webp)' }}>
         <div className="badge-ga"><div className="flag"><i style={{ background: '#009E60' }} /><i style={{ background: '#FCD116' }} /><i style={{ background: '#3A75C4' }} /></div>Élevé au Gabon</div>
         <h1>{v.locality ? `Ce poulet vient de ${v.locality}, ${v.province}` : 'Origine gabonaise vérifiée'}</h1>
         <span style={{ fontSize: 14, color: '#CFE7DC' }}>Lot {v.lotId} · origine vérifiée par Origa</span>

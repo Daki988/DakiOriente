@@ -8,6 +8,7 @@ const USERS = [
   ['+24100000003', 'DGE · Programme POUFA', 'dge', null, []],
   ['+24100000004', 'Services vétérinaires', 'veterinaire', null, []],
   ['+24100000005', 'BCEG · Suivi des financements', 'bceg', null, []],
+  ['+24100000007', 'Abattoir de Ntoum', 'operateur', null, []],
   ['+24100000009', 'Administrateur', 'admin', null, []],
 ] as const;
 
@@ -15,9 +16,9 @@ const db = createPool(loadConfig().databaseUrl);
 await migrate(db);
 for (const [phone, name, role, farm, farms] of USERS) {
   await db.query(
-    `INSERT INTO users (phone, name, role, farm_id, farm_ids) VALUES ($1,$2,$3,$4,$5)
-     ON CONFLICT (phone) DO UPDATE SET name=EXCLUDED.name, role=EXCLUDED.role, farm_id=EXCLUDED.farm_id, farm_ids=EXCLUDED.farm_ids`,
-    [phone, name, role, farm, farms],
+    `INSERT INTO users (phone, name, role, farm_id, farm_ids, operator_id) VALUES ($1,$2,$3,$4,$5,$6)
+     ON CONFLICT (phone) DO UPDATE SET name=EXCLUDED.name, role=EXCLUDED.role, farm_id=EXCLUDED.farm_id, farm_ids=EXCLUDED.farm_ids, operator_id=EXCLUDED.operator_id`,
+    [phone, name, role, farm, farms, role === 'operateur' ? 'OP-001' : null],
   );
 }
 

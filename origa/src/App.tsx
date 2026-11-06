@@ -16,25 +16,37 @@ import { FarmsPage, FarmNew } from './pages/Farms';
 import { AlertsPage } from './pages/Alerts';
 import { SettingsPage } from './pages/Settings';
 import { TracePage } from './pages/Trace';
-import { Login } from './pages/Login';
+import { Auth } from './pages/Auth';
+import { AccessRequestPage } from './pages/AccessRequest';
+import { Reception } from './pages/Reception';
+import { AdminAudit, AdminHome, AdminOperators, AdminRequests, AdminUsers } from './pages/admin/Admin';
+import { NotFound } from './pages/NotFound';
 import { Download } from './pages/Download';
 import { apiEnabled, getToken } from './app/api';
 
 export function App() {
   const s = useSession();
-  const needLogin = apiEnabled && (!getToken() || !s.userLabel);
+  const needLogin = apiEnabled ? !getToken() || !s.userLabel : !s.userLabel;
   const pilot = s.role === 'dge' || s.role === 'veterinaire' || s.role === 'admin' || s.role === 'bceg';
+  const home = s.role === 'admin' ? <AdminHome /> : s.role === 'veterinaire' ? <AlertsPage /> : <Dashboard />;
   return (
     <HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Routes>
         {/* Page publique consommateur : sans compte, sans coque applicative */}
         <Route path="/p/:token" element={<PublicLot />} />
         <Route path="/telecharger" element={<Download />} />
+        <Route path="/demande-acces" element={<AccessRequestPage />} />
         {needLogin ? (
-          <Route path="*" element={<Login />} />
+          <Route path="*" element={<Auth />} />
         ) : pilot ? (
           <Route element={<WebShell />}>
-            <Route path="/" element={s.role === 'veterinaire' ? <AlertsPage /> : <Dashboard />} />
+            <Route path="/" element={home} />
+            {s.role === 'admin' && <>
+              <Route path="/admin/comptes" element={<AdminUsers />} />
+              <Route path="/admin/demandes" element={<AdminRequests />} />
+              <Route path="/admin/operateurs" element={<AdminOperators />} />
+              <Route path="/admin/journal" element={<AdminAudit />} />
+            </>}
             <Route path="/national" element={<Dashboard />} />
             <Route path="/fermes" element={<FarmsPage />} />
             <Route path="/fermes/nouvelle" element={<FarmNew />} />
@@ -42,6 +54,12 @@ export function App() {
             <Route path="/tracer" element={<TracePage />} />
             <Route path="/lots/:id" element={<LotDetail />} />
             <Route path="/parametres" element={<SettingsPage />} />
+            <Route path="/profil" element={<ProfilePage />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        ) : s.role === 'operateur' ? (
+          <Route element={<MobileShell />}>
+            <Route path="/" element={<Reception />} />
             <Route path="/profil" element={<ProfilePage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>

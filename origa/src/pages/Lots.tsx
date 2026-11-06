@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../data/db';
-import { BackBar, Kv, useToast } from '../components/ui';
+import { BackBar, Empty, Kv, useToast } from '../components/ui';
 import { Icon } from '../components/Icon';
 import { Qr } from '../components/Qr';
 import { fmtDate, fmtInt, useSession } from '../app/hooks';
@@ -19,7 +19,7 @@ export function LotsPage() {
       <div className="content">
         <Link to="/sortie" className="cta"><Icon name="plus" />Céder un lot</Link>
         <div className="card">
-          {lots.length === 0 && <div className="empty">Aucun lot cédé pour l'instant.</div>}
+          {lots.length === 0 && <Empty img="./img/poule.webp" title="Aucun lot cédé" text="Chaque lot cédé à un abattoir ou un acheteur reçoit ici son QR code signé." />}
           <div className="list">
             {lots.map((l) => (
               <Link key={l.id} to={`/lots/${encodeURIComponent(l.id)}`} className="li">

@@ -72,3 +72,23 @@ CREATE TABLE IF NOT EXISTS scans (
   valid   BOOLEAN NOT NULL,
   at      TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+-- v1.0 : demandes d'accès (pas d'inscription libre) et dernière connexion.
+CREATE TABLE IF NOT EXISTS access_requests (
+  id            TEXT PRIMARY KEY,
+  created_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
+  name          TEXT NOT NULL,
+  phone         TEXT NOT NULL,
+  profile       TEXT NOT NULL CHECK (profile IN ('eleveur','agent','operateur','veterinaire','bceg','autre')),
+  organisation  TEXT NOT NULL,
+  province      TEXT,
+  reference     TEXT,
+  message       TEXT,
+  consent       BOOLEAN NOT NULL,
+  status        TEXT NOT NULL DEFAULT 'en_attente' CHECK (status IN ('en_attente','approuvee','refusee')),
+  decided_at    TIMESTAMPTZ,
+  decided_by    TEXT,
+  decision_note TEXT,
+  user_id       INT REFERENCES users(id)
+);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS last_login_at TIMESTAMPTZ;

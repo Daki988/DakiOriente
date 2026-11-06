@@ -82,6 +82,7 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; log
       return reply.code(401).send({ error: 'Code incorrect.' });
     }
     await db.query('UPDATE otp_codes SET used = TRUE WHERE id=$1', [otp.id]);
+    await db.query('UPDATE users SET last_login_at = now() WHERE phone=$1', [phone]);
     const u = (await db.query('SELECT * FROM users WHERE phone=$1 AND active', [phone])).rows[0];
     if (!u) return reply.code(401).send({ error: 'Compte inactif.' });
     const claims = { sub: u.id, role: u.role, name: u.name, farmId: u.farm_id, farmIds: u.farm_ids, operatorId: u.operator_id };
@@ -137,7 +138,7 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; log
     const limit = Math.min(2000, Number(req.query.limit ?? 1000) || 1000);
     const rows = (await db.query('SELECT tbl, key, farm_id, payload, seq FROM records WHERE seq > $1 ORDER BY seq LIMIT $2', [since, limit])).rows;
     const bceg = u.role === 'bceg' ? await bcegFarms() : new Set<string>();
-    const visible = rows.filter((r) => canRead(u, r.tbl, r.farm_id, bceg));
+    const visible = rows.filter((r) => canRead(u, r.tbl, r.farm_id, bceg, r.payload));
     const cursor = rows.length ? Number(rows[rows.length - 1].seq) : since;
     return { items: visible.map((r) => ({ table: r.tbl, key: r.key, payload: r.payload })), cursor, more: rows.length === limit };
   });
@@ -181,6 +182,100 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; log
       operator: op ? { name: op.name, type: op.type, locality: op.locality } : null,
       vaccinationsOk: due.every((d) => vacc.includes(d.vaccine)),
     };
+  });
+
+  // ---------- Demandes d'accès (publiques) et administration ----------
+  const PROFILES = ['eleveur', 'agent', 'operateur', 'veterinaire', 'bceg', 'autre'];
+  const ROLES = ['eleveur', 'agent', 'dge', 'veterinaire', 'bceg', 'admin', 'operateur'];
+  const str = (v: unknown, max = 200) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
+
+  app.post<{ Body: Record<string, unknown> }>('/access-requests', { config: { rateLimit: { max: Math.max(5, cfg.authRateLimit), timeWindow: '1 hour' } } }, async (req, reply) => {
+    const b = req.body ?? {};
+    const phone = normalizePhone(str(b.phone, 30));
+    const name = str(b.name); const organisation = str(b.organisation); const profile = str(b.profile, 20);
+    if (!phone || name.length < 3 || organisation.length < 3 || !PROFILES.includes(profile)) return reply.code(400).send({ error: 'Formulaire incomplet ou invalide.' });
+    if (b.consent !== true) return reply.code(400).send({ error: 'Votre accord sur le traitement des données est nécessaire.' });
+    const pending = await db.query(`SELECT 1 FROM access_requests WHERE phone=$1 AND status='en_attente'`, [phone]);
+    if (pending.rowCount) return { ok: true }; // une demande est déjà en cours pour ce numéro
+    const id = `req-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
+    await db.query(`INSERT INTO access_requests (id, name, phone, profile, organisation, province, reference, message, consent) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,TRUE)`,
+      [id, name, phone, profile, organisation, str(b.province, 4) || null, str(b.reference, 60) || null, str(b.message, 1000) || null]);
+    await audit(null, 'demande d’accès reçue', 'access_requests', id);
+    return { ok: true };
+  });
+
+  async function adminOnly(req: FastifyRequest, reply: FastifyReply) {
+    await auth(req, reply);
+    if (reply.sent) return;
+    if (req.user!.role !== 'admin') return reply.code(403).send({ error: 'Réservé à l’administrateur.' });
+  }
+
+  const toUser = (r: Record<string, unknown>) => ({
+    id: String(r.id), phone: r.phone, name: r.name, role: r.role, farmId: r.farm_id ?? undefined, farmIds: r.farm_ids ?? [],
+    operatorId: r.operator_id ?? undefined, active: r.active, createdAt: r.created_at, lastLoginAt: r.last_login_at ?? undefined,
+  });
+
+  async function upsertUser(b: Record<string, unknown>, id?: string) {
+    const phone = normalizePhone(str(b.phone, 30));
+    const name = str(b.name); const role = str(b.role, 20);
+    if (!phone || !name || !ROLES.includes(role)) throw Object.assign(new Error('Nom, téléphone ou profil invalide.'), { status: 400 });
+    const farmId = role === 'eleveur' ? str(b.farmId, 20) || null : null;
+    const farmIds = role === 'agent' && Array.isArray(b.farmIds) ? b.farmIds.map((x) => str(x, 20)).filter(Boolean) : [];
+    const operatorId = role === 'operateur' ? str(b.operatorId, 20) || null : null;
+    if (role === 'eleveur' && !farmId) throw Object.assign(new Error('Rattachez l’éleveur à sa ferme.'), { status: 400 });
+    if (role === 'agent' && !farmIds.length) throw Object.assign(new Error('Rattachez l’agent à au moins une ferme.'), { status: 400 });
+    if (role === 'operateur') {
+      const op = (await db.query(`SELECT payload FROM records WHERE tbl='operators' AND key=$1`, [operatorId])).rows[0]?.payload;
+      if (!op) throw Object.assign(new Error('Opérateur inconnu du registre.'), { status: 400 });
+      if (!op.convention) throw Object.assign(new Error('Aucun compte opérateur sans convention signée.'), { status: 400 });
+    }
+    try {
+      const r = id
+        ? await db.query(`UPDATE users SET phone=$1, name=$2, role=$3, farm_id=$4, farm_ids=$5, operator_id=$6, active=$7 WHERE id=$8 RETURNING *`, [phone, name, role, farmId, farmIds, operatorId, b.active !== false, Number(id)])
+        : await db.query(`INSERT INTO users (phone, name, role, farm_id, farm_ids, operator_id, active) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *`, [phone, name, role, farmId, farmIds, operatorId, b.active !== false]);
+      if (!r.rows[0]) throw Object.assign(new Error('Compte introuvable.'), { status: 404 });
+      return r.rows[0];
+    } catch (e) {
+      if ((e as { code?: string }).code === '23505') throw Object.assign(new Error('Un compte existe déjà avec ce numéro.'), { status: 409 });
+      throw e;
+    }
+  }
+  const fail = (reply: FastifyReply, e: unknown) => reply.code((e as { status?: number }).status ?? 500).send({ error: (e as Error).message });
+
+  app.get('/admin/users', { preHandler: adminOnly }, async () => (await db.query('SELECT * FROM users ORDER BY name')).rows.map(toUser));
+  app.post<{ Body: Record<string, unknown> }>('/admin/users', { preHandler: adminOnly }, async (req, reply) => {
+    try { const u = await upsertUser(req.body ?? {}); await audit(req.user!.sub, 'création de compte', 'users', String(u.id)); return toUser(u); } catch (e) { return fail(reply, e); }
+  });
+  app.patch<{ Params: { id: string }; Body: Record<string, unknown> }>('/admin/users/:id', { preHandler: adminOnly }, async (req, reply) => {
+    try { const u = await upsertUser(req.body ?? {}, req.params.id); await audit(req.user!.sub, 'modification de compte', 'users', String(u.id)); return toUser(u); } catch (e) { return fail(reply, e); }
+  });
+
+  app.get('/admin/requests', { preHandler: adminOnly }, async () => (await db.query('SELECT * FROM access_requests ORDER BY created_at DESC LIMIT 500')).rows.map((r) => ({
+    id: r.id, createdAt: r.created_at, name: r.name, phone: r.phone, profile: r.profile, organisation: r.organisation, province: r.province ?? undefined,
+    reference: r.reference ?? undefined, message: r.message ?? undefined, consent: r.consent, status: r.status, decidedAt: r.decided_at ?? undefined,
+    decidedBy: r.decided_by ?? undefined, decisionNote: r.decision_note ?? undefined, userId: r.user_id ? String(r.user_id) : undefined,
+  })));
+
+  app.post<{ Params: { id: string }; Body: { approve?: boolean; note?: string; user?: Record<string, unknown> } }>('/admin/requests/:id/decision', { preHandler: adminOnly }, async (req, reply) => {
+    const r = (await db.query('SELECT * FROM access_requests WHERE id=$1', [req.params.id])).rows[0];
+    if (!r) return reply.code(404).send({ error: 'Demande introuvable.' });
+    if (r.status !== 'en_attente') return reply.code(409).send({ error: 'Demande déjà traitée.' });
+    const approve = req.body?.approve === true; const note = str(req.body?.note, 500);
+    if (!approve && !note) return reply.code(400).send({ error: 'Indiquez le motif du refus.' });
+    try {
+      const user = approve ? await upsertUser({ ...(req.body?.user ?? {}), phone: req.body?.user?.phone ?? r.phone }) : null;
+      await db.query(`UPDATE access_requests SET status=$1, decided_at=now(), decided_by=$2, decision_note=$3, user_id=$4 WHERE id=$5`,
+        [approve ? 'approuvee' : 'refusee', req.user!.name, note || null, user?.id ?? null, r.id]);
+      await audit(req.user!.sub, approve ? 'demande approuvée' : 'demande refusée', 'access_requests', r.id);
+      await sms(r.phone, approve ? 'Origa : votre compte est activé. Connectez-vous avec votre numéro de téléphone.' : `Origa : votre demande d'accès n'a pas été retenue. ${note}`).catch(() => undefined);
+      return { ok: true, userId: user ? String(user.id) : undefined };
+    } catch (e) { return fail(reply, e); }
+  });
+
+  app.get<{ Querystring: { limit?: string } }>('/admin/audit', { preHandler: adminOnly }, async (req) => {
+    const limit = Math.min(1000, Number(req.query.limit ?? 200) || 200);
+    return (await db.query(`SELECT a.id, a.at, COALESCE(u.name, 'système') AS user, a.action, a.tbl, a.key FROM audit a LEFT JOIN users u ON u.id = a.user_id ORDER BY a.id DESC LIMIT $1`, [limit]))
+      .rows.map((r) => ({ id: Number(r.id), at: r.at, user: r.user, action: r.action, table: r.tbl ?? undefined, key: r.key ?? undefined }));
   });
 
   return app;

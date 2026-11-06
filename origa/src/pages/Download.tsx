@@ -6,7 +6,7 @@ const APK = 'https://github.com/Daki988/DakiOriente/releases/download/origa-late
 export function Download() {
   return (
     <div className="m-shell">
-      <div className="pub-hero">
+      <div className="pub-hero bg-photo" style={{ backgroundImage: 'linear-gradient(160deg,rgba(11,61,46,.92),rgba(18,128,92,.8)),url(./img/veterinaire.webp)' }}>
         <div className="brand" style={{ color: '#fff' }}><Logo dark />Origa</div>
         <h1>Installer Origa sur votre téléphone</h1>
         <span style={{ fontSize: 14, color: '#CFE7DC' }}>Suivi des fermes du programme POUFA et origine des poulets du Gabon</span>

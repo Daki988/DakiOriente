@@ -20,12 +20,12 @@ const item = (table: string, payload: Record<string, unknown>, at = new Date().t
 
 beforeAll(async () => {
   db = createPool(URL);
-  await db.query('DROP TABLE IF EXISTS scans, audit, conflicts, records, otp_codes, users CASCADE');
+  await db.query('DROP TABLE IF EXISTS access_requests, scans, audit, conflicts, records, otp_codes, users CASCADE');
   await migrate(db);
   for (const [phone, role, farm, farms] of [
     ['+24100000001', 'eleveur', 'GA1-0042', []], ['+24100000002', 'agent', null, ['GA1-0042', 'GA1-0003']],
     ['+24100000003', 'dge', null, []], ['+24100000004', 'veterinaire', null, []], ['+24100000005', 'bceg', null, []],
-    ['+24100000006', 'eleveur', 'GA1-0003', []],
+    ['+24100000006', 'eleveur', 'GA1-0003', []], ['+24100000009', 'admin', null, []],
   ] as const) await db.query('INSERT INTO users (phone, name, role, farm_id, farm_ids) VALUES ($1,$1,$2,$3,$4)', [phone, role, farm, farms]);
   app = await buildApp(loadConfig({ jwtSecret: 'x'.repeat(40), authRateLimit: 100 }), db, { sms: async (to, text) => { outbox.push({ to, text }); } });
 });
@@ -132,5 +132,73 @@ describe('synchronisation et périmètres', () => {
     expect(r.json()).toMatchObject({ intact: true });
     expect(r.json().entries).toBeGreaterThan(5);
     await expect(db.query('UPDATE audit SET action = $1', ['falsifié'])).rejects.toThrow(/ajout seul/);
+  });
+});
+
+describe('demandes d’accès et administration', () => {
+  let admin: string; let dge: string; let eleveur: string;
+  const req = (method: 'GET' | 'POST' | 'PATCH', url: string, token?: string, payload?: unknown) =>
+    app.inject({ method, url, payload: payload as Record<string, unknown>, headers: token ? { authorization: `Bearer ${token}` } : {} });
+  beforeAll(async () => { admin = await login('+24100000009'); dge = await login('+24100000003'); eleveur = await login('+24100000001'); });
+
+  it('reçoit une demande publique, sans inscription libre', async () => {
+    const bad = await req('POST', '/access-requests', undefined, { name: 'X', phone: '1', profile: 'eleveur', organisation: '', consent: true });
+    expect(bad.statusCode).toBe(400);
+    const noConsent = await req('POST', '/access-requests', undefined, { name: 'Mme Boussougou', phone: '+24106112233', profile: 'eleveur', organisation: 'Ferme Kango', consent: false });
+    expect(noConsent.statusCode).toBe(400);
+    const ok = await req('POST', '/access-requests', undefined, { name: 'Mme Boussougou', phone: '+24106112233', profile: 'eleveur', organisation: 'Ferme Kango', reference: 'AMI-2026-131', consent: true });
+    expect(ok.json()).toEqual({ ok: true });
+    // La demande ne crée aucun compte : la connexion reste impossible.
+    await req('POST', '/auth/otp/request', undefined, { phone: '+24106112233' });
+    expect(outbox.some((m) => m.to === '+24106112233')).toBe(false);
+  });
+
+  it('réserve le back-office à l’administrateur', async () => {
+    expect((await req('GET', '/admin/users', dge)).statusCode).toBe(403);
+    expect((await req('GET', '/admin/users')).statusCode).toBe(401);
+    expect((await req('GET', '/admin/users', admin)).json().length).toBeGreaterThan(5);
+  });
+
+  it('approuve une demande en créant le compte, qui peut alors se connecter', async () => {
+    const list = (await req('GET', '/admin/requests', admin)).json();
+    const r = list.find((x: { phone: string }) => x.phone === '+24106112233');
+    const missingFarm = await req('POST', `/admin/requests/${r.id}/decision`, admin, { approve: true, user: { name: 'Mme Boussougou', role: 'eleveur' } });
+    expect(missingFarm.statusCode).toBe(400);
+    const ok = await req('POST', `/admin/requests/${r.id}/decision`, admin, { approve: true, user: { name: 'Mme Boussougou', role: 'eleveur', farmId: 'GA1-0003' } });
+    expect(ok.json().ok).toBe(true);
+    expect(outbox.at(-1)!.text).toMatch(/compte est activé/);
+    const token = await login('+24106112233');
+    expect(token).toBeTruthy();
+    const again = await req('POST', `/admin/requests/${r.id}/decision`, admin, { approve: false, note: 'doublon' });
+    expect(again.statusCode).toBe(409);
+  });
+
+  it('refuse un numéro en double et un opérateur sans convention', async () => {
+    const dup = await req('POST', '/admin/users', admin, { name: 'Doublon', phone: '+24100000001', role: 'dge' });
+    expect(dup.statusCode).toBe(409);
+    await sync(dge, [item('operators', { id: 'OP-009', name: 'Abattoir test', type: 'abattoir', locality: 'Ntoum', convention: false })]);
+    const noConv = await req('POST', '/admin/users', admin, { name: 'Abattoir test', phone: '+24107000009', role: 'operateur', operatorId: 'OP-009' });
+    expect(noConv.json().error).toMatch(/convention/);
+  });
+
+  it('laisse un opérateur réceptionner ses lots, et rien d’autre', async () => {
+    await sync(dge, [item('operators', { id: 'OP-001', name: 'Abattoir de Ntoum', type: 'abattoir', locality: 'Ntoum', convention: true })]);
+    const created = await req('POST', '/admin/users', admin, { name: 'Abattoir de Ntoum', phone: '+24107000010', role: 'operateur', operatorId: 'OP-001' });
+    expect(created.statusCode).toBe(200);
+    const op = await login('+24107000010');
+    const lots = (await pull(op)).items;
+    expect(lots.every((x: { table: string }) => x.table === 'lots' || x.table === 'operators' || x.table === 'settings')).toBe(true);
+    const lot = lots.find((x: { key: string }) => x.key === 'GA1-0042-B07-L01').payload;
+    const cheat = await sync(op, [item('lots', { ...lot, count: 5000 })]);
+    expect(cheat.json().rejected[0].reason).toMatch(/non modifiable/);
+    const ok = await sync(op, [item('lots', { ...lot, receivedAt: '2026-11-26', receivedCount: 1195, receivedWeightKg: 2440 })]);
+    expect(ok.json().applied).toBe(1);
+    const other = await sync(eleveur, [item('farms', { id: 'GA1-0042', name: 'Piratage' })]);
+    expect(other.json().rejected).toHaveLength(1);
+  });
+
+  it('expose le journal à l’administrateur', async () => {
+    const a = (await req('GET', '/admin/audit?limit=50', admin)).json();
+    expect(a.some((x: { action: string }) => x.action === 'demande approuvée')).toBe(true);
   });
 });

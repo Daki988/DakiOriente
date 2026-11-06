@@ -1,7 +1,7 @@
 import Dexie, { type Table } from 'dexie';
 import type {
   Alert, AuditEntry, Band, DailyEntry, Exit, Farm, HealthReport, InputMovement, Lot, Operator, OutboxItem,
-  Scan, Settings, Treatment, Vaccination, Weighing,
+  Scan, Settings, Treatment, Vaccination, Weighing, UserAccount, AccessRequest,
 } from '../domain/types';
 
 /** Base locale du téléphone (IndexedDB) : toutes les saisies fonctionnent sans réseau (§ 7.2). */
@@ -22,6 +22,8 @@ export class OrigaDB extends Dexie {
   settings!: Table<Settings, string>;
   outbox!: Table<OutboxItem, number>;
   audit!: Table<AuditEntry, number>;
+  users!: Table<UserAccount, string>;
+  requests!: Table<AccessRequest, string>;
 
   constructor(name = 'origa') {
     super(name);
@@ -43,6 +45,8 @@ export class OrigaDB extends Dexie {
       outbox: '++id, table, at',
       audit: '++id, at, table',
     });
+    // v2 : comptes et demandes d'accès (mode démonstration ; en production ils vivent sur le serveur).
+    this.version(2).stores({ users: 'id, &phone, role, active', requests: 'id, status, createdAt' });
   }
 }
 

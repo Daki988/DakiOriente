@@ -8,8 +8,9 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['icon.svg'],
+      registerType: 'prompt',
+      injectRegister: false,
+      includeAssets: ['icon.svg', 'icons/*.png', 'img/*.webp'],
       manifest: {
         name: 'Origa — Filière avicole du Gabon',
         short_name: 'Origa',
@@ -19,9 +20,14 @@ export default defineConfig({
         background_color: '#F5F7F6',
         display: 'standalone',
         start_url: './',
-        icons: [{ src: 'icon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any maskable' }],
+        icons: [
+          { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+          { src: 'icon.svg', sizes: 'any', type: 'image/svg+xml' },
+        ],
       },
-      workbox: { navigateFallback: 'index.html', globPatterns: ['**/*.{js,css,html,svg,woff2}'] },
+      workbox: { navigateFallback: 'index.html', globPatterns: ['**/*.{js,css,html,svg,woff2,png,webp}'] },
     }),
   ],
   test: { environment: 'node', setupFiles: ['src/test/setup.ts'], include: ['src/**/*.test.ts'] },

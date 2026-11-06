@@ -3,6 +3,8 @@ import type { Role } from '../domain/types';
 export interface Session {
   role: Role;
   userLabel: string;
+  userId?: string;
+  operatorId?: string;
   farmId?: string; // profil éleveur
   farmIds?: string[]; // profil agent technique
 }
@@ -23,7 +25,7 @@ export function getSession(): Session {
   let raw: string | null = null;
   try { raw = localStorage.getItem(KEY); } catch { /* stockage indisponible */ }
   if (cache && cache.raw === raw) return cache.value;
-  let value = PROFILES[0];
+  let value: Session = { role: 'eleveur', userLabel: '' }; // aucune session : écran de connexion
   if (raw) { try { value = JSON.parse(raw) as Session; } catch { /* valeur corrompue */ } }
   cache = { raw, value };
   return value;

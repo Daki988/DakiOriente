@@ -4,11 +4,57 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0B3D2E" />
-    <meta name="description" content="Origa : suivi des fermes avicoles du programme POUFA et traçabilité des poulets du Gabon." />
+    <meta name="description" content="Origa : suivi des fermes avicoles du programme POUFA et traçabilité des poulets du Gabon, de la ferme à l'assiette." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Origa" />
+    <meta property="og:title" content="Origa — L'origine prouvée, de la ferme à l'assiette" />
+    <meta property="og:description" content="Suivi des 150 fermes avicoles du programme POUFA et traçabilité des poulets du Gabon." />
+    <meta property="og:image" content="./icons/icon-512.png" />
     <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
     <title>Origa — Filière avicole du Gabon</title>
+    <style>
+      /* Animation de chargement : visible avant même le téléchargement de l'application. */
+      #boot{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+        background:radial-gradient(120% 80% at 50% 30%,#12553F 0%,#0B3D2E 60%,#082C21 100%);color:#fff;
+        font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;transition:opacity .45s ease,visibility .45s}
+      #boot.done{opacity:0;visibility:hidden}
+      #boot .b-mark{width:120px;height:120px;animation:pop .7s cubic-bezier(.2,1.4,.4,1) both}
+      #boot .b-egg{transform-origin:256px 300px;animation:wob 2.4s ease-in-out .8s infinite}
+      #boot .b-chk{stroke-dasharray:240;stroke-dashoffset:240;animation:draw .55s ease-out .45s forwards}
+      #boot .b-st{transform-box:fill-box;transform-origin:center;transform:scaleX(0);animation:grow .35s ease-out forwards}
+      #boot .b-st:nth-of-type(1){animation-delay:.85s}#boot .b-st:nth-of-type(2){animation-delay:.95s}#boot .b-st:nth-of-type(3){animation-delay:1.05s}
+      #boot .b-name{font-size:34px;font-weight:800;letter-spacing:-.8px;opacity:0;animation:up .5s ease-out .6s forwards}
+      #boot .b-tag{font-size:13px;color:#A9D8C3;font-weight:600;opacity:0;animation:up .5s ease-out .8s forwards}
+      #boot .b-bar{width:140px;height:4px;border-radius:4px;background:rgba(255,255,255,.14);overflow:hidden;opacity:0;animation:up .4s ease-out 1s forwards}
+      #boot .b-bar i{display:block;width:40%;height:100%;border-radius:4px;background:#F5B700;animation:slide 1.1s ease-in-out infinite}
+      @keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+      @keyframes wob{0%,100%{transform:rotate(0)}20%{transform:rotate(-5deg)}40%{transform:rotate(4deg)}60%{transform:rotate(-2deg)}80%{transform:rotate(0)}}
+      @keyframes draw{to{stroke-dashoffset:0}}
+      @keyframes grow{to{transform:scaleX(1)}}
+      @keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+      @keyframes slide{0%{transform:translateX(-110%)}100%{transform:translateX(260%)}}
+      @media (prefers-reduced-motion:reduce){#boot *{animation-duration:.01s!important;animation-iteration-count:1!important}}
+    </style>
   </head>
   <body>
+    <div id="boot" role="status" aria-label="Chargement d'Origa">
+      <svg class="b-mark" viewBox="0 0 512 512" aria-hidden="true">
+        <rect width="512" height="512" rx="116" fill="#0B3D2E" stroke="rgba(255,255,255,.12)" stroke-width="6"/>
+        <g class="b-egg">
+          <path d="M256 84c58 0 128 112 128 208 0 82-56 134-128 134s-128-52-128-134c0-96 70-208 128-208z" fill="#F5B700"/>
+          <ellipse cx="206" cy="196" rx="24" ry="40" transform="rotate(24 206 196)" fill="#fff" opacity=".35"/>
+          <path class="b-chk" d="M192 298l44 44 86-94" fill="none" stroke="#0B3D2E" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <rect class="b-st" x="164" y="450" width="60" height="14" rx="7" fill="#009E60"/>
+        <rect class="b-st" x="226" y="450" width="60" height="14" rx="7" fill="#FCD116"/>
+        <rect class="b-st" x="288" y="450" width="60" height="14" rx="7" fill="#3A75C4"/>
+      </svg>
+      <div class="b-name">Origa</div>
+      <div class="b-tag">L'origine prouvée, de la ferme à l'assiette</div>
+      <div class="b-bar"><i></i></div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
