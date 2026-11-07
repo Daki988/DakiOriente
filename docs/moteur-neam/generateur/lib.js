@@ -93,6 +93,7 @@ const LOGO_PAL = {
   '2s-confort-driving': P('#ffffff', '#0D1B3E', '#1B3F8B', '#FFC20E', '#F4F6FA'),
   'bijouterie-de-l-ecrin': P('#FBF6EE', '#2A1016', '#3A0F1C', '#C9A227', '#F3E9DA'),
   'asian-auto-gabon': P('#FFFFFF', '#111317', '#D62828', '#1C1F25', '#F2F3F5'),
+  'fishing-gabon-club': P('#F6EFE4', '#0B2A3C', '#127C8A', '#F29E38', '#FFFFFF'),
 };
 const FONTS = {
   hotel: [['Cormorant Garamond', 'Jost'], ['Playfair Display', 'Inter'], ['Italiana', 'Montserrat'], ['Fraunces', 'Work Sans'], ['DM Serif Display', 'DM Sans'], ['Bodoni Moda', 'Manrope']],
@@ -127,7 +128,7 @@ function brandOf(p, idx, sectorIdx) {
   const pal = LOGO_PAL[slug] || pals[(sectorIdx + hash(slug)) % pals.length];
   const font = fts[sectorIdx % fts.length];
   const domain = p.dom && !/fattal|beachclub|hotel-orchidee/.test(p.dom) ? p.dom : (p.dom || slug.replace(/-/g, '') + '.ga');
-  const HANDLES = { 'escapade-travel-agency': 'escapadetravel241', 'ela-expertise': 'elaexpertise241', 'cabinet-de-radiologie-cimel': 'radiologiecimel', 'eva-spa-chez-clarisse': 'evaspa241', delicatess: 'contact.delicatess', 'cabinet-medical-saint-raphael': 'cabinetsaintraphael', 'cabinet-dentaire-avicenne': 'cabinet.dentaire', '2s-confort-driving': '2sconfortdriving', 'bijouterie-de-l-ecrin': 'bijouterieecrin241', 'asian-auto-gabon': 'asianautogabon' };
+  const HANDLES = { 'escapade-travel-agency': 'escapadetravel241', 'ela-expertise': 'elaexpertise241', 'cabinet-de-radiologie-cimel': 'radiologiecimel', 'eva-spa-chez-clarisse': 'evaspa241', delicatess: 'contact.delicatess', 'cabinet-medical-saint-raphael': 'cabinetsaintraphael', 'cabinet-dentaire-avicenne': 'cabinet.dentaire', '2s-confort-driving': '2sconfortdriving', 'bijouterie-de-l-ecrin': 'bijouterieecrin241', 'asian-auto-gabon': 'asianautogabon', 'fishing-gabon-club': 'fishing_gabon_club' };
   const handle = HANDLES[slug] || slugify(main).replace(/-/g, '').slice(0, 18) + (/libreville|lbv/.test(slug) ? '' : '241');
   return { main, kicker, initials, slug, pal, font, domain, handle, variant: p.vr ?? sectorIdx % 3, logoStyle: (sectorIdx + hash(slug)) % 4, photos: photosFor(p, sectorIdx) };
 }
@@ -136,7 +137,7 @@ function brandOf(p, idx, sectorIdx) {
 const REAL_LOGOS = {
   'ab-location': 'ab-location.png', afram: 'afram.png', biolab: 'biolab.png', 'gabon-management-services': 'gabon-management-services.png',
   'home-et-co': 'home-co.jpg', 'hotel-hibiscus': 'hotel-hibiscus.png', 'wanted-immobilier': 'wanted-immobilier.jpg', 'yeshua-real-estate': 'yeshua-real-estate.png',
-  'escapade-travel-agency': 'escapade-travel-agency.svg', 'ela-expertise': 'ela-expertise.svg', 'cabinet-de-radiologie-cimel': 'cabinet-de-radiologie-cimel.svg', 'eva-spa-chez-clarisse': 'eva-spa-chez-clarisse.svg', delicatess: 'delicatess.svg', 'cabinet-medical-saint-raphael': 'cabinet-medical-saint-raphael.svg', 'cabinet-dentaire-avicenne': 'cabinet-dentaire-avicenne.svg', '2s-confort-driving': '2s-confort-driving.svg', 'bijouterie-de-l-ecrin': 'bijouterie-de-l-ecrin.svg', 'asian-auto-gabon': 'asian-auto-gabon.svg',
+  'escapade-travel-agency': 'escapade-travel-agency.svg', 'ela-expertise': 'ela-expertise.svg', 'cabinet-de-radiologie-cimel': 'cabinet-de-radiologie-cimel.svg', 'eva-spa-chez-clarisse': 'eva-spa-chez-clarisse.svg', delicatess: 'delicatess.svg', 'cabinet-medical-saint-raphael': 'cabinet-medical-saint-raphael.svg', 'cabinet-dentaire-avicenne': 'cabinet-dentaire-avicenne.svg', '2s-confort-driving': '2s-confort-driving.svg', 'bijouterie-de-l-ecrin': 'bijouterie-de-l-ecrin.svg', 'asian-auto-gabon': 'asian-auto-gabon.svg', 'fishing-gabon-club': 'fishing-gabon-club.svg',
 };
 const realLogo = (slug) => (REAL_LOGOS[slug] ? (process.env.LOGO_URL ? process.env.LOGO_URL + REAL_LOGOS[slug] : 'file://' + path.join(REAL_LOGOS_DIR, REAL_LOGOS[slug])) : null);
 

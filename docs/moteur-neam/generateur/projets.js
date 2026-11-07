@@ -368,7 +368,10 @@ const VOYAGE = {
   'batrhotour-assistance': { tagline: 'Le Haut-Ogooué grandeur nature', hero: 'cascade#2', side: 'savane#1',
     intro: 'Batrhotour Assistance organise depuis Franceville la découverte du Haut-Ogooué : chutes de Poubara, plateaux Batéké, parc de la Lékédi et canyons de Lékoni.',
     dest: [D('Chutes de Poubara', 'Journée · pont de lianes et cascades', 55000, 'Gabon', 'cascade#2'), D('Plateaux Batéké', '2 jours · savanes et villages', 240000, 'Gabon', 'savane#1'), D('Canyons de Lékoni', '2 jours · cirque et lac Bleu', 260000, 'Gabon', 'gabon#3'), D('Parc de la Lékédi', 'Journée · primates et lacs', 90000, 'Gabon', 'gorille#2'), D('Franceville en un jour', 'Visite guidée de la ville', 35000, 'Gabon', 'gabon#1'), D('Coucher de soleil sur la savane', 'Soirée · observation et dîner', 45000, 'Gabon', 'savane#2')] },
-  'fishing-gabon-club': { tagline: 'La pêche sportive au Gabon', hero: 'peche-large#1', side: 'peche-large#2',
+  'fishing-gabon-club': { tagline: 'La pêche sportive au Gabon', cta: 'Réserver une sortie',
+    intro: 'Fishing Gabon Club : sorties de pêche sportive en pirogue au départ du club Barracuda, trips sur mesure (Loango, Setté Cama) et balades baleines, avec un guide expérimenté.',
+    hours: ['Sorties tous les jours', 'Réservation 48 h à l\'avance'], address: 'Club Barracuda, Terrasses de l\'Estuaire, Libreville', email: 'damien.zissman@gmail.com',
+    hero: 'peche-large#1', side: 'peche-large#2',
     dest: [D('Pêche au gros', 'Cap Estérias · journée', 250000, 'Large', 'peche-large#1'), D('Pêche au tarpon', 'Estuaire · demi-journée', 150000, 'Estuaire', 'peche-large#2'), D('Pêche du bord', 'Plages de Libreville · 4 h', 60000, 'Bord', 'peche-bord#1'), D('Séjour Sette Cama', '3 jours · lagune et océan', 950000, 'Séjour', 'peche-bord#2'), D('Pêche de nuit', 'Estuaire du Komo', 120000, 'Estuaire', 'peche-large#3'), D('Expédition Mayumba', '4 jours · tarpons géants', 1400000, 'Séjour', 'peche-bord#3')] },
 };
 

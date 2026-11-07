@@ -301,3 +301,5 @@ Toutes les photos proviennent d'Unsplash (licence Unsplash, usage commercial gra
 ## Logos des réseaux sociaux
 
 Icônes Instagram, Facebook, Messenger, TikTok, LinkedIn et WhatsApp : Font Awesome Free 6.5.2 (https://fontawesome.com), licence CC BY 4.0. Les logos restent la propriété de leurs marques respectives.
+- x-pirogue-1.jpg — Unsplash, photo-1758061348842-00649fb01bdd
+- x-lagune-1.jpg — Unsplash, photo-1672388144515-aebec2731488
