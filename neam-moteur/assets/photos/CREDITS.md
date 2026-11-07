@@ -294,6 +294,9 @@ Toutes les photos proviennent d'Unsplash (licence Unsplash, usage commercial gra
 - x-etabli-1.jpg — Unsplash, photo-1599071338288-49173359e0fd
 - x-soudure-bijou-1.jpg — Unsplash, photo-1609619742069-f5e18afeef17
 - x-creoles-or-1.jpg — Unsplash, photo-1608508644127-ba99d7732fee
+- x-armoire-outils-1.jpg — Unsplash, photo-1561763439-fb89720fc359
+- x-vidange-2.jpg — Unsplash, photo-1642075223291-f9ec545889fa
+- x-mains-moteur-1.jpg — Unsplash, photo-1785764683987-524b10eaae29
 
 ## Logos des réseaux sociaux
 
