@@ -279,7 +279,9 @@ const BEAUTE = {
   'institut-sheba': { tagline: 'Coiffure et beauté afro', intro: 'L\'Institut Sheba coiffe et sublime : tresses, pose de perruques, brushing et soins capillaires pour cheveux naturels.', hero: 'tresses#1', side: 'salon-coiffure',
     cats: { 'Coiffure': [s('Tresses', 'Selon longueur', 15000), s('Pose perruque', 'Lace et personnalisation', 20000), s('Brushing', 'Soin inclus', 8000)], 'Soins': [s('Soin capillaire profond', 'Cheveux naturels', 10000), s('Shampoing et coiffage', '30 min', 5000)], 'Beauté': [s('Maquillage', 'Jour ou soirée', 15000)] },
     catPh: { 'Coiffure': 'tresses#1', 'Soins': 'shampoing', 'Beauté': 'maquillage#2' }, gallery: ['tresses#1', 'tresses#2', 'salon-coiffure', 'shampoing', 'maquillage#2', 'portrait-beaute#1'] },
-  'skin-technology-by-latania': { tagline: 'Le soin qui vous ressemble', intro: 'Skin Technology by Latania traite les problèmes de peau : diagnostic, peelings, microneedling et soins experts.', hero: 'soin-visage#4', side: 'serums#1',
+  'skin-technology-by-latania': { tagline: 'Le soin qui vous ressemble', cta: 'Faire mon diagnostic',
+    intro: 'Skin Technology by Latania : produits et soins de réparation et de rajeunissement de la peau, pensés pour les peaux noires et métissées. Showroom au Beaulieu, Angondjé.',
+    hours: ['Ferme à 19 h', 'Lun – Sam · 9 h – 19 h'], address: 'Immeuble Beaulieu, 1er étage, Angondjé, Akanda', email: '24kskintech@gmail.com', hero: 'soin-visage#4', side: 'serums#1',
     cats: { 'Diagnostic': [s('Diagnostic de peau', 'Analyse et protocole', 10000)], 'Soins experts': [s('Peeling éclat', 'Taches et teint terne', 35000), s('Microneedling', 'Texture et cicatrices', 50000), s('Hydrafacial', 'Nettoyage profond', 40000)] },
     catPh: { 'Diagnostic': 'soin-visage#4', 'Soins experts': 'serums#1' }, gallery: ['soin-visage#4', 'serums#1', 'serums#3', 'soin-peau-noire#1', 'soin-visage#2', 'serums#2'] },
 };

@@ -53,6 +53,8 @@
     'reserver.html': ['Réservation de sortie en ligne : formule, date, équipage, tarif et confirmation WhatsApp', '[data-resa]|form'],
     'especes.html': ['Calendrier des espèces et des saisons, mois par mois', '[data-months]|main .sec'],
     'sorties.html': ['Toutes les sorties avec durée, lieu et tarif indicatif', '.fms|main .sec'],
+    'diagnostic.html': ['Diagnostic de peau en ligne : 4 questions, une routine et un soin conseillés', '[data-quiz]|main .sec'],
+    'produits.html': ['Catalogue produits filtrable avec sélection et commande sur WhatsApp', '[data-flt]|main .sec'],
     'equipe.html': ['Présentation de l\'équipe et des praticiens pour rassurer les patients', 'main .sec .g3|main .sec'],
     'destinations.html': ['Destinations présentées avec photos, durée et prix « à partir de »', 'main .sec .g3|main .sec'],
     'sur-mesure.html': ['Demande de voyage sur mesure avec budget et dates', '[data-budget]|form'],
