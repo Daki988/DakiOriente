@@ -22,7 +22,7 @@ const SIG_ASSETS = {
 const SOCIAL = {};
 
 // Sites entièrement faits à la main (docs/moteur-neam/sur-mesure/<slug>/build.js) : on lit seulement leurs pages
-const HAND = ['escapade-travel-agency', 'ela-expertise', 'cabinet-de-radiologie-cimel', 'eva-spa-chez-clarisse', 'delicatess', 'cabinet-medical-saint-raphael', 'cabinet-dentaire-avicenne', '2s-confort-driving', 'bijouterie-de-l-ecrin', 'asian-auto-gabon', 'fishing-gabon-club', 'skin-technology-by-latania', 'alpha-omega-diagnostic', 'cabinet-dentaire-acae-sourire', 'chouchou-lazare', 'cabinet-dentaire-dr-abbas', 'wanted-immobilier', 'awax-music-school'];
+const HAND = ['escapade-travel-agency', 'ela-expertise', 'cabinet-de-radiologie-cimel', 'eva-spa-chez-clarisse', 'delicatess', 'cabinet-medical-saint-raphael', 'cabinet-dentaire-avicenne', '2s-confort-driving', 'bijouterie-de-l-ecrin', 'asian-auto-gabon', 'fishing-gabon-club', 'skin-technology-by-latania', 'alpha-omega-diagnostic', 'cabinet-dentaire-acae-sourire', 'chouchou-lazare', 'cabinet-dentaire-dr-abbas', 'wanted-immobilier', 'awax-music-school', 'afram'];
 const SIGNATURES = ['chouchou-lazare', 'artemis-luxury-co', 'skin-technology-by-latania', 'hotel-le-refuge', 'akae-beach', 'bella-mamma'];
 
 // Animations ajoutées aux sites générés : apparition au défilement, zoom lent du haut de page, bouton retour.

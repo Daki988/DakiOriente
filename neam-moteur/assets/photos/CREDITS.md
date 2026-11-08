@@ -308,3 +308,7 @@ Icônes Instagram, Facebook, Messenger, TikTok, LinkedIn et WhatsApp : Font Awes
 - x-raphia-1.jpg — Unsplash, photo-1722081346616-7f47909b8309
 - x-saxophone-1.jpg — Unsplash, photo-1670983480059-6dc099a47a9e
 - x-piano-1.jpg — Unsplash, photo-1577742916133-18496a15be91
+- x-diplomes-1.jpg — Unsplash, photo-1789919330674-90fe87277f86
+- x-diplomes-2.jpg — Unsplash, photo-1645262960695-ec79787ffeac
+- x-diplomes-3.jpg — Unsplash, photo-1645263012668-a6617115f9b9
+- x-diplome-costume-1.jpg — Unsplash, photo-1645262803543-59fef7aa780e
