@@ -13,7 +13,11 @@ defaults:
 
 env:
   # Adresse publique des pages QR ouvertes par les consommateurs (application web déployée sur Vercel).
-  VITE_PUBLIC_BASE: https://origa-daki11.vercel.app/
+  VITE_PUBLIC_BASE: https://origa-ten.vercel.app/
+  # Serveur national (fonction Vercel). Facultatif : tant qu'il ne répond pas « prêt », l'application reste en
+  # démonstration autonome ; dès qu'il répond, elle bascule d'elle-même, sans nouvelle version à installer.
+  VITE_API_URL: https://origa-ten.vercel.app/api
+  VITE_API_OPTIONAL: '1'
 
 jobs:
   web:
@@ -133,10 +137,13 @@ jobs:
         run: |
           cd out
           cp origa-android-apk/app-debug.apk Origa-Android-HarmonyOS.apk
+          # Le même fichier sert aux deux systèmes : HarmonyOS 2 installe les APK Android et l'application n'utilise aucun service Google.
+          cp origa-android-apk/app-debug.apk Origa-Android.apk
+          cp origa-android-apk/app-debug.apk Origa-HarmonyOS.apk
           cp origa-ios-simulator/origa-ios-simulator.zip Origa-iOS-simulateur.zip
           (cd origa-web && zip -qr ../Origa-web.zip .)
           gh release delete origa-latest --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag || true
           gh release create origa-latest --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
             --title "Origa — dernière version (build ${{ github.run_number }})" \
             --notes "Version de démonstration. APK pour Android et HarmonyOS 2 (installation directe), app iOS pour le simulateur Xcode, version web. Page d'installation : https://origa-ten.vercel.app/#/telecharger" \
-            Origa-Android-HarmonyOS.apk Origa-iOS-simulateur.zip Origa-web.zip
+            Origa-Android.apk Origa-HarmonyOS.apk Origa-Android-HarmonyOS.apk Origa-iOS-simulateur.zip Origa-web.zip

@@ -505,7 +505,7 @@ describe('suppression et correction selon l’habilitation (v1.3)', () => {
 
   it('accepte un code de démonstration seulement quand le serveur est en mode démonstration', async () => {
     expect((await app.inject({ method: 'POST', url: '/auth/otp/verify', payload: { phone: '+24100000001', code: '241241' } })).statusCode).toBe(401);
-    expect((await app.inject({ method: 'GET', url: '/public/config' })).json()).toEqual({ demo: false, sms: false });
+    expect((await app.inject({ method: 'GET', url: '/public/config' })).json()).toEqual({ ready: true, demo: false, sms: false });
     const demo = await buildApp({ ...cfg, demoOtp: '241241' }, db, { sms: async () => undefined, mail: mailer });
     const ok = await demo.inject({ method: 'POST', url: '/auth/otp/verify', payload: { phone: '+24100000001', code: '241241' } });
     expect(ok.json().user).toMatchObject({ role: 'eleveur', farmId: 'GA1-0042' });

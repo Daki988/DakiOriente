@@ -4,13 +4,18 @@ import { App } from './App';
 import { ErrorBoundary, UpdateBar } from './components/AppChrome';
 import { seedIfEmpty } from './data/seed';
 import { ensureDemoAccounts, ensureDemoExtras } from './data/demoUsers';
-import { apiEnabled } from './app/api';
+import { apiEnabled, detectServer } from './app/api';
 import { db } from './data/db';
 import { DEFAULT_SETTINGS } from './domain/defaults';
 import { startAutoSync } from './data/sync';
 import './styles/app.css';
 
-const boot = apiEnabled ? db.settings.get('global').then((s) => { if (!s) return db.settings.put(DEFAULT_SETTINGS); }) : seedIfEmpty().then(ensureDemoAccounts).then(ensureDemoExtras);
+// Le serveur est-il en service ? Sinon, démonstration autonome avec des données fictives.
+const boot = detectServer().then(async (mode) => {
+  if (mode === 'upgraded') { await db.delete(); location.reload(); await new Promise(() => undefined); } // on repart sur une base vide, côté serveur
+  if (apiEnabled) { if (!(await db.settings.get('global'))) await db.settings.put(DEFAULT_SETTINGS); return; }
+  await seedIfEmpty(); await ensureDemoAccounts(); await ensureDemoExtras();
+});
 const shownAt = performance.now();
 boot.finally(() => {
   startAutoSync();

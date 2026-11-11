@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build && npm --prefix server ci && npm --prefix server run build",
+  "outputDirectory": "dist",
+  "build": { "env": { "VITE_API_URL": "https://origa-ten.vercel.app/api", "VITE_API_OPTIONAL": "1", "VITE_PUBLIC_BASE": "https://origa-ten.vercel.app/" } },
+  "functions": { "api/index.js": { "includeFiles": "server/{dist,src,seed}/**", "maxDuration": 30 } },
+  "rewrites": [{ "source": "/api/:path*", "destination": "/api/index?__path=:path*" }],
+  "crons": [{ "path": "/api/cron/reports", "schedule": "0 5 * * *" }]
+}

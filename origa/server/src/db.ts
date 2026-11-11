@@ -6,7 +6,8 @@ import pg from 'pg';
 export type Db = pg.Pool;
 
 export function createPool(url: string): Db {
-  return new pg.Pool({ connectionString: url, max: 10 });
+  // En fonction sans serveur (Vercel), chaque instance garde peu de connexions.
+  return new pg.Pool({ connectionString: url, max: process.env.VERCEL ? 3 : 10 });
 }
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -17,4 +18,20 @@ export async function migrate(db: Db) {
   });
   if (!file) throw new Error('schema.sql introuvable');
   await db.query(readFileSync(file, 'utf8'));
+}
+
+/**
+ * Démarrage d'une instance : schéma à jour (une seule instance à la fois, les autres attendent), puis action
+ * facultative sous le même verrou (chargement du jeu de démonstration, par exemple).
+ */
+export async function prepare(db: Db, after?: () => Promise<unknown>) {
+  const c = await db.connect();
+  try {
+    await c.query('SELECT pg_advisory_lock(724100)');
+    await migrate(db);
+    await after?.();
+  } finally {
+    await c.query('SELECT pg_advisory_unlock(724100)').catch(() => undefined);
+    c.release();
+  }
 }

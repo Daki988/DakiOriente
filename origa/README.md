@@ -1,4 +1,4 @@
-# Origa 1.2 — l'origine prouvée, de la ferme à l'assiette
+# Origa 1.3 — l'origine prouvée, de la ferme à l'assiette
 
 ![Logo Origa](design/logo/origa-logo-horizontal.svg)
 
@@ -44,6 +44,15 @@ Les 68 fonctionnalités du cahier des charges sont couvertes, y compris celles m
 - **Reprise de l'existant** : import CSV (fermes de l'AMI, fiches, intrants) avec validation ligne à ligne et rapport de rejets.
 - **API** : contrôle distributeur, agrégats, statistiques publiques, export d'événements EMA-i, `GET /openapi.json`.
 
+## Ajouts de la version 1.3
+
+- **Menu pour tous les profils** : sur téléphone et tablette (donc dans l'APK), la DGE, les vétérinaires, la BCEG, le MAEDR, l'ANINF et l'administrateur n'avaient aucun menu. Une barre supérieure ouvre désormais le menu en tiroir.
+- **Corriger et supprimer selon l'habilitation** : boutons Modifier et Supprimer dans tous les registres, affichés d'après les règles du serveur (`server/src/scope.ts`, module partagé). La suppression est confirmée, journalisée et transmise aux autres appareils. Les lots, les bandes, les fermes et les alertes ne se suppriment jamais ; les saisies d'une bande clôturée sont en lecture seule. Droit « supprimer » (S) dans la matrice des droits.
+- **Écrans de la version 1.2** : rouleau d'étiquettes QR à imprimer, « Mes étiquettes QR », envoi des rapports par e-mail (destinataires, journal, envoi immédiat), export EPCIS 2.0.
+- **Serveur sur Vercel** : `api/index.js` fait tourner le serveur national en fonction sans serveur (même code que le conteneur). L'application démarre en démonstration autonome et bascule d'elle-même sur le serveur dès qu'il répond « prêt » (`VITE_API_OPTIONAL=1`) : il suffit de brancher une base PostgreSQL au projet Vercel (variable `DATABASE_URL` ou `POSTGRES_URL`).
+- **Démonstration devant un jury** : `DEMO_OTP=241241` accepte un code fixe à la place du SMS et charge le jeu de données fictives (`server/seed/demo.json`). À retirer avant l'exploitation réelle.
+- **Contrôle automatique** : 534 écrans vérifiés (9 profils, 3 largeurs) sans menu absent, débordement ni chevauchement.
+
 ## Ajouts de la version 1.2
 
 - **Étiquettes QR pré-signées** : le serveur signe à l'avance les prochains numéros de lot d'une bande (`POST /lots/presign`). Le téléphone de l'éleveur garde une réserve de 5 étiquettes, complétée à chaque synchronisation ; une cession faite sans réseau donne tout de suite un QR valide, et le serveur appose ensuite la même signature.
@@ -51,8 +60,6 @@ Les 68 fonctionnalités du cahier des charges sont couvertes, y compris celles m
 - **Export EPCIS 2.0 (GS1)** : `GET /interop/epcis/events` décrit chaque lot en événements normalisés (mise en lot, expédition, transport, réception, transformation, contrôle du distributeur). Les identifiants sont des URN `urn:origa:…` en attendant un préfixe GS1.
 - **SMS et e-mails par Brevo** : `SMS_PROVIDER=brevo` et `MAIL_PROVIDER=brevo` avec une seule clé, en plus de la passerelle HTTP et du relais SMTP.
 - **Maquettes dans Figma** : `scripts/planche-figma.cjs` produit la planche des écrans (application en service et écrans à valider).
-
-Les écrans de la version 1.2 (rouleau d'étiquettes à imprimer, réglage des destinataires des rapports, bouton d'export EPCIS) sont maquettés dans Figma et seront codés après validation, selon la règle « Figma d'abord ».
 
 Deux modes de fonctionnement :
 
@@ -111,6 +118,9 @@ Comptes de démonstration du serveur, avec le code SMS affiché dans le journal 
 | `BREVO_API_KEY`, `SMS_SENDER` | serveur | Clé et nom d'expéditeur Brevo (SMS et e-mails) |
 | `MAIL_PROVIDER`, `SMTP_URL`, `MAIL_FROM` | serveur | Envoi des rapports : `console`, `smtp` ou `brevo` |
 | `REPORT_RECIPIENTS` | serveur | Destinataires par défaut des rapports, séparés par des virgules |
+| `VITE_API_OPTIONAL` | application | `1` : démonstration autonome tant que le serveur ne répond pas « prêt », puis bascule automatique |
+| `DEMO_OTP` | serveur | Code fixe de démonstration (6 chiffres) et chargement des données fictives ; jamais en exploitation |
+| `CRON_SECRET` | serveur (Vercel) | Protège la tâche planifiée d'envoi des rapports |
 | `CORS_ORIGINS` | serveur | Origines autorisées |
 
 ## Déploiement
@@ -156,8 +166,8 @@ design/        maquette v1 en HTML, à importer dans Figma « Origa — Maquette
 
 ## Reste à faire
 
-1. Coder les écrans de la version 1.2 après validation des maquettes Figma : rouleau d'étiquettes, destinataires des rapports, export EPCIS.
-2. Fournir la clé de la passerelle SMS (agrégateur Airtel / Moov ou Brevo) et du relais d'e-mails.
+1. Brancher une base PostgreSQL au projet Vercel (Storage → Create Database → Neon), puis redéployer : le serveur de démonstration s'active seul.
+2. Fournir la clé de la passerelle SMS (agrégateur Airtel / Moov ou Brevo) et du relais d'e-mails ; retirer alors `DEMO_OTP`.
 3. EMA-i+ (FAO) : l'export existe, le protocole d'échange reste à formaliser avec la FAO.
 4. Obtenir un préfixe GS1 pour remplacer les URN `urn:origa:…` par des LGTIN et des GLN dans l'export EPCIS.
-5. Héberger le serveur au Gabon, ouvrir le compte Apple Developer, accomplir les formalités de protection des données.
+5. Héberger le serveur au Gabon (`docker compose`), ouvrir le compte Apple Developer, accomplir les formalités de protection des données.

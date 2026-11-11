@@ -1,5 +1,5 @@
 import { db } from './db';
-import { API, apiEnabled, api, getToken } from '../app/api';
+import { apiEnabled, api, getToken } from '../app/api';
 import { refillReserve } from './labels';
 
 // Synchronisation au retour du réseau : envoi de la file locale, puis réception des données du périmètre.
@@ -65,7 +65,7 @@ export async function pull(): Promise<number> {
 export async function pendingCount() { return db.outbox.count(); }
 
 export function startAutoSync() {
-  if (!API) return () => undefined;
+  if (!apiEnabled) return () => undefined;
   const run = () => { flushOutbox().catch(() => undefined); };
   window.addEventListener('online', run);
   const t = window.setInterval(run, 60_000);

@@ -100,7 +100,7 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mai
 
   app.get('/me', { preHandler: auth }, async (req) => req.user);
   /** Ce que l'écran de connexion doit savoir du serveur (aucune donnée sensible). */
-  app.get('/public/config', async () => ({ demo: !!cfg.demoOtp, sms: cfg.smsProvider !== 'console' }));
+  app.get('/public/config', async () => ({ ready: true, demo: !!cfg.demoOtp, sms: cfg.smsProvider !== 'console' }));
 
   // ---------- Synchronisation ----------
   app.post<{ Body: { items?: SyncItem[] } }>('/sync', { preHandler: auth }, async (req, reply) => {

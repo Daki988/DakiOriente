@@ -5,7 +5,10 @@ import { utf8ToBytes, bytesToHex, hexToBytes } from '@noble/curves/abstract/util
 // En production, la clé privée reste sur le serveur (HSM) et les étiquettes pré-imprimées sont pré-signées ;
 // la clé de démonstration ci-dessous sert uniquement au prototype.
 const DEMO_PRIVATE_KEY = hexToBytes('9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60');
-export const PUBLIC_KEY: string = (import.meta.env?.VITE_LOT_PUBLIC_KEY as string | undefined) || bytesToHex(ed25519.getPublicKey(DEMO_PRIVATE_KEY));
+/** Clé publique de vérification : celle du serveur en exploitation, celle de démonstration sinon. */
+export let PUBLIC_KEY: string = (import.meta.env?.VITE_LOT_PUBLIC_KEY as string | undefined) || bytesToHex(ed25519.getPublicKey(DEMO_PRIVATE_KEY));
+/** Le serveur national publie sa clé (GET /public/key) ; l'application la retient pour vérifier les QR hors ligne. */
+export function setPublicKey(hex: string) { if (/^[0-9a-f]{64}$/i.test(hex)) PUBLIC_KEY = hex; }
 
 const b64url = (b: Uint8Array) => btoa(String.fromCharCode(...b)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 const fromB64url = (s: string) => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/')), (c) => c.charCodeAt(0));
@@ -14,7 +17,7 @@ export function signLot(lotId: string): string {
   return b64url(ed25519.sign(utf8ToBytes(lotId), DEMO_PRIVATE_KEY));
 }
 
-export function verifyLot(lotId: string, signature: string, publicKeyHex = PUBLIC_KEY): boolean {
+export function verifyLot(lotId: string, signature: string, publicKeyHex: string = PUBLIC_KEY): boolean {
   try {
     return ed25519.verify(fromB64url(signature), utf8ToBytes(lotId), hexToBytes(publicKeyHex));
   } catch {

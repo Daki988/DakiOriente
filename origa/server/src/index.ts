@@ -1,12 +1,13 @@
 import { loadConfig } from './config.js';
-import { createPool, migrate } from './db.js';
+import { createPool, prepare } from './db.js';
+import { seedDemo } from './demoSeed.js';
 import { buildApp } from './app.js';
 import { createMailer } from './mail.js';
 import { startReportScheduler } from './reports.js';
 
 const cfg = loadConfig();
 const db = createPool(cfg.databaseUrl);
-await migrate(db);
+await prepare(db, async () => { if (cfg.demoOtp) await seedDemo(db, cfg.lotSigningKey); });
 const log = (m: string) => console.log(m);
 const mail = createMailer(cfg, log);
 const app = await buildApp(cfg, db, { logger: true, mail });

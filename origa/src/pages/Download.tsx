@@ -1,6 +1,8 @@
 import { Logo, Icon } from '../components/Icon';
 
-const APK = 'https://github.com/Daki988/DakiOriente/releases/download/origa-latest/Origa-Android-HarmonyOS.apk';
+const RELEASE = 'https://github.com/Daki988/DakiOriente/releases/download/origa-latest';
+const APK = `${RELEASE}/Origa-Android.apk`;
+const APK_HARMONY = `${RELEASE}/Origa-HarmonyOS.apk`;
 
 /** Page publique de téléchargement : Android et HarmonyOS 2 (APK), iPhone (application web installable). */
 export function Download() {
@@ -14,9 +16,10 @@ export function Download() {
       <div className="content" style={{ marginTop: -18 }}>
         <div className="card">
           <h3>Android et Huawei (HarmonyOS 2)</h3>
-          <a className="cta green" href={APK}><Icon name="share" />Télécharger l'application</a>
+          <a className="cta green" href={APK}><Icon name="download" />Télécharger pour Android</a>
+          <a className="cta light" href={APK_HARMONY}><Icon name="download" />Télécharger pour Huawei (HarmonyOS 2)</a>
           <ol className="muted" style={{ paddingLeft: 18, display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <li>Ouvrez le fichier téléchargé « Origa-Android-HarmonyOS.apk ».</li>
+            <li>Ouvrez le fichier téléchargé (« Origa-Android.apk » ou « Origa-HarmonyOS.apk »).</li>
             <li>Si le téléphone le demande, autorisez l'installation depuis cette source.</li>
             <li>Ouvrez Origa : l'application fonctionne même sans réseau.</li>
           </ol>

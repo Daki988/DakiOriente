@@ -60,7 +60,7 @@ export function ProfilePage() {
         <details className="card">
           <summary style={{ cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 10 }}><Logo size={24} />À propos d'Origa</summary>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 10 }}>
-            <span className="muted">Origa 1.2.0 · Suivi technico-économique et traçabilité de la filière avicole, programme POUFA. Données hébergées au Gabon, loi n° 025/2023.</span>
+            <span className="muted">Origa 1.3.0 · Suivi technico-économique et traçabilité de la filière avicole, programme POUFA. Données hébergées au Gabon, loi n° 025/2023.</span>
             <span className="muted"><b>Crédits photo</b> (licence Unsplash) :</span>
             {CREDITS.map(([t, a, u]) => <a key={u} className="muted" href={u} target="_blank" rel="noreferrer">{t} · {a}</a>)}
           </div>
