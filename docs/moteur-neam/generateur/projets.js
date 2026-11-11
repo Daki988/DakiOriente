@@ -73,7 +73,7 @@ const RESTO = {
   },
   'assiga-village': {
     tagline: 'Pointe Denis, les pieds dans le sable',
-    intro: 'Assiga Village vous reçoit à Pointe Denis pour une journée hors du temps : traversée, déjeuner de la mer, plage et farniente à quelques minutes de Libreville.',
+    cta: 'Réserver ma journée', intro: 'Hôtel, bar et restaurant à la Pointe Denis, à 15 minutes de Libreville : journée navette et déjeuner inclus dès 40 000 FCFA, 18 chambres et suites, soins et excursions à Pongara.', email: 'assigavillage.ga@gmail.com',
     about: 'À Assiga, la journée commence par la traversée et se termine face au coucher du soleil. Entre-temps : poisson braisé, langouste et baignade.',
     hero: 'plage#1', side: 'langouste#2',
     menu: {
@@ -233,8 +233,8 @@ const HOTEL = {
     gallery: ['lobby#1', 'chambre-twin#1', 'chambre#3', 'suite#1', 'salle-resto#1', 'sdb#1'],
   },
   'hotel-le-refuge': {
-    tagline: 'Le réveil sur le fleuve', intro: 'L\'Hôtel Le Refuge accueille à Lambaréné ceux qui veulent vivre l\'Ogooué : chambres et bungalows au bord du fleuve, jardin tropical et cuisine locale.',
-    about: 'Le Refuge est né au bord de l\'Ogooué. Ici, le fleuve rythme la journée : pirogue le matin, sieste au jardin, dîner face au coucher du soleil.',
+    tagline: 'Votre refuge au cœur du Moyen-Ogooué', cta: 'Réserver', intro: 'Complexe hôtelier de 42 chambres à Lambaréné, sur la N1 à 400 m de l\'aéroport : grande piscine, restaurant-bar, salle de sport, salles de 100 et 400 places.', address: 'Route nationale N1, BP 357, Lambaréné',
+    about: 'Construit un peu à l\'écart de la ville, Le Refuge offre un cadre vaste et reposant ; chaque chambre porte le nom d\'un bois ou d\'un lac du Gabon.',
     hero: 'bungalow#2', side: 'chambre#1',
     rooms: [room('Chambre Fleuve', 'Vue sur l\'Ogooué', 45000, '22 m²', 'Lit queen size', AM.concat(['Moustiquaire']), ['chambre#1']), room('Bungalow Forêt', 'Au cœur du jardin tropical', 60000, '30 m²', 'Lit king size', AM.concat(['Terrasse']), ['bungalow#2', 'chambre#4']), room('Suite Ogooué', 'Salon et terrasse sur le fleuve', 95000, '45 m²', 'Lit king size', AM.concat(['Salon', 'Terrasse']), ['suite#3'])],
     feats: [['leaf', 'Jardin tropical'], ['pool', 'Piscine'], ['resto', 'Cuisine locale'], ['wifi', 'Wi-Fi'], ['plane', 'Excursions en pirogue'], ['shield', 'Réception 24 h/24']],
@@ -390,7 +390,7 @@ const AUTO = {
   'deuxaxe-gabon': { tagline: 'Pièces 4x4 et utilitaires', hero: 'hilux#3', side: 'amortisseur', focus: '4x4 et utilitaires' },
   ecig: { tagline: 'Pneus, batteries et entretien', hero: 'pneus#1', side: 'bougies#1', focus: 'Pneus et batteries' },
   'auto-mall-gabon': { tagline: 'Toutes les pièces, toutes les marques', hero: 'pneus#1', side: 'freins#2', focus: 'Toutes marques' },
-  'ab-location': { tagline: 'Louez en toute liberté', hero: 'land-cruiser#1', side: 'hilux#1', items: [['Citadine', 'Économique, idéale en ville', 35000, 'citadine#1'], ['4x4 Land Cruiser', 'Pour toutes les routes du Gabon', 90000, 'land-cruiser#1'], ['Pick-up Hilux', 'Chantiers et longues distances', 75000, 'hilux#1'], ['Berline avec chauffeur', 'Mise à disposition', 70000, 'chauffeur#2']] },
+  'ab-location': { tagline: 'Louez en toute confiance', cta: 'Réserver un véhicule', intro: 'Location de voitures à Port-Gentil : citadines, SUV, 4x4, pick-up, minibus et véhicule VIP avec chauffeur, livrés à l\'aéroport ou à l\'hôtel.', address: 'BP 1325, Port-Gentil', hero: 'land-cruiser#1', side: 'hilux#1', items: [['Citadine', 'Économique, idéale en ville', 35000, 'citadine#1'], ['4x4 Land Cruiser', 'Pour toutes les routes du Gabon', 90000, 'land-cruiser#1'], ['Pick-up Hilux', 'Chantiers et longues distances', 75000, 'hilux#1'], ['Berline avec chauffeur', 'Mise à disposition', 70000, 'chauffeur#2']] },
 };
 const PARTS = [['Plaquettes de frein', 'Freinage', 15000, 'freins#1'], ['Disques de frein (paire)', 'Freinage', 45000, 'freins#2'], ['Filtre à huile', 'Filtration', 5000, 'vidange#2'], ['Huile moteur 5 L', 'Entretien', 28000, 'vidange#1'], ['Bougies (× 4)', 'Moteur', 12000, 'bougies#1'], ['Amortisseur avant', 'Suspension', 55000, 'amortisseur'], ['Pneu 265/65 R17', 'Pneus', 85000, 'pneus#1'], ['Pneu 195/65 R15', 'Pneus', 45000], ['Batterie 70 Ah', 'Électricité', 65000]];
 

@@ -65,6 +65,7 @@
     'long-sejour.html': ['Page long séjour : remises dégressives et simulateur de prix', '[data-ls]|main .sec'],
     'visas.html': ['Guide visas interactif : documents à cocher par destination et vérification du dossier', '[data-visa]|main .sec'],
     'evenements.html': ['Page événements : brunch, soirées, agenda et privatisation sur devis', '[data-agenda]|main .sec'],
+    'conditions.html': ['Conditions de location : documents, cautions par véhicule et questions fréquentes', '.tbl|main .sec'],
     'sans-rendez-vous.html': ['Page « Sans rendez-vous » : ouvert maintenant et affluence heure par heure', '[data-aff]|main .sec'],
     'proprietaires.html': ['Espace propriétaires : simulateur de revenus et demande d\'estimation', '[data-loyer]|form'],
     'bon-a-savoir.html': ['Guide du locataire : dossier à préparer, étapes et questions fréquentes', '[data-dossier]|main .sec'],

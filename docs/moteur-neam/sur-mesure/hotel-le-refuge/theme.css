@@ -1,0 +1,8 @@
+/* Hôtel Le Refuge : vert forêt de l'Ogooué, bois d'okoumé, ivoire. DM Serif Display + DM Sans. */
+:root{--p:#1F3B2D;--p2:#142A1F;--a:#B5651D;--a2:#E0A15C;--soft:#F5F1E8;--ink:#1C241F;--mute:#5F6A62;--line:#E3DFD3;--hf:'DM Serif Display',Georgia,serif;--bf:'DM Sans',Arial,sans-serif;--r:10px}
+.hero:before{background:linear-gradient(180deg,rgba(20,42,31,.2),rgba(20,42,31,.25) 40%,rgba(20,42,31,.88))}
+.pt:before{background:linear-gradient(90deg,rgba(20,42,31,.88),rgba(20,42,31,.35))}
+.tag{color:#9A5416}.btn.p:hover{background:#9A5416}
+.amen>div{background:var(--soft);border:0}
+.rc{border:1px solid var(--line)}
+.hero .kick{color:#F4D2A6}
