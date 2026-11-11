@@ -59,7 +59,7 @@ export function ProfilePage() {
         {!apiEnabled && <button className="linkbtn" style={{ alignSelf: 'center' }} onClick={async () => { if (confirm('Effacer toutes les données de démonstration de cet appareil ?')) { await db.delete(); location.reload(); } }}>Réinitialiser la démonstration</button>}
         <details className="card">
           <summary style={{ cursor: 'pointer', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 10 }}><Logo size={24} />À propos d'Origa</summary>
-          <span className="muted">Origa 1.0.0 · Suivi technico-économique et traçabilité de la filière avicole, programme POUFA. Données hébergées au Gabon, loi n° 025/2023.</span>
+          <span className="muted">Origa 1.2.0 · Suivi technico-économique et traçabilité de la filière avicole, programme POUFA. Données hébergées au Gabon, loi n° 025/2023.</span>
           <span className="muted"><b>Crédits photo</b> (licence Unsplash) :</span>
           {CREDITS.map(([t, a, u]) => <a key={u} className="muted" href={u} target="_blank" rel="noreferrer">{t} · {a}</a>)}
         </details>

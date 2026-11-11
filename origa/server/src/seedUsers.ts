@@ -10,6 +10,8 @@ const USERS = [
   ['+24100000005', 'BCEG · Suivi des financements', 'bceg', null, []],
   ['+24100000007', 'Abattoir de Ntoum', 'operateur', null, []],
   ['+24100000009', 'Administrateur', 'admin', null, []],
+  ['+24100000010', 'MAEDR · Cabinet du ministre', 'maedr', null, []],
+  ['+24100000011', 'ANINF · Audit', 'aninf', null, []],
 ] as const;
 
 const db = createPool(loadConfig().databaseUrl);

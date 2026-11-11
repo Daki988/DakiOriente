@@ -1,7 +1,7 @@
 {
   "name": "origa",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Origa — suivi technico-économique et traçabilité de la filière avicole gabonaise (programme POUFA)",
   "type": "module",
   "scripts": {

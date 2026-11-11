@@ -198,7 +198,8 @@ export interface Settings {
   farmStatuses: ListItem[];
   biosecurityGrid: string[];
   rankingWeights: { mortalite: number; ic: number; gmq: number; regularite: number };
-  reports: { hebdomadaire: boolean; finBande: boolean; mensuel: boolean };
+  /** Rapports automatiques ; `recipients` : adresses qui reçoivent les envois par e-mail. */
+  reports: { hebdomadaire: boolean; finBande: boolean; mensuel: boolean; recipients?: string[] };
   /** Matrice des droits par profil et par domaine (§ 5.4, paramétrable). */
   rights: Record<string, Partial<Record<RightDomain, RightAction[]>>>;
 }
@@ -288,3 +289,6 @@ export interface Consultation { id: string; farmId: string; date: string; questi
 export interface Offer { id: string; farmId: string; date: string; product: string; quantity: number; availableFrom: string; priceXaf?: number; contact: string; status: 'ouverte' | 'close' }
 /** Mouvement (transport) d'un lot, saisi par scan. */
 export interface Movement { id: string; lotId: string; date: string; from: string; to: string; by: string }
+
+/** Étiquette QR pré-signée par le serveur pour un prochain lot : le QR est valide même sans réseau. */
+export interface PresignedLabel { lotId: string; bandId: string; signature: string; issuedAt: string }

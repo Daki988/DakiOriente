@@ -6,6 +6,9 @@ import type { Db } from './db.js';
 import { createSms, type SmsSender } from './sms.js';
 import { hashOtp, lotSigner, newOtp, normalizePhone, sameHash, sha256hex, signToken, verifyToken, type Claims } from './security.js';
 import { ALL_TABLES, canRead, canWrite, farmOf, rightsAllow } from './scope.js';
+import { buildEpcis } from './epcis.js';
+import { createMailer, type Mailer } from './mail.js';
+import { REPORT_KINDS, sendReport, type ReportKind } from './reports.js';
 
 declare module 'fastify' {
   interface FastifyRequest { user?: Claims }
@@ -18,11 +21,12 @@ const PROVINCES: Record<string, string> = {
   GA6: 'Ogooué-Ivindo', GA7: 'Ogooué-Lolo', GA8: 'Ogooué-Maritime', GA9: 'Woleu-Ntem',
 };
 
-export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; logger?: boolean } = {}) {
+export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mail?: Mailer; logger?: boolean } = {}) {
   const app = Fastify({ logger: opts.logger ?? false, bodyLimit: 5 * 1024 * 1024, trustProxy: true, maxParamLength: 300 });
   await app.register(cors, { origin: cfg.corsOrigins, credentials: false });
   await app.register(rateLimit, { max: 300, timeWindow: '1 minute' });
   const sms = opts.sms ?? createSms(cfg, (m) => app.log.info(m));
+  const mail = opts.mail ?? createMailer(cfg, (m) => app.log.info(m));
   const signer = lotSigner(cfg.lotSigningKey);
 
   async function audit(userId: number | null, action: string, tbl?: string, key?: string) {
@@ -134,6 +138,10 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; log
       );
       await audit(u.sub, cur ? 'modification' : 'création', it.table, it.key);
       applied.push(`${it.table}/${it.key}`);
+      // Clôture d'une bande : rapport de fin de bande envoyé aux destinataires (sans bloquer la synchronisation).
+      if (it.table === 'bands' && payload.closedAt && !cur?.payload.closedAt) {
+        sendReport(db, mail, cfg, 'finBande', { bandId: it.key }).catch((e) => app.log.error(e));
+      }
       // Alerte précoce : notification immédiate des services vétérinaires (§ 5.2).
       if (it.table === 'alerts' && !cur && payload.status === 'nouvelle') {
         const vets = (await db.query(`SELECT phone FROM users WHERE role='veterinaire' AND active`)).rows;
@@ -308,6 +316,57 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; log
     return { ok: true, validatedAtSlaughterhouse: !!lot.receivedAt };
   });
 
+  // ---------- Étiquettes QR pré-signées : un QR valide même sans réseau ----------
+  app.post<{ Body: { bandId?: string; count?: number } }>('/lots/presign', { preHandler: auth }, async (req, reply) => {
+    const u = req.user!;
+    const bandId = str(req.body?.bandId, 40);
+    const band = (await db.query(`SELECT farm_id, payload FROM records WHERE tbl='bands' AND key=$1`, [bandId])).rows[0];
+    if (!band) return reply.code(404).send({ error: 'Bande inconnue.' });
+    const allowed = ['dge', 'admin'].includes(u.role) || (u.role === 'eleveur' && u.farmId === band.farm_id) || (u.role === 'agent' && (u.farmIds ?? []).includes(band.farm_id));
+    if (!allowed) return reply.code(403).send({ error: 'Cette bande est hors de votre périmètre.' });
+    if (band.payload.closedAt) return reply.code(409).send({ error: 'Bande clôturée : aucune étiquette à émettre.' });
+    const used = (await db.query(`SELECT key FROM records WHERE tbl='lots' AND payload->>'bandId'=$1`, [bandId])).rows
+      .map((r) => r.key.slice(bandId.length).match(/^-L(\d{2})$/)).reduce((a, m) => (m ? Math.max(a, Number(m[1])) : a), 0);
+    const count = Math.max(1, Math.min(30, Math.floor(Number(req.body?.count) || 5), 99 - used));
+    if (used >= 99) return reply.code(409).send({ error: 'Cette bande a atteint le nombre maximal de lots.' });
+    // La signature Ed25519 est déterministe : ré-émettre une étiquette redonne exactement le même QR.
+    const labels = Array.from({ length: count }, (_, i) => { const lotId = `${bandId}-L${String(used + i + 1).padStart(2, '0')}`; return { lotId, signature: signer.sign(lotId) }; });
+    await audit(u.sub, `émission de ${count} étiquettes pré-signées`, 'bands', bandId);
+    return { bandId, farmId: band.farm_id, labels };
+  });
+
+  // ---------- Interopérabilité EPCIS 2.0 (GS1) : événements de traçabilité ----------
+  app.get<{ Querystring: { farmId?: string; bandId?: string; lotId?: string; since?: string } }>('/interop/epcis/events', { preHandler: auth }, async (req, reply) => {
+    if (!['dge', 'admin', 'veterinaire'].includes(req.user!.role)) return reply.code(403).send({ error: 'Réservé à la DGE et aux services vétérinaires.' });
+    const q = req.query;
+    let lots = (await db.query(`SELECT payload FROM records WHERE tbl='lots'`)).rows.map((r) => r.payload);
+    if (q.farmId) lots = lots.filter((l) => l.farmId === q.farmId);
+    if (q.bandId) lots = lots.filter((l) => l.bandId === q.bandId);
+    if (q.lotId) lots = lots.filter((l) => l.id === q.lotId || l.parentId === q.lotId);
+    if (q.since) lots = lots.filter((l) => String(l.cededAt) >= q.since!);
+    const ids = new Set(lots.map((l) => l.id));
+    const movements = (await db.query(`SELECT payload FROM records WHERE tbl='movements'`)).rows.map((r) => r.payload).filter((m) => ids.has(m.lotId));
+    reply.header('Content-Type', 'application/ld+json; charset=utf-8');
+    return buildEpcis({ lots, movements });
+  });
+
+  // ---------- Rapports automatiques par e-mail ----------
+  app.get('/reports/runs', { preHandler: auth }, async (req, reply) => {
+    if (!['dge', 'admin'].includes(req.user!.role)) return reply.code(403).send({ error: 'Accès réservé.' });
+    return (await db.query('SELECT * FROM report_runs ORDER BY sent_at DESC LIMIT 100')).rows
+      .map((r) => ({ id: Number(r.id), kind: r.kind, period: r.period, label: r.label, sentAt: r.sent_at, recipients: r.recipients.length, status: r.status, error: r.error ?? undefined, attempts: r.attempts }));
+  });
+  app.post<{ Body: { kind?: string; bandId?: string } }>('/reports/send', { preHandler: auth }, async (req, reply) => {
+    if (!['dge', 'admin'].includes(req.user!.role)) return reply.code(403).send({ error: 'Accès réservé.' });
+    const kind = req.body?.kind as ReportKind;
+    if (!REPORT_KINDS.includes(kind)) return reply.code(400).send({ error: 'Type de rapport inconnu.' });
+    if (kind === 'finBande' && !req.body?.bandId) return reply.code(400).send({ error: 'Indiquez la bande.' });
+    const r = await sendReport(db, mail, cfg, kind, { bandId: str(req.body?.bandId, 40) || undefined, force: true });
+    if (r.skipped) return reply.code(409).send({ error: `Rapport non envoyé : ${r.skipped}.` });
+    await audit(req.user!.sub, `envoi du rapport ${kind}`, 'report_runs', r.period);
+    return r;
+  });
+
   // ---------- Agrégats nationaux (diffusion, MAEDR) ----------
   async function aggregates() {
     const rows = (await db.query(`SELECT tbl, payload FROM records WHERE tbl IN ('farms','exits','lots','entries','bands')`)).rows;
@@ -352,7 +411,7 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; log
   // ---------- Documentation de l'API (OpenAPI 3) ----------
   app.get('/openapi.json', async () => ({
     openapi: '3.0.3',
-    info: { title: 'API du serveur national Origa', version: '1.1.0', description: 'Synchronisation, authentification par code SMS, traçabilité publique, administration, interopérabilité EMA-i+.' },
+    info: { title: 'API du serveur national Origa', version: '1.2.0', description: 'Synchronisation, authentification par code SMS, traçabilité publique, administration, rapports par e-mail, interopérabilité EMA-i+ et EPCIS 2.0.' },
     components: { securitySchemes: { bearer: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' } } },
     paths: {
       '/auth/otp/request': { post: { summary: 'Demander un code de connexion par SMS', requestBody: { content: { 'application/json': { schema: { type: 'object', properties: { phone: { type: 'string' } } } } } } } },
@@ -365,6 +424,10 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; log
       '/access-requests': { post: { summary: 'Demande d’accès (validée par l’administrateur)' } },
       '/lots/{id}/distributor-check': { post: { summary: 'Contrôle d’un lot par un distributeur', security: [{ bearer: [] }] } },
       '/stats/aggregates': { get: { summary: 'Agrégats nationaux (DGE, MAEDR)', security: [{ bearer: [] }] } },
+      '/lots/presign': { post: { summary: 'Émettre des étiquettes QR pré-signées pour les prochains lots d’une bande', security: [{ bearer: [] }] } },
+      '/interop/epcis/events': { get: { summary: 'Événements de traçabilité au format GS1 EPCIS 2.0 (JSON-LD)', security: [{ bearer: [] }], parameters: ['farmId', 'bandId', 'lotId', 'since'].map((name) => ({ name, in: 'query', schema: { type: 'string' } })) } },
+      '/reports/runs': { get: { summary: 'Journal des rapports envoyés par e-mail', security: [{ bearer: [] }] } },
+      '/reports/send': { post: { summary: 'Envoyer maintenant un rapport (hebdomadaire, mensuel, finBande)', security: [{ bearer: [] }] } },
       '/interop/ema-i/events': { get: { summary: 'Événements sanitaires confirmés au format d’échange EMA-i+', security: [{ bearer: [] }] } },
       '/admin/users': { get: { summary: 'Comptes (administrateur)', security: [{ bearer: [] }] }, post: { summary: 'Créer un compte', security: [{ bearer: [] }] } },
       '/admin/requests': { get: { summary: 'Demandes d’accès', security: [{ bearer: [] }] } },

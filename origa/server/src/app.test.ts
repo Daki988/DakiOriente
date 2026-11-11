@@ -3,10 +3,16 @@ import type { FastifyInstance } from 'fastify';
 import { buildApp } from './app.js';
 import { loadConfig } from './config.js';
 import { createPool, migrate, type Db } from './db.js';
+import type { Mail } from './mail.js';
+import { lastPeriod, runDueReports } from './reports.js';
+import { createSms } from './sms.js';
 
 const URL = process.env.TEST_DATABASE_URL ?? 'postgresql://origa:origa@localhost:5432/origa_test';
 let db: Db; let app: FastifyInstance;
 const outbox: { to: string; text: string }[] = [];
+const mails: Mail[] = [];
+const mailer = async (m: Mail) => { mails.push(m); };
+const cfg = loadConfig({ jwtSecret: 'x'.repeat(40), authRateLimit: 100 });
 
 const tokens = new Map<string, string>();
 async function login(phone: string) {
@@ -27,7 +33,7 @@ const item = (table: string, payload: Record<string, unknown>, at = new Date().t
 
 beforeAll(async () => {
   db = createPool(URL);
-  await db.query('DROP TABLE IF EXISTS access_requests, scans, audit, conflicts, records, otp_codes, users CASCADE');
+  await db.query('DROP TABLE IF EXISTS report_runs, access_requests, scans, audit, conflicts, records, otp_codes, users CASCADE');
   await migrate(db);
   for (const [phone, role, farm, farms] of [
     ['+24100000001', 'eleveur', 'GA1-0042', []], ['+24100000002', 'agent', null, ['GA1-0042', 'GA1-0003']],
@@ -35,7 +41,7 @@ beforeAll(async () => {
     ['+24100000006', 'eleveur', 'GA1-0003', []], ['+24100000009', 'admin', null, []],
     ['+24100000010', 'maedr', null, []], ['+24100000011', 'aninf', null, []],
   ] as const) await db.query('INSERT INTO users (phone, name, role, farm_id, farm_ids) VALUES ($1,$1,$2,$3,$4)', [phone, role, farm, farms]);
-  app = await buildApp(loadConfig({ jwtSecret: 'x'.repeat(40), authRateLimit: 100 }), db, { sms: async (to, text) => { outbox.push({ to, text }); } });
+  app = await buildApp(cfg, db, { sms: async (to, text) => { outbox.push({ to, text }); }, mail: mailer });
 });
 afterAll(async () => { await app.close(); await db.end(); });
 
@@ -292,5 +298,131 @@ describe('conformité au cahier des charges (v1.1)', () => {
     const r = await req('POST', `/lots/${encodeURIComponent('GA1-0042-B07-L01')}/distributor-check`, dist);
     expect(r.json()).toMatchObject({ ok: true, validatedAtSlaughterhouse: true });
     expect((await req('POST', `/lots/${encodeURIComponent('GA1-0042-B07-L01')}/distributor-check`, eleveur)).statusCode).toBe(403);
+  });
+});
+
+describe('étiquettes pré-signées, EPCIS 2.0 et rapports par e-mail (v1.2)', () => {
+  let dge: string; let eleveur: string; let voisin: string;
+  const req = (method: 'GET' | 'POST', url: string, token?: string, payload?: unknown) =>
+    app.inject({ method, url, payload: payload as Record<string, unknown>, headers: token ? { authorization: `Bearer ${token}` } : {} });
+  beforeAll(async () => { dge = await login('+24100000003'); eleveur = await login('+24100000001'); voisin = await login('+24100000006'); });
+
+  it('émet des étiquettes pré-signées pour les prochains lots de la bande, dans le périmètre seulement', async () => {
+    const r = await req('POST', '/lots/presign', eleveur, { bandId: 'GA1-0042-B07', count: 3 });
+    expect(r.statusCode).toBe(200);
+    const labels = r.json().labels as { lotId: string; signature: string }[];
+    // Le lot L01 existe déjà : les étiquettes portent les numéros suivants.
+    expect(labels.map((l) => l.lotId)).toEqual(['GA1-0042-B07-L02', 'GA1-0042-B07-L03', 'GA1-0042-B07-L04']);
+    expect((await req('POST', '/lots/presign', voisin, { bandId: 'GA1-0042-B07', count: 3 })).statusCode).toBe(403);
+    expect((await req('POST', '/lots/presign', eleveur, { bandId: 'GA1-0042-B99' })).statusCode).toBe(404);
+    // Avant la synchronisation du lot, le QR collé est déjà reconnu comme authentique.
+    const pub = await req('GET', `/public/lots/${encodeURIComponent(`${labels[0].lotId}.${labels[0].signature}`)}`);
+    expect(pub.json()).toMatchObject({ valid: true, pending: true });
+    // À la synchronisation, le serveur appose exactement la même signature que celle de l'étiquette.
+    await sync(eleveur, [item('lots', { id: labels[0].lotId, bandId: 'GA1-0042-B07', farmId: 'GA1-0042', count: 900, weightKg: 1900, operatorId: 'OP-001', cededAt: '2026-11-27', signature: labels[0].signature })]);
+    const stored = (await pull(eleveur)).items.find((x: { key: string }) => x.key === labels[0].lotId).payload;
+    expect(stored.signature).toBe(labels[0].signature);
+    // Ré-émettre repart après le dernier lot utilisé.
+    expect((await req('POST', '/lots/presign', eleveur, { bandId: 'GA1-0042-B07', count: 1 })).json().labels[0].lotId).toBe('GA1-0042-B07-L03');
+  });
+
+  it('exporte la traçabilité au format GS1 EPCIS 2.0', async () => {
+    expect((await req('GET', '/interop/epcis/events', eleveur)).statusCode).toBe(403);
+    const r = await req('GET', '/interop/epcis/events?lotId=GA1-0042-B07-L01', dge);
+    expect(r.headers['content-type']).toMatch(/ld\+json/);
+    const doc = r.json();
+    expect(doc).toMatchObject({ type: 'EPCISDocument', schemaVersion: '2.0' });
+    const events = doc.epcisBody.eventList as { bizStep: string; eventTime: string; quantityList: { quantity: number }[] }[];
+    // Le contrôle du distributeur du jeu d'essai est daté d'aujourd'hui : on compare sans tenir compte de l'ordre.
+    expect(events.map((e) => e.bizStep).sort()).toEqual(['commissioning', 'inspecting', 'receiving', 'shipping']);
+    expect(events.map((e) => Date.parse(e.eventTime))).toEqual(events.map((e) => Date.parse(e.eventTime)).sort((a, b) => a - b));
+    const first = events.find((e) => e.bizStep === 'commissioning')!;
+    expect(first).toMatchObject({ type: 'ObjectEvent', action: 'ADD', eventTime: '2026-11-25T12:00:00+01:00', readPoint: { id: 'urn:origa:farm:GA1-0042' } });
+    expect(first.quantityList[0]).toEqual({ epcClass: 'urn:origa:lot:GA1-0042-B07-L01', quantity: 1200 });
+    expect(events.find((e) => e.bizStep === 'receiving')!.quantityList[0].quantity).toBe(1195);
+    expect((await req('GET', '/interop/epcis/events?farmId=GA1-0042', dge)).json().epcisBody.eventList.length).toBeGreaterThan(4);
+  });
+
+  it('n’envoie aucun rapport sans destinataire', async () => {
+    mails.length = 0;
+    const rs = await runDueReports(db, mailer, cfg, new Date('2026-12-01T08:00:00Z'));
+    expect(rs.every((r) => r.skipped === 'aucun destinataire')).toBe(true);
+    expect(mails).toHaveLength(0);
+  });
+
+  it('envoie les rapports périodiques une seule fois par période, avec PDF et CSV', async () => {
+    const settings = (await pull(dge)).items.find((x: { table: string }) => x.table === 'settings').payload;
+    expect((await sync(dge, [item('settings', { ...settings, reports: { hebdomadaire: true, mensuel: true, finBande: true, recipients: ['dge@agriculture.gouv.ga', 'Cabinet@agriculture.gouv.ga', 'pas-une-adresse'] } })])).json().applied).toBe(1);
+    const now = new Date('2026-12-01T08:00:00Z'); // mardi 1er décembre : semaine 48 et novembre sont terminés
+    expect(lastPeriod('hebdomadaire', now)).toMatchObject({ key: '2026-W48', from: '2026-11-23', to: '2026-11-29' });
+    expect(lastPeriod('mensuel', now)).toMatchObject({ key: '2026-11', label: 'Novembre 2026', from: '2026-11-01', to: '2026-11-30' });
+    const rs = await runDueReports(db, mailer, cfg, now);
+    expect(rs.map((r) => r.sent)).toEqual([true, true]);
+    expect(mails).toHaveLength(2);
+    expect(mails[0].to).toEqual(['dge@agriculture.gouv.ga', 'cabinet@agriculture.gouv.ga']);
+    expect(mails[0].subject).toMatch(/Rapport hebdomadaire national · Semaine 48/);
+    expect(mails[0].html).toMatch(/Poulets sortis/);
+    const [pdf, csv] = mails[0].attachments!;
+    expect(pdf.filename).toBe('origa-hebdomadaire-2026-W48.pdf');
+    expect(pdf.content.subarray(0, 5).toString()).toBe('%PDF-');
+    expect(csv.content.toString('utf8')).toMatch(/GA1-0042;Ferme Nkoltang;Estuaire/);
+    // Deuxième passage du planificateur : rien n'est renvoyé.
+    expect((await runDueReports(db, mailer, cfg, now)).map((r) => r.skipped)).toEqual(['déjà envoyé', 'déjà envoyé']);
+    expect(mails).toHaveLength(2);
+    const runs = (await req('GET', '/reports/runs', dge)).json();
+    expect(runs).toHaveLength(2);
+    expect(runs[0]).toMatchObject({ status: 'envoye', recipients: 2, attempts: 1 });
+    expect((await req('GET', '/reports/runs', eleveur)).statusCode).toBe(403);
+  });
+
+  it('respecte la désactivation d’un rapport et permet l’envoi immédiat', async () => {
+    const settings = (await pull(dge)).items.find((x: { table: string }) => x.table === 'settings').payload;
+    await sync(dge, [item('settings', { ...settings, reports: { ...settings.reports, hebdomadaire: false } })]);
+    const later = new Date('2026-12-08T08:00:00Z');
+    expect((await runDueReports(db, mailer, cfg, later))[0].skipped).toMatch(/désactivé/);
+    mails.length = 0;
+    expect((await req('POST', '/reports/send', eleveur, { kind: 'mensuel' })).statusCode).toBe(403);
+    expect((await req('POST', '/reports/send', dge, { kind: 'annuel' })).statusCode).toBe(400);
+    const r = await req('POST', '/reports/send', dge, { kind: 'mensuel' });
+    expect(r.json()).toMatchObject({ sent: true, kind: 'mensuel' });
+    expect(mails).toHaveLength(1);
+  });
+
+  it('envoie le rapport de fin de bande à la clôture', async () => {
+    mails.length = 0;
+    const band = (await pull(dge)).items.find((x: { key: string }) => x.key === 'GA1-0042-B07').payload;
+    expect((await sync(eleveur, [item('bands', { ...band, closedAt: '2026-11-30' })])).json().applied).toBe(1);
+    for (let i = 0; i < 40 && !mails.length; i++) await new Promise((r) => setTimeout(r, 50));
+    expect(mails).toHaveLength(1);
+    expect(mails[0].subject).toMatch(/Rapport de fin de bande · Ferme Nkoltang · Bande GA1-0042-B07/);
+    expect(mails[0].html).toMatch(/GA1-0042-B07-L02/);
+    expect(mails[0].attachments![0].content.subarray(0, 5).toString()).toBe('%PDF-');
+    // Une bande clôturée n'accepte plus d'étiquettes.
+    expect((await req('POST', '/lots/presign', eleveur, { bandId: 'GA1-0042-B07' })).statusCode).toBe(409);
+  });
+
+  it('consigne un échec d’envoi et réessaie', async () => {
+    const failing = async () => { throw new Error('relais SMTP injoignable'); };
+    const now = new Date('2026-12-15T08:00:00Z');
+    const settings = (await pull(dge)).items.find((x: { table: string }) => x.table === 'settings').payload;
+    await sync(dge, [item('settings', { ...settings, reports: { ...settings.reports, hebdomadaire: true } })]);
+    const ko = (await runDueReports(db, failing, cfg, now))[0];
+    expect(ko).toMatchObject({ sent: false, error: 'relais SMTP injoignable' });
+    mails.length = 0;
+    expect((await runDueReports(db, mailer, cfg, now))[0].sent).toBe(true);
+    const run = (await req('GET', '/reports/runs', dge)).json().find((r: { period: string }) => r.period === ko.period);
+    expect(run).toMatchObject({ status: 'envoye', attempts: 2 });
+  });
+
+  it('envoie les SMS par l’API Brevo quand elle est configurée', async () => {
+    const calls: { url: string; init: RequestInit }[] = [];
+    const original = globalThis.fetch;
+    globalThis.fetch = (async (url: string, init: RequestInit) => { calls.push({ url, init }); return new Response('{}', { status: 201 }); }) as typeof fetch;
+    try {
+      await createSms({ ...cfg, smsProvider: 'brevo', brevoApiKey: 'cle-de-test', smsSender: 'Origa' }, () => undefined)('+24107000000', 'Votre code est 123456');
+    } finally { globalThis.fetch = original; }
+    expect(calls[0].url).toBe('https://api.brevo.com/v3/transactionalSMS/send');
+    expect((calls[0].init.headers as Record<string, string>)['api-key']).toBe('cle-de-test');
+    expect(JSON.parse(String(calls[0].init.body))).toEqual({ sender: 'Origa', recipient: '24107000000', content: 'Votre code est 123456', type: 'transactional' });
   });
 });

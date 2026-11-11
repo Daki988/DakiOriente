@@ -8,7 +8,15 @@ export interface Config {
   jwtSecret: string;
   lotSigningKey: string;
   corsOrigins: string[];
-  smsProvider: 'console' | 'http';
+  smsProvider: 'console' | 'http' | 'brevo';
+  /** Nom d'expéditeur des SMS (11 caractères alphanumériques au plus). */
+  smsSender: string;
+  brevoApiKey?: string;
+  mailProvider: 'console' | 'smtp' | 'brevo';
+  smtpUrl?: string;
+  mailFrom: string;
+  /** Destinataires des rapports quand les paramètres n'en définissent pas. */
+  reportRecipients: string[];
   smsHttpUrl?: string;
   smsHttpToken?: string;
   otpTtlSeconds: number;
@@ -29,7 +37,13 @@ export function loadConfig(overrides: Partial<Config> = {}): Config {
     // Clé de démonstration identique à celle du client hors-ligne ; à remplacer en production.
     lotSigningKey: env.LOT_SIGNING_KEY || '9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60',
     corsOrigins: (env.CORS_ORIGINS ?? 'http://localhost:5173,capacitor://localhost,http://localhost').split(',').map((s) => s.trim()),
-    smsProvider: env.SMS_PROVIDER === 'http' ? 'http' : 'console',
+    smsProvider: env.SMS_PROVIDER === 'http' ? 'http' : env.SMS_PROVIDER === 'brevo' ? 'brevo' : 'console',
+    smsSender: (env.SMS_SENDER ?? 'Origa').slice(0, 11),
+    brevoApiKey: env.BREVO_API_KEY || undefined,
+    mailProvider: env.MAIL_PROVIDER === 'smtp' ? 'smtp' : env.MAIL_PROVIDER === 'brevo' ? 'brevo' : 'console',
+    smtpUrl: env.SMTP_URL || undefined,
+    mailFrom: env.MAIL_FROM ?? 'Origa <rapports@origa.ga>',
+    reportRecipients: (env.REPORT_RECIPIENTS ?? '').split(',').map((s) => s.trim()).filter(Boolean),
     smsHttpUrl: env.SMS_HTTP_URL,
     smsHttpToken: env.SMS_HTTP_TOKEN,
     otpTtlSeconds: 300,

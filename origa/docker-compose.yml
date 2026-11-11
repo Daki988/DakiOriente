@@ -23,6 +23,12 @@ services:
       SMS_PROVIDER: ${SMS_PROVIDER:-console}
       SMS_HTTP_URL: ${SMS_HTTP_URL:-}
       SMS_HTTP_TOKEN: ${SMS_HTTP_TOKEN:-}
+      SMS_SENDER: ${SMS_SENDER:-Origa}
+      BREVO_API_KEY: ${BREVO_API_KEY:-}
+      MAIL_PROVIDER: ${MAIL_PROVIDER:-console}
+      SMTP_URL: ${SMTP_URL:-}
+      MAIL_FROM: ${MAIL_FROM:-Origa <rapports@origa.ga>}
+      REPORT_RECIPIENTS: ${REPORT_RECIPIENTS:-}
     ports: ["8080:8080"]
 
 volumes:

@@ -2,7 +2,7 @@ import Dexie, { type Table } from 'dexie';
 import type {
   Alert, AuditEntry, Band, DailyEntry, Exit, Farm, HealthReport, InputMovement, Lot, Operator, OutboxItem,
   Scan, Settings, Treatment, Vaccination, Weighing, UserAccount, AccessRequest,
-  Diagnostic, BiosecurityCheck, Visit, Charge, InputOrder, SlaughterBooking, Publication, PriceRecord, Consultation, Offer, Movement,
+  PresignedLabel, Diagnostic, BiosecurityCheck, Visit, Charge, InputOrder, SlaughterBooking, Publication, PriceRecord, Consultation, Offer, Movement,
 } from '../domain/types';
 
 /** Base locale du téléphone (IndexedDB) : toutes les saisies fonctionnent sans réseau (§ 7.2). */
@@ -36,6 +36,7 @@ export class OrigaDB extends Dexie {
   consultations!: Table<Consultation, string>;
   offers!: Table<Offer, string>;
   movements!: Table<Movement, string>;
+  presigned!: Table<PresignedLabel, string>;
 
   constructor(name = 'origa') {
     super(name);
@@ -65,6 +66,8 @@ export class OrigaDB extends Dexie {
       orders: 'id, farmId, status, date', slaughter: 'id, farmId, operatorId, date', publications: 'id, status, createdAt',
       prices: 'id, product, date', consultations: 'id, farmId, status, date', offers: 'id, farmId, status, date', movements: 'id, lotId, date',
     });
+    // v4 : réserve d'étiquettes QR pré-signées (propre à l'appareil, jamais synchronisée).
+    this.version(4).stores({ presigned: 'lotId, bandId' });
   }
 }
 

@@ -16,6 +16,12 @@ export function nextSeq(existing: string[], prefix: string, pattern: RegExp): nu
   return max + 1;
 }
 
+/** Identifiants des `count` prochains lots d'une bande (L01 à L99), après ceux déjà utilisés. */
+export function nextLotIds(existing: string[], band: string, count: number): string[] {
+  const first = nextSeq(existing, `${band}-L`, /^(\d{2})$/);
+  return Array.from({ length: Math.max(0, Math.min(count, 100 - first)) }, (_, i) => lotId(band, first + i));
+}
+
 export const uid = () =>
   (globalThis.crypto?.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`);
 

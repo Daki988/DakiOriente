@@ -1,4 +1,4 @@
-# Origa 1.1 — l'origine prouvée, de la ferme à l'assiette
+# Origa 1.2 — l'origine prouvée, de la ferme à l'assiette
 
 ![Logo Origa](design/logo/origa-logo-horizontal.svg)
 
@@ -43,6 +43,16 @@ Les 68 fonctionnalités du cahier des charges sont couvertes, y compris celles m
 - **Gouvernance** : rôles MAEDR (validation des publications) et ANINF (audit seul), matrice des droits paramétrable appliquée par le serveur, listes de référence éditables.
 - **Reprise de l'existant** : import CSV (fermes de l'AMI, fiches, intrants) avec validation ligne à ligne et rapport de rejets.
 - **API** : contrôle distributeur, agrégats, statistiques publiques, export d'événements EMA-i, `GET /openapi.json`.
+
+## Ajouts de la version 1.2
+
+- **Étiquettes QR pré-signées** : le serveur signe à l'avance les prochains numéros de lot d'une bande (`POST /lots/presign`). Le téléphone de l'éleveur garde une réserve de 5 étiquettes, complétée à chaque synchronisation ; une cession faite sans réseau donne tout de suite un QR valide, et le serveur appose ensuite la même signature.
+- **Rapports par e-mail** : hebdomadaire (semaine écoulée), mensuel (mois écoulé) et de fin de bande (à la clôture), avec le rapport en PDF et le détail en CSV. Un rapport n'est envoyé qu'une fois par période ; un échec est consigné et réessayé (`GET /reports/runs`, `POST /reports/send`).
+- **Export EPCIS 2.0 (GS1)** : `GET /interop/epcis/events` décrit chaque lot en événements normalisés (mise en lot, expédition, transport, réception, transformation, contrôle du distributeur). Les identifiants sont des URN `urn:origa:…` en attendant un préfixe GS1.
+- **SMS et e-mails par Brevo** : `SMS_PROVIDER=brevo` et `MAIL_PROVIDER=brevo` avec une seule clé, en plus de la passerelle HTTP et du relais SMTP.
+- **Maquettes dans Figma** : `scripts/planche-figma.cjs` produit la planche des écrans (application en service et écrans à valider).
+
+Les écrans de la version 1.2 (rouleau d'étiquettes à imprimer, réglage des destinataires des rapports, bouton d'export EPCIS) sont maquettés dans Figma et seront codés après validation, selon la règle « Figma d'abord ».
 
 Deux modes de fonctionnement :
 
@@ -97,7 +107,10 @@ Comptes de démonstration du serveur, avec le code SMS affiché dans le journal 
 | `DATABASE_URL` | serveur | Base PostgreSQL |
 | `JWT_SECRET` | serveur | Secret des jetons de session, 32 caractères minimum |
 | `LOT_SIGNING_KEY` | serveur | Clé privée Ed25519 des QR, à garder dans un coffre |
-| `SMS_PROVIDER`, `SMS_HTTP_URL`, `SMS_HTTP_TOKEN` | serveur | Passerelle SMS (Airtel, Moov) |
+| `SMS_PROVIDER`, `SMS_HTTP_URL`, `SMS_HTTP_TOKEN` | serveur | Passerelle SMS : `console`, `http` (agrégateur Airtel, Moov) ou `brevo` |
+| `BREVO_API_KEY`, `SMS_SENDER` | serveur | Clé et nom d'expéditeur Brevo (SMS et e-mails) |
+| `MAIL_PROVIDER`, `SMTP_URL`, `MAIL_FROM` | serveur | Envoi des rapports : `console`, `smtp` ou `brevo` |
+| `REPORT_RECIPIENTS` | serveur | Destinataires par défaut des rapports, séparés par des virgules |
 | `CORS_ORIGINS` | serveur | Origines autorisées |
 
 ## Déploiement
@@ -143,8 +156,8 @@ design/        maquette v1 en HTML, à importer dans Figma « Origa — Maquette
 
 ## Reste à faire
 
-1. Import des écrans dans Figma (bloqué par le quota du siège Figma « Collab »).
-2. Branchement de la passerelle SMS d'un agrégateur Airtel / Moov.
-3. EMA-i+ (FAO) : l'export existe, le protocole d'échange reste à formaliser avec la FAO ; export EPCIS 2.0.
-4. Envoi automatique des rapports par e-mail (ils sont aujourd'hui générés dans l'application et exportés en PDF).
-5. Rouleaux d'étiquettes QR pré-signées, pour imprimer un QR valide sans réseau.
+1. Coder les écrans de la version 1.2 après validation des maquettes Figma : rouleau d'étiquettes, destinataires des rapports, export EPCIS.
+2. Fournir la clé de la passerelle SMS (agrégateur Airtel / Moov ou Brevo) et du relais d'e-mails.
+3. EMA-i+ (FAO) : l'export existe, le protocole d'échange reste à formaliser avec la FAO.
+4. Obtenir un préfixe GS1 pour remplacer les URN `urn:origa:…` par des LGTIN et des GLN dans l'export EPCIS.
+5. Héberger le serveur au Gabon, ouvrir le compte Apple Developer, accomplir les formalités de protection des données.

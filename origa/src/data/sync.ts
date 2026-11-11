@@ -1,5 +1,6 @@
 import { db } from './db';
 import { API, apiEnabled, api, getToken } from '../app/api';
+import { refillReserve } from './labels';
 
 // Synchronisation au retour du réseau : envoi de la file locale, puis réception des données du périmètre.
 // Règle de conflit (côté serveur) : la dernière saisie horodatée l'emporte, l'autre est conservée et signalée.
@@ -34,6 +35,8 @@ export async function flushOutbox(): Promise<{ sent: number; received?: number; 
       sent += r.applied;
     }
     const received = await pull();
+    // Réserve d'étiquettes QR pré-signées : complétée tant qu'il y a du réseau, pour servir hors ligne.
+    await refillReserve().catch(() => undefined);
     return { sent, received };
   } catch (e) {
     return { sent, error: (e as Error).message };

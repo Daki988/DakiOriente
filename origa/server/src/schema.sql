@@ -96,3 +96,17 @@ ALTER TABLE users ADD COLUMN IF NOT EXISTS last_login_at TIMESTAMPTZ;
 -- v1.1 : profils MAEDR (données agrégées) et ANINF (audit).
 ALTER TABLE users DROP CONSTRAINT IF EXISTS users_role_check;
 ALTER TABLE users ADD CONSTRAINT users_role_check CHECK (role IN ('eleveur','agent','dge','veterinaire','bceg','admin','operateur','maedr','aninf'));
+
+-- v1.2 : journal des rapports envoyés par e-mail (un seul envoi par type et par période).
+CREATE TABLE IF NOT EXISTS report_runs (
+  id         BIGSERIAL PRIMARY KEY,
+  kind       TEXT NOT NULL CHECK (kind IN ('hebdomadaire','mensuel','finBande')),
+  period     TEXT NOT NULL,
+  label      TEXT NOT NULL,
+  sent_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
+  recipients TEXT[] NOT NULL,
+  status     TEXT NOT NULL CHECK (status IN ('envoye','echec')),
+  error      TEXT,
+  attempts   INT NOT NULL DEFAULT 1,
+  UNIQUE (kind, period)
+);

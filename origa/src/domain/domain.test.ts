@@ -176,3 +176,38 @@ describe('reprise des données (CSV)', () => {
     expect(toCsv([{ a: 'x;y', b: 2 }])).toContain('"x;y";2');
   });
 });
+
+import { nextLotIds } from './ids';
+import { buildEpcis } from './epcis';
+describe('étiquettes pré-signées et EPCIS 2.0', () => {
+  it('réserve les prochains numéros de lot, sans réutiliser ceux qui ont servi', () => {
+    expect(nextLotIds(['GA1-0042-B07-L01', 'GA1-0042-B07-L03', 'GA1-0042-B06-L09'], 'GA1-0042-B07', 3)).toEqual(['GA1-0042-B07-L04', 'GA1-0042-B07-L05', 'GA1-0042-B07-L06']);
+    expect(nextLotIds([], 'GA1-0042-B08', 2)).toEqual(['GA1-0042-B08-L01', 'GA1-0042-B08-L02']);
+    expect(nextLotIds(['GA1-0042-B07-L98'], 'GA1-0042-B07', 5)).toEqual(['GA1-0042-B07-L99']);
+  });
+  it('une étiquette pré-signée porte la signature que le lot recevra', () => {
+    const [id] = nextLotIds([], 'GA1-0042-B08', 1);
+    expect(verifyLot(id, signLot(id))).toBe(true);
+    expect(signLot(id)).toBe(signLot(id)); // Ed25519 est déterministe : ré-émettre redonne le même QR
+  });
+  it('décrit la vie d’un lot en événements EPCIS 2.0', () => {
+    const doc = buildEpcis({
+      now: '2026-11-11T10:00:00.000Z',
+      lots: [
+        { id: 'GA1-0042-B07-L01', bandId: 'GA1-0042-B07', farmId: 'GA1-0042', count: 1800, weightKg: 3780, operatorId: 'OP-001', cededAt: '2026-10-28', receivedAt: '2026-10-29', receivedCount: 1795, distributorCheckedAt: '2026-10-31', distributorId: 'OP-003' },
+        { id: 'GA1-0042-B07-L01-D1', parentId: 'GA1-0042-B07-L01', bandId: 'GA1-0042-B07', farmId: 'GA1-0042', count: 1790, operatorId: 'OP-001', cededAt: '2026-10-30', derivedProduct: 'Poulet entier prêt à cuire' },
+      ],
+      movements: [{ id: 'm1', lotId: 'GA1-0042-B07-L01', date: '2026-10-28', from: 'Nkoltang', to: 'Ntoum', by: 'Transports Ogooué' }],
+    });
+    expect(doc.type).toBe('EPCISDocument');
+    expect(doc.schemaVersion).toBe('2.0');
+    expect(doc.epcisBody.eventList.map((e) => `${e.type}:${e.bizStep}`)).toEqual([
+      'ObjectEvent:commissioning', 'ObjectEvent:shipping', 'ObjectEvent:transporting', 'ObjectEvent:receiving', 'TransformationEvent:commissioning', 'ObjectEvent:inspecting',
+    ]);
+    const [commissioning, shipping, , receiving, transformation] = doc.epcisBody.eventList;
+    expect(commissioning).toMatchObject({ action: 'ADD', eventTime: '2026-10-28T12:00:00+01:00', eventTimeZoneOffset: '+01:00', bizLocation: { id: 'urn:origa:farm:GA1-0042' } });
+    expect(shipping.destinationList).toEqual([{ type: 'location', destination: 'urn:origa:operator:OP-001' }]);
+    expect(receiving.quantityList).toEqual([{ epcClass: 'urn:origa:lot:GA1-0042-B07-L01', quantity: 1795 }]);
+    expect(transformation).toMatchObject({ inputQuantityList: [{ epcClass: 'urn:origa:lot:GA1-0042-B07-L01' }], outputQuantityList: [{ epcClass: 'urn:origa:lot:GA1-0042-B07-L01-D1', quantity: 1790 }] });
+  });
+});
