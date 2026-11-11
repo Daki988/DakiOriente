@@ -6,8 +6,6 @@ import { AppError, forbidden, notFound } from "../lib/errors";
 import { putFile } from "../lib/storage";
 import { libelleMoyen, moyensDisponibles, msisdnGabon, providerById, providerFor, pousserUssd } from "../payments/providers";
 import { reglages } from "./reglages-paiement";
-import { tauxDuJour } from "../lib/taux";
-import { convertirDe, devisePays } from "@/lib/devises";
 import { notify } from "./notifications";
 import { receiptPdf } from "./pdf";
 import { isGuardianOf } from "./guardians";
@@ -138,19 +136,6 @@ export async function setEscrow(actorId: string | null, bookingId: string, to: "
 
 export async function storeReceipt(reference: string, bytes: Uint8Array) {
   return putFile(`receipts/${reference}.pdf`, bytes, "application/pdf");
-}
-
-/** Frais de candidature dans la monnaie du payeur, plafonnés (réglable dans le back-office : 10 000 F CFA / 15 € par défaut). */
-export async function fraisCandidature(feeMad: number, payer: Pick<User, "country">) {
-  if (feeMad <= 0) return { montant: 0, devise: "MAD", plafonne: false, ecole: 0 };
-  const devise = payer.country === "MA" ? "MAD" : devisePays(payer.country) ?? "EUR";
-  const [taux, r] = await Promise.all([tauxDuJour(), reglages()]);
-  const cfa = devise === "XAF" || devise === "XOF";
-  const brut = devise === "MAD" ? feeMad : convertirDe(feeMad, "MAD", devise, taux) ?? feeMad;
-  const plafond = cfa ? r.frais.plafondXaf : devise === "EUR" ? r.frais.plafondEur : convertirDe(r.frais.plafondEur, "EUR", devise, taux) ?? r.frais.plafondEur;
-  const arrondi = (n: number) => (cfa ? Math.round(n / 50) * 50 : devise === "EUR" ? Math.round(n * 100) / 100 : Math.round(n));
-  const montant = plafond > 0 ? Math.min(arrondi(brut), arrondi(plafond)) : arrondi(brut);
-  return { montant, devise, plafonne: plafond > 0 && arrondi(brut) > arrondi(plafond), ecole: feeMad };
 }
 
 /** Espèces : l'administrateur confirme (ou refuse) la réception du paiement. */

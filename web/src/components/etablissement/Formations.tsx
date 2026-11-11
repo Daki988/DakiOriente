@@ -37,7 +37,7 @@ function toPayload(f: FormState) {
   return {
     ...clean({ formationId: f.formationId, title: f.title.trim(), description: f.description.trim(), language: f.language, currency: f.currency, startDate: f.startDate.trim(), diploma: f.diploma.trim(), options: f.options.trim(), homologationRef: f.homologationRef.trim() }),
     faculty: f.faculty.trim(), level: f.level || undefined,
-    durationYears: num(f.durationYears), tuitionMin: num(f.tuitionMin), tuitionMax: num(f.tuitionMax), applicationFee: num(f.applicationFee) ?? 0, seats: num(f.seats),
+    durationYears: num(f.durationYears), tuitionMin: num(f.tuitionMin), tuitionMax: num(f.tuitionMax), applicationFee: 0, seats: num(f.seats),
     admission: { ...clean({ prerequis: f.prerequis.trim() }), series: f.series, noteMin: num(f.noteMin), concours: f.concours, entretien: f.entretien },
     requiredDocuments: f.requiredDocuments, active: f.active,
   };
@@ -210,11 +210,10 @@ function ProgramForm({ program, eid, pays, onBack, onSaved }: { program: Program
 
       <section className="flex flex-col gap-4">
         <SubTitle icon={<Wallet size={16} />}>Frais</SubTitle>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Field label="Scolarité min / an" error={errs.tuitionMin}>{(id) => <Input id={id} inputMode="numeric" value={f.tuitionMin} onChange={(e) => set("tuitionMin", e.target.value)} />}</Field>
           <Field label="Scolarité max / an" error={errs.tuitionMax}>{(id) => <Input id={id} inputMode="numeric" value={f.tuitionMax} onChange={(e) => set("tuitionMax", e.target.value)} />}</Field>
           <Field label="Devise">{(id) => <Select id={id} value={f.currency} onChange={(e) => set("currency", e.target.value)} options={[["MAD", "Dirham (MAD)"], ["EUR", "Euro (EUR)"]]} />}</Field>
-          <Field label="Frais de dossier" error={errs.applicationFee} hint="0 = gratuit">{(id) => <Input id={id} inputMode="numeric" value={f.applicationFee} onChange={(e) => set("applicationFee", e.target.value)} />}</Field>
         </div>
       </section>
 

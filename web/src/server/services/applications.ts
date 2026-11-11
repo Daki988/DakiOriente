@@ -8,7 +8,6 @@ import { assertConsentIfMinor, isGuardianOf } from "./guardians";
 import { assertMember, publishable } from "./establishments";
 import { notify } from "./notifications";
 import { ficheDe, piecesDeCandidature } from "./dossier";
-import { fraisCandidature, initiatePayment } from "./payments";
 
 type User = typeof schema.users.$inferSelect;
 type Status = (typeof schema.applicationStatusEnum.enumValues)[number];
@@ -74,8 +73,8 @@ export async function missingDocuments(a: typeof schema.applications.$inferSelec
   return (await piecesDeCandidature(a)).manquantes.map((p) => p.code);
 }
 
-/** Envoi : vérifie pièces et consentement, puis lance le paiement des frais de dossier s'il y en a. */
-export async function submitApplication(student: User, id: string, payment?: { method: string; payerId?: string; telephone?: string | null }) {
+/** Envoi : vérifie pièces et consentement, puis transmet à l'école (candidatures gratuites). */
+export async function submitApplication(student: User, id: string) {
   const a = await ownApplication(student, id);
   if (a.status !== "brouillon" && a.status !== "piece_demandee") throw new AppError("Candidature déjà envoyée.");
   await assertConsentIfMinor(student);
@@ -98,21 +97,8 @@ export async function submitApplication(student: User, id: string, payment?: { m
   await notify(student.id, { kind: "candidature_envoyee", title: `Candidature ${a.number} envoyée`, body: `${p.title} · ${e.nom}`, link: `/espace/candidatures/${id}` });
   await notifySchool(a.establishmentId, `Nouvelle candidature ${a.number} · ${p.title}`, `/etablissement/candidatures/${a.id}`);
 
-  let redirectUrl: string | null = null;
-  if (p.applicationFee > 0) {
-    if (!payment?.method) throw new AppError("Choisissez un moyen de paiement pour les frais de dossier.");
-    const payer = payment.payerId && payment.payerId !== student.id ? (await db.select().from(schema.users).where(eq(schema.users.id, payment.payerId)))[0] : student;
-    if (!payer || (payer.id !== student.id && !(await isGuardianOf(payer.id, student.id)))) throw forbidden();
-    // Montant dans la monnaie du payeur, plafonné (réglage du back-office).
-    const f = await fraisCandidature(p.applicationFee, payer);
-    const r = await initiatePayment(payer, { kind: "frais_candidature", amount: f.montant, currency: f.devise, method: payment.method, description: `Frais de dossier ${a.number} · ${e.sigle}`, applicationId: id, beneficiaryId: student.id, telephone: payment.telephone, meta: { fraisEcoleMad: p.applicationFee, plafonne: f.plafonne } });
-    if (payer.id !== student.id) {
-      // Paiement par le parent : il reçoit la demande ; l'élève est redirigé vers le suivi de sa candidature.
-      await notify(payer.id, { kind: "paiement_demande", title: `${student.firstName} vous demande de régler ses frais de dossier`, body: `${p.title} · ${e.nom}`, link: `/paiement/${r.payment.reference}`, channels: ["app", "email", "sms"] });
-      redirectUrl = `/espace/candidatures/${id}?paiement=parent`;
-    } else redirectUrl = r.redirectUrl;
-  }
-  return { application: { ...a, status: "soumise" as Status }, redirectUrl };
+  // Candidatures gratuites : aucun frais de dossier n'est demandé.
+  return { application: { ...a, status: "soumise" as Status }, redirectUrl: null };
 }
 
 export async function onApplicationFeePaid(applicationId: string) {
@@ -207,14 +193,3 @@ export function toCsv(rows: Awaited<ReturnType<typeof listForEstablishment>>) {
   return [head.join(";"), ...rows.map((r) => [r.a.number, r.s.lastName, r.s.firstName, r.s.country, r.s.city, r.s.email, r.s.phone, r.p.title, STATUS_LABEL[r.a.status], r.a.submittedAt?.toISOString().slice(0, 10)].map(esc).join(";"))].join("\n");
 }
 
-/** Frais de dossier affichés avant l'envoi, dans la monnaie du payeur (élève ou parent lié). */
-export async function fraisPour(viewer: User, id: string, payeurId?: string | null) {
-  const a = await ownApplication(viewer, id);
-  const [p] = await db.select({ fee: schema.programs.applicationFee }).from(schema.programs).where(eq(schema.programs.id, a.programId));
-  let payer: User = viewer;
-  if (payeurId && payeurId !== viewer.id) {
-    if (!(await isGuardianOf(payeurId, viewer.id))) throw forbidden();
-    [payer] = await db.select().from(schema.users).where(eq(schema.users.id, payeurId));
-  }
-  return fraisCandidature(p.fee, payer);
-}

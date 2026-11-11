@@ -90,12 +90,11 @@ export function Ressources() {
           <div className="relative mx-auto hidden h-[300px] w-full max-w-[420px] lg:block">
             <div className="absolute inset-x-[8%] bottom-0 top-[12%] rounded-[42%_58%_70%_30%/45%_45%_55%_55%] animate-blob bg-gradient-to-br from-brand-500 to-brand-300" />
             <Image src="/images/etudiante-840.webp" alt="" width={840} height={751} sizes="420px" className="absolute inset-x-0 bottom-0 h-auto w-full" />
-            <p className="absolute -left-36 bottom-8 hidden w-40 -rotate-6 xl:block font-hand text-[22px] leading-tight text-brand-800">Apprendre aujourd&apos;hui pour construire l&apos;Afrique de demain.</p>
           </div>
         </div>
       </section>
 
-      <div className="container -mt-2 grid grid-cols-2 gap-3 sm:grid-cols-5">
+      <div className="container mt-6 grid grid-cols-2 gap-3 [&>*]:min-w-0 sm:grid-cols-5">
         <button onClick={() => maj({ type: [] })} className={`flex min-h-[84px] flex-col items-center justify-center gap-2 rounded-2xl p-3 text-center text-[13px] font-bold transition ${!f.type.length ? "bg-brand-600 text-white shadow-glow" : "card hover:shadow-lift"}`}><LayoutGrid size={22} />Toutes les ressources</button>
         {TYPES.map((t) => { const I = ICONES[t.icone]; const on = f.type.length === 1 && f.type[0] === t.id; return (
           <button key={t.id} onClick={() => maj({ type: on ? [] : [t.id] })} className={`flex min-h-[84px] flex-col items-center justify-center gap-2 rounded-2xl p-3 text-center text-[13px] font-bold transition ${on ? "bg-brand-600 text-white shadow-glow" : "card hover:shadow-lift"}`}><I size={22} className={on ? "" : "text-brand-600"} />{t.libelle}</button>); })}

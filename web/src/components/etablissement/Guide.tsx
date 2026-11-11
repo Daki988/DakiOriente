@@ -18,7 +18,7 @@ const ETAPES: [keyof Progres["etapes"], string, string, string][] = [
 const prix = PRIX_PREMIUM_MAD.toLocaleString("fr-FR").replace(/[  ]/g, " ");
 const FICHES: [typeof Inbox, string, string, ReactNode][] = [
   [Inbox, "Traiter une candidature", "Les statuts pas à pas : envoyée → en vérification → dossier complet → décision.", <>
-    <p>Chaque candidature arrive avec les pièces du candidat (identité, relevés de notes, diplôme, photo) et, le cas échéant, le paiement des frais de dossier.</p>
+    <p>Chaque candidature arrive avec les pièces du candidat (identité, relevés de notes, diplôme, photo). Les candidatures sont gratuites pour les candidats.</p>
     <ol className="list-decimal space-y-1 pl-5"><li><b>En vérification</b> : vous contrôlez les pièces.</li><li><b>Pièce demandée</b> : choisissez la pièce manquante ; le candidat est prévenu par e-mail et SMS et la dépose depuis son espace.</li><li><b>Dossier complet</b>, puis <b>en traitement</b> (comité, entretien, concours).</li><li><b>Décision</b> : acceptée, liste d&apos;attente ou refusée, avec un message au candidat.</li></ol>
     <p>Le bordereau PDF et l&apos;export CSV sont disponibles depuis la liste des candidatures.</p></>],
   [MessagesSquare, "Échanger avec les candidats", "Un fil de discussion par candidature, copie par e-mail.", <>
@@ -39,7 +39,7 @@ const FICHES: [typeof Inbox, string, string, ReactNode][] = [
 const FAQ: [string, ReactNode][] = [
   ["Combien coûte Navigoal pour un établissement ?", <>La fiche, les formations, la réception et le traitement des candidatures et la messagerie sont <b>gratuits</b>. L&apos;offre Premium ({prix} MAD par an) ajoute la sélection avancée, le vivier de candidats et la prospection.</>],
   ["Qui voit les candidatures et les documents des candidats ?", "Uniquement les comptes de votre établissement et l'équipe Navigoal (pour le support et le mode accompagné). Les autres écoles ne voient rien."],
-  ["Comment sont fixés les frais de dossier et quand sont-ils versés ?", "Vous fixez les frais de dossier de chaque formation (rubrique Formations). Le candidat les règle en ligne lors de l'envoi de sa candidature. Pour les modalités de reversement, écrivez à etablissements@navigoal.net."],
+  ["Les candidats paient-ils des frais de dossier ?", "Non. Les candidatures déposées sur Navigoal sont gratuites pour les élèves et leurs parents. Les frais de scolarité et d'inscription se règlent directement auprès de votre établissement, après l'admission."],
   ["Un candidat dit ne pas avoir reçu de réponse : que faire ?", "Ouvrez sa candidature et répondez dans le fil de discussion ; il reçoit votre message par e-mail. Si vous manquez de temps, demandez le mode accompagné : l'équipe Navigoal répondra pour vous."],
 ];
 

@@ -55,22 +55,22 @@ export function Header() {
       transition={{ duration: 0.3, ease: "easeOut" }}
       className={`sticky top-0 z-50 border-b transition-colors duration-300 ${scrolled ? "border-slate-200/70 bg-white/80 backdrop-blur-xl" : "border-transparent bg-white/60 backdrop-blur"}`}
     >
-      <div className="container flex h-[76px] items-center justify-between gap-6">
-        <Brand />
-        <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Navigation principale">
-          {NAV.map((n) => (
+      <div className="container flex h-[76px] items-center justify-between gap-4">
+        <span className="shrink-0"><Brand /></span>
+        <nav className="hidden min-w-0 items-center gap-0.5 xl:flex" aria-label="Navigation principale">
+          {NAV.filter((n) => n.href !== "/").map((n) => (
             <Link key={n.href} href={n.href} className={`relative whitespace-nowrap rounded-lg px-2 py-2 text-sm font-semibold 2xl:px-2.5 transition-colors ${active(n.href) ? "text-brand-600" : "text-ink-soft hover:text-brand-600"}`}>
               {n.label}
               {active(n.href) && <motion.span layoutId="nav-pill" className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-brand-600" />}
             </Link>
           ))}
         </nav>
-        <div className="flex items-center gap-2.5">
+        <div className="flex shrink-0 items-center gap-2.5">
           <SelecteurDestination />
           <Link href="/recherche" aria-label="Rechercher" className="flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-[#f1f4fd] text-ink-soft transition hover:bg-brand-50 hover:text-brand-600">
             <Search size={18} />
           </Link>
-          {me && home ? <Link href={home} className="btn-primary hidden whitespace-nowrap py-2.5 sm:inline-flex">Mon espace · {me.firstName}</Link> : <>
+          {me && home ? <Link href={home} className="btn-primary hidden whitespace-nowrap py-2.5 sm:inline-flex" title={`Mon espace · ${me.firstName}`}>Mon espace<span className="hidden max-w-[110px] truncate min-[1500px]:inline">· {me.firstName.split(" ")[0]}</span></Link> : <>
             <Link href="/connexion" className="btn-ghost hidden whitespace-nowrap py-2.5 sm:inline-flex xl:hidden 2xl:inline-flex">Se connecter</Link>
             <Link href="/inscription" className="btn-sun hidden whitespace-nowrap py-2.5 sm:inline-flex">S&apos;inscrire</Link></>}
           <button onClick={() => setOpen(!open)} className="flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-[#f1f4fd] xl:hidden" aria-label="Menu" aria-expanded={open}>

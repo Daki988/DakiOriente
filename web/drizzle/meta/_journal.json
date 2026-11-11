@@ -71,6 +71,13 @@
       "when": 1793987364024,
       "tag": "0009_reglages",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1794411099723,
+      "tag": "0010_candidatures_gratuites",
+      "breakpoints": true
     }
   ]
 }

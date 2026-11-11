@@ -77,7 +77,7 @@ export async function receiptPdf(p: { reference: string; payer: string; label: s
 export async function applicationPdf(p: { number: string; student: string; program: string; establishment: string; submittedAt: Date; documents: string[]; status: string; fee?: string }) {
   const { pdf, c } = await base("Bordereau de candidature", p.number);
   text(c, "Candidat·e", { size: 9, color: MUTE }); text(c, p.student, { bold: true }); c.y -= 8;
-  rows(c, [["Formation", p.program], ["Établissement", p.establishment], ["Date d'envoi", date(p.submittedAt)], ["Frais de dossier", p.fee ?? "Aucun"], ["Statut", p.status]]);
+  rows(c, [["Formation", p.program], ["Établissement", p.establishment], ["Date d'envoi", date(p.submittedAt)], ["Frais de dossier", "Gratuit"], ["Statut", p.status]]);
   c.y -= 6; text(c, "Pièces jointes", { bold: true });
   for (const d of p.documents) text(c, `•  ${d}`);
   c.y -= 10;

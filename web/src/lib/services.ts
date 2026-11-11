@@ -33,8 +33,8 @@ export const SERVICES: Record<ServiceId, Service> = {
     menu: [
       { href: "/navilease/logements", label: "Logements" },
       { href: "/navilease/residences", label: "Résidences universitaires" },
-      { href: "/navilease#comment", label: "Comment ça marche" },
-      { href: "/navilease#bailleurs", label: "Bailleurs" },
+      { href: "/navilease/comment-ca-marche", label: "Comment ça marche" },
+      { href: "/navilease/bailleurs", label: "Bailleurs" },
       { href: "/navilease/cgu", label: "Aide et règles" },
     ],
     cta: { href: "/bailleur/annonces/nouvelle", label: "Publier une annonce" },

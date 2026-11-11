@@ -13,7 +13,7 @@ import { useAction, useApi } from "@/hooks/useApi";
 import { etabById } from "@/lib/data";
 import { ConversationThread } from "./Conversation";
 import { AppProgress } from "./AppProgress";
-import type { AppDetail, Payment } from "./types";
+import type { AppDetail } from "./types";
 import { useMontant } from "@/components/ui/Devise";
 
 const FLOW = ["brouillon", "soumise", "paiement_confirme", "en_verification", "complet", "en_traitement"];
@@ -26,7 +26,6 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
   const params = useSearchParams();
   const d = useApi<AppDetail>(`/candidatures/${id}`);
   const convs = useApi<Conv>("/conversations");
-  const pays = useApi<Payment[]>("/paiements");
   const a = useAction();
   const [firstMsg, setFirstMsg] = useState("");
   const conv = convs.data?.find((c) => c.contextKind === "application" && c.contextId === id);
@@ -35,11 +34,10 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
   if (d.error) return <Alert tone="error" title="Candidature introuvable">{d.error.message}</Alert>;
   if (!d.data) return <Loading />;
   const { application: app, program: p, establishment: e, events, documents, missing, pieces } = d.data;
-  const fee = (pays.data ?? []).find((x) => x.applicationId === id);
   const final = ["acceptee", "refusee", "desistee"].includes(app.status);
   const reached = new Set(events.map((x) => x.status));
   const steps = [
-    ...FLOW.filter((s) => s !== "paiement_confirme" || p.applicationFee > 0).map((s) => {
+    ...FLOW.filter((s) => s !== "paiement_confirme").map((s) => {
       const ev = [...events].reverse().find((x) => x.status === s);
       const isCurrent = !final && app.status === s;
       return { title: statusLabel(s), date: ev ? dateFr(ev.createdAt, true) : undefined, note: ev?.note, state: (reached.has(s) ? (isCurrent ? "current" : "done") : "todo") as "done" | "current" | "todo" };
@@ -55,7 +53,7 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
         title={<span className="flex items-center gap-3 sm:gap-4"><EtabLogo e={etabById[e.id] ?? e} size={48} /><span>{p.title}</span></span>} badge={<StatusBadge status={app.status} />}
         sub={`${e.nom} · ${app.campus ? `campus de ${app.campus}` : e.ville}, Maroc · candidature n° ${app.number}`}
         actions={<><Button variant="ghost" icon={Printer} onClick={() => window.print()}>Imprimer</Button>{app.submittedAt && <a href={apiUrl(`/candidatures/${id}/bordereau.pdf`)} target="_blank" className="btn-ghost"><Download size={16} />Bordereau PDF</a>}</>} />
-      <div className="card mb-5 rounded-[20px] p-4 sm:p-5"><AppProgress status={app.status} fee={p.applicationFee > 0} /></div>
+      <div className="card mb-5 rounded-[20px] p-4 sm:p-5"><AppProgress status={app.status} fee={false} /></div>
       {params.get("paiement") === "parent" && <div className="mb-5"><Alert tone="info" title="Demande de paiement envoyée à ton parent">Ton dossier est enregistré ; il passera au statut « Paiement confirmé » dès que ton parent aura réglé les frais.</Alert></div>}
       {app.status === "piece_demandee" && (
         <motion.div initial={{ y: -16, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="mb-5">
@@ -94,8 +92,7 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
           <section className="card flex flex-col gap-3 rounded-[22px] p-5">
             <div className="flex items-center gap-3"><EtabLogo e={etabById[e.id] ?? e} size={44} /><span><b className="block">{e.sigle}</b><span className="text-xs text-ink-mute">{e.ville.split("/")[0].trim()}</span></span></div>
             {etabById[e.id] && <EtabPhoto e={etabById[e.id]} className="h-36" />}
-            {[["Formation", p.title], ["Durée", p.durationYears ? `${p.durationYears} ans` : "—"], ["Rentrée", p.startDate ?? "Septembre"], ["Frais de dossier", p.applicationFee ? `${m(p.applicationFee, p.currency)}${fee ? ` · ${statusLabel(fee.status).toLowerCase()}` : ""}` : "Aucun"]].map(([k, v]) => <div key={k} className="flex justify-between gap-3 text-[13px]"><span className="text-ink-mute">{k}</span><b className="text-right">{v}</b></div>)}
-            {fee && fee.status === "en_attente" && <Link href={`/paiement/${fee.reference}`} className="btn-primary py-2.5">Finaliser le paiement</Link>}
+            {[["Formation", p.title], ["Durée", p.durationYears ? `${p.durationYears} ans` : "—"], ["Rentrée", p.startDate ?? "Septembre"], ["Frais de dossier", "Gratuit"]].map(([k, v]) => <div key={k} className="flex justify-between gap-3 text-[13px]"><span className="text-ink-mute">{k}</span><b className="text-right">{v}</b></div>)}
           </section>
           {app.status === "acceptee" && (
             <Panel tone="green" title="Tu es admis·e ! 🎉" icon={CheckCircle2}>

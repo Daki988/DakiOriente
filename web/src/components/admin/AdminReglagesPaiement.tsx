@@ -1,5 +1,5 @@
 "use client";
-// Réglages des paiements (maquette « Paiements », écran 1) : E-Billing, Stripe, espèces, plafond des frais de candidature.
+// Réglages des paiements (maquette « Paiements », écran 1) : E-Billing, Stripe, espèces. Les candidatures sont gratuites.
 import { Banknote, CreditCard, Eye, EyeOff, PlugZap, Receipt, ShieldCheck, Smartphone } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Alert, Button, Loading, Panel, useToast } from "@/components/app/kit";
@@ -12,7 +12,6 @@ type Vue = {
   ebilling: { actif: boolean; env: "lab" | "production"; apiUrl: string; portailUrl: string; username: string; sharedKey: string | null };
   stripe: { actif: boolean; publishableKey: string; secretKey: string | null; webhookSecret: string | null };
   especes: { actif: boolean; instructions: string; delaiJours: number };
-  frais: { plafondXaf: number; plafondEur: number };
   webhooks: { ebilling: string; stripe: string }; recette: boolean;
 };
 const URLS = { lab: ["https://lab.billing-easy.net/api/v1", "https://test.billing-easy.net"], production: ["https://stg.billing-easy.com/api/v1", "https://staging.billing-easy.net"] } as const;
@@ -43,7 +42,7 @@ export function AdminReglagesPaiement() {
   if (!f) return <Loading />;
   const set = <K extends keyof Vue>(k: K, v: Partial<Vue[K]>) => setF({ ...f, [k]: { ...(f[k] as object), ...v } });
   const enregistrer = () => save.run(async () => {
-    const v = await api<Vue>("/admin/paiements/reglages", { method: "PUT", body: { ebilling: { ...f.ebilling, sharedKey: cles.sharedKey || undefined }, stripe: { ...f.stripe, secretKey: cles.secretKey || undefined, webhookSecret: cles.webhookSecret || undefined }, especes: f.especes, frais: f.frais } });
+    const v = await api<Vue>("/admin/paiements/reglages", { method: "PUT", body: { ebilling: { ...f.ebilling, sharedKey: cles.sharedKey || undefined }, stripe: { ...f.stripe, secretKey: cles.secretKey || undefined, webhookSecret: cles.webhookSecret || undefined }, especes: f.especes } });
     r.setData(v); setCles({ sharedKey: "", secretKey: "", webhookSecret: "" }); toast("Réglages des paiements enregistrés");
   });
   const tester = (p: "ebilling" | "stripe") => test.run(async () => { const t = await api<{ ok: boolean; message: string }>("/admin/paiements/reglages/test", { body: { passerelle: p } }); setTests((x) => ({ ...x, [p]: t })); });
@@ -51,7 +50,7 @@ export function AdminReglagesPaiement() {
 
   return (
     <div className="min-w-0">
-      <AdminHeader title="Réglages des paiements" sub="Passerelles, espèces et plafond des frais de candidature" actions={<span className="chip bg-[#e8f8ef] text-[#0f8a46]"><ShieldCheck size={13} />Clés chiffrées, jamais réaffichées en clair</span>} />
+      <AdminHeader title="Réglages des paiements" sub="Passerelles de paiement et espèces (Navilease)" actions={<span className="chip bg-[#e8f8ef] text-[#0f8a46]"><ShieldCheck size={13} />Clés chiffrées, jamais réaffichées en clair</span>} />
       {f.recette && <div className="mb-4"><Alert tone="warn" title="Mode recette">PAYMENTS_MODE=sandbox : tous les paiements sont simulés, quels que soient ces réglages.</Alert></div>}
       <div className="grid gap-5 xl:grid-cols-2">
         <Panel title="Mobile money (Gabon)" icon={Smartphone} action={<Toggle on={f.ebilling.actif} onChange={(v) => set("ebilling", { actif: v })} label="Activer le mobile money" />}>
@@ -83,12 +82,9 @@ export function AdminReglagesPaiement() {
           <Champ label="Délai pour payer (jours)"><input className="input w-32" type="number" min={1} max={60} value={f.especes.delaiJours} onChange={(e) => set("especes", { delaiJours: Number(e.target.value) })} /></Champ>
         </Panel>
 
-        <Panel title="Frais de candidature" icon={Receipt}>
-          <p className="text-[13px] text-ink-mute">Toujours affichés et payés dans la monnaie de l&apos;élève ; jamais plus que le plafond, même si l&apos;école demande davantage. 0 = pas de plafond.</p>
-          <div className="flex flex-wrap gap-3">
-            <Champ label="Plafond en F CFA (XAF, XOF)"><input className="input" type="number" min={0} step={50} value={f.frais.plafondXaf} onChange={(e) => set("frais", { plafondXaf: Number(e.target.value) })} /></Champ>
-            <Champ label="Plafond dans les autres monnaies (€)" aide="Converti au taux du jour"><input className="input" type="number" min={0} step={0.5} value={f.frais.plafondEur} onChange={(e) => set("frais", { plafondEur: Number(e.target.value) })} /></Champ>
-          </div>
+        <Panel title="Candidatures" icon={Receipt}>
+          <p className="text-sm"><b>Les candidatures sont gratuites.</b> Aucun frais de dossier n&apos;est demandé aux élèves ni aux parents.</p>
+          <p className="text-[13px] text-ink-mute">Les moyens de paiement réglés ici servent uniquement à Navilease (réservation d&apos;un logement, loyers).</p>
         </Panel>
       </div>
       <FormError error={save.error} />

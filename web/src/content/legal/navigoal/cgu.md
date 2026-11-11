@@ -52,12 +52,11 @@ Un élève mineur peut créer un compte et utiliser les services d'information e
 - Vous vous engagez à ne déposer que des documents authentiques et vous concernant. Toute fraude documentaire entraîne la suspension du compte et peut être signalée à l'établissement et aux autorités.
 - Lorsque l'établissement l'a activé, le « mode accompagné » permet à l'équipe Navigoal de traiter votre dossier pour le compte de l'établissement : les messages sont alors signés « Équipe Navigoal, pour le compte de… ».
 
-## Frais de dossier et paiements
+## Gratuité des candidatures
 
-- Certaines candidatures donnent lieu à des frais de dossier fixés par l'établissement. Ils sont affichés avant validation, **dans la monnaie du payeur** (F CFA, euro…), et encaissés par Navigoal **pour le compte de l'établissement**. Navigoal plafonne le montant payé par l'élève, même si l'établissement demande davantage ; le plafond en vigueur est indiqué au moment du paiement.
-- Moyens acceptés : mobile money (Airtel Money, Moov Money au Gabon, par la passerelle E-Billing), carte bancaire (par Stripe) et espèces au bureau de Navigoal. Un paiement en espèces n'est pris en compte qu'après confirmation de la réception par l'équipe Navigoal, qui le valide dans son back-office ; la candidature est transmise à l'établissement à ce moment-là.
-- Un reçu est disponible dans votre espace après chaque paiement. Navigoal ne conserve aucune donnée complète de carte bancaire.
-- Les frais de dossier ne sont pas remboursables une fois la candidature transmise, sauf annulation de la formation par l'établissement ou disposition contraire de celui-ci.
+- Déposer une candidature sur Navigoal est **gratuit** : aucun frais de dossier n'est demandé à l'élève ni à ses parents par la Plateforme.
+- Les frais de scolarité et d'inscription sont réglés directement à l'établissement, selon ses propres conditions, une fois l'admission prononcée. Navigoal n'encaisse pas ces sommes.
+- Les services payants que vous choisissez (logement avec Navilease, voyage avec NaviTravel) ont leurs propres conditions, annoncées avant tout engagement.
 
 ## Navi, l'assistant intelligent
 

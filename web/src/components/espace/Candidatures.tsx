@@ -50,7 +50,7 @@ export function Candidatures() {
                   <StatusBadge status={r.a.status} />
                   <span className="text-xs text-ink-mute">{r.a.submittedAt ? `envoyée le ${dateFr(r.a.submittedAt)}` : `modifiée le ${dateFr(r.a.updatedAt)}`}</span>
                 </div>
-                <div className="min-w-0 flex-1"><AppProgress status={r.a.status} fee={r.p.applicationFee > 0} compact /></div>
+                <div className="min-w-0 flex-1"><AppProgress status={r.a.status} fee={false} compact /></div>
                 <Link href={href} className="btn-ghost min-h-[42px] shrink-0 px-4 py-2 text-[13px]">{r.a.status === "brouillon" ? "Reprendre" : "Voir le détail"}</Link>
               </motion.article>
             );

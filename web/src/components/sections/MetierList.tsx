@@ -13,7 +13,8 @@ import { photoMetier } from "@/lib/photos";
 
 const ORDRE_NIV = NIVEAUX_METIER.map(([k]) => k);
 const DEFAUTS = { q: "", domaine: "", niveau: "", secteur: "", qualite: "", tri: "az" };
-const TRIS: [string, string][] = [["az", "Ordre alphabétique"], ["ecoles", "Nombre d'établissements"], ["niveau", "Niveau d'études"]];
+const TRIS: [string, string][] = [["az", "Nom (A → Z)"], ["ecoles", "Le plus d'écoles qui y préparent"], ["niveau", "Études les plus courtes d'abord"]];
+const DUREE: Record<string, string> = { "niv-bac": "sans études longues", "niv-bac2": "2 ans d'études", "niv-bac3": "3 ans d'études", "niv-bac5": "5 ans d'études", "niv-bac7": "6 à 7 ans d'études", "niv-bac8": "8 ans d'études" };
 const DOMAINES = domaines.filter((d) => metiers.some((m) => m.domaine === d.id));
 const court = (l: string) => l.split(",")[0];
 /** Métier présenté en « zoom » : la data et l'IA, parmi les filières les plus proposées au Maroc. */
@@ -22,18 +23,19 @@ const select = "w-full appearance-none rounded-xl border border-slate-200 bg-whi
 
 function MetierCarte({ m }: { m: Metier }) {
   const s = domStyle(m.domaine);
-  const qualite = m.competences.map((c) => competenceById[c]).find((c) => c?.categorie === "transversale");
+  const ecoles = ecolesPourMetier(m);
   return (
     <Link href={`/metiers/${m.id}/`} className="card group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-lift">
-      <Illustration p={photoMetier(m.id, m.domaine)} domaine={m.domaine} className="h-36 transition duration-700 group-hover:scale-105" />
+      <Illustration p={photoMetier(m.id, m.domaine)} domaine={m.domaine} className="h-36 shrink-0 transition duration-700 group-hover:scale-105" />
       <div className="flex flex-1 flex-col gap-2 p-4">
+        <span className="chip w-fit max-w-full" style={{ background: s.bg, color: s.fg }}><span className="truncate">{court(domaineById[m.domaine].libelle)}</span></span>
         <b className="text-[17px] leading-snug">{m.nom}</b>
         <p className="line-clamp-2 text-[13px] leading-relaxed text-ink-mute">{m.description}</p>
-        <div className="mt-auto flex items-end justify-between gap-2 pt-2">
-          <div className="flex min-w-0 flex-wrap gap-1.5">
-            <span className="chip max-w-full truncate" style={{ background: s.bg, color: s.fg }}>{court(domaineById[m.domaine].libelle)}</span>
-            {qualite && <span className="chip max-w-full truncate bg-[#f1f4fb] text-ink-soft">{qualite.libelle.split(" et ")[0]}</span>}
-          </div>
+        <div className="mt-auto flex items-center justify-between gap-2 border-t border-[#eef1f8] pt-3">
+          <span className="flex min-w-0 flex-col text-xs text-ink-mute">
+            <span className="flex items-center gap-1.5 font-bold text-ink"><GraduationCap size={15} className="shrink-0 text-brand-600" />{niveauLabel(m.niveau_min)} · {DUREE[m.niveau_min] ?? ""}</span>
+            <span className="truncate">{ecoles > 0 ? `${ecoles} école${ecoles > 1 ? "s" : ""} y prépare${ecoles > 1 ? "nt" : ""} au Maroc` : "Fiche métier"}</span>
+          </span>
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sun-400 text-ink transition group-hover:translate-x-1"><ArrowRight size={16} /></span>
         </div>
       </div>
@@ -67,17 +69,18 @@ export function MetierList() {
   const filtres = (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between"><h2 className="text-lg font-extrabold">Filtrer les métiers</h2>{actifs > 0 && <button onClick={tout} className="min-h-[40px] text-[13px] font-bold text-brand-600">Réinitialiser</button>}</div>
+      <p className="-mt-2 text-[13px] text-ink-mute">Réduis la liste pour trouver les métiers faits pour toi.</p>
       {([
-        ["Domaine", "domaine", "Tous les domaines", DOMAINES.map((d) => [d.id, court(d.libelle)] as [string, string])],
-        ["Niveau d'études", "niveau", "Tous les niveaux", NIVEAUX_METIER.filter(([k]) => metiers.some((m) => m.niveau_min === k))],
-        ["Secteur d'activité", "secteur", "Tous les secteurs", SECTEURS.map((s) => [s.id, s.libelle] as [string, string])],
-        ["Qualités requises", "qualite", "Toutes les qualités", QUALITES.map((q) => [q.id, q.libelle] as [string, string])],
-      ] as const).map(([lab, k, vide, opts]) => (
+        ["Domaine", "domaine", "Tous les domaines", DOMAINES.map((d) => [d.id, court(d.libelle)] as [string, string]), "La grande famille du métier : santé, informatique, droit…"],
+        ["Durée des études", "niveau", "Toutes les durées", NIVEAUX_METIER.filter(([k]) => metiers.some((m) => m.niveau_min === k)).map(([k, l]) => [k, `${l} · ${DUREE[k]}`] as [string, string]), "Le diplôme minimum pour exercer ce métier."],
+        ["Où travailler", "secteur", "Tous les secteurs", SECTEURS.map((s) => [s.id, s.libelle] as [string, string]), "Le type d'employeur : hôpital, banque, industrie…"],
+        ["Mon point fort", "qualite", "Peu importe", QUALITES.map((q) => [q.id, q.libelle] as [string, string]), "Choisis une qualité que tu as (rigueur, créativité, sens du contact…) : on te montre les métiers où elle compte."],
+      ] as const).map(([lab, k, vide, opts, aide]) => (
         <label key={k} className="flex flex-col gap-1.5 text-sm font-bold">{lab}
           <span className="relative"><select value={f[k]} onChange={(e) => appliquer({ [k]: e.target.value })} className={select}><option value="">{vide}</option>{opts.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select><ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-ink-mute" /></span>
+          <span className="text-xs font-normal leading-snug text-ink-mute">{aide}</span>
         </label>
       ))}
-      <p className="text-xs text-ink-mute">Niveau : diplôme minimum habituel pour exercer. Secteurs : employeurs cités dans les fiches.</p>
     </div>
   );
 
@@ -101,7 +104,6 @@ export function MetierList() {
           <div className="relative mx-auto hidden h-[300px] w-full max-w-[420px] lg:block">
             <div className="absolute inset-x-[8%] bottom-0 top-[12%] rounded-[42%_58%_70%_30%/45%_45%_55%_55%] animate-blob bg-gradient-to-br from-brand-500 to-brand-300" />
             <Image src="/images/etudiante-840.webp" alt="" width={840} height={751} sizes="420px" className="absolute inset-x-0 bottom-0 h-auto w-full" />
-            <p className="absolute -left-36 bottom-8 hidden w-40 -rotate-6 xl:block font-hand text-[22px] leading-tight text-brand-800">Des métiers d&apos;aujourd&apos;hui pour construire l&apos;Afrique de demain.</p>
           </div>
         </div>
       </section>
@@ -122,8 +124,8 @@ export function MetierList() {
             <h2 className="text-xl font-extrabold sm:text-2xl">{f.domaine ? court(domaineById[f.domaine].libelle) : "Tous les métiers"} <span className="text-ink-mute">({list.length})</span></h2>
             <div className="flex min-w-0 flex-wrap items-center gap-2">
               <button onClick={() => setPanneau(true)} className="btn-ghost relative min-h-[42px] px-3.5 py-2 lg:hidden"><SlidersHorizontal size={16} />Filtres{actifs > 0 && <span className="rounded-full bg-sun-400 px-1.5 text-xs text-ink">{actifs}</span>}</button>
-              <label className="relative flex min-w-0 items-center gap-2 text-sm text-ink-mute"><span className="hidden sm:inline">Tri :</span>
-                <select value={f.tri} onChange={(e) => set({ tri: e.target.value })} className="min-h-[42px] max-w-[170px] appearance-none truncate rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 font-semibold text-ink outline-none" aria-label="Trier les métiers">{TRIS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select>
+              <label className="relative flex min-w-0 items-center gap-2 text-sm text-ink-mute"><span className="hidden whitespace-nowrap sm:inline">Classer par :</span>
+                <select value={f.tri} onChange={(e) => set({ tri: e.target.value })} className="min-h-[42px] max-w-[250px] appearance-none truncate rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 font-semibold text-ink outline-none" aria-label="Trier les métiers">{TRIS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select>
                 <ChevronDown size={14} className="pointer-events-none absolute right-2.5" />
               </label>
             </div>
@@ -146,12 +148,8 @@ export function MetierList() {
           {!list.length && <div className="card p-10 text-center text-ink-mute">Aucun métier ne correspond à ces filtres. <button onClick={tout} className="font-bold text-brand-600">Réinitialiser</button></div>}
           {limit < list.length && <button onClick={() => setLimit(limit + 12)} className="btn-ghost self-center">Afficher plus de métiers ({list.length - limit} restants)</button>}
 
-          <ZoomMetier />
-        </div>
-
-        <aside className="flex min-w-0 flex-col gap-5 lg:sticky lg:top-24">
-          <div className="card hidden p-5 lg:block">{filtres}</div>
-          <div className="card flex flex-col gap-3 p-5">
+          <div className="mt-4 grid gap-5 [&>*]:min-w-0 md:grid-cols-2">
+            <div className="card flex flex-col gap-3 p-5">
             <div><h2 className="text-lg font-extrabold">Métiers à la une</h2><p className="text-xs text-ink-mute">Ceux auxquels préparent le plus d&apos;établissements au Maroc.</p></div>
             {METIERS_UNE.map((m, k) => (
               <Link key={m.id} href={`/metiers/${m.id}/`} className="group flex min-h-[48px] items-center gap-3 rounded-xl p-1 hover:bg-[#f6f8fe]">
@@ -162,12 +160,16 @@ export function MetierList() {
               </Link>
             ))}
           </div>
-          <div className="flex flex-col gap-3 rounded-2xl border border-[#ffe9a8] bg-[#fffaf0] p-5">
+            <div className="flex flex-col gap-3 self-start rounded-2xl border border-[#ffe9a8] bg-[#fffaf0] p-5">
             <div className="flex items-center gap-3"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#e2541b] shadow-sm"><Target size={22} /></span><b className="leading-snug">Tu ne sais pas quel métier te correspond ?</b></div>
             <p className="text-sm text-ink-soft">Fais le test d&apos;orientation et découvre les métiers qui correspondent à ton profil.</p>
             <Link href="/orientation" className="btn-sun w-fit">Faire le test gratuitement <ArrowRight size={16} /></Link>
           </div>
-        </aside>
+          </div>
+          <ZoomMetier />
+        </div>
+
+        <aside className="hidden min-w-0 lg:sticky lg:top-[92px] lg:block lg:max-h-[calc(100vh-108px)] lg:overflow-y-auto"><div className="card p-5">{filtres}</div></aside>
       </div>
 
       <section className="mt-14 bg-[#f6f8fe] py-12">

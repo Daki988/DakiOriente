@@ -69,7 +69,7 @@ export function ParentHome() {
           {apps.loading ? <Loading /> : !(apps.data ?? []).length ? <p className="text-sm text-ink-mute">Aucune candidature pour l&apos;instant.</p> : apps.data!.map((r) => (
             <Link key={r.a.id} href={`/parent/candidatures/${r.a.id}`} className="flex flex-col gap-3 rounded-2xl border border-[#eef1f8] p-3 hover:border-brand-200">
               <span className="flex items-center gap-3"><EtabLogo e={etabById[r.e.id] ?? r.e} size={42} /><span className="min-w-0 flex-1"><b className="block truncate text-sm">{r.p.title}</b><span className="block truncate text-xs text-ink-mute">{r.e.nom}{r.a.campus ? ` · campus de ${r.a.campus}` : ""} · n° {r.a.number}</span></span><StatusBadge status={r.a.status} /></span>
-              <AppProgress status={r.a.status} fee={r.p.applicationFee > 0} compact />
+              <AppProgress status={r.a.status} fee={false} compact />
             </Link>
           ))}
         </Panel>

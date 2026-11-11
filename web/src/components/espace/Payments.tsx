@@ -10,7 +10,7 @@ import { useMontant } from "@/components/ui/Devise";
 const KIND: Record<string, string> = { frais_candidature: "Frais de dossier", reservation: "Réservation logement", caution: "Caution", loyer: "Loyer", service: "Service" };
 
 /** Historique des paiements (étudiant ou parent : inclut ceux des enfants). */
-export function Payments({ title = "Paiements", sub = "Frais de dossier, réservations et loyers, avec leurs reçus." }: { title?: string; sub?: string }) {
+export function Payments({ title = "Paiements", sub = "Réservations de logement et loyers, avec leurs reçus." }: { title?: string; sub?: string }) {
   const { m } = useMontant();
   const { data, loading } = useApi<Payment[]>("/paiements");
   const ok = (data ?? []).filter((p) => p.status === "reussi");
@@ -25,7 +25,7 @@ export function Payments({ title = "Paiements", sub = "Frais de dossier, réserv
         <Kpi icon={Wallet} tone="sun" label="En attente" value={(data ?? []).filter((p) => p.status === "en_attente").length} sub="paiements à finaliser" />
       </div>
       <Panel>
-        {loading ? <Loading /> : !data?.length ? <Empty icon={Wallet} title="Aucun paiement" text="Tes frais de dossier et paiements Navilease apparaîtront ici." /> : (
+        {loading ? <Loading /> : !data?.length ? <Empty icon={Wallet} title="Aucun paiement" text="Tes paiements Navilease (réservation, loyers) apparaîtront ici." /> : (
           <Table rows={data} rowKey={(p) => p.id} cols={[
             { h: "Référence", c: (p) => <span className="font-mono text-xs">{p.reference}</span> },
             { h: "Objet", c: (p) => <span><b className="block text-[13px]">{KIND[p.kind] ?? p.kind}</b><span className="text-xs text-ink-mute">{p.meta.description}</span></span> },

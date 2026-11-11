@@ -27,7 +27,7 @@ const COUTS_PARENTS = [
 
 const ACTIONS = [
   { titre: "Suivre chaque candidature", texte: "Statut, pièces demandées, réponse de l'école : vous êtes prévenu en même temps que votre enfant." },
-  { titre: "Payer en ligne, avec reçu", texte: "Frais de dossier et réservation du logement, avec reçu dans votre espace. L'argent du logement reste bloqué jusqu'à l'entrée de votre enfant." },
+  { titre: "Candidatures gratuites, logement protégé", texte: "Aucun frais de dossier pour candidater. Pour le logement, vous payez en ligne avec reçu : l'argent reste bloqué jusqu'à l'entrée de votre enfant." },
   { titre: "Valider le logement comme garant", texte: "Votre accord est demandé avant toute réservation pour un enfant mineur ; l'adresse et le contrat sont visibles après le paiement." },
   { titre: "Parler à un conseiller", texte: "Au téléphone ou sur WhatsApp, pour comparer les écoles, le budget et les démarches." },
 ];
@@ -36,7 +36,7 @@ const FAQ = [
   { q: "Les diplômes sont-ils reconnus ?", r: "Chaque établissement affiche son statut officiel au Maroc (reconnu par l'État, diplômes homologués, établissement autorisé), vérifié sur les sources officielles marocaines. Pour l'équivalence au Gabon, renseignez-vous auprès du ministère de l'Enseignement supérieur." },
   { q: "Faut-il un visa pour le Maroc ?", r: "Les ressortissants gabonais sont dispensés de visa pour entrer au Maroc. Sur place, l'étudiant demande une carte de séjour avec son inscription. Le guide « Visa et séjour » détaille les pièces." },
   { q: "Mon enfant est mineur : comment ça marche ?", r: "Il peut créer son compte et explorer Navigoal. Les candidatures, les paiements et la réservation d'un logement s'ouvrent après votre consentement, donné depuis votre espace parent." },
-  { q: "Que se passe-t-il si l'école refuse le dossier ?", r: "Votre enfant peut candidater à plusieurs écoles en parallèle ; chaque décision apparaît dans votre espace. Les conditions de remboursement des frais de dossier sont celles de chaque école." },
+  { q: "Que se passe-t-il si l'école refuse le dossier ?", r: "Votre enfant peut candidater à plusieurs écoles en parallèle ; chaque décision apparaît dans votre espace. Candidater est gratuit : un refus ne vous coûte rien." },
   { q: "Navigoal est-il payant pour les parents ?", r: "Non : le compte parent, le devis, le comparateur et le suivi sont gratuits. Seuls les frais de l'école et du logement sont payés, avec reçu." },
 ];
 

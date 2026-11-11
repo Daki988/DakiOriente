@@ -1,10 +1,10 @@
 "use client";
 import Link from "@/components/ui/Link";
 import { AnimatePresence, motion } from "framer-motion";
-import { CalendarCheck, Footprints, GraduationCap, HousePlus, KeyRound, MapPin, Search, ShieldCheck, Signature, UsersRound } from "lucide-react";
+import { Footprints, GraduationCap, MapPin, Search, ShieldCheck } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Counter } from "@/components/motion/Counter";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
+import { EtapesReservation } from "@/components/navilease/Explications";
 import { useApi } from "@/hooks/useApi";
 import { Prix } from "@/components/ui/Devise";
 import { Cover, VERIF, nearText, type Housing } from "@/components/navilease/shared";
@@ -108,35 +108,8 @@ export function Navilease({ residences: rangee }: { residences?: ReactNode }) {
         {type !== "cites" && list.length > 6 && <Link href={`/navilease/logements/?${qs}`} className="btn-ghost self-center">Voir les {list.length >= 24 ? "" : `${list.length} `}logements</Link>}
       </section>
 
-      <Reveal className="container mt-20 scroll-mt-28" id="comment">
-        <div className="flex flex-col gap-8 rounded-[28px] border border-[#f3e6bd] bg-[#fffaf0] p-6 sm:p-11">
-          <div><span className="text-[13px] font-extrabold uppercase tracking-[.16em] text-[#a55a00]">Comment ça marche</span><h2 className="h-section mt-2">Réserver sans arnaque, en 5 étapes</h2></div>
-          <Stagger className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {[[Search, "Je cherche", "Par établissement, budget, type de logement."], [CalendarCheck, "Je réserve", "Demande + pièces ; validation parent si mineur."], [ShieldCheck, "Je paie en séquestre", "Mobile money ou carte, fonds protégés jusqu'à l'entrée."], [Signature, "Je signe", "Contrat numérique et état des lieux photo."], [KeyRound, "J'emménage", "Quittances mensuelles, médiation en cas de litige."]].map(([I, t, s], k) => {
-              const Icon = I as typeof Search;
-              return (
-                <StaggerItem key={t as string} className="flex flex-col gap-2.5">
-                  <div className="flex items-center gap-2.5"><span className={`flex h-12 w-12 items-center justify-center rounded-[14px] border border-[#f3e6bd] ${k === 2 ? "bg-sun-400" : "bg-white"}`}><Icon size={22} /></span><span className="text-[28px] font-extrabold text-[#f3e6bd]">0{k + 1}</span></div>
-                  <b>{t as string}</b><span className="text-[13px] text-ink-mute">{s as string}</span>
-                </StaggerItem>
-              );
-            })}
-          </Stagger>
-        </div>
-      </Reveal>
-
-      <div id="bailleurs" className="container mt-16 grid scroll-mt-24 gap-6 md:grid-cols-2">
-        <Reveal className="flex h-full flex-col gap-4 rounded-[26px] bg-gradient-to-br from-brand-950 to-brand-700 p-8 text-white">
-          <span className="flex h-[52px] w-[52px] items-center justify-center rounded-[14px] bg-white/10 text-sun-400"><HousePlus size={26} /></span>
-          <h3 className="text-[26px] font-extrabold">Vous êtes bailleur ?</h3><p className="leading-relaxed text-[#c9d6ff]">Louez à des étudiants vérifiés, encaissez en sécurité et générez contrats et quittances automatiquement.</p>
-          <Link href="/inscription?profil=bailleur" className="btn-sun btn-shine mt-auto self-start">Publier mon logement</Link>
-        </Reveal>
-        <Reveal delay={0.1} className="card flex h-full flex-col gap-4 rounded-[26px] p-8">
-          <span className="flex h-[52px] w-[52px] items-center justify-center rounded-[14px] bg-[#e8f8ef] text-[#0f8a46]"><UsersRound size={26} /></span>
-          <h3 className="text-[26px] font-extrabold">Parents, gardez la main</h3><p className="leading-relaxed text-ink-soft">Validez la réservation de votre enfant, devenez garant et suivez les paiements depuis votre espace parent.</p>
-          <Link href="/inscription?profil=parent" className="btn-ghost mt-auto self-start">Créer un compte parent</Link>
-        </Reveal>
-      </div>
+      <div className="container mt-20"><EtapesReservation /></div>
+      <div className="container mt-6 flex flex-wrap justify-center gap-3"><Link href="/navilease/comment-ca-marche" className="btn-ghost">Comprendre les protections Navilease</Link><Link href="/navilease/bailleurs" className="btn-ghost">Vous êtes bailleur ?</Link></div>
     </>
   );
 }

@@ -17,7 +17,7 @@ export function AuthAside() {
       <ul className="relative mt-8 flex max-w-md flex-col gap-3">
         {[
           { I: BadgeCheck, t: `${etablissements.length} établissements privés au Maroc`, s: `${reconnus} reconnus par l'État ou aux diplômes homologués, dans ${VILLES_ETUDES.length} villes` },
-          { I: ShieldCheck, t: "Paiements protégés", s: "Frais de dossier et réservation de logement en séquestre, montants en dirhams" },
+          { I: ShieldCheck, t: "Candidatures gratuites", s: "Aucun frais de dossier ; la réservation d'un logement est protégée en séquestre" },
           { I: KeyRound, t: "Logements étudiants vérifiés", s: `Navilease, près de ton école · ${metiers.length} fiches métiers pour t'orienter` },
         ].map(({ I, t, s }) => (
           <li key={t} className="flex items-start gap-3 rounded-2xl bg-white/10 p-3.5 backdrop-blur">

@@ -40,7 +40,7 @@ Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les c
 | Créer et sécuriser votre compte, vous connecter | exécution du service (CGU) |
 | Proposer des formations et des écoles adaptées à votre profil | exécution du service |
 | Transmettre vos candidatures et suivre leur traitement | exécution du service, à votre demande |
-| Encaisser les frais de dossier pour le compte des établissements, émettre les reçus | exécution du service, obligations comptables |
+| Encaisser les paiements des services payants que vous choisissez (logement Navilease), émettre les reçus | exécution du service, obligations comptables |
 | Vous envoyer les notifications utiles (code, statut de candidature, pièce demandée) | exécution du service |
 | Vous proposer, si vous l'acceptez, aux écoles Premium (vivier anonyme, invitations) | votre consentement, et celui de votre parent si vous êtes mineur |
 | Répondre à vos questions avec Navi ou un conseiller | exécution du service |

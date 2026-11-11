@@ -206,8 +206,7 @@ route("GET", "/candidatures", "Candidatures", "Mes candidatures", STUDENT, async
 route("POST", "/candidatures", "Candidatures", "Commencer une candidature (brouillon)", STUDENT, async ({ me, body }) => json(await apps.createDraft(me, String((await body()).programId)), 201));
 route("GET", "/candidatures/:id", "Candidatures", "Détail d'une candidature", "user", async ({ me, params }) => apps.getApplication(me, params.id));
 route("PATCH", "/candidatures/:id", "Candidatures", "Compléter le dossier (motivation, réponses, pièces)", STUDENT, async ({ me, params, body }) => apps.updateDraft(me, params.id, await body()));
-route("POST", "/candidatures/:id/envoyer", "Candidatures", "Envoyer la candidature (+ paiement des frais)", STUDENT, async ({ me, params, body }) => { const b = await body().catch(() => ({})); return apps.submitApplication(me, params.id, b.moyen ? { method: b.moyen, payerId: b.payeur, telephone: b.telephone } : undefined); });
-route("GET", "/candidatures/:id/frais", "Candidatures", "Frais de dossier dans la monnaie du payeur, plafonnés (?payeur=)", STUDENT, async ({ me, params, query }) => apps.fraisPour(me, params.id, query.get("payeur")));
+route("POST", "/candidatures/:id/envoyer", "Candidatures", "Envoyer la candidature (gratuite)", STUDENT, async ({ me, params }) => apps.submitApplication(me, params.id));
 route("POST", "/candidatures/:id/desister", "Candidatures", "Se désister", STUDENT, async ({ me, params }) => { await apps.withdraw(me, params.id); return ok; });
 route("GET", "/candidatures/:id/bordereau.pdf", "Candidatures", "Bordereau de candidature (PDF)", "user", async ({ me, params }) => {
   const d = await apps.getApplication(me, params.id);

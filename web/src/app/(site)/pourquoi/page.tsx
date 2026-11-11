@@ -46,7 +46,7 @@ const CONFIANCE: [LucideIcon, string, string][] = [
 ];
 
 const FAQ = [
-  ["Navigoal est-il vraiment gratuit ?", "Oui pour les élèves, étudiants et parents : orientation, comparateur, devis et dossier de candidature. Seuls les frais de dossier fixés par certaines écoles, et les services Navilease ou NaviTravel que tu choisis, sont payants, toujours annoncés avant."],
+  ["Navigoal est-il vraiment gratuit ?", "Oui pour les élèves, étudiants et parents : orientation, comparateur, devis et candidatures, sans aucun frais de dossier. Seuls les services Navilease ou NaviTravel que tu choisis sont payants, toujours annoncés avant."],
   ["Comment savez-vous qu'une école est reconnue ?", "Nous partons des textes officiels (arrêtés, listes des ministères) et indiquons la date de vérification sur chaque fiche."],
   ["Qui décide de mon admission ?", "Toujours l'établissement. Navigoal transmet ton dossier complet et t'aide à le suivre jusqu'à la réponse."],
   ["Mes parents peuvent-ils suivre mon dossier ?", "Oui : en liant leur compte au tien, ils voient tes candidatures, paiements et rendez-vous, et donnent leur accord si tu es mineur."],

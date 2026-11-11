@@ -104,28 +104,22 @@ describe("candidature", () => {
   it("un mineur ne peut pas envoyer sans consentement parental", async () => {
     const a = await apps.createDraft(student, programId);
     appId = a.id;
-    await expect(apps.submitApplication(student, appId, { method: "especes" })).rejects.toThrow(/consentement/);
+    await expect(apps.submitApplication(student, appId)).rejects.toThrow(/consentement/);
     const g = await guardians.inviteGuardian(student, "+221770000001");
     await guardians.acceptGuardianInvite(parent, g.inviteCode!, true);
     expect(await guardians.isGuardianOf(parent.id, student.id)).toBe(true);
   });
-  it("pièces manquantes puis envoi avec paiement bac à sable", async () => {
-    await expect(apps.submitApplication(student, appId, { method: "especes" })).rejects.toThrow(/Pièces manquantes/);
+  it("pièces manquantes puis envoi gratuit, sans paiement", async () => {
+    await expect(apps.submitApplication(student, appId)).rejects.toThrow(/Pièces manquantes/);
     await expect(docs.uploadDocument(student, "identite", { name: "x.exe", bytes: new Uint8Array([1, 2, 3, 4]) })).rejects.toThrow(/Format/);
     const d1 = await docs.uploadDocument(student, "identite", { name: "cni.pdf", bytes: PDF });
     const d2 = await docs.uploadDocument(student, "releve_notes", { name: "notes.png", bytes: PNG });
     await apps.updateDraft(student, appId, { motivation: "Je veux devenir manager.", documentIds: [d1.id, d2.id] });
-    const r = await apps.submitApplication(student, appId, { method: "especes", payerId: parent.id });
-    // Paiement demandé au parent : l'élève revient sur sa candidature, le parent reçoit le lien de paiement.
-    expect(r.redirectUrl).toBe(`/espace/candidatures/${appId}?paiement=parent`);
-    const demande = (await notif.listNotifications(parent.id)).find((n) => n.kind === "paiement_demande");
-    expect(demande?.link).toMatch(/^\/paiement\/NG-PAY-/);
-    const ref = demande!.link!.split("/").pop()!;
-    await expect(pay.sandboxConfirm(student, ref, true)).rejects.toThrow(/refusé/); // seul le payeur (le parent) confirme
-    await pay.sandboxConfirm(parent, ref, true);
+    const r = await apps.submitApplication(student, appId);
+    expect(r.redirectUrl).toBeNull(); // candidature gratuite : aucun paiement demandé
     const d = await apps.getApplication(student, appId);
-    expect(d.application.status).toBe("paiement_confirme");
-    expect((await pay.receipt(parent, ref)).byteLength).toBeGreaterThan(800);
+    expect(d.application.status).toBe("soumise");
+    expect((await pay.listPaymentsFor(parent)).filter((x) => x.kind === "frais_candidature")).toHaveLength(0);
   });
   it("l'école voit le dossier, demande une pièce, puis admet", async () => {
     const list = await apps.listForEstablishment(school, "ma-esa-casa");
@@ -145,7 +139,7 @@ describe("candidature", () => {
     await apps.changeStatus(school, appId, { status: "acceptee", note: "Bienvenue !" });
     const fin = await apps.getApplication(parent, appId);
     expect(fin.application.status).toBe("acceptee");
-    expect(fin.events.map((e) => e.status)).toEqual(["brouillon", "soumise", "paiement_confirme", "en_verification", "piece_demandee", "en_verification", "complet", "acceptee"]);
+    expect(fin.events.map((e) => e.status)).toEqual(["brouillon", "soumise", "en_verification", "piece_demandee", "en_verification", "complet", "acceptee"]);
     expect((await notif.listNotifications(student.id)).some((n) => n.title.includes("Acceptée"))).toBe(true);
   });
 });
@@ -575,28 +569,14 @@ describe("paiements : réglages, plafond, espèces, Stripe", () => {
   it("clés chiffrées en base, masquées pour l'admin, gardées si le champ est vide", async () => {
     const r = await reglagesSvc();
     await expect(r.enregistrer(student, {})).rejects.toThrow();
-    await expect(r.enregistrer(adminU, { ...base, stripe: { ...base.stripe, secretKey: "pas-une-cle" }, frais: { plafondXaf: 10000, plafondEur: 15 } })).rejects.toThrow();
-    const v = await r.enregistrer(adminU, { ...base, stripe: { ...base.stripe, secretKey: "sk_test_SECRET1234", webhookSecret: "whsec_signature99" }, frais: { plafondXaf: 10000, plafondEur: 15 } });
+    await expect(r.enregistrer(adminU, { ...base, stripe: { ...base.stripe, secretKey: "pas-une-cle" } })).rejects.toThrow();
+    const v = await r.enregistrer(adminU, { ...base, stripe: { ...base.stripe, secretKey: "sk_test_SECRET1234", webhookSecret: "whsec_signature99" } });
     expect(v.stripe.secretKey).toBe("…1234");
     expect(JSON.stringify(v)).not.toContain("SECRET1234");
     const [row] = await db.select().from(schema.appSettings).where(eq(schema.appSettings.key, "paiements"));
     expect(JSON.stringify(row.value)).not.toContain("sk_test_SECRET1234");
-    await r.enregistrer(adminU, { ...base, frais: { plafondXaf: 10000, plafondEur: 15 } }); // clés non ressaisies : conservées
+    await r.enregistrer(adminU, { ...base }); // clés non ressaisies : conservées
     expect((await r.reglages()).stripe.secretKey).toBe("sk_test_SECRET1234");
-  });
-  it("frais de candidature en monnaie locale, plafonnés et réglables", async () => {
-    const r = await reglagesSvc();
-    const ga = await pay.fraisCandidature(2000, { country: "GA" });
-    expect(ga).toMatchObject({ devise: "XAF", montant: 10000, plafonne: true });
-    const fr = await pay.fraisCandidature(2000, { country: "FR" });
-    expect(fr).toMatchObject({ devise: "EUR", montant: 15, plafonne: true });
-    const petit = await pay.fraisCandidature(50, { country: "GA" });
-    expect(petit.plafonne).toBe(false);
-    expect(petit.montant).toBeLessThan(10000);
-    expect(petit.montant % 50).toBe(0);
-    await r.enregistrer(adminU, { ...base, frais: { plafondXaf: 5000, plafondEur: 8 } });
-    expect((await pay.fraisCandidature(2000, { country: "GA" })).montant).toBe(5000);
-    await r.enregistrer(adminU, { ...base, frais: { plafondXaf: 10000, plafondEur: 15 } });
   });
   it("espèces : seul l'administrateur confirme la réception", async () => {
     const { payment } = await pay.initiatePayment(student, { kind: "service", amount: 100, currency: "MAD", method: "especes", description: "Test espèces" });
