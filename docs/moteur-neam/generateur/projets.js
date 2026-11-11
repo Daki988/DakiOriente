@@ -122,9 +122,8 @@ const RESTO = {
     gallery: ['burger#1', 'frites', 'wings#1', 'milkshake#1', 'milkshake#2'],
   },
   'boko-s-cafe': {
-    tagline: 'Café, brunch et bonne humeur',
-    intro: 'Boko\'s Café est le repaire des gourmands de Libreville : pancakes, avocado toasts, smoothie bowls et bon café, du petit-déjeuner au goûter.',
-    about: 'Boko\'s Café a commencé avec une machine à espresso et une envie : proposer un vrai brunch à Libreville. Aujourd\'hui, c\'est le rendez-vous du week-end.',
+    tagline: 'Les saveurs de l\'Afrique, servies avec le sourire', cta: 'Réserver une table', intro: 'Restaurant de saveurs africaines à Okala : poulet nyembwe, bœuf odika, poisson braisé, Afro Brunch du dimanche et soirées Afro Fusion.', address: 'Okala, ruelle de Canal 7, face au lavage, Libreville',
+    about: 'Un restaurant de saveurs africaines dans un cadre cosy aux couleurs de l\'Afrique, à Okala.',
     hero: 'pancakes#1', side: 'cafe',
     menu: {
       'Brunch': [m('Pancakes', 'Sirop d\'érable, fruits frais', 5000, 'pancakes#1'), m('Avocado toast', 'Œuf poché, pain au levain', 5500, 'avocado-toast#1'), m('Smoothie bowl', 'Fruits frais, granola', 5000, 'smoothie-bowl#1'), m('Formule brunch', 'Plat, boisson chaude et jus pressé', 9000, 'avocado-toast#2')],
@@ -319,7 +318,7 @@ const IMMO = {
   'ela-expertise': { mode: 'expertise', tagline: 'L\'expertise pour une approche efficiente de l\'immobilier', hero: 'villa#4', side: 'expert-chantier', gallery: ['expert-chantier', 'geometre', 'plans', 'villa#4', 'residence#1', 'terrain', 'bureaux#3', 'villa#2', 'residence#3'], cta: 'Demander une expertise',
     intro: 'Expertise immobilière et foncière, évaluation d\'entreprise et des immobilisations, conseil et gestion de patrimoine. Luc Arnold ELA, expert évaluateur près la Cour d\'appel.',
     hours: ['Ferme à 17 h 30', 'Lun – Ven · 8 h – 17 h 30'], address: 'Route de l\'église Saint-Pierre, Montagne Sainte, Libreville', email: 'lucarnoldela@yahoo.fr' },
-  'gabon-management-services': { mode: 'gestion', tagline: 'Votre patrimoine, bien géré', hero: 'residence#2', side: 'bureaux#3', picks: ['apptF3', 'apptF4', 'villaLoc', 'studio', 'bureaux'] },
+  'gabon-management-services': { mode: 'gestion', tagline: 'L\'excellence immobilière à votre service', cta: 'Voir nos biens', intro: 'Agence immobilière à Libreville depuis 2018 : vente, location, gestion de patrimoine, régularisation foncière et construction, dans tout le Grand Libreville.', hours: ['Ferme à 17 h 30', 'Lun – Ven · 8 h – 17 h 30 · Sam · 9 h – 13 h'], address: 'Station Engen Likouala, BP 3083, Libreville', hero: 'residence#2', side: 'bureaux#3', picks: ['apptF3', 'apptF4', 'villaLoc', 'studio', 'bureaux'] },
 };
 
 // ---------------- Santé ----------------
@@ -363,7 +362,7 @@ const VOYAGE = {
     dest: [D('Paris', 'Billet aller-retour', 650000, 'Monde', 'paris#2'), D('Dubaï', 'Billet + visa', 780000, 'Monde', 'dubai#2'), D('Istanbul', '6 jours · vol + hôtel', 1100000, 'Monde', 'istanbul#1'), D('Marrakech', '5 jours · vol + riad', 850000, 'Afrique', 'marrakech#1'), D('Dakar', 'Billet aller-retour', 450000, 'Afrique', 'dakar#2')] },
   'elixir-center': { tagline: 'Voyages d\'affaires et en famille', hero: 'avion', side: 'istanbul#2',
     dest: [D('Istanbul', '5 jours · affaires et shopping', 990000, 'Monde', 'istanbul#2'), D('Le Cap', '7 jours · en famille', 1300000, 'Afrique', 'cape-town#2'), D('Dakar', '4 jours · île de Gorée', 620000, 'Afrique', 'dakar#3'), D('Île Maurice', '7 jours · tout inclus', 1500000, 'Afrique', 'maurice#2'), D('Dubaï', '5 jours · salons professionnels', 920000, 'Monde', 'dubai#1')] },
-  'fattal-travel-et-tourism': { tagline: 'Le monde commence ici', hero: 'dubai#1', side: 'istanbul#1',
+  'fattal-travel-et-tourism': { tagline: 'Faire l\'expérience du monde !', cta: 'Demander un devis', intro: 'Billets d\'avion, visas, réservations d\'hôtel, location de voitures et assurance voyage, au départ de Libreville. Devis sous 24 h.', address: '140 rue Bretonnet, centre-ville, BP 10868, Libreville', email: 'info@fattaltravel.world', hero: 'dubai#1', side: 'istanbul#1',
     dest: [D('Dubaï', '6 jours · désert et Burj Khalifa', 950000, 'Monde', 'dubai#2'), D('Istanbul', '5 jours · Bosphore', 1050000, 'Monde', 'istanbul#1'), D('Paris', 'Séjour 5 nuits', 1150000, 'Monde', 'paris#1'), D('Zanzibar', '7 jours · plages', 1200000, 'Afrique', 'zanzibar#2'), D('Marrakech', '5 jours · médina', 900000, 'Afrique', 'marrakech#2'), D('Le Cap', '6 jours · route des vins', 1250000, 'Afrique', 'cape-town#1')] },
   'aventures-sans-frontieres': { tagline: 'Le Gabon grandeur nature', hero: 'gorille#1', side: 'elephant#3',
     dest: [D('Parc de la Lopé', '3 jours · savane et forêt', 450000, 'Gabon', 'elephant#3'), D('Loango, la mer et la faune', '4 jours · éléphants et baleines', 780000, 'Gabon', 'baleine#1'), D('Pongara et les tortues', 'Week-end · tortues luth (novembre – février)', 180000, 'Gabon', 'tortue#1'), D('Chutes de l\'Ivindo', '5 jours · forêt et cascades', 950000, 'Gabon', 'cascade#1'), D('Sur la piste des gorilles', '3 jours · Lopé, suivi des primates', 650000, 'Gabon', 'gorille#1'), D('Akanda et ses mangroves', 'Journée · oiseaux et pirogue', 65000, 'Gabon', 'gabon#2')] },
