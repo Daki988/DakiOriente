@@ -131,18 +131,11 @@ def logo(service, h=26, clair=False):
     return f'<img src="{LOGOS[service]}" style="height:{round(h * 1.55)}px">'
 
 
-def barre_services(actif, mobile=False):
-    """Barre fine au-dessus de l'en-tête : passer d'un service à l'autre."""
-    it = "".join(f'<span style="display:flex;align-items:center;gap:6px;padding:0 {10 if mobile else 14}px;height:34px;font-size:{11.5 if mobile else 12.5}px;font-weight:{800 if k == actif else 600};'
-                 f'color:{"#fff" if k == actif else "#aab3c8"};{"background:rgba(255,255,255,.12);" if k == actif else ""}"><span style="width:8px;height:8px;border-radius:3px;background:{v["c"] if k != "navigoal" else "#4f7bff"}"></span>{v["nom"]}</span>' for k, v in SERVICES.items())
-    return f'<div style="height:34px;background:#0b1533;display:flex;align-items:center;padding:0 {8 if mobile else 48}px">{it}{"" if mobile else "<span style=\"margin-left:auto;color:#7d88a6;font-size:12px\">Un seul compte pour les trois services</span>"}</div>'
-
-
 def entete_service(service):
     """En-tête propre à Navilease ou NaviTravel : logo, menu et options du service."""
     s = SERVICES[service]
     liens = "".join(f'<span style="font-weight:{800 if k == 0 else 600};font-size:14px;color:{s["c"] if k == 0 else "#3b4566"}">{t}</span>' for k, t in enumerate(s["menu"]))
-    return f"""{barre_services(service)}<div style="height:72px;background:#fff;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 48px;gap:26px">
+    return f"""<div style="height:72px;background:#fff;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 48px;gap:26px">
     {logo(service, 26)}<span style="width:1px;height:28px;background:#e6eaf3"></span>{liens}
     <span style="margin-left:auto;display:flex;gap:10px;align-items:center"><span style="font-weight:700;font-size:14px;color:#3b4566;display:flex;gap:6px;align-items:center">{icon("user-round", 16, "#3b4566")}{s["perso"]}</span>
     <span class="btn" style="background:{s["c"]};color:#fff">{s["cta"]}</span></span></div>"""
@@ -151,7 +144,7 @@ def entete_service(service):
 def entete_site(actif=None):
     liens = "".join(f'<span style="font-weight:{800 if t == actif else 600};font-size:14px;color:{"#1a47f5" if t == actif else "#3b4566"}">{t}</span>'
                     for t in ["Accueil", "Métiers", "Formations", "Établissements", "Villes", "Orientation", "Navilease", "Parents"])
-    return barre_services("navigoal") + f"""<div style="height:68px;background:#fff;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 48px;gap:28px">
+    return f"""<div style="height:68px;background:#fff;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 48px;gap:28px">
     <img src="{WORDMARK}" style="height:28px">{liens}<span style="margin-left:auto" class="btn" style="background:#ffc21a">S'inscrire</span></div>"""
 
 
@@ -246,7 +239,7 @@ def legal_navitravel_mobile():
     s = SERVICES["navitravel"]
     meta, corps = lire("navitravel", "confidentialite")
     return f"""<div class="frame" style="width:390px;height:1800px;background:#f6f8fe"><div class="titre-cadre">4 · NaviTravel sur téléphone : confidentialité</div>
-  {barre_services("navitravel", True)}<div style="height:58px;background:#fff;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 16px;gap:10px">{logo("navitravel", 22)}<span style="margin-left:auto">{icon("menu", 22, "#0b1533")}</span></div>
+  <div style="height:58px;background:#fff;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 16px;gap:10px">{logo("navitravel", 22)}<span style="margin-left:auto">{icon("menu", 22, "#0b1533")}</span></div>
   {bandeau_legal("navitravel", "confidentialite", True)}
   <div style="padding:18px 16px;display:flex;flex-direction:column;gap:12px">
     <img src="{LOGOS_V["navitravel"]}" style="height:96px;width:fit-content">
@@ -279,7 +272,7 @@ def menus():
         li = "".join(f'<span style="display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid #eef1f8;font-weight:700;font-size:15px">{icon(ic, 19, sv["c"])}{t}<span style="margin-left:auto">{icon("chevron-right", 16, "#8a93a8")}</span></span>' for ic, t in options)
         pe = "".join(f'<span style="display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#3b4566">{icon(ic, 17, "#5b6478")}{t}</span>' for ic, t in perso)
         return f"""<div class="frame" style="width:390px;height:820px;background:#fff;margin:0 20px 0 0"><div class="titre-cadre" style="top:-26px">Menu {sv["nom"]} (téléphone)</div>
-      {barre_services(service, True)}<div style="height:58px;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 16px">{logo(service, 22)}<span style="margin-left:auto">{icon("x", 22, "#0b1533")}</span></div>
+      <div style="height:58px;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 16px">{logo(service, 22)}<span style="margin-left:auto">{icon("x", 22, "#0b1533")}</span></div>
       <div style="padding:10px 18px;display:flex;flex-direction:column">{li}</div>
       <div style="margin:6px 18px;border-radius:16px;background:{sv["fond"]};padding:14px;display:flex;flex-direction:column;gap:12px"><span class="small" style="font-weight:800;color:{sv["c"]}">MON ESPACE</span>{pe}</div>
       <div style="padding:14px 18px;display:flex;flex-direction:column;gap:10px"><span class="btn" style="background:{sv["c"]};color:#fff;padding:13px">{sv["cta"]}</span>
@@ -289,7 +282,7 @@ def menus():
     travel = tiroir("navitravel", [("plane", "Billet d'avion"), ("stamp", "Visa et démarches"), ("hand-helping", "Accueil à l'arrivée"), ("heart-pulse", "Assurance"), ("list-checks", "Comment ça marche"), ("circle-help", "Questions")],
                     [("inbox", "Mes demandes et devis"), ("folder-open", "Mes documents de voyage"), ("ticket", "Mes billets"), ("message-circle", "Mon conseiller")])
     goal = f"""<div class="frame" style="width:1440px;height:150px;background:#f6f8fe;margin:0 0 50px 0"><div class="titre-cadre" style="top:-26px">Navigoal</div>{entete_site()}</div>"""
-    return f"""<div class="frame" style="width:1520px;height:1180px;background:#fff;padding:40px"><div class="titre-cadre">0 · Chaque service a son menu et ses options (barre de services commune en haut)</div>
+    return f"""<div class="frame" style="width:1520px;height:1180px;background:#fff;padding:40px"><div class="titre-cadre">0 · Chaque service a son menu et ses options</div>
   <div style="display:flex;flex-direction:column;gap:56px;margin-top:20px">
     <div style="position:relative"><b style="display:block;margin-bottom:10px">Navigoal : orientation, formations, écoles, candidatures</b><div style="border:1px solid #e6eaf3;border-radius:14px;overflow:hidden">{entete_site()}</div></div>
     <div><b style="display:block;margin-bottom:10px">Navilease : logements, résidences, bailleurs · bouton « Publier une annonce » · « Mes réservations »</b><div style="border:1px solid #e6eaf3;border-radius:14px;overflow:hidden">{entete_service("navilease")}</div></div>
@@ -297,7 +290,7 @@ def menus():
     <div style="display:flex;gap:30px;align-items:flex-start">{lease}{travel}
       <div class="card" style="padding:22px;width:560px;display:flex;flex-direction:column;gap:12px;box-shadow:none"><b style="font-size:18px">Règles</b>
         {"".join(f'<span style="display:flex;gap:10px;font-size:14px;line-height:1.5">{icon("check", 17, "#0f8a46")}{t}</span>' for t in [
-            "Barre sombre commune en haut : on passe d'un service à l'autre en un clic ; le service ouvert est mis en avant.",
+            "Pas de barre commune en haut : on passe d'un service à l'autre par le menu de Navigoal et par « Retour sur Navigoal ».",
             "Chaque service a son logo, sa couleur, son menu, son bouton principal et son pied de page avec ses 4 pages légales.",
             "Un seul compte Navigoal pour les trois services : « Mon espace » montre les options du service ouvert.",
             "Adresses : /navilease/… et /navitravel/… ; pages légales : /navilease/cgu, /navitravel/confidentialite, etc.",
@@ -501,7 +494,7 @@ def navitravel():
   <section style="padding:10px 48px 60px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
     {"".join(f'<div class="card" style="padding:18px 20px;box-shadow:none"><b style="display:flex;justify-content:space-between;font-size:16px">{q}{icon("plus", 18, s["c"])}</b></div>' for q in ["Le visa est-il garanti ?", "Combien coûte l'accompagnement ?", "Mes parents peuvent-ils payer ?", "Et si mon vol change ?"])}</section>
   <div style="background:#0b1533;padding:26px 48px;display:flex;align-items:center;gap:22px;color:#aab3c8;font-size:13px"><span style="background:#fff;border-radius:12px;padding:6px 10px">{logo("navitravel", 18)}</span><span style="margin-left:auto">Conditions d'utilisation</span><span>Confidentialité</span><span>Mentions légales</span><span>Cookies</span><b style="color:#fff">BY OAPS</b></div>
-  <div {NOTE} style="left:700px;top:50px">Barre des services + menu NaviTravel</div>
+  <div {NOTE} style="left:700px;top:50px">Menu NaviTravel</div>
   <div {NOTE} style="left:1100px;top:2120px;max-width:220px">Formulaire de devis : enregistré dans l'espace élève et traité par un conseiller</div>
 </div>"""
 
