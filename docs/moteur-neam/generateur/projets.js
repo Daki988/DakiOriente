@@ -194,7 +194,7 @@ const HOTEL = {
     gallery: ['piscine#3', 'bungalow#1', 'chambre#2', 'suite#3', 'terrasse-hotel', 'buffet#3'],
   },
   'hotel-heliconia': {
-    tagline: 'Un jardin tropical en ville', intro: 'L\'Hôtel Héliconia vous accueille dans un écrin de verdure : chambres lumineuses, piscine entourée de palmiers et service attentionné.',
+    tagline: 'Votre escale verte au cœur du Haut-Ogooué', cta: 'Réserver', intro: 'Hôtel né pour la CAN 2012 à Franceville : une cinquantaine de chambres et suites, piscine, salle de sport, restaurant et salles de séminaire.', hours: ['Réception 24 h/24', 'Tous les jours · 24 h/24'], address: 'Quartier Mbaya, Franceville', email: 'contact@hotelheliconia.ga',
     about: 'L\'héliconia est une fleur tropicale aux couleurs vives. L\'hôtel lui ressemble : chaleureux, coloré et tourné vers le jardin.',
     hero: 'piscine#2', side: 'chambre#5',
     rooms: [room('Chambre Standard', 'Lumineuse et calme', 45000, '20 m²', 'Lit double', AM, ['chambre#5']), room('Chambre Deluxe', 'Plus d\'espace, coin salon', 65000, '28 m²', 'Lit king size', AM.concat(['Coin salon', 'Minibar']), ['chambre#1', 'sdb#2']), room('Suite Héliconia', 'Salon, vue sur la piscine', 100000, '48 m²', 'Lit king size', AM.concat(['Salon', 'Balcon']), ['suite#2'])],
@@ -210,7 +210,7 @@ const HOTEL = {
     gallery: ['piscine#4', 'bungalow#3', 'chambre#4', 'suite#1', 'lodge', 'bungalow#2'],
   },
   'hotel-le-jomonia': {
-    tagline: 'L\'hôtel des voyageurs d\'affaires', intro: 'L\'Hôtel Le Jomonia accueille les voyageurs d\'affaires : chambres équipées d\'un bureau, Wi-Fi rapide, salle de réunion et navette aéroport.',
+    tagline: 'Pour un long séjour ou le temps d\'un week-end', cta: 'Réserver', intro: 'Résidence hôtelière à Bas de Gué-Gué : 10 chambres et 6 appartements équipés, petite piscine, salle à manger et navette aéroport, à 10 minutes de Léon Mba.', hours: ['Réception 24 h/24', 'Tous les jours · 24 h/24'], address: 'Bas de Gué-Gué, Libreville', email: 'info.lejomonia@gmail.com',
     about: 'Au Jomonia, tout est pensé pour ceux qui travaillent : check-in rapide, petit-déjeuner dès 6 h et salle de réunion équipée.',
     hero: 'lobby#1', side: 'chambre#3',
     rooms: [room('Single Business', 'Bureau ergonomique', 45000, '18 m²', 'Lit double', AM.concat(['Bureau', 'Machine à café']), ['chambre#3']), room('Double Confort', 'Deux lits, idéale pour les équipes', 58000, '24 m²', '2 lits', AM.concat(['Bureau']), ['chambre-twin#2']), room('Suite Exécutive', 'Salon de travail séparé', 105000, '46 m²', 'Lit king size', AM.concat(['Salon', 'Bureau', 'Minibar']), ['suite#3'])],
@@ -441,7 +441,7 @@ const SHOP = {
 const SERV = {
   '2hs-consulting': { tagline: 'La santé au travail, simplement', hero: 'casques#2', side: 'tension',
     services: [sv('sante', 'Visites médicales', 'Embauche, suivi périodique, reprise.', 'tension'), sv('shield', 'Prévention des risques', 'Audit des postes et plan d\'action.', 'casques#1'), sv('users', 'Formation SST', 'Sauveteurs secouristes du travail.'), sv('book', 'Document unique', 'Évaluation des risques, mise à jour.', 'casques#3')] },
-  'agex-vtc': { tagline: 'Vos trajets en toute confiance', hero: 'chauffeur#1', side: 'chauffeur#2',
+  'agex-vtc': { tagline: 'La qualité professionnelle garantie !', cta: 'Estimer ma course', intro: 'Assistance Gabon Express VTC : chauffeurs professionnels 24 h/24 dans le Grand Libreville. Courses, aéroport, abonnements scolaires et entreprises, mariages.', hours: ['Ouvert 24 h/24', 'Tous les jours · 24 h/24'], address: 'Akanda, entrée 4ème cité, BP 2616', email: 'agexvtc@gmail.com', hero: 'chauffeur#1', side: 'chauffeur#2',
     services: [sv('car', 'Course en ville', 'Prise en charge en 15 minutes.', 'chauffeur#1'), sv('plane', 'Transfert aéroport', 'Suivi de vol, accueil personnalisé.', 'avion'), sv('clock', 'Mise à disposition', 'À l\'heure ou à la journée.', 'chauffeur#2'), sv('users', 'Entreprises', 'Compte client et facturation mensuelle.', 'poignee-main')] },
 };
 

@@ -312,3 +312,5 @@ Icônes Instagram, Facebook, Messenger, TikTok, LinkedIn et WhatsApp : Font Awes
 - x-diplomes-2.jpg — Unsplash, photo-1645262960695-ec79787ffeac
 - x-diplomes-3.jpg — Unsplash, photo-1645263012668-a6617115f9b9
 - x-diplome-costume-1.jpg — Unsplash, photo-1645262803543-59fef7aa780e
+- x-vtc-nuit-1.jpg — Unsplash, photo-1573987956702-e563bef8b1f7
+- x-vtc-nuit-2.jpg — Unsplash, photo-1675710050571-9ca81d338f0a

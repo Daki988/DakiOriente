@@ -1,0 +1,8 @@
+/* Le Jomonia : bleu nuit et cuivre, esprit maison d'hôtes. */
+:root{--p:#1E2B4A;--p2:#141D33;--a:#B87333;--a2:#D99A5B;--soft:#F5F0E8;--ink:#1B2233;--mute:#636B7A;--line:#E6DED2;--hf:'DM Serif Display',Georgia,serif;--bf:Inter,Arial,sans-serif;--r:4px}
+.hero{min-height:680px}
+.hero:before{background:linear-gradient(180deg,rgba(20,29,51,.2),rgba(20,29,51,.25) 40%,rgba(20,29,51,.85))}
+.pt:before{background:linear-gradient(90deg,rgba(20,29,51,.85),rgba(20,29,51,.4))}
+.tag{color:#9A5D26}
+.btn.p:hover{background:#9A5D26}
+.rc{border:1px solid var(--line)}

@@ -1,0 +1,10 @@
+/* Hôtel Héliconia : vert tropical, orange héliconia, or. */
+:root{--p:#0F3D2E;--p2:#0A2A20;--a:#E2552B;--a2:#F2B544;--soft:#F3F1E8;--ink:#17231D;--mute:#5E6B63;--line:#E2E3D6;--hf:'Playfair Display',Georgia,serif;--bf:Inter,Arial,sans-serif;--r:14px}
+.hero h1 em,.sec h2 em{font-style:italic;color:var(--a)}
+.hero:before{background:linear-gradient(180deg,rgba(10,42,32,.25),rgba(10,42,32,.2) 40%,rgba(10,42,32,.85))}
+.pt:before{background:linear-gradient(90deg,rgba(10,42,32,.85),rgba(10,42,32,.35))}
+.tag{color:#B5401C}.hero .kick{color:var(--a2)}
+.btn.p:hover{background:#C9431D}
+.amen>div{border:0;background:var(--soft)}.amen svg{color:var(--p)}
+.lst>div{border-top-color:#7FB069}
+.sum .tot b{color:var(--a2)}

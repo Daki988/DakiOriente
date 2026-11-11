@@ -99,6 +99,9 @@ const LOGO_PAL = {
   'cabinet-dentaire-acae-sourire': P('#FFFFFF', '#2E2A5E', '#FF6B5A', '#1F1C44', '#FFECE9'),
   'chouchou-lazare': P('#F6F0E4', '#141110', '#C8693A', '#D9C7A0', '#EFE5D2'),
   'cabinet-dentaire-dr-abbas': P('#FFFFFF', '#12406B', '#F2A900', '#0B2D4D', '#FFF5DA'),
+  'agex-vtc': P('#0B0D12', '#FFFFFF', '#F2B705', '#202633', '#151922'),
+  'hotel-heliconia': P('#0F3D2E', '#FFFFFF', '#E2552B', '#F2B544', '#F3F1E8'),
+  'hotel-le-jomonia': P('#1E2B4A', '#FFFFFF', '#B87333', '#D99A5B', '#F5F0E8'),
   'awax-music-school': P('#1B1036', '#FFFFFF', '#FF6B1A', '#C93BFF', '#2A1A52'),
 };
 const FONTS = {
@@ -134,7 +137,7 @@ function brandOf(p, idx, sectorIdx) {
   const pal = LOGO_PAL[slug] || pals[(sectorIdx + hash(slug)) % pals.length];
   const font = fts[sectorIdx % fts.length];
   const domain = p.dom && !/fattal|beachclub|hotel-orchidee/.test(p.dom) ? p.dom : (p.dom || slug.replace(/-/g, '') + '.ga');
-  const HANDLES = { 'escapade-travel-agency': 'escapadetravel241', 'ela-expertise': 'elaexpertise241', 'cabinet-de-radiologie-cimel': 'radiologiecimel', 'eva-spa-chez-clarisse': 'evaspa241', delicatess: 'contact.delicatess', 'cabinet-medical-saint-raphael': 'cabinetsaintraphael', 'cabinet-dentaire-avicenne': 'cabinet.dentaire', '2s-confort-driving': '2sconfortdriving', 'bijouterie-de-l-ecrin': 'bijouterieecrin241', 'asian-auto-gabon': 'asianautogabon', 'fishing-gabon-club': 'fishing_gabon_club', 'skin-technology-by-latania': 'skintechnologygabon', 'alpha-omega-diagnostic': 'alphaomegadiagnostic', 'cabinet-dentaire-acae-sourire': 'acaesourire', 'chouchou-lazare': 'chouchoulazare', 'cabinet-dentaire-dr-abbas': 'cabinetdentairedrabbas', 'wanted-immobilier': 'wantedimmobilier', 'awax-music-school': 'awaxmschool' };
+  const HANDLES = { 'escapade-travel-agency': 'escapadetravel241', 'ela-expertise': 'elaexpertise241', 'cabinet-de-radiologie-cimel': 'radiologiecimel', 'eva-spa-chez-clarisse': 'evaspa241', delicatess: 'contact.delicatess', 'cabinet-medical-saint-raphael': 'cabinetsaintraphael', 'cabinet-dentaire-avicenne': 'cabinet.dentaire', '2s-confort-driving': '2sconfortdriving', 'bijouterie-de-l-ecrin': 'bijouterieecrin241', 'asian-auto-gabon': 'asianautogabon', 'fishing-gabon-club': 'fishing_gabon_club', 'skin-technology-by-latania': 'skintechnologygabon', 'alpha-omega-diagnostic': 'alphaomegadiagnostic', 'cabinet-dentaire-acae-sourire': 'acaesourire', 'chouchou-lazare': 'chouchoulazare', 'cabinet-dentaire-dr-abbas': 'cabinetdentairedrabbas', 'wanted-immobilier': 'wantedimmobilier', 'awax-music-school': 'awaxmschool', 'agex-vtc': 'agex_vtc', 'hotel-heliconia': 'heliconiahotels', 'hotel-le-jomonia': 'lejomonia' };
   const handle = HANDLES[slug] || slugify(main).replace(/-/g, '').slice(0, 18) + (/libreville|lbv/.test(slug) ? '' : '241');
   return { main, kicker, initials, slug, pal, font, domain, handle, variant: p.vr ?? sectorIdx % 3, logoStyle: (sectorIdx + hash(slug)) % 4, photos: photosFor(p, sectorIdx) };
 }
@@ -143,7 +146,7 @@ function brandOf(p, idx, sectorIdx) {
 const REAL_LOGOS = {
   'ab-location': 'ab-location.png', afram: 'afram.png', biolab: 'biolab.png', 'gabon-management-services': 'gabon-management-services.png',
   'home-et-co': 'home-co.jpg', 'hotel-hibiscus': 'hotel-hibiscus.png', 'wanted-immobilier': 'wanted-immobilier.jpg', 'yeshua-real-estate': 'yeshua-real-estate.png',
-  'escapade-travel-agency': 'escapade-travel-agency.svg', 'ela-expertise': 'ela-expertise.svg', 'cabinet-de-radiologie-cimel': 'cabinet-de-radiologie-cimel.svg', 'eva-spa-chez-clarisse': 'eva-spa-chez-clarisse.svg', delicatess: 'delicatess.svg', 'cabinet-medical-saint-raphael': 'cabinet-medical-saint-raphael.svg', 'cabinet-dentaire-avicenne': 'cabinet-dentaire-avicenne.svg', '2s-confort-driving': '2s-confort-driving.svg', 'bijouterie-de-l-ecrin': 'bijouterie-de-l-ecrin.svg', 'asian-auto-gabon': 'asian-auto-gabon.svg', 'fishing-gabon-club': 'fishing-gabon-club.svg', 'skin-technology-by-latania': 'skin-technology-by-latania.svg', 'alpha-omega-diagnostic': 'alpha-omega-diagnostic.svg', 'cabinet-dentaire-acae-sourire': 'cabinet-dentaire-acae-sourire.svg', 'chouchou-lazare': 'chouchou-lazare.svg', 'cabinet-dentaire-dr-abbas': 'cabinet-dentaire-dr-abbas.svg', 'awax-music-school': 'awax-music-school.svg',
+  'escapade-travel-agency': 'escapade-travel-agency.svg', 'ela-expertise': 'ela-expertise.svg', 'cabinet-de-radiologie-cimel': 'cabinet-de-radiologie-cimel.svg', 'eva-spa-chez-clarisse': 'eva-spa-chez-clarisse.svg', delicatess: 'delicatess.svg', 'cabinet-medical-saint-raphael': 'cabinet-medical-saint-raphael.svg', 'cabinet-dentaire-avicenne': 'cabinet-dentaire-avicenne.svg', '2s-confort-driving': '2s-confort-driving.svg', 'bijouterie-de-l-ecrin': 'bijouterie-de-l-ecrin.svg', 'asian-auto-gabon': 'asian-auto-gabon.svg', 'fishing-gabon-club': 'fishing-gabon-club.svg', 'skin-technology-by-latania': 'skin-technology-by-latania.svg', 'alpha-omega-diagnostic': 'alpha-omega-diagnostic.svg', 'cabinet-dentaire-acae-sourire': 'cabinet-dentaire-acae-sourire.svg', 'chouchou-lazare': 'chouchou-lazare.svg', 'cabinet-dentaire-dr-abbas': 'cabinet-dentaire-dr-abbas.svg', 'awax-music-school': 'awax-music-school.svg', 'agex-vtc': 'agex-vtc.svg', 'hotel-heliconia': 'hotel-heliconia.svg', 'hotel-le-jomonia': 'hotel-le-jomonia.svg',
 };
 const realLogo = (slug) => (REAL_LOGOS[slug] ? (process.env.LOGO_URL ? process.env.LOGO_URL + REAL_LOGOS[slug] : 'file://' + path.join(REAL_LOGOS_DIR, REAL_LOGOS[slug])) : null);
 
