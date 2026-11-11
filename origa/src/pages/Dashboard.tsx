@@ -78,7 +78,7 @@ export function Dashboard() {
       </div>
       <div className="grid2">
         <div className="panel">
-          <div className="row between"><h3>Production hebdomadaire (tonnes de poids vif)</h3><span className="pill sky">Hachuré : prévision à 6 semaines</span></div>
+          <div className="row between wrap"><h3>Production hebdomadaire (tonnes de poids vif)</h3><span className="pill sky">Hachuré : prévision à 6 semaines</span></div>
           <div className="bars" role="img" aria-label="Production hebdomadaire réalisée et prévue">
             {data.weeks.map((w, i) => (
               <div key={i} className="bar"><em>{w.t >= 0.05 ? fmt(w.t, 1) : ''}</em><i className={w.proj ? 'proj' : ''} style={{ height: `${(w.t / max) * 82}%` }} /><span>S{w.w}</span></div>

@@ -211,3 +211,44 @@ describe('étiquettes pré-signées et EPCIS 2.0', () => {
     expect(transformation).toMatchObject({ inputQuantityList: [{ epcClass: 'urn:origa:lot:GA1-0042-B07-L01' }], outputQuantityList: [{ epcClass: 'urn:origa:lot:GA1-0042-B07-L01-D1', quantity: 1790 }] });
   });
 });
+
+import { deleteDenied, editDenied } from './access';
+import { withDefaults } from './defaults';
+describe('corriger et supprimer selon l’habilitation', () => {
+  const rights = DEFAULT_SETTINGS.rights; const none = new Set<string>();
+  const eleveur = { role: 'eleveur', farmId: 'GA1-0042' }; const voisin = { role: 'eleveur', farmId: 'GA1-0003' };
+  const charge = { id: 'c1', farmId: 'GA1-0042', date: '2026-11-20', post: 'Aliment', amountXaf: 1000 };
+  it('l’éleveur corrige et supprime ses saisies, pas celles du voisin', () => {
+    expect(editDenied(eleveur, 'charges', charge, rights, none)).toBeNull();
+    expect(deleteDenied(eleveur, 'charges', charge, rights, none)).toBeNull();
+    expect(deleteDenied(voisin, 'charges', charge, rights, none)).toMatch(/périmètre/);
+    expect(deleteDenied({ role: 'bceg' }, 'charges', charge, rights, none)).toMatch(/aucune donnée/);
+  });
+  it('un lot, une bande ou une ferme ne se supprime jamais, même par l’administrateur', () => {
+    expect(deleteDenied({ role: 'admin' }, 'lots', { id: 'GA1-0042-B07-L01', farmId: 'GA1-0042' }, rights, none)).toMatch(/traçabilité/);
+    expect(deleteDenied({ role: 'admin' }, 'bands', { id: 'GA1-0042-B07', farmId: 'GA1-0042' }, rights, none)).toMatch(/clôture/);
+    expect(deleteDenied({ role: 'admin' }, 'exits', { id: 'e1', bandId: 'GA1-0042-B07', lotId: 'GA1-0042-B07-L01' }, rights, none)).toMatch(/lot cédé/);
+  });
+  it('les saisies d’une bande clôturée sont en lecture seule', () => {
+    const entry = { id: 'e1', bandId: 'GA1-0042-B06', date: '2026-10-01', deaths: 2, feedKg: 100 };
+    expect(editDenied(eleveur, 'entries', entry, rights, none)).toBeNull();
+    expect(editDenied(eleveur, 'entries', entry, rights, new Set(['GA1-0042-B06']))).toMatch(/clôturée/);
+    expect(deleteDenied({ role: 'admin' }, 'entries', entry, rights, new Set(['GA1-0042-B06']))).toBeNull();
+  });
+  it('la validation reste au profil compétent', () => {
+    const order = { id: 'o1', farmId: 'GA1-0042', status: 'demandee' };
+    expect(editDenied(eleveur, 'orders', order, rights, none)).not.toBeNull(); // une commande émise se supprime, elle ne se réécrit pas
+    expect(deleteDenied(eleveur, 'orders', order, rights, none)).toBeNull();
+    expect(deleteDenied(eleveur, 'orders', { ...order, status: 'validee' }, rights, none)).toMatch(/déjà traitée/);
+  });
+  it('une matrice enregistrée avant la version 1.3 reçoit le droit « supprimer » là où il va de soi', () => {
+    const old = { ...DEFAULT_SETTINGS, rights: { eleveur: { economie: ['consulter', 'creer', 'modifier'], pilotage: ['consulter'] }, bceg: { economie: ['consulter'] } } } as never;
+    const merged = withDefaults(old).rights;
+    expect(merged.eleveur.economie).toContain('supprimer');
+    expect(merged.eleveur.pilotage).not.toContain('supprimer');
+    expect(merged.bceg.economie).toEqual(['consulter']);
+    // Une matrice où l'administrateur a déjà réglé ce droit n'est pas modifiée.
+    const tuned = { ...DEFAULT_SETTINGS, rights: { eleveur: { economie: ['consulter', 'creer', 'modifier'] }, agent: { economie: ['consulter', 'supprimer'] } } } as never;
+    expect(withDefaults(tuned).rights.eleveur.economie).not.toContain('supprimer');
+  });
+});

@@ -33,7 +33,7 @@ const item = (table: string, payload: Record<string, unknown>, at = new Date().t
 
 beforeAll(async () => {
   db = createPool(URL);
-  await db.query('DROP TABLE IF EXISTS report_runs, access_requests, scans, audit, conflicts, records, otp_codes, users CASCADE');
+  await db.query('DROP TABLE IF EXISTS tombstones, report_runs, access_requests, scans, audit, conflicts, records, otp_codes, users CASCADE');
   await migrate(db);
   for (const [phone, role, farm, farms] of [
     ['+24100000001', 'eleveur', 'GA1-0042', []], ['+24100000002', 'agent', null, ['GA1-0042', 'GA1-0003']],
@@ -424,5 +424,93 @@ describe('étiquettes pré-signées, EPCIS 2.0 et rapports par e-mail (v1.2)', (
     expect(calls[0].url).toBe('https://api.brevo.com/v3/transactionalSMS/send');
     expect((calls[0].init.headers as Record<string, string>)['api-key']).toBe('cle-de-test');
     expect(JSON.parse(String(calls[0].init.body))).toEqual({ sender: 'Origa', recipient: '24107000000', content: 'Votre code est 123456', type: 'transactional' });
+  });
+});
+
+describe('suppression et correction selon l’habilitation (v1.3)', () => {
+  let admin: string; let dge: string; let vet: string; let eleveur: string; let voisin: string; let agent: string;
+  const del = (table: string, key: string, at = new Date().toISOString()) => ({ table, op: 'delete', key, payload: { id: key }, at });
+  const has = async (token: string, key: string) => (await pull(token)).items.some((x: { key: string; deleted?: boolean }) => x.key === key && !x.deleted);
+  beforeAll(async () => {
+    admin = await login('+24100000009'); dge = await login('+24100000003'); vet = await login('+24100000004');
+    eleveur = await login('+24100000001'); voisin = await login('+24100000006'); agent = await login('+24100000002');
+    await sync(agent, [item('farms', { id: 'GA1-0003', name: 'Ferme Owendo', owner: 'Mme Nzé', phone: '+24107000001', province: 'GA1', locality: 'Owendo', bcegFinanced: true })]);
+  });
+
+  it('l’éleveur enregistre, corrige puis supprime une charge de sa ferme', async () => {
+    expect((await sync(eleveur, [item('charges', { id: 'ch-1', farmId: 'GA1-0042', date: '2026-11-20', post: 'Aliment', amountXaf: 950000 })])).json().applied).toBe(1);
+    expect((await sync(eleveur, [item('charges', { id: 'ch-1', farmId: 'GA1-0042', date: '2026-11-20', post: 'Aliment', amountXaf: 980000 })])).json().applied).toBe(1);
+    expect((await pull(dge)).items.find((x: { key: string }) => x.key === 'ch-1').payload.amountXaf).toBe(980000);
+    // Ni le voisin ni la DGE ne peuvent la supprimer ; l'éleveur oui.
+    expect((await sync(voisin, [del('charges', 'ch-1')])).json().rejected[0].reason).toMatch(/hors de votre périmètre/);
+    expect((await sync(dge, [del('charges', 'ch-1')])).json().rejected[0].reason).toMatch(/DGE/);
+    expect((await sync(eleveur, [del('charges', 'ch-1')])).json().applied).toBe(1);
+    expect(await has(dge, 'ch-1')).toBe(false);
+    // Les autres appareils apprennent la suppression, sans recevoir le contenu.
+    const tomb = (await pull(dge)).items.find((x: { key: string }) => x.key === 'ch-1');
+    expect(tomb).toEqual({ table: 'charges', key: 'ch-1', deleted: true });
+    // Supprimer deux fois ne provoque pas d'erreur.
+    expect((await sync(eleveur, [del('charges', 'ch-1')])).json()).toMatchObject({ applied: 1, rejected: [] });
+  });
+
+  it('ne supprime jamais ce qui fonde la traçabilité', async () => {
+    for (const [table, key, motif] of [['lots', 'GA1-0042-B07-L01', /traçabilité/], ['bands', 'GA1-0042-B07', /clôture/], ['farms', 'GA1-0042', /statut/]] as const) {
+      const r = (await sync(admin, [del(table, key)])).json();
+      expect(r.rejected[0].reason).toMatch(motif);
+    }
+    expect(await has(dge, 'GA1-0042-B07-L01')).toBe(true);
+    await sync(admin, [item('exits', { id: 'ex-lot', bandId: 'GA1-0042-B07', date: '2026-11-25', count: 1200, weightKg: 2460, reason: 'abattoir', lotId: 'GA1-0042-B07-L01' })]);
+    expect((await sync(admin, [del('exits', 'ex-lot')])).json().rejected[0].reason).toMatch(/lot cédé/);
+  });
+
+  it('réserve chaque suppression au profil compétent', async () => {
+    await sync(vet, [item('diagnostics', { id: 'dg-1', farmId: 'GA1-0042', date: '2026-11-21', conclusion: 'Coccidiose' })]);
+    expect((await sync(eleveur, [del('diagnostics', 'dg-1')])).json().rejected[0].reason).toMatch(/autres profils/);
+    expect((await sync(vet, [del('diagnostics', 'dg-1')])).json().applied).toBe(1);
+    await sync(agent, [item('prices', { id: 'px-1', date: '2026-11-21', product: 'Poulet vif', priceXaf: 3500, market: 'Mont-Bouët' })]);
+    expect((await sync(eleveur, [del('prices', 'px-1')])).json().rejected[0].reason).toMatch(/agents/);
+    expect((await sync(dge, [del('prices', 'px-1')])).json().applied).toBe(1);
+    // Une commande validée par la DGE ne se supprime plus.
+    await sync(voisin, [item('orders', { id: 'od-9', farmId: 'GA1-0003', date: '2026-11-21', type: 'aliment', product: 'Démarrage', quantity: 40, unit: 'sacs', wishedDate: '2026-12-01', status: 'demandee' })]);
+    const order = (await pull(dge)).items.find((x: { key: string }) => x.key === 'od-9').payload;
+    await sync(dge, [item('orders', { ...order, status: 'validee', decidedBy: 'DGE' })]);
+    expect((await sync(voisin, [del('orders', 'od-9')])).json().rejected[0].reason).toMatch(/déjà traitée/);
+  });
+
+  it('garde les saisies d’une bande clôturée en lecture seule, sauf pour l’administrateur', async () => {
+    // La bande GA1-0042-B07 a été clôturée dans les tests de la version 1.2.
+    const refuse = (await sync(eleveur, [item('entries', { id: 'en-tard', bandId: 'GA1-0042-B07', date: '2026-12-02', deaths: 1, feedKg: 10, createdAt: '2026-12-02' })])).json();
+    expect(refuse.rejected[0].reason).toMatch(/clôturée/);
+    expect((await sync(admin, [item('entries', { id: 'en-admin', bandId: 'GA1-0042-B07', date: '2026-11-29', deaths: 0, feedKg: 12, createdAt: '2026-11-29' })])).json().applied).toBe(1);
+    expect((await sync(eleveur, [del('entries', 'en-admin')])).json().rejected[0].reason).toMatch(/clôturée/);
+    expect((await sync(admin, [del('entries', 'en-admin')])).json().applied).toBe(1);
+  });
+
+  it('applique le droit « supprimer » de la matrice et ne ressuscite pas une donnée supprimée', async () => {
+    await sync(voisin, [item('charges', { id: 'ch-2', farmId: 'GA1-0003', date: '2026-11-22', post: 'Litière', amountXaf: 120000 })]);
+    const settings = (await pull(admin)).items.find((x: { table: string }) => x.table === 'settings').payload;
+    const rights = { eleveur: { economie: ['consulter', 'creer', 'modifier'] }, agent: { economie: ['consulter', 'creer', 'modifier', 'supprimer'] } };
+    await sync(admin, [item('settings', { ...settings, rights })]);
+    expect((await sync(voisin, [del('charges', 'ch-2')])).json().rejected[0].reason).toMatch(/droit « supprimer » non accordé/);
+    // L'agent, lui, garde ce droit sur les fermes qu'il suit.
+    const before = new Date(Date.now() - 60_000).toISOString();
+    expect((await sync(agent, [del('charges', 'ch-2')])).json().applied).toBe(1);
+    // Un téléphone resté hors ligne renvoie une vieille version : elle est refusée.
+    expect((await sync(voisin, [item('charges', { id: 'ch-2', farmId: 'GA1-0003', date: '2026-11-22', post: 'Litière', amountXaf: 1 }, before)])).json().rejected[0].reason).toMatch(/supprimé entre-temps/);
+    expect(await has(dge, 'ch-2')).toBe(false);
+    await sync(admin, [item('settings', { ...settings })]);
+    const audit = (await app.inject({ method: 'GET', url: '/admin/audit?limit=400', headers: { authorization: `Bearer ${admin}` } })).json();
+    expect(audit.some((a: { action: string; key: string }) => a.action === 'suppression' && a.key === 'ch-2')).toBe(true);
+  });
+
+  it('accepte un code de démonstration seulement quand le serveur est en mode démonstration', async () => {
+    expect((await app.inject({ method: 'POST', url: '/auth/otp/verify', payload: { phone: '+24100000001', code: '241241' } })).statusCode).toBe(401);
+    expect((await app.inject({ method: 'GET', url: '/public/config' })).json()).toEqual({ demo: false, sms: false });
+    const demo = await buildApp({ ...cfg, demoOtp: '241241' }, db, { sms: async () => undefined, mail: mailer });
+    const ok = await demo.inject({ method: 'POST', url: '/auth/otp/verify', payload: { phone: '+24100000001', code: '241241' } });
+    expect(ok.json().user).toMatchObject({ role: 'eleveur', farmId: 'GA1-0042' });
+    expect((await demo.inject({ method: 'POST', url: '/auth/otp/verify', payload: { phone: '+24199999999', code: '241241' } })).statusCode).toBe(401);
+    expect((await demo.inject({ method: 'GET', url: '/public/config' })).json().demo).toBe(true);
+    await demo.close();
   });
 });

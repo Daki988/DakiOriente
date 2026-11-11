@@ -65,6 +65,12 @@ export function ResourcesPage() {
 
 const MENU = [
   { to: '/bande/nouvelle', icon: 'plus', t: 'Ouvrir une bande', s: 'Réception des poussins', roles: ['eleveur', 'agent'] },
+  { to: '/fermes/nouvelle', icon: 'farm', t: 'Enrôler une ferme', s: 'Fiche, position GPS, capacité', roles: ['agent'] },
+  { to: '/profil', icon: 'user', t: 'Changer de ferme suivie', s: 'Choisir parmi mes fermes', roles: ['agent'] },
+  { to: '/etiquettes', icon: 'qr', t: 'Mes étiquettes QR', s: 'QR valides même sans réseau', roles: ['eleveur', 'agent'] },
+  { to: '/intrants', icon: 'box', t: 'Intrants', s: 'Livraisons et stock', roles: ['eleveur', 'agent'] },
+  { to: '/saisies/fiches', icon: 'report', t: 'Corriger une fiche du jour', s: 'Historique des fiches', roles: ['eleveur', 'agent'] },
+  { to: '/saisies/pesees', icon: 'scale', t: 'Corriger une pesée', s: 'Historique des pesées', roles: ['eleveur', 'agent'] },
   { to: '/vaccinations', icon: 'heart', t: 'Vaccinations', s: 'Registre et calendrier', roles: ['eleveur', 'agent'] },
   { to: '/traitements', icon: 'feed', t: 'Traitements', s: 'Produits et délais d’attente', roles: ['eleveur', 'agent'] },
   { to: '/biosecurite', icon: 'check', t: 'Biosécurité', s: 'Contrôles et mesures correctives', roles: ['eleveur', 'agent'] },

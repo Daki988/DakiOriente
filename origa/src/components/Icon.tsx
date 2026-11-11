@@ -1,6 +1,13 @@
 // Icônes en trait (style Lucide), dessinées en SVG pour rester légères et hors ligne.
 const P: Record<string, string> = {
   home: 'M3 11l9-7 9 7v9H3z',
+  menu: 'M4 6h16M4 12h16M4 18h16',
+  close: 'M6 6l12 12M18 6L6 18',
+  edit: 'M4 20h4L19 9l-4-4L4 16zM14 6l4 4',
+  trash: 'M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v5M14 11v5',
+  mail: 'M3 6h18v12H3zM3 7l9 7 9-7',
+  download: 'M12 4v11M7 11l5 5 5-5M4 20h16',
+  print: 'M7 9V4h10v5M7 18H4v-8h16v8h-3M7 14h10v6H7z',
   bands: 'M4 19V9M10 19V5M16 19v-7M22 19H2',
   qr: 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2v2h-2zM18 18h2v2h-2zM14 18h2M18 14h2',
   user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0',

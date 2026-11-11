@@ -5,7 +5,7 @@ import type { Config } from './config.js';
 import type { Db } from './db.js';
 import { createSms, type SmsSender } from './sms.js';
 import { hashOtp, lotSigner, newOtp, normalizePhone, sameHash, sha256hex, signToken, verifyToken, type Claims } from './security.js';
-import { ALL_TABLES, canRead, canWrite, farmOf, rightsAllow } from './scope.js';
+import { ALL_TABLES, BAND_LOCKED, canDelete, canRead, canWrite, farmOf, rightsAllow } from './scope.js';
 import { buildEpcis } from './epcis.js';
 import { createMailer, type Mailer } from './mail.js';
 import { REPORT_KINDS, sendReport, type ReportKind } from './reports.js';
@@ -15,6 +15,7 @@ declare module 'fastify' {
 }
 
 interface SyncItem { table: string; op: 'put' | 'delete'; key: string; payload: Record<string, unknown>; at: string }
+type Json = Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 const PROVINCES: Record<string, string> = {
   GA1: 'Estuaire', GA2: 'Haut-Ogooué', GA3: 'Moyen-Ogooué', GA4: 'Ngounié', GA5: 'Nyanga',
@@ -79,13 +80,16 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mai
     const phone = normalizePhone(req.body?.phone ?? '');
     const code = String(req.body?.code ?? '');
     if (!phone || !/^\d{6}$/.test(code)) return reply.code(400).send({ error: 'Code invalide.' });
-    const otp = (await db.query(`SELECT * FROM otp_codes WHERE phone=$1 AND NOT used AND expires_at > now() ORDER BY created_at DESC LIMIT 1`, [phone])).rows[0];
-    if (!otp || otp.attempts >= 5) return reply.code(401).send({ error: 'Code expiré. Demandez un nouveau code.' });
-    if (!sameHash(otp.code_hash, hashOtp(phone, code, cfg.jwtSecret))) {
-      await db.query('UPDATE otp_codes SET attempts = attempts + 1 WHERE id=$1', [otp.id]);
-      return reply.code(401).send({ error: 'Code incorrect.' });
+    // Mode démonstration (DEMO_OTP) : un code fixe remplace le SMS, pour présenter la plateforme sans passerelle.
+    if (!(cfg.demoOtp && code === cfg.demoOtp)) {
+      const otp = (await db.query(`SELECT * FROM otp_codes WHERE phone=$1 AND NOT used AND expires_at > now() ORDER BY created_at DESC LIMIT 1`, [phone])).rows[0];
+      if (!otp || otp.attempts >= 5) return reply.code(401).send({ error: 'Code expiré. Demandez un nouveau code.' });
+      if (!sameHash(otp.code_hash, hashOtp(phone, code, cfg.jwtSecret))) {
+        await db.query('UPDATE otp_codes SET attempts = attempts + 1 WHERE id=$1', [otp.id]);
+        return reply.code(401).send({ error: 'Code incorrect.' });
+      }
+      await db.query('UPDATE otp_codes SET used = TRUE WHERE id=$1', [otp.id]);
     }
-    await db.query('UPDATE otp_codes SET used = TRUE WHERE id=$1', [otp.id]);
     await db.query('UPDATE users SET last_login_at = now() WHERE phone=$1', [phone]);
     const u = (await db.query('SELECT * FROM users WHERE phone=$1 AND active', [phone])).rows[0];
     if (!u) return reply.code(401).send({ error: 'Compte inactif.' });
@@ -95,6 +99,8 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mai
   });
 
   app.get('/me', { preHandler: auth }, async (req) => req.user);
+  /** Ce que l'écran de connexion doit savoir du serveur (aucune donnée sensible). */
+  app.get('/public/config', async () => ({ demo: !!cfg.demoOtp, sms: cfg.smsProvider !== 'console' }));
 
   // ---------- Synchronisation ----------
   app.post<{ Body: { items?: SyncItem[] } }>('/sync', { preHandler: auth }, async (req, reply) => {
@@ -102,9 +108,37 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mai
     const items = req.body?.items;
     if (!Array.isArray(items) || items.length > 500) return reply.code(400).send({ error: 'Lot de synchronisation invalide (500 éléments maximum).' });
     const applied: string[] = []; const conflicts: { table: string; key: string }[] = []; const rejected: { table: string; key: string; reason: string }[] = [];
+    const settingsRow = async () => (await db.query(`SELECT payload FROM records WHERE tbl='settings' AND key='global'`)).rows[0]?.payload;
+    /** Bande clôturée : ses saisies sont en lecture seule pour l'éleveur et l'agent. */
+    const bandLocked = async (tbl: string, row: Json) => {
+      if (!BAND_LOCKED.includes(tbl) || !['eleveur', 'agent'].includes(u.role) || typeof row.bandId !== 'string') return false;
+      return !!(await db.query(`SELECT 1 FROM records WHERE tbl='bands' AND key=$1 AND payload ? 'closedAt' AND payload->>'closedAt' <> ''`, [row.bandId])).rowCount;
+    };
     for (const it of items) {
-      if (!it || typeof it.key !== 'string' || !ALL_TABLES.includes(it.table) || it.op !== 'put' || typeof it.payload !== 'object' || it.payload === null || Number.isNaN(Date.parse(it.at))) {
+      if (!it || typeof it.key !== 'string' || !ALL_TABLES.includes(it.table) || !['put', 'delete'].includes(it.op) || typeof it.payload !== 'object' || it.payload === null || Number.isNaN(Date.parse(it.at))) {
         rejected.push({ table: String(it?.table), key: String(it?.key), reason: 'élément invalide' }); continue;
+      }
+      // ---------- Suppression ----------
+      if (it.op === 'delete') {
+        const cur = (await db.query('SELECT payload, farm_id FROM records WHERE tbl=$1 AND key=$2', [it.table, it.key])).rows[0];
+        if (!cur) { applied.push(`${it.table}/${it.key}`); continue; } // déjà supprimé : rien à refaire
+        let denied = canDelete(u, it.table, farmOf(it.table, cur.payload), cur.payload) ?? rightsAllow(u, it.table, cur.payload, cur.payload, (await settingsRow())?.rights, 'supprimer');
+        if (!denied && await bandLocked(it.table, cur.payload)) denied = 'bande clôturée : lecture seule';
+        if (!denied && it.table === 'operators' && (await db.query(`SELECT 1 FROM records WHERE tbl='lots' AND payload->>'operatorId'=$1 LIMIT 1`, [it.key])).rowCount) denied = 'opérateur cité dans des lots : il reste au registre';
+        if (denied) { rejected.push({ table: it.table, key: it.key, reason: denied }); continue; }
+        const client = await db.connect();
+        try {
+          await client.query('BEGIN');
+          await client.query(
+            `INSERT INTO tombstones (tbl, key, farm_id, payload, deleted_by, seq) VALUES ($1,$2,$3,$4,$5, nextval(pg_get_serial_sequence('records','seq')))
+             ON CONFLICT (tbl, key) DO UPDATE SET payload=EXCLUDED.payload, farm_id=EXCLUDED.farm_id, deleted_by=EXCLUDED.deleted_by, deleted_at=now(), seq=EXCLUDED.seq`,
+            [it.table, it.key, cur.farm_id, cur.payload, u.sub]);
+          await client.query('DELETE FROM records WHERE tbl=$1 AND key=$2', [it.table, it.key]);
+          await client.query('COMMIT');
+        } catch (e) { await client.query('ROLLBACK'); throw e; } finally { client.release(); }
+        await audit(u.sub, 'suppression', it.table, it.key);
+        applied.push(`${it.table}/${it.key}`);
+        continue;
       }
       if (String(it.payload.id) !== it.key) { rejected.push({ table: it.table, key: it.key, reason: 'identifiant incohérent' }); continue; }
       if (u.role === 'operateur' && (it.table === 'movements' || (it.table === 'lots' && it.payload.parentId))) {
@@ -117,9 +151,15 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mai
       const farmId = farmOf(it.table, payload);
       // Une fiche existante ne change pas de ferme (empêche de déplacer des données hors périmètre).
       if (cur && farmOf(it.table, cur.payload) !== farmId) { rejected.push({ table: it.table, key: it.key, reason: 'changement de ferme interdit' }); continue; }
-      const settingsRow = (await db.query(`SELECT payload FROM records WHERE tbl='settings' AND key='global'`)).rows[0]?.payload;
-      const denied = canWrite(u, it.table, farmId, payload, cur?.payload) ?? rightsAllow(u, it.table, cur?.payload, payload, settingsRow?.rights);
+      let denied = canWrite(u, it.table, farmId, payload, cur?.payload) ?? rightsAllow(u, it.table, cur?.payload, payload, (await settingsRow())?.rights);
+      if (!denied && await bandLocked(it.table, payload)) denied = 'bande clôturée : lecture seule';
       if (denied) { rejected.push({ table: it.table, key: it.key, reason: denied }); continue; }
+      // Enregistrement supprimé entre-temps par quelqu'un d'autre : une saisie plus ancienne ne le fait pas revenir.
+      const gone = cur ? undefined : (await db.query('SELECT deleted_at FROM tombstones WHERE tbl=$1 AND key=$2', [it.table, it.key])).rows[0];
+      if (gone) {
+        if (new Date(gone.deleted_at) > new Date(it.at)) { rejected.push({ table: it.table, key: it.key, reason: 'enregistrement supprimé entre-temps' }); continue; }
+        await db.query('DELETE FROM tombstones WHERE tbl=$1 AND key=$2', [it.table, it.key]);
+      }
       // Règle de conflit documentée : la dernière saisie horodatée l'emporte, l'autre est conservée et signalée.
       if (cur && new Date(cur.client_at) > new Date(it.at)) {
         await db.query('INSERT INTO conflicts (tbl, key, incoming, current, user_id) VALUES ($1,$2,$3,$4,$5)', [it.table, it.key, payload, cur.payload, u.sub]);
@@ -155,11 +195,15 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mai
     const u = req.user!;
     const since = Number(req.query.since ?? 0) || 0;
     const limit = Math.min(2000, Number(req.query.limit ?? 1000) || 1000);
-    const rows = (await db.query('SELECT tbl, key, farm_id, payload, seq FROM records WHERE seq > $1 ORDER BY seq LIMIT $2', [since, limit])).rows;
+    const rows = (await db.query(
+      `SELECT tbl, key, farm_id, payload, seq, FALSE AS deleted FROM records WHERE seq > $1
+       UNION ALL SELECT tbl, key, farm_id, payload, seq, TRUE AS deleted FROM tombstones WHERE seq > $1
+       ORDER BY seq LIMIT $2`, [since, limit])).rows;
     const bceg = u.role === 'bceg' ? await bcegFarms() : new Set<string>();
     const visible = rows.filter((r) => canRead(u, r.tbl, r.farm_id, bceg, r.payload));
     const cursor = rows.length ? Number(rows[rows.length - 1].seq) : since;
-    return { items: visible.map((r) => ({ table: r.tbl, key: r.key, payload: r.payload })), cursor, more: rows.length === limit };
+    // Une suppression est transmise sans contenu : l'appareil retire simplement l'enregistrement.
+    return { items: visible.map((r) => (r.deleted ? { table: r.tbl, key: r.key, deleted: true } : { table: r.tbl, key: r.key, payload: r.payload })), cursor, more: rows.length === limit };
   });
 
   app.get('/conflicts', { preHandler: auth }, async (req, reply) => {

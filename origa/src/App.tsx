@@ -24,8 +24,9 @@ import { AccessRequestPage } from './pages/AccessRequest';
 import { Reception } from './pages/Reception';
 import { AdminAudit, AdminHome, AdminOperators, AdminRequests, AdminUsers } from './pages/admin/Admin';
 import { NotFound } from './pages/NotFound';
-import { ChargesPage, ConsultationsPage, DiagnosticsPage, OffersPage, OrdersPage, PricesPage, SlaughterPage, TreatmentsPage, VaccinationsPage, VisitsPage } from './pages/Registers';
+import { EntriesPage, WeighingsPage, ChargesPage, ConsultationsPage, DiagnosticsPage, OffersPage, OrdersPage, PricesPage, SlaughterPage, TreatmentsPage, VaccinationsPage, VisitsPage } from './pages/Registers';
 import { BiosecurityPage } from './pages/Biosecurity';
+import { LabelsPage } from './pages/Labels';
 import { ReportsPage } from './pages/Reports';
 import { ImportPage } from './pages/Import';
 import { EconomicsPage, PublicationsPage, PublicStats, RankingPage } from './pages/Pilotage';
@@ -74,7 +75,10 @@ export function App() {
               <Route path="/prix" element={<PricesPage />} />
               <Route path="/offres" element={<OffersPage />} />
               <Route path="/charges" element={<ChargesPage />} />
+              <Route path="/saisies/fiches" element={<EntriesPage />} />
+              <Route path="/saisies/pesees" element={<WeighingsPage />} />
             </>}
+            {dgeLike && <Route path="/etiquettes" element={<LabelsPage />} />}
             {(dgeLike || r === 'maedr') && <Route path="/diffusion" element={<PublicationsPage />} />}
             {dgeLike && <Route path="/reprise" element={<ImportPage />} />}
             {dgeLike && <Route path="/fermes/nouvelle" element={<FarmNew />} />}
@@ -119,6 +123,9 @@ export function App() {
             <Route path="/prix" element={<PricesPage />} />
             <Route path="/ressources" element={<ResourcesPage />} />
             <Route path="/plus" element={<MoreMenu />} />
+            <Route path="/etiquettes" element={<LabelsPage />} />
+            <Route path="/saisies/fiches" element={<EntriesPage />} />
+            <Route path="/saisies/pesees" element={<WeighingsPage />} />
             <Route path="/fermes/nouvelle" element={<FarmNew />} />
             <Route path="/fermes/:id" element={<FarmDetail />} />
             <Route path="/profil" element={<ProfilePage />} />

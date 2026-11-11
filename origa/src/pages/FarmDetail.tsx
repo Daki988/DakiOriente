@@ -23,8 +23,8 @@ export function FarmDetail() {
   }, [id]);
   const [f, setF] = useState<Farm | null>(null);
   useEffect(() => { if (data?.farm) setF(data.farm); }, [data?.farm]);
+  if (data === null) return <><BackBar title="Ferme introuvable" /><div className="content"><div className="empty">Cette ferme n'existe pas ou n'est pas dans votre périmètre.</div></div></>;
   if (data === undefined || !f) return null;
-  if (!data) return <><BackBar title="Ferme introuvable" /></>;
 
   const canEdit = ['agent', 'dge', 'admin'].includes(s.role);
   const canReopen = s.role === 'dge' || s.role === 'admin';

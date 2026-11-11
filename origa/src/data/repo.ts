@@ -33,6 +33,16 @@ export async function save<T extends { id: string }>(table: Tables, row: T, acti
   return row;
 }
 
+/** Supprime un enregistrement : retrait local, envoi de la suppression au serveur, trace au journal d'audit. */
+export async function remove(table: Tables, id: string, action = 'suppression') {
+  const at = new Date().toISOString();
+  await db.transaction('rw', db.table(table), db.outbox, db.audit, async () => {
+    await db.table(table).delete(id);
+    await db.outbox.add({ table, op: 'delete', key: id, payload: { id }, at });
+    await appendAudit(action, table, id);
+  });
+}
+
 /** Trace une action d'administration locale (comptes, demandes) sans l'envoyer au serveur. */
 export async function auditOnly(action: string, table: string, key: string) {
   await db.transaction('rw', db.audit, () => appendAudit(action, table, key));

@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Logo, Icon } from '../components/Icon';
 import { requestCode, verifyCode } from '../app/auth';
-import { apiEnabled } from '../app/api';
+import { apiEnabled, serverDemo } from '../app/api';
 import { flushOutbox } from '../data/sync';
 import { DEMO_USERS } from '../data/demoUsers';
 
@@ -14,6 +14,8 @@ export function Auth() {
   const [normalized, setNormalized] = useState('');
   const [code, setCode] = useState('');
   const [demoCode, setDemoCode] = useState<string>();
+  const [demo, setDemo] = useState(!apiEnabled);
+  useEffect(() => { if (apiEnabled) serverDemo().then(setDemo); }, []);
   const [step, setStep] = useState<'phone' | 'code'>('phone');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -56,7 +58,7 @@ export function Auth() {
               <button className="cta green" disabled={busy || phone.replace(/\D/g, '').length < 8} onClick={() => sendCode()}>
                 {busy ? 'Envoi…' : 'Recevoir mon code'}
               </button>
-              {!apiEnabled && (
+              {demo && (
                 <div className="demo-box">
                   <b>Démonstration</b>
                   <span className="muted">Touchez un profil pour l'essayer, avec des données fictives.</span>

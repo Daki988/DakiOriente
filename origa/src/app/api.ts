@@ -23,6 +23,17 @@ export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
   return body as T;
 }
 
+const DEMO = 'origa.serverDemo';
+/** Le serveur dit s'il accepte le code de démonstration (présentation sans passerelle SMS). */
+export async function serverDemo(): Promise<boolean> {
+  if (!apiEnabled) return false;
+  try {
+    const r = await fetch(`${API}/public/config`).then((x) => x.json() as Promise<{ demo?: boolean }>);
+    localStorage.setItem(DEMO, r.demo ? '1' : '0');
+    return !!r.demo;
+  } catch { try { return localStorage.getItem(DEMO) === '1'; } catch { return false; } }
+}
+
 export const requestOtp = (phone: string) => api<{ sent: boolean; expiresIn: number }>('/auth/otp/request', { method: 'POST', body: JSON.stringify({ phone }) });
 
 interface LoginUser { sub: number; role: Role; name: string; farmId?: string | null; farmIds?: string[]; operatorId?: string | null }

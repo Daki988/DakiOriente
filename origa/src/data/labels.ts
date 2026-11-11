@@ -28,6 +28,12 @@ export async function requestLabels(bandId: string, count: number): Promise<Pres
   return labels;
 }
 
+/** Étiquettes disponibles de la bande, sans rien modifier (utilisable dans une requête d'affichage). */
+export async function listLabels(bandId: string): Promise<PresignedLabel[]> {
+  const used = new Set((await db.lots.where('bandId').equals(bandId).toArray()).map((l) => l.id));
+  return (await db.presigned.where('bandId').equals(bandId).toArray()).filter((l) => !used.has(l.lotId)).sort((a, b) => a.lotId.localeCompare(b.lotId));
+}
+
 /** Étiquettes de la bande encore disponibles (leur numéro n'a pas servi), dans l'ordre des numéros. */
 export async function availableLabels(bandId: string): Promise<PresignedLabel[]> {
   const used = new Set((await db.lots.where('bandId').equals(bandId).toArray()).map((l) => l.id));

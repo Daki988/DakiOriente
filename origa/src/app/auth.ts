@@ -1,6 +1,6 @@
 import { db } from '../data/db';
 import { DEMO_CODE } from '../data/demoUsers';
-import { apiEnabled, api, logout as apiLogout, requestOtp, verifyOtp } from './api';
+import { apiEnabled, api, logout as apiLogout, requestOtp, serverDemo, verifyOtp } from './api';
 import { setSession, type Session } from './sessionStore';
 import type { AccessRequest, Role } from '../domain/types';
 import { uid } from '../domain/ids';
@@ -17,7 +17,7 @@ export function normalizePhone(raw: string): string | null {
 export async function requestCode(rawPhone: string): Promise<{ phone: string; demoCode?: string }> {
   const phone = normalizePhone(rawPhone);
   if (!phone) throw new Error('Numéro de téléphone invalide.');
-  if (apiEnabled) { await requestOtp(phone); return { phone }; }
+  if (apiEnabled) { await requestOtp(phone); return { phone, demoCode: (await serverDemo()) ? DEMO_CODE : undefined }; }
   return { phone, demoCode: DEMO_CODE };
 }
 

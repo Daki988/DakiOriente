@@ -206,7 +206,7 @@ export interface Settings {
 
 export interface ListItem { k: string; label: string }
 
-export type RightAction = 'consulter' | 'creer' | 'modifier' | 'valider' | 'administrer';
+export type RightAction = 'consulter' | 'creer' | 'modifier' | 'supprimer' | 'valider' | 'administrer';
 export type RightDomain = 'fermes' | 'elevage' | 'intrants' | 'sanitaire' | 'economie' | 'tracabilite' | 'pilotage' | 'administration';
 
 export type FormulaKey = 'mortalite' | 'viabilite' | 'gmq' | 'ic' | 'epef' | 'occupation';

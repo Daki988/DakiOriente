@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { db } from '../data/db';
 import { fmtDate, fmtInt } from '../app/hooks';
 import type { Lot, Operator } from '../domain/types';
+import { buildEpcis } from '../domain/epcis';
+import { Icon } from '../components/Icon';
 
 /** Recherche amont / aval (§ 6.3) : de la ferme, la bande, le lot ou le lot d'aliment vers les destinataires. */
 export function TracePage() {
@@ -29,6 +31,18 @@ export function TracePage() {
     a.download = `origa-rappel-${q.trim()}.csv`; a.click();
   }
 
+  async function exportEpcis() {
+    if (!res) return;
+    const ids = new Set(res.lots.map((l) => l.id));
+    // Les lots dérivés (transformation) et les transports des lots trouvés font partie de l'histoire à exporter.
+    const derived = (await db.lots.toArray()).filter((l) => l.parentId && ids.has(l.parentId) && !ids.has(l.id));
+    const movements = (await db.movements.toArray()).filter((m) => ids.has(m.lotId));
+    const doc = buildEpcis({ lots: [...res.lots, ...derived], movements });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(doc, null, 2)], { type: 'application/ld+json' }));
+    a.download = `origa-epcis-${q.trim()}.jsonld`; a.click();
+  }
+
   return (
     <>
       <div className="top"><div><h1>Traçabilité et rappel de lot</h1><span className="muted">Ferme (GA1-0042), bande (GA1-0042-B06), lot ou numéro de lot d'aliment.</span></div></div>
@@ -36,7 +50,8 @@ export function TracePage() {
         <div className="row wrap" style={{ gap: 8 }}>
           <input className="sel" style={{ flex: 1, minWidth: 240 }} value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && search()} placeholder="Identifiant à rechercher…" />
           <button className="sel dark" onClick={search}>Rechercher</button>
-          {res && res.lots.length > 0 && <button className="sel" onClick={exportCsv}>Exporter pour l'AGASA</button>}
+          {res && res.lots.length > 0 && <button className="sel" onClick={exportCsv}>Exporter pour l'AGASA (CSV)</button>}
+          {res && res.lots.length > 0 && <button className="sel" onClick={exportEpcis}>Exporter EPCIS 2.0 (JSON)</button>}
         </div>
         {res && <span className="muted">{res.note}</span>}
         {res && res.lots.length > 0 && (
@@ -51,6 +66,7 @@ export function TracePage() {
             </tbody>
           </table>
         )}
+        {res && res.lots.length > 0 && <div className="note"><Icon name="info" size={18} />EPCIS 2.0 est le format international GS1 d'échange des événements de traçabilité. Le fichier contient, pour chaque lot : cession, transport, réception, transformation et contrôle du distributeur.</div>}
       </div>
     </>
   );

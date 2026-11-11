@@ -1,7 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../data/db';
-import { fmt, fmtDate, fmtInt, useSettings } from '../app/hooks';
+import { fmt, fmtDate, fmtInt, useSession, useSettings } from '../app/hooks';
+import { api, apiEnabled } from '../app/api';
+import { save } from '../data/repo';
+import { useToast } from '../components/ui';
+import { Icon } from '../components/Icon';
 import { bandStats } from '../domain/kpis';
 import { bandEconomics, inputGap, periodBounds, traceIndicators } from '../domain/analytics';
 import { addDays, today } from '../domain/ids';
@@ -10,9 +14,57 @@ import { Logo } from '../components/Icon';
 
 type Kind = 'hebdomadaire' | 'finBande' | 'mensuel';
 
+interface Run { id: number; kind: Kind; period: string; label: string; sentAt: string; recipients: number; status: 'envoye' | 'echec'; error?: string; attempts: number }
+const KIND_L: Record<Kind, string> = { hebdomadaire: 'Hebdomadaire', mensuel: 'Mensuel', finBande: 'Fin de bande' };
+const WHEN: Record<Kind, string> = { hebdomadaire: 'chaque lundi, pour la semaine écoulée', mensuel: 'le 1er du mois, pour le mois écoulé', finBande: 'à la clôture de chaque bande' };
+const sentAt = (d: string) => new Date(d).toLocaleString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+/** Envoi automatique des rapports par e-mail : fréquences, destinataires et journal des envois (DGE, administrateur). */
+function ReportMail({ refresh }: { refresh: number }) {
+  const st = useSettings(); const [toast, show] = useToast();
+  const [runs, setRuns] = useState<Run[]>([]);
+  const [add, setAdd] = useState('');
+  const [d, setD] = useState(st.reports);
+  useEffect(() => setD(st.reports), [st.reports]);
+  useEffect(() => { if (apiEnabled) api<Run[]>('/reports/runs').then(setRuns).catch(() => setRuns([])); }, [refresh]);
+  const recipients = d.recipients ?? [];
+  const addOne = () => {
+    const mail = add.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) { show('Adresse e-mail invalide'); return; }
+    if (!recipients.includes(mail)) setD({ ...d, recipients: [...recipients, mail] });
+    setAdd('');
+  };
+  return (
+    <div className="grid2 no-print">
+      <div className="panel"><h3>Derniers envois</h3>
+        {runs.length ? (
+          <table className="tbl"><thead><tr><th>Envoyé le</th><th>Rapport</th><th>Période</th><th>Destinataires</th><th>État</th></tr></thead>
+            <tbody>{runs.slice(0, 12).map((r) => <tr key={r.id}><td>{sentAt(r.sentAt)}</td><td>{KIND_L[r.kind]}</td><td>{r.label}</td><td>{r.recipients}</td>
+              <td>{r.status === 'envoye' ? <span className="pill on">Envoyé</span> : <span className="pill red" title={r.error}>Échec · {r.attempts < 5 ? 'réessai prévu' : 'abandonné'}</span>}</td></tr>)}</tbody></table>
+        ) : <div className="empty">{apiEnabled ? 'Aucun rapport envoyé pour le moment.' : 'En démonstration, aucun e-mail ne part : l’envoi est fait par le serveur national.'}</div>}
+        <div className="note"><Icon name="info" size={18} />Chaque envoi contient le rapport en PDF et le détail par ferme en CSV. Un rapport n'est jamais envoyé deux fois pour la même période.</div>
+      </div>
+      <div className="panel"><h3>Envoi automatique par e-mail</h3>
+        {(['hebdomadaire', 'mensuel', 'finBande'] as Kind[]).map((k) => (
+          <label key={k} className="check"><input type="checkbox" checked={d[k]} onChange={(e) => setD({ ...d, [k]: e.target.checked })} /><span><b>{KIND_L[k]}</b> · {WHEN[k]}</span></label>
+        ))}
+        <div className="f">Destinataires
+          <div className="chips">{recipients.map((m) => <span key={m} className="chip">{m}<button aria-label={`Retirer ${m}`} style={{ marginLeft: 6 }} onClick={() => setD({ ...d, recipients: recipients.filter((x) => x !== m) })}>✕</button></span>)}
+            {!recipients.length && <span className="muted">Aucun destinataire : aucun rapport ne part.</span>}</div>
+          <div className="row"><input className="input" type="email" placeholder="adresse@exemple.ga" value={add} onChange={(e) => setAdd(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && addOne()} /><button className="sel" onClick={addOne}>Ajouter</button></div>
+        </div>
+        <button className="sel dark" style={{ alignSelf: 'flex-start' }} onClick={async () => { await save('settings', { ...st, reports: d }, 'réglage des rapports par e-mail'); show('Réglages enregistrés'); }}>Enregistrer</button>
+      </div>
+      {toast}
+    </div>
+  );
+}
+
 /** Rapports périodiques produits automatiquement pour chaque période écoulée, exportables en PDF (§ 5.4). */
 export function ReportsPage() {
-  const st = useSettings();
+  const st = useSettings(); const s = useSession(); const [toast, show] = useToast();
+  const manager = s.role === 'dge' || s.role === 'admin';
+  const [refresh, setRefresh] = useState(0); const [sending, setSending] = useState(false);
   const kinds = (['hebdomadaire', 'finBande', 'mensuel'] as Kind[]).filter((k) => st.reports[k]);
   const [kind, setKind] = useState<Kind>(kinds[0] ?? 'hebdomadaire');
   const data = useLiveQuery(async () => {
@@ -54,14 +106,24 @@ export function ReportsPage() {
   const mortAvg = farmRows.filter((r) => r.s).reduce((a, r) => a + r.s!.mortalityPct, 0) / Math.max(1, farmRows.filter((r) => r.s).length);
   const title = kind === 'hebdomadaire' ? 'Rapport hebdomadaire' : kind === 'mensuel' ? 'Rapport mensuel national' : 'Rapport de fin de bande';
 
+  const sendNow = async () => {
+    if (!apiEnabled) { show('En démonstration, aucun e-mail ne part : utilisez « Exporter en PDF »'); return; }
+    setSending(true);
+    try {
+      const r = await api<{ recipients: string[] }>('/reports/send', { method: 'POST', body: JSON.stringify({ kind, bandId: kind === 'finBande' ? period?.key : undefined }) });
+      show(`Rapport envoyé à ${r.recipients.length} destinataire(s)`); setRefresh((x) => x + 1);
+    } catch (e) { show((e as Error).message); } finally { setSending(false); }
+  };
+
   return (
     <>
       <div className="top no-print">
-        <div><h1>Rapports</h1><span className="muted">Produits automatiquement pour chaque période écoulée. Périodicité réglable dans les paramètres.</span></div>
+        <div><h1>Rapports</h1><span className="muted">Générés automatiquement pour chaque période écoulée, exportables en PDF{manager ? ' et envoyés par e-mail aux destinataires' : ''}.</span></div>
         <div className="row wrap" style={{ gap: 8 }}>
           {kinds.map((k) => <button key={k} className={`sel${kind === k ? ' dark' : ''}`} onClick={() => { setKind(k); setSel(''); }}>{k === 'hebdomadaire' ? 'Hebdomadaire' : k === 'mensuel' ? 'Mensuel national' : 'Fin de bande'}</button>)}
           <select className="sel" value={period?.key ?? ''} onChange={(e) => setSel(e.target.value)}>{periods.map((p) => <option key={p.key} value={p.key}>{p.label}</option>)}</select>
-          <button className="sel dark" onClick={() => window.print()}>Exporter en PDF</button>
+          <button className={manager ? 'sel' : 'sel dark'} onClick={() => window.print()}>Exporter en PDF</button>
+          {manager && <button className="sel dark" disabled={sending || (kind === 'finBande' && !period)} onClick={sendNow}>{sending ? 'Envoi…' : 'Envoyer maintenant'}</button>}
         </div>
       </div>
       {!period ? <div className="panel"><div className="empty">Aucune période disponible pour ce rapport.</div></div> : (
@@ -90,6 +152,8 @@ export function ReportsPage() {
           {alertsP.length > 0 && <><h3>Alertes de la période</h3>{alertsP.map((a) => <div key={a.id} className="muted">{fmtDate(a.createdAt)} · {a.farmId} · {a.message} · {a.status}</div>)}</>}
         </div>
       )}
+      {manager && <ReportMail refresh={refresh} />}
+      {toast}
     </>
   );
 }

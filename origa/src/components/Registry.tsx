@@ -1,10 +1,11 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../data/db';
-import { save, type SyncTable } from '../data/repo';
+import { remove, save, type SyncTable } from '../data/repo';
+import { deleteDenied, editDenied } from '../domain/access';
 import { BackBar, Empty, Modal, useToast } from './ui';
 import { Icon } from './Icon';
-import { useSession } from '../app/hooks';
+import { fmtDate, useSession, useSettings } from '../app/hooks';
 import { today, uid } from '../domain/ids';
 
 export interface Field {
@@ -34,6 +35,8 @@ interface Props<T extends Row> {
   canCreate?: boolean;
   createLabel?: string;
   rowActions?: (r: T) => ReactNode;
+  /** Libellé d'une ligne dans la confirmation de suppression. */
+  rowLabel?: (r: T) => string;
   empty?: { img?: string; title: string; text?: string };
   web?: boolean;
   intro?: ReactNode;
@@ -54,6 +57,8 @@ export function Registry<T extends Row>(p: Props<T>) {
   const [toast, show] = useToast();
   const [draft, setDraft] = useState<Record<string, unknown> | null>(null);
   const [error, setError] = useState('');
+  const [doomed, setDoomed] = useState<T | null>(null);
+  const st = useSettings();
   const rows = useLiveQuery(() => db.table(p.table).toArray() as Promise<T[]>, [p.table], []);
   const farms = useLiveQuery(() => db.farms.orderBy('id').toArray(), [], []);
   const bands = useLiveQuery(() => db.bands.toArray(), [], []);
@@ -80,6 +85,28 @@ export function Registry<T extends Row>(p: Props<T>) {
     if (typeof out === 'string') { setError(out); return; }
     await save(p.table, out, p.action ?? `enregistrement ${p.table}`);
     setDraft(null); show('Enregistré');
+  }
+
+  const closed = useMemo(() => new Set(bands.filter((b) => b.closedAt).map((b) => b.id)), [bands]);
+  const who = { role: s.role, farmId: s.farmId, farmIds: s.farmIds, operatorId: s.operatorId };
+  const editing = !!draft && rows.some((r) => r.id === draft.id);
+  /** Corriger et supprimer : proposés seulement à qui en a le droit (le serveur revérifie). */
+  const tools = (r: T) => {
+    const row = r as unknown as Record<string, unknown>;
+    const edit = editDenied(who, p.table, row, st.rights, closed) === null;
+    const del = deleteDenied(who, p.table, row, st.rights, closed) === null;
+    if (!edit && !del) return null;
+    return (
+      <span className="rowtools">
+        {edit && <button className="rowbtn" aria-label="Modifier" title="Modifier" onClick={() => { setError(''); setDraft({ ...row }); }}><Icon name="edit" size={17} /></button>}
+        {del && <button className="rowbtn danger" aria-label="Supprimer" title="Supprimer" onClick={() => setDoomed(r)}><Icon name="trash" size={17} /></button>}
+      </span>
+    );
+  };
+  async function confirmDelete() {
+    if (!doomed) return;
+    await remove(p.table, doomed.id, `suppression ${p.table}`);
+    setDoomed(null); show('Supprimé');
   }
 
   const set = (k: string, v: unknown) => setDraft((d) => ({ ...(d ?? {}), [k]: v }));
@@ -111,14 +138,14 @@ export function Registry<T extends Row>(p: Props<T>) {
 
   const list = shown.length === 0 ? <Empty img={p.empty?.img ?? './img/poussin.webp'} title={p.empty?.title ?? 'Aucun enregistrement'} text={p.empty?.text} /> : p.web ? (
     <table className="tbl">
-      <thead><tr>{p.columns.map((c) => <th key={c.label}>{c.label}</th>)}{p.rowActions && <th />}</tr></thead>
-      <tbody>{shown.map((r) => <tr key={r.id}>{p.columns.map((c) => <td key={c.label}>{c.render(r)}</td>)}{p.rowActions && <td className="nw">{p.rowActions(r)}</td>}</tr>)}</tbody>
+      <thead><tr>{p.columns.map((c) => <th key={c.label}>{c.label}</th>)}<th /></tr></thead>
+      <tbody>{shown.map((r) => <tr key={r.id}>{p.columns.map((c) => <td key={c.label}>{c.render(r)}</td>)}<td className="nw"><span className="rowtools">{p.rowActions?.(r)}{tools(r)}</span></td></tr>)}</tbody>
     </table>
   ) : (
     <div className="list">{shown.map((r) => (
       <div key={r.id} className="li" style={{ alignItems: 'flex-start' }}>
         <div className="grow">{p.columns.map((c, i) => (i === 0 ? <b key={c.label}>{c.render(r)}</b> : <span key={c.label}>{c.label} : {c.render(r)}</span>))}</div>
-        {p.rowActions?.(r)}
+        <span className="rowtools col">{p.rowActions?.(r)}{tools(r)}</span>
       </div>
     ))}</div>
   );
@@ -132,7 +159,7 @@ export function Registry<T extends Row>(p: Props<T>) {
         <div className={p.web ? 'panel' : 'card'}>{list}</div>
       </div>
       {draft && (
-        <Modal title={p.createLabel ?? `Nouveau · ${p.title}`} onClose={() => setDraft(null)}>
+        <Modal title={editing ? `Modifier · ${p.title}` : p.createLabel ?? `Nouveau · ${p.title}`} onClose={() => setDraft(null)}>
           {p.fields.map((f) => (
             f.type === 'checkbox'
               ? <label key={f.key} className="check">{input(f)}<span>{f.label}</span></label>
@@ -140,6 +167,13 @@ export function Registry<T extends Row>(p: Props<T>) {
           ))}
           {error && <div className="note red" role="alert"><Icon name="warn" size={18} />{error}</div>}
           <button className="cta green" onClick={submit}>Enregistrer</button>
+        </Modal>
+      )}
+      {doomed && (
+        <Modal title="Supprimer cet enregistrement ?" onClose={() => setDoomed(null)}>
+          <p className="muted">{p.rowLabel?.(doomed) ?? `${p.title} · ${val(doomed, 'date') ? fmtDate(val(doomed, 'date')) : doomed.id}`}</p>
+          <div className="note sun"><Icon name="warn" size={18} />La suppression est définitive et inscrite au journal d'audit.</div>
+          <div className="row"><button className="cta light" style={{ flex: 1 }} onClick={() => setDoomed(null)}>Annuler</button><button className="cta danger" style={{ flex: 1 }} onClick={confirmDelete}><Icon name="trash" />Supprimer</button></div>
         </Modal>
       )}
       {toast}

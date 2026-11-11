@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { Icon, Logo } from './Icon';
 import { useSession } from '../app/hooks';
@@ -62,27 +63,52 @@ const NAV: { to: string; icon: string; label: string; roles: string[]; section?:
   { to: '/biosecurite', icon: 'check', label: 'Biosécurité', roles: ['veterinaire', 'admin', 'dge'] },
   { to: '/assistance', icon: 'heart', label: 'Assistance à distance', roles: ['veterinaire', 'admin'] },
   { to: '/tracer', icon: 'qr', label: 'Traçabilité', roles: ['dge', 'veterinaire', 'admin'], section: 'Traçabilité' },
+  { to: '/etiquettes', icon: 'print', label: 'Étiquettes QR', roles: ['dge', 'admin'] },
   { to: '/visites', icon: 'pin', label: 'Visites techniques', roles: ['dge', 'admin'] },
   { to: '/prix', icon: 'bands', label: 'Observatoire des prix', roles: ['dge', 'admin', 'bceg'] },
   { to: '/offres', icon: 'share', label: 'Mise en relation', roles: ['dge', 'admin'] },
+  { to: '/saisies/fiches', icon: 'report', label: 'Fiches journalières', roles: ['admin'], section: 'Corrections' },
+  { to: '/saisies/pesees', icon: 'scale', label: 'Pesées', roles: ['admin'] },
+  { to: '/charges', icon: 'report', label: 'Charges', roles: ['admin', 'dge', 'bceg'] },
   { to: '/diffusion', icon: 'report', label: 'Diffusion des données', roles: ['dge', 'admin'], section: 'Données' },
   { to: '/reprise', icon: 'box', label: 'Reprise des données', roles: ['dge', 'admin'] },
   { to: '/parametres', icon: 'gear', label: 'Paramètres', roles: ['dge', 'veterinaire', 'admin'] },
   { to: '/profil', icon: 'user', label: 'Profil', roles: ['dge', 'veterinaire', 'admin', 'bceg', 'maedr', 'aninf'], section: 'Compte' },
 ];
 
-/** Coque web de pilotage et d'administration (DGE, vétérinaires, BCEG, administrateur). */
+/**
+ * Coque web de pilotage et d'administration (DGE, vétérinaires, BCEG, MAEDR, ANINF, administrateur).
+ * Sur ordinateur, le menu reste à gauche. Sur téléphone et tablette (application mobile comprise), une barre
+ * supérieure ouvre le même menu en tiroir : aucun profil ne reste sans navigation.
+ */
 export function WebShell() {
   const s = useSession();
   const { pathname } = useLocation();
+  const [open, setOpen] = useState(false);
+  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    if (!open) return;
+    const esc = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    window.addEventListener('keydown', esc);
+    return () => window.removeEventListener('keydown', esc);
+  }, [open]);
+  const items = NAV.filter((n) => n.roles.includes(s.role));
+  const current = items.find((n) => n.to === pathname)?.label ?? items.find((n) => n.to !== '/' && pathname.startsWith(n.to))?.label ?? 'Origa';
   return (
     <div className="w-shell">
-      <aside className="side">
-        <div className="side-top"><div className="brand"><Logo dark />Origa</div><NotificationBell light /></div>
-        {NAV.filter((n) => n.roles.includes(s.role)).map((n) => (
+      <header className="w-top">
+        <button className="iconbtn" data-nav aria-label="Ouvrir le menu" aria-expanded={open} aria-controls="menu-principal" onClick={() => setOpen(true)}><Icon name="menu" size={24} color="#fff" /></button>
+        <div className="brand"><Logo dark />{current}</div>
+        <NotificationBell light />
+      </header>
+      {open && <div className="side-veil" onClick={() => setOpen(false)} />}
+      <aside className={`side${open ? ' open' : ''}`} id="menu-principal" aria-label="Menu principal">
+        <div className="side-top"><div className="brand"><Logo dark />Origa</div><span className="side-bell"><NotificationBell light /></span>
+          <button className="iconbtn side-close" aria-label="Fermer le menu" onClick={() => setOpen(false)}><Icon name="close" size={22} color="#fff" /></button></div>
+        {items.map((n) => (
           <div key={n.label}>
             {n.section && <div className="side-sec">{n.section}</div>}
-            <NavLink to={n.to} end className={({ isActive }) => `nav${isActive ? ' active' : ''}`}>
+            <NavLink to={n.to} end className={({ isActive }) => `nav${isActive ? ' active' : ''}`} onClick={() => setOpen(false)}>
               <Icon name={n.icon} size={18} />{n.label}
             </NavLink>
           </div>

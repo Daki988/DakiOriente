@@ -1,17 +1,19 @@
 import type { RightAction, RightDomain, Settings } from './types';
 
-const ALL: RightAction[] = ['consulter', 'creer', 'modifier', 'valider', 'administrer'];
+const ALL: RightAction[] = ['consulter', 'creer', 'modifier', 'supprimer', 'valider', 'administrer'];
 const R: RightAction[] = ['consulter'];
 const RW: RightAction[] = ['consulter', 'creer', 'modifier'];
+/** Saisie complète : créer, corriger et supprimer ses propres saisies. */
+const RWD: RightAction[] = [...RW, 'supprimer'];
 const DOMAINS: RightDomain[] = ['fermes', 'elevage', 'intrants', 'sanitaire', 'economie', 'tracabilite', 'pilotage', 'administration'];
 const every = (a: RightAction[]) => Object.fromEntries(DOMAINS.map((d) => [d, a])) as Record<RightDomain, RightAction[]>;
 
 /** Matrice des droits par défaut, conforme au tableau des acteurs (§ 3). Modifiable par l'administrateur. */
 export const DEFAULT_RIGHTS: Settings['rights'] = {
-  eleveur: { fermes: R, elevage: RW, intrants: RW, sanitaire: RW, economie: RW, tracabilite: RW, pilotage: R },
-  agent: { fermes: RW, elevage: RW, intrants: RW, sanitaire: RW, economie: RW, tracabilite: RW, pilotage: R },
-  dge: { fermes: [...RW, 'valider'], elevage: ['consulter', 'modifier'], intrants: [...RW, 'valider'], sanitaire: R, economie: ['consulter', 'creer'], tracabilite: ['consulter', 'valider'], pilotage: [...RW, 'valider'], administration: R },
-  veterinaire: { fermes: R, elevage: R, sanitaire: [...RW, 'valider'], tracabilite: R, pilotage: R },
+  eleveur: { fermes: R, elevage: RWD, intrants: RWD, sanitaire: RWD, economie: RWD, tracabilite: RWD, pilotage: R },
+  agent: { fermes: RWD, elevage: RWD, intrants: RWD, sanitaire: RWD, economie: RWD, tracabilite: RWD, pilotage: R },
+  dge: { fermes: [...RW, 'valider'], elevage: ['consulter', 'modifier'], intrants: [...RWD, 'valider'], sanitaire: R, economie: ['consulter', 'creer', 'supprimer'], tracabilite: ['consulter', 'valider'], pilotage: [...RW, 'valider'], administration: R },
+  veterinaire: { fermes: R, elevage: R, sanitaire: [...RWD, 'valider'], tracabilite: R, pilotage: R },
   bceg: { fermes: R, elevage: R, economie: R, pilotage: R },
   maedr: { pilotage: ['consulter', 'valider'] },
   aninf: { administration: R },
@@ -77,7 +79,19 @@ export const DEFAULT_SETTINGS: Settings = {
 
 /** Complète des paramètres enregistrés par une version antérieure avec les valeurs par défaut. */
 export function withDefaults(s?: Partial<Settings> | null): Settings {
-  return { ...DEFAULT_SETTINGS, ...(s ?? {}), formulas: { ...DEFAULT_SETTINGS.formulas, ...(s?.formulas ?? {}) }, rights: { ...DEFAULT_RIGHTS, ...(s?.rights ?? {}) } } as Settings;
+  return { ...DEFAULT_SETTINGS, ...(s ?? {}), formulas: { ...DEFAULT_SETTINGS.formulas, ...(s?.formulas ?? {}) }, rights: { ...DEFAULT_RIGHTS, ...withDeleteRight(s?.rights ?? {}) } } as Settings;
+}
+
+/**
+ * Matrice enregistrée avant l'apparition du droit « supprimer » : on l'ajoute là où il existe par défaut et où le
+ * profil a déjà le droit de modifier. Une matrice qui le mentionne déjà n'est pas touchée.
+ */
+function withDeleteRight(rights: Settings['rights']): Settings['rights'] {
+  if (Object.entries(rights).some(([role, r]) => role !== 'admin' && Object.values(r ?? {}).some((a) => a?.includes('supprimer')))) return rights;
+  return Object.fromEntries(Object.entries(rights).map(([role, r]) => [role, Object.fromEntries(Object.entries(r).map(([dom, a]) => {
+    const wanted = DEFAULT_RIGHTS[role]?.[dom as RightDomain]?.includes('supprimer') && a?.includes('modifier') && !a.includes('supprimer');
+    return [dom, wanted ? [...a!, 'supprimer'] : a];
+  }))]));
 }
 
 /** Variables disponibles dans les formules. */

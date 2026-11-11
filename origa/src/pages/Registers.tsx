@@ -4,7 +4,7 @@ import { save } from '../data/repo';
 import { Registry } from '../components/Registry';
 import { useCurrentBand, useSession, useSettings, fmtDate, fmtInt } from '../app/hooks';
 import { addDays, uid, today } from '../domain/ids';
-import type { Charge, Consultation, Diagnostic, InputOrder, Offer, PriceRecord, SlaughterBooking, Treatment, Vaccination, Visit } from '../domain/types';
+import type { DailyEntry, Weighing, Charge, Consultation, Diagnostic, InputOrder, Offer, PriceRecord, SlaughterBooking, Treatment, Vaccination, Visit } from '../domain/types';
 
 const xaf = (n?: number) => (n === undefined ? '—' : `${fmtInt(n)} FCFA`);
 const opt = (xs: string[]) => xs.map((x) => ({ value: x, label: x }));
@@ -259,6 +259,37 @@ export function PricesPage() {
       prepare={(d) => ({ ...d, source: s.userLabel })}
       columns={[{ label: 'Produit', render: (r) => r.product }, { label: 'Prix', render: (r) => `${fmtInt(r.priceXaf)} FCFA / ${r.unit}` }, { label: 'Localité', render: (r) => r.locality }, { label: 'Date', render: (r) => fmtDate(r.date) }]}
       empty={{ title: 'Aucun relevé', text: 'Les relevés de prix informent producteurs et marché.' }}
+    />
+  );
+}
+
+// ---------- Historique des saisies : corriger ou supprimer une fiche ou une pesée (§ 5.1) ----------
+const farmOfBand = (bandId?: string) => (bandId ?? '').split('-B')[0];
+export function EntriesPage() {
+  const s = useSession(); const inScope = useScope();
+  return (
+    <Registry<DailyEntry>
+      title="Fiches journalières" sub="Corriger ou supprimer une saisie" table="entries" action="correction de fiche" web={web(s.role)} canCreate={false}
+      fields={[{ key: 'date', label: 'Date', type: 'date', required: true }, { key: 'deaths', label: 'Morts', type: 'number', required: true }, { key: 'feedKg', label: 'Aliment distribué (kg)', type: 'number', required: true }, { key: 'waterL', label: 'Eau (litres)', type: 'number' }]}
+      prepare={(d) => (d.deaths < 0 || d.feedKg < 0 ? 'Les quantités ne peuvent pas être négatives.' : d)}
+      filter={(r) => inScope(farmOfBand(r.bandId))}
+      rowLabel={(r) => `Fiche du ${fmtDate(r.date)} · bande ${r.bandId}`}
+      columns={[{ label: 'Date', render: (r) => fmtDate(r.date) }, { label: 'Morts', render: (r) => fmtInt(r.deaths) }, { label: 'Aliment', render: (r) => `${fmtInt(r.feedKg)} kg` }, { label: 'Bande', render: (r) => r.bandId }]}
+      empty={{ title: 'Aucune fiche', text: 'Les fiches du jour apparaissent ici dès la première saisie.' }}
+    />
+  );
+}
+export function WeighingsPage() {
+  const s = useSession(); const inScope = useScope();
+  return (
+    <Registry<Weighing>
+      title="Pesées" sub="Corriger ou supprimer une pesée" table="weighings" action="correction de pesée" web={web(s.role)} canCreate={false}
+      fields={[{ key: 'date', label: 'Date', type: 'date', required: true }, { key: 'sampleSize', label: 'Poulets pesés', type: 'number', required: true }, { key: 'avgWeightG', label: 'Poids moyen (g)', type: 'number', required: true }]}
+      prepare={(d) => (d.sampleSize > 0 && d.avgWeightG > 0 ? d : 'Indiquez un échantillon et un poids positifs.')}
+      filter={(r) => inScope(farmOfBand(r.bandId))}
+      rowLabel={(r) => `Pesée du ${fmtDate(r.date)} · bande ${r.bandId}`}
+      columns={[{ label: 'Date', render: (r) => fmtDate(r.date) }, { label: 'Poids moyen', render: (r) => `${fmtInt(r.avgWeightG)} g` }, { label: 'Échantillon', render: (r) => fmtInt(r.sampleSize) }, { label: 'Bande', render: (r) => r.bandId }]}
+      empty={{ title: 'Aucune pesée', text: 'Les pesées apparaissent ici dès la première saisie.' }}
     />
   );
 }

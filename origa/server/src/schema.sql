@@ -110,3 +110,17 @@ CREATE TABLE IF NOT EXISTS report_runs (
   attempts   INT NOT NULL DEFAULT 1,
   UNIQUE (kind, period)
 );
+
+-- v1.3 : suppressions. L'enregistrement quitte `records` ; une pierre tombale garde sa dernière version et prend
+-- un numéro de la même séquence, pour que les autres appareils apprennent la suppression à la synchronisation.
+CREATE TABLE IF NOT EXISTS tombstones (
+  tbl        TEXT NOT NULL,
+  key        TEXT NOT NULL,
+  farm_id    TEXT,
+  payload    JSONB NOT NULL,
+  deleted_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  deleted_by INT REFERENCES users(id),
+  seq        BIGINT NOT NULL,
+  PRIMARY KEY (tbl, key)
+);
+CREATE INDEX IF NOT EXISTS tombstones_seq ON tombstones (seq);

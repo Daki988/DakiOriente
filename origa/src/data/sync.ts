@@ -48,10 +48,13 @@ export async function pull(): Promise<number> {
   let n = 0;
   let cursor = Number(localStorage.getItem(CURSOR) ?? 0);
   for (;;) {
-    const r = await api<{ items: { table: string; key: string; payload: { id: string } }[]; cursor: number; more: boolean }>(`/sync/pull?since=${cursor}`);
-    const byTable = new Map<string, { id: string }[]>();
-    for (const it of r.items) if (TABLES.has(it.table)) byTable.set(it.table, [...(byTable.get(it.table) ?? []), it.payload]);
-    for (const [t, rows] of byTable) await db.table(t).bulkPut(rows);
+    const r = await api<{ items: { table: string; key: string; payload?: { id: string }; deleted?: boolean }[]; cursor: number; more: boolean }>(`/sync/pull?since=${cursor}`);
+    // Dans l'ordre du serveur : une suppression suivie d'une recréation (ou l'inverse) donne le bon état final.
+    for (const it of r.items) {
+      if (!TABLES.has(it.table)) continue;
+      if (it.deleted) await db.table(it.table).delete(it.key);
+      else if (it.payload) await db.table(it.table).put(it.payload);
+    }
     n += r.items.length; cursor = r.cursor;
     localStorage.setItem(CURSOR, String(cursor));
     if (!r.more) break;

@@ -1,11 +1,16 @@
-import type { Claims } from './security.js';
+// Règles d'accès : module sans dépendance, partagé avec l'application pour n'afficher que les actions permises.
+// Le serveur reste seul juge : chaque écriture et chaque suppression y est revérifiée.
+
+/** Utilisateur vu par les règles d'accès (les jetons de session du serveur en sont un cas particulier). */
+export interface Actor { role: string; farmId?: string | null; farmIds?: string[]; operatorId?: string | null }
+type Claims = Actor;
 
 export const FARM_TABLES = ['bands', 'entries', 'weighings', 'exits', 'inputs', 'treatments', 'vaccinations', 'reports', 'lots', 'alerts', 'scans',
   'diagnostics', 'biosecurity', 'visits', 'charges', 'orders', 'slaughter', 'consultations', 'offers', 'movements'];
 export const ALL_TABLES = ['farms', 'operators', 'settings', 'prices', 'publications', ...FARM_TABLES];
 
 type Row = Record<string, unknown>;
-type Action = 'consulter' | 'creer' | 'modifier' | 'valider' | 'administrer';
+export type Action = 'consulter' | 'creer' | 'modifier' | 'supprimer' | 'valider' | 'administrer';
 
 /** Domaine de la matrice des droits auquel appartient chaque table. */
 export const DOMAIN: Record<string, string> = {
@@ -123,11 +128,66 @@ export function canWrite(u: Claims, tbl: string, farmId: string | null, row: Row
   }
 }
 
+/** Saisies liées à une bande : en lecture seule une fois la bande clôturée (sauf pour l'administrateur). */
+export const BAND_LOCKED = ['entries', 'weighings', 'exits', 'treatments', 'vaccinations'];
+
+const KEPT: Record<string, string> = {
+  lots: 'un lot cédé ne se supprime pas : la traçabilité doit rester complète',
+  bands: 'une bande se clôture, elle ne se supprime pas',
+  farms: 'une ferme ne se supprime pas : changez son statut',
+  alerts: 'une alerte se clôt, elle ne se supprime pas',
+  scans: 'le journal des scans est conservé',
+  settings: 'les paramètres ne se suppriment pas',
+  publications: 'une diffusion est conservée pour l’historique',
+};
+const OWN_FARM = ['entries', 'weighings', 'exits', 'inputs', 'treatments', 'vaccinations', 'reports', 'charges', 'orders', 'slaughter', 'consultations', 'offers'];
+
+/**
+ * Suppression : réservée aux saisies corrigibles, par le profil qui peut les créer, dans son périmètre.
+ * Ce qui fonde la traçabilité (lots, bandes, fermes, alertes, journal) ne se supprime jamais.
+ */
+export function canDelete(u: Claims, tbl: string, farmId: string | null, current: Row): string | null {
+  if (!ALL_TABLES.includes(tbl)) return 'table inconnue';
+  if (KEPT[tbl]) return KEPT[tbl];
+  if (tbl === 'exits' && current.lotId) return 'sortie liée à un lot cédé : elle reste dans la traçabilité';
+  if (u.role === 'admin') return null;
+  if (tbl === 'orders' && current.status !== 'demandee') return 'commande déjà traitée par la DGE';
+  if (tbl === 'slaughter' && current.status !== 'demande') return 'rendez-vous déjà confirmé par l’abattoir';
+  if (tbl === 'consultations' && current.answer) return 'la consultation a reçu une réponse';
+  switch (u.role) {
+    case 'dge':
+      return ['inputs', 'prices'].includes(tbl) ? null : 'profil DGE : suppression limitée aux intrants et aux relevés de prix';
+    case 'veterinaire':
+      return ['treatments', 'vaccinations', 'reports', 'diagnostics', 'biosecurity', 'consultations'].includes(tbl) ? null : 'hors du volet sanitaire';
+    case 'eleveur':
+    case 'agent': {
+      const agentOnly = ['visits', 'prices', 'biosecurity'];
+      if (tbl === 'prices') return u.role === 'agent' ? null : 'relevés de prix réservés aux agents et à la DGE';
+      if (!farmId || !farmsOf(u).includes(farmId)) return 'ferme hors de votre périmètre';
+      if (agentOnly.includes(tbl)) return u.role === 'agent' ? null : 'réservé à l’agent technique';
+      return OWN_FARM.includes(tbl) ? null : 'réservé à d’autres profils';
+    }
+    default:
+      return 'ce profil ne supprime aucune donnée';
+  }
+}
+
+/** Vrai si l'utilisateur peut corriger cet enregistrement (sonde une modification quelconque). */
+export function canEdit(u: Claims, tbl: string, row: Row): boolean {
+  return canWrite(u, tbl, farmOf(tbl, row), { ...row, __sonde: true }, row) === null;
+}
+
 /** Droit d'action selon la matrice paramétrable (en plus des règles de périmètre ci-dessus). */
-export function rightsAllow(u: Claims, tbl: string, current: Row | undefined, row: Row, rights?: Record<string, Record<string, Action[]>>): string | null {
+export function rightsAllow(u: Claims, tbl: string, current: Row | undefined, _row: Row, rights?: Record<string, Record<string, Action[]>>, forced?: Action): string | null {
   if (u.role === 'admin' || !rights || tbl === 'settings') return null;
   const domain = DOMAIN[tbl];
   if (!domain) return null;
+  if (forced === 'supprimer') {
+    // Matrice enregistrée avant l'apparition du droit « supprimer » : il suit alors le droit « modifier ».
+    const legacy = !Object.values(rights).some((r) => Object.values(r).some((a) => a.includes('supprimer')));
+    const g = rights[u.role]?.[domain] ?? [];
+    return g.includes('supprimer') || (legacy && g.includes('modifier')) ? null : `droit « supprimer » non accordé au profil ${u.role} sur « ${domain} »`;
+  }
   const validation = (u.role === 'maedr' && tbl === 'publications') || (u.role === 'veterinaire' && tbl === 'alerts' && !!current)
     || (u.role === 'dge' && ['orders', 'slaughter'].includes(tbl)) || (u.role === 'operateur' && tbl === 'slaughter');
   const action: Action = validation ? 'valider' : current ? 'modifier' : 'creer';

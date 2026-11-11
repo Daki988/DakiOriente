@@ -19,6 +19,8 @@ export interface Config {
   reportRecipients: string[];
   smsHttpUrl?: string;
   smsHttpToken?: string;
+  /** Code fixe accepté pour tous les comptes : démonstration devant un jury uniquement, jamais en exploitation. */
+  demoOtp?: string;
   otpTtlSeconds: number;
   tokenTtlSeconds: number;
   /** Demandes de code autorisées par adresse IP et par 10 minutes. */
@@ -46,6 +48,7 @@ export function loadConfig(overrides: Partial<Config> = {}): Config {
     reportRecipients: (env.REPORT_RECIPIENTS ?? '').split(',').map((s) => s.trim()).filter(Boolean),
     smsHttpUrl: env.SMS_HTTP_URL,
     smsHttpToken: env.SMS_HTTP_TOKEN,
+    demoOtp: /^\d{6}$/.test(env.DEMO_OTP ?? '') ? env.DEMO_OTP : undefined,
     otpTtlSeconds: 300,
     tokenTtlSeconds: 12 * 3600,
     authRateLimit: Number(env.AUTH_RATE_LIMIT ?? 5),

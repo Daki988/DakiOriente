@@ -122,8 +122,8 @@ export function SettingsPage() {
   );
 }
 
-const ACTIONS: RightAction[] = ['consulter', 'creer', 'modifier', 'valider', 'administrer'];
-const LETTER: Record<RightAction, string> = { consulter: 'L', creer: 'C', modifier: 'M', valider: 'V', administrer: 'A' };
+const ACTIONS: RightAction[] = ['consulter', 'creer', 'modifier', 'supprimer', 'valider', 'administrer'];
+const LETTER: Record<RightAction, string> = { consulter: 'L', creer: 'C', modifier: 'M', supprimer: 'S', valider: 'V', administrer: 'A' };
 const ROLE_L: Record<string, string> = { eleveur: 'Éleveur', agent: 'Agent', dge: 'DGE', veterinaire: 'Vétérinaire', bceg: 'BCEG', maedr: 'MAEDR', aninf: 'ANINF', operateur: 'Opérateur', admin: 'Admin' };
 
 /** Matrice des droits paramétrable (consulter, créer, modifier, valider, administrer), appliquée par le serveur. */
@@ -151,7 +151,7 @@ export function RightsPage() {
             ))}</tr>
           ))}</tbody>
         </table>
-        <span className="muted">L = consulter (lire) · C = créer · M = modifier · V = valider · A = administrer.</span>
+        <span className="muted">L = consulter (lire) · C = créer · M = modifier · S = supprimer · V = valider · A = administrer. Les lots, les bandes, les fermes et les alertes ne se suppriment jamais, quel que soit le profil.</span>
       </div>
       {toast}
     </>
