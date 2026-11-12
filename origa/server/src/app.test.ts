@@ -139,6 +139,11 @@ describe('synchronisation et périmètres', () => {
     const pub = await app.inject({ method: 'GET', url: `/public/lots/${encodeURIComponent(`${lot.id}.${lot.signature}`)}` });
     const body = pub.json();
     expect(body).toMatchObject({ valid: true, farm: { locality: 'Nkoltang', province: 'Estuaire' }, operator: { name: 'Abattoir de Ntoum' }, vaccinationsOk: true });
+    // Les données saisies du lot sont restituées telles quelles (effectif, poids, date, destinataire, non encore réceptionné).
+    expect(body.lot).toMatchObject({ id: 'GA1-0042-B07-L01', count: 1200, weightKg: 2460, cededAt: '2026-11-25', receivedAt: null });
+    expect(body.band).toMatchObject({ rank: 7 });
+    expect(body.treatments).toMatchObject({ withdrawalOk: true });
+    expect(Array.isArray(body.vaccinations) && Array.isArray(body.movements)).toBe(true);
     expect(JSON.stringify(body)).not.toMatch(/Ndong|\+241/);
     const fake = await app.inject({ method: 'GET', url: `/public/lots/${encodeURIComponent(`${lot.id}.${'A'.repeat(86)}`)}` });
     expect(fake.statusCode).toBe(404);
