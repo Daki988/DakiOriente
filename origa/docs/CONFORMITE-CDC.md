@@ -118,7 +118,7 @@ Couverture : 68 fonctions sur 68 présentes (100 %). Conformité stricte, sans d
 | 7.3 Paramétrage sans développement | Partiel | Provinces, statuts d'alerte, statuts de validation des lots, formules de coût et de marge, modèles de rapports |
 | 7.4 Calculs et contrôles automatiques | Conforme | — |
 | 7.5 Identifiants et QR | Partiel | QR « clos » non rejeté |
-| 7.6 GPS, carte, notifications | Partiel | Carte non interactive ; notification d'alerte seulement dans l'application ouverte (ni SMS ni e-mail) ; rappel de pesée seulement à l'écran |
+| 7.6 GPS, carte, notifications | Partiel | Carte non interactive ; rappel de pesée seulement à l'écran (les vétérinaires reçoivent bien un SMS à chaque alerte, une fois le fournisseur SMS configuré) |
 | 7.7 API, imports, exports | Conforme | API documentée (OpenAPI), import AMI, exports CSV et PDF, EPCIS |
 | 8 Authentification et matrice des droits | Conforme | — |
 | 8 Cloisonnement sanitaire | Partiel | Déclarations et alertes non qualifiées lisibles par la DGE |
