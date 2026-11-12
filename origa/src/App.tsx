@@ -31,6 +31,7 @@ import { ReportsPage } from './pages/Reports';
 import { ImportPage } from './pages/Import';
 import { EconomicsPage, PublicationsPage, PublicStats, RankingPage } from './pages/Pilotage';
 import { MoreMenu, ResourcesPage } from './pages/Resources';
+import { AgentHome, BcegHome, MaedrHome, VetHome } from './pages/Homes';
 
 const PILOT = ['dge', 'veterinaire', 'admin', 'bceg', 'maedr', 'aninf'];
 
@@ -39,7 +40,8 @@ export function App() {
   const needLogin = apiEnabled ? !getToken() || !s.userLabel : !s.userLabel;
   const pilot = PILOT.includes(s.role);
   const r = s.role;
-  const home = r === 'admin' ? <AdminHome /> : r === 'veterinaire' ? <AlertsPage /> : r === 'maedr' ? <PublicationsPage /> : r === 'aninf' ? <AdminAudit /> : <Dashboard />;
+  // Chaque profil arrive sur le tableau de bord de son métier.
+  const home = r === 'admin' ? <AdminHome /> : r === 'veterinaire' ? <VetHome /> : r === 'bceg' ? <BcegHome /> : r === 'maedr' ? <MaedrHome /> : r === 'aninf' ? <AdminAudit /> : <Dashboard />;
   const dgeLike = r === 'dge' || r === 'admin';
   return (
     <HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
@@ -101,7 +103,8 @@ export function App() {
           </Route>
         ) : (
           <Route element={<MobileShell />}>
-            <Route path="/" element={<FarmerHome />} />
+            <Route path="/" element={r === 'agent' ? <AgentHome /> : <FarmerHome />} />
+            {r === 'agent' && <Route path="/ferme" element={<FarmerHome />} />}
             <Route path="/fiche" element={<DailySheet />} />
             <Route path="/pesee" element={<WeighingPage />} />
             <Route path="/sante" element={<HealthReportPage />} />

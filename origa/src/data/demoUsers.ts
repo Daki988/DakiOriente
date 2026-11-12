@@ -56,3 +56,40 @@ export async function ensureDemoExtras() {
     await db.publications.bulkPut([{ id: uid(), period: 'octobre 2026', createdAt: addDays(t, -6) + 'T09:00:00Z', createdBy: 'DGE · Programme POUFA', data: { fermesActives: 12, volumeKg: 104000, pouletsVendus: 49500, prixMoyenTete: 3500, mortaliteMoyennePct: 4.6, lotsTraces: 26, lotsAvecQrPct: 100 }, status: 'validee', decidedBy: 'MAEDR · Cabinet du ministre', decidedAt: addDays(t, -5) }]);
   });
 }
+
+/**
+ * Compléments de démonstration de la version 1.3 (une seule fois, sans écraser) : vaccinations faites à temps
+ * sur toutes les bandes en cours sauf deux retards réalistes, charges par bande pour que les marges soient
+ * crédibles, domiciliation bancaire des fermes financées par la BCEG.
+ */
+export async function ensureDemoV13() {
+  if ((await db.farms.count()) === 0 || (await db.vaccinations.count()) > 10) return;
+  const t = today();
+  const [farms, bands, exits, vaccinations, charges] = await Promise.all([db.farms.toArray(), db.bands.toArray(), db.exits.toArray(), db.vaccinations.toArray(), db.charges.toArray()]);
+  const calendar = (await db.settings.get('global'))?.vaccinationCalendar ?? [];
+  const methods: Record<string, string> = { 'Marek / Newcastle (couvoir)': 'Injection au couvoir' };
+  const late = new Set(['GA4-0011', 'GA9-0007']); // deux fermes en retard d'un rappel, pour la démonstration
+  const vacc = bands.filter((b) => !b.closedAt).flatMap((b) => {
+    const age = Math.round((Date.parse(t) - Date.parse(b.placedAt)) / 86_400_000);
+    const due = calendar.filter((v) => v.day <= age && !vaccinations.some((x) => x.bandId === b.id && x.vaccine === v.vaccine));
+    const kept = late.has(b.farmId) ? due.slice(0, -1) : due;
+    return kept.map((v) => ({ id: uid(), bandId: b.id, date: addDays(b.placedAt, Math.max(0, v.day - 1)), vaccine: v.vaccine, method: methods[v.vaccine] ?? 'Eau de boisson', animals: b.chicks }));
+  });
+  // Charges : poussins à la mise en place, aliment et main-d'œuvre, en proportion des ventes de chaque bande.
+  const extra = bands.filter((b) => !charges.some((c) => c.bandId === b.id)).flatMap((b) => {
+    const sold = exits.filter((x) => x.bandId === b.id).reduce((a, x) => a + (x.unitPriceXaf ?? 0) * x.count, 0);
+    const rows = [{ id: uid(), farmId: b.farmId, bandId: b.id, date: b.placedAt, post: 'Poussins', amountXaf: b.chicks * 520 }];
+    if (b.closedAt) {
+      rows.push({ id: uid(), farmId: b.farmId, bandId: b.id, date: addDays(b.placedAt, 20), post: 'Aliment', amountXaf: Math.round((sold * 0.58) / 1000) * 1000 });
+      rows.push({ id: uid(), farmId: b.farmId, bandId: b.id, date: addDays(b.placedAt, 40), post: 'Main-d’œuvre', amountXaf: 850_000 });
+    }
+    return rows;
+  });
+  const banks = ['BGFIBank Gabon', 'UGB', 'Orabank Gabon', 'BICIG'];
+  const financed = farms.filter((f) => f.bcegFinanced && !f.incomeAccount).map((f, i) => ({ ...f, incomeAccount: `${banks[i % banks.length]} · compte ${String(40210 + i * 37).padStart(6, '0')}` }));
+  await db.transaction('rw', [db.vaccinations, db.charges, db.farms], async () => {
+    await db.vaccinations.bulkPut(vacc);
+    await db.charges.bulkPut(extra);
+    await db.farms.bulkPut(financed);
+  });
+}

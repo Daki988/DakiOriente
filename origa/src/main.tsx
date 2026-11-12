@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { App } from './App';
 import { ErrorBoundary, UpdateBar } from './components/AppChrome';
 import { seedIfEmpty } from './data/seed';
-import { ensureDemoAccounts, ensureDemoExtras } from './data/demoUsers';
+import { ensureDemoAccounts, ensureDemoExtras, ensureDemoV13 } from './data/demoUsers';
 import { apiEnabled, detectServer } from './app/api';
 import { db } from './data/db';
 import { DEFAULT_SETTINGS } from './domain/defaults';
@@ -14,7 +14,7 @@ import './styles/app.css';
 const boot = detectServer().then(async (mode) => {
   if (mode === 'upgraded') { await db.delete(); location.reload(); await new Promise(() => undefined); } // on repart sur une base vide, côté serveur
   if (apiEnabled) { if (!(await db.settings.get('global'))) await db.settings.put(DEFAULT_SETTINGS); return; }
-  await seedIfEmpty(); await ensureDemoAccounts(); await ensureDemoExtras();
+  await seedIfEmpty(); await ensureDemoAccounts(); await ensureDemoExtras(); await ensureDemoV13();
 });
 const shownAt = performance.now();
 boot.finally(() => {

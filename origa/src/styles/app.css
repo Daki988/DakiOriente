@@ -267,3 +267,8 @@ fieldset{min-width:0}
   .roll .qlabel{width:90mm;height:30mm;border:1px dashed #999;border-radius:0;break-inside:avoid}
   .roll .qlabel>div:first-child{width:24mm;height:24mm}.roll .qlabel .t{font-size:8pt}.roll .qlabel .t b{font-size:9pt}
 }
+
+/* Agent technique : une carte par ferme suivie */
+.farmcard{text-align:left;width:100%;cursor:pointer;font:inherit;color:inherit}
+.farmcard:hover{border-color:var(--green-100)}
+.farmcard b{font-size:16px}

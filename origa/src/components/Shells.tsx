@@ -42,8 +42,11 @@ export function MobileShell() {
 
 const ALL = ['dge', 'veterinaire', 'admin', 'bceg'];
 const NAV: { to: string; icon: string; label: string; roles: string[]; section?: string }[] = [
-  { to: '/', icon: 'grid', label: 'Vue nationale', roles: ['dge', 'bceg'] },
-  { to: '/', icon: 'report', label: 'Diffusion des données', roles: ['maedr'] },
+  { to: '/', icon: 'grid', label: 'Vue nationale', roles: ['dge'] },
+  { to: '/', icon: 'grid', label: 'Portefeuille BCEG', roles: ['bceg'] },
+  { to: '/', icon: 'heart', label: 'Situation sanitaire', roles: ['veterinaire'] },
+  { to: '/', icon: 'grid', label: 'Tableau de bord', roles: ['maedr'] },
+  { to: '/diffusion', icon: 'report', label: 'Diffusions à valider', roles: ['maedr'] },
   { to: '/', icon: 'search', label: "Journal d'audit", roles: ['aninf'] },
   { to: '/', icon: 'gear', label: 'Administration', roles: ['admin'], section: 'Administration' },
   { to: '/admin/comptes', icon: 'user', label: 'Comptes', roles: ['admin'] },

@@ -18,7 +18,7 @@ export function FarmsPage() {
   const [q, setQ] = useState(params.get('q') ?? '');
   const s = useSession();
   const rows = useMemo(() => (data?.rows ?? []).filter((r) => {
-    if (s.role === 'bceg' && !(r.farm.bcegFinanced && r.farm.bcegConsentAt)) return false; // accès BCEG limité, avec consentement
+    if (s.role === 'bceg' && !(r.farm.bcegFinanced && r.farm.bcegConsentAt && !r.farm.bcegConsentRevokedAt)) return false; // accès BCEG limité, avec consentement
     const t = `${r.farm.id} ${r.farm.name} ${r.farm.locality} ${provinceName(r.farm.province)}`.toLowerCase();
     return t.includes(q.toLowerCase());
   }), [data, q, s.role]);

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../data/db';
 import { Icon, Logo } from '../components/Icon';
-import { Empty, SyncPill } from '../components/ui';
+import { BackBar, Empty, SyncPill } from '../components/ui';
 import { fmt, fmtDate, fmtInt, useBandStats, useCurrentBand, useSession, useSettings } from '../app/hooks';
 import { addDays, daysBetween, today } from '../domain/ids';
 import { vaccinationsDue } from '../domain/rules';
@@ -29,10 +29,14 @@ export function FarmerHome() {
   }, [band?.id]);
 
   if (!cur) return null;
+  // L'agent arrive ici depuis la liste de ses fermes : un retour remplace le logo.
+  const head = s.role === 'agent'
+    ? <BackBar title={cur.farm?.name ?? 'Ferme suivie'} sub={`Ferme suivie · ${cur.farm?.id ?? ''}`} right={<SyncPill />} />
+    : <><div className="appbar"><div className="brand"><Logo />Origa</div><SyncPill /></div><div className="greet">{greeting()}, {s.userLabel.split(' · ')[0]}</div></>;
   if (!band || !stats) {
     return (
       <>
-        <div className="appbar"><div className="brand"><Logo />Origa</div><SyncPill /></div>
+        {head}
         <div className="content"><div className="card"><Empty img="./img/poussin.webp" title="Aucune bande en cours" text="Une bande s’ouvre à la réception des poussins."><Link to="/bande/nouvelle" className="cta" style={{ width: 'auto' }}>Ouvrir une bande</Link></Empty></div></div>
       </>
     );
@@ -48,8 +52,7 @@ export function FarmerHome() {
 
   return (
     <>
-      <div className="appbar"><div className="brand"><Logo />Origa</div><SyncPill /></div>
-      <div className="greet">{greeting()}, {s.userLabel.split(' · ')[0]}</div>
+      {head}
       <div className="content">
         <div className="hero">
           <div className="row between"><span className="kicker">{cur.farm?.name} · {cur.farm?.id}</span><span className="pill ghost">Bande {band.rank}</span></div>

@@ -77,7 +77,7 @@ export function EconomicsPage() {
 }
 
 /** Agrégats nationaux diffusables : aucune donnée individuelle. */
-async function aggregates(): Promise<Record<string, number>> {
+export async function aggregates(): Promise<Record<string, number>> {
   const [farms, exits, lots, entries, bands] = await Promise.all([db.farms.toArray(), db.exits.toArray(), db.lots.toArray(), db.entries.toArray(), db.bands.toArray()]);
   const sold = exits.filter((e) => e.unitPriceXaf);
   const placed = bands.reduce((a, b) => a + b.chicks, 0);
@@ -91,7 +91,7 @@ async function aggregates(): Promise<Record<string, number>> {
     lotsAvecQrPct: Math.round(traceIndicators(lots, exits).qrPct),
   };
 }
-const AGG_LABEL: Record<string, string> = { fermesActives: 'Fermes actives', volumeKg: 'Volume produit (kg vif)', pouletsVendus: 'Poulets sortis', prixMoyenTete: 'Prix moyen (FCFA / tête)', mortaliteMoyennePct: 'Mortalité moyenne (%)', lotsTraces: 'Lots tracés', lotsAvecQrPct: 'Lots avec QR (%)' };
+export const AGG_LABEL: Record<string, string> = { fermesActives: 'Fermes actives', volumeKg: 'Volume produit (kg vif)', pouletsVendus: 'Poulets sortis', prixMoyenTete: 'Prix moyen (FCFA / tête)', mortaliteMoyennePct: 'Mortalité moyenne (%)', lotsTraces: 'Lots tracés', lotsAvecQrPct: 'Lots avec QR (%)' };
 
 // ---------- Diffusion des données agrégées, validée par le MAEDR ----------
 export function PublicationsPage() {
