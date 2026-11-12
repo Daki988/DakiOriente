@@ -5,9 +5,20 @@ import pg from 'pg';
 
 export type Db = pg.Pool;
 
+/**
+ * Pool de connexions. Variables facultatives :
+ * - DATABASE_SSL : « verify » (chiffré, certificat vérifié), « no-verify » (chiffré, certificat non vérifié,
+ *   pour un hébergeur à autorité privée comme le pooler de Supabase) ; absent : selon l'adresse.
+ * - DATABASE_SCHEMA : schéma de travail (par défaut celui de l'utilisateur), pour isoler Origa dans une base partagée.
+ */
 export function createPool(url: string): Db {
+  const mode = process.env.DATABASE_SSL;
+  const ssl = mode === 'verify' ? { rejectUnauthorized: true } : mode === 'no-verify' ? { rejectUnauthorized: false } : undefined;
   // En fonction sans serveur (Vercel), chaque instance garde peu de connexions.
-  return new pg.Pool({ connectionString: url, max: process.env.VERCEL ? 3 : 10 });
+  const pool = new pg.Pool({ connectionString: url, max: process.env.VERCEL ? 3 : 10, ...(ssl ? { ssl } : {}) });
+  const schema = process.env.DATABASE_SCHEMA;
+  if (schema && /^[a-z_][a-z0-9_]{0,62}$/.test(schema)) pool.on('connect', (c) => { c.query(`SET search_path TO ${schema}`).catch(() => undefined); });
+  return pool;
 }
 
 const here = dirname(fileURLToPath(import.meta.url));
