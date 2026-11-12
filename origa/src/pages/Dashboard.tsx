@@ -6,6 +6,7 @@ import { PROVINCES, provinceName } from '../domain/provinces';
 import { traceIndicators } from '../domain/analytics';
 import { addDays, today } from '../domain/ids';
 import type { ProvinceCode } from '../domain/types';
+import { FarmMap } from '../components/FarmMap';
 
 const STATUS: Record<string, [string, string]> = { nouvelle: ['red', 'Nouvelle'], analyse: ['off', 'En analyse'], confirmee: ['red', 'Confirmée'], informee: ['sky', 'Informée'], close: ['on', 'Close'] };
 
@@ -112,13 +113,7 @@ export function Dashboard() {
             </div>
           ))}
           <h3>Carte des fermes</h3>
-          <div className="map" role="img" aria-label="Position des fermes au Gabon">
-            {rows.filter((r) => r.farm.lat !== undefined).map((r) => {
-              const x = ((r.farm.lng! - 8.5) / (14.7 - 8.5)) * 100; const y = ((2.4 - r.farm.lat!) / (2.4 + 4.0)) * 100;
-              const color = r.alerts ? 'var(--red)' : (r.st?.mortalityPct ?? 0) > 5 ? 'var(--sun)' : r.farm.status === 'operationnelle' ? 'var(--green)' : 'var(--ink-3)';
-              return <span key={r.farm.id} className="pin" title={`${r.farm.id} ${r.farm.name}`} style={{ left: `${x}%`, top: `${y}%`, background: color }} />;
-            })}
-          </div>
+          <FarmMap rows={rows} />
           <h3>Fermes actives par province</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {byProv.filter((p) => p.n > 0).map((p) => (

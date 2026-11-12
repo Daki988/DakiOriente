@@ -321,3 +321,12 @@ fieldset{min-width:0}
 .todo>*{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink-2)}
 .todo>*:last-child{border-bottom:none}
 @media (max-width:1240px){.desk2{grid-template-columns:minmax(0,1fr)}}
+
+/* Carte des fermes (Leaflet, fond OpenStreetMap). */
+.farm-map{display:flex;flex-direction:column;gap:10px}
+.farm-map .leaflet-container{border-radius:var(--r-sm);border:1px solid var(--line);font:inherit;z-index:0}
+.map-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--ink-2);font-weight:600}
+.map-legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px;border:1px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.map-pop{display:flex;flex-direction:column;gap:3px;font-size:12px;min-width:200px}
+.map-pop b{font-size:14px}.map-pop .bad{color:var(--red);font-weight:600}.map-pop .muted{color:var(--ink-3)}
+.map-pop a{color:var(--green);font-weight:700;margin-top:4px}

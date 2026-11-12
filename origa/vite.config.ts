@@ -29,7 +29,9 @@ export default defineConfig({
           { src: 'icon.svg', sizes: 'any', type: 'image/svg+xml' },
         ],
       },
-      workbox: { navigateFallback: 'index.html', navigateFallbackDenylist: [/^\/api\//], globPatterns: ['**/*.{js,css,html,svg,woff2,png,webp}'], skipWaiting: true, clientsClaim: true, cleanupOutdatedCaches: true },
+      workbox: { navigateFallback: 'index.html', navigateFallbackDenylist: [/^\/api\//], globPatterns: ['**/*.{js,css,html,svg,woff2,png,webp}'], skipWaiting: true, clientsClaim: true, cleanupOutdatedCaches: true,
+        // Fond de carte : les tuiles déjà vues restent disponibles hors connexion (30 jours, 2 000 tuiles au plus).
+        runtimeCaching: [{ urlPattern: /^https:\/\/tile\.openstreetmap\.org\//, handler: 'CacheFirst', options: { cacheName: 'origa-carte', expiration: { maxEntries: 2000, maxAgeSeconds: 30 * 24 * 3600 }, cacheableResponse: { statuses: [0, 200] } } }] },
     }),
   ],
   test: { environment: 'node', setupFiles: ['src/test/setup.ts'], include: ['src/**/*.test.ts'] },
