@@ -124,3 +124,10 @@ CREATE TABLE IF NOT EXISTS tombstones (
   PRIMARY KEY (tbl, key)
 );
 CREATE INDEX IF NOT EXISTS tombstones_seq ON tombstones (seq);
+
+-- v1.3 : repères internes du serveur (par exemple la date de chargement du jeu de démonstration).
+CREATE TABLE IF NOT EXISTS meta (
+  key   TEXT PRIMARY KEY,
+  value TEXT NOT NULL,
+  at    TIMESTAMPTZ NOT NULL DEFAULT now()
+);

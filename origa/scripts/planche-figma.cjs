@@ -12,6 +12,8 @@ const OUT = process.argv[2] || 'planche.html';
 
 const U = {
   eleveur: { role: 'eleveur', userLabel: 'M. Ndong · Ferme Nkoltang', userId: 'u-eleveur', farmId: 'GA1-0042' },
+  agent: { role: 'agent', userLabel: 'Agent technique · Estuaire', userId: 'u-agent', farmId: 'GA1-0042', farmIds: ['GA1-0042', 'GA1-0003', 'GA1-0017'] },
+  bceg: { role: 'bceg', userLabel: 'BCEG · Suivi des financements', userId: 'u-bceg' },
   dge: { role: 'dge', userLabel: 'DGE · Programme POUFA', userId: 'u-dge' },
   vet: { role: 'veterinaire', userLabel: 'Services vétérinaires', userId: 'u-vet' },
   admin: { role: 'admin', userLabel: 'Administrateur Origa', userId: 'u-admin' },
@@ -102,6 +104,11 @@ const SNAP = `async () => {
   const menu = async (p) => { await p.click('[data-nav]'); await p.waitForTimeout(400); };
   const S = { width: 360, height: 740 };
   const screens = [
+    // Tableaux de bord propres à chaque profil
+    { g: 'Tableaux de bord par profil', t: 'Vétérinaires : situation sanitaire', u: U.vet, r: '/', vp: W },
+    { g: 'Tableaux de bord par profil', t: 'BCEG : portefeuille', u: U.bceg, r: '/', vp: W },
+    { g: 'Tableaux de bord par profil', t: 'MAEDR : tableau de bord', u: U.maedr, r: '/', vp: W },
+    { g: 'Tableaux de bord par profil', t: 'Agent technique : mes fermes', u: U.agent, r: '/', vp: M },
     // Version 1.3 : écrans ajoutés ou corrigés
     { g: 'Version 1.3', t: 'Étiquettes QR pré-signées (DGE)', u: U.dge, r: '/etiquettes', vp: W, act: prepare },
     { g: 'Version 1.3', t: 'Mes étiquettes QR (éleveur)', u: U.eleveur, r: '/etiquettes', vp: M, act: renew },
@@ -153,7 +160,7 @@ const SNAP = `async () => {
   h1.board{font-size:44px;font-weight:800;margin:0 0 6px;color:#0B3D2E}p.board{font-size:18px;color:#4A5A53;margin:0 0 40px}
   h2.grp{font-size:28px;font-weight:800;margin:50px 0 18px;color:#0B3D2E}.rowf{display:flex;gap:48px;align-items:flex-start}
   .cap{font-size:16px;font-weight:700;margin-bottom:10px;color:#10201A}.frame{position:relative;overflow:hidden;transform:translateZ(0);box-shadow:0 10px 40px rgba(11,61,46,.12)}.frame *{margin:0;padding:0;border:0 solid}</style></head><body>
-  <h1 class="board">Origa · écrans v1.3</h1><p class="board">Première section : écrans ajoutés ou corrigés dans la version 1.3. Sections suivantes : écrans de l'application en service.</p>`;
+  <h1 class="board">Origa · écrans v1.3 · tableaux de bord</h1><p class="board">Première section : écrans ajoutés ou corrigés dans la version 1.3. Sections suivantes : écrans de l'application en service.</p>`;
   for (const g of groups) {
     out += `<h2 class="grp">${g}</h2><div class="rowf">`;
     for (const f of frames.filter((x) => x.g === g)) out += `<div><div class="cap">${f.t}</div><div class="frame" style="width:${f.vp.width}px;height:${f.h}px;background:${f.r.bg};font-family:${f.r.font};color:${f.r.color};font-size:${f.r.fs};line-height:${f.r.lh}">${f.r.html}</div></div>`;

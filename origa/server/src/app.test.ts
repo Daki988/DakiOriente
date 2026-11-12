@@ -33,7 +33,7 @@ const item = (table: string, payload: Record<string, unknown>, at = new Date().t
 
 beforeAll(async () => {
   db = createPool(URL);
-  await db.query('DROP TABLE IF EXISTS tombstones, report_runs, access_requests, scans, audit, conflicts, records, otp_codes, users CASCADE');
+  await db.query('DROP TABLE IF EXISTS meta, tombstones, report_runs, access_requests, scans, audit, conflicts, records, otp_codes, users CASCADE');
   await migrate(db);
   for (const [phone, role, farm, farms] of [
     ['+24100000001', 'eleveur', 'GA1-0042', []], ['+24100000002', 'agent', null, ['GA1-0042', 'GA1-0003']],

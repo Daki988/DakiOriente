@@ -32,7 +32,12 @@ export function shiftDates<T>(value: T, days: number): T {
 }
 
 export async function seedDemo(db: Db, signingKey: string, now = new Date()): Promise<number> {
-  if ((await db.query('SELECT 1 FROM records LIMIT 1')).rowCount) return 0;
+  // Chargé une seule fois : un repère l'atteste. Un chargement interrompu est complété sans rien effacer, et un
+  // enregistrement supprimé depuis (pierre tombale) ne revient pas.
+  if ((await db.query(`SELECT 1 FROM meta WHERE key='demo_seed'`)).rowCount) return 0;
+  const used = (await db.query(`SELECT count(*)::int AS n FROM users`)).rows[0].n;
+  const real = (await db.query(`SELECT 1 FROM records WHERE updated_by IS NOT NULL LIMIT 1`)).rowCount;
+  if (real || used > USERS.length) return 0; // base déjà utilisée pour de vrai : on n'y mélange pas de données fictives
   const file = [join(here, '..', 'seed', 'demo.json'), join(here, '..', '..', 'seed', 'demo.json'), join(process.cwd(), 'server', 'seed', 'demo.json')].find((f) => { try { readFileSync(f); return true; } catch { return false; } });
   if (!file) return 0;
   const seed = JSON.parse(readFileSync(file, 'utf8')) as { generatedAt: string; records: Record<string, Record<string, unknown>[]> };
@@ -43,16 +48,28 @@ export async function seedDemo(db: Db, signingKey: string, now = new Date()): Pr
       `INSERT INTO users (phone, name, role, farm_id, farm_ids, operator_id) VALUES ($1,$2,$3,$4,$5,$6) ON CONFLICT (phone) DO NOTHING`,
       [phone, name, role, farm, farms, operator]);
   }
-  let n = 0;
+  // Une requête par table et une seule transaction : rapide même loin de la base, et jamais à moitié chargé.
   const at = now.toISOString();
-  for (const [tbl, rows] of Object.entries(seed.records)) {
-    for (const raw of rows) {
-      const row = shiftDates(raw, days);
-      const key = String(row.id);
-      const payload = tbl === 'lots' ? { ...row, signature: signer.sign(key) } : row;
-      await db.query('INSERT INTO records (tbl, key, farm_id, payload, client_at) VALUES ($1,$2,$3,$4,$5) ON CONFLICT (tbl, key) DO NOTHING', [tbl, key, farmOf(tbl, row), payload, at]);
-      n++;
+  let n = 0;
+  const client = await db.connect();
+  try {
+    await client.query('BEGIN');
+    for (const [tbl, rows] of Object.entries(seed.records)) {
+      if (!rows.length) continue;
+      const items = rows.map((raw) => {
+        const row = shiftDates(raw, days);
+        const key = String(row.id);
+        return { key, farm_id: farmOf(tbl, row), payload: tbl === 'lots' ? { ...row, signature: signer.sign(key) } : row };
+      });
+      await client.query(
+        `INSERT INTO records (tbl, key, farm_id, payload, client_at)
+         SELECT $1, x.key, x.farm_id, x.payload, $2 FROM jsonb_to_recordset($3::jsonb) AS x(key text, farm_id text, payload jsonb)
+         WHERE NOT EXISTS (SELECT 1 FROM tombstones t WHERE t.tbl = $1 AND t.key = x.key)
+         ON CONFLICT (tbl, key) DO NOTHING`, [tbl, at, JSON.stringify(items)]);
+      n += items.length;
     }
-  }
+    await client.query(`INSERT INTO meta (key, value) VALUES ('demo_seed', $1) ON CONFLICT (key) DO NOTHING`, [at]);
+    await client.query('COMMIT');
+  } catch (e) { await client.query('ROLLBACK'); throw e; } finally { client.release(); }
   return n;
 }
