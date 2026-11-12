@@ -227,7 +227,8 @@ a.wk:hover{border-color:var(--green-100)}
 .modal{background:#fff;border-radius:var(--r-lg);padding:22px;width:100%;max-width:520px;max-height:90vh;overflow:auto;display:flex;flex-direction:column;gap:14px;box-shadow:0 30px 80px rgba(0,0,0,.25)}
 .modal h3{font-size:18px;font-weight:800}
 .scanner{width:100%;aspect-ratio:1;object-fit:cover;border-radius:var(--r-md);background:#000}
-.greet{font-size:13px;color:var(--ink-2);font-weight:600;padding:0 20px;margin-top:-6px}
+/* Accueil : le nom respire sous le logo, et la bannière ne colle pas au nom. */
+.greet{font-size:14px;line-height:20px;color:var(--ink-2);font-weight:600;padding:6px 20px 18px}
 .update-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + var(--safe-bottom));z-index:70;background:var(--ink);color:#fff;border-radius:14px;padding:10px 12px 10px 16px;display:flex;align-items:center;gap:12px;font-size:14px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .update-bar button{background:var(--sun);color:var(--forest);border-radius:10px;padding:8px 12px;font-weight:800}
 @media print{.side,.tabbar,.sel,.update-bar,.no-print{display:none!important}.main{padding:0}}
