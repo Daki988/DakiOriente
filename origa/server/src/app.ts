@@ -27,7 +27,15 @@ const PROVINCES: Record<string, string> = {
 export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mail?: Mailer; logger?: boolean } = {}) {
   const app = Fastify({ logger: opts.logger ?? false, bodyLimit: 5 * 1024 * 1024, trustProxy: true, maxParamLength: 300 });
   await app.register(cors, { origin: cfg.corsOrigins, credentials: false });
-  await app.register(rateLimit, { max: 300, timeWindow: '1 minute' });
+  await app.register(rateLimit, {
+    max: 300, timeWindow: '1 minute',
+    // Message en français, avec le délai d'attente, au lieu du « Too Many Requests » par défaut.
+    errorResponseBuilder: (_req, ctx) => ({ statusCode: 429, error: `Trop de tentatives. Réessayez dans ${Math.max(1, Math.ceil(ctx.ttl / 60000))} minute(s).` }),
+  });
+  // Démonstration (code fixe, aucun SMS envoyé) : chaque profil essayé demande un code ; le jury doit pouvoir
+  // en essayer plusieurs à la suite. Les limites strictes restent en exploitation réelle (sans DEMO_OTP).
+  const otpMax = cfg.demoOtp ? Math.max(60, cfg.authRateLimit) : cfg.authRateLimit;
+  const perPhoneMax = cfg.demoOtp ? 30 : 3;
   const sms = opts.sms ?? createSms(cfg, (m) => app.log.info(m));
   const mail = opts.mail ?? createMailer(cfg, (m) => app.log.info(m));
   const signer = lotSigner(cfg.lotSigningKey);
@@ -64,11 +72,11 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mai
   });
 
   // ---------- Authentification par code SMS ----------
-  app.post<{ Body: { phone?: string } }>('/auth/otp/request', { config: { rateLimit: { max: cfg.authRateLimit, timeWindow: '10 minutes' } } }, async (req, reply) => {
+  app.post<{ Body: { phone?: string } }>('/auth/otp/request', { config: { rateLimit: { max: otpMax, timeWindow: '10 minutes' } } }, async (req, reply) => {
     const phone = normalizePhone(req.body?.phone ?? '');
     if (!phone) return reply.code(400).send({ error: 'Numéro de téléphone invalide.' });
     const recent = await db.query(`SELECT count(*)::int AS n FROM otp_codes WHERE phone=$1 AND created_at > now() - interval '10 minutes'`, [phone]);
-    if (recent.rows[0].n >= 3) return reply.code(429).send({ error: 'Trop de demandes. Réessayez dans 10 minutes.' });
+    if (recent.rows[0].n >= perPhoneMax) return reply.code(429).send({ error: 'Trop de demandes. Réessayez dans 10 minutes.' });
     const user = (await db.query('SELECT id FROM users WHERE phone=$1 AND active', [phone])).rows[0];
     // Réponse identique que le numéro soit connu ou non : on ne révèle pas qui est inscrit.
     if (user) {
@@ -79,7 +87,7 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mai
     return { sent: true, expiresIn: cfg.otpTtlSeconds };
   });
 
-  app.post<{ Body: { phone?: string; code?: string } }>('/auth/otp/verify', { config: { rateLimit: { max: cfg.authRateLimit * 2, timeWindow: '10 minutes' } } }, async (req, reply) => {
+  app.post<{ Body: { phone?: string; code?: string } }>('/auth/otp/verify', { config: { rateLimit: { max: otpMax * 2, timeWindow: '10 minutes' } } }, async (req, reply) => {
     const phone = normalizePhone(req.body?.phone ?? '');
     const code = String(req.body?.code ?? '');
     if (!phone || !/^\d{6}$/.test(code)) return reply.code(400).send({ error: 'Code invalide.' });

@@ -67,6 +67,20 @@ describe('connexion par code SMS', () => {
     const r = await app.inject({ method: 'POST', url: '/auth/otp/request', payload: { phone: '+24100000006' } });
     expect(r.statusCode).toBe(429);
   });
+  it('laisse essayer plusieurs profils de démonstration à la suite, et répond en français au-delà des limites', async () => {
+    const strict = await buildApp({ ...cfg, authRateLimit: 5 }, db, { sms: async () => undefined, mail: mailer });
+    for (let i = 0; i < 5; i++) await strict.inject({ method: 'POST', url: '/auth/otp/request', payload: { phone: `+2410000001${i}` } });
+    const blocked = await strict.inject({ method: 'POST', url: '/auth/otp/request', payload: { phone: '+24100000019' } });
+    expect(blocked.statusCode).toBe(429);
+    expect(blocked.json().error).toMatch(/^Trop de tentatives\. Réessayez dans \d+ minute/);
+    const demo = await buildApp({ ...cfg, authRateLimit: 5, demoOtp: '241241' }, db, { sms: async () => undefined, mail: mailer });
+    for (let i = 0; i < 12; i++) {
+      const r = await demo.inject({ method: 'POST', url: '/auth/otp/request', payload: { phone: '+24100000001' } });
+      expect(r.statusCode).toBe(200);
+    }
+    await strict.close(); await demo.close();
+    await db.query(`DELETE FROM otp_codes WHERE phone = '+24100000001' OR phone LIKE '+2410000001_'`); // les autres tests se connectent avec ces numéros
+  });
   it('protège les routes sans jeton', async () => {
     expect((await app.inject({ method: 'GET', url: '/sync/pull' })).statusCode).toBe(401);
   });
