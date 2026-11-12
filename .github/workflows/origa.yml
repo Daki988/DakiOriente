@@ -68,10 +68,13 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 17 }
       - run: npm ci
+      # VITE_APP_BUILD : l'application installée compare ce numéro à la dernière version publiée et propose la mise à jour.
       - run: npm run build
+        env: { VITE_APP_BUILD: '${{ github.run_number }}' }
       - run: npx cap sync android
       # Le SDK Android est préinstallé sur les machines ubuntu de GitHub (ANDROID_HOME).
       - run: chmod +x android/gradlew && cd android && ./gradlew assembleDebug --no-daemon
+        env: { ORIGA_VERSION_CODE: '${{ github.run_number }}' }
       - uses: actions/upload-artifact@v4
         with: { name: origa-android-apk, path: origa/android/app/build/outputs/apk/debug/app-debug.apk }
       # Version de publication signée (APK pour HarmonyOS / installation directe, AAB pour les magasins).
@@ -136,10 +139,14 @@ jobs:
         env: { GH_TOKEN: '${{ github.token }}' }
         run: |
           cd out
-          cp origa-android-apk/app-debug.apk Origa-Android-HarmonyOS.apk
+          # APK signé avec la clé Origa (secrets ORIGA_KEYSTORE_*) : chaque nouvelle version s'installe par-dessus
+          # l'ancienne sans perdre les données. Sans ces secrets, APK de test (clé différente à chaque compilation).
+          APK=origa-android-release/app-release.apk
+          [ -f "$APK" ] || { APK=origa-android-apk/app-debug.apk; echo "::warning::Secrets ORIGA_KEYSTORE_* absents : APK de test publié, il ne se met pas à jour par-dessus l'ancien."; }
+          cp "$APK" Origa-Android-HarmonyOS.apk
           # Le même fichier sert aux deux systèmes : HarmonyOS 2 installe les APK Android et l'application n'utilise aucun service Google.
-          cp origa-android-apk/app-debug.apk Origa-Android.apk
-          cp origa-android-apk/app-debug.apk Origa-HarmonyOS.apk
+          cp "$APK" Origa-Android.apk
+          cp "$APK" Origa-HarmonyOS.apk
           cp origa-ios-simulator/origa-ios-simulator.zip Origa-iOS-simulateur.zip
           (cd origa-web && zip -qr ../Origa-web.zip .)
           gh release delete origa-latest --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag || true
