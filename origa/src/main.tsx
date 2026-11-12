@@ -9,6 +9,9 @@ import { db } from './data/db';
 import { DEFAULT_SETTINGS } from './domain/defaults';
 import { startAutoSync } from './data/sync';
 import './styles/app.css';
+import { blockPageZoom } from './app/noZoom';
+
+blockPageZoom();
 
 // Le serveur est-il en service ? Sinon, démonstration autonome avec des données fictives.
 const boot = detectServer().then(async (mode) => {
