@@ -44,6 +44,10 @@ Les 68 fonctionnalités du cahier des charges sont couvertes, y compris celles m
 - **Reprise de l'existant** : import CSV (fermes de l'AMI, fiches, intrants) avec validation ligne à ligne et rapport de rejets.
 - **API** : contrôle distributeur, agrégats, statistiques publiques, export d'événements EMA-i, `GET /openapi.json`.
 
+## Tableaux de bord par profil
+
+Chaque profil arrive sur l'écran de son métier : l'éleveur sur sa bande, l'agent technique sur la liste de ses fermes, l'abattoir sur les lots à réceptionner, la DGE sur la vue nationale, les vétérinaires sur la situation sanitaire, la BCEG sur son portefeuille de fermes financées (avec consentement), le MAEDR sur les indicateurs consolidés et les diffusions à valider, l'ANINF sur le journal d'audit, l'administrateur sur l'administration.
+
 ## Ajouts de la version 1.3
 
 - **Menu pour tous les profils** : sur téléphone et tablette (donc dans l'APK), la DGE, les vétérinaires, la BCEG, le MAEDR, l'ANINF et l'administrateur n'avaient aucun menu. Une barre supérieure ouvre désormais le menu en tiroir.
@@ -121,6 +125,8 @@ Comptes de démonstration du serveur, avec le code SMS affiché dans le journal 
 | `VITE_API_OPTIONAL` | application | `1` : démonstration autonome tant que le serveur ne répond pas « prêt », puis bascule automatique |
 | `DEMO_OTP` | serveur | Code fixe de démonstration (6 chiffres) et chargement des données fictives ; jamais en exploitation |
 | `CRON_SECRET` | serveur (Vercel) | Protège la tâche planifiée d'envoi des rapports |
+| `DATABASE_SSL` | serveur | `verify` (certificat vérifié) ou `no-verify` (chiffré sans vérification, pooler Supabase) |
+| `DATABASE_SCHEMA` | serveur | Schéma de travail, pour isoler Origa dans une base partagée |
 | `CORS_ORIGINS` | serveur | Origines autorisées |
 
 ## Déploiement
@@ -166,7 +172,7 @@ design/        maquette v1 en HTML, à importer dans Figma « Origa — Maquette
 
 ## Reste à faire
 
-1. Brancher une base PostgreSQL au projet Vercel (Storage → Create Database → Neon), puis redéployer : le serveur de démonstration s'active seul.
+1. Base de démonstration : projet Supabase « origa » (Paris), rôle `origa_app` propriétaire du schéma `origa`, branché sur Vercel par `DATABASE_URL` (pooler en mode session), `DATABASE_SSL=no-verify` et `DATABASE_SCHEMA=origa`. Pour l'exploitation, la base passe chez un hébergeur au Gabon et le certificat du serveur est vérifié (`DATABASE_SSL=verify`).
 2. Fournir la clé de la passerelle SMS (agrégateur Airtel / Moov ou Brevo) et du relais d'e-mails ; retirer alors `DEMO_OTP`.
 3. EMA-i+ (FAO) : l'export existe, le protocole d'échange reste à formaliser avec la FAO.
 4. Obtenir un préfixe GS1 pour remplacer les URN `urn:origa:…` par des LGTIN et des GLN dans l'export EPCIS.
