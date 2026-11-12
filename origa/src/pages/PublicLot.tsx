@@ -22,6 +22,8 @@ interface View {
   receivedAt?: string | null;
   operator?: { name: string; type: string; locality: string } | null;
   vaccinationsOk?: boolean;
+  /** QR signé par une version de démonstration, avant le branchement au serveur national. */
+  demoQr?: boolean;
 }
 
 /** Vérification et données servies par le serveur national (cas réel du consommateur). */
@@ -30,7 +32,7 @@ async function fromServer(token: string): Promise<View> {
   try {
     const res = await fetch(`${API}/public/lots/${encodeURIComponent(token)}`);
     const j = await res.json();
-    if (!j.valid) return { valid: false, lotId };
+    if (!j.valid) return { valid: false, lotId, demoQr: !!j.demo };
     if (j.pending) return { valid: true, pending: true, lotId };
     return { valid: true, lotId, farmName: j.farm?.name, locality: j.farm?.locality, province: j.farm?.province, placedAt: j.band?.placedAt, cededAt: j.lot.cededAt, receivedAt: j.lot.receivedAt, operator: j.operator, vaccinationsOk: j.vaccinationsOk };
   } catch {
@@ -71,6 +73,15 @@ export function PublicLot() {
   if (!v) return <div className="m-shell"><div className="empty">Vérification de l'origine…</div></div>;
 
   if (!v.valid) {
+    if (v.demoQr) return (
+      <div className="m-shell">
+        <div className="pub-hero" style={{ background: 'linear-gradient(160deg,#6B5000,#B07D00)' }}>
+          <h1>QR code de démonstration</h1>
+          <span style={{ fontSize: 14 }}>Ce code a été créé par une version d’essai d’Origa, avant son branchement au serveur national. Il est authentique mais ne contient aucune donnée.</span>
+        </div>
+        <div className="content" style={{ marginTop: 16 }}><div className="note sun"><Icon name="info" size={18} />Pour obtenir un QR lisible, mettez l’application à jour puis cédez un nouveau lot.</div></div>
+      </div>
+    );
     return (
       <div className="m-shell">
         <div className="pub-hero" style={{ background: 'linear-gradient(160deg,#7A1F1F,#D64545)' }}>

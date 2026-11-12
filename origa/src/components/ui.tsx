@@ -1,3 +1,4 @@
+import { apiEnabled } from '../app/api';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from './Icon';
@@ -6,6 +7,7 @@ import { useOnline, usePending } from '../app/hooks';
 export function SyncPill() {
   const online = useOnline();
   const pending = usePending();
+  if (!apiEnabled) return <span className="pill sky" title="Données d’essai gardées sur cet appareil"><span className="dot" style={{ background: 'var(--sky)' }} />Démonstration</span>;
   if (!online) return <span className="pill off"><span className="dot" style={{ background: 'var(--sun)' }} />Hors ligne · {pending} en attente</span>;
   if (pending > 0) return <span className="pill sky"><span className="dot" style={{ background: 'var(--sky)' }} />{pending} à envoyer</span>;
   return <span className="pill on"><span className="dot" style={{ background: 'var(--green)' }} />À jour</span>;

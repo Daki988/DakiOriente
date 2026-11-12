@@ -8,7 +8,9 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'prompt',
+      // Mise à jour automatique : la nouvelle version s'installe dès qu'elle est publiée et s'applique au prochain
+      // affichage, sans attendre que l'utilisateur touche « Mettre à jour ».
+      registerType: 'autoUpdate',
       injectRegister: false,
       includeAssets: ['icon.svg', 'icons/*.png', 'img/*.webp'],
       manifest: {
@@ -27,7 +29,7 @@ export default defineConfig({
           { src: 'icon.svg', sizes: 'any', type: 'image/svg+xml' },
         ],
       },
-      workbox: { navigateFallback: 'index.html', globPatterns: ['**/*.{js,css,html,svg,woff2,png,webp}'] },
+      workbox: { navigateFallback: 'index.html', navigateFallbackDenylist: [/^\/api\//], globPatterns: ['**/*.{js,css,html,svg,woff2,png,webp}'], skipWaiting: true, clientsClaim: true, cleanupOutdatedCaches: true },
     }),
   ],
   test: { environment: 'node', setupFiles: ['src/test/setup.ts'], include: ['src/**/*.test.ts'] },

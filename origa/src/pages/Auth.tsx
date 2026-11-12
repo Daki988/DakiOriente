@@ -15,6 +15,7 @@ export function Auth() {
   const [code, setCode] = useState('');
   const [demoCode, setDemoCode] = useState<string>();
   const [demo, setDemo] = useState(!apiEnabled);
+  const [upgraded] = useState(() => { try { const u = localStorage.getItem('origa.upgraded'); localStorage.removeItem('origa.upgraded'); return !!u; } catch { return false; } });
   useEffect(() => { if (apiEnabled) serverDemo().then(setDemo); }, []);
   const [step, setStep] = useState<'phone' | 'code'>('phone');
   const [busy, setBusy] = useState(false);
@@ -58,6 +59,7 @@ export function Auth() {
               <button className="cta green" disabled={busy || phone.replace(/\D/g, '').length < 8} onClick={() => sendCode()}>
                 {busy ? 'Envoi…' : 'Recevoir mon code'}
               </button>
+              {upgraded && <div className="note"><Icon name="info" size={18} />Origa est maintenant relié au serveur national. Les données d’essai de cet appareil ont été remplacées par celles du serveur : reconnectez-vous.</div>}
               {demo && (
                 <div className="demo-box">
                   <b>Démonstration</b>

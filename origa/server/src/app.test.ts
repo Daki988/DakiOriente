@@ -511,6 +511,17 @@ describe('suppression et correction selon l’habilitation (v1.3)', () => {
     expect(ok.json().user).toMatchObject({ role: 'eleveur', farmId: 'GA1-0042' });
     expect((await demo.inject({ method: 'POST', url: '/auth/otp/verify', payload: { phone: '+24199999999', code: '241241' } })).statusCode).toBe(401);
     expect((await demo.inject({ method: 'GET', url: '/public/config' })).json().demo).toBe(true);
+    // Un QR signé par l'application de démonstration est signalé comme tel, sans donnée ; pas en exploitation.
+    const { lotSigner } = await import('./security.js');
+    const sig = lotSigner('9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60').sign('GA1-0042-B07-L09');
+    const url = `/public/lots/${encodeURIComponent(`GA1-0042-B07-L09.${sig}`)}`;
+    // Serveur avec sa propre clé (comme en ligne) : le QR de démonstration n'est pas valide, mais il est reconnu.
+    const own = 'a'.repeat(64);
+    const live = await buildApp({ ...cfg, demoOtp: '241241', lotSigningKey: own }, db, { sms: async () => undefined, mail: mailer });
+    expect((await live.inject({ method: 'GET', url })).json()).toMatchObject({ valid: false, demo: true });
+    const prod = await buildApp({ ...cfg, lotSigningKey: own }, db, { sms: async () => undefined, mail: mailer });
+    expect((await prod.inject({ method: 'GET', url })).json()).toEqual({ valid: false, error: "Ce QR code n'a pas été émis par Origa." });
+    await live.close(); await prod.close();
     await demo.close();
   });
 });

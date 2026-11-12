@@ -6,7 +6,10 @@ import { setPublicKey } from '../domain/qr';
 const TOKEN = 'origa.token';
 
 /** Adresse du serveur national. Sans VITE_API_URL, l'application tourne en démonstration autonome. */
-export const API = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '');
+const sameOrigin = import.meta.env.VITE_API_SAME_ORIGIN === '1' && typeof location !== 'undefined'
+  && /^https?:$/.test(location.protocol) && !['localhost', '127.0.0.1'].includes(location.hostname);
+/** Sur le web publié, le serveur est à la même adresse que le site (/api) ; dans l'APK et sur iPhone, adresse fixe. */
+export const API = sameOrigin ? `${location.origin}/api` : (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '');
 /**
  * Serveur facultatif (VITE_API_OPTIONAL=1) : l'application démarre en démonstration autonome et bascule d'elle-même
  * sur le serveur dès qu'il répond « prêt ». Sans cette option, le serveur est obligatoire (exploitation).
@@ -40,7 +43,7 @@ export async function detectServer(): Promise<'api' | 'demo' | 'upgraded'> {
   if (!cfg?.ready) return 'demo';
   const k = await probe<{ publicKey: string }>('/public/key');
   if (!k?.publicKey) return 'demo';
-  write(KEY, k.publicKey); setPublicKey(k.publicKey); write(MODE, 'api');
+  write(KEY, k.publicKey); setPublicKey(k.publicKey); write(MODE, 'api'); write('origa.upgraded', new Date().toISOString());
   for (const stale of ['origa.session', 'origa.cursor', 'origa.syncIssues', TOKEN]) { try { localStorage.removeItem(stale); } catch { /* ignore */ } }
   apiEnabled = true;
   return 'upgraded';

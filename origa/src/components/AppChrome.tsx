@@ -4,7 +4,11 @@ import { Logo } from './Icon';
 
 /** Propose la nouvelle version au lieu de recharger pendant une saisie. */
 export function UpdateBar() {
-  const { needRefresh: [needRefresh], updateServiceWorker } = useRegisterSW({ immediate: true });
+  // Vérifie une nouvelle version à l'ouverture puis toutes les 30 minutes ; elle s'installe d'elle-même.
+  const { needRefresh: [needRefresh], updateServiceWorker } = useRegisterSW({
+    immediate: true,
+    onRegisteredSW(_url, reg) { if (reg) window.setInterval(() => { reg.update().catch(() => undefined); }, 30 * 60_000); },
+  });
   if (!needRefresh) return null;
   return (
     <div className="update-bar" role="status">

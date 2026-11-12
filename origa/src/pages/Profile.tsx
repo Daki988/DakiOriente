@@ -45,8 +45,8 @@ export function ProfilePage() {
         )}
         <div className="card">
           <div className="row between"><h3>Synchronisation</h3><span className={`pill ${online ? 'on' : 'off'}`}>{online ? 'En ligne' : 'Hors ligne'}</span></div>
-          <span className="muted">{pending} enregistrement(s) en attente d'envoi. Les données restent sur l'appareil tant qu'elles ne sont pas envoyées.</span>
-          <button className="cta light" onClick={async () => { const r = await flushOutbox(); show(r.error ?? `${r.sent} envoyé(s), ${r.received ?? 0} reçu(s)`); }}><Icon name="sync" />Synchroniser maintenant</button>
+          <span className="muted">{apiEnabled ? `${pending} enregistrement(s) en attente d'envoi. Les données restent sur l'appareil tant qu'elles ne sont pas envoyées.` : 'Mode démonstration : les données d’essai restent sur cet appareil et ne sont envoyées nulle part.'}</span>
+          {apiEnabled && <button className="cta light" onClick={async () => { const r = await flushOutbox(); show(r.error ?? `${r.sent} envoyé(s), ${r.received ?? 0} reçu(s)`); }}><Icon name="sync" />Synchroniser maintenant</button>}
           {syncIssues().slice(-5).map((i) => <div key={i.table + i.key + i.reason} className="note sun"><Icon name="warn" size={18} />{i.table} {i.key} : {i.reason}</div>)}
         </div>
         <div className="card">

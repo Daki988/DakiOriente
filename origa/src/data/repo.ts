@@ -2,6 +2,7 @@ import { sha256 } from '@noble/hashes/sha256';
 import { bytesToHex, utf8ToBytes } from '@noble/hashes/utils';
 import { db } from './db';
 import { getSession } from '../app/sessionStore';
+import { apiEnabled } from '../app/api';
 
 type Tables = 'farms' | 'bands' | 'entries' | 'weighings' | 'exits' | 'inputs' | 'treatments' | 'vaccinations'
   | 'reports' | 'alerts' | 'operators' | 'lots' | 'scans' | 'settings'
@@ -27,7 +28,7 @@ export async function save<T extends { id: string }>(table: Tables, row: T, acti
   const at = new Date().toISOString();
   await db.transaction('rw', db.table(table), db.outbox, db.audit, async () => {
     await db.table(table).put(row);
-    await db.outbox.add({ table, op: 'put', key: row.id, payload: row, at });
+    if (apiEnabled) await db.outbox.add({ table, op: 'put', key: row.id, payload: row, at }); // en démonstration, rien n'est à envoyer
     await appendAudit(action, table, row.id, row);
   });
   return row;
@@ -38,7 +39,7 @@ export async function remove(table: Tables, id: string, action = 'suppression') 
   const at = new Date().toISOString();
   await db.transaction('rw', db.table(table), db.outbox, db.audit, async () => {
     await db.table(table).delete(id);
-    await db.outbox.add({ table, op: 'delete', key: id, payload: { id }, at });
+    if (apiEnabled) await db.outbox.add({ table, op: 'delete', key: id, payload: { id }, at });
     await appendAudit(action, table, id);
   });
 }

@@ -15,6 +15,8 @@ declare module 'fastify' {
 }
 
 interface SyncItem { table: string; op: 'put' | 'delete'; key: string; payload: Record<string, unknown>; at: string }
+/** Clé de signature de l'application hors serveur (démonstration). Publique : elle ne prouve rien en exploitation. */
+const DEMO_LOT_KEY = '9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60';
 type Json = Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 const PROVINCES: Record<string, string> = {
@@ -29,6 +31,7 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mai
   const sms = opts.sms ?? createSms(cfg, (m) => app.log.info(m));
   const mail = opts.mail ?? createMailer(cfg, (m) => app.log.info(m));
   const signer = lotSigner(cfg.lotSigningKey);
+  const demoSigner = lotSigner(DEMO_LOT_KEY);
 
   async function audit(userId: number | null, action: string, tbl?: string, key?: string) {
     const client = await db.connect();
@@ -228,7 +231,11 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mai
     const sig = i > 0 ? token.slice(i + 1) : '';
     const valid = !!lotId && signer.verify(lotId, sig);
     await db.query('INSERT INTO scans (lot_id, valid) VALUES ($1,$2)', [lotId || token.slice(0, 64), valid]);
-    if (!valid) return reply.code(404).send({ valid: false, error: "Ce QR code n'a pas été émis par Origa." });
+    if (!valid) {
+      // QR signé hors serveur par une version d'essai (clé de démonstration publique) : on le dit, sans données.
+      const demo = !!cfg.demoOtp && !!lotId && demoSigner.verify(lotId, sig);
+      return reply.code(404).send(demo ? { valid: false, demo: true, error: 'QR code de démonstration, créé avant le branchement au serveur.' } : { valid: false, error: "Ce QR code n'a pas été émis par Origa." });
+    }
     const get = async (tbl: string, key?: unknown) => (key ? (await db.query('SELECT payload FROM records WHERE tbl=$1 AND key=$2', [tbl, String(key)])).rows[0]?.payload : undefined);
     const lot = await get('lots', lotId);
     if (!lot) return { valid: true, lotId, pending: true };
