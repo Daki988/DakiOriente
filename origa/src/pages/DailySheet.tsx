@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../data/db';
 import { save } from '../data/repo';
 import { BackBar, Stepper, useToast } from '../components/ui';
 import { Icon } from '../components/Icon';
-import { fmt, fmtInt, fmtLongDate, useBandStats, useCurrentBand, useOnline, useSession, useSettings } from '../app/hooks';
+import { fmt, fmtDate, fmtInt, fmtLongDate, useBandStats, useCurrentBand, useDesktop, useOnline, useSession, useSettings } from '../app/hooks';
 import { daysBetween, today, uid } from '../domain/ids';
 import { checkDeaths, thresholdAlert, trendAlert } from '../domain/rules';
 import type { DailyEntry } from '../domain/types';
@@ -23,6 +24,8 @@ export function DailySheet() {
   const [feed, setFeed] = useState(0);
   const [water, setWater] = useState(0);
   const band = cur?.band;
+  const desktop = useDesktop();
+  const recent = useLiveQuery(async () => (band ? (await db.entries.where('bandId').equals(band.id).sortBy('date')).filter((e) => e.date < today()).slice(-7).reverse() : []), [band?.id], []);
 
   useEffect(() => {
     if (!band) return;
@@ -56,22 +59,56 @@ export function DailySheet() {
     setTimeout(() => nav('/'), 700);
   }
 
+  const sub = `Bande ${band.rank} · Jour ${daysBetween(band.placedAt, today())} · ${fmtLongDate(today())}`;
+  const steppers = (
+    <>
+      <Stepper label="Morts" hint={`Effectif présent : ${fmtInt(presentBefore)}`} value={deaths} onChange={setDeaths} icon="minus" tint={['var(--red-50)', '#D64545']} />
+      <Stepper label="Aliment distribué" hint="en kg" value={feed} onChange={setFeed} step={5} icon="feed" tint={['var(--sun-50)', '#B07D00']} />
+      <Stepper label={<>Eau bue <span style={{ fontWeight: 500, color: 'var(--ink-3)' }}>(facultatif)</span></>} hint="en litres" value={water} onChange={setWater} step={10} icon="drop" tint={['var(--sky-50)', '#2F6FD1']} />
+    </>
+  );
+  const control = (
+    <div className="card">
+      <div className="row between"><h3>Contrôle automatique</h3>
+        <span className={`pill ${!check.ok ? 'red' : over ? 'off' : 'on'}`}>{!check.ok ? 'Incohérent' : over ? 'Alerte' : 'Cohérent'}</span></div>
+      <span className="muted">{!check.ok ? check.message : `Mortalité du jour ${fmt(pct, 2)} % : ${over ? 'au-dessus' : 'sous'} le seuil d'alerte vétérinaire (${fmt(settings.alertDailyMortalityPct, 1)} %).`}</span>
+      {over && check.ok && <span className="muted">Les services vétérinaires seront prévenus à l'enregistrement.</span>}
+    </div>
+  );
+  const offline = !online && <div className="note"><Icon name="info" size={18} />Pas de réseau : la fiche est enregistrée sur cet appareil et sera envoyée automatiquement.</div>;
+  const saveBtn = <button className="cta green" disabled={!check.ok} onClick={submit}>Enregistrer la fiche</button>;
+
+  // Ordinateur : saisie à gauche, contrôle et historique à droite (maquette Figma « Fiche du jour »).
+  if (desktop) {
+    return (
+      <>
+        <div className="top"><div><h1>Fiche du jour</h1><span className="muted">{sub} · {fmtInt(presentBefore)} poulets présents</span></div></div>
+        <div className="desk2">
+          <div className="col">{steppers}{offline}{saveBtn}</div>
+          <div className="col">
+            {control}
+            <div className="panel"><h3>7 derniers jours</h3>
+              {recent.length === 0 ? <span className="muted">Aucune fiche précédente pour cette bande.</span> : (
+                <table className="tbl"><thead><tr><th>Date</th><th>Morts</th><th>Aliment</th><th>Eau</th></tr></thead>
+                  <tbody>{recent.map((e) => <tr key={e.id}><td>{fmtDate(e.date)}</td><td>{fmtInt(e.deaths)}</td><td>{fmtInt(e.feedKg)} kg</td><td>{e.waterL ? `${fmtInt(e.waterL)} L` : '—'}</td></tr>)}</tbody></table>
+              )}
+            </div>
+          </div>
+        </div>
+        {toast}
+      </>
+    );
+  }
+
   return (
     <>
-      <BackBar title="Fiche du jour" sub={`Bande ${band.rank} · Jour ${daysBetween(band.placedAt, today())} · ${fmtLongDate(today())}`} />
+      <BackBar title="Fiche du jour" sub={sub} />
       <div className="content">
-        <Stepper label="Morts" hint={`Effectif présent : ${fmtInt(presentBefore)}`} value={deaths} onChange={setDeaths} icon="minus" tint={['var(--red-50)', '#D64545']} />
-        <Stepper label="Aliment distribué" hint="en kg" value={feed} onChange={setFeed} step={5} icon="feed" tint={['var(--sun-50)', '#B07D00']} />
-        <Stepper label={<>Eau bue <span style={{ fontWeight: 500, color: 'var(--ink-3)' }}>(facultatif)</span></>} hint="en litres" value={water} onChange={setWater} step={10} icon="drop" tint={['var(--sky-50)', '#2F6FD1']} />
-        <div className="card">
-          <div className="row between"><h3>Contrôle automatique</h3>
-            <span className={`pill ${!check.ok ? 'red' : over ? 'off' : 'on'}`}>{!check.ok ? 'Incohérent' : over ? 'Alerte' : 'Cohérent'}</span></div>
-          <span className="muted">{!check.ok ? check.message : `Mortalité du jour ${fmt(pct, 2)} % : ${over ? 'au-dessus' : 'sous'} le seuil d'alerte vétérinaire (${fmt(settings.alertDailyMortalityPct, 1)} %).`}</span>
-          {over && check.ok && <span className="muted">Les services vétérinaires seront prévenus à l'enregistrement.</span>}
-        </div>
-        {!online && <div className="note"><Icon name="info" size={18} />Pas de réseau : la fiche est enregistrée sur le téléphone et sera envoyée automatiquement.</div>}
+        {steppers}
+        {control}
+        {offline}
         <div style={{ flex: 1 }} />
-        <button className="cta green" disabled={!check.ok} onClick={submit}>Enregistrer la fiche</button>
+        {saveBtn}
       </div>
       {toast}
     </>

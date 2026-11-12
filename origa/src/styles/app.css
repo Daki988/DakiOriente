@@ -301,3 +301,23 @@ fieldset{min-width:0}
   .modal{max-height:calc(100vh - 24px)}
   .pub-hero{padding-top:calc(18px + var(--safe-top));padding-bottom:24px}
 }
+
+/* Version ordinateur des profils de terrain (éleveur, agent, abattoir) : menu latéral, écrans des pages mobiles élargis. */
+.m-desk .main{max-width:none}
+.m-desk .main>*{width:100%;max-width:1180px}
+.m-desk .appbar{padding:0;justify-content:flex-end}.m-desk .appbar .brand{display:none}
+.m-desk .greet{padding:0;font-size:26px;line-height:32px;font-weight:800;color:var(--ink);letter-spacing:-.4px}
+.m-desk .back{padding:0}.m-desk .back h2{font-size:26px;line-height:32px;letter-spacing:-.4px}
+.m-desk .content{padding:0;max-width:1180px}
+.m-desk .kpis{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.m-desk .kpi{padding:18px 20px}.m-desk .kpi .v{font-size:30px}
+.m-desk .actions{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.m-desk .cta.sm{min-height:46px;width:auto;padding:0 20px;font-size:15px}
+.m-desk .toast{bottom:32px}
+.desk2{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:start}
+.desk2>.col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.m-desk .hero{border-radius:var(--r-md)}
+.todo{display:flex;flex-direction:column}
+.todo>*{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink-2)}
+.todo>*:last-child{border-bottom:none}
+@media (max-width:1240px){.desk2{grid-template-columns:minmax(0,1fr)}}

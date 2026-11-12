@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { Icon, Logo } from './Icon';
-import { useSession } from '../app/hooks';
+import { useDesktop, useSession } from '../app/hooks';
 import { signOut } from '../app/auth';
 import { NotificationBell } from './Notifications';
 
@@ -18,12 +18,70 @@ const OPERATOR_TABS = [
   { to: '/profil', icon: 'user', label: 'Profil' },
 ];
 
-/** Coque mobile (Android, HarmonyOS 2, iOS) : barre d'onglets en bas, écrans calqués sur la fiche papier. */
+/** Menu latéral de la version ordinateur des profils de terrain (maquette Figma « Version ordinateur »). */
+type DeskItem = { to: string; icon: string; label: string; section?: string };
+const FARM_DESK: DeskItem[] = [
+  { to: '/', icon: 'home', label: 'Accueil' },
+  { to: '/bandes', icon: 'bands', label: 'Bandes' },
+  { to: '/lots', icon: 'qr', label: 'Lots et QR codes' },
+  { to: '/fiche', icon: 'check', label: 'Fiche du jour', section: 'Saisies' },
+  { to: '/pesee', icon: 'scale', label: 'Pesée' },
+  { to: '/sante', icon: 'heart', label: 'Santé' },
+  { to: '/sortie', icon: 'truck', label: "Sortie d'animaux" },
+  { to: '/intrants', icon: 'box', label: 'Intrants' },
+  { to: '/vaccinations', icon: 'heart', label: 'Vaccinations', section: 'Registres et services' },
+  { to: '/traitements', icon: 'report', label: 'Traitements' },
+  { to: '/charges', icon: 'report', label: 'Charges' },
+  { to: '/plus', icon: 'grid', label: 'Tous les services' },
+];
+const AGENT_DESK: DeskItem[] = [
+  { to: '/', icon: 'farm', label: 'Mes fermes' },
+  { to: '/ferme', icon: 'home', label: 'Ferme suivie' },
+  { to: '/fermes/nouvelle', icon: 'plus', label: 'Enrôler une ferme' },
+  ...FARM_DESK.slice(1).map((d, i) => (i === 0 ? { ...d, section: 'Ferme suivie' } : d)),
+];
+const OPERATOR_DESK: DeskItem[] = [
+  { to: '/', icon: 'truck', label: 'Réception des lots' },
+  { to: '/abattage', icon: 'bands', label: 'Abattages' },
+];
+
+function DesktopFieldShell() {
+  const { pathname } = useLocation();
+  const s = useSession();
+  const items = s.role === 'operateur' ? OPERATOR_DESK : s.role === 'agent' ? AGENT_DESK : FARM_DESK;
+  return (
+    <div className="w-shell m-desk">
+      <aside className="side" aria-label="Menu principal">
+        <div className="side-top"><div className="brand"><Logo dark />Origa</div></div>
+        {items.map((n) => (
+          <div key={n.to}>
+            {n.section && <div className="side-sec">{n.section}</div>}
+            <NavLink to={n.to} end className={({ isActive }) => `nav${isActive ? ' active' : ''}`}><Icon name={n.icon} size={18} />{n.label}</NavLink>
+          </div>
+        ))}
+        <div style={{ flex: 1 }} />
+        <div className="side-user">
+          <span>{s.userLabel}</span>
+          <NavLink to="/profil" className={({ isActive }) => `nav${isActive ? ' active' : ''}`}><Icon name="user" size={18} />Profil</NavLink>
+          <button className="nav" onClick={signOut}><Icon name="back" size={18} />Se déconnecter</button>
+        </div>
+      </aside>
+      <main className="main page-in" key={pathname}><Outlet /></main>
+    </div>
+  );
+}
+
+/**
+ * Coque des profils de terrain. Téléphone et tablette (Android, HarmonyOS 2, iOS) : barre d'onglets, écrans calqués
+ * sur la fiche papier. Ordinateur (grand écran et souris) : menu latéral et mise en page large.
+ */
 export function MobileShell() {
   const { pathname } = useLocation();
   const s = useSession();
+  const desktop = useDesktop();
   const tabs = s.role === 'operateur' ? OPERATOR_TABS : FARM_TABS;
   const showTabs = tabs.some((t) => t.to === pathname);
+  if (desktop) return <DesktopFieldShell />;
   return (
     <div className={`m-shell${showTabs ? ' has-tabs' : ''}`}>
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }} key={pathname} className="page-in"><Outlet /></main>

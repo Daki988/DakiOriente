@@ -4,7 +4,7 @@ import { db } from '../data/db';
 import { save } from '../data/repo';
 import { Logo, Icon } from '../components/Icon';
 import { Empty, Stepper, SyncPill, useToast } from '../components/ui';
-import { fmt, fmtDate, fmtInt, useSession, useSettings } from '../app/hooks';
+import { fmt, fmtDate, fmtInt, useDesktop, useSession, useSettings } from '../app/hooks';
 import { parseToken, signLot, verifyLot } from '../domain/qr';
 import { lotStatus } from '../domain/analytics';
 import { apiEnabled, api } from '../app/api';
@@ -63,6 +63,7 @@ export function Reception() {
   const [derived, setDerived] = useState({ product: 'Poulets entiers', count: 0 });
   const [move, setMove] = useState({ from: '', to: '' });
   const toReceive = mine.filter((l) => !l.receivedAt);
+  const desktop = useDesktop();
 
   function open(text: string) {
     const r = lotFromScan(text);
@@ -161,6 +162,66 @@ export function Reception() {
             await save('lots', { ...current, receivedAt: new Date().toISOString().slice(0, 10), receivedCount: count, receivedWeightKg: weight, receptionNote: note || undefined }, over ? 'réception avec écart' : 'réception validée');
             setCurrent(null); show('Réception validée');
           }}>Valider la réception</button>
+        </div>
+        {toast}
+      </>
+    );
+  }
+
+  // Ordinateur : maquette Figma « Abattoir — Réception » (indicateurs, tableau des lots reçus).
+  if (desktop) {
+    const received = mine.filter((l) => l.receivedAt && !l.parentId);
+    const month = today().slice(0, 7);
+    const thisMonth = received.filter((l) => l.receivedAt!.startsWith(month));
+    const gaps = received.filter((l) => l.receivedCount !== undefined && l.count > 0).map((l) => ((l.count - (l.receivedCount ?? l.count)) / l.count) * 100);
+    const meanGap = gaps.length ? gaps.reduce((a, b) => a + b, 0) / gaps.length : 0;
+    const ids = new Set(mine.map((l) => l.id));
+    const derivedCount = lots.filter((l) => l.parentId && ids.has(l.parentId)).length;
+    return (
+      <>
+        <div className="top">
+          <div><h1>{distributor ? 'Contrôle des lots reçus' : 'Réception des lots'}</h1><span className="muted">{operator?.name ?? s.userLabel} · {toReceive.length} lot(s) annoncé(s)</span></div>
+          <div className="row" style={{ alignItems: 'center' }}>
+            <SyncPill />
+            <input className="input" style={{ width: 300 }} placeholder="… ou collez le lien du QR" value={link} onChange={(e) => setLink(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && link) open(link); }} />
+            {link ? <button className="cta sm light" onClick={() => open(link)}>Ouvrir</button> : <button className="cta sm" onClick={() => setScan((v) => !v)}><Icon name="qr" size={20} />{scan ? 'Fermer la caméra' : 'Scanner un QR'}</button>}
+          </div>
+        </div>
+        {scan && <Scanner onResult={open} />}
+        {!distributor && (
+          <div className="kpis">
+            <div className="kpi"><span className="l">Lots annoncés</span><span className="v">{toReceive.length}</span><span className="s">à réceptionner</span></div>
+            <div className="kpi"><span className="l">Reçus ce mois</span><span className="v">{thisMonth.length}</span><span className="s ok">{fmtInt(thisMonth.reduce((a, l) => a + (l.receivedCount ?? l.count), 0))} poulets</span></div>
+            <div className="kpi"><span className="l">Écart moyen</span><span className="v">{fmt(meanGap, 1)} %</span><span className={`s ${meanGap <= settings.receptionGapPct ? 'ok' : 'bad'}`}>{meanGap <= settings.receptionGapPct ? 'sous' : 'au-dessus du'} le seuil ({fmt(settings.receptionGapPct, 0)} %)</span></div>
+            <div className="kpi"><span className="l">Lots transformés</span><span className="v">{derivedCount}</span><span className="s">lots dérivés</span></div>
+          </div>
+        )}
+        <div className="desk2">
+          <div className="panel">
+            <h3>{distributor ? 'Lots à contrôler' : 'Lots réceptionnés'}</h3>
+            {received.length === 0 ? <span className="muted">Aucun lot réceptionné pour l'instant.</span> : (
+              <table className="tbl"><thead><tr><th>Lot</th><th>Annoncé</th><th>Reçu</th><th>Écart</th><th>Date</th><th /></tr></thead>
+                <tbody>{received.slice(0, 12).map((l) => (
+                  <tr key={l.id} className="click" onClick={() => setCurrent(l)}>
+                    <td className="lotid nw">{l.id}</td><td>{fmtInt(l.count)}</td><td>{fmtInt(l.receivedCount ?? l.count)}</td>
+                    <td>{l.count ? `${fmt(((l.count - (l.receivedCount ?? l.count)) / l.count) * 100, 1)} %` : '—'}</td><td>{fmtDate(l.receivedAt!)}</td>
+                    <td><span className="pill on">{distributor ? 'Contrôler' : 'Transformer · transporter'}</span></td>
+                  </tr>
+                ))}</tbody></table>
+            )}
+          </div>
+          <div className="panel">
+            <h3>Lots attendus</h3>
+            {toReceive.length === 0 ? <Empty img="./img/poussin.webp" title="Aucun lot en attente" text="Les lots cédés à votre structure apparaîtront ici." /> : (
+              <div className="list">{toReceive.map((l) => (
+                <button key={l.id} className="li" style={{ textAlign: 'left' }} onClick={() => { setCurrent(l); setCount(l.count); setWeight(l.weightKg); }}>
+                  <div className="ico" style={{ background: 'var(--sun-50)' }}><Icon name="truck" color="#B07D00" /></div>
+                  <div className="grow"><b className="lotid" style={{ fontSize: 13 }}>{l.id}</b><span>{fmtInt(l.count)} poulets · cédé le {fmtDate(l.cededAt)}</span></div>
+                  <span className="pill sky">Réceptionner</span>
+                </button>
+              ))}</div>
+            )}
+          </div>
         </div>
         {toast}
       </>

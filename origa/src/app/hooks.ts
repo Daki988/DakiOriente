@@ -19,6 +19,17 @@ export function useOnline() {
   return on;
 }
 
+/** Ordinateur : grand écran et souris (une tablette, même en paysage, garde la mise en page tactile). */
+const DESKTOP_QUERY = '(min-width: 1000px) and (hover: hover) and (pointer: fine)';
+const mq = () => (typeof window !== 'undefined' && window.matchMedia ? window.matchMedia(DESKTOP_QUERY) : null);
+export function useDesktop(): boolean {
+  return useSyncExternalStore(
+    (cb) => { const m = mq(); m?.addEventListener('change', cb); return () => m?.removeEventListener('change', cb); },
+    () => !!mq()?.matches,
+    () => false,
+  );
+}
+
 export const usePending = () => useLiveQuery(() => db.outbox.count(), [], 0);
 /** Paramètres complétés des valeurs par défaut ; même objet tant que l'enregistrement ne change pas (évite les boucles de rendu). */
 export function useSettings(): Settings {
