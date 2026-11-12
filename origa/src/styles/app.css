@@ -4,7 +4,7 @@
   --sun:#F5B700; --sun-50:#FFF6D9; --sky:#2F6FD1; --sky-50:#E8F0FC; --red:#D64545; --red-50:#FCEBEB;
   --ink:#10201A; --ink-2:#4A5A53; --ink-3:#8A9A93; --line:#E3E9E6; --bg:#F5F7F6; --card:#FFFFFF;
   --r-lg:24px; --r-md:18px; --r-sm:14px;
-  --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px); --safe-left:env(safe-area-inset-left,0px);
   font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   color:var(--ink); background:var(--bg); -webkit-font-smoothing:antialiased;
 }
@@ -156,7 +156,7 @@ textarea.input{min-height:80px;resize:vertical}
 /* Tableaux : défilement horizontal dans leur cadre plutôt que débordement de la page. */
 .panel,.card{max-width:100%}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
-@media (max-width:1000px){
+@media (max-width:1200px){
   .tbl{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap}
   .tbl td,.tbl th{padding-right:14px}
 }
@@ -272,3 +272,32 @@ fieldset{min-width:0}
 .farmcard{text-align:left;width:100%;cursor:pointer;font:inherit;color:inherit}
 .farmcard:hover{border-color:var(--green-100)}
 .farmcard b{font-size:16px}
+
+/* Paysage : tablettes (APK Android / HarmonyOS, iPad) et téléphones tournés.
+   La barre d'onglets devient un rail vertical à gauche pour libérer la hauteur, le contenu s'élargit. */
+@media (orientation:landscape) and (min-width:640px){
+  .m-shell{max-width:none;padding-left:var(--safe-left)}
+  .m-shell.has-tabs{padding-left:calc(92px + var(--safe-left))}
+  .m-shell>main{width:100%;max-width:1040px;margin:0 auto}
+  .m-shell:not(.has-tabs)>main{max-width:880px}
+  .m-shell .tabbar{position:fixed;left:0;top:0;bottom:0;width:calc(92px + var(--safe-left));flex-direction:column;justify-content:center;gap:6px;padding:calc(12px + var(--safe-top)) 0 calc(12px + var(--safe-bottom)) var(--safe-left);border-top:none;border-right:1px solid var(--line);z-index:40;overflow-y:auto}
+  .m-shell .tab{min-width:0;width:100%;padding:10px 4px;border-radius:14px;text-align:center}
+  .m-shell .tab.active{background:var(--green-50)}
+  .m-shell .kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .m-shell .actions{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  .toast{bottom:24px}
+  .update-bar{bottom:calc(24px + var(--safe-bottom))}
+}
+/* Faible hauteur (tablette 7" ou téléphone en paysage) : marges et titres resserrés. */
+@media (orientation:landscape) and (max-height:620px){
+  .appbar,.back{padding-top:10px;padding-bottom:8px}
+  .hero{padding:16px;gap:10px}.hero h1{font-size:22px;line-height:28px}
+  .greet{padding-bottom:12px}
+  .cta{min-height:50px}
+  .act{height:72px}
+  .m-shell .tab{padding:6px 4px;gap:2px}
+  .auth-visual h1{font-size:32px}.auth-visual-in{padding:32px}
+  .auth-form{padding-top:20px;gap:12px}
+  .modal{max-height:calc(100vh - 24px)}
+  .pub-hero{padding-top:calc(18px + var(--safe-top));padding-bottom:24px}
+}

@@ -25,7 +25,7 @@ export function MobileShell() {
   const tabs = s.role === 'operateur' ? OPERATOR_TABS : FARM_TABS;
   const showTabs = tabs.some((t) => t.to === pathname);
   return (
-    <div className="m-shell">
+    <div className={`m-shell${showTabs ? ' has-tabs' : ''}`}>
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }} key={pathname} className="page-in"><Outlet /></main>
       {showTabs && (
         <nav className="tabbar" aria-label="Navigation principale">
