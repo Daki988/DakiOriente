@@ -30,6 +30,9 @@ export function useDesktop(): boolean {
   );
 }
 
+/** Couleur d'une mortalité de bande, la même sur tous les écrans : au-delà de la référence, puis du seuil élevé (Paramètres). */
+export const mortClass = (pct: number, s: Pick<Settings, 'mortalityRefPct' | 'mortalityHighPct'>) => (pct > s.mortalityHighPct ? 'bad' : pct > s.mortalityRefPct ? 'warn' : 'ok');
+
 export const usePending = () => useLiveQuery(() => db.outbox.count(), [], 0);
 /** Paramètres complétés des valeurs par défaut ; même objet tant que l'enregistrement ne change pas (évite les boucles de rendu). */
 export function useSettings(): Settings {

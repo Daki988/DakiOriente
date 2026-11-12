@@ -5,7 +5,7 @@ import { db } from '../data/db';
 import { save } from '../data/repo';
 import { BackBar, Stepper, useToast } from '../components/ui';
 import { Icon } from '../components/Icon';
-import { fmtInt, useBandStats, useCurrentBand, useSession, useSettings } from '../app/hooks';
+import { fmt, fmtInt, useBandStats, useCurrentBand, useSession, useSettings } from '../app/hooks';
 import { lotId, nextSeq, today, uid } from '../domain/ids';
 import { checkExit, withdrawalBlock } from '../domain/rules';
 import { signLot } from '../domain/qr';
@@ -38,6 +38,10 @@ export function ExitPage() {
   const eligible = operators.filter((o) => (reason === 'abattoir' ? o.type === 'abattoir' : o.type !== 'abattoir'));
   const check = checkExit(count, stats.present);
   const blocked = withdrawalBlock(treatments, today());
+  // Cohérence avec la dernière pesée : un poids moyen déclaré très différent signale une erreur de saisie (même donnée que l'accueil et la page publique).
+  const declaredKg = count > 0 && weight > 0 ? weight / count : 0;
+  const weighedKg = (stats.avgWeightG ?? 0) / 1000;
+  const weightGap = declaredKg && weighedKg ? Math.abs(declaredKg - weighedKg) / weighedKg : 0;
   const valid = check.ok && weight > 0 && (!needsOperator || operatorId) && !(needsOperator && blocked);
 
   async function submit() {
@@ -79,6 +83,7 @@ export function ExitPage() {
         <Stepper label="Poids vif total" hint="en kg" value={weight} onChange={setWeight} step={10} icon="scale" tint={['var(--sky-50)', '#2F6FD1']} />
         <Stepper label="Prix unitaire" hint="FCFA par tête (facultatif)" value={price} onChange={setPrice} step={100} />
         {!check.ok && count > 0 && <div className="note red"><Icon name="warn" size={18} />{check.message}</div>}
+        {weightGap > 0.25 && <div className="note sun"><Icon name="info" size={18} />Poids moyen déclaré {fmt(declaredKg, 2)} kg par poulet, contre {fmt(weighedKg, 2)} kg à la dernière pesée : vérifiez le poids total ou faites une pesée avant la sortie.</div>}
         {blocked && needsOperator && <div className="note red"><Icon name="warn" size={18} />Cession bloquée : délai d'attente du traitement « {blocked.product} » non écoulé.</div>}
         {!needsOperator && <div className="note sun"><Icon name="info" size={18} />Vente directe : les volumes sont comptés, mais la traçabilité s'arrête à la ferme.</div>}
         <button className="cta green" disabled={!valid} onClick={submit}>{needsOperator ? 'Céder le lot et créer le QR' : 'Enregistrer la sortie'}</button>

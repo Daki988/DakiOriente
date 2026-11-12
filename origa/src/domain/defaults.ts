@@ -31,6 +31,8 @@ export const DEFAULT_SETTINGS: Settings = {
   alertDailyMortalityPct: 0.5,
   inputGapPct: 10,
   receptionGapPct: 2,
+  mortalityRefPct: 4.5,
+  mortalityHighPct: 6,
   formulas: {
     mortalite: 'morts_cumules / mis_en_place * 100',
     viabilite: '100 - mortalite',

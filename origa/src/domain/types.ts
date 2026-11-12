@@ -184,6 +184,10 @@ export interface Settings {
   alertDailyMortalityPct: number; // réglé par les services vétérinaires
   inputGapPct: number;
   receptionGapPct: number;
+  /** Mortalité de bande de référence (%) : au-delà, la bande est signalée à suivre. */
+  mortalityRefPct: number;
+  /** Mortalité de bande élevée (%) : au-delà, la bande est signalée en rouge. */
+  mortalityHighPct: number;
   formulas: Record<FormulaKey, string>;
   vaccinationCalendar: { day: number; vaccine: string }[];
   clinicalSigns: string[];

@@ -3,7 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../data/db';
 import { Icon, Logo } from '../components/Icon';
 import { BackBar, Empty, SyncPill } from '../components/ui';
-import { fmt, fmtDate, fmtInt, fmtLongDate, useBandStats, useCurrentBand, useDesktop, useSession, useSettings } from '../app/hooks';
+import { fmt, fmtDate, fmtInt, fmtLongDate, mortClass, useBandStats, useCurrentBand, useDesktop, useSession, useSettings } from '../app/hooks';
 import { GrowthChart } from '../components/GrowthChart';
 import { Qr } from '../components/Qr';
 import { publicUrl } from '../domain/qr';
@@ -55,7 +55,7 @@ export function FarmerHome() {
   const feedStock = extra?.stock.aliment ?? 0;
   const dailyFeed = stats.feedKg / Math.max(1, stats.ageDays);
   const refW = refWeight(stats.ageDays);
-  const refMort = 4.5;
+  const refMort = settings.mortalityRefPct;
 
   const todoCount = due.length + (weighingLate ? 1 : 0) + (extra?.todayDone ? 0 : 1);
   const todo = (
@@ -69,7 +69,7 @@ export function FarmerHome() {
   const kpis = (
     <div className="kpis">
       <div className="kpi"><span className="l">Mortalité</span><span className="v">{fmt(stats.mortalityPct, 1)} %</span>
-        <span className={`s ${stats.mortalityPct <= refMort ? 'ok' : 'bad'}`}>{stats.mortalityPct <= refMort ? '▼ sous' : '▲ au-dessus de'} la référence ({fmt(refMort, 1)} %)</span></div>
+        <span className={`s ${mortClass(stats.mortalityPct, settings)}`}>{stats.mortalityPct <= refMort ? '▼ sous' : '▲ au-dessus de'} la référence ({fmt(refMort, 1)} %)</span></div>
       <div className="kpi"><span className="l">Poids moyen</span><span className="v">{fmtInt(stats.avgWeightG)} g</span>
         <span className={`s ${stats.avgWeightG >= refW * 0.95 ? 'ok' : 'warn'}`}>GMQ {fmt(stats.gmq, 0)} g/jour</span></div>
       <div className="kpi"><span className="l">Indice de consommation</span><span className="v">{stats.ic ? fmt(stats.ic, 2) : '—'}</span><span className="s warn">Viabilité {fmt(stats.viabilityPct, 1)} %</span></div>

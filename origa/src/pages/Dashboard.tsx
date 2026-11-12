@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNational } from '../app/national';
-import { fmt, fmtDate, fmtInt } from '../app/hooks';
+import { fmt, fmtDate, fmtInt, mortClass, useSettings } from '../app/hooks';
 import { PROVINCES, provinceName } from '../domain/provinces';
 import { traceIndicators } from '../domain/analytics';
 import { addDays, today } from '../domain/ids';
@@ -13,6 +13,7 @@ const STATUS: Record<string, [string, string]> = { nouvelle: ['red', 'Nouvelle']
 /** Tableau de bord national (§ 5.4) : indicateurs, production, fermes à accompagner, alertes, carte. */
 export function Dashboard() {
   const data = useNational();
+  const settings = useSettings();
   const nav = useNavigate();
   const [prov, setProv] = useState<ProvinceCode | ''>('');
   const [days, setDays] = useState(30);
@@ -74,8 +75,8 @@ export function Dashboard() {
       <div className="grid4">
         <div className="wk"><span className="l">Volumes vendus ({days ? `${days} j` : 'total'})</span><span className="v">{vol}</span><span className="s">{fmtInt(sold)} poulets sortis</span></div>
         <div className="wk"><span className="l">Prix moyen</span><span className="v">{priced.length ? fmtInt(avgPrice) : '—'}</span><span className="s">FCFA par tête vendue</span></div>
-        <div className="wk"><span className="l">Lots avec QR</span><span className={`v ${trace.qrTargetMet ? 'ok' : 'bad'}`}>{fmt(trace.qrPct, 0)} %</span><span className="s">{trace.lots} lot(s) · seuil 95 %</span></div>
-        <div className="wk"><span className="l">Ventes rattachées à un lot</span><span className="v">{fmt(trace.salesLinkedPct, 0)} %</span><span className="s">{fmt(trace.validatedPct, 0)} % des lots validés à l'abattoir</span></div>
+        <div className="wk"><span className="l">Lots avec QR</span><span className={`v ${trace.lots ? (trace.qrTargetMet ? 'ok' : 'bad') : ''}`}>{trace.lots ? `${fmt(trace.qrPct, 0)} %` : '—'}</span><span className="s">{trace.lots} lot(s) · seuil 95 %</span></div>
+        <div className="wk"><span className="l">Ventes rattachées à un lot</span><span className="v">{trace.lots || exitsP.length ? `${fmt(trace.salesLinkedPct, 0)} %` : '—'}</span><span className="s">{trace.lots ? `${fmt(trace.validatedPct, 0)} % des lots à réception confirmée` : 'aucun lot sur la période'}</span></div>
       </div>
       <div className="grid2">
         <div className="panel">
@@ -91,11 +92,11 @@ export function Dashboard() {
             <tbody>
               {toFollow.map((r) => {
                 const m = r.st?.mortalityPct ?? 0; const c = r.st?.completenessPct ?? 0;
-                const [cls, label] = r.alerts ? ['red', 'Alerte'] : c < 70 ? ['off', 'Saisie faible'] : m > 5 ? ['sky', 'À visiter'] : ['on', 'Bon'];
+                const [cls, label] = r.alerts ? ['red', 'Alerte'] : c < 70 ? ['off', 'Saisie faible'] : m > settings.mortalityRefPct ? ['sky', 'À visiter'] : ['on', 'Bon'];
                 return (
                   <tr key={r.farm.id} className="click" onClick={() => nav(`/fermes?q=${r.farm.id}`)}>
                     <td>{r.farm.id} {r.farm.name.replace('Ferme ', '')}</td><td>{provinceName(r.farm.province)}</td>
-                    <td className={m > 6 ? 'bad' : m > 4.5 ? 'warn' : 'ok'}>{fmt(m, 1)} %</td><td>{r.st?.ic ? fmt(r.st.ic, 2) : '—'}</td>
+                    <td className={mortClass(m, settings)}>{fmt(m, 1)} %</td><td>{r.st?.ic ? fmt(r.st.ic, 2) : '—'}</td>
                     <td><span className="meter"><i style={{ width: `${c}%` }} /></span>{fmt(c, 0)} %</td><td><span className={`pill ${cls}`}>{label}</span></td>
                   </tr>
                 );

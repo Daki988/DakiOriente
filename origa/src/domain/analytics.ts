@@ -35,10 +35,11 @@ export function traceIndicators(lots: Lot[], exits: Exit[]) {
 
 /** Validation sur événements vérifiables : cession enregistrée ET réception validée à l'abattoir (Proposé). */
 export function lotStatus(l: Lot): { label: string; validated: boolean; step: number } {
+  // Un seul libellé par état, affiché à l'identique sur tous les écrans (éleveur, agent, abattoir, DGE).
   if (l.distributorCheckedAt) return { label: 'Contrôlé par le distributeur', validated: !!l.receivedAt, step: 3 };
-  if (l.receivedAt) return { label: 'Validé : réceptionné à l’abattoir', validated: true, step: 2 };
+  if (l.receivedAt) return { label: 'Validé · réception confirmée', validated: true, step: 2 };
   if (!l.signature) return { label: 'Cédé · signature en attente', validated: false, step: 0 };
-  return { label: 'Cédé · réception non confirmée', validated: false, step: 1 };
+  return { label: 'Cédé · en attente de réception', validated: false, step: 1 };
 }
 
 /** Écart (%) entre intrants livrés, déclarés utilisés et stock constaté en visite (§ 5.1). */

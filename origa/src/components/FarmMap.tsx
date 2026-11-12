@@ -3,12 +3,13 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import type { FarmRow } from '../app/national';
 import { provinceName } from '../domain/provinces';
+import { useSettings } from '../app/hooks';
 
 /** Couleur d'une ferme sur la carte (§ 5.4 : selon l'alerte ou la mortalité). */
 export const MAP_COLORS = { alerte: '#D64545', mortalite: '#F5B700', ok: '#12805C', inactive: '#8A9A93' };
-export function farmColor(r: FarmRow): string {
+export function farmColor(r: FarmRow, refPct: number): string {
   if (r.alerts) return MAP_COLORS.alerte;
-  if ((r.st?.mortalityPct ?? 0) > 5) return MAP_COLORS.mortalite;
+  if ((r.st?.mortalityPct ?? 0) > refPct) return MAP_COLORS.mortalite;
   return r.farm.status === 'operationnelle' ? MAP_COLORS.ok : MAP_COLORS.inactive;
 }
 
@@ -25,6 +26,7 @@ export function FarmMap({ rows, height = 400 }: { rows: FarmRow[]; height?: numb
   const box = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
   const layer = useRef<L.LayerGroup | null>(null);
+  const { mortalityRefPct: refPct } = useSettings();
 
   useEffect(() => {
     if (!box.current || map.current) return;
@@ -49,7 +51,7 @@ export function FarmMap({ rows, height = 400 }: { rows: FarmRow[]; height?: numb
     g.clearLayers();
     const located = rows.filter((r) => typeof r.farm.lat === 'number' && typeof r.farm.lng === 'number');
     for (const r of located) {
-      const color = farmColor(r);
+      const color = farmColor(r, refPct);
       const html = `<div class="map-pop"><b>${esc(r.farm.name)}</b><span>${esc(r.farm.id)} · ${esc(r.farm.locality ?? '')}, ${esc(provinceName(r.farm.province))}</span>`
         + (r.band && r.st ? `<span>Bande ${r.band.rank} · ${r.st.present.toLocaleString('fr-FR')} poulets · mortalité ${pct(r.st.mortalityPct)}</span>` : '<span>Aucune bande en cours</span>')
         + (r.alerts ? `<span class="bad">${r.alerts} alerte(s) sanitaire(s) ouverte(s)</span>` : '')
@@ -62,7 +64,7 @@ export function FarmMap({ rows, height = 400 }: { rows: FarmRow[]; height?: numb
     }
     if (located.length) m.fitBounds(L.latLngBounds(located.map((r) => [r.farm.lat!, r.farm.lng!] as [number, number])).pad(0.25), { maxZoom: 10 });
     else m.fitBounds(GABON);
-  }, [rows]);
+  }, [rows, refPct]);
 
   const missing = rows.filter((r) => typeof r.farm.lat !== 'number').length;
   return (
@@ -70,7 +72,7 @@ export function FarmMap({ rows, height = 400 }: { rows: FarmRow[]; height?: numb
       <div ref={box} style={{ height }} role="region" aria-label="Carte des fermes au Gabon" />
       <div className="map-legend">
         <span><i style={{ background: MAP_COLORS.ok }} />Opérationnelle</span>
-        <span><i style={{ background: MAP_COLORS.mortalite }} />Mortalité &gt; 5 %</span>
+        <span><i style={{ background: MAP_COLORS.mortalite }} />Mortalité &gt; {String(refPct).replace('.', ',')} %</span>
         <span><i style={{ background: MAP_COLORS.alerte }} />Alerte ouverte</span>
         <span><i style={{ background: MAP_COLORS.inactive }} />Autre statut</span>
         {missing > 0 && <span className="muted">{missing} ferme(s) sans position GPS</span>}

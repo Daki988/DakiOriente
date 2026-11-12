@@ -121,7 +121,8 @@ export async function bandReport(db: Db, bandId: string): Promise<Report | null>
       { label: 'Mortalité', value: `${n(deaths)} morts · ${n(band.chicks ? (deaths / band.chicks) * 100 : 0, 2)} %` },
       { label: 'Aliment distribué', value: `${n(feed)} kg` },
       { label: 'Poulets sortis', value: `${n(out)} · ${n(kg)} kg de poids vif` },
-      { label: 'Indice de consommation', value: kg ? n(feed / kg, 2) : '—' },
+      // Même formule que l'application : aliment / (poids vif sorti + présent − poids des poussins) ; bande clôturée, présent = 0.
+      { label: 'Indice de consommation', value: kg - (band.chicks ?? 0) * (band.initialWeightG ?? 0) / 1000 > 0 ? n(feed / (kg - (band.chicks ?? 0) * (band.initialWeightG ?? 0) / 1000), 2) : '—' },
       { label: 'Recettes', value: `${n(revenue)} FCFA` },
       { label: 'Charges', value: `${n(charges)} FCFA` },
       { label: 'Marge', value: `${n(revenue - charges)} FCFA` },

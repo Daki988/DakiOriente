@@ -5,7 +5,7 @@ import { db } from '../data/db';
 import { BackBar, Empty, Kv, useToast } from '../components/ui';
 import { Icon } from '../components/Icon';
 import { Qr } from '../components/Qr';
-import { fmtDate, fmtInt, useSession } from '../app/hooks';
+import { fmt, fmtDate, fmtInt, useSession, useSettings } from '../app/hooks';
 import { publicUrl, verifyLot } from '../domain/qr';
 import { publicBase } from '../app/publicBase';
 import { withdrawalBlock } from '../domain/rules';
@@ -27,7 +27,7 @@ export function LotsPage() {
               <Link key={l.id} to={`/lots/${encodeURIComponent(l.id)}`} className="li">
                 <div className="ico" style={{ background: 'var(--green-50)' }}><Icon name="qr" color="#12805C" /></div>
                 <div className="grow"><b className="lotid" style={{ fontSize: 13 }}>{l.id}</b><span>{fmtInt(l.count)} poulets · {ops.find((o) => o.id === l.operatorId)?.name ?? l.destination} · {fmtDate(l.cededAt)}</span></div>
-                <span className={`pill ${l.receivedAt ? 'on' : 'sky'}`}>{l.receivedAt ? 'Reçu' : 'Cédé'}</span>
+                <span className={`pill ${lotStatus(l).validated ? 'on' : 'sky'}`}>{lotStatus(l).label}</span>
               </Link>
             ))}
           </div>
@@ -55,7 +55,7 @@ async function lotTimeline(bandId: string, lotId: string) {
   const deaths = entries.reduce((a, e) => a + e.deaths, 0);
   if (entries.length) ev.push({ date: entries.map((e) => e.date).sort().pop()!, title: 'Suivi quotidien', detail: `${entries.length} fiches · ${fmtInt(deaths)} morts cumulés · ${weighs.length} pesées` });
   if (lot) ev.push({ date: lot.cededAt, title: 'Cession', detail: `${fmtInt(lot.count)} poulets · ${fmtInt(lot.weightKg)} kg` });
-  if (lot?.receivedAt) ev.push({ date: lot.receivedAt, title: 'Réception à l’abattoir', detail: `${fmtInt(lot.receivedCount ?? 0)} reçus${lot.receptionNote ? ` · ${lot.receptionNote}` : ''}`, tone: 'ok' });
+  if (lot?.receivedAt) ev.push({ date: lot.receivedAt, title: 'Réception par le destinataire', detail: `${fmtInt(lot.receivedCount ?? 0)} reçus sur ${fmtInt(lot.count)}${lot.receptionNote ? ` · ${lot.receptionNote}` : ''}`, tone: 'ok' });
   moves.forEach((m) => ev.push({ date: m.date, title: 'Transport', detail: `${m.from} → ${m.to}` }));
   if (lot?.distributorCheckedAt) ev.push({ date: lot.distributorCheckedAt, title: 'Contrôle par le distributeur', detail: 'Origine confirmée', tone: 'ok' });
   return ev.sort((a, b) => a.date.localeCompare(b.date));
@@ -63,6 +63,7 @@ async function lotTimeline(bandId: string, lotId: string) {
 
 export function LotDetail() {
   const { id = '' } = useParams();
+  const settings = useSettings();
   const [toast, show] = useToast();
   const [print, setPrint] = useState<'label' | 'doc' | null>(null);
   const data = useLiveQuery(async () => {
@@ -96,13 +97,16 @@ export function LotDetail() {
           <span className="lotid">{lot.id}</span>
           {pending ? <span className="pill off"><span className="dot" style={{ background: 'var(--sun)' }} />Signature en attente de réseau</span>
             : <span className={`pill ${authentic ? 'on' : 'red'}`}><span className="dot" style={{ background: authentic ? 'var(--green)' : 'var(--red)' }} />{authentic ? 'Signé · infalsifiable' : 'Signature invalide'}</span>}
-          <span className={`pill ${status.validated ? 'on' : 'sky'}`}>{status.validated ? 'Validé sur événements vérifiables' : 'En attente de réception à l’abattoir'}</span>
+          <span className={`pill ${status.validated ? 'on' : 'sky'}`}>{status.validated ? 'Validé sur événements vérifiables' : 'En attente de réception par le destinataire'}</span>
         </div>
         <div className="card" style={{ gap: 0 }}>
           <Kv k="Destinataire" v={op ? `${op.name}, ${op.locality}` : lot.destination ?? '—'} />
           <Kv k="Poulets" v={fmtInt(lot.count)} />
           <Kv k="Poids vif" v={`${fmtInt(lot.weightKg)} kg`} />
           <Kv k="Date de cession" v={fmtDate(lot.cededAt)} />
+          {lot.receivedAt
+            ? <Kv k="Réception" v={`${fmtDate(lot.receivedAt)} · ${fmtInt(lot.receivedCount ?? lot.count)} reçus${lot.count ? ` (écart ${fmt(((lot.count - (lot.receivedCount ?? lot.count)) / lot.count) * 100, 1)} %)` : ''}`} cls={lot.count && (lot.count - (lot.receivedCount ?? lot.count)) / lot.count * 100 > settings.receptionGapPct ? 'bad' : 'ok'} />
+            : <Kv k="Réception" v="En attente" />}
           <Kv k="Délai d'attente médicaments" v={blocked ? 'Non respecté' : 'Respecté'} cls={blocked ? 'bad' : 'ok'} />
           <Kv k="Code de confirmation" v={lot.confirmCode.split('').join(' ')} />
         </div>

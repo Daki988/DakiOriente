@@ -5,7 +5,7 @@ import { db } from '../data/db';
 import { useNational } from '../app/national';
 import { api, apiEnabled } from '../app/api';
 import { setSession } from '../app/sessionStore';
-import { fmt, fmtDate, fmtInt, useSession, useSettings } from '../app/hooks';
+import { fmt, fmtDate, fmtInt, mortClass, useSession, useSettings } from '../app/hooks';
 import { bandEconomics } from '../domain/analytics';
 import { addDays, daysBetween, today } from '../domain/ids';
 import { vaccinationsDue } from '../domain/rules';
@@ -70,7 +70,7 @@ export function VetHome() {
           <h3>Mortalité des bandes en cours</h3>
           <table className="tbl"><thead><tr><th>Ferme</th><th>Province</th><th>Âge</th><th>Mortalité</th></tr></thead>
             <tbody>{watch.map((r) => <tr key={r.farm.id}><td>{r.farm.id} {r.farm.name.replace('Ferme ', '')}</td><td>{provinceName(r.farm.province)}</td><td>{r.st!.ageDays} j</td>
-              <td className={r.st!.mortalityPct > 5 ? 'bad' : ''}>{fmt(r.st!.mortalityPct, 1)} %</td></tr>)}</tbody></table>
+              <td className={mortClass(r.st!.mortalityPct, st)}>{fmt(r.st!.mortalityPct, 1)} %</td></tr>)}</tbody></table>
         </div>
       </div>
       <div className="grid2">
@@ -173,6 +173,7 @@ export function MaedrHome() {
 const greeting = () => { const h = new Date().getHours(); return h < 12 ? 'Bonjour' : h < 18 ? 'Bon après-midi' : 'Bonsoir'; };
 export function AgentHome() {
   const s = useSession();
+  const settings = useSettings();
   const nav = useNavigate();
   const national = useNational();
   const data = useLiveQuery(async () => {
@@ -204,7 +205,7 @@ export function AgentHome() {
             <span className="muted">{r.farm.id} · {r.farm.locality}</span>
             {r.band && r.st && <div className="row" style={{ gap: 18, flexWrap: 'wrap' }}>
               <span className="muted">Jour <b>{r.st.ageDays}</b></span><span className="muted"><b>{fmtInt(r.st.present)}</b> poulets</span>
-              <span className="muted">Mortalité <b className={r.st.mortalityPct > 5 ? 'bad' : ''}>{fmt(r.st.mortalityPct, 1)} %</b></span></div>}
+              <span className="muted">Mortalité <b className={mortClass(r.st.mortalityPct, settings)}>{fmt(r.st.mortalityPct, 1)} %</b></span></div>}
             <div className="row between"><span className={filled(r.band?.id) ? 'ok' : 'warn'} style={{ fontSize: 13, fontWeight: 600 }}>{r.band ? (filled(r.band.id) ? 'Fiche du jour remplie' : 'Fiche du jour à remplir') : 'Aucune saisie attendue'}</span>
               <span className="muted">Dernière visite : {lastVisit(r.farm.id) ? fmtDate(lastVisit(r.farm.id)!) : 'aucune'}</span></div>
           </button>

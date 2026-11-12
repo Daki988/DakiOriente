@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../data/db';
-import { fmt, fmtDate, fmtInt, useSession, useSettings } from '../app/hooks';
+import { fmt, fmtDate, fmtInt, mortClass, useSession, useSettings } from '../app/hooks';
 import { api, apiEnabled } from '../app/api';
 import { save } from '../data/repo';
 import { useToast } from '../components/ui';
@@ -103,7 +103,12 @@ export function ReportsPage() {
   const exitsP = data.exits.filter((x) => inP(x.date));
   const eco = bandEconomics(exitsP, data.charges.filter((c) => inP(c.date)));
   const trace = traceIndicators(data.lots.filter((l) => inP(l.cededAt)), exitsP);
-  const mortAvg = farmRows.filter((r) => r.s).reduce((a, r) => a + r.s!.mortalityPct, 0) / Math.max(1, farmRows.filter((r) => r.s).length);
+  // Mortalité moyenne pondérée (morts cumulés / poussins mis en place), même définition que le rapport envoyé par le serveur.
+  const withS = farmRows.filter((r) => r.s && r.band);
+  const mortAvg = (withS.reduce((a, r) => a + r.s!.deaths, 0) / Math.max(1, withS.reduce((a, r) => a + r.band!.chicks, 0))) * 100;
+  // Prix moyen par tête vendue, comme sur la vue nationale et le tableau du ministère.
+  const pricedP = exitsP.filter((x) => x.unitPriceXaf);
+  const pricePerHead = pricedP.reduce((a, x) => a + (x.unitPriceXaf ?? 0) * x.count, 0) / Math.max(1, pricedP.reduce((a, x) => a + x.count, 0));
   const title = kind === 'hebdomadaire' ? 'Rapport hebdomadaire' : kind === 'mensuel' ? 'Rapport mensuel national' : 'Rapport de fin de bande';
 
   const sendNow = async () => {
@@ -137,15 +142,15 @@ export function ReportsPage() {
           </div>
           <div className="grid4">
             <div className="wk"><span className="l">Chiffre d'affaires déclaré</span><span className="v">{fmtInt(eco.revenue / 1000)} k</span><span className="s">FCFA</span></div>
-            <div className="wk"><span className="l">Prix moyen</span><span className="v">{eco.avgPricePerKg ? fmtInt(eco.avgPricePerKg) : '—'}</span><span className="s">FCFA / kg vif</span></div>
-            <div className="wk"><span className="l">Lots avec QR</span><span className={`v ${trace.qrTargetMet ? 'ok' : 'bad'}`}>{fmt(trace.qrPct, 0)} %</span><span className="s">seuil de recette 95 %</span></div>
-            <div className="wk"><span className="l">Ventes rattachées à un lot</span><span className="v">{fmt(trace.salesLinkedPct, 0)} %</span><span className="s">{trace.lots} lot(s) tracé(s)</span></div>
+            <div className="wk"><span className="l">Prix moyen</span><span className="v">{pricedP.length ? fmtInt(pricePerHead) : '—'}</span><span className="s">FCFA par tête vendue</span></div>
+            <div className="wk"><span className="l">Lots avec QR</span><span className={`v ${trace.lots ? (trace.qrTargetMet ? 'ok' : 'bad') : ''}`}>{trace.lots ? `${fmt(trace.qrPct, 0)} %` : '—'}</span><span className="s">seuil de recette 95 %</span></div>
+            <div className="wk"><span className="l">Ventes rattachées à un lot</span><span className="v">{trace.lots || exitsP.length ? `${fmt(trace.salesLinkedPct, 0)} %` : '—'}</span><span className="s">{trace.lots} lot(s) tracé(s)</span></div>
           </div>
           <table className="tbl">
             <thead><tr><th>Ferme</th><th>Province</th><th>Bande</th><th>Effectif</th><th>Mortalité</th><th>IC</th><th>Complétude</th><th>Produit (kg)</th><th>Écart intrants</th></tr></thead>
             <tbody>{farmRows.map((r) => (
               <tr key={r.f.id}><td>{r.f.id} {r.f.name.replace('Ferme ', '')}</td><td>{provinceName(r.f.province)}</td><td>{r.band?.rank ?? '—'}</td><td>{r.s ? fmtInt(r.s.present) : '—'}</td>
-                <td className={r.s && r.s.mortalityPct > 6 ? 'bad' : ''}>{r.s ? `${fmt(r.s.mortalityPct, 1)} %` : '—'}</td><td>{r.s?.ic ? fmt(r.s.ic, 2) : '—'}</td><td>{r.s ? `${fmt(r.s.completenessPct, 0)} %` : '—'}</td>
+                <td className={r.s ? mortClass(r.s.mortalityPct, st) : ''}>{r.s ? `${fmt(r.s.mortalityPct, 1)} %` : '—'}</td><td>{r.s?.ic ? fmt(r.s.ic, 2) : '—'}</td><td>{r.s ? `${fmt(r.s.completenessPct, 0)} %` : '—'}</td>
                 <td>{fmtInt(r.produced)}</td><td className={r.gap.gapPct !== undefined && Math.abs(r.gap.gapPct) > st.inputGapPct ? 'bad' : ''}>{r.gap.gapPct === undefined ? '—' : `${fmt(r.gap.gapPct, 1)} %`}</td></tr>
             ))}</tbody>
           </table>
