@@ -102,7 +102,7 @@ export function LotDetail() {
         <div className="card" style={{ gap: 0 }}>
           <Kv k="Destinataire" v={op ? `${op.name}, ${op.locality}` : lot.destination ?? '—'} />
           <Kv k="Poulets" v={fmtInt(lot.count)} />
-          <Kv k="Poids vif" v={`${fmtInt(lot.weightKg)} kg`} />
+          <Kv k="Poids vif" v={lot.weightKg ? `${fmtInt(lot.weightKg)} kg` : '—'} />
           <Kv k="Date de cession" v={fmtDate(lot.cededAt)} />
           {lot.receivedAt
             ? <Kv k="Réception" v={`${fmtDate(lot.receivedAt)} · ${fmtInt(lot.receivedCount ?? lot.count)} reçus${lot.count ? ` (écart ${fmt(((lot.count - (lot.receivedCount ?? lot.count)) / lot.count) * 100, 1)} %)` : ''}`} cls={lot.count && (lot.count - (lot.receivedCount ?? lot.count)) / lot.count * 100 > settings.receptionGapPct ? 'bad' : 'ok'} />
