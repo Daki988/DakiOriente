@@ -59,6 +59,7 @@
   const f = $('[data-res]');
   if (f) {
     initDates(f);
+    if (qs.get('site') && f.site) f.site.value = qs.get('site');
     if (qs.get('room')) { const r = $(`input[name="room"][value="${qs.get('room')}"]`, f); if (r) r.checked = true; }
     const RM = Object.fromEntries(H.rooms.map((r) => [r.id, r]));
     const X = Object.fromEntries(H.extras.map((x) => [x.id, x]));
@@ -99,7 +100,7 @@
       if (!c.nights) { toast('Choisissez des dates valides.'); return; }
       if (!check(f)) return;
       const opts = $$('input[name="x"]:checked', f).map((x) => H.extras.find((e) => e.id === x.value).n);
-      wa(`Bonjour ${H.name}, je souhaite réserver.\n\nArrivée : ${fd(f.in.value)}\nDépart : ${fd(f.out.value)} (${c.nights} nuit${c.nights > 1 ? 's' : ''})\n${c.nb} × ${c.room.n}\nVoyageurs : ${c.ad} adulte(s)${c.en ? ', ' + c.en + ' enfant(s)' : ''}${opts.length ? '\nOptions : ' + opts.join(', ') : ''}${c.disc ? '\nRemise ' + c.tier.label + ' appliquée' : ''}\nTotal estimé : ${fcfa(c.tot)}${f.msg.value.trim() ? '\n\n' + f.msg.value.trim() : ''}\n\n${f.nom.value} · ${f.tel.value}`);
+      wa(`Bonjour ${H.name}, je souhaite réserver.\n\n${f.site ? 'Établissement : ' + f.site.value + '\n' : ''}Arrivée : ${fd(f.in.value)}\nDépart : ${fd(f.out.value)} (${c.nights} nuit${c.nights > 1 ? 's' : ''})\n${c.nb} × ${c.room.n}\nVoyageurs : ${c.ad} adulte(s)${c.en ? ', ' + c.en + ' enfant(s)' : ''}${opts.length ? '\nOptions : ' + opts.join(', ') : ''}${c.disc ? '\nRemise ' + c.tier.label + ' appliquée' : ''}\nTotal estimé : ${fcfa(c.tot)}${f.msg.value.trim() ? '\n\n' + f.msg.value.trim() : ''}\n\n${f.nom.value} · ${f.tel.value}`);
       toast('Votre demande de réservation s\'ouvre dans WhatsApp.');
     });
   }

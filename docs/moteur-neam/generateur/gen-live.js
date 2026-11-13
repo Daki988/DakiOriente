@@ -22,7 +22,16 @@ const SIG_ASSETS = {
 const SOCIAL = {};
 
 // Sites entièrement faits à la main (docs/moteur-neam/sur-mesure/<slug>/build.js) : on lit seulement leurs pages
-const HAND = ['escapade-travel-agency', 'ela-expertise', 'cabinet-de-radiologie-cimel', 'eva-spa-chez-clarisse', 'delicatess', 'cabinet-medical-saint-raphael', 'cabinet-dentaire-avicenne', '2s-confort-driving', 'bijouterie-de-l-ecrin', 'asian-auto-gabon', 'fishing-gabon-club', 'skin-technology-by-latania', 'alpha-omega-diagnostic', 'cabinet-dentaire-acae-sourire', 'chouchou-lazare', 'cabinet-dentaire-dr-abbas', 'wanted-immobilier', 'awax-music-school', 'afram', 'agex-vtc', 'hotel-heliconia', 'hotel-le-jomonia', 'gabon-management-services', 'fattal-travel-et-tourism', 'boko-s-cafe', 'ab-location', 'hotel-le-refuge', 'assiga-village'];
+const HAND = ['escapade-travel-agency', 'ela-expertise', 'cabinet-de-radiologie-cimel', 'eva-spa-chez-clarisse', 'delicatess', 'cabinet-medical-saint-raphael', 'cabinet-dentaire-avicenne', '2s-confort-driving', 'bijouterie-de-l-ecrin', 'asian-auto-gabon', 'fishing-gabon-club', 'skin-technology-by-latania', 'alpha-omega-diagnostic', 'cabinet-dentaire-acae-sourire', 'chouchou-lazare', 'cabinet-dentaire-dr-abbas', 'wanted-immobilier', 'awax-music-school', 'afram', 'agex-vtc', 'hotel-heliconia', 'hotel-le-jomonia', 'gabon-management-services', 'fattal-travel-et-tourism', 'boko-s-cafe', 'ab-location', 'hotel-le-refuge', 'assiga-village', 'hotel-hibiscus', 'yeshua-real-estate'];
+// Maquettes hébergées ailleurs (ex. Vercel) : le moteur renvoie vers l'adresse externe, sans générer de site
+const EXT = {
+  'luxury-car-gabon': [['#catalogue', 'Catalogue'], ['modeles/jetour-dashing.html', 'JETOUR Dashing'], ['#carplan', 'Car Plan'], ['#location', 'Location'], ['#atelier', 'Atelier'], ['#contact', 'Contact']],
+  'prestige-cars': [['#arrivages', 'Arrivages'], ['#catalogue', 'Catalogue'], ['modeles/cadillac-escalade.html', 'Cadillac Escalade'], ['#location', 'Location de prestige'], ['#services', 'Atelier & services'], ['#contact', 'Contact']],
+};
+const EXT_PH = {
+  'luxury-car-gabon': ['lux-1.webp', 'lux-2.webp', 'lux-3.webp', 'lux-4.webp', 'lux-5.webp'],
+  'prestige-cars': ['pre-1.webp', 'pre-2.webp', 'pre-3.webp', 'pre-4.webp', 'pre-5.webp'],
+};
 const SIGNATURES = ['chouchou-lazare', 'artemis-luxury-co', 'skin-technology-by-latania', 'hotel-le-refuge', 'akae-beach', 'bella-mamma'];
 
 // Animations ajoutées aux sites générés : apparition au défilement, zoom lent du haut de page, bouton retour.
@@ -57,16 +66,23 @@ for (const p of prospects) {
   const b = lib.brandOf(p, 0, counter[p.k]++);
   const c = lib.content(p, b);
   require('./appliquer').apply(p, b, c);
+  if (p.ext && EXT_PH[b.slug]) b.photos = EXT_PH[b.slug].map((f) => '../../assets/photos/ext/' + f);
   const sig = SIGNATURES.includes(b.slug);
   // Site généré (les sites signature sont écrits à la main dans neam-moteur/sites/<slug>/)
   const sdir = path.join(APP, 'sites', b.slug);
   fs.mkdirSync(sdir, { recursive: true });
   const hand = HAND.includes(b.slug);
-  const built = hand ? [] : buildSite(p, b, c);
-  const pageList = hand ? JSON.parse(fs.readFileSync(path.join(sdir, 'pages.json'), 'utf8')) : built.map(([f, h]) => [f, ((h.match(/<title>([^<—]+)/) || [])[1]?.trim() || f).replace(/&amp;/g, '&').replace(/&#39;|&apos;/g, "'")]);
+  const ext = p.ext ? EXT[b.slug] || [] : null;
+  const built = hand || ext ? [] : buildSite(p, b, c);
+  if (ext) {
+    for (const f of fs.readdirSync(sdir)) if (f.endsWith('.html')) fs.unlinkSync(path.join(sdir, f));
+    fs.writeFileSync(path.join(sdir, 'index.html'), `<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=${p.ext}"><title>${p.n}</title><a href="${p.ext}">${p.n}</a>`);
+    fs.writeFileSync(path.join(sdir, 'pages.json'), JSON.stringify(ext));
+  }
+  const pageList = ext || hand ? JSON.parse(fs.readFileSync(path.join(sdir, 'pages.json'), 'utf8')) : built.map(([f, h]) => [f, ((h.match(/<title>([^<—]+)/) || [])[1]?.trim() || f).replace(/&amp;/g, '&').replace(/&#39;|&apos;/g, "'")]);
   // Supprime les pages qui ne font plus partie du site
   const keep = new Set(built.map(([f]) => f));
-  if (!hand) for (const f of fs.readdirSync(sdir)) if (f.endsWith('.html') && !keep.has(f)) fs.unlinkSync(path.join(sdir, f));
+  if (!hand && !ext) for (const f of fs.readdirSync(sdir)) if (f.endsWith('.html') && !keep.has(f)) fs.unlinkSync(path.join(sdir, f));
   for (const [file, html] of built) {
     if (sig && file === 'index.html') continue; // l'accueil des sites signature est écrit à la main
     fs.writeFileSync(path.join(sdir, file), html);
@@ -87,7 +103,7 @@ for (const p of prospects) {
     photos: b.photos.slice(0, 5).map((u) => u.replace('../../', '')),
     avatar: lib.avatarSVG(p, b).replace(/\.\.\/\.\.\//g, ''),
     items: c.items.slice(0, 3).map((it) => lib.itemTitle(it)),
-    ig: st.ig, fb: st.fb,
+    ig: st.ig, fb: st.fb, ext: p.ext || undefined,
   });
 }
 fs.mkdirSync(path.join(APP, 'data'), { recursive: true });

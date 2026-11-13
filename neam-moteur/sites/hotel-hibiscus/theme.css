@@ -1,0 +1,9 @@
+/* Hôtel Hibiscus : rose hibiscus et vert du logo, crème. Bodoni Moda + Manrope. */
+:root{--p:#2E5E3A;--p2:#1F4229;--a:#D6336C;--a2:#F06595;--soft:#FBF3F5;--ink:#1F2421;--mute:#636B66;--line:#EFE3E6;--hf:'Bodoni Moda',Georgia,serif;--bf:Manrope,Arial,sans-serif;--r:12px}
+.hero:before{background:linear-gradient(180deg,rgba(31,66,41,.15),rgba(31,66,41,.25) 40%,rgba(31,66,41,.85))}
+.pt:before{background:linear-gradient(90deg,rgba(31,66,41,.88),rgba(31,66,41,.35))}
+.tag{color:#B4245A}.btn.p:hover{background:#B4245A}.hero .kick{color:#FFD1E0}
+.logo img{height:40px;width:auto}
+.duo2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}.duo2>div{background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}.duo2 img{width:100%;height:260px;object-fit:cover}.duo2 .bd{padding:24px}.duo2 h3{font-size:28px;color:var(--p)}.duo2 p{color:var(--mute);margin:6px 0 14px}
+@media (max-width:860px){.duo2{grid-template-columns:minmax(0,1fr)}.duo2 img{height:200px}}
+.hero .kick{text-shadow:0 1px 8px rgba(0,0,0,.6)}

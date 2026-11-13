@@ -30,7 +30,9 @@
   const mini = (p) => `<span class="mini">${p.avatar}</span>`;
   const nf = (n) => (n >= 10000 ? (n / 1000).toFixed(1).replace('.', ',').replace(',0', '') + ' k' : n.toLocaleString('fr-FR'));
   const stars = (r) => '★★★★★'.slice(0, Math.round(r)) + '☆☆☆☆☆'.slice(0, 5 - Math.round(r));
-  const siteUrl = (p) => (p.custom ? `apercu.html?slug=${p.slug}` : `sites/${p.slug}/index.html`);
+  const siteUrl = (p) => (p.ext || (p.custom ? `apercu.html?slug=${p.slug}` : `sites/${p.slug}/index.html`));
+  const pageUrl = (p, f) => (p.ext ? p.ext + f : `sites/${p.slug}/${f}`);
+  const host = (p) => (p.ext ? p.ext.replace(/^https?:\/\//, '').replace(/\/$/, '') : 'www.' + p.domain);
   const resUrl = (p, n = 'instagram') => (p.custom ? `apercu.html?slug=${p.slug}&v=reseaux` : `social.html?slug=${p.slug}&net=${n}`);
   const SLD = { 'carte.html': 'Plats, boissons et prix', 'reservation.html': 'Confirmation par WhatsApp', 'chambres.html': 'Photos, équipements et tarifs', 'restaurant.html': 'Cuisine et bar', 'soins.html': 'Prestations et tarifs', 'rendez-vous.html': 'Créneaux disponibles en ligne', 'annonces.html': 'Vente et location', 'estimer.html': 'Estimation gratuite', 'equipe.html': 'Nos praticiens', 'destinations.html': 'Séjours et circuits', 'sur-mesure.html': 'Devis sous 24 h', 'catalogue.html': 'Pièces par véhicule', 'flotte.html': 'Véhicules et tarifs', 'formules.html': 'Code, conduite, accéléré', 'inscription.html': 'En ligne en 2 minutes', 'services.html': 'Prestations et tarifs', 'formations.html': 'Programmes et tarifs', 'collection.html': 'Pièces et prix', 'boutique.html': 'Commande WhatsApp', 'devis.html': 'Réponse sous 24 h', 'a-propos.html': 'Notre histoire', 'galerie.html': 'Photos', 'contact.html': 'Adresse, horaires, plan' , 'expertises.html': 'Valeur vénale, bancaire, judiciaire', 'demande.html': 'Devis sous 48 h', 'residences.html': 'Logements et bureaux à louer', 'louer.html': 'Demande de location en ligne', 'gestion.html': 'Locataires, loyers, entretien', 'confier.html': 'Proposition sous 48 h'};
   const lead = (s) => s.split(':')[0].trim().replace(/[.\s]+$/, '');
@@ -81,7 +83,7 @@
     else out.innerHTML = `<div class="cols"><div class="main"><div class="stat">Environ ${(found.length * 1730).toLocaleString('fr-FR')} résultats (0,4${found.length % 10} secondes)</div>${pack(found.slice(0, 3), q)}${found.slice(0, 10).map(siteRes).join('')}</div></div>`;
   }
 
-  const siteRes = (p) => `<div class="res"><div class="src">${mini(p)}<div><div>${esc(p.n)}</div><div class="url">https://www.${esc(p.domain)}</div></div></div><h3><a href="${siteUrl(p)}">${esc(p.n)} — ${esc(p.s)} à ${esc(p.c)} | ${esc(p.tagline)}</a></h3><p>${esc(p.intro)}</p></div>`;
+  const siteRes = (p) => `<div class="res"><div class="src">${mini(p)}<div><div>${esc(p.n)}</div><div class="url">https://${esc(host(p))}</div></div></div><h3><a href="${siteUrl(p)}">${esc(p.n)} — ${esc(p.s)} à ${esc(p.c)} | ${esc(p.tagline)}</a></h3><p>${esc(p.intro)}</p></div>`;
 
   function pack(list, q) {
     const pins = list.map((p, i) => `<span class="pin" style="left:${18 + i * 28 + (p.slug.length % 7) * 2}%;top:${30 + ((p.slug.length * 13) % 40)}%"><i></i></span>`).join('');
@@ -101,7 +103,7 @@
       tiktok: `${p.main} sur TikTok : coulisses, nouveautés et bons plans à ${p.c}.`, linkedin: `${p.n} | ${p.s} · ${p.c}, Gabon. Actualités et offres d'emploi.`,
     };
     const net = (n) => `<div class="res"><div class="src">${fav(n)}<div><div>${NET[n][2]}</div><div class="url">https://${NET[n][3]} › ${esc(p.handle)}</div></div></div><h3><a href="${resUrl(p, n)}">${esc(p.main)} (@${esc(p.handle)}) • ${NET[n][2]}</a></h3><p>${esc(desc[n])}</p></div>`;
-    return `<div class="res"><div class="src">${mini(p)}<div><div>${esc(p.n)}</div><div class="url">https://www.${esc(p.domain)}</div></div></div><h3><a href="${siteUrl(p)}">${esc(p.n)} — ${esc(p.s)} à ${esc(p.c)} | ${esc(p.tagline)}</a>${p.sig ? '<span class="badge">expérience immersive</span>' : ''}</h3><p>${esc(p.intro)}</p><div class="sitelinks">${(p.pages && !p.custom ? p.pages.slice(0, 6).map(([f, t]) => [t, f]) : links.map(([t]) => [t, ''])).map(([t, f]) => `<a href="${f ? 'sites/' + p.slug + '/' + f : siteUrl(p)}"><b>${esc(t)}</b>${esc(SLD[f] || '')}</a>`).join('')}</div></div>
+    return `<div class="res"><div class="src">${mini(p)}<div><div>${esc(p.n)}</div><div class="url">https://${esc(host(p))}</div></div></div><h3><a href="${siteUrl(p)}">${esc(p.n)} — ${esc(p.s)} à ${esc(p.c)} | ${esc(p.tagline)}</a>${p.sig ? '<span class="badge">expérience immersive</span>' : ''}</h3><p>${esc(p.intro)}</p><div class="sitelinks">${(p.pages && !p.custom ? p.pages.slice(0, 6).map(([f, t]) => [t, f]) : links.map(([t]) => [t, ''])).map(([t, f]) => `<a href="${f ? pageUrl(p, f) : siteUrl(p)}"><b>${esc(t)}</b>${esc(SLD[f] || '')}</a>`).join('')}</div></div>
       ${net('instagram')}${net('facebook')}
       <div><div style="font-size:20px;margin-bottom:12px">Profils sur les réseaux</div><div class="prof">${['instagram', 'tiktok', 'facebook', 'linkedin'].map((n) => `<a href="${resUrl(p, n)}">${fav(n)}<b>${NET[n][2]}</b>@${esc(p.handle)}</a>`).join('')}</div></div>
       ${net('tiktok')}${net('linkedin')}
@@ -126,18 +128,18 @@
     const rating = pr.r ? `<b style="color:#202124">${String(pr.r).replace('.', ',')}</b> <span class="stars">${stars(pr.r)}</span> ${pr.v} avis Google` : 'Aucun avis pour l\'instant';
     const maps = `https://www.google.com/maps/search/${encodeURIComponent(p.n + ' ' + p.c + ' Gabon')}`;
     const ctaPage = (p.pages || []).find(([f]) => /reserv|rendez|inscri|devis|sur-mesure|contact/.test(f));
-    const cta = ctaPage && !p.custom ? `sites/${p.slug}/${ctaPage[0]}` : siteUrl(p);
+    const cta = ctaPage && !p.custom ? pageUrl(p, ctaPage[0]) : siteUrl(p);
     const h = p.slug.length;
     const revs = (REV[p.k] || REV.auto).map((t, i) => ({ who: WHO[(h + i) % WHO.length], t, d: ['il y a 2 jours', 'il y a 1 semaine', 'il y a 3 semaines'][i] }));
     const qa = [[`Peut-on ${p.k === 'resto' ? 'réserver une table' : p.k === 'hotel' ? 'réserver une chambre' : 'prendre rendez-vous'} en ligne ?`, `Oui, directement sur ${p.domain} ou par WhatsApp au ${p.t}. Confirmation rapide.`], ['Quels sont vos horaires ?', `${p.hours[1]}.`]];
     return `<aside class="kp"><div class="phs">${p.photos.slice(0, 3).map((ph) => `<div style="background-image:url('${ph}')"></div>`).join('')}<span class="nph">${ico('img', 14, '#fff')} ${18 + (h % 20)} photos</span></div>
     <div class="in"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h2>${esc(p.n)}</h2><span class="mini" style="width:46px;height:46px;border-radius:10px">${p.avatar}</span></div><div style="margin:6px 0;color:#70757a">${rating}</div><div style="color:#70757a">${esc(p.s)} à ${esc(p.c)}</div><div class="claim" style="margin-top:8px;font-size:12px;color:#188038;display:flex;gap:6px;align-items:center">${ico('check', 14, '#188038', 2.4)} Établissement revendiqué par le propriétaire</div></div>
     <div class="acts"><a href="${siteUrl(p)}"><i>${ico('globe')}</i>Site Web</a><a href="${maps}" target="_blank" rel="noopener"><i>${ico('pin')}</i>Itinéraire</a><a href="${cta}"><i>${ico('check')}</i>${esc(p.cta.length > 14 ? p.cta.split(' ')[0] : p.cta)}</a><a href="tel:+241${p.t.replace(/\D/g, '').replace(/^0/, '')}"><i>${ico('phone')}</i>Appeler</a></div>
-    <div class="in info"><div class="row" style="color:#4d5156">${esc(lead(p.intro))}.</div><div class="row"><b>Adresse : </b>${esc(p.address)}</div><div class="row"><b>Horaires : </b><span class="ok">Ouvert</span> · ${esc(p.hours[0])} <span style="color:#70757a">(${esc(p.hours[1])})</span></div><div class="row"><b>Téléphone : </b>${esc(p.t)}</div><div class="row"><b>${esc(p.cta)} : </b><a style="color:var(--link)" href="${cta}">${esc(p.domain)}</a></div><div class="row"><b>Profils : </b><a style="color:var(--link)" href="${resUrl(p)}">Instagram · TikTok · Facebook · LinkedIn</a></div>${p.d ? `<div class="row"><b>Direction : </b>${esc(p.d)}</div>` : ''}</div>
+    <div class="in info"><div class="row" style="color:#4d5156">${esc(lead(p.intro))}.</div><div class="row"><b>Adresse : </b>${esc(p.address)}</div><div class="row"><b>Horaires : </b><span class="ok">Ouvert</span> · ${esc(p.hours[0])} <span style="color:#70757a">(${esc(p.hours[1])})</span></div><div class="row"><b>Téléphone : </b>${esc(p.t)}</div><div class="row"><b>${esc(p.cta)} : </b><a style="color:var(--link)" href="${cta}">${esc(p.ext ? host(p) : p.domain)}</a></div><div class="row"><b>Profils : </b><a style="color:var(--link)" href="${resUrl(p)}">Instagram · TikTok · Facebook · LinkedIn</a></div>${p.d ? `<div class="row"><b>Direction : </b>${esc(p.d)}</div>` : ''}</div>
     <div class="in qa"><div class="kh">Questions et réponses</div>${qa.map(([q, a]) => `<div class="q"><b>${esc(q)}</b><p><span class="own">Réponse du propriétaire</span> ${esc(a)}</p></div>`).join('')}</div>
     <div class="in rvw"><div class="kh">Avis</div>${revs.map((r) => `<div class="rv1"><div class="rh"><span class="ri">${r.who[0]}</span><b>${esc(r.who)}</b><span class="stars">★★★★★</span><small>${r.d}</small></div><p>${esc(r.t)}</p><div class="rep"><b>Réponse du propriétaire</b> Merci ${esc(r.who.split(' ')[0])} pour votre confiance, toute l'équipe de ${esc(p.main)} est ravie. À très bientôt !</div></div>`).join('')}</div>
     <div class="in gposts" style="padding-top:0"><div class="kh">Posts de ${esc(p.main)}</div><div class="posts">${[3, 4].map((i, k) => `<div><span style="background-image:url('${p.photos[i] || p.photos[0]}')"></span><p>${k ? 'Nouveau : ' + esc(p.items[0]) : esc(p.tagline)}</p></div>`).join('')}</div></div>
-    ${p.custom ? '' : `<a class="dsc" href="score.html?slug=${p.slug}">Digital score NEAM <b>${p.sc || 0} → ${S ? S.after(p).total : 95}/100</b> · voir le plan ›</a>`}</aside>`;
+    ${p.custom || p.ext ? '' : `<a class="dsc" href="score.html?slug=${p.slug}">Digital score NEAM <b>${p.sc || 0} → ${S ? S.after(p).total : 95}/100</b> · voir le plan ›</a>`}</aside>`;
   }
 
 
