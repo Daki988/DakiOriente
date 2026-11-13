@@ -39,6 +39,16 @@
     "titre": "CONGRATS to MobileCoin on their $1B valuation Series B",
     "verifie": "2026-11-13"
   },
+  "met-agent-tourisme": {
+    "alt": "Agent de voyage / guide touristique",
+    "credit": "daveynin",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/44124370018@N01/51587704851",
+    "source": "https://live.staticflickr.com/65535/51587704851_2202b2a7b6_b.jpg",
+    "src": "/images/metiers/agent-tourisme.webp",
+    "titre": "Guide tour of the Crazy Horse",
+    "verifie": "2026-11-13"
+  },
   "met-analyste-financier": {
     "alt": "Analyste financier",
     "credit": "Altered Reality",
@@ -47,6 +57,16 @@
     "source": "https://cdn.stocksnap.io/img-thumbs/960w/BI0OXVDDLY.jpg",
     "src": "/images/metiers/analyste-financier.webp",
     "titre": "Stock Market",
+    "verifie": "2026-11-13"
+  },
+  "met-artiste-plasticien": {
+    "alt": "Artiste plasticien",
+    "credit": "Joshua Tree National Park",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/115357548@N08/51950794388",
+    "source": "https://live.staticflickr.com/65535/51950794388_bab3eba211_b.jpg",
+    "src": "/images/metiers/artiste-plasticien.webp",
+    "titre": "Artist Painting in Cholla Cactus Garden",
     "verifie": "2026-11-13"
   },
   "met-assistant-direction": {
@@ -109,6 +129,16 @@
     "titre": "Tat Bank Road, Oldbury - Tat Bank Branch - narrowboat",
     "verifie": "2026-11-13"
   },
+  "met-charge-communication": {
+    "alt": "Chargé de communication",
+    "credit": "ipcc.photo",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/76251540@N08/51985960381",
+    "source": "https://live.staticflickr.com/65535/51985960381_f5ef9618e3_b.jpg",
+    "src": "/images/metiers/charge-communication.webp",
+    "titre": "Press conference: Mitigation of Climate Change 2022",
+    "verifie": "2026-11-13"
+  },
   "met-charge-environnement": {
     "alt": "Chargé d'études environnement / RSE",
     "credit": "USDAgov",
@@ -117,6 +147,16 @@
     "source": "https://live.staticflickr.com/65535/51370759113_cd14b854f3_b.jpg",
     "src": "/images/metiers/charge-environnement.webp",
     "titre": "20210715-APHIS-LSC-0861",
+    "verifie": "2026-11-13"
+  },
+  "met-chef-cuisinier": {
+    "alt": "Chef cuisinier",
+    "credit": "Abubakr Saeed",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/51110738@N04/52361375563",
+    "source": "https://live.staticflickr.com/65535/52361375563_7edd652350_b.jpg",
+    "src": "/images/metiers/chef-cuisinier.webp",
+    "titre": "Dining District: Al Ghurair Center #1",
     "verifie": "2026-11-13"
   },
   "met-chef-projet": {
@@ -377,6 +417,26 @@
     "source": "https://live.staticflickr.com/65535/52648426740_2aa1e7d92a_b.jpg",
     "src": "/images/metiers/gestionnaire-ecommerce.webp",
     "titre": "Asian women holding packaging box ready to delivery,Entrepreneur or freelance Startup small business SME and online mark",
+    "verifie": "2026-11-13"
+  },
+  "met-gestionnaire-hotel": {
+    "alt": "Gestionnaire hôtelier",
+    "credit": "w_lemay",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/59081381@N03/52273134191",
+    "source": "https://live.staticflickr.com/65535/52273134191_792c68950a_b.jpg",
+    "src": "/images/metiers/gestionnaire-hotel.webp",
+    "titre": "Moana Hotel, Kalakaua Avenue, Waikiki, Honolulu, HI",
+    "verifie": "2026-11-13"
+  },
+  "met-graphiste": {
+    "alt": "Graphiste / designer",
+    "credit": "bjornmeansbear",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/64519085@N00/29186792864",
+    "source": "https://live.staticflickr.com/8433/29186792864_9bed6b3aaa_b.jpg",
+    "src": "/images/metiers/graphiste.webp",
+    "titre": "Enjoying this crest for chimney sweep and stone mason contractor. Quaint. Unselfconscious. The rest of their box truck i",
     "verifie": "2026-11-13"
   },
   "met-infirmier": {
@@ -697,6 +757,16 @@
     "source": "https://live.staticflickr.com/65535/51762115991_49a264e72b_b.jpg",
     "src": "/images/metiers/statisticien.webp",
     "titre": "20211210-ARS-LSC-1587",
+    "verifie": "2026-11-13"
+  },
+  "met-styliste": {
+    "alt": "Styliste / modéliste",
+    "credit": "webalkans",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/193092213@N08/51412506168",
+    "source": "https://live.staticflickr.com/65535/51412506168_495faac06f_b.jpg",
+    "src": "/images/metiers/styliste.webp",
+    "titre": "Voicing equality with fashion design",
     "verifie": "2026-11-13"
   },
   "met-technicien-agricole": {
