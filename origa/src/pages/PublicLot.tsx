@@ -21,6 +21,9 @@ interface View {
   /** Données saisies du lot. */
   count?: number | null;
   weightKg?: number | null;
+  /** Effectif et poids cédés par la ferme (lot d'origine pour un lot transformé). */
+  cededCount?: number | null;
+  cededWeightKg?: number | null;
   cededAt?: string;
   receivedAt?: string | null;
   receivedCount?: number | null;
@@ -47,7 +50,7 @@ async function fromServer(token: string): Promise<View> {
     if (j.pending) return { valid: true, pending: true, lotId };
     return {
       valid: true, lotId, farmName: j.farm?.name, locality: j.farm?.locality, province: j.farm?.province,
-      count: j.lot.count, weightKg: j.lot.weightKg, cededAt: j.lot.cededAt, receivedAt: j.lot.receivedAt, receivedCount: j.lot.receivedCount,
+      count: j.lot.count, weightKg: j.lot.weightKg, cededCount: j.lot.cededCount ?? j.lot.count, cededWeightKg: j.lot.cededWeightKg ?? j.lot.weightKg, cededAt: j.lot.cededAt, receivedAt: j.lot.receivedAt, receivedCount: j.lot.receivedCount,
       distributorCheckedAt: j.lot.distributorCheckedAt, product: j.lot.product, parentId: j.lot.parentId,
       band: j.band, operator: j.operator, vaccinations: j.vaccinations ?? [], treatments: j.treatments, movements: j.movements ?? [], vaccinationsOk: j.vaccinationsOk,
     };
@@ -155,7 +158,7 @@ export function PublicLot() {
               <div>
                 {v.band && <Step title="Arrivée des poussins" sub={`${fmtDate(v.band.placedAt)} · ${v.locality ?? ''}`} />}
                 {v.band && <Step title="Élevage suivi au quotidien" sub={`${v.band.ageDays} jours à la ferme`} />}
-                <Step title={`Sortie de la ferme vers ${v.operator?.name ?? 'un acheteur identifié'}`} sub={`${fmtDate(v.cededAt!)}${v.count ? ` · ${fmtInt(v.count)} poulets` : ''}${v.weightKg ? `, ${fmtInt(v.weightKg)} kg` : ''}`} />
+                <Step title={`Sortie de la ferme vers ${v.operator?.name ?? 'un acheteur identifié'}`} sub={`${fmtDate(v.cededAt!)}${v.cededCount ?? v.count ? ` · ${fmtInt((v.cededCount ?? v.count)!)} poulets` : ''}${v.cededWeightKg ?? v.weightKg ? `, ${fmtInt((v.cededWeightKg ?? v.weightKg)!)} kg` : ''}`} />
                 {v.receivedAt
                   ? <Step title={v.operator?.type === 'abattoir' ? "Réception et abattage à l'abattoir" : 'Réception par le destinataire'} sub={`${fmtDate(v.receivedAt)}${v.receivedCount ? ` · ${fmtInt(v.receivedCount)} reçus` : ''} · ${v.operator?.locality ?? ''}`} />
                   : <Step done={false} title={v.operator?.type === 'abattoir' ? "Réception à l'abattoir" : 'Réception par le destinataire'} sub="En attente : le lot n'a pas encore été réceptionné" last={!v.movements?.length} />}

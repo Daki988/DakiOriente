@@ -255,24 +255,28 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mai
     if (!lot) return { valid: true, lotId, pending: true };
     const [farm, band, op, settings, parent] = await Promise.all([get('farms', lot.farmId), get('bands', lot.bandId), get('operators', lot.operatorId), get('settings', 'global'), get('lots', lot.parentId)]);
     const rows = async (tbl: string, field: string, value: unknown) => (value ? (await db.query(`SELECT payload FROM records WHERE tbl=$1 AND payload->>'${field}'=$2`, [tbl, String(value)])).rows.map((r) => r.payload) : []);
-    const [vaccRows, treatments, movements] = await Promise.all([rows('vaccinations', 'bandId', lot.bandId), rows('treatments', 'bandId', lot.bandId), rows('movements', 'lotId', lot.id)]);
+    const [vaccRows, treatments, ownMoves, parentMoves] = await Promise.all([rows('vaccinations', 'bandId', lot.bandId), rows('treatments', 'bandId', lot.bandId), rows('movements', 'lotId', lot.id), rows('movements', 'lotId', parent?.id)]);
+    const movements = [...parentMoves, ...ownMoves];
+    // Lot transformé : la sortie de ferme et la réception sont celles du lot d'origine.
+    const origin = parent ?? lot;
     const vacc = vaccRows.map((r) => String(r.vaccine));
-    const age = band ? Math.round((Date.parse(lot.cededAt) - Date.parse(band.placedAt)) / 86_400_000) : 0;
+    const age = band ? Math.round((Date.parse((parent ?? lot).cededAt) - Date.parse(band.placedAt)) / 86_400_000) : 0;
     const due = ((settings?.vaccinationCalendar ?? []) as { day: number; vaccine: string }[]).filter((v) => v.day <= age);
     const plusDays = (d: string, n: number) => new Date(Date.parse(d) + n * 86_400_000).toISOString().slice(0, 10);
     // Données saisies du lot, sans aucune donnée personnelle : ni nom de l'exploitant, ni téléphone, ni position exacte.
     return {
       valid: true,
       lot: {
-        id: lot.id, cededAt: lot.cededAt, receivedAt: lot.receivedAt ?? null, count: lot.count ?? null, weightKg: lot.weightKg ?? null,
-        receivedCount: lot.receivedCount ?? null, receivedWeightKg: lot.receivedWeightKg ?? null, distributorCheckedAt: lot.distributorCheckedAt ?? null,
+        id: lot.id, cededAt: origin.cededAt, receivedAt: origin.receivedAt ?? lot.receivedAt ?? null, count: lot.count ?? null, weightKg: lot.weightKg || null,
+        cededCount: origin.count ?? null, cededWeightKg: origin.weightKg ?? null,
+        receivedCount: origin.receivedCount ?? null, receivedWeightKg: origin.receivedWeightKg ?? null, distributorCheckedAt: lot.distributorCheckedAt ?? parent?.distributorCheckedAt ?? null,
         product: lot.derivedProduct ?? null, parentId: lot.parentId ?? null, parentReceivedAt: parent?.receivedAt ?? null,
       },
       farm: farm ? { name: farm.publicName === false ? null : farm.name, locality: farm.locality, province: PROVINCES[farm.province] ?? farm.province } : null,
       band: band ? { rank: band.rank ?? (Number(/-B(\d+)$/.exec(String(lot.bandId))?.[1]) || null), placedAt: band.placedAt, strain: band.strain ?? null, ageDays: age } : null,
       operator: op ? { name: op.name, type: op.type, locality: op.locality } : null,
       vaccinations: vaccRows.map((r) => ({ vaccine: String(r.vaccine), date: String(r.date ?? '') })).sort((a, b) => a.date.localeCompare(b.date)),
-      treatments: { count: treatments.length, withdrawalOk: treatments.every((t) => !t.endDate || plusDays(String(t.endDate), Number(t.withdrawalDays ?? 0)) <= lot.cededAt) },
+      treatments: { count: treatments.length, withdrawalOk: treatments.every((t) => !t.endDate || plusDays(String(t.endDate), Number(t.withdrawalDays ?? 0)) <= origin.cededAt) },
       movements: movements.map((m) => ({ date: String(m.date ?? ''), from: String(m.from ?? ''), to: String(m.to ?? '') })).sort((a, b) => a.date.localeCompare(b.date)),
       vaccinationsOk: due.every((d) => vacc.includes(d.vaccine)),
     };

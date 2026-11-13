@@ -89,7 +89,10 @@ export function Reception() {
   }
 
   async function distributorCheck(lot: Lot) {
-    if (apiEnabled) await api(`/lots/${encodeURIComponent(lot.id)}/distributor-check`, { method: 'POST' });
+    if (apiEnabled) {
+      try { await api(`/lots/${encodeURIComponent(lot.id)}/distributor-check`, { method: 'POST' }); }
+      catch (e) { show((e as Error).message); return; }
+    }
     else await save('lots', { ...lot, distributorCheckedAt: today(), distributorId: operator?.id }, 'contrôle par le distributeur');
     setCurrent(null); show('Origine confirmée');
   }
