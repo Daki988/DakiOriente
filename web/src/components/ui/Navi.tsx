@@ -96,6 +96,7 @@ const lire = <T,>(k: string, d: T): T => { try { const v = sessionStorage.getIte
 const ecrire = (k: string, v: unknown) => { try { sessionStorage.setItem(k, JSON.stringify(v)); } catch { /* stockage indisponible */ } };
 
 const SUGGESTIONS: { icone: ReactNode; texte: string }[] = [
+  { icone: <GraduationCap size={15} />, texte: "Je ne sais pas quoi faire après le bac" },
   { icone: <GraduationCap size={15} />, texte: "Trouver ma formation" },
   { icone: <Calculator size={15} />, texte: "Combien ça coûte ?" },
   { icone: <FileText size={15} />, texte: "Où en est mon dossier ?" },
@@ -246,7 +247,7 @@ export function Navi() {
     try {
       const r = await fetch("/api/navi/", {
         method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin", signal: ctrl.signal,
-        body: JSON.stringify({ messages: histo.slice(-12).map((m) => ({ role: m.role, texte: m.texte.slice(0, 4000) })), page: { chemin: window.location.pathname + window.location.search, titre: document.title }, pays, destination }),
+        body: JSON.stringify({ messages: histo.slice(-24).map((m) => ({ role: m.role, texte: m.texte.slice(0, 4000) })), page: { chemin: window.location.pathname + window.location.search, titre: document.title }, pays, destination }),
       });
       if (!r.ok || !r.body) {
         const d = await r.json().catch(() => null);
@@ -323,7 +324,7 @@ export function Navi() {
           <div ref={fil} className="flex-1 space-y-3.5 overflow-y-auto px-4 py-4 text-[14.5px] leading-relaxed text-ink-soft">
             <div className="flex gap-2.5">
               <Avatar />
-              <div className="rounded-2xl rounded-tl-md border border-slate-200/80 bg-white px-3.5 py-2.5">Bonjour 👋 Je suis Navi, l&apos;assistant de Navigoal. Dis-moi ton projet en une phrase, je te montre directement les formations, les écoles et le budget qui te correspondent.</div>
+              <div className="rounded-2xl rounded-tl-md border border-slate-200/80 bg-white px-3.5 py-2.5">Salut 👋 Moi c&apos;est Navi. Tu sais déjà ce que tu veux faire, ou tu hésites encore ? Raconte-moi, on regarde ça ensemble : métiers, formations, écoles et budget.</div>
             </div>
             {msgs.length === 0 && (
               <div className="pl-[38px]">
@@ -357,7 +358,7 @@ export function Navi() {
 
           <form onSubmit={(e) => { e.preventDefault(); void envoyer(saisie); }} className="border-t border-slate-200/80 bg-white px-3.5 pb-3 pt-3">
             <div className="flex items-end gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-2 focus-within:border-brand-400">
-              <textarea ref={champ} value={saisie} onChange={(e) => setSaisie(e.target.value)} maxLength={1500} rows={1} placeholder={msgs.length ? "Pose ta question…" : "Ex. : bac D, je veux devenir infirmière…"}
+              <textarea ref={champ} value={saisie} onChange={(e) => setSaisie(e.target.value)} maxLength={1500} rows={1} placeholder={msgs.length ? "Écris-moi…" : "Ex. : je suis en terminale D, j'hésite…"}
                 onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); void envoyer(saisie); } }}
                 className="max-h-28 min-h-[36px] flex-1 resize-none border-0 bg-transparent py-1.5 shadow-none outline-none ring-0 focus:border-0 focus:shadow-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-[16px] text-ink placeholder:text-ink-mute sm:text-[14.5px]" aria-label="Ton message pour Navi" />
               {dictee && <button type="button" onClick={dicter} aria-label="Dicter" className={`rounded-lg p-2 ${ecoute ? "text-[#d42a50]" : "text-ink-mute hover:text-ink"}`}><Mic size={18} /></button>}

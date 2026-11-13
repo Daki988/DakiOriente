@@ -28,6 +28,8 @@ export const ECO_COLOC = 0.15;
 
 export type Pair = [number, number];
 export type Devis = {
+  /** true : la scolarité vient des tarifs publiés par l'école ; false : fourchette indicative du type d'établissement. */
+  scolaritePubliee: boolean;
   devise: string; years: number; total: Pair; installation: Pair; cats: Record<string, Pair>; typ: string; chere: boolean;
   rows: { annee: number; scolarite: Pair; annexes: Pair; vie: Pair; renouvellements: Pair; total: Pair }[];
 };
@@ -44,7 +46,9 @@ export function devis(eid: string, fid: string, origine = "", logement: Logement
   const c = COUTS[e.pays];
   const years = Math.max(1, Math.min(Fm.duree_annees, 5));
   const typ = c.scolarite_annuelle[e.type] ? e.type : e.statut === "inter_etats" && c.scolarite_annuelle.inter_etats ? "inter_etats" : "universite";
-  const sco = c.scolarite_annuelle[typ];
+  // Tarifs publiés par l'école quand elle les affiche ; sinon fourchette indicative du type d'établissement.
+  const publie = e.frais_publies;
+  const sco = publie ? { min: publie.min, max: publie.max, libelle: "tarifs publiés par l'école" } : c.scolarite_annuelle[typ];
   const ann = c.frais_annuels_annexes;
   const chere = c.vie_mensuelle.villes_cheres.some((v) => e.ville.includes(v));
   const vie = c.vie_mensuelle[chere ? "ville_chere" : "autre_ville"];
@@ -72,7 +76,7 @@ export function devis(eid: string, fid: string, origine = "", logement: Logement
   const total: Pair = [sub[0] + imp[0] + tr[0], sub[1] + imp[1] + tr[1]];
   const cat = (f: (r: Devis["rows"][number]) => Pair): Pair => [rows.reduce((s, r) => s + f(r)[0], 0), rows.reduce((s, r) => s + f(r)[1], 0)];
   return {
-    devise: c.devise, years, rows, installation: inst, total, typ: sco.libelle, chere,
+    devise: c.devise, years, rows, installation: inst, total, typ: sco.libelle, chere, scolaritePubliee: !!publie,
     cats: {
       "Scolarité": cat((r) => [r.scolarite[0] + r.annexes[0], r.scolarite[1] + r.annexes[1]]),
       "Vie quotidienne": cat((r) => r.vie),

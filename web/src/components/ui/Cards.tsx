@@ -104,7 +104,7 @@ export function FormationOfferCard({ f, etabId, score, highlight = false, villes
     <div className={`card relative flex flex-col gap-5 p-4 transition-all hover:-translate-y-1 hover:shadow-lift sm:flex-row ${highlight ? "border-brand-200 shadow-lift" : ""}`}>
       <PartenaireMarque id={etabId} />
       <div className="relative h-28 w-full shrink-0 sm:w-36">
-        <Illustration p={photoFormation(f.domaine, e)} domaine={f.domaine} className="h-full w-full" rounded="rounded-2xl" />
+        <Illustration p={photoFormation(f.domaine, e, f.metiers)} domaine={f.domaine} className="h-full w-full" rounded="rounded-2xl" />
         <div className="absolute -bottom-3 left-3"><EtabLogo e={e} size={44} className="shadow" /></div>
       </div>
       <div className="flex flex-1 flex-col gap-2 pt-2 sm:pt-0">

@@ -1,5 +1,6 @@
 // Photos d'illustration libres de droits (crédits : public/images/credits.json).
 import credits from "../../public/images/credits.json";
+import creditsMetiers from "../../public/images/credits-metiers.json";
 
 export type Illus = { id: string; src: string; alt: string; credit: string; licence: string; page: string };
 const LISTE = credits as Illus[];
@@ -15,16 +16,18 @@ const DOMAINE: Record<string, string> = {
 };
 export const photoDomaine = (d: string) => photo(DOMAINE[d] ?? "") ;
 
-/** Photos propres à certains métiers ; à défaut, celle du domaine. */
-const METIER: Record<string, string> = {
-  "met-medecin-generaliste": "medecin", "met-infirmier": "infirmier", "met-developpeur-web-mobile": "informatique", "met-data-analyst": "data",
-  "met-ingenieur-genie-civil": "btp", "met-ingenieur-agronome": "agriculture", "met-avocat": "droit", "met-journaliste": "communication",
-  "met-enseignant-secondaire": "education", "met-instituteur": "education", "met-data-scientist": "data",
+/** Une photo par métier (scripts/fetch_illustrations.py, sources libres créditées) ; à défaut, celle du domaine. */
+const METIERS = creditsMetiers as Record<string, { src: string; alt: string; credit: string; licence: string; page: string }>;
+export const photoMetier = (id: string, domaine: string): Illus | null => {
+  const m = METIERS[id];
+  return m ? { id, src: m.src, alt: m.alt, credit: m.credit, licence: m.licence, page: m.page } : photoDomaine(domaine);
 };
-export const photoMetier = (id: string, domaine: string) => photo(METIER[id] ?? "") ?? photoDomaine(domaine);
 
-/** Image d'une offre de formation : photo de l'établissement si elle existe, sinon celle du domaine. */
-export const photoFormation = (domaine: string, e?: { nom: string; photos: { src: string; credit: string | null; licence: string | null; page: string | null }[] }): Illus | null => {
+/** Image d'une offre de formation : photo de l'établissement, sinon celle du métier visé (variée), sinon le domaine.
+ * `metiers` : métiers auxquels la formation prépare — évite que toutes les formations d'un domaine se ressemblent. */
+export const photoFormation = (domaine: string, e?: { nom: string; photos: { src: string; credit: string | null; licence: string | null; page: string | null }[] }, metiers?: string[]): Illus | null => {
   const ph = e?.photos[0];
-  return ph ? { id: ph.src, src: ph.src, alt: e!.nom, credit: ph.credit ?? e!.nom, licence: ph.licence ?? "", page: ph.page ?? "" } : photoDomaine(domaine);
+  if (ph) return { id: ph.src, src: ph.src, alt: e!.nom, credit: ph.credit ?? e!.nom, licence: ph.licence ?? "", page: ph.page ?? "" };
+  const m = (metiers ?? []).find((x) => METIERS[x]);
+  return m ? photoMetier(m, domaine) : photoDomaine(domaine);
 };

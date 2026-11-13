@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element -- logos déjà optimisés */
 import { Crown, Download, LifeBuoy, Pencil, Plus, Search, Star, TentTree, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
-import { Alert, Button, Chip, Dialog, Kpi, Loading, Panel, dateFr, useToast, type Tone } from "@/components/app/kit";
+import { Alert, Button, Chip, Dialog, Kpi, Loading, Panel, Table, dateFr, useToast, type Tone } from "@/components/app/kit";
 import { Field, FormError, Input, Select, Textarea } from "@/components/app/form";
 import { useAction, useApi } from "@/hooks/useApi";
 import { api, apiUrl } from "@/lib/api";
@@ -84,29 +84,25 @@ export function AdminOffres() {
       <Panel>
         <div className="flex flex-wrap items-center gap-2">
           {FILTRES.map(([k, t]) => <button key={k} onClick={() => setFiltre(k)} className={`chip px-3 py-2 ${filtre === k ? "bg-brand-600 text-white" : k === "expire_bientot" ? "bg-[#ffecef] text-[#d42a50]" : "bg-[#eef1f8] text-ink-soft"}`}>{t}</button>)}
-          <div className="relative ml-auto min-w-[240px]"><Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-mute" /><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Établissement, référence…" className="py-2 pl-10" aria-label="Rechercher" /></div>
+          <div className="relative basis-full sm:ml-auto sm:basis-auto sm:min-w-[240px]"><Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-mute" /><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Établissement, référence…" className="py-2 pl-10" aria-label="Rechercher" /></div>
         </div>
-        {!items.length ? <p className="py-8 text-center text-sm text-ink-mute">Aucun abonnement. Cliquez sur « Activer un service » pour en saisir un.</p> : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[920px] text-sm">
-              <thead><tr className="border-b border-[#e6eaf3] text-left text-[11px] uppercase text-ink-mute">{["École", "Service", "Début", "Fin", "État", "Montant · référence", ""].map((h) => <th key={h} className="px-3 py-2.5 font-extrabold">{h}</th>)}</tr></thead>
-              <tbody>{items.map((x) => (
-                <tr key={x.id} className="border-b border-[#eef1f8] last:border-0">
-                  <td className="px-3 py-3"><span className="flex items-center gap-2.5">{x.etablissement.logo && <img src={x.etablissement.logo} alt="" className="h-7 w-7 rounded-lg border border-slate-100 object-contain" />}<b>{x.etablissement.sigle}</b></span></td>
-                  <td className="px-3 py-3">{x.service} · {duree(x.months)}</td>
-                  <td className="px-3 py-3 text-ink-mute">{dateFr(x.startsAt)}</td>
-                  <td className="px-3 py-3 font-bold">{dateFr(x.endsAt)}</td>
-                  <td className="px-3 py-3"><Chip tone={ETAT[x.etat][1]}>{x.etat === "expire_bientot" ? `Expire dans ${jours(x.endsAt)} j` : ETAT[x.etat][0]}</Chip></td>
-                  <td className="px-3 py-3">{x.amount != null ? `${nf(x.amount)} MAD` : "—"}<span className="block text-xs text-ink-mute">{[MOYENS.find(([k]) => k === x.paymentMethod)?.[1], x.paymentRef].filter(Boolean).join(" · ")}</span></td>
-                  <td className="whitespace-nowrap px-3 py-3 text-right">
-                    {(x.etat === "actif" || x.etat === "expire_bientot" || x.etat === "expire") && <Button size="sm" variant="ghost" onClick={() => ouvrir(x.etablissement.id, x.serviceCode)}>Prolonger</Button>}
-                    {(x.etat === "actif" || x.etat === "expire_bientot" || x.etat === "a_venir") && <Button size="sm" variant="quiet" aria-label="Arrêter" onClick={() => setArret(x)}><Trash2 size={14} /></Button>}
-                  </td>
-                </tr>
-              ))}</tbody>
-            </table>
-          </div>
-        )}
+        <Table
+          rows={items} rowKey={(x) => x.id}
+          empty="Aucun abonnement. Cliquez sur « Activer un service » pour en saisir un."
+          cols={[
+            { h: "École", c: (x) => <span className="flex items-center gap-2.5">{x.etablissement.logo && <img src={x.etablissement.logo} alt="" className="h-7 w-7 shrink-0 rounded-lg border border-slate-100 object-contain" />}<b>{x.etablissement.sigle}</b></span> },
+            { h: "Service", c: (x) => <>{x.service} · {duree(x.months)}</> },
+            { h: "Période", c: (x) => <span className="whitespace-nowrap text-ink-mute">{dateFr(x.startsAt)} → <b className="text-ink">{dateFr(x.endsAt)}</b></span> },
+            { h: "État", c: (x) => <Chip tone={ETAT[x.etat][1]}>{x.etat === "expire_bientot" ? `Expire dans ${jours(x.endsAt)} j` : ETAT[x.etat][0]}</Chip> },
+            { h: "Montant", c: (x) => <span>{x.amount != null ? `${nf(x.amount)} MAD` : "—"}<span className="block text-xs text-ink-mute">{[MOYENS.find(([k]) => k === x.paymentMethod)?.[1], x.paymentRef].filter(Boolean).join(" · ")}</span></span> },
+            { h: <span className="sr-only">Actions</span>, className: "text-right", c: (x) => (
+              <span className="flex flex-wrap justify-end gap-1.5">
+                {(x.etat === "actif" || x.etat === "expire_bientot" || x.etat === "expire") && <Button size="sm" variant="ghost" onClick={() => ouvrir(x.etablissement.id, x.serviceCode)}>Prolonger</Button>}
+                {(x.etat === "actif" || x.etat === "expire_bientot" || x.etat === "a_venir") && <Button size="sm" variant="quiet" aria-label="Arrêter" onClick={() => setArret(x)}><Trash2 size={14} /></Button>}
+              </span>
+            ) },
+          ]}
+        />
       </Panel>
       <div className="mt-5"><Alert tone="info">À l&apos;échéance, le service s&apos;arrête tout seul (plus de badge « Partenaire Navigoal », plus d&apos;accès Premium) ; l&apos;école et l&apos;équipe sont prévenues 30 et 7 jours avant. Une prolongation saisie avant la fin évite toute interruption.</Alert></div>
 

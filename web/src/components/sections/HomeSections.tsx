@@ -10,7 +10,7 @@ import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { domStyle } from "@/components/ui/Cards";
 import { CHIFFRES, FORMATIONS_UNE } from "@/lib/catalogue";
 import { PAYS_ACTIFS_TEXTE, etablissements, riasec } from "@/lib/data";
-import { photo, photoDomaine } from "@/lib/photos";
+import { photo, photoFormation } from "@/lib/photos";
 
 const CATEGORIES = [
   { href: "/metiers", Icon: Briefcase, bg: "#eef4ff", fg: "#1a47f5", t: "Métiers", s: "Découvre les métiers qui te ressemblent." },
@@ -131,7 +131,7 @@ export function FormationsPopulaires() {
           return (
             <StaggerItem key={f.id}>
               <Link href={`/formations/${f.id}/`} className="card group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-lift">
-                <Illustration p={photoDomaine(f.domaine)} domaine={f.domaine} className="h-32 transition duration-700 group-hover:scale-105" />
+                <Illustration p={photoFormation(f.domaine, undefined, f.metiers)} domaine={f.domaine} className="h-32 transition duration-700 group-hover:scale-105" />
                 <div className="flex flex-1 items-center gap-3 p-3.5">
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" style={{ background: s.bg, color: s.fg }}><I size={19} /></span>
                   <span className="min-w-0 flex-1"><b className="line-clamp-2 text-[13px] leading-snug">{f.intitule}</b><span className="text-xs text-ink-mute">{f.etablissements.length} établissements</span></span>

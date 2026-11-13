@@ -1,0 +1,832 @@
+{
+  "met-actuaire": {
+    "alt": "Actuaire",
+    "credit": "Greenville, NC",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/156869144@N02/52067172942",
+    "source": "https://live.staticflickr.com/65535/52067172942_038982c4a5_b.jpg",
+    "src": "/images/metiers/actuaire.webp",
+    "titre": "Employee Health Clinic Anniversary Fair",
+    "verifie": "2026-11-13"
+  },
+  "met-admin-reseaux": {
+    "alt": "Administrateur systèmes et réseaux",
+    "credit": "rawpixel",
+    "licence": "CC0 1.0",
+    "page": "https://www.rawpixel.com/image/5975107/photo-image-public-domain-technology",
+    "source": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvYnMyNjUyLWltYWdlLWt3eXQ2aDY3LmpwZw.jpg",
+    "src": "/images/metiers/admin-reseaux.webp",
+    "titre": "Close green blue network server",
+    "verifie": "2026-11-13"
+  },
+  "met-administrateur-civil": {
+    "alt": "Administrateur civil / cadre de l'administration",
+    "credit": "dullhunk",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/14829735@N00/51854596049",
+    "source": "https://live.staticflickr.com/65535/51854596049_a0463ee450_b.jpg",
+    "src": "/images/metiers/administrateur-civil.webp",
+    "titre": "Well good for you, you look happy and healthy 💔",
+    "verifie": "2026-11-13"
+  },
+  "met-agent-mobile-money": {
+    "alt": "Responsable / agent de services financiers mobiles",
+    "credit": "jurvetson",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/44124348109@N01/51386043727",
+    "source": "https://live.staticflickr.com/65535/51386043727_f918571d1a_b.jpg",
+    "src": "/images/metiers/agent-mobile-money.webp",
+    "titre": "CONGRATS to MobileCoin on their $1B valuation Series B",
+    "verifie": "2026-11-13"
+  },
+  "met-analyste-financier": {
+    "alt": "Analyste financier",
+    "credit": "Altered Reality",
+    "licence": "CC0 1.0",
+    "page": "https://stocksnap.io/photo/stock-market-BI0OXVDDLY",
+    "source": "https://cdn.stocksnap.io/img-thumbs/960w/BI0OXVDDLY.jpg",
+    "src": "/images/metiers/analyste-financier.webp",
+    "titre": "Stock Market",
+    "verifie": "2026-11-13"
+  },
+  "met-assistant-direction": {
+    "alt": "Assistant(e) de direction",
+    "credit": "nenadstojkovicart",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/202846129@N03/54564858599",
+    "source": "https://live.staticflickr.com/65535/54564858599_6ec26c143d_b.jpg",
+    "src": "/images/metiers/assistant-direction.webp",
+    "titre": "A professional woman grips a vintage phone receiver, focusing on her upcoming call",
+    "verifie": "2026-11-13"
+  },
+  "met-auditeur": {
+    "alt": "Auditeur",
+    "credit": "Daria Nepriakhina",
+    "licence": "CC0 1.0",
+    "page": "https://stocksnap.io/photo/business-document-AB4F938C85",
+    "source": "https://cdn.stocksnap.io/img-thumbs/960w/AB4F938C85.jpg",
+    "src": "/images/metiers/auditeur.webp",
+    "titre": "Business Document",
+    "verifie": "2026-11-13"
+  },
+  "met-automaticien": {
+    "alt": "Automaticien / roboticien",
+    "credit": "Hugo-90",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/32109282@N00/21550915320",
+    "source": "https://live.staticflickr.com/770/21550915320_f685ceac0c_b.jpg",
+    "src": "/images/metiers/automaticien.webp",
+    "titre": "Ford Flathead Cutaway",
+    "verifie": "2026-11-13"
+  },
+  "met-avocat": {
+    "alt": "Avocat",
+    "credit": "incourts",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/57052139@N02/54489372181",
+    "source": "https://live.staticflickr.com/65535/54489372181_4edb5ec11c_b.jpg",
+    "src": "/images/metiers/avocat.webp",
+    "titre": "Law Library - Rare and Historic Books",
+    "verifie": "2026-11-13"
+  },
+  "met-bibliothecaire-documentaliste": {
+    "alt": "Bibliothécaire / documentaliste",
+    "credit": "Clint__Budd",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/58827557@N06/21746210821",
+    "source": "https://live.staticflickr.com/5678/21746210821_c26d1ca809_b.jpg",
+    "src": "/images/metiers/bibliothecaire-documentaliste.webp",
+    "titre": "Yes, the shelves are at an angle !",
+    "verifie": "2026-11-13"
+  },
+  "met-charge-clientele-banque": {
+    "alt": "Chargé de clientèle bancaire",
+    "credit": "ell brown",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/39415781@N06/33369061492",
+    "source": "https://live.staticflickr.com/2833/33369061492_570349c75a_b.jpg",
+    "src": "/images/metiers/charge-clientele-banque.webp",
+    "titre": "Tat Bank Road, Oldbury - Tat Bank Branch - narrowboat",
+    "verifie": "2026-11-13"
+  },
+  "met-charge-environnement": {
+    "alt": "Chargé d'études environnement / RSE",
+    "credit": "USDAgov",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/41284017@N08/51370759113",
+    "source": "https://live.staticflickr.com/65535/51370759113_cd14b854f3_b.jpg",
+    "src": "/images/metiers/charge-environnement.webp",
+    "titre": "20210715-APHIS-LSC-0861",
+    "verifie": "2026-11-13"
+  },
+  "met-chef-projet": {
+    "alt": "Chef de projet",
+    "credit": "IAEA Imagebank",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/35068899@N03/54592844049",
+    "source": "https://live.staticflickr.com/65535/54592844049_e0186b6d84_b.jpg",
+    "src": "/images/metiers/chef-projet.webp",
+    "titre": "Rafael Mariano Grossi meeting Michael Anderson (05812111)",
+    "verifie": "2026-11-13"
+  },
+  "met-chef-projet-digital": {
+    "alt": "Chef de projet digital",
+    "credit": "CymrudrosHeddwch - WalesforPeace",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/129767871@N03/51652960105",
+    "source": "https://live.staticflickr.com/65535/51652960105_e39541a9c4_b.jpg",
+    "src": "/images/metiers/chef-projet-digital.webp",
+    "titre": "1982 FFHC Bihar Dairy project planning - Indian community partners + Welsh volunteer",
+    "verifie": "2026-11-13"
+  },
+  "met-chercheur": {
+    "alt": "Enseignant-chercheur / chercheur",
+    "credit": "NavyMedicine",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/61270229@N05/51299056913",
+    "source": "https://live.staticflickr.com/65535/51299056913_7b5a73e1e2_b.jpg",
+    "src": "/images/metiers/chercheur.webp",
+    "titre": "Naval Submarine Medical Research Laboratory 210630-N-EY938-890",
+    "verifie": "2026-11-13"
+  },
+  "met-chirurgien-dentiste": {
+    "alt": "Chirurgien-dentiste",
+    "credit": "Pro_Zafor",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/192364152@N05/51482980897",
+    "source": "https://live.staticflickr.com/65535/51482980897_156e4ec657_b.jpg",
+    "src": "/images/metiers/chirurgien-dentiste.webp",
+    "titre": "dental, dentist, dental care, dental implants",
+    "verifie": "2026-11-13"
+  },
+  "met-coach-sportif": {
+    "alt": "Éducateur sportif / coach",
+    "credit": "nenad53",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/202780880@N02/54568054750",
+    "source": "https://live.staticflickr.com/65535/54568054750_b343085a07_b.jpg",
+    "src": "/images/metiers/coach-sportif.webp",
+    "titre": "Several athletes and coaches gather in a gym for a weightlifting competition",
+    "verifie": "2026-11-13"
+  },
+  "met-commercial": {
+    "alt": "Commercial / technico-commercial",
+    "credit": "MTAPhotos",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/61135621@N03/13626352573",
+    "source": "https://live.staticflickr.com/3704/13626352573_0b1f930595_b.jpg",
+    "src": "/images/metiers/commercial.webp",
+    "titre": "Metro-North Customer Forum: April 3, 2014",
+    "verifie": "2026-11-13"
+  },
+  "met-community-manager": {
+    "alt": "Community manager / spécialiste marketing digital",
+    "credit": "Sarah Sophia- PLEASE FAV, DOWNLOAD, SHARE",
+    "licence": "CC0 1.0",
+    "page": "https://www.flickr.com/photos/195712456@N03/53385305354",
+    "source": "https://live.staticflickr.com/65535/53385305354_78b8d622f4_b.jpg",
+    "src": "/images/metiers/community-manager.webp",
+    "titre": "For FB or Social media!",
+    "verifie": "2026-11-13"
+  },
+  "met-comptable": {
+    "alt": "Comptable",
+    "credit": "Salem State Archives and Special Collections",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/68317878@N04/51872563185",
+    "source": "https://live.staticflickr.com/65535/51872563185_ceb29a14dc_b.jpg",
+    "src": "/images/metiers/comptable.webp",
+    "titre": "[Bixby's Postcard—'We have been going over our ledger. . .']",
+    "verifie": "2026-11-13"
+  },
+  "met-conducteur-travaux": {
+    "alt": "Conducteur de travaux",
+    "credit": "Kristoffer Trolle",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/126744325@N07/52575522453",
+    "source": "https://live.staticflickr.com/65535/52575522453_ce4acf41f3_b.jpg",
+    "src": "/images/metiers/conducteur-travaux.webp",
+    "titre": "Construction Site in Carlsberg Byen",
+    "verifie": "2026-11-13"
+  },
+  "met-conseiller-orientation": {
+    "alt": "Conseiller d'orientation",
+    "credit": "unigoa",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/162700079@N03/52407349582",
+    "source": "https://live.staticflickr.com/65535/52407349582_6c3fda61f1_b.jpg",
+    "src": "/images/metiers/conseiller-orientation.webp",
+    "titre": "2022-09-30 - Career Guidance Talk (31)",
+    "verifie": "2026-11-13"
+  },
+  "met-consultant": {
+    "alt": "Consultant en management / stratégie",
+    "credit": "repmobrooks",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/58533574@N04/14564120824",
+    "source": "https://live.staticflickr.com/5577/14564120824_c1a58caf01_b.jpg",
+    "src": "/images/metiers/consultant.webp",
+    "titre": "Lacey Springs Small Business Meeting",
+    "verifie": "2026-11-13"
+  },
+  "met-controleur-aerien": {
+    "alt": "Contrôleur aérien",
+    "credit": "philip.mallis",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/122687277@N03/52467606828",
+    "source": "https://live.staticflickr.com/65535/52467606828_c77709e70f_b.jpg",
+    "src": "/images/metiers/controleur-aerien.webp",
+    "titre": "Essendon Airport Air Traffic Control Tower at Essendon Airport Open Day 2022, Melbourne",
+    "verifie": "2026-11-13"
+  },
+  "met-controleur-gestion": {
+    "alt": "Contrôleur de gestion",
+    "credit": "UKinUSA",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/31430487@N05/52402460941",
+    "source": "https://live.staticflickr.com/65535/52402460941_c72ccee6c3_b.jpg",
+    "src": "/images/metiers/controleur-gestion.webp",
+    "titre": "AFF Day 1",
+    "verifie": "2026-11-13"
+  },
+  "met-dessinateur-projeteur": {
+    "alt": "Dessinateur-projeteur (DAO/BIM)",
+    "credit": "rawpixel",
+    "licence": "CC0 1.0",
+    "page": "https://www.rawpixel.com/image/13961175/image-art-pattern-public-domain",
+    "source": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTAyL2xyL3djbmY5djN1ZjUtaW1hZ2UuanBn.jpg",
+    "src": "/images/metiers/dessinateur-projeteur.webp",
+    "titre": "Technical drawing: conventions colour-coding materials",
+    "verifie": "2026-11-13"
+  },
+  "met-developpeur-web-mobile": {
+    "alt": "Développeur web et mobile",
+    "credit": "dullhunk",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/14829735@N00/51309947507",
+    "source": "https://live.staticflickr.com/65535/51309947507_fca554bfda_b.jpg",
+    "src": "/images/metiers/developpeur-web-mobile.webp",
+    "titre": "If you can read this, thank your TEACHERS, not your politicians",
+    "verifie": "2026-11-13"
+  },
+  "met-diplomate": {
+    "alt": "Diplomate",
+    "credit": "UK Government",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/192333790@N05/51873962905",
+    "source": "https://live.staticflickr.com/65535/51873962905_8c908aed2c_b.jpg",
+    "src": "/images/metiers/diplomate.webp",
+    "titre": "Foreign Secretary Liz Truss visits Moscow Russia",
+    "verifie": "2026-11-13"
+  },
+  "met-electricien-electrotechnicien": {
+    "alt": "Électrotechnicien",
+    "credit": "Michal Jarmoluk",
+    "licence": "CC0 1.0",
+    "page": "https://stocksnap.io/photo/electrician-electricity-QJ55PI34SY",
+    "source": "https://cdn.stocksnap.io/img-thumbs/960w/QJ55PI34SY.jpg",
+    "src": "/images/metiers/electricien-electrotechnicien.webp",
+    "titre": "Electrician Electricity",
+    "verifie": "2026-11-13"
+  },
+  "met-enseignant-secondaire": {
+    "alt": "Professeur de collège / lycée",
+    "credit": "EU-Ukraine cooperation",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/149400054@N04/54241972058",
+    "source": "https://live.staticflickr.com/65535/54241972058_cb39d9b17c_b.jpg",
+    "src": "/images/metiers/enseignant-secondaire.webp",
+    "titre": "Розвиток навичок",
+    "verifie": "2026-11-13"
+  },
+  "met-entrepreneur": {
+    "alt": "Entrepreneur / créateur d'entreprise",
+    "credit": "The Trump White House Archived",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/148748355@N05/49959899488",
+    "source": "https://live.staticflickr.com/65535/49959899488_f9505251e5_b.jpg",
+    "src": "/images/metiers/entrepreneur.webp",
+    "titre": "Vice President Pence Meets with Small Business Owners",
+    "verifie": "2026-11-13"
+  },
+  "met-entrepreneur-agricole": {
+    "alt": "Entrepreneur agricole / agripreneur",
+    "credit": "USDAgov",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/41284017@N08/19047618349",
+    "source": "https://live.staticflickr.com/3696/19047618349_e71bc7abfd_b.jpg",
+    "src": "/images/metiers/entrepreneur-agricole.webp",
+    "titre": "20150627-FFAS-LSC-0107",
+    "verifie": "2026-11-13"
+  },
+  "met-epidemiologiste": {
+    "alt": "Épidémiologiste / chargé de santé publique",
+    "credit": "CDC Global Health",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/89075068@N07/51821027389",
+    "source": "https://live.staticflickr.com/65535/51821027389_b472f13243_b.jpg",
+    "src": "/images/metiers/epidemiologiste.webp",
+    "titre": "Uzbekistan opens Public health Emergency Operation Center with support from U.S. Centers for Disease Control and Prevent",
+    "verifie": "2026-11-13"
+  },
+  "met-expert-comptable": {
+    "alt": "Expert-comptable / commissaire aux comptes",
+    "credit": "digitalcreators.ch",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/192194531@N08/52900069878",
+    "source": "https://live.staticflickr.com/65535/52900069878_a946f64451_b.jpg",
+    "src": "/images/metiers/expert-comptable.webp",
+    "titre": "professional_African_American_accountant_or_auditor_m_0ffb2267-4bac-422b-a699-9a34f048ca19",
+    "verifie": "2026-11-13"
+  },
+  "met-expert-cybersecurite": {
+    "alt": "Expert en cybersécurité",
+    "credit": "Startup Stock Photos",
+    "licence": "CC0 1.0",
+    "page": "https://stocksnap.io/photo/team-meeting-69TMH4ITIE",
+    "source": "https://cdn.stocksnap.io/img-thumbs/960w/69TMH4ITIE.jpg",
+    "src": "/images/metiers/expert-cybersecurite.webp",
+    "titre": "Team Meeting",
+    "verifie": "2026-11-13"
+  },
+  "met-geologue": {
+    "alt": "Géologue",
+    "credit": "UAHiRISE (NASA)",
+    "licence": "CC0 1.0",
+    "page": "https://www.flickr.com/photos/71688597@N05/51885338888",
+    "source": "https://live.staticflickr.com/65535/51885338888_b9ded13034_b.jpg",
+    "src": "/images/metiers/geologue.webp",
+    "titre": "Varied Types of Rock in a Crater in Eos Chasma",
+    "verifie": "2026-11-13"
+  },
+  "met-geometre-topographe": {
+    "alt": "Géomètre-topographe",
+    "credit": "NRCgov",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/69383258@N08/13624233934",
+    "source": "https://live.staticflickr.com/7252/13624233934_5f16fd67d0_b.jpg",
+    "src": "/images/metiers/geometre-topographe.webp",
+    "titre": "NRC Commissioner Svinicki visits Vogtle Construction SIte",
+    "verifie": "2026-11-13"
+  },
+  "met-gestionnaire-ecommerce": {
+    "alt": "E-commerçant / gestionnaire e-commerce",
+    "credit": "pockethifi",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/31667440@N04/52648426740",
+    "source": "https://live.staticflickr.com/65535/52648426740_2aa1e7d92a_b.jpg",
+    "src": "/images/metiers/gestionnaire-ecommerce.webp",
+    "titre": "Asian women holding packaging box ready to delivery,Entrepreneur or freelance Startup small business SME and online mark",
+    "verifie": "2026-11-13"
+  },
+  "met-infirmier": {
+    "alt": "Infirmier / Infirmière",
+    "credit": "Aussie~mobs",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/70994841@N07/52400057821",
+    "source": "https://live.staticflickr.com/65535/52400057821_0e003d01e3_b.jpg",
+    "src": "/images/metiers/infirmier.webp",
+    "titre": "Four nurses in Queensland - circa 1908",
+    "verifie": "2026-11-13"
+  },
+  "met-ingenieur-agronome": {
+    "alt": "Ingénieur agronome",
+    "credit": "USDAgov",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/41284017@N08/51837763525",
+    "source": "https://live.staticflickr.com/65535/51837763525_cf4a8d7ea4_b.jpg",
+    "src": "/images/metiers/ingenieur-agronome.webp",
+    "titre": "20211213-ARS-LSC-1977",
+    "verifie": "2026-11-13"
+  },
+  "met-ingenieur-eaux-forets": {
+    "alt": "Ingénieur des eaux et forêts",
+    "credit": "Forest Service Pacific Northwest Region",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/135886671@N08/51420080213",
+    "source": "https://live.staticflickr.com/65535/51420080213_b3816cb900_b.jpg",
+    "src": "/images/metiers/ingenieur-eaux-forets.webp",
+    "titre": "Mt. Hood National Forest, Fish Creek Rd on Clackamas River Ranger District",
+    "verifie": "2026-11-13"
+  },
+  "met-ingenieur-electricien": {
+    "alt": "Ingénieur électricien / énergéticien",
+    "credit": "EU-Ukraine cooperation",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/149400054@N04/54435322007",
+    "source": "https://live.staticflickr.com/65535/54435322007_6f72b4ecf2_b.jpg",
+    "src": "/images/metiers/ingenieur-electricien.webp",
+    "titre": "A gas insulated switchgear(GIS) in control building for extra high voltage electrical power substation. Sulfur hexafluor",
+    "verifie": "2026-11-13"
+  },
+  "met-ingenieur-genie-civil": {
+    "alt": "Ingénieur génie civil",
+    "credit": "arthur.strathearn",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/142603527@N02/51560775271",
+    "source": "https://live.staticflickr.com/65535/51560775271_c91092f727_b.jpg",
+    "src": "/images/metiers/ingenieur-genie-civil.webp",
+    "titre": "YUGOSLAVIA enters into the CONTRACT of the ARCH",
+    "verifie": "2026-11-13"
+  },
+  "met-ingenieur-genie-industriel": {
+    "alt": "Ingénieur génie industriel / méthodes",
+    "credit": "EU-Ukraine cooperation",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/149400054@N04/54548567228",
+    "source": "https://live.staticflickr.com/65535/54548567228_3f31195d9b_b.jpg",
+    "src": "/images/metiers/ingenieur-genie-industriel.webp",
+    "titre": "Innovations support",
+    "verifie": "2026-11-13"
+  },
+  "met-ingenieur-logiciel": {
+    "alt": "Ingénieur logiciel / architecte logiciel",
+    "credit": "Startup Stock Photos",
+    "licence": "CC0 1.0",
+    "page": "https://stocksnap.io/photo/team-meeting-JBW2PXDOL6",
+    "source": "https://cdn.stocksnap.io/img-thumbs/960w/JBW2PXDOL6.jpg",
+    "src": "/images/metiers/ingenieur-logiciel.webp",
+    "titre": "Team Meeting",
+    "verifie": "2026-11-13"
+  },
+  "met-ingenieur-mecanique": {
+    "alt": "Ingénieur mécanique",
+    "credit": "Queensland State Archives",
+    "licence": "CC0 1.0",
+    "page": "https://www.flickr.com/photos/60455048@N02/51292541497",
+    "source": "https://live.staticflickr.com/65535/51292541497_e4fc7eee54_b.jpg",
+    "src": "/images/metiers/ingenieur-mecanique.webp",
+    "titre": "ITM3579792 IPSWICH WORKSHOPS KEARNS MACHINE HIGH GENERAL OVERALL VIEW-TEST JOB Dept No.QSA0334 X2397",
+    "verifie": "2026-11-13"
+  },
+  "met-ingenieur-mines": {
+    "alt": "Ingénieur des mines",
+    "credit": "WWII in View",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/191031534@N08/54930821941",
+    "source": "https://live.staticflickr.com/65535/54930821941_bb2e7e4f8e_b.jpg",
+    "src": "/images/metiers/ingenieur-mines.webp",
+    "titre": "Two lonely, upright sentinels in the ocean of rubble, where the atomic bomb exploded. They may have been part of a schoo",
+    "verifie": "2026-11-13"
+  },
+  "met-ingenieur-petrolier": {
+    "alt": "Ingénieur pétrolier / gazier",
+    "credit": "David Jackmanson",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/58301516@N00/54368445663",
+    "source": "https://live.staticflickr.com/65535/54368445663_4a3dde7e79_b.jpg",
+    "src": "/images/metiers/ingenieur-petrolier.webp",
+    "titre": "Train and Refinery",
+    "verifie": "2026-11-13"
+  },
+  "met-ingenieur-procedes": {
+    "alt": "Ingénieur procédés / chimiste",
+    "credit": "Jefferson Lab",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/53950384@N02/53691478386",
+    "source": "https://live.staticflickr.com/65535/53691478386_9d5568cec2_b.jpg",
+    "src": "/images/metiers/ingenieur-procedes.webp",
+    "titre": "Accelerator Tech team",
+    "verifie": "2026-11-13"
+  },
+  "met-ingenieur-telecoms": {
+    "alt": "Ingénieur télécoms",
+    "credit": "Welcome to Switzerland backstage!",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/70981241@N00/52300246488",
+    "source": "https://live.staticflickr.com/65535/52300246488_31b31a377f_b.jpg",
+    "src": "/images/metiers/ingenieur-telecoms.webp",
+    "titre": "Disentis/Mustér - A sign in the Wood",
+    "verifie": "2026-11-13"
+  },
+  "met-ingenieur-textile": {
+    "alt": "Ingénieur / technicien textile et habillement",
+    "credit": "U.S. National Archives",
+    "licence": "CC0 1.0",
+    "page": "https://www.rawpixel.com/image/8769824/photo-image-face-vintage-person",
+    "source": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAzL2ZsNzQ5NTk0NTczMC1pbWFnZS5qcGc.jpg",
+    "src": "/images/metiers/ingenieur-textile.webp",
+    "titre": "Textiles - Wishnack Silk Company",
+    "verifie": "2026-11-13"
+  },
+  "met-inspecteur-impots": {
+    "alt": "Inspecteur des impôts / douanes",
+    "credit": "Tim Sheerman-Chase",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/68932647@N00/51833835773",
+    "source": "https://live.staticflickr.com/65535/51833835773_0954f6ccac_b.jpg",
+    "src": "/images/metiers/inspecteur-impots.webp",
+    "titre": "Lynx House (Tax Office)",
+    "verifie": "2026-11-13"
+  },
+  "met-instituteur": {
+    "alt": "Instituteur / professeur des écoles",
+    "credit": "Scottish Government",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/26320652@N02/48019308646",
+    "source": "https://live.staticflickr.com/65535/48019308646_fd378ccc54_b.jpg",
+    "src": "/images/metiers/instituteur.webp",
+    "titre": "First Minister - visit to Sunnyside Primary School",
+    "verifie": "2026-11-13"
+  },
+  "met-journaliste": {
+    "alt": "Journaliste",
+    "credit": "UTKnightCenter",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/34802210@N05/13624737835",
+    "source": "https://live.staticflickr.com/2928/13624737835_9f77c2cf6c_b.jpg",
+    "src": "/images/metiers/journaliste.webp",
+    "titre": "Opening Session",
+    "verifie": "2026-11-13"
+  },
+  "met-juriste-entreprise": {
+    "alt": "Juriste d'entreprise",
+    "credit": "rawpixel",
+    "licence": "CC0 1.0",
+    "page": "https://www.rawpixel.com/image/5969418/legal-books",
+    "source": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvaXMxNzUxOC1pbWFnZS1rd3lzYXpoNi5qcGc.jpg",
+    "src": "/images/metiers/juriste-entreprise.webp",
+    "titre": "Legal Books",
+    "verifie": "2026-11-13"
+  },
+  "met-kinesitherapeute": {
+    "alt": "Kinésithérapeute",
+    "credit": "EU-Ukraine cooperation",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/149400054@N04/54435343367",
+    "source": "https://live.staticflickr.com/65535/54435343367_9859967482_b.jpg",
+    "src": "/images/metiers/kinesitherapeute.webp",
+    "titre": "Instructor in military sanatorium corrects patient exercises after combat wound",
+    "verifie": "2026-11-13"
+  },
+  "met-logisticien": {
+    "alt": "Logisticien / responsable supply chain",
+    "credit": "GlacierNPS",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/43288043@N04/51966479517",
+    "source": "https://live.staticflickr.com/65535/51966479517_987128191f_b.jpg",
+    "src": "/images/metiers/logisticien.webp",
+    "titre": "Lifting Park Supplies with Forklift",
+    "verifie": "2026-11-13"
+  },
+  "met-mecanicien-auto": {
+    "alt": "Mécanicien / technicien automobile",
+    "credit": "Memotions",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/77994098@N00/295712115",
+    "source": "https://live.staticflickr.com/107/295712115_8aa4fa6e71_b.jpg",
+    "src": "/images/metiers/mecanicien-auto.webp",
+    "titre": "Boys and their toys with diffusion filter",
+    "verifie": "2026-11-13"
+  },
+  "met-medecin-generaliste": {
+    "alt": "Médecin généraliste",
+    "credit": "celizabethwriter",
+    "licence": "CC0 1.0",
+    "page": "https://www.flickr.com/photos/195530668@N05/52057777936",
+    "source": "https://live.staticflickr.com/65535/52057777936_017841bdfd_b.jpg",
+    "src": "/images/metiers/medecin-generaliste.webp",
+    "titre": "Doctor performing Fraxel consultation",
+    "verifie": "2026-11-13"
+  },
+  "met-medecin-specialiste": {
+    "alt": "Médecin spécialiste (pédiatre, chirurgien, cardiologue...)",
+    "credit": "U.S. Navy Medicine",
+    "licence": "CC0 1.0",
+    "page": "https://www.rawpixel.com/image/10993919/photo-image-face-person-woman",
+    "source": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAzL2ZsNTI1NTM0MzI3MjktaW1hZ2UuanBn.jpg",
+    "src": "/images/metiers/medecin-specialiste.webp",
+    "titre": "CP22 - Comfort Conducts Surgery",
+    "verifie": "2026-11-13"
+  },
+  "met-notaire": {
+    "alt": "Notaire",
+    "credit": "Shook Photos",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/24724221@N07/53080837061",
+    "source": "https://live.staticflickr.com/65535/53080837061_40826c502d_b.jpg",
+    "src": "/images/metiers/notaire.webp",
+    "titre": "Porter County Court House, 1894 - Valparaiso, Indiana",
+    "verifie": "2026-11-13"
+  },
+  "met-officier-militaire": {
+    "alt": "Officier (armée, gendarmerie, police)",
+    "credit": "United States Naval Academy Photo Archive",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/49251707@N07/51376884812",
+    "source": "https://live.staticflickr.com/65535/51376884812_a6111fcb08_b.jpg",
+    "src": "/images/metiers/officier-militaire.webp",
+    "titre": "210814-N-ID676-0561",
+    "verifie": "2026-11-13"
+  },
+  "met-pharmacien": {
+    "alt": "Pharmacien",
+    "credit": "NavyMedicine",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/61270229@N05/51603661045",
+    "source": "https://live.staticflickr.com/65535/51603661045_2e57d78ff7_b.jpg",
+    "src": "/images/metiers/pharmacien.webp",
+    "titre": "21-0011-172 NHB Pharm Week",
+    "verifie": "2026-11-13"
+  },
+  "met-pilote-ligne": {
+    "alt": "Pilote de ligne",
+    "credit": "Stig Nygaard",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/10259776@N00/52280795060",
+    "source": "https://live.staticflickr.com/65535/52280795060_a13b6c8b5d_b.jpg",
+    "src": "/images/metiers/pilote-ligne.webp",
+    "titre": "View from 3rd seat in the cockpit...",
+    "verifie": "2026-11-13"
+  },
+  "met-psychologue": {
+    "alt": "Psychologue",
+    "credit": "IAEA Imagebank",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/35068899@N03/52031275933",
+    "source": "https://live.staticflickr.com/65535/52031275933_0bb90d6d3b_b.jpg",
+    "src": "/images/metiers/psychologue.webp",
+    "titre": "Plenary Session 3, Nuclear Liability (nlc9229)",
+    "verifie": "2026-11-13"
+  },
+  "met-realisateur-monteur": {
+    "alt": "Réalisateur / monteur vidéo",
+    "credit": "artvidshop",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/199102865@N05/53181476932",
+    "source": "https://live.staticflickr.com/65535/53181476932_14846d958b_b.jpg",
+    "src": "/images/metiers/realisateur-monteur.webp",
+    "titre": "Quality Redefined: Professional Video Editing Services",
+    "verifie": "2026-11-13"
+  },
+  "met-responsable-marketing": {
+    "alt": "Responsable marketing",
+    "credit": "userpilot1",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/198537127@N06/52968310602",
+    "source": "https://live.staticflickr.com/65535/52968310602_e745536e3f_b.jpg",
+    "src": "/images/metiers/responsable-marketing.webp",
+    "titre": "Businesswoman Brainstorming Marketing Strategy",
+    "verifie": "2026-11-13"
+  },
+  "met-responsable-rh": {
+    "alt": "Responsable des ressources humaines",
+    "credit": "OregonDOT",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/28364885@N02/52233585037",
+    "source": "https://live.staticflickr.com/65535/52233585037_63d1038e00_b.jpg",
+    "src": "/images/metiers/responsable-rh.webp",
+    "titre": "Oregon DMV",
+    "verifie": "2026-11-13"
+  },
+  "met-sage-femme": {
+    "alt": "Sage-femme",
+    "credit": "JuliaC2006",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/81269484@N00/53996001697",
+    "source": "https://live.staticflickr.com/65535/53996001697_a6f1f84202_b.jpg",
+    "src": "/images/metiers/sage-femme.webp",
+    "titre": "Celebrating 'Call the Midwife'",
+    "verifie": "2026-11-13"
+  },
+  "met-statisticien": {
+    "alt": "Statisticien / économiste",
+    "credit": "USDAgov",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/41284017@N08/51762115991",
+    "source": "https://live.staticflickr.com/65535/51762115991_49a264e72b_b.jpg",
+    "src": "/images/metiers/statisticien.webp",
+    "titre": "20211210-ARS-LSC-1587",
+    "verifie": "2026-11-13"
+  },
+  "met-technicien-agricole": {
+    "alt": "Technicien agricole / conseiller agricole",
+    "credit": "John Briody Photography",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/154266841@N04/51362539661",
+    "source": "https://live.staticflickr.com/65535/51362539661_2b110140bd_b.jpg",
+    "src": "/images/metiers/technicien-agricole.webp",
+    "titre": "Wheat fields, Winchester, UK",
+    "verifie": "2026-11-13"
+  },
+  "met-technicien-energies-renouvelables": {
+    "alt": "Technicien en énergies renouvelables (solaire, éolien)",
+    "credit": "webriprob",
+    "licence": "CC0 1.0",
+    "page": "https://www.flickr.com/photos/198848633@N06/53407668930",
+    "source": "https://live.staticflickr.com/65535/53407668930_3846d90948_b.jpg",
+    "src": "/images/metiers/technicien-energies-renouvelables.webp",
+    "titre": "Industrial plant",
+    "verifie": "2026-11-13"
+  },
+  "met-technicien-laboratoire": {
+    "alt": "Technicien de laboratoire médical",
+    "credit": "The National Guard",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/33252741@N08/51433165421",
+    "source": "https://live.staticflickr.com/65535/51433165421_d2e77c8977_b.jpg",
+    "src": "/images/metiers/technicien-laboratoire.webp",
+    "titre": "Oregon National Guard",
+    "verifie": "2026-11-13"
+  },
+  "met-technicien-maintenance": {
+    "alt": "Technicien de maintenance industrielle",
+    "credit": "nenadstojkovicart",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/202846129@N03/54553064876",
+    "source": "https://live.staticflickr.com/65535/54553064876_7d3be0fd4b_b.jpg",
+    "src": "/images/metiers/technicien-maintenance.webp",
+    "titre": "Close-up view of various hydraulic hoses and components in an industrial machine",
+    "verifie": "2026-11-13"
+  },
+  "met-technicien-maintenance-aero": {
+    "alt": "Technicien de maintenance aéronautique",
+    "credit": "w_lemay",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/59081381@N03/52268705275",
+    "source": "https://live.staticflickr.com/65535/52268705275_dd4f1f5e62_b.jpg",
+    "src": "/images/metiers/technicien-maintenance-aero.webp",
+    "titre": "Plane, Hangar 79, Ford Island, Pearl Harbor, Honolulu, HI",
+    "verifie": "2026-11-13"
+  },
+  "met-technicien-peche": {
+    "alt": "Technicien des pêches et de l'aquaculture",
+    "credit": "USDAgov",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/41284017@N08/51525895288",
+    "source": "https://live.staticflickr.com/65535/51525895288_451028f400_b.jpg",
+    "src": "/images/metiers/technicien-peche.webp",
+    "titre": "20210723-NRCS-LSC-0006",
+    "verifie": "2026-11-13"
+  },
+  "met-technicien-support": {
+    "alt": "Technicien support informatique",
+    "credit": "tony_duell",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/43851301@N02/52638526875",
+    "source": "https://live.staticflickr.com/65535/52638526875_0ac5d12208_b.jpg",
+    "src": "/images/metiers/technicien-support.webp",
+    "titre": "Positioner_test",
+    "verifie": "2026-11-13"
+  },
+  "met-traducteur-interprete": {
+    "alt": "Traducteur / interprète",
+    "credit": "dated-and-located",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/69503658@N05/51896604178",
+    "source": "https://live.staticflickr.com/65535/51896604178_faba97ce99_b.jpg",
+    "src": "/images/metiers/traducteur-interprete.webp",
+    "titre": "ALBANY PUBLIC LIBRARY",
+    "verifie": "2026-11-13"
+  },
+  "met-transitaire": {
+    "alt": "Déclarant en douane / transitaire",
+    "credit": "rawpixel",
+    "licence": "CC0 1.0",
+    "page": "https://www.rawpixel.com/image/8732368/photo-image-public-domain-water",
+    "source": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTExL2ZsNTE3MzY4ODE5NTAtaW1hZ2UuanBn.jpg",
+    "src": "/images/metiers/transitaire.webp",
+    "titre": "Containers ships docked Port",
+    "verifie": "2026-11-13"
+  },
+  "met-travailleur-social": {
+    "alt": "Travailleur social / assistant social",
+    "credit": "exit78",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/28826830@N00/51366013996",
+    "source": "https://live.staticflickr.com/65535/51366013996_32e51aa421_b.jpg",
+    "src": "/images/metiers/travailleur-social.webp",
+    "titre": "A log cabin in the drought area with kiddies on the step to see their visitor (a Red Cross social worker)",
+    "verifie": "2026-11-13"
+  },
+  "met-urbaniste": {
+    "alt": "Urbaniste",
+    "credit": "theslowlane",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/90536753@N00/52326660887",
+    "source": "https://live.staticflickr.com/65535/52326660887_d305a06194_b.jpg",
+    "src": "/images/metiers/urbaniste.webp",
+    "titre": "Construction views. I have an interest in city planning and construction.",
+    "verifie": "2026-11-13"
+  },
+  "met-ux-ui-designer": {
+    "alt": "UX/UI designer",
+    "credit": "FOCA Stock",
+    "licence": "CC0 1.0",
+    "page": "https://stocksnap.io/photo/wireframe-sketch-2QBWAOT5KL",
+    "source": "https://cdn.stocksnap.io/img-thumbs/960w/2QBWAOT5KL.jpg",
+    "src": "/images/metiers/ux-ui-designer.webp",
+    "titre": "Wireframe Sketch",
+    "verifie": "2026-11-13"
+  },
+  "met-veterinaire": {
+    "alt": "Vétérinaire",
+    "credit": "U.S. Forest Service (source)",
+    "licence": "CC0 1.0",
+    "page": "https://www.rawpixel.com/image/8742445/photo-image-public-domain-person-animal",
+    "source": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAzL2ZsODE2MTY5NDI4My1pbWFnZS5qcGc.jpg",
+    "src": "/images/metiers/veterinaire.webp",
+    "titre": "Dr. Getahun Muluneh, Ethiopian veterinarian",
+    "verifie": "2026-11-13"
+  }
+}

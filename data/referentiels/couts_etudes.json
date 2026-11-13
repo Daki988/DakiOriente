@@ -34,50 +34,51 @@
       "devise": "MAD",
       "scolarite_annuelle": {
         "institut": {
-          "min": 25000,
-          "max": 45000,
+          "min": 20000,
+          "max": 50000,
           "libelle": "Institut / BTS / technicien spécialisé"
         },
         "ecole_commerce": {
-          "min": 45000,
-          "max": 95000,
+          "min": 35000,
+          "max": 85000,
           "libelle": "École de commerce / management"
         },
         "ecole_ingenieurs": {
-          "min": 50000,
-          "max": 90000,
+          "min": 25000,
+          "max": 75000,
           "libelle": "École d'ingénieurs"
         },
         "universite": {
-          "min": 60000,
-          "max": 110000,
-          "libelle": "Université privée"
+          "min": 35000,
+          "max": 95000,
+          "libelle": "Université privée (hors médecine)"
         },
         "grande_ecole": {
-          "min": 55000,
-          "max": 100000,
+          "min": 40000,
+          "max": 85000,
           "libelle": "Grande école (architecture, journalisme, arts…)"
         },
         "ecole_sante": {
-          "min": 45000,
-          "max": 180000,
-          "libelle": "Santé (paramédical → médecine)"
+          "min": 30000,
+          "max": 130000,
+          "libelle": "Santé : paramédical 30–60 000, médecine et dentaire 100–130 000"
         },
         "cpge": {
-          "min": 40000,
-          "max": 70000,
+          "min": 35000,
+          "max": 60000,
           "libelle": "Classes préparatoires privées"
         },
         "architecture": {
-          "min": 55000,
-          "max": 100000,
+          "min": 45000,
+          "max": 85000,
           "libelle": "École d'architecture"
         },
         "arts_design": {
-          "min": 45000,
-          "max": 90000,
+          "min": 40000,
+          "max": 70000,
           "libelle": "École d'art et de design"
-        }
+        },
+        "_source": "Fourchettes recalées en novembre 2026 sur les tarifs réellement publiés par les 36 établissements qui les affichent sur leur site (data/sources/maroc/sites/*.json, champ « frais ») ; elles ne servent que lorsqu'une école ne publie pas ses tarifs. Quand l'école les publie, Navigoal affiche ses montants, pas cette fourchette."
       },
       "frais_annuels_annexes": {
         "min": 3000,

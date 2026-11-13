@@ -3,7 +3,7 @@
 import Link from "@/components/ui/Link";
 import { AlarmClock, Building2, CheckCircle2, Crown, FileCheck2, Gavel, Inbox, KeyRound, LifeBuoy, MessagesSquare, Search, Send, StickyNote, Timer, Undo2, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Alert, Button, Chip, Empty, Kpi, Loading, Panel, StatusBadge, dateFr, since, useToast } from "@/components/app/kit";
+import { Alert, Button, Chip, Empty, Kpi, Loading, Panel, StatusBadge, Table, dateFr, since, useToast } from "@/components/app/kit";
 import { DOC_TYPES, Field, FormError, Input, Select, Textarea } from "@/components/app/form";
 import { useAction, useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
@@ -35,32 +35,29 @@ export function AdminCandidatures() {
       )}
       <Panel>
         <div className="flex flex-wrap items-center gap-2.5">
-          <div className="relative min-w-[240px] flex-1"><Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-mute" /><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Nom, n° de dossier, e-mail…" className="pl-10" aria-label="Rechercher" /></div>
-          <Select aria-label="Statut" value={f.statut} onChange={(e) => setF({ ...f, statut: e.target.value, page: 1 })} options={STATUTS} className="w-auto" />
-          <Select aria-label="Pays" value={f.pays} onChange={(e) => setF({ ...f, pays: e.target.value, page: 1 })} options={[["", "Tous les pays"], ...PAYS_OPTS]} className="w-auto" />
-          <Select aria-label="Géré par" value={f.gere} onChange={(e) => setF({ ...f, gere: e.target.value, page: 1 })} options={[["", "Géré par : tous"], ["navigoal", "Navigoal (accompagné)"], ["ecole", "École"]]} className="w-auto" />
+          <div className="relative basis-full sm:min-w-[240px] sm:flex-1 sm:basis-auto"><Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-mute" /><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Nom, n° de dossier, e-mail…" className="pl-10" aria-label="Rechercher" /></div>
+          <Select aria-label="Statut" value={f.statut} onChange={(e) => setF({ ...f, statut: e.target.value, page: 1 })} options={STATUTS} className="w-full sm:w-auto" />
+          <Select aria-label="Pays" value={f.pays} onChange={(e) => setF({ ...f, pays: e.target.value, page: 1 })} options={[["", "Tous les pays"], ...PAYS_OPTS]} className="w-full sm:w-auto" />
+          <Select aria-label="Géré par" value={f.gere} onChange={(e) => setF({ ...f, gere: e.target.value, page: 1 })} options={[["", "Géré par : tous"], ["navigoal", "Navigoal (accompagné)"], ["ecole", "École"]]} className="w-full sm:w-auto" />
           <button onClick={() => setF({ ...f, attente: !f.attente, page: 1 })} className={`chip gap-1.5 px-3 py-2 ${f.attente ? "bg-[#d42a50] text-white" : "bg-[#ffecef] text-[#d42a50]"}`}><AlarmClock size={14} />En attente ≥ 3 j</button>
         </div>
         <FormError error={a.error} />
         {r.error ? <LoadError error={r.error} reload={r.reload} /> : r.loading && !r.data ? <Loading /> : !r.data?.items.length ? <Empty icon={Inbox} title="Aucune candidature" /> : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[900px] text-sm">
-              <thead><tr className="border-b border-[#e6eaf3] text-left text-[11px] uppercase text-ink-mute">{["N°", "Candidat", "École", "Formation", "Statut", "En attente", "Géré par", ""].map((h) => <th key={h} className="px-3 py-2.5 font-extrabold">{h}</th>)}</tr></thead>
-              <tbody>{r.data.items.map((x) => (
-                <tr key={x.id} className="border-b border-[#eef1f8] last:border-0">
-                  <td className="px-3 py-3 font-bold">{x.number}</td>
-                  <td className="px-3 py-3">{x.student.firstName} {x.student.lastName[0]}. <Flag code={x.student.country} /></td>
-                  <td className="px-3 py-3"><span className="flex items-center gap-2">{x.establishment.logo && <img src={x.establishment.logo} alt="" className="h-7 w-7 rounded-lg border border-slate-100 object-contain" />}<b>{x.establishment.sigle}</b></span></td>
-                  <td className="max-w-[220px] truncate px-3 py-3">{x.program}</td>
-                  <td className="px-3 py-3"><StatusBadge status={x.status} /></td>
-                  <td className={`px-3 py-3 font-bold ${(x.attente ?? 0) >= 3 ? "text-[#d42a50]" : ""}`}>{x.attente == null ? "—" : `${x.attente} j`}</td>
-                  <td className="px-3 py-3">{x.establishment.assisted ? <Chip><LifeBuoy size={12} className="mr-1 inline" />Navigoal</Chip> : <Chip tone="grey"><Building2 size={12} className="mr-1 inline" />École</Chip>}</td>
-                  <td className="px-3 py-3 text-right"><span className="inline-flex gap-1.5"><Button size="sm" variant="ghost" onClick={() => ouvrir(x.id)}>Échanger</Button><Link href={`/etablissement/candidatures/${x.id}?eid=${x.establishment.id}`} className="btn-ghost px-3 py-2 text-[13px]">Dossier</Link></span></td>
-                </tr>
-              ))}</tbody>
-            </table>
+          <>
+            <Table
+              rows={r.data.items} rowKey={(x) => x.id} empty="Aucune candidature"
+              cols={[
+                { h: "Candidature", c: (x) => <span><b className="whitespace-nowrap">{x.number}</b><span className="block text-xs font-normal text-ink-mute">{x.student.firstName} {x.student.lastName[0]}. <Flag code={x.student.country} /></span></span> },
+                { h: "École", c: (x) => <span className="flex items-center gap-2">{x.establishment.logo && <img src={x.establishment.logo} alt="" className="h-7 w-7 shrink-0 rounded-lg border border-slate-100 object-contain" />}<b>{x.establishment.sigle}</b></span> },
+                { h: "Formation", c: (x) => <span className="block max-w-[220px] truncate">{x.program}</span> },
+                { h: "Statut", c: (x) => <StatusBadge status={x.status} /> },
+                { h: "En attente", c: (x) => <b className={(x.attente ?? 0) >= 3 ? "text-[#d42a50]" : ""}>{x.attente == null ? "—" : `${x.attente} j`}</b> },
+                { h: "Géré par", c: (x) => x.establishment.assisted ? <Chip><LifeBuoy size={12} className="mr-1 inline" />Navigoal</Chip> : <Chip tone="grey"><Building2 size={12} className="mr-1 inline" />École</Chip> },
+                { h: <span className="sr-only">Actions</span>, className: "text-right", c: (x) => <span className="inline-flex flex-wrap justify-end gap-1.5"><Button size="sm" variant="ghost" onClick={() => ouvrir(x.id)}>Échanger</Button><Link href={`/etablissement/candidatures/${x.id}?eid=${x.establishment.id}`} className="btn-ghost px-3 py-2 text-[13px]">Dossier</Link></span> },
+              ]}
+            />
             <Pager page={f.page} total={r.data.items.length === 50 ? f.page * 50 + 1 : (f.page - 1) * 50 + r.data.items.length} size={50} onPage={(p) => setF({ ...f, page: p })} />
-          </div>
+          </>
         )}
       </Panel>
     </div>
@@ -175,7 +172,7 @@ function DossierRelais({ ctx, onDone }: { ctx: Extract<Ctx, { type: "application
         <Button size="sm" variant="ghost" onClick={() => statut("complet")} loading={a.pending}>Dossier complet</Button>
         <div className="flex gap-2"><Select aria-label="Pièce à demander" value={piece} onChange={(e) => setPiece(e.target.value)} options={DOC_TYPES} className="py-2" /><Button size="sm" variant="ghost" onClick={() => statut("piece_demandee", { requestedDocuments: [piece] })}>Demander</Button></div>
         {ok ? (
-          <div className="grid grid-cols-3 gap-1.5"><Button size="sm" icon={CheckCircle2} onClick={() => statut("acceptee")}>Accepter</Button><Button size="sm" variant="ghost" onClick={() => statut("liste_attente")}>Attente</Button><Button size="sm" variant="danger" icon={XCircle} onClick={() => statut("refusee")}>Refuser</Button></div>
+          <div className="grid grid-cols-1 gap-1.5 min-[420px]:grid-cols-3"><Button size="sm" icon={CheckCircle2} onClick={() => statut("acceptee")}>Accepter</Button><Button size="sm" variant="ghost" onClick={() => statut("liste_attente")}>Attente</Button><Button size="sm" variant="danger" icon={XCircle} onClick={() => statut("refusee")}>Refuser</Button></div>
         ) : <p className="flex items-start gap-2 rounded-xl bg-[#f6f8fe] p-3 text-xs text-ink-mute"><Gavel size={15} className="shrink-0" />Décision finale réservée à l&apos;école. Activez le mode accompagné pour décider à sa place.</p>}
       </div>
       <FormError error={a.error} />

@@ -57,7 +57,7 @@ export function AdminUsers() {
           <Search size={17} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-mute" />
           <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Nom, e-mail, téléphone…" className="pl-10" type="search" />
         </label>
-        <div className="grid grid-cols-3 gap-2.5 md:flex">
+        <div className="grid grid-cols-2 gap-2.5 min-[520px]:grid-cols-3 md:flex">
           <Select aria-label="Rôle" value={role} onChange={(e) => setRole(e.target.value)} options={ROLE_OPTS} placeholder="Rôle" className="md:w-44" />
           <Select aria-label="Pays" value={pays} onChange={(e) => setPays(e.target.value)} options={PAYS_OPTS} placeholder="Pays" className="md:w-40" />
           <Select aria-label="Statut" value={statut} onChange={(e) => setStatut(e.target.value)} options={[["actif", "Actif"], ["en_attente", "À valider"], ["suspendu", "Suspendu"]]} placeholder="Statut" className="md:w-40" />

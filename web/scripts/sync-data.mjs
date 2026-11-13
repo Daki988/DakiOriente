@@ -39,6 +39,12 @@ const sup = bruts.map((e) => ({
 // Version légère pour le navigateur (listes, recherche, cartes) ; le détail complet (filières homologuées, infos du site,
 // géolocalisation, description…) reste côté serveur : etablissements_detail.json, lu par lib/etab-detail.ts.
 const filiereLite = (f) => ({ intitule: f.intitule, formation: f.formation, ville: f.ville ?? null, ...(f.campus ? { campus: f.campus } : {}), ...(f.homologation?.statut === "recente" ? { recente: true } : {}) });
+// Scolarité annuelle réellement publiée par l'école sur son site (min/max de ses cycles) : sert au devis
+// et aux cartes à la place de la fourchette indicative du type d'établissement.
+const fraisPublies = (e) => {
+  const v = ((e.site || {}).frais || []).map((f) => f.scolarite_annuelle_mad).filter((x) => typeof x === "number" && x > 0);
+  return v.length ? { min: Math.min(...v), max: Math.max(...v) } : null;
+};
 const lite = sup.map((e) => ({
   id: e.id, nom: e.nom, sigle: e.sigle, pays: e.pays, ville: e.ville, type: e.type, type_libelle: e.type_libelle, statut: e.statut,
   site_web: e.site_web, annee_creation: e.annee_creation, coordonnees: e.coordonnees, label: e.label, label_libelle: e.label_libelle,
@@ -46,6 +52,7 @@ const lite = sup.map((e) => ({
   filieres: e.filieres.map(filiereLite), filieres_echues: e.filieres_echues.map(filiereLite),
   campus: e.campus ? e.campus.map((c) => ({ id: c.id, ville: c.ville, label: c.label, label_libelle: c.label_libelle })) : null,
   site: e.site ? { programmes: (e.site.programmes ?? []).map((p) => ({ intitule: p.intitule, formation: p.formation, campus: p.campus ?? null })) } : null,
+  frais_publies: fraisPublies(e),
 }));
 write("etablissements", lite);
 write("etablissements_detail", Object.fromEntries(sup.map((e) => [e.id, {
@@ -106,6 +113,9 @@ fs.cpSync(path.join(root, "assets", "logos"), LOGOS_OUT, {
   recursive: true,
   filter: (src) => !src.endsWith(".json"),
 });
+
+// Lisibilité des logos (logo clair à poser sur fond sombre, ou image avec fond intégré) : python3 scripts/analyse_logos.py
+write("logos_fond", read("logos_fond"));
 
 // Fiches de candidature officielles des établissements (PDF servis sur /fiches/…)
 write("fiches_candidature", read("fiches_candidature"));

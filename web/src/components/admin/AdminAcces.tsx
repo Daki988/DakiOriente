@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element -- logos déjà optimisés */
 import { Copy, KeyRound, Mail, Pencil, Search, ShieldCheck, UserPlus } from "lucide-react";
 import { useState } from "react";
-import { Alert, Button, Chip, Dialog, Kpi, Loading, Panel, dateFr, since, useToast } from "@/components/app/kit";
+import { Alert, Button, Chip, Dialog, Kpi, Loading, Panel, Table, dateFr, since, useToast } from "@/components/app/kit";
 import { Field, FormError, Input } from "@/components/app/form";
 import { useAction, useApi } from "@/hooks/useApi";
 import { api, apiUrl } from "@/lib/api";
@@ -58,29 +58,29 @@ export function AdminAcces() {
       </div>
       <Panel>
         <div className="flex flex-wrap items-center gap-2.5">
-          <div className="relative min-w-[240px] flex-1"><Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-mute" /><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Établissement, ville, e-mail…" className="pl-10" aria-label="Rechercher" /></div>
+          <div className="relative basis-full sm:min-w-[240px] sm:flex-1 sm:basis-auto"><Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-mute" /><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Établissement, ville, e-mail…" className="pl-10" aria-label="Rechercher" /></div>
           {FILTRES.map(([k, t]) => <button key={k} onClick={() => setFiltre(k)} className={`chip px-3 py-2 ${filtre === k ? "bg-brand-600 text-white" : "bg-[#eef1f8] text-ink-soft"}`}>{t}</button>)}
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[860px] text-sm">
-            <thead><tr className="border-b border-[#e6eaf3] text-left text-[11px] uppercase text-ink-mute">{["Établissement", "Identifiant (e-mail)", "État", "Dernière activité", "Actions"].map((h) => <th key={h} className="px-3 py-2.5 font-extrabold">{h}</th>)}</tr></thead>
-            <tbody>{lignes.map((e) => (e.comptes.length ? e.comptes : [null]).map((c, k) => (
-              <tr key={`${e.id}-${c?.id ?? "x"}`} className="border-b border-[#eef1f8] last:border-0">
-                <td className="px-3 py-3">{k === 0 && <span className="flex items-center gap-2.5">{e.logo ? <img src={e.logo} alt="" className="h-8 w-8 rounded-lg border border-slate-100 object-contain" /> : <span className="h-8 w-8" />}<span><b>{e.sigle}</b><span className="block text-xs text-ink-mute">{e.ville}</span></span></span>}</td>
-                <td className="px-3 py-3">{c ? <span className="font-medium">{c.email}{e.comptes.length > 1 && <span className="block text-xs text-ink-mute">{c.firstName} {c.lastName}</span>}</span> : <span className="text-ink-mute">Aucun accès</span>}</td>
-                <td className="px-3 py-3">{!c ? <Chip tone="grey">Sans accès</Chip> : c.status !== "actif" ? <Chip tone="rose">{c.status === "suspendu" ? "Suspendu" : "En attente"}</Chip> : c.provisoire ? <Chip tone="rose">Adresse à compléter</Chip> : c.etat === "actif" ? <Chip tone="green">Actif</Chip> : <Chip tone="sun">Jamais connecté</Chip>}</td>
-                <td className="px-3 py-3 text-ink-mute">{!c ? "—" : c.lastLoginAt ? `connecté ${since(c.lastLoginAt)}` : `créé le ${dateFr(c.createdAt)}`}</td>
-                <td className="whitespace-nowrap px-3 py-3"><span className="flex gap-1.5">
-                  {c && (c.provisoire
-                    ? <Button size="sm" variant="ghost" icon={Pencil} onClick={() => setEmail({ c, v: "" })}>Modifier l&apos;e-mail</Button>
-                    : <><Button size="sm" variant="ghost" icon={Mail} onClick={() => envoyer(c)} disabled={a.pending}>{c.etat === "actif" ? "Envoyer" : "Renvoyer"}</Button><Button size="sm" variant="quiet" onClick={() => setEmail({ c, v: c.email ?? "" })} aria-label="Modifier l'e-mail"><Pencil size={14} /></Button></>)}
-                  {c && <Button size="sm" variant="ghost" onClick={() => reinit(c)} disabled={a.pending}>Réinitialiser</Button>}
-                  {k === 0 && <Button size="sm" variant="quiet" icon={UserPlus} onClick={() => setCollab({ e, email: "", firstName: "", lastName: "" })} aria-label="Ajouter un collaborateur" title="Ajouter un collaborateur" />}
-                </span></td>
-              </tr>
-            )))}</tbody>
-          </table>
-        </div>
+        <Table
+          rows={lignes.flatMap((e) => (e.comptes.length ? e.comptes : [null]).map((c, k) => ({ e, c, k })))}
+          rowKey={({ e, c }) => `${e.id}-${c?.id ?? "x"}`}
+          empty="Aucun établissement pour ces filtres."
+          cols={[
+            { h: "Établissement", c: ({ e }) => <span className="flex items-center gap-2.5">{e.logo ? <img src={e.logo} alt="" className="h-8 w-8 shrink-0 rounded-lg border border-slate-100 object-contain" /> : <span className="h-8 w-8 shrink-0" />}<span className="min-w-0"><b>{e.sigle}</b><span className="block text-xs font-normal text-ink-mute">{e.ville}</span></span></span> },
+            { h: "Identifiant", c: ({ e, c }) => c ? <span className="font-medium [overflow-wrap:anywhere]">{c.email}{e.comptes.length > 1 && <span className="block text-xs text-ink-mute">{c.firstName} {c.lastName}</span>}</span> : <span className="text-ink-mute">Aucun accès</span> },
+            { h: "État", c: ({ c }) => !c ? <Chip tone="grey">Sans accès</Chip> : c.status !== "actif" ? <Chip tone="rose">{c.status === "suspendu" ? "Suspendu" : "En attente"}</Chip> : c.provisoire ? <Chip tone="rose">Adresse à compléter</Chip> : c.etat === "actif" ? <Chip tone="green">Actif</Chip> : <Chip tone="sun">Jamais connecté</Chip> },
+            { h: "Dernière activité", c: ({ c }) => <span className="text-ink-mute">{!c ? "—" : c.lastLoginAt ? `connecté ${since(c.lastLoginAt)}` : `créé le ${dateFr(c.createdAt)}`}</span> },
+            { h: <span className="sr-only">Actions</span>, c: ({ e, c, k }) => (
+              <span className="flex flex-wrap justify-end gap-1.5 sm:flex-nowrap">
+                {c && (c.provisoire
+                  ? <Button size="sm" variant="ghost" icon={Pencil} onClick={() => setEmail({ c, v: "" })}>Modifier l&apos;e-mail</Button>
+                  : <><Button size="sm" variant="ghost" icon={Mail} onClick={() => envoyer(c)} disabled={a.pending}>{c.etat === "actif" ? "Envoyer" : "Renvoyer"}</Button><Button size="sm" variant="quiet" onClick={() => setEmail({ c, v: c.email ?? "" })} aria-label="Modifier l'e-mail"><Pencil size={14} /></Button></>)}
+                {c && <Button size="sm" variant="ghost" onClick={() => reinit(c)} disabled={a.pending}>Réinitialiser</Button>}
+                {k === 0 && <Button size="sm" variant="quiet" icon={UserPlus} onClick={() => setCollab({ e, email: "", firstName: "", lastName: "" })} aria-label="Ajouter un collaborateur" title="Ajouter un collaborateur" />}
+              </span>
+            ) },
+          ]}
+        />
       </Panel>
       <div className="mt-5"><Alert tone="info" title="Mot de passe provisoire">Affiché une seule fois (ou envoyé par e-mail à l&apos;adresse officielle de l&apos;école), à changer à la première connexion. Navigoal ne conserve jamais de mot de passe en clair. Le bouton <UserPlus size={13} className="inline" /> ajoute un collaborateur (2ᵉ compte pour la même école).</Alert></div>
 
@@ -100,7 +100,7 @@ export function AdminAcces() {
       </Dialog>
       <Dialog open={!!collab} onClose={() => setCollab(null)} title={`Ajouter un collaborateur · ${collab?.e.sigle ?? ""}`}>
         {collab && <div className="flex flex-col gap-3">
-          <div className="grid grid-cols-2 gap-3"><Field label="Prénom">{(id) => <Input id={id} value={collab.firstName} onChange={(e) => setCollab({ ...collab, firstName: e.target.value })} />}</Field><Field label="Nom">{(id) => <Input id={id} value={collab.lastName} onChange={(e) => setCollab({ ...collab, lastName: e.target.value })} />}</Field></div>
+          <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2"><Field label="Prénom">{(id) => <Input id={id} value={collab.firstName} onChange={(e) => setCollab({ ...collab, firstName: e.target.value })} />}</Field><Field label="Nom">{(id) => <Input id={id} value={collab.lastName} onChange={(e) => setCollab({ ...collab, lastName: e.target.value })} />}</Field></div>
           <Field label="E-mail">{(id) => <Input id={id} type="email" value={collab.email} onChange={(e) => setCollab({ ...collab, email: e.target.value })} />}</Field>
           <FormError error={a.error} /><Button icon={UserPlus} onClick={ajouter} loading={a.pending} disabled={!collab.email.includes("@") || !collab.firstName || !collab.lastName}>Créer l&apos;accès</Button>
         </div>}

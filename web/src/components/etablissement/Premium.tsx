@@ -3,7 +3,7 @@
 import Link from "@/components/ui/Link";
 import { Bookmark, Check, ChevronRight, Crown, Megaphone, Minus, Send, ShieldCheck, SlidersHorizontal, UserRound, Users } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { Alert, Button, Chip, Empty, Kpi, Loading, PageHeader, Panel, StatusBadge, dateFr, useToast } from "@/components/app/kit";
+import { Alert, Button, Chip, Empty, Kpi, Loading, PageHeader, Panel, StatusBadge, Table, dateFr, useToast } from "@/components/app/kit";
 import { Check as CheckBox, Field, FormError, Input, Select, Textarea } from "@/components/app/form";
 import { useAction, useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
@@ -108,20 +108,18 @@ export function SelectionPremium() {
           <>
             <p className="text-sm text-ink-mute"><b className="text-ink">{r.data.items.length} candidat{r.data.items.length > 1 ? "s" : ""}</b> sur {r.data.total} correspondent à vos critères · triés par adéquation</p>
             {!r.data.items.length ? <Empty icon={Users} title="Aucun candidat ne correspond" text="Élargissez les filtres (moyenne, série, financement)." /> : (
-              <div className="card overflow-x-auto rounded-[22px]">
-                <table className="w-full min-w-[760px] text-sm">
-                  <thead><tr className="border-b border-[#e6eaf3] text-left text-[11px] uppercase text-ink-mute">{["Candidat", "Résultats", "Projet", "Adéquation", "Financement", ""].map((h) => <th key={h} className="px-4 py-3 font-extrabold">{h}</th>)}</tr></thead>
-                  <tbody>{r.data.items.map((x) => (
-                    <tr key={x.id} className="border-b border-[#eef1f8] last:border-0 hover:bg-brand-50/40">
-                      <td className="px-4 py-3"><b>{x.candidat.firstName} {x.candidat.lastName[0]}.</b> <span className="text-xs text-ink-mute">· {x.candidat.pays}</span><span className="block text-xs text-ink-mute">{x.programme}</span></td>
-                      <td className="px-4 py-3">{x.resultats.moyenne != null ? <><b className="text-base">{x.resultats.moyenne.toLocaleString("fr-FR")}</b><span className="text-xs text-ink-mute">/20</span>{x.resultats.verifiee && <ShieldCheck size={13} className="ml-1 inline text-[#0f8a46]" aria-label="Vérifiée" />}</> : <span className="text-ink-mute">—</span>}<span className="block text-xs text-ink-mute">{[x.resultats.serie, x.resultats.mention].filter(Boolean).join(" · ")}</span></td>
-                      <td className="px-4 py-3">{x.projet.metiers[0] ?? x.projet.domaine ?? <span className="text-ink-mute">—</span>}<span className="block text-xs text-ink-mute">{[x.projet.domaine, x.projet.rentree && `rentrée ${x.projet.rentree}`].filter(Boolean).join(" · ")}</span></td>
-                      <td className="px-4 py-3"><span className="flex items-center gap-2"><span className="h-1.5 w-16 overflow-hidden rounded-full bg-[#e6eaf3]"><span className="block h-full rounded-full bg-brand-600" style={{ width: `${x.score}%` }} /></span><b>{x.score} %</b></span></td>
-                      <td className="px-4 py-3"><Chip tone={tone[x.financement.statut]}>{x.financement.libelle}</Chip><span className="mt-1 block text-xs text-ink-mute">{x.financement.preuve}</span></td>
-                      <td className="px-4 py-3"><Link href={link(`/etablissement/candidatures/${x.id}`)} aria-label="Ouvrir le dossier" className="text-ink-mute hover:text-brand-600"><ChevronRight size={18} /></Link> <StatusBadge status={x.status} /></td>
-                    </tr>
-                  ))}</tbody>
-                </table>
+              <div className="card rounded-[22px] px-5 py-1 sm:px-6">
+                <Table
+                  rows={r.data.items} rowKey={(x) => x.id} empty="Aucun candidat ne correspond"
+                  cols={[
+                    { h: "Candidat", c: (x) => <span><b>{x.candidat.firstName} {x.candidat.lastName[0]}.</b> <span className="text-xs font-normal text-ink-mute">· {x.candidat.pays}</span><span className="block text-xs font-normal text-ink-mute">{x.programme}</span></span> },
+                    { h: "Résultats", c: (x) => <span>{x.resultats.moyenne != null ? <><b className="text-base">{x.resultats.moyenne.toLocaleString("fr-FR")}</b><span className="text-xs text-ink-mute">/20</span>{x.resultats.verifiee && <ShieldCheck size={13} className="ml-1 inline text-[#0f8a46]" aria-label="Vérifiée" />}</> : <span className="text-ink-mute">—</span>}<span className="block text-xs text-ink-mute">{[x.resultats.serie, x.resultats.mention].filter(Boolean).join(" · ")}</span></span> },
+                    { h: "Projet", c: (x) => <span>{x.projet.metiers[0] ?? x.projet.domaine ?? <span className="text-ink-mute">—</span>}<span className="block text-xs text-ink-mute">{[x.projet.domaine, x.projet.rentree && `rentrée ${x.projet.rentree}`].filter(Boolean).join(" · ")}</span></span> },
+                    { h: "Adéquation", c: (x) => <span className="flex items-center justify-end gap-2 sm:justify-start"><span className="h-1.5 w-16 overflow-hidden rounded-full bg-[#e6eaf3]"><span className="block h-full rounded-full bg-brand-600" style={{ width: `${x.score}%` }} /></span><b>{x.score} %</b></span> },
+                    { h: "Financement", c: (x) => <span><Chip tone={tone[x.financement.statut]}>{x.financement.libelle}</Chip><span className="mt-1 block text-xs text-ink-mute">{x.financement.preuve}</span></span> },
+                    { h: <span className="sr-only">Dossier</span>, className: "text-right", c: (x) => <span className="inline-flex items-center gap-2"><StatusBadge status={x.status} /><Link href={link(`/etablissement/candidatures/${x.id}`)} aria-label="Ouvrir le dossier" className="text-ink-mute hover:text-brand-600"><ChevronRight size={18} /></Link></span> },
+                  ]}
+                />
               </div>
             )}
             <Alert tone="warn" title="Financement">« Couvert » : budget déclaré au moins égal au coût annuel estimé ET pièce vérifiée (garant ou justificatif). Le montant exact des ressources n&apos;est jamais montré à l&apos;école.</Alert>

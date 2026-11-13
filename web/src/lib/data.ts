@@ -35,6 +35,8 @@ export type Etablissement = {
   /** Réseau multi-campus : campus proposés (choix du campus à la candidature). */
   campus: { id: string; ville: string; label: Label; label_libelle: string }[] | null; alias: string[];
   site: { programmes: { intitule: string; formation: string | null; campus: string[] | null }[] } | null;
+  /** Scolarité annuelle publiée par l'école sur son site (min et max de ses cycles, en monnaie du pays). */
+  frais_publies: { min: number; max: number } | null;
 };
 export type FiliereLite = { intitule: string; formation: string | null; ville: string | null; campus?: string[]; /** Accréditation arrivée à échéance, renouvellement à confirmer. */ recente?: boolean };
 /** Établissement complet (pages et services côté serveur). */

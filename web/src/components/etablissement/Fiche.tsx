@@ -111,7 +111,7 @@ export function Fiche() {
               </div>
             </motion.article>
             {e.photos.length > 1 && (
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2 min-[520px]:grid-cols-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {e.photos.slice(0, 3).map((p, i) => <img key={p.src} src={p.src} alt={`Photo ${i + 1}`} className="aspect-[4/3] w-full rounded-xl object-cover" />)}
               </div>
