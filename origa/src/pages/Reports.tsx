@@ -11,6 +11,7 @@ import { bandEconomics, inputGap, periodBounds, traceIndicators } from '../domai
 import { addDays, today } from '../domain/ids';
 import { provinceName } from '../domain/provinces';
 import { Logo } from '../components/Icon';
+import { printPage } from '../app/native';
 
 type Kind = 'hebdomadaire' | 'finBande' | 'mensuel';
 
@@ -127,7 +128,7 @@ export function ReportsPage() {
         <div className="row wrap" style={{ gap: 8 }}>
           {kinds.map((k) => <button key={k} className={`sel${kind === k ? ' dark' : ''}`} onClick={() => { setKind(k); setSel(''); }}>{k === 'hebdomadaire' ? 'Hebdomadaire' : k === 'mensuel' ? 'Mensuel national' : 'Fin de bande'}</button>)}
           <select className="sel" value={period?.key ?? ''} onChange={(e) => setSel(e.target.value)}>{periods.map((p) => <option key={p.key} value={p.key}>{p.label}</option>)}</select>
-          <button className={manager ? 'sel' : 'sel dark'} onClick={() => window.print()}>Exporter en PDF</button>
+          <button className={manager ? 'sel' : 'sel dark'} onClick={() => printPage()}>Exporter en PDF</button>
           {manager && <button className="sel dark" disabled={sending || (kind === 'finBande' && !period)} onClick={sendNow}>{sending ? 'Envoi…' : 'Envoyer maintenant'}</button>}
         </div>
       </div>

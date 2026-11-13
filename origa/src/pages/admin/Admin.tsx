@@ -11,6 +11,7 @@ import { fmtDate } from '../../app/hooks';
 import { API, api, apiEnabled } from '../../app/api';
 import { provinceName } from '../../domain/provinces';
 import type { AccessRequest, Operator, UserAccount } from '../../domain/types';
+import { saveText } from '../../app/native';
 
 /** Recharge une liste distante ou locale à la demande. */
 function useAsync<T>(fn: () => Promise<T>, init: T): [T, () => void, string] {
@@ -239,9 +240,7 @@ export function AdminAudit() {
   const [q, setQ] = useState('');
   const shown = rows.filter((r) => `${r.action} ${r.user} ${r.table} ${r.key}`.toLowerCase().includes(q.toLowerCase()));
   function exportCsv() {
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob(['﻿Date;Utilisateur;Action;Table;Clé\n' + shown.map((r) => [r.at, r.user, r.action, r.table, r.key].join(';')).join('\n')], { type: 'text/csv;charset=utf-8' }));
-    a.download = `origa-journal-${new Date().toISOString().slice(0, 10)}.csv`; a.click();
+    saveText(`origa-journal-${new Date().toISOString().slice(0, 10)}.csv`, '﻿Date;Utilisateur;Action;Table;Clé\n' + shown.map((r) => [r.at, r.user, r.action, r.table, r.key].join(';')).join('\n'));
   }
   return (
     <>

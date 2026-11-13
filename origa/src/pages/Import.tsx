@@ -6,6 +6,7 @@ import { parseCsv, toCsv } from '../domain/csv';
 import { farmId as makeFarmId, nextSeq, uid } from '../domain/ids';
 import { PROVINCES } from '../domain/provinces';
 import type { Farm, InputType, ProvinceCode } from '../domain/types';
+import { saveText } from '../app/native';
 
 type Kind = 'fermes' | 'fiches' | 'intrants';
 const TEMPLATES: Record<Kind, { label: string; source: string; cols: string[]; example: string[] }> = {
@@ -25,7 +26,7 @@ export function ImportPage() {
   const [toast, show] = useToast();
   const t = TEMPLATES[kind];
 
-  const download = (name: string, content: string) => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([content], { type: 'text/csv;charset=utf-8' })); a.download = name; a.click(); };
+  const download = (name: string, content: string) => saveText(name, content);
 
   async function analyse(text: string) {
     const rows = parseCsv(text); setDone(null);

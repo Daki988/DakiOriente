@@ -5,6 +5,7 @@ import { fmtDate, fmtInt } from '../app/hooks';
 import type { Lot, Operator } from '../domain/types';
 import { buildEpcis } from '../domain/epcis';
 import { Icon } from '../components/Icon';
+import { saveText } from '../app/native';
 
 /** Recherche amont / aval (§ 6.3) : de la ferme, la bande, le lot ou le lot d'aliment vers les destinataires. */
 export function TracePage() {
@@ -26,9 +27,7 @@ export function TracePage() {
   function exportCsv() {
     if (!res) return;
     const rows = res.lots.map((l) => [l.id, l.farmId, l.cededAt, l.count, l.weightKg, res.ops.find((o) => o.id === l.operatorId)?.name ?? l.destination ?? ''].join(';'));
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob(['﻿Lot;Ferme;Date;Poulets;Poids kg;Destinataire\n' + rows.join('\n')], { type: 'text/csv;charset=utf-8' }));
-    a.download = `origa-rappel-${q.trim()}.csv`; a.click();
+    saveText(`origa-rappel-${q.trim()}.csv`, '﻿Lot;Ferme;Date;Poulets;Poids kg;Destinataire\n' + rows.join('\n'));
   }
 
   async function exportEpcis() {
@@ -38,9 +37,7 @@ export function TracePage() {
     const derived = (await db.lots.toArray()).filter((l) => l.parentId && ids.has(l.parentId) && !ids.has(l.id));
     const movements = (await db.movements.toArray()).filter((m) => ids.has(m.lotId));
     const doc = buildEpcis({ lots: [...res.lots, ...derived], movements });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([JSON.stringify(doc, null, 2)], { type: 'application/ld+json' }));
-    a.download = `origa-epcis-${q.trim()}.jsonld`; a.click();
+    saveText(`origa-epcis-${q.trim()}.jsonld`, JSON.stringify(doc, null, 2), 'application/ld+json');
   }
 
   return (

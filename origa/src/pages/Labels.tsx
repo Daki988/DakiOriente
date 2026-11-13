@@ -10,6 +10,7 @@ import { BackBar, Kv, useToast } from '../components/ui';
 import { Icon } from '../components/Icon';
 import { Qr } from '../components/Qr';
 import type { PresignedLabel } from '../domain/types';
+import { printPage } from '../app/native';
 
 const shortNo = (id: string) => id.slice(id.lastIndexOf('-') + 1);
 
@@ -78,7 +79,7 @@ export function LabelsPage() {
                 <Kv k="Réserve renouvelée" v={lastLabel} />
               </div>
               <button className="cta green" disabled={busy} onClick={() => prepare(RESERVE)}><Icon name="sync" />{busy ? 'Renouvellement…' : 'Renouveler la réserve'}</button>
-              <button className="cta light" disabled={!labels.length} onClick={() => window.print()}><Icon name="print" />Imprimer mes étiquettes</button>
+              <button className="cta light" disabled={!labels.length} onClick={() => printPage()}><Icon name="print" />Imprimer mes étiquettes</button>
             </>
           )}
         </div>
@@ -90,7 +91,7 @@ export function LabelsPage() {
   return (
     <>
       <div className="top no-print"><div><h1>Étiquettes QR pré-signées</h1><span className="muted">Un rouleau d'étiquettes déjà signées par le serveur : l'éleveur colle un QR valide même sans réseau.</span></div>
-        <div className="row wrap" style={{ gap: 8 }}><button className="sel" disabled={busy || !band} onClick={() => prepare(count)}>Renouveler la réserve</button><button className="sel dark" disabled={!labels.length} onClick={() => window.print()}>Imprimer le rouleau</button></div></div>
+        <div className="row wrap" style={{ gap: 8 }}><button className="sel" disabled={busy || !band} onClick={() => prepare(count)}>Renouveler la réserve</button><button className="sel dark" disabled={!labels.length} onClick={() => printPage()}>Imprimer le rouleau</button></div></div>
       <div className="grid2 no-print" style={{ gridTemplateColumns: 'minmax(0,1fr) minmax(0,1.7fr)' }}>
         <div className="panel"><h3>Préparer un rouleau</h3>
           <label className="f">Ferme<select className="input" value={farmId} onChange={(e) => setChosen(e.target.value)}>{(data?.farms ?? []).map((f) => <option key={f.id} value={f.id}>{f.id} · {f.name}</option>)}</select></label>

@@ -9,6 +9,7 @@ import { signOut } from '../app/auth';
 import { useOnline, usePending, useSession } from '../app/hooks';
 import { useToast } from '../components/ui';
 import { Icon, Logo } from '../components/Icon';
+import { hasNativeBridge, openExternal } from '../app/native';
 
 const ROLE: Record<string, string> = { eleveur: 'Éleveur', agent: 'Agent technique', dge: 'POUFA / DGE', veterinaire: 'Services vétérinaires', bceg: 'BCEG', admin: 'Administrateur', operateur: 'Opérateur', maedr: 'MAEDR', aninf: 'ANINF' };
 const CREDITS = [
@@ -62,7 +63,7 @@ export function ProfilePage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 10 }}>
             <span className="muted">Origa 1.3.0 · Suivi technico-économique et traçabilité de la filière avicole, programme POUFA. Données hébergées au Gabon, loi n° 025/2023.</span>
             <span className="muted"><b>Crédits photo</b> (licence Unsplash) :</span>
-            {CREDITS.map(([t, a, u]) => <a key={u} className="muted" href={u} target="_blank" rel="noreferrer">{t} · {a}</a>)}
+            {CREDITS.map(([t, a, u]) => <a key={u} className="muted" href={u} target="_blank" rel="noreferrer" onClick={(e) => { if (hasNativeBridge()) { e.preventDefault(); openExternal(u); } }}>{t} · {a}</a>)}
           </div>
         </details>
       </div>

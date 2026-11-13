@@ -10,6 +10,7 @@ import { publicUrl, verifyLot } from '../domain/qr';
 import { publicBase } from '../app/publicBase';
 import { withdrawalBlock } from '../domain/rules';
 import { lotStatus } from '../domain/analytics';
+import { hasNativeBridge, openExternal, printPage, shareLink } from '../app/native';
 
 export function LotsPage() {
   const s = useSession();
@@ -65,14 +66,15 @@ export function LotDetail() {
   const { id = '' } = useParams();
   const settings = useSettings();
   const [toast, show] = useToast();
-  const [print, setPrint] = useState<'label' | 'doc' | null>(null);
+  const [print, setPrint] = useState<{ kind: 'label' | 'doc'; n: number } | null>(null);
   const data = useLiveQuery(async () => {
     const lot = await db.lots.get(id);
     if (!lot) return null;
     const [op, treatments, farm, timeline] = await Promise.all([lot.operatorId ? db.operators.get(lot.operatorId) : undefined, db.treatments.where('bandId').equals(lot.bandId).toArray(), db.farms.get(lot.farmId), lotTimeline(lot.bandId, lot.id)]);
     return { lot, op, farm, timeline, blocked: withdrawalBlock(treatments, lot.cededAt) };
   }, [id]);
-  useEffect(() => { if (!print) return; const t = setTimeout(() => { window.print(); setPrint(null); }, 300); return () => clearTimeout(t); }, [print]);
+  // Dans l'application, l'impression Android lit la page après coup : la fiche à imprimer reste en place (masquée à l'écran).
+  useEffect(() => { if (!print) return; const t = setTimeout(() => { printPage(`Lot ${id}`); if (!hasNativeBridge()) setPrint(null); }, 300); return () => clearTimeout(t); }, [print, id]);
   if (data === undefined) return null;
   if (!data) return <><BackBar title="Lot introuvable" /><div className="content"><div className="empty">Ce lot n'existe pas sur cet appareil.</div></div></>;
   const { lot, op, farm, timeline, blocked } = data;
@@ -82,10 +84,9 @@ export function LotDetail() {
   const status = lotStatus(lot);
 
   async function share() {
-    try {
-      if (navigator.share) await navigator.share({ title: `Lot ${lot.id}`, text: 'Origine vérifiée par Origa', url });
-      else { await navigator.clipboard.writeText(url); show('Lien copié'); }
-    } catch { /* partage annulé */ }
+    const r = await shareLink(`Lot ${lot.id}`, 'Origine vérifiée par Origa', url);
+    if (r === 'copied') show('Lien copié');
+    else if (r === 'failed') show('Partage impossible sur cet appareil');
   }
 
   return (
@@ -111,12 +112,12 @@ export function LotDetail() {
           <Kv k="Code de confirmation" v={lot.confirmCode.split('').join(' ')} />
         </div>
         <div className="row">
-          <button className="cta light" style={{ flex: 1, fontSize: 15 }} disabled={pending} onClick={() => setPrint('label')}><Icon name="qr" />Étiquette</button>
-          <button className="cta light" style={{ flex: 1, fontSize: 15 }} onClick={() => setPrint('doc')}><Icon name="report" />Document</button>
+          <button className="cta light" style={{ flex: 1, fontSize: 15 }} disabled={pending} onClick={() => setPrint((p) => ({ kind: 'label', n: (p?.n ?? 0) + 1 }))}><Icon name="qr" />Étiquette</button>
+          <button className="cta light" style={{ flex: 1, fontSize: 15 }} onClick={() => setPrint((p) => ({ kind: 'doc', n: (p?.n ?? 0) + 1 }))}><Icon name="report" />Document</button>
         </div>
         <div className="row">
           <button className="cta light" style={{ flex: 1, fontSize: 16 }} disabled={pending} onClick={share}><Icon name="share" />Partager</button>
-          <a className="cta green" style={{ flex: 1, fontSize: 16 }} href={url} target="_blank" rel="noreferrer">Page publique</a>
+          <a className="cta green" style={{ flex: 1, fontSize: 16 }} href={url} target="_blank" rel="noreferrer" onClick={(e) => { if (hasNativeBridge()) { e.preventDefault(); openExternal(url); } }}>Page publique</a>
         </div>
         <div className="card">
           <h3>Historique du lot</h3>
@@ -126,12 +127,12 @@ export function LotDetail() {
           ))}
         </div>
       </div>
-      {print === 'label' && (
+      {print?.kind === 'label' && (
         <div className="print-only label">
           <Qr value={url} size={180} /><div><b>{lot.id}</b><span>{farm?.name} · {farm?.locality}</span><span>{fmtInt(lot.count)} poulets · cédé le {fmtDate(lot.cededAt)}</span><span>Élevé au Gabon · origa</span></div>
         </div>
       )}
-      {print === 'doc' && (
+      {print?.kind === 'doc' && (
         <div className="print-only doc">
           <h1>Document d'accompagnement du lot</h1>
           <p>Programme POUFA · Ministère de l'Agriculture, de l'Élevage et du Développement rural</p>

@@ -7,6 +7,7 @@ import { traceIndicators } from '../domain/analytics';
 import { addDays, today } from '../domain/ids';
 import type { ProvinceCode } from '../domain/types';
 import { FarmMap } from '../components/FarmMap';
+import { printPage, saveText } from '../app/native';
 
 const STATUS: Record<string, [string, string]> = { nouvelle: ['red', 'Nouvelle'], analyse: ['off', 'En analyse'], confirmee: ['red', 'Confirmée'], informee: ['sky', 'Informée'], close: ['on', 'Close'] };
 
@@ -44,9 +45,7 @@ export function Dashboard() {
   function exportCsv() {
     const head = 'Ferme;Nom;Province;Bande;Effectif;Mortalite %;IC;Completude %\n';
     const body = rows.map((r) => [r.farm.id, r.farm.name, provinceName(r.farm.province), r.band?.id ?? '', r.st?.present ?? '', fmt(r.st?.mortalityPct ?? 0, 2), fmt(r.st?.ic ?? 0, 2), fmt(r.st?.completenessPct ?? 0, 0)].join(';')).join('\n');
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob(['﻿' + head + body], { type: 'text/csv;charset=utf-8' }));
-    a.download = `origa-fermes-${new Date().toISOString().slice(0, 10)}.csv`; a.click();
+    saveText(`origa-fermes-${new Date().toISOString().slice(0, 10)}.csv`, '﻿' + head + body);
   }
 
   return (
@@ -63,7 +62,7 @@ export function Dashboard() {
           <select className="sel" value={status} onChange={(e) => setStatus(e.target.value)} aria-label="Statut"><option value="operationnelle">Opérationnelles</option><option value="preparation">En préparation</option><option value="suspendue">Suspendues</option><option value="">Tous statuts</option></select>
           <select className="sel" value={unit} onChange={(e) => setUnit(e.target.value as 't' | 'kg' | 'tetes')} aria-label="Unité"><option value="t">Tonnes</option><option value="kg">Kilogrammes</option><option value="tetes">Têtes</option></select>
           <button className="sel" onClick={exportCsv}>Exporter CSV</button>
-          <button className="sel dark" onClick={() => window.print()}>Rapport PDF</button>
+          <button className="sel dark" onClick={() => printPage('Origa · vue nationale')}>Rapport PDF</button>
         </div>
       </div>
       <div className="grid4">
