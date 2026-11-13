@@ -24,6 +24,9 @@ async function appendAudit(action: string, table: string, key: string, row?: unk
  * Toute écriture métier passe ici : enregistrement local + file d'envoi (outbox) + journal d'audit
  * non modifiable, scellé par chaînage SHA-256 (§ 8).
  */
+/** Prévient la synchronisation qu'une saisie attend d'être envoyée (sans dépendance circulaire avec sync.ts). */
+const changed = () => { if (apiEnabled && typeof window !== 'undefined') window.dispatchEvent(new Event('origa:changed')); };
+
 export async function save<T extends { id: string }>(table: Tables, row: T, action = 'enregistrement') {
   const at = new Date().toISOString();
   await db.transaction('rw', db.table(table), db.outbox, db.audit, async () => {
@@ -31,6 +34,7 @@ export async function save<T extends { id: string }>(table: Tables, row: T, acti
     if (apiEnabled) await db.outbox.add({ table, op: 'put', key: row.id, payload: row, at }); // en démonstration, rien n'est à envoyer
     await appendAudit(action, table, row.id, row);
   });
+  changed();
   return row;
 }
 
@@ -42,6 +46,7 @@ export async function remove(table: Tables, id: string, action = 'suppression') 
     if (apiEnabled) await db.outbox.add({ table, op: 'delete', key: id, payload: { id }, at });
     await appendAudit(action, table, id);
   });
+  changed();
 }
 
 /** Trace une action d'administration locale (comptes, demandes) sans l'envoyer au serveur. */

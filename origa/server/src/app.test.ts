@@ -543,4 +543,19 @@ describe('suppression et correction selon l’habilitation (v1.3)', () => {
     await live.close(); await prod.close();
     await demo.close();
   });
+
+  it('remet la démonstration à zéro : administrateur et mode démonstration seulement', async () => {
+    const adm = await login('+24100000009'); const ele = await login('+24100000001');
+    const post = (a: typeof app, tok: string) => a.inject({ method: 'POST', url: '/admin/demo/reset', headers: { authorization: `Bearer ${tok}` } });
+    expect((await post(app, adm)).statusCode).toBe(403); // serveur en exploitation : jamais
+    const demo = await buildApp({ ...cfg, demoOtp: '241241' }, db, { sms: async () => undefined, mail: mailer });
+    expect((await post(demo, ele)).statusCode).toBe(403);
+    const r = await post(demo, adm);
+    expect(r.statusCode).toBe(200);
+    expect(r.json().records).toBeGreaterThan(100);
+    expect((await demo.inject({ method: 'GET', url: '/public/config' })).json().epoch).toBeTruthy();
+    // Les comptes et le journal sont conservés.
+    expect((await db.query(`SELECT count(*)::int AS n FROM users WHERE phone='+24100000008'`)).rows[0].n).toBe(1);
+    await demo.close();
+  });
 });

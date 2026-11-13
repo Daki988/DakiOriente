@@ -7,16 +7,17 @@ import { Empty, Stepper, SyncPill, useToast } from '../components/ui';
 import { fmt, fmtDate, fmtInt, useDesktop, useSession, useSettings } from '../app/hooks';
 import { parseToken, signLot, verifyLot } from '../domain/qr';
 import { lotStatus } from '../domain/analytics';
-import { apiEnabled, api } from '../app/api';
+import { API, apiEnabled, api } from '../app/api';
+import { flushOutbox } from '../data/sync';
 import { today, uid } from '../domain/ids';
 import type { Lot } from '../domain/types';
 
 /** Extrait l'identifiant de lot d'un lien ou d'un contenu de QR Origa. */
-function lotFromScan(text: string): { lotId: string; valid: boolean } | null {
+function lotFromScan(text: string): { lotId: string; token: string; valid: boolean } | null {
   const m = text.match(/#\/p\/([^?#\s]+)/);
   const token = decodeURIComponent(m ? m[1] : text.trim());
   const p = parseToken(token);
-  return p ? { lotId: p.lotId, valid: verifyLot(p.lotId, p.signature) } : null;
+  return p ? { lotId: p.lotId, token, valid: verifyLot(p.lotId, p.signature) } : null;
 }
 
 type Detector = { detect: (src: CanvasImageSource) => Promise<{ rawValue: string }[]> };
@@ -25,6 +26,8 @@ type Detector = { detect: (src: CanvasImageSource) => Promise<{ rawValue: string
 function Scanner({ onResult }: { onResult: (t: string) => void }) {
   const video = useRef<HTMLVideoElement>(null);
   const [error, setError] = useState('');
+  // Rappel stable : la caméra ne redémarre pas à chaque rafraîchissement de l'écran (synchronisation toutes les 15 s).
+  const cb = useRef(onResult); cb.current = onResult;
   useEffect(() => {
     const BD = (window as unknown as { BarcodeDetector?: new (o: { formats: string[] }) => Detector }).BarcodeDetector;
     if (!BD || !navigator.mediaDevices?.getUserMedia) { setError('Lecture par caméra indisponible sur cet appareil : collez le lien du QR ci-dessous.'); return; }
@@ -36,12 +39,12 @@ function Scanner({ onResult }: { onResult: (t: string) => void }) {
       video.current.srcObject = s; await video.current.play();
       while (!stop) {
         const codes = await det.detect(video.current).catch(() => []);
-        if (codes[0]) { onResult(codes[0].rawValue); break; }
+        if (codes[0]) { cb.current(codes[0].rawValue); break; }
         await new Promise((r) => setTimeout(r, 250));
       }
     }).catch(() => setError('Caméra refusée : collez le lien du QR ci-dessous.'));
     return () => { stop = true; stream?.getTracks().forEach((t) => t.stop()); };
-  }, [onResult]);
+  }, []);
   return error ? <div className="note sun"><Icon name="info" size={18} />{error}</div> : <video ref={video} className="scanner" muted playsInline />;
 }
 
@@ -65,12 +68,22 @@ export function Reception() {
   const toReceive = mine.filter((l) => !l.receivedAt);
   const desktop = useDesktop();
 
-  function open(text: string) {
+  async function open(text: string) {
     const r = lotFromScan(text);
     if (!r) return show('Ce code n’est pas un QR Origa.');
     if (!r.valid) return show('QR non authentique : lot refusé.');
-    const lot = lots.find((l) => l.id === r.lotId);
-    if (!lot) return show('Lot inconnu sur cet appareil : synchronisez puis réessayez.');
+    let lot = lots.find((l) => l.id === r.lotId);
+    // Lot cédé à l'instant : on synchronise avant de conclure qu'il est inconnu.
+    if (!lot && apiEnabled) { await flushOutbox(); lot = await db.lots.get(r.lotId); }
+    // Distributeur : le lot ne lui est pas destiné nominativement ; ses données publiques suffisent au contrôle.
+    if (!lot && distributor && apiEnabled) {
+      const j = await fetch(`${API}/public/lots/${encodeURIComponent(r.token)}`, { cache: 'no-store' }).then((x) => x.json()).catch(() => null);
+      if (j?.valid && j.lot) {
+        lot = { id: j.lot.id, farmId: j.farm?.name ?? '', bandId: '', count: j.lot.count ?? 0, weightKg: j.lot.weightKg ?? 0, cededAt: j.lot.cededAt, receivedAt: j.lot.receivedAt ?? undefined,
+          distributorCheckedAt: j.lot.distributorCheckedAt ?? undefined, derivedProduct: j.lot.product ?? undefined, signature: 'serveur', confirmCode: '' } as Lot;
+      }
+    }
+    if (!lot) return show('Lot inconnu : vérifiez le réseau puis réessayez.');
     if (operator && !distributor && lot.operatorId !== operator.id) return show('Ce lot n’est pas destiné à votre structure.');
     setScan(false); setLink(''); setCurrent(lot); setCount(lot.count); setWeight(lot.weightKg); setNote('');
   }

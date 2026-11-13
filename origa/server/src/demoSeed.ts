@@ -15,6 +15,7 @@ const USERS: [string, string, string, string | null, string[], string | null][] 
   ['+24100000004', 'Services vétérinaires', 'veterinaire', null, [], null],
   ['+24100000005', 'BCEG · Suivi des financements', 'bceg', null, [], null],
   ['+24100000007', 'Abattoir de Ntoum', 'operateur', null, [], 'OP-001'],
+  ['+24100000008', 'Distributeur Libreville Centre', 'operateur', null, [], 'OP-003'],
   ['+24100000010', 'MAEDR · Cabinet du ministre', 'maedr', null, [], null],
   ['+24100000011', 'ANINF · Audit', 'aninf', null, [], null],
   ['+24100000009', 'Administrateur Origa', 'admin', null, [], null],
@@ -31,13 +32,13 @@ export function shiftDates<T>(value: T, days: number): T {
   return walk(value) as T;
 }
 
-export async function seedDemo(db: Db, signingKey: string, now = new Date()): Promise<number> {
+export async function seedDemo(db: Db, signingKey: string, now = new Date(), force = false): Promise<number> {
   // Chargé une seule fois : un repère l'atteste. Un chargement interrompu est complété sans rien effacer, et un
   // enregistrement supprimé depuis (pierre tombale) ne revient pas.
   if ((await db.query(`SELECT 1 FROM meta WHERE key='demo_seed'`)).rowCount) return 0;
   const used = (await db.query(`SELECT count(*)::int AS n FROM users`)).rows[0].n;
   const real = (await db.query(`SELECT 1 FROM records WHERE updated_by IS NOT NULL LIMIT 1`)).rowCount;
-  if (real || used > USERS.length) return 0; // base déjà utilisée pour de vrai : on n'y mélange pas de données fictives
+  if (!force && (real || used > USERS.length)) return 0; // base déjà utilisée pour de vrai : on n'y mélange pas de données fictives
   const file = [join(here, '..', 'seed', 'demo.json'), join(here, '..', '..', 'seed', 'demo.json'), join(process.cwd(), 'server', 'seed', 'demo.json')].find((f) => { try { readFileSync(f); return true; } catch { return false; } });
   if (!file) return 0;
   const seed = JSON.parse(readFileSync(file, 'utf8')) as { generatedAt: string; records: Record<string, Record<string, unknown>[]> };
@@ -72,4 +73,20 @@ export async function seedDemo(db: Db, signingKey: string, now = new Date()): Pr
     await client.query('COMMIT');
   } catch (e) { await client.query('ROLLBACK'); throw e; } finally { client.release(); }
   return n;
+}
+
+/**
+ * Remise à zéro de la démonstration (avant une séance de test, par exemple avec un jury) : les données métier
+ * repartent du jeu de démonstration, dates recalées sur aujourd'hui. Comptes et journal d'audit sont conservés
+ * (le journal n'est jamais modifiable). Réservé au mode démonstration : l'appelant le vérifie.
+ */
+export async function resetDemo(db: Db, signingKey: string, now = new Date()): Promise<number> {
+  const client = await db.connect();
+  try {
+    await client.query('BEGIN');
+    for (const t of ['records', 'tombstones', 'conflicts', 'scans']) await client.query(`DELETE FROM ${t}`);
+    await client.query(`DELETE FROM meta WHERE key='demo_seed'`);
+    await client.query('COMMIT');
+  } catch (e) { await client.query('ROLLBACK'); throw e; } finally { client.release(); }
+  return seedDemo(db, signingKey, now, true);
 }

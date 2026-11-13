@@ -1,3 +1,4 @@
+import { resetDemo } from './demoSeed.js';
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify';
 import cors from '@fastify/cors';
 import rateLimit from '@fastify/rate-limit';
@@ -111,7 +112,12 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mai
 
   app.get('/me', { preHandler: auth }, async (req) => req.user);
   /** Ce que l'écran de connexion doit savoir du serveur (aucune donnée sensible). */
-  app.get('/public/config', async () => ({ ready: true, demo: !!cfg.demoOtp, sms: cfg.smsProvider !== 'console' }));
+  // « epoch » : date du dernier chargement du jeu de démonstration ; après une remise à zéro, les appareils repartent
+  // d'une copie locale vide au lieu de garder des enregistrements disparus.
+  app.get('/public/config', async () => {
+    const epoch = cfg.demoOtp ? ((await db.query(`SELECT value FROM meta WHERE key='demo_seed'`)).rows[0]?.value ?? null) : null;
+    return { ready: true, demo: !!cfg.demoOtp, sms: cfg.smsProvider !== 'console', ...(epoch ? { epoch } : {}) };
+  });
 
   // ---------- Synchronisation ----------
   app.post<{ Body: { items?: SyncItem[] } }>('/sync', { preHandler: auth }, async (req, reply) => {
@@ -434,6 +440,15 @@ export async function buildApp(cfg: Config, db: Db, opts: { sms?: SmsSender; mai
     if (r.skipped) return reply.code(409).send({ error: `Rapport non envoyé : ${r.skipped}.` });
     await audit(req.user!.sub, `envoi du rapport ${kind}`, 'report_runs', r.period);
     return r;
+  });
+
+  // ---------- Remise à zéro de la démonstration (administrateur, mode démonstration seulement) ----------
+  app.post('/admin/demo/reset', { preHandler: auth }, async (req, reply) => {
+    if (req.user!.role !== 'admin') return reply.code(403).send({ error: 'Réservé à l’administrateur.' });
+    if (!cfg.demoOtp) return reply.code(403).send({ error: 'Possible uniquement en mode démonstration.' });
+    const n = await resetDemo(db, cfg.lotSigningKey);
+    await audit(req.user!.sub, 'remise à zéro de la démonstration', 'records', String(n));
+    return { ok: true, records: n };
   });
 
   // ---------- Agrégats nationaux (diffusion, MAEDR) ----------

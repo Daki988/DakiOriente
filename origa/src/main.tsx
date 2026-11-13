@@ -16,6 +16,7 @@ blockPageZoom();
 // Le serveur est-il en service ? Sinon, démonstration autonome avec des données fictives.
 const boot = detectServer().then(async (mode) => {
   if (mode === 'upgraded') { await db.delete(); location.reload(); await new Promise(() => undefined); } // on repart sur une base vide, côté serveur
+  if (mode === 'reset') { await db.delete(); location.reload(); await new Promise(() => undefined); } // démonstration remise à zéro : on reprend tout du serveur, la session reste ouverte
   if (apiEnabled) { if (!(await db.settings.get('global'))) await db.settings.put(DEFAULT_SETTINGS); return; }
   await seedIfEmpty(); await ensureDemoAccounts(); await ensureDemoExtras(); await ensureDemoV13();
 });

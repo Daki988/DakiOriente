@@ -12,6 +12,7 @@ export const DEMO_USERS: UserAccount[] = [
   { id: 'u-vet', phone: '+24100000004', name: 'Services vétérinaires', role: 'veterinaire', active: true, createdAt: '2026-08-20' },
   { id: 'u-bceg', phone: '+24100000005', name: 'BCEG · Suivi des financements', role: 'bceg', active: true, createdAt: '2026-08-20' },
   { id: 'u-operateur', phone: '+24100000007', name: 'Abattoir de Ntoum', role: 'operateur', operatorId: 'OP-001', active: true, createdAt: '2026-08-20' },
+  { id: 'u-distributeur', phone: '+24100000008', name: 'Distributeur Libreville Centre', role: 'operateur', operatorId: 'OP-003', active: true, createdAt: '2026-08-20' },
   { id: 'u-maedr', phone: '+24100000010', name: 'MAEDR · Cabinet du ministre', role: 'maedr', active: true, createdAt: '2026-08-20' },
   { id: 'u-aninf', phone: '+24100000011', name: 'ANINF · Audit', role: 'aninf', active: true, createdAt: '2026-08-20' },
   { id: 'u-admin', phone: '+24100000009', name: 'Administrateur Origa', role: 'admin', active: true, createdAt: '2026-08-20' },
@@ -25,6 +26,8 @@ const DEMO_REQUESTS: AccessRequest[] = [
 /** Comptes et demandes de démonstration, ajoutés sans écraser ce que l'administrateur a modifié. */
 export async function ensureDemoAccounts() {
   if ((await db.users.count()) === 0) await db.users.bulkPut(DEMO_USERS);
+  // Comptes ajoutés depuis (distributeur) : complétés sans toucher aux autres.
+  for (const u of DEMO_USERS) if (!(await db.users.get(u.id))) await db.users.put(u);
   if ((await db.requests.count()) === 0) await db.requests.bulkPut(DEMO_REQUESTS);
 }
 

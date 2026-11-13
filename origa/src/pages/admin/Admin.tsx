@@ -8,6 +8,7 @@ import { Modal, useToast } from '../../components/ui';
 import { Icon } from '../../components/Icon';
 import { UserForm, ROLES, roleLabel } from './UserForm';
 import { fmtDate } from '../../app/hooks';
+import { API, api, apiEnabled } from '../../app/api';
 import { provinceName } from '../../domain/provinces';
 import type { AccessRequest, Operator, UserAccount } from '../../domain/types';
 
@@ -56,7 +57,34 @@ export function AdminHome() {
           {audit.map((a) => <div key={a.id} className="li"><div className="grow"><b>{a.action}</b><span>{a.user} · {a.table ?? ''} {a.key ?? ''} · {new Date(a.at).toLocaleString('fr-FR')}</span></div></div>)}
         </div>
       </div>
+      <DemoReset />
     </>
+  );
+}
+
+/**
+ * Avant une séance de test (jury, formation) : les données métier repartent du jeu de démonstration, dates du jour.
+ * Visible seulement quand le serveur national tourne en mode démonstration ; comptes et journal d'audit conservés.
+ */
+function DemoReset() {
+  const [demo, setDemo] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [toast, show] = useToast();
+  useEffect(() => { if (apiEnabled) fetch(`${API}/public/config`).then((r) => r.json()).then((c) => setDemo(!!c.demo)).catch(() => undefined); }, []);
+  if (!demo) return null;
+  const reset = async () => {
+    if (!window.confirm('Remettre la démonstration à zéro ? Toutes les saisies d’essai seront effacées pour tous les appareils (comptes et journal d’audit conservés).')) return;
+    setBusy(true);
+    try { const r = await api<{ records: number }>('/admin/demo/reset', { method: 'POST' }); show(`Démonstration remise à zéro : ${r.records} enregistrements rechargés`); setTimeout(() => location.reload(), 1200); }
+    catch (e) { show((e as Error).message); setBusy(false); }
+  };
+  return (
+    <div className="panel">
+      <h3>Séance de démonstration</h3>
+      <span className="muted">Avant une séance de test (jury, formation) : les saisies d’essai sont effacées et les données de démonstration rechargées, dates du jour. Chaque appareil se met à jour à sa prochaine ouverture.</span>
+      <button className="sel dark" style={{ alignSelf: 'flex-start' }} disabled={busy} onClick={reset}>{busy ? 'Remise à zéro…' : 'Remettre la démonstration à zéro'}</button>
+      {toast}
+    </div>
   );
 }
 

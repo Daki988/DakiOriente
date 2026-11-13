@@ -66,9 +66,24 @@ export async function pendingCount() { return db.outbox.count(); }
 
 export function startAutoSync() {
   if (!apiEnabled) return () => undefined;
-  const run = () => { flushOutbox().catch(() => undefined); };
+  // Quasi temps réel : chaque saisie part dans la seconde, les données des autres profils arrivent toutes les
+  // 15 s (application ouverte) et dès le retour sur l'application ou du réseau.
+  let busy = false; let again = false; let soon: number | undefined;
+  const run = () => {
+    if (busy) { again = true; return; }
+    busy = true;
+    flushOutbox().catch(() => undefined).finally(() => { busy = false; if (again) { again = false; run(); } });
+  };
+  const debounced = () => { window.clearTimeout(soon); soon = window.setTimeout(run, 800); };
+  const visible = () => { if (document.visibilityState === 'visible') run(); };
   window.addEventListener('online', run);
-  const t = window.setInterval(run, 60_000);
+  window.addEventListener('focus', run);
+  window.addEventListener('origa:changed', debounced);
+  document.addEventListener('visibilitychange', visible);
+  const t = window.setInterval(() => { if (document.visibilityState === 'visible') run(); }, 15_000);
   run();
-  return () => { window.removeEventListener('online', run); window.clearInterval(t); };
+  return () => {
+    window.removeEventListener('online', run); window.removeEventListener('focus', run); window.removeEventListener('origa:changed', debounced);
+    document.removeEventListener('visibilitychange', visible); window.clearInterval(t); window.clearTimeout(soon);
+  };
 }

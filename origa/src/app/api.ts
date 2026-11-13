@@ -15,7 +15,7 @@ export const API = sameOrigin ? `${location.origin}/api` : (import.meta.env.VITE
  * sur le serveur dès qu'il répond « prêt ». Sans cette option, le serveur est obligatoire (exploitation).
  */
 const OPTIONAL = !!API && import.meta.env.VITE_API_OPTIONAL === '1';
-const MODE = 'origa.mode'; const KEY = 'origa.lotKey';
+const MODE = 'origa.mode'; const KEY = 'origa.lotKey'; const EPOCH = 'origa.demoEpoch';
 const read = (k: string) => { try { return localStorage.getItem(k); } catch { return null; } };
 const write = (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* stockage indisponible */ } };
 
@@ -33,10 +33,15 @@ async function probe<T>(path: string): Promise<T | null> {
  * fictives locales doivent alors être effacées. Le retour en démonstration n'est jamais automatique (une panne du
  * serveur ne doit pas faire perdre les saisies en attente d'envoi).
  */
-export async function detectServer(): Promise<'api' | 'demo' | 'upgraded'> {
+export async function detectServer(): Promise<'api' | 'demo' | 'upgraded' | 'reset'> {
   if (!API) return 'demo';
   if (apiEnabled) {
     if (!read(KEY)) probe<{ publicKey: string }>('/public/key').then((k) => { if (k?.publicKey) { write(KEY, k.publicKey); setPublicKey(k.publicKey); } });
+    // Démonstration remise à zéro sur le serveur depuis la dernière ouverture : copie locale à reconstruire.
+    const cfg = await probe<{ epoch?: string }>('/public/config');
+    const known = read(EPOCH);
+    if (cfg?.epoch) write(EPOCH, cfg.epoch);
+    if (cfg?.epoch && known && known !== cfg.epoch) { try { localStorage.removeItem('origa.cursor'); localStorage.removeItem('origa.syncIssues'); } catch { /* ignore */ } return 'reset'; }
     return 'api';
   }
   const cfg = await probe<{ ready?: boolean }>('/public/config');

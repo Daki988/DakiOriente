@@ -66,7 +66,7 @@ export function Auth() {
                   <span className="muted">Touchez un profil pour l'essayer, avec des données fictives.</span>
                   <div className="chips">
                     {DEMO_USERS.map((u) => (
-                      <button key={u.id} className="chip" onClick={() => { setPhone(u.phone); sendCode(u.phone); }}>{ROLE_LABEL[u.role]}</button>
+                      <button key={u.id} className="chip" onClick={() => { setPhone(u.phone); sendCode(u.phone); }}>{u.operatorId === 'OP-003' ? 'Distributeur' : ROLE_LABEL[u.role]}</button>
                     ))}
                   </div>
                 </div>
