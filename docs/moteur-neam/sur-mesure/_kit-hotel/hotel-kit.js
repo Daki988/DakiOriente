@@ -34,13 +34,14 @@ const ic = (n, s = 20) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" f
 
 function build(H, dir) {
   const OUT = path.resolve(dir, '../../../../neam-moteur/sites', H.slug);
-  const NAV = [['index.html', 'Accueil'], ['chambres.html', H.roomsLabel || 'Chambres'], ['restaurant.html', H.restoLabel || 'Restaurant'], [H.extraPage[0], H.extraPage[1]], ['hotel.html', 'L\'hôtel'], ['contact.html', 'Contact']];
+  const RF = H.restoFile || 'restaurant.html';
+  const NAV = [['index.html', 'Accueil'], ['chambres.html', H.roomsLabel || 'Chambres'], [RF, H.restoLabel || 'Restaurant'], [H.extraPage[0], H.extraPage[1]], ['hotel.html', H.aboutLabel || 'L\'hôtel'], ['contact.html', 'Contact']];
   const HOURS = H.hours;
   const R = H.rooms;
 
   function page(file, { title, desc, active, body }) {
     const nav = NAV.map(([f, t]) => `<a href="${f}"${f === active ? ' class="on" aria-current="page"' : ''}>${esc(t)}</a>`).join('');
-    const ld = { '@context': 'https://schema.org', '@type': 'Hotel', name: H.name, description: H.intro, telephone: '+241' + H.tel.replace(/\D/g, '').replace(/^0/, ''), email: H.mail, address: { '@type': 'PostalAddress', streetAddress: H.addr, addressLocality: H.city, addressCountry: 'GA' }, checkinTime: H.checkin, checkoutTime: H.checkout, amenityFeature: H.amen.map(([, n]) => ({ '@type': 'LocationFeatureSpecification', name: n, value: true })), priceRange: `${fcfa(Math.min(...R.map((r) => r.price)))} – ${fcfa(Math.max(...R.map((r) => r.wkd || r.price)))}` };
+    const ld = { '@context': 'https://schema.org', '@type': H.ldType || 'Hotel', name: H.name, description: H.intro, telephone: '+241' + H.tel.replace(/\D/g, '').replace(/^0/, ''), email: H.mail, address: { '@type': 'PostalAddress', streetAddress: H.addr, addressLocality: H.city, addressCountry: 'GA' }, checkinTime: H.checkin, checkoutTime: H.checkout, amenityFeature: H.amen.map(([, n]) => ({ '@type': 'LocationFeatureSpecification', name: n, value: true })), priceRange: `${fcfa(Math.min(...R.map((r) => r.price)))} – ${fcfa(Math.max(...R.map((r) => r.wkd || r.price)))}` };
     const html = `<!doctype html><html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
 <title>${esc(title)} — ${H.name}</title><meta name="description" content="${esc(desc)}">
@@ -53,8 +54,8 @@ function build(H, dir) {
 <main>${body}</main>
 <footer class="ft"><div class="wrap">
 <div><a class="logo" href="index.html">${H.logo}</a><p>${esc(H.footer)}</p><div class="soc" data-soc></div></div>
-<div><h5>L'hôtel</h5><p>${H.addr}<br>${H.city}, Gabon</p><p>Arrivée dès ${H.checkin.replace(':', ' h ')} · départ avant ${H.checkout.replace(':', ' h ')}</p></div>
-<div><h5>Séjourner</h5><p><a href="chambres.html">${H.roomsLabel || 'Chambres'}</a><br><a href="restaurant.html">${H.restoLabel || 'Restaurant'}</a><br><a href="${H.extraPage[0]}">${H.extraPage[1]}</a><br><a href="galerie.html">Galerie</a></p></div>
+<div><h5>${H.aboutLabel || 'L\'hôtel'}</h5><p>${H.addr}<br>${H.city}, Gabon</p><p>Arrivée dès ${H.checkin.replace(':', ' h ')} · départ avant ${H.checkout.replace(':', ' h ')}</p></div>
+<div><h5>Séjourner</h5><p><a href="chambres.html">${H.roomsLabel || 'Chambres'}</a><br><a href="${RF}">${H.restoLabel || 'Restaurant'}</a><br><a href="${H.extraPage[0]}">${H.extraPage[1]}</a><br><a href="galerie.html">Galerie</a></p></div>
 <div><h5>Réservations</h5><p><a href="${telHref(H.tel)}">${H.tel}</a> (WhatsApp)<br><a href="mailto:${H.mail}">${H.mail}</a><br>${HOURS}</p></div>
 <div class="cp">© 2026 ${H.name} · ${H.city}, Gabon · Tarifs indicatifs, confirmés à la réservation.</div></div></footer>
 <a class="neam-back" href="javascript:history.length>1?history.back():location.href='../../index.html'">← <b>NEAM Atelier</b> · retour</a>
@@ -114,11 +115,11 @@ ${CTA}`,
   }));
 
   // Restaurant
-  pages.push(page('restaurant.html', {
-    title: H.restoLabel || 'Restaurant', active: 'restaurant.html', desc: H.resto.desc,
+  pages.push(page(RF, {
+    title: H.restoLabel || 'Restaurant', active: RF, desc: H.resto.desc,
     body: `${PT(H.restoLabel || 'Restaurant', H.resto.title, H.resto.lead, H.ph.resto)}
-<section class="sec"><div class="wrap split"><div><span class="tag">À table</span><h2>${H.resto.h2}</h2><p class="lead">${esc(H.resto.text)}</p><ul class="hrs">${H.resto.hours.map(([m, h]) => `<li><span>${m}</span><b>${h}</b></li>`).join('')}</ul></div><div class="duo"><img src="${H.ph.food1}" alt="" loading="lazy"><img src="${H.ph.food2}" alt="" loading="lazy"></div></div></section>
-<section class="sec soft"><div class="wrap"><span class="tag">Exemples de plats</span><h2>La carte</h2><div class="menu">${H.resto.menu.map(([cat, items]) => `<div><h3>${cat}</h3><ul>${items.map(([n, d, p]) => `<li><div><b>${esc(n)}</b><small>${esc(d)}</small></div><span>${p ? fcfa(p) : ''}</span></li>`).join('')}</ul></div>`).join('')}</div><p class="note">Carte indicative, selon le marché et la saison.</p></div></section>
+<section class="sec"><div class="wrap split"><div><span class="tag">${H.resto.tag1 || 'À table'}</span><h2>${H.resto.h2}</h2><p class="lead">${esc(H.resto.text)}</p><ul class="hrs">${H.resto.hours.map(([m, h]) => `<li><span>${m}</span><b>${h}</b></li>`).join('')}</ul></div><div class="duo"><img src="${H.ph.food1}" alt="" loading="lazy"><img src="${H.ph.food2}" alt="" loading="lazy"></div></div></section>
+<section class="sec soft"><div class="wrap"><span class="tag">${H.resto.tag2 || 'Exemples de plats'}</span><h2>${H.resto.h2b || 'La carte'}</h2><div class="menu">${H.resto.menu.map(([cat, items]) => `<div><h3>${cat}</h3><ul>${items.map(([n, d, p]) => `<li><div><b>${esc(n)}</b><small>${esc(d)}</small></div><span>${p ? fcfa(p) : ''}</span></li>`).join('')}</ul></div>`).join('')}</div><p class="note">${H.resto.note || 'Carte indicative, selon le marché et la saison.'}</p></div></section>
 ${CTA}`,
   }));
 
@@ -127,8 +128,8 @@ ${CTA}`,
 
   // L'hôtel
   pages.push(page('hotel.html', {
-    title: 'L\'hôtel', active: 'hotel.html', desc: H.aboutDesc,
-    body: `${PT('L\'hôtel', H.aboutTitle, H.aboutLead, H.ph.about)}
+    title: H.aboutLabel || 'L\'hôtel', active: 'hotel.html', desc: H.aboutDesc,
+    body: `${PT(H.aboutLabel || 'L\'hôtel', H.aboutTitle, H.aboutLead, H.ph.about)}
 <section class="sec"><div class="wrap split"><img src="${H.ph.side1}" alt="" loading="lazy" class="big"><div><span class="tag">Notre histoire</span><h2>${H.aboutH2}</h2>${H.aboutText.map((t) => `<p class="lead">${esc(t)}</p>`).join('')}</div></div></section>
 <section class="sec soft"><div class="wrap"><span class="tag">Équipements</span><h2>${esc(H.amenTitle)}</h2>${AMEN}</div></section>
 <section class="sec"><div class="wrap"><span class="tag">Bon à savoir</span><h2>Infos pratiques</h2><div class="faq">${H.faq.map(([q, a], i) => `<details${i ? '' : ' open'}><summary>${q}</summary><p>${a}</p></details>`).join('')}</div></div></section>

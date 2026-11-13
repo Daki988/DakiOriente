@@ -151,3 +151,4 @@ img.big{width:100%;height:520px;object-fit:cover;border-radius:var(--r)}
 @media (max-width:1150px){.rms3:has(>:nth-child(4):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:860px){.rms3:has(>:nth-child(4):last-child){grid-template-columns:minmax(0,1fr)}}
 .sim [data-ls-r] span{display:block;margin-top:4px;font-size:14px}
+.hero .kick{text-shadow:0 1px 8px rgba(0,0,0,.55)}

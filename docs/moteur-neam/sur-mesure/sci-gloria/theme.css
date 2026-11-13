@@ -1,0 +1,6 @@
+/* SCI Gloria : bleu ardoise et terracotta clair, lin. Cormorant Garamond + Mulish. */
+:root{--p:#24364A;--p2:#18263A;--a:#C46A4A;--a2:#E39A7E;--soft:#F6F1EA;--ink:#1D2530;--mute:#626B77;--line:#E7E0D6;--hf:'Cormorant Garamond',Georgia,serif;--bf:Mulish,Arial,sans-serif;--r:8px}
+.hero h1,.sec h2,.pt h1{font-weight:600}
+.hero:before{background:linear-gradient(180deg,rgba(24,38,58,.2),rgba(24,38,58,.25) 40%,rgba(24,38,58,.85))}
+.pt:before{background:linear-gradient(90deg,rgba(24,38,58,.88),rgba(24,38,58,.35))}
+.tag{color:#A4502F}.btn.p:hover{background:#A4502F}.hero .kick{color:#F4C7B5}
