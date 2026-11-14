@@ -529,8 +529,9 @@ export async function* converser(req: NaviRequete, user: User | null): AsyncGene
     }
     // Texte écrit juste avant une recherche : c'est une annonce (« je regarde… », « je vérifie dans la base »),
     // pas la réponse. L'utilisateur n'a pas à la voir : on l'efface et on attend la vraie réponse.
-    // (On n'efface pas quand le seul outil appelé est « afficher » : là, le texte EST la réponse.)
-    if (ecrit && appels.some((a) => a.name !== "afficher")) { yield { t: "efface" }; ecrit = false; }
+    // (On n'efface pas dès que « afficher » est dans le tour : le modèle rédige sa réponse et demande
+    //  les cartes ensemble, ce texte-là EST la réponse.)
+    if (ecrit && !appels.some((a) => a.name === "afficher")) { yield { t: "efface" }; ecrit = false; }
     messages.push({ role: "assistant", content: m.content as Anthropic.Beta.BetaContentBlockParam[] });
     // Outils exécutés en parallèle (recherches indépendantes).
     const resultats: Anthropic.Beta.BetaToolResultBlockParam[] = await Promise.all(appels.map(async (a): Promise<Anthropic.Beta.BetaToolResultBlockParam> => {
