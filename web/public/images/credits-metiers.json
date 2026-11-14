@@ -481,13 +481,14 @@
   },
   "met-infirmier": {
     "alt": "Infirmier / Infirmière",
-    "credit": "Aussie~mobs",
-    "licence": "PDM 1.0",
-    "page": "https://www.flickr.com/photos/70994841@N07/52400057821",
-    "source": "https://live.staticflickr.com/65535/52400057821_0e003d01e3_b.jpg",
+    "banque": "Unsplash",
+    "credit": "National Cancer Institute",
+    "licence": "Unsplash",
+    "page": "https://unsplash.com/photos/0brH8nlXv0M",
+    "source": "https://images.unsplash.com/photo-1631558554184-319c88f4f8a4",
     "src": "/images/metiers/infirmier.webp",
-    "titre": "Four nurses in Queensland - circa 1908",
-    "verifie": "2026-11-13"
+    "titre": "a doctor listening to a patient with a stethoscope",
+    "verifie": "2026-11-14"
   },
   "met-ingenieur-agronome": {
     "alt": "Ingénieur agronome",
