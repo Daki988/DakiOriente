@@ -26,7 +26,7 @@ function MetierCarte({ m }: { m: Metier }) {
   const ecoles = ecolesPourMetier(m);
   return (
     <Link href={`/metiers/${m.id}/`} className="card group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-lift">
-      <Illustration p={photoMetier(m.id, m.domaine)} domaine={m.domaine} className="h-36 shrink-0 transition duration-700 group-hover:scale-105" />
+      <Illustration p={photoMetier(m.id, m.domaine)} domaine={m.domaine} className="h-36 shrink-0 transition duration-700 group-hover:scale-105" sizes="(max-width: 640px) 70vw, 240px" />
       <div className="flex flex-1 flex-col gap-2 p-4">
         <span className="chip w-fit max-w-full" style={{ background: s.bg, color: s.fg }}><span className="truncate">{court(domaineById[m.domaine].libelle)}</span></span>
         <b className="text-[17px] leading-snug">{m.nom}</b>
@@ -103,7 +103,7 @@ export function MetierList() {
           </div>
           <div className="relative mx-auto hidden h-[300px] w-full max-w-[420px] lg:block">
             <div className="absolute inset-x-[8%] bottom-0 top-[12%] rounded-[42%_58%_70%_30%/45%_45%_55%_55%] animate-blob bg-gradient-to-br from-brand-500 to-brand-300" />
-            <Image src="/images/etudiante-840.webp" alt="" width={840} height={751} sizes="420px" className="absolute inset-x-0 bottom-0 h-auto w-full" />
+            <Image src="/images/etudiante-cadree.webp" alt="" width={840} height={751} sizes="420px" className="absolute inset-x-0 bottom-0 h-auto w-full" />
           </div>
         </div>
       </section>
@@ -154,7 +154,7 @@ export function MetierList() {
             {METIERS_UNE.map((m, k) => (
               <Link key={m.id} href={`/metiers/${m.id}/`} className="group flex min-h-[48px] items-center gap-3 rounded-xl p-1 hover:bg-[#f6f8fe]">
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-50 text-xs font-extrabold text-brand-700">{k + 1}</span>
-                <Illustration p={photoMetier(m.id, m.domaine)} domaine={m.domaine} iconSize={18} rounded="rounded-lg" className="h-10 w-10 shrink-0" />
+                <Illustration p={photoMetier(m.id, m.domaine)} domaine={m.domaine} iconSize={18} rounded="rounded-lg" className="h-10 w-10 shrink-0" sizes="40px" />
                 <span className="min-w-0 flex-1"><b className="block truncate text-sm">{m.nom}</b><span className="text-xs text-ink-mute">{ecolesPourMetier(m)} établissements</span></span>
                 <ChevronRight size={16} className="shrink-0 text-ink-mute transition group-hover:translate-x-0.5" />
               </Link>

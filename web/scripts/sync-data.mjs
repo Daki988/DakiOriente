@@ -1,5 +1,6 @@
 // Copie les référentiels (../data/referentiels) et les logos (../assets/logos) dans l'application web.
 // Exécuté automatiquement avant `dev` et `build`.
+import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -136,5 +137,13 @@ for (const service of fs.readdirSync(LEGAL)) {
   }
 }
 write("legal", legal);
+
+// Variantes légères des photos (160 et 400 px) : sans elles, les vignettes chargeraient la photo
+// pleine taille et le srcset pointerait vers des fichiers absents. On refuse de livrer dans ce cas.
+const variantes = spawnSync("python3", [path.join(root, "scripts", "variantes_images.py"), "--verifier"], { encoding: "utf8" });
+if (variantes.status !== 0) {
+  process.stderr.write(variantes.stderr || "Contrôle des variantes d'images impossible (python3 ?).\n");
+  if (variantes.status !== null) process.exit(1);
+}
 
 console.log(`Référentiels synchronisés : ${sup.length} établissements, ${read("metiers").items.length} métiers.`);

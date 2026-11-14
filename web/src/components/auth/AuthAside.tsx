@@ -27,7 +27,7 @@ export function AuthAside() {
         ))}
       </ul>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/images/etudiante-840.webp" alt="" className="pointer-events-none absolute -bottom-2 right-0 w-[min(46%,340px)] opacity-95" />
+      <img src="/images/etudiante-cadree.webp" alt="" className="pointer-events-none absolute -bottom-2 right-0 w-[min(46%,340px)] opacity-95" />
     </aside>
   );
 }

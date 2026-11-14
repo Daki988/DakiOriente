@@ -55,7 +55,7 @@ export function MetierCard({ m }: { m: Metier }) {
   return (
     <Tilt className="h-full">
       <Link href={`/metiers/${m.id}/`} className="card group flex h-full flex-col gap-3 p-5 transition-shadow hover:shadow-lift">
-        <Illustration p={photoMetier(m.id, m.domaine)} domaine={m.domaine} className="-mx-5 -mt-5 h-32" rounded="rounded-t-[20px]" />
+        <Illustration p={photoMetier(m.id, m.domaine)} domaine={m.domaine} className="-mx-5 -mt-5 h-32" rounded="rounded-t-[20px]" sizes="(max-width: 640px) 70vw, 240px" />
         <div className="flex items-start justify-between">
           <div className="flex h-12 w-12 items-center justify-center rounded-[14px] text-white" style={{ background: s.solid }}><Icon size={24} /></div>
           <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f6f8fe] text-ink-mute transition group-hover:bg-[#ffecef] group-hover:text-[#d42a50]"><Heart size={17} /></span>
@@ -104,7 +104,7 @@ export function FormationOfferCard({ f, etabId, score, highlight = false, villes
     <div className={`card relative flex flex-col gap-5 p-4 transition-all hover:-translate-y-1 hover:shadow-lift sm:flex-row ${highlight ? "border-brand-200 shadow-lift" : ""}`}>
       <PartenaireMarque id={etabId} />
       <div className="relative h-28 w-full shrink-0 sm:w-36">
-        <Illustration p={photoFormation(f.domaine, e, f.metiers)} domaine={f.domaine} className="h-full w-full" rounded="rounded-2xl" />
+        <Illustration p={photoFormation(f.domaine, e, f.metiers)} domaine={f.domaine} className="h-full w-full" rounded="rounded-2xl" sizes="(max-width: 640px) 70vw, 240px" />
         <div className="absolute -bottom-3 left-3"><EtabLogo e={e} size={44} className="shadow" /></div>
       </div>
       <div className="flex flex-1 flex-col gap-2 pt-2 sm:pt-0">

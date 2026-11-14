@@ -20,7 +20,9 @@ const PRIVES = ["admin", "bailleur", "compte", "conseiller", "espace", "etabliss
 const nextConfig = {
   // Paquet autonome (serveur Node seul) pour un hébergement cPanel / VPS : BUILD_STANDALONE=1 npm run build
   ...(process.env.BUILD_STANDALONE ? { output: "standalone" } : {}),
-  images: { unoptimized: true },
+  // Pas d'optimisation à la volée (pas de sharp sur l'hébergement mutualisé) : next/image sert les
+  // variantes statiques préparées par scripts/variantes_images.py (voir image-loader.js).
+  images: { loader: "custom", loaderFile: "./image-loader.js", deviceSizes: [400, 640, 840, 1280], imageSizes: [160] },
   trailingSlash: true,
   // Les services serveur utilisent pg, bcryptjs, pdf-lib : exécutés côté Node, non regroupés.
   experimental: { serverComponentsExternalPackages: ["pg", "pdf-lib", "bcryptjs"] },

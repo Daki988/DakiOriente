@@ -89,7 +89,7 @@ export function Ressources() {
           </div>
           <div className="relative mx-auto hidden h-[300px] w-full max-w-[420px] lg:block">
             <div className="absolute inset-x-[8%] bottom-0 top-[12%] rounded-[42%_58%_70%_30%/45%_45%_55%_55%] animate-blob bg-gradient-to-br from-brand-500 to-brand-300" />
-            <Image src="/images/etudiante-840.webp" alt="" width={840} height={751} sizes="420px" className="absolute inset-x-0 bottom-0 h-auto w-full" />
+            <Image src="/images/etudiante-cadree.webp" alt="" width={840} height={751} sizes="420px" className="absolute inset-x-0 bottom-0 h-auto w-full" />
           </div>
         </div>
       </section>

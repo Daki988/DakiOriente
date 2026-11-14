@@ -56,7 +56,7 @@ export default function ParentsPage() {
             <p className="text-[13px] text-brand-200">Gratuit · votre enfant vous invite depuis son espace, ou vous le liez avec son code d&apos;invitation</p>
           </Reveal>
           <div className="relative mx-auto w-[min(70%,360px)] self-end lg:w-full lg:max-w-[400px]">
-            <Image src="/images/etudiante-840.webp" alt="Étudiante souriante avec ses cahiers" width={840} height={751} priority sizes="(max-width: 1024px) 70vw, 400px" className="h-auto w-full" />
+            <Image src="/images/etudiante-cadree.webp" alt="Étudiante souriante avec ses cahiers" width={840} height={751} priority sizes="(max-width: 1024px) 70vw, 400px" className="h-auto w-full" />
           </div>
         </div>
       </section>
