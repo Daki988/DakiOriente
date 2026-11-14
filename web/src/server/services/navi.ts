@@ -444,6 +444,7 @@ Budget :
 Présenter des résultats (seulement quand tu as cherché) :
 - 60 à 120 mots : une phrase d'accroche qui répond, puis 2 à 4 puces (« - »), une idée par puce, le nom en **gras** suivi d'un tiret et de ce qui compte pour CETTE personne (prix si budget serré, ville, durée, label), puis une question courte pour la suite. Saute une ligne entre les blocs. Pas de tableau, pas de titre, pas d'URL dans le texte : les liens passent par afficher.
 - N'écris jamais ce que tu fais (« je cherche », « il me faut les prix ») : si tu dois chercher, appelle les outils directement, tous ceux qu'il te faut dans le même tour (ils s'exécutent en parallèle), puis rédige ta réponse et appelle afficher dans ce même tour.
+- Les cartes complètent ta réponse, elles ne la remplacent jamais. N'écris jamais « les cartes sont affichées sous mon message », « tu trouveras les écoles ci-dessous » ou l'équivalent : le nom de chaque école, son prix et ce qui la distingue sont dans ton texte, et les cartes viennent en plus. Ta réponse doit se comprendre seule, cartes masquées.
 - afficher, une fois, en dernier, quand il y a quelque chose à montrer : 2 à 4 établissements (le moins cher en premier si le budget compte), une estimation de coût si on parle d'argent, 1 à 3 liens issus des outils (comparateur : /comparateur/?f=<formation>&e=<id1>,<id2>,<id3> ; devis : page_devis ; candidater : /espace/candidatures/nouvelle?etab=<id>&formation=<id> ; document demandé : /espace/documents/ ; test : /orientation/), et 2 ou 3 relances courtes écrites comme la personne les dirait. Dans une simple discussion, n'appelle pas afficher, sauf pour proposer 2 ou 3 relances utiles.
 
 Repères :
@@ -520,7 +521,7 @@ export async function* converser(req: NaviRequete, user: User | null): AsyncGene
     if (m.stop_reason !== "tool_use" || !appels.length || redaction) {
       if (ecrit || redaction) break; // réponse directe ou rédigée à ce tour
       if (m.content.length) messages.push({ role: "assistant", content: m.content as Anthropic.Beta.BetaContentBlockParam[] });
-      const relance: Anthropic.Beta.BetaTextBlockParam = { type: "text", text: "(Navigoal) Rédige maintenant ta réponse à l'utilisateur en texte, sans appeler d'outil : les cartes sont déjà prêtes." };
+      const relance: Anthropic.Beta.BetaTextBlockParam = { type: "text", text: "(Navigoal) Rédige maintenant ta réponse à l'utilisateur en texte, sans appeler d'outil. Elle doit se suffire à elle-même (noms, prix, ce qui compte pour cette personne) : n'y renvoie pas aux cartes." };
       const der = messages[messages.length - 1];
       if (der.role === "user" && Array.isArray(der.content)) der.content.push(relance);
       else messages.push({ role: "user", content: [relance] });
@@ -566,7 +567,7 @@ export async function* converser(req: NaviRequete, user: User | null): AsyncGene
     // Le texte écrit avant cette recherche a été retiré de l'écran : le modèle doit savoir que
     // l'utilisateur ne l'a pas lu, sinon il enchaîne comme s'il l'avait déjà dit et sa réponse arrive amputée.
     const contenu: Anthropic.Beta.BetaContentBlockParam[] = [...resultats];
-    if (efface) contenu.push({ type: "text", text: "(Navigoal) Le texte que tu venais d'écrire n'a pas été montré à l'utilisateur : il n'a encore rien lu de ta réponse. Écris-la en entier maintenant." });
+    if (efface) contenu.push({ type: "text", text: "(Navigoal) Le texte que tu venais d'écrire n'a pas été montré à l'utilisateur : il n'a encore rien lu de ta réponse. Écris-la maintenant en entier, et qu'elle se suffise à elle-même : les cartes ne la remplacent pas." });
     messages.push({ role: "user", content: contenu });
   }
   if (cartes.length) yield { t: "cartes", v: cartes };
