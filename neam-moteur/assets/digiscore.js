@@ -67,6 +67,7 @@
     'evenements.html': ['Page événements : brunch, soirées, agenda et privatisation sur devis', '[data-agenda]|main .sec'],
     'conditions.html': ['Conditions de location : documents, cautions par véhicule et questions fréquentes', '.tbl|main .sec'],
     'studios.html': ['Page séjours meublés : studios, tarifs dégressifs et réservation en ligne', '[data-std]|main .sec'],
+    'cadastre.html': ['Page prestations cadastrales : bornage, levé, titre foncier, morcellement, devis en ligne', '[data-confier]|form'],
     'sans-rendez-vous.html': ['Page « Sans rendez-vous » : ouvert maintenant et affluence heure par heure', '[data-aff]|main .sec'],
     'proprietaires.html': ['Espace propriétaires : simulateur de revenus et demande d\'estimation', '[data-loyer]|form'],
     'bon-a-savoir.html': ['Guide du locataire : dossier à préparer, étapes et questions fréquentes', '[data-dossier]|main .sec'],

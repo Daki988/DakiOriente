@@ -182,3 +182,4 @@ h1,h2,h3,.h3{font-family:"Playfair Display",Georgia,serif;font-weight:600;line-h
 .sbk{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:30px;align-items:start}.sbk form{background:#fff;border-radius:20px;padding:26px;display:grid;gap:10px;border:1px solid var(--line)}
 .sbk .res .rl b{color:#fff}
 @media (max-width:860px){.std,.sbk{grid-template-columns:minmax(0,1fr)}.std .ph2{height:200px}}
+.std .ph2{grid-template-rows:minmax(0,1fr);overflow:hidden}.std .ph2 img{min-height:0}
