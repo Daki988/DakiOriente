@@ -59,6 +59,16 @@
     "titre": "Stock Market",
     "verifie": "2026-11-13"
   },
+  "met-architecte": {
+    "alt": "Architecte",
+    "credit": "EU-Ukraine cooperation",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/149400054@N04/54438940730",
+    "source": "https://live.staticflickr.com/65535/54438940730_383fd56a11_b.jpg",
+    "src": "/images/metiers/architecte.webp",
+    "titre": "engineer team working in office with blueprints, inspection in workplace for architectural plan, construction project ,B",
+    "verifie": "2026-11-13"
+  },
   "met-artiste-plasticien": {
     "alt": "Artiste plasticien",
     "credit": "Joshua Tree National Park",
@@ -289,6 +299,26 @@
     "titre": "AFF Day 1",
     "verifie": "2026-11-13"
   },
+  "met-data-analyst": {
+    "alt": "Data analyst",
+    "credit": "Helloquence",
+    "licence": "CC0 1.0",
+    "page": "https://stocksnap.io/photo/writing-papers-Y01VDYAX63",
+    "source": "https://cdn.stocksnap.io/img-thumbs/960w/Y01VDYAX63.jpg",
+    "src": "/images/metiers/data-analyst.webp",
+    "titre": "Writing Papers",
+    "verifie": "2026-11-13"
+  },
+  "met-data-scientist": {
+    "alt": "Data scientist / ingénieur IA",
+    "credit": "Jefferson Lab",
+    "licence": "PDM 1.0",
+    "page": "https://www.flickr.com/photos/53950384@N02/52644812458",
+    "source": "https://live.staticflickr.com/65535/52644812458_7f1687680f_b.jpg",
+    "src": "/images/metiers/data-scientist.webp",
+    "titre": "2022 Data Center",
+    "verifie": "2026-11-13"
+  },
   "met-dessinateur-projeteur": {
     "alt": "Dessinateur-projeteur (DAO/BIM)",
     "credit": "rawpixel",
@@ -427,6 +457,16 @@
     "source": "https://live.staticflickr.com/65535/52273134191_792c68950a_b.jpg",
     "src": "/images/metiers/gestionnaire-hotel.webp",
     "titre": "Moana Hotel, Kalakaua Avenue, Waikiki, Honolulu, HI",
+    "verifie": "2026-11-13"
+  },
+  "met-gestionnaire-patrimoine-culturel": {
+    "alt": "Gestionnaire du patrimoine culturel / médiateur culturel",
+    "credit": "dalecruse",
+    "licence": "BY 2.0",
+    "page": "https://www.flickr.com/photos/91873384@N04/53769377392",
+    "source": "https://live.staticflickr.com/65535/53769377392_bea59a40eb_b.jpg",
+    "src": "/images/metiers/gestionnaire-patrimoine-culturel.webp",
+    "titre": "British Museum",
     "verifie": "2026-11-13"
   },
   "met-graphiste": {
@@ -629,6 +669,16 @@
     "titre": "Lifting Park Supplies with Forklift",
     "verifie": "2026-11-13"
   },
+  "met-magistrat": {
+    "alt": "Magistrat",
+    "credit": "Judge Richard Dietz",
+    "licence": "CC0 1.0",
+    "page": "https://www.flickr.com/photos/196483041@N08/52328853454",
+    "source": "https://live.staticflickr.com/65535/52328853454_1aa4fdf731_b.jpg",
+    "src": "/images/metiers/magistrat.webp",
+    "titre": "Judge Dietz courtroom 3",
+    "verifie": "2026-11-13"
+  },
   "met-mecanicien-auto": {
     "alt": "Mécanicien / technicien automobile",
     "credit": "Memotions",
@@ -747,6 +797,16 @@
     "source": "https://live.staticflickr.com/65535/53996001697_a6f1f84202_b.jpg",
     "src": "/images/metiers/sage-femme.webp",
     "titre": "Celebrating 'Call the Midwife'",
+    "verifie": "2026-11-13"
+  },
+  "met-sociologue": {
+    "alt": "Sociologue / chargé d'études sociales",
+    "credit": "neil cummings",
+    "licence": "BY-SA 2.0",
+    "page": "https://www.flickr.com/photos/23874985@N07/15959966899",
+    "source": "https://live.staticflickr.com/7521/15959966899_5c929490e1_b.jpg",
+    "src": "/images/metiers/sociologue.webp",
+    "titre": "Social Cinema",
     "verifie": "2026-11-13"
   },
   "met-statisticien": {
