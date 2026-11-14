@@ -531,7 +531,8 @@ export async function* converser(req: NaviRequete, user: User | null): AsyncGene
     // pas la réponse. L'utilisateur n'a pas à la voir : on l'efface et on attend la vraie réponse.
     // (On n'efface pas dès que « afficher » est dans le tour : le modèle rédige sa réponse et demande
     //  les cartes ensemble, ce texte-là EST la réponse.)
-    if (ecrit && !appels.some((a) => a.name === "afficher")) { yield { t: "efface" }; ecrit = false; }
+    const efface = ecrit && !appels.some((a) => a.name === "afficher");
+    if (efface) { yield { t: "efface" }; ecrit = false; }
     messages.push({ role: "assistant", content: m.content as Anthropic.Beta.BetaContentBlockParam[] });
     // Outils exécutés en parallèle (recherches indépendantes).
     const resultats: Anthropic.Beta.BetaToolResultBlockParam[] = await Promise.all(appels.map(async (a): Promise<Anthropic.Beta.BetaToolResultBlockParam> => {
@@ -562,7 +563,11 @@ export async function* converser(req: NaviRequete, user: User | null): AsyncGene
     }));
     // Réponse rédigée et cartes demandées dans le même tour : inutile de rappeler le modèle.
     if (ecrit && appels.every((a) => a.name === "afficher")) break;
-    messages.push({ role: "user", content: resultats });
+    // Le texte écrit avant cette recherche a été retiré de l'écran : le modèle doit savoir que
+    // l'utilisateur ne l'a pas lu, sinon il enchaîne comme s'il l'avait déjà dit et sa réponse arrive amputée.
+    const contenu: Anthropic.Beta.BetaContentBlockParam[] = [...resultats];
+    if (efface) contenu.push({ type: "text", text: "(Navigoal) Le texte que tu venais d'écrire n'a pas été montré à l'utilisateur : il n'a encore rien lu de ta réponse. Écris-la en entier maintenant." });
+    messages.push({ role: "user", content: contenu });
   }
   if (cartes.length) yield { t: "cartes", v: cartes };
   yield { t: "fin" };
