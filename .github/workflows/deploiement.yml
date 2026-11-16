@@ -25,13 +25,17 @@ jobs:
   # Sans identifiants FTP, la mise en ligne est simplement ignorée (déploiement manuel) au lieu d'échouer.
   reglages:
     runs-on: ubuntu-latest
+    environment: production   # pour voir aussi les secrets enregistrés dans l'environnement « production »
     outputs:
       ftp: ${{ steps.ftp.outputs.present }}
     steps:
       - id: ftp
         env:
           SERVEUR: ${{ secrets.NAVIGOAL_FTP_SERVER || secrets.FTP_SERVER }}
+          UTILISATEUR: ${{ secrets.NAVIGOAL_FTP_USERNAME || secrets.FTP_USERNAME }}
+          MOT_DE_PASSE: ${{ secrets.NAVIGOAL_FTP_PASSWORD || secrets.FTP_PASSWORD }}
         run: |
+          echo "Serveur : $([ -n "$SERVEUR" ] && echo présent || echo absent) ; identifiant : $([ -n "$UTILISATEUR" ] && echo présent || echo absent) ; mot de passe : $([ -n "$MOT_DE_PASSE" ] && echo présent || echo absent)"
           if [ -n "$SERVEUR" ]; then echo "present=oui" >> "$GITHUB_OUTPUT"
           else echo "::notice::Identifiants FTP non réglés : mise en ligne automatique ignorée (voir LISEZMOI-DEPLOIEMENT.md § 6)."; fi
 
