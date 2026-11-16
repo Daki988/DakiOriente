@@ -1,4 +1,4 @@
-import { and, desc, eq, ne, gt, isNull, or, sql } from "drizzle-orm";
+import { and, desc, eq, ne, gt, isNull, lt, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db, schema } from "../db";
 import { audit } from "../lib/audit";
@@ -133,6 +133,7 @@ export async function login(identifier: string, password: string) {
 // ---------------------------------------------------------------- OTP (SMS / e-mail)
 type Purpose = (typeof schema.otpPurposeEnum.enumValues)[number];
 const OTP_TTL = 10 * 60_000;
+const OTP_ESSAIS = 5;
 
 export async function requestOtp(target: string, purpose: Purpose) {
   const t = normId(target);
@@ -154,13 +155,20 @@ export async function verifyOtp(target: string, purpose: Purpose, code: string) 
   if (!/^\d{6}$/.test(code.trim())) throw new AppError("Le code comporte 6 chiffres.", 400, "otp_format");
   const [o] = await db.select().from(schema.otpCodes).where(and(eq(schema.otpCodes.target, t), eq(schema.otpCodes.purpose, purpose), isNull(schema.otpCodes.consumedAt))).orderBy(desc(schema.otpCodes.createdAt)).limit(1);
   if (!o || o.expiresAt < new Date()) throw new AppError("Code expiré ou déjà utilisé. Demandez-en un nouveau.", 400, "otp_expire");
-  if (o.attempts >= 5) throw new AppError("Trop de tentatives. Demandez un nouveau code.", 429, "otp_bloque");
+  // Essai compté AVANT la comparaison, en une seule requête atomique : des milliers d'essais envoyés en parallèle
+  // ne peuvent pas lire tous « 0 essai » et dépasser ensemble la limite de 5.
+  const [essai] = await db.update(schema.otpCodes).set({ attempts: sql`${schema.otpCodes.attempts} + 1` })
+    .where(and(eq(schema.otpCodes.id, o.id), lt(schema.otpCodes.attempts, OTP_ESSAIS), isNull(schema.otpCodes.consumedAt)))
+    .returning({ attempts: schema.otpCodes.attempts });
+  if (!essai) throw new AppError("Trop de tentatives. Demandez un nouveau code.", 429, "otp_bloque");
   if (o.codeHash !== sha256(`${t}:${code.trim()}`)) {
-    await db.update(schema.otpCodes).set({ attempts: o.attempts + 1 }).where(eq(schema.otpCodes.id, o.id));
-    const left = 4 - o.attempts;
+    const left = OTP_ESSAIS - essai.attempts;
     throw new AppError(left > 0 ? `Code incorrect. Encore ${left} essai${left > 1 ? "s" : ""}.` : "Code incorrect. Demandez un nouveau code.", 400, "otp_faux");
   }
-  await db.update(schema.otpCodes).set({ consumedAt: new Date() }).where(eq(schema.otpCodes.id, o.id));
+  // Consommation atomique : un même code juste ne peut servir qu'une fois, même envoyé deux fois en même temps.
+  const [utilise] = await db.update(schema.otpCodes).set({ consumedAt: new Date() })
+    .where(and(eq(schema.otpCodes.id, o.id), isNull(schema.otpCodes.consumedAt))).returning({ id: schema.otpCodes.id });
+  if (!utilise) throw new AppError("Code expiré ou déjà utilisé. Demandez-en un nouveau.", 400, "otp_expire");
   if (purpose === "verify_email") await db.update(schema.users).set({ emailVerifiedAt: new Date() }).where(eq(schema.users.email, t));
   if (purpose === "verify_phone") await db.update(schema.users).set({ phoneVerifiedAt: new Date() }).where(eq(schema.users.phone, t));
   return t;

@@ -15,7 +15,7 @@ const CSP = [
 ].join("; ");
 
 /** @type {import('next').NextConfig} */
-const PRIVES = ["admin", "bailleur", "compte", "conseiller", "espace", "etablissement", "messages", "notifications", "orientation", "parent", "connexion", "inscription", "mot-de-passe-oublie", "paiement", "premiere-connexion", "verification", "navilease/logements", "navilease/espace"];
+const PRIVES = ["admin", "bailleur", "compte", "conseiller", "espace", "etablissement", "messages", "notifications", "orientation", "parent", "connexion", "inscription", "mot-de-passe-oublie", "paiement", "premiere-connexion", "verification", "navilease/logements", "navilease/espace", "navilease/reservations"];
 
 const nextConfig = {
   // Paquet autonome (serveur Node seul) pour un hébergement cPanel / VPS : BUILD_STANDALONE=1 npm run build

@@ -47,9 +47,12 @@ export async function verifierQuota(user: User | null, ip: string) {
   const max = user ? limite("NAVI_LIMITE_MEMBRE", 60) : limite("NAVI_LIMITE_VISITEUR", 30);
   const inc = async (k: string) => (await db.execute<{ value: number }>(sql`insert into counters (key, value) values (${k}, 1)
     on conflict (key) do update set value = counters.value + 1 returning value`)).rows[0].value;
-  const [n, total] = [await inc(cle), await inc(`navi:${jour}:total`)];
   if (Math.random() < 0.02) await db.execute(sql`delete from counters where key like 'navi:%' and key not like ${`navi:${jour}:%`}`);
+  // Quota individuel d'abord : une demande refusée ne compte pas dans le total du site (sinon un seul visiteur
+  // pourrait épuiser le quota global et couper Navi pour tout le monde).
+  const n = await inc(cle);
   if (n > max) throw new AppError(`Tu as atteint la limite de ${max} messages pour aujourd'hui. ${user ? "" : "Connecte-toi pour en avoir davantage, ou "}écris à un conseiller : il te répondra.`, 429, "quota");
+  const total = await inc(`navi:${jour}:total`);
   if (total > limite("NAVI_LIMITE_GLOBALE", 2000)) throw new AppError("Navi est très sollicité aujourd'hui. Réessaie demain ou écris à un conseiller.", 429, "quota");
 }
 

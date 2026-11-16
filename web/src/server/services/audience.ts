@@ -4,7 +4,7 @@ import { and, count, countDistinct, desc, eq, gte, lt, sql } from "drizzle-orm";
 import { db, schema } from "../db";
 import { sha256 } from "../auth/tokens";
 import { forbidden } from "../lib/errors";
-import { paysDeIp } from "../lib/geoip";
+import { ipClient, paysDeIp } from "../lib/geoip";
 
 type User = typeof schema.users.$inferSelect;
 const ROBOTS = /bot|crawl|spider|slurp|facebookexternalhit|whatsapp\/|preview|monitor|uptime|curl|wget|python|headless|lighthouse|pingdom|semrush|ahrefs/i;
@@ -38,7 +38,7 @@ export async function enregistrer(req: Request, b: { p?: unknown; r?: unknown; u
   const p = typeof b.p === "string" ? b.p.split("?")[0].split("#")[0].slice(0, 200) : "";
   if (!/^\/[\w\-./%]*$/.test(p) || p.startsWith("/api/") || p.startsWith("/admin")) return;
   const chemin = p.length > 1 && !p.endsWith("/") ? `${p}/` : p;
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || req.headers.get("x-real-ip") || "";
+  const ip = ipClient(req.headers);
   const day = new Date().toISOString().slice(0, 10);
   const hote = req.headers.get("x-forwarded-host") || req.headers.get("host") || "";
   await db.insert(schema.pageViews).values({

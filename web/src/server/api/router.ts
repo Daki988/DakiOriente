@@ -1,4 +1,5 @@
 // API REST Navigoal (/api/...). Une table de routes unique sert au routage et à la documentation OpenAPI.
+import { ipClient } from "../lib/geoip";
 import { sql } from "drizzle-orm";
 import { db, schema } from "../db";
 import { clearSessionCookie, createSession, currentUser, destroySession, setSessionCookie, SESSION_COOKIE, type Role } from "../auth/session";
@@ -448,7 +449,7 @@ route("GET", "/navi", "Navi", "Navi est-il disponible (clé API configurée) ?",
 route("POST", "/navi", "Navi", "Converser avec Navi (réponse en flux NDJSON : texte, cartes, fin)", "public", async ({ req, user, body }) => {
   if (!navi.naviActif()) throw new AppError("Navi n'est pas encore activé.", 503, "navi_inactif");
   const r = navi.naviSchema.parse(await body());
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || req.headers.get("x-real-ip") || "inconnue";
+  const ip = ipClient(req.headers) || "inconnue";
   await navi.verifierQuota(user, ip);
   const enc = new TextEncoder();
   const flux = new ReadableStream({

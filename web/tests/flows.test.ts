@@ -600,3 +600,36 @@ describe("paiements : réglages, plafond, espèces, Stripe", () => {
     expect(await verifierStripe(raw, null)).toBeNull();
   });
 });
+
+describe("sécurité : corrections de l'audit du 16 novembre", () => {
+  it("code OTP : 50 essais simultanés n'en font passer que 5", async () => {
+    const cible = "+221770000099";
+    const { devCode } = await accounts.requestOtp(cible, "login");
+    const faux = devCode === "000000" ? "111111" : "000000";
+    const r = await Promise.allSettled(Array.from({ length: 50 }, () => accounts.verifyOtp(cible, "login", faux)));
+    const motifs = r.map((x) => (x.status === "rejected" ? (x.reason as { code?: string }).code : "ok"));
+    expect(motifs.filter((m) => m === "otp_faux")).toHaveLength(5);
+    expect(motifs.filter((m) => m === "otp_bloque")).toHaveLength(45);
+    await expect(accounts.verifyOtp(cible, "login", devCode!)).rejects.toThrow(/Trop de tentatives/);
+  });
+  it("code OTP : un code juste envoyé deux fois en même temps ne sert qu'une fois", async () => {
+    const cible = "+221770000098";
+    const { devCode } = await accounts.requestOtp(cible, "login");
+    const r = await Promise.allSettled([accounts.verifyOtp(cible, "login", devCode!), accounts.verifyOtp(cible, "login", devCode!)]);
+    expect(r.filter((x) => x.status === "fulfilled")).toHaveLength(1);
+  });
+  it("adresse IP : une valeur X-Forwarded-For inventée par le visiteur est ignorée", async () => {
+    const { ipClient } = await import("@/server/lib/geoip");
+    expect(ipClient(new Headers({ "x-forwarded-for": "1.2.3.4, 41.158.10.20, 127.0.0.1" }))).toBe("41.158.10.20");
+    expect(ipClient(new Headers({ "x-forwarded-for": "41.158.10.20" }))).toBe("41.158.10.20");
+    expect(ipClient(new Headers({ "x-forwarded-for": "10.0.0.2", "x-real-ip": "196.47.1.1" }))).toBe("196.47.1.1");
+  });
+  it("Navi : les demandes refusées d'un visiteur ne consomment pas le quota du site", async () => {
+    const navi = await import("@/server/services/navi");
+    const jour = new Date().toISOString().slice(0, 10);
+    const total = async () => (await db.execute<{ value: number }>(sql`select coalesce((select value from counters where key = ${`navi:${jour}:total`}), 0) as value`)).rows[0].value;
+    const avant = await total();
+    for (let i = 0; i < 40; i++) await navi.verifierQuota(null, "203.0.113.7").catch(() => {});
+    expect(await total()).toBe(avant + 30);
+  });
+});

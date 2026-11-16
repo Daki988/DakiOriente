@@ -58,3 +58,25 @@ function developper(ip: string): number[] | null {
   const tout = b !== undefined ? [...debut, ...Array(8 - debut.length - fin.length).fill(0), ...fin] : debut;
   return tout.length === 8 && tout.every((x) => Number.isFinite(x) && x >= 0 && x <= 0xffff) ? tout : null;
 }
+
+/** Adresse privée, locale ou réservée : celle d'un relais de l'hébergeur (Varnish, Apache), jamais celle d'un visiteur. */
+function privee(ip: string) {
+  const s = ip.replace(/^::ffff:/i, "").toLowerCase();
+  const v4 = /^(\d{1,3})\.(\d{1,3})\./.exec(s);
+  if (v4) {
+    const [a, b] = [+v4[1], +v4[2]];
+    return a === 10 || a === 127 || a === 0 || (a === 169 && b === 254) || (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168) || (a === 100 && b >= 64 && b <= 127);
+  }
+  return s === "::1" || s === "::" || s.startsWith("fc") || s.startsWith("fd") || s.startsWith("fe80");
+}
+
+/**
+ * Adresse IP du visiteur, non falsifiable : dans X-Forwarded-For, chaque relais ajoute à DROITE l'adresse qui s'est
+ * connectée à lui ; le visiteur ne maîtrise que la partie gauche. On retient donc l'adresse publique la plus à droite.
+ */
+export function ipClient(h: Headers): string {
+  const chaine = (h.get("x-forwarded-for") ?? "").split(",").map((s) => s.trim()).filter(Boolean);
+  for (let k = chaine.length - 1; k >= 0; k--) if (!privee(chaine[k])) return chaine[k];
+  const reel = h.get("x-real-ip")?.trim();
+  return reel && !privee(reel) ? reel : chaine[0] || reel || "";
+}
