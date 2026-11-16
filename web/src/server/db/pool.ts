@@ -20,5 +20,6 @@ export function creerPool(url: string, max = 10): PgPool {
     if (!neonConfig.webSocketConstructor && typeof globalThis.WebSocket !== "undefined") neonConfig.webSocketConstructor = globalThis.WebSocket;
     return new NeonPool({ connectionString: url, max }) as unknown as PgPool;
   }
-  return new PgPool({ connectionString: url, max, ssl: /localhost|127\.0\.0\.1/.test(url) ? undefined : { rejectUnauthorized: false } });
+  return new PgPool({ connectionString: url, max, ssl: /localhost|127\.0\.0\.1/.test(url) ? undefined : { rejectUnauthorized: process.env.PGSSL_NO_VERIFY !== "1" } });
+  // Certificat du serveur vérifié par défaut (PGSSL_NO_VERIFY=1 seulement pour un serveur au certificat auto-signé).
 }

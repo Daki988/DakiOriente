@@ -50,9 +50,12 @@ export async function vueAdmin(admin: User) {
 }
 
 const url = z.string().trim().url().max(200).refine((u) => u.startsWith("https://"), "Adresse en https:// attendue.");
+// E-Billing : la clé partagée n'est envoyée qu'aux serveurs officiels de la passerelle (une adresse modifiée
+// ne peut pas servir à récupérer la clé enregistrée).
+const urlEbilling = url.refine((u) => /^https:\/\/([a-z0-9-]+\.)*billing-easy\.(net|com)(\/|$)/i.test(u), "Adresse E-Billing attendue (domaine billing-easy.net ou billing-easy.com).");
 const secret = z.string().trim().max(300).optional(); // vide ou absent : clé inchangée
 export const reglagesSchema = z.object({
-  ebilling: z.object({ actif: z.boolean(), env: z.enum(["lab", "production"]), apiUrl: url, portailUrl: url, username: z.string().trim().max(120), sharedKey: secret }),
+  ebilling: z.object({ actif: z.boolean(), env: z.enum(["lab", "production"]), apiUrl: urlEbilling, portailUrl: urlEbilling, username: z.string().trim().max(120), sharedKey: secret }),
   stripe: z.object({ actif: z.boolean(), publishableKey: z.string().trim().max(200).refine((k) => !k || /^pk_(live|test)_/.test(k), "Clé publique Stripe attendue (pk_live_… ou pk_test_…)."), secretKey: secret.refine((k) => !k || /^(sk|rk)_(live|test)_/.test(k), "Clé secrète Stripe attendue (sk_live_… ou sk_test_…)."), webhookSecret: secret.refine((k) => !k || k.startsWith("whsec_"), "Secret de webhook Stripe attendu (whsec_…).") }),
   especes: z.object({ actif: z.boolean(), instructions: z.string().trim().min(10).max(800), delaiJours: z.coerce.number().int().min(1).max(60) }),
 });

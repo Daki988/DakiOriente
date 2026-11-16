@@ -25,11 +25,14 @@ const PDF = new Uint8Array([0x25, 0x50, 0x44, 0x46, 0x2d, 0x31, 0x2e, 0x34, 0x0a
 const PNG = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 0]);
 const year = new Date().getFullYear();
 const reload = async (id: string) => (await db.select().from(schema.users).where(eq(schema.users.id, id)))[0];
+// Parent dont l'e-mail et le téléphone ont été vérifiés (code reçu) : seul un tel compte peut accepter une invitation.
+const verifier = async (u: { id: string }) => { await db.update(schema.users).set({ emailVerifiedAt: new Date(), phoneVerifiedAt: new Date() }).where(eq(schema.users.id, u.id)); return reload(u.id); };
 let student: User, parent: User, school: User, landlord: User, adminU: User;
 
 beforeAll(async () => {
   student = await accounts.register({ role: "etudiant", firstName: "Awa", lastName: "Ndiaye", email: "awa@test.local", password: "Motdepasse1", birthYear: year - 17, country: "SN", city: "Dakar", guardianPhone: "+221770000001", acceptTerms: true });
   parent = await accounts.register({ role: "parent", firstName: "Moussa", lastName: "Ndiaye", phone: "+221770000001", password: "Motdepasse1", country: "SN", acceptTerms: true });
+  parent = await verifier(parent);
   school = await accounts.register({ role: "etablissement", firstName: "Nadia", lastName: "Kane", email: "ecole@test.local", password: "Motdepasse1", establishmentId: "ma-esa-casa", acceptTerms: true });
   landlord = await accounts.register({ role: "bailleur", firstName: "Ibou", lastName: "Fall", email: "bailleur@test.local", password: "Motdepasse1", country: "SN", acceptTerms: true });
   adminU = (await accounts.findByIdentifier("admin@test.local"))!;
@@ -38,8 +41,8 @@ beforeAll(async () => {
 describe("comptes", () => {
   it("refuse les doublons, les mots de passe faibles et les mineurs sans parent", async () => {
     await expect(accounts.register({ role: "eleve", firstName: "X", lastName: "Y", email: "mineur@test.local", password: "Motdepasse1", birthYear: year - 15, acceptTerms: true })).rejects.toThrow(/parent/);
-    await expect(accounts.register({ role: "etudiant", firstName: "X", lastName: "Y", email: "awa@test.local", password: "Motdepasse1", acceptTerms: true })).rejects.toThrow(/existe déjà/);
-    await expect(accounts.register({ role: "etudiant", firstName: "X", lastName: "Y", email: "x@test.local", password: "court", acceptTerms: true })).rejects.toThrow(/8 caractères/);
+    await expect(accounts.register({ role: "etudiant", birthYear: year - 20, firstName: "X", lastName: "Y", email: "awa@test.local", password: "Motdepasse1", acceptTerms: true })).rejects.toThrow(/existe déjà/);
+    await expect(accounts.register({ role: "etudiant", birthYear: year - 20, firstName: "X", lastName: "Y", email: "x@test.local", password: "court", acceptTerms: true })).rejects.toThrow(/8 caractères/);
   });
   it("connexion par mot de passe et par OTP", async () => {
     await expect(accounts.login("awa@test.local", "mauvais")).rejects.toThrow(/incorrects/);
@@ -106,7 +109,9 @@ describe("candidature", () => {
     appId = a.id;
     await expect(apps.submitApplication(student, appId)).rejects.toThrow(/consentement/);
     const g = await guardians.inviteGuardian(student, "+221770000001");
-    await guardians.acceptGuardianInvite(parent, g.inviteCode!, true);
+    expect(g.inviteCode).toBeNull(); // l'élève ne reçoit pas le code : seul le parent l'a, par SMS
+    const [envoye] = await db.select({ code: schema.guardianships.inviteCode }).from(schema.guardianships).where(eq(schema.guardianships.id, g.id));
+    await guardians.acceptGuardianInvite(parent, envoye.code!, true);
     expect(await guardians.isGuardianOf(parent.id, student.id)).toBe(true);
   });
   it("pièces manquantes puis envoi gratuit, sans paiement", async () => {
@@ -254,7 +259,7 @@ describe("back-office et recommandations", () => {
 
 describe("sécurité", () => {
   it("bloque la force brute après 8 échecs", async () => {
-    await accounts.register({ role: "etudiant", firstName: "B", lastName: "F", email: "bf@test.local", password: "Motdepasse1", acceptTerms: true });
+    await accounts.register({ role: "etudiant", birthYear: year - 20, firstName: "B", lastName: "F", email: "bf@test.local", password: "Motdepasse1", acceptTerms: true });
     for (let i = 0; i < 8; i++) await expect(accounts.login("bf@test.local", "faux")).rejects.toThrow(/incorrects/);
     await expect(accounts.login("bf@test.local", "Motdepasse1")).rejects.toThrow(/Trop de tentatives/);
   });
@@ -287,7 +292,7 @@ describe("campagne : sources d'inscription et parrainage", () => {
   const campaign = () => import("@/server/services/campaign");
   const today = new Date().toISOString().slice(0, 10);
   const inscrire = (prenom: string, email: string) =>
-    accounts.register({ role: "eleve", firstName: prenom, lastName: "Test", email, password: "Motdepasse1", country: "GA", acceptTerms: true });
+    accounts.register({ role: "eleve", birthYear: year - 20, firstName: prenom, lastName: "Test", email, password: "Motdepasse1", country: "GA", acceptTerms: true });
 
   it("lit le cookie de première visite en nettoyant les valeurs", async () => {
     const c = await campaign();
@@ -350,11 +355,18 @@ describe("sécurité : attaques rejouées (test d'intrusion)", () => {
   it("code d'invitation parent : réservé au parent invité, essais limités", async () => {
     const kid = await accounts.register({ role: "eleve", firstName: "Mineur", lastName: "Cible", email: "cible@test.local", password: "Motdepasse1", birthYear: year - 15, acceptTerms: true, guardianEmail: "vraie.maman@test.local" });
     const [inv] = await db.select().from(schema.guardianships).where(eq(schema.guardianships.childId, kid.id));
-    const intrus = await accounts.register({ role: "parent", firstName: "Faux", lastName: "Parent", email: "intrus@test.local", password: "Motdepasse1", acceptTerms: true });
+    const nonVerifie = await accounts.register({ role: "parent", firstName: "Pas", lastName: "Vérifié", email: inv.inviteEmail!, password: "Motdepasse1", acceptTerms: true });
+    // Un compte « parent » créé avec l'adresse invitée mais jamais vérifié ne peut pas accepter (l'élève pourrait le créer lui-même).
+    await expect(guardians.acceptGuardianInvite(nonVerifie, inv.inviteCode!, true)).rejects.toThrow(/Vérifiez d'abord/);
+    await db.update(schema.users).set({ email: `ancien-${nonVerifie.id}@test.local` }).where(eq(schema.users.id, nonVerifie.id)); // libère l'adresse
+    await db.delete(schema.otpCodes).where(eq(schema.otpCodes.target, inv.inviteEmail!)); // délai de 45 s entre deux codes : remis à zéro pour le test
+    // L'élève ne voit jamais le code destiné à son parent.
+    expect((await guardians.guardiansOf(kid.id)).every((r) => r.link.inviteCode === null)).toBe(true);
+    const intrus = await verifier(await accounts.register({ role: "parent", firstName: "Faux", lastName: "Parent", email: "intrus@test.local", password: "Motdepasse1", acceptTerms: true }));
     await expect(guardians.acceptGuardianInvite(intrus, inv.inviteCode!, true)).rejects.toThrow(/autre e-mail/);
     for (let i = 0; i < 9; i++) await guardians.acceptGuardianInvite(intrus, "000000", true).catch(() => {});
     await expect(guardians.acceptGuardianInvite(intrus, "000001", true)).rejects.toThrow(/Trop de codes/);
-    const maman = await accounts.register({ role: "parent", firstName: "Vraie", lastName: "Maman", email: "vraie.maman@test.local", password: "Motdepasse1", acceptTerms: true });
+    const maman = await verifier(await accounts.register({ role: "parent", firstName: "Vraie", lastName: "Maman", email: "vraie.maman@test.local", password: "Motdepasse1", acceptTerms: true }));
     expect(await guardians.acceptGuardianInvite(maman, inv.inviteCode!, true)).toBe(kid.id);
     const t = await guardians.guardiansOf(kid.id);
     expect(JSON.stringify(t)).not.toMatch(/passwordHash|password_hash|\$2[aby]\$/);
@@ -385,7 +397,7 @@ describe("sécurité : attaques rejouées (test d'intrusion)", () => {
   });
   it("Google sur un compte jamais vérifié : mot de passe et sessions du créateur supprimés", async () => {
     const g = await import("@/server/services/google");
-    const pre = await accounts.register({ role: "etudiant", firstName: "Pré", lastName: "Créé", email: "victime@gmail.test", password: "Motdepasse1", acceptTerms: true });
+    const pre = await accounts.register({ role: "etudiant", birthYear: year - 20, firstName: "Pré", lastName: "Créé", email: "victime@gmail.test", password: "Motdepasse1", acceptTerms: true });
     const { createSession } = await import("@/server/auth/session");
     await createSession(pre.id);
     const r = await g.compteGoogle({ email: "victime@gmail.test", email_verified: true }, null);
@@ -425,7 +437,7 @@ describe("Navi (assistant IA) : outils et garde-fous, sans appel au modèle", as
   });
   it("espace personnel : visiteur sans données, élève limité à ses propres dossiers", async () => {
     expect(await o.monEspace(null)).toMatchObject({ connecte: false });
-    const autre = await accounts.register({ role: "etudiant", firstName: "Zed", lastName: "Autre", email: "zed.navi@test.local", password: "Motdepasse1", acceptTerms: true });
+    const autre = await accounts.register({ role: "etudiant", birthYear: year - 20, firstName: "Zed", lastName: "Autre", email: "zed.navi@test.local", password: "Motdepasse1", acceptTerms: true });
     const e = (await o.monEspace(autre)) as { candidatures: unknown[] };
     expect(e.candidatures).toHaveLength(0);
     const s = (await o.monEspace(student)) as { candidatures: { page: string }[] };
@@ -801,5 +813,33 @@ describe("Navi : correcteur automatique des tests de qualité", async () => {
     expect(controler(infirmier, { reponse: "Je cherche les écoles…", outils: ["chercher_formations"], cartes: 1, route: "complet", statut: "ok" })).toContain("annonce son travail au lieu de répondre");
     expect(controler(infirmier, { reponse: "Voici deux écoles : **ISPITS Rabat** - public, Rabat.", outils: ["chercher_formations", "afficher"], cartes: 2, route: "complet", statut: "ok" })).toEqual([]);
     expect(controler(cas.find((c) => c.id === "accueil")!, { reponse: "Bonjour !", outils: ["chercher_formations"], cartes: 0, route: "complet", statut: "ok" })[0]).toMatch(/recherche inutile/);
+  });
+});
+
+describe("sécurité : corrections de l'audit (suite)", () => {
+  it("année de naissance figée, noms sans adresse web, élève sans année refusé", async () => {
+    const e = await accounts.register({ role: "eleve", firstName: "Lina", lastName: "Obiang", email: "lina.age@test.local", password: "Motdepasse1", birthYear: year - 15, acceptTerms: true, guardianEmail: "maman.lina@test.local" });
+    await expect(accounts.updateProfile(e.id, { birthYear: year - 25 })).rejects.toThrow(/ne peut plus être modifiée/);
+    expect(accounts.isMinor((await reload(e.id)).birthYear)).toBe(true);
+    await expect(accounts.register({ role: "parent", firstName: "Compte suspendu https://evil.example/x", lastName: "Test", email: "piege@test.local", password: "Motdepasse1", acceptTerms: true })).rejects.toThrow(/lettres seulement/i);
+    await expect(accounts.register({ role: "eleve", firstName: "Sans", lastName: "Annee", email: "sans.annee@test.local", password: "Motdepasse1", acceptTerms: true })).rejects.toThrow(/année de naissance/);
+    expect((await accounts.register({ role: "parent", firstName: "Marie-Ève", lastName: "N'Guessan", email: "marie.eve@test.local", password: "Motdepasse1", acceptTerms: true })).firstName).toBe("Marie-Ève");
+  });
+  it("blocage de connexion par adresse IP : le vrai titulaire se connecte depuis une autre adresse", async () => {
+    await accounts.register({ role: "parent", firstName: "Ciblé", lastName: "Blocage", email: "cible.blocage@test.local", password: "Motdepasse1", acceptTerms: true });
+    for (let i = 0; i < 8; i++) await accounts.login("cible.blocage@test.local", "faux", "203.0.113.50").catch(() => {});
+    await expect(accounts.login("cible.blocage@test.local", "Motdepasse1", "203.0.113.50")).rejects.toThrow(/Trop de tentatives/);
+    expect((await accounts.login("cible.blocage@test.local", "Motdepasse1", "198.51.100.7")).email).toBe("cible.blocage@test.local");
+  });
+  it("limite de fréquence partagée (inscriptions, codes, relances de paiement)", async () => {
+    const { limiter } = await import("@/server/lib/counters");
+    for (let i = 0; i < 3; i++) await limiter("test:198.51.100.9", 3, 3600, "trop");
+    await expect(limiter("test:198.51.100.9", 3, 3600, "Trop d'essais")).rejects.toThrow(/Trop d'essais/);
+    await limiter("test:198.51.100.10", 3, 3600, "trop"); // autre adresse : non concernée
+  });
+  it("E-Billing : la clé n'est envoyée qu'aux serveurs officiels", async () => {
+    const r = await import("@/server/services/reglages-paiement");
+    const base = { ebilling: { actif: false, env: "lab", apiUrl: "https://attaquant.example/api", portailUrl: "https://test.billing-easy.net", username: "x" }, stripe: { actif: false, publishableKey: "" }, especes: { actif: true, instructions: "Bureau", delaiJours: 7 } };
+    await expect(r.enregistrer(adminU, base)).rejects.toThrow();
   });
 });

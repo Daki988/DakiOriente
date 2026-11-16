@@ -1,7 +1,7 @@
 import { and, desc, eq, inArray } from "drizzle-orm";
 import { db, schema } from "../db";
 import { audit } from "../lib/audit";
-import { nextNumber } from "../lib/counters";
+import { limiter, nextNumber } from "../lib/counters";
 import { AppError, forbidden, notFound } from "../lib/errors";
 import { putFile } from "../lib/storage";
 import { libelleMoyen, moyensDisponibles, msisdnGabon, providerById, providerFor, pousserUssd } from "../payments/providers";
@@ -155,6 +155,7 @@ export async function relancerMobile(viewer: User, reference: string) {
   if (p.provider !== "ebilling" || p.status !== "en_attente" || !p.providerRef) throw new AppError("Rien à relancer pour ce paiement.");
   const tel = (p.meta as { telephone?: string }).telephone;
   if (!tel) throw new AppError("Numéro de téléphone manquant.");
+  await limiter(`relance:${p.reference}`, 3, 3600, "Trois relances au plus par heure. Vérifiez votre téléphone ou réessayez plus tard.");
   await pousserUssd(p.providerRef, tel, p.method);
   return { ok: true };
 }

@@ -1,5 +1,6 @@
 // API REST Navigoal (/api/...). Une table de routes unique sert au routage et à la documentation OpenAPI.
 import { ipClient } from "../lib/geoip";
+import { limiter } from "../lib/counters";
 import { sql } from "drizzle-orm";
 import { db, schema } from "../db";
 import { clearSessionCookie, createSession, currentUser, destroySession, setSessionCookie, SESSION_COOKIE, type Role } from "../auth/session";
@@ -52,7 +53,31 @@ export type RouteDef = { method: string; path: string; summary: string; tag: str
 
 const R: RouteDef[] = [];
 /** Refuse d'emblée un envoi de plus de 9 Mo (le contrôle fin, 8 Mo, est fait après lecture). */
-const tailleMax = (req: Request) => { if (Number(req.headers.get("content-length") ?? 0) > 9 * 1024 * 1024) throw new AppError("Fichier trop volumineux (8 Mo maximum).", 413, "trop_volumineux"); };
+const tailleMax = (req: Request) => {
+  const n = req.headers.get("content-length");
+  // Taille annoncée obligatoire pour un envoi de fichier : sans elle, un envoi « au fil de l'eau » échapperait à la limite.
+  if (n == null) throw new AppError("Taille de l'envoi inconnue : réessayez.", 411, "taille_inconnue");
+  if (Number(n) > 9 * 1024 * 1024) throw new AppError("Fichier trop volumineux (8 Mo maximum).", 413, "trop_volumineux");
+};
+/** Corps JSON lu avec un plafond (1 Mo), même sans taille annoncée : un envoi géant ne sature plus la mémoire. */
+async function lireJson(req: Request, max = 1024 * 1024): Promise<any> { // eslint-disable-line @typescript-eslint/no-explicit-any
+  if (Number(req.headers.get("content-length") ?? 0) > max) throw new AppError("Requête trop volumineuse.", 413, "trop_volumineux");
+  const lecteur = req.body?.getReader();
+  if (!lecteur) throw new AppError("Données invalides.", 400, "requete");
+  const morceaux: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await lecteur.read();
+    if (done) break;
+    total += value.length;
+    if (total > max) { await lecteur.cancel().catch(() => {}); throw new AppError("Requête trop volumineuse.", 413, "trop_volumineux"); }
+    morceaux.push(value);
+  }
+  const tout = new Uint8Array(total);
+  let o = 0;
+  for (const m of morceaux) { tout.set(m, o); o += m.length; }
+  try { return JSON.parse(new TextDecoder().decode(tout)); } catch { throw new AppError("Données invalides.", 400, "requete"); }
+}
 const route = (method: string, path: string, tag: string, summary: string, auth: RouteDef["auth"], handler: Handler) => R.push({ method, path, tag, summary, auth, handler });
 const STUDENT: Role[] = ["eleve", "etudiant"];
 const ok = { ok: true };
@@ -65,15 +90,18 @@ async function startSession(u: User, req: Request) {
 
 // ---------------------------------------------------------------- Authentification
 route("POST", "/auth/inscription", "Authentification", "Créer un compte (élève, étudiant, parent, établissement, bailleur)", "public", async ({ req, body }) => {
+  // Anti-abus : chaque inscription peut envoyer un e-mail ou un SMS (parent invité, code de vérification).
+  await limiter(`inscription:${ipClient(req.headers)}`, 5, 3600, "Trop d'inscriptions depuis cette connexion. Réessayez dans une heure.");
   const u = await accounts.register(await body());
   await campaign.recordAcquisition(u.id, acquisition());
   return json({ ...(await startSession(u, req)), devCode: u.devCode }, 201);
 });
 route("POST", "/auth/connexion", "Authentification", "Connexion par e-mail ou téléphone + mot de passe", "public", async ({ req, body }) => {
   const b = await body();
-  return startSession(await accounts.login(String(b.identifiant ?? ""), String(b.motDePasse ?? "")), req);
+  return startSession(await accounts.login(String(b.identifiant ?? ""), String(b.motDePasse ?? ""), ipClient(req.headers)), req);
 });
-route("POST", "/auth/code", "Authentification", "Recevoir un code OTP (connexion, vérification, mot de passe oublié)", "public", async ({ body }) => {
+route("POST", "/auth/code", "Authentification", "Recevoir un code OTP (connexion, vérification, mot de passe oublié)", "public", async ({ req, body }) => {
+  await limiter(`code:${ipClient(req.headers)}`, 15, 3600, "Trop de codes demandés depuis cette connexion. Réessayez dans une heure.");
   const b = await body();
   const purpose = ["login", "verify_phone", "verify_email", "reset_password"].includes(b.objet) ? b.objet : "login";
   const cible = String(b.cible ?? "").trim();
@@ -83,8 +111,14 @@ route("POST", "/auth/code", "Authentification", "Recevoir un code OTP (connexion
   if (!u || u.status === "suspendu") return { ok: true };
   if (purpose === "verify_email" && (u.emailVerifiedAt || !cible.includes("@"))) return { ok: true };
   if (purpose === "verify_phone" && (u.phoneVerifiedAt || cible.includes("@"))) return { ok: true };
-  const r = await accounts.requestOtp(u.email && cible.includes("@") ? u.email : u.phone ?? cible, purpose);
-  return { ok: true, devCode: r.devCode };
+  // Délai entre deux codes : même réponse que pour une adresse inconnue (on ne révèle pas qu'un compte existe).
+  try {
+    const r = await accounts.requestOtp(u.email && cible.includes("@") ? u.email : u.phone ?? cible, purpose);
+    return { ok: true, devCode: r.devCode };
+  } catch (e) {
+    if (e instanceof AppError && ["trop_tot", "trop_de_codes"].includes(e.code)) return { ok: true };
+    throw e;
+  }
 });
 route("POST", "/auth/code/verifier", "Authentification", "Vérifier un e-mail ou un téléphone avec le code reçu", "public", async ({ body }) => {
   const b = await body();
@@ -515,7 +549,7 @@ export async function dispatch(req: Request, segments: string[]) {
       if (user.mustChangePassword && !/^\/moi(\/premier-mot-de-passe)?$/.test(r.path)) throw new AppError("Choisissez d'abord votre mot de passe personnel.", 403, "mot_de_passe_provisoire");
     }
     const url = new URL(req.url);
-    const res = await r.handler({ req, params, query: url.searchParams, user, me: user!, body: () => req.json() });
+    const res = await r.handler({ req, params, query: url.searchParams, user, me: user!, body: () => lireJson(req) });
     return res instanceof Response ? res : json(res ?? ok);
   } catch (e) {
     return errorResponse(e);

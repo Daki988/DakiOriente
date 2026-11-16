@@ -40,10 +40,18 @@ if (version && version !== lire(fichierApplique) && (process.env.DATABASE_URL ||
   }
 }
 
+// Connexions WebSocket refusées : le site n'en utilise aucune, et Next.js 14 a une faille connue sur ce point (SSRF).
+const http = require("http");
+const creerServeur = http.createServer;
+http.createServer = function (...args) {
+  const srv = creerServeur.apply(this, args);
+  srv.prependListener("upgrade", (_req, socket) => socket.destroy());
+  return srv;
+};
+
 // Accès par pays (réglage du back-office) : contrôlé ici, devant Next.js, pour chaque requête, y compris les pages
 // pré-générées. Quand le filtre est actif, les pages ne sont plus gardées par le cache de l'hébergeur (sinon une page
 // en cache serait servie à un visiteur d'un autre pays sans contrôle).
-const http = require("http");
 let acces = null;
 const outilAcces = path.join(__dirname, "outils", "acces.mjs");
 if (fs.existsSync(outilAcces)) {

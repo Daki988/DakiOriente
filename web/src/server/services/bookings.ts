@@ -237,7 +237,8 @@ export async function getBooking(viewer: User, id: string) {
   const contact = (u?: (typeof people)[number]) => (u ? { ...u, email: revealed ? u.email : null, phone: revealed ? u.phone : null } : null);
   return {
     booking: b, events, payments: pays, revealed,
-    housing: { ...h, address: revealed ? h.address : null },
+    // Avant paiement : ni adresse ni position exacte (arrondie à ~500 m, comme sur la fiche publique).
+    housing: { ...h, address: revealed ? h.address : null, lat: revealed || h.lat == null ? h.lat : Math.round(h.lat * 200) / 200, lng: revealed || h.lng == null ? h.lng : Math.round(h.lng * 200) / 200 },
     tenant: contact(people.find((p) => p.id === b.tenantId)), landlord: contact(people.find((p) => p.id === b.landlordId)), guarantor: contact(people.find((p) => p.id === b.guarantorId)),
   };
 }

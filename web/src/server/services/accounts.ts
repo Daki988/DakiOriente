@@ -16,10 +16,15 @@ const isEmail = (s: string) => s.includes("@");
 export const normId = (s: string) => (isEmail(s) ? normEmail(s) : normPhone(s));
 export const normEmail = (e: string) => e.trim().toLowerCase();
 
+// Prénom et nom : lettres, espaces, apostrophes, tirets et points seulement (jamais d'adresse web : ces noms
+// sont repris dans les e-mails et SMS envoyés aux parents invités).
+const NOM = /^\p{L}[\p{L}\p{M}' .’-]*$/u;
+const nomSchema = z.string().trim().min(1).max(80).regex(NOM, "Lettres seulement (espaces, apostrophes et tirets acceptés).");
+
 export const registerSchema = z.object({
   role: z.enum(PUBLIC_ROLES, { message: "Choisissez votre profil (élève, étudiant, parent, établissement ou bailleur)." }),
-  firstName: z.string().trim().min(1, "Prénom requis").max(80),
-  lastName: z.string().trim().min(1, "Nom requis").max(80),
+  firstName: z.string().trim().min(1, "Prénom requis").max(80).regex(NOM, "Prénom : lettres seulement (espaces, apostrophes et tirets acceptés)."),
+  lastName: z.string().trim().min(1, "Nom requis").max(80).regex(NOM, "Nom : lettres seulement (espaces, apostrophes et tirets acceptés)."),
   email: z.string().trim().email("Adresse e-mail invalide.").optional().or(z.literal("")),
   phone: z.string().trim().regex(phoneRe, "Numéro de téléphone invalide : indiquez-le avec l'indicatif du pays (ex. +212 6 12 34 56 78).").optional().or(z.literal("")),
   password: z.string({ message: "Mot de passe requis." }),
@@ -45,6 +50,8 @@ export async function register(raw: RegisterInput) {
   const phone = input.phone ? normPhone(input.phone) : null;
   if (!email && !phone) throw new AppError("Indiquez un e-mail ou un numéro de téléphone.");
   if (phone && !phone.startsWith("+")) throw new AppError("Indiquez le numéro avec l'indicatif du pays (ex. +212, +221, +225).");
+  if ((input.role === "eleve" || input.role === "etudiant") && input.birthYear == null)
+    throw new AppError("Indiquez votre année de naissance.", 400, "annee_requise");
   if ((input.role === "eleve" || input.role === "etudiant") && isMinor(input.birthYear) && !input.guardianEmail && !input.guardianPhone)
     throw new AppError("Tu as moins de 18 ans : indique l'e-mail ou le téléphone de ton parent ou tuteur.");
   const pb = passwordProblem(input.password);
@@ -106,8 +113,9 @@ export async function findByIdentifier(identifier: string) {
   return u ?? null;
 }
 
-const MAX_FAILS = 8;
-export async function login(identifier: string, password: string) {
+const MAX_FAILS = 8; // par compte et par adresse IP
+const MAX_FAILS_COMPTE = 40; // par compte, toutes adresses confondues (attaque répartie)
+export async function login(identifier: string, password: string, ip = "") {
   if (!identifier.trim() || !password) throw new AppError("Saisissez votre e-mail (ou téléphone) et votre mot de passe.", 400, "champs_requis");
   // Anti force brute : 8 échecs maximum par compte sur 15 minutes, quel que soit l'identifiant saisi (e-mail, téléphone
   // avec ou sans « + ») ; compteur remis à zéro par une réinitialisation du mot de passe.
@@ -116,11 +124,13 @@ export async function login(identifier: string, password: string) {
   const since = new Date(Date.now() - 15 * 60_000);
   const [reset] = u ? await db.select({ at: schema.auditLogs.createdAt }).from(schema.auditLogs)
     .where(and(eq(schema.auditLogs.action, "reinitialisation_mdp"), eq(schema.auditLogs.entityId, u.id), gt(schema.auditLogs.createdAt, since))).orderBy(desc(schema.auditLogs.createdAt)).limit(1) : [];
-  const [{ n }] = await db.select({ n: sql<number>`count(*)::int` }).from(schema.auditLogs)
+  // Échecs comptés par compte ET par adresse IP : un inconnu qui se trompe exprès ne bloque plus le vrai titulaire,
+  // qui se connecte depuis une autre adresse. Plafond global plus haut contre une attaque répartie.
+  const [{ n, total }] = await db.select({ n: sql<number>`count(*) filter (where ${schema.auditLogs.meta}->>'ip' = ${ip})::int`, total: sql<number>`count(*)::int` }).from(schema.auditLogs)
     .where(and(eq(schema.auditLogs.action, "connexion_echec"), eq(schema.auditLogs.entityId, key), gt(schema.auditLogs.createdAt, reset?.at ?? since)));
-  if (n >= MAX_FAILS) throw new AppError("Trop de tentatives. Réessayez dans 15 minutes, connectez-vous par code ou réinitialisez votre mot de passe.", 429, "trop_de_tentatives");
+  if (n >= MAX_FAILS || total >= MAX_FAILS_COMPTE) throw new AppError("Trop de tentatives. Réessayez dans 15 minutes, connectez-vous par code ou réinitialisez votre mot de passe.", 429, "trop_de_tentatives");
   if (!u?.passwordHash || !(await verifyPassword(password, u.passwordHash))) {
-    await audit(u?.id ?? null, "connexion_echec", "login", key);
+    await audit(u?.id ?? null, "connexion_echec", "login", key, { ip });
     const left = MAX_FAILS - n - 1;
     throw new AppError(left <= 0 ? "Identifiants incorrects. Connexion bloquée 15 minutes : utilisez la connexion par code ou « Mot de passe oublié »."
       : `Identifiants incorrects.${left <= 3 ? ` Encore ${left} essai${left > 1 ? "s" : ""} avant blocage temporaire.` : ""}`, 401, "identifiants");
@@ -210,8 +220,8 @@ export async function changePassword(userId: string, current: string, next: stri
 
 // ---------------------------------------------------------------- Profil
 export const profileSchema = z.object({
-  firstName: z.string().trim().min(1).max(80).optional(),
-  lastName: z.string().trim().min(1).max(80).optional(),
+  firstName: nomSchema.optional(),
+  lastName: nomSchema.optional(),
   birthYear: z.coerce.number().int().min(1940).max(new Date().getFullYear()).optional(),
   country: z.string().trim().toUpperCase().refine(isCountryCode, "Pays inconnu.").optional(),
   city: z.string().trim().max(80).optional(),
@@ -238,6 +248,11 @@ export async function getMe(userId: string) {
 
 export async function updateProfile(userId: string, raw: z.input<typeof profileSchema>) {
   const i = profileSchema.parse(raw);
+  // Année de naissance : fixée à l'inscription (elle décide de l'accord parental) ; seul le support peut la corriger.
+  if (i.birthYear !== undefined) {
+    const [actuel] = await db.select({ b: schema.users.birthYear }).from(schema.users).where(eq(schema.users.id, userId));
+    if (actuel?.b != null && actuel.b !== i.birthYear) throw new AppError("L'année de naissance ne peut plus être modifiée. Écrivez à contact@navigoal.net si elle est erronée.", 400, "annee_figee");
+  }
   const userPart = { firstName: i.firstName, lastName: i.lastName, birthYear: i.birthYear, country: i.country, city: i.city };
   const clean = <T extends object>(o: T) => Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined)) as Partial<T>;
   if (Object.keys(clean(userPart)).length) await db.update(schema.users).set(clean(userPart)).where(eq(schema.users.id, userId));

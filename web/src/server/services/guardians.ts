@@ -25,7 +25,7 @@ export async function inviteGuardian(child: User, contact: string, relation = "p
   const text = `${child.firstName} ${child.lastName} vous invite à suivre son parcours sur Navigoal. Code d'invitation : ${code}. Créez votre compte parent puis saisissez ce code.`;
   if (isEmail) await sendEmail({ to: normEmail(contact), subject: "Invitation à suivre un parcours Navigoal", titre: `${child.firstName} vous invite sur Navigoal`, code, text, action: { label: "Créer mon compte parent", url: "/inscription/?role=parent" } });
   else await sendSms({ to: normPhone(contact), text });
-  return g;
+  return { ...g, inviteCode: null };
 }
 
 /** Le parent saisit le code reçu : le lien est actif et le consentement parental enregistré. */
@@ -36,7 +36,10 @@ export async function acceptGuardianInvite(parent: User, code: string, consent: 
     .where(and(eq(schema.auditLogs.action, "invitation_echec"), eq(schema.auditLogs.actorId, parent.id), gt(schema.auditLogs.createdAt, new Date(Date.now() - 3600e3))));
   if (n >= 10) throw new AppError("Trop de codes erronés. Réessayez dans une heure.", 429, "trop_de_tentatives");
   // Le code n'est valable que pour le parent invité : son e-mail ou son téléphone doit être celui de l'invitation.
-  const cibles = [parent.email ? eq(schema.guardianships.inviteEmail, parent.email) : undefined, parent.phone ? eq(schema.guardianships.invitePhone, parent.phone) : undefined].filter(Boolean);
+  // … et cet e-mail ou ce téléphone doit être vérifié : sinon l'élève pourrait créer lui-même le compte « parent »
+  // avec l'adresse invitée et s'accorder l'autorisation parentale.
+  const cibles = [parent.email && parent.emailVerifiedAt ? eq(schema.guardianships.inviteEmail, parent.email) : undefined, parent.phone && parent.phoneVerifiedAt ? eq(schema.guardianships.invitePhone, parent.phone) : undefined].filter(Boolean);
+  if (!cibles.length) throw new AppError("Vérifiez d'abord votre e-mail ou votre téléphone (code reçu à l'inscription), puis saisissez le code d'invitation.", 403, "non_verifie");
   const [g] = cibles.length ? await db.select().from(schema.guardianships)
     .where(and(eq(schema.guardianships.inviteCode, String(code ?? "").trim()), eq(schema.guardianships.status, "invite"), or(...cibles))).limit(1) : [];
   if (!g) {
@@ -63,9 +66,11 @@ export async function childrenOf(parentId: string) {
 export async function guardiansOf(childId: string) {
   // Colonnes choisies : jamais le mot de passe, le secret TOTP ni les données internes du parent.
   const parent = { id: schema.users.id, firstName: schema.users.firstName, lastName: schema.users.lastName, email: schema.users.email, phone: schema.users.phone };
-  return db.select({ link: schema.guardianships, parent }).from(schema.guardianships)
+  const rows = await db.select({ link: schema.guardianships, parent }).from(schema.guardianships)
     .leftJoin(schema.users, eq(schema.users.id, schema.guardianships.parentId))
     .where(eq(schema.guardianships.childId, childId));
+  // Le code d'invitation n'est destiné qu'au parent : l'élève ne le voit jamais.
+  return rows.map((r) => ({ ...r, link: { ...r.link, inviteCode: null } }));
 }
 
 export async function isGuardianOf(parentId: string, childId: string) {

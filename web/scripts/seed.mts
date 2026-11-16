@@ -6,7 +6,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import bcrypt from "bcryptjs";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { eq, inArray, notInArray, sql } from "drizzle-orm";
+import { eq, inArray, notInArray, sql, and, like, ne } from "drizzle-orm";
 import { creerPool } from "../src/server/db/pool";
 import * as schema from "../src/server/db/schema.ts";
 
@@ -168,6 +168,18 @@ await seedRefs();
 const n = await seedEstablishments();
 const adminId = await seedAdmin();
 await seedContent(adminId);
-if (process.env.SEED_DEMO === "1") await seedDemo();
+// Comptes de démonstration : jamais en production avec le mot de passe public par défaut. En production, ceux qui
+// existeraient déjà (domaine demo.navigoal.net) sont suspendus : ils donneraient accès aux dossiers d'une école réelle.
+const production = process.env.NODE_ENV === "production";
+if (process.env.SEED_DEMO === "1" && !(production && !process.env.DEMO_PASSWORD)) await seedDemo();
+else if (process.env.SEED_DEMO === "1") console.log("SEED_DEMO ignoré en production sans DEMO_PASSWORD (mot de passe public par défaut).");
+if (production && process.env.SEED_DEMO !== "1") {
+  const suspendus = await db.update(schema.users).set({ status: "suspendu" })
+    .where(and(like(schema.users.email, "%@demo.navigoal.net"), ne(schema.users.status, "suspendu"))).returning({ id: schema.users.id });
+  if (suspendus.length) {
+    await db.delete(schema.sessions).where(inArray(schema.sessions.userId, suspendus.map((u) => u.id)));
+    console.log(`${suspendus.length} compte(s) de démonstration suspendu(s) en production.`);
+  }
+}
 await pool.end();
 console.log(`Seed terminé : ${n} établissements (${Date.now() - t0} ms).`);
