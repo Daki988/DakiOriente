@@ -49,7 +49,7 @@ for (const m of ["nodemailer", "@neondatabase/serverless"])
   if (!fs.existsSync(path.join(srv, "node_modules", m))) copy(path.join(web, "node_modules", m), path.join(srv, "node_modules", m));
 for (const f of ["env.cjs", "verifier.cjs"]) fs.copyFileSync(path.join(web, "deploiement", f), path.join(out, "outils", f));
 // Identifiant de version : app.js applique migrations et données une fois par version, au démarrage.
-fs.writeFileSync(path.join(out, "version.txt"), `${process.env.GITHUB_SHA || new Date().toISOString()}\n`);
+fs.writeFileSync(path.join(out, "version.txt"), `${process.env.VERSION_PAQUET || process.env.GITHUB_SHA || new Date().toISOString()}\n`);
 
 // Modules inutiles en production : sharp (images servies en variantes préparées, voir image-loader.js) et typescript.
 for (const m of ["@img", "sharp", "typescript"]) fs.rmSync(path.join(srv, "node_modules", m), { recursive: true, force: true });

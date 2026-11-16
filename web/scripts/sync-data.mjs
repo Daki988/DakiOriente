@@ -67,6 +67,8 @@ write("destinations", destDoc.map((d) => {
   return { ...d, etablissements: es.length, villes: Object.entries(villes).sort((a, b) => b[1] - a[1]).map(([nom, n]) => ({ nom, n })) };
 }));
 // Formations génériques -> établissements de tous les pays actifs
+// Suivi des accréditations (back-office « Accréditations », lu côté serveur seulement)
+write("suivi_accreditations", read("suivi_accreditations"));
 write("formations", read("formations").items.map((f) => ({ ...f, etablissements: sup.filter((e) => e.formations.includes(f.id)).map((e) => e.id) })));
 
 const secDoc = read("etablissements_secondaires");

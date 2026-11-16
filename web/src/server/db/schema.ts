@@ -672,3 +672,23 @@ export const naviCache = pgTable("navi_cache", {
   expire: timestamp("expire", { withTimezone: true }).notNull(),
   servie: integer("servie").notNull().default(0),
 });
+
+// Renouvellements d'accréditation saisis ou validés dans le back-office (« Accréditations »). Les lignes « valide »
+// sont reportées chaque jour dans data/sources/maroc/renouvellements.csv par le robot GitHub (accreditations.yml),
+// qui reconstruit le référentiel et met le site en ligne ; « rejete » écarte une proposition de l'assistant IA.
+export const accreditationRenouvellements = pgTable("accreditation_renouvellements", {
+  id: id(),
+  etablissementId: text("etablissement_id").notNull(),
+  filiere: text("filiere").notNull(),
+  composante: text("composante").notNull().default(""),
+  fin: text("fin").notNull(), // nouvelle fin d'accréditation, ex. 2030-2031
+  arrete: text("arrete").notNull(), // n° de l'arrêté, ex. 1234.26
+  bulletinOfficiel: text("bulletin_officiel").notNull(), // n° du Bulletin officiel
+  datePublication: text("date_publication"),
+  source: text("source"), // lien ou référence de la source
+  statut: text("statut").notNull(), // valide | rejete
+  origine: text("origine").notNull(), // admin | ia
+  parId: text("par_id").references(() => users.id, { onDelete: "set null" }),
+  le: timestamp("le", { withTimezone: true }).notNull().defaultNow(),
+  reporte: boolean("reporte").notNull().default(false), // déjà reporté dans renouvellements.csv
+});

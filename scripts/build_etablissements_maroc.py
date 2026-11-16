@@ -19,7 +19,12 @@ Labels :
   - professionnel       : établissement de formation professionnelle privée accrédité (diplômes d'État) — attribué
                           depuis le back-office sur justificatif, faute de répertoire officiel publié récemment.
 
-Usage : python3 scripts/build_etablissements_maroc.py [--annee 2026-2027]
+Renouvellements : data/sources/maroc/renouvellements.csv (arrêtés de renouvellement validés depuis le back-office,
+« Accréditations ») complète le registre ; propositions de l'assistant IA (à valider) : renouvellements_proposes.json.
+Suivi produit à chaque construction : data/referentiels/suivi_accreditations.json (filières en mention, retirées,
+prochaines échéances), affiché dans le back-office et envoyé chaque trimestre (.github/workflows/accreditations.yml).
+
+Usage : python3 scripts/build_etablissements_maroc.py [--annee 2026-2027]   (par défaut : année universitaire en cours)
 """
 import hashlib
 import argparse
@@ -558,9 +563,21 @@ def annee_debut(a):
     return int(m.group(1)) if m else 0
 
 
+# Après l'échéance, une filière reste publiée avec la mention « renouvellement non encore publié » pendant
+# DELAI_MENTION année(s) universitaire(s), délai habituel de publication des arrêtés, puis elle est retirée.
+DELAI_MENTION = 1
+
+
+def annee_en_cours(d=None):
+    """Année universitaire en cours (bascule au 1er septembre)."""
+    d = d or datetime.date.today()
+    y = d.year if d.month >= 9 else d.year - 1
+    return "%d-%d" % (y, y + 1)
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--annee", default="2026-2027", help="année universitaire de référence (accréditation en cours)")
+    ap.add_argument("--annee", default=annee_en_cours(), help="année universitaire de référence (accréditation en cours) ; par défaut l'année en cours")
     args = ap.parse_args()
     ref_year = annee_debut(args.annee)
 
@@ -632,6 +649,31 @@ def main():
         if eid and not any(proche(fil, v["intitule"]) for v in filieres.get(eid, {}).values()):
             add(eid, "", ville, fil, opt, fin_officielle(fin), "", bo, "Liste ministérielle 2024-2025 (" + bo + ")")
 
+    # 3 bis. Renouvellements validés (back-office « Accréditations ») : remplacent l'échéance des filières renouvelées
+    renouv_appliques, renouv_non_rattaches = [], []
+    rpath = os.path.join(SRC, "renouvellements.csv")
+    if os.path.exists(rpath):
+        with open(rpath, encoding="utf-8-sig") as f:
+            for r in csv.DictReader(f, delimiter=";"):
+                eid, fil, comp = r["etablissement_id"], r["filiere"], r.get("composante") or ""
+                source = "Arrêté %s (BO n° %s), renouvellement validé le %s" % (r["arrete"], r["bulletin_officiel"], r.get("valide_le") or "")
+                # Établissement regroupé (plusieurs campus) : la filière appartient à l'un de ses membres
+                membres = list(GROUPES[eid][1]) if eid in GROUPES else [eid]
+                trouve = next(((m, k) for m in membres for k, v in filieres.get(m, {}).items()
+                               if proche(v["intitule"], fil) and (not comp or norm(v["composante"]) == norm(comp))), None)
+                eid = trouve[0] if trouve else membres[0]
+                if trouve:
+                    v = filieres[trouve[0]][trouve[1]]
+                    if annee_debut(r["fin_accreditation"]) > annee_debut(v["fin_accreditation"]):
+                        v.update(fin_accreditation=r["fin_accreditation"], arrete=r["arrete"], bulletin_officiel=r["bulletin_officiel"], source=source)
+                    renouv_appliques.append(dict(etablissement_id=eid, filiere=fil, fin=r["fin_accreditation"]))
+                elif eid in {e["id"] for e in etabs}:
+                    ville = next(e["ville"] for e in etabs if e["id"] == eid)
+                    add(eid, comp, ville, fil, "", r["fin_accreditation"], r["arrete"], r["bulletin_officiel"], source)
+                    renouv_appliques.append(dict(etablissement_id=eid, filiere=fil, fin=r["fin_accreditation"], nouvelle=True))
+                else:
+                    renouv_non_rattaches.append(dict(etablissement_id=eid, filiere=fil))
+
     # 4. Reconnaissance par l'État (décrets)
     rec_txt = open(os.path.join(SRC, "reconnus_par_l_etat_2026.txt"), encoding="utf-8").read()
     decrets = {}
@@ -671,8 +713,9 @@ def main():
             continue
         toutes = list(filieres.get(e["id"], {}).values())
         en_cours = [f for f in toutes if annee_debut(f["fin_accreditation"]) >= ref_year]
-        # Accréditation arrivée à échéance depuis moins de 2 ans : filière publiée avec le label « Accrédité »
-        recentes = [f for f in toutes if ref_year - 2 <= annee_debut(f["fin_accreditation"]) < ref_year]
+        # Accréditation arrivée à échéance depuis moins de DELAI_MENTION an(s) : filière publiée avec la mention
+        # « renouvellement non encore publié » ; au-delà, retirée (sauf historique d'un établissement « autorisé »).
+        recentes = [f for f in toutes if ref_year - DELAI_MENTION <= annee_debut(f["fin_accreditation"]) < ref_year]
         # Sans filière accréditée en cours : établissement « autorisé » (diplômes d'établissement, non homologués),
         # avec l'historique de ses filières dont l'accréditation a pris fin.
         echues = [] if en_cours or recentes else sorted([f for f in toutes if f not in recentes], key=lambda f: (f["composante"], f["intitule"]))
@@ -739,11 +782,41 @@ def main():
     for f in fdoc["items"]:
         f["etablissements"] = [i["id"] for i in items if f["id"] in i["formations"]]
     json.dump(fdoc, open(fpath, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    # Suivi des accréditations (back-office « Accréditations », récapitulatif trimestriel)
+    def ligne(i, f, **extra):
+        return dict(etablissement_id=i["id"], etablissement=i["nom"], filiere=f["intitule"], composante=f.get("composante") or "",
+                    fin=f["fin_accreditation"], texte=f.get("source") or "", **extra)
+    # En mention et à échéance : d'après les filières réellement publiées ; retirées : d'après le registre.
+    en_mention, a_echeance, retirees = [], [], []
+    for i in items:
+        for f in i["filieres"]:
+            h = f["homologation"]; a = annee_debut(h["fin"])
+            base = dict(etablissement_id=i["id"], etablissement=i["nom"], filiere=f["intitule"], composante=f.get("composante") or "", fin=h["fin"], texte=h.get("texte") or "")
+            if h["statut"] == "recente":
+                en_mention.append(dict(base, retrait_prevu="%d-%d" % (a + DELAI_MENTION + 1, a + DELAI_MENTION + 2)))
+            elif h["statut"] == "accreditee" and a == ref_year:
+                a_echeance.append(base)
+    publies = {(i["id"], norm(f["intitule"])) for i in items for f in i["filieres"]}
+    for i in items:
+        for eid in [i["id"]] + [c["id"] for c in i.get("campus") or [] if c.get("id")]:
+            for f in filieres.get(eid, {}).values():
+                if annee_debut(f["fin_accreditation"]) == ref_year - DELAI_MENTION - 1 and (i["id"], norm(f["intitule"])) not in publies:
+                    retirees.append(ligne(i, f))
+    ppath = os.path.join(SRC, "renouvellements_proposes.json")
+    proposes = json.load(open(ppath, encoding="utf-8")) if os.path.exists(ppath) else []
+    tri = lambda L: sorted(L, key=lambda x: (x["etablissement"], x["composante"], x["filiere"]))
+    json.dump({"_meta": {"referentiel": "suivi_accreditations", "date": datetime.date.today().isoformat(), "annee_reference": args.annee,
+                         "delai_mention_annees": DELAI_MENTION,
+                         "regle": "Filière échue : mention « renouvellement non encore publié » pendant %d an(s) après l'échéance, puis retrait du site et des candidatures." % DELAI_MENTION},
+               "en_mention": tri(en_mention), "a_echeance": tri(a_echeance), "retirees_cette_annee": tri(retirees),
+               "renouvellements_appliques": renouv_appliques, "renouvellements_non_rattaches": renouv_non_rattaches,
+               "propositions": proposes},
+              open(os.path.join(REF, "suivi_accreditations.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     json.dump({"annee_reference": args.annee, "autorises_sans_filiere_en_cours": exclus, "fermes": fermes, "non_rattaches": sorted(set(non_rattaches))},
               open(os.path.join(SRC, "rapport_build.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
     nprog = sum(1 for i in items for f in i["filieres"] if f["homologation"]["statut"] == "accreditee")
     nrec = sum(1 for i in items for f in i["filieres"] if f["homologation"]["statut"] == "recente")
-    print(f"{len(items)} établissements, {nprog} filières accréditées en cours + {nrec} « Accrédité » (échéance < 2 ans) ; {len(exclus)} établissements autorisés sans filière en cours ; {len(fermes)} fermés écartés ; "
+    print(f"{len(items)} établissements, {nprog} filières accréditées en cours + {nrec} en mention « renouvellement non encore publié » (échéance < {DELAI_MENTION} an) ; {len(en_mention)} à suivre, {len(a_echeance)} à échéance cette année, {len(retirees)} retirées ; {len(renouv_appliques)} renouvellement(s) appliqué(s) ; {len(exclus)} établissements autorisés sans filière en cours ; {len(fermes)} fermés écartés ; "
           f"{len(set(non_rattaches))} intitulés du registre non rattachés (voir rapport_build.json).")
 
 

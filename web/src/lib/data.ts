@@ -38,7 +38,7 @@ export type Etablissement = {
   /** Scolarité annuelle publiée par l'école sur son site (min et max de ses cycles, en monnaie du pays). */
   frais_publies: { min: number; max: number } | null;
 };
-export type FiliereLite = { intitule: string; formation: string | null; ville: string | null; campus?: string[]; /** Accréditation arrivée à échéance, renouvellement à confirmer. */ recente?: boolean };
+export type FiliereLite = { intitule: string; formation: string | null; ville: string | null; campus?: string[]; /** Accréditation arrivée à échéance, renouvellement non encore publié au Bulletin officiel. */ recente?: boolean };
 /** Établissement complet (pages et services côté serveur). */
 export type EtablissementDetail = Omit<Etablissement, "filieres" | "filieres_echues" | "campus" | "site"> & {
   reconnaissance: string | null; adresse: string | null; description: string | null; filieres: Filiere[];

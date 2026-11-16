@@ -150,7 +150,7 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
                       {x.options && <span className="text-sm text-ink-soft">Options : {x.options}</span>}
                       <span className="text-xs text-ink-mute">{[x.diplome, x.duree_annees ? `${x.duree_annees} an${x.duree_annees > 1 ? "s" : ""}` : null, x.campus?.length ? `campus : ${x.campus.join(", ")}` : x.ville].filter(Boolean).join(" · ")}</span>
                       {x.homologation.statut === "echue" ? <span className="text-xs font-semibold text-[#a55a00]">Accréditation échue ({x.homologation.fin}) · diplôme d&apos;établissement</span>
-                        : x.homologation.statut === "recente" ? <span className="text-xs font-semibold text-brand-700"><span className="chip mr-1 bg-brand-50 px-2 py-0.5 text-[11px] text-brand-700">Accrédité</span>échéance {x.homologation.fin}, renouvellement à confirmer</span>
+                        : x.homologation.statut === "recente" ? <span className="text-xs font-semibold text-brand-700"><span className="chip mr-1 bg-brand-50 px-2 py-0.5 text-[11px] text-brand-700">Accrédité</span>échéance {x.homologation.fin}, renouvellement non encore publié au Bulletin officiel</span>
                         : <span className="text-xs font-semibold text-[#0f8a46]">Accréditée par l&apos;État jusqu&apos;en {x.homologation.fin}</span>}
                     </div>
                   ))}

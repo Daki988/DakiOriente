@@ -16,6 +16,13 @@ on:
     branches: ["claude/navigoal-specs-tqkh43"]
     paths: ["web/**", "data/**", "scripts/**", ".github/workflows/deploiement.yml"]
   workflow_dispatch:
+  # Appelé par le robot des accréditations après une mise à jour des données (un envoi fait par un robot
+  # GitHub ne déclenche pas les autres workflows) : ref = commit à mettre en ligne.
+  workflow_call:
+    inputs:
+      ref:
+        type: string
+        required: true
 
 concurrency:
   group: mise-en-ligne
@@ -78,6 +85,8 @@ jobs:
             [ -n "${!v}" ] || { echo "::error::$v n'est pas réglé (Settings → Secrets and variables → Actions, voir LISEZMOI-DEPLOIEMENT.md § 6)"; exit 1; }
           done
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -96,6 +105,7 @@ jobs:
       - name: Paquet de déploiement
         env:
           NEXT_PUBLIC_SITE_URL: ${{ env.SITE }}
+          VERSION_PAQUET: ${{ inputs.ref || github.sha }}   # nouvelle version → migrations et référentiels rechargés
         run: node scripts/package-cpanel.mjs
 
       - name: Envoyer sur LWS
@@ -118,7 +128,7 @@ jobs:
       - name: Redémarrer l'application
         working-directory: .
         run: |
-          echo "${GITHUB_SHA}" > restart.txt
+          echo "${{ inputs.ref || github.sha }}" > restart.txt
           [ "$FTP_PROTOCOL" = ftps ] && tls="--ssl-reqd" || tls=""
           curl -sS $tls --ftp-create-dirs -T restart.txt --user "$FTP_USERNAME:$FTP_PASSWORD" "ftp://$FTP_SERVER${FTP_DIR%/}/tmp/restart.txt"
 

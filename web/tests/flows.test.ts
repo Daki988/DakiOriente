@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from "vitest";
-import { eq, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 
 process.env.DATABASE_URL = process.env.TEST_DATABASE_URL || "postgres://postgres@localhost:5433/navigoal_test";
 process.env.STORAGE = "local";
@@ -841,5 +841,33 @@ describe("sécurité : corrections de l'audit (suite)", () => {
     const r = await import("@/server/services/reglages-paiement");
     const base = { ebilling: { actif: false, env: "lab", apiUrl: "https://attaquant.example/api", portailUrl: "https://test.billing-easy.net", username: "x" }, stripe: { actif: false, publishableKey: "" }, especes: { actif: true, instructions: "Bureau", delaiJours: 7 } };
     await expect(r.enregistrer(adminU, base)).rejects.toThrow();
+  });
+});
+
+describe("accréditations : suivi, renouvellement saisi, proposition écartée", () => {
+  it("un renouvellement validé s'applique tout de suite aux candidatures et part au registre", async () => {
+    const acc = await import("@/server/services/accreditations");
+    await expect(acc.vue(student)).rejects.toThrow();
+    const v = await acc.vue(adminU);
+    expect(v.meta.annee_reference).toMatch(/^\d{4}-\d{4}$/);
+    expect(v.en_mention.length).toBeGreaterThan(0);
+    // Une filière en mention qui existe bien en base (même établissement, intitulé et composante)
+    let cible = null as null | (typeof v.en_mention)[number];
+    for (const l of v.en_mention) {
+      const [p] = await db.select().from(schema.programs).where(and(eq(schema.programs.establishmentId, l.etablissement_id), eq(schema.programs.title, l.filiere), eq(schema.programs.faculty, l.composante)));
+      if (p) { cible = l; break; }
+    }
+    expect(cible).not.toBeNull();
+    await expect(acc.valider(adminU, { etablissementId: cible!.etablissement_id, filiere: cible!.filiere, composante: cible!.composante, fin: "2030-2032", arrete: "1.26", bulletinOfficiel: "7600" })).rejects.toThrow();
+    const r = await acc.valider(adminU, { etablissementId: cible!.etablissement_id, filiere: cible!.filiere, composante: cible!.composante, fin: "2030-2031", arrete: "1234.26", bulletinOfficiel: "7600" });
+    expect(r.programmesMisAJour).toBeGreaterThan(0);
+    const [p] = await db.select().from(schema.programs).where(and(eq(schema.programs.establishmentId, cible!.etablissement_id), eq(schema.programs.title, cible!.filiere)));
+    expect(p.homologated).toBe(true);
+    expect(p.homologation).toMatchObject({ statut: "accreditee", fin: "2030-2031" });
+    expect((await acc.aReporter()).some((x) => x.id === r.id)).toBe(true);
+    expect((await acc.vue(adminU)).en_mention.find((l) => l.filiere === cible!.filiere && l.etablissement_id === cible!.etablissement_id)?.renouvellement?.fin).toBe("2030-2031");
+    const rej = await acc.rejeter(adminU, { etablissementId: "ma-x", filiere: "Filière inventée", fin: "2030-2031", arrete: "9.26", bulletinOfficiel: "7601" });
+    expect(rej.statut).toBe("rejete");
+    expect((await acc.aReporter()).some((x) => x.id === rej.id)).toBe(false);
   });
 });

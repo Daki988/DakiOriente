@@ -1,0 +1,119 @@
+# Robot des accréditations (back-office « Accréditations », scripts/build_etablissements_maroc.py).
+# Chaque jour : reporte les renouvellements validés dans le back-office (base de production) dans
+# data/sources/maroc/renouvellements.csv, reconstruit le référentiel et met le site en ligne s'il y en a.
+# Chaque trimestre (1er janvier, avril, juillet, octobre) : recalcule les statuts pour l'année universitaire en cours
+# (filière échue : mention « renouvellement non encore publié » pendant un an, puis retrait), met le site en ligne et
+# ouvre un récapitulatif (ticket GitHub, notifié par e-mail). L'assistant IA planifié ajoute ensuite ses propositions.
+# Le passage quotidien ne part que si cette branche est la branche par défaut du dépôt (règle de GitHub pour les
+# tâches planifiées) ; sinon, il est lancé chaque trimestre par l'assistant IA et peut l'être à la main (Actions → Run workflow).
+# Secret requis pour le report quotidien : NAVIGOAL_DATABASE_URL (même valeur que DATABASE_URL du .env du serveur).
+name: Accréditations
+
+on:
+  schedule:
+    - cron: "23 5 * * *"
+  workflow_dispatch:
+    inputs:
+      trimestre:
+        description: "Recalculer tous les statuts et publier le récapitulatif maintenant"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: accreditations
+  cancel-in-progress: false
+
+jobs:
+  donnees:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      commit: ${{ steps.envoi.outputs.commit }}
+    env:
+      BASE: ${{ secrets.NAVIGOAL_DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/navigoal-specs-tqkh43
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        if: env.BASE != ''
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Dépendances
+        if: env.BASE != ''
+        working-directory: web
+        run: npm ci
+      - name: Renouvellements validés dans le back-office
+        if: env.BASE != ''
+        working-directory: web
+        env:
+          DATABASE_URL: ${{ secrets.NAVIGOAL_DATABASE_URL }}
+        run: npx tsx scripts/sync-renouvellements.mts exporter
+      - name: Faut-il reconstruire ?
+        id: decision
+        run: |
+          trimestre=non
+          case "$(date -u +%m-%d)" in 01-01|04-01|07-01|10-01) trimestre=oui;; esac
+          [ "${{ github.event_name }}" = workflow_dispatch ] && [ "${{ inputs.trimestre }}" = true ] && trimestre=oui
+          nouveaux=non
+          git diff --quiet -- data/sources/maroc/renouvellements.csv || nouveaux=oui
+          echo "trimestre=$trimestre" >> "$GITHUB_OUTPUT"
+          echo "construire=$([ $trimestre = oui ] || [ $nouveaux = oui ] && echo oui || echo non)" >> "$GITHUB_OUTPUT"
+          echo "Trimestre : $trimestre · nouveaux renouvellements : $nouveaux"
+      - name: Référentiel des établissements (année universitaire en cours)
+        if: steps.decision.outputs.construire == 'oui'
+        run: |
+          python3 scripts/build_etablissements_maroc.py
+          python3 scripts/validate_referentiels.py
+      - name: Envoi
+        id: envoi
+        if: steps.decision.outputs.construire == 'oui'
+        run: |
+          git config user.name "Robot des accréditations"
+          git config user.email "robot@navigoal.net"
+          git add data/
+          if git diff --cached --quiet; then echo "Aucun changement."; exit 0; fi
+          git commit -q -m "Accréditations : mise à jour automatique du $(date -u +%d/%m/%Y)"
+          git push origin HEAD:claude/navigoal-specs-tqkh43
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Renouvellements marqués comme reportés
+        if: env.BASE != '' && steps.envoi.outcome == 'success'
+        working-directory: web
+        env:
+          DATABASE_URL: ${{ secrets.NAVIGOAL_DATABASE_URL }}
+        run: npx tsx scripts/sync-renouvellements.mts marquer
+      - name: Récapitulatif trimestriel
+        if: steps.decision.outputs.trimestre == 'oui'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY' > recap.md
+          import json
+          d = json.load(open("data/referentiels/suivi_accreditations.json", encoding="utf-8"))
+          m = d["_meta"]
+          print(f"Année universitaire **{m['annee_reference']}** · données du {m['date']}.\n")
+          print(f"- **{len(d['en_mention'])}** filières en mention « renouvellement non encore publié »")
+          print(f"- **{len(d['a_echeance'])}** filières arrivent à échéance à la fin de cette année")
+          print(f"- **{len(d['retirees_cette_annee'])}** filières retirées (délai d'un an dépassé)")
+          print(f"- **{len(d['renouvellements_appliques'])}** renouvellements appliqués\n")
+          print("À faire : vérifier au Bulletin officiel (sgg.gov.ma) les arrêtés de renouvellement, puis les saisir ou valider les propositions de l'assistant IA dans le back-office › Accréditations.\n")
+          print("Règle : " + m["regle"])
+          PY
+          gh issue create --repo "${{ github.repository }}" --title "Accréditations à vérifier · $(date -u +%m/%Y)" --body-file recap.md
+
+  mise-en-ligne:
+    needs: donnees
+    if: needs.donnees.outputs.commit != ''
+    uses: ./.github/workflows/deploiement.yml
+    with:
+      ref: ${{ needs.donnees.outputs.commit }}
+    secrets: inherit

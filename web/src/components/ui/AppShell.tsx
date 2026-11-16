@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   BarChart3, Bell, Eye, BookOpen, Crown, Briefcase, Building2, Calculator, ChevronDown, Compass, FileCheck2, FileText, Folder, GraduationCap, Headset, House, KeyRound, LayoutDashboard, LogOut,
-  Inbox, LifeBuoy, MailOpen, MailWarning, Megaphone, Menu, MessageCircle, MessagesSquare, ScrollText, Search, Send, Settings2, ShieldCheck, Sparkles, UserRound, Users, UsersRound, Wallet, X, Globe2, Bot, type LucideIcon,
+  Inbox, LifeBuoy, MailOpen, MailWarning, Megaphone, Menu, MessageCircle, MessagesSquare, ScrollText, Search, Send, Settings2, ShieldCheck, Sparkles, UserRound, Users, UsersRound, Wallet, X, Globe2, Bot, AlarmClock, type LucideIcon,
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Brand, BrandMark } from "./Brand";
@@ -42,7 +42,7 @@ const MENUS: Record<string, Menu> = {
   admin: { label: "Back-office", tint: "bg-ink text-white", tabs: ["/admin", "/admin/utilisateurs", "/admin/etablissements", "/admin/homologations"], items: [
     { href: "/admin", Icon: BarChart3, t: "Statistiques" }, { href: "/admin/audience", Icon: Eye, t: "Audience" }, { href: "/admin/navi", Icon: Bot, t: "Navi" }, { href: "/admin/candidatures", Icon: Inbox, t: "Candidatures", group: "Relais Navigoal" }, { href: "/admin/messagerie", Icon: MessagesSquare, t: "Messagerie", group: "Relais Navigoal" },
     { href: "/admin/accompagnement", Icon: LifeBuoy, t: "Mode accompagné", group: "Relais Navigoal" }, { href: "/admin/prospection", Icon: Send, t: "Prospection des écoles", group: "Relais Navigoal" }, { href: "/admin/utilisateurs", Icon: Users, t: "Utilisateurs" }, { href: "/admin/etablissements", Icon: Building2, t: "Établissements" }, { href: "/admin/acces", Icon: KeyRound, t: "Accès écoles" }, { href: "/admin/offres", Icon: Crown, t: "Offres et abonnements" },
-    { href: "/admin/homologations", Icon: ShieldCheck, t: "Homologations" }, { href: "/admin/referentiels", Icon: BookOpen, t: "Référentiels" }, { href: "/admin/navilease", Icon: KeyRound, t: "Navilease" },
+    { href: "/admin/homologations", Icon: ShieldCheck, t: "Homologations" }, { href: "/admin/accreditations", Icon: AlarmClock, t: "Accréditations" }, { href: "/admin/referentiels", Icon: BookOpen, t: "Référentiels" }, { href: "/admin/navilease", Icon: KeyRound, t: "Navilease" },
     { href: "/admin/paiements", Icon: Wallet, t: "Paiements" }, { href: "/admin/paiements/reglages", Icon: Settings2, t: "Réglages des paiements" }, { href: "/admin/acces-pays", Icon: Globe2, t: "Accès par pays" }, { href: "/admin/contenus", Icon: Briefcase, t: "Contenus" }, { href: "/admin/campagne", Icon: Megaphone, t: "Campagne" }, { href: "/admin/journal", Icon: ScrollText, t: "Journal" }, MSG, NOTIF, SETTINGS] },
 };
 MENUS.eleve = { ...MENUS.etudiant, label: "Espace élève" };
