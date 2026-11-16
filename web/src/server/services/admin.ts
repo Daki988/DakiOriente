@@ -276,26 +276,31 @@ export async function dossierUtilisateur(a: User, id: string) {
   const S = schema;
   const [u] = await db.select().from(S.users).where(eq(S.users.id, id));
   if (!u) throw notFound("Utilisateur");
-  const [[profil], tests, liens, candidatures, pieces, rdv, [navi], naviDernieres, favoris] = await Promise.all([
-    db.select().from(S.profiles).where(eq(S.profiles.userId, id)),
-    db.select({ top: S.orientationResults.top, scores: S.orientationResults.scores, le: S.orientationResults.createdAt }).from(S.orientationResults).where(eq(S.orientationResults.userId, id)).orderBy(desc(S.orientationResults.createdAt)).limit(5),
-    db.select({ id: S.guardianships.id, parentId: S.guardianships.parentId, childId: S.guardianships.childId, relation: S.guardianships.relation, statut: S.guardianships.status, consentement: S.guardianships.consentAt, invite: sql<string | null>`coalesce(${S.guardianships.inviteEmail}, ${S.guardianships.invitePhone})` })
-      .from(S.guardianships).where(or(eq(S.guardianships.parentId, id), eq(S.guardianships.childId, id))),
-    db.select({ id: S.applications.id, numero: S.applications.number, statut: S.applications.status, campus: S.applications.campus, soumise: S.applications.submittedAt, decidee: S.applications.decidedAt, creee: S.applications.createdAt, pieces: S.applications.documentIds, demandees: S.applications.requestedDocuments,
+  // Chaque partie est chargée à part (l'une après l'autre : peu de connexions ouvertes sur la base) ; une partie en échec
+  // n'empêche pas d'afficher le reste et son erreur est signalée dans le dossier.
+  const incomplet: { partie: string; erreur: string }[] = [];
+  const partie = async <T,>(nom: string, f: () => Promise<T>, defaut: T): Promise<T> => {
+    try { return await f(); } catch (e) { console.error(`Dossier ${id} (${nom})`, e); incomplet.push({ partie: nom, erreur: (e as Error).message?.slice(0, 300) ?? String(e) }); return defaut; }
+  };
+  const [profil] = await partie("profil", async () => db.select().from(S.profiles).where(eq(S.profiles.userId, id)), []);
+  const tests = await partie("tests", async () => db.select({ top: S.orientationResults.top, scores: S.orientationResults.scores, le: S.orientationResults.createdAt }).from(S.orientationResults).where(eq(S.orientationResults.userId, id)).orderBy(desc(S.orientationResults.createdAt)).limit(5), []);
+  const liens = await partie("liens", async () => db.select({ id: S.guardianships.id, parentId: S.guardianships.parentId, childId: S.guardianships.childId, relation: S.guardianships.relation, statut: S.guardianships.status, consentement: S.guardianships.consentAt, invite: sql<string | null>`coalesce(${S.guardianships.inviteEmail}, ${S.guardianships.invitePhone})` })
+      .from(S.guardianships).where(or(eq(S.guardianships.parentId, id), eq(S.guardianships.childId, id))), []);
+  const candidatures = await partie("candidatures", async () => db.select({ id: S.applications.id, numero: S.applications.number, statut: S.applications.status, campus: S.applications.campus, soumise: S.applications.submittedAt, decidee: S.applications.decidedAt, creee: S.applications.createdAt, pieces: S.applications.documentIds, demandees: S.applications.requestedDocuments,
       etablissementId: S.establishments.id, etablissement: S.establishments.nom, sigle: S.establishments.sigle, ville: S.establishments.ville, programme: S.programs.title })
       .from(S.applications).innerJoin(S.establishments, eq(S.establishments.id, S.applications.establishmentId)).innerJoin(S.programs, eq(S.programs.id, S.applications.programId))
-      .where(eq(S.applications.studentId, id)).orderBy(desc(S.applications.createdAt)),
-    db.select({ id: S.documents.id, type: S.documents.type, label: S.documents.label, fichier: S.documents.fileName, taille: S.documents.size, statut: S.documents.status, le: S.documents.createdAt }).from(S.documents).where(eq(S.documents.ownerId, id)).orderBy(desc(S.documents.createdAt)),
-    db.select({ id: S.appointments.id, sujet: S.appointments.topic, statut: S.appointments.status, prevu: S.appointments.scheduledAt, souhaite: S.appointments.preferredAt, le: S.appointments.createdAt }).from(S.appointments).where(eq(S.appointments.studentId, id)).orderBy(desc(S.appointments.createdAt)).limit(10),
-    db.select({ n: count() }).from(S.naviTraces).where(eq(S.naviTraces.userId, id)),
-    db.select({ id: S.naviTraces.id, at: S.naviTraces.at, question: S.naviTraces.question }).from(S.naviTraces).where(eq(S.naviTraces.userId, id)).orderBy(desc(S.naviTraces.at)).limit(5),
-    db.select({ kind: S.favorites.kind, itemId: S.favorites.itemId }).from(S.favorites).where(eq(S.favorites.userId, id)),
-  ]);
+      .where(eq(S.applications.studentId, id)).orderBy(desc(S.applications.createdAt)), []);
+  const pieces = await partie("pieces", async () => db.select({ id: S.documents.id, type: S.documents.type, label: S.documents.label, fichier: S.documents.fileName, taille: S.documents.size, statut: S.documents.status, le: S.documents.createdAt }).from(S.documents).where(eq(S.documents.ownerId, id)).orderBy(desc(S.documents.createdAt)), []);
+  const rdv = await partie("rendez-vous", async () => db.select({ id: S.appointments.id, sujet: S.appointments.topic, statut: S.appointments.status, prevu: S.appointments.scheduledAt, souhaite: S.appointments.preferredAt, le: S.appointments.createdAt }).from(S.appointments).where(eq(S.appointments.studentId, id)).orderBy(desc(S.appointments.createdAt)).limit(10), []);
+  const [navi] = await partie("navi", async () => db.select({ n: count() }).from(S.naviTraces).where(eq(S.naviTraces.userId, id)), [{ n: 0 }]);
+  const naviDernieres = await partie("navi-dernieres", async () => db.select({ id: S.naviTraces.id, at: S.naviTraces.at, question: S.naviTraces.question }).from(S.naviTraces).where(eq(S.naviTraces.userId, id)).orderBy(desc(S.naviTraces.at)).limit(5), []);
+  const favoris = await partie("favoris", async () => db.select({ kind: S.favorites.kind, itemId: S.favorites.itemId }).from(S.favorites).where(eq(S.favorites.userId, id)), []);
   const autres = [...new Set(liens.flatMap((l) => [l.parentId, l.childId]).filter((x): x is string => !!x && x !== id))];
-  const noms = autres.length ? await db.select({ id: S.users.id, prenom: S.users.firstName, nom: S.users.lastName, role: S.users.role }).from(S.users).where(inArray(S.users.id, autres)) : [];
+  const noms = autres.length ? await partie("noms", async () => db.select({ id: S.users.id, prenom: S.users.firstName, nom: S.users.lastName, role: S.users.role }).from(S.users).where(inArray(S.users.id, autres)), []) : [];
   const nomDe = (x: string | null) => (x ? noms.find((n) => n.id === x) ?? null : null);
-  await audit(a.id, "consultation_dossier", "user", id);
+  await partie("journal", () => audit(a.id, "consultation_dossier", "user", id), undefined);
   return {
+    incomplet,
     compte: { id: u.id, prenom: u.firstName, nom: u.lastName, email: u.email, telephone: u.phone, role: u.role, statut: u.status, pays: u.country, ville: u.city, anneeNaissance: u.birthYear,
       emailVerifie: !!u.emailVerifiedAt, telephoneVerifie: !!u.phoneVerifiedAt, inscritLe: u.createdAt, derniereConnexion: u.lastLoginAt, acquisition: u.acquisition ?? null },
     profil: profil ? { niveau: profil.level, serie: profil.serie, etablissementActuel: profil.currentSchool, diplome: profil.diploma, domaine: profil.domain, interets: profil.interests, competences: profil.skills, projet: profil.goals,

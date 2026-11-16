@@ -11,6 +11,7 @@ import { metierById, riasec, serieById } from "@/lib/data";
 import { AdminHeader, Flag, LoadError, ROLE_LABEL, ROLE_TONE } from "./shared";
 
 type Dossier = {
+  incomplet: { partie: string; erreur: string }[];
   compte: { id: string; prenom: string; nom: string; email: string | null; telephone: string | null; role: string; statut: string; pays: string | null; ville: string | null; anneeNaissance: number | null; emailVerifie: boolean; telephoneVerifie: boolean; inscritLe: string; derniereConnexion: string | null; acquisition: Record<string, string> | null };
   profil: null | { niveau: string | null; serie: string | null; etablissementActuel: string | null; diplome: string | null; domaine: string | null; interets: string[]; competences: string[]; projet: string | null; preferences: { pays?: string[]; villes?: string[]; budgetAnnuel?: number; devise?: string }; moyenne: number | null; mention: string | null; anneeBac: number | null; moyenneVerifiee: boolean; metiersVises: string[]; rentree: number | null; financement: Record<string, boolean>; visibleEcoles: boolean; riasec: { top: string[] } | null };
   tests: { top: string[]; le: string }[];
@@ -47,6 +48,12 @@ export function AdminDossier({ id }: { id: string }) {
       <AdminHeader eyebrow={`Dossier · ${ROLE_LABEL[c.role] ?? c.role}`} title={`${c.prenom} ${c.nom}`}
         sub={<span className="flex flex-wrap items-center gap-x-2 gap-y-1"><Chip tone={ROLE_TONE[c.role]}>{ROLE_LABEL[c.role] ?? c.role}</Chip><StatusBadge status={c.statut} />{c.pays && <Flag code={c.pays} withName />}{c.ville && <span>· {c.ville}</span>}{age && <span>· {age} ans</span>}</span>} />
 
+      {d.data.incomplet.length > 0 && (
+        <div className="mb-4 rounded-2xl border border-[#ffd0d9] bg-[#fff5f7] p-3 text-[13px] text-[#a3173a]">
+          <b>Une partie du dossier n&apos;a pas pu être chargée.</b> Le reste est à jour. Détail (à transmettre pour correction) :
+          <ul className="mt-1 list-disc pl-5">{d.data.incomplet.map((x) => <li key={x.partie}><b>{x.partie}</b> : {x.erreur}</li>)}</ul>
+        </div>
+      )}
       <div className="mb-5 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
         {c.email && <a href={`mailto:${c.email}`} className="btn-ghost min-h-[44px] justify-center px-3 text-[13px]"><Mail size={16} />E-mail</a>}
         {tel && <a href={`tel:${tel}`} className="btn-ghost min-h-[44px] justify-center px-3 text-[13px]"><Phone size={16} />Appeler</a>}
