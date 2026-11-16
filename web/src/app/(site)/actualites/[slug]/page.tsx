@@ -9,12 +9,14 @@ import { TONES } from "@/lib/content";
 import { descriptionSeo, titreEditorial } from "@/lib/seo";
 
 export const revalidate = 300;
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const a = await articleBySlug(params.slug);
   return a ? { title: titreEditorial(a.title), description: descriptionSeo(`${a.excerpt.replace(/\.?\s*$/, ".")} Conseils Navigoal pour étudier au Maroc.`, a.excerpt), alternates: { canonical: `/actualites/${a.slug}/` }, openGraph: { title: a.title, description: a.excerpt, type: "article" } } : { title: "Article" };
 }
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
+export default async function ArticlePage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const a = await articleBySlug(params.slug);
   if (!a) notFound();
   const toc = headings(a.body);

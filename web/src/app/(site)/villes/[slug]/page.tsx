@@ -16,7 +16,6 @@ import { etabDetail } from "@/lib/etab-detail";
 import { descriptionSeo, titreSeo } from "@/lib/seo";
 
 export const generateStaticParams = () => VILLES.map((v) => ({ slug: v.slug }));
-export const dynamicParams = false;
 
 const PROFILS = Object.fromEntries(Object.values(paysDetailById).flatMap((p) => p.villes).map((v) => [norm(v.nom).replace(/[^a-z]/g, ""), v.profil]));
 const cle = (v: string) => norm(v).replace(/[^a-z]/g, "");
@@ -34,7 +33,8 @@ function campusDe(e0: Etablissement, ville: string): { label: Label; adresse: st
   return c ? { label: c.label, adresse: c.adresse, quartier: c.geo?.quartier ?? null } : { label: e.label, adresse: e.adresse, quartier: e.geo?.quartier ?? null };
 }
 
-export const generateMetadata = ({ params }: { params: { slug: string } }): Metadata => {
+export const generateMetadata = async (props: { params: Promise<{ slug: string }> }): Promise<Metadata> => {
+  const params = await props.params;
   const v = villeBySlug[params.slug];
   if (!v) return {};
   const { nf } = resume(v);
@@ -47,7 +47,8 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
   return { title, description, alternates: { canonical: villeHref(v.nom) }, openGraph: { title, description, images: v.photo ? [v.photo.src] : undefined } };
 };
 
-export default function VillePage({ params }: { params: { slug: string } }) {
+export default async function VillePage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const v = villeBySlug[params.slug];
   if (!v) notFound();
   const M = mobilite[v.nom];

@@ -9,7 +9,8 @@ import { redirectIfSignedIn } from "@/server/session-ui";
 export const metadata: Metadata = { title: "Connexion", robots: { index: false } };
 export const dynamic = "force-dynamic";
 
-export default async function ConnexionPage({ searchParams }: { searchParams: { suite?: string } }) {
+export default async function ConnexionPage(props: { searchParams: Promise<{ suite?: string }> }) {
+  const searchParams = await props.searchParams;
   await redirectIfSignedIn(searchParams.suite);
   return (
     <div className="grid min-h-screen lg:grid-cols-[minmax(460px,600px)_1fr]">

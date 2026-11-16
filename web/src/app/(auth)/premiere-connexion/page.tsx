@@ -9,7 +9,8 @@ import { getSessionUser, HOME, safePath } from "@/server/session-ui";
 export const metadata: Metadata = { title: "Première connexion", robots: { index: false } };
 export const dynamic = "force-dynamic";
 
-export default async function Page({ searchParams }: { searchParams: { suite?: string } }) {
+export default async function Page(props: { searchParams: Promise<{ suite?: string }> }) {
+  const searchParams = await props.searchParams;
   const u = await getSessionUser();
   if (!u) redirect("/connexion/");
   if (!u.mustChangePassword) redirect(safePath(searchParams.suite) ?? HOME[u.role]);

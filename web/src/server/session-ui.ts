@@ -32,7 +32,7 @@ export const safePath = (p?: string | null) => cheminInterne(p);
 export async function requireRole(roles: Role[], path: string) {
   const u = await getSessionUser();
   if (!u) {
-    const stale = !!cookies().get(SESSION_COOKIE)?.value; // cookie présent mais session expirée ou révoquée
+    const stale = !!(await cookies()).get(SESSION_COOKIE)?.value; // cookie présent mais session expirée ou révoquée
     redirect(`/connexion/?suite=${encodeURIComponent(path)}${stale ? "&session=expiree" : ""}`);
   }
   // Accès créé par Navigoal : mot de passe provisoire à remplacer avant tout.

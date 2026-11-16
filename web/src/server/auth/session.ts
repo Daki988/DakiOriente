@@ -32,16 +32,16 @@ export async function destroySession(token: string) {
 
 // ---- Intégration Next.js (cookies httpOnly)
 export async function setSessionCookie(token: string, expiresAt: Date) {
-  cookies().set(SESSION_COOKIE, token, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", expires: expiresAt });
+  (await cookies()).set(SESSION_COOKIE, token, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", expires: expiresAt });
 }
-export function clearSessionCookie() {
-  cookies().delete(SESSION_COOKIE);
+export async function clearSessionCookie() {
+  (await cookies()).delete(SESSION_COOKIE);
 }
 
 /** Utilisateur connecté (cookie ou en-tête Authorization: Bearer pour l'API). */
 export async function currentUser() {
-  const bearer = headers().get("authorization")?.replace(/^Bearer\s+/i, "");
-  return userFromToken(bearer || cookies().get(SESSION_COOKIE)?.value);
+  const bearer = (await headers()).get("authorization")?.replace(/^Bearer\s+/i, "");
+  return userFromToken(bearer || (await cookies()).get(SESSION_COOKIE)?.value);
 }
 
 export async function requireUser(...roles: Role[]) {

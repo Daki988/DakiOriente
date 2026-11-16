@@ -3,6 +3,7 @@ import { BookingDetail } from "@/components/navilease/BookingDetail";
 
 export const metadata: Metadata = { title: "Réservation Navilease" };
 
-export default function ReservationPage({ params }: { params: { id: string } }) {
+export default async function ReservationPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   return <BookingDetail id={params.id} />;
 }

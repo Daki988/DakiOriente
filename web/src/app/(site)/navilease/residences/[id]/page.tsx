@@ -13,8 +13,8 @@ import { SITE_URL } from "@/lib/site";
 /* eslint-disable @next/next/no-img-element */
 
 export const generateStaticParams = () => residencesEtudiantes.map((r) => ({ id: r.id }));
-export const dynamicParams = false;
-export const generateMetadata = ({ params }: { params: { id: string } }): Metadata => {
+export const generateMetadata = async (props: { params: Promise<{ id: string }> }): Promise<Metadata> => {
+  const params = await props.params;
   const r = residenceById[params.id];
   if (!r) return {};
   const title = `${r.nom} (${r.ville}) : loyers et réservation`;
@@ -23,7 +23,8 @@ export const generateMetadata = ({ params }: { params: { id: string } }): Metada
 };
 
 /** Fiche résidence (maquettes « residences », écrans 3 à 5) : la réservation se fait sur le site officiel. */
-export default function ResidencePage({ params }: { params: { id: string } }) {
+export default async function ResidencePage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const r = residenceById[params.id];
   if (!r) notFound();
   const lien = lienOfficiel(r.reservation.url);

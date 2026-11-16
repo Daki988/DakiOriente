@@ -43,7 +43,7 @@ import * as audience from "../services/audience";
 import { ACQ_COOKIE } from "@/lib/campagne";
 
 /** Origine de l'inscription (cookie de première visite posé par le site). */
-const acquisition = () => campaign.parseAcquisition(cookies().get(ACQ_COOKIE)?.value);
+const acquisition = async () => campaign.parseAcquisition((await cookies()).get(ACQ_COOKIE)?.value);
 
 type User = typeof schema.users.$inferSelect;
 type Ctx = { req: Request; params: Record<string, string>; query: URLSearchParams; user: User | null; body: () => Promise<any> };
@@ -93,7 +93,7 @@ route("POST", "/auth/inscription", "Authentification", "Créer un compte (élèv
   // Anti-abus : chaque inscription peut envoyer un e-mail ou un SMS (parent invité, code de vérification).
   await limiter(`inscription:${ipClient(req.headers)}`, 5, 3600, "Trop d'inscriptions depuis cette connexion. Réessayez dans une heure.");
   const u = await accounts.register(await body());
-  await campaign.recordAcquisition(u.id, acquisition());
+  await campaign.recordAcquisition(u.id, await acquisition());
   return json({ ...(await startSession(u, req)), devCode: u.devCode }, 201);
 });
 route("POST", "/auth/connexion", "Authentification", "Connexion par e-mail ou téléphone + mot de passe", "public", async ({ req, body }) => {
@@ -144,13 +144,13 @@ route("GET", "/auth/google", "Authentification", "Démarrer la connexion ou l'in
   if (!google.googleActif()) return rediriger("/connexion/?google=indisponible");
   const profil = (google.GOOGLE_ROLES as readonly string[]).includes(query.get("profil") ?? "") ? query.get("profil") : null;
   const state = google.nouvelEtat();
-  cookies().set(OAUTH_COOKIE, JSON.stringify({ state, profil, suite: interne(query.get("suite")) }), { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/api/auth/google", maxAge: 600 });
+  (await cookies()).set(OAUTH_COOKIE, JSON.stringify({ state, profil, suite: interne(query.get("suite")) }), { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/api/auth/google", maxAge: 600 });
   return rediriger(google.authorizeUrl(req, state));
 });
 route("GET", "/auth/google/retour", "Authentification", "Retour de Google (code d'autorisation)", "public", async ({ req, query }) => {
   let ctx: { state?: string; profil?: google.GoogleRole | null; suite?: string | null } = {};
-  try { ctx = JSON.parse(cookies().get(OAUTH_COOKIE)?.value ?? "{}"); } catch { /* cookie illisible */ }
-  cookies().set(OAUTH_COOKIE, "", { path: "/api/auth/google", maxAge: 0 });
+  try { ctx = JSON.parse((await cookies()).get(OAUTH_COOKIE)?.value ?? "{}"); } catch { /* cookie illisible */ }
+  (await cookies()).set(OAUTH_COOKIE, "", { path: "/api/auth/google", maxAge: 0 });
   const echec = (code: string) => rediriger(`${ctx.profil ? "/inscription/" : "/connexion/"}?google=${code}`);
   if (query.get("error")) return echec("annule");
   if (!ctx.state || ctx.state !== query.get("state") || !query.get("code")) return echec("expire");
@@ -159,7 +159,7 @@ route("GET", "/auth/google/retour", "Authentification", "Retour de Google (code 
     const { user, nouveau } = await google.compteGoogle(p, ctx.profil ?? null);
     if (!user) return rediriger(`/inscription/?google=nouveau&email=${encodeURIComponent(p.email)}`);
     await startSession(user, req);
-    if (nouveau) await campaign.recordAcquisition(user.id, acquisition());
+    if (nouveau) await campaign.recordAcquisition(user.id, await acquisition());
     if (nouveau) return rediriger(`${google.PROFIL_A_COMPLETER[user.role as google.GoogleRole] ?? "/"}?bienvenue=google`);
     return rediriger(interne(ctx.suite) ?? HOME[user.role] ?? "/");
   } catch (e) {
@@ -168,9 +168,9 @@ route("GET", "/auth/google/retour", "Authentification", "Retour de Google (code 
   }
 });
 route("POST", "/auth/deconnexion", "Authentification", "Se déconnecter", "public", async ({ req }) => {
-  const t = req.headers.get("authorization")?.replace(/^Bearer\s+/i, "") || cookies().get(SESSION_COOKIE)?.value;
+  const t = req.headers.get("authorization")?.replace(/^Bearer\s+/i, "") || (await cookies()).get(SESSION_COOKIE)?.value;
   if (t) await destroySession(t);
-  clearSessionCookie();
+  await clearSessionCookie();
   return ok;
 });
 
@@ -179,7 +179,7 @@ route("GET", "/session", "Compte", "Session courante (utilisateur ou null), sans
 route("POST", "/moi/premier-mot-de-passe", "Compte", "Première connexion d'un accès créé par Navigoal : choisir son mot de passe", "user", async ({ me, body }) => { await acces.firstPassword(me, String((await body()).nouveau ?? "")); return ok; });
 route("GET", "/moi", "Compte", "Utilisateur connecté et profil", "user", async ({ me }) => accounts.getMe(me.id));
 route("PATCH", "/moi", "Compte", "Mettre à jour le profil", "user", async ({ me, body }) => accounts.updateProfile(me.id, await body()));
-route("POST", "/moi/mot-de-passe", "Compte", "Changer de mot de passe", "user", async ({ me, body }) => { const b = await body(); const t = cookies().get(SESSION_COOKIE)?.value; await accounts.changePassword(me.id, b.actuel, b.nouveau, t ? sha256(t) : undefined); return ok; });
+route("POST", "/moi/mot-de-passe", "Compte", "Changer de mot de passe", "user", async ({ me, body }) => { const b = await body(); const t = (await cookies()).get(SESSION_COOKIE)?.value; await accounts.changePassword(me.id, b.actuel, b.nouveau, t ? sha256(t) : undefined); return ok; });
 route("GET", "/moi/parrainage", "Compte", "Mon code de parrainage et mes amis inscrits", STUDENT, async ({ me }) => campaign.myReferral(me));
 route("GET", "/moi/tuteurs", "Compte", "Parents/tuteurs liés", STUDENT, async ({ me }) => guardians.guardiansOf(me.id));
 route("POST", "/moi/tuteurs", "Compte", "Inviter un parent ou tuteur", STUDENT, async ({ me, body }) => { const b = await body(); const g = await guardians.inviteGuardian(me, String(b.contact), b.relation); return { id: g.id, devCode: process.env.NODE_ENV !== "production" ? g.inviteCode : undefined }; });

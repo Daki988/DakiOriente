@@ -20,7 +20,8 @@ import { descriptionSeo, titreSeo } from "@/lib/seo";
 
 export const generateStaticParams = () => etablissements.map((e) => ({ id: e.id }));
 export const revalidate = 300; // reflète les mises à jour faites par l'établissement
-export const generateMetadata = ({ params }: { params: { id: string } }): Metadata => {
+export const generateMetadata = async (props: { params: Promise<{ id: string }> }): Promise<Metadata> => {
+  const params = await props.params;
   const e = etabDetail(params.id);
   if (!e) return {};
   const villes = villesOf(e);
@@ -129,7 +130,8 @@ function CampusMobilite({ e }: { e: Etablissement }) {
 
 const ADMISSION = ["Dossier en ligne via Navigoal (bac ou relevés de notes, CV, lettre de motivation).", "Étude du dossier et, selon le programme, test ou entretien à distance.", "Admission, paiement des frais de réservation, attestation pour le visa.", "Arrivée : carte de séjour, logement Navilease, intégration."];
 
-export default async function EtabPage({ params }: { params: { id: string } }) {
+export default async function EtabPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const live = await establishmentLive(params.id);
   const confirmed = (live?.programs ?? []).filter((p) => p.feesConfirmed || !p.indicative);
   const e = etabDetail(params.id);

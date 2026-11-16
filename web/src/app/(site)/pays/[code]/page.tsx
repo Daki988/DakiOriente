@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Link from "@/components/ui/Link";
 import { ArrowRight, Briefcase, Calculator, Calendar, Check, ChevronRight, HeartPulse, KeyRound, MapPin, Scale, ShieldCheck, Wallet } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
@@ -15,12 +16,22 @@ import { Drapeau } from "@/components/ui/Drapeau";
 import { symbole } from "@/lib/devises";
 
 export const generateStaticParams = () => paysDetails.filter((p) => destinationById[p.id]?.actif).map((p) => ({ code: p.id.toLowerCase() }));
-export const dynamicParams = false; // pays de destination actifs seulement
 const byCode = (c: string) => paysDetailById[c.toUpperCase() as PaysCode];
-export const generateMetadata = ({ params }: { params: { code: string } }): Metadata => ({ title: `Étudier ${auPays(params.code.toUpperCase() as PaysCode)}`, description: byCode(params.code)?.accroche, alternates: { canonical: `/pays/${params.code}/` } });
+export const generateMetadata = async (props: { params: Promise<{ code: string }> }): Promise<Metadata> => {
+  const params = await props.params;
 
-export default function PaysDetailPage({ params }: { params: { code: string } }) {
+  return ({
+    title: `Étudier ${auPays(params.code.toUpperCase() as PaysCode)}`,
+    description: byCode(params.code)?.accroche,
+    alternates: { canonical: `/pays/${params.code}/` }
+  });
+};
+
+export default async function PaysDetailPage(props: { params: Promise<{ code: string }> }) {
+  const params = await props.params;
   const P = byCode(params.code);
+  // Pays de destination actifs seulement (le Sénégal, prêt mais masqué, reste introuvable).
+  if (!P || !destinationById[P.id]?.actif) notFound();
   const code = P.id;
   const etabs = etablissements.filter((e) => e.pays === code);
   const B = P.budget;

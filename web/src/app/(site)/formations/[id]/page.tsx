@@ -10,7 +10,8 @@ import type { DetailFormation } from "@/components/sections/FormationDetail";
 import { descriptionSeo, titreSeo, variantesNom } from "@/lib/seo";
 
 export const generateStaticParams = () => formations.map((f) => ({ id: f.id }));
-export const generateMetadata = ({ params }: { params: { id: string } }): Metadata => {
+export const generateMetadata = async (props: { params: Promise<{ id: string }> }): Promise<Metadata> => {
+  const params = await props.params;
   const f = formationById[params.id];
   if (!f) return {};
   const n = f.etablissements.length;
@@ -46,7 +47,8 @@ function details(id: string): DetailFormation {
   }]));
 }
 
-export default function FormationPage({ params }: { params: { id: string } }) {
+export default async function FormationPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   if (!formationById[params.id]) notFound();
   const ld = jsonLd(params.id);
   return (

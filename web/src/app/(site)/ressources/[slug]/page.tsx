@@ -12,16 +12,17 @@ import { SITE_URL } from "@/lib/site";
 import { descriptionSeo, titreEditorial } from "@/lib/seo";
 
 export const generateStaticParams = () => [...GUIDES.map((g) => ({ slug: g.slug })), ...PAGES_OUTILS.map((slug) => ({ slug }))];
-export const dynamicParams = false;
 const outil = (slug: string) => OUTILS.find((o) => o.slug === slug);
 
-export const generateMetadata = ({ params }: { params: { slug: string } }): Metadata => {
+export const generateMetadata = async (props: { params: Promise<{ slug: string }> }): Promise<Metadata> => {
+  const params = await props.params;
   const r = guideBySlug[params.slug] ?? outil(params.slug);
   if (!r) return {};
   return { title: titreEditorial(r.titre), description: descriptionSeo(r.resume), alternates: { canonical: `/ressources/${r.slug}/` }, openGraph: { title: r.titre, description: r.resume, type: "article", images: [{ url: "/og.png", width: 1200, height: 630 }] } };
 };
 
-export default function RessourcePage({ params }: { params: { slug: string } }) {
+export default async function RessourcePage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const g = guideBySlug[params.slug];
   const o = g ? undefined : outil(params.slug);
   if (!g && !o) notFound();

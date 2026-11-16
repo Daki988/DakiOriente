@@ -7,7 +7,8 @@ import { redirectIfSignedIn } from "@/server/session-ui";
 export const metadata: Metadata = { title: "Créer un compte", description: "Inscription gratuite à Navigoal : élève, étudiant, parent, établissement ou bailleur Navilease." };
 export const dynamic = "force-dynamic";
 
-export default async function InscriptionPage({ searchParams }: { searchParams: { suite?: string } }) {
+export default async function InscriptionPage(props: { searchParams: Promise<{ suite?: string }> }) {
+  const searchParams = await props.searchParams;
   await redirectIfSignedIn(searchParams.suite);
   return (
     <>

@@ -1,6 +1,6 @@
 # Navigoal — site web
 
-Next.js 14 (export statique), Tailwind CSS, Framer Motion. Les données viennent des référentiels du dépôt (`../data/referentiels`, `../assets/logos`, `../assets/photos`), copiées automatiquement par `scripts/sync-data.mjs` avant `dev` et `build`.
+Next.js 15.5 (React 19), Tailwind CSS, Framer Motion. Les données viennent des référentiels du dépôt (`../data/referentiels`, `../assets/logos`, `../assets/photos`), copiées automatiquement par `scripts/sync-data.mjs` avant `dev` et `build`.
 
 ```bash
 npm install

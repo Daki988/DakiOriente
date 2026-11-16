@@ -1,3 +1,4 @@
+import type React from "react";
 // Drapeaux simplifiés des pays de destination (SVG en ligne, sans image externe ni emoji).
 const ETOILE = "M0,-1 L0.2245,-0.309 L0.951,-0.309 L0.363,0.118 L0.588,0.809 L0,0.382 L-0.588,0.809 L-0.363,0.118 L-0.951,-0.309 L-0.2245,-0.309 Z";
 const etoile = (x: number, y: number, r: number, fill: string, contour = false) =>
@@ -5,7 +6,7 @@ const etoile = (x: number, y: number, r: number, fill: string, contour = false) 
 const vertical = (c: string[]) => c.map((x, i) => <rect key={i} x={(30 / c.length) * i} y={0} width={30 / c.length + 0.1} height={20} fill={x} />);
 const horizontal = (c: string[]) => c.map((x, i) => <rect key={i} x={0} y={(20 / c.length) * i} width={30} height={20 / c.length + 0.1} fill={x} />);
 
-const DESSINS: Record<string, JSX.Element> = {
+const DESSINS: Record<string, React.JSX.Element> = {
   MA: <><rect width={30} height={20} fill="#c1272d" />{etoile(15, 10.4, 5, "#006233", true)}</>,
   SN: <>{vertical(["#00853f", "#fdef42", "#e31b23"])}{etoile(15, 10.3, 2.8, "#00853f")}</>,
   CI: <>{vertical(["#f77f00", "#ffffff", "#009e60"])}</>,

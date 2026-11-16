@@ -12,7 +12,8 @@ import { PAYS_NOM, admissionLabel, competenceLabel, domaineById, etabById, forma
 import { descriptionSeo, titreSeo, variantesNom } from "@/lib/seo";
 
 export const generateStaticParams = () => metiers.map((m) => ({ id: m.id }));
-export const generateMetadata = ({ params }: { params: { id: string } }): Metadata => {
+export const generateMetadata = async (props: { params: Promise<{ id: string }> }): Promise<Metadata> => {
+  const params = await props.params;
   const m = metierById[params.id];
   if (!m) return {};
   const d = m.description.replace(/\.?\s*$/, ".");
@@ -23,7 +24,8 @@ export const generateMetadata = ({ params }: { params: { id: string } }): Metada
   };
 };
 
-export default function MetierPage({ params }: { params: { id: string } }) {
+export default async function MetierPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const m = metierById[params.id];
   if (!m) notFound();
   const s = domStyle(m.domaine);
