@@ -48,6 +48,8 @@ fs.writeFileSync(path.join(out, "package.json"), JSON.stringify({
 for (const m of ["nodemailer", "@neondatabase/serverless"])
   if (!fs.existsSync(path.join(srv, "node_modules", m))) copy(path.join(web, "node_modules", m), path.join(srv, "node_modules", m));
 for (const f of ["env.cjs", "verifier.cjs"]) fs.copyFileSync(path.join(web, "deploiement", f), path.join(out, "outils", f));
+// Identifiant de version : app.js applique migrations et données une fois par version, au démarrage.
+fs.writeFileSync(path.join(out, "version.txt"), `${process.env.GITHUB_SHA || new Date().toISOString()}\n`);
 
 console.log("4/4 Archive ZIP");
 execSync(`cd "${path.join(root, "livraison")}" && zip -qr -9 "${zip}" navigoal`, { stdio: "inherit" });

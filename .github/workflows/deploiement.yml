@@ -1,14 +1,22 @@
-# Mise en ligne automatique de Navigoal sur l'hébergement LWS (cPanel) : à chaque envoi sur la branche de production,
-# contrôles (lint, typage, tests), construction du paquet, envoi par SSH, sauvegarde, migrations, redémarrage,
-# puis vérification que le site répond. Réglages à faire une fois dans GitHub : voir web/deploiement/LISEZMOI-DEPLOIEMENT.md § 6.
+# Mise en ligne automatique de Navigoal sur LWS (FTP), sur le même principe que le site NEAM :
+# à chaque envoi sur la branche de production, ou à la main (onglet Actions → Run workflow).
+# Contrôles (lint, typage, tests), construction du paquet, envoi par FTP des seuls fichiers modifiés, puis redémarrage.
+# Au démarrage, app.js sauvegarde la base, applique les migrations et les référentiels, et vide le cache.
+# Ne touche jamais : .env, stockage/ (pièces déposées), sauvegardes/, acces/.
+#
+# À régler une fois : GitHub → Settings → Secrets and variables → Actions
+#   Secrets   : NAVIGOAL_FTP_SERVER (ex. ftp.navigoal.net), NAVIGOAL_FTP_USERNAME, NAVIGOAL_FTP_PASSWORD
+#               (à défaut, FTP_SERVER, FTP_USERNAME, FTP_PASSWORD sont utilisés)
+#   Variables : NAVIGOAL_FTP_DIR (dossier de l'application vu par le compte FTP, /navigoal/ par défaut),
+#               FTP_PROTOCOL (ftp ou ftps, ftp par défaut), SITE_URL (https://navigoal.net par défaut)
 name: Mise en ligne
 
 on:
   push:
     branches: ["claude/navigoal-specs-tqkh43"]
     paths: ["web/**", "data/**", "scripts/**", ".github/workflows/deploiement.yml"]
+  workflow_dispatch:
 
-# Une seule mise en ligne à la fois ; une mise en ligne commencée va jusqu'au bout.
 concurrency:
   group: mise-en-ligne
   cancel-in-progress: false
@@ -16,7 +24,7 @@ concurrency:
 jobs:
   mise-en-ligne:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
     environment: production
     defaults:
       run:
@@ -32,17 +40,17 @@ jobs:
     env:
       NEXT_TELEMETRY_DISABLED: "1"
       SITE: ${{ vars.SITE_URL || 'https://navigoal.net' }}
-      DOSSIER: ${{ vars.LWS_APP_DIR || 'navigoal' }}
+      FTP_SERVER: ${{ secrets.NAVIGOAL_FTP_SERVER || secrets.FTP_SERVER }}
+      FTP_USERNAME: ${{ secrets.NAVIGOAL_FTP_USERNAME || secrets.FTP_USERNAME }}
+      FTP_PASSWORD: ${{ secrets.NAVIGOAL_FTP_PASSWORD || secrets.FTP_PASSWORD }}
+      FTP_DIR: ${{ vars.NAVIGOAL_FTP_DIR || '/navigoal/' }}
+      FTP_PROTOCOL: ${{ vars.FTP_PROTOCOL || 'ftp' }}
     steps:
-      - name: Réglages présents
+      - name: Vérifier les réglages
         working-directory: .
-        env:
-          HOTE: ${{ secrets.LWS_SSH_HOST }}
-          UTILISATEUR: ${{ secrets.LWS_SSH_USER }}
-          CLE: ${{ secrets.LWS_SSH_KEY }}
         run: |
-          for v in HOTE UTILISATEUR CLE; do
-            [ -n "${!v}" ] || { echo "::error::Secret manquant (LWS_SSH_HOST, LWS_SSH_USER, LWS_SSH_KEY) : voir LISEZMOI-DEPLOIEMENT.md § 6."; exit 1; }
+          for v in FTP_SERVER FTP_USERNAME FTP_PASSWORD; do
+            [ -n "${!v}" ] || { echo "::error::$v n'est pas réglé (Settings → Secrets and variables → Actions, voir LISEZMOI-DEPLOIEMENT.md § 6)"; exit 1; }
           done
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -63,40 +71,40 @@ jobs:
       - name: Paquet de déploiement
         env:
           NEXT_PUBLIC_SITE_URL: ${{ env.SITE }}
-        run: |
-          node scripts/package-cpanel.mjs
-          tar -czf ../livraison/navigoal.tar.gz -C ../livraison navigoal
-      - name: Connexion SSH
+        run: node scripts/package-cpanel.mjs
+
+      - name: Envoyer sur LWS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ env.FTP_SERVER }}
+          username: ${{ env.FTP_USERNAME }}
+          password: ${{ env.FTP_PASSWORD }}
+          protocol: ${{ env.FTP_PROTOCOL }}
+          local-dir: ./livraison/navigoal/
+          server-dir: ${{ env.FTP_DIR }}
+          exclude: |
+            .env
+            stockage/**
+            sauvegardes/**
+            acces/**
+            tmp/**
+
+      # Envoyé en dernier, une fois tous les fichiers en place : Passenger relance l'application à la requête suivante.
+      - name: Redémarrer l'application
         working-directory: .
-        env:
-          CLE: ${{ secrets.LWS_SSH_KEY }}
-          HOTE: ${{ secrets.LWS_SSH_HOST }}
-          PORT: ${{ secrets.LWS_SSH_PORT || '22' }}
-          UTILISATEUR: ${{ secrets.LWS_SSH_USER }}
-          EMPREINTE: ${{ secrets.LWS_KNOWN_HOSTS }}
         run: |
-          mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          printf '%s\n' "$CLE" > ~/.ssh/lws && chmod 600 ~/.ssh/lws
-          # Clé publique du serveur : celle enregistrée dans LWS_KNOWN_HOSTS si elle existe, sinon celle annoncée par le serveur.
-          if [ -n "$EMPREINTE" ]; then printf '%s\n' "$EMPREINTE" > ~/.ssh/known_hosts; else ssh-keyscan -p "$PORT" "$HOTE" > ~/.ssh/known_hosts 2>/dev/null; fi
-          printf 'Host lws\n  HostName %s\n  Port %s\n  User %s\n  IdentityFile ~/.ssh/lws\n  IdentitiesOnly yes\n  ServerAliveInterval 30\n' "$HOTE" "$PORT" "$UTILISATEUR" > ~/.ssh/config
-          ssh lws true
-      - name: Envoi et mise à jour
-        working-directory: .
-        env:
-          LWS_NODE: ${{ vars.LWS_NODE }}
-        run: |
-          scp livraison/navigoal.tar.gz "lws:$DOSSIER/.navigoal.tar.gz"
-          ssh lws "LWS_NODE='$LWS_NODE' bash -s -- '$DOSSIER' '$DOSSIER/.navigoal.tar.gz' '$SITE'" < web/deploiement/mise-a-jour.sh
+          echo "${GITHUB_SHA}" > restart.txt
+          [ "$FTP_PROTOCOL" = ftps ] && tls="--ssl-reqd" || tls=""
+          curl -sS $tls --ftp-create-dirs -T restart.txt --user "$FTP_USERNAME:$FTP_PASSWORD" "ftp://$FTP_SERVER${FTP_DIR%/}/tmp/restart.txt"
+
       - name: Le site répond
         run: |
-          for i in $(seq 1 20); do
-            code=$(curl -s -o /dev/null -m 20 -w '%{http_code}' "$SITE/api/sante/" || true)
+          sleep 10
+          curl -s -m 120 -o /dev/null "$SITE/" || true   # premier appel : démarrage, sauvegarde et migrations
+          for i in $(seq 1 30); do
+            code=$(curl -s -o /dev/null -m 30 -w '%{http_code}' "$SITE/api/sante/" || true)
             [ "$code" = 200 ] && { echo "Site en ligne."; exit 0; }
-            echo "Essai $i : réponse $code"; sleep 6
+            echo "Essai $i : réponse $code"; sleep 10
           done
-          echo "::error::Le site ne répond pas après la mise à jour ($SITE/api/sante/). Consultez navigoal/stderr.log sur l'hébergement."
+          echo "::error::Le site ne répond pas après la mise en ligne ($SITE/api/sante/). Consultez navigoal/stderr.log sur l'hébergement."
           exit 1
-      - name: Nettoyage
-        if: always()
-        run: rm -f ~/.ssh/lws

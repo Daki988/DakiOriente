@@ -137,31 +137,28 @@ npm run seed      # référentiels : établissements, formations, métiers, arti
 
 Revenez dans Setup Node.js App et cliquez sur **Restart**. Le site est en ligne sur https://navigoal.net.
 
-## 6. Mises à jour automatiques (GitHub › LWS)
+## 6. Mises à jour automatiques (GitHub › LWS, par FTP)
 
 Une fois l'installation initiale faite (étapes 1 à 5), chaque envoi de code sur la branche de production met le site
-à jour tout seul (`.github/workflows/deploiement.yml`) : contrôles (lint, typage, tests), construction du paquet,
-envoi par SSH, sauvegarde, remplacement du code, migrations, redémarrage, purge du cache, puis vérification de
-`/api/sante/`. Le fichier `.env` et les dossiers `stockage/`, `sauvegardes/` et `acces/` ne sont jamais touchés. Si les
-migrations échouent, le code précédent est remis en place ; il reste aussi dans `navigoal/.precedent/`.
+à jour tout seul (`.github/workflows/deploiement.yml`, même principe que le site NEAM) : contrôles (lint, typage,
+tests), construction du paquet, envoi par FTP des seuls fichiers modifiés, puis redémarrage. Au démarrage suivant,
+`app.js` voit la nouvelle version (`version.txt`) : sauvegarde de la base, migrations, référentiels, purge du cache,
+une seule fois par version. Le fichier `.env` et les dossiers `stockage/`, `sauvegardes/` et `acces/` ne sont jamais
+touchés. Si les migrations échouent, l'erreur est écrite dans `stderr.log` et la mise à jour est retentée au
+démarrage suivant ; la mise en ligne apparaît en échec dans l'onglet **Actions** si le site ne répond plus.
 
 Réglages à faire une seule fois :
 
-1. **Clé SSH** : cPanel › **Accès SSH** › *Gérer les clés SSH* › *Générer une nouvelle clé* (nom `github`, sans mot de
-   passe), puis *Gérer* › **Autoriser** la clé publique. Affichez la clé privée (*Afficher/Télécharger*) et copiez-la.
-   Si la rubrique Accès SSH est absente, demandez son activation au support LWS.
+1. **Compte FTP** : cPanel › **Comptes FTP**. Le compte principal cPanel convient (il voit tout le dossier personnel,
+   l'application est alors dans `/navigoal/`). Serveur : `ftp.navigoal.net` (ou celui indiqué par cPanel).
 2. **GitHub** › dépôt › *Settings › Secrets and variables › Actions* › onglet **Secrets** :
-   - `LWS_SSH_HOST` : nom du serveur (affiché dans cPanel, par exemple `xxxx.lws-hosting.com`, ou `navigoal.net`) ;
-   - `LWS_SSH_USER` : identifiant cPanel ;
-   - `LWS_SSH_KEY` : la clé privée entière, de `-----BEGIN` à `-----END` ;
-   - `LWS_SSH_PORT` : seulement si le port SSH n'est pas 22 ;
-   - `LWS_KNOWN_HOSTS` (recommandé) : résultat de `ssh-keyscan nom-du-serveur`, pour que la mise en ligne refuse un
-     serveur qui ne serait pas le vôtre.
-3. Onglet **Variables**, seulement si vos valeurs diffèrent : `LWS_APP_DIR` (dossier de l'application, `navigoal` par
-   défaut), `LWS_NODE` (chemin de Node.js, trouvé automatiquement dans `nodevenv/`), `SITE_URL` (`https://navigoal.net`).
+   `NAVIGOAL_FTP_SERVER`, `NAVIGOAL_FTP_USERNAME`, `NAVIGOAL_FTP_PASSWORD`.
+3. Onglet **Variables**, seulement si vos valeurs diffèrent : `NAVIGOAL_FTP_DIR` (dossier de l'application vu par le
+   compte FTP, `/navigoal/` par défaut), `FTP_PROTOCOL` (`ftps` si possible, `ftp` par défaut), `SITE_URL`.
 4. Facultatif : *Settings › Environments › production › Required reviewers* pour valider chaque mise en ligne d'un clic.
 
-Le déroulement de chaque mise en ligne se lit dans l'onglet **Actions** du dépôt.
+La première mise en ligne envoie tout le paquet (plusieurs minutes) ; les suivantes, seulement les fichiers modifiés.
+Pour relancer à la main : onglet **Actions** › *Mise en ligne* › **Run workflow**.
 
 ## 6 bis. Mise à jour manuelle
 
