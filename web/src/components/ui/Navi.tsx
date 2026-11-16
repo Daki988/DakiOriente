@@ -190,6 +190,41 @@ function Cartes({ cartes, whatsapp, resume, onSuggestion, fermer }: { cartes: Ca
 const Fennec = ({ className }: { className: string }) => <img src="/brand/navi-fennec.webp" alt="" draggable={false} width={200} height={200} className={`shrink-0 bg-white object-cover ${className}`} />;
 const Avatar = () => <Fennec className="mt-0.5 h-8 w-8 rounded-full ring-1 ring-brand-100" />;
 
+// Invitation à tester Navi : fenêtre affichée 3 secondes à l'arrivée sur le site public, une fois tous les 7 jours.
+// Elle se ferme seule, avec la croix, la touche Échap ou un clic n'importe où ; son bouton ouvre Navi.
+const INVITATION_DUREE = 3000;
+const INVITATION_DELAI = 1200; // laisse la page s'afficher avant
+const INVITATION_INTERVALLE = 7 * 864e5;
+const SANS_INVITATION = /^\/(admin|etablissement|bailleur|conseiller|connexion|inscription|verification|mot-de-passe-oublie|premiere-connexion|paiement|acces-restreint)(\/|$)/;
+const invitationVue = () => { try { return Date.now() - Number(localStorage.getItem(`${CLE}-invitation`) ?? 0) < INVITATION_INTERVALLE; } catch { return true; } };
+const noterInvitation = () => { try { localStorage.setItem(`${CLE}-invitation`, String(Date.now())); } catch { /* stockage indisponible */ } };
+
+function Invitation({ fermer, ouvrirNavi }: { fermer: () => void; ouvrirNavi: () => void }) {
+  useEffect(() => {
+    const t = setTimeout(fermer, INVITATION_DUREE);
+    const echap = (e: KeyboardEvent) => { if (e.key === "Escape") fermer(); };
+    window.addEventListener("keydown", echap);
+    return () => { clearTimeout(t); window.removeEventListener("keydown", echap); };
+  }, [fermer]);
+  return (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/40 p-4 backdrop-blur-[2px] motion-safe:animate-[naviFondu_.25s_ease-out] print:hidden" onClick={fermer}>
+      <section role="dialog" aria-modal="true" aria-labelledby="navi-invitation-titre" className="relative w-full max-w-sm overflow-hidden rounded-[28px] bg-white text-center shadow-[0_30px_80px_-20px_rgba(10,20,60,.45)] motion-safe:animate-[naviApparition_.35s_cubic-bezier(.2,.9,.3,1.2)]">
+        <button type="button" onClick={fermer} aria-label="Fermer" className="absolute right-3 top-3 rounded-full p-2 text-ink-mute transition hover:bg-[#f1f4fd] hover:text-ink"><X size={18} /></button>
+        <div className="bg-gradient-to-b from-brand-50 to-white px-6 pb-2 pt-8">
+          <Fennec className="mx-auto h-24 w-24 rounded-full ring-4 ring-white shadow-lg" />
+          <span className="chip mt-4 bg-brand-600 text-white"><Sparkles size={13} />Nouveau · Intelligence artificielle</span>
+        </div>
+        <div className="px-6 pb-6 pt-3">
+          <h2 id="navi-invitation-titre" className="text-[22px] font-extrabold leading-tight">Viens tester Navi, notre IA</h2>
+          <p className="mt-2 text-[15px] text-ink-soft">Construis ton projet scolaire et professionnel avec un seul outil : métiers, formations, écoles et budget, au même endroit.</p>
+          <button type="button" onClick={(e) => { e.stopPropagation(); ouvrirNavi(); }} className="btn-primary mt-5 w-full justify-center"><MessageCircle size={18} />Discuter avec Navi<ArrowRight size={16} /></button>
+        </div>
+        <span aria-hidden className="absolute bottom-0 left-0 h-1 w-full origin-left bg-brand-600 motion-safe:animate-[naviCompte_3s_linear_forwards] motion-reduce:hidden" />
+      </section>
+    </div>
+  );
+}
+
 export function Navi() {
   const path = usePathname() ?? "/";
   const { pays } = useDevise();
@@ -204,6 +239,7 @@ export function Navi() {
   const [whatsapp, setWhatsapp] = useState<string | null>(null);
   const [bulle, setBulle] = useState(false);
   const [ecoute, setEcoute] = useState(false);
+  const [invitation, setInvitation] = useState(false);
   const deplace = useDeplacable();
   const fil = useRef<HTMLDivElement>(null);
   const champ = useRef<HTMLTextAreaElement>(null);
@@ -226,6 +262,15 @@ export function Navi() {
     return () => window.removeEventListener("keydown", echap);
   }, [ouvert]);
   useEffect(() => { fil.current?.scrollTo({ top: fil.current.scrollHeight }); }, [msgs, ouvert]);
+  // Invitation à tester Navi (site public seulement, une fois tous les 7 jours).
+  useEffect(() => {
+    if (!actif || ouvert || SANS_INVITATION.test(path) || invitationVue()) return;
+    ecrire(`${CLE}-bulle-${path}`, true); // pas de bulle d'accroche en plus sur cette page
+    const t = setTimeout(() => { noterInvitation(); setInvitation(true); }, INVITATION_DELAI);
+    return () => clearTimeout(t);
+  }, [actif, ouvert, path]);
+  const fermerInvitation = useCallback(() => setInvitation(false), []);
+
   // Bulle d'accroche contextuelle, une fois par page et par session.
   const question = accroche(path);
   useEffect(() => {
@@ -300,6 +345,7 @@ export function Navi() {
 
   return (
     <>
+      {invitation && !ouvert && <Invitation fermer={fermerInvitation} ouvrirNavi={() => { setInvitation(false); setOuvert(true); }} />}
       {!ouvert && (
         <div style={deplace.style} className={`fixed bottom-24 right-4 z-40 flex items-center gap-3 lg:bottom-6 lg:right-6 print:hidden ${deplace.aGauche ? "flex-row-reverse" : ""}`}>
           {bulle && question && !deplace.enGlisse && <button type="button" onClick={() => { setOuvert(true); void envoyer(question); }} className="hidden rounded-full border border-slate-200 bg-white px-4 py-2.5 text-[13.5px] font-bold text-ink shadow-[0_10px_30px_-12px_rgba(11,21,51,.35)] sm:block">{question}</button>}
