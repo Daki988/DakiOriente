@@ -306,7 +306,8 @@ export async function dossierUtilisateur(a: User, id: string) {
     profil: profil ? { niveau: profil.level, serie: profil.serie, etablissementActuel: profil.currentSchool, diplome: profil.diploma, domaine: profil.domain, interets: profil.interests, competences: profil.skills, projet: profil.goals,
       preferences: profil.preferences, moyenne: profil.average, mention: profil.mention, anneeBac: profil.bacYear, moyenneVerifiee: !!profil.averageVerifiedAt, metiersVises: profil.targetJobs, rentree: profil.startYear, financement: profil.funding, visibleEcoles: profil.visibleToSchools, riasec: profil.riasec } : null,
     tests: tests.map((t) => ({ ...t, le: t.le.toISOString() })),
-    liens: liens.map((l) => { const autre = l.parentId === id ? l.childId : l.parentId; return { id: l.id, sens: l.parentId === id ? "enfant" : "parent", relation: l.relation, statut: l.statut, consentement: l.consentement, personne: nomDe(autre), invite: autre ? null : l.invite }; }),
+    // Invitations répétées à la même adresse : une seule ligne
+    liens: liens.filter((l, i) => !(l.statut === "invite" && !(l.parentId === id ? l.childId : l.parentId) && liens.findIndex((m) => m.statut === "invite" && m.invite === l.invite) !== i)).map((l) => { const autre = l.parentId === id ? l.childId : l.parentId; return { id: l.id, sens: l.parentId === id ? "enfant" : "parent", relation: l.relation, statut: l.statut, consentement: l.consentement, personne: nomDe(autre), invite: autre ? null : l.invite }; }),
     candidatures,
     pieces,
     rendezVous: rdv,

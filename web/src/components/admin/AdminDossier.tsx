@@ -29,8 +29,8 @@ const FIN: Record<string, string> = { garant: "Garant", bourse: "Bourse", pret: 
 const ko = (n: number) => (n > 1e6 ? `${(n / 1e6).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} Mo` : `${Math.max(1, Math.round(n / 1e3))} Ko`);
 
 function Ligne({ k, v }: { k: string; v: React.ReactNode }) {
-  if (v == null || v === "" || (Array.isArray(v) && !v.length)) return null;
-  return <div className="flex min-w-0 flex-col gap-0.5 sm:flex-row sm:gap-3"><dt className="shrink-0 text-xs font-bold text-ink-mute sm:w-40 sm:text-[13px]">{k}</dt><dd className="min-w-0 break-words text-sm font-semibold">{v}</dd></div>;
+  if (v == null || v === false || v === "" || (Array.isArray(v) && !v.length)) return null;
+  return <div className="flex min-w-0 flex-col gap-0.5 sm:flex-row sm:gap-3"><dt className="shrink-0 text-xs font-bold text-ink-mute sm:w-40 sm:text-[13px]">{k}</dt><dd className="min-w-0 text-sm font-semibold [overflow-wrap:anywhere]">{v}</dd></div>;
 }
 
 export function AdminDossier({ id }: { id: string }) {
@@ -43,7 +43,7 @@ export function AdminDossier({ id }: { id: string }) {
   const parPiece = new Map(pieces.map((x) => [x.id, x]));
 
   return (
-    <>
+    <div className="min-w-0 max-w-full">
       <Link href="/admin/utilisateurs" className="mb-3 inline-flex items-center gap-1.5 text-[13px] font-bold text-brand-600"><ArrowLeft size={15} />Utilisateurs</Link>
       <AdminHeader eyebrow={`Dossier · ${ROLE_LABEL[c.role] ?? c.role}`} title={`${c.prenom} ${c.nom}`}
         sub={<span className="flex flex-wrap items-center gap-x-2 gap-y-1"><Chip tone={ROLE_TONE[c.role]}>{ROLE_LABEL[c.role] ?? c.role}</Chip><StatusBadge status={c.statut} />{c.pays && <Flag code={c.pays} withName />}{c.ville && <span>· {c.ville}</span>}{age && <span>· {age} ans</span>}</span>} />
@@ -117,7 +117,7 @@ export function AdminDossier({ id }: { id: string }) {
           <ul className="divide-y divide-slate-100">
             {candidatures.map((a) => (
               <li key={a.id} className="flex flex-col gap-2 py-3 sm:flex-row sm:items-center sm:gap-4">
-                <div className="min-w-0 flex-1">
+                <div className="min-w-0 flex-1 [overflow-wrap:anywhere]">
                   <b className="block text-sm">{a.programme}</b>
                   <span className="block text-xs text-ink-mute">{a.sigle || a.etablissement} · {a.campus ?? a.ville} · n° {a.numero} · {a.soumise ? `envoyée le ${date(a.soumise)}` : `créée le ${date(a.creee)}`}{a.decidee ? ` · décision le ${date(a.decidee)}` : ""}</span>
                   {a.pieces.length > 0 && <span className="mt-1 block text-xs text-ink-soft">{a.pieces.length} pièce{a.pieces.length > 1 ? "s" : ""} jointe{a.pieces.length > 1 ? "s" : ""}{a.demandees.length ? ` · demandée${a.demandees.length > 1 ? "s" : ""} : ${a.demandees.map((t) => DOC[t] ?? t).join(", ")}` : ""}</span>}
@@ -134,12 +134,12 @@ export function AdminDossier({ id }: { id: string }) {
 
       <Panel title={`Pièces déposées (${pieces.length})`} icon={Download} className="mt-5">
         {pieces.length ? (
-          <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
             {pieces.map((x) => (
-              <li key={x.id}>
+              <li key={x.id} className="min-w-0">
                 <a href={apiUrl(`/documents/${x.id}/fichier`)} target="_blank" rel="noopener" className="flex items-center gap-3 rounded-2xl border border-slate-200 p-3 hover:border-brand-300 hover:bg-brand-50/40">
                   <FileText size={20} className="shrink-0 text-brand-600" />
-                  <span className="min-w-0"><b className="block truncate text-sm">{x.label || DOC[x.type] || x.type}</b><span className="block truncate text-xs text-ink-mute">{x.fichier} · {ko(x.taille)} · {date(x.le)}{x.statut === "valide" ? " · validée" : x.statut === "refuse" ? " · refusée" : ""}</span></span>
+                  <span className="min-w-0 flex-1"><b className="block truncate text-sm">{x.label || DOC[x.type] || x.type}</b><span className="block truncate text-xs text-ink-mute">{x.fichier}</span><span className="block text-xs text-ink-mute">{ko(x.taille)} · {date(x.le)}{x.statut === "valide" ? " · validée" : x.statut === "refuse" ? " · refusée" : ""}</span></span>
                 </a>
               </li>
             ))}
@@ -152,7 +152,7 @@ export function AdminDossier({ id }: { id: string }) {
           {d.data.rendezVous.length ? d.data.rendezVous.map((r) => <p key={r.id} className="text-sm"><b>{r.sujet}</b> <span className="text-xs text-ink-mute">· {r.statut} · {date(r.prevu ?? r.souhaite ?? r.le)}</span></p>) : <p className="text-sm text-ink-mute">Aucun rendez-vous.</p>}
         </Panel>
         <Panel title={`Navi (${d.data.navi.questions} question${d.data.navi.questions > 1 ? "s" : ""})`} icon={Bot}>
-          {d.data.navi.dernieres.length ? d.data.navi.dernieres.map((q) => <p key={q.id} className="line-clamp-2 text-sm"><span className="text-xs text-ink-mute">{date(q.at)} · </span>{q.question}</p>) : <p className="text-sm text-ink-mute">Aucune question à Navi (90 derniers jours).</p>}
+          {d.data.navi.dernieres.length ? d.data.navi.dernieres.map((q) => <p key={q.id} className="line-clamp-2 break-words text-sm [overflow-wrap:anywhere]"><span className="text-xs text-ink-mute">{date(q.at)} · </span>{q.question}</p>) : <p className="text-sm text-ink-mute">Aucune question à Navi (90 derniers jours).</p>}
           {d.data.navi.questions > 0 && <Link href="/admin/navi" className="text-[13px] font-bold text-brand-600">Voir dans le suivi de Navi →</Link>}
         </Panel>
         <Panel title={`Favoris (${d.data.favoris.length})`} icon={Heart}>
@@ -160,6 +160,6 @@ export function AdminDossier({ id }: { id: string }) {
         </Panel>
       </div>
       <p className="mt-4 text-xs text-ink-mute">Consultation enregistrée dans le journal d&apos;audit. Données personnelles : à n&apos;utiliser que pour accompagner cet utilisateur.</p>
-    </>
+    </div>
   );
 }
