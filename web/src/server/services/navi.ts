@@ -22,6 +22,8 @@ import { nomPays, paysOrigine, paysOrigineById, visaDestination } from "@/lib/pa
 type User = typeof schema.users.$inferSelect;
 
 export const naviActif = () => !!process.env.ANTHROPIC_API_KEY;
+// Fenêtre « Viens tester Navi » : désactivée tant qu'elle n'est pas validée (NAVI_INVITATION=1 pour l'afficher).
+export const naviInvitation = () => process.env.NAVI_INVITATION === "1";
 // Modèle rapide par défaut (réponses en quelques secondes) ; NAVI_MODEL permet d'en choisir un autre.
 const MODELE = () => process.env.NAVI_MODEL || "claude-sonnet-5-5";
 const EFFORT = () => (["low", "medium", "high"].includes(process.env.NAVI_EFFORT ?? "") ? process.env.NAVI_EFFORT : "low") as "low" | "medium" | "high";

@@ -240,15 +240,19 @@ export function Navi() {
   const [bulle, setBulle] = useState(false);
   const [ecoute, setEcoute] = useState(false);
   const [invitation, setInvitation] = useState(false);
+  const [invitationActive, setInvitationActive] = useState(false);
   const deplace = useDeplacable();
   const fil = useRef<HTMLDivElement>(null);
   const champ = useRef<HTMLTextAreaElement>(null);
   const annule = useRef<AbortController | null>(null);
 
   useEffect(() => {
-    const memo = lire<boolean | null>(`${CLE}-actif`, null);
-    if (memo !== null) setActif(memo);
-    else fetch("/api/navi/").then((r) => r.json()).then((d) => { setActif(!!d.actif); ecrire(`${CLE}-actif`, !!d.actif); }).catch(() => {});
+    const memo = lire<{ actif: boolean; invitation: boolean } | null>(`${CLE}-etat`, null);
+    if (memo !== null) { setActif(memo.actif); setInvitationActive(memo.invitation); }
+    else fetch("/api/navi/").then((r) => r.json()).then((d) => {
+      const e = { actif: !!d.actif, invitation: !!d.invitation };
+      setActif(e.actif); setInvitationActive(e.invitation); ecrire(`${CLE}-etat`, e);
+    }).catch(() => {});
     setMsgs(lire<Msg[]>(`${CLE}-fil`, []));
   }, []);
   useEffect(() => { ecrire(`${CLE}-fil`, msgs.slice(-30)); }, [msgs]);
@@ -264,11 +268,11 @@ export function Navi() {
   useEffect(() => { fil.current?.scrollTo({ top: fil.current.scrollHeight }); }, [msgs, ouvert]);
   // Invitation à tester Navi (site public seulement, une fois tous les 7 jours).
   useEffect(() => {
-    if (!actif || ouvert || SANS_INVITATION.test(path) || invitationVue()) return;
+    if (!actif || !invitationActive || ouvert || SANS_INVITATION.test(path) || invitationVue()) return;
     ecrire(`${CLE}-bulle-${path}`, true); // pas de bulle d'accroche en plus sur cette page
     const t = setTimeout(() => { noterInvitation(); setInvitation(true); }, INVITATION_DELAI);
     return () => clearTimeout(t);
-  }, [actif, ouvert, path]);
+  }, [actif, invitationActive, ouvert, path]);
   const fermerInvitation = useCallback(() => setInvitation(false), []);
 
   // Bulle d'accroche contextuelle, une fois par page et par session.

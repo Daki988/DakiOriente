@@ -485,7 +485,7 @@ route("GET", "/parent/visibilite", "Parent", "Visibilité de mes enfants auprès
 route("POST", "/parent/enfants/:id/visibilite", "Parent", "Donner ou retirer mon accord de visibilité", ["parent"], async ({ me, params, body }) => { await premium.parentVisibility(me, params.id, !!(await body()).accord); return ok; });
 
 // ---------------------------------------------------------------- Navi (assistant IA)
-route("GET", "/navi", "Navi", "Navi est-il disponible (clé API configurée) ?", "public", async () => ({ actif: navi.naviActif() }));
+route("GET", "/navi", "Navi", "Navi est-il disponible (clé API configurée) ?", "public", async () => ({ actif: navi.naviActif(), invitation: navi.naviActif() && navi.naviInvitation() }));
 route("POST", "/navi", "Navi", "Converser avec Navi (réponse en flux NDJSON : texte, cartes, fin)", "public", async ({ req, user, body }) => {
   if (!navi.naviActif()) throw new AppError("Navi n'est pas encore activé.", 503, "navi_inactif");
   const r = navi.naviSchema.parse(await body());
