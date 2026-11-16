@@ -871,3 +871,18 @@ describe("accréditations : suivi, renouvellement saisi, proposition écartée",
     expect((await acc.aReporter()).some((x) => x.id === rej.id)).toBe(false);
   });
 });
+
+describe("audience en direct", () => {
+  it("page vue puis signal de présence : visible dans « En ce moment », provenance d'arrivée gardée", async () => {
+    const aud = await import("@/server/services/audience");
+    const req = () => new Request("http://localhost/api/vu/", { headers: { "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) Mobile", host: "localhost" } });
+    await aud.enregistrer(req(), { p: "/comparateur", r: "https://l.facebook.com/" }, "eleve");
+    await aud.enregistrer(req(), { p: "/metiers" }, "eleve");
+    await aud.enregistrer(req(), { p: "/metiers", h: 1 }, "eleve");
+    const d = await aud.direct(adminU);
+    const v = d.visiteurs.find((x) => x.page === "/metiers/")!;
+    expect(v).toMatchObject({ source: "facebook", appareil: "mobile", role: "eleve", pages: 2 });
+    expect(d.connectes).toBeGreaterThanOrEqual(1);
+    await expect(aud.direct(student)).rejects.toThrow();
+  });
+});

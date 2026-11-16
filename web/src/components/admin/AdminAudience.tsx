@@ -7,7 +7,8 @@ import { useApi } from "@/hooks/useApi";
 import { apiUrl } from "@/lib/api";
 import { nomPays } from "@/lib/pays-origine";
 import { SERVICES } from "@/lib/services";
-import { AdminHeader, LoadError } from "./shared";
+import { Drapeau } from "@/components/ui/Drapeau";
+import { AdminHeader, LoadError, ROLE_LABEL } from "./shared";
 
 type Stats = {
   periode: string; depuis: string;
@@ -20,7 +21,54 @@ const PERIODES: [string, string][] = [["jour", "Aujourd'hui"], ["7j", "7 jours"]
 const SOURCES: Record<string, string> = { direct: "Direct", google: "Recherche Google", "autres moteurs": "Autres moteurs", facebook: "Facebook", instagram: "Instagram", whatsapp: "WhatsApp", tiktok: "TikTok", youtube: "YouTube", linkedin: "LinkedIn", x: "X (Twitter)" };
 const APP: Record<string, [string, typeof Smartphone]> = { mobile: ["Téléphone", Smartphone], ordinateur: ["Ordinateur", Monitor], tablette: ["Tablette", Tablet] };
 const TITRES: [RegExp, string][] = [[/^\/$/, "Accueil"], [/^\/orientation\/$/, "Test d'orientation"], [/^\/etablissements\/$/, "Établissements"], [/^\/formations\/$/, "Formations"], [/^\/metiers\/$/, "Métiers"], [/^\/navilease\/$/, "Navilease"], [/^\/navilease\/residences\/$/, "Résidences universitaires"], [/^\/navitravel\/$/, "NaviTravel"], [/^\/devis\/$/, "Devis parents"], [/^\/parents\/$/, "Parents"], [/^\/pourquoi\/$/, "Pourquoi Navigoal"], [/^\/inscription\/$/, "Inscription"], [/^\/connexion\/$/, "Connexion"], [/^\/espace\//, "Espace élève"]];
-const titre = (c: string) => TITRES.find(([r]) => r.test(c))?.[1] ?? decodeURIComponent(c.replace(/\/$/, "").split("/").pop() ?? c).replace(/-/g, " ");
+const FICHE = /^\/etablissements\/(?:[a-z]{2}-)?([^/]+)\/$/;
+const titre = (c: string) => (FICHE.test(c) ? `Fiche école ${FICHE.exec(c)![1].toUpperCase()}` : null) ?? TITRES.find(([r]) => r.test(c))?.[1] ?? decodeURIComponent(c.replace(/\/$/, "").split("/").pop() ?? c).replace(/-/g, " ");
+
+type Direct = {
+  le: string; total: number; connectes: number; pays: { code: string | null; n: number; connectes: number }[];
+  visiteurs: { pays: string | null; page: string; service: string; source: string; appareil: string; role: string | null; pages: number; depuis: string; vu: string }[];
+};
+const duree = (iso: string, le: string) => { const m = Math.max(0, Math.round((new Date(le).getTime() - new Date(iso).getTime()) / 60000)); return m < 1 ? "à l'instant" : m < 60 ? `${m} min` : `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, "0")}`; };
+const Pays = ({ code }: { code: string | null }) => (code ? <Drapeau code={code} taille={18} className="shrink-0" /> : null);
+
+/** Visiteurs en ce moment (activité dans les 3 dernières minutes), actualisé toutes les 15 secondes. */
+function EnDirect() {
+  const s = useApi<Direct>("/admin/audience/direct", { refreshMs: 15000 });
+  const d = s.data;
+  return (
+    <Panel title="En ce moment" icon={Radio} tone="green">
+      {!d ? (s.error ? <p className="text-sm text-ink-mute">Données en direct indisponibles.</p> : <Loading />) : (
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+            <span className="flex items-center gap-2"><span className="relative flex h-2.5 w-2.5"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#21c16b] opacity-60" /><span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#21c16b]" /></span><b className="text-2xl">{nf(d.total)}</b><span className="text-sm text-ink-mute">visiteur{d.total > 1 ? "s" : ""} sur le site</span></span>
+            <span className="text-sm text-ink-mute">dont <b className="text-ink">{nf(d.connectes)}</b> connecté{d.connectes > 1 ? "s" : ""} à un compte · actualisé à {new Date(d.le).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}</span>
+          </div>
+          {d.pays.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {d.pays.map((x) => (
+                <span key={x.code ?? "?"} className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[13px]">
+                  <Pays code={x.code} /><b>{x.code ? nomPays(x.code) : "Pays inconnu"}</b><span className="text-ink-mute">{x.n}{x.connectes ? ` · ${x.connectes} connecté${x.connectes > 1 ? "s" : ""}` : ""}</span>
+                </span>
+              ))}
+            </div>
+          )}
+          {d.visiteurs.length ? (
+            <ul className="divide-y divide-slate-100">
+              {d.visiteurs.map((v, i) => { const [app, I] = APP[v.appareil] ?? [v.appareil, Monitor]; return (
+                <li key={i} className="flex flex-col gap-1 py-2.5 text-[13px] sm:flex-row sm:items-center sm:gap-3">
+                  <span className="flex min-w-0 items-center gap-2 sm:w-56 sm:shrink-0"><Pays code={v.pays} /><b className="truncate">{v.pays ? nomPays(v.pays) : "Pays inconnu"}</b>
+                    {v.role ? <span className="chip shrink-0 bg-brand-50 px-2 py-0.5 text-brand-700">{ROLE_LABEL[v.role] ?? v.role}</span> : <span className="chip shrink-0 bg-[#f1f4fd] px-2 py-0.5 text-ink-mute">Visiteur</span>}</span>
+                  <a href={v.page} target="_blank" rel="noopener" className="min-w-0 flex-1 truncate font-semibold first-letter:uppercase hover:text-brand-600" title={v.page}>{titre(v.page)}</a>
+                  <span className="flex flex-wrap items-center gap-x-2 text-xs text-ink-mute"><I size={13} />{app}<span>· via {v.source === "interne" ? "navigation" : SOURCES[v.source] ?? v.source}</span><span>· {v.pages} page{v.pages > 1 ? "s" : ""}</span><span>· depuis {duree(v.depuis, d.le)}</span></span>
+                </li>
+              ); })}
+            </ul>
+          ) : <p className="text-sm text-ink-mute">Personne sur le site en ce moment.</p>}
+        </div>
+      )}
+    </Panel>
+  );
+}
 
 export function AdminAudience() {
   const [periode, setPeriode] = useState("30j");
@@ -44,7 +92,6 @@ export function AdminAudience() {
       <AdminHeader title="Audience" sub="Mesure intégrée, sans cookie ni service tiers : l'adresse IP n'est jamais conservée."
         actions={<a href={apiUrl(`/admin/audience/export.csv?${qs}`)} className="btn-ghost"><Download size={16} />Export CSV</a>} />
       <div className="mb-5 flex flex-wrap items-center gap-2">
-        {d && <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><Radio size={13} />{d.kpi.enLigne} visiteur{d.kpi.enLigne > 1 ? "s" : ""} en ce moment</span>}
         <div className="flex flex-wrap gap-1.5 sm:ml-auto">
           {PERIODES.map(([v, l]) => <button key={v} onClick={() => setPeriode(v)} className={`chip px-3 py-2 text-[13px] ${periode === v ? "bg-ink text-white" : "border border-slate-200 bg-white text-ink-soft"}`}>{l}</button>)}
         </div>
@@ -57,6 +104,7 @@ export function AdminAudience() {
       </div>
       {!d ? <Loading /> : (
         <div className="flex flex-col gap-5">
+          <EnDirect />
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <Kpi label="Visiteurs" value={nf(d.kpi.visiteurs)} icon={Users} trend={d.kpi.evolution.visiteurs} />
             <Kpi label="Pages vues" value={nf(d.kpi.vues)} icon={Eye} tone="violet" trend={d.kpi.evolution.vues} />

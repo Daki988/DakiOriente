@@ -32,7 +32,8 @@ function provenance(ref: string, utm: string | null, hote: string) {
   return h.slice(0, 60);
 }
 
-export async function enregistrer(req: Request, b: { p?: unknown; r?: unknown; u?: unknown }, connecte: boolean) {
+/** Page vue (ou signal de présence `h`, envoyé chaque minute tant que l'onglet est affiché). `role` : compte connecté, sinon null. */
+export async function enregistrer(req: Request, b: { p?: unknown; r?: unknown; u?: unknown; h?: unknown }, role: string | null) {
   const ua = req.headers.get("user-agent") ?? "";
   if (!ua || ROBOTS.test(ua)) return;
   const p = typeof b.p === "string" ? b.p.split("?")[0].split("#")[0].slice(0, 200) : "";
@@ -41,13 +42,45 @@ export async function enregistrer(req: Request, b: { p?: unknown; r?: unknown; u
   const ip = ipClient(req.headers);
   const day = new Date().toISOString().slice(0, 10);
   const hote = req.headers.get("x-forwarded-host") || req.headers.get("host") || "";
-  await db.insert(schema.pageViews).values({
-    day, path: chemin, service: serviceDuChemin(chemin), country: paysDeIp(ip), connected: connecte,
-    source: provenance(typeof b.r === "string" ? b.r.slice(0, 500) : "", typeof b.u === "string" && b.u ? b.u : null, hote),
+  const ligne = {
+    path: chemin, service: serviceDuChemin(chemin), country: paysDeIp(ip),
+    source: b.h ? "interne" : provenance(typeof b.r === "string" ? b.r.slice(0, 500) : "", typeof b.u === "string" && b.u ? b.u : null, hote),
     device: appareil(ua), visitor: sha256(`${day}|${ip}|${ua}|${SEL()}`).slice(0, 20),
+  };
+  if (!b.h) await db.insert(schema.pageViews).values({ ...ligne, day, connected: !!role });
+  // Présence en direct : la provenance retenue est celle de l'arrivée sur le site (pas la navigation interne).
+  const pr = schema.presences;
+  await db.insert(pr).values({ ...ligne, role, pages: b.h ? 0 : 1 }).onConflictDoUpdate({
+    target: pr.visitor,
+    set: {
+      at: sql`now()`, path: ligne.path, service: ligne.service, country: ligne.country, device: ligne.device, role,
+      source: sql`case when ${pr.at} > now() - interval '30 minutes' and ${pr.source} <> 'interne' then ${pr.source} else excluded.source end`,
+      pages: b.h ? pr.pages : sql`${pr.pages} + 1`,
+      depuis: sql`case when ${pr.at} < now() - interval '30 minutes' then now() else ${pr.depuis} end`,
+    },
   });
+  if (Math.random() < 0.02) await db.delete(pr).where(lt(pr.at, new Date(Date.now() - 3600e3)));
   // Conservation : 13 mois de détail.
   if (Math.random() < 0.002) await db.delete(schema.pageViews).where(lt(schema.pageViews.at, new Date(Date.now() - 396 * 864e5)));
+}
+
+/** Qui est sur le site en ce moment (activité dans les 3 dernières minutes) : pays, provenance, page, appareil, compte. */
+export async function direct(admin: User) {
+  if (admin.role !== "admin") throw forbidden();
+  const pr = schema.presences;
+  const lignes = await db.select().from(pr).where(gte(pr.at, new Date(Date.now() - 3 * 60e3))).orderBy(desc(pr.at)).limit(300);
+  const parPays = new Map<string, { code: string | null; n: number; connectes: number }>();
+  for (const l of lignes) {
+    const k = l.country ?? "?";
+    const x = parPays.get(k) ?? { code: l.country, n: 0, connectes: 0 };
+    x.n++; if (l.role) x.connectes++;
+    parPays.set(k, x);
+  }
+  return {
+    le: new Date().toISOString(), total: lignes.length, connectes: lignes.filter((l) => l.role).length,
+    pays: [...parPays.values()].sort((a, b) => b.n - a.n),
+    visiteurs: lignes.slice(0, 60).map((l) => ({ pays: l.country, page: l.path, service: l.service, source: l.source, appareil: l.device, role: l.role, pages: l.pages, depuis: l.depuis.toISOString(), vu: l.at.toISOString() })),
+  };
 }
 
 const PERIODES: Record<string, number> = { jour: 1, "7j": 7, "30j": 30, "12m": 365 };

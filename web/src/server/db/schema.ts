@@ -632,6 +632,21 @@ export const pageViews = pgTable("page_views", {
   connected: boolean("connected").notNull().default(false),
 }, (t) => [index("pv_day_idx").on(t.day), index("pv_at_idx").on(t.at)]);
 
+// Présence en direct (tableau « En ce moment » de l'audience) : une ligne par visiteur anonyme, mise à jour à chaque page
+// et toutes les minutes tant que l'onglet est ouvert ; lignes de plus d'une heure supprimées.
+export const presences = pgTable("presences", {
+  visitor: text("visitor").primaryKey(), // même empreinte anonyme du jour que page_views
+  at: timestamp("at", { withTimezone: true }).notNull().defaultNow(),
+  depuis: timestamp("depuis", { withTimezone: true }).notNull().defaultNow(),
+  path: text("path").notNull(),
+  service: text("service").notNull(),
+  country: text("country"),
+  source: text("source").notNull(),
+  device: text("device").notNull(),
+  role: text("role"), // rôle du compte connecté, sinon null (visiteur)
+  pages: integer("pages").notNull().default(1),
+}, (t) => [index("presences_at_idx").on(t.at)]);
+
 // ---------------------------------------------------------------- Réglages de la plateforme (paiements…) ; secrets chiffrés (AES-256-GCM)
 export const appSettings = pgTable("app_settings", {
   key: text("key").primaryKey(),

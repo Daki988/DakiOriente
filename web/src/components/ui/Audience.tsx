@@ -16,6 +16,13 @@ export function Audience() {
       const body = JSON.stringify({ p: path, r, u });
       fetch("/api/vu/", { method: "POST", headers: { "content-type": "application/json" }, body, keepalive: true, credentials: "same-origin" }).catch(() => undefined);
     } catch { /* mesure facultative */ }
+    // Présence en direct : un signal par minute tant que l'onglet est affiché (aucune page vue comptée).
+    if (path.startsWith("/admin") || (typeof navigator !== "undefined" && navigator.doNotTrack === "1")) return;
+    const t = setInterval(() => {
+      if (document.visibilityState !== "visible") return;
+      fetch("/api/vu/", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ p: path, h: 1 }), keepalive: true, credentials: "same-origin" }).catch(() => undefined);
+    }, 60000);
+    return () => clearInterval(t);
   }, [path]);
   return null;
 }
