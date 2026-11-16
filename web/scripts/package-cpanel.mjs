@@ -20,7 +20,7 @@ console.log("2/4 Scripts de base de données (migrations, données de démarrage
 fs.rmSync(path.join(root, "livraison"), { recursive: true, force: true });
 fs.mkdirSync(path.join(out, "outils"), { recursive: true });
 const banner = "import { createRequire as __cr } from 'module'; const require = __cr(import.meta.url);";
-for (const s of ["migrate", "seed", "sauvegarde", "restauration", "acces-ecoles", "rappels-offres"])
+for (const s of ["migrate", "seed", "sauvegarde", "restauration", "acces-ecoles", "rappels-offres", "acces"])
   run(`npx esbuild scripts/${s}.mts --bundle --platform=node --format=esm --target=node20 --external:pg-native --banner:js="${banner}" --outfile=${path.join(out, "outils", s + ".mjs")} --log-level=warning`);
 
 console.log("3/4 Assemblage");

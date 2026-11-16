@@ -633,3 +633,32 @@ describe("sécurité : corrections de l'audit du 16 novembre", () => {
     expect(await total()).toBe(avant + 30);
   });
 });
+
+describe("accès réservé à certains pays", () => {
+  it("visiteurs filtrés par pays ; comptes pros, robots et pages libres toujours admis", async () => {
+    const a = await import("@/server/services/acces-pays");
+    const { paysDeIp } = await import("@/server/lib/geoip");
+    const { createSession } = await import("@/server/auth/session");
+    // Adresses de test : une au Gabon, une en France, retrouvées dans la base géographique du dépôt.
+    const ipGA = ["41.158.0.1", "41.211.0.1", "102.129.0.1", "154.68.0.1", "197.149.0.1"].find((ip) => paysDeIp(ip) === "GA");
+    const ipFR = ["90.0.0.1", "82.64.0.1", "2.0.0.1"].find((ip) => paysDeIp(ip) === "FR");
+    expect(ipGA && ipFR).toBeTruthy();
+    const v = { chemin: "/formations/", agent: "Mozilla/5.0", jeton: null };
+    expect((await a.decider({ ...v, ip: ipFR! })).autorise).toBe(true); // filtre inactif par défaut
+    await expect(a.enregistrer(student, { actif: true, pays: ["GA", "CI"] })).rejects.toThrow();
+    await a.enregistrer(adminU, { actif: true, pays: ["GA", "CI"] });
+    try {
+      expect((await a.decider({ ...v, ip: ipGA! })).autorise).toBe(true);
+      expect((await a.decider({ ...v, ip: ipFR! })).autorise).toBe(false);
+      expect((await a.decider({ ...v, ip: ipFR!, chemin: "/connexion/" })).autorise).toBe(true);
+      expect((await a.decider({ ...v, ip: ipFR!, chemin: "/api/sante/" })).autorise).toBe(true);
+      expect((await a.decider({ ...v, ip: ipFR!, agent: "Mozilla/5.0 (compatible; Googlebot/2.1)" })).autorise).toBe(true);
+      const ecole = await createSession(school.id), eleve = await createSession(student.id);
+      expect((await a.decider({ ...v, ip: ipFR!, jeton: ecole.token })).motif).toBe("compte_pro");
+      expect((await a.decider({ ...v, ip: ipFR!, jeton: eleve.token })).autorise).toBe(false);
+      await expect(a.enregistrer(adminU, { actif: true, pays: [] })).rejects.toThrow();
+    } finally {
+      await a.enregistrer(adminU, { actif: false, pays: ["GA", "CI"] });
+    }
+  });
+});

@@ -7,6 +7,7 @@ import { AppError, forbidden, unauthorized } from "../lib/errors";
 import { getFile } from "../lib/storage";
 import { errorResponse, file, json } from "./http";
 import * as accounts from "../services/accounts";
+import * as accesPays from "../services/acces-pays";
 import * as guardians from "../services/guardians";
 import * as docs from "../services/documents";
 import * as apps from "../services/applications";
@@ -408,6 +409,8 @@ route("GET", "/admin/prospections", "Relais", "Campagnes de prospection des éco
 route("POST", "/admin/prospections/:id/validation", "Relais", "Valider (envoi) ou refuser une campagne de prospection", ["admin"], async ({ me, params, body }) => { const b = await body(); return premium.reviewProspection(me, params.id, !!b.valider, b.note ? String(b.note).slice(0, 1000) : undefined); });
 
 // ---------------------------------------------------------------- Accès des établissements (administrateur)
+route("GET", "/admin/acces-pays", "Back-office", "Accès réservé à certains pays (visiteurs, élèves, parents)", ["admin"], async ({ me }) => accesPays.vueAdmin(me));
+route("PUT", "/admin/acces-pays", "Back-office", "Activer ou régler l'accès par pays { actif, pays: [\"GA\", \"CI\"] }", ["admin"], async ({ me, body }) => accesPays.enregistrer(me, await body()));
 route("GET", "/admin/acces", "Accès écoles", "Accès des établissements (comptes, état, dernière connexion)", ["admin"], async ({ me }) => acces.listAccesses(me));
 route("POST", "/admin/acces/creer", "Accès écoles", "Créer les accès manquants : CSV des identifiants et mots de passe provisoires (affiché une seule fois)", ["admin"], async ({ me }) =>
   file(new TextEncoder().encode("﻿" + acces.accesCsv(await acces.createMissingAccesses(me))), "text/csv; charset=utf-8", `acces-etablissements-${new Date().toISOString().slice(0, 10)}.csv`, false));

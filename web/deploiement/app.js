@@ -40,6 +40,39 @@ if (version && version !== lire(fichierApplique) && (process.env.DATABASE_URL ||
   }
 }
 
+// Accès par pays (réglage du back-office) : contrôlé ici, devant Next.js, pour chaque requête, y compris les pages
+// pré-générées. Quand le filtre est actif, les pages ne sont plus gardées par le cache de l'hébergeur (sinon une page
+// en cache serait servie à un visiteur d'un autre pays sans contrôle).
+const http = require("http");
+let acces = null;
+const outilAcces = path.join(__dirname, "outils", "acces.mjs");
+if (fs.existsSync(outilAcces)) {
+  const pret = import(require("url").pathToFileURL(outilAcces).href).then((m) => (acces = m)).catch((e) => console.error("[accès par pays] module indisponible :", e.message));
+  const creer = http.createServer;
+  http.createServer = function (...args) {
+    const i = args.findIndex((a) => typeof a === "function");
+    if (i < 0) return creer.apply(this, args);
+    const suite = args[i];
+    args[i] = (req, res) => {
+      pret.then(() => (acces ? acces.controler(req) : null)).then((d) => {
+        if (!d || !d.actif) return suite(req, res);
+        const poser = res.setHeader.bind(res);
+        res.setHeader = (nom, valeur) => poser(nom, String(nom).toLowerCase() === "cdn-cache-control" ? "no-store" : valeur);
+        poser("CDN-Cache-Control", "no-store");
+        poser("Vary", "Cookie");
+        if (d.autorise) return suite(req, res);
+        if ((req.url || "").startsWith("/api/")) {
+          res.writeHead(403, { "Content-Type": "application/json; charset=utf-8" });
+          return res.end(JSON.stringify({ error: { code: "pays_non_autorise", message: "Navigoal n'est pas disponible dans votre pays." } }));
+        }
+        res.writeHead(302, { Location: "/acces-restreint/", "Cache-Control": "no-store" });
+        res.end();
+      }).catch((e) => { console.error("[accès par pays]", e.message); suite(req, res); }); // en cas de panne : on laisse passer
+    };
+    return creer.apply(this, args);
+  };
+}
+
 require("./serveur/server.js"); // le serveur Next.js se place lui-même dans serveur/ (fichiers publics, .next)
 
 // Cache de l'hébergeur (Varnish LWS) : vidé après une nouvelle version, une fois le serveur prêt.
