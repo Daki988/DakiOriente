@@ -1,7 +1,7 @@
 // Navi, l'assistant IA de Navigoal : répond à partir des données de la plateforme (outils de lecture),
 // propose l'action suivante (liens vers les pages déjà filtrées) et ne lit que les données de l'utilisateur connecté.
 import Anthropic from "@anthropic-ai/sdk";
-import { and, desc, eq, gte, ilike, lte, or, sql } from "drizzle-orm";
+import { and, desc, eq, gte, ilike, lt, lte, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db, schema } from "../db";
 import { sha256 } from "../auth/tokens";
@@ -456,11 +456,50 @@ Repères :
 - Pays d'études : si la destination choisie est connue (contexte), cherche d'abord dans ce pays (paramètre pays) ; sinon, ou si la personne hésite, présente les pays ouverts. Logement Navilease : au Maroc seulement.
 - Labels Navigoal au Maroc : « Reconnu par l'État », « Diplômes homologués », « Établissement professionnel », « Établissement autorisé » (diplômes d'établissement, non homologués : dis-le clairement si c'est pertinent). Au Sénégal : « Habilité par l'État » (habilitation du MESRI sur avis de l'ANAQ-Sup), « Programmes accrédités » (accréditation ANAQ-Sup, 5 ans), « Établissement inter-États » (ESMT, CESAG, EISMV). Utilise le libellé renvoyé par les outils.`;
 
+// ---------------------------------------------------------------- Routeur, cache et suivi
+// Routeur : les tours de pure discussion (profil, goûts, hésitations) vont au petit modèle, bien moins cher ;
+// dès qu'une question appelle des données (écoles, prix, villes, dossier), ou si le petit modèle veut chercher,
+// le tour passe au modèle principal. NAVI_ROUTEUR=0 envoie tout au modèle principal.
+const MODELE_SIMPLE = () => process.env.NAVI_MODELE_SIMPLE || "claude-haiku-5-5";
+const ROUTEUR = () => process.env.NAVI_ROUTEUR !== "0";
+const CACHE_REPONSES = () => process.env.NAVI_CACHE !== "0";
+const BESOIN_DONNEES = /(?:[ée]coles?|universit|institut|formation|fili[èe]re|licence|master|bachelor|doctorat|bac\s*\+|dipl[ôo]me|homologu|prix|co[ûu]te?s?|frais|tarif|budget|combien|cfa|dirham|\bmad\b|euros?|bourse|logement|r[ée]sidence|navilease|loyer|chambre|candidat|dossier|inscri|admission|concours|ville|casablanca|rabat|marrakech|f[èe]s|tanger|agadir|mekn[èe]s|oujda|dakar|maroc|s[ée]n[ée]gal|visa|devis|liste|compar|lesquel|o[ùu] (?:[ée]tudier|faire|aller)|mon (?:espace|compte|paiement|dossier)|r[ée]servation|campagne|partenaire|quels? m[ée]tiers|m[ée]tiers? (?:qui|pour|dans|de))/i;
+
+/** Modèle d'un tour selon le dernier message de l'utilisateur. */
+export function choisirRoute(question: string): "simple" | "complet" {
+  if (!ROUTEUR()) return "complet";
+  return question.length > 400 || BESOIN_DONNEES.test(question) ? "complet" : "simple";
+}
+
+// Tarifs ($ par million de jetons) : entrée, sortie, lecture du cache, écriture du cache.
+const TARIFS: Record<string, [number, number, number, number]> = {
+  "claude-haiku-5-5": [0.1, 0.5, 0.01, 0.125], "claude-sonnet-5-5": [2, 10, 0.1, 2.5], "claude-sonnet-5": [2, 10, 0.2, 2.5],
+  "claude-opus-5-5": [4, 20, 0.2, 5], "claude-opus-5": [5, 25, 0.5, 6.25], "claude-opus-4-8": [5, 25, 0.5, 6.25],
+};
+export function coutUsd(modele: string, u: { entree: number; sortie: number; cacheLu: number; cacheEcrit: number }) {
+  const t = TARIFS[modele] ?? TARIFS[Object.keys(TARIFS).find((k) => modele.startsWith(k)) ?? ""] ?? TARIFS["claude-sonnet-5-5"];
+  return (u.entree * t[0] + u.sortie * t[1] + u.cacheLu * t[2] + u.cacheEcrit * t[3]) / 1e6;
+}
+
+const normaliser = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9+]+/g, " ").trim();
+
+export type Trace = typeof schema.naviTraces.$inferInsert;
+async function enregistrerTrace(t: Trace) {
+  try {
+    await db.insert(schema.naviTraces).values(t);
+    if (Math.random() < 0.01) {
+      await db.delete(schema.naviTraces).where(lt(schema.naviTraces.at, new Date(Date.now() - 90 * 864e5)));
+      await db.delete(schema.naviCache).where(lt(schema.naviCache.expire, new Date()));
+    }
+  } catch (e) { console.error("Navi suivi :", e); }
+}
+
 // ---------------------------------------------------------------- Conversation (flux NDJSON)
 export type Evenement = { t: "texte"; v: string } | { t: "efface" } | { t: "etape" } | { t: "cartes"; v: Carte[] } | { t: "fin" } | { t: "erreur"; v: string };
 
-export async function* converser(req: NaviRequete, user: User | null): AsyncGenerator<Evenement> {
-  const client = new Anthropic();
+export async function* converser(req: NaviRequete, user: User | null, opts: { client?: Anthropic; onTrace?: (t: Trace) => void } = {}): AsyncGenerator<Evenement> {
+  const client = opts.client ?? new Anthropic();
+  const debut = Date.now();
   const paysDefaut = (req.pays && paysOrigineById[req.pays] ? req.pays : user?.country && paysOrigineById[user.country] ? user.country : null) ?? null;
   const chemin = cheminInterne(req.page?.chemin) ?? "/";
   const contexte = `Contexte de cette conversation :
@@ -475,106 +514,178 @@ export async function* converser(req: NaviRequete, user: User | null): AsyncGene
   while (hist.length && hist[0].role !== "user") hist = hist.slice(1);
   if (!hist.length || hist[hist.length - 1].role !== "user") { yield { t: "erreur", v: "Message manquant." }; return; }
   const messages: Anthropic.Beta.BetaMessageParam[] = hist.map((m) => ({ role: m.role, content: m.texte.slice(0, 2000) || "…" }));
+  const question = hist[hist.length - 1].texte.slice(0, 2000);
 
+  // Suivi : ce que la personne a réellement vu, les outils, les jetons et le coût de chaque modèle.
+  let affiche = "";
+  const outils: string[] = [];
+  const conso = new Map<string, { entree: number; sortie: number; cacheLu: number; cacheEcrit: number }>();
+  let route: "simple" | "complet" | "cache" = choisirRoute(question);
+  let modele = route === "simple" ? MODELE_SIMPLE() : MODELE();
+  let statut: "ok" | "refus" | "erreur" = "ok";
+  let tours = 0;
   const cartes: Carte[] = [];
-  // Si le modèle termine sans texte (outils et cartes seulement), un dernier tour sans outil lui fait rédiger sa réponse.
-  let redaction = false;
-  for (let tour = 0; tour < 8; tour++) {
-    yield { t: "etape" };
-    const flux = client.beta.messages.stream({
-      model: MODELE(), max_tokens: 8000,
-      betas: ["server-side-fallback-2026-07-01"], fallbacks: "default",
-      output_config: { effort: EFFORT() },
-      // Discussion : pas de réflexion avant d'écrire (réponse immédiate), mais une réflexion entre deux
-      // appels d'outils, là où elle sert. Réglage propre à Sonnet 5.5 ; les autres modèles gardent le leur.
-      ...(SANS_REFLEXION() ? { thinking: { type: "between_tools" as const } } : {}),
-      system: [{ type: "text", text: CONSIGNES, cache_control: { type: "ephemeral" } }, { type: "text", text: contexte }],
-      tools: OUTILS, ...(redaction ? { tool_choice: { type: "none" as const } } : {}), messages,
-    });
-    const file: Evenement[] = [];
-    let reveil: (() => void) | null = null;
-    const pousser = (e: Evenement) => { file.push(e); reveil?.(); };
-    let ecrit = false; // texte écrit pendant CE tour (la phrase d'accueil du premier tour ne compte pas comme réponse)
-    flux.on("text", (v) => { if (v.trim()) ecrit = true; pousser({ t: "texte", v }); });
-    // Bascule vers le modèle de secours : le texte déjà affiché pour ce tour est remplacé.
-    flux.on("streamEvent", (ev) => { if (ev.type === "content_block_start" && (ev.content_block as { type: string }).type === "fallback") pousser({ t: "efface" }); });
-    let fini = false;
-    let message: Anthropic.Beta.BetaMessage | null = null;
-    let erreur: unknown = null;
-    flux.finalMessage().then((m) => { message = m; }, (e) => { erreur = e; }).finally(() => { fini = true; reveil?.(); });
-    while (!fini || file.length) {
-      if (file.length) { yield file.shift()!; continue; }
-      await new Promise<void>((r) => { reveil = r; });
-      reveil = null;
-    }
-    if (erreur || !message) {
-      console.error("Navi :", erreur);
-      yield { t: "erreur", v: "Navi est momentanément indisponible. Réessaie dans un instant ou écris à un conseiller." };
-      return;
-    }
-    const m = message as Anthropic.Beta.BetaMessage;
-    if (m.stop_reason === "refusal") {
-      yield { t: "efface" };
-      yield { t: "texte", v: "Je ne peux pas t'aider sur ce point. Un conseiller Navigoal peut prendre le relais." };
-      yield { t: "cartes", v: [{ type: "conseiller" }] };
-      yield { t: "fin" };
-      return;
-    }
-    const appels = m.content.filter((b): b is Anthropic.Beta.BetaToolUseBlock => b.type === "tool_use");
-    if (m.stop_reason !== "tool_use" || !appels.length || redaction) {
-      if (ecrit || redaction) break; // réponse directe ou rédigée à ce tour
-      if (m.content.length) messages.push({ role: "assistant", content: m.content as Anthropic.Beta.BetaContentBlockParam[] });
-      const relance: Anthropic.Beta.BetaTextBlockParam = { type: "text", text: "(Navigoal) Rédige maintenant ta réponse à l'utilisateur en texte, sans appeler d'outil. Elle doit se suffire à elle-même (noms, prix, ce qui compte pour cette personne) : n'y renvoie pas aux cartes." };
-      const der = messages[messages.length - 1];
-      if (der.role === "user" && Array.isArray(der.content)) der.content.push(relance);
-      else messages.push({ role: "user", content: [relance] });
-      redaction = true;
-      continue;
-    }
-    // Texte écrit juste avant une recherche : c'est une annonce (« je regarde… », « je vérifie dans la base »),
-    // pas la réponse. L'utilisateur n'a pas à la voir : on l'efface et on attend la vraie réponse.
-    // (On n'efface pas dès que « afficher » est dans le tour : le modèle rédige sa réponse et demande
-    //  les cartes ensemble, ce texte-là EST la réponse.)
-    const efface = ecrit && !appels.some((a) => a.name === "afficher");
-    if (efface) { yield { t: "efface" }; ecrit = false; }
-    messages.push({ role: "assistant", content: m.content as Anthropic.Beta.BetaContentBlockParam[] });
-    // Outils exécutés en parallèle (recherches indépendantes).
-    const resultats: Anthropic.Beta.BetaToolResultBlockParam[] = await Promise.all(appels.map(async (a): Promise<Anthropic.Beta.BetaToolResultBlockParam> => {
-      const v = VALIDATION[a.name]?.safeParse(a.input);
-      if (!v?.success) return { type: "tool_result", tool_use_id: a.id, is_error: true, content: JSON.stringify({ INVALID_JSON: JSON.stringify(a.input).slice(0, 500) }) };
-      let r: unknown;
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- validé
-        const x = v.data as any; // validé par le schéma Zod de l'outil
-        switch (a.name) {
-          case "chercher_formations": r = await chercherFormations(x); break;
-          case "chercher_etablissements": r = await chercherEtablissements(x); break;
-          case "fiche_etablissement": r = await ficheEtablissement(x.id); break;
-          case "chercher_metiers": r = chercherMetiers(x); break;
-          case "estimer_cout": r = await estimerCout(x, paysDefaut); break;
-          case "infos_pays_origine": r = infosPays(x.pays); break;
-          case "chercher_logements": r = await chercherLogements(x); break;
-          case "campagnes_en_cours": r = await campagnesEnCours(x.etablissement_id); break;
-          case "mon_espace": r = await monEspace(user); break;
-          case "afficher": cartes.push(...(await construireCartes(x, paysDefaut))); r = { affiche: true }; break;
-          default: r = { erreur: "Outil inconnu." };
-        }
-      } catch (e) {
-        console.error("Navi outil", a.name, e);
-        r = { erreur: "Données momentanément indisponibles." };
+  const sortir = (e: Evenement): Evenement => {
+    if (e.t === "texte") affiche += e.v;
+    else if (e.t === "efface") affiche = "";
+    else if (e.t === "erreur") statut = "erreur";
+    return e;
+  };
+
+  // Cache : premier message d'un visiteur, même question, même page, même destination et même pays.
+  const cle = !user && hist.length === 1 && CACHE_REPONSES() ? sha256([normaliser(question), chemin, req.destination ?? "", paysDefaut ?? ""].join("|")) : null;
+  try {
+    if (cle) {
+      const [c] = await db.select().from(schema.naviCache).where(and(eq(schema.naviCache.cle, cle), gte(schema.naviCache.expire, new Date()))).limit(1).catch(() => []);
+      if (c) {
+        route = "cache";
+        await db.update(schema.naviCache).set({ servie: sql`${schema.naviCache.servie} + 1` }).where(eq(schema.naviCache.cle, cle)).catch(() => {});
+        yield sortir({ t: "texte", v: c.reponse });
+        if (c.cartes.length) { cartes.push(...(c.cartes as Carte[])); yield { t: "cartes", v: c.cartes as Carte[] }; }
+        yield { t: "fin" };
+        return;
       }
-      return { type: "tool_result", tool_use_id: a.id, content: JSON.stringify(r) };
-    }));
-    // Réponse rédigée et cartes demandées dans le même tour : inutile de rappeler le modèle.
-    if (ecrit && appels.every((a) => a.name === "afficher")) break;
-    // Le texte écrit avant cette recherche a été retiré de l'écran : le modèle doit savoir que
-    // l'utilisateur ne l'a pas lu, sinon il enchaîne comme s'il l'avait déjà dit et sa réponse arrive amputée.
-    const contenu: Anthropic.Beta.BetaContentBlockParam[] = [...resultats];
-    if (efface) contenu.push({ type: "text", text: "(Navigoal) Le texte que tu venais d'écrire n'a pas été montré à l'utilisateur : il n'a encore rien lu de ta réponse. Écris-la maintenant en entier, et qu'elle se suffise à elle-même : les cartes ne la remplacent pas." });
-    messages.push({ role: "user", content: contenu });
+    }
+
+    // Si le modèle termine sans texte (outils et cartes seulement), un dernier tour sans outil lui fait rédiger sa réponse.
+    let redaction = false;
+    for (let tour = 0; tour < 8; tour++) {
+      tours++;
+      yield { t: "etape" };
+      const simple = modele === MODELE_SIMPLE() && route === "simple";
+      const flux = client.beta.messages.stream({
+        model: modele, max_tokens: 8000,
+        // Modèle principal : bascule automatique vers un modèle de secours en cas de refus. Le petit modèle
+        // n'en a pas : un refus de sa part fait repasser le tour au modèle principal (plus bas).
+        ...(simple ? {} : { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" as const }),
+        output_config: { effort: simple ? "low" : EFFORT() },
+        // Discussion : pas de réflexion avant d'écrire (réponse immédiate), mais une réflexion entre deux
+        // appels d'outils, là où elle sert. Réglage propre à Sonnet 5.5 ; le petit modèle discute sans réfléchir.
+        ...(simple ? { thinking: { type: "disabled" as const } } : SANS_REFLEXION() ? { thinking: { type: "between_tools" as const } } : {}),
+        system: [{ type: "text", text: CONSIGNES, cache_control: { type: "ephemeral" } }, { type: "text", text: contexte }],
+        tools: OUTILS, ...(redaction ? { tool_choice: { type: "none" as const } } : {}), messages,
+      });
+      const file: Evenement[] = [];
+      let reveil: (() => void) | null = null;
+      const pousser = (e: Evenement) => { file.push(e); reveil?.(); };
+      let ecrit = false; // texte écrit pendant CE tour (la phrase d'accueil du premier tour ne compte pas comme réponse)
+      flux.on("text", (v) => { if (v.trim()) ecrit = true; pousser({ t: "texte", v }); });
+      // Bascule vers le modèle de secours : le texte déjà affiché pour ce tour est remplacé.
+      flux.on("streamEvent", (ev) => { if (ev.type === "content_block_start" && (ev.content_block as { type: string }).type === "fallback") pousser({ t: "efface" }); });
+      let fini = false;
+      let message: Anthropic.Beta.BetaMessage | null = null;
+      let erreur: unknown = null;
+      flux.finalMessage().then((m) => { message = m; }, (e) => { erreur = e; }).finally(() => { fini = true; reveil?.(); });
+      while (!fini || file.length) {
+        if (file.length) { yield sortir(file.shift()!); continue; }
+        await new Promise<void>((r) => { reveil = r; });
+        reveil = null;
+      }
+      if (erreur || !message) {
+        console.error("Navi :", erreur);
+        yield sortir({ t: "erreur", v: "Navi est momentanément indisponible. Réessaie dans un instant ou écris à un conseiller." });
+        return;
+      }
+      const m = message as Anthropic.Beta.BetaMessage;
+      const u = m.usage;
+      const servi = m.model || modele;
+      const c = conso.get(servi) ?? { entree: 0, sortie: 0, cacheLu: 0, cacheEcrit: 0 };
+      c.entree += u?.input_tokens ?? 0; c.sortie += u?.output_tokens ?? 0;
+      c.cacheLu += u?.cache_read_input_tokens ?? 0; c.cacheEcrit += u?.cache_creation_input_tokens ?? 0;
+      conso.set(servi, c);
+      modele = servi === modele ? modele : servi;
+      const appels = m.content.filter((b): b is Anthropic.Beta.BetaToolUseBlock => b.type === "tool_use");
+      // Le petit modèle veut chercher (ou refuse) : la question demande plus qu'une discussion.
+      // Son texte éventuel est retiré et le tour repart sur le modèle principal, sans rien garder de lui.
+      if (simple && (m.stop_reason === "refusal" || appels.length)) {
+        if (affiche) yield sortir({ t: "efface" });
+        route = "complet"; modele = MODELE();
+        continue;
+      }
+      if (m.stop_reason === "refusal") {
+        statut = "refus";
+        yield sortir({ t: "efface" });
+        yield sortir({ t: "texte", v: "Je ne peux pas t'aider sur ce point. Un conseiller Navigoal peut prendre le relais." });
+        yield { t: "cartes", v: [{ type: "conseiller" }] };
+        yield { t: "fin" };
+        return;
+      }
+      outils.push(...appels.map((a) => a.name));
+      if (m.stop_reason !== "tool_use" || !appels.length || redaction) {
+        if (ecrit || redaction) break; // réponse directe ou rédigée à ce tour
+        if (m.content.length) messages.push({ role: "assistant", content: m.content as Anthropic.Beta.BetaContentBlockParam[] });
+        const relance: Anthropic.Beta.BetaTextBlockParam = { type: "text", text: RELANCE_REDACTION };
+        const der = messages[messages.length - 1];
+        if (der.role === "user" && Array.isArray(der.content)) der.content.push(relance);
+        else messages.push({ role: "user", content: [relance] });
+        redaction = true;
+        continue;
+      }
+      // Texte écrit juste avant une recherche : c'est une annonce (« je regarde… », « je vérifie dans la base »),
+      // pas la réponse. L'utilisateur n'a pas à la voir : on l'efface et on attend la vraie réponse.
+      // (On n'efface pas dès que « afficher » est dans le tour : le modèle rédige sa réponse et demande
+      //  les cartes ensemble, ce texte-là EST la réponse.)
+      const efface = ecrit && !appels.some((a) => a.name === "afficher");
+      if (efface) { yield sortir({ t: "efface" }); ecrit = false; }
+      messages.push({ role: "assistant", content: m.content as Anthropic.Beta.BetaContentBlockParam[] });
+      // Outils exécutés en parallèle (recherches indépendantes).
+      const resultats: Anthropic.Beta.BetaToolResultBlockParam[] = await Promise.all(appels.map((a) => executerOutil(a, user, paysDefaut, cartes)));
+      // Réponse rédigée et cartes demandées dans le même tour : inutile de rappeler le modèle.
+      if (ecrit && appels.every((a) => a.name === "afficher")) break;
+      // Le texte écrit avant cette recherche a été retiré de l'écran : le modèle doit savoir que
+      // l'utilisateur ne l'a pas lu, sinon il enchaîne comme s'il l'avait déjà dit et sa réponse arrive amputée.
+      const contenu: Anthropic.Beta.BetaContentBlockParam[] = [...resultats];
+      if (efface) contenu.push({ type: "text", text: TEXTE_NON_LU });
+      messages.push({ role: "user", content: contenu });
+    }
+    if (cartes.length) yield { t: "cartes", v: cartes };
+    yield { t: "fin" };
+    // Réponse générique d'un visiteur : gardée 24 h pour la même question (sauf données personnelles).
+    if (cle && statut === "ok" && affiche.trim() && !outils.includes("mon_espace")) {
+      await db.insert(schema.naviCache).values({ cle, question, reponse: affiche, cartes, expire: new Date(Date.now() + 864e5) })
+        .onConflictDoUpdate({ target: schema.naviCache.cle, set: { reponse: affiche, cartes, expire: new Date(Date.now() + 864e5) } }).catch(() => {});
+    }
+  } finally {
+    const total = { entree: 0, sortie: 0, cacheLu: 0, cacheEcrit: 0 };
+    let cout = 0;
+    for (const [mod, c] of conso) { cout += coutUsd(mod, c); total.entree += c.entree; total.sortie += c.sortie; total.cacheLu += c.cacheLu; total.cacheEcrit += c.cacheEcrit; }
+    const trace: Trace = {
+      userId: user?.id ?? null, role: user?.role ?? null, page: chemin.slice(0, 300), question, reponse: affiche.slice(0, 6000),
+      outils, cartes: cartes.length, route, modele: route === "cache" ? null : modele, tours, ...total, coutUsd: cout, dureeMs: Date.now() - debut, statut,
+    };
+    opts.onTrace?.(trace);
+    await enregistrerTrace(trace);
   }
-  if (cartes.length) yield { t: "cartes", v: cartes };
-  yield { t: "fin" };
+}
+
+const RELANCE_REDACTION = "(Navigoal) Rédige maintenant ta réponse à l'utilisateur en texte, sans appeler d'outil. Elle doit se suffire à elle-même (noms, prix, ce qui compte pour cette personne) : n'y renvoie pas aux cartes.";
+const TEXTE_NON_LU = "(Navigoal) Le texte que tu venais d'écrire n'a pas été montré à l'utilisateur : il n'a encore rien lu de ta réponse. Écris-la maintenant en entier, et qu'elle se suffise à elle-même : les cartes ne la remplacent pas.";
+
+async function executerOutil(a: Anthropic.Beta.BetaToolUseBlock, user: User | null, paysDefaut: string | null, cartes: Carte[]): Promise<Anthropic.Beta.BetaToolResultBlockParam> {
+  const v = VALIDATION[a.name]?.safeParse(a.input);
+  if (!v?.success) return { type: "tool_result", tool_use_id: a.id, is_error: true, content: JSON.stringify({ INVALID_JSON: JSON.stringify(a.input).slice(0, 500) }) };
+  let r: unknown;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- validé
+    const x = v.data as any; // validé par le schéma Zod de l'outil
+    switch (a.name) {
+      case "chercher_formations": r = await chercherFormations(x); break;
+      case "chercher_etablissements": r = await chercherEtablissements(x); break;
+      case "fiche_etablissement": r = await ficheEtablissement(x.id); break;
+      case "chercher_metiers": r = chercherMetiers(x); break;
+      case "estimer_cout": r = await estimerCout(x, paysDefaut); break;
+      case "infos_pays_origine": r = infosPays(x.pays); break;
+      case "chercher_logements": r = await chercherLogements(x); break;
+      case "campagnes_en_cours": r = await campagnesEnCours(x.etablissement_id); break;
+      case "mon_espace": r = await monEspace(user); break;
+      case "afficher": cartes.push(...(await construireCartes(x, paysDefaut))); r = { affiche: true }; break;
+      default: r = { erreur: "Outil inconnu." };
+    }
+  } catch (e) {
+    console.error("Navi outil", a.name, e);
+    r = { erreur: "Données momentanément indisponibles." };
+  }
+  return { type: "tool_result", tool_use_id: a.id, content: JSON.stringify(r) };
 }
 
 // Utilisé par les tests : outils sans appel au modèle.

@@ -1,0 +1,57 @@
+# Tests de qualité de Navi sur le vrai modèle (payant : quelques centimes à quelques dizaines de centimes de dollar par passage).
+# Lancement à la main seulement : onglet Actions → « Tests de qualité de Navi » → Run workflow.
+# Secret requis : ANTHROPIC_API_KEY (Settings → Secrets and variables → Actions).
+name: Tests de qualité de Navi
+
+on:
+  workflow_dispatch:
+    inputs:
+      reps:
+        description: "Nombre de passages par cas"
+        default: "1"
+      cas:
+        description: "Cas à lancer (identifiants séparés par des virgules ; vide = tous)"
+        default: ""
+
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: web
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgres://postgres@localhost:5432/postgres
+      ADMIN_EMAIL: admin@evals.local
+      ADMIN_PASSWORD: EvalsNavi2026
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run sync
+      - name: Base de test
+        run: npx tsx scripts/migrate.mts && npx tsx scripts/seed.mts
+      - name: Tests de qualité
+        env:
+          REPS: ${{ inputs.reps }}
+          CAS: ${{ inputs.cas }}
+        run: npx tsx scripts/navi-evals.mts --reps "$REPS" ${CAS:+--cas "$CAS"} --sortie navi-evals
+      - name: Résultats détaillés
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: navi-evals
+          path: web/navi-evals/

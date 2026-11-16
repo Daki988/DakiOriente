@@ -639,3 +639,36 @@ export const appSettings = pgTable("app_settings", {
   updatedBy: text("updated_by"),
   updatedAt: updatedAt(),
 });
+
+// Navi : une ligne par question posée (suivi de qualité et de coût, back-office /admin/navi). Conservation 90 jours.
+export const naviTraces = pgTable("navi_traces", {
+  id: id(),
+  at: timestamp("at", { withTimezone: true }).notNull().defaultNow(),
+  userId: text("user_id").references(() => users.id, { onDelete: "set null" }),
+  role: text("role"), // rôle du compte, null pour un visiteur
+  page: text("page"),
+  question: text("question").notNull(),
+  reponse: text("reponse").notNull().default(""),
+  outils: jsonb("outils").$type<string[]>().notNull().default([]),
+  cartes: integer("cartes").notNull().default(0),
+  route: text("route").notNull(), // simple (petit modèle) | complet | cache
+  modele: text("modele"), // modèle qui a produit la réponse
+  tours: integer("tours").notNull().default(0),
+  entree: integer("entree").notNull().default(0), // jetons d'entrée facturés plein tarif
+  sortie: integer("sortie").notNull().default(0),
+  cacheLu: integer("cache_lu").notNull().default(0),
+  cacheEcrit: integer("cache_ecrit").notNull().default(0),
+  coutUsd: doublePrecision("cout_usd").notNull().default(0),
+  dureeMs: integer("duree_ms").notNull().default(0),
+  statut: text("statut").notNull(), // ok | refus | erreur
+}, (t) => [index("navi_traces_at_idx").on(t.at)]);
+
+// Navi : réponses aux questions génériques de visiteurs (premier message, sans compte), servies 24 h.
+export const naviCache = pgTable("navi_cache", {
+  cle: text("cle").primaryKey(),
+  question: text("question").notNull(),
+  reponse: text("reponse").notNull(),
+  cartes: jsonb("cartes").$type<unknown[]>().notNull().default([]),
+  expire: timestamp("expire", { withTimezone: true }).notNull(),
+  servie: integer("servie").notNull().default(0),
+});

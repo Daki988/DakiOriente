@@ -15,7 +15,8 @@
     "db:migrate": "tsx scripts/migrate.mts",
     "db:seed": "tsx scripts/seed.mts",
     "db:sauvegarde": "tsx scripts/sauvegarde.mts",
-    "db:restauration": "tsx scripts/restauration.mts"
+    "db:restauration": "tsx scripts/restauration.mts",
+    "navi:evals": "tsx scripts/navi-evals.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.3.0",

@@ -662,3 +662,108 @@ describe("accès réservé à certains pays", () => {
     }
   });
 });
+
+describe("Navi : routeur, cache des réponses et suivi (faux modèle, sans appel réel)", async () => {
+  const navi = await import("@/server/services/navi");
+  type Params = { model: string; thinking?: { type: string }; fallbacks?: unknown; output_config?: { effort?: string } };
+  // Faux client : chaque appel au modèle consomme la réponse suivante du scénario.
+  const fauxClient = (scenario: { model: string; textes?: string[]; stop?: string; outils?: { name: string; input: unknown }[] }[], appels: Params[]) => ({
+    beta: { messages: { stream: (p: Params) => {
+      appels.push(p);
+      const s = scenario.shift()!;
+      const h: Record<string, ((x: unknown) => void)[]> = {};
+      const m = { model: s.model, stop_reason: s.stop ?? (s.outils ? "tool_use" : "end_turn"), usage: { input_tokens: 1000, output_tokens: 200, cache_read_input_tokens: 5000, cache_creation_input_tokens: 0 },
+        content: [...(s.textes ?? []).map((text) => ({ type: "text", text })), ...(s.outils ?? []).map((o, i) => ({ type: "tool_use", id: `t${i}`, name: o.name, input: o.input }))] };
+      return { on(e: string, cb: (x: unknown) => void) { (h[e] ??= []).push(cb); return this; },
+        finalMessage: () => new Promise((r) => setTimeout(() => { for (const t of s.textes ?? []) h.text?.forEach((f) => f(t)); r(m); }, 0)) };
+    } } },
+  }) as unknown as import("@anthropic-ai/sdk").default;
+  const lire = async (g: AsyncGenerator<{ t: string; v?: unknown }>) => { const ev = []; for await (const e of g) ev.push(e); return ev; };
+  const trace = async (question: string) => (await db.select().from(schema.naviTraces).where(eq(schema.naviTraces.question, question)).orderBy(sql`at desc`))[0];
+
+  it("aiguille la discussion vers le petit modèle et les questions de données vers le modèle principal", () => {
+    expect(navi.choisirRoute("Salut ! J'aime dessiner et aider les gens")).toBe("simple");
+    expect(navi.choisirRoute("Combien coûte une école d'ingénieurs à Rabat ?")).toBe("complet");
+    expect(navi.choisirRoute("quelles formations après un bac S ?")).toBe("complet");
+  });
+
+  it("discussion : petit modèle sans réflexion, sans modèle de secours ; coût et jetons enregistrés", async () => {
+    const appels: Params[] = [];
+    const q = "Bonjour, je ne sais pas trop ce que j'aime";
+    await lire(navi.converser({ messages: [{ role: "user", texte: q }] }, student, { client: fauxClient([{ model: "claude-haiku-5-5", textes: ["Parlons-en ! Qu'est-ce qui te plaît à l'école ?"] }], appels) }));
+    expect(appels[0].model).toBe("claude-haiku-5-5");
+    expect(appels[0].thinking?.type).toBe("disabled");
+    expect(appels[0].fallbacks).toBeUndefined();
+    const t = await trace(q);
+    expect(t).toMatchObject({ route: "simple", modele: "claude-haiku-5-5", statut: "ok", entree: 1000, sortie: 200, cacheLu: 5000 });
+    expect(t.reponse).toMatch(/Parlons-en/);
+    expect(t.coutUsd).toBeCloseTo(navi.coutUsd("claude-haiku-5-5", { entree: 1000, sortie: 200, cacheLu: 5000, cacheEcrit: 0 }), 10);
+  });
+
+  it("le petit modèle veut chercher : son texte est retiré et le tour repart sur le modèle principal", async () => {
+    const appels: Params[] = [];
+    const q = "Je crois que j'aimerais bien travailler avec des animaux";
+    const ev = await lire(navi.converser({ messages: [{ role: "user", texte: q }] }, student, { client: fauxClient([
+      { model: "claude-haiku-5-5", textes: ["Je regarde…"], outils: [{ name: "chercher_metiers", input: { texte: "animaux" } }] },
+      { model: "claude-sonnet-5-5", textes: ["Le métier de vétérinaire pourrait te plaire."] },
+    ], appels) }));
+    expect(appels.map((a) => a.model)).toEqual(["claude-haiku-5-5", "claude-sonnet-5-5"]);
+    expect(appels[1].fallbacks).toBe("default");
+    expect(ev.some((e) => e.t === "efface")).toBe(true);
+    const t = await trace(q);
+    expect(t).toMatchObject({ route: "complet", modele: "claude-sonnet-5-5", tours: 2 });
+    expect(t.reponse).toBe("Le métier de vétérinaire pourrait te plaire.");
+    expect(t.coutUsd).toBeGreaterThan(navi.coutUsd("claude-sonnet-5-5", { entree: 1000, sortie: 200, cacheLu: 5000, cacheEcrit: 0 }));
+  });
+
+  it("question générique d'un visiteur : servie depuis le cache la seconde fois, sans appel au modèle", async () => {
+    const appels: Params[] = [];
+    const q = "Les candidatures sont-elles payantes sur Navigoal ?";
+    const req = { messages: [{ role: "user" as const, texte: q }], page: { chemin: "/" } };
+    await lire(navi.converser(req, null, { client: fauxClient([{ model: "claude-sonnet-5-5", textes: ["Non, elles sont gratuites."] }], appels) }));
+    const ev = await lire(navi.converser({ ...req, messages: [{ role: "user", texte: "les candidatures sont elles payantes sur navigoal" }] }, null, { client: fauxClient([], appels) }));
+    expect(appels).toHaveLength(1);
+    expect(ev).toContainEqual({ t: "texte", v: "Non, elles sont gratuites." });
+    expect((await trace("les candidatures sont elles payantes sur navigoal"))).toMatchObject({ route: "cache", coutUsd: 0 });
+    // Un compte connecté n'est jamais servi depuis le cache (réponses qui peuvent dépendre de son dossier).
+    await lire(navi.converser(req, student, { client: fauxClient([{ model: "claude-sonnet-5-5", textes: ["Elles sont gratuites."] }], appels) }));
+    expect(appels).toHaveLength(2);
+  });
+
+  it("refus et panne : enregistrés avec leur statut", async () => {
+    const q1 = "Combien coûte l'école X à Rabat, question refusée ?";
+    await lire(navi.converser({ messages: [{ role: "user", texte: q1 }] }, student, { client: fauxClient([{ model: "claude-sonnet-5-5", stop: "refusal" }], []) }));
+    expect((await trace(q1)).statut).toBe("refus");
+    const q2 = "Combien coûte l'école Y à Rabat, panne ?";
+    const panne = { beta: { messages: { stream: () => ({ on() { return this; }, finalMessage: () => Promise.reject(new Error("réseau")) }) } } } as unknown as import("@anthropic-ai/sdk").default;
+    await lire(navi.converser({ messages: [{ role: "user", texte: q2 }] }, student, { client: panne }));
+    expect((await trace(q2)).statut).toBe("erreur");
+  });
+
+  it("tableau du back-office : chiffres, routes et dernières questions", async () => {
+    const suivi = await import("@/server/services/navi-suivi");
+    await expect(suivi.tableau(student, {})).rejects.toThrow();
+    const r = await suivi.tableau(adminU, { periode: "7j" });
+    expect(r.chiffres.questions).toBeGreaterThanOrEqual(6);
+    expect(r.chiffres.simple).toBeGreaterThanOrEqual(1);
+    expect(r.chiffres.cache).toBeGreaterThanOrEqual(1);
+    expect(r.chiffres.refus).toBeGreaterThanOrEqual(1);
+    expect(r.dernieres[0]).toHaveProperty("question");
+    expect((await suivi.detail(adminU, r.dernieres[0].id))?.question).toBe(r.dernieres[0].question);
+  });
+});
+
+describe("Navi : correcteur automatique des tests de qualité", async () => {
+  const { controler } = await import("@/server/services/navi-evals");
+  const fs = await import("node:fs");
+  const cas = JSON.parse(fs.readFileSync("scripts/navi-evals/cas.json", "utf8")) as import("@/server/services/navi-evals").Cas[];
+  const infirmier = cas.find((c) => c.id === "infirmier")!;
+  it("refuse une réponse vide ou une annonce, accepte une réponse conforme", () => {
+    expect(cas.length).toBeGreaterThanOrEqual(12);
+    expect(new Set(cas.map((c) => c.id)).size).toBe(cas.length);
+    expect(controler(infirmier, { reponse: "", outils: [], cartes: 0, route: "complet", statut: "ok" })).toContain("aucune réponse affichée");
+    expect(controler(infirmier, { reponse: "Je cherche les écoles…", outils: ["chercher_formations"], cartes: 1, route: "complet", statut: "ok" })).toContain("annonce son travail au lieu de répondre");
+    expect(controler(infirmier, { reponse: "Voici deux écoles : **ISPITS Rabat** - public, Rabat.", outils: ["chercher_formations", "afficher"], cartes: 2, route: "complet", statut: "ok" })).toEqual([]);
+    expect(controler(cas.find((c) => c.id === "accueil")!, { reponse: "Bonjour !", outils: ["chercher_formations"], cartes: 0, route: "complet", statut: "ok" })[0]).toMatch(/recherche inutile/);
+  });
+});

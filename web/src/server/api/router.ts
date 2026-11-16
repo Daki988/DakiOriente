@@ -8,6 +8,7 @@ import { getFile } from "../lib/storage";
 import { errorResponse, file, json } from "./http";
 import * as accounts from "../services/accounts";
 import * as accesPays from "../services/acces-pays";
+import * as naviSuivi from "../services/navi-suivi";
 import * as guardians from "../services/guardians";
 import * as docs from "../services/documents";
 import * as apps from "../services/applications";
@@ -409,6 +410,8 @@ route("GET", "/admin/prospections", "Relais", "Campagnes de prospection des éco
 route("POST", "/admin/prospections/:id/validation", "Relais", "Valider (envoi) ou refuser une campagne de prospection", ["admin"], async ({ me, params, body }) => { const b = await body(); return premium.reviewProspection(me, params.id, !!b.valider, b.note ? String(b.note).slice(0, 1000) : undefined); });
 
 // ---------------------------------------------------------------- Accès des établissements (administrateur)
+route("GET", "/admin/navi", "Back-office", "Suivi de Navi : volume, coût, rapidité, refus, routeur, cache, dernières questions (?periode=jour|7j|30j|90j&route=&statut=&q=)", ["admin"], async ({ me, query }) => naviSuivi.tableau(me, { periode: query.get("periode"), route: query.get("route"), statut: query.get("statut"), q: query.get("q") }));
+route("GET", "/admin/navi/:id", "Back-office", "Une question posée à Navi, avec la réponse affichée", ["admin"], async ({ me, params }) => { const r = await naviSuivi.detail(me, params.id); if (!r) throw new AppError("Introuvable.", 404, "introuvable"); return r; });
 route("GET", "/admin/acces-pays", "Back-office", "Accès réservé à certains pays (visiteurs, élèves, parents)", ["admin"], async ({ me }) => accesPays.vueAdmin(me));
 route("PUT", "/admin/acces-pays", "Back-office", "Activer ou régler l'accès par pays { actif, pays: [\"GA\", \"CI\"] }", ["admin"], async ({ me, body }) => accesPays.enregistrer(me, await body()));
 route("GET", "/admin/acces", "Accès écoles", "Accès des établissements (comptes, état, dernière connexion)", ["admin"], async ({ me }) => acces.listAccesses(me));
