@@ -14,8 +14,6 @@ import argparse
 import os
 import sys
 
-from PIL import Image
-
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IMAGES = os.path.join(ROOT, "web", "public", "images")
 LARGEURS = (160, 400, 640, 840)
@@ -54,6 +52,7 @@ def main():
             if a.verifier:
                 manquantes.append(os.path.relpath(dest, IMAGES))
                 continue
+            from PIL import Image  # seulement pour produire : le contrôle (--verifier) tourne sans Pillow (CI, mise en ligne)
             im = Image.open(src).convert("RGB")
             if im.width <= largeur:
                 im.save(dest, "WEBP", quality=80, method=5)  # déjà petite : copie à sa taille

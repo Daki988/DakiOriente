@@ -4,9 +4,9 @@ name: CI
 
 on:
   push:
-    paths: ["web/**", "data/**", ".github/workflows/ci.yml"]
+    paths: ["web/**", "data/**", "scripts/**", ".github/workflows/ci.yml"]
   pull_request:
-    paths: ["web/**", "data/**", ".github/workflows/ci.yml"]
+    paths: ["web/**", "data/**", "scripts/**", ".github/workflows/ci.yml"]
 
 jobs:
   web:

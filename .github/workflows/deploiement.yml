@@ -6,7 +6,7 @@ name: Mise en ligne
 on:
   push:
     branches: ["claude/navigoal-specs-tqkh43"]
-    paths: ["web/**", "data/**", ".github/workflows/deploiement.yml"]
+    paths: ["web/**", "data/**", "scripts/**", ".github/workflows/deploiement.yml"]
 
 # Une seule mise en ligne à la fois ; une mise en ligne commencée va jusqu'au bout.
 concurrency:
