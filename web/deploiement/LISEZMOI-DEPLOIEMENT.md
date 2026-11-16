@@ -137,7 +137,33 @@ npm run seed      # référentiels : établissements, formations, métiers, arti
 
 Revenez dans Setup Node.js App et cliquez sur **Restart**. Le site est en ligne sur https://navigoal.net.
 
-## 6. Mises à jour
+## 6. Mises à jour automatiques (GitHub › LWS)
+
+Une fois l'installation initiale faite (étapes 1 à 5), chaque envoi de code sur la branche de production met le site
+à jour tout seul (`.github/workflows/deploiement.yml`) : contrôles (lint, typage, tests), construction du paquet,
+envoi par SSH, sauvegarde, remplacement du code, migrations, redémarrage, purge du cache, puis vérification de
+`/api/sante/`. Le fichier `.env` et les dossiers `stockage/`, `sauvegardes/` et `acces/` ne sont jamais touchés. Si les
+migrations échouent, le code précédent est remis en place ; il reste aussi dans `navigoal/.precedent/`.
+
+Réglages à faire une seule fois :
+
+1. **Clé SSH** : cPanel › **Accès SSH** › *Gérer les clés SSH* › *Générer une nouvelle clé* (nom `github`, sans mot de
+   passe), puis *Gérer* › **Autoriser** la clé publique. Affichez la clé privée (*Afficher/Télécharger*) et copiez-la.
+   Si la rubrique Accès SSH est absente, demandez son activation au support LWS.
+2. **GitHub** › dépôt › *Settings › Secrets and variables › Actions* › onglet **Secrets** :
+   - `LWS_SSH_HOST` : nom du serveur (affiché dans cPanel, par exemple `xxxx.lws-hosting.com`, ou `navigoal.net`) ;
+   - `LWS_SSH_USER` : identifiant cPanel ;
+   - `LWS_SSH_KEY` : la clé privée entière, de `-----BEGIN` à `-----END` ;
+   - `LWS_SSH_PORT` : seulement si le port SSH n'est pas 22 ;
+   - `LWS_KNOWN_HOSTS` (recommandé) : résultat de `ssh-keyscan nom-du-serveur`, pour que la mise en ligne refuse un
+     serveur qui ne serait pas le vôtre.
+3. Onglet **Variables**, seulement si vos valeurs diffèrent : `LWS_APP_DIR` (dossier de l'application, `navigoal` par
+   défaut), `LWS_NODE` (chemin de Node.js, trouvé automatiquement dans `nodevenv/`), `SITE_URL` (`https://navigoal.net`).
+4. Facultatif : *Settings › Environments › production › Required reviewers* pour valider chaque mise en ligne d'un clic.
+
+Le déroulement de chaque mise en ligne se lit dans l'onglet **Actions** du dépôt.
+
+## 6 bis. Mise à jour manuelle
 
 1. Faites une sauvegarde (`npm run sauvegarde`, voir ci-dessous).
 2. Arrêtez l'application (Stop App), remplacez le dossier `navigoal/` par celui du nouveau paquet en conservant

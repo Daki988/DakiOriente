@@ -1,0 +1,102 @@
+# Mise en ligne automatique de Navigoal sur l'hébergement LWS (cPanel) : à chaque envoi sur la branche de production,
+# contrôles (lint, typage, tests), construction du paquet, envoi par SSH, sauvegarde, migrations, redémarrage,
+# puis vérification que le site répond. Réglages à faire une fois dans GitHub : voir web/deploiement/LISEZMOI-DEPLOIEMENT.md § 6.
+name: Mise en ligne
+
+on:
+  push:
+    branches: ["claude/navigoal-specs-tqkh43"]
+    paths: ["web/**", "data/**", ".github/workflows/deploiement.yml"]
+
+# Une seule mise en ligne à la fois ; une mise en ligne commencée va jusqu'au bout.
+concurrency:
+  group: mise-en-ligne
+  cancel-in-progress: false
+
+jobs:
+  mise-en-ligne:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    environment: production
+    defaults:
+      run:
+        working-directory: web
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+      SITE: ${{ vars.SITE_URL || 'https://navigoal.net' }}
+      DOSSIER: ${{ vars.LWS_APP_DIR || 'navigoal' }}
+    steps:
+      - name: Réglages présents
+        working-directory: .
+        env:
+          HOTE: ${{ secrets.LWS_SSH_HOST }}
+          UTILISATEUR: ${{ secrets.LWS_SSH_USER }}
+          CLE: ${{ secrets.LWS_SSH_KEY }}
+        run: |
+          for v in HOTE UTILISATEUR CLE; do
+            [ -n "${!v}" ] || { echo "::error::Secret manquant (LWS_SSH_HOST, LWS_SSH_USER, LWS_SSH_KEY) : voir LISEZMOI-DEPLOIEMENT.md § 6."; exit 1; }
+          done
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run sync
+      - name: Lint
+        run: npm run lint
+      - name: Typage
+        run: npx tsc --noEmit
+      - name: Tests
+        env:
+          TEST_DATABASE_URL: postgres://postgres@localhost:5432/postgres
+        run: npm test
+      - name: Paquet de déploiement
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ env.SITE }}
+        run: |
+          node scripts/package-cpanel.mjs
+          tar -czf ../livraison/navigoal.tar.gz -C ../livraison navigoal
+      - name: Connexion SSH
+        working-directory: .
+        env:
+          CLE: ${{ secrets.LWS_SSH_KEY }}
+          HOTE: ${{ secrets.LWS_SSH_HOST }}
+          PORT: ${{ secrets.LWS_SSH_PORT || '22' }}
+          UTILISATEUR: ${{ secrets.LWS_SSH_USER }}
+          EMPREINTE: ${{ secrets.LWS_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$CLE" > ~/.ssh/lws && chmod 600 ~/.ssh/lws
+          # Clé publique du serveur : celle enregistrée dans LWS_KNOWN_HOSTS si elle existe, sinon celle annoncée par le serveur.
+          if [ -n "$EMPREINTE" ]; then printf '%s\n' "$EMPREINTE" > ~/.ssh/known_hosts; else ssh-keyscan -p "$PORT" "$HOTE" > ~/.ssh/known_hosts 2>/dev/null; fi
+          printf 'Host lws\n  HostName %s\n  Port %s\n  User %s\n  IdentityFile ~/.ssh/lws\n  IdentitiesOnly yes\n  ServerAliveInterval 30\n' "$HOTE" "$PORT" "$UTILISATEUR" > ~/.ssh/config
+          ssh lws true
+      - name: Envoi et mise à jour
+        working-directory: .
+        env:
+          LWS_NODE: ${{ vars.LWS_NODE }}
+        run: |
+          scp livraison/navigoal.tar.gz "lws:$DOSSIER/.navigoal.tar.gz"
+          ssh lws "LWS_NODE='$LWS_NODE' bash -s -- '$DOSSIER' '$DOSSIER/.navigoal.tar.gz' '$SITE'" < web/deploiement/mise-a-jour.sh
+      - name: Le site répond
+        run: |
+          for i in $(seq 1 20); do
+            code=$(curl -s -o /dev/null -m 20 -w '%{http_code}' "$SITE/api/sante/" || true)
+            [ "$code" = 200 ] && { echo "Site en ligne."; exit 0; }
+            echo "Essai $i : réponse $code"; sleep 6
+          done
+          echo "::error::Le site ne répond pas après la mise à jour ($SITE/api/sante/). Consultez navigoal/stderr.log sur l'hébergement."
+          exit 1
+      - name: Nettoyage
+        if: always()
+        run: rm -f ~/.ssh/lws
