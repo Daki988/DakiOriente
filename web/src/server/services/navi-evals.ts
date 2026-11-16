@@ -29,7 +29,7 @@ export function controler(c: Cas, s: Sortie): string[] {
   if (!s.reponse.trim()) k.push("aucune réponse affichée");
   if (s.statut !== "ok") k.push(`statut ${s.statut}`);
   if (a.outilsUnDe && !a.outilsUnDe.some((o) => s.outils.includes(o))) k.push(`aucun des outils attendus (${a.outilsUnDe.join(", ")})`);
-  if (a.sansOutil && s.outils.some((o) => o !== "afficher")) k.push(`recherche inutile (${s.outils.join(", ")})`);
+  if (a.sansOutil && s.outils.some((o) => o !== "afficher" && o !== "condensation")) k.push(`recherche inutile (${s.outils.join(", ")})`);
   if (a.motsMax && compterMots(s.reponse) > a.motsMax) k.push(`trop long (${compterMots(s.reponse)} mots > ${a.motsMax})`);
   for (const r of a.contient ?? []) if (!new RegExp(r, "i").test(s.reponse)) k.push(`attendu : /${r}/`);
   for (const r of a.interdit ?? []) if (new RegExp(r, "i").test(s.reponse)) k.push(`interdit : /${r}/`);

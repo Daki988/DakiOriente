@@ -667,8 +667,10 @@ describe("Navi : routeur, cache des réponses et suivi (faux modèle, sans appel
   const navi = await import("@/server/services/navi");
   type Params = { model: string; thinking?: { type: string }; fallbacks?: unknown; output_config?: { effort?: string } };
   // Faux client : chaque appel au modèle consomme la réponse suivante du scénario.
-  const fauxClient = (scenario: { model: string; textes?: string[]; stop?: string; outils?: { name: string; input: unknown }[] }[], appels: Params[]) => ({
-    beta: { messages: { stream: (p: Params) => {
+  const fauxClient = (scenario: { model: string; textes?: string[]; stop?: string; outils?: { name: string; input: unknown }[] }[], appels: Params[], resume?: string) => ({
+    beta: { messages: {
+      create: async (p: Params) => { appels.push(p); return { model: "claude-haiku-5-5", stop_reason: "end_turn", usage: { input_tokens: 400, output_tokens: 120 }, content: [{ type: "text", text: resume ?? "" }] }; },
+      stream: (p: Params) => {
       appels.push(p);
       const s = scenario.shift()!;
       const h: Record<string, ((x: unknown) => void)[]> = {};
@@ -676,7 +678,7 @@ describe("Navi : routeur, cache des réponses et suivi (faux modèle, sans appel
         content: [...(s.textes ?? []).map((text) => ({ type: "text", text })), ...(s.outils ?? []).map((o, i) => ({ type: "tool_use", id: `t${i}`, name: o.name, input: o.input }))] };
       return { on(e: string, cb: (x: unknown) => void) { (h[e] ??= []).push(cb); return this; },
         finalMessage: () => new Promise((r) => setTimeout(() => { for (const t of s.textes ?? []) h.text?.forEach((f) => f(t)); r(m); }, 0)) };
-    } } },
+      } } },
   }) as unknown as import("@anthropic-ai/sdk").default;
   const lire = async (g: AsyncGenerator<{ t: string; v?: unknown }>) => { const ev = []; for await (const e of g) ev.push(e); return ev; };
   const trace = async (question: string) => (await db.select().from(schema.naviTraces).where(eq(schema.naviTraces.question, question)).orderBy(sql`at desc`))[0];
@@ -758,6 +760,20 @@ describe("Navi : routeur, cache des réponses et suivi (faux modèle, sans appel
     ], appels2) }));
     expect(appels2).toHaveLength(1);
     expect((await trace(q + " bis")).reponse).toBe(longue);
+  });
+
+  it("réponse trop longue : condensée par le petit modèle, sauf si le résumé invente un chiffre", async () => {
+    const longue = ("Voici les écoles : **École A** - 28 000 MAD par an, environ 1,7 million de F CFA. " + "Détail utile mais secondaire sur la vie étudiante et les transports. ".repeat(14)).trim();
+    const q1 = "Quelles écoles de commerce pas chères à Rabat, test de condensation ?";
+    const appels: Params[] = [];
+    await lire(navi.converser({ messages: [{ role: "user", texte: q1 }] }, student, { client: fauxClient([{ model: "claude-sonnet-5-5", textes: [longue] }], appels, "Voici les écoles : **École A** - 28 000 MAD par an, environ 1,7 million de F CFA.") }));
+    const t1 = await trace(q1);
+    expect(t1.reponse).toBe("Voici les écoles : **École A** - 28 000 MAD par an, environ 1,7 million de F CFA.");
+    expect(t1.outils).toContain("condensation");
+    expect(appels.map((a) => a.model)).toEqual(["claude-sonnet-5-5", "claude-haiku-5-5"]);
+    const q2 = "Quelles écoles de commerce pas chères à Rabat, résumé qui invente ?";
+    await lire(navi.converser({ messages: [{ role: "user", texte: q2 }] }, student, { client: fauxClient([{ model: "claude-sonnet-5-5", textes: [longue] }], [], "**École A** - 25 000 MAD par an.") }));
+    expect((await trace(q2)).reponse).toBe(longue);
   });
 
   it("tableau du back-office : chiffres, routes et dernières questions", async () => {

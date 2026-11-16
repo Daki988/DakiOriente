@@ -496,6 +496,22 @@ async function enregistrerTrace(t: Trace) {
   } catch (e) { console.error("Navi suivi :", e); }
 }
 
+// Réponse trop longue (au-delà de LIMITE_MOTS) : condensée par le petit modèle en 120 mots au plus.
+// Garde-fou : tout nombre du résumé doit figurer dans la réponse d'origine, sinon on garde l'original.
+const LIMITE_MOTS = () => limite("NAVI_LIMITE_MOTS", 140);
+const nombres = (s: string) => new Set((s.match(/\d[\d\s.,]*\d|\d/g) ?? []).map((n) => n.replace(/[\s.,]/g, "")));
+export async function condenser(client: Anthropic, reponse: string, question: string) {
+  const m = await client.beta.messages.create({
+    model: MODELE_SIMPLE(), max_tokens: 1200, output_config: { effort: "low" }, thinking: { type: "disabled" },
+    system: "Tu raccourcis la réponse de Navi, assistant d'orientation de Navigoal, sans rien changer au fond. Règles : 120 mots au plus, puces comprises ; garde le tutoiement ou le vouvoiement, la phrase d'accroche qui répond, chaque école citée en **gras** avec son prix exactement comme écrit (les deux monnaies), son label et sa ville si présents, l'ordre des écoles, les mises en garde (tarif non publié, diplôme non homologué, budget dépassé) et la question finale. Retire les répétitions et les détails secondaires. N'ajoute aucune information, aucun chiffre, aucune école. Réponds uniquement par le texte raccourci, en Markdown simple.",
+    messages: [{ role: "user", content: `Question de la personne : ${question.slice(0, 500)}\n\nRéponse à raccourcir :\n${reponse}` }],
+  });
+  const texte = m.content.filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text").map((b) => b.text).join("").trim();
+  const origine = nombres(reponse);
+  const sur = m.stop_reason === "end_turn" && texte.length > 0 && compterMotsTexte(texte) < compterMotsTexte(reponse) && [...nombres(texte)].every((n) => origine.has(n));
+  return { texte: sur ? texte : null, modele: m.model, usage: m.usage };
+}
+
 // ---------------------------------------------------------------- Conversation (flux NDJSON)
 export type Evenement = { t: "texte"; v: string } | { t: "efface" } | { t: "etape" } | { t: "cartes"; v: Carte[] } | { t: "fin" } | { t: "erreur"; v: string };
 
@@ -648,6 +664,16 @@ export async function* converser(req: NaviRequete, user: User | null, opts: { cl
       const contenu: Anthropic.Beta.BetaContentBlockParam[] = [...resultats];
       if (efface) contenu.push({ type: "text", text: TEXTE_NON_LU });
       messages.push({ role: "user", content: contenu });
+    }
+    // Réponse trop longue pour un téléphone : condensée, sans rien inventer (voir condenser).
+    if (statut === "ok" && compterMotsTexte(affiche) > LIMITE_MOTS() && process.env.NAVI_CONDENSER !== "0") {
+      try {
+        const c = await condenser(client, affiche, question);
+        const k = conso.get(c.modele) ?? { entree: 0, sortie: 0, cacheLu: 0, cacheEcrit: 0 };
+        k.entree += c.usage?.input_tokens ?? 0; k.sortie += c.usage?.output_tokens ?? 0;
+        conso.set(c.modele, k);
+        if (c.texte) { yield sortir({ t: "efface" }); yield sortir({ t: "texte", v: c.texte }); outils.push("condensation"); }
+      } catch (e) { console.error("Navi condensation :", e); }
     }
     if (cartes.length) yield { t: "cartes", v: cartes };
     yield { t: "fin" };

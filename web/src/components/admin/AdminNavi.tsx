@@ -19,7 +19,7 @@ type Detail = Ligne & { reponse: string; tours: number; entree: number; sortie: 
 const PERIODES: [string, string][] = [["jour", "24 h"], ["7j", "7 jours"], ["30j", "30 jours"], ["90j", "90 jours"]];
 const ROUTE: Record<string, [string, string]> = { simple: ["Petit modèle", "bg-[#e8f8ef] text-[#0f8a46]"], complet: ["Modèle principal", "bg-brand-50 text-brand-800"], cache: ["Cache", "bg-[#fff7dd] text-[#8a4b00]"] };
 const STATUT: Record<string, [string, string]> = { ok: ["", ""], refus: ["Refus", "bg-[#fff7dd] text-[#8a4b00]"], erreur: ["Erreur", "bg-[#ffecef] text-[#d42a50]"] };
-const OUTIL: Record<string, string> = { chercher_formations: "Formations", chercher_etablissements: "Établissements", fiche_etablissement: "Fiche école", chercher_metiers: "Métiers", estimer_cout: "Estimation de coût", infos_pays_origine: "Pays de départ", chercher_logements: "Logements", campagnes_en_cours: "Campagnes", mon_espace: "Mon espace", afficher: "Cartes" };
+const OUTIL: Record<string, string> = { chercher_formations: "Formations", chercher_etablissements: "Établissements", fiche_etablissement: "Fiche école", chercher_metiers: "Métiers", estimer_cout: "Estimation de coût", infos_pays_origine: "Pays de départ", chercher_logements: "Logements", campagnes_en_cours: "Campagnes", mon_espace: "Mon espace", afficher: "Cartes", condensation: "Réponse raccourcie" };
 const usd = (n: number, d = 2) => `${n.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d })} $`;
 const pc = (a: number, b: number) => (b ? `${Math.round((a / b) * 100)} %` : "—");
 const sec = (ms: number) => `${(ms / 1000).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} s`;
