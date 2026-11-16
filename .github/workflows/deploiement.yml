@@ -22,7 +22,22 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Sans identifiants FTP, la mise en ligne est simplement ignorée (déploiement manuel) au lieu d'échouer.
+  reglages:
+    runs-on: ubuntu-latest
+    outputs:
+      ftp: ${{ steps.ftp.outputs.present }}
+    steps:
+      - id: ftp
+        env:
+          SERVEUR: ${{ secrets.NAVIGOAL_FTP_SERVER || secrets.FTP_SERVER }}
+        run: |
+          if [ -n "$SERVEUR" ]; then echo "present=oui" >> "$GITHUB_OUTPUT"
+          else echo "::notice::Identifiants FTP non réglés : mise en ligne automatique ignorée (voir LISEZMOI-DEPLOIEMENT.md § 6)."; fi
+
   mise-en-ligne:
+    needs: reglages
+    if: needs.reglages.outputs.ftp == 'oui'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     environment: production
