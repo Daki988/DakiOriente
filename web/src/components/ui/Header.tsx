@@ -44,6 +44,8 @@ export function Header() {
     setHidden(y > prev && y > 240 && !open);
     setScrolled(y > 12);
   });
+  // En-tête masqué au défilement : les bandeaux collants des pages (comparateur) remontent en haut de l'écran.
+  useEffect(() => { document.documentElement.dataset.entete = hidden ? "cache" : ""; }, [hidden]);
   const active = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
   useEffect(() => setOpen(false), [path]);
   const service = serviceDe(path);

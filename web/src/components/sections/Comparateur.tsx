@@ -1,24 +1,52 @@
 "use client";
 import Link from "@/components/ui/Link";
-import { AnimatePresence, motion } from "framer-motion";
-import { Download, GraduationCap, MessageCircle, Plus, Share2, Target, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { BadgeCheck, Download, GraduationCap, Info, MessageCircle, Plus, Share2, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { LireUrl } from "@/hooks/useFiltres";
-import { ScoreBar } from "@/components/motion/Bar";
 import { EtabLogo } from "@/components/ui/EtabLogo";
-import { EtabPhoto } from "@/components/ui/EtabPhoto";
 import { useDestination } from "@/components/ui/Destination";
-import { TAUX_SECOURS } from "@/lib/devises";
+import { TAUX_SECOURS, convertir, convertirDe, formatMontant, symbole } from "@/lib/devises";
 import { DESTINATIONS_ACTIVES, destinationById, labelPays, type PaysCode } from "@/lib/data";
 import { LABELS, STATUT_LONG, VILLES_ETUDES, admissionLabel, compatibilite, etabById, etablissements, formationById, formations, formationsLiees, labelById, metierById, metiers, paysDetailById, type Etablissement, type Label } from "@/lib/data";
 import { paysOrigine, paysOrigineById, visaResume } from "@/lib/pays-origine";
 import { COUTS, devis } from "@/lib/devis";
-import { Prix, useDevise } from "@/components/ui/Devise";
-import { villeHref, villesOffre } from "@/lib/catalogue";
+import { useDevise } from "@/components/ui/Devise";
+import { villesOffre } from "@/lib/catalogue";
 import { PROFILE_KEY } from "./OrientationTest";
 
 type Mode = "formation" | "metier";
-const RECONNU = ["prive_reconnu", "prive_non_lucratif", "inter_etats"];
+const MAX = 3; // trois écoles : lisible sur un téléphone
+const CFA = ["XAF", "XOF"];
+
+/** Montant court pour une colonne étroite : « 2,3 M F CFA », « 45 000 MAD ». */
+const NB = "\u00a0"; // espace insécable : un montant ne se coupe jamais en deux lignes
+function court(n: number, devise: string) {
+  const u = symbole(devise).replace(/ /g, NB);
+  if (n >= 1e6) return `${(n / 1e6).toLocaleString("fr-FR", { maximumFractionDigits: n >= 1e7 ? 0 : 1 })}${NB}M${NB}${u}`;
+  const r = n >= 1e5 ? Math.round(n / 1000) * 1000 : n; // 307 481 → 307 000 : assez précis pour une estimation
+  return `${Math.round(r).toLocaleString("fr-FR").replace(/[\s\u202f]/g, NB)}${NB}${u}`;
+}
+function plage(min: number, max: number, devise: string, suffixe = "") {
+  const a = court(min, devise), b = court(max, devise);
+  if (min === max) return `${a}${suffixe}`;
+  // « 37 000 – 45 000 MAD » : l'unité une seule fois
+  const u = `${NB}${symbole(devise).replace(/ /g, NB)}`;
+  return `${a.endsWith(u) && b.endsWith(u) ? a.slice(0, -u.length) : a} – ${b}${suffixe}`;
+}
+
+/** Fourchette dans la devise de l'école, et son équivalent dans la monnaie du visiteur (F CFA en premier pour la zone F CFA). */
+function Montants({ min, max, source, suffixe = "" }: { min: number; max: number; source: string; suffixe?: string }) {
+  const { devise, taux } = useDevise();
+  const conv = (n: number) => (devise ? (source === "MAD" ? convertir(n, devise, taux) : convertirDe(n, source, devise, taux)) : null);
+  const a = conv(min), b = conv(max);
+  const local = plage(min, max, source, suffixe);
+  if (a == null || b == null || !devise) return <span>{local}</span>;
+  const eq = `≈ ${plage(a, b, devise, suffixe)}`;
+  return CFA.includes(devise)
+    ? <span>{eq}<span className="block text-[12px] font-semibold text-ink-mute">soit {local}</span></span>
+    : <span>{local}<span className="block text-[12px] font-semibold text-ink-mute">{eq}</span></span>;
+}
 
 export function Comparateur() {
   // Choix initiaux lus dans l'URL côté navigateur (LireUrl) : la page reste rendue côté serveur.
@@ -40,7 +68,7 @@ export function Comparateur() {
     if (VILLES_ETUDES.includes(p.get("v") ?? "")) setVille(p.get("v")!);
     const pp = p.get("pays") ?? "";
     if (pp === "tous" || destinationById[pp as PaysCode]?.actif) setPaysEtude(pp as PaysCode | "tous");
-    const e = (p.get("e") ?? "").split(",").filter((id) => etabById[id]);
+    const e = (p.get("e") ?? "").split(",").filter((id) => etabById[id]).slice(0, MAX);
     if (e.length) { setInitial(e); setIds(e); }
     setLuUrl(true);
   }, [luUrl]);
@@ -52,12 +80,12 @@ export function Comparateur() {
   const paysF = choixPays === "tous" ? "" : choixPays;
   // Pays devinés (profil, navigateur) seulement après lecture de l'URL, qui reste prioritaire.
   useEffect(() => { if (luUrl && !origine && pays && paysOrigineById[pays]) setOrigine(pays); }, [pays, luUrl]); // eslint-disable-line react-hooks/exhaustive-deps
-  const [profil, setProfil] = useState<string[]>(["I", "C"]);
-  useEffect(() => { try { const t = JSON.parse(localStorage.getItem(PROFILE_KEY) || "null")?.top; if (t) setProfil(t); } catch { /* ignore */ } }, []);
+  // Profil du test d'orientation : la compatibilité n'est affichée que si l'élève a passé le test.
+  const [profil, setProfil] = useState<string[] | null>(null);
+  useEffect(() => { try { const t = JSON.parse(localStorage.getItem(PROFILE_KEY) || "null")?.top; if (Array.isArray(t) && t.length) setProfil(t); } catch { /* ignore */ } }, []);
 
   // Formations de référence : la formation choisie, ou toutes celles qui mènent au métier.
   const cibles = useMemo(() => (mode === "formation" ? [fid] : metierById[mid].formations.filter((f) => formationById[f])), [mode, fid, mid]);
-  const metiersVises = mode === "formation" ? formationById[fid].metiers : [mid];
   const matchOf = (e: Etablissement) => {
     const direct = e.formations.filter((f) => cibles.includes(f));
     return direct.length ? direct : mode === "formation" ? formationsLiees(e, fid).filter((f) => f !== fid) : [];
@@ -73,7 +101,7 @@ export function Comparateur() {
       const fill = candidats.filter((c) => !keep.includes(c.id)).map((c) => c.id);
       // Diversité : on complète en priorité avec d'autres villes.
       fill.sort((a, b) => Number(keep.some((k) => etabById[k].ville === etabById[a].ville)) - Number(keep.some((k) => etabById[k].ville === etabById[b].ville)));
-      return [...keep, ...fill].slice(0, Math.max(3, Math.min(keep.length, 4)));
+      return [...keep, ...fill].slice(0, MAX);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [candidats, initial]);
@@ -93,116 +121,205 @@ export function Comparateur() {
     const e = etabById[id];
     const m = matchOf(e);
     const ref = m[0] ?? (mode === "formation" ? fid : cibles[0]);
-    const score = Math.min(98, compatibilite(profil, ref) + (RECONNU.includes(e.statut) ? 3 : 0));
     const D = devis(e.id, ref, origine);
     const C = COUTS[e.pays];
-    const sco = C.scolarite_annuelle[e.type] ?? C.scolarite_annuelle.universite;
+    const sco = e.frais_publies ?? C.scolarite_annuelle[e.type] ?? C.scolarite_annuelle.universite;
+    const villes = villesDe(e);
+    const villeVie = villes[0] ?? e.ville;
+    const vie = C.vie_mensuelle[C.vie_mensuelle.villes_cheres.some((v) => villeVie.includes(v)) ? "ville_chere" : "autre_ville"];
     // Totaux ramenés en dirhams pour comparer des écoles de pays différents (taux indicatifs)
     const enMad = (v: number) => (C.devise === "MAD" ? v : v / (TAUX_SECOURS.taux[C.devise] ?? 1));
-    return { e, m, ref, score, D, sco, dev: C.devise, tot: D.total, totMad: [enMad(D.total[0]), enMad(D.total[1])] as [number, number], villes: villesDe(e) };
+    const filieres = e.filieres.filter((f) => f.formation && (m.includes(f.formation) || cibles.includes(f.formation)));
+    return { e, m, ref, D, sco, publie: !!e.frais_publies, vie, villeVie, dev: C.devise, milieu: enMad((D.total[0] + D.total[1]) / 2), villes, filieres };
   });
-  const bestIdx = cols.length ? cols.reduce((b, c, k) => (c.score > cols[b].score || (c.score === cols[b].score && c.totMad[1] < cols[b].totMad[1]) ? k : b), 0) : -1;
-  const cheapest = cols.length ? Math.min(...cols.map((c) => c.totMad[1])) : 0;
-  const maxLiees = cols.length ? Math.max(...cols.map((c) => c.m.length)) : 0;
+  type Col = (typeof cols)[number];
+  const moinsCher = cols.length > 1 ? cols.reduce((b, c) => (c.milieu < b.milieu ? c : b)).e.id : null;
+  const scoreDe = (c: Col) => (profil ? compatibilite(profil, c.ref) : 0);
+  const maxScore = Math.max(0, ...cols.map(scoreDe));
+  const maxFilieres = Math.max(0, ...cols.map((c) => c.e.filieres.length));
+  const doyenne = Math.min(...cols.map((c) => c.e.annee_creation ?? 9999));
+  const an = new Date().getFullYear();
 
-  const rows: { lab: string; cell: (c: (typeof cols)[number], k: number) => ReactNode; good?: (c: (typeof cols)[number]) => boolean }[] = [
-    { lab: "COMPATIBILITÉ AVEC TON PROFIL", cell: (c, k) => <div className="flex items-center gap-2"><ScoreBar value={c.score} delay={k * 0.1} /><span className="text-[#0f8a46]">{c.score} %</span></div> },
-    { lab: "STATUT", cell: (c) => STATUT_LONG[c.e.statut] ?? "Privé", good: (c) => RECONNU.includes(c.e.statut) },
-    { lab: "PROGRAMME CORRESPONDANT", cell: (c) => c.m.slice(0, 2).map((f) => <Link key={f} href={`/formations/${f}/?etab=${c.e.id}`} className="block hover:text-brand-600">{formationById[f].intitule}</Link>) },
-    { lab: "DIPLÔME · DURÉE", cell: (c) => `${formationById[c.ref].diplome} · ${formationById[c.ref].duree_annees} ans` },
-    { lab: "ADMISSION", cell: (c) => admissionLabel(formationById[c.ref].mode_admission) },
-    { lab: "FRAIS DE SCOLARITÉ (estim.)", cell: (c) => <><Prix mad={c.sco.min} devise={c.dev} bloc /> – <Prix mad={c.sco.max} devise={c.dev} suffixe="/an" bloc /></> },
-    { lab: `COÛT TOTAL ${"{n}"} (devis)`, cell: (c) => <Link href={`/devis/?etab=${c.e.id}&f=${c.ref}${origine ? `&o=${origine}` : ""}`} className="hover:text-brand-600"><Prix mad={c.tot[0]} devise={c.dev} bloc /> – <Prix mad={c.tot[1]} devise={c.dev} bloc /><span className="block text-xs font-semibold text-ink-mute">sur {c.D.years} an{c.D.years > 1 ? "s" : ""} · voir le devis →</span></Link>, good: (c) => c.totMad[1] === cheapest },
-    { lab: "COÛT DE LA VIE / MOIS", cell: (c) => { const b = paysDetailById[c.e.pays].budget; return <><Prix mad={b.total_mensuel.min} devise={c.dev} bloc /> – <Prix mad={b.total_mensuel.max} devise={c.dev} bloc /></>; } },
-    { lab: origine ? `VISA (${paysOrigineById[origine]?.nom ?? origine})` : "VISA", cell: () => <Link href="/ressources/visa-carte-de-sejour/" className="hover:text-brand-600">{origine ? visaResume(origine) : "Choisis ton pays de départ"}</Link> },
-    { lab: "LABEL", cell: (c) => (c.e.pays === "MA" ? labelById[c.e.label]?.libelle : c.e.label_libelle) ?? "—" },
-    { lab: "MÉTIERS VISÉS", cell: () => <div className="flex flex-wrap gap-1.5">{metiersVises.slice(0, 2).map((m) => <span key={m} className="chip bg-[#f1edff] text-[#6a3df0]">{metierById[m].nom}</span>)}</div> },
-    { lab: "LOGEMENT", cell: (c) => { const b = paysDetailById[c.e.pays].budget; return <>{c.e.pays === "MA" ? "Logements vérifiés Navilease" : "Logement"} · dès <Prix mad={b.lignes[0].min} devise={c.dev} suffixe="/mois" /></>; } },
-    { lab: "AUTRES FORMATIONS LIÉES", cell: (c) => `${c.m.length} programme${c.m.length > 1 ? "s" : ""}`, good: (c) => c.m.length === maxLiees && maxLiees > 0 },
+  // Chaque critère : titre, explication courte, valeur par école, clé de comparaison (identique partout → encadré « commun »).
+  type Critere = { id: string; lab: string; aide: ReactNode; cell: (c: Col) => ReactNode; cle: (c: Col) => string; mieux?: (c: Col) => boolean; toujours?: boolean };
+  const criteres: Critere[] = [
+    {
+      id: "filiere", lab: "La filière dans cette école", toujours: true,
+      aide: "Nom exact du programme et son accréditation par l'État (arrêté publié au Bulletin officiel).",
+      cle: (c) => c.filieres.map((f) => f.intitule).join("|") || c.ref,
+      cell: (c) => {
+        const liste = c.filieres.length ? c.filieres : [];
+        const ok = liste.some((f) => !f.recente);
+        return (
+          <>
+            {liste.length ? liste.slice(0, 2).map((f) => <Link key={f.intitule} href={`/formations/${c.ref}/?etab=${c.e.id}`} className="mb-1.5 block leading-snug hover:text-brand-600">{f.intitule}</Link>)
+              : <Link href={`/formations/${c.ref}/?etab=${c.e.id}`} className="block leading-snug hover:text-brand-600">{formationById[c.ref].intitule}</Link>}
+            {liste.length > 2 && <span className="block text-xs font-semibold text-ink-mute">+ {liste.length - 2} autre{liste.length > 3 ? "s" : ""}</span>}
+            <span className={`mt-1 block text-xs font-bold ${ok ? "text-[#0f8a46]" : liste.length ? "text-[#8a4b00]" : "text-ink-mute"}`}>
+              {ok ? "✓ Accréditée par l'État" : liste.length ? "Renouvellement pas encore publié" : "Diplôme de l'école (non accrédité)"}
+            </span>
+          </>
+        );
+      },
+    },
+    {
+      id: "reconnaissance", lab: "Reconnaissance de l'école",
+      aide: <><b>Reconnu par l&apos;État</b> : diplômes équivalents aux diplômes nationaux. <b>Diplômes homologués</b> : seules les filières accréditées le sont. <b>Autorisé</b> : diplôme propre à l&apos;école.</>,
+      cle: (c) => `${c.e.label}|${c.e.statut}`,
+      mieux: (c) => c.e.label === "reconnu_etat",
+      cell: (c) => <>{(c.e.pays === "MA" ? labelById[c.e.label]?.libelle : c.e.label_libelle) ?? "—"}<span className="block text-xs font-semibold text-ink-mute">{STATUT_LONG[c.e.statut] ?? "Privé"}</span></>,
+    },
+    {
+      id: "scolarite", lab: "Frais de scolarité par an",
+      aide: "Tarif publié par l'école quand elle l'affiche, sinon estimation pour ce type d'école. À confirmer auprès de l'école.",
+      cle: (c) => `${c.sco.min}-${c.sco.max}-${c.publie}`,
+      cell: (c) => <><Montants min={c.sco.min} max={c.sco.max} source={c.dev} /><span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-[11px] font-bold ${c.publie ? "bg-[#e8f8ef] text-[#0f8a46]" : "bg-[#f1f4fd] text-ink-mute"}`}>{c.publie ? "Tarif publié" : "Estimation"}</span></>,
+    },
+    {
+      id: "total", lab: "Coût total des études",
+      aide: <>Scolarité, vie sur place et installation{origine ? ", billets d'avion compris" : ""}, pour toute la durée. Touche le montant pour voir le détail.{!origine && " Choisis ton pays de départ pour ajouter le voyage."}</>,
+      cle: (c) => `${c.D.total[0]}-${c.D.total[1]}`,
+      mieux: (c) => c.e.id === moinsCher,
+      cell: (c) => <Link href={`/devis/?etab=${c.e.id}&f=${c.ref}${origine ? `&o=${origine}` : ""}`} className="hover:text-brand-600"><Montants min={c.D.total[0]} max={c.D.total[1]} source={c.dev} /><span className="mt-1 block text-xs font-semibold text-brand-600">sur {c.D.years} an{c.D.years > 1 ? "s" : ""} · détail →</span></Link>,
+    },
+    {
+      id: "vie", lab: "Vie sur place par mois",
+      aide: "Logement, repas et transport d'un étudiant dans la ville du campus.",
+      cle: (c) => `${c.vie.min}-${c.vie.max}`,
+      cell: (c) => <><Montants min={c.vie.min} max={c.vie.max} source={c.dev} /><span className="mt-1 block text-xs font-semibold text-ink-mute">à {c.villeVie}</span></>,
+    },
+    ...(profil ? [{
+      id: "profil", lab: "Compatibilité avec ton profil",
+      aide: "D'après ton test d'orientation : tes goûts comparés aux métiers auxquels mène la formation.",
+      cle: (c: Col) => String(scoreDe(c)),
+      mieux: (c: Col) => scoreDe(c) === maxScore,
+      cell: (c: Col) => `${scoreDe(c)} %`,
+    }] : []),
+    { id: "diplome", lab: "Diplôme et durée", aide: "Diplôme obtenu à la fin et nombre d'années d'études.", cle: (c) => c.ref, cell: (c) => `${formationById[c.ref].diplome} · ${formationById[c.ref].duree_annees} ans` },
+    { id: "admission", lab: "Admission", aide: "Comment on entre : dossier, concours, entretien…", cle: (c) => formationById[c.ref].mode_admission, cell: (c) => admissionLabel(formationById[c.ref].mode_admission) },
+    {
+      id: "creation", lab: "Ancienneté", aide: "Année de création de l'école.",
+      cle: (c) => String(c.e.annee_creation ?? ""),
+      mieux: (c) => c.e.annee_creation === doyenne,
+      cell: (c) => (c.e.annee_creation ? <>{c.e.annee_creation}<span className="block text-xs font-semibold text-ink-mute">{an - c.e.annee_creation} ans d&apos;existence</span></> : "Non communiquée"),
+    },
+    {
+      id: "filieres", lab: "Filières accréditées dans l'école", aide: "Toutes formations confondues : donne une idée de la taille de l'école.",
+      cle: (c) => String(c.e.filieres.length),
+      mieux: (c) => c.e.filieres.length === maxFilieres && maxFilieres > 0,
+      cell: (c) => `${c.e.filieres.length} filière${c.e.filieres.length > 1 ? "s" : ""}`,
+    },
+    { id: "metiers", lab: "Métiers visés", aide: "Métiers auxquels prépare la formation.", cle: (c) => formationById[c.ref].metiers.slice(0, 3).join("|"), cell: (c) => (mode === "metier" ? [mid] : formationById[c.ref].metiers).slice(0, 3).map((x) => metierById[x]?.nom).filter(Boolean).join(" · ") },
+    { id: "visa", lab: origine ? `Visa (au départ de : ${paysOrigineById[origine]?.nom ?? origine})` : "Visa", aide: "Formalités pour entrer et étudier dans le pays.", cle: (c) => c.e.pays, cell: () => <Link href="/ressources/visa-carte-de-sejour/" className="hover:text-brand-600">{origine ? visaResume(origine) : "Choisis ton pays de départ"}</Link> },
+    { id: "logement", lab: "Logement", aide: "Logements étudiants vérifiés.", cle: (c) => c.e.pays, cell: (c) => { const b = paysDetailById[c.e.pays].budget; return <Link href="/navilease/" className="hover:text-brand-600">{c.e.pays === "MA" ? "Logements vérifiés Navilease" : "Logement"} · dès {formatMontant(b.lignes[0].min, c.dev)}/mois</Link>; } },
   ];
+  const plusieurs = cols.length > 1;
+  const lignes = criteres.filter((r) => !plusieurs || r.toujours || new Set(cols.map(r.cle)).size > 1);
+  const communs = plusieurs ? criteres.filter((r) => !r.toujours && new Set(cols.map(r.cle)).size === 1) : [];
+  const grille = { gridTemplateColumns: `repeat(${Math.max(cols.length, 1)}, minmax(0, 1fr))` };
+
   const ajoutables = candidats.filter((c) => !ids.includes(c.id));
   const share = async () => {
     const url = window.location.href;
     try { if (navigator.share) await navigator.share({ title: "Comparaison Navigoal", url }); else { await navigator.clipboard.writeText(url); alert("Lien copié : partage-le avec tes parents."); } } catch { /* annulé */ }
   };
+  const champ = "min-h-[44px] w-full min-w-0 rounded-xl border border-slate-200 bg-white px-3 py-2 text-[14px] font-bold";
 
   return (
     <>
       <LireUrl onUrl={onUrl} />
-      <section className="bg-gradient-to-b from-brand-50 to-[#f6f8fe] pb-7 pt-10 print:hidden">
-        <div className="container flex flex-col gap-5">
-          <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
-            <div className="flex max-w-3xl flex-col gap-2.5"><span className="eyebrow">Comparateur</span><h1 className="h-section">Compare et choisis en confiance</h1><p className="text-ink-mute sm:text-base">Mêmes formations ou mêmes métiers visés : vois d&apos;un coup d&apos;œil les différences de coût, d&apos;admission, de visa et de logement.</p></div>
-            <p className="hidden -rotate-[4deg] font-hand text-[28px] text-brand-700 lg:block">Tu as vraiment le choix !</p>
-          </div>
-          <div className="card flex flex-col gap-3 rounded-2xl p-2.5 xl:flex-row xl:items-center">
-            {DESTINATIONS_ACTIVES.length > 1 && <select value={choixPays} onChange={(ev) => setPaysEtude(ev.target.value as PaysCode | "tous")} className="min-h-[40px] rounded-xl border border-slate-200 bg-white px-3 py-2 text-[13px] font-bold" aria-label="Pays d'études"><option value="tous">Étudier : tous les pays</option>{DESTINATIONS_ACTIVES.map((d) => <option key={d.code} value={d.code}>Étudier {d.prep}</option>)}</select>}
-            <div className="flex items-center gap-2 rounded-xl bg-brand-50 px-3 py-2 text-[13px] font-bold text-brand-700"><Target size={16} /> Comparer par</div>
-            <div className="flex rounded-xl bg-[#f6f8fe] p-[3px]">
-              {(["formation", "metier"] as const).map((m) => <button key={m} onClick={() => setMode(m)} className={`relative rounded-[10px] px-3.5 py-2 text-[13px] font-bold ${mode === m ? "text-brand-600" : "text-ink-mute"}`}>{mode === m && <motion.span layoutId="cmp-mode" className="absolute inset-0 rounded-[10px] bg-white shadow-sm" />}<span className="relative">{m === "formation" ? "Formation" : "Métier visé"}</span></button>)}
+      <section className="bg-gradient-to-b from-brand-50 to-[#f6f8fe] pb-5 pt-6 sm:pb-7 sm:pt-10 print:hidden">
+        <div className="container flex flex-col gap-4">
+          <div className="flex max-w-3xl flex-col gap-2"><span className="eyebrow">Comparateur</span><h1 className="h-section">Compare et choisis en confiance</h1><p className="text-[15px] text-ink-mute sm:text-base">Choisis une formation ou un métier : jusqu&apos;à {MAX} écoles côte à côte, avec ce qui change vraiment de l&apos;une à l&apos;autre.</p></div>
+          <div className="card flex flex-col gap-2.5 rounded-2xl p-3 lg:grid lg:grid-cols-[auto_minmax(0,1.6fr)_minmax(0,1fr)_minmax(0,1fr)] lg:items-center">
+            <div className="grid grid-cols-2 rounded-xl bg-[#f6f8fe] p-[3px]" role="group" aria-label="Comparer par">
+              {(["formation", "metier"] as const).map((m) => <button key={m} onClick={() => setMode(m)} aria-pressed={mode === m} className={`relative min-h-[40px] rounded-[10px] px-3.5 text-[14px] font-bold ${mode === m ? "text-brand-600" : "text-ink-mute"}`}>{mode === m && <motion.span layoutId="cmp-mode" className="absolute inset-0 rounded-[10px] bg-white shadow-sm" />}<span className="relative">{m === "formation" ? "Par formation" : "Par métier"}</span></button>)}
             </div>
-            <label className="flex min-w-0 flex-1 items-center gap-2.5 px-2 xl:min-w-[240px] xl:border-l xl:border-[#eef1f8] xl:pl-4">
-              <GraduationCap size={18} className="shrink-0 text-brand-600" />
+            <label className="relative flex min-w-0 items-center">
+              <GraduationCap size={18} className="pointer-events-none absolute left-3 text-brand-600" />
               {mode === "formation"
-                ? <select value={fid} onChange={(ev) => setFid(ev.target.value)} className="min-w-0 flex-1 bg-transparent py-2 text-sm font-bold outline-none" aria-label="Formation">{formations.filter((f) => f.etablissements.some((x) => etabById[x])).sort((a, b) => a.intitule.localeCompare(b.intitule)).map((f) => <option key={f.id} value={f.id}>{f.intitule}</option>)}</select>
-                : <select value={mid} onChange={(ev) => setMid(ev.target.value)} className="min-w-0 flex-1 bg-transparent py-2 text-sm font-bold outline-none" aria-label="Métier">{metiers.filter((m) => m.formations.some((f) => formationById[f]?.etablissements.some((x) => etabById[x]))).sort((a, b) => a.nom.localeCompare(b.nom)).map((m) => <option key={m.id} value={m.id}>{m.nom}</option>)}</select>}
+                ? <select value={fid} onChange={(ev) => setFid(ev.target.value)} className={`${champ} pl-10`} aria-label="Formation">{formations.filter((f) => f.etablissements.some((x) => etabById[x])).sort((a, b) => a.intitule.localeCompare(b.intitule)).map((f) => <option key={f.id} value={f.id}>{f.intitule}</option>)}</select>
+                : <select value={mid} onChange={(ev) => setMid(ev.target.value)} className={`${champ} pl-10`} aria-label="Métier">{metiers.filter((m) => m.formations.some((f) => formationById[f]?.etablissements.some((x) => etabById[x]))).sort((a, b) => a.nom.localeCompare(b.nom)).map((m) => <option key={m.id} value={m.id}>{m.nom}</option>)}</select>}
             </label>
-            <div className="flex flex-wrap items-center gap-1.5 px-1">
-              {[{ id: "" as const, court: "Tous labels" }, ...LABELS.filter((l) => etablissements.some((e) => e.label === l.id))].map((l) => <button key={l.id} onClick={() => setLabel(l.id)} className={`chip px-3 py-1.5 ${label === l.id ? "bg-brand-600 text-white" : "bg-brand-50 text-brand-700"}`}>{l.court}</button>)}
+            <select value={ville} onChange={(ev) => setVille(ev.target.value)} className={champ} aria-label="Ville du campus"><option value="">Toutes les villes</option>{VILLES_ETUDES.map((v) => <option key={v} value={v}>{v}</option>)}</select>
+            <select value={origine} onChange={(ev) => setOrigine(ev.target.value)} className={champ} aria-label="Pays de départ"><option value="">Je pars de : choisir</option><optgroup label="Afrique">{paysOrigine.filter((p) => p.continent === "afrique").map((p) => <option key={p.id} value={p.id}>Je pars de : {p.nom}</option>)}</optgroup><optgroup label="Autres pays">{paysOrigine.filter((p) => p.continent === "autre").map((p) => <option key={p.id} value={p.id}>Je pars de : {p.nom}</option>)}</optgroup></select>
+            <div className="-mx-3 flex gap-1.5 overflow-x-auto px-3 pb-0.5 lg:col-span-4 lg:mx-0 lg:flex-wrap lg:px-0">
+              {DESTINATIONS_ACTIVES.length > 1 && <select value={choixPays} onChange={(ev) => setPaysEtude(ev.target.value as PaysCode | "tous")} className="shrink-0 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[13px] font-bold" aria-label="Pays d'études"><option value="tous">Tous les pays</option>{DESTINATIONS_ACTIVES.map((d) => <option key={d.code} value={d.code}>Étudier {d.prep}</option>)}</select>}
+              {[{ id: "" as const, court: "Tous labels" }, ...LABELS.filter((l) => etablissements.some((e) => e.label === l.id))].map((l) => <button key={l.id} onClick={() => setLabel(l.id)} aria-pressed={label === l.id} className={`chip shrink-0 whitespace-nowrap px-3 py-2 ${label === l.id ? "bg-brand-600 text-white" : "bg-brand-50 text-brand-700"}`}>{l.court}</button>)}
             </div>
-            <select value={ville} onChange={(ev) => setVille(ev.target.value)} className="min-h-[40px] rounded-xl border border-slate-200 bg-white px-3 py-2 text-[13px] font-bold" aria-label="Ville du campus"><option value="">Toutes les villes</option>{VILLES_ETUDES.map((v) => <option key={v} value={v}>{v}</option>)}</select>
-            <select value={origine} onChange={(ev) => setOrigine(ev.target.value)} className="min-h-[40px] rounded-xl border border-slate-200 bg-white px-3 py-2 text-[13px] font-bold" aria-label="Pays de départ"><option value="">Je pars de : choisir</option><optgroup label="Afrique">{paysOrigine.filter((p) => p.continent === "afrique").map((p) => <option key={p.id} value={p.id}>Je pars de : {p.nom}</option>)}</optgroup><optgroup label="Autres pays">{paysOrigine.filter((p) => p.continent === "autre").map((p) => <option key={p.id} value={p.id}>Je pars de : {p.nom}</option>)}</optgroup></select>
           </div>
-          <span className="text-[13px] text-ink-mute">{candidats.length} établissement{candidats.length > 1 ? "s" : ""} proposent {mode === "formation" ? "cette formation" : "une formation menant à ce métier"}{ville ? ` à ${ville}` : ""}{label ? ` (label ${paysF && paysF !== "MA" ? labelPays(label, paysF) : labelById[label]?.court})` : ""}{paysF ? ` ${destinationById[paysF].prep}` : ""}.</span>
+          <span className="text-[13px] text-ink-mute">{candidats.length} établissement{candidats.length > 1 ? "s" : ""} propose{candidats.length > 1 ? "nt" : ""} {mode === "formation" ? "cette formation" : "une formation menant à ce métier"}{ville ? ` à ${ville}` : ""}{label ? ` (label ${paysF && paysF !== "MA" ? labelPays(label, paysF) : labelById[label]?.court})` : ""}{paysF ? ` ${destinationById[paysF].prep}` : ""}.</span>
         </div>
       </section>
 
-      <div className="container mt-3">
-        <div className="-mx-4 overflow-x-auto px-4 pb-4 pt-3">
-          <div className="flex min-w-max items-stretch gap-4 lg:min-w-0">
-            <AnimatePresence mode="popLayout">
-              {cols.map((c, k) => {
-                const best = k === bestIdx;
-                return (
-                  <motion.div key={c.e.id} layout initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0, transition: { delay: k * 0.12, type: "spring", stiffness: 110, damping: 18 } }} exit={{ opacity: 0, scale: 0.9 }}
-                    className={`relative flex w-[290px] flex-col overflow-hidden rounded-3xl bg-white lg:w-auto lg:flex-1 ${best ? "border-[2.5px] border-brand-600 shadow-[0_30px_60px_-24px_rgba(26,71,245,.45)]" : "border border-slate-200 shadow-card"}`}>
-                    <div className="relative">
-                      <EtabPhoto e={c.e} rounded="rounded-none" className="h-[150px]" />
-                      {best && <span className="chip absolute left-3 top-3 bg-sun-400 text-ink">★ Meilleur choix pour toi</span>}
-                      <button onClick={() => setIds(ids.filter((x) => x !== c.e.id))} className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-ink-soft hover:text-[#d42a50]" aria-label={`Retirer ${c.e.sigle}`}><X size={16} /></button>
-                      <EtabLogo e={c.e} size={56} className="absolute -bottom-7 left-4 shadow-sm" />
+      <div className="container mt-2">
+        {!cols.length ? <p className="card p-8 text-center text-ink-mute">Aucun établissement pour ce choix. Essaie « Tous labels » ou « Toutes les villes ».</p> : (
+          <div className="card overflow-clip rounded-3xl">
+            {/* En-tête des écoles, toujours visible pendant le défilement */}
+            <div className="sticky top-[76px] z-20 transition-[top] duration-300 [html[data-entete=cache]_&]:top-0 border-b border-[#eef1f8] bg-white/95 backdrop-blur lg:grid lg:grid-cols-[260px_minmax(0,1fr)]">
+              <div className="hidden items-end p-4 text-xs font-bold text-ink-mute lg:flex">{cols.length} école{cols.length > 1 ? "s" : ""} comparée{cols.length > 1 ? "s" : ""}</div>
+              <div className="grid gap-2 p-2.5 sm:gap-3 sm:p-3" style={grille}>
+                {cols.map((c) => (
+                  <div key={c.e.id} className="relative flex min-w-0 flex-col items-center gap-1 rounded-2xl px-1 pb-1 pt-1.5 text-center sm:flex-row sm:items-start sm:gap-2.5 sm:text-left">
+                    <EtabLogo e={c.e} size={44} className="shrink-0" />
+                    <div className="min-w-0 sm:pr-7">
+                      <Link href={`/etablissements/${c.e.id}/`} className="line-clamp-2 text-[13px] font-extrabold leading-tight hover:text-brand-600 sm:text-sm" title={c.e.nom}>{c.e.sigle || c.e.nom}</Link>
+                      <span className="block truncate text-[11px] font-semibold text-ink-mute sm:text-xs">{c.villes.slice(0, 2).join(" · ") || c.e.ville}</span>
+                      {c.e.id === moinsCher && <span className="mt-1 inline-block rounded-full bg-[#e8f8ef] px-2 py-0.5 text-[10px] font-extrabold text-[#0f8a46] sm:text-[11px]">Le moins cher</span>}
                     </div>
-                    <div className="flex flex-col gap-1 px-[18px] pb-3.5 pt-9"><b className="leading-snug">{c.e.nom}</b><span className="text-xs text-ink-mute">{c.villes.map((v, k) => <span key={v}>{k ? " · " : ""}<Link href={villeHref(v)} className="hover:text-brand-600">{v}</Link></span>)} · {c.e.pays === "MA" ? labelById[c.e.label]?.court : c.e.label_libelle}</span></div>
-                    {rows.map((r, j) => {
-                      const ok = cols.length > 1 && r.good?.(c);
-                      return (
-                        <div key={j} className={`flex min-h-[64px] flex-col gap-1 border-t border-[#eef1f8] px-[18px] py-3 transition-colors hover:bg-brand-50/60 ${j % 2 ? "bg-white" : "bg-[#fbfcff]"}`}>
-                          <span className="text-[11px] font-extrabold text-ink-mute">{r.lab.replace("{n}", `${c.D.years} ANS`)}</span>
-                          <div className={`text-sm font-bold ${ok ? "text-[#0f8a46]" : ""}`}>{r.cell(c, k)}</div>
-                        </div>
-                      );
-                    })}
-                    <div className="mt-auto flex flex-col gap-2 p-[18px]"><Link href={`/espace/candidatures/nouvelle?etab=${c.e.id}&formation=${c.ref}`} className={best ? "btn-primary" : "btn-ghost"}>Candidater</Link><Link href={`/etablissements/${c.e.id}/`} className="text-center text-[13px] font-bold text-brand-600">Voir la fiche →</Link></div>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-            {ids.length < 4 && ajoutables.length > 0 && (
-              <div className="flex w-[220px] shrink-0 flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed border-brand-200 bg-white/60 p-5 text-center print:hidden lg:w-[220px]">
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-50 text-brand-600"><Plus /></span>
-                <b className="text-sm">Ajouter une école</b>
-                <select value="" onChange={(ev) => ev.target.value && setIds([...ids, ev.target.value])} className="w-full rounded-xl border border-slate-200 bg-white px-2 py-2 text-[13px] font-semibold" aria-label="Ajouter une école"><option value="">Choisir…</option>{ajoutables.map((e) => <option key={e.id} value={e.id}>{e.sigle} · {villesDe(e).join(", ")}</option>)}</select>
+                    <button onClick={() => setIds(ids.filter((x) => x !== c.e.id))} className="absolute -right-0.5 -top-0.5 flex h-8 w-8 items-center justify-center rounded-full text-ink-mute hover:bg-[#ffecef] hover:text-[#d42a50] print:hidden" aria-label={`Retirer ${c.e.sigle}`}><X size={16} /></button>
+                  </div>
+                ))}
               </div>
+            </div>
+            {ids.length < MAX && ajoutables.length > 0 && (
+              <label className="flex items-center gap-2 border-b border-[#eef1f8] bg-[#fbfcff] px-3 py-2.5 print:hidden">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600"><Plus size={16} /></span>
+                <select value="" onChange={(ev) => ev.target.value && setIds([...ids, ev.target.value])} className={champ} aria-label="Ajouter une école"><option value="">Ajouter une école ({ajoutables.length} possibles)…</option>{ajoutables.map((e) => <option key={e.id} value={e.id}>{e.sigle} · {villesDe(e).join(", ")}</option>)}</select>
+              </label>
             )}
+            {lignes.map((r, j) => (
+              <div key={r.id} className={`border-b border-[#eef1f8] lg:grid lg:grid-cols-[260px_minmax(0,1fr)] ${j % 2 ? "bg-white" : "bg-[#fbfcff]"}`}>
+                <div className="px-3.5 pb-1 pt-3 sm:px-4 lg:py-4">
+                  <b className="block text-[14px]">{r.lab}</b>
+                  <p className="mt-0.5 text-[12px] leading-snug text-ink-mute">{r.aide}</p>
+                </div>
+                <div className="grid gap-2 px-2.5 pb-3 pt-1.5 sm:gap-3 sm:px-3 lg:py-4" style={grille}>
+                  {cols.map((c) => {
+                    const ok = plusieurs && r.mieux?.(c) && !cols.every((x) => r.mieux?.(x));
+                    return <div key={c.e.id} className={`min-w-0 hyphens-auto break-words rounded-xl px-1.5 py-1 text-[13px] font-bold sm:px-2 sm:text-sm ${ok ? "bg-[#e8f8ef] text-[#0f8a46]" : ""}`}>{r.cell(c)}</div>;
+                  })}
+                </div>
+              </div>
+            ))}
+            <div className="grid gap-2 p-2.5 sm:gap-3 sm:p-3 lg:grid-cols-[260px_minmax(0,1fr)] lg:p-0">
+              <div className="hidden lg:block" />
+              <div className="grid gap-2 sm:gap-3 lg:p-3" style={grille}>
+                {cols.map((c) => (
+                  <div key={c.e.id} className="flex min-w-0 flex-col gap-1.5">
+                    <Link href={`/espace/candidatures/nouvelle?etab=${c.e.id}&formation=${c.ref}`} className="btn-primary min-h-[44px] justify-center px-2 text-[13px]">Candidater</Link>
+                    <Link href={`/etablissements/${c.e.id}/`} className="py-1 text-center text-[13px] font-bold text-brand-600">Voir la fiche</Link>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-        {!cols.length && <p className="card p-8 text-center text-ink-mute">Aucun établissement pour ce choix avec ce label. Essaie « Tous labels ».</p>}
-        <p className="mt-2 text-xs text-ink-mute">En vert : la meilleure valeur de chaque ligne. Coûts estimés en dirhams (scolarité, vie, installation{origine ? ", voyages" : ""}) ; conversion dans ta devise au taux du jour, majorée de 3 % par prudence. Frais à confirmer par chaque école.</p>
+        )}
+
+        {communs.length > 0 && (
+          <div className="card mt-4 rounded-3xl p-4 sm:p-5">
+            <b className="flex items-center gap-2 text-[15px]"><BadgeCheck size={18} className="text-brand-600" />Pareil dans ces {cols.length} écoles</b>
+            <dl className="mt-3 grid gap-3 sm:grid-cols-2">
+              {communs.map((r) => <div key={r.id} className="min-w-0"><dt className="text-[12px] font-bold text-ink-mute">{r.lab}</dt><dd className="text-sm font-bold">{r.cell(cols[0])}</dd></div>)}
+            </dl>
+          </div>
+        )}
+        {cols.length > 0 && <p className="mt-3 flex gap-2 text-xs leading-relaxed text-ink-mute"><Info size={14} className="mt-0.5 shrink-0" /><span>Sur fond vert : la meilleure valeur de la ligne. Montants convertis au taux du jour, majorés de 3 % par prudence. Frais à confirmer auprès de chaque école.{!profil && <> <Link href="/orientation/" className="font-bold text-brand-600">Passe le test d&apos;orientation</Link> pour voir ta compatibilité avec chaque formation.</>}</span></p>}
       </div>
 
-      <div className="container mt-6 grid gap-4 md:grid-cols-3 print:hidden">
+      <div className="container mt-5 grid gap-2.5 sm:grid-cols-3 sm:gap-4 print:hidden">
         {([[Share2, "bg-brand-50 text-brand-600", "Partager la comparaison", "avec tes parents ou ton conseiller", share], [Download, "bg-[#e8f8ef] text-[#0f8a46]", "Exporter en PDF", "pour décider à tête reposée", () => window.print()], [MessageCircle, "bg-sun-100 text-[#a55a00]", "Poser une question", "directement aux établissements", () => (window.location.href = "/messages")]] as const).map(([I, cls, t, s, fn]) => (
-          <button key={t} onClick={fn} className="card flex items-center gap-3 rounded-[18px] p-[18px] text-left transition hover:-translate-y-0.5 hover:shadow-lift"><span className={`flex h-[42px] w-[42px] items-center justify-center rounded-xl ${cls}`}><I size={20} /></span><span><b className="block text-sm">{t}</b><span className="text-xs text-ink-mute">{s}</span></span></button>
+          <button key={t} onClick={fn} className="card flex items-center gap-3 rounded-[18px] p-3.5 text-left transition hover:-translate-y-0.5 hover:shadow-lift sm:p-[18px]"><span className={`flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-xl ${cls}`}><I size={20} /></span><span><b className="block text-sm">{t}</b><span className="text-xs text-ink-mute">{s}</span></span></button>
         ))}
       </div>
     </>
