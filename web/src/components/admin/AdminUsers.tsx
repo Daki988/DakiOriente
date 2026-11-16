@@ -1,4 +1,5 @@
 "use client";
+import Link from "@/components/ui/Link";
 import { Ban, Building2, CheckCircle2, RotateCcw, Search, ShieldCheck, UserPlus, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Avatar, Button, Chip, Dialog, Loading, Panel, StatusBadge, Table, dateFr, since, useToast } from "@/components/app/kit";
@@ -83,7 +84,7 @@ export function AdminUsers() {
                 { h: "Utilisateur", c: (u) => (
                   <div className="flex items-center gap-3">
                     <Avatar name={`${u.firstName} ${u.lastName}`} size={36} />
-                    <div className="flex min-w-0 flex-col"><b className="truncate">{u.firstName} {u.lastName}</b><span className="truncate text-xs text-ink-mute">{u.email ?? u.phone ?? "—"}</span></div>
+                    <div className="flex min-w-0 flex-col"><Link href={`/admin/utilisateurs/${u.id}`} className="truncate font-bold text-ink hover:text-brand-600">{u.firstName} {u.lastName}</Link><span className="truncate text-xs text-ink-mute">{u.email ?? u.phone ?? "—"}</span></div>
                   </div>) },
                 { h: "Rôle", c: (u) => <Chip tone={ROLE_TONE[u.role]}>{ROLE_LABEL[u.role] ?? u.role}</Chip> },
                 { h: "Pays", c: (u) => <Flag code={u.country} /> },

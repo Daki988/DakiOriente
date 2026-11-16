@@ -876,13 +876,22 @@ describe("audience en direct", () => {
   it("page vue puis signal de présence : visible dans « En ce moment », provenance d'arrivée gardée", async () => {
     const aud = await import("@/server/services/audience");
     const req = () => new Request("http://localhost/api/vu/", { headers: { "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) Mobile", host: "localhost" } });
-    await aud.enregistrer(req(), { p: "/comparateur", r: "https://l.facebook.com/" }, "eleve");
-    await aud.enregistrer(req(), { p: "/metiers" }, "eleve");
-    await aud.enregistrer(req(), { p: "/metiers", h: 1 }, "eleve");
+    await aud.enregistrer(req(), { p: "/comparateur", r: "https://l.facebook.com/" }, { id: student.id, role: "eleve" });
+    await aud.enregistrer(req(), { p: "/metiers" }, { id: student.id, role: "eleve" });
+    await aud.enregistrer(req(), { p: "/metiers", h: 1 }, { id: student.id, role: "eleve" });
     const d = await aud.direct(adminU);
     const v = d.visiteurs.find((x) => x.page === "/metiers/")!;
-    expect(v).toMatchObject({ source: "facebook", appareil: "mobile", role: "eleve", pages: 2 });
+    expect(v).toMatchObject({ source: "facebook", appareil: "mobile", role: "eleve", pages: 2, userId: student.id, compte: `${student.firstName} ${student.lastName}` });
     expect(d.connectes).toBeGreaterThanOrEqual(1);
     await expect(aud.direct(student)).rejects.toThrow();
+    // Dossier de l'élève ouvert depuis « En ce moment » : admin seulement, consultation journalisée
+    const dos = await admin.dossierUtilisateur(adminU, student.id);
+    expect(dos.compte).toMatchObject({ id: student.id, role: student.role });
+    expect(dos.candidatures.length).toBeGreaterThan(0);
+    expect(dos.pieces.length).toBeGreaterThan(0);
+    expect(dos.liens.some((l) => l.personne?.id === parent.id)).toBe(true);
+    await expect(admin.dossierUtilisateur(school, student.id)).rejects.toThrow();
+    const [log] = await db.select().from(schema.auditLogs).where(eq(schema.auditLogs.action, "consultation_dossier"));
+    expect(log).toBeTruthy();
   });
 });

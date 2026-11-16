@@ -644,6 +644,7 @@ export const presences = pgTable("presences", {
   source: text("source").notNull(),
   device: text("device").notNull(),
   role: text("role"), // rôle du compte connecté, sinon null (visiteur)
+  userId: text("user_id").references(() => users.id, { onDelete: "cascade" }), // compte connecté (lien vers son dossier dans le back-office)
   pages: integer("pages").notNull().default(1),
 }, (t) => [index("presences_at_idx").on(t.at)]);
 

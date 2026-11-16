@@ -8,6 +8,7 @@ import { apiUrl } from "@/lib/api";
 import { nomPays } from "@/lib/pays-origine";
 import { SERVICES } from "@/lib/services";
 import { Drapeau } from "@/components/ui/Drapeau";
+import Link from "@/components/ui/Link";
 import { AdminHeader, LoadError, ROLE_LABEL } from "./shared";
 
 type Stats = {
@@ -26,7 +27,7 @@ const titre = (c: string) => (FICHE.test(c) ? `Fiche école ${FICHE.exec(c)![1].
 
 type Direct = {
   le: string; total: number; connectes: number; pays: { code: string | null; n: number; connectes: number }[];
-  visiteurs: { pays: string | null; page: string; service: string; source: string; appareil: string; role: string | null; pages: number; depuis: string; vu: string }[];
+  visiteurs: { pays: string | null; page: string; service: string; source: string; appareil: string; role: string | null; userId: string | null; compte: string | null; pages: number; depuis: string; vu: string }[];
 };
 const duree = (iso: string, le: string) => { const m = Math.max(0, Math.round((new Date(le).getTime() - new Date(iso).getTime()) / 60000)); return m < 1 ? "à l'instant" : m < 60 ? `${m} min` : `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, "0")}`; };
 const Pays = ({ code }: { code: string | null }) => (code ? <Drapeau code={code} taille={18} className="shrink-0" /> : null);
@@ -58,6 +59,7 @@ function EnDirect() {
                 <li key={i} className="flex flex-col gap-1 py-2.5 text-[13px] sm:flex-row sm:items-center sm:gap-3">
                   <span className="flex min-w-0 items-center gap-2 sm:w-56 sm:shrink-0"><Pays code={v.pays} /><b className="truncate">{v.pays ? nomPays(v.pays) : "Pays inconnu"}</b>
                     {v.role ? <span className="chip shrink-0 bg-brand-50 px-2 py-0.5 text-brand-700">{ROLE_LABEL[v.role] ?? v.role}</span> : <span className="chip shrink-0 bg-[#f1f4fd] px-2 py-0.5 text-ink-mute">Visiteur</span>}</span>
+                  {v.userId && v.compte && <Link href={`/admin/utilisateurs/${v.userId}`} className="inline-flex items-center gap-1 font-bold text-brand-700 hover:underline sm:w-44 sm:shrink-0 sm:truncate">{v.compte}<span aria-hidden>→</span></Link>}
                   <a href={v.page} target="_blank" rel="noopener" className="min-w-0 flex-1 truncate font-semibold first-letter:uppercase hover:text-brand-600" title={v.page}>{titre(v.page)}</a>
                   <span className="flex flex-wrap items-center gap-x-2 text-xs text-ink-mute"><I size={13} />{app}<span>· via {v.source === "interne" ? "navigation" : SOURCES[v.source] ?? v.source}</span><span>· {v.pages} page{v.pages > 1 ? "s" : ""}</span><span>· depuis {duree(v.depuis, d.le)}</span></span>
                 </li>

@@ -33,7 +33,8 @@ function provenance(ref: string, utm: string | null, hote: string) {
 }
 
 /** Page vue (ou signal de présence `h`, envoyé chaque minute tant que l'onglet est affiché). `role` : compte connecté, sinon null. */
-export async function enregistrer(req: Request, b: { p?: unknown; r?: unknown; u?: unknown; h?: unknown }, role: string | null) {
+export async function enregistrer(req: Request, b: { p?: unknown; r?: unknown; u?: unknown; h?: unknown }, compte: { id: string; role: string } | null) {
+  const role = compte?.role ?? null, userId = compte?.id ?? null;
   const ua = req.headers.get("user-agent") ?? "";
   if (!ua || ROBOTS.test(ua)) return;
   const p = typeof b.p === "string" ? b.p.split("?")[0].split("#")[0].slice(0, 200) : "";
@@ -50,10 +51,10 @@ export async function enregistrer(req: Request, b: { p?: unknown; r?: unknown; u
   if (!b.h) await db.insert(schema.pageViews).values({ ...ligne, day, connected: !!role });
   // Présence en direct : la provenance retenue est celle de l'arrivée sur le site (pas la navigation interne).
   const pr = schema.presences;
-  await db.insert(pr).values({ ...ligne, role, pages: b.h ? 0 : 1 }).onConflictDoUpdate({
+  await db.insert(pr).values({ ...ligne, role, userId, pages: b.h ? 0 : 1 }).onConflictDoUpdate({
     target: pr.visitor,
     set: {
-      at: sql`now()`, path: ligne.path, service: ligne.service, country: ligne.country, device: ligne.device, role,
+      at: sql`now()`, path: ligne.path, service: ligne.service, country: ligne.country, device: ligne.device, role, userId,
       source: sql`case when ${pr.at} > now() - interval '30 minutes' and ${pr.source} <> 'interne' then ${pr.source} else excluded.source end`,
       pages: b.h ? pr.pages : sql`${pr.pages} + 1`,
       depuis: sql`case when ${pr.at} < now() - interval '30 minutes' then now() else ${pr.depuis} end`,
@@ -68,7 +69,9 @@ export async function enregistrer(req: Request, b: { p?: unknown; r?: unknown; u
 export async function direct(admin: User) {
   if (admin.role !== "admin") throw forbidden();
   const pr = schema.presences;
-  const lignes = await db.select().from(pr).where(gte(pr.at, new Date(Date.now() - 3 * 60e3))).orderBy(desc(pr.at)).limit(300);
+  const u = schema.users;
+  const lignes = (await db.select({ p: pr, prenom: u.firstName, nom: u.lastName }).from(pr).leftJoin(u, eq(u.id, pr.userId))
+    .where(gte(pr.at, new Date(Date.now() - 3 * 60e3))).orderBy(desc(pr.at)).limit(300)).map((x) => ({ ...x.p, compte: x.prenom ? `${x.prenom} ${x.nom}` : null }));
   const parPays = new Map<string, { code: string | null; n: number; connectes: number }>();
   for (const l of lignes) {
     const k = l.country ?? "?";
@@ -79,7 +82,7 @@ export async function direct(admin: User) {
   return {
     le: new Date().toISOString(), total: lignes.length, connectes: lignes.filter((l) => l.role).length,
     pays: [...parPays.values()].sort((a, b) => b.n - a.n),
-    visiteurs: lignes.slice(0, 60).map((l) => ({ pays: l.country, page: l.path, service: l.service, source: l.source, appareil: l.device, role: l.role, pages: l.pages, depuis: l.depuis.toISOString(), vu: l.at.toISOString() })),
+    visiteurs: lignes.slice(0, 60).map((l) => ({ pays: l.country, page: l.path, service: l.service, source: l.source, appareil: l.device, role: l.role, userId: l.userId, compte: l.compte, pages: l.pages, depuis: l.depuis.toISOString(), vu: l.at.toISOString() })),
   };
 }
 
