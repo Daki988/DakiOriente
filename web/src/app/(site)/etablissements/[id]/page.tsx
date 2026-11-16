@@ -162,19 +162,22 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(e)).replace(/</g, "\\u003c") }} />
       <div className="container flex flex-col gap-6 pt-7">
-        <nav className="flex items-center gap-1.5 text-[13px] text-ink-mute"><Link href="/">Accueil</Link><ChevronRight size={14} /><Link href="/etablissements">Établissements</Link><ChevronRight size={14} /><Link href={`/etablissements/?pays=${e.pays}`}>{PD?.nom}</Link><ChevronRight size={14} /><span>{e.sigle}</span></nav>
+        <nav className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[13px] text-ink-mute"><Link href="/">Accueil</Link><ChevronRight size={14} className="shrink-0" /><Link href="/etablissements">Établissements</Link><ChevronRight size={14} className="shrink-0" /><Link href={`/etablissements/?pays=${e.pays}`}>{PD?.nom}</Link><ChevronRight size={14} className="shrink-0" /><span>{e.sigle}</span></nav>
         <Reveal className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
-          <div className="flex min-w-0 items-center gap-5">
-            <EtabLogo e={e} size={88} className="shadow-card" />
+          {/* Mobile : logo au-dessus du nom (le nom prend toute la largeur) ; à partir de 640 px, côte à côte. */}
+          <div className="flex min-w-0 flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-5">
+            <EtabLogo e={e} size={64} className="shadow-card sm:hidden" />
+            <EtabLogo e={e} size={88} className="hidden shadow-card sm:flex" />
             <div className="flex min-w-0 flex-col gap-2">
-              <h1 className="text-3xl font-extrabold tracking-tight sm:text-[44px] sm:leading-[1.05]">{e.nom}</h1>
+              <h1 className="text-[26px] font-extrabold leading-[1.15] tracking-tight [overflow-wrap:anywhere] sm:text-[44px] sm:leading-[1.05]">{e.nom}</h1>
               <div className="flex flex-wrap gap-2"><LabelChip label={e.label} pays={e.pays} libelle={e.label_libelle} />{!maroc && !interEtats && e.filieres.length > 0 && e.label === "reconnu_etat" && <span className="chip bg-brand-50 text-brand-700"><BadgeCheck size={12} />{e.filieres.length} programme{e.filieres.length > 1 ? "s" : ""} accrédité{e.filieres.length > 1 ? "s" : ""} ou habilité{e.filieres.length > 1 ? "s" : ""}</span>}<span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip !inline-block max-w-full whitespace-normal !rounded-2xl bg-sun-100 text-[#a55a00]"><MapPin size={12} className="mr-1 inline align-[-2px]" />{e.campus ? `${e.campus.length} campus : ` : ""}{villes.map((v, k) => <span key={v}>{k ? ", " : ""}<Link href={villeHref(v)} className="hover:underline">{v}</Link></span>)}{e.campus ? "" : `, ${PD?.nom}`}</span></div>
             </div>
           </div>
-          <div className="flex flex-wrap gap-2.5">
-            <Link href={compare} className="btn-ghost"><Scale size={16} /> Comparer</Link>
-            <Link href={`/devis/?etab=${e.id}`} className="btn-ghost"><Calculator size={16} /> Devis parents</Link>
-            <Link href={`/espace/candidatures/nouvelle?etab=${e.id}${fid ? `&formation=${fid}` : ""}`} className="btn-primary btn-shine">Candidater <ArrowRight size={16} /></Link>
+          {/* Mobile : « Candidater » en premier sur toute la largeur, puis les deux actions secondaires côte à côte. */}
+          <div className="grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap">
+            <Link href={compare} className="btn-ghost justify-center px-3 sm:px-5"><Scale size={16} /> Comparer</Link>
+            <Link href={`/devis/?etab=${e.id}`} className="btn-ghost justify-center px-3 sm:px-5"><Calculator size={16} /> <span>Devis<span className="hidden min-[360px]:inline"> parents</span></span></Link>
+            <Link href={`/espace/candidatures/nouvelle?etab=${e.id}${fid ? `&formation=${fid}` : ""}`} className="btn-primary btn-shine order-first col-span-2 justify-center sm:order-none">Candidater <ArrowRight size={16} /></Link>
           </div>
         </Reveal>
         <Reveal delay={0.1}><PhotoGallery e={e} /></Reveal>
