@@ -34,7 +34,13 @@ jobs:
           SERVEUR: ${{ secrets.NAVIGOAL_FTP_SERVER || secrets.FTP_SERVER }}
           UTILISATEUR: ${{ secrets.NAVIGOAL_FTP_USERNAME || secrets.FTP_USERNAME }}
           MOT_DE_PASSE: ${{ secrets.NAVIGOAL_FTP_PASSWORD || secrets.FTP_PASSWORD }}
+          VAR_DOSSIER: ${{ vars.NAVIGOAL_FTP_DIR }}
+          VAR_SERVEUR: ${{ vars.NAVIGOAL_FTP_SERVER }}
+          VAR_UTILISATEUR: ${{ vars.NAVIGOAL_FTP_USERNAME }}
+          VAR_MOT_DE_PASSE: ${{ vars.NAVIGOAL_FTP_PASSWORD }}
         run: |
+          for v in VAR_DOSSIER VAR_SERVEUR VAR_UTILISATEUR VAR_MOT_DE_PASSE; do echo "Variable ${v#VAR_} : $([ -n "${!v}" ] && echo présente || echo absente)"; done
+          [ -n "$VAR_MOT_DE_PASSE" ] && echo "::warning::Le mot de passe FTP est enregistré comme Variable (visible) : déplacez-le dans l'onglet Secrets."
           echo "Serveur : $([ -n "$SERVEUR" ] && echo présent || echo absent) ; identifiant : $([ -n "$UTILISATEUR" ] && echo présent || echo absent) ; mot de passe : $([ -n "$MOT_DE_PASSE" ] && echo présent || echo absent)"
           if [ -n "$SERVEUR" ]; then echo "present=oui" >> "$GITHUB_OUTPUT"
           else echo "::notice::Identifiants FTP non réglés : mise en ligne automatique ignorée (voir LISEZMOI-DEPLOIEMENT.md § 6)."; fi
