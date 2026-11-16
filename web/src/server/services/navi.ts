@@ -443,10 +443,10 @@ Ne brûle pas les étapes et ne noie pas la personne : mieux vaut 2 propositions
 Budget :
 - Budget serré : commence par les écoles les moins chères au tarif publié, donne le montant, puis signale honnêtement celles dont le tarif n'est pas publié (à vérifier auprès de l'école). Pense aussi aux études plus courtes (Bac+2, Bac+3), aux villes moins chères que Casablanca et Rabat, et aux bourses ou campagnes ouvertes (campagnes_en_cours).
 - Scolarité : utilise scolarite_publiee (frais publiés par l'école). Le budget total (vie sur place, voyages) vient de estimer_cout. Précise que ce sont des estimations et que l'école confirme les frais exacts.
-- Montants dans la monnaie du pays de départ quand elle est connue (F CFA pour le Gabon, le Cameroun, le Sénégal…), avec les dirhams en complément ; arrondis lisibles (« environ 1,9 million de F CFA par an »).
+- Montants dans la monnaie du pays de départ quand elle est connue (F CFA pour le Gabon, le Cameroun, le Sénégal…) : CHAQUE prix cité, école par école, d'abord dans cette monnaie (taux du jour donné dans le contexte), puis les dirhams entre parenthèses ; arrondis lisibles (« environ 1,9 million de F CFA par an (31 000 MAD) »).
 
 Présenter des résultats (seulement quand tu as cherché) :
-- 60 à 120 mots : une phrase d'accroche qui répond, puis 2 à 4 puces (« - »), une idée par puce, le nom en **gras** suivi d'un tiret et de ce qui compte pour CETTE personne (prix si budget serré, ville, durée, label), puis une question courte pour la suite. Saute une ligne entre les blocs. Pas de tableau, pas de titre, pas d'URL dans le texte : les liens passent par afficher.
+- 120 mots au grand maximum, puces comprises (compte-les ; si tu dépasses, retire une école ou un détail plutôt que de déborder) : une phrase d'accroche qui répond, puis 2 à 4 puces (« - »), une idée par puce, le nom en **gras** suivi d'un tiret et de ce qui compte pour CETTE personne (prix si budget serré, ville, durée, label), puis une question courte pour la suite. Saute une ligne entre les blocs. Pas de tableau, pas de titre, pas d'URL dans le texte : les liens passent par afficher.
 - N'écris jamais ce que tu fais (« je cherche », « il me faut les prix ») : si tu dois chercher, appelle les outils directement, tous ceux qu'il te faut dans le même tour (ils s'exécutent en parallèle). Ordre à respecter : d'abord les recherches, puis afficher (sans texte avant), et seulement après le retour d'afficher, ta réponse rédigée. Le texte écrit avant un appel d'outil n'est pas montré à la personne : ta réponse doit toujours être ton tout dernier message, après tous tes appels d'outils.
 - Les cartes complètent ta réponse, elles ne la remplacent jamais. N'écris jamais « les cartes sont affichées sous mon message », « tu trouveras les écoles ci-dessous » ou l'équivalent : le nom de chaque école, son prix et ce qui la distingue sont dans ton texte, et les cartes viennent en plus. Ta réponse doit se comprendre seule, cartes masquées.
 - afficher, une fois, après tes recherches et avant d'écrire ta réponse, quand il y a quelque chose à montrer : 2 à 4 établissements (le moins cher en premier si le budget compte), une estimation de coût si on parle d'argent, 1 à 3 liens issus des outils (comparateur : /comparateur/?f=<formation>&e=<id1>,<id2>,<id3> ; devis : page_devis ; candidater : /espace/candidatures/nouvelle?etab=<id>&formation=<id> ; document demandé : /espace/documents/ ; test : /orientation/), et 2 ou 3 relances courtes écrites comme la personne les dirait. Dans une simple discussion, n'appelle pas afficher, sauf pour proposer 2 ou 3 relances utiles.
@@ -504,11 +504,15 @@ export async function* converser(req: NaviRequete, user: User | null, opts: { cl
   const debut = Date.now();
   const paysDefaut = (req.pays && paysOrigineById[req.pays] ? req.pays : user?.country && paysOrigineById[user.country] ? user.country : null) ?? null;
   const chemin = cheminInterne(req.page?.chemin) ?? "/";
+  // Taux du jour vers la monnaie du pays de départ : Navi donne chaque prix dans cette monnaie (les outils parlent en dirhams).
+  const devise = paysDefaut ? devisePays(paysDefaut) : null;
+  const mille = devise ? convertirDe(1000, "MAD", devise, await tauxDuJour().catch(() => undefined)) : null;
+  const tauxLigne = devise && mille ? `\n- Taux du jour : 1 000 MAD ≈ ${formatMontant(mille, devise)} (soit 1 MAD ≈ ${(mille / 1000).toLocaleString("fr-FR", { maximumFractionDigits: 2 })} ${symbole(devise)})` : "";
   const contexte = `Contexte de cette conversation :
 - Page ouverte : ${req.page?.titre?.replace(/\s+/g, " ").slice(0, 150) ?? "?"} (${chemin})
 - Utilisateur : ${user ? `connecté (${user.role}, prénom ${user.firstName})` : "visiteur non connecté"}
 - Destination choisie sur le site : ${req.destination && destinationById[req.destination as PaysCode]?.actif ? `${destinationById[req.destination as PaysCode].nom} (${req.destination})` : req.destination === "tous" ? "tous les pays" : "non choisie"}
-- Pays de départ connu : ${paysDefaut ? `${nomPays(paysDefaut)} (${paysDefaut}), monnaie ${devisePays(paysDefaut) ?? "?"}` : "inconnu"}
+- Pays de départ connu : ${paysDefaut ? `${nomPays(paysDefaut)} (${paysDefaut}), monnaie ${devisePays(paysDefaut) ?? "?"}` : "inconnu"}${tauxLigne}
 - Date : ${new Date().toISOString().slice(0, 10)}`;
 
   // Historique texte (les tours précédents) ; on garde les derniers échanges, en commençant par l'utilisateur.
