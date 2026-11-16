@@ -740,6 +740,26 @@ describe("Navi : routeur, cache des réponses et suivi (faux modèle, sans appel
     expect((await trace(q2)).statut).toBe("erreur");
   });
 
+  it("cartes demandées avec une phrase courte : la réponse complète est rédigée après les cartes", async () => {
+    const appels: Params[] = [];
+    const q = "Quelles écoles d'infirmiers à Rabat, test de l'ordre des cartes ?";
+    const longue = "Voici trois écoles qui forment des infirmiers à Rabat : **École A** - publique, gratuite. **École B** - privée, environ 40 000 MAD par an. **École C** - privée, tarif non publié, à vérifier auprès d'elle. Tu préfères une école publique ou privée ? Et quel budget peux-tu prévoir chaque année pour tes études ?";
+    const ev = await lire(navi.converser({ messages: [{ role: "user", texte: q }] }, student, { client: fauxClient([
+      { model: "claude-sonnet-5-5", textes: ["Voici les écoles."], outils: [{ name: "afficher", input: { etablissements: [], formation_id: null, devis: null, liens: [], conseiller: false, suggestions: [] } }] },
+      { model: "claude-sonnet-5-5", textes: [longue] },
+    ], appels) }));
+    expect(appels).toHaveLength(2);
+    expect(ev.some((e) => e.t === "efface")).toBe(true);
+    expect((await trace(q)).reponse).toBe(longue);
+    // Réponse déjà complète (40 mots ou plus) écrite avec les cartes : pas de second appel.
+    const appels2: Params[] = [];
+    await lire(navi.converser({ messages: [{ role: "user", texte: q + " bis" }] }, student, { client: fauxClient([
+      { model: "claude-sonnet-5-5", textes: [longue], outils: [{ name: "afficher", input: { etablissements: [], formation_id: null, devis: null, liens: [], conseiller: false, suggestions: [] } }] },
+    ], appels2) }));
+    expect(appels2).toHaveLength(1);
+    expect((await trace(q + " bis")).reponse).toBe(longue);
+  });
+
   it("tableau du back-office : chiffres, routes et dernières questions", async () => {
     const suivi = await import("@/server/services/navi-suivi");
     await expect(suivi.tableau(student, {})).rejects.toThrow();

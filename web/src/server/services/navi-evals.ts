@@ -34,6 +34,7 @@ export function controler(c: Cas, s: Sortie): string[] {
   for (const r of a.contient ?? []) if (!new RegExp(r, "i").test(s.reponse)) k.push(`attendu : /${r}/`);
   for (const r of a.interdit ?? []) if (new RegExp(r, "i").test(s.reponse)) k.push(`interdit : /${r}/`);
   if (a.cartes && !s.cartes) k.push("aucune carte affichée");
-  if (ANNONCES.test(s.reponse)) k.push("annonce son travail au lieu de répondre");
+  // Annonce = la réponse commence par « je cherche… » (une proposition en fin de réponse, « je regarde avec toi », est permise).
+  if (ANNONCES.test(s.reponse.trim().slice(0, 40))) k.push("annonce son travail au lieu de répondre");
   return k;
 }
