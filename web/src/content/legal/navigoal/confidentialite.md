@@ -46,6 +46,7 @@ Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les c
 | Répondre à vos questions avec Navi ou un conseiller | exécution du service |
 | Mesurer l'efficacité de nos campagnes (source d'inscription, parrainage) et produire des statistiques anonymes | intérêt légitime de Navigoal |
 | Mesurer l'audience du site (pages les plus consultées, pays, provenance) pour l'améliorer | intérêt légitime de Navigoal |
+| Contrôler la qualité, l'exactitude et le coût des réponses de Navi (relecture par l'équipe Navigoal, tests) | intérêt légitime de Navigoal |
 | Prévenir la fraude et les abus, assurer la sécurité | intérêt légitime, obligations légales |
 
 ## Qui peut accéder à vos données ?
@@ -77,7 +78,7 @@ Vos données sont hébergées dans l'Union européenne. Les messages envoyés à
 | Compte et profil | tant que le compte est actif, puis 3 ans sans activité |
 | Candidatures et pièces | durée de la campagne d'admission, puis 2 ans |
 | Paiements et reçus | 10 ans (obligations comptables) |
-| Conversations avec Navi | non conservées sur nos serveurs : l'historique reste dans votre navigateur, et seul un compteur du nombre de messages du jour est gardé (adresse IP rendue illisible pour les visiteurs) |
+| Conversations avec Navi | 90 jours : chaque question, la réponse affichée et des données techniques (recherches effectuées, durée, coût), rattachées à votre compte si vous êtes connecté. Une réponse à la première question d'un visiteur non connecté peut être gardée 24 heures pour être resservie à la même question. Le compteur du nombre de messages du jour ne garde pas l'adresse IP en clair |
 | Journaux de connexion et de sécurité | 12 mois |
 | Mesure d'audience (détail par page vue, sans adresse IP) | 13 mois |
 | Codes de vérification | quelques minutes (usage unique) |

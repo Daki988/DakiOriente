@@ -1,9 +1,13 @@
 # Tests de qualité de Navi sur le vrai modèle (payant : quelques centimes à quelques dizaines de centimes de dollar par passage).
-# Lancement à la main seulement : onglet Actions → « Tests de qualité de Navi » → Run workflow.
-# Secret requis : ANTHROPIC_API_KEY (Settings → Secrets and variables → Actions).
+# Lancés à chaque modification de Navi (consignes, outils, routeur, cas de test) sur la branche de production,
+# et à la main (onglet Actions → « Tests de qualité de Navi » → Run workflow, si ce fichier est sur la branche par défaut).
+# Secret requis : ANTHROPIC_API_KEY (Settings → Secrets and variables → Actions) ; sans lui, les tests sont ignorés.
 name: Tests de qualité de Navi
 
 on:
+  push:
+    branches: ["claude/navigoal-specs-tqkh43"]
+    paths: ["web/src/server/services/navi.ts", "web/src/server/services/navi-evals.ts", "web/scripts/navi-evals/**", "web/scripts/navi-evals.mts", ".github/workflows/navi-evals.yml"]
   workflow_dispatch:
     inputs:
       reps:
@@ -14,7 +18,21 @@ on:
         default: ""
 
 jobs:
+  cle:
+    runs-on: ubuntu-latest
+    outputs:
+      presente: ${{ steps.c.outputs.presente }}
+    steps:
+      - id: c
+        env:
+          CLE: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "$CLE" ]; then echo "presente=oui" >> "$GITHUB_OUTPUT"
+          else echo "::notice::Secret ANTHROPIC_API_KEY absent : tests de qualité de Navi ignorés."; fi
+
   evals:
+    needs: cle
+    if: needs.cle.outputs.presente == 'oui'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     defaults:
@@ -46,8 +64,8 @@ jobs:
         run: npx tsx scripts/migrate.mts && npx tsx scripts/seed.mts
       - name: Tests de qualité
         env:
-          REPS: ${{ inputs.reps }}
-          CAS: ${{ inputs.cas }}
+          REPS: ${{ inputs.reps || '1' }}
+          CAS: ${{ inputs.cas || '' }}
         run: npx tsx scripts/navi-evals.mts --reps "$REPS" ${CAS:+--cas "$CAS"} --sortie navi-evals
       - name: Résultats détaillés
         if: always()

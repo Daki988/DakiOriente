@@ -6,7 +6,7 @@ import { PAGES_LEGALES, SERVICES, SERVICES_LISTE, lienLegal, type PageLegale, ty
 import { Markdown, headings, slugify } from "./markdown";
 import { SommaireLegal, Imprimer } from "./SommaireLegal";
 
-export const LEGAL_VERSION = { version: "2.0", date: "06/11/2026" };
+export const LEGAL_VERSION = { version: "2.1", date: "16/11/2026" };
 type Texte = { titre: string; bref: string; corps: string };
 const TEXTES = legal as Record<ServiceId, Record<PageLegale, Texte>>;
 
@@ -97,6 +97,7 @@ export function LegalPage({ service = "navigoal", page }: { service?: ServiceId;
           </div>
           <div className="flex flex-col gap-2 rounded-[22px] border border-slate-200 p-5">
             <History size={20} className="text-ink-mute" /><b className="text-sm">Historique</b>
+            <span className="text-xs text-ink-mute">v2.1 · 16/11/2026 : conversations avec Navi conservées 90 jours (qualité et coût des réponses)</span>
             <span className="text-xs text-ink-mute">v2.0 · 06/11/2026 : réécriture complète, pages propres à Navilease et NaviTravel</span>
             <span className="text-xs text-ink-mute">v1.0 · 09/10/2026</span>
           </div>
