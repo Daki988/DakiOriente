@@ -2,7 +2,7 @@
 # Chaque jour : reporte les renouvellements validés dans le back-office (base de production) dans
 # data/sources/maroc/renouvellements.csv, reconstruit le référentiel et met le site en ligne s'il y en a.
 # Chaque trimestre (1er janvier, avril, juillet, octobre) : recalcule les statuts pour l'année universitaire en cours
-# (filière échue : mention « renouvellement non encore publié » pendant un an, puis retrait), met le site en ligne et
+# (filière échue : mention « renouvellement non encore publié » pendant deux ans, puis retrait), met le site en ligne et
 # ouvre un récapitulatif (ticket GitHub, notifié par e-mail). L'assistant IA planifié ajoute ensuite ses propositions.
 # Le passage quotidien ne part que si cette branche est la branche par défaut du dépôt (règle de GitHub pour les
 # tâches planifiées) ; sinon, il est lancé chaque trimestre par l'assistant IA et peut l'être à la main (Actions → Run workflow).
@@ -103,7 +103,7 @@ jobs:
           print(f"Année universitaire **{m['annee_reference']}** · données du {m['date']}.\n")
           print(f"- **{len(d['en_mention'])}** filières en mention « renouvellement non encore publié »")
           print(f"- **{len(d['a_echeance'])}** filières arrivent à échéance à la fin de cette année")
-          print(f"- **{len(d['retirees_cette_annee'])}** filières retirées (délai d'un an dépassé)")
+          print(f"- **{len(d['retirees_cette_annee'])}** filières retirées (délai de deux ans dépassé)")
           print(f"- **{len(d['renouvellements_appliques'])}** renouvellements appliqués\n")
           print("À faire : vérifier au Bulletin officiel (sgg.gov.ma) les arrêtés de renouvellement, puis les saisir ou valider les propositions de l'assistant IA dans le back-office › Accréditations.\n")
           print("Règle : " + m["regle"])

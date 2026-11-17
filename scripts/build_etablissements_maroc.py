@@ -565,7 +565,7 @@ def annee_debut(a):
 
 # Après l'échéance, une filière reste publiée avec la mention « renouvellement non encore publié » pendant
 # DELAI_MENTION année(s) universitaire(s), délai habituel de publication des arrêtés, puis elle est retirée.
-DELAI_MENTION = 1
+DELAI_MENTION = 2  # novembre 2026 : candidatures ouvertes jusqu'à 2 ans après l'échéance
 
 
 def annee_en_cours(d=None):

@@ -12,7 +12,7 @@ import { AdminHeader, LoadError, nf } from "./shared";
 type Ligne = { etablissement_id: string; etablissement: string; filiere: string; composante: string; fin: string; texte: string; retrait_prevu?: string; renouvellement?: { fin: string; arrete: string; reporte: boolean } | null };
 type Proposition = { etablissement_id: string; filiere: string; composante?: string; fin: string; arrete: string; bulletin_officiel: string; date_publication?: string; source?: string; extrait?: string; trouve_le?: string };
 type Saisie = { id: string; etablissementId: string; filiere: string; fin: string; arrete: string; bulletinOfficiel: string; statut: string; origine: string; le: string; reporte: boolean };
-type Vue = { meta: { date: string; annee_reference: string; regle: string }; en_mention: Ligne[]; a_echeance: Ligne[]; retirees: Ligne[]; propositions: Proposition[]; saisies: Saisie[] };
+type Vue = { meta: { date: string; annee_reference: string; regle: string; delai_mention_annees?: number }; en_mention: Ligne[]; a_echeance: Ligne[]; retirees: Ligne[]; propositions: Proposition[]; saisies: Saisie[] };
 type Onglet = "propositions" | "mention" | "echeance" | "retirees" | "saisies";
 
 const rentree = (a?: string) => (a ? `rentrée ${a.slice(0, 4)}` : "—");
@@ -81,7 +81,7 @@ export function AdminAccreditations() {
         <Kpi label="Propositions de l'IA" value={nf(d.propositions.length)} icon={Bot} tone="violet" sub="à valider ou écarter" />
         <Kpi label="En mention" value={nf(d.en_mention.length)} icon={ShieldAlert} tone="sun" sub="renouvellement non encore publié" />
         <Kpi label="À échéance cette année" value={nf(d.a_echeance.length)} icon={AlarmClock} sub={`fin ${d.meta.annee_reference}`} />
-        <Kpi label="Retirées cette année" value={nf(d.retirees.length)} icon={FileX2} tone="rose" sub="délai d'un an dépassé" />
+        <Kpi label="Retirées cette année" value={nf(d.retirees.length)} icon={FileX2} tone="rose" sub={`délai de ${d.meta.delai_mention_annees ?? 2} ans dépassé`} />
       </div>
       <Panel>
         <div className="flex flex-wrap items-center gap-2">

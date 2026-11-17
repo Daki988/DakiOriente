@@ -2,7 +2,7 @@
   "_meta": {
     "referentiel": "etablissements_superieurs",
     "version": "2.0.0",
-    "date": "2026-11-16",
+    "date": "2026-11-17",
     "plateforme": "Navigoal",
     "destination": "MA",
     "annee_reference": "2026-2027",
@@ -68,6 +68,7 @@
         "frm-cpge-scientifique",
         "frm-doctorat-chirurgie-dentaire",
         "frm-doctorat-medecine",
+        "frm-ingenieur-genie-chimique",
         "frm-ingenieur-genie-civil",
         "frm-ingenieur-genie-electrique",
         "frm-ingenieur-genie-industriel",
@@ -767,6 +768,22 @@
           }
         },
         {
+          "intitule": "Evaluation des Politiques Publiques",
+          "options": null,
+          "composante": "Institut d'études politiques et juridiques",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Gouvernance et Institutions Internationales",
           "options": null,
           "composante": "Institut d'études politiques et juridiques",
@@ -780,6 +797,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Humanités Environnementales",
+          "options": null,
+          "composante": "Institut d'études politiques et juridiques",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-energies-renouvelables",
+          "domaine": "dom-energie-mines",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -799,6 +832,38 @@
           }
         },
         {
+          "intitule": "Politics of International Development",
+          "options": null,
+          "composante": "Institut d'études politiques et juridiques",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Politiques Economiques Appliquées",
+          "options": null,
+          "composante": "Institut d'études politiques et juridiques",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-economie",
+          "domaine": "dom-shs",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Politiques publiques",
           "options": null,
           "composante": "Institut d'études politiques et juridiques",
@@ -812,6 +877,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Résolution des Conflits et Gouvernance de la Paix",
+          "options": null,
+          "composante": "Institut d'études politiques et juridiques",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-droit-prive",
+          "domaine": "dom-droit",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -1023,6 +1104,22 @@
           }
         },
         {
+          "intitule": "Management des Entreprises Agroalimentaires",
+          "options": null,
+          "composante": "École de management",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-ingenieur-genie-chimique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Strategic and Digital Marketing",
           "options": null,
           "composante": "École de management",
@@ -1087,6 +1184,22 @@
           }
         },
         {
+          "intitule": "Big Data",
+          "options": null,
+          "composante": "École supérieure d'informatique et du numérique",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-data-science-ia",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Computer Science Virtualization",
           "options": null,
           "composante": "École supérieure d'informatique et du numérique",
@@ -1116,6 +1229,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Deux Années Préparatoires au Cycle Ingénieur Génie Informatique",
+          "options": null,
+          "composante": "École supérieure d'informatique et du numérique",
+          "ville": null,
+          "diplome": "Cycle préparatoire intégré",
+          "duree_annees": 2,
+          "niveau": "niv-bac2",
+          "formation": "frm-cpge-scientifique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -1600,6 +1729,7 @@
         "frm-doctorat-veterinaire",
         "frm-ingenieur-genie-electrique",
         "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-informatique",
         "frm-licence-banque-finance",
         "frm-licence-biologie",
         "frm-licence-biologie-medicale",
@@ -1610,6 +1740,7 @@
         "frm-licence-sage-femme",
         "frm-licence-sciences-infirmieres",
         "frm-master-data-science-ia",
+        "frm-master-energies-renouvelables",
         "frm-master-finance-audit",
         "frm-master-sante-publique"
       ],
@@ -2463,6 +2594,22 @@
           }
         },
         {
+          "intitule": "Anatomie Pathologique",
+          "options": null,
+          "composante": "Faculté Mohammed VI de médecine",
+          "ville": null,
+          "diplome": "Diplôme de spécialité médicale (après le doctorat)",
+          "duree_annees": null,
+          "niveau": "niv-bac8",
+          "formation": "frm-doctorat-medecine",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 2948.23 (BO n° 7262)"
+          }
+        },
+        {
           "intitule": "Chirurgie Vasculaire Périphérique",
           "options": null,
           "composante": "Faculté Mohammed VI de médecine",
@@ -2495,6 +2642,22 @@
           }
         },
         {
+          "intitule": "Health Informatics",
+          "options": "E-Health Project Management, Telemedicine, Public Health Informatics, Data Management, Bio Informatics, System Design and System Selection",
+          "composante": "Faculté Mohammed VI de médecine",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-ingenieur-informatique",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Immunité, Infection et Inflammation",
           "options": null,
           "composante": "Faculté Mohammed VI de médecine",
@@ -2508,6 +2671,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Médecine d'Urgence et de Catastrophe",
+          "options": null,
+          "composante": "Faculté Mohammed VI de médecine",
+          "ville": null,
+          "diplome": "Diplôme de spécialité médicale (après le doctorat)",
+          "duree_annees": null,
+          "niveau": "niv-bac8",
+          "formation": "frm-doctorat-medecine",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 546.24 (BO n° 7293)"
           }
         },
         {
@@ -2559,6 +2738,22 @@
           }
         },
         {
+          "intitule": "Toxicologie, Environnement et Santé",
+          "options": null,
+          "composante": "Faculté Mohammed VI de médecine",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-energies-renouvelables",
+          "domaine": "dom-energie-mines",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Technologie de Laboratoire de Prothèse Dentaire",
           "options": null,
           "composante": "Faculté Mohammed VI de médecine dentaire",
@@ -2572,6 +2767,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Analyses Biologiques Médicales",
+          "options": null,
+          "composante": "Faculté Mohammed VI de pharmacie",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-biologie-medicale",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 2948.23 (BO n° 7262)"
           }
         },
         {
@@ -2751,6 +2962,22 @@
           }
         },
         {
+          "intitule": "Biotechnologie et Santé",
+          "options": null,
+          "composante": "Faculté des sciences et techniques de la santé",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-biologie",
+          "domaine": "dom-sciences",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Ergothérapie",
           "options": null,
           "composante": "Faculté des sciences et techniques de la santé",
@@ -2847,6 +3074,22 @@
           }
         },
         {
+          "intitule": "Nutrition Clinique",
+          "options": null,
+          "composante": "Faculté des sciences et techniques de la santé",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-biologie-medicale",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Nutrition et Diététique",
           "options": null,
           "composante": "Faculté des sciences et techniques de la santé",
@@ -2895,6 +3138,38 @@
           }
         },
         {
+          "intitule": "Physique Médicale",
+          "options": null,
+          "composante": "Faculté des sciences et techniques de la santé",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-ingenieur-genie-industriel",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Pratiques Avancées en Oncologie et Soins Palliatifs",
+          "options": null,
+          "composante": "Faculté des sciences et techniques de la santé",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-doctorat-medecine",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Psychomotricité",
           "options": null,
           "composante": "Faculté des sciences et techniques de la santé",
@@ -2911,6 +3186,22 @@
           }
         },
         {
+          "intitule": "Qualité, Sécurité, Hygiène et Environnement",
+          "options": null,
+          "composante": "Faculté des sciences et techniques de la santé",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-ingenieur-genie-industriel",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Sage-femme",
           "options": null,
           "composante": "Faculté des sciences et techniques de la santé",
@@ -2923,6 +3214,22 @@
           "homologation": {
             "statut": "recente",
             "fin": "2025-2026",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Sciences Infirmières",
+          "options": "Pratique Infirmière Avancée : Infirmière Clinicienne Spécialisée en Oncohématologie, Pratique Infirmière Avancée : Spécialité Périnatalité",
+          "composante": "Faculté des sciences et techniques de la santé",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-sciences-infirmieres",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
             "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
@@ -2959,6 +3266,54 @@
           }
         },
         {
+          "intitule": "Biosécurité, Biosûreté et One Health",
+          "options": null,
+          "composante": "Institut supérieur Mohammed VI des sciences biologiques et biotechnologies",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Biotechnologie Agroalimentaire",
+          "options": null,
+          "composante": "Institut supérieur Mohammed VI des sciences biologiques et biotechnologies",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-biologie",
+          "domaine": "dom-sciences",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Biotechnologie Environnementale, Ecoinnovation et Ecoconception",
+          "options": null,
+          "composante": "Institut supérieur Mohammed VI des sciences biologiques et biotechnologies",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-biologie",
+          "domaine": "dom-sciences",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Biotechnologie et Santé",
           "options": "Biotechnologie Agroalimentaire, Biotechnologie Environnementale, Biotechnologie et Santé, Génomique et Epigénétique",
           "composante": "Institut supérieur Mohammed VI des sciences biologiques et biotechnologies",
@@ -2975,6 +3330,22 @@
           }
         },
         {
+          "intitule": "Medical Biotechnology",
+          "options": null,
+          "composante": "Institut supérieur Mohammed VI des sciences biologiques et biotechnologies",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-biologie",
+          "domaine": "dom-sciences",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Qualité, Hygiène, Sécurité et Environnement",
           "options": "Biosécurité, Biosûreté et One Health, Système de Management Intégré",
           "composante": "Institut supérieur Mohammed VI des sciences biologiques et biotechnologies",
@@ -2988,6 +3359,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Sciences Forensiques",
+          "options": null,
+          "composante": "Institut supérieur Mohammed VI des sciences biologiques et biotechnologies",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -3084,6 +3471,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Big Data et Intelligence Artificielle Appliquée à la Santé",
+          "options": null,
+          "composante": "École supérieure Mohammed VI d'ingénieurs en sciences de la santé",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-data-science-ia",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -3911,6 +4314,22 @@
           }
         },
         {
+          "intitule": "Neuro-chirurgie",
+          "options": null,
+          "composante": "Faculté de médecine Abulcasis",
+          "ville": null,
+          "diplome": "Diplôme de spécialité médicale (après le doctorat)",
+          "duree_annees": null,
+          "niveau": "niv-bac8",
+          "formation": "frm-doctorat-medecine",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1341.23 (BO n° 7224)"
+          }
+        },
+        {
           "intitule": "Néphrologie",
           "options": null,
           "composante": "Faculté de médecine Abulcasis",
@@ -3988,6 +4407,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 547.24 (BO n° 7293)"
+          }
+        },
+        {
+          "intitule": "Génie de la Santé",
+          "options": null,
+          "composante": "Faculté des sciences infirmières et de gestion hospitalière",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-ingenieur-genie-industriel",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -4132,6 +4567,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Génie Industriel",
+          "options": "Biosciences",
+          "composante": "École d'ingénieurs Abulcasis",
+          "ville": null,
+          "diplome": "Diplôme d'ingénieur",
+          "duree_annees": 5,
+          "niveau": "niv-bac5",
+          "formation": "frm-ingenieur-genie-industriel",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
           }
         }
       ],
@@ -4923,6 +5374,22 @@
           }
         },
         {
+          "intitule": "Santé Publique",
+          "options": null,
+          "composante": "Faculté euro-méditerranéenne de médecine",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-sante-publique",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Sciences du Sport : Entrainement et Optimisation de la Performance Sportive",
           "options": null,
           "composante": "Faculté euro-méditerranéenne de médecine",
@@ -4971,6 +5438,38 @@
           }
         },
         {
+          "intitule": "Didactique de l’Arabe Langue Etrangère",
+          "options": null,
+          "composante": "Faculté euro-méditerranéenne des sciences humaines et sociales",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-langues-etrangeres",
+          "domaine": "dom-lettres-langues",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Interprétation des Conférences",
+          "options": null,
+          "composante": "Faculté euro-méditerranéenne des sciences humaines et sociales",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Journalisme et Nouveaux Médias",
           "options": null,
           "composante": "Faculté euro-méditerranéenne des sciences humaines et sociales",
@@ -4984,6 +5483,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Méthodes et Métiers de l'Ingénierie Culturelle",
+          "options": null,
+          "composante": "Faculté euro-méditerranéenne des sciences humaines et sociales",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-design-graphique",
+          "domaine": "dom-arts-design",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
           }
         },
         {
@@ -5047,6 +5562,22 @@
           "homologation": {
             "statut": "recente",
             "fin": "2025-2026",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Traduction et Traductologie",
+          "options": null,
+          "composante": "Faculté euro-méditerranéenne des sciences humaines et sociales",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-langues-etrangeres",
+          "domaine": "dom-lettres-langues",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
             "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
@@ -5403,6 +5934,22 @@
           }
         },
         {
+          "intitule": "Analyse des Mégadonnées",
+          "options": null,
+          "composante": "École euro-méditerranéenne du numérique et de l'intelligence artificielle",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-data-science-ia",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
           "intitule": "Deux Années Préparatoires Intégrées en Technologies Digitales",
           "options": null,
           "composante": "École euro-méditerranéenne du numérique et de l'intelligence artificielle",
@@ -5483,6 +6030,22 @@
           }
         },
         {
+          "intitule": "Deux Années Préparatoires Intégrées aux Cycles d’Ingénieur",
+          "options": null,
+          "composante": "École euro-méditerranéenne polytechnique",
+          "ville": null,
+          "diplome": "Cycle préparatoire intégré",
+          "duree_annees": 2,
+          "niveau": "niv-bac2",
+          "formation": "frm-cpge-scientifique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Deux années Préparatoires Intégrées aux Cycles Ingénieur",
           "options": null,
           "composante": "École euro-méditerranéenne polytechnique",
@@ -5528,6 +6091,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Matériaux Fonctionnels et Fabrication Additive",
+          "options": "Fabrication Additive pour l'Aéronautique et l'Automobile, Fabrication Additive pour le Génie Biomédical",
+          "composante": "École euro-méditerranéenne polytechnique",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-ingenieur-genie-chimique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -5776,6 +6355,7 @@
         "frm-licence-kinesitherapie",
         "frm-licence-sciences-infirmieres",
         "frm-master-data-science-ia",
+        "frm-master-energies-renouvelables",
         "frm-master-finance-audit",
         "frm-master-management"
       ],
@@ -6149,6 +6729,22 @@
           }
         },
         {
+          "intitule": "Science des Donnés et Modélisation",
+          "options": null,
+          "composante": "Institut des sciences, des technologies et de l'innovation",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
           "intitule": "Science, Technology and Engineering",
           "options": null,
           "composante": "Institut des sciences, des technologies et de l'innovation",
@@ -6162,6 +6758,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Sciences, Techniques et Ingénierie",
+          "options": null,
+          "composante": "Institut des sciences, des technologies et de l'innovation",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-ingenieur-genie-industriel",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
           }
         },
         {
@@ -6277,6 +6889,22 @@
           }
         },
         {
+          "intitule": "Resilient, Sustainable , Smart Buildings and Cities",
+          "options": "Green and Smart Buildings, Resilient, Sustainable and Smart Cities",
+          "composante": "École d'architecture, d'urbanisme et de design",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-energies-renouvelables",
+          "domaine": "dom-energie-mines",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Cycle Préparatoire Intégré",
           "options": null,
           "composante": "École de management industriel",
@@ -6385,6 +7013,38 @@
           "homologation": {
             "statut": "recente",
             "fin": "2025-2026",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Science in Analytics",
+          "options": null,
+          "composante": "École de management pour l'Afrique du groupe OCP",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-data-science-ia",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Science et Technologie des Engrais",
+          "options": null,
+          "composante": "École des sciences de l'agriculture, de la fertilisation et de l'environnement",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
             "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
@@ -7333,6 +7993,22 @@
           }
         },
         {
+          "intitule": "Science Politique",
+          "options": "Relations Internationales, Management des Collectivités et Territoires",
+          "composante": "Faculté privée de management et de gouvernance",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-droit-prive",
+          "domaine": "dom-droit",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Sciences Politiques",
           "options": null,
           "composante": "Faculté privée de management et de gouvernance",
@@ -7346,6 +8022,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Sciences de gestion",
+          "options": null,
+          "composante": "Faculté privée de management et de gouvernance",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
           }
         },
         {
@@ -8302,6 +8994,7 @@
         "frm-licence-kinesitherapie",
         "frm-licence-psychologie",
         "frm-licence-sciences-infirmieres",
+        "frm-master-energies-renouvelables",
         "frm-master-finance-audit",
         "frm-master-grh",
         "frm-master-marketing",
@@ -8565,6 +9258,22 @@
           }
         },
         {
+          "intitule": "Kinésithérapie Avancée",
+          "options": "Réadaptation Neurologique, Kinésithérapie du Sport",
+          "composante": "Faculté des sciences de réadaptation et des techniques de santé",
+          "ville": null,
+          "diplome": "Licence",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-kinesitherapie",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Laboratoire et Analyse Médicale",
           "options": null,
           "composante": "Faculté des sciences de réadaptation et des techniques de santé",
@@ -8741,6 +9450,22 @@
           }
         },
         {
+          "intitule": "Commerce International",
+          "options": null,
+          "composante": "Faculté privée des sciences de gestion",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-marketing",
+          "domaine": "dom-commerce",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Digital Marketing",
           "options": null,
           "composante": "Faculté privée des sciences de gestion",
@@ -8757,6 +9482,22 @@
           }
         },
         {
+          "intitule": "Droit des Affaires",
+          "options": null,
+          "composante": "Faculté privée des sciences de gestion",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-droit-prive",
+          "domaine": "dom-droit",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Entreprenariat et Développement des PME",
           "options": null,
           "composante": "Faculté privée des sciences de gestion",
@@ -8770,6 +9511,38 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Entrepreneuriat et Développement des PME",
+          "options": null,
+          "composante": "Faculté privée des sciences de gestion",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Finance Participative",
+          "options": null,
+          "composante": "Faculté privée des sciences de gestion",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -8914,6 +9687,38 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Années Préparatoires au Cycle de l’Ingénieur",
+          "options": null,
+          "composante": "École polytechnique privée d'Agadir",
+          "ville": null,
+          "diplome": "Cycle préparatoire intégré",
+          "duree_annees": 2,
+          "niveau": "niv-bac2",
+          "formation": "frm-cpge-scientifique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Efficacité Energétique et Energies Nouvelles",
+          "options": null,
+          "composante": "École polytechnique privée d'Agadir",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-energies-renouvelables",
+          "domaine": "dom-energie-mines",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -9660,6 +10465,22 @@
           }
         },
         {
+          "intitule": "Cyber Criminalité et Sciences Criminelles",
+          "options": null,
+          "composante": "Faculté privée de commerce et de gestion",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-cybersecurite",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Droit International des Affaires",
           "options": null,
           "composante": "Faculté privée de commerce et de gestion",
@@ -9705,6 +10526,38 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Entrepreneuriat Digital et Start Up",
+          "options": null,
+          "composante": "Faculté privée de commerce et de gestion",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-ingenieur-informatique",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Finance Internationale",
+          "options": "Gestion des Risques Financiers Internationaux, Financement du Commerce Extérieur",
+          "composante": "Faculté privée de commerce et de gestion",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -9833,6 +10686,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Marketing et Communication",
+          "options": "Gestion de la Relation Client, Marketing des Services, Marketing Industriel, Marketing des Entreprises de Distribution Moderne, Marketing Destiné aux Marchés de la Distribution, Planification Commerciale",
+          "composante": "Faculté privée de commerce et de gestion",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-marketing",
+          "domaine": "dom-commerce",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -10630,6 +11499,7 @@
         "frm-master-energies-renouvelables",
         "frm-master-finance-audit",
         "frm-master-grh",
+        "frm-master-management",
         "frm-master-marketing"
       ],
       "filieres": [
@@ -10730,6 +11600,22 @@
           }
         },
         {
+          "intitule": "Commerce et Développement des Affaires",
+          "options": null,
+          "composante": "Faculté privée Mundiapolis de management",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-marketing",
+          "domaine": "dom-commerce",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
           "intitule": "Communication et Marketing Digital",
           "options": null,
           "composante": "Faculté privée Mundiapolis de management",
@@ -10791,6 +11677,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Management",
+          "options": "Marketing",
+          "composante": "Faculté privée Mundiapolis de management",
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-management",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -10870,6 +11772,22 @@
           "homologation": {
             "statut": "recente",
             "fin": "2025-2026",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Kinésithérapie du Sport",
+          "options": null,
+          "composante": "Faculté privée Mundiapolis des sciences de la santé",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-kinesitherapie",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
             "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
@@ -11018,6 +11936,22 @@
           }
         },
         {
+          "intitule": "Relations Internationales et Diplomatie",
+          "options": null,
+          "composante": "Institut privé Mundiapolis des sciences politiques, juridiques et sociales",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-droit-prive",
+          "domaine": "dom-droit",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Relations Internationales et Sciences Politiques",
           "options": null,
           "composante": "Institut privé Mundiapolis des sciences politiques, juridiques et sociales",
@@ -11143,6 +12077,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Sciences, Techniques, Ingénierie et Développement Durable",
+          "options": null,
+          "composante": "École privée d'ingénierie Mundiapolis",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-energies-renouvelables",
+          "domaine": "dom-energie-mines",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
           }
         },
         {
@@ -12095,6 +13045,22 @@
           }
         },
         {
+          "intitule": "Génie des Systèmes Embarqués",
+          "options": null,
+          "composante": "Faculté privée des sciences de l'ingénieur de Fès",
+          "ville": null,
+          "diplome": "Diplôme d'ingénieur",
+          "duree_annees": 5,
+          "niveau": "niv-bac5",
+          "formation": "frm-ingenieur-genie-electrique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
           "intitule": "Intelligence Artificielle et Data Science",
           "options": null,
           "composante": "Faculté privée des sciences de l'ingénieur de Fès",
@@ -12220,6 +13186,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Technologie de Laboratoires Biomédicaux",
+          "options": null,
+          "composante": "Faculté privée des sciences paramédicales et des techniques de santé de Fès",
+          "ville": null,
+          "diplome": "Licence",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-biologie-medicale",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
           }
         },
         {
@@ -12399,6 +13381,22 @@
           }
         },
         {
+          "intitule": "Management des Organisations",
+          "options": "Gestion des Ressources Humaines, Administration des Affaires",
+          "composante": "École privée de management de Fès",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
           "intitule": "Management du Développement Territorial",
           "options": null,
           "composante": "École privée de management de Fès",
@@ -12443,6 +13441,22 @@
           "homologation": {
             "statut": "recente",
             "fin": "2025-2026",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Architecture d'Intérieur et Design",
+          "options": null,
+          "composante": "École supérieure privée des métiers de l'architecture d'intérieur et du bâtiment",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-design-graphique",
+          "domaine": "dom-arts-design",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
             "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
@@ -12905,6 +13919,7 @@
         "frm-doctorat-chirurgie-dentaire",
         "frm-doctorat-medecine",
         "frm-doctorat-pharmacie",
+        "frm-ingenieur-genie-electrique",
         "frm-ingenieur-genie-industriel",
         "frm-licence-biologie-medicale",
         "frm-licence-gestion",
@@ -12974,6 +13989,22 @@
             "statut": "accreditee",
             "fin": "2026-2027",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Sciences Biomédicales Appliquées",
+          "options": null,
+          "composante": "Faculté privée des sciences biomédicales appliquées d'Agadir",
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-ingenieur-genie-electrique",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -14173,6 +15204,22 @@
           }
         },
         {
+          "intitule": "Achats et Logistique",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-logistique",
+          "domaine": "dom-transport-logistique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Achats et Supply Chain Management",
           "options": null,
           "composante": null,
@@ -14186,6 +15233,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Affaires Internationales",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-marketing",
+          "domaine": "dom-commerce",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -14285,6 +15348,22 @@
           }
         },
         {
+          "intitule": "Management de la Transformation Digitale",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-management",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Management des Entreprises",
           "options": "E-Business et Marketing Digital, Achats et Logistique Internationale, Gestion Comptable et Financière",
           "composante": null,
@@ -14297,6 +15376,22 @@
           "homologation": {
             "statut": "recente",
             "fin": "2025-2026",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Marketing et Communication",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-marketing",
+          "domaine": "dom-commerce",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
             "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         }
@@ -14917,6 +16012,7 @@
         "frm-master-data-science-ia",
         "frm-master-droit-affaires",
         "frm-master-finance-audit",
+        "frm-master-management",
         "frm-master-marketing"
       ],
       "filieres": [
@@ -15097,6 +16193,22 @@
           }
         },
         {
+          "intitule": "Actuariat et Gestion des Risques",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-management",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Classes Préparatoires Intégrées",
           "options": null,
           "composante": null,
@@ -15270,6 +16382,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Marketing et Communication",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-marketing",
+          "domaine": "dom-commerce",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -15678,6 +16806,22 @@
           }
         },
         {
+          "intitule": "Ingénierie",
+          "options": "Ingénierie des Logiciels et Traitement d'Images, Ingénierie des Réseaux Informatiques et Sécurité, Ingénierie des Systèmes Automatisés et Contrôle Qualité, Ingénierie des Télécoms, Réseaux et Systèmes Embarqués",
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-ingenieur-genie-industriel",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Systèmes d'Information Appliqués à la Gestion des Entreprises",
           "options": null,
           "composante": null,
@@ -15707,6 +16851,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Liste ministérielle 2024-2025 ()"
+          }
+        },
+        {
+          "intitule": "Systèmes d’Information et Management d’Entreprise",
+          "options": "Système d’information, Audit et Contrôle de Gestion, Système d’information et Génie Financier, Système d’Information, Marketing et Commerce",
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-ingenieur-informatique",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 629.25 (BO n° 7395)"
           }
         }
       ],
@@ -16390,6 +17550,54 @@
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
           }
+        },
+        {
+          "intitule": "Ingénierie des Transports",
+          "options": "Organisateurs de Transports Internationaux et Multimodaux, Commercial Transport Logistics",
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-logistique",
+          "domaine": "dom-transport-logistique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
+          "intitule": "Logistique",
+          "options": "Manager de la Chaîne Logistique, Achat International, E-logistique",
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-logistique",
+          "domaine": "dom-transport-logistique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Transport",
+          "options": "Transports Internationaux, Management et Droit du Transport Maritime",
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-logistique",
+          "domaine": "dom-transport-logistique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
         }
       ],
       "filieres_echues": [],
@@ -16721,6 +17929,22 @@
           }
         },
         {
+          "intitule": "Audit et Contrôle de Gestion",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Comptabilité Contrôle et Audit",
           "options": "Audit et Contrôle de Gestion, Comptabilité et Audit",
           "composante": null,
@@ -16734,6 +17958,38 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Deux années préparatoires en Ingénierie Informatique",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Cycle préparatoire intégré",
+          "duree_annees": 2,
+          "niveau": "niv-bac2",
+          "formation": "frm-cpge-scientifique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "FINTECH et Innovations Financières",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -16814,6 +18070,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Management des Systèmes d’Information et Gouvernance des Entreprises",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-ingenieur-informatique",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -17164,6 +18436,22 @@
           }
         },
         {
+          "intitule": "Big Data et Digital Business",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-data-science-ia",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Comptabilité, Contrôle et Audit",
           "options": null,
           "composante": null,
@@ -17193,6 +18481,118 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Droit et Gestion des Collectivités Territoriales",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-droit-prive",
+          "domaine": "dom-droit",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Eco-Management et Management Environnemental",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-energies-renouvelables",
+          "domaine": "dom-energie-mines",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Entrepreneuriat et Management de l’Innovation",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Finance Islamique",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Gestion de Projets",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Informatique Embarquée et Objets Connectés",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-ingenieur-informatique",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Ingénierie Communication, Marketing et E-Business",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-marketing",
+          "domaine": "dom-commerce",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -17369,6 +18769,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Notariat, Droit des Affaires et Médiation",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-droit-prive",
+          "domaine": "dom-droit",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -18952,6 +20368,22 @@
           }
         },
         {
+          "intitule": "Gestion Opérationnelle et Stratégies des Entreprises",
+          "options": "Gestion des Ressources Humaines, Finance, Marketing",
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-management",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Gestion des Ressources Humaines",
           "options": null,
           "composante": null,
@@ -18964,6 +20396,22 @@
           "homologation": {
             "statut": "recente",
             "fin": "2025-2026",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "IoT et Data Science",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-data-science-ia",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
             "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
@@ -19604,6 +21052,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Marketing et Commerce International",
+          "options": "Marketing et Action Commerciale, Marketing Digital",
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-marketing",
+          "domaine": "dom-commerce",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -20455,6 +21919,38 @@
           }
         },
         {
+          "intitule": "Audit, Contrôle de Gestion et Ingénierie Financière",
+          "options": "Audit et Contrôle de Gestion, Marchés et Ingénierie Financière",
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Business et Intelligence Artificielle",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-informatique",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
           "intitule": "Comptabilité, Contrôle, Audit et Ingénierie Financière",
           "options": "Comptabilité, Contrôle et Audit, Ingénierie Financière",
           "composante": null,
@@ -20548,6 +22044,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Marketing et Commerce International",
+          "options": "Marketing, Commerce International et E-Business",
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-marketing",
+          "domaine": "dom-commerce",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         }
       ],
@@ -20952,6 +22464,7 @@
         "frm-licence-genie-electrique",
         "frm-licence-gestion",
         "frm-licence-kinesitherapie",
+        "frm-licence-sage-femme",
         "frm-licence-sciences-education",
         "frm-licence-sciences-infirmieres",
         "frm-master-sante-publique"
@@ -21038,6 +22551,70 @@
           }
         },
         {
+          "intitule": "Infirmier Polyvalent",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-sciences-infirmieres",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
+          "intitule": "Infirmier en Anesthésie et Réanimation",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-sciences-infirmieres",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
+          "intitule": "Kiné -Physiothérapie",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-sciences-infirmieres",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
+          "intitule": "Orthophonie",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-kinesitherapie",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 547.24 (BO n° 7293)"
+          }
+        },
+        {
           "intitule": "Rééducation Motrice",
           "options": "Kiné-physiothérapie, Psychomotricité",
           "composante": null,
@@ -21067,6 +22644,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Sage-Femme",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-sage-femme",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
           }
         },
         {
@@ -22221,6 +23814,38 @@
           }
         },
         {
+          "intitule": "Neurospsychologie",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-psychologie",
+          "domaine": "dom-shs",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Psycho Gérontologie",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-psychologie",
+          "domaine": "dom-shs",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Psychologie",
           "options": null,
           "composante": null,
@@ -22233,6 +23858,22 @@
           "homologation": {
             "statut": "recente",
             "fin": "2025-2026",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Psychologie Clinique",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-licence-psychologie",
+          "domaine": "dom-shs",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
             "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
@@ -22250,6 +23891,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Psychologie du Travail",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-licence-psychologie",
+          "domaine": "dom-shs",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -22533,6 +24190,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Informatique, Réseaux et Multimédia",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-reseaux-securite",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -22973,6 +24646,38 @@
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
           }
+        },
+        {
+          "intitule": "Ingénierie et Qualité dans les Bioindustries",
+          "options": "Technologies Alimentaires et Qualité, Qualité dans les Industries Pharmaceutiques, le Cosmétique et les Laboratoires",
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-ingenieur-genie-industriel",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Qualité dans les Bio-Industries",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-ingenieur-genie-industriel",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
         }
       ],
       "filieres_echues": [],
@@ -23249,6 +24954,38 @@
           "homologation": {
             "statut": "recente",
             "fin": "2025-2026",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Ingénierie des Systèmes Distribués",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-ingenieur-genie-industriel",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Ingénierie des Systèmes d'Information",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Diplôme d'ingénieur",
+          "duree_annees": 5,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-systemes-information",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
             "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
@@ -23591,6 +25328,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Management des Ressources Humaines",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-grh",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         }
       ],
@@ -24602,6 +26355,22 @@
           }
         },
         {
+          "intitule": "Management",
+          "options": "Finance d’Entreprise, Management et Logistique, Marketing et Communication, Gestion des Ressources Humaines",
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Management et Transformations Digitales",
           "options": "Gestion des Ressources Humaines, Marketing et E-Communications, Logistique et Achats",
           "composante": null,
@@ -24934,9 +26703,11 @@
         "frm-licence-genie-logiciel",
         "frm-licence-gestion",
         "frm-licence-informatique",
+        "frm-licence-logistique",
         "frm-master-data-science-ia",
         "frm-master-finance-audit",
         "frm-master-logistique",
+        "frm-master-management",
         "frm-master-marketing"
       ],
       "filieres": [
@@ -25037,6 +26808,22 @@
           }
         },
         {
+          "intitule": "Comptabilité, Contrôle et Audit",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Digital Marketing et Communication",
           "options": null,
           "composante": null,
@@ -25053,6 +26840,38 @@
           }
         },
         {
+          "intitule": "E-Logistique",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-logistique",
+          "domaine": "dom-transport-logistique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Entrepreneuriat et Innovation en Entreprise",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-management",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Finance, Comptabilité, Contrôle et Audit",
           "options": "Gestion Financière, Audit et Contrôle de Gestion",
           "composante": null,
@@ -25066,6 +26885,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Management des Achats et Logistique",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-logistique",
+          "domaine": "dom-transport-logistique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
           }
         },
         {
@@ -25130,6 +26965,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Transformation Digitale",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         }
       ],
@@ -25778,6 +27629,22 @@
           }
         },
         {
+          "intitule": "Management",
+          "options": "Comptabilité, Contrôle et Audit de l'Entreprise, Marketing et Communication Digitale",
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Management Public et Gouvernance Territoriale",
           "options": null,
           "composante": null,
@@ -26159,6 +28026,54 @@
             "statut": "accreditee",
             "fin": "2026-2027",
             "texte": "Arrêté 1246.26 (BO n° 7535)"
+          }
+        },
+        {
+          "intitule": "Nutrition et Diététique",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-biologie-medicale",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
+          "intitule": "Orthophonie",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-kinesitherapie",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
+          "intitule": "Psychomotricité",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-kinesitherapie",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
           }
         }
       ],
@@ -26997,6 +28912,22 @@
             "statut": "accreditee",
             "fin": "2026-2027",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Classes Préparatoires Intégrées au Cycle d'Ingénieur en Agroalimentaire.",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Cycle préparatoire intégré",
+          "duree_annees": 2,
+          "niveau": "niv-bac2",
+          "formation": "frm-cpge-scientifique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -28078,6 +30009,22 @@
           }
         },
         {
+          "intitule": "Management",
+          "options": "Management Stratégique",
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Management et Gestion des Entreprises",
           "options": null,
           "composante": null,
@@ -28989,7 +30936,9 @@
       "formations": [
         "frm-bachelor-business",
         "frm-licence-banque-finance",
+        "frm-licence-genie-logiciel",
         "frm-licence-gestion",
+        "frm-licence-hotellerie",
         "frm-licence-informatique"
       ],
       "filieres": [
@@ -29023,6 +30972,38 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Management Hôtellerie et Tourisme",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-hotellerie",
+          "domaine": "dom-tourisme",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
+          "intitule": "Marketing Web Digital",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-genie-logiciel",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
           }
         }
       ],
@@ -29575,6 +31556,22 @@
             "fin": "2026-2027",
             "texte": "Arrêté 1246.26 (BO n° 7535)"
           }
+        },
+        {
+          "intitule": "Sciences de Management",
+          "options": "Finance, Contrôle de Gestion et Audit, Management Logistique",
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
         }
       ],
       "filieres_echues": [],
@@ -29761,6 +31758,38 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Management Finance",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Management, Marketing et Vente",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-marketing",
+          "domaine": "dom-commerce",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         }
       ],
@@ -29993,6 +32022,22 @@
           }
         },
         {
+          "intitule": "Communication et Médias Numériques",
+          "options": "Stratégie de Communication, Médias, Innovation et Création, Création de Contenus Numérique",
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-communication",
+          "domaine": "dom-communication",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Design Graphique et Numérique",
           "options": "Design Graphique et Motion Design, Illustration et Animation",
           "composante": null,
@@ -30005,6 +32050,38 @@
           "homologation": {
             "statut": "recente",
             "fin": "2025-2026",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Entrepreneuriat Culturel",
+          "options": "Entrepreneuriat Culturel, Gestion des Projets Culturels",
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-design-graphique",
+          "domaine": "dom-arts-design",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Scénario et Ecritures Audiovisuelles",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-licence-communication",
+          "domaine": "dom-communication",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
             "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         }
@@ -30179,6 +32256,7 @@
       },
       "wikidata": "Q3577932",
       "formations": [
+        "frm-licence-economie",
         "frm-licence-gestion",
         "frm-licence-informatique",
         "frm-licence-logistique",
@@ -30219,6 +32297,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Economie et Gestion",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-economie",
+          "domaine": "dom-shs",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
           }
         },
         {
@@ -30283,6 +32377,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Management des Ressources Humaines",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-grh",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -31295,6 +33405,22 @@
           }
         },
         {
+          "intitule": "Management des Affaires et Stratégie",
+          "options": "Transport et Logistique, Marketing et Vente",
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-management",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Management des affaires",
           "options": "1-Management des affaires, 2-Management des ressources humaines",
           "composante": null,
@@ -32155,6 +34281,7 @@
       "wikidata": null,
       "formations": [
         "frm-licence-communication",
+        "frm-licence-genie-logiciel",
         "frm-licence-hotellerie"
       ],
       "filieres": [
@@ -32172,6 +34299,54 @@
             "statut": "accreditee",
             "fin": "2026-2027",
             "texte": "Liste ministérielle 2024-2025 ()"
+          }
+        },
+        {
+          "intitule": "Communication Digitale et Développement Web",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-genie-logiciel",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Communication Média et Multimédia",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-licence-communication",
+          "domaine": "dom-communication",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Communication des Organisations",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-licence-communication",
+          "domaine": "dom-communication",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -32919,6 +35094,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Génie Informatique",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-ingenieur-informatique",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -33944,6 +36135,22 @@
             "fin": "2025-2026",
             "texte": "Arrêté 365.24 (BO n° 7313)"
           }
+        },
+        {
+          "intitule": "Management",
+          "options": "Management International, Audit et Contrôle de Gestion",
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
         }
       ],
       "filieres_echues": [],
@@ -34436,6 +36643,22 @@
           }
         },
         {
+          "intitule": "Finance des Entreprises",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Management Général",
           "options": null,
           "composante": null,
@@ -34465,6 +36688,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Réseaux et Télécoms",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-ingenieur-telecoms",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         }
       ],
@@ -34615,7 +36854,8 @@
       "formations": [
         "frm-ingenieur-informatique",
         "frm-licence-gestion",
-        "frm-licence-informatique"
+        "frm-licence-informatique",
+        "frm-master-data-science-ia"
       ],
       "filieres": [
         {
@@ -34631,6 +36871,22 @@
           "homologation": {
             "statut": "recente",
             "fin": "2025-2026",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
+          "intitule": "Ingénierie Informatique pour la Prise de Décision et - Données Massives",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-data-science-ia",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
             "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
@@ -34807,6 +37063,7 @@
         "frm-licence-reseaux-securite",
         "frm-master-cybersecurite",
         "frm-master-data-science-ia",
+        "frm-master-finance-audit",
         "frm-master-systemes-information"
       ],
       "filieres": [
@@ -34840,6 +37097,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Liste ministérielle 2024-2025 ()"
+          }
+        },
+        {
+          "intitule": "Monétique et Sécurisation des Transactions",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -35611,6 +37884,22 @@
           }
         },
         {
+          "intitule": "Maintenance et Technologie Biomédicale",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence / Bachelor",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-genie-electrique",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
+          }
+        },
+        {
           "intitule": "Sciences infirmières: infirmier polyvalent",
           "options": null,
           "composante": null,
@@ -36375,6 +38664,22 @@
       ],
       "filieres": [
         {
+          "intitule": "Audit, Contrôle et Finance en Environnement International",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Audit, Contrôle, Finance en Environnement International",
           "options": null,
           "composante": null,
@@ -36668,6 +38973,22 @@
           }
         },
         {
+          "intitule": "Comptabilité, Contrôle et Audit",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
+        {
           "intitule": "Finance",
           "options": "Finance d’Entreprise, Trading et Finance de Marché",
           "composante": null,
@@ -36681,6 +39002,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Management des Entreprises Touristiques et de l’Evénementiel",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-licence-hotellerie",
+          "domaine": "dom-tourisme",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         },
         {
@@ -37044,9 +39381,26 @@
       "formations": [
         "frm-cpge-scientifique",
         "frm-ingenieur-informatique",
-        "frm-licence-informatique"
+        "frm-licence-informatique",
+        "frm-master-data-science-ia"
       ],
       "filieres": [
+        {
+          "intitule": "BIG DATA et Aide à la décision",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-data-science-ia",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          }
+        },
         {
           "intitule": "Ingénierie Informatique",
           "options": "Intelligence Artificielle et Big Data, Cyber Sécurité",
@@ -37061,6 +39415,22 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          }
+        },
+        {
+          "intitule": "Intelligence Artificielle et Sciences des Données",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-master-data-science-ia",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           }
         }
       ],
@@ -38516,6 +40886,101 @@
           "campus": [
             "Rabat"
           ]
+        },
+        {
+          "intitule": "Deux Années Préparatoires au Cycle d'Ingénieur des filières Ingénierie Informatique et Réseaux, Ingénierie des Automatismes et Informatique Industrielle et Génie Industriel",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Cycle préparatoire intégré",
+          "duree_annees": 2,
+          "niveau": "niv-bac2",
+          "formation": "frm-cpge-scientifique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Tanger"
+          ]
+        },
+        {
+          "intitule": "Deux Années Préparatoires au Cycle d’Ingénieur Génie Civil, Bâtiments Et Travaux Publics",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Cycle préparatoire intégré",
+          "duree_annees": 2,
+          "niveau": "niv-bac2",
+          "formation": "frm-cpge-scientifique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Tanger"
+          ]
+        },
+        {
+          "intitule": "Deux Années Préparatoires au Cycle d’Ingénieur Génie Financier",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Cycle préparatoire intégré",
+          "duree_annees": 2,
+          "niveau": "niv-bac2",
+          "formation": "frm-cpge-scientifique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Tanger"
+          ]
+        },
+        {
+          "intitule": "Deux Années Préparatoires au Cycle d'Ingénieur Génie Financier",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Cycle préparatoire intégré",
+          "duree_annees": 2,
+          "niveau": "niv-bac2",
+          "formation": "frm-cpge-scientifique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Fès"
+          ]
+        },
+        {
+          "intitule": "Deux Années Préparatoires au Cycle d’Ingenieur Génie Civil, Bâtiments et Travaux Publics",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Cycle préparatoire intégré",
+          "duree_annees": 2,
+          "niveau": "niv-bac2",
+          "formation": "frm-cpge-scientifique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Fès"
+          ]
         }
       ],
       "filieres_echues": [],
@@ -39052,6 +41517,25 @@
           ]
         },
         {
+          "intitule": "Ingénierie",
+          "options": "Ingénierie Logicielle et Développement WEB, Architecture et Sécurité des Systèmes Informatiques",
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-ingenieur-genie-industriel",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Casablanca"
+          ]
+        },
+        {
           "intitule": "Management des Entreprises et Systèmes Digitaux",
           "options": "Finance et Contrôle, Marketing et Commerce",
           "composante": null,
@@ -39086,6 +41570,25 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          },
+          "campus": [
+            "Casablanca"
+          ]
+        },
+        {
+          "intitule": "Systèmes d’Information et Management d’Entreprise",
+          "options": "Système d'Information et Génie Financier, Système d'Information, Audit et Contrôle de Gestion, Système d'Information, Marketing et Commerce",
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-ingenieur-informatique",
+          "domaine": "dom-numerique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           },
           "campus": [
             "Casablanca"
@@ -39919,6 +42422,7 @@
       "formations": [
         "frm-bachelor-business",
         "frm-cpge-scientifique",
+        "frm-ingenieur-genie-electrique",
         "frm-ingenieur-genie-industriel",
         "frm-ingenieur-informatique",
         "frm-licence-gestion",
@@ -39928,6 +42432,7 @@
         "frm-master-droit-affaires",
         "frm-master-finance-audit",
         "frm-master-grh",
+        "frm-master-logistique",
         "frm-master-management",
         "frm-master-marketing",
         "frm-master-systemes-information"
@@ -40067,6 +42572,25 @@
           ]
         },
         {
+          "intitule": "Ingénierie Industrielle et Logistique",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Diplôme d'ingénieur",
+          "duree_annees": 5,
+          "niveau": "niv-bac5",
+          "formation": "frm-ingenieur-genie-industriel",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Rabat"
+          ]
+        },
+        {
           "intitule": "Ingénierie des Systèmes Informatiques",
           "options": "Systèmes d'Informations et Data Science, Administration des Systèmes et Réseaux, Intelligence Artificielle et Smart Systèmes",
           "composante": null,
@@ -40117,6 +42641,25 @@
           "homologation": {
             "statut": "recente",
             "fin": "2025-2026",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Rabat"
+          ]
+        },
+        {
+          "intitule": "Management de la Chaîne Logistique",
+          "options": "Achat, Transport et Logistique, Qualité et Management Industriel",
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-logistique",
+          "domaine": "dom-transport-logistique",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
             "texte": "Arrêté 365.24 (BO n° 7313)"
           },
           "campus": [
@@ -40466,6 +43009,25 @@
           ]
         },
         {
+          "intitule": "Ingénierie des Systèmes Embarqués",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-ingenieur-genie-electrique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Oujda"
+          ]
+        },
+        {
           "intitule": "Ingénierie des Systèmes d'Informatiques",
           "options": "Développement Informatique, Systèmes Embarqués et Intelligence Artificielle",
           "composante": null,
@@ -40555,6 +43117,25 @@
             "statut": "accreditee",
             "fin": "2026-2027",
             "texte": "Arrêté 1246.26 (BO n° 7535)"
+          },
+          "campus": [
+            "Béni Mellal"
+          ]
+        },
+        {
+          "intitule": "Classes Préparatoires des Technologies de l'Information",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Cycle préparatoire intégré",
+          "duree_annees": 2,
+          "niveau": "niv-bac2",
+          "formation": "frm-cpge-scientifique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           },
           "campus": [
             "Béni Mellal"
@@ -41152,6 +43733,25 @@
           ]
         },
         {
+          "intitule": "Audit et Contrôle de Gestion",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Casablanca"
+          ]
+        },
+        {
           "intitule": "Finance, Audit et Contrôle de gestion",
           "options": null,
           "composante": null,
@@ -41203,6 +43803,25 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          },
+          "campus": [
+            "Casablanca"
+          ]
+        },
+        {
+          "intitule": "Management de Projet et Ingénierie Entrepreneuriale",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": null,
+          "duree_annees": null,
+          "niveau": null,
+          "formation": "frm-licence-gestion",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           },
           "campus": [
             "Casablanca"
@@ -42303,6 +44922,25 @@
           ]
         },
         {
+          "intitule": "Deux Années Préparatoires au Cycle d'Ingénieur",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Cycle préparatoire intégré",
+          "duree_annees": 2,
+          "niveau": "niv-bac2",
+          "formation": "frm-cpge-scientifique",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Mohammedia"
+          ]
+        },
+        {
           "intitule": "Dispositifs Médicaux et Affaires Réglementaires",
           "options": null,
           "composante": null,
@@ -42335,6 +44973,25 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          },
+          "campus": [
+            "Mohammedia"
+          ]
+        },
+        {
+          "intitule": "Entrepreneuriat et Management Technologique",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-management",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           },
           "campus": [
             "Mohammedia"
@@ -43493,6 +46150,7 @@
       "wikidata": null,
       "formations": [
         "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-industriel",
         "frm-licence-biologie",
         "frm-licence-biologie-medicale",
         "frm-licence-genie-electrique",
@@ -43602,6 +46260,44 @@
           ]
         },
         {
+          "intitule": "Management de la Qualité en Etablissements de Santé",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-ingenieur-genie-industriel",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Casablanca"
+          ]
+        },
+        {
+          "intitule": "Management de la qualité et de la Gestion des Risques en Etablissements de Santé",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-ingenieur-genie-industriel",
+          "domaine": "dom-ingenierie",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Casablanca"
+          ]
+        },
+        {
           "intitule": "Orthoptie",
           "options": null,
           "composante": null,
@@ -43658,6 +46354,26 @@
           },
           "campus": [
             "Casablanca"
+          ]
+        },
+        {
+          "intitule": "Sciences de la Santé",
+          "options": "Neurosciences",
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-licence-biologie",
+          "domaine": "dom-sciences",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Casablanca",
+            "Agadir"
           ]
         },
         {
@@ -43732,6 +46448,25 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Agadir"
+          ]
+        },
+        {
+          "intitule": "Sciences Biomédicales",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Licence",
+          "duree_annees": 3,
+          "niveau": "niv-bac3",
+          "formation": "frm-licence-genie-electrique",
+          "domaine": "dom-sante",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 1176.23 (BO n° 7194)"
           },
           "campus": [
             "Agadir"
@@ -45128,6 +47863,7 @@
         "frm-licence-informatique",
         "frm-master-droit-affaires",
         "frm-master-finance-audit",
+        "frm-master-grh",
         "frm-master-logistique",
         "frm-master-management",
         "frm-master-marketing"
@@ -45191,6 +47927,25 @@
           ]
         },
         {
+          "intitule": "Finance",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-finance-audit",
+          "domaine": "dom-finance",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
+          },
+          "campus": [
+            "Casablanca"
+          ]
+        },
+        {
           "intitule": "Management Financier",
           "options": "Ingénierie Financière, Banque et Gestion des Investissements",
           "composante": null,
@@ -45223,6 +47978,25 @@
             "statut": "recente",
             "fin": "2025-2026",
             "texte": "Arrêté 655.25 (BO n° 7431)"
+          },
+          "campus": [
+            "Casablanca"
+          ]
+        },
+        {
+          "intitule": "Management des Ressources Humaines",
+          "options": null,
+          "composante": null,
+          "ville": null,
+          "diplome": "Master",
+          "duree_annees": 2,
+          "niveau": "niv-bac5",
+          "formation": "frm-master-grh",
+          "domaine": "dom-gestion",
+          "homologation": {
+            "statut": "recente",
+            "fin": "2024-2025",
+            "texte": "Arrêté 365.24 (BO n° 7313)"
           },
           "campus": [
             "Casablanca"
