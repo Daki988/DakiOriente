@@ -119,10 +119,30 @@ jobs:
           server-dir: ${{ env.FTP_DIR }}
           exclude: |
             .env
+            .env.github
             stockage/**
             sauvegardes/**
             acces/**
             tmp/**
+
+      # Clés gérées dans les secrets GitHub (Settings › Secrets and variables › Actions), déposées dans .env.github
+      # sans toucher au .env du serveur (qui reste prioritaire). Fichier jamais affiché dans le journal.
+      - name: Clés depuis les secrets GitHub
+        working-directory: .
+        env:
+          DAILY_API_KEY: ${{ secrets.DAILY_API_KEY }}
+        run: |
+          umask 077
+          : > .env.github
+          [ -n "$DAILY_API_KEY" ] && printf 'DAILY_API_KEY=%s\n' "$DAILY_API_KEY" >> .env.github
+          if [ -s .env.github ]; then
+            [ "$FTP_PROTOCOL" = ftps ] && tls="--ssl-reqd" || tls=""
+            curl -sS $tls --ftp-create-dirs -T .env.github --user "$FTP_USERNAME:$FTP_PASSWORD" "ftp://$FTP_SERVER${FTP_DIR%/}/.env.github"
+            echo "Clés déposées : $(cut -d= -f1 .env.github | tr '\n' ' ')"
+          else
+            echo "Aucune clé dans les secrets GitHub (DAILY_API_KEY) : rien à déposer."
+          fi
+          rm -f .env.github
 
       # Envoyé en dernier, une fois tous les fichiers en place : Passenger relance l'application à la requête suivante.
       - name: Redémarrer l'application

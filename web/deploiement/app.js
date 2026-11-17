@@ -5,8 +5,8 @@ const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
 
-const envFile = path.join(__dirname, ".env");
-if (fs.existsSync(envFile)) {
+// .env (réglé à la main, prioritaire) puis .env.github (clés déposées par la mise en ligne depuis les secrets GitHub).
+for (const envFile of [path.join(__dirname, ".env"), path.join(__dirname, ".env.github")]) if (fs.existsSync(envFile)) {
   for (const ligne of fs.readFileSync(envFile, "utf8").split(/\r?\n/)) {
     const m = /^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$/.exec(ligne);
     if (m && !ligne.trim().startsWith("#") && process.env[m[1]] === undefined) process.env[m[1]] = m[2].replace(/^(['"])(.*)\1$/, "$2");
