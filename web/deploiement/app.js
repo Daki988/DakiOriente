@@ -13,6 +13,9 @@ if (fs.existsSync(envFile)) {
   }
 }
 process.env.NODE_ENV = process.env.NODE_ENV || "production";
+// Journal des démarrages et mises à jour, lisible par FTP (les journaux de l'hébergeur ne sont pas accessibles).
+const journal = (m) => { try { fs.appendFileSync(path.join(__dirname, "demarrages.log"), `${new Date().toISOString()} [${process.pid}] ${m}\n`); } catch { /* */ } };
+journal(`démarrage (parent ${process.ppid}, ${process.argv.slice(1).join(" ")}, dossier ${process.cwd()})`);
 process.env.HOSTNAME = process.env.APP_HOSTNAME || "0.0.0.0"; // Passenger fournit PORT et relaie les requêtes
 if (!process.env.STORAGE_DIR) process.env.STORAGE_DIR = path.join(__dirname, "stockage");
 process.chdir(__dirname);
@@ -35,6 +38,7 @@ if (version && version !== lire(fichierApplique) && (process.env.DATABASE_URL ||
     fs.writeFileSync(fichierApplique, version + "\n");
     nouvelleVersion = true;
     console.log("[mise à jour] terminée");
+    journal(`version ${version} appliquée`);
   } catch (e) {
     console.error("[mise à jour] ÉCHEC des migrations ou des données :", e.message);
   }
@@ -147,6 +151,7 @@ const arreterAnciens = () => {
   try {
     const fs2 = require("fs");
     const moi = new Set([process.pid, process.ppid]);
+    const vus = [];
     for (const d of fs2.readdirSync("/proc")) {
       const pid = Number(d);
       if (!pid || moi.has(pid)) continue;
@@ -158,10 +163,12 @@ const arreterAnciens = () => {
         if (!/node|Passenger|lsnode/i.test(cmd) || /outils[\/]/.test(cmd)) continue; // tâches planifiées : jamais arrêtées
         process.kill(pid, "SIGTERM");
         console.log(`[mise à jour] ancien processus ${pid} arrêté (${cmd.slice(0, 80)})`);
+        journal(`ancien processus ${pid} arrêté (${cmd.slice(0, 120)})`);
         setTimeout(() => { try { process.kill(pid, 0); process.kill(pid, "SIGKILL"); } catch { /* déjà arrêté */ } }, 10000).unref();
-      } catch { /* processus disparu ou illisible */ }
+      } catch (e) { vus.push(`${d}:${e.code || e.message}`); }
     }
-  } catch (e) { console.error("[mise à jour] liste des processus indisponible :", e.message); }
+    journal(`recherche des anciens processus terminée${vus.length ? ` (illisibles : ${vus.slice(0, 15).join(", ")})` : ""}`);
+  } catch (e) { console.error("[mise à jour] liste des processus indisponible :", e.message); journal(`liste des processus indisponible : ${e.message}`); }
 };
 if (nouvelleVersion) setTimeout(arreterAnciens, 5000).unref();
 if (version) {
@@ -169,6 +176,7 @@ if (version) {
     const v = lire(fichierVersion);
     if (v && v !== version) {
       console.log(`[mise à jour] version ${v} déposée : arrêt de ce processus (version ${version}), Passenger en relance un neuf`);
+      journal(`version ${v} déposée : arrêt de ce processus (version ${version})`);
       clearInterval(surveiller);
       setTimeout(() => process.exit(0), 20000).unref(); // laisse finir l'envoi des fichiers et les requêtes en cours
     }
