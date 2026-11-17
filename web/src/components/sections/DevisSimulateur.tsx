@@ -9,7 +9,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { DONUT_COLORS, Donut } from "./Donut";
 import { DevisPdf } from "./DevisPdf";
 import { useDestination } from "@/components/ui/Destination";
-import { auPays, destinationById, vitrine, STATUT_LONG, VILLES_ETUDES, etabById, etablissements, fmt, formationById, labelById, paysDetailById } from "@/lib/data";
+import { auPays, destinationById, vitrine, STATUT_LONG, VILLES_ETUDES, etabById, etablissements, fmt, formationById, labelById, paysDetailById, libelleFilieres } from "@/lib/data";
 import { paysOrigine, paysOrigineById, visaDestination } from "@/lib/pays-origine";
 import { COUTS, HYP, LOGEMENT_LABEL, SOURCES, devis, formationParDefaut, type Logement } from "@/lib/devis";
 import { useDevise } from "@/components/ui/Devise";
@@ -83,7 +83,7 @@ export function DevisSimulateur() {
   const qual = [
     [ShieldCheck, "Reconnaissance", labelById[e.label]?.description ?? "Établissement autorisé"],
     [Calendar, "Ancienneté", e.annee_creation ? `Créé en ${e.annee_creation}` : "Date de création à confirmer"],
-    [GraduationCap, "Programmes", `${e.filieres.length} filières homologuées, reliées à ${nbMetiers} métiers`],
+    [GraduationCap, "Programmes", `${libelleFilieres(e)}, reliées à ${nbMetiers} métiers`],
     [Handshake, "Ouverture internationale", "Accueil des étudiants étrangers, accompagnement visa et logement via Navigoal"],
   ] as const;
   const env = [[Shield, "Sécurité", C.environnement.securite], [HeartPulse, "Santé", C.environnement.sante], [Bus, "Transports", C.environnement.transports], [Users, "Communauté", C.environnement.communaute], [CloudSun, "Climat", C.environnement.climat]] as const;

@@ -47,6 +47,7 @@ export const CHIFFRES = {
   etablissements: etablissements.length,
   campus: etablissements.reduce((n, e) => n + villesOf(e).length, 0),
   filieres: etablissements.reduce((n, e) => n + e.filieres.length, 0),
+  filieresAccreditees: etablissements.reduce((n, e) => n + e.filieres.filter((f) => !f.recente).length, 0),
   formations: FORMATIONS_OFFERTES.length,
   metiers: metiers.length,
   villes: VILLES_ETUDES.length,

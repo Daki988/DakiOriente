@@ -7,7 +7,7 @@ import { Tilt } from "@/components/motion/Tilt";
 import { Drapeau } from "@/components/ui/Drapeau";
 import { Illustration } from "@/components/ui/Illustration";
 import { photoFormation, photoMetier } from "@/lib/photos";
-import { LABELS, competenceLabel, etabById, etablissements, labelById, labelDescriptionPays, labelPays, niveauLabel, type Formation, type Label, type Metier, type PaysCode } from "@/lib/data";
+import { LABELS, competenceLabel, etabById, etablissements, labelById, labelDescriptionPays, labelPays, niveauLabel, type Formation, type Label, type Metier, type PaysCode, libelleFilieres } from "@/lib/data";
 
 export const DOMAIN_STYLE: Record<string, { icon: LucideIcon; bg: string; fg: string; solid: string }> = {
   "dom-sante": { icon: Stethoscope, bg: "#ffecef", fg: "#d42a50", solid: "#d42a50" },
@@ -87,7 +87,7 @@ export function PaysCard({ code }: { code: "MA" }) {
         <div className="flex items-center gap-4">{st.flag}<div><div className="text-[22px] font-extrabold">Maroc</div><div className="text-[13px] text-ink-mute">{st.villes}</div></div></div>
         <div className="flex gap-6">
           <div><div className="text-2xl font-extrabold">{etabs.length}</div><div className="text-xs text-ink-mute">établissements privés</div></div>
-          <div><div className="text-2xl font-extrabold">{etabs.reduce((n, e) => n + e.filieres.length, 0)}</div><div className="text-xs text-ink-mute">filières homologuées</div></div>
+          <div><div className="text-2xl font-extrabold">{etabs.reduce((n, e) => n + e.filieres.length, 0)}</div><div className="text-xs text-ink-mute">filières, dont {etabs.reduce((n, e) => n + e.filieres.filter((f) => !f.recente).length, 0)} accréditées</div></div>
         </div>
         <div className="mt-auto flex items-center justify-between">
           <div className="flex pl-2">{withLogo.map((e) => <EtabLogo key={e.id} e={e} size={38} className="-ml-2 shadow-sm" />)}</div>
@@ -140,7 +140,7 @@ export function EtabCard({ id }: { id: string }) {
           <div className="flex flex-wrap gap-1.5"><LabelChip label={e.label} court pays={e.pays} libelle={e.label_libelle} /><span className="chip bg-[#f6f8fe] text-ink-soft">{e.type_libelle}</span></div>
           <div className="mt-auto flex items-center justify-between border-t border-[#eef1f8] pt-3 text-[13px]">
             <span className="flex min-w-0 items-center gap-1.5 text-ink-mute"><Drapeau code={e.pays} taille={11} />{e.campus ? `${e.campus.length} campus` : e.ville}</span>
-            <span className="text-right font-bold text-brand-600">{e.label === "autorise" ? "Diplômes d'établissement" : e.pays === "MA" ? `${e.filieres.length} filière${e.filieres.length > 1 ? "s" : ""} homologuée${e.filieres.length > 1 ? "s" : ""}` : `${e.filieres.length} programme${e.filieres.length > 1 ? "s" : ""} reconnu${e.filieres.length > 1 ? "s" : ""}`}</span>
+            <span className="text-right font-bold text-brand-600">{e.label === "autorise" ? "Diplômes d'établissement" : e.pays === "MA" ? libelleFilieres(e) : `${e.filieres.length} programme${e.filieres.length > 1 ? "s" : ""} reconnu${e.filieres.length > 1 ? "s" : ""}`}</span>
           </div>
         </div>
       </Link>

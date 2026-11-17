@@ -37,7 +37,7 @@ export function Categories() {
 export function StatsBand() {
   const items: [typeof Users, number, string][] = [
     [Building2, CHIFFRES.etablissements, `établissements privés ${PAYS_ACTIFS_TEXTE}`],
-    [GraduationCap, CHIFFRES.filieres, "filières et programmes accrédités"],
+    [GraduationCap, CHIFFRES.filieres, `filières ouvertes aux candidatures, dont ${CHIFFRES.filieresAccreditees} à l'accréditation en cours`],
     [MapPin, CHIFFRES.villes, "villes d'études"],
     [Users, CHIFFRES.paysAfrique, "pays d'Afrique : démarches détaillées"],
   ];

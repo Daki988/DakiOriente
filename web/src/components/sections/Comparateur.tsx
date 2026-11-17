@@ -7,7 +7,7 @@ import { LireUrl } from "@/hooks/useFiltres";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { useDestination } from "@/components/ui/Destination";
 import { TAUX_SECOURS, convertir, convertirDe, formatMontant, symbole } from "@/lib/devises";
-import { DESTINATIONS_ACTIVES, destinationById, labelPays, type PaysCode } from "@/lib/data";
+import { DESTINATIONS_ACTIVES, destinationById, labelPays, libelleFilieres, type PaysCode } from "@/lib/data";
 import { LABELS, STATUT_LONG, VILLES_ETUDES, admissionLabel, compatibilite, etabById, etablissements, formationById, formations, formationsLiees, labelById, metierById, metiers, paysDetailById, type Etablissement, type Label } from "@/lib/data";
 import { paysOrigine, paysOrigineById, visaResume } from "@/lib/pays-origine";
 import { COUTS, devis } from "@/lib/devis";
@@ -204,10 +204,10 @@ export function Comparateur() {
       cell: (c) => (c.e.annee_creation ? <>{c.e.annee_creation}<span className="block text-xs font-semibold text-ink-mute">{an - c.e.annee_creation} ans d&apos;existence</span></> : "Non communiquée"),
     },
     {
-      id: "filieres", lab: "Filières accréditées dans l'école", aide: "Toutes formations confondues : donne une idée de la taille de l'école.",
+      id: "filieres", lab: "Filières de l'école", aide: "Toutes formations confondues : donne une idée de la taille de l'école. « En renouvellement » : accréditation échue, renouvellement pas encore publié.",
       cle: (c) => String(c.e.filieres.length),
       mieux: (c) => c.e.filieres.length === maxFilieres && maxFilieres > 0,
-      cell: (c) => `${c.e.filieres.length} filière${c.e.filieres.length > 1 ? "s" : ""}`,
+      cell: (c) => libelleFilieres(c.e),
     },
     { id: "metiers", lab: "Métiers visés", aide: "Métiers auxquels prépare la formation.", cle: (c) => formationById[c.ref].metiers.slice(0, 3).join("|"), cell: (c) => (mode === "metier" ? [mid] : formationById[c.ref].metiers).slice(0, 3).map((x) => metierById[x]?.nom).filter(Boolean).join(" · ") },
     { id: "visa", lab: origine ? `Visa (au départ de : ${paysOrigineById[origine]?.nom ?? origine})` : "Visa", aide: "Formalités pour entrer et étudier dans le pays.", cle: (c) => c.e.pays, cell: () => <Link href="/ressources/visa-carte-de-sejour/" className="hover:text-brand-600">{origine ? visaResume(origine) : "Choisis ton pays de départ"}</Link> },

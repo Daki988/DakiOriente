@@ -9,7 +9,7 @@ import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Villes étudiantes : où étudier ?",
-  description: `Casablanca, Rabat, Dakar, Fès, Thiès… Les ${CHIFFRES.villes} villes où étudier ${PAYS_ACTIFS_TEXTE} : écoles, formations, quartiers, transports, budget et logement.`,
+  description: `Casablanca, Rabat, Marrakech, Fès, Tanger… Les ${CHIFFRES.villes} villes où étudier ${PAYS_ACTIFS_TEXTE} : écoles, formations, quartiers, transports, budget et logement.`,
   alternates: { canonical: "/villes/" },
 };
 

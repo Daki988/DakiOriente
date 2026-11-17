@@ -141,7 +141,7 @@ export function NewApplication() {
                   <span className="text-sm text-ink-mute">{e.nom}</span>
                   <div className="mt-1 flex flex-wrap gap-1.5">
                     {e.label && <LabelChip label={e.label as Label} court />}
-                    {p.homologated ? <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><ShieldCheck size={12} />Filière homologuée</span> : p.homologation?.statut === "recente" ? <span className="chip bg-brand-50 text-brand-700"><ShieldCheck size={12} />Accrédité</span> : <span className="chip bg-[#eef1f8] text-ink-soft">Diplôme d&apos;établissement</span>}
+                    {p.homologated ? <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><ShieldCheck size={12} />Filière homologuée</span> : p.homologation?.statut === "recente" ? <span className="chip bg-sun-100 text-[#8a4b00]"><ShieldCheck size={12} />Renouvellement en attente</span> : <span className="chip bg-[#eef1f8] text-ink-soft">Diplôme d&apos;établissement</span>}
                     {p.level && <span className="chip bg-[#eef1f8] text-ink-soft">{niveauLabel(p.level)}</span>}
                     {p.durationYears && <span className="chip bg-[#eef1f8] text-ink-soft"><Clock size={12} />{p.durationYears} an{p.durationYears > 1 ? "s" : ""}</span>}
                   </div>

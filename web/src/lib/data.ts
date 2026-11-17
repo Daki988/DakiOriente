@@ -84,6 +84,17 @@ export const labelById = Object.fromEntries(LABELS.map((l) => [l.id, l])) as Rec
 /** Villes d'études (établissements publiés). */
 export const VILLES_ETUDES = Array.from(new Set((etablissementsData as unknown as { ville: string; campus: { ville: string }[] | null }[]).flatMap((e) => e.campus?.map((c) => c.ville) ?? [e.ville]))).sort((a, b) => a.localeCompare(b, "fr"));
 /** Villes où l'établissement accueille des étudiants (tous ses campus). */
+/** Filières dont l'accréditation est en cours, et celles échues dont le renouvellement n'est pas encore publié
+ * (toujours ouvertes aux candidatures pendant 2 ans). */
+type AvecFilieres = { filieres: { recente?: boolean; homologation?: { statut: string } }[] };
+const enRenouvellement = (f: AvecFilieres["filieres"][number]) => !!f.recente || f.homologation?.statut === "recente";
+export const nbAccreditees = (e: AvecFilieres) => e.filieres.filter((f) => !enRenouvellement(f)).length;
+export const nbRenouvellement = (e: AvecFilieres) => e.filieres.filter(enRenouvellement).length;
+/** « 12 filières accréditées » ou « 12 filières, dont 3 en renouvellement ». */
+export const libelleFilieres = (e: AvecFilieres) => {
+  const n = e.filieres.length, r = nbRenouvellement(e), s = n > 1 ? "s" : "";
+  return r ? `${n} filière${s}, dont ${r} en renouvellement` : `${n} filière${s} accréditée${s}`;
+};
 export const villesOf = (e: Pick<Etablissement, "ville" | "campus">) => e.campus?.map((c) => c.ville) ?? [e.ville];
 export type Photo = { src: string; credit: string | null; licence: string | null; page: string | null };
 type Fourchette = { min: number; max: number };

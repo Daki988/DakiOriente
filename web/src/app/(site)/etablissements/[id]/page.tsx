@@ -7,7 +7,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { PhotoGallery } from "@/components/sections/PhotoGallery";
-import { STATUT_LONG, auPays, destinationById, labelDescriptionPays, mobilite, villesOf, type Campus, type EtablissementDetail as Etablissement, domaineById, etablissements, fmt, labelById, metierById, niveauLabel, paysDetailById, residences, formationById, type Filiere } from "@/lib/data";
+import { STATUT_LONG, auPays, destinationById, labelDescriptionPays, mobilite, villesOf, type Campus, type EtablissementDetail as Etablissement, domaineById, etablissements, fmt, labelById, metierById, niveauLabel, paysDetailById, residences, formationById, type Filiere, libelleFilieres } from "@/lib/data";
 import { Drapeau } from "@/components/ui/Drapeau";
 import { LabelChip } from "@/components/ui/Cards";
 import { Prix } from "@/components/ui/Devise";
@@ -156,7 +156,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
   const D = fid ? devis(e.id, fid) : null;
   const typ = C.scolarite_annuelle[e.type] ?? C.scolarite_annuelle.universite;
   const B = P.budget;
-  const facts: [string, string][] = [["Label", e.label_libelle || labelById[e.label]?.libelle || "—"], ["Statut", STATUT_LONG[e.statut] ?? "Privé"], e.campus ? ["Campus", villes.join(" · ")] : ["Ville", e.ville], ["Création", e.annee_creation ? String(e.annee_creation) : "—"], autorise ? ["Diplômes", "D'établissement"] : [maroc ? "Filières homologuées" : "Programmes reconnus", String(e.filieres.length)], ["Étudiants étrangers", "Accueillis ✓"]];
+  const facts: [string, string][] = [["Label", e.label_libelle || labelById[e.label]?.libelle || "—"], ["Statut", STATUT_LONG[e.statut] ?? "Privé"], e.campus ? ["Campus", villes.join(" · ")] : ["Ville", e.ville], ["Création", e.annee_creation ? String(e.annee_creation) : "—"], autorise ? ["Diplômes", "D'établissement"] : [maroc ? "Filières" : "Programmes reconnus", maroc ? libelleFilieres(e).replace(/ filières?/, "") : String(e.filieres.length)], ["Étudiants étrangers", "Accueillis ✓"]];
   const compare = `/comparateur/?f=${fid}&e=${[e.id, ...similar.slice(0, 2).map((x) => x.id)].join(",")}`;
   return (
     <>
