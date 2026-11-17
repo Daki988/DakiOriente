@@ -92,7 +92,7 @@ async function startSession(u: User, req: Request) {
 // ---------------------------------------------------------------- Authentification
 route("POST", "/auth/inscription", "Authentification", "Créer un compte (élève, étudiant, parent, établissement, bailleur)", "public", async ({ req, body }) => {
   // Anti-abus : chaque inscription peut envoyer un e-mail ou un SMS (parent invité, code de vérification).
-  await limiter(`inscription:${ipClient(req.headers)}`, 5, 3600, "Trop d'inscriptions depuis cette connexion. Réessayez dans une heure.");
+  await limiter(`inscription:${ipClient(req.headers)}`, Number(process.env.LIMITE_INSCRIPTIONS) || 5, 3600, "Trop d'inscriptions depuis cette connexion. Réessayez dans une heure.");
   const u = await accounts.register(await body());
   await campaign.recordAcquisition(u.id, await acquisition());
   return json({ ...(await startSession(u, req)), devCode: u.devCode }, 201);
