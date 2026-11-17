@@ -1,0 +1,30 @@
+# Vide le cache des pages de Next.js sur l'hébergement (serveur/.next/server/route-cache), qui peut garder des pages
+# d'anciennes versions. app.js le fait de lui-même à chaque nouvelle version ; ce workflow sert en dépannage.
+# Lancement : Actions → Vider le cache des pages → Run workflow (ou modification de ce fichier).
+name: Vider le cache des pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["claude/navigoal-specs-tqkh43"]
+    paths: [".github/workflows/vider-cache-pages.yml"]
+
+jobs:
+  vider:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      S: ${{ secrets.NAVIGOAL_FTP_SERVER || secrets.FTP_SERVER }}
+      U: ${{ secrets.NAVIGOAL_FTP_USERNAME || secrets.FTP_USERNAME }}
+      P: ${{ secrets.NAVIGOAL_FTP_PASSWORD || secrets.FTP_PASSWORD }}
+      D: ${{ vars.NAVIGOAL_FTP_DIR || '/navigoal/' }}
+    steps:
+      - run: sudo apt-get -qq update && sudo apt-get -qq install -y lftp >/dev/null
+      - name: Vider
+        run: |
+          lftp -u "$U,$P" -e "set ftp:ssl-allow no; set net:max-retries 2; cd ${D%/}/serveur/.next/server; cls -1 route-cache/APP_PAGE | head -20; rm -r -f route-cache; mkdir -p route-cache; ls; bye" "$S"
+      - name: Vérifier
+        run: |
+          sleep 20
+          ua='Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1'
+          for p in / /metiers/ /etablissements/; do echo "$p $(curl -s -A "$ua" -H 'Cookie: x=1' "https://navigoal.net$p" | grep -o 'app/layout-[0-9a-f]*' | head -1)"; done

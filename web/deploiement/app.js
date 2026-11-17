@@ -44,6 +44,27 @@ if (version && version !== lire(fichierApplique) && (process.env.DATABASE_URL ||
   }
 }
 
+// Cache des pages de Next.js (serveur/.next/server/route-cache) : créé pendant le fonctionnement, il n'est jamais vidé
+// par la mise en ligne et survit aux redémarrages ; il servait alors des pages d'anciennes versions, qui réclament des
+// fichiers JavaScript supprimés (écran « Application error »). Il est vidé dès qu'il ne correspond plus à la version.
+{
+  const dossierCache = path.join(__dirname, "serveur", ".next", "server", "route-cache");
+  const marque = path.join(dossierCache, ".version");
+  // Vidé aussi une seconde fois, au premier démarrage plus de 2 minutes après le dépôt : entre-temps, d'anciens processus
+  // (arrêtés au plus tard 50 s après le dépôt) ont pu y remettre des pages de l'ancienne version.
+  const mtime = (f) => { try { return fs.statSync(f).mtimeMs; } catch { return 0; } };
+  const depot = mtime(fichierVersion), dejaVide = mtime(marque);
+  const pollue = depot && dejaVide && dejaVide - depot < 120000 && Date.now() - depot > 120000;
+  if (version && (lire(marque) !== version || pollue)) {
+    try {
+      fs.rmSync(dossierCache, { recursive: true, force: true });
+      fs.mkdirSync(dossierCache, { recursive: true });
+      fs.writeFileSync(marque, version + "\n");
+      journal(`cache des pages vidé (version ${version})`);
+    } catch (e) { journal(`cache des pages : ${e.message}`); }
+  }
+}
+
 // Connexions WebSocket refusées : le site n'en utilise aucune, et Next.js 14 a une faille connue sur ce point (SSRF).
 const http = require("http");
 const creerServeur = http.createServer;
