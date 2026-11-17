@@ -6,6 +6,7 @@ import { getLienAvis } from "@/lib/queries";
 import { premier, type SP } from "@/lib/recherche";
 import { MODES } from "@/lib/referentiel";
 import { Alerte } from "@/components/ui";
+import { pret } from "@/lib/stockage";
 
 export const metadata: Metadata = { title: "Noter un transitaire", robots: { index: false } };
 
@@ -19,6 +20,7 @@ const CRITERES = [
 export default async function AvisPage({ params, searchParams }: { params: Promise<{ token: string }>; searchParams: Promise<SP> }) {
   const { token } = await params;
   const sp = await searchParams;
+  await pret();
   const lien = getLienAvis(token);
   if (!lien || token.startsWith("demo-")) notFound();
   const { demande: d, transitaire: t } = lien;

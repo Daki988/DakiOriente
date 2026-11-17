@@ -1,19 +1,17 @@
-import fs from "node:fs/promises";
-import path from "node:path";
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
-import { UPLOAD_DIR } from "@/lib/db";
+import { lireDocument, pret } from "@/lib/stockage";
 import { getDocument } from "@/lib/queries";
 
 /** Documents justificatifs : accessibles uniquement à l'administrateur. */
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   if ((await getSession())?.role !== "admin") return new NextResponse("Accès refusé", { status: 403 });
+  await pret();
   const doc = getDocument(Number((await params).id));
   if (!doc) return new NextResponse("Introuvable", { status: 404 });
-  const fichier = path.join(UPLOAD_DIR, path.basename(doc.fichier));
-  const data = await fs.readFile(fichier).catch(() => null);
+  const data = await lireDocument(doc.fichier);
   if (!data) return new NextResponse("Fichier manquant", { status: 404 });
-  return new NextResponse(new Uint8Array(data), {
+  return new NextResponse(new Blob([new Uint8Array(data)], { type: doc.mime }), {
     headers: {
       "content-type": doc.mime,
       "content-disposition": `inline; filename="${encodeURIComponent(doc.nom_original)}"`,

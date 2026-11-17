@@ -5,11 +5,14 @@ import { premier, type SP } from "@/lib/recherche";
 import { afficherTelephone } from "@/lib/format";
 import { Alerte } from "@/components/ui";
 import { CasesMarchandises, ChampsEntrepots } from "@/components/ChampsPro";
+import { pret } from "@/lib/stockage";
 
 export const metadata = { title: "Mon profil", robots: { index: false } };
 
 export default async function Profil({ searchParams }: { searchParams: Promise<SP> }) {
-  const t = getTransitaire(await exigerPro())!;
+  const id = await exigerPro();
+  await pret();
+  const t = getTransitaire(id)!;
   const v = t.modif_en_attente ?? t;
   const erreur = premier((await searchParams).erreur);
   return (

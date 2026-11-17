@@ -4,11 +4,13 @@ import { getOffre } from "@/lib/queries";
 import { premier, type SP } from "@/lib/recherche";
 import { OffreForm } from "@/components/OffreForm";
 import { Alerte } from "@/components/ui";
+import { pret } from "@/lib/stockage";
 
 export const metadata = { title: "Modifier une offre", robots: { index: false } };
 
 export default async function Modifier({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<SP> }) {
   const tid = await exigerPro();
+  await pret();
   const o = getOffre(Number((await params).id));
   if (!o || o.transitaire_id !== tid || o.statut !== "valide") notFound();
   const erreur = premier((await searchParams).erreur);

@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { SearchForm } from "@/components/SearchForm";
 import { chiffres } from "@/lib/queries";
+import { pret } from "@/lib/stockage";
 
-export default function Accueil() {
+export default async function Accueil() {
+  await pret();
   const c = chiffres();
   return (
     <>

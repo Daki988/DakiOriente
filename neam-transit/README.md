@@ -44,6 +44,20 @@ En développement, l'admin se connecte avec le mot de passe `admin` (si `ADMIN_P
 4. Sauvegarde quotidienne du dossier `NEAM_DATA_DIR` (base + documents).
 5. **Avant l'ouverture au public** : supprimer les données de démo (`/admin` → « Supprimer la démo ») et faire valider les conditions d'utilisation par un juriste.
 
+## Hébergement sur Netlify (en ligne : https://neam-transit.netlify.app)
+
+Les fonctions Netlify n'ont pas de disque permanent et chaque requête peut être servie par une instance différente.
+Avec `NEAM_STOCKAGE=blobs`, la base SQLite est conservée dans **Netlify Blobs** (`lib/stockage.ts`) :
+rechargement si une autre instance l'a modifiée (ETag), écriture conditionnelle avec nouvel essai en cas de conflit.
+Les documents des transitaires sont aussi stockés dans Blobs (store `neam-documents`, servis uniquement à l'admin).
+
+Variables configurées sur le projet Netlify `neam-transit` : `SESSION_SECRET` et `ADMIN_PASSWORD` (secrets),
+`NEAM_STOCKAGE=blobs`, `NEAM_DATA_DIR=/tmp/neam-transit`, `NEAM_DEMO=1`, `NEXT_PUBLIC_SITE_URL`.
+Toute modification de variable demande un nouveau déploiement.
+
+Limite : ce mode convient à un trafic modéré (chaque écriture renvoie toute la base). Au-delà, passer à PostgreSQL
+(Netlify Database ou autre) — `lib/queries.ts` est le seul point d'accès à réécrire.
+
 ## Structure
 
 ```
@@ -53,6 +67,7 @@ lib/db.ts       schéma SQLite et connexion
 lib/queries.ts  toutes les requêtes (point unique pour une future migration PostgreSQL)
 lib/calcul.ts   estimation du coût, poids volumétrique, médiane/percentile
 lib/auth.ts     sessions signées, mot de passe admin, codes de connexion
+lib/stockage.ts persistance Netlify Blobs (base + documents)
 lib/actions/    Server Actions (public, pro, admin)
 lib/demo.ts     données de démonstration FICTIVES
 ```

@@ -3,10 +3,12 @@ import Link from "next/link";
 import { listTransitaires, offresDe, statsTransitaires } from "@/lib/queries";
 import { MODES, PAYS, type PaysCode } from "@/lib/referentiel";
 import { Badges, NoteCourte, PastilleDemo, PastilleVerifie } from "@/components/ui";
+import { pret } from "@/lib/stockage";
 
 export const metadata: Metadata = { title: "Transitaires vérifiés" };
 
-export default function Transitaires() {
+export default async function Transitaires() {
+  await pret();
   const ts = listTransitaires("verifie");
   const stats = statsTransitaires(ts.map((t) => t.id));
   return (

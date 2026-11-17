@@ -1,0 +1,15 @@
+# Déploiement Netlify.
+# Les fonctions Netlify n'ont pas de disque permanent : la base SQLite travaille dans /tmp
+# (NEAM_DATA_DIR=/tmp/neam-transit) et est conservée dans Netlify Blobs (NEAM_STOCKAGE=blobs),
+# avec les documents des transitaires. Voir lib/stockage.ts et le README.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Adaptateur Next.js de Netlify (SSR, Server Actions, routes) — version gérée par Netlify.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

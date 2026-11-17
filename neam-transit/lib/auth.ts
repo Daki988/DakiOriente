@@ -3,6 +3,7 @@ import crypto from "node:crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getDb } from "./db";
+import { ecrire } from "./stockage";
 
 /** Sessions sans état : cookie signé HMAC-SHA256 (rôle + identifiant + expiration). */
 
@@ -78,13 +79,17 @@ const hash = (code: string) => crypto.createHash("sha256").update(code + secret(
 export type EnvoiOtp = { ok: true; codeDev?: string } | { ok: false; erreur: string };
 
 export async function envoyerOtp(telephone: string): Promise<EnvoiOtp> {
-  const db = getDb();
-  const prev = db.prepare("SELECT envoye_at FROM otp WHERE telephone = ?").get(telephone) as { envoye_at: number } | undefined;
-  if (prev && Date.now() - prev.envoye_at < 60_000) return { ok: false, erreur: "Un code vient d'être envoyé. Patientez une minute avant d'en demander un autre." };
   const code = String(crypto.randomInt(0, 1_000_000)).padStart(6, "0");
-  db.prepare(
+  const tropTot = await ecrire(() => {
+    const db = getDb();
+    const prev = db.prepare("SELECT envoye_at FROM otp WHERE telephone = ?").get(telephone) as { envoye_at: number } | undefined;
+    if (prev && Date.now() - prev.envoye_at < 60_000) return true;
+    db.prepare(
     "INSERT INTO otp (telephone, code_hash, expires_at, tentatives, envoye_at) VALUES (?, ?, ?, 0, ?) ON CONFLICT(telephone) DO UPDATE SET code_hash = excluded.code_hash, expires_at = excluded.expires_at, tentatives = 0, envoye_at = excluded.envoye_at",
-  ).run(telephone, hash(code), Date.now() + 10 * 60_000, Date.now());
+    ).run(telephone, hash(code), Date.now() + 10 * 60_000, Date.now());
+    return false;
+  });
+  if (tropTot) return { ok: false, erreur: "Un code vient d'être envoyé. Patientez une minute avant d'en demander un autre." };
 
   const message = `Neam Transit : votre code de connexion est ${code}. Il expire dans 10 minutes. Ne le communiquez à personne.`;
   const url = process.env.OTP_WEBHOOK_URL;
@@ -106,7 +111,11 @@ export async function envoyerOtp(telephone: string): Promise<EnvoiOtp> {
   return { ok: true, codeDev: code };
 }
 
-export function verifierOtp(telephone: string, code: string): boolean {
+export function verifierOtp(telephone: string, code: string): Promise<boolean> {
+  return ecrire(() => verifierOtpSync(telephone, code));
+}
+
+function verifierOtpSync(telephone: string, code: string): boolean {
   const db = getDb();
   const r = db.prepare("SELECT * FROM otp WHERE telephone = ?").get(telephone) as
     | { code_hash: string; expires_at: number; tentatives: number }

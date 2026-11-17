@@ -5,11 +5,13 @@ import { getTransitaireBySlug, listTransitaires } from "@/lib/queries";
 import { premier, type SP } from "@/lib/recherche";
 import { MARCHANDISES, MARCHANDISE_CODES, MODES, MODE_CODES, PAYS, PAYS_CODES, PROVINCES } from "@/lib/referentiel";
 import { Alerte, PastilleDemo } from "@/components/ui";
+import { pret } from "@/lib/stockage";
 
 export const metadata: Metadata = { title: "Demande de devis" };
 
 export default async function Devis({ searchParams }: { searchParams: Promise<SP> }) {
   const sp = await searchParams;
+  await pret();
   const v = (k: string) => premier(sp[k]);
   const choisis = [sp.t ?? []].flat().map((s) => getTransitaireBySlug(String(s))).filter((t) => t && t.statut === "verifie").map((t) => t!.slug);
   const tous = listTransitaires("verifie");

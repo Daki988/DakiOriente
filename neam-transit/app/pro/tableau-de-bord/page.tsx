@@ -6,6 +6,7 @@ import { premier, type SP } from "@/lib/recherche";
 import { MARCHANDISES, MODES, PAYS } from "@/lib/referentiel";
 import { afficherTelephone, dateFr, fcfa, lienWhatsApp, nombre } from "@/lib/format";
 import { Alerte, NoteCourte } from "@/components/ui";
+import { pret } from "@/lib/stockage";
 
 export const metadata = { title: "Tableau de bord", robots: { index: false } };
 
@@ -18,6 +19,7 @@ const STATUT = {
 
 export default async function TableauDeBord({ searchParams }: { searchParams: Promise<SP> }) {
   const tid = await exigerPro();
+  await pret();
   const sp = await searchParams;
   const t = getTransitaire(tid)!;
   const offres = offresDe(tid, ["valide", "en_attente", "rejete"]);

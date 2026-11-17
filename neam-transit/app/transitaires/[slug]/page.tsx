@@ -5,10 +5,12 @@ import { avisDe, getTransitaireBySlug, offresDe, statsTransitaires } from "@/lib
 import { MARCHANDISES, MODES, PAYS } from "@/lib/referentiel";
 import { afficherTelephone, dateFr, fcfa, nombre } from "@/lib/format";
 import { Alerte, Badges, DelaiReelTexte, Etoiles, NoteCourte, PastilleDemo, PastilleVerifie } from "@/components/ui";
+import { pret } from "@/lib/stockage";
 
 type P = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: P): Promise<Metadata> {
+  await pret();
   const t = getTransitaireBySlug((await params).slug);
   return t && t.statut === "verifie" ? { title: `${t.nom} — transitaire vérifié`, description: t.description.slice(0, 160) } : { title: "Transitaire introuvable" };
 }
@@ -17,6 +19,7 @@ const LIVRAISON = { retrait: "Retrait en agence", grand_libreville: "Livraison G
 const UNITE_PRIX = { kg: "/ kg", cbm: "/ m³", conteneur: "/ conteneur", vehicule: "/ véhicule" } as const;
 
 export default async function FicheTransitaire({ params }: P) {
+  await pret();
   const t = getTransitaireBySlug((await params).slug);
   if (!t || t.statut !== "verifie") notFound();
   const offres = offresDe(t.id);

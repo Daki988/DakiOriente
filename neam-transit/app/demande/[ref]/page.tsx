@@ -6,11 +6,13 @@ import { messageContact } from "@/lib/messages";
 import { MARCHANDISES, MODES, PAYS } from "@/lib/referentiel";
 import { dateFr, nombre, SITE_URL } from "@/lib/format";
 import { Alerte } from "@/components/ui";
+import { pret } from "@/lib/stockage";
 
 export const metadata: Metadata = { title: "Votre demande", robots: { index: false } };
 
 export default async function DemandePage({ params }: { params: Promise<{ ref: string }> }) {
   const { ref } = await params;
+  await pret();
   const d = getDemande(ref);
   if (!d || ref.startsWith("DEMO-")) notFound();
   const message = messageContact({ pays: d.origine_pays, ville: d.origine_ville, destination: d.ville_destination, mode: d.mode, marchandise: d.marchandise, poids: d.poids, volume: d.volume, quantite: d.quantite, ref: d.ref });

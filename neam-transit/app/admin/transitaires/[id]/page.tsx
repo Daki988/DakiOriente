@@ -7,6 +7,7 @@ import { BADGES, BADGE_CODES, MARCHANDISES, MODES, PAYS } from "@/lib/referentie
 import { afficherTelephone, dateFr, fcfa } from "@/lib/format";
 import { premier, type SP } from "@/lib/recherche";
 import { Alerte } from "@/components/ui";
+import { pret } from "@/lib/stockage";
 
 export const metadata = { title: "Dossier transitaire", robots: { index: false } };
 
@@ -14,6 +15,7 @@ const DOC_LABEL: Record<string, string> = { rccm: "RCCM", identite: "Pièce d'id
 
 export default async function DossierTransitaire({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<SP> }) {
   await exigerAdmin();
+  await pret();
   const t = getTransitaire(Number((await params).id));
   if (!t) notFound();
   const docs = documentsDe(t.id);

@@ -1,10 +1,8 @@
 "use server";
 
 import crypto from "node:crypto";
-import fs from "node:fs/promises";
-import path from "node:path";
 import { redirect } from "next/navigation";
-import { UPLOAD_DIR } from "@/lib/db";
+import { ecrire, pret, sauverDocument } from "@/lib/stockage";
 import { envoyerOtp, exigerPro, fermerSession, ouvrirSession, verifierOtp } from "@/lib/auth";
 import {
   archiverOffre,
@@ -48,6 +46,7 @@ function lireEntrepots(f: FormData): Entrepot[] {
 const lireMarchandises = (f: FormData, k: string) => f.getAll(k).map(String).filter(isMarchandise) as MarchandiseCode[];
 
 export async function inscrireTransitaire(form: FormData) {
+  await pret();
   const retour = (msg: string) => redirect(`/pro/inscription?erreur=${encodeURIComponent(msg)}`);
   if (txt(form, "site")) return retour("Demande refusée.");
   const telephone = normaliserTelephone(txt(form, "telephone", 30));
@@ -81,11 +80,11 @@ export async function inscrireTransitaire(form: FormData) {
   const docs: { type: string; fichier: string; nom_original: string; mime: string }[] = [];
   for (const { type, file } of fichiers) {
     const nomFichier = `${crypto.randomBytes(16).toString("hex")}.${TYPES_DOC[file.type as keyof typeof TYPES_DOC]}`;
-    await fs.writeFile(path.join(UPLOAD_DIR, nomFichier), Buffer.from(await file.arrayBuffer()));
+    await sauverDocument(nomFichier, new Uint8Array(await file.arrayBuffer()));
     docs.push({ type, fichier: nomFichier, nom_original: file.name.slice(0, 120), mime: file.type });
   }
 
-  const id = creerTransitaire(
+  const id = await ecrire(() => creerTransitaire(
     {
       nom,
       ville,
@@ -103,12 +102,13 @@ export async function inscrireTransitaire(form: FormData) {
       modes_paiement: txt(form, "modes_paiement", 200),
     },
     docs,
-  );
+  ));
   await ouvrirSession({ role: "pro", id }, 24 * 7);
   redirect("/pro/tableau-de-bord?bienvenue=1");
 }
 
 export async function demanderCode(form: FormData) {
+  await pret();
   const telephone = normaliserTelephone(txt(form, "telephone", 30));
   if (!telephone) redirect(`/pro/connexion?erreur=${encodeURIComponent("Numéro invalide.")}`);
   const t = getTransitaireByTelephone(telephone);
@@ -122,8 +122,9 @@ export async function demanderCode(form: FormData) {
 export async function validerCode(form: FormData) {
   const telephone = normaliserTelephone(txt(form, "telephone", 30)) ?? "";
   const code = txt(form, "code", 10);
+  await pret();
   const t = getTransitaireByTelephone(telephone);
-  if (!t || !verifierOtp(telephone, code)) redirect(`/pro/connexion?tel=${telephone}&erreur=${encodeURIComponent("Code incorrect ou expiré.")}`);
+  if (!t || !(await verifierOtp(telephone, code))) redirect(`/pro/connexion?tel=${telephone}&erreur=${encodeURIComponent("Code incorrect ou expiré.")}`);
   await ouvrirSession({ role: "pro", id: t.id }, 24 * 7);
   redirect("/pro/tableau-de-bord");
 }
@@ -135,6 +136,7 @@ export async function deconnexion() {
 
 export async function enregistrerOffre(form: FormData) {
   const tid = await exigerPro();
+  await pret();
   const remplace = Number(txt(form, "remplace_id")) || null;
   const retour = (msg: string) => redirect(`${remplace ? `/pro/offres/${remplace}` : "/pro/offres/nouvelle"}?erreur=${encodeURIComponent(msg)}`);
   if (remplace && getOffre(remplace)?.transitaire_id !== tid) return retour("Offre introuvable.");
@@ -152,7 +154,7 @@ export async function enregistrerOffre(form: FormData) {
   const marchandises = lireMarchandises(form, "marchandises");
   if (!marchandises.length) return retour("Cochez au moins un type de marchandise accepté.");
   const depart = txt(form, "prochain_depart", 10);
-  soumettreOffre(
+  await ecrire(() => soumettreOffre(
     tid,
     {
       origine_pays: pays,
@@ -173,23 +175,24 @@ export async function enregistrerOffre(form: FormData) {
       prochain_depart: /^\d{4}-\d{2}-\d{2}$/.test(depart) ? depart : null,
     },
     remplace,
-  );
+  ));
   redirect("/pro/tableau-de-bord?offre=1");
 }
 
 export async function retirerOffre(form: FormData) {
   const tid = await exigerPro();
-  archiverOffre(tid, Number(form.get("id")));
+  await ecrire(() => archiverOffre(tid, Number(form.get("id"))));
   redirect("/pro/tableau-de-bord");
 }
 
 export async function modifierProfil(form: FormData) {
   const tid = await exigerPro();
+  await pret();
   const t = getTransitaire(tid)!;
   const whatsapp = txt(form, "whatsapp", 30) ? normaliserTelephone(txt(form, "whatsapp", 30)) : null;
   const entrepots = lireEntrepots(form);
   if (!entrepots.length) redirect(`/pro/profil?erreur=${encodeURIComponent("Indiquez au moins un entrepôt ou partenaire.")}`);
-  proposerModifProfil(tid, {
+  await ecrire(() => proposerModifProfil(tid, {
     description: txt(form, "description", 1000),
     whatsapp: whatsapp ?? t.telephone,
     email: txt(form, "email", 120) || null,
@@ -197,7 +200,7 @@ export async function modifierProfil(form: FormData) {
     modes_paiement: txt(form, "modes_paiement", 200),
     marchandises_refusees: lireMarchandises(form, "refusees"),
     entrepots,
-  });
+  }));
   redirect("/pro/tableau-de-bord?profil=1");
 }
 
@@ -205,6 +208,7 @@ export async function repondre(form: FormData) {
   const tid = await exigerPro();
   const id = Number(form.get("avis_id"));
   const reponse = txt(form, "reponse", 800);
-  if (reponse && avisDe(tid).some((a) => a.id === id)) repondreAvis(tid, id, reponse);
+  await pret();
+  if (reponse && avisDe(tid).some((a) => a.id === id)) await ecrire(() => repondreAvis(tid, id, reponse));
   redirect("/pro/tableau-de-bord?reponse=1");
 }

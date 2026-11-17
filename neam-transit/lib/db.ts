@@ -139,20 +139,39 @@ CREATE TABLE IF NOT EXISTS otp (
 );
 `;
 
+export const DB_FILE = path.join(DATA_DIR, "neam-transit.db");
+/** En mode Netlify Blobs, la base est un instantané : pas de WAL (tout doit être dans le fichier). */
+export const MODE_BLOBS = process.env.NEAM_STOCKAGE === "blobs";
+
 const globalForDb = globalThis as unknown as { __neamDb?: DatabaseSync };
+
+function ouvrir(): DatabaseSync {
+  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+  const db = new DatabaseSync(DB_FILE);
+  db.exec(`PRAGMA journal_mode = ${MODE_BLOBS ? "DELETE" : "WAL"}; PRAGMA foreign_keys = ON; PRAGMA busy_timeout = 5000;`);
+  db.exec(SCHEMA);
+  return db;
+}
 
 export function getDb(): DatabaseSync {
   if (globalForDb.__neamDb) return globalForDb.__neamDb;
-  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
-  const db = new DatabaseSync(path.join(DATA_DIR, "neam-transit.db"));
-  db.exec("PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON; PRAGMA busy_timeout = 5000;");
-  db.exec(SCHEMA);
-  if (process.env.NEAM_DEMO === "1") {
+  const db = ouvrir();
+  if (process.env.NEAM_DEMO === "1" && !MODE_BLOBS) {
     const n = db.prepare("SELECT COUNT(*) AS n FROM transitaires").get() as { n: number };
     if (n.n === 0) seedDemo(db);
   }
   globalForDb.__neamDb = db;
   return db;
+}
+
+/** Remplace le fichier de base par un instantané (mode Blobs) et rouvre la connexion. */
+export function remplacerBase(contenu: Uint8Array | null) {
+  globalForDb.__neamDb?.close();
+  globalForDb.__neamDb = undefined;
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  if (contenu) fs.writeFileSync(DB_FILE, contenu);
+  else fs.rmSync(DB_FILE, { force: true });
+  globalForDb.__neamDb = ouvrir();
 }
 
 /** Exécute une fonction dans une transaction. */

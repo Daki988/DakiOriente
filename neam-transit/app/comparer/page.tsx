@@ -7,6 +7,7 @@ import { rechercher, type Resultat } from "@/lib/queries";
 import { lireCriteres, type SP } from "@/lib/recherche";
 import { MARCHANDISES, MODES, PAYS } from "@/lib/referentiel";
 import { messageContact } from "@/lib/messages";
+import { pret } from "@/lib/stockage";
 
 export const metadata: Metadata = { title: "Comparer les transitaires" };
 
@@ -21,6 +22,7 @@ function trier(rs: Resultat[], tri: string) {
 
 export default async function Comparer({ searchParams }: { searchParams: Promise<SP> }) {
   const sp = await searchParams;
+  await pret();
   const { criteres: c, valeurs, type, tri } = lireCriteres(sp);
   const resultats = trier(rechercher(c), tri);
   const sansQuantite = type === "groupage" && !c.poids && !c.volume;

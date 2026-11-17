@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { creerAvis, creerDemande, getLienAvis, getTransitaireBySlug } from "@/lib/queries";
 import { normaliserTelephone } from "@/lib/format";
 import { isMarchandise, isMode, isPays, isVilleGabon, MODES } from "@/lib/referentiel";
+import { ecrire, pret } from "@/lib/stockage";
 
 const txt = (f: FormData, k: string, max = 200) => String(f.get(k) ?? "").trim().slice(0, max);
 const num = (f: FormData, k: string) => {
@@ -12,6 +13,7 @@ const num = (f: FormData, k: string) => {
 };
 
 export async function envoyerDemande(form: FormData) {
+  await pret();
   const retour = (msg: string) => redirect(`/devis?${new URLSearchParams([...[...form.getAll("t")].map((t) => ["t", String(t)] as [string, string]), ["erreur", msg]])}`);
   if (txt(form, "site")) return retour("Demande refusée."); // champ piège anti-robots
   const slugs = [...new Set(form.getAll("t").map(String))].slice(0, 5);
@@ -27,7 +29,7 @@ export async function envoyerDemande(form: FormData) {
   const mode = txt(form, "mode");
   if (!isPays(pays) || !isVilleGabon(dest) || !isMarchandise(marchandise)) return retour("Complétez le départ, l'arrivée et le type de marchandise.");
   if (form.get("consentement") !== "on") return retour("Vous devez accepter la transmission de votre demande aux transitaires choisis.");
-  const ref = creerDemande(
+  const ref = await ecrire(() => creerDemande(
     {
       nom,
       telephone,
@@ -42,11 +44,12 @@ export async function envoyerDemande(form: FormData) {
       description: txt(form, "description", 1500),
     },
     transitaires.map((t) => t!.id),
-  );
+  ));
   redirect(`/demande/${ref}`);
 }
 
 export async function envoyerAvis(form: FormData) {
+  await pret();
   const token = txt(form, "token", 64);
   const lien = getLienAvis(token);
   if (!lien) redirect("/");
@@ -68,7 +71,7 @@ export async function envoyerAvis(form: FormData) {
   if (Date.parse(remise) < Date.parse(lien.demande.created_at.slice(0, 10)) - 30 * 86400000) return retour("La date de remise est trop ancienne par rapport à votre demande.");
   const famille = txt(form, "famille");
   if (famille !== "aerien" && famille !== "maritime") return retour("Précisez avion ou bateau.");
-  creerAvis({
+  await ecrire(() => creerAvis({
     transitaire_id: lien.transitaire.id,
     demande_id: lien.demande.id,
     nom: txt(form, "nom", 60) || lien.demande.nom.split(" ")[0],
@@ -80,6 +83,6 @@ export async function envoyerAvis(form: FormData) {
     commentaire: txt(form, "commentaire", 1500),
     date_remise: remise,
     date_reception: reception,
-  });
+  }));
   redirect(`/avis/${token}?merci=1`);
 }

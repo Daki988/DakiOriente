@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { exigerAdmin, fermerSession, ouvrirSession, verifierMotDePasseAdmin } from "@/lib/auth";
 import { getDb } from "@/lib/db";
+import { ecrire } from "@/lib/stockage";
 import { deleteDemo, seedDemo } from "@/lib/demo";
 import { majStatutTransitaire, modererAvis, modererReponse, traiterModifProfil, validerOffre, type StatutTransitaire } from "@/lib/queries";
 import { BADGE_CODES, type BadgeCode } from "@/lib/referentiel";
@@ -26,14 +27,14 @@ export async function decisionTransitaire(form: FormData) {
   const statut = String(form.get("statut")) as StatutTransitaire;
   if (!["en_attente", "verifie", "refuse", "suspendu"].includes(statut)) return;
   const badges = form.getAll("badges").map(String).filter((b): b is BadgeCode => (BADGE_CODES as string[]).includes(b));
-  majStatutTransitaire(id, statut, badges, String(form.get("note") ?? "").trim().slice(0, 500) || null);
+  await ecrire(() => majStatutTransitaire(id, statut, badges, String(form.get("note") ?? "").trim().slice(0, 500) || null));
   redirect(`/admin/transitaires/${id}?ok=1`);
 }
 
 async function modifProfil(form: FormData, accepter: boolean) {
   await exigerAdmin();
   const id = Number(form.get("id"));
-  traiterModifProfil(id, accepter);
+  await ecrire(() => traiterModifProfil(id, accepter));
   redirect(`/admin/transitaires/${id}?ok=1`);
 }
 export async function accepterModifProfil(form: FormData) {
@@ -45,7 +46,7 @@ export async function refuserModifProfil(form: FormData) {
 
 async function decisionOffre(form: FormData, ok: boolean) {
   await exigerAdmin();
-  validerOffre(Number(form.get("id")), ok, String(form.get("motif") ?? "").trim().slice(0, 300) || null);
+  await ecrire(() => validerOffre(Number(form.get("id")), ok, String(form.get("motif") ?? "").trim().slice(0, 300) || null));
   revalidatePath("/admin");
   redirect("/admin#offres");
 }
@@ -59,8 +60,7 @@ export async function refuserOffreAction(form: FormData) {
 async function decisionAvis(form: FormData, publier: boolean) {
   await exigerAdmin();
   const id = Number(form.get("id"));
-  if (String(form.get("cible")) === "reponse") modererReponse(id, publier);
-  else modererAvis(id, publier);
+  await ecrire(() => (String(form.get("cible")) === "reponse" ? modererReponse(id, publier) : modererAvis(id, publier)));
   redirect("/admin#avis");
 }
 export async function publierAction(form: FormData) {
@@ -72,13 +72,15 @@ export async function rejeterAction(form: FormData) {
 
 export async function chargerDemo() {
   await exigerAdmin();
-  const db = getDb();
-  const n = db.prepare("SELECT COUNT(*) AS n FROM transitaires WHERE demo = 1").get() as { n: number };
-  if (n.n === 0) seedDemo(db);
+  await ecrire(() => {
+    const db = getDb();
+    const n = db.prepare("SELECT COUNT(*) AS n FROM transitaires WHERE demo = 1").get() as { n: number };
+    if (n.n === 0) seedDemo(db);
+  });
   redirect("/admin");
 }
 export async function supprimerDemo() {
   await exigerAdmin();
-  deleteDemo(getDb());
+  await ecrire(() => deleteDemo(getDb()));
   redirect("/admin");
 }

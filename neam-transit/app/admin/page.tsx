@@ -4,6 +4,7 @@ import { chargerDemo, deconnexionAdmin, publierAction, refuserOffreAction, rejet
 import { avisEnAttente, chiffres, dernieresDemandes, getOffre, listTransitaires, listTransitairesModifEnAttente, offresEnAttente } from "@/lib/queries";
 import { MARCHANDISES, MODES, PAYS } from "@/lib/referentiel";
 import { afficherTelephone, dateFr, fcfa, nombre } from "@/lib/format";
+import { pret } from "@/lib/stockage";
 
 export const metadata = { title: "Administration", robots: { index: false } };
 
@@ -11,6 +12,7 @@ const LIVRAISON = { retrait: "Retrait en agence", grand_libreville: "Livraison G
 
 export default async function Admin() {
   await exigerAdmin();
+  await pret();
   const c = chiffres();
   const enAttente = listTransitaires("en_attente");
   const modifs = listTransitairesModifEnAttente();
