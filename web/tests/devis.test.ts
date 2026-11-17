@@ -31,3 +31,17 @@ describe("devis personnalisé", () => {
     expect(loyer.v).toEqual([r.logements[0].loyer_min, r.logements[0].loyer_max ?? r.logements[0].loyer_min]);
   });
 });
+describe("détail du devis par rubrique", () => {
+  it("le logement est isolé, les rubriques et les lignes retombent exactement sur le total", () => {
+    const eid = "ma-esa-casa", fid = formationParDefaut("ma-esa-casa");
+    for (const d of [devis(eid, fid, "GA", "studio"), devis(eid, fid, "GA", "colocation"), devis(eid, fid, "SN", "studio", { ...PERSO_DEFAUT, retours: 1, ordinateur: true, soutien: true, transport: "taxi" })]) {
+      expect(d.cats.Logement[1]).toBeGreaterThan(0);
+      const somme = (xs: [number, number][]) => xs.reduce((a, x) => [a[0] + x[0], a[1] + x[1]], [0, 0]);
+      const parRubrique = somme(Object.values(d.cats));
+      const parLigne = somme(d.detail.map((x) => x.v));
+      expect(parLigne[0]).toBeCloseTo(parRubrique[0], -1);
+      expect(parRubrique[0]).toBeCloseTo(d.total[0] + (d.aides?.[1] ?? 0), -1);
+      expect(parRubrique[1]).toBeCloseTo(d.total[1] + (d.aides?.[0] ?? 0), -1);
+    }
+  });
+});

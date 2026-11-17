@@ -28,12 +28,15 @@ export function DevisPdf({ e, F, D, devise, taux, origine, logement, eleve, paye
           <div className="flex flex-col gap-0.5 rounded-xl bg-[#f6f8fe] p-3"><span className="text-[11px] font-extrabold text-ink-mute">ÉTUDIANT·E</span><b>{eleve || "—"}</b><span>Départ : {origine ? nomPays(origine) : "—"}</span><span>Responsable financier : {payeur || "—"}</span><span>Logement : {D.logementLibelle ?? LOGEMENT_LABEL[logement].toLowerCase()}</span></div>
           <div className="flex flex-col gap-0.5 rounded-xl bg-[#f6f8fe] p-3"><span className="text-[11px] font-extrabold text-ink-mute">FORMATION</span><b>{F.intitule}</b><span>{e.nom}</span><span>{e.ville}, {destinationById[e.pays]?.nom} · {e.pays === "MA" ? labelById[e.label]?.libelle : e.label_libelle}</span><span>{F.diplome} · {D.years} an{D.years > 1 ? "s" : ""}</span></div>
         </div>
-        <h3 className="mt-3 text-[14px] font-extrabold">1. Synthèse des coûts sur {D.years} ans ({D.devise}{loc ? ` et ${devise}` : ""})</h3>
+        <h3 className="mt-3 text-[14px] font-extrabold">1. Détail des coûts sur {D.years} ans, par rubrique ({D.devise}{loc ? ` et ${devise}` : ""})</h3>
         {loc && <p className="mt-1 text-[10.5px] text-ink-mute">Équivalents en {devise}, la monnaie dans laquelle l&apos;argent sera envoyé : taux du {new Date(taux.date).toLocaleDateString("fr-FR")}, {formatMontant(D.devise === "MAD" ? 1000 : 100000, D.devise)} ≈ {eq(D.devise === "MAD" ? 1000 : 100000)} (marge de prudence de {MARGE_PRUDENCE * 100} % incluse).</p>}
         <table className="mt-2 w-full border-collapse">
           <thead><tr className="bg-brand-950 text-xs text-white"><td className="px-2.5 py-2">Poste</td><td className="px-2.5 py-2 text-right">Minimum</td><td className="px-2.5 py-2 text-right">Maximum</td></tr></thead>
           <tbody>
-            {Object.entries(D.cats).map(([k, v]) => <tr key={k}><td className={td}>{k}</td><td className={`${td} text-right`}><M v={v[0]} /></td><td className={`${td} text-right`}><M v={v[1]} /></td></tr>)}
+            {Object.entries(D.cats).map(([k, v]) => [
+              <tr key={k} className="bg-[#f6f8fe] font-extrabold"><td className={td}>{k}</td><td className={`${td} text-right`}><M v={v[0]} /></td><td className={`${td} text-right`}><M v={v[1]} /></td></tr>,
+              ...D.detail.filter((x) => x.rubrique === k).map((x) => <tr key={k + x.libelle} className="text-[10.5px] text-ink-soft"><td className={`${td} pl-5`}>{x.libelle}</td><td className={`${td} text-right`}>{fmt(x.v[0])}</td><td className={`${td} text-right`}>{fmt(x.v[1])}</td></tr>),
+            ])}
             {D.aides && D.aides[1] > 0 && <tr className="text-[#0b6e38]"><td className={td}>Bourse ou réduction déduite</td><td className={`${td} text-right`}>− <M v={D.aides[1]} /></td><td className={`${td} text-right`}>− <M v={D.aides[0]} /></td></tr>}
             <tr className="bg-brand-50 font-extrabold"><td className="px-2.5 py-2.5">TOTAL ({D.devise})</td><td className="px-2.5 py-2.5 text-right">{fmt(D.total[0])}</td><td className="px-2.5 py-2.5 text-right">{fmt(D.total[1])}</td></tr>
             {devise && eq(D.total[0]) && <tr className="font-extrabold text-brand-600"><td className="px-2.5 py-2">Équivalent {devise} (+{MARGE_PRUDENCE * 100} %)</td><td className="px-2.5 py-2 text-right">{eq(D.total[0])}</td><td className="px-2.5 py-2 text-right">{eq(D.total[1])}</td></tr>}
@@ -52,7 +55,9 @@ export function DevisPdf({ e, F, D, devise, taux, origine, logement, eleve, paye
         {D.postes && (() => {
           const t = (q: string) => D.postes!.filter((x) => x.quand === q).reduce((a, x) => [a[0] + x.v[0], a[1] + x.v[1]], [0, 0]);
           return <div className="mt-2.5"><h3 className="text-[14px] font-extrabold">Devis personnalisé : quand payer quoi (1re année, {D.devise})</h3>
-            <div className="mt-1 grid grid-cols-3 gap-3 text-[10px] leading-tight">{([["avant", "Avant le départ"], ["mois", "Chaque mois"], ["an", "Chaque année"]] as const).map(([q, l]) => <div key={q} className="rounded-lg bg-[#f6f8fe] p-2"><b className="block text-[11px]">{l} : {fmt(t(q)[0])} – {fmt(t(q)[1])}</b>{D.postes!.filter((x) => x.quand === q).map((x) => <span key={x.libelle} className="block">{x.libelle} : {fmt(x.v[0])} – {fmt(x.v[1])}</span>)}</div>)}</div></div>;
+            <div className="mt-1 grid grid-cols-3 gap-3 text-[10.5px] leading-snug">{([["avant", "Avant le départ"], ["mois", "Chaque mois sur place"], ["an", "Chaque année"]] as const).map(([q, l]) => <div key={q} className="rounded-lg bg-[#f6f8fe] p-2">
+              <div className="flex justify-between gap-2 border-b border-slate-200 pb-1 text-[11px] font-extrabold"><span>{l}</span><span className="whitespace-nowrap">{fmt(t(q)[0])} – {fmt(t(q)[1])}</span></div>
+              {D.postes!.filter((x) => x.quand === q).map((x) => <div key={x.libelle} className="flex justify-between gap-2 pt-0.5"><span>{x.libelle}</span><span className="whitespace-nowrap">{fmt(x.v[0])} – {fmt(x.v[1])}</span></div>)}</div>)}</div></div>;
         })()}
         <h3 className="mt-2.5 text-[14px] font-extrabold">4. Ce qui est inclus</h3>
         <p className="text-[10.5px] leading-snug">Frais de scolarité ({D.typ.toLowerCase()}), inscription et dossier, loyer et vie quotidienne sur {HYP.mois_par_an} mois par an ({D.chere ? "ville à coût élevé" : "ville à coût modéré"}, {D.logementLibelle ?? LOGEMENT_LABEL[logement].toLowerCase()}), carte de séjour et assurance santé chaque année, visa, billets d&apos;avion aller-retour, caution du logement, équipement, inflation de {Math.round(HYP.inflation_annuelle * 100)} % par an, marge d&apos;imprévus de {Math.round(HYP.marge_imprevus * 100)} % et frais de transfert de {Math.round(HYP.frais_transfert * 100)} %.</p>

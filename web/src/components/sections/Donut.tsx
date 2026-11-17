@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-export const DONUT_COLORS = ["#1a47f5", "#ffc21f", "#0f8a46", "#6a3df0", "#d42a50"];
+export const DONUT_COLORS = ["#1a47f5", "#0ea5b7", "#ffc21f", "#0f8a46", "#6a3df0", "#f08a24", "#d42a50"];
 
 /** Anneau de répartition (valeurs max) qui se dessine à l'apparition. */
 export function Donut({ values, size = 220 }: { values: number[]; size?: number }) {

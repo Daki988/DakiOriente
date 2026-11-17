@@ -54,7 +54,11 @@ export type Devis = {
   rows: { annee: number; scolarite: Pair; annexes: Pair; vie: Pair; renouvellements: Pair; total: Pair }[];
   /** Devis personnalisé : détail des postes (avant le départ, chaque mois, chaque année de la 1re année) et aides déduites. */
   postes?: Poste[]; aides?: Pair; logementLibelle?: string;
+  /** Détail ligne par ligne sur toute la durée, regroupé par rubrique (Scolarité, Logement, Vie quotidienne…). */
+  detail: { rubrique: Rubrique; libelle: string; v: Pair }[];
 };
+export const RUBRIQUES = ["Scolarité", "Logement", "Vie quotidienne", "Voyages", "Démarches & santé", "Équipement", "Imprévus & transferts"] as const;
+export type Rubrique = (typeof RUBRIQUES)[number];
 
 /** Billet d'avion aller simple vers le Maroc : tarif du pays s'il existe, sinon estimation par région. */
 export function billet(c: CoutsPays, origine: string): F {
@@ -109,6 +113,9 @@ export function devis(eid: string, fid: string, origine = "", logement: Logement
   const sum = (xs: F[], key: "min" | "max") => xs.reduce((a, x) => a + x[key], 0);
   const rows: Devis["rows"] = [];
   let tot: Pair = [0, 0];
+  // Part du loyer dans la vie sur place : loyer choisi (devis personnalisé) ou loyer type du logement (devis standard).
+  const loyerMois: F | null = lp ? lp.v : c.personnalisation ? c.personnalisation.logement_mensuel[logement === "colocation" ? "colocation" : "studio"][chere ? "ville_chere" : "autre_ville"] : null;
+  let loyerTot: Pair = [0, 0], vieTot: Pair = [0, 0];
   for (let y = 0; y < years; y++) {
     const inf = (1 + HYP.inflation_annuelle) ** y;
     const a: Pair = [Math.round(sco.min * inf), Math.round(sco.max * inf)];
@@ -122,6 +129,9 @@ export function devis(eid: string, fid: string, origine = "", logement: Logement
     const r: Pair = [sum(annuel, "min") + retours * 2 * vol1.min, sum(annuel, "max") + retours * 2 * vol1.max];
     const row: Pair = [a[0] + b[0] + v[0] + r[0], a[1] + b[1] + v[1] + r[1]];
     rows.push({ annee: y + 1, scolarite: a, annexes: b, vie: v, renouvellements: r, total: row });
+    const ly: Pair = loyerMois ? [Math.min(v[0], Math.round(loyerMois.min * HYP.mois_par_an * inf)), Math.min(v[1], Math.round(loyerMois.max * HYP.mois_par_an * inf))] : [0, 0];
+    loyerTot = [loyerTot[0] + ly[0], loyerTot[1] + ly[1]];
+    vieTot = [vieTot[0] + v[0], vieTot[1] + v[1]];
     tot = [tot[0] + row[0], tot[1] + row[1]];
   }
   const vol = billet(c, origine);
@@ -136,13 +146,33 @@ export function devis(eid: string, fid: string, origine = "", logement: Logement
   const cat = (f: (r: Devis["rows"][number]) => Pair): Pair => [rows.reduce((s, r) => s + f(r)[0], 0), rows.reduce((s, r) => s + f(r)[1], 0)];
   return {
     devise: c.devise, years, rows, installation: inst, total, typ: sco.libelle, chere, scolaritePubliee: !!publie,
-    cats: {
-      "Scolarité": cat((r) => [r.scolarite[0] + r.annexes[0], r.scolarite[1] + r.annexes[1]]),
-      "Vie quotidienne": cat((r) => r.vie),
-      "Installation & voyages": inst,
-      "Séjour & assurance": cat((r) => r.renouvellements),
-      "Imprévus & transferts": [imp[0] + tr[0], imp[1] + tr[1]],
-    },
+    ...(() => {
+      // Détail ligne par ligne sur toute la durée, puis total par rubrique (la somme des rubriques = total avant aides).
+      const n = years, ret = P ? Math.max(0, Math.min(3, perso!.retours)) : 0;
+      const L: Devis["detail"] = [];
+      const add = (rubrique: Rubrique, libelle: string, v: Pair) => { if (v[1] > 0) L.push({ rubrique, libelle, v }); };
+      const fois = (x: { min: number; max: number }, k: number): Pair => [x.min * k, x.max * k];
+      const rub = (poste: string): Rubrique => /caution|loyer/i.test(poste) ? "Logement" : /équipement|ordinateur/i.test(poste) ? "Équipement" : "Démarches & santé";
+      add("Scolarité", `Frais de scolarité (${sco.libelle}), ${n} an${n > 1 ? "s" : ""}`, cat((r) => r.scolarite));
+      add("Scolarité", `${ann.libelle}, chaque année`, cat((r) => r.annexes));
+      add("Logement", `Loyer : ${lp ? lp.libelle : LOGEMENT_LABEL[logement].toLowerCase()}, ${HYP.mois_par_an} mois par an`, loyerTot);
+      const reste: Pair = [vieTot[0] - loyerTot[0], vieTot[1] - loyerTot[1]];
+      if (P && lp) {
+        const hors = P.vie_mensuelle_hors_logement[perso!.niveau][chere ? "ville_chere" : "autre_ville"];
+        const tra = P.transport_mensuel[perso!.transport];
+        const parts: [string, F][] = [[`Nourriture, téléphone, sorties (${P.vie_mensuelle_hors_logement[perso!.niveau].libelle.toLowerCase()})`, hors], [`Déplacements : ${tra.libelle.toLowerCase()}`, tra], ...(perso!.soutien ? [[P.soutien_mensuel.libelle, P.soutien_mensuel] as [string, F]] : [])];
+        const total = parts.reduce((a, [, x]) => [a[0] + x.min, a[1] + x.max], [0, 0]);
+        parts.forEach(([l, x]) => add("Vie quotidienne", `${l}, ${HYP.mois_par_an} mois par an`, [Math.round(reste[0] * (x.min / (total[0] || 1))), Math.round(reste[1] * (x.max / (total[1] || 1)))]));
+      } else add("Vie quotidienne", `Nourriture, déplacements, téléphone, sorties, ${HYP.mois_par_an} mois par an`, reste);
+      add("Voyages", "Billets d'avion : aller à l'arrivée et retour à la fin des études", fois(vol, 2));
+      if (ret) add("Voyages", `${ret} aller-retour${ret > 1 ? "s" : ""} par an pendant les vacances`, fois(vol, 2 * ret * n));
+      for (const i of once) add(rub(i.poste), `${i.poste} (une fois)`, [i.min, i.max]);
+      for (const i of annuel) add(rub(i.poste), `${i.poste}, chaque année`, fois(i, n));
+      add("Imprévus & transferts", `Marge pour imprévus (${Math.round(HYP.marge_imprevus * 100)} %)`, imp);
+      add("Imprévus & transferts", `Frais de transfert d'argent (${Math.round(HYP.frais_transfert * 100)} %)`, tr);
+      const cats = Object.fromEntries(RUBRIQUES.map((k) => [k, L.filter((x) => x.rubrique === k).reduce<Pair>((a, x) => [a[0] + x.v[0], a[1] + x.v[1]], [0, 0])]).filter(([, v]) => (v as Pair)[1] > 0)) as Record<string, Pair>;
+      return { detail: L, cats };
+    })(),
     ...(P && lp ? (() => {
       const vol = billet(c, origine);
       const ret = Math.max(0, Math.min(3, perso!.retours));

@@ -7,7 +7,9 @@
 @tailwind utilities;
 
 @layer base {
-  html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+  /* Jamais de défilement horizontal de la page (Safari iOS élargit sinon la page à cause d'un élément décoratif ou d'une
+     liste déroulante) : « clip » ne crée pas de conteneur de défilement, l'en-tête collant continue de fonctionner. */
+  html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; overflow-x: hidden; overflow-x: clip; }
   body { @apply bg-[#f6f8fe] font-sans text-ink antialiased; }
   ::selection { @apply bg-sun-300 text-ink; }
   :focus-visible { @apply outline-none ring-2 ring-brand-500 ring-offset-2; }

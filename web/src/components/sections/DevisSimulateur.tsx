@@ -206,6 +206,21 @@ export function DevisSimulateur() {
               </div>
             </Reveal>
 
+            <Reveal className="card flex flex-col gap-4 rounded-3xl p-5 sm:p-6">
+              <div className="flex flex-col gap-1"><h3 className="text-lg font-extrabold">Ce que comprend le devis</h3><span className="text-xs text-ink-mute">Sur toute la durée ({D.years} an{D.years > 1 ? "s" : ""}), poste par poste · {dev ? `${unit} (${symbole(base)} en dessous)` : unit}</span></div>
+              <div className="flex flex-col gap-3">
+                {Object.entries(D.cats).map(([rub, tot], i) => (
+                  <div key={rub} className="rounded-2xl border border-[#eef1f8] p-3.5">
+                    <div className="flex items-start justify-between gap-3"><b className="flex items-center gap-2 text-[15px]"><span className="h-3 w-3 shrink-0 rounded" style={{ background: DONUT_COLORS[i] }} />{rub}</b><Plage v={tot} className="whitespace-nowrap text-right text-[14px] font-extrabold" /></div>
+                    <ul className="mt-2 flex flex-col gap-1.5 border-t border-[#eef1f8] pt-2 text-[13px] text-ink-soft">
+                      {D.detail.filter((x) => x.rubrique === rub).map((x) => <li key={x.libelle} className="flex justify-between gap-3"><span className="min-w-0">{x.libelle}</span><Plage v={x.v} className="shrink-0 whitespace-nowrap text-right font-semibold" /></li>)}
+                    </ul>
+                  </div>))}
+                {D.aides && D.aides[1] > 0 && <div className="flex items-start justify-between gap-3 rounded-2xl bg-[#e8f8ef] p-3.5 text-[#0b6e38]"><b className="text-[15px]">Bourse ou réduction déduite</b><b className="whitespace-nowrap">− {nb(loc(D.aides[1]))} {unit}</b></div>}
+                <div className="flex items-start justify-between gap-3 rounded-2xl bg-brand-50 p-3.5"><b className="text-[15px]">Total sur {D.years} an{D.years > 1 ? "s" : ""}</b><Plage v={D.total} className="whitespace-nowrap text-right text-[15px] font-extrabold text-brand-700" /></div>
+              </div>
+            </Reveal>
+
             {persoActif && D.postes && (
               <Reveal className="card flex flex-col gap-4 rounded-3xl p-5 sm:p-6">
                 <div className="flex flex-col gap-1"><h3 className="text-lg font-extrabold">Quand payer quoi</h3><span className="text-xs text-ink-mute">1re année, sans inflation ni marge d&apos;imprévus · montants en {dev ? `${unit} (${symbole(base)} en dessous)` : unit}</span></div>
