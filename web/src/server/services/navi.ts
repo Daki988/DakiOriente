@@ -11,6 +11,8 @@ import { tauxDuJour } from "../lib/taux";
 import { DOC_LABEL } from "./documents";
 import { partenaires } from "./offres";
 import { childrenOf } from "./guardians";
+import { publishable } from "./establishments";
+import boursesData from "@/data/bourses.json";
 import { METHODS } from "../payments/providers";
 import { cheminInterne } from "@/lib/redirection";
 import { DESTINATIONS_ACTIVES, destinationById, etabById, etablissements, formationById, metiers, metierById, niveauLabel, villesOf, admissionLabel, type Etablissement, type PaysCode } from "@/lib/data";
@@ -298,7 +300,10 @@ export type Carte =
   | { type: "devis"; titre: string; total: string; sousTotal: string; detail: string; href: string }
   | { type: "liens"; liens: { libelle: string; href: string; principal?: boolean }[] }
   | { type: "conseiller" }
-  | { type: "suggestions"; suggestions: string[] };
+  | { type: "suggestions"; suggestions: string[] }
+  // Geste proposé par Navi, exécuté seulement si la personne clique sur « Confirmer » (jamais par Navi lui-même).
+  | { type: "action"; action: "candidature"; libelle: string; programmeId: string }
+  | { type: "action"; action: "rendez_vous"; libelle: string; sujet: string; suivi: string };
 
 // Pages vers lesquelles Navi peut renvoyer (chemins internes uniquement).
 const PREFIXES = /^\/(formations|etablissements|metiers|villes|devis|comparateur|parents|pourquoi|ressources|actualites|pays|trouve-ta-voie|navilease|navitravel|orientation|espace|parent|connexion|inscription|recherche|messages|notifications|compte)(\/|\?|$)/;
@@ -363,7 +368,7 @@ const nul = (t: object) => ({ anyOf: [t, { type: "null" }] });
 const STR = { type: "string" }, INT = { type: "integer" };
 const obj = (props: Record<string, object>, desc?: string) => ({ type: "object" as const, properties: props, required: Object.keys(props), additionalProperties: false, ...(desc ? { description: desc } : {}) });
 const optionnels = (props: Record<string, object>) => ({ type: "object" as const, properties: props, additionalProperties: false });
-const NON_STRICTS = new Set(["chercher_formations", "chercher_etablissements"]);
+const NON_STRICTS = new Set(["chercher_formations", "chercher_etablissements", "proposer_action"]);
 const DEVIS_PROPS = { etablissement_id: STR, formation_id: nul(STR), pays_origine: nul({ ...STR, description: "Code ISO à 2 lettres du pays de départ (GA, SN, CM…)" }), logement: nul({ type: "string", enum: ["studio", "colocation"] }) };
 
 const OUTILS = [
@@ -378,6 +383,9 @@ const OUTILS = [
   { name: "chercher_logements", description: "Logements étudiants publiés sur Navilease, au Maroc seulement (ville, loyer maximum en dirhams).", input_schema: obj({ ville: nul(STR), budget_max_mad: nul(INT) }) },
   { name: "campagnes_en_cours", description: "Campagnes d'admission, concours et bourses ouvertes (toutes, ou pour un établissement).", input_schema: obj({ etablissement_id: nul(STR) }) },
   { name: "verifier_admission", description: "Avis d'admission pour une formation : la série du bac de l'élève connecté est-elle parmi les séries conseillées ? Mode d'admission, durée, niveau. À appeler avant de recommander une formation à un élève connecté, ou quand il demande s'il a ses chances.", input_schema: obj({ formation_id: STR }) },
+  { name: "bourses", description: "Bourses d'études publiques pour un pays de départ (organisme, conditions, pièces, démarche, si elles valent pour les écoles privées au Maroc, liens officiels). Les bourses propres aux écoles sont dans campagnes_en_cours.", input_schema: obj({ pays: { ...STR, description: "Code ISO à 2 lettres du pays de départ (GA, SN, CM…)" } }) },
+  { name: "proposer_action", description: "Propose un bouton « Confirmer » sous ta réponse pour un geste sans risque que la personne connectée valide elle-même : commencer une candidature en brouillon (candidature : etablissement_id + formation_id, élève ou étudiant) ou demander un rendez-vous avec un conseiller Navigoal (rendez_vous : sujet). Rien n'est fait sans son clic. À utiliser seulement quand elle a clairement dit vouloir le faire.",
+    input_schema: { type: "object", properties: { action: { type: "string", enum: ["candidature", "rendez_vous"] }, etablissement_id: STR, formation_id: STR, sujet: STR }, required: ["action"], additionalProperties: false } },
   { name: "mon_espace", description: "Données de l'utilisateur connecté : candidatures (statut, pièces demandées), documents, paiements, logement, rendez-vous ; pour un parent, celles de ses enfants. Indique s'il n'est pas connecté.", input_schema: obj({}) },
   { name: "afficher", description: "Affiche sous ta réponse des cartes cliquables construites à partir de la base : établissements (2 à 4 au plus), une estimation de coût, jusqu'à 3 liens vers les pages Navigoal déjà filtrées (le premier est le bouton principal), le bouton WhatsApp conseiller, et jusqu'à 3 questions de relance courtes. Appelle-le une fois, en dernier.",
     input_schema: obj({
@@ -389,6 +397,8 @@ const OUTILS = [
       suggestions: { type: "array", items: STR },
     }) },
 ].map((t) => ({ ...t, ...(NON_STRICTS.has(t.name) ? {} : { strict: true }), eager_input_streaming: true })) as Anthropic.Beta.BetaTool[];
+
+export const NOMS_OUTILS = OUTILS.map((t) => t.name);
 
 type AfficherEntree = { etablissements: string[]; formation_id: string | null; devis: EntreeDevis | null; liens: { libelle: string; chemin: string }[]; conseiller: boolean; suggestions: string[] };
 const nullStr = z.string().max(200).nullable();
@@ -405,6 +415,8 @@ const VALIDATION: Record<string, z.ZodTypeAny> = {
   campagnes_en_cours: z.object({ etablissement_id: nullStr }),
   verifier_admission: z.object({ formation_id: z.string().max(100) }),
   mon_espace: z.object({}),
+  bourses: z.object({ pays: z.string().max(60) }),
+  proposer_action: z.object({ action: z.enum(["candidature", "rendez_vous"]), etablissement_id: z.string().max(100).optional(), formation_id: z.string().max(100).optional(), sujet: z.string().max(200).optional() }),
   afficher: z.object({ etablissements: z.array(z.string().max(100)).max(10), formation_id: nullStr, devis: DevisZ.nullable(), liens: z.array(z.object({ libelle: z.string().max(80), chemin: z.string().max(500) })).max(6), conseiller: z.boolean(), suggestions: z.array(z.string().max(120)).max(6) }),
 };
 
@@ -449,6 +461,8 @@ Accompagnement scolaire (tu es aussi un coach, pas seulement un moteur de recher
 - Concours et tests d'admission : si l'outil indique une admission sur concours, aide-le à s'organiser (matières à revoir d'après la formation, planning jusqu'à la date limite), sans inventer d'épreuves ni de dates.
 - Révisions du bac : aide à bâtir un planning réaliste (matières faibles d'abord, séances courtes, révisions actives, sommeil) à partir de ce qu'il te dit de ses matières.
 - Après l'admission : équivalence du bac, visa et titre de séjour, logement, voyage, étape par étape, avec infos_pays_origine, chercher_logements et les liens NaviTravel, puis conseille de confirmer auprès de l'ambassade.
+- Financement : pour une bourse, appelle l'outil bourses avec le pays de départ et campagnes_en_cours pour celles des écoles. Dis clairement si une bourse ne vaut que pour les établissements publics, ne promets jamais qu'une bourse sera obtenue, et renvoie toujours au site officiel pour les dates.
+- Passer à l'action : quand la personne connectée dit clairement vouloir candidater à une formation précise ou parler à un conseiller, appelle proposer_action ; elle verra un bouton « Confirmer ». Dis-lui simplement de confirmer avec le bouton. Tu ne fais jamais le geste toi-même, et tu ne proposes rien qui engage de l'argent.
 - Stress, découragement, pression de la famille : écoute d'abord, rassure sans minimiser, aide à remettre un petit pas devant l'autre. Si la détresse paraît sérieuse (perte d'espoir, idées noires), réponds avec douceur, encourage à en parler tout de suite à un adulte de confiance et propose le conseiller (afficher avec conseiller: true).
 
 Quand un doute d'orientation apparaît (« je ne sais pas quoi faire », hésitation, choix fait pour faire plaisir aux parents, deux pistes qui s'opposent), avance par étapes, une par message :
@@ -483,7 +497,7 @@ Repères :
 const MODELE_SIMPLE = () => process.env.NAVI_MODELE_SIMPLE || "claude-haiku-5-5";
 const ROUTEUR = () => process.env.NAVI_ROUTEUR !== "0";
 const CACHE_REPONSES = () => process.env.NAVI_CACHE !== "0";
-const BESOIN_DONNEES = /(?:[ée]coles?|universit|institut|formation|fili[èe]re|licence|master|bachelor|doctorat|bac\s*\+|dipl[ôo]me|homologu|prix|co[ûu]te?s?|frais|tarif|budget|combien|cfa|dirham|\bmad\b|euros?|bourse|logement|r[ée]sidence|navilease|loyer|chambre|candidat|dossier|inscri|admission|concours|ville|casablanca|rabat|marrakech|f[èe]s|tanger|agadir|mekn[èe]s|oujda|dakar|maroc|s[ée]n[ée]gal|visa|devis|liste|compar|lesquel|o[ùu] (?:[ée]tudier|faire|aller)|mon (?:espace|compte|paiement|dossier)|r[ée]servation|campagne|partenaire|quels? m[ée]tiers|m[ée]tiers? (?:qui|pour|dans|de))/i;
+const BESOIN_DONNEES = /(?:[ée]coles?|universit|institut|formation|fili[èe]re|licence|master|bachelor|doctorat|bac\s*\+|dipl[ôo]me|homologu|prix|co[ûu]te?s?|frais|tarif|budget|combien|cfa|dirham|\bmad\b|euros?|bourse|logement|r[ée]sidence|navilease|loyer|chambre|candidat|dossier|inscri|admission|concours|ville|casablanca|rabat|marrakech|f[èe]s|tanger|agadir|mekn[èe]s|oujda|dakar|maroc|s[ée]n[ée]gal|visa|devis|liste|compar|lesquel|o[ùu] (?:[ée]tudier|faire|aller)|mon (?:espace|compte|paiement|dossier)|r[ée]servation|campagne|partenaire|rendez[- ]?vous|conseill|quels? m[ée]tiers|m[ée]tiers? (?:qui|pour|dans|de))/i;
 
 /** Modèle d'un tour selon le dernier message de l'utilisateur. */
 export function choisirRoute(question: string): "simple" | "complet" {
@@ -572,7 +586,7 @@ export async function relireMotivation(user: User, i: { texte: string; programme
 }
 
 // ---------------------------------------------------------------- Conversation (flux NDJSON)
-export type Evenement = { t: "texte"; v: string } | { t: "efface" } | { t: "etape" } | { t: "cartes"; v: Carte[] } | { t: "fin" } | { t: "erreur"; v: string };
+export type Evenement = { t: "trace"; v: string } | { t: "texte"; v: string } | { t: "efface" } | { t: "etape" } | { t: "cartes"; v: Carte[] } | { t: "fin" } | { t: "erreur"; v: string };
 
 export async function* converser(req: NaviRequete, user: User | null, opts: { client?: Anthropic; onTrace?: (t: Trace) => void } = {}): AsyncGenerator<Evenement> {
   const client = opts.client ?? new Anthropic();
@@ -594,6 +608,9 @@ export async function* converser(req: NaviRequete, user: User | null, opts: { cl
   let hist = req.messages.slice(-24);
   while (hist.length && hist[0].role !== "user") hist = hist.slice(1);
   if (!hist.length || hist[hist.length - 1].role !== "user") { yield { t: "erreur", v: "Message manquant." }; return; }
+  // Identifiant de la ligne de suivi : sert à la personne pour dire si la réponse l'a aidée (donnerAvis).
+  const traceId = crypto.randomUUID();
+  yield { t: "trace", v: traceId };
   const messages: Anthropic.Beta.BetaMessageParam[] = hist.map((m) => ({ role: m.role, content: m.texte.slice(0, 2000) || "…" }));
   const question = hist[hist.length - 1].texte.slice(0, 2000);
 
@@ -748,7 +765,7 @@ export async function* converser(req: NaviRequete, user: User | null, opts: { cl
     let cout = 0;
     for (const [mod, c] of conso) { cout += coutUsd(mod, c); total.entree += c.entree; total.sortie += c.sortie; total.cacheLu += c.cacheLu; total.cacheEcrit += c.cacheEcrit; }
     const trace: Trace = {
-      userId: user?.id ?? null, role: user?.role ?? null, page: chemin.slice(0, 300), question, reponse: affiche.slice(0, 6000),
+      id: traceId, userId: user?.id ?? null, role: user?.role ?? null, page: chemin.slice(0, 300), question, reponse: affiche.slice(0, 6000),
       outils, cartes: cartes.length, route, modele: route === "cache" ? null : modele, tours, ...total, coutUsd: cout, dureeMs: Date.now() - debut, statut,
     };
     opts.onTrace?.(trace);
@@ -777,6 +794,8 @@ async function executerOutil(a: Anthropic.Beta.BetaToolUseBlock, user: User | nu
       case "campagnes_en_cours": r = await campagnesEnCours(x.etablissement_id); break;
       case "verifier_admission": r = await verifierAdmission(user, x.formation_id); break;
       case "mon_espace": r = await monEspace(user); break;
+      case "bourses": r = bourses(x.pays); break;
+      case "proposer_action": r = await proposerAction(x, user, cartes); break;
       case "afficher": cartes.push(...(await construireCartes(x, paysDefaut))); r = { affiche: true }; break;
       default: r = { erreur: "Outil inconnu." };
     }
@@ -787,5 +806,42 @@ async function executerOutil(a: Anthropic.Beta.BetaToolUseBlock, user: User | nu
   return { type: "tool_result", tool_use_id: a.id, content: JSON.stringify(r) };
 }
 
+// Bourses publiques du référentiel (data/referentiels/bourses.json) pour un pays de départ.
+function bourses(pays: string) {
+  const code = (paysOrigine.find((p) => norm(p.nom) === norm(pays))?.id ?? pays).toUpperCase().slice(0, 2);
+  const items = (boursesData as { id: string; pays_origine: string[] }[]).filter((b) => b.pays_origine.includes(code) || b.pays_origine.includes("*"));
+  return { pays: code, bourses: items, remarque: items.length <= 1 ? `Aucune bourse de l'État de ce pays n'est encore répertoriée par Navigoal : conseille de se renseigner auprès du ministère de l'Enseignement supérieur ou de l'organisme des bourses du pays, et regarde les bourses des écoles (campagnes_en_cours).` : null };
+}
+
+// Geste proposé par Navi : vérifie que c'est possible, puis affiche un bouton que la personne doit confirmer.
+async function proposerAction(x: { action: "candidature" | "rendez_vous"; etablissement_id?: string; formation_id?: string; sujet?: string }, user: User | null, cartes: Carte[]) {
+  if (!user) return { erreur: "Personne non connectée : propose-lui de se connecter ou de créer un compte (liens /connexion/ et /inscription/)." };
+  if (x.action === "rendez_vous") {
+    if (!["eleve", "etudiant", "parent"].includes(user.role)) return { erreur: "Réservé aux élèves, étudiants et parents." };
+    const sujet = (x.sujet ?? "").trim().slice(0, 200) || "Conseil d'orientation (depuis Navi)";
+    cartes.push({ type: "action", action: "rendez_vous", libelle: "Demander un rendez-vous avec un conseiller", sujet, suivi: user.role === "parent" ? "/parent/conseiller/" : "/espace/conseiller/" });
+    return { propose: true, info: "Bouton affiché : la demande part seulement si la personne confirme. Un conseiller la recontacte." };
+  }
+  if (!["eleve", "etudiant"].includes(user.role)) return { erreur: "Seul l'élève ou l'étudiant lui-même peut commencer une candidature." };
+  if (!x.etablissement_id || !x.formation_id) return { erreur: "Il faut etablissement_id et formation_id (obtenus des outils de recherche)." };
+  const [p] = await db.select({ id: schema.programs.id, titre: schema.programs.title }).from(schema.programs)
+    .where(and(eq(schema.programs.establishmentId, x.etablissement_id), eq(schema.programs.formationId, x.formation_id), eq(schema.programs.active, true), publishable)).limit(1);
+  if (!p) return { erreur: "Cette formation n'est pas ouverte aux candidatures en ligne dans cette école : propose la fiche de l'école ou le conseiller." };
+  const [deja] = await db.select({ id: schema.applications.id, statut: schema.applications.status }).from(schema.applications)
+    .where(and(eq(schema.applications.studentId, user.id), eq(schema.applications.programId, p.id), sql`${schema.applications.status} not in ('refusee','desistee')`)).limit(1);
+  if (deja) return { deja: true, statut: deja.statut, lien: `/espace/candidatures/${deja.id}/`, info: "Une candidature existe déjà : donne-lui le lien plutôt qu'un bouton." };
+  const sigle = etabById[x.etablissement_id]?.sigle ?? etabById[x.etablissement_id]?.nom ?? "l'école";
+  cartes.push({ type: "action", action: "candidature", libelle: `Commencer ma candidature : ${p.titre} (${sigle})`, programmeId: p.id });
+  return { propose: true, info: "Bouton affiché : le brouillon n'est créé que si l'élève confirme ; il complétera ensuite sa lettre et ses pièces. La candidature est gratuite." };
+}
+
+// Avis de la personne sur une réponse (pouce levé ou baissé), une seule fois ; un compte ne peut noter que ses réponses.
+export async function donnerAvis(user: User | null, traceId: string, avis: "utile" | "inutile") {
+  const r = await db.update(schema.naviTraces).set({ avis, avisLe: new Date() })
+    .where(and(eq(schema.naviTraces.id, traceId), sql`${schema.naviTraces.avis} is null`, user ? or(sql`${schema.naviTraces.userId} is null`, eq(schema.naviTraces.userId, user.id)) : sql`${schema.naviTraces.userId} is null`))
+    .returning({ id: schema.naviTraces.id });
+  return { enregistre: r.length > 0 };
+}
+
 // Utilisé par les tests : outils sans appel au modèle.
-export const _outils = { chercherFormations, chercherEtablissements, chercherMetiers, estimerCout, infosPays, construireCartes, monEspace };
+export const _outils = { bourses, proposerAction, chercherFormations, chercherEtablissements, chercherMetiers, estimerCout, infosPays, construireCartes, monEspace };

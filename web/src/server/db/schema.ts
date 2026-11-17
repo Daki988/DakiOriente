@@ -686,6 +686,8 @@ export const naviTraces = pgTable("navi_traces", {
   coutUsd: doublePrecision("cout_usd").notNull().default(0),
   dureeMs: integer("duree_ms").notNull().default(0),
   statut: text("statut").notNull(), // ok | refus | erreur
+  avis: text("avis"), // avis de la personne sur la réponse : utile | inutile (null si aucun)
+  avisLe: timestamp("avis_le", { withTimezone: true }),
 }, (t) => [index("navi_traces_at_idx").on(t.at)]);
 
 // Navi : réponses aux questions génériques de visiteurs (premier message, sans compte), servies 24 h.

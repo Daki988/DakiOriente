@@ -451,7 +451,7 @@ route("POST", "/admin/prospections/:id/validation", "Relais", "Valider (envoi) o
 route("GET", "/admin/accreditations", "Back-office", "Suivi des accréditations : filières en mention, à échéance, retirées, propositions de l'assistant IA, renouvellements saisis", ["admin"], async ({ me }) => accreditations.vue(me));
 route("POST", "/admin/accreditations", "Back-office", "Saisir ou valider un renouvellement publié au Bulletin officiel (appliqué tout de suite aux candidatures)", ["admin"], async ({ me, body }) => json(await accreditations.valider(me, await body()), 201));
 route("POST", "/admin/accreditations/rejet", "Back-office", "Écarter une proposition de l'assistant IA", ["admin"], async ({ me, body }) => accreditations.rejeter(me, await body()));
-route("GET", "/admin/navi", "Back-office", "Suivi de Navi : volume, coût, rapidité, refus, routeur, cache, dernières questions (?periode=jour|7j|30j|90j&route=&statut=&q=)", ["admin"], async ({ me, query }) => naviSuivi.tableau(me, { periode: query.get("periode"), route: query.get("route"), statut: query.get("statut"), q: query.get("q") }));
+route("GET", "/admin/navi", "Back-office", "Suivi de Navi : volume, coût, rapidité, refus, routeur, cache, dernières questions (?periode=jour|7j|30j|90j&route=&statut=&avis=utile|inutile&q=)", ["admin"], async ({ me, query }) => naviSuivi.tableau(me, { periode: query.get("periode"), route: query.get("route"), statut: query.get("statut"), avis: query.get("avis"), q: query.get("q") }));
 route("GET", "/admin/navi/:id", "Back-office", "Une question posée à Navi, avec la réponse affichée", ["admin"], async ({ me, params }) => { const r = await naviSuivi.detail(me, params.id); if (!r) throw new AppError("Introuvable.", 404, "introuvable"); return r; });
 route("GET", "/admin/acces-pays", "Back-office", "Accès réservé à certains pays (visiteurs, élèves, parents)", ["admin"], async ({ me }) => accesPays.vueAdmin(me));
 route("PUT", "/admin/acces-pays", "Back-office", "Activer ou régler l'accès par pays { actif, pays: [\"GA\", \"CI\"] }", ["admin"], async ({ me, body }) => accesPays.enregistrer(me, await body()));
@@ -500,6 +500,12 @@ route("POST", "/navi/relire-motivation", "Navi", "Relecture d'une lettre de moti
   if (typeof b?.texte !== "string") throw new AppError("Texte manquant.", 400, "validation");
   await limiter(`relecture:${me.id}`, 10, 86400, "Tu as demandé 10 relectures aujourd'hui : reprends ta lettre avec ces conseils et réessaie demain.");
   return navi.relireMotivation(me, { texte: b.texte, programmeId: typeof b.programmeId === "string" ? b.programmeId : null });
+});
+route("POST", "/navi/avis", "Navi", "Dire si une réponse de Navi a aidé (utile ou inutile), une fois par réponse", "public", async ({ req, user, body }) => {
+  const b = await body();
+  if (typeof b?.trace !== "string" || !/^[0-9a-f-]{36}$/.test(b.trace) || !["utile", "inutile"].includes(b?.avis)) throw new AppError("Avis invalide.", 400, "validation");
+  await limiter(`navi-avis:${user?.id ?? ipClient(req.headers) ?? "inconnue"}`, 60, 3600, "Trop d'avis envoyés : réessaie plus tard.");
+  return navi.donnerAvis(user, b.trace, b.avis);
 });
 route("GET", "/moi/navi-suivi", "Navi", "Ce que Navi retient de mes conversations (fiche de suivi)", "user", async ({ me }) => ({ suivi: await naviProfil.lireSuivi(me.id) }));
 route("DELETE", "/moi/navi-suivi", "Navi", "Effacer ce que Navi retient de mes conversations", "user", async ({ me }) => { await naviProfil.effacerSuivi(me.id); return ok; });

@@ -18,7 +18,7 @@ const write = (name, data) => fs.writeFileSync(path.join(OUT, `${name}.json`), J
 
 fs.mkdirSync(OUT, { recursive: true });
 
-for (const name of ["pays", "niveaux", "domaines", "profils_riasec", "competences", "metiers", "series", "temoignages"]) {
+for (const name of ["pays", "niveaux", "domaines", "profils_riasec", "competences", "metiers", "series", "temoignages", "bourses"]) {
   write(name, read(name).items);
 }
 

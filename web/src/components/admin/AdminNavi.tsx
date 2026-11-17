@@ -1,14 +1,14 @@
 "use client";
 // Suivi de Navi : volume, coût, rapidité, refus et erreurs, part du petit modèle et du cache, outils, conversations.
-import { AlertTriangle, Bot, ChevronDown, Clock, Coins, Database, MessageSquareText, Search, Zap } from "lucide-react";
+import { AlertTriangle, Bot, ChevronDown, Clock, Coins, Database, MessageSquareText, Search, ThumbsDown, ThumbsUp, Zap } from "lucide-react";
 import { useState } from "react";
 import { Kpi, Loading, Panel } from "@/components/app/kit";
 import { useApi } from "@/hooks/useApi";
 import { AdminHeader, LoadError, ROLE_LABEL, nf } from "./shared";
 
-type Ligne = { id: string; at: string; role: string | null; page: string | null; question: string; route: string; modele: string | null; statut: string; coutUsd: number; dureeMs: number; outils: string[]; cartes: number };
+type Ligne = { id: string; at: string; role: string | null; page: string | null; question: string; route: string; modele: string | null; statut: string; coutUsd: number; dureeMs: number; outils: string[]; cartes: number; avis: string | null };
 type Tableau = {
-  chiffres: { questions: number; cout: number; coutMoyen: number; dureeMed: number; duree90: number; refus: number; erreurs: number; simple: number; cache: number; sansReponse: number; connectes: number; partCacheConsignes: number };
+  chiffres: { questions: number; cout: number; coutMoyen: number; dureeMed: number; duree90: number; refus: number; erreurs: number; simple: number; cache: number; sansReponse: number; connectes: number; utiles: number; inutiles: number; partCacheConsignes: number };
   parJour: { jour: string; questions: number; cout: number }[];
   outils: { outil: string; n: number }[];
   modeles: { modele: string | null; questions: number; cout: number }[];
@@ -45,9 +45,10 @@ export function AdminNavi() {
   const [periode, setPeriode] = useState("7j");
   const [route, setRoute] = useState("");
   const [statut, setStatut] = useState("");
+  const [avis, setAvis] = useState("");
   const [q, setQ] = useState("");
   const [ouvert, setOuvert] = useState<string | null>(null);
-  const s = useApi<Tableau>(`/admin/navi?periode=${periode}&route=${route}&statut=${statut}&q=${encodeURIComponent(q)}`);
+  const s = useApi<Tableau>(`/admin/navi?periode=${periode}&route=${route}&statut=${statut}&avis=${avis}&q=${encodeURIComponent(q)}`);
   if (s.error) return <LoadError error={s.error} reload={s.reload} />;
   const d = s.data;
   const c = d?.chiffres;
@@ -62,11 +63,12 @@ export function AdminNavi() {
       </div>
       {!d || !c ? <Loading /> : (
         <div className="flex flex-col gap-5">
-          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
             <Kpi label="Questions" value={nf(c.questions)} icon={MessageSquareText} sub={`${pc(c.connectes, c.questions)} de comptes connectés`} />
             <Kpi label="Coût" value={usd(c.cout)} icon={Coins} tone="sun" sub={`${usd(c.coutMoyen, 4)} par question`} />
             <Kpi label="Temps de réponse" value={sec(c.dureeMed)} icon={Clock} tone="violet" sub={`9 sur 10 en moins de ${sec(c.duree90)}`} />
             <Kpi label="Refus et erreurs" value={nf(c.refus + c.erreurs)} icon={AlertTriangle} tone="rose" sub={`${nf(c.refus)} refus · ${nf(c.erreurs)} erreur${c.erreurs > 1 ? "s" : ""} · ${nf(c.sansReponse)} sans réponse`} />
+            <Kpi label="Avis des utilisateurs" value={c.utiles + c.inutiles ? pc(c.utiles, c.utiles + c.inutiles) : "–"} icon={ThumbsUp} tone="green" sub={`${nf(c.utiles)} utile${c.utiles > 1 ? "s" : ""} · ${nf(c.inutiles)} pas utile${c.inutiles > 1 ? "s" : ""}`} />
           </div>
           <div className="grid gap-5 xl:grid-cols-[1.4fr_1fr]">
             <Panel title="Questions par jour" icon={MessageSquareText}>
@@ -111,6 +113,9 @@ export function AdminNavi() {
               <select className="input w-auto py-2 text-[13px]" value={statut} onChange={(e) => setStatut(e.target.value)} aria-label="Résultat">
                 <option value="">Tous les résultats</option><option value="ok">Répondues</option><option value="refus">Refus</option><option value="erreur">Erreurs</option>
               </select>
+              <select className="input w-auto py-2 text-[13px]" value={avis} onChange={(e) => setAvis(e.target.value)} aria-label="Avis">
+                <option value="">Tous les avis</option><option value="utile">Jugées utiles</option><option value="inutile">Jugées pas utiles</option>
+              </select>
             </div>
             {d.dernieres.length ? (
               <ul className="divide-y divide-slate-100">
@@ -123,6 +128,8 @@ export function AdminNavi() {
                           {new Date(x.at).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "short" })} · {x.role ? ROLE_LABEL[x.role] ?? x.role : "Visiteur"} · {sec(x.dureeMs)} · {usd(x.coutUsd, 4)}
                           <span className={`chip px-2 py-0.5 ${ROUTE[x.route]?.[1] ?? ""}`}>{ROUTE[x.route]?.[0] ?? x.route}</span>
                           {STATUT[x.statut]?.[0] && <span className={`chip px-2 py-0.5 ${STATUT[x.statut][1]}`}>{STATUT[x.statut][0]}</span>}
+                          {x.avis === "utile" && <span className="chip bg-[#e8f8ef] px-2 py-0.5 text-[#0f8a46]"><ThumbsUp size={12} />Utile</span>}
+                          {x.avis === "inutile" && <span className="chip bg-[#ffecef] px-2 py-0.5 text-[#d42a50]"><ThumbsDown size={12} />Pas utile</span>}
                         </span>
                       </span>
                       <ChevronDown size={16} className={`mt-1 shrink-0 text-ink-mute transition ${ouvert === x.id ? "rotate-180" : ""}`} />

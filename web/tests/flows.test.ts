@@ -809,9 +809,11 @@ describe("Navi : correcteur automatique des tests de qualité", async () => {
   const fs = await import("node:fs");
   const cas = JSON.parse(fs.readFileSync("scripts/navi-evals/cas.json", "utf8")) as import("@/server/services/navi-evals").Cas[];
   const infirmier = cas.find((c) => c.id === "infirmier")!;
-  it("refuse une réponse vide ou une annonce, accepte une réponse conforme", () => {
+  it("refuse une réponse vide ou une annonce, accepte une réponse conforme", async () => {
     expect(cas.length).toBeGreaterThanOrEqual(12);
     expect(new Set(cas.map((c) => c.id)).size).toBe(cas.length);
+    const { NOMS_OUTILS } = await import("@/server/services/navi");
+    for (const c of cas) for (const o of c.attentes.outilsUnDe ?? []) expect(NOMS_OUTILS, `${c.id} : outil ${o}`).toContain(o);
     expect(controler(infirmier, { reponse: "", outils: [], cartes: 0, route: "complet", statut: "ok" })).toContain("aucune réponse affichée");
     expect(controler(infirmier, { reponse: "Je cherche les écoles…", outils: ["chercher_formations"], cartes: 1, route: "complet", statut: "ok" })).toContain("annonce son travail au lieu de répondre");
     expect(controler(infirmier, { reponse: "Voici deux écoles : **ISPITS Rabat** - public, Rabat.", outils: ["chercher_formations", "afficher"], cartes: 2, route: "complet", statut: "ok" })).toEqual([]);
@@ -982,5 +984,44 @@ describe("Navi accompagne la candidature : relecture de lettre, rappels", () => 
     expect(await np.urgenceCandidature(student.id)).toMatch(/attend une pièce/);
     expect((await np.accueilNavi(student)).texte).toMatch(/attend une pièce/);
     await db.update(schema.applications).set({ status: "desistee" }).where(eq(schema.applications.id, brouillon.id));
+  });
+});
+describe("Navi : bourses, gestes à confirmer, avis sur les réponses", () => {
+  it("bourses par pays, bouton de candidature ou de rendez-vous seulement après vérification, avis une seule fois", async () => {
+    const navi = await import("@/server/services/navi");
+    const { bourses, proposerAction } = navi._outils;
+    const ga = bourses("Gabon");
+    expect(ga.pays).toBe("GA");
+    expect(ga.bourses.map((b) => b.id)).toEqual(expect.arrayContaining(["ga-anbg", "ma-amci"]));
+    expect(bourses("BJ").remarque).toMatch(/Aucune bourse/);
+
+    // Visiteur : rien ; parent : pas de candidature mais un rendez-vous
+    const cartes: import("@/server/services/navi").Carte[] = [];
+    expect(await proposerAction({ action: "rendez_vous" }, null, cartes)).toHaveProperty("erreur");
+    expect(await proposerAction({ action: "candidature", etablissement_id: "ma-esa-casa", formation_id: "x" }, parent, cartes)).toHaveProperty("erreur");
+    expect(await proposerAction({ action: "rendez_vous", sujet: "Choisir entre deux écoles" }, parent, cartes)).toMatchObject({ propose: true });
+    expect(cartes.at(-1)).toMatchObject({ type: "action", action: "rendez_vous", suivi: "/parent/conseiller/" });
+    // Élève : formation inconnue refusée ; formation ouverte → bouton ; candidature en cours → lien
+    expect(await proposerAction({ action: "candidature", etablissement_id: "ma-esa-casa", formation_id: "inexistante" }, student, cartes)).toHaveProperty("erreur");
+    const [libre] = await db.select({ p: schema.programs }).from(schema.applications).innerJoin(schema.programs, eq(schema.programs.id, schema.applications.programId))
+      .where(and(eq(schema.applications.studentId, student.id), eq(schema.applications.status, "desistee"))).limit(1);
+    const n = cartes.length;
+    expect(await proposerAction({ action: "candidature", etablissement_id: libre.p.establishmentId, formation_id: libre.p.formationId }, student, cartes)).toMatchObject({ propose: true });
+    expect(cartes.length).toBe(n + 1);
+    expect(cartes.at(-1)).toMatchObject({ type: "action", action: "candidature", programmeId: libre.p.id });
+    expect(await db.select().from(schema.applications).where(and(eq(schema.applications.studentId, student.id), eq(schema.applications.programId, libre.p.id), eq(schema.applications.status, "brouillon")))).toHaveLength(0); // rien n'est créé sans confirmation
+    const nouveau = await apps.createDraft(student, (cartes.at(-1) as { programmeId: string }).programmeId); // l'élève a confirmé
+    expect(await proposerAction({ action: "candidature", etablissement_id: libre.p.establishmentId, formation_id: libre.p.formationId }, student, cartes)).toMatchObject({ deja: true, lien: `/espace/candidatures/${nouveau.id}/` });
+
+    // Avis : la personne note sa réponse une fois ; un autre compte ne peut pas noter la réponse d'un élève
+    const [tr] = await db.insert(schema.naviTraces).values({ userId: student.id, role: student.role, question: "q", route: "complet", statut: "ok" }).returning();
+    expect((await navi.donnerAvis(parent, tr.id, "inutile")).enregistre).toBe(false);
+    expect((await navi.donnerAvis(null, tr.id, "inutile")).enregistre).toBe(false);
+    expect((await navi.donnerAvis(student, tr.id, "utile")).enregistre).toBe(true);
+    expect((await navi.donnerAvis(student, tr.id, "inutile")).enregistre).toBe(false);
+    const naviSuivi = await import("@/server/services/navi-suivi");
+    const tab = await naviSuivi.tableau(adminU, { avis: "utile" });
+    expect(tab.chiffres.utiles).toBeGreaterThanOrEqual(1);
+    expect(tab.dernieres.every((x) => x.avis === "utile")).toBe(true);
   });
 });

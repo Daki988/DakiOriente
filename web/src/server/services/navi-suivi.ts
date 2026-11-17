@@ -8,13 +8,14 @@ type User = typeof schema.users.$inferSelect;
 const t = schema.naviTraces;
 const PERIODES: Record<string, number> = { jour: 1, "7j": 7, "30j": 30, "90j": 90 };
 
-export async function tableau(admin: User, q: { periode?: string | null; route?: string | null; statut?: string | null; q?: string | null }) {
+export async function tableau(admin: User, q: { periode?: string | null; route?: string | null; statut?: string | null; avis?: string | null; q?: string | null }) {
   if (admin.role !== "admin") throw forbidden();
   const jours = PERIODES[q.periode ?? "7j"] ?? 7;
   const depuis = new Date(Date.now() - jours * 864e5);
   const filtre = and(gte(t.at, depuis),
     q.route && ["simple", "complet", "cache"].includes(q.route) ? eq(t.route, q.route) : undefined,
     q.statut && ["ok", "refus", "erreur"].includes(q.statut) ? eq(t.statut, q.statut) : undefined,
+    q.avis && ["utile", "inutile"].includes(q.avis) ? eq(t.avis, q.avis) : undefined,
     q.q ? ilike(t.question, `%${q.q.replace(/[%_\\]/g, (c) => `\\${c}`).slice(0, 100)}%`) : undefined);
 
   const [chiffres] = await db.select({
@@ -30,6 +31,8 @@ export async function tableau(admin: User, q: { periode?: string | null; route?:
     entree: sql<number>`coalesce(sum(${t.entree}), 0)::bigint`,
     cacheLu: sql<number>`coalesce(sum(${t.cacheLu}), 0)::bigint`,
     connectes: sql<number>`count(*) filter (where ${t.userId} is not null)::int`,
+    utiles: sql<number>`count(*) filter (where ${t.avis} = 'utile')::int`,
+    inutiles: sql<number>`count(*) filter (where ${t.avis} = 'inutile')::int`,
   }).from(t).where(filtre);
 
   const parJour = await db.select({ jour: sql<string>`to_char(${t.at} at time zone 'UTC', 'YYYY-MM-DD')`, questions: sql<number>`count(*)::int`, cout: sql<number>`sum(${t.coutUsd})::float` })
@@ -38,7 +41,7 @@ export async function tableau(admin: User, q: { periode?: string | null; route?:
     where ${t.at} >= ${depuis} group by o order by n desc limit 12`)).rows;
   const modeles = await db.select({ modele: t.modele, questions: sql<number>`count(*)::int`, cout: sql<number>`sum(${t.coutUsd})::float` })
     .from(t).where(filtre).groupBy(t.modele).orderBy(desc(sql`2`));
-  const dernieres = await db.select({ id: t.id, at: t.at, role: t.role, page: t.page, question: t.question, route: t.route, modele: t.modele, statut: t.statut, coutUsd: t.coutUsd, dureeMs: t.dureeMs, outils: t.outils, cartes: t.cartes })
+  const dernieres = await db.select({ id: t.id, at: t.at, role: t.role, page: t.page, question: t.question, route: t.route, modele: t.modele, statut: t.statut, coutUsd: t.coutUsd, dureeMs: t.dureeMs, outils: t.outils, cartes: t.cartes, avis: t.avis })
     .from(t).where(filtre).orderBy(desc(t.at)).limit(100);
 
   const lu = Number(chiffres.cacheLu), entree = Number(chiffres.entree);

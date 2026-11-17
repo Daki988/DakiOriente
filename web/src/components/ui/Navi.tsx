@@ -1,6 +1,6 @@
 "use client";
 import { useDestination } from "@/components/ui/Destination";
-import { ArrowRight, Calculator, FileText, GraduationCap, Home, Mic, MessageCircle, RotateCcw, Scale, Send, ShieldCheck, Sparkles, X } from "lucide-react";
+import { ArrowRight, CalendarCheck, Calculator, Check, FileText, GraduationCap, Home, Mic, MessageCircle, RotateCcw, Scale, Send, ShieldCheck, Sparkles, ThumbsDown, ThumbsUp, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "@/components/ui/Link";
@@ -10,7 +10,7 @@ import type { Carte } from "@/server/services/navi";
 // Navi, l'assistant IA : bouton flottant sur toutes les pages, panneau de conversation (maquettes Figma validées).
 // Il ne s'affiche que si le serveur a une clé API (GET /api/navi), comme le bouton Google.
 
-type Msg = { role: "user" | "assistant"; texte: string; cartes?: Carte[]; erreur?: boolean };
+type Msg = { role: "user" | "assistant"; texte: string; cartes?: Carte[]; erreur?: boolean; trace?: string; avis?: "utile" | "inutile" };
 const CLE = "navigoal-navi";
 
 // Bouton déplaçable : glissé à la souris ou au doigt, calé ensuite contre le bord gauche ou droit le plus proche,
@@ -139,6 +139,49 @@ function Texte({ v }: { v: string }) {
   );
 }
 
+// Geste proposé par Navi : rien ne se passe sans le clic « Confirmer » de la personne.
+function Action({ c, fermer }: { c: Extract<Carte, { type: "action" }>; fermer: () => void }) {
+  const [etat, setEtat] = useState<"attente" | "envoi" | "fait" | "erreur">("attente");
+  const [lien, setLien] = useState<string | null>(null);
+  const [message, setMessage] = useState("");
+  const confirmer = async () => {
+    setEtat("envoi");
+    try {
+      const r = c.action === "candidature"
+        ? await fetch("/api/candidatures/", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin", body: JSON.stringify({ programId: c.programmeId }) })
+        : await fetch("/api/rendez-vous/", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin", body: JSON.stringify({ topic: c.sujet, channel: "whatsapp", notes: "Demande faite depuis Navi." }) });
+      const d = await r.json().catch(() => null);
+      if (!r.ok) { setMessage(d?.error?.message ?? "Ça n'a pas marché. Réessaie."); setEtat("erreur"); return; }
+      setLien(c.action === "candidature" ? `/espace/candidatures/${d?.id}/` : c.suivi);
+      setEtat("fait");
+    } catch { setMessage("Connexion interrompue. Réessaie."); setEtat("erreur"); }
+  };
+  const Icone = c.action === "candidature" ? FileText : CalendarCheck;
+  return (
+    <div className="rounded-2xl border border-brand-200 bg-white p-3.5">
+      <div className="flex items-start gap-2.5 text-[13.5px] font-bold text-ink"><Icone size={17} className="mt-0.5 shrink-0 text-brand-600" />{c.libelle}</div>
+      {etat === "fait"
+        ? <div className="mt-2.5 space-y-2">
+            <p className="flex items-center gap-1.5 text-[12.5px] font-bold text-[#0f8a46]"><Check size={15} />{c.action === "candidature" ? "Brouillon créé : complète ta lettre et tes pièces, puis envoie-la (c'est gratuit)." : "Demande envoyée : un conseiller te recontacte."}</p>
+            {lien && <Link href={lien} onClick={fermer} className="inline-flex items-center gap-1.5 rounded-xl bg-brand-600 px-3.5 py-2 text-[13px] font-bold text-white hover:bg-brand-700">{c.action === "candidature" ? "Compléter ma candidature" : "Voir mes rendez-vous"}<ArrowRight size={14} /></Link>}
+          </div>
+        : <div className="mt-2.5 flex flex-wrap items-center gap-2">
+            <button type="button" onClick={confirmer} disabled={etat === "envoi"} className="inline-flex items-center gap-1.5 rounded-xl bg-brand-600 px-3.5 py-2 text-[13px] font-bold text-white hover:bg-brand-700 disabled:opacity-60"><Check size={15} />{etat === "envoi" ? "Un instant…" : "Confirmer"}</button>
+            <span className="text-[11.5px] text-ink-mute">Rien n&apos;est fait sans ta confirmation.</span>
+            {etat === "erreur" && <span className="w-full text-[12px] font-bold text-[#d42a50]">{message}</span>}
+          </div>}
+    </div>
+  );
+}
+
+// Avis sur une réponse : une fois par réponse, enregistré dans le suivi de Navi (/admin/navi).
+function Avis({ m, noter }: { m: Msg; noter: (a: "utile" | "inutile") => void }) {
+  if (!m.trace || m.erreur || !m.texte) return null;
+  if (m.avis) return <p className="mt-1.5 pl-1 text-[11.5px] text-ink-mute">{m.avis === "utile" ? "Merci, ça m'aide à progresser 🙏" : "Merci. Reformule ta question ou demande un conseiller."}</p>;
+  const B = ({ a, I, l }: { a: "utile" | "inutile"; I: typeof ThumbsUp; l: string }) => <button type="button" onClick={() => noter(a)} aria-label={l} title={l} className="rounded-lg p-1.5 text-ink-mute hover:bg-white hover:text-brand-700"><I size={14} /></button>;
+  return <div className="mt-1 flex items-center gap-0.5 pl-0.5"><B a="utile" I={ThumbsUp} l="Réponse utile" /><B a="inutile" I={ThumbsDown} l="Réponse pas utile" /></div>;
+}
+
 function Cartes({ cartes, whatsapp, resume, onSuggestion, fermer }: { cartes: Carte[]; whatsapp: string | null; resume: string; onSuggestion: (s: string) => void; fermer: () => void }) {
   return (
     <div className="mt-2.5 space-y-2.5">
@@ -174,6 +217,7 @@ function Cartes({ cartes, whatsapp, resume, onSuggestion, fermer }: { cartes: Ca
         if (c.type === "conseiller") return whatsapp
           ? <a key={i} href={`https://wa.me/${whatsapp}?text=${encodeURIComponent(`Bonjour, je viens de Navi (assistant Navigoal). ${resume}`.slice(0, 900))}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-2.5 text-[14px] font-extrabold text-ink"><MessageCircle size={17} />Continuer sur WhatsApp</a>
           : <a key={i} href={`mailto:contact@navigoal.net?subject=${encodeURIComponent("Question (depuis Navi)")}&body=${encodeURIComponent(resume.slice(0, 900))}`} className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-[14px] font-bold text-brand-700"><MessageCircle size={17} />Écrire à un conseiller</a>;
+        if (c.type === "action") return <Action key={i} c={c} fermer={fermer} />;
         if (c.type === "suggestions") return (
           <div key={i} className="flex flex-wrap gap-1.5">
             {c.suggestions.map((s) => <button key={s} type="button" onClick={() => onSuggestion(s)} className="rounded-full bg-brand-50 px-3 py-1.5 text-[12.5px] font-bold text-brand-700 hover:bg-brand-100">{s}</button>)}
@@ -190,9 +234,9 @@ function Cartes({ cartes, whatsapp, resume, onSuggestion, fermer }: { cartes: Ca
 const Fennec = ({ className }: { className: string }) => <img src="/brand/navi-fennec.webp" alt="" draggable={false} width={200} height={200} className={`shrink-0 bg-white object-cover ${className}`} />;
 const Avatar = () => <Fennec className="mt-0.5 h-8 w-8 rounded-full ring-1 ring-brand-100" />;
 
-// Invitation à tester Navi : fenêtre affichée 3 secondes à l'arrivée sur le site public, une fois tous les 7 jours.
+// Invitation à tester Navi : fenêtre affichée 10 secondes à l'arrivée sur le site public, une fois tous les 7 jours.
 // Elle se ferme seule, avec la croix, la touche Échap ou un clic n'importe où ; son bouton ouvre Navi.
-const INVITATION_DUREE = 3000;
+const INVITATION_DUREE = 10000;
 const INVITATION_DELAI = 1200; // laisse la page s'afficher avant
 const INVITATION_INTERVALLE = 7 * 864e5;
 const SANS_INVITATION = /^\/(admin|etablissement|bailleur|conseiller|connexion|inscription|verification|mot-de-passe-oublie|premiere-connexion|paiement|acces-restreint)(\/|$)/;
@@ -219,7 +263,7 @@ function Invitation({ fermer, ouvrirNavi }: { fermer: () => void; ouvrirNavi: ()
           <p className="mt-2 text-[15px] text-ink-soft">Construis ton projet scolaire et professionnel avec un seul outil : métiers, formations, écoles et budget, au même endroit.</p>
           <button type="button" onClick={(e) => { e.stopPropagation(); ouvrirNavi(); }} className="btn-primary mt-5 w-full justify-center"><MessageCircle size={18} />Discuter avec Navi<ArrowRight size={16} /></button>
         </div>
-        <span aria-hidden className="absolute bottom-0 left-0 h-1 w-full origin-left bg-brand-600 motion-safe:animate-[naviCompte_3s_linear_forwards] motion-reduce:hidden" />
+        <span aria-hidden className="absolute bottom-0 left-0 h-1 w-full origin-left bg-brand-600 motion-safe:animate-[naviCompte_10s_linear_forwards] motion-reduce:hidden" />
       </section>
     </div>
   );
@@ -320,7 +364,8 @@ export function Navi() {
         for (const l of lignes) {
           if (!l.trim()) continue;
           const e = JSON.parse(l) as { t: string; v?: unknown };
-          if (e.t === "etape") { if (tour.trim()) base = `${base}${base ? "\n\n" : ""}${tour.trim()}`; tour = ""; }
+          if (e.t === "trace") maj((m) => ({ ...m, trace: e.v as string }));
+          else if (e.t === "etape") { if (tour.trim()) base = `${base}${base ? "\n\n" : ""}${tour.trim()}`; tour = ""; }
           else if (e.t === "texte") tour += e.v as string;
           else if (e.t === "efface") tour = "";
           else if (e.t === "cartes") maj((m) => ({ ...m, cartes: [...(m.cartes ?? []), ...(e.v as Carte[])] }));
@@ -335,6 +380,13 @@ export function Navi() {
       annule.current = null;
     }
   }, [envoi, msgs, pays, destination]);
+
+  const noter = (i: number, avis: "utile" | "inutile") => {
+    const trace = msgs[i]?.trace;
+    if (!trace) return;
+    setMsgs((xs) => xs.map((m, j) => (j === i ? { ...m, avis } : m)));
+    void fetch("/api/navi/avis/", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin", body: JSON.stringify({ trace, avis }) }).catch(() => {});
+  };
 
   const dicter = () => {
     const W = window as unknown as { SpeechRecognition?: new () => SpeechRec; webkitSpeechRecognition?: new () => SpeechRec };
@@ -407,6 +459,7 @@ export function Navi() {
                       {m.texte ? <Texte v={m.texte} /> : <span className="inline-flex gap-1 py-1" aria-label="Navi réfléchit"><span className="h-2 w-2 animate-bounce rounded-full bg-brand-400" /><span className="h-2 w-2 animate-bounce rounded-full bg-brand-400 [animation-delay:120ms]" /><span className="h-2 w-2 animate-bounce rounded-full bg-brand-400 [animation-delay:240ms]" /></span>}
                     </div>
                     {m.cartes && <Cartes cartes={m.cartes} whatsapp={whatsapp} resume={resume} onSuggestion={envoyer} fermer={fermer} />}
+                    {!(envoi && i === msgs.length - 1) && <Avis m={m} noter={(a) => noter(i, a)} />}
                   </div>
                 </div>
               ))}
