@@ -7,31 +7,46 @@ import Link from "@/components/ui/Link";
 import { Loading } from "@/components/app/kit";
 import { api } from "@/lib/api";
 
+// Raison donnée par Daily, traduite quand on la reconnaît (le détail d'origine reste affiché pour le dépannage).
+function expliquer(brut: string) {
+  const t = brut.toLowerCase();
+  if (/not ?allowed|permission|denied/.test(t)) return "La caméra ou le micro a été refusé. Autorise-les dans les réglages du navigateur, puis réessaie.";
+  if (/does not exist|no room|not found/.test(t)) return "Cette salle d'appel n'existe pas ou plus. Demande un nouvel appel dans la conversation.";
+  if (/token|unauthori|not allowed to join|eject/.test(t)) return "L'accès à cet appel a été refusé ou a expiré. Recharge la page pour réessayer.";
+  if (/expired|exp\b/.test(t)) return "Cet appel est terminé. Demande un nouvel appel dans la conversation.";
+  if (/unsupported|not supported/.test(t)) return "Ce navigateur ne permet pas l'appel. Essaie avec Chrome ou Safari à jour.";
+  return "L'appel n'a pas pu s'ouvrir. Vérifie ta connexion, puis réessaie.";
+}
+
 type Infos = { id: string; conversationId: string; sujet: string; audioSeul: boolean; expire: string } & ({ termine: true } | { termine: false; url: string; jeton: string });
 
 export function Appel({ id }: { id: string }) {
   const [infos, setInfos] = useState<Infos | null>(null);
   const [erreur, setErreur] = useState<string | null>(null);
+  const [detail, setDetail] = useState<string | null>(null);
   const [quitte, setQuitte] = useState(false);
+  const [essai, setEssai] = useState(0);
   const zone = useRef<HTMLDivElement>(null);
 
   useEffect(() => { api<Infos>(`/appels/${id}`).then(setInfos).catch((e) => setErreur(e instanceof Error ? e.message : "Appel introuvable.")); }, [id]);
 
   useEffect(() => {
-    if (!infos || infos.termine || quitte || !zone.current) return;
+    if (!infos || infos.termine || quitte || erreur || !zone.current) return;
     let appel: { destroy: () => Promise<void> } | null = null;
     let annule = false;
+    let raison = "";
+    const echec = (brut: string) => { console.error("Appel Daily :", brut); setDetail(brut.slice(0, 200)); setErreur(expliquer(brut)); };
     (async () => {
       const Daily = (await import("@daily-co/daily-js")).default;
       if (annule || !zone.current) return;
       const frame = Daily.createFrame(zone.current, { iframeStyle: { width: "100%", height: "100%", border: "0" }, showLeaveButton: true, showFullscreenButton: true, lang: "fr" });
       appel = frame;
       frame.on("left-meeting", () => { setQuitte(true); void frame.destroy(); });
-      frame.on("error", (e) => setErreur(e?.errorMsg ?? "L'appel a été interrompu."));
+      frame.on("error", (e) => { raison = e?.errorMsg ?? (e?.error ? JSON.stringify(e.error) : "erreur inconnue"); echec(raison); });
       await frame.join({ url: infos.url, token: infos.jeton });
-    })().catch(() => setErreur("Impossible d'ouvrir l'appel sur cet appareil. Vérifie ta connexion et l'accès à la caméra et au micro."));
+    })().catch((e) => echec(raison || (e instanceof Error ? `${e.name} : ${e.message}` : String(e))));
     return () => { annule = true; void appel?.destroy(); };
-  }, [infos, quitte]);
+  }, [infos, quitte, essai, erreur]);
 
   const retour = infos ? `/messages/${infos.conversationId}/` : "/messages/";
   if (erreur || quitte || infos?.termine) return (
@@ -39,8 +54,9 @@ export function Appel({ id }: { id: string }) {
       <span className="grid h-14 w-14 place-items-center rounded-full bg-[#eef1f8] text-ink-soft">{quitte || infos?.termine ? <PhoneOff size={24} /> : <Video size={24} />}</span>
       <h1 className="text-xl font-extrabold">{erreur ? "Appel indisponible" : quitte ? "Tu as quitté l'appel" : "Cet appel est terminé"}</h1>
       <p className="text-sm text-ink-soft">{erreur ?? (quitte ? "Tu peux le rejoindre à nouveau tant qu'il est ouvert." : "Demande un nouvel appel dans la messagerie si besoin.")}</p>
+      {detail && <p className="break-all text-[11px] text-ink-mute">Détail technique : {detail}</p>}
       <div className="flex flex-wrap justify-center gap-2">
-        {quitte && <button type="button" onClick={() => setQuitte(false)} className="btn-primary"><Video size={16} />Rejoindre à nouveau</button>}
+        {(quitte || erreur) && !infos?.termine && infos && <button type="button" onClick={() => { setErreur(null); setDetail(null); setQuitte(false); setEssai((n) => n + 1); }} className="btn-primary"><Video size={16} />Rejoindre à nouveau</button>}
         <Link href={retour} className="btn-ghost"><ArrowLeft size={16} />Retour à la conversation</Link>
       </div>
     </div>

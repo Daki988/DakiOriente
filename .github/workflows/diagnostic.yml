@@ -31,6 +31,19 @@ jobs:
           rm -f env.github
           if [ -n "$DAILY" ]; then
             echo "Clé acceptée par Daily : $(curl -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $DAILY" 'https://api.daily.co/v1/rooms?limit=1') (200 = oui)"
+            # Essai complet, comme l'application : salle privée de 10 min, jeton d'accès, puis suppression de la salle.
+            exp=$(( $(date +%s) + 600 ))
+            salle=$(curl -s -X POST -H "Authorization: Bearer $DAILY" -H 'Content-Type: application/json' -d "{\"name\":\"diagnostic-$(date +%s)\",\"privacy\":\"private\",\"properties\":{\"exp\":$exp,\"eject_at_room_exp\":true,\"enable_prejoin_ui\":true,\"lang\":\"fr\"}}" https://api.daily.co/v1/rooms)
+            nom=$(echo "$salle" | jq -r '.name // empty'); echo "Salle d'essai : ${nom:-ÉCHEC} · adresse : $(echo "$salle" | jq -r '.url // empty') $(echo "$salle" | jq -c 'select(.error) | {error, info}')"
+            if [ -n "$nom" ]; then
+              jeton=$(curl -s -X POST -H "Authorization: Bearer $DAILY" -H 'Content-Type: application/json' -d "{\"properties\":{\"room_name\":\"$nom\",\"user_name\":\"Diagnostic\",\"exp\":$exp,\"eject_at_token_exp\":true,\"lang\":\"fr\"}}" https://api.daily.co/v1/meeting-tokens)
+              echo "Jeton d'accès : $(echo "$jeton" | jq -r 'if .token then "obtenu (\(.token|length) caractères)" else "ÉCHEC \(.error) \(.info)" end')"
+              echo "Salle visible dans le compte : $(curl -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $DAILY" "https://api.daily.co/v1/rooms/$nom")"
+              echo "Page de la salle : $(curl -s -o /dev/null -w '%{http_code}' "$(echo "$salle" | jq -r .url)")"
+              curl -s -X DELETE -H "Authorization: Bearer $DAILY" "https://api.daily.co/v1/rooms/$nom" -o /dev/null
+            fi
+            echo "Salles d'appel créées par le site (5 dernières) :"
+            curl -s -H "Authorization: Bearer $DAILY" 'https://api.daily.co/v1/rooms?limit=5' | jq -r '.data[] | "  \(.name) · créée \(.created_at) · expire \(.config.exp // "?")"'
           fi
       - name: Pages et état de synchronisation
         run: |
