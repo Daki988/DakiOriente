@@ -35,3 +35,11 @@ jobs:
           echo "== Dossier tmp et fichiers de version"
           get version.txt; get .version-appliquee
           curl -s --user "$U:$P" --list-only "$base/serveur/.next/" | head -20
+          echo "== Racine"
+          curl -s --user "$U:$P" "$base/" | head -40
+          echo "== tmp"
+          curl -s --user "$U:$P" "$base/tmp/" | head
+          for f in stderr.log stdout.log logs/stderr.log; do
+            echo "== $f (dernières lignes, sans adresses ni jetons)"
+            get "$f" | tail -60 | sed -E 's/[0-9]{1,3}(\.[0-9]{1,3}){3}/<ip>/g; s/(token|password|secret|key)=[^ &]*/\1=<masqué>/Ig' || true
+          done
