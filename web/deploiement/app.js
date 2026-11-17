@@ -142,14 +142,24 @@ require("./serveur/server.js"); // le serveur Next.js se place lui-même dans se
 // 1. au démarrage d'une nouvelle version, les autres processus de cette application sont arrêtés (Passenger en relance) ;
 // 2. chaque processus surveille version.txt et s'arrête de lui-même dès qu'une autre version est déposée.
 const arreterAnciens = () => {
+  // Processus repérés par leur dossier de travail (celui de l'application), quel que soit leur nom : chez l'hébergeur,
+  // les processus Node lancés par Passenger s'appellent « node …/node-loader.js » ou « lsnode », sans le chemin de l'app.
   try {
-    const lignes = execFileSync("ps", ["-u", String(process.getuid()), "-o", "pid=,args="], { encoding: "utf8", timeout: 5000 }).split("\n");
-    for (const l of lignes) {
-      const m = /^\s*(\d+)\s+(.*)$/.exec(l);
-      if (!m) continue;
-      const pid = Number(m[1]);
-      if (pid === process.pid || pid === process.ppid || !m[2].includes(__dirname) || !/Passenger NodeApp|app\.js/i.test(m[2])) continue;
-      try { process.kill(pid, "SIGTERM"); console.log(`[mise à jour] ancien processus ${pid} arrêté`); } catch { /* déjà arrêté ou pas à nous */ }
+    const fs2 = require("fs");
+    const moi = new Set([process.pid, process.ppid]);
+    for (const d of fs2.readdirSync("/proc")) {
+      const pid = Number(d);
+      if (!pid || moi.has(pid)) continue;
+      try {
+        if (fs2.statSync(`/proc/${d}`).uid !== process.getuid()) continue;
+        const cwd = fs2.readlinkSync(`/proc/${d}/cwd`);
+        if (cwd !== __dirname && !cwd.startsWith(__dirname + path.sep)) continue;
+        const cmd = fs2.readFileSync(`/proc/${d}/cmdline`, "utf8").replace(/\0/g, " ");
+        if (!/node|Passenger|lsnode/i.test(cmd) || /outils[\/]/.test(cmd)) continue; // tâches planifiées : jamais arrêtées
+        process.kill(pid, "SIGTERM");
+        console.log(`[mise à jour] ancien processus ${pid} arrêté (${cmd.slice(0, 80)})`);
+        setTimeout(() => { try { process.kill(pid, 0); process.kill(pid, "SIGKILL"); } catch { /* déjà arrêté */ } }, 10000).unref();
+      } catch { /* processus disparu ou illisible */ }
     }
   } catch (e) { console.error("[mise à jour] liste des processus indisponible :", e.message); }
 };
