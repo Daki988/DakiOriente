@@ -17,7 +17,21 @@ jobs:
       U: ${{ secrets.NAVIGOAL_FTP_USERNAME || secrets.FTP_USERNAME }}
       P: ${{ secrets.NAVIGOAL_FTP_PASSWORD || secrets.FTP_PASSWORD }}
       D: ${{ vars.NAVIGOAL_FTP_DIR || '/navigoal/' }}
+      DAILY: ${{ secrets.DAILY_API_KEY }}
+      DAILY_VAR: ${{ vars.DAILY_API_KEY }}
     steps:
+      # Clés déposées par la mise en ligne : seuls les noms et les longueurs sont affichés, jamais les valeurs.
+      - name: Clés (secrets GitHub et .env.github)
+        run: |
+          echo "Secret GitHub DAILY_API_KEY : $([ -n "$DAILY" ] && echo "présent (${#DAILY} caractères)" || echo absent)"
+          [ -n "$DAILY_VAR" ] && echo "Attention : DAILY_API_KEY existe aussi comme VARIABLE (non secrète) : à supprimer, la clé doit être un secret."
+          curl -s --user "$U:$P" "ftp://$S${D%/}/.env.github" > env.github || true
+          echo "Fichier .env.github sur le serveur : $(wc -c < env.github) octets"
+          sed -E 's/^([A-Za-z_]+)=(.*)$/\1 = (\2)/' env.github | awk '{ v=$3; gsub(/[()]/,"",v); print "  " $1 " : " length(v) " caractères" }'
+          rm -f env.github
+          if [ -n "$DAILY" ]; then
+            echo "Clé acceptée par Daily : $(curl -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $DAILY" 'https://api.daily.co/v1/rooms?limit=1') (200 = oui)"
+          fi
       - name: Pages et état de synchronisation
         run: |
           base="ftp://$S${D%/}"
