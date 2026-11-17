@@ -56,7 +56,7 @@ const ROLES_PRO = ["etablissement", "bailleur", "admin", "conseiller"];
 
 export async function listAllConversations(admin: User, f: { type?: string; q?: string; attente?: boolean }) {
   assertAdmin(admin);
-  const kind = f.type === "application" ? ["application", "invitation"] : f.type === "navilease" ? ["booking", "housing"] : f.type === "conseil" ? ["conseil", "support"] : null;
+  const kind = f.type === "application" ? ["application", "invitation"] : f.type === "navilease" ? ["booking", "housing"] : f.type === "conseil" ? ["conseil", "support"] : f.type === "direct" ? ["direct"] : null;
   const convs = await db.select().from(schema.conversations)
     .where(and(kind ? inArray(schema.conversations.contextKind, kind) : undefined, f.q ? ilike(schema.conversations.subject, `%${f.q}%`) : undefined))
     .orderBy(desc(schema.conversations.lastMessageAt)).limit(200);
@@ -77,7 +77,7 @@ export async function listAllConversations(admin: User, f: { type?: string; q?: 
 }
 
 async function compter() {
-  const r = await db.execute<{ k: string; n: number }>(sql`select case when context_kind in ('booking','housing') then 'navilease' when context_kind in ('application','invitation') then 'application' else 'conseil' end k, count(*)::int n from conversations group by 1`);
+  const r = await db.execute<{ k: string; n: number }>(sql`select case when context_kind in ('booking','housing') then 'navilease' when context_kind in ('application','invitation') then 'application' when context_kind = 'direct' then 'direct' else 'conseil' end k, count(*)::int n from conversations group by 1`);
   return Object.fromEntries(r.rows.map((x) => [x.k, x.n])) as Record<string, number>;
 }
 
@@ -135,10 +135,22 @@ export async function adminPost(admin: User, conversationId: string, body: strin
     if (internal && !pro) continue;
     await notify(p.id, pro
       ? { kind: "relais", title: `${internal ? "Note interne" : "Réponse"} de l'équipe Navigoal · ${c.subject}`, body: text.slice(0, 300), link: `/messages/${conversationId}`, channels: ["app", "email"] }
-      : { kind: "message", title: `Réponse de l'équipe Navigoal · ${c.subject}`, body: finalBody.slice(0, 300), link: `/messages/${conversationId}`, channels: ["app", "email"] });
+      : { kind: "message", title: `${c.contextKind === "direct" ? "Message" : "Réponse"} de l'équipe Navigoal · ${c.subject}`, body: finalBody.slice(0, 300), link: `/messages/${conversationId}`, channels: ["app", "email"] });
   }
   await audit(admin.id, internal ? "relais_note_interne" : "relais_message", "conversation", conversationId, { pourLeCompteDe: ctx.pourLeCompteDe });
   return m;
+}
+
+/** Échange direct entre l'équipe Navigoal et un utilisateur (élève, parent, école, bailleur, conseiller) : un fil par compte,
+ *  que l'utilisateur retrouve dans sa messagerie et auquel il répond normalement ; l'équipe y écrit avec adminPost. */
+export async function ouvrirEchangeDirect(admin: User, userId: string) {
+  assertAdmin(admin);
+  const [u] = await db.select({ id: schema.users.id, role: schema.users.role, firstName: schema.users.firstName, lastName: schema.users.lastName }).from(schema.users).where(eq(schema.users.id, userId));
+  if (!u) throw notFound("Utilisateur");
+  if (u.role === "admin") throw new AppError("Les administrateurs échangent entre eux en dehors de la plateforme.", 400, "admin");
+  const c = await findOrCreateConversation("Équipe Navigoal", [u.id], { kind: "direct", id: u.id });
+  await audit(admin.id, "echange_direct", "user", u.id, { conversation: c.id });
+  return { id: c.id };
 }
 
 /** Ouvre (ou retrouve) le fil d'une candidature pour y répondre au candidat. */

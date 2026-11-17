@@ -1025,3 +1025,25 @@ describe("Navi : bourses, gestes à confirmer, avis sur les réponses", () => {
     expect(tab.dernieres.every((x) => x.avis === "utile")).toBe(true);
   });
 });
+describe("messagerie : échange direct entre l'équipe Navigoal et un utilisateur", () => {
+  it("l'admin écrit en premier, l'élève répond dans sa messagerie, le fil est unique par compte", async () => {
+    const relais = await import("@/server/services/relais");
+    const c = await relais.ouvrirEchangeDirect(adminU, student.id);
+    expect((await relais.ouvrirEchangeDirect(adminU, student.id)).id).toBe(c.id); // un seul fil par compte
+    await expect(relais.ouvrirEchangeDirect(adminU, adminU.id)).rejects.toThrow(/administrateurs/);
+    await expect(relais.ouvrirEchangeDirect(student, school.id)).rejects.toThrow();
+    await relais.adminPost(adminU, c.id, "Bonjour Awa, nous avons bien reçu ton dossier. As-tu une question ?");
+    expect((await notif.listNotifications(student.id)).some((n) => n.title.startsWith("Message de l'équipe Navigoal"))).toBe(true);
+    const fils = await msg.listConversations(student.id);
+    expect(fils.find((f) => f.id === c.id)?.unread).toBe(1);
+    await msg.sendMessage(student, c.id, "Oui, quand aurai-je la réponse de l'école ?");
+    const vue = await relais.listAllConversations(adminU, { type: "direct" });
+    const fil = vue.items.find((x) => x.id === c.id)!;
+    expect(fil.enAttente).toBe(true);
+    expect(vue.counts.direct).toBeGreaterThanOrEqual(1);
+    await expect(msg.getConversation(parent.id, c.id)).rejects.toThrow(); // personne d'autre n'y a accès
+    // Une école peut aussi être contactée directement
+    const e = await relais.ouvrirEchangeDirect(adminU, school.id);
+    expect(e.id).not.toBe(c.id);
+  });
+});

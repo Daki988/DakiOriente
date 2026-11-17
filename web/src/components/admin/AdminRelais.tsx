@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element -- logos déjà optimisés */
 import Link from "@/components/ui/Link";
-import { AlarmClock, Building2, CheckCircle2, Crown, FileCheck2, Gavel, Inbox, KeyRound, LifeBuoy, MessagesSquare, Search, Send, StickyNote, Timer, Undo2, XCircle } from "lucide-react";
+import { AlarmClock, Building2, CheckCircle2, Crown, FileCheck2, Gavel, Inbox, KeyRound, LifeBuoy, MessagesSquare, PenSquare, Search, Send, StickyNote, Timer, Undo2, X, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Alert, Button, Chip, Empty, Kpi, Loading, Panel, StatusBadge, Table, dateFr, since, useToast } from "@/components/app/kit";
 import { DOC_TYPES, Field, FormError, Input, Select, Textarea } from "@/components/app/form";
@@ -76,21 +76,47 @@ type Fil = { conversation: { id: string; subject: string }; participants: { id: 
 const PRO = ["etablissement", "bailleur", "admin", "conseiller"];
 const ROLE: Record<string, string> = { eleve: "candidat", etudiant: "candidat", parent: "parent", etablissement: "école", bailleur: "bailleur", conseiller: "conseiller", admin: "équipe Navigoal" };
 
+// Nouveau message de l'équipe Navigoal à n'importe quel compte : recherche par nom, e-mail ou téléphone.
+function NouveauMessage({ ouvrir, fermer }: { ouvrir: (id: string) => void; fermer: () => void }) {
+  const [q, setQ] = useState("");
+  const dq = useDebounced(q);
+  const r = useApi<{ rows: { id: string; firstName: string; lastName: string; email: string | null; phone: string | null; role: string }[] }>(dq.trim().length >= 2 ? `/admin/utilisateurs${qs({ q: dq.trim() })}` : null);
+  const act = useAction();
+  return (
+    <div className="flex flex-col gap-2 rounded-2xl border border-brand-100 bg-brand-50/60 p-3">
+      <div className="flex items-center justify-between"><b className="text-[13px]">Écrire à un utilisateur</b><button onClick={fermer} aria-label="Fermer" className="rounded-lg p-1 text-ink-mute hover:bg-white"><X size={16} /></button></div>
+      <Input autoFocus value={q} onChange={(e) => setQ(e.target.value)} placeholder="Nom, e-mail ou téléphone…" aria-label="Rechercher un utilisateur" className="py-2" />
+      <FormError error={act.error} />
+      {dq.trim().length >= 2 && (r.loading && !r.data ? <Loading /> : !r.data?.rows.filter((u) => u.role !== "admin").length ? <p className="py-2 text-center text-[13px] text-ink-mute">Aucun compte trouvé.</p> : (
+        <ul className="flex max-h-64 flex-col gap-1 overflow-y-auto">
+          {r.data.rows.filter((u) => u.role !== "admin").slice(0, 12).map((u) => (
+            <li key={u.id}><button disabled={act.pending} onClick={() => act.run(async () => { const c = await api<{ id: string }>(`/admin/utilisateurs/${u.id}/echange`, { body: {} }); ouvrir(c.id); })}
+              className="flex w-full items-center justify-between gap-2 rounded-xl bg-white px-3 py-2 text-left hover:bg-[#f6f8fe]">
+              <span className="min-w-0"><b className="block truncate text-[13px]">{u.firstName} {u.lastName}</b><span className="block truncate text-[11.5px] text-ink-mute">{ROLE[u.role] ?? u.role} · {u.email ?? u.phone}</span></span><Send size={15} className="shrink-0 text-brand-600" />
+            </button></li>))}
+        </ul>))}
+    </div>
+  );
+}
+
 export function AdminMessagerie() {
   const [type, setType] = useState("application");
   const [attente, setAttente] = useState(false);
   const [q, setQ] = useState("");
   const dq = useDebounced(q);
   const [sel, setSel] = useState<string | null>(null);
+  const [nouveau, setNouveau] = useState(false);
   useEffect(() => { const f = new URLSearchParams(location.search).get("fil"); if (f) { setSel(f); setType(""); } }, []);
   const list = useApi<{ items: Conv[]; counts: Record<string, number> }>(`/admin/conversations${qs({ type, q: dq, attente: attente ? "1" : "" })}`, { refreshMs: 30000 });
   return (
     <div className="min-w-0">
-      <AdminHeader title="Messagerie" sub="Tous les échanges candidat ↔ école et locataire ↔ bailleur · réponses signées « Équipe Navigoal, pour le compte de… »" />
+      <AdminHeader title="Messagerie" sub="Tous les échanges candidat ↔ école et locataire ↔ bailleur, et vos échanges directs avec chaque utilisateur · réponses signées « Équipe Navigoal »" />
       <div className="grid items-start gap-4 xl:grid-cols-[340px_1fr]">
         <Panel className="xl:sticky xl:top-4">
-          <div className="flex flex-wrap gap-1.5">{[["application", "Candidatures"], ["navilease", "Navilease"], ["conseil", "Conseil"], ["", "Tout"]].map(([k, t]) => (
+          <div className="flex flex-wrap gap-1.5">{[["application", "Candidatures"], ["navilease", "Navilease"], ["conseil", "Conseil"], ["direct", "Direct"], ["", "Tout"]].map(([k, t]) => (
             <button key={k} onClick={() => setType(k)} className={`chip px-3 py-1.5 ${type === k ? "bg-brand-600 text-white" : "bg-[#eef1f8] text-ink-soft"}`}>{t}{k && list.data?.counts[k] != null ? ` ${list.data.counts[k]}` : ""}</button>))}</div>
+          {nouveau ? <NouveauMessage fermer={() => setNouveau(false)} ouvrir={(id) => { setNouveau(false); setType("direct"); setSel(id); list.reload(); }} />
+            : <Button size="sm" icon={PenSquare} onClick={() => setNouveau(true)}>Nouveau message</Button>}
           <div className="flex gap-2"><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Rechercher un sujet…" aria-label="Rechercher" className="py-2" />
             <button onClick={() => setAttente(!attente)} title="Dernier message du candidat sans réponse" className={`chip shrink-0 px-3 ${attente ? "bg-[#d42a50] text-white" : "bg-[#ffecef] text-[#d42a50]"}`}><Timer size={14} /></button></div>
           {list.loading && !list.data ? <Loading /> : !list.data?.items.length ? <p className="py-6 text-center text-sm text-ink-mute">Aucun échange.</p> : (

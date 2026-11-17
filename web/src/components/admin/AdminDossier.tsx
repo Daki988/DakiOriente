@@ -2,11 +2,12 @@
 // Dossier d'un compte dans le back-office : identité, profil et projet, test d'orientation, parents, candidatures, pièces, Navi.
 // Ouvert depuis Utilisateurs ou depuis « En ce moment » (Audience). Chaque consultation est journalisée.
 import { ArrowLeft, Bot, CalendarClock, Download, FileText, GraduationCap, Heart, Mail, MessageCircle, Phone, Send, Target, User as UserIcon, Users } from "lucide-react";
+import { useState } from "react";
 import Link from "@/components/ui/Link";
 import { Chip, Loading, Panel, StatusBadge } from "@/components/app/kit";
 import { DOC_TYPES } from "@/components/app/form";
 import { useApi } from "@/hooks/useApi";
-import { apiUrl } from "@/lib/api";
+import { api, apiUrl } from "@/lib/api";
 import { metierById, riasec, serieById } from "@/lib/data";
 import { AdminHeader, Flag, LoadError, ROLE_LABEL, ROLE_TONE } from "./shared";
 
@@ -31,6 +32,17 @@ const ko = (n: number) => (n > 1e6 ? `${(n / 1e6).toLocaleString("fr-FR", { maxi
 function Ligne({ k, v }: { k: string; v: React.ReactNode }) {
   if (v == null || v === false || v === "" || (Array.isArray(v) && !v.length)) return null;
   return <div className="flex min-w-0 flex-col gap-0.5 sm:flex-row sm:gap-3"><dt className="shrink-0 text-xs font-bold text-ink-mute sm:w-40 sm:text-[13px]">{k}</dt><dd className="min-w-0 text-sm font-semibold [overflow-wrap:anywhere]">{v}</dd></div>;
+}
+
+// Échange direct sur la messagerie de la plateforme (fil « Équipe Navigoal » de ce compte).
+function EcrireDirect({ id }: { id: string }) {
+  const [envoi, setEnvoi] = useState(false);
+  const ouvrir = async () => {
+    setEnvoi(true);
+    try { const c = await api<{ id: string }>(`/admin/utilisateurs/${id}/echange`, { body: {} }); window.location.href = `/admin/messagerie/?fil=${c.id}`; }
+    catch (e) { alert((e as Error).message); setEnvoi(false); }
+  };
+  return <button type="button" onClick={ouvrir} disabled={envoi} className="btn-primary min-h-[44px] justify-center px-3 text-[13px]"><Send size={16} />{envoi ? "Ouverture…" : "Écrire sur Navigoal"}</button>;
 }
 
 export function AdminDossier({ id }: { id: string }) {
@@ -58,7 +70,7 @@ export function AdminDossier({ id }: { id: string }) {
         {c.email && <a href={`mailto:${c.email}`} className="btn-ghost min-h-[44px] justify-center px-3 text-[13px]"><Mail size={16} />E-mail</a>}
         {tel && <a href={`tel:${tel}`} className="btn-ghost min-h-[44px] justify-center px-3 text-[13px]"><Phone size={16} />Appeler</a>}
         {tel && <a href={`https://wa.me/${tel.replace(/^\+/, "")}`} target="_blank" rel="noopener noreferrer" className="btn-ghost min-h-[44px] justify-center px-3 text-[13px]"><MessageCircle size={16} />WhatsApp</a>}
-        <Link href="/admin/messagerie" className="btn-ghost min-h-[44px] justify-center px-3 text-[13px]"><Send size={16} />Messagerie</Link>
+        {c.role !== "admin" && <EcrireDirect id={c.id} />}
       </div>
 
       <div className="grid items-start gap-5 [&>*]:min-w-0 xl:grid-cols-2">
