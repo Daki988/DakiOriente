@@ -49,6 +49,59 @@ http.createServer = function (...args) {
   return srv;
 };
 
+// Robots : seuls ceux de Google et de Bing sont admis (adresse vérifiée par DNS inverse pour démasquer les imposteurs) ;
+// les autres reçoivent une réponse 403. Toujours permis : robots.txt (pour qu'ils lisent la consigne), contrôle de santé,
+// notifications de paiement (serveurs E-Billing et Stripe). Limite : une page déjà gardée par le cache de l'hébergeur
+// (Varnish, 5 min) est servie sans passer par ici.
+const dns = require("dns").promises;
+const ROBOT = /bot\/|bot;|\bbot\b|robot|crawl|spider|slurp|scrap|facebookexternalhit|facebookcatalog|meta-external|whatsapp|telegram|discord|skype|slack|preview|embedly|python-|python\/|aiohttp|httpx|go-http-client|okhttp|java\/|libwww|httpclient|curl\/|wget|headless|phantomjs|puppeteer|playwright|selenium|ahrefs|semrush|mj12|petalbot|bytespider|gptbot|claude|ccbot|perplexity|amazonbot|applebot|yandex|baidu|duckduck|sogou|seznam|ia_archiver|archive\.org|feedfetcher|validator|monitor|uptime|pingdom|lighthouse/i;
+const ADMIS = [
+  { ua: /googlebot|google-inspectiontool|googleother|storebot-google|adsbot-google|mediapartners-google|apis-google|feedfetcher-google|google-site-verification|google-read-aloud/i, hotes: /\.(googlebot|google|googleusercontent)\.com$/ },
+  { ua: /bingbot|msnbot|bingpreview|adidxbot/i, hotes: /\.search\.msn\.com$/ },
+];
+const LIBRES = /^\/(robots\.txt|api\/sante\/?|api\/paiements\/webhook\/)/;
+const verifies = new Map(); // ip|famille → { ok, le }
+async function ipDe(hotes, ip) {
+  const cle = `${hotes.source}|${ip}`;
+  const c = verifies.get(cle);
+  if (c && Date.now() - c.le < 864e5) return c.ok;
+  let ok;
+  try {
+    const noms = await dns.reverse(ip);
+    const nom = noms.find((n) => hotes.test(n));
+    ok = !!nom && (await dns.lookup(nom, { all: true })).some((a) => a.address === ip);
+  } catch { ok = null; } // DNS indisponible ou adresse sans nom : on laisse passer plutôt que de risquer de refuser Google
+  if (ok !== null) { verifies.set(cle, { ok, le: Date.now() }); if (verifies.size > 5000) verifies.delete(verifies.keys().next().value); }
+  return ok !== false;
+}
+async function robotRefuse(req) {
+  const ua = String(req.headers["user-agent"] || "");
+  if (LIBRES.test(req.url || "")) return false;
+  if (!ua) return true; // aucun navigateur n'envoie de requête sans identification
+  const famille = ADMIS.find((a) => a.ua.test(ua));
+  if (famille) {
+    const ip = String(req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim().replace(/^::ffff:/, "");
+    return !(await ipDe(famille.hotes, ip));
+  }
+  return ROBOT.test(ua);
+}
+{
+  const creer = http.createServer;
+  http.createServer = function (...args) {
+    const i = args.findIndex((a) => typeof a === "function");
+    if (i < 0) return creer.apply(this, args);
+    const suite = args[i];
+    args[i] = (req, res) => {
+      robotRefuse(req).then((non) => {
+        if (!non) return suite(req, res);
+        res.writeHead(403, { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store", "CDN-Cache-Control": "no-store", "X-Robots-Tag": "noindex" });
+        res.end("Robots non autorisés sur navigoal.net.\n");
+      }).catch(() => suite(req, res));
+    };
+    return creer.apply(this, args);
+  };
+}
+
 // Accès par pays (réglage du back-office) : contrôlé ici, devant Next.js, pour chaque requête, y compris les pages
 // pré-générées. Quand le filtre est actif, les pages ne sont plus gardées par le cache de l'hébergeur (sinon une page
 // en cache serait servie à un visiteur d'un autre pays sans contrôle).
