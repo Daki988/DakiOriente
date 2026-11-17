@@ -234,6 +234,118 @@
         "transports": "Tramway à Rabat et Casablanca, trains (Al Boraq), bus, petits taxis.",
         "communaute": "Associations d'étudiants subsahariens dans chaque grande ville ; églises et mosquées.",
         "climat": "Méditerranéen ; hivers frais (prévoir vêtements chauds de décembre à février)."
+      },
+      "personnalisation": {
+        "_note": "Estimations Navigoal (novembre 2026) pour le devis personnalisé, en MAD : ordres de grandeur pour un étudiant étranger, à affiner. Studio standard + niveau de vie « normal » + tramway retrouvent la fourchette « vie_mensuelle » du devis simple. Les loyers des résidences universitaires viennent, eux, du référentiel residences_etudiantes (sites officiels).",
+        "logement_mensuel": {
+          "colocation": {
+            "libelle": "Chambre en colocation",
+            "ville_chere": {
+              "min": 1500,
+              "max": 2800
+            },
+            "autre_ville": {
+              "min": 1000,
+              "max": 2000
+            }
+          },
+          "studio": {
+            "libelle": "Studio meublé standard",
+            "ville_chere": {
+              "min": 2800,
+              "max": 4500
+            },
+            "autre_ville": {
+              "min": 2000,
+              "max": 3200
+            }
+          },
+          "standing": {
+            "libelle": "Studio ou appartement de standing",
+            "ville_chere": {
+              "min": 4500,
+              "max": 7500
+            },
+            "autre_ville": {
+              "min": 3200,
+              "max": 5000
+            }
+          }
+        },
+        "vie_mensuelle_hors_logement": {
+          "econome": {
+            "libelle": "Économe (cuisine maison, peu de sorties)",
+            "ville_chere": {
+              "min": 1300,
+              "max": 1900
+            },
+            "autre_ville": {
+              "min": 1100,
+              "max": 1600
+            }
+          },
+          "normal": {
+            "libelle": "Normal",
+            "ville_chere": {
+              "min": 1900,
+              "max": 2900
+            },
+            "autre_ville": {
+              "min": 1600,
+              "max": 2300
+            }
+          },
+          "confortable": {
+            "libelle": "Confortable (restaurants, sorties, loisirs)",
+            "ville_chere": {
+              "min": 2900,
+              "max": 4500
+            },
+            "autre_ville": {
+              "min": 2300,
+              "max": 3600
+            }
+          }
+        },
+        "transport_mensuel": {
+          "tram": {
+            "libelle": "Marche, tramway et bus (abonnement)",
+            "min": 150,
+            "max": 300
+          },
+          "taxi": {
+            "libelle": "Petits taxis réguliers",
+            "min": 600,
+            "max": 1200
+          }
+        },
+        "assurance_annuelle": {
+          "base": {
+            "libelle": "Assurance santé de base (exigée pour la carte de séjour)",
+            "min": 1500,
+            "max": 2500
+          },
+          "complete": {
+            "libelle": "Assurance santé complète (hospitalisation, rapatriement)",
+            "min": 3500,
+            "max": 7000
+          }
+        },
+        "ordinateur": {
+          "libelle": "Ordinateur portable neuf",
+          "min": 4000,
+          "max": 8000
+        },
+        "soutien_mensuel": {
+          "libelle": "Soutien scolaire ou cours de langue",
+          "min": 800,
+          "max": 2000
+        },
+        "equipement_sans_ordinateur": {
+          "libelle": "Équipement (literie, fournitures)",
+          "min": 1500,
+          "max": 3000
+        }
       }
     },
     {

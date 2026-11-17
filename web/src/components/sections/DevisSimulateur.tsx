@@ -1,7 +1,7 @@
 "use client";
 import Link from "@/components/ui/Link";
 import { motion } from "framer-motion";
-import { BadgeCheck, Bus, Calculator, Calendar, Coins, Check, CloudSun, FileDown, GraduationCap, Handshake, HeartPulse, Info, Lightbulb, Mail, MessageCircle, Scale, Share2, Shield, ShieldCheck, Users, UsersRound } from "lucide-react";
+import { BadgeCheck, Bus, Calculator, Calendar, CalendarClock, Coins, Check, CloudSun, Copy, FileDown, GraduationCap, Handshake, HeartPulse, Info, Lightbulb, Mail, MessageCircle, Plane, Scale, Share2, Shield, ShieldCheck, SlidersHorizontal, Users, UsersRound, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { LireUrl } from "@/hooks/useFiltres";
 import { AnimatedNumber } from "@/components/motion/AnimatedNumber";
@@ -11,7 +11,8 @@ import { DevisPdf } from "./DevisPdf";
 import { useDestination } from "@/components/ui/Destination";
 import { auPays, destinationById, vitrine, STATUT_LONG, VILLES_ETUDES, etabById, etablissements, fmt, formationById, labelById, paysDetailById, libelleFilieres } from "@/lib/data";
 import { paysOrigine, paysOrigineById, visaDestination } from "@/lib/pays-origine";
-import { COUTS, HYP, LOGEMENT_LABEL, SOURCES, devis, formationParDefaut, type Logement } from "@/lib/devis";
+import { COUTS, HYP, LOGEMENT_LABEL, PERSO_DEFAUT, SOURCES, devis, formationParDefaut, type Logement, type Pair, type Perso } from "@/lib/devis";
+import { residencesEtudiantes } from "@/lib/residences";
 import { useDevise } from "@/components/ui/Devise";
 import { MARGE_PRUDENCE, convertirDe, devisePays, formatMontant, symbole } from "@/lib/devises";
 
@@ -32,6 +33,10 @@ export function DevisSimulateur() {
   const choisirOrigine = (o: string) => { setOrigine(o); if (o) setPays(o === "MA" ? null : o); };
   const [dirhamsSeuls, setDirhamsSeuls] = useState(false);
   const [logement, setLogement] = useState<Logement>("studio");
+  // Devis personnalisé (null = devis standard) : logement, niveau de vie, transport, assurance, retours, options, aides.
+  const [perso, setPerso] = useState<Perso | null>(null);
+  const majPerso = (x: Partial<Perso>) => setPerso((p) => ({ ...(p ?? PERSO_DEFAUT), ...x }));
+  const [garde, setGarde] = useState<{ titre: string; total: Pair; mois: Pair; aides: Pair | null } | null>(null);
   const onUrl = useCallback((qs: string) => {
     if (luUrl) return; // seule la première lecture compte : ensuite, c'est le simulateur qui écrit l'URL
     const p = new URLSearchParams(qs);
@@ -42,6 +47,13 @@ export function DevisSimulateur() {
     setEid(e); setFid(f && etabById[e].formations.includes(f) ? f : formationParDefaut(e));
     if (paysOrigineById[p.get("o") ?? ""]) setOrigine(p.get("o")!);
     setLogement(p.get("l") === "colocation" ? "colocation" : "studio");
+    if (p.get("perso") === "1") setPerso({
+      logement: p.get("pl") || PERSO_DEFAUT.logement,
+      niveau: (["econome", "normal", "confortable"] as const).find((x) => x === p.get("pn")) ?? "normal",
+      transport: p.get("pt") === "taxi" ? "taxi" : "tram", assurance: p.get("pa") === "complete" ? "complete" : "base",
+      retours: Math.max(0, Math.min(3, Number(p.get("pr")) || 0)), ordinateur: p.get("po") === "1", soutien: p.get("ps") === "1",
+      aide: Math.max(0, Number(p.get("pd")) || 0),
+    });
     setLuUrl(true);
   }, [luUrl, destination]);
   const [eleve, setEleve] = useState("");
@@ -50,7 +62,9 @@ export function DevisSimulateur() {
   const F = formationById[fid];
   const P = paysDetailById[e.pays];
   const C = COUTS[e.pays];
-  const D = useMemo(() => devis(eid, fid, origine, logement), [eid, fid, origine, logement]);
+  const residencesVille = useMemo(() => residencesEtudiantes.filter((r) => r.ville === e.ville && r.logements.some((l) => l.loyer_min)), [e.ville]);
+  const persoActif = !!perso && !!C.personnalisation;
+  const D = useMemo(() => devis(eid, fid, origine, logement, persoActif ? { ...perso!, residences: residencesVille } : undefined), [eid, fid, origine, logement, perso, persoActif, residencesVille]);
   const cv = (v: number) => v;
   // Devise de lecture : celle du pays de départ (ou du profil), la monnaie du pays d'études restant affichée en dessous.
   const base = D.devise;
@@ -66,14 +80,24 @@ export function DevisSimulateur() {
     ? <span className={`inline-flex flex-col items-end leading-tight ${className}`}><span>{nb(loc(v[0]))} – {nb(loc(v[1]))}</span><span className="text-[11px] font-semibold text-ink-mute">{nb(v[0])} – {nb(v[1])} {symbole(base)}</span></span>
     : <span className={className}>{nb(v[0])} – {nb(v[1])}</span>;
   const mois = [D.total[0] / (D.years * 12), D.total[1] / (D.years * 12)];
+  /** Taux affiché (devise de lecture pour 1 unité de la monnaie d'études), pour saisir une aide dans la monnaie des parents. */
+  const tauxLecture = dev ? (convertirDe(1000, base, dev, taux) ?? 1000) / 1000 : 1;
+  const [aideSaisie, setAideSaisie] = useState("");
+  useEffect(() => { if (perso && !aideSaisie && perso.aide) setAideSaisie(String(Math.round(perso.aide * tauxLecture))); }, [perso, tauxLecture]); // eslint-disable-line react-hooks/exhaustive-deps
+  const totalParQuand = (q: "avant" | "mois" | "an"): Pair => (D.postes ?? []).filter((x) => x.quand === q).reduce<Pair>((a, x) => [a[0] + x.v[0], a[1] + x.v[1]], [0, 0]);
+  const copierLien = () => { try { void navigator.clipboard.writeText(window.location.href); } catch { /* presse-papiers indisponible */ } };
 
   useEffect(() => { if (!etabById[eid].formations.includes(fid)) setFid(formationParDefaut(eid)); }, [eid, fid]);
   useEffect(() => {
     if (!luUrl) return;
     const q = new URLSearchParams({ etab: eid, f: fid, l: logement });
     if (origine) q.set("o", origine);
+    if (perso) {
+      q.set("perso", "1"); q.set("pl", perso.logement); q.set("pn", perso.niveau); q.set("pt", perso.transport); q.set("pa", perso.assurance);
+      if (perso.retours) q.set("pr", String(perso.retours)); if (perso.ordinateur) q.set("po", "1"); if (perso.soutien) q.set("ps", "1"); if (perso.aide) q.set("pd", String(perso.aide));
+    }
     window.history.replaceState(window.history.state, "", `/devis/?${q.toString()}`);
-  }, [eid, fid, origine, logement, luUrl]);
+  }, [eid, fid, origine, logement, perso, luUrl]);
 
   const [faits, setFaits] = useState<number[]>([]);
   useEffect(() => { try { setFaits(JSON.parse(localStorage.getItem(`navigoal-demarches-${e.pays}`) || "[]")); } catch { setFaits([]); } }, [e.pays]);
@@ -114,8 +138,37 @@ export function DevisSimulateur() {
             <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Formation</span>
               <select value={fid} onChange={(ev) => setFid(ev.target.value)} className={field}>{e.formations.filter((f) => formationById[f]).map((f) => <option key={f} value={f}>{formationById[f].intitule} ({formationById[f].duree_annees} ans)</option>)}</select></label>
             <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Logement</span>
-              <select value={logement} onChange={(ev) => setLogement(ev.target.value as Logement)} className={field}>{(["studio", "colocation"] as const).map((l) => <option key={l} value={l}>{LOGEMENT_LABEL[l]}</option>)}</select></label>
+              {persoActif
+                ? <select value={perso!.logement} onChange={(ev) => majPerso({ logement: ev.target.value })} className={field}>
+                    {(["colocation", "studio", "standing"] as const).map((l) => <option key={l} value={l}>{C.personnalisation!.logement_mensuel[l].libelle}</option>)}
+                    {residencesVille.length > 0 && <optgroup label={`Résidences universitaires à ${e.ville}`}>{residencesVille.flatMap((r) => r.logements.map((l, i) => l.loyer_min ? <option key={`${r.id}:${i}`} value={`res:${r.id}:${i}`}>{r.nom} · {l.type} ({fmt(l.loyer_min)} {symbole(base)}/mois)</option> : null))}</optgroup>}
+                  </select>
+                : <select value={logement} onChange={(ev) => setLogement(ev.target.value as Logement)} className={field}>{(["studio", "colocation"] as const).map((l) => <option key={l} value={l}>{LOGEMENT_LABEL[l]}</option>)}</select>}</label>
           </Reveal>
+          {C.personnalisation && (!perso
+            ? <button type="button" onClick={() => setPerso({ ...PERSO_DEFAUT, logement: logement === "colocation" ? "colocation" : "studio" })} className="mt-3 inline-flex min-h-[44px] items-center gap-2 rounded-2xl border border-brand-200 bg-white px-4 text-[14px] font-bold text-brand-700 shadow-sm hover:bg-brand-50"><SlidersHorizontal size={17} />Personnaliser mon devis (logement, niveau de vie, voyages, bourse…)</button>
+            : <div className="card mt-3 flex flex-col gap-4 rounded-3xl p-4 sm:p-5">
+                <div className="flex items-center justify-between gap-3"><b className="flex items-center gap-2 text-[16px]"><SlidersHorizontal size={18} className="text-brand-600" />Devis personnalisé</b>
+                  <button type="button" onClick={() => { setPerso(null); setAideSaisie(""); }} className="inline-flex items-center gap-1 rounded-xl px-2.5 py-1.5 text-[13px] font-bold text-ink-mute hover:bg-slate-100"><X size={15} /><span className="sm:hidden">Standard</span><span className="hidden sm:inline">Revenir au devis standard</span></button></div>
+                <p className="-mt-2 text-[13px] text-ink-mute">Choisissez ce que vous voulez inclure ; le logement se règle dans la liste « Logement » ci-dessus (studio, standing ou résidence universitaire).</p>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                  <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Niveau de vie</span>
+                    <select value={perso.niveau} onChange={(ev) => majPerso({ niveau: ev.target.value as Perso["niveau"] })} className={field}>{(["econome", "normal", "confortable"] as const).map((n) => <option key={n} value={n}>{C.personnalisation!.vie_mensuelle_hors_logement[n].libelle}</option>)}</select></label>
+                  <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Déplacements sur place</span>
+                    <select value={perso.transport} onChange={(ev) => majPerso({ transport: ev.target.value as Perso["transport"] })} className={field}>{(["tram", "taxi"] as const).map((t) => <option key={t} value={t}>{C.personnalisation!.transport_mensuel[t].libelle}</option>)}</select></label>
+                  <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Assurance santé</span>
+                    <select value={perso.assurance} onChange={(ev) => majPerso({ assurance: ev.target.value as Perso["assurance"] })} className={field}>{(["base", "complete"] as const).map((a) => <option key={a} value={a}>{a === "base" ? "De base" : "Complète (hospitalisation, rapatriement)"}</option>)}</select></label>
+                  <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Retours au pays (vacances)</span>
+                    <select value={perso.retours} onChange={(ev) => majPerso({ retours: Number(ev.target.value) })} className={field}>{[0, 1, 2].map((n) => <option key={n} value={n}>{n === 0 ? "Aucun (aller à l'arrivée, retour à la fin)" : `${n} aller-retour${n > 1 ? "s" : ""} par an`}</option>)}</select></label>
+                </div>
+                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+                  <label className="flex min-h-[44px] items-center gap-2.5 rounded-xl border border-slate-200 px-3.5 text-[14px] font-bold"><input type="checkbox" checked={perso.ordinateur} onChange={(ev) => majPerso({ ordinateur: ev.target.checked })} className="h-5 w-5 accent-brand-600" />Ordinateur portable neuf</label>
+                  <label className="flex min-h-[44px] items-center gap-2.5 rounded-xl border border-slate-200 px-3.5 text-[14px] font-bold"><input type="checkbox" checked={perso.soutien} onChange={(ev) => majPerso({ soutien: ev.target.checked })} className="h-5 w-5 accent-brand-600" />Soutien scolaire ou cours de langue</label>
+                  <label className="flex flex-col gap-1.5 sm:min-w-[260px]"><span className="text-xs font-bold text-ink-mute">Bourse ou réduction obtenue, par an ({unit})</span>
+                    <input inputMode="numeric" value={aideSaisie} placeholder="0" onChange={(ev) => { const t = ev.target.value.replace(/[^\d]/g, "").slice(0, 10); setAideSaisie(t); majPerso({ aide: Math.round((Number(t) || 0) / tauxLecture) }); }} className={field} aria-label="Bourse ou réduction par an" /></label>
+                </div>
+                <p className="text-[12px] text-ink-mute">Loyers des résidences : tarifs publiés sur leurs sites officiels. Autres montants : estimations Navigoal pour un étudiant étranger, à affiner avec l&apos;école et le logement choisis.</p>
+              </div>)}
         </div>
 
         <div className="container mt-7 grid items-start gap-6 lg:grid-cols-[1fr_400px]">
@@ -152,6 +205,21 @@ export function DevisSimulateur() {
                 </div>
               </div>
             </Reveal>
+
+            {persoActif && D.postes && (
+              <Reveal className="card flex flex-col gap-4 rounded-3xl p-5 sm:p-6">
+                <div className="flex flex-col gap-1"><h3 className="text-lg font-extrabold">Quand payer quoi</h3><span className="text-xs text-ink-mute">1re année, sans inflation ni marge d&apos;imprévus · montants en {dev ? `${unit} (${symbole(base)} en dessous)` : unit}</span></div>
+                <div className="grid gap-3 md:grid-cols-3">
+                  {([["avant", "Avant le départ", Plane], ["mois", "Chaque mois sur place", CalendarClock], ["an", "Chaque année", Calendar]] as const).map(([q, t, I]) => (
+                    <div key={q} className="flex flex-col gap-2 rounded-2xl bg-[#f6f8fe] p-3.5">
+                      <b className="flex items-center gap-2 text-[14px]"><I size={16} className="text-brand-600" />{t}</b>
+                      <div className="text-[18px] font-extrabold text-brand-700"><Plage v={totalParQuand(q)} className="items-start" /></div>
+                      <ul className="flex flex-col gap-1.5 text-[12.5px] text-ink-soft">{D.postes!.filter((x) => x.quand === q).map((x) => <li key={x.libelle} className="flex justify-between gap-2"><span className="min-w-0">{x.libelle}</span><Plage v={x.v} className="shrink-0 whitespace-nowrap text-right font-bold" /></li>)}</ul>
+                    </div>))}
+                </div>
+                {D.aides && D.aides[1] > 0 && <p className="flex items-start gap-2 rounded-2xl bg-[#e8f8ef] p-3 text-[13px] text-[#0b6e38]"><BadgeCheck size={17} className="mt-0.5 shrink-0" /><span>Bourse ou réduction déduite du total : <b className="whitespace-nowrap">{nb(loc(D.aides[1]))} {unit}{dev ? ` (${nb(D.aides[1])} ${symbole(base)})` : ""}</b> sur {D.years} an{D.years > 1 ? "s" : ""}. Faites-la confirmer par écrit par l&apos;organisme ou l&apos;école.</span></p>}
+              </Reveal>
+            )}
 
             <Reveal className="card flex flex-col gap-3 rounded-3xl p-6">
               <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center"><h3 className="text-lg font-extrabold">Échéancier année par année</h3><span className="text-xs text-ink-mute">inflation {Math.round(HYP.inflation_annuelle * 100)} %/an incluse · montants en {dev ? `${unit} (${symbole(base)} en dessous)` : unit}</span></div>
@@ -197,6 +265,16 @@ export function DevisSimulateur() {
                 <a href={`https://wa.me/?text=${encodeURIComponent(resume + " " + url)}`} target="_blank" rel="noopener noreferrer" className="btn-ghost px-3 py-2.5 text-[13px]"><Share2 size={15} /> WhatsApp</a>
                 <a href={`mailto:?subject=${encodeURIComponent("Devis d'études Navigoal")}&body=${encodeURIComponent(resume + "\n\n" + url)}`} className="btn-ghost px-3 py-2.5 text-[13px]"><Mail size={15} /> E-mail</a>
               </div>
+              <button type="button" onClick={copierLien} className="btn-ghost px-3 py-2.5 text-[13px]"><Copy size={15} /> Copier le lien de ce devis</button>
+              <button type="button" onClick={() => setGarde({ titre: `${e.sigle} · ${persoActif ? D.logementLibelle : LOGEMENT_LABEL[logement]}`, total: D.total, mois: mois as Pair, aides: D.aides ?? null })} className="btn-ghost px-3 py-2.5 text-[13px]"><Scale size={15} /> Garder ce devis pour comparer</button>
+              {garde && (
+                <div className="flex flex-col gap-2 rounded-2xl border border-brand-100 bg-brand-50/60 p-3 text-[13px]">
+                  <div className="flex items-center justify-between"><b>Comparaison</b><button type="button" onClick={() => setGarde(null)} aria-label="Effacer la comparaison" className="rounded-lg p-1 text-ink-mute hover:bg-white"><X size={14} /></button></div>
+                  {[["Gardé", garde.titre, garde.total, garde.mois], ["Actuel", `${e.sigle} · ${persoActif ? D.logementLibelle : LOGEMENT_LABEL[logement]}`, D.total, mois as Pair]].map(([k, t, tot, m]) => (
+                    <div key={k as string} className="flex flex-col rounded-xl bg-white p-2.5"><span className="text-[11px] font-bold uppercase text-ink-mute">{k as string}</span><span className="truncate font-bold">{t as string}</span>
+                      <span className="text-brand-700"><b><Plage v={tot as Pair} className="items-start" /></b></span><span className="text-[12px] text-ink-mute">≈ {nb(loc((m as Pair)[0]))} – {nb(loc((m as Pair)[1]))} {unit} par mois</span></div>))}
+                  <span className="text-[12px] text-ink-soft">Écart : {nb(loc(Math.abs(D.total[0] - garde.total[0])))} – {nb(loc(Math.abs(D.total[1] - garde.total[1])))} {unit} {D.total[1] > garde.total[1] ? "de plus" : "de moins"} pour le devis actuel.</span>
+                </div>)}
               <Link href={`/espace/candidatures/nouvelle?etab=${eid}&formation=${fid}`} className="btn-ghost"><MessageCircle size={16} /> Candidater et demander les frais exacts</Link>
               <div className="flex items-start gap-2.5 rounded-2xl bg-[#fff7dd] p-3 text-[13px]"><Lightbulb size={18} className="shrink-0 text-[#a55a00]" /><span><b>Astuce :</b> comparez ce devis avec d&apos;autres écoles qui mènent au même métier. <Link href={`/comparateur/?f=${fid}&e=${eid}`} className="font-bold text-brand-600"><Scale size={13} className="inline" /> Comparer</Link></span></div>
             </div>
