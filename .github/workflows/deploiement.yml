@@ -138,6 +138,8 @@ jobs:
           if [ -s .env.github ]; then
             [ "$FTP_PROTOCOL" = ftps ] && tls="--ssl-reqd" || tls=""
             curl -sS $tls --ftp-create-dirs -T .env.github --user "$FTP_USERNAME:$FTP_PASSWORD" "ftp://$FTP_SERVER${FTP_DIR%/}/.env.github"
+            # Lisible du seul compte, comme .env (la commande CHMOD n'est pas acceptée par tous les serveurs FTP).
+            curl -sS $tls --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "SITE CHMOD 600 ${FTP_DIR%/}/.env.github" "ftp://$FTP_SERVER${FTP_DIR%/}/" -o /dev/null || echo "Droits de .env.github non modifiés (CHMOD refusé)"
             echo "Clés déposées : $(cut -d= -f1 .env.github | tr '\n' ' ')"
           else
             echo "Aucune clé dans les secrets GitHub (DAILY_API_KEY) : rien à déposer."
