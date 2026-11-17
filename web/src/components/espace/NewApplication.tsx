@@ -10,6 +10,7 @@ import { Alert, Button, Empty, Loading, PageHeader, Panel, useToast } from "@/co
 import { Check as Checkbox, FileDrop, FormError, Textarea, docLabel, type Doc } from "@/components/app/form";
 import { api, apiUrl } from "@/lib/api";
 import { useAction, useApi } from "@/hooks/useApi";
+import { RelectureNavi } from "./RelectureNavi";
 import { auPays, destinationById, etabById, niveauLabel, serieById, type Label } from "@/lib/data";
 import { useUser } from "@/components/app/Session";
 import { visaDestination } from "@/lib/pays-origine";
@@ -228,6 +229,7 @@ export function NewApplication() {
             <Panel title="Lettre de motivation" icon={FileText} action={<span className="text-xs text-ink-mute">{words} mots</span>}>
               <Textarea id="motiv" aria-label="Lettre de motivation" value={motivation} onChange={(ev) => setMotivation(ev.target.value)} rows={8} placeholder={`Pourquoi ${p.title} à ${e.sigle} ? Parle de ton parcours, de ce qui te motive et de ton projet professionnel.`} />
               <span className="text-xs text-ink-mute">Conseil : 250 à 500 mots. Ton brouillon est enregistré à chaque étape.</span>
+              {status === "brouillon" && <RelectureNavi texte={motivation} programmeId={p.id} />}
             </Panel>
             <FormError error={save.error} />
             <div className="flex flex-col-reverse justify-between gap-2 sm:flex-row">

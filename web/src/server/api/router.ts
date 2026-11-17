@@ -494,6 +494,13 @@ route("POST", "/parent/enfants/:id/visibilite", "Parent", "Donner ou retirer mon
 // ---------------------------------------------------------------- Navi (assistant IA)
 route("GET", "/navi", "Navi", "Navi est-il disponible (clé API configurée) ?", "public", async () => ({ actif: navi.naviActif(), invitation: navi.naviActif() && navi.naviInvitation() }));
 route("GET", "/navi/accueil", "Navi", "Accueil personnalisé de Navi pour un élève ou un parent connecté (profil, fiche de suivi)", "public", async ({ user }) => naviProfil.accueilNavi(user));
+route("POST", "/navi/relire-motivation", "Navi", "Relecture d'une lettre de motivation par Navi (conseils, sans réécriture ; 10 par jour)", ["eleve", "etudiant"], async ({ me, body }) => {
+  if (!navi.naviActif()) throw new AppError("Navi n'est pas disponible pour le moment.", 503, "indisponible");
+  const b = await body();
+  if (typeof b?.texte !== "string") throw new AppError("Texte manquant.", 400, "validation");
+  await limiter(`relecture:${me.id}`, 10, 86400, "Tu as demandé 10 relectures aujourd'hui : reprends ta lettre avec ces conseils et réessaie demain.");
+  return navi.relireMotivation(me, { texte: b.texte, programmeId: typeof b.programmeId === "string" ? b.programmeId : null });
+});
 route("GET", "/moi/navi-suivi", "Navi", "Ce que Navi retient de mes conversations (fiche de suivi)", "user", async ({ me }) => ({ suivi: await naviProfil.lireSuivi(me.id) }));
 route("DELETE", "/moi/navi-suivi", "Navi", "Effacer ce que Navi retient de mes conversations", "user", async ({ me }) => { await naviProfil.effacerSuivi(me.id); return ok; });
 route("POST", "/navi", "Navi", "Converser avec Navi (réponse en flux NDJSON : texte, cartes, fin)", "public", async ({ req, user, body }) => {

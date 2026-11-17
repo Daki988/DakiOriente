@@ -939,3 +939,48 @@ describe("Navi connaît l'élève : profil, fiche de suivi, avis d'admission", (
     expect(await np.lireSuivi(student.id)).toBeNull();
   });
 });
+describe("Navi accompagne la candidature : relecture de lettre, rappels", () => {
+  it("relit une lettre sans la réécrire et refuse un texte trop court", async () => {
+    const navi = await import("@/server/services/navi");
+    const json = { points_forts: ["Ton projet est clair."], a_ameliorer: ["Ajoute un exemple de stage."], questions: ["Pourquoi cette école ?"], avis: "Bon début !", intrus: 1 };
+    let recu = "";
+    const faux = { beta: { messages: { create: async (p: { messages: { content: string }[] }) => { recu = p.messages[0].content; return { stop_reason: "end_turn", model: "claude-sonnet-5-5", usage: { input_tokens: 10, output_tokens: 20 }, content: [{ type: "text", text: "Voici : " + JSON.stringify(json) }] }; } } } };
+    await expect(navi.relireMotivation(student, { texte: "Trop court." }, faux as never)).rejects.toThrow(/40 mots/);
+    const lettre = Array.from({ length: 60 }, (_, i) => `mot${i}`).join(" ");
+    const r = await navi.relireMotivation(student, { texte: lettre }, faux as never);
+    expect(r).toEqual({ points_forts: ["Ton projet est clair."], a_ameliorer: ["Ajoute un exemple de stage."], questions: ["Pourquoi cette école ?"], avis: "Bon début !" });
+    expect(recu).toContain("mot59");
+    const casse = { beta: { messages: { create: async () => ({ stop_reason: "end_turn", model: "claude-sonnet-5-5", usage: {}, content: [{ type: "text", text: "pas de json" }] }) } } };
+    await expect(navi.relireMotivation(student, { texte: lettre }, casse as never)).rejects.toThrow(/pas pu relire/);
+  });
+  it("rappelle une candidature en brouillon avant la clôture (élève et parent), une seule fois par palier", async () => {
+    const { rappelsEleves } = await import("@/server/services/rappels-eleves");
+    const np = await import("@/server/services/navi-profil");
+    const dejaVises = (await db.select({ p: schema.applications.programId }).from(schema.applications).where(eq(schema.applications.studentId, student.id))).map((x) => x.p);
+    const prog = (await etab.listPrograms("ma-esa-casa")).find((p) => !dejaVises.includes(p.id));
+    expect(prog).toBeTruthy();
+    const brouillon = await apps.createDraft(student, prog!.id);
+    expect(brouillon.status).toBe("brouillon");
+    const maintenant = new Date();
+    await db.insert(schema.campaigns).values({ establishmentId: "ma-esa-casa", kind: "admission", title: "Admissions", programIds: [prog!.id], startsAt: new Date(maintenant.getTime() - 30 * 864e5), endsAt: new Date(maintenant.getTime() + 5 * 864e5), published: true });
+    {
+      const avant = (await notif.listNotifications(student.id)).filter((n) => n.kind === "rappel_brouillon").length;
+      const r1 = await rappelsEleves(maintenant);
+      expect(r1.envoyes).toBeGreaterThanOrEqual(1);
+      const apres = (await notif.listNotifications(student.id)).filter((n) => n.kind === "rappel_brouillon");
+      expect(apres.length).toBe(avant + 1);
+      expect(apres[0].body).toMatch(/ferment le/);
+      expect((await notif.listNotifications(parent.id)).some((n) => n.kind === "rappel_brouillon" && n.title.includes("Awa"))).toBe(true);
+      // Pas de second envoi pour le même palier ; nouveau palier à J-2
+      expect((await rappelsEleves(maintenant)).envoyes).toBe(0);
+      expect((await rappelsEleves(new Date(maintenant.getTime() + 4 * 864e5))).envoyes).toBeGreaterThanOrEqual(1);
+    }
+    // Pièce demandée : rappel après 3 jours, et Navi le signale dès l'accueil
+    await db.update(schema.applications).set({ status: "piece_demandee", requestedDocuments: ["photo"], updatedAt: new Date(maintenant.getTime() - 3.5 * 864e5) }).where(eq(schema.applications.id, brouillon.id));
+    expect((await rappelsEleves(maintenant)).envoyes).toBeGreaterThanOrEqual(1);
+    expect((await notif.listNotifications(student.id)).some((n) => n.kind === "rappel_piece")).toBe(true);
+    expect(await np.urgenceCandidature(student.id)).toMatch(/attend une pièce/);
+    expect((await np.accueilNavi(student)).texte).toMatch(/attend une pièce/);
+    await db.update(schema.applications).set({ status: "desistee" }).where(eq(schema.applications.id, brouillon.id));
+  });
+});

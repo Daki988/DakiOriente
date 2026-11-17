@@ -1,7 +1,7 @@
 // Navi connaît l'élève : profil du compte (test d'orientation, série, résultats, projet, budget, favoris), fiche de
 // suivi tenue d'une conversation à l'autre, et avis d'admission (série conseillée ou non pour une formation).
 // Toujours les données de la personne connectée (ou de ses enfants pour un parent), jamais d'une autre.
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import { db, schema } from "../db";
 import { admissionLabel, etabById, formationById, metierById, niveauLabel, riasec, serieById } from "@/lib/data";
 import { nomPays } from "@/lib/pays-origine";
@@ -132,21 +132,42 @@ export async function verifierAdmission(user: User | null, formationId: string, 
 }
 
 /** Accueil personnalisé du panneau de Navi pour un élève connecté (sans appel au modèle). */
+/** Ce qui presse dans les candidatures de l'élève : pièce demandée par une école, brouillon dont la campagne ferme sous 7 jours. */
+export async function urgenceCandidature(userId: string, maintenant = new Date()) {
+  const A = schema.applications;
+  const lignes = await db.select({ statut: A.status, ecole: A.establishmentId, titre: schema.programs.title, fin: schema.campaigns.endsAt })
+    .from(A).innerJoin(schema.programs, eq(schema.programs.id, A.programId)).leftJoin(schema.campaigns, eq(schema.campaigns.id, A.campaignId))
+    .where(and(eq(A.studentId, userId), inArray(A.status, ["piece_demandee", "brouillon"])));
+  const nom = (id: string) => etabById[id]?.sigle || etabById[id]?.nom || "une école";
+  const piece = lignes.find((l) => l.statut === "piece_demandee");
+  if (piece) return `${nom(piece.ecole)} attend une pièce pour ta candidature en « ${piece.titre} » : pense à la déposer.`;
+  const proche = lignes.filter((l) => l.statut === "brouillon" && l.fin && l.fin > maintenant && l.fin.getTime() - maintenant.getTime() <= 7 * 864e5)
+    .sort((x, y) => x.fin!.getTime() - y.fin!.getTime())[0];
+  if (proche) {
+    const j = Math.ceil((proche.fin!.getTime() - maintenant.getTime()) / 864e5);
+    return `Ta candidature à ${nom(proche.ecole)} (« ${proche.titre} ») n'est pas encore envoyée, et les candidatures ferment dans ${j} jour${j > 1 ? "s" : ""}. On la termine ensemble ?`;
+  }
+  return null;
+}
+
 export async function accueilNavi(user: User | null) {
   if (!user || !["eleve", "etudiant", "parent"].includes(user.role)) return { texte: null, suggestions: [] as string[] };
   const [p, s] = await Promise.all([
     user.role === "parent" ? null : profilEleve(user.id).catch(() => null),
     lireSuivi(user.id).catch(() => null),
   ]);
+  const urgent = user.role === "parent" ? null : await urgenceCandidature(user.id).catch(() => null);
   const prochaine = s?.notes.split("\n").map((l) => l.replace(/^[-•*\s]+/, "").trim()).find((l, i, all) => i > 0 && /prochaine étape/i.test(all[i - 1] ?? "") && l) ?? null;
   const vouv = user.role === "parent";
   const phrases = [vouv ? `Bonjour ${user.firstName} 👋 Ravi de vous revoir.` : `Salut ${user.firstName} 👋 Content de te revoir.`];
-  if (prochaine) phrases.push(vouv ? `La dernière fois, la prochaine étape était : ${prochaine.replace(/\.$/, "")}. On s'y remet ?` : `La dernière fois, ta prochaine étape c'était : ${prochaine.replace(/\.$/, "")}. On s'y remet ?`);
+  if (urgent) phrases.push(urgent);
+  else if (prochaine) phrases.push(vouv ? `La dernière fois, la prochaine étape était : ${prochaine.replace(/\.$/, "")}. On s'y remet ?` : `La dernière fois, ta prochaine étape c'était : ${prochaine.replace(/\.$/, "")}. On s'y remet ?`);
   else if (p?.test_orientation && p.metiers_vises.length) phrases.push(`Ton test te décrit plutôt ${p.test_orientation.profil.join(" et ").toLowerCase()}, et tu vises ${p.metiers_vises.slice(0, 2).join(" ou ")}. On regarde les formations et les écoles ?`);
   else if (p?.test_orientation) phrases.push(`Ton test te décrit plutôt ${p.test_orientation.profil.join(" et ").toLowerCase()}. On cherche ensemble les métiers qui te ressemblent ?`);
   else if (!vouv) phrases.push("Tu sais déjà ce que tu veux faire, ou tu hésites encore ? Raconte-moi.");
   else phrases.push("Comment puis-je vous aider pour le projet d'études de votre enfant ?");
   const sug: string[] = [];
+  if (urgent) sug.push("Aide-moi à finir ma candidature");
   if (prochaine) sug.push("On reprend où on s'était arrêtés");
   const serie = p && typeof p.serie === "object" && p.serie ? p.serie.intitule : null;
   if (p?.metiers_vises[0]) sug.push(`Quelles écoles pour devenir ${p.metiers_vises[0].toLowerCase()} ?`);
