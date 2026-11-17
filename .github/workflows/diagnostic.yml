@@ -35,6 +35,13 @@ jobs:
           echo "== Dossier tmp et fichiers de version"
           get version.txt; get .version-appliquee
           curl -s --user "$U:$P" --list-only "$base/serveur/.next/" | head -20
+          echo "== demarrages.log"
+          get demarrages.log | tail -40
+          echo "== Fichier témoin : envoyé dans serveur/public puis demandé au site"
+          t="diag-$(date +%s).txt"; echo "temoin $t" > "$t"
+          curl -s --user "$U:$P" -T "$t" "$base/serveur/public/$t" && sleep 3
+          echo "réponse du site : $(curl -s -A 'Mozilla/5.0 (iPhone) Safari' -m 20 "https://navigoal.net/$t" | head -c 80)"
+          curl -s --user "$U:$P" -Q "DELE ${D%/}/serveur/public/$t" "$base/" -o /dev/null || true
           echo "== serveur/.next/cache (contenu)"
           for d in "" fetch-cache images app server; do echo "-- cache/$d"; curl -s --user "$U:$P" "$base/serveur/.next/cache/$d/" | head -15; done
           echo "== Racine"
