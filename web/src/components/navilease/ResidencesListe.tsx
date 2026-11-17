@@ -27,7 +27,7 @@ export function ResidencesListe() {
   const list = residencesEtudiantes.filter(passe);
   const actif = (v: string) => (v ? "bg-brand-600 text-white" : "border border-slate-200 bg-white text-ink-soft");
   return (
-    <div className="container grid items-start gap-7 lg:grid-cols-[280px_1fr]">
+    <div className="container grid items-start gap-7 lg:grid-cols-[280px_1fr] [&>*]:min-w-0">
       {sync}
       <aside className="card flex flex-col gap-5 p-5 lg:sticky lg:top-24">
         <div className="flex items-center justify-between"><b>Filtrer</b><button onClick={reset} className="flex min-h-[36px] items-center gap-1 text-[13px] font-bold text-brand-600"><RotateCcw size={13} />Réinitialiser</button></div>

@@ -128,7 +128,7 @@ await parcours("etudiant", DESKTOP, [
   ...connexion("amina.demo@demo.navigoal.net"),
   ["tableau de bord", voirTexte(/Amina/)],
   ["nouvelle candidature", async (p) => {
-    await p.goto(BASE + "/espace/candidatures/nouvelle/?etab=ma-esa-casa&formation=frm-licence-hotellerie", { waitUntil: "networkidle" });
+    await p.goto(BASE + "/espace/candidatures/nouvelle/?etab=ma-esa-casa&formation=frm-licence-gestion", { waitUntil: "networkidle" });
     await p.waitForTimeout(1000);
     if (await p.getByText("Impossible de démarrer la candidature").count()) throw new Error("candidature non démarrée");
     await p.getByRole("button", { name: /Continuer|Suivant|Commencer|Envoyer/ }).first().waitFor();

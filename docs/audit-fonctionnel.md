@@ -1,5 +1,36 @@
 # Audit fonctionnel de la plateforme Navigoal
 
+## Audit du 17 novembre 2026
+
+Mené sur une instance de recette (base de démonstration neuve, version de production compilée, paiements en bac à sable), avec les comptes de démonstration de chaque profil.
+
+| Volet | Ce qui est testé | Résultat |
+|---|---|---|
+| Actions | 170 actions enchaînées comme de vrais parcours, profil par profil | 167 / 170 ; les 3 échecs sont Navi, désactivé sans clé d'IA sur la recette (réponse 503 attendue) |
+| Droits | Chaque route de lecture appelée avec chaque profil | 385 appels, 0 anomalie |
+| Robustesse | Chaque route appelée avec des identifiants et des corps invalides | 821 appels, aucune erreur serveur hors Navi désactivé |
+| Sécurité | Accès croisés entre comptes d'un même profil (élève, parent, école, bailleur), privilèges, paiements, injections, XSS, fichiers piégés, authentification, sessions, CSRF, redirections, en-têtes, cache | 181 contrôles, 0 échec |
+| Pages | Exploration de toutes les pages accessibles à chaque profil | 547 pages ; 3 anomalies, corrigées |
+| Navigateur | Parcours clés joués dans Chromium, sur mobile et ordinateur | 43 / 43 étapes |
+| Affichage | 22 pages publiques et espaces connectés sur iPhone SE, téléphone, tablette, ordinateur | 162 vérifications ; 3 débordements sur 320 px, corrigés (36 / 36 au contrôle) |
+
+### Anomalies trouvées et corrigées
+
+1. **Espace bailleur ouvert à l'administrateur, mais vide.** `/bailleur/` laissait entrer l'admin alors que ses API le refusent : « Chargement impossible » sur trois pages. L'espace est désormais réservé aux bailleurs ; l'admin est renvoyé vers son back-office (la modération Navilease est dans `/admin/navilease`).
+2. **Débordement horizontal sur iPhone SE (320 px)** : pied de page de Navilease et NaviTravel (adresse e-mail trop longue pour sa colonne) et liste des résidences (colonne des filtres qui ne rétrécissait pas).
+3. **Script d'audit périmé** : il candidatait à une filière retirée par la règle des accréditations (hôtellerie à l'ESA) ; la plateforme la refusait à juste titre. Le script vise maintenant une filière ouverte.
+
+### Réglages de recette
+
+- `ALLOW_SANDBOX_PAYMENTS=1` : en production, un client ne peut pas valider lui-même un paiement simulé ; à autoriser pour rejouer les parcours de paiement en recette.
+- `LIMITE_INSCRIPTIONS=200` : l'anti-abus limite les inscriptions à 5 par heure et par connexion (valeur de production) ; l'audit part d'une seule machine.
+
+Tests de non-régression : 67 / 67, lint et typage sans erreur.
+
+---
+
+## Audit du 21 octobre 2026
+
 21 octobre 2026. Audit mené sur une instance de recette (base de démonstration jetable, paiements en bac à sable) avec les comptes de démonstration de chaque profil.
 
 ## Résultat
@@ -76,4 +107,6 @@ cd web
 BASE=http://localhost:3000 OUT=audit COMPTES='[…]' node scripts/audit-fonctionnel.mjs   # pages
 BASE=http://localhost:3000 OUT=audit node scripts/audit-actions.mjs                     # actions, droits, robustesse
 BASE=http://localhost:3000 OUT=audit node scripts/audit-ui.mjs                          # parcours dans le navigateur
+BASE=http://localhost:3000 OUT=audit node scripts/audit-securite.mjs                    # après audit-actions
+BASE=http://localhost:3000 OUT=audit node scripts/audit-responsive.mjs                  # affichage mobile
 ```
