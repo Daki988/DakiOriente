@@ -4,6 +4,9 @@ name: Diagnostic
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["claude/navigoal-specs-tqkh43"]
+    paths: [".github/workflows/diagnostic.yml"]
 
 jobs:
   ftp:
