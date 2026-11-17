@@ -26,7 +26,7 @@ Cette politique s'applique au site navigoal.net, à l'espace connecté et à l'a
 | Documents | pièce d'identité, relevés de notes, diplômes, photo, attestations | vous |
 | Candidatures | formations choisies, motivation, statut, échanges avec l'établissement | vous, les établissements |
 | Paiements | montant, moyen utilisé, numéro de mobile money, référence de transaction, reçu | vous, le prestataire de paiement |
-| Échanges | messages, demandes de rendez-vous, conversations avec Navi | vous |
+| Échanges | messages, demandes de rendez-vous, appels audio ou vidéo (date, participants), conversations avec Navi | vous |
 | Liaison familiale | parent ou tuteur lié, consentements donnés | vous et votre parent |
 | Données techniques | journaux de connexion, adresse IP, type d'appareil, source d'arrivée sur le site (campagne, parrainage) | automatique |
 | Mesure d'audience | page consultée, provenance, type d'appareil, pays (déduit de l'adresse IP, qui n'est pas conservée), empreinte anonyme du jour ; si vous êtes connecté, votre compte, pour que l'équipe Navigoal voie en direct où vous en êtes et vous aide au bon moment (présence effacée au bout d'une heure) | automatique, sans cookie |
@@ -61,6 +61,7 @@ Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les c
 | LWS (Ligne Web Services) | hébergement du site et des fichiers, envoi des e-mails | France (Union européenne) |
 | Neon | base de données | Allemagne (Union européenne) |
 | Anthropic | modèle d'intelligence artificielle de Navi | États-Unis |
+| Daily | appels audio et vidéo (entretiens, visites virtuelles, rendez-vous) : votre prénom et le flux audio ou vidéo, le temps de l'appel, sans enregistrement | États-Unis (serveurs d'appel au plus près des participants) |
 | Digitech Africa (E-Billing) | paiements mobile money (Airtel Money, Moov Money) | Gabon |
 | Stripe | paiements par carte bancaire (Navigoal ne reçoit jamais le numéro complet de la carte) | Union européenne, États-Unis |
 | Google | connexion « Continuer avec Google », si vous la choisissez | États-Unis |
@@ -69,7 +70,7 @@ Nous ne communiquons vos données aux autorités que sur demande légale.
 
 ## Transferts internationaux
 
-Vos données sont hébergées dans l'Union européenne. Les messages envoyés à Navi sont transmis à Anthropic, aux États-Unis, le temps de produire la réponse ; ils ne servent pas à entraîner ses modèles. Ces transferts sont encadrés par des engagements contractuels de confidentialité et de sécurité, conformément à la loi gabonaise n° 001/2011 et aux autorisations de la CNPDCP lorsque requises.
+Vos données sont hébergées dans l'Union européenne. Les messages envoyés à Navi sont transmis à Anthropic, aux États-Unis, le temps de produire la réponse ; ils ne servent pas à entraîner ses modèles. Pendant un appel audio ou vidéo, votre prénom et le flux de l'appel transitent par Daily, sans enregistrement ni conservation du contenu. Ces transferts sont encadrés par des engagements contractuels de confidentialité et de sécurité, conformément à la loi gabonaise n° 001/2011 et aux autorisations de la CNPDCP lorsque requises.
 
 ## Combien de temps nous les gardons
 

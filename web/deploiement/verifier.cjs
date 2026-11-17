@@ -63,6 +63,12 @@ let erreurs = 0;
       r.ok ? ok("Navi (assistant IA) : clé Anthropic acceptée") : ko(`Navi : clé Anthropic refusée (HTTP ${r.status})`);
     } catch (e) { ko(`Navi : API Anthropic injoignable (${e.message})`); }
   } else console.log("  • Navi (assistant IA) non configuré : ANTHROPIC_API_KEY absente (facultatif)");
+  if (process.env.DAILY_API_KEY) {
+    try {
+      const r = await fetch("https://api.daily.co/v1/rooms?limit=1", { headers: { Authorization: `Bearer ${process.env.DAILY_API_KEY}` }, signal: AbortSignal.timeout(10000) });
+      r.ok ? ok("Appels audio et vidéo : clé Daily acceptée") : ko(`Appels : clé Daily refusée (HTTP ${r.status})`);
+    } catch (e) { ko(`Appels : API Daily injoignable (${e.message})`); }
+  } else console.log("  • Appels audio et vidéo non configurés : DAILY_API_KEY absente (facultatif)");
   console.log(erreurs ? `\n${erreurs} point(s) à corriger.` : "\nTout est prêt.");
   process.exit(erreurs ? 1 : 0);
 })();

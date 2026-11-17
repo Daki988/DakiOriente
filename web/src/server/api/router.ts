@@ -14,6 +14,7 @@ import * as accreditations from "../services/accreditations";
 import * as guardians from "../services/guardians";
 import * as docs from "../services/documents";
 import * as apps from "../services/applications";
+import * as appels from "../services/appels";
 import * as etab from "../services/establishments";
 import * as pay from "../services/payments";
 import * as notif from "../services/notifications";
@@ -305,6 +306,9 @@ route("POST", "/paiements/webhook/:provider", "Paiements", "Notification d'une p
 // ---------------------------------------------------------------- Messagerie et notifications
 route("GET", "/conversations", "Messagerie", "Mes conversations", "user", async ({ me }) => msg.listConversations(me.id));
 route("GET", "/conversations/:id", "Messagerie", "Fil de discussion", "user", async ({ me, params }) => msg.getConversation(me.id, params.id));
+route("GET", "/appels", "Messagerie", "Les appels audio et vidéo sont-ils activés (clé Daily configurée) ?", "user", async () => ({ actif: appels.appelsActifs() }));
+route("POST", "/conversations/:id/appel", "Messagerie", "Lancer un appel vidéo ou audio (audioSeul) dans un fil : école, bailleur, conseiller ou équipe Navigoal", ["etablissement", "bailleur", "conseiller", "admin"], async ({ me, params, body }) => { const b = await body().catch(() => ({})); const a = await appels.lancerAppel(me, params.id, { audioSeul: b?.audioSeul === true }); return json({ id: a.id }, 201); });
+route("GET", "/appels/:id", "Messagerie", "Rejoindre un appel : jeton nominatif pour la salle (participants du fil, équipe, parents d'un élève du fil)", "user", async ({ me, params }) => appels.rejoindre(me, params.id));
 route("POST", "/conversations/:id/messages", "Messagerie", "Envoyer un message", "user", async ({ me, params, body }) => json(await msg.sendMessage(me, params.id, String((await body()).texte ?? "")), 201));
 route("POST", "/conversations", "Messagerie", "Contacter un établissement à propos d'une candidature", STUDENT, async ({ me, body }) => {
   const b = await body();

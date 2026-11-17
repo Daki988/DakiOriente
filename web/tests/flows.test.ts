@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { and, eq, sql } from "drizzle-orm";
 
 process.env.DATABASE_URL = process.env.TEST_DATABASE_URL || "postgres://postgres@localhost:5433/navigoal_test";
@@ -1045,5 +1045,48 @@ describe("messagerie : échange direct entre l'équipe Navigoal et un utilisateu
     // Une école peut aussi être contactée directement
     const e = await relais.ouvrirEchangeDirect(adminU, school.id);
     expect(e.id).not.toBe(c.id);
+  });
+});
+describe("appels audio et vidéo (Daily simulé)", () => {
+  it("l'école lance l'appel dans le fil, l'élève et son parent le rejoignent avec un jeton, les autres non", async () => {
+    const appels = await import("@/server/services/appels");
+    const relais = await import("@/server/services/relais");
+    const [cand] = await db.select().from(schema.applications).where(and(eq(schema.applications.studentId, student.id), eq(schema.applications.establishmentId, "ma-esa-casa"))).limit(1);
+    const fil = await relais.openApplicationThread(adminU, cand.id);
+    delete process.env.DAILY_API_KEY;
+    await expect(appels.lancerAppel(school, fil.id)).rejects.toThrow(/pas encore activés/);
+    process.env.DAILY_API_KEY = "cle-test";
+    const appelsDaily: { url: string; corps: Record<string, unknown> }[] = [];
+    const vrai = globalThis.fetch;
+    const espion = vi.spyOn(globalThis, "fetch").mockImplementation(async (url, init) => {
+      if (!String(url).startsWith("https://api.daily.co/")) return vrai(url as RequestInfo, init);
+      const corps = JSON.parse(String(init?.body ?? "{}"));
+      appelsDaily.push({ url: String(url), corps });
+      expect((init?.headers as Record<string, string>).Authorization).toBe("Bearer cle-test");
+      return new Response(JSON.stringify(String(url).endsWith("/rooms") ? { name: corps.name, url: `https://navigoal.daily.co/${corps.name}` } : { token: "jeton-test" }), { status: 200 });
+    });
+    try {
+      await expect(appels.lancerAppel(student, fil.id)).rejects.toThrow(); // un candidat ne lance pas d'appel
+      await expect(appels.lancerAppel(landlord, fil.id)).rejects.toThrow(); // pas dans ce fil
+      const a = await appels.lancerAppel(school, fil.id, { audioSeul: true });
+      expect(appelsDaily[0].corps).toMatchObject({ privacy: "private", properties: { eject_at_room_exp: true, lang: "fr", start_video_off: true } });
+      expect((await appels.lancerAppel(school, fil.id)).id).toBe(a.id); // pas de doublon
+      expect(appelsDaily.filter((x) => x.url.endsWith("/rooms"))).toHaveLength(1);
+      expect((await msg.getConversation(student.id, fil.id)).messages.some(({ m }) => m.body.includes(`/appel/${a.id}/`))).toBe(true);
+      expect((await notif.listNotifications(student.id)).some((n) => n.kind === "appel" && n.link === `/appel/${a.id}/`)).toBe(true);
+      expect((await notif.listNotifications(parent.id)).some((n) => n.kind === "appel")).toBe(true);
+
+      const r = await appels.rejoindre(student, a.id);
+      expect(r).toMatchObject({ termine: false, jeton: "jeton-test", audioSeul: true });
+      expect(appelsDaily.at(-1)!.corps).toMatchObject({ properties: { room_name: a.salle, is_owner: false, eject_at_token_exp: true } });
+      await appels.rejoindre(parent, a.id); // parent d'un élève du fil
+      await appels.rejoindre(school, a.id);
+      expect(appelsDaily.at(-1)!.corps).toMatchObject({ properties: { is_owner: true } });
+      await expect(appels.rejoindre(landlord, a.id)).rejects.toThrow(/introuvable/i);
+      await db.update(schema.appels).set({ expire: new Date(Date.now() - 1000) }).where(eq(schema.appels.id, a.id));
+      const n = appelsDaily.length;
+      expect(await appels.rejoindre(student, a.id)).toMatchObject({ termine: true });
+      expect(appelsDaily.length).toBe(n); // aucun jeton pour un appel terminé
+    } finally { espion.mockRestore(); delete process.env.DAILY_API_KEY; }
   });
 });

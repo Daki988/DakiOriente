@@ -7,6 +7,7 @@ import { Alert, Button, Chip, Empty, Kpi, Loading, Panel, StatusBadge, Table, da
 import { DOC_TYPES, Field, FormError, Input, Select, Textarea } from "@/components/app/form";
 import { useAction, useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
+import { CorpsMessage, LancerAppel } from "@/components/espace/Conversation";
 import { AdminHeader, Flag, LoadError, PAYS_OPTS, Pager, Toggle, qs, useDebounced } from "./shared";
 
 // ---------------------------------------------------------------- Toutes les candidatures
@@ -150,6 +151,7 @@ function FilAdmin({ id, onChange }: { id: string; onChange: () => void }) {
   return (
     <div className="grid items-start gap-4 2xl:grid-cols-[1fr_320px]">
       <Panel title={f.data.conversation.subject} icon={MessagesSquare} action={ctx.type !== "autre" && <Chip><LifeBuoy size={12} className="mr-1 inline" />Pour le compte de {ctx.pourLeCompteDe}</Chip>}>
+        <div className="mb-3"><LancerAppel conversationId={id} apres={() => { void f.reload(); onChange(); }} /></div>
         <div className="flex max-h-[55vh] flex-col gap-3.5 overflow-y-auto pr-1">
           {!f.data.messages.length && <p className="py-6 text-center text-sm text-ink-mute">Aucun message : écrivez le premier.</p>}
           {f.data.messages.map(({ m, a: au }) => {
@@ -157,7 +159,7 @@ function FilAdmin({ id, onChange }: { id: string; onChange: () => void }) {
             return (
               <div key={m.id} className={`flex flex-col ${pro ? "items-end" : "items-start"}`}>
                 <span className="mb-1 text-[11px] text-ink-mute"><b className="text-ink">{au.role === "admin" ? `${au.firstName}, équipe Navigoal` : `${au.firstName} ${au.lastName}`}</b> · {ROLE[au.role] ?? au.role}{m.onBehalfOf && au.role === "admin" ? ` · pour le compte de ${m.onBehalfOf}` : ""} · {dateFr(m.createdAt, true)}{m.internal && <span className="ml-1.5 rounded-full bg-sun-100 px-1.5 py-0.5 text-[10px] font-bold text-[#a55a00]">NOTE INTERNE</span>}</span>
-                <p className={`max-w-[85%] whitespace-pre-wrap rounded-2xl border px-4 py-2.5 text-sm ${m.internal ? "border-[#ffe59a] bg-[#fff7dd]" : au.role === "admin" ? "border-[#c9d6ff] bg-brand-50" : pro ? "border-[#e6eaf3] bg-white" : "border-transparent bg-[#f1f4fb]"}`}>{m.body}</p>
+                <p className={`max-w-[85%] whitespace-pre-wrap rounded-2xl border px-4 py-2.5 text-sm ${m.internal ? "border-[#ffe59a] bg-[#fff7dd]" : au.role === "admin" ? "border-[#c9d6ff] bg-brand-50" : pro ? "border-[#e6eaf3] bg-white" : "border-transparent bg-[#f1f4fb]"}`}><CorpsMessage body={m.body} /></p>
               </div>
             );
           })}

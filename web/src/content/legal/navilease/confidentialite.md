@@ -36,6 +36,7 @@ Bases : exécution du service et du contrat de location, obligations légales (c
 - Les **pièces de vérification** du bailleur ne sont vues que par l'équipe de modération, et ne sont jamais publiées.
 - Les **prestataires de paiement** reçoivent les données nécessaires à la transaction.
 - L'équipe Navilease accède aux échanges d'une réservation seulement en cas de litige ou de signalement.
+- **Visites virtuelles** : les appels audio ou vidéo lancés par le bailleur passent par le service Daily (États-Unis). Seuls votre prénom et le flux de l'appel y transitent, le temps de l'appel ; rien n'est enregistré. Ne communiquez pas vos coordonnées pendant l'appel avant le paiement.
 
 ## Durées de conservation
 

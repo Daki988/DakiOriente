@@ -1,13 +1,13 @@
 // Politique de sécurité du contenu : ressources du site uniquement (images https autorisées), pas d'objets ni d'intégration
-// par un autre site ; seules les vidéos des témoignages (lecteurs officiels YouTube sans cookies et Onisep TV) sont intégrées. 'unsafe-inline' reste nécessaire aux scripts d'hydratation de Next.js et au JSON-LD.
+// par un autre site ; seules les vidéos des témoignages et les appels (salles Daily, caméra et micro délégués) sont intégrés. Pour les vidéos : (lecteurs officiels YouTube sans cookies et Onisep TV) sont intégrées. 'unsafe-inline' reste nécessaire aux scripts d'hydratation de Next.js et au JSON-LD.
 const CSP = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self'",
-  "frame-src 'self' https://www.youtube-nocookie.com https://videos.onisep.fr",
+  "connect-src 'self' https://*.daily.co wss://*.daily.co",
+  "frame-src 'self' https://www.youtube-nocookie.com https://videos.onisep.fr https://*.daily.co",
   "frame-ancestors 'self'",
   "object-src 'none'",
   "base-uri 'self'",
@@ -15,7 +15,7 @@ const CSP = [
 ].join("; ");
 
 /** @type {import('next').NextConfig} */
-const PRIVES = ["admin", "bailleur", "compte", "conseiller", "espace", "etablissement", "messages", "notifications", "orientation", "parent", "connexion", "inscription", "mot-de-passe-oublie", "paiement", "premiere-connexion", "verification", "navilease/logements", "navilease/espace", "navilease/reservations"];
+const PRIVES = ["admin", "appel", "bailleur", "compte", "conseiller", "espace", "etablissement", "messages", "notifications", "orientation", "parent", "connexion", "inscription", "mot-de-passe-oublie", "paiement", "premiere-connexion", "verification", "navilease/logements", "navilease/espace", "navilease/reservations"];
 
 const nextConfig = {
   // Paquet autonome (serveur Node seul) pour un hébergement cPanel / VPS : BUILD_STANDALONE=1 npm run build
@@ -35,7 +35,7 @@ const nextConfig = {
       { key: "X-Content-Type-Options", value: "nosniff" },
       { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
       { key: "X-Frame-Options", value: "SAMEORIGIN" },
-      { key: "Permissions-Policy", value: "camera=(self), geolocation=(self)" },
+      { key: "Permissions-Policy", value: 'camera=(self "https://*.daily.co"), microphone=(self "https://*.daily.co"), display-capture=(self "https://*.daily.co"), geolocation=(self)' },
     ] },
     // Cache de l'hébergeur (LWS Fastest Cache / Varnish) : Next annonce s-maxage=1 an pour les pages pré-rendues ;
     // CDN-Cache-Control, prioritaire pour Varnish, limite les pages HTML à 5 minutes (les fichiers /_next/static,

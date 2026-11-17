@@ -332,6 +332,19 @@ export const messages = pgTable("messages", {
   createdAt: createdAt(),
 }, (t) => [index("messages_conv_idx").on(t.conversationId, t.createdAt)]);
 
+// Appels audio ou vidéo (Daily) lancés depuis un fil de messagerie : entretien, visite virtuelle, rendez-vous conseiller.
+// La salle Daily est privée et expire ; on n'entre qu'avec un jeton remis aux participants du fil (et à l'équipe).
+export const appels = pgTable("appels", {
+  id: id(),
+  conversationId: text("conversation_id").notNull().references(() => conversations.id, { onDelete: "cascade" }),
+  salle: text("salle").notNull(), // nom de la salle Daily
+  url: text("url").notNull(), // adresse de la salle Daily
+  audioSeul: boolean("audio_seul").notNull().default(false),
+  creePar: text("cree_par").notNull().references(() => users.id, { onDelete: "cascade" }),
+  expire: timestamp("expire", { withTimezone: true }).notNull(),
+  createdAt: createdAt(),
+}, (t) => [index("appels_conv_idx").on(t.conversationId)]);
+
 // ---------------------------------------------------------------- Offres payantes des établissements
 /** Catalogue modifiable dans le back-office. `effect` : ce que le service active sur la plateforme. */
 export const offerServices = pgTable("offer_services", {
