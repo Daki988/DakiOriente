@@ -41,6 +41,7 @@ import * as acces from "../services/acces";
 import * as offres from "../services/offres";
 import * as dossier from "../services/dossier";
 import * as audience from "../services/audience";
+import * as naviProfil from "../services/navi-profil";
 import { ACQ_COOKIE } from "@/lib/campagne";
 
 /** Origine de l'inscription (cookie de première visite posé par le site). */
@@ -492,6 +493,9 @@ route("POST", "/parent/enfants/:id/visibilite", "Parent", "Donner ou retirer mon
 
 // ---------------------------------------------------------------- Navi (assistant IA)
 route("GET", "/navi", "Navi", "Navi est-il disponible (clé API configurée) ?", "public", async () => ({ actif: navi.naviActif(), invitation: navi.naviActif() && navi.naviInvitation() }));
+route("GET", "/navi/accueil", "Navi", "Accueil personnalisé de Navi pour un élève ou un parent connecté (profil, fiche de suivi)", "public", async ({ user }) => naviProfil.accueilNavi(user));
+route("GET", "/moi/navi-suivi", "Navi", "Ce que Navi retient de mes conversations (fiche de suivi)", "user", async ({ me }) => ({ suivi: await naviProfil.lireSuivi(me.id) }));
+route("DELETE", "/moi/navi-suivi", "Navi", "Effacer ce que Navi retient de mes conversations", "user", async ({ me }) => { await naviProfil.effacerSuivi(me.id); return ok; });
 route("POST", "/navi", "Navi", "Converser avec Navi (réponse en flux NDJSON : texte, cartes, fin)", "public", async ({ req, user, body }) => {
   if (!navi.naviActif()) throw new AppError("Navi n'est pas encore activé.", 503, "navi_inactif");
   const r = navi.naviSchema.parse(await body());

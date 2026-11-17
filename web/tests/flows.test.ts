@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { and, eq, sql } from "drizzle-orm";
 
 process.env.DATABASE_URL = process.env.TEST_DATABASE_URL || "postgres://postgres@localhost:5433/navigoal_test";
@@ -676,6 +676,9 @@ describe("accès réservé à certains pays", () => {
 });
 
 describe("Navi : routeur, cache des réponses et suivi (faux modèle, sans appel réel)", async () => {
+  // La fiche de suivi (appel supplémentaire au petit modèle) est testée à part.
+  beforeAll(() => { process.env.NAVI_SUIVI = "0"; });
+  afterAll(() => { delete process.env.NAVI_SUIVI; });
   const navi = await import("@/server/services/navi");
   type Params = { model: string; thinking?: { type: string }; fallbacks?: unknown; output_config?: { effort?: string } };
   // Faux client : chaque appel au modèle consomme la réponse suivante du scénario.
@@ -893,5 +896,46 @@ describe("audience en direct", () => {
     await expect(admin.dossierUtilisateur(school, student.id)).rejects.toThrow();
     const [log] = await db.select().from(schema.auditLogs).where(eq(schema.auditLogs.action, "consultation_dossier"));
     expect(log).toBeTruthy();
+  });
+});
+
+describe("Navi connaît l'élève : profil, fiche de suivi, avis d'admission", () => {
+  it("profil du compte dans le contexte, avis d'admission selon la série, fiche de suivi tenue et effaçable", async () => {
+    const np = await import("@/server/services/navi-profil");
+    const navi = await import("@/server/services/navi");
+    const { formations, series } = await import("@/lib/data");
+    // Élève avec une série et un test d'orientation
+    const f = formations.find((x) => (x.series_recommandees.GA ?? []).length > 0)!;
+    const conseillee = f.series_recommandees.GA![0];
+    const autre = series.find((s) => s.pays === "GA" && !(f.series_recommandees.GA ?? []).includes(s.id))!;
+    await db.insert(schema.profiles).values({ userId: student.id, serie: conseillee, average: 13.5, targetJobs: [f.metiers[0]].filter(Boolean) })
+      .onConflictDoUpdate({ target: schema.profiles.userId, set: { serie: conseillee, average: 13.5, targetJobs: [f.metiers[0]].filter(Boolean) } });
+    await db.insert(schema.orientationResults).values({ userId: student.id, answers: [1], scores: { S: 5, E: 4 }, top: ["S", "E"] });
+
+    const ctx = await np.contexteEleve(student);
+    expect(ctx).toContain("13.5/20");
+    expect(ctx).toMatch(/Test d'orientation : /);
+
+    const ok = await np.verifierAdmission(student, f.id);
+    expect(ok.serie_conseillee).toBe(true);
+    const non = await np.verifierAdmission(student, f.id, autre.id);
+    expect(non.serie_conseillee).toBe(false);
+    expect((await np.verifierAdmission(null, f.id)).serie_conseillee).toBeNull();
+
+    // Fiche de suivi rédigée par le petit modèle (simulé), relue dans le contexte et dans l'accueil
+    const faux = { beta: { messages: { create: async () => ({ stop_reason: "end_turn", model: "claude-haiku-5-5", usage: {}, content: [{ type: "text", text: "Projet et goûts\n- Aime le contact\nProchaine étape\n- Comparer deux écoles à Rabat" }] }) } } };
+    await navi.mettreAJourSuivi(faux as never, student, "Je veux être infirmière", "Voici des pistes…");
+    expect((await np.lireSuivi(student.id))?.notes).toContain("Comparer deux écoles");
+    expect(await np.contexteEleve(student)).toContain("Fiche de suivi");
+    const acc = await np.accueilNavi(student);
+    expect(acc.texte).toContain("Comparer deux écoles à Rabat");
+    // « INCHANGE » ne touche pas la fiche ; un autre profil ne voit rien
+    const inchange = { beta: { messages: { create: async () => ({ stop_reason: "end_turn", content: [{ type: "text", text: "INCHANGE" }] }) } } };
+    await navi.mettreAJourSuivi(inchange as never, student, "merci", "Avec plaisir");
+    expect((await np.lireSuivi(student.id))?.notes).toContain("Comparer deux écoles");
+    await navi.mettreAJourSuivi(faux as never, school, "x", "y");
+    expect(await np.lireSuivi(school.id)).toBeNull();
+    await np.effacerSuivi(student.id);
+    expect(await np.lireSuivi(student.id)).toBeNull();
   });
 });

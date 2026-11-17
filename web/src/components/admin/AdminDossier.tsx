@@ -19,7 +19,7 @@ type Dossier = {
   candidatures: { id: string; numero: string; statut: string; campus: string | null; soumise: string | null; decidee: string | null; creee: string; pieces: string[]; demandees: string[]; etablissementId: string; etablissement: string; sigle: string; ville: string; programme: string }[];
   pieces: { id: string; type: string; label: string | null; fichier: string; taille: number; statut: string; le: string }[];
   rendezVous: { id: string; sujet: string; statut: string; prevu: string | null; souhaite: string | null; le: string }[];
-  navi: { questions: number; dernieres: { id: string; at: string; question: string }[] };
+  navi: { questions: number; dernieres: { id: string; at: string; question: string }[]; suivi: { notes: string; le: string } | null };
   favoris: { kind: string; itemId: string }[];
 };
 const DOC = Object.fromEntries(DOC_TYPES);
@@ -153,6 +153,7 @@ export function AdminDossier({ id }: { id: string }) {
         </Panel>
         <Panel title={`Navi (${d.data.navi.questions} question${d.data.navi.questions > 1 ? "s" : ""})`} icon={Bot}>
           {d.data.navi.dernieres.length ? d.data.navi.dernieres.map((q) => <p key={q.id} className="line-clamp-2 break-words text-sm [overflow-wrap:anywhere]"><span className="text-xs text-ink-mute">{date(q.at)} · </span>{q.question}</p>) : <p className="text-sm text-ink-mute">Aucune question à Navi (90 derniers jours).</p>}
+          {d.data.navi.suivi?.notes && <div className="rounded-xl bg-[#f6f8fe] p-3"><p className="text-xs font-bold text-ink-mute">Fiche de suivi de Navi · {date(d.data.navi.suivi.le)}</p><p className="mt-1 whitespace-pre-wrap text-[13px] text-ink-soft">{d.data.navi.suivi.notes}</p></div>}
           {d.data.navi.questions > 0 && <Link href="/admin/navi" className="text-[13px] font-bold text-brand-600">Voir dans le suivi de Navi →</Link>}
         </Panel>
         <Panel title={`Favoris (${d.data.favoris.length})`} icon={Heart}>

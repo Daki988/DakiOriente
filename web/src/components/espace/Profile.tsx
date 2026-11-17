@@ -8,6 +8,7 @@ import { useAction, useApi } from "@/hooks/useApi";
 import { VILLES_ETUDES, competences, pays, series } from "@/lib/data";
 import { PAYS_OPTIONS } from "@/lib/pays-origine";
 import { profileCompletion } from "./completion";
+import { SuiviNavi } from "./SuiviNavi";
 
 type Me = { firstName: string; lastName: string; email: string | null; phone: string | null; birthYear: number | null; country: string | null; city: string | null; emailVerifiedAt: string | null; phoneVerifiedAt: string | null;
   profile: { level: string | null; serie: string | null; currentSchool: string | null; diploma: string | null; skills: string[]; interests: string[]; goals: string | null; riasec: { top: string[] } | null; preferences: { pays?: string[]; villes?: string[]; budgetAnnuel?: number; devise?: string; logement?: { budget?: number; type?: string; colocation?: boolean } } } | null };
@@ -106,6 +107,7 @@ export function Profile() {
             {me.data.profile?.riasec ? <span className="chip bg-[#f1edff] text-[#6a3df0]"><Sparkles size={13} className="mr-1 inline" />Profil {me.data.profile.riasec.top.join("·")}</span> : <a href="/orientation" className="text-sm font-bold text-brand-600">Passer le test d&apos;orientation →</a>}
             {(me.data.emailVerifiedAt || me.data.phoneVerifiedAt) && <span className="flex items-center gap-1 text-xs font-bold text-[#0f8a46]"><CheckCircle2 size={14} />Coordonnées vérifiées</span>}
           </section>
+          <SuiviNavi />
           <section id="parent" className="scroll-mt-24">
             <Panel title="Parent / tuteur" icon={UsersRound} tone="sun">
               {(g.data ?? []).map((x) => (

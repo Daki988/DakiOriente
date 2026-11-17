@@ -656,6 +656,15 @@ export const appSettings = pgTable("app_settings", {
   updatedAt: updatedAt(),
 });
 
+// Navi : fiche de suivi d'un élève (ou d'un parent), tenue d'une conversation à l'autre : profil exprimé, pistes,
+// décisions, hésitations, prochaine étape. Rédigée par le petit modèle, lue en début de conversation, visible de
+// l'élève (« Ce que Navi retient ») et de l'équipe dans son dossier ; effaçable par l'élève.
+export const naviSuivi = pgTable("navi_suivi", {
+  userId: text("user_id").primaryKey().references(() => users.id, { onDelete: "cascade" }),
+  notes: text("notes").notNull().default(""),
+  updatedAt: updatedAt(),
+});
+
 // Navi : une ligne par question posée (suivi de qualité et de coût, back-office /admin/navi). Conservation 90 jours.
 export const naviTraces = pgTable("navi_traces", {
   id: id(),

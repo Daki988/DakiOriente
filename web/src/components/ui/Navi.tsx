@@ -236,6 +236,8 @@ export function Navi() {
   const [saisie, setSaisie] = useState("");
   const [envoi, setEnvoi] = useState(false);
   const [connecte, setConnecte] = useState<boolean | null>(null);
+  // Accueil personnalisé (élève ou parent connecté) : profil du compte et fiche de suivi de Navi.
+  const [accueil, setAccueil] = useState<{ texte: string | null; suggestions: string[] }>({ texte: null, suggestions: [] });
   const [whatsapp, setWhatsapp] = useState<string | null>(null);
   const [bulle, setBulle] = useState(false);
   const [ecoute, setEcoute] = useState(false);
@@ -258,7 +260,10 @@ export function Navi() {
   useEffect(() => { ecrire(`${CLE}-fil`, msgs.slice(-30)); }, [msgs]);
   useEffect(() => {
     if (!ouvert) return;
-    fetch("/api/session/").then((r) => r.json()).then((d) => setConnecte(!!d?.user)).catch(() => setConnecte(false));
+    fetch("/api/session/").then((r) => r.json()).then((d) => {
+      setConnecte(!!d?.user);
+      if (d?.user) fetch("/api/navi/accueil/").then((r) => r.json()).then((a) => setAccueil({ texte: a?.texte ?? null, suggestions: Array.isArray(a?.suggestions) ? a.suggestions : [] })).catch(() => {});
+    }).catch(() => setConnecte(false));
     fetch("/api/contact/").then((r) => r.json()).then((d) => setWhatsapp(d?.whatsapp ?? null)).catch(() => {});
     setTimeout(() => champ.current?.focus(), 50);
     const echap = (e: KeyboardEvent) => { if (e.key === "Escape") setOuvert(false); };
@@ -374,14 +379,15 @@ export function Navi() {
           <div ref={fil} className="flex-1 space-y-3.5 overflow-y-auto px-4 py-4 text-[14.5px] leading-relaxed text-ink-soft">
             <div className="flex gap-2.5">
               <Avatar />
-              <div className="rounded-2xl rounded-tl-md border border-slate-200/80 bg-white px-3.5 py-2.5">Salut 👋 Moi c&apos;est Navi. Tu sais déjà ce que tu veux faire, ou tu hésites encore ? Raconte-moi, on regarde ça ensemble : métiers, formations, écoles et budget.</div>
+              <div className="rounded-2xl rounded-tl-md border border-slate-200/80 bg-white px-3.5 py-2.5">{accueil.texte ?? <>Salut 👋 Moi c&apos;est Navi. Tu sais déjà ce que tu veux faire, ou tu hésites encore ? Raconte-moi, on regarde ça ensemble : métiers, formations, écoles et budget.</>}</div>
             </div>
             {msgs.length === 0 && (
               <div className="pl-[38px]">
                 <div className="mb-2 text-[11.5px] font-bold uppercase tracking-wide text-ink-mute">Suggestions</div>
                 <div className="flex flex-col items-start gap-2">
+                  {accueil.suggestions.map((s) => <button key={s} type="button" onClick={() => envoyer(s)} className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-2 text-left text-[13.5px] font-bold text-brand-700"><Sparkles size={15} className="shrink-0" />{s}</button>)}
                   {question && <button type="button" onClick={() => envoyer(question)} className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-2 text-[13.5px] font-bold text-brand-700"><Sparkles size={15} />{question}</button>}
-                  {SUGGESTIONS.filter((s) => s.texte !== question).map((s) => <button key={s.texte} type="button" onClick={() => envoyer(s.texte)} className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-2 text-[13.5px] font-bold text-ink hover:border-brand-300"><span className="text-brand-600">{s.icone}</span>{s.texte}</button>)}
+                  {SUGGESTIONS.filter((s) => s.texte !== question).slice(0, accueil.suggestions.length ? 2 : undefined).map((s) => <button key={s.texte} type="button" onClick={() => envoyer(s.texte)} className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-2 text-[13.5px] font-bold text-ink hover:border-brand-300"><span className="text-brand-600">{s.icone}</span>{s.texte}</button>)}
                 </div>
                 {connecte === false && (
                   <div className="mt-4 flex gap-2.5 rounded-2xl border border-brand-100 bg-brand-50/70 p-3 text-[12.5px] text-ink-soft">

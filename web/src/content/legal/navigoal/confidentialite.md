@@ -43,7 +43,7 @@ Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les c
 | Encaisser les paiements des services payants que vous choisissez (logement Navilease), émettre les reçus | exécution du service, obligations comptables |
 | Vous envoyer les notifications utiles (code, statut de candidature, pièce demandée) | exécution du service |
 | Vous proposer, si vous l'acceptez, aux écoles Premium (vivier anonyme, invitations) | votre consentement, et celui de votre parent si vous êtes mineur |
-| Répondre à vos questions avec Navi ou un conseiller | exécution du service |
+| Répondre à vos questions avec Navi ou un conseiller ; pour un compte connecté, adapter Navi à votre profil (test d'orientation, série, résultats, projet, budget, favoris) et tenir une fiche de suivi de vos échanges pour reprendre le fil | exécution du service |
 | Mesurer l'efficacité de nos campagnes (source d'inscription, parrainage) et produire des statistiques anonymes | intérêt légitime de Navigoal |
 | Mesurer l'audience du site (pages les plus consultées, pays, provenance) pour l'améliorer, et repérer les élèves connectés qui pourraient avoir besoin d'aide | intérêt légitime de Navigoal |
 | Contrôler la qualité, l'exactitude et le coût des réponses de Navi (relecture par l'équipe Navigoal, tests) | intérêt légitime de Navigoal |
@@ -78,7 +78,7 @@ Vos données sont hébergées dans l'Union européenne. Les messages envoyés à
 | Compte et profil | tant que le compte est actif, puis 3 ans sans activité |
 | Candidatures et pièces | durée de la campagne d'admission, puis 2 ans |
 | Paiements et reçus | 10 ans (obligations comptables) |
-| Conversations avec Navi | 90 jours : chaque question, la réponse affichée et des données techniques (recherches effectuées, durée, coût), rattachées à votre compte si vous êtes connecté. Une réponse à la première question d'un visiteur non connecté peut être gardée 24 heures pour être resservie à la même question. Le compteur du nombre de messages du jour ne garde pas l'adresse IP en clair |
+| Conversations avec Navi | 90 jours : chaque question, la réponse affichée et des données techniques (recherches effectuées, durée, coût), rattachées à votre compte si vous êtes connecté. Une réponse à la première question d'un visiteur non connecté peut être gardée 24 heures pour être resservie à la même question. Le compteur du nombre de messages du jour ne garde pas l'adresse IP en clair. Fiche de suivi de Navi (projet, pistes, décisions, prochaine étape, en quelques lignes) : tant que le compte existe ; visible et effaçable à tout moment sur la page Profil |
 | Journaux de connexion et de sécurité | 12 mois |
 | Mesure d'audience (détail par page vue, sans adresse IP) | 13 mois |
 | Codes de vérification | quelques minutes (usage unique) |

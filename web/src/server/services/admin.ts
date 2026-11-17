@@ -294,6 +294,7 @@ export async function dossierUtilisateur(a: User, id: string) {
   const rdv = await partie("rendez-vous", async () => db.select({ id: S.appointments.id, sujet: S.appointments.topic, statut: S.appointments.status, prevu: S.appointments.scheduledAt, souhaite: S.appointments.preferredAt, le: S.appointments.createdAt }).from(S.appointments).where(eq(S.appointments.studentId, id)).orderBy(desc(S.appointments.createdAt)).limit(10), []);
   const [navi] = await partie("navi", async () => db.select({ n: count() }).from(S.naviTraces).where(eq(S.naviTraces.userId, id)), [{ n: 0 }]);
   const naviDernieres = await partie("navi-dernieres", async () => db.select({ id: S.naviTraces.id, at: S.naviTraces.at, question: S.naviTraces.question }).from(S.naviTraces).where(eq(S.naviTraces.userId, id)).orderBy(desc(S.naviTraces.at)).limit(5), []);
+  const [suiviNavi] = await partie("navi-suivi", async () => db.select({ notes: S.naviSuivi.notes, le: S.naviSuivi.updatedAt }).from(S.naviSuivi).where(eq(S.naviSuivi.userId, id)), []);
   const favoris = await partie("favoris", async () => db.select({ kind: S.favorites.kind, itemId: S.favorites.itemId }).from(S.favorites).where(eq(S.favorites.userId, id)), []);
   const autres = [...new Set(liens.flatMap((l) => [l.parentId, l.childId]).filter((x): x is string => !!x && x !== id))];
   const noms = autres.length ? await partie("noms", async () => db.select({ id: S.users.id, prenom: S.users.firstName, nom: S.users.lastName, role: S.users.role }).from(S.users).where(inArray(S.users.id, autres)), []) : [];
@@ -311,7 +312,7 @@ export async function dossierUtilisateur(a: User, id: string) {
     candidatures,
     pieces,
     rendezVous: rdv,
-    navi: { questions: Number(navi.n), dernieres: naviDernieres },
+    navi: { questions: Number(navi.n), dernieres: naviDernieres, suivi: suiviNavi ?? null },
     favoris,
   };
 }

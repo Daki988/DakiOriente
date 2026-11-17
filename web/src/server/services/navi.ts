@@ -1,6 +1,7 @@
 // Navi, l'assistant IA de Navigoal : répond à partir des données de la plateforme (outils de lecture),
 // propose l'action suivante (liens vers les pages déjà filtrées) et ne lit que les données de l'utilisateur connecté.
 import Anthropic from "@anthropic-ai/sdk";
+import { contexteEleve, ecrireSuivi, lireSuivi, LIMITE_SUIVI, verifierAdmission } from "./navi-profil";
 import { and, desc, eq, gte, ilike, lt, lte, or, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db, schema } from "../db";
@@ -376,6 +377,7 @@ const OUTILS = [
   { name: "infos_pays_origine", description: "Informations pour un pays de départ : visa pour chaque pays d'études, monnaie, diplôme de fin de secondaire, moyens de paiement acceptés.", input_schema: obj({ pays: { ...STR, description: "Code ISO à 2 lettres ou nom du pays" } }) },
   { name: "chercher_logements", description: "Logements étudiants publiés sur Navilease, au Maroc seulement (ville, loyer maximum en dirhams).", input_schema: obj({ ville: nul(STR), budget_max_mad: nul(INT) }) },
   { name: "campagnes_en_cours", description: "Campagnes d'admission, concours et bourses ouvertes (toutes, ou pour un établissement).", input_schema: obj({ etablissement_id: nul(STR) }) },
+  { name: "verifier_admission", description: "Avis d'admission pour une formation : la série du bac de l'élève connecté est-elle parmi les séries conseillées ? Mode d'admission, durée, niveau. À appeler avant de recommander une formation à un élève connecté, ou quand il demande s'il a ses chances.", input_schema: obj({ formation_id: STR }) },
   { name: "mon_espace", description: "Données de l'utilisateur connecté : candidatures (statut, pièces demandées), documents, paiements, logement, rendez-vous ; pour un parent, celles de ses enfants. Indique s'il n'est pas connecté.", input_schema: obj({}) },
   { name: "afficher", description: "Affiche sous ta réponse des cartes cliquables construites à partir de la base : établissements (2 à 4 au plus), une estimation de coût, jusqu'à 3 liens vers les pages Navigoal déjà filtrées (le premier est le bouton principal), le bouton WhatsApp conseiller, et jusqu'à 3 questions de relance courtes. Appelle-le une fois, en dernier.",
     input_schema: obj({
@@ -401,6 +403,7 @@ const VALIDATION: Record<string, z.ZodTypeAny> = {
   infos_pays_origine: z.object({ pays: z.string().max(60) }),
   chercher_logements: z.object({ ville: nullStr, budget_max_mad: nullInt }),
   campagnes_en_cours: z.object({ etablissement_id: nullStr }),
+  verifier_admission: z.object({ formation_id: z.string().max(100) }),
   mon_espace: z.object({}),
   afficher: z.object({ etablissements: z.array(z.string().max(100)).max(10), formation_id: nullStr, devis: DevisZ.nullable(), liens: z.array(z.object({ libelle: z.string().max(80), chemin: z.string().max(500) })).max(6), conseiller: z.boolean(), suggestions: z.array(z.string().max(120)).max(6) }),
 };
@@ -428,6 +431,12 @@ Ton et rythme (le plus important) :
 - Une seule question à la fois, facile à répondre, souvent avec deux ou trois pistes (« plutôt le contact avec les gens, les chiffres, ou fabriquer des choses ? »). Jamais de questionnaire.
 - Messages de discussion : 15 à 50 mots, sans liste ni gras. Tu ne sors les listes que pour présenter des résultats.
 - Rapidité : réponds tout de suite, sans outil, quand ton message ne contient aucun fait vérifiable — tu réagis à ce qu'elle vient de dire, tu rassures, tu poses ta question suivante. Dès que ton message doit contenir un métier, une durée, un niveau, un diplôme, une école ou un montant, tu appelles d'abord les outils (tous dans le même tour, ils vont en parallèle), puis tu écris. Il n'y a pas de troisième voie : soit ta phrase ne contient aucun fait, soit tu l'as cherché.
+
+Si le contexte contient le profil de la personne (son compte) ou ta fiche de suivi :
+- Sers-t'en dès le premier message : ne redemande jamais ce qui y figure (série, résultats, métiers visés, budget, villes). Appelle la personne par son prénom de temps en temps.
+- Reprends le fil quand c'est utile (« La dernière fois, tu hésitais entre X et Y : tu as tranché ? »), sans réciter la fiche ni dire que tu as des notes.
+- Un résultat de test d'orientation est une piste, pas un verdict : confronte-le à ce que la personne dit aujourd'hui.
+- Avant de recommander une formation, regarde si sa série y est conseillée (verifier_admission) et dis-le avec tact : série conseillée, ou non conseillée avec une formation de repli.
 
 Cerner le profil (au fil de la discussion, sans le dire) :
 - Retiens tout ce que la personne laisse voir, même indirectement : classe et série, matières où elle est à l'aise ou en difficulté, ce qu'elle aime faire, ce qu'elle refuse, son caractère (contact, rigueur, créativité, terrain, écrans), durée d'études acceptable, ville ou pays souhaités, situation de la famille, et surtout le budget.
@@ -514,6 +523,20 @@ export async function condenser(client: Anthropic, reponse: string, question: st
   return { texte: sur ? texte : null, modele: m.model, usage: m.usage };
 }
 
+// Fiche de suivi : après chaque échange d'un élève ou d'un parent connecté, le petit modèle met à jour ses notes
+// (projet, pistes, décisions, hésitations, prochaine étape), relues au début de la conversation suivante.
+export async function mettreAJourSuivi(client: Anthropic, user: User, question: string, reponse: string) {
+  if (!["eleve", "etudiant", "parent"].includes(user.role) || process.env.NAVI_SUIVI === "0") return;
+  const avant = (await lireSuivi(user.id))?.notes ?? "";
+  const m = await client.beta.messages.create({
+    model: MODELE_SIMPLE(), max_tokens: 700, output_config: { effort: "low" }, thinking: { type: "disabled" },
+    system: `Tu tiens la fiche de suivi d'orientation d'un élève (ou d'un parent) pour Navi, l'assistant de Navigoal. À partir de la fiche actuelle et du dernier échange, réécris la fiche complète, ${LIMITE_SUIVI - 200} caractères au plus, en puces courtes sous ces titres quand ils ont du contenu : « Projet et goûts », « Pistes étudiées » (métiers, formations, écoles, avec la ville), « Décisions », « Hésitations », « Prochaine étape ». Garde seulement ce que la personne a dit, choisi ou demandé, et les pistes proposées qu'elle a retenues. Pas de chiffres inventés, pas de santé, pas de détails familiaux ou financiers intimes (« budget serré » suffit). Si l'échange n'apporte rien de nouveau, réponds exactement INCHANGE. Sinon, réponds uniquement par la fiche.`,
+    messages: [{ role: "user", content: `Fiche actuelle :\n${avant || "(vide)"}\n\nDernier message de la personne :\n${question.slice(0, 1500)}\n\nRéponse de Navi :\n${reponse.slice(0, 2500)}` }],
+  });
+  const texte = m.content.filter((b): b is Anthropic.Beta.BetaTextBlock => b.type === "text").map((b) => b.text).join("").trim();
+  if (m.stop_reason === "end_turn" && texte && texte !== "INCHANGE" && !texte.startsWith("INCHANGE")) await ecrireSuivi(user.id, texte);
+}
+
 // ---------------------------------------------------------------- Conversation (flux NDJSON)
 export type Evenement = { t: "texte"; v: string } | { t: "efface" } | { t: "etape" } | { t: "cartes"; v: Carte[] } | { t: "fin" } | { t: "erreur"; v: string };
 
@@ -531,7 +554,7 @@ export async function* converser(req: NaviRequete, user: User | null, opts: { cl
 - Utilisateur : ${user ? `connecté (${user.role}, prénom ${user.firstName})` : "visiteur non connecté"}
 - Destination choisie sur le site : ${req.destination && destinationById[req.destination as PaysCode]?.actif ? `${destinationById[req.destination as PaysCode].nom} (${req.destination})` : req.destination === "tous" ? "tous les pays" : "non choisie"}
 - Pays de départ connu : ${paysDefaut ? `${nomPays(paysDefaut)} (${paysDefaut}), monnaie ${devisePays(paysDefaut) ?? "?"}` : "inconnu"}${tauxLigne}
-- Date : ${new Date().toISOString().slice(0, 10)}`;
+- Date : ${new Date().toISOString().slice(0, 10)}${await contexteEleve(user).catch(() => "")}`;
 
   // Historique texte (les tours précédents) ; on garde les derniers échanges, en commençant par l'utilisateur.
   let hist = req.messages.slice(-24);
@@ -684,6 +707,8 @@ export async function* converser(req: NaviRequete, user: User | null, opts: { cl
       await db.insert(schema.naviCache).values({ cle, question, reponse: affiche, cartes, expire: new Date(Date.now() + 864e5) })
         .onConflictDoUpdate({ target: schema.naviCache.cle, set: { reponse: affiche, cartes, expire: new Date(Date.now() + 864e5) } }).catch(() => {});
     }
+    // Fiche de suivi mise à jour en arrière-plan (la réponse est déjà affichée).
+    if (user && statut === "ok" && affiche.trim()) void mettreAJourSuivi(client, user, question, affiche).catch((e) => console.error("Navi suivi :", e));
   } finally {
     const total = { entree: 0, sortie: 0, cacheLu: 0, cacheEcrit: 0 };
     let cout = 0;
@@ -716,6 +741,7 @@ async function executerOutil(a: Anthropic.Beta.BetaToolUseBlock, user: User | nu
       case "infos_pays_origine": r = infosPays(x.pays); break;
       case "chercher_logements": r = await chercherLogements(x); break;
       case "campagnes_en_cours": r = await campagnesEnCours(x.etablissement_id); break;
+      case "verifier_admission": r = await verifierAdmission(user, x.formation_id); break;
       case "mon_espace": r = await monEspace(user); break;
       case "afficher": cartes.push(...(await construireCartes(x, paysDefaut))); r = { affiche: true }; break;
       default: r = { erreur: "Outil inconnu." };
