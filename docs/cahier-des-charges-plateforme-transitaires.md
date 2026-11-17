@@ -1,16 +1,21 @@
 # Cahier des charges — Neam Transit
 
 > Plateforme gabonaise de comparaison et de mise en relation avec les transitaires (Chine / Corée du Sud → Gabon)
-> Version : 0.2 — 17/11/2026
-> Statut : à valider avant maquettage Figma
+> Version : 0.3 — 17/11/2026
+> Statut : décisions actées ; **MVP réalisé** (dossier `neam-transit/`)
 
-### Décisions actées (v0.2)
+### Décisions actées (v0.3)
 
 | Sujet | Décision |
 |-------|----------|
 | Nom | **Neam Transit** |
 | Pays d'origine | **Chine** et **Corée du Sud** |
-| Paiement | **Aucun paiement en ligne** : la plateforme fait uniquement la **mise en relation** ; le client règle directement le transitaire |
+| Paiement | **Aucun paiement sur la plateforme** : uniquement la **mise en relation** ; le client règle directement le transitaire |
+| Destinations | **Tout le Gabon dès le lancement** (9 provinces, 40 villes au référentiel) |
+| Informations publiées | **Uniquement des informations vérifiées** : transitaires, tarifs, modifications et avis sont contrôlés avant publication |
+| Monétisation | Gratuit pour tous au lancement, aucun paiement sur la plateforme ; modèle de revenus à décider plus tard (section 10) |
+| Date de lancement | Pas de date officielle |
+| Méthode | À la demande de l'utilisateur, le MVP a été développé **avant** les maquettes Figma (exception à la règle « Figma d'abord ») |
 
 ---
 
@@ -43,7 +48,7 @@ Le choix du transitaire se fait surtout par **bouche-à-oreille, groupes WhatsAp
 ### Inclus
 - Origines : **Chine** et **Corée du Sud**.
 - Modes : **groupage aérien** (au kg), **groupage maritime / LCL** (au CBM), **conteneur complet / FCL** (20' / 40'), **express** (pour comparaison), **Ro-Ro véhicules** (Corée surtout — P2).
-- Destinations : Libreville en priorité, puis Port-Gentil, Franceville, Oyem… (livraison ou point de retrait).
+- Destinations : **tout le Gabon** (livraison par le transitaire ou retrait en agence).
 - Comparaison, demande de devis, mise en relation, suivi déclaratif, avis, signalements.
 
 ### Exclus
@@ -166,7 +171,7 @@ Priorité : **P1** = MVP · **P2** = V2 · **P3** = plus tard.
 
 Toute la facturation des transitaires se fait **hors ligne** (facture, virement, Mobile Money manuel).
 
-**Recommandation** : gratuit pour les clients ; référencement **gratuit 3 à 6 mois** pour constituer l'offre, puis **abonnement + mise en avant**.
+**Décision (v0.3)** : plateforme **gratuite pour tous au lancement**, aucun paiement sur la plateforme. Les options ci-dessus (toujours facturées hors plateforme) seront étudiées une fois l'offre de transitaires constituée.
 
 ## 11. Contenus et données à réunir
 
@@ -179,9 +184,10 @@ Toute la facturation des transitaires se fait **hors ligne** (facture, virement,
 
 | Phase | Contenu | Durée indicative |
 |-------|---------|------------------|
-| 0. Cadrage | Validation du cahier des charges, entretiens avec 10 importateurs et 5–8 transitaires (Chine + Corée) | 2–3 semaines |
-| 1. Design | Arborescence, wireframes puis **maquettes Figma** (design system, écrans clés), validées avant tout code | 3–4 semaines |
-| 2. MVP (P1) | Comparateur, fiches, devis, contact, comptes, espace pro, back-office, guide | 8–10 semaines |
+| 0. Cadrage | Cahier des charges validé | ✅ fait |
+| 1. MVP (P1) | Comparateur, fiches, devis, contact, espace pro, back-office, guide | ✅ fait (`neam-transit/`) |
+| 2. Design | Maquettes **Figma** à partir du MVP, ajustements visuels | 2–3 semaines |
+| 2 bis. Préparation | Hébergement, fournisseur SMS, juriste, recrutement des premiers transitaires (entretiens 10 importateurs / 5–8 transitaires) | 3–6 semaines |
 | 3. Pilote | 15–25 transitaires, Libreville, mesure des KPIs | 1–2 mois |
 | 4. V2 (P2) | Suivi déclaratif, instructions fournisseur multilingues, signalements, abonnements, Ro-Ro véhicules | 2–3 mois |
 
@@ -208,18 +214,47 @@ Toute la facturation des transitaires se fait **hors ligne** (facture, virement,
 | Responsabilité en cas de perte | CGU claires (intermédiaire, aucun flux financier), médiation, sanctions |
 | Faible offre sur la Corée | Démarchage ciblé, partenariats avec des agents à Busan/Incheon |
 
-## 15. Questions ouvertes
+## 15. Budget prévisionnel (estimation, année 1)
 
-1. Villes de destination au lancement : Libreville seule ?
-2. Modèle économique de la première année : abonnement, lead, ou les deux ?
-3. Qui assure la vérification terrain des transitaires (équipe interne, partenaire) ?
-4. Véhicules (Ro-Ro) dès le MVP ou en V2 ?
-5. Budget et date de lancement visés ?
+> Fourchettes indicatives en FCFA, à confirmer par des devis locaux. Le développement du MVP est déjà réalisé et n'est pas compté.
 
-## 16. Livrables
+### Dépenses de démarrage (une fois)
 
-1. Cahier des charges validé (ce document).
-2. Arborescence et parcours utilisateurs.
+| Poste | Estimation |
+|-------|-----------:|
+| Maquettes Figma et identité visuelle (logo, charte) | 500 000 – 1 500 000 |
+| Juriste : CGU, politique de confidentialité, formalités données personnelles | 500 000 – 1 500 000 |
+| Nom de domaine, mise en place serveur et HTTPS | 100 000 – 300 000 |
+| Formalités entreprise / dépôt de marque (si nécessaire) | 300 000 – 800 000 |
+| Campagne de lancement (réseaux sociaux, vidéos, flyers) | 1 000 000 – 2 000 000 |
+| **Total démarrage** | **2 400 000 – 6 100 000** |
+
+### Dépenses mensuelles
+
+| Poste | Estimation / mois |
+|-------|------------------:|
+| Serveur (VPS) et sauvegardes | 15 000 – 40 000 |
+| Envoi des codes de connexion (SMS / WhatsApp) | 10 000 – 30 000 |
+| Agent de vérification terrain (temps partiel + déplacements) | 150 000 – 300 000 |
+| Modération et support (temps partiel) | 100 000 – 250 000 |
+| Marketing continu | 150 000 – 400 000 |
+| Maintenance et évolutions techniques | 100 000 – 300 000 |
+| **Total mensuel** | **525 000 – 1 320 000** |
+
+### Total année 1
+
+**Environ 8,7 à 22 millions FCFA** (démarrage + 12 mois).
+**Recommandation** : budget de départ d'environ **10 millions FCFA**, en version économe (vérification et modération assurées en interne au début, marketing ciblé sur Facebook / WhatsApp), puis augmenter selon l'activité.
+
+## 16. Questions ouvertes
+
+1. Qui assure la vérification terrain des transitaires (équipe interne, partenaire) ?
+2. Quel fournisseur SMS / WhatsApp pour les codes de connexion ?
+3. Quel modèle de revenus, et à partir de quand ?
+
+## 17. Livrables
+
+1. Cahier des charges validé (ce document). ✅
+2. MVP (site public, espace transitaire, administration) et documentation technique (`neam-transit/README.md`). ✅
 3. Maquettes **Figma** (mobile et desktop) et design system Neam Transit.
-4. MVP en production et back-office.
-5. Documentation technique et guide d'administration.
+4. Mise en production et guide d'administration.

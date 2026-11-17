@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-marine-950: #061a33;
+  --color-marine-900: #0b2545;
+  --color-marine-800: #13315c;
+  --color-marine-700: #1d4477;
+  --color-marine-100: #e3ecf7;
+  --color-marine-50: #f3f7fc;
+  --color-cargo-500: #f2a541;
+  --color-cargo-600: #d98a1f;
+  --color-cargo-100: #fdf0dc;
+  --color-verifie-600: #0f8a6e;
+  --color-verifie-100: #dcf3ec;
+  --color-alerte-600: #c2410c;
+  --color-alerte-100: #ffedd5;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: var(--color-marine-50);
+  color: #0f172a;
+}
+
+@utility conteneur {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+  }
+
+@utility carte {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+  }
+
+@utility btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-marine-700 disabled:opacity-50;
+  }
+
+@utility btn-primaire {
+    @apply btn bg-cargo-500 text-marine-950 hover:bg-cargo-600;
+  }
+
+@utility btn-marine {
+    @apply btn bg-marine-900 text-white hover:bg-marine-800;
+  }
+
+@utility btn-whatsapp {
+    @apply btn bg-[#1fa855] text-white hover:bg-[#178c46];
+  }
+
+@utility btn-contour {
+    @apply btn border border-slate-300 bg-white text-marine-900 hover:bg-slate-50;
+  }
+
+@utility btn-danger {
+    @apply btn border border-red-300 bg-white text-red-700 hover:bg-red-50;
+  }
+
+@utility champ {
+    @apply block w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-base text-slate-900 placeholder:text-slate-400 focus:border-marine-700 focus:outline-none focus:ring-2 focus:ring-marine-700/20;
+  }
+
+@utility etiquette {
+    @apply mb-1 block text-sm font-medium text-slate-700;
+  }
+
+@utility aide {
+    @apply mt-1 text-xs text-slate-500;
+  }
+
+@utility titre-page {
+    @apply text-2xl font-bold tracking-tight text-marine-900 sm:text-3xl;
+  }
+
+@utility pastille {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+  }
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
