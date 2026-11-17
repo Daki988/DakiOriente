@@ -10,6 +10,7 @@ import { api } from "@/lib/api";
 // Raison donnée par Daily, traduite quand on la reconnaît (le détail d'origine reste affiché pour le dépannage).
 function expliquer(brut: string) {
   const t = brut.toLowerCase();
+  if (/payment|billing|account-/.test(t)) return "Le service d'appel n'est pas encore activé par Navigoal. L'équipe est prévenue : réessaie un peu plus tard.";
   if (/not ?allowed|permission|denied/.test(t)) return "La caméra ou le micro a été refusé. Autorise-les dans les réglages du navigateur, puis réessaie.";
   if (/does not exist|no room|not found/.test(t)) return "Cette salle d'appel n'existe pas ou plus. Demande un nouvel appel dans la conversation.";
   if (/token|unauthori|not allowed to join|eject/.test(t)) return "L'accès à cet appel a été refusé ou a expiré. Recharge la page pour réessayer.";
