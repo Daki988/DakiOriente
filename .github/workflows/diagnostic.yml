@@ -1,0 +1,34 @@
+# Diagnostic de la mise en ligne (lecture seule) : compare les pages présentes sur l'hébergement avec l'état
+# enregistré par la dernière synchronisation FTP. Lancement manuel (Actions → Diagnostic → Run workflow).
+name: Diagnostic
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ftp:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      S: ${{ secrets.NAVIGOAL_FTP_SERVER || secrets.FTP_SERVER }}
+      U: ${{ secrets.NAVIGOAL_FTP_USERNAME || secrets.FTP_USERNAME }}
+      P: ${{ secrets.NAVIGOAL_FTP_PASSWORD || secrets.FTP_PASSWORD }}
+      D: ${{ vars.NAVIGOAL_FTP_DIR || '/navigoal/' }}
+    steps:
+      - name: Pages et état de synchronisation
+        run: |
+          base="ftp://$S${D%/}"
+          get() { curl -s --user "$U:$P" "$base/$1"; }
+          get .ftp-deploy-sync-state.json > etat.json || true
+          echo "Etat : $(wc -c < etat.json) octets, généré le $(jq -r '.generatedTime // empty' etat.json)"
+          for f in index metiers etablissements connexion; do
+            p="serveur/.next/server/app/$f.html"
+            get "$p" > page.html || true
+            echo "== $p : $(wc -c < page.html) octets, layout $(grep -o 'app/layout-[0-9a-f]*' page.html | head -1)"
+            echo "   date sur le serveur : $(curl -s --user "$U:$P" -Q "MDTM ${D%/}/$p" "$base/" -I 2>&1 | grep -i '^213' || curl -s --user "$U:$P" -I "$base/$p" | grep -i last-modified)"
+            echo "   hachage local du fichier : $(sha256sum page.html | cut -c1-16)"
+            echo "   état FTP : $(jq -c --arg n "./$p" '.data[] | select(.name==$n) | {size, hash: (.hash|.[0:16])}' etat.json 2>/dev/null)"
+          done
+          echo "== Dossier tmp et fichiers de version"
+          get version.txt; get .version-appliquee
+          curl -s --user "$U:$P" --list-only "$base/serveur/.next/" | head -20
