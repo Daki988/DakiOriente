@@ -16,7 +16,7 @@ import { residencesEtudiantes } from "@/lib/residences";
 import { useDevise } from "@/components/ui/Devise";
 import { MARGE_PRUDENCE, convertirDe, devisePays, formatMontant, symbole } from "@/lib/devises";
 
-const field = "w-full rounded-xl border-[1.5px] border-slate-200 bg-white px-3.5 py-3 text-sm font-bold outline-none focus:border-brand-400 focus:ring-4 focus:ring-brand-100";
+const field = "w-full min-w-0 max-w-full truncate rounded-xl border-[1.5px] border-slate-200 bg-white px-3.5 py-3 text-sm font-bold outline-none focus:border-brand-400 focus:ring-4 focus:ring-brand-100";
 
 export function DevisSimulateur() {
   // Choix initiaux lus dans l'URL côté navigateur (LireUrl) : la page reste rendue côté serveur.
@@ -119,7 +119,7 @@ export function DevisSimulateur() {
   return (
     <>
       <LireUrl onUrl={onUrl} />
-      <div className="print:hidden">
+      <div className="overflow-x-clip print:hidden">
         <section className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-700 to-brand-400 pb-24 pt-10 text-white">
           <div className="absolute -right-32 -top-32 h-[420px] w-[420px] animate-float rounded-full bg-[radial-gradient(circle,rgba(255,194,31,.35),transparent_70%)]" />
           <div className="container relative flex flex-col gap-4">
@@ -130,18 +130,18 @@ export function DevisSimulateur() {
         </section>
 
         <div className="container relative -mt-16">
-          <Reveal className="card grid gap-3 rounded-3xl p-4 shadow-[0_30px_60px_-24px_rgba(11,21,51,.35)] sm:grid-cols-2 lg:grid-cols-[1fr_1.2fr_1.6fr_.9fr]">
-            <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Votre enfant part de</span>
+          <Reveal className="card grid grid-cols-1 gap-3 rounded-3xl p-4 shadow-[0_30px_60px_-24px_rgba(11,21,51,.35)] sm:grid-cols-2 lg:grid-cols-[1fr_1.2fr_1.6fr_.9fr]">
+            <label className="flex min-w-0 flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Votre enfant part de</span>
               <select value={origine} onChange={(ev) => choisirOrigine(ev.target.value)} className={field}><option value="">Choisir un pays…</option><optgroup label="Afrique">{paysOrigine.filter((p) => p.continent === "afrique").map((p) => <option key={p.id} value={p.id}>{p.nom}</option>)}</optgroup><optgroup label="Autres pays">{paysOrigine.filter((p) => p.continent === "autre").map((p) => <option key={p.id} value={p.id}>{p.nom}</option>)}</optgroup></select></label>
-            <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Établissement</span>
+            <label className="flex min-w-0 flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Établissement</span>
               <select value={eid} onChange={(ev) => setEid(ev.target.value)} className={field}>{parVille.map(([v, xs]) => <optgroup key={v} label={v}>{xs.map((x) => <option key={x.id} value={x.id}>{x.sigle}</option>)}</optgroup>)}</select></label>
-            <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Formation</span>
+            <label className="flex min-w-0 flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Formation</span>
               <select value={fid} onChange={(ev) => setFid(ev.target.value)} className={field}>{e.formations.filter((f) => formationById[f]).map((f) => <option key={f} value={f}>{formationById[f].intitule} ({formationById[f].duree_annees} ans)</option>)}</select></label>
-            <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Logement</span>
+            <label className="flex min-w-0 flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Logement</span>
               {persoActif
                 ? <select value={perso!.logement} onChange={(ev) => majPerso({ logement: ev.target.value })} className={field}>
                     {(["colocation", "studio", "standing"] as const).map((l) => <option key={l} value={l}>{C.personnalisation!.logement_mensuel[l].libelle}</option>)}
-                    {residencesVille.length > 0 && <optgroup label={`Résidences universitaires à ${e.ville}`}>{residencesVille.flatMap((r) => r.logements.map((l, i) => l.loyer_min ? <option key={`${r.id}:${i}`} value={`res:${r.id}:${i}`}>{r.nom} · {l.type} ({fmt(l.loyer_min)} {symbole(base)}/mois)</option> : null))}</optgroup>}
+                    {residencesVille.length > 0 && <optgroup label={`Résidences universitaires à ${e.ville}`}>{residencesVille.flatMap((r) => r.logements.map((l, i) => l.loyer_min ? <option key={`${r.id}:${i}`} value={`res:${r.id}:${i}`}>{r.nom.replace(/^Twenty Campus /, "Twenty ")} · {l.type.replace(/\s*\(.*\)$/, "")} · {fmt(l.loyer_min)} {symbole(base)}</option> : null))}</optgroup>}
                   </select>
                 : <select value={logement} onChange={(ev) => setLogement(ev.target.value as Logement)} className={field}>{(["studio", "colocation"] as const).map((l) => <option key={l} value={l}>{LOGEMENT_LABEL[l]}</option>)}</select>}</label>
           </Reveal>
@@ -151,20 +151,20 @@ export function DevisSimulateur() {
                 <div className="flex items-center justify-between gap-3"><b className="flex items-center gap-2 text-[16px]"><SlidersHorizontal size={18} className="text-brand-600" />Devis personnalisé</b>
                   <button type="button" onClick={() => { setPerso(null); setAideSaisie(""); }} className="inline-flex items-center gap-1 rounded-xl px-2.5 py-1.5 text-[13px] font-bold text-ink-mute hover:bg-slate-100"><X size={15} /><span className="sm:hidden">Standard</span><span className="hidden sm:inline">Revenir au devis standard</span></button></div>
                 <p className="-mt-2 text-[13px] text-ink-mute">Choisissez ce que vous voulez inclure ; le logement se règle dans la liste « Logement » ci-dessus (studio, standing ou résidence universitaire).</p>
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                  <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Niveau de vie</span>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                  <label className="flex min-w-0 flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Niveau de vie</span>
                     <select value={perso.niveau} onChange={(ev) => majPerso({ niveau: ev.target.value as Perso["niveau"] })} className={field}>{(["econome", "normal", "confortable"] as const).map((n) => <option key={n} value={n}>{C.personnalisation!.vie_mensuelle_hors_logement[n].libelle}</option>)}</select></label>
-                  <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Déplacements sur place</span>
+                  <label className="flex min-w-0 flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Déplacements sur place</span>
                     <select value={perso.transport} onChange={(ev) => majPerso({ transport: ev.target.value as Perso["transport"] })} className={field}>{(["tram", "taxi"] as const).map((t) => <option key={t} value={t}>{C.personnalisation!.transport_mensuel[t].libelle}</option>)}</select></label>
-                  <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Assurance santé</span>
+                  <label className="flex min-w-0 flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Assurance santé</span>
                     <select value={perso.assurance} onChange={(ev) => majPerso({ assurance: ev.target.value as Perso["assurance"] })} className={field}>{(["base", "complete"] as const).map((a) => <option key={a} value={a}>{a === "base" ? "De base" : "Complète (hospitalisation, rapatriement)"}</option>)}</select></label>
-                  <label className="flex flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Retours au pays (vacances)</span>
+                  <label className="flex min-w-0 flex-col gap-1.5"><span className="text-xs font-bold text-ink-mute">Retours au pays (vacances)</span>
                     <select value={perso.retours} onChange={(ev) => majPerso({ retours: Number(ev.target.value) })} className={field}>{[0, 1, 2].map((n) => <option key={n} value={n}>{n === 0 ? "Aucun (aller à l'arrivée, retour à la fin)" : `${n} aller-retour${n > 1 ? "s" : ""} par an`}</option>)}</select></label>
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
                   <label className="flex min-h-[44px] items-center gap-2.5 rounded-xl border border-slate-200 px-3.5 text-[14px] font-bold"><input type="checkbox" checked={perso.ordinateur} onChange={(ev) => majPerso({ ordinateur: ev.target.checked })} className="h-5 w-5 accent-brand-600" />Ordinateur portable neuf</label>
                   <label className="flex min-h-[44px] items-center gap-2.5 rounded-xl border border-slate-200 px-3.5 text-[14px] font-bold"><input type="checkbox" checked={perso.soutien} onChange={(ev) => majPerso({ soutien: ev.target.checked })} className="h-5 w-5 accent-brand-600" />Soutien scolaire ou cours de langue</label>
-                  <label className="flex flex-col gap-1.5 sm:min-w-[260px]"><span className="text-xs font-bold text-ink-mute">Bourse ou réduction obtenue, par an ({unit})</span>
+                  <label className="flex min-w-0 flex-col gap-1.5 sm:min-w-[260px]"><span className="text-xs font-bold text-ink-mute">Bourse ou réduction obtenue, par an ({unit})</span>
                     <input inputMode="numeric" value={aideSaisie} placeholder="0" onChange={(ev) => { const t = ev.target.value.replace(/[^\d]/g, "").slice(0, 10); setAideSaisie(t); majPerso({ aide: Math.round((Number(t) || 0) / tauxLecture) }); }} className={field} aria-label="Bourse ou réduction par an" /></label>
                 </div>
                 <p className="text-[12px] text-ink-mute">Loyers des résidences : tarifs publiés sur leurs sites officiels. Autres montants : estimations Navigoal pour un étudiant étranger, à affiner avec l&apos;école et le logement choisis.</p>
