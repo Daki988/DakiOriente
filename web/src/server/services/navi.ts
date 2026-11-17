@@ -682,7 +682,11 @@ export async function* converser(req: NaviRequete, user: User | null, opts: { cl
       }
       if (erreur || !message) {
         console.error("Navi :", erreur);
-        yield sortir({ t: "erreur", v: "Navi est momentanément indisponible. Réessaie dans un instant ou écris à un conseiller." });
+        // Cause gardée dans le suivi (/admin/navi) et montrée à l'équipe seulement (jamais la clé ni la requête).
+        const e = erreur as { status?: number; message?: string; error?: { error?: { type?: string; message?: string } } } | null;
+        const cause = `${e?.status ?? ""} ${e?.error?.error?.type ?? ""} ${e?.error?.error?.message ?? e?.message ?? "réponse vide"}`.replace(/sk-ant-[\w-]+/g, "[clé]").trim().slice(0, 400);
+        affiche = `[erreur] ${cause}`;
+        yield sortir({ t: "erreur", v: `Navi est momentanément indisponible. Réessaie dans un instant ou écris à un conseiller.${user?.role === "admin" ? `\n\nDétail (visible de l'équipe seulement) : ${cause}` : ""}` });
         return;
       }
       const m = message as Anthropic.Beta.BetaMessage;
