@@ -83,6 +83,36 @@ if (fs.existsSync(outilAcces)) {
 
 require("./serveur/server.js"); // le serveur Next.js se place lui-même dans serveur/ (fichiers publics, .next)
 
+// Anciennes versions encore en mémoire : l'hébergeur (Passenger) ne relance pas toujours tous les processus après une
+// mise à jour. Un processus resté sur une ancienne version sert alors des pages qui réclament des fichiers JavaScript
+// supprimés (écran « Application error »). Deux garde-fous :
+// 1. au démarrage d'une nouvelle version, les autres processus de cette application sont arrêtés (Passenger en relance) ;
+// 2. chaque processus surveille version.txt et s'arrête de lui-même dès qu'une autre version est déposée.
+const arreterAnciens = () => {
+  try {
+    const lignes = execFileSync("ps", ["-u", String(process.getuid()), "-o", "pid=,args="], { encoding: "utf8", timeout: 5000 }).split("\n");
+    for (const l of lignes) {
+      const m = /^\s*(\d+)\s+(.*)$/.exec(l);
+      if (!m) continue;
+      const pid = Number(m[1]);
+      if (pid === process.pid || pid === process.ppid || !m[2].includes(__dirname) || !/Passenger NodeApp|app\.js/i.test(m[2])) continue;
+      try { process.kill(pid, "SIGTERM"); console.log(`[mise à jour] ancien processus ${pid} arrêté`); } catch { /* déjà arrêté ou pas à nous */ }
+    }
+  } catch (e) { console.error("[mise à jour] liste des processus indisponible :", e.message); }
+};
+if (nouvelleVersion) setTimeout(arreterAnciens, 5000).unref();
+if (version) {
+  const surveiller = setInterval(() => {
+    const v = lire(fichierVersion);
+    if (v && v !== version) {
+      console.log(`[mise à jour] version ${v} déposée : arrêt de ce processus (version ${version}), Passenger en relance un neuf`);
+      clearInterval(surveiller);
+      setTimeout(() => process.exit(0), 20000).unref(); // laisse finir l'envoi des fichiers et les requêtes en cours
+    }
+  }, 30000);
+  surveiller.unref();
+}
+
 // Cache de l'hébergeur (Varnish LWS) : vidé après une nouvelle version, une fois le serveur prêt.
 if (nouvelleVersion) {
   const site = (process.env.NEXT_PUBLIC_SITE_URL || process.env.APP_URL || "").replace(/\/$/, "");
