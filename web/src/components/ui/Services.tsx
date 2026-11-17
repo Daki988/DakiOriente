@@ -75,13 +75,16 @@ export function PiedService({ id }: { id: Exclude<ServiceId, "navigoal"> }) {
             <p className="text-sm leading-relaxed text-white/70">{s.nom} : {s.accroche.toLowerCase()}. Un service de la plateforme Navigoal, avec le même compte.</p>
             <Link href="/" className="flex w-fit items-center gap-1.5 rounded-xl bg-white/10 px-3 py-2 text-sm font-bold hover:bg-white/15"><ArrowLeft size={16} />Retour sur Navigoal</Link>
           </div>
-          <div className="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3 [&>*]:min-w-0">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-8 [&>*]:min-w-0">
             <div className="flex flex-col gap-3"><span className="text-sm font-extrabold">{s.nom}</span>{s.menu.map((m) => <Link key={m.href} href={m.href} className="text-sm text-white/65 hover:text-white">{m.label}</Link>)}</div>
             <div className="flex flex-col gap-3"><span className="text-sm font-extrabold">Mon espace</span>{s.perso.espace.map((m) => <Link key={m.href} href={m.href} className="text-sm text-white/65 hover:text-white">{m.label}</Link>)}<Link href="mailto:contact@navigoal.net" className="break-all text-sm text-white/65 hover:text-white">contact@navigoal.net</Link></div>
-            <div className="flex flex-col gap-3"><span className="text-sm font-extrabold">Informations légales</span>{PAGES_LEGALES.map((p) => <Link key={p.id} href={lienLegal(id, p.id)} className="text-sm text-white/65 hover:text-white">{p.long}</Link>)}</div>
           </div>
         </div>
-        <div className="flex flex-col justify-between gap-3 border-t border-white/10 pt-6 text-[13px] text-white/55 sm:flex-row sm:items-center">
+        {/* Informations légales propres à ce service, en une ligne */}
+        <nav aria-label="Informations légales" className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-white/10 pt-6 text-[13px]">
+          {PAGES_LEGALES.map((p) => <Link key={p.id} href={lienLegal(id, p.id)} className="text-white/65 hover:text-white">{p.long}</Link>)}
+        </nav>
+        <div className="flex flex-col justify-between gap-3 pt-1 text-[13px] text-white/55 sm:flex-row sm:items-center">
           <span>© 2026 {s.nom} · un service Navigoal, édité par OAPS Consulting Group</span><ParOapsPied />
         </div>
       </div>
