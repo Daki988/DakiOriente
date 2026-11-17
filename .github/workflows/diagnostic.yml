@@ -35,6 +35,8 @@ jobs:
           echo "== Dossier tmp et fichiers de version"
           get version.txt; get .version-appliquee
           curl -s --user "$U:$P" --list-only "$base/serveur/.next/" | head -20
+          echo "== serveur/.next/cache (contenu)"
+          for d in "" fetch-cache images app server; do echo "-- cache/$d"; curl -s --user "$U:$P" "$base/serveur/.next/cache/$d/" | head -15; done
           echo "== Racine"
           curl -s --user "$U:$P" "$base/" | head -40
           echo "== tmp"
