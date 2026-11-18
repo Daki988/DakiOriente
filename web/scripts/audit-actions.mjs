@@ -284,7 +284,7 @@ const profils = { visiteur, etudiant: amina, parent, etablissement: ecole, baill
 const ROLE = { etudiant: "etudiant", parent: "parent", etablissement: "etablissement", bailleur: "bailleur", conseiller: "conseiller", admin: "admin" };
 const matrice = [];
 for (const [, url, droits] of ROUTES) {
-  if (url.includes(":") || /google|\.pdf|\.csv/.test(url)) continue;
+  if (url.includes(":") || /google|\.pdf|\.csv|webhook/.test(url)) continue; // webhook : réservé à Meta (code de vérification)
   for (const [p, c] of Object.entries(profils)) {
     const r = await c.get(url);
     const autorise = droits.includes('"public"') || (p !== "visiteur" && (droits.includes('"user"') || (droits === "STUDENT" ? ["etudiant"].includes(p) : droits.includes(`"${ROLE[p]}"`))));

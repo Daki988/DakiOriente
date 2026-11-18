@@ -294,7 +294,7 @@ route("GET", "/paiements/:ref/recu.pdf", "Paiements", "Reçu de paiement (PDF)",
 // WhatsApp Business (Meta) : vérification de l'abonnement, puis messages reçus (signature vérifiée, réponse de Navi en arrière-plan).
 route("GET", "/whatsapp/webhook", "Navi", "Vérification du webhook WhatsApp par Meta (hub.challenge)", "public", async ({ query }) => {
   const defi = whatsapp.verifierAbonnement(query);
-  return defi === null ? new Response("Interdit", { status: 403 }) : new Response(defi, { status: 200, headers: { "Content-Type": "text/plain" } });
+  return defi === null ? new Response("Vérification refusée", { status: 400 }) : new Response(defi, { status: 200, headers: { "Content-Type": "text/plain" } });
 });
 route("POST", "/whatsapp/webhook", "Navi", "Messages WhatsApp reçus (Meta) : Navi répond sur WhatsApp", "public", async ({ req }) => {
   const brut = (await req.text()).slice(0, 200_000);
