@@ -75,8 +75,9 @@ http.createServer = function (...args) {
   return srv;
 };
 
-// Robots : seuls ceux de Google et de Bing sont admis (adresse vérifiée par DNS inverse pour démasquer les imposteurs) ;
-// les autres reçoivent une réponse 403. Toujours permis : robots.txt (pour qu'ils lisent la consigne), contrôle de santé,
+// Robots : seuls ceux de Google et de Bing (adresse vérifiée par DNS inverse pour démasquer les imposteurs) et les
+// robots de recherche des assistants IA (adresse comparée aux listes publiées) sont admis ; les autres reçoivent une
+// réponse 403. Toujours permis : robots.txt et llms.txt (pour qu'ils lisent la consigne), contrôle de santé,
 // notifications de paiement (serveurs E-Billing et Stripe). Limite : une page déjà gardée par le cache de l'hébergeur
 // (Varnish, 5 min) est servie sans passer par ici.
 const dns = require("dns").promises;
@@ -84,8 +85,46 @@ const ROBOT = /bot\/|bot;|\bbot\b|robot|crawl|spider|slurp|scrap|facebookexterna
 const ADMIS = [
   { ua: /googlebot|google-inspectiontool|googleother|storebot-google|adsbot-google|mediapartners-google|apis-google|feedfetcher-google|google-site-verification|google-read-aloud/i, hotes: /\.(googlebot|google|googleusercontent)\.com$/ },
   { ua: /bingbot|msnbot|bingpreview|adidxbot/i, hotes: /\.search\.msn\.com$/ },
+  // Robots de recherche des assistants IA (réponse à une question, avec la source citée), admis depuis novembre 2026.
+  // Pas de DNS inverse chez eux : l'adresse est comparée aux listes publiées par chaque société. Les robots
+  // d'entraînement (GPTBot, ClaudeBot, CCBot…) ne figurent pas ici et restent refusés par ROBOT.
+  { ua: /OAI-SearchBot|ChatGPT-User/i, listes: ["https://openai.com/searchbot.json", "https://openai.com/chatgpt-user.json"] },
+  { ua: /PerplexityBot|Perplexity-User/i, listes: ["https://www.perplexity.ai/perplexitybot.json", "https://www.perplexity.ai/perplexity-user.json"] },
+  { ua: /Claude-SearchBot|Claude-User/i, listes: ["https://claude.com/crawling/bots.json"] },
 ];
-const LIBRES = /^\/(robots\.txt|api\/sante\/?|api\/paiements\/webhook\/|api\/whatsapp\/webhook\/?)/;
+const LIBRES = /^\/(robots\.txt|llms\.txt|api\/sante\/?|api\/paiements\/webhook\/|api\/whatsapp\/webhook\/?)/;
+
+// Listes d'adresses publiées (JSON « prefixes » : ipv4Prefix / ipv6Prefix), relues toutes les 24 h.
+const net = require("net");
+const plages = new Map(); // url des listes → { liste: net.BlockList | null, le }
+async function plagesDe(listes) {
+  const cle = listes.join(" ");
+  const c = plages.get(cle);
+  if (c && Date.now() - c.le < 864e5) return c.liste;
+  let liste = null;
+  try {
+    const bl = new net.BlockList();
+    let n = 0;
+    for (const url of listes) {
+      const r = await fetch(url, { signal: AbortSignal.timeout(8000) });
+      if (!r.ok) throw new Error(String(r.status));
+      for (const p of (await r.json()).prefixes ?? []) {
+        const [adr, lon] = String(p.ipv4Prefix ?? p.ipv6Prefix ?? "").split("/");
+        if (!adr) continue;
+        bl.addSubnet(adr, Number(lon), p.ipv6Prefix ? "ipv6" : "ipv4");
+        n++;
+      }
+    }
+    if (n) liste = bl;
+  } catch (e) { console.error("[robots] liste d'adresses illisible :", cle, e.message); }
+  plages.set(cle, { liste, le: liste ? Date.now() : Date.now() - 864e5 + 36e5 }); // en cas d'échec, nouvel essai dans 1 h
+  return liste;
+}
+async function ipDansListes(listes, ip) {
+  const liste = await plagesDe(listes);
+  if (!liste) return true; // liste indisponible : on laisse passer plutôt que de refuser un vrai robot
+  try { return liste.check(ip, net.isIPv6(ip) ? "ipv6" : "ipv4"); } catch { return false; }
+}
 const verifies = new Map(); // ip|famille → { ok, le }
 async function ipDe(hotes, ip) {
   const cle = `${hotes.source}|${ip}`;
@@ -107,7 +146,7 @@ async function robotRefuse(req) {
   const famille = ADMIS.find((a) => a.ua.test(ua));
   if (famille) {
     const ip = String(req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim().replace(/^::ffff:/, "");
-    return !(await ipDe(famille.hotes, ip));
+    return !(famille.listes ? await ipDansListes(famille.listes, ip) : await ipDe(famille.hotes, ip));
   }
   return ROBOT.test(ua);
 }

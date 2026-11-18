@@ -180,3 +180,7 @@ Site en ligne lu en HTML brut (première passe de Google) puis rendu par Chrome 
 - Hébergeur : navigateur automatisé sans JavaScript bloqué sur « Vérification en cours », faux Googlebot refusé (403). Le vrai Googlebot n'a pas pu être simulé : à contrôler dans la Search Console (inspection d'URL, test en direct).
 
 Après correction (local, Lighthouse mobile) : accueil 92 (68 en ligne avant), fiche HEM 88 (72), fiche formation 88 ; accessibilité et SEO 100 ; audits publication, accessibilité, parcours, mobile et tests au vert.
+
+## Visibilité dans les assistants IA (18 novembre 2026)
+
+Décision de l'utilisateur : admettre les robots de recherche des assistants IA (ceux qui lisent une page pour répondre et citer la source), pas ceux qui collectent pour l'entraînement. `robots.txt` : OAI-SearchBot, ChatGPT-User, PerplexityBot, Perplexity-User, Claude-SearchBot, Claude-User admis ; GPTBot, ClaudeBot, CCBot, Google-Extended, Applebot-Extended, Bytespider, meta-externalagent, Amazonbot, cohere-ai refusés. Filtre serveur : adresse comparée aux listes publiées par chaque société (essai : vrais robots admis, imposteurs et robots d'entraînement refusés). `/llms.txt` ajouté.
