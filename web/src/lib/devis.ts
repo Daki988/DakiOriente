@@ -55,7 +55,7 @@ export type Devis = {
   /** Devis personnalisé : détail des postes (avant le départ, chaque mois, chaque année de la 1re année) et aides déduites. */
   postes?: Poste[]; aides?: Pair; logementLibelle?: string;
   /** Détail ligne par ligne sur toute la durée, regroupé par rubrique (Scolarité, Logement, Vie quotidienne…). */
-  detail: { rubrique: Rubrique; libelle: string; v: Pair }[];
+  detail: Ligne[];
 };
 export const RUBRIQUES = ["Scolarité", "Logement", "Vie quotidienne", "Voyages", "Démarches & santé", "Équipement", "Imprévus & transferts"] as const;
 export type Rubrique = (typeof RUBRIQUES)[number];
@@ -78,7 +78,10 @@ export function loyerPerso(p: Personnalisation, ville: string, chere: boolean, c
   return { v: t[chere ? "ville_chere" : "autre_ville"], libelle: `${t.libelle}${ville ? ` à ${ville}` : ""}` };
 }
 
-export function devis(eid: string, fid: string, origine = "", logement: Logement = "studio", perso?: Perso & { residences?: Parameters<typeof loyerPerso>[4] }): Devis {
+/** Une ligne du devis : clé stable (cochée ou décochée par le parent), rubrique, et quand elle se paie. */
+export type Ligne = { cle: string; rubrique: Rubrique; libelle: string; v: Pair; inclus: boolean; quand: "avant" | "mois" | "an"; unitaire: Pair };
+
+export function devis(eid: string, fid: string, origine = "", logement: Logement = "studio", perso?: Perso & { residences?: Parameters<typeof loyerPerso>[4] }, exclus: readonly string[] = []): Devis {
   const e = etabById[eid];
   const Fm = formationById[fid];
   const c = COUTS[e.pays];
@@ -92,105 +95,87 @@ export function devis(eid: string, fid: string, origine = "", logement: Logement
   const vie = c.vie_mensuelle[chere ? "ville_chere" : "autre_ville"];
   const k = logement === "colocation" ? 1 - ECO_COLOC : 1;
   const P = perso && c.personnalisation ? c.personnalisation : null;
-  // Devis personnalisé : la vie se compose du loyer choisi, du niveau de vie, du transport et du soutien scolaire ;
-  // l'assurance suit le choix (de base ou complète), la caution suit le loyer, l'ordinateur s'ajoute s'il est coché.
   const lp = P ? loyerPerso(P, e.ville, chere, perso!.logement, perso!.residences) : null;
-  const viePerso: F | null = P && lp ? (() => {
+  const mois = HYP.mois_par_an;
+  const inf = (y: number) => (1 + HYP.inflation_annuelle) ** y;
+  const vol = billet(c, origine);
+  const ret = P ? Math.max(0, Math.min(3, perso!.retours)) : 0;
+
+  // Composantes : par année (montant de base de l'année 1, avec ou sans inflation) ou une seule fois.
+  type Comp = { cle: string; rubrique: Rubrique; libelle: string; quand: "avant" | "mois" | "an"; base: F; parAn: boolean; inflation: boolean; facteur: number; ligneRow: "scolarite" | "annexes" | "vie" | "renouvellements" | null };
+  const C: Comp[] = [];
+  const add = (x: Omit<Comp, "facteur"> & { facteur?: number }) => C.push({ facteur: 1, ...x });
+  add({ cle: "scolarite", rubrique: "Scolarité", libelle: `Frais de scolarité (${sco.libelle})`, quand: "an", base: sco, parAn: true, inflation: true, ligneRow: "scolarite" });
+  add({ cle: "inscription", rubrique: "Scolarité", libelle: ann.libelle, quand: "an", base: ann, parAn: true, inflation: false, ligneRow: "annexes" });
+  // Loyer et vie quotidienne (10 mois par an, avec inflation).
+  const loyerType = c.personnalisation ? c.personnalisation.logement_mensuel[logement === "colocation" ? "colocation" : "studio"][chere ? "ville_chere" : "autre_ville"] : null;
+  if (P && lp) {
     const hors = P.vie_mensuelle_hors_logement[perso!.niveau][chere ? "ville_chere" : "autre_ville"];
-    const tr = P.transport_mensuel[perso!.transport];
-    const so = perso!.soutien ? P.soutien_mensuel : { min: 0, max: 0 };
-    return { min: lp.v.min + hors.min + tr.min + so.min, max: lp.v.max + hors.max + tr.max + so.max };
-  })() : null;
-  const estAssurance = (i: { poste: string }) => /assurance/i.test(i.poste);
-  const estCaution = (i: { poste: string }) => /caution/i.test(i.poste);
-  const annuel = P
-    ? [...c.installation.filter((i) => i.annuel && !estAssurance(i)), { poste: P.assurance_annuelle[perso!.assurance].libelle, ...P.assurance_annuelle[perso!.assurance] }]
-    : c.installation.filter((i) => i.annuel);
-  const once = P && lp
-    ? [...c.installation.filter((i) => !i.annuel && !estCaution(i)).map((i) => perso!.ordinateur && /équipement/i.test(i.poste) ? { ...i, poste: P.equipement_sans_ordinateur.libelle, min: P.equipement_sans_ordinateur.min, max: P.equipement_sans_ordinateur.max } : i),
-       { poste: "Caution + 1er mois de loyer", min: lp.v.min * 2, max: lp.v.max * 2 }, ...(perso!.ordinateur ? [{ poste: P.ordinateur.libelle, min: P.ordinateur.min, max: P.ordinateur.max }] : [])]
-    : c.installation.filter((i) => !i.annuel);
-  const sum = (xs: F[], key: "min" | "max") => xs.reduce((a, x) => a + x[key], 0);
+    const tra = P.transport_mensuel[perso!.transport];
+    add({ cle: "loyer", rubrique: "Logement", libelle: `Loyer : ${lp.libelle}`, quand: "mois", base: lp.v, parAn: true, inflation: true, facteur: mois, ligneRow: "vie" });
+    add({ cle: "vie", rubrique: "Vie quotidienne", libelle: `Nourriture, téléphone, sorties (${P.vie_mensuelle_hors_logement[perso!.niveau].libelle.toLowerCase()})`, quand: "mois", base: hors, parAn: true, inflation: true, facteur: mois, ligneRow: "vie" });
+    add({ cle: "transport", rubrique: "Vie quotidienne", libelle: `Déplacements : ${tra.libelle.toLowerCase()}`, quand: "mois", base: tra, parAn: true, inflation: true, facteur: mois, ligneRow: "vie" });
+    if (perso!.soutien) add({ cle: "soutien", rubrique: "Vie quotidienne", libelle: P.soutien_mensuel.libelle, quand: "mois", base: P.soutien_mensuel, parAn: true, inflation: true, facteur: mois, ligneRow: "vie" });
+  } else {
+    const total = { min: vie.min * k, max: vie.max * k };
+    const loyer = loyerType ? { min: Math.min(total.min, loyerType.min), max: Math.min(total.max, loyerType.max) } : { min: 0, max: 0 };
+    if (loyer.max) add({ cle: "loyer", rubrique: "Logement", libelle: `Loyer : ${LOGEMENT_LABEL[logement].toLowerCase()} à ${e.ville}`, quand: "mois", base: loyer, parAn: true, inflation: true, facteur: mois, ligneRow: "vie" });
+    add({ cle: "vie", rubrique: "Vie quotidienne", libelle: "Nourriture, déplacements, téléphone, sorties", quand: "mois", base: { min: total.min - loyer.min, max: total.max - loyer.max }, parAn: true, inflation: true, facteur: mois, ligneRow: "vie" });
+  }
+  // Frais d'installation et de séjour (référentiel), adaptés au devis personnalisé (assurance, caution, ordinateur).
+  const rub = (poste: string): Rubrique => /caution|loyer/i.test(poste) ? "Logement" : /équipement|ordinateur/i.test(poste) ? "Équipement" : "Démarches & santé";
+  const cleDe = (poste: string) => /visa/i.test(poste) ? "visa" : /séjour/i.test(poste) ? "carte_sejour" : /assurance/i.test(poste) ? "assurance" : /caution/i.test(poste) ? "caution" : /équipement/i.test(poste) ? "equipement" : poste.toLowerCase().replace(/[^a-z]+/g, "_");
+  for (const i of c.installation) {
+    let base: F = i, libelle = i.poste;
+    if (P && /assurance/i.test(i.poste)) { base = P.assurance_annuelle[perso!.assurance]; libelle = P.assurance_annuelle[perso!.assurance].libelle; }
+    if (P && lp && /caution/i.test(i.poste)) base = { min: lp.v.min * 2, max: lp.v.max * 2 };
+    if (P && perso!.ordinateur && /équipement/i.test(i.poste)) { base = P.equipement_sans_ordinateur; libelle = P.equipement_sans_ordinateur.libelle; }
+    add({ cle: cleDe(i.poste), rubrique: rub(i.poste), libelle, quand: i.annuel ? "an" : "avant", base, parAn: !!i.annuel, inflation: false, ligneRow: i.annuel ? "renouvellements" : null });
+  }
+  if (P && perso!.ordinateur) add({ cle: "ordinateur", rubrique: "Équipement", libelle: P.ordinateur.libelle, quand: "avant", base: P.ordinateur, parAn: false, inflation: false, ligneRow: null });
+  if (vol.max) add({ cle: "billets", rubrique: "Voyages", libelle: "Billets d'avion : aller à l'arrivée et retour à la fin des études", quand: "avant", base: vol, parAn: false, inflation: false, facteur: 2, ligneRow: null });
+  if (ret && vol.max) add({ cle: "retours", rubrique: "Voyages", libelle: `${ret} aller-retour${ret > 1 ? "s" : ""} par an au pays pendant les vacances`, quand: "an", base: vol, parAn: true, inflation: false, facteur: 2 * ret, ligneRow: "renouvellements" });
+
+  const exclu = new Set(exclus);
+  const val = (x: Comp, y: number): Pair => { const f = x.facteur * (x.inflation ? inf(y) : 1); return [Math.round(x.base.min * f), Math.round(x.base.max * f)]; };
+  const plus = (a: Pair, b: Pair): Pair => [a[0] + b[0], a[1] + b[1]];
   const rows: Devis["rows"] = [];
   let tot: Pair = [0, 0];
-  // Part du loyer dans la vie sur place : loyer choisi (devis personnalisé) ou loyer type du logement (devis standard).
-  const loyerMois: F | null = lp ? lp.v : c.personnalisation ? c.personnalisation.logement_mensuel[logement === "colocation" ? "colocation" : "studio"][chere ? "ville_chere" : "autre_ville"] : null;
-  let loyerTot: Pair = [0, 0], vieTot: Pair = [0, 0];
   for (let y = 0; y < years; y++) {
-    const inf = (1 + HYP.inflation_annuelle) ** y;
-    const a: Pair = [Math.round(sco.min * inf), Math.round(sco.max * inf)];
-    const b: Pair = [ann.min, ann.max];
-    const v: Pair = viePerso
-      ? [Math.round(viePerso.min * HYP.mois_par_an * inf), Math.round(viePerso.max * HYP.mois_par_an * inf)]
-      : [Math.round(vie.min * k * HYP.mois_par_an * inf), Math.round(vie.max * k * HYP.mois_par_an * inf)];
-    // Retours au pays pendant les vacances (aller-retour) : seulement dans le devis personnalisé.
-    const vol1 = billet(c, origine);
-    const retours = P ? Math.max(0, Math.min(3, perso!.retours)) : 0;
-    const r: Pair = [sum(annuel, "min") + retours * 2 * vol1.min, sum(annuel, "max") + retours * 2 * vol1.max];
-    const row: Pair = [a[0] + b[0] + v[0] + r[0], a[1] + b[1] + v[1] + r[1]];
-    rows.push({ annee: y + 1, scolarite: a, annexes: b, vie: v, renouvellements: r, total: row });
-    const ly: Pair = loyerMois ? [Math.min(v[0], Math.round(loyerMois.min * HYP.mois_par_an * inf)), Math.min(v[1], Math.round(loyerMois.max * HYP.mois_par_an * inf))] : [0, 0];
-    loyerTot = [loyerTot[0] + ly[0], loyerTot[1] + ly[1]];
-    vieTot = [vieTot[0] + v[0], vieTot[1] + v[1]];
-    tot = [tot[0] + row[0], tot[1] + row[1]];
+    const r = { scolarite: [0, 0] as Pair, annexes: [0, 0] as Pair, vie: [0, 0] as Pair, renouvellements: [0, 0] as Pair };
+    for (const x of C) if (x.parAn && x.ligneRow && !exclu.has(x.cle)) r[x.ligneRow] = plus(r[x.ligneRow], val(x, y));
+    const row = plus(plus(r.scolarite, r.annexes), plus(r.vie, r.renouvellements));
+    rows.push({ annee: y + 1, ...r, total: row });
+    tot = plus(tot, row);
   }
-  const vol = billet(c, origine);
-  const inst: Pair = [sum(once, "min") + vol.min * 2, sum(once, "max") + vol.max * 2];
-  const sub: Pair = [tot[0] + inst[0], tot[1] + inst[1]];
+  const inst = C.filter((x) => !x.parAn && !exclu.has(x.cle)).reduce<Pair>((a, x) => plus(a, val(x, 0)), [0, 0]);
+  const sub = plus(tot, inst);
   const imp = sub.map((x) => Math.round(x * HYP.marge_imprevus)) as Pair;
   const tr = sub.map((x) => Math.round(x * HYP.frais_transfert)) as Pair;
   // Aides (bourse, réduction de l'école) déduites du total, sans le rendre négatif.
   const aideAn = P ? Math.max(0, Math.round(perso!.aide)) : 0;
-  const aides: Pair = [Math.min(aideAn * years, sub[1] + imp[1] + tr[1]), Math.min(aideAn * years, sub[0] + imp[0] + tr[0])];
-  const total: Pair = [Math.max(0, sub[0] + imp[0] + tr[0] - aides[1]), Math.max(0, sub[1] + imp[1] + tr[1] - aides[0])];
-  const cat = (f: (r: Devis["rows"][number]) => Pair): Pair => [rows.reduce((s, r) => s + f(r)[0], 0), rows.reduce((s, r) => s + f(r)[1], 0)];
+  const brut = plus(plus(sub, imp), tr);
+  const aides: Pair = [Math.min(aideAn * years, brut[1]), Math.min(aideAn * years, brut[0])];
+  const total: Pair = [Math.max(0, brut[0] - aides[1]), Math.max(0, brut[1] - aides[0])];
+
+  // Lignes sur toute la durée (cochées ou non), puis imprévus et transferts calculés sur les lignes cochées.
+  const n = years;
+  const detail: Ligne[] = C.map((x) => {
+    const v = x.parAn ? Array.from({ length: n }, (_, y) => val(x, y)).reduce(plus, [0, 0] as Pair) : val(x, 0);
+    const suffixe = x.parAn ? (x.quand === "mois" ? `, ${mois} mois par an pendant ${n} an${n > 1 ? "s" : ""}` : `, chaque année pendant ${n} an${n > 1 ? "s" : ""}`) : " (une fois)";
+    return { cle: x.cle, rubrique: x.rubrique, libelle: `${x.libelle}${suffixe}`, v, inclus: !exclu.has(x.cle), quand: x.quand, unitaire: [Math.round(x.base.min * (x.quand === "mois" ? 1 : x.facteur)), Math.round(x.base.max * (x.quand === "mois" ? 1 : x.facteur))] as Pair };
+  }).filter((l) => l.v[1] > 0 || l.cle === "visa");
+  detail.push({ cle: "imprevus", rubrique: "Imprévus & transferts", libelle: `Marge pour imprévus (${Math.round(HYP.marge_imprevus * 100)} % des postes cochés)`, v: imp, inclus: true, quand: "an", unitaire: imp });
+  detail.push({ cle: "transferts", rubrique: "Imprévus & transferts", libelle: `Frais de transfert d'argent (${Math.round(HYP.frais_transfert * 100)} % des postes cochés)`, v: tr, inclus: true, quand: "an", unitaire: tr });
+  const cats = Object.fromEntries(RUBRIQUES.map((r) => [r, detail.filter((x) => x.rubrique === r && x.inclus).reduce<Pair>((a, x) => plus(a, x.v), [0, 0])]).filter(([, v]) => (v as Pair)[1] > 0)) as Record<string, Pair>;
+  // « Quand payer quoi » (devis personnalisé) : montants de la 1re année, lignes cochées seulement.
+  const postes: Poste[] | undefined = P && lp ? detail.filter((x) => x.inclus && !["imprevus", "transferts"].includes(x.cle)).map((x) => ({
+    libelle: x.cle === "billets" ? "Billet d'avion aller" : x.libelle.replace(/,( \d+ mois par an)? pendant.*$|, chaque année pendant.*$| \(une fois\)$/, ""),
+    v: x.cle === "billets" ? [vol.min, vol.max] : x.unitaire, quand: x.quand,
+  })) : undefined;
   return {
     devise: c.devise, years, rows, installation: inst, total, typ: sco.libelle, chere, scolaritePubliee: !!publie,
-    ...(() => {
-      // Détail ligne par ligne sur toute la durée, puis total par rubrique (la somme des rubriques = total avant aides).
-      const n = years, ret = P ? Math.max(0, Math.min(3, perso!.retours)) : 0;
-      const L: Devis["detail"] = [];
-      const add = (rubrique: Rubrique, libelle: string, v: Pair) => { if (v[1] > 0) L.push({ rubrique, libelle, v }); };
-      const fois = (x: { min: number; max: number }, k: number): Pair => [x.min * k, x.max * k];
-      const rub = (poste: string): Rubrique => /caution|loyer/i.test(poste) ? "Logement" : /équipement|ordinateur/i.test(poste) ? "Équipement" : "Démarches & santé";
-      add("Scolarité", `Frais de scolarité (${sco.libelle}), ${n} an${n > 1 ? "s" : ""}`, cat((r) => r.scolarite));
-      add("Scolarité", `${ann.libelle}, chaque année`, cat((r) => r.annexes));
-      add("Logement", `Loyer : ${lp ? lp.libelle : LOGEMENT_LABEL[logement].toLowerCase()}, ${HYP.mois_par_an} mois par an`, loyerTot);
-      const reste: Pair = [vieTot[0] - loyerTot[0], vieTot[1] - loyerTot[1]];
-      if (P && lp) {
-        const hors = P.vie_mensuelle_hors_logement[perso!.niveau][chere ? "ville_chere" : "autre_ville"];
-        const tra = P.transport_mensuel[perso!.transport];
-        const parts: [string, F][] = [[`Nourriture, téléphone, sorties (${P.vie_mensuelle_hors_logement[perso!.niveau].libelle.toLowerCase()})`, hors], [`Déplacements : ${tra.libelle.toLowerCase()}`, tra], ...(perso!.soutien ? [[P.soutien_mensuel.libelle, P.soutien_mensuel] as [string, F]] : [])];
-        const total = parts.reduce((a, [, x]) => [a[0] + x.min, a[1] + x.max], [0, 0]);
-        parts.forEach(([l, x]) => add("Vie quotidienne", `${l}, ${HYP.mois_par_an} mois par an`, [Math.round(reste[0] * (x.min / (total[0] || 1))), Math.round(reste[1] * (x.max / (total[1] || 1)))]));
-      } else add("Vie quotidienne", `Nourriture, déplacements, téléphone, sorties, ${HYP.mois_par_an} mois par an`, reste);
-      add("Voyages", "Billets d'avion : aller à l'arrivée et retour à la fin des études", fois(vol, 2));
-      if (ret) add("Voyages", `${ret} aller-retour${ret > 1 ? "s" : ""} par an pendant les vacances`, fois(vol, 2 * ret * n));
-      for (const i of once) add(rub(i.poste), `${i.poste} (une fois)`, [i.min, i.max]);
-      for (const i of annuel) add(rub(i.poste), `${i.poste}, chaque année`, fois(i, n));
-      add("Imprévus & transferts", `Marge pour imprévus (${Math.round(HYP.marge_imprevus * 100)} %)`, imp);
-      add("Imprévus & transferts", `Frais de transfert d'argent (${Math.round(HYP.frais_transfert * 100)} %)`, tr);
-      const cats = Object.fromEntries(RUBRIQUES.map((k) => [k, L.filter((x) => x.rubrique === k).reduce<Pair>((a, x) => [a[0] + x.v[0], a[1] + x.v[1]], [0, 0])]).filter(([, v]) => (v as Pair)[1] > 0)) as Record<string, Pair>;
-      return { detail: L, cats };
-    })(),
-    ...(P && lp ? (() => {
-      const vol = billet(c, origine);
-      const ret = Math.max(0, Math.min(3, perso!.retours));
-      const hors = P.vie_mensuelle_hors_logement[perso!.niveau][chere ? "ville_chere" : "autre_ville"];
-      const postes: Poste[] = [
-        ...once.map((i) => ({ libelle: i.poste, v: [i.min, i.max] as Pair, quand: "avant" as const })),
-        ...(vol.max ? [{ libelle: "Billet d'avion aller", v: [vol.min, vol.max] as Pair, quand: "avant" as const }] : []),
-        { libelle: lp.libelle, v: [lp.v.min, lp.v.max], quand: "mois" },
-        { libelle: `Vie quotidienne : ${P.vie_mensuelle_hors_logement[perso!.niveau].libelle.toLowerCase()}`, v: [hors.min, hors.max], quand: "mois" },
-        { libelle: P.transport_mensuel[perso!.transport].libelle, v: [P.transport_mensuel[perso!.transport].min, P.transport_mensuel[perso!.transport].max], quand: "mois" },
-        ...(perso!.soutien ? [{ libelle: P.soutien_mensuel.libelle, v: [P.soutien_mensuel.min, P.soutien_mensuel.max] as Pair, quand: "mois" as const }] : []),
-        { libelle: `Scolarité (${sco.libelle})`, v: [sco.min, sco.max], quand: "an" },
-        { libelle: ann.libelle, v: [ann.min, ann.max], quand: "an" },
-        ...annuel.map((i) => ({ libelle: i.poste, v: [i.min, i.max] as Pair, quand: "an" as const })),
-        ...(ret ? [{ libelle: `${ret} aller-retour${ret > 1 ? "s" : ""} au pays pendant les vacances`, v: [ret * 2 * vol.min, ret * 2 * vol.max] as Pair, quand: "an" as const }] : []),
-      ];
-      return { postes, aides, logementLibelle: lp.libelle };
-    })() : {}),
+    detail, cats, ...(postes ? { postes, aides, logementLibelle: lp!.libelle } : {}),
   };
 }
 

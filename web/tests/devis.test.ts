@@ -27,7 +27,7 @@ describe("devis personnalisé", () => {
   it("une résidence universitaire utilise son vrai loyer", () => {
     const r = residencesEtudiantes.find((x) => x.ville === "Casablanca" && x.logements[0]?.loyer_min)!;
     const d = devis(eid, fid, "GA", "studio", { ...PERSO_DEFAUT, logement: `res:${r.id}:0`, residences: residencesEtudiantes });
-    const loyer = d.postes!.find((x) => x.quand === "mois" && x.libelle.startsWith(r.nom))!;
+    const loyer = d.postes!.find((x) => x.quand === "mois" && x.libelle.includes(r.nom))!;
     expect(loyer.v).toEqual([r.logements[0].loyer_min, r.logements[0].loyer_max ?? r.logements[0].loyer_min]);
   });
 });
@@ -43,5 +43,20 @@ describe("détail du devis par rubrique", () => {
       expect(parRubrique[0]).toBeCloseTo(d.total[0] + (d.aides?.[1] ?? 0), -1);
       expect(parRubrique[1]).toBeCloseTo(d.total[1] + (d.aides?.[0] ?? 0), -1);
     }
+  });
+});
+describe("éléments cochés un par un", () => {
+  it("décocher une ligne la retire du total (avec ses imprévus et transferts), de l'échéancier et des rubriques", () => {
+    const eid = "ma-esa-casa", fid = formationParDefaut("ma-esa-casa");
+    const tout = devis(eid, fid, "GA", "studio");
+    const sans = devis(eid, fid, "GA", "studio", undefined, ["loyer", "billets"]);
+    const loyer = tout.detail.find((x) => x.cle === "loyer")!.v, billets = tout.detail.find((x) => x.cle === "billets")!.v;
+    const k = 1 + 0.08 + 0.02;
+    expect(tout.total[1] - sans.total[1]).toBeCloseTo((loyer[1] + billets[1]) * k, -2);
+    expect(sans.detail.find((x) => x.cle === "loyer")!.inclus).toBe(false);
+    expect(sans.cats.Logement[1]).toBeLessThan(tout.cats.Logement[1]);
+    expect(sans.rows[0].vie[1]).toBeLessThan(tout.rows[0].vie[1]);
+    const p = devis(eid, fid, "GA", "studio", { ...PERSO_DEFAUT }, ["scolarite"]);
+    expect(p.postes!.some((x) => /scolarité/i.test(x.libelle))).toBe(false);
   });
 });

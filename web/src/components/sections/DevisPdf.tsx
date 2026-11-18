@@ -35,8 +35,9 @@ export function DevisPdf({ e, F, D, devise, taux, origine, logement, eleve, paye
           <tbody>
             {Object.entries(D.cats).map(([k, v]) => [
               <tr key={k} className="bg-[#f6f8fe] font-extrabold"><td className={td}>{k}</td><td className={`${td} text-right`}><M v={v[0]} /></td><td className={`${td} text-right`}><M v={v[1]} /></td></tr>,
-              ...D.detail.filter((x) => x.rubrique === k).map((x) => <tr key={k + x.libelle} className="text-[10.5px] text-ink-soft"><td className={`${td} pl-5`}>{x.libelle}</td><td className={`${td} text-right`}>{fmt(x.v[0])}</td><td className={`${td} text-right`}>{fmt(x.v[1])}</td></tr>),
+              ...D.detail.filter((x) => x.rubrique === k && x.inclus).map((x) => <tr key={k + x.libelle} className="text-[10.5px] text-ink-soft"><td className={`${td} pl-5`}>{x.libelle}</td><td className={`${td} text-right`}>{fmt(x.v[0])}</td><td className={`${td} text-right`}>{fmt(x.v[1])}</td></tr>),
             ])}
+            {D.detail.some((x) => !x.inclus) && <tr className="text-[10.5px] text-ink-mute"><td colSpan={3} className={td}><b>Non inclus à votre demande :</b> {D.detail.filter((x) => !x.inclus).map((x) => x.libelle.replace(/,.*$| \(une fois\)$/, "")).join(" ; ")}.</td></tr>}
             {D.aides && D.aides[1] > 0 && <tr className="text-[#0b6e38]"><td className={td}>Bourse ou réduction déduite</td><td className={`${td} text-right`}>− <M v={D.aides[1]} /></td><td className={`${td} text-right`}>− <M v={D.aides[0]} /></td></tr>}
             <tr className="bg-brand-50 font-extrabold"><td className="px-2.5 py-2.5">TOTAL ({D.devise})</td><td className="px-2.5 py-2.5 text-right">{fmt(D.total[0])}</td><td className="px-2.5 py-2.5 text-right">{fmt(D.total[1])}</td></tr>
             {devise && eq(D.total[0]) && <tr className="font-extrabold text-brand-600"><td className="px-2.5 py-2">Équivalent {devise} (+{MARGE_PRUDENCE * 100} %)</td><td className="px-2.5 py-2 text-right">{eq(D.total[0])}</td><td className="px-2.5 py-2 text-right">{eq(D.total[1])}</td></tr>}

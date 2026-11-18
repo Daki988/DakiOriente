@@ -11,7 +11,7 @@ import { DevisPdf } from "./DevisPdf";
 import { useDestination } from "@/components/ui/Destination";
 import { auPays, destinationById, vitrine, STATUT_LONG, VILLES_ETUDES, etabById, etablissements, fmt, formationById, labelById, paysDetailById, libelleFilieres } from "@/lib/data";
 import { paysOrigine, paysOrigineById, visaDestination } from "@/lib/pays-origine";
-import { COUTS, HYP, LOGEMENT_LABEL, PERSO_DEFAUT, SOURCES, devis, formationParDefaut, type Logement, type Pair, type Perso } from "@/lib/devis";
+import { COUTS, HYP, LOGEMENT_LABEL, PERSO_DEFAUT, RUBRIQUES, SOURCES, devis, formationParDefaut, type Logement, type Pair, type Perso } from "@/lib/devis";
 import { residencesEtudiantes } from "@/lib/residences";
 import { useDevise } from "@/components/ui/Devise";
 import { MARGE_PRUDENCE, convertirDe, devisePays, formatMontant, symbole } from "@/lib/devises";
@@ -36,6 +36,9 @@ export function DevisSimulateur() {
   // Devis personnalisé (null = devis standard) : logement, niveau de vie, transport, assurance, retours, options, aides.
   const [perso, setPerso] = useState<Perso | null>(null);
   const majPerso = (x: Partial<Perso>) => setPerso((p) => ({ ...(p ?? PERSO_DEFAUT), ...x }));
+  // Lignes décochées par le parent : retirées du total, de l'échéancier et du PDF.
+  const [exclus, setExclus] = useState<string[]>([]);
+  const basculer = (cle: string) => setExclus((xs) => (xs.includes(cle) ? xs.filter((x) => x !== cle) : [...xs, cle]));
   const [garde, setGarde] = useState<{ titre: string; total: Pair; mois: Pair; aides: Pair | null } | null>(null);
   const onUrl = useCallback((qs: string) => {
     if (luUrl) return; // seule la première lecture compte : ensuite, c'est le simulateur qui écrit l'URL
@@ -47,6 +50,7 @@ export function DevisSimulateur() {
     setEid(e); setFid(f && etabById[e].formations.includes(f) ? f : formationParDefaut(e));
     if (paysOrigineById[p.get("o") ?? ""]) setOrigine(p.get("o")!);
     setLogement(p.get("l") === "colocation" ? "colocation" : "studio");
+    if (p.get("x")) setExclus(p.get("x")!.split(",").filter((x) => /^[a-z_]{2,30}$/.test(x)).slice(0, 20));
     if (p.get("perso") === "1") setPerso({
       logement: p.get("pl") || PERSO_DEFAUT.logement,
       niveau: (["econome", "normal", "confortable"] as const).find((x) => x === p.get("pn")) ?? "normal",
@@ -64,7 +68,7 @@ export function DevisSimulateur() {
   const C = COUTS[e.pays];
   const residencesVille = useMemo(() => residencesEtudiantes.filter((r) => r.ville === e.ville && r.logements.some((l) => l.loyer_min)), [e.ville]);
   const persoActif = !!perso && !!C.personnalisation;
-  const D = useMemo(() => devis(eid, fid, origine, logement, persoActif ? { ...perso!, residences: residencesVille } : undefined), [eid, fid, origine, logement, perso, persoActif, residencesVille]);
+  const D = useMemo(() => devis(eid, fid, origine, logement, persoActif ? { ...perso!, residences: residencesVille } : undefined, exclus), [eid, fid, origine, logement, perso, persoActif, residencesVille, exclus]);
   const cv = (v: number) => v;
   // Devise de lecture : celle du pays de départ (ou du profil), la monnaie du pays d'études restant affichée en dessous.
   const base = D.devise;
@@ -85,6 +89,18 @@ export function DevisSimulateur() {
   const [aideSaisie, setAideSaisie] = useState("");
   useEffect(() => { if (perso && !aideSaisie && perso.aide) setAideSaisie(String(Math.round(perso.aide * tauxLecture))); }, [perso, tauxLecture]); // eslint-disable-line react-hooks/exhaustive-deps
   const totalParQuand = (q: "avant" | "mois" | "an"): Pair => (D.postes ?? []).filter((x) => x.quand === q).reduce<Pair>((a, x) => [a[0] + x.v[0], a[1] + x.v[1]], [0, 0]);
+  /** Une ligne du détail, avec sa case à cocher (imprévus et transferts : calculés, sans case). */
+  const ligneDevis = (x: (typeof D.detail)[number]) => {
+    const auto = x.cle === "imprevus" || x.cle === "transferts";
+    return (
+      <li key={x.cle} className={`flex items-start justify-between gap-3 ${x.inclus ? "" : "text-ink-mute"}`}>
+        <label className={`flex min-w-0 items-start gap-2.5 ${auto ? "" : "cursor-pointer"}`}>
+          {auto ? <span className="mt-0.5 h-5 w-5 shrink-0" /> : <input type="checkbox" checked={x.inclus} onChange={() => basculer(x.cle)} className="mt-0.5 h-5 w-5 shrink-0 accent-brand-600" aria-label={`Inclure : ${x.libelle}`} />}
+          <span className={x.inclus ? "" : "line-through"}>{x.libelle}{!x.inclus && <span className="ml-1.5 rounded-full bg-slate-100 px-1.5 py-0.5 text-[10.5px] font-bold no-underline">non inclus</span>}</span>
+        </label>
+        <Plage v={x.inclus ? x.v : [0, 0]} className={`shrink-0 whitespace-nowrap text-right font-semibold ${x.inclus ? "" : "opacity-50"}`} />
+      </li>);
+  };
   const copierLien = () => { try { void navigator.clipboard.writeText(window.location.href); } catch { /* presse-papiers indisponible */ } };
 
   useEffect(() => { if (!etabById[eid].formations.includes(fid)) setFid(formationParDefaut(eid)); }, [eid, fid]);
@@ -92,12 +108,13 @@ export function DevisSimulateur() {
     if (!luUrl) return;
     const q = new URLSearchParams({ etab: eid, f: fid, l: logement });
     if (origine) q.set("o", origine);
+    if (exclus.length) q.set("x", exclus.join(","));
     if (perso) {
       q.set("perso", "1"); q.set("pl", perso.logement); q.set("pn", perso.niveau); q.set("pt", perso.transport); q.set("pa", perso.assurance);
       if (perso.retours) q.set("pr", String(perso.retours)); if (perso.ordinateur) q.set("po", "1"); if (perso.soutien) q.set("ps", "1"); if (perso.aide) q.set("pd", String(perso.aide));
     }
     window.history.replaceState(window.history.state, "", `/devis/?${q.toString()}`);
-  }, [eid, fid, origine, logement, perso, luUrl]);
+  }, [eid, fid, origine, logement, perso, exclus, luUrl]);
 
   const [faits, setFaits] = useState<number[]>([]);
   useEffect(() => { try { setFaits(JSON.parse(localStorage.getItem(`navigoal-demarches-${e.pays}`) || "[]")); } catch { setFaits([]); } }, [e.pays]);
@@ -207,15 +224,17 @@ export function DevisSimulateur() {
             </Reveal>
 
             <Reveal className="card flex flex-col gap-4 rounded-3xl p-5 sm:p-6">
-              <div className="flex flex-col gap-1"><h3 className="text-lg font-extrabold">Ce que comprend le devis</h3><span className="text-xs text-ink-mute">Sur toute la durée ({D.years} an{D.years > 1 ? "s" : ""}), poste par poste · {dev ? `${unit} (${symbole(base)} en dessous)` : unit}</span></div>
+              <div className="flex flex-col gap-1"><h3 className="text-lg font-extrabold">Ce que comprend le devis</h3><span className="text-xs text-ink-mute">Sur toute la durée ({D.years} an{D.years > 1 ? "s" : ""}), poste par poste · {dev ? `${unit} (${symbole(base)} en dessous)` : unit}</span>
+                <span className="mt-1 text-[13px] text-ink-soft">Cochez ou décochez chaque élément : le total, l&apos;échéancier et le PDF ne gardent que ce qui est coché.{exclus.length > 0 && <> <button type="button" onClick={() => setExclus([])} className="font-bold text-brand-600 underline-offset-2 hover:underline">Tout recocher</button></>}</span></div>
               <div className="flex flex-col gap-3">
-                {Object.entries(D.cats).map(([rub, tot], i) => (
+                {RUBRIQUES.filter((r) => D.detail.some((x) => x.rubrique === r)).map((rub) => { const tot = D.cats[rub] ?? [0, 0]; return (
+
                   <div key={rub} className="rounded-2xl border border-[#eef1f8] p-3.5">
-                    <div className="flex items-start justify-between gap-3"><b className="flex items-center gap-2 text-[15px]"><span className="h-3 w-3 shrink-0 rounded" style={{ background: DONUT_COLORS[i] }} />{rub}</b><Plage v={tot} className="whitespace-nowrap text-right text-[14px] font-extrabold" /></div>
+                    <div className="flex items-start justify-between gap-3"><b className="flex items-center gap-2 text-[15px]"><span className="h-3 w-3 shrink-0 rounded" style={{ background: DONUT_COLORS[Object.keys(D.cats).indexOf(rub)] ?? "#cbd5e1" }} />{rub}</b><Plage v={tot} className="whitespace-nowrap text-right text-[14px] font-extrabold" /></div>
                     <ul className="mt-2 flex flex-col gap-1.5 border-t border-[#eef1f8] pt-2 text-[13px] text-ink-soft">
-                      {D.detail.filter((x) => x.rubrique === rub).map((x) => <li key={x.libelle} className="flex justify-between gap-3"><span className="min-w-0">{x.libelle}</span><Plage v={x.v} className="shrink-0 whitespace-nowrap text-right font-semibold" /></li>)}
+                      {D.detail.filter((x) => x.rubrique === rub).map(ligneDevis)}
                     </ul>
-                  </div>))}
+                  </div>); })}
                 {D.aides && D.aides[1] > 0 && <div className="flex items-start justify-between gap-3 rounded-2xl bg-[#e8f8ef] p-3.5 text-[#0b6e38]"><b className="text-[15px]">Bourse ou réduction déduite</b><b className="whitespace-nowrap">− {nb(loc(D.aides[1]))} {unit}</b></div>}
                 <div className="flex items-start justify-between gap-3 rounded-2xl bg-brand-50 p-3.5"><b className="text-[15px]">Total sur {D.years} an{D.years > 1 ? "s" : ""}</b><Plage v={D.total} className="whitespace-nowrap text-right text-[15px] font-extrabold text-brand-700" /></div>
               </div>
