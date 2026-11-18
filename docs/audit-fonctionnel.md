@@ -169,3 +169,14 @@ Lighthouse mobile sur le site en ligne avant correction : performance 65 à 72, 
 - Photo de l'accueil sur fond noir (variantes sans transparence) : corrigé.
 
 Mesure locale après correction (Lighthouse mobile simulé) : accueil 68 → 83 à 87 ; l'élément principal des fiches écoles est peint à 0,85 s dans le navigateur (au lieu d'attendre le JavaScript). Reste : le poids du JavaScript des pages de listes (métiers, formations, écoles), qui embarquent le référentiel pour filtrer dans le navigateur.
+
+## Lecture « comme Google » (18 novembre 2026)
+
+Site en ligne lu en HTML brut (première passe de Google) puis rendu par Chrome (seconde passe) :
+
+- Toute page publique était enveloppée dans une transition à opacité 0 (`(site)/template.tsx`) : texte présent mais caché jusqu'à l'exécution du JavaScript (et principale cause du LCP lent). Remplacée par une transition CSS sans opacité.
+- `/metiers/`, `/formations/`, `/etablissements/`, `/devis/`, `/comparateur/`, `/ressources/`, résidences, fiches formations : contenu rendu par le serveur mais placé dans un bloc caché en fin de page (`<div hidden id="S:0">`, Suspense superflu) ; `/metiers/` n'offrait qu'un mot lisible. Corrigé : 328 pages, 762 mots en moyenne lisibles sans JavaScript, un titre h1 visible partout.
+- Pages dynamiques (`/orientation/`, certaines actualités) : titre, description et canonique envoyés en fin de page à Googlebot (« streaming metadata » de Next.js, Googlebot absent de la liste par défaut). Corrigé par `htmlLimitedBots`.
+- Hébergeur : navigateur automatisé sans JavaScript bloqué sur « Vérification en cours », faux Googlebot refusé (403). Le vrai Googlebot n'a pas pu être simulé : à contrôler dans la Search Console (inspection d'URL, test en direct).
+
+Après correction (local, Lighthouse mobile) : accueil 92 (68 en ligne avant), fiche HEM 88 (72), fiche formation 88 ; accessibilité et SEO 100 ; audits publication, accessibilité, parcours, mobile et tests au vert.

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { DevisSimulateur } from "@/components/sections/DevisSimulateur";
 import { QuestionWhatsApp } from "@/components/ui/QuestionWhatsApp";
 
@@ -8,7 +7,7 @@ export const metadata: Metadata = { title: "Combien coûtent les études au Maro
 export default function DevisPage() {
   return (
     <>
-      <Suspense><DevisSimulateur /></Suspense>
+      <DevisSimulateur />
       <QuestionWhatsApp sujet="le coût des études" />
     </>
   );

@@ -125,7 +125,7 @@ export function FormationSearch() {
         <aside className="card sticky top-24 hidden max-h-[calc(100vh-7rem)] overflow-y-auto p-6 lg:block">{filtres}</aside>
         <AnimatePresence>
           {panneau && (
-            <motion.div className="fixed inset-0 z-[70] bg-ink/40 lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setPanneau(false)}>
+            <motion.div className="fixed inset-0 z-[70] bg-ink/40 lg:hidden" initial={anime ? { opacity: 0 } : false} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setPanneau(false)}>
               <motion.div role="dialog" aria-label="Filtres" className="absolute inset-y-0 left-0 flex w-[88%] max-w-sm flex-col bg-white" initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} transition={{ type: "spring", damping: 28, stiffness: 260 }} onClick={(e) => e.stopPropagation()}>
                 <div className="flex-1 overflow-y-auto p-5">{filtres}</div>
                 <div className="border-t border-slate-100 p-4"><button onClick={() => setPanneau(false)} className="btn-primary w-full">Voir {results.length} offre{results.length > 1 ? "s" : ""}</button></div>
@@ -135,7 +135,7 @@ export function FormationSearch() {
         </AnimatePresence>
         <div className="flex min-w-0 flex-col gap-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p><b><motion.span key={results.length} initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} className="inline-block">{results.length.toLocaleString("fr-FR")}</motion.span> offre{results.length > 1 ? "s" : ""}</b> <span className="text-sm text-ink-mute">· {nbFormations} formation{nbFormations > 1 ? "s" : ""} dans {nbEtabs} établissement{nbEtabs > 1 ? "s" : ""}</span></p>
+            <p><b><motion.span key={results.length} initial={anime ? { opacity: 0, y: -6 } : false} animate={{ opacity: 1, y: 0 }} className="inline-block">{results.length.toLocaleString("fr-FR")}</motion.span> offre{results.length > 1 ? "s" : ""}</b> <span className="text-sm text-ink-mute">· {nbFormations} formation{nbFormations > 1 ? "s" : ""} dans {nbEtabs} établissement{nbEtabs > 1 ? "s" : ""}</span></p>
             <label className="relative flex items-center gap-2 text-sm text-ink-mute">Trier par
               <select value={f.tri} onChange={(e) => set({ tri: e.target.value })} className="min-h-[40px] appearance-none rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 font-semibold text-ink outline-none">
                 <option value="compat">Compatibilité</option><option value="az">Ordre alphabétique</option><option value="duree">Durée</option>

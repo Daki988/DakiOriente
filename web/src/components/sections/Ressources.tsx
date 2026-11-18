@@ -1,4 +1,5 @@
 "use client";
+import { useApresPremierRendu } from "@/components/motion/Reveal";
 import Image from "next/image";
 import Link from "@/components/ui/Link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -44,6 +45,7 @@ function Case({ on, label, n, onClick }: { on: boolean; label: string; n: number
 }
 
 export function Ressources() {
+  const anime = useApresPremierRendu(); // visible au chargement, animé ensuite
   const { f, set, reset, toggle, sync } = useFiltres(DEFAUTS);
   const [limit, setLimit] = useState(9);
   const [panneau, setPanneau] = useState(false);
@@ -109,7 +111,7 @@ export function Ressources() {
           </div>
           <motion.div layout className="grid gap-5 min-[520px]:grid-cols-2 xl:grid-cols-3">
             <AnimatePresence mode="popLayout">
-              {list.slice(0, limit).map((r) => <motion.div key={r.type + r.slug} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}><Carte r={r} /></motion.div>)}
+              {list.slice(0, limit).map((r) => <motion.div key={r.type + r.slug} layout initial={anime ? { opacity: 0, scale: 0.96 } : false} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}><Carte r={r} /></motion.div>)}
             </AnimatePresence>
           </motion.div>
           {!list.length && <div className="card p-10 text-center text-ink-mute">Aucune ressource ne correspond. <button onClick={reset} className="font-bold text-brand-600">Réinitialiser les filtres</button></div>}
@@ -145,7 +147,7 @@ export function Ressources() {
 
       <AnimatePresence>
         {panneau && (
-          <motion.div className="fixed inset-0 z-[70] bg-ink/40 lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setPanneau(false)}>
+          <motion.div className="fixed inset-0 z-[70] bg-ink/40 lg:hidden" initial={anime ? { opacity: 0 } : false} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setPanneau(false)}>
             <motion.div role="dialog" aria-label="Filtres" className="absolute inset-y-0 right-0 flex w-[88%] max-w-sm flex-col overflow-y-auto bg-white p-5" initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", damping: 28, stiffness: 260 }} onClick={(e) => e.stopPropagation()}>
               <button onClick={() => setPanneau(false)} aria-label="Fermer" className="mb-2 flex h-10 w-10 items-center justify-center self-end rounded-xl bg-[#f1f4fd]"><X size={18} /></button>
               {filtres}

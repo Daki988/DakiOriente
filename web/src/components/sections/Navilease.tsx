@@ -1,4 +1,5 @@
 "use client";
+import { useApresPremierRendu } from "@/components/motion/Reveal";
 import Link from "@/components/ui/Link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Footprints, GraduationCap, MapPin, Search, ShieldCheck } from "lucide-react";
@@ -15,6 +16,7 @@ const PINS = [{ x: 22, y: 28 }, { x: 52, y: 14 }, { x: 40, y: 64 }, { x: 70, y: 
 const TYPES_API: [string, string][] = [["", "Tous"], ["studio", "Studios"], ["colocation", "Colocations"], ["residence", "Résidences"], ["chambre", "Chambres"], ["appartement", "Appartements"], ["chez_habitant", "Chez l'habitant"]];
 
 export function Navilease({ residences: rangee }: { residences?: ReactNode }) {
+  const anime = useApresPremierRendu(); // visible au chargement, animé ensuite
   const [type, setType] = useState("");
   const [ville, setVille] = useState("");
   const [verif, setVerif] = useState(false);
@@ -28,9 +30,9 @@ export function Navilease({ residences: rangee }: { residences?: ReactNode }) {
       <section className="relative overflow-hidden bg-[radial-gradient(900px_500px_at_80%_30%,#fff1c2,transparent_60%),linear-gradient(180deg,#fffaf0,#f6f8fe)] pb-14 pt-12">
         <div className="container grid items-center gap-12 lg:grid-cols-2">
           <div className="flex flex-col gap-5">
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2.5">{/* eslint-disable-next-line @next/next/no-img-element */}
+            <motion.div initial={anime ? { opacity: 0, y: 10 } : false} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2.5">{/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/brand/navilease-horizontal.webp" alt="Navilease" width={190} height={53} className="h-[53px] w-auto" /><span className="chip bg-[#e9f4ed] text-[#2b6a4c]">un service Navigoal</span></motion.div>
-            <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="h-display lg:text-[60px]">Ton logement étudiant, <span className="text-brand-600">vérifié</span> et <span className="text-gradient">sécurisé.</span></motion.h1>
+            <motion.h1 initial={anime ? { opacity: 0, y: 24 } : false} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="h-display lg:text-[60px]">Ton logement étudiant, <span className="text-brand-600">vérifié</span> et <span className="text-gradient">sécurisé.</span></motion.h1>
             <p className="text-lg leading-relaxed text-ink-soft">Studios, colocations, résidences et cités universitaires près de ton établissement au Maroc : Casablanca, Rabat, Marrakech, Fès, Tanger, Agadir…</p>
             <form onSubmit={(e) => { e.preventDefault(); window.location.href = `/navilease/logements/?${new URLSearchParams({ ...(ville ? { ville } : {}), ...(type ? { type } : {}) })}`; }} className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_20px_50px_-18px_rgba(11,21,51,.3)] sm:flex-row sm:items-center">
               <div className="flex flex-1 items-center gap-2.5 px-3 py-1.5"><GraduationCap size={18} className="text-brand-600" /><div className="flex flex-col"><span className="text-[11px] font-bold text-ink-mute">Ville</span>
@@ -42,7 +44,7 @@ export function Navilease({ residences: rangee }: { residences?: ReactNode }) {
             <div className="flex gap-8">{[[etablissements.length, "", "établissements"], [VILLES_ETUDES.length, "", "villes d'études"], [100, " %", "paiements en séquestre"]].map(([n, s, l]) => <div key={l as string}><b className="text-[22px]"><Counter to={n as number} suffix={s as string} /></b><span className="block text-[13px] text-ink-mute">{l}</span></div>)}</div>
           </div>
           <div className="relative mx-auto aspect-square w-full max-w-[520px]">
-            <motion.div initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="absolute inset-[4%_0_0_6%] overflow-hidden rounded-[32px] border-[6px] border-white bg-gradient-to-br from-brand-100 to-brand-50 shadow-[0_40px_80px_-30px_rgba(11,21,51,.35)]">
+            <motion.div initial={anime ? { opacity: 0, scale: 0.94 } : false} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="absolute inset-[4%_0_0_6%] overflow-hidden rounded-[32px] border-[6px] border-white bg-gradient-to-br from-brand-100 to-brand-50 shadow-[0_40px_80px_-30px_rgba(11,21,51,.35)]">
               <svg viewBox="0 0 500 500" className="absolute inset-0 h-full w-full" preserveAspectRatio="none" aria-hidden>
                 <path d="M0 120 C120 100 200 180 320 150 S480 60 520 90" stroke="#fff" strokeWidth="14" fill="none" />
                 <path d="M60 0 C90 160 40 300 150 520" stroke="#fff" strokeWidth="10" fill="none" />
@@ -61,7 +63,7 @@ export function Navilease({ residences: rangee }: { residences?: ReactNode }) {
                 </motion.span>
               ))}
             </motion.div>
-            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.3 }} className="card absolute bottom-4 left-0 flex animate-float items-center gap-3 px-4 py-3.5">
+            <motion.div initial={anime ? { opacity: 0, x: -20 } : false} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.3 }} className="card absolute bottom-4 left-0 flex animate-float items-center gap-3 px-4 py-3.5">
               <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e8f8ef] text-[#0b7a3d]"><ShieldCheck size={22} /></span><span><b className="block text-sm">Paiement protégé</b><span className="text-xs text-ink-mute">versé au bailleur après ton entrée</span></span>
             </motion.div>
           </div>
@@ -84,7 +86,7 @@ export function Navilease({ residences: rangee }: { residences?: ReactNode }) {
           <AnimatePresence mode="popLayout">
             {type === "cites"
               ? cites.map((r) => (
-                  <motion.div key={r.id} layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="card flex flex-col gap-3 p-5">
+                  <motion.div key={r.id} layout initial={anime ? { opacity: 0, scale: 0.95 } : false} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="card flex flex-col gap-3 p-5">
                     <span className="chip w-fit bg-brand-50 text-brand-700">Cité universitaire · {r.gestionnaire}</span>
                     <b className="text-lg">{r.nom}</b><span className="flex items-center gap-1.5 text-sm text-ink-mute"><MapPin size={14} />{r.ville}</span>
                     <div className="flex flex-wrap gap-1.5">{r.etablissements_desservis.filter((id) => etabById[id]).map((id) => <Link key={id} href={`/etablissements/${id}/`} className="chip border border-slate-200 bg-white text-ink-soft hover:border-brand-300">{etabById[id].sigle}</Link>)}</div>
@@ -92,7 +94,7 @@ export function Navilease({ residences: rangee }: { residences?: ReactNode }) {
               : list.slice(0, 6).map((h) => {
                   const v = VERIF[h.verification] ?? VERIF.non_verifie;
                   return (
-                    <motion.div key={h.id} layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} className="card group relative overflow-hidden rounded-[22px] hover:shadow-lift">
+                    <motion.div key={h.id} layout initial={anime ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} className="card group relative overflow-hidden rounded-[22px] hover:shadow-lift">
                       <div className="relative h-44"><Cover h={h} className="transition duration-500 group-hover:scale-105" /><span className={`chip absolute left-3 top-3 ${v.cls}`}>{v.label}</span></div>
                       <div className="flex flex-col gap-2 p-4">
                         <Link href={`/navilease/logements/${h.id}`} className="font-extrabold after:absolute after:inset-0">{h.title}</Link>

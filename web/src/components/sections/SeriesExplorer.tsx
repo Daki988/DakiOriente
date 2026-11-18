@@ -1,4 +1,5 @@
 "use client";
+import { useApresPremierRendu } from "@/components/motion/Reveal";
 import Link from "@/components/ui/Link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
@@ -6,6 +7,7 @@ import { PAYS_NOM, domaineById, metierById, series, type PaysCode } from "@/lib/
 import orientationSeconde from "@/data/orientation_seconde.json";
 
 export function SeriesExplorer() {
+  const anime = useApresPremierRendu(); // visible au chargement, animé ensuite
   const [pays, setPays] = useState<PaysCode>("GA");
   const list = series.filter((s) => s.pays === pays);
   const [sel, setSel] = useState<string>(list[3]?.id ?? list[0].id);
@@ -29,7 +31,7 @@ export function SeriesExplorer() {
         ))}
       </div>
       <AnimatePresence mode="wait">
-        <motion.div key={cur.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} className="grid gap-6 lg:grid-cols-3">
+        <motion.div key={cur.id} initial={anime ? { opacity: 0, y: 12 } : false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} className="grid gap-6 lg:grid-cols-3">
           <div className="flex flex-col gap-3">
             <div className="text-xl font-extrabold">Série {cur.code}</div><div className="text-ink-soft">{cur.intitule}</div>
             <div className="text-xs font-bold uppercase text-ink-mute">Matières dominantes</div>

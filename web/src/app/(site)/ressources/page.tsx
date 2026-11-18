@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { Ressources } from "@/components/sections/Ressources";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PHOTOS } from "@/lib/photos";
@@ -13,7 +12,7 @@ export const metadata: Metadata = {
 export default function RessourcesPage() {
   return (
     <>
-      <Suspense><Ressources /></Suspense>
+      <Ressources />
       <CtaBand title={<>Accède à tout <span className="text-sun-400">gratuitement</span></>} sub="Crée ton compte pour enregistrer tes favoris, suivre tes candidatures et échanger avec un conseiller." />
       <section className="container mt-10">
         <details className="text-xs text-ink-mute">

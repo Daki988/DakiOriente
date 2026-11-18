@@ -1,4 +1,5 @@
 "use client";
+import { useApresPremierRendu } from "@/components/motion/Reveal";
 import Link from "@/components/ui/Link";
 import { motion } from "framer-motion";
 import { BadgeCheck, Bus, Calculator, Calendar, CalendarClock, Coins, Check, CloudSun, Copy, FileDown, GraduationCap, Handshake, HeartPulse, Info, Lightbulb, Mail, MessageCircle, Plane, Scale, Share2, Shield, ShieldCheck, SlidersHorizontal, Users, UsersRound, X } from "lucide-react";
@@ -19,6 +20,7 @@ import { MARGE_PRUDENCE, convertirDe, devisePays, formatMontant, symbole } from 
 const field = "w-full min-w-0 max-w-full truncate rounded-xl border-[1.5px] border-slate-200 bg-white px-3.5 py-3 text-sm font-bold outline-none focus:border-brand-400 focus:ring-4 focus:ring-brand-100";
 
 export function DevisSimulateur() {
+  const anime = useApresPremierRendu(); // contenu visible au chargement, animé ensuite
   // Choix initiaux lus dans l'URL côté navigateur (LireUrl) : la page reste rendue côté serveur.
   const [luUrl, setLuUrl] = useState(false);
   const [eid, setEid] = useState("ma-esa-casa");
@@ -262,7 +264,7 @@ export function DevisSimulateur() {
                   <thead><tr className="text-left text-xs font-extrabold text-ink-mute"><th className="p-2">ANNÉE</th><th className="p-2 text-right">SCOLARITÉ + FRAIS</th><th className="p-2 text-right">VIE (10 MOIS)</th><th className="p-2 text-right">SÉJOUR & ASSURANCE</th><th className="p-2 text-right">TOTAL</th></tr></thead>
                   <tbody>
                     {D.rows.map((r) => (
-                      <motion.tr key={`${r.annee}-${D.total[1]}`} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: r.annee * 0.06 }} className="border-t border-[#eef1f8]">
+                      <motion.tr key={`${r.annee}-${D.total[1]}`} initial={anime ? { opacity: 0, x: -10 } : false} animate={{ opacity: 1, x: 0 }} transition={{ delay: r.annee * 0.06 }} className="border-t border-[#eef1f8]">
                         <td className="px-2 py-3 font-bold">Année {r.annee}</td>
                         {([[r.scolarite[0] + r.annexes[0], r.scolarite[1] + r.annexes[1]], r.vie, r.renouvellements] as const).map((x, j) => <td key={j} className="px-2 py-3 text-right"><Plage v={x} /></td>)}
                         <td className="px-2 py-3 text-right font-extrabold text-brand-600"><Plage v={r.total} /></td>

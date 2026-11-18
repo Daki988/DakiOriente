@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { MetierList } from "@/components/sections/MetierList";
 import { metiers } from "@/lib/data";
 
@@ -10,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function MetiersPage() {
-  return <Suspense><MetierList /></Suspense>;
+  return <MetierList />;
 }

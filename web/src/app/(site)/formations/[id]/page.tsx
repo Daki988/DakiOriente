@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { FormationDetail } from "@/components/sections/FormationDetail";
 import { villesOffre } from "@/lib/catalogue";
 import { etabById, formationById, formations } from "@/lib/data";
@@ -56,7 +55,7 @@ export default async function FormationPage(props: { params: Promise<{ id: strin
     <>
       {formationById[params.id] && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(filAriane(SITE_URL, [["Formations", "/formations/"], [formationById[params.id].intitule, `/formations/${params.id}/`]])).replace(/</g, "\\u003c") }} />}
       {ld && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />}
-      <Suspense><FormationDetail id={params.id} details={details(params.id)} /></Suspense>
+      <FormationDetail id={params.id} details={details(params.id)} />
     </>
   );
 }

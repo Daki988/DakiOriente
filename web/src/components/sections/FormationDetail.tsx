@@ -1,4 +1,5 @@
 "use client";
+import { useApresPremierRendu } from "@/components/motion/Reveal";
 import { DossierPublic } from "./DossierPublic";
 import Link from "@/components/ui/Link";
 import { QuestionWhatsApp } from "@/components/ui/QuestionWhatsApp";
@@ -23,6 +24,7 @@ type Tab = (typeof TABS)[number];
 const FAV = "navigoal.favoris.formations";
 
 export function FormationDetail({ id, details }: { id: string; details: DetailFormation }) {
+  const anime = useApresPremierRendu(); // contenu visible au chargement, animé ensuite
   const f = formationById[id];
   // Établissement et ville demandés par l'URL, lus dans le navigateur (la page reste rendue côté serveur).
   const [params, setParams] = useState(() => new URLSearchParams());
@@ -84,7 +86,7 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
             <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start">
               <EtabLogo e={e} size={72} className="shadow-card" />
               <div className="flex min-w-0 flex-col gap-2">
-                <motion.h1 initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="text-2xl font-extrabold leading-tight tracking-tight sm:text-[34px]">{f.intitule}</motion.h1>
+                <h1 className="anim-apparition text-2xl font-extrabold leading-tight tracking-tight sm:text-[34px]">{f.intitule}</h1>
                 <Link href={`/etablissements/${e.id}/`} className="font-semibold text-ink-soft hover:text-brand-600">{e.nom}</Link>
                 <div className="flex flex-wrap gap-1.5 text-[13px]">
                   <span className="chip bg-[#f6f8fe] text-ink-soft"><MapPin size={12} />{ville}{villes.length > 1 ? ` · ${villes.length} campus` : ""}</span>
@@ -115,7 +117,7 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
             ))}
           </div>
           <AnimatePresence mode="wait">
-            <motion.div key={tab} role="tabpanel" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.22 }} className="flex flex-col gap-5">
+            <motion.div key={tab} role="tabpanel" initial={anime ? { opacity: 0, y: 12 } : false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.22 }} className="flex flex-col gap-5">
               {tab === "Présentation" && (
                 <div className="card flex flex-col gap-4 p-6 sm:p-7">
                   <h2 className="text-xl font-extrabold">Présentation de la formation</h2>

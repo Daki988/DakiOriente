@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import Link from "@/components/ui/Link";
 import { ChevronRight } from "lucide-react";
 import { ResidencesListe } from "@/components/navilease/ResidencesListe";
@@ -21,7 +20,7 @@ export default function ResidencesPage() {
           <p className="max-w-3xl text-ink-soft">Photos, loyers et services relevés sur les sites officiels. La réservation se fait directement auprès de chaque résidence, sur sa plateforme officielle : Navilease ne prend aucun paiement pour ces résidences.</p>
         </div>
       </section>
-      <div className="mt-6"><Suspense><ResidencesListe /></Suspense></div>
+      <div className="mt-6"><ResidencesListe /></div>
     </>
   );
 }

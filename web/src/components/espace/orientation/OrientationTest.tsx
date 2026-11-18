@@ -1,4 +1,5 @@
 "use client";
+import { useApresPremierRendu } from "@/components/motion/Reveal";
 import Link from "@/components/ui/Link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -13,6 +14,7 @@ import { OrientationProfile } from "./OrientationProfile";
 
 /** Test d'orientation à images (planche) : choix illustrés, progression, précédent / suivant. */
 export function OrientationTest() {
+  const anime = useApresPremierRendu(); // contenu visible au chargement, animé ensuite
   const user = useSession();
   const router = useRouter();
   const student = !!user && (user.role === "eleve" || user.role === "etudiant");
@@ -64,7 +66,7 @@ export function OrientationTest() {
     return (
       <div className="flex flex-col gap-5">
         <div><h1 className="text-[26px] font-extrabold tracking-tight sm:text-3xl">Test d&apos;orientation</h1><p className="text-ink-mute">Découvre ton profil et les métiers qui te correspondent.</p></div>
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="card relative grid overflow-hidden rounded-[28px] md:grid-cols-[1.1fr_.9fr]">
+        <motion.div initial={anime ? { opacity: 0, y: 16 } : false} animate={{ opacity: 1, y: 0 }} className="card relative grid overflow-hidden rounded-[28px] md:grid-cols-[1.1fr_.9fr]">
           <div className="relative flex flex-col gap-4 p-5 sm:p-10">
             <span className="text-[12px] font-extrabold uppercase tracking-[.16em] text-brand-600">Modèle RIASEC · lycée et études supérieures</span>
             <h2 className="text-2xl font-extrabold leading-tight tracking-tight sm:text-4xl">Quelle activité te ressemble le plus ?</h2>

@@ -22,6 +22,10 @@ const nextConfig = {
   ...(process.env.BUILD_STANDALONE ? { output: "standalone" } : {}),
   // Pas d'optimisation à la volée (pas de sharp sur l'hébergement mutualisé) : next/image sert les
   // variantes statiques préparées par scripts/variantes_images.py (voir image-loader.js).
+  // Métadonnées (titre, description, canonique, og:image) dans le <head> pour les robots, même sur les pages dynamiques.
+  // La liste par défaut de Next.js ne contient pas Googlebot (« il exécute le JavaScript ») : les balises lui arrivaient
+  // en fin de page (ex. /orientation/, actualités). Liste par défaut de Next 15.5 + Googlebot.
+  htmlLimitedBots: /Googlebot|[\w-]+-Google|Google-[\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight/i,
   images: { loader: "custom", loaderFile: "./image-loader.js", deviceSizes: [400, 640, 840, 1280], imageSizes: [160] },
   trailingSlash: true,
   // Les services serveur utilisent pg, bcryptjs, pdf-lib : exécutés côté Node, non regroupés.
