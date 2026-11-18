@@ -9,6 +9,7 @@ import { DestinationProvider } from "@/components/ui/Destination";
 import { AcquisitionTracker } from "@/components/campagne/AcquisitionTracker";
 import { Navi } from "@/components/ui/Navi";
 import { Audience } from "@/components/ui/Audience";
+import { BarreNavigation } from "@/components/ui/BarreNavigation";
 
 const DESCRIPTION = `Étudier ${DESTINATIONS_ACTIVES.map((d) => d.prep).join(" ou ")} depuis toute l'Afrique : orientation, écoles privées reconnues par l'État, frais, candidature en ligne et logement étudiant.`;
 
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ScrollProgress />
             <AcquisitionTracker />
             <Audience />
+            <BarreNavigation />
             {children}
             <Navi />
            </DestinationProvider>

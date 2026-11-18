@@ -28,6 +28,9 @@ const nextConfig = {
   htmlLimitedBots: /Googlebot|[\w-]+-Google|Google-[\w-]+|Chrome-Lighthouse|Slurp|DuckDuckBot|baiduspider|yandex|sogou|bitlybot|tumblr|vkShare|quora link preview|redditbot|ia_archiver|Bingbot|BingPreview|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|SkypeUriPreview|Yeti|googleweblight/i,
   images: { loader: "custom", loaderFile: "./image-loader.js", deviceSizes: [400, 640, 840, 1280], imageSizes: [160] },
   trailingSlash: true,
+  // Pages déjà vues (ou préchargées) gardées en mémoire dans le navigateur : retour en arrière et nouveau clic
+  // instantanés (60 s pour les pages dynamiques, 5 min pour les pages statiques, comme le cache de l'hébergeur).
+  experimental: { staleTimes: { dynamic: 60, static: 300 } },
   // Les services serveur utilisent pg, bcryptjs, pdf-lib : exécutés côté Node, non regroupés.
   serverExternalPackages: ["pg", "pdf-lib", "bcryptjs"],
   poweredByHeader: false,

@@ -1,6 +1,6 @@
 "use client";
 import Link from "@/components/ui/Link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { Menu, Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -48,6 +48,19 @@ export function Header() {
   useEffect(() => { document.documentElement.dataset.entete = hidden ? "cache" : ""; }, [hidden]);
   const active = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
   useEffect(() => setOpen(false), [path]);
+  // Pages du menu préchargées pour un clic instantané : sur ordinateur, une fois la page chargée et le navigateur
+  // au repos ; sur téléphone, dès l'ouverture du menu (le temps de choisir suffit). Une seule fois par page du menu.
+  const router = useRouter();
+  useEffect(() => {
+    const ordinateur = window.matchMedia("(hover: hover) and (min-width: 1280px)").matches;
+    const lent = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    if ((!ordinateur && !open) || lent?.saveData || /2g/.test(lent?.effectiveType ?? "")) return;
+    const faire = () => { for (const n of [...NAV, ...(open ? NAV_PLUS : [])]) if (n.href !== "/" && !path.startsWith(n.href)) router.prefetch(`${n.href}/`); };
+    if (open) { faire(); return; }
+    const ric = (window as Window & { requestIdleCallback?: (f: () => void, o?: { timeout: number }) => number }).requestIdleCallback;
+    const id = ric ? ric(faire, { timeout: 4000 }) : window.setTimeout(faire, 2500);
+    return () => { if (!ric) window.clearTimeout(id); };
+  }, [open, path, router]);
   const service = serviceDe(path);
   if (service !== "navigoal") return <EnteteService id={service} />;
 

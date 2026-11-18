@@ -68,3 +68,8 @@
 @keyframes navigoal-page { from { transform: translateY(12px); } to { transform: none; } }
 .anim-page { animation: navigoal-page 0.35s ease-out both; }
 @media (prefers-reduced-motion: reduce) { .anim-page { animation: none; } }
+
+/* Barre de navigation (BarreNavigation.tsx) : avance vite puis ralentit vers 90 %, se complète à l'arrivée. */
+@keyframes navigoal-barre { 0% { width: 0; } 30% { width: 55%; } 100% { width: 90%; } }
+.barre-nav-charge { animation: navigoal-barre 6s cubic-bezier(0.1, 0.7, 0.3, 1) forwards; }
+.barre-nav-fin { width: 100%; opacity: 0; transition: width 0.2s ease-out, opacity 0.3s ease-in 0.15s; }
