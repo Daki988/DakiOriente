@@ -440,7 +440,7 @@ route("GET", "/openapi.json", "Documentation", "Description OpenAPI de l'API (ad
 });
 route("GET", "/contact", "Documentation", "Coordonnées de contact (numéro WhatsApp des conseillers, lu à l'exécution)", "public", async () => {
   const n = (process.env.WHATSAPP_CONSEILLER ?? "").replace(/\D/g, "");
-  return { whatsapp: n.length >= 8 ? n : null };
+  return json({ whatsapp: n.length >= 8 ? n : null }, 200, { "Cache-Control": "public, max-age=300" }); // public, identique pour tous : 5 min dans le navigateur
 });
 
 // ---------------------------------------------------------------- Relais Navigoal (administrateur)
@@ -468,7 +468,7 @@ route("PATCH", "/admin/offres/services/:code", "Offres", "Modifier un service du
 route("POST", "/admin/offres/abonnements", "Offres", "Activer ou prolonger un service pour une école", ["admin"], async ({ me, body }) => json(await offres.activate(me, await body()), 201));
 route("POST", "/admin/offres/abonnements/:id/arreter", "Offres", "Arrêter un abonnement immédiatement", ["admin"], async ({ me, params }) => offres.cancel(me, params.id));
 route("GET", "/ecole/:eid/offre", "Établissement", "Mon offre : services actifs, historique, visibilité", ["etablissement", "admin"], async ({ me, params }) => offres.myOffer(me, params.eid));
-route("GET", "/partenaires", "Catalogue", "Écoles mises en avant (partenaires) en ce moment", "public", async () => json(await offres.partenaires()));  // no-store : jamais mis en cache par l'hébergeur (Varnish)
+route("GET", "/partenaires", "Catalogue", "Écoles mises en avant (partenaires) en ce moment", "public", async () => json(await offres.partenaires(), 200, { "Cache-Control": "public, max-age=300" }));  // no-store : jamais mis en cache par l'hébergeur (Varnish)
 route("POST", "/vitrine", "Catalogue", "Affichages et clics des écoles mises en avant (statistiques anonymes)", "public", async ({ req, body }) => {
   const b = await body().catch(() => ({}));
   try { await limiter(`vitrine:${ipClient(req.headers) || "inconnue"}`, 600, 3600, "trop"); } catch { return ok; }
@@ -524,7 +524,7 @@ route("GET", "/parent/visibilite", "Parent", "Visibilité de mes enfants auprès
 route("POST", "/parent/enfants/:id/visibilite", "Parent", "Donner ou retirer mon accord de visibilité", ["parent"], async ({ me, params, body }) => { await premium.parentVisibility(me, params.id, !!(await body()).accord); return ok; });
 
 // ---------------------------------------------------------------- Navi (assistant IA)
-route("GET", "/navi", "Navi", "Navi est-il disponible (clé API configurée) ?", "public", async () => ({ actif: navi.naviActif(), invitation: navi.naviActif() && navi.naviInvitation() }));
+route("GET", "/navi", "Navi", "Navi est-il disponible (clé API configurée) ?", "public", async () => json({ actif: navi.naviActif(), invitation: navi.naviActif() && navi.naviInvitation() }, 200, { "Cache-Control": "public, max-age=300" }));
 route("GET", "/navi/accueil", "Navi", "Accueil personnalisé de Navi pour un élève ou un parent connecté (profil, fiche de suivi)", "public", async ({ user }) => naviProfil.accueilNavi(user));
 route("POST", "/navi/relire-motivation", "Navi", "Relecture d'une lettre de motivation par Navi (conseils, sans réécriture ; 10 par jour)", ["eleve", "etudiant"], async ({ me, body }) => {
   if (!navi.naviActif()) throw new AppError("Navi n'est pas disponible pour le moment.", 503, "indisponible");

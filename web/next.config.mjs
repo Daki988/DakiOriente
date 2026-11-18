@@ -55,7 +55,15 @@ const nextConfig = {
     // robots.txt sert aussi de signal de maintien en éveil (tâche planifiée toutes les 4 min) : il doit atteindre
     // l'application à chaque fois, sinon Varnish répond seul, Passenger arrête l'application inactive et le visiteur
     // suivant attend son redémarrage (≈ 10 s mesurées). Aucune base de données sollicitée.
-    { source: "/robots.txt", headers: [{ key: "CDN-Cache-Control", value: "no-store" }] }];
+    { source: "/robots.txt", headers: [{ key: "CDN-Cache-Control", value: "no-store" }] },
+    // Images, logos, photos et fichiers de marque : gardés 1 jour par les navigateurs (puis réutilisés pendant la
+    // vérification, 7 jours) et 7 jours par Varnish (vidé à chaque mise en ligne). Avec max-age=0 et 5 min de Varnish,
+    // presque chaque image repassait par l'application Node.js, qui les servait derrière les pages (jusqu'à 7 s
+    // d'attente mesurées pour un logo, novembre 2026).
+    ...["images", "photos", "logos", "brand", "fiches", "ressources"].map((d) => ({ source: `/${d}/:path*`, headers: [
+      { key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" },
+      { key: "CDN-Cache-Control", value: "public, max-age=604800" },
+    ] }))];
   },
 };
 
