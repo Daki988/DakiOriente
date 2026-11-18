@@ -135,3 +135,5 @@ Vérifié sur le code, sur une instance de recette et sur navigoal.net :
 | Appels, échanges directs de l'équipe, Navi (ajouts de novembre) | 9 contrôles ajoutés à `audit-securite.mjs`, 0 échec |
 
 Robustesse : 852 appels malformés, 0 erreur 500. Audit de sécurité : 187 contrôles, 0 échec ; il tourne désormais dans la CI et la fait échouer en cas de problème.
+
+Compléments du 18/11/2026 : caractère nul (`%00`, `\u0000`) refusé en 400 au lieu d'une erreur de base ; nettoyage des compteurs de limites corrigé (clés contenant « : ») ; scénario Navilease de l'audit des actions mis à jour (espèces validées par l'équipe dans le back-office). Résultat : 167 parcours sur 167, 190 contrôles de sécurité sans échec, 852 appels malformés sans erreur 500 ; la CI repasse au vert.

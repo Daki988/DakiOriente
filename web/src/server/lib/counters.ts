@@ -22,6 +22,8 @@ export async function limiter(cle: string, max: number, fenetreS: number, messag
   const res = await db.execute<{ value: number }>(sql`insert into counters (key, value) values (${k}, 1)
     on conflict (key) do update set value = counters.value + 1 returning value`);
   if (Math.random() < 0.01) // ménage : tranches de plus de deux jours
-    await db.execute(sql`delete from counters where key like 'limite:%' and split_part(key, ':', 4)::bigint * split_part(key, ':', 3)::bigint < ${Math.floor(Date.now() / 1000) - 2 * 86400}`).catch(() => {});
+    // Fenêtre et tranche lues en fin de clé (la clé elle-même peut contenir « : », ex. « appel:<id> »).
+    await db.execute(sql`delete from counters where key ~ '^limite:.*:[0-9]+:[0-9]+$'
+      and (substring(key from ':([0-9]+):[0-9]+$'))::bigint * (substring(key from ':([0-9]+)$'))::bigint < ${Math.floor(Date.now() / 1000) - 2 * 86400}`).catch(() => {});
   if (res.rows[0].value > max) throw new AppError(message, 429, "trop_de_tentatives");
 }

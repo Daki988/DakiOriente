@@ -226,7 +226,8 @@ if (resa?.id) {
   const rep = await action("bailleur", "accepter la réservation", () => bailleur.post(`/reservations/${resa.id}/reponse`, { accepter: true }));
   if (rep?.statut === "attente_garant") await action("parent", "se porter garant", () => parent.post(`/reservations/${resa.id}/garant`));
   const pb = await action("parent", "payer la réservation (séquestre)", () => parent.post(`/reservations/${resa.id}/paiement`, { moyen: "especes" }));
-  if (pb?.payment?.reference) await action("parent", "confirmer le paiement (bac à sable)", () => parent.post(`/paiements/${pb.payment.reference}/simulation`, { succes: true }));
+  // Espèces : c'est l'équipe Navigoal qui confirme la réception (back-office, bloc « Espèces à valider »).
+  if (pb?.payment?.reference) await action("admin", "valider les espèces reçues (réservation)", () => adm.post(`/admin/paiements/${pb.payment.reference}/especes`, { recu: true, numeroRecu: "AUDIT-RESA", montantRecu: pb.payment.amount ?? null }));
   const det = await action("etudiant", "coordonnées révélées après paiement", () => amina.get(`/reservations/${resa.id}`));
   if (det && !det.revealed) resultats.push({ profil: "etudiant", action: "coordonnées révélées après paiement", statut: 200, ok: false, detail: `revealed=${det.revealed}, statut ${det.booking?.status}` });
   await action("etudiant", "signer le contrat", () => amina.post(`/reservations/${resa.id}/signature`));
@@ -235,7 +236,7 @@ if (resa?.id) {
   await action("etudiant", "déclarer l'entrée", () => amina.post(`/reservations/${resa.id}/entree`, { photos: [], notes: "RAS" }));
   const loyer = await action("etudiant", "payer un loyer", () => amina.post(`/reservations/${resa.id}/loyer`, { moyen: "especes", periode: `${an + 1}-10` }));
   if (loyer?.payment?.reference) {
-    await action("etudiant", "confirmer le loyer (bac à sable)", () => amina.post(`/paiements/${loyer.payment.reference}/simulation`, { succes: true }));
+    await action("admin", "valider les espèces reçues (loyer)", () => adm.post(`/admin/paiements/${loyer.payment.reference}/especes`, { recu: true, numeroRecu: "AUDIT-LOYER", montantRecu: loyer.payment.amount ?? null }));
     await action("bailleur", "quittance PDF", () => bailleur.get(`/quittances/${loyer.payment.reference}.pdf`));
   }
   await action("etudiant", "laisser un avis", () => amina.post(`/reservations/${resa.id}/avis`, { note: 5, commentaire: "Propre et calme." }));

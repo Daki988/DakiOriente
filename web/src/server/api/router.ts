@@ -79,7 +79,10 @@ async function lireJson(req: Request, max = 1024 * 1024): Promise<any> { // esli
   const tout = new Uint8Array(total);
   let o = 0;
   for (const m of morceaux) { tout.set(m, o); o += m.length; }
-  try { return JSON.parse(new TextDecoder().decode(tout)); } catch { throw new AppError("Données invalides.", 400, "requete"); }
+  const texte = new TextDecoder().decode(tout);
+  // Caractère nul (sonde d'attaque classique) : refusé net, PostgreSQL ne l'accepte pas dans un texte.
+  if (texte.includes("\\u0000") || texte.includes("\u0000")) throw new AppError("Données invalides.", 400, "requete");
+  try { return JSON.parse(texte); } catch { throw new AppError("Données invalides.", 400, "requete"); }
 }
 const route = (method: string, path: string, tag: string, summary: string, auth: RouteDef["auth"], handler: Handler) => R.push({ method, path, tag, summary, auth, handler });
 const STUDENT: Role[] = ["eleve", "etudiant"];
@@ -556,6 +559,7 @@ export async function dispatch(req: Request, segments: string[]) {
     if (!candidates.length) return json({ error: { code: "introuvable", message: "Route inconnue." } }, 404);
     const r = candidates.find((c) => c.method === req.method);
     if (!r) return json({ error: { code: "methode", message: "Méthode non autorisée." } }, 405);
+    if (/%00/.test(req.url)) return json({ error: { code: "requete", message: "Adresse invalide." } }, 400);
     const m = r.re.exec(path)!;
     const params = Object.fromEntries(r.keys.map((k, i) => [k, m[i + 1]]));
     // Protection CSRF simple pour les requêtes avec cookie : l'origine doit être celle du site.
