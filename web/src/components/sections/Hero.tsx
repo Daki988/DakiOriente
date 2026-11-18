@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 import { MapPin, Search } from "lucide-react";
 import { useState } from "react";
 import { WordsReveal } from "@/components/motion/Reveal";
-import { CHIFFRES } from "@/lib/catalogue";
-import { PAYS_ACTIFS_TEXTE, stats } from "@/lib/data";
 
 /** Métiers populaires : domaines qui comptent le plus d'établissements (liens vers la liste filtrée). */
 const POPULAIRES: [string, string][] = [["Informatique", "dom-numerique"], ["Santé", "dom-sante"], ["Gestion", "dom-gestion"], ["Génie civil", "dom-btp"], ["Finance", "dom-finance"], ["Droit", "dom-droit"]];
 
-export function Hero() {
+/** Chiffres calculés côté serveur (page d'accueil) : le référentiel complet n'est pas envoyé au navigateur. */
+export type HeroChiffres = { paysTexte: string; villes: number; campus: number; pays: number };
+export function Hero({ chiffres }: { chiffres: HeroChiffres }) {
   const router = useRouter();
   const [q, setQ] = useState("");
   const go = (term: string) => router.push(term.trim() ? `/recherche/?q=${encodeURIComponent(term.trim())}` : "/recherche/");
@@ -33,7 +33,7 @@ export function Hero() {
             </span>
           </h1>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl">
-            La plateforme d&apos;orientation, de formation et de candidature pour <b className="text-ink">étudier {PAYS_ACTIFS_TEXTE}</b>, depuis toute l&apos;Afrique.
+            La plateforme d&apos;orientation, de formation et de candidature pour <b className="text-ink">étudier {chiffres.paysTexte}</b>, depuis toute l&apos;Afrique.
           </motion.p>
           <motion.form
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
@@ -62,7 +62,7 @@ export function Hero() {
           <p className="absolute -right-2 top-2 hidden w-52 -rotate-6 font-hand text-[26px] leading-tight text-brand-800 xl:block">S&apos;orienter aujourd&apos;hui pour construire l&apos;Afrique de demain.</p>
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1 }} className="card absolute bottom-6 left-0 flex animate-float items-center gap-3 px-3.5 py-2.5 sm:bottom-10 sm:px-4 sm:py-3">
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-sun-100 text-[#a55a00]"><MapPin size={20} /></span>
-            <span><b className="block text-sm">{CHIFFRES.villes} villes d&apos;études</b><span className="text-xs text-ink-mute">{CHIFFRES.campus} campus · {stats.pays} pays</span></span>
+            <span><b className="block text-sm">{chiffres.villes} villes d&apos;études</b><span className="text-xs text-ink-mute">{chiffres.campus} campus · {chiffres.pays} pays</span></span>
           </motion.div>
         </div>
       </div>

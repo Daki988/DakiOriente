@@ -1,6 +1,7 @@
 // Offres payantes des établissements : catalogue modifiable, abonnements (activation, prolongation, arrêt),
 // effets réels sur la plateforme (Premium, mise en avant, « À la une de l'accueil »), rappels d'échéance et
 // statistiques de visibilité des écoles mises en avant.
+import { etabById } from "@/lib/data";
 import { and, asc, desc, eq, gt, isNull, lte, sql } from "drizzle-orm";
 import { z } from "zod";
 import { db, schema } from "../db";
@@ -172,7 +173,11 @@ export async function partenaires() {
   if (cache && Date.now() - cache.at < 30_000) return cache.data; // plusieurs processus serveur : cache court
   const now = new Date();
   const r = await db.select({ id: schema.establishments.id, homeUntil: schema.establishments.homeUntil }).from(schema.establishments).where(gt(schema.establishments.featuredUntil, now)).orderBy(sql`${schema.establishments.homeUntil} desc nulls last`, asc(schema.establishments.sigle));
-  cache = { at: Date.now(), data: r.map((x) => ({ id: x.id, une: !!x.homeUntil && x.homeUntil > now })) };
+  // Nom, sigle, ville et logo joints ici : le bandeau de l'accueil n'a pas à charger tout le référentiel dans le navigateur.
+  cache = { at: Date.now(), data: r.filter((x) => etabById[x.id]).map((x) => {
+    const e = etabById[x.id];
+    return { id: x.id, une: !!x.homeUntil && x.homeUntil > now, nom: e.nom, sigle: e.sigle, logo: e.logo, lieu: e.campus ? `${e.campus.length} campus` : e.ville };
+  }) };
   return cache.data;
 }
 export const viderCache = () => { cache = null; };

@@ -18,8 +18,15 @@ export function creerPool(url: string, max = 10): PgPool {
   if (viaNeonWebSocket(url)) {
     // Node 22+ fournit WebSocket nativement.
     if (!neonConfig.webSocketConstructor && typeof globalThis.WebSocket !== "undefined") neonConfig.webSocketConstructor = globalThis.WebSocket;
-    return new NeonPool({ connectionString: url, max }) as unknown as PgPool;
+    // Connexions gardées 60 s (au lieu de 10 s) : une page qui suit de peu la précédente évite d'ouvrir un nouveau
+    // WebSocket (≈ 70 à 100 ms). Rester sous la mise en veille de Neon (5 min d'inactivité).
+    const p = new NeonPool({ connectionString: url, max, idleTimeoutMillis: 60_000 }) as unknown as PgPool;
+    // Connexion inactive coupée par Neon (mise en veille) : on la journalise au lieu d'arrêter le processus.
+    p.on("error", (e) => console.error("[base] connexion inactive interrompue :", e.message));
+    return p;
   }
-  return new PgPool({ connectionString: url, max, ssl: /localhost|127\.0\.0\.1/.test(url) ? undefined : { rejectUnauthorized: process.env.PGSSL_NO_VERIFY !== "1" } });
+  const pg = new PgPool({ connectionString: url, max, ssl: /localhost|127\.0\.0\.1/.test(url) ? undefined : { rejectUnauthorized: process.env.PGSSL_NO_VERIFY !== "1" } });
+  pg.on("error", (e) => console.error("[base] connexion inactive interrompue :", e.message));
+  return pg;
   // Certificat du serveur vérifié par défaut (PGSSL_NO_VERIFY=1 seulement pour un serveur au certificat auto-signé).
 }

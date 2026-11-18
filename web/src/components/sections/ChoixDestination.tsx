@@ -3,7 +3,7 @@ import Link from "@/components/ui/Link";
 import { ArrowRight, Info, ShieldCheck } from "lucide-react";
 import { Drapeau } from "@/components/ui/Drapeau";
 import { useDestination } from "@/components/ui/Destination";
-import { DESTINATIONS_ACTIVES, DESTINATIONS_BIENTOT } from "@/lib/data";
+import { DESTINATIONS_ACTIVES, DESTINATIONS_BIENTOT } from "@/lib/destinations";
 
 /** Accueil (maquettes « destinations », écran 1) : « Où veux-tu étudier ? », pays actifs et pays à venir. */
 export function ChoixDestination() {

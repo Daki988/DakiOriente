@@ -3,11 +3,10 @@ import Link from "@/components/ui/Link";
 import { Star } from "lucide-react";
 import { Children, isValidElement, useEffect, useRef, useState, type ReactNode } from "react";
 import { EtabLogo } from "./EtabLogo";
-import { etabById } from "@/lib/data";
 
 // Écoles mises en avant (abonnement en cours) : lues à l'exécution, signalées « Partenaire Navigoal » partout où elles
 // sont promues, avec un comptage anonyme des affichages et des clics pour leur page « Mon offre ».
-type P = { id: string; une: boolean };
+type P = { id: string; une: boolean; nom: string; sigle: string; logo: string | null; lieu: string };
 let memo: P[] | null = null;
 let attente: Promise<P[]> | null = null;
 function charger() {
@@ -72,18 +71,18 @@ export function OrdrePartenaires({ children, max, limite }: { children: ReactNod
 
 /** Accueil : bandeau « Écoles partenaires » (la une en premier, en grand). Rien n'est affiché sans partenaire. */
 export function EcolesPartenaires() {
-  const p = usePartenaires().filter((x) => etabById[x.id]);
+  const p = usePartenaires();
   if (!p.length) return null;
   return (
     <div className="container mb-5">
       <p className="mb-3 flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wide text-[#a55a00]"><Star size={13} className="fill-current" />Écoles partenaires</p>
       <div className="flex gap-3 overflow-x-auto pb-2">
-        {p.map(({ id, une }) => {
-          const e = etabById[id];
+        {p.map((e) => {
+          const { id, une } = e;
           return (
             <Link key={id} href={`/etablissements/${id}/`} title={e.nom} className={`relative flex shrink-0 items-center gap-3 rounded-2xl border-2 border-sun-300 bg-[#fffbea] transition hover:shadow-card ${une ? "py-3 pl-3 pr-6" : "py-2.5 pl-2.5 pr-4"}`}>
               <EtabLogo e={e} size={une ? 64 : 48} />
-              <span><span className={`block font-extrabold ${une ? "text-base" : "text-sm"}`}>{e.sigle}</span><span className="block max-w-[220px] truncate text-[11px] text-ink-mute">{une ? e.nom : e.campus ? `${e.campus.length} campus` : e.ville}</span></span>
+              <span><span className={`block font-extrabold ${une ? "text-base" : "text-sm"}`}>{e.sigle}</span><span className="block max-w-[220px] truncate text-[11px] text-ink-mute">{une ? e.nom : e.lieu}</span></span>
               <PartenaireMarque id={id} cadre={false} badge={false} />
             </Link>
           );

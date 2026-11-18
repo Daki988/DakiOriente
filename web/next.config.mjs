@@ -44,7 +44,11 @@ const nextConfig = {
     // Espaces connectés et pages d'authentification : jamais gardés par le cache de l'hébergeur (contenu propre à chaque compte).
     ...PRIVES.map((p) => ({ source: `/${p}/:path*`, headers: [{ key: "CDN-Cache-Control", value: "no-store" }] })),
     ...PRIVES.map((p) => ({ source: `/${p}`, headers: [{ key: "CDN-Cache-Control", value: "no-store" }] })),
-    { source: "/api/:path*", headers: [{ key: "CDN-Cache-Control", value: "no-store" }] }];
+    { source: "/api/:path*", headers: [{ key: "CDN-Cache-Control", value: "no-store" }] },
+    // robots.txt sert aussi de signal de maintien en éveil (tâche planifiée toutes les 4 min) : il doit atteindre
+    // l'application à chaque fois, sinon Varnish répond seul, Passenger arrête l'application inactive et le visiteur
+    // suivant attend son redémarrage (≈ 10 s mesurées). Aucune base de données sollicitée.
+    { source: "/robots.txt", headers: [{ key: "CDN-Cache-Control", value: "no-store" }] }];
   },
 };
 
