@@ -137,3 +137,21 @@ Vérifié sur le code, sur une instance de recette et sur navigoal.net :
 Robustesse : 852 appels malformés, 0 erreur 500. Audit de sécurité : 187 contrôles, 0 échec ; il tourne désormais dans la CI et la fait échouer en cas de problème.
 
 Compléments du 18/11/2026 : caractère nul (`%00`, `\u0000`) refusé en 400 au lieu d'une erreur de base ; nettoyage des compteurs de limites corrigé (clés contenant « : ») ; scénario Navilease de l'audit des actions mis à jour (espèces validées par l'équipe dans le back-office). Résultat : 167 parcours sur 167, 190 contrôles de sécurité sans échec, 852 appels malformés sans erreur 500 ; la CI repasse au vert.
+
+## Audit complet du 18 novembre 2026 (et latence)
+
+| Contrôle | Résultat |
+|---|---|
+| Pages, 6 profils + visiteur (`audit-fonctionnel.mjs`) | 516 pages, 0 problème |
+| Actions (`audit-actions.mjs`) | 167/167 ; robustesse 852 appels, 0 erreur 500 ; matrice des droits 406 appels, 0 anomalie |
+| Sécurité (`audit-securite.mjs`) | 200 contrôles, 0 échec |
+| Publication / SEO (`audit-publication.mjs`) | 327 pages, 2 604 liens internes, 0 problème |
+| Parcours navigateur (`audit-ui.mjs`) | 43 étapes, 0 échec |
+| Mobile (`audit-responsive.mjs`) | 96 vérifications, 0 problème |
+| Accessibilité (axe-core, 16 pages) | 0 problème |
+| Tests unitaires, types, `npm audit`, secrets, référentiels, variantes d'images | 79/79, 0 erreur, 0 vulnérabilité, aucun secret, cohérents, complètes |
+| Site en ligne | en-têtes de sécurité présents, fichiers sensibles en 403/404, robots filtrés (403), 404 personnalisée, webhook WhatsApp 400/401 |
+
+Corrections : CSP `form-action` sans CinetPay (inutilisé) ; `/api/sante` affiche la version déployée.
+
+Latence : premier visiteur après une période calme à 10,8 s sur l'accueil. Cause : le signal de maintien en éveil (`/robots.txt`, toutes les 4 min) était servi par Varnish sans atteindre l'application, que Passenger arrêtait. `robots.txt` passe en `CDN-Cache-Control: no-store`. Pool Neon gardé 60 s au lieu de 10 s (nouvelle connexion ≈ 70 à 100 ms évitée). Accueil : 245 → 165 Ko de JavaScript (le référentiel complet n'est plus envoyé au navigateur). Côté serveur, 2 requêtes SQL par page connectée, 10 à 70 ms de calcul : pas de goulot. Reste : réveil de Neon après 5 min d'inactivité (≈ 0,5 s, offre gratuite) et pages de listes (métiers, formations, écoles) à 250-280 Ko, qui filtrent le référentiel dans le navigateur.
