@@ -46,12 +46,13 @@ async function peutRejoindre(user: User, conversationId: string) {
 }
 
 export async function lancerAppel(user: User, conversationId: string, opts: { audioSeul?: boolean } = {}) {
-  if (!appelsActifs()) throw new AppError("Les appels ne sont pas encore activés.", 503, "appels_inactifs");
+  // Droits vérifiés avant tout : un compte sans accès au fil ne doit rien apprendre, même si les appels sont coupés.
   if (!LANCEURS.includes(user.role)) throw forbidden();
   const [c] = await db.select().from(schema.conversations).where(eq(schema.conversations.id, conversationId));
   if (!c) throw notFound("Conversation");
   const parts = await participants(conversationId);
   if (user.role !== "admin" && !parts.some((p) => p.id === user.id)) throw forbidden();
+  if (!appelsActifs()) throw new AppError("Les appels ne sont pas encore activés.", 503, "appels_inactifs");
   // Un appel encore ouvert dans ce fil est réutilisé (pas de doublon si l'on clique deux fois).
   const [enCours] = await db.select().from(schema.appels).where(and(eq(schema.appels.conversationId, conversationId), gt(schema.appels.expire, new Date(Date.now() + 15 * 60e3)))).orderBy(desc(schema.appels.createdAt)).limit(1);
   if (enCours) return enCours;

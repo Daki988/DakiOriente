@@ -307,13 +307,15 @@ for (const [, method, url, droits] of TOUTES) {
   for (const id of ids) for (const b of corps) {
     const u = id === null ? url : url.replace(/:[a-z]+/g, id);
     let r;
-    if (b === "{non-json") r = await fetch(BASE + "/api" + u + (u.match(/\.[a-z]+$/) ? "" : "/"), { method, headers: { "content-type": "application/json", origin: BASE }, body: b }).then((x) => ({ status: x.status }));
+    if (b === "{non-json") r = await fetch(BASE + "/api" + u + (u.match(/\.[a-z]+$/) ? "" : "/"), { method, headers: { "content-type": "application/json", origin: BASE }, body: b }).then(async (x) => ({ status: x.status, data: await x.text().catch(() => "") }));
     else r = await c.call(method, u, b);
-    robustesse.push({ method, url: u, profil: c.nom, corps: typeof b === "object" ? Object.keys(b).length : b, statut: r.status });
-    if (r.status >= 500) { console.log(`✗ [robustesse] ${c.nom} ${method} ${u} corps=${JSON.stringify(b)?.slice(0, 40)} → ${r.status}`); resultats.push({ profil: c.nom, action: `robustesse ${method} ${url}`, statut: r.status, ok: false, detail: `id=${id} corps=${JSON.stringify(b)?.slice(0, 80)}` }); }
+    // 503 « service non activé » (Navi sans clé Anthropic, appels sans clé Daily) : réponse voulue, pas une panne.
+    const desactive = r.status === 503 && /inactif|indisponible|navi_inactif|appels_inactifs/.test(JSON.stringify(r.data ?? ""));
+    robustesse.push({ method, url: u, profil: c.nom, corps: typeof b === "object" ? Object.keys(b).length : b, statut: desactive ? 503.1 : r.status });
+    if (r.status >= 500 && !desactive) { console.log(`✗ [robustesse] ${c.nom} ${method} ${u} corps=${JSON.stringify(b)?.slice(0, 40)} → ${r.status}`); resultats.push({ profil: c.nom, action: `robustesse ${method} ${url}`, statut: r.status, ok: false, detail: `id=${id} corps=${JSON.stringify(b)?.slice(0, 80)}` }); }
   }
 }
-console.log(`Robustesse : ${robustesse.length} appels, ${robustesse.filter((x) => x.statut >= 500).length} erreurs 500`);
+console.log(`Robustesse : ${robustesse.length} appels, ${robustesse.filter((x) => x.statut >= 500 && x.statut !== 503.1).length} erreurs 500, ${robustesse.filter((x) => x.statut === 503.1).length} refus « service non activé »`);
 
 fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, "actions.json"), JSON.stringify({ resultats, matrice, robustesse }, null, 1));

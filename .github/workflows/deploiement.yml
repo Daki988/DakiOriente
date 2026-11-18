@@ -92,6 +92,9 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: web/package-lock.json
+      - name: Aucun secret dans le dépôt
+        working-directory: .
+        run: node scripts/verifier-secrets.mjs
       - run: npm ci
       - run: npm run sync
       - name: Lint

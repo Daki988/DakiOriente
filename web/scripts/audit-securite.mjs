@@ -285,6 +285,23 @@ for (const p of ["/connexion/?suite=https://evil.example.com", "/connexion/?suit
   note("redirections", `page ${p} ne renvoie pas vers l'extérieur côté serveur`, !/http-equiv="refresh"[^>]*evil/i.test(html), "meta refresh externe");
 }
 
+// ------------------------------------------------------------ Appels vidéo, échanges directs, Navi (ajouts de novembre 2026)
+{
+  const fils = (await amina.get("/conversations")).data;
+  const fil = Array.isArray(fils) ? fils[0]?.id : null;
+  // Fil où le bailleur de démonstration n'est pas participant (candidature avec une école, par exemple).
+  const filSansBailleur = Array.isArray(fils) ? fils.find((f) => !f.participants?.some((p) => p.role === "bailleur"))?.id : null;
+  await controle("appels", "un élève ne lance pas d'appel", () => amina.post(`/conversations/${fil ?? "00000000-0000-4000-8000-000000000000"}/appel`, {}));
+  if (filSansBailleur) await controle("appels", "un bailleur étranger au fil ne lance pas d'appel dedans", () => bailleur.post(`/conversations/${filSansBailleur}/appel`, {}));
+  await controle("appels", "appel inconnu : rien à rejoindre", () => amina.get("/appels/00000000-0000-4000-8000-000000000000"));
+  await controle("appels", "appel : identifiant piégé refusé", () => amina.get("/appels/%27%20or%201%3D1"));
+  await controle("relais", "un élève n'ouvre pas d'échange « équipe » avec un autre compte", () => amina.post(`/admin/utilisateurs/${meEcole?.user?.id ?? "x"}/echange`, {}));
+  await controle("relais", "une école n'ouvre pas d'échange « équipe »", () => ecole.post(`/admin/utilisateurs/x/echange`, {}));
+  await controle("navi", "relecture de lettre réservée à l'élève (parent refusé)", () => parent.post("/navi/relire-motivation", { texte: "x" }), [401, 403, 503]);
+  await controle("navi", "avis sur une réponse d'un autre compte : ignoré", () => parent.post("/navi/avis", { trace: "00000000-0000-4000-8000-000000000000", avis: "utile" }), [200, 400], (r) => r.status !== 200 || r.data?.enregistre === false);
+  await controle("navi", "avis : valeur piégée refusée", () => parent.post("/navi/avis", { trace: "<script>", avis: "utile" }), [400]);
+}
+
 // ------------------------------------------------------------ En-têtes et cache
 const page = await fetch(BASE + "/");
 for (const [h, re] of [["content-security-policy", /default-src|script-src/], ["strict-transport-security", /max-age/], ["x-frame-options", /SAMEORIGIN|DENY/i], ["x-content-type-options", /nosniff/], ["referrer-policy", /./]])
@@ -314,3 +331,5 @@ fs.writeFileSync(path.join(OUT, "securite.json"), JSON.stringify(resultats, null
 const parTheme = {};
 for (const r of resultats) { parTheme[r.theme] ??= [0, 0]; parTheme[r.theme][1]++; if (r.ok) parTheme[r.theme][0]++; }
 console.log(`\n${resultats.length} contrôles, ${resultats.filter((r) => !r.ok).length} en échec · ` + Object.entries(parTheme).map(([t, [a, b]]) => `${t} ${a}/${b}`).join(" · "));
+// Code de sortie : échec si un contrôle a échoué (bloque l'intégration continue).
+if (resultats.some((r) => !r.ok)) process.exitCode = 1;

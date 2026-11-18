@@ -110,3 +110,28 @@ BASE=http://localhost:3000 OUT=audit node scripts/audit-ui.mjs                  
 BASE=http://localhost:3000 OUT=audit node scripts/audit-securite.mjs                    # après audit-actions
 BASE=http://localhost:3000 OUT=audit node scripts/audit-responsive.mjs                  # affichage mobile
 ```
+
+## Contrôle de sécurité du 18 novembre 2026 (liste « 27 points avant mise en ligne »)
+
+Vérifié sur le code, sur une instance de recette et sur navigoal.net :
+
+| Point | État |
+|---|---|
+| Authentification, mots de passe hachés (bcrypt), sessions `httpOnly`/`SameSite=Lax` | conforme |
+| Chacun ne voit que ses données (IDOR élève, parent, école, bailleur) | 77 contrôles, 0 échec |
+| Requêtes paramétrées (Drizzle, aucune requête SQL brute), injections | 31 contrôles, 0 échec |
+| XSS (avis, messages, JSON-LD échappé) | 3 contrôles, 0 échec |
+| Limites de fréquence (connexion, codes, inscriptions, Navi, appels, avis) | conforme |
+| En-têtes (CSP, HSTS, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy) | conforme ; `X-Powered-By: Phusion Passenger` ajouté par l'hébergeur (à masquer dans `public_html/.htaccess`) |
+| CSRF (origine vérifiée sur toute écriture avec cookie) | 4 contrôles, 0 échec |
+| Codes de réinitialisation (10 min, usage unique, essais limités) | conforme |
+| Fichiers envoyés (type réel, taille 8 Mo, contenu) | 8 contrôles, 0 échec |
+| Mode debug coupé, erreurs génériques sans trace | conforme |
+| Dépendances (`npm audit --omit=dev`) | 0 faille ; contrôlé à chaque CI |
+| Fichiers exposés (`.env`, `.git`, `.sql`, sauvegardes) sur navigoal.net | tous refusés (403/404) |
+| Secrets dans le dépôt et l'historique Git | aucun (clé de test RFC 8032 et exemples seulement) ; `scripts/verifier-secrets.mjs` en CI et avant chaque mise en ligne |
+| Prix calculés par le serveur, webhooks vérifiés (Stripe signé, E-Billing revérifié) | conforme |
+| Journal d'activité (connexions, échecs, actions sensibles) | conforme (table `audit_logs`) |
+| Appels, échanges directs de l'équipe, Navi (ajouts de novembre) | 9 contrôles ajoutés à `audit-securite.mjs`, 0 échec |
+
+Robustesse : 852 appels malformés, 0 erreur 500. Audit de sécurité : 187 contrôles, 0 échec ; il tourne désormais dans la CI et la fait échouer en cas de problème.

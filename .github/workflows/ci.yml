@@ -33,7 +33,12 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: web/package-lock.json
+      - name: Aucun secret dans le dépôt (clés, mots de passe, fichiers .env)
+        working-directory: .
+        run: node scripts/verifier-secrets.mjs
       - run: npm ci
+      - name: Dépendances sans faille connue (élevée ou critique)
+        run: npm audit --omit=dev --audit-level=high
       - run: npm run sync
       - name: Lint
         run: npm run lint
@@ -59,10 +64,16 @@ jobs:
           PAYMENTS_MODE: sandbox
           STORAGE_DIR: /tmp/uploads
           OTP_DEBUG: "1"
+          LIMITE_INSCRIPTIONS: "1000" # l'audit de sécurité crée plusieurs comptes depuis la même adresse
         run: |
           npx next start -p 3000 > /tmp/serveur.log 2>&1 &
           for i in $(seq 1 60); do curl -sf http://localhost:3000/api/sante/ && break; sleep 2; done
           BASE=http://localhost:3000 OUT=/tmp/audit node scripts/audit-actions.mjs
+      # Accès croisés entre comptes, injections, XSS, fichiers piégés, sessions, CSRF, redirections, en-têtes, cache,
+      # appels, échanges de l'équipe, Navi. Lancé même si l'audit des actions signale des parcours incomplets.
+      - name: Audit de sécurité
+        if: always()
+        run: BASE=http://localhost:3000 OUT=/tmp/audit node scripts/audit-securite.mjs
       - name: Journal du serveur (en cas d'échec)
         if: failure()
         run: tail -200 /tmp/serveur.log || true
