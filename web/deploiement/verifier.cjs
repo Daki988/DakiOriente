@@ -69,6 +69,15 @@ let erreurs = 0;
       r.ok ? ok("Appels audio et vidéo : clé Daily acceptée") : ko(`Appels : clé Daily refusée (HTTP ${r.status})`);
     } catch (e) { ko(`Appels : API Daily injoignable (${e.message})`); }
   } else console.log("  • Appels audio et vidéo non configurés : DAILY_API_KEY absente (facultatif)");
+  if (process.env.WHATSAPP_TOKEN && process.env.WHATSAPP_PHONE_ID) {
+    try {
+      const r = await fetch(`https://graph.facebook.com/${process.env.WHATSAPP_API_VERSION || "v21.0"}/${process.env.WHATSAPP_PHONE_ID}?fields=display_phone_number,verified_name`, { headers: { Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}` }, signal: AbortSignal.timeout(10000) });
+      const j = await r.json().catch(() => ({}));
+      r.ok ? ok(`Navi sur WhatsApp : numéro ${j.display_phone_number ?? "?"} (${j.verified_name ?? "?"})`) : ko(`WhatsApp : jeton ou numéro refusé (HTTP ${r.status})`);
+    } catch (e) { ko(`WhatsApp : API de Meta injoignable (${e.message})`); }
+    if (!process.env.WHATSAPP_APP_SECRET) ko("WhatsApp : WHATSAPP_APP_SECRET manquante (signature des messages)");
+    if (!process.env.WHATSAPP_VERIFY_TOKEN) ko("WhatsApp : WHATSAPP_VERIFY_TOKEN manquante (vérification du webhook)");
+  } else console.log("  • Navi sur WhatsApp non configuré (facultatif)");
   console.log(erreurs ? `\n${erreurs} point(s) à corriger.` : "\nTout est prêt.");
   process.exit(erreurs ? 1 : 0);
 })();

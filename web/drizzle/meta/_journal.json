@@ -127,6 +127,13 @@
       "when": 1794939955200,
       "tag": "0017_appels",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1795022229333,
+      "tag": "0018_whatsapp",
+      "breakpoints": true
     }
   ]
 }

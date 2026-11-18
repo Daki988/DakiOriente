@@ -1090,3 +1090,72 @@ describe("appels audio et vidéo (Daily simulé)", () => {
     } finally { espion.mockRestore(); delete process.env.DAILY_API_KEY; }
   });
 });
+describe("Navi sur WhatsApp (Meta simulé, faux modèle)", () => {
+  it("vérifie le webhook et la signature, répond en texte WhatsApp, reconnaît un compte, garde le fil, ne traite qu'une fois", async () => {
+    const crypto = await import("node:crypto");
+    const wa = await import("@/server/services/whatsapp");
+    Object.assign(process.env, { WHATSAPP_TOKEN: "jeton-test", WHATSAPP_PHONE_ID: "123", WHATSAPP_APP_SECRET: "secret-app", WHATSAPP_VERIFY_TOKEN: "phrase-verif", ANTHROPIC_API_KEY: "test", NAVI_SUIVI: "0", NAVI_CACHE: "0", NAVI_ROUTEUR: "0" });
+    try {
+      // Abonnement du webhook
+      expect(wa.verifierAbonnement(new URLSearchParams("hub.mode=subscribe&hub.verify_token=phrase-verif&hub.challenge=42"))).toBe("42");
+      expect(wa.verifierAbonnement(new URLSearchParams("hub.mode=subscribe&hub.verify_token=mauvaise&hub.challenge=42"))).toBeNull();
+      // Signature
+      const corps = '{"a":1}';
+      const sig = "sha256=" + crypto.createHmac("sha256", "secret-app").update(corps).digest("hex");
+      expect(wa.signatureValide(corps, sig)).toBe(true);
+      expect(wa.signatureValide(corps + " ", sig)).toBe(false);
+      expect(wa.signatureValide(corps, null)).toBe(false);
+      // Mise en forme
+      expect(wa.versWhatsapp("**ESA** : voir [la fiche](/etablissements/ma-esa-casa/)")).toBe("*ESA* : voir la fiche : https://navigoal.net/etablissements/ma-esa-casa/");
+
+      // Messages envoyés à Meta, capturés
+      const envois: Record<string, unknown>[] = [];
+      const vrai = globalThis.fetch;
+      const espion = vi.spyOn(globalThis, "fetch").mockImplementation(async (url, init) => {
+        if (!String(url).startsWith("https://graph.facebook.com/")) return vrai(url as RequestInfo, init);
+        envois.push(JSON.parse(String(init?.body)));
+        return new Response("{}", { status: 200 });
+      });
+      // Faux modèle : un tour de texte
+      const vus: { messages: { role: string }[] }[] = [];
+      const client = { beta: { messages: {
+        create: async () => ({ model: "claude-haiku-5-5", stop_reason: "end_turn", usage: {}, content: [{ type: "text", text: "" }] }),
+        stream: (p: { messages: { role: string }[] }) => { vus.push(p); const h: Record<string, ((x: unknown) => void)[]> = {}; const texte = "Bonjour ! Regarde **la fiche** : [ESA](/etablissements/ma-esa-casa/)";
+          return { on(e: string, cb: (x: unknown) => void) { (h[e] ??= []).push(cb); return this; }, finalMessage: () => new Promise((r) => setTimeout(() => { h.text?.forEach((f) => f(texte)); r({ model: "claude-sonnet-5-5", stop_reason: "end_turn", usage: { input_tokens: 10, output_tokens: 10 }, content: [{ type: "text", text: texte }] }); }, 0)) }; } } },
+      } as unknown as import("@anthropic-ai/sdk").default;
+
+      // L'élève Awa a un téléphone vérifié : on le reconnaît par son numéro WhatsApp
+      const num = "221779990001";
+      await db.update(schema.users).set({ phone: `+${num}`, phoneVerifiedAt: new Date() }).where(eq(schema.users.id, student.id));
+      const notif1 = { entry: [{ changes: [{ value: { contacts: [{ wa_id: num, profile: { name: "Awa" } }], messages: [{ id: "wamid.A1", from: num, type: "text", text: { body: "Je veux devenir infirmière" } }] } }] }] };
+      await wa.traiterNotification(notif1, { client });
+      const textes = envois.filter((x) => x.type === "text").map((x) => (x.text as { body: string }).body);
+      expect(textes.at(-1)).toContain("*la fiche*");
+      expect(textes.at(-1)).toContain("https://navigoal.net/etablissements/ma-esa-casa/");
+      expect(envois.some((x) => x.status === "read")).toBe(true);
+      const fil = await db.select().from(schema.whatsappMessages).where(eq(schema.whatsappMessages.numero, num));
+      expect(fil.map((x) => x.role)).toEqual(["user", "assistant"]);
+      expect(fil[0].userId).toBe(student.id);
+      const trace = (await db.select().from(schema.naviTraces).where(eq(schema.naviTraces.question, "Je veux devenir infirmière")))[0];
+      expect(trace.page).toBe("/whatsapp/");
+      expect(trace.userId).toBe(student.id);
+
+      // Même notification renvoyée par Meta : ignorée ; message suivant : l'historique est transmis au modèle
+      const n = envois.length;
+      await wa.traiterNotification(notif1, { client });
+      expect(envois.length).toBe(n);
+      await wa.traiterMessage({ id: "wamid.A2", from: num, type: "text", text: { body: "Je veux parler à un conseiller" } }, "Awa", { client });
+      expect(vus.at(-1)!.messages.length).toBeGreaterThanOrEqual(3);
+      expect((await notif.listNotifications(adminU.id)).some((x) => x.kind === "whatsapp" && x.title.includes("conseiller"))).toBe(true);
+
+      // Message vocal : réponse polie, sans appel au modèle
+      const appels = vus.length;
+      await wa.traiterMessage({ id: "wamid.A3", from: "24177000000", type: "audio" }, null, { client });
+      expect(vus.length).toBe(appels);
+      expect((envois.at(-1)!.text as { body: string }).body).toMatch(/messages écrits/);
+      espion.mockRestore();
+    } finally {
+      for (const k of ["WHATSAPP_TOKEN", "WHATSAPP_PHONE_ID", "WHATSAPP_APP_SECRET", "WHATSAPP_VERIFY_TOKEN", "ANTHROPIC_API_KEY", "NAVI_SUIVI", "NAVI_CACHE", "NAVI_ROUTEUR"]) delete process.env[k];
+    }
+  });
+});

@@ -62,6 +62,7 @@ Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les c
 | Neon | base de données | Allemagne (Union européenne) |
 | Anthropic | modèle d'intelligence artificielle de Navi | États-Unis |
 | Daily | appels audio et vidéo (entretiens, visites virtuelles, rendez-vous) : votre prénom et le flux audio ou vidéo, le temps de l'appel, sans enregistrement | États-Unis (serveurs d'appel au plus près des participants) |
+| Meta (WhatsApp Business) | conversations avec Navi sur WhatsApp, si vous lui écrivez : votre numéro, votre nom de profil WhatsApp et vos messages | États-Unis et Union européenne |
 | Digitech Africa (E-Billing) | paiements mobile money (Airtel Money, Moov Money) | Gabon |
 | Stripe | paiements par carte bancaire (Navigoal ne reçoit jamais le numéro complet de la carte) | Union européenne, États-Unis |
 | Google | connexion « Continuer avec Google », si vous la choisissez | États-Unis |
@@ -70,7 +71,7 @@ Nous ne communiquons vos données aux autorités que sur demande légale.
 
 ## Transferts internationaux
 
-Vos données sont hébergées dans l'Union européenne. Les messages envoyés à Navi sont transmis à Anthropic, aux États-Unis, le temps de produire la réponse ; ils ne servent pas à entraîner ses modèles. Pendant un appel audio ou vidéo, votre prénom et le flux de l'appel transitent par Daily, sans enregistrement ni conservation du contenu. Ces transferts sont encadrés par des engagements contractuels de confidentialité et de sécurité, conformément à la loi gabonaise n° 001/2011 et aux autorisations de la CNPDCP lorsque requises.
+Vos données sont hébergées dans l'Union européenne. Les messages envoyés à Navi sont transmis à Anthropic, aux États-Unis, le temps de produire la réponse ; ils ne servent pas à entraîner ses modèles. Si vous écrivez à Navi sur WhatsApp, vos messages transitent par Meta (WhatsApp Business), selon ses propres conditions, puis par Anthropic comme sur le site. Pendant un appel audio ou vidéo, votre prénom et le flux de l'appel transitent par Daily, sans enregistrement ni conservation du contenu. Ces transferts sont encadrés par des engagements contractuels de confidentialité et de sécurité, conformément à la loi gabonaise n° 001/2011 et aux autorisations de la CNPDCP lorsque requises.
 
 ## Combien de temps nous les gardons
 
@@ -80,6 +81,7 @@ Vos données sont hébergées dans l'Union européenne. Les messages envoyés à
 | Candidatures et pièces | durée de la campagne d'admission, puis 2 ans |
 | Paiements et reçus | 10 ans (obligations comptables) |
 | Conversations avec Navi | 90 jours : chaque question, la réponse affichée et des données techniques (recherches effectuées, durée, coût), rattachées à votre compte si vous êtes connecté. Une réponse à la première question d'un visiteur non connecté peut être gardée 24 heures pour être resservie à la même question. Le compteur du nombre de messages du jour ne garde pas l'adresse IP en clair. Fiche de suivi de Navi (projet, pistes, décisions, prochaine étape, en quelques lignes) : tant que le compte existe ; visible et effaçable à tout moment sur la page Profil |
+| Conversations avec Navi sur WhatsApp | 90 jours : votre numéro, vos messages et les réponses de Navi ; si ce numéro est le téléphone vérifié de votre compte, la conversation y est rattachée et Navi tient compte de votre profil |
 | Journaux de connexion et de sécurité | 12 mois |
 | Mesure d'audience (détail par page vue, sans adresse IP) | 13 mois |
 | Codes de vérification | quelques minutes (usage unique) |

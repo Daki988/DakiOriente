@@ -84,7 +84,7 @@ const ADMIS = [
   { ua: /googlebot|google-inspectiontool|googleother|storebot-google|adsbot-google|mediapartners-google|apis-google|feedfetcher-google|google-site-verification|google-read-aloud/i, hotes: /\.(googlebot|google|googleusercontent)\.com$/ },
   { ua: /bingbot|msnbot|bingpreview|adidxbot/i, hotes: /\.search\.msn\.com$/ },
 ];
-const LIBRES = /^\/(robots\.txt|api\/sante\/?|api\/paiements\/webhook\/)/;
+const LIBRES = /^\/(robots\.txt|api\/sante\/?|api\/paiements\/webhook\/|api\/whatsapp\/webhook\/?)/;
 const verifies = new Map(); // ip|famille → { ok, le }
 async function ipDe(hotes, ip) {
   const cle = `${hotes.source}|${ip}`;

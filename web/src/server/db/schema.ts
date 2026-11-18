@@ -703,6 +703,16 @@ export const naviTraces = pgTable("navi_traces", {
   avisLe: timestamp("avis_le", { withTimezone: true }),
 }, (t) => [index("navi_traces_at_idx").on(t.at)]);
 
+// Navi sur WhatsApp : fil de chaque numéro (pour garder le contexte d'un message à l'autre, comme le widget du site).
+export const whatsappMessages = pgTable("whatsapp_messages", {
+  id: id(),
+  numero: text("numero").notNull(), // numéro WhatsApp de l'interlocuteur, chiffres seuls (ex. 241077000000)
+  userId: text("user_id").references(() => users.id, { onDelete: "set null" }), // compte Navigoal reconnu (téléphone vérifié)
+  role: text("role").notNull(), // user | assistant
+  texte: text("texte").notNull(),
+  at: timestamp("at", { withTimezone: true }).notNull().defaultNow(),
+}, (t) => [index("whatsapp_messages_num_idx").on(t.numero, t.at)]);
+
 // Navi : réponses aux questions génériques de visiteurs (premier message, sans compte), servies 24 h.
 export const naviCache = pgTable("navi_cache", {
   cle: text("cle").primaryKey(),

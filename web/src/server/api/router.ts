@@ -15,6 +15,7 @@ import * as guardians from "../services/guardians";
 import * as docs from "../services/documents";
 import * as apps from "../services/applications";
 import * as appels from "../services/appels";
+import * as whatsapp from "../services/whatsapp";
 import * as etab from "../services/establishments";
 import * as pay from "../services/payments";
 import * as notif from "../services/notifications";
@@ -290,6 +291,21 @@ route("GET", "/paiements/:ref", "Paiements", "Statut d'un paiement", "user", asy
 route("POST", "/paiements/:ref/relancer", "Paiements", "Mobile money : renvoyer la demande sur le téléphone", "user", async ({ me, params }) => pay.relancerMobile(me, params.ref));
 route("POST", "/paiements/:ref/simulation", "Paiements", "Bac à sable : confirmer ou refuser un paiement simulé", "user", async ({ me, params, body }) => pay.sandboxConfirm(me, params.ref, !!(await body()).succes));
 route("GET", "/paiements/:ref/recu.pdf", "Paiements", "Reçu de paiement (PDF)", "user", async ({ me, params }) => file(await pay.receipt(me, params.ref), "application/pdf", `recu-${params.ref}.pdf`));
+// WhatsApp Business (Meta) : vérification de l'abonnement, puis messages reçus (signature vérifiée, réponse de Navi en arrière-plan).
+route("GET", "/whatsapp/webhook", "Navi", "Vérification du webhook WhatsApp par Meta (hub.challenge)", "public", async ({ query }) => {
+  const defi = whatsapp.verifierAbonnement(query);
+  return defi === null ? new Response("Interdit", { status: 403 }) : new Response(defi, { status: 200, headers: { "Content-Type": "text/plain" } });
+});
+route("POST", "/whatsapp/webhook", "Navi", "Messages WhatsApp reçus (Meta) : Navi répond sur WhatsApp", "public", async ({ req }) => {
+  const brut = (await req.text()).slice(0, 200_000);
+  if (!whatsapp.signatureValide(brut, req.headers.get("x-hub-signature-256"))) return new Response("Signature invalide", { status: 401 });
+  if (!whatsapp.whatsappActif()) return ok;
+  let corps: unknown = null;
+  try { corps = JSON.parse(brut); } catch { return ok; }
+  // Meta attend une réponse rapide : Navi répond ensuite, par l'API de WhatsApp.
+  void whatsapp.traiterNotification(corps).catch((e) => console.error("WhatsApp :", e));
+  return ok;
+});
 route("POST", "/paiements/webhook/:provider", "Paiements", "Notification d'une passerelle (E-Billing, Stripe)", "public", async ({ req, params }) => {
   const raw = (await req.text()).slice(0, 100_000);
   let ref: string | null = null;
@@ -571,7 +587,7 @@ export async function dispatch(req: Request, segments: string[]) {
     const m = r.re.exec(path)!;
     const params = Object.fromEntries(r.keys.map((k, i) => [k, m[i + 1]]));
     // Protection CSRF simple pour les requêtes avec cookie : l'origine doit être celle du site.
-    if (req.method !== "GET" && !req.headers.get("authorization") && r.path !== "/paiements/webhook/:provider") {
+    if (req.method !== "GET" && !req.headers.get("authorization") && r.path !== "/paiements/webhook/:provider" && r.path !== "/whatsapp/webhook") {
       // Derrière un proxy (Passenger/Apache sur cPanel, Netlify), l'hôte public est dans Host / X-Forwarded-Host.
       const origin = req.headers.get("origin");
       const hotes = new Set([req.headers.get("x-forwarded-host"), req.headers.get("host"), new URL(req.url).host,

@@ -134,10 +134,16 @@ jobs:
         working-directory: .
         env:
           DAILY_API_KEY: ${{ secrets.DAILY_API_KEY }}
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
+          WHATSAPP_PHONE_ID: ${{ secrets.WHATSAPP_PHONE_ID }}
+          WHATSAPP_APP_SECRET: ${{ secrets.WHATSAPP_APP_SECRET }}
+          WHATSAPP_VERIFY_TOKEN: ${{ secrets.WHATSAPP_VERIFY_TOKEN }}
         run: |
           umask 077
           : > .env.github
-          [ -n "$DAILY_API_KEY" ] && printf 'DAILY_API_KEY=%s\n' "$DAILY_API_KEY" >> .env.github
+          for v in DAILY_API_KEY WHATSAPP_TOKEN WHATSAPP_PHONE_ID WHATSAPP_APP_SECRET WHATSAPP_VERIFY_TOKEN; do
+            if [ -n "${!v}" ]; then printf '%s=%s\n' "$v" "${!v}" >> .env.github; fi
+          done
           if [ -s .env.github ]; then
             [ "$FTP_PROTOCOL" = ftps ] && tls="--ssl-reqd" || tls=""
             curl -sS $tls --ftp-create-dirs -T .env.github --user "$FTP_USERNAME:$FTP_PASSWORD" "ftp://$FTP_SERVER${FTP_DIR%/}/.env.github"
@@ -145,7 +151,7 @@ jobs:
             curl -sS $tls --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "SITE CHMOD 600 ${FTP_DIR%/}/.env.github" "ftp://$FTP_SERVER${FTP_DIR%/}/" -o /dev/null || echo "Droits de .env.github non modifiés (CHMOD refusé)"
             echo "Clés déposées : $(cut -d= -f1 .env.github | tr '\n' ' ')"
           else
-            echo "Aucune clé dans les secrets GitHub (DAILY_API_KEY) : rien à déposer."
+            echo "Aucune clé dans les secrets GitHub (DAILY_API_KEY, WHATSAPP_…) : rien à déposer."
           fi
           rm -f .env.github
 
