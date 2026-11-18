@@ -560,7 +560,7 @@ route("GET", "/sante", "Documentation", "État du service (surveillance de dispo
   const debut = Date.now();
   try {
     await db.execute(sql`select 1`);
-    return json({ ok: true, base: "ok", ms: Date.now() - debut, version: process.env.npm_package_version ?? null });
+    return json({ ok: true, base: "ok", ms: Date.now() - debut, version: process.env.NAVIGOAL_VERSION ?? process.env.npm_package_version ?? null });
   } catch {
     return json({ ok: false, base: "injoignable" }, 503);
   }

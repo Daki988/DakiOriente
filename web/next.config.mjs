@@ -11,7 +11,7 @@ const CSP = [
   "frame-ancestors 'self'",
   "object-src 'none'",
   "base-uri 'self'",
-  "form-action 'self' https://accounts.google.com https://checkout.cinetpay.com",
+  "form-action 'self' https://accounts.google.com",
 ].join("; ");
 
 /** @type {import('next').NextConfig} */

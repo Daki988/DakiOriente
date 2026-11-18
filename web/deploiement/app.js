@@ -27,6 +27,7 @@ const fichierVersion = path.join(__dirname, "version.txt");
 const fichierApplique = path.join(__dirname, ".version-appliquee");
 const lire = (f) => (fs.existsSync(f) ? fs.readFileSync(f, "utf8").trim() : "");
 const version = lire(fichierVersion);
+if (version) process.env.NAVIGOAL_VERSION = version.slice(0, 12); // affichée par /api/sante (suivi des mises en ligne)
 let nouvelleVersion = false;
 if (version && version !== lire(fichierApplique) && (process.env.DATABASE_URL || process.env.NETLIFY_DB_URL)) {
   const outil = (nom) => execFileSync(process.execPath, [path.join("outils", "env.cjs"), path.join("outils", nom)], { stdio: "inherit", timeout: 240000 });
