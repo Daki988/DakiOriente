@@ -44,7 +44,7 @@ export function parcours(completion: number, tested: boolean, cands: { a: { stat
   return { done, current: current === -1 ? STEPS.length : current };
 }
 
-const Compat = ({ v }: { v: number }) => <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><span className="h-1.5 w-1.5 rounded-full bg-[#0f8a46]" />{v} % compatible</span>;
+const Compat = ({ v }: { v: number }) => <span className="chip bg-[#e8f8ef] text-[#0b7a3d]"><span className="h-1.5 w-1.5 rounded-full bg-[#0f8a46]" />{v} % compatible</span>;
 
 export function Dashboard() {
   const user = useUser();
@@ -91,7 +91,7 @@ export function Dashboard() {
       <section className="card flex flex-col gap-4 p-4 sm:p-6" aria-labelledby="parcours">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 id="parcours" className="font-extrabold">Mon parcours</h2>
-          {current < STEPS.length ? <Link href={NEXT[current][1]} className="flex items-center gap-1 text-[13px] font-bold text-brand-600">Prochaine étape : {NEXT[current][0]}<ArrowRight size={14} /></Link> : <span className="chip bg-[#e8f8ef] text-[#0f8a46]">Admission obtenue 🎉</span>}
+          {current < STEPS.length ? <Link href={NEXT[current][1]} className="flex items-center gap-1 text-[13px] font-bold text-brand-600">Prochaine étape : {NEXT[current][0]}<ArrowRight size={14} /></Link> : <span className="chip bg-[#e8f8ef] text-[#0b7a3d]">Admission obtenue 🎉</span>}
         </div>
         <ol className="relative grid grid-cols-5">
           <span className="absolute left-[10%] right-[10%] top-4 h-[3px] bg-[#e8edfa] sm:top-5" aria-hidden />
@@ -203,7 +203,7 @@ export function Dashboard() {
             <Link href={admitted ? `/navilease/logements?etablissement=${admitted.e.id}` : "/navilease/logements"} className="btn-primary py-2.5">Voir sur Navilease</Link>
           </section>
           <section className="card flex flex-col gap-3 p-4 sm:p-5"><b>Mon conseiller</b>
-            <div className="flex items-center gap-2.5"><span className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#e8f8ef] text-[#0f8a46]"><Headset size={20} /></span><span><b className="block text-sm">Conseillers Navigoal</b><span className="text-xs text-ink-mute">Visio, téléphone ou WhatsApp</span></span></div>
+            <div className="flex items-center gap-2.5"><span className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#e8f8ef] text-[#0b7a3d]"><Headset size={20} /></span><span><b className="block text-sm">Conseillers Navigoal</b><span className="text-xs text-ink-mute">Visio, téléphone ou WhatsApp</span></span></div>
             <Link href="/espace/conseiller" className="btn-ghost py-2.5"><MessageCircle size={16} /> Prendre rendez-vous</Link>
           </section>
         </div>

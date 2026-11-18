@@ -74,7 +74,7 @@ function ProgrammesSite({ e }: { e: Etablissement }) {
               <div className="flex items-start gap-2"><GraduationCap size={17} className="mt-0.5 shrink-0 text-brand-600" />{p.url ? <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-[15px] font-bold hover:text-brand-600">{p.intitule}</a> : <b className="text-[15px]">{p.intitule}</b>}</div>
               <span className="text-xs text-ink-mute">{[p.diplome, p.niveau ? niveauLabel(p.niveau) : null, p.duree_annees ? `${p.duree_annees} an${p.duree_annees > 1 ? "s" : ""}` : null, p.campus?.length ? `campus : ${p.campus.join(", ")}` : null].filter(Boolean).join(" · ")}</span>
               {p.specialites.length > 0 && <span className="text-xs text-ink-soft">Spécialités : {p.specialites.join(", ")}</span>}
-              {officiels.has(p.intitule.toLowerCase()) && <span className="chip w-fit bg-[#e8f8ef] text-[11px] text-[#0f8a46]">Filière accréditée</span>}
+              {officiels.has(p.intitule.toLowerCase()) && <span className="chip w-fit bg-[#e8f8ef] text-[11px] text-[#0b7a3d]">Filière accréditée</span>}
               {F && <Link href={`/formations/${F.id}/?etab=${e.id}`} className="text-[12px] font-bold text-brand-600">Métiers et débouchés →</Link>}
             </div>
           );
@@ -193,7 +193,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
           </nav>
           <section id="formations" className="flex scroll-mt-32 flex-col gap-6">
             <div className={`card flex flex-col gap-2 rounded-[22px] p-5 ${autorise ? "border-[#f3e2b4] bg-[#fffaf0]" : "border-[#cdeedd] bg-[#f3fbf6]"}`}>
-              <div className={`flex items-center gap-2 font-extrabold ${autorise ? "text-[#a55a00]" : "text-[#0f8a46]"}`}>{autorise ? <ShieldAlert size={18} /> : <BadgeCheck size={18} />} {maroc ? labelById[e.label]?.libelle : e.label_libelle}</div>
+              <div className={`flex items-center gap-2 font-extrabold ${autorise ? "text-[#a55a00]" : "text-[#0b7a3d]"}`}>{autorise ? <ShieldAlert size={18} /> : <BadgeCheck size={18} />} {maroc ? labelById[e.label]?.libelle : e.label_libelle}</div>
               <p className="text-sm text-ink-soft">{maroc ? labelById[e.label]?.description : interEtats ? "Institution créée par convention entre plusieurs États africains : ses diplômes sont reconnus par les États membres." : labelDescriptionPays(e.label, e.pays)}{e.reconnaissance_en_cours ? " Reconnaissance par l'État en cours d'attribution." : ""}</p>
               {!maroc && PD?.reconnaissance && <p className="text-sm text-ink-soft"><b className="text-ink">Reconnaissance des diplômes {auPays(e.pays)} :</b> {PD.reconnaissance}</p>}
               {autorise && e.reconnaissance && <p className="text-sm text-ink-soft">Établissement reconnu par l&apos;État : ses filières doivent être de nouveau accréditées pour délivrer des diplômes équivalents aux diplômes nationaux.</p>}
@@ -203,7 +203,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
             {(live?.description ?? e.description) && <div className="card flex flex-col gap-2 rounded-[22px] p-6"><h2 className="text-lg font-extrabold">Présentation</h2><p className="whitespace-pre-line leading-relaxed text-ink-soft">{live?.description ?? e.description}</p>{e.adresse && <p className="flex items-start gap-1.5 text-sm text-ink-mute"><MapPin size={15} className="mt-0.5 shrink-0" />{e.adresse}</p>}</div>}
             {confirmed.length > 0 && (
               <div className="card flex flex-col gap-3 rounded-[22px] p-6">
-                <div className="flex items-center justify-between"><h2 className="text-lg font-extrabold">Frais confirmés par l&apos;établissement</h2><span className="chip bg-[#e8f8ef] text-[#0f8a46]">Vérifié</span></div>
+                <div className="flex items-center justify-between"><h2 className="text-lg font-extrabold">Frais confirmés par l&apos;établissement</h2><span className="chip bg-[#e8f8ef] text-[#0b7a3d]">Vérifié</span></div>
                 {confirmed.map((p) => <div key={p.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-[#f1f4fb] pb-2 text-sm last:border-0"><span className="font-semibold">{p.title}{p.startDate ? <span className="text-ink-mute"> · rentrée {p.startDate}</span> : null}</span><span className="text-ink-soft">{p.tuitionMin != null ? (p.currency ?? "MAD") === "MAD" ? <><Prix mad={p.tuitionMin} />{p.tuitionMax && p.tuitionMax !== p.tuitionMin ? <> – <Prix mad={p.tuitionMax} /></> : null}/an</> : `${fmt(p.tuitionMin)}${p.tuitionMax && p.tuitionMax !== p.tuitionMin ? ` – ${fmt(p.tuitionMax)}` : ""} ${p.currency}/an` : "sur demande"}{p.applicationFee ? (p.currency ?? "MAD") === "MAD" ? <> · dossier <Prix mad={p.applicationFee} /></> : ` · dossier ${fmt(p.applicationFee)} ${p.currency}` : ""}</span></div>)}
               </div>
             )}
@@ -228,8 +228,8 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
                             ? <span className="text-[11px] font-semibold text-[#a55a00]" title={f.homologation.texte}>Accréditation échue ({f.homologation.fin}) · diplôme d&apos;établissement</span>
                             : f.homologation.statut === "recente"
                               ? <span className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold text-brand-700" title={f.homologation.texte}><span className="chip bg-brand-50 px-2 py-0.5 text-[11px] text-brand-700">Accrédité</span>accréditation arrivée à échéance en {f.homologation.fin}, renouvellement non encore publié au Bulletin officiel</span>
-                              : maroc ? <span className="text-[11px] font-semibold text-[#0f8a46]" title={f.homologation.texte}>Accréditée jusqu&apos;en {f.homologation.fin}</span>
-                              : <span className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold text-[#0f8a46]"><span className="chip bg-[#e8f8ef] px-2 py-0.5 text-[11px] text-[#0f8a46]"><Check size={11} />{interEtats ? "Reconnu" : /Habilitation/.test(f.homologation.texte) ? "Habilité" : "Accrédité"}</span>{interEtats ? f.homologation.texte : `${f.homologation.texte.replace(/^.*?(\d{4})$/, "décision $1")} · valable jusqu'en ${f.homologation.fin}`}</span>}
+                              : maroc ? <span className="text-[11px] font-semibold text-[#0b7a3d]" title={f.homologation.texte}>Accréditée jusqu&apos;en {f.homologation.fin}</span>
+                              : <span className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold text-[#0b7a3d]"><span className="chip bg-[#e8f8ef] px-2 py-0.5 text-[11px] text-[#0b7a3d]"><Check size={11} />{interEtats ? "Reconnu" : /Habilitation/.test(f.homologation.texte) ? "Habilité" : "Accrédité"}</span>{interEtats ? f.homologation.texte : `${f.homologation.texte.replace(/^.*?(\d{4})$/, "décision $1")} · valable jusqu'en ${f.homologation.fin}`}</span>}
                         </div>
                         <div className="flex min-w-0 flex-1 flex-col gap-1.5">{F && F.metiers.length > 0 && <><span className="text-[11px] font-extrabold text-ink-mute">MÈNE AUX MÉTIERS</span><div className="flex flex-wrap gap-1.5">{F.metiers.slice(0, 3).map((m) => metierById[m] && <Link key={m} href={`/metiers/${m}/`} className="chip bg-[#f1edff] text-[#6a3df0] hover:bg-[#e4dcff]">{metierById[m].nom}</Link>)}</div></>}</div>
                         {F && <Link href={`/comparateur/?f=${F.id}&e=${e.id}`} className="btn-ghost shrink-0 self-start px-3 py-2 text-[13px] md:self-center"><Scale size={14} /> Comparer</Link>}
@@ -248,7 +248,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
             {e.site?.admission && ((e.site.admission.conditions?.length ?? 0) > 0 || (e.site.admission.etapes?.length ?? 0) > 0 || e.site.admission.dates) && (
               <div className="flex flex-col gap-1.5 rounded-2xl bg-[#f6f8fe] p-4 text-sm text-ink-soft">
                 <b className="text-ink">Selon {e.sigle || "l'établissement"}</b>
-                {[...(e.site.admission.conditions ?? []), ...(e.site.admission.etapes ?? [])].slice(0, 8).map((t) => <span key={t} className="flex items-start gap-2"><Check size={15} className="mt-0.5 shrink-0 text-[#0f8a46]" />{t}</span>)}
+                {[...(e.site.admission.conditions ?? []), ...(e.site.admission.etapes ?? [])].slice(0, 8).map((t) => <span key={t} className="flex items-start gap-2"><Check size={15} className="mt-0.5 shrink-0 text-[#0b7a3d]" />{t}</span>)}
                 {e.site.admission.dates && <span><b>Calendrier :</b> {e.site.admission.dates}</span>}
               </div>
             )}
@@ -264,7 +264,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
             <div className="flex items-center justify-between"><b>Budget annuel estimé</b><span className="chip bg-sun-100 text-[#a55a00]">estimation</span></div>
             {([["Frais de scolarité", <><Prix mad={typ.min} devise={dev} bloc /> – <Prix mad={typ.max} devise={dev} bloc /></>], ["Vie (10 mois)", <><Prix mad={B.total_mensuel.min * 10} devise={dev} bloc /> – <Prix mad={B.total_mensuel.max * 10} devise={dev} bloc /></>], ["Visa & séjour", "selon la nationalité"]] as const).map(([a, b]) => <div key={a} className="flex justify-between gap-3 text-sm"><span className="text-ink-mute">{a}</span><b className="text-right">{b}</b></div>)}
             {(e.site?.frais.length ?? 0) > 0 && <div className="flex flex-col gap-1.5 rounded-2xl border border-[#cdeedd] bg-[#f3fbf6] p-3 text-[13px]">
-              <b className="text-[#0f8a46]">Frais publiés par l&apos;établissement</b>
+              <b className="text-[#0b7a3d]">Frais publiés par l&apos;établissement</b>
               {e.site!.frais.map((f) => <div key={f.cycle} className="flex justify-between gap-3"><span className="text-ink-soft">{f.cycle}</span><b className="text-right">{f.scolarite_annuelle_mad ? <Prix mad={f.scolarite_annuelle_mad} suffixe="/an" bloc /> : "—"}{f.inscription_mad ? <span className="block text-[11px] font-semibold text-ink-mute">+ inscription <Prix mad={f.inscription_mad} /></span> : null}</b></div>)}
             </div>}
             {D && <div className="rounded-2xl bg-brand-50 p-3 text-[13px]"><span className="text-ink-mute">Coût total sur {D.years} an{D.years > 1 ? "s" : ""} (tout compris) :</span><b className="block text-brand-700"><Prix mad={D.total[0]} devise={dev} /> – <Prix mad={D.total[1]} devise={dev} /></b></div>}
@@ -273,7 +273,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
           </div>
           {similar.length > 0 && <div className="card flex flex-col gap-2.5 rounded-[22px] p-5">
             <b>Établissements comparables</b>
-            {similar.map((x) => <Link key={x.id} href={`/etablissements/${x.id}/`} className="flex items-center gap-3 rounded-2xl border border-[#eef1f8] p-3 transition hover:border-brand-200"><EtabLogo e={x} size={42} /><span className="min-w-0 flex-1"><b className="block text-[13px]">{x.sigle}</b><span className="text-xs text-ink-mute">{villesOf(x).join(" · ")}</span></span><span className="chip shrink-0 bg-[#e8f8ef] text-[#0f8a46]">{shared(x)} en commun</span></Link>)}
+            {similar.map((x) => <Link key={x.id} href={`/etablissements/${x.id}/`} className="flex items-center gap-3 rounded-2xl border border-[#eef1f8] p-3 transition hover:border-brand-200"><EtabLogo e={x} size={42} /><span className="min-w-0 flex-1"><b className="block text-[13px]">{x.sigle}</b><span className="text-xs text-ink-mute">{villesOf(x).join(" · ")}</span></span><span className="chip shrink-0 bg-[#e8f8ef] text-[#0b7a3d]">{shared(x)} en commun</span></Link>)}
             <Link href={compare} className="btn-ghost py-2.5"><Scale size={16} /> Ouvrir le comparateur</Link>
           </div>}
           {maroc ? <div id="logement" className="card flex scroll-mt-28 flex-col gap-2.5 rounded-[22px] bg-gradient-to-br from-white to-[#fff7dd] p-5">

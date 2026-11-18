@@ -37,7 +37,7 @@ export default function PaysPage() {
                   {P && <p className="text-[15px] leading-relaxed text-ink-soft">{P.accroche}</p>}
                   <div className="flex flex-wrap gap-2">
                     <span className="chip bg-brand-50 text-brand-700">{d.etablissements} établissements</span>
-                    {[d.labels.reconnu_etat?.libelle, d.labels.diplomes_homologues?.libelle].filter(Boolean).map((l) => <span key={l} className="chip bg-[#e8f8ef] text-[#0f8a46]"><ShieldCheck size={12} />{l}</span>)}
+                    {[d.labels.reconnu_etat?.libelle, d.labels.diplomes_homologues?.libelle].filter(Boolean).map((l) => <span key={l} className="chip bg-[#e8f8ef] text-[#0b7a3d]"><ShieldCheck size={12} />{l}</span>)}
                   </div>
                   <span className="mt-auto flex items-center gap-1.5 text-sm font-bold text-brand-600">Étudier {d.prep} <ArrowRight size={15} className="transition group-hover:translate-x-1" /></span>
                 </Link>
@@ -64,7 +64,7 @@ export default function PaysPage() {
                 {DESTINATIONS_ACTIVES.map((d) => (
                   <tr key={d.code} className="border-t border-[#eef1f8] align-top">
                     <td className="p-3"><span className="flex items-center gap-2 font-bold"><Drapeau code={d.code} taille={13} />{d.nom}</span></td>
-                    <td className="p-3"><span className="chip bg-[#e8f8ef] text-[#0f8a46]">{d.labels.reconnu_etat?.libelle ?? n1.libelle}</span></td>
+                    <td className="p-3"><span className="chip bg-[#e8f8ef] text-[#0b7a3d]">{d.labels.reconnu_etat?.libelle ?? n1.libelle}</span></td>
                     <td className="p-3 text-ink-soft">{d.labels.reconnu_etat?.description ?? n1.description}</td>
                     <td className="p-3"><span className="chip bg-brand-50 text-brand-700">{d.labels.diplomes_homologues?.libelle ?? n2.libelle}</span></td>
                     <td className="p-3 text-ink-soft">{d.labels.diplomes_homologues?.description ?? n2.description}</td>

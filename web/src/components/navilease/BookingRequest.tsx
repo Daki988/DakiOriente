@@ -107,7 +107,7 @@ function Form({ h, landlord, initStart, initMonths }: { h: Housing; landlord: st
           <div className="flex flex-col gap-2.5">
             <Check checked={okRules} onChange={setOkRules}>J&apos;ai lu le règlement du logement et les conditions d&apos;annulation Navilease.</Check>
             <Check checked={okContact} onChange={setOkContact}>Je comprends que l&apos;adresse exacte et les coordonnées seront partagées après le paiement en séquestre.</Check>
-            {touched && (!okRules || !okContact) && <span className="text-xs font-semibold text-[#d42a50]" role="alert">Coche les deux cases pour envoyer ta demande.</span>}
+            {touched && (!okRules || !okContact) && <span className="text-xs font-semibold text-[#b8213f]" role="alert">Coche les deux cases pour envoyer ta demande.</span>}
           </div>
           <FormError error={error} />
           <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
@@ -130,7 +130,7 @@ function Form({ h, landlord, initStart, initMonths }: { h: Housing; landlord: st
             <ol className="flex flex-col gap-3">
               {[[Wallet, "Tu paies", "Après acceptation du bailleur, par mobile money, carte ou virement (toi ou ton parent)."], [Lock, "Fonds bloqués", "Navilease conserve le montant en séquestre sur un compte dédié."], [KeyRound, "Tu entres", "Tu déclares ton entrée avec l'état des lieux."], [ShieldCheck, "Bailleur payé", "Loyer et charges versés au bailleur ; la caution reste bloquée jusqu'à la sortie."]].map(([I, t, x], i) => {
                 const Ic = I as typeof Wallet;
-                return <li key={i} className="flex gap-3"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#e8f8ef] text-[#0f8a46]"><Ic size={16} /></span><div><b className="text-sm">{t as string}</b><p className="text-xs text-ink-mute">{x as string}</p></div></li>;
+                return <li key={i} className="flex gap-3"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#e8f8ef] text-[#0b7a3d]"><Ic size={16} /></span><div><b className="text-sm">{t as string}</b><p className="text-xs text-ink-mute">{x as string}</p></div></li>;
               })}
             </ol>
           </Panel>

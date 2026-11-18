@@ -45,7 +45,7 @@ export function AdminAccesPays() {
                 <button type="button" onClick={() => retirer(c)} className="ml-1 rounded-full p-0.5 hover:bg-white" aria-label={`Retirer ${PAYS[c] ?? c}`}><X size={13} /></button>
               </li>
             ))}
-            {!f.pays.length && <li className="text-sm text-[#d42a50]">Ajoutez au moins un pays.</li>}
+            {!f.pays.length && <li className="text-sm text-[#b8213f]">Ajoutez au moins un pays.</li>}
           </ul>
           <div className="flex flex-wrap gap-2">
             <select className="input min-w-0 flex-1" value={ajout} onChange={(e) => setAjout(e.target.value)} aria-label="Pays à ajouter">

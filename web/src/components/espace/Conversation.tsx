@@ -33,8 +33,8 @@ export function LancerAppel({ conversationId, apres }: { conversationId: string;
   return (
     <div className="flex flex-wrap items-center gap-2">
       <button type="button" disabled={busy} onClick={() => lancer(false)} className="inline-flex min-h-[40px] items-center gap-1.5 rounded-xl bg-[#0f8a46] px-3 text-[13px] font-bold text-white disabled:opacity-60"><Video size={16} />Appel vidéo</button>
-      <button type="button" disabled={busy} onClick={() => lancer(true)} className="inline-flex min-h-[40px] items-center gap-1.5 rounded-xl border border-[#bfe9cf] bg-white px-3 text-[13px] font-bold text-[#0f8a46] disabled:opacity-60"><Phone size={15} />Audio seul</button>
-      {err && <span className="w-full text-xs font-semibold text-[#d42a50]">{err}</span>}
+      <button type="button" disabled={busy} onClick={() => lancer(true)} className="inline-flex min-h-[40px] items-center gap-1.5 rounded-xl border border-[#bfe9cf] bg-white px-3 text-[13px] font-bold text-[#0b7a3d] disabled:opacity-60"><Phone size={15} />Audio seul</button>
+      {err && <span className="w-full text-xs font-semibold text-[#b8213f]">{err}</span>}
     </div>
   );
 }
@@ -84,7 +84,7 @@ export function ConversationThread({ id, compact }: { id: string; compact?: bool
         <textarea value={text} onChange={(e) => setText(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(e); } }} rows={1} placeholder="Écrire un message…" aria-label="Message" className="input max-h-32 min-h-[46px] flex-1 resize-none py-3" />
         <button disabled={busy || !text.trim()} className="flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-xl bg-brand-600 text-white disabled:opacity-50" aria-label="Envoyer"><Send size={18} /></button>
       </form>
-      {err && <p className="mt-1 text-xs font-semibold text-[#d42a50]">{err}</p>}
+      {err && <p className="mt-1 text-xs font-semibold text-[#b8213f]">{err}</p>}
     </div>
   );
 }

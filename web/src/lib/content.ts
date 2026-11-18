@@ -9,8 +9,8 @@ export const ACTUALITES = [
 ] as const;
 
 export const TONES: Record<string, string> = {
-  sun: "bg-sun-100 text-[#a55a00]", green: "bg-[#e8f8ef] text-[#0f8a46]", violet: "bg-[#f1edff] text-[#6a3df0]",
-  rose: "bg-[#ffecef] text-[#d42a50]", blue: "bg-brand-50 text-brand-700",
+  sun: "bg-sun-100 text-[#a55a00]", green: "bg-[#e8f8ef] text-[#0b7a3d]", violet: "bg-[#f1edff] text-[#6a3df0]",
+  rose: "bg-[#ffecef] text-[#b8213f]", blue: "bg-brand-50 text-brand-700",
 };
 
 export const LOGEMENTS = [
@@ -26,7 +26,7 @@ export const LOGEMENTS = [
 ] as const;
 
 export const BADGES: Record<string, [string, string]> = {
-  visite: ["bg-[#e8f8ef] text-[#0f8a46]", "✓ Visité par Navilease"],
+  visite: ["bg-[#e8f8ef] text-[#0b7a3d]", "✓ Visité par Navilease"],
   identite: ["bg-brand-50 text-brand-700", "Identité vérifiée"],
   partenaire: ["bg-sun-100 text-[#a55a00]", "★ Partenaire certifié"],
 };

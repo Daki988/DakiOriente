@@ -129,7 +129,7 @@ function Editor({ initial, info }: { initial?: Housing; info: LandlordInfo | nul
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_340px] [&>*]:min-w-0">
         <form className="card flex min-w-0 flex-col gap-6 rounded-[24px] p-5 sm:p-7" onSubmit={(e) => { e.preventDefault(); onSave(); }} noValidate>
           <nav className="-mx-1 flex gap-1 overflow-x-auto border-b border-[#eef1f8] pb-2" aria-label="Sections">
-            {SECTIONS.map(([k, l]) => <a key={k} href={`#${k}`} className="shrink-0 rounded-lg px-2.5 py-1.5 text-[13px] font-bold text-ink-mute hover:bg-[#effbf3] hover:text-[#0f8a46]">{l}</a>)}
+            {SECTIONS.map(([k, l]) => <a key={k} href={`#${k}`} className="shrink-0 rounded-lg px-2.5 py-1.5 text-[13px] font-bold text-ink-mute hover:bg-[#effbf3] hover:text-[#0b7a3d]">{l}</a>)}
           </nav>
 
           <Section id="logement" n={1} title="Le logement">
@@ -170,7 +170,7 @@ function Editor({ initial, info }: { initial?: Housing; info: LandlordInfo | nul
             <div className="flex flex-wrap gap-2">
               {AMENITIES.map((a) => {
                 const on = s.amenities.includes(a.id);
-                return <label key={a.id} className={`chip cursor-pointer border py-1.5 text-[13px] transition focus-within:ring-2 focus-within:ring-[#bfe9cf] ${on ? "border-[#bfe9cf] bg-[#e8f8ef] text-[#0f8a46]" : "border-slate-200 bg-white text-ink-soft hover:border-[#bfe9cf]"}`}>
+                return <label key={a.id} className={`chip cursor-pointer border py-1.5 text-[13px] transition focus-within:ring-2 focus-within:ring-[#bfe9cf] ${on ? "border-[#bfe9cf] bg-[#e8f8ef] text-[#0b7a3d]" : "border-slate-200 bg-white text-ink-soft hover:border-[#bfe9cf]"}`}>
                   <input type="checkbox" className="sr-only" checked={on} onChange={() => set("amenities", on ? s.amenities.filter((x) => x !== a.id) : [...s.amenities, a.id])} />
                   {on ? <CheckCircle2 size={14} /> : <a.Icon size={14} />}{a.label}
                 </label>;
@@ -188,7 +188,7 @@ function Editor({ initial, info }: { initial?: Housing; info: LandlordInfo | nul
 
           <Section id="ecoles" n={6} title="Établissements proches">
             <p className="-mt-2 text-sm text-ink-mute">Votre annonce apparaît aux élèves et étudiants de ces écoles. Indiquez le temps de trajet réel (10 maximum).</p>
-            {errors.near && <span className="text-xs font-semibold text-[#d42a50]">{errors.near}</span>}
+            {errors.near && <span className="text-xs font-semibold text-[#b8213f]">{errors.near}</span>}
             <div className="grid max-h-[460px] gap-2 overflow-y-auto pr-1 md:grid-cols-2">
               {schools.map((e) => {
                 const n = s.near.find((x) => x.id === e.id);
@@ -233,7 +233,7 @@ function Editor({ initial, info }: { initial?: Housing; info: LandlordInfo | nul
                 <svg viewBox="0 0 36 36" className="h-16 w-16 -rotate-90"><circle cx="18" cy="18" r="15.5" fill="none" stroke="#e8f8ef" strokeWidth="4" /><circle cx="18" cy="18" r="15.5" fill="none" stroke="#0f8a46" strokeWidth="4" strokeLinecap="round" strokeDasharray={`${(score / 100) * 97.4} 97.4`} className="transition-all duration-700" /></svg>
                 <b className="absolute inset-0 flex items-center justify-center text-sm">{score} %</b>
               </div>
-              <ul className="flex flex-col gap-1.5 text-[13px]">{quality.map(([l, ok]) => <li key={l} className="flex items-center gap-2">{ok ? <CheckCircle2 size={15} className="shrink-0 text-[#0f8a46]" /> : <Circle size={15} className="shrink-0 text-sun-500" />}<span className={ok ? "" : "text-ink-mute"}>{l}</span></li>)}</ul>
+              <ul className="flex flex-col gap-1.5 text-[13px]">{quality.map(([l, ok]) => <li key={l} className="flex items-center gap-2">{ok ? <CheckCircle2 size={15} className="shrink-0 text-[#0b7a3d]" /> : <Circle size={15} className="shrink-0 text-sun-500" />}<span className={ok ? "" : "text-ink-mute"}>{l}</span></li>)}</ul>
             </div>
           </Panel>
           <Panel title="Charte bailleur" icon={ShieldCheck}>
@@ -248,7 +248,7 @@ function Editor({ initial, info }: { initial?: Housing; info: LandlordInfo | nul
 function Section({ id, n, title, children }: { id: string; n: number; title: string; children: React.ReactNode }) {
   return (
     <section id={id} className="flex scroll-mt-24 flex-col gap-4">
-      <h2 className="flex items-center gap-3 text-lg font-extrabold"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#e8f8ef] text-sm text-[#0f8a46]">{n}</span>{title}</h2>
+      <h2 className="flex items-center gap-3 text-lg font-extrabold"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#e8f8ef] text-sm text-[#0b7a3d]">{n}</span>{title}</h2>
       {children}
     </section>
   );
@@ -285,20 +285,20 @@ function Photos({ h, onChange }: { h: Housing; onChange: (p: string[]) => void }
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={photoUrl(k)} alt={`Photo ${i + 1}`} className="h-full w-full object-cover" />
             {i === 0 && <Chip tone="grey" className="absolute bottom-2 left-2 bg-white/95">Couverture</Chip>}
-            <button type="button" onClick={() => remove(k)} disabled={removing === k} aria-label={`Retirer la photo ${i + 1}`} className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white/95 text-[#d42a50] shadow-sm hover:bg-white">
+            <button type="button" onClick={() => remove(k)} disabled={removing === k} aria-label={`Retirer la photo ${i + 1}`} className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white/95 text-[#b8213f] shadow-sm hover:bg-white">
               {removing === k ? <Loader2 size={15} className="animate-spin" /> : <Trash2 size={15} />}
             </button>
           </div>
         ))}
         {h.photos.length < 15 && (
           <button type="button" onClick={() => input.current?.click()} onDragOver={(e) => e.preventDefault()} onDrop={(e) => { e.preventDefault(); upload(e.dataTransfer.files); }}
-            className="flex aspect-[4/3] flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed border-[#bfe9cf] bg-[#f6fdf8] text-sm font-bold text-[#0f8a46] hover:border-[#0f8a46]">
+            className="flex aspect-[4/3] flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed border-[#bfe9cf] bg-[#f6fdf8] text-sm font-bold text-[#0b7a3d] hover:border-[#0f8a46]">
             {busy ? <Loader2 className="animate-spin" /> : <ImagePlus />}{busy ? "Envoi…" : "Ajouter"}
           </button>
         )}
       </div>
       <input ref={input} type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden" onChange={(e) => e.target.files && upload(e.target.files)} />
-      {err && <span className="text-xs font-semibold text-[#d42a50]" role="alert">{err}</span>}
+      {err && <span className="text-xs font-semibold text-[#b8213f]" role="alert">{err}</span>}
       <p className="text-xs text-ink-mute">{h.photos.length} / 15 · 3 photos minimum, 8 recommandées · JPG, PNG ou WebP, 8 Mo max. · pas de visage ni de document visible. La première photo sert de couverture.</p>
     </div>
   );

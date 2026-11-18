@@ -116,7 +116,7 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
         sub={`${h.title} · du ${dateFr(b.startDate)} au ${dateFr(end)} · ${roleLine}`}
         actions={<>
           {conv && <Link href={`/messages/${conv.id}`} className="btn-ghost"><MessageCircle size={17} />{isTenant ? "Écrire au bailleur" : isLandlord ? "Écrire au locataire" : "Messagerie"}</Link>}
-          {canDispute && <Button variant="ghost" icon={AlertTriangle} className="border-[#ffd0d9] text-[#d42a50] hover:border-[#d42a50] hover:bg-[#fff1f3]" onClick={() => setDialog("dispute")}>Signaler un incident</Button>}
+          {canDispute && <Button variant="ghost" icon={AlertTriangle} className="border-[#ffd0d9] text-[#b8213f] hover:border-[#d42a50] hover:bg-[#fff1f3]" onClick={() => setDialog("dispute")}>Signaler un incident</Button>}
         </>}
       />
       <Stepper steps={STEP_SHORT} current={idx} done={b.status === "caution_restituee"} bad={bad} />
@@ -195,7 +195,7 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
           {b.message && <blockquote className="rounded-2xl bg-[#f6f8fe] p-4 text-sm italic text-ink-soft">« {b.message} »</blockquote>}
           <div className="flex flex-col gap-2.5 sm:flex-row">
             <Button icon={Check} loading={act.pending} className="bg-[#0f8a46] hover:bg-[#0b6b37] sm:flex-1" onClick={() => post("reponse", { accepter: true }, "Demande acceptée : le locataire est invité à payer.")}>Accepter la demande</Button>
-            <Button variant="ghost" icon={X} className="border-[#ffd0d9] text-[#d42a50] hover:bg-[#fff1f3]" onClick={() => setDialog("refuse")}>Refuser</Button>
+            <Button variant="ghost" icon={X} className="border-[#ffd0d9] text-[#b8213f] hover:bg-[#fff1f3]" onClick={() => setDialog("refuse")}>Refuser</Button>
           </div>
         </>;
       } else if (isParent && !b.guarantorApprovedAt) {
@@ -253,8 +253,8 @@ function Detail({ d, reload }: { d: D; reload: () => Promise<void> }) {
     return (
       <motion.section initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className={`card flex flex-col gap-4 rounded-[22px] border-2 p-5 sm:p-6 ${tone === "green" ? "border-[#bfe9cf]" : "border-sun-300 bg-gradient-to-br from-white to-[#fffaf0]"}`}>
         <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5"><span className={`flex h-9 w-9 items-center justify-center rounded-xl ${tone === "green" ? "bg-[#e8f8ef] text-[#0f8a46]" : "bg-sun-100 text-[#a55a00]"}`}><I size={18} /></span><h2 className="text-[17px] font-extrabold">{title}</h2></div>
-          {canCancel && <button type="button" onClick={() => setDialog("cancel")} className="text-[13px] font-bold text-ink-mute hover:text-[#d42a50]">Annuler la réservation</button>}
+          <div className="flex items-center gap-2.5"><span className={`flex h-9 w-9 items-center justify-center rounded-xl ${tone === "green" ? "bg-[#e8f8ef] text-[#0b7a3d]" : "bg-sun-100 text-[#a55a00]"}`}><I size={18} /></span><h2 className="text-[17px] font-extrabold">{title}</h2></div>
+          {canCancel && <button type="button" onClick={() => setDialog("cancel")} className="text-[13px] font-bold text-ink-mute hover:text-[#b8213f]">Annuler la réservation</button>}
         </div>
         {body}
       </motion.section>
@@ -449,7 +449,7 @@ function ReviewForm({ onSubmit, pending, error }: { onSubmit: (n: number, c: str
     <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); if (!n) { setErr("Choisis une note."); return; } setErr(null); onSubmit(n, c.trim()); }}>
       <fieldset><legend className="mb-1.5 text-[13px] font-bold">Ta note</legend>
         <div className="flex gap-1" role="radiogroup">{[1, 2, 3, 4, 5].map((i) => <button key={i} type="button" role="radio" aria-checked={n === i} aria-label={`${i} étoile${i > 1 ? "s" : ""}`} onClick={() => setN(i)} className="rounded-lg p-1 hover:bg-sun-50"><Star size={28} className={i <= n ? "fill-sun-400 text-sun-500" : "text-slate-300"} /></button>)}</div>
-        {err && <span className="text-xs font-semibold text-[#d42a50]">{err}</span>}
+        {err && <span className="text-xs font-semibold text-[#b8213f]">{err}</span>}
       </fieldset>
       <Field label="Ton commentaire" hint="Propreté, communication, emplacement, rapport qualité-prix…">{(id) => <Textarea id={id} value={c} onChange={(e) => setC(e.target.value)} maxLength={2000} />}</Field>
       <FormError error={error} />

@@ -142,7 +142,7 @@ export function NewApplication() {
                   <span className="text-sm text-ink-mute">{e.nom}</span>
                   <div className="mt-1 flex flex-wrap gap-1.5">
                     {e.label && <LabelChip label={e.label as Label} court />}
-                    {p.homologated ? <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><ShieldCheck size={12} />Filière homologuée</span> : p.homologation?.statut === "recente" ? <span className="chip bg-sun-100 text-[#8a4b00]"><ShieldCheck size={12} />Renouvellement en attente</span> : <span className="chip bg-[#eef1f8] text-ink-soft">Diplôme d&apos;établissement</span>}
+                    {p.homologated ? <span className="chip bg-[#e8f8ef] text-[#0b7a3d]"><ShieldCheck size={12} />Filière homologuée</span> : p.homologation?.statut === "recente" ? <span className="chip bg-sun-100 text-[#8a4b00]"><ShieldCheck size={12} />Renouvellement en attente</span> : <span className="chip bg-[#eef1f8] text-ink-soft">Diplôme d&apos;établissement</span>}
                     {p.level && <span className="chip bg-[#eef1f8] text-ink-soft">{niveauLabel(p.level)}</span>}
                     {p.durationYears && <span className="chip bg-[#eef1f8] text-ink-soft"><Clock size={12} />{p.durationYears} an{p.durationYears > 1 ? "s" : ""}</span>}
                   </div>
@@ -187,7 +187,7 @@ export function NewApplication() {
                 {!!(docs.data ?? []).length && <p className="rounded-xl bg-brand-50 px-3.5 py-2.5 text-[13px] font-semibold text-brand-700">Tes documents déjà déposés sont réutilisables : coche ceux à joindre.</p>}
                 {d.data.fiche && (
                   <div className="flex flex-col gap-2.5 rounded-2xl border-2 border-brand-600 p-4">
-                    <div className="flex items-center gap-3"><span className="flex h-12 w-10 shrink-0 items-center justify-center rounded-lg bg-[#fdecec] text-[11px] font-extrabold text-[#d42a50]">PDF</span>
+                    <div className="flex items-center gap-3"><span className="flex h-12 w-10 shrink-0 items-center justify-center rounded-lg bg-[#fdecec] text-[11px] font-extrabold text-[#b8213f]">PDF</span>
                       <span className="min-w-0 flex-1"><b className="block text-sm">Fiche de candidature {e.sigle}</b><span className="text-xs text-ink-mute">{d.data.fiche.nom} · mise à jour le {new Date(d.data.fiche.maj).toLocaleDateString("fr-FR")}</span></span>
                       <a href={d.data.fiche.url} target="_blank" rel="noopener" className="btn-ghost shrink-0 px-3 py-2 text-[13px]"><Download size={15} />Télécharger</a></div>
                     <ol className="flex flex-col gap-1 text-[13px] text-ink-soft"><li><b className="text-brand-600">1.</b> Télécharge la fiche et imprime-la (ou remplis-la sur ton ordinateur).</li><li><b className="text-brand-600">2.</b> Remplis, date et signe (« lu et approuvé »).</li><li><b className="text-brand-600">3.</b> Scanne-la ou prends chaque page en photo, puis envoie-la ci-dessous.</li></ol>
@@ -202,7 +202,7 @@ export function NewApplication() {
                         <div className="flex items-center gap-3">
                           <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md ${chosen ? "bg-brand-600 text-white" : "border-2 border-[#dbe3f7]"}`} aria-hidden>{chosen && <Check size={14} strokeWidth={3} />}</span>
                           <span className="min-w-0 flex-1 text-sm font-semibold">{pc.libelle}{!pc.obligatoire && <span className="ml-1.5 text-xs font-normal text-ink-mute">(facultatif)</span>}{pc.ecole && <span className="chip ml-1.5 bg-sun-100 px-2 py-0.5 text-[11px] text-[#a55a00]">propre à {e.sigle}</span>}{chosen && <span className="block truncate text-xs font-normal text-ink-mute">{chosen.fileName}</span>}</span>
-                          {chosen ? <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><Check size={12} />Ajouté</span>
+                          {chosen ? <span className="chip bg-[#e8f8ef] text-[#0b7a3d]"><Check size={12} />Ajouté</span>
                             : <button type="button" onClick={() => setOpen(open === pc.code ? null : pc.code)} className="btn-ghost min-h-[36px] px-3 py-1.5 text-[13px]"><Upload size={14} />{pc.type === "fiche_candidature" ? "Téléverser remplie" : "Ajouter"}</button>}
                         </div>
                         {(open === pc.code || (!chosen && mine.length > 0)) && (
@@ -256,7 +256,7 @@ export function NewApplication() {
         {step === 3 && (
           <Panel>
             <div className="flex flex-col items-center gap-3 py-2 text-center">
-              <span className={`flex h-16 w-16 items-center justify-center rounded-full ${editable ? "bg-sun-100 text-[#a55a00]" : "bg-[#e8f8ef] text-[#0f8a46]"}`}>{editable ? <AlertCircle size={32} /> : <PartyPopper size={32} />}</span>
+              <span className={`flex h-16 w-16 items-center justify-center rounded-full ${editable ? "bg-sun-100 text-[#a55a00]" : "bg-[#e8f8ef] text-[#0b7a3d]"}`}>{editable ? <AlertCircle size={32} /> : <PartyPopper size={32} />}</span>
               <h2 className="text-2xl font-extrabold">{editable ? "Candidature pas encore envoyée" : "Candidature envoyée !"}</h2>
               <p className="max-w-lg text-sm text-ink-soft">{editable ? "Termine ton dossier puis envoie-le pour qu'il soit transmis à l'établissement." : `Ton dossier n° ${a.number} a été transmis à ${e.nom}. Tu recevras une notification (et un e-mail) à chaque étape.`}</p>
             </div>
@@ -277,5 +277,5 @@ export function NewApplication() {
 }
 
 function Cond({ ok, t, s }: { ok: boolean; t: string; s: string }) {
-  return <div className="flex items-start gap-3 rounded-2xl border border-[#eef1f8] p-3.5">{ok ? <CheckCircle2 size={20} className="shrink-0 text-[#0f8a46]" /> : <AlertCircle size={20} className="shrink-0 text-[#a55a00]" />}<span><b className="block text-sm">{t}</b><span className="text-[13px] text-ink-mute">{s}</span></span></div>;
+  return <div className="flex items-start gap-3 rounded-2xl border border-[#eef1f8] p-3.5">{ok ? <CheckCircle2 size={20} className="shrink-0 text-[#0b7a3d]" /> : <AlertCircle size={20} className="shrink-0 text-[#a55a00]" />}<span><b className="block text-sm">{t}</b><span className="text-[13px] text-ink-mute">{s}</span></span></div>;
 }

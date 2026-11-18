@@ -17,8 +17,8 @@ type Tableau = {
 type Detail = Ligne & { reponse: string; tours: number; entree: number; sortie: number; cacheLu: number; cacheEcrit: number };
 
 const PERIODES: [string, string][] = [["jour", "24 h"], ["7j", "7 jours"], ["30j", "30 jours"], ["90j", "90 jours"]];
-const ROUTE: Record<string, [string, string]> = { simple: ["Petit modèle", "bg-[#e8f8ef] text-[#0f8a46]"], complet: ["Modèle principal", "bg-brand-50 text-brand-800"], cache: ["Cache", "bg-[#fff7dd] text-[#8a4b00]"] };
-const STATUT: Record<string, [string, string]> = { ok: ["", ""], refus: ["Refus", "bg-[#fff7dd] text-[#8a4b00]"], erreur: ["Erreur", "bg-[#ffecef] text-[#d42a50]"] };
+const ROUTE: Record<string, [string, string]> = { simple: ["Petit modèle", "bg-[#e8f8ef] text-[#0b7a3d]"], complet: ["Modèle principal", "bg-brand-50 text-brand-800"], cache: ["Cache", "bg-[#fff7dd] text-[#8a4b00]"] };
+const STATUT: Record<string, [string, string]> = { ok: ["", ""], refus: ["Refus", "bg-[#fff7dd] text-[#8a4b00]"], erreur: ["Erreur", "bg-[#ffecef] text-[#b8213f]"] };
 const OUTIL: Record<string, string> = { chercher_formations: "Formations", chercher_etablissements: "Établissements", fiche_etablissement: "Fiche école", chercher_metiers: "Métiers", estimer_cout: "Estimation de coût", infos_pays_origine: "Pays de départ", chercher_logements: "Logements", campagnes_en_cours: "Campagnes", mon_espace: "Mon espace", afficher: "Cartes", condensation: "Réponse raccourcie" };
 const usd = (n: number, d = 2) => `${n.toLocaleString("fr-FR", { minimumFractionDigits: d, maximumFractionDigits: d })} $`;
 const pc = (a: number, b: number) => (b ? `${Math.round((a / b) * 100)} %` : "—");
@@ -128,8 +128,8 @@ export function AdminNavi() {
                           {new Date(x.at).toLocaleString("fr-FR", { dateStyle: "short", timeStyle: "short" })} · {x.role ? ROLE_LABEL[x.role] ?? x.role : "Visiteur"} · {sec(x.dureeMs)} · {usd(x.coutUsd, 4)}
                           <span className={`chip px-2 py-0.5 ${ROUTE[x.route]?.[1] ?? ""}`}>{ROUTE[x.route]?.[0] ?? x.route}</span>
                           {STATUT[x.statut]?.[0] && <span className={`chip px-2 py-0.5 ${STATUT[x.statut][1]}`}>{STATUT[x.statut][0]}</span>}
-                          {x.avis === "utile" && <span className="chip bg-[#e8f8ef] px-2 py-0.5 text-[#0f8a46]"><ThumbsUp size={12} />Utile</span>}
-                          {x.avis === "inutile" && <span className="chip bg-[#ffecef] px-2 py-0.5 text-[#d42a50]"><ThumbsDown size={12} />Pas utile</span>}
+                          {x.avis === "utile" && <span className="chip bg-[#e8f8ef] px-2 py-0.5 text-[#0b7a3d]"><ThumbsUp size={12} />Utile</span>}
+                          {x.avis === "inutile" && <span className="chip bg-[#ffecef] px-2 py-0.5 text-[#b8213f]"><ThumbsDown size={12} />Pas utile</span>}
                         </span>
                       </span>
                       <ChevronDown size={16} className={`mt-1 shrink-0 text-ink-mute transition ${ouvert === x.id ? "rotate-180" : ""}`} />

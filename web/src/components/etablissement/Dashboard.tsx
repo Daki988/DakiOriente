@@ -38,7 +38,7 @@ function Count({ to }: { to: number }) {
   return <>{v.toLocaleString("fr-FR")}</>;
 }
 
-const TONE: Record<string, string> = { green: "bg-[#e8f8ef] text-[#0f8a46]", blue: "bg-brand-50 text-brand-600", sun: "bg-sun-100 text-[#a55a00]", violet: "bg-[#f1edff] text-[#6a3df0]" };
+const TONE: Record<string, string> = { green: "bg-[#e8f8ef] text-[#0b7a3d]", blue: "bg-brand-50 text-brand-600", sun: "bg-sun-100 text-[#a55a00]", violet: "bg-[#f1edff] text-[#6a3df0]" };
 function Indicator({ label, value, trend, delta, icon: I, tone, i }: { label: string; value: number; trend?: number | null; delta?: number; icon: typeof Inbox; tone: string; i: number }) {
   const t = trend ?? null;
   return (
@@ -47,9 +47,9 @@ function Indicator({ label, value, trend, delta, icon: I, tone, i }: { label: st
       <div className="flex min-w-0 flex-col">
         <span className="truncate text-xs font-bold text-ink-mute">{label}</span>
         <b className="text-[24px] leading-tight sm:text-[26px]"><Count to={value} /></b>
-        {delta !== undefined ? <span className={`text-xs font-bold ${delta > 0 ? "text-[#0f8a46]" : "text-ink-mute"}`}>{delta > 0 ? `+${delta}` : delta} sur la période</span>
+        {delta !== undefined ? <span className={`text-xs font-bold ${delta > 0 ? "text-[#0b7a3d]" : "text-ink-mute"}`}>{delta > 0 ? `+${delta}` : delta} sur la période</span>
           : t === null ? <span className="text-xs text-ink-mute">pas de comparaison</span>
-          : <span className={`text-xs font-bold ${t > 0 ? "text-[#0f8a46]" : t < 0 ? "text-[#d42a50]" : "text-ink-mute"}`}>{t > 0 ? "+" : ""}{t} %<span className="font-normal text-ink-mute"> vs période préc.</span></span>}
+          : <span className={`text-xs font-bold ${t > 0 ? "text-[#0b7a3d]" : t < 0 ? "text-[#b8213f]" : "text-ink-mute"}`}>{t > 0 ? "+" : ""}{t} %<span className="font-normal text-ink-mute"> vs période préc.</span></span>}
       </div>
     </motion.div>
   );

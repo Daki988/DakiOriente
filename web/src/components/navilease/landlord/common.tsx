@@ -39,7 +39,7 @@ export function ListingTable({ rows, bookings, onChange, compact }: { rows: Hous
               <div className="min-w-0">
                 <Link href={`/bailleur/annonces/${h.id}`} className="block truncate font-bold hover:text-brand-600">{h.title}</Link>
                 <span className="flex flex-wrap items-center gap-1.5 text-xs text-ink-mute">{money(h.rent, h.currency)} / mois · {h.ville}<span className={`chip py-0.5 ${VERIF[h.verification].cls}`}>{VERIF[h.verification].label}</span></span>
-                {h.status === "refuse" && h.moderationNote && <span className="mt-1 block text-xs font-semibold text-[#d42a50]">À corriger : {h.moderationNote}</span>}
+                {h.status === "refuse" && h.moderationNote && <span className="mt-1 block text-xs font-semibold text-[#b8213f]">À corriger : {h.moderationNote}</span>}
               </div>
             </div>
             <div className="flex flex-wrap items-center gap-3 md:gap-5">
@@ -51,7 +51,7 @@ export function ListingTable({ rows, bookings, onChange, compact }: { rows: Hous
                 <Link href={`/bailleur/annonces/${h.id}`} aria-label={`Modifier ${h.title}`} className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 hover:border-brand-300 hover:bg-brand-50"><Pencil size={15} /></Link>
                 {h.status === "publie" && <Link href={`/navilease/logements/${h.id}`} aria-label={`Voir l'annonce ${h.title}`} className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 hover:border-brand-300 hover:bg-brand-50"><Eye size={15} /></Link>}
                 {["brouillon", "refuse"].includes(h.status) && <Button size="sm" variant="ghost" icon={Send} loading={busy === h.id + "moderation"} onClick={() => act(h, "moderation")}>Soumettre</Button>}
-                {h.status !== "archive" && !compact && <button type="button" aria-label={`Archiver ${h.title}`} onClick={() => setConfirm(h)} className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 text-ink-mute hover:border-[#ffd0d9] hover:text-[#d42a50]"><Archive size={15} /></button>}
+                {h.status !== "archive" && !compact && <button type="button" aria-label={`Archiver ${h.title}`} onClick={() => setConfirm(h)} className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 text-ink-mute hover:border-[#ffd0d9] hover:text-[#b8213f]"><Archive size={15} /></button>}
               </div>
             </div>
           </li>

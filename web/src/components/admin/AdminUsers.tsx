@@ -94,8 +94,8 @@ export function AdminUsers() {
                   <div className="flex justify-end gap-1.5">
                     {u.status === "en_attente" && <Button size="sm" className="!bg-[#6a3df0] hover:!bg-[#5a2fe0]" onClick={() => openTarget(u, "actif")}>Valider</Button>}
                     {u.status === "suspendu"
-                      ? <IconBtn label={`Réactiver ${u.firstName} ${u.lastName}`} onClick={() => openTarget(u, "actif")} className="text-[#0f8a46]"><RotateCcw size={16} /></IconBtn>
-                      : <IconBtn label={`${u.status === "en_attente" ? "Refuser" : "Suspendre"} ${u.firstName} ${u.lastName}`} onClick={() => openTarget(u, "suspendu")} className="text-[#d42a50]"><Ban size={16} /></IconBtn>}
+                      ? <IconBtn label={`Réactiver ${u.firstName} ${u.lastName}`} onClick={() => openTarget(u, "actif")} className="text-[#0b7a3d]"><RotateCcw size={16} /></IconBtn>
+                      : <IconBtn label={`${u.status === "en_attente" ? "Refuser" : "Suspendre"} ${u.firstName} ${u.lastName}`} onClick={() => openTarget(u, "suspendu")} className="text-[#b8213f]"><Ban size={16} /></IconBtn>}
                   </div>) },
               ]} />
               <Pager page={list.data.page} total={list.data.total} size={50} onPage={setPage} />
@@ -106,7 +106,7 @@ export function AdminUsers() {
         <div className={`flex flex-col gap-5 2xl:order-2 ${nPending ? "order-first" : ""}`}>
           <Panel title="Comptes établissement à valider" icon={Building2} className="border-[#d9cffc]" action={nPending ? <Chip tone="violet">{nPending}</Chip> : undefined}>
             {pending.loading && !pending.data ? <Loading /> : pending.error ? <LoadError error={pending.error} reload={pending.reload} /> : !pending.data?.rows.length ? (
-              <p className="flex items-center gap-2 text-sm text-ink-mute"><CheckCircle2 size={17} className="text-[#0f8a46]" />Aucune demande en attente.</p>
+              <p className="flex items-center gap-2 text-sm text-ink-mute"><CheckCircle2 size={17} className="text-[#0b7a3d]" />Aucune demande en attente.</p>
             ) : (
               <ul className="grid gap-3 md:grid-cols-2 2xl:grid-cols-1">
                 {pending.data.rows.map((u, i) => (
@@ -117,7 +117,7 @@ export function AdminUsers() {
                         <li className="flex items-center gap-1.5"><Check ok={!!u.phone} />{u.phone ? `Téléphone ${u.phone}` : "Téléphone non renseigné"}</li>
                         <li className="flex items-center gap-1.5">{u.country && <><Flag code={u.country} withName />{u.city ? ` · ${u.city}` : ""} ·</>} demande {since(u.createdAt)}</li>
                       </ul>
-                      <div className="flex gap-2"><Button size="sm" className="flex-1 !bg-[#0f8a46] hover:!bg-[#0b7a3c]" icon={ShieldCheck} onClick={() => openTarget(u, "actif")}>Valider</Button><Button size="sm" variant="ghost" className="!border-[#ffd0d9] !text-[#d42a50]" onClick={() => openTarget(u, "suspendu")}>Refuser</Button></div>
+                      <div className="flex gap-2"><Button size="sm" className="flex-1 !bg-[#0f8a46] hover:!bg-[#0b7a3c]" icon={ShieldCheck} onClick={() => openTarget(u, "actif")}>Valider</Button><Button size="sm" variant="ghost" className="!border-[#ffd0d9] !text-[#b8213f]" onClick={() => openTarget(u, "suspendu")}>Refuser</Button></div>
                   </Reveal>
                 ))}
               </ul>
@@ -147,7 +147,7 @@ export function AdminUsers() {
   );
 }
 
-const Check = ({ ok }: { ok: boolean }) => ok ? <CheckCircle2 size={14} className="shrink-0 text-[#0f8a46]" /> : <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border-2 border-[#f0a400] text-[8px] font-black text-[#a55a00]">!</span>;
+const Check = ({ ok }: { ok: boolean }) => ok ? <CheckCircle2 size={14} className="shrink-0 text-[#0b7a3d]" /> : <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border-2 border-[#f0a400] text-[8px] font-black text-[#a55a00]">!</span>;
 
 const IconBtn = ({ label, onClick, children, className = "" }: { label: string; onClick: () => void; children: React.ReactNode; className?: string }) => (
   <button onClick={onClick} aria-label={label} title={label} className={`flex h-9 w-9 items-center justify-center rounded-xl bg-[#f3f5fb] transition hover:bg-[#e8ecf8] ${className}`}>{children}</button>

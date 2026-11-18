@@ -55,7 +55,7 @@ export default async function RessourcePage(props: { params: Promise<{ slug: str
                   <section className="card flex flex-col gap-3 p-5 sm:p-7">
                     <h2 className="text-xl font-extrabold">{s.titre}</h2>
                     {s.texte?.map((t) => <p key={t} className="leading-relaxed text-ink-soft">{t}</p>)}
-                    {s.liste && <ul className="flex flex-col gap-2">{s.liste.map((t) => <li key={t} className="flex items-start gap-2.5 text-ink-soft"><Check size={17} className="mt-0.5 shrink-0 text-[#0f8a46]" /><span className="leading-relaxed">{t}</span></li>)}</ul>}
+                    {s.liste && <ul className="flex flex-col gap-2">{s.liste.map((t) => <li key={t} className="flex items-start gap-2.5 text-ink-soft"><Check size={17} className="mt-0.5 shrink-0 text-[#0b7a3d]" /><span className="leading-relaxed">{t}</span></li>)}</ul>}
                   </section>
                 </Reveal>
               ))}

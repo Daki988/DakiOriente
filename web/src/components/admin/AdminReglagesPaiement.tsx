@@ -46,11 +46,11 @@ export function AdminReglagesPaiement() {
     r.setData(v); setCles({ sharedKey: "", secretKey: "", webhookSecret: "" }); toast("Réglages des paiements enregistrés");
   });
   const tester = (p: "ebilling" | "stripe") => test.run(async () => { const t = await api<{ ok: boolean; message: string }>("/admin/paiements/reglages/test", { body: { passerelle: p } }); setTests((x) => ({ ...x, [p]: t })); });
-  const Res = ({ p }: { p: string }) => tests[p] ? <span className={`chip ${tests[p].ok ? "bg-[#e8f8ef] text-[#0f8a46]" : "bg-[#ffecef] text-[#d42a50]"}`}>{tests[p].message}</span> : null;
+  const Res = ({ p }: { p: string }) => tests[p] ? <span className={`chip ${tests[p].ok ? "bg-[#e8f8ef] text-[#0b7a3d]" : "bg-[#ffecef] text-[#b8213f]"}`}>{tests[p].message}</span> : null;
 
   return (
     <div className="min-w-0">
-      <AdminHeader title="Réglages des paiements" sub="Passerelles de paiement et espèces (Navilease)" actions={<span className="chip bg-[#e8f8ef] text-[#0f8a46]"><ShieldCheck size={13} />Clés chiffrées, jamais réaffichées en clair</span>} />
+      <AdminHeader title="Réglages des paiements" sub="Passerelles de paiement et espèces (Navilease)" actions={<span className="chip bg-[#e8f8ef] text-[#0b7a3d]"><ShieldCheck size={13} />Clés chiffrées, jamais réaffichées en clair</span>} />
       {f.recette && <div className="mb-4"><Alert tone="warn" title="Mode recette">PAYMENTS_MODE=sandbox : tous les paiements sont simulés, quels que soient ces réglages.</Alert></div>}
       <div className="grid gap-5 xl:grid-cols-2">
         <Panel title="Mobile money (Gabon)" icon={Smartphone} action={<Toggle on={f.ebilling.actif} onChange={(v) => set("ebilling", { actif: v })} label="Activer le mobile money" />}>

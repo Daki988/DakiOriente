@@ -60,7 +60,7 @@ export function ReglagesDossier() {
           <Panel title="Votre fiche de candidature" icon={FileText}>
             {d.fiche ? (
               <div className="flex items-center gap-3 rounded-2xl border border-slate-200 p-3">
-                <span className="flex h-12 w-10 shrink-0 items-center justify-center rounded-lg bg-[#fdecec] text-[11px] font-extrabold text-[#d42a50]">PDF</span>
+                <span className="flex h-12 w-10 shrink-0 items-center justify-center rounded-lg bg-[#fdecec] text-[11px] font-extrabold text-[#b8213f]">PDF</span>
                 <span className="min-w-0 flex-1"><b className="block truncate text-sm">{d.fiche.nom}</b><span className="text-xs text-ink-mute">{d.fiche.ecole ? "mise en ligne" : "relevée sur votre site"} le {new Date(d.fiche.maj).toLocaleDateString("fr-FR")}</span></span>
                 <a href={d.fiche.url} target="_blank" rel="noopener" className="rounded-lg p-2 text-ink-mute hover:bg-slate-100" aria-label="Voir la fiche"><Eye size={17} /></a>
               </div>

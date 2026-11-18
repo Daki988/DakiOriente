@@ -35,7 +35,7 @@ export const domStyle = (d: string) => DOMAIN_STYLE[d] ?? DOMAIN_STYLE["dom-gest
 
 /** Couleurs des labels Navigoal (diplômes homologués par l'État). */
 export const LABEL_STYLE: Record<Label, string> = {
-  reconnu_etat: "bg-[#e8f8ef] text-[#0f8a46]",
+  reconnu_etat: "bg-[#e8f8ef] text-[#0b7a3d]",
   diplomes_homologues: "bg-brand-50 text-brand-700",
   professionnel: "bg-sun-100 text-[#a55a00]",
   autorise: "bg-[#eef1f8] text-ink-soft",
@@ -58,7 +58,7 @@ export function MetierCard({ m }: { m: Metier }) {
         <Illustration p={photoMetier(m.id, m.domaine)} domaine={m.domaine} className="-mx-5 -mt-5 h-32" rounded="rounded-t-[20px]" sizes="(max-width: 640px) 70vw, 240px" />
         <div className="flex items-start justify-between">
           <div className="flex h-12 w-12 items-center justify-center rounded-[14px] text-white" style={{ background: s.solid }}><Icon size={24} /></div>
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f6f8fe] text-ink-mute transition group-hover:bg-[#ffecef] group-hover:text-[#d42a50]"><Heart size={17} /></span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f6f8fe] text-ink-mute transition group-hover:bg-[#ffecef] group-hover:text-[#b8213f]"><Heart size={17} /></span>
         </div>
         <div className="font-extrabold">{m.nom}</div>
         <p className="line-clamp-2 text-[13px] leading-relaxed text-ink-mute">{m.description}</p>
@@ -110,7 +110,7 @@ export function FormationOfferCard({ f, etabId, score, highlight = false, villes
       <div className="flex flex-1 flex-col gap-2 pt-2 sm:pt-0">
         <div className="flex items-start justify-between gap-3">
           <div><Link href={`/formations/${f.id}/`} className="text-[17px] font-extrabold hover:text-brand-600">{f.intitule}</Link><div className="text-sm font-semibold text-ink-soft">{e.nom}</div></div>
-          <button aria-label="Ajouter aux favoris" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#f6f8fe] text-ink-mute transition hover:bg-[#ffecef] hover:text-[#d42a50]"><Heart size={17} /></button>
+          <button aria-label="Ajouter aux favoris" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#f6f8fe] text-ink-mute transition hover:bg-[#ffecef] hover:text-[#b8213f]"><Heart size={17} /></button>
         </div>
         <div className="flex items-center gap-1.5 text-[13px] text-ink-mute"><MapPin size={14} className="shrink-0" />{villes ? (villes.length > 1 ? `Campus : ${villes.join(" · ")}` : `${villes[0]}, Maroc${e.campus ? " (campus)" : ""}`) : e.campus ? `${e.campus.length} campus : ${e.campus.map((c) => c.ville).join(" · ")}` : `${e.ville}, Maroc`}</div>
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -118,7 +118,7 @@ export function FormationOfferCard({ f, etabId, score, highlight = false, villes
             <span className="chip bg-brand-50 text-brand-700">{f.diplome}</span>
             <span className="chip bg-[#f6f8fe] text-ink-soft"><Clock size={12} /> {f.duree_annees} ans</span>
             <LabelChip label={e.label} court />
-            <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><Sparkles size={12} /> {score} % compatible</span>
+            <span className="chip bg-[#e8f8ef] text-[#0b7a3d]"><Sparkles size={12} /> {score} % compatible</span>
           </div>
           <Link href={`/formations/${f.id}/?etab=${e.id}${villes?.length === 1 && e.campus ? `&ville=${encodeURIComponent(villes[0])}` : ""}`} className={highlight ? "btn-primary py-2.5" : "btn-ghost py-2.5"}>Voir la formation</Link>
         </div>

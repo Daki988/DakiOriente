@@ -122,7 +122,7 @@ export function Conseiller() {
                                 <div className="flex flex-wrap gap-1.5">
                                   <Link href={conv ? `/messages?c=${conv.id}` : "/messages"} className="btn-ghost relative px-3 py-2 text-[13px]"><MessageCircle size={15} />Conversation{conv?.unread ? <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#d42a50] px-1 text-[10px] text-white">{conv.unread}</span> : null}</Link>
                                   <Button size="sm" variant="quiet" onClick={() => { closeAct.setError(null); setClose({ r, statut: "termine" }); }} aria-label={`Marquer terminé : ${r.s.firstName} ${r.s.lastName}`}><CheckCircle2 size={15} />Terminé</Button>
-                                  <Button size="sm" variant="quiet" className="!text-[#d42a50]" onClick={() => { closeAct.setError(null); setClose({ r, statut: "annule" }); }} aria-label={`Annuler : ${r.s.firstName} ${r.s.lastName}`}><XCircle size={15} /></Button>
+                                  <Button size="sm" variant="quiet" className="!text-[#b8213f]" onClick={() => { closeAct.setError(null); setClose({ r, statut: "annule" }); }} aria-label={`Annuler : ${r.s.firstName} ${r.s.lastName}`}><XCircle size={15} /></Button>
                                 </div>
                               </div>
                             </Reveal>

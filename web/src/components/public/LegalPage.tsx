@@ -2,11 +2,13 @@ import Link from "@/components/ui/Link";
 import type { Metadata } from "next";
 import { BadgeCheck, Building2, Clock, Cookie, Copyright, ExternalLink, FileSearch, Gift, History, Lock, Mail, Plane, School, Server, ShieldCheck, Sparkles, Stamp, UserRound, type LucideIcon } from "lucide-react";
 import legal from "@/data/legal.json";
+import { descriptionSeo } from "@/lib/seo";
+import { ChoixCookies } from "@/components/campagne/AcquisitionTracker";
 import { PAGES_LEGALES, SERVICES, SERVICES_LISTE, lienLegal, type PageLegale, type ServiceId } from "@/lib/services";
 import { Markdown, headings, slugify } from "./markdown";
 import { SommaireLegal, Imprimer } from "./SommaireLegal";
 
-export const LEGAL_VERSION = { version: "2.4", date: "17/11/2026" };
+export const LEGAL_VERSION = { version: "2.5", date: "18/11/2026" };
 type Texte = { titre: string; bref: string; corps: string };
 const TEXTES = legal as Record<ServiceId, Record<PageLegale, Texte>>;
 
@@ -30,7 +32,7 @@ const CARTES: Partial<Record<ServiceId, Partial<Record<PageLegale, [LucideIcon, 
 
 export function legalMetadata(service: ServiceId, page: PageLegale): Metadata {
   const t = TEXTES[service][page];
-  return { title: t.titre, description: t.bref, alternates: { canonical: lienLegal(service, page) + "/" } };
+  return { title: t.titre, description: descriptionSeo(t.bref), alternates: { canonical: lienLegal(service, page) + "/" } };
 }
 
 /** Pages légales de Navigoal, Navilease et NaviTravel (maquettes « Pages légales », novembre 2026). */
@@ -86,6 +88,7 @@ export function LegalPage({ service = "navigoal", page }: { service?: ServiceId;
               </div>
             )}
           </section>
+          {page === "cookies" && service === "navigoal" && <ChoixCookies />}
           <Markdown text={L.corps} numeros couleur={s.c} />
         </article>
         <aside className="hidden flex-col gap-4 xl:sticky xl:top-28 xl:flex print:hidden">
@@ -97,7 +100,7 @@ export function LegalPage({ service = "navigoal", page }: { service?: ServiceId;
           </div>
           <div className="flex flex-col gap-2 rounded-[22px] border border-slate-200 p-5">
             <History size={20} className="text-ink-mute" /><b className="text-sm">Historique</b>
-            <span className="text-xs text-ink-mute">v2.4 · 17/11/2026 : appels audio et vidéo par Daily (sans enregistrement) ; v2.3 : Navi s&apos;adapte au profil des comptes connectés et tient une fiche de suivi, visible et effaçable ; v2.2 : présence en direct des comptes connectés visible par l&apos;équipe Navigoal (effacée après une heure) ; v2.1 : conversations avec Navi conservées 90 jours</span>
+            <span className="text-xs text-ink-mute">v2.5 · 18/11/2026 : cookie de campagne déposé seulement avec votre accord ; v2.4 : appels audio et vidéo par Daily (sans enregistrement) ; v2.3 : Navi s&apos;adapte au profil des comptes connectés et tient une fiche de suivi, visible et effaçable ; v2.2 : présence en direct des comptes connectés visible par l&apos;équipe Navigoal (effacée après une heure) ; v2.1 : conversations avec Navi conservées 90 jours</span>
             <span className="text-xs text-ink-mute">v2.0 · 06/11/2026 : réécriture complète, pages propres à Navilease et NaviTravel</span>
             <span className="text-xs text-ink-mute">v1.0 · 09/10/2026</span>
           </div>

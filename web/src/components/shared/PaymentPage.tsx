@@ -39,11 +39,11 @@ export function PaymentPage({ reference }: { reference: string }) {
 
   return (
     <div className="min-h-screen bg-[#f6f8fe]">
-      <header className="border-b border-slate-200/70 bg-white"><div className="container flex h-[72px] items-center justify-between gap-4"><Brand /><span className="hidden items-center gap-2 text-sm font-bold text-[#0f8a46] sm:flex"><Lock size={16} />Paiement sécurisé · chiffrement TLS</span><button onClick={() => router.push(back)} className="text-sm font-bold text-ink-mute">Revenir</button></div></header>
+      <header className="border-b border-slate-200/70 bg-white"><div className="container flex h-[72px] items-center justify-between gap-4"><Brand /><span className="hidden items-center gap-2 text-sm font-bold text-[#0b7a3d] sm:flex"><Lock size={16} />Paiement sécurisé · chiffrement TLS</span><button onClick={() => router.push(back)} className="text-sm font-bold text-ink-mute">Revenir</button></div></header>
       <main className="container flex justify-center py-10">
         {p.error ? <Alert tone="error" title="Paiement introuvable">{p.error.message}</Alert> : !p.data ? <Loading /> : p.data.status === "reussi" ? (
           <motion.div initial={{ scale: 0.96, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="card flex w-full max-w-md flex-col items-center gap-5 rounded-3xl p-8 text-center">
-            <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 220, damping: 12 }} className="flex h-20 w-20 items-center justify-center rounded-full bg-[#e8f8ef] text-[#0f8a46]"><CheckCircle2 size={42} /></motion.span>
+            <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 220, damping: 12 }} className="flex h-20 w-20 items-center justify-center rounded-full bg-[#e8f8ef] text-[#0b7a3d]"><CheckCircle2 size={42} /></motion.span>
             <div><h1 className="text-[28px] font-extrabold">Paiement réussi !</h1><p className="text-sm text-ink-mute">{p.data.meta.escrow ? "Les fonds sont conservés en séquestre Navilease jusqu'à ton entrée dans les lieux." : "Ton paiement est confirmé ; le reçu est aussi envoyé par e-mail."}</p></div>
             <div className="flex w-full flex-col gap-2 rounded-2xl bg-[#f6f8fe] p-4 text-left text-[13px]">
               {[["Reçu n°", p.data.reference], ["Objet", p.data.meta.description ?? p.data.kind], ["Montant", m(p.data.amount, p.data.currency)], ["Moyen", label ?? ""], ["Date", dateFr(p.data.paidAt, true)]].map(([k, v]) => <div key={k} className="flex justify-between gap-4"><span className="text-ink-mute">{k}</span><b className="text-right">{v}</b></div>)}
@@ -66,11 +66,11 @@ export function PaymentPage({ reference }: { reference: string }) {
                   <div className="flex items-center gap-3"><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sun-100 text-[#a55a00]"><Smartphone size={22} /></span><span><b className="block">{label}</b><span className="text-[13px] text-ink-mute">{p.data.method === "especes" ? "Paiement au bureau, confirmé ensuite par l'équipe Navigoal." : p.data.method === "carte" ? "Paiement par carte sur la page sécurisée." : "Une demande de confirmation est envoyée sur ton téléphone."}</span></span></div>
                   <Alert tone="warn" title="Mode recette">Les paiements sont simulés tant que le compte de l&apos;agrégateur n&apos;est pas activé : confirme ou refuse la transaction ci-dessous.</Alert>
                   <div className="flex flex-col gap-2 sm:flex-row"><Button className="flex-1" loading={a.pending} onClick={() => confirm(true)}><ShieldCheck size={17} />Confirmer le paiement</Button><Button variant="ghost" className="flex-1" disabled={a.pending} onClick={() => confirm(false)}><XCircle size={17} />Refuser</Button></div>
-                  {a.error && <p className="text-sm font-semibold text-[#d42a50]">{a.error}</p>}
+                  {a.error && <p className="text-sm font-semibold text-[#b8213f]">{a.error}</p>}
                 </div>
               ) : p.data.status === "en_attente" && p.data.provider === "especes" ? (
                 <div className="card flex flex-col gap-4 rounded-3xl p-6">
-                  <div className="flex items-center gap-3"><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e8f8ef] text-[#0f8a46]"><Banknote size={22} /></span><span><b className="block">Paiement en espèces</b><span className="text-[13px] text-ink-mute">À régler{p.data.meta.expireLe ? ` avant le ${dateFr(p.data.meta.expireLe)}` : ""}, puis validé par l&apos;équipe Navigoal.</span></span></div>
+                  <div className="flex items-center gap-3"><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e8f8ef] text-[#0b7a3d]"><Banknote size={22} /></span><span><b className="block">Paiement en espèces</b><span className="text-[13px] text-ink-mute">À régler{p.data.meta.expireLe ? ` avant le ${dateFr(p.data.meta.expireLe)}` : ""}, puis validé par l&apos;équipe Navigoal.</span></span></div>
                   <div className="rounded-2xl border-2 border-dashed border-brand-200 bg-brand-50 p-4 text-center"><span className="block text-xs font-bold uppercase text-ink-mute">Référence à donner au guichet</span><b className="text-2xl tracking-wide text-brand-700">{p.data.reference}</b><span className="mt-1 block text-sm font-bold">{money(p.data.amount, p.data.currency)}</span></div>
                   {p.data.especes && <p className="whitespace-pre-line text-sm">{p.data.especes.instructions}</p>}
                   <Alert tone="info" title="Et ensuite ?">Dès que l&apos;équipe confirme la réception, tu es prévenu par e-mail et ton reçu est disponible ici.</Alert>
@@ -87,7 +87,7 @@ export function PaymentPage({ reference }: { reference: string }) {
                   <div><b className="block text-lg">Valide le paiement sur ton téléphone</b><span className="text-sm text-ink-mute">{label}{p.data.meta.telephone ? ` · ${p.data.meta.telephone.replace(/(\d{3})(\d{2})(\d{2})(\d{2})/, "$1 $2 $3 $4")}` : ""} : une demande de {money(p.data.amount, p.data.currency)} t&apos;a été envoyée. Saisis ton code secret pour confirmer.</span></div>
                   <Loading label="En attente de la confirmation de l'opérateur…" />
                   <Button variant="ghost" icon={RefreshCw} loading={relance.pending} onClick={relancer}>Je n&apos;ai rien reçu : renvoyer la demande</Button>
-                  {relance.error && <p className="text-sm font-semibold text-[#d42a50]">{relance.error}</p>}
+                  {relance.error && <p className="text-sm font-semibold text-[#b8213f]">{relance.error}</p>}
                 </div>
               ) : p.data.status === "en_attente" ? <div className="card flex items-center gap-3 rounded-3xl p-6"><Loading label="En attente de la confirmation de l'opérateur…" /></div> : null}
             </div>

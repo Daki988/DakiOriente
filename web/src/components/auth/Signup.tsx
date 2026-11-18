@@ -19,8 +19,8 @@ const ROLES: { id: Role; I: LucideIcon; t: string; s: string; pts: string[]; bg:
   { id: "eleve", I: School, t: "Élève", s: "Collège ou lycée", pts: ["Test d'orientation", "Choisir ma série", "Préparer mes études au Maroc"], bg: "bg-brand-50", fg: "text-brand-600" },
   { id: "etudiant", I: GraduationCap, t: "Étudiant·e", s: "Bachelier ou en études supérieures", pts: [`Candidater dans ${etablissements.length} établissements`, "Suivre mes dossiers", "Logement Navilease"], bg: "bg-[#f1edff]", fg: "text-[#6a3df0]" },
   { id: "parent", I: UsersRound, t: "Parent / tuteur", s: "J'accompagne mon enfant", pts: ["Suivre ses candidatures", "Devis et paiements", "Garant du logement"], bg: "bg-sun-100", fg: "text-[#a55a00]" },
-  { id: "etablissement", I: Building2, t: "Établissement", s: "École, université, institut", pts: ["Recevoir des candidatures", "Gérer mes formations", "Statistiques"], bg: "bg-[#e8f8ef]", fg: "text-[#0f8a46]" },
-  { id: "bailleur", I: KeyRound, t: "Bailleur Navilease", s: "Je loue à des étudiants", pts: ["Publier mes logements", "Paiement en séquestre", "Contrats & quittances"], bg: "bg-[#ffecef]", fg: "text-[#d42a50]" },
+  { id: "etablissement", I: Building2, t: "Établissement", s: "École, université, institut", pts: ["Recevoir des candidatures", "Gérer mes formations", "Statistiques"], bg: "bg-[#e8f8ef]", fg: "text-[#0b7a3d]" },
+  { id: "bailleur", I: KeyRound, t: "Bailleur Navilease", s: "Je loue à des étudiants", pts: ["Publier mes logements", "Paiement en séquestre", "Contrats & quittances"], bg: "bg-[#ffecef]", fg: "text-[#b8213f]" },
 ];
 const LEVELS: [string, string][] = [["3e", "3e / fin de collège"], ["2nde", "Seconde"], ["1re", "Première"], ["terminale", "Terminale"], ["bachelier", "Bachelier·ère"], ["bac+1", "Bac+1"], ["bac+2", "Bac+2"], ["bac+3", "Bac+3"], ["bac+4", "Bac+4 / 5"]];
 const ETABS: [string, string][] = etablissements.slice().sort((x, y) => x.nom.localeCompare(y.nom, "fr")).map((e) => [e.id, `${e.nom}${e.sigle && e.sigle !== e.nom ? ` (${e.sigle})` : ""} · ${villesOf(e).join(", ")}`]);
@@ -54,6 +54,8 @@ export function Signup() {
   const params = useSearchParams();
   const initialRole = ROLES.some((r) => r.id === params.get("profil")) ? (params.get("profil") as Role) : null;
   const [step, setStep] = useState<1 | 2>(initialRole ? 2 : 1);
+  // Champ piège anti-robots : invisible pour une personne, souvent rempli par un robot (refus côté serveur).
+  const [piege, setPiege] = useState("");
   const [role, setRole] = useState<Role>(initialRole ?? "etudiant");
   const [via, setVia] = useState<"email" | "phone">("email");
   const [f, setF] = useState({ firstName: "", lastName: "", birthYear: "", country: "", city: "", level: "", serie: "", currentSchool: "", email: "", phone: "", phoneCountry: "MA", password: "", password2: "", establishmentId: "", company: "", guardianEmail: "", guardianPhone: "", guardianVia: "phone", guardianCountry: "MA", terms: false });
@@ -98,6 +100,7 @@ export function Signup() {
       try {
         const phone = via === "phone" ? composePhone(f.phoneCountry, f.phone) : "";
         const body = {
+          siteWeb: piege,
           role, firstName: f.firstName.trim(), lastName: f.lastName.trim(), password: f.password, acceptTerms: f.terms,
           email: via === "email" ? f.email.trim() : "", phone,
           birthYear: isStudent && f.birthYear ? Number(f.birthYear) : undefined, country: f.country || undefined, city: f.city.trim() || undefined,
@@ -157,6 +160,7 @@ export function Signup() {
     <>
       <MobileSteps step={2} />
       <form onSubmit={submit} className="mt-4 grid items-start gap-6 md:mt-0 lg:grid-cols-[1fr_340px]" noValidate>
+        <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden"><label>Site web (ne pas remplir)<input type="text" name="site_web" tabIndex={-1} autoComplete="off" value={piege} onChange={(e) => setPiege(e.target.value)} /></label></div>
         <div className="card flex flex-col gap-6 rounded-3xl p-4 sm:p-8">
           <div className="flex items-start justify-between gap-3">
             <div><span className="chip bg-brand-50 text-brand-700">Étape 2 sur 3 · Tes informations</span><h1 className="mt-2 text-2xl font-extrabold tracking-tight sm:text-[28px]">Faisons connaissance{f.firstName ? `, ${f.firstName}` : ""}</h1></div>
@@ -220,7 +224,7 @@ export function Signup() {
           )}
           <div className="flex flex-col gap-1">
             <Check checked={f.terms} onChange={set("terms") as (v: boolean) => void}>J&apos;accepte les <Link href="/cgu" target="_blank" className="font-bold text-brand-600">conditions générales d&apos;utilisation</Link> et la <Link href="/confidentialite" target="_blank" className="font-bold text-brand-600">politique de confidentialité</Link> de Navigoal.</Check>
-            {err("terms") || err("acceptTerms") ? <span className="pl-7 text-xs font-semibold text-[#d42a50]">{err("terms") || err("acceptTerms")}</span> : null}
+            {err("terms") || err("acceptTerms") ? <span className="pl-7 text-xs font-semibold text-[#b8213f]">{err("terms") || err("acceptTerms")}</span> : null}
           </div>
           <FormError error={a.error} />
           <div className="flex flex-col-reverse justify-between gap-3 sm:flex-row">

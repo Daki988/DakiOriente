@@ -62,7 +62,7 @@ export function Navilease({ residences: rangee }: { residences?: ReactNode }) {
               ))}
             </motion.div>
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.3 }} className="card absolute bottom-4 left-0 flex animate-float items-center gap-3 px-4 py-3.5">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e8f8ef] text-[#0f8a46]"><ShieldCheck size={22} /></span><span><b className="block text-sm">Paiement protégé</b><span className="text-xs text-ink-mute">versé au bailleur après ton entrée</span></span>
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e8f8ef] text-[#0b7a3d]"><ShieldCheck size={22} /></span><span><b className="block text-sm">Paiement protégé</b><span className="text-xs text-ink-mute">versé au bailleur après ton entrée</span></span>
             </motion.div>
           </div>
         </div>
@@ -97,7 +97,7 @@ export function Navilease({ residences: rangee }: { residences?: ReactNode }) {
                       <div className="flex flex-col gap-2 p-4">
                         <Link href={`/navilease/logements/${h.id}`} className="font-extrabold after:absolute after:inset-0">{h.title}</Link>
                         <span className="flex items-center gap-1.5 text-[13px] text-ink-mute"><MapPin size={14} />{[h.quartier, h.ville].filter(Boolean).join(", ")}</span>
-                        {h.nearEstablishments[0] && <span className="flex items-center gap-1.5 text-[13px] font-semibold text-[#0f8a46]"><Footprints size={14} />{nearText(h.nearEstablishments[0])}</span>}
+                        {h.nearEstablishments[0] && <span className="flex items-center gap-1.5 text-[13px] font-semibold text-[#0b7a3d]"><Footprints size={14} />{nearText(h.nearEstablishments[0])}</span>}
                         <div className="mt-1 border-t border-[#eef1f8] pt-3"><b className="text-lg text-brand-600">{h.currency === "MAD" ? <Prix mad={h.rent} /> : `${h.rent} ${h.currency}`}</b><span className="text-xs text-ink-mute"> /mois</span></div>
                       </div>
                     </motion.div>

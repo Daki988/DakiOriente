@@ -13,7 +13,7 @@ import type { Reco } from "../Dashboard";
 
 /** Illustration du profil dominant (photos du test, licence Pexels). */
 const PHOTO: Record<string, string> = { R: "16850260", I: "3938022", A: "3880749", S: "33055499", E: "6172586", C: "8296974" };
-const TRAIT_TONES = ["bg-[#f1edff] text-[#6a3df0]", "bg-brand-50 text-brand-700", "bg-[#e8f8ef] text-[#0f8a46]", "bg-sun-100 text-[#a55a00]", "bg-[#ffecef] text-[#d42a50]"];
+const TRAIT_TONES = ["bg-[#f1edff] text-[#6a3df0]", "bg-brand-50 text-brand-700", "bg-[#e8f8ef] text-[#0b7a3d]", "bg-sun-100 text-[#a55a00]", "bg-[#ffecef] text-[#b8213f]"];
 
 /** Page « Mon profil d'orientation » (planche) : profil dominant, traits, domaines et métiers recommandés, rapport. */
 export function OrientationProfile({ scores, top, date, guest = false, onRestart, reco }: { scores: Record<string, number>; top: string[]; date: string | null; guest?: boolean; onRestart?: () => void; reco?: Reco }) {
@@ -85,8 +85,8 @@ export function OrientationProfile({ scores, top, date, guest = false, onRestart
             <Link key={m.id} href={`/metiers/${m.id}/`} className="flex min-w-0 items-center gap-3 rounded-2xl border border-[#eef1f8] p-3 transition hover:border-brand-200 hover:shadow-card">
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-white" style={{ background: st.solid }}><I size={22} /></span>
               <span className="min-w-0 flex-1"><b className="block truncate text-sm">{m.nom}</b><span className="text-xs text-ink-mute">{niveauLabel(m.niveau_min)} · {m.formations.length} formation{m.formations.length > 1 ? "s" : ""}</span></span>
-              <span className="chip shrink-0 bg-[#e8f8ef] text-[#0f8a46]">{s} %</span>
-              <Heart size={16} className="hidden shrink-0 text-[#d42a50] sm:block" aria-hidden />
+              <span className="chip shrink-0 bg-[#e8f8ef] text-[#0b7a3d]">{s} %</span>
+              <Heart size={16} className="hidden shrink-0 text-[#b8213f] sm:block" aria-hidden />
             </Link>); })}
         </div>
       </section>
@@ -99,7 +99,7 @@ export function OrientationProfile({ scores, top, date, guest = false, onRestart
               <Link key={o.programId} href={`/formations/${o.formationId}/?etab=${o.etablissement.id}`} className="flex min-w-0 items-center gap-3 rounded-2xl border border-[#eef1f8] p-3 transition hover:border-brand-200 hover:shadow-card">
                 <EtabLogo e={etabById[o.etablissement.id] ?? o.etablissement} size={46} />
                 <span className="min-w-0 flex-1"><b className="block truncate text-sm">{o.title}</b><span className="block truncate text-xs text-ink-mute">{o.etablissement.sigle} · {o.etablissement.ville}</span></span>
-                <span className="chip shrink-0 bg-[#e8f8ef] text-[#0f8a46]">{o.score} %</span>
+                <span className="chip shrink-0 bg-[#e8f8ef] text-[#0b7a3d]">{o.score} %</span>
               </Link>
             ))}
           </div>

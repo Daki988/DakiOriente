@@ -98,7 +98,11 @@ async function startSession(u: User, req: Request) {
 route("POST", "/auth/inscription", "Authentification", "Créer un compte (élève, étudiant, parent, établissement, bailleur)", "public", async ({ req, body }) => {
   // Anti-abus : chaque inscription peut envoyer un e-mail ou un SMS (parent invité, code de vérification).
   await limiter(`inscription:${ipClient(req.headers)}`, Number(process.env.LIMITE_INSCRIPTIONS) || 5, 3600, "Trop d'inscriptions depuis cette connexion. Réessayez dans une heure.");
-  const u = await accounts.register(await body());
+  const b = await body();
+  // Champ piège rempli : envoi automatique (robot). Refus sans détail.
+  if (b && typeof b.siteWeb === "string" && b.siteWeb.trim()) throw new AppError("Inscription impossible pour le moment.", 400, "refus");
+  if (b && typeof b === "object") delete b.siteWeb;
+  const u = await accounts.register(b);
   await campaign.recordAcquisition(u.id, await acquisition());
   return json({ ...(await startSession(u, req)), devCode: u.devCode }, 201);
 });
@@ -434,7 +438,10 @@ route("GET", "/admin/accompagnement", "Relais", "Écoles et bailleurs : mode acc
 route("POST", "/admin/etablissements/:id/accompagnement", "Relais", "Activer ou arrêter le mode accompagné d'une école", ["admin"], async ({ me, params, body }) => relais.setEstablishmentAssisted(me, params.id, !!(await body()).actif));
 route("POST", "/admin/bailleurs/:id/accompagnement", "Relais", "Activer ou arrêter le mode accompagné d'un bailleur", ["admin"], async ({ me, params, body }) => relais.setLandlordAssisted(me, params.id, !!(await body()).actif));
 // ---------------------------------------------------------------- Offres payantes des établissements
-route("POST", "/vu", "Audience", "Page vue (mesure d'audience sans cookie)", "public", async ({ req, user, body }) => { await audience.enregistrer(req, await body().catch(() => ({})), user ? { id: user.id, role: user.role } : null); return new Response(null, { status: 204 }); });
+route("POST", "/vu", "Audience", "Page vue (mesure d'audience sans cookie)", "public", async ({ req, user, body }) => {
+  // Statistiques non gonflables par un robot : 600 pages vues par heure et par adresse au plus (au-delà, ignorées).
+  try { await limiter(`vu:${ipClient(req.headers) || "inconnue"}`, 600, 3600, "trop"); } catch { return new Response(null, { status: 204 }); }
+  await audience.enregistrer(req, await body().catch(() => ({})), user ? { id: user.id, role: user.role } : null); return new Response(null, { status: 204 }); });
 route("GET", "/admin/audience", "Audience", "Statistiques d'audience (?periode=jour|7j|30j|12m&service=&pays=)", ["admin"], async ({ me, query }) => audience.statistiques(me, { periode: query.get("periode"), service: query.get("service"), pays: query.get("pays") }));
 route("GET", "/admin/audience/direct", "Audience", "Visiteurs en ce moment (pays, provenance, page, appareil, compte)", ["admin"], async ({ me }) => audience.direct(me));
 route("GET", "/admin/audience/export.csv", "Audience", "Export CSV de l'audience", ["admin"], async ({ me, query }) => file(new TextEncoder().encode("\uFEFF" + audience.csv(await audience.statistiques(me, { periode: query.get("periode"), service: query.get("service"), pays: query.get("pays") }))), "text/csv; charset=utf-8", `audience-${new Date().toISOString().slice(0, 10)}.csv`, false));
@@ -446,8 +453,9 @@ route("POST", "/admin/offres/abonnements", "Offres", "Activer ou prolonger un se
 route("POST", "/admin/offres/abonnements/:id/arreter", "Offres", "Arrêter un abonnement immédiatement", ["admin"], async ({ me, params }) => offres.cancel(me, params.id));
 route("GET", "/ecole/:eid/offre", "Établissement", "Mon offre : services actifs, historique, visibilité", ["etablissement", "admin"], async ({ me, params }) => offres.myOffer(me, params.eid));
 route("GET", "/partenaires", "Catalogue", "Écoles mises en avant (partenaires) en ce moment", "public", async () => json(await offres.partenaires()));  // no-store : jamais mis en cache par l'hébergeur (Varnish)
-route("POST", "/vitrine", "Catalogue", "Affichages et clics des écoles mises en avant (statistiques anonymes)", "public", async ({ body }) => {
+route("POST", "/vitrine", "Catalogue", "Affichages et clics des écoles mises en avant (statistiques anonymes)", "public", async ({ req, body }) => {
   const b = await body().catch(() => ({}));
+  try { await limiter(`vitrine:${ipClient(req.headers) || "inconnue"}`, 600, 3600, "trop"); } catch { return ok; }
   await offres.compterVitrine(Array.isArray(b.aff) ? b.aff.map(String) : [], b.clic ? String(b.clic) : null);
   return ok;
 });

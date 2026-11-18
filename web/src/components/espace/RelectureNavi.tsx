@@ -27,7 +27,7 @@ export function RelectureNavi({ texte, programmeId }: { texte: string; programme
       {r && (
         <div className="flex flex-col gap-3 rounded-2xl border border-brand-100 bg-brand-50/50 p-4">
           {r.avis && <p className="text-sm font-semibold text-ink">{r.avis}</p>}
-          <Bloc titre="Ce qui marche" icone={ThumbsUp} items={r.points_forts} teinte="text-[#0f8a46]" />
+          <Bloc titre="Ce qui marche" icone={ThumbsUp} items={r.points_forts} teinte="text-[#0b7a3d]" />
           <Bloc titre="À améliorer" icone={Lightbulb} items={r.a_ameliorer} teinte="text-[#8a4b00]" />
           <Bloc titre="Pour t'aider à écrire" icone={MessageCircleQuestion} items={r.questions} teinte="text-brand-700" />
         </div>

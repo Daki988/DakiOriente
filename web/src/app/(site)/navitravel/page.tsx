@@ -44,7 +44,7 @@ export default function NaviTravelPage() {
           </Reveal>
           <Reveal delay={0.15} className="card hidden flex-col gap-2.5 justify-self-end p-5 lg:flex lg:w-[300px]">
             <span className="text-xs font-extrabold tracking-wider text-ink-mute">TON VOYAGE</span>
-            {[[Plane, "Libreville → Casablanca"], [Stamp, "Visa étudiant"], [HandHelping, "Accueil à l'aéroport"]].map(([I, t]) => { const Ic = I as LucideIcon; return <span key={t as string} className="flex items-center gap-2.5 text-sm"><Ic size={17} style={{ color: s.c }} />{t as string}<CircleCheck size={17} className="ml-auto text-[#0f8a46]" /></span>; })}
+            {[[Plane, "Libreville → Casablanca"], [Stamp, "Visa étudiant"], [HandHelping, "Accueil à l'aéroport"]].map(([I, t]) => { const Ic = I as LucideIcon; return <span key={t as string} className="flex items-center gap-2.5 text-sm"><Ic size={17} style={{ color: s.c }} />{t as string}<CircleCheck size={17} className="ml-auto text-[#0b7a3d]" /></span>; })}
           </Reveal>
         </div>
       </section>

@@ -83,7 +83,7 @@ export function Login() {
         </form>
       )}
       <p className="text-center text-sm text-ink-mute">Pas encore de compte ? <Link href={`/inscription${params.get("suite") ? `?suite=${encodeURIComponent(params.get("suite")!)}` : ""}`} className="font-bold text-brand-600">Créer un compte gratuitement</Link></p>
-      <p className="flex items-center justify-center gap-1.5 text-xs text-ink-mute"><ShieldCheck size={14} className="text-[#0f8a46]" />Connexion chiffrée · tes données ne sont jamais revendues</p>
+      <p className="flex items-center justify-center gap-1.5 text-xs text-ink-mute"><ShieldCheck size={14} className="text-[#0b7a3d]" />Connexion chiffrée · tes données ne sont jamais revendues</p>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import { useApi } from "@/hooks/useApi";
 import { ConversationThread } from "@/components/espace/Conversation";
 
 type Conv = { id: string; subject: string; contextKind: string | null; contextId: string | null; lastMessageAt: string; unread: number; participants: { id: string; firstName: string; lastName: string; role: string }[]; last: { body: string } | null };
-const KIND: Record<string, [string, string]> = { application: ["Écoles", "bg-brand-50 text-brand-700"], booking: ["Logement", "bg-sun-100 text-[#a55a00]"], conseil: ["Conseiller", "bg-[#e8f8ef] text-[#0f8a46]"] };
+const KIND: Record<string, [string, string]> = { application: ["Écoles", "bg-brand-50 text-brand-700"], booking: ["Logement", "bg-sun-100 text-[#a55a00]"], conseil: ["Conseiller", "bg-[#e8f8ef] text-[#0b7a3d]"] };
 
 /** Messagerie (maquette 27) : liste filtrable + fil sélectionné. */
 export function Messages({ id }: { id?: string }) {

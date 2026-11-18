@@ -140,5 +140,5 @@ function Pieces({ row }: { row: AppRow }) {
   const req = row.p.requiredDocuments.length;
   const n = row.a.documentIds.length;
   const ok = row.a.status !== "piece_demandee" && n >= req;
-  return <span className={`chip ${ok ? "bg-[#e8f8ef] text-[#0f8a46]" : "bg-[#ffecef] text-[#d42a50]"}`} title={`${n} pièce${n > 1 ? "s" : ""} jointe${n > 1 ? "s" : ""}`}>{n}{req ? `/${Math.max(req, n)}` : ""}</span>;
+  return <span className={`chip ${ok ? "bg-[#e8f8ef] text-[#0b7a3d]" : "bg-[#ffecef] text-[#b8213f]"}`} title={`${n} pièce${n > 1 ? "s" : ""} jointe${n > 1 ? "s" : ""}`}>{n}{req ? `/${Math.max(req, n)}` : ""}</span>;
 }

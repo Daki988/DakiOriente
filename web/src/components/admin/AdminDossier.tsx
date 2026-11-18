@@ -76,8 +76,8 @@ export function AdminDossier({ id }: { id: string }) {
       <div className="grid items-start gap-5 [&>*]:min-w-0 xl:grid-cols-2">
         <Panel title="Identité et compte" icon={UserIcon}>
           <dl className="flex flex-col gap-2.5">
-            <Ligne k="E-mail" v={c.email && <>{c.email} {c.emailVerifie ? <span className="text-xs text-[#0f8a46]">✓ vérifié</span> : <span className="text-xs text-ink-mute">non vérifié</span>}</>} />
-            <Ligne k="Téléphone" v={c.telephone && <>{c.telephone} {c.telephoneVerifie ? <span className="text-xs text-[#0f8a46]">✓ vérifié</span> : <span className="text-xs text-ink-mute">non vérifié</span>}</>} />
+            <Ligne k="E-mail" v={c.email && <>{c.email} {c.emailVerifie ? <span className="text-xs text-[#0b7a3d]">✓ vérifié</span> : <span className="text-xs text-ink-mute">non vérifié</span>}</>} />
+            <Ligne k="Téléphone" v={c.telephone && <>{c.telephone} {c.telephoneVerifie ? <span className="text-xs text-[#0b7a3d]">✓ vérifié</span> : <span className="text-xs text-ink-mute">non vérifié</span>}</>} />
             <Ligne k="Année de naissance" v={c.anneeNaissance && `${c.anneeNaissance}${age != null && age < 18 ? " (mineur)" : ""}`} />
             <Ligne k="Inscrit le" v={date(c.inscritLe)} />
             <Ligne k="Dernière connexion" v={c.derniereConnexion ? new Date(c.derniereConnexion).toLocaleString("fr-FR", { dateStyle: "medium", timeStyle: "short" }) : "Jamais"} />
@@ -90,7 +90,7 @@ export function AdminDossier({ id }: { id: string }) {
             <dl className="flex flex-col gap-2.5">
               <Ligne k="Niveau" v={[p.niveau, p.serie && (serieById[p.serie]?.intitule ?? p.serie)].filter(Boolean).join(" · ")} />
               <Ligne k="Établissement actuel" v={p.etablissementActuel} />
-              <Ligne k="Résultats" v={p.moyenne != null && <>{p.moyenne.toLocaleString("fr-FR")}/20{p.mention ? ` · ${p.mention}` : ""}{p.anneeBac ? ` · bac ${p.anneeBac}` : ""} {p.moyenneVerifiee && <span className="text-xs text-[#0f8a46]">✓ vérifiée</span>}</>} />
+              <Ligne k="Résultats" v={p.moyenne != null && <>{p.moyenne.toLocaleString("fr-FR")}/20{p.mention ? ` · ${p.mention}` : ""}{p.anneeBac ? ` · bac ${p.anneeBac}` : ""} {p.moyenneVerifiee && <span className="text-xs text-[#0b7a3d]">✓ vérifiée</span>}</>} />
               <Ligne k="Métiers visés" v={p.metiersVises.map((m) => metierById[m]?.nom ?? m).join(" · ")} />
               <Ligne k="Projet" v={p.projet} />
               <Ligne k="Rentrée souhaitée" v={p.rentree} />

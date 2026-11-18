@@ -63,7 +63,7 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
         </motion.div>
       )}
       <div className="grid items-start gap-6 xl:grid-cols-[1fr_1fr_360px]">
-        <Panel title="Suivi du dossier" icon={ListChecks} action={<span className="chip bg-[#e8f8ef] text-[#0f8a46]">{steps.filter((s) => s.state === "done").length} / {steps.length} étapes</span>}>
+        <Panel title="Suivi du dossier" icon={ListChecks} action={<span className="chip bg-[#e8f8ef] text-[#0b7a3d]">{steps.filter((s) => s.state === "done").length} / {steps.length} étapes</span>}>
           <Timeline steps={steps} />
           {!asParent && !final && app.status !== "brouillon" && <button onClick={withdraw} className="self-start text-xs font-bold text-ink-mute underline">Me désister</button>}
         </Panel>
@@ -76,7 +76,7 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
                 <StatusBadge status={doc.status} />
               </a>
             ))}
-            {missing.map((t) => <div key={t} className="flex items-center gap-3 rounded-2xl border border-[#ffd0d9] p-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffecef] text-[#d42a50]"><AlertCircle size={18} /></span><b className="flex-1 text-sm">{pieces.find((x) => x.code === t)?.libelle ?? docLabel(t)}</b><span className="chip bg-[#ffecef] text-[#d42a50]">Manquante</span></div>)}
+            {missing.map((t) => <div key={t} className="flex items-center gap-3 rounded-2xl border border-[#ffd0d9] p-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffecef] text-[#b8213f]"><AlertCircle size={18} /></span><b className="flex-1 text-sm">{pieces.find((x) => x.code === t)?.libelle ?? docLabel(t)}</b><span className="chip bg-[#ffecef] text-[#b8213f]">Manquante</span></div>)}
             {!documents.length && !missing.length && <p className="text-sm text-ink-mute">Aucune pièce jointe.</p>}
           </Panel>
           <Panel title={`Messages avec ${e.sigle}`} icon={MessageCircle}>
@@ -110,7 +110,7 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
           )}
         </div>
       </div>
-      {a.error && <p className="mt-3 text-sm font-semibold text-[#d42a50]">{a.error}</p>}
+      {a.error && <p className="mt-3 text-sm font-semibold text-[#b8213f]">{a.error}</p>}
     </>
   );
 }

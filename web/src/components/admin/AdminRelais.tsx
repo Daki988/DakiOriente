@@ -40,7 +40,7 @@ export function AdminCandidatures() {
           <Select aria-label="Statut" value={f.statut} onChange={(e) => setF({ ...f, statut: e.target.value, page: 1 })} options={STATUTS} className="w-full sm:w-auto" />
           <Select aria-label="Pays" value={f.pays} onChange={(e) => setF({ ...f, pays: e.target.value, page: 1 })} options={[["", "Tous les pays"], ...PAYS_OPTS]} className="w-full sm:w-auto" />
           <Select aria-label="Géré par" value={f.gere} onChange={(e) => setF({ ...f, gere: e.target.value, page: 1 })} options={[["", "Géré par : tous"], ["navigoal", "Navigoal (accompagné)"], ["ecole", "École"]]} className="w-full sm:w-auto" />
-          <button onClick={() => setF({ ...f, attente: !f.attente, page: 1 })} className={`chip gap-1.5 px-3 py-2 ${f.attente ? "bg-[#d42a50] text-white" : "bg-[#ffecef] text-[#d42a50]"}`}><AlarmClock size={14} />En attente ≥ 3 j</button>
+          <button onClick={() => setF({ ...f, attente: !f.attente, page: 1 })} className={`chip gap-1.5 px-3 py-2 ${f.attente ? "bg-[#d42a50] text-white" : "bg-[#ffecef] text-[#b8213f]"}`}><AlarmClock size={14} />En attente ≥ 3 j</button>
         </div>
         <FormError error={a.error} />
         {r.error ? <LoadError error={r.error} reload={r.reload} /> : r.loading && !r.data ? <Loading /> : !r.data?.items.length ? <Empty icon={Inbox} title="Aucune candidature" /> : (
@@ -52,7 +52,7 @@ export function AdminCandidatures() {
                 { h: "École", c: (x) => <span className="flex items-center gap-2">{x.establishment.logo && <img src={x.establishment.logo} alt="" className="h-7 w-7 shrink-0 rounded-lg border border-slate-100 object-contain" />}<b>{x.establishment.sigle}</b></span> },
                 { h: "Formation", c: (x) => <span className="block max-w-[220px] truncate">{x.program}</span> },
                 { h: "Statut", c: (x) => <StatusBadge status={x.status} /> },
-                { h: "En attente", c: (x) => <b className={(x.attente ?? 0) >= 3 ? "text-[#d42a50]" : ""}>{x.attente == null ? "—" : `${x.attente} j`}</b> },
+                { h: "En attente", c: (x) => <b className={(x.attente ?? 0) >= 3 ? "text-[#b8213f]" : ""}>{x.attente == null ? "—" : `${x.attente} j`}</b> },
                 { h: "Géré par", c: (x) => x.establishment.assisted ? <Chip><LifeBuoy size={12} className="mr-1 inline" />Navigoal</Chip> : <Chip tone="grey"><Building2 size={12} className="mr-1 inline" />École</Chip> },
                 { h: <span className="sr-only">Actions</span>, className: "text-right", c: (x) => <span className="inline-flex flex-wrap justify-end gap-1.5"><Button size="sm" variant="ghost" onClick={() => ouvrir(x.id)}>Échanger</Button><Link href={`/etablissement/candidatures/${x.id}?eid=${x.establishment.id}`} className="btn-ghost px-3 py-2 text-[13px]">Dossier</Link></span> },
               ]}
@@ -119,12 +119,12 @@ export function AdminMessagerie() {
           {nouveau ? <NouveauMessage fermer={() => setNouveau(false)} ouvrir={(id) => { setNouveau(false); setType("direct"); setSel(id); list.reload(); }} />
             : <Button size="sm" icon={PenSquare} onClick={() => setNouveau(true)}>Nouveau message</Button>}
           <div className="flex gap-2"><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Rechercher un sujet…" aria-label="Rechercher" className="py-2" />
-            <button onClick={() => setAttente(!attente)} title="Dernier message du candidat sans réponse" className={`chip shrink-0 px-3 ${attente ? "bg-[#d42a50] text-white" : "bg-[#ffecef] text-[#d42a50]"}`}><Timer size={14} /></button></div>
+            <button onClick={() => setAttente(!attente)} title="Dernier message du candidat sans réponse" className={`chip shrink-0 px-3 ${attente ? "bg-[#d42a50] text-white" : "bg-[#ffecef] text-[#b8213f]"}`}><Timer size={14} /></button></div>
           {list.loading && !list.data ? <Loading /> : !list.data?.items.length ? <p className="py-6 text-center text-sm text-ink-mute">Aucun échange.</p> : (
             <ul className="-mx-2 flex max-h-[65vh] flex-col gap-1.5 overflow-y-auto px-2">
               {list.data.items.map((c) => (
                 <li key={c.id}><button onClick={() => setSel(c.id)} className={`w-full rounded-2xl border p-3 text-left ${sel === c.id ? "border-[#c9d6ff] bg-brand-50" : "border-[#eef1f8] hover:bg-[#f6f8fe]"}`}>
-                  <span className="flex justify-between gap-2"><b className="truncate text-[13.5px]">{c.participants.filter((p) => p.role !== "admin").map((p) => p.firstName).slice(0, 3).join(" ↔ ")}</b><span className={`shrink-0 text-xs font-bold ${c.enAttente && (c.jours ?? 0) >= 1 ? "text-[#d42a50]" : "text-ink-mute"}`}>{since(c.lastMessageAt)}</span></span>
+                  <span className="flex justify-between gap-2"><b className="truncate text-[13.5px]">{c.participants.filter((p) => p.role !== "admin").map((p) => p.firstName).slice(0, 3).join(" ↔ ")}</b><span className={`shrink-0 text-xs font-bold ${c.enAttente && (c.jours ?? 0) >= 1 ? "text-[#b8213f]" : "text-ink-mute"}`}>{since(c.lastMessageAt)}</span></span>
                   <span className="block truncate text-xs text-ink-mute">{c.subject}</span>
                   {c.last && <span className="mt-1 block truncate text-xs">{c.last.on_behalf_of && c.last.role === "admin" ? "Navigoal : " : ""}{c.last.body}</span>}
                 </button></li>
@@ -192,7 +192,7 @@ function DossierRelais({ ctx, onDone }: { ctx: Extract<Ctx, { type: "application
       <div className="flex flex-wrap gap-1.5"><StatusBadge status={ctx.application.status} />{ok ? <Chip><LifeBuoy size={12} className="mr-1 inline" />Accompagné</Chip> : <Chip tone="grey">École autonome</Chip>}</div>
       <p className="text-sm"><b>{ctx.application.programme}</b><span className="block text-xs text-ink-mute">{ctx.establishment.nom} · envoyée le {dateFr(ctx.application.submittedAt)}</span></p>
       <div><b className="text-[12px] uppercase text-ink-mute">Pièces</b>
-        <ul className="mt-1.5 flex flex-col gap-1 text-[13px]">{ctx.documents.map((d) => <li key={d.id} className="flex justify-between">{d.label ?? DOC_TYPES.find(([k]) => k === d.type)?.[1] ?? d.type}<CheckCircle2 size={15} className={d.status === "refuse" ? "text-[#d42a50]" : "text-[#0f8a46]"} /></li>)}{!ctx.documents.length && <li className="text-ink-mute">Aucune pièce jointe.</li>}</ul></div>
+        <ul className="mt-1.5 flex flex-col gap-1 text-[13px]">{ctx.documents.map((d) => <li key={d.id} className="flex justify-between">{d.label ?? DOC_TYPES.find(([k]) => k === d.type)?.[1] ?? d.type}<CheckCircle2 size={15} className={d.status === "refuse" ? "text-[#b8213f]" : "text-[#0b7a3d]"} /></li>)}{!ctx.documents.length && <li className="text-ink-mute">Aucune pièce jointe.</li>}</ul></div>
       <Field label="Note (envoyée au candidat avec le statut)">{(id) => <Input id={id} value={note} onChange={(e) => setNote(e.target.value)} />}</Field>
       <div className="flex flex-col gap-2">
         <b className="text-[12px] uppercase text-ink-mute">Agir au nom de l&apos;école</b>
@@ -249,7 +249,7 @@ export function AdminAccompagnement() {
               {!r.data.bailleurs.length ? <p className="text-sm text-ink-mute">Aucun bailleur.</p> : (
                 <ul className="divide-y divide-[#eef1f8]">{r.data.bailleurs.map((b) => (
                   <li key={b.id} className="flex items-center gap-3 py-3">
-                    <span className="min-w-0 flex-1"><b className="text-sm">{b.company ?? `${b.firstName} ${b.lastName}`}</b><span className="block text-xs text-ink-mute">{b.city ?? ""} · {b.annonces} annonce{b.annonces > 1 ? "s" : ""} · <span className={b.demandes ? "font-bold text-[#d42a50]" : ""}>{b.demandes} demande{b.demandes > 1 ? "s" : ""} en attente</span></span></span>
+                    <span className="min-w-0 flex-1"><b className="text-sm">{b.company ?? `${b.firstName} ${b.lastName}`}</b><span className="block text-xs text-ink-mute">{b.city ?? ""} · {b.annonces} annonce{b.annonces > 1 ? "s" : ""} · <span className={b.demandes ? "font-bold text-[#b8213f]" : ""}>{b.demandes} demande{b.demandes > 1 ? "s" : ""} en attente</span></span></span>
                     <Toggle on={b.assisted} label={`Mode accompagné ${b.firstName}`} onChange={(v) => basculer(`/admin/bailleurs/${b.id}/accompagnement`, v, v ? "Mode accompagné activé" : "Mode accompagné désactivé")} />
                   </li>))}</ul>
               )}

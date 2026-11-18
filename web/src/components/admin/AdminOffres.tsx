@@ -83,7 +83,7 @@ export function AdminOffres() {
       </div>
       <Panel>
         <div className="flex flex-wrap items-center gap-2">
-          {FILTRES.map(([k, t]) => <button key={k} onClick={() => setFiltre(k)} className={`chip px-3 py-2 ${filtre === k ? "bg-brand-600 text-white" : k === "expire_bientot" ? "bg-[#ffecef] text-[#d42a50]" : "bg-[#eef1f8] text-ink-soft"}`}>{t}</button>)}
+          {FILTRES.map(([k, t]) => <button key={k} onClick={() => setFiltre(k)} className={`chip px-3 py-2 ${filtre === k ? "bg-brand-600 text-white" : k === "expire_bientot" ? "bg-[#ffecef] text-[#b8213f]" : "bg-[#eef1f8] text-ink-soft"}`}>{t}</button>)}
           <div className="relative basis-full sm:ml-auto sm:basis-auto sm:min-w-[240px]"><Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-mute" /><Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Établissement, référence…" className="py-2 pl-10" aria-label="Rechercher" /></div>
         </div>
         <Table

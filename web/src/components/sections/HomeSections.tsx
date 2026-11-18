@@ -14,7 +14,7 @@ import { photo, photoFormation } from "@/lib/photos";
 
 const CATEGORIES = [
   { href: "/metiers", Icon: Briefcase, bg: "#eef4ff", fg: "#1a47f5", t: "Métiers", s: "Découvre les métiers qui te ressemblent." },
-  { href: "/formations", Icon: FileCheck2, bg: "#fff3e3", fg: "#e2701b", t: "Formations", s: "Trouve la formation adaptée à ton projet." },
+  { href: "/formations", Icon: FileCheck2, bg: "#fff3e3", fg: "#a55a00", t: "Formations", s: "Trouve la formation adaptée à ton projet." },
   { href: "/etablissements", Icon: Landmark, bg: "#f1edff", fg: "#6a3df0", t: "Établissements", s: `Compare et choisis ton école ${PAYS_ACTIFS_TEXTE}.` },
   { href: "/orientation", Icon: Compass, bg: "#eaf1ff", fg: "#1336e0", t: "Orientation", s: "Fais le test et obtiens des recommandations." },
 ];
@@ -57,7 +57,7 @@ export function StatsBand() {
 
 const ETAPES = [
   { Icon: UserRound, bg: "#eaf1ff", fg: "#1a47f5", t: "Découvre ton profil", s: "Fais le test d'orientation et connais tes forces.", href: "/orientation" },
-  { Icon: Search, bg: "#fff3e3", fg: "#e2701b", t: "Explore les métiers", s: "Missions, compétences et formations qui y mènent.", href: "/metiers" },
+  { Icon: Search, bg: "#fff3e3", fg: "#a55a00", t: "Explore les métiers", s: "Missions, compétences et formations qui y mènent.", href: "/metiers" },
   { Icon: GraduationCap, bg: "#e8f8ef", fg: "#0f8a46", t: "Trouve une formation", s: `${CHIFFRES.formations} formations proposées ${PAYS_ACTIFS_TEXTE}.`, href: "/formations" },
   { Icon: Landmark, bg: "#f1edff", fg: "#6a3df0", t: "Choisis un établissement", s: "Compare labels, campus, frais et logement.", href: "/comparateur" },
   { Icon: FileCheck2, bg: "#ffecef", fg: "#d42a50", t: "Candidate", s: "Constitue ton dossier en ligne et suis son évolution.", href: "/inscription" },
@@ -66,7 +66,7 @@ export function Parcours() {
   return (
     <section className="container mt-16 sm:mt-20">
       <Reveal className="flex flex-col items-center gap-2 text-center">
-        <h2 className="h-section">Un accompagnement à <span className="text-sun-500">chaque étape</span></h2>
+        <h2 className="h-section">Un accompagnement à <span className="text-[#d07400]">chaque étape</span></h2>
         <p className="max-w-2xl text-ink-mute">De la découverte de ton profil à ton admission, Navigoal t&apos;accompagne tout au long de ton parcours.</p>
       </Reveal>
       <div className="relative mt-10">

@@ -27,7 +27,7 @@ export function Documents() {
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600"><FileText size={18} /></span>
                   <a href={apiUrl(`/documents/${d.id}/fichier`)} target="_blank" className="min-w-0 flex-1"><b className="block text-sm">{docLabel(d.type)}</b><span className="block truncate text-xs text-ink-mute">{d.fileName} · {(d.size / 1024).toFixed(0)} Ko · {dateFr(d.createdAt)}</span></a>
                   <StatusBadge status={d.status} />
-                  <button onClick={() => remove(d)} className="flex h-9 w-9 items-center justify-center rounded-lg text-ink-mute hover:bg-[#fff1f3] hover:text-[#d42a50]" aria-label={`Supprimer ${d.fileName}`}><Trash2 size={16} /></button>
+                  <button onClick={() => remove(d)} className="flex h-9 w-9 items-center justify-center rounded-lg text-ink-mute hover:bg-[#fff1f3] hover:text-[#b8213f]" aria-label={`Supprimer ${d.fileName}`}><Trash2 size={16} /></button>
                 </div>
               ))}
             </div>
@@ -38,7 +38,7 @@ export function Documents() {
             <FileDrop types={DOC_TYPES} onUploaded={(d) => { setData([d, ...(data ?? [])]); toast("Document déposé"); }} />
           </Panel>
           <Panel title="Pièces essentielles">
-            {ESSENTIELS.map((t) => <div key={t} className="flex items-center justify-between text-sm"><span>{docLabel(t)}</span>{have.has(t) ? <span className="chip bg-[#e8f8ef] text-[#0f8a46]">Déposé</span> : <span className="chip bg-[#eef1f8] text-ink-mute">À déposer</span>}</div>)}
+            {ESSENTIELS.map((t) => <div key={t} className="flex items-center justify-between text-sm"><span>{docLabel(t)}</span>{have.has(t) ? <span className="chip bg-[#e8f8ef] text-[#0b7a3d]">Déposé</span> : <span className="chip bg-[#eef1f8] text-ink-mute">À déposer</span>}</div>)}
             <Alert tone="info">Fichiers chiffrés en transit, visibles uniquement par toi, tes parents liés et les établissements auxquels tu candidates.</Alert>
           </Panel>
         </div>

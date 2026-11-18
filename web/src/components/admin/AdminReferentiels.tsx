@@ -96,7 +96,7 @@ export function AdminReferentiels() {
                       <td className="px-5 py-3 text-right sm:px-6">
                         <div className="flex justify-end gap-1.5">
                           <button onClick={() => setEdit({ item: structuredClone(it), isNew: false })} aria-label={`Modifier ${it.id}`} className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f3f5fb] text-ink-soft hover:bg-[#e8ecf8]"><Pencil size={15} /></button>
-                          <button onClick={() => { delAct.setError(null); setDel(it); }} aria-label={`Supprimer ${it.id}`} className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f3f5fb] text-[#d42a50] hover:bg-[#ffecef]"><Trash2 size={15} /></button>
+                          <button onClick={() => { delAct.setError(null); setDel(it); }} aria-label={`Supprimer ${it.id}`} className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f3f5fb] text-[#b8213f] hover:bg-[#ffecef]"><Trash2 size={15} /></button>
                         </div>
                       </td>
                     </tr>
@@ -196,11 +196,11 @@ function EditDrawer({ nom, edit, onClose, onSaved }: { nom: Ref; edit: { item: I
               </div>
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="ref-json" className="flex items-center justify-between text-[13px] font-bold">Élément complet (JSON)
-                  {jsonErr ? <span className="flex items-center gap-1 text-xs text-[#d42a50]"><AlertCircle size={13} />Invalide</span> : <span className="flex items-center gap-1 text-xs text-[#0f8a46]"><CheckCircle2 size={13} />JSON valide</span>}
+                  {jsonErr ? <span className="flex items-center gap-1 text-xs text-[#b8213f]"><AlertCircle size={13} />Invalide</span> : <span className="flex items-center gap-1 text-xs text-[#0b7a3d]"><CheckCircle2 size={13} />JSON valide</span>}
                 </label>
                 <textarea id="ref-json" value={text} onChange={(e) => onJson(e.target.value)} spellCheck={false} aria-invalid={!!jsonErr} aria-describedby="ref-json-msg"
                   className={`input min-h-[280px] resize-y font-mono text-[12px] leading-relaxed ${jsonErr ? "!border-[#d42a50] focus:!ring-[#ffd0d9]" : ""}`} />
-                <span id="ref-json-msg" className={`text-xs ${jsonErr ? "font-semibold text-[#d42a50]" : "text-ink-mute"}`}>{jsonErr ?? "Les champs ci-dessus et le JSON restent synchronisés. Les listes (métiers, compétences, séries…) s'éditent ici."}</span>
+                <span id="ref-json-msg" className={`text-xs ${jsonErr ? "font-semibold text-[#b8213f]" : "text-ink-mute"}`}>{jsonErr ?? "Les champs ci-dessus et le JSON restent synchronisés. Les listes (métiers, compétences, séries…) s'éditent ici."}</span>
               </div>
               <FormError error={act.error} />
             </div>
@@ -263,7 +263,7 @@ function Import({ nom, onDone }: { nom: Ref; onDone: () => void }) {
         <span className="text-xs text-ink-mute">JSON : tableau ou {"{ items: [...] }"} · CSV : séparateur « ; », listes séparées par « | »</span>
       </button>
       <input ref={input} type="file" accept=".json,.csv,application/json,text/csv" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) pick(f); }} aria-label="Fichier à importer" />
-      {localErr && <p className="text-xs font-semibold text-[#d42a50]" role="alert">{localErr}</p>}
+      {localErr && <p className="text-xs font-semibold text-[#b8213f]" role="alert">{localErr}</p>}
       {preview && !localErr && (
         <div className="flex flex-col gap-2 rounded-2xl bg-[#f6f8fc] p-3.5 text-sm">
           <span><b>{preview.n}</b> élément{preview.n > 1 ? "s" : ""} détecté{preview.n > 1 ? "s" : ""} · les identifiants existants seront mis à jour, les nouveaux créés.</span>

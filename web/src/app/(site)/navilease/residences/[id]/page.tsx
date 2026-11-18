@@ -17,7 +17,7 @@ export const generateMetadata = async (props: { params: Promise<{ id: string }> 
   const params = await props.params;
   const r = residenceById[params.id];
   if (!r) return {};
-  const title = `${r.nom} (${r.ville}) : loyers et réservation`;
+  const title = `${r.nom}${r.nom.includes(r.ville) ? "" : ` (${r.ville})`} : loyers`;
   const description = `${r.nom}, résidence étudiante à ${r.ville}${r.a_partir_de ? ` dès ${r.a_partir_de.toLocaleString("fr-FR")} DH par mois` : ""} : photos, logements, services inclus et réservation sur ${domaine(r.reservation.url)}.`;
   return { title, description, alternates: { canonical: `/navilease/residences/${r.id}/` }, openGraph: { title, description, images: r.photos[0] ? [r.photos[0].src] : undefined } };
 };
@@ -44,7 +44,7 @@ export default async function ResidencePage(props: { params: Promise<{ id: strin
         <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-end">
           <div className="min-w-0"><h1 className="text-3xl font-extrabold tracking-tight sm:text-[40px]">{r.nom}</h1>
             <p className="mt-1 flex items-start gap-1.5 text-ink-soft"><MapPin size={16} className="mt-1 shrink-0" />{r.adresse}, {r.ville} · {r.operateur}</p></div>
-          <div className="flex flex-wrap gap-2">{r.statut && <span className="chip bg-[#ffecef] text-[#d42a50]">{r.statut}</span>}{reservee(r) && <span className="chip bg-[#f1edff] text-[#6a3df0]"><GraduationCap size={13} />Étudiants UM6SS</span>}<ChipOfficiel r={r} /></div>
+          <div className="flex flex-wrap gap-2">{r.statut && <span className="chip bg-[#ffecef] text-[#b8213f]">{r.statut}</span>}{reservee(r) && <span className="chip bg-[#f1edff] text-[#6a3df0]"><GraduationCap size={13} />Étudiants UM6SS</span>}<ChipOfficiel r={r} /></div>
         </div>
 
         <GalerieResidence photos={ph} nom={r.nom} />
@@ -68,7 +68,7 @@ export default async function ResidencePage(props: { params: Promise<{ id: strin
             </section>
             <section className="flex flex-col gap-3">
               <h2 className="text-xl font-extrabold">Compris dans le loyer</h2>
-              <div className="flex flex-wrap gap-2">{r.inclus.map((t) => <span key={t} className="chip bg-[#e8f8ef] py-1.5 text-[#0f8a46]"><Check size={13} />{t}</span>)}</div>
+              <div className="flex flex-wrap gap-2">{r.inclus.map((t) => <span key={t} className="chip bg-[#e8f8ef] py-1.5 text-[#0b7a3d]"><Check size={13} />{t}</span>)}</div>
             </section>
             {(r.proximite.length > 0 || ecoles.length > 0) && (
               <section className="flex flex-col gap-3">

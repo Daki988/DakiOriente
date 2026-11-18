@@ -64,7 +64,7 @@ export function AdminAccreditations() {
         <li key={k} className="py-2.5 text-sm">
           <div className="flex flex-wrap items-start gap-2">
             <div className="min-w-0 flex-1"><b>{l.filiere}</b>{l.composante && <span className="text-ink-mute"> · {l.composante}</span>}<span className="block text-xs text-ink-mute">{l.etablissement} · échéance {l.fin}{l.retrait_prevu ? ` · retrait prévu à la ${rentree(l.retrait_prevu)}` : ""} · {l.texte}</span></div>
-            {l.renouvellement ? <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><BadgeCheck size={13} />Renouvelée jusqu&apos;en {l.renouvellement.fin}{l.renouvellement.reporte ? "" : " · site public bientôt à jour"}</span>
+            {l.renouvellement ? <span className="chip bg-[#e8f8ef] text-[#0b7a3d]"><BadgeCheck size={13} />Renouvelée jusqu&apos;en {l.renouvellement.fin}{l.renouvellement.reporte ? "" : " · site public bientôt à jour"}</span>
               : avecAction && <Button variant="ghost" size="sm" onClick={() => setOuvert(ouvert === k ? null : k)}>Renouvellement publié</Button>}
           </div>
           {ouvert === k && <FormRenouvellement l={l} fini={() => { setOuvert(null); v.reload(); }} />}

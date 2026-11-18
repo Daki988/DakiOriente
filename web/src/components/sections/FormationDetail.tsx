@@ -91,13 +91,13 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
                   <span className="chip bg-brand-50 text-brand-700"><GraduationCap size={12} />{niveauLabel(f.niveau)}</span>
                   <span className="chip bg-[#f6f8fe] text-ink-soft"><Clock size={12} />{f.duree_annees} ans</span>
                   {label && e && <LabelChip label={label} court pays={e.pays} libelle={campus?.label_libelle ?? e.label_libelle} />}
-                  <span className="chip bg-[#e8f8ef] text-[#0f8a46]" title={`Estimation selon ton profil d'intérêts ${profil.join("+")}`}><Sparkles size={12} />{score} % compatible</span>
+                  <span className="chip bg-[#e8f8ef] text-[#0b7a3d]" title={`Estimation selon ton profil d'intérêts ${profil.join("+")}`}><Sparkles size={12} />{score} % compatible</span>
                 </div>
               </div>
             </div>
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row lg:flex-col">
               <Link href={candidater} className="btn-primary btn-shine">Candidater maintenant <ArrowRight size={16} /></Link>
-              <motion.button whileTap={{ scale: 0.95 }} onClick={toggleFav} aria-pressed={fav} className={`btn border ${fav ? "border-[#ffc5cf] bg-[#ffecef] text-[#d42a50]" : "border-brand-200 bg-white text-brand-700"}`}>
+              <motion.button whileTap={{ scale: 0.95 }} onClick={toggleFav} aria-pressed={fav} className={`btn border ${fav ? "border-[#ffc5cf] bg-[#ffecef] text-[#b8213f]" : "border-brand-200 bg-white text-brand-700"}`}>
                 <Heart size={16} fill={fav ? "currentColor" : "none"} />{fav ? "Dans mes favoris" : "Ajouter aux favoris"}
               </motion.button>
             </div>
@@ -122,7 +122,7 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
                   <p className="leading-relaxed text-ink-soft">{f.intitule} : {f.diplome.toLowerCase()} du domaine « {domaineById[f.domaine].libelle.toLowerCase()} », préparé en {f.duree_annees} an{f.duree_annees > 1 ? "s" : ""} (niveau {niveauLabel(f.niveau)}). Elle prépare notamment aux métiers de {f.metiers.slice(0, 3).map((m) => metierById[m]?.nom.toLowerCase()).filter(Boolean).join(", ")}.</p>
                   <p className="leading-relaxed text-ink-soft">Elle est proposée par <b className="text-ink">{etabs.length} établissement{etabs.length > 1 ? "s" : ""}</b> privé{etabs.length > 1 ? "s" : ""} référencé{etabs.length > 1 ? "s" : ""} sur Navigoal{Array.from(new Set(etabs.map((x) => x.pays))).length ? ` (${Array.from(new Set(etabs.map((x) => x.pays))).map((c) => `${etabs.filter((x) => x.pays === c).length} ${auPays(c)}`).join(", ")})` : ""}.</p>
                   <h3 className="mt-1 text-lg font-extrabold">Objectifs</h3>
-                  {f.competences.map((c) => <span key={c} className="flex items-start gap-2.5 text-ink-soft"><CircleCheck size={18} className="mt-0.5 shrink-0 text-[#0f8a46]" />Maîtriser : {competenceLabel(c).toLowerCase()}</span>)}
+                  {f.competences.map((c) => <span key={c} className="flex items-start gap-2.5 text-ink-soft"><CircleCheck size={18} className="mt-0.5 shrink-0 text-[#0b7a3d]" />Maîtriser : {competenceLabel(c).toLowerCase()}</span>)}
                 </div>
               )}
               {tab === "Conditions d'admission" && (
@@ -132,7 +132,7 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
                   {site?.admission && ((site.admission.conditions?.length ?? 0) + (site.admission.etapes?.length ?? 0) > 0) && (
                     <div className="flex flex-col gap-1.5 rounded-2xl bg-[#f6f8fe] p-4 text-sm text-ink-soft">
                       <b className="text-ink">Selon {e.sigle || e.nom} (site officiel)</b>
-                      {[...(site.admission.conditions ?? []), ...(site.admission.etapes ?? [])].slice(0, 8).map((t) => <span key={t} className="flex items-start gap-2"><Check size={15} className="mt-0.5 shrink-0 text-[#0f8a46]" />{t}</span>)}
+                      {[...(site.admission.conditions ?? []), ...(site.admission.etapes ?? [])].slice(0, 8).map((t) => <span key={t} className="flex items-start gap-2"><Check size={15} className="mt-0.5 shrink-0 text-[#0b7a3d]" />{t}</span>)}
                       {site.admission.dates && <span><b>Calendrier :</b> {site.admission.dates}</span>}
                     </div>
                   )}
@@ -151,7 +151,7 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
                       <span className="text-xs text-ink-mute">{[x.diplome, x.duree_annees ? `${x.duree_annees} an${x.duree_annees > 1 ? "s" : ""}` : null, x.campus?.length ? `campus : ${x.campus.join(", ")}` : x.ville].filter(Boolean).join(" · ")}</span>
                       {x.homologation.statut === "echue" ? <span className="text-xs font-semibold text-[#a55a00]">Accréditation échue ({x.homologation.fin}) · diplôme d&apos;établissement</span>
                         : x.homologation.statut === "recente" ? <span className="text-xs font-semibold text-brand-700"><span className="chip mr-1 bg-brand-50 px-2 py-0.5 text-[11px] text-brand-700">Accrédité</span>échéance {x.homologation.fin}, renouvellement non encore publié au Bulletin officiel</span>
-                        : <span className="text-xs font-semibold text-[#0f8a46]">Accréditée par l&apos;État jusqu&apos;en {x.homologation.fin}</span>}
+                        : <span className="text-xs font-semibold text-[#0b7a3d]">Accréditée par l&apos;État jusqu&apos;en {x.homologation.fin}</span>}
                     </div>
                   ))}
                   {progs.map((p, k) => <div key={`${p.intitule}-${k}`} className="flex flex-col gap-1 rounded-2xl border border-[#eef1f8] p-4"><b>{p.intitule}</b>{p.specialites.length > 0 && <span className="text-sm text-ink-soft">Spécialités : {p.specialites.join(", ")}</span>}<span className="text-xs text-ink-mute">Présenté sur le site de l&apos;établissement{p.campus?.length ? ` · campus : ${p.campus.join(", ")}` : ""}</span></div>)}
@@ -163,7 +163,7 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
                   <h2 className="text-xl font-extrabold">Frais de scolarité et budget</h2>
                   {(site?.frais.length ?? 0) > 0 ? (
                     <div className="flex flex-col gap-2 rounded-2xl border border-[#cdeedd] bg-[#f3fbf6] p-4 text-sm">
-                      <b className="text-[#0f8a46]">Frais publiés par {e.sigle || "l'établissement"} (par cycle)</b>
+                      <b className="text-[#0b7a3d]">Frais publiés par {e.sigle || "l'établissement"} (par cycle)</b>
                       {site!.frais.map((x) => <div key={x.cycle} className="flex flex-col justify-between gap-1 border-b border-[#dff3e7] pb-2 last:border-0 sm:flex-row sm:gap-3"><span className="text-ink-soft">{x.cycle}</span><b className="sm:text-right">{x.scolarite_annuelle_mad ? <Prix mad={x.scolarite_annuelle_mad} suffixe="/an" /> : "—"}{x.inscription_mad ? <span className="block text-xs font-semibold text-ink-mute">+ inscription <Prix mad={x.inscription_mad} /></span> : null}</b></div>)}
                     </div>
                   ) : typ && (
@@ -217,7 +217,7 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
           <div className="card flex flex-col gap-4 rounded-[22px] p-5">
             <h2 className="text-lg font-extrabold">Informations clés</h2>
             {infos.map(([I, a, b]) => <div key={a} className="flex items-start gap-3"><span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600"><I size={17} /></span><span className="min-w-0 text-sm"><span className="block text-xs text-ink-mute">{a}</span><b>{b}</b></span></div>)}
-            <div className="flex items-start gap-3"><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${label === "autorise" ? "bg-sun-100 text-[#a55a00]" : "bg-[#e8f8ef] text-[#0f8a46]"}`}>{label === "autorise" ? <ShieldAlert size={17} /> : <BadgeCheck size={17} />}</span><span className="text-sm"><span className="block text-xs text-ink-mute">Label</span><b>{label ? (pays === "MA" ? labelById[label].libelle : e?.label_libelle ?? labelPays(label, pays)) : "—"}</b>{statut && <span className="block text-xs text-ink-mute">{statut.statut === "echue" ? `Accréditation échue (${statut.fin})` : pays === "MA" ? `Filière accréditée · échéance ${statut.fin}` : statut.fin === "—" ? statut.texte : `Programme reconnu · valable jusqu'en ${statut.fin}`}</span>}</span></div>
+            <div className="flex items-start gap-3"><span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${label === "autorise" ? "bg-sun-100 text-[#a55a00]" : "bg-[#e8f8ef] text-[#0b7a3d]"}`}>{label === "autorise" ? <ShieldAlert size={17} /> : <BadgeCheck size={17} />}</span><span className="text-sm"><span className="block text-xs text-ink-mute">Label</span><b>{label ? (pays === "MA" ? labelById[label].libelle : e?.label_libelle ?? labelPays(label, pays)) : "—"}</b>{statut && <span className="block text-xs text-ink-mute">{statut.statut === "echue" ? `Accréditation échue (${statut.fin})` : pays === "MA" ? `Filière accréditée · échéance ${statut.fin}` : statut.fin === "—" ? statut.texte : `Programme reconnu · valable jusqu'en ${statut.fin}`}</span>}</span></div>
             <Link href={candidater} className="btn-primary btn-shine w-full">Candidater <ArrowRight size={16} /></Link>
           </div>
           <div className="card flex flex-col gap-2.5 bg-gradient-to-br from-white to-[#fff7dd] p-5">

@@ -62,7 +62,7 @@ export function OrientationTest() {
           <span className="text-[13px] font-extrabold uppercase tracking-[.16em] text-brand-600">Test d&apos;orientation · Lycée</span>
           <h1 className="h-section">Découvre ton profil et les métiers qui te correspondent</h1>
           <p className="leading-relaxed text-ink-soft">{QUESTIONS.length} questions rapides sur tes goûts et ta façon de travailler. Ton résultat : un profil visuel (modèle RIASEC), des domaines, des métiers et des formations recommandés au Gabon, au Maroc et au Sénégal.</p>
-          <div className="flex flex-wrap gap-3 text-sm font-semibold text-ink-soft"><span className="chip bg-brand-50 text-brand-700"><Timer size={14} /> 5 minutes</span><span className="chip bg-[#e8f8ef] text-[#0f8a46]"><Check size={14} /> Gratuit</span><span className="chip bg-sun-100 text-[#a55a00]">Pas de mauvaise réponse</span></div>
+          <div className="flex flex-wrap gap-3 text-sm font-semibold text-ink-soft"><span className="chip bg-brand-50 text-brand-700"><Timer size={14} /> 5 minutes</span><span className="chip bg-[#e8f8ef] text-[#0b7a3d]"><Check size={14} /> Gratuit</span><span className="chip bg-sun-100 text-[#a55a00]">Pas de mauvaise réponse</span></div>
           <button onClick={() => setStep("test")} className="btn-primary btn-shine self-start px-7 py-4 text-base">Commencer le test <ArrowRight size={18} /></button>
         </div>
       </motion.div>
@@ -170,7 +170,7 @@ export function OrientationTest() {
               <Link href={`/metiers/${m.id}/`} className="flex items-center gap-3 rounded-2xl border border-[#eef1f8] p-3 transition hover:border-brand-200 hover:bg-brand-50/40">
                 {(() => { const st = domStyle(m.domaine); const I = st.icon; return <span className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-xl text-white" style={{ background: st.solid }}><I size={20} /></span>; })()}
                 <span className="flex-1"><b className="block text-sm">{m.nom}</b><span className="text-xs text-ink-mute">{m.formations.length} formation{m.formations.length > 1 ? "s" : ""} · {niveauLabel(m.niveau_min)} · {m.riasec.join("·")}</span></span>
-                <span className="chip bg-[#e8f8ef] text-[#0f8a46]">{pct(s) - k} %</span>
+                <span className="chip bg-[#e8f8ef] text-[#0b7a3d]">{pct(s) - k} %</span>
               </Link>
             </motion.div>
           ))}
@@ -184,7 +184,7 @@ export function OrientationTest() {
                 <Link href={`/formations/${f}/?etab=${e}`} className="flex items-center gap-3 rounded-2xl border border-[#eef1f8] p-3 transition hover:border-brand-200 hover:bg-brand-50/40">
                   <EtabLogo e={etabById[e]} size={46} />
                   <span className="min-w-0 flex-1"><b className="block truncate text-sm">{formationById[f].intitule}</b><span className="text-xs text-ink-mute">{etabById[e].sigle} · {etabById[e].ville.split("(")[0]}</span></span>
-                  <span className="chip bg-[#e8f8ef] text-[#0f8a46]">{s} %</span>
+                  <span className="chip bg-[#e8f8ef] text-[#0b7a3d]">{s} %</span>
                 </Link>
               </motion.div>
             ))}

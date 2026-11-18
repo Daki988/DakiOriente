@@ -67,7 +67,7 @@ export default async function PaysDetailPage(props: { params: Promise<{ code: st
           <section className="flex flex-col gap-4">
             <span className="eyebrow">Pourquoi {auPays(code).startsWith("en ") ? "la" : "le"} {P.nom} ?</span>
             <Stagger className="grid gap-3.5 sm:grid-cols-2">
-              {P.pourquoi.map((t) => <StaggerItem key={t} className="card flex h-full items-start gap-3 rounded-[18px] p-[18px]"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#e8f8ef] text-[#0f8a46]"><Check size={20} strokeWidth={3} /></span><span className="text-sm leading-relaxed text-ink-soft">{t}</span></StaggerItem>)}
+              {P.pourquoi.map((t) => <StaggerItem key={t} className="card flex h-full items-start gap-3 rounded-[18px] p-[18px]"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#e8f8ef] text-[#0b7a3d]"><Check size={20} strokeWidth={3} /></span><span className="text-sm leading-relaxed text-ink-soft">{t}</span></StaggerItem>)}
             </Stagger>
           </section>
           <section className="flex flex-col gap-4">
@@ -87,7 +87,7 @@ export default async function PaysDetailPage(props: { params: Promise<{ code: st
           </section>
           {P.bourses.length > 0 && <section className="flex flex-col gap-4">
             <span className="eyebrow">Bourses et aides</span>
-            <Reveal className="card flex flex-col gap-2.5 rounded-[22px] p-6">{P.bourses.map((t) => <span key={t} className="flex items-start gap-2.5 text-sm text-ink-soft"><Check size={16} className="mt-0.5 shrink-0 text-[#0f8a46]" />{t}</span>)}</Reveal>
+            <Reveal className="card flex flex-col gap-2.5 rounded-[22px] p-6">{P.bourses.map((t) => <span key={t} className="flex items-start gap-2.5 text-sm text-ink-soft"><Check size={16} className="mt-0.5 shrink-0 text-[#0b7a3d]" />{t}</span>)}</Reveal>
           </section>}
         </div>
 

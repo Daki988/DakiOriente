@@ -44,13 +44,13 @@ export function Panel({ title, icon: I, action, children, className = "", tone }
 
 /** Indicateur. `trend` : variation en % par rapport à la période précédente (null = non calculable). */
 export function Kpi({ label, value, sub, icon: I, tone = "blue", trend }: { label: string; value: ReactNode; sub?: ReactNode; icon?: LucideIcon; tone?: "blue" | "sun" | "green" | "violet" | "rose"; trend?: number | null }) {
-  const t = { blue: "bg-brand-50 text-brand-600", sun: "bg-sun-100 text-[#a55a00]", green: "bg-[#e8f8ef] text-[#0f8a46]", violet: "bg-[#f1edff] text-[#6a3df0]", rose: "bg-[#ffecef] text-[#d42a50]" }[tone];
+  const t = { blue: "bg-brand-50 text-brand-600", sun: "bg-sun-100 text-[#a55a00]", green: "bg-[#e8f8ef] text-[#0b7a3d]", violet: "bg-[#f1edff] text-[#6a3df0]", rose: "bg-[#ffecef] text-[#b8213f]" }[tone];
   return (
     <div className="card flex min-w-0 flex-col gap-1 rounded-[20px] p-4 sm:gap-1.5 sm:p-5">
       {I && <span className={`mb-1 flex h-9 w-9 items-center justify-center rounded-xl sm:h-10 sm:w-10 ${t}`}><I size={18} /></span>}
       <span className="truncate text-[11px] font-bold uppercase text-ink-mute sm:text-xs">{label}</span>
       <b className="text-[22px] leading-tight sm:text-[26px]">{value}</b>
-      {trend != null && <span className={`text-xs font-bold ${trend > 0 ? "text-[#0f8a46]" : trend < 0 ? "text-[#d42a50]" : "text-ink-mute"}`}>{trend > 0 ? "▲ +" : trend < 0 ? "▼ " : "= "}{trend} %<span className="font-normal text-ink-mute"> vs période préc.</span></span>}
+      {trend != null && <span className={`text-xs font-bold ${trend > 0 ? "text-[#0b7a3d]" : trend < 0 ? "text-[#b8213f]" : "text-ink-mute"}`}>{trend > 0 ? "▲ +" : trend < 0 ? "▼ " : "= "}{trend} %<span className="font-normal text-ink-mute"> vs période préc.</span></span>}
       {sub && <span className="text-xs text-ink-mute">{sub}</span>}
     </div>
   );
@@ -82,7 +82,7 @@ export function Alert({ tone = "info", title, children, action }: { tone?: "info
 }
 
 // ---------------------------------------------------------------- Statuts
-const TONES = { blue: "bg-brand-50 text-brand-700", green: "bg-[#e8f8ef] text-[#0f8a46]", sun: "bg-sun-100 text-[#a55a00]", rose: "bg-[#ffecef] text-[#d42a50]", grey: "bg-[#eef1f8] text-ink-soft", violet: "bg-[#f1edff] text-[#6a3df0]" } as const;
+const TONES = { blue: "bg-brand-50 text-brand-700", green: "bg-[#e8f8ef] text-[#0b7a3d]", sun: "bg-sun-100 text-[#a55a00]", rose: "bg-[#ffecef] text-[#b8213f]", grey: "bg-[#eef1f8] text-ink-soft", violet: "bg-[#f1edff] text-[#6a3df0]" } as const;
 export type Tone = keyof typeof TONES;
 export const Chip = ({ tone = "blue", children, className = "" }: { tone?: Tone; children: ReactNode; className?: string }) => <span className={`chip ${TONES[tone]} ${className}`}>{children}</span>;
 

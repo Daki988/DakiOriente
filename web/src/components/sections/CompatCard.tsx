@@ -11,7 +11,7 @@ export function CompatCard({ riasec, niveau }: { riasec: string[]; niveau: strin
   return (
     <div className="card flex shrink-0 flex-col gap-1.5 rounded-[18px] px-5 py-4">
       <span className="text-xs font-bold text-ink-mute">COMPATIBILITÉ AVEC TON PROFIL</span>
-      {score !== null ? <b className="text-[34px] font-extrabold text-[#0f8a46]"><Counter to={score} suffix=" %" /></b> : <a href="/orientation" className="text-sm font-bold text-brand-600">Passe le test pour la connaître →</a>}
+      {score !== null ? <b className="text-[34px] font-extrabold text-[#0b7a3d]"><Counter to={score} suffix=" %" /></b> : <a href="/orientation" className="text-sm font-bold text-brand-600">Passe le test pour la connaître →</a>}
       <span className="text-xs text-ink-mute">Profil {riasec.join("·")} · {niveau}</span>
     </div>
   );

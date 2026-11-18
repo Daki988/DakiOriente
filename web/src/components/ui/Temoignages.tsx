@@ -73,7 +73,7 @@ export function TemoignagesMetier({ metier }: { metier: string }) {
           {autres.length > 0 && <p className="text-xs font-extrabold uppercase tracking-wide text-ink-mute">{propres.length ? "D'autres professionnels du domaine racontent" : "Dans des métiers proches"}</p>}
           <div className={propres.length ? "flex flex-col gap-3" : "grid grid-cols-1 gap-3 md:grid-cols-3"}>{autres.map((t) => <Mini key={t.id} t={t} />)}</div>
           <Link href="/temoignages/" className="btn-ghost self-start"><Library size={16} />Tous les témoignages</Link>
-          <p className="flex gap-2 rounded-2xl bg-[#f6f8fe] p-3.5 text-xs leading-relaxed text-ink-mute"><ShieldCheck size={15} className="mt-0.5 shrink-0 text-[#0f8a46]" /><span>{AVERTISSEMENT} <a href="mailto:contact@navigoal.net?subject=T%C3%A9moignage" className="font-bold text-brand-600">contact@navigoal.net</a></span></p>
+          <p className="flex gap-2 rounded-2xl bg-[#f6f8fe] p-3.5 text-xs leading-relaxed text-ink-mute"><ShieldCheck size={15} className="mt-0.5 shrink-0 text-[#0b7a3d]" /><span>{AVERTISSEMENT} <a href="mailto:contact@navigoal.net?subject=T%C3%A9moignage" className="font-bold text-brand-600">contact@navigoal.net</a></span></p>
         </div>
       </div>
     </section>

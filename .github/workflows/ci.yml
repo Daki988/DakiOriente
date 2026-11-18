@@ -74,6 +74,11 @@ jobs:
       - name: Audit de sécurité
         if: always()
         run: BASE=http://localhost:3000 OUT=/tmp/audit node scripts/audit-securite.mjs
+      # Avant publication : titres et descriptions (présents, uniques, longueur), image d'aperçu, canonique, h1,
+      # textes alternatifs, liens internes cassés, page 404, robots.txt et sitemap, sur toutes les pages du sitemap.
+      - name: Audit avant publication (référencement, liens, 404)
+        if: always()
+        run: BASE=http://localhost:3000 node scripts/audit-publication.mjs
       - name: Journal du serveur (en cas d'échec)
         if: failure()
         run: tail -200 /tmp/serveur.log || true

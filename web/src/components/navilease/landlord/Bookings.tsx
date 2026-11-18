@@ -97,7 +97,7 @@ function RequestPanel({ row, onDone }: { row: BookingRow; onDone: () => void }) 
       <div className="flex flex-wrap items-center gap-3">
         <Avatar name={tenant} size={52} />
         <div className="min-w-0 flex-1"><b className="text-xl">{tenant}</b><p className="text-sm text-ink-mute">{b.number} · reçue {dateFr(b.createdAt, true)}</p></div>
-        {d.data?.guarantor && <span className="chip bg-[#e8f8ef] text-[#0f8a46]">Garant : {d.data.guarantor.firstName}</span>}
+        {d.data?.guarantor && <span className="chip bg-[#e8f8ef] text-[#0b7a3d]">Garant : {d.data.guarantor.firstName}</span>}
       </div>
       <div className="grid grid-cols-2 gap-2.5 md:grid-cols-4">
         {[["Logement", row.h.title], ["Entrée", dateFr(b.startDate)], ["Durée", `${b.months} mois`], ["Montant séquestre", money(total, b.currency)]].map(([l, v]) => <div key={l} className="rounded-2xl border border-slate-200/70 p-3"><span className="block text-[11px] font-bold uppercase text-ink-mute">{l}</span><b className="block truncate text-sm">{v}</b></div>)}
@@ -112,7 +112,7 @@ function RequestPanel({ row, onDone }: { row: BookingRow; onDone: () => void }) 
       {b.status === "demande" ? (
         <div className="flex flex-col gap-2.5 sm:flex-row">
           <Button icon={Check} loading={act.pending && !refuse} onClick={() => respond(true)} className="bg-[#0f8a46] hover:bg-[#0b6b37] sm:flex-1">Accepter la demande</Button>
-          <Button variant="ghost" icon={X} className="border-[#ffd0d9] text-[#d42a50] hover:bg-[#fff1f3]" onClick={() => setRefuse(true)}>Refuser</Button>
+          <Button variant="ghost" icon={X} className="border-[#ffd0d9] text-[#b8213f] hover:bg-[#fff1f3]" onClick={() => setRefuse(true)}>Refuser</Button>
           {conv && <Link href={`/messages/${conv.id}`} className="btn-ghost"><MessageCircle size={17} />Message</Link>}
         </div>
       ) : null}

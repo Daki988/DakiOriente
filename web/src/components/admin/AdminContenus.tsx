@@ -124,7 +124,7 @@ function Articles() {
 
           <div className="flex flex-col gap-1.5">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <label htmlFor="md-body" className="text-[13px] font-bold">Contenu (Markdown) <span className="text-[#d42a50]">*</span></label>
+              <label htmlFor="md-body" className="text-[13px] font-bold">Contenu (Markdown) <span className="text-[#b8213f]">*</span></label>
               <div className="xl:hidden"><Tabs value={view} onChange={setView} items={[["ecrire", "Écrire"], ["apercu", "Aperçu"]]} /></div>
             </div>
             <div className="grid gap-4 xl:grid-cols-[1fr_300px]">
@@ -148,7 +148,7 @@ function Articles() {
                 </div>
               </div>
             </div>
-            {errs.body && <span className="text-xs font-semibold text-[#d42a50]">{errs.body}</span>}
+            {errs.body && <span className="text-xs font-semibold text-[#b8213f]">{errs.body}</span>}
           </div>
 
           <FormError error={act.error} />

@@ -40,8 +40,8 @@ export function OffrePremium({ fonction }: { fonction?: string }) {
           {LIGNES.map(([t, gratuit]) => (
             <div key={t} className="contents text-sm">
               <div className="border-b border-[#eef1f8] px-5 py-3">{t}</div>
-              <div className="border-b border-l border-[#eef1f8] px-5 py-3">{gratuit ? <Check size={18} className="text-[#0f8a46]" /> : <Minus size={18} className="text-[#c3c9d6]" />}</div>
-              <div className="border-b border-l border-[#eef1f8] bg-[#fffbea] px-5 py-3"><Check size={18} className="text-[#0f8a46]" /></div>
+              <div className="border-b border-l border-[#eef1f8] px-5 py-3">{gratuit ? <Check size={18} className="text-[#0b7a3d]" /> : <Minus size={18} className="text-[#c3c9d6]" />}</div>
+              <div className="border-b border-l border-[#eef1f8] bg-[#fffbea] px-5 py-3"><Check size={18} className="text-[#0b7a3d]" /></div>
             </div>
           ))}
         </div>
@@ -113,7 +113,7 @@ export function SelectionPremium() {
                   rows={r.data.items} rowKey={(x) => x.id} empty="Aucun candidat ne correspond"
                   cols={[
                     { h: "Candidat", c: (x) => <span><b>{x.candidat.firstName} {x.candidat.lastName[0]}.</b> <span className="text-xs font-normal text-ink-mute">· {x.candidat.pays}</span><span className="block text-xs font-normal text-ink-mute">{x.programme}</span></span> },
-                    { h: "Résultats", c: (x) => <span>{x.resultats.moyenne != null ? <><b className="text-base">{x.resultats.moyenne.toLocaleString("fr-FR")}</b><span className="text-xs text-ink-mute">/20</span>{x.resultats.verifiee && <ShieldCheck size={13} className="ml-1 inline text-[#0f8a46]" aria-label="Vérifiée" />}</> : <span className="text-ink-mute">—</span>}<span className="block text-xs text-ink-mute">{[x.resultats.serie, x.resultats.mention].filter(Boolean).join(" · ")}</span></span> },
+                    { h: "Résultats", c: (x) => <span>{x.resultats.moyenne != null ? <><b className="text-base">{x.resultats.moyenne.toLocaleString("fr-FR")}</b><span className="text-xs text-ink-mute">/20</span>{x.resultats.verifiee && <ShieldCheck size={13} className="ml-1 inline text-[#0b7a3d]" aria-label="Vérifiée" />}</> : <span className="text-ink-mute">—</span>}<span className="block text-xs text-ink-mute">{[x.resultats.serie, x.resultats.mention].filter(Boolean).join(" · ")}</span></span> },
                     { h: "Projet", c: (x) => <span>{x.projet.metiers[0] ?? x.projet.domaine ?? <span className="text-ink-mute">—</span>}<span className="block text-xs text-ink-mute">{[x.projet.domaine, x.projet.rentree && `rentrée ${x.projet.rentree}`].filter(Boolean).join(" · ")}</span></span> },
                     { h: "Adéquation", c: (x) => <span className="flex items-center justify-end gap-2 sm:justify-start"><span className="h-1.5 w-16 overflow-hidden rounded-full bg-[#e6eaf3]"><span className="block h-full rounded-full bg-brand-600" style={{ width: `${x.score}%` }} /></span><b>{x.score} %</b></span> },
                     { h: "Financement", c: (x) => <span><Chip tone={tone[x.financement.statut]}>{x.financement.libelle}</Chip><span className="mt-1 block text-xs text-ink-mute">{x.financement.preuve}</span></span> },

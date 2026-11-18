@@ -1,6 +1,6 @@
 ---
 titre: Politique cookies
-bref: Navigoal n'utilise ni cookie publicitaire, ni outil de mesure d'audience tiers, ni traceur de réseaux sociaux. Les seuls cookies déposés servent à vous connecter, à retenir vos choix et à savoir quelle campagne vous a amené.
+bref: Ni cookie publicitaire, ni mesure d'audience tierce, ni traceur de réseaux sociaux. Nos cookies vous connectent, retiennent vos choix et, avec votre accord, la campagne qui vous a amené.
 ---
 
 ## Qu'est-ce qu'un cookie ?
@@ -14,7 +14,7 @@ Un cookie est un petit fichier déposé sur votre appareil lorsque vous visitez 
 | ng_session | vous garder connecté à votre compte | 30 jours au plus, supprimé à la déconnexion | strictement nécessaire |
 | ng_oauth | sécuriser la connexion avec Google (protection contre la falsification) | 10 minutes | strictement nécessaire |
 | ng_dest | retenir le pays d'études choisi dans le sélecteur « Destination » | 12 mois | préférence |
-| ng_acq | savoir d'où vous venez (campagne, lycée partenaire, code de parrainage) pour l'associer à votre inscription | 90 jours | mesure de nos campagnes, sans tiers |
+| ng_acq | savoir d'où vous venez (campagne, lycée partenaire, code de parrainage) pour l'associer à votre inscription | 90 jours | mesure de nos campagnes, sans tiers : **déposé seulement si vous l'acceptez** dans le bandeau affiché quand vous suivez un tel lien |
 
 Ces cookies sont **internes** : ils ne sont lus que par Navigoal et ne servent ni à la publicité ni au profilage commercial.
 
@@ -27,6 +27,7 @@ Ces cookies sont **internes** : ils ne sont lus que par Navigoal et ne servent n
 | navigoal.destination, navigoal.pays | pays d'études et pays de départ choisis (devise d'affichage) |
 | navigoal.favoris.formations | formations mises en favori |
 | navigoal-demarches-… | étapes cochées dans la liste des démarches |
+| navigoal-cookies | votre choix (accepté ou refusé) pour le cookie de campagne ng_acq |
 
 Ces données restent sur votre appareil. Vous pouvez les effacer à tout moment depuis les réglages de votre navigateur (« Effacer les données de navigation »).
 

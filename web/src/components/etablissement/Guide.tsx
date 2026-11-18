@@ -72,7 +72,7 @@ export function GuidePlateforme() {
               const ok = p.data!.etapes[k];
               return (
                 <li key={k} className="flex items-start gap-3">
-                  {ok ? <CheckCircle2 size={22} className="shrink-0 text-[#0f8a46]" /> : <Circle size={22} className="shrink-0 text-[#c3c9d6]" />}
+                  {ok ? <CheckCircle2 size={22} className="shrink-0 text-[#0b7a3d]" /> : <Circle size={22} className="shrink-0 text-[#c3c9d6]" />}
                   <span className="flex-1"><b className={`block text-sm ${ok ? "text-ink-mute line-through" : ""}`}>{t}</b><span className="text-xs text-ink-mute">{d}</span></span>
                   {!ok && <Link href={link(h)} className="btn-ghost px-3 py-1.5 text-xs print:hidden">Faire</Link>}
                 </li>

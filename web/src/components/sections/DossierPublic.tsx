@@ -16,7 +16,7 @@ export function DossierPublic({ eid, sigle, compact = false }: { eid: string; si
       {d.fiche && (
         <div className="flex flex-col gap-2.5 rounded-2xl border-2 border-brand-600 p-4">
           <div className="flex items-center gap-3">
-            <span className="flex h-12 w-10 shrink-0 items-center justify-center rounded-lg bg-[#fdecec] text-[11px] font-extrabold text-[#d42a50]">PDF</span>
+            <span className="flex h-12 w-10 shrink-0 items-center justify-center rounded-lg bg-[#fdecec] text-[11px] font-extrabold text-[#b8213f]">PDF</span>
             <span className="min-w-0 flex-1"><b className="block text-sm">Fiche de candidature {sigle}</b><span className="text-xs text-ink-mute">{d.fiche.nom} · mise à jour le {new Date(d.fiche.maj).toLocaleDateString("fr-FR")}</span></span>
             <a href={d.fiche.url} target="_blank" rel="noopener" className="btn-primary shrink-0 px-3 py-2 text-[13px]"><Download size={15} />Télécharger</a>
           </div>

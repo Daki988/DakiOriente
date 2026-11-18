@@ -84,7 +84,7 @@ export function CalculateurBac() {
                 <input value={m.nom} onChange={(e) => maj(i, { nom: e.target.value })} aria-label="Matière" placeholder="Matière" className={`${champ} col-span-3 sm:col-span-1`} />
                 <input value={m.coef} onChange={(e) => maj(i, { coef: e.target.value })} aria-label={`Coefficient ${m.nom}`} inputMode="decimal" placeholder="Coef." className={champ} />
                 <input value={m.note} onChange={(e) => maj(i, { note: e.target.value })} aria-label={`Note ${m.nom}`} inputMode="decimal" placeholder="/20" className={champ} />
-                <button onClick={() => setMs(ms.filter((_, k) => k !== i))} aria-label={`Supprimer ${m.nom}`} className="flex h-11 w-11 items-center justify-center rounded-xl text-ink-mute hover:bg-[#ffecef] hover:text-[#d42a50]"><Trash2 size={17} /></button>
+                <button onClick={() => setMs(ms.filter((_, k) => k !== i))} aria-label={`Supprimer ${m.nom}`} className="flex h-11 w-11 items-center justify-center rounded-xl text-ink-mute hover:bg-[#ffecef] hover:text-[#b8213f]"><Trash2 size={17} /></button>
               </div>
             ))}
             <button onClick={() => setMs([...ms, { nom: "", coef: "1", note: "" }])} className="btn-ghost min-h-[42px] self-start px-3.5 py-2"><Plus size={16} /> Ajouter une matière</button>

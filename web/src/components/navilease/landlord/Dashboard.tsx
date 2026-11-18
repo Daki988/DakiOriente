@@ -96,7 +96,7 @@ export function LandlordDashboard({ info }: { info: LandlordInfo | null }) {
         </Panel>
 
         <div className="flex flex-col gap-5">
-          <Panel title="Demandes à traiter" icon={Inbox} action={<Link href="/bailleur/reservations" className="text-sm font-bold text-[#0f8a46] hover:underline">Tout voir</Link>}>
+          <Panel title="Demandes à traiter" icon={Inbox} action={<Link href="/bailleur/reservations" className="text-sm font-bold text-[#0b7a3d] hover:underline">Tout voir</Link>}>
             {loading ? <Loading /> : k.pending.length ? (
               <ul className="flex flex-col gap-2.5">
                 {k.pending.slice(0, 4).map(({ b, h }) => (
@@ -112,7 +112,7 @@ export function LandlordDashboard({ info }: { info: LandlordInfo | null }) {
           <Panel title="Vérification KYC" icon={ShieldCheck} action={info && <KycChip status={info.kycStatus} />}>
             <ul className="flex flex-col gap-2 text-sm">
               {[["Pièce d'identité", info && info.kycStatus !== "non_soumis"], ["Titre de propriété ou mandat", info && info.kycStatus !== "non_soumis"], ["Moyen de versement", !!info?.payoutMethod], ["Validation par l'équipe Navilease", info?.kycStatus === "valide"]].map(([l, ok]) => (
-                <li key={l as string} className="flex items-center gap-2.5">{ok ? <CheckCircle2 size={17} className="text-[#0f8a46]" /> : <Clock size={17} className="text-ink-mute" />}<span className={ok ? "" : "text-ink-mute"}>{l}</span></li>
+                <li key={l as string} className="flex items-center gap-2.5">{ok ? <CheckCircle2 size={17} className="text-[#0b7a3d]" /> : <Clock size={17} className="text-ink-mute" />}<span className={ok ? "" : "text-ink-mute"}>{l}</span></li>
               ))}
             </ul>
             {info?.kycStatus !== "valide" && <Link href="/bailleur/profil" className="btn-ghost py-2.5 text-[13px]">Compléter ma vérification</Link>}

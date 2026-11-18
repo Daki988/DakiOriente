@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import Link from "@/components/ui/Link";
 import { Compass } from "lucide-react";
 import { Brand } from "@/components/ui/Brand";
+
+export const metadata: Metadata = { title: "Page introuvable", robots: { index: false } };
 
 export default function NotFound() {
   return (

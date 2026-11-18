@@ -13,9 +13,9 @@ const KIND_STYLE: Record<CampaignKind, { icon: typeof Megaphone; bar: string; bg
   admission: { icon: Megaphone, bar: "#6a3df0", bg: "bg-[#f1edff] text-[#6a3df0]" },
   concours: { icon: Trophy, bar: "#f9a806", bg: "bg-sun-100 text-[#a55a00]" },
   inscription: { icon: GraduationCap, bar: "#1a47f5", bg: "bg-brand-50 text-brand-600" },
-  bourse: { icon: Wallet, bar: "#0f8a46", bg: "bg-[#e8f8ef] text-[#0f8a46]" },
+  bourse: { icon: Wallet, bar: "#0f8a46", bg: "bg-[#e8f8ef] text-[#0b7a3d]" },
   portes_ouvertes: { icon: Users, bar: "#0e7490", bg: "bg-[#e6f6fa] text-[#0e7490]" },
-  evenement: { icon: PartyPopper, bar: "#d42a50", bg: "bg-[#ffecef] text-[#d42a50]" },
+  evenement: { icon: PartyPopper, bar: "#d42a50", bg: "bg-[#ffecef] text-[#b8213f]" },
 };
 const phase = (c: Campaign): [string, Tone] => {
   const now = Date.now();

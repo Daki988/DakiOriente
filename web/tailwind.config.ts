@@ -16,7 +16,7 @@ const config: Config = {
           500: "#3366ff", 600: "#1a47f5", 700: "#1336e0", 800: "#162fb5", 900: "#182e8f", 950: "#0b1a4f",
         },
         sun: { 50: "#fffbea", 100: "#fff3c4", 200: "#ffe588", 300: "#ffd34a", 400: "#ffc21f", 500: "#f9a806", 600: "#dd7f02" },
-        ink: { DEFAULT: "#0b1533", soft: "#3b4566", mute: "#6b7493" },
+        ink: { DEFAULT: "#0b1533", soft: "#3b4566", mute: "#5f6886" },
       },
       boxShadow: {
         card: "0 1px 2px rgba(11,21,51,.04), 0 8px 24px -8px rgba(11,21,51,.10)",

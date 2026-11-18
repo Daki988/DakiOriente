@@ -16,7 +16,7 @@ const ETAT: Record<Abo["etat"], [string, Tone]> = { actif: ["Actif", "green"], e
 function Evol({ n, p }: { n: number; p: number }) {
   if (!p) return null;
   const v = Math.round(((n - p) / p) * 100);
-  return <span className={`text-xs font-bold ${v >= 0 ? "text-[#0f8a46]" : "text-[#d42a50]"}`}>{v >= 0 ? "▲" : "▼"} {Math.abs(v)} %</span>;
+  return <span className={`text-xs font-bold ${v >= 0 ? "text-[#0b7a3d]" : "text-[#b8213f]"}`}>{v >= 0 ? "▲" : "▼"} {Math.abs(v)} %</span>;
 }
 
 /** « Mon offre » (maquettes « offres », écran 5) : services actifs, échéances, historique et visibilité réelle. */
@@ -41,7 +41,7 @@ export function MonOffre() {
           <section className="card flex flex-col gap-3 rounded-[22px] border-2 border-sun-300 bg-[#fffbea] p-5 sm:p-6">
             <div className="flex flex-wrap items-center gap-2.5">{a.premiumUntil ? <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-br from-[#ffd34a] to-[#f9a806] px-2.5 py-1 text-xs font-extrabold"><Crown size={13} />PREMIUM</span> : <Chip tone="sun"><Star size={12} className="mr-1 inline" />Partenaire Navigoal</Chip>}
               <b className="text-lg">Actif jusqu&apos;au {dateFr(fin)}</b></div>
-            <ul className="flex flex-col gap-2 text-sm">{inclus.map((t) => <li key={t} className="flex items-start gap-2"><CheckCircle2 size={17} className="mt-0.5 shrink-0 text-[#0f8a46]" />{t}</li>)}</ul>
+            <ul className="flex flex-col gap-2 text-sm">{inclus.map((t) => <li key={t} className="flex items-start gap-2"><CheckCircle2 size={17} className="mt-0.5 shrink-0 text-[#0b7a3d]" />{t}</li>)}</ul>
             <a href={demande("Renouvellement de mon offre")} className="btn-ghost self-start"><Mail size={16} />Demander le renouvellement</a>
           </section>
         ) : (

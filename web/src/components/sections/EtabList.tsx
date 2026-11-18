@@ -53,7 +53,7 @@ export function EtabList() {
         <div className="scrollbar-none flex gap-1 overflow-x-auto rounded-2xl bg-white p-1 shadow-card" role="tablist" aria-label="Label">
           {([{ id: "", court: "Tous" }, ...LABELS_PRESENTS.filter((l) => !pays || etablissements.some((e) => e.pays === pays && e.label === l.id)).map((l) => ({ ...l, court: pays && pays !== "MA" ? labelPays(l.id, pays) : l.court }))]).map((l) => (
             <button key={l.id} role="tab" aria-selected={f.label === l.id} onClick={() => maj({ label: l.id })} className={`relative min-h-[42px] shrink-0 rounded-xl px-4 py-2.5 text-sm font-bold ${f.label === l.id ? "text-white" : "text-ink-mute"}`}>
-              {f.label === l.id && <motion.span layoutId="etab-label" className="absolute inset-0 rounded-xl bg-brand-600" />}<span className="relative">{l.court} <span className="opacity-70">({n("label", l.id)})</span></span>
+              {f.label === l.id && <motion.span layoutId="etab-label" className="absolute inset-0 rounded-xl bg-brand-600" />}<span className="relative">{l.court} <span>({n("label", l.id)})</span></span>
             </button>
           ))}
         </div>

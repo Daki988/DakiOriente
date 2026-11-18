@@ -105,7 +105,7 @@ export function Profile() {
             <b className="text-lg">{f.firstName} {f.lastName}</b>
             <div className="w-full"><div className="mb-1 flex justify-between text-xs font-bold"><span>Profil complété</span><span>{completion} %</span></div><div className="h-2 rounded-full bg-[#e8edfa]"><div className="h-full rounded-full bg-brand-600 transition-all" style={{ width: `${completion}%` }} /></div></div>
             {me.data.profile?.riasec ? <span className="chip bg-[#f1edff] text-[#6a3df0]"><Sparkles size={13} className="mr-1 inline" />Profil {me.data.profile.riasec.top.join("·")}</span> : <a href="/orientation" className="text-sm font-bold text-brand-600">Passer le test d&apos;orientation →</a>}
-            {(me.data.emailVerifiedAt || me.data.phoneVerifiedAt) && <span className="flex items-center gap-1 text-xs font-bold text-[#0f8a46]"><CheckCircle2 size={14} />Coordonnées vérifiées</span>}
+            {(me.data.emailVerifiedAt || me.data.phoneVerifiedAt) && <span className="flex items-center gap-1 text-xs font-bold text-[#0b7a3d]"><CheckCircle2 size={14} />Coordonnées vérifiées</span>}
           </section>
           <SuiviNavi />
           <section id="parent" className="scroll-mt-24">

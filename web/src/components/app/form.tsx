@@ -7,9 +7,9 @@ export function Field({ label, hint, error, children, required, className = "" }
   const id = useId();
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
-      <label htmlFor={id} className="text-[13px] font-bold">{label}{required && <span className="text-[#d42a50]"> *</span>}</label>
+      <label htmlFor={id} className="text-[13px] font-bold">{label}{required && <span className="text-[#b8213f]"> *</span>}</label>
       {children(id)}
-      {error ? <span className="text-xs font-semibold text-[#d42a50]">{error}</span> : hint ? <span className="text-xs text-ink-mute">{hint}</span> : null}
+      {error ? <span className="text-xs font-semibold text-[#b8213f]">{error}</span> : hint ? <span className="text-xs text-ink-mute">{hint}</span> : null}
     </div>
   );
 }
@@ -121,7 +121,7 @@ export function FileDrop({ type, onUploaded, compact, types = DOC_TYPES, scope, 
           )}
         </div>
       )}
-      {err && <span className="text-xs font-semibold text-[#d42a50]">{err}</span>}
+      {err && <span className="text-xs font-semibold text-[#b8213f]">{err}</span>}
     </div>
   );
 }

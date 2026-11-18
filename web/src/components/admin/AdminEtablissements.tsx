@@ -130,7 +130,7 @@ function Detail({ r, pending, error, patch }: { r: Row; pending: boolean; error:
       <div className="flex flex-wrap gap-2">
         {e.status !== "verifie" && <Button className="!bg-[#0f8a46] hover:!bg-[#0b7a3c]" icon={BadgeCheck} loading={pending} onClick={() => patch(r, { status: "verifie" }, "Établissement vérifié.")}>{e.status === "revendique" ? "Approuver" : e.status === "suspendu" ? "Réactiver (vérifié)" : "Marquer vérifié"}</Button>}
         {e.status === "revendique" && <Button variant="ghost" icon={RotateCcw} disabled={pending} onClick={() => patch(r, { status: "importe" }, "Revendication rejetée.")}>Rejeter la revendication</Button>}
-        {e.status !== "suspendu" && <Button variant="ghost" className="!border-[#ffd0d9] !text-[#d42a50]" icon={Ban} disabled={pending} onClick={() => patch(r, { status: "suspendu" }, "Établissement suspendu.")}>Suspendre</Button>}
+        {e.status !== "suspendu" && <Button variant="ghost" className="!border-[#ffd0d9] !text-[#b8213f]" icon={Ban} disabled={pending} onClick={() => patch(r, { status: "suspendu" }, "Établissement suspendu.")}>Suspendre</Button>}
         <Link href={`/etablissements/${e.id}`} target="_blank" className="btn-ghost ml-auto px-3.5 py-2 text-[13px]"><ExternalLink size={15} />Fiche publique</Link>
       </div>
     </div>
@@ -139,7 +139,7 @@ function Detail({ r, pending, error, patch }: { r: Row; pending: boolean; error:
 
 const Fact = ({ icon: I, ok, t }: { icon: typeof Users; ok: boolean; t: string }) => (
   <li className="flex items-center gap-2.5 rounded-2xl border border-slate-200/80 px-3 py-2.5 text-sm">
-    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${ok ? "bg-[#e8f8ef] text-[#0f8a46]" : "bg-sun-100 text-[#a55a00]"}`}><I size={16} /></span>
+    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${ok ? "bg-[#e8f8ef] text-[#0b7a3d]" : "bg-sun-100 text-[#a55a00]"}`}><I size={16} /></span>
     <span className="min-w-0 truncate">{t}</span>
   </li>
 );

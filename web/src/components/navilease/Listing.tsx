@@ -134,7 +134,7 @@ function Listing({ d }: { d: Data }) {
               <section className="card rounded-[22px] p-5 sm:p-6">
                 <h2 className="mb-3 text-xl font-extrabold">Règlement</h2>
                 {h.rules ? <ul className="flex flex-col gap-2.5 text-sm text-ink-soft">
-                  {h.rules.split(/\n|·|;/).map((r) => r.trim()).filter(Boolean).map((r, i) => <li key={i} className="flex items-start gap-2.5"><Check size={16} className="mt-0.5 shrink-0 text-[#0f8a46]" />{r}</li>)}
+                  {h.rules.split(/\n|·|;/).map((r) => r.trim()).filter(Boolean).map((r, i) => <li key={i} className="flex items-start gap-2.5"><Check size={16} className="mt-0.5 shrink-0 text-[#0b7a3d]" />{r}</li>)}
                 </ul> : <p className="text-sm text-ink-mute">Pas de règlement particulier indiqué.</p>}
                 <p className="mt-3 text-xs text-ink-mute">Durée minimale : {h.minMonths} mois · caution {m(h.deposit, h.currency)}, conservée en séquestre puis restituée à la sortie.</p>
               </section>
@@ -158,7 +158,7 @@ function Listing({ d }: { d: Data }) {
                   <article key={r.id} className="rounded-2xl border border-slate-200/70 p-4">
                     <div className="flex items-center gap-3"><Avatar name={a.firstName} size={34} /><div className="min-w-0 flex-1"><b className="text-sm">{a.firstName}</b><span className="block text-xs text-ink-mute">{new Date(r.createdAt).toLocaleDateString("fr-FR", { month: "long", year: "numeric" })}</span></div><Stars value={r.rating} size={13} /></div>
                     {r.comment && <p className="mt-2 text-sm text-ink-soft">{r.comment}</p>}
-                    <span className="chip mt-2 bg-[#e8f8ef] text-[#0f8a46]"><Check size={12} />Séjour vérifié</span>
+                    <span className="chip mt-2 bg-[#e8f8ef] text-[#0b7a3d]"><Check size={12} />Séjour vérifié</span>
                   </article>
                 )) : <p className="rounded-2xl bg-[#f6f8fe] p-4 text-sm text-ink-mute">Pas encore d&apos;avis. Seuls les locataires ayant réellement séjourné via Navilease peuvent en laisser.</p>}
               </section>

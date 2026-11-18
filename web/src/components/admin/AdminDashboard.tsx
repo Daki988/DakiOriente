@@ -45,7 +45,7 @@ function Body({ s, mod, pendingSchools }: { s: Stats; mod?: Moderation; pendingS
     { n: pendingSchools, t: pendingSchools > 1 ? "comptes établissement à valider" : "compte établissement à valider", sub: "Vérifier le domaine et les pièces", href: "/admin/utilisateurs?statut=en_attente", Icon: Building2, tone: "bg-[#f1edff] text-[#6a3df0]" },
     { n: mod?.housings.length ?? 0, t: (mod?.housings.length ?? 0) > 1 ? "annonces Navilease à modérer" : "annonce Navilease à modérer", sub: "Photos, prix, coordonnées", href: "/admin/navilease", Icon: Home, tone: "bg-sun-100 text-[#a55a00]" },
     { n: mod?.kyc.length ?? 0, t: (mod?.kyc.length ?? 0) > 1 ? "KYC bailleurs à valider" : "KYC bailleur à valider", sub: "Identité et titre de propriété", href: "/admin/navilease#kyc", Icon: ShieldCheck, tone: "bg-brand-50 text-brand-600" },
-    { n: mod?.disputes.length ?? 0, t: (mod?.disputes.length ?? 0) > 1 ? "litiges ouverts" : "litige ouvert", sub: "Médiation et séquestre", href: "/admin/navilease#litiges", Icon: AlertTriangle, tone: "bg-[#ffecef] text-[#d42a50]" },
+    { n: mod?.disputes.length ?? 0, t: (mod?.disputes.length ?? 0) > 1 ? "litiges ouverts" : "litige ouvert", sub: "Médiation et séquestre", href: "/admin/navilease#litiges", Icon: AlertTriangle, tone: "bg-[#ffecef] text-[#b8213f]" },
   ];
   const totalAlerts = alerts.reduce((t, a) => t + a.n, 0);
 
@@ -143,7 +143,7 @@ function Body({ s, mod, pendingSchools }: { s: Stats; mod?: Moderation; pendingS
 const Mini = ({ label, value, sub, danger }: { label: string; value: string; sub: string; danger?: boolean }) => (
   <div className="flex flex-col gap-0.5 rounded-2xl border border-slate-200/80 bg-white p-3.5">
     <span className="text-[11px] font-bold uppercase text-ink-mute">{label}</span>
-    <b className={`text-xl ${danger ? "text-[#d42a50]" : ""}`}>{value}</b>
+    <b className={`text-xl ${danger ? "text-[#b8213f]" : ""}`}>{value}</b>
     <span className="text-xs text-ink-mute">{sub}</span>
   </div>
 );

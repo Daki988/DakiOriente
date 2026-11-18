@@ -23,7 +23,7 @@ export function ChoixDestination() {
               <div className="min-w-0 flex-1">
                 <b className="text-[19px]">{d.nom}</b>
                 <p className="mt-0.5 text-[13px] text-ink-mute">{d.etablissements} établissements privés · {villes}</p>
-                {labels && <p className="mt-1.5 flex items-start gap-1 text-[12.5px] font-bold text-[#0f8a46]"><ShieldCheck size={13} className="mt-0.5 shrink-0" /><span>Labels : {labels}</span></p>}
+                {labels && <p className="mt-1.5 flex items-start gap-1 text-[12.5px] font-bold text-[#0b7a3d]"><ShieldCheck size={13} className="mt-0.5 shrink-0" /><span>Labels : {labels}</span></p>}
               </div>
               <Link href={`/etablissements/?pays=${d.code}`} onClick={() => setDestination(d.code)} className={`${actif ? "btn-primary" : "btn-ghost"} shrink-0 px-4 py-2.5`}>Explorer<ArrowRight size={15} /></Link>
             </div>

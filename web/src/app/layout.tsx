@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   keywords: ["étudier au Maroc", "école privée Maroc", "université privée Maroc", "établissement reconnu par l'État", "diplôme homologué Maroc", "étudiant africain Maroc", "orientation post-bac", "candidature en ligne", "logement étudiant Casablanca", "logement étudiant Rabat", "visa étudiant Maroc", "étudier au Sénégal", "école privée Dakar", "ANAQ-Sup", "étudiant africain Dakar"],
   alternates: { canonical: "/" },
   icons: { icon: "/favicon.png", apple: "/apple-touch-icon.png" },
-  openGraph: { type: "website", locale: "fr_FR", siteName: "Navigoal", title: "Navigoal — Étudier en Afrique", description: DESCRIPTION, url: SITE_URL, images: [{ url: "/og.png", width: 1200, height: 630, alt: "Navigoal — Étudier en Afrique" }] },
-  twitter: { card: "summary_large_image", title: "Navigoal — Étudier en Afrique", description: DESCRIPTION, images: ["/og.png"] },
+  openGraph: { type: "website", locale: "fr_FR", siteName: "Navigoal", title: `Navigoal — Étudier ${DESTINATIONS_ACTIVES.map((d) => d.prep).join(" ou ")}`, description: DESCRIPTION, url: SITE_URL, images: [{ url: "/og.png", width: 1200, height: 630, alt: `Navigoal — Étudier ${DESTINATIONS_ACTIVES.map((d) => d.prep).join(" ou ")}` }] },
+  twitter: { card: "summary_large_image", title: `Navigoal — Étudier ${DESTINATIONS_ACTIVES.map((d) => d.prep).join(" ou ")}`, description: DESCRIPTION, images: ["/og.png"] },
   robots: { index: true, follow: true },
   formatDetection: { telephone: false },
 };

@@ -62,13 +62,13 @@ export function LandlordKyc({ info }: { info: LandlordInfo | null }) {
                     const on = sel.includes(d.id);
                     return <li key={d.id}><label className={`flex cursor-pointer items-center gap-3 rounded-2xl border p-3 ${on ? "border-[#bfe9cf] bg-[#f6fdf8]" : "border-slate-200/70"}`}>
                       <input type="checkbox" className="h-[18px] w-[18px] accent-[#0f8a46]" checked={on} onChange={() => setPicked(on ? sel.filter((x) => x !== d.id) : [...sel, d.id])} />
-                      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#e8f8ef] text-[#0f8a46]"><FileText size={17} /></span>
+                      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#e8f8ef] text-[#0b7a3d]"><FileText size={17} /></span>
                       <span className="min-w-0 flex-1"><b className="block text-sm">{docLabel(d.type)}</b><span className="block truncate text-xs text-ink-mute">{d.fileName} · {dateFr(d.createdAt)}</span></span>
                       <Chip tone={on ? "green" : "grey"}>{on ? "Jointe" : "Non jointe"}</Chip>
                     </label></li>;
                   })}</ul>
                 ) : <p className="text-sm text-ink-mute">Aucune pièce déposée pour l&apos;instant.</p>}
-                {touched && (errs.identite || errs.propriete) && <span className="text-xs font-semibold text-[#d42a50]" role="alert">{errs.identite ?? errs.propriete}</span>}
+                {touched && (errs.identite || errs.propriete) && <span className="text-xs font-semibold text-[#b8213f]" role="alert">{errs.identite ?? errs.propriete}</span>}
                 <FileDrop types={KYC_TYPES} onUploaded={(d) => { docs.setData([d, ...(docs.data ?? [])]); setPicked([...sel, d.id]); toast(`${docLabel(d.type)} ajouté.`); }} />
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
@@ -86,7 +86,7 @@ export function LandlordKyc({ info }: { info: LandlordInfo | null }) {
 
         <aside className="flex flex-col gap-5">
           <Panel title="Progression" icon={ShieldCheck} tone="green">
-            <ul className="flex flex-col gap-2.5 text-sm">{steps.map(([l, ok]) => <li key={l} className="flex items-center gap-2.5">{ok ? <CheckCircle2 size={17} className="text-[#0f8a46]" /> : <Circle size={17} className="text-ink-mute" />}<span className={ok ? "" : "text-ink-mute"}>{l}</span></li>)}</ul>
+            <ul className="flex flex-col gap-2.5 text-sm">{steps.map(([l, ok]) => <li key={l} className="flex items-center gap-2.5">{ok ? <CheckCircle2 size={17} className="text-[#0b7a3d]" /> : <Circle size={17} className="text-ink-mute" />}<span className={ok ? "" : "text-ink-mute"}>{l}</span></li>)}</ul>
           </Panel>
           <Panel title="Niveaux de confiance" icon={Star}>
             <ul className="flex flex-col gap-2 text-sm text-ink-soft">

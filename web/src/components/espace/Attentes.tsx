@@ -43,7 +43,7 @@ export function MesAttentes() {
             <Field label="Année du bac">{(id) => <Input id={id} type="number" min={2000} max={AN + 3} value={f.bacYear ?? ""} onChange={(e) => set("bacYear", e.target.value ? Number(e.target.value) : null)} />}</Field>
           </div>
           <p className="text-xs text-ink-mute">Série du bac : rubrique « Scolarité » ci-dessus.</p>
-          {f.averageVerified ? <p className="flex items-center gap-1.5 text-xs font-bold text-[#0f8a46]"><CheckCircle2 size={14} />Vérifiée sur ton relevé de notes</p>
+          {f.averageVerified ? <p className="flex items-center gap-1.5 text-xs font-bold text-[#0b7a3d]"><CheckCircle2 size={14} />Vérifiée sur ton relevé de notes</p>
             : <p className="text-xs text-ink-mute">Dépose ton relevé de notes dans <Link href="/espace/documents" className="font-bold text-brand-600">Mes documents</Link> : l&apos;équipe Navigoal vérifie ta moyenne.</p>}
         </Panel>
         <Panel title="Mon projet" icon={Target}>
@@ -73,7 +73,7 @@ export function MesAttentes() {
         </div>
         <p className="text-sm text-ink-mute">Les écoles reconnues peuvent t&apos;inviter à candidater. Ton nom et tes coordonnées restent cachés tant que tu n&apos;acceptes pas une invitation. Tu peux arrêter à tout moment.</p>
         {f.visibleToSchools && f.mineur && !f.parentConsent && <Alert tone="warn" title="Accord de ton parent nécessaire">{f.parents ? "Tu as moins de 18 ans : ton parent a reçu une demande de confirmation dans son espace." : "Tu as moins de 18 ans : invite d'abord un parent depuis ton profil, il devra confirmer."}</Alert>}
-        {f.visibleToSchools && (!f.mineur || f.parentConsent) && <p className="flex items-center gap-1.5 text-sm font-bold text-[#0f8a46]"><ShieldCheck size={15} />Tu es visible des établissements Premium.</p>}
+        {f.visibleToSchools && (!f.mineur || f.parentConsent) && <p className="flex items-center gap-1.5 text-sm font-bold text-[#0b7a3d]"><ShieldCheck size={15} />Tu es visible des établissements Premium.</p>}
         {f.invitationsNonLues > 0 && <Link href="/espace/invitations" className="btn-ghost self-start text-[13px]"><MailOpen size={15} />{f.invitationsNonLues} invitation{f.invitationsNonLues > 1 ? "s" : ""} à lire</Link>}
       </section>
       <FormError error={a.error} />

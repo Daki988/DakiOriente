@@ -162,13 +162,13 @@ function Action({ c, fermer }: { c: Extract<Carte, { type: "action" }>; fermer: 
       <div className="flex items-start gap-2.5 text-[13.5px] font-bold text-ink"><Icone size={17} className="mt-0.5 shrink-0 text-brand-600" />{c.libelle}</div>
       {etat === "fait"
         ? <div className="mt-2.5 space-y-2">
-            <p className="flex items-center gap-1.5 text-[12.5px] font-bold text-[#0f8a46]"><Check size={15} />{c.action === "candidature" ? "Brouillon créé : complète ta lettre et tes pièces, puis envoie-la (c'est gratuit)." : "Demande envoyée : un conseiller te recontacte."}</p>
+            <p className="flex items-center gap-1.5 text-[12.5px] font-bold text-[#0b7a3d]"><Check size={15} />{c.action === "candidature" ? "Brouillon créé : complète ta lettre et tes pièces, puis envoie-la (c'est gratuit)." : "Demande envoyée : un conseiller te recontacte."}</p>
             {lien && <Link href={lien} onClick={fermer} className="inline-flex items-center gap-1.5 rounded-xl bg-brand-600 px-3.5 py-2 text-[13px] font-bold text-white hover:bg-brand-700">{c.action === "candidature" ? "Compléter ma candidature" : "Voir mes rendez-vous"}<ArrowRight size={14} /></Link>}
           </div>
         : <div className="mt-2.5 flex flex-wrap items-center gap-2">
             <button type="button" onClick={confirmer} disabled={etat === "envoi"} className="inline-flex items-center gap-1.5 rounded-xl bg-brand-600 px-3.5 py-2 text-[13px] font-bold text-white hover:bg-brand-700 disabled:opacity-60"><Check size={15} />{etat === "envoi" ? "Un instant…" : "Confirmer"}</button>
             <span className="text-[11.5px] text-ink-mute">Rien n&apos;est fait sans ta confirmation.</span>
-            {etat === "erreur" && <span className="w-full text-[12px] font-bold text-[#d42a50]">{message}</span>}
+            {etat === "erreur" && <span className="w-full text-[12px] font-bold text-[#b8213f]">{message}</span>}
           </div>}
     </div>
   );
@@ -195,7 +195,7 @@ function Cartes({ cartes, whatsapp, resume, onSuggestion, fermer }: { cartes: Ca
             <span className="min-w-0 flex-1">
               <span className="flex flex-wrap items-center gap-x-1.5 text-[14px] font-extrabold text-ink">{c.sigle}<span className="text-[12px] font-medium text-ink-mute">· {c.ville}</span>{c.badge && <span className="rounded-full bg-sun-100 px-2 py-0.5 text-[10.5px] font-bold text-[#a55a00]">{c.badge}</span>}</span>
               <span className="block truncate text-[12px] text-ink-mute">{c.nom}</span>
-              <span className="mt-1 flex flex-wrap items-center gap-1.5 text-[11.5px]"><span className="rounded-full bg-[#e8f8ef] px-2 py-0.5 font-bold text-[#0f8a46]">{c.label}</span>{c.parAn && <span className="font-bold text-brand-700">{c.parAn}</span>}</span>
+              <span className="mt-1 flex flex-wrap items-center gap-1.5 text-[11.5px]"><span className="rounded-full bg-[#e8f8ef] px-2 py-0.5 font-bold text-[#0b7a3d]">{c.label}</span>{c.parAn && <span className="font-bold text-brand-700">{c.parAn}</span>}</span>
             </span>
             <ArrowRight size={16} className="shrink-0 text-brand-600" />
           </Link>
@@ -470,7 +470,7 @@ export function Navi() {
               <textarea ref={champ} value={saisie} onChange={(e) => setSaisie(e.target.value)} maxLength={1500} rows={1} placeholder={msgs.length ? "Écris-moi…" : "Ex. : je suis en terminale D, j'hésite…"}
                 onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); void envoyer(saisie); } }}
                 className="max-h-28 min-h-[36px] flex-1 resize-none border-0 bg-transparent py-1.5 shadow-none outline-none ring-0 focus:border-0 focus:shadow-none focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 text-[16px] text-ink placeholder:text-ink-mute sm:text-[14.5px]" aria-label="Ton message pour Navi" />
-              {dictee && <button type="button" onClick={dicter} aria-label="Dicter" className={`rounded-lg p-2 ${ecoute ? "text-[#d42a50]" : "text-ink-mute hover:text-ink"}`}><Mic size={18} /></button>}
+              {dictee && <button type="button" onClick={dicter} aria-label="Dicter" className={`rounded-lg p-2 ${ecoute ? "text-[#b8213f]" : "text-ink-mute hover:text-ink"}`}><Mic size={18} /></button>}
               {envoi
                 ? <button type="button" onClick={() => annule.current?.abort()} aria-label="Arrêter" className="grid h-9 w-9 place-items-center rounded-xl bg-ink text-white"><X size={16} /></button>
                 : <button type="submit" disabled={!saisie.trim()} aria-label="Envoyer" className="grid h-9 w-9 place-items-center rounded-xl bg-brand-600 text-white disabled:opacity-40"><Send size={16} /></button>}

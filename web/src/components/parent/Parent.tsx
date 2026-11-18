@@ -111,7 +111,7 @@ export function ParentChildren() {
               <Avatar name={`${c.child.firstName} ${c.child.lastName}`} size={56} />
               <span className="flex-1"><b className="block text-lg">{c.child.firstName} {c.child.lastName}</b><span className="text-[13px] text-ink-mute">{c.child.birthYear ? `${new Date().getFullYear() - c.child.birthYear} ans · ` : ""}{[c.child.city, c.child.country && nomPays(c.child.country)].filter(Boolean).join(", ")} · lié depuis {dateFr(c.link.consentAt ?? undefined)}</span></span>
               <span className="flex flex-wrap items-center gap-2">
-                {c.link.consentAt ? <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><CheckCircle2 size={13} className="mr-1 inline" />Consentement donné</span> : <span className="chip bg-sun-100 text-[#a55a00]">Consentement en attente</span>}
+                {c.link.consentAt ? <span className="chip bg-[#e8f8ef] text-[#0b7a3d]"><CheckCircle2 size={13} className="mr-1 inline" />Consentement donné</span> : <span className="chip bg-sun-100 text-[#a55a00]">Consentement en attente</span>}
                 <Button size="sm" variant="ghost" onClick={() => toggle(c)}>{c.link.consentAt ? "Retirer" : "Donner mon consentement"}</Button>
                 <Link href="/parent" className="btn-primary px-3.5 py-2 text-[13px]">Suivre</Link>
               </span>

@@ -93,7 +93,7 @@ export function Dashboard() {
               {reco.data.offres.slice(0, 6).map((o) => (
                 <Link key={o.programId} href={`/etablissements/${o.etablissement.id}/`} className="card flex flex-col gap-3 p-4 transition hover:-translate-y-1 hover:shadow-lift">
                   <div className="flex items-center gap-2.5"><EtabLogo e={{ logo: o.etablissement.logo, sigle: o.etablissement.sigle, nom: o.etablissement.nom }} size={44} /><span className="min-w-0"><b className="line-clamp-2 text-sm">{o.title}</b><span className="text-xs text-ink-mute">{o.etablissement.sigle} · {o.etablissement.ville.split("/")[0]}</span></span></div>
-                  <span className="chip self-start bg-[#e8f8ef] text-[#0f8a46]">{o.score} % compatible</span>
+                  <span className="chip self-start bg-[#e8f8ef] text-[#0b7a3d]">{o.score} % compatible</span>
                 </Link>
               ))}
             </div>
@@ -123,7 +123,7 @@ export function Dashboard() {
             <Link href={admitted ? `/navilease/logements?etablissement=${admitted.e.id}` : "/navilease/logements"} className="btn-primary py-2.5">Voir sur Navilease</Link>
           </div>
           <div className="card flex flex-col gap-3 p-5"><b>Mon conseiller</b>
-            <div className="flex items-center gap-2.5"><span className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#e8f8ef] text-[#0f8a46]"><Headset size={20} /></span><span><b className="block text-sm">Conseillers Navigoal</b><span className="text-xs text-ink-mute">Visio, téléphone ou WhatsApp</span></span></div>
+            <div className="flex items-center gap-2.5"><span className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#e8f8ef] text-[#0b7a3d]"><Headset size={20} /></span><span><b className="block text-sm">Conseillers Navigoal</b><span className="text-xs text-ink-mute">Visio, téléphone ou WhatsApp</span></span></div>
             <Link href="/espace/conseiller" className="btn-ghost py-2.5"><MessageCircle size={16} /> Prendre rendez-vous</Link></div>
         </div>
       </div>

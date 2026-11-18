@@ -23,7 +23,7 @@ export default function TemoignagesPage() {
       </section>
       <section className="container mt-8">
         <TemoignagesListe />
-        <p className="mt-8 flex gap-2 rounded-2xl bg-[#f6f8fe] p-4 text-sm text-ink-mute"><ShieldCheck size={17} className="mt-0.5 shrink-0 text-[#0f8a46]" /><span>{AVERTISSEMENT} <a href="mailto:contact@navigoal.net?subject=T%C3%A9moignage" className="font-bold text-brand-600">contact@navigoal.net</a></span></p>
+        <p className="mt-8 flex gap-2 rounded-2xl bg-[#f6f8fe] p-4 text-sm text-ink-mute"><ShieldCheck size={17} className="mt-0.5 shrink-0 text-[#0b7a3d]" /><span>{AVERTISSEMENT} <a href="mailto:contact@navigoal.net?subject=T%C3%A9moignage" className="font-bold text-brand-600">contact@navigoal.net</a></span></p>
       </section>
     </>
   );

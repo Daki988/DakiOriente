@@ -3,7 +3,7 @@ import { Navilease } from "@/components/sections/Navilease";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { RangeeResidences } from "@/components/navilease/Residences";
 
-export const metadata: Metadata = { title: "Navilease — logement étudiant", description: "Résidences universitaires et logements étudiants vérifiés au Maroc (Casablanca, Rabat, Marrakech, Fès, Tanger…) : bailleurs contrôlés, paiement protégé en séquestre, contrat numérique." };
+export const metadata: Metadata = { title: "Navilease — logement étudiant", description: "Résidences universitaires et logements étudiants vérifiés au Maroc (Casablanca, Rabat, Marrakech…) : bailleurs contrôlés, paiement protégé, contrat numérique." };
 
 export default function NavileasePage() {
   return (

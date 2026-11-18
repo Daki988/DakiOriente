@@ -44,7 +44,7 @@ export function ResidencesListe() {
           {TYPES.map(([k, l]) => <label key={k} className="flex min-h-[36px] items-center gap-2 text-sm"><input type="radio" name="type" checked={f.type === k} onChange={() => set({ type: f.type === k ? "" : k })} onClick={() => f.type === k && set({ type: "" })} />{l}</label>)}
         </div>
         <label className="flex min-h-[36px] items-start gap-2 text-sm"><input type="checkbox" className="mt-1" checked={f.universite === "1"} onChange={(e) => set({ universite: e.target.checked ? "1" : "" })} />Inclure les résidences réservées aux étudiants d&apos;une université (UM6SS)</label>
-        <p className="flex gap-2 rounded-2xl bg-[#f6f8fe] p-3 text-xs leading-relaxed text-ink-mute"><ShieldCheck size={14} className="mt-0.5 shrink-0 text-[#0f8a46]" />Informations vérifiées sur les sites officiels, à reconfirmer avec la résidence à chaque rentrée.</p>
+        <p className="flex gap-2 rounded-2xl bg-[#f6f8fe] p-3 text-xs leading-relaxed text-ink-mute"><ShieldCheck size={14} className="mt-0.5 shrink-0 text-[#0b7a3d]" />Informations vérifiées sur les sites officiels, à reconfirmer avec la résidence à chaque rentrée.</p>
       </aside>
       <div className="flex min-w-0 flex-col gap-4">
         <div className="scrollbar-none -mx-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">

@@ -26,10 +26,10 @@ const OPTION: Partial<Record<AppStatus, { label: string; hint: string; icon: typ
   en_verification: { label: "Passer en vérification", hint: "Vous contrôlez les pièces du dossier.", icon: Search, color: "text-[#a55a00]" },
   complet: { label: "Dossier complet", hint: "Toutes les pièces sont conformes.", icon: ListChecks, color: "text-[#6a3df0]" },
   en_traitement: { label: "Mettre en traitement", hint: "Étude pédagogique, entretien ou concours.", icon: Hourglass, color: "text-[#6a3df0]" },
-  acceptee: { label: "Accepter", hint: "Le candidat reçoit son attestation d'admission.", icon: CheckCircle2, color: "text-[#0f8a46]" },
+  acceptee: { label: "Accepter", hint: "Le candidat reçoit son attestation d'admission.", icon: CheckCircle2, color: "text-[#0b7a3d]" },
   liste_attente: { label: "Liste d'attente", hint: "Décision reportée selon les places disponibles.", icon: Hourglass, color: "text-[#a55a00]" },
-  refusee: { label: "Refuser", hint: "Décision définitive, motivez-la pour le candidat.", icon: CircleX, color: "text-[#d42a50]" },
-  piece_demandee: { label: "Demander une pièce", hint: "Le candidat est notifié par e-mail et SMS.", icon: FilePlus2, color: "text-[#d42a50]" },
+  refusee: { label: "Refuser", hint: "Décision définitive, motivez-la pour le candidat.", icon: CircleX, color: "text-[#b8213f]" },
+  piece_demandee: { label: "Demander une pièce", hint: "Le candidat est notifié par e-mail et SMS.", icon: FilePlus2, color: "text-[#b8213f]" },
 };
 const TEMPLATE: Partial<Record<AppStatus, string>> = {
   acceptee: "Félicitations ! Nous avons le plaisir de vous annoncer votre admission. Vous recevrez prochainement les modalités d'inscription.",
@@ -160,12 +160,12 @@ export function Dossier({ id }: { id: string }) {
                 className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm transition ${doc?.id === x.id ? "border-[#b9a6fb] bg-[#f8f6ff]" : "border-slate-200 hover:border-[#d9cffd]"}`}>
                 {x.mime.startsWith("image/") ? <ImageIcon size={17} className="shrink-0 text-ink-mute" /> : <FileText size={17} className="shrink-0 text-ink-mute" />}
                 <span className="min-w-0 flex-1"><b className="block truncate">{x.label ?? docLabel(x.type)}</b><span className="block truncate text-xs text-ink-mute">{x.fileName}</span></span>
-                <CheckCircle2 size={18} className="shrink-0 text-[#0f8a46]" aria-label="Déposée" />
+                <CheckCircle2 size={18} className="shrink-0 text-[#0b7a3d]" aria-label="Déposée" />
               </button>
             ))}
             {missing.map((t) => (
               <div key={t} className="flex items-center gap-3 rounded-xl border border-dashed border-[#ffc2cf] bg-[#fff6f8] px-4 py-3 text-sm">
-                <AlertTriangle size={17} className="shrink-0 text-[#d42a50]" /><span className="flex-1"><b>{pieces.find((x) => x.code === t)?.libelle ?? docLabel(t)}</b><span className="block text-xs text-ink-mute">{a.requestedDocuments.includes(t) ? "Demandée au candidat" : "Pièce requise manquante"}</span></span>
+                <AlertTriangle size={17} className="shrink-0 text-[#b8213f]" /><span className="flex-1"><b>{pieces.find((x) => x.code === t)?.libelle ?? docLabel(t)}</b><span className="block text-xs text-ink-mute">{a.requestedDocuments.includes(t) ? "Demandée au candidat" : "Pièce requise manquante"}</span></span>
               </div>
             ))}
           </div>
@@ -247,11 +247,11 @@ function RequestDialog({ open, onClose, onSend, pending, error, defaults }: { op
     <Dialog open={open} onClose={onClose} title="Demander une pièce complémentaire" wide>
       <form className="flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); if (sel.length) onSend(sel, note.trim()); }}>
         <fieldset className="flex flex-col gap-2">
-          <legend className="mb-2 text-[13px] font-bold">Pièces à fournir <span className="text-[#d42a50]">*</span></legend>
+          <legend className="mb-2 text-[13px] font-bold">Pièces à fournir <span className="text-[#b8213f]">*</span></legend>
           <div className="grid gap-2 sm:grid-cols-2">
             {SCHOOL_DOC_TYPES.map(([v, l]) => <Check key={v} checked={sel.includes(v)} onChange={(c) => { setTouched(true); setDocs(c ? [...sel, v] : sel.filter((x) => x !== v)); }}>{l}</Check>)}
           </div>
-          {touched && !sel.length && <span className="text-xs font-semibold text-[#d42a50]">Sélectionnez au moins une pièce.</span>}
+          {touched && !sel.length && <span className="text-xs font-semibold text-[#b8213f]">Sélectionnez au moins une pièce.</span>}
         </fieldset>
         <Field label="Précisions pour le candidat">{(id) => <Textarea id={id} value={note} onChange={(e) => setNote(e.target.value)} maxLength={2000} placeholder="Ex. : relevé de notes du 2e trimestre, certifié conforme." />}</Field>
         <Alert tone="info">Le dossier passe au statut « Pièce demandée ». Le candidat est notifié par e-mail et SMS et pourra déposer la pièce depuis son espace.</Alert>

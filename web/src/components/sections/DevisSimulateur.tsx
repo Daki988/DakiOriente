@@ -208,7 +208,7 @@ export function DevisSimulateur() {
                 </div>
                 <div className="flex shrink-0 flex-wrap items-start gap-2 2xl:flex-col 2xl:items-end">
                   <span className="chip bg-sun-100 text-[#a55a00]"><Info size={14} className="mr-1 inline" />Estimation · frais à confirmer par l&apos;école</span>
-                  <span className="chip bg-[#e8f8ef] text-[#0f8a46]"><BadgeCheck size={14} className="mr-1 inline" />Devient « frais confirmés » dès réponse de l&apos;école</span>
+                  <span className="chip bg-[#e8f8ef] text-[#0b7a3d]"><BadgeCheck size={14} className="mr-1 inline" />Devient « frais confirmés » dès réponse de l&apos;école</span>
                 </div>
               </div>
               <div className="flex flex-col items-center gap-8 sm:flex-row">
@@ -281,7 +281,7 @@ export function DevisSimulateur() {
                 <Link href={`/etablissements/${e.id}/`} className="text-[13px] font-bold text-brand-600">Voir la fiche de l&apos;établissement →</Link>
               </Reveal>
               <Reveal delay={0.1} className="card flex flex-col gap-3 rounded-3xl p-6"><h3 className="text-lg font-extrabold">Cadre de vie à {e.ville.split(/[ /(]/)[0]}</h3>
-                {env.map(([I, t, s]) => <div key={t} className="flex items-start gap-3"><span className="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-xl bg-[#e8f8ef] text-[#0f8a46]"><I size={18} /></span><span><b className="block text-sm">{t}</b><span className="text-[13px] text-ink-mute">{s}</span></span></div>)}
+                {env.map(([I, t, s]) => <div key={t} className="flex items-start gap-3"><span className="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-xl bg-[#e8f8ef] text-[#0b7a3d]"><I size={18} /></span><span><b className="block text-sm">{t}</b><span className="text-[13px] text-ink-mute">{s}</span></span></div>)}
                 <Link href={`/pays/${e.pays.toLowerCase()}/`} className="text-[13px] font-bold text-brand-600">Étudier au {P.nom} : la fiche pays →</Link>
               </Reveal>
             </div>

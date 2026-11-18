@@ -35,7 +35,7 @@ export function Logement({ title = "Mon logement" }: { title?: string }) {
           {!al.data?.length ? <p className="text-[13px] text-ink-mute">Crée une alerte depuis la recherche pour être prévenu·e des nouveaux logements.</p> : al.data.map((a) => (
             <div key={a.id} className="flex items-center justify-between gap-2 rounded-xl bg-white p-3 text-[13px]">
               <span>{[a.criteria.etablissement ? `près de ${etabById[a.criteria.etablissement]?.sigle ?? a.criteria.etablissement}` : null, a.criteria.ville, a.criteria.type, a.criteria.budgetMax ? `≤ ${a.criteria.budgetMax}` : null].filter(Boolean).join(" · ") || "Tous logements"}</span>
-              <button onClick={() => del(a.id)} aria-label="Supprimer l'alerte" className="text-ink-mute hover:text-[#d42a50]"><Trash2 size={15} /></button>
+              <button onClick={() => del(a.id)} aria-label="Supprimer l'alerte" className="text-ink-mute hover:text-[#b8213f]"><Trash2 size={15} /></button>
             </div>
           ))}
         </Panel>

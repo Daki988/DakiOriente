@@ -4,7 +4,7 @@ import { Globe2, Plane, ShieldCheck } from "lucide-react";
 import { useSession } from "@/components/app/Session";
 import { REGIONS, VISA_AVERTISSEMENT, VISA_LABEL, paysOrigine, paysOrigineById, visaResume } from "@/lib/pays-origine";
 
-const VISA_STYLE: Record<string, string> = { national: "bg-[#e8f8ef] text-[#0f8a46]", dispense: "bg-[#e8f8ef] text-[#0f8a46]", evisa: "bg-brand-50 text-brand-700", visa: "bg-sun-100 text-[#a55a00]" };
+const VISA_STYLE: Record<string, string> = { national: "bg-[#e8f8ef] text-[#0b7a3d]", dispense: "bg-[#e8f8ef] text-[#0b7a3d]", evisa: "bg-brand-50 text-brand-700", visa: "bg-sun-100 text-[#a55a00]" };
 
 /** « Venir étudier au Maroc depuis ton pays » : régime d'entrée selon la nationalité, puis carte de séjour. */
 export function VenirAuMaroc() {
@@ -29,7 +29,7 @@ export function VenirAuMaroc() {
           <div className="flex flex-wrap items-center gap-2"><b className="text-base">{p.nom}</b>{p.visa && <span className={`chip ${VISA_STYLE[p.visa] ?? "bg-[#eef1f8] text-ink-soft"}`}>{VISA_LABEL[p.visa]}</span>}{p.aevm && <span className="chip bg-brand-50 text-brand-700">AEVM obligatoire</span>}<span className="chip bg-white text-ink-soft">{REGIONS[p.region]}</span></div>
           <p className="flex items-start gap-2 text-ink-soft"><Plane size={16} className="mt-0.5 shrink-0 text-brand-600" />{visaResume(p.id)}.</p>
           {p.note && <p className="text-ink-soft">{p.note}</p>}
-          {p.visa !== "national" && <p className="flex items-start gap-2 text-ink-soft"><ShieldCheck size={16} className="mt-0.5 shrink-0 text-[#0f8a46]" />{p.sejour ?? "Sur place, demande la carte de séjour étudiant à la DGSN dans les 90 jours suivant l'arrivée."}</p>}
+          {p.visa !== "national" && <p className="flex items-start gap-2 text-ink-soft"><ShieldCheck size={16} className="mt-0.5 shrink-0 text-[#0b7a3d]" />{p.sejour ?? "Sur place, demande la carte de séjour étudiant à la DGSN dans les 90 jours suivant l'arrivée."}</p>}
           {p.diplome && <p className="text-ink-soft">Diplôme d&apos;accès : <b>{p.diplome}</b> (ou équivalent), à faire légaliser avant le départ.</p>}
         </div>
       ) : (

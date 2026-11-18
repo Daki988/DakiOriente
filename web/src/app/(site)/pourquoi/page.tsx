@@ -11,28 +11,28 @@ import { SERVICES } from "@/lib/services";
 
 export const metadata: Metadata = {
   title: "Pourquoi Navigoal",
-  description: "Étudier au Maroc, de l'orientation à l'installation : test d'orientation, écoles au statut vérifié, vrai coût des études, candidature unique, logement Navilease et voyage NaviTravel.",
+  description: "Étudier au Maroc de l'orientation à l'installation : test, écoles au statut vérifié, vrai coût, candidature unique, logement et voyage.",
 };
 
 const ETAPES: { I: LucideIcon; c: string; t: string; d: string; img: string; alt: string; tag: string; href: string; cta: string }[] = [
   { I: Compass, c: "#1a47f5", t: "Je découvre qui je suis", d: "Un test d'orientation visuel d'une dizaine de minutes relie tes goûts, ta série et les métiers qui recrutent. Résultat : un profil clair et des pistes concrètes, que tu peux partager avec tes parents.", img: "/images/laptop.webp", alt: "Étudiante qui travaille sur un ordinateur portable", tag: "Test d'orientation · fiches métiers · séries décryptées", href: "/orientation", cta: "Passer le test" },
   { I: GraduationCap, c: "#6a3df0", t: "Je choisis une école sûre", d: "Chaque établissement affiche son statut officiel, vérifié sur les textes publiés : reconnu par l'État, diplômes homologués, établissement professionnel ou simplement autorisé. Tu compares les écoles côte à côte.", img: "/photos/ma/ma-uir-1.jpg", alt: "Campus de l'Université internationale de Rabat", tag: "Labels vérifiés · comparateur", href: "/etablissements", cta: "Voir les écoles" },
-  { I: Wallet, c: "#0f8a46", t: "Je connais le vrai coût", d: "Scolarité publiée par l'école, logement, vie sur place, billets d'avion et imprévus : le devis complet sur toute la formation, en F CFA ou dans ta monnaie, avant de t'engager.", img: "/photos/pourquoi/parents.jpg", alt: "Une étudiante et sa mère consultent un ordinateur", tag: "Devis sur toute la formation · taux du jour", href: "/devis", cta: "Faire un devis" },
-  { I: Send, c: "#e04f2b", t: "Je candidate une seule fois", d: "Un dossier unique, plusieurs écoles. Tu suis chaque candidature en temps réel, tu réponds aux demandes de pièces et tu paies les frais par mobile money.", img: "/images/communaute.webp", alt: "Groupe d'étudiantes", tag: "Un dossier · suivi en direct · paiement mobile", href: "/inscription", cta: "Créer mon dossier" },
+  { I: Wallet, c: "#0b7a3d", t: "Je connais le vrai coût", d: "Scolarité publiée par l'école, logement, vie sur place, billets d'avion et imprévus : le devis complet sur toute la formation, en F CFA ou dans ta monnaie, avant de t'engager.", img: "/photos/pourquoi/parents.jpg", alt: "Une étudiante et sa mère consultent un ordinateur", tag: "Devis sur toute la formation · taux du jour", href: "/devis", cta: "Faire un devis" },
+  { I: Send, c: "#c13a17", t: "Je candidate une seule fois", d: "Un dossier unique, plusieurs écoles. Tu suis chaque candidature en temps réel, tu réponds aux demandes de pièces et tu paies les frais par mobile money.", img: "/images/communaute.webp", alt: "Groupe d'étudiantes", tag: "Un dossier · suivi en direct · paiement mobile", href: "/inscription", cta: "Créer mon dossier" },
   { I: House, c: SERVICES.navilease.c, t: "Je me loge sans arnaque", d: "Navilease : résidences universitaires officielles et logements vérifiés, avec un paiement en séquestre libéré seulement après ton entrée dans les lieux.", img: "/photos/residences/sh-tanger-2.jpg", alt: "Chambre de la résidence The Student House à Tanger", tag: "Navilease · résidences · séquestre", href: "/navilease", cta: "Découvrir Navilease" },
   { I: Plane, c: SERVICES.navitravel.c, t: "Je pars l'esprit tranquille", d: "NaviTravel : billet d'avion, visa, accueil à l'aéroport et assurance, organisés pour toi et suivis par un conseiller.", img: "/photos/navitravel/hublot.jpg", alt: "Vue sur les nuages depuis le hublot d'un avion", tag: "NaviTravel · billet · visa · accueil · assurance", href: "/navitravel", cta: "Découvrir NaviTravel" },
 ];
 
 const PUBLICS = [
   { img: "/images/laptop.webp", c: "#1a47f5", t: "Élèves", d: "Trouve ta série, ton métier et ta formation, gratuitement.", href: "/orientation" },
-  { img: "/images/communaute.webp", c: "#0f8a46", t: "Étudiants en mobilité", d: "Étudie au Maroc dans une école au statut vérifié.", href: "/comparateur" },
+  { img: "/images/communaute.webp", c: "#0b7a3d", t: "Étudiants en mobilité", d: "Étudie au Maroc dans une école au statut vérifié.", href: "/comparateur" },
   { img: "/photos/pourquoi/parents.jpg", c: "#a55a00", t: "Parents", d: "Le budget réel, le suivi des candidatures et la sécurité du logement.", href: "/parents" },
   { img: "/photos/ma/ma-uir-1.jpg", c: "#6a3df0", t: "Établissements", d: "Des candidats déjà orientés vers vos programmes, partout en Afrique.", href: "/etablissement/guide" },
   { img: "/photos/residences/sh-tanger-2.jpg", c: "#d42a50", t: "Bailleurs et résidences", d: "Des locataires étudiants vérifiés, un paiement garanti.", href: "/navilease#bailleurs" },
 ];
 
 const LABELS = [
-  { c: "#0f8a46", t: "Reconnu par l'État", d: "Établissement reconnu : ses diplômes sont équivalents à ceux de l'enseignement public." },
+  { c: "#0b7a3d", t: "Reconnu par l'État", d: "Établissement reconnu : ses diplômes sont équivalents à ceux de l'enseignement public." },
   { c: "#1a47f5", t: "Diplômes homologués", d: "Une ou plusieurs filières homologuées par l'État, avec la référence du texte." },
   { c: "#6a3df0", t: "Établissement professionnel", d: "Formation professionnelle agréée, aux diplômes reconnus." },
   { c: "#a55a00", t: "Établissement autorisé", d: "École autorisée qui délivre ses propres diplômes : nous le disons clairement." },
@@ -61,7 +61,7 @@ export default function PourquoiPage() {
         <div className="container grid items-center gap-10 pb-0 pt-12 lg:grid-cols-[1.05fr_1fr] lg:pt-16">
           <Reveal className="flex flex-col gap-5 pb-4 lg:pb-16">
             <span className="eyebrow">Pourquoi Navigoal</span>
-            <h1 className="h-display">Étudier au Maroc, <span className="text-brand-600">de l&apos;orientation</span> à <span className="text-sun-500">l&apos;installation</span>.</h1>
+            <h1 className="h-display">Étudier au Maroc, <span className="text-brand-600">de l&apos;orientation</span> à <span className="text-[#d07400]">l&apos;installation</span>.</h1>
             <p className="max-w-xl text-lg leading-relaxed text-ink-soft">Une seule plateforme pour choisir sa voie, trouver une école au statut vérifié, connaître le vrai coût, candidater, se loger et voyager. Pensée pour les élèves d&apos;Afrique et leurs familles.</p>
             <div className="flex flex-wrap gap-3"><Link href="/orientation" className="btn-primary">Passer le test gratuit <ArrowRight size={16} /></Link><a href="#parcours" className="btn-ghost">Voir le parcours</a></div>
           </Reveal>
@@ -72,7 +72,7 @@ export default function PourquoiPage() {
             <img src="/photos/ma/ma-uir-1.jpg" alt="Campus universitaire au Maroc" className="absolute right-0 top-16 h-[200px] w-[44%] rounded-[28px] object-cover shadow-[0_40px_80px_-30px_rgba(11,21,51,.5)] sm:h-[260px]" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/etudiante.webp" alt="" className="absolute bottom-0 left-[24%] h-[330px] w-auto sm:h-[430px]" />
-            <div className="card absolute bottom-10 left-0 hidden items-center gap-2.5 px-3.5 py-3 sm:flex"><BadgeCheck size={22} className="text-[#0f8a46]" /><span><b className="block text-sm">Statut vérifié</b><span className="text-xs text-ink-mute">sur les textes officiels</span></span></div>
+            <div className="card absolute bottom-10 left-0 hidden items-center gap-2.5 px-3.5 py-3 sm:flex"><BadgeCheck size={22} className="text-[#0b7a3d]" /><span><b className="block text-sm">Statut vérifié</b><span className="text-xs text-ink-mute">sur les textes officiels</span></span></div>
             <div className="card absolute bottom-24 right-0 flex items-center gap-2.5 px-3.5 py-3"><Wallet size={22} className="text-brand-600" /><span><b className="block text-sm">Le vrai coût</b><span className="text-xs text-ink-mute">en F CFA ou dans ta monnaie</span></span></div>
           </div>
         </div>
@@ -81,13 +81,13 @@ export default function PourquoiPage() {
       {/* Le constat */}
       <section className="container mt-16 grid items-center gap-10 lg:grid-cols-2">
         <Reveal className="flex flex-col gap-4">
-          <span className="eyebrow text-[#d42a50]">Le constat</span>
+          <span className="eyebrow text-[#b8213f]">Le constat</span>
           <h2 className="h-section">Partir étudier, c&apos;est souvent un saut dans l&apos;inconnu.</h2>
           <p className="text-[17px] leading-relaxed text-ink-soft">Des informations éparpillées sur les réseaux sociaux, des écoles dont on ignore si le diplôme est reconnu, des frais découverts trop tard, des cautions envoyées à des inconnus… Navigoal remet de l&apos;ordre et de la confiance dans ce parcours.</p>
         </Reveal>
         <Stagger className="grid gap-3 sm:grid-cols-2">
           {[["Infos dispersées", "Sites, groupes WhatsApp, bouche-à-oreille."], ["Statut flou", "Diplôme reconnu ou non ? Difficile à vérifier."], ["Budget sous-estimé", "Logement, visa et vie sur place oubliés."], ["Arnaques au logement", "Cautions versées pour des logements fictifs."]].map(([t, d]) => (
-            <StaggerItem key={t} className="flex flex-col gap-1.5 rounded-[20px] bg-[#fff5f6] p-5"><CircleX size={22} className="text-[#d42a50]" /><b>{t}</b><span className="text-sm text-ink-mute">{d}</span></StaggerItem>
+            <StaggerItem key={t} className="flex flex-col gap-1.5 rounded-[20px] bg-[#fff5f6] p-5"><CircleX size={22} className="text-[#b8213f]" /><b>{t}</b><span className="text-sm text-ink-mute">{d}</span></StaggerItem>
           ))}
         </Stagger>
       </section>
@@ -135,7 +135,7 @@ export default function PourquoiPage() {
 
       {/* Les labels */}
       <section className="container mt-20 grid items-center gap-10 lg:grid-cols-[420px_1fr]">
-        <Reveal className="flex flex-col gap-3.5"><span className="eyebrow text-[#0f8a46]">La transparence</span><h2 className="h-section">Le statut de chaque école, expliqué simplement</h2><p className="leading-relaxed text-ink-soft">Nous ne présentons que des établissements privés et inter-États qui accueillent les étudiants internationaux, avec leur statut exact et la date de vérification.</p><Link href="/etablissements" className="btn-ghost self-start">Voir les {etablissements.length} écoles</Link></Reveal>
+        <Reveal className="flex flex-col gap-3.5"><span className="eyebrow text-[#0b7a3d]">La transparence</span><h2 className="h-section">Le statut de chaque école, expliqué simplement</h2><p className="leading-relaxed text-ink-soft">Nous ne présentons que des établissements privés et inter-États qui accueillent les étudiants internationaux, avec leur statut exact et la date de vérification.</p><Link href="/etablissements" className="btn-ghost self-start">Voir les {etablissements.length} écoles</Link></Reveal>
         <Stagger className="grid gap-3.5 sm:grid-cols-2">
           {LABELS.map((l) => <StaggerItem key={l.t} className="flex flex-col gap-2 rounded-[20px] border border-slate-200 bg-white p-5"><span className="chip self-start text-white" style={{ background: l.c }}><BadgeCheck size={13} />{l.t}</span><span className="text-[14px] leading-relaxed text-ink-soft">{l.d}</span></StaggerItem>)}
         </Stagger>

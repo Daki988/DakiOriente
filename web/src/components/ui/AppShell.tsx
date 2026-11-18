@@ -35,10 +35,10 @@ const MENUS: Record<string, Menu> = {
     { href: "/etablissement/formations", Icon: GraduationCap, t: "Formations" }, { href: "/etablissement/candidatures", Icon: FileCheck2, t: "Candidatures" },
     { href: "/etablissement/dossier", Icon: Folder, t: "Dossier de candidature" }, { href: "/etablissement/campagnes", Icon: Megaphone, t: "Campagnes" }, { href: "/etablissement/offre", Icon: Crown, t: "Mon offre" }, { href: "/etablissement/guide", Icon: BookOpen, t: "Guide de la plateforme" },
     { href: "/etablissement/vivier", Icon: UsersRound, t: "Vivier de candidats", group: "Premium" }, { href: "/etablissement/prospection", Icon: Send, t: "Prospection", group: "Premium" }, MSG, NOTIF, SETTINGS] },
-  bailleur: { label: "Espace bailleur Navilease", tint: "bg-[#ffecef] text-[#d42a50]", tabs: ["/bailleur", "/bailleur/annonces", "/bailleur/reservations", "/messages"], items: [
+  bailleur: { label: "Espace bailleur Navilease", tint: "bg-[#ffecef] text-[#b8213f]", tabs: ["/bailleur", "/bailleur/annonces", "/bailleur/reservations", "/messages"], items: [
     { href: "/bailleur", Icon: LayoutDashboard, t: "Tableau de bord", m: "Accueil" }, { href: "/bailleur/annonces", Icon: House, t: "Mes annonces", m: "Annonces" },
     { href: "/bailleur/reservations", Icon: KeyRound, t: "Demandes & réservations", m: "Réservations" }, { href: "/bailleur/profil", Icon: ShieldCheck, t: "Vérification & versements" }, MSG, NOTIF, SETTINGS] },
-  conseiller: { label: "Espace conseiller", tint: "bg-[#e8f8ef] text-[#0f8a46]", tabs: ["/conseiller", "/messages", "/notifications"], items: [{ href: "/conseiller", Icon: Headset, t: "Rendez-vous" }, MSG, NOTIF, SETTINGS] },
+  conseiller: { label: "Espace conseiller", tint: "bg-[#e8f8ef] text-[#0b7a3d]", tabs: ["/conseiller", "/messages", "/notifications"], items: [{ href: "/conseiller", Icon: Headset, t: "Rendez-vous" }, MSG, NOTIF, SETTINGS] },
   admin: { label: "Back-office", tint: "bg-ink text-white", tabs: ["/admin", "/admin/utilisateurs", "/admin/etablissements", "/admin/homologations"], items: [
     { href: "/admin", Icon: BarChart3, t: "Statistiques" }, { href: "/admin/audience", Icon: Eye, t: "Audience" }, { href: "/admin/navi", Icon: Bot, t: "Navi" }, { href: "/admin/candidatures", Icon: Inbox, t: "Candidatures", group: "Relais Navigoal" }, { href: "/admin/messagerie", Icon: MessagesSquare, t: "Messagerie", group: "Relais Navigoal" },
     { href: "/admin/accompagnement", Icon: LifeBuoy, t: "Mode accompagné", group: "Relais Navigoal" }, { href: "/admin/prospection", Icon: Send, t: "Prospection des écoles", group: "Relais Navigoal" }, { href: "/admin/utilisateurs", Icon: Users, t: "Utilisateurs" }, { href: "/admin/etablissements", Icon: Building2, t: "Établissements" }, { href: "/admin/acces", Icon: KeyRound, t: "Accès écoles" }, { href: "/admin/offres", Icon: Crown, t: "Offres et abonnements" },
@@ -149,7 +149,7 @@ export function AppShell({ user, children }: { user: ClientUser | null; children
                           {["eleve", "etudiant"].includes(user.role) && <Link href="/espace/profil" className="flex min-h-[40px] items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-semibold hover:bg-[#f6f8fe]"><UserRound size={16} />Mon profil</Link>}
                           <Link href="/compte" className="flex min-h-[40px] items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-semibold hover:bg-[#f6f8fe]"><Settings2 size={16} />Compte et sécurité</Link>
                           <Link href="/" className="flex min-h-[40px] items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-semibold hover:bg-[#f6f8fe]"><House size={16} />Site public</Link>
-                          <button onClick={logout} className="flex min-h-[40px] items-center gap-2.5 rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-[#d42a50] hover:bg-[#fff1f3]"><LogOut size={16} />Se déconnecter</button>
+                          <button onClick={logout} className="flex min-h-[40px] items-center gap-2.5 rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-[#b8213f] hover:bg-[#fff1f3]"><LogOut size={16} />Se déconnecter</button>
                         </motion.div>
                       </>
                     )}</AnimatePresence>
@@ -176,7 +176,7 @@ export function AppShell({ user, children }: { user: ClientUser | null; children
               <div className="flex items-center justify-between"><Brand /><button onClick={() => setOpen(false)} aria-label="Fermer le menu" className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f1f4fd]"><X size={18} /></button></div>
               {user && <div className="flex items-center gap-3 rounded-2xl bg-[#f6f8fe] p-3"><Avatar name={`${user.firstName} ${user.lastName}`} size={40} /><span className="min-w-0"><b className="block truncate text-sm">{user.firstName} {user.lastName}</b><span className={`chip mt-0.5 ${menu?.tint}`}>{menu?.label}</span></span></div>}
               <Nav onPick={() => setOpen(false)} />
-              {user ? <button onClick={logout} className="mt-auto flex min-h-[44px] items-center gap-2 rounded-xl px-3.5 text-sm font-bold text-[#d42a50] hover:bg-[#fff1f3]"><LogOut size={16} />Se déconnecter</button>
+              {user ? <button onClick={logout} className="mt-auto flex min-h-[44px] items-center gap-2 rounded-xl px-3.5 text-sm font-bold text-[#b8213f] hover:bg-[#fff1f3]"><LogOut size={16} />Se déconnecter</button>
                 : <div className="mt-auto flex flex-col gap-2"><Link href="/connexion" className="btn-ghost">Se connecter</Link><Link href="/inscription" className="btn-primary">Créer un compte</Link></div>}
             </motion.aside>
           </motion.div>

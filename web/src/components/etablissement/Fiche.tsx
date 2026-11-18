@@ -97,7 +97,7 @@ export function Fiche() {
                   // eslint-disable-next-line @next/next/no-img-element
                   ? <img src={e.photos[0].src} alt={`${e.nom} — photo`} className="h-full w-full object-cover" />
                   : <Building2 size={56} strokeWidth={1.4} className="absolute inset-0 m-auto text-white/60" />}
-                {etab.status === "verifie" && <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold text-[#0f8a46]"><BadgeCheck size={13} />Vérifié</span>}
+                {etab.status === "verifie" && <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold text-[#0b7a3d]"><BadgeCheck size={13} />Vérifié</span>}
               </div>
               <div className="flex flex-col gap-3 p-5">
                 <div className="relative -mt-12 flex items-end gap-3"><Logo e={e} size={60} className="shadow-card" /></div>
@@ -122,7 +122,7 @@ export function Fiche() {
             <p className="text-sm text-ink-mute">{st.text}</p>
             <ul className="flex flex-col gap-3">
               {steps.map(([t, d, ok]) => (
-                <li key={t} className="flex gap-3">{ok ? <CheckCircle2 size={19} className="mt-0.5 shrink-0 text-[#0f8a46]" /> : <Circle size={19} className="mt-0.5 shrink-0 text-slate-300" />}<span className="flex flex-col"><b className="text-sm">{t}</b><span className="text-xs text-ink-mute">{d}</span></span></li>
+                <li key={t} className="flex gap-3">{ok ? <CheckCircle2 size={19} className="mt-0.5 shrink-0 text-[#0b7a3d]" /> : <Circle size={19} className="mt-0.5 shrink-0 text-slate-300" />}<span className="flex flex-col"><b className="text-sm">{t}</b><span className="text-xs text-ink-mute">{d}</span></span></li>
               ))}
             </ul>
           </Panel>

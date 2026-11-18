@@ -25,7 +25,7 @@ export type BookingRow = { b: Booking; h: { id: string; title: string; ville: st
 export const VERIF: Record<Verification, { label: string; short: string; cls: string; Icon: LucideIcon }> = {
   non_verifie: { label: "Non vérifié", short: "Non vérifié", cls: "bg-[#eef1f8] text-ink-soft", Icon: ShieldCheck },
   identite: { label: "Identité vérifiée", short: "Identité", cls: "bg-brand-50 text-brand-700", Icon: BadgeCheck },
-  visite: { label: "Visité par Navilease", short: "Visité", cls: "bg-[#e8f8ef] text-[#0f8a46]", Icon: BadgeCheck },
+  visite: { label: "Visité par Navilease", short: "Visité", cls: "bg-[#e8f8ef] text-[#0b7a3d]", Icon: BadgeCheck },
   partenaire: { label: "Partenaire certifié", short: "Partenaire", cls: "bg-sun-100 text-[#a55a00]", Icon: Star },
 };
 export function VerifBadge({ v, className = "" }: { v: Verification; className?: string }) {

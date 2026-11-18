@@ -175,7 +175,7 @@ export function NavileaseSearch() {
           <div className="flex flex-wrap items-center gap-2">
             <button type="button" onClick={() => setFiltersOpen(true)} className="chip border border-brand-200 bg-white py-1.5 text-brand-700 lg:hidden"><SlidersHorizontal size={14} />Filtres{activeCount ? ` (${activeCount})` : ""}</button>
             <button type="button" onClick={() => setMapOpen(true)} className="chip border border-brand-200 bg-white py-1.5 text-brand-700 xl:hidden"><MapIcon size={14} />Carte</button>
-            {applied.verifies && <span className="chip bg-[#e8f8ef] text-[#0f8a46]">Bailleurs vérifiés<button aria-label="Retirer le filtre" onClick={() => { const n = { ...applied, verifies: false }; setF(n); apply(n); }}><X size={12} /></button></span>}
+            {applied.verifies && <span className="chip bg-[#e8f8ef] text-[#0b7a3d]">Bailleurs vérifiés<button aria-label="Retirer le filtre" onClick={() => { const n = { ...applied, verifies: false }; setF(n); apply(n); }}><X size={12} /></button></span>}
             {applied.equipement.map((a) => <span key={a} className="chip bg-brand-50 text-brand-700">{AMENITIES.find((x) => x.id === a)?.label}<button aria-label="Retirer le filtre" onClick={() => { const n = { ...applied, equipement: applied.equipement.filter((x) => x !== a) }; setF(n); apply(n); }}><X size={12} /></button></span>)}
             <label className="ml-auto flex items-center gap-2 text-[13px] text-ink-mute">Trier
               <select value={sort} onChange={(e) => setSort(e.target.value)} className="rounded-lg bg-transparent font-bold text-ink outline-none focus:ring-2 focus:ring-brand-100">{SORTS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select>
@@ -218,7 +218,7 @@ function ResultCard({ h, i, near, hovered, onHover }: { h: Housing; i: number; n
           {h.rating ? <span className="flex shrink-0 items-center gap-1 text-sm font-bold"><Star size={14} className="fill-sun-400 text-sun-500" />{h.rating.toFixed(1).replace(".", ",")} <span className="font-normal text-ink-mute">({h.reviews})</span></span> : <span className="shrink-0 text-xs text-ink-mute">Nouveau</span>}
         </div>
         <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-ink-mute"><span className="flex items-center gap-1"><MapPin size={13} />{[h.quartier, h.ville].filter(Boolean).join(", ")}</span><span>{typeLabel(h.type)}{h.surface ? ` · ${h.surface} m²` : ""}</span></p>
-        {near && <p className="flex items-center gap-1.5 text-[13px] font-bold text-[#0f8a46]"><Footprints size={14} />{near.minutes} min {modeLabel(near.mode)} de {etabName(near.id)}</p>}
+        {near && <p className="flex items-center gap-1.5 text-[13px] font-bold text-[#0b7a3d]"><Footprints size={14} />{near.minutes} min {modeLabel(near.mode)} de {etabName(near.id)}</p>}
         <div className="flex flex-wrap gap-1.5">
           {h.furnished && <span className="chip bg-[#f1f4fb] text-ink-soft">Meublé</span>}
           {h.amenities.filter((a) => a !== "meuble").slice(0, 3).map((a) => <span key={a} className="chip bg-[#f1f4fb] text-ink-soft">{AMENITIES.find((x) => x.id === a)?.label ?? a}</span>)}

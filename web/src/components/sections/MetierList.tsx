@@ -97,7 +97,7 @@ export function MetierList() {
               <Search size={19} className="shrink-0 text-ink-mute" />
               <input value={saisie} onChange={(e) => { setSaisie(e.target.value); if (!e.target.value) appliquer({ q: "" }); }} placeholder="Rechercher un métier (ex : informaticien, médecin, juriste…)" aria-label="Rechercher un métier" className="min-w-0 flex-1 bg-transparent py-2.5 text-[15px] outline-none" />
               {saisie && <button type="button" onClick={() => { setSaisie(""); appliquer({ q: "" }); }} aria-label="Effacer" className="flex h-10 w-10 items-center justify-center text-ink-mute"><X size={18} /></button>}
-              <button className="btn-sun min-h-[44px] px-4 sm:px-5"><Search size={17} className="sm:hidden" /><span className="hidden sm:inline">Rechercher</span></button>
+              <button aria-label="Rechercher" className="btn-sun min-h-[44px] px-4 sm:px-5"><Search size={17} className="sm:hidden" /><span className="hidden sm:inline">Rechercher</span></button>
             </form>
             <Link href="/temoignages/" className="flex items-center gap-1.5 self-start text-sm font-extrabold text-brand-600 hover:underline"><Quote size={15} className="fill-sun-400 text-sun-400" />Ils racontent leur métier : témoignages de professionnels<ArrowRight size={15} /></Link>
           </div>

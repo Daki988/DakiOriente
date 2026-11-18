@@ -67,7 +67,7 @@ export function AdminNavilease() {
                       <div className="flex flex-1 flex-col gap-2 p-4">
                         <b className="leading-tight">{x.h.title}</b>
                         <span className="text-xs text-ink-mute">{x.l.firstName} {x.l.lastName[0]}. · {x.h.ville} · {TYPE[x.h.type] ?? x.h.type} · <b className="text-ink">{money(x.h.rent, x.h.currency)}</b></span>
-                        <ul className="flex flex-col gap-1 text-[13px]">{checks(x.h).slice(0, 3).map((c) => <li key={c.t} className="flex items-center gap-1.5">{c.ok ? <CheckCircle2 size={14} className="shrink-0 text-[#0f8a46]" /> : <AlertTriangle size={14} className="shrink-0 text-[#dd7f02]" />}{c.t}</li>)}</ul>
+                        <ul className="flex flex-col gap-1 text-[13px]">{checks(x.h).slice(0, 3).map((c) => <li key={c.t} className="flex items-center gap-1.5">{c.ok ? <CheckCircle2 size={14} className="shrink-0 text-[#0b7a3d]" /> : <AlertTriangle size={14} className="shrink-0 text-[#dd7f02]" />}{c.t}</li>)}</ul>
                         <Button size="sm" className="mt-auto" onClick={() => setReview(x)}>Examiner l&apos;annonce</Button>
                       </div>
                     </article>
@@ -164,7 +164,7 @@ function ReviewHousing({ x, onDone }: { x: Queue["housings"][number]; onDone: ()
       {h.amenities.length > 0 && <div className="flex flex-wrap gap-1.5">{h.amenities.map((a) => <Chip key={a} tone="grey">{a.replace(/_/g, " ")}</Chip>)}</div>}
       <div className="rounded-2xl border border-slate-200/80 p-3.5">
         <b className="mb-2 block text-sm">Contrôles automatiques</b>
-        <ul className="grid gap-1.5 text-[13px] sm:grid-cols-2">{checks(h).map((c) => <li key={c.t} className="flex items-center gap-1.5">{c.ok ? <CheckCircle2 size={14} className="shrink-0 text-[#0f8a46]" /> : <AlertTriangle size={14} className="shrink-0 text-[#dd7f02]" />}{c.t}</li>)}</ul>
+        <ul className="grid gap-1.5 text-[13px] sm:grid-cols-2">{checks(h).map((c) => <li key={c.t} className="flex items-center gap-1.5">{c.ok ? <CheckCircle2 size={14} className="shrink-0 text-[#0b7a3d]" /> : <AlertTriangle size={14} className="shrink-0 text-[#dd7f02]" />}{c.t}</li>)}</ul>
       </div>
       <div className="grid gap-4 sm:grid-cols-[220px_1fr]">
         <Field label="Niveau de vérification">{(id) => <Select id={id} value={verif} onChange={(e) => setVerif(e.target.value)} options={VERIF} />}</Field>
@@ -172,7 +172,7 @@ function ReviewHousing({ x, onDone }: { x: Queue["housings"][number]; onDone: ()
       </div>
       <FormError error={act.error} />
       <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-        <Button variant="ghost" className="!border-[#ffd0d9] !text-[#d42a50]" disabled={act.pending} onClick={() => decide(false)}>Refuser / demander une correction</Button>
+        <Button variant="ghost" className="!border-[#ffd0d9] !text-[#b8213f]" disabled={act.pending} onClick={() => decide(false)}>Refuser / demander une correction</Button>
         <Button className="!bg-[#0f8a46] hover:!bg-[#0b7a3c]" icon={CheckCircle2} loading={act.pending} onClick={() => decide(true)}>Publier l&apos;annonce</Button>
       </div>
     </div>
@@ -207,7 +207,7 @@ function ReviewKyc({ k, onDone }: { k: Queue["kyc"][number]; onDone: () => void 
       <Field label="Note" hint="Obligatoire en cas de refus ; transmise au bailleur." error={noteErr}>{(id) => <Textarea id={id} value={note} onChange={(e) => setNote(e.target.value)} className="!min-h-[80px]" placeholder="Ex. : appel de contrôle effectué le…" />}</Field>
       <FormError error={act.error} />
       <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-        <Button variant="ghost" className="!border-[#ffd0d9] !text-[#d42a50]" disabled={act.pending} onClick={() => decide(false)}>Refuser</Button>
+        <Button variant="ghost" className="!border-[#ffd0d9] !text-[#b8213f]" disabled={act.pending} onClick={() => decide(false)}>Refuser</Button>
         <Button className="!bg-[#0f8a46] hover:!bg-[#0b7a3c]" icon={ShieldCheck} loading={act.pending} onClick={() => decide(true)}>Valider l&apos;identité</Button>
       </div>
     </div>

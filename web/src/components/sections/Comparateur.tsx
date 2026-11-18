@@ -155,7 +155,7 @@ export function Comparateur() {
             {liste.length ? liste.slice(0, 2).map((f) => <Link key={f.intitule} href={`/formations/${c.ref}/?etab=${c.e.id}`} className="mb-1.5 block leading-snug hover:text-brand-600">{f.intitule}</Link>)
               : <Link href={`/formations/${c.ref}/?etab=${c.e.id}`} className="block leading-snug hover:text-brand-600">{formationById[c.ref].intitule}</Link>}
             {liste.length > 2 && <span className="block text-xs font-semibold text-ink-mute">+ {liste.length - 2} autre{liste.length > 3 ? "s" : ""}</span>}
-            <span className={`mt-1 block text-xs font-bold ${ok ? "text-[#0f8a46]" : liste.length ? "text-[#8a4b00]" : "text-ink-mute"}`}>
+            <span className={`mt-1 block text-xs font-bold ${ok ? "text-[#0b7a3d]" : liste.length ? "text-[#8a4b00]" : "text-ink-mute"}`}>
               {ok ? "✓ Accréditée par l'État" : liste.length ? "Renouvellement pas encore publié" : "Diplôme de l'école (non accrédité)"}
             </span>
           </>
@@ -173,7 +173,7 @@ export function Comparateur() {
       id: "scolarite", lab: "Frais de scolarité par an",
       aide: "Tarif publié par l'école quand elle l'affiche, sinon estimation pour ce type d'école. À confirmer auprès de l'école.",
       cle: (c) => `${c.sco.min}-${c.sco.max}-${c.publie}`,
-      cell: (c) => <><Montants min={c.sco.min} max={c.sco.max} source={c.dev} /><span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-[11px] font-bold ${c.publie ? "bg-[#e8f8ef] text-[#0f8a46]" : "bg-[#f1f4fd] text-ink-mute"}`}>{c.publie ? "Tarif publié" : "Estimation"}</span></>,
+      cell: (c) => <><Montants min={c.sco.min} max={c.sco.max} source={c.dev} /><span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-[11px] font-bold ${c.publie ? "bg-[#e8f8ef] text-[#0b7a3d]" : "bg-[#f1f4fd] text-ink-mute"}`}>{c.publie ? "Tarif publié" : "Estimation"}</span></>,
     },
     {
       id: "total", lab: "Coût total des études",
@@ -265,9 +265,9 @@ export function Comparateur() {
                     <div className="min-w-0 sm:pr-7">
                       <Link href={`/etablissements/${c.e.id}/`} className="line-clamp-2 text-[13px] font-extrabold leading-tight hover:text-brand-600 sm:text-sm" title={c.e.nom}>{c.e.sigle || c.e.nom}</Link>
                       <span className="block truncate text-[11px] font-semibold text-ink-mute sm:text-xs">{c.villes.slice(0, 2).join(" · ") || c.e.ville}</span>
-                      {c.e.id === moinsCher && <span className="mt-1 inline-block rounded-full bg-[#e8f8ef] px-2 py-0.5 text-[10px] font-extrabold text-[#0f8a46] sm:text-[11px]">Le moins cher</span>}
+                      {c.e.id === moinsCher && <span className="mt-1 inline-block rounded-full bg-[#e8f8ef] px-2 py-0.5 text-[10px] font-extrabold text-[#0b7a3d] sm:text-[11px]">Le moins cher</span>}
                     </div>
-                    <button onClick={() => setIds(ids.filter((x) => x !== c.e.id))} className="absolute -right-0.5 -top-0.5 flex h-8 w-8 items-center justify-center rounded-full text-ink-mute hover:bg-[#ffecef] hover:text-[#d42a50] print:hidden" aria-label={`Retirer ${c.e.sigle}`}><X size={16} /></button>
+                    <button onClick={() => setIds(ids.filter((x) => x !== c.e.id))} className="absolute -right-0.5 -top-0.5 flex h-8 w-8 items-center justify-center rounded-full text-ink-mute hover:bg-[#ffecef] hover:text-[#b8213f] print:hidden" aria-label={`Retirer ${c.e.sigle}`}><X size={16} /></button>
                   </div>
                 ))}
               </div>
@@ -287,7 +287,7 @@ export function Comparateur() {
                 <div className="grid gap-2 px-2.5 pb-3 pt-1.5 sm:gap-3 sm:px-3 lg:py-4" style={grille}>
                   {cols.map((c) => {
                     const ok = plusieurs && r.mieux?.(c) && !cols.every((x) => r.mieux?.(x));
-                    return <div key={c.e.id} className={`min-w-0 hyphens-auto break-words rounded-xl px-1.5 py-1 text-[13px] font-bold sm:px-2 sm:text-sm ${ok ? "bg-[#e8f8ef] text-[#0f8a46]" : ""}`}>{r.cell(c)}</div>;
+                    return <div key={c.e.id} className={`min-w-0 hyphens-auto break-words rounded-xl px-1.5 py-1 text-[13px] font-bold sm:px-2 sm:text-sm ${ok ? "bg-[#e8f8ef] text-[#0b7a3d]" : ""}`}>{r.cell(c)}</div>;
                   })}
                 </div>
               </div>
@@ -318,7 +318,7 @@ export function Comparateur() {
       </div>
 
       <div className="container mt-5 grid gap-2.5 sm:grid-cols-3 sm:gap-4 print:hidden">
-        {([[Share2, "bg-brand-50 text-brand-600", "Partager la comparaison", "avec tes parents ou ton conseiller", share], [Download, "bg-[#e8f8ef] text-[#0f8a46]", "Exporter en PDF", "pour décider à tête reposée", () => window.print()], [MessageCircle, "bg-sun-100 text-[#a55a00]", "Poser une question", "directement aux établissements", () => (window.location.href = "/messages")]] as const).map(([I, cls, t, s, fn]) => (
+        {([[Share2, "bg-brand-50 text-brand-600", "Partager la comparaison", "avec tes parents ou ton conseiller", share], [Download, "bg-[#e8f8ef] text-[#0b7a3d]", "Exporter en PDF", "pour décider à tête reposée", () => window.print()], [MessageCircle, "bg-sun-100 text-[#a55a00]", "Poser une question", "directement aux établissements", () => (window.location.href = "/messages")]] as const).map(([I, cls, t, s, fn]) => (
           <button key={t} onClick={fn} className="card flex items-center gap-3 rounded-[18px] p-3.5 text-left transition hover:-translate-y-0.5 hover:shadow-lift sm:p-[18px]"><span className={`flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-xl ${cls}`}><I size={20} /></span><span><b className="block text-sm">{t}</b><span className="text-xs text-ink-mute">{s}</span></span></button>
         ))}
       </div>
