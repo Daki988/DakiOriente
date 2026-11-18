@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { titreSeo } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import Link from "@/components/ui/Link";
 import { ArrowRight, Briefcase, Calculator, Calendar, Check, ChevronRight, HeartPulse, KeyRound, MapPin, Scale, ShieldCheck, Wallet } from "lucide-react";
@@ -21,7 +22,7 @@ export const generateMetadata = async (props: { params: Promise<{ code: string }
   const params = await props.params;
 
   return ({
-    title: `Étudier ${auPays(params.code.toUpperCase() as PaysCode)}`,
+    title: titreSeo(`Étudier ${auPays(params.code.toUpperCase() as PaysCode)} pour les étrangers : écoles, prix, visa`, `Étudier ${auPays(params.code.toUpperCase() as PaysCode)} : écoles, prix, visa`, `Étudier ${auPays(params.code.toUpperCase() as PaysCode)}`),
     description: byCode(params.code)?.accroche,
     alternates: { canonical: `/pays/${params.code}/` }
   });

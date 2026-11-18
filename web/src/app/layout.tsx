@@ -18,7 +18,6 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   applicationName: "Navigoal",
   keywords: ["étudier au Maroc", "école privée Maroc", "université privée Maroc", "établissement reconnu par l'État", "diplôme homologué Maroc", "étudiant africain Maroc", "orientation post-bac", "candidature en ligne", "logement étudiant Casablanca", "logement étudiant Rabat", "visa étudiant Maroc", "étudier au Sénégal", "école privée Dakar", "ANAQ-Sup", "étudiant africain Dakar"],
-  alternates: { canonical: "/" },
   icons: { icon: "/favicon.png", apple: "/apple-touch-icon.png" },
   openGraph: { type: "website", locale: "fr_FR", siteName: "Navigoal", title: `Navigoal — Étudier ${DESTINATIONS_ACTIVES.map((d) => d.prep).join(" ou ")}`, description: DESCRIPTION, url: SITE_URL, images: [{ url: "/og.png", width: 1200, height: 630, alt: `Navigoal — Étudier ${DESTINATIONS_ACTIVES.map((d) => d.prep).join(" ou ")}` }] },
   twitter: { card: "summary_large_image", title: `Navigoal — Étudier ${DESTINATIONS_ACTIVES.map((d) => d.prep).join(" ou ")}`, description: DESCRIPTION, images: ["/og.png"] },
@@ -26,10 +25,16 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false },
 };
 
+// Organisation (logo dans les résultats) et site (nom du site affiché par Google, recherche interne).
 const ORGANISATION = {
-  "@context": "https://schema.org", "@type": "Organization", name: "Navigoal", url: SITE_URL, logo: `${SITE_URL}/brand/navigoal-logo.png`,
-  description: DESCRIPTION, areaServed: ["Africa", ...DESTINATIONS_ACTIVES.map((d) => d.code)], knowsLanguage: "fr",
-  potentialAction: { "@type": "SearchAction", target: `${SITE_URL}/recherche/?q={q}`, "query-input": "required name=q" },
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Organization", "@id": `${SITE_URL}/#organisation`, name: "Navigoal", url: SITE_URL, logo: `${SITE_URL}/brand/navigoal-logo.png`,
+      description: DESCRIPTION, areaServed: ["Africa", ...DESTINATIONS_ACTIVES.map((d) => d.code)], knowsLanguage: "fr",
+      email: "contact@navigoal.net", parentOrganization: { "@type": "Organization", name: "OAPS Consulting Group" } },
+    { "@type": "WebSite", "@id": `${SITE_URL}/#site`, name: "Navigoal", url: `${SITE_URL}/`, inLanguage: "fr", publisher: { "@id": `${SITE_URL}/#organisation` },
+      potentialAction: { "@type": "SearchAction", target: `${SITE_URL}/recherche/?q={q}`, "query-input": "required name=q" } },
+  ],
 };
 
 export const viewport: Viewport = { themeColor: "#1a47f5" };

@@ -7,7 +7,7 @@ import { etabById, formationById, formations } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
 import { etabDetail } from "@/lib/etab-detail";
 import type { DetailFormation } from "@/components/sections/FormationDetail";
-import { descriptionSeo, titreSeo, variantesNom } from "@/lib/seo";
+import { descriptionSeo, filAriane, titreSeo, variantesNom } from "@/lib/seo";
 
 export const generateStaticParams = () => formations.map((f) => ({ id: f.id }));
 export const generateMetadata = async (props: { params: Promise<{ id: string }> }): Promise<Metadata> => {
@@ -16,7 +16,7 @@ export const generateMetadata = async (props: { params: Promise<{ id: string }> 
   if (!f) return {};
   const n = f.etablissements.length;
   return {
-    title: titreSeo(`${f.intitule} au Maroc : écoles et admission`, ...variantesNom(f.intitule).flatMap((n) => [`${n} au Maroc : écoles et frais`, `${n} au Maroc`, n])),
+    title: titreSeo(`${f.intitule} au Maroc : écoles privées, prix et admission`, `${f.intitule} au Maroc : écoles privées et prix`, `${f.intitule} au Maroc : écoles et admission`, ...variantesNom(f.intitule).flatMap((n) => [`${n} au Maroc : écoles privées et prix`, `${n} au Maroc : écoles et frais`, `${n} au Maroc`, n])),
     description: descriptionSeo(
       `${f.intitule} (${f.diplome}, ${f.duree_annees} an${f.duree_annees > 1 ? "s" : ""}) : ${n} école${n > 1 ? "s" : ""} au Maroc, admission, programme, frais et métiers visés. Candidature en ligne.`,
       `${f.intitule} (${f.diplome}) : ${n} école${n > 1 ? "s" : ""} au Maroc, admission, programme, frais et métiers visés.`,
@@ -32,6 +32,7 @@ function jsonLd(id: string) {
   if (!f) return null;
   return {
     "@context": "https://schema.org", "@type": "Course", name: f.intitule, url: `${SITE_URL}/formations/${f.id}/`, inLanguage: "fr",
+    description: `${f.intitule} (${f.diplome}, ${f.duree_annees} an${f.duree_annees > 1 ? "s" : ""}) dans ${f.etablissements.filter((x) => etabById[x]).length} école(s) privée(s) du Maroc : admission, programme, frais et métiers visés.`,
     educationalCredentialAwarded: f.diplome, timeRequired: `P${f.duree_annees}Y`,
     provider: f.etablissements.map((x) => etabById[x]).filter(Boolean).slice(0, 20).map((e) => ({ "@type": "CollegeOrUniversity", name: e.nom, url: `${SITE_URL}/etablissements/${e.id}/` })),
     hasCourseInstance: f.etablissements.map((x) => etabById[x]).filter(Boolean).slice(0, 20).flatMap((e) => villesOffre(e, f.id).map((v) => ({ "@type": "CourseInstance", courseMode: "onsite", location: { "@type": "Place", name: `${e.sigle || e.nom} – ${v}`, address: { "@type": "PostalAddress", addressLocality: v, addressCountry: "MA" } } }))),
@@ -53,6 +54,7 @@ export default async function FormationPage(props: { params: Promise<{ id: strin
   const ld = jsonLd(params.id);
   return (
     <>
+      {formationById[params.id] && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(filAriane(SITE_URL, [["Formations", "/formations/"], [formationById[params.id].intitule, `/formations/${params.id}/`]])).replace(/</g, "\\u003c") }} />}
       {ld && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />}
       <Suspense><FormationDetail id={params.id} details={details(params.id)} /></Suspense>
     </>

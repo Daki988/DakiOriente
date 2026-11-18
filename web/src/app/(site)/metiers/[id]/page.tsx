@@ -9,7 +9,8 @@ import { MetierCard, domStyle } from "@/components/ui/Cards";
 import { EtabLogo } from "@/components/ui/EtabLogo";
 import { TemoignagesMetier } from "@/components/ui/Temoignages";
 import { PAYS_NOM, admissionLabel, competenceLabel, domaineById, etabById, formationById, metierById, metiers, niveauLabel, riasec, serieById } from "@/lib/data";
-import { descriptionSeo, titreSeo, variantesNom } from "@/lib/seo";
+import { descriptionSeo, filAriane, titreSeo, variantesNom } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site";
 
 export const generateStaticParams = () => metiers.map((m) => ({ id: m.id }));
 export const generateMetadata = async (props: { params: Promise<{ id: string }> }): Promise<Metadata> => {
@@ -39,6 +40,7 @@ export default async function MetierPage(props: { params: Promise<{ id: string }
   const proches = metiers.filter((x) => x.id !== m.id && x.domaine === m.domaine).slice(0, 4);
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(filAriane(SITE_URL, [["Métiers", "/metiers/"], [m.nom, `/metiers/${m.id}/`]])).replace(/</g, "\\u003c") }} />
       <section className="relative overflow-hidden pb-10 pt-10" style={{ background: `linear-gradient(135deg, ${s.bg}, #f6f8fe 70%)` }}>
         <Icon size={320} strokeWidth={1} className="absolute -right-10 -top-10 opacity-[.07]" style={{ color: s.solid }} />
         <div className="container relative flex flex-col gap-5">

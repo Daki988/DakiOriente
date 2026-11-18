@@ -18,7 +18,7 @@ export function PhotoGallery({ e }: { e: Etablissement }) {
   }, [open, go]);
   const tile = (k: number, cls: string) => (
     <button type="button" onClick={() => n && setOpen(Math.min(k, n - 1))} className={`group relative overflow-hidden rounded-3xl ${cls}`} aria-label={n ? `Agrandir la photo ${k + 1}` : undefined} disabled={!n}>
-      <EtabPhoto e={e} n={k < n ? k : -1} rounded="rounded-3xl" className="h-full w-full transition duration-700 group-hover:scale-105" />
+      <EtabPhoto e={e} n={k < n ? k : -1} rounded="rounded-3xl" prioritaire={k === 0} sizes={k === 0 ? "(max-width: 1024px) 100vw, 800px" : "(max-width: 640px) 50vw, 400px"} className="h-full w-full transition duration-700 group-hover:scale-105" />
     </button>
   );
   return (

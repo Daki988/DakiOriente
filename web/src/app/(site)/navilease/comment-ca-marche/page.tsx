@@ -3,7 +3,7 @@ import Link from "@/components/ui/Link";
 import { ChevronRight, HandCoins, Scale, ShieldCheck, UsersRound } from "lucide-react";
 import { EtapesReservation } from "@/components/navilease/Explications";
 
-export const metadata: Metadata = { title: "Comment ça marche · Navilease", description: "Réserver un logement étudiant au Maroc avec Navilease : recherche, réservation, paiement protégé en séquestre, contrat numérique et emménagement." };
+export const metadata: Metadata = { title: "Comment ça marche · Navilease", description: "Réserver un logement étudiant au Maroc avec Navilease : recherche, réservation, paiement protégé en séquestre, contrat numérique et emménagement.", alternates: { canonical: "/navilease/comment-ca-marche/" } };
 
 const PROTECTIONS = [
   { I: ShieldCheck, t: "Bailleurs et logements vérifiés", s: "L'identité du bailleur et les justificatifs du logement sont contrôlés avant la mise en ligne. L'adresse exacte n'est révélée qu'après le paiement." },

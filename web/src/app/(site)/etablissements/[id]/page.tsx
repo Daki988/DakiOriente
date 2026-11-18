@@ -16,7 +16,7 @@ import { etabDetail } from "@/lib/etab-detail";
 import { COUTS, devis, formationParDefaut } from "@/lib/devis";
 import { establishmentLive } from "@/server/content-ui";
 import { SITE_URL } from "@/lib/site";
-import { descriptionSeo, titreSeo } from "@/lib/seo";
+import { descriptionSeo, filAriane, titreSeo } from "@/lib/seo";
 
 export const generateStaticParams = () => etablissements.map((e) => ({ id: e.id }));
 export const revalidate = 300; // reflète les mises à jour faites par l'établissement
@@ -29,7 +29,7 @@ export const generateMetadata = async (props: { params: Promise<{ id: string }> 
   const v1 = villes.length > 1 ? `${villes[0]} et ${villes.length - 1} autre${villes.length > 2 ? "s" : ""} ville${villes.length > 2 ? "s" : ""}` : villes[0];
   const court = e.sigle && [...e.sigle].length < [...e.nom].length ? e.sigle : e.nom;
   // Titre ≤ 60 caractères (suffixe compris), description ≤ 155 : du plus complet au plus court.
-  const title = titreSeo(`${e.nom} : formations et frais`, `${e.nom} (${villes[0]})`, `${court} ${villes[0]} : formations, frais, admission`, `${court} ${villes[0]} : formations et frais`, `${court} : formations et frais`, e.nom);
+  const title = titreSeo(`${court} ${villes[0]} : frais de scolarité, formations, admission`, `${court} ${villes[0]} : frais de scolarité et formations`, `${court} : frais de scolarité et formations`, `${e.nom} : formations et frais`, `${e.nom} (${villes[0]})`, `${court} ${villes[0]} : formations, frais, admission`, `${court} ${villes[0]} : formations et frais`, `${court} : formations et frais`, e.nom);
   const fil = nb ? `${nb} filière${nb > 1 ? "s" : ""}` : "Programmes";
   const label = e.label_libelle || labelById[e.label]?.libelle || "Établissement privé";
   const pays = destinationById[e.pays]?.nom ?? e.pays;
@@ -161,6 +161,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(e)).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(filAriane(SITE_URL, [["Écoles", "/etablissements/"], [e.sigle || e.nom, `/etablissements/${e.id}/`]])).replace(/</g, "\\u003c") }} />
       <div className="container flex flex-col gap-6 pt-7">
         <nav className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[13px] text-ink-mute"><Link href="/">Accueil</Link><ChevronRight size={14} className="shrink-0" /><Link href="/etablissements">Établissements</Link><ChevronRight size={14} className="shrink-0" /><Link href={`/etablissements/?pays=${e.pays}`}>{PD?.nom}</Link><ChevronRight size={14} className="shrink-0" /><span>{e.sigle}</span></nav>
         <Reveal className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end">

@@ -155,3 +155,17 @@ Compléments du 18/11/2026 : caractère nul (`%00`, `\u0000`) refusé en 400 au 
 Corrections : CSP `form-action` sans CinetPay (inutilisé) ; `/api/sante` affiche la version déployée.
 
 Latence : premier visiteur après une période calme à 10,8 s sur l'accueil. Cause : le signal de maintien en éveil (`/robots.txt`, toutes les 4 min) était servi par Varnish sans atteindre l'application, que Passenger arrêtait. `robots.txt` passe en `CDN-Cache-Control: no-store`. Pool Neon gardé 60 s au lieu de 10 s (nouvelle connexion ≈ 70 à 100 ms évitée). Accueil : 245 → 165 Ko de JavaScript (le référentiel complet n'est plus envoyé au navigateur). Côté serveur, 2 requêtes SQL par page connectée, 10 à 70 ms de calcul : pas de goulot. Reste : réveil de Neon après 5 min d'inactivité (≈ 0,5 s, offre gratuite) et pages de listes (métiers, formations, écoles) à 250-280 Ko, qui filtrent le référentiel dans le navigateur.
+
+## SEO et vitesse (18 novembre 2026)
+
+Lighthouse mobile sur le site en ligne avant correction : performance 65 à 72, accessibilité, bonnes pratiques et SEO 100. Causes relevées et corrigées :
+
+- 12 pages (Navilease, NaviTravel, Pourquoi, actualités) déclaraient l'accueil comme page canonique (héritée du gabarit racine) : Google les traitait comme des copies de l'accueil. Chaque page déclare maintenant la sienne ; contrôle ajouté à `audit-publication.mjs`.
+- Test d'orientation interdit aux robots alors que « test d'orientation gratuit » est l'une des recherches les plus fréquentes : ouvert, ajouté au plan du site.
+- Titres alignés sur 226 recherches réelles (suggestions Google depuis 5 pays d'Afrique) : frais de scolarité, prix, écoles privées, logement étudiant, pour les étrangers, diplôme reconnu par l'État.
+- Données structurées : fil d'Ariane, site (nom affiché par Google), description des formations (champ exigé pour les résultats enrichis « cours »).
+- Haut de page invisible tant que le JavaScript n'avait pas tourné (animations d'apparition partant d'une opacité 0) : rendu visible immédiatement.
+- Photos des écoles et des villes en JPEG jusqu'à 330 Ko, et photo du haut des fiches écoles chargée « plus tard » : variantes WebP 400/840 px (‑55 %) et chargement prioritaire.
+- Photo de l'accueil sur fond noir (variantes sans transparence) : corrigé.
+
+Mesure locale après correction (Lighthouse mobile simulé) : accueil 68 → 83 à 87 ; l'élément principal des fiches écoles est peint à 0,85 s dans le navigateur (au lieu d'attendre le JavaScript). Reste : le poids du JavaScript des pages de listes (métiers, formations, écoles), qui embarquent le référentiel pour filtrer dans le navigateur.

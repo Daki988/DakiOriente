@@ -4,8 +4,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { EtabList } from "@/components/sections/EtabList";
 import { DESTINATIONS_ACTIVES, PAYS_ACTIFS_TEXTE, etablissements, stats } from "@/lib/data";
 
-const PAYS = DESTINATIONS_ACTIVES.map((d) => d.nom).join(", ");
-export const metadata: Metadata = { title: `Écoles et universités privées reconnues (${PAYS})`, description: `Compare les écoles et universités privées reconnues ${PAYS_ACTIFS_TEXTE} : reconnaissance par l'État, filières accréditées, frais, campus et logement. Candidature en ligne.`, alternates: { canonical: "/etablissements/" } };
+export const metadata: Metadata = { title: `Écoles privées ${PAYS_ACTIFS_TEXTE} : prix, diplômes reconnus`, description: `Compare les écoles et universités privées reconnues ${PAYS_ACTIFS_TEXTE} : reconnaissance par l'État, filières accréditées, frais, campus et logement. Candidature en ligne.`, alternates: { canonical: "/etablissements/" } };
 
 export default function EtablissementsPage() {
   const detail = DESTINATIONS_ACTIVES.map((d) => `${d.etablissements} ${d.prep}`).join(", ");

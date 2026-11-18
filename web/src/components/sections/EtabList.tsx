@@ -1,4 +1,5 @@
 "use client";
+import { useApresPremierRendu } from "@/components/motion/Reveal";
 import Link from "@/components/ui/Link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight, RotateCcw, Search, X } from "lucide-react";
@@ -17,6 +18,7 @@ const LABELS_PRESENTS = LABELS.filter((l) => etablissements.some((e) => e.label 
 const ORDRE = (a: Etablissement, b: Etablissement) => b.photos.length - a.photos.length || Number(!!b.logo) - Number(!!a.logo) || b.filieres.length - a.filieres.length;
 
 export function EtabList() {
+  const anime = useApresPremierRendu(); // cartes visibles au chargement, animées après un filtre
   const { f, set, reset, sync } = useFiltres(DEFAUTS);
   const [limit, setLimit] = useState(24);
   // Pays : celui de l'adresse (?pays=SN, ou « tous »), sinon la destination choisie par le visiteur.
@@ -75,7 +77,7 @@ export function EtabList() {
       <p className="text-sm text-ink-soft"><b className="text-ink">{list.length} établissement{list.length > 1 ? "s" : ""}{D ? ` ${D.prep}` : ""}</b> · {pays === "SN" ? <>écoles privées reconnues : habilitation institutionnelle ou programmes accrédités par l&apos;ANAQ-Sup, et écoles inter-États. Les établissements de la liste noire du ministère sont exclus.</> : pays === "MA" ? <>établissements privés autorisés par le ministère. Le label indique si leurs diplômes sont homologués par l&apos;État (reconnu par l&apos;État, diplômes homologués) ou s&apos;il s&apos;agit de diplômes d&apos;établissement (autorisé).</> : <>établissements privés reconnus dans chaque pays ; le label suit les règles officielles du pays de l&apos;école.</>}</p>
       <motion.div layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <AnimatePresence mode="popLayout">
-          {list.slice(0, limit).map((e, k) => <motion.div key={e.id} layout initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0, transition: { delay: Math.min(k, 12) * 0.03 } }} exit={{ opacity: 0, scale: 0.95 }}><EtabCard id={e.id} /></motion.div>)}
+          {list.slice(0, limit).map((e, k) => <motion.div key={e.id} layout initial={anime ? { opacity: 0, y: 16 } : false} animate={{ opacity: 1, y: 0, transition: { delay: Math.min(k, 12) * 0.03 } }} exit={{ opacity: 0, scale: 0.95 }}><EtabCard id={e.id} /></motion.div>)}
         </AnimatePresence>
       </motion.div>
       {!list.length && <div className="card p-10 text-center text-ink-mute">Aucun établissement ne correspond. <button onClick={reset} className="font-bold text-brand-600">Réinitialiser les filtres</button></div>}

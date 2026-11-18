@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { srcsetPhoto } from "@/lib/photo-variantes";
 import { Check, CircleCheck, ClipboardList, CreditCard, FileText, HandHelping, HeartPulse, Plane, Smile, Sparkles, Stamp, type LucideIcon } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { DemandeDevis } from "@/components/navitravel/DemandeDevis";
@@ -7,6 +8,7 @@ import { SERVICES } from "@/lib/services";
 export const metadata: Metadata = {
   title: "NaviTravel — billet, visa, accueil et assurance",
   description: "NaviTravel organise le départ des étudiants vers leur école au Maroc : billet d'avion, visa, accueil à l'aéroport et assurance, avec un conseiller qui suit chaque étape.",
+  alternates: { canonical: "/navitravel/" },
 };
 const s = SERVICES.navitravel;
 
@@ -34,7 +36,7 @@ export default function NaviTravelPage() {
     <>
       <section className="relative overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/photos/navitravel/hublot.jpg" alt="" className="absolute inset-0 h-full w-full object-cover object-[center_65%] brightness-[.5]" />
+        <img src="/photos/navitravel/hublot.jpg" srcSet={srcsetPhoto("/photos/navitravel/hublot.jpg")} sizes="100vw" fetchPriority="high" alt="" className="absolute inset-0 h-full w-full object-cover object-[center_65%] brightness-[.5]" />
         <div className="container relative grid items-center gap-8 py-16 sm:py-24 lg:grid-cols-[1.4fr_1fr]">
           <Reveal className="flex flex-col gap-5">
             <span className="chip self-start bg-white/15 text-white backdrop-blur"><Sparkles size={13} />Nouveau service Navigoal</span>
@@ -56,7 +58,7 @@ export default function NaviTravelPage() {
             <StaggerItem key={p.id} className="card flex scroll-mt-32 flex-col overflow-hidden">
               <div id={p.id} className="relative h-[190px] scroll-mt-36">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={p.img} alt={p.alt} loading="lazy" className="h-full w-full object-cover" />
+                <img src={p.img} srcSet={srcsetPhoto(p.img)} sizes="(max-width: 640px) 100vw, 400px" alt={p.alt} loading="lazy" className="h-full w-full object-cover" />
                 <span className="absolute left-3.5 top-3.5 flex h-11 w-11 items-center justify-center rounded-2xl text-white" style={{ background: s.c }}><p.I size={22} /></span>
               </div>
               <div className="flex flex-col gap-2 p-5"><b className="text-lg">{p.t}</b><span className="text-[14.5px] leading-relaxed text-ink-soft">{p.d}</span></div>

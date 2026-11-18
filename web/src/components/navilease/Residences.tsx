@@ -1,4 +1,5 @@
 import Link from "@/components/ui/Link";
+import { srcsetPhoto } from "@/lib/photo-variantes";
 import { ArrowRight, ExternalLink, GraduationCap, Info, MapPin } from "lucide-react";
 import { Prix } from "@/components/ui/Devise";
 import { domaine, reservee, residencesEtudiantes, VILLES_RESIDENCES, type Residence } from "@/lib/residences";
@@ -16,7 +17,7 @@ export function ResidenceCarte({ r }: { r: Residence }) {
   return (
     <Link href={`/navilease/residences/${r.id}/`} className="card group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-lift">
       <div className="relative h-44 overflow-hidden bg-[#e8edfa]">
-        {p && <img src={p.src} alt={`${r.nom} : photo de la résidence`} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />}
+        {p && <img src={p.src} srcSet={srcsetPhoto(p.src)} sizes="(max-width: 640px) 100vw, 400px" alt={`${r.nom} : photo de la résidence`} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />}
         {r.statut && <span className="chip absolute left-2.5 top-2.5 bg-[#d42a50] text-white">{r.statut}</span>}
         {r.photos.length > 1 && <span className="chip absolute bottom-2.5 right-2.5 bg-ink/70 text-white backdrop-blur">{r.photos.length} photos</span>}
         <span className="chip absolute bottom-2.5 left-2.5 bg-ink/70 text-white backdrop-blur"><MapPin size={12} />{r.ville}</span>

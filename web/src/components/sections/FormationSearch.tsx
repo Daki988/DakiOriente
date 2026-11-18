@@ -1,4 +1,5 @@
 "use client";
+import { useApresPremierRendu } from "@/components/motion/Reveal";
 import Link from "@/components/ui/Link";
 import { usePartenaires } from "@/components/ui/Partenaires";
 import { AnimatePresence, motion } from "framer-motion";
@@ -44,6 +45,7 @@ function Case({ on, label, n, onClick }: { on: boolean; label: string; n: number
 }
 
 export function FormationSearch() {
+  const anime = useApresPremierRendu(); // cartes visibles au chargement, animées après un filtre
   const { f, set, reset, toggle, sync } = useFiltres(DEFAUTS);
   const [limit, setLimit] = useState(12);
   const [profil, setProfil] = useState<string[]>(["I", "C"]);
@@ -150,7 +152,7 @@ export function FormationSearch() {
           <motion.div layout className="flex flex-col gap-4">
             <AnimatePresence mode="popLayout">
               {results.slice(0, limit).map(({ f: F, e, score, villesVues }, k) => (
-                <motion.div key={F.id + e.id} layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0, transition: { delay: Math.min(k, 8) * 0.04 } }} exit={{ opacity: 0, scale: 0.97 }}>
+                <motion.div key={F.id + e.id} layout initial={anime ? { opacity: 0, y: 20 } : false} animate={{ opacity: 1, y: 0, transition: { delay: Math.min(k, 8) * 0.04 } }} exit={{ opacity: 0, scale: 0.97 }}>
                   <FormationOfferCard f={F} etabId={e.id} score={score} highlight={k === 0} villes={villesVues} />
                 </motion.div>
               ))}

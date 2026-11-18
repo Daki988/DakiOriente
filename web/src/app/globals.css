@@ -58,3 +58,10 @@
 @keyframes naviFondu { from { opacity: 0; } to { opacity: 1; } }
 @keyframes naviApparition { from { opacity: 0; transform: translateY(16px) scale(.94); } to { opacity: 1; transform: none; } }
 @keyframes naviCompte { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+
+/* Apparition des titres (WordsReveal, FadeIn) en CSS : peints dès l'arrivée du HTML, sans attendre le JavaScript. */
+@keyframes navigoal-mot { from { opacity: 0; transform: translateY(24px); filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes navigoal-apparition { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+.anim-mot { animation: navigoal-mot 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-apparition { animation: navigoal-apparition 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@media (prefers-reduced-motion: reduce) { .anim-mot, .anim-apparition { animation: none; } }

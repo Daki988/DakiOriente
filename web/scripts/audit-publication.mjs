@@ -33,7 +33,10 @@ await parLot(urls, 8, async (p) => {
   if (!titre) pb(p, "titre absent"); else { titres.set(titre, [...(titres.get(titre) ?? []), p]); if (titre.length > 70) pb(p, "titre long (> 70 caractères)", `${titre.length} : ${titre}`); }
   if (!desc) pb(p, "description absente"); else { descriptions.set(desc, [...(descriptions.get(desc) ?? []), p]); if (desc.length < 50 || desc.length > 170) pb(p, "description hors 50–170 caractères", `${desc.length}`); }
   if (!/<meta property="og:image"/.test(html)) pb(p, "image d'aperçu (og:image) absente");
-  if (!/<link rel="canonical"/.test(html)) pb(p, "balise canonique absente");
+  const canon = html.match(/<link rel="canonical" href="([^"]*)"/)?.[1];
+  if (!canon) pb(p, "balise canonique absente");
+  // Une canonique qui pointe ailleurs (ex. vers l'accueil, héritée du gabarit) fait disparaître la page de Google.
+  else if (new URL(canon, BASE).pathname !== p) pb(p, "canonique vers une autre page", canon);
   const h1 = (html.match(/<h1[\s>]/g) ?? []).length;
   if (h1 !== 1) pb(p, `${h1} titre(s) h1`);
   for (const img of html.match(/<img\b[^>]*>/g) ?? []) if (attr(img, "alt") === null) pb(p, "image sans attribut alt", attr(img, "src") ?? "");

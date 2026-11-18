@@ -7,7 +7,7 @@ Les vignettes (cartes de métiers, de formations, colonnes de filtres) chargeaie
 le navigateur choisit la plus petite qui lui suffit (srcset + sizes, voir components/ui/Illustration).
 
 Usage : python3 scripts/variantes_images.py [--forcer]
-Sortie : web/public/images/**/<nom>-160.webp, -400.webp et -840.webp (les originaux ne sont pas touchés).
+Sortie : web/public/images/**/<nom>-160/400/640/840.webp et assets/photos/**/<nom>-400/840.webp (les originaux ne sont pas touchés).
 Elles sont servies par web/image-loader.js (next/image) et par le srcset de components/ui/Illustration.
 """
 import argparse
@@ -18,6 +18,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IMAGES = os.path.join(ROOT, "web", "public", "images")
 LARGEURS = (160, 400, 640, 840)
 SUFFIXES = tuple(f"-{l}.webp" for l in LARGEURS)
+# Photos des écoles, des villes et des résidences (assets/photos, copiées dans web/public/photos par sync-data) :
+# JPEG d'origine gardés pour les grands écrans, variantes WebP 400 et 840 px servies par srcset (lib/photo-variantes.ts).
+PHOTOS = os.path.join(ROOT, "assets", "photos")
+LARGEURS_PHOTOS = (400, 840)
 
 
 def originaux():
@@ -34,8 +38,18 @@ def originaux():
 
 
 def variantes(chemin):
+    if chemin.startswith(PHOTOS):
+        base = os.path.splitext(chemin)[0]
+        return [(l, f"{base}-{l}.webp") for l in LARGEURS_PHOTOS]
     base = chemin[: -len(".webp")]
     return [(l, f"{base}-{l}.webp") for l in LARGEURS]
+
+
+def photos():
+    for dossier, _, fichiers in os.walk(PHOTOS):
+        for f in sorted(fichiers):
+            if f.lower().endswith((".jpg", ".jpeg", ".png")):
+                yield os.path.join(dossier, f)
 
 
 def main():
@@ -45,17 +59,19 @@ def main():
     a = ap.parse_args()
 
     faits, manquantes, octets = 0, [], 0
-    for src in originaux():
+    for src in [*originaux(), *photos()]:
         for largeur, dest in variantes(src):
             if os.path.exists(dest) and not a.forcer:
                 continue
             if a.verifier:
-                manquantes.append(os.path.relpath(dest, IMAGES))
+                manquantes.append(os.path.relpath(dest, ROOT))
                 continue
             from PIL import Image  # seulement pour produire : le contrôle (--verifier) tourne sans Pillow (CI, mise en ligne)
-            im = Image.open(src).convert("RGB")
+            im = Image.open(src)
+            # Transparence conservée (ex. étudiante détourée de l'accueil) : sinon le fond devient noir.
+            im = im.convert("RGBA") if im.mode in ("RGBA", "LA", "P") and "A" in im.convert("RGBA").getbands() and im.convert("RGBA").getextrema()[3][0] < 255 else im.convert("RGB")
             if im.width <= largeur:
-                im.save(dest, "WEBP", quality=80, method=5)  # déjà petite : copie à sa taille
+                im.save(dest, "WEBP", quality=80 if not src.startswith(PHOTOS) else 76, method=5)  # déjà petite : copie à sa taille
             else:
                 im.resize((largeur, max(1, round(im.height * largeur / im.width))), Image.LANCZOS).save(dest, "WEBP", quality=78, method=5)
             octets += os.path.getsize(dest)

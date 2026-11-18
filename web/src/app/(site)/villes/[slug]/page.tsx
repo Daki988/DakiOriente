@@ -13,7 +13,7 @@ import { COUTS } from "@/lib/devis";
 import { auPays, destinationById, domaineById, labelPays, mobilite, paysDetailById, type Etablissement, type Label } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
 import { etabDetail } from "@/lib/etab-detail";
-import { descriptionSeo, titreSeo } from "@/lib/seo";
+import { descriptionSeo, filAriane, titreSeo } from "@/lib/seo";
 
 export const generateStaticParams = () => VILLES.map((v) => ({ slug: v.slug }));
 
@@ -38,7 +38,7 @@ export const generateMetadata = async (props: { params: Promise<{ slug: string }
   const v = villeBySlug[params.slug];
   if (!v) return {};
   const { nf } = resume(v);
-  const title = titreSeo(`Étudier à ${v.nom} : écoles et logement`, `Étudier à ${v.nom}`);
+  const title = titreSeo(`Étudier à ${v.nom} : écoles, prix et logement étudiant`, `Étudier à ${v.nom} : écoles et logement`, `Étudier à ${v.nom}`);
   const ne = v.etabs.length;
   const description = descriptionSeo(
     `${ne} école${ne > 1 ? "s" : ""} privée${ne > 1 ? "s" : ""} et ${nf} formation${nf > 1 ? "s" : ""} à ${v.nom} (${destinationById[v.pays].nom}) : campus, quartiers étudiants, transports, budget mensuel et logement étudiant.`,
@@ -76,6 +76,7 @@ export default async function VillePage(props: { params: Promise<{ slug: string 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(filAriane(SITE_URL, [["Villes", "/villes/"], [v.nom, villeHref(v.nom)]])).replace(/</g, "\\u003c") }} />
       <section className="relative overflow-hidden bg-brand-950 text-white">
         {v.photo && <Image src={v.photo.src} alt={`Vue de ${v.nom}`} fill priority sizes="100vw" className="object-cover opacity-45" />}
         <div className="absolute inset-0 bg-gradient-to-r from-brand-950 via-brand-950/80 to-brand-950/20" />

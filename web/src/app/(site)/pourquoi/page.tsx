@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { srcsetPhoto } from "@/lib/photo-variantes";
 import Link from "@/components/ui/Link";
 import { ArrowRight, BadgeCheck, Check, CircleX, Compass, FileSearch, GraduationCap, House, Lock, MessageCircle, Plane, Send, ShieldCheck, UsersRound, Wallet, type LucideIcon } from "lucide-react";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
@@ -12,6 +13,7 @@ import { SERVICES } from "@/lib/services";
 export const metadata: Metadata = {
   title: "Pourquoi Navigoal",
   description: "Étudier au Maroc de l'orientation à l'installation : test, écoles au statut vérifié, vrai coût, candidature unique, logement et voyage.",
+  alternates: { canonical: "/pourquoi/" },
 };
 
 const ETAPES: { I: LucideIcon; c: string; t: string; d: string; img: string; alt: string; tag: string; href: string; cta: string }[] = [
@@ -67,9 +69,9 @@ export default function PourquoiPage() {
           </Reveal>
           <div className="relative mx-auto h-[380px] w-full max-w-[560px] sm:h-[470px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/photos/villes/casablanca.jpg" alt="Casablanca" className="absolute left-0 top-4 h-[300px] w-[52%] rounded-[28px] object-cover shadow-[0_40px_80px_-30px_rgba(11,21,51,.5)] sm:h-[400px]" />
+            <img src="/photos/villes/casablanca.jpg" srcSet={srcsetPhoto("/photos/villes/casablanca.jpg")} sizes="(max-width: 640px) 52vw, 340px" alt="Casablanca" className="absolute left-0 top-4 h-[300px] w-[52%] rounded-[28px] object-cover shadow-[0_40px_80px_-30px_rgba(11,21,51,.5)] sm:h-[400px]" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/photos/ma/ma-uir-1.jpg" alt="Campus universitaire au Maroc" className="absolute right-0 top-16 h-[200px] w-[44%] rounded-[28px] object-cover shadow-[0_40px_80px_-30px_rgba(11,21,51,.5)] sm:h-[260px]" />
+            <img src="/photos/ma/ma-uir-1.jpg" srcSet={srcsetPhoto("/photos/ma/ma-uir-1.jpg")} sizes="(max-width: 640px) 44vw, 290px" alt="Campus universitaire au Maroc" className="absolute right-0 top-16 h-[200px] w-[44%] rounded-[28px] object-cover shadow-[0_40px_80px_-30px_rgba(11,21,51,.5)] sm:h-[260px]" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/etudiante.webp" alt="" className="absolute bottom-0 left-[24%] h-[330px] w-auto sm:h-[430px]" />
             <div className="card absolute bottom-10 left-0 hidden items-center gap-2.5 px-3.5 py-3 sm:flex"><BadgeCheck size={22} className="text-[#0b7a3d]" /><span><b className="block text-sm">Statut vérifié</b><span className="text-xs text-ink-mute">sur les textes officiels</span></span></div>
@@ -99,7 +101,7 @@ export default function PourquoiPage() {
           <Reveal key={e.t} className="grid items-center gap-6 md:grid-cols-2 md:gap-14">
             <div className={`h-[230px] overflow-hidden rounded-[28px] shadow-[0_30px_60px_-28px_rgba(11,21,51,.45)] sm:h-[340px] ${k % 2 ? "md:order-2" : ""}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={e.img} alt={e.alt} loading="lazy" className="h-full w-full object-cover" />
+              <img src={e.img} srcSet={srcsetPhoto(e.img)} sizes="(max-width: 640px) 100vw, 500px" alt={e.alt} loading="lazy" className="h-full w-full object-cover" />
             </div>
             <div className="flex flex-col gap-3.5">
               <span className="flex h-[52px] w-[52px] items-center justify-center rounded-2xl text-white" style={{ background: e.c }}><e.I size={26} /></span>
@@ -123,7 +125,7 @@ export default function PourquoiPage() {
               <StaggerItem key={p.t} className="card group relative flex flex-col overflow-hidden">
                 <div className="relative h-[150px] overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.img} alt="" loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                  <img src={p.img} srcSet={srcsetPhoto(p.img)} sizes="(max-width: 640px) 100vw, 400px" alt="" loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
                   <span className="chip absolute bottom-3 left-3 text-white" style={{ background: p.c }}>{p.t}</span>
                 </div>
                 <div className="flex flex-1 flex-col gap-2 p-4"><span className="text-[14.5px] leading-relaxed">{p.d}</span><Link href={p.href} className="mt-auto text-[13px] font-bold after:absolute after:inset-0" style={{ color: p.c }}>Découvrir →</Link></div>
@@ -202,7 +204,7 @@ export default function PourquoiPage() {
       <section className="container mt-14">
         <div className="relative flex min-h-[300px] flex-col items-center justify-center gap-5 overflow-hidden rounded-[32px] p-8 text-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/photos/villes/rabat.jpg" alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover brightness-[.42]" />
+          <img src="/photos/villes/rabat.jpg" srcSet={srcsetPhoto("/photos/villes/rabat.jpg")} sizes="100vw" alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover brightness-[.42]" />
           <h2 className="relative text-3xl font-extrabold tracking-tight text-white sm:text-[40px]">Ton avenir commence par le bon choix.</h2>
           <div className="relative flex flex-wrap justify-center gap-3"><Link href="/inscription" className="btn-sun">Créer mon compte gratuit</Link><Link href="/espace/conseiller" className="rounded-2xl bg-white/15 px-5 py-3 font-bold text-white backdrop-blur hover:bg-white/25">Parler à un conseiller</Link></div>
         </div>

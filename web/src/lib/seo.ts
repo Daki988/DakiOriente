@@ -62,3 +62,11 @@ export function titreEditorial(t: string) {
   const abr = (x: string) => { const r = x.replace(/l'intelligence artificielle/gi, "l'IA").replace(/intelligence artificielle/gi, "IA"); return r.charAt(0).toUpperCase() + r.slice(1); };
   return titreSeo(t, ...courts, apres && mots(apres) >= 4 && apres.charAt(0).toUpperCase() + apres.slice(1), abr(t), ...courts.map(abr), t);
 }
+
+/** Fil d'Ariane schema.org (BreadcrumbList) : Google l'affiche à la place de l'adresse dans ses résultats. */
+export function filAriane(site: string, etapes: [nom: string, chemin: string][]) {
+  return {
+    "@context": "https://schema.org", "@type": "BreadcrumbList",
+    itemListElement: [["Navigoal", "/"] as [string, string], ...etapes].map(([name, chemin], i) => ({ "@type": "ListItem", position: i + 1, name, item: `${site}${chemin}` })),
+  };
+}

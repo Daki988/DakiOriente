@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "@/components/ui/Link";
 import { ChevronRight, FileSignature, HandCoins, ShieldCheck, UsersRound } from "lucide-react";
 
-export const metadata: Metadata = { title: "Bailleurs · Navilease", description: "Louez votre logement à des étudiants vérifiés avec Navilease : annonce, demandes, contrat numérique, quittances et versements sécurisés." };
+export const metadata: Metadata = { title: "Bailleurs · Navilease", description: "Louez votre logement à des étudiants vérifiés avec Navilease : annonce, demandes, contrat numérique, quittances et versements sécurisés.", alternates: { canonical: "/navilease/bailleurs/" } };
 
 const AVANTAGES = [
   { I: UsersRound, t: "Des étudiants identifiés", s: "Les locataires sont des étudiants inscrits sur Navigoal, avec un parent garant lorsqu'ils sont mineurs." },

@@ -9,16 +9,26 @@ import { Illustration } from "@/components/ui/Illustration";
 import { photo } from "@/lib/photos";
 import { GUIDES, OUTILS, PAGES_OUTILS, guideBySlug } from "@/lib/ressources";
 import { SITE_URL } from "@/lib/site";
-import { descriptionSeo, titreEditorial } from "@/lib/seo";
+import { descriptionSeo, filAriane, titreEditorial, titreSeo } from "@/lib/seo";
 
 export const generateStaticParams = () => [...GUIDES.map((g) => ({ slug: g.slug })), ...PAGES_OUTILS.map((slug) => ({ slug }))];
 const outil = (slug: string) => OUTILS.find((o) => o.slug === slug);
+
+// Titres pour Google, calés sur les recherches réelles (suggestions Google relevées depuis le Gabon, le Cameroun,
+// le Sénégal, la Côte d'Ivoire et le Congo, novembre 2026) ; le titre affiché sur la page ne change pas.
+const TITRES_RECHERCHE: Record<string, string> = {
+  "etudier-au-maroc": "Étudier au Maroc pour les étrangers : le guide",
+  "visa-carte-de-sejour": "Visa étudiant Maroc selon ta nationalité",
+  "logement-etudiant": "Logement étudiant au Maroc : loyers et pièges",
+  "labels-reconnaissance-etat": "Diplôme reconnu par l'État au Maroc : les labels",
+  "budget-etudiant": "Budget étudiant au Maroc : combien ça coûte ?",
+};
 
 export const generateMetadata = async (props: { params: Promise<{ slug: string }> }): Promise<Metadata> => {
   const params = await props.params;
   const r = guideBySlug[params.slug] ?? outil(params.slug);
   if (!r) return {};
-  return { title: titreEditorial(r.titre), description: descriptionSeo(r.resume), alternates: { canonical: `/ressources/${r.slug}/` }, openGraph: { title: r.titre, description: r.resume, type: "article", images: [{ url: "/og.png", width: 1200, height: 630 }] } };
+  return { title: TITRES_RECHERCHE[r.slug] ? titreSeo(TITRES_RECHERCHE[r.slug], r.titre) : titreEditorial(r.titre), description: descriptionSeo(r.resume), alternates: { canonical: `/ressources/${r.slug}/` }, openGraph: { title: r.titre, description: r.resume, type: "article", images: [{ url: "/og.png", width: 1200, height: 630 }] } };
 };
 
 export default async function RessourcePage(props: { params: Promise<{ slug: string }> }) {
@@ -35,6 +45,7 @@ export default async function RessourcePage(props: { params: Promise<{ slug: str
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(filAriane(SITE_URL, [["Ressources", "/ressources/"], [r.titre, `/ressources/${r.slug}/`]])).replace(/</g, "\\u003c") }} />
       <section className="bg-gradient-to-b from-brand-50 to-transparent pb-6 pt-8 print:hidden">
         <div className="container flex flex-col gap-3">
           <nav className="flex flex-wrap items-center gap-1.5 text-[13px] text-ink-mute" aria-label="Fil d'Ariane"><Link href="/">Accueil</Link><ChevronRight size={14} /><Link href="/ressources">Ressources</Link><ChevronRight size={14} /><span>{r.titre}</span></nav>

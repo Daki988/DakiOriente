@@ -1,4 +1,5 @@
 "use client";
+import { useApresPremierRendu } from "@/components/motion/Reveal";
 import Image from "next/image";
 import Link from "@/components/ui/Link";
 import { AnimatePresence, motion } from "framer-motion";
@@ -21,12 +22,12 @@ const court = (l: string) => l.split(",")[0];
 const ZOOM = metierById["met-data-scientist"];
 const select = "w-full appearance-none rounded-xl border border-slate-200 bg-white py-2.5 pl-3 pr-9 text-sm font-semibold text-ink outline-none focus:border-brand-400 focus:ring-4 focus:ring-brand-100";
 
-function MetierCarte({ m }: { m: Metier }) {
+function MetierCarte({ m, prioritaire = false }: { m: Metier; prioritaire?: boolean }) {
   const s = domStyle(m.domaine);
   const ecoles = ecolesPourMetier(m);
   return (
     <Link href={`/metiers/${m.id}/`} className="card group flex h-full flex-col overflow-hidden transition hover:-translate-y-1 hover:shadow-lift">
-      <Illustration p={photoMetier(m.id, m.domaine)} domaine={m.domaine} className="h-36 shrink-0 transition duration-700 group-hover:scale-105" sizes="(max-width: 640px) 70vw, 240px" />
+      <Illustration p={photoMetier(m.id, m.domaine)} domaine={m.domaine} className="h-36 shrink-0 transition duration-700 group-hover:scale-105" sizes="(max-width: 640px) 70vw, 240px" prioritaire={prioritaire} />
       <div className="flex flex-1 flex-col gap-2 p-4">
         <span className="chip w-fit max-w-full" style={{ background: s.bg, color: s.fg }}><span className="truncate">{court(domaineById[m.domaine].libelle)}</span></span>
         <b className="text-[17px] leading-snug">{m.nom}</b>
@@ -44,6 +45,7 @@ function MetierCarte({ m }: { m: Metier }) {
 }
 
 export function MetierList() {
+  const anime = useApresPremierRendu(); // cartes visibles au chargement, animées après un filtre
   const { f, set, reset, sync } = useFiltres(DEFAUTS);
   const [saisie, setSaisie] = useState(f.q);
   const [limit, setLimit] = useState(12);
@@ -142,7 +144,7 @@ export function MetierList() {
           )}
           <motion.div layout className="grid gap-5 [&>*]:min-w-0 min-[520px]:grid-cols-2 xl:grid-cols-3">
             <AnimatePresence mode="popLayout">
-              {list.slice(0, limit).map((m, k) => <motion.div key={m.id} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1, transition: { delay: Math.min(k, 9) * 0.03 } }} exit={{ opacity: 0, scale: 0.96 }}><MetierCarte m={m} /></motion.div>)}
+              {list.slice(0, limit).map((m, k) => <motion.div key={m.id} layout initial={anime ? { opacity: 0, scale: 0.96 } : false} animate={{ opacity: 1, scale: 1, transition: { delay: Math.min(k, 9) * 0.03 } }} exit={{ opacity: 0, scale: 0.96 }}><MetierCarte m={m} prioritaire={k < 2} /></motion.div>)}
             </AnimatePresence>
           </motion.div>
           {!list.length && <div className="card p-10 text-center text-ink-mute">Aucun métier ne correspond à ces filtres. <button onClick={tout} className="font-bold text-brand-600">Réinitialiser</button></div>}
