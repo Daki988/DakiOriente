@@ -13,6 +13,7 @@ import { useAction, useApi } from "@/hooks/useApi";
 import { etabById } from "@/lib/data";
 import { ConversationThread } from "./Conversation";
 import { AppProgress } from "./AppProgress";
+import { ScolaritePaiement } from "./ScolaritePaiement";
 import type { AppDetail } from "./types";
 import { useMontant } from "@/components/ui/Devise";
 
@@ -62,6 +63,7 @@ export function CandidatureDetail({ id, asParent = false }: { id: string; asPare
           </Alert>
         </motion.div>
       )}
+      {app.status === "acceptee" && <div className="mb-6"><ScolaritePaiement applicationId={id} ecole={e.sigle} /></div>}
       <div className="grid items-start gap-6 xl:grid-cols-[1fr_1fr_360px]">
         <Panel title="Suivi du dossier" icon={ListChecks} action={<span className="chip bg-[#e8f8ef] text-[#0b7a3d]">{steps.filter((s) => s.state === "done").length} / {steps.length} étapes</span>}>
           <Timeline steps={steps} />

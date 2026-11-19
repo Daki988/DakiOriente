@@ -7,6 +7,7 @@ import { rappelsEleves } from "../src/server/services/rappels-eleves";
 import { relancesEcoles } from "../src/server/services/reactivite";
 import { invitationsAvis } from "../src/server/services/avis-ecoles";
 import { alertesBourses } from "../src/server/services/bourses";
+import { rappelsScolarite } from "../src/server/services/scolarite";
 
 const r = await rappels();
 console.log(`${new Date().toISOString()} · ${r.rappels} rappel(s) d'échéance envoyé(s)`);
@@ -18,4 +19,6 @@ const inv = await invitationsAvis().catch((err) => { console.error("invitations 
 console.log(`${new Date().toISOString()} · ${inv.envoyees} invitation(s) à donner un avis sur son école`);
 const bo = await alertesBourses().catch((err) => { console.error("alertes bourses :", err); return { envoyees: 0 }; });
 console.log(`${new Date().toISOString()} · ${bo.envoyees} alerte(s) de bourse (ouverture, J-30, J-7)`);
+const sc = await rappelsScolarite().catch((err) => { console.error("rappels scolarité :", err); return { envoyes: 0 }; });
+console.log(`${new Date().toISOString()} · ${sc.envoyes} rappel(s) d'échéance de scolarité (J-15, J-7, J-1)`);
 process.exit(0);

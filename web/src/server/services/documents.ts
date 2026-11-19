@@ -1,3 +1,4 @@
+import { preuveVisiblePar } from "./scolarite";
 import { and, desc, eq, inArray } from "drizzle-orm";
 import { db, schema } from "../db";
 import { AppError, forbidden, notFound } from "../lib/errors";
@@ -61,6 +62,7 @@ export async function readDocument(viewer: User, id: string) {
     const bs = await db.select({ ids: schema.bookings.documentIds }).from(schema.bookings).where(and(eq(schema.bookings.landlordId, viewer.id), eq(schema.bookings.tenantId, d.ownerId)));
     ok = bs.some((b) => b.ids.includes(d.id));
   }
+  if (!ok && viewer.role === "etablissement") ok = await preuveVisiblePar(viewer.id, d.id); // preuve d'un paiement de scolarité
   if (!ok) throw forbidden();
   const f = await getFile(d.storageKey);
   if (!f) throw notFound("Fichier");
