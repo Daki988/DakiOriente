@@ -171,7 +171,7 @@ export function MetierList() {
           <ZoomMetier />
         </div>
 
-        <aside className="hidden min-w-0 lg:sticky lg:top-[92px] lg:block lg:max-h-[calc(100vh-108px)] lg:overflow-y-auto"><div className="card p-5">{filtres}</div></aside>
+        <aside className="hidden min-w-0 lg:sticky lg:top-[92px] lg:[html[data-entete=cache]_&]:top-4 lg:block lg:max-h-[calc(100vh-108px)] lg:overflow-y-auto transition-[top] duration-300"><div className="card p-5">{filtres}</div></aside>
       </div>
 
       <section className="mt-14 bg-[#f6f8fe] py-12">

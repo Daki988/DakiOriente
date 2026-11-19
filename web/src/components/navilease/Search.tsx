@@ -188,7 +188,7 @@ export function NavileaseSearch() {
         </section>
 
         <aside className="hidden xl:block">
-          <div className="sticky top-24">
+          <div className="sticky top-24 [html[data-entete=cache]_&]:top-4 transition-[top] duration-300">
             <PseudoMap pins={pins} school={schoolPin} hovered={hover} onPin={(id) => router.push(`/navilease/logements/${id}`)} className="h-[560px]" caption={etab ? `Positions approximatives (~500 m) · autour de ${etabName(etab.id)}` : "Positions approximatives (~500 m)"} />
           </div>
         </aside>

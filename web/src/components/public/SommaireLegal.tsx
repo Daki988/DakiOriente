@@ -21,7 +21,7 @@ export function SommaireLegal({ toc, couleur, fond }: { toc: { t: string; id: st
     </a>
   ));
   return (
-    <div className="min-w-0 lg:sticky lg:top-28 print:hidden">
+    <div className="min-w-0 lg:sticky lg:top-28 lg:[html[data-entete=cache]_&]:top-4 print:hidden transition-[top] duration-300">
       <details className="card rounded-2xl p-1 lg:hidden">
         <summary className="flex cursor-pointer list-none items-center gap-2.5 px-3 py-2.5 text-sm font-extrabold"><List size={18} style={{ color: couleur }} />Sommaire ({toc.length} sections)<ChevronDown size={18} className="ml-auto text-ink-mute" /></summary>
         <nav className="flex flex-col gap-0.5 px-1 pb-2">{liens}</nav>

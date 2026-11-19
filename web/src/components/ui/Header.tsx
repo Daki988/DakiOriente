@@ -45,7 +45,9 @@ export function Header() {
     setScrolled(y > 12);
   });
   // En-tête masqué au défilement : les bandeaux collants des pages (comparateur) remontent en haut de l'écran.
-  useEffect(() => { document.documentElement.dataset.entete = hidden ? "cache" : ""; }, [hidden]);
+  // Les en-têtes de Navilease et NaviTravel (EnteteService) restent toujours affichés : jamais « cache » sur leurs pages.
+  const masquable = serviceDe(path) === "navigoal";
+  useEffect(() => { document.documentElement.dataset.entete = hidden && masquable ? "cache" : ""; }, [hidden, masquable]);
   const active = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
   useEffect(() => setOpen(false), [path]);
   // Pages du menu préchargées pour un clic instantané : sur ordinateur, une fois la page chargée et le navigateur

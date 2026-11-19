@@ -178,7 +178,7 @@ function Listing({ d }: { d: Data }) {
           </div>
 
           {/* Encadré prix */}
-          <aside className="lg:sticky lg:top-24 lg:h-max">
+          <aside className="lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 lg:h-max transition-[top] duration-300">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="card flex flex-col gap-4 rounded-[24px] p-5 shadow-lift sm:p-6">
               <div className="flex items-baseline justify-between gap-2">
                 <p><b className="text-[28px] text-brand-600">{money(h.rent, h.currency)}</b><span className="text-sm text-ink-mute"> / mois</span>{eq(h.rent, h.currency) && <span className="block text-sm font-semibold text-ink-mute">≈ {eq(h.rent, h.currency)} / mois</span>}</p>

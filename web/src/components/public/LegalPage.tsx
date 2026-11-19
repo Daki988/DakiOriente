@@ -91,7 +91,7 @@ export function LegalPage({ service = "navigoal", page }: { service?: ServiceId;
           {page === "cookies" && service === "navigoal" && <ChoixCookies />}
           <Markdown text={L.corps} numeros couleur={s.c} />
         </article>
-        <aside className="hidden flex-col gap-4 xl:sticky xl:top-28 xl:flex print:hidden">
+        <aside className="hidden flex-col gap-4 xl:sticky xl:top-28 xl:[html[data-entete=cache]_&]:top-4 xl:flex print:hidden transition-[top] duration-300">
           <div className="card flex flex-col gap-2 rounded-[22px] p-5">
             <Mail size={22} style={{ color: s.c }} />
             <b>Une question ?</b>

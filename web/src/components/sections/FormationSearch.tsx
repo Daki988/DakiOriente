@@ -122,7 +122,7 @@ export function FormationSearch() {
         </div>
       </section>
       <div className="container grid items-start gap-8 lg:grid-cols-[290px_1fr]">
-        <aside className="card sticky top-24 hidden max-h-[calc(100vh-7rem)] overflow-y-auto p-6 lg:block">{filtres}</aside>
+        <aside className="card sticky top-24 [html[data-entete=cache]_&]:top-4 hidden max-h-[calc(100vh-7rem)] overflow-y-auto p-6 lg:block transition-[top] duration-300">{filtres}</aside>
         <AnimatePresence>
           {panneau && (
             <motion.div className="fixed inset-0 z-[70] bg-ink/40 lg:hidden" initial={anime ? { opacity: 0 } : false} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setPanneau(false)}>

@@ -158,7 +158,7 @@ export default async function VillePage(props: { params: Promise<{ slug: string 
           </section>
         </div>
 
-        <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
+        <aside className="flex flex-col gap-5 lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 transition-[top] duration-300">
           <div className="card flex flex-col gap-3 rounded-[22px] p-5">
             <b className="flex items-center gap-2 text-lg"><Wallet size={19} className="text-brand-600" />Coût de la vie</b>
             <div className="rounded-2xl bg-brand-50 p-3"><span className="text-xs text-ink-mute">Budget mensuel estimé à {v.nom}</span><b className="block text-lg text-brand-700"><Prix mad={vie.min} devise={dev} /> – <Prix mad={vie.max} devise={dev} suffixe="/mois" /></b><span className="text-xs text-ink-mute">{chere ? `Ville parmi les plus chères ${destinationById[v.pays].de}.` : `Ville plus abordable que ${C.vie_mensuelle.villes_cheres.slice(0, 2).join(" et ")}.`}</span></div>

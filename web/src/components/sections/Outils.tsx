@@ -29,7 +29,7 @@ export function Checklist() {
   const pct = Math.round((faits.length / total) * 100);
   return (
     <div className="flex flex-col gap-5">
-      <div className="card sticky top-[84px] z-10 flex flex-wrap items-center gap-4 p-4 print:static">
+      <div className="card sticky top-[84px] [html[data-entete=cache]_&]:top-0 z-10 flex flex-wrap items-center gap-4 p-4 print:static transition-[top] duration-300">
         <div className="min-w-[160px] flex-1"><div className="flex justify-between text-sm font-bold"><span>{faits.length} / {total} étapes</span><span className="text-brand-600">{pct} %</span></div><div className="mt-2 h-2 overflow-hidden rounded-full bg-[#e8edfa]"><div className="h-full rounded-full bg-gradient-to-r from-brand-600 to-[#0f8a46] transition-all" style={{ width: `${pct}%` }} /></div></div>
         <button onClick={() => window.print()} className="btn-ghost min-h-[42px] px-3.5 py-2 print:hidden"><Printer size={16} /> Imprimer</button>
         <button onClick={() => { setFaits([]); ecrire(CLE_CHECK, []); }} className="btn-ghost min-h-[42px] px-3.5 py-2 print:hidden"><RotateCcw size={16} /> Tout décocher</button>
@@ -100,7 +100,7 @@ export function CalculateurBac() {
           </>
         )}
       </div>
-      <div className="card flex flex-col items-center gap-2 bg-gradient-to-br from-brand-950 to-brand-700 p-6 text-center text-white lg:sticky lg:top-24">
+      <div className="card flex flex-col items-center gap-2 bg-gradient-to-br from-brand-950 to-brand-700 p-6 text-center text-white lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 transition-[top] duration-300">
         <span className="text-sm text-[#c9d6ff]">Ta moyenne</span>
         <b className="text-5xl font-extrabold">{res == null ? "—" : res.toFixed(2).replace(".", ",")}</b>
         <span className="text-sm text-[#c9d6ff]">sur 20</span>

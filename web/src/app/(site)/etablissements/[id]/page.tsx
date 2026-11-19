@@ -189,7 +189,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
 
       <div className="container mt-10 grid items-start gap-10 lg:grid-cols-[1fr_380px]">
         <div className="flex min-w-0 flex-col gap-8">
-          <nav className="sticky top-[76px] z-10 -mx-1 flex gap-6 overflow-x-auto border-b border-slate-200 bg-[#f6f8fe]/90 px-1 backdrop-blur" aria-label="Sections">
+          <nav className="sticky top-[76px] [html[data-entete=cache]_&]:top-0 z-10 -mx-1 flex gap-6 overflow-x-auto border-b border-slate-200 bg-[#f6f8fe]/90 px-1 backdrop-blur transition-[top] duration-300" aria-label="Sections">
             {[["#formations", "Formations & métiers"], ...(e.site?.programmes.length ? [["#programmes", "Programmes"]] : []), ["#campus", e.campus ? "Campus & mobilité" : "Quartier & mobilité"], ["#admission", "Admission"], ["#frais", "Frais & bourses"], ["#logement", "Logement"]].map(([h, t], k) => <a key={h} href={h} className={`shrink-0 whitespace-nowrap py-3 text-sm font-bold ${k === 0 ? "border-b-[3px] border-brand-600 text-brand-600" : "text-ink-mute hover:text-brand-600"}`}>{t}</a>)}
           </nav>
           <section id="formations" className="flex scroll-mt-32 flex-col gap-6">
@@ -260,7 +260,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
           <section id="dossier" className="scroll-mt-32"><DossierPublic eid={e.id} sigle={e.sigle || e.nom} /></section>
         </div>
 
-        <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
+        <aside className="flex flex-col gap-5 lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 transition-[top] duration-300">
           <div id="frais" className="card flex scroll-mt-28 flex-col gap-3.5 rounded-3xl p-6 shadow-[0_30px_60px_-24px_rgba(26,71,245,.4)]">
             <div className="flex items-center justify-between"><b>Budget annuel estimé</b><span className="chip bg-sun-100 text-[#a55a00]">estimation</span></div>
             {([["Frais de scolarité", <><Prix mad={typ.min} devise={dev} bloc /> – <Prix mad={typ.max} devise={dev} bloc /></>], ["Vie (10 mois)", <><Prix mad={B.total_mensuel.min * 10} devise={dev} bloc /> – <Prix mad={B.total_mensuel.max * 10} devise={dev} bloc /></>], ["Visa & séjour", "selon la nationalité"]] as const).map(([a, b]) => <div key={a} className="flex justify-between gap-3 text-sm"><span className="text-ink-mute">{a}</span><b className="text-right">{b}</b></div>)}

@@ -103,7 +103,7 @@ export function Ressources() {
       </div>
 
       <div className="container mt-8 grid items-start gap-6 lg:grid-cols-[250px_1fr] xl:grid-cols-[250px_1fr_280px]">
-        <aside className="card hidden p-5 lg:sticky lg:top-24 lg:block">{filtres}</aside>
+        <aside className="card hidden p-5 lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 lg:block transition-[top] duration-300">{filtres}</aside>
         <div className="flex min-w-0 flex-col gap-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-xl font-extrabold">{list.length} ressource{list.length > 1 ? "s" : ""} disponible{list.length > 1 ? "s" : ""}</h2>
@@ -117,7 +117,7 @@ export function Ressources() {
           {!list.length && <div className="card p-10 text-center text-ink-mute">Aucune ressource ne correspond. <button onClick={reset} className="font-bold text-brand-600">Réinitialiser les filtres</button></div>}
           {limit < list.length && <button onClick={() => setLimit(limit + 9)} className="btn-ghost self-center">Afficher plus ({list.length - limit} restantes)</button>}
         </div>
-        <aside className="flex flex-col gap-5 lg:col-span-2 xl:col-span-1 xl:sticky xl:top-24">
+        <aside className="flex flex-col gap-5 lg:col-span-2 xl:col-span-1 xl:sticky xl:top-24 xl:[html[data-entete=cache]_&]:top-4 transition-[top] duration-300">
           <div id="outils" className="flex scroll-mt-28 flex-col gap-2 rounded-2xl border border-[#ffe9a8] bg-[#fffaf0] p-5">
             <b className="flex items-center gap-2 text-lg"><Wrench size={19} className="text-[#a55a00]" />Outils pratiques</b>
             <p className="text-[13px] text-ink-soft">Des modèles et outils pour t&apos;aider dans tes démarches.</p>

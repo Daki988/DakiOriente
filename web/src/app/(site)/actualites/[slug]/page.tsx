@@ -33,7 +33,7 @@ export default async function ArticlePage(props: { params: Promise<{ slug: strin
         <Markdown text={a.body} />
         <div className="flex items-start gap-3 rounded-2xl border border-[#f6dd9a] bg-[#fff7dd] p-5"><Lightbulb className="shrink-0 text-[#a55a00]" /><span className="text-sm"><b className="block">À retenir</b>Comparez les écoles et faites un devis complet (scolarité, vie, visa, logement) avant de vous engager. <Link href="/devis" className="font-bold text-brand-600">Simuler mon devis →</Link></span></div>
       </article>
-      <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
+      <aside className="flex flex-col gap-5 lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 transition-[top] duration-300">
         {toc.length > 0 && <nav className="card flex flex-col gap-1 rounded-[22px] p-5" aria-label="Sommaire"><span className="mb-1 text-xs font-extrabold uppercase text-ink-mute">Sommaire</span>{toc.map((t, i) => <a key={t} href={`#${slugify(t)}`} className="rounded-lg px-2 py-1.5 text-sm hover:bg-brand-50">{i + 1}. {t}</a>)}</nav>}
         <div className="card flex flex-col gap-3 rounded-[22px] p-5"><b>Va plus loin</b><Link href="/orientation" className="btn-primary py-2.5">Passer le test d&apos;orientation</Link><Link href="/comparateur" className="btn-ghost py-2.5">Comparer des écoles</Link></div>
       </aside>

@@ -79,7 +79,7 @@ export default async function RessourcePage(props: { params: Promise<{ slug: str
           {r.slug === "calculateur-moyenne-bac" && <CalculateurBac />}
           {r.slug === "convertisseur-devises" && <Convertisseur />}
         </div>
-        <aside className="flex flex-col gap-5 lg:sticky lg:top-24 print:hidden">
+        <aside className="flex flex-col gap-5 lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 print:hidden transition-[top] duration-300">
           <div className="card flex flex-col gap-2 p-5">
             <b>Modèles à télécharger</b>
             {OUTILS.filter((x) => x.format === "docx").map((x) => <a key={x.slug} href={x.href} download className="flex min-h-[44px] items-center gap-2.5 rounded-xl px-2 text-sm font-semibold hover:bg-[#f6f8fe]"><Download size={16} className="text-brand-600" />{x.titre}</a>)}

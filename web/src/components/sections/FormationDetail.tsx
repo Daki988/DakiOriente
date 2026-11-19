@@ -215,7 +215,7 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
           </section>
         </div>
 
-        <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
+        <aside className="flex flex-col gap-5 lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 transition-[top] duration-300">
           <div className="card flex flex-col gap-4 rounded-[22px] p-5">
             <h2 className="text-lg font-extrabold">Informations clés</h2>
             {infos.map(([I, a, b]) => <div key={a} className="flex items-start gap-3"><span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600"><I size={17} /></span><span className="min-w-0 text-sm"><span className="block text-xs text-ink-mute">{a}</span><b>{b}</b></span></div>)}

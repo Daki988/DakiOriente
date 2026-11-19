@@ -289,7 +289,7 @@ export function DevisSimulateur() {
             </div>
           </div>
 
-          <aside className="flex flex-col gap-5 lg:sticky lg:top-24">
+          <aside className="flex flex-col gap-5 lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 transition-[top] duration-300">
             <div className="card flex flex-col gap-3 rounded-3xl p-5 shadow-[0_30px_60px_-24px_rgba(26,71,245,.4)]">
               <b className="text-[17px]">Votre devis</b>
               <div className="grid grid-cols-2 gap-2">

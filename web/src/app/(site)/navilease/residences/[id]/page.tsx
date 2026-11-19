@@ -87,7 +87,7 @@ export default async function ResidencePage(props: { params: Promise<{ id: strin
             <p className="text-xs text-ink-mute">Sources : {r.sources.map((s, k) => <span key={s}>{k ? ", " : ""}<a href={s} target="_blank" rel="noopener noreferrer" className="hover:text-brand-600">{domaine(s)}</a></span>)} · vérifié le {dateVerif(r.date_verification)} · <a href={`mailto:contact@navigoal.net?subject=${encodeURIComponent(`Correction : ${r.nom}`)}`} className="font-bold text-brand-600">signaler une information à corriger</a></p>
           </div>
 
-          <aside className="flex flex-col gap-4 lg:sticky lg:top-24">
+          <aside className="flex flex-col gap-4 lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 transition-[top] duration-300">
             <div className="card flex flex-col gap-2 rounded-3xl p-5 shadow-[0_30px_60px_-24px_rgba(26,71,245,.4)]">
               {r.a_partir_de != null ? <><span className="text-sm text-ink-mute">À partir de</span><b className="text-[28px] leading-tight"><Prix mad={r.a_partir_de} suffixe=" / mois" bloc /></b></> : <b>Tarif sur demande</b>}
               {r.frais.map((f) => <span key={f.libelle} className="text-sm">{f.libelle} : <b><Prix mad={f.montant} /></b></span>)}
