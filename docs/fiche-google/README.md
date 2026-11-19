@@ -74,7 +74,7 @@ Ajouter les horaires exceptionnels (fêtes, congés) dès qu'ils sont connus : u
 | Emplacement | Fichier | Remarque |
 |---|---|---|
 | Logo | `logo-720x720.png` | carré, Google l'affiche en cercle (marges prévues) |
-| Couverture | `couverture-1024x576.jpg` | format 16:9 |
+| Couverture | `couverture-navigoal-2048x1152.jpg` | format 16:9, aux couleurs de Navigoal (ancienne version simple : `couverture-1024x576.jpg`) |
 | Autres | `photo-site-accueil.jpg` | capture du site |
 
 À ajouter vous-mêmes, ce sont les photos qui comptent le plus pour Google et les familles : le bureau (extérieur et
