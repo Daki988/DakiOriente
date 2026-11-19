@@ -122,7 +122,7 @@ export function AppShell({ user, children }: { user: ClientUser | null; children
             {!user && <div className="mt-auto flex flex-col gap-2"><Link href="/connexion" className="btn-ghost">Se connecter</Link><Link href="/inscription" className="btn-primary">Créer un compte</Link></div>}
           </aside>
           <div className="flex min-w-0 flex-1 flex-col">
-            <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-2 border-b border-slate-200/70 bg-white/90 px-3 backdrop-blur-xl sm:h-[68px] sm:gap-4 sm:px-6 lg:px-8">
+            <header className="sticky top-0 z-40 flex h-14 items-center justify-between gap-2 border-b border-slate-200/70 bg-white px-3 sm:h-[68px] sm:gap-4 sm:px-6 lg:px-8">
               <div className="flex min-w-0 items-center gap-1.5 lg:hidden">
                 <button onClick={() => setOpen(true)} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f1f4fd]" aria-label="Ouvrir le menu" aria-expanded={open}><Menu size={20} /></button>
                 <Link href={user ? (menu?.items[0].href ?? "/") : "/"} className="flex items-center gap-1.5 sm:hidden" aria-label="Navigoal"><BrandMark size={34} /></Link>

@@ -19,7 +19,7 @@ export function EnteteService({ id }: { id: Exclude<ServiceId, "navigoal"> }) {
   const actif = (href: string) => { const [p, h] = href.split("#"); return h ? path === p && hash === `#${h}` : path.startsWith(p); };
   return (
     <header className="sticky top-0 z-50 print:hidden">
-      <div className="border-b border-slate-200/80 bg-white/95 backdrop-blur-xl">
+      <div className="border-b border-slate-200/80 bg-white">
         <div className="container flex h-[72px] items-center gap-5">
           <Link href={s.base} aria-label={`${s.nom}, accueil`} className="shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}

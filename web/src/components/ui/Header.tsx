@@ -70,7 +70,7 @@ export function Header() {
     <motion.header
       animate={{ y: hidden ? -90 : 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className={`sticky top-0 z-50 border-b transition-colors duration-300 ${scrolled ? "border-slate-200/70 bg-white/80 backdrop-blur-xl" : "border-transparent bg-white/60 backdrop-blur"}`}
+      className={`sticky top-0 z-50 border-b transition-colors duration-300 ${scrolled ? "border-slate-200/70 bg-white" : "border-transparent bg-white/60 backdrop-blur"}`}
     >
       <div className="container flex h-[76px] items-center justify-between gap-4">
         <span className="shrink-0"><Brand /></span>

@@ -189,7 +189,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
 
       <div className="container mt-10 grid items-start gap-10 lg:grid-cols-[1fr_380px]">
         <div className="flex min-w-0 flex-col gap-8">
-          <nav className="sticky top-[76px] [html[data-entete=cache]_&]:top-0 z-10 -mx-1 flex gap-6 overflow-x-auto border-b border-slate-200 bg-[#f6f8fe]/90 px-1 backdrop-blur transition-[top] duration-300" aria-label="Sections">
+          <nav className="sticky top-[76px] [html[data-entete=cache]_&]:top-0 z-10 -mx-1 flex gap-6 overflow-x-auto border-b border-slate-200 bg-[#f6f8fe] px-1 backdrop-blur transition-[top] duration-300" aria-label="Sections">
             {[["#formations", "Formations & métiers"], ...(e.site?.programmes.length ? [["#programmes", "Programmes"]] : []), ["#campus", e.campus ? "Campus & mobilité" : "Quartier & mobilité"], ["#admission", "Admission"], ["#frais", "Frais & bourses"], ["#logement", "Logement"]].map(([h, t], k) => <a key={h} href={h} className={`shrink-0 whitespace-nowrap py-3 text-sm font-bold ${k === 0 ? "border-b-[3px] border-brand-600 text-brand-600" : "text-ink-mute hover:text-brand-600"}`}>{t}</a>)}
           </nav>
           <section id="formations" className="flex scroll-mt-32 flex-col gap-6">

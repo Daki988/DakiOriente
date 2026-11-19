@@ -256,7 +256,7 @@ export function Comparateur() {
         {!cols.length ? <p className="card p-8 text-center text-ink-mute">Aucun établissement pour ce choix. Essaie « Tous labels » ou « Toutes les villes ».</p> : (
           <div className="card overflow-clip rounded-3xl">
             {/* En-tête des écoles, toujours visible pendant le défilement */}
-            <div className="sticky top-[76px] z-20 transition-[top] duration-300 [html[data-entete=cache]_&]:top-0 border-b border-[#eef1f8] bg-white/95 backdrop-blur lg:grid lg:grid-cols-[260px_minmax(0,1fr)]">
+            <div className="sticky top-[76px] z-20 transition-[top] duration-300 [html[data-entete=cache]_&]:top-0 border-b border-[#eef1f8] bg-white backdrop-blur lg:grid lg:grid-cols-[260px_minmax(0,1fr)]">
               <div className="hidden items-end p-4 text-xs font-bold text-ink-mute lg:flex">{cols.length} école{cols.length > 1 ? "s" : ""} comparée{cols.length > 1 ? "s" : ""}</div>
               <div className="grid gap-2 p-2.5 sm:gap-3 sm:p-3" style={grille}>
                 {cols.map((c) => (

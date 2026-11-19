@@ -13,7 +13,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   if (!user) {
     return (
       <>
-        <div className="print:hidden"><Header /></div>
+        <div className="contents print:hidden"><Header /></div>
         <main className="container py-8 sm:py-10">{children}</main>
         <div className="print:hidden"><PiedSelonService><Footer /></PiedSelonService></div>
       </>
