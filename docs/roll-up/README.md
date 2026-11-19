@@ -14,5 +14,5 @@ Généré par `design/maquettes/editorial.py` (variable `IMPRESSION=1`) ; PDF pr
 ## Points d'attention
 - Résolution des images à taille réelle : logo Navigoal environ 85 dpi, photo de l'étudiante environ 75 dpi, mascotte Navi environ 75 dpi. Lisible à 1–2 m, mais un imprimeur exigeant demandera 100 à 150 dpi : fournir si possible le logo en vectoriel (SVG, PDF ou AI) et la photo d'origine en haute définition, puis relancer le script.
 - QR code : `https://navigoal.net/?utm_source=rollup&utm_medium=print&utm_campaign=rollup` (inscriptions comptées dans `/admin/campagne/`). Le scanner avec un téléphone sur l'épreuve avant tirage.
-- WhatsApp : +241 077 45 31 67.
+- Contacts affichés : navigoal.net et contact@navigoal.net. WhatsApp n'est pas annoncé sur le roll-up (décision du 19/11/2026).
 - Aucun pays ni chiffre figé dans les textes (la plateforme s'ouvre à de nouvelles destinations).

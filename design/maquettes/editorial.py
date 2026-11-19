@@ -97,15 +97,15 @@ def rollup():
     <img src="{ETUDIANTE}" style="position:absolute;left:0;bottom:0;height:410px">
     <span style="position:absolute;right:26px;bottom:30px;background:#fff;border-radius:22px;padding:16px 22px;display:flex;align-items:center;gap:14px;box-shadow:0 12px 30px rgba(0,0,0,.25)">
       <img src="{img(PUB('brand/navi-fennec.png'), 200)}" style="width:66px;height:66px"><span style="display:flex;flex-direction:column"><b style="font-size:27px">Navi, notre IA</b><span style="font-size:20px;color:#5b6478">te guide à chaque étape</span></span></span>
-    <span style="position:absolute;right:30px;top:34px;max-width:330px;text-align:right;font-size:34px;font-weight:800;line-height:1.15;color:#0b1533">Conseillers sur WhatsApp, du choix de l'école à l'arrivée</span></div>
+    <span style="position:absolute;right:30px;top:34px;max-width:330px;text-align:right;font-size:34px;font-weight:800;line-height:1.15;color:#0b1533">Des conseillers à tes côtés, du choix de l'école à l'arrivée</span></div>
   <div style="position:absolute;left:70px;right:70px;top:1275px;display:grid;grid-template-columns:1fr 1fr;gap:14px">{cases}</div>
   <div style="position:absolute;left:50px;right:50px;top:1785px;height:185px;background:#fff;border-radius:36px;display:flex;align-items:center;gap:26px;padding:0 28px">
     <img src="{QRB}" style="width:145px;height:145px">
     <span style="display:flex;flex-direction:column;gap:6px;flex:1"><b style="font-size:44px;color:#1a47f5;letter-spacing:-.01em">navigoal.net</b>
-      <span style="font-size:25px;color:#0b1533;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("message-circle", 26, "#0f8a46")}<b>+241 077 45 31 67</b></span>
+      <span style="font-size:25px;color:#0b1533;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("mail", 26, "#1a47f5")}<b>contact@navigoal.net</b></span>
       <span style="font-size:19px;color:#5b6478">Scanne et passe le test d'orientation</span></span>
     <span style="display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:14px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY</span><img src="{OAPS}" style="width:105px"></span></div>
-  <span class="note" style="left:880px;top:20px;max-width:330px">Zone haute (0–33 cm) : logo lisible de loin. Message principal à hauteur des yeux (37–80 cm). QR et contacts juste au-dessus du pied (178–197 cm), souvent masqué en bas.</span>
+  <span class="note" style="left:880px;top:20px;max-width:330px">Zone haute (0–33 cm) : logo lisible de loin. Message principal à hauteur des yeux (37–80 cm). QR et contacts (site et e-mail, sans WhatsApp) juste au-dessus du pied (178–197 cm), souvent masqué en bas.</span>
   <span class="note" style="left:880px;top:1800px;max-width:330px">QR code vers navigoal.net avec utm_source=rollup : les inscriptions venues du roll-up sont comptées dans /admin/campagne.</span>
 </div>"""
 
