@@ -73,40 +73,62 @@ def pied():
   <span class="note" style="right:60px;top:30px">« Bourses » ajouté au pied de page, colonne Plateforme</span></div>"""
 
 
-# ------------------------------------------------------------------ 1. Roll-up 850 × 2000
+# ------------------------------------------------------------------ 1. Roll-up 850 × 2000 (version photo)
+RU = os.path.join(ROOT, "assets", "photos", "rollup")
+CREDITS_RU = json.load(open(os.path.join(RU, "credits.json")))
+FOTO = {}
+
+
+def charger_photos(side):
+    for k in ["maroc-hassan2", "maroc-chefchaouen", "ecole", "residence", "chambre2"]:
+        FOTO[k] = img(os.path.join(RU, k + ".jpg"), side)
+    FOTO["avion"] = img(os.path.join(ROOT, "assets/photos/navitravel/hublot.jpg"), side)
+
+
+charger_photos(1400)
+
+
+def tuile(photo, ic, titre, texte, pos="center"):
+    return f"""<div style="position:relative;border-radius:30px;overflow:hidden;height:265px;box-shadow:0 18px 40px -18px rgba(0,0,0,.6)">
+      <img src="{FOTO[photo]}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{pos}">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,79,0) 30%,rgba(11,26,79,.92) 100%)"></div>
+      <span style="position:absolute;left:18px;top:18px;width:58px;height:58px;border-radius:17px;background:#ffc21f;display:flex;align-items:center;justify-content:center">{icon(ic, 32, "#0b1533", 2.2)}</span>
+      <div style="position:absolute;left:20px;right:18px;bottom:18px;display:flex;flex-direction:column;gap:4px"><b style="font-size:29px;line-height:1.08;color:#fff">{titre}</b><span style="font-size:19px;line-height:1.25;color:#dbe3ff">{texte}</span></div></div>"""
+
+
 def rollup():
-    services = [("compass", "Test d'orientation", "métiers et formations qui te ressemblent"),
-                ("shield-check", "Écoles vérifiées", "statut officiel, filières accréditées"),
-                ("calculator", "Le vrai coût", "scolarité, logement, vie, visa"),
-                ("file-check-2", "Candidature gratuite", "un seul dossier en ligne"),
-                ("house", "Logement étudiant", "vérifié, avec Navilease"),
-                ("plane", "Voyage et visa", "billet, visa, accueil : NaviTravel")]
-    cases = "".join(f"""<div style="display:flex;flex-direction:column;gap:10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:26px;padding:18px 20px;height:150px">
-      <span style="display:flex;align-items:center;gap:14px"><span style="width:56px;height:56px;border-radius:16px;background:#ffc21f;display:flex;align-items:center;justify-content:center;flex-shrink:0">{icon(i, 30, "#0b1533", 2.2)}</span>
-      <b style="font-size:27px;line-height:1.1;color:#fff">{t}</b></span><span style="font-size:20px;color:#c9d3f5;line-height:1.3">{d}</span></div>""" for i, t, d in services)
+    puces = "".join(f'<span style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:10px 16px;font-size:19px;font-weight:700;color:#fff">{icon(i, 21, "#ffc21f", 2.2)}{t}</span>' for i, t in [
+        ("compass", "Test d'orientation"), ("calculator", "Devis complet"), ("file-check-2", "Candidature gratuite"), ("stamp", "Aide au visa"), ("plane-landing", "Accueil à l'arrivée")])
+    credits = " · ".join(f"{v['auteur']} ({v['licence']})" for k, v in CREDITS_RU.items() if k in ("maroc-hassan2", "ecole", "residence", "avion"))
     return f"""<div class="frame" style="width:850px;height:2000px;background:#0b1a4f;margin-top:80px">
   <span class="titre-cadre">1 · Roll-up 85 × 200 cm (échelle 1 px = 1 mm)</span>
-  <div style="position:absolute;inset:0;background:radial-gradient(900px 700px at 110% 0%, #1a47f5 0%, transparent 60%), radial-gradient(700px 600px at -20% 62%, #1a3aa8 0%, transparent 60%)"></div>
-  <div style="position:absolute;left:0;right:0;top:0;height:330px;background:#fff;border-radius:0 0 70px 70px;display:flex;align-items:center;justify-content:center">
-    <img src="{LOGO_FULL}" style="height:270px"></div>
-  <div style="position:absolute;left:70px;right:70px;top:375px;display:flex;flex-direction:column;gap:16px">
-    <span style="font-size:23px;font-weight:800;color:#ffc21f;text-transform:uppercase;letter-spacing:.06em">Orientation · Études · Logement · Voyage</span>
-    <h1 style="font-size:82px;line-height:1.02;font-weight:800;color:#fff;letter-spacing:-.02em">Trouve ta voie,<br>étudie <span style="color:#ffc21f">en confiance.</span></h1>
-    <p style="font-size:29px;line-height:1.4;color:#dbe3ff">De l'orientation à l'installation : un seul accompagnement, gratuit pour les familles.</p></div>
-  <div style="position:absolute;left:70px;right:70px;top:850px;height:390px;border-radius:44px;overflow:hidden;background:linear-gradient(135deg,#ffc21f,#ff9f1c)">
-    <img src="{ETUDIANTE}" style="position:absolute;left:0;bottom:0;height:410px">
-    <span style="position:absolute;right:26px;bottom:30px;background:#fff;border-radius:22px;padding:16px 22px;display:flex;align-items:center;gap:14px;box-shadow:0 12px 30px rgba(0,0,0,.25)">
-      <img src="{img(PUB('brand/navi-fennec.png'), 200)}" style="width:66px;height:66px"><span style="display:flex;flex-direction:column"><b style="font-size:27px">Navi, notre IA</b><span style="font-size:20px;color:#5b6478">te guide à chaque étape</span></span></span>
-    <span style="position:absolute;right:30px;top:34px;max-width:330px;text-align:right;font-size:34px;font-weight:800;line-height:1.15;color:#0b1533">Des conseillers à tes côtés, du choix de l'école à l'arrivée</span></div>
-  <div style="position:absolute;left:70px;right:70px;top:1275px;display:grid;grid-template-columns:1fr 1fr;gap:14px">{cases}</div>
-  <div style="position:absolute;left:50px;right:50px;top:1785px;height:185px;background:#fff;border-radius:36px;display:flex;align-items:center;gap:26px;padding:0 28px">
-    <img src="{QRB}" style="width:145px;height:145px">
+  <div style="position:absolute;inset:0;background:radial-gradient(800px 700px at 110% 70%, #1a47f5 0%, transparent 60%)"></div>
+  <div style="position:absolute;left:0;right:0;top:0;height:300px;background:#fff;display:flex;align-items:center;justify-content:center;z-index:2;border-radius:0 0 60px 60px;box-shadow:0 20px 40px -20px rgba(0,0,0,.5)">
+    <img src="{LOGO_FULL}" style="height:250px"></div>
+  <div style="position:absolute;left:0;right:0;top:240px;height:780px;overflow:hidden">
+    <img src="{FOTO['maroc-hassan2']}" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,79,.05) 35%,rgba(11,26,79,.55) 62%,#0b1a4f 100%)"></div>
+    <span style="position:absolute;right:40px;top:96px;background:#ffc21f;color:#0b1533;border-radius:999px;padding:12px 22px;font-size:24px;font-weight:800;display:flex;align-items:center;gap:10px;box-shadow:0 10px 26px rgba(0,0,0,.35)">{icon("map-pin", 24, "#0b1533", 2.4)}Étudier au Maroc</span>
+    <div style="position:absolute;left:66px;right:60px;bottom:40px;display:flex;flex-direction:column;gap:14px">
+      <h1 style="font-size:86px;line-height:1;font-weight:800;color:#fff;letter-spacing:-.02em;text-shadow:0 4px 30px rgba(0,0,0,.35)">Trouve ta voie,<br>étudie <span style="color:#ffc21f">en confiance.</span></h1>
+      <p style="font-size:29px;line-height:1.35;color:#e6ecff">L'école, le logement et le voyage : tout ton projet d'études, accompagné de A à Z.</p></div></div>
+  <div style="position:absolute;left:60px;right:60px;top:1050px;display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    {tuile("ecole", "graduation-cap", "Des écoles vérifiées", "statut officiel et filières accréditées")}
+    {tuile("residence", "house", "Ton logement trouvé", "résidences et logements vérifiés", "center 40%")}
+    {tuile("avion", "plane", "Billets d'avion à prix étudiant", "on compare les vols pour toi", "center 45%")}
+    {tuile("maroc-chefchaouen", "sparkles", "Un nouveau pays à vivre", "accueil, installation, vie sur place", "center 55%")}
+  </div>
+  <div style="position:absolute;left:60px;right:60px;top:1640px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center">{puces}</div>
+  <div style="position:absolute;left:50px;right:50px;top:1785px;height:180px;background:#fff;border-radius:34px;display:flex;align-items:center;gap:24px;padding:0 26px">
+    <img src="{QRB}" style="width:140px;height:140px">
     <span style="display:flex;flex-direction:column;gap:6px;flex:1"><b style="font-size:44px;color:#1a47f5;letter-spacing:-.01em">navigoal.net</b>
-      <span style="font-size:25px;color:#0b1533;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("mail", 26, "#1a47f5")}<b>contact@navigoal.net</b></span>
-      <span style="font-size:19px;color:#5b6478">Scanne et passe le test d'orientation</span></span>
-    <span style="display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:14px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY</span><img src="{OAPS}" style="width:105px"></span></div>
-  <span class="note" style="left:880px;top:20px;max-width:330px">Zone haute (0–33 cm) : logo lisible de loin. Message principal à hauteur des yeux (37–80 cm). QR et contacts (site et e-mail, sans WhatsApp) juste au-dessus du pied (178–197 cm), souvent masqué en bas.</span>
-  <span class="note" style="left:880px;top:1800px;max-width:330px">QR code vers navigoal.net avec utm_source=rollup : les inscriptions venues du roll-up sont comptées dans /admin/campagne.</span>
+      <span style="font-size:24px;color:#0b1533;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("mail", 25, "#1a47f5")}<b>contact@navigoal.net</b></span>
+      <span style="font-size:19px;color:#5b6478">Scanne : test d'orientation gratuit</span></span>
+    <span style="display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:14px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY</span><img src="{OAPS}" style="width:100px"></span></div>
+  <p style="position:absolute;left:50px;right:50px;top:1972px;font-size:9px;line-height:1.3;color:#8f9bc4;text-align:center">Photos : {credits} et Badr Rachadi (CC BY-SA 4.0), Wikimedia Commons et Unsplash.</p>
+  <span class="note" style="left:880px;top:20px;max-width:330px">Grande photo du Maroc (Mosquée Hassan II) sous le logo, puis 4 photos : école, logement, avion, ville. Aucun WhatsApp.</span>
+  <span class="note" style="left:880px;top:1300px;max-width:330px">« Billets d'avion à prix étudiant » reprend la promesse de la page NaviTravel (« au tarif étudiant »), sans chiffre de réduction.</span>
+  <span class="note" style="left:880px;top:1800px;max-width:330px">Crédits des photos en bas (obligatoires pour les licences CC BY-SA).</span>
 </div>"""
 
 
@@ -214,6 +236,7 @@ open(os.path.join(out, "editorial.html"), "w").write(html)
 print("ok", len(html) // 1024, "Ko")
 if os.environ.get("IMPRESSION"):
     LOGO_FULL, ETUDIANTE, OAPS = img(PUB("brand/navigoal-logo.png"), 4000), img(PUB("images/etudiante.webp"), 4000), img(PUB("brand/oaps-logo.webp"), 4000)
+    charger_photos(3840)
     QRB = img(QR, 2000)
     open(os.path.join(out, "rollup-impression.html"), "w").write(rollup_impression())
     print("roll-up : out/rollup-impression.html")
