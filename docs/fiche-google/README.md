@@ -26,9 +26,9 @@ Catégories secondaires (ajouter celles que Google propose, au plus proche) :
 
 ## 2. Description (750 caractères au plus)
 
-> Navigoal accompagne gratuitement les élèves, les étudiants et leurs parents qui veulent étudier au Maroc, depuis le Gabon et toute l'Afrique. Test d'orientation en images, fiches métiers et formations, et 103 écoles et universités privées au statut officiel vérifié : reconnues par l'État, diplômes homologués ou établissements autorisés. Devis complet du coût des études en F CFA (scolarité, logement, vie, visa), candidature en ligne sans frais de dossier, conseillers sur WhatsApp et Navi, notre assistant d'orientation. Avec Navilease, trouvez un logement étudiant vérifié ; avec NaviTravel, préparez billet, visa et accueil à l'arrivée. Un service d'OAPS Consulting Group, Libreville.
+> Navigoal accompagne gratuitement les élèves, les étudiants et leurs parents, de l'orientation jusqu'à l'installation dans le pays d'études. Test d'orientation en images, fiches métiers et formations, écoles et universités au statut officiel vérifié, devis complet du coût des études dans la monnaie de la famille (scolarité, logement, vie sur place, visa) et candidature en ligne sans frais de dossier. Des conseillers répondent sur WhatsApp et Navi, notre assistant d'orientation, guide chaque étape. Avec Navilease, trouvez un logement étudiant vérifié ; avec NaviTravel, préparez billet, visa et accueil à l'arrivée. De nouvelles destinations d'études s'ajoutent au fil du temps. Un service d'OAPS Consulting Group, Libreville.
 
-(Environ 690 caractères. Ne pas ajouter d'adresse web, de prix ni de promotion : Google les refuse dans la description.)
+(730 caractères. Sans pays ni chiffre figé : la plateforme s'étend à de nouvelles destinations. Ne pas ajouter d'adresse web, de prix ni de promotion : Google les refuse dans la description.)
 
 ## 3. Horaires
 
@@ -74,7 +74,7 @@ Ajouter les horaires exceptionnels (fêtes, congés) dès qu'ils sont connus : u
 | Emplacement | Fichier | Remarque |
 |---|---|---|
 | Logo | `logo-720x720.png` | carré, Google l'affiche en cercle (marges prévues) |
-| Couverture | `couverture-navigoal-2048x1152.jpg` | format 16:9, aux couleurs de Navigoal (ancienne version simple : `couverture-1024x576.jpg`) |
+| Couverture | `couverture-navigoal-2048x1152.jpg` | format 16:9, aux couleurs de Navigoal, sans pays ni chiffre figé |
 | Autres | `photo-site-accueil.jpg` | capture du site |
 
 À ajouter vous-mêmes, ce sont les photos qui comptent le plus pour Google et les familles : le bureau (extérieur et
