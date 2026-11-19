@@ -2,7 +2,7 @@
 // Google Tag Manager, et cookie de campagne ng_acq. Un seul choix, demandé à tous les visiteurs par le bandeau
 // (components/campagne/AcquisitionTracker.tsx), modifiable sur /cookies. Tant qu'il n'est pas donné, Google reçoit
 // les visites en « mode consentement » refusé : aucun cookie Google, aucune donnée publicitaire.
-export const GTM_ID = "GTM-NXWJQLQD";
+export const GTM_ID = "GTM-W82DZ8B3"; // conteneur remplacé le 19/11/2026 (ancien : GTM-NXWJQLQD)
 /** Nouvelle clé : l'ancien accord (« navigoal-cookies ») ne couvrait que le cookie de campagne. */
 export const CLE_CHOIX_COOKIES = "navigoal-cookies-2";
 export const EVENEMENT_CONSENTEMENT = "navigoal-consentement";
@@ -30,4 +30,5 @@ export function enregistrerChoix(oui: boolean) {
 export const SCRIPT_CONSENTEMENT = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted',wait_for_update:500});
 try{if(localStorage.getItem('${CLE_CHOIX_COOKIES}')==='oui')gtag('consent','update',{analytics_storage:'granted'});}catch(e){}
-gtag('js',new Date());`;
+gtag('js',new Date());
+dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});`;
