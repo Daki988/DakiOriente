@@ -35,6 +35,8 @@ const ORGANISATION = {
     { "@type": "Organization", "@id": `${SITE_URL}/#organisation`, name: "Navigoal", url: SITE_URL, logo: `${SITE_URL}/brand/navigoal-logo.png`,
       description: DESCRIPTION, areaServed: ["Africa", ...DESTINATIONS_ACTIVES.map((d) => d.code)], knowsLanguage: "fr",
       email: "contact@navigoal.net", telephone: "+241 077 45 31 67",
+      // Fiche Google (Business Profile) de Navigoal, publiée le 19/11/2026.
+      sameAs: ["https://share.google/M8f4ttR9hcXyBaccu"],
       // Mêmes nom, adresse et téléphone que la fiche Google (docs/fiche-google) et les mentions légales.
       address: { "@type": "PostalAddress", streetAddress: "Quartier Glass", addressLocality: "Libreville", addressCountry: "GA" },
       parentOrganization: { "@type": "Organization", name: "OAPS Consulting Group", address: { "@type": "PostalAddress", streetAddress: "Quartier Glass", addressLocality: "Libreville", addressCountry: "GA" } } },

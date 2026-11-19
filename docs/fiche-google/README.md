@@ -104,3 +104,5 @@ Répondre à chaque avis, positif ou négatif, sous 48 h, avec courtoisie et san
 Les données structurées du site (schema.org) reprennent le même nom, adresse et téléphone, pour que Google relie la
 fiche au site. Une fois la fiche en ligne, envoyer son lien public (« Partager la fiche ») : il sera ajouté aux
 liens officiels du site (`sameAs`).
+
+Fiche publiée le 19/11/2026 : https://share.google/M8f4ttR9hcXyBaccu (ajoutée aux liens officiels `sameAs` du site).
