@@ -141,12 +141,13 @@ def rollup():
     {tuile("maroc-chefchaouen", "sparkles", "Un nouveau pays à vivre", "accueil, installation, vie sur place", "center 55%")}
   </div>
   <div style="position:absolute;left:60px;right:60px;top:1640px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center">{puces}</div>
-  <div style="position:absolute;left:50px;right:50px;top:1800px;height:160px;background:#fff;border-radius:34px;display:flex;align-items:center;gap:24px;padding:0 34px">
+  <div style="position:absolute;left:50px;right:50px;top:1785px;height:178px;background:#fff;border-radius:34px;display:flex;align-items:center;gap:24px;padding:0 34px">
     <span style="display:flex;flex-direction:column;gap:8px;flex:1"><b style="font-size:50px;color:#1a47f5;letter-spacing:-.01em;line-height:1">navigoal.net</b>
-      <span style="font-size:25px;color:#0b1533;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("mail", 26, "#1a47f5")}<b>contact@navigoal.net</b></span></span>
+      <span style="font-size:25px;color:#0b1533;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("message-circle", 27, "#25d366", 2.4)}<b>WhatsApp +241 077 45 31 67</b></span>
+      <span style="font-size:23px;color:#0b1533;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("mail", 24, "#1a47f5")}<b>contact@navigoal.net</b></span></span>
     <span style="display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:14px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY</span><img src="{OAPS}" style="width:100px"></span></div>
   <p style="position:absolute;left:50px;right:50px;top:1972px;font-size:9px;line-height:1.3;color:#8f9bc4;text-align:center">Photos : {credits} et Badr Rachadi (CC BY-SA 4.0), Wikimedia Commons, Unsplash et Pexels.</p>
-  <span class="note" style="left:880px;top:20px;max-width:330px">Grande photo du Maroc (Mosquée Hassan II) sous le logo, un étudiant et une étudiante au premier plan, puis 4 photos : école, logement, avion, ville. Aucun WhatsApp, aucun logo ni panneau d'établissement.</span>
+  <span class="note" style="left:880px;top:20px;max-width:330px">Grande photo du Maroc (Mosquée Hassan II) sous le logo, un étudiant et une étudiante au premier plan, puis 4 photos : école, logement, avion, ville. WhatsApp +241 077 45 31 67 dans le bloc du bas (demande du 19/11/2026), aucun logo ni panneau d'établissement.</span>
   <span class="note" style="left:880px;top:1300px;max-width:330px">« Billets d'avion à prix étudiant » reprend la promesse de la page NaviTravel (« au tarif étudiant »), sans chiffre de réduction.</span>
   <span class="note" style="left:880px;top:1800px;max-width:330px">QR code remonté à hauteur de poitrine (environ 110 à 140 cm du sol). Crédits des photos en bas (obligatoires pour les licences CC BY-SA).</span>
 </div>"""
@@ -192,11 +193,12 @@ def rollup_b():
   {etape(3, "residence", "", "Ton logement", "résidences et logements vérifiés", "g", ys[2])}
   {etape(4, "avion", "", "Ton billet d'avion", "à prix étudiant, avec l'aide au visa", "g", ys[3])}
   {etape(5, "maroc-chefchaouen", "", "Ta nouvelle vie", "accueil à l'arrivée et installation", "g", ys[4])}
-  <div style="position:absolute;left:0;right:0;top:1770px;height:230px;background:#0b1a4f;border-radius:60px 60px 0 0"></div>
-  <div style="position:absolute;left:60px;right:60px;top:1800px;display:flex;align-items:center;gap:24px">
-    <span style="display:flex;flex-direction:column;gap:8px;flex:1"><b style="font-size:52px;color:#ffc21f;letter-spacing:-.01em;line-height:1">navigoal.net</b>
-      <span style="font-size:25px;color:#fff;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("mail", 26, "#ffc21f")}<b>contact@navigoal.net</b></span>
-      <span style="font-size:20px;color:#c9d3f5">Gratuit pour les familles · candidature sans frais de dossier</span></span>
+  <div style="position:absolute;left:0;right:0;top:1765px;height:235px;background:#0b1a4f;border-radius:60px 60px 0 0"></div>
+  <div style="position:absolute;left:50px;right:50px;top:1782px;display:flex;align-items:center;gap:20px">
+    <span style="display:flex;flex-direction:column;gap:7px;flex:1"><b style="font-size:48px;color:#ffc21f;letter-spacing:-.01em;line-height:1">navigoal.net</b>
+      <span style="display:flex;flex-direction:column;gap:6px"><span style="font-size:25px;color:#fff;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("message-circle", 27, "#25d366", 2.4)}<b>WhatsApp +241 077 45 31 67</b></span>
+      <span style="font-size:23px;color:#fff;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("mail", 24, "#ffc21f")}<b>contact@navigoal.net</b></span></span>
+      <span style="font-size:19px;color:#c9d3f5">Gratuit pour les familles · candidature sans frais de dossier</span></span>
     <span style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:20px;padding:10px 14px"><span style="font-size:13px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY</span><img src="{OAPS}" style="width:96px"></span></div>
   <p style="position:absolute;left:50px;right:50px;top:1972px;font-size:9px;line-height:1.3;color:#8f9bc4;text-align:center">Photos : {credits} et Badr Rachadi (CC BY-SA 4.0), Wikimedia Commons, Unsplash et Pexels.</p>
   <span class="note" style="left:880px;top:20px;max-width:330px">Modèle B : fond clair, arche marocaine bordée de jaune autour de la Mosquée Hassan II, duo d'étudiants dans l'arche, QR rond « Scanne-moi » à hauteur de poitrine.</span>

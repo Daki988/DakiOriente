@@ -25,5 +25,5 @@ Logo : version ronde fournie le 19/11/2026 (`assets/photos/rollup/logo-navigoal-
 ## Points d'attention
 - Résolution du logo Navigoal à taille réelle : environ 85 dpi. Lisible à 1–2 m, mais un imprimeur exigeant demandera 100 à 150 dpi : fournir si possible le logo en vectoriel (SVG, PDF ou AI) et la photo d'origine en haute définition, puis relancer le script.
 - QR code : `https://navigoal.net/?utm_source=rollup&utm_medium=print&utm_campaign=rollup` (inscriptions comptées dans `/admin/campagne/`). Le scanner avec un téléphone sur l'épreuve avant tirage.
-- Contacts affichés : navigoal.net et contact@navigoal.net. WhatsApp n'est pas annoncé sur le roll-up (décision du 19/11/2026).
+- Contacts affichés : navigoal.net, WhatsApp +241 077 45 31 67 (ajouté à la demande de l'utilisateur, 19/11/2026) et contact@navigoal.net.
 - Aucun pays ni chiffre figé dans les textes (la plateforme s'ouvre à de nouvelles destinations).
