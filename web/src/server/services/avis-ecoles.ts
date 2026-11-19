@@ -14,7 +14,7 @@ import { notify } from "./notifications";
 import { assertMember } from "./establishments";
 import { notifySchool } from "./applications";
 import { nomPays } from "@/lib/pays-origine";
-import { etabById } from "@/lib/data";
+import { etabById, etablissements } from "@/lib/data";
 
 type User = typeof schema.users.$inferSelect;
 export const SEUIL_NOTE = 3;
@@ -45,6 +45,8 @@ export async function eligibilite(user: User) {
     annee: anneeUniversitaire(),
     ecoles: apps.map(({ a, p, e }) => ({ applicationId: a.id, etablissementId: a.establishmentId, nom: etabById[a.establishmentId]?.nom ?? a.establishmentId, formation: p.title, campus: a.campus, inscriptionConfirmee: !!e?.inscription })),
     mesAvis,
+    // Autres écoles (inscription prouvée par justificatif) : liste légère pour le formulaire.
+    catalogue: etablissements.map((e) => ({ id: e.id, nom: e.sigle && e.sigle !== e.nom ? `${e.sigle} — ${e.nom}` : e.nom })).sort((a, b) => a.nom.localeCompare(b.nom, "fr")),
   };
 }
 
@@ -78,12 +80,13 @@ export async function deposer(user: User, raw: unknown) {
     const [e] = await db.select({ ok: schema.echeanciersScolarite.inscriptionConfirmee }).from(schema.echeanciersScolarite).where(eq(schema.echeanciersScolarite.applicationId, a.id));
     if (e?.ok) verification = "navigoal";
   }
+  const [avant] = await db.select().from(schema.avisEtablissements).where(and(eq(schema.avisEtablissements.auteurId, user.id), eq(schema.avisEtablissements.etablissementId, i.etablissementId), eq(schema.avisEtablissements.annee, annee)));
   if (verification === "justificatif") {
+    if (!i.justificatifId && avant?.justificatifId) i.justificatifId = avant.justificatifId; // modification : attestation déjà déposée
     if (!i.justificatifId) throw new AppError("Déposez votre attestation ou certificat de scolarité de cette année : c'est ce qui garantit que les avis viennent de vrais étudiants.", 400, "justificatif_requis");
     const [d] = await db.select({ id: schema.documents.id }).from(schema.documents).where(and(eq(schema.documents.id, i.justificatifId), eq(schema.documents.ownerId, user.id)));
     if (!d) throw new AppError("Justificatif introuvable.");
   }
-  const [avant] = await db.select().from(schema.avisEtablissements).where(and(eq(schema.avisEtablissements.auteurId, user.id), eq(schema.avisEtablissements.etablissementId, i.etablissementId), eq(schema.avisEtablissements.annee, annee)));
   if (avant && Date.now() - avant.createdAt.getTime() > 30 * JOUR) throw new AppError(`Votre avis ${annee} sur cette école n'est plus modifiable (30 jours). Vous pourrez en donner un nouveau l'an prochain.`);
   if (avant?.statut === "retire") throw new AppError("Cet avis a été retiré par l'équipe Navigoal.");
   const valeurs = {
