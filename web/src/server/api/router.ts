@@ -1,4 +1,5 @@
 // API REST Navigoal (/api/...). Une table de routes unique sert au routage et à la documentation OpenAPI.
+import * as bourses from "../services/bourses";
 import * as avisEcoles from "../services/avis-ecoles";
 import * as avisService from "../services/avis-service";
 import * as reactivite from "../services/reactivite";
@@ -564,6 +565,10 @@ route("GET", "/avis-ecoles/resumes", "Avis", "Note et nombre d'avis des écoles 
 route("POST", "/avis-ecoles/:id/signaler", "Avis", "Signaler un avis à l'équipe", "user", async ({ me, params, body }) => { await avisEcoles.signaler(me, params.id, await body()); return ok; });
 route("GET", "/ecole/:eid/avis", "Établissement", "Avis publiés sur mon école", ["etablissement", "admin"], async ({ me, params }) => avisEcoles.pourEcole(me, params.eid));
 route("POST", "/ecole/avis/:id/reponse", "Établissement", "Répondre publiquement à un avis (relu par l'équipe)", ["etablissement", "admin"], async ({ me, params, body }) => { await avisEcoles.repondre(me, params.id, await body()); return ok; });
+route("GET", "/moi/bourses", "Bourses", "Bourses classées selon mon profil (ou celui de mes enfants), bourses suivies, bourses des écoles", ["eleve", "etudiant", "parent"], async ({ me }) => bourses.pourMoi(me));
+route("GET", "/moi/bourses/suivies", "Bourses", "Identifiants des bourses que je suis", "user", async ({ me }) => ({ suivies: await bourses.suivies(me.id) }));
+route("POST", "/moi/bourses/:id/suivre", "Bourses", "Suivre une bourse (alertes)", "user", async ({ me, params }) => { await bourses.suivre(me, params.id, true); return ok; });
+route("DELETE", "/moi/bourses/:id/suivre", "Bourses", "Ne plus suivre une bourse", "user", async ({ me, params }) => { await bourses.suivre(me, params.id, false); return ok; });
 route("GET", "/admin/avis-ecoles", "Back-office", "Avis sur les écoles à relire, réponses et signalements", ["admin"], async () => avisEcoles.listeAdmin());
 route("POST", "/admin/avis-ecoles/:id", "Back-office", "Publier, refuser ou retirer un avis", ["admin"], async ({ me, params, body }) => { await avisEcoles.moderer(me, params.id, await body()); return ok; });
 route("POST", "/admin/avis-ecoles/:id/reponse", "Back-office", "Publier ou refuser la réponse d'une école", ["admin"], async ({ me, params, body }) => { await avisEcoles.modererReponse(me, params.id, await body()); return ok; });

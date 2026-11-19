@@ -5,6 +5,7 @@ import { VILLES, villeHref } from "@/lib/catalogue";
 import { GUIDES, PAGES_OUTILS } from "@/lib/ressources";
 import { SITE_URL } from "@/lib/site";
 import { residencesEtudiantes } from "@/lib/residences";
+import { BOURSES } from "@/lib/bourses";
 
 /** Plan du site pour les moteurs de recherche (pages publiques uniquement). */
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -12,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const page = (path: string, priority: number, changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] = "weekly") => ({ url: `${SITE_URL}${path}`, lastModified: now, changeFrequency, priority });
   return [
     page("/", 1, "daily"),
-    ...["/etablissements/", "/formations/", "/metiers/", ...(DESTINATIONS_ACTIVES.length > 1 ? ["/pays/"] : []), ...DESTINATIONS_ACTIVES.map((d) => `/pays/${d.code.toLowerCase()}/`), "/orientation/", "/navilease/", "/navitravel/", "/devis/", "/parents/", "/comparateur/", "/pourquoi/", "/actualites/", "/villes/", "/ressources/", "/trouve-ta-voie/", "/temoignages/"].map((p) => page(p, 0.8)),
+    ...["/etablissements/", "/formations/", "/metiers/", ...(DESTINATIONS_ACTIVES.length > 1 ? ["/pays/"] : []), ...DESTINATIONS_ACTIVES.map((d) => `/pays/${d.code.toLowerCase()}/`), "/orientation/", "/navilease/", "/navitravel/", "/devis/", "/parents/", "/comparateur/", "/pourquoi/", "/actualites/", "/villes/", "/ressources/", "/trouve-ta-voie/", "/temoignages/", "/bourses/"].map((p) => page(p, 0.8)),
     page("/trouve-ta-voie/reglement/", 0.3, "monthly"),
     page("/credits/", 0.2, "monthly"),
     page("/navilease/comment-ca-marche/", 0.6),
@@ -26,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...GUIDES.map((g) => page(`/ressources/${g.slug}/`, 0.7, "monthly")),
     ...PAGES_OUTILS.map((s) => page(`/ressources/${s}/`, 0.5, "monthly")),
     ...metiers.map((m) => page(`/metiers/${m.id}/`, 0.6, "monthly")),
+    ...BOURSES.map((b) => page(`/bourses/${b.id}/`, 0.6, "monthly")),
     ...ACTUALITES.map((a) => page(`/actualites/${a.slug}/`, 0.5, "monthly")),
   ];
 }

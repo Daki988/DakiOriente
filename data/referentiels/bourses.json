@@ -1,53 +1,145 @@
 {
- "description": "Bourses d'études publiques utiles aux élèves de Navigoal (pays de départ et pays d'études). Informations recopiées des sources officielles avec la date de vérification ; à revérifier chaque année (calendriers et quotas changent). Lues par Navi (outil « bourses »). Les bourses propres aux écoles sont publiées comme campagnes (type « bourse »).",
- "mis_a_jour": "2026-11-17",
- "items": [
-  {
-   "id": "ga-anbg",
-   "pays_origine": ["GA"],
-   "organisme": "Agence Nationale des Bourses du Gabon (ANBG)",
-   "nom": "Bourse d'études de l'État gabonais",
-   "pour": "Élèves et étudiants de nationalité gabonaise, au Gabon ou à l'étranger.",
-   "conditions": [
-    "Nationalité gabonaise et baccalauréat obtenu",
-    "Moyenne annuelle d'au moins 10/20 en classe de terminale",
-    "22 ans au plus pour un bac général ou technique, 27 ans pour un bac professionnel",
-    "Orientation par une entité compétente"
-  ],
-   "pieces": ["Photo d'identité couleur sur fond blanc", "Acte de naissance gabonais légalisé", "Certificat de nationalité (ou jugement déclaratif, ou décret de naturalisation)", "Relevé de notes du bac et attestation de réussite", "Certificat de scolarité ou attestation d'inscription dans l'établissement d'accueil"],
-   "demarche": "Candidature en ligne sur la plateforme eBourse (anbg.online) : créer un compte, choisir sa catégorie, remplir le dossier, téléverser les pièces (PDF ou JPG, 2 Mo au plus), valider avant la date limite et imprimer le récépissé.",
-   "ecoles_privees_maroc": "Pour une école privée au Maroc, vérifier auprès de l'ANBG avant de s'engager que l'école et la filière sont acceptées. Certaines écoles ont une procédure dédiée aux boursiers ANBG (ex. UIC à Casablanca). La bourse peut être suspendue si les résultats semestriels ou le certificat de scolarité ne sont pas transmis à temps.",
-   "ecoles_partenaires": ["ma-uic"],
-   "liens": [{ "libelle": "Plateforme eBourse", "url": "https://anbg.online/" }, { "libelle": "Site de l'ANBG", "url": "https://www.anbg-ga.com/" }, { "libelle": "Guide de candidature (Consulat.ga)", "url": "https://consulat.ga/ressources/candidater-bourse-anbg-ebourse" }],
-   "verifie_le": "2026-11-17"
-  },
-  {
-   "id": "ga-anbg-cooperation",
-   "pays_origine": ["GA"],
-   "organisme": "ANBG, avec les pays partenaires (dont le Royaume du Maroc)",
-   "nom": "Bourse de coopération",
-   "pour": "Bacheliers et étudiants gabonais visant une université ou un établissement PUBLIC d'un pays partenaire.",
-   "conditions": ["Offre de places dans les établissements publics du pays partenaire, parfois avec un appui financier", "Sélection sur dossier ou concours, selon les exigences du partenaire et de l'ANBG"],
-   "pieces": [],
-   "demarche": "Suivre les offres publiées par l'ANBG (site et page Facebook officielle) : le Maroc y propose chaque année des bourses dans ses établissements publics.",
-   "ecoles_privees_maroc": "Ne concerne pas les écoles privées présentées sur Navigoal : uniquement les établissements publics du pays partenaire.",
-   "ecoles_partenaires": [],
-   "liens": [{ "libelle": "Bourse de coopération (ANBG)", "url": "https://www.anbg-ga.com/bourse-de-cooperation/" }],
-   "verifie_le": "2026-11-17"
-  },
-  {
-   "id": "ma-amci",
-   "pays_origine": ["*"],
-   "organisme": "Agence Marocaine de Coopération Internationale (AMCI)",
-   "nom": "Bourse du Royaume du Maroc pour étudiants étrangers",
-   "pour": "Étudiants étrangers admis dans un établissement PUBLIC marocain d'enseignement supérieur, dans le quota de coopération de leur pays.",
-   "conditions": ["Candidature présentée par voie diplomatique, dans le cadre de la coopération entre le Maroc et le pays d'origine", "Établissements publics marocains seulement"],
-   "pieces": [],
-   "demarche": "Se renseigner auprès du ministère de l'Enseignement supérieur ou de l'organisme des bourses de son pays (au Gabon : l'ANBG), qui transmet les candidatures au Maroc.",
-   "ecoles_privees_maroc": "Ne concerne pas les écoles privées présentées sur Navigoal.",
-   "ecoles_partenaires": [],
-   "liens": [{ "libelle": "AMCI : étudier au Maroc", "url": "https://www.amci.ma/cooperation-academique" }],
-   "verifie_le": "2026-11-17"
-  }
- ]
+  "description": "Bourses d'études publiques utiles aux élèves de Navigoal (pays de départ et pays d'études). Informations recopiées des sources officielles avec la date de vérification ; à revérifier chaque année (calendriers et quotas changent). Lues par Navi (outil « bourses »). Les bourses propres aux écoles sont publiées comme campagnes (type « bourse »). Critères structurés (`criteres` : type d'établissement, niveaux, moyenne minimale, âge maximal) lus par la page /bourses/ et « Bourses pour toi » ; `ouverture` et `date_limite` (AAAA-MM-JJ) déclenchent les alertes aux élèves qui suivent la bourse — ne les remplir qu'avec les dates officielles de l'année.",
+  "mis_a_jour": "2026-11-17",
+  "items": [
+    {
+      "id": "ga-anbg",
+      "pays_origine": [
+        "GA"
+      ],
+      "organisme": "Agence Nationale des Bourses du Gabon (ANBG)",
+      "nom": "Bourse d'études de l'État gabonais",
+      "pour": "Élèves et étudiants de nationalité gabonaise, au Gabon ou à l'étranger.",
+      "conditions": [
+        "Nationalité gabonaise et baccalauréat obtenu",
+        "Moyenne annuelle d'au moins 10/20 en classe de terminale",
+        "22 ans au plus pour un bac général ou technique, 27 ans pour un bac professionnel",
+        "Orientation par une entité compétente"
+      ],
+      "pieces": [
+        "Photo d'identité couleur sur fond blanc",
+        "Acte de naissance gabonais légalisé",
+        "Certificat de nationalité (ou jugement déclaratif, ou décret de naturalisation)",
+        "Relevé de notes du bac et attestation de réussite",
+        "Certificat de scolarité ou attestation d'inscription dans l'établissement d'accueil"
+      ],
+      "demarche": "Candidature en ligne sur la plateforme eBourse (anbg.online) : créer un compte, choisir sa catégorie, remplir le dossier, téléverser les pièces (PDF ou JPG, 2 Mo au plus), valider avant la date limite et imprimer le récépissé.",
+      "ecoles_privees_maroc": "Pour une école privée au Maroc, vérifier auprès de l'ANBG avant de s'engager que l'école et la filière sont acceptées. Certaines écoles ont une procédure dédiée aux boursiers ANBG (ex. UIC à Casablanca). La bourse peut être suspendue si les résultats semestriels ou le certificat de scolarité ne sont pas transmis à temps.",
+      "ecoles_partenaires": [
+        "ma-uic"
+      ],
+      "liens": [
+        {
+          "libelle": "Plateforme eBourse",
+          "url": "https://anbg.online/"
+        },
+        {
+          "libelle": "Site de l'ANBG",
+          "url": "https://www.anbg-ga.com/"
+        },
+        {
+          "libelle": "Guide de candidature (Consulat.ga)",
+          "url": "https://consulat.ga/ressources/candidater-bourse-anbg-ebourse"
+        }
+      ],
+      "verifie_le": "2026-11-17",
+      "pays_etudes": [
+        "*"
+      ],
+      "criteres": {
+        "type_etablissement": "tous",
+        "niveaux": [
+          "post-bac"
+        ],
+        "moyenne_min": 10,
+        "age_max": 22,
+        "age_max_bac_pro": 27
+      },
+      "montant": null,
+      "couverture": "Allocation d'études versée par l'État gabonais ; montant fixé par l'ANBG selon le pays d'études et le niveau.",
+      "calendrier": "Campagne annuelle sur la plateforme eBourse, après la publication des résultats du baccalauréat ; dates publiées chaque année par l'ANBG.",
+      "ouverture": null,
+      "date_limite": null
+    },
+    {
+      "id": "ga-anbg-cooperation",
+      "pays_origine": [
+        "GA"
+      ],
+      "organisme": "ANBG, avec les pays partenaires (dont le Royaume du Maroc)",
+      "nom": "Bourse de coopération",
+      "pour": "Bacheliers et étudiants gabonais visant une université ou un établissement PUBLIC d'un pays partenaire.",
+      "conditions": [
+        "Offre de places dans les établissements publics du pays partenaire, parfois avec un appui financier",
+        "Sélection sur dossier ou concours, selon les exigences du partenaire et de l'ANBG"
+      ],
+      "pieces": [],
+      "demarche": "Suivre les offres publiées par l'ANBG (site et page Facebook officielle) : le Maroc y propose chaque année des bourses dans ses établissements publics.",
+      "ecoles_privees_maroc": "Ne concerne pas les écoles privées présentées sur Navigoal : uniquement les établissements publics du pays partenaire.",
+      "ecoles_partenaires": [],
+      "liens": [
+        {
+          "libelle": "Bourse de coopération (ANBG)",
+          "url": "https://www.anbg-ga.com/bourse-de-cooperation/"
+        }
+      ],
+      "verifie_le": "2026-11-17",
+      "pays_etudes": [
+        "*"
+      ],
+      "criteres": {
+        "type_etablissement": "public",
+        "niveaux": [
+          "post-bac"
+        ],
+        "moyenne_min": null,
+        "age_max": null
+      },
+      "montant": null,
+      "couverture": "Place dans un établissement public d'un pays partenaire, parfois avec un appui financier du pays d'accueil.",
+      "calendrier": "Offres publiées au fil de l'année par l'ANBG selon les pays partenaires.",
+      "ouverture": null,
+      "date_limite": null
+    },
+    {
+      "id": "ma-amci",
+      "pays_origine": [
+        "*"
+      ],
+      "organisme": "Agence Marocaine de Coopération Internationale (AMCI)",
+      "nom": "Bourse du Royaume du Maroc pour étudiants étrangers",
+      "pour": "Étudiants étrangers admis dans un établissement PUBLIC marocain d'enseignement supérieur, dans le quota de coopération de leur pays.",
+      "conditions": [
+        "Candidature présentée par voie diplomatique, dans le cadre de la coopération entre le Maroc et le pays d'origine",
+        "Établissements publics marocains seulement"
+      ],
+      "pieces": [],
+      "demarche": "Se renseigner auprès du ministère de l'Enseignement supérieur ou de l'organisme des bourses de son pays (au Gabon : l'ANBG), qui transmet les candidatures au Maroc.",
+      "ecoles_privees_maroc": "Ne concerne pas les écoles privées présentées sur Navigoal.",
+      "ecoles_partenaires": [],
+      "liens": [
+        {
+          "libelle": "AMCI : étudier au Maroc",
+          "url": "https://www.amci.ma/cooperation-academique"
+        }
+      ],
+      "verifie_le": "2026-11-17",
+      "pays_etudes": [
+        "MA"
+      ],
+      "criteres": {
+        "type_etablissement": "public",
+        "niveaux": [
+          "post-bac"
+        ],
+        "moyenne_min": null,
+        "age_max": null
+      },
+      "montant": null,
+      "couverture": "Bourse du Royaume du Maroc dans le quota de coopération du pays d'origine.",
+      "calendrier": "Candidatures transmises par l'organisme des bourses du pays d'origine, selon son propre calendrier.",
+      "ouverture": null,
+      "date_limite": null
+    }
+  ]
 }

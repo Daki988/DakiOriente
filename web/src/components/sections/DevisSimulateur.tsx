@@ -184,7 +184,8 @@ export function DevisSimulateur() {
                   <label className="flex min-h-[44px] items-center gap-2.5 rounded-xl border border-slate-200 px-3.5 text-[14px] font-bold"><input type="checkbox" checked={perso.ordinateur} onChange={(ev) => majPerso({ ordinateur: ev.target.checked })} className="h-5 w-5 accent-brand-600" />Ordinateur portable neuf</label>
                   <label className="flex min-h-[44px] items-center gap-2.5 rounded-xl border border-slate-200 px-3.5 text-[14px] font-bold"><input type="checkbox" checked={perso.soutien} onChange={(ev) => majPerso({ soutien: ev.target.checked })} className="h-5 w-5 accent-brand-600" />Soutien scolaire ou cours de langue</label>
                   <label className="flex min-w-0 flex-col gap-1.5 sm:min-w-[260px]"><span className="text-xs font-bold text-ink-mute">Bourse ou réduction obtenue, par an ({unit})</span>
-                    <input inputMode="numeric" value={aideSaisie} placeholder="0" onChange={(ev) => { const t = ev.target.value.replace(/[^\d]/g, "").slice(0, 10); setAideSaisie(t); majPerso({ aide: Math.round((Number(t) || 0) / tauxLecture) }); }} className={field} aria-label="Bourse ou réduction par an" /></label>
+                    <input inputMode="numeric" value={aideSaisie} placeholder="0" onChange={(ev) => { const t = ev.target.value.replace(/[^\d]/g, "").slice(0, 10); setAideSaisie(t); majPerso({ aide: Math.round((Number(t) || 0) / tauxLecture) }); }} className={field} aria-label="Bourse ou réduction par an" />
+                    <Link href="/bourses/" className="text-[12px] font-bold text-brand-600 hover:underline">Quelles bourses pour moi ?</Link></label>
                 </div>
                 <p className="text-[12px] text-ink-mute">Loyers des résidences : tarifs publiés sur leurs sites officiels. Autres montants : estimations Navigoal pour un étudiant étranger, à affiner avec l&apos;école et le logement choisis.</p>
               </div>)}
