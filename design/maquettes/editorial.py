@@ -152,6 +152,58 @@ def rollup():
 </div>"""
 
 
+
+# ------------------------------------------------------------------ 1 bis. Roll-up, modèle B : arche marocaine et parcours en 5 étapes
+def etape(n, photo, ic, titre, texte, cote, y):
+    rond = (f'<img src="{FOTO[photo]}" style="width:100%;height:100%;object-fit:cover">' if photo
+            else f'<span style="display:flex;width:100%;height:100%;align-items:center;justify-content:center;background:#1a47f5">{icon(ic, 52, "#fff", 2)}</span>')
+    x_rond = 90
+    texte_pos = "left:240px;right:50px;text-align:left"
+    return f"""<div style="position:absolute;left:{x_rond}px;top:{y}px;width:118px;height:118px;border-radius:50%;overflow:hidden;border:6px solid #fff;box-shadow:0 14px 30px -10px rgba(11,26,79,.45);z-index:2">{rond}</div>
+  <span style="position:absolute;left:{x_rond + 84}px;top:{y - 8}px;width:44px;height:44px;border-radius:50%;background:#ff8a00;color:#fff;font-size:24px;font-weight:800;display:flex;align-items:center;justify-content:center;z-index:3;border:4px solid #fff">{n}</span>
+  <div style="position:absolute;{texte_pos};top:{y + 22}px;display:flex;flex-direction:column;gap:4px;z-index:2"><b style="font-size:35px;line-height:1.05;color:#0b1a4f">{titre}</b><span style="font-size:22px;line-height:1.25;color:#3b4566">{texte}</span></div>"""
+
+
+def rollup_b():
+    ys = [1132, 1255, 1378, 1501, 1624]
+    pts = f"M 149 {ys[0] + 59} L 149 {ys[-1] + 59}"
+    credits = " · ".join(f"{v['auteur']} ({v['licence']})" for k, v in CREDITS_RU.items() if k in ("maroc-hassan2", "ecole", "residence", "avion"))
+    return f"""<div class="frame" style="width:850px;height:2000px;background:#fff;margin-top:80px">
+  <span class="titre-cadre">1 bis · Roll-up, modèle B (85 × 200 cm)</span>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,#ffffff 0%,#ffffff 46%,#fff6df 64%,#eef3ff 86%)"></div>
+  <div style="position:absolute;left:0;right:0;top:18px;display:flex;justify-content:center"><img src="{LOGO_CERCLE}" style="height:280px"></div>
+  <div style="position:absolute;left:40px;right:40px;top:318px;text-align:center">
+    <h1 style="font-size:66px;line-height:1.02;font-weight:800;color:#0b1a4f;letter-spacing:-.02em">Trouve ta voie,<br><span style="background:linear-gradient(90deg,#ff8a00,#ffb300);-webkit-background-clip:text;background-clip:text;color:transparent">étudie en confiance.</span></h1></div>
+  <div style="position:absolute;left:75px;top:480px;width:700px;height:580px;border-radius:350px 350px 40px 40px;overflow:hidden;box-shadow:0 30px 60px -25px rgba(11,26,79,.55)">
+    <img src="{FOTO['maroc-hassan2']}" style="width:100%;height:100%;object-fit:cover;object-position:center 25%">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,79,0) 45%,rgba(11,26,79,.55) 100%)"></div></div>
+  <div style="position:absolute;left:75px;top:480px;width:700px;height:580px;border-radius:350px 350px 40px 40px;border:10px solid #ffc21f;pointer-events:none"></div>
+  <span style="position:absolute;left:310px;top:500px;background:#0b1a4f;color:#fff;border-radius:999px;padding:10px 20px;font-size:22px;font-weight:800;display:flex;align-items:center;gap:8px;z-index:3">{icon("map-pin", 22, "#ffc21f", 2.4)}Étudier au Maroc</span>
+  <div style="position:absolute;left:75px;top:600px;width:700px;height:460px;overflow:hidden;border-radius:0 0 40px 40px;z-index:2">
+    <img src="{FOTO['etudiant']}" style="position:absolute;left:40px;bottom:0;height:430px;filter:drop-shadow(0 16px 26px rgba(0,0,0,.45))">
+    <img src="{FOTO['etudiante']}" style="position:absolute;left:215px;bottom:0;height:350px;filter:drop-shadow(0 16px 26px rgba(0,0,0,.45))"></div>
+  <div style="position:absolute;left:540px;top:625px;width:285px;height:285px;border-radius:50%;background:#ffc21f;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:0 20px 40px -12px rgba(0,0,0,.5);border:8px solid #fff">
+    <span style="background:#fff;border-radius:18px;padding:9px;display:flex"><img src="{QRB}" style="width:145px;height:145px"></span>
+    <b style="font-size:25px;line-height:1;color:#0b1533">Scanne-moi</b><span style="font-size:15px;line-height:1;font-weight:700;color:#0b1533">test d'orientation gratuit</span></div>
+  <h2 style="position:absolute;left:40px;right:40px;top:1078px;text-align:center;font-size:30px;font-weight:800;color:#a55a00;letter-spacing:.06em;text-transform:uppercase;z-index:2">Ton parcours, étape par étape</h2>
+  <svg style="position:absolute;left:0;top:0;width:850px;height:2000px;z-index:1" viewBox="0 0 850 2000"><path d="{pts}" fill="none" stroke="#ff9f1c" stroke-width="12" stroke-linecap="round" stroke-dasharray="2 24" opacity=".9"/></svg>
+  {etape(1, None, "compass", "Ton orientation", "le métier et les études qui te ressemblent", "g", ys[0])}
+  {etape(2, "ecole", "", "Ton école", "au statut officiel vérifié", "g", ys[1])}
+  {etape(3, "residence", "", "Ton logement", "résidences et logements vérifiés", "g", ys[2])}
+  {etape(4, "avion", "", "Ton billet d'avion", "à prix étudiant, avec l'aide au visa", "g", ys[3])}
+  {etape(5, "maroc-chefchaouen", "", "Ta nouvelle vie", "accueil à l'arrivée et installation", "g", ys[4])}
+  <div style="position:absolute;left:0;right:0;top:1770px;height:230px;background:#0b1a4f;border-radius:60px 60px 0 0"></div>
+  <div style="position:absolute;left:60px;right:60px;top:1800px;display:flex;align-items:center;gap:24px">
+    <span style="display:flex;flex-direction:column;gap:8px;flex:1"><b style="font-size:52px;color:#ffc21f;letter-spacing:-.01em;line-height:1">navigoal.net</b>
+      <span style="font-size:25px;color:#fff;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("mail", 26, "#ffc21f")}<b>contact@navigoal.net</b></span>
+      <span style="font-size:20px;color:#c9d3f5">Gratuit pour les familles · candidature sans frais de dossier</span></span>
+    <span style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:20px;padding:10px 14px"><span style="font-size:13px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY</span><img src="{OAPS}" style="width:96px"></span></div>
+  <p style="position:absolute;left:50px;right:50px;top:1972px;font-size:9px;line-height:1.3;color:#8f9bc4;text-align:center">Photos : {credits} et Badr Rachadi (CC BY-SA 4.0), Wikimedia Commons, Unsplash et Pexels.</p>
+  <span class="note" style="left:880px;top:20px;max-width:330px">Modèle B : fond clair, arche marocaine bordée de jaune autour de la Mosquée Hassan II, duo d'étudiants dans l'arche, QR rond « Scanne-moi » à hauteur de poitrine.</span>
+  <span class="note" style="left:880px;top:1100px;max-width:330px">Le parcours en 5 étapes, reliées par la route orange du logo : orientation, école, logement, billet, nouvelle vie.</span>
+</div>"""
+
+
 # ------------------------------------------------------------------ 2. Article
 def article():
     return f"""<div class="frame" style="width:1440px">
@@ -240,8 +292,8 @@ def bourses():
 
 
 # Fichier d'impression du roll-up : 856 × 2006 mm (3 mm de fond perdu de chaque côté), sans annotations, images en pleine définition.
-def rollup_impression():
-    r = rollup().replace('width:850px;height:2000px;background:#0b1a4f;margin-top:80px', 'width:856px;height:2006px;background:#0b1a4f;margin:0')
+def rollup_impression(modele="A"):
+    r = (rollup() if modele == "A" else rollup_b()).replace("width:850px;height:2000px;background:#0b1a4f;margin-top:80px", "width:856px;height:2006px;background:#0b1a4f;margin:0").replace("width:850px;height:2000px;background:#fff;margin-top:80px", "width:856px;height:2006px;background:#fff;margin:0")
     import re as _re
     r = _re.sub(r'<span class="(?:note|titre-cadre)"[^>]*>.*?</span>', '', r, flags=_re.S)
     return f"""<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Roll-up Navigoal</title><style>{CSS}
@@ -259,5 +311,6 @@ if os.environ.get("IMPRESSION"):
     charger_photos(3840)
     LOGO_CERCLE = logo_cercle(2000)
     QRB = img(QR, 2000)
-    open(os.path.join(out, "rollup-impression.html"), "w").write(rollup_impression())
-    print("roll-up : out/rollup-impression.html")
+    open(os.path.join(out, "rollup-impression.html"), "w").write(rollup_impression("A"))
+    open(os.path.join(out, "rollup-b-impression.html"), "w").write(rollup_impression("B"))
+    print("roll-up : out/rollup-impression.html, out/rollup-b-impression.html")

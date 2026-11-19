@@ -4,6 +4,9 @@
 |---|---|
 | `rollup-navigoal-85x200-fond-perdu-3mm.pdf` | Fichier à envoyer à l'imprimeur : 856 × 2006 mm, soit 85 × 200 cm + 3 mm de fond perdu de chaque côté, sans traits de coupe. Textes, pictogrammes et QR code vectoriels. |
 | `rollup-navigoal-apercu.png` | Aperçu à l'écran (1 px = 1 mm). |
+| `rollup-navigoal-modele-B-85x200-fond-perdu-3mm.pdf` | **Modèle B** (fond clair, arche marocaine, parcours en 5 étapes, QR rond) : même format et mêmes réglages d'impression. |
+| `rollup-navigoal-modele-B-apercu.png` | Aperçu du modèle B. |
+| `rollup-comparaison-A-B.png` | Les deux modèles côte à côte. |
 
 Généré par `design/maquettes/editorial.py` (variable `IMPRESSION=1`) ; PDF produit par Chromium.
 
