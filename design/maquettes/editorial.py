@@ -99,6 +99,7 @@ def charger_photos(side):
     FOTO["etudiant"] = img(os.path.join(RU, "etudiant.png"), side)
     FOTO["parent"] = img(os.path.join(RU, "parent.png"), side)
     FOTO["famille"] = img(os.path.join(RU, "famille.png"), side)
+    FOTO["famille-scene"] = img(os.path.join(RU, "famille-scene.jpg"), side)
     FOTO["etudiante"] = img(PUB("images/etudiante.webp"), side)
     FOTO["avion"] = img(os.path.join(ROOT, "assets/photos/navitravel/hublot.jpg"), side)
 
@@ -183,11 +184,10 @@ def rollup_b():
   <div style="position:absolute;left:40px;right:40px;top:318px;text-align:center">
     <h1 style="font-size:66px;line-height:1.02;font-weight:800;color:#0b1a4f;letter-spacing:-.02em">Trouve ta voie,<br><span style="background:linear-gradient(90deg,#ff8a00,#ffb300);-webkit-background-clip:text;background-clip:text;color:transparent">étudie en confiance.</span></h1></div>
   <div style="position:absolute;left:75px;top:480px;width:700px;height:580px;border-radius:350px 350px 40px 40px;overflow:hidden;box-shadow:0 30px 60px -25px rgba(11,26,79,.55)">
-    <img src="{FOTO['maroc-hassan2']}" style="width:100%;height:100%;object-fit:cover;object-position:center 25%">
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,79,0) 45%,rgba(11,26,79,.55) 100%)"></div></div>
+    <img src="{FOTO['famille-scene']}" style="width:100%;height:100%;object-fit:cover;object-position:100% 0%">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,79,0) 60%,rgba(11,26,79,.35) 100%)"></div></div>
   <div style="position:absolute;left:75px;top:480px;width:700px;height:580px;border-radius:350px 350px 40px 40px;border:10px solid #ffc21f;pointer-events:none"></div>
-  <span style="position:absolute;left:310px;top:500px;background:#0b1a4f;color:#fff;border-radius:999px;padding:10px 20px;font-size:22px;font-weight:800;display:flex;align-items:center;gap:8px;z-index:3">{icon("map-pin", 22, "#ffc21f", 2.4)}Étudier au Maroc</span>
-  <div style="position:absolute;left:75px;top:480px;width:700px;height:580px;overflow:hidden;border-radius:350px 350px 40px 40px;z-index:2">{trio(FOTO, 470, 350)}</div>
+  <span style="position:absolute;left:310px;top:462px;background:#0b1a4f;color:#fff;border-radius:999px;padding:10px 20px;font-size:22px;font-weight:800;display:flex;align-items:center;gap:8px;z-index:3">{icon("map-pin", 22, "#ffc21f", 2.4)}Étudier au Maroc</span>
   <div style="position:absolute;left:600px;top:452px;width:242px;height:242px;border-radius:50%;background:#ffc21f;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:0 20px 40px -12px rgba(0,0,0,.5);border:8px solid #fff">
     <span style="background:#fff;border-radius:14px;padding:7px;display:flex;margin-top:4px"><img src="{QRB}" style="width:118px;height:118px"></span>
     <b style="font-size:22px;line-height:1;color:#0b1533">Scanne-moi</b><span style="font-size:13px;line-height:1.15;font-weight:700;color:#0b1533;text-align:center">test d'orientation<br>gratuit</span></div>
@@ -206,7 +206,7 @@ def rollup_b():
       <span style="font-size:19px;color:#c9d3f5">Gratuit pour les familles · candidature sans frais de dossier</span></span>
     <span style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:20px;padding:10px 14px"><span style="font-size:13px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY</span><img src="{OAPS}" style="width:96px"></span></div>
   <p style="position:absolute;left:50px;right:50px;top:1972px;font-size:9px;line-height:1.3;color:#8f9bc4;text-align:center">Photos : {credits} et Badr Rachadi (CC BY-SA 4.0), Wikimedia Commons, Unsplash et Pexels.</p>
-  <span class="note" style="left:880px;top:20px;max-width:330px">Modèle B : fond clair, arche marocaine bordée de jaune autour de la Mosquée Hassan II, un parent, un étudiant et une étudiante centrés dans l'arche, QR rond « Scanne-moi » en haut à droite de l'arche (environ 130 à 155 cm du sol).</span>
+  <span class="note" style="left:880px;top:20px;max-width:330px">Modèle B : fond clair, arche marocaine bordée de jaune autour de la Mosquée Hassan II, la photo de famille (mère, diplômé, père) cadrée telle quelle dans l'arche, avec son vrai décor, QR rond « Scanne-moi » en haut à droite de l'arche (environ 130 à 155 cm du sol).</span>
   <span class="note" style="left:880px;top:1100px;max-width:330px">Le parcours en 5 étapes, reliées par la route orange du logo : orientation, école, logement, billet, nouvelle vie.</span>
 </div>"""
 

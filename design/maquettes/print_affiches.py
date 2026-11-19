@@ -58,6 +58,7 @@ F["etudiant"] = img(os.path.join(RU, "etudiant.png"), 1400)
 F["etudiante"] = img(os.path.join(WEB, "public/images/etudiante.webp"), 1400)
 F["parent"] = img(os.path.join(RU, "parent.png"), 1400)
 F["famille"] = img(os.path.join(RU, "famille.png"), 1400)
+F["famille-scene"] = img(os.path.join(RU, "famille-scene.jpg"), 1400)
 
 def trio(H, cx):
     """Famille (mère, diplômé, père), photo fournie le 19/11/2026 : groupe de hauteur H, visages centrés sur cx, posé en bas du conteneur."""
@@ -113,9 +114,7 @@ def visuel_a4(qr):
   <div style="position:absolute;left:0;right:0;top:{u * 6}px;display:flex;justify-content:center"><img src="{LOGO}" style="mix-blend-mode:multiply;height:{u * 46}px"></div>
   <h1 style="position:absolute;left:{u * 10}px;right:{u * 10}px;top:{u * 55}px;text-align:center;font-size:{u * 13.5}px;line-height:1.02;font-weight:800;color:{NAVY};letter-spacing:-.02em">Trouve ta voie,<br><span style="color:{ORANGE}">étudie en confiance.</span></h1>
   <div style="position:absolute;left:{u * 14}px;right:{u * 14}px;top:{u * 89}px;height:{u * 92}px;border-radius:{u * 91}px {u * 91}px {u * 8}px {u * 8}px;overflow:hidden;border:{u * 2}px solid {SUN}" class="ombre">
-    <img src="{F['maroc-hassan2']}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%">
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,79,0) 50%,rgba(11,26,79,.5))"></div>
-    {trio(322, 356)}</div>
+    <img src="{F['famille-scene']}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 21%"></div>
   <span style="position:absolute;left:50%;transform:translateX(-50%);top:{u * 85}px;background:{NAVY};color:#fff;border-radius:999px;padding:{u * 1.6}px {u * 3.4}px;font-size:{u * 3.8}px;font-weight:800;display:flex;align-items:center;gap:{u * 1.4}px;white-space:nowrap">{icon("map-pin", u * 4, SUN, 2.4)}Étudier au Maroc</span>
   <div style="position:absolute;right:{u * 8}px;top:{u * 124}px;width:{u * 54}px;height:{u * 54}px;border-radius:50%;background:{SUN};border:{u * 1.6}px solid #fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:{u * .8}px" class="ombre">
     <span style="background:#fff;border-radius:{u * 3}px;padding:{u * 1.4}px;display:flex"><img src="{qr}" style="width:{u * 27}px;height:{u * 27}px"></span>
@@ -180,8 +179,7 @@ def visuel_dl(qr):
   <div style="position:absolute;left:0;right:0;top:{u * 5}px;display:flex;justify-content:center"><img src="{LOGO}" style="mix-blend-mode:multiply;height:{u * 30}px"></div>
   <h1 style="position:absolute;left:{u * 5}px;right:{u * 5}px;top:{u * 37}px;text-align:center;font-size:{u * 8.4}px;line-height:1.03;font-weight:800;color:{NAVY};letter-spacing:-.02em">Trouve ta voie,<br><span style="color:{ORANGE}">étudie en confiance.</span></h1>
   <div style="position:absolute;left:{u * 7}px;right:{u * 7}px;top:{u * 59}px;height:{u * 51}px;border-radius:{u * 43}px {u * 43}px {u * 6}px {u * 6}px;overflow:hidden;border:{u * 1.4}px solid {SUN}" class="ombre">
-    <img src="{F['maroc-hassan2']}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%">
-    {trio(186, 164)}</div>
+    <img src="{F['famille-scene']}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%"></div>
   <div style="position:absolute;left:{u * 9}px;right:{u * 7}px;top:{u * 115}px;display:flex;flex-direction:column;gap:{u * 2.2}px">{lignes}</div>
   <div style="position:absolute;left:0;right:0;bottom:0;height:{u * 42}px;background:{NAVY};border-radius:{u * 7}px {u * 7}px 0 0"></div>
   <div style="position:absolute;left:{u * 6}px;right:{u * 6}px;bottom:{u * 6}px;display:flex;align-items:center;gap:{u * 3}px">
