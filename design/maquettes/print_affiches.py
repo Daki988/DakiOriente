@@ -59,6 +59,12 @@ F["etudiante"] = img(os.path.join(WEB, "public/images/etudiante.webp"), 1400)
 F["parent"] = img(os.path.join(RU, "parent.png"), 1400)
 F["famille"] = img(os.path.join(RU, "famille.png"), 1400)
 F["famille-scene"] = img(os.path.join(RU, "famille-scene.jpg"), 1400)
+F["etudiants-scene"] = img(os.path.join(RU, "etudiants-scene.jpg"), 1600)
+# Variante (VARIANTE=etudiants) : photo de groupe d'étudiants dans l'arche ; QR placé pour ne cacher aucun visage.
+VARIANTE = os.environ.get("VARIANTE", "")
+SCENE = "etudiants-scene" if VARIANTE == "etudiants" else "famille-scene"
+POS_A4, POS_DL = ("50% 8%", "50% 5%") if VARIANTE == "etudiants" else ("50% 21%", "50% 20%")
+QR_A4 = "left:{l}px;top:{t}px".format(l=4 * 8, t=4 * 138) if VARIANTE == "etudiants" else "right:{r}px;top:{t}px".format(r=4 * 8, t=4 * 124)
 
 def trio(H, cx):
     """Famille (mère, diplômé, père), photo fournie le 19/11/2026 : groupe de hauteur H, visages centrés sur cx, posé en bas du conteneur."""
@@ -114,9 +120,9 @@ def visuel_a4(qr):
   <div style="position:absolute;left:0;right:0;top:{u * 6}px;display:flex;justify-content:center"><img src="{LOGO}" style="mix-blend-mode:multiply;height:{u * 46}px"></div>
   <h1 style="position:absolute;left:{u * 10}px;right:{u * 10}px;top:{u * 55}px;text-align:center;font-size:{u * 13.5}px;line-height:1.02;font-weight:800;color:{NAVY};letter-spacing:-.02em">Trouve ta voie,<br><span style="color:{ORANGE}">étudie en confiance.</span></h1>
   <div style="position:absolute;left:{u * 14}px;right:{u * 14}px;top:{u * 89}px;height:{u * 92}px;border-radius:{u * 91}px {u * 91}px {u * 8}px {u * 8}px;overflow:hidden;border:{u * 2}px solid {SUN}" class="ombre">
-    <img src="{F['famille-scene']}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 21%"></div>
+    <img src="{F[SCENE]}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{POS_A4}"></div>
   <span style="position:absolute;left:50%;transform:translateX(-50%);top:{u * 85}px;background:{NAVY};color:#fff;border-radius:999px;padding:{u * 1.6}px {u * 3.4}px;font-size:{u * 3.8}px;font-weight:800;display:flex;align-items:center;gap:{u * 1.4}px;white-space:nowrap">{icon("map-pin", u * 4, SUN, 2.4)}Étudier au Maroc</span>
-  <div style="position:absolute;right:{u * 8}px;top:{u * 124}px;width:{u * 54}px;height:{u * 54}px;border-radius:50%;background:{SUN};border:{u * 1.6}px solid #fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:{u * .8}px" class="ombre">
+  <div style="position:absolute;{QR_A4};width:{u * 54}px;height:{u * 54}px;border-radius:50%;background:{SUN};border:{u * 1.6}px solid #fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:{u * .8}px" class="ombre">
     <span style="background:#fff;border-radius:{u * 3}px;padding:{u * 1.4}px;display:flex"><img src="{qr}" style="width:{u * 27}px;height:{u * 27}px"></span>
     <b style="font-size:{u * 4.6}px;line-height:1">Scanne-moi</b><span style="font-size:{u * 2.8}px;font-weight:700;line-height:1.1;text-align:center">test d'orientation<br>gratuit</span></div>
   <div style="position:absolute;left:{u * 14}px;right:{u * 14}px;top:{u * 188}px;display:grid;grid-template-columns:1fr 1fr;gap:{u * 4}px">{cartes}</div>
@@ -179,7 +185,7 @@ def visuel_dl(qr):
   <div style="position:absolute;left:0;right:0;top:{u * 5}px;display:flex;justify-content:center"><img src="{LOGO}" style="mix-blend-mode:multiply;height:{u * 30}px"></div>
   <h1 style="position:absolute;left:{u * 5}px;right:{u * 5}px;top:{u * 37}px;text-align:center;font-size:{u * 8.4}px;line-height:1.03;font-weight:800;color:{NAVY};letter-spacing:-.02em">Trouve ta voie,<br><span style="color:{ORANGE}">étudie en confiance.</span></h1>
   <div style="position:absolute;left:{u * 7}px;right:{u * 7}px;top:{u * 59}px;height:{u * 51}px;border-radius:{u * 43}px {u * 43}px {u * 6}px {u * 6}px;overflow:hidden;border:{u * 1.4}px solid {SUN}" class="ombre">
-    <img src="{F['famille-scene']}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%"></div>
+    <img src="{F[SCENE]}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{POS_DL}"></div>
   <div style="position:absolute;left:{u * 9}px;right:{u * 7}px;top:{u * 115}px;display:flex;flex-direction:column;gap:{u * 2.2}px">{lignes}</div>
   <div style="position:absolute;left:0;right:0;bottom:0;height:{u * 42}px;background:{NAVY};border-radius:{u * 7}px {u * 7}px 0 0"></div>
   <div style="position:absolute;left:{u * 6}px;right:{u * 6}px;bottom:{u * 6}px;display:flex;align-items:center;gap:{u * 3}px">
@@ -240,8 +246,10 @@ pages = {
     "flyer-dl-visuel": page("flyer-dl-visuel", visuel_dl(QR("flyer-dl", "visuel")), (396, 840), 99, 210, fond(210, B_VIS_DL)),
     "flyer-dl-parcours": page("flyer-dl-parcours", parcours_dl(QR("flyer-dl", "parcours")), (396, 840), 99, 210, fond(210, B_PAR_DL)),
 }
+if VARIANTE:
+    pages = {f"{k}-{VARIANTE}": v.replace(f'id="{k}"', f'id="{k}-{VARIANTE}"') for k, v in pages.items() if "visuel" in k}
 for nom, p in pages.items():
-    w, h = FORMATS[nom.split("-")[1]]
+    w, h = FORMATS[nom.split("-")[1]]  # ex. affiche-a4-visuel-etudiants
     open(os.path.join(OUT, f"{nom}.html"), "w").write(f"""<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>{nom}</title><style>{CSS}
 @page {{ size: {w + 2 * BLEED}mm {h + 2 * BLEED}mm; margin: 0; }} html, body {{ margin: 0; background: #fff; }}</style></head><body>{p}</body></html>""")
     print(nom)

@@ -100,6 +100,7 @@ def charger_photos(side):
     FOTO["parent"] = img(os.path.join(RU, "parent.png"), side)
     FOTO["famille"] = img(os.path.join(RU, "famille.png"), side)
     FOTO["famille-scene"] = img(os.path.join(RU, "famille-scene.jpg"), side)
+    FOTO["etudiants-scene"] = img(os.path.join(RU, "etudiants-scene.jpg"), side)
     FOTO["etudiante"] = img(PUB("images/etudiante.webp"), side)
     FOTO["avion"] = img(os.path.join(ROOT, "assets/photos/navitravel/hublot.jpg"), side)
 
@@ -173,6 +174,9 @@ def etape(n, photo, ic, titre, texte, cote, y):
   <div style="position:absolute;{texte_pos};top:{y + 22}px;display:flex;flex-direction:column;gap:4px;z-index:2"><b style="font-size:35px;line-height:1.05;color:#0b1a4f">{titre}</b><span style="font-size:22px;line-height:1.25;color:#3b4566">{texte}</span></div>"""
 
 
+VARIANTE_B = os.environ.get("VARIANTE", "")
+
+
 def rollup_b():
     ys = [1132, 1255, 1378, 1501, 1624]
     pts = f"M 149 {ys[0] + 59} L 149 {ys[-1] + 59}"
@@ -184,11 +188,11 @@ def rollup_b():
   <div style="position:absolute;left:40px;right:40px;top:318px;text-align:center">
     <h1 style="font-size:66px;line-height:1.02;font-weight:800;color:#0b1a4f;letter-spacing:-.02em">Trouve ta voie,<br><span style="background:linear-gradient(90deg,#ff8a00,#ffb300);-webkit-background-clip:text;background-clip:text;color:transparent">étudie en confiance.</span></h1></div>
   <div style="position:absolute;left:75px;top:480px;width:700px;height:580px;border-radius:350px 350px 40px 40px;overflow:hidden;box-shadow:0 30px 60px -25px rgba(11,26,79,.55)">
-    <img src="{FOTO['famille-scene']}" style="width:100%;height:100%;object-fit:cover;object-position:100% 0%">
+    <img src="{FOTO['etudiants-scene' if VARIANTE_B == 'etudiants' else 'famille-scene']}" style="width:100%;height:100%;object-fit:cover;object-position:100% 0%">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,79,0) 60%,rgba(11,26,79,.35) 100%)"></div></div>
   <div style="position:absolute;left:75px;top:480px;width:700px;height:580px;border-radius:350px 350px 40px 40px;border:10px solid #ffc21f;pointer-events:none"></div>
   <span style="position:absolute;left:310px;top:462px;background:#0b1a4f;color:#fff;border-radius:999px;padding:10px 20px;font-size:22px;font-weight:800;display:flex;align-items:center;gap:8px;z-index:3">{icon("map-pin", 22, "#ffc21f", 2.4)}Étudier au Maroc</span>
-  <div style="position:absolute;left:600px;top:452px;width:242px;height:242px;border-radius:50%;background:#ffc21f;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:0 20px 40px -12px rgba(0,0,0,.5);border:8px solid #fff">
+  <div style="position:absolute;left:600px;top:{810 if VARIANTE_B == 'etudiants' else 452}px;width:242px;height:242px;border-radius:50%;background:#ffc21f;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:0 20px 40px -12px rgba(0,0,0,.5);border:8px solid #fff">
     <span style="background:#fff;border-radius:14px;padding:7px;display:flex;margin-top:4px"><img src="{QRB}" style="width:118px;height:118px"></span>
     <b style="font-size:22px;line-height:1;color:#0b1533">Scanne-moi</b><span style="font-size:13px;line-height:1.15;font-weight:700;color:#0b1533;text-align:center">test d'orientation<br>gratuit</span></div>
   <h2 style="position:absolute;left:40px;right:40px;top:1078px;text-align:center;font-size:30px;font-weight:800;color:#a55a00;letter-spacing:.06em;text-transform:uppercase;z-index:2">Ton parcours, étape par étape</h2>
@@ -319,5 +323,5 @@ if os.environ.get("IMPRESSION"):
     LOGO_CERCLE = logo_cercle(2000)
     QRB = img(QR, 2000)
     open(os.path.join(out, "rollup-impression.html"), "w").write(rollup_impression("A"))
-    open(os.path.join(out, "rollup-b-impression.html"), "w").write(rollup_impression("B"))
+    open(os.path.join(out, f"rollup-b{'-' + VARIANTE_B if VARIANTE_B else ''}-impression.html"), "w").write(rollup_impression("B"))
     print("roll-up : out/rollup-impression.html, out/rollup-b-impression.html")

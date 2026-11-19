@@ -28,3 +28,6 @@ Aperçus : `*-apercu.png` ; vue d'ensemble à l'échelle : `planche-affiches-fly
 
 
 Personnages (19/11/2026) : la photo de famille fournie par l'utilisateur (mère, diplômé en toge, père) est utilisée telle quelle, avec son décor d'origine, cadrée dans l'arche (`assets/photos/rollup/famille-scene.jpg`) : un détourage collé sur la Mosquée Hassan II faisait trop artificiel. **Droits d'utilisation à confirmer** et **définition insuffisante pour le roll-up** (environ 35 dpi à taille réelle) : fournir l'original en haute définition (au moins 2 500 px de haut) avant le tirage ; pour l'affiche A4 et les flyers, la définition suffit. Modèle B du roll-up : QR « Scanne-moi » en haut à droite de l'arche.
+
+
+Variante « étudiants » (19/11/2026) : même mise en page avec la photo de groupe d'étudiants fournie (`assets/photos/rollup/etudiants-scene.jpg`), fichiers suffixés `-etudiants` (roll-up B, affiche A4, flyers A5 et DL visuels) ; QR placé sur les vêtements, aucun visage caché. Générer avec `VARIANTE=etudiants`. Mêmes réserves : droits d'utilisation à confirmer, et 1 024 px de haut seulement, insuffisant pour le roll-up (environ 45 dpi), suffisant pour l'A4 et les flyers.
