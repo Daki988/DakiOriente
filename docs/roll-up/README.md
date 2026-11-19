@@ -7,6 +7,7 @@
 | `rollup-navigoal-modele-B-85x200-fond-perdu-3mm.pdf` | **Modèle B** (fond clair, arche marocaine, parcours en 5 étapes, QR rond) : même format et mêmes réglages d'impression. |
 | `rollup-navigoal-modele-B-apercu.png` | Aperçu du modèle B. |
 | `rollup-comparaison-A-B.png` | Les deux modèles côte à côte. |
+| `rollup-situation-studio-B.jpg`, `rollup-situation-campus-B.jpg` | Mises en situation du modèle B (studio et campus marocain), pour les réseaux sociaux ou la validation. Générées par `design/maquettes/rollup_situation.py <aperçu.png> <sortie.html>`, puis capture Playwright. |
 
 Généré par `design/maquettes/editorial.py` (variable `IMPRESSION=1`) ; PDF produit par Chromium.
 
