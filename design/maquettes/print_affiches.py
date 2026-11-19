@@ -57,13 +57,11 @@ F["avion"] = img(os.path.join(ROOT, "assets/photos/navitravel/hublot.jpg"), 1400
 F["etudiant"] = img(os.path.join(RU, "etudiant.png"), 1400)
 F["etudiante"] = img(os.path.join(WEB, "public/images/etudiante.webp"), 1400)
 F["parent"] = img(os.path.join(RU, "parent.png"), 1400)
+F["famille"] = img(os.path.join(RU, "famille.png"), 1400)
 
 def trio(H, cx):
-    """Père au centre (de face, en retrait), étudiant à gauche, étudiante devant à droite ; visages centrés sur cx (H = hauteur du père)."""
-    f = "filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))"
-    return (f'<img src="{F["parent"]}" style="position:absolute;left:{cx - 0.486 * H:.0f}px;bottom:0;height:{H:.0f}px;{f}">'
-            f'<img src="{F["etudiant"]}" style="position:absolute;left:{cx - 0.82 * H:.0f}px;bottom:0;height:{0.95 * H:.0f}px;{f}">'
-            f'<img src="{F["etudiante"]}" style="position:absolute;left:{cx + 0.10 * H:.0f}px;bottom:0;height:{0.78 * H:.0f}px;{f}">')
+    """Famille (mère, diplômé, père), photo fournie le 19/11/2026 : groupe de hauteur H, visages centrés sur cx, posé en bas du conteneur."""
+    return f'<img src="{F["famille"]}" style="position:absolute;left:{cx - 0.55 * H * 920 / 888:.0f}px;bottom:0;height:{H:.0f}px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))">'
 
 CR = json.load(open(os.path.join(RU, "credits.json")))
 CREDITS = "Photos : " + " · ".join(f"{CR[k]['auteur']} ({CR[k]['licence']})" for k in ("maroc-hassan2", "ecole", "residence", "avion", "maroc-chefchaouen")) + ", Wikimedia Commons, Unsplash et Pexels."
@@ -117,8 +115,8 @@ def visuel_a4(qr):
   <div style="position:absolute;left:{u * 14}px;right:{u * 14}px;top:{u * 89}px;height:{u * 92}px;border-radius:{u * 91}px {u * 91}px {u * 8}px {u * 8}px;overflow:hidden;border:{u * 2}px solid {SUN}" class="ombre">
     <img src="{F['maroc-hassan2']}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,79,0) 50%,rgba(11,26,79,.5))"></div>
-    {trio(290, 356)}</div>
-  <span style="position:absolute;left:50%;transform:translateX(-50%);top:{u * 92}px;background:{NAVY};color:#fff;border-radius:999px;padding:{u * 1.6}px {u * 3.4}px;font-size:{u * 3.8}px;font-weight:800;display:flex;align-items:center;gap:{u * 1.4}px;white-space:nowrap">{icon("map-pin", u * 4, SUN, 2.4)}Étudier au Maroc</span>
+    {trio(322, 356)}</div>
+  <span style="position:absolute;left:50%;transform:translateX(-50%);top:{u * 85}px;background:{NAVY};color:#fff;border-radius:999px;padding:{u * 1.6}px {u * 3.4}px;font-size:{u * 3.8}px;font-weight:800;display:flex;align-items:center;gap:{u * 1.4}px;white-space:nowrap">{icon("map-pin", u * 4, SUN, 2.4)}Étudier au Maroc</span>
   <div style="position:absolute;right:{u * 8}px;top:{u * 124}px;width:{u * 54}px;height:{u * 54}px;border-radius:50%;background:{SUN};border:{u * 1.6}px solid #fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:{u * .8}px" class="ombre">
     <span style="background:#fff;border-radius:{u * 3}px;padding:{u * 1.4}px;display:flex"><img src="{qr}" style="width:{u * 27}px;height:{u * 27}px"></span>
     <b style="font-size:{u * 4.6}px;line-height:1">Scanne-moi</b><span style="font-size:{u * 2.8}px;font-weight:700;line-height:1.1;text-align:center">test d'orientation<br>gratuit</span></div>
@@ -183,7 +181,7 @@ def visuel_dl(qr):
   <h1 style="position:absolute;left:{u * 5}px;right:{u * 5}px;top:{u * 37}px;text-align:center;font-size:{u * 8.4}px;line-height:1.03;font-weight:800;color:{NAVY};letter-spacing:-.02em">Trouve ta voie,<br><span style="color:{ORANGE}">étudie en confiance.</span></h1>
   <div style="position:absolute;left:{u * 7}px;right:{u * 7}px;top:{u * 59}px;height:{u * 51}px;border-radius:{u * 43}px {u * 43}px {u * 6}px {u * 6}px;overflow:hidden;border:{u * 1.4}px solid {SUN}" class="ombre">
     <img src="{F['maroc-hassan2']}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%">
-    {trio(164, 164)}</div>
+    {trio(186, 164)}</div>
   <div style="position:absolute;left:{u * 9}px;right:{u * 7}px;top:{u * 115}px;display:flex;flex-direction:column;gap:{u * 2.2}px">{lignes}</div>
   <div style="position:absolute;left:0;right:0;bottom:0;height:{u * 42}px;background:{NAVY};border-radius:{u * 7}px {u * 7}px 0 0"></div>
   <div style="position:absolute;left:{u * 6}px;right:{u * 6}px;bottom:{u * 6}px;display:flex;align-items:center;gap:{u * 3}px">
