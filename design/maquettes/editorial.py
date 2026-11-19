@@ -80,8 +80,10 @@ FOTO = {}
 
 
 def charger_photos(side):
-    for k in ["maroc-hassan2", "maroc-chefchaouen", "ecole", "residence", "chambre2"]:
+    for k in ["maroc-hassan2", "maroc-chefchaouen", "residence", "chambre2"]:
         FOTO[k] = img(os.path.join(RU, k + ".jpg"), side)
+    # Campus recadré : aucune banderole ni aucun logo d'établissement visible (consigne du 19/11/2026)
+    FOTO["ecole"] = img(os.path.join(RU, "ecole-recadree.jpg"), side)
     FOTO["avion"] = img(os.path.join(ROOT, "assets/photos/navitravel/hublot.jpg"), side)
 
 
@@ -126,7 +128,7 @@ def rollup():
       <span style="font-size:19px;color:#5b6478">Scanne : test d'orientation gratuit</span></span>
     <span style="display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:14px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY</span><img src="{OAPS}" style="width:100px"></span></div>
   <p style="position:absolute;left:50px;right:50px;top:1972px;font-size:9px;line-height:1.3;color:#8f9bc4;text-align:center">Photos : {credits} et Badr Rachadi (CC BY-SA 4.0), Wikimedia Commons et Unsplash.</p>
-  <span class="note" style="left:880px;top:20px;max-width:330px">Grande photo du Maroc (Mosquée Hassan II) sous le logo, puis 4 photos : école, logement, avion, ville. Aucun WhatsApp.</span>
+  <span class="note" style="left:880px;top:20px;max-width:330px">Grande photo du Maroc (Mosquée Hassan II) sous le logo, puis 4 photos : école, logement, avion, ville. Aucun WhatsApp, aucun logo ni panneau d'établissement.</span>
   <span class="note" style="left:880px;top:1300px;max-width:330px">« Billets d'avion à prix étudiant » reprend la promesse de la page NaviTravel (« au tarif étudiant »), sans chiffre de réduction.</span>
   <span class="note" style="left:880px;top:1800px;max-width:330px">Crédits des photos en bas (obligatoires pour les licences CC BY-SA).</span>
 </div>"""
