@@ -34,7 +34,10 @@ const ORGANISATION = {
   "@graph": [
     { "@type": "Organization", "@id": `${SITE_URL}/#organisation`, name: "Navigoal", url: SITE_URL, logo: `${SITE_URL}/brand/navigoal-logo.png`,
       description: DESCRIPTION, areaServed: ["Africa", ...DESTINATIONS_ACTIVES.map((d) => d.code)], knowsLanguage: "fr",
-      email: "contact@navigoal.net", parentOrganization: { "@type": "Organization", name: "OAPS Consulting Group" } },
+      email: "contact@navigoal.net", telephone: "+241 077 45 31 67",
+      // Mêmes nom, adresse et téléphone que la fiche Google (docs/fiche-google) et les mentions légales.
+      address: { "@type": "PostalAddress", streetAddress: "Quartier Glass", addressLocality: "Libreville", addressCountry: "GA" },
+      parentOrganization: { "@type": "Organization", name: "OAPS Consulting Group", address: { "@type": "PostalAddress", streetAddress: "Quartier Glass", addressLocality: "Libreville", addressCountry: "GA" } } },
     { "@type": "WebSite", "@id": `${SITE_URL}/#site`, name: "Navigoal", url: `${SITE_URL}/`, inLanguage: "fr", publisher: { "@id": `${SITE_URL}/#organisation` },
       potentialAction: { "@type": "SearchAction", target: `${SITE_URL}/recherche/?q={q}`, "query-input": "required name=q" } },
   ],
