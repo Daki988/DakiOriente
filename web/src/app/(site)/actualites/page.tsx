@@ -15,7 +15,7 @@ export default async function ActualitesPage() {
       <PageHero crumb="Actualités" title="Actualités" sub="Reste informé sur l'éducation, l'orientation, les formations et les opportunités en Afrique." hand="Toute l'actualité éducative en Afrique." />
       <div className="container">
         <Stagger className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {items.map((a) => <StaggerItem key={a.slug}><NewsCard a={a} /></StaggerItem>)}
+          {items.map((a, i) => <StaggerItem key={a.slug}><NewsCard a={a} prioritaire={i < 3} /></StaggerItem>)}
         </Stagger>
       </div>
       <CtaBand />

@@ -1,5 +1,6 @@
 // Contenus éditoriaux pour les pages publiques : base de données, avec repli sur les contenus de démonstration.
 import { ACTUALITES } from "@/lib/content";
+import { couverture, type Couverture } from "@/lib/couvertures";
 import { getArticle, listArticles } from "./services/admin";
 
 const STYLE: Record<string, { tone: string; grad: string; icon: string }> = {
@@ -7,22 +8,22 @@ const STYLE: Record<string, { tone: string; grad: string; icon: string }> = {
   International: { tone: "violet", grad: "from-[#6a3df0] to-[#a78bfa]", icon: "plane" }, "Vie étudiante": { tone: "rose", grad: "from-[#d42a50] to-[#fb7185]", icon: "users" },
   Innovation: { tone: "blue", grad: "from-[#0e7490] to-[#22d3ee]", icon: "cpu" }, Métiers: { tone: "sun", grad: "from-[#c2410c] to-[#fb923c]", icon: "hard-hat" },
 };
-export type Card = { slug: string; cat: string; tone: string; titre: string; date: string; grad: string; icon: string; resume: string };
+export type Card = { slug: string; cat: string; tone: string; titre: string; date: string; grad: string; icon: string; resume: string; photo: Couverture };
 
 export async function articleCards(): Promise<Card[]> {
   try {
     const rows = await listArticles(true);
     if (!rows.length) throw new Error("vide");
-    return rows.map((a) => ({ slug: a.slug, cat: a.category, titre: a.title, resume: a.excerpt, date: (a.publishedAt ?? a.createdAt).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" }), ...(STYLE[a.category] ?? STYLE.Orientation) }));
+    return rows.map((a) => ({ slug: a.slug, cat: a.category, titre: a.title, resume: a.excerpt, date: (a.publishedAt ?? a.createdAt).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" }), ...(STYLE[a.category] ?? STYLE.Orientation), photo: couverture(a) }));
   } catch {
-    return ACTUALITES.map((a) => ({ ...a }));
+    return ACTUALITES.map((a) => ({ ...a, photo: couverture({ slug: a.slug, category: a.cat, title: a.titre }) }));
   }
 }
 
 export async function articleBySlug(slug: string) {
   try {
     const a = await getArticle(slug);
-    return { ...a, style: STYLE[a.category] ?? STYLE.Orientation };
+    return { ...a, style: STYLE[a.category] ?? STYLE.Orientation, photo: couverture(a) };
   } catch {
     return null;
   }

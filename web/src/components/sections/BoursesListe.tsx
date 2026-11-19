@@ -5,10 +5,8 @@ import Link from "@/components/ui/Link";
 import { BOURSES, paysEtudesLibelle, paysOrigineLibelle } from "@/lib/bourses";
 import { nomPays } from "@/lib/pays-origine";
 
-type Campagne = { id: string; ecole: string; eid: string; titre: string; fin: string; conditions: string | null };
-
-/** Catalogue des bourses, filtré par pays d'origine (bourses publiques) ; bourses des écoles en dessous. */
-export function BoursesListe({ campagnes }: { campagnes: Campagne[] }) {
+/** Bourses publiques (États, coopération), filtrées par pays d'origine. */
+export function BoursesListe() {
   const pays = Array.from(new Set(BOURSES.flatMap((b) => b.pays_origine).filter((p) => p !== "*")));
   const [p, setP] = useState("");
   const liste = BOURSES.filter((b) => !p || b.pays_origine.includes(p) || b.pays_origine.includes("*"));
@@ -30,12 +28,6 @@ export function BoursesListe({ campagnes }: { campagnes: Campagne[] }) {
           <span className="flex items-center gap-1 text-sm font-bold text-brand-600">Conditions et démarche <ArrowRight size={15} /></span>
         </Link></li>
       ))}</ul>
-      <section className="flex flex-col gap-3">
-        <h2 className="text-2xl font-extrabold">Bourses et réductions des écoles</h2>
-        {campagnes.length ? <ul className="grid gap-3 md:grid-cols-2">{campagnes.map((c) => (
-          <li key={c.id}><Link href={`/etablissements/${c.eid}/#frais`} className="card flex h-full flex-col gap-1 rounded-[22px] p-4 hover:shadow-lg"><span className="text-xs font-bold text-[#6a3df0]">{c.ecole}</span><b>{c.titre}</b>{c.conditions && <span className="line-clamp-2 text-sm text-ink-soft">{c.conditions}</span>}<span className="text-xs text-ink-mute">Jusqu&apos;au {new Date(c.fin).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</span></Link></li>
-        ))}</ul> : <p className="rounded-2xl bg-[#f6f8fe] p-4 text-sm text-ink-soft">Aucune bourse d&apos;école ouverte en ce moment. Les écoles publient leurs bourses au mérite et réductions sur Navigoal : elles apparaîtront ici et sur leur fiche.</p>}
-      </section>
     </div>
   );
 }
