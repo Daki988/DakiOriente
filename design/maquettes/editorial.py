@@ -183,8 +183,8 @@ def rollup_b():
     <img src="{FOTO['etudiant']}" style="position:absolute;left:40px;bottom:0;height:430px;filter:drop-shadow(0 16px 26px rgba(0,0,0,.45))">
     <img src="{FOTO['etudiante']}" style="position:absolute;left:215px;bottom:0;height:350px;filter:drop-shadow(0 16px 26px rgba(0,0,0,.45))"></div>
   <div style="position:absolute;left:540px;top:625px;width:285px;height:285px;border-radius:50%;background:#ffc21f;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:0 20px 40px -12px rgba(0,0,0,.5);border:8px solid #fff">
-    <span style="background:#fff;border-radius:18px;padding:9px;display:flex"><img src="{QRB}" style="width:145px;height:145px"></span>
-    <b style="font-size:25px;line-height:1;color:#0b1533">Scanne-moi</b><span style="font-size:15px;line-height:1;font-weight:700;color:#0b1533">test d'orientation gratuit</span></div>
+    <span style="background:#fff;border-radius:16px;padding:8px;display:flex;margin-top:6px"><img src="{QRB}" style="width:138px;height:138px"></span>
+    <b style="font-size:25px;line-height:1;color:#0b1533">Scanne-moi</b><span style="font-size:15px;line-height:1.15;font-weight:700;color:#0b1533;text-align:center">test d'orientation<br>gratuit</span></div>
   <h2 style="position:absolute;left:40px;right:40px;top:1078px;text-align:center;font-size:30px;font-weight:800;color:#a55a00;letter-spacing:.06em;text-transform:uppercase;z-index:2">Ton parcours, étape par étape</h2>
   <svg style="position:absolute;left:0;top:0;width:850px;height:2000px;z-index:1" viewBox="0 0 850 2000"><path d="{pts}" fill="none" stroke="#ff9f1c" stroke-width="12" stroke-linecap="round" stroke-dasharray="2 24" opacity=".9"/></svg>
   {etape(1, None, "compass", "Ton orientation", "le métier et les études qui te ressemblent", "g", ys[0])}
