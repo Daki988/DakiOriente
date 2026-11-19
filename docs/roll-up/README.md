@@ -27,3 +27,6 @@ Logo : version ronde fournie le 19/11/2026 (`assets/photos/rollup/logo-navigoal-
 - QR code : `https://navigoal.net/?utm_source=rollup&utm_medium=print&utm_campaign=rollup` (inscriptions comptées dans `/admin/campagne/`). Le scanner avec un téléphone sur l'épreuve avant tirage.
 - Contacts affichés : navigoal.net, WhatsApp +241 077 45 31 67 (ajouté à la demande de l'utilisateur, 19/11/2026) et contact@navigoal.net.
 - Aucun pays ni chiffre figé dans les textes (la plateforme s'ouvre à de nouvelles destinations).
+
+
+Personnages (19/11/2026) : un parent (photo Pexels 6172586, détourée : `assets/photos/rollup/parent.png`), l'étudiant (Pexels 9158712) et l'étudiante (photo de l'accueil du site, licence à confirmer), centrés dans l'arche, visages entièrement visibles. Modèle B du roll-up : QR « Scanne-moi » en haut à droite de l'arche (environ 130 à 155 cm du sol).

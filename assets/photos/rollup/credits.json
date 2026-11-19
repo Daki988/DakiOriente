@@ -46,5 +46,11 @@
     "auteur": "fonds du site Navigoal",
     "licence": "voir web/public/images",
     "page": ""
+  },
+  "parent": {
+    "titre": "Photo Pexels 6172586 (femme détourée, rôle du parent)",
+    "auteur": "Pexels",
+    "licence": "Licence Pexels",
+    "page": "https://www.pexels.com/photo/6172586/"
   }
 }

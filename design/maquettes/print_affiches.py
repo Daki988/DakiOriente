@@ -56,6 +56,16 @@ F["ecole"] = img(os.path.join(RU, "ecole-recadree.jpg"), 2000)
 F["avion"] = img(os.path.join(ROOT, "assets/photos/navitravel/hublot.jpg"), 1400)
 F["etudiant"] = img(os.path.join(RU, "etudiant.png"), 1400)
 F["etudiante"] = img(os.path.join(WEB, "public/images/etudiante.webp"), 1400)
+F["parent"] = img(os.path.join(RU, "parent.png"), 1400)
+
+def trio(H, cx):
+    """Parent, étudiant et étudiante, centrés sur leurs visages (cx), posés en bas du conteneur (H = hauteur de l'étudiant)."""
+    x0 = cx - 1.0 * H
+    f = "filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))"
+    return (f'<img src="{F["parent"]}" style="position:absolute;left:{x0:.0f}px;bottom:0;height:{0.95 * H:.0f}px;{f}">'
+            f'<img src="{F["etudiant"]}" style="position:absolute;left:{x0 + 0.62 * H:.0f}px;bottom:0;height:{H:.0f}px;{f}">'
+            f'<img src="{F["etudiante"]}" style="position:absolute;left:{x0 + 0.98 * H:.0f}px;bottom:0;height:{0.80 * H:.0f}px;{f}">')
+
 CR = json.load(open(os.path.join(RU, "credits.json")))
 CREDITS = "Photos : " + " · ".join(f"{CR[k]['auteur']} ({CR[k]['licence']})" for k in ("maroc-hassan2", "ecole", "residence", "avion", "maroc-chefchaouen")) + ", Wikimedia Commons, Unsplash et Pexels."
 QR = lambda support, modele: img(os.path.join(QRDIR, f"qr-{support}-{modele}.png"), 1200)  # noqa: E731
@@ -108,10 +118,9 @@ def visuel_a4(qr):
   <div style="position:absolute;left:{u * 14}px;right:{u * 14}px;top:{u * 89}px;height:{u * 92}px;border-radius:{u * 91}px {u * 91}px {u * 8}px {u * 8}px;overflow:hidden;border:{u * 2}px solid {SUN}" class="ombre">
     <img src="{F['maroc-hassan2']}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,79,0) 50%,rgba(11,26,79,.5))"></div>
-    <img src="{F['etudiant']}" style="position:absolute;left:{u * 6}px;bottom:0;height:{u * 70}px">
-    <img src="{F['etudiante']}" style="position:absolute;left:{u * 36}px;bottom:0;height:{u * 57}px"></div>
+    {trio(290, 356)}</div>
   <span style="position:absolute;left:50%;transform:translateX(-50%);top:{u * 92}px;background:{NAVY};color:#fff;border-radius:999px;padding:{u * 1.6}px {u * 3.4}px;font-size:{u * 3.8}px;font-weight:800;display:flex;align-items:center;gap:{u * 1.4}px;white-space:nowrap">{icon("map-pin", u * 4, SUN, 2.4)}Étudier au Maroc</span>
-  <div style="position:absolute;right:{u * 8}px;top:{u * 118}px;width:{u * 54}px;height:{u * 54}px;border-radius:50%;background:{SUN};border:{u * 1.6}px solid #fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:{u * .8}px" class="ombre">
+  <div style="position:absolute;right:{u * 8}px;top:{u * 124}px;width:{u * 54}px;height:{u * 54}px;border-radius:50%;background:{SUN};border:{u * 1.6}px solid #fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:{u * .8}px" class="ombre">
     <span style="background:#fff;border-radius:{u * 3}px;padding:{u * 1.4}px;display:flex"><img src="{qr}" style="width:{u * 27}px;height:{u * 27}px"></span>
     <b style="font-size:{u * 4.6}px;line-height:1">Scanne-moi</b><span style="font-size:{u * 2.8}px;font-weight:700;line-height:1.1;text-align:center">test d'orientation<br>gratuit</span></div>
   <div style="position:absolute;left:{u * 14}px;right:{u * 14}px;top:{u * 188}px;display:grid;grid-template-columns:1fr 1fr;gap:{u * 4}px">{cartes}</div>
@@ -175,8 +184,7 @@ def visuel_dl(qr):
   <h1 style="position:absolute;left:{u * 5}px;right:{u * 5}px;top:{u * 37}px;text-align:center;font-size:{u * 8.4}px;line-height:1.03;font-weight:800;color:{NAVY};letter-spacing:-.02em">Trouve ta voie,<br><span style="color:{ORANGE}">étudie en confiance.</span></h1>
   <div style="position:absolute;left:{u * 7}px;right:{u * 7}px;top:{u * 59}px;height:{u * 51}px;border-radius:{u * 43}px {u * 43}px {u * 6}px {u * 6}px;overflow:hidden;border:{u * 1.4}px solid {SUN}" class="ombre">
     <img src="{F['maroc-hassan2']}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%">
-    <img src="{F['etudiant']}" style="position:absolute;left:{u * 3}px;bottom:0;height:{u * 40}px">
-    <img src="{F['etudiante']}" style="position:absolute;left:{u * 25}px;bottom:0;height:{u * 33}px"></div>
+    {trio(164, 164)}</div>
   <div style="position:absolute;left:{u * 9}px;right:{u * 7}px;top:{u * 115}px;display:flex;flex-direction:column;gap:{u * 2.2}px">{lignes}</div>
   <div style="position:absolute;left:0;right:0;bottom:0;height:{u * 42}px;background:{NAVY};border-radius:{u * 7}px {u * 7}px 0 0"></div>
   <div style="position:absolute;left:{u * 6}px;right:{u * 6}px;bottom:{u * 6}px;display:flex;align-items:center;gap:{u * 3}px">

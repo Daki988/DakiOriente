@@ -97,11 +97,21 @@ def charger_photos(side):
     # Campus recadré : aucune banderole ni aucun logo d'établissement visible (consigne du 19/11/2026)
     FOTO["ecole"] = img(os.path.join(RU, "ecole-recadree.jpg"), side)
     FOTO["etudiant"] = img(os.path.join(RU, "etudiant.png"), side)
+    FOTO["parent"] = img(os.path.join(RU, "parent.png"), side)
     FOTO["etudiante"] = img(PUB("images/etudiante.webp"), side)
     FOTO["avion"] = img(os.path.join(ROOT, "assets/photos/navitravel/hublot.jpg"), side)
 
 
 charger_photos(1400)
+
+
+def trio(photos, H, cx, ombre="0 16px 26px rgba(0,0,0,.45)"):
+    """Parent, étudiant et étudiante, centrés sur leurs visages (cx = centre voulu, H = hauteur de l'étudiant), posés en bas du conteneur."""
+    x0 = cx - 1.0 * H  # le centre des visages tombe à 1,0 H du bord gauche du groupe
+    f = f"filter:drop-shadow({ombre})"
+    return (f'<img src="{photos["parent"]}" style="position:absolute;left:{x0:.0f}px;bottom:0;height:{0.95 * H:.0f}px;{f}">'
+            f'<img src="{photos["etudiant"]}" style="position:absolute;left:{x0 + 0.62 * H:.0f}px;bottom:0;height:{H:.0f}px;{f}">'
+            f'<img src="{photos["etudiante"]}" style="position:absolute;left:{x0 + 0.98 * H:.0f}px;bottom:0;height:{0.80 * H:.0f}px;{f}">')
 
 
 def tuile(photo, ic, titre, texte, pos="center"):
@@ -180,12 +190,10 @@ def rollup_b():
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,79,0) 45%,rgba(11,26,79,.55) 100%)"></div></div>
   <div style="position:absolute;left:75px;top:480px;width:700px;height:580px;border-radius:350px 350px 40px 40px;border:10px solid #ffc21f;pointer-events:none"></div>
   <span style="position:absolute;left:310px;top:500px;background:#0b1a4f;color:#fff;border-radius:999px;padding:10px 20px;font-size:22px;font-weight:800;display:flex;align-items:center;gap:8px;z-index:3">{icon("map-pin", 22, "#ffc21f", 2.4)}Étudier au Maroc</span>
-  <div style="position:absolute;left:75px;top:600px;width:700px;height:460px;overflow:hidden;border-radius:0 0 40px 40px;z-index:2">
-    <img src="{FOTO['etudiant']}" style="position:absolute;left:40px;bottom:0;height:430px;filter:drop-shadow(0 16px 26px rgba(0,0,0,.45))">
-    <img src="{FOTO['etudiante']}" style="position:absolute;left:215px;bottom:0;height:350px;filter:drop-shadow(0 16px 26px rgba(0,0,0,.45))"></div>
-  <div style="position:absolute;left:540px;top:625px;width:285px;height:285px;border-radius:50%;background:#ffc21f;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:0 20px 40px -12px rgba(0,0,0,.5);border:8px solid #fff">
-    <span style="background:#fff;border-radius:16px;padding:8px;display:flex;margin-top:6px"><img src="{QRB}" style="width:138px;height:138px"></span>
-    <b style="font-size:25px;line-height:1;color:#0b1533">Scanne-moi</b><span style="font-size:15px;line-height:1.15;font-weight:700;color:#0b1533;text-align:center">test d'orientation<br>gratuit</span></div>
+  <div style="position:absolute;left:75px;top:480px;width:700px;height:580px;overflow:hidden;border-radius:350px 350px 40px 40px;z-index:2">{trio(FOTO, 430, 350)}</div>
+  <div style="position:absolute;left:600px;top:452px;width:242px;height:242px;border-radius:50%;background:#ffc21f;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:0 20px 40px -12px rgba(0,0,0,.5);border:8px solid #fff">
+    <span style="background:#fff;border-radius:14px;padding:7px;display:flex;margin-top:4px"><img src="{QRB}" style="width:118px;height:118px"></span>
+    <b style="font-size:22px;line-height:1;color:#0b1533">Scanne-moi</b><span style="font-size:13px;line-height:1.15;font-weight:700;color:#0b1533;text-align:center">test d'orientation<br>gratuit</span></div>
   <h2 style="position:absolute;left:40px;right:40px;top:1078px;text-align:center;font-size:30px;font-weight:800;color:#a55a00;letter-spacing:.06em;text-transform:uppercase;z-index:2">Ton parcours, étape par étape</h2>
   <svg style="position:absolute;left:0;top:0;width:850px;height:2000px;z-index:1" viewBox="0 0 850 2000"><path d="{pts}" fill="none" stroke="#ff9f1c" stroke-width="12" stroke-linecap="round" stroke-dasharray="2 24" opacity=".9"/></svg>
   {etape(1, None, "compass", "Ton orientation", "le métier et les études qui te ressemblent", "g", ys[0])}
@@ -201,7 +209,7 @@ def rollup_b():
       <span style="font-size:19px;color:#c9d3f5">Gratuit pour les familles · candidature sans frais de dossier</span></span>
     <span style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#fff;border-radius:20px;padding:10px 14px"><span style="font-size:13px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY</span><img src="{OAPS}" style="width:96px"></span></div>
   <p style="position:absolute;left:50px;right:50px;top:1972px;font-size:9px;line-height:1.3;color:#8f9bc4;text-align:center">Photos : {credits} et Badr Rachadi (CC BY-SA 4.0), Wikimedia Commons, Unsplash et Pexels.</p>
-  <span class="note" style="left:880px;top:20px;max-width:330px">Modèle B : fond clair, arche marocaine bordée de jaune autour de la Mosquée Hassan II, duo d'étudiants dans l'arche, QR rond « Scanne-moi » à hauteur de poitrine.</span>
+  <span class="note" style="left:880px;top:20px;max-width:330px">Modèle B : fond clair, arche marocaine bordée de jaune autour de la Mosquée Hassan II, un parent, un étudiant et une étudiante centrés dans l'arche, QR rond « Scanne-moi » en haut à droite de l'arche (environ 130 à 155 cm du sol).</span>
   <span class="note" style="left:880px;top:1100px;max-width:330px">Le parcours en 5 étapes, reliées par la route orange du logo : orientation, école, logement, billet, nouvelle vie.</span>
 </div>"""
 
