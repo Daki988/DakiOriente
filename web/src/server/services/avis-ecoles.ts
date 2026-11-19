@@ -43,7 +43,9 @@ export async function eligibilite(user: User) {
   const mesAvis = await db.select().from(schema.avisEtablissements).where(eq(schema.avisEtablissements.auteurId, user.id)).orderBy(desc(schema.avisEtablissements.createdAt));
   return {
     annee: anneeUniversitaire(),
-    ecoles: apps.map(({ a, p, e }) => ({ applicationId: a.id, etablissementId: a.establishmentId, nom: etabById[a.establishmentId]?.nom ?? a.establishmentId, formation: p.title, campus: a.campus, inscriptionConfirmee: !!e?.inscription })),
+    // Un avis par école et par an : une seule ligne par école, de préférence l'admission dont l'inscription est confirmée.
+    ecoles: Object.values(Object.fromEntries([...apps].sort((x, y) => Number(!!x.e?.inscription) - Number(!!y.e?.inscription))
+      .map(({ a, p, e }) => [a.establishmentId, { applicationId: a.id, etablissementId: a.establishmentId, nom: etabById[a.establishmentId]?.nom ?? a.establishmentId, formation: p.title, campus: a.campus, inscriptionConfirmee: !!e?.inscription }]))),
     mesAvis,
     // Autres écoles (inscription prouvée par justificatif) : liste légère pour le formulaire.
     catalogue: etablissements.map((e) => ({ id: e.id, nom: e.sigle && e.sigle !== e.nom ? `${e.sigle} — ${e.nom}` : e.nom })).sort((a, b) => a.nom.localeCompare(b.nom, "fr")),

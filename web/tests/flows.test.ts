@@ -1159,3 +1159,71 @@ describe("Navi sur WhatsApp (Meta simulé, faux modèle)", () => {
     }
   });
 });
+
+describe("chantiers de novembre 2026 : scolarité, avis, témoignages, bourses", () => {
+  const scol = () => import("@/server/services/scolarite");
+  const avisE = () => import("@/server/services/avis-ecoles");
+  const avisS = () => import("@/server/services/avis-service");
+  it("paiement direct à l'école : moyen vérifié, échéancier, preuve, confirmation = inscription", async () => {
+    const s = await scol();
+    const [app] = await db.select().from(schema.applications).where(and(eq(schema.applications.studentId, student.id), eq(schema.applications.status, "acceptee")));
+    expect(app).toBeTruthy();
+    const m = await s.enregistrerMoyen(school, app.establishmentId, { type: "virement", libelle: "Virement bancaire", details: "RIB 000 111 222 333", devise: "MAD" });
+    expect(m.statut).toBe("a_verifier");
+    await s.definirEcheancier(school, app.id, { devise: "MAD", lignes: [{ libelle: "Frais d'inscription", montant: 5000, echeance: "2027-08-31" }, { libelle: "Scolarité — 1re tranche", montant: 30000, echeance: "2027-09-30" }] });
+    let v = (await s.pourFamille(student, app.id))!;
+    expect(v.moyens).toHaveLength(0); // pas encore vérifié : rien d'affiché
+    const preuve = await docs.uploadDocument(student, "autre", { name: "recu.pdf", bytes: PDF, label: "Preuve de paiement" });
+    await expect(s.declarer(student, app.id, { ligneId: v.lignes[0].id, montant: 5000, moyenId: m.id, preuveId: preuve.id })).rejects.toThrow(/non vérifié/);
+    await s.verifierMoyen(adminU, m.id, { statut: "verifie" });
+    v = (await s.pourFamille(student, app.id))!;
+    expect(v.moyens).toHaveLength(1);
+    const p = await s.declarer(student, app.id, { ligneId: v.lignes[0].id, montant: 5000, moyenId: m.id, reference: "VIR-1", preuveId: preuve.id });
+    // L'école lit la preuve ; un autre compte non
+    expect((await docs.readDocument(school, preuve.id)).doc.id).toBe(preuve.id);
+    await expect(docs.readDocument(landlord, preuve.id)).rejects.toThrow();
+    // Montant d'une échéance payée figé
+    await expect(s.definirEcheancier(school, app.id, { devise: "MAD", lignes: [{ id: v.lignes[0].id, libelle: "Frais d'inscription", montant: 6000, echeance: "2027-08-31" }] })).rejects.toThrow(/montant/);
+    await s.confirmer(school, p.id, { statut: "confirme" });
+    v = (await s.pourFamille(student, app.id))!;
+    expect(v.inscriptionConfirmee).toBeTruthy();
+    expect(v.lignes[0].etat).toBe("payee");
+    expect(v.paye).toBe(5000);
+    await expect(s.pourFamille(landlord, app.id)).rejects.toThrow();
+  });
+  it("avis vérifié : inscription confirmée → relecture → publication ; l'école répond, réponse relue", async () => {
+    const a = await avisE();
+    const elig = await a.eligibilite(student);
+    expect(elig.ecoles[0].inscriptionConfirmee).toBe(true);
+    const texte = "Des enseignants disponibles, des cours concrets et un bon accompagnement pour les stages en entreprise.";
+    const avis = await a.deposer(student, { etablissementId: elig.ecoles[0].etablissementId, applicationId: elig.ecoles[0].applicationId, notes: { enseignement: 5, encadrement: 4, accueil: 4, campus: 3, insertion: 4, prix: 3 }, recommande: true, pointsForts: texte, pointsFaibles: texte, affichage: "prenom" });
+    expect(avis.verification).toBe("navigoal");
+    expect((await a.publics(avis.etablissementId)).nombre).toBe(0);
+    await a.moderer(adminU, avis.id, { statut: "publie" });
+    const pub = await a.publics(avis.etablissementId);
+    expect(pub.nombre).toBe(1);
+    expect(pub.stats).toBeNull(); // note affichée dès 3 avis
+    expect(pub.avis[0].nom).toBe("Awa N.");
+    await a.repondre(school, avis.id, { texte: "Merci Awa pour ce retour, nous renforçons le matériel." });
+    expect((await a.publics(avis.etablissementId)).avis[0].reponse).toBeNull();
+    await a.modererReponse(adminU, avis.id, { statut: "publie" });
+    expect((await a.publics(avis.etablissementId)).avis[0].reponse?.texte).toMatch(/Merci/);
+    await expect(a.moderer(school, avis.id, { statut: "retire", motif: "x" }).then(() => { throw new Error("l'école ne doit pas retirer"); })).rejects.toThrow();
+  });
+  it("note du service et témoignage : publié seulement après relecture et accord", async () => {
+    const s = await avisS();
+    const r = await s.enregistrer(parent, { note: 5, temoignage: "Navigoal nous a aidés à comparer les écoles et le budget en F CFA.", publier: true, affichage: "anonyme" });
+    expect(r.statut).toBe("en_attente");
+    await s.moderer(adminU, r.id, { statut: "publie" });
+    const liste = await s.listeAdmin("publie");
+    expect(liste.lignes.some((l) => l.id === r.id)).toBe(true);
+  });
+  it("bourses : suivi réservé aux familles", async () => {
+    const b = await import("@/server/services/bourses");
+    await b.suivre(student, "ga-anbg", true);
+    expect(await b.suivies(student.id)).toContain("ga-anbg");
+    await expect(b.suivre(school, "ga-anbg", true)).rejects.toThrow();
+    const moi = await b.pourMoi(student);
+    expect(moi.profils[0].bourses.find((x) => x.id === "ga-anbg")?.statut).toBe("non_eligible"); // Sénégalaise
+  });
+});

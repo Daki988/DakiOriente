@@ -9,7 +9,7 @@ import { SITE_URL } from "@/lib/site";
 
 export const revalidate = 300;
 export const metadata: Metadata = {
-  title: "Bourses d'études pour étudier à l'étranger : conditions et démarches",
+  title: "Bourses d'études à l'étranger : conditions, démarches",
   description: "Bourses publiques des pays d'origine et des pays d'études, bourses des écoles : conditions, pièces, calendrier et liens officiels, vérifiés par Navigoal.",
   alternates: { canonical: "/bourses/" },
 };

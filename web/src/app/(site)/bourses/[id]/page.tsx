@@ -13,7 +13,7 @@ export const dynamicParams = false;
 export const generateMetadata = async (props: { params: Promise<{ id: string }> }): Promise<Metadata> => {
   const b = bourseById[(await props.params).id];
   if (!b) return {};
-  return { title: `${b.nom} : conditions, pièces et démarche`, description: `${b.organisme}. ${b.pour}`.slice(0, 158), alternates: { canonical: `/bourses/${b.id}/` } };
+  return { title: `${b.nom}${b.nom.length > 40 ? "" : " : conditions et pièces"}`, description: `${b.organisme}. ${b.pour}`.slice(0, 158), alternates: { canonical: `/bourses/${b.id}/` } };
 };
 const dateLongue = (d: string) => new Date(d).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
 
