@@ -92,7 +92,7 @@ const ADMIS = [
   { ua: /PerplexityBot|Perplexity-User/i, listes: ["https://www.perplexity.ai/perplexitybot.json", "https://www.perplexity.ai/perplexity-user.json"] },
   { ua: /Claude-SearchBot|Claude-User/i, listes: ["https://claude.com/crawling/bots.json"] },
 ];
-const LIBRES = /^\/(robots\.txt|llms\.txt|api\/sante\/?|api\/paiements\/webhook\/|api\/whatsapp\/webhook\/?)/;
+const LIBRES = /^\/(robots\.txt|llms\.txt|[0-9a-f]{32}\.txt$|api\/sante\/?|api\/paiements\/webhook\/|api\/whatsapp\/webhook\/?)/;
 
 // Listes d'adresses publiées (JSON « prefixes » : ipv4Prefix / ipv6Prefix), relues toutes les 24 h.
 const net = require("net");

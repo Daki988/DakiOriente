@@ -174,3 +174,9 @@ jobs:
           done
           echo "::error::Le site ne répond pas après la mise en ligne ($SITE/api/sante/). Consultez navigoal/stderr.log sur l'hébergement."
           exit 1
+
+      # Pages signalées à Bing et aux autres moteurs IndexNow (la recherche de ChatGPT s'appuie sur Bing) ; sans effet
+      # bloquant si le service ne répond pas.
+      - name: Signaler les pages aux moteurs (IndexNow)
+        continue-on-error: true
+        run: node scripts/indexnow.mjs
