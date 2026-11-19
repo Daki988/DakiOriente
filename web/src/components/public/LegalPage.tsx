@@ -8,7 +8,7 @@ import { PAGES_LEGALES, SERVICES, SERVICES_LISTE, lienLegal, type PageLegale, ty
 import { Markdown, headings, slugify } from "./markdown";
 import { SommaireLegal, Imprimer } from "./SommaireLegal";
 
-export const LEGAL_VERSION = { version: "2.6", date: "18/11/2026" };
+export const LEGAL_VERSION = { version: "2.7", date: "19/11/2026" };
 type Texte = { titre: string; bref: string; corps: string };
 const TEXTES = legal as Record<ServiceId, Record<PageLegale, Texte>>;
 
@@ -100,7 +100,7 @@ export function LegalPage({ service = "navigoal", page }: { service?: ServiceId;
           </div>
           <div className="flex flex-col gap-2 rounded-[22px] border border-slate-200 p-5">
             <History size={20} className="text-ink-mute" /><b className="text-sm">Historique</b>
-            <span className="text-xs text-ink-mute">v2.6 · 18/11/2026 : Navi sur WhatsApp (Meta) ; v2.5 : cookie de campagne déposé seulement avec votre accord ; v2.4 : appels audio et vidéo par Daily (sans enregistrement) ; v2.3 : Navi s&apos;adapte au profil des comptes connectés et tient une fiche de suivi, visible et effaçable ; v2.2 : présence en direct des comptes connectés visible par l&apos;équipe Navigoal (effacée après une heure) ; v2.1 : conversations avec Navi conservées 90 jours</span>
+            <span className="text-xs text-ink-mute">v2.7 · 19/11/2026 : mesure d&apos;audience Google Analytics (Google Tag Manager), cookies seulement avec votre accord ; v2.6 : Navi sur WhatsApp (Meta) ; v2.5 : cookie de campagne déposé seulement avec votre accord ; v2.4 : appels audio et vidéo par Daily (sans enregistrement) ; v2.3 : Navi s&apos;adapte au profil des comptes connectés et tient une fiche de suivi, visible et effaçable ; v2.2 : présence en direct des comptes connectés visible par l&apos;équipe Navigoal (effacée après une heure) ; v2.1 : conversations avec Navi conservées 90 jours</span>
             <span className="text-xs text-ink-mute">v2.0 · 06/11/2026 : réécriture complète, pages propres à Navilease et NaviTravel</span>
             <span className="text-xs text-ink-mute">v1.0 · 09/10/2026</span>
           </div>

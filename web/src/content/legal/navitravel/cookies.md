@@ -1,6 +1,6 @@
 ---
 titre: Politique cookies de NaviTravel
-bref: NaviTravel utilise les cookies internes de Navigoal (connexion et préférences), sans publicité ni traceur tiers.
+bref: NaviTravel utilise les cookies de Navigoal (connexion et préférences, et avec votre accord seulement la mesure d'audience Google Analytics), sans publicité.
 ---
 
 ## Cookies utilisés
@@ -10,7 +10,8 @@ bref: NaviTravel utilise les cookies internes de Navigoal (connexion et préfér
 | ng_session | vous garder connecté (demandes, devis, documents, paiements) | 30 jours au plus |
 | ng_oauth | sécuriser la connexion avec Google | 10 minutes |
 | ng_dest | retenir le pays d'études choisi | 12 mois |
-| ng_acq | savoir quelle campagne ou quel parrain vous a amené | 90 jours |
+| ng_acq | savoir quelle campagne ou quel parrain vous a amené (avec votre accord) | 90 jours |
+| _ga, _ga_… (Google) | mesure d'audience Google Analytics, pages publiques seulement (avec votre accord ; sans accord, aucun cookie Google) | 13 mois au plus |
 
 ## Sites des partenaires
 

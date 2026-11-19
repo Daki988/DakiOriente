@@ -2,11 +2,12 @@
 // par un autre site ; seules les vidéos des témoignages et les appels (salles Daily, caméra et micro délégués) sont intégrés. Pour les vidéos : (lecteurs officiels YouTube sans cookies et Onisep TV) sont intégrées. 'unsafe-inline' reste nécessaire aux scripts d'hydratation de Next.js et au JSON-LD.
 const CSP = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
+  // Google Tag Manager / Google Analytics (installé novembre 2026, avec consentement : components/ui/GoogleTagManager.tsx)
+  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.googletagmanager.com${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.daily.co wss://*.daily.co",
+  "connect-src 'self' https://*.daily.co wss://*.daily.co https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
   "frame-src 'self' https://www.youtube-nocookie.com https://videos.onisep.fr https://*.daily.co",
   "frame-ancestors 'self'",
   "object-src 'none'",

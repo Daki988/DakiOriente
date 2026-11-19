@@ -16,6 +16,12 @@ const EXCLUS = [/\/api\//, /deconnexion/, /\.(pdf|csv|zip|png|jpe?g|webp|docx?)(
 const MESSAGES_ERREUR = ["Chargement impossible", "Une erreur est survenue", "Page introuvable", "Application error", "Unhandled Runtime Error", "Internal Server Error"];
 
 fs.mkdirSync(OUT, { recursive: true });
+/** Visiteur ayant déjà répondu au bandeau des cookies, et services Google bloqués (on teste Navigoal, pas Google :
+ *  leurs envois réguliers empêcheraient aussi d'attendre la fin du chargement). Le bandeau a son propre parcours. */
+async function preparer(ctx, { bandeau = false } = {}) {
+  if (!bandeau) await ctx.addInitScript(() => { try { localStorage.setItem("navigoal-cookies-2", "non"); } catch {} });
+  await ctx.route(/googletagmanager\.com|google-analytics\.com|analytics\.google\.com/, (r) => r.abort());
+}
 const browser = await chromium.launch({ executablePath: fs.existsSync("/opt/pw-browsers/chromium") ? "/opt/pw-browsers/chromium" : undefined });
 const rapport = [];
 
@@ -27,6 +33,7 @@ const motif = (u) => {
 
 async function explorer(profil, compte) {
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+  await preparer(ctx);
   const page = await ctx.newPage();
   const evts = [];
   page.on("pageerror", (e) => evts.push({ type: "js", msg: e.message.slice(0, 300) }));

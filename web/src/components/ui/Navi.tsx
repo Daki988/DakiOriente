@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 import Link from "@/components/ui/Link";
 import { useDevise } from "@/components/ui/Devise";
 import type { Carte } from "@/server/services/navi";
+import { EVENEMENT_CONSENTEMENT, lireChoix } from "@/lib/consentement";
 
 // Navi, l'assistant IA : bouton flottant sur toutes les pages, panneau de conversation (maquettes Figma validées).
 // Il ne s'affiche que si le serveur a une clé API (GET /api/navi), comme le bouton Google.
@@ -315,13 +316,21 @@ export function Navi() {
     return () => window.removeEventListener("keydown", echap);
   }, [ouvert]);
   useEffect(() => { fil.current?.scrollTo({ top: fil.current.scrollHeight }); }, [msgs, ouvert]);
+  // L'invitation attend la réponse au bandeau des cookies (deux fenêtres l'une sur l'autre sinon).
+  const [choixCookies, setChoixCookies] = useState(true);
+  useEffect(() => {
+    const maj = () => setChoixCookies(lireChoix() !== null);
+    maj();
+    window.addEventListener(EVENEMENT_CONSENTEMENT, maj);
+    return () => window.removeEventListener(EVENEMENT_CONSENTEMENT, maj);
+  }, []);
   // Invitation à tester Navi (site public seulement, une fois tous les 7 jours).
   useEffect(() => {
-    if (!actif || !invitationActive || ouvert || SANS_INVITATION.test(path) || invitationVue()) return;
+    if (!actif || !invitationActive || ouvert || !choixCookies || SANS_INVITATION.test(path) || invitationVue()) return;
     ecrire(`${CLE}-bulle-${path}`, true); // pas de bulle d'accroche en plus sur cette page
     const t = setTimeout(() => { noterInvitation(); setInvitation(true); }, INVITATION_DELAI);
     return () => clearTimeout(t);
-  }, [actif, invitationActive, ouvert, path]);
+  }, [actif, invitationActive, ouvert, choixCookies, path]);
   const fermerInvitation = useCallback(() => setInvitation(false), []);
 
   // Bulle d'accroche contextuelle, une fois par page et par session.
@@ -408,7 +417,7 @@ export function Navi() {
     <>
       {invitation && !ouvert && <Invitation fermer={fermerInvitation} ouvrirNavi={() => { setInvitation(false); setOuvert(true); }} />}
       {!ouvert && (
-        <div style={deplace.style} className={`fixed bottom-24 right-4 z-40 flex items-center gap-3 lg:bottom-6 lg:right-6 print:hidden ${deplace.aGauche ? "flex-row-reverse" : ""}`}>
+        <div style={deplace.style} className={`fixed bottom-24 right-4 z-40 flex items-center gap-3 lg:bottom-6 lg:right-6 print:hidden max-lg:[html[data-bandeau-cookies]_&]:hidden ${deplace.aGauche ? "flex-row-reverse" : ""}`}>
           {bulle && question && !deplace.enGlisse && <button type="button" onClick={() => { setOuvert(true); void envoyer(question); }} className="hidden rounded-full border border-slate-200 bg-white px-4 py-2.5 text-[13.5px] font-bold text-ink shadow-[0_10px_30px_-12px_rgba(11,21,51,.35)] sm:block">{question}</button>}
           <button type="button" {...deplace.poignee} onClick={() => { if (deplace.clicVrai()) setOuvert(true); }} aria-label="Ouvrir Navi, l'assistant Navigoal (vous pouvez déplacer ce bouton)" title="Cliquer pour discuter · glisser pour déplacer" style={{ WebkitTouchCallout: "none", WebkitUserSelect: "none" }} className={`relative h-16 w-16 touch-none select-none rounded-full bg-white p-0.5 ring-[3px] ring-brand-600 shadow-[0_14px_34px_-10px_rgba(26,71,245,.6)] transition ${deplace.enGlisse ? "scale-110 cursor-grabbing shadow-[0_24px_44px_-12px_rgba(26,71,245,.7)]" : "cursor-grab hover:-rotate-6 hover:scale-105"}`}>
             <Fennec className="h-full w-full rounded-full" />

@@ -1,6 +1,6 @@
 ---
 titre: Politique cookies de Navilease
-bref: Navilease utilise les mêmes cookies internes que Navigoal (connexion et préférences). Aucun cookie publicitaire, aucun traceur tiers.
+bref: Navilease utilise les mêmes cookies que Navigoal (connexion et préférences, et avec votre accord seulement la mesure d'audience Google Analytics). Aucun cookie publicitaire.
 ---
 
 ## Cookies utilisés
@@ -12,7 +12,8 @@ Navilease fait partie de navigoal.net et utilise les mêmes cookies :
 | ng_session | vous garder connecté (réservations, messages, paiements) | 30 jours au plus |
 | ng_oauth | sécuriser la connexion avec Google | 10 minutes |
 | ng_dest | retenir le pays d'études choisi | 12 mois |
-| ng_acq | savoir quelle campagne ou quel parrain vous a amené | 90 jours |
+| ng_acq | savoir quelle campagne ou quel parrain vous a amené (avec votre accord) | 90 jours |
+| _ga, _ga_… (Google) | mesure d'audience Google Analytics, pages publiques seulement (avec votre accord ; sans accord, aucun cookie Google) | 13 mois au plus |
 
 ## Liens vers les résidences
 

@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "@/components/ui/Link";
 import { ACQ_COOKIE } from "@/lib/campagne";
+import { CLE_CHOIX_COOKIES, enregistrerChoix, lireChoix } from "@/lib/consentement";
 
-/** Choix de la personne pour le seul cookie non indispensable (ng_acq) : « oui », « non » ou rien (pas encore demandé). */
-export const CLE_CHOIX_COOKIES = "navigoal-cookies";
-const lireChoix = () => { try { return localStorage.getItem(CLE_CHOIX_COOKIES); } catch { return null; } };
+export { CLE_CHOIX_COOKIES };
 const lire = () => {
   const m = document.cookie.match(new RegExp(`(?:^|; )${ACQ_COOKIE}=([^;]*)`));
   if (!m) return null;
@@ -16,39 +16,55 @@ const poser = (v: Acq) => {
   const secure = window.location.protocol === "https:" ? "; Secure" : "";
   document.cookie = `${ACQ_COOKIE}=${encodeURIComponent(JSON.stringify(v))}; Max-Age=${90 * 86400}; Path=/; SameSite=Lax${secure}`;
 };
+// Pas de bandeau dans le back-office ni dans les espaces des professionnels (aucune mesure Google n'y est chargée).
+const SANS_BANDEAU = /^\/(admin|etablissement|bailleur|conseiller|appel)(\/|$)/;
 
 /**
- * Mémorise pendant 90 jours le premier lien suivi (utm_source, utm_campaign…) ou le code parrain (?ref=)
- * par lequel la personne arrive sur le site ; le serveur le lit à l'inscription. Ce cookie n'étant pas indispensable,
- * il n'est déposé qu'avec l'accord de la personne : un bandeau le demande, seulement quand un tel lien est suivi.
+ * Bandeau de consentement aux cookies non indispensables, montré une fois à chaque visiteur :
+ *  - mesure d'audience Google Analytics (via Google Tag Manager, consentement refusé par défaut) ;
+ *  - cookie de campagne ng_acq (90 jours), quand on arrive par un lien utm_… ou un code parrain (?ref=) :
+ *    le serveur le lit à l'inscription.
+ * Pendant l'affichage, `data-bandeau-cookies` sur <html> : la bulle de Navi s'efface sur téléphone et l'invitation
+ * de Navi attend la réponse (pas de chevauchement).
  */
 export function AcquisitionTracker() {
-  const [enAttente, setEnAttente] = useState<Acq | null>(null);
+  const path = usePathname();
+  const [ouvert, setOuvert] = useState(false);
+  const [campagne, setCampagne] = useState<Acq | null>(null);
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
     const ref = p.get("ref");
     const source = p.get("utm_source");
-    if (!ref && !source) return;
-    const deja = lire();
-    if (deja && (!ref || deja.ref)) return;
-    const v: Acq = {
-      source: source ?? undefined, medium: p.get("utm_medium") ?? undefined, campaign: p.get("utm_campaign") ?? undefined,
-      content: p.get("utm_content") ?? undefined, ref: ref ?? undefined, landing: window.location.pathname, at: new Date().toISOString(),
-    };
     const choix = lireChoix();
-    if (choix === "oui") poser(v);
-    else if (choix !== "non") setEnAttente(v);
+    if (ref || source) {
+      const deja = lire();
+      if (!deja || (ref && !deja.ref)) {
+        const v: Acq = {
+          source: source ?? undefined, medium: p.get("utm_medium") ?? undefined, campaign: p.get("utm_campaign") ?? undefined,
+          content: p.get("utm_content") ?? undefined, ref: ref ?? undefined, landing: window.location.pathname, at: new Date().toISOString(),
+        };
+        if (choix === "oui") poser(v);
+        else setCampagne(v);
+      }
+    }
+    if (choix !== "oui" && choix !== "non") setOuvert(true);
   }, []);
-  if (!enAttente) return null;
+  const visible = ouvert && !SANS_BANDEAU.test(path);
+  useEffect(() => {
+    if (visible) document.documentElement.dataset.bandeauCookies = "1";
+    else delete document.documentElement.dataset.bandeauCookies;
+  }, [visible]);
+  if (!visible) return null;
   const repondre = (oui: boolean) => {
-    try { localStorage.setItem(CLE_CHOIX_COOKIES, oui ? "oui" : "non"); } catch { /* stockage indisponible */ }
-    if (oui) poser(enAttente);
-    setEnAttente(null);
+    enregistrerChoix(oui);
+    if (oui && campagne) poser(campagne);
+    setOuvert(false);
   };
   return (
-    <div role="dialog" aria-label="Cookie de campagne" className="fixed inset-x-3 bottom-3 z-[65] mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white p-4 text-[13.5px] text-ink-soft shadow-[0_20px_50px_-15px_rgba(11,21,51,.35)] sm:bottom-5 print:hidden">
+    <div role="dialog" aria-label="Cookies" className="fixed inset-x-3 bottom-3 z-[65] mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white p-4 text-[13.5px] text-ink-soft shadow-[0_20px_50px_-15px_rgba(11,21,51,.35)] sm:bottom-5 print:hidden">
       <p>
-        {enAttente.ref ? "Vous arrivez avec un code de parrainage." : "Vous arrivez par un lien de campagne."} Navigoal peut s&apos;en souvenir pendant 90 jours pour l&apos;associer à votre inscription{enAttente.ref ? " et créditer votre parrain" : ""} : un cookie interne, sans publicité ni service tiers.{" "}
+        Navigoal mesure sa fréquentation avec Google Analytics pour améliorer le site. Avec votre accord, des cookies comptent les visites (aucune publicité)
+        {campagne ? <>{" "}et Navigoal retient {campagne.ref ? "votre code de parrainage" : "le lien de campagne"} pendant 90 jours pour l&apos;associer à votre inscription{campagne.ref ? " et créditer votre parrain" : ""}</> : null}.{" "}
         <Link href="/cookies/" className="font-bold text-brand-600 underline-offset-2 hover:underline">En savoir plus</Link>
       </p>
       <div className="mt-3 flex flex-wrap gap-2">
@@ -59,19 +75,19 @@ export function AcquisitionTracker() {
   );
 }
 
-/** Sur la page « Politique cookies » : revoir son choix pour le cookie de campagne (ng_acq). */
+/** Sur la page « Politique cookies » : revoir son choix (mesure d'audience Google Analytics et cookie de campagne). */
 export function ChoixCookies() {
   const [choix, setChoix] = useState<string | null>(null);
   useEffect(() => setChoix(lireChoix()), []);
   const changer = (oui: boolean) => {
-    try { localStorage.setItem(CLE_CHOIX_COOKIES, oui ? "oui" : "non"); } catch { /* stockage indisponible */ }
+    enregistrerChoix(oui);
     if (!oui) document.cookie = `${ACQ_COOKIE}=; Max-Age=0; Path=/`;
     setChoix(oui ? "oui" : "non");
   };
   return (
     <div className="not-prose my-6 flex flex-col gap-3 rounded-2xl border border-brand-100 bg-brand-50/60 p-4 text-[14px] print:hidden">
-      <b className="text-ink">Votre choix pour le cookie de campagne (ng_acq)</b>
-      <span className="text-ink-soft">{choix === "oui" ? "Accepté." : choix === "non" ? "Refusé : aucun cookie de campagne n'est déposé." : "Aucun choix enregistré : la question vous sera posée si vous arrivez par un lien de campagne ou de parrainage."}</span>
+      <b className="text-ink">Votre choix pour les cookies non indispensables (Google Analytics et cookie de campagne ng_acq)</b>
+      <span className="text-ink-soft">{choix === "oui" ? "Accepté." : choix === "non" ? "Refusé : aucun cookie Google Analytics ni cookie de campagne n'est déposé." : "Aucun choix enregistré : le bandeau vous le demandera."}</span>
       <div className="flex flex-wrap gap-2">
         <button type="button" onClick={() => changer(true)} className="btn-ghost min-h-[44px] px-4 text-[14px]">Accepter</button>
         <button type="button" onClick={() => changer(false)} className="btn-ghost min-h-[44px] px-4 text-[14px]">Refuser et effacer</button>

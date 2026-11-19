@@ -7,6 +7,8 @@ import { DeviseProvider } from "@/components/ui/Devise";
 import { DESTINATIONS_ACTIVES } from "@/lib/data";
 import { DestinationProvider } from "@/components/ui/Destination";
 import { AcquisitionTracker } from "@/components/campagne/AcquisitionTracker";
+import { GoogleTagManager } from "@/components/ui/GoogleTagManager";
+import { SCRIPT_CONSENTEMENT } from "@/lib/consentement";
 import { Navi } from "@/components/ui/Navi";
 import { Audience } from "@/components/ui/Audience";
 import { BarreNavigation } from "@/components/ui/BarreNavigation";
@@ -44,6 +46,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr">
       <body>
+        {/* Consentement Google refusé par défaut, avant tout chargement de Google Tag Manager. */}
+        <script dangerouslySetInnerHTML={{ __html: SCRIPT_CONSENTEMENT }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANISATION).replace(/</g, "\\u003c") }} />
         <MotionProvider>
           <DeviseProvider>
@@ -54,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <BarreNavigation />
             {children}
             <Navi />
+            <GoogleTagManager />
            </DestinationProvider>
           </DeviseProvider>
         </MotionProvider>

@@ -14,6 +14,12 @@ const APPAREILS = {
   "ipad": devices["iPad (gen 7)"], "laptop": { viewport: { width: 1280, height: 800 } }, "desktop": { viewport: { width: 1920, height: 1080 } },
 };
 fs.mkdirSync(OUT, { recursive: true });
+/** Visiteur ayant déjà répondu au bandeau des cookies, et services Google bloqués (on teste Navigoal, pas Google :
+ *  leurs envois réguliers empêcheraient aussi d'attendre la fin du chargement). Le bandeau a son propre parcours. */
+async function preparer(ctx, { bandeau = false } = {}) {
+  if (!bandeau) await ctx.addInitScript(() => { try { localStorage.setItem("navigoal-cookies-2", "non"); } catch {} });
+  await ctx.route(/googletagmanager\.com|google-analytics\.com|analytics\.google\.com/, (r) => r.abort());
+}
 const browser = await chromium.launch({ executablePath: fs.existsSync("/opt/pw-browsers/chromium") ? "/opt/pw-browsers/chromium" : undefined }).catch(() => chromium.launch());
 const rapport = [];
 
@@ -43,6 +49,7 @@ async function auditer(ctx, nom, pages) {
 
 for (const [nom, d] of Object.entries(APPAREILS)) {
   const ctx = await browser.newContext({ ...d, locale: "fr-FR" });
+  await preparer(ctx);
   await auditer(ctx, nom, PUBLIQUES);
   for (const c of COMPTES) {
     const r = await ctx.request.post(`${BASE}/api/auth/connexion/`, { data: { identifiant: c.identifiant, motDePasse: c.motDePasse }, headers: { origin: BASE } });

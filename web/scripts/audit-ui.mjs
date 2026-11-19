@@ -13,9 +13,17 @@ const browser = await chromium.launch({ executablePath: fs.existsSync("/opt/pw-b
 const resultats = [];
 let codeTest = null;
 
+/** Visiteur ayant déjà répondu au bandeau des cookies, et services Google bloqués (on teste Navigoal, pas Google :
+ *  leurs envois réguliers empêcheraient aussi d'attendre la fin du chargement). Le bandeau a son propre parcours. */
+async function preparer(ctx, { bandeau = false } = {}) {
+  if (!bandeau) await ctx.addInitScript(() => { try { localStorage.setItem("navigoal-cookies-2", "non"); } catch {} });
+  await ctx.route(/googletagmanager\.com|google-analytics\.com|analytics\.google\.com/, (r) => r.abort());
+}
+
 /** Un parcours = un contexte de navigateur neuf ; chaque étape est consignée, capture d'écran en cas d'échec. */
-async function parcours(nom, viewport, etapes) {
+async function parcours(nom, viewport, etapes, opts = {}) {
   const ctx = await browser.newContext({ viewport });
+  await preparer(ctx, opts);
   const page = await ctx.newPage();
   page.setDefaultTimeout(15000);
   const erreurs = [];
@@ -214,6 +222,23 @@ await parcours("admin", DESKTOP, [
   }],
   ["modération Navilease", async (p) => { await p.goto(BASE + "/admin/navilease/", { waitUntil: "networkidle" }); await p.locator("main").waitFor(); }],
 ]);
+
+// Bandeau des cookies (Google Analytics, cookie de campagne) : affiché à la première visite, bulle de Navi masquée sur
+// téléphone pendant ce temps, choix retenu, plus de bandeau à la visite suivante.
+await parcours("bandeau-cookies", MOBILE, [
+  ["bandeau affiché, bulle Navi masquée", async (p) => {
+    await p.goto(BASE + "/", { waitUntil: "load" });
+    await p.getByRole("dialog", { name: "Cookies" }).waitFor();
+    if (!(await p.evaluate(() => document.documentElement.dataset.bandeauCookies === "1"))) throw new Error("bulle de Navi non masquée");
+  }],
+  ["refus retenu", async (p) => {
+    await p.getByRole("dialog", { name: "Cookies" }).getByRole("button", { name: "Refuser" }).click();
+    await p.getByRole("dialog", { name: "Cookies" }).waitFor({ state: "detached" });
+    if ((await p.evaluate(() => localStorage.getItem("navigoal-cookies-2"))) !== "non") throw new Error("choix non enregistré");
+    await p.goto(BASE + "/metiers/", { waitUntil: "load" }); await p.waitForTimeout(800);
+    if (await p.getByRole("dialog", { name: "Cookies" }).count()) throw new Error("bandeau réaffiché après refus");
+  }],
+], { bandeau: true });
 
 await browser.close();
 fs.writeFileSync(path.join(OUT, "ui.json"), JSON.stringify(resultats, null, 1));
