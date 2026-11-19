@@ -742,3 +742,118 @@ export const accreditationRenouvellements = pgTable("accreditation_renouvellemen
   le: timestamp("le", { withTimezone: true }).notNull().defaultNow(),
   reporte: boolean("reporte").notNull().default(false), // déjà reporté dans renouvellements.csv
 });
+
+// ---------------------------------------------------------------- Avis et témoignages (novembre 2026)
+// Note de Navigoal (1 à 5) et témoignage facultatif, donnés depuis le profil : un par compte, modifiable. Le témoignage
+// n'est publié (page « Pourquoi Navigoal ») qu'avec l'accord de la personne et après relecture par l'équipe.
+export const avisService = pgTable("avis_service", {
+  id: id(),
+  userId: text("user_id").notNull().unique().references(() => users.id, { onDelete: "cascade" }),
+  note: integer("note").notNull(),
+  temoignage: text("temoignage"),
+  publier: boolean("publier").notNull().default(false), // accord pour publier le témoignage
+  affichage: text("affichage").notNull().default("prenom"), // prenom (« Amina M. ») | anonyme (« Une élève, Gabon »)
+  statut: text("statut").notNull().default("sans_temoignage"), // sans_temoignage | en_attente | publie | refuse
+  motif: text("motif"), // motif de refus, envoyé à l'auteur
+  moderePar: text("modere_par").references(() => users.id, { onDelete: "set null" }),
+  modereLe: timestamp("modere_le", { withTimezone: true }),
+  createdAt: createdAt(),
+  updatedAt: updatedAt(),
+}, (t) => [index("avis_service_statut_idx").on(t.statut)]);
+
+// Avis vérifiés sur les écoles : seuls les étudiants dont l'inscription est prouvée (candidature acceptée via Navigoal
+// et inscription confirmée, ou certificat de scolarité validé par l'équipe). Un avis par personne, école et année.
+export type NotesAvis = { enseignement: number; encadrement: number; accueil: number; campus: number; insertion: number; prix: number };
+export const avisEtablissements = pgTable("avis_etablissements", {
+  id: id(),
+  auteurId: text("auteur_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  etablissementId: text("etablissement_id").notNull().references(() => establishments.id, { onDelete: "cascade" }),
+  formation: text("formation"),
+  campus: text("campus"),
+  annee: text("annee").notNull(), // année universitaire, ex. 2026-2027
+  notes: jsonb("notes").$type<NotesAvis>().notNull(),
+  recommande: boolean("recommande").notNull(),
+  pointsForts: text("points_forts").notNull(),
+  pointsFaibles: text("points_faibles").notNull(),
+  fraisDeclares: integer("frais_declares"), // scolarité annuelle réellement payée (MAD), facultatif
+  affichage: text("affichage").notNull().default("prenom"), // prenom | anonyme
+  verification: text("verification").notNull(), // navigoal (candidature acceptée) | justificatif (certificat validé)
+  applicationId: text("application_id").references(() => applications.id, { onDelete: "set null" }),
+  justificatifId: text("justificatif_id"), // document déposé (certificat de scolarité)
+  statut: text("statut").notNull().default("en_attente"), // en_attente | publie | refuse | retire
+  motif: text("motif"),
+  moderePar: text("modere_par").references(() => users.id, { onDelete: "set null" }),
+  modereLe: timestamp("modere_le", { withTimezone: true }),
+  reponse: text("reponse"), // réponse publique de l'école
+  reponseStatut: text("reponse_statut"), // en_attente | publie | refuse
+  reponseLe: timestamp("reponse_le", { withTimezone: true }),
+  reponseParId: text("reponse_par_id").references(() => users.id, { onDelete: "set null" }),
+  publieLe: timestamp("publie_le", { withTimezone: true }),
+  createdAt: createdAt(),
+  updatedAt: updatedAt(),
+}, (t) => [uniqueIndex("avis_etab_unique").on(t.auteurId, t.etablissementId, t.annee), index("avis_etab_idx").on(t.etablissementId, t.statut)]);
+
+export const avisSignalements = pgTable("avis_signalements", {
+  id: id(),
+  avisId: text("avis_id").notNull().references(() => avisEtablissements.id, { onDelete: "cascade" }),
+  auteurId: text("auteur_id").references(() => users.id, { onDelete: "set null" }),
+  motif: text("motif").notNull(),
+  statut: text("statut").notNull().default("ouvert"), // ouvert | traite
+  traitePar: text("traite_par").references(() => users.id, { onDelete: "set null" }),
+  createdAt: createdAt(),
+}, (t) => [index("avis_signal_avis_idx").on(t.avisId)]);
+
+// ---------------------------------------------------------------- Bourses suivies (alertes)
+export const boursesSuivies = pgTable("bourses_suivies", {
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  bourseId: text("bourse_id").notNull(), // identifiant du référentiel data/referentiels/bourses.json
+  createdAt: createdAt(),
+}, (t) => [primaryKey({ columns: [t.userId, t.bourseId] })]);
+
+// ---------------------------------------------------------------- Paiement de la scolarité (montage A : paiement direct à l'école)
+// Navigoal n'encaisse pas : l'école déclare ses moyens de paiement (vérifiés par l'équipe), fixe l'échéancier d'une
+// candidature acceptée ; la famille paie l'école et dépose sa preuve ; l'école confirme la réception.
+export const moyensPaiementEcoles = pgTable("moyens_paiement_ecoles", {
+  id: id(),
+  etablissementId: text("etablissement_id").notNull().references(() => establishments.id, { onDelete: "cascade" }),
+  type: text("type").notNull(), // virement | lien | especes | autre
+  libelle: text("libelle").notNull(), // ex. « Virement bancaire (Attijariwafa) »
+  details: text("details").notNull(), // RIB, lien, instructions
+  devise: text("devise").notNull().default("MAD"),
+  statut: text("statut").notNull().default("a_verifier"), // a_verifier | verifie | refuse | retire
+  verifiePar: text("verifie_par").references(() => users.id, { onDelete: "set null" }),
+  verifieLe: timestamp("verifie_le", { withTimezone: true }),
+  createdAt: createdAt(),
+  updatedAt: updatedAt(),
+}, (t) => [index("moyens_paiement_etab_idx").on(t.etablissementId)]);
+
+export type LigneEcheancier = { id: string; libelle: string; montant: number; echeance: string };
+export const echeanciersScolarite = pgTable("echeanciers_scolarite", {
+  id: id(),
+  applicationId: text("application_id").notNull().unique().references(() => applications.id, { onDelete: "cascade" }),
+  etablissementId: text("etablissement_id").notNull().references(() => establishments.id, { onDelete: "cascade" }),
+  devise: text("devise").notNull().default("MAD"),
+  lignes: jsonb("lignes").$type<LigneEcheancier[]>().notNull().default([]),
+  remboursement: text("remboursement"), // conditions de remboursement de l'école (refus de visa, désistement)
+  inscriptionConfirmee: timestamp("inscription_confirmee", { withTimezone: true }), // première échéance confirmée
+  creePar: text("cree_par").references(() => users.id, { onDelete: "set null" }),
+  createdAt: createdAt(),
+  updatedAt: updatedAt(),
+});
+
+export const paiementsScolarite = pgTable("paiements_scolarite", {
+  id: id(),
+  echeancierId: text("echeancier_id").notNull().references(() => echeanciersScolarite.id, { onDelete: "cascade" }),
+  ligneId: text("ligne_id").notNull(),
+  payeurId: text("payeur_id").notNull().references(() => users.id),
+  montant: integer("montant").notNull(),
+  devise: text("devise").notNull(),
+  moyenId: text("moyen_id").references(() => moyensPaiementEcoles.id, { onDelete: "set null" }),
+  reference: text("reference"), // référence du virement ou du reçu
+  preuveId: text("preuve_id"), // document déposé (preuve de paiement)
+  statut: text("statut").notNull().default("declare"), // declare | confirme | refuse
+  motif: text("motif"),
+  confirmePar: text("confirme_par").references(() => users.id, { onDelete: "set null" }),
+  confirmeLe: timestamp("confirme_le", { withTimezone: true }),
+  createdAt: createdAt(),
+}, (t) => [index("paiements_scol_ech_idx").on(t.echeancierId)]);

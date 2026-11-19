@@ -2,6 +2,7 @@
 import { KeyRound, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { Button, PageHeader, Panel, useToast } from "@/components/app/kit";
+import { AvisNavigoal } from "./AvisNavigoal";
 import { Field, FormError, PasswordInput } from "@/components/app/form";
 import { api } from "@/lib/api";
 import { useAction } from "@/hooks/useApi";
@@ -32,6 +33,7 @@ export function Account() {
             <Button loading={a.pending}>Mettre à jour</Button>
           </form>
         </Panel>
+        {["eleve", "etudiant", "parent", "etablissement", "bailleur"].includes(u.role) && <div className="md:col-span-2"><AvisNavigoal /></div>}
       </div>
     </>
   );

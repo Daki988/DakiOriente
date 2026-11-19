@@ -1,4 +1,8 @@
 // API REST Navigoal (/api/...). Une table de routes unique sert au routage et à la documentation OpenAPI.
+import * as avisEcoles from "../services/avis-ecoles";
+import * as avisService from "../services/avis-service";
+import * as reactivite from "../services/reactivite";
+import { etabById } from "@/lib/data";
 import { ipClient } from "../lib/geoip";
 import { limiter } from "../lib/counters";
 import { sql } from "drizzle-orm";
@@ -387,6 +391,12 @@ route("POST", "/reservations/:id/litige", "Navilease", "Ouvrir un litige (média
 route("POST", "/reservations/:id/avis", "Navilease", "Laisser un avis (locataire ayant séjourné)", STUDENT, async ({ me, params, body }) => { const b = await body(); return book.reviewHousing(me, params.id, Number(b.note), b.commentaire); });
 
 // ---------------------------------------------------------------- Back-office
+route("GET", "/admin/reactivite", "Relais", "Réactivité des écoles sur 90 jours et candidatures sans réponse depuis plus de 7 jours", ["admin"], async () => {
+  const [toutes, retard] = await Promise.all([reactivite.reactivites(), reactivite.sansReponse()]);
+  const ecoles = Object.entries(toutes).map(([id, r]) => ({ id, nom: etabById[id]?.nom ?? id, sigle: etabById[id]?.sigle ?? id, ...r, public: reactivite.versPublic(r) }))
+    .sort((a, b) => b.enRetard - a.enRetard || (b.medianeJours ?? 0) - (a.medianeJours ?? 0));
+  return { ecoles, retard: retard.map((x) => ({ ...x, ecole: etabById[x.establishment_id]?.sigle ?? x.establishment_id })) };
+});
 route("GET", "/admin/statistiques", "Back-office", "Statistiques plateforme", ["admin"], async ({ me }) => admin.stats(me));
 route("GET", "/admin/campagne", "Back-office", "Campagne : inscriptions par source, tests, parrainage", ["admin"], async ({ me, query }) => campaign.campaignStats(me, query.get("depuis")));
 route("GET", "/admin/campagne/export.csv", "Back-office", "Campagne : export CSV des inscriptions par source", ["admin"], async ({ me, query }) => file(new TextEncoder().encode(await campaign.campaignCsv(me, query.get("depuis"))), "text/csv; charset=utf-8", "campagne-sources.csv", false));
@@ -539,6 +549,25 @@ route("POST", "/navi/avis", "Navi", "Dire si une réponse de Navi a aidé (utile
   await limiter(`navi-avis:${user?.id ?? ipClient(req.headers) ?? "inconnue"}`, 60, 3600, "Trop d'avis envoyés : réessaie plus tard.");
   return navi.donnerAvis(user, b.trace, b.avis);
 });
+// Note de Navigoal et témoignages (profil) ; relecture par l'équipe ; affichage sur « Pourquoi Navigoal ».
+route("GET", "/moi/avis-service", "Avis", "Ma note de Navigoal et mon témoignage", "user", async ({ me }) => ({ avis: await avisService.monAvis(me) }));
+route("PUT", "/moi/avis-service", "Avis", "Noter Navigoal (1 à 5) et proposer un témoignage", "user", async ({ me, body }) => ({ avis: await avisService.enregistrer(me, await body()) }));
+route("DELETE", "/moi/avis-service", "Avis", "Retirer ma note et mon témoignage", "user", async ({ me }) => { await avisService.supprimer(me); return ok; });
+route("GET", "/temoignages", "Avis", "Note moyenne de Navigoal et témoignages publiés", "public", async () => json(await avisService.publics(), 200, { "Cache-Control": "public, max-age=300" }));
+route("GET", "/admin/avis-service", "Back-office", "Notes et témoignages (?statut=en_attente|publie|refuse|sans_temoignage)", ["admin"], async ({ query }) => avisService.listeAdmin(query.get("statut")));
+route("POST", "/admin/avis-service/:id", "Back-office", "Publier ou refuser un témoignage", ["admin"], async ({ me, params, body }) => { await avisService.moderer(me, params.id, await body()); return ok; });
+// Avis étudiants vérifiés sur les écoles.
+route("GET", "/moi/avis-ecoles", "Avis", "Écoles que je peux noter et mes avis", ["eleve", "etudiant"], async ({ me }) => avisEcoles.eligibilite(me));
+route("POST", "/moi/avis-ecoles", "Avis", "Donner ou modifier (30 jours) mon avis de l'année sur une école", ["eleve", "etudiant"], async ({ me, body }) => ({ avis: await avisEcoles.deposer(me, await body()) }));
+route("GET", "/ecoles/:eid/avis", "Avis", "Avis publiés d'une école et sa note (dès 3 avis)", "public", async ({ params }) => json(await avisEcoles.publics(params.eid), 200, { "Cache-Control": "public, max-age=300" }));
+route("GET", "/avis-ecoles/resumes", "Avis", "Note et nombre d'avis des écoles (dès 3 avis)", "public", async () => json(await avisEcoles.resumes(), 200, { "Cache-Control": "public, max-age=600" }));
+route("POST", "/avis-ecoles/:id/signaler", "Avis", "Signaler un avis à l'équipe", "user", async ({ me, params, body }) => { await avisEcoles.signaler(me, params.id, await body()); return ok; });
+route("GET", "/ecole/:eid/avis", "Établissement", "Avis publiés sur mon école", ["etablissement", "admin"], async ({ me, params }) => avisEcoles.pourEcole(me, params.eid));
+route("POST", "/ecole/avis/:id/reponse", "Établissement", "Répondre publiquement à un avis (relu par l'équipe)", ["etablissement", "admin"], async ({ me, params, body }) => { await avisEcoles.repondre(me, params.id, await body()); return ok; });
+route("GET", "/admin/avis-ecoles", "Back-office", "Avis sur les écoles à relire, réponses et signalements", ["admin"], async () => avisEcoles.listeAdmin());
+route("POST", "/admin/avis-ecoles/:id", "Back-office", "Publier, refuser ou retirer un avis", ["admin"], async ({ me, params, body }) => { await avisEcoles.moderer(me, params.id, await body()); return ok; });
+route("POST", "/admin/avis-ecoles/:id/reponse", "Back-office", "Publier ou refuser la réponse d'une école", ["admin"], async ({ me, params, body }) => { await avisEcoles.modererReponse(me, params.id, await body()); return ok; });
+route("POST", "/admin/avis-ecoles/:id/classer", "Back-office", "Classer sans suite les signalements d'un avis", ["admin"], async ({ me, params }) => { await avisEcoles.classerSignalements(me, params.id); return ok; });
 route("GET", "/moi/navi-suivi", "Navi", "Ce que Navi retient de mes conversations (fiche de suivi)", "user", async ({ me }) => ({ suivi: await naviProfil.lireSuivi(me.id) }));
 route("DELETE", "/moi/navi-suivi", "Navi", "Effacer ce que Navi retient de mes conversations", "user", async ({ me }) => { await naviProfil.effacerSuivi(me.id); return ok; });
 route("POST", "/navi", "Navi", "Converser avec Navi (réponse en flux NDJSON : texte, cartes, fin)", "public", async ({ req, user, body }) => {

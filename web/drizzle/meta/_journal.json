@@ -134,6 +134,13 @@
       "when": 1795022229333,
       "tag": "0018_whatsapp",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1795085784306,
+      "tag": "0019_avis_bourses_scolarite",
+      "breakpoints": true
     }
   ]
 }

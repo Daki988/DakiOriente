@@ -13,6 +13,7 @@ import { etabById, villesOf, type Label } from "@/lib/data";
 import { useEcole } from "./EcoleContext";
 import { Donut, MonthChart } from "./Charts";
 import { CountryTag, ETAB_STATUS, paysColor, paysLabel, pct, type AppRow } from "./shared";
+import { BlocCompletude, BlocReactivite, type CompletudeDash, type ReactiviteDash } from "./Reactivite";
 
 type Ind = { v: number; trend: number | null };
 type Dash = {
@@ -24,6 +25,7 @@ type Dash = {
   byCampus: { campus: string | null; n: number }[];
   byCountry: { country: string | null; n: number }[];
   housing: { admis_etrangers: number; loges: number };
+  reactivite: ReactiviteDash; completude: CompletudeDash;
 };
 const PERIODES: [string, string][] = [["annee", "Cette année"], ["mois", "30 derniers jours"], ["semaine", "7 derniers jours"]];
 
@@ -76,7 +78,7 @@ export function Dashboard() {
 
   if (d.loading && !d.data) return <>{header}<Loading label="Calcul des indicateurs…" /></>;
   if (d.error) return <>{header}<Alert tone="error" title="Indicateurs indisponibles" action={<Button size="sm" variant="ghost" onClick={d.reload}>Réessayer</Button>}>{d.error.message}</Alert></>;
-  const { indicateurs: k, kpis, months, byProgram, byCampus, byCountry, housing } = d.data!;
+  const { indicateurs: k, kpis, months, byProgram, byCampus, byCountry, housing, reactivite, completude } = d.data!;
   const countryTotal = byCountry.reduce((s, c) => s + c.n, 0);
   const ring = pct(housing.admis_etrangers, kpis.admis);
   const last = (recent.data ?? []).slice(0, 6);
@@ -96,6 +98,11 @@ export function Dashboard() {
         <Indicator i={1} label="Admis" value={k.admis.v} trend={k.admis.trend} icon={CheckCircle2} tone="blue" />
         <Indicator i={2} label="En cours" value={k.enCours.v} trend={k.enCours.trend} icon={Hourglass} tone="sun" />
         <Indicator i={3} label="Formations actives" value={k.formations.v} delta={k.formations.delta} icon={GraduationCap} tone="violet" />
+      </div>
+
+      <div className="mt-4 grid gap-4 sm:mt-5 sm:gap-5 xl:grid-cols-[1.45fr_1fr] [&>*]:min-w-0">
+        <BlocReactivite r={reactivite} link={link} />
+        <BlocCompletude c={completude} link={link} />
       </div>
 
       <div className="mt-4 grid gap-4 sm:mt-5 sm:gap-5 xl:grid-cols-[1.45fr_1fr] [&>*]:min-w-0">

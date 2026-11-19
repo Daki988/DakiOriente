@@ -1,6 +1,8 @@
 import { sql } from "drizzle-orm";
 import { db, schema } from "../db";
 import { assertMember } from "./establishments";
+import { OBJECTIF_JOURS, SEUIL_AFFICHAGE, reactivites, sansReponse, versPublic } from "./reactivite";
+import { etabById } from "@/lib/data";
 
 type User = typeof schema.users.$inferSelect;
 export type Periode = "annee" | "mois" | "semaine";
@@ -67,5 +69,35 @@ export async function schoolDashboard(user: User, establishmentId: string, perio
       formations: { v: programs.actives, delta: programs.nouvelles - programs.prev, nouvelles: programs.nouvelles },
     },
     kpis: all, months, byProgram, byCampus, byCountry, housing,
+    reactivite: await reactiviteEcole(establishmentId),
+    completude: await completude(establishmentId),
   };
+}
+
+/** Bloc « Réactivité » du tableau de bord : délai médian de première réponse, part sous 7 jours, dossiers en retard. */
+async function reactiviteEcole(establishmentId: string) {
+  const r = (await reactivites(establishmentId))[establishmentId] ?? { n: 0, repondues: 0, medianeJours: null, sous7: 0, enRetard: 0 };
+  const retard = (await sansReponse(establishmentId)).slice(0, 10).map((x) => ({ id: x.id, number: x.number, nom: `${x.first_name} ${x.last_name}`, envoyee: x.submitted_at }));
+  return { ...r, objectifJours: OBJECTIF_JOURS, seuil: SEUIL_AFFICHAGE, public: versPublic(r), retard };
+}
+
+/** Score de complétude de la fiche (sur 100) et liste de ce qui manque, avec le lien pour le compléter. */
+async function completude(establishmentId: string) {
+  const [e] = await db.select().from(schema.establishments).where(sql`${schema.establishments.id} = ${establishmentId}`);
+  const ref = etabById[establishmentId];
+  const [c] = (await db.execute(sql`select
+      (select count(*) from programs where establishment_id = ${establishmentId} and active)::int formations,
+      (select count(*) from programs where establishment_id = ${establishmentId} and active and tuition_min is not null)::int avec_frais,
+      (select count(*) from campaigns where establishment_id = ${establishmentId} and published and ends_at > now())::int campagnes`)).rows as { formations: number; avec_frais: number; campagnes: number }[];
+  const criteres: { cle: string; libelle: string; ok: boolean; lien: string }[] = [
+    { cle: "presentation", libelle: "Présentation de l'école", ok: !!(e?.description && e.description.length > 80), lien: "/etablissement/fiche/" },
+    { cle: "contact", libelle: "E-mail et téléphone de contact", ok: !!(e?.email && e?.phone), lien: "/etablissement/fiche/" },
+    { cle: "photos", libelle: "Photos du campus", ok: (e?.photos?.length ?? 0) > 0 || (ref?.photos?.length ?? 0) > 0, lien: "/etablissement/fiche/" },
+    { cle: "formations", libelle: "Formations ouvertes aux candidatures", ok: c.formations > 0, lien: "/etablissement/formations/" },
+    { cle: "frais", libelle: "Frais de scolarité de chaque formation", ok: c.formations > 0 && c.avec_frais === c.formations, lien: "/etablissement/formations/" },
+    { cle: "campagne", libelle: "Campagne de candidature en cours", ok: c.campagnes > 0, lien: "/etablissement/campagnes/" },
+    { cle: "dossier", libelle: "Pièces du dossier de candidature", ok: !!(e?.dossier?.pieces?.length || e?.dossier?.fiche), lien: "/etablissement/dossier/" },
+  ];
+  const score = Math.round((criteres.filter((x) => x.ok).length / criteres.length) * 100);
+  return { score, criteres };
 }

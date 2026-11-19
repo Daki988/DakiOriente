@@ -2,6 +2,7 @@
 import { CheckCircle2, GraduationCap, KeyRound, Save, Sparkles, UserRound, UsersRound } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Alert, Avatar, Button, Loading, PageHeader, Panel, StatusBadge, useToast } from "@/components/app/kit";
+import { AvisNavigoal } from "@/components/shared/AvisNavigoal";
 import { Field, FormError, Input, Select, Textarea } from "@/components/app/form";
 import { api } from "@/lib/api";
 import { useAction, useApi } from "@/hooks/useApi";
@@ -108,6 +109,7 @@ export function Profile() {
             {(me.data.emailVerifiedAt || me.data.phoneVerifiedAt) && <span className="flex items-center gap-1 text-xs font-bold text-[#0b7a3d]"><CheckCircle2 size={14} />Coordonnées vérifiées</span>}
           </section>
           <SuiviNavi />
+          <AvisNavigoal />
           <section id="parent" className="scroll-mt-24">
             <Panel title="Parent / tuteur" icon={UsersRound} tone="sun">
               {(g.data ?? []).map((x) => (

@@ -2,7 +2,7 @@ import { DossierPublic } from "@/components/sections/DossierPublic";
 import type { Metadata } from "next";
 import Link from "@/components/ui/Link";
 import { QuestionWhatsApp } from "@/components/ui/QuestionWhatsApp";
-import { ArrowRight, BadgeCheck, Bus, Check, GraduationCap, Mail, Phone, Sparkles, Calculator, ChevronRight, ExternalLink, KeyRound, MapPin, Plane, Scale, ShieldAlert, TrainFront, TramFront } from "lucide-react";
+import { Clock3, Zap, ArrowRight, BadgeCheck, Bus, Check, GraduationCap, Mail, Phone, Sparkles, Calculator, ChevronRight, ExternalLink, KeyRound, MapPin, Plane, Scale, ShieldAlert, TrainFront, TramFront } from "lucide-react";
 import { notFound, permanentRedirect } from "next/navigation";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { EtabLogo } from "@/components/ui/EtabLogo";
@@ -15,6 +15,9 @@ import { villeHref } from "@/lib/catalogue";
 import { etabDetail } from "@/lib/etab-detail";
 import { COUTS, devis, formationParDefaut } from "@/lib/devis";
 import { establishmentLive } from "@/server/content-ui";
+import { reactivitesPubliques } from "@/server/services/reactivite";
+import { publics as avisPublics } from "@/server/services/avis-ecoles";
+import { AvisEcole } from "@/components/sections/AvisEcole";
 import { SITE_URL } from "@/lib/site";
 import { descriptionSeo, filAriane, titreSeo } from "@/lib/seo";
 
@@ -133,6 +136,9 @@ const ADMISSION = ["Dossier en ligne via Navigoal (bac ou relevés de notes, CV,
 export default async function EtabPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const live = await establishmentLive(params.id);
+  // Délai de première réponse (90 jours, dès 5 candidatures) ; sans base de données disponible, rien n'est affiché.
+  const avis = await avisPublics(params.id).catch(() => ({ nombre: 0, stats: null, avis: [] }));
+  const reactivite = (await reactivitesPubliques().catch(() => ({})) as Awaited<ReturnType<typeof reactivitesPubliques>>)[params.id] ?? null;
   const confirmed = (live?.programs ?? []).filter((p) => p.feesConfirmed || !p.indicative);
   const e = etabDetail(params.id);
   if (!e) notFound();
@@ -160,7 +166,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
   const compare = `/comparateur/?f=${fid}&e=${[e.id, ...similar.slice(0, 2).map((x) => x.id)].join(",")}`;
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(e)).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ ...jsonLd(e), ...(avis.stats ? { aggregateRating: { "@type": "AggregateRating", ratingValue: avis.stats.note, bestRating: 5, worstRating: 1, ratingCount: avis.nombre } } : {}) }).replace(/</g, "\\u003c") }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(filAriane(SITE_URL, [["Écoles", "/etablissements/"], [e.sigle || e.nom, `/etablissements/${e.id}/`]])).replace(/</g, "\\u003c") }} />
       <div className="container flex flex-col gap-6 pt-7">
         <nav className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[13px] text-ink-mute"><Link href="/">Accueil</Link><ChevronRight size={14} className="shrink-0" /><Link href="/etablissements">Établissements</Link><ChevronRight size={14} className="shrink-0" /><Link href={`/etablissements/?pays=${e.pays}`}>{PD?.nom}</Link><ChevronRight size={14} className="shrink-0" /><span>{e.sigle}</span></nav>
@@ -171,7 +177,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
             <EtabLogo e={e} size={88} className="hidden shadow-card sm:flex" />
             <div className="flex min-w-0 flex-col gap-2">
               <h1 className="text-[26px] font-extrabold leading-[1.15] tracking-tight [overflow-wrap:anywhere] sm:text-[44px] sm:leading-[1.05]">{e.nom}</h1>
-              <div className="flex flex-wrap gap-2"><LabelChip label={e.label} pays={e.pays} libelle={e.label_libelle} />{!maroc && !interEtats && e.filieres.length > 0 && e.label === "reconnu_etat" && <span className="chip bg-brand-50 text-brand-700"><BadgeCheck size={12} />{e.filieres.length} programme{e.filieres.length > 1 ? "s" : ""} accrédité{e.filieres.length > 1 ? "s" : ""} ou habilité{e.filieres.length > 1 ? "s" : ""}</span>}<span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip !inline-block max-w-full whitespace-normal !rounded-2xl bg-sun-100 text-[#a55a00]"><MapPin size={12} className="mr-1 inline align-[-2px]" />{e.campus ? `${e.campus.length} campus : ` : ""}{villes.map((v, k) => <span key={v}>{k ? ", " : ""}<Link href={villeHref(v)} className="hover:underline">{v}</Link></span>)}{e.campus ? "" : `, ${PD?.nom}`}</span></div>
+              <div className="flex flex-wrap gap-2"><LabelChip label={e.label} pays={e.pays} libelle={e.label_libelle} />{!maroc && !interEtats && e.filieres.length > 0 && e.label === "reconnu_etat" && <span className="chip bg-brand-50 text-brand-700"><BadgeCheck size={12} />{e.filieres.length} programme{e.filieres.length > 1 ? "s" : ""} accrédité{e.filieres.length > 1 ? "s" : ""} ou habilité{e.filieres.length > 1 ? "s" : ""}</span>}<span className="chip bg-brand-50 text-brand-700">{e.type_libelle}</span><span className="chip !inline-block max-w-full whitespace-normal !rounded-2xl bg-sun-100 text-[#a55a00]"><MapPin size={12} className="mr-1 inline align-[-2px]" />{e.campus ? `${e.campus.length} campus : ` : ""}{villes.map((v, k) => <span key={v}>{k ? ", " : ""}<Link href={villeHref(v)} className="hover:underline">{v}</Link></span>)}{e.campus ? "" : `, ${PD?.nom}`}</span>{reactivite && <span className={`chip ${reactivite.rapide ? "bg-[#e8f8ef] text-[#0b7a3d]" : "bg-[#eef1f8] text-ink-soft"}`} title="Délai médian de première réponse aux candidatures envoyées via Navigoal, sur les 90 derniers jours">{reactivite.rapide ? <Zap size={12} /> : <Clock3 size={12} />}Répond en moyenne sous {reactivite.jours} jour{reactivite.jours > 1 ? "s" : ""}</span>}</div>
             </div>
           </div>
           {/* Mobile : « Candidater » en premier sur toute la largeur, puis les deux actions secondaires côte à côte. */}
@@ -190,7 +196,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
       <div className="container mt-10 grid items-start gap-10 lg:grid-cols-[1fr_380px]">
         <div className="flex min-w-0 flex-col gap-8">
           <nav className="sticky top-[76px] [html[data-entete=cache]_&]:top-0 z-10 -mx-1 flex gap-6 overflow-x-auto border-b border-slate-200 bg-[#f6f8fe] px-1 backdrop-blur transition-[top] duration-300" aria-label="Sections">
-            {[["#formations", "Formations & métiers"], ...(e.site?.programmes.length ? [["#programmes", "Programmes"]] : []), ["#campus", e.campus ? "Campus & mobilité" : "Quartier & mobilité"], ["#admission", "Admission"], ["#frais", "Frais & bourses"], ["#logement", "Logement"]].map(([h, t], k) => <a key={h} href={h} className={`shrink-0 whitespace-nowrap py-3 text-sm font-bold ${k === 0 ? "border-b-[3px] border-brand-600 text-brand-600" : "text-ink-mute hover:text-brand-600"}`}>{t}</a>)}
+            {[["#formations", "Formations & métiers"], ...(e.site?.programmes.length ? [["#programmes", "Programmes"]] : []), ["#campus", e.campus ? "Campus & mobilité" : "Quartier & mobilité"], ["#admission", "Admission"], ["#avis", avis.stats ? `Avis (${avis.stats.note.toLocaleString("fr-FR")}★)` : "Avis"], ["#frais", "Frais & bourses"], ["#logement", "Logement"]].map(([h, t], k) => <a key={h} href={h} className={`shrink-0 whitespace-nowrap py-3 text-sm font-bold ${k === 0 ? "border-b-[3px] border-brand-600 text-brand-600" : "text-ink-mute hover:text-brand-600"}`}>{t}</a>)}
           </nav>
           <section id="formations" className="flex scroll-mt-32 flex-col gap-6">
             <div className={`card flex flex-col gap-2 rounded-[22px] p-5 ${autorise ? "border-[#f3e2b4] bg-[#fffaf0]" : "border-[#cdeedd] bg-[#f3fbf6]"}`}>
@@ -258,6 +264,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
             <Link href={`/pays/${e.pays.toLowerCase()}/#venir`} className="text-[13px] font-bold text-brand-600">Visa selon ta nationalité et carte de séjour →</Link>
           </Reveal></section>
           <section id="dossier" className="scroll-mt-32"><DossierPublic eid={e.id} sigle={e.sigle || e.nom} /></section>
+          <section id="avis" className="scroll-mt-32"><AvisEcole d={avis} sigle={e.sigle || e.nom} /></section>
         </div>
 
         <aside className="flex flex-col gap-5 lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 transition-[top] duration-300">

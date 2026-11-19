@@ -106,7 +106,7 @@ export async function onApplicationFeePaid(applicationId: string) {
   if (a) await addEvent(a.id, "paiement_confirme", null, "Frais de dossier réglés");
 }
 
-async function notifySchool(establishmentId: string, title: string, link: string) {
+export async function notifySchool(establishmentId: string, title: string, link: string) {
   const members = await db.select({ u: schema.establishmentMembers.userId }).from(schema.establishmentMembers)
     .innerJoin(schema.users, eq(schema.users.id, schema.establishmentMembers.userId))
     .where(and(eq(schema.establishmentMembers.establishmentId, establishmentId), eq(schema.users.status, "actif")));

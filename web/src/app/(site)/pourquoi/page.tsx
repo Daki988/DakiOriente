@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { TemoignagesNavigoal } from "@/components/ui/TemoignagesNavigoal";
 import { srcsetPhoto } from "@/lib/photo-variantes";
 import Link from "@/components/ui/Link";
 import { ArrowRight, BadgeCheck, Check, CircleX, Compass, FileSearch, GraduationCap, House, Lock, MessageCircle, Plane, Send, ShieldCheck, UsersRound, Wallet, type LucideIcon } from "lucide-react";
@@ -184,6 +185,8 @@ export default function PourquoiPage() {
           {chiffres.map(([n, l, plus]) => <div key={l} className="flex flex-col items-center gap-1 text-center"><b className="text-4xl font-extrabold text-brand-600"><Counter to={n} />{plus}</b><span className="text-[13px] text-ink-mute">{l}</span></div>)}
         </div>
       </Reveal>
+
+      <TemoignagesNavigoal className="mt-16" />
 
       <ParOapsEncart />
 
