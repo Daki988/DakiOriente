@@ -2,7 +2,11 @@
 // Google Tag Manager, et cookie de campagne ng_acq. Un seul choix, demandé à tous les visiteurs par le bandeau
 // (components/campagne/AcquisitionTracker.tsx), modifiable sur /cookies. Tant qu'il n'est pas donné, Google reçoit
 // les visites en « mode consentement » refusé : aucun cookie Google, aucune donnée publicitaire.
-export const GTM_ID = "GTM-W82DZ8B3"; // conteneur remplacé le 19/11/2026 (ancien : GTM-NXWJQLQD)
+export const GTM_ID = "GTM-W82DZ8B3"; // conteneur remplacé le 19/11/2026 (ancien : GTM-NXWJQLQD) ; envoie vers G-RX3WM6XB98
+/** Balise Google (Google Analytics G-G63G8RQJTE) installée directement, en plus du conteneur (19/11/2026). */
+export const BALISE_GOOGLE_ID = "G-G63G8RQJTE";
+/** Toutes les balises chargées par https://www.googletagmanager.com/gtm.js?id=… */
+export const BALISES_GOOGLE = [GTM_ID, BALISE_GOOGLE_ID];
 /** Nouvelle clé : l'ancien accord (« navigoal-cookies ») ne couvrait que le cookie de campagne. */
 export const CLE_CHOIX_COOKIES = "navigoal-cookies-2";
 export const EVENEMENT_CONSENTEMENT = "navigoal-consentement";

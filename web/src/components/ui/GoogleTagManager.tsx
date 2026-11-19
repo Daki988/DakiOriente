@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { GTM_ID } from "@/lib/consentement";
+import { BALISES_GOOGLE } from "@/lib/consentement";
 
 // Espaces connectés, back-office et authentification : jamais de Google Tag Manager (adresses et données personnelles).
 const PRIVE = /^\/(admin|espace|etablissement|bailleur|parent|conseiller|compte|messages|notifications|appel|paiement|connexion|inscription|mot-de-passe-oublie|premiere-connexion|verification|navilease\/(espace|logements\/nouveau|reservations))(\/|$)/;
@@ -13,5 +13,5 @@ const PRIVE = /^\/(admin|espace|etablissement|bailleur|parent|conseiller|compte|
 export function GoogleTagManager() {
   const path = usePathname();
   if (PRIVE.test(path)) return null;
-  return <script async src={`https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`} />;
+  return <>{BALISES_GOOGLE.map((id) => <script key={id} async src={`https://www.googletagmanager.com/gtm.js?id=${id}`} />)}</>;
 }
