@@ -106,12 +106,11 @@ charger_photos(1400)
 
 
 def trio(photos, H, cx, ombre="0 16px 26px rgba(0,0,0,.45)"):
-    """Parent, étudiant et étudiante, centrés sur leurs visages (cx = centre voulu, H = hauteur de l'étudiant), posés en bas du conteneur."""
-    x0 = cx - 1.0 * H  # le centre des visages tombe à 1,0 H du bord gauche du groupe
+    """Père au centre (de face, en retrait), étudiant à gauche, étudiante devant à droite ; visages centrés sur cx (H = hauteur du père)."""
     f = f"filter:drop-shadow({ombre})"
-    return (f'<img src="{photos["parent"]}" style="position:absolute;left:{x0:.0f}px;bottom:0;height:{0.95 * H:.0f}px;{f}">'
-            f'<img src="{photos["etudiant"]}" style="position:absolute;left:{x0 + 0.62 * H:.0f}px;bottom:0;height:{H:.0f}px;{f}">'
-            f'<img src="{photos["etudiante"]}" style="position:absolute;left:{x0 + 0.98 * H:.0f}px;bottom:0;height:{0.80 * H:.0f}px;{f}">')
+    return (f'<img src="{photos["parent"]}" style="position:absolute;left:{cx - 0.486 * H:.0f}px;bottom:0;height:{H:.0f}px;{f}">'
+            f'<img src="{photos["etudiant"]}" style="position:absolute;left:{cx - 0.82 * H:.0f}px;bottom:0;height:{0.95 * H:.0f}px;{f}">'
+            f'<img src="{photos["etudiante"]}" style="position:absolute;left:{cx + 0.10 * H:.0f}px;bottom:0;height:{0.78 * H:.0f}px;{f}">')
 
 
 def tuile(photo, ic, titre, texte, pos="center"):
@@ -190,7 +189,7 @@ def rollup_b():
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,79,0) 45%,rgba(11,26,79,.55) 100%)"></div></div>
   <div style="position:absolute;left:75px;top:480px;width:700px;height:580px;border-radius:350px 350px 40px 40px;border:10px solid #ffc21f;pointer-events:none"></div>
   <span style="position:absolute;left:310px;top:500px;background:#0b1a4f;color:#fff;border-radius:999px;padding:10px 20px;font-size:22px;font-weight:800;display:flex;align-items:center;gap:8px;z-index:3">{icon("map-pin", 22, "#ffc21f", 2.4)}Étudier au Maroc</span>
-  <div style="position:absolute;left:75px;top:480px;width:700px;height:580px;overflow:hidden;border-radius:350px 350px 40px 40px;z-index:2">{trio(FOTO, 430, 350)}</div>
+  <div style="position:absolute;left:75px;top:480px;width:700px;height:580px;overflow:hidden;border-radius:350px 350px 40px 40px;z-index:2">{trio(FOTO, 400, 350)}</div>
   <div style="position:absolute;left:600px;top:452px;width:242px;height:242px;border-radius:50%;background:#ffc21f;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:0 20px 40px -12px rgba(0,0,0,.5);border:8px solid #fff">
     <span style="background:#fff;border-radius:14px;padding:7px;display:flex;margin-top:4px"><img src="{QRB}" style="width:118px;height:118px"></span>
     <b style="font-size:22px;line-height:1;color:#0b1533">Scanne-moi</b><span style="font-size:13px;line-height:1.15;font-weight:700;color:#0b1533;text-align:center">test d'orientation<br>gratuit</span></div>

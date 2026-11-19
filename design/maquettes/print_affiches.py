@@ -59,12 +59,11 @@ F["etudiante"] = img(os.path.join(WEB, "public/images/etudiante.webp"), 1400)
 F["parent"] = img(os.path.join(RU, "parent.png"), 1400)
 
 def trio(H, cx):
-    """Parent, étudiant et étudiante, centrés sur leurs visages (cx), posés en bas du conteneur (H = hauteur de l'étudiant)."""
-    x0 = cx - 1.0 * H
+    """Père au centre (de face, en retrait), étudiant à gauche, étudiante devant à droite ; visages centrés sur cx (H = hauteur du père)."""
     f = "filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))"
-    return (f'<img src="{F["parent"]}" style="position:absolute;left:{x0:.0f}px;bottom:0;height:{0.95 * H:.0f}px;{f}">'
-            f'<img src="{F["etudiant"]}" style="position:absolute;left:{x0 + 0.62 * H:.0f}px;bottom:0;height:{H:.0f}px;{f}">'
-            f'<img src="{F["etudiante"]}" style="position:absolute;left:{x0 + 0.98 * H:.0f}px;bottom:0;height:{0.80 * H:.0f}px;{f}">')
+    return (f'<img src="{F["parent"]}" style="position:absolute;left:{cx - 0.486 * H:.0f}px;bottom:0;height:{H:.0f}px;{f}">'
+            f'<img src="{F["etudiant"]}" style="position:absolute;left:{cx - 0.82 * H:.0f}px;bottom:0;height:{0.95 * H:.0f}px;{f}">'
+            f'<img src="{F["etudiante"]}" style="position:absolute;left:{cx + 0.10 * H:.0f}px;bottom:0;height:{0.78 * H:.0f}px;{f}">')
 
 CR = json.load(open(os.path.join(RU, "credits.json")))
 CREDITS = "Photos : " + " · ".join(f"{CR[k]['auteur']} ({CR[k]['licence']})" for k in ("maroc-hassan2", "ecole", "residence", "avion", "maroc-chefchaouen")) + ", Wikimedia Commons, Unsplash et Pexels."

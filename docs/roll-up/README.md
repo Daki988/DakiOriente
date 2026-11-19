@@ -29,4 +29,4 @@ Logo : version ronde fournie le 19/11/2026 (`assets/photos/rollup/logo-navigoal-
 - Aucun pays ni chiffre figé dans les textes (la plateforme s'ouvre à de nouvelles destinations).
 
 
-Personnages (19/11/2026) : un parent (photo Pexels 6172586, détourée : `assets/photos/rollup/parent.png`), l'étudiant (Pexels 9158712) et l'étudiante (photo de l'accueil du site, licence à confirmer), centrés dans l'arche, visages entièrement visibles. Modèle B du roll-up : QR « Scanne-moi » en haut à droite de l'arche (environ 130 à 155 cm du sol).
+Personnages (19/11/2026) : un père de face au centre (photo Pexels 5648100 d'Ono Kosuki, détourée : `assets/photos/rollup/parent.png`), l'étudiant à gauche (Pexels 9158712) et l'étudiante devant à droite (photo de l'accueil du site, licence à confirmer), visages centrés et entièrement visibles dans l'arche. Modèle B du roll-up : QR « Scanne-moi » en haut à droite de l'arche (environ 130 à 155 cm du sol).

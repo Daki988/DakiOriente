@@ -27,4 +27,4 @@ Aperçus : `*-apercu.png` ; vue d'ensemble à l'échelle : `planche-affiches-fly
 `python3 design/maquettes/print_affiches.py <icônes lucide-static> <dossier des QR> design/maquettes/out/affiches`, puis capture Playwright (PDF à `zoom: 0.94488`, 4 px = 1 mm). Les A5 reprennent la mise en page A4 réduite (même proportion) ; les DL ont leur propre mise en page.
 
 
-Personnages (19/11/2026) : un parent (photo Pexels 6172586, détourée : `assets/photos/rollup/parent.png`), l'étudiant (Pexels 9158712) et l'étudiante (photo de l'accueil du site, licence à confirmer), centrés dans l'arche, visages entièrement visibles. Modèle B du roll-up : QR « Scanne-moi » en haut à droite de l'arche (environ 130 à 155 cm du sol).
+Personnages (19/11/2026) : un père de face au centre (photo Pexels 5648100 d'Ono Kosuki, détourée : `assets/photos/rollup/parent.png`), l'étudiant à gauche (Pexels 9158712) et l'étudiante devant à droite (photo de l'accueil du site, licence à confirmer), visages centrés et entièrement visibles dans l'arche. Modèle B du roll-up : QR « Scanne-moi » en haut à droite de l'arche (environ 130 à 155 cm du sol).
