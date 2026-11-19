@@ -1,53 +1,58 @@
-import { gestion } from "./data/gestion";
-import { management } from "./data/management";
-import type { Question, Track } from "./data/types";
+import { gestion } from "./content/gestion";
+import { management } from "./content/management";
+import type { Question, Track, TrackContent } from "./content/types";
 
 /** Espaces insécables dans les nombres (« 1 500 € », « 12 % ») pour éviter les coupures */
-const nb = (t: string) => t.replace(/(\d) (?=\d{3}\b)/g, "$1\u202f").replace(/(\d) (?=[€%])/g, "$1\u00a0");
-const fix = (q: Question): Question => {
-  const base = { ...q, q: nb(q.q) };
-  return q.kind === "qcm"
-    ? { ...base, kind: "qcm", options: q.options.map(nb) as typeof q.options, explain: nb(q.explain) }
-    : { ...base, kind: "oral", points: q.points.map(nb), tip: q.tip && nb(q.tip) };
+const nb = (t: string) =>
+  t.replace(/(\d) (?=\d{3}\b)/g, "$1 ").replace(/(\d) (?=[€%h])/g, "$1 ").replace(/ ([?!:;])/g, " $1");
+
+function deepNb<T>(v: T): T {
+  if (typeof v === "string") return nb(v) as T;
+  if (Array.isArray(v)) return v.map(deepNb) as T;
+  if (v && typeof v === "object") {
+    const o: Record<string, unknown> = {};
+    for (const [k, x] of Object.entries(v)) o[k] = k === "id" || k === "part" || k === "kind" || k === "track" ? x : deepNb(x);
+    return o as T;
+  }
+  return v;
+}
+
+export const CONTENT: Record<Track, TrackContent> = { gestion: deepNb(gestion), management: deepNb(management) };
+
+export type Mode = "serie" | "exam";
+export const SIZES: Record<Mode, { total: number; qcm: number }> = {
+  serie: { total: 8, qcm: 5 },
+  exam: { total: 20, qcm: 13 },
 };
 
-export const BANKS: Record<Track, Question[]> = { gestion: gestion.map(fix), management: management.map(fix) };
-export const SERIES_SIZE = 8;
-const QCM_PER_SERIES = 5;
-
-/** Réponse donnée : index d'option (QCM, dans l'ordre affiché) ou auto-évaluation (oral) */
+/** Réponse : index d'option affichée (QCM) ou auto-évaluation (oral) */
 export type Answer = { qcm: number | null } | { oral: 0 | 0.5 | 1 | null };
+export type SeriesItem = { question: Question; order: number[] };
+export type Result = { track: Track; mode: Mode; date: number; score: number; seconds?: number; items: { id: string; points: number }[] };
 
-export type SeriesItem = {
-  question: Question;
-  /** Pour les QCM : ordre d'affichage des options (indices de question.options) */
-  order: number[];
+type TrackStore = {
+  seen: string[];
+  /** Niveau de maîtrise par question : 0 (à revoir) → 3 (maîtrisée) */
+  mastery: Record<string, number>;
+  flashKnown: string[];
+  calcDone: string[];
 };
+type Store = { tracks: Record<Track, TrackStore>; history: Result[] };
 
-export type Result = {
-  track: Track;
-  date: number;
-  score: number; // sur 20
-  items: { id: string; points: number }[];
-};
-
-type Store = {
-  seen: Record<Track, string[]>;
-  missed: Record<Track, string[]>;
-  history: Result[];
-};
-
-const KEY = "prep-oral-rem:v1";
+const KEY = "prep-oral-rem:v2";
+const emptyTrack = (): TrackStore => ({ seen: [], mastery: {}, flashKnown: [], calcDone: [] });
 
 export function load(): Store {
-  const empty: Store = { seen: { gestion: [], management: [] }, missed: { gestion: [], management: [] }, history: [] };
+  const empty: Store = { tracks: { gestion: emptyTrack(), management: emptyTrack() }, history: [] };
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) return empty;
     const s = JSON.parse(raw) as Partial<Store>;
     return {
-      seen: { ...empty.seen, ...s.seen },
-      missed: { ...empty.missed, ...s.missed },
+      tracks: {
+        gestion: { ...emptyTrack(), ...s.tracks?.gestion },
+        management: { ...emptyTrack(), ...s.tracks?.management },
+      },
       history: Array.isArray(s.history) ? s.history : [],
     };
   } catch {
@@ -63,7 +68,7 @@ function save(s: Store) {
   }
 }
 
-function shuffle<T>(a: T[]): T[] {
+export function shuffle<T>(a: T[]): T[] {
   const r = [...a];
   for (let i = r.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -73,42 +78,39 @@ function shuffle<T>(a: T[]): T[] {
 }
 
 /**
- * Tire une série : d'abord les questions jamais vues (les « très probables » en tête),
- * puis, quand tout a été vu, un nouveau cycle qui fait revenir en priorité les erreurs.
+ * Tire une série : les questions jamais vues d'abord (les « très probables » en tête),
+ * puis les moins maîtrisées. Un cycle recommence quand tout a été vu.
  */
-export function drawSeries(track: Track): SeriesItem[] {
+export function drawSeries(track: Track, mode: Mode, onlyPart?: string): SeriesItem[] {
   const store = load();
-  const bank = BANKS[track];
-  let seen = new Set(store.seen[track]);
-  const missed = new Set(store.missed[track]);
+  const ts = store.tracks[track];
+  const bank = CONTENT[track].questions.filter((q) => !onlyPart || q.part === onlyPart);
+  const { total, qcm } = SIZES[mode];
+  let seen = new Set(ts.seen);
 
-  const pick = (kind: Question["kind"], n: number, exclude: Set<string>) => {
-    const pool = bank.filter((q) => q.kind === kind && !exclude.has(q.id));
-    const fresh = pool.filter((q) => !seen.has(q.id));
-    const rank = (q: Question) => (missed.has(q.id) ? 0 : 1) + (q.proba === "tres" ? 0 : 0.5) + Math.random() * 0.9;
-    const sortedFresh = [...fresh].sort((a, b) => rank(a) - rank(b));
-    const out = sortedFresh.slice(0, n);
-    if (out.length < n) {
-      const rest = pool.filter((q) => !out.includes(q)).sort((a, b) => rank(a) - rank(b));
-      out.push(...rest.slice(0, n - out.length));
-    }
-    return out;
-  };
-
-  // Nouveau cycle quand il ne reste plus assez de questions inédites
-  const unseen = bank.filter((q) => !seen.has(q.id)).length;
-  if (unseen < SERIES_SIZE) {
+  if (mode === "serie" && !onlyPart && bank.filter((q) => !seen.has(q.id)).length < total) {
     seen = new Set();
-    store.seen[track] = [];
+    ts.seen = [];
     save(store);
   }
 
-  const qcms = pick("qcm", QCM_PER_SERIES, new Set());
-  const orals = pick("oral", SERIES_SIZE - qcms.length, new Set());
-  // On alterne pour garder du rythme : QCM, QCM, oral, …
-  const questions: Question[] = [];
+  const rank = (q: Question) => {
+    const unseen = seen.has(q.id) ? 1 : 0;
+    const m = ts.mastery[q.id] ?? 0;
+    return unseen * 10 + m * 2 + (q.proba === "tres" ? 0 : 1) + Math.random() * 1.5;
+  };
+  const pick = (kind: Question["kind"], n: number) =>
+    bank.filter((q) => q.kind === kind).sort((a, b) => rank(a) - rank(b)).slice(0, n);
+
+  const qcms = pick("qcm", qcm);
+  const orals = pick("oral", total - qcms.length);
+  // Si une catégorie manque, on complète avec l'autre
+  const missing = total - qcms.length - orals.length;
+  if (missing > 0) qcms.push(...pick("qcm", qcm + missing).slice(qcms.length));
+
   const q1 = shuffle(qcms);
   const o1 = shuffle(orals);
+  const questions: Question[] = [];
   while (q1.length || o1.length) {
     if (q1.length) questions.push(q1.shift()!);
     if (q1.length) questions.push(q1.shift()!);
@@ -123,38 +125,76 @@ export function pointsFor(item: SeriesItem, a: Answer | undefined): number {
   return a.oral ?? 0;
 }
 
-export function finishSeries(track: Track, items: SeriesItem[], answers: Answer[]): Result {
+export function finishSeries(track: Track, mode: Mode, items: SeriesItem[], answers: Answer[], seconds?: number): Result {
   const pts = items.map((it, i) => ({ id: it.question.id, points: pointsFor(it, answers[i]) }));
   const total = pts.reduce((s, p) => s + p.points, 0);
   const score = Math.round((total / items.length) * 20 * 2) / 2;
-  const result: Result = { track, date: Date.now(), score, items: pts };
+  const result: Result = { track, mode, date: Date.now(), score, seconds, items: pts };
 
   const store = load();
-  const seen = new Set(store.seen[track]);
-  const missed = new Set(store.missed[track]);
+  const ts = store.tracks[track];
+  const seen = new Set(ts.seen);
   for (const p of pts) {
     seen.add(p.id);
-    if (p.points < 1) missed.add(p.id);
-    else missed.delete(p.id);
+    const m = ts.mastery[p.id] ?? 0;
+    ts.mastery[p.id] = p.points === 1 ? Math.min(3, m + 1) : p.points === 0.5 ? Math.max(1, Math.min(m, 2)) : 0;
   }
-  store.seen[track] = [...seen];
-  store.missed[track] = [...missed];
-  store.history = [result, ...store.history].slice(0, 50);
+  ts.seen = [...seen];
+  store.history = [result, ...store.history].slice(0, 100);
   save(store);
   return result;
 }
 
-export function resetTrack(track: Track) {
+export function setFlash(track: Track, id: string, known: boolean) {
   const store = load();
-  store.seen[track] = [];
-  store.missed[track] = [];
-  store.history = store.history.filter((h) => h.track !== track);
+  const s = new Set(store.tracks[track].flashKnown);
+  if (known) s.add(id);
+  else s.delete(id);
+  store.tracks[track].flashKnown = [...s];
   save(store);
+}
+
+export function setCalcDone(track: Track, id: string) {
+  const store = load();
+  const s = new Set(store.tracks[track].calcDone);
+  s.add(id);
+  store.tracks[track].calcDone = [...s];
+  save(store);
+}
+
+export function resetAll() {
+  try {
+    localStorage.removeItem(KEY);
+  } catch {
+    /* rien */
+  }
+}
+
+/** Maîtrise globale et par partie (0 → 1) */
+export function masteryOf(track: Track) {
+  const c = CONTENT[track];
+  const ts = load().tracks[track];
+  const lvl = (id: string) => (ts.mastery[id] ?? 0) / 3;
+  const global = c.questions.reduce((s, q) => s + lvl(q.id), 0) / c.questions.length;
+  const parts = c.parts.map((part) => {
+    const qs = c.questions.filter((q) => q.part === part);
+    return { part, value: qs.reduce((s, q) => s + lvl(q.id), 0) / qs.length, count: qs.length };
+  });
+  const weak = c.questions.filter((q) => ts.seen.includes(q.id) && (ts.mastery[q.id] ?? 0) === 0);
+  return { global, parts, weak, seen: ts.seen.length, flashKnown: ts.flashKnown.length, calcDone: ts.calcDone.length };
 }
 
 export function mention(score: number): { label: string; tone: "success" | "amber" | "error" } {
   if (score >= 16) return { label: "Excellent, tu es prêt·e pour le jury !", tone: "success" };
   if (score >= 13) return { label: "Bien joué ! Encore quelques points à consolider.", tone: "success" };
-  if (score >= 10) return { label: "C'est en bonne voie : relis la correction.", tone: "amber" };
-  return { label: "À retravailler : la correction est là pour ça.", tone: "error" };
+  if (score >= 10) return { label: "C'est en bonne voie : relis bien la correction.", tone: "amber" };
+  return { label: "À retravailler : la correction et les fiches sont là pour ça.", tone: "error" };
+}
+
+/** Comparaison tolérante d'une saisie numérique (virgule, espaces, €…) */
+export function parseNumber(input: string): number | null {
+  const clean = input.replace(/[\s  €%]/g, "").replace(",", ".").replace(/[^\d.-]/g, "");
+  if (!clean || clean === "-" || clean === ".") return null;
+  const n = Number(clean);
+  return Number.isFinite(n) ? n : null;
 }
