@@ -34,5 +34,17 @@
     "auteur": "Unsplash",
     "licence": "Licence Unsplash",
     "page": "https://unsplash.com/"
+  },
+  "etudiant": {
+    "titre": "Photo Pexels 9158712 (étudiant détouré, recadré à mi-corps)",
+    "auteur": "Pexels",
+    "licence": "Licence Pexels",
+    "page": "https://www.pexels.com/photo/9158712/"
+  },
+  "etudiante": {
+    "titre": "web/public/images/etudiante.webp (photo de l'accueil du site)",
+    "auteur": "fonds du site Navigoal",
+    "licence": "voir web/public/images",
+    "page": ""
   }
 }

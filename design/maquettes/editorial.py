@@ -84,6 +84,8 @@ def charger_photos(side):
         FOTO[k] = img(os.path.join(RU, k + ".jpg"), side)
     # Campus recadré : aucune banderole ni aucun logo d'établissement visible (consigne du 19/11/2026)
     FOTO["ecole"] = img(os.path.join(RU, "ecole-recadree.jpg"), side)
+    FOTO["etudiant"] = img(os.path.join(RU, "etudiant.png"), side)
+    FOTO["etudiante"] = img(PUB("images/etudiante.webp"), side)
     FOTO["avion"] = img(os.path.join(ROOT, "assets/photos/navitravel/hublot.jpg"), side)
 
 
@@ -110,10 +112,12 @@ def rollup():
   <div style="position:absolute;left:0;right:0;top:240px;height:780px;overflow:hidden">
     <img src="{FOTO['maroc-hassan2']}" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,79,.05) 35%,rgba(11,26,79,.55) 62%,#0b1a4f 100%)"></div>
-    <span style="position:absolute;right:40px;top:96px;background:#ffc21f;color:#0b1533;border-radius:999px;padding:12px 22px;font-size:24px;font-weight:800;display:flex;align-items:center;gap:10px;box-shadow:0 10px 26px rgba(0,0,0,.35)">{icon("map-pin", 24, "#0b1533", 2.4)}Étudier au Maroc</span>
-    <div style="position:absolute;left:66px;right:60px;bottom:40px;display:flex;flex-direction:column;gap:14px">
-      <h1 style="font-size:86px;line-height:1;font-weight:800;color:#fff;letter-spacing:-.02em;text-shadow:0 4px 30px rgba(0,0,0,.35)">Trouve ta voie,<br>étudie <span style="color:#ffc21f">en confiance.</span></h1>
-      <p style="font-size:29px;line-height:1.35;color:#e6ecff">L'école, le logement et le voyage : tout ton projet d'études, accompagné de A à Z.</p></div></div>
+    <span style="position:absolute;left:60px;top:96px;background:#ffc21f;color:#0b1533;border-radius:999px;padding:12px 22px;font-size:24px;font-weight:800;display:flex;align-items:center;gap:10px;box-shadow:0 10px 26px rgba(0,0,0,.35)">{icon("map-pin", 24, "#0b1533", 2.4)}Étudier au Maroc</span>
+    <div style="position:absolute;left:60px;right:50px;top:170px;display:flex;flex-direction:column;gap:12px;z-index:2">
+      <h1 style="font-size:68px;line-height:1.04;font-weight:800;color:#fff;letter-spacing:-.02em;text-shadow:0 4px 30px rgba(0,0,0,.55)">Trouve ta voie,<br>étudie <span style="color:#ffc21f">en confiance.</span></h1></div></div>
+  <div style="position:absolute;left:0;right:0;top:560px;height:490px;z-index:3;overflow:hidden">
+    <img src="{FOTO['etudiant']}" style="position:absolute;left:95px;bottom:0;height:470px;filter:drop-shadow(0 18px 30px rgba(0,0,0,.5))">
+    <img src="{FOTO['etudiante']}" style="position:absolute;left:390px;bottom:0;height:405px;filter:drop-shadow(0 18px 30px rgba(0,0,0,.5))"></div>
   <div style="position:absolute;left:60px;right:60px;top:1050px;display:grid;grid-template-columns:1fr 1fr;gap:20px">
     {tuile("ecole", "graduation-cap", "Des écoles vérifiées", "statut officiel et filières accréditées")}
     {tuile("residence", "house", "Ton logement trouvé", "résidences et logements vérifiés", "center 40%")}
@@ -127,8 +131,8 @@ def rollup():
       <span style="font-size:24px;color:#0b1533;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("mail", 25, "#1a47f5")}<b>contact@navigoal.net</b></span>
       <span style="font-size:19px;color:#5b6478">Scanne : test d'orientation gratuit</span></span>
     <span style="display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:14px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY</span><img src="{OAPS}" style="width:100px"></span></div>
-  <p style="position:absolute;left:50px;right:50px;top:1972px;font-size:9px;line-height:1.3;color:#8f9bc4;text-align:center">Photos : {credits} et Badr Rachadi (CC BY-SA 4.0), Wikimedia Commons et Unsplash.</p>
-  <span class="note" style="left:880px;top:20px;max-width:330px">Grande photo du Maroc (Mosquée Hassan II) sous le logo, puis 4 photos : école, logement, avion, ville. Aucun WhatsApp, aucun logo ni panneau d'établissement.</span>
+  <p style="position:absolute;left:50px;right:50px;top:1972px;font-size:9px;line-height:1.3;color:#8f9bc4;text-align:center">Photos : {credits} et Badr Rachadi (CC BY-SA 4.0), Wikimedia Commons, Unsplash et Pexels.</p>
+  <span class="note" style="left:880px;top:20px;max-width:330px">Grande photo du Maroc (Mosquée Hassan II) sous le logo, un étudiant et une étudiante au premier plan, puis 4 photos : école, logement, avion, ville. Aucun WhatsApp, aucun logo ni panneau d'établissement.</span>
   <span class="note" style="left:880px;top:1300px;max-width:330px">« Billets d'avion à prix étudiant » reprend la promesse de la page NaviTravel (« au tarif étudiant »), sans chiffre de réduction.</span>
   <span class="note" style="left:880px;top:1800px;max-width:330px">Crédits des photos en bas (obligatoires pour les licences CC BY-SA).</span>
 </div>"""
