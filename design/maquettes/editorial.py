@@ -79,6 +79,18 @@ CREDITS_RU = json.load(open(os.path.join(RU, "credits.json")))
 FOTO = {}
 
 
+def logo_cercle(side):
+    im = Image.open(os.path.join(RU, "logo-navigoal-cercle.png")).convert("RGB").crop((70, 70, 1184, 1184))
+    # Fond presque blanc du fichier fourni → blanc pur (sinon un carré grisé se voit sur le bandeau blanc)
+    im = im.point(lambda v: 255 if v >= 232 else v)
+    im.thumbnail((side, side))
+    buf = io.BytesIO(); im.save(buf, "PNG", optimize=True)
+    return "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
+
+
+LOGO_CERCLE = logo_cercle(700)
+
+
 def charger_photos(side):
     for k in ["maroc-hassan2", "maroc-chefchaouen", "residence", "chambre2"]:
         FOTO[k] = img(os.path.join(RU, k + ".jpg"), side)
@@ -108,7 +120,7 @@ def rollup():
   <span class="titre-cadre">1 · Roll-up 85 × 200 cm (échelle 1 px = 1 mm)</span>
   <div style="position:absolute;inset:0;background:radial-gradient(800px 700px at 110% 70%, #1a47f5 0%, transparent 60%)"></div>
   <div style="position:absolute;left:0;right:0;top:0;height:300px;background:#fff;display:flex;align-items:center;justify-content:center;z-index:2;border-radius:0 0 60px 60px;box-shadow:0 20px 40px -20px rgba(0,0,0,.5)">
-    <img src="{LOGO_FULL}" style="height:250px"></div>
+    <img src="{LOGO_CERCLE}" style="height:270px"></div>
   <div style="position:absolute;left:0;right:0;top:240px;height:780px;overflow:hidden">
     <img src="{FOTO['maroc-hassan2']}" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,26,79,.05) 35%,rgba(11,26,79,.55) 62%,#0b1a4f 100%)"></div>
@@ -116,8 +128,12 @@ def rollup():
     <div style="position:absolute;left:60px;right:50px;top:170px;display:flex;flex-direction:column;gap:12px;z-index:2">
       <h1 style="font-size:68px;line-height:1.04;font-weight:800;color:#fff;letter-spacing:-.02em;text-shadow:0 4px 30px rgba(0,0,0,.55)">Trouve ta voie,<br>étudie <span style="color:#ffc21f">en confiance.</span></h1></div></div>
   <div style="position:absolute;left:0;right:0;top:560px;height:490px;z-index:3;overflow:hidden">
-    <img src="{FOTO['etudiant']}" style="position:absolute;left:95px;bottom:0;height:470px;filter:drop-shadow(0 18px 30px rgba(0,0,0,.5))">
-    <img src="{FOTO['etudiante']}" style="position:absolute;left:390px;bottom:0;height:405px;filter:drop-shadow(0 18px 30px rgba(0,0,0,.5))"></div>
+    <img src="{FOTO['etudiant']}" style="position:absolute;left:330px;bottom:0;height:440px;filter:drop-shadow(0 18px 30px rgba(0,0,0,.5))">
+    <img src="{FOTO['etudiante']}" style="position:absolute;left:505px;bottom:0;height:360px;filter:drop-shadow(0 18px 30px rgba(0,0,0,.5))"></div>
+  <div style="position:absolute;left:60px;top:625px;width:255px;z-index:4;background:#fff;border-radius:30px;padding:18px 18px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 22px 50px -12px rgba(0,0,0,.6);border:5px solid #ffc21f">
+    <img src="{QRB}" style="width:205px;height:205px">
+    <b style="font-size:30px;line-height:1;color:#0b1533">Scanne-moi</b>
+    <span style="font-size:18px;line-height:1.2;color:#3b4566;text-align:center">test d'orientation gratuit sur navigoal.net</span></div>
   <div style="position:absolute;left:60px;right:60px;top:1050px;display:grid;grid-template-columns:1fr 1fr;gap:20px">
     {tuile("ecole", "graduation-cap", "Des écoles vérifiées", "statut officiel et filières accréditées")}
     {tuile("residence", "house", "Ton logement trouvé", "résidences et logements vérifiés", "center 40%")}
@@ -125,16 +141,14 @@ def rollup():
     {tuile("maroc-chefchaouen", "sparkles", "Un nouveau pays à vivre", "accueil, installation, vie sur place", "center 55%")}
   </div>
   <div style="position:absolute;left:60px;right:60px;top:1640px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center">{puces}</div>
-  <div style="position:absolute;left:50px;right:50px;top:1785px;height:180px;background:#fff;border-radius:34px;display:flex;align-items:center;gap:24px;padding:0 26px">
-    <img src="{QRB}" style="width:140px;height:140px">
-    <span style="display:flex;flex-direction:column;gap:6px;flex:1"><b style="font-size:44px;color:#1a47f5;letter-spacing:-.01em">navigoal.net</b>
-      <span style="font-size:24px;color:#0b1533;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("mail", 25, "#1a47f5")}<b>contact@navigoal.net</b></span>
-      <span style="font-size:19px;color:#5b6478">Scanne : test d'orientation gratuit</span></span>
+  <div style="position:absolute;left:50px;right:50px;top:1800px;height:160px;background:#fff;border-radius:34px;display:flex;align-items:center;gap:24px;padding:0 34px">
+    <span style="display:flex;flex-direction:column;gap:8px;flex:1"><b style="font-size:50px;color:#1a47f5;letter-spacing:-.01em;line-height:1">navigoal.net</b>
+      <span style="font-size:25px;color:#0b1533;display:flex;align-items:center;gap:10px;white-space:nowrap">{icon("mail", 26, "#1a47f5")}<b>contact@navigoal.net</b></span></span>
     <span style="display:flex;flex-direction:column;align-items:center;gap:4px"><span style="font-size:14px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY</span><img src="{OAPS}" style="width:100px"></span></div>
   <p style="position:absolute;left:50px;right:50px;top:1972px;font-size:9px;line-height:1.3;color:#8f9bc4;text-align:center">Photos : {credits} et Badr Rachadi (CC BY-SA 4.0), Wikimedia Commons, Unsplash et Pexels.</p>
   <span class="note" style="left:880px;top:20px;max-width:330px">Grande photo du Maroc (Mosquée Hassan II) sous le logo, un étudiant et une étudiante au premier plan, puis 4 photos : école, logement, avion, ville. Aucun WhatsApp, aucun logo ni panneau d'établissement.</span>
   <span class="note" style="left:880px;top:1300px;max-width:330px">« Billets d'avion à prix étudiant » reprend la promesse de la page NaviTravel (« au tarif étudiant »), sans chiffre de réduction.</span>
-  <span class="note" style="left:880px;top:1800px;max-width:330px">Crédits des photos en bas (obligatoires pour les licences CC BY-SA).</span>
+  <span class="note" style="left:880px;top:1800px;max-width:330px">QR code remonté à hauteur de poitrine (environ 110 à 140 cm du sol). Crédits des photos en bas (obligatoires pour les licences CC BY-SA).</span>
 </div>"""
 
 
@@ -243,6 +257,7 @@ print("ok", len(html) // 1024, "Ko")
 if os.environ.get("IMPRESSION"):
     LOGO_FULL, ETUDIANTE, OAPS = img(PUB("brand/navigoal-logo.png"), 4000), img(PUB("images/etudiante.webp"), 4000), img(PUB("brand/oaps-logo.webp"), 4000)
     charger_photos(3840)
+    LOGO_CERCLE = logo_cercle(2000)
     QRB = img(QR, 2000)
     open(os.path.join(out, "rollup-impression.html"), "w").write(rollup_impression())
     print("roll-up : out/rollup-impression.html")
