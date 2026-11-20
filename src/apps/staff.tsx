@@ -5,7 +5,7 @@ import { NeamMark, NeamWordmark } from '../components/Logo'
 import { formatPhone } from '../lib/format'
 import { useAuth } from '../live/auth'
 import { PhoneLogin } from '../live/PhoneLogin'
-import { useLiveQuery } from '../live/realtime'
+import { useLiveQuery, must } from '../live/realtime'
 import { DEMO_STAFF, errMsg, sb, supabase, type Role } from '../live/supabase'
 import { CITIES } from '../data/services'
 
@@ -41,7 +41,7 @@ function ApplicationFlow({ app }: { app: StaffApp }) {
   const kind = app.role as 'merchant' | 'courier'
   const { data: apps, loading, reload } = useLiveQuery<Application[]>(
     `apps-${session?.user.id}-${kind}`,
-    async () => (await sb().from('staff_applications').select('id, status, admin_note, created_at').eq('user_id', session!.user.id).eq('kind', kind).order('created_at', { ascending: false })).data ?? [],
+    async () => must(await sb().from('staff_applications').select('id, status, admin_note, created_at').eq('user_id', session!.user.id).eq('kind', kind).order('created_at', { ascending: false })) ?? [],
     [{ table: 'staff_applications', filter: `user_id=eq.${session?.user.id}` }],
     [],
   )
@@ -117,12 +117,20 @@ function ApplicationFlow({ app }: { app: StaffApp }) {
 
 /** Accès réservé : connexion + rôle attendu, sinon candidature (marchand, livreur) ou refus (admin). */
 export function StaffGate({ app, children }: { app: StaffApp; children: ReactNode }) {
-  const { ready, session, profile, signOut } = useAuth()
+  const { ready, session, profile, profileError, refresh, signOut } = useAuth()
   if (!supabase)
     return (
       <Centered app={app}>
         <h2 className="text-xl font-bold">Configuration requise</h2>
         <p className="mt-2 text-sm text-neutral-600">Cet espace fonctionne avec le serveur NEAM (Supabase). Renseignez VITE_SUPABASE_URL et VITE_SUPABASE_ANON_KEY puis reconstruisez l’application.</p>
+      </Centered>
+    )
+  if (session && !profile && profileError)
+    return (
+      <Centered app={app}>
+        <h2 className="text-xl font-bold">Connexion impossible</h2>
+        <p className="mt-2 text-sm text-neutral-600">Le serveur NEAM ne répond pas. Vérifiez votre accès à Internet.</p>
+        <button onClick={refresh} className="mt-4 w-full rounded-2xl py-3.5 font-semibold text-white" style={{ background: app.accent }}>Réessayer</button>
       </Centered>
     )
   if (!ready || (session && !profile)) return <Centered app={app}><Loader2 className="mx-auto animate-spin text-neutral-400" /></Centered>

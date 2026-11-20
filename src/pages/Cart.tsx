@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Bike, MapPin, Minus, Phone, Plus, ShieldCheck, Tag, Trash2, User, Zap } from 'lucide-react'
 import type { Product } from '../data/products'
@@ -7,8 +7,9 @@ import { lineProduct, useApp } from '../store/AppContext'
 import { fcfa } from '../lib/format'
 import { tap } from '../lib/native'
 import { SKIP_GUARD } from '../lib/cartScope'
-import { LIVE, errMsg, normalizePhone, sb } from '../live/supabase'
+import { LIVE, errMsg, isLiveService, sb } from '../live/supabase'
 import { useAuth } from '../live/auth'
+import { useMarketFees } from '../live/catalog'
 import { PhoneLogin } from '../live/PhoneLogin'
 import { Sheet } from '../components/Sheet'
 import { PageHeader } from '../components/PageHeader'
@@ -16,7 +17,6 @@ import { PageShell } from '../components/Navigation'
 import { ServiceBadge } from '../components/ServiceTile'
 import { PaymentPicker, paymentLabel, type PaymentId } from '../components/PaymentPicker'
 
-const FREE_FROM = 15000
 
 function useGroups() {
   const { cart } = useApp()
@@ -34,6 +34,7 @@ function useGroups() {
 export function Cart() {
   const { cartTotal, setQty, clearCart } = useApp()
   const groups = useGroups()
+  const { freeFrom: FREE_FROM } = useMarketFees()
   const navigate = useNavigate()
 
   if (!groups.length)
@@ -126,11 +127,14 @@ export function Cart() {
 const PROMOS: Record<string, number> = { NEAM20: 0.2, BIENVENUE: 0.1 }
 
 export function Checkout() {
-  const { city, cartTotal, placeOrder, clearCart, toast, userName } = useApp()
+  const { city, cartTotal, placeOrder, clearCart, setQty, toast, userName } = useApp()
   const { session, profile } = useAuth()
   const groups = useGroups()
+  const { fee: FEE, freeFrom: FREE_FROM } = useMarketFees()
   const navigate = useNavigate()
   const live = LIVE && groups.every(([sid]) => sid === 'market')
+  // Un service encore en aperçu ne doit jamais produire une commande « confirmée » qui n'existe pas
+  const blocked = LIVE && groups.some(([sid]) => !isLiveService(sid))
   const [address, setAddress] = useState('')
   const [phone, setPhone] = useState(profile?.phone ? '+' + profile.phone : '')
   const [name, setName] = useState(profile?.full_name || (userName !== 'Invité NEAM' ? userName : ''))
@@ -142,6 +146,14 @@ export function Checkout() {
   const [error, setError] = useState('')
   const [paying, setPaying] = useState(false)
   const [loginOpen, setLoginOpen] = useState(false)
+  // Une référence par boutique et par passage au paiement : un renvoi après coupure retrouve la commande déjà créée
+  const refs = useRef<Record<string, string>>({})
+
+  // Le profil arrive après l'ouverture de la page (ou après la connexion) : on complète les champs vides
+  useEffect(() => {
+    if (profile?.phone) setPhone((p) => p || '+' + profile.phone)
+    if (profile?.full_name) setName((n) => n || profile.full_name)
+  }, [profile])
 
   if (!groups.length && !paying) return <Cart />
 
@@ -155,7 +167,7 @@ export function Checkout() {
         }, {}),
       )
     : groups.map(([, lines]) => lines)
-  const deliveryPer = (sub: number) => (sub >= FREE_FROM ? 0 : 1000) + (fast && !live ? 1500 : 0)
+  const deliveryPer = (sub: number) => (sub >= FREE_FROM ? 0 : FEE) + (fast && !live ? 1500 : 0)
   const delivery = parts.reduce((n, lines) => n + deliveryPer(lines.reduce((m, l) => m + l.product.price * l.qty, 0)), 0)
   const discount = promo && !live ? Math.round((cartTotal * PROMOS[promo]) / 100) * 100 : 0
   const total = cartTotal + delivery - discount
@@ -174,6 +186,8 @@ export function Checkout() {
     try {
       const ids: string[] = []
       for (const lines of parts) {
+        const storeId = lines[0].product.storeId ?? 'x'
+        refs.current[storeId] ??= crypto.randomUUID()
         const { data, error } = await sb().rpc('place_market_order', {
           p_store: lines[0].product.storeId,
           p_items: lines.map((l) => ({ product_id: l.product.id, qty: l.qty })),
@@ -181,21 +195,27 @@ export function Checkout() {
           p_phone: phone.trim(),
           p_name: name.trim(),
           p_note: note.trim() || null,
+          p_client_ref: refs.current[storeId],
         })
-        if (error) throw error
+        if (error) throw Object.assign(error, { placed: ids.length })
         ids.push((data as { id: string }).id)
+        // Commande acceptée par le serveur : ses articles quittent le panier tout de suite,
+        // pour qu'un nouvel essai n'envoie que les boutiques restantes
+        for (const l of lines) setQty(l.product.id, 0)
       }
       if (name.trim() && profile && !profile.full_name) await sb().rpc('update_my_profile', { p_full_name: name.trim() })
       clearCart()
       toast(ids.length > 1 ? `${ids.length} commandes envoyées aux boutiques` : 'Commande envoyée à la boutique')
       navigate(ids.length === 1 ? `/suivi/${ids[0]}` : '/commandes', { replace: true, state: SKIP_GUARD })
     } catch (e) {
-      setError(errMsg(e))
+      const placed = (e as { placed?: number }).placed ?? 0
+      setError(placed ? `${placed} commande(s) envoyée(s). Les autres boutiques n’ont pas pu être jointes : ${errMsg(e)}` : errMsg(e))
       setPaying(false)
     }
   }
 
   const confirm = () => {
+    if (blocked) return setError('Ce panier contient un service qui n’est pas encore ouvert à Libreville. Retirez ces articles pour commander.')
     if (!address.trim()) return setError('Indiquez votre adresse ou votre quartier.')
     if (live && phone.replace(/\D/g, '').length < 8) return setError('Indiquez un numéro de téléphone pour le livreur.')
     tap()
@@ -308,7 +328,7 @@ export function Checkout() {
       </div>
 
       <Sheet open={loginOpen} onClose={() => setLoginOpen(false)} title="Connexion">
-        <PhoneLogin title="Confirmez votre numéro" subtitle="Le livreur vous appellera sur ce numéro. Recevez un code par SMS." onDone={() => { setLoginOpen(false); if (!phone) setPhone('+' + normalizePhone('')) ; toast('Connecté · validez votre commande') }} />
+        <PhoneLogin title="Confirmez votre numéro" subtitle="Le livreur vous appellera sur ce numéro. Recevez un code par SMS." onDone={() => { setLoginOpen(false); toast('Connecté · validez votre commande') }} />
       </Sheet>
     </PageShell>
   )

@@ -1,9 +1,36 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { sb, supabase } from './supabase'
+
+/** Réponse Supabase → données, ou exception : une erreur réseau ne doit jamais ressembler à une liste vide. */
+export function must<T>(r: { data: T; error: unknown }): T {
+  if (r.error) throw r.error
+  return r.data
+}
+
+// État de connexion partagé par tous les écrans : une requête en échec allume le bandeau « Connexion difficile »
+const failing = new Set<string>()
+const reloaders = new Set<() => void>()
+const watchers = new Set<() => void>()
+const setFailing = (id: string, bad: boolean) => {
+  const before = failing.size
+  if (bad) failing.add(id)
+  else failing.delete(id)
+  if ((before > 0) !== (failing.size > 0)) watchers.forEach((w) => w())
+}
+export function useConnectionTrouble() {
+  return useSyncExternalStore(
+    (cb) => (watchers.add(cb), () => watchers.delete(cb)),
+    () => failing.size > 0,
+  )
+}
+/** Relance tout de suite tous les chargements en cours (bouton « Réessayer »). */
+export const retryAll = () => reloaders.forEach((r) => r())
 
 /**
  * Charge une liste et la recharge à chaque changement en temps réel sur les tables indiquées.
  * Les règles d'accès (RLS) s'appliquent aussi aux événements reçus.
+ * En cas d'échec, les dernières données restent affichées ; avant le premier succès, l'écran reste en chargement
+ * (jamais un faux « aucune commande »).
  */
 export function useLiveQuery<T>(key: string, load: () => Promise<T>, tables: { table: string; filter?: string }[], initial: T) {
   const [data, setData] = useState<T>(initial)
@@ -11,17 +38,27 @@ export function useLiveQuery<T>(key: string, load: () => Promise<T>, tables: { t
   const [error, setError] = useState('')
   const loadRef = useRef(load)
   loadRef.current = load
+  const tablesRef = useRef(tables)
+  tablesRef.current = tables
+  const seq = useRef(0)
+  const id = useRef(Math.random().toString(36).slice(2)).current
 
   const reload = useCallback(async () => {
+    // Seule la réponse la plus récente compte : un ancien sondage ne doit pas faire reculer l'écran
+    const mine = ++seq.current
     try {
-      setData(await loadRef.current())
+      const next = await loadRef.current()
+      if (mine !== seq.current) return
+      setData(next)
       setError('')
-    } catch (e) {
-      setError((e as Error).message)
-    } finally {
       setLoading(false)
+      setFailing(id, false)
+    } catch (e) {
+      if (mine !== seq.current) return
+      setError((e as Error).message || 'Connexion impossible')
+      setFailing(id, true)
     }
-  }, [])
+  }, [id])
 
   useEffect(() => {
     if (!supabase) return
@@ -32,16 +69,24 @@ export function useLiveQuery<T>(key: string, load: () => Promise<T>, tables: { t
       timer = setTimeout(reload, 250)
     }
     const ch = sb().channel(`lq:${key}:${Math.random().toString(36).slice(2)}`)
-    for (const t of tables) ch.on('postgres_changes', { event: '*', schema: 'public', table: t.table, ...(t.filter ? { filter: t.filter } : {}) }, debounced)
+    for (const t of tablesRef.current) ch.on('postgres_changes', { event: '*', schema: 'public', table: t.table, ...(t.filter ? { filter: t.filter } : {}) }, debounced)
     ch.subscribe()
-    // Filet de sécurité si le temps réel est coupé (réseau mobile)
-    const poll = setInterval(reload, 30_000)
+    // Filet de sécurité si le temps réel est coupé (réseau mobile) ; relance au retour du réseau ou de l'app
+    const poll = setInterval(() => document.visibilityState === 'visible' && reload(), 30_000)
+    const wake = () => document.visibilityState === 'visible' && reload()
+    window.addEventListener('online', wake)
+    document.addEventListener('visibilitychange', wake)
+    reloaders.add(reload)
     return () => {
       clearTimeout(timer)
       clearInterval(poll)
+      window.removeEventListener('online', wake)
+      document.removeEventListener('visibilitychange', wake)
+      reloaders.delete(reload)
+      setFailing(id, false)
       sb().removeChannel(ch)
     }
-  }, [key, reload])
+  }, [key, reload, id])
 
   return { data, loading, error, reload }
 }

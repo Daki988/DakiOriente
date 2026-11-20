@@ -10,7 +10,11 @@ type Row = {
   price: number; old_price: number | null; in_stock: boolean; popular: boolean; stores: { name: string; is_open: boolean } | null
 }
 
-type Catalog = { at: number; products: Product[]; stores: LiveStore[] }
+/** Frais de livraison NEAM Market, réglables par l'admin (app_settings) */
+export type MarketFees = { fee: number; freeFrom: number }
+export const DEFAULT_FEES: MarketFees = { fee: 1000, freeFrom: 15000 }
+
+type Catalog = { at: number; products: Product[]; stores: LiveStore[]; fees: MarketFees }
 let cache: Catalog | null = null
 let inflight: Promise<Catalog> | null = null
 
@@ -34,19 +38,26 @@ const toProduct = (r: Row): Product => ({
 })
 
 export async function loadMarket(force = false): Promise<Catalog> {
-  if (!supabase) return { at: 0, products: [], stores: [] }
+  if (!supabase) return { at: 0, products: [], stores: [], fees: DEFAULT_FEES }
   if (cache && !force && Date.now() - cache.at < 60_000) return cache
   if (inflight) return inflight
   inflight = (async () => {
-    const [{ data: p, error: e1 }, { data: s, error: e2 }] = await Promise.all([
+    const [{ data: p, error: e1 }, { data: s, error: e2 }, { data: st }] = await Promise.all([
       supabase.from('products').select('*, stores!inner(name, is_open, is_active)').eq('stores.is_active', true).order('popular', { ascending: false }).order('name'),
       supabase.from('stores').select('id, name, district, address, phone, emoji, is_open, prep_minutes').eq('is_active', true).order('name'),
+      supabase.from('app_settings').select('key, value').in('key', ['market_delivery_fee', 'market_free_delivery_from']),
     ])
     inflight = null
     if (e1 || e2) throw e1 ?? e2
-    const products = (p as Row[]).filter((r) => r.in_stock).map(toProduct)
+    // Boutique fermée : ses produits disparaissent du catalogue (sinon l'échec n'arrive qu'au moment de commander)
+    const products = (p as Row[]).filter((r) => r.in_stock && r.stores?.is_open !== false).map(toProduct)
     registerProducts(products)
-    const next: Catalog = { at: Date.now(), products, stores: (s ?? []) as LiveStore[] }
+    const set = Object.fromEntries(((st ?? []) as { key: string; value: unknown }[]).map((x) => [x.key, Number(x.value)]))
+    const fees: MarketFees = {
+      fee: Number.isFinite(set.market_delivery_fee) ? set.market_delivery_fee : DEFAULT_FEES.fee,
+      freeFrom: Number.isFinite(set.market_free_delivery_from) ? set.market_free_delivery_from : DEFAULT_FEES.freeFrom,
+    }
+    const next: Catalog = { at: Date.now(), products, stores: (s ?? []) as LiveStore[], fees }
     cache = next
     return next
   })()
@@ -79,4 +90,14 @@ export function useStores() {
     loadMarket().then((c) => setStores(c.stores)).catch(() => {})
   }, [])
   return stores
+}
+
+/** Frais de livraison en vigueur (ceux du serveur en production) : le total affiché est celui que le livreur encaisse. */
+export function useMarketFees() {
+  const [fees, setFees] = useState<MarketFees>(cache?.fees ?? DEFAULT_FEES)
+  useEffect(() => {
+    if (!LIVE) return
+    loadMarket().then((c) => setFees(c.fees)).catch(() => {})
+  }, [])
+  return fees
 }

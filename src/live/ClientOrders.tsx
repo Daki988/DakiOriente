@@ -126,7 +126,7 @@ export function LiveTracking() {
       ])
       if (error) throw error
       let courier: Courier | null = null
-      if (order?.courier_id) courier = ((await sb().rpc('courier_public', { p_order: id })).data as Courier[] | null)?.[0] ?? null
+      if (order?.courier_id) courier = ((await sb().rpc('courier_public', { p_order: id })).data as Courier[] | null)?.[0] ?? null // facultatif : la position peut manquer
       return { order: order as LiveOrder | null, code: secret?.delivery_code ?? null, courier, events: (events ?? []) as never }
     },
     [{ table: 'orders', filter: `id=eq.${id}` }, { table: 'order_events', filter: `order_id=eq.${id}` }, { table: 'couriers' }],
@@ -146,7 +146,7 @@ export function LiveTracking() {
     setBusy(true)
     const { error } = await sb().rpc('cancel_my_order', { p_order: o.id, p_reason: 'Annulée par le client' })
     setBusy(false)
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast('Commande annulée')
     reload()
   }

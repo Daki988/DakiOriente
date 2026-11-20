@@ -4,6 +4,7 @@ import { lazy, Suspense } from 'react'
 import { AppProvider } from './store/AppContext'
 import { AuthProvider } from './live/auth'
 import { LIVE } from './live/supabase'
+import { ConnectionBanner } from './components/ConnectionBanner'
 import { LiveOrders, LiveTracking } from './live/ClientOrders'
 import { BottomNav, CartFab, TopNav } from './components/Navigation'
 import { Toasts } from './components/Toasts'
@@ -19,6 +20,7 @@ import Scanner from './pages/Scanner'
 import Favorites from './pages/Favorites'
 import Profile from './pages/Profile'
 import Notifications from './pages/Notifications'
+import { PrivacyPage, TermsPage } from './pages/Legal'
 import Search from './pages/Search'
 
 // Espaces professionnels chargés à la demande (le client ne télécharge pas leur code)
@@ -48,6 +50,8 @@ function Shell() {
       <Route path="/marchand/*" element={<MerchantApp />} />
       <Route path="/livreur/*" element={<CourierApp />} />
       <Route path="/admin/*" element={<AdminApp />} />
+      <Route path="/confidentialite" element={<PrivacyPage />} />
+      <Route path="/conditions" element={<TermsPage />} />
     </>
   )
 
@@ -62,6 +66,7 @@ function Shell() {
           </Routes>
         </Suspense>
         <Toasts />
+        <ConnectionBanner />
       </>
     )
 
@@ -72,6 +77,7 @@ function Shell() {
           <Routes>{staffRoutes}</Routes>
         </Suspense>
         <Toasts />
+        <ConnectionBanner />
       </>
     )
 
@@ -93,12 +99,15 @@ function Shell() {
           <Route path="/favoris" element={<Favorites />} />
           <Route path="/profil" element={<Profile />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/confidentialite" element={<PrivacyPage />} />
+          <Route path="/conditions" element={<TermsPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
       <CartFab />
       <BottomNav />
       <Toasts />
+      <ConnectionBanner />
       <LeaveGuard />
       <Splash />
     </>

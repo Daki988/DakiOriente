@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ArrowRight, Check, Clock, MapPin, PackageSearch, ShoppingBag, Timer, Zap } from 'lucide-react'
 import type { Service } from '../../data/services'
@@ -91,6 +91,8 @@ export function ExpressHome({ service }: { service: Service }) {
   const [step, setStep] = useState<'form' | 'pay'>('form')
   const [payment, setPayment] = useState<PaymentId>('cash')
   const [error, setError] = useState('')
+  // Référence de l'envoi : un nouvel essai après coupure retrouve l'envoi déjà enregistré
+  const clientRef = useRef('')
 
   const t = TYPES.find((x) => x.id === type)!
   const km = from && to ? fakeKm(from, to) : 0
@@ -103,6 +105,7 @@ export function ExpressHome({ service }: { service: Service }) {
     if (tab === 'send' && (!from.trim() || !to.trim())) return setError('Indiquez l’adresse de ramassage et de livraison.')
     if (tab === 'shop' && (!items.trim() || !to.trim())) return setError('Indiquez votre liste et l’adresse de livraison.')
     setError('')
+    clientRef.current = crypto.randomUUID()
     setStep('pay')
   }
 
@@ -117,6 +120,7 @@ export function ExpressHome({ service }: { service: Service }) {
     const { data, error } = await sb().rpc('place_express_order', {
       p_pickup: from.trim(), p_dropoff: to.trim(), p_size: size, p_speed: type, p_km: km || 1,
       p_phone: phone.trim() || '+' + profile?.phone, p_name: profile?.full_name ?? '', p_description: null,
+      p_client_ref: clientRef.current,
     })
     setBusy(false)
     if (error) return setError(errMsg(error))

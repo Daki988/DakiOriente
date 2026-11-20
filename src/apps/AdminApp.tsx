@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import { BadgeCheck, Bike, ClipboardList, LayoutDashboard, MapPin, Search, Settings, Store, Users } from 'lucide-react'
 import { formatPhone, money, timeAgo } from '../lib/format'
 import { Sheet } from '../components/Sheet'
-import { useLiveQuery } from '../live/realtime'
+import { useLiveQuery, must } from '../live/realtime'
 import { ACTIVE_STATUSES, errMsg, ORDER_SELECT, sb, STATUS_LABEL, type LiveOrder, type OrderStatus } from '../live/supabase'
 import { StatusPill } from '../live/ClientOrders'
 import { useApp } from '../store/AppContext'
@@ -18,7 +18,7 @@ const btn = 'rounded-xl px-3 py-2 text-sm font-semibold transition disabled:opac
 const field = 'h-11 w-full rounded-xl border border-neutral-200 bg-white px-3 text-sm outline-none focus:border-neutral-400'
 
 function useCouriers() {
-  return useLiveQuery<CourierRow[]>('admin-couriers', async () => ((await sb().rpc('admin_couriers')).data ?? []) as CourierRow[], [{ table: 'couriers' }, { table: 'orders' }], [])
+  return useLiveQuery<CourierRow[]>('admin-couriers', async () => (must(await sb().rpc('admin_couriers')) ?? []) as CourierRow[], [{ table: 'couriers' }, { table: 'orders' }], [])
 }
 
 // ---------------- Détail commande + affectation ----------------
@@ -29,7 +29,7 @@ function OrderSheet({ order, onClose, couriers }: { order: LiveOrder; onClose: (
   const [busy, setBusy] = useState(false)
   const { data: events } = useLiveQuery<{ id: number; status: OrderStatus; note: string | null; created_at: string }[]>(
     `admin-ev-${order.id}`,
-    async () => ((await sb().from('order_events').select('id, status, note, created_at').eq('order_id', order.id).order('id')).data ?? []) as never,
+    async () => (must(await sb().from('order_events').select('id, status, note, created_at').eq('order_id', order.id).order('id')) ?? []) as never,
     [{ table: 'order_events', filter: `order_id=eq.${order.id}` }],
     [],
   )
@@ -39,7 +39,7 @@ function OrderSheet({ order, onClose, couriers }: { order: LiveOrder; onClose: (
     setBusy(true)
     const { error } = await sb().rpc('admin_assign_courier', { p_order: order.id, p_courier: courier })
     setBusy(false)
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast('Livreur affecté')
     onClose()
   }
@@ -48,7 +48,7 @@ function OrderSheet({ order, onClose, couriers }: { order: LiveOrder; onClose: (
     setBusy(true)
     const { error } = await sb().rpc('admin_cancel_order', { p_order: order.id, p_reason: reason.trim() })
     setBusy(false)
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast('Commande annulée')
     onClose()
   }
@@ -141,7 +141,7 @@ function Overview() {
       const from = new Date()
       from.setHours(0, 0, 0, 0)
       from.setDate(from.getDate() - (period - 1))
-      return ((await sb().rpc('admin_stats', { p_from: from.toISOString(), p_to: new Date(Date.now() + 60_000).toISOString() })).data as Record<string, number>[] | null)?.[0] ?? null
+      return (must(await sb().rpc('admin_stats', { p_from: from.toISOString(), p_to: new Date(Date.now() + 60_000).toISOString() })) as Record<string, number>[] | null)?.[0] ?? null
     },
     [{ table: 'orders' }, { table: 'staff_applications' }, { table: 'couriers' }],
     null as Record<string, number> | null,
@@ -254,16 +254,20 @@ function CouriersPage() {
   const [remit, setRemit] = useState<CourierRow | null>(null)
   const [amount, setAmount] = useState(0)
   const [note, setNote] = useState('')
+  const [saving, setSaving] = useState(false)
   const record = async () => {
+    if (saving) return
+    setSaving(true)
     const { error } = await sb().rpc('admin_record_remittance', { p_courier: remit!.id, p_amount: amount, p_note: note || null })
-    if (error) return toast(errMsg(error))
+    setSaving(false)
+    if (error) return toast(errMsg(error), 'error')
     toast(`${money(amount)} reçus de ${remit!.full_name}`)
     setRemit(null)
     reload()
   }
   const setActive = async (c: CourierRow) => {
     const { error } = await sb().rpc('admin_set_user_active', { p_user: c.id, p_active: !c.is_active })
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast(c.is_active ? 'Livreur suspendu' : 'Livreur réactivé')
     reload()
   }
@@ -304,7 +308,7 @@ function CouriersPage() {
           <p className="text-sm text-neutral-600">Dû actuellement : <b>{money(remit.cash_due)}</b></p>
           <input id="rm-amount" className={`${field} mt-3 text-lg font-bold`} inputMode="numeric" value={amount || ''} onChange={(e) => setAmount(+e.target.value.replace(/\D/g, ''))} />
           <input id="rm-note" className={`${field} mt-2`} placeholder="Note (facultatif)" value={note} onChange={(e) => setNote(e.target.value)} />
-          <button disabled={!amount} onClick={record} className="mt-4 w-full rounded-2xl bg-neam-600 py-3.5 font-semibold text-white disabled:opacity-50">Enregistrer la remise</button>
+          <button disabled={!amount || saving} onClick={record} className="mt-4 w-full rounded-2xl bg-neam-600 py-3.5 font-semibold text-white disabled:opacity-50">Enregistrer la remise</button>
         </Sheet>
       )}
     </>
@@ -320,8 +324,8 @@ function StoresPage() {
   const { data, reload } = useLiveQuery(
     'admin-stores',
     async () => {
-      const stores = ((await sb().from('stores').select('*').order('name')).data ?? []) as StoreRow[]
-      const fins = await Promise.all(stores.map(async (s) => ((await sb().rpc('store_finances', { p_store: s.id })).data as Fin[] | null)?.[0]))
+      const stores = (must(await sb().rpc('stores_full').order('name')) ?? []) as StoreRow[]
+      const fins = await Promise.all(stores.map(async (s) => (must(await sb().rpc('store_finances', { p_store: s.id })) as Fin[] | null)?.[0]))
       return stores.map((s, i) => ({ ...s, fin: fins[i] }))
     },
     [{ table: 'stores' }, { table: 'merchant_payouts' }],
@@ -333,13 +337,17 @@ function StoresPage() {
   const [rate, setRate] = useState<Record<string, string>>({})
   const update = async (s: StoreRow, patch: { active?: boolean; commission?: number }) => {
     const { error } = await sb().rpc('admin_update_store', { p_store: s.id, p_is_active: patch.active ?? null, p_commission: patch.commission ?? null })
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast('Boutique mise à jour')
     reload()
   }
+  const [saving, setSaving] = useState(false)
   const payout = async () => {
+    if (saving) return
+    setSaving(true)
     const { error } = await sb().rpc('admin_record_payout', { p_store: pay!.id, p_amount: amount, p_reference: ref || null })
-    if (error) return toast(errMsg(error))
+    setSaving(false)
+    if (error) return toast(errMsg(error), 'error')
     toast(`Versement de ${money(amount)} enregistré`)
     setPay(null)
     reload()
@@ -383,7 +391,7 @@ function StoresPage() {
           <p className="text-sm text-neutral-600">Solde dû : <b>{money(pay.fin?.balance ?? 0)}</b></p>
           <input id="po-amount" className={`${field} mt-3 text-lg font-bold`} inputMode="numeric" value={amount || ''} onChange={(e) => setAmount(+e.target.value.replace(/\D/g, ''))} />
           <input id="po-ref" className={`${field} mt-2`} placeholder="Référence (ex. virement, Airtel Money…)" value={ref} onChange={(e) => setRef(e.target.value)} />
-          <button disabled={!amount} onClick={payout} className="mt-4 w-full rounded-2xl bg-neam-600 py-3.5 font-semibold text-white disabled:opacity-50">Enregistrer le versement</button>
+          <button disabled={!amount || saving} onClick={payout} className="mt-4 w-full rounded-2xl bg-neam-600 py-3.5 font-semibold text-white disabled:opacity-50">Enregistrer le versement</button>
         </Sheet>
       )}
     </>
@@ -395,12 +403,12 @@ type AppRow = { id: string; kind: 'merchant' | 'courier'; status: 'pending' | 'a
 
 function ApplicationsPage() {
   const { toast } = useApp()
-  const { data: apps, reload } = useLiveQuery<AppRow[]>('admin-apps', async () => ((await sb().from('staff_applications').select('*').order('created_at', { ascending: false }).limit(100)).data ?? []) as AppRow[], [{ table: 'staff_applications' }], [])
+  const { data: apps, reload } = useLiveQuery<AppRow[]>('admin-apps', async () => (must(await sb().from('staff_applications').select('*').order('created_at', { ascending: false }).limit(100)) ?? []) as AppRow[], [{ table: 'staff_applications' }], [])
   const [notes, setNotes] = useState<Record<string, string>>({})
   const review = async (a: AppRow, approve: boolean) => {
     if (!approve && !notes[a.id]?.trim()) return toast('Indiquez le motif du refus')
     const { error } = await sb().rpc('admin_review_application', { p_application: a.id, p_approve: approve, p_note: notes[a.id] || null })
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast(approve ? `${a.full_name} validé(e)` : 'Candidature refusée')
     reload()
   }
@@ -453,10 +461,10 @@ const ROLE_LABEL: Record<string, string> = { client: 'Client', merchant: 'Marcha
 function UsersPage() {
   const { toast } = useApp()
   const [q, setQ] = useState('')
-  const { data: users, reload } = useLiveQuery<UserRow[]>(`admin-users-${q}`, async () => ((await sb().rpc('admin_users', { p_search: q.trim() || null })).data ?? []) as UserRow[], [], [])
+  const { data: users, reload } = useLiveQuery<UserRow[]>(`admin-users-${q}`, async () => (must(await sb().rpc('admin_users', { p_search: q.trim() || null })) ?? []) as UserRow[], [], [])
   const toggle = async (u: UserRow) => {
     const { error } = await sb().rpc('admin_set_user_active', { p_user: u.id, p_active: !u.is_active })
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast(u.is_active ? 'Compte suspendu' : 'Compte réactivé')
     reload()
   }
@@ -489,7 +497,7 @@ function UsersPage() {
 // ---------------- Paramètres ----------------
 function SettingsPage() {
   const { toast } = useApp()
-  const { data: settings, reload } = useLiveQuery<Record<string, unknown>>('admin-settings', async () => Object.fromEntries((((await sb().from('app_settings').select('key, value')).data ?? []) as { key: string; value: unknown }[]).map((r) => [r.key, r.value])), [], {})
+  const { data: settings, reload } = useLiveQuery<Record<string, unknown>>('admin-settings', async () => Object.fromEntries(((must(await sb().from('app_settings').select('key, value')) ?? []) as { key: string; value: unknown }[]).map((r) => [r.key, r.value])), [], {})
   const [draft, setDraft] = useState<Record<string, string>>({})
   const val = (k: string) => draft[k] ?? (settings[k] != null ? JSON.stringify(settings[k]) : '')
   const save = async (k: string) => {
@@ -500,7 +508,7 @@ function SettingsPage() {
       return toast('Valeur invalide')
     }
     const { error } = await sb().rpc('admin_update_setting', { p_key: k, p_value: v })
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast('Paramètre enregistré')
     setDraft((d) => {
       const { [k]: _omit, ...rest } = d

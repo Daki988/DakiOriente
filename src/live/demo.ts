@@ -212,7 +212,8 @@ function makeClient(role: Role): SupabaseClient {
 
   const client = {
     from: (t: string) => (t === 'profiles' ? new Query('profiles') : new Query(t)),
-    rpc,
+    // stores_full renvoie des lignes que l'app filtre et trie comme une table
+    rpc: (name: string, a: Row) => (name === 'stores_full' ? new Query('stores') : rpc(name, a)),
     channel: () => {
       const subs: { table: string; cb: () => void }[] = []
       const ch = { on: (_e: string, o: { table: string }, cb: () => void) => { subs.push({ table: o.table, cb }); return ch }, subscribe: () => { subs.forEach((s) => listeners.add(s)); return ch }, _subs: subs }

@@ -5,7 +5,7 @@ import { SERVICE_MAP } from '../data/services'
 import { money, timeAgo } from '../lib/format'
 import { Sheet } from '../components/Sheet'
 import { useAuth } from '../live/auth'
-import { beep, useLiveQuery } from '../live/realtime'
+import { beep, useLiveQuery, must } from '../live/realtime'
 import { errMsg, ORDER_SELECT, sb, type LiveOrder } from '../live/supabase'
 import { StatusPill } from '../live/ClientOrders'
 import { useApp } from '../store/AppContext'
@@ -21,7 +21,7 @@ function useMyStore() {
   const { session } = useAuth()
   const { data, loading, reload } = useLiveQuery<Store | null>(
     `my-store-${session?.user.id}`,
-    async () => (await sb().from('stores').select('*').eq('owner_id', session!.user.id).order('created_at').limit(1).maybeSingle()).data as Store | null,
+    async () => must(await sb().rpc('stores_full').eq('owner_id', session!.user.id).order('created_at').limit(1).maybeSingle()) as Store | null,
     [{ table: 'stores' }],
     null,
   )
@@ -32,7 +32,7 @@ function OpenToggle({ store, onChange }: { store: Store; onChange: () => void })
   const { toast } = useApp()
   const toggle = async () => {
     const { error } = await sb().rpc('merchant_update_store', { p_store: store.id, p_is_open: !store.is_open, p_prep_minutes: null, p_phone: null, p_address: null })
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast(store.is_open ? 'Boutique fermée : plus de nouvelles commandes' : 'Boutique ouverte')
     onChange()
   }
@@ -120,7 +120,7 @@ function MerchantOrders({ store, reloadStore }: { store: Store; reloadStore: () 
     setBusy(true)
     const { error } = await sb().rpc('merchant_update_order', { p_order: id, p_action: action, p_reason: reason ?? null })
     setBusy(false)
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast(action === 'accept' ? 'Commande acceptée' : action === 'ready' ? 'Commande prête : un livreur va passer' : 'Commande refusée')
     reload()
   }
@@ -237,21 +237,21 @@ function MerchantCatalog({ store }: { store: Store }) {
   const [confirmDel, setConfirmDel] = useState<Product | null>(null)
   const { data: products, reload } = useLiveQuery<Product[]>(
     `m-products-${store.id}`,
-    async () => ((await sb().from('products').select('*').eq('store_id', store.id).order('category').order('name')).data ?? []) as Product[],
+    async () => (must(await sb().from('products').select('*').eq('store_id', store.id).order('category').order('name')) ?? []) as Product[],
     [{ table: 'products', filter: `store_id=eq.${store.id}` }],
     [],
   )
   const list = useMemo(() => products.filter((p) => !q || `${p.name} ${p.category}`.toLowerCase().includes(q.toLowerCase())), [products, q])
   const toggle = async (p: Product) => {
     const { error } = await sb().from('products').update({ in_stock: !p.in_stock, updated_at: new Date().toISOString() }).eq('id', p.id)
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast(p.in_stock ? `${p.name} : en rupture` : `${p.name} : de nouveau en stock`)
     reload()
   }
   const del = async (p: Product) => {
     const { error } = await sb().from('products').delete().eq('id', p.id)
     setConfirmDel(null)
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast('Produit supprimé')
     reload()
   }
@@ -308,7 +308,7 @@ function MerchantStore({ store, reload }: { store: Store; reload: () => void }) 
   const [address, setAddress] = useState(store.address)
   const save = async () => {
     const { error } = await sb().rpc('merchant_update_store', { p_store: store.id, p_is_open: null, p_prep_minutes: prep, p_phone: phone, p_address: address })
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast('Boutique mise à jour')
     reload()
   }
@@ -344,10 +344,10 @@ function MerchantFinances({ store }: { store: Store }) {
   const { data } = useLiveQuery(
     `m-fin-${store.id}`,
     async () => {
-      const [{ data: f }, { data: payouts }] = await Promise.all([
+      const [f, payouts] = (await Promise.all([
         sb().rpc('store_finances', { p_store: store.id }),
         sb().from('merchant_payouts').select('*').eq('store_id', store.id).order('created_at', { ascending: false }),
-      ])
+      ]).then((rs) => rs.map((r) => must<unknown>(r))))
       return { f: (f as { orders_count: number; sales: number; commission: number; net: number; paid: number; balance: number }[] | null)?.[0], payouts: (payouts ?? []) as { id: string; amount: number; reference: string | null; created_at: string }[] }
     },
     [{ table: 'orders', filter: `store_id=eq.${store.id}` }],
@@ -393,7 +393,12 @@ function MerchantInner() {
   const { store, loading, reload } = useMyStore()
   const { data: pendingCount } = useLiveQuery<number>(
     `m-pending-${store?.id}`,
-    async () => (store ? (await sb().from('orders').select('id', { count: 'exact', head: true }).eq('store_id', store.id).eq('status', 'pending')).count ?? 0 : 0),
+    async () => {
+      if (!store) return 0
+      const r = await sb().from('orders').select('id', { count: 'exact', head: true }).eq('store_id', store.id).eq('status', 'pending')
+      if (r.error) throw r.error
+      return r.count ?? 0
+    },
     store ? [{ table: 'orders', filter: `store_id=eq.${store.id}` }] : [],
     0,
   )

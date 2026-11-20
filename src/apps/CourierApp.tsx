@@ -4,7 +4,7 @@ import { Banknote, Bike, CheckCircle2, History, MapPin, Navigation, Package, Pho
 import { formatPhone, money, timeAgo } from '../lib/format'
 import { useAuth } from '../live/auth'
 import { watchPosition } from '../live/geo'
-import { beep, useLiveQuery } from '../live/realtime'
+import { beep, useLiveQuery, must } from '../live/realtime'
 import { errMsg, ORDER_SELECT, sb, type LiveOrder } from '../live/supabase'
 import { StatusPill } from '../live/ClientOrders'
 import { useApp } from '../store/AppContext'
@@ -48,11 +48,11 @@ function useCourierData() {
     async () => {
       const today = new Date()
       today.setHours(0, 0, 0, 0)
-      const [{ data: me }, { data: orders }, { data: cash }] = await Promise.all([
+      const [me, orders, cash] = (await Promise.all([
         sb().from('couriers').select('*').eq('id', uid!).maybeSingle(),
         sb().from('orders').select(ORDER_SELECT).eq('courier_id', uid!).or(`status.in.(assigned,picked_up),delivered_at.gte.${today.toISOString()}`).order('assigned_at', { ascending: true }),
         sb().rpc('courier_cash_due', { p_courier: uid }),
-      ])
+      ]).then((rs) => rs.map((r) => must<unknown>(r))))
       return { me: me as Courier | null, orders: (orders ?? []) as LiveOrder[], cash: (cash as number) ?? 0 }
     },
     uid ? [{ table: 'orders', filter: `courier_id=eq.${uid}` }, { table: 'couriers', filter: `id=eq.${uid}` }] : [],
@@ -67,7 +67,7 @@ function OnlineSwitch({ me, reload }: { me: Courier; reload: () => void }) {
     setBusy(true)
     const { error } = await sb().rpc('courier_set_online', { p_online: !me.is_online })
     setBusy(false)
-    if (error) return toast(errMsg(error))
+    if (error) return toast(errMsg(error), 'error')
     toast(me.is_online ? 'Vous êtes hors ligne' : 'Vous êtes en ligne : les courses peuvent vous être affectées')
     reload()
   }
@@ -220,10 +220,10 @@ function CourierHistory() {
   const { data } = useLiveQuery(
     `courier-hist-${session?.user.id}`,
     async () => {
-      const [{ data: orders }, { data: rem }] = await Promise.all([
+      const [orders, rem] = (await Promise.all([
         sb().from('orders').select('id, code, kind, total, delivered_at, address').eq('courier_id', session!.user.id).eq('status', 'delivered').order('delivered_at', { ascending: false }).limit(100),
         sb().from('cash_remittances').select('id, amount, created_at, note').eq('courier_id', session!.user.id).order('created_at', { ascending: false }).limit(50),
-      ])
+      ]).then((rs) => rs.map((r) => must<unknown>(r))))
       return { orders: (orders ?? []) as { id: string; code: string; kind: string; total: number; delivered_at: string; address: string }[], rem: (rem ?? []) as { id: string; amount: number; created_at: string; note: string | null }[] }
     },
     [],

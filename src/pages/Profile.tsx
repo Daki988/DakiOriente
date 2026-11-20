@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Bell, Bike, ChevronRight, CreditCard, Globe, Handshake, HelpCircle, Info, LogOut, MapPin, Pencil, Plus, QrCode, Send, ShieldCheck, Store } from 'lucide-react'
+import { Bell, Bike, FileText, ChevronRight, CreditCard, Globe, Handshake, HelpCircle, Info, LogOut, MapPin, Pencil, Plus, QrCode, Send, ShieldCheck, Store } from 'lucide-react'
 import { useApp } from '../store/AppContext'
 import { formatPhone } from '../lib/format'
 import { useAuth } from '../live/auth'
 import { PhoneLogin } from '../live/PhoneLogin'
 import { LIVE, errMsg, sb } from '../live/supabase'
+import { useLiveQuery } from '../live/realtime'
 import { NeamMark } from '../components/Logo'
 import { PageShell } from '../components/Navigation'
 import { Sheet } from '../components/Sheet'
@@ -19,13 +20,26 @@ export default function Profile() {
   const [name, setName] = useState(userName)
 
   const soon = () => toast('Bientôt disponible sur NEAM')
+  // En production, le compteur vient des vraies commandes du compte
+  const { data: liveCount } = useLiveQuery<number>(
+    `profile-orders-${session?.user.id}`,
+    async () => {
+      if (!session) return 0
+      const r = await sb().from('orders').select('id', { count: 'exact', head: true }).eq('client_id', session.user.id)
+      if (r.error) throw r.error
+      return r.count ?? 0
+    },
+    [],
+    0,
+  )
 
   const menu = [
     { icon: MapPin, label: 'Mes adresses', hint: city },
     { icon: CreditCard, label: 'Moyens de paiement', hint: 'À la livraison' },
     { icon: Bell, label: 'Notifications', to: '/notifications' },
     { icon: Globe, label: 'Langue', hint: 'Français' },
-    { icon: ShieldCheck, label: 'Sécurité et confidentialité' },
+    { icon: ShieldCheck, label: 'Confidentialité', to: '/confidentialite' },
+    { icon: FileText, label: 'Conditions d’utilisation', to: '/conditions' },
     { icon: HelpCircle, label: 'Aide et support', hint: '7j/7' },
     { icon: Info, label: 'À propos de NEAM', hint: 'v1.0.0' },
   ]
@@ -87,7 +101,7 @@ export default function Profile() {
 
         <section className="grid grid-cols-3 gap-2 text-center">
           {[
-            { n: orders.length, l: 'Commandes', to: '/commandes' },
+            { n: LIVE ? liveCount : orders.length, l: 'Commandes', to: '/commandes' },
             { n: favorites.length, l: 'Favoris', to: '/favoris' },
             { n: 9, l: 'Services', to: '/services' },
           ].map((s) => (
@@ -140,7 +154,7 @@ export default function Profile() {
           onClick={async () => {
             if (LIVE && session && name.trim()) {
               const { error } = await sb().rpc('update_my_profile', { p_full_name: name.trim() })
-              if (error) return toast(errMsg(error))
+              if (error) return toast(errMsg(error), 'error')
               await refresh()
             }
             if (name.trim()) setUserName(name.trim())

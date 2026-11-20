@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { getProduct, type Product } from '../data/products'
 import type { ServiceId } from '../data/services'
+import { LIVE } from '../live/supabase'
 import { SEED_CANDIDATES, SEED_RECRUITMENTS, type Candidate, type Recruitment } from '../data/careers'
 
 /** `snap` : copie de l'article au moment de l'ajout (catalogue réel chargé à la demande). */
@@ -45,7 +46,7 @@ export type Application = { offerId: string; ts: number; status: 'Envoyée' | 'V
 
 export type Notification = { id: string; title: string; body: string; ts: number; read: boolean; icon: string }
 
-type Toast = { id: number; text: string }
+type Toast = { id: number; text: string; error?: boolean }
 
 type State = {
   city: string
@@ -65,11 +66,14 @@ type State = {
 
 const KEY = 'neam:v2'
 
-const initialNotifications: Notification[] = [
-  { id: 'n1', icon: '🎉', title: 'Bienvenue sur NEAM !', body: 'Un seul compte pour tous vos services du quotidien.', ts: Date.now() - 1000 * 60 * 5, read: false },
-  { id: 'n2', icon: '🍲', title: 'NEAM Food : -20% ce soir', body: 'Profitez de -20% sur votre première commande de repas avec le code NEAM20.', ts: Date.now() - 1000 * 60 * 90, read: false },
-  { id: 'n3', icon: '🛵', title: 'Livraison offerte', body: 'Livraison gratuite sur NEAM Market dès 15 000 FCFA d’achat.', ts: Date.now() - 1000 * 60 * 60 * 26, read: true },
-]
+// En production, pas d'offre fictive : seulement le message d'accueil
+const initialNotifications: Notification[] = LIVE
+  ? [{ id: 'n1', icon: '🎉', title: 'Bienvenue sur NEAM !', body: 'Vos courses NEAM Market et vos envois NEAM Express, payés à la livraison.', ts: Date.now() - 1000 * 60 * 5, read: false }]
+  : [
+      { id: 'n1', icon: '🎉', title: 'Bienvenue sur NEAM !', body: 'Un seul compte pour tous vos services du quotidien.', ts: Date.now() - 1000 * 60 * 5, read: false },
+      { id: 'n2', icon: '🍲', title: 'NEAM Food : -20% ce soir', body: 'Profitez de -20% sur votre première commande de repas avec le code NEAM20.', ts: Date.now() - 1000 * 60 * 90, read: false },
+      { id: 'n3', icon: '🛵', title: 'Livraison offerte', body: 'Livraison gratuite sur NEAM Market dès 15 000 FCFA d’achat.', ts: Date.now() - 1000 * 60 * 60 * 26, read: true },
+    ]
 
 const defaults: State = {
   city: 'Libreville',
@@ -119,7 +123,8 @@ type Ctx = State & {
   /** Service auquel appartient le panier (un seul à la fois) */
   cartService: ServiceId | null
   toasts: Toast[]
-  toast: (text: string) => void
+  /** Message bref ; `'error'` = message d'échec (rouge, annoncé, affiché plus longtemps) */
+  toast: (text: string, tone?: 'error') => void
 }
 
 const AppCtx = createContext<Ctx | null>(null)
@@ -136,10 +141,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, [state])
 
-  const toast = useCallback((text: string) => {
+  const toast = useCallback((text: string, tone?: 'error') => {
     const id = Date.now() + Math.random()
-    setToasts((t) => [...t, { id, text }])
-    setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 2600)
+    setToasts((t) => [...t, { id, text, error: tone === 'error' }])
+    setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), tone === 'error' ? 6000 : 2600)
   }, [])
 
   const api = useMemo<Ctx>(() => {

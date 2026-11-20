@@ -5,6 +5,7 @@ import { SERVICES, SERVICE_MAP, type ServiceId } from '../data/services'
 import { PRODUCT_MAP } from '../data/products'
 import { useApp } from '../store/AppContext'
 import { tap } from '../lib/native'
+import { LIVE, isLiveService } from '../live/supabase'
 import { useBack } from '../lib/useBack'
 
 type Detector = { detect: (src: HTMLVideoElement) => Promise<{ rawValue: string }[]> }
@@ -30,6 +31,8 @@ export default function Scanner() {
     const m = raw.match(/^neam:\/\/(service|produit)\/([\w-]+)/i)
     if (m?.[1] === 'service' && SERVICE_MAP[m[2] as ServiceId]) return navigate(`/service/${m[2]}`, { replace: true })
     if (m?.[1] === 'produit' && PRODUCT_MAP[m[2]]) {
+      // Produit d'un service encore en aperçu : on ouvre le service au lieu de remplir un panier impossible à commander
+      if (!isLiveService(PRODUCT_MAP[m[2]].serviceId)) return navigate(`/service/${PRODUCT_MAP[m[2]].serviceId}`, { replace: true })
       addToCart(PRODUCT_MAP[m[2]])
       toast(`${PRODUCT_MAP[m[2]].name} ajouté au panier`)
       return navigate('/panier', { replace: true })
@@ -121,7 +124,8 @@ export default function Scanner() {
       </div>
 
       <div className="relative px-4 pb-[calc(var(--safe-bottom)+20px)]">
-        <p className="mb-2 text-center text-xs text-white/60">Démo : simuler un scan</p>
+        {!LIVE && <p className="mb-2 text-center text-xs text-white/60">Démo : simuler un scan</p>}
+        {!LIVE && (
         <div className="no-scrollbar flex gap-2 overflow-x-auto">
           {SERVICES.map((s) => (
             <button key={s.id} onClick={() => handle(`neam://service/${s.id}`)} className="glass shrink-0 rounded-full px-4 py-2 text-xs font-medium">
@@ -130,6 +134,7 @@ export default function Scanner() {
           ))}
           <button onClick={() => handle('neam://produit/f1')} className="glass shrink-0 rounded-full px-4 py-2 text-xs font-medium">🍲 Produit</button>
         </div>
+        )}
       </div>
 
       {result && (

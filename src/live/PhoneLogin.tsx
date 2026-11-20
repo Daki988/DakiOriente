@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ArrowRight, Loader2, Phone, ShieldCheck } from 'lucide-react'
 import { DEMO_STAFF, errMsg, normalizePhone, sb } from './supabase'
 
@@ -83,6 +84,10 @@ export function PhoneLogin({ onDone, accent = '#079b5a', title = 'Connexion', su
         )}
       </form>
       <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-neutral-400"><ShieldCheck size={14} /> Votre numéro reste confidentiel.</p>
+      <p className="mt-2 text-center text-xs text-neutral-500">
+        En continuant, vous acceptez les <Link to="/conditions" className="underline">conditions d’utilisation</Link> et la{' '}
+        <Link to="/confidentialite" className="underline">politique de confidentialité</Link>.
+      </p>
     </div>
   )
 }
