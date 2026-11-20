@@ -9,3 +9,9 @@ dist/
 *.apk
 dist-*/
 !.env.local.example
+
+# Clés de signature Android (à garder hors du dépôt, en lieu sûr)
+*.jks
+*.keystore
+keystore.properties
+*.aab

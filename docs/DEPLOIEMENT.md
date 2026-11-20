@@ -76,10 +76,22 @@ Numéros de test en local : `+241 07 00 00 01` à `+241 07 00 00 05`, code `1234
 
 ## Mettre à jour un serveur déjà installé
 
-Chaque fichier de `supabase/migrations/` postérieur à l'installation se colle une fois, dans l'ordre, dans le SQL Editor.
+**Le plus simple : `supabase/update-2026-11.sql`**, à coller une fois dans le SQL Editor. Il installe le correctif du
+29 octobre s'il manque, puis celui du 20 novembre. Installer ensuite les nouvelles APK (Partenaire en particulier :
+l'ancienne version ne lit plus sa boutique après cette mise à jour).
+
+Détail des fichiers de `supabase/migrations/` (une installation neuve avec `deploy.sql` les contient déjà) :
 - `20261029000001_security.sql` — durcissement de sécurité : historique des commandes protégé, code de remise tiré
   au hasard cryptographique et limité à 5 essais (déblocage par l'admin), 3 commandes en attente maximum par client,
   tailles maximales des textes, espèces dues visibles uniquement par le livreur concerné.
+
+- `20261120000001_hardening.sql` — audit du 20 novembre : comptes suspendus sans aucun droit d'écriture,
+  commandes sans doublon après une coupure (`p_client_ref`), annulation interdite une fois la commande récupérée
+  (réaffectation possible à un autre livreur), position du livreur visible du seul client et pendant la course,
+  versements plafonnés au solde, verrous contre les doubles saisies, journal des actions admin (`admin_audit`),
+  commission et propriétaire des boutiques retirés du catalogue public (fiche complète : `stores_full()`),
+  commandes non acceptées annulées après 45 min et coordonnées des clients effacées 2 ans après clôture
+  (tâches `pg_cron`), heure de Libreville, index.
 
 Vérifications : `npm run test:backend` (parcours complet) et `npm run test:security` (tentatives d'abus) sur le serveur local.
 
@@ -97,5 +109,6 @@ Vérifications : `npm run test:backend` (parcours complet) et `npm run test:secu
 
 - Position du livreur partagée **quand l'app est ouverte** (pas encore en arrière-plan).
 - Pas encore de notifications push (le suivi est en direct dans l'app, avec un son côté marchand et livreur).
-- Affectation des livreurs **manuelle** par l'admin (salariés NEAM) ; l'affectation automatique viendra ensuite.
+- Affectation des livreurs **manuelle** par l'admin (salariés NEAM), parmi les livreurs en ligne ; l'affectation automatique viendra ensuite.
+- Pas encore de remboursement ni de litige après livraison (à traiter hors application, puis table d'ajustements).
 - Les autres services (Food, Health…) restent visibles en **aperçu** (« Bientôt disponible à Libreville »).
