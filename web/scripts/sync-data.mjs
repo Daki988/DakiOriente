@@ -149,4 +149,9 @@ if (variantes.status !== 0) {
   if (variantes.status !== null) process.exit(1);
 }
 
+// Index des textes du site pour Navi (scripts/index-documents.mjs, construit après un build) : tant qu'il
+// n'existe pas, un index vide permet le typage et les tests ; la livraison (package-cpanel) le remplit.
+const DOCS = path.join(OUT, "documents.json");
+if (!fs.existsSync(DOCS)) fs.writeFileSync(DOCS, "[]\n");
+
 console.log(`Référentiels synchronisés : ${sup.length} établissements, ${read("metiers").items.length} métiers.`);
