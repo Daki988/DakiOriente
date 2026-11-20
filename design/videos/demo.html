@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Navigoal — démo de l'application</title>
+<style>
+@font-face { font-family: J; src: url(assets/jakarta.woff2) format('woff2'); font-weight: 200 800; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: #fff; font-family: J, sans-serif; color: #0b1533; }
+#scene { position: absolute; inset: 0; overflow: hidden; }
+.fond { position: absolute; inset: 0; background:
+  radial-gradient(900px 700px at -5% -10%, rgba(255,194,31,.55), transparent 60%),
+  radial-gradient(1000px 800px at 105% 110%, rgba(26,71,245,.35), transparent 60%),
+  radial-gradient(700px 500px at 100% -10%, rgba(255,138,0,.18), transparent 60%), #fbfcff; }
+.phone { position: absolute; width: 410px; height: 852px; border-radius: 62px; background: #0d1020; padding: 13px; box-shadow: 0 50px 90px -30px rgba(11,26,79,.55), inset 0 0 0 2px #2a2f45; will-change: transform, opacity; }
+.ecran { position: relative; width: 384px; height: 826px; border-radius: 50px; overflow: hidden; background: #fff; }
+.ecran img.page { position: absolute; left: 0; top: 46px; width: 384px; will-change: transform, opacity; }
+.statut { position: absolute; left: 0; right: 0; top: 0; height: 46px; background: #fff; z-index: 4; display: flex; align-items: center; justify-content: space-between; padding: 6px 34px 0 40px; font-size: 17px; font-weight: 700; }
+.ile { position: absolute; left: 50%; top: 11px; width: 110px; height: 32px; margin-left: -55px; background: #0d1020; border-radius: 20px; z-index: 5; }
+.ghost { filter: blur(6px); }
+.titre { position: absolute; width: 700px; z-index: 4; will-change: transform, opacity; }
+.ligne { overflow: hidden; display: block; padding-bottom: 6px; }
+.mot { display: inline-block; will-change: transform, opacity; }
+.l1 { font-size: 86px; font-weight: 500; line-height: 1.02; letter-spacing: -.02em; color: #0b1a4f; }
+.l2 { font-size: 92px; font-weight: 800; line-height: 1.02; letter-spacing: -.02em; color: #1a47f5; }
+.barre { height: 10px; border-radius: 6px; background: linear-gradient(90deg,#ff8a00,#ffc21f); margin-top: 18px; transform-origin: left; }
+.sous { font-size: 34px; line-height: 1.35; color: #3b4566; margin-top: 26px; max-width: 700px; }
+#curseur { position: absolute; width: 54px; height: 54px; z-index: 50; will-change: transform, opacity; filter: drop-shadow(0 6px 10px rgba(0,0,0,.35)); }
+#onde { position: absolute; width: 90px; height: 90px; margin: -45px 0 0 -45px; border-radius: 50%; border: 6px solid #ffc21f; z-index: 49; }
+.anneau { position: absolute; border: 6px solid #ffc21f; border-radius: 22px; box-shadow: 0 0 0 6px rgba(255,194,31,.25); z-index: 4; }
+.pastille { display: inline-flex; align-items: center; gap: 14px; background: #0b1a4f; color: #fff; border-radius: 999px; padding: 14px 26px; font-size: 26px; font-weight: 700; }
+</style></head>
+<body><div id="scene"><div class="fond"></div></div>
+<script>
+const W = 1920, H = 1080, PH = 852;
+const $ = (h) => { const d = document.createElement("div"); d.innerHTML = h.trim(); return d.firstChild; };
+const scene = document.getElementById("scene");
+const cl = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const seg = (t, a, b) => cl((t - a) / (b - a));
+const oc = (x) => 1 - Math.pow(1 - x, 3), io = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2, ob = (x) => { const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const K = 384 / 390; // px de l'écran par px CSS de la capture
+
+function telephone(id) {
+  const p = $(`<div class="phone" id="${id}"><div class="ecran"><div class="statut"><span>9:41</span><span style="display:flex;gap:6px;align-items:center"><svg width="20" height="13" viewBox="0 0 20 13"><rect x="0" y="8" width="3.5" height="5" rx="1" fill="#0b1533"/><rect x="5.5" y="5.5" width="3.5" height="7.5" rx="1" fill="#0b1533"/><rect x="11" y="3" width="3.5" height="10" rx="1" fill="#0b1533"/><rect x="16.5" y="0" width="3.5" height="13" rx="1" fill="#0b1533"/></svg><svg width="28" height="13" viewBox="0 0 28 13"><rect x=".5" y=".5" width="24" height="12" rx="3.5" fill="none" stroke="#0b1533"/><rect x="2.5" y="2.5" width="18" height="8" rx="2" fill="#0b1533"/><rect x="25.5" y="4" width="2" height="5" rx="1" fill="#0b1533"/></svg></span></div><div class="ile"></div><img class="page a"><img class="page b"></div></div>`);
+  scene.appendChild(p); return p;
+}
+function titre(l1, l2, sous) {
+  const mots = (s, cls) => s.split(" ").map((m) => `<span class="mot ${cls}">${m}&nbsp;</span>`).join("");
+  const el = $(`<div class="titre"><span class="ligne">${mots(l1, "l1")}</span><span class="ligne">${mots(l2, "l2")}</span><div class="barre"></div><div class="sous">${sous}</div></div>`);
+  scene.appendChild(el); return el;
+}
+// ----------------------------------------------------------------- scènes « fonctionnalité »
+const F = [
+  { im: [["test-question", 0]], sc: [], tap: [2.5, 277, 430], anneau: [196, 338, 164, 190, 2.7], l1: "Découvre", l2: "ton profil", s: "Un test d'orientation en images : gratuit, en 5 minutes." },
+  { im: [["metiers", 0], ["metier", 3.4]], sc: [[1.0, 3.1, 0, 1350, "metiers"], [3.7, 5.8, 0, 650, "metier"]], tap: [3.15, 195, 560], l1: "Explore", l2: "les métiers", s: "Missions, débouchés, durée des études et formations qui y mènent." },
+  { im: [["ecoles", 0], ["ecole", 3.4]], sc: [[1.0, 3.1, 0, 1550, "ecoles"], [3.7, 5.9, 0, 900, "ecole"]], tap: [3.15, 195, 600], l1: "Compare", l2: "les écoles reconnues", s: "Statut officiel vérifié, filières accréditées, frais et campus." },
+  { im: [["devis", 0]], sc: [[1.3, 5.6, 0, 1820, "devis"]], tap: [1.1, 195, 730], l1: "Connais", l2: "le vrai coût", s: "Scolarité, logement, vie sur place et visa, dans ta monnaie." },
+  { im: [["bourses", 0]], sc: [[1.1, 5.6, 0, 2150, "bourses"]], tap: [4.4, 195, 520], l1: "Trouve", l2: "ta bourse", s: "Bourses publiques et bourses des écoles, avec leurs conditions." },
+  { im: [["espace", 0], ["candidature", 3.2]], sc: [[3.5, 5.9, 0, 640, "candidature"]], tap: [2.9, 195, 450], l1: "Candidate", l2: "en ligne", s: "Un seul dossier, aucun frais de dossier. Tes parents suivent tout." },
+  { im: [["navilease", 0]], sc: [[1.1, 5.6, 0, 1650, "navilease"]], tap: [1.0, 195, 735], l1: "Trouve", l2: "ton logement", s: "Résidences et logements étudiants vérifiés, avec Navilease." },
+  { im: [["navitravel", 0]], sc: [[1.1, 5.6, 0, 1450, "navitravel"]], tap: [1.0, 160, 640], l1: "Prépare", l2: "ton départ", s: "Billet à prix étudiant, visa et accueil à l'arrivée, avec NaviTravel." },
+];
+const DUREE_F = 6.6, T0 = 4.6;
+F.forEach((f, i) => {
+  f.t0 = T0 + i * DUREE_F; f.cote = i % 2 === 0 ? "G" : "D";
+  f.p = telephone("p" + i); f.g1 = telephone("g" + i + "a"); f.g2 = telephone("g" + i + "b");
+  f.g1.classList.add("ghost"); f.g2.classList.add("ghost"); f.p.style.zIndex = 3; f.g1.style.zIndex = f.g2.style.zIndex = 1;
+  for (const g of [f.p, f.g1, f.g2]) { const [a, b] = g.querySelectorAll("img"); a.src = `ecrans/${f.im[0][0]}.png`; b.src = `ecrans/${(f.im[1] || f.im[0])[0]}.png`; }
+  f.T = titre(f.l1, f.l2, f.s);
+  if (f.anneau) { f.A = $(`<div class="anneau"></div>`); f.p.querySelector(".ecran").appendChild(f.A); }
+});
+const curseur = $(`<svg id="curseur" viewBox="0 0 24 24"><path d="M4 2.5 L4 19.5 L8.6 15.4 L11.6 22 L14.6 20.6 L11.7 14.2 L18 14 Z" fill="#fff" stroke="#0b1533" stroke-width="1.6" stroke-linejoin="round"/></svg>`);
+const onde = $(`<div id="onde"></div>`); scene.appendChild(onde); scene.appendChild(curseur);
+
+// ----------------------------------------------------------------- intro, récapitulatif, fin
+const intro = $(`<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px">
+  <img id="lg" src="assets/logo-cercle.png" style="width:420px">
+  <div id="tag" style="font-size:30px;font-weight:800;letter-spacing:.28em;color:#0b1a4f">TON TALENT <span style="color:#ff8a00">•</span> TES OPPORTUNITÉS <span style="color:#ff8a00">•</span> TON AVENIR</div></div>`);
+scene.appendChild(intro);
+const recapT = $(`<div style="position:absolute;left:0;right:0;top:70px;text-align:center"><div class="l1" style="font-size:72px">Tout ton projet d'études,</div><div class="l2" style="font-size:80px">une seule plateforme.</div></div>`);
+scene.appendChild(recapT);
+const R = ["ecole", "accueil", "candidature"].map((n, k) => { const p = telephone("r" + k); p.querySelectorAll("img").forEach((i) => (i.src = `ecrans/${n}.png`)); return p; });
+const fin = $(`<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:110px">
+  <img id="flg" src="assets/logo-cercle.png" style="width:470px">
+  <div id="fd" style="display:flex;flex-direction:column;gap:22px">
+    <div style="font-size:30px;font-weight:800;letter-spacing:.12em;color:#ff8a00">GRATUIT POUR LES FAMILLES</div>
+    <div style="font-size:108px;font-weight:800;letter-spacing:-.03em;color:#1a47f5;line-height:1">navigoal.net</div>
+    <div style="display:flex;align-items:center;gap:34px;margin-top:10px">
+      <div style="background:#fff;border-radius:26px;padding:14px;box-shadow:0 20px 40px -18px rgba(11,26,79,.45)"><img src="assets/qr-video.png" style="width:190px;display:block"></div>
+      <div style="display:flex;flex-direction:column;gap:14px;font-size:32px;font-weight:700">
+        <span><span style="color:#25b357">●</span> WhatsApp +241 077 45 31 67</span>
+        <span><span style="color:#1a47f5">●</span> contact@navigoal.net</span>
+        <span id="bouton" class="pastille" style="background:#1a47f5;align-self:flex-start;margin-top:8px">Commencer mon test gratuit →</span></div></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:6px;font-size:18px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY <img src="assets/oaps-logo.webp" style="height:46px"></div></div></div>`);
+scene.appendChild(fin);
+const T_RECAP = T0 + F.length * DUREE_F, T_FIN = T_RECAP + 6.2, DUREE = T_FIN + 7.6;
+window.DUREE = DUREE;
+
+// ----------------------------------------------------------------- rendu à l'instant t
+function placer(el, x, y, s = 1, r = 0, o = 1) { el.style.transform = `translate(${x}px,${y}px) rotate(${r}deg) scale(${s})`; el.style.opacity = o; el.style.display = o <= 0.001 ? "none" : "block"; }
+
+window.render = (t) => {
+  // intro
+  const ui = seg(t, 0, 1.1), uo = seg(t, 3.8, 4.6);
+  intro.style.opacity = 1 - uo; intro.style.display = t > 4.7 ? "none" : "flex";
+  document.getElementById("lg").style.transform = `scale(${0.4 + 0.6 * ob(ui) + 0.15 * uo}) rotate(${(1 - oc(ui)) * -25}deg)`;
+  document.getElementById("lg").style.opacity = oc(ui);
+  const tg = document.getElementById("tag"); tg.style.opacity = seg(t, 1.0, 1.8); tg.style.transform = `translateY(${30 * (1 - oc(seg(t, 1.0, 1.8)))}px)`;
+
+  let cur = null;
+  F.forEach((f) => {
+    const u = t - f.t0, d = DUREE_F, vis = u > -0.2 && u < d + 0.1;
+    const pe = oc(seg(u, 0, 0.85)), ps = io(seg(u, d - 0.6, d));
+    const px = f.cote === "G" ? 470 : 1040, ty = 115;
+    if (!vis) { for (const g of [f.p, f.g1, f.g2]) g.style.display = "none"; f.T.style.display = "none"; return; }
+    placer(f.p, px, ty + (1 - pe) * 1000 - ps * 60, 1 - ps * 0.06, (1 - pe) * (f.cote === "G" ? -6 : 6), 1 - ps);
+    const gd = 175 * oc(seg(u, 0.3, 1.2));
+    placer(f.g1, px - gd, ty + 40 + (1 - pe) * 1000, 0.8, 0, 0.35 * (1 - ps) * seg(u, 0.3, 0.9));
+    placer(f.g2, px + gd, ty + 40 + (1 - pe) * 1000, 0.8, 0, 0.35 * (1 - ps) * seg(u, 0.3, 0.9));
+    // contenu de l'écran : image A puis B (fondu), défilement
+    const sw = f.im[1] ? seg(u, f.im[1][1], f.im[1][1] + 0.35) : 0;
+    for (const g of [f.p, f.g1, f.g2]) {
+      const [a, b] = g.querySelectorAll("img.page");
+      let ya = 0, yb = 0;
+      for (const [s0, s1, y0, y1, nom] of f.sc) { const v = y0 + (y1 - y0) * io(seg(u, s0, s1)); if (nom === f.im[0][0]) ya = v; else yb = v; }
+      a.style.transform = `translateY(${-ya * K}px)`; b.style.transform = `translateY(${-yb * K}px)`;
+      a.style.opacity = 1 - sw; b.style.opacity = f.im[1] ? sw : 0;
+    }
+    if (f.A) { const [x, y, w, h, ta] = f.anneau; const o = seg(u, ta, ta + 0.25); f.A.style.cssText += `;left:${x * K}px;top:${46 + y * K}px;width:${w * K}px;height:${h * K}px;opacity:${o};transform:scale(${1.15 - 0.15 * oc(o)})`; }
+    // titre
+    const tx = f.cote === "G" ? 1040 : 170;
+    f.T.style.display = "block"; f.T.style.left = tx + "px"; f.T.style.top = "330px";
+    f.T.querySelectorAll(".mot").forEach((m, k) => { const v = oc(seg(u, 0.45 + k * 0.09, 0.95 + k * 0.09)); m.style.transform = `translateY(${(1 - v) * 110}%)`; m.style.opacity = v; });
+    f.T.querySelector(".barre").style.transform = `scaleX(${oc(seg(u, 1.25, 1.9))})`;
+    f.T.querySelector(".barre").style.width = "260px";
+    const so = oc(seg(u, 1.45, 2.1)); const sous = f.T.querySelector(".sous"); sous.style.opacity = so; sous.style.transform = `translateY(${(1 - so) * 24}px)`;
+    f.T.style.opacity = 1 - io(seg(u, d - 0.55, d - 0.1)); f.T.style.transform = `translateY(${-50 * io(seg(u, d - 0.55, d - 0.1))}px)`;
+    // curseur : arrive, clique, repart
+    if (f.tap) {
+      const [tt, cx, cy] = f.tap, sx = px + 13 + cx * K, sy = ty + 13 + 46 + cy * K;
+      const arr = io(seg(u, tt - 0.9, tt - 0.1)), dep = io(seg(u, tt + 0.5, tt + 1.2));
+      if (u > tt - 0.9 && u < tt + 1.2) cur = { x: sx + (1 - arr) * 260 + dep * 300, y: sy + (1 - arr) * 220 + dep * 260, o: Math.min(seg(u, tt - 0.9, tt - 0.6), 1 - seg(u, tt + 0.9, tt + 1.2)), clic: seg(u, tt, tt + 0.55), presse: u > tt - 0.06 && u < tt + 0.12 };
+    }
+  });
+  // récapitulatif : trois téléphones en éventail
+  const ur = t - T_RECAP, vr = ur > -0.1 && ur < 6.4;
+  recapT.style.display = vr ? "block" : "none";
+  if (vr) {
+    const e = oc(seg(ur, 0, 0.9)), s = io(seg(ur, 5.6, 6.2));
+    recapT.style.opacity = oc(seg(ur, 0.5, 1.2)) * (1 - s); recapT.style.transform = `translateY(${(1 - oc(seg(ur, 0.5, 1.2))) * 40}px)`;
+    const pos = [[-330, -10, 0.78], [0, 0, 0.86], [330, 10, 0.78]];
+    R.forEach((p, k) => { const [dx, rot, sc] = pos[k]; const ek = oc(seg(ur, 0.15 * k, 0.9 + 0.15 * k));
+      placer(p, 755 + dx * ek, 300 + (1 - ek) * 900 + (k === 1 ? -20 : 30) - s * 40, sc, rot * ek, 1 - s);
+      p.querySelector("img").style.transform = `translateY(${-io(seg(ur, 1.2, 5.4)) * (k === 1 ? 900 : 500) * K}px)`; });
+  } else R.forEach((p) => (p.style.display = "none"));
+  // fin
+  const uf = t - T_FIN, vf = uf > -0.1;
+  fin.style.display = vf ? "flex" : "none";
+  if (vf) {
+    const lg = document.getElementById("flg"), fd = document.getElementById("fd");
+    lg.style.transform = `scale(${0.5 + 0.5 * ob(seg(uf, 0, 1))})`; lg.style.opacity = seg(uf, 0, 0.6);
+    fd.style.opacity = oc(seg(uf, 0.5, 1.3)); fd.style.transform = `translateX(${(1 - oc(seg(uf, 0.5, 1.3))) * 60}px)`;
+    const bt = document.getElementById("bouton"); const r = bt.getBoundingClientRect();
+    const tt = 4.2, arr = io(seg(uf, tt - 1, tt - 0.1));
+    if (uf > tt - 1) cur = { x: r.left + r.width * 0.7 + (1 - arr) * 300, y: r.top + r.height * 0.55 + (1 - arr) * 200, o: seg(uf, tt - 1, tt - 0.7), clic: seg(uf, tt, tt + 0.55), presse: uf > tt - 0.06 && uf < tt + 0.15 };
+    bt.style.transform = `scale(${uf > tt - 0.06 && uf < tt + 0.15 ? 0.95 : 1})`;
+    fin.style.opacity = 1 - seg(t, DUREE - 0.6, DUREE);
+  }
+  // curseur et onde de clic
+  if (cur) {
+    curseur.style.display = onde.style.display = "block";
+    curseur.style.transform = `translate(${cur.x - 8}px,${cur.y - 4}px) scale(${cur.presse ? 0.85 : 1})`; curseur.style.opacity = cur.o;
+    onde.style.left = cur.x + "px"; onde.style.top = cur.y + "px";
+    onde.style.opacity = cur.clic > 0 && cur.clic < 1 ? 1 - cur.clic : 0; onde.style.transform = `scale(${0.3 + cur.clic * 1.2})`;
+  } else curseur.style.display = onde.style.display = "none";
+};
+window.render(0);
+</script></body></html>
