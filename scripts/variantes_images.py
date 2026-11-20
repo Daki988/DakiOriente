@@ -45,8 +45,14 @@ def variantes(chemin):
     return [(l, f"{base}-{l}.webp") for l in LARGEURS]
 
 
+# Photos d'impression (roll-up, affiches, flyers) : jamais servies par le site, donc sans variantes web.
+HORS_SITE = os.path.join(PHOTOS, "rollup")
+
+
 def photos():
     for dossier, _, fichiers in os.walk(PHOTOS):
+        if dossier.startswith(HORS_SITE):
+            continue
         for f in sorted(fichiers):
             if f.lower().endswith((".jpg", ".jpeg", ".png")):
                 yield os.path.join(dossier, f)

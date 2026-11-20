@@ -109,7 +109,8 @@ const coutsMeta = JSON.parse(fs.readFileSync(path.join(REF, "couts_etudes.json")
 write("couts", { items: couts.items, taux: coutsMeta.taux_change_indicatifs, hypotheses: coutsMeta.hypotheses, sources: coutsMeta.sources, avertissement: coutsMeta.avertissement });
 
 fs.rmSync(PHOTOS_OUT, { recursive: true, force: true });
-fs.cpSync(path.join(root, "assets", "photos"), PHOTOS_OUT, { recursive: true, filter: (src) => !src.endsWith(".json") });
+// Les photos d'impression (assets/photos/rollup : roll-up, affiches, flyers) ne sont pas publiées sur le site.
+fs.cpSync(path.join(root, "assets", "photos"), PHOTOS_OUT, { recursive: true, filter: (src) => !src.endsWith(".json") && !src.includes(`${path.sep}photos${path.sep}rollup`) });
 
 fs.rmSync(LOGOS_OUT, { recursive: true, force: true });
 fs.cpSync(path.join(root, "assets", "logos"), LOGOS_OUT, {
