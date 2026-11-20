@@ -1,0 +1,186 @@
+[
+ {
+  "id": "j01-reel-couverture",
+  "type": "photo",
+  "photo": "images/campagne-etudiante.webp",
+  "surtitre": "Navigoal",
+  "titre": "Étudier au *Maroc*, sans se perdre",
+  "texte": "103 écoles privées, leur label officiel, leurs frais, et le coût total calculé pour ton pays.",
+  "source": "navigoal.net · référentiel novembre 2026",
+  "cta": "Lien en bio"
+ },
+ {
+  "id": "j02-carrousel-1-couverture",
+  "type": "photo",
+  "photo": "images/finance.webp",
+  "surtitre": "Le vrai prix",
+  "titre": "Combien coûte une *année* au Maroc ?",
+  "texte": "Six types d'écoles, six fourchettes. Chiffres réels, en F CFA.",
+  "source": "Fais défiler →",
+  "cta": ""
+ },
+ {
+  "id": "j02-carrousel-2-institut",
+  "type": "chiffre",
+  "nombre": "1,2 à 3 M",
+  "titre": "Institut, BTS, technicien spécialisé",
+  "texte": "F CFA par an, scolarité seule. La voie la plus courte vers l'emploi : *Bac+2*.",
+  "source": "Fourchettes Navigoal, taux du 20/11/2026",
+  "cta": ""
+ },
+ {
+  "id": "j02-carrousel-3-ingenieur",
+  "type": "chiffre",
+  "nombre": "1,5 à 4,5 M",
+  "titre": "École d'ingénieurs",
+  "texte": "F CFA par an. Cinq ans après le bac, ou trois après une prépa.",
+  "source": "Fourchettes Navigoal, taux du 20/11/2026",
+  "cta": ""
+ },
+ {
+  "id": "j02-carrousel-4-commerce",
+  "type": "chiffre",
+  "nombre": "2,1 à 5,1 M",
+  "titre": "École de commerce et de management",
+  "texte": "F CFA par an. Bachelor en trois ans, master en cinq.",
+  "source": "Fourchettes Navigoal, taux du 20/11/2026",
+  "cta": ""
+ },
+ {
+  "id": "j02-carrousel-5-sante",
+  "type": "chiffre",
+  "nombre": "1,8 à 7,8 M",
+  "titre": "Santé",
+  "texte": "F CFA par an. Paramédical en bas de la fourchette, *médecine et dentaire* tout en haut.",
+  "source": "Fourchettes Navigoal, taux du 20/11/2026",
+  "cta": ""
+ },
+ {
+  "id": "j02-carrousel-6-universite",
+  "type": "chiffre",
+  "nombre": "2,1 à 5,7 M",
+  "titre": "Université privée (hors médecine)",
+  "texte": "F CFA par an, toutes filières confondues.",
+  "source": "Fourchettes Navigoal, taux du 20/11/2026",
+  "cta": ""
+ },
+ {
+  "id": "j02-carrousel-7-fin",
+  "type": "liste",
+  "titre": "Et ce n'est que la *scolarité*",
+  "texte": "Ce qu'il reste à prévoir, poste par poste :",
+  "lignes": [
+   {
+    "t": "Logement",
+    "s": "colocation, studio ou résidence universitaire"
+   },
+   {
+    "t": "Vie quotidienne",
+    "s": "nourriture, transport, téléphone"
+   },
+   {
+    "t": "Installation",
+    "s": "caution, équipement, carte de séjour"
+   },
+   {
+    "t": "Voyages",
+    "s": "billets, retours au pays"
+   }
+  ],
+  "source": "Le devis Navigoal calcule tout, ligne par ligne",
+  "cta": "navigoal.net/devis"
+ },
+ {
+  "id": "j03-metier-infirmier",
+  "type": "photo",
+  "photo": "images/metiers/infirmier.webp",
+  "surtitre": "Fiche métier",
+  "titre": "Infirmier, *Bac+3*",
+  "texte": "Trois ans après le bac, et un métier qui recrute partout en Afrique comme en Europe.",
+  "source": "Photo d'illustration · Unsplash",
+  "cta": "Lien en bio"
+ },
+ {
+  "id": "j04-reel-visa",
+  "type": "photo",
+  "photo": "photos/navitravel/passeport.jpg",
+  "surtitre": "Démarches",
+  "titre": "Tu n'as peut-être *pas besoin* de visa",
+  "texte": "Selon ta nationalité : entrée libre, AEVM, e-Visa ou visa consulaire. Puis la carte de séjour, dans les 90 jours.",
+  "source": "Vérifie pour ton pays : le guide est en bio",
+  "cta": "Lien en bio"
+ },
+ {
+  "id": "j05-carrousel-1-labels",
+  "type": "photo",
+  "photo": "images/education.webp",
+  "surtitre": "À vérifier avant de payer",
+  "titre": "« Reconnu par l'État » n'est *pas* « diplômes homologués »",
+  "texte": "Deux mentions, deux réalités. Beaucoup de familles les confondent.",
+  "source": "Fais défiler →",
+  "cta": ""
+ },
+ {
+  "id": "j05-carrousel-2-chiffres",
+  "type": "liste",
+  "titre": "Sur les *103 écoles* de Navigoal",
+  "texte": "Ce que dit l'État marocain, école par école :",
+  "lignes": [
+   {
+    "t": "47 reconnues par l'État",
+    "s": "l'établissement lui-même est reconnu"
+   },
+   {
+    "t": "53 aux diplômes homologués",
+    "s": "le diplôme vaut son équivalent public"
+   },
+   {
+    "t": "3 simplement autorisées",
+    "s": "diplômes d'établissement, non homologués"
+   }
+  ],
+  "source": "Référentiel Navigoal, sources officielles marocaines",
+  "cta": ""
+ },
+ {
+  "id": "j05-carrousel-3-pourquoi",
+  "type": "liste",
+  "titre": "Pourquoi ça change *tout*",
+  "texte": "Au retour au pays, ou pour continuer ailleurs :",
+  "lignes": [
+   {
+    "t": "Équivalence",
+    "s": "un diplôme homologué s'échange plus facilement"
+   },
+   {
+    "t": "Concours publics",
+    "s": "souvent réservés aux diplômes reconnus"
+   },
+   {
+    "t": "Poursuite d'études",
+    "s": "une école qui n'homologue pas ferme des portes"
+   }
+  ],
+  "source": "Ce n'est pas une opinion : c'est écrit dans l'arrêté de chaque école",
+  "cta": ""
+ },
+ {
+  "id": "j05-carrousel-4-fin",
+  "type": "chiffre",
+  "nombre": "Gratuit",
+  "titre": "Vérifier le label d'une école",
+  "texte": "Chaque fiche Navigoal affiche la mention officielle, sa date, et les filières concernées.",
+  "source": "navigoal.net/etablissements",
+  "cta": "Lien en bio"
+ },
+ {
+  "id": "j06-temoignage-petrolier",
+  "type": "photo",
+  "photo": "images/metiers/ingenieur-petrolier.webp",
+  "surtitre": "Ils racontent leur métier",
+  "titre": "« Une petite île *flottante* et isolée dans l'océan »",
+  "texte": "Nicolas Lombé Nsole, ingénieur pétrolier chez Total Gabon, décrit sa plateforme offshore.",
+  "source": "Citation publiée par Total Gabon · photo d'illustration, pas la personne",
+  "cta": "Lien en bio"
+ }
+]
