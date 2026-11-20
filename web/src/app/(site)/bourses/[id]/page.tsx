@@ -9,7 +9,7 @@ import { filAriane } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 
 export const generateStaticParams = () => BOURSES.map((b) => ({ id: b.id }));
-export const dynamicParams = false;
+export const revalidate = 86400; // pas de dynamicParams = false : sur l'hébergeur, les fichiers .meta des pages pré-générées ne sont pas envoyés (404)
 export const generateMetadata = async (props: { params: Promise<{ id: string }> }): Promise<Metadata> => {
   const b = bourseById[(await props.params).id];
   if (!b) return {};
