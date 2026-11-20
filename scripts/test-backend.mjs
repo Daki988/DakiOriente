@@ -47,7 +47,7 @@ ok((await merchant.c.rpc('my_role')).data === 'merchant', 'rôle marchand actif'
 ok((await courier.c.rpc('my_role')).data === 'courier', 'rôle livreur actif')
 
 // --- Catalogue du marchand
-const { data: store } = await merchant.c.from('stores').select('*').eq('owner_id', merchant.id).single()
+const { data: store } = await merchant.c.rpc('stores_full').eq('owner_id', merchant.id).single()
 ok(store?.name === 'Épicerie Awa', 'boutique créée pour le marchand')
 const p1 = await merchant.c.from('products').insert({ store_id: store.id, name: 'Riz parfumé', category: 'Produits alimentaires', unit: '5 kg', emoji: '🍚', price: 4250 }).select().single()
 const p2 = await merchant.c.from('products').insert({ store_id: store.id, name: 'Huile végétale', category: 'Produits alimentaires', unit: '1 L', emoji: '🫗', price: 1200 }).select().single()
@@ -74,6 +74,8 @@ ok(/^\d{4}$/.test(code ?? ''), 'le client voit son code de remise')
 
 ok(!!(await client.c.rpc('merchant_update_order', { p_order: o.id, p_action: 'accept' })).error, 'le client ne peut pas accepter sa propre commande')
 ok(!!(await admin.c.rpc('admin_assign_courier', { p_order: o.id, p_courier: courier.id })).error, 'impossible d’affecter avant acceptation')
+ok(!!(await admin.c.rpc('admin_assign_courier', { p_order: o.id, p_courier: courier.id })).error, 'impossible d’affecter un livreur hors ligne')
+ok(!(await courier.c.rpc('courier_set_online', { p_online: true })).error, 'le livreur passe en ligne')
 ok((await merchant.c.rpc('merchant_update_order', { p_order: o.id, p_action: 'accept' })).data?.status === 'accepted', 'le marchand accepte')
 ok((await admin.c.rpc('admin_assign_courier', { p_order: o.id, p_courier: courier.id })).data?.status === 'assigned', 'l’admin affecte le livreur')
 ok(!(await courier.c.from('order_secrets').select('delivery_code').eq('order_id', o.id)).data?.length, 'le livreur ne peut pas lire le code de remise')

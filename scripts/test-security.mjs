@@ -38,7 +38,7 @@ const ma = await merchant.c.rpc('submit_application', { p_kind: 'merchant', p_fu
 const ca = await courier.c.rpc('submit_application', { p_kind: 'courier', p_full_name: 'Junior', p_phone: '+24107000004', p_details: { vehicle: 'Moto' } })
 await admin.c.rpc('admin_review_application', { p_application: ma.data.id, p_approve: true })
 await admin.c.rpc('admin_review_application', { p_application: ca.data.id, p_approve: true })
-const { data: store } = await merchant.c.from('stores').select('*').eq('owner_id', merchant.id).single()
+const { data: store } = await merchant.c.rpc('stores_full').eq('owner_id', merchant.id).single()
 const { data: prod } = await merchant.c.from('products').insert({ store_id: store.id, name: 'Riz', category: 'Produits alimentaires', unit: '5 kg', emoji: '🍚', price: 4500 }).select().single()
 const { data: order } = await victim.c.rpc('place_market_order', { p_store: store.id, p_items: [{ product_id: prod.id, qty: 1 }], p_address: 'Louis', p_phone: '+24107000002', p_name: 'Grâce' })
 
@@ -101,6 +101,43 @@ console.log(`ℹ NEAM Express : la distance est déclarée par le client (Owendo
 let apps = 0
 for (let i = 0; i < 6; i++) if (!(await attacker.c.rpc('submit_application', { p_kind: 'courier', p_full_name: 'Spam', p_phone: '+241', p_details: {} })).error) apps++
 ok(apps <= 1, `candidatures en double limitées (acceptées : ${apps}/6)`)
+
+console.log('\n— Argent, position du livreur et comptes suspendus')
+ok(!!(await admin.c.rpc('admin_cancel_order', { p_order: order.id, p_reason: 'test' })).error, 'impossible d’annuler une commande que le livreur a déjà récupérée (espèces en jeu)')
+await admin.c.rpc('admin_reset_delivery_code', { p_order: order.id })
+await courier.c.rpc('courier_update_location', { p_lat: 0.39, p_lng: 9.45 })
+ok((await victim.c.rpc('courier_public', { p_order: order.id })).data?.length === 1, 'le client voit son livreur pendant la course')
+ok(!(await merchant.c.rpc('courier_public', { p_order: order.id })).data?.length, 'le marchand ne localise pas le livreur')
+await courier.c.rpc('courier_update_order', { p_order: order.id, p_action: 'deliver', p_code: real })
+ok(sql(`select status from public.orders where id = '${order.id}'`) === 'delivered', 'après déblocage par l’admin, livraison validée avec le bon code')
+ok(!(await victim.c.rpc('courier_public', { p_order: order.id })).data?.length, 'après la livraison, le client ne localise plus le livreur')
+ok(!!(await admin.c.rpc('admin_record_payout', { p_store: store.id, p_amount: 870000 })).error, 'versement supérieur au solde de la boutique refusé (faute de frappe)')
+ok(sql(`select count(*) from public.admin_audit where action = 'reset_delivery_code'`) === '1', 'les actions de l’admin sont journalisées')
+ok(!(await attacker.c.from('admin_audit').select('*')).data?.length, 'un client ne lit pas le journal admin')
+ok(!!(await anon.from('stores').select('commission_rate, owner_id')).error, 'commission et propriétaire des boutiques non publics')
+ok(!!(await anon.from('stores').select('name')).data?.length, 'le catalogue des boutiques reste public')
+ok(!!(await attacker.c.rpc('expire_stale_orders')).error, 'un utilisateur ne peut pas lancer les tâches planifiées')
+
+const ref = `essai-${Date.now()}`
+const args = { p_store: store.id, p_items: [{ product_id: prod.id, qty: 1 }], p_address: 'Louis', p_phone: '+24107000002', p_client_ref: ref }
+const first = await victim.c.rpc('place_market_order', args)
+const retry = await victim.c.rpc('place_market_order', args)
+ok(!!first.data?.id && first.data.id === retry.data?.id, 'un renvoi après coupure réseau ne crée pas de seconde commande')
+
+const burst = await Promise.all(Array.from({ length: 6 }, () => admin.c.rpc('place_market_order', { p_store: store.id, p_items: [{ product_id: prod.id, qty: 1 }], p_address: 'x', p_phone: '+241' })))
+ok(burst.filter((r) => !r.error).length <= 3, `envois simultanés : 3 commandes en attente au plus (acceptées : ${burst.filter((r) => !r.error).length}/6)`)
+
+// Livreur suspendu alors qu'une course lui est affectée
+const o3 = await victim.c.rpc('place_market_order', { p_store: store.id, p_items: [{ product_id: prod.id, qty: 1 }], p_address: 'Glass', p_phone: '+24107000002' })
+await merchant.c.rpc('merchant_update_order', { p_order: o3.data.id, p_action: 'accept' })
+await merchant.c.rpc('merchant_update_order', { p_order: o3.data.id, p_action: 'ready' })
+await admin.c.rpc('admin_assign_courier', { p_order: o3.data.id, p_courier: courier.id })
+await admin.c.rpc('admin_set_user_active', { p_user: courier.id, p_active: false })
+ok(!!(await courier.c.rpc('courier_update_order', { p_order: o3.data.id, p_action: 'pickup' })).error, 'un livreur suspendu ne peut plus récupérer ni encaisser')
+await admin.c.rpc('admin_set_user_active', { p_user: merchant.id, p_active: false })
+ok(!!(await merchant.c.from('products').update({ price: 1 }).eq('id', prod.id)).error, 'un marchand suspendu ne peut plus modifier ses prix')
+await admin.c.rpc('admin_set_user_active', { p_user: attacker.id, p_active: false })
+ok(!!(await attacker.c.rpc('place_express_order', { p_pickup: 'a', p_dropoff: 'b', p_size: 's', p_speed: 'standard', p_km: 3, p_phone: '+241' })).error, 'un client suspendu ne peut plus commander')
 
 console.log(failures ? `\n${failures} faille(s) détectée(s).` : '\nAucune faille détectée.')
 process.exit(failures ? 1 : 0)
