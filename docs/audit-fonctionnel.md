@@ -1,5 +1,39 @@
 # Audit fonctionnel de la plateforme Navigoal
 
+## Audit complet du 20 novembre 2026
+
+Instance de recette neuve (migrations 0001 à 0020, comptes de démonstration des 7 profils, version de production compilée, paiements en bac à sable), puis contrôles sur le site en ligne (version 67e29eec).
+
+| Volet | Ce qui est testé | Résultat |
+|---|---|---|
+| Actions | Parcours enchaînés de chaque profil (visiteur, étudiant, nouvel élève, école, parent, conseiller, bailleur, admin, conseiller suspendu) | 167 / 167 |
+| Droits | Chaque route de lecture avec chaque profil | 483 appels, 0 anomalie |
+| Robustesse | Chaque route avec identifiants et corps invalides | 1 026 appels, 0 erreur serveur (5 « service non activé » attendus : Navi et appels sans clé) |
+| Sécurité | Accès croisés entre comptes d'un même profil, privilèges, paiements, injections, XSS, fichiers piégés, authentification, sessions, CSRF, redirections, en-têtes, cache, appels, Navi | 197 contrôles, 0 échec (7 nouveaux sur les rappels de paiement) |
+| Pages | Exploration de toutes les pages de chaque profil (erreurs JavaScript, appels en échec, messages d'erreur) | 558 pages ; 2 anomalies, corrigées (0 au contrôle) |
+| Navigateur | Parcours clés dans Chromium, mobile et ordinateur | 45 / 45 étapes |
+| Affichage | Pages publiques et espaces (dont les rappels de paiement) sur téléphones, tablette, ordinateur | 126 vérifications, 0 problème |
+| Accessibilité | axe-core (WCAG 2 A et AA) sur 25 pages clés publiques et connectées | 9 règles en défaut, corrigées (0 au contrôle) |
+| Publication | Toutes les pages du sitemap : titres, descriptions, canonique, h1, alt, liens internes, 404, robots, sitemap | 334 pages, 2 616 liens, 0 problème |
+| Dépendances et secrets | `npm audit --omit=dev --audit-level=high`, `verifier-secrets.mjs` | 0 faille ; aucun secret dans 3 086 fichiers |
+| Tests | Vitest (calculs, parcours sur base réelle) ; lint et typage | 96 / 96 ; sans erreur |
+| En ligne | navigoal.net : santé, en-têtes de sécurité (HSTS, CSP, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy), robots, sitemap, llms.txt, `.env` refusé (403), espaces privés redirigés, 404 | conforme |
+
+### Anomalies trouvées et corrigées
+
+1. **Réactivité des écoles en erreur (en production depuis le 19 novembre).** La liste des candidatures sans réponse depuis 7 jours échouait (« column reference status is ambiguous ») : bloc « Réactivité » du tableau de bord école et écran `/admin/reactivite`. Colonnes qualifiées ; test ajouté. Corrigé et mis en ligne le 20 novembre.
+2. **Fiches bourses** : pour un visiteur, le bouton « Suivre cette bourse » appelait une API réservée (401 dans la console). Il lit maintenant la session d'abord.
+3. **Contrastes** : titres des groupes du menu des espaces (gris à 80 % d'opacité, 3,6:1) et étapes à venir de la barre d'avancement d'une candidature (#9aa3c0) passés au gris `ink-mute` (#5f6886).
+4. **Libellés** : listes « Ville » et « Type de logement » de l'accueil Navilease sans nom accessible ; barres du graphique de l'espace école avec `aria-label` sans rôle (`role="img"` ajouté).
+5. **Outils d'audit** : les services Google bloqués produisaient une erreur réseau comptée comme anomalie sur chaque page (réponse vide désormais) ; l'audit de sécurité ne couvrait pas les rappels de paiement (7 contrôles ajoutés).
+
+### Points d'attention (non bloquants)
+
+- Google Analytics envoie des mesures sans cookie avant consentement (mode de consentement de Google, « advanced ») : conforme au réglage actuel (aucun cookie Google sans accord), à garder en tête si la politique devient plus stricte.
+- Temps de réponse en ligne : 0,5 à 1,3 s par page depuis l'extérieur (hébergement mutualisé et contrôle anti-robots de l'hébergeur).
+
+---
+
 ## Audit du 17 novembre 2026
 
 Mené sur une instance de recette (base de démonstration neuve, version de production compilée, paiements en bac à sable), avec les comptes de démonstration de chaque profil.
