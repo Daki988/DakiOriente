@@ -27,7 +27,7 @@ export function AppProgress({ status, compact = false }: { status: string; fee?:
             <span className={`flex items-center justify-center rounded-full ${compact ? "h-4 w-4" : "h-6 w-6"} ${cls}`}>
               {(done || (last && status === "acceptee")) && <Check size={compact ? 10 : 13} strokeWidth={3} />}{last && status !== "acceptee" && <X size={compact ? 10 : 13} strokeWidth={3} />}
             </span>
-            <span lang="fr" className={`w-full hyphens-auto px-0.5 leading-tight [overflow-wrap:anywhere] ${compact ? "text-[9.5px] sm:text-[10.5px]" : "text-[10.5px] sm:text-xs"} font-bold ${done || on || last ? (on ? "text-brand-700" : "text-ink-soft") : "text-[#9aa3c0]"}`}>{t}</span>
+            <span lang="fr" className={`w-full hyphens-auto px-0.5 leading-tight [overflow-wrap:anywhere] ${compact ? "text-[9.5px] sm:text-[10.5px]" : "text-[10.5px] sm:text-xs"} font-bold ${done || on || last ? (on ? "text-brand-700" : "text-ink-soft") : "text-ink-mute"}`}>{t}</span>
           </li>
         );
       })}

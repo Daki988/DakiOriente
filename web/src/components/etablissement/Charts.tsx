@@ -40,7 +40,7 @@ export function MonthChart({ rows, year }: { rows: { mois: number; n: number; pr
           {line && <motion.path d={line} fill="none" stroke="#1a47f5" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" initial={{ pathLength: reduce ? 1 : 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.1, ease: "easeOut" }} />}
           {hover !== null && <line x1={x(hover)} x2={x(hover)} y1={T} y2={H - B} stroke="#c7d2fe" />}
           {cur.map((r, i) => <circle key={i} cx={x(i)} cy={y(r.n)} r={hover === i ? 5 : 3.5} fill="#fff" stroke="#1a47f5" strokeWidth="2" />)}
-          {rows.map((_, i) => <rect key={i} x={x(i) - (W - L - R) / 22} y={T} width={(W - L - R) / 11} height={H - T - B} fill="transparent" onMouseEnter={() => setHover(i)} onFocus={() => setHover(i)} tabIndex={0} aria-label={`${MOIS[i]} : ${rows[i].n} candidature(s), ${rows[i].prev} l'an dernier`} />)}
+          {rows.map((_, i) => <rect key={i} x={x(i) - (W - L - R) / 22} y={T} width={(W - L - R) / 11} height={H - T - B} fill="transparent" onMouseEnter={() => setHover(i)} onFocus={() => setHover(i)} tabIndex={0} role="img" aria-label={`${MOIS[i]} : ${rows[i].n} candidature(s), ${rows[i].prev} l'an dernier`} />)}
         </svg>
         {hover !== null && (
           <div className="pointer-events-none absolute top-0 -translate-x-1/2 rounded-lg bg-ink px-2.5 py-1.5 text-[11px] font-bold text-white shadow-lift" style={{ left: `${(x(hover) / W) * 100}%` }}>

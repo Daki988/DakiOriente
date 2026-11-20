@@ -8,7 +8,11 @@ import { api } from "@/lib/api";
 export function SuivreBourse({ id }: { id: string }) {
   const [etat, setEtat] = useState<"?" | "anonyme" | "non" | "oui">("?");
   useEffect(() => {
-    api<{ suivies: string[] }>("/moi/bourses/suivies").then((r) => setEtat(r.suivies.includes(id) ? "oui" : "non")).catch(() => setEtat("anonyme"));
+    // Session d'abord (200 même pour un visiteur), puis les bourses suivies : pas d'appel refusé (401) dans la console.
+    fetch("/api/session/").then((r) => (r.ok ? r.json() : null)).then((d) => {
+      if (!d?.user) return setEtat("anonyme");
+      return api<{ suivies: string[] }>("/moi/bourses/suivies").then((r) => setEtat(r.suivies.includes(id) ? "oui" : "non"));
+    }).catch(() => setEtat("anonyme"));
   }, [id]);
   if (etat === "?") return null;
   if (etat === "anonyme") return <Link href={`/connexion/?suite=/bourses/${id}/`} className="btn-ghost min-h-[44px] px-4 text-[14px]"><Bell size={16} />Me connecter pour suivre cette bourse</Link>;

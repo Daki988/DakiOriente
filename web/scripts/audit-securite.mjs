@@ -148,6 +148,20 @@ for (const id of enfants) {
 for (const id of resaA.slice(0, 2)) await controle("IDOR parent", "se porter garant d'une réservation étrangère", () => parentIntrus.post(`/reservations/${id}/garant`, { accepte: true }), [...REFUS, 400]);
 await controle("IDOR parent", "paiements : rien d'une autre famille", () => parentIntrus.get("/paiements"), [200], (r) => !paiementsA.some((x) => JSON.stringify(r.data).includes(x)) || "paiements d'une autre famille visibles");
 
+// Rappels de paiement (loyer, scolarité) : un parent ne voit, ne modifie ni ne supprime les rappels d'un autre,
+// et ne programme rien pour un enfant qui n'est pas le sien ni sur la réservation d'un autre.
+const rappelA = (await parent.post("/moi/rappels-paiement", { type: "loyer", libelle: `Loyer audit ${RUN}`, enfantId: enfants[0] ?? null, frequence: "mensuel", premiereEcheance: `${an + 1}-01-05`, delaiJours: 3 })).data;
+if (rappelA?.id) {
+  await controle("IDOR parent", "rappels : rien d'une autre famille", () => parentIntrus.get("/moi/rappels-paiement"), [200], (r) => !JSON.stringify(r.data).includes(rappelA.id) || "rappel d'une autre famille visible");
+  await controle("IDOR parent", "modifier le rappel d'un autre", () => parentIntrus.patch(`/moi/rappels-paiement/${rappelA.id}`, { delaiJours: 7 }));
+  await parentIntrus.del(`/moi/rappels-paiement/${rappelA.id}`);
+  await controle("IDOR parent", "supprimer le rappel d'un autre : sans effet", () => parent.get("/moi/rappels-paiement"), [200], (r) => (r.data?.rappels ?? []).some((x) => x.id === rappelA.id && x.delaiJours === 3) || "rappel supprimé ou modifié par un autre parent");
+} else note("IDOR parent", "rappel de paiement de référence", false, JSON.stringify(rappelA).slice(0, 200));
+for (const id of enfants.slice(0, 1)) await controle("IDOR parent", "rappel pour un enfant non rattaché", () => parentIntrus.post("/moi/rappels-paiement", { type: "loyer", libelle: "Loyer", enfantId: id, premiereEcheance: `${an + 1}-01-05`, delaiJours: 3 }));
+for (const id of resaA.slice(0, 1)) await controle("IDOR élève", "rappel sur la réservation d'un autre", () => intrus.post("/moi/rappels-paiement", { type: "loyer", libelle: "Loyer", source: "navilease", sourceId: id, premiereEcheance: `${an + 1}-01-05`, delaiJours: 3 }));
+await controle("IDOR parent", "rappel : délai hors 2, 3, 5, 7 refusé", () => parent.post("/moi/rappels-paiement", { type: "loyer", libelle: "Loyer", premiereEcheance: `${an + 1}-01-05`, delaiJours: 30 }), [400, 422]);
+await controle("privilèges", "rappels de paiement : interdits à une école", () => ecole.get("/moi/rappels-paiement"));
+
 // ------------------------------------------------------------ IDOR : école intruse sur l'école démo
 if (uidIntrus) {
   for (const [m, u, b] of [["GET", `/ecole/${eid}/tableau-de-bord`], ["GET", `/ecole/${eid}/candidatures`], ["GET", `/ecole/${eid}/candidatures?format=csv`], ["GET", `/ecole/${eid}/candidatures-filtrees`], ["GET", `/ecole/${eid}/formations`], ["GET", `/ecole/${eid}/campagnes`], ["GET", `/ecole/${eid}/offre`], ["GET", `/ecole/${eid}/premium`], ["GET", `/ecole/${eid}/prospections`],

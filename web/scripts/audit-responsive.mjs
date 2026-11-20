@@ -18,7 +18,7 @@ fs.mkdirSync(OUT, { recursive: true });
  *  leurs envois réguliers empêcheraient aussi d'attendre la fin du chargement). Le bandeau a son propre parcours. */
 async function preparer(ctx, { bandeau = false } = {}) {
   if (!bandeau) await ctx.addInitScript(() => { try { localStorage.setItem("navigoal-cookies-2", "non"); } catch {} });
-  await ctx.route(/googletagmanager\.com|google-analytics\.com|analytics\.google\.com/, (r) => r.abort());
+  await ctx.route(/googletagmanager\.com|google-analytics\.com|analytics\.google\.com/, (r) => r.fulfill({ status: 204, body: "" })); // réponse vide : pas d'erreur réseau dans la console
 }
 const browser = await chromium.launch({ executablePath: fs.existsSync("/opt/pw-browsers/chromium") ? "/opt/pw-browsers/chromium" : undefined }).catch(() => chromium.launch());
 const rapport = [];

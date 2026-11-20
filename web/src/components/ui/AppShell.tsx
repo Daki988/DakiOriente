@@ -92,7 +92,7 @@ export function AppShell({ user, children }: { user: ClientUser | null; children
           last = group;
           return (
             <div key={href}>
-              {head && <span className="mb-1 mt-3 block px-3.5 text-[11px] font-extrabold uppercase tracking-wider text-ink-mute/80">{head}</span>}
+              {head && <span className="mb-1 mt-3 block px-3.5 text-[11px] font-extrabold uppercase tracking-wider text-ink-mute">{head}</span>}
               <Link href={href} onClick={onPick} aria-current={on ? "page" : undefined} className={`relative flex min-h-[42px] items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-semibold transition ${on ? "text-brand-600" : "text-ink-soft hover:bg-[#f6f8fe]"}`}>
                 {on && <motion.span layoutId="side-pill" className="absolute inset-0 rounded-xl bg-brand-50" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
                 <Icon size={18} className="relative shrink-0" /><span className="relative truncate">{t}</span>
