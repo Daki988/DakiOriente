@@ -16,6 +16,13 @@ const copy = (a, b) => fs.cpSync(a, b, { recursive: true, filter: (s) => !/\.(me
 console.log("1/4 Build Next.js autonome");
 run("npm run build", { BUILD_STANDALONE: "1", NEXT_TELEMETRY_DISABLED: "1" });
 
+// L'index des textes lus par Navi (couche RAG) se construit à partir du HTML pré-rendu : il faut donc
+// un premier build pour l'écrire, puis un second pour l'embarquer. Sans ce second build, la livraison
+// partirait avec l'index de la version précédente.
+console.log("1 bis/4 Index des textes pour Navi, puis rebuild pour l'embarquer");
+run("node scripts/index-documents.mjs");
+run("npm run build", { BUILD_STANDALONE: "1", NEXT_TELEMETRY_DISABLED: "1" });
+
 console.log("2/4 Scripts de base de données (migrations, données de démarrage)");
 fs.rmSync(path.join(root, "livraison"), { recursive: true, force: true });
 fs.mkdirSync(path.join(out, "outils"), { recursive: true });
