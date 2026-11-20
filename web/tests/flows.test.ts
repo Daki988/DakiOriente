@@ -1251,3 +1251,11 @@ describe("rappels de paiement (loyer, scolarité)", async () => {
     expect((await rp.modifier(parent, r.id, { delaiJours: 7 })).delaiJours).toBe(7);
   });
 });
+
+describe("réactivité des écoles : requêtes", async () => {
+  const rea = await import("@/server/services/reactivite");
+  it("liste des candidatures sans réponse (toutes écoles et une école) sans erreur SQL", async () => {
+    expect(Array.isArray(await rea.sansReponse())).toBe(true);
+    expect(Array.isArray(await rea.sansReponse("ma-esa-casa"))).toBe(true);
+  });
+});

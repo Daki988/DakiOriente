@@ -74,8 +74,8 @@ export async function sansReponse(eid?: string) {
   const r = await db.execute(sql`with rep as (${PREMIERES(depuis, eid)})
     select rep.id, rep.number, rep.establishment_id, rep.submitted_at, u.first_name, u.last_name
     from rep join users u on u.id = rep.student_id
-    where premiere is null and status not in ('desistee', 'acceptee', 'refusee') and now() - submitted_at > interval '7 days'
-    order by submitted_at asc limit 200`);
+    where rep.premiere is null and rep.status not in ('desistee', 'acceptee', 'refusee') and now() - rep.submitted_at > interval '7 days'
+    order by rep.submitted_at asc limit 200`);
   return r.rows as { id: string; number: string; establishment_id: string; submitted_at: string; first_name: string; last_name: string }[];
 }
 
