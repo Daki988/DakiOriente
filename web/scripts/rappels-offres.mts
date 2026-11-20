@@ -8,6 +8,7 @@ import { relancesEcoles } from "../src/server/services/reactivite";
 import { invitationsAvis } from "../src/server/services/avis-ecoles";
 import { alertesBourses } from "../src/server/services/bourses";
 import { rappelsScolarite } from "../src/server/services/scolarite";
+import { envoyerRappels } from "../src/server/services/rappels-paiement";
 
 const r = await rappels();
 console.log(`${new Date().toISOString()} · ${r.rappels} rappel(s) d'échéance envoyé(s)`);
@@ -21,4 +22,6 @@ const bo = await alertesBourses().catch((err) => { console.error("alertes bourse
 console.log(`${new Date().toISOString()} · ${bo.envoyees} alerte(s) de bourse (ouverture, J-30, J-7)`);
 const sc = await rappelsScolarite().catch((err) => { console.error("rappels scolarité :", err); return { envoyes: 0 }; });
 console.log(`${new Date().toISOString()} · ${sc.envoyes} rappel(s) d'échéance de scolarité (J-15, J-7, J-1)`);
+const rp = await envoyerRappels().catch((err) => { console.error("rappels de paiement :", err); return { envoyes: 0 }; });
+console.log(`${new Date().toISOString()} · ${rp.envoyes} rappel(s) de paiement programmés par les familles (loyer, scolarité)`);
 process.exit(0);

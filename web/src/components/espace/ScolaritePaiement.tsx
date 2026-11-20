@@ -5,6 +5,8 @@ import { Alert, Button, Chip, Panel, dateFr, money, useToast } from "@/component
 import { FileDrop, FormError, Input, Select } from "@/components/app/form";
 import { useAction, useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
+import Link from "@/components/ui/Link";
+import { useUser } from "@/components/app/Session";
 
 export type Ligne = { id: string; libelle: string; montant: number; echeance: string; etat: "payee" | "declaree" | "a_payer" | "en_retard"; confirme: number; declare: number; reste: number };
 export type Moyen = { id: string; type: string; libelle: string; details: string; devise: string; statut: string };
@@ -20,6 +22,7 @@ export function ScolaritePaiement({ applicationId, ecole }: { applicationId: str
   const [f, setF] = useState({ montant: "", moyenId: "", reference: "", preuveId: "", preuveNom: "" });
   const a = useAction();
   const toast = useToast();
+  const parent = useUser().role === "parent";
   const e = data?.echeancier;
   if (!data) return null;
   if (!e) return (
@@ -62,6 +65,7 @@ export function ScolaritePaiement({ applicationId, ecole }: { applicationId: str
               <p className="flex gap-2 text-xs text-ink-mute"><ShieldAlert size={15} className="shrink-0 text-[#a55a00]" />Payez uniquement avec ces coordonnées, vérifiées par l&apos;équipe Navigoal. Si quelqu&apos;un vous en donne d&apos;autres (e-mail, WhatsApp), ne payez pas et prévenez-nous. Navigoal n&apos;encaisse rien : vous payez l&apos;école directement.</p>
             </div>
           ) : <Alert tone="warn">Les coordonnées de paiement de {ecole} sont en cours de vérification par l&apos;équipe Navigoal. Attendez qu&apos;elles s&apos;affichent ici avant de payer.</Alert>}
+          <Link href={parent ? "/parent/rappels/" : "/espace/rappels/"} className="flex items-center gap-2 self-start text-sm font-bold text-brand-600"><CalendarClock size={16} />Me rappeler 2, 3, 5 ou 7 jours avant chaque échéance</Link>
           {e.remboursement && <details className="text-sm"><summary className="cursor-pointer font-bold">Conditions de remboursement de l&apos;école (refus de visa, désistement)</summary><p className="mt-2 whitespace-pre-line text-ink-soft">{e.remboursement}</p></details>}
           {ligne && (
             <div className="flex flex-col gap-3 rounded-2xl border-2 border-brand-200 p-4">

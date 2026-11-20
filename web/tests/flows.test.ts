@@ -1227,3 +1227,27 @@ describe("chantiers de novembre 2026 : scolarité, avis, témoignages, bourses",
     expect(moi.profils[0].bourses.find((x) => x.id === "ga-anbg")?.statut).toBe("non_eligible"); // Sénégalaise
   });
 });
+
+describe("rappels de paiement (loyer, scolarité)", async () => {
+  const rp = await import("@/server/services/rappels-paiement");
+  it("un parent programme le loyer de son enfant, prévenu une seule fois X jours avant puis le jour même", async () => {
+    const r = await rp.creer(parent, { type: "loyer", libelle: "Loyer du studio", enfantId: student.id, montant: 3500, devise: "MAD", frequence: "mensuel", premiereEcheance: "2026-09-05", delaiJours: 3, aussiLeJour: true });
+    const mes = await rp.mesRappels(parent);
+    expect(mes.rappels.find((x) => x.id === r.id)?.prochaine?.date).toMatch(/^\d{4}-\d{2}-05$/);
+    const avant = (await rp.envoyerRappels(new Date("2030-03-02T08:00:00Z"))).envoyes;
+    expect(avant).toBe(1);
+    expect((await rp.envoyerRappels(new Date("2030-03-03T08:00:00Z"))).envoyes).toBe(0); // déjà prévenu pour le 5 mars
+    expect((await rp.envoyerRappels(new Date("2030-03-05T08:00:00Z"))).envoyes).toBe(1); // le jour même
+    const n = (await notif.listNotifications(parent.id)).filter((x) => x.kind === "rappel_paiement");
+    expect(n[0].title).toMatch(/Loyer du studio \(\w+\) à régler/);
+  });
+  it("délai limité à 2, 3, 5 ou 7 jours ; pas de rappel pour l'enfant d'un autre", async () => {
+    await expect(rp.creer(parent, { type: "loyer", libelle: "Loyer", premiereEcheance: "2026-12-01", delaiJours: 4 })).rejects.toThrow();
+    await expect(rp.creer(landlord, { type: "loyer", libelle: "Loyer", premiereEcheance: "2026-12-01", delaiJours: 3 })).rejects.toThrow();
+    const autre = await accounts.register({ role: "parent", firstName: "Awa", lastName: "Diop", email: "awa.rappel@test.local", password: "Motdepasse1", country: "SN", acceptTerms: true });
+    await expect(rp.creer(autre, { type: "loyer", libelle: "Loyer", enfantId: student.id, premiereEcheance: "2026-12-01", delaiJours: 3 })).rejects.toThrow();
+    const [r] = (await rp.mesRappels(parent)).rappels;
+    await expect(rp.modifier(autre, r.id, { delaiJours: 7 })).rejects.toThrow();
+    expect((await rp.modifier(parent, r.id, { delaiJours: 7 })).delaiJours).toBe(7);
+  });
+});

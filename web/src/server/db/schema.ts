@@ -857,3 +857,27 @@ export const paiementsScolarite = pgTable("paiements_scolarite", {
   confirmeLe: timestamp("confirme_le", { withTimezone: true }),
   createdAt: createdAt(),
 }, (t) => [index("paiements_scol_ech_idx").on(t.echeancierId)]);
+
+// ---------------------------------------------------------------- Rappels de paiement (novembre 2026)
+// Un parent (ou l'élève) programme un rappel avant chaque échéance de loyer ou de scolarité, même payée hors Navigoal :
+// il connaît la date d'entrée dans le logement et les modalités. Délai réglable (2, 3, 5 ou 7 jours), rappel le jour même en option.
+// source « echeancier » : les échéances non réglées de l'échéancier de scolarité d'une candidature ; « navilease » : loyer d'une réservation.
+export const rappelsPaiement = pgTable("rappels_paiement", {
+  id: id(),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  enfantId: text("enfant_id").references(() => users.id, { onDelete: "cascade" }),
+  type: text("type").notNull(), // loyer | scolarite | autre
+  libelle: text("libelle").notNull(),
+  montant: integer("montant"),
+  devise: text("devise").notNull().default("MAD"),
+  frequence: text("frequence").notNull().default("mensuel"), // mensuel | trimestriel | semestriel | annuel | unique
+  premiereEcheance: text("premiere_echeance").notNull(), // AAAA-MM-JJ
+  finLe: text("fin_le"), // AAAA-MM-JJ, dernière échéance incluse
+  delaiJours: integer("delai_jours").notNull().default(3), // 2, 3, 5 ou 7
+  aussiLeJour: boolean("aussi_le_jour").notNull().default(true),
+  source: text("source").notNull().default("manuel"), // manuel | navilease | echeancier
+  sourceId: text("source_id"),
+  actif: boolean("actif").notNull().default(true),
+  createdAt: createdAt(),
+  updatedAt: updatedAt(),
+}, (t) => [index("rappels_paiement_user_idx").on(t.userId)]);

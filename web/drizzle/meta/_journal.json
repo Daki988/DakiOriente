@@ -141,6 +141,13 @@
       "when": 1795085784306,
       "tag": "0019_avis_bourses_scolarite",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1795181980921,
+      "tag": "0020_rappels_paiement",
+      "breakpoints": true
     }
   ]
 }

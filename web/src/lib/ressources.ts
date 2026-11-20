@@ -108,6 +108,119 @@ export const GUIDES: Ressource[] = [
       { titre: "Nos conseils", liste: ["Garde une réserve pour les imprévus (environ un mois de dépenses).", "Les taux de change varient : Navigoal ajoute une marge de prudence de 3 % aux conversions.", "Utilise le devis parents pour obtenir le coût total sur toute la durée des études."] },
     ],
   },
+  {
+    slug: "transport-etudiant-maroc", titre: "Tram, bus et train au Maroc : abonnements étudiants et prix", type: "guide", theme: "vie", format: "page", publics: ["etudiant", "parent"], href: "/ressources/transport-etudiant-maroc/", photo: "tramway", icone: "tram-front", couleur: "#0e7490", lecture: 5,
+    resume: "Abonnements étudiants du tram, du busway, des bus et du train ONCF : prix officiels, pièces à fournir et où les obtenir (vérifié le 20 novembre 2026).",
+    sections: [
+      { titre: "L'essentiel", liste: [
+        "Les abonnements étudiants coûtent de 100 à 160 DH par mois en ville, contre 230 à 300 DH en tarif normal.",
+        "Ils sont presque tous réservés aux moins de 26 ans et demandent une attestation d'inscription de l'année en cours : demande-la à ton école dès la rentrée.",
+        "Les formulaires parlent de « CIN » : en tant qu'étranger, présente ton passeport et ta carte de séjour (ou son récépissé), et vérifie en agence qu'ils sont acceptés.",
+        "Tarifs relevés sur les sites officiels des opérateurs le 20 novembre 2026. Ils changent (hausse à Rabat en juillet 2025) : vérifie avant de payer.",
+      ] },
+      { titre: "Casablanca : tramway et busway", texte: ["Un seul titre pour le tram et le busway, avec correspondance gratuite sur tout le réseau (Casatramway, RATP Dev)."], liste: [
+        "Ticket : 8 DH le voyage, 14 DH les deux. Carte rechargeable : 6 DH le voyage (carte à 15 DH, valable 5 ans).",
+        "Abonnement mensuel tout public : 230 DH. Abonnement hebdomadaire : 60 DH.",
+        "Abonnement étudiant (moins de 26 ans) : 150 DH pour 30 jours illimités à partir de la première validation, plus 15 DH pour la carte.",
+        "Pièces : formulaire rempli, pièce d'identité, certificat de scolarité original (ou copie légalisée), une photo. Pour une école privée, le certificat doit venir d'un établissement homologué par le ministère de l'Enseignement supérieur.",
+        "Où : agences commerciales Casatramway ; recharge en station, en agence, chez les revendeurs ou à l'e-boutique.",
+      ] },
+      { titre: "Casablanca : bus Casabus", liste: [
+        "Ticket : 5 DH sur la plupart des lignes (6 à 8 DH en banlieue). Navette Casa-Port – aéroport Mohammed V (L001) : 50 DH.",
+        "La carte étudiant Casabus (100 DH par mois + 100 DH d'inscription) est réservée à l'enseignement public. Dans une école privée, prends l'abonnement étudiant du tram et du busway.",
+      ] },
+      { titre: "Rabat, Salé et Témara : tramway", liste: [
+        "Ticket : 7 DH depuis le 1er juillet 2025, aussi dans l'application Tram Mobile. Ticket tram + bus ligne 30 (Témara) : 10 DH. Amende sans titre : 50 DH.",
+        "Abonnement étudiant « Irtiyah Talib » (moins de 26 ans, public et privé) : 160 DH par mois, 450 DH le trimestre, 860 DH le semestre, 1 600 DH l'année.",
+        "Tout public « Irtiyah » : 270 DH par mois.",
+        "Le plus simple : l'application Tram Mobile (attestation d'inscription, pièce d'identité recto verso, photo). En agence : formulaire signé et cacheté par l'école.",
+        "Seules les écoles privées « conventionnées » ouvrent droit au tarif étudiant : la liste est en agence commerciale, demande-la avant de payer.",
+      ] },
+      { titre: "Rabat et autres villes : bus Alsa", liste: [
+        "Rabat, Salé, Témara : abonnement tout public 260 DH par mois (zone 1) ou 300 DH (tout le réseau), plus 40 DH pour la carte.",
+        "Carte étudiant Alsa à Rabat : demande en ligne sur alsa.ma, puis rendez-vous en agence (Salé, Témara, Bab Chellah). Le prix n'est pas publié : demande-le en agence.",
+        "Alsa propose aussi une carte étudiant à Tanger, Marrakech et Agadir (dossier, photo, attestation d'inscription, dépôt en agence). Prix non publiés sur le site officiel.",
+        "Fès : nouveau réseau Issal Fès depuis décembre 2025. Meknès, Oujda, Kénitra : renseigne-toi auprès de l'opérateur en arrivant.",
+      ] },
+      { titre: "Le train ONCF", liste: [
+        "Carte Attalib (étudiants de moins de 26 ans) : 30 % de réduction en 2e classe pendant 12 mois. À demander en gare : formulaire, pièce d'identité, photo, attestation d'inscription de l'année.",
+        "Carte Jeune (16 à 30 ans) : 20 % de réduction pendant 12 mois, avec une pièce d'identité et une photo.",
+        "Abonnement « Navette Étudiant » (moins de 28 ans, trajet domicile-études) par mois : Rabat–Kénitra 450 DH, Fès–Meknès 450 DH, Casablanca–Berrechid 400 DH, Casablanca–El Jadida 480 DH, Casablanca–Settat 620 DH. Moins cher sur 3, 6 ou 12 mois.",
+        "Billets : site et application « ONCF Voyages », guichets en gare. Service client : 2255.",
+        "Le prix des cartes Attalib et Jeune n'est pas publié sur le site de l'ONCF : demande-le au guichet.",
+      ] },
+      { titre: "Taxis et VTC", liste: [
+        "Petits taxis : en ville, le compteur est obligatoire. Demande-le dès le départ.",
+        "Uber fonctionne de nouveau depuis le 27 novembre 2025 à Casablanca et Marrakech, uniquement avec des véhicules agréés.",
+        "Les autres applications de chauffeurs particuliers n'ont pas de statut officiel : préfère les petits taxis et les véhicules agréés.",
+      ] },
+    ],
+    sources: [
+      "Casatramway, offres et abonnement étudiant : https://www.casatramway.ma/ticket-abonnement/nos-offres",
+      "Casabus, tarifs et carte étudiant : https://www.casabus.ma/titres-de-transport/tarifs/",
+      "Tramway de Rabat-Salé, abonnements (page du 26/08/2025) : https://www.tram-way.ma/fr/abonnement/",
+      "Alsa Rabat, espace tout public et étudiant : https://www.alsa.ma/rabat/espace-tout-public",
+      "ONCF, carte Attalib, Carte Jeune et Navette Étudiant : https://www.oncf-voyages.ma/navette-etudiant",
+      "Uber Maroc (27/11/2025) : https://www.uber.com/ma/fr/newsroom/uber-in-morocco/",
+      "Relevé effectué par Navigoal le 20 novembre 2026.",
+    ],
+  },
+  {
+    slug: "argent-banque-paiement-maroc", titre: "Payer, envoyer de l'argent et ouvrir un compte au Maroc", type: "guide", theme: "vie", format: "page", publics: ["etudiant", "parent"], href: "/ressources/argent-banque-paiement-maroc/", photo: "finance", icone: "credit-card", couleur: "#0f8a46", lecture: 6,
+    resume: "Cartes étrangères, paiement CMI, portefeuilles mobiles, transferts depuis la zone CFA, plafonds BEAC et comptes bancaires : ce qu'il faut savoir avant le départ.",
+    sections: [
+      { titre: "L'essentiel", liste: [
+        "À l'arrivée, une carte Visa ou Mastercard de ton pays suffit pour retirer au distributeur et payer en magasin. Garde une réserve en espèces les premiers jours.",
+        "Pour la suite, l'argent des parents arrive par virement sur un compte au Maroc, ou en espèces chez un agent de transfert (Wafacash, Cash Plus, Western Union, MoneyGram).",
+        "Parents de la zone CEMAC : les paiements par carte hors de la zone sont plafonnés et demandent des justificatifs (voir plus bas).",
+        "Programme un rappel avant chaque loyer et chaque échéance de scolarité dans ton espace Navigoal (« Rappels de paiement ») : 2, 3, 5 ou 7 jours avant.",
+      ] },
+      { titre: "Payer par carte : le CMI", texte: [
+        "Au Maroc, les terminaux de paiement des commerçants et le paiement en ligne de nombreuses écoles passent par le CMI (Centre monétique interbancaire). Les pages de paiement CMI acceptent les cartes Visa et Mastercard, y compris les cartes émises à l'étranger dans la pratique.",
+        "Depuis le 1er mai 2025, le CMI n'a plus le monopole : d'autres établissements de paiement peuvent encaisser les cartes. Chaque école choisit son moyen d'encaissement : vérifie sur sa fiche Navigoal les moyens de paiement qu'elle a déclarés et que notre équipe a vérifiés.",
+      ] },
+      { titre: "Retirer avec une carte étrangère", liste: [
+        "Les distributeurs limitent souvent chaque retrait à environ 2 000 DH ; tu peux faire plusieurs retraits.",
+        "Les frais dépendent surtout de ta banque : commission sur les opérations à l'étranger et taux de change. Renseigne-toi avant de partir.",
+        "Préviens ta banque de ton départ pour éviter un blocage de la carte.",
+      ] },
+      { titre: "Portefeuilles mobiles et « Maroc Pay »", liste: [
+        "Les portefeuilles mobiles (applications des banques, Barid Bank Mobile, opérateurs télécoms, Wafacash…) servent à payer chez les commerçants « Maroc Pay » par QR code, sans frais pour le payeur, et à envoyer de l'argent à un numéro de téléphone.",
+        "Trois plafonds fixés par Bank Al-Maghrib : 200 DH avec le seul numéro de téléphone, 5 000 DH avec une pièce d'identité photographiée, 20 000 DH après passage en agence.",
+        "Le guide officiel parle de « CIN » : en tant qu'étranger, vérifie auprès de l'opérateur qu'il accepte ton passeport ou ta carte de séjour.",
+      ] },
+      { titre: "Recevoir de l'argent de la famille", liste: [
+        "En espèces : Cash Plus, Wafacash, Al Barid Bank, Chaabi Cash et d'autres agents versent les transferts Western Union, MoneyGram ou Ria, sur présentation d'une pièce d'identité et du code de la transaction.",
+        "Depuis le Cameroun, Wafacash (filiale d'Attijariwafa bank) est présent sur place. Depuis le Gabon, le Congo ou la zone UEMOA, compare Western Union et MoneyGram : les frais varient selon le pays et le montant.",
+        "Wise et Taptap Send n'envoient pas depuis le franc CFA : utiles seulement si la famille a un compte en euros ou en dollars.",
+        "Par virement bancaire international : moins cher pour les gros montants (scolarité), à condition d'avoir un compte au Maroc ou de payer directement le compte de l'école.",
+      ] },
+      { titre: "Parents de la zone CEMAC : les règles de la BEAC", liste: [
+        "Les transferts pour études sont autorisés, à condition de justifier l'origine des fonds et le motif (pièces listées par la BEAC pour « études scolaires et universitaires »).",
+        "Paiement en ligne avec une carte émise en CEMAC : jusqu'à 1 million de F CFA par mois sans justificatif. Au-delà, pour des frais de scolarité : certificat de scolarité ou carte d'étudiant, copie du passeport de l'étudiant et preuve du lien de parenté, à fournir sous 30 jours.",
+        "Carte utilisée hors CEMAC par un étudiant : jusqu'à 2 millions de F CFA par mois, avec une preuve de voyage. La carte ne doit être utilisée que par son titulaire.",
+        "Pour les gros montants (scolarité annuelle), le virement bancaire avec dossier justificatif reste la voie la plus sûre. Zone UEMOA : demande les règles équivalentes à ta banque.",
+      ] },
+      { titre: "Ouvrir un compte bancaire au Maroc", liste: [
+        "Les étrangers peuvent ouvrir un compte en dirhams ordinaire ou un compte en devises ou en « dirhams convertibles ».",
+        "Le compte en dirhams convertibles est alimenté par des virements de l'étranger ou des devises déclarées ; son solde peut être renvoyé librement à l'étranger. Pratique pour récupérer le reste en fin d'études.",
+        "Un compte en dirhams ordinaire n'est pas transférable à l'étranger.",
+        "Aucune banque marocaine ne publie d'offre réservée aux étudiants étrangers. Les principales (Attijariwafa bank, Bank of Africa, Banque Populaire, CIH Bank, Crédit Agricole du Maroc, Al Barid Bank, Société Générale) ont des offres étudiants : compare-les en agence.",
+        "Pièces à prévoir : passeport, carte de séjour ou récépissé, attestation d'inscription, justificatif de domicile (bail) et parfois justificatif de l'origine des fonds. Les délais varient : demande-les en agence.",
+      ] },
+    ],
+    sources: [
+      "Bank Al-Maghrib, guide du paiement mobile au Maroc : https://www.bkam.ma/content/download/731702/8352332/Guide%20Paiement%20mobile%C2%A0au%20Maroc_FR.pdf",
+      "Conseil de la concurrence, fin du monopole du CMI (19/05/2025) : https://conseil-concurrence.ma/communique-de-conseil-de-la-concurrence/",
+      "Cash Plus, transfert d'argent international : https://www.cashplus.ma/services/transfert-argent-international",
+      "MoneyGram, envoi vers le Maroc : https://www.moneygram.com/fr/fr/corridor/maroc",
+      "Wise, devises d'envoi : https://wise.com/help/articles/2571907/what-currencies-can-i-send-to-and-from",
+      "BEAC, lettre circulaire n° 002/GR/2022 (pièces par motif) : https://www.beac.int/wp-content/uploads/2022/05/lettre-Circulaire-N%C2%B0002-GR-2022_1.pdf",
+      "BEAC, lettre circulaire n° 004/GR/2022 (cartes), résumée par Société Générale Cameroun : https://particuliers.societegenerale.cm/fr/news/news-details/news/lettre-circulaire-beac-004gr2022/",
+      "Office des changes, étrangers non-résidents : https://www.oc.gov.ma/fr/particuliers/etrangers-non-residents",
+      "Relevé effectué par Navigoal le 20 novembre 2026.",
+    ],
+  },
 ];
 
 export const OUTILS: Ressource[] = [

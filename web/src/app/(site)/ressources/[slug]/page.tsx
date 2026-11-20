@@ -22,6 +22,8 @@ const TITRES_RECHERCHE: Record<string, string> = {
   "logement-etudiant": "Logement étudiant au Maroc : loyers et pièges",
   "labels-reconnaissance-etat": "Diplôme reconnu par l'État au Maroc : les labels",
   "budget-etudiant": "Budget étudiant au Maroc : combien ça coûte ?",
+  "transport-etudiant-maroc": "Tram, bus, train : abonnement étudiant au Maroc",
+  "argent-banque-paiement-maroc": "Banque, carte et transfert d'argent au Maroc",
 };
 
 export const generateMetadata = async (props: { params: Promise<{ slug: string }> }): Promise<Metadata> => {

@@ -174,5 +174,13 @@
     "credit": "Nejc Soklič (Unsplash)",
     "licence": "Licence Unsplash",
     "page": "https://unsplash.com/photos/XXp9RthTqCc"
+  },
+  {
+    "id": "tramway",
+    "src": "/images/tramway.webp",
+    "alt": "Tramway de Casablanca place Mohammed V",
+    "credit": "Magharebia (Wikimedia Commons)",
+    "licence": "CC BY 2.0",
+    "page": "https://commons.wikimedia.org/wiki/File:Casablanca_tramway.jpg"
   }
 ]

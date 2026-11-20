@@ -13,6 +13,7 @@ import { assertMember } from "./establishments";
 import { notifySchool } from "./applications";
 import { guardiansOf, isGuardianOf } from "./guardians";
 import { etabById } from "@/lib/data";
+import { rappelsPersonnelsEcheancier } from "./rappels-paiement";
 
 type User = typeof schema.users.$inferSelect;
 const JOUR = 864e5;
@@ -20,11 +21,11 @@ const M = schema.moyensPaiementEcoles, E = schema.echeanciersScolarite, P = sche
 const sigle = (eid: string) => etabById[eid]?.sigle || etabById[eid]?.nom || "L'école";
 const admins = () => db.select({ id: schema.users.id }).from(schema.users).where(and(eq(schema.users.role, "admin"), eq(schema.users.status, "actif")));
 
-/** Prévient l'élève et ses parents liés (liens vers leurs espaces respectifs). */
-async function prevenirFamille(eleveId: string, n: { title: string; body?: string; applicationId: string }) {
-  await notify(eleveId, { kind: "scolarite", title: n.title, body: n.body, link: `/espace/candidatures/${n.applicationId}/#scolarite` });
+/** Prévient l'élève et ses parents liés (liens vers leurs espaces respectifs) ; `sauf` : comptes à ne pas prévenir. */
+async function prevenirFamille(eleveId: string, n: { title: string; body?: string; applicationId: string }, sauf: Set<string> = new Set()) {
+  if (!sauf.has(eleveId)) await notify(eleveId, { kind: "scolarite", title: n.title, body: n.body, link: `/espace/candidatures/${n.applicationId}/#scolarite` });
   const [e] = await db.select({ p: schema.users.firstName }).from(schema.users).where(eq(schema.users.id, eleveId));
-  for (const g of await guardiansOf(eleveId)) if (g.link.status === "actif" && g.parent?.id)
+  for (const g of await guardiansOf(eleveId)) if (g.link.status === "actif" && g.parent?.id && !sauf.has(g.parent.id))
     await notify(g.parent.id, { kind: "scolarite", title: `${e?.p ?? "Votre enfant"} — ${n.title}`, body: n.body, link: `/parent/candidatures/${n.applicationId}/#scolarite` });
 }
 
@@ -219,7 +220,7 @@ export async function rappelsScolarite(maintenant = new Date()) {
       const reste = Math.ceil((new Date(`${l.echeance}T23:59:59Z`).getTime() - maintenant.getTime()) / JOUR);
       const palier = reste === 1 || reste === 0 ? "j1" : reste > 1 && reste <= 7 ? "j7" : reste > 7 && reste <= 15 ? "j15" : null;
       if (!palier || !(await premiereFois(`scolarite:${e.id}:${l.id}:${palier}`))) continue;
-      await prevenirFamille(eleve, { title: `${l.libelle} (${sigle(e.etablissementId)}) : échéance ${reste <= 1 ? "demain" : `dans ${reste} jours`}`, body: `${l.reste.toLocaleString("fr-FR")} ${e.devise} à régler directement à l'école, puis déposer la preuve sur Navigoal.`, applicationId: e.applicationId });
+      await prevenirFamille(eleve, { title: `${l.libelle} (${sigle(e.etablissementId)}) : échéance ${reste <= 1 ? "demain" : `dans ${reste} jours`}`, body: `${l.reste.toLocaleString("fr-FR")} ${e.devise} à régler directement à l'école, puis déposer la preuve sur Navigoal.`, applicationId: e.applicationId }, await rappelsPersonnelsEcheancier(e.id));
       envoyes++;
     }
   }

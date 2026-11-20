@@ -1,6 +1,7 @@
 // API REST Navigoal (/api/...). Une table de routes unique sert au routage et à la documentation OpenAPI.
 import * as bourses from "../services/bourses";
 import * as scolarite from "../services/scolarite";
+import * as rappelsPaiement from "../services/rappels-paiement";
 import * as avisEcoles from "../services/avis-ecoles";
 import * as avisService from "../services/avis-service";
 import * as reactivite from "../services/reactivite";
@@ -578,6 +579,10 @@ route("PUT", "/ecole/candidatures/:id/echeancier", "Établissement", "Fixer ou m
 route("POST", "/ecole/paiements-scolarite/:id", "Établissement", "Confirmer ou refuser la réception d'un paiement", ["etablissement", "admin"], async ({ me, params, body }) => { await scolarite.confirmer(me, params.id, await body()); return ok; });
 route("GET", "/admin/moyens-paiement", "Back-office", "Moyens de paiement des écoles à vérifier", ["admin"], async () => scolarite.moyensAdmin());
 route("POST", "/admin/moyens-paiement/:id", "Back-office", "Vérifier ou refuser un moyen de paiement d'école", ["admin"], async ({ me, params, body }) => { await scolarite.verifierMoyen(me, params.id, await body()); return ok; });
+route("GET", "/moi/rappels-paiement", "Rappels", "Mes rappels de paiement (loyer, scolarité), prochaines échéances et suggestions", ["parent", "eleve", "etudiant"], async ({ me }) => rappelsPaiement.mesRappels(me));
+route("POST", "/moi/rappels-paiement", "Rappels", "Programmer un rappel de paiement (2, 3, 5 ou 7 jours avant)", ["parent", "eleve", "etudiant"], async ({ me, body }) => json(await rappelsPaiement.creer(me, await body()), 201));
+route("PATCH", "/moi/rappels-paiement/:id", "Rappels", "Modifier un rappel (délai, montant, actif…)", ["parent", "eleve", "etudiant"], async ({ me, params, body }) => rappelsPaiement.modifier(me, params.id, await body()));
+route("DELETE", "/moi/rappels-paiement/:id", "Rappels", "Supprimer un rappel", ["parent", "eleve", "etudiant"], async ({ me, params }) => { await rappelsPaiement.supprimer(me, params.id); return ok; });
 route("GET", "/moi/bourses", "Bourses", "Bourses classées selon mon profil (ou celui de mes enfants), bourses suivies, bourses des écoles", ["eleve", "etudiant", "parent"], async ({ me }) => bourses.pourMoi(me));
 route("GET", "/moi/bourses/suivies", "Bourses", "Identifiants des bourses que je suis", "user", async ({ me }) => ({ suivies: await bourses.suivies(me.id) }));
 route("POST", "/moi/bourses/:id/suivre", "Bourses", "Suivre une bourse (alertes)", "user", async ({ me, params }) => { await bourses.suivre(me, params.id, true); return ok; });

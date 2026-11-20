@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   BarChart3, Bell, Eye, BookOpen, Crown, Briefcase, Building2, Calculator, ChevronDown, Compass, FileCheck2, FileText, Folder, GraduationCap, Headset, House, KeyRound, LayoutDashboard, LogOut,
   Inbox, LifeBuoy, MailOpen, MailWarning, Megaphone, Menu, MessageCircle, MessagesSquare, ScrollText, Search, Send, Settings2, ShieldCheck, Sparkles, UserRound, Users, UsersRound, Wallet, X, Globe2, Bot, AlarmClock, type LucideIcon,
-  MessageSquareQuote, HandCoins, Landmark,
+  MessageSquareQuote, HandCoins, Landmark, BellRing,
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Brand, BrandMark } from "./Brand";
@@ -26,11 +26,11 @@ const MENUS: Record<string, Menu> = {
     { href: "/orientation", Icon: Compass, t: "Mon orientation", m: "Orientation" }, { href: "/espace/orientation", Icon: Sparkles, t: "Mon profil d'orientation" },
     { href: "/metiers", Icon: Briefcase, t: "Métiers", group: "Explorer" }, { href: "/formations", Icon: GraduationCap, t: "Formations", group: "Explorer" }, { href: "/etablissements", Icon: Building2, t: "Établissements", group: "Explorer" },
     { href: "/espace/candidatures", Icon: FileText, t: "Mes candidatures", m: "Candidatures", group: "Mes démarches" }, { href: "/espace/documents", Icon: Folder, t: "Mes documents", group: "Mes démarches" },
-    { href: "/espace/paiements", Icon: Wallet, t: "Paiements", group: "Mes démarches" }, { href: "/espace/bourses", Icon: HandCoins, t: "Bourses pour toi", group: "Mes démarches" }, { href: "/espace/logement", Icon: KeyRound, t: "Mon logement", group: "Mes démarches" },
+    { href: "/espace/paiements", Icon: Wallet, t: "Paiements", group: "Mes démarches" }, { href: "/espace/bourses", Icon: HandCoins, t: "Bourses pour toi", group: "Mes démarches" }, { href: "/espace/rappels", Icon: BellRing, t: "Rappels de paiement", group: "Mes démarches" }, { href: "/espace/logement", Icon: KeyRound, t: "Mon logement", group: "Mes démarches" },
     { href: "/espace/conseiller", Icon: Headset, t: "Conseiller", group: "Mes démarches" }, { href: "/espace/invitations", Icon: MailOpen, t: "Invitations des écoles", group: "Mes démarches" }, { href: "/espace/avis", Icon: MessageSquareQuote, t: "Mes avis sur les écoles", group: "Mes démarches" }, MSG, NOTIF, SETTINGS] },
   parent: { label: "Espace parent", tint: "bg-sun-100 text-[#a55a00]", tabs: ["/parent", "/parent/enfants", "/parent/paiements", "/messages"], items: [
     { href: "/parent", Icon: LayoutDashboard, t: "Vue d'ensemble", m: "Accueil" }, { href: "/parent/enfants", Icon: UsersRound, t: "Mes enfants", m: "Enfants" }, { href: "/devis", Icon: Calculator, t: "Devis & budget" },
-    { href: "/parent/paiements", Icon: Wallet, t: "Paiements" }, { href: "/parent/bourses", Icon: HandCoins, t: "Bourses" }, { href: "/parent/logement", Icon: KeyRound, t: "Logement" }, { href: "/parent/conseiller", Icon: Headset, t: "Conseiller" }, MSG, NOTIF, SETTINGS] },
+    { href: "/parent/paiements", Icon: Wallet, t: "Paiements" }, { href: "/parent/bourses", Icon: HandCoins, t: "Bourses" }, { href: "/parent/rappels", Icon: BellRing, t: "Rappels de paiement" }, { href: "/parent/logement", Icon: KeyRound, t: "Logement" }, { href: "/parent/conseiller", Icon: Headset, t: "Conseiller" }, MSG, NOTIF, SETTINGS] },
   etablissement: { label: "Espace établissement", tint: "bg-[#f1edff] text-[#6a3df0]", tabs: ["/etablissement", "/etablissement/candidatures", "/etablissement/formations", "/messages"], items: [
     { href: "/etablissement", Icon: LayoutDashboard, t: "Tableau de bord", m: "Accueil" }, { href: "/etablissement/fiche", Icon: Building2, t: "Mon établissement" },
     { href: "/etablissement/formations", Icon: GraduationCap, t: "Formations" }, { href: "/etablissement/candidatures", Icon: FileCheck2, t: "Candidatures" },

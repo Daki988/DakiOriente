@@ -3,7 +3,7 @@ import { useApresPremierRendu } from "@/components/motion/Reveal";
 import Image from "next/image";
 import Link from "@/components/ui/Link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, BookOpen, Briefcase, Calculator, ChevronDown, ChevronRight, Compass, Download, FileCheck2, FileText, House, LayoutGrid, ListChecks, MapPin, Plane, Repeat, Scale, Search, ShieldCheck, SlidersHorizontal, Wallet, Wrench, X, type LucideIcon } from "lucide-react";
+import { ArrowRight, BookOpen, CreditCard, TramFront, Briefcase, Calculator, ChevronDown, ChevronRight, Compass, Download, FileCheck2, FileText, House, LayoutGrid, ListChecks, MapPin, Plane, Repeat, Scale, Search, ShieldCheck, SlidersHorizontal, Wallet, Wrench, X, type LucideIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Illustration } from "@/components/ui/Illustration";
 import { useFiltres } from "@/hooks/useFiltres";
@@ -11,7 +11,7 @@ import { norm } from "@/lib/catalogue";
 import { photo } from "@/lib/photos";
 import { FORMATS, GUIDES, OUTILS, PUBLICS, RESSOURCES, THEMES, TYPES, type Format, type Public, type Ressource } from "@/lib/ressources";
 
-export const ICONES: Record<string, LucideIcon> = { "book-open": BookOpen, briefcase: Briefcase, compass: Compass, wrench: Wrench, "map-pin": MapPin, plane: Plane, house: House, "file-check": FileCheck2, "file-text": FileText, "list-checks": ListChecks, calculator: Calculator, repeat: Repeat, wallet: Wallet, scale: Scale, "shield-check": ShieldCheck };
+export const ICONES: Record<string, LucideIcon> = { "book-open": BookOpen, briefcase: Briefcase, compass: Compass, wrench: Wrench, "map-pin": MapPin, plane: Plane, house: House, "file-check": FileCheck2, "file-text": FileText, "list-checks": ListChecks, calculator: Calculator, repeat: Repeat, wallet: Wallet, scale: Scale, "shield-check": ShieldCheck, "tram-front": TramFront, "credit-card": CreditCard };
 const DEFAUTS = { q: "", type: [] as string[], public: [] as string[], format: [] as string[], theme: "" };
 const LIB_TYPE = Object.fromEntries(TYPES.map((t) => [t.id, t.libelle]));
 const THEMES_UTILES = THEMES.filter((t) => RESSOURCES.some((r) => r.theme === t.id));
