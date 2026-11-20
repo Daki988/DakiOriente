@@ -95,6 +95,8 @@ html = f"""<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Nav
       <div style="display:flex;align-items:center;gap:12px;margin-top:6px;font-size:18px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY <img src="assets/oaps-logo.webp" style="height:46px"></div></div></div></div>
 <script>
 const NQ = {len(QUESTIONS)}, NE = {len(ETAPES)};
+const VERT = new URLSearchParams(location.search).has("v"), VW = VERT ? 1080 : 1920, VH = VERT ? 1920 : 1080;
+for (const el of [document.documentElement, document.body]) {{ el.style.width = VW + "px"; el.style.height = VH + "px"; }}
 const S = [["s1", 0, 9.4], ["s2", 9.0, 13.4], ["s3", 13.2, 21.4], ["s4", 21.2, 47.2], ["s5", 47.0, 55.4], ["s6", 55.2, 60.4], ["s7", 60.2, 67.5]];
 window.DUREE = 67.5;
 const cl = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x)), seg = (t, a, b) => cl((t - a) / (b - a));
@@ -133,7 +135,7 @@ window.render = (t) => {{
   // 3. ordinateur et téléphone
   if (voir("s3", t, 13.2, 21.4)) {{
     const u = t - 13.2; $("s3").style.opacity = seg(u, 0, 0.4) * (1 - seg(u, 7.8, 8.2));
-    $("pc").style.transform = `translateY(${{(1 - oc(seg(u, 0.1, 1.0))) * 700}}px)`;
+    $("pc").style.transform = `translateY(${{(1 - oc(seg(u, 0.1, 1.0))) * 700}}px)` + (VERT ? " scale(.82)" : "");
     $("tel").style.transform = `translateX(${{(1 - oc(seg(u, 0.6, 1.5))) * 700}}px) rotate(${{(1 - oc(seg(u, 0.6, 1.5))) * 15}}deg)`;
     $("pcimg").style.transform = `translateY(${{-io(seg(u, 2, 7.4)) * 1300 * 1084 / 1440}}px)`;
     $("telimg").style.transform = `translateY(${{-io(seg(u, 2.4, 7.4)) * 1600 * 280 / 390}}px)`;
@@ -150,7 +152,7 @@ window.render = (t) => {{
     $("voyageur").style.transform = `translate(${{p.x}}px,${{p.y + Math.sin(u * 7) * 4}}px)`;
     route.style.strokeDasharray = `${{L + 2}} ${{LT}}`;
     $("route2").style.strokeDasharray = "18 18"; $("route2").style.clipPath = `inset(0 ${{4300 - p.x}}px 0 0)`;
-    const cam = cl(p.x - 960, 0, 4300 - 1920); $("monde").style.transform = `translateX(${{-cam}}px)`;
+    const cam = cl(p.x - VW / 2, 0, 4300 - VW); $("monde").style.transform = `translate(${{-cam}}px,${{VERT ? 560 : 0}}px)`;
     for (let i = 0; i < NE; i++) {{ const a = 0.6 + i * PAS + 1.4, e = $("e" + i), v = ob(seg(u, a, a + 0.6));
       e.style.opacity = seg(u, a, a + 0.3); e.querySelector(".rond").style.transform = `scale(${{v}})`;
       const m = e.querySelector(".mini"); const vm = oc(seg(u, a + 0.3, a + 1.0)); m.style.transform = `translateY(${{(1 - vm) * 80}}px) scale(${{0.8 + 0.2 * vm}})`; m.style.opacity = vm;
@@ -164,7 +166,7 @@ window.render = (t) => {{
   // 5. parents
   if (voir("s5", t, 47.0, 55.4)) {{
     const u = t - 47.0; $("s5").style.opacity = seg(u, 0, 0.4) * (1 - seg(u, 8.0, 8.4));
-    $("fam").style.transform = `translateX(${{(1 - oc(seg(u, 0, 1))) * -900}}px)`;
+    $("fam").style.transform = `translateX(${{(1 - oc(seg(u, 0, 1))) * -900}}px)` + (VERT ? " scale(.98)" : "");
     $("fam").querySelector("img").style.transform = `scale(${{1.08 - 0.08 * seg(u, 0, 8.4)}})`;
     $("t5").style.opacity = seg(u, 0.6, 1.3); $("t5").style.transform = `translateY(${{(1 - oc(seg(u, 0.6, 1.3))) * 40}}px)`;
     for (let i = 0; i < 3; i++) {{ const v = oc(seg(u, 1.6 + i * 0.9, 2.3 + i * 0.9)); const g = $("g" + i); g.style.opacity = v; g.style.transform = `translateX(${{(1 - v) * 120}}px)`; }}
@@ -182,6 +184,29 @@ window.render = (t) => {{
     $("fd").style.opacity = oc(seg(u, 0.6, 1.4)); $("fd").style.transform = `translateX(${{(1 - oc(seg(u, 0.6, 1.4))) * 60}}px)`;
   }}
 }};
+if (VERT) {{
+  // 1. questions : élève au centre, bulles autour
+  const QV = [[60, 430], [560, 330], [40, 660], [600, 570], [70, 880], [540, 800]];
+  for (let i = 0; i < NQ; i++) {{ $("q" + i).style.left = QV[i][0] + "px"; $("q" + i).style.top = QV[i][1] + "px"; $("q" + i).style.fontSize = "38px"; }}
+  $("disque").style.left = "190px"; $("disque").style.top = "980px"; $("disque").style.width = $("disque").style.height = "700px";
+  $("etu").style.left = "40px"; $("etu").style.width = "1000px";
+  $("leg1").style.top = "110px"; $("leg1").style.fontSize = "58px"; $("leg1").innerHTML = "Après le bac,<br><span style='color:#ff8a00'>tant de questions…</span>";
+  // 2. logo
+  $("t2").style.fontSize = "62px"; $("t2").style.textAlign = "center"; $("t2").innerHTML = "Navigoal<br>a les réponses.";
+  // 3. ordinateur et téléphone
+  $("pc").style.left = "-80px"; $("pc").style.top = "520px"; $("tel").style.left = "640px"; $("tel").style.top = "880px";
+  $("leg3").style.top = "180px"; $("leg3").style.bottom = "auto"; $("leg3").style.fontSize = "58px"; $("leg3").style.fontWeight = "800"; $("leg3").innerHTML = "Sur le site<br>et sur ton téléphone,<br><span style='color:#1a47f5'>gratuitement</span>.";
+  // 4. parcours
+  $("t4").style.top = "150px"; $("t4").style.fontSize = "68px"; $("t4").innerHTML = "Ton parcours,<br><span class='acc'>étape par étape</span>";
+  // 5. parents
+  $("fam").style.left = "100px"; $("fam").style.top = "130px"; $("fam").style.height = "820px";
+  const bloc = $("t5").parentElement; bloc.style.left = "100px"; bloc.style.top = "1030px"; bloc.style.width = "880px"; bloc.style.gap = "40px";
+  // 6. accroche
+  $("t6").style.fontSize = "84px"; $("t6").style.bottom = "180px";
+  // 7. fin
+  const f7 = $("s7").children[1]; f7.style.flexDirection = "column"; f7.style.gap = "70px";
+  $("flg").style.width = "420px"; $("fd").style.alignItems = "center"; $("fd").style.textAlign = "center";
+}}
 window.render(0);
 </script></body></html>"""
 open(os.path.join(HERE, "explication.html"), "w").write(html)

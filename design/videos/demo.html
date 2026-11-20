@@ -29,7 +29,9 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: #fff; 
 </style></head>
 <body><div id="scene"><div class="fond"></div></div>
 <script>
-const W = 1920, H = 1080, PH = 852;
+const Q = new URLSearchParams(location.search), VERT = Q.has("v"), COURT = Q.has("court");
+const W = VERT ? 1080 : 1920, H = VERT ? 1920 : 1080, PH = 852, SCP = VERT ? 1.18 : 1;
+for (const el of [document.documentElement, document.body]) { el.style.width = W + "px"; el.style.height = H + "px"; }
 const $ = (h) => { const d = document.createElement("div"); d.innerHTML = h.trim(); return d.firstChild; };
 const scene = document.getElementById("scene");
 const cl = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
@@ -47,7 +49,7 @@ function titre(l1, l2, sous) {
   scene.appendChild(el); return el;
 }
 // ----------------------------------------------------------------- scènes « fonctionnalité »
-const F = [
+const FALL = [
   { im: [["test-question", 0]], sc: [], tap: [2.5, 277, 430], anneau: [196, 338, 164, 190, 2.7], l1: "Découvre", l2: "ton profil", s: "Un test d'orientation en images : gratuit, en 5 minutes." },
   { im: [["metiers", 0], ["metier", 3.4]], sc: [[1.0, 3.1, 0, 1350, "metiers"], [3.7, 5.8, 0, 650, "metier"]], tap: [3.15, 195, 560], l1: "Explore", l2: "les métiers", s: "Missions, débouchés, durée des études et formations qui y mènent." },
   { im: [["ecoles", 0], ["ecole", 3.4]], sc: [[1.0, 3.1, 0, 1550, "ecoles"], [3.7, 5.9, 0, 900, "ecole"]], tap: [3.15, 195, 600], l1: "Compare", l2: "les écoles reconnues", s: "Statut officiel vérifié, filières accréditées, frais et campus." },
@@ -57,6 +59,7 @@ const F = [
   { im: [["navilease", 0]], sc: [[1.1, 5.6, 0, 1650, "navilease"]], tap: [1.0, 195, 735], l1: "Trouve", l2: "ton logement", s: "Résidences et logements étudiants vérifiés, avec Navilease." },
   { im: [["navitravel", 0]], sc: [[1.1, 5.6, 0, 1450, "navitravel"]], tap: [1.0, 160, 640], l1: "Prépare", l2: "ton départ", s: "Billet à prix étudiant, visa et accueil à l'arrivée, avec NaviTravel." },
 ];
+const F = COURT ? [0, 3, 5].map((i) => FALL[i]) : FALL;
 const DUREE_F = 6.6, T0 = 4.6;
 F.forEach((f, i) => {
   f.t0 = T0 + i * DUREE_F; f.cote = i % 2 === 0 ? "G" : "D";
@@ -90,7 +93,7 @@ const fin = $(`<div style="position:absolute;inset:0;display:flex;align-items:ce
         <span id="bouton" class="pastille" style="background:#1a47f5;align-self:flex-start;margin-top:8px">Commencer mon test gratuit →</span></div></div>
     <div style="display:flex;align-items:center;gap:12px;margin-top:6px;font-size:18px;font-weight:800;color:#5b6478;letter-spacing:.2em">BY <img src="assets/oaps-logo.webp" style="height:46px"></div></div></div>`);
 scene.appendChild(fin);
-const T_RECAP = T0 + F.length * DUREE_F, T_FIN = T_RECAP + 6.2, DUREE = T_FIN + 7.6;
+const T_RECAP = T0 + F.length * DUREE_F, T_FIN = T_RECAP + (COURT ? 0 : 6.2), DUREE = T_FIN + 7.6;
 window.DUREE = DUREE;
 
 // ----------------------------------------------------------------- rendu à l'instant t
@@ -108,12 +111,12 @@ window.render = (t) => {
   F.forEach((f) => {
     const u = t - f.t0, d = DUREE_F, vis = u > -0.2 && u < d + 0.1;
     const pe = oc(seg(u, 0, 0.85)), ps = io(seg(u, d - 0.6, d));
-    const px = f.cote === "G" ? 470 : 1040, ty = 115;
+    const px = VERT ? 335 : f.cote === "G" ? 470 : 1040, ty = VERT ? 760 : 115;
     if (!vis) { for (const g of [f.p, f.g1, f.g2]) g.style.display = "none"; f.T.style.display = "none"; return; }
-    placer(f.p, px, ty + (1 - pe) * 1000 - ps * 60, 1 - ps * 0.06, (1 - pe) * (f.cote === "G" ? -6 : 6), 1 - ps);
-    const gd = 175 * oc(seg(u, 0.3, 1.2));
-    placer(f.g1, px - gd, ty + 40 + (1 - pe) * 1000, 0.8, 0, 0.35 * (1 - ps) * seg(u, 0.3, 0.9));
-    placer(f.g2, px + gd, ty + 40 + (1 - pe) * 1000, 0.8, 0, 0.35 * (1 - ps) * seg(u, 0.3, 0.9));
+    placer(f.p, px, ty + (1 - pe) * 1000 - ps * 60, (1 - ps * 0.06) * SCP, (1 - pe) * (f.cote === "G" ? -6 : 6), 1 - ps);
+    const gd = (VERT ? 250 : 175) * oc(seg(u, 0.3, 1.2));
+    placer(f.g1, px - gd, ty + 40 + (1 - pe) * 1000, 0.8 * SCP, 0, 0.35 * (1 - ps) * seg(u, 0.3, 0.9));
+    placer(f.g2, px + gd, ty + 40 + (1 - pe) * 1000, 0.8 * SCP, 0, 0.35 * (1 - ps) * seg(u, 0.3, 0.9));
     // contenu de l'écran : image A puis B (fondu), défilement
     const sw = f.im[1] ? seg(u, f.im[1][1], f.im[1][1] + 0.35) : 0;
     for (const g of [f.p, f.g1, f.g2]) {
@@ -125,8 +128,8 @@ window.render = (t) => {
     }
     if (f.A) { const [x, y, w, h, ta] = f.anneau; const o = seg(u, ta, ta + 0.25); f.A.style.cssText += `;left:${x * K}px;top:${46 + y * K}px;width:${w * K}px;height:${h * K}px;opacity:${o};transform:scale(${1.15 - 0.15 * oc(o)})`; }
     // titre
-    const tx = f.cote === "G" ? 1040 : 170;
-    f.T.style.display = "block"; f.T.style.left = tx + "px"; f.T.style.top = "330px";
+    const tx = VERT ? 90 : f.cote === "G" ? 1040 : 170;
+    f.T.style.display = "block"; f.T.style.left = tx + "px"; f.T.style.top = VERT ? "170px" : "330px"; if (VERT) f.T.style.width = "900px";
     f.T.querySelectorAll(".mot").forEach((m, k) => { const v = oc(seg(u, 0.45 + k * 0.09, 0.95 + k * 0.09)); m.style.transform = `translateY(${(1 - v) * 110}%)`; m.style.opacity = v; });
     f.T.querySelector(".barre").style.transform = `scaleX(${oc(seg(u, 1.25, 1.9))})`;
     f.T.querySelector(".barre").style.width = "260px";
@@ -134,20 +137,20 @@ window.render = (t) => {
     f.T.style.opacity = 1 - io(seg(u, d - 0.55, d - 0.1)); f.T.style.transform = `translateY(${-50 * io(seg(u, d - 0.55, d - 0.1))}px)`;
     // curseur : arrive, clique, repart
     if (f.tap) {
-      const [tt, cx, cy] = f.tap, sx = px + 13 + cx * K, sy = ty + 13 + 46 + cy * K;
+      const [tt, cx, cy] = f.tap, sx = px + 205 + (13 + cx * K - 205) * SCP, sy = ty + 426 + (13 + 46 + cy * K - 426) * SCP;
       const arr = io(seg(u, tt - 0.9, tt - 0.1)), dep = io(seg(u, tt + 0.5, tt + 1.2));
       if (u > tt - 0.9 && u < tt + 1.2) cur = { x: sx + (1 - arr) * 260 + dep * 300, y: sy + (1 - arr) * 220 + dep * 260, o: Math.min(seg(u, tt - 0.9, tt - 0.6), 1 - seg(u, tt + 0.9, tt + 1.2)), clic: seg(u, tt, tt + 0.55), presse: u > tt - 0.06 && u < tt + 0.12 };
     }
   });
   // récapitulatif : trois téléphones en éventail
-  const ur = t - T_RECAP, vr = ur > -0.1 && ur < 6.4;
+  const ur = t - T_RECAP, vr = !COURT && ur > -0.1 && ur < 6.4;
   recapT.style.display = vr ? "block" : "none";
   if (vr) {
     const e = oc(seg(ur, 0, 0.9)), s = io(seg(ur, 5.6, 6.2));
     recapT.style.opacity = oc(seg(ur, 0.5, 1.2)) * (1 - s); recapT.style.transform = `translateY(${(1 - oc(seg(ur, 0.5, 1.2))) * 40}px)`;
     const pos = [[-330, -10, 0.78], [0, 0, 0.86], [330, 10, 0.78]];
     R.forEach((p, k) => { const [dx, rot, sc] = pos[k]; const ek = oc(seg(ur, 0.15 * k, 0.9 + 0.15 * k));
-      placer(p, 755 + dx * ek, 300 + (1 - ek) * 900 + (k === 1 ? -20 : 30) - s * 40, sc, rot * ek, 1 - s);
+      placer(p, (VERT ? 335 : 755) + dx * ek, (VERT ? 720 : 300) + (1 - ek) * 900 + (k === 1 ? -20 : 30) - s * 40, sc, rot * ek, 1 - s);
       p.querySelector("img").style.transform = `translateY(${-io(seg(ur, 1.2, 5.4)) * (k === 1 ? 900 : 500) * K}px)`; });
   } else R.forEach((p) => (p.style.display = "none"));
   // fin
@@ -171,5 +174,13 @@ window.render = (t) => {
     onde.style.opacity = cur.clic > 0 && cur.clic < 1 ? 1 - cur.clic : 0; onde.style.transform = `scale(${0.3 + cur.clic * 1.2})`;
   } else curseur.style.display = onde.style.display = "none";
 };
+if (VERT) {
+  recapT.style.top = "230px";
+  fin.style.flexDirection = "column"; fin.style.gap = "70px"; document.getElementById("flg").style.width = "420px";
+  document.getElementById("fd").style.alignItems = "center"; document.getElementById("fd").style.textAlign = "center";
+  document.getElementById("tag").style.fontSize = "21px"; document.getElementById("lg").style.width = "520px";
+  document.querySelectorAll(".l1").forEach((e) => e.style.fontSize = "92px"); document.querySelectorAll(".l2").forEach((e) => e.style.fontSize = "98px");
+  document.querySelectorAll(".sous").forEach((e) => e.style.fontSize = "38px");
+}
 window.render(0);
 </script></body></html>
