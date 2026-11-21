@@ -5,7 +5,8 @@
     "date": "2026-10-08",
     "plateforme": "Navigoal",
     "description": "Sélection curée + import Wikidata (collèges et lycées).",
-    "avertissement": "Base d'amorçage : à compléter avec les annuaires officiels des ministères de l'Éducation."
+    "avertissement": "Base d'amorçage : à compléter avec les annuaires officiels des ministères de l'Éducation.",
+    "gabon": "Lycées du Gabon complétés le 21/11/2026 depuis les listes officielles des examens (examensgabon.com, bactechgabon.com) : scripts/build_lycees_gabon.py."
   },
   "items": [
     {
@@ -26,7 +27,8 @@
       ],
       "particularites": "Plus ancien lycée public du pays (1955).",
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Estuaire"
     },
     {
       "id": "ga-lyc-omar-bongo-tech",
@@ -49,7 +51,8 @@
       ],
       "particularites": null,
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Estuaire"
     },
     {
       "id": "ga-lyc-paul-indjendjet",
@@ -69,7 +72,8 @@
       ],
       "particularites": null,
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Estuaire"
     },
     {
       "id": "ga-lyc-nelson-mandela",
@@ -89,7 +93,8 @@
       ],
       "particularites": "Lycée d'application de l'ENS.",
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Estuaire"
     },
     {
       "id": "ga-lyc-djoue-dabany",
@@ -109,7 +114,8 @@
       ],
       "particularites": null,
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Estuaire"
     },
     {
       "id": "ga-lyc-jean-hilaire-aubame",
@@ -129,7 +135,8 @@
       ],
       "particularites": null,
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Estuaire"
     },
     {
       "id": "ga-prytanee-militaire",
@@ -141,13 +148,14 @@
       "site_web": null,
       "wikidata": null,
       "series_proposees": [
+        "ga-bac-a1",
         "ga-bac-c",
-        "ga-bac-d",
-        "ga-bac-a1"
+        "ga-bac-d"
       ],
       "particularites": "Recrutement sur concours.",
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Estuaire"
     },
     {
       "id": "ga-lyc-blaise-pascal",
@@ -162,7 +170,8 @@
       "particularites": "Baccalauréat français.",
       "logo": null,
       "source": "curation",
-      "site_web_signale": "http://www.lyceelbv.org"
+      "site_web_signale": "http://www.lyceelbv.org",
+      "province": "Estuaire"
     },
     {
       "id": "ga-lyc-bessieux",
@@ -182,7 +191,8 @@
       ],
       "particularites": null,
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Estuaire"
     },
     {
       "id": "ga-lyc-immaculee-conception",
@@ -202,7 +212,8 @@
       ],
       "particularites": null,
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Estuaire"
     },
     {
       "id": "ga-lyc-sainte-marie",
@@ -222,7 +233,8 @@
       ],
       "particularites": null,
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Estuaire"
     },
     {
       "id": "ga-lyc-excellence-franceville",
@@ -234,12 +246,16 @@
       "site_web": null,
       "wikidata": "Q140824093",
       "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
         "ga-bac-c",
         "ga-bac-d"
       ],
       "particularites": "Lycée d'excellence.",
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Haut-Ogooué"
     },
     {
       "id": "ga-lyc-excellence-oyem",
@@ -251,12 +267,16 @@
       "site_web": null,
       "wikidata": "Q140820546",
       "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
         "ga-bac-c",
         "ga-bac-d"
       ],
       "particularites": "Lycée d'excellence.",
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Woleu-Ntem"
     },
     {
       "id": "ga-lyc-militaire-akanda",
@@ -273,7 +293,8 @@
       ],
       "particularites": null,
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Estuaire"
     },
     {
       "id": "ga-lyc-charles-mefane",
@@ -293,7 +314,8 @@
       ],
       "particularites": null,
       "logo": null,
-      "source": "curation"
+      "source": "curation",
+      "province": "Moyen-Ogooué"
     },
     {
       "id": "ma-lyc-moulay-youssef",
@@ -942,10 +964,16 @@
       "site_web": null,
       "wikidata": "Q140866009",
       "coordonnees": null,
-      "series_proposees": [],
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": "Estuaire"
     },
     {
       "id": "ga-sec-q140866000",
@@ -957,10 +985,16 @@
       "site_web": null,
       "wikidata": "Q140866000",
       "coordonnees": null,
-      "series_proposees": [],
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": "Estuaire"
     },
     {
       "id": "ga-sec-q140866140",
@@ -972,14 +1006,20 @@
       "site_web": null,
       "wikidata": "Q140866140",
       "coordonnees": null,
-      "series_proposees": [],
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": "Estuaire"
     },
     {
       "id": "ga-sec-q140852867",
-      "nom": "Lycée Sainte-Thérèse de  Libreville",
+      "nom": "Lycée Sainte-Thérèse de Libreville",
       "pays": "GA",
       "ville": null,
       "type": "lycee",
@@ -990,14 +1030,15 @@
       "series_proposees": [],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": "Estuaire"
     },
     {
       "id": "ga-sec-q140852800",
       "nom": "Lycée Technique Alexandre Biangue",
       "pays": "GA",
       "ville": null,
-      "type": "lycee",
+      "type": "lycee_technique",
       "statut": null,
       "site_web": null,
       "wikidata": "Q140852800",
@@ -1005,7 +1046,8 @@
       "series_proposees": [],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": "Estuaire"
     },
     {
       "id": "ga-sec-q140866132",
@@ -1020,7 +1062,8 @@
       "series_proposees": [],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": "Estuaire"
     },
     {
       "id": "ga-sec-q140819938",
@@ -1035,10 +1078,17 @@
         "lat": 0.397076777,
         "lng": 9.598978349
       },
-      "series_proposees": [],
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": "Estuaire"
     },
     {
       "id": "ga-sec-q140865892",
@@ -1053,11 +1103,12 @@
       "series_proposees": [],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": "Estuaire"
     },
     {
       "id": "ga-sec-q140833558",
-      "nom": "Lycée jean jacques boucavel",
+      "nom": "Lycée Jean Jacques Boucavel",
       "pays": "GA",
       "ville": "aéroport de Mouila",
       "type": "lycee",
@@ -1065,14 +1116,21 @@
       "site_web": null,
       "wikidata": "Q140833558",
       "coordonnees": null,
-      "series_proposees": [],
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": "Ngounié"
     },
     {
       "id": "ga-sec-q140797166",
-      "nom": "lycée Edouard Mossot",
+      "nom": "Lycée Edouard Mossot",
       "pays": "GA",
       "ville": "Moabi",
       "type": "lycee",
@@ -1080,10 +1138,14 @@
       "site_web": null,
       "wikidata": "Q140797166",
       "coordonnees": null,
-      "series_proposees": [],
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": "Nyanga"
     },
     {
       "id": "ma-sec-q106578022",
@@ -51234,7 +51296,8 @@
       "series_proposees": [],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": null
     },
     {
       "id": "ga-sec-q140865413",
@@ -51249,7 +51312,8 @@
       "series_proposees": [],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": "Estuaire"
     },
     {
       "id": "ga-sec-q140852664",
@@ -51264,7 +51328,8 @@
       "series_proposees": [],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": "Estuaire"
     },
     {
       "id": "ga-sec-q140852675",
@@ -51279,7 +51344,8 @@
       "series_proposees": [],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": null
     },
     {
       "id": "ga-sec-q140852730",
@@ -51294,7 +51360,8 @@
       "series_proposees": [],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": null
     },
     {
       "id": "ga-sec-q140865823",
@@ -51309,7 +51376,5261 @@
       "series_proposees": [],
       "particularites": null,
       "logo": null,
-      "source": "wikidata"
+      "source": "wikidata",
+      "province": null
+    },
+    {
+      "id": "ga-lyc-c-e-s-kakogho-de-leconi",
+      "nom": "C.E.S KAKOGHO DE LECONI",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-c-e-s-mamadou-lewo",
+      "nom": "C.E.S. Mamadou LEWO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-saint-dominique",
+      "nom": "Collège et Lycée Saint Dominique",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-laic-saint-thomas-d-aquin",
+      "nom": "Collège Privé Laïc Saint Thomas d'Aquin",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-les-hibiscus",
+      "nom": "Collège Privé Les Hibiscus",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-saint-claret-d-okondja",
+      "nom": "Collège SAINT CLARET D'OKONDJA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-albert-victor",
+      "nom": "Complexe Scolaire Albert Victor",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-emmanuel-intellect-plus",
+      "nom": "Complexe Scolaire Emmanuel Intellect-Plus",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-les-aiglons",
+      "nom": "Complexe Scolaire Les Aiglons",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-ecole-internationale-de-franceville",
+      "nom": "École internationale de Franceville",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-institut-altogoveen-d-enseignement-secondaire",
+      "nom": "Institut Altogovéen d'Enseignement Secondaire",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-institution-privee-marie-ndzaba",
+      "nom": "Institution Privée Marie NDZABA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-ahmed-khadim-oyabi",
+      "nom": "Lycée Ahmed Khadim OYABI",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-c"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-alliance-chretienne-leonard-mabika",
+      "nom": "Lycée Alliance Chrétienne Léonard MABIKA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-alliance-chretienne-rose-massombo",
+      "nom": "Lycée Alliance Chrétienne Rose MASSOMBO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-eugene-marcel-amogho",
+      "nom": "Lycée Eugène Marcel AMOGHO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-evangelique-de-franceville",
+      "nom": "Lycée Evangélique de Franceville",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-henry-sylvoz",
+      "nom": "Lycée Henry SYLVOZ",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-international-celestin-mayika",
+      "nom": "Lycée International Celestin MAYIKA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-les-leaders",
+      "nom": "Lycée Les LEADERS",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-luc-okenkali",
+      "nom": "Lycée Luc OKENKALI",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-monseigneur-jean-jerome-adam",
+      "nom": "Lycée Monseigneur Jean Jérôme ADAM",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-augustine-gnengui",
+      "nom": "Lycée Privé Augustine GNENGUI",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-lewai",
+      "nom": "Lycée Privé LEWAÏ",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-public-bruno-bokoko",
+      "nom": "Lycée Public Bruno BOKOKO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-public-toussaint-pitty",
+      "nom": "Lycée Public Toussaint PITTY",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-rigobert-landji",
+      "nom": "Lycée Rigobert LANDJI",
+      "pays": "GA",
+      "ville": null,
+      "province": "Haut-Ogooué",
+      "centre_examen": "Franceville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-saint-pierre-claver-de-bamboro",
+      "nom": "Collège et Lycée Saint Pierre Claver de Bamboro",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Lolo",
+      "centre_examen": "Koulamoutou",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-alliance-chretienne-david-mickombo",
+      "nom": "Lycée Alliance Chrétienne David MICKOMBO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Lolo",
+      "centre_examen": "Koulamoutou",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-catholique-notre-dame-de-la-salette",
+      "nom": "Lycée Catholique Notre Dame de la Salette",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Lolo",
+      "centre_examen": "Koulamoutou",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-celestin-moukodoum-ittah",
+      "nom": "Lycée Célestin MOUKODOUM ITTAH",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Lolo",
+      "centre_examen": "Koulamoutou",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-jean-stanislas-migolet",
+      "nom": "Lycée Jean Stanislas MIGOLET",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Lolo",
+      "centre_examen": "Koulamoutou",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-paul-moukambi",
+      "nom": "Lycée Paul MOUKAMBI",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Lolo",
+      "centre_examen": "Koulamoutou",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-jonas-lumiere",
+      "nom": "Lycée Privé JONAS LUMIERE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Lolo",
+      "centre_examen": "Koulamoutou",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-moutou-mambou",
+      "nom": "Lycée Privé MOUTOU MAMBOU",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Lolo",
+      "centre_examen": "Koulamoutou",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-public-jean-arsene-bounguendza",
+      "nom": "Lycée Public Jean Arsene BOUNGUENDZA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Lolo",
+      "centre_examen": "Koulamoutou",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-academie-privee-fotso-mobile",
+      "nom": "Académie Privée FOTSO-MOBILE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-association-tous-differents",
+      "nom": "Association Tous Différents",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-centre-bilingue-martha",
+      "nom": "Centre Bilingue MARTHA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-ces-d-owendo",
+      "nom": "CES D'OWENDO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-lycee-andrew-jackson-foster",
+      "nom": "Collège - Lycée Andrew Jackson FOSTER",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-adventiste",
+      "nom": "Collège Adventiste",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-capitaine-charles-ntchorere",
+      "nom": "Collège Capitaine Charles NTCHORERE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-d-enseignement-scolaire-enkere",
+      "nom": "Collège d'Enseignement Scolaire ENKERE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-du-gabon-alibandeng",
+      "nom": "Collège du Gabon Alibandeng",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-du-gabon-angondge",
+      "nom": "Collège du Gabon Angondge",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-eden-bachelard",
+      "nom": "Collège Eden Bachelard",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-calasanz",
+      "nom": "Collège et Lycée CALASANZ",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-notre-dame-de-quaben",
+      "nom": "Collège et Lycée Notre Dame de Quaben",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-prive-micheline",
+      "nom": "Collège et Lycée Privé MICHELINE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-prive-mere-jean-gabriel",
+      "nom": "Collège et Lycée Privé Mère Jean Gabriel",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-prive-ndouna-depenaud",
+      "nom": "Collège et Lycée Privé NDOUNA DEPENAUD",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-international-de-libreville",
+      "nom": "Collège International de Libreville",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-la-reussite-lbv",
+      "nom": "Collège La Réussite (LBV)",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-la-reussite-owendo",
+      "nom": "Collège La Réussite (OWENDO)",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-antoine-laurent-de-lavoisier",
+      "nom": "Collège Privé Antoine Laurent de LAVOISIER",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-cogito-educ",
+      "nom": "Collège Privé COGITO-EDUC",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a2"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-d-enseignement-secondaire-el-jire",
+      "nom": "Collège privé d'enseignement secondaire EL-JIRE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-de-la-merci",
+      "nom": "Collège Privé de La Merci",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-evolution",
+      "nom": "Collège Privé Evolution",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-fustel-coulange",
+      "nom": "Collège Privé FUSTEL COULANGE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-gregor-mendel",
+      "nom": "Collège Privé Gregor MENDEL",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-paul-valery",
+      "nom": "Collège Privé Paul VALERY",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-racines",
+      "nom": "Collège Privé RACINES",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-sony-labou-tansy",
+      "nom": "Collège Privé Sony LABOU TANSY",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-theopolis",
+      "nom": "Collège privé THEOPOLIS",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-rene-descartes",
+      "nom": "Collège René DESCARTES",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-saint-andre",
+      "nom": "Collège Saint André",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-saint-georges",
+      "nom": "Collège Saint Georges",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-saint-jean",
+      "nom": "Collège SAINT JEAN",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-saint-nicolas",
+      "nom": "Collège Saint NICOLAS",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-sainte-marie-des-anges",
+      "nom": "Collège Sainte Marie des Anges",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-sainte-odile",
+      "nom": "Collège Sainte Odile",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-sainte-rita",
+      "nom": "Collège Sainte Rita",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-secondaire-ambourhouet",
+      "nom": "Collège Secondaire AMBOURHOUET",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-le-mont-des-oliviers",
+      "nom": "Complexe Le Mont des Oliviers",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-prive-diband-ou",
+      "nom": "Complexe Privé DIBAND'OU",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-prive-laic-groupe-lymes-cames",
+      "nom": "Complexe Privé Laïc GROUPE LYMES-CAMES",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-bilingue-de-l-unite-et-f-r",
+      "nom": "Complexe Scolaire Bilingue de l'Unité et F. R.",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-cur-immaculee",
+      "nom": "Complexe Scolaire CŒUR IMMACULEE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-les-champions-international",
+      "nom": "Complexe Scolaire LES CHAMPIONS INTERNATIONAL",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-les-oliviers-verdoyants",
+      "nom": "Complexe Scolaire les OLIVIERS VERDOYANTS",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-notre-dame-de-la-providence",
+      "nom": "Complexe Scolaire Notre Dame de la Providence",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-prive-divin-amour",
+      "nom": "Complexe Scolaire Privé Divin Amour",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-prive-michel-dirat",
+      "nom": "Complexe Scolaire Privé Michel DIRAT",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-prive-rosa-parks",
+      "nom": "Complexe scolaire privé ROSA PARKS",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-prive-sagesse-divine-de-jesus",
+      "nom": "Complexe Scolaire Privé Sagesse Divine de Jésus",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-prive-suzanne-de-fleury",
+      "nom": "Complexe scolaire Privé Suzanne DE FLEURY",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-presence-africaine",
+      "nom": "Complexe Scolaire Présence Africaine",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-public-d-alibandeng",
+      "nom": "Complexe Scolaire Public d'Alibandeng",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-cours-principal-davenir",
+      "nom": "Cours PRINCIPAL D’AVENIR",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-cours-secondaire-prive-d-angondje",
+      "nom": "Cours Secondaire Privé d'ANGONDJE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-ecole-maarif-turco-gabonaise",
+      "nom": "Ecole Maarif Turco-Gabonaise",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-ecole-professionnelle-d-informatique",
+      "nom": "Ecole Professionnelle d'Informatique",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-epl-college-et-lycee-le-guide-de-nos-enfants-plus",
+      "nom": "EPL Collège et Lycée Le Guide de nos enfants Plus",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-fondation-marie-therese-essola",
+      "nom": "Fondation Marie Thérèse ESSOLA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-g-s-prive-charles-de-gaulle",
+      "nom": "G.S. Privé Charles DE GAULLE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-grand-college-du-gabon",
+      "nom": "Grand Collège du Gabon",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-groupe-scolaire-prive-les-loupiots",
+      "nom": "Groupe Scolaire Privé Les Loupiots",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-institut-kenco",
+      "nom": "Institut KENCO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-institut-prive-saint-claude",
+      "nom": "Institut Privé Saint-Claude",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-institut-regina-caeli",
+      "nom": "Institut Régina CAELI",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-institution-saint-ambroise-pk9",
+      "nom": "Institution Saint Ambroise (PK9)",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-le-grand-lycee-pierre-corneille",
+      "nom": "Le Grand Lycée Pierre CORNEILLE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-a-c-jeremie-bakoukou-ba-mouidy",
+      "nom": "Lycée A.C. Jérémie BAKOUKOU-BA-MOUIDY",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-akebe-ville",
+      "nom": "Lycée Akébé Ville",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-andre-gustave-anguilet-awoungou",
+      "nom": "Lycée André Gustave ANGUILET (AWOUNGOU)",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-ba-oumar",
+      "nom": "Lycée Bâ Oumar",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-classique-de-libreville",
+      "nom": "Lycée Classique de Libreville",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-colbert-le-grand",
+      "nom": "Lycée COLBERT LE GRAND",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-de-mikolongo",
+      "nom": "Lycée de MIKOLONGO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-de-montalier",
+      "nom": "Lycée de Montalier",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-diba-diba",
+      "nom": "Lycée DIBA-DIBA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-evangelique-d-owendo",
+      "nom": "Lycée Évangélique d'OWENDO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-evangelique-d-akebe",
+      "nom": "Lycée Evangélique d'AKEBE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-evangelique-de-baraka",
+      "nom": "Lycée Evangélique de BARAKA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-evangelique-samuel-nang-essono",
+      "nom": "Lycée Evangélique Samuel NANG ESSONO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-georges-mabignath",
+      "nom": "Lycée Georges MABIGNATH",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-intercontinental-d-ens-gen-et-tech",
+      "nom": "Lycée Intercontinental d'Ens. Gén et Tech.",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-jean-baptiste-obiang-etoughe",
+      "nom": "Lycée Jean Baptiste OBIANG ETOUGHE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-marianne",
+      "nom": "Lycée MARIANNE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-militaire-d-excellence-general-augustin-anguile",
+      "nom": "Lycée Militaire d'Excellence Général Augustin ANGUILE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-moderne-lymes-lalala",
+      "nom": "Lycée Moderne \"LYMES Lalala\"",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-mohamed-arissani",
+      "nom": "Lycée Mohamed ARISSANI",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-paul-emane-eyegue",
+      "nom": "Lycée Paul EMANE EYEGUE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-awassi",
+      "nom": "Lycée Privé AWASSI",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-barack-obama",
+      "nom": "Lycée Privé Barack OBAMA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-colonel-jean-baptiste-ossiessie",
+      "nom": "Lycée Privé Colonel Jean Baptiste OSSIESSIE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-de-l-excellence",
+      "nom": "Lycée Privé de l'Excellence",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-dekag",
+      "nom": "Lycée Privé DEKAG",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-don-bosco-des-soeurs-salesiennes",
+      "nom": "Lycée Privé DON BOSCO DES SOEURS SALESIENNES",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-elise-marie",
+      "nom": "Lycée Privé Elise Marie",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-l-ethique-d-angondge",
+      "nom": "Lycée Privé L'ETHIQUE D'ANGONDGE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-la-nouvelle-paques",
+      "nom": "Lycée Privé La Nouvelle Pâques",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-la-renaissance",
+      "nom": "Lycée Privé LA RENAISSANCE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-lamatsanguine",
+      "nom": "Lycée Privé LAMATSANGUINE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-laic-kambangoye-mendy",
+      "nom": "Lycée Privé Laïc KAMBANGOYE MENDY",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-les-archanges-lbv",
+      "nom": "Lycée Privé Les Archanges (LBV)",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-maria-rafols",
+      "nom": "Lycée Privé Maria Rafols",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-panafricain",
+      "nom": "Lycée Privé PANAFRICAIN",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-panafricain-london",
+      "nom": "Lycée Privé PANAFRICAIN (London)",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-paul-verlaine-fondation-oyono",
+      "nom": "Lycée Privé PAUL VERLAINE FONDATION OYONO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-pauline-bignumba-munguengui",
+      "nom": "Lycée Privé Pauline BIGNUMBA MUNGUENGUI",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-proccl",
+      "nom": "Lycée Privé PROCCL",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-saint-esprit",
+      "nom": "Lycée Privé Saint Esprit",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-saint-michel",
+      "nom": "Lycée Privé Saint Michel",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-scolaire-moderne-du-chateau",
+      "nom": "Lycée Privé Scolaire Moderne du Chateau",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-vincent-de-paul-nyonda",
+      "nom": "Lycée Privé Vincent de Paul NYONDA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-public-d-alenakiri",
+      "nom": "Lycée Public d'Alenakiri",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-public-d-avorbam",
+      "nom": "Lycée Public d'AVORBAM",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-public-d-awendje",
+      "nom": "Lycée Public d'AWENDJE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-public-d-owendo",
+      "nom": "Lycée Public d'Owendo",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-raymond-boukat",
+      "nom": "Lycée Raymond BOUKAT",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-saint-pierre-de-la-campagne",
+      "nom": "Lycée Saint Pierre de la Campagne",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-scientifique-sainte-lydie",
+      "nom": "Lycée Scientifique Sainte Lydie",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Libreville",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-c-e-s-leonard-mbamakoue",
+      "nom": "C.E.S Léonard MBAMAKOUE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Moyen-Ogooué",
+      "centre_examen": "Lambaréné",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-mgr-jean-baptiste-adiwa",
+      "nom": "Collège et Lycée Mgr. Jean Baptiste ADIWA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Moyen-Ogooué",
+      "centre_examen": "Lambaréné",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-saint-vincent",
+      "nom": "Collège Privé Saint Vincent",
+      "pays": "GA",
+      "ville": null,
+      "province": "Moyen-Ogooué",
+      "centre_examen": "Lambaréné",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-prive-excellencia-de-ndjole",
+      "nom": "Complexe Scolaire Privé EXCELLENCIA DE NDJOLE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Moyen-Ogooué",
+      "centre_examen": "Lambaréné",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-prive-laic-le-printemps",
+      "nom": "Complexe Scolaire Privé Laïc Le Printemps",
+      "pays": "GA",
+      "ville": null,
+      "province": "Moyen-Ogooué",
+      "centre_examen": "Lambaréné",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-prive-noel-ikapi-iwangou",
+      "nom": "Complexe Scolaire Privé Noël IKAPI IWANGOU",
+      "pays": "GA",
+      "ville": null,
+      "province": "Moyen-Ogooué",
+      "centre_examen": "Lambaréné",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-aubin-georges-modjeckou",
+      "nom": "Lycée Aubin Georges MODJECKOU",
+      "pays": "GA",
+      "ville": null,
+      "province": "Moyen-Ogooué",
+      "centre_examen": "Lambaréné",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-evangelique-michel-fanguinoveny",
+      "nom": "Lycée Evangélique Michel FANGUINOVENY",
+      "pays": "GA",
+      "ville": null,
+      "province": "Moyen-Ogooué",
+      "centre_examen": "Lambaréné",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-francois-meye",
+      "nom": "Lycée François MEYE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Moyen-Ogooué",
+      "centre_examen": "Lambaréné",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-janvier-nguema-mboumba",
+      "nom": "Lycée Privé Janvier NGUEMA MBOUMBA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Moyen-Ogooué",
+      "centre_examen": "Lambaréné",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-notre-dame-des-victoires",
+      "nom": "Collège et Lycée Notre Dame des Victoires",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Ivindo",
+      "centre_examen": "Makokou",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-alexandre-sambat",
+      "nom": "Lycée Alexandre SAMBAT",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Ivindo",
+      "centre_examen": "Makokou",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-daniel-kosse",
+      "nom": "Lycée Daniel KOSSE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Ivindo",
+      "centre_examen": "Makokou",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-evangelique-essia-nsomore",
+      "nom": "Lycée Evangélique ESSIA NSOMORE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Ivindo",
+      "centre_examen": "Makokou",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-mohammad-mouapa-beotsa",
+      "nom": "Lycée Mohammad MOUAPA BEOTSA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Ivindo",
+      "centre_examen": "Makokou",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-n-na-ekamkam-ovan",
+      "nom": "Lycée N'NA EKAMKAM (Ovan)",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Ivindo",
+      "centre_examen": "Makokou",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-jacques-et-jeanne",
+      "nom": "Lycée Privé JACQUES ET JEANNE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Ivindo",
+      "centre_examen": "Makokou",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-rehoboth",
+      "nom": "Lycée Privé Réhoboth",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Ivindo",
+      "centre_examen": "Makokou",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-public-de-makokou",
+      "nom": "Lycée Public de Makokou",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Ivindo",
+      "centre_examen": "Makokou",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-saint-gabriel",
+      "nom": "Collège et Lycée Saint Gabriel",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-val-marie",
+      "nom": "Collège et Lycée Val Marie",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-la-vision",
+      "nom": "Collège La Vision",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-la-ngounie",
+      "nom": "Complexe Scolaire La Ngounié",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-les-etoiles-de-saint-antoine",
+      "nom": "Complexe Scolaire les étoiles de Saint Antoine",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-albert-martin-sambat",
+      "nom": "Lycée Albert Martin SAMBAT",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-alexandre-madoungou-mbary",
+      "nom": "Lycée Alexandre MADOUNGOU MBARY",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-alliance-chretienne-marc-divingou",
+      "nom": "Lycée Alliance Chrétienne Marc DIVINGOU",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-alliance-chretienne-paul-ndoba",
+      "nom": "Lycée Alliance Chrétienne Paul NDOBA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-amiar-gahang",
+      "nom": "Lycée Amiar GAHANG",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-daniel-didier-roguet",
+      "nom": "Lycée Daniel Didier ROGUET",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-de-l-excellence-mbombe-a-gnangue",
+      "nom": "Lycée de l'Excellence MBOMBE-A-GNANGUE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-general-theodore-kwaou",
+      "nom": "Lycée Général Théodore KWAOU",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-islamique-de-mouila",
+      "nom": "Lycée Islamique de Mouila",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-leon-mboumba",
+      "nom": "Lycée Léon MBOUMBA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-paul-marie-yembit",
+      "nom": "Lycée Paul Marie YEMBIT",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-gaston-mbembe",
+      "nom": "Lycée Privé Gaston MBEMBE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-jean-guy-pambou",
+      "nom": "Lycée Privé Jean Guy PAMBOU",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-saint-augustin",
+      "nom": "Lycée Saint Augustin",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "centre_examen": "Mouila",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-lamartiniere",
+      "nom": "Complexe Scolaire LAMARTINIERE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Ntoum",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-prive-essassa",
+      "nom": "Complexe Scolaire Privé ESSASSA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Ntoum",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-prive-les-petits-calins",
+      "nom": "Complexe Scolaire Privé Les Petits Câlins",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Ntoum",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-prive-ngnamoro",
+      "nom": "Complexe Scolaire Privé NGNAMORO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Ntoum",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-lubin-martial-ntoutoume-obame",
+      "nom": "Lycée Lubin Martial NTOUTOUME OBAME",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Ntoum",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-marcelin-ndong-bye",
+      "nom": "Lycée Marcelin NDONG BYE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Ntoum",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-pascal-nze",
+      "nom": "Lycée Pascal NZE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Ntoum",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-actes-des-apotres",
+      "nom": "Lycée Privé ACTES DES APOTRES",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Ntoum",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-connaissance-soleil",
+      "nom": "Lycée Privé Connaissance Soleil",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Ntoum",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-elite-plus",
+      "nom": "Lycée Privé ELITE PLUS",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Ntoum",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-international-berthe-et-jean",
+      "nom": "Lycée Privé International Berthe et Jean",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Ntoum",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-nkoltang",
+      "nom": "Lycée Privé NKOLTANG",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "centre_examen": "Ntoum",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-c-e-s-de-bolossoville",
+      "nom": "C.E.S. de Bolossoville",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-dominique-savio-oye",
+      "nom": "Collège Dominique SAVIO (OYE)",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-jesus-marie",
+      "nom": "Collège et Lycée Jésus Marie",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-mgr-francois-xavier-ndong",
+      "nom": "Collège et Lycée Mgr. François Xavier NDONG",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-ondo-et-fils",
+      "nom": "Collège ONDO et Fils",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-socrate",
+      "nom": "Collège Privé SOCRATE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-saint-joseph-mitzic",
+      "nom": "Collège Saint Joseph (Mitzic)",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-cours-benoit-ndong-allogo",
+      "nom": "Cours Benoît NDONG ALLOGO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-alliance-chretienne-martin-effa-ndong",
+      "nom": "Lycée Alliance Chrétienne Martin EFFA NDONG",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-ambroise-obame-ndong",
+      "nom": "Lycée Ambroise OBAME NDONG",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-d-excellence-de-bitam",
+      "nom": "Lycée d'Excellence de Bitam",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-evangelique-andre-mintsa",
+      "nom": "Lycée Evangélique André MINTSA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-evangelique-d-ebomane",
+      "nom": "Lycée Evangélique D'EBOMANE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-evangelique-edzan-nkulu",
+      "nom": "Lycée Evangélique EDZAN NKULU",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-evangelique-marie-nkone",
+      "nom": "Lycée Evangélique Marie NKONE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-laic-abessolo",
+      "nom": "Lycée Privé Laïc ABESSOLO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-thomas-edzang-ondo",
+      "nom": "Lycée Privé Thomas EDZANG ONDO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-public-francois-assogo-eyeme",
+      "nom": "Lycée Public François ASSOGO EYEME",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-public-moise-nkoghe-mve",
+      "nom": "Lycée Public Moïse NKOGHE MVE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-richard-nguema-bekale",
+      "nom": "Lycée Richard NGUEMA BEKALE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-scientifique-de-bitam",
+      "nom": "Lycée Scientifique de BITAM",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-simon-oyono-aba-a",
+      "nom": "Lycée Simon OYONO ABA'A",
+      "pays": "GA",
+      "ville": null,
+      "province": "Woleu-Ntem",
+      "centre_examen": "Oyem",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-c-e-s-ambroise-maboumba",
+      "nom": "C.E.S. Ambroise MABOUMBA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-c-e-s-bac-aviation",
+      "nom": "C.E.S. Bac Aviation",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-c-e-s-julien-mbourou",
+      "nom": "C.E.S. Julien MBOUROU",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-bikenzi",
+      "nom": "Collège BIKENZI",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-delta-pog",
+      "nom": "Collège DELTA (POG)",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-mgr-raponda-walker",
+      "nom": "Collège et Lycée Mgr. Raponda WALKER",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-louis-pasteur",
+      "nom": "Collège Louis Pasteur",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-la-maxime",
+      "nom": "Collège Privé La Maxime",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-prive-la-vie-comblee",
+      "nom": "Collège Privé La Vie Comblée",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-complexe-scolaire-l-esperance",
+      "nom": "Complexe Scolaire l'ESPERANCE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-blaise-honore",
+      "nom": "Lycée Blaise HONORE",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-evangelique-de-port-gentil",
+      "nom": "Lycée Evangélique de Port-Gentil",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-international-d-excellence-de-port-gentil",
+      "nom": "Lycée International d'Excellence de Port - Gentil",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-islamique-de-port-gentil",
+      "nom": "Lycée Islamique de Port-Gentil",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-jean-de-dieu-ntiwini-igana",
+      "nom": "Lycée Jean de Dieu NTIWINI-IGANA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-joseph-ambourouet-avaro",
+      "nom": "Lycée Joseph AMBOUROUET AVARO",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-moderne-prive-joseph-souza",
+      "nom": "Lycée Moderne Privé Joseph SOUZA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-canadien-bilingue-de-port-gentil",
+      "nom": "Lycée Privé CANADIEN BILINGUE DE PORT-GENTIL",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-prive-charles-lwanga",
+      "nom": "Lycée Privé Charles LWANGA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-roger-gouteyron",
+      "nom": "Lycée Roger GOUTEYRON",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-thuriaf-bantsantsa",
+      "nom": "Lycée Thuriaf BANTSANTSA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ogooué-Maritime",
+      "centre_examen": "Port-Gentil",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-c-e-s-public-de-mabanda",
+      "nom": "C.E.S Public de Mabanda",
+      "pays": "GA",
+      "ville": null,
+      "province": "Nyanga",
+      "centre_examen": "Tchibanga",
+      "type": "lycee",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-all-chret-jean-paul-mbadinga-boucka",
+      "nom": "Collège All. Chrét. Jean Paul MBADINGA BOUCKA",
+      "pays": "GA",
+      "ville": null,
+      "province": "Nyanga",
+      "centre_examen": "Tchibanga",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-et-lycee-horizons",
+      "nom": "Collège et Lycée Horizons",
+      "pays": "GA",
+      "ville": null,
+      "province": "Nyanga",
+      "centre_examen": "Tchibanga",
+      "type": "lycee",
+      "statut": "prive",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-college-la-reussite-tbg",
+      "nom": "Collège La Réussite (TBG)",
+      "pays": "GA",
+      "ville": null,
+      "province": "Nyanga",
+      "centre_examen": "Tchibanga",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-etienne-koumba-nziengui",
+      "nom": "Lycée Etienne KOUMBA NZIENGUI",
+      "pays": "GA",
+      "ville": null,
+      "province": "Nyanga",
+      "centre_examen": "Tchibanga",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-general-nazaire-boulingui",
+      "nom": "Lycée Général Nazaire BOULINGUI",
+      "pays": "GA",
+      "ville": null,
+      "province": "Nyanga",
+      "centre_examen": "Tchibanga",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-a2",
+        "ga-bac-b",
+        "ga-bac-c",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-jean-baptiste-moandat",
+      "nom": "Lycée Jean Baptiste MOANDAT",
+      "pays": "GA",
+      "ville": null,
+      "province": "Nyanga",
+      "centre_examen": "Tchibanga",
+      "type": "lycee",
+      "statut": null,
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [
+        "ga-bac-a1",
+        "ga-bac-b",
+        "ga-bac-d"
+      ],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-technique-de-ntoum",
+      "nom": "Lycée Technique de Ntoum",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "type": "lycee_technique",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-technique-de-libreville",
+      "nom": "Lycée Technique de Libreville",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "type": "lycee_technique",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-scientifique-et-technologique-paul-kouya",
+      "nom": "Lycée Scientifique et Technologique Paul Kouya",
+      "pays": "GA",
+      "ville": null,
+      "province": null,
+      "type": "lycee_technique",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-technique-fulbert-bonghota",
+      "nom": "Lycée Technique Fulbert Bonghota",
+      "pays": "GA",
+      "ville": null,
+      "province": null,
+      "type": "lycee_technique",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-technique-agathe-obendje",
+      "nom": "Lycée Technique Agathe Obendje",
+      "pays": "GA",
+      "ville": null,
+      "province": null,
+      "type": "lycee_technique",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-ecole-nationale-de-commerce",
+      "nom": "École Nationale de Commerce",
+      "pays": "GA",
+      "ville": null,
+      "province": "Estuaire",
+      "type": "lycee_technique",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-technique-jean-fidele-otando",
+      "nom": "Lycée Technique Jean Fidèle Otando",
+      "pays": "GA",
+      "ville": null,
+      "province": null,
+      "type": "lycee_technique",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-technique-nyonda-makita",
+      "nom": "Lycée Technique Nyonda Makita",
+      "pays": "GA",
+      "ville": null,
+      "province": null,
+      "type": "lycee_technique",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-technique-de-fougamou",
+      "nom": "Lycée Technique de Fougamou",
+      "pays": "GA",
+      "ville": null,
+      "province": "Ngounié",
+      "type": "lycee_technique",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-technique-bernard-obiang",
+      "nom": "Lycée Technique Bernard Obiang",
+      "pays": "GA",
+      "ville": null,
+      "province": null,
+      "type": "lycee_technique",
+      "statut": "public",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [],
+      "particularites": null,
+      "logo": null,
+      "source": "examens-gabon"
+    },
+    {
+      "id": "ga-lyc-lycee-francais-victor-hugo-de-port-gentil",
+      "nom": "Lycée Français Victor Hugo de Port-Gentil",
+      "pays": "GA",
+      "ville": "Port-Gentil",
+      "province": "Ogooué-Maritime",
+      "type": "lycee",
+      "statut": "prive_international",
+      "site_web": null,
+      "wikidata": null,
+      "series_proposees": [],
+      "particularites": "Lycée français (baccalauréat français).",
+      "logo": null,
+      "source": "curation"
     }
   ]
 }

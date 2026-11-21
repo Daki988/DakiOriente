@@ -1,0 +1,3500 @@
+{
+ "_meta": {
+  "source": "https://www.examensgabon.com/etablissement_listinscritserie.php",
+  "description": "Établissements présentant des candidats au baccalauréat général (séries A1, A2, B, C, D), par centre d'examen. Relevé du 21/11/2026 : noms, code de l'établissement, centres et séries seulement (aucune donnée de candidat).",
+  "centres": {
+   "LBV": "Libreville",
+   "LBVB": "Libreville (2e centre)",
+   "NTM": "Ntoum",
+   "FCV": "Franceville",
+   "FCVB": "Franceville (2e centre)",
+   "OYE": "Oyem",
+   "OYEB": "Oyem (2e centre)",
+   "MLA": "Mouila",
+   "MLAB": "Mouila (2e centre)",
+   "POG": "Port-Gentil",
+   "POGB": "Port-Gentil (2e centre)",
+   "LRN": "Lambaréné",
+   "LRNB": "Lambaréné (2e centre)",
+   "KLM": "Koulamoutou",
+   "KLMB": "Koulamoutou (2e centre)",
+   "MKO": "Makokou",
+   "MKOB": "Makokou (2e centre)",
+   "TBG": "Tchibanga",
+   "TBGB": "Tchibanga (2e centre)",
+   "NTMB": "Ntoum (2e centre)"
+  }
+ },
+ "items": [
+  {
+   "code": "CSKA",
+   "nom": "C.E.S KAKOGHO DE LECONI",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LEWO",
+   "nom": "C.E.S. Mamadou LEWO",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LIBRE20",
+   "nom": "Candidats Libres",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "DOMI",
+   "nom": "Collège et Lycée Saint Dominique",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "DAQUIN",
+   "nom": "Collège Privé Laïc Saint Thomas d'Aquin",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "HIBISCUS",
+   "nom": "Collège Privé Les Hibiscus",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "ST_CLARET",
+   "nom": "Collège SAINT CLARET D'OKONDJA",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "CSAV",
+   "nom": "Complexe Scolaire Albert Victor",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "CS_EIP",
+   "nom": "Complexe Scolaire Emmanuel Intellect-Plus",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "AIGLONS",
+   "nom": "Complexe Scolaire Les Aiglons",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "E.INTER",
+   "nom": "ECOLE INTERNATIONALE DE FRANCEVILLE",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "IAES",
+   "nom": "Institut Altogovéen d'Enseignement Secondaire",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "NDZABA",
+   "nom": "Institution Privée Marie NDZABA",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "OYABI",
+   "nom": "LYCEE AHMED KHADIM OYABI",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "C"
+   ]
+  },
+  {
+   "code": "LACLMABIK",
+   "nom": "Lycée Alliance Chrétienne Léonard MABIKA",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CRMA",
+   "nom": "Lycée Alliance Chrétienne Rose MASSOMBO",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "EXCELFCV",
+   "nom": "Lycée d'Excellence de Franceville",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LEMA",
+   "nom": "Lycée Eugène Marcel AMOGHO",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LEFCV",
+   "nom": "Lycée Evangélique de Franceville",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "SYLVOZ",
+   "nom": "Lycée Henry SYLVOZ",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LYIF",
+   "nom": "Lycée International Celestin MAYIKA",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "LEADERS",
+   "nom": "Lycée Les LEADERS",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "OKEN",
+   "nom": "Lycée Luc OKENKALI",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "ADAM",
+   "nom": "Lycée Monseigneur Jean Jérôme ADAM",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LYPAG",
+   "nom": "Lycée Privé Augustine GNENGUI",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LEWAI",
+   "nom": "Lycée Privé LEWAÏ",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LPBB",
+   "nom": "Lycée Public Bruno BOKOKO",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "PITTY",
+   "nom": "Lycée Public Toussaint PITTY",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LANDJ",
+   "nom": "Lycée Rigobert LANDJI",
+   "centres": [
+    "FCV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LIBRE70",
+   "nom": "Candidats Libres",
+   "centres": [
+    "KLM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "BAMBORO",
+   "nom": "Collège et Lycée Saint Pierre Claver de Bamboro",
+   "centres": [
+    "KLM"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "MICKOMBO",
+   "nom": "Lycée Alliance Chrétienne David MICKOMBO",
+   "centres": [
+    "KLM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "SALETTE",
+   "nom": "Lycée Catholique Notre Dame de la Salette",
+   "centres": [
+    "KLM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "ITTAH",
+   "nom": "Lycée Célestin MOUKODOUM ITTAH",
+   "centres": [
+    "KLM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "MIGOLET",
+   "nom": "Lycée Jean Stanislas MIGOLET",
+   "centres": [
+    "KLM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CPMI",
+   "nom": "Lycée Paul MOUKAMBI",
+   "centres": [
+    "KLM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LPJL",
+   "nom": "Lycée Privé JONAS LUMIERE",
+   "centres": [
+    "KLM"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "MOUTOU",
+   "nom": "Lycée Privé MOUTOU MAMBOU",
+   "centres": [
+    "KLM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "BOUNG",
+   "nom": "Lycée Public Jean Arsene BOUNGUENDZA",
+   "centres": [
+    "KLM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "FOTSO",
+   "nom": "Académie Privée FOTSO-MOBILE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "ATS",
+   "nom": "Association Tous Différents",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "LIBRE10",
+   "nom": "Candidat Libre Non Scolarisé",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CB_MARTHA",
+   "nom": "Centre Bilingue MARTHA",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "EXCEL",
+   "nom": "CES D'OWENDO",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "FOSTER",
+   "nom": "Collège - Lycée Andrew Jackson FOSTER",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "D"
+   ]
+  },
+  {
+   "code": "ADVENTISTE",
+   "nom": "Collège Adventiste",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "NTCHORERE",
+   "nom": "Collège Capitaine Charles NTCHORERE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "ENKERE",
+   "nom": "Collège d'Enseignement Scolaire ENKERE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "COLLEGE_GABON_ALI",
+   "nom": "Collège du Gabon Alibandeng",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "COLLEGE_GABON_ANG",
+   "nom": "Collège du Gabon Angondge",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "BACHELARD",
+   "nom": "Collège Eden Bachelard",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "CALA",
+   "nom": "Collège et Lycée CALASANZ",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CNDQ",
+   "nom": "Collège et Lycée Notre Dame de Quaben",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "MICHELINE",
+   "nom": "Collège et Lycée Privé MICHELINE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "M-J-GABRIEL",
+   "nom": "Collège et Lycée Privé Mère Jean Gabriel",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "DEPENAUD",
+   "nom": "Collège et Lycée Privé NDOUNA DEPENAUD",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "D"
+   ]
+  },
+  {
+   "code": "SAIMA",
+   "nom": "Collège et Lycée Sainte-Marie",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CI",
+   "nom": "Collège International de Libreville",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "REUSSITE1",
+   "nom": "Collège La Réussite (LBV)",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C"
+   ]
+  },
+  {
+   "code": "REUSSITE2",
+   "nom": "Collège La Réussite (OWENDO)",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LAVOISIER",
+   "nom": "Collège Privé Antoine Laurent de LAVOISIER",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "CPCOGITO",
+   "nom": "Collège Privé COGITO-EDUC",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A2"
+   ]
+  },
+  {
+   "code": "ELJIRE",
+   "nom": "Collège privé d'enseignement secondaire EL-JIRE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LAMERCI",
+   "nom": "Collège Privé de La Merci",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "EVOLUTION",
+   "nom": "Collège Privé Evolution",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "FUSTEL",
+   "nom": "Collège Privé FUSTEL COULANGE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "MENDEL",
+   "nom": "Collège Privé Gregor MENDEL",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "VALERY",
+   "nom": "Collège Privé Paul VALERY",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "RACINES",
+   "nom": "Collège Privé RACINES",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LABOU_TANSY",
+   "nom": "Collège Privé Sony LABOU TANSY",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "THEOPOLIS",
+   "nom": "Collège privé THEOPOLIS",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "DESCARTES",
+   "nom": "Collège René DESCARTES",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "ST-ANDRE",
+   "nom": "Collège Saint André",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "CSG",
+   "nom": "Collège Saint Georges",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "ST-JEAN",
+   "nom": "Collège SAINT JEAN",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "NICOLAS",
+   "nom": "Collège Saint NICOLAS",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "D"
+   ]
+  },
+  {
+   "code": "DESANGES",
+   "nom": "Collège Sainte Marie des Anges",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "STE-ODILE",
+   "nom": "Collège Sainte Odile",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "STE-RITA",
+   "nom": "Collège Sainte Rita",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "AMB",
+   "nom": "Collège Secondaire AMBOURHOUET",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "M.Oliviers",
+   "nom": "Complexe Le Mont des Oliviers",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "DIBANDOU",
+   "nom": "Complexe Privé DIBAND'OU",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LYMES",
+   "nom": "Complexe Privé Laïc GROUPE LYMES-CAMES",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "CSBUFR",
+   "nom": "Complexe Scolaire Bilingue de l'Unité et F. R.",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "CSCI",
+   "nom": "Complexe Scolaire CŒUR IMMACULEE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "D"
+   ]
+  },
+  {
+   "code": "CHAMPIONS",
+   "nom": "Complexe Scolaire LES CHAMPIONS INTERNATIONAL",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "VERDOYANTS",
+   "nom": "Complexe Scolaire les OLIVIERS VERDOYANTS",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "ND_PROVIDENCE",
+   "nom": "Complexe Scolaire Notre Dame de la Providence",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "DIVIN-AMOUR",
+   "nom": "Complexe Scolaire Privé Divin Amour",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "DIRAT",
+   "nom": "Complexe Scolaire Privé Michel DIRAT",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "ROSA_PARKS",
+   "nom": "Complexe scolaire privé ROSA PARKS",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "SAGESSE_DIVINE",
+   "nom": "Complexe Scolaire Privé Sagesse Divine de Jésus",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "D"
+   ]
+  },
+  {
+   "code": "FLEURY",
+   "nom": "Complexe scolaire Privé Suzanne DE FLEURY",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "PRESENCE_AFRICAINE",
+   "nom": "Complexe Scolaire Présence Africaine",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CSPALIBANDENG",
+   "nom": "Complexe Scolaire Public d'Alibandeng",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "AVENIR",
+   "nom": "Cours PRINCIPAL D’AVENIR",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "CSPA",
+   "nom": "Cours Secondaire Privé d'ANGONDJE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "MAARIF",
+   "nom": "Ecole Maarif Turco-Gabonaise",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "E.P.I.",
+   "nom": "Ecole Professionnelle d'Informatique",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LEGUIDE",
+   "nom": "EPL COLLEGE ET LYCEE LE GUIDE DE NOS ENFANTS PLUS",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "ESSOLA",
+   "nom": "Fondation Marie Thérèse ESSOLA",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "GP_DEGAULLE",
+   "nom": "G.S. Privé Charles DE GAULLE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "GRD_COLLEGE",
+   "nom": "Grand Collège du Gabon",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LOUPIOTS",
+   "nom": "Groupe Scolaire Privé Les Loupiots",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "KENCO",
+   "nom": "Institut KENCO",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "INST_LMBA",
+   "nom": "Institut Privé Léon MBA",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "ST-CLAUDE",
+   "nom": "Institut Privé Saint-Claude",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B"
+   ]
+  },
+  {
+   "code": "RCAELI",
+   "nom": "Institut Régina CAELI",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "IIC",
+   "nom": "Institution Immaculée Conception",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "AMBROISE",
+   "nom": "Institution Saint Ambroise (PK9)",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "CORNEILLE",
+   "nom": "Le Grand Lycée Pierre CORNEILLE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "BAKOUKOU",
+   "nom": "Lycée A.C. Jérémie BAKOUKOU-BA-MOUIDY",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CSAKEBE",
+   "nom": "Lycée Akébé Ville",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "ANGUIL",
+   "nom": "Lycée André Gustave ANGUILET (AWOUNGOU)",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "CBAOU",
+   "nom": "Lycée Bâ Oumar",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CLASSIQUE",
+   "nom": "Lycée Classique de Libreville",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "COLBERT",
+   "nom": "Lycée COLBERT LE GRAND",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LANM",
+   "nom": "Lycée d'Application Nelson MANDELA",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "MIKOLONGO",
+   "nom": "Lycée de MIKOLONGO",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "MONTAL",
+   "nom": "Lycée de Montalier",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "DIBADIBA",
+   "nom": "Lycée DIBA-DIBA",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LDD",
+   "nom": "Lycée DJOUE DABANY",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LEOW",
+   "nom": "Lycée Evangelique d'OWENDO",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "AKEB",
+   "nom": "Lycée Evangélique d'AKEBE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "BARAKA",
+   "nom": "Lycée Evangélique de BARAKA",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "NANG",
+   "nom": "Lycée Evangélique Samuel NANG ESSONO",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LGM",
+   "nom": "Lycée Georges MABIGNATH",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LICEGT",
+   "nom": "Lycée Intercontinental d'Ens. Gén et Tech.",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LJBOE",
+   "nom": "Lycée Jean Baptiste OBIANG ETOUGHE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "JHAUB",
+   "nom": "Lycée Jean Hilaire AUBAME EYEGHE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "MARIANNE",
+   "nom": "Lycée MARIANNE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LMEGAA",
+   "nom": "Lycée Militaire d'Excellence Général Augustin ANGUILE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LYMESLALALA",
+   "nom": "Lycée Moderne \"LYMES Lalala\"",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "ARISS",
+   "nom": "Lycée Mohamed ARISSANI",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "BES",
+   "nom": "Lycée Monseigneur BESSIEUX",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LNLM",
+   "nom": "Lycée National Léon MBA",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LPEE",
+   "nom": "Lycée Paul EMANE EYEGUE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "PINDJ",
+   "nom": "Lycée Paul INDJENDJET GONDJOUT",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "AWASSI",
+   "nom": "Lycée Privé AWASSI",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "OBAMA",
+   "nom": "Lycée Privé Barack OBAMA",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "OSSIESSIE",
+   "nom": "Lycée Privé Colonel Jean Baptiste OSSIESSIE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "MBELE_AKANDA",
+   "nom": "Lycée Privé d'ANGONDJE(Fondation MBELE)",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LPEXCELL",
+   "nom": "Lycée Privé de l'Excellence",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "D"
+   ]
+  },
+  {
+   "code": "MBELE",
+   "nom": "Lycée Privé de Nzeng-Ayong Fdt. MBELE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "DEKAG",
+   "nom": "Lycée Privé DEKAG",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "DONBOSCO",
+   "nom": "Lycée Privé DON BOSCO DES SOEURS SALESIENNES",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "ELISE",
+   "nom": "Lycée Privé Elise Marie",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "ETHIQUE",
+   "nom": "Lycée Privé L'ETHIQUE D'ANGONDGE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "N-P%C3%A2ques",
+   "nom": "Lycée Privé La Nouvelle Pâques",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "RENAISSANCE",
+   "nom": "Lycée Privé LA RENAISSANCE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "MATSANGUINE",
+   "nom": "Lycée Privé LAMATSANGUINE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LP_KAMBANGOYE",
+   "nom": "Lycée Privé Laïc KAMBANGOYE MENDY",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "ARCHANGES",
+   "nom": "Lycée Privé Les Archanges (LBV)",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "RAFOLS",
+   "nom": "Lycée Privé Maria Rafols",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "PANAFRICAIN",
+   "nom": "Lycée Privé PANAFRICAIN",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "PANAF_LONDON",
+   "nom": "Lycée Privé PANAFRICAIN (London)",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "VERLAINE",
+   "nom": "Lycée Privé PAUL VERLAINE FONDATION OYONO",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "BIGNUMBA_MUNGUENGUI",
+   "nom": "Lycée Privé Pauline BIGNUMBA MUNGUENGUI",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "PROCCL",
+   "nom": "Lycée Privé PROCCL",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "ST_ESPRIT",
+   "nom": "Lycée Privé Saint Esprit",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "ST_MICHEL",
+   "nom": "Lycée Privé Saint Michel",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LPSMC",
+   "nom": "Lycée Privé Scolaire Moderne du Chateau",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "NYONDA",
+   "nom": "Lycée Privé Vincent de Paul NYONDA",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LPA",
+   "nom": "Lycée Public d'Alenakiri",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LYPAV",
+   "nom": "Lycée Public d'AVORBAM",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LYPAW",
+   "nom": "Lycée Public d'AWENDJE",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LPOW",
+   "nom": "Lycée Public d'Owendo",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LRB",
+   "nom": "Lycée Raymond BOUKAT",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LPSTPIERRE",
+   "nom": "Lycée Saint Pierre de la Campagne",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "STE-LYDIE",
+   "nom": "Lycée Scientifique Sainte Lydie",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "PRYTHA",
+   "nom": "Prytanée Militaire de Libreville",
+   "centres": [
+    "LBV"
+   ],
+   "series": [
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CSMAK",
+   "nom": "C.E.S Léonard MBAMAKOUE",
+   "centres": [
+    "LRN"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LIBRE30",
+   "nom": "Candidats Libres",
+   "centres": [
+    "LRN"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "ADIWA",
+   "nom": "Collège et Lycée Mgr. Jean Baptiste ADIWA",
+   "centres": [
+    "LRN"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "VINCENT",
+   "nom": "Collège Privé Saint Vincent",
+   "centres": [
+    "LRN"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "NDJOLE",
+   "nom": "Complexe Scolaire Privé EXCELLENCIA DE NDJOLE",
+   "centres": [
+    "LRN"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "PRINTEMPS",
+   "nom": "Complexe Scolaire Privé Laïc Le Printemps",
+   "centres": [
+    "LRN"
+   ],
+   "series": [
+    "A1",
+    "D"
+   ]
+  },
+  {
+   "code": "IWANGOU",
+   "nom": "Complexe Scolaire Privé Noël IKAPI IWANGOU",
+   "centres": [
+    "LRN"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "MODJECKOU",
+   "nom": "Lycée Aubin Georges MODJECKOU",
+   "centres": [
+    "LRN"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CMEFA",
+   "nom": "Lycée Charles MEFANE",
+   "centres": [
+    "LRN"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "FANGUI",
+   "nom": "Lycée Evangélique Michel FANGUINOVENY",
+   "centres": [
+    "LRN"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "MEYE",
+   "nom": "Lycée François MEYE",
+   "centres": [
+    "LRN"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "JANVIER",
+   "nom": "Lycée Privé Janvier NGUEMA MBOUMBA",
+   "centres": [
+    "LRN"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LIBRE60",
+   "nom": "Candidats Libres",
+   "centres": [
+    "MKO"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CNDV",
+   "nom": "Collège et Lycée Notre Dame des Victoires",
+   "centres": [
+    "MKO"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "SAMBAT",
+   "nom": "Lycée Alexandre SAMBAT",
+   "centres": [
+    "MKO"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "KOSSE",
+   "nom": "Lycée Daniel KOSSE",
+   "centres": [
+    "MKO"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "ESSIA",
+   "nom": "Lycée Evangélique ESSIA NSOMORE",
+   "centres": [
+    "MKO"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "BEOTSA",
+   "nom": "Lycée Mohammad MOUAPA BEOTSA",
+   "centres": [
+    "MKO"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "CSOVA",
+   "nom": "Lycée N'NA EKAMKAM (Ovan)",
+   "centres": [
+    "MKO"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "JACQUES",
+   "nom": "Lycée Privé JACQUES ET JEANNE",
+   "centres": [
+    "MKO"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "REHOBOTH",
+   "nom": "Lycée Privé Réhoboth",
+   "centres": [
+    "MKO"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "CMAK",
+   "nom": "Lycée Public de Makokou",
+   "centres": [
+    "MKO"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LIBRE40",
+   "nom": "Candidats Libres",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "GABRIEL",
+   "nom": "Collège et Lycée Saint Gabriel",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "VAL",
+   "nom": "Collège et Lycée Val Marie",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B"
+   ]
+  },
+  {
+   "code": "VISION",
+   "nom": "Collège La Vision",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "NGOUNIE",
+   "nom": "Complexe Scolaire La Ngounié",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "ST_ANTOINE",
+   "nom": "Complexe Scolaire les étoiles de Saint Antoine",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LAMS",
+   "nom": "Lycée Albert Martin SAMBAT",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "MBARY",
+   "nom": "Lycée Alexandre MADOUNGOU MBARY",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "DIVINGOU",
+   "nom": "Lycée Alliance Chrétienne Marc DIVINGOU",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "NDOBA",
+   "nom": "Lycée Alliance Chrétienne Paul NDOBA",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "GAHANG",
+   "nom": "Lycée Amiar GAHANG",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LDDR",
+   "nom": "Lycée Daniel Didier ROGUET",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "MBOMBE",
+   "nom": "Lycée de l'Excellence MBOMBE-A-GNANGUE",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "KWAOU",
+   "nom": "Lycée Général Théodore KWAOU",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LISM",
+   "nom": "Lycée Islamique de Mouila",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LLM",
+   "nom": "Lycée Léon MBOUMBA",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "YEMBIT",
+   "nom": "Lycée Paul Marie YEMBIT",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "MBEMBE",
+   "nom": "lycée Privé Gaston MBEMBE",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "B"
+   ]
+  },
+  {
+   "code": "PAMBOU",
+   "nom": "Lycée Privé Jean Guy PAMBOU",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "BOUCA",
+   "nom": "Lycée Public Jean Jacques BOUCAVEL",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "AUGUSTIN",
+   "nom": "Lycée Saint Augustin",
+   "centres": [
+    "MLA"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LIBRE11",
+   "nom": "Candidats Libres",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LAMARTINIERE",
+   "nom": "Complexe Scolaire LAMARTINIERE",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "CP_ESSASSA",
+   "nom": "Complexe Scolaire Privé ESSASSA",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "CSPPC",
+   "nom": "Complexe Scolaire Privé Les Petits Câlins",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "NGNAMORO",
+   "nom": "Complexe Scolaire Privé NGNAMORO",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1",
+    "A2"
+   ]
+  },
+  {
+   "code": "LYEXES",
+   "nom": "Lycée d'Excellence d'ESSASSA",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LMNTOU",
+   "nom": "Lycée Lubin Martial NTOUTOUME OBAME",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LMNB",
+   "nom": "Lycée Marcelin NDONG BYE",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "CPNZE",
+   "nom": "Lycée Pascal NZE",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "APOTRES",
+   "nom": "Lycée Privé ACTES DES APOTRES",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "LPCS",
+   "nom": "Lycée Privé Connaissance Soleil",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "ELITE",
+   "nom": "Lycée Privé ELITE PLUS",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LPIBJ",
+   "nom": "Lycée Privé International Berthe et Jean",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LPR_NKOLTANG",
+   "nom": "Lycée Privé NKOLTANG",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "BIKELE",
+   "nom": "Lycée Public de BIKELE",
+   "centres": [
+    "NTM"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CESBOL",
+   "nom": "C.E.S. de Bolossoville",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LIBRE90",
+   "nom": "Candidats Libres",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "D.SAVIO9",
+   "nom": "Collège Dominique SAVIO (OYE)",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "CDONBOSCO",
+   "nom": "Collège DON BOSCO",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "JESUS",
+   "nom": "Collège et Lycée Jésus Marie",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "ANGONE",
+   "nom": "Collège et Lycée Mgr. François Xavier NDONG",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "ONDO",
+   "nom": "Collège ONDO et Fils",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CPSOCRATE",
+   "nom": "Collège Privé SOCRATE",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "STJEAN",
+   "nom": "Collège Saint Jean (Minvoul)",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "STJOSEPH",
+   "nom": "Collège Saint Joseph (Mitzic)",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "CB_NDONG_ALLOGHO",
+   "nom": "Cours Benoît NDONG ALLOGO",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "E.NDONG",
+   "nom": "Lycée Alliance Chretienne Martin EFFA NDONG",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "OBAME_NDONG",
+   "nom": "Lycée Ambroise OBAME NDONG",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "EXCELB",
+   "nom": "Lycée d'Excellence de Bitam",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "EXCELOYE",
+   "nom": "Lycée de l'Excellence d'Oyem",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "ANDRE_MINTSA",
+   "nom": "Lycée Evangélique André MINTSA",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "EBOMANE",
+   "nom": "Lycée Evangélique D'EBOMANE",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "NKULU",
+   "nom": "Lycée Evangélique EDZAN NKULU",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "NKONE",
+   "nom": "Lycée Evangélique Marie NKONE",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LPL_ABESSOLO",
+   "nom": "Lycée Privé Laïc ABESSOLO",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "EDZANG_ONDO",
+   "nom": "Lycée Privé Thomas EDZANG ONDO",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "LPAE",
+   "nom": "Lycée Public François ASSOGO EYEME",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "NKOGHE",
+   "nom": "Lycée Public Moïse NKOGHE MVE",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "NGUEMA",
+   "nom": "Lycée Richard NGUEMA BEKALE",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "LSBT",
+   "nom": "Lycée Scientifique de BITAM",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "B"
+   ]
+  },
+  {
+   "code": "OYONO",
+   "nom": "Lycée Simon OYONO ABA'A",
+   "centres": [
+    "OYE"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "MABOUMBA",
+   "nom": "C.E.S. Ambroise MABOUMBA",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "CSBAC",
+   "nom": "C.E.S. Bac Aviation",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "CSJMO",
+   "nom": "C.E.S. Julien MBOUROU",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LIBRE80",
+   "nom": "Candidats Libres",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "BIKENZI",
+   "nom": "Collège BIKENZI",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "DELTA",
+   "nom": "Collège DELTA (POG)",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "RAPW",
+   "nom": "Collège et Lycée Mgr. Raponda WALKER",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "PASTEUR",
+   "nom": "Collège Louis Pasteur",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "MAXIME",
+   "nom": "Collège Privé La Maxime",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LAVIE",
+   "nom": "Collège Privé La Vie Comblée",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "ESPERANCE",
+   "nom": "Complexe Scolaire l'ESPERANCE",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "CS_ST_THOMAS",
+   "nom": "Complexe Scolaire Privé Saint Thomas",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B"
+   ]
+  },
+  {
+   "code": "HONORE",
+   "nom": "Lycée Blaise HONORE",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LE_POG",
+   "nom": "Lycée Evangélique de Port-Gentil",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LIEXP",
+   "nom": "Lycée International d'Excellence de Port - Gentil",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LISPOG",
+   "nom": "Lycée Islamique de Port-Gentil",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "NTIWINI",
+   "nom": "Lycée Jean de Dieu NTIWINI-IGANA",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "AVARO",
+   "nom": "Lycée Joseph AMBOUROUET AVARO",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "SOUZA",
+   "nom": "Lycée Moderne Privé Joseph SOUZA",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1"
+   ]
+  },
+  {
+   "code": "LP_CANADIEN",
+   "nom": "Lycée Privé CANADIEN BILINGUE DE PORT-GENTIL",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "LWANGA",
+   "nom": "Lycée Privé Charles LWANGA",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "GOUTEYRON",
+   "nom": "Lycée Roger GOUTEYRON",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "BANTS",
+   "nom": "Lycée Thuriaf BANTSANTSA",
+   "centres": [
+    "POG"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "CESMAB",
+   "nom": "C.E.S Public de Mabanda",
+   "centres": [
+    "TBG"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LIBRE50",
+   "nom": "Candidats Libres",
+   "centres": [
+    "TBG"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C"
+   ]
+  },
+  {
+   "code": "BOUCKA",
+   "nom": "Collège All. Chrét. Jean Paul MBADINGA BOUCKA",
+   "centres": [
+    "TBG"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "HORI",
+   "nom": "Collège et Lycée Horizons",
+   "centres": [
+    "TBG"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "REUSSITE5",
+   "nom": "Collège La Réussite (TBG)",
+   "centres": [
+    "TBG"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "MOSSOT",
+   "nom": "Lycée Edouard MOSSOT",
+   "centres": [
+    "TBG"
+   ],
+   "series": [
+    "A1",
+    "B"
+   ]
+  },
+  {
+   "code": "LEKN",
+   "nom": "Lycée Etienne KOUMBA NZIENGUI",
+   "centres": [
+    "TBG"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  },
+  {
+   "code": "BOUL",
+   "nom": "Lycée Général Nazaire BOULINGUI",
+   "centres": [
+    "TBG"
+   ],
+   "series": [
+    "A1",
+    "A2",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "code": "MOANDAT",
+   "nom": "Lycée Jean Baptiste MOANDAT",
+   "centres": [
+    "TBG"
+   ],
+   "series": [
+    "A1",
+    "B",
+    "D"
+   ]
+  }
+ ]
+}

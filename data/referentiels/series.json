@@ -11,9 +11,11 @@
           "2nde générale littéraire (→ A1, A2)",
           "2nde générale scientifique (→ C, D)",
           "2nde économique (→ B)",
-          "2nde technique industrielle (→ E, F1-F4)",
-          "2nde technique tertiaire (→ G1-G3)",
-          "Formation professionnelle (CAP, BT)"
+          "2nde technique industrielle (→ E, F1, F1C, F1D, F2, F3, F4, MI, PM, SI, AEC, ERE)",
+          "2nde technique tertiaire (→ ACA, ACC, CG, CFE, GSI, M, RHC ; anciennement G1-G3)",
+          "2nde technique de laboratoire (→ SPCL, CLPI, BGB, BIOT)",
+          "Bac professionnel (CI, DWM, EI, MINF, MVA, ORGO, PA, PV, TCG, TGA…)",
+          "Formation professionnelle (CAP, BEP, BT)"
         ]
       },
       "MA": {
@@ -476,6 +478,562 @@
       ]
     },
     {
+      "id": "ga-bac-aca",
+      "pays": "GA",
+      "code": "ACA",
+      "intitule": "Action et communication administratives",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Communication administrative",
+        "Bureautique",
+        "Économie et droit",
+        "Français"
+      ],
+      "riasec": [
+        "C",
+        "S"
+      ],
+      "domaines_ouverts": [
+        "dom-gestion",
+        "dom-admin-publique",
+        "dom-communication"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-grh",
+        "frm-master-management",
+        "frm-master-grh",
+        "frm-mba",
+        "frm-master-relations-internationales",
+        "frm-ena-administration",
+        "frm-licence-journalisme",
+        "frm-licence-communication"
+      ],
+      "metiers_exemples": [
+        "met-chef-projet",
+        "met-responsable-rh",
+        "met-assistant-direction",
+        "met-administrateur-civil",
+        "met-diplomate",
+        "met-inspecteur-impots",
+        "met-journaliste"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-acc",
+      "pays": "GA",
+      "code": "ACC",
+      "intitule": "Action et communication commerciales",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Techniques commerciales",
+        "Communication",
+        "Économie et droit",
+        "Langues vivantes"
+      ],
+      "riasec": [
+        "E",
+        "C"
+      ],
+      "domaines_ouverts": [
+        "dom-commerce",
+        "dom-gestion",
+        "dom-tourisme",
+        "dom-transport-logistique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-commerce",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-grh",
+        "frm-licence-logistique",
+        "frm-bachelor-business",
+        "frm-master-marketing",
+        "frm-master-management",
+        "frm-master-grh",
+        "frm-master-logistique",
+        "frm-mba",
+        "frm-aviation-civile",
+        "frm-bts-tourisme",
+        "frm-licence-hotellerie"
+      ],
+      "metiers_exemples": [
+        "met-chef-projet",
+        "met-responsable-rh",
+        "met-assistant-direction",
+        "met-entrepreneur",
+        "met-consultant",
+        "met-commercial",
+        "met-responsable-marketing",
+        "met-community-manager",
+        "met-gestionnaire-ecommerce",
+        "met-logisticien",
+        "met-transitaire",
+        "met-pilote-ligne",
+        "met-controleur-aerien",
+        "met-gestionnaire-hotel",
+        "met-agent-tourisme"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-aec",
+      "pays": "GA",
+      "code": "AEC",
+      "intitule": "Architecture et éco-construction",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Dessin d'architecture",
+        "Construction",
+        "Mathématiques",
+        "Sciences physiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-btp",
+        "dom-energie-mines"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-batiment",
+        "frm-licence-genie-civil",
+        "frm-ingenieur-genie-civil",
+        "frm-architecture",
+        "frm-master-urbanisme",
+        "frm-bts-topographie",
+        "frm-licence-geologie",
+        "frm-ingenieur-mines",
+        "frm-ingenieur-petrole-gaz",
+        "frm-master-energies-renouvelables"
+      ],
+      "metiers_exemples": [
+        "met-ingenieur-genie-civil",
+        "met-conducteur-travaux",
+        "met-architecte",
+        "met-urbaniste",
+        "met-geometre-topographe",
+        "met-dessinateur-projeteur",
+        "met-geologue",
+        "met-ingenieur-mines",
+        "met-ingenieur-petrolier",
+        "met-technicien-energies-renouvelables"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-bgb",
+      "pays": "GA",
+      "code": "BGB",
+      "intitule": "Biochimie – génie biologique",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Biochimie",
+        "Biologie",
+        "Chimie",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "I",
+        "S"
+      ],
+      "domaines_ouverts": [
+        "dom-sante",
+        "dom-agri-env",
+        "dom-sciences",
+        "dom-energie-mines",
+        "dom-education",
+        "dom-gestion",
+        "dom-numerique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-doctorat-chirurgie-dentaire",
+        "frm-licence-sciences-infirmieres",
+        "frm-licence-sage-femme",
+        "frm-licence-biologie-medicale",
+        "frm-master-sante-publique",
+        "frm-licence-kinesitherapie",
+        "frm-doctorat-veterinaire",
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-master-data-science-ia",
+        "frm-master-cybersecurite",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-telecoms",
+        "frm-master-systemes-information",
+        "frm-cpge-scientifique",
+        "frm-licence-geologie",
+        "frm-ingenieur-mines",
+        "frm-ingenieur-petrole-gaz",
+        "frm-master-energies-renouvelables",
+        "frm-bts-agriculture",
+        "frm-licence-agronomie",
+        "frm-ingenieur-agronome",
+        "frm-ingenieur-eaux-forets",
+        "frm-master-environnement",
+        "frm-licence-sciences-mer",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-biologie",
+        "frm-ingenieur-statistique",
+        "frm-doctorat-recherche",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-grh",
+        "frm-master-management",
+        "frm-master-grh",
+        "frm-mba",
+        "frm-ens-professorat",
+        "frm-licence-sciences-education",
+        "frm-ts-ofppt-digital"
+      ],
+      "metiers_exemples": [
+        "met-medecin-generaliste",
+        "met-medecin-specialiste",
+        "met-pharmacien",
+        "met-chirurgien-dentiste",
+        "met-infirmier",
+        "met-sage-femme",
+        "met-technicien-laboratoire",
+        "met-kinesitherapeute",
+        "met-epidemiologiste",
+        "met-veterinaire",
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-expert-cybersecurite"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-biot",
+      "pays": "GA",
+      "code": "BIOT",
+      "intitule": "Biotechnologie",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Biotechnologies",
+        "Biologie",
+        "Chimie",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "I",
+        "S"
+      ],
+      "domaines_ouverts": [
+        "dom-sante",
+        "dom-agri-env",
+        "dom-sciences",
+        "dom-energie-mines",
+        "dom-education",
+        "dom-gestion",
+        "dom-numerique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-doctorat-chirurgie-dentaire",
+        "frm-licence-sciences-infirmieres",
+        "frm-licence-sage-femme",
+        "frm-licence-biologie-medicale",
+        "frm-master-sante-publique",
+        "frm-licence-kinesitherapie",
+        "frm-doctorat-veterinaire",
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-master-data-science-ia",
+        "frm-master-cybersecurite",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-telecoms",
+        "frm-master-systemes-information",
+        "frm-cpge-scientifique",
+        "frm-licence-geologie",
+        "frm-ingenieur-mines",
+        "frm-ingenieur-petrole-gaz",
+        "frm-master-energies-renouvelables",
+        "frm-bts-agriculture",
+        "frm-licence-agronomie",
+        "frm-ingenieur-agronome",
+        "frm-ingenieur-eaux-forets",
+        "frm-master-environnement",
+        "frm-licence-sciences-mer",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-biologie",
+        "frm-ingenieur-statistique",
+        "frm-doctorat-recherche",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-grh",
+        "frm-master-management",
+        "frm-master-grh",
+        "frm-mba",
+        "frm-ens-professorat",
+        "frm-licence-sciences-education",
+        "frm-ts-ofppt-digital"
+      ],
+      "metiers_exemples": [
+        "met-medecin-generaliste",
+        "met-medecin-specialiste",
+        "met-pharmacien",
+        "met-chirurgien-dentiste",
+        "met-infirmier",
+        "met-sage-femme",
+        "met-technicien-laboratoire",
+        "met-kinesitherapeute",
+        "met-epidemiologiste",
+        "met-veterinaire",
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-expert-cybersecurite"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-cfe",
+      "pays": "GA",
+      "code": "CFE",
+      "intitule": "Comptabilité et finance d'entreprise",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Comptabilité",
+        "Finance",
+        "Mathématiques",
+        "Économie et droit"
+      ],
+      "riasec": [
+        "C",
+        "E"
+      ],
+      "domaines_ouverts": [
+        "dom-finance",
+        "dom-gestion",
+        "dom-numerique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-master-data-science-ia",
+        "frm-master-cybersecurite",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-telecoms",
+        "frm-master-systemes-information",
+        "frm-bts-comptabilite",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-banque-finance",
+        "frm-licence-grh",
+        "frm-master-finance-audit",
+        "frm-master-management",
+        "frm-master-grh",
+        "frm-mba",
+        "frm-ts-ofppt-digital"
+      ],
+      "metiers_exemples": [
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-admin-reseaux",
+        "met-expert-cybersecurite",
+        "met-chef-projet-digital",
+        "met-actuaire",
+        "met-comptable",
+        "met-expert-comptable",
+        "met-auditeur",
+        "met-controleur-gestion",
+        "met-analyste-financier",
+        "met-charge-clientele-banque",
+        "met-agent-mobile-money",
+        "met-chef-projet"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-cg",
+      "pays": "GA",
+      "code": "CG",
+      "intitule": "Comptabilité et gestion",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Comptabilité",
+        "Gestion",
+        "Mathématiques",
+        "Économie et droit"
+      ],
+      "riasec": [
+        "C",
+        "E"
+      ],
+      "domaines_ouverts": [
+        "dom-finance",
+        "dom-gestion",
+        "dom-numerique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-master-data-science-ia",
+        "frm-master-cybersecurite",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-telecoms",
+        "frm-master-systemes-information",
+        "frm-bts-comptabilite",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-banque-finance",
+        "frm-licence-grh",
+        "frm-master-finance-audit",
+        "frm-master-management",
+        "frm-master-grh",
+        "frm-mba",
+        "frm-ts-ofppt-digital"
+      ],
+      "metiers_exemples": [
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-admin-reseaux",
+        "met-expert-cybersecurite",
+        "met-chef-projet-digital",
+        "met-actuaire",
+        "met-comptable",
+        "met-expert-comptable",
+        "met-auditeur",
+        "met-controleur-gestion",
+        "met-analyste-financier",
+        "met-charge-clientele-banque",
+        "met-agent-mobile-money",
+        "met-chef-projet"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-clpi",
+      "pays": "GA",
+      "code": "CLPI",
+      "intitule": "Chimie de laboratoire et procédés industriels",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Chimie",
+        "Procédés industriels",
+        "Sciences physiques",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "I",
+        "S"
+      ],
+      "domaines_ouverts": [
+        "dom-sante",
+        "dom-agri-env",
+        "dom-sciences",
+        "dom-energie-mines",
+        "dom-education",
+        "dom-gestion",
+        "dom-numerique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-doctorat-chirurgie-dentaire",
+        "frm-licence-sciences-infirmieres",
+        "frm-licence-sage-femme",
+        "frm-licence-biologie-medicale",
+        "frm-master-sante-publique",
+        "frm-licence-kinesitherapie",
+        "frm-doctorat-veterinaire",
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-master-data-science-ia",
+        "frm-master-cybersecurite",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-telecoms",
+        "frm-master-systemes-information",
+        "frm-cpge-scientifique",
+        "frm-licence-geologie",
+        "frm-ingenieur-mines",
+        "frm-ingenieur-petrole-gaz",
+        "frm-master-energies-renouvelables",
+        "frm-bts-agriculture",
+        "frm-licence-agronomie",
+        "frm-ingenieur-agronome",
+        "frm-ingenieur-eaux-forets",
+        "frm-master-environnement",
+        "frm-licence-sciences-mer",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-biologie",
+        "frm-ingenieur-statistique",
+        "frm-doctorat-recherche",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-grh",
+        "frm-master-management",
+        "frm-master-grh",
+        "frm-mba",
+        "frm-ens-professorat",
+        "frm-licence-sciences-education",
+        "frm-ts-ofppt-digital"
+      ],
+      "metiers_exemples": [
+        "met-medecin-generaliste",
+        "met-medecin-specialiste",
+        "met-pharmacien",
+        "met-chirurgien-dentiste",
+        "met-infirmier",
+        "met-sage-femme",
+        "met-technicien-laboratoire",
+        "met-kinesitherapeute",
+        "met-epidemiologiste",
+        "met-veterinaire",
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-expert-cybersecurite"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
       "id": "ga-bac-e",
       "pays": "GA",
       "code": "E",
@@ -558,10 +1116,79 @@
       ]
     },
     {
+      "id": "ga-bac-ere",
+      "pays": "GA",
+      "code": "ERE",
+      "intitule": "Énergies renouvelables et environnement",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Énergétique",
+        "Électrotechnique",
+        "Sciences physiques",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-numerique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-master-data-science-ia",
+        "frm-master-cybersecurite",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-telecoms",
+        "frm-master-systemes-information",
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-chimique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-ingenieur-mines",
+        "frm-ingenieur-petrole-gaz",
+        "frm-master-energies-renouvelables",
+        "frm-ts-ofppt-digital",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-admin-reseaux",
+        "met-expert-cybersecurite",
+        "met-ingenieur-telecoms",
+        "met-ux-ui-designer",
+        "met-technicien-support",
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
       "id": "ga-bac-f1",
       "pays": "GA",
       "code": "F1",
-      "intitule": "Construction mécanique",
+      "intitule": "Génie mécanique, option productique",
       "filiere": "technique",
       "matieres_dominantes": [
         "Construction mécanique",
@@ -617,10 +1244,132 @@
       ]
     },
     {
+      "id": "ga-bac-f1c",
+      "pays": "GA",
+      "code": "F1C",
+      "intitule": "Génie mécanique, option structures métalliques",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Construction mécanique",
+        "Dessin technique",
+        "Mathématiques",
+        "Sciences physiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-transport-logistique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-chimique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-ingenieur-mines",
+        "frm-ingenieur-petrole-gaz",
+        "frm-master-energies-renouvelables",
+        "frm-licence-logistique",
+        "frm-master-logistique",
+        "frm-aviation-civile",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes",
+        "met-automaticien",
+        "met-mecanicien-auto",
+        "met-ingenieur-textile",
+        "met-geologue",
+        "met-ingenieur-mines",
+        "met-ingenieur-petrolier",
+        "met-technicien-energies-renouvelables",
+        "met-pilote-ligne",
+        "met-controleur-aerien"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-f1d",
+      "pays": "GA",
+      "code": "F1D",
+      "intitule": "Génie mécanique, option bois et matériaux associés",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Technologie du bois",
+        "Dessin technique",
+        "Mathématiques",
+        "Sciences physiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-transport-logistique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-chimique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-ingenieur-mines",
+        "frm-ingenieur-petrole-gaz",
+        "frm-master-energies-renouvelables",
+        "frm-licence-logistique",
+        "frm-master-logistique",
+        "frm-aviation-civile",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes",
+        "met-automaticien",
+        "met-mecanicien-auto",
+        "met-ingenieur-textile",
+        "met-geologue",
+        "met-ingenieur-mines",
+        "met-ingenieur-petrolier",
+        "met-technicien-energies-renouvelables",
+        "met-pilote-ligne",
+        "met-controleur-aerien"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
       "id": "ga-bac-f2",
       "pays": "GA",
       "code": "F2",
-      "intitule": "Électronique",
+      "intitule": "Génie électronique",
       "filiere": "technique",
       "matieres_dominantes": [
         "Électronique",
@@ -682,7 +1431,7 @@
       "id": "ga-bac-f3",
       "pays": "GA",
       "code": "F3",
-      "intitule": "Électrotechnique",
+      "intitule": "Génie électrotechnique",
       "filiere": "technique",
       "matieres_dominantes": [
         "Électrotechnique",
@@ -811,7 +1560,7 @@
         "dom-admin-publique",
         "dom-communication"
       ],
-      "remarque": null,
+      "remarque": "Ancienne appellation des séries tertiaires, remplacée par ACA, ACC, CG, CFE, GSI, M et RHC : garde-la si c'est celle de ton diplôme.",
       "formations_accessibles": [
         "frm-bts-assistant-direction",
         "frm-licence-economie",
@@ -856,7 +1605,7 @@
         "dom-gestion",
         "dom-numerique"
       ],
-      "remarque": null,
+      "remarque": "Ancienne appellation des séries tertiaires, remplacée par ACA, ACC, CG, CFE, GSI, M et RHC : garde-la si c'est celle de ton diplôme.",
       "formations_accessibles": [
         "frm-bts-informatique-gestion",
         "frm-dut-reseaux-telecoms",
@@ -920,7 +1669,7 @@
         "dom-tourisme",
         "dom-transport-logistique"
       ],
-      "remarque": null,
+      "remarque": "Ancienne appellation des séries tertiaires, remplacée par ACA, ACC, CG, CFE, GSI, M et RHC : garde-la si c'est celle de ton diplôme.",
       "formations_accessibles": [
         "frm-bts-commerce",
         "frm-bts-assistant-direction",
@@ -955,6 +1704,1498 @@
         "met-gestionnaire-hotel",
         "met-agent-tourisme"
       ]
+    },
+    {
+      "id": "ga-bac-gsi",
+      "pays": "GA",
+      "code": "GSI",
+      "intitule": "Gestion des systèmes d'information",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Informatique de gestion",
+        "Comptabilité",
+        "Mathématiques",
+        "Économie et droit"
+      ],
+      "riasec": [
+        "C",
+        "E"
+      ],
+      "domaines_ouverts": [
+        "dom-finance",
+        "dom-gestion",
+        "dom-numerique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-master-data-science-ia",
+        "frm-master-cybersecurite",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-telecoms",
+        "frm-master-systemes-information",
+        "frm-bts-comptabilite",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-banque-finance",
+        "frm-licence-grh",
+        "frm-master-finance-audit",
+        "frm-master-management",
+        "frm-master-grh",
+        "frm-mba",
+        "frm-ts-ofppt-digital"
+      ],
+      "metiers_exemples": [
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-admin-reseaux",
+        "met-expert-cybersecurite",
+        "met-chef-projet-digital",
+        "met-actuaire",
+        "met-comptable",
+        "met-expert-comptable",
+        "met-auditeur",
+        "met-controleur-gestion",
+        "met-analyste-financier",
+        "met-charge-clientele-banque",
+        "met-agent-mobile-money",
+        "met-chef-projet"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-m",
+      "pays": "GA",
+      "code": "M",
+      "intitule": "Mercatique",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Mercatique (marketing)",
+        "Techniques commerciales",
+        "Économie et droit",
+        "Langues vivantes"
+      ],
+      "riasec": [
+        "E",
+        "C"
+      ],
+      "domaines_ouverts": [
+        "dom-commerce",
+        "dom-gestion",
+        "dom-tourisme",
+        "dom-transport-logistique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-commerce",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-grh",
+        "frm-licence-logistique",
+        "frm-bachelor-business",
+        "frm-master-marketing",
+        "frm-master-management",
+        "frm-master-grh",
+        "frm-master-logistique",
+        "frm-mba",
+        "frm-aviation-civile",
+        "frm-bts-tourisme",
+        "frm-licence-hotellerie"
+      ],
+      "metiers_exemples": [
+        "met-chef-projet",
+        "met-responsable-rh",
+        "met-assistant-direction",
+        "met-entrepreneur",
+        "met-consultant",
+        "met-commercial",
+        "met-responsable-marketing",
+        "met-community-manager",
+        "met-gestionnaire-ecommerce",
+        "met-logisticien",
+        "met-transitaire",
+        "met-pilote-ligne",
+        "met-controleur-aerien",
+        "met-gestionnaire-hotel",
+        "met-agent-tourisme"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-mi",
+      "pays": "GA",
+      "code": "MI",
+      "intitule": "Génie mécanique, option maintenance industrielle",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Maintenance industrielle",
+        "Mécanique",
+        "Électrotechnique",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-transport-logistique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-chimique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-ingenieur-mines",
+        "frm-ingenieur-petrole-gaz",
+        "frm-master-energies-renouvelables",
+        "frm-licence-logistique",
+        "frm-master-logistique",
+        "frm-aviation-civile",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes",
+        "met-automaticien",
+        "met-mecanicien-auto",
+        "met-ingenieur-textile",
+        "met-geologue",
+        "met-ingenieur-mines",
+        "met-ingenieur-petrolier",
+        "met-technicien-energies-renouvelables",
+        "met-pilote-ligne",
+        "met-controleur-aerien"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-pm",
+      "pays": "GA",
+      "code": "PM",
+      "intitule": "Productique mécanique",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Productique",
+        "Usinage",
+        "Dessin technique",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-transport-logistique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-chimique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-ingenieur-mines",
+        "frm-ingenieur-petrole-gaz",
+        "frm-master-energies-renouvelables",
+        "frm-licence-logistique",
+        "frm-master-logistique",
+        "frm-aviation-civile",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes",
+        "met-automaticien",
+        "met-mecanicien-auto",
+        "met-ingenieur-textile",
+        "met-geologue",
+        "met-ingenieur-mines",
+        "met-ingenieur-petrolier",
+        "met-technicien-energies-renouvelables",
+        "met-pilote-ligne",
+        "met-controleur-aerien"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-rhc",
+      "pays": "GA",
+      "code": "RHC",
+      "intitule": "Ressources humaines et communication",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Gestion des ressources humaines",
+        "Communication",
+        "Économie et droit",
+        "Français"
+      ],
+      "riasec": [
+        "C",
+        "S"
+      ],
+      "domaines_ouverts": [
+        "dom-gestion",
+        "dom-admin-publique",
+        "dom-communication"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-grh",
+        "frm-master-management",
+        "frm-master-grh",
+        "frm-mba",
+        "frm-master-relations-internationales",
+        "frm-ena-administration",
+        "frm-licence-journalisme",
+        "frm-licence-communication"
+      ],
+      "metiers_exemples": [
+        "met-chef-projet",
+        "met-responsable-rh",
+        "met-assistant-direction",
+        "met-administrateur-civil",
+        "met-diplomate",
+        "met-inspecteur-impots",
+        "met-journaliste"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-si",
+      "pays": "GA",
+      "code": "SI",
+      "intitule": "Sciences de l'ingénieur",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Sciences de l'ingénieur",
+        "Mathématiques",
+        "Sciences physiques",
+        "Technologie"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-btp",
+        "dom-energie-mines",
+        "dom-numerique",
+        "dom-sciences"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-master-data-science-ia",
+        "frm-master-cybersecurite",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-telecoms",
+        "frm-master-systemes-information",
+        "frm-cpge-scientifique",
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-ingenieur-genie-electrique",
+        "frm-ingenieur-genie-mecanique",
+        "frm-ingenieur-genie-industriel",
+        "frm-ingenieur-genie-chimique",
+        "frm-licence-textile",
+        "frm-bts-batiment",
+        "frm-licence-genie-civil",
+        "frm-ingenieur-genie-civil",
+        "frm-architecture",
+        "frm-master-urbanisme",
+        "frm-bts-topographie",
+        "frm-licence-geologie",
+        "frm-ingenieur-mines",
+        "frm-ingenieur-petrole-gaz",
+        "frm-master-energies-renouvelables",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-biologie",
+        "frm-ingenieur-statistique",
+        "frm-doctorat-recherche",
+        "frm-ts-ofppt-digital",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-admin-reseaux",
+        "met-expert-cybersecurite",
+        "met-ingenieur-telecoms",
+        "met-ux-ui-designer",
+        "met-technicien-support",
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-spcl",
+      "pays": "GA",
+      "code": "SPCL",
+      "intitule": "Sciences physiques et chimiques en laboratoire",
+      "filiere": "technique",
+      "matieres_dominantes": [
+        "Chimie",
+        "Physique",
+        "Mathématiques",
+        "Biologie"
+      ],
+      "riasec": [
+        "I",
+        "S"
+      ],
+      "domaines_ouverts": [
+        "dom-sante",
+        "dom-agri-env",
+        "dom-sciences",
+        "dom-energie-mines",
+        "dom-education",
+        "dom-gestion",
+        "dom-numerique"
+      ],
+      "remarque": null,
+      "formations_accessibles": [
+        "frm-doctorat-medecine",
+        "frm-doctorat-pharmacie",
+        "frm-doctorat-chirurgie-dentaire",
+        "frm-licence-sciences-infirmieres",
+        "frm-licence-sage-femme",
+        "frm-licence-biologie-medicale",
+        "frm-master-sante-publique",
+        "frm-licence-kinesitherapie",
+        "frm-doctorat-veterinaire",
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-master-data-science-ia",
+        "frm-master-cybersecurite",
+        "frm-ingenieur-informatique",
+        "frm-ingenieur-telecoms",
+        "frm-master-systemes-information",
+        "frm-cpge-scientifique",
+        "frm-licence-geologie",
+        "frm-ingenieur-mines",
+        "frm-ingenieur-petrole-gaz",
+        "frm-master-energies-renouvelables",
+        "frm-bts-agriculture",
+        "frm-licence-agronomie",
+        "frm-ingenieur-agronome",
+        "frm-ingenieur-eaux-forets",
+        "frm-master-environnement",
+        "frm-licence-sciences-mer",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-biologie",
+        "frm-ingenieur-statistique",
+        "frm-doctorat-recherche",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-grh",
+        "frm-master-management",
+        "frm-master-grh",
+        "frm-mba",
+        "frm-ens-professorat",
+        "frm-licence-sciences-education",
+        "frm-ts-ofppt-digital"
+      ],
+      "metiers_exemples": [
+        "met-medecin-generaliste",
+        "met-medecin-specialiste",
+        "met-pharmacien",
+        "met-chirurgien-dentiste",
+        "met-infirmier",
+        "met-sage-femme",
+        "met-technicien-laboratoire",
+        "met-kinesitherapeute",
+        "met-epidemiologiste",
+        "met-veterinaire",
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-expert-cybersecurite"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-ci",
+      "pays": "GA",
+      "code": "CI",
+      "intitule": "Chaudronnerie industrielle",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Construction mécanique",
+        "Fabrication",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-transport-logistique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-licence-logistique",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes",
+        "met-automaticien",
+        "met-mecanicien-auto",
+        "met-ingenieur-textile",
+        "met-geologue",
+        "met-ingenieur-mines",
+        "met-ingenieur-petrolier",
+        "met-technicien-energies-renouvelables",
+        "met-pilote-ligne",
+        "met-controleur-aerien"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-cqaa",
+      "pays": "GA",
+      "code": "CQAA",
+      "intitule": "Contrôle qualité agroalimentaire",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "SVT",
+        "Mathématiques",
+        "Sciences physiques"
+      ],
+      "riasec": [
+        "I",
+        "S"
+      ],
+      "domaines_ouverts": [
+        "dom-sante",
+        "dom-agri-env",
+        "dom-sciences",
+        "dom-energie-mines",
+        "dom-education",
+        "dom-gestion",
+        "dom-numerique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-licence-sciences-infirmieres",
+        "frm-licence-sage-femme",
+        "frm-licence-biologie-medicale",
+        "frm-licence-kinesitherapie",
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-licence-geologie",
+        "frm-bts-agriculture",
+        "frm-licence-agronomie",
+        "frm-licence-sciences-mer",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-biologie",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-grh",
+        "frm-licence-sciences-education",
+        "frm-ts-ofppt-digital"
+      ],
+      "metiers_exemples": [
+        "met-medecin-generaliste",
+        "met-medecin-specialiste",
+        "met-pharmacien",
+        "met-chirurgien-dentiste",
+        "met-infirmier",
+        "met-sage-femme",
+        "met-technicien-laboratoire",
+        "met-kinesitherapeute",
+        "met-epidemiologiste",
+        "met-veterinaire",
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-expert-cybersecurite"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-dwm",
+      "pays": "GA",
+      "code": "DWM",
+      "intitule": "Développement web, multimédia et mobile",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Comptabilité",
+        "Mathématiques financières",
+        "Économie",
+        "Droit"
+      ],
+      "riasec": [
+        "C",
+        "E"
+      ],
+      "domaines_ouverts": [
+        "dom-finance",
+        "dom-gestion",
+        "dom-numerique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-bts-comptabilite",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-banque-finance",
+        "frm-licence-grh",
+        "frm-ts-ofppt-digital"
+      ],
+      "metiers_exemples": [
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-admin-reseaux",
+        "met-expert-cybersecurite",
+        "met-chef-projet-digital",
+        "met-actuaire",
+        "met-comptable",
+        "met-expert-comptable",
+        "met-auditeur",
+        "met-controleur-gestion",
+        "met-analyste-financier",
+        "met-charge-clientele-banque",
+        "met-agent-mobile-money",
+        "met-chef-projet"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-ei",
+      "pays": "GA",
+      "code": "EI",
+      "intitule": "Électricité industrielle",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Électrotechnique",
+        "Mathématiques",
+        "Sciences physiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-numerique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-ts-ofppt-digital",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-admin-reseaux",
+        "met-expert-cybersecurite",
+        "met-ingenieur-telecoms",
+        "met-ux-ui-designer",
+        "met-technicien-support",
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-iii",
+      "pays": "GA",
+      "code": "III",
+      "intitule": "Informatique et internet industriel",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Électronique",
+        "Mathématiques",
+        "Sciences physiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-numerique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-textile",
+        "frm-ts-ofppt-digital",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-admin-reseaux",
+        "met-expert-cybersecurite",
+        "met-ingenieur-telecoms",
+        "met-ux-ui-designer",
+        "met-technicien-support",
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-isec",
+      "pays": "GA",
+      "code": "ISEC",
+      "intitule": "Installation des systèmes énergétiques et climatiques",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Électrotechnique",
+        "Mathématiques",
+        "Sciences physiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-numerique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-ts-ofppt-digital",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-admin-reseaux",
+        "met-expert-cybersecurite",
+        "met-ingenieur-telecoms",
+        "met-ux-ui-designer",
+        "met-technicien-support",
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-meh",
+      "pays": "GA",
+      "code": "MEH",
+      "intitule": "Maintenance des équipements hospitaliers",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Électronique",
+        "Mathématiques",
+        "Sciences physiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-numerique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-textile",
+        "frm-ts-ofppt-digital",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-admin-reseaux",
+        "met-expert-cybersecurite",
+        "met-ingenieur-telecoms",
+        "met-ux-ui-designer",
+        "met-technicien-support",
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-mei",
+      "pays": "GA",
+      "code": "MEI",
+      "intitule": "Maintenance des équipements industriels",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Construction mécanique",
+        "Fabrication",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-transport-logistique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-licence-logistique",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes",
+        "met-automaticien",
+        "met-mecanicien-auto",
+        "met-ingenieur-textile",
+        "met-geologue",
+        "met-ingenieur-mines",
+        "met-ingenieur-petrolier",
+        "met-technicien-energies-renouvelables",
+        "met-pilote-ligne",
+        "met-controleur-aerien"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-meni",
+      "pays": "GA",
+      "code": "MENI",
+      "intitule": "Menuiserie industrielle",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Construction mécanique",
+        "Fabrication",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-transport-logistique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-licence-logistique",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes",
+        "met-automaticien",
+        "met-mecanicien-auto",
+        "met-ingenieur-textile",
+        "met-geologue",
+        "met-ingenieur-mines",
+        "met-ingenieur-petrolier",
+        "met-technicien-energies-renouvelables",
+        "met-pilote-ligne",
+        "met-controleur-aerien"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-minf",
+      "pays": "GA",
+      "code": "MINF",
+      "intitule": "Maintenance informatique",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Électronique",
+        "Mathématiques",
+        "Sciences physiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-numerique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-textile",
+        "frm-ts-ofppt-digital",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-admin-reseaux",
+        "met-expert-cybersecurite",
+        "met-ingenieur-telecoms",
+        "met-ux-ui-designer",
+        "met-technicien-support",
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-mva",
+      "pays": "GA",
+      "code": "MVA",
+      "intitule": "Maintenance des véhicules automobiles, option voitures particulières",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Construction mécanique",
+        "Fabrication",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-transport-logistique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-licence-logistique",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes",
+        "met-automaticien",
+        "met-mecanicien-auto",
+        "met-ingenieur-textile",
+        "met-geologue",
+        "met-ingenieur-mines",
+        "met-ingenieur-petrolier",
+        "met-technicien-energies-renouvelables",
+        "met-pilote-ligne",
+        "met-controleur-aerien"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-mvavtr",
+      "pays": "GA",
+      "code": "MVAVTR",
+      "intitule": "Maintenance des véhicules automobiles, option véhicules de transport routier",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Construction mécanique",
+        "Fabrication",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-transport-logistique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-licence-logistique",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes",
+        "met-automaticien",
+        "met-mecanicien-auto",
+        "met-ingenieur-textile",
+        "met-geologue",
+        "met-ingenieur-mines",
+        "met-ingenieur-petrolier",
+        "met-technicien-energies-renouvelables",
+        "met-pilote-ligne",
+        "met-controleur-aerien"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-mvi",
+      "pays": "GA",
+      "code": "MVI",
+      "intitule": "Maintenance des véhicules industriels",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Construction mécanique",
+        "Fabrication",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-transport-logistique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-licence-logistique",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes",
+        "met-automaticien",
+        "met-mecanicien-auto",
+        "met-ingenieur-textile",
+        "met-geologue",
+        "met-ingenieur-mines",
+        "met-ingenieur-petrolier",
+        "met-technicien-energies-renouvelables",
+        "met-pilote-ligne",
+        "met-controleur-aerien"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-orgo",
+      "pays": "GA",
+      "code": "ORGO",
+      "intitule": "Organisation et réalisation du gros œuvre",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Génie civil",
+        "Dessin technique",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-btp",
+        "dom-energie-mines"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-batiment",
+        "frm-licence-genie-civil",
+        "frm-bts-topographie",
+        "frm-licence-geologie"
+      ],
+      "metiers_exemples": [
+        "met-ingenieur-genie-civil",
+        "met-conducteur-travaux",
+        "met-architecte",
+        "met-urbaniste",
+        "met-geometre-topographe",
+        "met-dessinateur-projeteur",
+        "met-geologue",
+        "met-ingenieur-mines",
+        "met-ingenieur-petrolier",
+        "met-technicien-energies-renouvelables"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-pa",
+      "pays": "GA",
+      "code": "PA",
+      "intitule": "Production animale",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "SVT",
+        "Mathématiques",
+        "Sciences physiques"
+      ],
+      "riasec": [
+        "I",
+        "S"
+      ],
+      "domaines_ouverts": [
+        "dom-sante",
+        "dom-agri-env",
+        "dom-sciences",
+        "dom-energie-mines",
+        "dom-education",
+        "dom-gestion",
+        "dom-numerique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-licence-sciences-infirmieres",
+        "frm-licence-sage-femme",
+        "frm-licence-biologie-medicale",
+        "frm-licence-kinesitherapie",
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-licence-geologie",
+        "frm-bts-agriculture",
+        "frm-licence-agronomie",
+        "frm-licence-sciences-mer",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-biologie",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-grh",
+        "frm-licence-sciences-education",
+        "frm-ts-ofppt-digital"
+      ],
+      "metiers_exemples": [
+        "met-medecin-generaliste",
+        "met-medecin-specialiste",
+        "met-pharmacien",
+        "met-chirurgien-dentiste",
+        "met-infirmier",
+        "met-sage-femme",
+        "met-technicien-laboratoire",
+        "met-kinesitherapeute",
+        "met-epidemiologiste",
+        "met-veterinaire",
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-expert-cybersecurite"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-pv",
+      "pays": "GA",
+      "code": "PV",
+      "intitule": "Production végétale",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "SVT",
+        "Mathématiques",
+        "Sciences physiques"
+      ],
+      "riasec": [
+        "I",
+        "S"
+      ],
+      "domaines_ouverts": [
+        "dom-sante",
+        "dom-agri-env",
+        "dom-sciences",
+        "dom-energie-mines",
+        "dom-education",
+        "dom-gestion",
+        "dom-numerique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-licence-sciences-infirmieres",
+        "frm-licence-sage-femme",
+        "frm-licence-biologie-medicale",
+        "frm-licence-kinesitherapie",
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-licence-geologie",
+        "frm-bts-agriculture",
+        "frm-licence-agronomie",
+        "frm-licence-sciences-mer",
+        "frm-licence-mathematiques",
+        "frm-licence-physique-chimie",
+        "frm-licence-biologie",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-grh",
+        "frm-licence-sciences-education",
+        "frm-ts-ofppt-digital"
+      ],
+      "metiers_exemples": [
+        "met-medecin-generaliste",
+        "met-medecin-specialiste",
+        "met-pharmacien",
+        "met-chirurgien-dentiste",
+        "met-infirmier",
+        "met-sage-femme",
+        "met-technicien-laboratoire",
+        "met-kinesitherapeute",
+        "met-epidemiologiste",
+        "met-veterinaire",
+        "met-developpeur-web-mobile",
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-expert-cybersecurite"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-sd",
+      "pays": "GA",
+      "code": "SD",
+      "intitule": "Scieur dérouleur",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Construction mécanique",
+        "Fabrication",
+        "Mathématiques"
+      ],
+      "riasec": [
+        "R",
+        "I"
+      ],
+      "domaines_ouverts": [
+        "dom-ingenierie",
+        "dom-energie-mines",
+        "dom-transport-logistique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-electrotechnique",
+        "frm-bts-maintenance-industrielle",
+        "frm-licence-genie-electrique",
+        "frm-licence-genie-mecanique",
+        "frm-licence-textile",
+        "frm-licence-geologie",
+        "frm-licence-logistique",
+        "frm-ts-froid-climatisation",
+        "frm-ts-mecanique-auto"
+      ],
+      "metiers_exemples": [
+        "met-electricien-electrotechnicien",
+        "met-technicien-maintenance",
+        "met-ingenieur-electricien",
+        "met-ingenieur-mecanique",
+        "met-ingenieur-genie-industriel",
+        "met-ingenieur-procedes",
+        "met-automaticien",
+        "met-mecanicien-auto",
+        "met-ingenieur-textile",
+        "met-geologue",
+        "met-ingenieur-mines",
+        "met-ingenieur-petrolier",
+        "met-technicien-energies-renouvelables",
+        "met-pilote-ligne",
+        "met-controleur-aerien"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-tcg",
+      "pays": "GA",
+      "code": "TCG",
+      "intitule": "Techniques comptables et de gestion",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Comptabilité",
+        "Mathématiques financières",
+        "Économie",
+        "Droit"
+      ],
+      "riasec": [
+        "C",
+        "E"
+      ],
+      "domaines_ouverts": [
+        "dom-finance",
+        "dom-gestion",
+        "dom-numerique"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-informatique-gestion",
+        "frm-dut-reseaux-telecoms",
+        "frm-licence-informatique",
+        "frm-licence-genie-logiciel",
+        "frm-licence-reseaux-securite",
+        "frm-bts-comptabilite",
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-banque-finance",
+        "frm-licence-grh",
+        "frm-ts-ofppt-digital"
+      ],
+      "metiers_exemples": [
+        "met-ingenieur-logiciel",
+        "met-data-analyst",
+        "met-data-scientist",
+        "met-admin-reseaux",
+        "met-expert-cybersecurite",
+        "met-chef-projet-digital",
+        "met-actuaire",
+        "met-comptable",
+        "met-expert-comptable",
+        "met-auditeur",
+        "met-controleur-gestion",
+        "met-analyste-financier",
+        "met-charge-clientele-banque",
+        "met-agent-mobile-money",
+        "met-chef-projet"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
+    },
+    {
+      "id": "ga-bac-tga",
+      "pays": "GA",
+      "code": "TGA",
+      "intitule": "Techniques de gestion administrative",
+      "filiere": "professionnelle",
+      "matieres_dominantes": [
+        "Bureautique",
+        "Techniques administratives",
+        "Droit",
+        "Économie"
+      ],
+      "riasec": [
+        "C",
+        "S"
+      ],
+      "domaines_ouverts": [
+        "dom-gestion",
+        "dom-admin-publique",
+        "dom-communication"
+      ],
+      "remarque": "Bac professionnel : accès d'abord aux BTS, DUT, formations de technicien et licences de la même spécialité.",
+      "formations_accessibles": [
+        "frm-bts-assistant-direction",
+        "frm-licence-economie",
+        "frm-licence-gestion",
+        "frm-licence-grh",
+        "frm-licence-journalisme",
+        "frm-licence-communication"
+      ],
+      "metiers_exemples": [
+        "met-chef-projet",
+        "met-responsable-rh",
+        "met-assistant-direction",
+        "met-administrateur-civil",
+        "met-diplomate",
+        "met-inspecteur-impots",
+        "met-journaliste"
+      ],
+      "source": "Liste officielle des séries, Direction des examens et concours de l'enseignement technique (bactechgabon.com), 21/11/2026"
     },
     {
       "id": "ma-bac-sm-a",

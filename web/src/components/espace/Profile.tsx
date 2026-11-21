@@ -10,6 +10,7 @@ import { VILLES_ETUDES, competences, pays, series } from "@/lib/data";
 import { PAYS_OPTIONS } from "@/lib/pays-origine";
 import { profileCompletion } from "./completion";
 import { SuiviNavi } from "./SuiviNavi";
+import { ChoixLycee } from "@/components/shared/ChoixLycee";
 
 type Me = { firstName: string; lastName: string; email: string | null; phone: string | null; birthYear: number | null; country: string | null; city: string | null; emailVerifiedAt: string | null; phoneVerifiedAt: string | null;
   profile: { level: string | null; serie: string | null; currentSchool: string | null; diploma: string | null; skills: string[]; interests: string[]; goals: string | null; riasec: { top: string[] } | null; preferences: { pays?: string[]; villes?: string[]; budgetAnnuel?: number; devise?: string; logement?: { budget?: number; type?: string; colocation?: boolean } } } | null };
@@ -79,9 +80,11 @@ export function Profile() {
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Niveau">{(i) => <Select id={i} value={f.level ?? ""} onChange={set("level")} placeholder="Choisir…" options={LEVELS} />}</Field>
               {seriesPays.length > 0
-                ? <Field label="Série">{(i) => <Select id={i} value={f.serie ?? ""} onChange={set("serie")} placeholder="Choisir…" options={seriesPays.map((s) => [s.id, `${s.code} — ${s.intitule}`])} />}</Field>
+                ? <Field label="Série">{(i) => <Select id={i} value={f.serie ?? ""} onChange={set("serie")} placeholder="Choisir…" options={seriesPays.map((s) => [s.id, `${s.code} — ${s.intitule}`, ({ "générale": "Bac général", technique: "Bac technologique", professionnelle: "Bac professionnel" } as Record<string, string>)[s.filiere] ?? s.filiere] as [string, string, string])} />}</Field>
                 : <Field label="Série / spécialité du bac">{(i) => <Input id={i} value={f.serie ?? ""} onChange={set("serie")} placeholder="Ex. scientifique, économique" maxLength={40} />}</Field>}
-              <Field label="Établissement actuel">{(i) => <Input id={i} value={f.currentSchool ?? ""} onChange={set("currentSchool")} />}</Field>
+              {f.country === "GA" && ["3e", "2nde", "1re", "terminale"].includes(f.level ?? "")
+                ? <ChoixLycee valeur={f.currentSchool ?? ""} onChange={(v) => setF((x) => ({ ...x, currentSchool: v }))} />
+                : <Field label="Établissement actuel">{(i) => <Input id={i} value={f.currentSchool ?? ""} onChange={set("currentSchool")} />}</Field>}
               <Field label="Dernier diplôme">{(i) => <Input id={i} value={f.diploma ?? ""} onChange={set("diploma")} placeholder="Ex. BEPC, baccalauréat…" />}</Field>
             </div>
             <Field label="Compétences" hint="Choisis jusqu'à 12 compétences.">{() => (

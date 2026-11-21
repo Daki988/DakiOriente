@@ -8,6 +8,7 @@ import { Alert, Button, Tabs } from "@/components/app/kit";
 import { Check, Field, FormError, Input, PasswordInput, Select } from "@/components/app/form";
 import { api, ApiError } from "@/lib/api";
 import { etablissements, series, villesOf } from "@/lib/data";
+import { ChoixLycee } from "@/components/shared/ChoixLycee";
 import { PAYS_OPTIONS, paysOrigineById } from "@/lib/pays-origine";
 import { useAction } from "@/hooks/useApi";
 import { DEV_CODE_KEY } from "./Otp";
@@ -22,6 +23,8 @@ const ROLES: { id: Role; I: LucideIcon; t: string; s: string; pts: string[]; bg:
   { id: "etablissement", I: Building2, t: "Établissement", s: "École, université, institut", pts: ["Recevoir des candidatures", "Gérer mes formations", "Statistiques"], bg: "bg-[#e8f8ef]", fg: "text-[#0b7a3d]" },
   { id: "bailleur", I: KeyRound, t: "Bailleur Navilease", s: "Je loue à des étudiants", pts: ["Publier mes logements", "Paiement en séquestre", "Contrats & quittances"], bg: "bg-[#ffecef]", fg: "text-[#b8213f]" },
 ];
+const FILIERES: Record<string, string> = { "générale": "Bac général", technique: "Bac technologique", professionnelle: "Bac professionnel" };
+
 const LEVELS: [string, string][] = [["3e", "3e / fin de collège"], ["2nde", "Seconde"], ["1re", "Première"], ["terminale", "Terminale"], ["bachelier", "Bachelier·ère"], ["bac+1", "Bac+1"], ["bac+2", "Bac+2"], ["bac+3", "Bac+3"], ["bac+4", "Bac+4 / 5"]];
 const ETABS: [string, string][] = etablissements.slice().sort((x, y) => x.nom.localeCompare(y.nom, "fr")).map((e) => [e.id, `${e.nom}${e.sigle && e.sigle !== e.nom ? ` (${e.sigle})` : ""} · ${villesOf(e).join(", ")}`]);
 
@@ -191,9 +194,9 @@ export function Signup() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field label="Niveau actuel">{(i) => <Select id={i} value={f.level} onChange={(e) => set("level")(e.target.value)} placeholder="Choisir…" options={LEVELS} />}</Field>
                 {seriesPays.length > 0
-                  ? <Field label="Série du bac">{(i) => <Select id={i} value={f.serie} onChange={(e) => set("serie")(e.target.value)} placeholder="Choisir…" options={seriesPays.map((s) => [s.id, `${s.code} — ${s.intitule}`])} />}</Field>
+                  ? <Field label="Série du bac">{(i) => <Select id={i} value={f.serie} onChange={(e) => set("serie")(e.target.value)} placeholder="Choisir…" options={seriesPays.map((s) => [s.id, `${s.code} — ${s.intitule}`, FILIERES[s.filiere] ?? s.filiere] as [string, string, string])} />}</Field>
                   : <Field label="Série / spécialité du bac" hint={f.country ? undefined : "Choisis d'abord ton pays."}>{(i) => <Input id={i} value={f.serie} onChange={(e) => set("serie")(e.target.value)} disabled={!f.country} placeholder="Ex. scientifique, économique, littéraire" maxLength={40} className="text-[15px] sm:text-sm" />}</Field>}
-                <Field label="Établissement actuel" className="sm:col-span-2">{(i) => <Input id={i} value={f.currentSchool} onChange={(e) => set("currentSchool")(e.target.value)} placeholder="Nom de ton lycée ou de ton université" maxLength={160} className="text-[15px] sm:text-sm" />}</Field>
+                {role === "eleve" && f.country === "GA" ? <ChoixLycee valeur={f.currentSchool} onChange={(v) => set("currentSchool")(v)} /> : <Field label="Établissement actuel" className="sm:col-span-2">{(i) => <Input id={i} value={f.currentSchool} onChange={(e) => set("currentSchool")(e.target.value)} placeholder="Nom de ton lycée ou de ton université" maxLength={160} className="text-[15px] sm:text-sm" />}</Field>}
               </div>
             </Section>
           )}

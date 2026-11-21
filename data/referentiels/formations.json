@@ -29,7 +29,11 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -80,7 +84,11 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -128,7 +136,11 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -178,7 +190,14 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-pa",
+          "ga-bac-pv"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -237,7 +256,14 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-pa",
+          "ga-bac-pv"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -282,7 +308,14 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-pa",
+          "ga-bac-pv"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -339,7 +372,11 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -385,7 +422,14 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-pa",
+          "ga-bac-pv"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -440,7 +484,11 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -488,7 +536,26 @@
           "ga-bac-e",
           "ga-bac-f2",
           "ga-bac-f3",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-gsi",
+          "ga-bac-si",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-dwm",
+          "ga-bac-ei",
+          "ga-bac-iii",
+          "ga-bac-isec",
+          "ga-bac-meh",
+          "ga-bac-minf",
+          "ga-bac-pa",
+          "ga-bac-pv",
+          "ga-bac-tcg"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -533,7 +600,26 @@
           "ga-bac-e",
           "ga-bac-f2",
           "ga-bac-f3",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-gsi",
+          "ga-bac-si",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-dwm",
+          "ga-bac-ei",
+          "ga-bac-iii",
+          "ga-bac-isec",
+          "ga-bac-meh",
+          "ga-bac-minf",
+          "ga-bac-pa",
+          "ga-bac-pv",
+          "ga-bac-tcg"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -578,7 +664,26 @@
           "ga-bac-e",
           "ga-bac-f2",
           "ga-bac-f3",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-gsi",
+          "ga-bac-si",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-dwm",
+          "ga-bac-ei",
+          "ga-bac-iii",
+          "ga-bac-isec",
+          "ga-bac-meh",
+          "ga-bac-minf",
+          "ga-bac-pa",
+          "ga-bac-pv",
+          "ga-bac-tcg"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -656,7 +761,26 @@
           "ga-bac-e",
           "ga-bac-f2",
           "ga-bac-f3",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-gsi",
+          "ga-bac-si",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-dwm",
+          "ga-bac-ei",
+          "ga-bac-iii",
+          "ga-bac-isec",
+          "ga-bac-meh",
+          "ga-bac-minf",
+          "ga-bac-pa",
+          "ga-bac-pv",
+          "ga-bac-tcg"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -719,7 +843,26 @@
           "ga-bac-e",
           "ga-bac-f2",
           "ga-bac-f3",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-gsi",
+          "ga-bac-si",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-dwm",
+          "ga-bac-ei",
+          "ga-bac-iii",
+          "ga-bac-isec",
+          "ga-bac-meh",
+          "ga-bac-minf",
+          "ga-bac-pa",
+          "ga-bac-pv",
+          "ga-bac-tcg"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -775,7 +918,16 @@
           "ga-bac-e",
           "ga-bac-f2",
           "ga-bac-f3",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-gsi",
+          "ga-bac-si",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -856,7 +1008,16 @@
           "ga-bac-e",
           "ga-bac-f2",
           "ga-bac-f3",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-gsi",
+          "ga-bac-si",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -923,7 +1084,16 @@
           "ga-bac-e",
           "ga-bac-f2",
           "ga-bac-f3",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-gsi",
+          "ga-bac-si",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1006,7 +1176,16 @@
           "ga-bac-e",
           "ga-bac-f2",
           "ga-bac-f3",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-gsi",
+          "ga-bac-si",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1060,7 +1239,16 @@
           "ga-bac-e",
           "ga-bac-f2",
           "ga-bac-f3",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-gsi",
+          "ga-bac-si",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1116,7 +1304,12 @@
         "GA": [
           "ga-bac-c",
           "ga-bac-d",
-          "ga-bac-e"
+          "ga-bac-e",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-si",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1198,7 +1391,25 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f2",
-          "ga-bac-f3"
+          "ga-bac-f3",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si",
+          "ga-bac-ci",
+          "ga-bac-ei",
+          "ga-bac-iii",
+          "ga-bac-isec",
+          "ga-bac-meh",
+          "ga-bac-mei",
+          "ga-bac-meni",
+          "ga-bac-minf",
+          "ga-bac-mva",
+          "ga-bac-mvavtr",
+          "ga-bac-mvi",
+          "ga-bac-sd"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1241,7 +1452,25 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f2",
-          "ga-bac-f3"
+          "ga-bac-f3",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si",
+          "ga-bac-ci",
+          "ga-bac-ei",
+          "ga-bac-iii",
+          "ga-bac-isec",
+          "ga-bac-meh",
+          "ga-bac-mei",
+          "ga-bac-meni",
+          "ga-bac-minf",
+          "ga-bac-mva",
+          "ga-bac-mvavtr",
+          "ga-bac-mvi",
+          "ga-bac-sd"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1286,7 +1515,25 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f2",
-          "ga-bac-f3"
+          "ga-bac-f3",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si",
+          "ga-bac-ci",
+          "ga-bac-ei",
+          "ga-bac-iii",
+          "ga-bac-isec",
+          "ga-bac-meh",
+          "ga-bac-mei",
+          "ga-bac-meni",
+          "ga-bac-minf",
+          "ga-bac-mva",
+          "ga-bac-mvavtr",
+          "ga-bac-mvi",
+          "ga-bac-sd"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1335,7 +1582,25 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f2",
-          "ga-bac-f3"
+          "ga-bac-f3",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si",
+          "ga-bac-ci",
+          "ga-bac-ei",
+          "ga-bac-iii",
+          "ga-bac-isec",
+          "ga-bac-meh",
+          "ga-bac-mei",
+          "ga-bac-meni",
+          "ga-bac-minf",
+          "ga-bac-mva",
+          "ga-bac-mvavtr",
+          "ga-bac-mvi",
+          "ga-bac-sd"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1382,7 +1647,13 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f2",
-          "ga-bac-f3"
+          "ga-bac-f3",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1448,7 +1719,13 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f2",
-          "ga-bac-f3"
+          "ga-bac-f3",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1507,7 +1784,13 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f2",
-          "ga-bac-f3"
+          "ga-bac-f3",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1592,7 +1875,13 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f2",
-          "ga-bac-f3"
+          "ga-bac-f3",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1647,7 +1936,25 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f2",
-          "ga-bac-f3"
+          "ga-bac-f3",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si",
+          "ga-bac-ci",
+          "ga-bac-ei",
+          "ga-bac-iii",
+          "ga-bac-isec",
+          "ga-bac-meh",
+          "ga-bac-mei",
+          "ga-bac-meni",
+          "ga-bac-minf",
+          "ga-bac-mva",
+          "ga-bac-mvavtr",
+          "ga-bac-mvi",
+          "ga-bac-sd"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1689,7 +1996,10 @@
         "GA": [
           "ga-bac-c",
           "ga-bac-e",
-          "ga-bac-f4"
+          "ga-bac-f4",
+          "ga-bac-aec",
+          "ga-bac-si",
+          "ga-bac-orgo"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1729,7 +2039,10 @@
         "GA": [
           "ga-bac-c",
           "ga-bac-e",
-          "ga-bac-f4"
+          "ga-bac-f4",
+          "ga-bac-aec",
+          "ga-bac-si",
+          "ga-bac-orgo"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1775,7 +2088,9 @@
         "GA": [
           "ga-bac-c",
           "ga-bac-e",
-          "ga-bac-f4"
+          "ga-bac-f4",
+          "ga-bac-aec",
+          "ga-bac-si"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1833,7 +2148,9 @@
         "GA": [
           "ga-bac-c",
           "ga-bac-e",
-          "ga-bac-f4"
+          "ga-bac-f4",
+          "ga-bac-aec",
+          "ga-bac-si"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1881,7 +2198,9 @@
         "GA": [
           "ga-bac-c",
           "ga-bac-e",
-          "ga-bac-f4"
+          "ga-bac-f4",
+          "ga-bac-aec",
+          "ga-bac-si"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1919,7 +2238,10 @@
         "GA": [
           "ga-bac-c",
           "ga-bac-e",
-          "ga-bac-f4"
+          "ga-bac-f4",
+          "ga-bac-aec",
+          "ga-bac-si",
+          "ga-bac-orgo"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -1960,7 +2282,31 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f3",
-          "ga-bac-f4"
+          "ga-bac-f4",
+          "ga-bac-aec",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si",
+          "ga-bac-spcl",
+          "ga-bac-ci",
+          "ga-bac-cqaa",
+          "ga-bac-ei",
+          "ga-bac-isec",
+          "ga-bac-mei",
+          "ga-bac-meni",
+          "ga-bac-mva",
+          "ga-bac-mvavtr",
+          "ga-bac-mvi",
+          "ga-bac-orgo",
+          "ga-bac-pa",
+          "ga-bac-pv",
+          "ga-bac-sd"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2005,7 +2351,18 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f3",
-          "ga-bac-f4"
+          "ga-bac-f4",
+          "ga-bac-aec",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2049,7 +2406,18 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f3",
-          "ga-bac-f4"
+          "ga-bac-f4",
+          "ga-bac-aec",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2093,7 +2461,18 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f3",
-          "ga-bac-f4"
+          "ga-bac-f4",
+          "ga-bac-aec",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2147,7 +2526,14 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-pa",
+          "ga-bac-pv"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2188,7 +2574,14 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-pa",
+          "ga-bac-pv"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2228,7 +2621,11 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2270,7 +2667,11 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2310,7 +2711,11 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2349,7 +2754,14 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-c",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-pa",
+          "ga-bac-pv"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2392,7 +2804,15 @@
         "GA": [
           "ga-bac-c",
           "ga-bac-d",
-          "ga-bac-e"
+          "ga-bac-e",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-si",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-pa",
+          "ga-bac-pv"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2434,7 +2854,15 @@
         "GA": [
           "ga-bac-c",
           "ga-bac-d",
-          "ga-bac-e"
+          "ga-bac-e",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-si",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-pa",
+          "ga-bac-pv"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2477,7 +2905,15 @@
         "GA": [
           "ga-bac-c",
           "ga-bac-d",
-          "ga-bac-e"
+          "ga-bac-e",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-si",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-pa",
+          "ga-bac-pv"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2532,7 +2968,12 @@
         "GA": [
           "ga-bac-c",
           "ga-bac-d",
-          "ga-bac-e"
+          "ga-bac-e",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-si",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2574,7 +3015,12 @@
         "GA": [
           "ga-bac-c",
           "ga-bac-d",
-          "ga-bac-e"
+          "ga-bac-e",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-si",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2616,7 +3062,12 @@
         "GA": [
           "ga-bac-b",
           "ga-bac-c",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-gsi",
+          "ga-bac-dwm",
+          "ga-bac-tcg"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2656,7 +3107,9 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-b",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-acc",
+          "ga-bac-m"
         ],
         "MA": [
           "ma-bac-se",
@@ -2693,7 +3146,24 @@
           "ga-bac-d",
           "ga-bac-g1",
           "ga-bac-g2",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-aca",
+          "ga-bac-acc",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-gsi",
+          "ga-bac-m",
+          "ga-bac-rhc",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-dwm",
+          "ga-bac-pa",
+          "ga-bac-pv",
+          "ga-bac-tcg",
+          "ga-bac-tga"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2737,7 +3207,24 @@
           "ga-bac-d",
           "ga-bac-g1",
           "ga-bac-g2",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-aca",
+          "ga-bac-acc",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-gsi",
+          "ga-bac-m",
+          "ga-bac-rhc",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-dwm",
+          "ga-bac-pa",
+          "ga-bac-pv",
+          "ga-bac-tcg",
+          "ga-bac-tga"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2790,7 +3277,24 @@
           "ga-bac-d",
           "ga-bac-g1",
           "ga-bac-g2",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-aca",
+          "ga-bac-acc",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-gsi",
+          "ga-bac-m",
+          "ga-bac-rhc",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-dwm",
+          "ga-bac-pa",
+          "ga-bac-pv",
+          "ga-bac-tcg",
+          "ga-bac-tga"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2898,7 +3402,12 @@
         "GA": [
           "ga-bac-b",
           "ga-bac-c",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-gsi",
+          "ga-bac-dwm",
+          "ga-bac-tcg"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -2961,7 +3470,24 @@
           "ga-bac-d",
           "ga-bac-g1",
           "ga-bac-g2",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-aca",
+          "ga-bac-acc",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-gsi",
+          "ga-bac-m",
+          "ga-bac-rhc",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-dwm",
+          "ga-bac-pa",
+          "ga-bac-pv",
+          "ga-bac-tcg",
+          "ga-bac-tga"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -3009,7 +3535,20 @@
           "ga-bac-b",
           "ga-bac-c",
           "ga-bac-f1",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-acc",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-m",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-ci",
+          "ga-bac-mei",
+          "ga-bac-meni",
+          "ga-bac-mva",
+          "ga-bac-mvavtr",
+          "ga-bac-mvi",
+          "ga-bac-sd"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -3075,7 +3614,9 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-b",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-acc",
+          "ga-bac-m"
         ],
         "MA": [
           "ma-bac-se",
@@ -3138,7 +3679,10 @@
         "GA": [
           "ga-bac-b",
           "ga-bac-c",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-gsi"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -3228,7 +3772,9 @@
       "series_recommandees": {
         "GA": [
           "ga-bac-b",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-acc",
+          "ga-bac-m"
         ],
         "MA": [
           "ma-bac-se",
@@ -3318,7 +3864,18 @@
           "ga-bac-d",
           "ga-bac-g1",
           "ga-bac-g2",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-aca",
+          "ga-bac-acc",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-gsi",
+          "ga-bac-m",
+          "ga-bac-rhc",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -3397,7 +3954,18 @@
           "ga-bac-d",
           "ga-bac-g1",
           "ga-bac-g2",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-aca",
+          "ga-bac-acc",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-gsi",
+          "ga-bac-m",
+          "ga-bac-rhc",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -3463,7 +4031,13 @@
           "ga-bac-b",
           "ga-bac-c",
           "ga-bac-f1",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-acc",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-m",
+          "ga-bac-mi",
+          "ga-bac-pm"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -3531,7 +4105,18 @@
           "ga-bac-d",
           "ga-bac-g1",
           "ga-bac-g2",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-aca",
+          "ga-bac-acc",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-gsi",
+          "ga-bac-m",
+          "ga-bac-rhc",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -3723,7 +4308,9 @@
           "ga-bac-a1",
           "ga-bac-a2",
           "ga-bac-b",
-          "ga-bac-g1"
+          "ga-bac-g1",
+          "ga-bac-aca",
+          "ga-bac-rhc"
         ],
         "MA": [
           "ma-bac-se",
@@ -3765,7 +4352,9 @@
           "ga-bac-a1",
           "ga-bac-a2",
           "ga-bac-b",
-          "ga-bac-g1"
+          "ga-bac-g1",
+          "ga-bac-aca",
+          "ga-bac-rhc"
         ],
         "MA": [
           "ma-bac-se",
@@ -4129,7 +4718,11 @@
         "GA": [
           "ga-bac-a1",
           "ga-bac-a2",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl"
         ],
         "MA": [
           "ma-bac-svt",
@@ -4169,7 +4762,14 @@
         "GA": [
           "ga-bac-a1",
           "ga-bac-a2",
-          "ga-bac-d"
+          "ga-bac-d",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-clpi",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-pa",
+          "ga-bac-pv"
         ],
         "MA": [
           "ma-bac-svt",
@@ -4231,7 +4831,10 @@
           "ga-bac-a1",
           "ga-bac-a2",
           "ga-bac-b",
-          "ga-bac-g1"
+          "ga-bac-g1",
+          "ga-bac-aca",
+          "ga-bac-rhc",
+          "ga-bac-tga"
         ],
         "MA": [
           "ma-bac-se",
@@ -4273,7 +4876,10 @@
           "ga-bac-a1",
           "ga-bac-a2",
           "ga-bac-b",
-          "ga-bac-g1"
+          "ga-bac-g1",
+          "ga-bac-aca",
+          "ga-bac-rhc",
+          "ga-bac-tga"
         ],
         "MA": [
           "ma-bac-se",
@@ -4479,7 +5085,13 @@
           "ga-bac-b",
           "ga-bac-c",
           "ga-bac-f1",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-acc",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-m",
+          "ga-bac-mi",
+          "ga-bac-pm"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -4519,7 +5131,9 @@
           "ga-bac-a1",
           "ga-bac-a2",
           "ga-bac-b",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-acc",
+          "ga-bac-m"
         ],
         "MA": [
           "ma-bac-se",
@@ -4560,7 +5174,9 @@
           "ga-bac-a1",
           "ga-bac-a2",
           "ga-bac-b",
-          "ga-bac-g3"
+          "ga-bac-g3",
+          "ga-bac-acc",
+          "ga-bac-m"
         ],
         "MA": [
           "ma-bac-se",
@@ -4609,7 +5225,26 @@
           "ga-bac-e",
           "ga-bac-f2",
           "ga-bac-f3",
-          "ga-bac-g2"
+          "ga-bac-g2",
+          "ga-bac-bgb",
+          "ga-bac-biot",
+          "ga-bac-cfe",
+          "ga-bac-cg",
+          "ga-bac-clpi",
+          "ga-bac-ere",
+          "ga-bac-gsi",
+          "ga-bac-si",
+          "ga-bac-spcl",
+          "ga-bac-cqaa",
+          "ga-bac-dwm",
+          "ga-bac-ei",
+          "ga-bac-iii",
+          "ga-bac-isec",
+          "ga-bac-meh",
+          "ga-bac-minf",
+          "ga-bac-pa",
+          "ga-bac-pv",
+          "ga-bac-tcg"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -4650,7 +5285,25 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f2",
-          "ga-bac-f3"
+          "ga-bac-f3",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si",
+          "ga-bac-ci",
+          "ga-bac-ei",
+          "ga-bac-iii",
+          "ga-bac-isec",
+          "ga-bac-meh",
+          "ga-bac-mei",
+          "ga-bac-meni",
+          "ga-bac-minf",
+          "ga-bac-mva",
+          "ga-bac-mvavtr",
+          "ga-bac-mvi",
+          "ga-bac-sd"
         ],
         "MA": [
           "ma-bac-sm-a",
@@ -4692,7 +5345,25 @@
           "ga-bac-e",
           "ga-bac-f1",
           "ga-bac-f2",
-          "ga-bac-f3"
+          "ga-bac-f3",
+          "ga-bac-ere",
+          "ga-bac-f1c",
+          "ga-bac-f1d",
+          "ga-bac-mi",
+          "ga-bac-pm",
+          "ga-bac-si",
+          "ga-bac-ci",
+          "ga-bac-ei",
+          "ga-bac-iii",
+          "ga-bac-isec",
+          "ga-bac-meh",
+          "ga-bac-mei",
+          "ga-bac-meni",
+          "ga-bac-minf",
+          "ga-bac-mva",
+          "ga-bac-mvavtr",
+          "ga-bac-mvi",
+          "ga-bac-sd"
         ],
         "MA": [
           "ma-bac-sm-a",

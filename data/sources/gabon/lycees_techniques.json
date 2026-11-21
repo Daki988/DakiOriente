@@ -1,0 +1,56 @@
+{
+ "_meta": {
+  "source": "https://bactechgabon.com/index.php?pg=etablissements&md=6",
+  "description": "Établissements de l'enseignement technique présentés par la Direction des examens et concours de l'enseignement technique (bac technologique et professionnel), relevé du 21/11/2026. Province renseignée seulement quand elle est certaine."
+ },
+ "items": [
+  {
+   "nom": "Lycée Technique de Ntoum",
+   "province": "Estuaire"
+  },
+  {
+   "nom": "Lycée Technique de Libreville",
+   "province": "Estuaire"
+  },
+  {
+   "nom": "Lycée Technique National Omar Bongo",
+   "province": "Estuaire"
+  },
+  {
+   "nom": "Lycée Scientifique et Technologique Paul Kouya",
+   "province": null
+  },
+  {
+   "nom": "Lycée Technique Fulbert Bonghota",
+   "province": null
+  },
+  {
+   "nom": "Lycée Technique Agathe Obendje",
+   "province": null
+  },
+  {
+   "nom": "École Nationale de Commerce",
+   "province": "Estuaire"
+  },
+  {
+   "nom": "Lycée Technique Jean Fidèle Otando",
+   "province": null
+  },
+  {
+   "nom": "Lycée Technique Alexandre Biangue",
+   "province": "Estuaire"
+  },
+  {
+   "nom": "Lycée Technique Nyonda Makita",
+   "province": null
+  },
+  {
+   "nom": "Lycée Technique de Fougamou",
+   "province": "Ngounié"
+  },
+  {
+   "nom": "Lycée Technique Bernard Obiang",
+   "province": null
+  }
+ ]
+}

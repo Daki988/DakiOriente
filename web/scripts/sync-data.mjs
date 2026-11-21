@@ -82,6 +82,11 @@ write("lycees", {
   })),
 });
 
+// Lycées du Gabon pour le formulaire d'inscription (province, nom ; lycées techniques sans province à part)
+write("lycees_ga", secDoc.items.filter((e) => e.pays === "GA" && e.type !== "college")
+  .map((e) => ({ n: e.nom, p: e.province ?? null, t: e.type === "lycee_technique" ? 1 : 0 }))
+  .sort((a, b) => a.n.localeCompare(b.n, "fr", { sensitivity: "base" })));
+
 // Résidences universitaires (Navilease) : réservation sur la plateforme officielle de chaque résidence
 write("residences_etudiantes", read("residences_etudiantes").items.map((r) => ({ ...r, photos: r.photos.map((p) => ({ src: "/" + p.fichier.replace(/^assets\//, ""), credit: p.credit, page: p.page_source })) })));
 const nav = read("navilease_logements");
