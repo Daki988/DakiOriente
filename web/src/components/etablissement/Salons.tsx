@@ -23,25 +23,33 @@ function Pastilles({ options, valeur, onChange }: { options: [string, string][];
   return <div className="flex flex-wrap gap-1.5">{options.map(([k, l]) => { const on = valeur.includes(k); return <button key={k} type="button" aria-pressed={on} onClick={() => onChange(on ? valeur.filter((x) => x !== k) : [...valeur, k])} className={`chip min-h-[34px] px-3 text-[12.5px] ${on ? "bg-brand-600 text-white" : "bg-[#f1f4fb] text-ink-soft hover:bg-brand-50"}`}>{l}</button>; })}</div>;
 }
 
-/** Formulaire « Demander un salon » avec le prix des fiches selon les critères choisis. */
-function Demande({ eid, apres }: { eid: string; apres: () => void }) {
+/** Formulaire « Demander un salon » avec le prix des fiches selon les critères choisis.
+ *  Avec `ecoles` (back-office) : l'équipe choisit l'école, enregistre le forfait et publie directement. */
+export function Demande({ eid: eidEcole, apres, ecoles }: { eid: string; apres: () => void; ecoles?: [string, string][] }) {
   const toast = useToast();
   const a = useAction();
   const [f, setF] = useState({ titre: "", description: "", jour: "", heure: "17:00", dureeMin: 60, places: 100, programme: "", presentateurs: "", cibleNiveaux: ["niv-lycee"] as string[], ciblePays: ["GA", "CM", "SN"] as string[], cibleDomaines: [] as string[], criteres: [] as string[] });
+  const [adm, setAdm] = useState({ ecole: "", forfait: "", ref: "", navi: true });
+  const eid = ecoles ? adm.ecole : eidEcole;
   const [prix, setPrix] = useState<number | null>(null);
   useEffect(() => { api<{ prix: number }>(`/ecole/salons/prix-fiche?n=${f.criteres.length}`).then((r) => setPrix(r.prix)).catch(() => setPrix(null)); }, [f.criteres.length]);
   const envoyer = async () => {
     const debut = new Date(`${f.jour}T${f.heure}:00`);
     const programme = f.programme.split("\n").map((l) => l.trim()).filter(Boolean).map((l) => { const m = l.match(/^(\d{1,2}[:h]\d{2})\s*[-–·:]?\s*(.+)$/); return m ? { heure: m[1].replace("h", ":"), texte: m[2] } : { heure: "", texte: l }; });
     const presentateurs = f.presentateurs.split("\n").map((l) => l.trim()).filter(Boolean).map((l) => { const [nom, ...r] = l.split(/\s*[-–,]\s*/); return { nom, role: r.join(", ") }; });
-    if (await a.run(() => api(`/ecole/${eid}/salons`, { body: { titre: f.titre, description: f.description, debut: debut.toISOString(), dureeMin: f.dureeMin, places: f.places, programme, presentateurs, cibleNiveaux: f.cibleNiveaux, ciblePays: f.ciblePays, cibleDomaines: f.cibleDomaines, criteres: f.criteres } }))) {
-      toast("Demande envoyée : l'équipe Navigoal vous confirme le salon et le règlement"); apres();
+    const corps = { titre: f.titre, description: f.description, debut: debut.toISOString(), dureeMin: f.dureeMin, places: f.places, programme, presentateurs, cibleNiveaux: f.cibleNiveaux, ciblePays: f.ciblePays, cibleDomaines: f.cibleDomaines, criteres: f.criteres };
+    if (await a.run(() => ecoles
+      ? api("/admin/salons", { body: { ...corps, establishmentId: adm.ecole, forfaitMad: Number(adm.forfait || 0), paiementRef: adm.ref, naviAnnonce: adm.navi } })
+      : api(`/ecole/${eid}/salons`, { body: corps }))) {
+      toast(ecoles ? "Salon créé et publié : l'école est prévenue" : "Demande envoyée : l'équipe Navigoal vous confirme le salon et le règlement"); apres();
     }
   };
   return (
-    <Panel title="Demander un salon" icon={Plus}>
+    <Panel title={ecoles ? "Créer un salon pour une école" : "Demander un salon"} icon={Plus}>
       <div className="flex flex-col gap-4">
-        <p className="-mt-2 text-sm text-ink-mute">Forfait du salon, plus les fiches contact si vous les souhaitez. L&apos;équipe Navigoal valide le salon et le règlement, puis le publie.</p>
+        {ecoles
+          ? <label className="flex flex-col gap-1.5 text-sm"><b>École organisatrice</b><select className="input" value={adm.ecole} onChange={(e) => setAdm({ ...adm, ecole: e.target.value })}><option value="">Choisir l&apos;école…</option>{ecoles.map(([id, nom]) => <option key={id} value={id}>{nom}</option>)}</select></label>
+          : <p className="-mt-2 text-sm text-ink-mute">Forfait du salon, plus les fiches contact si vous les souhaitez. L&apos;équipe Navigoal valide le salon et le règlement, puis le publie.</p>}
         <label className="flex flex-col gap-1.5 text-sm"><b>Titre</b><Input value={f.titre} maxLength={120} onChange={(e) => setF({ ...f, titre: e.target.value })} placeholder="Ex. : Journée portes ouvertes en ligne" /></label>
         <div className="grid gap-3 sm:grid-cols-4">
           <label className="flex flex-col gap-1.5 text-sm sm:col-span-2"><b>Date</b><Input type="date" value={f.jour} onChange={(e) => setF({ ...f, jour: e.target.value })} /></label>
@@ -66,8 +74,13 @@ function Demande({ eid, apres }: { eid: string; apres: () => void }) {
           <div className="mt-3 flex justify-between border-t border-slate-200 pt-3 text-sm"><span className="text-ink-mute">Prix par fiche · {f.criteres.length} critère{f.criteres.length > 1 ? "s" : ""}</span><b>{prix != null ? <>{prix} MAD <span className="font-semibold text-ink-mute">≈ {fcfa(prix)} F CFA</span></> : "…"}</b></div>
           <div className="mt-1 flex justify-between text-sm"><span className="text-ink-mute">Forfait du salon</span><b>fixé à la validation</b></div>
         </div>
+        {ecoles && <div className="grid gap-3 rounded-2xl border border-brand-100 p-4 sm:grid-cols-2">
+          <label className="flex flex-col gap-1.5 text-sm"><b>Forfait réglé (MAD)</b><Input inputMode="numeric" value={adm.forfait} onChange={(e) => setAdm({ ...adm, forfait: e.target.value.replace(/\D/g, "") })} placeholder="0 si le salon est offert" /></label>
+          <label className="flex flex-col gap-1.5 text-sm"><b>Référence du règlement</b><Input value={adm.ref} onChange={(e) => setAdm({ ...adm, ref: e.target.value })} placeholder="Virement · VIR-2026-1204" /></label>
+          <label className="flex items-center gap-2 text-sm sm:col-span-2"><input type="checkbox" className="h-5 w-5 accent-brand-600" checked={adm.navi} onChange={(e) => setAdm({ ...adm, navi: e.target.checked })} />Navi peut annoncer ce salon aux élèves ciblés</label>
+        </div>}
         <FormError error={a.error} />
-        <div className="flex justify-end"><Button icon={Send} loading={a.pending} disabled={f.titre.trim().length < 5 || !f.jour} onClick={envoyer}>Envoyer la demande</Button></div>
+        <div className="flex justify-end"><Button icon={Send} loading={a.pending} disabled={f.titre.trim().length < 5 || !f.jour || (!!ecoles && (!adm.ecole || (Number(adm.forfait || 0) > 0 && adm.ref.trim().length < 2)))} onClick={envoyer}>{ecoles ? "Créer et publier" : "Envoyer la demande"}</Button></div>
       </div>
     </Panel>
   );

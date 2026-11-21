@@ -346,6 +346,9 @@ for (const p of ["/connexion/?suite=https://evil.example.com", "/connexion/?suit
     await controle("salons", "un élève ne marque pas une question répondue", () => amina.post(`/salons/${salon.id}/questions/00000000-0000-4000-8000-000000000000/repondue`, {}), [403, 404]);
     await ecole.post(`/ecole/salons/${salon.id}/annuler`, {});
   } else note("salons", "salon de référence", false, JSON.stringify(salon).slice(0, 200));
+  await controle("salons", "une école ne crée pas de salon par la voie de l'équipe", () => ecole.post("/admin/salons", { establishmentId: eid, titre: "Salon pirate", debut: debutSalon }));
+  await controle("salons", "une école ne voit pas l'aperçu des invitations", () => ecole.get(`/admin/salons/${salon?.id ?? "x"}/invitations`));
+  await controle("salons", "un élève n'envoie pas d'invitations", () => amina.post(`/admin/salons/${salon?.id ?? "x"}/invitations`, {}));
   await controle("salons", "un élève ne lit pas les salons à valider", () => amina.get("/admin/salons"));
   await controle("salons", "une école ne débloque pas des fiches", () => ecole.post("/admin/fiches/00000000-0000-4000-8000-000000000000/payee", { paiementRef: "x" }));
   await controle("salons", "fiches d'une commande inconnue : rien à télécharger", () => ecole.get("/ecole/fiches/00000000-0000-4000-8000-000000000000/fiches.csv"), [403, 404]);

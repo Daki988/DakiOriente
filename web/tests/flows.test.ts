@@ -1154,6 +1154,29 @@ describe("rendez-vous d'appel planifiés", () => {
   });
 });
 describe("salons virtuels", () => {
+  it("salon créé par l'équipe pour une école et invitations aux élèves ciblés", async () => {
+    const salons = await import("@/server/services/salons");
+    const { etabById, formationById } = await import("@/lib/data");
+    const dom = etabById["ma-esa-casa"].formations.map((f) => formationById[f]).find(Boolean)!.domaine;
+    await db.update(schema.profiles).set({ domain: dom }).where(eq(schema.profiles.userId, student.id));
+    const debut = new Date(Date.now() + 2 * 86400e3).toISOString();
+    await expect(salons.creerParAdmin(school, { establishmentId: "ma-esa-casa", titre: "Salon de l'équipe", debut })).rejects.toThrow();
+    await expect(salons.creerParAdmin(adminU, { establishmentId: "ma-esa-casa", titre: "Salon de l'équipe", debut, forfaitMad: 500 })).rejects.toThrow(/référence/);
+    const s = await salons.creerParAdmin(adminU, { establishmentId: "ma-esa-casa", titre: "Salon de l'équipe", debut, ciblePays: ["SN"], forfaitMad: 0 });
+    expect(s).toMatchObject({ statut: "publie", creeParAdmin: true, paiementRef: "offert" });
+    await expect(salons.apercuInvitations(school, s.id)).rejects.toThrow();
+    const ap = await salons.apercuInvitations(adminU, s.id);
+    expect(ap.aInviter).toBeGreaterThanOrEqual(1);
+    expect(ap.mineurs).toBeGreaterThanOrEqual(1);
+    await expect(salons.inviter(school, s.id)).rejects.toThrow();
+    const r = await salons.inviter(adminU, s.id);
+    expect(r.envoyes).toBe(ap.aInviter);
+    expect((await notif.listNotifications(student.id)).some((n) => n.link === `/salons/${s.id}/`)).toBe(true);
+    expect((await notif.listNotifications(parent.id)).some((n) => n.link === `/salons/${s.id}/`)).toBe(true);
+    expect((await salons.inviter(adminU, s.id)).envoyes).toBe(0); // une seule invitation par élève
+    expect((await salons.apercuInvitations(adminU, s.id)).dejaInvites).toBe(ap.aInviter);
+    await salons.annulerParEcole(adminU, s.id);
+  });
   it("demande, validation, inscription avec accord du parent, salle, questions, bilan et fiches contact", async () => {
     const salons = await import("@/server/services/salons");
     expect(await salons.prixFiche(0)).toBe(117);

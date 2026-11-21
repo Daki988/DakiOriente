@@ -169,6 +169,13 @@
       "when": 1795273707260,
       "tag": "0023_moyens_paiement_motif",
       "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1795276135416,
+      "tag": "0024_salons_invitations",
+      "breakpoints": true
     }
   ]
 }

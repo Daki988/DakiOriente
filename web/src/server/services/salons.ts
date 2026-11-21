@@ -124,6 +124,78 @@ export async function refuser(user: User, id: string, motif: string) {
   for (const u of await membres(s.establishmentId)) await notify(u, { kind: "salon", title: `Salon non retenu : ${s.titre}`, body: m, link: "/etablissement/salons", channels: ["app", "email"] });
 }
 
+// ---------------------------------------------------------------- Équipe : salon créé pour une école, invitations
+const CreationZ = z.object({ establishmentId: z.string().min(1).max(80), forfaitMad: z.number().int().min(0).max(1_000_000).default(0), paiementRef: z.string().trim().max(120).default(""), naviAnnonce: z.boolean().default(true) });
+
+/** L'équipe crée et publie directement un salon au nom d'une école (forfait réglé ou offert). */
+export async function creerParAdmin(user: User, raw: unknown) {
+  if (user.role !== "admin") throw forbidden();
+  const c = CreationZ.parse(raw);
+  if (!etabById[c.establishmentId]) throw notFound("Établissement");
+  const d = DemandeZ.parse(raw);
+  const debut = new Date(d.debut);
+  if (debut.getTime() < Date.now() + 3600e3) throw new AppError("Le salon doit commencer dans une heure au moins.");
+  if (debut.getTime() > Date.now() + 365 * 86400e3) throw new AppError("Le salon doit avoir lieu dans les 12 prochains mois.");
+  if (c.forfaitMad > 0 && c.paiementRef.length < 2) throw new AppError("Indiquez la référence du règlement (ou un forfait à 0 si le salon est offert).");
+  const [s] = await db.insert(S).values({ ...d, criteres: [...new Set(d.criteres)], establishmentId: c.establishmentId, debut, demandePar: user.id, statut: "publie", forfaitMad: c.forfaitMad, paiementRef: c.paiementRef || (c.forfaitMad ? null : "offert"), naviAnnonce: c.naviAnnonce, validePar: user.id, valideLe: new Date(), creeParAdmin: true }).returning();
+  for (const m of await membres(s.establishmentId)) await notify(m, { kind: "salon", title: `Navigoal a organisé un salon pour vous : ${s.titre}`, body: `Le ${quand(debut)}. Retrouvez-le dans « Salons virtuels » : inscrits, questions et bilan.`, link: "/etablissement/salons", channels: ["app", "email"] });
+  programmerRappel(s);
+  return s;
+}
+
+/** Élèves et étudiants à inviter : public visé du salon (pays, niveaux, domaines) et critères choisis par l'école, ni inscrits ni déjà invités. */
+async function cibles(s: typeof S.$inferSelect) {
+  const e = etabById[s.establishmentId];
+  const conds = [inArray(schema.users.role, ["eleve", "etudiant"]), eq(schema.users.status, "actif")];
+  if (s.ciblePays.length) conds.push(inArray(schema.users.country, s.ciblePays));
+  if (s.cibleNiveaux.length) conds.push(inArray(schema.profiles.level, s.cibleNiveaux));
+  const rows = await db.select({ id: schema.users.id, birthYear: schema.users.birthYear, domain: schema.profiles.domain, jobs: schema.profiles.targetJobs }).from(schema.users)
+    .leftJoin(schema.profiles, eq(schema.profiles.userId, schema.users.id)).where(and(...conds)).limit(5000);
+  const inscrits = new Set((await db.select({ u: I.userId }).from(I).where(eq(I.salonId, s.id))).map((x) => x.u));
+  const deja = new Set((await db.select({ k: schema.counters.key }).from(schema.counters).where(sql`${schema.counters.key} like ${`salinv:${s.id}:%`}`)).map((x) => x.k.split(":")[2]));
+  const domainesEcole = new Set(e ? ecolesFormations(e).map((f) => f.domaine) : []);
+  const out: { id: string; mineur: boolean }[] = [];
+  for (const r of rows) {
+    if (inscrits.has(r.id) || deja.has(r.id)) continue;
+    if (s.cibleDomaines.length && !(r.domain && s.cibleDomaines.includes(r.domain))) continue;
+    if (s.criteres.length && e) {
+      const ok = await criteresSatisfaits(r.id, e);
+      if (!s.criteres.every((c) => ok.has(c as Critere))) continue;
+    } else if (!s.cibleDomaines.length && domainesEcole.size && r.domain && !domainesEcole.has(r.domain)) continue;
+    out.push({ id: r.id, mineur: isMinor(r.birthYear) });
+  }
+  return { liste: out, inscrits: inscrits.size, dejaInvites: deja.size };
+}
+
+/** Aperçu avant envoi : nombre d'élèves correspondant aux options de l'école. */
+export async function apercuInvitations(user: User, id: string) {
+  if (user.role !== "admin") throw forbidden();
+  const [s] = await db.select().from(S).where(eq(S.id, id));
+  if (!s) throw notFound("Salon");
+  const c = await cibles(s);
+  return { aInviter: c.liste.length, mineurs: c.liste.filter((x) => x.mineur).length, inscrits: c.inscrits, dejaInvites: c.dejaInvites, places: s.places, criteres: s.criteres.map((k) => CRITERES[k as Critere] ?? k), ciblePays: s.ciblePays, cibleNiveaux: s.cibleNiveaux, cibleDomaines: s.cibleDomaines };
+}
+
+/** Envoi des invitations (notification et e-mail ; parents prévenus pour un mineur), une seule fois par élève et par salon, 500 par envoi. */
+export async function inviter(user: User, id: string) {
+  if (user.role !== "admin") throw forbidden();
+  const [s] = await db.select().from(S).where(eq(S.id, id));
+  if (!s) throw notFound("Salon");
+  if (s.statut !== "publie" || s.debut.getTime() < Date.now()) throw new AppError("Seul un salon publié et à venir peut faire l'objet d'invitations.");
+  const ecole = etabById[s.establishmentId]?.sigle ?? etabById[s.establishmentId]?.nom ?? "une école";
+  const { liste } = await cibles(s);
+  const lot = liste.slice(0, 500);
+  let envoyes = 0;
+  for (const x of lot) {
+    if (!(await premiereFois(`salinv:${s.id}:${x.id}`))) continue;
+    await notify(x.id, { kind: "salon", title: `Tu es invité·e au salon virtuel de ${ecole}`, body: `« ${s.titre} », le ${quand(s.debut)}. Gratuit, en ligne : présentation, questions en direct.`, link: `/salons/${s.id}/`, channels: ["app", "email"] });
+    if (x.mineur) for (const g of (await guardiansOf(x.id)).filter((g) => g.link.status === "actif" && g.parent?.id)) await notify(g.parent!.id, { kind: "salon", title: `Votre enfant est invité au salon virtuel de ${ecole}`, body: `« ${s.titre} », le ${quand(s.debut)}. Son inscription vous sera soumise pour accord s'il accepte d'être recontacté par l'école.`, link: `/salons/${s.id}/`, channels: ["app", "email"] });
+    envoyes++;
+  }
+  await db.update(S).set({ invitesEnvoyees: sql`${S.invitesEnvoyees} + ${envoyes}`, invitesLe: new Date() }).where(eq(S.id, s.id));
+  return { envoyes, restants: Math.max(0, liste.length - lot.length) };
+}
+
 const membres = async (establishmentId: string) => (await db.select({ u: schema.establishmentMembers.userId }).from(schema.establishmentMembers).where(eq(schema.establishmentMembers.establishmentId, establishmentId))).map((x) => x.u);
 
 // ---------------------------------------------------------------- Public

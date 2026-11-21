@@ -916,6 +916,9 @@ export const salons = pgTable("salons", {
   demandePar: text("demande_par").references(() => users.id, { onDelete: "set null" }),
   validePar: text("valide_par").references(() => users.id, { onDelete: "set null" }),
   valideLe: timestamp("valide_le", { withTimezone: true }),
+  creeParAdmin: boolean("cree_par_admin").notNull().default(false),
+  invitesEnvoyees: integer("invites_envoyees").notNull().default(0), // invitations envoyées par l'équipe aux élèves ciblés
+  invitesLe: timestamp("invites_le", { withTimezone: true }),
   createdAt: createdAt(),
   updatedAt: updatedAt(),
 }, (t) => [index("salons_statut_debut_idx").on(t.statut, t.debut), index("salons_etab_idx").on(t.establishmentId)]);
