@@ -33,6 +33,30 @@ illustrations des guides.
 
 ---
 
+## Avant le lancement — Reel d'annonce (lundi 23 novembre, 19 h, heure de Libreville)
+
+**Vidéo** `docs/videos/navigoal-reel-teaser-1er-decembre.mp4` (19 s, 1080 × 1920), couverture `navigoal-reel-teaser-1er-decembre-couverture.jpg`.
+Publié huit jours avant le 1er décembre : le compte a le temps de gagner ses premiers abonnés avant le Reel de lancement.
+19 h, heure de Libreville (UTC+1) : sortie des cours, et Dakar, Douala, Abidjan sont dans le même créneau (18 h à 19 h).
+Relais : partager le Reel en story le jour même, puis une story « J-3 » (28 nov.) et « Demain » (30 nov.) avec l'autocollant compte à rebours.
+
+**Légende**
+
+> Bac 2027 en vue, et le Maroc dans un coin de ta tête ?
+>
+> Quelle école est vraiment reconnue par l'État ? Combien ça coûte, logement et voyage compris ? Comment candidater, et où dormir en arrivant ?
+>
+> Le 1er décembre, toutes les réponses arrivent au même endroit. Gratuitement.
+>
+> 🔔 Abonne-toi pour ne rien rater, et envoie cette vidéo à quelqu'un qui passe son bac cette année.
+>
+> #EtudierAuMaroc #Bac2027 #Orientation #Gabon #Libreville #EtudiantAfricain #EtudesSuperieures #Navigoal
+
+**Premier commentaire (épinglé)** : « Le site est déjà ouvert si tu veux jeter un œil 👉 lien en bio. »
+**Lien en bio** `navigoal.net/?utm_source=instagram&utm_content=teaser`
+
+---
+
 ## Semaine 1 — « On existe, et on est utile » (1–6 décembre)
 
 **Lun 1 — Reel · Preuve · lancement**
