@@ -134,6 +134,13 @@ export function DevisSimulateur() {
   ] as const;
   const env = [[Shield, "Sécurité", C.environnement.securite], [HeartPulse, "Santé", C.environnement.sante], [Bus, "Transports", C.environnement.transports], [Users, "Communauté", C.environnement.communaute], [CloudSun, "Climat", C.environnement.climat]] as const;
   const cats = Object.entries(D.cats);
+  /** Détail mensuel : la marge « Imprévus & transferts » est répartie au prorata des autres rubriques (la somme reste égale au total). */
+  const catsMois = (() => {
+    const imp = D.cats["Imprévus & transferts"] ?? [0, 0];
+    const autres = cats.map(([k, v], i) => [k, v, i] as const).filter(([k]) => k !== "Imprévus & transferts");
+    const base: Pair = autres.reduce<Pair>((a, [, v]) => [a[0] + v[0], a[1] + v[1]], [0, 0]);
+    return autres.map(([k, v, i]) => [k, [v[0] + (base[0] ? imp[0] * v[0] / base[0] : 0), v[1] + (base[1] ? imp[1] * v[1] / base[1] : 0)] as Pair, i] as const);
+  })();
   const resume = `Devis Navigoal : ${F.intitule} à ${e.sigle} (${e.ville}) — ${dev ? `${nb(loc(D.total[0]))} à ${nb(loc(D.total[1]))} ${unit} (soit ` : ""}${fmt(cv(D.total[0]))} à ${fmt(cv(D.total[1]))} ${symbole(base)}${dev ? ")" : ""} sur ${D.years} an${D.years > 1 ? "s" : ""}, tout compris.`;
   const url = typeof window !== "undefined" ? window.location.href : "";
   const parVille = VILLES_ETUDES.map((v) => { const xs = etablissements.filter((x) => x.ville === v).sort((a, b) => a.sigle.localeCompare(b.sigle)); return [xs[0] ? `${v} (${destinationById[xs[0].pays]?.nom})` : v, xs] as const; }).filter(([, xs]) => xs.length);
@@ -213,10 +220,10 @@ export function DevisSimulateur() {
                   <div className="mt-1 rounded-2xl border border-[#eef1f8] p-3">
                     <span className="text-[12px] font-bold uppercase text-ink-mute">Ce que contient ce montant mensuel</span>
                     <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-[13.5px] sm:grid-cols-2">
-                      {cats.map(([k, v], i) => <li key={k} className="flex items-center justify-between gap-3"><span className="flex min-w-0 items-center gap-2"><span className="h-2.5 w-2.5 shrink-0 rounded" style={{ background: DONUT_COLORS[i] }} />{k}</span><b className="whitespace-nowrap tabular-nums">{nb(loc(v[0] / nbMois))} – {nb(loc(v[1] / nbMois))} {unit}</b></li>)}
+                      {catsMois.map(([k, v, i]) => <li key={k} className="flex items-center justify-between gap-3"><span className="flex min-w-0 items-center gap-2"><span className="h-2.5 w-2.5 shrink-0 rounded" style={{ background: DONUT_COLORS[i] }} />{k}</span><b className="whitespace-nowrap tabular-nums">{nb(loc(v[0] / nbMois))} – {nb(loc(v[1] / nbMois))} {unit}</b></li>)}
                       {D.aides && D.aides[1] > 0 && <li className="flex items-center justify-between gap-3 text-[#0b6e38]"><span>Bourse ou réduction</span><b className="whitespace-nowrap tabular-nums">− {nb(loc(D.aides[1] / nbMois))} {unit}</b></li>}
                     </ul>
-                    <span className="mt-2 block text-[12px] text-ink-mute">Chaque poste est réparti sur les {nbMois} mois des études : la scolarité et les frais annuels se paient en réalité par tranches, les billets et l&apos;installation au départ.{origine ? "" : " Choisissez le pays de départ pour inclure les billets d'avion et lire les montants dans votre monnaie."}</span>
+                    <span className="mt-2 block text-[12px] text-ink-mute">La marge pour imprévus et les frais d&apos;envoi d&apos;argent sont inclus dans chaque poste. Chaque poste est réparti sur les {nbMois} mois des études : la scolarité et les frais annuels se paient en réalité par tranches, les billets et l&apos;installation au départ.{origine ? "" : " Choisissez le pays de départ pour inclure les billets d'avion et lire les montants dans votre monnaie."}</span>
                   </div>
                   <div className="mt-2 grid gap-2 sm:grid-cols-2">
                     {avantDepart[1] > 0 && <div className="flex flex-col gap-0.5 rounded-2xl bg-[#f6f8fe] p-3"><span className="flex items-center gap-1.5 text-[12px] font-bold uppercase text-ink-mute"><Plane size={14} className="text-brand-600" />Pour démarrer</span><b className="text-[15px]">{nb(loc(avantDepart[0]))} – {nb(loc(avantDepart[1]))} {unit}</b><span className="text-[12px] text-ink-mute">à réunir avant le départ : billet, visa, caution, installation</span></div>}
