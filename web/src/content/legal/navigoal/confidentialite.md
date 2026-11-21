@@ -28,6 +28,7 @@ Cette politique s'applique au site navigoal.net, à l'espace connecté et à l'a
 | Paiements | montant, moyen utilisé, numéro de mobile money, référence de transaction, reçu | vous, le prestataire de paiement |
 | Échanges | messages, demandes de rendez-vous, appels audio ou vidéo (date, participants), conversations avec Navi | vous |
 | Liaison familiale | parent ou tuteur lié, consentements donnés | vous et votre parent |
+| Devis certifiés | quand vous téléchargez un devis en PDF : paramètres du devis (école, formation, logement, options), montants calculés, et les noms de l'élève et du responsable financier si vous les avez saisis | vous |
 | Données techniques | journaux de connexion, adresse IP, type d'appareil, source d'arrivée sur le site (campagne, parrainage) | automatique |
 | Mesure d'audience | page consultée, provenance, type d'appareil, pays (déduit de l'adresse IP, qui n'est pas conservée), empreinte anonyme du jour ; si vous êtes connecté, votre compte, pour que l'équipe Navigoal voie en direct où vous en êtes et vous aide au bon moment (présence effacée au bout d'une heure) | automatique, sans cookie |
 
@@ -49,6 +50,7 @@ Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les c
 | Mesurer l'efficacité de nos campagnes (source d'inscription, parrainage) et produire des statistiques anonymes | intérêt légitime de Navigoal |
 | Mesurer l'audience du site (pages les plus consultées, pays, provenance) pour l'améliorer, et repérer les élèves connectés qui pourraient avoir besoin d'aide | intérêt légitime de Navigoal |
 | Contrôler la qualité, l'exactitude et le coût des réponses de Navi (relecture par l'équipe Navigoal, tests) | intérêt légitime de Navigoal |
+| Certifier les devis PDF (cachet numérique) et permettre à toute personne qui détient le devis de vérifier son authenticité par son QR code | exécution du service, à votre demande |
 | Prévenir la fraude et les abus, assurer la sécurité | intérêt légitime, obligations légales |
 
 ## Qui peut accéder à vos données ?
@@ -89,6 +91,7 @@ Vos données sont hébergées dans l'Union européenne. Les messages envoyés à
 | Journaux de connexion et de sécurité | 12 mois |
 | Mesure d'audience (détail par page vue, sans adresse IP) | 13 mois |
 | Salons virtuels : inscription, présence, questions | 2 ans après le salon ; une fiche contact transmise à une école est ensuite gérée par cette école, responsable de son usage |
+| Devis certifiés (cachet numérique) | 1 an après l'émission, puis effacés : le QR code ne mène plus au devis |
 | Codes de vérification | quelques minutes (usage unique) |
 
 À l'issue de ces durées, les données sont supprimées ou rendues anonymes.

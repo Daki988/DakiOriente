@@ -11,6 +11,7 @@ import { rappelsScolarite } from "../src/server/services/scolarite";
 import { envoyerRappels } from "../src/server/services/rappels-paiement";
 import { rappelsDuJour } from "../src/server/services/appels";
 import { rappelsDuJour as rappelsSalons } from "../src/server/services/salons";
+import { purgerCachets } from "../src/server/services/cachets-devis";
 
 const r = await rappels();
 console.log(`${new Date().toISOString()} · ${r.rappels} rappel(s) d'échéance envoyé(s)`);
@@ -30,4 +31,6 @@ const rv = await rappelsDuJour().catch((err) => { console.error("rendez-vous du 
 console.log(`${new Date().toISOString()} · ${rv.rappels} rappel(s) de rendez-vous d'appel prévus dans les 24 h`);
 const rs = await rappelsSalons().catch((err) => { console.error("salons du jour :", err); return { rappels: 0 }; });
 console.log(`${new Date().toISOString()} · ${rs.rappels} rappel(s) de salons virtuels du jour`);
+const pc = await purgerCachets().catch((err) => { console.error("cachets de devis :", err); return 0; });
+console.log(`${new Date().toISOString()} · ${pc} cachet(s) de devis de plus d'un an effacé(s)`);
 process.exit(0);

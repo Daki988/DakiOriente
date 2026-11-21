@@ -958,3 +958,15 @@ export const salonFiches = pgTable("salon_fiches", {
   payeeLe: timestamp("payee_le", { withTimezone: true }),
   createdAt: createdAt(),
 }, (t) => [index("salon_fiches_salon_idx").on(t.salonId)]);
+
+/** Cachets numériques des devis PDF : le serveur recalcule le devis et garde ce qu'il a certifié (vérification par QR code). */
+export const devisCachets = pgTable("devis_cachets", {
+  id: text("id").primaryKey(), // 20 caractères aléatoires (120 bits), dans l'adresse de vérification
+  numero: text("numero").notNull(),
+  parametres: jsonb("parametres").$type<Record<string, unknown>>().notNull(),
+  resume: jsonb("resume").$type<Record<string, unknown>>().notNull(),
+  eleve: text("eleve").notNull().default(""),
+  payeur: text("payeur").notNull().default(""),
+  empreinte: text("empreinte").notNull(),
+  createdAt: createdAt(),
+}, (t) => [index("devis_cachets_date_idx").on(t.createdAt)]);

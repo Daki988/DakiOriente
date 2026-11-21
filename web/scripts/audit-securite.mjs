@@ -378,6 +378,10 @@ for (const p of ["/admin/", "/espace/", "/etablissement/", "/rendez-vous/", "/me
   note("accès pages", `${p} sans session : redirection vers la connexion`, [302, 303, 307, 308].includes(r.status) || (r.status === 200 && !/Tableau de bord|Candidatures reçues/.test(await r.text())), `statut ${r.status}`);
 }
 await controle("accès pages", "documentation API réservée à l'admin", () => client("v").get("/openapi.json"), [401, 403, 404, 200], (r) => process.env.NODE_ENV !== "production" || r.status !== 200 || "openapi public");
+// Cachet des devis : formation étrangère à l'école refusée, montants envoyés par le navigateur ignorés, faux code rejeté.
+await controle("devis", "cachet : formation étrangère à l'école refusée", () => client("v").post("/devis/cachet", { eid: eid, fid: "formation-inconnue" }), [400, 404, 422]);
+await controle("devis", "cachet : champ piégé refusé", () => client("v").post("/devis/cachet", { eid: "<script>", fid: "x" }), [400, 404, 422]);
+await controle("devis", "vérification : faux code = cachet introuvable", async () => { const r = await fetch(BASE + "/verifier/devis/AAAAAAAAAAAAAAAAAAAA/"); return { status: r.status, data: (await r.text()).includes("Cachet introuvable") }; }, [200, 404], (r) => r.data === true || "faux code accepté");
 await controle("divers", "méthode TRACE refusée", () => client("v").call("TRACE", "/session").catch(() => ({ status: 405 })), [400, 404, 405, 501]);
 await controle("divers", "fichiers sensibles non servis (.env)", async () => { const r = await fetch(BASE + "/.env"); return { status: r.status, data: (await r.text()).slice(0, 80) }; }, [403, 404], (r) => !/DATABASE_URL/.test(r.data) || ".env servi");
 await controle("divers", "fichiers sensibles non servis (.git)", async () => { const r = await fetch(BASE + "/.git/config"); return { status: r.status, data: "" }; }, [403, 404]);

@@ -1415,3 +1415,22 @@ describe("réactivité des écoles : requêtes", async () => {
     expect(Array.isArray(await rea.sansReponse("ma-esa-casa"))).toBe(true);
   });
 });
+
+describe("cachet numérique des devis", () => {
+  it("le serveur recalcule et enregistre le devis ; la vérification relit ce qui a été émis", async () => {
+    const c = await import("@/server/services/cachets-devis");
+    const { etabById } = await import("@/lib/data");
+    const { devis } = await import("@/lib/devis");
+    const e = etabById["ma-esa-casa"];
+    const fid = e.formations[0];
+    await expect(c.creerCachet({ eid: "ma-esa-casa", fid: "formation-inconnue" }, "1.2.3.4")).rejects.toThrow();
+    const r = await c.creerCachet({ eid: "ma-esa-casa", fid, origine: "GA", logement: "studio", eleve: "Awa Ndiaye", payeur: "M. Ndiaye", exclus: ["ordinateur"] }, "1.2.3.4");
+    expect(r.id).toMatch(/^[A-Za-z0-9_-]{20}$/);
+    expect(r.chemin).toBe(`/verifier/devis/${r.id}/`);
+    const lu = (await c.lireCachet(r.id))!;
+    expect(lu).toMatchObject({ numero: r.numero, empreinte: r.empreinte, eleve: "Awa Ndiaye" });
+    expect(lu.resume.total).toEqual(devis("ma-esa-casa", fid, "GA", "studio", undefined, ["ordinateur"]).total);
+    expect(await c.lireCachet("x' or 1=1")).toBeNull();
+    expect(await c.lireCachet("A".repeat(20))).toBeNull();
+  });
+});

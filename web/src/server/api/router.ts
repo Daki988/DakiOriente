@@ -1,4 +1,5 @@
 // API REST Navigoal (/api/...). Une table de routes unique sert au routage et à la documentation OpenAPI.
+import * as cachets from "../services/cachets-devis";
 import * as bourses from "../services/bourses";
 import * as scolarite from "../services/scolarite";
 import * as rappelsPaiement from "../services/rappels-paiement";
@@ -365,6 +366,7 @@ route("GET", "/ecole/fiches/:id/fiches.csv", "Salons", "Fiches contact réglées
 route("POST", "/admin/salons", "Salons", "Créer et publier un salon au nom d'une école (establishmentId, forfaitMad, paiementRef, naviAnnonce + champs de la demande)", ["admin"], async ({ me, body }) => json(await salons.creerParAdmin(me, await body()), 201));
 route("GET", "/admin/salons/:id/invitations", "Salons", "Aperçu : élèves correspondant aux options de l'école, pas encore invités", ["admin"], async ({ me, params }) => salons.apercuInvitations(me, params.id));
 route("POST", "/admin/salons/:id/invitations", "Salons", "Envoyer les invitations aux élèves ciblés (500 par envoi, une fois par élève)", ["admin"], async ({ me, params }) => salons.inviter(me, params.id));
+route("POST", "/devis/cachet", "Devis", "Certifier un devis (recalculé par le serveur) : numéro, empreinte et adresse de vérification du QR code", "public", async ({ req, body }) => json(await cachets.creerCachet(await body(), ipClient(req.headers)), 201));
 route("GET", "/admin/salons", "Salons", "Salons à valider et commandes de fiches", ["admin"], async ({ me }) => salons.listeAdmin(me));
 route("POST", "/admin/salons/:id/valider", "Salons", "Valider et publier (forfaitMad, paiementRef, naviAnnonce)", ["admin"], async ({ me, params, body }) => salons.valider(me, params.id, await body()));
 route("POST", "/admin/salons/:id/refuser", "Salons", "Refuser (motif)", ["admin"], async ({ me, params, body }) => { await salons.refuser(me, params.id, String((await body()).motif ?? "")); return ok; });

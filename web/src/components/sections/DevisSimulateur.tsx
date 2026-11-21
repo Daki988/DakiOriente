@@ -8,7 +8,8 @@ import { LireUrl } from "@/hooks/useFiltres";
 import { AnimatedNumber } from "@/components/motion/AnimatedNumber";
 import { Reveal } from "@/components/motion/Reveal";
 import { DONUT_COLORS, Donut } from "./Donut";
-import { DevisPdf } from "./DevisPdf";
+import { DevisPdf, type Cachet } from "./DevisPdf";
+import { api } from "@/lib/api";
 import { useDestination } from "@/components/ui/Destination";
 import { auPays, destinationById, vitrine, STATUT_LONG, VILLES_ETUDES, etabById, etablissements, fmt, formationById, labelById, paysDetailById, libelleFilieres } from "@/lib/data";
 import { paysOrigine, paysOrigineById, visaDestination } from "@/lib/pays-origine";
@@ -64,6 +65,16 @@ export function DevisSimulateur() {
   }, [luUrl, destination]);
   const [eleve, setEleve] = useState("");
   const [payeur, setPayeur] = useState("");
+  const [cachet, setCachet] = useState<Cachet | null>(null);
+  const [impression, setImpression] = useState(false);
+  /** PDF : le serveur recalcule et certifie le devis (numéro, empreinte, QR code de vérification), puis on imprime. */
+  const telechargerPdf = async () => {
+    setImpression(true);
+    let c: Cachet | null = null;
+    try { c = await api<Cachet>("/devis/cachet", { body: { eid, fid, origine, logement, perso: persoActif ? perso : null, exclus, eleve, payeur } }); } catch { c = null; }
+    setCachet(c);
+    requestAnimationFrame(() => setTimeout(() => { window.print(); setImpression(false); }, 80));
+  };
   const e = etabById[eid];
   const F = formationById[fid];
   const P = paysDetailById[e.pays];
@@ -319,7 +330,7 @@ export function DevisSimulateur() {
                 <input value={eleve} onChange={(ev) => setEleve(ev.target.value)} placeholder="Prénom de l'élève" className="rounded-xl border border-slate-200 px-3 py-2 text-[13px] outline-none focus:border-brand-400" aria-label="Prénom de l'élève (facultatif)" />
                 <input value={payeur} onChange={(ev) => setPayeur(ev.target.value)} placeholder="Responsable financier" className="rounded-xl border border-slate-200 px-3 py-2 text-[13px] outline-none focus:border-brand-400" aria-label="Responsable financier (facultatif)" />
               </div>
-              <button onClick={() => window.print()} className="btn-primary btn-shine"><FileDown size={18} /> Télécharger le devis PDF</button>
+              <button onClick={telechargerPdf} disabled={impression} className="btn-primary btn-shine"><FileDown size={18} /> {impression ? "Certification du devis…" : "Télécharger le devis PDF"}</button>
               <div className="grid grid-cols-2 gap-2">
                 <a href={`https://wa.me/?text=${encodeURIComponent(resume + " " + url)}`} target="_blank" rel="noopener noreferrer" className="btn-ghost px-3 py-2.5 text-[13px]"><Share2 size={15} /> WhatsApp</a>
                 <a href={`mailto:?subject=${encodeURIComponent("Devis d'études Navigoal")}&body=${encodeURIComponent(resume + "\n\n" + url)}`} className="btn-ghost px-3 py-2.5 text-[13px]"><Mail size={15} /> E-mail</a>
@@ -359,7 +370,7 @@ export function DevisSimulateur() {
         </p>
         <div className="container mt-8 flex justify-center"><span className="flex items-center gap-2 text-sm text-ink-mute"><Calculator size={16} /> Chaque changement recalcule le devis en direct.</span></div>
       </div>
-      <DevisPdf e={e} F={F} D={D} devise={dev} taux={taux} origine={origine} logement={logement} eleve={eleve} payeur={payeur} />
+      <DevisPdf e={e} F={F} D={D} devise={dev} taux={taux} origine={origine} logement={logement} eleve={eleve} payeur={payeur} cachet={cachet} />
     </>
   );
 }

@@ -176,6 +176,13 @@
       "when": 1795276135416,
       "tag": "0024_salons_invitations",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1795280143151,
+      "tag": "0025_devis_cachets",
+      "breakpoints": true
     }
   ]
 }
