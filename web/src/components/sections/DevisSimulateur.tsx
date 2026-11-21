@@ -85,7 +85,8 @@ export function DevisSimulateur() {
   const Plage = ({ v, className = "" }: { v: readonly number[]; className?: string }) => dev
     ? <span className={`inline-flex flex-col items-end leading-tight ${className}`}><span>{nb(loc(v[0]))} – {nb(loc(v[1]))}</span><span className="text-[11px] font-semibold text-ink-mute">{nb(v[0])} – {nb(v[1])} {symbole(base)}</span></span>
     : <span className={className}>{nb(v[0])} – {nb(v[1])}</span>;
-  const mois = [D.total[0] / (D.years * 12), D.total[1] / (D.years * 12)];
+  const nbMois = D.years * 12;
+  const mois = [D.total[0] / nbMois, D.total[1] / nbMois];
   /** À réunir avant le départ (lignes cochées payées une fois) ; billets : l'aller seulement, le retour se paie à la fin des études. */
   const avantDepart = D.detail.filter((x) => x.inclus && x.quand === "avant").reduce<Pair>((a, x) => { const k = x.cle === "billets" ? 0.5 : 1; return [a[0] + x.v[0] * k, a[1] + x.v[1] * k]; }, [0, 0]);
   /** Taux affiché (devise de lecture pour 1 unité de la monnaie d'études), pour saisir une aide dans la monnaie des parents. */
@@ -209,7 +210,14 @@ export function DevisSimulateur() {
                   <span className="text-[13px] font-bold uppercase text-ink-mute">En moyenne par mois · tout compris · {F.diplome}</span>
                   <div className="text-[28px] font-extrabold leading-tight tracking-tight sm:text-[40px]"><span className="whitespace-nowrap"><AnimatedNumber value={loc(mois[0])} /> –</span> <span className="whitespace-nowrap"><AnimatedNumber value={loc(mois[1])} /> <span className="text-xl">{unit}</span></span> <span className="text-lg font-bold text-ink-soft sm:text-xl">par mois</span></div>
                   {dev && <span className="text-[15px] font-bold text-ink-soft">soit {nb(mois[0])} – {nb(mois[1])} {symbole(base)} par mois {auPays(e.pays)}</span>}
-                  <span className="text-sm text-ink-soft">Scolarité, logement, vie sur place, voyages et démarches compris, répartis sur les {D.years * 12} mois des études.{origine ? "" : " Choisissez le pays de départ pour inclure les billets d'avion et lire les montants dans votre monnaie."}</span>
+                  <div className="mt-1 rounded-2xl border border-[#eef1f8] p-3">
+                    <span className="text-[12px] font-bold uppercase text-ink-mute">Ce que contient ce montant mensuel</span>
+                    <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-[13.5px] sm:grid-cols-2">
+                      {cats.map(([k, v], i) => <li key={k} className="flex items-center justify-between gap-3"><span className="flex min-w-0 items-center gap-2"><span className="h-2.5 w-2.5 shrink-0 rounded" style={{ background: DONUT_COLORS[i] }} />{k}</span><b className="whitespace-nowrap tabular-nums">{nb(loc(v[0] / nbMois))} – {nb(loc(v[1] / nbMois))} {unit}</b></li>)}
+                      {D.aides && D.aides[1] > 0 && <li className="flex items-center justify-between gap-3 text-[#0b6e38]"><span>Bourse ou réduction</span><b className="whitespace-nowrap tabular-nums">− {nb(loc(D.aides[1] / nbMois))} {unit}</b></li>}
+                    </ul>
+                    <span className="mt-2 block text-[12px] text-ink-mute">Chaque poste est réparti sur les {nbMois} mois des études : la scolarité et les frais annuels se paient en réalité par tranches, les billets et l&apos;installation au départ.{origine ? "" : " Choisissez le pays de départ pour inclure les billets d'avion et lire les montants dans votre monnaie."}</span>
+                  </div>
                   <div className="mt-2 grid gap-2 sm:grid-cols-2">
                     {avantDepart[1] > 0 && <div className="flex flex-col gap-0.5 rounded-2xl bg-[#f6f8fe] p-3"><span className="flex items-center gap-1.5 text-[12px] font-bold uppercase text-ink-mute"><Plane size={14} className="text-brand-600" />Pour démarrer</span><b className="text-[15px]">{nb(loc(avantDepart[0]))} – {nb(loc(avantDepart[1]))} {unit}</b><span className="text-[12px] text-ink-mute">à réunir avant le départ : billet, visa, caution, installation</span></div>}
                     <div className="flex flex-col gap-0.5 rounded-2xl bg-[#f6f8fe] p-3"><span className="flex items-center gap-1.5 text-[12px] font-bold uppercase text-ink-mute"><Calendar size={14} className="text-brand-600" />Sur les {D.years} an{D.years > 1 ? "s" : ""} d&apos;études</span><b className="text-[15px]">{nb(loc(D.total[0]))} – {nb(loc(D.total[1]))} {unit}</b><span className="text-[12px] text-ink-mute">au total, payé au fil des années{dev ? ` · ${nb(D.total[0])} – ${nb(D.total[1])} ${symbole(base)}` : ""}</span></div>
