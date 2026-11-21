@@ -66,12 +66,12 @@ Un plan de 15 s, texte à l'écran, pas de voix off obligatoire.
 CTA : « Le lien est dans la bio. » → `/?utm_source=instagram&utm_content=j01`
 Visuel : montage de 6 photos d'écoles réelles (`assets/photos/`).
 
-**Mar 2 — Carrousel · Argent · le vrai prix**
-Accroche : « Combien coûte vraiment une année d'études au Maroc ? »
-6 slides, une par type d'école, chiffres réels : institut/BTS 1,2 à 3 M F CFA · école d'ingénieurs 1,5 à 4,5 M ·
-commerce 2,1 à 5,1 M · université privée 2,1 à 5,7 M · santé 1,8 à 7,8 M · prépa 2,1 à 3,6 M.
-Dernière slide : « Ce n'est que la scolarité. Le logement, la vie et les voyages se calculent à part. »
-CTA : le devis → `/devis/?utm_source=instagram&utm_content=j02`
+**Mar 2 — Carrousel · Argent · payer moins** (revu le 21/11/2026 : pas de fourchettes en millions en ouverture de campagne)
+Accroche : « Étudier au Maroc : payer moins, c'est possible »
+Slides : 13 écoles avec des bourses jusqu'à 100 % · 37 bourses au mérite et 19 aides sociales · scolarité publiée la moins
+chère 960 000 F CFA par an (SUP ISI) · résidence universitaire dès 39 000 F CFA par mois · colocation, abonnement étudiant,
+formation courte, paiement en plusieurs fois · « Ton budget, à ta mesure » (devis qui déduit la bourse).
+CTA : les bourses → `/bourses/?utm_source=instagram&utm_content=j02` (le devis est à un clic)
 
 **Mer 3 — Post · Métier · infirmier**
 Accroche : « Bac+3, et un métier qui recrute partout. »

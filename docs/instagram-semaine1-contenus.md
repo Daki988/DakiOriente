@@ -42,33 +42,36 @@ le métier et la source, sans photo de la personne ; le jeu-concours n'est pas �
 
 ---
 
-## Mardi 2 — Carrousel · le vrai prix (7 slides)
+## Mardi 2 — Carrousel · payer moins (7 slides)
+
+Revu le 21/11/2026 : on n'ouvre plus la campagne sur des fourchettes de prix en millions de F CFA (elles font fuir avant
+d'avoir vu le reste). Le carrousel montre d'abord les leviers pour payer moins ; le devis reste l'appel à l'action.
 
 **Visuels** `j02-carrousel-1-couverture` → `j02-carrousel-7-fin`.
-Couverture, puis une slide par type d'école (institut, ingénieurs, commerce, santé, université), puis les postes oubliés.
+Couverture, bourses jusqu'à 100 % (13 écoles), bourses au mérite (37) et sociales (19), la scolarité publiée la moins
+chère (SUP ISI, 16 000 DH ≈ 960 000 F CFA par an), la résidence universitaire la moins chère (650 DH ≈ 39 000 F CFA par
+mois), les économies du quotidien, puis le devis à ta mesure.
 
 **Légende**
 
-> « Combien ça coûte ? » C'est la première question de tous les parents, et la réponse est rarement donnée en entier.
+> Étudier au Maroc coûte moins cher quand on sait où regarder.
 >
-> Voilà les fourchettes réelles, par type d'école, en F CFA et par an — scolarité seule :
-> · Institut, BTS : 1,2 à 3 M
-> · École d'ingénieurs : 1,5 à 4,5 M
-> · Commerce et management : 2,1 à 5,1 M
-> · Université privée : 2,1 à 5,7 M
-> · Santé : 1,8 à 7,8 M (médecine et dentaire en haut de la fourchette)
+> · 13 écoles annoncent des bourses jusqu'à 100 % sur leur site officiel
+> · 37 récompensent la mention au bac, 19 proposent des aides sociales
+> · La scolarité publiée la moins chère : 16 000 DH par an, environ 960 000 F CFA
+> · Une chambre en résidence universitaire dès 650 DH par mois, environ 39 000 F CFA
 >
-> Et ce n'est que la scolarité. Le logement, la vie quotidienne, l'installation et les billets d'avion s'ajoutent.
-> Notre devis les calcule ligne par ligne, et tu peux décocher ce qui ne te concerne pas.
+> Colocation, abonnement étudiant, formation courte, paiement en plusieurs fois : le reste s'organise.
+> Notre devis part de tes choix et déduit ta bourse. Gratuit, en F CFA.
 >
-> Ces montants sont des ordres de grandeur, convertis au taux du jour. 31 écoles sur 103 publient leurs tarifs exacts :
-> pour celles-là, on affiche leur chiffre, pas une estimation.
+> 👉 Ton devis et les bourses des écoles : lien en bio.
 >
-> 👉 Ton devis en bio.
->
-> #BudgetEtudiant #EtudierAuMaroc #Parents #Gabon #Cameroun #Senegal #CoteDIvoire #FraisDeScolarite
+> #BudgetEtudiant #EtudierAuMaroc #BoursesEtudes #Parents #Gabon #Cameroun #Senegal #CoteDIvoire
 
-**Lien** `navigoal.net/devis/?utm_source=instagram&utm_content=j02`
+**Lien** `navigoal.net/bourses/?utm_source=instagram&utm_content=j02` (bourses en premier ; le devis est à un clic)
+
+Chiffres : relevé Navigoal des sites officiels des écoles (nov. 2026), tarif SUP ISI 2025-2026 publié par l'école,
+loyer Bayt Al Maârifa El Jadida publié par la résidence, Casatramway au 20/11/2026, 1 DH ≈ 60 F CFA (20/11/2026).
 
 ---
 

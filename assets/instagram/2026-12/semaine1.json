@@ -12,82 +12,99 @@
  {
   "id": "j02-carrousel-1-couverture",
   "type": "photo",
-  "photo": "images/finance.webp",
-  "surtitre": "Le vrai prix",
-  "titre": "Combien coûte une *année* au Maroc ?",
-  "texte": "Six types d'écoles, six fourchettes. Chiffres réels, en F CFA.",
+  "photo": "images/laptop.webp",
+  "surtitre": "Budget malin",
+  "titre": "Étudier au Maroc : *payer moins*, c'est possible",
+  "texte": "Bourses, écoles abordables, logement : ce que beaucoup de familles ne savent pas.",
   "source": "Fais défiler →",
   "cta": ""
  },
  {
-  "id": "j02-carrousel-2-institut",
+  "id": "j02-carrousel-2-bourses-100",
   "type": "chiffre",
-  "nombre": "1,2 à 3 M",
-  "titre": "Institut, BTS, technicien spécialisé",
-  "texte": "F CFA par an, scolarité seule. La voie la plus courte vers l'emploi : *Bac+2*.",
-  "source": "Fourchettes Navigoal, taux du 20/11/2026",
+  "nombre": "13",
+  "titre": "écoles annoncent des bourses *jusqu'à 100 %*",
+  "texte": "Scolarité prise en charge en totalité pour les meilleurs dossiers, parfois logement compris.",
+  "source": "Relevé Navigoal sur les sites officiels des écoles · nov. 2026",
   "cta": ""
  },
  {
-  "id": "j02-carrousel-3-ingenieur",
+  "id": "j02-carrousel-3-merite",
   "type": "chiffre",
-  "nombre": "1,5 à 4,5 M",
-  "titre": "École d'ingénieurs",
-  "texte": "F CFA par an. Cinq ans après le bac, ou trois après une prépa.",
-  "source": "Fourchettes Navigoal, taux du 20/11/2026",
+  "nombre": "37",
+  "titre": "écoles récompensent ta *mention au bac*",
+  "texte": "Bourses au mérite, plus 19 écoles avec des aides sociales. Ton bulletin compte.",
+  "source": "Relevé Navigoal sur les sites officiels des écoles · nov. 2026",
   "cta": ""
  },
  {
-  "id": "j02-carrousel-4-commerce",
+  "id": "j02-carrousel-4-tarif",
   "type": "chiffre",
-  "nombre": "2,1 à 5,1 M",
-  "titre": "École de commerce et de management",
-  "texte": "F CFA par an. Bachelor en trois ans, master en cinq.",
-  "source": "Fourchettes Navigoal, taux du 20/11/2026",
+  "nombre": "960 000",
+  "titre": "F CFA par an : la scolarité publiée la *moins chère*",
+  "texte": "SUP ISI à Tétouan, Bac+3 (16 000 DH, tarif 2025-2026). 31 écoles publient leurs prix : on te les montre.",
+  "source": "Tarif publié par l'école · 1 DH ≈ 60 F CFA (20/11/2026)",
   "cta": ""
  },
  {
-  "id": "j02-carrousel-5-sante",
+  "id": "j02-carrousel-5-residence",
   "type": "chiffre",
-  "nombre": "1,8 à 7,8 M",
-  "titre": "Santé",
-  "texte": "F CFA par an. Paramédical en bas de la fourchette, *médecine et dentaire* tout en haut.",
-  "source": "Fourchettes Navigoal, taux du 20/11/2026",
+  "nombre": "39 000",
+  "titre": "F CFA par mois en *résidence universitaire*",
+  "texte": "Bayt Al Maârifa El Jadida, 650 DH par mois. 14 résidences, loyers officiels.",
+  "source": "Loyer publié par la résidence · 1 DH ≈ 60 F CFA",
   "cta": ""
  },
  {
-  "id": "j02-carrousel-6-universite",
-  "type": "chiffre",
-  "nombre": "2,1 à 5,7 M",
-  "titre": "Université privée (hors médecine)",
-  "texte": "F CFA par an, toutes filières confondues.",
-  "source": "Fourchettes Navigoal, taux du 20/11/2026",
+  "id": "j02-carrousel-6-astuces",
+  "type": "liste",
+  "titre": "Et au quotidien, *ça s'organise*",
+  "texte": "Les postes où l'on économise le plus :",
+  "lignes": [
+   {
+    "t": "Colocation",
+    "s": "le loyer et les charges partagés"
+   },
+   {
+    "t": "Abonnement étudiant",
+    "s": "tram de Casablanca 150 DH par mois au lieu de 230"
+   },
+   {
+    "t": "Formation courte",
+    "s": "Bac+2 : deux ans, puis tu travailles"
+   },
+   {
+    "t": "Paiement en plusieurs fois",
+    "s": "proposé par certaines écoles : demande-le"
+   }
+  ],
+  "source": "Tarifs Casatramway relevés le 20/11/2026",
   "cta": ""
  },
  {
   "id": "j02-carrousel-7-fin",
   "type": "liste",
-  "titre": "Et ce n'est que la *scolarité*",
-  "texte": "Ce qu'il reste à prévoir, poste par poste :",
+  "titre": "Ton budget, *à ta mesure*",
+  "texte": "Le devis Navigoal, gratuit, en F CFA :",
   "lignes": [
    {
-    "t": "Logement",
-    "s": "colocation, studio ou résidence universitaire"
+    "t": "Tu choisis ton logement",
+    "s": "colocation, studio ou résidence"
    },
    {
-    "t": "Vie quotidienne",
-    "s": "nourriture, transport, téléphone"
+    "t": "Tu coches ce qui te concerne",
+    "s": "le reste sort du total"
    },
    {
-    "t": "Installation",
-    "s": "caution, équipement, carte de séjour"
+    "t": "Tu déduis ta bourse",
+    "s": "ou la réduction de ton école"
    },
    {
-    "t": "Voyages",
-    "s": "billets, retours au pays"
+    "t": "Tu le partages",
+    "s": "avec tes parents, en un lien"
    }
   ],
-  "source": "Le devis Navigoal calcule tout, ligne par ligne",
+  "source": "Bourses des écoles : navigoal.net/bourses",
   "cta": "navigoal.net/devis"
  },
  {
