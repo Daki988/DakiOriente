@@ -828,6 +828,7 @@ export const moyensPaiementEcoles = pgTable("moyens_paiement_ecoles", {
   statut: text("statut").notNull().default("a_verifier"), // a_verifier | verifie | refuse | retire
   verifiePar: text("verifie_par").references(() => users.id, { onDelete: "set null" }),
   verifieLe: timestamp("verifie_le", { withTimezone: true }),
+  motifRefus: text("motif_refus"), // motif envoyé à l'école, effacé quand elle corrige
   createdAt: createdAt(),
   updatedAt: updatedAt(),
 }, (t) => [index("moyens_paiement_etab_idx").on(t.etablissementId)]);

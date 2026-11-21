@@ -9,7 +9,7 @@ import { useEcole } from "./EcoleContext";
 import type { AppRow } from "./shared";
 import type { Echeancier } from "@/components/espace/ScolaritePaiement";
 
-type Moyen = { id: string; type: string; libelle: string; details: string; devise: string; statut: string };
+type Moyen = { id: string; type: string; libelle: string; details: string; devise: string; statut: string; motifRefus?: string | null };
 type Tableau = {
   aConfirmer: { id: string; montant: number; devise: string; reference: string | null; preuveId: string | null; createdAt: string; ligne: string; programme: string; applicationId: string; eleve: { firstName: string; lastName: string }; payeur: { firstName: string; lastName: string; role: string } }[];
   echeanciers: { applicationId: string; eleve: { firstName: string; lastName: string }; programme: string; devise: string; total: number; paye: number; inscriptionConfirmee: string | null; prochaine: { libelle: string; echeance: string; etat: string } | null }[];
@@ -94,6 +94,7 @@ function Moyens({ eid, liste, reload }: { eid: string; liste: Moyen[]; reload: (
           <div key={m.id} className="flex flex-col gap-1 rounded-2xl border border-slate-200 p-3 text-sm">
             <span className="flex flex-wrap items-center justify-between gap-2"><b>{m.libelle} <span className="font-normal text-ink-mute">({m.devise})</span></b><Chip tone={STATUT_MOYEN[m.statut]?.[1]}>{m.statut === "verifie" && <BadgeCheck size={13} />}{STATUT_MOYEN[m.statut]?.[0]}</Chip></span>
             <p className="whitespace-pre-line break-words font-mono text-[13px] text-ink-soft">{m.details}</p>
+            {m.statut === "refuse" && <p className="rounded-xl bg-[#fdeef1] p-2.5 text-xs text-[#b8213f]"><b>Motif du refus :</b> {m.motifRefus || "contactez l'équipe Navigoal."} Corrigez avec « Modifier » : le moyen repassera en vérification.</p>}
             <span className="flex gap-3"><button type="button" className="text-xs font-bold text-brand-600" onClick={() => setF({ id: m.id, type: m.type, libelle: m.libelle, details: m.details, devise: m.devise })}>Modifier</button><button type="button" className="flex items-center gap-1 text-xs font-bold text-[#b8213f]" onClick={() => retirer(m.id)}><Trash2 size={12} />Retirer</button></span>
           </div>
         ))}

@@ -1300,6 +1300,14 @@ describe("chantiers de novembre 2026 : scolarité, avis, témoignages, bourses",
     expect(v.moyens).toHaveLength(0); // pas encore vérifié : rien d'affiché
     const preuve = await docs.uploadDocument(student, "autre", { name: "recu.pdf", bytes: PDF, label: "Preuve de paiement" });
     await expect(s.declarer(student, app.id, { ligneId: v.lignes[0].id, montant: 5000, moyenId: m.id, preuveId: preuve.id })).rejects.toThrow(/non vérifié/);
+    // Refus sans motif interdit ; motif conservé puis effacé quand l'école corrige
+    await expect(s.verifierMoyen(adminU, m.id, { statut: "refuse" })).rejects.toThrow(/motif/);
+    await s.verifierMoyen(adminU, m.id, { statut: "refuse", motif: "RIB au nom d'une personne" });
+    expect((await s.moyensEcole(school, app.establishmentId)).find((x) => x.id === m.id)?.motifRefus).toBe("RIB au nom d'une personne");
+    await s.enregistrerMoyen(school, app.establishmentId, { type: "virement", libelle: "Virement bancaire", details: "RIB 000 111 222 333", devise: "MAD" }, m.id);
+    const corrige = (await s.moyensEcole(school, app.establishmentId)).find((x) => x.id === m.id)!;
+    expect(corrige.statut).toBe("a_verifier");
+    expect(corrige.motifRefus).toBeNull();
     await s.verifierMoyen(adminU, m.id, { statut: "verifie" });
     v = (await s.pourFamille(student, app.id))!;
     expect(v.moyens).toHaveLength(1);

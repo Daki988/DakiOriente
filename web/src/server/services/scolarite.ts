@@ -48,7 +48,7 @@ export async function enregistrerMoyen(user: User, eid: string, raw: unknown, id
   if (id) {
     const [avant] = await db.select().from(M).where(and(eq(M.id, id), eq(M.etablissementId, eid)));
     if (!avant) throw notFound("Moyen de paiement");
-    [m] = await db.update(M).set({ ...i, statut: "a_verifier", verifiePar: null, verifieLe: null }).where(eq(M.id, id)).returning();
+    [m] = await db.update(M).set({ ...i, statut: "a_verifier", verifiePar: null, verifieLe: null, motifRefus: null }).where(eq(M.id, id)).returning();
     if (avant.statut === "verifie") {
       const ech = await db.select({ app: E.applicationId, eleve: schema.applications.studentId }).from(E).innerJoin(schema.applications, eq(schema.applications.id, E.applicationId)).where(eq(E.etablissementId, eid));
       for (const x of ech) await prevenirFamille(x.eleve, { title: `${sigle(eid)} a modifié ses coordonnées de paiement`, body: "Ne payez qu'avec les coordonnées affichées sur Navigoal après leur vérification par l'équipe. En cas de doute, écrivez-nous avant tout virement.", applicationId: x.app });
@@ -201,11 +201,23 @@ export async function moyensAdmin() {
   return lignes.map((m) => ({ ...m, ecole: sigle(m.etablissementId) }));
 }
 export async function verifierMoyen(admin: User, id: string, raw: unknown) {
-  const { statut } = z.object({ statut: z.enum(["verifie", "refuse"]) }).parse(raw);
-  const [m] = await db.update(M).set({ statut, verifiePar: admin.id, verifieLe: new Date() }).where(eq(M.id, id)).returning();
-  if (!m) throw notFound("Moyen de paiement");
-  await audit(admin.id, "moyen_paiement_" + statut, "moyen_paiement", id, {});
-  await notifySchool(m.etablissementId, statut === "verifie" ? `Moyen de paiement vérifié : « ${m.libelle} » est affiché aux familles` : `Moyen de paiement refusé : « ${m.libelle} » (contactez l'équipe Navigoal)`, "/etablissement/scolarite/");
+  const { statut, motif } = z.object({ statut: z.enum(["verifie", "refuse"]), motif: z.string().trim().max(500).optional() }).parse(raw);
+  if (statut === "refuse" && (motif ?? "").length < 10) throw new AppError("Indiquez le motif du refus (10 caractères au moins) : il est envoyé à l'école pour qu'elle corrige.");
+  const [avant] = await db.select().from(M).where(eq(M.id, id));
+  if (!avant) throw notFound("Moyen de paiement");
+  const [m] = await db.update(M).set({ statut, verifiePar: admin.id, verifieLe: new Date(), motifRefus: statut === "refuse" ? motif! : null }).where(eq(M.id, id)).returning();
+  await audit(admin.id, "moyen_paiement_" + statut, "moyen_paiement", id, statut === "refuse" ? { motif } : {});
+  const membres = await db.select({ u: schema.establishmentMembers.userId }).from(schema.establishmentMembers)
+    .innerJoin(schema.users, eq(schema.users.id, schema.establishmentMembers.userId))
+    .where(and(eq(schema.establishmentMembers.establishmentId, m.etablissementId), eq(schema.users.status, "actif")));
+  for (const { u } of membres) await notify(u, statut === "verifie"
+    ? { kind: "scolarite", title: `Moyen de paiement vérifié : « ${m.libelle} »`, body: "Il est désormais affiché à vos admis.", link: "/etablissement/scolarite/" }
+    : { kind: "scolarite", title: `Moyen de paiement refusé : « ${m.libelle} »`, body: `Motif : ${motif}\nCorrigez-le depuis « Scolarité et paiements » : il repassera en vérification.`, link: "/etablissement/scolarite/", channels: ["app", "email"] });
+  // Validation retirée : les familles qui suivent un échéancier de cette école sont prévenues de ne plus l'utiliser.
+  if (avant.statut === "verifie" && statut === "refuse") {
+    const ech = await db.select({ app: E.applicationId, eleve: schema.applications.studentId }).from(E).innerJoin(schema.applications, eq(schema.applications.id, E.applicationId)).where(eq(E.etablissementId, m.etablissementId));
+    for (const x of ech) await prevenirFamille(x.eleve, { title: `${sigle(m.etablissementId)} : « ${m.libelle} » n'est plus un moyen de paiement vérifié`, body: "N'utilisez plus ces coordonnées. Payez seulement avec les moyens affichés sur Navigoal ; en cas de doute, écrivez-nous avant tout virement.", applicationId: x.app });
+  }
 }
 
 /** Rappels J-15, J-7, J-1 avant chaque échéance non réglée, à l'élève et à ses parents ; une fois par palier. */

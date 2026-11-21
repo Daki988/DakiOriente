@@ -1,0 +1,1 @@
+ALTER TABLE "moyens_paiement_ecoles" ADD COLUMN "motif_refus" text;

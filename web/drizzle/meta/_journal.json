@@ -162,6 +162,13 @@
       "when": 1795263095828,
       "tag": "0022_salons_virtuels",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1795273707260,
+      "tag": "0023_moyens_paiement_motif",
+      "breakpoints": true
     }
   ]
 }
