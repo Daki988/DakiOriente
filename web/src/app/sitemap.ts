@@ -22,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...formations.filter((f) => f.etablissements.length).map((f) => page(`/formations/${f.id}/`, 0.7)),
     ...VILLES.map((v) => page(villeHref(v.nom), 0.8)),
     page("/navilease/residences/", 0.8),
+    page("/salons/", 0.7, "daily"),
     ...["", "/navilease", "/navitravel"].flatMap((b) => ["cgu", "confidentialite", "mentions-legales", "cookies"].map((p) => page(`${b}/${p}/`, 0.3))),
     ...residencesEtudiantes.map((r) => page(`/navilease/residences/${r.id}/`, 0.7)),
     ...GUIDES.map((g) => page(`/ressources/${g.slug}/`, 0.7, "monthly")),

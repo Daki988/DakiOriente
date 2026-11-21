@@ -1,6 +1,6 @@
 ---
 titre: Politique de confidentialité
-bref: Nous collectons seulement ce qui sert à votre orientation, à vos candidatures et à votre accompagnement. Vos données ne sont jamais vendues. Vos documents ne vont qu'aux établissements où vous candidatez, et vous pouvez à tout moment y accéder, les corriger ou les supprimer.
+bref: Nous collectons seulement ce qui sert à votre orientation, à vos candidatures et à votre accompagnement. Vos coordonnées ne sont transmises à une école que si vous l'acceptez (et votre parent si vous êtes mineur). Vos documents ne vont qu'aux établissements où vous candidatez, et vous pouvez à tout moment y accéder, les corriger ou les supprimer.
 ---
 
 ## Qui est responsable de vos données ?
@@ -43,6 +43,8 @@ Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les c
 | Encaisser les paiements des services payants que vous choisissez (logement Navilease), émettre les reçus | exécution du service, obligations comptables |
 | Vous envoyer les notifications utiles (code, statut de candidature, pièce demandée) | exécution du service |
 | Vous proposer, si vous l'acceptez, aux écoles Premium (vivier anonyme, invitations) | votre consentement, et celui de votre parent si vous êtes mineur |
+| Vous inscrire aux salons virtuels des écoles, vous les rappeler, noter votre présence et vos questions ; vous suggérer, par Navi, un salon qui correspond à votre projet | exécution du service |
+| Transmettre votre fiche contact à l'école organisatrice d'un salon, si vous avez coché « l'école peut me recontacter » | votre consentement, et celui de votre parent si vous êtes mineur ; retirable à tout moment |
 | Répondre à vos questions avec Navi ou un conseiller ; pour un compte connecté, adapter Navi à votre profil (test d'orientation, série, résultats, projet, budget, favoris) et tenir une fiche de suivi de vos échanges pour reprendre le fil | exécution du service |
 | Mesurer l'efficacité de nos campagnes (source d'inscription, parrainage) et produire des statistiques anonymes | intérêt légitime de Navigoal |
 | Mesurer l'audience du site (pages les plus consultées, pays, provenance) pour l'améliorer, et repérer les élèves connectés qui pourraient avoir besoin d'aide | intérêt légitime de Navigoal |
@@ -52,7 +54,8 @@ Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les c
 ## Qui peut accéder à vos données ?
 
 - **Les établissements** auxquels vous candidatez : votre dossier de candidature et les pièces que vous y joignez. Les écoles Premium voient en plus un profil anonyme si vous avez accepté d'être visible ; votre identité n'est révélée que si vous acceptez leur invitation.
-- **Votre parent ou tuteur** lié à votre compte : vos candidatures, paiements et rendez-vous.
+- **L'école organisatrice d'un salon virtuel** auquel vous vous inscrivez : votre prénom, l'initiale de votre nom, votre pays, votre niveau et votre présence. Si vous avez accepté qu'elle vous recontacte (et votre parent si vous êtes mineur), elle peut obtenir votre fiche contact : nom et prénom, pays et ville, niveau, série, domaine et métiers visés, e-mail et téléphone. Ce service est payé par l'école à Navigoal ; vous ne payez rien. Sans votre accord, aucune coordonnée n'est transmise, et vous pouvez retirer votre accord à tout moment sur la page du salon (votre parent, dans son espace) : il vaut pour les fiches transmises ensuite.
+- **Votre parent ou tuteur** lié à votre compte : vos candidatures, paiements, rendez-vous et salons.
 - **L'équipe Navigoal** (conseillers, administrateurs) : selon ses missions, avec des accès limités et journalisés.
 - **Nos prestataires techniques**, qui agissent sur nos instructions :
 
@@ -61,7 +64,7 @@ Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les c
 | LWS (Ligne Web Services) | hébergement du site et des fichiers, envoi des e-mails | France (Union européenne) |
 | Neon | base de données | Allemagne (Union européenne) |
 | Anthropic | modèle d'intelligence artificielle de Navi | États-Unis |
-| Daily | appels audio et vidéo (entretiens, visites virtuelles, rendez-vous) : votre prénom et le flux audio ou vidéo, le temps de l'appel, sans enregistrement | États-Unis (serveurs d'appel au plus près des participants) |
+| Daily | appels audio et vidéo (entretiens, visites virtuelles, rendez-vous, salons virtuels) : votre prénom et le flux audio ou vidéo, le temps de l'appel, sans enregistrement | États-Unis (serveurs d'appel au plus près des participants) |
 | Google (Google Tag Manager, Google Analytics) | mesure d'audience des pages publiques : pages vues, appareil, pays approximatif ; avec cookies seulement si vous l'acceptez, sinon signaux sans identifiant | États-Unis et Union européenne |
 | Meta (WhatsApp Business) | conversations avec Navi sur WhatsApp, si vous lui écrivez : votre numéro, votre nom de profil WhatsApp et vos messages | États-Unis et Union européenne |
 | Digitech Africa (E-Billing) | paiements mobile money (Airtel Money, Moov Money) | Gabon |
@@ -85,6 +88,7 @@ Vos données sont hébergées dans l'Union européenne. Les messages envoyés à
 | Conversations avec Navi sur WhatsApp | 90 jours : votre numéro, vos messages et les réponses de Navi ; si ce numéro est le téléphone vérifié de votre compte, la conversation y est rattachée et Navi tient compte de votre profil |
 | Journaux de connexion et de sécurité | 12 mois |
 | Mesure d'audience (détail par page vue, sans adresse IP) | 13 mois |
+| Salons virtuels : inscription, présence, questions | 2 ans après le salon ; une fiche contact transmise à une école est ensuite gérée par cette école, responsable de son usage |
 | Codes de vérification | quelques minutes (usage unique) |
 
 À l'issue de ces durées, les données sont supprimées ou rendues anonymes.

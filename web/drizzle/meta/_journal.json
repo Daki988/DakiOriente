@@ -155,6 +155,13 @@
       "when": 1795227768694,
       "tag": "0021_appels_planifies",
       "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1795263095828,
+      "tag": "0022_salons_virtuels",
+      "breakpoints": true
     }
   ]
 }

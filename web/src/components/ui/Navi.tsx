@@ -1,6 +1,6 @@
 "use client";
 import { useDestination } from "@/components/ui/Destination";
-import { ArrowRight, CalendarCheck, Calculator, Check, FileText, GraduationCap, Home, Mic, MessageCircle, RotateCcw, Scale, Send, ShieldCheck, Sparkles, ThumbsDown, ThumbsUp, X } from "lucide-react";
+import { ArrowRight, CalendarCheck, Calculator, Check, FileText, GraduationCap, Home, Mic, MessageCircle, Presentation, RotateCcw, Scale, Send, ShieldCheck, Sparkles, ThumbsDown, ThumbsUp, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "@/components/ui/Link";
@@ -143,6 +143,7 @@ function Texte({ v }: { v: string }) {
 // Geste proposé par Navi : rien ne se passe sans le clic « Confirmer » de la personne.
 function Action({ c, fermer }: { c: Extract<Carte, { type: "action" }>; fermer: () => void }) {
   const [etat, setEtat] = useState<"attente" | "envoi" | "fait" | "erreur">("attente");
+  const [contact, setContact] = useState(false); // salon : l'école peut me recontacter (facultatif)
   const [lien, setLien] = useState<string | null>(null);
   const [message, setMessage] = useState("");
   const confirmer = async () => {
@@ -150,23 +151,26 @@ function Action({ c, fermer }: { c: Extract<Carte, { type: "action" }>; fermer: 
     try {
       const r = c.action === "candidature"
         ? await fetch("/api/candidatures/", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin", body: JSON.stringify({ programId: c.programmeId }) })
+        : c.action === "salon"
+        ? await fetch(`/api/salons/${c.salonId}/inscription/?via=navi`, { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin", body: JSON.stringify({ accordContact: contact }) })
         : await fetch("/api/rendez-vous/", { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin", body: JSON.stringify({ topic: c.sujet, channel: "whatsapp", notes: "Demande faite depuis Navi." }) });
       const d = await r.json().catch(() => null);
       if (!r.ok) { setMessage(d?.error?.message ?? "Ça n'a pas marché. Réessaie."); setEtat("erreur"); return; }
-      setLien(c.action === "candidature" ? `/espace/candidatures/${d?.id}/` : c.suivi);
+      setLien(c.action === "candidature" ? `/espace/candidatures/${d?.id}/` : c.action === "salon" ? `/salons/${c.salonId}/` : c.suivi);
       setEtat("fait");
     } catch { setMessage("Connexion interrompue. Réessaie."); setEtat("erreur"); }
   };
-  const Icone = c.action === "candidature" ? FileText : CalendarCheck;
+  const Icone = c.action === "candidature" ? FileText : c.action === "salon" ? Presentation : CalendarCheck;
   return (
     <div className="rounded-2xl border border-brand-200 bg-white p-3.5">
       <div className="flex items-start gap-2.5 text-[13.5px] font-bold text-ink"><Icone size={17} className="mt-0.5 shrink-0 text-brand-600" />{c.libelle}</div>
       {etat === "fait"
         ? <div className="mt-2.5 space-y-2">
-            <p className="flex items-center gap-1.5 text-[12.5px] font-bold text-[#0b7a3d]"><Check size={15} />{c.action === "candidature" ? "Brouillon créé : complète ta lettre et tes pièces, puis envoie-la (c'est gratuit)." : "Demande envoyée : un conseiller te recontacte."}</p>
-            {lien && <Link href={lien} onClick={fermer} className="inline-flex items-center gap-1.5 rounded-xl bg-brand-600 px-3.5 py-2 text-[13px] font-bold text-white hover:bg-brand-700">{c.action === "candidature" ? "Compléter ma candidature" : "Voir mes rendez-vous"}<ArrowRight size={14} /></Link>}
+            <p className="flex items-center gap-1.5 text-[12.5px] font-bold text-[#0b7a3d]"><Check size={15} />{c.action === "candidature" ? "Brouillon créé : complète ta lettre et tes pièces, puis envoie-la (c'est gratuit)." : c.action === "salon" ? "Inscription confirmée : tu recevras le lien et un rappel avant le salon." : "Demande envoyée : un conseiller te recontacte."}</p>
+            {lien && <Link href={lien} onClick={fermer} className="inline-flex items-center gap-1.5 rounded-xl bg-brand-600 px-3.5 py-2 text-[13px] font-bold text-white hover:bg-brand-700">{c.action === "candidature" ? "Compléter ma candidature" : c.action === "salon" ? "Voir le salon" : "Voir mes rendez-vous"}<ArrowRight size={14} /></Link>}
           </div>
         : <div className="mt-2.5 flex flex-wrap items-center gap-2">
+            {c.action === "salon" && <label className="flex w-full items-start gap-2 text-[12px] text-ink-soft"><input type="checkbox" checked={contact} onChange={(e) => setContact(e.target.checked)} className="mt-0.5 h-4 w-4 accent-brand-600" />{c.ecole} peut me recontacter (facultatif)</label>}
             <button type="button" onClick={confirmer} disabled={etat === "envoi"} className="inline-flex items-center gap-1.5 rounded-xl bg-brand-600 px-3.5 py-2 text-[13px] font-bold text-white hover:bg-brand-700 disabled:opacity-60"><Check size={15} />{etat === "envoi" ? "Un instant…" : "Confirmer"}</button>
             <span className="text-[11.5px] text-ink-mute">Rien n&apos;est fait sans ta confirmation.</span>
             {etat === "erreur" && <span className="w-full text-[12px] font-bold text-[#b8213f]">{message}</span>}

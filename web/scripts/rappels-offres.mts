@@ -10,6 +10,7 @@ import { alertesBourses } from "../src/server/services/bourses";
 import { rappelsScolarite } from "../src/server/services/scolarite";
 import { envoyerRappels } from "../src/server/services/rappels-paiement";
 import { rappelsDuJour } from "../src/server/services/appels";
+import { rappelsDuJour as rappelsSalons } from "../src/server/services/salons";
 
 const r = await rappels();
 console.log(`${new Date().toISOString()} · ${r.rappels} rappel(s) d'échéance envoyé(s)`);
@@ -27,4 +28,6 @@ const rp = await envoyerRappels().catch((err) => { console.error("rappels de pai
 console.log(`${new Date().toISOString()} · ${rp.envoyes} rappel(s) de paiement programmés par les familles (loyer, scolarité)`);
 const rv = await rappelsDuJour().catch((err) => { console.error("rendez-vous du jour :", err); return { rappels: 0 }; });
 console.log(`${new Date().toISOString()} · ${rv.rappels} rappel(s) de rendez-vous d'appel prévus dans les 24 h`);
+const rs = await rappelsSalons().catch((err) => { console.error("salons du jour :", err); return { rappels: 0 }; });
+console.log(`${new Date().toISOString()} · ${rs.rappels} rappel(s) de salons virtuels du jour`);
 process.exit(0);

@@ -325,6 +325,30 @@ for (const p of ["/connexion/?suite=https://evil.example.com", "/connexion/?suit
     await controle("rendez-vous", "l'invité voit le rendez-vous dans son agenda", () => amina.get("/moi/rendez-vous-appels"), [200], (r) => JSON.stringify(r.data).includes(rdv.id) || "rendez-vous absent de l'agenda de l'élève");
     await ecole.post(`/appels/${rdv.id}/annuler`, {});
   } else note("rendez-vous", "rendez-vous de référence", false, JSON.stringify(rdv).slice(0, 200));
+  // Salons virtuels : demande par l'école seule, validation par l'admin, salle et fiches réservées.
+  const debutSalon = new Date(Date.now() + 5 * 86400e3).toISOString();
+  await controle("salons", "un élève ne demande pas de salon", () => amina.post(`/ecole/${eid}/salons`, { titre: "Salon pirate", debut: debutSalon }));
+  if (uidIntrus) await controle("salons", "une autre école ne demande pas au nom de l'école", () => ecoleIntrus.post(`/ecole/${eid}/salons`, { titre: "Salon pirate", debut: debutSalon }));
+  await controle("salons", "date piégée refusée", () => ecole.post(`/ecole/${eid}/salons`, { titre: "Salon piégé", debut: "<script>" }), [400, 422]);
+  const salon = (await ecole.post(`/ecole/${eid}/salons`, { titre: `Salon audit ${RUN}`, debut: debutSalon, criteres: ["metier"] })).data;
+  if (salon?.id) {
+    await controle("salons", "une école ne valide pas son propre salon", () => ecole.post(`/admin/salons/${salon.id}/valider`, { forfaitMad: 1, paiementRef: "x" }));
+    await controle("salons", "salon non validé : page publique introuvable", () => amina.get(`/salons/${salon.id}`), [404]);
+    await controle("salons", "salon non validé : inscription refusée", () => amina.post(`/salons/${salon.id}/inscription`, { accordContact: true }), [400, 403, 404]);
+    await controle("salons", "un élève ne lit pas le bilan", () => amina.get(`/ecole/salons/${salon.id}/bilan`));
+    await controle("salons", "un élève ne commande pas de fiches", () => amina.post(`/ecole/salons/${salon.id}/fiches`, {}));
+    await controle("salons", "un élève n'écrit pas aux participants", () => amina.post(`/ecole/salons/${salon.id}/message`, { texte: "spam" }));
+    await controle("salons", "un élève n'annule pas le salon", () => amina.post(`/ecole/salons/${salon.id}/annuler`, {}));
+    await adm.post(`/admin/salons/${salon.id}/valider`, { forfaitMad: 1000, paiementRef: `AUDIT-${RUN}`, naviAnnonce: false });
+    await controle("salons", "un compte non inscrit n'entre pas dans la salle", () => bailleur.get(`/salons/${salon.id}/direct`));
+    await controle("salons", "un compte non inscrit ne lit pas les questions", () => bailleur.get(`/salons/${salon.id}/questions`));
+    await controle("salons", "un bailleur ne s'inscrit pas", () => bailleur.post(`/salons/${salon.id}/inscription`, { accordContact: true }));
+    await controle("salons", "un élève ne marque pas une question répondue", () => amina.post(`/salons/${salon.id}/questions/00000000-0000-4000-8000-000000000000/repondue`, {}), [403, 404]);
+    await ecole.post(`/ecole/salons/${salon.id}/annuler`, {});
+  } else note("salons", "salon de référence", false, JSON.stringify(salon).slice(0, 200));
+  await controle("salons", "un élève ne lit pas les salons à valider", () => amina.get("/admin/salons"));
+  await controle("salons", "une école ne débloque pas des fiches", () => ecole.post("/admin/fiches/00000000-0000-4000-8000-000000000000/payee", { paiementRef: "x" }));
+  await controle("salons", "fiches d'une commande inconnue : rien à télécharger", () => ecole.get("/ecole/fiches/00000000-0000-4000-8000-000000000000/fiches.csv"), [403, 404]);
   await controle("relais", "un élève n'ouvre pas d'échange « équipe » avec un autre compte", () => amina.post(`/admin/utilisateurs/${meEcole?.user?.id ?? "x"}/echange`, {}));
   await controle("relais", "une école n'ouvre pas d'échange « équipe »", () => ecole.post(`/admin/utilisateurs/x/echange`, {}));
   await controle("navi", "relecture de lettre réservée à l'élève (parent refusé)", () => parent.post("/navi/relire-motivation", { texte: "x" }), [401, 403, 503]);

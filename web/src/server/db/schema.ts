@@ -886,3 +886,71 @@ export const rappelsPaiement = pgTable("rappels_paiement", {
   createdAt: createdAt(),
   updatedAt: updatedAt(),
 }, (t) => [index("rappels_paiement_user_idx").on(t.userId)]);
+
+// ---------------------------------------------------------------- Salons virtuels (novembre 2026)
+// Une école présente en direct devant des élèves inscrits ; service payant (forfait), validé par l'admin ; Navi invite
+// les élèves dont le profil correspond. Fiches contact vendues à l'école, seulement avec l'accord de l'élève (et d'un parent
+// s'il est mineur) : 7 000 F CFA la fiche, +25 % en cascade par critère de ciblage.
+export const salons = pgTable("salons", {
+  id: id(),
+  establishmentId: text("establishment_id").notNull().references(() => establishments.id, { onDelete: "cascade" }),
+  titre: text("titre").notNull(),
+  description: text("description").notNull().default(""),
+  programme: jsonb("programme").$type<{ heure: string; texte: string }[]>().notNull().default([]),
+  presentateurs: jsonb("presentateurs").$type<{ nom: string; role: string }[]>().notNull().default([]),
+  debut: timestamp("debut", { withTimezone: true }).notNull(),
+  dureeMin: integer("duree_min").notNull().default(60),
+  places: integer("places").notNull().default(100),
+  cibleNiveaux: jsonb("cible_niveaux").$type<string[]>().notNull().default([]),
+  ciblePays: jsonb("cible_pays").$type<string[]>().notNull().default([]),
+  cibleDomaines: jsonb("cible_domaines").$type<string[]>().notNull().default([]),
+  criteres: jsonb("criteres").$type<string[]>().notNull().default([]), // metier, formation, admission, budget
+  statut: text("statut").notNull().default("demande"), // demande, publie, refuse, annule
+  forfaitMad: integer("forfait_mad"),
+  paiementRef: text("paiement_ref"),
+  naviAnnonce: boolean("navi_annonce").notNull().default(true),
+  motifRefus: text("motif_refus"),
+  salle: text("salle"),
+  url: text("url"),
+  demandePar: text("demande_par").references(() => users.id, { onDelete: "set null" }),
+  validePar: text("valide_par").references(() => users.id, { onDelete: "set null" }),
+  valideLe: timestamp("valide_le", { withTimezone: true }),
+  createdAt: createdAt(),
+  updatedAt: updatedAt(),
+}, (t) => [index("salons_statut_debut_idx").on(t.statut, t.debut), index("salons_etab_idx").on(t.establishmentId)]);
+
+export const salonInscriptions = pgTable("salon_inscriptions", {
+  salonId: text("salon_id").notNull().references(() => salons.id, { onDelete: "cascade" }),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  accordContact: boolean("accord_contact").notNull().default(false), // l'élève accepte que l'école le recontacte
+  accordParent: text("accord_parent").notNull().default("non_requis"), // non_requis, en_attente, accorde, refuse
+  parentId: text("parent_id").references(() => users.id, { onDelete: "set null" }),
+  viaNavi: boolean("via_navi").notNull().default(false),
+  presentLe: timestamp("present_le", { withTimezone: true }),
+  createdAt: createdAt(),
+}, (t) => [primaryKey({ columns: [t.salonId, t.userId] })]);
+
+export const salonQuestions = pgTable("salon_questions", {
+  id: id(),
+  salonId: text("salon_id").notNull().references(() => salons.id, { onDelete: "cascade" }),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  texte: text("texte").notNull(),
+  main: boolean("main").notNull().default(false), // « lever la main » : souhaite prendre la parole
+  repondue: boolean("repondue").notNull().default(false),
+  createdAt: createdAt(),
+}, (t) => [index("salon_questions_idx").on(t.salonId)]);
+
+export const salonFiches = pgTable("salon_fiches", {
+  id: id(),
+  salonId: text("salon_id").notNull().references(() => salons.id, { onDelete: "cascade" }),
+  establishmentId: text("establishment_id").notNull().references(() => establishments.id, { onDelete: "cascade" }),
+  userIds: jsonb("user_ids").$type<string[]>().notNull().default([]),
+  criteres: jsonb("criteres").$type<string[]>().notNull().default([]),
+  prixUnitMad: integer("prix_unit_mad").notNull(),
+  montantMad: integer("montant_mad").notNull(),
+  statut: text("statut").notNull().default("en_attente"), // en_attente (commande), payee (fiches débloquées), annulee
+  paiementRef: text("paiement_ref"),
+  demandePar: text("demande_par").references(() => users.id, { onDelete: "set null" }),
+  payeeLe: timestamp("payee_le", { withTimezone: true }),
+  createdAt: createdAt(),
+}, (t) => [index("salon_fiches_salon_idx").on(t.salonId)]);

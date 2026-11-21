@@ -13,6 +13,7 @@ import { chercherDocuments } from "./navi-documents";
 import { marquerDonneeExterne, risqueInjection, verifierSortie } from "./navi-gardefous";
 import { partenaires } from "./offres";
 import { childrenOf } from "./guardians";
+import { salonsPourEleve } from "./salons";
 import { publishable } from "./establishments";
 import boursesData from "@/data/bourses.json";
 import { METHODS } from "../payments/providers";
@@ -305,10 +306,11 @@ export type Carte =
   | { type: "suggestions"; suggestions: string[] }
   // Geste proposé par Navi, exécuté seulement si la personne clique sur « Confirmer » (jamais par Navi lui-même).
   | { type: "action"; action: "candidature"; libelle: string; programmeId: string }
-  | { type: "action"; action: "rendez_vous"; libelle: string; sujet: string; suivi: string };
+  | { type: "action"; action: "rendez_vous"; libelle: string; sujet: string; suivi: string }
+  | { type: "action"; action: "salon"; libelle: string; salonId: string; ecole: string };
 
 // Pages vers lesquelles Navi peut renvoyer (chemins internes uniquement).
-const PREFIXES = /^\/(formations|etablissements|metiers|villes|devis|comparateur|parents|pourquoi|ressources|actualites|pays|trouve-ta-voie|navilease|navitravel|orientation|espace|parent|connexion|inscription|recherche|messages|notifications|compte)(\/|\?|$)/;
+const PREFIXES = /^\/(salons|bourses|rendez-vous|formations|etablissements|metiers|villes|devis|comparateur|parents|pourquoi|ressources|actualites|pays|trouve-ta-voie|navilease|navitravel|orientation|espace|parent|connexion|inscription|recherche|messages|notifications|compte)(\/|\?|$)/;
 export const lienAutorise = (c: string) => { const p = cheminInterne(c); return p && PREFIXES.test(p) ? p : null; };
 
 async function construireCartes(i: AfficherEntree, paysDefaut: string | null): Promise<Carte[]> {
@@ -387,8 +389,9 @@ const OUTILS = [
   { name: "campagnes_en_cours", description: "Campagnes d'admission, concours et bourses ouvertes (toutes, ou pour un établissement).", input_schema: obj({ etablissement_id: nul(STR) }) },
   { name: "verifier_admission", description: "Avis d'admission pour une formation : la série du bac de l'élève connecté est-elle parmi les séries conseillées ? Mode d'admission, durée, niveau. À appeler avant de recommander une formation à un élève connecté, ou quand il demande s'il a ses chances.", input_schema: obj({ formation_id: STR }) },
   { name: "bourses", description: "Bourses d'études publiques pour un pays de départ (organisme, conditions, pièces, démarche, si elles valent pour les écoles privées au Maroc, liens officiels). Les bourses propres aux écoles sont dans campagnes_en_cours.", input_schema: obj({ pays: { ...STR, description: "Code ISO à 2 lettres du pays de départ (GA, SN, CM…)" } }) },
-  { name: "proposer_action", description: "Propose un bouton « Confirmer » sous ta réponse pour un geste sans risque que la personne connectée valide elle-même : commencer une candidature en brouillon (candidature : etablissement_id + formation_id, élève ou étudiant) ou demander un rendez-vous avec un conseiller Navigoal (rendez_vous : sujet). Rien n'est fait sans son clic. À utiliser seulement quand elle a clairement dit vouloir le faire.",
-    input_schema: { type: "object", properties: { action: { type: "string", enum: ["candidature", "rendez_vous"] }, etablissement_id: STR, formation_id: STR, sujet: STR }, required: ["action"], additionalProperties: false } },
+  { name: "proposer_action", description: "Propose un bouton « Confirmer » sous ta réponse pour un geste sans risque que la personne connectée valide elle-même : commencer une candidature en brouillon (candidature : etablissement_id + formation_id, élève ou étudiant) ou demander un rendez-vous avec un conseiller Navigoal (rendez_vous : sujet), ou s'inscrire à un salon virtuel d'une école (salon : salon_id donné par salons_a_venir). Rien n'est fait sans son clic. À utiliser seulement quand elle a clairement dit vouloir le faire.",
+    input_schema: { type: "object", properties: { action: { type: "string", enum: ["candidature", "rendez_vous", "salon"] }, etablissement_id: STR, formation_id: STR, sujet: STR, salon_id: STR }, required: ["action"], additionalProperties: false } },
+  { name: "salons_a_venir", description: "Salons virtuels en direct organisés par les écoles (présentation, questions en direct, gratuits pour l'élève), classés selon le profil de la personne connectée. À proposer quand une école ou un domaine l'intéresse, ou quand elle hésite entre des écoles : « l'école X présente ses formations en direct le … ». Pour l'inscrire, proposer_action avec action « salon » et salon_id.", input_schema: obj({}) },
   { name: "mon_espace", description: "Données de l'utilisateur connecté : candidatures (statut, pièces demandées), documents, paiements, logement, rendez-vous ; pour un parent, celles de ses enfants. Indique s'il n'est pas connecté.", input_schema: obj({}) },
   { name: "afficher", description: "Affiche sous ta réponse des cartes cliquables construites à partir de la base : établissements (2 à 4 au plus), une estimation de coût, jusqu'à 3 liens vers les pages Navigoal déjà filtrées (le premier est le bouton principal), le bouton WhatsApp conseiller, et jusqu'à 3 questions de relance courtes. Appelle-le une fois, en dernier.",
     input_schema: obj({
@@ -420,7 +423,8 @@ const VALIDATION: Record<string, z.ZodTypeAny> = {
   verifier_admission: z.object({ formation_id: z.string().max(100) }),
   mon_espace: z.object({}),
   bourses: z.object({ pays: z.string().max(60) }),
-  proposer_action: z.object({ action: z.enum(["candidature", "rendez_vous"]), etablissement_id: z.string().max(100).optional(), formation_id: z.string().max(100).optional(), sujet: z.string().max(200).optional() }),
+  proposer_action: z.object({ action: z.enum(["candidature", "rendez_vous", "salon"]), etablissement_id: z.string().max(100).optional(), formation_id: z.string().max(100).optional(), sujet: z.string().max(200).optional(), salon_id: z.string().max(60).optional() }),
+  salons_a_venir: z.object({}),
   afficher: z.object({ etablissements: z.array(z.string().max(100)).max(10), formation_id: nullStr, devis: DevisZ.nullable(), liens: z.array(z.object({ libelle: z.string().max(80), chemin: z.string().max(500) })).max(6), conseiller: z.boolean(), suggestions: z.array(z.string().max(120)).max(6) }),
 };
 
@@ -468,6 +472,7 @@ Accompagnement scolaire (tu es aussi un coach, pas seulement un moteur de recher
 - Après l'admission : équivalence du bac, visa et titre de séjour, logement, voyage, étape par étape, avec infos_pays_origine, chercher_logements et les liens NaviTravel, puis conseille de confirmer auprès de l'ambassade.
 - Financement : pour une bourse, appelle l'outil bourses avec le pays de départ et campagnes_en_cours pour celles des écoles. Dis clairement si une bourse ne vaut que pour les établissements publics, ne promets jamais qu'une bourse sera obtenue, et renvoie toujours au site officiel pour les dates.
 - Passer à l'action : quand la personne connectée dit clairement vouloir candidater à une formation précise ou parler à un conseiller, appelle proposer_action ; elle verra un bouton « Confirmer ». Dis-lui simplement de confirmer avec le bouton. Tu ne fais jamais le geste toi-même, et tu ne proposes rien qui engage de l'argent.
+- Salons virtuels : quand une école ou un domaine intéresse la personne, ou qu'elle hésite entre des écoles, regarde salons_a_venir ; si un salon lui correspond, propose-le en une phrase (école, sujet, date) et, si elle est connectée et partante, proposer_action « salon ». Un salon au plus par réponse, et pas à chaque message.
 - Stress, découragement, pression de la famille : écoute d'abord, rassure sans minimiser, aide à remettre un petit pas devant l'autre. Si la détresse paraît sérieuse (perte d'espoir, idées noires), réponds avec douceur, encourage à en parler tout de suite à un adulte de confiance et propose le conseiller (afficher avec conseiller: true).
 
 Quand un doute d'orientation apparaît (« je ne sais pas quoi faire », hésitation, choix fait pour faire plaisir aux parents, deux pistes qui s'opposent), avance par étapes, une par message :
@@ -819,6 +824,7 @@ async function executerOutil(a: Anthropic.Beta.BetaToolUseBlock, user: User | nu
       case "mon_espace": r = await monEspace(user); break;
       case "bourses": r = bourses(x.pays); break;
       case "proposer_action": r = await proposerAction(x, user, cartes); break;
+      case "salons_a_venir": r = { salons: await salonsPourEleve(user) }; break;
       case "afficher": cartes.push(...(await construireCartes(x, paysDefaut))); r = { affiche: true }; break;
       default: r = { erreur: "Outil inconnu." };
     }
@@ -840,8 +846,15 @@ function bourses(pays: string) {
 }
 
 // Geste proposé par Navi : vérifie que c'est possible, puis affiche un bouton que la personne doit confirmer.
-async function proposerAction(x: { action: "candidature" | "rendez_vous"; etablissement_id?: string; formation_id?: string; sujet?: string }, user: User | null, cartes: Carte[]) {
+async function proposerAction(x: { action: "candidature" | "rendez_vous" | "salon"; etablissement_id?: string; formation_id?: string; sujet?: string; salon_id?: string }, user: User | null, cartes: Carte[]) {
   if (!user) return { erreur: "Personne non connectée : propose-lui de se connecter ou de créer un compte (liens /connexion/ et /inscription/)." };
+  if (x.action === "salon") {
+    if (!["eleve", "etudiant", "parent"].includes(user.role)) return { erreur: "Réservé aux élèves, étudiants et parents." };
+    const s = x.salon_id ? (await salonsPourEleve(user)).find((v) => v.id === x.salon_id) : undefined;
+    if (!s) return { erreur: "Salon introuvable, complet ou déjà rejoint : utilise un identifiant donné par salons_a_venir." };
+    cartes.push({ type: "action", action: "salon", libelle: `S'inscrire au salon « ${s.titre} » (${s.ecole}, ${s.debut})`, salonId: s.id, ecole: s.ecole });
+    return { propose: true, info: "Bouton affiché : l'inscription ne se fait que si la personne confirme. Elle peut aussi cocher que l'école la recontacte (facultatif)." };
+  }
   if (x.action === "rendez_vous") {
     if (!["eleve", "etudiant", "parent"].includes(user.role)) return { erreur: "Réservé aux élèves, étudiants et parents." };
     const sujet = (x.sujet ?? "").trim().slice(0, 200) || "Conseil d'orientation (depuis Navi)";

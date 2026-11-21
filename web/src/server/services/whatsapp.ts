@@ -71,7 +71,7 @@ export function cartesEnTexte(cartes: Carte[], whatsappConseiller: boolean): str
     else if (c.type === "devis") l.push(`• ${c.titre} : *${c.total}*. Devis complet : ${SITE()}${c.href}`);
     else if (c.type === "liens") for (const x of c.liens) l.push(`• ${x.libelle} : ${SITE()}${x.href}`);
     else if (c.type === "conseiller") l.push(whatsappConseiller ? "Un conseiller Navigoal a été prévenu : il te répond ici dès que possible." : "Écris « conseiller » pour parler à un membre de l'équipe Navigoal.");
-    else if (c.type === "action") l.push(c.action === "candidature" ? `• Pour commencer ta candidature, connecte-toi sur le site : ${SITE()}/espace/candidatures/` : `• Pour demander un rendez-vous : ${SITE()}${c.suivi}`);
+    else if (c.type === "action") l.push(c.action === "candidature" ? `• Pour commencer ta candidature, connecte-toi sur le site : ${SITE()}/espace/candidatures/` : c.action === "salon" ? `• Pour t'inscrire au salon : ${SITE()}/salons/${c.salonId}/` : `• Pour demander un rendez-vous : ${SITE()}${c.suivi}`);
     else if (c.type === "suggestions" && c.suggestions.length) l.push(`Tu peux aussi me demander : ${c.suggestions.slice(0, 3).map((s) => `« ${s} »`).join(", ")}`);
   }
   return l.join("\n");

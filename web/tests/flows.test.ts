@@ -1153,6 +1153,68 @@ describe("rendez-vous d'appel planifiés", () => {
     } finally { espion.mockRestore(); delete process.env.DAILY_API_KEY; }
   });
 });
+describe("salons virtuels", () => {
+  it("demande, validation, inscription avec accord du parent, salle, questions, bilan et fiches contact", async () => {
+    const salons = await import("@/server/services/salons");
+    expect(await salons.prixFiche(0)).toBe(117);
+    expect(await salons.prixFiche(2)).toBe(183); // +25 % en cascade
+    expect(await salons.prixFiche(4)).toBe(286);
+    const debut = new Date(Date.now() + 5 * 86400e3).toISOString();
+    await expect(salons.demander(landlord, "ma-esa-casa", { titre: "Salon pirate", debut })).rejects.toThrow();
+    await expect(salons.demander(school, "ma-esa-casa", { titre: "Trop tôt pour valider", debut: new Date(Date.now() + 86400e3).toISOString() })).rejects.toThrow(/3 jours/);
+    const s = await salons.demander(school, "ma-esa-casa", { titre: "Journée portes ouvertes en ligne", debut, dureeMin: 90, places: 50, ciblePays: ["SN"], criteres: [] });
+    expect(s.statut).toBe("demande");
+    await expect(salons.inscrire(student, s.id, { accordContact: true })).rejects.toThrow(); // pas encore publié
+    await expect(salons.valider(school, s.id, { forfaitMad: 1000, paiementRef: "VIR-1" })).rejects.toThrow();
+    await salons.valider(adminU, s.id, { forfaitMad: 1000, paiementRef: "VIR-1", naviAnnonce: true });
+    expect((await salons.salonsPublics()).some((x) => x.id === s.id)).toBe(true);
+    expect((await salons.salonsPourEleve(student)).some((x) => x.id === s.id)).toBe(true); // ciblé : Sénégal
+    // L'élève mineure s'inscrit et accepte d'être recontactée : l'accord de son parent est demandé
+    const r = await salons.inscrire(student, s.id, { accordContact: true }, { viaNavi: true });
+    expect(r.accordParent).toBe("en_attente");
+    expect((await notif.listNotifications(parent.id)).some((n) => n.link === "/parent/salons/")).toBe(true);
+    expect((await salons.salonsPourEleve(student)).some((x) => x.id === s.id)).toBe(false); // déjà inscrite
+    expect((await salons.mesSalons(student)).some((x) => x.id === s.id)).toBe(true);
+    // Avant l'accord du parent : aucune fiche disponible
+    expect((await salons.bilan(school, s.id)).fichesDisponibles).toBe(0);
+    await expect(salons.repondreAccord(landlord, s.id, student.id, true)).rejects.toThrow();
+    expect((await salons.accordsParent(parent)).find((x) => x.salonId === s.id)?.accordParent).toBe("en_attente");
+    await salons.repondreAccord(parent, s.id, student.id, true);
+    const b = await salons.bilan(school, s.id);
+    expect(b.participants).toHaveLength(1);
+    expect(b.participants[0]).toMatchObject({ viaNavi: true, accord: true, present: false });
+    expect(b.fichesDisponibles).toBe(1);
+    await expect(salons.bilan(landlord, s.id)).rejects.toThrow();
+    // Salle : pas avant l'heure ; questions réservées aux inscrits et à l'école
+    expect(await salons.rejoindre(student, s.id)).toMatchObject({ aVenir: true });
+    await expect(salons.rejoindre(landlord, s.id)).rejects.toThrow();
+    await salons.poserQuestion(student, s.id, { texte: "La bourse couvre-t-elle le logement ?" });
+    await salons.poserQuestion(student, s.id, { main: true });
+    const q = await salons.questions(school, s.id);
+    expect(q.presentateur).toBe(true);
+    expect(q.questions).toHaveLength(2);
+    await expect(salons.marquerRepondue(student, s.id, q.questions[0].id)).rejects.toThrow();
+    await salons.marquerRepondue(school, s.id, q.questions[0].id);
+    await expect(salons.questions(landlord, s.id)).rejects.toThrow();
+    // Fiches : commande, pas de téléchargement avant le règlement, puis CSV
+    const f = await salons.commanderFiches(school, s.id);
+    expect(f).toMatchObject({ prixUnitMad: 117, montantMad: 117, statut: "en_attente" });
+    await expect(salons.commanderFiches(school, s.id)).rejects.toThrow(/Aucune nouvelle fiche/);
+    await expect(salons.csvFiches(school, f.id)).rejects.toThrow(/règlement/);
+    await expect(salons.payerFiches(school, f.id, "VIR-2")).rejects.toThrow();
+    await salons.payerFiches(adminU, f.id, "VIR-2");
+    expect(await salons.csvFiches(school, f.id)).toContain("awa@test.local");
+    await expect(salons.csvFiches(landlord, f.id)).rejects.toThrow();
+    // Accord retiré : l'élève sort du fichier téléchargé
+    await salons.inscrire(student, s.id, { accordContact: false });
+    expect(await salons.csvFiches(school, f.id)).not.toContain("awa@test.local");
+    const ics = await salons.agendaIcs(student, s.id, "https://navigoal.net");
+    expect(ics).toContain(`/salons/${s.id}/direct/`);
+    await expect(salons.agendaIcs(landlord, s.id, "https://navigoal.net")).rejects.toThrow();
+    expect((await salons.rappelsDuJour(new Date(new Date(debut).getTime() - 3 * 3600e3))).rappels).toBeGreaterThanOrEqual(2);
+    expect((await salons.rappelsDuJour(new Date(new Date(debut).getTime() - 2 * 3600e3))).rappels).toBe(0);
+  });
+});
 describe("Navi sur WhatsApp (Meta simulé, faux modèle)", () => {
   it("vérifie le webhook et la signature, répond en texte WhatsApp, reconnaît un compte, garde le fil, ne traite qu'une fois", async () => {
     const crypto = await import("node:crypto");

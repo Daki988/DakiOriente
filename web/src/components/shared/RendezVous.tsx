@@ -181,6 +181,7 @@ export function AgendaRdv() {
   const organise = ["etablissement", "bailleur", "conseiller", "admin"].includes(me.role); // les autres sont invités
   const [passes, setPasses] = useState(false);
   const { data, loading, error, reload } = useApi<Rdv[]>(`/moi/rendez-vous-appels${passes ? "?passes=1" : ""}`);
+  const salons = useApi<{ id: string; titre: string; debut: string; dureeMin: number; ecole: string; organisateur: boolean }[]>("/moi/salons");
   const [mois, setMois] = useState(() => new Date());
   const [jour, setJour] = useState<string | undefined>();
   const points = useMemo(() => { const p: Record<string, number> = {}; for (const r of data ?? []) if (!r.annule) { const k = iso(new Date(r.prevuLe)); p[k] = (p[k] ?? 0) + 1; } return p; }, [data]);
@@ -207,6 +208,17 @@ export function AgendaRdv() {
         </div>
         <div className="order-first flex flex-col gap-3 lg:order-none">
           {prochain && !jour && !prochain.monRdv && <ProchainRdv r={prochain} />}
+          {!jour && !passes && !!salons.data?.length && <section className="flex flex-col gap-2.5">
+            <b className="text-[15px]">Salons virtuels</b>
+            {salons.data.map((v) => { const d = new Date(v.debut); const ouvert = Date.now() >= d.getTime() - (v.organisateur ? 30 : 10) * 60e3; return (
+              <article key={v.id} className="card flex flex-col gap-3 rounded-[20px] border-brand-200 p-4 sm:flex-row sm:items-center">
+                <div className="w-[68px] shrink-0 text-center"><b className="block text-[20px]">{hm(d)}</b><span className="text-xs text-ink-mute">{d.toLocaleDateString("fr-FR", { day: "numeric", month: "short" })}</span></div>
+                <div className="min-w-0 flex-1"><b className="block leading-snug">{v.titre}</b><span className="text-xs text-ink-mute">{v.ecole} · {v.dureeMin} min · {v.organisateur ? "vous organisez" : "inscrit·e"}</span></div>
+                <div className="flex flex-wrap gap-2">{ouvert ? <Link href={`/salons/${v.id}/direct/`} className="btn-primary min-h-[40px] py-2 text-[13px]"><Video size={15} />Entrer</Link> : <span className="chip min-h-[30px] bg-sun-100 px-3 text-[#a55a00]">{dans(d)}</span>}
+                  <a href={`/api/salons/${v.id}/agenda.ics`} className="flex h-10 w-10 items-center justify-center rounded-xl border border-brand-200 bg-white text-brand-700 hover:bg-brand-50" title="Ajouter à mon agenda" aria-label="Ajouter à mon agenda"><CalendarPlus size={17} /></a>
+                  <Link href={`/salons/${v.id}/`} className="btn-ghost min-h-[40px] py-2 text-[13px]">Page</Link></div>
+              </article>); })}
+          </section>}
           {!liste.length ? <Empty icon={CalendarClock} title={jour ? "Aucun rendez-vous ce jour-là" : "Aucun rendez-vous planifié"} text="Les rendez-vous fixés avec une école, un bailleur ou un conseiller apparaissent ici, avec leur lien." />
             : parJour.map(([k, rs]) => (
               <section key={k} className="flex flex-col gap-2.5">
