@@ -2,16 +2,17 @@
 import Link from "@/components/ui/Link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Bell, ChevronRight, Footprints, GraduationCap, Map as MapIcon, MapPin, Search as SearchIcon, ShieldCheck, SlidersHorizontal, Star, X } from "lucide-react";
+import { Bell, ChevronRight, GraduationCap, Map as MapIcon, MapPin, Search as SearchIcon, ShieldCheck, SlidersHorizontal, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { Button, Dialog, Empty, Loading, Alert, money, useToast } from "@/components/app/kit";
+import { Button, Dialog, Empty, Loading, Alert, useToast } from "@/components/app/kit";
 import { useSession } from "@/components/app/Session";
 import { useApi } from "@/hooks/useApi";
 import { api } from "@/lib/api";
 import { VILLES_ETUDES, etablissements, etabById, villesOf } from "@/lib/data";
-import { Prix } from "@/components/ui/Devise";
-import { AMENITIES, Cover, GENDERS, TYPES, VERIF, etabName, modeLabel, typeLabel, type Housing, type Verification } from "./shared";
+import { AMENITIES, GENDERS, TYPES, VERIF, etabName, type Housing, type Verification } from "./shared";
 import { PseudoMap, pricePin } from "./PseudoMap";
+import { CarteLogement } from "./CarteLogement";
+import { residencesEtudiantes } from "@/lib/residences";
 
 type F = { pays: string; ville: string; etablissement: string; budget: string; type: string; genre: string; equipement: string[]; verifies: boolean };
 const EMPTY: F = { pays: "", ville: "", etablissement: "", budget: "", type: "", genre: "", equipement: [], verifies: false };
@@ -132,64 +133,66 @@ export function NavileaseSearch() {
     </div>
   );
 
+  const titre = applied.ville ? <>Se loger à <em className="text-nl-vert2">{applied.ville}</em></> : etab ? <>Se loger près de <em className="text-nl-vert2">{etabName(etab.id)}</em></> : <>Logements étudiants <em className="text-nl-vert2">au Maroc</em></>;
+  const pastille = (on: boolean) => `chip min-h-[40px] shrink-0 px-4 text-[13.5px] transition ${on ? "bg-nl-encre text-white" : "border border-nl-bord bg-white text-[#3b4238] hover:border-nl-vert2"}`;
+
   return (
-    <div className="bg-[#f6f8fe] pb-16">
-      <div className="bg-gradient-to-b from-[#fff8e8] to-[#f6f8fe]">
-        <div className="mx-auto max-w-[1280px] px-4 pb-6 pt-8 sm:px-6">
-          <nav className="mb-2 flex flex-wrap items-center gap-1 text-[13px] text-ink-mute" aria-label="Fil d'Ariane">
-            <Link href="/navilease" className="hover:text-brand-600">Navilease</Link><ChevronRight size={13} /><span>Logements</span>
-            {applied.ville && <><ChevronRight size={13} /><span>{applied.ville}</span></>}
-          </nav>
-          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-            <div>
-              <h1 className="text-[28px] font-extrabold tracking-tight sm:text-[36px]">{title}</h1>
-              <p className="text-ink-mute">Studios, colocations et résidences vérifiés · paiement protégé en séquestre</p>
-            </div>
-            <Button variant="ghost" icon={Bell} loading={alertBusy} onClick={createAlert}>Créer une alerte</Button>
+    <div className="pb-6">
+      <div className="mx-auto max-w-[1360px] px-4 pb-4 pt-7 sm:px-6">
+        <nav className="mb-2 flex flex-wrap items-center gap-1 text-[13px] text-nl-gris" aria-label="Fil d'Ariane">
+          <Link href="/navilease" className="hover:text-nl-vert">Navilease</Link><ChevronRight size={13} /><span>Logements</span>
+          {applied.ville && <><ChevronRight size={13} /><span>{applied.ville}</span></>}
+        </nav>
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <h1 className="text-[36px] leading-[1.05] text-nl-encre sm:text-[50px]">{titre}</h1>
+            <p className="mt-2 text-nl-gris">{loading && !data ? "Recherche des logements…" : title} · bailleurs vérifiés, paiement protégé en séquestre</p>
           </div>
-          <form onSubmit={(e) => { e.preventDefault(); apply(); }} className="card mt-5 grid grid-cols-2 gap-1 rounded-[22px] p-2 sm:gap-2 lg:grid-cols-[1.5fr_1fr_.9fr_auto]">
-            <label className="col-span-2 flex flex-col rounded-xl px-3 py-1.5 hover:bg-[#f6f8fe] lg:col-span-1">
-              <span className="flex items-center gap-1.5 text-[11px] font-bold text-ink-mute"><GraduationCap size={13} />Mon établissement</span>
-              <select className="w-full bg-transparent text-sm font-bold outline-none" value={f.etablissement} onChange={(e) => setF({ ...f, etablissement: e.target.value })}>
-                <option value="">Tous les établissements</option>
-                {schools.map((e) => <option key={e.id} value={e.id}>{e.nom.length > 60 ? e.sigle : e.nom} · {villesOf(e).join(", ")}</option>)}
-              </select>
-            </label>
-            <label className="flex flex-col rounded-xl px-3 py-1.5 hover:bg-[#f6f8fe]">
-              <span className="text-[11px] font-bold text-ink-mute">Ville</span>
-              <select className="w-full bg-transparent text-sm font-bold outline-none" value={f.ville} onChange={(e) => { const v = e.target.value; setF({ ...f, ville: v, etablissement: v && f.etablissement && !villesOf(etabById[f.etablissement]).includes(v) ? "" : f.etablissement }); }}><option value="">Toutes les villes</option>{VILLES_ETUDES.map((v) => <option key={v} value={v}>{v}</option>)}</select>
-            </label>
-            <label className="flex flex-col rounded-xl px-3 py-1.5 hover:bg-[#f6f8fe]">
-              <span className="text-[11px] font-bold text-ink-mute">Budget max / mois (MAD)</span>
-              <input type="number" min={0} inputMode="numeric" className="w-full bg-transparent text-sm font-bold outline-none placeholder:font-normal placeholder:text-ink-mute" placeholder="Sans limite" value={f.budget} onChange={(e) => setF({ ...f, budget: e.target.value })} />
-            </label>
-            <Button type="submit" icon={SearchIcon} className="col-span-2 lg:col-span-1">Rechercher</Button>
-          </form>
+          <Button variant="ghost" icon={Bell} loading={alertBusy} onClick={createAlert} className="rounded-full border-[1.5px] border-nl-vert bg-transparent text-nl-vert">Créer une alerte</Button>
+        </div>
+        <form onSubmit={(e) => { e.preventDefault(); apply(); }} className="mt-6 grid grid-cols-2 gap-1 rounded-[28px] border border-nl-bord bg-white p-2 shadow-[0_20px_50px_-24px_rgba(16,35,26,.35)] lg:grid-cols-[1.5fr_1fr_.9fr_auto] lg:items-center lg:rounded-full">
+          <label className="col-span-2 flex min-w-0 flex-col px-4 py-1.5 lg:col-span-1">
+            <span className="flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wide text-nl-gris"><GraduationCap size={13} className="text-nl-vert2" />Mon école</span>
+            <select className="w-full bg-transparent text-[15px] font-bold outline-none" value={f.etablissement} onChange={(e) => setF({ ...f, etablissement: e.target.value })}>
+              <option value="">Toutes les écoles</option>
+              {schools.map((e) => <option key={e.id} value={e.id}>{e.nom.length > 60 ? e.sigle : e.nom} · {villesOf(e).join(", ")}</option>)}
+            </select>
+          </label>
+          <label className="flex flex-col border-nl-bord px-4 py-1.5 lg:border-l">
+            <span className="flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wide text-nl-gris"><MapPin size={13} className="text-nl-vert2" />Ville</span>
+            <select className="w-full bg-transparent text-[15px] font-bold outline-none" value={f.ville} onChange={(e) => { const v = e.target.value; setF({ ...f, ville: v, etablissement: v && f.etablissement && !villesOf(etabById[f.etablissement]).includes(v) ? "" : f.etablissement }); }}><option value="">Toutes les villes</option>{VILLES_ETUDES.map((v) => <option key={v} value={v}>{v}</option>)}</select>
+          </label>
+          <label className="flex flex-col border-nl-bord px-4 py-1.5 lg:border-l">
+            <span className="text-[11px] font-extrabold uppercase tracking-wide text-nl-gris">Budget / mois (DH)</span>
+            <input type="number" min={0} inputMode="numeric" className="w-full bg-transparent text-[15px] font-bold outline-none placeholder:font-semibold placeholder:text-nl-gris" placeholder="Sans limite" value={f.budget} onChange={(e) => setF({ ...f, budget: e.target.value })} />
+          </label>
+          <button type="submit" className="col-span-2 flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-nl-ocre px-7 text-[15px] font-extrabold text-nl-encre transition hover:brightness-105 lg:col-span-1"><SearchIcon size={18} />Rechercher</button>
+        </form>
+        <div className="scrollbar-none -mx-4 mt-5 flex items-center gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">
+          {[["", "Tous"] as [string, string], ...TYPES].map(([k, l]) => <button key={k} type="button" aria-pressed={applied.type === k} onClick={() => set("type", k, true)} className={pastille(applied.type === k)}>{k ? l.replace("Résidence étudiante", "Résidences") : l}</button>)}
+          <span className="mx-1 hidden h-7 w-px bg-nl-bord sm:block" />
+          <button type="button" onClick={() => setFiltersOpen(true)} className={pastille(false)}><SlidersHorizontal size={14} />Filtres{activeCount ? ` (${activeCount})` : ""}</button>
+          <button type="button" aria-pressed={applied.verifies} onClick={() => set("verifies", !applied.verifies, true)} className={pastille(applied.verifies)}><ShieldCheck size={14} />Vérifiés uniquement</button>
+          <button type="button" onClick={() => setMapOpen(true)} className={`${pastille(false)} xl:hidden`}><MapIcon size={14} />Carte</button>
+          {applied.equipement.map((a) => <span key={a} className="chip min-h-[40px] shrink-0 bg-[#e9f4ed] px-3.5 text-nl-vert">{AMENITIES.find((x) => x.id === a)?.label}<button aria-label="Retirer le filtre" onClick={() => { const n = { ...applied, equipement: applied.equipement.filter((x) => x !== a) }; setF(n); apply(n); }}><X size={12} /></button></span>)}
+          <label className="ml-auto flex shrink-0 items-center gap-2 text-[13px] text-nl-gris">Trier
+            <select value={sort} onChange={(e) => setSort(e.target.value)} className="rounded-lg bg-transparent font-bold text-nl-encre outline-none focus:ring-2 focus:ring-brand-100">{SORTS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select>
+          </label>
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-[1280px] gap-5 px-4 sm:px-6 lg:grid-cols-[260px_minmax(0,1fr)] xl:grid-cols-[260px_minmax(0,1fr)_380px]">
-        <aside className="card hidden h-max rounded-[22px] p-5 lg:block">{filters}</aside>
-
-        <section className="flex min-w-0 flex-col gap-3" aria-label="Résultats">
-          <div className="flex flex-wrap items-center gap-2">
-            <button type="button" onClick={() => setFiltersOpen(true)} className="chip border border-brand-200 bg-white py-1.5 text-brand-700 lg:hidden"><SlidersHorizontal size={14} />Filtres{activeCount ? ` (${activeCount})` : ""}</button>
-            <button type="button" onClick={() => setMapOpen(true)} className="chip border border-brand-200 bg-white py-1.5 text-brand-700 xl:hidden"><MapIcon size={14} />Carte</button>
-            {applied.verifies && <span className="chip bg-[#e8f8ef] text-[#0b7a3d]">Bailleurs vérifiés<button aria-label="Retirer le filtre" onClick={() => { const n = { ...applied, verifies: false }; setF(n); apply(n); }}><X size={12} /></button></span>}
-            {applied.equipement.map((a) => <span key={a} className="chip bg-brand-50 text-brand-700">{AMENITIES.find((x) => x.id === a)?.label}<button aria-label="Retirer le filtre" onClick={() => { const n = { ...applied, equipement: applied.equipement.filter((x) => x !== a) }; setF(n); apply(n); }}><X size={12} /></button></span>)}
-            <label className="ml-auto flex items-center gap-2 text-[13px] text-ink-mute">Trier
-              <select value={sort} onChange={(e) => setSort(e.target.value)} className="rounded-lg bg-transparent font-bold text-ink outline-none focus:ring-2 focus:ring-brand-100">{SORTS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select>
-            </label>
-          </div>
+      <div className="mx-auto grid max-w-[1360px] gap-6 px-4 sm:px-6 xl:grid-cols-[minmax(0,1fr)_480px]">
+        <section className="flex min-w-0 flex-col gap-5" aria-label="Résultats">
           {loading && !data ? <Loading label="Recherche des logements…" /> : error ? <Alert tone="error" title="Recherche impossible" action={<Button size="sm" variant="ghost" onClick={reload}>Réessayer</Button>}>{error.message}</Alert>
             : !rows.length ? <Empty icon={SearchIcon} title="Aucun logement ne correspond" text="Élargis ton budget ou retire des filtres. Tu peux aussi créer une alerte : on te prévient dès qu'une annonce correspond." action={<Button variant="ghost" icon={Bell} onClick={createAlert}>Créer une alerte</Button>} />
-            : rows.map((h, i) => <ResultCard key={h.id} h={h} i={i} near={near(h)} hovered={hover === h.id} onHover={setHover} />)}
-          <div className="flex items-start gap-2.5 rounded-2xl border border-[#f6dd9a] bg-[#fff7dd] p-4 text-sm text-[#8a4b00]"><ShieldCheck size={18} className="mt-0.5 shrink-0" />Les adresses exactes et les coordonnées des bailleurs sont communiquées après le paiement en séquestre. Ne payez jamais en dehors de Navilease.</div>
+            : <div className="grid gap-5 sm:grid-cols-2">{rows.map((h, i) => <motion.div key={h.id} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i, 8) * 0.05 }} className="flex"><div className="flex w-full flex-col [&>article]:flex-1"><CarteLogement h={h} near={near(h)} survol={hover === h.id} onSurvol={setHover} /></div></motion.div>)}</div>}
+          <div className="flex items-start gap-3 rounded-[20px] border border-[#f3dfb2] bg-[#fff8e8] p-4 text-sm text-[#7a4600]"><ShieldCheck size={20} className="mt-0.5 shrink-0" /><span><b>Ne payez jamais en dehors de Navilease.</b> L&apos;adresse exacte et les coordonnées du bailleur sont communiquées après le paiement en séquestre.</span></div>
+          <p className="text-sm text-nl-gris">Tu cherches une résidence universitaire ? <Link href="/navilease/residences/" className="font-bold text-nl-vert underline-offset-4 hover:underline">Voir les {residencesEtudiantes.length} résidences et leurs loyers officiels</Link></p>
         </section>
 
         <aside className="hidden xl:block">
           <div className="sticky top-24 [html[data-entete=cache]_&]:top-4 transition-[top] duration-300">
-            <PseudoMap pins={pins} school={schoolPin} hovered={hover} onPin={(id) => router.push(`/navilease/logements/${id}`)} className="h-[560px]" caption={etab ? `Positions approximatives (~500 m) · autour de ${etabName(etab.id)}` : "Positions approximatives (~500 m)"} />
+            <PseudoMap pins={pins} school={schoolPin} hovered={hover} onPin={(id) => router.push(`/navilease/logements/${id}`)} className="h-[620px] rounded-[24px]" caption={etab ? `Positions approximatives (~500 m) · autour de ${etabName(etab.id)}` : "Positions approximatives (~500 m)"} />
           </div>
         </aside>
       </div>
@@ -201,35 +204,3 @@ export function NavileaseSearch() {
     </div>
   );
 }
-
-function ResultCard({ h, i, near, hovered, onHover }: { h: Housing; i: number; near?: Housing["nearEstablishments"][number]; hovered: boolean; onHover: (id: string | null) => void }) {
-  const v = VERIF[h.verification] ?? VERIF.non_verifie;
-  return (
-    <motion.article initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i, 8) * 0.05 }} onMouseEnter={() => onHover(h.id)} onMouseLeave={() => onHover(null)}
-      className={`card group relative grid overflow-hidden rounded-[22px] transition sm:grid-cols-[210px_minmax(0,1fr)] ${hovered ? "border-brand-500 ring-2 ring-brand-500/30" : "hover:-translate-y-0.5 hover:shadow-lift"}`}>
-      <div className="relative h-44 sm:h-full sm:min-h-[180px]">
-        <Cover h={h} className="transition duration-500 group-hover:scale-[1.04]" />
-        <span className={`chip absolute left-3 top-3 shadow-sm ${v.cls}`}><v.Icon size={13} />{v.label}</span>
-        {h.photos.length > 1 && <span className="chip absolute bottom-3 left-3 bg-ink/70 text-white">{h.photos.length} photos</span>}
-      </div>
-      <div className="flex min-w-0 flex-col gap-2 p-4 sm:p-5">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="font-extrabold leading-snug"><Link href={`/navilease/logements/${h.id}`} className="after:absolute after:inset-0 focus:outline-none">{h.title}</Link></h3>
-          {h.rating ? <span className="flex shrink-0 items-center gap-1 text-sm font-bold"><Star size={14} className="fill-sun-400 text-sun-500" />{h.rating.toFixed(1).replace(".", ",")} <span className="font-normal text-ink-mute">({h.reviews})</span></span> : <span className="shrink-0 text-xs text-ink-mute">Nouveau</span>}
-        </div>
-        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-ink-mute"><span className="flex items-center gap-1"><MapPin size={13} />{[h.quartier, h.ville].filter(Boolean).join(", ")}</span><span>{typeLabel(h.type)}{h.surface ? ` · ${h.surface} m²` : ""}</span></p>
-        {near && <p className="flex items-center gap-1.5 text-[13px] font-bold text-[#0b7a3d]"><Footprints size={14} />{near.minutes} min {modeLabel(near.mode)} de {etabName(near.id)}</p>}
-        <div className="flex flex-wrap gap-1.5">
-          {h.furnished && <span className="chip bg-[#f1f4fb] text-ink-soft">Meublé</span>}
-          {h.amenities.filter((a) => a !== "meuble").slice(0, 3).map((a) => <span key={a} className="chip bg-[#f1f4fb] text-ink-soft">{AMENITIES.find((x) => x.id === a)?.label ?? a}</span>)}
-          <span className="chip bg-[#f1f4fb] text-ink-soft">{GENDERS.find(([k]) => k === h.gender)?.[1]}</span>
-        </div>
-        <div className="mt-auto flex flex-wrap items-end justify-between gap-2 border-t border-[#eef1f8] pt-3">
-          <p><b className="text-xl text-brand-600">{h.currency === "MAD" ? <Prix mad={h.rent} /> : money(h.rent, h.currency)}</b> <span className="text-xs text-ink-mute">/mois{h.charges ? <> + {h.currency === "MAD" ? <Prix mad={h.charges} /> : money(h.charges, h.currency)} ch.</> : " charges incl."}</span></p>
-          <span className="text-xs text-ink-mute">{h.availableFrom ? `dispo. ${new Date(h.availableFrom).toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" })}` : "disponible"} · {h.minMonths} mois min.</span>
-        </div>
-      </div>
-    </motion.article>
-  );
-}
-

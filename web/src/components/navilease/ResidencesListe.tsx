@@ -36,7 +36,7 @@ export function ResidencesListe() {
             <input id="budget-residence" inputMode="numeric" value={f.budget} onChange={(e) => set({ budget: e.target.value.replace(/[^\d\s.,]/g, "").slice(0, 10) })} placeholder={monnaie === "MAD" ? "ex. 2 500" : "ex. 150 000"} className="min-h-[42px] min-w-0 flex-1 rounded-xl border border-slate-200 bg-white px-3 font-semibold outline-none focus:border-brand-400 focus:ring-4 focus:ring-brand-100" />
             {locale ? (
               <select aria-label="Monnaie du budget" value={monnaie} onChange={(e) => set({ monnaie: e.target.value === "MAD" ? "MAD" : "" })} className="min-h-[42px] rounded-xl border border-slate-200 bg-white px-2 font-semibold"><option value={locale}>{symbole(locale)}</option><option value="MAD">DH</option></select>
-            ) : <span className="flex min-h-[42px] items-center rounded-xl bg-[#f6f8fe] px-3 font-semibold text-ink-soft">DH</span>}
+            ) : <span className="flex min-h-[42px] items-center rounded-xl bg-[#f4efe3] px-3 font-semibold text-ink-soft">DH</span>}
           </div>
           <span className="text-xs font-normal leading-snug text-ink-mute">{budgetMad != null && monnaie !== "MAD" ? <>≈ <b className="text-ink">{formatMontant(budgetMad, "MAD")}</b> par mois (taux du jour, marge de prudence comprise). Les loyers sont payés en dirhams.</> : locale ? "Saisis ton budget dans ta monnaie : la conversion en dirhams est automatique." : "Montant libre, en dirhams par mois."}</span>
         </div>
@@ -44,7 +44,7 @@ export function ResidencesListe() {
           {TYPES.map(([k, l]) => <label key={k} className="flex min-h-[36px] items-center gap-2 text-sm"><input type="radio" name="type" checked={f.type === k} onChange={() => set({ type: f.type === k ? "" : k })} onClick={() => f.type === k && set({ type: "" })} />{l}</label>)}
         </div>
         <label className="flex min-h-[36px] items-start gap-2 text-sm"><input type="checkbox" className="mt-1" checked={f.universite === "1"} onChange={(e) => set({ universite: e.target.checked ? "1" : "" })} />Inclure les résidences réservées aux étudiants d&apos;une université (UM6SS)</label>
-        <p className="flex gap-2 rounded-2xl bg-[#f6f8fe] p-3 text-xs leading-relaxed text-ink-mute"><ShieldCheck size={14} className="mt-0.5 shrink-0 text-[#0b7a3d]" />Informations vérifiées sur les sites officiels, à reconfirmer avec la résidence à chaque rentrée.</p>
+        <p className="flex gap-2 rounded-2xl bg-[#f4efe3] p-3 text-xs leading-relaxed text-ink-mute"><ShieldCheck size={14} className="mt-0.5 shrink-0 text-[#0b7a3d]" />Informations vérifiées sur les sites officiels, à reconfirmer avec la résidence à chaque rentrée.</p>
       </aside>
       <div className="flex min-w-0 flex-col gap-4">
         <div className="scrollbar-none -mx-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">

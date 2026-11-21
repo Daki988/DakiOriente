@@ -77,7 +77,7 @@ export default async function ResidencePage(props: { params: Promise<{ id: strin
                 {ecoles.length > 0 && <div className="flex flex-wrap gap-3">{ecoles.map((e) => <Link key={e.id} href={`/etablissements/${e.id}/`} className="card flex items-center gap-3 p-3 transition hover:shadow-lift"><EtabLogo e={e} size={40} /><span className="text-sm font-bold">{e.nom}</span><ArrowRight size={15} className="text-brand-600" /></Link>)}</div>}
               </section>
             )}
-            <section className="flex flex-col gap-2 rounded-2xl bg-[#f6f8fe] p-4 text-sm text-ink-soft">
+            <section className="flex flex-col gap-2 rounded-2xl bg-[#f4efe3] p-4 text-sm text-ink-soft">
               <b className="text-ink">Conditions</b>
               <span className="flex items-start gap-2"><Users size={15} className="mt-0.5 shrink-0" />{r.public}</span>
               {r.ouverture && <span className="flex items-start gap-2"><CalendarDays size={15} className="mt-0.5 shrink-0" />{r.ouverture}</span>}

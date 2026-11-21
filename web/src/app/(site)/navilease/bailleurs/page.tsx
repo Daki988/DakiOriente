@@ -23,7 +23,7 @@ export default function Page() {
     <div className="container flex flex-col gap-10 py-10">
       <div className="flex flex-col gap-3">
         <nav className="flex items-center gap-1.5 text-[13px] text-ink-mute" aria-label="Fil d'Ariane"><Link href="/navilease">Navilease</Link><ChevronRight size={14} /><span>Bailleurs</span></nav>
-        <h1 className="h-display">Louez à des <span className="text-sun-500">étudiants vérifiés</span></h1>
+        <h1 className="h-display">Louez à des <em className="text-nl-vert2">étudiants vérifiés</em></h1>
         <p className="max-w-2xl text-lg text-ink-soft">Propriétaires et gestionnaires au Maroc : proposez votre logement aux étudiants qui arrivent de toute l&apos;Afrique, dans un cadre sécurisé.</p>
         <div className="flex flex-wrap gap-3 pt-1"><Link href="/inscription?profil=bailleur" className="btn-sun">Publier mon logement</Link><Link href="/connexion?suite=/bailleur" className="btn-ghost">J&apos;ai déjà un compte</Link></div>
       </div>

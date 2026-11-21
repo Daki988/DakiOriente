@@ -7,6 +7,16 @@
 @tailwind utilities;
 
 @layer base {
+  /* Couleur de la marque (tailwind.config : brand-50 à brand-950) : bleu Navigoal. */
+  :root {
+    --brand-50: 238 244 255; --brand-100: 218 230 255; --brand-200: 188 210 255; --brand-300: 142 180 255; --brand-400: 89 139 255;
+    --brand-500: 51 102 255; --brand-600: 26 71 245; --brand-700: 19 54 224; --brand-800: 22 47 181; --brand-900: 24 46 143; --brand-950: 11 26 79;
+  }
+  /* Navilease : vert forêt du logo (pages /navilease, et fenêtres ouvertes depuis ces pages). */
+  .theme-nl {
+    --brand-50: 233 244 237; --brand-100: 211 233 219; --brand-200: 169 210 184; --brand-300: 125 184 147; --brand-400: 79 154 110;
+    --brand-500: 54 127 88; --brand-600: 43 106 76; --brand-700: 31 77 56; --brand-800: 24 61 44; --brand-900: 18 48 31; --brand-950: 15 46 32;
+  }
   /* Jamais de défilement horizontal de la page (Safari iOS élargit sinon la page à cause d'un élément décoratif ou d'une
      liste déroulante) : « clip » ne crée pas de conteneur de défilement, l'en-tête collant continue de fonctionner. */
   html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; overflow-x: hidden; overflow-x: clip; }
@@ -73,3 +83,13 @@
 @keyframes navigoal-barre { 0% { width: 0; } 30% { width: 55%; } 100% { width: 90%; } }
 .barre-nav-charge { animation: navigoal-barre 6s cubic-bezier(0.1, 0.7, 0.3, 1) forwards; }
 .barre-nav-fin { width: 100%; opacity: 0; transition: width 0.2s ease-out, opacity 0.3s ease-in 0.15s; }
+
+/* Navilease : ombres teintées de vert, titres à empattements (Fraunces), fond crème. */
+.theme-nl .shadow-glow { box-shadow: 0 0 0 1px rgba(43,106,76,.15), 0 12px 40px -8px rgba(43,106,76,.4); }
+.theme-nl .shadow-lift { box-shadow: 0 2px 4px rgba(16,35,26,.05), 0 24px 48px -12px rgba(43,106,76,.25); }
+.nl-site h1, .nl-site h2, .nl-site .h-section { font-family: "Fraunces Variable", Georgia, serif; font-weight: 600; letter-spacing: -.02em; }
+.nl-site .card { border-color: #ece5d3; }
+.theme-nl .btn-sun { background: #e9a33a; color: #10231a; border-radius: 9999px; box-shadow: none; }
+.theme-nl .btn-sun:hover { background: #e9a33a; filter: brightness(1.05); }
+.theme-nl .text-sun-400 { color: #e9a33a; }
+.nl-site .btn-primary, .nl-site .btn-ghost { border-radius: 9999px; }

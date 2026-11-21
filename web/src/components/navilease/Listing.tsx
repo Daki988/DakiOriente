@@ -76,8 +76,8 @@ function Listing({ d }: { d: Data }) {
   ];
 
   return (
-    <div className="bg-[#f6f8fe] pb-28 lg:pb-16">
-      <div className="mx-auto max-w-[1280px] px-4 pt-6 sm:px-6">
+    <div className="pb-28 lg:pb-6">
+      <div className="mx-auto max-w-[1360px] px-4 pt-7 sm:px-6">
         <nav className="mb-3 flex flex-wrap items-center gap-1 text-[13px] text-ink-mute" aria-label="Fil d'Ariane">
           <Link href="/navilease" className="hover:text-brand-600">Navilease</Link><ChevronRight size={13} />
           <Link href={`/navilease/logements/?ville=${encodeURIComponent(h.ville)}`} className="hover:text-brand-600">{h.ville}</Link>
@@ -85,30 +85,30 @@ function Listing({ d }: { d: Data }) {
         </nav>
         <div className="mb-5 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div className="min-w-0">
-            <h1 className="text-[26px] font-extrabold tracking-tight sm:text-[34px]">{h.title}</h1>
+            <h1 className="text-[32px] leading-[1.05] text-nl-encre sm:text-[48px]">{h.title}</h1>
             <div className="mt-2 flex flex-wrap items-center gap-2 text-[13px] text-ink-mute">
               <VerifBadge v={h.verification} />
               <span className="flex items-center gap-1"><MapPin size={14} />{[h.quartier, h.ville].filter(Boolean).join(", ")}</span>
               <span className="italic">· adresse exacte communiquée après paiement</span>
             </div>
           </div>
-          <Button variant="ghost" icon={Share2} onClick={share}>Partager à mes parents</Button>
+          <Button variant="ghost" icon={Share2} onClick={share} className="rounded-full border-nl-bord">Partager à mes parents</Button>
         </div>
 
         {/* Galerie */}
-        <div className="grid gap-3 md:h-[400px] md:grid-cols-[1.6fr_1fr] md:grid-rows-2">
+        <div className={`grid gap-3 md:h-[470px] ${h.photos.length > 1 ? "md:grid-cols-[1.6fr_1fr] md:grid-rows-2" : ""}`}>
           <button type="button" onClick={() => setGallery(0)} className="relative h-64 overflow-hidden rounded-[24px] md:row-span-2 md:h-full" aria-label="Agrandir les photos">
             <Cover h={h} iconSize={80} />
             {h.verification !== "non_verifie" && <span className={`chip absolute left-4 top-4 shadow-sm ${VERIF[h.verification].cls}`}>{VERIF[h.verification].label}</span>}
           </button>
-          <button type="button" onClick={() => setGallery(Math.min(1, photos - 1))} className="relative hidden overflow-hidden rounded-[24px] md:block" aria-label="Photo suivante"><Cover h={h} idx={1} iconSize={50} /></button>
+          {h.photos.length > 1 && <><button type="button" onClick={() => setGallery(Math.min(1, photos - 1))} className="relative hidden overflow-hidden rounded-[24px] md:block" aria-label="Photo suivante"><Cover h={h} idx={1} iconSize={50} /></button>
           <div className="hidden grid-cols-2 gap-3 md:grid">
             <button type="button" onClick={() => setGallery(Math.min(2, photos - 1))} className="overflow-hidden rounded-[24px]" aria-label="Photo"><Cover h={h} idx={2} iconSize={40} /></button>
             <button type="button" onClick={() => setGallery(0)} className="relative overflow-hidden rounded-[24px]" aria-label="Voir toutes les photos">
               <Cover h={h} idx={3} iconSize={h.photos.length > 3 ? 40 : 0} />
               <span className="absolute inset-0 flex items-center justify-center gap-2 bg-ink/40 font-extrabold text-white"><Images size={18} />{h.photos.length ? `${h.photos.length} photo${h.photos.length > 1 ? "s" : ""}` : "Photos à venir"}</span>
             </button>
-          </div>
+          </div></>}
         </div>
 
         <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_380px] [&>*]:min-w-0">
@@ -181,7 +181,7 @@ function Listing({ d }: { d: Data }) {
           <aside className="lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 lg:h-max transition-[top] duration-300">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="card flex flex-col gap-4 rounded-[24px] p-5 shadow-lift sm:p-6">
               <div className="flex items-baseline justify-between gap-2">
-                <p><b className="text-[28px] text-brand-600">{money(h.rent, h.currency)}</b><span className="text-sm text-ink-mute"> / mois</span>{eq(h.rent, h.currency) && <span className="block text-sm font-semibold text-ink-mute">≈ {eq(h.rent, h.currency)} / mois</span>}</p>
+                <p><b className="font-serif text-[36px] font-semibold text-nl-encre">{money(h.rent, h.currency)}</b><span className="text-sm text-ink-mute"> / mois</span>{eq(h.rent, h.currency) && <span className="block text-sm font-semibold text-ink-mute">≈ {eq(h.rent, h.currency)} / mois</span>}</p>
                 {rating && <span className="flex items-center gap-1 text-sm font-bold"><Star size={14} className="fill-sun-400 text-sun-500" />{rating.toFixed(1).replace(".", ",")}</span>}
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -196,22 +196,22 @@ function Listing({ d }: { d: Data }) {
                   <div key={l as string} className="flex justify-between gap-3"><dt className="text-ink-mute">{l}</dt><dd className="font-bold">{m(v as number, h.currency)}</dd></div>
                 ))}
               </dl>
-              <div className="flex items-center justify-between rounded-2xl bg-ink px-4 py-3 text-white">
+              <div className="flex items-center justify-between rounded-2xl bg-nl-encre px-4 py-3.5 text-white">
                 <b className="text-sm">À payer à la réservation</b>
-                <div className="text-right"><b className="text-lg">{money(total, h.currency)}</b>{eq(total, h.currency) && <span className="block text-[11px] text-white/75">≈ {eq(total, h.currency)}</span>}</div>
+                <div className="text-right"><b className="font-serif text-[22px] font-semibold">{money(total, h.currency)}</b>{eq(total, h.currency) && <span className="block text-[11px] text-white/75">≈ {eq(total, h.currency)}</span>}</div>
               </div>
-              <Button onClick={book} className="w-full btn-shine">Demander une réservation</Button>
+              <Button onClick={book} className="w-full rounded-full bg-nl-ocre py-4 text-[15px] text-nl-encre shadow-none hover:bg-nl-ocre hover:brightness-105">Demander une réservation</Button>
               {!canBook && <p className="text-xs text-ink-mute">La réservation se fait depuis un compte élève ou étudiant.</p>}
-              <div className="rounded-2xl bg-[#effbf3] p-3.5 text-xs text-[#0b6b37]"><b>Paiement en séquestre :</b> rien n&apos;est débité avant l&apos;acceptation du bailleur. Le bailleur n&apos;est payé qu&apos;après ton entrée dans les lieux ; la caution reste bloquée jusqu&apos;à la sortie.</div>
+              <div className="flex gap-2.5 rounded-2xl bg-[#e9f4ed] p-3.5 text-[13px] leading-relaxed text-nl-vert"><ShieldCheck size={18} className="mt-0.5 shrink-0" /><span><b>Paiement en séquestre :</b> rien n&apos;est débité avant l&apos;acceptation du bailleur. Le bailleur n&apos;est payé qu&apos;après ton entrée dans les lieux ; la caution reste bloquée jusqu&apos;à la sortie.</span></div>
               <p className="flex items-start gap-2 text-xs text-ink-mute"><UserRound size={14} className="mt-0.5 shrink-0" />Garant parent accepté · paiement possible depuis un autre pays (mobile money, carte, virement).</p>
             </motion.div>
           </aside>
         </div>
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-3 border-t border-slate-200 bg-white/95 px-4 py-3 backdrop-blur lg:hidden">
-        <p className="min-w-0"><b className="text-lg text-brand-600">{money(h.rent, h.currency)}</b><span className="text-xs text-ink-mute"> / mois</span><span className="block truncate text-[11px] text-ink-mute">{eq(h.rent, h.currency) ? `≈ ${eq(h.rent, h.currency)} / mois · ` : ""}{money(total, h.currency)} à la réservation</span></p>
-        <Button onClick={book} size="sm" className="shrink-0">Demander une réservation</Button>
+      <div className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-3 border-t border-nl-bord bg-white/95 px-4 py-3 backdrop-blur lg:hidden">
+        <p className="min-w-0"><b className="font-serif text-xl font-semibold text-nl-encre">{money(h.rent, h.currency)}</b><span className="text-xs text-ink-mute"> / mois</span><span className="block truncate text-[11px] text-ink-mute">{eq(h.rent, h.currency) ? `≈ ${eq(h.rent, h.currency)} / mois · ` : ""}{money(total, h.currency)} à la réservation</span></p>
+        <Button onClick={book} size="sm" className="shrink-0 rounded-full bg-nl-ocre text-nl-encre shadow-none hover:bg-nl-ocre">Demander une réservation</Button>
       </div>
       <Dialog open={gallery !== null} onClose={() => setGallery(null)} title={`Photos · ${h.title}`} wide>
         {gallery !== null && (

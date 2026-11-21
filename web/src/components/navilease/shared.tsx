@@ -3,7 +3,8 @@
 import {
   Armchair, BadgeCheck, Bath, Bike, Building2, Car, CookingPot, Droplets, Flame, Footprints, House, Laptop, ParkingCircle, ShieldCheck, Snowflake, Star, TrainFront, Users, WashingMachine, Wifi, Zap, type LucideIcon,
 } from "lucide-react";
-import { etabById } from "@/lib/data";
+import { etabById, mobilite } from "@/lib/data";
+import { srcsetPhoto } from "@/lib/photo-variantes";
 
 export type Verification = "non_verifie" | "identite" | "visite" | "partenaire";
 export type Near = { id: string; minutes: number; mode: string };
@@ -24,9 +25,9 @@ export type BookingRow = { b: Booking; h: { id: string; title: string; ville: st
 
 export const VERIF: Record<Verification, { label: string; short: string; cls: string; Icon: LucideIcon }> = {
   non_verifie: { label: "Non vérifié", short: "Non vérifié", cls: "bg-[#eef1f8] text-ink-soft", Icon: ShieldCheck },
-  identite: { label: "Identité vérifiée", short: "Identité", cls: "bg-brand-50 text-brand-700", Icon: BadgeCheck },
-  visite: { label: "Visité par Navilease", short: "Visité", cls: "bg-[#e8f8ef] text-[#0b7a3d]", Icon: BadgeCheck },
-  partenaire: { label: "Partenaire certifié", short: "Partenaire", cls: "bg-sun-100 text-[#a55a00]", Icon: Star },
+  identite: { label: "Identité vérifiée", short: "Identité", cls: "bg-white text-[#1f4d38] ring-1 ring-[#cfe3d6]", Icon: BadgeCheck },
+  visite: { label: "Visité par Navilease", short: "Visité", cls: "bg-[#2b6a4c] text-white", Icon: BadgeCheck },
+  partenaire: { label: "Partenaire certifié", short: "Partenaire", cls: "bg-[#e9a33a] text-[#10231a]", Icon: Star },
 };
 export function VerifBadge({ v, className = "" }: { v: Verification; className?: string }) {
   const x = VERIF[v] ?? VERIF.non_verifie;
@@ -61,16 +62,27 @@ export const nearText = (n: Near) => `${n.minutes} min ${modeLabel(n.mode)} de $
 /** Photos d'annonce : clés « housings/<hid>/<fid> » servies par /api/fichiers/… */
 export const photoUrl = (key: string) => `/api/fichiers/${key}/`;
 
-const GRADS = ["from-brand-600 to-[#5b8cff]", "from-[#0f8a46] to-[#4ad08a]", "from-[#6a3df0] to-[#a98bff]", "from-[#e2541b] to-[#f7a24b]", "from-[#0e7490] to-[#38c6dd]"];
+const GRADS = ["from-[#1f4d38] to-[#3f8a63]", "from-[#2b6a4c] to-[#7db893]", "from-[#93570a] to-[#e9a33a]", "from-[#10231a] to-[#2b6a4c]", "from-[#5f6457] to-[#a9a28c]"];
 const TYPE_ICON: Record<string, LucideIcon> = { studio: Building2, chambre: House, colocation: Users, appartement: Building2, residence: Building2, chez_habitant: House };
 export const gradFor = (seed: string) => GRADS[[...seed].reduce((a, c) => a + c.charCodeAt(0), 0) % GRADS.length];
 
-/** Visuel d'une annonce : première photo ou dégradé illustré. */
-export function Cover({ h, idx = 0, className = "", iconSize = 44, alt }: { h: Pick<Housing, "id" | "photos" | "type" | "title">; idx?: number; className?: string; iconSize?: number; alt?: string }) {
+/** Visuel d'une annonce : sa photo ; à défaut, la photo de sa ville (créditée sur /credits/), sinon un dégradé illustré. */
+export function Cover({ h, idx = 0, className = "", iconSize = 44, alt }: { h: Pick<Housing, "id" | "photos" | "type" | "title"> & { ville?: string }; idx?: number; className?: string; iconSize?: number; alt?: string }) {
   const key = h.photos[idx];
   if (key) {
     // eslint-disable-next-line @next/next/no-img-element
     return <img src={photoUrl(key)} alt={alt ?? h.title} loading="lazy" className={`h-full w-full object-cover ${className}`} />;
+  }
+  const ville = h.ville ? (mobilite[h.ville]?.couverture as { src: string } | undefined) : undefined;
+  if (ville && idx === 0) {
+    return (
+      <div className={`relative h-full w-full overflow-hidden ${className}`} role="img" aria-label={alt ?? `${h.title} : photos à venir (vue de ${h.ville})`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={ville.src} srcSet={srcsetPhoto(ville.src)} sizes="(max-width: 640px) 100vw, 480px" alt="" loading="lazy" className="h-full w-full object-cover" />
+        <span className="absolute inset-0 bg-gradient-to-t from-nl-encre/55 via-transparent to-transparent" />
+        <span className="chip absolute bottom-3 right-3 bg-white/90 text-[11px] text-nl-encre">Photos à venir · vue de {h.ville}</span>
+      </div>
+    );
   }
   const I = TYPE_ICON[h.type] ?? House;
   return (

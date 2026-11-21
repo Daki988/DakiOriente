@@ -17,7 +17,7 @@ export default function Page() {
     <div className="container flex flex-col gap-10 py-10">
       <div className="flex flex-col gap-3">
         <nav className="flex items-center gap-1.5 text-[13px] text-ink-mute" aria-label="Fil d'Ariane"><Link href="/navilease">Navilease</Link><ChevronRight size={14} /><span>Comment ça marche</span></nav>
-        <h1 className="h-display">Se loger <span className="text-sun-500">sans mauvaise surprise</span></h1>
+        <h1 className="h-display">Se loger <em className="text-nl-vert2">sans mauvaise surprise</em></h1>
         <p className="max-w-2xl text-lg text-ink-soft">De la recherche à la remise des clés : ce que fait Navilease pour protéger l&apos;étudiant et sa famille.</p>
       </div>
       <EtapesReservation />

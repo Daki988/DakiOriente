@@ -9,12 +9,13 @@ const config: Config = {
         sans: ['"Plus Jakarta Sans Variable"', "system-ui", "sans-serif"],
         hand: ['"Caveat"', "cursive"],
         display: ['"Anton"', "Impact", "sans-serif"],
+        serif: ['"Fraunces Variable"', "Georgia", "serif"], // titres de Navilease (chargée sous /navilease seulement)
       },
       colors: {
-        brand: {
-          50: "#eef4ff", 100: "#dae6ff", 200: "#bcd2ff", 300: "#8eb4ff", 400: "#598bff",
-          500: "#3366ff", 600: "#1a47f5", 700: "#1336e0", 800: "#162fb5", 900: "#182e8f", 950: "#0b1a4f",
-        },
+        // Couleur de la marque en variables (globals.css) : bleu Navigoal partout, vert forêt sous Navilease (.theme-nl).
+        brand: Object.fromEntries([50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((n) => [n, `rgb(var(--brand-${n}) / <alpha-value>)`])),
+        // Navilease : vert forêt et ocre du logo, fond crème.
+        nl: { vert: "#1f4d38", vert2: "#2b6a4c", ocre: "#e9a33a", "ocre-texte": "#93570a", creme: "#f7f3ea", sable: "#efe7d6", encre: "#10231a", bord: "#e6dfcd", gris: "#5f6457" },
         sun: { 50: "#fffbea", 100: "#fff3c4", 200: "#ffe588", 300: "#ffd34a", 400: "#ffc21f", 500: "#f9a806", 600: "#dd7f02" },
         ink: { DEFAULT: "#0b1533", soft: "#3b4566", mute: "#5f6886" },
       },

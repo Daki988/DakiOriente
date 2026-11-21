@@ -17,9 +17,10 @@ export function EnteteService({ id }: { id: Exclude<ServiceId, "navigoal"> }) {
   useEffect(() => setOpen(false), [path]);
   useEffect(() => { const f = () => setHash(window.location.hash); f(); window.addEventListener("hashchange", f); return () => window.removeEventListener("hashchange", f); }, []);
   const actif = (href: string) => { const [p, h] = href.split("#"); return h ? path === p && hash === `#${h}` : path.startsWith(p); };
+  const nl = id === "navilease"; // identité Navilease : fond crème, boutons arrondis, page active soulignée d'ocre
   return (
     <header className="sticky top-0 z-50 print:hidden">
-      <div className="border-b border-slate-200/80 bg-white">
+      <div className={nl ? "border-b border-nl-bord bg-nl-creme" : "border-b border-slate-200/80 bg-white"}>
         <div className="container flex h-[72px] items-center gap-5">
           <Link href={s.base} aria-label={`${s.nom}, accueil`} className="shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -28,7 +29,7 @@ export function EnteteService({ id }: { id: Exclude<ServiceId, "navigoal"> }) {
           <span className="hidden h-7 w-px bg-slate-200 xl:block" />
           <nav className="hidden items-center gap-1 xl:flex" aria-label={`Menu ${s.nom}`}>
             {s.menu.map((m) => (
-              <Link key={m.href} href={m.href} className="whitespace-nowrap rounded-lg px-2 py-2 text-sm font-semibold 2xl:px-2.5 transition hover:opacity-80" style={{ color: actif(m.href) ? s.c : "#3b4566" }}>{m.label}</Link>
+              <Link key={m.href} href={m.href} className={`whitespace-nowrap rounded-lg px-2 py-2 text-sm 2xl:px-2.5 transition hover:opacity-80 ${actif(m.href) ? "font-extrabold" : "font-semibold"} ${nl && actif(m.href) ? "underline decoration-nl-ocre decoration-2 underline-offset-[10px]" : ""}`} style={{ color: actif(m.href) ? s.c : nl ? "#3b4238" : "#3b4566" }}>{m.label}</Link>
             ))}
           </nav>
           <div className="ml-auto flex items-center gap-2">
@@ -36,7 +37,7 @@ export function EnteteService({ id }: { id: Exclude<ServiceId, "navigoal"> }) {
             <Link href="/" title="Retour sur Navigoal" aria-label="Retour sur Navigoal" className="hidden h-[42px] w-[42px] items-center justify-center rounded-xl bg-[#f1f4fd] text-ink-soft xl:flex 2xl:hidden"><ArrowLeft size={18} /></Link>
             <Link href={s.perso.href} className="hidden items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-2.5 text-sm font-bold text-ink-soft transition hover:bg-[#f1f4fd] md:flex xl:hidden 2xl:flex"><UserRound size={16} />{s.perso.label}</Link>
             <Link href={s.perso.href} title={s.perso.label} aria-label={s.perso.label} className="hidden h-[42px] w-[42px] items-center justify-center rounded-xl bg-[#f1f4fd] text-ink-soft xl:flex 2xl:hidden"><UserRound size={18} /></Link>
-            <Link href={s.cta.href} className="hidden whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-extrabold text-white shadow-sm transition hover:brightness-110 sm:inline-flex" style={{ background: s.c }}>{s.cta.label}</Link>
+            <Link href={s.cta.href} className={`hidden whitespace-nowrap px-4 py-2.5 text-sm font-extrabold text-white shadow-sm transition hover:brightness-110 sm:inline-flex ${nl ? "rounded-full px-5" : "rounded-xl"}`} style={{ background: s.c }}>{s.cta.label}</Link>
             <button onClick={() => setOpen(!open)} className="flex h-[42px] w-[42px] items-center justify-center rounded-xl bg-[#f1f4fd] xl:hidden" aria-label="Menu" aria-expanded={open}>{open ? <X size={20} /> : <Menu size={20} />}</button>
           </div>
         </div>
@@ -64,13 +65,13 @@ export function EnteteService({ id }: { id: Exclude<ServiceId, "navigoal"> }) {
 export function PiedService({ id }: { id: Exclude<ServiceId, "navigoal"> }) {
   const s = SERVICES[id];
   return (
-    <footer className="mt-24 pb-8 pt-14 text-white print:hidden" style={{ background: s.fonce }}>
+    <footer className={`${id === "navilease" ? "" : "mt-24 "}pb-8 pt-14 text-white print:hidden`} style={{ background: s.fonce }}>
       <div className="container flex flex-col gap-10">
         <div className="flex flex-col justify-between gap-10 lg:flex-row">
           <div className="flex max-w-sm flex-col gap-4">
             <span className="w-fit rounded-2xl bg-white px-3 py-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={s.logoHorizontal} alt={s.nom} width={150} height={42} className="h-[38px] w-auto" />
+              <img src={s.logoHorizontal} alt={s.nom} width={150} height={42} className={id === "navilease" ? "h-[48px] w-auto" : "h-[38px] w-auto"} />
             </span>
             <p className="text-sm leading-relaxed text-white/70">{s.nom} : {s.accroche.toLowerCase()}. Un service de la plateforme Navigoal, avec le même compte.</p>
             <Link href="/" className="flex w-fit items-center gap-1.5 rounded-xl bg-white/10 px-3 py-2 text-sm font-bold hover:bg-white/15"><ArrowLeft size={16} />Retour sur Navigoal</Link>
