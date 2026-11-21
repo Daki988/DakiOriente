@@ -346,7 +346,7 @@ note("cache", "/api/session : no-store", /no-store/.test(apiS.headers.get("cdn-c
 const pub = await fetch(BASE + "/etablissements/", { headers: { cookie: amina.cookie } });
 const pubHtml = await pub.text();
 note("cache", "page publique en cache : aucune donnée personnelle dans le HTML", !/amina|Amina Demo|amina\.demo/i.test(pubHtml), "nom de l'utilisateur connecté présent dans une page mise en cache");
-for (const p of ["/admin/", "/espace/", "/etablissement/"]) {
+for (const p of ["/admin/", "/espace/", "/etablissement/", "/rendez-vous/", "/messages/"]) {
   const r = await fetch(BASE + p, { redirect: "manual" });
   note("accès pages", `${p} sans session : redirection vers la connexion`, [302, 303, 307, 308].includes(r.status) || (r.status === 200 && !/Tableau de bord|Candidatures reçues/.test(await r.text())), `statut ${r.status}`);
 }
