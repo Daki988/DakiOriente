@@ -1090,6 +1090,69 @@ describe("appels audio et vidéo (Daily simulé)", () => {
     } finally { espion.mockRestore(); delete process.env.DAILY_API_KEY; }
   });
 });
+describe("rendez-vous d'appel planifiés", () => {
+  it("l'école planifie, l'élève et son parent sont prévenus, le lien s'ouvre 10 min avant ; déplacer, annuler, agenda, rappels", async () => {
+    const appels = await import("@/server/services/appels");
+    const relais = await import("@/server/services/relais");
+    const [cand] = await db.select().from(schema.applications).where(and(eq(schema.applications.studentId, student.id), eq(schema.applications.establishmentId, "ma-esa-casa"))).limit(1);
+    const fil = await relais.openApplicationThread(adminU, cand.id);
+    const demain = new Date(Date.now() + 26 * 3600e3);
+    await expect(appels.planifierAppel(student, fil.id, { debut: demain.toISOString() })).rejects.toThrow(); // le candidat ne planifie pas
+    await expect(appels.planifierAppel(landlord, fil.id, { debut: demain.toISOString() })).rejects.toThrow(); // pas dans ce fil
+    await expect(appels.planifierAppel(school, fil.id, { debut: new Date(Date.now() + 60e3).toISOString() })).rejects.toThrow(/5 minutes/);
+    const a = await appels.planifierAppel(school, fil.id, { debut: demain.toISOString(), dureeMin: 45, objet: "Entretien d'admission" });
+    expect(a.salle).toBeNull(); // salle créée le jour venu
+    expect((await notif.listNotifications(student.id)).some((n) => n.kind === "appel" && n.link === `/appel/${a.id}/` && /planifié/.test(n.title))).toBe(true);
+    expect((await notif.listNotifications(parent.id)).some((n) => n.link === `/appel/${a.id}/`)).toBe(true);
+    expect((await msg.getConversation(student.id, fil.id)).messages.some(({ m }) => m.body.includes("📅") && m.body.includes(`/appel/${a.id}/`))).toBe(true);
+    expect(await appels.rejoindre(student, a.id)).toMatchObject({ aVenir: true, objet: "Entretien d'admission", dureeMin: 45 });
+    const mesE = await appels.mesRendezVous(student);
+    expect(mesE.find((r) => r.id === a.id)).toMatchObject({ objet: "Entretien d'admission", monRdv: false, annule: false });
+    expect((await appels.mesRendezVous(parent)).some((r) => r.id === a.id)).toBe(true); // parent d'un élève du fil
+    expect((await appels.mesRendezVous(school)).find((r) => r.id === a.id)?.monRdv).toBe(true);
+    expect((await appels.mesRendezVous(landlord)).some((r) => r.id === a.id)).toBe(false);
+    const ics = await appels.agendaIcs(student, a.id, "https://navigoal.net");
+    expect(ics).toMatch(/BEGIN:VEVENT[\s\S]*TRIGGER:-PT15M[\s\S]*END:VCALENDAR/);
+    expect(ics).toContain(`https://navigoal.net/appel/${a.id}/`);
+    await expect(appels.agendaIcs(landlord, a.id, "https://navigoal.net")).rejects.toThrow();
+    // Rappel du jour, une seule fois
+    const r1 = await appels.rappelsDuJour(new Date(demain.getTime() - 3 * 3600e3));
+    expect(r1.rappels).toBeGreaterThanOrEqual(2);
+    expect((await appels.rappelsDuJour(new Date(demain.getTime() - 2 * 3600e3))).rappels).toBe(0);
+    // Déplacer : seul l'organisateur (ou l'équipe)
+    await expect(appels.deplacerAppel(student, a.id, { debut: new Date(Date.now() + 50 * 3600e3).toISOString() })).rejects.toThrow();
+    const m = await appels.deplacerAppel(school, a.id, { debut: new Date(Date.now() + 50 * 3600e3).toISOString(), dureeMin: 30 });
+    expect(m.dureeMin).toBe(30);
+    // Un appel immédiat dans le même fil ne réutilise pas le rendez-vous futur
+    await appels.annulerAppel(school, a.id);
+    expect(await appels.rejoindre(student, a.id)).toMatchObject({ termine: true, annule: true });
+    expect((await appels.mesRendezVous(student)).find((r) => r.id === a.id)?.annule).toBe(true);
+    await expect(appels.annulerAppel(school, a.id)).rejects.toThrow(/annulé/);
+  });
+  it("le jour venu, la salle est créée au premier accès, une seule fois", async () => {
+    const appels = await import("@/server/services/appels");
+    const relais = await import("@/server/services/relais");
+    const [cand] = await db.select().from(schema.applications).where(and(eq(schema.applications.studentId, student.id), eq(schema.applications.establishmentId, "ma-esa-casa"))).limit(1);
+    const fil = await relais.openApplicationThread(adminU, cand.id);
+    const a = await appels.planifierAppel(school, fil.id, { debut: new Date(Date.now() + 6 * 60e3).toISOString(), dureeMin: 30, audioSeul: true });
+    process.env.DAILY_API_KEY = "cle-test";
+    const salles: string[] = [];
+    const vrai = globalThis.fetch;
+    const espion = vi.spyOn(globalThis, "fetch").mockImplementation(async (url, init) => {
+      if (!String(url).startsWith("https://api.daily.co/")) return vrai(url as RequestInfo, init);
+      const corps = JSON.parse(String(init?.body ?? "{}"));
+      if (String(url).endsWith("/rooms")) salles.push(corps.name);
+      return new Response(JSON.stringify(String(url).endsWith("/rooms") ? { name: corps.name, url: `https://navigoal.daily.co/${corps.name}` } : { token: "jeton-test" }), { status: 200 });
+    });
+    try {
+      expect(await appels.rejoindre(student, a.id)).toMatchObject({ termine: false, jeton: "jeton-test", audioSeul: true });
+      await appels.rejoindre(school, a.id);
+      expect(salles).toHaveLength(1);
+      // l'appel immédiat du même fil reste distinct du rendez-vous
+      expect((await appels.lancerAppel(school, fil.id)).id).not.toBe(a.id);
+    } finally { espion.mockRestore(); delete process.env.DAILY_API_KEY; }
+  });
+});
 describe("Navi sur WhatsApp (Meta simulé, faux modèle)", () => {
   it("vérifie le webhook et la signature, répond en texte WhatsApp, reconnaît un compte, garde le fil, ne traite qu'une fois", async () => {
     const crypto = await import("node:crypto");

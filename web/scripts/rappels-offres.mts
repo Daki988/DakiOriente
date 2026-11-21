@@ -9,6 +9,7 @@ import { invitationsAvis } from "../src/server/services/avis-ecoles";
 import { alertesBourses } from "../src/server/services/bourses";
 import { rappelsScolarite } from "../src/server/services/scolarite";
 import { envoyerRappels } from "../src/server/services/rappels-paiement";
+import { rappelsDuJour } from "../src/server/services/appels";
 
 const r = await rappels();
 console.log(`${new Date().toISOString()} · ${r.rappels} rappel(s) d'échéance envoyé(s)`);
@@ -24,4 +25,6 @@ const sc = await rappelsScolarite().catch((err) => { console.error("rappels scol
 console.log(`${new Date().toISOString()} · ${sc.envoyes} rappel(s) d'échéance de scolarité (J-15, J-7, J-1)`);
 const rp = await envoyerRappels().catch((err) => { console.error("rappels de paiement :", err); return { envoyes: 0 }; });
 console.log(`${new Date().toISOString()} · ${rp.envoyes} rappel(s) de paiement programmés par les familles (loyer, scolarité)`);
+const rv = await rappelsDuJour().catch((err) => { console.error("rendez-vous du jour :", err); return { rappels: 0 }; });
+console.log(`${new Date().toISOString()} · ${rv.rappels} rappel(s) de rendez-vous d'appel prévus dans les 24 h`);
 process.exit(0);

@@ -22,6 +22,7 @@ import * as guardians from "../services/guardians";
 import * as docs from "../services/documents";
 import * as apps from "../services/applications";
 import * as appels from "../services/appels";
+import { SITE_URL } from "@/lib/site";
 import * as whatsapp from "../services/whatsapp";
 import * as etab from "../services/establishments";
 import * as pay from "../services/payments";
@@ -338,6 +339,11 @@ route("GET", "/conversations", "Messagerie", "Mes conversations", "user", async 
 route("GET", "/conversations/:id", "Messagerie", "Fil de discussion", "user", async ({ me, params }) => msg.getConversation(me.id, params.id));
 route("GET", "/appels", "Messagerie", "Les appels audio et vidéo sont-ils activés (clé Daily configurée) ?", "user", async () => ({ actif: appels.appelsActifs() }));
 route("POST", "/conversations/:id/appel", "Messagerie", "Lancer un appel vidéo ou audio (audioSeul) dans un fil : école, bailleur, conseiller ou équipe Navigoal", ["etablissement", "bailleur", "conseiller", "admin"], async ({ me, params, body }) => { const b = await body().catch(() => ({})); const a = await appels.lancerAppel(me, params.id, { audioSeul: b?.audioSeul === true }); return json({ id: a.id }, 201); });
+route("POST", "/conversations/:id/appel/planifier", "Rendez-vous", "Planifier un appel (debut ISO, dureeMin 15-90, audioSeul, objet) : lien immédiat, notification des participants et des parents", ["etablissement", "bailleur", "conseiller", "admin"], async ({ me, params, body }) => { const a = await appels.planifierAppel(me, params.id, await body()); return json({ id: a.id, lien: `/appel/${a.id}/`, prevuLe: a.prevuLe }, 201); });
+route("GET", "/moi/rendez-vous-appels", "Rendez-vous", "Mes rendez-vous d'appel planifiés (passes=1 : aussi les 60 derniers jours)", "user", async ({ me, query }) => appels.mesRendezVous(me, { passes: query.get("passes") === "1" }));
+route("PATCH", "/appels/:id", "Rendez-vous", "Déplacer un rendez-vous (organisateur ou équipe)", "user", async ({ me, params, body }) => { const a = await appels.deplacerAppel(me, params.id, await body()); return { id: a.id, prevuLe: a.prevuLe }; });
+route("POST", "/appels/:id/annuler", "Rendez-vous", "Annuler un rendez-vous (organisateur ou équipe)", "user", async ({ me, params }) => { await appels.annulerAppel(me, params.id); return ok; });
+route("GET", "/appels/:id/agenda.ics", "Rendez-vous", "Fichier agenda (.ics) d'un rendez-vous, alerte 15 min avant", "user", async ({ me, params }) => new Response(await appels.agendaIcs(me, params.id, SITE_URL), { headers: { "Content-Type": "text/calendar; charset=utf-8", "Content-Disposition": `attachment; filename="rendez-vous-navigoal.ics"`, "Cache-Control": "no-store" } }));
 route("GET", "/appels/:id", "Messagerie", "Rejoindre un appel : jeton nominatif pour la salle (participants du fil, équipe, parents d'un élève du fil)", "user", async ({ me, params }) => appels.rejoindre(me, params.id));
 route("POST", "/conversations/:id/messages", "Messagerie", "Envoyer un message", "user", async ({ me, params, body }) => json(await msg.sendMessage(me, params.id, String((await body()).texte ?? "")), 201));
 route("POST", "/conversations", "Messagerie", "Contacter un établissement à propos d'une candidature", STUDENT, async ({ me, body }) => {

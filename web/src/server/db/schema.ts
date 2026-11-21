@@ -337,13 +337,18 @@ export const messages = pgTable("messages", {
 export const appels = pgTable("appels", {
   id: id(),
   conversationId: text("conversation_id").notNull().references(() => conversations.id, { onDelete: "cascade" }),
-  salle: text("salle").notNull(), // nom de la salle Daily
-  url: text("url").notNull(), // adresse de la salle Daily
+  salle: text("salle"), // nom de la salle Daily (créée au premier appel à rejoindre pour un rendez-vous planifié)
+  url: text("url"), // adresse de la salle Daily
   audioSeul: boolean("audio_seul").notNull().default(false),
   creePar: text("cree_par").notNull().references(() => users.id, { onDelete: "cascade" }),
   expire: timestamp("expire", { withTimezone: true }).notNull(),
+  // Rendez-vous planifié (novembre 2026) : début, durée et objet ; null = appel immédiat.
+  prevuLe: timestamp("prevu_le", { withTimezone: true }),
+  dureeMin: integer("duree_min"),
+  objet: text("objet"),
+  annuleLe: timestamp("annule_le", { withTimezone: true }),
   createdAt: createdAt(),
-}, (t) => [index("appels_conv_idx").on(t.conversationId)]);
+}, (t) => [index("appels_conv_idx").on(t.conversationId), index("appels_prevu_idx").on(t.prevuLe)]);
 
 // ---------------------------------------------------------------- Offres payantes des établissements
 /** Catalogue modifiable dans le back-office. `effect` : ce que le service active sur la plateforme. */
