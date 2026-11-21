@@ -13,6 +13,7 @@ le métier et la source, sans photo de la personne ; le jeu-concours n'est pas �
 ## Lundi 1er — Reel · lancement
 
 **Visuel** `j01-reel-couverture.png` (photo d'une étudiante, titre « Étudier au Maroc, sans se perdre »).
+**Vidéo prête** `docs/videos/navigoal-reel-lancement-1er-decembre.mp4` (17,6 s, 1080 × 1920, musique incluse ; source `design/videos/lancement.html`).
 **Durée** 15 s, texte à l'écran, musique douce, pas de voix off obligatoire.
 
 **Script**

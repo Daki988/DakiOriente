@@ -11,11 +11,13 @@
 | `navigoal-reel-teaser-1er-decembre.mp4` | Reel d'annonce (Instagram, TikTok, statut WhatsApp) : « Bac 2027. Et après ? », « Tu envisages d'étudier au Maroc ? », rafale de questions (école, reconnaissance, coût, départ), « Bientôt, toutes les réponses au même endroit », logo, « Navigoal arrive le 1er décembre », navigoal.net, « Abonne-toi ». Couverture : `-couverture.jpg` | 19 s |
 | `navigoal-reel-teaser-bientot.mp4` | Même Reel avec « Très bientôt » à la place de la date | 19 s |
 
+| `navigoal-reel-lancement-1er-decembre.mp4` | Reel de lancement du 1er décembre (plan Instagram, j01) : « Tu veux étudier au Maroc ? Tu ne sais pas par où commencer », 103 écoles et leur label officiel (vrai écran), le vrai coût dans ta monnaie (devis en F CFA), 96 métiers, « C'est lancé. Gratuit. Lien en bio. » Écrans capturés sur une base sans données de démonstration (`design/videos/assets/lancement/`) | 17,6 s |
+
 Formats 16:9 (1920 × 1080) et 9:16 (1080 × 1920), 30 images/s, H.264 + AAC. Musique originale générée (aucun droit à payer). Pas de voix off (aucune synthèse vocale disponible) : texte à l'écran, compréhensible sans le son. QR codes suivis : `utm_source=video&utm_campaign=video-demo` / `video-explication`.
 
 À valider avant diffusion : droits des photos fournies (famille, groupe d'étudiants) et de la photo de l'étudiante ; captures prises sur le serveur de test (comptes de démonstration, données fictives).
 
 ## Régénérer
-Sources dans `design/videos/` : captures des écrans (`ecrans*.cjs`, `bureau.cjs`, serveur local lancé), animations (`demo.html`, `explication.py`, `teaser.html` : `?date=0` pour la version sans date), rendu image par image (`rendu.cjs page.html sortie.mp4 30 1920 1080`), musique (`musique.py sortie.wav durée clics tonalité bpm`, numpy), puis `ffmpeg -i video.mp4 -i musique.wav -c:v copy -c:a aac`.
+Sources dans `design/videos/` : captures des écrans (`ecrans*.cjs`, `bureau.cjs`, serveur local lancé), animations (`demo.html`, `explication.py`, `teaser.html` : `?date=0` pour la version sans date, `lancement.html`), rendu image par image (`rendu.cjs page.html sortie.mp4 30 1920 1080`), musique (`musique.py sortie.wav durée clics tonalité bpm`, numpy), puis `ffmpeg -i video.mp4 -i musique.wav -c:v copy -c:a aac`.
 
 Paramètres des pages d'animation : `?v=1` (vertical 1080 × 1920), `?court=1` (version courte de la démo). Ex. : `node rendu.cjs "demo.html?court=1&v=1" sortie.mp4 30 1080 1920`.

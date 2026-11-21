@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Navigoal : Reel de lancement</title>
+<!-- Reel de lancement du 1er décembre (plan Instagram, « Lundi 1er — Reel · lancement ») : 1080 × 1920, ~17,5 s,
+     rendu image par image par rendu.cjs (window.render(t)). Vrais écrans du site, capturés sur une base sans données
+     de démonstration (assets/lancement/). Zone sûre des Reels : rien d'important dans les 220 px du haut,
+     les 380 px du bas et les 150 px de droite. -->
+<style>
+@font-face{font-family:Anton;src:url(../../web/node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2)}
+@font-face{font-family:Jakarta;src:url(../../web/node_modules/@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2);font-weight:200 800}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0b1a4f}
+.s{position:absolute;inset:0;overflow:hidden;opacity:0}
+.anton{font-family:Anton,sans-serif;text-transform:uppercase;line-height:.95}
+.j{font-family:Jakarta,sans-serif}
+.mot{display:inline-block}
+.tel{position:absolute;left:50%;width:640px;height:1290px;margin-left:-320px;border-radius:64px;background:#0b1533;padding:18px;box-shadow:0 60px 120px -30px rgba(0,0,0,.55)}
+.ecran{width:100%;height:100%;border-radius:48px;overflow:hidden;background:#fff;position:relative}
+.ecran img{position:absolute;left:0;top:0;width:100%}
+.encoche{position:absolute;left:50%;top:30px;width:150px;height:34px;margin-left:-75px;border-radius:20px;background:#0b1533;z-index:2}
+.pill{display:inline-flex;align-items:center;gap:12px;border-radius:999px;padding:14px 26px;font:700 34px Jakarta,sans-serif}
+</style></head><body>
+
+<!-- 1 · la question -->
+<div class="s" id="s1" style="background:#1a47f5">
+  <div id="s1rond" style="position:absolute;left:540px;top:1330px;width:960px;height:960px;margin:-480px;border-radius:50%;background:#ffc21f"></div>
+  <img id="s1etu" src="../../web/public/images/etudiante.webp" style="position:absolute;left:70px;bottom:0;width:1000px">
+  <div style="position:absolute;left:90px;right:150px;top:250px">
+    <div class="anton" id="s1a" style="font-size:150px;color:#fff">Tu veux étudier</div>
+    <div class="anton" id="s1b" style="font-size:150px;color:#ffc21f;margin-top:8px">au Maroc&nbsp;?</div>
+    <div class="j" id="s1c" style="font-size:46px;font-weight:700;color:#fff;margin-top:30px">Tu ne sais pas par où commencer.</div>
+  </div>
+</div>
+
+<!-- 2 · les écoles -->
+<div class="s" id="s2" style="background:#0b1a4f">
+  <div style="position:absolute;left:90px;right:150px;top:240px">
+    <div class="anton" id="s2a" style="font-size:150px;color:#fff">103 écoles</div>
+    <div class="anton" id="s2b" style="font-size:96px;color:#ffc21f;margin-top:10px">et leur label officiel.</div>
+    <div id="s2c" style="display:flex;gap:16px;margin-top:30px;flex-wrap:wrap">
+      <span class="pill" style="background:#e8f8ef;color:#0b7a3d">✓ Reconnu par l'État</span><span class="pill" style="background:#eef4ff;color:#1a47f5">Diplômes homologués</span></div>
+  </div>
+  <div class="tel" id="s2tel" style="top:760px"><div class="encoche"></div><div class="ecran"><img id="s2img" src="assets/lancement/ecoles.jpg"></div></div>
+</div>
+
+<!-- 3 · le vrai coût -->
+<div class="s" id="s3" style="background:#ffc21f">
+  <div style="position:absolute;left:90px;right:150px;top:240px">
+    <div class="anton" id="s3a" style="font-size:136px;color:#0b1a4f">Ce que ça coûte</div>
+    <div class="anton" id="s3b" style="font-size:136px;color:#1a47f5;margin-top:6px">vraiment,</div>
+    <div class="j" id="s3c" style="font-size:52px;font-weight:800;color:#0b1a4f;margin-top:22px">dans ta monnaie.</div>
+  </div>
+  <div class="tel" id="s3tel" style="top:820px"><div class="encoche"></div><div class="ecran"><img id="s3img" src="assets/lancement/devis.jpg"></div></div>
+</div>
+
+<!-- 4 · les métiers -->
+<div class="s" id="s4" style="background:#1a47f5">
+  <div style="position:absolute;left:90px;right:150px;top:240px">
+    <div class="anton" id="s4a" style="font-size:150px;color:#fff">96 métiers,</div>
+    <div class="anton" id="s4b" style="font-size:96px;color:#ffc21f;margin-top:10px">et les écoles qui y mènent.</div>
+  </div>
+  <div class="tel" id="s4tel" style="top:700px"><div class="encoche"></div><div class="ecran"><img id="s4img" src="assets/lancement/metiers.jpg"></div></div>
+</div>
+
+<!-- 5 · c'est lancé -->
+<div class="s" id="s5" style="background:#fff">
+  <div id="s5halo" style="position:absolute;left:540px;top:700px;width:10px;height:10px;margin:-5px;border-radius:50%;background:#eef4ff"></div>
+  <img id="s5logo" src="../../web/public/brand/navigoal-logo.png" style="position:absolute;left:50%;top:640px;width:760px;transform:translate(-50%,-50%)">
+  <div class="anton" id="s5a" style="position:absolute;left:0;right:0;top:1000px;text-align:center;font-size:170px;color:#0b1a4f">C'est lancé.</div>
+  <div class="j" id="s5b" style="position:absolute;left:0;right:0;top:1210px;text-align:center;font-size:56px;font-weight:800;color:#1a47f5">Gratuit. Lien en bio.</div>
+  <div class="j" id="s5c" style="position:absolute;left:0;right:0;top:1300px;text-align:center;font-size:42px;font-weight:700;color:#5f6886">navigoal.net</div>
+</div>
+
+<script>
+const T = { s1: [0, 3], s2: [3, 6.8], s3: [6.8, 10.8], s4: [10.8, 14], s5: [14, 17.6] };
+window.DUREE = 17.6;
+const $ = (id) => document.getElementById(id);
+const clamp = (x) => Math.max(0, Math.min(1, x));
+const eo = (x) => 1 - Math.pow(1 - clamp(x), 3);
+const eio = (x) => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const eb = (x) => { x = clamp(x); const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+const p = (t, a, d) => clamp((t - a) / d);
+function mot(el, t, a, dy = 110) { const k = eb(p(t, a, .35)); el.style.opacity = clamp((t - a) / .15); el.style.transform = `translateY(${(1 - k) * dy}px)`; }
+function scene(id, t) { const [a, b] = T[id]; $(id).style.opacity = t >= a && t < b ? 1 : 0; return t - a; }
+// Le téléphone monte, puis l'écran défile (px de l'image de 780 de large, affichée sur 604 px)
+function tel(id, img, u, de, a, dDebut, dDuree) {
+  const k = eo(p(u, 0, .6)); $(id).style.transform = `translateY(${(1 - k) * 900}px)`;
+  const r = 604 / 780; $(img).style.transform = `translateY(${-(de + (a - de) * eio(p(u, dDebut, dDuree))) * r}px)`;
+}
+window.render = (t) => {
+  let u;
+  u = scene("s1", t); $("s1rond").style.transform = `scale(${eo(p(u, 0, .7))})`;
+  $("s1etu").style.transform = `translateY(${(1 - eo(p(u, .1, .8))) * 800}px)`;
+  mot($("s1a"), u, .3); mot($("s1b"), u, .55); mot($("s1c"), u, 1.3, 50);
+  u = scene("s2", t); mot($("s2a"), u, .1); mot($("s2b"), u, .4); mot($("s2c"), u, .8, 50); tel("s2tel", "s2img", u, 0, 2700, 1.1, 2.4);
+  u = scene("s3", t); mot($("s3a"), u, .1); mot($("s3b"), u, .35); mot($("s3c"), u, .7, 50); tel("s3tel", "s3img", u, 0, 2250, 1.0, 1.6);
+  const z = eo(p(u, 2.8, .7)); $("s3tel").style.transform += ` scale(${1 + .12 * z})`; $("s3tel").style.transformOrigin = "50% 20%";
+  u = scene("s4", t); mot($("s4a"), u, .1); mot($("s4b"), u, .4); tel("s4tel", "s4img", u, 0, 2900, .9, 2.2);
+  u = scene("s5", t); $("s5halo").style.transform = `scale(${eo(p(u, 0, .8)) * 220})`;
+  const kl = eb(p(u, .15, .6)); $("s5logo").style.transform = `translate(-50%,-50%) scale(${.6 + .4 * kl})`; $("s5logo").style.opacity = clamp((u - .15) / .25);
+  mot($("s5a"), u, .7, 120); mot($("s5b"), u, 1.15, 50); mot($("s5c"), u, 1.45, 40);
+};
+window.render(0);
+</script>
+</body></html>
