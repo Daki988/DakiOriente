@@ -41,14 +41,21 @@ def ecole_demande():
       <div class="card" style="margin-top:20px;padding:6px 8px"><table><tr><th>Salon</th><th>Statut</th><th>Participants</th></tr>{lignes}</table></div>
       <div class="card" style="margin-top:16px;padding:16px 18px;display:flex;gap:12px;align-items:center">{icon("sparkles", 20, "#a55a00")}<span class="small"><b>Ce qui est inclus :</b> page publique du salon, inscriptions, rappels aux inscrits, invitations par Navi aux élèves ciblés, salle en direct jusqu'à 2 h, bilan de présence.</span></div>
     </div>
-    <div class="card" style="padding:22px 24px">
-      <b style="font-size:19px">Demander un salon</b><p class="small mute" style="margin-top:4px">Service payant · tarif du catalogue des offres. L'équipe Navigoal vous confirme le salon et le règlement.</p>
+    <div class="card" style="padding:18px 22px">
+      <b style="font-size:19px">Demander un salon</b><p class="small mute" style="margin-top:4px">Forfait du salon, plus les fiches contact si vous les souhaitez. L'équipe Navigoal vous confirme le salon et le règlement.</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
         {champ("Titre", "Journée portes ouvertes en ligne", True)}
         {champ("Date", "Jeudi 10 décembre 2026")}{champ("Heure et durée", "17:00 · 1 h 30")}
         {champ("Présentation", "Nos 6 filières, la vie sur le campus, les bourses, puis vos questions.", True)}
         <div style="grid-column:span 2"><div class="label">Public visé <span class="mute" style="font-weight:600">(Navi invite ces élèves)</span></div><div style="display:flex;gap:6px;flex-wrap:wrap">{publics}</div></div>
         {champ("Places", "150")}{champ("Co-présentateurs", "Salma B., Youssef K.")}
+      </div>
+      <div style="margin-top:16px;padding:14px 16px;border-radius:14px;background:#f6f8fe">
+        <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:14px">Fiches contact des participants</b><span class="chip y">optionnel</span></div>
+        <p class="small mute" style="margin-top:4px">Seuls les participants qui acceptent d'être recontactés (et un parent pour un mineur). Chaque critère ajoute 25 %.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:10px">{"".join(f'<span class="small" style="display:flex;gap:8px;align-items:center"><span style="width:16px;height:16px;border-radius:4px;{"background:#1a47f5" if on else "border:1.5px solid #c3c9d8"}"></span>{t}</span>' for t, on in [("Métier ou domaine visé", True), ("Formation qui l'intéresse", True), ("Admission possible", False), ("Budget compatible", False)])}</div>
+        <div style="display:flex;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid #e6eaf3;font-size:14px"><span class="mute">Prix par fiche · 2 critères</span><b>183 MAD <span class="mute" style="font-weight:600">≈ 10 938 F CFA</span></b></div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:14px"><span class="mute">Forfait du salon</span><b>tarif du catalogue</b></div>
       </div>
       <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px"><span class="btn ghost">Annuler</span><span class="btn primary">{icon("send", 16, "#fff")}Envoyer la demande</span></div>
     </div>
@@ -57,7 +64,7 @@ def ecole_demande():
 
 # ---------------------------------------------------------------- 2. Admin : validation
 def admin():
-    lignes = "".join(f"""<tr><td><b>{e}</b><div class="small mute">{t}</div></td><td class="small">{d}</td><td class="small">{p}</td><td><span class="chip {c}">{s}</span></td>
+    lignes = "".join(f"""<tr><td><b>{e}</b><div class="small mute">{t}</div></td><td class="small">{d}</td><td class="small">{p}</td><td class="small">{"183 MAD · 2 critères" if "Bachelor" in t else "117 MAD" if e == "EMSI" else "147 MAD · 1 critère"}</td><td><span class="chip {c}">{s}</span></td>
       <td style="text-align:right">{('<span class="btn primary" style="padding:8px 12px;font-size:13px">' + icon("check", 15, "#fff") + 'Valider</span> <span class="btn ghost" style="padding:8px 12px;font-size:13px;color:#d42a50">Refuser</span>') if s == "À valider" else ''}</td></tr>"""
         for e, t, d, p, s, c in [("ESA Casablanca", "Présenter le Bachelor management", "Mar. 19 janv. · 16:00 · 1 h", "Terminale · Gabon, Cameroun", "À valider", "y"),
                                   ("EMSI", "Devenir ingénieur au Maroc", "Sam. 12 déc. · 15:00 · 1 h 30", "Terminale S · toute l'Afrique", "À valider", "y"),
@@ -66,10 +73,11 @@ def admin():
   {P.menu(P.ADMIN, "Établissements", "Back-office Navigoal")}
   <div style="position:absolute;left:272px;right:32px;top:28px">
     <h1 style="font-size:30px">Salons virtuels</h1><p class="mute" style="margin-top:6px">Une demande validée devient un abonnement « Salon virtuel » (montant et référence du règlement), la page est publiée et Navi peut l'annoncer.</p>
-    <div class="card" style="margin-top:20px;padding:6px 8px"><table><tr><th>École et salon</th><th>Date</th><th>Public visé</th><th>Statut</th><th></th></tr>{lignes}</table></div>
+    <div class="card" style="margin-top:20px;padding:6px 8px"><table><tr><th>École et salon</th><th>Date</th><th>Public visé</th><th>Fiches</th><th>Statut</th><th></th></tr>{lignes}</table></div>
     <div class="card" style="position:absolute;right:0;top:300px;width:470px;padding:22px 24px;border:2px solid #1a47f5">
       <b style="font-size:17px">Valider « Présenter le Bachelor management »</b>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">{champ("Montant (MAD)", "tarif du catalogue")}{champ("Règlement", "Virement · VIR-2026-1204")}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">{champ("Forfait du salon (MAD)", "tarif du catalogue")}{champ("Règlement", "Virement · VIR-2026-1204")}</div>
+      <p class="small mute" style="margin-top:10px">Fiches contact : 183 MAD la fiche (2 critères), facturées après le salon selon le nombre acheté.</p>
       <label class="small" style="display:flex;gap:8px;margin-top:14px;align-items:center"><span style="width:18px;height:18px;border-radius:5px;background:#1a47f5"></span>Navi peut annoncer ce salon aux élèves ciblés</label>
       <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:16px"><span class="btn ghost">Annuler</span><span class="btn primary">Valider et publier</span></div></div>
   </div></div>"""
@@ -87,6 +95,7 @@ def public():
       <div style="display:flex;gap:22px;margin-top:20px;font-size:14px">{"".join(f'<span style="display:flex;gap:8px;align-items:center">{icon(i, 17, "#ffc21f")}{t}</span>' for i, t in [("calendar", "Jeudi 10 décembre 2026"), ("clock", "17:00 – 18:30 (votre heure)"), ("users", "48 inscrits · 102 places")])}</div></div>
     <div style="background:#fff;color:#0b1533;border-radius:20px;padding:22px">
       <b style="font-size:18px">Réserve ta place</b><p class="small mute" style="margin-top:4px">Avec ton compte Navigoal (gratuit). Tu reçois le lien, un rappel le matin et 15 min avant.</p>
+      <label class="small" style="display:flex;gap:9px;margin-top:14px;align-items:flex-start;line-height:1.45"><span style="width:18px;height:18px;flex-shrink:0;border-radius:5px;border:1.5px solid #c3c9d8;margin-top:1px"></span><span>J'accepte que <b>ESA Casablanca</b> reçoive mes coordonnées pour me recontacter <span class="mute">(facultatif ; l'accord d'un parent est demandé si tu as moins de 18 ans)</span></span></label>
       <span class="btn sun" style="width:100%;margin-top:14px;padding:13px">{icon("ticket", 17, "#0b1533")}Je m'inscris</span>
       <span class="btn ghost" style="width:100%;margin-top:8px">{icon("calendar-plus", 16, "#1a47f5")}Ajouter à mon agenda</span>
       <p class="small mute" style="margin-top:12px">Micro et caméra coupés pour les participants · questions par écrit · aucun enregistrement.</p></div>
@@ -109,6 +118,7 @@ def navi():
       <span class="chip b">{icon("radio", 12, "#1a47f5")}Salon virtuel · gratuit</span>
       <div style="display:flex;gap:10px;align-items:center;margin-top:10px"><img src="{LOGO['esa']}" style="width:40px;height:40px;border-radius:10px;border:1px solid #e6eaf3;padding:3px"><b style="font-size:15px">Journée portes ouvertes en ligne</b></div>
       <p class="small mute" style="margin-top:6px">ESA Casablanca · jeu. 10 déc. · 17:00 · 1 h 30</p>
+      <label class="small" style="display:flex;gap:8px;margin-top:10px;align-items:flex-start"><span style="width:16px;height:16px;flex-shrink:0;border-radius:4px;border:1.5px solid #c3c9d8;margin-top:1px"></span>L'école peut me recontacter (facultatif)</label>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px"><span class="btn primary" style="font-size:13px">{icon("check", 15, "#fff")}Confirmer</span><span class="btn ghost" style="font-size:13px">Voir le salon</span></div>
       <p class="small mute" style="margin-top:8px">Tu seras inscrit·e seulement si tu confirmes.</p></div>
     <div style="max-width:300px;background:#fff;border:1px solid #e6eaf3;border-radius:16px;padding:10px 13px;font-size:14px">Tu veux que je t'en trouve d'autres, en ingénierie ou en santé ?</div>
@@ -145,14 +155,32 @@ def bilan():
     <p class="small mute">Salons virtuels › Les métiers de la finance</p><h1 style="font-size:30px;margin-top:6px">Bilan du salon du 20 novembre</h1>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:18px">{stats}</div>
     <div class="card" style="margin-top:18px;padding:6px 8px"><table><tr><th>Participant</th><th>Profil</th><th>Temps de présence</th><th>Suite</th></tr>{lignes}</table></div>
+    <div class="card" style="margin-top:16px;padding:16px 18px;display:flex;align-items:center;gap:18px;border:2px solid #ffc21f">{icon("contact", 26, "#a55a00")}
+      <span style="flex:1"><b>Fiches contact</b><span class="small mute" style="display:block">34 participants ont accepté d'être recontactés · 21 correspondent à vos 2 critères (métier visé, formation qui l'intéresse)</span></span>
+      <span style="text-align:right"><b style="font-size:18px">21 × 183 MAD = 3 843 MAD</b><span class="small mute" style="display:block">≈ 229 700 F CFA</span></span><span class="btn sun">Acheter les 21 fiches</span></div>
     <div style="display:flex;gap:10px;margin-top:16px"><span class="btn primary">{icon("send", 16, "#fff")}Écrire aux participants</span><span class="btn ghost">{icon("send", 16, "#1a47f5")}Écrire aux absents (replanifier)</span><span class="btn ghost">{icon("download", 16, "#1a47f5")}Exporter (CSV)</span></div>
-    <p class="small mute" style="margin-top:10px">Les messages passent par la messagerie Navigoal ; les coordonnées des élèves ne sont pas communiquées.</p>
+    <p class="small mute" style="margin-top:10px">Les messages passent par la messagerie Navigoal. Les coordonnées ne sont transmises que dans les fiches achetées, et seulement pour les élèves qui l'ont accepté.</p>
+  </div></div>"""
+
+
+def parent():
+    return f"""<div class="frame" style="width:390px;height:844px;background:#f6f8fe"><div class="titre-cadre">7 · Parent : accord pour un élève mineur</div>
+  <div style="height:60px;background:#fff;border-bottom:1px solid #e6eaf3;display:flex;align-items:center;padding:0 16px"><img src="{WORDMARK}" style="height:22px"></div>
+  <div style="padding:16px">
+    <div class="card" style="padding:16px">
+      <span class="chip y">Accord demandé</span>
+      <b style="display:block;font-size:17px;margin-top:10px">Amina souhaite que l'ESA Casablanca puisse la recontacter</b>
+      <p class="small mute" style="margin-top:8px;line-height:1.5">Elle s'est inscrite au salon « Journée portes ouvertes en ligne » du 10 décembre. Si vous acceptez, l'école recevra : prénom et nom, pays, niveau et série, domaines qui l'intéressent, e-mail et téléphone.</p>
+      <p class="small mute" style="margin-top:8px">Vous pouvez retirer cet accord à tout moment dans « Mes enfants ».</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px"><span class="btn primary" style="font-size:13px">J'accepte</span><span class="btn ghost" style="font-size:13px">Je refuse</span></div>
+    </div>
+    <p class="small mute" style="margin-top:12px">Sans votre accord, Amina participe au salon normalement ; ses coordonnées ne sont pas transmises.</p>
   </div></div>"""
 
 
 def main():
     out = os.path.join(P.OUT, "salons.html")
-    corps = "".join([ecole_demande(), admin(), public(), navi(), direct(), bilan()])
+    corps = "".join([ecole_demande(), admin(), public(), navi(), direct(), bilan(), parent()])
     open(out, "w", encoding="utf-8").write(f'<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Salons virtuels</title><style>{CSS}</style></head><body>{corps}</body></html>')
     print(out)
 
