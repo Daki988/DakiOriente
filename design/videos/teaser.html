@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Navigoal : teaser (Reel)</title>
+<!-- Reel d'annonce « Navigoal arrive » : 1080 × 1920, ~19 s, rendu image par image par rendu.cjs (window.render(t)).
+     ?date=0 : « Très bientôt » au lieu de la date du lancement de la campagne (1er décembre 2026).
+     Zone sûre des Reels respectée : rien d'important dans les 220 px du haut, les 380 px du bas et les 150 px de droite. -->
+<style>
+@font-face{font-family:Anton;src:url(../../web/node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2)}
+@font-face{font-family:Jakarta;src:url(../../web/node_modules/@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2);font-weight:200 800}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0b1a4f}
+.s{position:absolute;inset:0;overflow:hidden;opacity:0}
+.anton{font-family:Anton,sans-serif;text-transform:uppercase;line-height:.92;letter-spacing:.005em}
+.j{font-family:Jakarta,sans-serif}
+.ph{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;will-change:transform}
+.voile{position:absolute;inset:0}
+.mot{display:inline-block;will-change:transform,opacity}
+</style></head><body>
+
+<!-- 1 · accroche -->
+<div class="s" id="s1" style="background:#0b1a4f">
+  <div style="position:absolute;left:90px;right:150px;top:640px">
+    <div class="anton" style="font-size:190px;color:#fff"><span class="mot" id="s1a">Bac</span> <span class="mot" id="s1b">2027.</span></div>
+    <div class="anton" style="font-size:190px;color:#ffc21f;margin-top:20px;white-space:nowrap"><span class="mot" id="s1c">Et</span> <span class="mot" id="s1d">après&nbsp;?</span></div>
+  </div>
+  <div id="s1barre" style="position:absolute;left:90px;top:1180px;height:14px;width:0;background:#ffc21f;border-radius:7px"></div>
+</div>
+
+<!-- 2 · le rêve -->
+<div class="s" id="s2">
+  <img class="ph" id="s2ph" src="../../assets/photos/rollup/maroc-hassan2.jpg">
+  <div class="voile" style="background:linear-gradient(180deg,rgba(11,26,79,.15) 30%,rgba(11,26,79,.92) 78%)"></div>
+  <div style="position:absolute;left:90px;right:150px;bottom:470px">
+    <div class="j" id="s2pre" style="font-size:46px;font-weight:700;color:#ffc21f">Tu rêves d'étudier</div>
+    <div class="anton" id="s2t" style="font-size:230px;color:#fff;margin-top:10px">au Maroc&nbsp;?</div>
+  </div>
+</div>
+
+<!-- 3 · les questions -->
+<div class="s" id="q1"><img class="ph" id="q1ph" src="../../assets/photos/rollup/ecole.jpg"><div class="voile" style="background:rgba(11,26,79,.55)"></div>
+  <div class="anton q" style="position:absolute;left:90px;right:150px;top:760px;font-size:200px;color:#fff">Quelle<br>école&nbsp;?</div></div>
+<div class="s" id="q2" style="background:#ffc21f">
+  <div class="anton q" style="position:absolute;left:90px;right:150px;top:700px;font-size:190px;color:#0b1a4f">Reconnue<br>par l'État&nbsp;?</div></div>
+<div class="s" id="q3" style="background:#1a47f5">
+  <div class="anton q" style="position:absolute;left:90px;right:150px;top:620px;font-size:190px;color:#fff">Combien<br>ça coûte<br><span style="color:#ffc21f">vraiment&nbsp;?</span></div></div>
+<div class="s" id="q4"><img class="ph" id="q4ph" src="../../assets/photos/navitravel/hublot.jpg"><div class="voile" style="background:rgba(11,26,79,.45)"></div>
+  <div class="anton q" style="position:absolute;left:90px;right:150px;top:760px;font-size:200px;color:#fff">Comment<br>partir&nbsp;?</div></div>
+
+<!-- 4 · la promesse -->
+<div class="s" id="s4" style="background:#1a47f5">
+  <div id="s4rond" style="position:absolute;left:540px;top:1180px;width:900px;height:900px;margin:-450px;border-radius:50%;background:#ffc21f"></div>
+  <img id="s4etu" src="../../web/public/images/etudiante.webp" style="position:absolute;left:90px;bottom:0;width:980px">
+  <div style="position:absolute;left:90px;right:150px;top:250px">
+    <div class="anton" id="s4a" style="font-size:150px;color:#fff">Bientôt,</div>
+    <div class="anton" id="s4b" style="font-size:112px;color:#fff;margin-top:12px">toutes les réponses</div>
+    <div class="anton" id="s4c" style="font-size:112px;color:#ffc21f;margin-top:6px">au même endroit.</div>
+  </div>
+</div>
+
+<!-- 5 · le logo -->
+<div class="s" id="s5" style="background:#fff">
+  <div id="s5halo" style="position:absolute;left:540px;top:860px;width:10px;height:10px;margin:-5px;border-radius:50%;background:#eef4ff"></div>
+  <img id="s5logo" src="../../web/public/brand/navigoal-logo.png" style="position:absolute;left:50%;top:780px;width:820px;transform:translate(-50%,-50%)">
+  <div class="j" id="s5t" style="position:absolute;left:0;right:0;top:1235px;text-align:center;font-size:66px;font-weight:800;color:#0b1a4f">Trouve <span style="color:#1a47f5">ta voie.</span></div>
+  <div class="j" id="s5s" style="position:absolute;left:120px;right:120px;top:1350px;text-align:center;font-size:36px;font-weight:600;color:#5f6886;line-height:1.4">Écoles reconnues, vrai coût, candidature, logement : ton orientation au Maroc, de A à Z.</div>
+</div>
+
+<!-- 6 · la date -->
+<div class="s" id="s6" style="background:#0b1a4f">
+  <div class="j" id="s6pre" style="position:absolute;left:90px;top:560px;font-size:52px;font-weight:800;color:#ffc21f;letter-spacing:.12em;text-transform:uppercase">Navigoal arrive</div>
+  <div class="anton" id="s6date" style="position:absolute;left:90px;right:150px;top:650px;font-size:250px;color:#fff"></div>
+  <div class="j" id="s6url" style="position:absolute;left:90px;top:1230px;font-size:64px;font-weight:800;color:#fff">navigoal.net</div>
+  <div class="j" id="s6abo" style="position:absolute;left:90px;top:1330px;display:flex;gap:18px;align-items:center;font-size:40px;font-weight:700;color:#0b1a4f;background:#ffc21f;border-radius:999px;padding:22px 36px">
+    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#0b1a4f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/><path d="M3.26 15.33A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.67C19.41 13.96 18 12.5 18 8A6 6 0 0 0 6 8c0 4.5-1.41 5.96-2.74 7.33"/></svg>Abonne-toi pour ne rien rater</div>
+  <div class="j" style="position:absolute;left:90px;right:150px;bottom:150px;font-size:19px;color:#8f9bc2;line-height:1.45">Photos : Hassan II, OussamaHamama (CC BY-SA 4.0) · Al Akhawayn, Anass Sedrati (CC BY-SA 4.0) · Unsplash</div>
+</div>
+
+<script>
+const AVEC_DATE = new URLSearchParams(location.search).get("date") !== "0";
+document.getElementById("s6date").innerHTML = AVEC_DATE ? "Le 1<sup style='font-size:.45em;vertical-align:.95em'>er</sup><br>décembre" : "Très<br>bientôt";
+// Découpage (secondes)
+const T = { s1: [0, 2.7], s2: [2.7, 5.5], q1: [5.5, 6.5], q2: [6.5, 7.5], q3: [7.5, 8.6], q4: [8.6, 9.7], s4: [9.7, 13.1], s5: [13.1, 16], s6: [16, 19.2] };
+window.DUREE = 19.2;
+const $ = (id) => document.getElementById(id);
+const clamp = (x) => Math.max(0, Math.min(1, x));
+const eo = (x) => 1 - Math.pow(1 - clamp(x), 3);           // ease-out
+const eb = (x) => { x = clamp(x); const c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); }; // léger rebond
+const p = (t, a, d) => clamp((t - a) / d);
+function mot(el, t, a, dy = 120) { const k = eb(p(t, a, .35)); el.style.opacity = clamp((t - a) / .15); el.style.transform = `translateY(${(1 - k) * dy}px)`; }
+function scene(id, t) {
+  const [a, b] = T[id]; const on = t >= a && t < b;
+  $(id).style.opacity = on ? 1 : 0;
+  return t - a;
+}
+window.render = (t) => {
+  let u;
+  // 1
+  u = scene("s1", t); mot($("s1a"), u, .1); mot($("s1b"), u, .35); mot($("s1c"), u, 1.05); mot($("s1d"), u, 1.3);
+  $("s1barre").style.width = `${eo(p(u, 1.6, .7)) * 520}px`;
+  // 2 : zoom lent sur la photo, texte qui monte
+  u = scene("s2", t); $("s2ph").style.transform = `scale(${1 + u * .035})`;
+  mot($("s2pre"), u, .25, 60); mot($("s2t"), u, .55, 140);
+  // 3 : coupes rapides, chaque question frappe
+  for (const id of ["q1", "q2", "q3", "q4"]) {
+    u = scene(id, t); const q = $(id).querySelector(".q"); const k = eo(p(u, 0, .22));
+    q.style.transform = `scale(${1.25 - .25 * k})`; q.style.transformOrigin = "left center"; q.style.opacity = clamp(u / .08);
+    const ph = $(id).querySelector(".ph"); if (ph) ph.style.transform = `scale(${1.08 - u * .04})`;
+  }
+  // 4 : cercle qui s'ouvre, étudiante qui monte, texte
+  u = scene("s4", t); $("s4rond").style.transform = `scale(${eo(p(u, 0, .7))})`;
+  $("s4etu").style.transform = `translateY(${(1 - eo(p(u, .15, .8))) * 700}px)`;
+  mot($("s4a"), u, .55); mot($("s4b"), u, .85); mot($("s4c"), u, 1.15);
+  // 5 : halo, logo qui s'installe, signature
+  u = scene("s5", t); $("s5halo").style.transform = `scale(${eo(p(u, 0, .8)) * 200})`;
+  const kl = eb(p(u, .2, .6)); $("s5logo").style.transform = `translate(-50%,-50%) scale(${.6 + .4 * kl})`; $("s5logo").style.opacity = clamp((u - .2) / .25);
+  mot($("s5t"), u, .9, 60); mot($("s5s"), u, 1.3, 40);
+  // 6 : la date
+  u = scene("s6", t); mot($("s6pre"), u, .1, 50); mot($("s6date"), u, .35, 160); mot($("s6url"), u, 1.0, 50); mot($("s6abo"), u, 1.35, 50);
+  $("s6abo").style.transform += ` scale(${1 + .03 * Math.sin(Math.max(0, u - 1.8) * 6)})`;
+};
+window.render(0);
+</script>
+</body></html>
