@@ -6,12 +6,16 @@ import { Avatar, Loading, since } from "@/components/app/kit";
 import { api } from "@/lib/api";
 import { useApi } from "@/hooks/useApi";
 import { useUser } from "@/components/app/Session";
+import { CarteRdv, PlanifierRdv } from "@/components/shared/RendezVous";
 
 export type Thread = { conversation: { id: string; subject: string; contextKind: string | null; contextId: string | null }; masked: boolean; messages: { m: { id: string; body: string; masked: boolean; createdAt: string; authorId: string; onBehalfOf?: string | null; internal?: boolean }; a: { id: string; firstName: string; lastName: string; role: string } }[] };
 
 // Lien d'appel posté dans le fil (« /appel/<id>/ ») : affiché comme un bouton « Rejoindre l'appel ».
 const LIEN_APPEL = /(\/appel\/[0-9a-f-]{36}\/)/;
 export function CorpsMessage({ body }: { body: string }) {
+  // Rendez-vous planifié (« 📅 … /appel/<id>/ ») : carte avec la date, le rappel, l'agenda et « Rejoindre ».
+  const rdv = body.startsWith("📅") ? body.match(/\/appel\/([0-9a-f-]{36})\//) : null;
+  if (rdv) return <>{body.startsWith("📅 Rendez-vous déplacé") && <span className="block font-semibold">Rendez-vous déplacé</span>}<CarteRdv id={rdv[1]} /></>;
   const morceaux = body.split(LIEN_APPEL);
   if (morceaux.length === 1) return <>{body}</>;
   return <>{morceaux.map((x, i) => LIEN_APPEL.test(x)
@@ -34,6 +38,7 @@ export function LancerAppel({ conversationId, apres }: { conversationId: string;
     <div className="flex flex-wrap items-center gap-2">
       <button type="button" disabled={busy} onClick={() => lancer(false)} className="inline-flex min-h-[40px] items-center gap-1.5 rounded-xl bg-[#0f8a46] px-3 text-[13px] font-bold text-white disabled:opacity-60"><Video size={16} />Appel vidéo</button>
       <button type="button" disabled={busy} onClick={() => lancer(true)} className="inline-flex min-h-[40px] items-center gap-1.5 rounded-xl border border-[#bfe9cf] bg-white px-3 text-[13px] font-bold text-[#0b7a3d] disabled:opacity-60"><Phone size={15} />Audio seul</button>
+      <PlanifierRdv conversationId={conversationId} apres={apres} />
       {err && <span className="w-full text-xs font-semibold text-[#b8213f]">{err}</span>}
     </div>
   );

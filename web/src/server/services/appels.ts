@@ -260,3 +260,15 @@ export async function rappelsDuJour(maintenant = new Date()) {
   }
   return { rappels: n };
 }
+
+/** Description d'un rendez-vous pour sa carte dans le fil (sans jeton ni création de salle). */
+export async function infosRendezVous(user: User, id: string) {
+  const [a] = await db.select().from(schema.appels).where(eq(schema.appels.id, id));
+  if (!a || !(await peutRejoindre(user, a.conversationId))) throw notFound("Appel");
+  const [c] = await db.select({ sujet: schema.conversations.subject }).from(schema.conversations).where(eq(schema.conversations.id, a.conversationId));
+  return {
+    id: a.id, conversationId: a.conversationId, sujet: c?.sujet ?? "", objet: a.objet, prevuLe: a.prevuLe, dureeMin: a.dureeMin, audioSeul: a.audioSeul,
+    annule: !!a.annuleLe, termine: a.expire <= new Date(), ouvreLe: a.prevuLe ? new Date(a.prevuLe.getTime() - OUVERTURE_MIN * 60e3) : null,
+    monRdv: a.creePar === user.id || user.role === "admin",
+  };
+}

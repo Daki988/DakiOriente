@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "@/components/ui/Link";
 import { Loading } from "@/components/app/kit";
 import { api } from "@/lib/api";
+import { ProchainRdv } from "./RendezVous";
 
 // Raison donnée par Daily, traduite quand on la reconnaît (le détail d'origine reste affiché pour le dépannage).
 function expliquer(brut: string) {
@@ -19,7 +20,7 @@ function expliquer(brut: string) {
   return "L'appel n'a pas pu s'ouvrir. Vérifie ta connexion, puis réessaie.";
 }
 
-type Infos = { id: string; conversationId: string; sujet: string; audioSeul: boolean; expire: string } & ({ termine: true } | { termine: false; url: string; jeton: string });
+type Infos = { id: string; conversationId: string; sujet: string; objet?: string | null; audioSeul: boolean; expire: string; prevuLe?: string | null; dureeMin?: number | null } & ({ termine: true; annule?: boolean } | { termine: false; aVenir: true } | { termine: false; aVenir?: undefined; url: string; jeton: string });
 
 export function Appel({ id }: { id: string }) {
   const [infos, setInfos] = useState<Infos | null>(null);
@@ -29,10 +30,17 @@ export function Appel({ id }: { id: string }) {
   const [essai, setEssai] = useState(0);
   const zone = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { api<Infos>(`/appels/${id}`).then(setInfos).catch((e) => setErreur(e instanceof Error ? e.message : "Appel introuvable.")); }, [id]);
+  useEffect(() => { api<Infos>(`/appels/${id}`).then(setInfos).catch((e) => setErreur(e instanceof Error ? e.message : "Appel introuvable.")); }, [id, essai]);
+  // Rendez-vous pas encore ouvert : nouvelle demande quand le lien s'ouvre (10 min avant), puis toutes les 30 s.
+  useEffect(() => {
+    if (!infos || infos.termine || !("aVenir" in infos) || !infos.aVenir || !infos.prevuLe) return;
+    const ouvre = new Date(infos.prevuLe).getTime() - 10 * 60e3 - Date.now();
+    const t = setTimeout(() => setEssai((n) => n + 1), Math.min(Math.max(ouvre + 1000, 30000), 2 ** 31 - 1));
+    return () => clearTimeout(t);
+  }, [infos]);
 
   useEffect(() => {
-    if (!infos || infos.termine || quitte || erreur || !zone.current) return;
+    if (!infos || infos.termine || infos.aVenir || quitte || erreur || !zone.current) return;
     let appel: { destroy: () => Promise<void> } | null = null;
     let annule = false;
     let raison = "";
@@ -44,16 +52,23 @@ export function Appel({ id }: { id: string }) {
       appel = frame;
       frame.on("left-meeting", () => { setQuitte(true); void frame.destroy(); });
       frame.on("error", (e) => { raison = e?.errorMsg ?? (e?.error ? JSON.stringify(e.error) : "erreur inconnue"); echec(raison); });
+      if (!("url" in infos)) return;
       await frame.join({ url: infos.url, token: infos.jeton });
     })().catch((e) => echec(raison || (e instanceof Error ? `${e.name} : ${e.message}` : String(e))));
     return () => { annule = true; void appel?.destroy(); };
   }, [infos, quitte, essai, erreur]);
 
   const retour = infos ? `/messages/${infos.conversationId}/` : "/messages/";
+  if (infos && !infos.termine && infos.aVenir && infos.prevuLe) return (
+    <div className="mx-auto flex max-w-md flex-col gap-4 px-4 py-12">
+      <ProchainRdv r={{ id: infos.id, prevuLe: infos.prevuLe, dureeMin: infos.dureeMin ?? 30, audioSeul: infos.audioSeul, objet: infos.objet ?? null, sujet: infos.sujet }} />
+      <Link href={retour} className="btn-ghost justify-center"><ArrowLeft size={16} />Retour à la conversation</Link>
+    </div>
+  );
   if (erreur || quitte || infos?.termine) return (
     <div className="mx-auto flex max-w-md flex-col items-center gap-4 py-16 text-center">
       <span className="grid h-14 w-14 place-items-center rounded-full bg-[#eef1f8] text-ink-soft">{quitte || infos?.termine ? <PhoneOff size={24} /> : <Video size={24} />}</span>
-      <h1 className="text-xl font-extrabold">{erreur ? "Appel indisponible" : quitte ? "Tu as quitté l'appel" : "Cet appel est terminé"}</h1>
+      <h1 className="text-xl font-extrabold">{erreur ? "Appel indisponible" : quitte ? "Tu as quitté l'appel" : infos?.termine && infos.annule ? "Ce rendez-vous a été annulé" : "Cet appel est terminé"}</h1>
       <p className="text-sm text-ink-soft">{erreur ?? (quitte ? "Tu peux le rejoindre à nouveau tant qu'il est ouvert." : "Demande un nouvel appel dans la messagerie si besoin.")}</p>
       {detail && <p className="break-all text-[11px] text-ink-mute">Détail technique : {detail}</p>}
       <div className="flex flex-wrap justify-center gap-2">

@@ -309,6 +309,22 @@ for (const p of ["/connexion/?suite=https://evil.example.com", "/connexion/?suit
   if (filSansBailleur) await controle("appels", "un bailleur étranger au fil ne lance pas d'appel dedans", () => bailleur.post(`/conversations/${filSansBailleur}/appel`, {}));
   await controle("appels", "appel inconnu : rien à rejoindre", () => amina.get("/appels/00000000-0000-4000-8000-000000000000"));
   await controle("appels", "appel : identifiant piégé refusé", () => amina.get("/appels/%27%20or%201%3D1"));
+  // Rendez-vous d'appel planifiés : seul l'organisateur déplace ou annule ; un compte étranger au fil ne voit rien.
+  const filEcole = Array.isArray(fils) ? fils.find((f) => f.participants?.some((p) => p.role === "etablissement"))?.id ?? fil : fil;
+  const debut = new Date(Date.now() + 3 * 86400e3).toISOString();
+  await controle("rendez-vous", "un élève ne planifie pas", () => amina.post(`/conversations/${filEcole ?? "x"}/appel/planifier`, { debut }));
+  if (filSansBailleur) await controle("rendez-vous", "un bailleur étranger au fil ne planifie pas dedans", () => bailleur.post(`/conversations/${filSansBailleur}/appel/planifier`, { debut }));
+  await controle("rendez-vous", "date piégée refusée", () => ecole.post(`/conversations/${filEcole ?? "x"}/appel/planifier`, { debut: "<script>alert(1)</script>" }), [400, 403, 404]);
+  const rdv = filEcole ? (await ecole.post(`/conversations/${filEcole}/appel/planifier`, { debut, dureeMin: 30, objet: `Audit ${RUN}` })).data : null;
+  if (rdv?.id) {
+    await controle("rendez-vous", "l'invité ne déplace pas le rendez-vous", () => amina.patch(`/appels/${rdv.id}`, { debut }));
+    await controle("rendez-vous", "l'invité n'annule pas le rendez-vous", () => amina.post(`/appels/${rdv.id}/annuler`, {}));
+    await controle("rendez-vous", "un compte étranger ne lit pas le rendez-vous", () => bailleur.get(`/appels/${rdv.id}/infos`));
+    await controle("rendez-vous", "un compte étranger ne télécharge pas l'agenda", () => bailleur.get(`/appels/${rdv.id}/agenda.ics`));
+    await controle("rendez-vous", "agenda d'un compte étranger : rendez-vous absent", () => bailleur.get("/moi/rendez-vous-appels"), [200], (r) => !JSON.stringify(r.data).includes(rdv.id) || "rendez-vous d'un autre fil visible");
+    await controle("rendez-vous", "l'invité voit le rendez-vous dans son agenda", () => amina.get("/moi/rendez-vous-appels"), [200], (r) => JSON.stringify(r.data).includes(rdv.id) || "rendez-vous absent de l'agenda de l'élève");
+    await ecole.post(`/appels/${rdv.id}/annuler`, {});
+  } else note("rendez-vous", "rendez-vous de référence", false, JSON.stringify(rdv).slice(0, 200));
   await controle("relais", "un élève n'ouvre pas d'échange « équipe » avec un autre compte", () => amina.post(`/admin/utilisateurs/${meEcole?.user?.id ?? "x"}/echange`, {}));
   await controle("relais", "une école n'ouvre pas d'échange « équipe »", () => ecole.post(`/admin/utilisateurs/x/echange`, {}));
   await controle("navi", "relecture de lettre réservée à l'élève (parent refusé)", () => parent.post("/navi/relire-motivation", { texte: "x" }), [401, 403, 503]);
