@@ -22,15 +22,15 @@ le métier et la source, sans photo de la personne ; le jeu-concours n'est pas �
 |---|---|---|
 | 0–2 s | Photo d'ouverture | « Tu veux étudier au Maroc. Tu ne sais pas par où commencer. » |
 | 2–6 s | Défilé de 4 fiches d'écoles | « 103 écoles privées. Leur label officiel. » |
-| 6–10 s | Zoom sur un devis | « Ce que ça coûte vraiment, dans ta monnaie. » |
+| 6–10 s | Page des bourses | « Des bourses jusqu'à 100 %. 13 écoles l'annoncent sur leur site officiel. » (pas de montant total : il ferait fuir) |
 | 10–13 s | Écran des métiers | « 96 métiers, et les écoles qui y mènent. » |
 | 13–15 s | Logo + lien | « Gratuit. Lien en bio. » |
 
 **Légende**
 
 > On a passé six mois à rassembler ce que personne ne publie au même endroit : les 103 écoles privées marocaines
-> dont l'État reconnaît les diplômes, leur label exact, leurs frais quand elles les publient, et le coût total d'une
-> année — logement et voyages compris — converti dans ta monnaie.
+> dont l'État reconnaît les diplômes, leur label exact, les bourses qu'elles
+> annoncent (jusqu'à 100 % dans 13 d'entre elles) et un budget clair, dans ta monnaie.
 >
 > Pas de frais de dossier. Pas de commission. Tu candidates directement.
 >

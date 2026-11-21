@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><title>Navigoal : Reel de lancement</title>
 <!-- Reel de lancement du 1er décembre (plan Instagram, « Lundi 1er — Reel · lancement ») : 1080 × 1920, ~17,5 s,
-     rendu image par image par rendu.cjs (window.render(t)). Vrais écrans du site, capturés sur une base sans données
+     rendu image par image par rendu.cjs (window.render(t)). Vrais écrans du site (écoles, bourses, métiers), capturés sur une base sans données
      de démonstration (assets/lancement/). Zone sûre des Reels : rien d'important dans les 220 px du haut,
      les 380 px du bas et les 150 px de droite. -->
 <style>
@@ -42,14 +42,14 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#0b1a4f}
   <div class="tel" id="s2tel" style="top:760px"><div class="encoche"></div><div class="ecran"><img id="s2img" src="assets/lancement/ecoles.jpg"></div></div>
 </div>
 
-<!-- 3 · le vrai coût -->
+<!-- 3 · les bourses (pas de montant total à l'écran : il ferait fuir avant d'avoir vu le reste) -->
 <div class="s" id="s3" style="background:#ffc21f">
   <div style="position:absolute;left:90px;right:150px;top:240px">
-    <div class="anton" id="s3a" style="font-size:136px;color:#0b1a4f">Ce que ça coûte</div>
-    <div class="anton" id="s3b" style="font-size:136px;color:#1a47f5;margin-top:6px">vraiment,</div>
-    <div class="j" id="s3c" style="font-size:52px;font-weight:800;color:#0b1a4f;margin-top:22px">dans ta monnaie.</div>
+    <div class="anton" id="s3a" style="font-size:150px;color:#0b1a4f">Des bourses</div>
+    <div class="anton" id="s3b" style="font-size:150px;color:#1a47f5;margin-top:6px">jusqu'à 100&nbsp;%</div>
+    <div class="j" id="s3c" style="font-size:44px;font-weight:800;color:#0b1a4f;margin-top:22px;line-height:1.3">13 écoles l'annoncent sur leur site officiel.</div>
   </div>
-  <div class="tel" id="s3tel" style="top:820px"><div class="encoche"></div><div class="ecran"><img id="s3img" src="assets/lancement/devis.jpg"></div></div>
+  <div class="tel" id="s3tel" style="top:860px"><div class="encoche"></div><div class="ecran"><img id="s3img" src="assets/lancement/bourses.jpg"></div></div>
 </div>
 
 <!-- 4 · les métiers -->
@@ -92,8 +92,7 @@ window.render = (t) => {
   $("s1etu").style.transform = `translateY(${(1 - eo(p(u, .1, .8))) * 800}px)`;
   mot($("s1a"), u, .3); mot($("s1b"), u, .55); mot($("s1c"), u, 1.3, 50);
   u = scene("s2", t); mot($("s2a"), u, .1); mot($("s2b"), u, .4); mot($("s2c"), u, .8, 50); tel("s2tel", "s2img", u, 0, 2700, 1.1, 2.4);
-  u = scene("s3", t); mot($("s3a"), u, .1); mot($("s3b"), u, .35); mot($("s3c"), u, .7, 50); tel("s3tel", "s3img", u, 0, 2250, 1.0, 1.6);
-  const z = eo(p(u, 2.8, .7)); $("s3tel").style.transform += ` scale(${1 + .12 * z})`; $("s3tel").style.transformOrigin = "50% 20%";
+  u = scene("s3", t); mot($("s3a"), u, .1); mot($("s3b"), u, .35); mot($("s3c"), u, .7, 50); tel("s3tel", "s3img", u, 0, 1880, 1.0, 1.8);
   u = scene("s4", t); mot($("s4a"), u, .1); mot($("s4b"), u, .4); tel("s4tel", "s4img", u, 0, 2900, .9, 2.2);
   u = scene("s5", t); $("s5halo").style.transform = `scale(${eo(p(u, 0, .8)) * 220})`;
   const kl = eb(p(u, .15, .6)); $("s5logo").style.transform = `translate(-50%,-50%) scale(${.6 + .4 * kl})`; $("s5logo").style.opacity = clamp((u - .15) / .25);

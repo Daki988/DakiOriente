@@ -11,7 +11,7 @@
 | `navigoal-reel-teaser-1er-decembre.mp4` | Reel d'annonce (Instagram, TikTok, statut WhatsApp) : « Bac 2027. Et après ? », « Tu envisages d'étudier au Maroc ? », rafale de questions (école, reconnaissance, coût, départ), « Bientôt, toutes les réponses au même endroit », logo, « Navigoal arrive le 1er décembre », navigoal.net, « Abonne-toi ». Couverture : `-couverture.jpg` | 19 s |
 | `navigoal-reel-teaser-bientot.mp4` | Même Reel avec « Très bientôt » à la place de la date | 19 s |
 
-| `navigoal-reel-lancement-1er-decembre.mp4` | Reel de lancement du 1er décembre (plan Instagram, j01) : « Tu veux étudier au Maroc ? Tu ne sais pas par où commencer », 103 écoles et leur label officiel (vrai écran), le vrai coût dans ta monnaie (devis en F CFA), 96 métiers, « C'est lancé. Gratuit. Lien en bio. » Écrans capturés sur une base sans données de démonstration (`design/videos/assets/lancement/`) | 17,6 s |
+| `navigoal-reel-lancement-1er-decembre.mp4` | Reel de lancement du 1er décembre (plan Instagram, j01) : « Tu veux étudier au Maroc ? Tu ne sais pas par où commencer », 103 écoles et leur label officiel (vrai écran), des bourses jusqu'à 100 % annoncées par 13 écoles (aucun montant total à l'écran : il ferait fuir), 96 métiers, « C'est lancé. Gratuit. Lien en bio. » Écrans capturés sur une base sans données de démonstration (`design/videos/assets/lancement/`) | 17,6 s |
 
 Formats 16:9 (1920 × 1080) et 9:16 (1080 × 1920), 30 images/s, H.264 + AAC. Musique originale générée (aucun droit à payer). Pas de voix off (aucune synthèse vocale disponible) : texte à l'écran, compréhensible sans le son. QR codes suivis : `utm_source=video&utm_campaign=video-demo` / `video-explication`.
 
