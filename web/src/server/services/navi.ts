@@ -50,17 +50,22 @@ export type NaviRequete = z.infer<typeof naviSchema>;
 
 /** Quotas journaliers (coût maîtrisé) : par compte ou par adresse IP, et pour toute la plateforme. */
 /**
- * Quotas journaliers. Un visiteur du site a droit à un essai court (NAVI_ESSAI_VISITEUR, 4 messages) :
+ * Quotas journaliers. Un visiteur du site a droit à un essai (NAVI_ESSAI_VISITEUR, 15 messages) :
  * il voit ce que Navi sait faire, puis crée un compte pour continuer — c'est là que Navi devient vraiment
  * utile, puisqu'il lit alors le profil, le test d'orientation et les candidatures. Sur WhatsApp, pas d'essai :
  * la personne écrit souvent sans compte et c'est le premier contact, donc le quota visiteur complet s'applique.
+ *
+ * Seuil porté de 4 à 15 le 22/11/2026, avant la campagne « Trouve ta voie » et un éventuel test de publicité
+ * TikTok : un visiteur venu d'une annonce est payé au clic, et le couper au quatrième message gâche ce clic.
+ * Le coût ne s'y oppose pas — 27 échanges et 0,40 $ sur les 30 jours précédents, dont 0,10 $ pour les
+ * visiteurs. À revoir sur les chiffres de décembre (`npm run navi-stats`).
  */
 export async function verifierQuota(user: User | null, ip: string, canal: "web" | "whatsapp" = "web") {
   const jour = new Date().toISOString().slice(0, 10);
   const cle = user ? `navi:${jour}:u:${user.id}` : `navi:${jour}:ip:${sha256(ip).slice(0, 24)}`;
   const essai = !user && canal === "web";
   const max = user ? limite("NAVI_LIMITE_MEMBRE", 60)
-    : essai ? limite("NAVI_ESSAI_VISITEUR", 4)
+    : essai ? limite("NAVI_ESSAI_VISITEUR", 15)
     : limite("NAVI_LIMITE_VISITEUR", 30);
   const inc = async (k: string) => (await db.execute<{ value: number }>(sql`insert into counters (key, value) values (${k}, 1)
     on conflict (key) do update set value = counters.value + 1 returning value`)).rows[0].value;
