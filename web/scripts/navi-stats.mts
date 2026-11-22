@@ -56,8 +56,24 @@ if (jourspar.length) {
   for (const j of jourspar) console.log(`    ${j.j}  ${String(j.n).padStart(4)} échanges  ${usd(j.cout).padStart(8)}  dont ${j.visiteurs} de visiteurs`);
 }
 
-// La table ne garde pas d'empreinte de visiteur : on ne peut pas compter les messages par personne
-// non connectée, donc pas de distribution pour calibrer finement un seuil d'essai.
-console.log(`\n  Note : les échanges de visiteurs ne sont pas rattachés à une personne (aucune empreinte conservée),`);
-console.log(`  donc le nombre de messages par visiteur n'est pas mesurable ici.\n`);
+// navi_traces ne garde aucune empreinte de visiteur, mais la table « counters » compte les messages de
+// chaque visiteur pour la journée en cours (clé navi:<jour>:ip:<empreinte>, effacée le lendemain).
+// C'est ce qui permet de calibrer le seuil de l'essai : combien de personnes iraient jusqu'où.
+const jour = new Date().toISOString().slice(0, 10);
+const { rows: visiteurs } = await db.execute<{ value: number }>(sql`
+  select value from counters where key like ${`navi:${jour}:ip:%`} order by value desc`);
+console.log(`\n  Aujourd'hui (${jour}) — messages par visiteur non connecté`);
+if (!visiteurs.length) console.log("    aucun visiteur aujourd'hui");
+else {
+  const v = visiteurs.map((x) => x.value);
+  const total = v.reduce((a, b) => a + b, 0);
+  const median = v[Math.floor(v.length / 2)];
+  console.log(`    ${v.length} visiteur(s), ${total} message(s) · médiane ${median}, maximum ${v[0]}`);
+  for (const seuil of [4, 10, 15, 20, 30]) {
+    const touches = v.filter((x) => x > seuil).length;
+    console.log(`    seuil ${String(seuil).padStart(2)} : ${touches} visiteur(s) auraient été arrêtés (${Math.round((touches / v.length) * 100)} %)`);
+  }
+}
+console.log(`\n  Rappel : ce décompte par personne ne vaut que pour la journée en cours (les compteurs de la veille`);
+console.log(`  sont effacés). Les totaux et les coûts ci-dessus, eux, portent bien sur ${jours} jours.\n`);
 process.exit(0);
