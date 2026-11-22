@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { prefixePrix } from "@/lib/prix";
 import { OrdrePartenaires, PartenaireMarque } from "@/components/ui/Partenaires";
 import Image from "next/image";
 import Link from "@/components/ui/Link";
@@ -9,7 +10,7 @@ import { EtabLogo } from "@/components/ui/EtabLogo";
 import { LabelChip, domStyle } from "@/components/ui/Cards";
 import { Prix } from "@/components/ui/Devise";
 import { VILLES, norm, villeBySlug, villeHref, type VilleInfo } from "@/lib/catalogue";
-import { COUTS } from "@/lib/devis";
+import { COUTS, coutVille } from "@/lib/devis";
 import { auPays, destinationById, domaineById, labelPays, mobilite, paysDetailById, type Etablissement, type Label } from "@/lib/data";
 import { SITE_URL } from "@/lib/site";
 import { etabDetail } from "@/lib/etab-detail";
@@ -57,7 +58,15 @@ export default async function VillePage(props: { params: Promise<{ slug: string 
   const dev = C.devise;
   const navilease = v.pays === "MA";
   const chere = C.vie_mensuelle.villes_cheres.some((x) => cle(x) === cle(v.nom));
-  const vie = C.vie_mensuelle[chere ? "ville_chere" : "autre_ville"];
+  // Coût de la vie propre à la ville (référentiel par ville) : studio + vie courante + transports en commun.
+  const cv = coutVille(C, v.nom);
+  const vie = cv ? { min: cv.logement_mensuel.studio.min + cv.vie_hors_logement.normal.min + cv.transport.tram.min, max: cv.logement_mensuel.studio.max + cv.vie_hors_logement.normal.max + cv.transport.tram.max } : C.vie_mensuelle[chere ? "ville_chere" : "autre_ville"];
+  const lignesVille = cv ? [
+    { poste: "Chambre en colocation", min: cv.logement_mensuel.colocation.min, max: cv.logement_mensuel.colocation.max },
+    { poste: "Studio meublé", min: cv.logement_mensuel.studio.min, max: cv.logement_mensuel.studio.max },
+    { poste: "Repas, téléphone, sorties", min: cv.vie_hors_logement.normal.min, max: cv.vie_hors_logement.normal.max },
+    { poste: `Transports (${cv.reseau.split(/[,(]/)[0].trim()})`, min: cv.transport.tram.min, max: cv.transport.tram.max },
+  ] : null;
   const B = paysDetailById[v.pays].budget;
   const quartiersCampus = Array.from(new Set(v.etabs.map((e) => campusDe(e, v.nom).quartier).filter(Boolean) as string[]));
   // Formations disponibles, regroupées par domaine
@@ -161,9 +170,9 @@ export default async function VillePage(props: { params: Promise<{ slug: string 
         <aside className="flex flex-col gap-5 lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 transition-[top] duration-300">
           <div className="card flex flex-col gap-3 rounded-[22px] p-5">
             <b className="flex items-center gap-2 text-lg"><Wallet size={19} className="text-brand-600" />Coût de la vie</b>
-            <div className="rounded-2xl bg-brand-50 p-3"><span className="text-xs text-ink-mute">Budget mensuel estimé à {v.nom}</span><b className="block text-lg text-brand-700"><Prix mad={vie.min} devise={dev} /> – <Prix mad={vie.max} devise={dev} suffixe="/mois" /></b><span className="text-xs text-ink-mute">{chere ? `Ville parmi les plus chères ${destinationById[v.pays].de}.` : `Ville plus abordable que ${C.vie_mensuelle.villes_cheres.slice(0, 2).join(" et ")}.`}</span></div>
-            {B.lignes.map((l) => <div key={l.poste} className="flex justify-between gap-3 text-sm"><span className="text-ink-soft">{l.poste}</span><b className="shrink-0 text-right"><Prix mad={l.min} devise={dev} bloc /> – <Prix mad={l.max} devise={dev} bloc /></b></div>)}
-            <span className="text-xs text-ink-mute">Fourchettes nationales par mois. {B.note}</span>
+            <div className="rounded-2xl bg-brand-50 p-3"><span className="text-xs text-ink-mute">Budget mensuel estimé à {v.nom}</span><b className="block text-lg text-brand-700">{prefixePrix([vie.min, vie.max])}<Prix mad={vie.min} devise={dev} suffixe="/mois" /></b><span className="text-xs text-ink-mute">{chere ? `Ville parmi les plus chères ${destinationById[v.pays].de}.` : `Ville plus abordable que ${C.vie_mensuelle.villes_cheres.slice(0, 2).join(" et ")}.`}</span></div>
+            {(lignesVille ?? B.lignes).map((l) => <div key={l.poste} className="flex justify-between gap-3 text-sm"><span className="text-ink-soft">{l.poste}</span><b className="shrink-0 text-right">{prefixePrix([l.min, l.max])}<Prix mad={l.min} devise={dev} bloc /></b></div>)}
+            <span className="text-xs text-ink-mute">{cv ? `Montants mensuels de départ à ${v.nom} (relevé de novembre 2026 : annonces de location, Numbeo, opérateurs de transport${cv.fiabilite === "estimation" ? " ; estimation par comparaison avec des villes voisines" : ""}).` : `Montants mensuels de départ (minimum). ${B.note}`}</span>
             <Link href="/devis" className="btn-ghost py-2.5">Calculer le coût total des études</Link>
           </div>
           {navilease && <div className="card flex flex-col gap-2.5 bg-gradient-to-br from-white to-[#fff7dd] p-5">

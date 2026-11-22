@@ -4,13 +4,14 @@ import Link from "@/components/ui/Link";
 import { lireCachet } from "@/server/services/cachets-devis";
 import { fmt } from "@/lib/data";
 import { RUBRIQUES } from "@/lib/devis";
+import { prixTexte } from "@/lib/prix";
 
 // Vérification du cachet numérique d'un devis PDF (QR code) : affiche ce que Navigoal a réellement émis.
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Vérifier un devis Navigoal", description: "Vérifiez l'authenticité d'un devis d'études émis par Navigoal grâce à son cachet numérique.", robots: { index: false, follow: false } };
 
 const jour = (d: Date) => new Date(d).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "Africa/Libreville" });
-const plage = (v: [number, number], dev: string) => `${fmt(Math.round(v[0]))} – ${fmt(Math.round(v[1]))} ${dev}`;
+const plage = (v: [number, number], dev: string) => prixTexte(v, (n) => `${fmt(Math.round(n))} ${dev}`, { majuscule: true });
 
 export default async function VerifierDevis(props: { params: Promise<{ id: string }> }) {
   const c = await lireCachet((await props.params).id).catch(() => null);

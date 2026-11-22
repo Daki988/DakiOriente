@@ -19,7 +19,7 @@ const N_HOMOLOGUES = MAROC.filter((e) => e.label === "diplomes_homologues").leng
 const MA = COUTS.MA;
 const xaf = (mad: number) => convert(mad, "MAD", "XAF");
 const court = (v: number) => (v >= 1e6 ? `${(v / 1e6).toFixed(1).replace(".", ",")} M` : fmt(Math.round(v / 1e4) * 1e4));
-const fourchette = (f: { min: number; max: number }) => `${court(xaf(f.min))} à ${court(xaf(f.max))}`;
+const fourchette = (f: { min: number; max: number }) => f.min === f.max ? court(xaf(f.min)) : `à partir de ${court(xaf(f.min))}`; // jamais de fourchette affichée
 const PRIX = [
   { poste: "Vivre hors Casablanca, Rabat, Marrakech", montant: fourchette(MA.vie_mensuelle.autre_ville), unite: "par mois" },
   { poste: "Vivre à Casablanca, Rabat ou Marrakech", montant: fourchette(MA.vie_mensuelle.ville_chere), unite: "par mois" },

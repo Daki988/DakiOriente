@@ -38,12 +38,15 @@ export type CoutVille = {
 };
 /** Annonce Navilease choisie dans le devis : loyer charges comprises et caution, convertis en monnaie du pays d'études. */
 export type AnnonceDevis = { id: string; titre: string; ville: string; quartier: string | null; type: string; loyer: number; caution: number };
-const norm = (v: string) => v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+const norm = (v: string) => v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z]/g, "");
+/** Communes rattachées à la grande ville voisine pour le coût de la vie (campus de périphérie). */
+const ALIAS_VILLES: Record<string, string> = { bouskoura: "casablanca", nouaceur: "casablanca", temara: "rabat", skhirat: "rabat" };
 /** Coûts de la ville d'études si le référentiel la connaît (« Rabat », « Salé »…). */
 export function coutVille(c: CoutsPays | undefined, ville: string): CoutVille | null {
   const v = c?.personnalisation?.villes;
   if (!v || !ville) return null;
-  const k = Object.keys(v).find((x) => norm(x) === norm(ville)) ?? Object.keys(v).find((x) => norm(ville).includes(norm(x)));
+  const n = ALIAS_VILLES[norm(ville)] ?? norm(ville);
+  const k = Object.keys(v).find((x) => norm(x) === n) ?? Object.keys(v).find((x) => n.includes(norm(x)));
   return k ? v[k] : null;
 }
 
@@ -221,3 +224,17 @@ export const formationParDefaut = (eid: string) => {
   const fs = etabById[eid].formations.filter((f) => formationById[f]);
   return fs.slice().sort((a, b) => formationById[b].duree_annees - formationById[a].duree_annees)[0] ?? fs[0];
 };
+
+/** Budget mensuel d'un étudiant dans une ville (même forme que le budget national de pays_details), d'après le
+ *  référentiel des villes ; null si la ville n'y figure pas (on garde alors le budget national). */
+export function budgetVille(pays: string, ville: string): { devise: string; lignes: { poste: string; min: number; max: number }[]; total_mensuel: F; note: string } | null {
+  const c = COUTS[pays];
+  const cv = coutVille(c, ville);
+  if (!cv || !c) return null;
+  const lignes = [
+    { poste: `Logement à ${ville} (colocation ou studio)`, min: cv.logement_mensuel.colocation.min, max: cv.logement_mensuel.studio.max },
+    { poste: "Repas, téléphone, sorties", ...cv.vie_hors_logement.normal },
+    { poste: `Transports (${cv.reseau.split(/[,(]/)[0].trim()})`, ...cv.transport.tram },
+  ];
+  return { devise: c.devise, lignes, total_mensuel: { min: lignes.reduce((a, l) => a + l.min, 0), max: lignes.reduce((a, l) => a + l.max, 0) }, note: `Coût de la vie à ${ville}, relevé de novembre 2026.` };
+}

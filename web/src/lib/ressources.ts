@@ -1,8 +1,10 @@
 // Ressources Navigoal : guides pratiques rédigés à partir des référentiels, outils interactifs et modèles téléchargeables.
 // Aucune ressource fictive : chaque carte renvoie vers un contenu qui existe sur le site.
+import { prefixePrix } from "./prix";
 import { CHIFFRES } from "./catalogue";
 import { LABELS, domaineById, metiers, paysDetailById } from "./data";
 import { paysOrigine } from "./pays-origine";
+const aPartir = (v: { min: number; max: number }) => prefixePrix(v);
 
 export type TypeRessource = "guide" | "fiche-metier" | "orientation" | "outil";
 export type Format = "page" | "interactif" | "docx";
@@ -46,7 +48,7 @@ export const GUIDES: Ressource[] = [
       { titre: "Établissements privés et labels", texte: [MA.reconnaissance, "Sur chaque fiche établissement, Navigoal affiche le label officiel et, pour chaque filière, la date de fin de son accréditation."] },
       { titre: "Calendrier", texte: [MA.calendrier, "Anticipe : les démarches de visa, de légalisation des diplômes et de logement prennent plusieurs semaines."] },
       { titre: "Où étudier ?", liste: MA.villes.map((v) => `${v.nom} : ${v.profil}`) },
-      { titre: "Combien ça coûte ?", texte: [`Frais de scolarité dans le privé : ${mad(MA.frais_prive.min)} à ${mad(MA.frais_prive.max)} ${MA.frais_prive.unite}. ${MA.frais_prive.note}`, `Vie quotidienne : ${mad(B.total_mensuel.min)} à ${mad(B.total_mensuel.max)} par mois. ${B.note}`] },
+      { titre: "Combien ça coûte ?", texte: [`Frais de scolarité dans le privé : ${aPartir(MA.frais_prive)}${mad(MA.frais_prive.min)} ${MA.frais_prive.unite}. ${MA.frais_prive.note}`, `Vie quotidienne : ${aPartir(B.total_mensuel)}${mad(B.total_mensuel.min)} par mois. ${B.note}`] },
       { titre: "Travail, santé, paiements", liste: [MA.travail, MA.sante, `Moyens de paiement courants : ${MA.paiement.join(", ")}.`] },
       { titre: "Bourses", liste: MA.bourses },
     ],
@@ -69,7 +71,7 @@ export const GUIDES: Ressource[] = [
     resume: "Types de logements, loyers, caution, contrat de bail et pièges à éviter quand on arrive de l'étranger.",
     sections: [
       { titre: "Les options", liste: ["Résidence étudiante privée : chambre ou studio meublé, charges souvent incluses, gardiennage ; idéal pour la première année.", "Studio ou appartement en location : plus d'autonomie, à proximité du campus ou d'une ligne de tramway.", "Colocation : loyer et charges partagés ; vérifie que le bail mentionne chaque colocataire.", "Chez l'habitant : chambre dans une famille, cadre rassurant pour les plus jeunes.", "Logement proposé par l'établissement : certaines écoles ont une résidence ou des partenaires (voir la fiche de l'école)."] },
-      { titre: "Budget", texte: [`Compte ${mad(B.lignes[0].min)} à ${mad(B.lignes[0].max)} par mois pour le logement (studio ou colocation). ${B.note}`, "À l'entrée, prévois en général une caution (souvent un à deux mois de loyer) et le premier mois payé d'avance."] },
+      { titre: "Budget", texte: [`Compte ${aPartir(B.lignes[0])}${mad(B.lignes[0].min)} par mois pour le logement (studio ou colocation). ${B.note}`, "À l'entrée, prévois en général une caution (souvent un à deux mois de loyer) et le premier mois payé d'avance."] },
       { titre: "Le contrat et les papiers", liste: ["Exige un contrat de bail écrit, signé par le bailleur et par toi.", "La signature du bail est généralement légalisée à la commune : ce document sert de justificatif d'hébergement pour la carte de séjour.", "Fais un état des lieux d'entrée avec photos datées.", "Demande une quittance pour chaque loyer payé."] },
       { titre: "Éviter les arnaques", liste: ["Ne paie jamais de loyer ni de caution avant d'avoir visité (ou fait visiter) le logement et signé un contrat.", "Méfie-toi des prix très inférieurs au marché et des bailleurs pressés.", "Avec Navilease, le paiement est conservé en séquestre jusqu'à ton entrée dans les lieux, et les bailleurs sont vérifiés."] },
       { titre: "Choisir le quartier", texte: ["Regarde le temps de trajet jusqu'au campus, les lignes de tramway ou de bus et l'animation du quartier. Les pages villes de Navigoal listent les quartiers étudiants et les transports de chaque ville."] },
@@ -102,8 +104,8 @@ export const GUIDES: Ressource[] = [
     slug: "budget-etudiant", titre: "Préparer son budget étudiant au Maroc", type: "guide", theme: "vie", format: "page", publics: ["etudiant", "parent"], href: "/ressources/budget-etudiant/", photo: "finance", icone: "wallet", couleur: "#a55a00", lecture: 3,
     resume: "Frais de scolarité, coût de la vie mois par mois, installation et imprévus : les bons ordres de grandeur.",
     sections: [
-      { titre: "Le coût de la vie par mois", liste: B.lignes.map((l) => `${l.poste} : ${mad(l.min)} à ${mad(l.max)}`).concat([`Total : ${mad(B.total_mensuel.min)} à ${mad(B.total_mensuel.max)} par mois. ${B.note}`]) },
-      { titre: "Les frais de scolarité", texte: [`Dans le privé : ${mad(MA.frais_prive.min)} à ${mad(MA.frais_prive.max)} ${MA.frais_prive.unite}. ${MA.frais_prive.note}`, "Ajoute les frais d'inscription et de dossier, publiés sur la fiche de l'établissement quand ils sont connus."] },
+      { titre: "Le coût de la vie par mois", liste: B.lignes.map((l) => `${l.poste} : ${aPartir(l)}${mad(l.min)}`).concat([`Total : ${aPartir(B.total_mensuel)}${mad(B.total_mensuel.min)} par mois. ${B.note}`]) },
+      { titre: "Les frais de scolarité", texte: [`Dans le privé : ${aPartir(MA.frais_prive)}${mad(MA.frais_prive.min)} ${MA.frais_prive.unite}. ${MA.frais_prive.note}`, "Ajoute les frais d'inscription et de dossier, publiés sur la fiche de l'établissement quand ils sont connus."] },
       { titre: "L'installation", liste: ["Billet d'avion aller-retour.", "Visa ou e-Visa selon la nationalité, puis carte de séjour (timbre, photos, copies).", "Caution et premier mois de loyer.", "Assurance santé (obligatoire pour la carte de séjour).", "Équipement : ordinateur, fournitures, téléphone."] },
       { titre: "Nos conseils", liste: ["Garde une réserve pour les imprévus (environ un mois de dépenses).", "Les taux de change varient : Navigoal ajoute une marge de prudence de 3 % aux conversions.", "Utilise le devis parents pour obtenir le coût total sur toute la durée des études."] },
     ],

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { prefixePrix } from "@/lib/prix";
 import { titreSeo } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import Link from "@/components/ui/Link";
@@ -97,16 +98,16 @@ export default async function PaysDetailPage(props: { params: Promise<{ code: st
             <div className="flex items-center justify-between"><h3 className="text-lg font-extrabold">Budget mensuel étudiant</h3><span className="chip bg-sun-100 text-[#a55a00]">indicatif</span></div>
             {B.lignes.map((l, k) => (
               <div key={l.poste} className="flex flex-col gap-1.5">
-                <div className="flex justify-between gap-3 text-[13px] font-bold"><span>{l.poste}</span><span className="shrink-0">{fmt(l.min)} – {fmt(l.max)} {symbole(B.devise)}</span></div>
-                <RangeBar from={l.min} to={l.max} max={mx} delay={k * 0.1} />
+                <div className="flex justify-between gap-3 text-[13px] font-bold"><span>{l.poste}</span><span className="shrink-0">{prefixePrix(l)}{fmt(l.min)} {symbole(B.devise)}</span></div>
+                <RangeBar from={0} to={l.min} max={mx} delay={k * 0.1} />
               </div>
             ))}
-            <div className="flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-brand-950 to-brand-700 px-4 py-3.5 text-white"><span className="font-bold">Total estimé</span><b className="text-xl"><Counter to={B.total_mensuel.min} /> – <Counter to={B.total_mensuel.max} /> {symbole(B.devise)}</b></div>
+            <div className="flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-brand-950 to-brand-700 px-4 py-3.5 text-white"><span className="font-bold">Total estimé</span><b className="text-xl">{prefixePrix(B.total_mensuel)}<Counter to={B.total_mensuel.min} /> {symbole(B.devise)}</b></div>
             <span className="text-xs text-ink-mute">{B.note}</span>
           </Reveal>
           <Reveal className="card flex flex-col gap-2.5 rounded-3xl p-6">
             <h3 className="text-lg font-extrabold">Frais de scolarité (privé)</h3>
-            <div className="text-[26px] font-extrabold text-brand-600">{fmt(F.min)} – {fmt(F.max)} {symbole(F.devise)}<span className="text-sm text-ink-mute"> {F.unite}</span></div>
+            <div className="text-[26px] font-extrabold text-brand-600">{prefixePrix(F, true)}{fmt(F.min)} {symbole(F.devise)}<span className="text-sm text-ink-mute"> {F.unite}</span></div>
             <span className="text-[13px] leading-relaxed text-ink-mute">{F.note}</span>
             <Link href={`/devis/?etab=${vitrine(code)[0]?.id ?? ""}`} className="btn-primary btn-shine mt-1 py-2.5"><Calculator size={17} /> Simuler le coût total des études</Link>
           </Reveal>

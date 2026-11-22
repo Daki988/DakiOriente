@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const MA = COUTS.MA;
 const xaf = (mad: number) => convert(mad, "MAD", "XAF");
 const court = (v: number) => (v >= 1e6 ? `${(v / 1e6).toFixed(1).replace(".", ",")} M` : fmt(Math.round(v / 1e3) * 1e3));
-const fourchette = (min: number, max: number) => `${court(xaf(min))} à ${court(xaf(max))}`;
+const fourchette = (min: number, max: number) => min === max ? court(xaf(min)) : `à partir de ${court(xaf(min))}`; // jamais de fourchette affichée
 const installation = MA.installation.reduce((a, p) => [a[0] + p.min, a[1] + p.max], [0, 0]);
 
 const COUTS_PARENTS = [
@@ -63,7 +63,7 @@ export default function ParentsPage() {
 
       <section className="container py-12 sm:py-16">
         <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Combien ça coûte vraiment ?</h2>
-        <p className="mt-2 text-ink-soft">Fourchettes indicatives en F CFA, converties au taux du jour. Le devis détaillé se fait école par école.</p>
+        <p className="mt-2 text-ink-soft">Montants de départ indicatifs en F CFA (« à partir de »), convertis au taux du jour. Le devis détaillé se fait école par école.</p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {COUTS_PARENTS.map((c) => (
             <div key={c.titre} className="card rounded-[22px] p-5 sm:p-6">

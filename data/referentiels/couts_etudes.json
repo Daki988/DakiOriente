@@ -345,7 +345,863 @@
           "libelle": "Équipement (literie, fournitures)",
           "min": 1500,
           "max": 3000
-        }
+        },
+        "villes": {
+          "Casablanca": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 1500,
+                "max": 3000
+              },
+              "studio": {
+                "min": 3000,
+                "max": 5000
+              },
+              "standing": {
+                "min": 6000,
+                "max": 10000
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1220,
+                "max": 1770
+              },
+              "normal": {
+                "min": 1800,
+                "max": 2600
+              },
+              "confortable": {
+                "min": 2750,
+                "max": 3980
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 150,
+                "max": 230
+              },
+              "taxi": {
+                "min": 500,
+                "max": 900
+              }
+            },
+            "reseau": "tramway (4 lignes) et busway, bus Casabus",
+            "fiabilite": "sourcé",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.numbeo.com/cost-of-living/in/Casablanca?displayCurrency=MAD",
+              "https://www.numbeo.com/taxi-fare/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.casatramway.ma/ticket-abonnement/nos-offres",
+              "https://www.casabus.ma/titres-de-transport/tarifs/",
+              "https://www.roastmydorm.com/colocation-etudiante-casablanca",
+              "https://www.avito.ma/fr/casablanca/appartements-%C3%A0_louer",
+              "https://www.avito.ma/fr/casablanca/appartement_colocation-colocation"
+            ],
+            "remarques": "Colocation : 46 annonces Avito, médiane 2 500 DH (400 à 5 500). Studio : Numbeo 1 chambre hors centre 3 904 DH (2 500-6 430) ; la première page Avito, tirée vers le haut de gamme, donne 4 000-11 000 DH (médiane 7 350). Standing : Numbeo centre 6 369 DH (5 000-8 480), meublés Californie, Racine, CFC 6 800-15 000 DH sur Avito. Transport : abonnement étudiant tram+busway 150 DH/30 jours (+15 DH de carte, moins de 26 ans, école homologuée) ; 230 DH tout public ; ticket 8 DH (6 DH avec carte rechargeable) ; carte étudiant Casabus 100 DH réservée au public. Taxi : prise en charge 8 DH, environ 3 DH/km (Numbeo) ; course estimée. Vie hors logement : estimation Navigoal à partir des prix unitaires Numbeo (repas bon marché 47 DH, forfait mobile 99 DH)."
+          },
+          "Rabat": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 1800,
+                "max": 3200
+              },
+              "studio": {
+                "min": 3000,
+                "max": 5000
+              },
+              "standing": {
+                "min": 6000,
+                "max": 10000
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1220,
+                "max": 1770
+              },
+              "normal": {
+                "min": 1800,
+                "max": 2600
+              },
+              "confortable": {
+                "min": 2750,
+                "max": 3980
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 160,
+                "max": 270
+              },
+              "taxi": {
+                "min": 400,
+                "max": 750
+              }
+            },
+            "reseau": "tramway Rabat-Salé, bus Alsa",
+            "fiabilite": "sourcé",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.numbeo.com/cost-of-living/in/Rabat?displayCurrency=MAD",
+              "https://www.numbeo.com/taxi-fare/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.tram-way.ma/fr/abonnement/",
+              "https://www.alsa.ma/rabat/espace-tout-public",
+              "https://www.avito.ma/fr/rabat/appartements-%C3%A0_louer",
+              "https://www.avito.ma/fr/rabat/appartement_colocation-colocation"
+            ],
+            "remarques": "Colocation : 51 annonces Avito, médiane 2 800 DH (750 à 5 000 ; Agdal 2 850, Souissi 3 000). Studio : Numbeo 1 chambre hors centre 3 693 DH (2 500-5 970), studios Avito 2 900-6 000 DH (Agdal, Hay el Fath, Océan). Standing : Numbeo centre 6 200 DH (4 680-8 000). Transport : abonnement étudiant Irtiyah Talib 160 DH/mois (moins de 26 ans, écoles privées conventionnées seulement), 270 DH tout public ; ticket tram 7 DH depuis juillet 2025 ; bus Alsa 260 DH/mois tout public (+40 DH carte), prix étudiant non publié. Taxi : prise en charge 7 DH, 7,5 DH/km (Numbeo)."
+          },
+          "Salé": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 1200,
+                "max": 2200
+              },
+              "studio": {
+                "min": 2000,
+                "max": 3500
+              },
+              "standing": {
+                "min": 4000,
+                "max": 7000
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1160,
+                "max": 1630
+              },
+              "normal": {
+                "min": 1700,
+                "max": 2400
+              },
+              "confortable": {
+                "min": 2600,
+                "max": 3670
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 160,
+                "max": 260
+              },
+              "taxi": {
+                "min": 300,
+                "max": 600
+              }
+            },
+            "reseau": "tramway Rabat-Salé, bus Alsa",
+            "fiabilite": "partiel",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.tram-way.ma/fr/abonnement/",
+              "https://www.alsa.ma/rabat/espace-tout-public",
+              "https://yakeey.com/fr-ma/referentiel-de-prix-immobilier",
+              "https://www.avito.ma/fr/sale/appartements-%C3%A0_louer"
+            ],
+            "remarques": "Studio : 9 annonces Avito 1 chambre de 1 800 à 3 700 DH (médiane 2 500). Colocation : estimation (réf. Rabat et Kénitra), pas de relevé propre. Standing : estimation (réf. Rabat, prix au m² de Salé environ moitié de Rabat selon Yakeey ; une annonce Bab Al Bahr à 15 000 DH, hors norme). Même réseau de tram et mêmes abonnements que Rabat. Taxi et vie hors logement : estimation (réf. Rabat)."
+          },
+          "Mohammédia": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 1500,
+                "max": 2800
+              },
+              "studio": {
+                "min": 3000,
+                "max": 5000
+              },
+              "standing": {
+                "min": 5000,
+                "max": 9000
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1160,
+                "max": 1700
+              },
+              "normal": {
+                "min": 1700,
+                "max": 2500
+              },
+              "confortable": {
+                "min": 2600,
+                "max": 3820
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 150,
+                "max": 300
+              },
+              "taxi": {
+                "min": 300,
+                "max": 600
+              }
+            },
+            "reseau": "bus Casabus (lignes vers Casablanca)",
+            "fiabilite": "partiel",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.avito.ma/fr/mohammedia/appartements-%C3%A0_louer",
+              "https://www.casabus.ma/titres-de-transport/tarifs/"
+            ],
+            "remarques": "Studio : 10 annonces Avito 1 chambre de 3 500 à 7 700 DH (médiane 5 500) ; le bas de fourchette retenu suppose un studio simple hors Corniche. Standing : meublés 1-2 chambres 5 000-12 000 DH sur Avito. Colocation : estimation (réf. Casablanca). Transport : ticket Casabus 5 DH en ville, 6-8 DH en banlieue (estimation pour Mohammédia) ; carte étudiant Casabus (100 DH) réservée au public, pas d'abonnement étudiant pour le privé trouvé. Taxi et vie : estimation (réf. Casablanca)."
+          },
+          "Marrakech": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 1200,
+                "max": 2600
+              },
+              "studio": {
+                "min": 2800,
+                "max": 4500
+              },
+              "standing": {
+                "min": 5500,
+                "max": 9500
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1160,
+                "max": 1700
+              },
+              "normal": {
+                "min": 1700,
+                "max": 2500
+              },
+              "confortable": {
+                "min": 2600,
+                "max": 3820
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 150,
+                "max": 250
+              },
+              "taxi": {
+                "min": 400,
+                "max": 800
+              }
+            },
+            "reseau": "bus urbains (réseau Supratours depuis décembre 2025)",
+            "fiabilite": "sourcé",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.numbeo.com/cost-of-living/in/Marrakech?displayCurrency=MAD",
+              "https://www.numbeo.com/taxi-fare/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://vivreamarrakech.fr/art-de-vivre/bus-marrakech",
+              "https://www.avito.ma/fr/marrakech/appartements-%C3%A0_louer",
+              "https://www.avito.ma/fr/marrakech/appartement_colocation-colocation"
+            ],
+            "remarques": "Colocation : 39 annonces Avito, médiane 1 800 DH (700 à 5 000). Studio : Numbeo 1 chambre hors centre 3 526 DH (2 300-5 510) ; Avito tiré par les meublés touristiques (médiane 7 500). Standing : Numbeo centre 4 995 DH (4 000-7 270), meublés Hivernage, Agdal, Victor Hugo 8 000-16 500 DH sur Avito. Transport : ticket 4 à 5 DH (révision des tarifs annoncée après la CAN, prix affiché à bord) ; abonnement étudiant non publié (Numbeo indique 300 DH tout public, une seule donnée) ; petit taxi 15-30 DH la course de jour. Uber (véhicules agréés) depuis le 27/11/2025."
+          },
+          "Fès": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 900,
+                "max": 1900
+              },
+              "studio": {
+                "min": 1800,
+                "max": 3200
+              },
+              "standing": {
+                "min": 3500,
+                "max": 6000
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1020,
+                "max": 1500
+              },
+              "normal": {
+                "min": 1500,
+                "max": 2200
+              },
+              "confortable": {
+                "min": 2300,
+                "max": 3370
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 120,
+                "max": 200
+              },
+              "taxi": {
+                "min": 300,
+                "max": 600
+              }
+            },
+            "reseau": "bus urbains Issal Fès (nouveau réseau depuis décembre 2025)",
+            "fiabilite": "partiel",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://en.yabiladi.com/articles/details/183537/buses-rolled-upgrade-city-s-urban.html",
+              "https://www.morocco-guide.com/fes/",
+              "https://yakeey.com/fr-ma/referentiel-de-prix-immobilier",
+              "https://www.avito.ma/fr/fes/appartements-%C3%A0_louer",
+              "https://www.avito.ma/fr/fes/appartement_colocation-colocation",
+              "https://somayar.ma/carte-abonnement-bus-etudiant/"
+            ],
+            "remarques": "Colocation : 46 annonces Avito, médiane 1 100 DH (exemples 1 200 Narjis, 1 300 Hay Atlas, 1 900 route de Meknès). Studio : studio meublé Sidi Brahim 2 500 DH, 1 chambre meublée 3 200 DH, 2 chambres non meublées 1 800-3 200 DH. Standing : meublés Narjis 3 500-5 000 DH (2 chambres), Agdal 8 500-12 000 DH (3 chambres). Transport : ticket estimé à 4 DH (ancien réseau, guides), prix et abonnement étudiant d'Issal Fès non trouvés ; taxi estimé (réf. Meknès, Tétouan). ONCF Navette Étudiant Fès–Meknès 450 DH/mois. Vie : estimation (réf. villes moyennes)."
+          },
+          "Meknès": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 700,
+                "max": 1500
+              },
+              "studio": {
+                "min": 1500,
+                "max": 2800
+              },
+              "standing": {
+                "min": 3500,
+                "max": 6500
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1020,
+                "max": 1500
+              },
+              "normal": {
+                "min": 1500,
+                "max": 2200
+              },
+              "confortable": {
+                "min": 2300,
+                "max": 3370
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 100,
+                "max": 180
+              },
+              "taxi": {
+                "min": 250,
+                "max": 500
+              }
+            },
+            "reseau": "bus urbains",
+            "fiabilite": "partiel",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.oncf-voyages.ma/navette-etudiant",
+              "https://www.avito.ma/fr/meknes/appartements-%C3%A0_louer",
+              "https://www.avito.ma/fr/meknes/appartement_colocation-colocation",
+              "https://somayar.ma/carte-abonnement-bus-etudiant/"
+            ],
+            "remarques": "Colocation : 13 annonces Avito, médiane 1 000 DH (650 à 2 000). Studio : estimation à partir des 2 chambres non meublées (1 800-2 600 DH) et meublées (2 500-4 500 DH). Standing : appartement neuf meublé 4 500 DH, Hamria 5 000-8 500 DH. Transport : opérateur et tarifs non trouvés, ticket et taxi estimés (réf. Fès) ; ONCF Navette Étudiant Fès–Meknès 450 DH/mois."
+          },
+          "Agadir": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 1000,
+                "max": 2200
+              },
+              "studio": {
+                "min": 2200,
+                "max": 4000
+              },
+              "standing": {
+                "min": 5000,
+                "max": 9000
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1160,
+                "max": 1630
+              },
+              "normal": {
+                "min": 1700,
+                "max": 2400
+              },
+              "confortable": {
+                "min": 2600,
+                "max": 3670
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 150,
+                "max": 250
+              },
+              "taxi": {
+                "min": 350,
+                "max": 700
+              }
+            },
+            "reseau": "bus Alsa et busway (BHNS)",
+            "fiabilite": "partiel",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.numbeo.com/cost-of-living/in/Agadir?displayCurrency=MAD",
+              "https://www.numbeo.com/taxi-fare/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.facebook.com/groups/499032738573439/posts/1372928747850496/",
+              "https://www.alsa.ma/carte-etudiant",
+              "https://www.avito.ma/fr/agadir/appartements-%C3%A0_louer",
+              "https://www.avito.ma/fr/agadir/appartement_colocation-colocation"
+            ],
+            "remarques": "Colocation : 50 annonces Avito, médiane 1 500 DH (700 à 4 500). Studio : Numbeo 1 chambre hors centre 2 415 DH (1 300-4 590), studios Avito 1 900 (meublé, filles) à 5 500 DH. Standing : Numbeo centre 5 043 DH (3 500-6 060), Founty et Marina 8 000-13 000 DH. Transport : Numbeo ticket 5 DH (4-10), abonnement tout public 250 DH (140-250) ; carte Alsa étudiant existante, prix non publié ; message non officiel : carte 10 DH puis 5 DH par trajet sur le nouveau bus. Taxi : prise en charge 6 DH (Numbeo)."
+          },
+          "Oujda": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 700,
+                "max": 1500
+              },
+              "studio": {
+                "min": 1500,
+                "max": 2800
+              },
+              "standing": {
+                "min": 3500,
+                "max": 5500
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 950,
+                "max": 1430
+              },
+              "normal": {
+                "min": 1400,
+                "max": 2100
+              },
+              "confortable": {
+                "min": 2140,
+                "max": 3210
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 100,
+                "max": 180
+              },
+              "taxi": {
+                "min": 250,
+                "max": 450
+              }
+            },
+            "reseau": "bus urbains",
+            "fiabilite": "partiel",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.avito.ma/fr/oujda/appartements-%C3%A0_louer",
+              "https://www.avito.ma/fr/oujda/appartement_colocation-colocation",
+              "https://somayar.ma/carte-abonnement-bus-etudiant/"
+            ],
+            "remarques": "Colocation : 9 annonces Avito, médiane 1 000 DH (500 à 1 500). Studio : studio meublé Hay El Qods 2 500 DH, 2 chambres 1 300-3 500 DH. Standing : Coralia haut standing 4 000 DH, meublés centre 4 600-5 000 DH. Transport : opérateur et tarifs non trouvés, ticket, taxi et budgets estimés (réf. Fès, Meknès). Vie : estimation, ville parmi les moins chères (prix au m² Yakeey proche de Fès)."
+          },
+          "Tanger": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 1300,
+                "max": 2600
+              },
+              "studio": {
+                "min": 2500,
+                "max": 4500
+              },
+              "standing": {
+                "min": 5000,
+                "max": 9000
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1220,
+                "max": 1770
+              },
+              "normal": {
+                "min": 1800,
+                "max": 2600
+              },
+              "confortable": {
+                "min": 2750,
+                "max": 3980
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 95,
+                "max": 200
+              },
+              "taxi": {
+                "min": 400,
+                "max": 750
+              }
+            },
+            "reseau": "bus Alsa",
+            "fiabilite": "partiel",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.numbeo.com/cost-of-living/in/Tangier?displayCurrency=MAD",
+              "https://www.numbeo.com/taxi-fare/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://fr.scribd.com/document/832939994/Conditions-Obtention-Carte-Etudiant-Www-alsa-Ma",
+              "https://www.alsa.ma/carte-etudiant",
+              "https://www.avito.ma/fr/tanger/appartements-%C3%A0_louer",
+              "https://www.avito.ma/fr/tanger/appartement_colocation-colocation"
+            ],
+            "remarques": "Colocation : 52 annonces Avito, médiane 1 900 DH (centre-ville et médina 2 300, Mesnana 1 800). Studio : Numbeo 1 chambre hors centre 3 624 DH (2 500-5 000). Standing : Numbeo centre 5 338 DH (4 680-6 000), meublés 6 000-13 000 DH sur Avito. Transport : carte étudiant Alsa 75 DH/mois une ligne, 95 DH deux lignes d'après un document non officiel (à vérifier en agence) ; Numbeo ticket 4 DH, abonnement tout public 150 DH (90-217). Taxi : prise en charge 7 DH, 9 DH/km (Numbeo). Numbeo classe Tanger première du Maroc pour le coût de la vie hors loyer (indice 33,1)."
+          },
+          "Tétouan": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 900,
+                "max": 1800
+              },
+              "studio": {
+                "min": 2000,
+                "max": 3500
+              },
+              "standing": {
+                "min": 4500,
+                "max": 7000
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1020,
+                "max": 1500
+              },
+              "normal": {
+                "min": 1500,
+                "max": 2200
+              },
+              "confortable": {
+                "min": 2300,
+                "max": 3370
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 100,
+                "max": 180
+              },
+              "taxi": {
+                "min": 250,
+                "max": 500
+              }
+            },
+            "reseau": "bus urbains",
+            "fiabilite": "partiel",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.numbeo.com/taxi-fare/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.avito.ma/fr/tetouan/appartements-%C3%A0_louer",
+              "https://www.avito.ma/fr/tetouan/appartement_colocation-colocation",
+              "https://somayar.ma/carte-abonnement-bus-etudiant/"
+            ],
+            "remarques": "Colocation : 9 annonces Avito, médiane 1 300 DH (700 à 4 500). Studio : studios meublés 2 500 DH (Mhannech, Mallalienne) à 3 500 DH (Wilaya). Standing : meublés Wilaya et Saniat Rmel 4 700-6 000 DH, luxe 10 500 DH. Transport : tarifs non trouvés, ticket et budgets estimés (réf. Tanger, Fès) ; taxi prise en charge 7 DH, 8 DH/km (Numbeo)."
+          },
+          "Kénitra": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 900,
+                "max": 2000
+              },
+              "studio": {
+                "min": 2000,
+                "max": 4000
+              },
+              "standing": {
+                "min": 4500,
+                "max": 7500
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1020,
+                "max": 1560
+              },
+              "normal": {
+                "min": 1500,
+                "max": 2300
+              },
+              "confortable": {
+                "min": 2300,
+                "max": 3520
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 100,
+                "max": 180
+              },
+              "taxi": {
+                "min": 250,
+                "max": 500
+              }
+            },
+            "reseau": "bus urbains",
+            "fiabilite": "partiel",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.numbeo.com/taxi-fare/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.oncf-voyages.ma/navette-etudiant",
+              "https://www.avito.ma/fr/kenitra/appartements-%C3%A0_louer",
+              "https://www.avito.ma/fr/kenitra/appartement_colocation-colocation",
+              "https://somayar.ma/carte-abonnement-bus-etudiant/"
+            ],
+            "remarques": "Colocation : 30 annonces Avito, médiane 1 350 DH (600 à 4 500). Studio : studio meublé centre 1 800 DH, studios neufs Haddada 3 800-4 000 DH, Mehdia 4 500-5 000 DH. Standing : meublés 2 chambres 4 900-7 500 DH. Transport : tarifs urbains non trouvés, ticket et budgets estimés ; taxi prise en charge 7 DH (Numbeo) ; ONCF Navette Étudiant Rabat–Kénitra 450 DH/mois."
+          },
+          "El Jadida": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 800,
+                "max": 1500
+              },
+              "studio": {
+                "min": 1800,
+                "max": 3000
+              },
+              "standing": {
+                "min": 4000,
+                "max": 6500
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1020,
+                "max": 1500
+              },
+              "normal": {
+                "min": 1500,
+                "max": 2200
+              },
+              "confortable": {
+                "min": 2300,
+                "max": 3370
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 100,
+                "max": 180
+              },
+              "taxi": {
+                "min": 250,
+                "max": 500
+              }
+            },
+            "reseau": "bus urbains",
+            "fiabilite": "partiel",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.numbeo.com/taxi-fare/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.oncf-voyages.ma/navette-etudiant",
+              "https://www.avito.ma/fr/el_jadida/appartements-%C3%A0_louer",
+              "https://somayar.ma/carte-abonnement-bus-etudiant/"
+            ],
+            "remarques": "Studio : 5 annonces Avito 1 chambre de 1 800 à 3 000 DH (médiane 2 500) ; 2 chambres 1 700-7 000 DH (médiane 3 000). Standing : meublés 4 200-6 500 DH. Colocation : estimation (réf. Kénitra, Meknès). Transport : tarifs urbains non trouvés, estimés ; taxi prise en charge 10 DH (Numbeo, une donnée) ; ONCF Navette Étudiant Casablanca–El Jadida 480 DH/mois."
+          },
+          "Settat": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 700,
+                "max": 1300
+              },
+              "studio": {
+                "min": 1500,
+                "max": 2500
+              },
+              "standing": {
+                "min": 3000,
+                "max": 4500
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 950,
+                "max": 1360
+              },
+              "normal": {
+                "min": 1400,
+                "max": 2000
+              },
+              "confortable": {
+                "min": 2140,
+                "max": 3060
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 80,
+                "max": 150
+              },
+              "taxi": {
+                "min": 200,
+                "max": 400
+              }
+            },
+            "reseau": "bus urbains",
+            "fiabilite": "estimation",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.oncf-voyages.ma/navette-etudiant",
+              "https://yakeey.com/fr-ma/referentiel-de-prix-immobilier",
+              "https://www.avito.ma/fr/settat/appartements-%C3%A0_louer",
+              "https://somayar.ma/carte-abonnement-bus-etudiant/"
+            ],
+            "remarques": "Petit marché (86 annonces Avito) : 1 chambre 1 500-3 000 DH (médiane 1 600), 2 chambres jusqu'à 4 000 DH (médiane 2 300). Colocation et standing : estimation (réf. Oujda, Meknès). Transport : tout estimé ; ONCF Navette Étudiant Casablanca–Settat 620 DH/mois pour qui loge à Casablanca."
+          },
+          "Béni Mellal": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 700,
+                "max": 1300
+              },
+              "studio": {
+                "min": 1500,
+                "max": 3000
+              },
+              "standing": {
+                "min": 3500,
+                "max": 5500
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 950,
+                "max": 1360
+              },
+              "normal": {
+                "min": 1400,
+                "max": 2000
+              },
+              "confortable": {
+                "min": 2140,
+                "max": 3060
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 80,
+                "max": 150
+              },
+              "taxi": {
+                "min": 200,
+                "max": 400
+              }
+            },
+            "reseau": "bus urbains",
+            "fiabilite": "estimation",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://yakeey.com/fr-ma/referentiel-de-prix-immobilier",
+              "https://www.avito.ma/fr/beni_mellal/appartements-%C3%A0_louer",
+              "https://somayar.ma/carte-abonnement-bus-etudiant/"
+            ],
+            "remarques": "Petit marché (243 annonces Avito, peu d'exemples par type) : 1 chambre 1 500-4 500 DH (médiane 3 500, 5 annonces), 2 chambres 1 400-6 000 DH. Colocation, standing, transport et vie : estimation (réf. Oujda, Meknès)."
+          },
+          "Ifrane": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 1200,
+                "max": 2200
+              },
+              "studio": {
+                "min": 2000,
+                "max": 4000
+              },
+              "standing": {
+                "min": 4500,
+                "max": 7500
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1160,
+                "max": 1700
+              },
+              "normal": {
+                "min": 1700,
+                "max": 2500
+              },
+              "confortable": {
+                "min": 2600,
+                "max": 3820
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 0,
+                "max": 100
+              },
+              "taxi": {
+                "min": 200,
+                "max": 400
+              }
+            },
+            "reseau": "pas de réseau urbain structuré identifié (petite ville, marche)",
+            "fiabilite": "estimation",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.avito.ma/fr/ifrane/appartements-%C3%A0_louer"
+            ],
+            "remarques": "Petit marché (113 annonces Avito) : 1 chambre 1 900-5 500 DH, 2 chambres 2 500-7 500 DH. Colocation estimée sur la moitié d'un 2 chambres. Ville touristique de montagne : loyers en hausse l'hiver, chauffage à prévoir. Transport et vie : estimation (réf. Fès). Les étudiants d'Al Akhawayn logent souvent sur le campus (tarifs non relevés ici)."
+          },
+          "Benguerir": {
+            "logement_mensuel": {
+              "colocation": {
+                "min": 1200,
+                "max": 2000
+              },
+              "studio": {
+                "min": 2500,
+                "max": 3800
+              },
+              "standing": {
+                "min": 4500,
+                "max": 6500
+              }
+            },
+            "vie_hors_logement": {
+              "econome": {
+                "min": 1090,
+                "max": 1630
+              },
+              "normal": {
+                "min": 1600,
+                "max": 2400
+              },
+              "confortable": {
+                "min": 2450,
+                "max": 3670
+              }
+            },
+            "transport": {
+              "tram": {
+                "min": 0,
+                "max": 150
+              },
+              "taxi": {
+                "min": 200,
+                "max": 400
+              }
+            },
+            "reseau": "réseau urbain limité (non vérifié), campus UM6P accessible à pied ou en navette",
+            "fiabilite": "partiel",
+            "sources": [
+              "https://www.numbeo.com/cost-of-living/country_result.jsp?country=Morocco&displayCurrency=MAD",
+              "https://www.avito.ma/fr/ben_guerir/appartements-%C3%A0_louer"
+            ],
+            "remarques": "222 annonces Avito : 1 chambre 2 500-3 800 DH (médiane 3 000), 2 chambres 2 200-7 000 DH (médiane 3 500), meublés 2 300-6 500 DH. Colocation estimée sur la moitié d'un 2 chambres. Les loyers sont tirés par l'UM6P (voir aussi les résidences de data/referentiels/residences_etudiantes.json). Transport et vie : estimation (réf. Settat, Marrakech)."
+          }
+        },
+        "_villes": "Coût de la vie par ville, relevé du 2026-11-22 (scripts/couts_villes_maroc.py) : Montants mensuels en MAD. Loyers Avito relevés le 22/11/2026 sur une page d'annonces par ville (annonces à la journée et prix de vente écartés) : ordres de grandeur, pas des statistiques. Numbeo cité comme indicatif ; son « 1 chambre hors centre » sert de repère pour le studio et son « 1 chambre centre » pour le standing. vie_hors_logement_normal = alimentation, téléphone/internet mobile, produits courants, petites sorties, hors eau/électricité du logement : estimation Navigoal à partir des prix unitaires Numbeo (pour les villes absentes de Numbeo, par analogie). mensuel_transport_commun = marche + abonnement (ou ~40 tickets) ; mensuel_taxi = transport en commun ponctuel + environ 25 à 30 courses de petit taxi par mois. HCP : aucune donnée publiée de niveau de prix comparé entre villes trouvée (l'IPC régional est un indice d'évolution, pas de niveau)."
       }
     },
     {

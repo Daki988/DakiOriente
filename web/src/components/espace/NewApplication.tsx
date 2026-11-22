@@ -150,7 +150,7 @@ export function NewApplication() {
               </div>
               <div className="grid gap-2 text-sm sm:grid-cols-2">
                 {p.diploma && <div className="rounded-xl bg-[#f6f8fe] p-3"><span className="block text-xs font-bold uppercase text-ink-mute">Diplôme</span>{p.diploma}</div>}
-                <div className="rounded-xl bg-[#f6f8fe] p-3"><span className="block text-xs font-bold uppercase text-ink-mute">Scolarité annuelle{p.feesConfirmed ? "" : " (indicative)"}</span>{p.tuitionMin ? <Prix mad={p.tuitionMin} /> : "Sur demande"}{p.tuitionMax && p.tuitionMax !== p.tuitionMin ? <> – <Prix mad={p.tuitionMax} /></> : null}</div>
+                <div className="rounded-xl bg-[#f6f8fe] p-3"><span className="block text-xs font-bold uppercase text-ink-mute">Scolarité annuelle{p.feesConfirmed ? "" : " (indicative)"}</span>{p.tuitionMin ? <>{p.tuitionMax && p.tuitionMax !== p.tuitionMin ? "À partir de " : ""}<Prix mad={p.tuitionMin} /></> : "Sur demande"}</div>
                 <div className="rounded-xl bg-[#f6f8fe] p-3"><span className="block text-xs font-bold uppercase text-ink-mute">Frais de dossier</span>Gratuit</div>
                 <div className="rounded-xl bg-[#f6f8fe] p-3"><span className="block text-xs font-bold uppercase text-ink-mute">Rentrée</span>{p.startDate ?? "Septembre"}</div>
               </div>

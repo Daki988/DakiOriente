@@ -10,6 +10,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { DONUT_COLORS, Donut } from "./Donut";
 import { DevisPdf, type Cachet } from "./DevisPdf";
 import { api } from "@/lib/api";
+import { prefixePrix } from "@/lib/prix";
 import { useDestination } from "@/components/ui/Destination";
 import { auPays, destinationById, vitrine, STATUT_LONG, VILLES_ETUDES, etabById, etablissements, fmt, formationById, labelById, paysDetailById, libelleFilieres } from "@/lib/data";
 import { paysOrigine, paysOrigineById, visaDestination } from "@/lib/pays-origine";
@@ -113,10 +114,15 @@ export function DevisSimulateur() {
   const loc = (v: number) => (dev ? convertirDe(v, base, dev, taux) ?? v : v);
   const unit = dev ? symbole(dev) : symbole(base);
   const nb = (v: number) => fmt(Math.round(v));
-  /** Fourchette dans la devise de lecture, avec l'équivalent en dirhams en dessous. */
-  const Plage = ({ v, className = "" }: { v: readonly number[]; className?: string }) => dev
-    ? <span className={`inline-flex flex-col items-end leading-tight ${className}`}><span>{nb(loc(v[0]))} – {nb(loc(v[1]))}</span><span className="text-[11px] font-semibold text-ink-mute">{nb(v[0])} – {nb(v[1])} {symbole(base)}</span></span>
-    : <span className={className}>{nb(v[0])} – {nb(v[1])}</span>;
+  /** Jamais de fourchette : « à partir de » + minimum, sauf montant unique (tarif officiel, loyer d'une annonce). */
+  const pp = (v: readonly number[]) => prefixePrix(v as [number, number]);
+  /** Montant (à partir de…) dans la devise de lecture, avec l'équivalent en dirhams en dessous. */
+  const Plage = ({ v, className = "" }: { v: readonly number[]; className?: string }) => {
+    const pre = pp(v) && <span className="mr-1 text-[0.8em] font-semibold text-ink-mute">à partir de</span>;
+    return dev
+      ? <span className={`inline-flex flex-col items-end leading-tight ${className}`}><span>{pre}{nb(loc(v[0]))}</span><span className="text-[11px] font-semibold text-ink-mute">{nb(v[0])} {symbole(base)}</span></span>
+      : <span className={className}>{pre}{nb(v[0])}</span>;
+  };
   const nbMois = D.years * 12;
   const mois = [D.total[0] / nbMois, D.total[1] / nbMois];
   /** À réunir avant le départ (lignes cochées payées une fois) ; billets : l'aller seulement, le retour se paie à la fin des études. */
@@ -173,7 +179,7 @@ export function DevisSimulateur() {
     const base: Pair = autres.reduce<Pair>((a, [, v]) => [a[0] + v[0], a[1] + v[1]], [0, 0]);
     return autres.map(([k, v, i]) => [k, [v[0] + (base[0] ? imp[0] * v[0] / base[0] : 0), v[1] + (base[1] ? imp[1] * v[1] / base[1] : 0)] as Pair, i] as const);
   })();
-  const resume = `Devis Navigoal : ${F.intitule} à ${e.sigle} (${e.ville}) — ${dev ? `${nb(loc(D.total[0]))} à ${nb(loc(D.total[1]))} ${unit} (soit ` : ""}${fmt(cv(D.total[0]))} à ${fmt(cv(D.total[1]))} ${symbole(base)}${dev ? ")" : ""} sur ${D.years} an${D.years > 1 ? "s" : ""}, tout compris.`;
+  const resume = `Devis Navigoal : ${F.intitule} à ${e.sigle} (${e.ville}) — ${pp(D.total)}${dev ? `${nb(loc(D.total[0]))} ${unit} (soit ` : ""}${fmt(cv(D.total[0]))} ${symbole(base)}${dev ? ")" : ""} sur ${D.years} an${D.years > 1 ? "s" : ""}, tout compris.`;
   const url = typeof window !== "undefined" ? window.location.href : "";
   const parVille = VILLES_ETUDES.map((v) => { const xs = etablissements.filter((x) => x.ville === v).sort((a, b) => a.sigle.localeCompare(b.sigle)); return [xs[0] ? `${v} (${destinationById[xs[0].pays]?.nom})` : v, xs] as const; }).filter(([, xs]) => xs.length);
 
@@ -248,19 +254,19 @@ export function DevisSimulateur() {
               <div className="flex flex-col justify-between gap-4 2xl:flex-row">
                 <div className="flex min-w-0 flex-col gap-1.5">
                   <span className="text-[13px] font-bold uppercase text-ink-mute">En moyenne par mois · tout compris · {F.diplome}</span>
-                  <div className="text-[28px] font-extrabold leading-tight tracking-tight sm:text-[40px]"><span className="whitespace-nowrap"><AnimatedNumber value={loc(mois[0])} /> –</span> <span className="whitespace-nowrap"><AnimatedNumber value={loc(mois[1])} /> <span className="text-xl">{unit}</span></span> <span className="text-lg font-bold text-ink-soft sm:text-xl">par mois</span></div>
-                  {dev && <span className="text-[15px] font-bold text-ink-soft">soit {nb(mois[0])} – {nb(mois[1])} {symbole(base)} par mois {auPays(e.pays)}</span>}
+                  <div className="text-[28px] font-extrabold leading-tight tracking-tight sm:text-[40px]">{pp(mois) && <span className="mr-2 text-xl font-bold text-ink-soft sm:text-2xl">À partir de</span>}<span className="whitespace-nowrap"><AnimatedNumber value={loc(mois[0])} /> <span className="text-xl">{unit}</span></span> <span className="text-lg font-bold text-ink-soft sm:text-xl">par mois</span></div>
+                  {dev && <span className="text-[15px] font-bold text-ink-soft">soit {pp(mois)}{nb(mois[0])} {symbole(base)} par mois {auPays(e.pays)}</span>}
                   <div className="mt-1 rounded-2xl border border-[#eef1f8] p-3">
                     <span className="text-[12px] font-bold uppercase text-ink-mute">Ce que contient ce montant mensuel</span>
                     <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-[13.5px] sm:grid-cols-2">
-                      {catsMois.map(([k, v, i]) => <li key={k} className="flex items-center justify-between gap-3"><span className="flex min-w-0 items-center gap-2"><span className="h-2.5 w-2.5 shrink-0 rounded" style={{ background: DONUT_COLORS[i] }} />{k}</span><b className="whitespace-nowrap tabular-nums">{nb(loc(v[0] / nbMois))} – {nb(loc(v[1] / nbMois))} {unit}</b></li>)}
+                      {catsMois.map(([k, v, i]) => <li key={k} className="flex items-center justify-between gap-3"><span className="flex min-w-0 items-center gap-2"><span className="h-2.5 w-2.5 shrink-0 rounded" style={{ background: DONUT_COLORS[i] }} />{k}</span><b className="whitespace-nowrap tabular-nums">{pp(v)}{nb(loc(v[0] / nbMois))} {unit}</b></li>)}
                       {D.aides && D.aides[1] > 0 && <li className="flex items-center justify-between gap-3 text-[#0b6e38]"><span>Bourse ou réduction</span><b className="whitespace-nowrap tabular-nums">− {nb(loc(D.aides[1] / nbMois))} {unit}</b></li>}
                     </ul>
                     <span className="mt-2 block text-[12px] text-ink-mute">La marge pour imprévus et les frais d&apos;envoi d&apos;argent sont inclus dans chaque poste. Chaque poste est réparti sur les {nbMois} mois des études : la scolarité et les frais annuels se paient en réalité par tranches, les billets et l&apos;installation au départ.{origine ? "" : " Choisissez le pays de départ pour inclure les billets d'avion et lire les montants dans votre monnaie."}</span>
                   </div>
                   <div className="mt-2 grid gap-2 sm:grid-cols-2">
-                    {avantDepart[1] > 0 && <div className="flex flex-col gap-0.5 rounded-2xl bg-[#f6f8fe] p-3"><span className="flex items-center gap-1.5 text-[12px] font-bold uppercase text-ink-mute"><Plane size={14} className="text-brand-600" />Pour démarrer</span><b className="text-[15px]">{nb(loc(avantDepart[0]))} – {nb(loc(avantDepart[1]))} {unit}</b><span className="text-[12px] text-ink-mute">à réunir avant le départ : billet, visa, caution, installation</span></div>}
-                    <div className="flex flex-col gap-0.5 rounded-2xl bg-[#f6f8fe] p-3"><span className="flex items-center gap-1.5 text-[12px] font-bold uppercase text-ink-mute"><Calendar size={14} className="text-brand-600" />Sur les {D.years} an{D.years > 1 ? "s" : ""} d&apos;études</span><b className="text-[15px]">{nb(loc(D.total[0]))} – {nb(loc(D.total[1]))} {unit}</b><span className="text-[12px] text-ink-mute">au total, payé au fil des années{dev ? ` · ${nb(D.total[0])} – ${nb(D.total[1])} ${symbole(base)}` : ""}</span></div>
+                    {avantDepart[1] > 0 && <div className="flex flex-col gap-0.5 rounded-2xl bg-[#f6f8fe] p-3"><span className="flex items-center gap-1.5 text-[12px] font-bold uppercase text-ink-mute"><Plane size={14} className="text-brand-600" />Pour démarrer</span><b className="text-[15px]">{pp(avantDepart)}{nb(loc(avantDepart[0]))} {unit}</b><span className="text-[12px] text-ink-mute">à réunir avant le départ : billet, visa, caution, installation</span></div>}
+                    <div className="flex flex-col gap-0.5 rounded-2xl bg-[#f6f8fe] p-3"><span className="flex items-center gap-1.5 text-[12px] font-bold uppercase text-ink-mute"><Calendar size={14} className="text-brand-600" />Sur les {D.years} an{D.years > 1 ? "s" : ""} d&apos;études</span><b className="text-[15px]">{pp(D.total)}{nb(loc(D.total[0]))} {unit}</b><span className="text-[12px] text-ink-mute">au total, payé au fil des années{dev ? ` · ${pp(D.total)}${nb(D.total[0])} ${symbole(base)}` : ""}</span></div>
                   </div>
                   <span className="text-[12.5px] text-ink-mute">Estimation prudente : elle inclut une marge pour les imprévus et l&apos;inflation. {D.aides && D.aides[1] > 0 ? <>Bourse ou réduction déjà déduite.</> : <>Des bourses et réductions peuvent l&apos;alléger : <Link href="/bourses/" className="font-bold text-brand-600 hover:underline">voir les bourses</Link>.</>}</span>
                 </div>
@@ -272,7 +278,7 @@ export function DevisSimulateur() {
               <div className="flex flex-col items-center gap-8 sm:flex-row">
                 <div className="relative h-[220px] w-[220px] shrink-0">
                   <Donut key={`${eid}${fid}${origine}${logement}`} values={cats.map(([, v]) => v[1])} />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center"><span className="text-xs text-ink-mute">par an</span><b className="text-lg"><AnimatedNumber value={loc(D.total[1] / D.years)} /></b><span className="text-[11px] text-ink-mute">{unit} max.</span></div>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center"><span className="text-xs text-ink-mute">par an{pp(D.total) ? ", dès" : ""}</span><b className="text-lg"><AnimatedNumber value={loc(D.total[0] / D.years)} /></b><span className="text-[11px] text-ink-mute">{unit}</span></div>
                 </div>
                 <div className="flex w-full flex-col gap-3">
                   <span className="text-xs font-bold text-ink-mute">RÉPARTITION ({unit})</span>
@@ -364,8 +370,8 @@ export function DevisSimulateur() {
                   <div className="flex items-center justify-between"><b>Comparaison</b><button type="button" onClick={() => setGarde(null)} aria-label="Effacer la comparaison" className="rounded-lg p-1 text-ink-mute hover:bg-white"><X size={14} /></button></div>
                   {[["Gardé", garde.titre, garde.total, garde.mois], ["Actuel", `${e.sigle} · ${persoActif ? D.logementLibelle : LOGEMENT_LABEL[logement]}`, D.total, mois as Pair]].map(([k, t, tot, m]) => (
                     <div key={k as string} className="flex flex-col rounded-xl bg-white p-2.5"><span className="text-[11px] font-bold uppercase text-ink-mute">{k as string}</span><span className="truncate font-bold">{t as string}</span>
-                      <span className="text-brand-700"><b><Plage v={tot as Pair} className="items-start" /></b></span><span className="text-[12px] text-ink-mute">≈ {nb(loc((m as Pair)[0]))} – {nb(loc((m as Pair)[1]))} {unit} par mois</span></div>))}
-                  <span className="text-[12px] text-ink-soft">Écart : {nb(loc(Math.abs(D.total[0] - garde.total[0])))} – {nb(loc(Math.abs(D.total[1] - garde.total[1])))} {unit} {D.total[1] > garde.total[1] ? "de plus" : "de moins"} pour le devis actuel.</span>
+                      <span className="text-brand-700"><b><Plage v={tot as Pair} className="items-start" /></b></span><span className="text-[12px] text-ink-mute">≈ {pp((m as Pair))}{nb(loc((m as Pair)[0]))} {unit} par mois</span></div>))}
+                  <span className="text-[12px] text-ink-soft">Écart : {nb(loc(Math.abs(D.total[0] - garde.total[0])))} {unit} {D.total[0] > garde.total[0] ? "de plus" : "de moins"} pour le devis actuel (montants de départ).</span>
                 </div>)}
               <Link href={`/espace/candidatures/nouvelle?etab=${eid}&formation=${fid}`} className="btn-ghost"><MessageCircle size={16} /> Candidater et demander les frais exacts</Link>
               <div className="flex items-start gap-2.5 rounded-2xl bg-[#fff7dd] p-3 text-[13px]"><Lightbulb size={18} className="shrink-0 text-[#a55a00]" /><span><b>Astuce :</b> comparez ce devis avec d&apos;autres écoles qui mènent au même métier. <Link href={`/comparateur/?f=${fid}&e=${eid}`} className="font-bold text-brand-600"><Scale size={13} className="inline" /> Comparer</Link></span></div>
@@ -388,7 +394,7 @@ export function DevisSimulateur() {
           </aside>
         </div>
         <p className="container mt-5 text-xs leading-relaxed text-ink-mute">
-          {D.scolaritePubliee ? "Scolarité aux tarifs publiés par l'établissement sur son site. " : "L'établissement ne publie pas ses tarifs : la scolarité est une fourchette indicative, recalée sur les écoles de même type qui publient les leurs. "}Le reste de l&apos;estimation repose sur des grilles publiques et sur le coût de la vie observé ({SOURCES.slice(0, 4).map((u) => u.split("/")[2]).join(", ")}). Montants calculés en {nomBase}{dev ? ` et convertis en ${symbole(dev)} (${dev})` : ""} ; conversion au taux du {new Date(taux.date).toLocaleDateString("fr-FR")}, majorée de {MARGE_PRUDENCE * 100} % par prudence. Marge d&apos;imprévus {Math.round(HYP.marge_imprevus * 100)} % et frais de transfert {Math.round(HYP.frais_transfert * 100)} % inclus{logement === "colocation" ? " ; colocation : environ −15 % sur le coût de la vie" : ""}. Établissement : {STATUT_LONG[e.statut] ?? "privé"}, catégorie « {D.typ} ».
+          {D.scolaritePubliee ? "Scolarité aux tarifs publiés par l'établissement sur son site. " : "L'établissement ne publie pas ses tarifs : la scolarité est un montant de départ indicatif, recalé sur les écoles de même type qui publient les leurs. "}Le reste de l&apos;estimation repose sur des grilles publiques et sur le coût de la vie observé ({SOURCES.slice(0, 4).map((u) => u.split("/")[2]).join(", ")}). Montants calculés en {nomBase}{dev ? ` et convertis en ${symbole(dev)} (${dev})` : ""} ; conversion au taux du {new Date(taux.date).toLocaleDateString("fr-FR")}, majorée de {MARGE_PRUDENCE * 100} % par prudence. Marge d&apos;imprévus {Math.round(HYP.marge_imprevus * 100)} % et frais de transfert {Math.round(HYP.frais_transfert * 100)} % inclus{logement === "colocation" ? " ; colocation : environ −15 % sur le coût de la vie" : ""}. Établissement : {STATUT_LONG[e.statut] ?? "privé"}, catégorie « {D.typ} ».
         </p>
         <div className="container mt-8 flex justify-center"><span className="flex items-center gap-2 text-sm text-ink-mute"><Calculator size={16} /> Chaque changement recalcule le devis en direct.</span></div>
       </div>

@@ -1,4 +1,5 @@
 import { DossierPublic } from "@/components/sections/DossierPublic";
+import { prefixePrix } from "@/lib/prix";
 import type { Metadata } from "next";
 import Link from "@/components/ui/Link";
 import { QuestionWhatsApp } from "@/components/ui/QuestionWhatsApp";
@@ -13,7 +14,7 @@ import { LabelChip } from "@/components/ui/Cards";
 import { Prix } from "@/components/ui/Devise";
 import { villeHref } from "@/lib/catalogue";
 import { etabDetail } from "@/lib/etab-detail";
-import { COUTS, devis, formationParDefaut } from "@/lib/devis";
+import { COUTS, devis, formationParDefaut, budgetVille } from "@/lib/devis";
 import { establishmentLive } from "@/server/content-ui";
 import { reactivitesPubliques } from "@/server/services/reactivite";
 import { publics as avisPublics } from "@/server/services/avis-ecoles";
@@ -161,7 +162,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
   const fid = formationParDefaut(e.id);
   const D = fid ? devis(e.id, fid) : null;
   const typ = C.scolarite_annuelle[e.type] ?? C.scolarite_annuelle.universite;
-  const B = P.budget;
+  const B = budgetVille(e.pays, e.ville) ?? P.budget;
   const facts: [string, string][] = [["Label", e.label_libelle || labelById[e.label]?.libelle || "—"], ["Statut", STATUT_LONG[e.statut] ?? "Privé"], e.campus ? ["Campus", villes.join(" · ")] : ["Ville", e.ville], ["Création", e.annee_creation ? String(e.annee_creation) : "—"], autorise ? ["Diplômes", "D'établissement"] : [maroc ? "Filières" : "Programmes reconnus", maroc ? libelleFilieres(e).replace(/ filières?/, "") : String(e.filieres.length)], ["Étudiants étrangers", "Accueillis ✓"]];
   const compare = `/comparateur/?f=${fid}&e=${[e.id, ...similar.slice(0, 2).map((x) => x.id)].join(",")}`;
   return (
@@ -211,7 +212,7 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
             {confirmed.length > 0 && (
               <div className="card flex flex-col gap-3 rounded-[22px] p-6">
                 <div className="flex items-center justify-between"><h2 className="text-lg font-extrabold">Frais confirmés par l&apos;établissement</h2><span className="chip bg-[#e8f8ef] text-[#0b7a3d]">Vérifié</span></div>
-                {confirmed.map((p) => <div key={p.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-[#f1f4fb] pb-2 text-sm last:border-0"><span className="font-semibold">{p.title}{p.startDate ? <span className="text-ink-mute"> · rentrée {p.startDate}</span> : null}</span><span className="text-ink-soft">{p.tuitionMin != null ? (p.currency ?? "MAD") === "MAD" ? <><Prix mad={p.tuitionMin} />{p.tuitionMax && p.tuitionMax !== p.tuitionMin ? <> – <Prix mad={p.tuitionMax} /></> : null}/an</> : `${fmt(p.tuitionMin)}${p.tuitionMax && p.tuitionMax !== p.tuitionMin ? ` – ${fmt(p.tuitionMax)}` : ""} ${p.currency}/an` : "sur demande"}{p.applicationFee ? (p.currency ?? "MAD") === "MAD" ? <> · dossier <Prix mad={p.applicationFee} /></> : ` · dossier ${fmt(p.applicationFee)} ${p.currency}` : ""}</span></div>)}
+                {confirmed.map((p) => <div key={p.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-[#f1f4fb] pb-2 text-sm last:border-0"><span className="font-semibold">{p.title}{p.startDate ? <span className="text-ink-mute"> · rentrée {p.startDate}</span> : null}</span><span className="text-ink-soft">{p.tuitionMin != null ? (p.currency ?? "MAD") === "MAD" ? <>{prefixePrix([p.tuitionMin, p.tuitionMax ?? p.tuitionMin])}<Prix mad={p.tuitionMin} />/an</> : `${prefixePrix([p.tuitionMin, p.tuitionMax ?? p.tuitionMin])}${fmt(p.tuitionMin)} ${p.currency}/an` : "sur demande"}{p.applicationFee ? (p.currency ?? "MAD") === "MAD" ? <> · dossier <Prix mad={p.applicationFee} /></> : ` · dossier ${fmt(p.applicationFee)} ${p.currency}` : ""}</span></div>)}
               </div>
             )}
             {autorise
@@ -270,12 +271,12 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
         <aside className="flex flex-col gap-5 lg:sticky lg:top-24 lg:[html[data-entete=cache]_&]:top-4 transition-[top] duration-300">
           <div id="frais" className="card flex scroll-mt-28 flex-col gap-3.5 rounded-3xl p-6 shadow-[0_30px_60px_-24px_rgba(26,71,245,.4)]">
             <div className="flex items-center justify-between"><b>Budget annuel estimé</b><span className="chip bg-sun-100 text-[#a55a00]">estimation</span></div>
-            {([["Frais de scolarité", <><Prix mad={typ.min} devise={dev} bloc /> – <Prix mad={typ.max} devise={dev} bloc /></>], ["Vie (10 mois)", <><Prix mad={B.total_mensuel.min * 10} devise={dev} bloc /> – <Prix mad={B.total_mensuel.max * 10} devise={dev} bloc /></>], ["Visa & séjour", "selon la nationalité"]] as const).map(([a, b]) => <div key={a} className="flex justify-between gap-3 text-sm"><span className="text-ink-mute">{a}</span><b className="text-right">{b}</b></div>)}
+            {([["Frais de scolarité", <>{prefixePrix([typ.min, typ.max])}<Prix mad={typ.min} devise={dev} bloc /></>], ["Vie (10 mois)", <>{prefixePrix([B.total_mensuel.min * 10, B.total_mensuel.max * 10])}<Prix mad={B.total_mensuel.min * 10} devise={dev} bloc /></>], ["Visa & séjour", "selon la nationalité"]] as const).map(([a, b]) => <div key={a} className="flex justify-between gap-3 text-sm"><span className="text-ink-mute">{a}</span><b className="text-right">{b}</b></div>)}
             {(e.site?.frais.length ?? 0) > 0 && <div className="flex flex-col gap-1.5 rounded-2xl border border-[#cdeedd] bg-[#f3fbf6] p-3 text-[13px]">
               <b className="text-[#0b7a3d]">Frais publiés par l&apos;établissement</b>
               {e.site!.frais.map((f) => <div key={f.cycle} className="flex justify-between gap-3"><span className="text-ink-soft">{f.cycle}</span><b className="text-right">{f.scolarite_annuelle_mad ? <Prix mad={f.scolarite_annuelle_mad} suffixe="/an" bloc /> : "—"}{f.inscription_mad ? <span className="block text-[11px] font-semibold text-ink-mute">+ inscription <Prix mad={f.inscription_mad} /></span> : null}</b></div>)}
             </div>}
-            {D && <div className="rounded-2xl bg-brand-50 p-3 text-[13px]"><span className="text-ink-mute">Coût total sur {D.years} an{D.years > 1 ? "s" : ""} (tout compris) :</span><b className="block text-brand-700"><Prix mad={D.total[0]} devise={dev} /> – <Prix mad={D.total[1]} devise={dev} /></b></div>}
+            {D && <div className="rounded-2xl bg-brand-50 p-3 text-[13px]"><span className="text-ink-mute">Coût total sur {D.years} an{D.years > 1 ? "s" : ""} (tout compris) :</span><b className="block text-brand-700">{prefixePrix([D.total[0], D.total[1]])}<Prix mad={D.total[0]} devise={dev} /></b></div>}
             <Link href={`/devis/?etab=${e.id}`} className="btn-primary btn-shine py-2.5"><Calculator size={17} /> Obtenir le devis complet</Link>
             <span className="text-center text-xs text-ink-mute">Frais exacts transmis par l&apos;établissement sous 72 h via Navigoal</span>
           </div>
@@ -291,8 +292,8 @@ export default async function EtabPage(props: { params: Promise<{ id: string }> 
             <Link href={`/navilease/logements/?etablissement=${e.id}`} className="btn-primary py-2.5">Voir sur Navilease</Link>
           </div> : <div id="logement" className="card flex scroll-mt-28 flex-col gap-2 rounded-[22px] bg-gradient-to-br from-white to-[#fff7dd] p-5">
             <div className="flex items-center gap-2.5"><span className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-sun-400"><KeyRound size={18} /></span><b>Vivre à {e.ville}</b></div>
-            {B.lignes.map((l) => <div key={l.poste} className="flex justify-between gap-3 text-[13px]"><span className="text-ink-soft">{l.poste}</span><b className="shrink-0 text-right"><Prix mad={l.min} devise={dev} bloc /> – <Prix mad={l.max} devise={dev} suffixe="/mois" bloc /></b></div>)}
-            <span className="text-xs text-ink-mute">Fourchettes mensuelles indicatives. {B.note}</span>
+            {B.lignes.map((l) => <div key={l.poste} className="flex justify-between gap-3 text-[13px]"><span className="text-ink-soft">{l.poste}</span><b className="shrink-0 text-right">{prefixePrix([l.min, l.max])}<Prix mad={l.min} devise={dev} suffixe="/mois" bloc /></b></div>)}
+            <span className="text-xs text-ink-mute">Montants mensuels indicatifs (minimum). {B.note}</span>
           </div>}
           <div className="card flex flex-col gap-2 rounded-[22px] p-5">
             <b className="flex items-center gap-2"><Drapeau code={e.pays} taille={14} />Étudier {auPays(e.pays)}</b><span className="text-[13px] text-ink-mute">Visa, coût de la vie, reconnaissance des diplômes.</span>

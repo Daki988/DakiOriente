@@ -1,4 +1,5 @@
 "use client";
+import { prefixePrix } from "@/lib/prix";
 import { useApresPremierRendu } from "@/components/motion/Reveal";
 import { DossierPublic } from "./DossierPublic";
 import Link from "@/components/ui/Link";
@@ -12,7 +13,7 @@ import { EtabPhoto } from "@/components/ui/EtabPhoto";
 import { LabelChip, domStyle } from "@/components/ui/Cards";
 import { Prix } from "@/components/ui/Devise";
 import { villeHref, villesOffre } from "@/lib/catalogue";
-import { COUTS } from "@/lib/devis";
+import { COUTS, budgetVille } from "@/lib/devis";
 import { PAYS_NOM, auPays, destinationById, labelPays, admissionLabel, compatibilite, competenceLabel, domaineById, etabById, formationById, labelById, metierById, niveauLabel, paysDetailById, serieById, type Etablissement, type Filiere, type PaysCode, type ProgrammeSite, type SiteInfos } from "@/lib/data";
 
 /** Détail (préparé côté serveur) des écoles qui proposent la formation : filières et infos du site officiel. */
@@ -55,7 +56,7 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
   const C = COUTS[pays];
   const dev = C.devise;
   const typ = e ? C.scolarite_annuelle[e.type] ?? C.scolarite_annuelle.universite : null;
-  const B = paysDetailById[pays].budget;
+  const B = (e ? budgetVille(pays, e.ville) : null) ?? paysDetailById[pays].budget;
   const series = (Object.entries(f.series_recommandees) as [PaysCode, string[]][]).filter(([, l]) => l?.length);
   const candidater = e ? `/espace/candidatures/nouvelle?etab=${e.id}&formation=${f.id}${ville && e.campus ? `&campus=${encodeURIComponent(ville)}` : ""}` : "/inscription";
   const statut = filieres[0]?.homologation;
@@ -169,9 +170,9 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
                       {site!.frais.map((x) => <div key={x.cycle} className="flex flex-col justify-between gap-1 border-b border-[#dff3e7] pb-2 last:border-0 sm:flex-row sm:gap-3"><span className="text-ink-soft">{x.cycle}</span><b className="sm:text-right">{x.scolarite_annuelle_mad ? <Prix mad={x.scolarite_annuelle_mad} suffixe="/an" /> : "—"}{x.inscription_mad ? <span className="block text-xs font-semibold text-ink-mute">+ inscription <Prix mad={x.inscription_mad} /></span> : null}</b></div>)}
                     </div>
                   ) : typ && (
-                    <div className="flex flex-col gap-1 rounded-2xl bg-[#f6f8fe] p-4 text-sm"><span className="text-ink-mute">Fourchette habituelle ({typ.libelle.toLowerCase()}, estimation) :</span><b className="text-lg"><Prix mad={typ.min} devise={dev} /> – <Prix mad={typ.max} devise={dev} suffixe="/an" /></b><span className="text-xs text-ink-mute">Frais exacts à confirmer par l&apos;établissement.</span></div>
+                    <div className="flex flex-col gap-1 rounded-2xl bg-[#f6f8fe] p-4 text-sm"><span className="text-ink-mute">Scolarité habituelle ({typ.libelle.toLowerCase()}, estimation) :</span><b className="text-lg">{prefixePrix([typ.min, typ.max])}<Prix mad={typ.min} devise={dev} suffixe="/an" /></b><span className="text-xs text-ink-mute">Frais exacts à confirmer par l&apos;établissement.</span></div>
                   )}
-                  <div className="flex flex-col gap-1.5 text-sm"><b>Coût de la vie étudiante {auPays(pays)} (par mois)</b>{B.lignes.map((l) => <div key={l.poste} className="flex justify-between gap-3"><span className="text-ink-soft">{l.poste}</span><b className="text-right"><Prix mad={l.min} devise={dev} /> – <Prix mad={l.max} devise={dev} /></b></div>)}<span className="text-xs text-ink-mute">{B.note}</span></div>
+                  <div className="flex flex-col gap-1.5 text-sm"><b>Coût de la vie étudiante {auPays(pays)} (par mois)</b>{B.lignes.map((l) => <div key={l.poste} className="flex justify-between gap-3"><span className="text-ink-soft">{l.poste}</span><b className="text-right">{prefixePrix([l.min, l.max])}<Prix mad={l.min} devise={dev} /></b></div>)}<span className="text-xs text-ink-mute">{B.note}</span></div>
                   <Link href={`/devis/?etab=${e.id}&f=${f.id}`} className="btn-primary self-start"><Calculator size={16} /> Calculer le coût total</Link>
                 </div>
               )}
@@ -224,7 +225,7 @@ export function FormationDetail({ id, details }: { id: string; details: DetailFo
           </div>
           <div className="card flex flex-col gap-2.5 bg-gradient-to-br from-white to-[#fff7dd] p-5">
             <div className="flex items-center gap-2.5"><span className="flex h-[38px] w-[38px] items-center justify-center rounded-[10px] bg-sun-400"><KeyRound size={18} /></span><b>Se loger à {ville}</b></div>
-            <p className="text-[13px] text-ink-soft">{pays === "MA" ? "Logements vérifiés" : "Logement"} près de {e.sigle || "l'établissement"} : loyer d&apos;un studio ou d&apos;une colocation entre <Prix mad={B.lignes[0].min} devise={dev} /> et <Prix mad={B.lignes[0].max} devise={dev} /> par mois.</p>
+            <p className="text-[13px] text-ink-soft">{pays === "MA" ? "Logements vérifiés" : "Logement"} près de {e.sigle || "l'établissement"} : loyer d&apos;un studio ou d&apos;une colocation {prefixePrix([B.lignes[0].min, B.lignes[0].max])}<Prix mad={B.lignes[0].min} devise={dev} /> par mois.</p>
             {pays === "MA" && <Link href={`/navilease/logements/?etablissement=${e.id}`} className="btn-ghost py-2.5">Logements Navilease</Link>}
             {ville && <Link href={villeHref(ville)} className="flex items-center gap-1.5 text-[13px] font-bold text-brand-600"><School size={14} />Vivre et étudier à {ville} →</Link>}
           </div>

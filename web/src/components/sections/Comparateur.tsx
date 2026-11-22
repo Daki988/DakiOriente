@@ -28,11 +28,9 @@ function court(n: number, devise: string) {
   return `${Math.round(r).toLocaleString("fr-FR").replace(/[\s\u202f]/g, NB)}${NB}${u}`;
 }
 function plage(min: number, max: number, devise: string, suffixe = "") {
-  const a = court(min, devise), b = court(max, devise);
-  if (min === max) return `${a}${suffixe}`;
-  // « 37 000 – 45 000 MAD » : l'unité une seule fois
-  const u = `${NB}${symbole(devise).replace(/ /g, NB)}`;
-  return `${a.endsWith(u) && b.endsWith(u) ? a.slice(0, -u.length) : a} – ${b}${suffixe}`;
+  // Jamais de fourchette : « à partir de » + minimum, sauf montant unique.
+  const a = court(min, devise);
+  return min === max ? `${a}${suffixe}` : `à partir de ${a}${suffixe}`;
 }
 
 /** Fourchette dans la devise de l'école, et son équivalent dans la monnaie du visiteur (F CFA en premier pour la zone F CFA). */
@@ -130,7 +128,7 @@ export function Comparateur() {
     // Totaux ramenés en dirhams pour comparer des écoles de pays différents (taux indicatifs)
     const enMad = (v: number) => (C.devise === "MAD" ? v : v / (TAUX_SECOURS.taux[C.devise] ?? 1));
     const filieres = e.filieres.filter((f) => f.formation && (m.includes(f.formation) || cibles.includes(f.formation)));
-    return { e, m, ref, D, sco, publie: !!e.frais_publies, vie, villeVie, dev: C.devise, milieu: enMad((D.total[0] + D.total[1]) / 2), villes, filieres };
+    return { e, m, ref, D, sco, publie: !!e.frais_publies, vie, villeVie, dev: C.devise, milieu: enMad(D.total[0]), villes, filieres };
   });
   type Col = (typeof cols)[number];
   const moinsCher = cols.length > 1 ? cols.reduce((b, c) => (c.milieu < b.milieu ? c : b)).e.id : null;

@@ -60,3 +60,36 @@ describe("éléments cochés un par un", () => {
     expect(p.postes!.some((x) => /scolarité/i.test(x.libelle))).toBe(false);
   });
 });
+
+describe("coûts par ville, annonce Navilease et prix « à partir de »", () => {
+  it("le coût de la vie dépend de la ville d'études", async () => {
+    const { devis, coutVille, budgetVille, COUTS } = await import("@/lib/devis");
+    const { etablissements } = await import("@/lib/data");
+    expect(coutVille(COUTS.MA, "Ben Guérir")).not.toBeNull();
+    expect(coutVille(COUTS.MA, "Bouskoura")).toBe(coutVille(COUTS.MA, "Casablanca"));
+    const casa = etablissements.find((e) => e.pays === "MA" && e.ville === "Casablanca")!;
+    const fes = etablissements.find((e) => e.pays === "MA" && e.ville === "Fès")!;
+    const vie = (eid: string) => devis(eid, casa.id === eid ? casa.formations[0] : fes.formations[0]).detail.find((l) => l.cle === "loyer")!.unitaire[0];
+    expect(vie(casa.id)).toBeGreaterThan(vie(fes.id));
+    expect(budgetVille("MA", "Fès")!.total_mensuel.min).toBeLessThan(budgetVille("MA", "Casablanca")!.total_mensuel.min);
+  });
+  it("une annonce Navilease fixe le loyer et la caution du devis personnalisé", async () => {
+    const { devis, PERSO_DEFAUT } = await import("@/lib/devis");
+    const { etablissements } = await import("@/lib/data");
+    const e = etablissements.find((x) => x.pays === "MA" && x.ville === "Rabat")!;
+    const annonces = [{ id: "h1", titre: "Studio Agdal", ville: "Rabat", quartier: "Agdal", type: "studio", loyer: 3200, caution: 3200 }];
+    const d = devis(e.id, e.formations[0], "GA", "studio", { ...PERSO_DEFAUT, logement: "nl:h1", annonces });
+    const loyer = d.detail.find((l) => l.cle === "loyer")!;
+    expect(loyer.unitaire).toEqual([3200, 3200]);
+    expect(loyer.libelle).toContain("Studio Agdal");
+    expect(d.detail.find((l) => l.cle === "caution")!.v).toEqual([6400, 6400]);
+  });
+  it("jamais de fourchette : montant seul s'il est unique, sinon « à partir de »", async () => {
+    const { prixTexte, prefixePrix } = await import("@/lib/prix");
+    const f = (n: number) => `${n} MAD`;
+    expect(prixTexte({ min: 3000, max: 3000 }, f)).toBe("3000 MAD");
+    expect(prixTexte({ min: 3000, max: 5000 }, f)).toBe("à partir de 3000 MAD");
+    expect(prixTexte([1200, 1500], f, { majuscule: true })).toBe("À partir de 1200 MAD");
+    expect(prefixePrix([10, 10])).toBe("");
+  });
+});

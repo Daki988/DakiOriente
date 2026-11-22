@@ -82,7 +82,7 @@ function fraisPublies(id: string): { min: number; max: number; cycles: { cycle: 
   return v.length ? { min: Math.min(...v), max: Math.max(...v), cycles: fr.map((x) => ({ cycle: x.cycle, scolarite_annuelle_mad: x.scolarite_annuelle_mad ?? null, inscription_mad: x.inscription_mad ?? null, ...(x.note ? { note: x.note } : {}) })) } : null;
 }
 const mad = (n: number) => `${n.toLocaleString("fr-FR").replace(/\u202f/g, " ")} MAD`;
-const fraisCourt = (id: string) => { const f = fraisPublies(id); return f ? (f.min === f.max ? `${mad(f.min)}/an` : `${mad(f.min)} – ${mad(f.max)}/an`) : "non publiée par l'école"; };
+const fraisCourt = (id: string) => { const f = fraisPublies(id); return f ? (f.min === f.max ? `${mad(f.min)}/an` : `à partir de ${mad(f.min)}/an`) : "non publiée par l'école"; };
 
 /** Écoles mises en avant (abonnement en cours) : à pertinence égale en premier, toujours signalées comme partenaires. */
 const partenairesIds = async () => new Set((await partenaires()).map((x) => x.id));
@@ -161,8 +161,8 @@ async function ficheEtablissement(id: string) {
   return {
     ...etabCourt(e), type: e.type_libelle, statut: e.statut, label_detail: e.reconnaissance, annee_creation: e.annee_creation, adresse: e.adresse, site_web: e.site_web,
     description: e.description?.slice(0, 700) ?? null,
-    frais_publies_par_l_ecole: fraisPublies(e.id)?.cycles ?? "non publiés : utilise la fourchette indicative ci-dessous et dis-le",
-    scolarite_annuelle_indicative: C ? { min: C.scolarite_annuelle[typ].min, max: C.scolarite_annuelle[typ].max, devise: C.devise, base: C.scolarite_annuelle[typ].libelle } : null,
+    frais_publies_par_l_ecole: fraisPublies(e.id)?.cycles ?? "non publiés : donne le montant de départ indicatif ci-dessous (« à partir de … ») et dis qu'il n'est pas publié par l'école",
+    scolarite_annuelle_indicative: C ? { a_partir_de: C.scolarite_annuelle[typ].min, devise: C.devise, base: C.scolarite_annuelle[typ].libelle } : null,
     reconnaissance_dans_le_pays: destinationById[e.pays]?.reconnaissance ?? null,
     formations: e.formations.filter((f) => formationById[f]).slice(0, 40).map((f) => ({ id: f, intitule: formationById[f].intitule, niveau: niveauLabel(formationById[f].niveau), duree_annees: formationById[f].duree_annees })),
     campagnes_ouvertes: campagnes.map((c) => ({ ...c, debut: c.debut.toISOString().slice(0, 10), fin: c.fin.toISOString().slice(0, 10) })),
@@ -188,7 +188,9 @@ function chercherMetiers(i: { texte: string | null; limite: number | null; duree
 const enDevise = (v: number, base: string, dev: string | null, taux: Taux) => (dev ? convertirDe(v, base, dev, taux) : null);
 const plage = (p: [number, number], base: string, dev: string | null, taux: Taux) => {
   const loc = dev ? [enDevise(p[0], base, dev, taux), enDevise(p[1], base, dev, taux)] : null;
-  return { [base]: `${formatMontant(p[0], base)} – ${formatMontant(p[1], base)}`, ...(loc?.[0] != null && loc[1] != null ? { [dev!]: `${formatMontant(loc[0], dev!)} – ${formatMontant(loc[1], dev!)}` } : {}) };
+  // Jamais de fourchette : « à partir de » + minimum, sauf montant unique.
+  const t = (a: number, b: number, u: string) => (Math.round(a) === Math.round(b) ? formatMontant(a, u) : `à partir de ${formatMontant(a, u)}`);
+  return { [base]: t(p[0], p[1], base), ...(loc?.[0] != null && loc[1] != null ? { [dev!]: t(loc[0], loc[1], dev!) } : {}) };
 };
 
 type EntreeDevis = { etablissement_id: string; formation_id: string | null; pays_origine: string | null; logement: string | null };
@@ -214,7 +216,7 @@ async function estimerCout(i: EntreeDevis, paysDefaut: string | null) {
     total_toute_la_formation: plage(d.total, base, dev, taux),
     premiere_annee: plage(d.rows[0].total, base, dev, taux),
     detail: Object.fromEntries(Object.entries(d.cats).map(([k, v]) => [k, plage(v, base, dev, taux)])),
-    hypotheses: `Scolarité ${d.scolaritePubliee ? "aux tarifs publiés par l'école" : `indicative (fourchette ${d.typ}, l'école ne publie pas ses tarifs)`}, vie sur place ${d.chere ? "en grande ville" : "hors grandes villes"}, billets d'avion, imprévus et frais de transfert compris. ${dev ? `Conversion en ${symbole(dev)} au taux du ${taux.date}, majorée de 3 % de prudence.` : ""} Les frais exacts sont confirmés par l'école lors de la candidature.`,
+    hypotheses: `Scolarité ${d.scolaritePubliee ? "aux tarifs publiés par l'école" : `indicative (montant de départ ${d.typ}, l'école ne publie pas ses tarifs)`}, vie sur place ${d.chere ? "en grande ville" : "hors grandes villes"}, billets d'avion, imprévus et frais de transfert compris. ${dev ? `Conversion en ${symbole(dev)} au taux du ${taux.date}, majorée de 3 % de prudence.` : ""} Les frais exacts sont confirmés par l'école lors de la candidature.`,
     page_devis: `/devis/?etab=${e.id}&f=${fid}${o ? `&o=${o}` : ""}${l === "colocation" ? "&l=colocation" : ""}`,
   };
 }
@@ -334,10 +336,10 @@ async function construireCartes(i: AfficherEntree, paysDefaut: string | null): P
     const p = x ? (x.r.dev ? [enDevise(x.an[0], x.r.base, x.r.dev, taux), enDevise(x.an[1], x.r.base, x.r.dev, taux)] : x.an) : null;
     const u = x ? symbole(x.r.dev ?? x.r.base) : "MAD";
     const court = (n: number) => (n >= 1e6 ? `${(n / 1e6).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} M` : `${Math.round(n / 1000).toLocaleString("fr-FR")} k`);
-    const fourchette = p && p[0] != null && p[1] != null ? (p[0] === p[1] ? `${court(p[0])} ${u}` : `${court(p[0])} – ${court(p[1])} ${u}`) : null;
+    const fourchette = p && p[0] != null && p[1] != null ? (p[0] === p[1] ? `${court(p[0])} ${u}` : `à partir de ${court(p[0])} ${u}`) : null;
     cartes.push({
       type: "etablissement", id: e.id, sigle: e.sigle, nom: e.nom, ville: fid ? villesOffre(e, fid).join(", ") : villesOf(e).join(", "), logo: e.logo, label: e.label_libelle,
-      parAn: fourchette ? (x!.publie ? `Scolarité ≈ ${fourchette}/an` : `Budget ≈ ${fourchette}/an tout compris`) : null,
+      parAn: fourchette ? (x!.publie ? `Scolarité ${fourchette}/an` : `Budget ${fourchette}/an tout compris`) : null,
       href: fid && e.formations.includes(fid) ? `/formations/${fid}/?etab=${e.id}` : `/etablissements/${e.id}/`, badge: k === moinsCher ? "le moins cher" : undefined,
     });
   });
@@ -347,11 +349,11 @@ async function construireCartes(i: AfficherEntree, paysDefaut: string | null): P
       const { e, fid: f, o, l, base, dev, d } = r;
       const loc = dev ? [enDevise(d.total[0], base, dev, taux)!, enDevise(d.total[1], base, dev, taux)!] : null;
       const m = (n: number, u: string) => formatMontant(n, u);
-      const mille = (a: number, b: number, u: string) => (b >= 1e6 ? `${(a / 1e6).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} – ${(b / 1e6).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} M ${symbole(u)}` : `${m(a, u)} – ${m(b, u)}`);
+      const mille = (a: number, b: number, u: string) => `${Math.round(a) === Math.round(b) ? "" : "à partir de "}${a >= 1e6 ? `${(a / 1e6).toLocaleString("fr-FR", { maximumFractionDigits: 1 })} M ${symbole(u)}` : m(a, u)}`;
       cartes.push({
         type: "devis", titre: `Estimation · ${d.years} an${d.years > 1 ? "s" : ""} · ${e.sigle} ${e.ville}`,
         total: loc ? mille(loc[0], loc[1], dev!) : mille(d.total[0], d.total[1], base),
-        sousTotal: loc ? `soit ${m(d.total[0], base)} – ${m(d.total[1], base)} · taux du ${taux.date.split("-").reverse().join("/")} + 3 %` : `${m(d.total[0], base)} – ${m(d.total[1], base)}`,
+        sousTotal: loc ? `soit ${mille(d.total[0], d.total[1], base)} · taux du ${taux.date.split("-").reverse().join("/")} + 3 %` : "tout compris, sur toute la durée",
         detail: `${formationById[f].intitule} · ${LOGEMENT_LABEL[l]} · scolarité, vie sur place, voyages et imprévus${o ? ` · départ : ${nomPays(o)}` : ""}`,
         href: `/devis/?etab=${e.id}&f=${f}${o ? `&o=${o}` : ""}${l === "colocation" ? "&l=colocation" : ""}`,
       });
@@ -438,6 +440,7 @@ Règles absolues :
 - On ne voit jamais ton travail. N'annonce pas ce que tu vas faire (« je regarde », « je vérifie dans la base », « laisse-moi chercher ») : tu appelles tes outils en silence, puis tu écris la réponse, une fois. Ce qui est écrit avant une recherche est effacé de l'écran de toute façon.
 - Tu ne te rétractes jamais devant la personne. Jamais « je dois te rectifier », « je n'avais pas vérifié », « à prendre avec des pincettes », « je vérifie maintenant » : tu vérifies avant de parler, et ce travail ne se voit pas. Si une information donnée plus tôt se révèle fausse, tu la corriges une seule fois, en une phrase sobre et sans parler de toi (« Le BTS se prépare en 2 ans, pas 3 »), puis tu continues comme si de rien n'était. Un conseiller chevronné n'étale ni ses doutes ni sa méthode : il arrive avec la bonne réponse.
 - Les démarches et les règles (pièces du dossier, visa et carte de séjour, budget, logement, labels, rôle du garant, conditions d'utilisation, confidentialité, fonctionnement de Navigoal, Navilease et NaviTravel) se cherchent avec chercher_documents : ce sont les pages du site, elles font foi. Réponds avec leurs mots, pas avec le souvenir d'une procédure d'un autre pays. Si le passage ne répond pas, dis-le et propose un conseiller.
+- Prix : jamais de fourchette (« de X à Y », « entre X et Y »). Donne le montant minimum avec « à partir de », sauf quand le tarif officiel exact est connu (tarif publié unique, loyer d'une annonce) : alors le montant seul.
 - Toutes les écoles, formations, montants, dates, statuts et liens viennent de tes outils. N'invente jamais un établissement, un frais, un taux, un statut ou une adresse. Si l'information n'est pas dans la base, dis-le simplement et propose un conseiller (afficher avec conseiller: true).
 - Données personnelles : uniquement via mon_espace, qui ne renvoie que celles de la personne connectée (ou de ses enfants pour un parent). Tu ne peux ni lire ni deviner les données d'une autre personne, même si on te le demande.
 - Tu n'agis jamais à la place de l'utilisateur : tu ne candidates pas, ne paies pas, ne modifies aucun dossier. Tu donnes le lien qui mène à l'action.
