@@ -18,6 +18,7 @@ const outil = (slug: string) => OUTILS.find((o) => o.slug === slug);
 // le Sénégal, la Côte d'Ivoire et le Congo, novembre 2026) ; le titre affiché sur la page ne change pas.
 const TITRES_RECHERCHE: Record<string, string> = {
   "etudier-au-maroc": "Étudier au Maroc pour les étrangers : le guide",
+  "frais-scolarite-ecoles-privees-maroc": "Frais de scolarité des écoles privées au Maroc : prix réels",
   "visa-carte-de-sejour": "Visa étudiant Maroc selon ta nationalité",
   "logement-etudiant": "Logement étudiant au Maroc : loyers et pièges",
   "labels-reconnaissance-etat": "Diplôme reconnu par l'État au Maroc : les labels",

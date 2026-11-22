@@ -1,8 +1,8 @@
 // Ressources Navigoal : guides pratiques rédigés à partir des référentiels, outils interactifs et modèles téléchargeables.
 // Aucune ressource fictive : chaque carte renvoie vers un contenu qui existe sur le site.
-import { prefixePrix } from "./prix";
+import { prefixePrix, prixTexte } from "./prix";
 import { CHIFFRES } from "./catalogue";
-import { LABELS, domaineById, metiers, paysDetailById } from "./data";
+import { LABELS, domaineById, etablissements, metiers, paysDetailById } from "./data";
 import { paysOrigine } from "./pays-origine";
 const aPartir = (v: { min: number; max: number }) => prefixePrix(v);
 
@@ -38,6 +38,30 @@ const dispenses = paysOrigine.filter((p) => p.continent === "afrique" && p.visa 
 const evisa = paysOrigine.filter((p) => p.continent === "afrique" && p.visa === "evisa");
 const mad = (n: number) => `${Math.round(n).toLocaleString("fr-FR").replace(/[  ]/g, " ")} MAD`;
 
+// ---------------------------------------------------------------- Frais de scolarité réellement publiés
+// Recalculé à chaque construction du site depuis `site.frais` du référentiel (→ `frais_publies`) : aucun
+// chiffre n'est recopié à la main, donc la page ne peut pas vieillir en silence.
+// Règle d'affichage (lib/prix.ts) : jamais de fourchette. La médiane est une statistique sur les tarifs
+// d'entrée publiés, pas une borne haute : sans elle, le minimum laisserait croire que c'est le prix courant.
+const PUBLIENT = etablissements.filter((e) => e.frais_publies);
+const mediane = (a: number[]) => {
+  const s = [...a].sort((x, y) => x - y);
+  const m = s.length >> 1;
+  return s.length % 2 ? s[m] : Math.round((s[m - 1] + s[m]) / 2);
+};
+const FRAIS_PAR_TYPE = Object.entries(
+  PUBLIENT.reduce<Record<string, number[]>>((acc, e) => {
+    (acc[e.type_libelle] ||= []).push(e.frais_publies!.min);
+    return acc;
+  }, {}),
+)
+  .map(([type, mins]) => ({ type, n: mins.length, min: Math.min(...mins), med: mediane(mins) }))
+  .filter((t) => t.n >= 2)
+  .sort((a, b) => b.n - a.n);
+const FRAIS_MINS = PUBLIENT.map((e) => e.frais_publies!.min);
+const FRAIS_MED = FRAIS_MINS.length ? mediane(FRAIS_MINS) : 0;
+const SANS_TARIF = etablissements.length - PUBLIENT.length;
+
 export const GUIDES: Ressource[] = [
   {
     slug: "etudier-au-maroc", titre: "Étudier au Maroc : le guide complet", type: "guide", theme: "maroc", format: "page", publics: ["lyceen", "etudiant", "parent"], href: "/ressources/etudier-au-maroc/", photo: "laptop", icone: "map-pin", couleur: "#c1272d", lecture: 6,
@@ -53,6 +77,59 @@ export const GUIDES: Ressource[] = [
       { titre: "Bourses", liste: MA.bourses },
     ],
     sources: MA.sources,
+  },
+  {
+    slug: "frais-scolarite-ecoles-privees-maroc", titre: "Frais de scolarité des écoles privées au Maroc", type: "guide", theme: "maroc", format: "page", publics: ["lyceen", "etudiant", "parent"], href: "/ressources/frais-scolarite-ecoles-privees-maroc/", photo: "finance", icone: "wallet", couleur: "#c1272d", lecture: 6,
+    resume: `Ce que coûte vraiment une année : les tarifs publiés par ${PUBLIENT.length} écoles sur ${etablissements.length}, ce qui s'ajoute à la scolarité, et les questions à poser à celles qui ne publient rien.`,
+    sections: [
+      { titre: "L'essentiel", liste: [
+        `Sur les ${etablissements.length} établissements privés que nous référençons au Maroc, ${PUBLIENT.length} publient leur tarif sur leur propre site. ${SANS_TARIF} ne le publient pas : c'est la règle, pas l'exception.`,
+        `Chez celles qui publient, la moitié affichent un tarif d'entrée inférieur à ${mad(FRAIS_MED)} par an. Le plus bas relevé est de ${mad(Math.min(...FRAIS_MINS))}.`,
+        "Le tarif annoncé n'est jamais la facture : il faut y ajouter les frais d'inscription, de dossier et l'assurance scolaire, puis le logement et la vie quotidienne.",
+        "Le prix ne dit rien de la valeur du diplôme. Une école chère dont la filière n'est plus accréditée délivre un diplôme d'établissement, pas un diplôme homologué par l'État.",
+        "Tous les montants de cette page viennent des sites officiels des écoles et sont relus à chaque mise à jour du site. Aucun n'est une estimation.",
+      ] },
+      { titre: "Ce que publient vraiment les écoles, par type d'établissement", texte: [
+        `Nous avons relevé les tarifs publiés par les écoles elles-mêmes. Pour chaque type, le tarif d'entrée le plus bas, et la médiane des tarifs d'entrée : la moitié des écoles du groupe demandent moins que ce montant. Nous n'affichons jamais de fourchette, parce qu'une fourchette large (« de 30 000 à 130 000 ») n'aide personne à décider.`,
+      ], liste: FRAIS_PAR_TYPE.map((t) => `${t.type} (${t.n} écoles qui publient) : ${prixTexte({ min: t.min, max: t.med }, mad)} par an, médiane ${mad(t.med)}.`) },
+      { titre: "Ce qui s'ajoute à la scolarité", liste: [
+        "Frais d'inscription, de dossier et assurance scolaire : ils varient beaucoup d'une école à l'autre et se paient en plus de la scolarité, souvent à la réservation de la place. Demande-les par écrit : peu d'écoles les publient.",
+        "Caution et premier mois de loyer, à verser avant d'entrer dans le logement.",
+        "Assurance santé annuelle, obligatoire pour obtenir la carte de séjour.",
+        "Équipement de départ : literie, ordinateur, fournitures.",
+        "Billet d'avion, et carte de séjour à renouveler chaque année.",
+        "Le devis Navigoal calcule tout cela sur la durée complète de la formation, poste par poste, et tu peux décocher ce qui ne te concerne pas.",
+      ] },
+      { titre: "Et si l'école ne publie pas ses tarifs ?", texte: [
+        `C'est le cas de ${SANS_TARIF} écoles sur ${etablissements.length}. Ce n'est pas nécessairement un mauvais signe : beaucoup communiquent leurs tarifs par courriel ou en rendez-vous. Mais tant que tu n'as pas de montant écrit, tu n'as pas de prix.`,
+        "Demande-les par écrit, et pose ces six questions dans le même message :",
+      ], liste: [
+        "Quel est le montant de la scolarité pour l'année et pour la filière qui m'intéresse ?",
+        "Quels frais s'ajoutent (inscription, dossier, assurance scolaire, concours d'entrée) ?",
+        "Le tarif change-t-il d'une année à l'autre du cursus, et de combien a-t-il augmenté ces trois dernières années ?",
+        "Le paiement peut-il être échelonné, et selon quel calendrier ?",
+        "Le tarif est-il le même pour un étudiant étranger ?",
+        "La filière est-elle accréditée, et jusqu'à quelle date ? Quel est le numéro de l'arrêté ?",
+      ] },
+      { titre: "Faire baisser la facture", liste: [
+        "Les bourses et réductions des écoles : beaucoup en annoncent sur leur propre site (mérite, situation sociale, prise en charge partielle ou totale). Elles sont rassemblées sur la page Bourses de Navigoal.",
+        "La ville : à formation égale, le logement et la vie quotidienne coûtent nettement moins cher hors de Casablanca et de Rabat. Les pages villes donnent le budget mensuel de chacune.",
+        "La colocation plutôt que le studio, surtout la première année.",
+        "Les abonnements étudiants de transport, deux fois moins chers que le tarif normal (voir le guide des transports).",
+        "L'échelonnement : demande-le avant de signer, il se négocie plus difficilement après.",
+      ] },
+      { titre: "Vérifier avant de payer", liste: [
+        "Que la filière est accréditée : la fiche Navigoal de chaque école affiche le statut de chaque filière et la date d'échéance de son accréditation.",
+        "Que le moyen de paiement est celui de l'école : sur Navigoal, les moyens de paiement déclarés par une école ne s'affichent qu'après vérification par notre équipe.",
+        "Ne verse jamais d'argent sur un compte personnel, ni à un intermédiaire qui promet une admission.",
+        "Navigoal n'encaisse aucun frais de scolarité et ne prend aucune commission sur les candidatures, qui sont gratuites.",
+      ] },
+    ],
+    sources: [
+      "Tarifs publiés par les établissements sur leurs sites officiels, relevés et vérifiés par Navigoal.",
+      `Relevé portant sur les ${etablissements.length} établissements privés du référentiel Navigoal ; ${PUBLIENT.length} publient un tarif.`,
+      "Listes du ministère de l'Enseignement supérieur, de la Recherche scientifique et de l'Innovation (Maroc) et arrêtés d'accréditation publiés au Bulletin officiel.",
+    ],
   },
   {
     slug: "visa-carte-de-sejour", titre: "Visa et carte de séjour étudiant", type: "guide", theme: "demarches", format: "page", publics: ["lyceen", "etudiant", "parent"], href: "/ressources/visa-carte-de-sejour/", icone: "plane", couleur: "#1a47f5", lecture: 5,
