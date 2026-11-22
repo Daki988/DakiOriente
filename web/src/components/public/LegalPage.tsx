@@ -8,7 +8,7 @@ import { PAGES_LEGALES, SERVICES, SERVICES_LISTE, lienLegal, type PageLegale, ty
 import { Markdown, headings, slugify } from "./markdown";
 import { SommaireLegal, Imprimer } from "./SommaireLegal";
 
-export const LEGAL_VERSION = { version: "2.9", date: "21/11/2026" };
+export const LEGAL_VERSION = { version: "3.0", date: "22/11/2026" };
 type Texte = { titre: string; bref: string; corps: string };
 const TEXTES = legal as Record<ServiceId, Record<PageLegale, Texte>>;
 

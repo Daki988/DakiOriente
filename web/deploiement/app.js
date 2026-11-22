@@ -199,6 +199,53 @@ if (fs.existsSync(outilAcces)) {
   };
 }
 
+// Aspiration du catalogue : un concurrent qui parcourt les fiches en masse. On compte, par adresse et en mémoire,
+// les pages du catalogue demandées, et on répond 429 au-delà. Seuils larges à dessein : un lycée entier derrière une
+// seule connexion (cas courant au Gabon) doit passer sans gêne, un robot qui enchaîne des centaines de fiches non.
+// Ne concerne ni les comptes connectés, ni les robots déjà vérifiés plus haut (Google, Bing, assistants IA),
+// ni les images, scripts et API. En cas de doute, on laisse passer : jamais de visiteur bloqué par erreur.
+const CATALOGUE = /^\/(etablissements|formations|metiers|villes|bourses|salons|temoignages|ressources|comparateur|navilease\/residences)(\/|$|\?)/;
+const PAR_MINUTE = Number(process.env.CATALOGUE_PAR_MINUTE) || 90;
+const PAR_HEURE = Number(process.env.CATALOGUE_PAR_HEURE) || 600;
+const vues = new Map(); // adresse → { minute, nMinute, heure, nHeure }
+
+function tropDeCatalogue(req) {
+  try {
+    const url = String(req.url || "");
+    if (!CATALOGUE.test(url)) return false;
+    if (String(req.headers["cookie"] || "").includes("ng_session=")) return false; // compte connecté
+    const ua = String(req.headers["user-agent"] || "");
+    if (ADMIS.some((a) => a.ua.test(ua))) return false; // robot admis, déjà vérifié par adresse plus haut
+    const ip = String(req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").split(",")[0].trim().replace(/^::ffff:/, "");
+    if (!ip) return false;
+    const now = Date.now();
+    const minute = Math.floor(now / 60000);
+    const heure = Math.floor(now / 3600000);
+    let e = vues.get(ip);
+    if (!e) { e = { minute, nMinute: 0, heure, nHeure: 0 }; vues.set(ip, e); }
+    if (e.minute !== minute) { e.minute = minute; e.nMinute = 0; }
+    if (e.heure !== heure) { e.heure = heure; e.nHeure = 0; }
+    e.nMinute++; e.nHeure++;
+    if (vues.size > 20000) for (const [k, v] of vues) if (v.heure !== heure) vues.delete(k); // ménage
+    return e.nMinute > PAR_MINUTE || e.nHeure > PAR_HEURE;
+  } catch { return false; }
+}
+
+{
+  const creer = http.createServer;
+  http.createServer = function (...args) {
+    const i = args.findIndex((a) => typeof a === "function");
+    if (i < 0) return creer.apply(this, args);
+    const suite = args[i];
+    args[i] = (req, res) => {
+      if (!tropDeCatalogue(req)) return suite(req, res);
+      res.writeHead(429, { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store", "CDN-Cache-Control": "no-store", "Retry-After": "60", "X-Robots-Tag": "noindex" });
+      res.end("Trop de pages demandées depuis cette connexion. Patientez une minute.\n");
+    };
+    return creer.apply(this, args);
+  };
+}
+
 require("./serveur/server.js"); // le serveur Next.js se place lui-même dans serveur/ (fichiers publics, .next)
 
 // Anciennes versions encore en mémoire : l'hébergeur (Passenger) ne relance pas toujours tous les processus après une

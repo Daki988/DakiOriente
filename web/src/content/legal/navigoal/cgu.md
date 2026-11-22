@@ -81,7 +81,9 @@ Navigoal peut retirer un contenu, suspendre ou fermer un compte en cas de manque
 
 ## Propriété intellectuelle
 
-La marque Navigoal, ses logos, ses textes, ses référentiels et la structure de la Plateforme sont protégés. Toute reproduction non autorisée est interdite. Les logos, photographies et contenus des établissements et des tiers restent la propriété de leurs titulaires et sont crédités. Les contenus que vous déposez restent les vôtres : vous accordez à Navigoal le droit de les utiliser uniquement pour fournir le service.
+La marque Navigoal, ses logos, ses textes, ses référentiels et la structure de la Plateforme sont protégés. Toute reproduction non autorisée est interdite.
+
+Les référentiels de la Plateforme (établissements, campus, filières accréditées, labels, frais relevés, métiers, témoignages, coûts de la vie par ville) constituent une base de données dont Navigoal est le producteur : leur constitution, leur vérification et leur mise à jour représentent un investissement substantiel. Sont interdites, sans autorisation écrite, l'extraction et la réutilisation d'une partie substantielle de cette base, appréciée en quantité comme en qualité, par quelque moyen que ce soit (copie manuelle, robot, aspiration, interface de programmation, interrogation automatisée), ainsi que l'extraction ou la réutilisation répétée et systématique de parties non substantielles. Cette interdiction vaut quelle que soit l'origine publique de telle ou telle donnée prise isolément : c'est l'ensemble constitué et vérifié qui est protégé. Les logos, photographies et contenus des établissements et des tiers restent la propriété de leurs titulaires et sont crédités. Les contenus que vous déposez restent les vôtres : vous accordez à Navigoal le droit de les utiliser uniquement pour fournir le service.
 
 ## Responsabilité
 

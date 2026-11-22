@@ -2,7 +2,7 @@
 // à citer. Format proposé sur llmstxt.org : titre, résumé, puis listes de liens commentés. Généré à partir des mêmes
 // référentiels que le site (écoles, villes, guides), donc toujours à jour à chaque mise en ligne.
 import { CHIFFRES, VILLES, villeHref } from "@/lib/catalogue";
-import { PAYS_ACTIFS_TEXTE, etabById, etablissements, formations, metiers } from "@/lib/data";
+import { PAYS_ACTIFS_TEXTE, etabById, formations, metiers } from "@/lib/data";
 import { GUIDES } from "@/lib/ressources";
 import { SITE_URL } from "@/lib/site";
 
@@ -12,7 +12,6 @@ const fmt = (n: number) => n.toLocaleString("fr-FR").replace(/ /g, " ");
 const lien = (titre: string, chemin: string, note?: string) => `- [${titre}](${SITE_URL}${chemin})${note ? ` : ${note}` : ""}`;
 
 export function GET() {
-  const ecoles = [...etablissements].sort((a, b) => a.nom.localeCompare(b.nom, "fr"));
   const texte = [
     "# Navigoal",
     "",
@@ -48,9 +47,11 @@ export function GET() {
     "",
     "## Établissements",
     "",
-    ...ecoles.map((e) => lien(e.sigle && e.sigle !== e.nom ? `${e.nom} (${e.sigle})` : e.nom, `/etablissements/${e.id}/`,
-      [e.campus ? e.campus.map((c) => c.ville).filter((x, i, t) => t.indexOf(x) === i).join(", ") : e.ville, e.label_libelle,
-        e.frais_publies ? `scolarité publiée ${e.frais_publies.max && e.frais_publies.max !== e.frais_publies.min ? "à partir de " : ""}${fmt(e.frais_publies.min)} MAD par an` : null].filter(Boolean).join(" · "))),
+    // On ne recopie plus ici la liste des écoles avec leur label et leur scolarité : c'était notre
+    // référentiel servi en un fichier, récupérable par un concurrent en une requête. Un assistant qui
+    // veut citer une école lit sa fiche, comme un visiteur. Décision du 22/11/2026.
+    lien("Toutes les écoles", "/etablissements/", `${CHIFFRES.etablissements} établissements, filtrables par ville, label, filière et budget ; une fiche par établissement`),
+    lien("Écoles d'une ville", "/villes/", "les établissements, le coût de la vie et le logement, ville par ville"),
     "",
     "## Contact",
     "",
