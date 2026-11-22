@@ -64,6 +64,24 @@ export function AdminUsers() {
           <Select aria-label="Statut" value={statut} onChange={(e) => setStatut(e.target.value)} options={[["actif", "Actif"], ["en_attente", "À valider"], ["suspendu", "Suspendu"]]} placeholder="Statut" className="md:w-40" />
         </div>
       </div>
+      {stats.data && (() => {
+        // Deux entrées principales, celles qu'on consulte tous les jours : les familles d'un côté, les
+        // comptes professionnels restant accessibles par les pastilles détaillées juste en dessous.
+        // « Étudiants » regroupe élèves et étudiants : la distinction n'a pas de sens pour un suivi quotidien.
+        const n = (...rs: string[]) => rs.reduce((t, r) => t + (stats.data!.usersByRole.find((x) => x.role === r)?.n ?? 0), 0);
+        const vues: [string, string, number][] = [["", "Tous les comptes", stats.data.usersByRole.reduce((t, x) => t + x.n, 0)],
+          ["eleve,etudiant", "Étudiants", n("eleve", "etudiant")], ["parent", "Parents", n("parent")]];
+        return (
+          <div className="mb-4 flex flex-wrap gap-2" role="group" aria-label="Vue rapide">
+            {vues.map(([v, libelle, total]) => (
+              <button key={libelle} onClick={() => setRole(v)} aria-pressed={role === v}
+                className={`rounded-xl border px-4 py-2 text-sm font-bold transition ${role === v ? "border-brand-600 bg-brand-600 text-white shadow-glow" : "border-slate-200 bg-white text-ink hover:border-brand-300"}`}>
+                {libelle} <span className={role === v ? "text-white/75" : "text-ink-mute"}>{nf(total)}</span>
+              </button>
+            ))}
+          </div>
+        );
+      })()}
       {stats.data && (
         <div className="mb-5 flex flex-wrap gap-2" aria-label="Filtrer par rôle">
           {stats.data.usersByRole.sort((a, b) => b.n - a.n).map((r) => (

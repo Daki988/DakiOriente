@@ -12,8 +12,11 @@ const admin = (u: User) => { if (u.role !== "admin") throw forbidden(); };
 // ---------------------------------------------------------------- Utilisateurs
 export async function listUsers(a: User, f: { role?: string; pays?: string; status?: string; q?: string; page?: number }) {
   admin(a);
+  const roles = (f.role ?? "").split(",").map((r) => r.trim()).filter(Boolean);
   const where = and(
-    f.role ? eq(schema.users.role, f.role as never) : undefined, f.pays ? eq(schema.users.country, f.pays) : undefined, f.status ? eq(schema.users.status, f.status as never) : undefined,
+    // « role » accepte plusieurs rôles séparés par une virgule : le back-office regroupe élèves et
+    // étudiants derrière un seul bouton « Étudiants », les familles ne faisant pas la distinction.
+    roles.length === 1 ? eq(schema.users.role, roles[0] as never) : roles.length ? inArray(schema.users.role, roles as never[]) : undefined, f.pays ? eq(schema.users.country, f.pays) : undefined, f.status ? eq(schema.users.status, f.status as never) : undefined,
     f.q ? or(ilike(schema.users.lastName, `%${f.q}%`), ilike(schema.users.firstName, `%${f.q}%`), ilike(schema.users.email, `%${f.q}%`), ilike(schema.users.phone, `%${f.q}%`)) : undefined);
   const page = Math.max(1, f.page ?? 1);
   const rows = await db.select({ id: schema.users.id, firstName: schema.users.firstName, lastName: schema.users.lastName, email: schema.users.email, phone: schema.users.phone, role: schema.users.role, status: schema.users.status, country: schema.users.country, city: schema.users.city, createdAt: schema.users.createdAt, lastLoginAt: schema.users.lastLoginAt })
