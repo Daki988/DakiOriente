@@ -3,12 +3,13 @@
 // sous un identifiant aléatoire et renvoie numéro, empreinte et adresse de vérification. Le QR code du PDF mène à
 // /verifier/devis/<id>/, qui affiche ce que Navigoal a réellement émis : un PDF retouché ne correspond plus.
 import { createHash, randomBytes } from "node:crypto";
-import { eq, lt } from "drizzle-orm";
+import { and, eq, lt } from "drizzle-orm";
 import { z } from "zod";
 import { db, schema } from "../db";
 import { AppError } from "../lib/errors";
 import { limiter } from "../lib/counters";
-import { devis, LOGEMENT_LABEL, type Logement } from "@/lib/devis";
+import { COUTS, devis, LOGEMENT_LABEL, type AnnonceDevis, type Logement } from "@/lib/devis";
+import { convertirDe } from "@/lib/devises";
 import { etabById, formationById } from "@/lib/data";
 import { residencesEtudiantes } from "@/lib/residences";
 
@@ -30,7 +31,18 @@ export async function creerCachet(raw: unknown, ip: string) {
   if (!e || !F || !e.formations.includes(p.fid)) throw new AppError("Devis inconnu.");
   await limiter(`cachet:${ip || "inconnue"}`, 40, 3600, "Trop de devis certifiés depuis cette connexion. Réessayez dans une heure.");
   const residences = residencesEtudiantes.filter((r) => r.ville === e.ville && r.logements.some((l) => l.loyer_min));
-  const D = devis(p.eid, p.fid, p.origine, p.logement, p.perso ? { ...p.perso, residences } : undefined, p.exclus);
+  // Annonce Navilease choisie : loyer, charges et caution relus en base (annonce publiée seulement).
+  const annonces: AnnonceDevis[] = [];
+  const idAnnonce = p.perso?.logement.startsWith("nl:") ? p.perso.logement.slice(3) : "";
+  if (idAnnonce) {
+    const [h] = await db.select().from(schema.housings).where(and(eq(schema.housings.id, idAnnonce), eq(schema.housings.status, "publie")));
+    if (h) {
+      const dev = COUTS[e.pays].devise;
+      const enBase = (v: number) => (h.currency === dev ? v : convertirDe(v, h.currency, dev) ?? v);
+      annonces.push({ id: h.id, titre: h.title, ville: h.ville, quartier: h.quartier, type: h.type, loyer: Math.round(enBase(h.rent + h.charges)), caution: Math.round(enBase(h.deposit)) });
+    }
+  }
+  const D = devis(p.eid, p.fid, p.origine, p.logement, p.perso ? { ...p.perso, residences, annonces } : undefined, p.exclus);
   const n = D.years * 12;
   const resume = {
     ecole: e.nom, sigle: e.sigle ?? "", ville: e.ville, formation: F.intitule, diplome: F.diplome, annees: D.years, devise: D.devise,

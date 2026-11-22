@@ -13,7 +13,7 @@ import { api } from "@/lib/api";
 import { useDestination } from "@/components/ui/Destination";
 import { auPays, destinationById, vitrine, STATUT_LONG, VILLES_ETUDES, etabById, etablissements, fmt, formationById, labelById, paysDetailById, libelleFilieres } from "@/lib/data";
 import { paysOrigine, paysOrigineById, visaDestination } from "@/lib/pays-origine";
-import { COUTS, HYP, LOGEMENT_LABEL, PERSO_DEFAUT, RUBRIQUES, SOURCES, devis, formationParDefaut, type Logement, type Pair, type Perso } from "@/lib/devis";
+import { COUTS, HYP, LOGEMENT_LABEL, PERSO_DEFAUT, RUBRIQUES, SOURCES, devis, formationParDefaut, type AnnonceDevis, type Logement, type Pair, type Perso } from "@/lib/devis";
 import { residencesEtudiantes } from "@/lib/residences";
 import { useDevise } from "@/components/ui/Devise";
 import { MARGE_PRUDENCE, convertirDe, devisePays, formatMontant, symbole } from "@/lib/devises";
@@ -41,6 +41,8 @@ export function DevisSimulateur() {
   const majPerso = (x: Partial<Perso>) => setPerso((p) => ({ ...(p ?? PERSO_DEFAUT), ...x }));
   // Lignes décochées par le parent : retirées du total, de l'échéancier et du PDF.
   const [exclus, setExclus] = useState<string[]>([]);
+  // Annonces Navilease publiées dans la ville de l'école (et celle choisie depuis une fiche logement) : loyer réel du devis.
+  const [annonces, setAnnonces] = useState<AnnonceDevis[]>([]);
   const basculer = (cle: string) => setExclus((xs) => (xs.includes(cle) ? xs.filter((x) => x !== cle) : [...xs, cle]));
   const [garde, setGarde] = useState<{ titre: string; total: Pair; mois: Pair; aides: Pair | null } | null>(null);
   const onUrl = useCallback((qs: string) => {
@@ -81,7 +83,26 @@ export function DevisSimulateur() {
   const C = COUTS[e.pays];
   const residencesVille = useMemo(() => residencesEtudiantes.filter((r) => r.ville === e.ville && r.logements.some((l) => l.loyer_min)), [e.ville]);
   const persoActif = !!perso && !!C.personnalisation;
-  const D = useMemo(() => devis(eid, fid, origine, logement, persoActif ? { ...perso!, residences: residencesVille } : undefined, exclus), [eid, fid, origine, logement, perso, persoActif, residencesVille, exclus]);
+  const annonceChoisie = persoActif && perso!.logement.startsWith("nl:") ? perso!.logement.slice(3) : "";
+  useEffect(() => {
+    if (!persoActif) return;
+    let fini = false;
+    type H = { id: string; title: string; ville: string; quartier: string | null; type: string; rent: number; charges: number; deposit: number; currency: string };
+    const dEtudes = COUTS[e.pays].devise;
+    const enBase = (v: number, cur: string) => (cur === dEtudes ? v : convertirDe(v, cur, dEtudes, taux) ?? v);
+    const versAnnonce = (h: H): AnnonceDevis => ({ id: h.id, titre: h.title, ville: h.ville, quartier: h.quartier, type: h.type, loyer: Math.round(enBase(h.rent + (h.charges || 0), h.currency)), caution: Math.round(enBase(h.deposit || 0, h.currency)) });
+    (async () => {
+      const liste = await api<H[]>(`/logements?pays=${e.pays}&ville=${encodeURIComponent(e.ville)}`).catch(() => [] as H[]);
+      let out = (Array.isArray(liste) ? liste : []).map(versAnnonce);
+      if (annonceChoisie && !out.some((a) => a.id === annonceChoisie)) {
+        const r = await api<{ housing: H }>(`/logements/${annonceChoisie}`).catch(() => null);
+        if (r?.housing) out = [versAnnonce(r.housing), ...out];
+      }
+      if (!fini) setAnnonces(out);
+    })();
+    return () => { fini = true; };
+  }, [persoActif, e.pays, e.ville, annonceChoisie, taux]);
+  const D = useMemo(() => devis(eid, fid, origine, logement, persoActif ? { ...perso!, residences: residencesVille, annonces } : undefined, exclus), [eid, fid, origine, logement, perso, persoActif, residencesVille, annonces, exclus]);
   const cv = (v: number) => v;
   // Devise de lecture : celle du pays de départ (ou du profil), la monnaie du pays d'études restant affichée en dessous.
   const base = D.devise;
@@ -181,6 +202,7 @@ export function DevisSimulateur() {
               {persoActif
                 ? <select value={perso!.logement} onChange={(ev) => majPerso({ logement: ev.target.value })} className={field}>
                     {(["colocation", "studio", "standing"] as const).map((l) => <option key={l} value={l}>{C.personnalisation!.logement_mensuel[l].libelle}</option>)}
+                    {annonces.length > 0 && <optgroup label={`Logements Navilease${annonces.every((a) => a.ville === e.ville) ? ` à ${e.ville}` : ""}`}>{annonces.map((a) => <option key={a.id} value={`nl:${a.id}`}>{a.titre}{a.quartier ? ` · ${a.quartier}` : ""}{a.ville !== e.ville ? ` (${a.ville})` : ""} · {fmt(a.loyer)} {symbole(base)}</option>)}</optgroup>}
                     {residencesVille.length > 0 && <optgroup label={`Résidences universitaires à ${e.ville}`}>{residencesVille.flatMap((r) => r.logements.map((l, i) => l.loyer_min ? <option key={`${r.id}:${i}`} value={`res:${r.id}:${i}`}>{r.nom.replace(/^Twenty Campus /, "Twenty ")} · {l.type.replace(/\s*\(.*\)$/, "")} · {fmt(l.loyer_min)} {symbole(base)}</option> : null))}</optgroup>}
                   </select>
                 : <select value={logement} onChange={(ev) => setLogement(ev.target.value as Logement)} className={field}>{(["studio", "colocation"] as const).map((l) => <option key={l} value={l}>{LOGEMENT_LABEL[l]}</option>)}</select>}</label>

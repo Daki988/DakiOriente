@@ -3,7 +3,7 @@ import Link from "@/components/ui/Link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
-  BedDouble, CalendarDays, Check, ChevronLeft, ChevronRight, Clock, Images, Info, Lock, MapPin, Ruler, Share2, ShieldCheck, Star, Users, UserRound,
+  BedDouble, Calculator, CalendarDays, Check, ChevronLeft, ChevronRight, Clock, Images, Info, Lock, MapPin, Ruler, Share2, ShieldCheck, Star, Users, UserRound,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Alert, Avatar, Button, Dialog, Loading, money, useToast } from "@/components/app/kit";
@@ -202,6 +202,7 @@ function Listing({ d }: { d: Data }) {
               </div>
               <Button onClick={book} className="w-full rounded-full bg-nl-ocre py-4 text-[15px] text-nl-encre shadow-none hover:bg-nl-ocre hover:brightness-105">Demander une réservation</Button>
               {!canBook && <p className="text-xs text-ink-mute">La réservation se fait depuis un compte élève ou étudiant.</p>}
+              <Link href={`/devis/?${near[0] && etabById[near[0].id] ? `etab=${near[0].id}&` : ""}perso=1&pl=nl:${h.id}`} className="flex items-center justify-center gap-2 rounded-full border border-nl-bord bg-white px-4 py-3 text-[14px] font-bold text-nl-vert hover:bg-nl-creme"><Calculator size={17} />Budget complet des études avec ce logement</Link>
               <div className="flex gap-2.5 rounded-2xl bg-[#e9f4ed] p-3.5 text-[13px] leading-relaxed text-nl-vert"><ShieldCheck size={18} className="mt-0.5 shrink-0" /><span><b>Paiement en séquestre :</b> rien n&apos;est débité avant l&apos;acceptation du bailleur. Le bailleur n&apos;est payé qu&apos;après ton entrée dans les lieux ; la caution reste bloquée jusqu&apos;à la sortie.</span></div>
               <p className="flex items-start gap-2 text-xs text-ink-mute"><UserRound size={14} className="mt-0.5 shrink-0" />Garant parent accepté · paiement possible depuis un autre pays (mobile money, carte, virement).</p>
             </motion.div>

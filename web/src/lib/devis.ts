@@ -26,9 +26,28 @@ export type Personnalisation = {
   ordinateur: Lib;
   equipement_sans_ordinateur: Lib;
   soutien_mensuel: Lib;
+  /** Coûts propres à chaque ville d'études (référentiel couts_etudes › personnalisation › villes), sinon ville chère / autre ville. */
+  villes?: Record<string, CoutVille>;
 };
+/** Coût de la vie d'une ville (MAD par mois) : loyers par type, vie hors logement par niveau, transport. */
+export type CoutVille = {
+  logement_mensuel: Record<"colocation" | "studio" | "standing", F>;
+  vie_hors_logement: Record<"econome" | "normal" | "confortable", F>;
+  transport: Record<"tram" | "taxi", F>;
+  reseau: string; fiabilite: string; sources?: string[]; remarques?: string;
+};
+/** Annonce Navilease choisie dans le devis : loyer charges comprises et caution, convertis en monnaie du pays d'études. */
+export type AnnonceDevis = { id: string; titre: string; ville: string; quartier: string | null; type: string; loyer: number; caution: number };
+const norm = (v: string) => v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+/** Coûts de la ville d'études si le référentiel la connaît (« Rabat », « Salé »…). */
+export function coutVille(c: CoutsPays | undefined, ville: string): CoutVille | null {
+  const v = c?.personnalisation?.villes;
+  if (!v || !ville) return null;
+  const k = Object.keys(v).find((x) => norm(x) === norm(ville)) ?? Object.keys(v).find((x) => norm(ville).includes(norm(x)));
+  return k ? v[k] : null;
+}
 
-/** Choix du devis personnalisé. logement : type, ou « res:<résidence>:<n° de logement> » pour une résidence universitaire. */
+/** Choix du devis personnalisé. logement : type, « res:<résidence>:<n° de logement> » (résidence universitaire) ou « nl:<annonce> » (annonce Navilease). */
 export type Perso = {
   logement: string; niveau: "econome" | "normal" | "confortable"; transport: "tram" | "taxi"; assurance: "base" | "complete";
   retours: number; ordinateur: boolean; soutien: boolean; aide: number; // aide : bourse ou réduction par an, en monnaie du pays d'études
@@ -51,6 +70,8 @@ export type Devis = {
   /** true : la scolarité vient des tarifs publiés par l'école ; false : fourchette indicative du type d'établissement. */
   scolaritePubliee: boolean;
   devise: string; years: number; total: Pair; installation: Pair; cats: Record<string, Pair>; typ: string; chere: boolean;
+  /** Coût de la vie calculé pour la ville d'études (référentiel des villes), sinon null (ville chère / autre ville). */
+  coutVille: { ville: string; fiabilite: string } | null;
   rows: { annee: number; scolarite: Pair; annexes: Pair; vie: Pair; renouvellements: Pair; total: Pair }[];
   /** Devis personnalisé : détail des postes (avant le départ, chaque mois, chaque année de la 1re année) et aides déduites. */
   postes?: Poste[]; aides?: Pair; logementLibelle?: string;
@@ -66,22 +87,27 @@ export function billet(c: CoutsPays, origine: string): F {
   return (c.billet_avion[`depuis_${origine}`] as F) ?? (region ? (c.billet_avion[`depuis_region_${region}`] as F) : undefined) ?? { min: 0, max: 0 };
 }
 
-/** Loyer mensuel du logement choisi (type ou résidence universitaire), et son libellé. */
-export function loyerPerso(p: Personnalisation, ville: string, chere: boolean, choix: string, residences: { id: string; nom: string; logements: { type: string; loyer_min: number | null; loyer_max: number | null }[] }[] = []): { v: F; libelle: string } {
+/** Loyer mensuel du logement choisi (type, résidence universitaire ou annonce Navilease), son libellé et, pour une annonce, sa caution. */
+export function loyerPerso(p: Personnalisation, ville: string, chere: boolean, choix: string, residences: { id: string; nom: string; logements: { type: string; loyer_min: number | null; loyer_max: number | null }[] }[] = [], annonces: AnnonceDevis[] = [], cv: CoutVille | null = null): { v: F; libelle: string; caution?: number } {
   const [k, rid, n] = choix.split(":");
   if (k === "res") {
     const r = residences.find((x) => x.id === rid);
     const l = r?.logements[Number(n) || 0];
     if (r && l?.loyer_min) return { v: { min: l.loyer_min, max: l.loyer_max ?? l.loyer_min }, libelle: `${r.nom} · ${l.type}` };
   }
-  const t = p.logement_mensuel[(k as keyof Personnalisation["logement_mensuel"])] ?? p.logement_mensuel.studio;
-  return { v: t[chere ? "ville_chere" : "autre_ville"], libelle: `${t.libelle}${ville ? ` à ${ville}` : ""}` };
+  if (k === "nl") {
+    const a = annonces.find((x) => x.id === rid);
+    if (a) return { v: { min: a.loyer, max: a.loyer }, libelle: `annonce Navilease « ${a.titre} »${a.quartier ? `, ${a.quartier}` : ""} à ${a.ville}, charges comprises`, caution: a.caution };
+  }
+  const cle = (k in p.logement_mensuel ? k : "studio") as keyof Personnalisation["logement_mensuel"];
+  const t = p.logement_mensuel[cle];
+  return { v: cv ? cv.logement_mensuel[cle] : t[chere ? "ville_chere" : "autre_ville"], libelle: `${t.libelle}${ville ? ` à ${ville}` : ""}` };
 }
 
 /** Une ligne du devis : clé stable (cochée ou décochée par le parent), rubrique, et quand elle se paie. */
 export type Ligne = { cle: string; rubrique: Rubrique; libelle: string; v: Pair; inclus: boolean; quand: "avant" | "mois" | "an"; unitaire: Pair };
 
-export function devis(eid: string, fid: string, origine = "", logement: Logement = "studio", perso?: Perso & { residences?: Parameters<typeof loyerPerso>[4] }, exclus: readonly string[] = []): Devis {
+export function devis(eid: string, fid: string, origine = "", logement: Logement = "studio", perso?: Perso & { residences?: Parameters<typeof loyerPerso>[4]; annonces?: AnnonceDevis[] }, exclus: readonly string[] = []): Devis {
   const e = etabById[eid];
   const Fm = formationById[fid];
   const c = COUTS[e.pays];
@@ -92,10 +118,12 @@ export function devis(eid: string, fid: string, origine = "", logement: Logement
   const sco = publie ? { min: publie.min, max: publie.max, libelle: "tarifs publiés par l'école" } : c.scolarite_annuelle[typ];
   const ann = c.frais_annuels_annexes;
   const chere = c.vie_mensuelle.villes_cheres.some((v) => e.ville.includes(v));
-  const vie = c.vie_mensuelle[chere ? "ville_chere" : "autre_ville"];
-  const k = logement === "colocation" ? 1 - ECO_COLOC : 1;
+  const cv = coutVille(c, e.ville);
+  // Ville connue du référentiel : loyer + vie (niveau normal) + transports en commun ; sinon fourchette ville chère / autre ville.
+  const vie = cv ? (() => { const l = cv.logement_mensuel[logement === "colocation" ? "colocation" : "studio"]; return { min: l.min + cv.vie_hors_logement.normal.min + cv.transport.tram.min, max: l.max + cv.vie_hors_logement.normal.max + cv.transport.tram.max }; })() : c.vie_mensuelle[chere ? "ville_chere" : "autre_ville"];
+  const k = logement === "colocation" && !cv ? 1 - ECO_COLOC : 1;
   const P = perso && c.personnalisation ? c.personnalisation : null;
-  const lp = P ? loyerPerso(P, e.ville, chere, perso!.logement, perso!.residences) : null;
+  const lp = P ? loyerPerso(P, e.ville, chere, perso!.logement, perso!.residences, perso!.annonces, cv) : null;
   const mois = HYP.mois_par_an;
   const inf = (y: number) => (1 + HYP.inflation_annuelle) ** y;
   const vol = billet(c, origine);
@@ -108,12 +136,12 @@ export function devis(eid: string, fid: string, origine = "", logement: Logement
   add({ cle: "scolarite", rubrique: "Scolarité", libelle: `Frais de scolarité (${sco.libelle})`, quand: "an", base: sco, parAn: true, inflation: true, ligneRow: "scolarite" });
   add({ cle: "inscription", rubrique: "Scolarité", libelle: ann.libelle, quand: "an", base: ann, parAn: true, inflation: false, ligneRow: "annexes" });
   // Loyer et vie quotidienne (10 mois par an, avec inflation).
-  const loyerType = c.personnalisation ? c.personnalisation.logement_mensuel[logement === "colocation" ? "colocation" : "studio"][chere ? "ville_chere" : "autre_ville"] : null;
+  const loyerType = cv ? cv.logement_mensuel[logement === "colocation" ? "colocation" : "studio"] : c.personnalisation ? c.personnalisation.logement_mensuel[logement === "colocation" ? "colocation" : "studio"][chere ? "ville_chere" : "autre_ville"] : null;
   if (P && lp) {
-    const hors = P.vie_mensuelle_hors_logement[perso!.niveau][chere ? "ville_chere" : "autre_ville"];
-    const tra = P.transport_mensuel[perso!.transport];
+    const hors = cv ? cv.vie_hors_logement[perso!.niveau] : P.vie_mensuelle_hors_logement[perso!.niveau][chere ? "ville_chere" : "autre_ville"];
+    const tra = cv ? { ...cv.transport[perso!.transport], libelle: perso!.transport === "tram" ? `marche et ${cv.reseau} (abonnement)` : P.transport_mensuel.taxi.libelle } : P.transport_mensuel[perso!.transport];
     add({ cle: "loyer", rubrique: "Logement", libelle: `Loyer : ${lp.libelle}`, quand: "mois", base: lp.v, parAn: true, inflation: true, facteur: mois, ligneRow: "vie" });
-    add({ cle: "vie", rubrique: "Vie quotidienne", libelle: `Nourriture, téléphone, sorties (${P.vie_mensuelle_hors_logement[perso!.niveau].libelle.toLowerCase()})`, quand: "mois", base: hors, parAn: true, inflation: true, facteur: mois, ligneRow: "vie" });
+    add({ cle: "vie", rubrique: "Vie quotidienne", libelle: `Nourriture, téléphone, sorties${cv ? ` à ${e.ville}` : ""} (${P.vie_mensuelle_hors_logement[perso!.niveau].libelle.toLowerCase()})`, quand: "mois", base: hors, parAn: true, inflation: true, facteur: mois, ligneRow: "vie" });
     add({ cle: "transport", rubrique: "Vie quotidienne", libelle: `Déplacements : ${tra.libelle.toLowerCase()}`, quand: "mois", base: tra, parAn: true, inflation: true, facteur: mois, ligneRow: "vie" });
     if (perso!.soutien) add({ cle: "soutien", rubrique: "Vie quotidienne", libelle: P.soutien_mensuel.libelle, quand: "mois", base: P.soutien_mensuel, parAn: true, inflation: true, facteur: mois, ligneRow: "vie" });
   } else {
@@ -128,7 +156,7 @@ export function devis(eid: string, fid: string, origine = "", logement: Logement
   for (const i of c.installation) {
     let base: F = i, libelle = i.poste;
     if (P && /assurance/i.test(i.poste)) { base = P.assurance_annuelle[perso!.assurance]; libelle = P.assurance_annuelle[perso!.assurance].libelle; }
-    if (P && lp && /caution/i.test(i.poste)) base = { min: lp.v.min * 2, max: lp.v.max * 2 };
+    if (P && lp && /caution/i.test(i.poste)) { base = lp.caution != null ? { min: lp.caution + lp.v.min, max: lp.caution + lp.v.max } : { min: lp.v.min * 2, max: lp.v.max * 2 }; if (lp.caution != null) libelle = "Caution de l'annonce et 1er mois de loyer"; }
     if (P && perso!.ordinateur && /équipement/i.test(i.poste)) { base = P.equipement_sans_ordinateur; libelle = P.equipement_sans_ordinateur.libelle; }
     add({ cle: cleDe(i.poste), rubrique: rub(i.poste), libelle, quand: i.annuel ? "an" : "avant", base, parAn: !!i.annuel, inflation: false, ligneRow: i.annuel ? "renouvellements" : null });
   }
@@ -174,7 +202,7 @@ export function devis(eid: string, fid: string, origine = "", logement: Logement
     v: x.cle === "billets" ? [vol.min, vol.max] : x.unitaire, quand: x.quand,
   })) : undefined;
   return {
-    devise: c.devise, years, rows, installation: inst, total, typ: sco.libelle, chere, scolaritePubliee: !!publie,
+    devise: c.devise, years, rows, installation: inst, total, typ: sco.libelle, chere, scolaritePubliee: !!publie, coutVille: cv ? { ville: e.ville, fiabilite: cv.fiabilite } : null,
     detail, cats, ...(postes ? { postes, aides, logementLibelle: lp!.libelle } : {}),
   };
 }
