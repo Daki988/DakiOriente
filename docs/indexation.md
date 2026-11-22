@@ -13,6 +13,7 @@ Relevé du 22 novembre 2026. **La note du 19 novembre (« navigoal.net absent de
 | Adresses du sitemap qui répondent | **40 tirées au hasard, 40 en code 200**, aucune morte |
 | Balises d'indexation | `index, follow` et canonique propre sur les pages contrôlées |
 | Filtre anti-robots de l'hébergeur | fonctionne : un faux Googlebot est refusé par LWS avant même notre application (« identifying as from a known bot but is not received from the correct network ») |
+| Search Console (ajouté le 22/11 au soir) | propriété validée, sitemap envoyé : **« Opération effectuée », 335 pages découvertes**. Le vrai Googlebot lit donc bien le site — **l'hébergeur ne le bloque pas**, la dernière inconnue est levée |
 
 **Conclusion : il n'y a pas de blocage technique.** Le site est découvert, mais lentement, et les nouvelles pages
 mettent du temps à suivre. C'est le comportement normal d'un domaine récent **sans aucun lien entrant**.
@@ -21,14 +22,12 @@ mettent du temps à suivre. C'est le comportement normal d'un domaine récent **
 
 Ces deux actions demandent un accès que je n'ai pas. Elles valent plus que tout le reste réuni.
 
-1. **Google Search Console** — https://search.google.com/search-console
-   - Ajouter la propriété `navigoal.net` (validation par enregistrement DNS chez le registraire, ou par le
-     fichier HTML à déposer dans `web/public/`, que je peux préparer).
-   - Menu **Sitemaps** → envoyer `sitemap.xml`.
-   - Menu **Inspection de l'URL** → tester `https://navigoal.net/`, puis `/etablissements/` et
-     `/ressources/visa-carte-de-sejour/` → **« Demander une indexation »** pour chacune.
-   - Cet écran dira aussi, noir sur blanc, si Googlebot est bloqué par l'hébergeur — c'est le seul moyen fiable
-     de le savoir, puisque depuis l'extérieur on ne peut pas se faire passer pour Google.
+1. ~~**Google Search Console**~~ — **fait le 22/11/2026 au soir.** Propriété validée, sitemap
+   `https://navigoal.net/sitemap.xml` envoyé et lu (« Opération effectuée », 335 pages découvertes),
+   indexation demandée pour l'accueil, `/etablissements/` et `/ressources/visa-carte-de-sejour/`.
+   À suivre dans le menu **Pages** (et non Sitemaps) : combien sont réellement indexées, et pourquoi pas
+   les autres. Compter de quelques jours à deux semaines. Saisir l'adresse **complète** du sitemap : le
+   champ refuse `sitemap.xml` seul.
 2. **Bing Webmaster Tools** — https://www.bing.com/webmasters (le fichier `BingSiteAuth.xml` est déjà en place).
    Bing alimente aussi la recherche de ChatGPT. IndexNow lui signale déjà chaque mise en ligne.
 
