@@ -18,9 +18,10 @@ Relevé du 22 novembre 2026. **La note du 19 novembre (« navigoal.net absent de
 **Conclusion : il n'y a pas de blocage technique.** Le site est découvert, mais lentement, et les nouvelles pages
 mettent du temps à suivre. C'est le comportement normal d'un domaine récent **sans aucun lien entrant**.
 
-## Ce que je ne peux pas faire, et qui pèse le plus
+## Les deux outils de mesure : en place depuis le 22/11/2026 au soir
 
-Ces deux actions demandent un accès que je n'ai pas. Elles valent plus que tout le reste réuni.
+Ces deux actions demandaient un accès que je n'ai pas. Elles sont faites. Les deux moteurs ont le plan
+complet du site, et aucun n'est bloqué par l'hébergeur : c'est désormais établi, pas supposé.
 
 1. ~~**Google Search Console**~~ — **fait le 22/11/2026 au soir.** Propriété validée, sitemap
    `https://navigoal.net/sitemap.xml` envoyé et lu (« Opération effectuée », 335 pages découvertes),
@@ -28,8 +29,11 @@ Ces deux actions demandent un accès que je n'ai pas. Elles valent plus que tout
    À suivre dans le menu **Pages** (et non Sitemaps) : combien sont réellement indexées, et pourquoi pas
    les autres. Compter de quelques jours à deux semaines. Saisir l'adresse **complète** du sitemap : le
    champ refuse `sitemap.xml` seul.
-2. **Bing Webmaster Tools** — https://www.bing.com/webmasters (le fichier `BingSiteAuth.xml` est déjà en place).
-   Bing alimente aussi la recherche de ChatGPT. IndexNow lui signale déjà chaque mise en ligne.
+2. ~~**Bing Webmaster Tools**~~ — **fait le 22/11/2026 au soir** (validation par `BingSiteAuth.xml`, déjà en
+   place). Sitemap traité en quatorze minutes : « Successfully processed », 335 URL découvertes. Bing a donc
+   deux canaux, le sitemap et IndexNow (signalé à chaque mise en ligne), et il est en général plus rapide que
+   Google sur un domaine neuf — c'est probablement là que les premiers résultats apparaîtront, y compris dans
+   la recherche de ChatGPT, qui s'appuie dessus.
 
 ## Des liens entrants : le vrai manque
 
