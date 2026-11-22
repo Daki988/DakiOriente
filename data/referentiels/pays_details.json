@@ -74,7 +74,7 @@
         "min": 20000,
         "max": 100000,
         "unite": "par an",
-        "note": "Écoles de commerce et d'ingénieurs : généralement 40 000 à 90 000 MAD/an ; médecine privée au-delà."
+        "note": "La plupart des écoles ne publient pas leurs tarifs ; quand une école le fait, le montant figure sur sa fiche Navigoal. La médecine privée est nettement plus chère que les autres filières."
       },
       "travail": "Le travail étudiant n'est pas autorisé officiellement ; les stages conventionnés le sont.",
       "sante": "Assurance santé obligatoire pour la carte de séjour ; bonne offre de cliniques privées dans les grandes villes.",
@@ -182,7 +182,7 @@
         "min": 500000,
         "max": 3500000,
         "unite": "par an",
-        "note": "Écoles de commerce et d'informatique : souvent 1 à 3 millions F CFA par an ; santé et médecine privées au-delà."
+        "note": "Le tarif publié par une école, quand elle en publie un, figure sur sa fiche Navigoal ; santé et médecine privées au-delà."
       },
       "travail": "Les petits emplois et stages sont possibles ; les stages conventionnés par l'école sont la voie la plus sûre.",
       "sante": "Assurance santé conseillée (souvent proposée par l'école) ; cliniques privées de bon niveau à Dakar.",
