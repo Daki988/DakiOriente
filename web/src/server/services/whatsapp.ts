@@ -123,7 +123,7 @@ export async function traiterMessage(m: MessageEntrant, nom: string | null, opts
   const question = m.text.body.trim().slice(0, 2000);
   const user = await compte(numero);
   if (!navi.naviActif()) { await envoyer(numero, `Navi n'est pas disponible pour le moment. Retrouve les écoles, les formations et le devis sur ${SITE()}`); return; }
-  try { await navi.verifierQuota(user, `wa:${numero}`); }
+  try { await navi.verifierQuota(user, `wa:${numero}`, "whatsapp"); }
   catch (e) { await envoyer(numero, e instanceof Error ? e.message : "Limite atteinte pour aujourd'hui."); return; }
 
   // Fil des dernières 24 heures (au plus 24 messages), comme l'historique du widget sur le site.

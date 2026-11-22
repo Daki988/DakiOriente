@@ -72,8 +72,10 @@ Le bouton Navi (en bas à droite de toutes les pages) s'affiche dès que `ANTHRO
 3. `npm run verifier` confirme que la clé est acceptée.
 
 Navi lit le catalogue, les devis et, pour une personne connectée, ses propres candidatures, paiements et réservations ;
-il n'agit jamais à sa place. Quotas par jour : 30 messages par visiteur, 60 par compte, 2 000 pour tout le site
-(`NAVI_LIMITE_VISITEUR`, `NAVI_LIMITE_MEMBRE`, `NAVI_LIMITE_GLOBALE`). Si une demande est refusée par le modèle
+il n'agit jamais à sa place. Quotas par jour : 4 messages d'essai pour un visiteur du site, qui est ensuite invité à
+créer un compte (`NAVI_ESSAI_VISITEUR`), 60 par compte (`NAVI_LIMITE_MEMBRE`), 30 pour un numéro WhatsApp sans compte
+(`NAVI_LIMITE_VISITEUR`, pas d'essai court sur ce canal), 2 000 pour tout le site (`NAVI_LIMITE_GLOBALE`).
+Ce que Navi coûte et qui s'en sert : `npm run navi-stats` (sur le serveur : `node outils/env.cjs outils/navi-stats.mjs 30`). Si une demande est refusée par le modèle
 principal, l'API la confie automatiquement à un modèle de secours (option `fallbacks: "default"`).
 
 ## 2 quater. Accès des établissements

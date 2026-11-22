@@ -49,17 +49,29 @@ export const naviSchema = z.object({
 export type NaviRequete = z.infer<typeof naviSchema>;
 
 /** Quotas journaliers (coût maîtrisé) : par compte ou par adresse IP, et pour toute la plateforme. */
-export async function verifierQuota(user: User | null, ip: string) {
+/**
+ * Quotas journaliers. Un visiteur du site a droit à un essai court (NAVI_ESSAI_VISITEUR, 4 messages) :
+ * il voit ce que Navi sait faire, puis crée un compte pour continuer — c'est là que Navi devient vraiment
+ * utile, puisqu'il lit alors le profil, le test d'orientation et les candidatures. Sur WhatsApp, pas d'essai :
+ * la personne écrit souvent sans compte et c'est le premier contact, donc le quota visiteur complet s'applique.
+ */
+export async function verifierQuota(user: User | null, ip: string, canal: "web" | "whatsapp" = "web") {
   const jour = new Date().toISOString().slice(0, 10);
   const cle = user ? `navi:${jour}:u:${user.id}` : `navi:${jour}:ip:${sha256(ip).slice(0, 24)}`;
-  const max = user ? limite("NAVI_LIMITE_MEMBRE", 60) : limite("NAVI_LIMITE_VISITEUR", 30);
+  const essai = !user && canal === "web";
+  const max = user ? limite("NAVI_LIMITE_MEMBRE", 60)
+    : essai ? limite("NAVI_ESSAI_VISITEUR", 4)
+    : limite("NAVI_LIMITE_VISITEUR", 30);
   const inc = async (k: string) => (await db.execute<{ value: number }>(sql`insert into counters (key, value) values (${k}, 1)
     on conflict (key) do update set value = counters.value + 1 returning value`)).rows[0].value;
   if (Math.random() < 0.02) await db.execute(sql`delete from counters where key like 'navi:%' and key not like ${`navi:${jour}:%`}`);
   // Quota individuel d'abord : une demande refusée ne compte pas dans le total du site (sinon un seul visiteur
   // pourrait épuiser le quota global et couper Navi pour tout le monde).
   const n = await inc(cle);
-  if (n > max) throw new AppError(`Tu as atteint la limite de ${max} messages pour aujourd'hui. ${user ? "" : "Connecte-toi pour en avoir davantage, ou "}écris à un conseiller : il te répondra.`, 429, "quota");
+  if (n > max) {
+    if (essai) throw new AppError("Voilà pour l'essai. Crée ton compte, c'est gratuit et ça prend une minute : je garde notre échange, et ensuite je connais ton profil, ta série, tes candidatures — je deviens vraiment utile.", 429, "essai");
+    throw new AppError(`Tu as atteint la limite de ${max} messages pour aujourd'hui. ${user ? "" : "Connecte-toi pour en avoir davantage, ou "}écris à un conseiller : il te répondra.`, 429, "quota");
+  }
   const total = await inc(`navi:${jour}:total`);
   if (total > limite("NAVI_LIMITE_GLOBALE", 2000)) throw new AppError("Navi est très sollicité aujourd'hui. Réessaie demain ou écris à un conseiller.", 429, "quota");
 }

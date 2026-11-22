@@ -443,12 +443,23 @@ describe("Navi (assistant IA) : outils et garde-fous, sans appel au modèle", as
     const s = (await o.monEspace(student)) as { candidatures: { page: string }[] };
     for (const a of s.candidatures) expect(a.page).toMatch(/^\/espace\/candidatures\//);
   });
-  it("quota journalier par visiteur", async () => {
+  it("essai court d'un visiteur sur le site, puis invitation à créer un compte", async () => {
+    process.env.NAVI_ESSAI_VISITEUR = "2";
+    await navi.verifierQuota(null, "203.0.113.9");
+    await navi.verifierQuota(null, "203.0.113.9");
+    // Le refus n'est pas une limite sèche : il invite à s'inscrire, et le widget en fait un bouton.
+    await expect(navi.verifierQuota(null, "203.0.113.9")).rejects.toMatchObject({ code: "essai", status: 429 });
+    delete process.env.NAVI_ESSAI_VISITEUR;
+  });
+
+  it("WhatsApp : pas d'essai court, le quota visiteur complet s'applique", async () => {
     process.env.NAVI_LIMITE_VISITEUR = "2";
-    await navi.verifierQuota(null, "203.0.113.9");
-    await navi.verifierQuota(null, "203.0.113.9");
-    await expect(navi.verifierQuota(null, "203.0.113.9")).rejects.toThrow(/limite de 2 messages/);
+    process.env.NAVI_ESSAI_VISITEUR = "1";
+    await navi.verifierQuota(null, "wa:24100000001", "whatsapp");
+    await navi.verifierQuota(null, "wa:24100000001", "whatsapp");
+    await expect(navi.verifierQuota(null, "wa:24100000001", "whatsapp")).rejects.toThrow(/limite de 2 messages/);
     delete process.env.NAVI_LIMITE_VISITEUR;
+    delete process.env.NAVI_ESSAI_VISITEUR;
   });
 });
 
@@ -641,8 +652,10 @@ describe("sécurité : corrections de l'audit du 16 novembre", () => {
     const jour = new Date().toISOString().slice(0, 10);
     const total = async () => (await db.execute<{ value: number }>(sql`select coalesce((select value from counters where key = ${`navi:${jour}:total`}), 0) as value`)).rows[0].value;
     const avant = await total();
+    process.env.NAVI_ESSAI_VISITEUR = "5";
     for (let i = 0; i < 40; i++) await navi.verifierQuota(null, "203.0.113.7").catch(() => {});
-    expect(await total()).toBe(avant + 30);
+    expect(await total()).toBe(avant + 5);
+    delete process.env.NAVI_ESSAI_VISITEUR;
   });
 });
 

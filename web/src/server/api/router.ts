@@ -635,7 +635,7 @@ route("POST", "/navi", "Navi", "Converser avec Navi (réponse en flux NDJSON : t
   if (!navi.naviActif()) throw new AppError("Navi n'est pas encore activé.", 503, "navi_inactif");
   const r = navi.naviSchema.parse(await body());
   const ip = ipClient(req.headers) || "inconnue";
-  await navi.verifierQuota(user, ip);
+  await navi.verifierQuota(user, ip, "web");
   const enc = new TextEncoder();
   const flux = new ReadableStream({
     async start(c) {

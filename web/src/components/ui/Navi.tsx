@@ -362,7 +362,13 @@ export function Navi() {
       });
       if (!r.ok || !r.body) {
         const d = await r.json().catch(() => null);
-        maj((m) => ({ ...m, texte: d?.error?.message ?? "Navi est momentanément indisponible. Réessaie dans un instant.", erreur: true, cartes: r.status === 429 ? [{ type: "conseiller" }] : undefined }));
+        // Fin de l'essai d'un visiteur : on propose la création de compte plutôt qu'une impasse.
+        // `suite` ramène sur la page en cours après l'inscription ; l'échange reste dans l'onglet.
+        const suite = encodeURIComponent(window.location.pathname + window.location.search);
+        const cartes: Carte[] | undefined = d?.error?.code === "essai"
+          ? [{ type: "liens", liens: [{ libelle: "Créer mon compte", href: `/inscription/?suite=${suite}`, principal: true }, { libelle: "J'ai déjà un compte", href: `/connexion/?suite=${suite}` }] }, { type: "conseiller" }]
+          : r.status === 429 ? [{ type: "conseiller" }] : undefined;
+        maj((m) => ({ ...m, texte: d?.error?.message ?? "Navi est momentanément indisponible. Réessaie dans un instant.", erreur: true, cartes }));
         return;
       }
       const lecteur = r.body.getReader();
