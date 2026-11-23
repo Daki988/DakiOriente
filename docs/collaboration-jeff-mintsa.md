@@ -100,6 +100,32 @@ plus facilement qu'un créateur ordinaire.
 2. **Les données qu'il n'a pas.** Les frais réels des 103 écoles, les accréditations, le coût de la vie par
    ville. Pas en export : en accès privilégié et en contenu co-signé, avec Navigoal cité comme source.
 
+## Si Jeff est un ami (cas réel, 23/11/2026)
+
+L'amitié change la méthode, pas le fond.
+
+**Ce qu'elle apporte** : un accès que personne n'a, et la possibilité de lui poser des questions qu'un
+annonceur ne pourrait pas poser. Avant de parler d'argent, c'est le meilleur consultant disponible sur ce
+marché : ce que ses abonnés demandent sur l'après-bac, ce qui marche chez lui, ce qui tombe à plat.
+
+**Ce qu'elle menace** : le service rendu entre amis. Une vidéo gratuite n'a ni date, ni engagement, ni
+possibilité de demander une correction — et quand elle ne donne rien, personne n'ose en parler. C'est comme
+ça qu'on perd une collaboration et un ami.
+
+**Donc demander une proposition commerciale est la bonne décision, à cause de l'amitié et non malgré elle.**
+Un prix écrit, même un tarif d'ami assumé, protège la relation. S'il insiste pour le faire gratuitement :
+accepter le geste, mais obtenir quand même un engagement écrit sur le format et les dates.
+
+Deux règles de forme :
+
+1. **L'appeler avant d'envoyer quoi que ce soit.** Un document formel qui tombe sans prévenir est froid entre
+   amis. Expliquer le projet, demander son avis, et n'envoyer le document que s'il est intéressé.
+2. **Ne pas donner de prix en premier.** Valable avec tout le monde, encore plus avec un ami : un chiffre
+   annoncé le pousse soit à accepter par gêne, soit à ne pas oser demander davantage. Le laisser faire son
+   offre, sur un menu d'options.
+
+Document à lui envoyer, prêt à chiffrer : `docs/jeff-mintsa-demande-proposition.md`.
+
 ## L'ordre dans lequel je traiterais les deux
 
 1. **Jeff Mintsa d'abord.** C'est le meilleur partenaire possible au Gabon pour ce que nous faisons, et la
