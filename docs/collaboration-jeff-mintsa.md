@@ -115,10 +115,17 @@ pas lequel a marché, et c'est précisément ce que tu cherches à apprendre en 
 
 ## À vérifier avant de le contacter
 
-- **Notre WhatsApp est-il opérationnel en production ?** Son audience vit sur WhatsApp, et Navi y répond
-  (`/api/whatsapp/webhook/`) — mais seulement si les secrets `WHATSAPP_*` sont en place sur le serveur
-  (contrôle : `npm run verifier`). Si ça marche, c'est un argument fort et un canal naturel pour son public.
-  Si ça ne marche pas, ne le promets pas.
+- ~~Notre WhatsApp est-il opérationnel ?~~ **Vérifié le 23 novembre 2026 : non.** Le journal de la dernière
+  mise en ligne ne dépose qu'une seule clé (« Clés déposées : DAILY_API_KEY ») : aucun secret `WHATSAPP_*`
+  n'existe, donc `whatsappActif()` est faux et aucun message WhatsApp n'est traité. Le code et le webhook
+  sont pourtant en place. **Ne pas promettre WhatsApp à Jeff Mintsa**, alors même que c'est son canal de
+  recrutement. Pour l'activer : créer le compte WhatsApp Business API chez Meta, puis déposer
+  `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_ID`, `WHATSAPP_APP_SECRET` et `WHATSAPP_VERIFY_TOKEN` dans les secrets
+  GitHub (la mise en ligne suivante les installe seule) ; adresse à déclarer chez Meta :
+  `https://navigoal.net/api/whatsapp/webhook/`, barre finale comprise. Délai imposé par la vérification
+  d'entreprise de Meta : ne pas en faire un préalable au contact.
+- Le reste est bon : site en ligne (base à 30 ms), Navi actif sur le site, essai porté à 15 messages bien
+  déployé, clé Daily présente pour les appels.
 - **Ses vues, et la performance de ses contenus sponsorisés.** Comme pour tout le monde.
 - **Les crédits vidIQ reviennent le 28 novembre** : on pourra alors relever ses vraies statistiques plutôt que
   de s'appuyer sur les « j'aime » visibles publiquement.
