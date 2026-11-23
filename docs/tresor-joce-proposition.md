@@ -2,12 +2,12 @@
 
 OAPS Consulting Group · Libreville · novembre 2026
 
-## Merci pour ton retour
+## C'est d'accord pour 100 000 F
 
-Tu nous as donné ton tarif : **100 000 F CFA**. Merci d'avoir répondu vite et clairement, c'est rare.
+Tu nous as dit 150 000 F en temps normal, et 100 000 F pour nous. On prend, et merci pour le geste — on
+sait ce que ça veut dire.
 
-On te fait une proposition un peu différente, et on t'explique pourquoi. Si elle ne te convient pas,
-dis-le franchement : on en discutera.
+On te demande juste de caler deux ou trois choses ensemble pour que ça serve au maximum des deux côtés.
 
 ## Qui on est
 
@@ -33,26 +33,22 @@ se font avoir.
 
 Nous, on a les chiffres. Dans ta bouche, ce n'est pas une publicité : c'est ton format.
 
-## Ce qu'on te propose
+## Ce qu'on aimerait que ça comprenne
 
-Plutôt que les 100 000 F d'un coup :
+Pour les 100 000 F, est-ce qu'on peut caler ça comme ça :
 
-> **50 000 F à la publication, plus 1 000 F pour chaque compte créé grâce à ton lien, avec un plafond à
-> 150 000 F.**
+- **Une vidéo de 45 à 60 secondes**, avec la mention de partenariat que TikTok demande.
+- **Le lien en bio pendant 14 jours** à partir de la publication.
+- **La vidéo qui reste en ligne** après, sans retrait.
+- **Un rappel quelques jours plus tard** — une story, un commentaire épinglé, ce que tu juges le plus
+  naturel.
+- **Le droit pour nous de reprendre la vidéo** sur nos propres comptes et sur le site, en te créditant.
 
-Pourquoi : si ta vidéo marche, **tu gagnes jusqu'à 50 % de plus que ce que tu demandais**. Si elle ne marche
-pas, on n'a pas tout misé. On démarre, on n'a encore aucune école qui nous paie, et on ne peut pas se
-permettre de dépenser à l'aveugle — comme toi, probablement, à tes débuts.
+Rien là-dedans ne te demande plus de travail : c'est surtout une question de durée et de réutilisation. Si
+un point te gêne, dis-le, on s'arrange.
 
-Le plafond est là pour que ce soit clair : on ne cherche pas à profiter d'un bon résultat pour payer moins.
-
-Si tu préfères le forfait simple, dis-le. On préfère en parler que te perdre.
-
-## Ce qu'on aimerait, concrètement
-
-- Une vidéo de 45 à 60 secondes, avec la mention de partenariat que TikTok demande.
-- Le lien en bio pendant 7 jours.
-- Que la vidéo reste en ligne après.
+Et si ça marche bien, on revient avec une deuxième vidéo en janvier, au moment des candidatures — à ton
+tarif normal cette fois.
 
 ## Le sujet
 
@@ -75,12 +71,14 @@ pas de sujet politique dans cette vidéo-là. Notre public, ce sont des mineurs 
 
 ## Deux questions, et on est honnêtes sur le pourquoi
 
-1. **Les vues de tes trois dernières vidéos** — les vues, pas les « j'aime ».
+1. **Les vues de tes trois dernières vidéos** — les vues, pas les « j'aime ». Ça nous aide à savoir à quoi
+   nous attendre, et à ne pas te reprocher plus tard un résultat qui n'était pas réaliste.
 2. **Les vues de ta vidéo avec le partenaire crypto**, comparées à tes vidéos habituelles.
 
-On a vu qu'elle avait beaucoup moins de réactions que tes autres vidéos. Ça peut s'expliquer de dix façons,
-et ce n'est pas un reproche. Mais c'est la question que n'importe quel annonceur devrait poser, et on préfère
-te la poser en face plutôt que dans notre coin.
+Sur la deuxième : on a remarqué qu'elle avait beaucoup moins de réactions que tes autres vidéos. Ça peut
+s'expliquer de dix façons — le sujet, le format, le moment. Ce n'est pas un reproche, et ça ne remet rien en
+cause : on a déjà dit oui à ton prix. C'est juste qu'on préfère te poser la question en face plutôt que de
+se la poser dans notre coin.
 
 ## Comment on saura si ça a marché
 

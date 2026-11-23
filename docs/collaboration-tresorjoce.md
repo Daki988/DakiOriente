@@ -106,26 +106,32 @@ cette liste.** Un chiffre faux dans sa bouche devient notre problème.
   détaillés par type d'école, avec les sources.
 - Le logo Navigoal, si besoin (`web/public/brand/`).
 
-## 3. L'accord proposé
+## 3. L'accord — révisé le 23/11/2026
 
-**Sa demande : 100 000 F CFA.** Contre-proposition :
+**Ce qu'il a dit** : 150 000 F CFA en temps normal, 100 000 F « au vu de notre relation ».
 
-> **50 000 F à la publication, plus 1 000 F par compte créé via son lien, plafonné à 150 000 F.**
+**Décision : accepter les 100 000 F, et négocier le périmètre, pas le prix.**
 
-Il gagne jusqu'à 50 % de plus que ce qu'il demande si sa vidéo marche, et nous ne payons la portée que si
-elle existe. Le plafond le rassure sur le fait qu'on ne cherche pas à profiter de lui.
+Pourquoi la contre-proposition initiale (50 000 F + 1 000 F par compte, plafond 150 000 F) est abandonnée :
 
-**Avant de signer, deux questions à lui poser :**
+1. Elle revenait à demander une **seconde remise** après celle qu'il venait de consentir. Face à un prix
+   d'ami, c'est le geste qui fait qu'on ne te rappelle pas.
+2. **Le plafond était arithmétiquement décoratif** : à 1 000 F par compte, il fallait 100 comptes créés pour
+   l'atteindre, alors que l'objectif de toute la campagne, sur trois mois et tous canaux confondus, est de
+   200. Un interlocuteur attentif l'aurait vu immédiatement.
 
-1. **Combien de vues a fait sa vidéo de partenariat crypto, comparée à ses vidéos habituelles ?** Observation
-   publique : cette vidéo a 370 « j'aime », contre 11 000 à 11 500 sur ses vidéos ordinaires — environ 3 % de
-   sa portée. Ce n'est qu'une observation, elle peut s'expliquer autrement, mais c'est le risque central :
-   payer la portée organique et recevoir la portée sponsorisée.
-2. **Les statistiques de ses trois dernières vidéos : vues, pas « j'aime ».** Un créateur de 75 000 abonnés
-   qui ne sait pas montrer ses vues ne les a pas.
+Le « 150 000 F minimum » n'est pas vérifiable, et c'est ce qui en fait un bon ancrage : impossible à
+contredire, et le refuser revient à paraître ingrat. La réponse n'est donc pas de discuter le chiffre, mais
+de le rendre sans objet en discutant ce qu'il recouvre.
 
-**Facture obligatoire**, au nom d'OAPS Consulting Group (RCCM GA-LBV-01-2021-B13-00360). Sans facture, la
-dépense n'existe pas comptablement et ne pourra pas être comparée aux autres canaux.
+**Ce que les 100 000 F doivent comprendre** (rien de tout cela ne lui demande de travail supplémentaire) :
+lien en bio 14 jours au lieu de 7, vidéo qui reste en ligne, un rappel quelques jours après, et le droit de
+reprendre la vidéo sur nos comptes et sur le site en le créditant.
+
+**Les deux questions sur ses vues restent à poser**, mais elles ne sont plus une condition de prix : une
+fois le tarif accepté, elles deviennent une question de calage entre partenaires, et elles passent mieux.
+
+**Facture obligatoire**, au nom d'OAPS Consulting Group (RCCM GA-LBV-01-2021-B13-00360).
 
 ## 4. Le seuil de décision
 
@@ -137,8 +143,12 @@ Rappel de la règle fixée pour tous les canaux payants :
 | 2 000 à 5 000 F | correct |
 | plus de 5 000 F | on arrête ce canal |
 
-À 100 000 F, il faut **20 comptes** pour rester dans l'acceptable et **50** pour que ce soit un bon
-investissement. Avec la contre-proposition à 50 000 F de base, le seuil tombe à 10 comptes : c'est aussi pour
-ça qu'elle est préférable.
+À 100 000 F, **20 comptes créés = 5 000 F par compte**, soit exactement le seuil d'acceptabilité ; 50 comptes
+en feraient une très bonne opération. La vraie question n'est donc pas « 100 000 F, est-ce trop ? » mais
+« est-ce que je crois à 20 comptes ? ». Au vu de son engagement (11 000 « j'aime » par vidéo), c'est
+plausible.
+
+Et si la première vidéo donne moins de 20 comptes, la décision sur la suivante se prend sur les chiffres,
+sans avoir à rediscuter son tarif.
 
 Pour comparaison : le plus petit encart du journal L'Union coûte 214 200 F et ne se mesure pas.
