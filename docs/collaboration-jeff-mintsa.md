@@ -82,15 +82,31 @@ Proposition en trois temps, calée sur son année :
 - **Après le bac (juin-juillet)** : la période où son audience a le plus besoin de nous, et où il n'a plus
   rien à lui vendre. C'est là que le partenariat vaut vraiment, pour lui comme pour nous.
 
-### La rémunération
+### La rémunération — sa fourchette est connue (23/11/2026)
 
-Même principe que pour Trésor Joce, avec un socle plus élevé qui reconnaît son audience :
+**Il annonce de 150 000 à 250 000 F CFA.** Décision : **partir sur 150 000 F**, et négocier le périmètre,
+pas le prix — même logique que pour Trésor Joce.
 
-> **Un forfait de base à la publication, plus un montant par compte créé via son lien, avec un plafond.**
+Trois raisons :
 
-Fixe le socle à ce que tu es prêt à perdre si la vidéo ne donne rien, et mets le reste au résultat. Son
-statut d'entrepreneur joue pour nous : il sait ce qu'est une rémunération à la performance, et il acceptera
-plus facilement qu'un créateur ordinaire.
+1. **Le seuil.** À 150 000 F, il faut **30 comptes créés** pour tenir les 5 000 F par compte ; à 250 000 F,
+   il en faudrait **50**. Pour une première collaboration jamais mesurée, le bas de la fourchette est le
+   seul point de départ raisonnable.
+2. **Le budget cumulé.** Trésor Joce à 100 000 F, Jeff à 150 000 F et le test de publicité TikTok à
+   85 000 F font **335 000 F CFA dépensés en décembre**, sans qu'aucune école ne paie encore quoi que ce
+   soit. C'est tenable pour apprendre, pas pour recommencer tous les mois sans résultat.
+3. **La question utile n'est pas le prix, c'est l'écart.** Lui demander **ce qui change entre 150 et 250**
+   n'est pas du marchandage : c'est une question de périmètre. Si les 250 correspondent à deux vidéos, à une
+   série ou au second compte, c'est peut-être la bonne formule en janvier — mais il faut le savoir avant,
+   pas le découvrir après.
+
+**Ce que les 150 000 F doivent comprendre** (rien n'exige de travail supplémentaire de sa part) : lien en
+bio 14 jours, vidéo laissée en ligne, un rappel quelques jours après, droit de reprise sur nos comptes et le
+site en le créditant.
+
+**Là où il faut vraiment mettre le budget** : juin-juillet, après les résultats du bac. C'est le moment où
+son audience a le plus besoin de nous, et où lui n'a plus rien à lui vendre. Décembre sert à vérifier que la
+mécanique fonctionne ; l'été, c'est là que ça compte.
 
 ### Les deux choses à lui offrir qui ne coûtent rien
 

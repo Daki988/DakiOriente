@@ -27,22 +27,35 @@ avec rien de ce que tu fais — on est la suite.
 Et ton audience sur @prof_tiktok_241 est la seule au Gabon qui réunisse le nombre et les bonnes personnes :
 des terminales et leurs parents.
 
-## Ce qu'on aimerait, et ce qu'on te demande de chiffrer
+## On part sur 150 000 F
 
-Mets ton prix sur chaque ligne, qu'on puisse choisir. Et si tu vois mieux, dis-le : tu connais ton audience,
-pas nous.
+Tu m'as dit entre 150 000 et 250 000 F. On part sur 150 000, et voilà pourquoi je te le dis franchement :
+on démarre, aucune école ne nous paie encore, et décembre est le mois où on doit apprendre ce qui marche
+avant de mettre plus. Si ça marche, on remonte — et ce sera tant mieux pour les deux.
 
-| | |
-|---|---|
-| **Une vidéo** | 45 à 60 secondes sur @prof_tiktok_241, sujet plus bas, avec la mention de partenariat que TikTok demande |
-| **Le lien en bio** | 7 jours après la publication |
-| **Une deuxième vidéo** | en janvier, au moment des candidatures |
-| **Après le bac** | une ou deux vidéos en juin-juillet, quand tes élèves ont leurs résultats |
-| **Autre format ?** | un live, une série, autre chose : si tu penses que ça marche mieux, propose |
-| **L'autre compte** | si tu juges @jeff_mintsa_officiel utile, chiffre-le à part — ce sont deux audiences différentes |
+Dis-moi quand même **ce qui change entre 150 et 250**. Si c'est le format, le nombre de vidéos ou le second
+compte, je préfère le savoir maintenant : peut-être qu'en janvier c'est la version à 250 qu'il nous faut.
 
-Si tu préfères être payé au résultat plutôt qu'au forfait — un fixe, plus un montant par compte créé grâce à
-toi, avec un plafond —, c'est possible aussi. Dis-nous ce qui t'arrange.
+### Ce qu'on aimerait que les 150 000 F comprennent
+
+- **Une vidéo de 45 à 60 secondes** sur @prof_tiktok_241, avec la mention de partenariat que TikTok demande.
+- **Le lien en bio pendant 14 jours** à partir de la publication.
+- **La vidéo qui reste en ligne** après, sans retrait.
+- **Un rappel quelques jours plus tard** — une story, un commentaire épinglé, ce que tu juges le plus
+  naturel.
+- **Le droit pour nous de reprendre la vidéo** sur nos comptes et sur le site, en te créditant.
+
+Rien là-dedans ne te demande plus de travail : c'est de la durée et de la réutilisation. Si un point te
+gêne, dis-le, on s'arrange.
+
+### Et pour la suite
+
+Si la première marche, on revient en janvier au moment des candidatures, et surtout **en juin-juillet, après
+les résultats du bac** — le moment où tes élèves ont le plus besoin de nous et où toi, tu n'as plus rien à
+leur vendre. C'est là que ça vaut vraiment le coup pour nous deux, et c'est là qu'on mettra le budget.
+
+Si tu préfères qu'on parle d'un forfait sur toute la saison plutôt que vidéo par vidéo, dis-le : ça
+m'arrange aussi.
 
 ## Le sujet qu'on propose pour la première
 
