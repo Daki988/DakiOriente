@@ -28,7 +28,7 @@ gabonais et leurs parents, au moment où ils cherchent.
 |---|---|---|
 | @caportiationgab | CAP'Orientation, cabinet d'orientation à Libreville ; publications sur les inscriptions, transferts, services d'orientation | **Le meilleur profil de la liste.** Une structure, pas un particulier : réponse professionnelle, facture possible, et un intérêt commun évident — il oriente, nous avons les données |
 | @le_prof241 | Orientations SOSUP, bourses ANBG, plateforme IBours, proclamation du bac | Parle au bon public au bon moment, avec une autorité d'enseignant |
-| @prof_tiktok_241 | Calendrier d'orientation, lycées de l'Estuaire, ORIENTATION SOSUP | Même créneau, utile en second avis ou en complément |
+| @prof_tiktok_241 | **= Jeff Mintsa** (328 300 abonnés), aussi @jeff_mintsa_officiel (450 000). Cours, méthodologie, calendrier du bac, et une prépa bac payante | **Le plus gros potentiel du Gabon.** Analyse complète et proposition : `docs/collaboration-jeff-mintsa.md`. Attention : un seul homme, deux comptes — ne pas payer deux fois |
 | @copsol26 (Coplan Oswald Mougongou) | Bourses pour les nouveaux bacheliers au Gabon | Sujet bourses, qui recoupe notre page `/bourses/` |
 
 ## Rang 2 — Études à l'étranger : forte intention, mais attention
