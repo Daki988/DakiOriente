@@ -1,91 +1,85 @@
-# Navigoal × Jeff Mintsa — demande de proposition
+# Navigoal × Jeff — ce qu'on aimerait faire ensemble
 
-OAPS Consulting Group (SARLU, Libreville, RCCM GA-LBV-01-2021-B13-00360) — novembre 2026
+OAPS Consulting Group · Libreville · novembre 2026
 
-## Qui nous sommes
+## D'abord, de quoi il s'agit
 
-Navigoal (navigoal.net) est une plateforme gabonaise d'orientation pour les élèves et étudiants qui veulent
-poursuivre leurs études à l'étranger, en commençant par le Maroc. Elle est éditée par OAPS Consulting Group,
-société gabonaise enregistrée à Libreville.
+Navigoal (navigoal.net), c'est la plateforme qu'on a montée pour les élèves gabonais qui veulent partir
+étudier, en commençant par le Maroc. C'est édité par OAPS Consulting Group, notre société, ici à Libreville.
 
-Nous publions gratuitement ce que personne d'autre ne publie en français sur ce marché :
+Ce qu'on fait, et que personne d'autre ne fait en français :
 
-- **103 établissements privés marocains** avec leur statut d'accréditation à jour et la date d'échéance de
-  chaque filière ;
-- **les frais de scolarité réellement pratiqués** : 31 écoles publient leurs tarifs, 72 ne les publient pas,
-  et nous le disons ;
-- **le coût de la vie ville par ville** (logement, nourriture, transport), sourcé et daté ;
-- un devis complet du coût des études sur toute la durée de la formation, et un assistant d'orientation.
+- **103 écoles privées marocaines**, avec pour chacune son accréditation et jusqu'à quelle date elle court ;
+- **les vrais prix** : 31 écoles publient leurs tarifs, 72 ne les publient pas — et on le dit ;
+- **le coût de la vie ville par ville** : loyer, nourriture, transport, avec les sources et les dates ;
+- un devis du budget complet des études, et un assistant qui répond aux questions des élèves.
 
-Les candidatures passant par Navigoal sont **gratuites** : nous ne prenons aucune commission sur les élèves.
+Les candidatures sont gratuites. On ne prend rien aux familles.
 
-## Ce que nous préparons
+## Pourquoi toi, et pas quelqu'un d'autre
 
-La campagne **« Trouve ta voie »**, du 1er décembre 2026 au 28 février 2027, destinée aux élèves de terminale
-gabonais et à leurs parents. Objectif : 200 comptes créés.
+Pas seulement parce qu'on se connaît.
 
-## Pourquoi nous nous adressons à vous
+**Toi tu les prépares au bac. Nous on prend le relais juste après.** Tes élèves décrochent leur bac, et
+ensuite beaucoup ne savent pas quoi faire ni où aller. C'est exactement notre métier. On n'est en concurrence
+avec rien de ce que tu fais — on est la suite.
 
-Votre audience sur **@prof_tiktok_241** est, à notre connaissance, la seule au Gabon qui réunisse le volume et
-le bon public : des élèves qui préparent le bac, et leurs parents.
+Et ton audience sur @prof_tiktok_241 est la seule au Gabon qui réunisse le nombre et les bonnes personnes :
+des terminales et leurs parents.
 
-Et surtout : **votre activité s'arrête là où la nôtre commence.** Vous les préparez au bac. Nous les
-accompagnons après. Vos élèves décrochent leur bac — et ensuite, beaucoup ne savent pas où aller. C'est
-exactement notre métier, et nous ne sommes en concurrence sur aucun de vos services.
+## Ce qu'on aimerait, et ce qu'on te demande de chiffrer
 
-## Ce sur quoi nous vous demandons de chiffrer
+Mets ton prix sur chaque ligne, qu'on puisse choisir. Et si tu vois mieux, dis-le : tu connais ton audience,
+pas nous.
 
-Merci de proposer les formats que vous jugez pertinents, avec **un prix par ligne**, afin que nous puissions
-choisir. À titre indicatif, voici ce qui nous intéresse :
-
-| | Ce que nous aimerions |
+| | |
 |---|---|
-| **1. Une vidéo** | 45 à 60 secondes sur @prof_tiktok_241, sujet ci-dessous, mention de partenariat comme l'exige TikTok |
-| **2. Le lien en bio** | pendant 7 jours à partir de la publication |
-| **3. Une seconde vidéo** | en janvier, au moment des candidatures |
-| **4. Après le bac** | une ou deux vidéos en juin-juillet, quand vos élèves ont leurs résultats |
-| **5. Autre chose ?** | live, série, format que vous jugez plus efficace : dites-le, vous connaissez votre audience mieux que nous |
-| **6. Le second compte** | si vous jugez @jeff_mintsa_officiel pertinent, chiffrez-le à part — nous comprenons que ce sont deux audiences différentes |
+| **Une vidéo** | 45 à 60 secondes sur @prof_tiktok_241, sujet plus bas, avec la mention de partenariat que TikTok demande |
+| **Le lien en bio** | 7 jours après la publication |
+| **Une deuxième vidéo** | en janvier, au moment des candidatures |
+| **Après le bac** | une ou deux vidéos en juin-juillet, quand tes élèves ont leurs résultats |
+| **Autre format ?** | un live, une série, autre chose : si tu penses que ça marche mieux, propose |
+| **L'autre compte** | si tu juges @jeff_mintsa_officiel utile, chiffre-le à part — ce sont deux audiences différentes |
 
-**Nous sommes également ouverts à une rémunération au résultat** (un montant fixe plus un montant par compte
-créé via votre lien de suivi, avec un plafond), si cette formule vous convient mieux. Dites-nous ce que vous
-préférez.
+Si tu préfères être payé au résultat plutôt qu'au forfait — un fixe, plus un montant par compte créé grâce à
+toi, avec un plafond —, c'est possible aussi. Dis-nous ce qui t'arrange.
 
-## Le sujet que nous proposons pour la première vidéo
+## Le sujet qu'on propose pour la première
 
 **« Combien coûte vraiment une année d'études au Maroc. »**
 
-Pas une présentation de la plateforme : le sujet, c'est le prix, et Navigoal est la source qui le donne.
+Pas une présentation de la plateforme. Le sujet c'est le prix, et nous on est la source.
 
-Les chiffres, relevés le 22 novembre 2026 et vérifiables sur le site :
+Les chiffres, relevés le 22 novembre 2026, tous vérifiables sur le site :
 
-- 103 écoles privées marocaines référencées ; **31 publient leurs tarifs, 72 ne les publient pas** ;
+- 103 écoles privées au Maroc ; **31 publient leurs tarifs, 72 ne les publient pas** ;
 - la moitié de celles qui publient demandent **moins de 45 000 MAD par an** ;
-- le tarif d'entrée le plus bas relevé : **16 000 MAD par an** ;
-- les frais d'inscription et de dossier s'ajoutent, et presque aucune école ne les publie.
+- la moins chère relevée : **16 000 MAD par an** ;
+- et les frais d'inscription s'ajoutent — ça, presque personne ne le publie.
 
-Tout est détaillé sur `navigoal.net/ressources/frais-scolarite-ecoles-privees-maroc/`, avec les sources.
+Tout le détail est sur `navigoal.net/ressources/frais-scolarite-ecoles-privees-maroc/`.
 
-**Un seul impératif sur le contenu** : ne citer aucun chiffre qui ne figure pas dans cette liste. Pour le ton,
-le rythme et la forme, vous êtes libre — c'est votre métier.
+Une seule chose qu'on te demande : **ne cite pas de chiffre qui ne soit pas dans cette liste.** Pour le reste
+— le ton, le rythme, la façon de le dire — tu fais comme tu veux, c'est ton métier.
 
-Nous ne demandons en revanche aucune promesse d'admission, de bourse ou de visa : nous ne garantissons rien de
-tout cela, et nous ne voulons pas que votre audience puisse le croire.
+Et on ne veut aucune promesse d'admission, de bourse ou de visa : on ne garantit pas ça, et on ne veut pas
+que les gens puissent le croire.
 
-## Comment nous mesurerons
+## Comment on saura si ça a marché
 
-Un lien de suivi qui vous est propre. Vous verrez vous-même, dans un espace Navigoal, combien de comptes ont
-été créés grâce à vous. Nous vous communiquerons les chiffres, bons ou mauvais.
+Un lien de suivi qui est le tien. Tu verras toi-même, depuis ton compte Navigoal, combien de personnes se
+sont inscrites grâce à toi. On te donnera les chiffres, bons ou mauvais.
 
-## Ce que nous pouvons vous apporter en retour
+## Ce qu'on peut faire pour toi en retour
 
-- **Présenter votre préparation au bac à nos élèves gabonais.** C'est utile pour eux et cohérent avec notre
-  rôle ; nous le ferons volontiers, que la collaboration commerciale se fasse ou non.
-- **Un accès à nos données** (frais réels, accréditations, coût de la vie par ville) pour vos propres
-  contenus, avec Navigoal cité comme source.
+- **Présenter ta prépa bac à nos élèves gabonais.** C'est utile pour eux, et on le fera de toute façon, que
+  la collaboration se fasse ou non.
+- **Nos données pour tes contenus** : les frais réels, les accréditations, le coût de la vie par ville. Tu
+  cites Navigoal, et tu as de la matière que personne d'autre n'a.
 
-## Côté administratif
+## Pour la forme
 
-Facture au nom d'**OAPS Consulting Group**, SARLU, Libreville, RCCM GA-LBV-01-2021-B13-00360.
+La facture est à établir au nom d'OAPS Consulting Group, SARLU, Libreville,
+RCCM GA-LBV-01-2021-B13-00360. Même entre nous, on préfère que ce soit propre des deux côtés.
 
-Contact : contact@navigoal.net
+contact@navigoal.net
