@@ -2,12 +2,12 @@
 
 OAPS Consulting Group · Libreville · novembre 2026
 
-## Merci pour votre retour
+## Merci pour ton retour
 
-Vous nous avez donné votre tarif : **100 000 F CFA**. Merci d'avoir répondu vite et clairement, c'est rare.
+Tu nous as donné ton tarif : **100 000 F CFA**. Merci d'avoir répondu vite et clairement, c'est rare.
 
-On vous fait une proposition un peu différente, et on vous explique pourquoi. Si elle ne vous convient pas,
-dites-le franchement : on en discutera.
+On te fait une proposition un peu différente, et on t'explique pourquoi. Si elle ne te convient pas,
+dis-le franchement : on en discutera.
 
 ## Qui on est
 
@@ -23,30 +23,30 @@ Ce qu'on publie, gratuitement, et que personne d'autre ne publie :
 
 Les candidatures sont gratuites. On ne prend rien aux familles.
 
-## Pourquoi on vous a contacté
+## Pourquoi on t'a contacté
 
-Votre personnage, c'est de dire ce que les autres taisent. Et notre sujet, c'est exactement ça.
+Ton personnage, c'est de dire ce que les autres taisent. Et notre sujet, c'est exactement ça.
 
 Les agences qui placent les étudiants ne publient jamais leurs prix. Sur les 103 écoles marocaines qu'on
 référence, **72 refusent de publier leurs tarifs**. Les familles gabonaises partent à l'aveugle, et certaines
 se font avoir.
 
-Nous, on a les chiffres. Dans votre bouche, ce n'est pas une publicité : c'est votre format.
+Nous, on a les chiffres. Dans ta bouche, ce n'est pas une publicité : c'est ton format.
 
-## Ce qu'on vous propose
+## Ce qu'on te propose
 
 Plutôt que les 100 000 F d'un coup :
 
-> **50 000 F à la publication, plus 1 000 F pour chaque compte créé grâce à votre lien, avec un plafond à
+> **50 000 F à la publication, plus 1 000 F pour chaque compte créé grâce à ton lien, avec un plafond à
 > 150 000 F.**
 
-Pourquoi : si votre vidéo marche, **vous gagnez jusqu'à 50 % de plus que ce que vous demandiez**. Si elle ne
-marche pas, on n'a pas tout misé. On démarre, on n'a encore aucune école qui nous paie, et on ne peut pas se
-permettre de dépenser à l'aveugle — comme vous, probablement, à vos débuts.
+Pourquoi : si ta vidéo marche, **tu gagnes jusqu'à 50 % de plus que ce que tu demandais**. Si elle ne marche
+pas, on n'a pas tout misé. On démarre, on n'a encore aucune école qui nous paie, et on ne peut pas se
+permettre de dépenser à l'aveugle — comme toi, probablement, à tes débuts.
 
 Le plafond est là pour que ce soit clair : on ne cherche pas à profiter d'un bon résultat pour payer moins.
 
-Si vous préférez le forfait simple, dites-le. On préfère en parler que vous perdre.
+Si tu préfères le forfait simple, dis-le. On préfère en parler que te perdre.
 
 ## Ce qu'on aimerait, concrètement
 
@@ -67,25 +67,25 @@ Les chiffres, relevés le 22 novembre 2026, tous vérifiables sur notre site :
 
 Tout le détail : `navigoal.net/ressources/frais-scolarite-ecoles-privees-maroc/`
 
-**Une seule règle : ne citez aucun chiffre qui ne soit pas dans cette liste.** Le reste — le ton, l'humour,
-la façon de le dire — c'est vous, et c'est pour ça qu'on vous a choisi.
+**Une seule règle : ne cite aucun chiffre qui ne soit pas dans cette liste.** Le reste — le ton, l'humour,
+la façon de le dire — c'est toi, et c'est pour ça qu'on t'a choisi.
 
 Deux choses qu'on ne veut pas : aucune promesse d'admission, de bourse ou de visa (on ne garantit pas ça), et
 pas de sujet politique dans cette vidéo-là. Notre public, ce sont des mineurs et leurs parents.
 
 ## Deux questions, et on est honnêtes sur le pourquoi
 
-1. **Les vues de vos trois dernières vidéos** — les vues, pas les « j'aime ».
-2. **Les vues de votre vidéo avec le partenaire crypto**, comparées à vos vidéos habituelles.
+1. **Les vues de tes trois dernières vidéos** — les vues, pas les « j'aime ».
+2. **Les vues de ta vidéo avec le partenaire crypto**, comparées à tes vidéos habituelles.
 
-On a vu qu'elle avait beaucoup moins de réactions que vos autres vidéos. Ça peut s'expliquer de dix façons,
+On a vu qu'elle avait beaucoup moins de réactions que tes autres vidéos. Ça peut s'expliquer de dix façons,
 et ce n'est pas un reproche. Mais c'est la question que n'importe quel annonceur devrait poser, et on préfère
-vous la poser en face plutôt que dans notre coin.
+te la poser en face plutôt que dans notre coin.
 
 ## Comment on saura si ça a marché
 
-Un lien de suivi qui est le vôtre. On vous donnera les chiffres, bons ou mauvais, et s'ils sont bons on
-revient vous voir avec plus.
+Un lien de suivi qui est le tien. On te donnera les chiffres, bons ou mauvais, et s'ils sont bons on revient
+te voir avec plus.
 
 ## Pour la forme
 
