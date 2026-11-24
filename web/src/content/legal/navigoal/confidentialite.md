@@ -69,6 +69,7 @@ Nous ne demandons aucune donnée sensible (santé, religion, opinions). Ne les c
 | Daily | appels audio et vidéo (entretiens, visites virtuelles, rendez-vous, salons virtuels) : votre prénom et le flux audio ou vidéo, le temps de l'appel, sans enregistrement | États-Unis (serveurs d'appel au plus près des participants) |
 | Google (Google Tag Manager, Google Analytics) | mesure d'audience des pages publiques : pages vues, appareil, pays approximatif ; avec cookies seulement si vous l'acceptez, sinon signaux sans identifiant | États-Unis et Union européenne |
 | Meta (WhatsApp Business) | conversations avec Navi sur WhatsApp, si vous lui écrivez : votre numéro, votre nom de profil WhatsApp et vos messages | États-Unis et Union européenne |
+| Kapso | relais technique de WhatsApp Business entre Meta et Navigoal, si vous écrivez à Navi sur WhatsApp : votre numéro, votre nom de profil WhatsApp et vos messages, conservés dans l'historique du compte Navigoal chez Kapso | États-Unis |
 | Digitech Africa (E-Billing) | paiements mobile money (Airtel Money, Moov Money) | Gabon |
 | Stripe | paiements par carte bancaire (Navigoal ne reçoit jamais le numéro complet de la carte) | Union européenne, États-Unis |
 | Google | connexion « Continuer avec Google », si vous la choisissez | États-Unis |

@@ -1238,6 +1238,40 @@ describe("salons virtuels", () => {
     expect((await salons.rappelsDuJour(new Date(new Date(debut).getTime() - 2 * 3600e3))).rappels).toBe(0);
   });
 });
+describe("Navi sur WhatsApp via Kapso", () => {
+  it("choisit Kapso avec sa clé, vérifie X-Webhook-Signature et envoie par le relais de Kapso", async () => {
+    const crypto = await import("node:crypto");
+    const wa = await import("@/server/services/whatsapp");
+    Object.assign(process.env, { KAPSO_API_KEY: "cle-kapso", KAPSO_WEBHOOK_SECRET: "secret-kapso", WHATSAPP_PHONE_ID: "647015955153740" });
+    try {
+      expect(wa.fournisseur()).toBe("kapso");
+      expect(wa.whatsappActif()).toBe(true);
+      const corps = '{"entry":[]}';
+      const sig = crypto.createHmac("sha256", "secret-kapso").update(corps).digest("hex");
+      expect(wa.signatureValide(corps, null, sig)).toBe(true);
+      expect(wa.signatureValide(corps, null, sig.toUpperCase())).toBe(true);
+      expect(wa.signatureValide(corps + " ", null, sig)).toBe(false);
+      expect(wa.signatureValide(corps, null, "0".repeat(64))).toBe(false);
+      expect(wa.signatureValide(corps, null, null)).toBe(false); // ni Kapso ni Meta configuré pour cette signature
+      const appels: { url: string; entetes: Record<string, string>; corps: Record<string, unknown> }[] = [];
+      const espion = vi.spyOn(globalThis, "fetch").mockImplementation(async (url, init) => {
+        appels.push({ url: String(url), entetes: init?.headers as Record<string, string>, corps: JSON.parse(String(init?.body)) });
+        return new Response("{}", { status: 200 });
+      });
+      try {
+        await wa.envoyer("24107000001", "Bonjour");
+        expect(appels[0].url).toBe("https://api.kapso.ai/meta/whatsapp/v24.0/647015955153740/messages");
+        expect(appels[0].entetes["X-API-Key"]).toBe("cle-kapso");
+        expect(appels[0].entetes.Authorization).toBeUndefined();
+        expect(appels[0].corps).toMatchObject({ messaging_product: "whatsapp", to: "24107000001", type: "text" });
+      } finally { espion.mockRestore(); }
+      process.env.WHATSAPP_FOURNISSEUR = "meta";
+      expect(wa.fournisseur()).toBe("meta");
+    } finally {
+      for (const k of ["KAPSO_API_KEY", "KAPSO_WEBHOOK_SECRET", "WHATSAPP_PHONE_ID", "WHATSAPP_FOURNISSEUR"]) delete process.env[k];
+    }
+  });
+});
 describe("Navi sur WhatsApp (Meta simulé, faux modèle)", () => {
   it("vérifie le webhook et la signature, répond en texte WhatsApp, reconnaît un compte, garde le fil, ne traite qu'une fois", async () => {
     const crypto = await import("node:crypto");

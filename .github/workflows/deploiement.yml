@@ -138,10 +138,12 @@ jobs:
           WHATSAPP_PHONE_ID: ${{ secrets.WHATSAPP_PHONE_ID }}
           WHATSAPP_APP_SECRET: ${{ secrets.WHATSAPP_APP_SECRET }}
           WHATSAPP_VERIFY_TOKEN: ${{ secrets.WHATSAPP_VERIFY_TOKEN }}
+          KAPSO_API_KEY: ${{ secrets.KAPSO_API_KEY }}
+          KAPSO_WEBHOOK_SECRET: ${{ secrets.KAPSO_WEBHOOK_SECRET }}
         run: |
           umask 077
           : > .env.github
-          for v in DAILY_API_KEY WHATSAPP_TOKEN WHATSAPP_PHONE_ID WHATSAPP_APP_SECRET WHATSAPP_VERIFY_TOKEN; do
+          for v in DAILY_API_KEY WHATSAPP_TOKEN WHATSAPP_PHONE_ID WHATSAPP_APP_SECRET WHATSAPP_VERIFY_TOKEN KAPSO_API_KEY KAPSO_WEBHOOK_SECRET; do
             if [ -n "${!v}" ]; then printf '%s=%s\n' "$v" "${!v}" >> .env.github; fi
           done
           if [ -s .env.github ]; then
@@ -151,7 +153,7 @@ jobs:
             curl -sS $tls --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "SITE CHMOD 600 ${FTP_DIR%/}/.env.github" "ftp://$FTP_SERVER${FTP_DIR%/}/" -o /dev/null || echo "Droits de .env.github non modifiés (CHMOD refusé)"
             echo "Clés déposées : $(cut -d= -f1 .env.github | tr '\n' ' ')"
           else
-            echo "Aucune clé dans les secrets GitHub (DAILY_API_KEY, WHATSAPP_…) : rien à déposer."
+            echo "Aucune clé dans les secrets GitHub (DAILY_API_KEY, WHATSAPP_…, KAPSO_…) : rien à déposer."
           fi
           rm -f .env.github
 

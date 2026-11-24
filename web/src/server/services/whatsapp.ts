@@ -2,8 +2,13 @@
 // /api/whatsapp/webhook (signature HMAC vérifiée avec WHATSAPP_APP_SECRET) ; Navi répond avec les mêmes outils et la
 // même mémoire de conversation que sur le site, en texte adapté à WhatsApp (liens au lieu des cartes).
 // Un numéro qui correspond au téléphone vérifié d'un compte Navigoal est reconnu (profil, candidatures).
-// Réglages : WHATSAPP_TOKEN (jeton permanent d'un utilisateur système), WHATSAPP_PHONE_ID (identifiant du numéro),
-// WHATSAPP_APP_SECRET (clé secrète de l'application Meta), WHATSAPP_VERIFY_TOKEN (phrase choisie, saisie aussi chez Meta).
+// Deux branchements possibles, même format de messages (celui de l'API Cloud de Meta) :
+// - Meta en direct : WHATSAPP_TOKEN (jeton permanent d'un utilisateur système), WHATSAPP_PHONE_ID (identifiant du numéro),
+//   WHATSAPP_APP_SECRET (clé secrète de l'application Meta), WHATSAPP_VERIFY_TOKEN (phrase choisie, saisie aussi chez Meta) ;
+// - Kapso (novembre 2026, intermédiaire qui reprend l'API de Meta) : KAPSO_API_KEY (clé d'API du projet Kapso),
+//   WHATSAPP_PHONE_ID (identifiant du numéro, visible dans Kapso), KAPSO_WEBHOOK_SECRET (clé secrète du webhook « meta »
+//   déclaré dans Kapso vers /api/whatsapp/webhook/ : signature X-Webhook-Signature). KAPSO_API_URL facultative.
+// WHATSAPP_FOURNISSEUR=meta|kapso force le choix ; sinon Kapso dès que KAPSO_API_KEY est définie.
 import crypto from "node:crypto";
 import Anthropic from "@anthropic-ai/sdk";
 import { and, desc, eq, gt, isNotNull, lt } from "drizzle-orm";
@@ -15,7 +20,20 @@ import type { Carte } from "./navi";
 type User = typeof schema.users.$inferSelect;
 const SITE = () => (process.env.NEXT_PUBLIC_SITE_URL || process.env.APP_URL || "https://navigoal.net").replace(/\/$/, "");
 const VERSION = () => process.env.WHATSAPP_API_VERSION || "v21.0";
-export const whatsappActif = () => !!(process.env.WHATSAPP_TOKEN && process.env.WHATSAPP_PHONE_ID && process.env.WHATSAPP_APP_SECRET);
+/** Branchement utilisé : Kapso (clé KAPSO_API_KEY) ou Meta en direct. */
+export const fournisseur = (): "kapso" | "meta" => {
+  const f = process.env.WHATSAPP_FOURNISSEUR;
+  return f === "meta" || f === "kapso" ? f : process.env.KAPSO_API_KEY ? "kapso" : "meta";
+};
+export const whatsappActif = () => fournisseur() === "kapso"
+  ? !!(process.env.KAPSO_API_KEY && process.env.WHATSAPP_PHONE_ID && process.env.KAPSO_WEBHOOK_SECRET)
+  : !!(process.env.WHATSAPP_TOKEN && process.env.WHATSAPP_PHONE_ID && process.env.WHATSAPP_APP_SECRET);
+/** Adresse et en-têtes d'appel de l'API (mêmes requêtes que Meta, via le relais de Kapso le cas échéant). */
+export function api(): { base: string; entetes: Record<string, string> } {
+  return fournisseur() === "kapso"
+    ? { base: (process.env.KAPSO_API_URL || "https://api.kapso.ai/meta/whatsapp/v24.0").replace(/\/$/, ""), entetes: { "X-API-Key": process.env.KAPSO_API_KEY ?? "" } }
+    : { base: `https://graph.facebook.com/${VERSION()}`, entetes: { Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}` } };
+}
 
 /** Vérification de l'abonnement du webhook par Meta (GET avec hub.mode, hub.verify_token, hub.challenge). */
 export function verifierAbonnement(q: URLSearchParams): string | null {
@@ -26,20 +44,24 @@ export function verifierAbonnement(q: URLSearchParams): string | null {
   return ok ? (q.get("hub.challenge") ?? "").slice(0, 200) : null;
 }
 
-/** Signature X-Hub-Signature-256 (« sha256=… ») calculée par Meta sur le corps brut avec la clé secrète de l'application. */
-export function signatureValide(brut: string, entete: string | null) {
+const egal = (a: string, b: string) => a.length === b.length && crypto.timingSafeEqual(Buffer.from(a), Buffer.from(b));
+/** Signature du corps brut : X-Hub-Signature-256 (« sha256=… », clé secrète de l'application Meta) ou, par Kapso,
+ *  X-Webhook-Signature (HMAC SHA-256 en hexadécimal, clé secrète du webhook). Seule la clé configurée est acceptée. */
+export function signatureValide(brut: string, entete: string | null, enteteKapso: string | null = null) {
+  const kapso = process.env.KAPSO_WEBHOOK_SECRET;
+  if (kapso && enteteKapso) return egal(enteteKapso.trim().toLowerCase(), crypto.createHmac("sha256", kapso).update(brut, "utf8").digest("hex"));
   const secret = process.env.WHATSAPP_APP_SECRET;
   if (!secret || !entete?.startsWith("sha256=")) return false;
-  const attendu = "sha256=" + crypto.createHmac("sha256", secret).update(brut, "utf8").digest("hex");
-  return entete.length === attendu.length && crypto.timingSafeEqual(Buffer.from(entete), Buffer.from(attendu));
+  return egal(entete, "sha256=" + crypto.createHmac("sha256", secret).update(brut, "utf8").digest("hex"));
 }
 
 async function graph(corps: Record<string, unknown>) {
-  const r = await fetch(`https://graph.facebook.com/${VERSION()}/${process.env.WHATSAPP_PHONE_ID}/messages`, {
-    method: "POST", headers: { Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}`, "Content-Type": "application/json" },
+  const { base, entetes } = api();
+  const r = await fetch(`${base}/${process.env.WHATSAPP_PHONE_ID}/messages`, {
+    method: "POST", headers: { ...entetes, "Content-Type": "application/json" },
     body: JSON.stringify({ messaging_product: "whatsapp", ...corps }), signal: AbortSignal.timeout(15000),
   });
-  if (!r.ok) console.error("WhatsApp :", r.status, (await r.text().catch(() => "")).slice(0, 300));
+  if (!r.ok) console.error(`WhatsApp (${fournisseur()}) :`, r.status, (await r.text().catch(() => "")).slice(0, 300));
   return r.ok;
 }
 

@@ -69,7 +69,23 @@ let erreurs = 0;
       r.ok ? ok("Appels audio et vidéo : clé Daily acceptée") : ko(`Appels : clé Daily refusée (HTTP ${r.status})`);
     } catch (e) { ko(`Appels : API Daily injoignable (${e.message})`); }
   } else console.log("  • Appels audio et vidéo non configurés : DAILY_API_KEY absente (facultatif)");
-  if (process.env.WHATSAPP_TOKEN && process.env.WHATSAPP_PHONE_ID) {
+  const kapso = process.env.WHATSAPP_FOURNISSEUR === "kapso" || (process.env.WHATSAPP_FOURNISSEUR !== "meta" && !!process.env.KAPSO_API_KEY);
+  if (kapso) {
+    // Navi sur WhatsApp via Kapso : même API que Meta, clé X-API-Key et signature X-Webhook-Signature.
+    if (!process.env.KAPSO_API_KEY) ko("WhatsApp (Kapso) : KAPSO_API_KEY manquante");
+    if (!process.env.WHATSAPP_PHONE_ID) ko("WhatsApp (Kapso) : WHATSAPP_PHONE_ID manquant (identifiant du numéro, visible dans Kapso)");
+    if (!process.env.KAPSO_WEBHOOK_SECRET) ko("WhatsApp (Kapso) : KAPSO_WEBHOOK_SECRET manquante (signature des messages reçus)");
+    if (process.env.KAPSO_API_KEY && process.env.WHATSAPP_PHONE_ID) {
+      try {
+        const base = (process.env.KAPSO_API_URL || "https://api.kapso.ai/meta/whatsapp/v24.0").replace(/\/$/, "");
+        const r = await fetch(`${base}/${process.env.WHATSAPP_PHONE_ID}?fields=display_phone_number,verified_name`, { headers: { "X-API-Key": process.env.KAPSO_API_KEY }, signal: AbortSignal.timeout(10000) });
+        const j = await r.json().catch(() => ({}));
+        if (r.ok) ok(`Navi sur WhatsApp (Kapso) : numéro ${j.display_phone_number ?? "?"} (${j.verified_name ?? "?"})`);
+        else if (r.status === 401 || r.status === 403) ko(`WhatsApp (Kapso) : clé d'API refusée (HTTP ${r.status})`);
+        else console.log(`  • WhatsApp (Kapso) : numéro non lu (HTTP ${r.status}) ; vérifier l'identifiant du numéro dans Kapso`);
+      } catch (e) { ko(`WhatsApp (Kapso) : API injoignable (${e.message})`); }
+    }
+  } else if (process.env.WHATSAPP_TOKEN && process.env.WHATSAPP_PHONE_ID) {
     try {
       const r = await fetch(`https://graph.facebook.com/${process.env.WHATSAPP_API_VERSION || "v21.0"}/${process.env.WHATSAPP_PHONE_ID}?fields=display_phone_number,verified_name`, { headers: { Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}` }, signal: AbortSignal.timeout(10000) });
       const j = await r.json().catch(() => ({}));

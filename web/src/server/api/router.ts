@@ -301,14 +301,14 @@ route("GET", "/paiements/:ref", "Paiements", "Statut d'un paiement", "user", asy
 route("POST", "/paiements/:ref/relancer", "Paiements", "Mobile money : renvoyer la demande sur le téléphone", "user", async ({ me, params }) => pay.relancerMobile(me, params.ref));
 route("POST", "/paiements/:ref/simulation", "Paiements", "Bac à sable : confirmer ou refuser un paiement simulé", "user", async ({ me, params, body }) => pay.sandboxConfirm(me, params.ref, !!(await body()).succes));
 route("GET", "/paiements/:ref/recu.pdf", "Paiements", "Reçu de paiement (PDF)", "user", async ({ me, params }) => file(await pay.receipt(me, params.ref), "application/pdf", `recu-${params.ref}.pdf`));
-// WhatsApp Business (Meta) : vérification de l'abonnement, puis messages reçus (signature vérifiée, réponse de Navi en arrière-plan).
+// WhatsApp Business (Meta en direct ou via Kapso) : vérification de l'abonnement, puis messages reçus (signature vérifiée, réponse de Navi en arrière-plan).
 route("GET", "/whatsapp/webhook", "Navi", "Vérification du webhook WhatsApp par Meta (hub.challenge)", "public", async ({ query }) => {
   const defi = whatsapp.verifierAbonnement(query);
   return defi === null ? new Response("Vérification refusée", { status: 400 }) : new Response(defi, { status: 200, headers: { "Content-Type": "text/plain" } });
 });
 route("POST", "/whatsapp/webhook", "Navi", "Messages WhatsApp reçus (Meta) : Navi répond sur WhatsApp", "public", async ({ req }) => {
   const brut = (await req.text()).slice(0, 200_000);
-  if (!whatsapp.signatureValide(brut, req.headers.get("x-hub-signature-256"))) return new Response("Signature invalide", { status: 401 });
+  if (!whatsapp.signatureValide(brut, req.headers.get("x-hub-signature-256"), req.headers.get("x-webhook-signature"))) return new Response("Signature invalide", { status: 401 });
   if (!whatsapp.whatsappActif()) return ok;
   let corps: unknown = null;
   try { corps = JSON.parse(brut); } catch { return ok; }
