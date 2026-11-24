@@ -1,0 +1,3 @@
+{ "name": "Prépa Soutenance Corex", "short_name": "Prépa Corex", "start_url": "/", "display": "standalone",
+  "background_color": "#F5F6FA", "theme_color": "#1D5FA8", "lang": "fr",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }] }
