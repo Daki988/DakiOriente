@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Navigoal · Parcours utilisateurs</title>
+<style>
+@font-face { font-family: "Jakarta"; src: url("img/plus-jakarta-sans-latin-wght-normal.woff2") format("woff2"); font-weight: 200 800; }
+@font-face { font-family: "Fraunces"; src: url("img/fraunces-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; }
+@page { size: A4; margin: 0; }
+:root { --b9: #0b1a4f; --b7: #1336e0; --b6: #1a47f5; --b1: #e6ecff; --b0: #f4f7ff; --sun: #ffc21a; --sunT: #a55a00; --ink: #0f1733; --soft: #3d4766; --mute: #5f6886; --vert: #0b7a3d; --vertF: #e8f8ef; --nl: #1f4d38; --ocre: #e9a33a; --bord: #e3e8f5; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #fff; }
+body { font-family: "Jakarta", system-ui, sans-serif; color: var(--ink); font-size: 10.2pt; line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.page { width: 210mm; height: 297mm; padding: 16mm 15mm 14mm; position: relative; overflow: hidden; page-break-after: always; display: flex; flex-direction: column; }
+.page:last-child { page-break-after: auto; }
+.pied { position: absolute; left: 15mm; right: 15mm; bottom: 7mm; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--mute); border-top: 1px solid var(--bord); padding-top: 2.5mm; }
+.sur { font-size: 8pt; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--b6); }
+h1 { font-size: 30pt; line-height: 1.05; letter-spacing: -.02em; font-weight: 800; }
+h2 { font-size: 20pt; line-height: 1.15; letter-spacing: -.015em; font-weight: 800; margin: 1.5mm 0 3mm; }
+h3 { font-size: 12pt; font-weight: 800; margin-bottom: 1.5mm; }
+h4 { font-size: 9.5pt; font-weight: 800; margin-bottom: 1mm; }
+p { margin-bottom: 2mm; }
+.chapo { font-size: 11pt; color: var(--soft); max-width: 165mm; }
+.jaune { color: var(--sunT); }
+.grille2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+.grille3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+.grille4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.5mm; }
+.carte { border: 1px solid var(--bord); border-radius: 4mm; padding: 4mm; background: #fff; }
+.bleue { background: var(--b0); border-color: #dbe3ff; }
+.chiffre b { display: block; font-size: 20pt; font-weight: 800; color: var(--b6); line-height: 1.05; }
+.chiffre span { font-size: 8.3pt; color: var(--soft); }
+ul.puces { list-style: none; }
+ul.puces li { padding-left: 4.5mm; position: relative; margin-bottom: 1.2mm; }
+ul.puces li::before { content: ""; position: absolute; left: 0; top: 1.9mm; width: 1.8mm; height: 1.8mm; border-radius: 50%; background: var(--b6); }
+.capture { border: 1px solid var(--bord); border-radius: 3mm; overflow: hidden; box-shadow: 0 6px 18px -10px rgba(11,26,79,.35); background: #fff; }
+.capture img { display: block; width: 100%; }
+.legende { font-size: 7.5pt; color: var(--mute); margin-top: 1.2mm; }
+.etapes { display: flex; flex-direction: column; gap: 3.2mm; }
+.etape { display: grid; grid-template-columns: 11mm 1fr; gap: 3.5mm; }
+.num { width: 11mm; height: 11mm; border-radius: 50%; background: var(--b6); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 11pt; }
+.etape .titre { font-weight: 800; font-size: 10.5pt; }
+.etape .titre small { font-weight: 600; color: var(--mute); font-size: 8pt; margin-left: 1.5mm; }
+.tags { display: flex; flex-wrap: wrap; gap: 1.2mm; margin-top: 1.2mm; }
+.tag { font-size: 7.3pt; font-weight: 700; padding: .6mm 2mm; border-radius: 10mm; background: var(--b1); color: var(--b7); }
+.tag.v { background: var(--vertF); color: var(--vert); }
+.tag.o { background: #fff3d6; color: var(--sunT); }
+.encart { border-radius: 4mm; padding: 4mm 5mm; background: var(--b9); color: #fff; }
+.encart .sur { color: var(--sun); }
+.frise { display: grid; grid-template-columns: repeat(9, 1fr); gap: 1.2mm; margin: 3mm 0 5mm; }
+.frise div { background: var(--b0); border: 1px solid #dbe3ff; border-radius: 2.5mm; padding: 2mm 1.5mm; text-align: center; font-size: 7.3pt; font-weight: 700; color: var(--b9); }
+.frise div b { display: block; font-size: 10pt; color: var(--b6); }
+table.t { width: 100%; border-collapse: collapse; font-size: 8.8pt; }
+table.t th { text-align: left; background: var(--b9); color: #fff; padding: 2mm 2.5mm; font-size: 8pt; }
+table.t td { padding: 2mm 2.5mm; border-bottom: 1px solid var(--bord); vertical-align: top; }
+table.t tr:nth-child(even) td { background: #fafbff; }
+.statut { display: inline-block; font-size: 7.2pt; font-weight: 800; padding: .4mm 1.8mm; border-radius: 10mm; }
+.ok { background: var(--vertF); color: var(--vert); } .prep { background: #fff3d6; color: var(--sunT); }
+/* Couverture */
+.couv { background: radial-gradient(120% 80% at 85% 0%, #2a5bff 0%, #1336e0 35%, #0b1a4f 100%); color: #fff; padding: 20mm 18mm; }
+.couv .logos { display: flex; align-items: center; gap: 6mm; }
+.couv .logos img { height: 11mm; background: #fff; border-radius: 2.5mm; padding: 1.6mm 2.6mm; }
+.couv h1 { font-size: 40pt; margin-top: 32mm; }
+.couv h1 em { font-style: normal; color: var(--sun); }
+.couv .sous { font-size: 13pt; color: #c9d6ff; margin-top: 6mm; max-width: 135mm; }
+.couv .bas { position: absolute; left: 18mm; right: 18mm; bottom: 18mm; display: flex; justify-content: space-between; align-items: flex-end; font-size: 9pt; color: #c9d6ff; }
+.couv .bas img { height: 12mm; background: #fff; border-radius: 2mm; padding: 1.5mm; }
+.couv .mock { position: absolute; right: -22mm; top: 132mm; width: 150mm; transform: rotate(-4deg); border-radius: 4mm; overflow: hidden; box-shadow: 0 30px 60px -20px rgba(0,0,0,.55); border: 2mm solid rgba(255,255,255,.12); }
+.couv .mock img { display: block; width: 100%; }
+.couv .fennec { position: absolute; left: 18mm; top: 150mm; width: 30mm; }
+.section-titre { background: var(--b9); color: #fff; }
+.section-titre h1 { font-size: 34pt; margin-top: 70mm; }
+.section-titre .chapo { color: #c9d6ff; font-size: 12pt; margin-top: 5mm; }
+.flux { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3mm; text-align: center; }
+.flux .p { border-radius: 4mm; padding: 4mm 2mm; color: #fff; font-weight: 800; font-size: 9.5pt; }
+.flux .p small { display: block; font-weight: 600; font-size: 7.3pt; opacity: .85; margin-top: 1mm; }
+</style>
+</head>
+<body>
+
+<!-- 1. Couverture -->
+<section class="page couv">
+  <div class="logos"><img src="img/navigoal-logo.png" alt="Navigoal"><img src="img/navilease-horizontal.png" alt="Navilease"><img src="img/navitravel-horizontal.png" alt="NaviTravel"></div>
+  <h1>Parcours<br>utilisateurs <em>Navigoal</em></h1>
+  <p class="sous">De la première visite d'un lycéen africain à son installation au Maroc, et le parcours de chacun des acteurs qui l'accompagnent : parents, établissements, bailleurs, équipe Navigoal.</p>
+  <div class="mock"><img src="img/01-accueil.jpg" alt="Accueil de navigoal.net"></div>
+  <div class="bas"><div><b style="color:#fff">Document de présentation aux investisseurs</b><br>Novembre 2026 · navigoal.net</div><div style="text-align:right">Une plateforme d'OAPS Consulting Group<br><img src="img/oaps-logo.webp" alt="OAPS Consulting Group" style="margin-top:2mm"></div></div>
+</section>
+
+<!-- 2. Synthèse -->
+<section class="page">
+  <span class="sur">Synthèse</span>
+  <h2>Étudier au Maroc depuis l'Afrique : un parcours long, éclaté et risqué. Navigoal le réunit en une seule plateforme.</h2>
+  <div class="grille2" style="margin-top:2mm">
+    <div class="carte">
+      <h3>Le constat</h3>
+      <ul class="puces">
+        <li>L'information est dispersée : sites d'écoles hétérogènes, reconnaissance des diplômes difficile à vérifier, frais rarement publiés.</li>
+        <li>La famille finance tout à distance, souvent depuis la zone F CFA, sans visibilité sur le coût réel des études.</li>
+        <li>Le logement se cherche sans pouvoir visiter, avec le risque d'arnaque à la caution.</li>
+        <li>Les démarches (candidature, admission, visa, carte de séjour, banque) se font sans accompagnement.</li>
+      </ul>
+    </div>
+    <div class="carte bleue">
+      <h3>Notre réponse</h3>
+      <ul class="puces">
+        <li><b>Navigoal</b> : orientation, catalogue d'écoles vérifiées, devis certifié, bourses, candidature gratuite et suivi jusqu'à l'inscription.</li>
+        <li><b>Navilease</b> : logement étudiant vérifié, réservé à distance, paiement protégé en séquestre, parent garant.</li>
+        <li><b>NaviTravel</b> : billet, visa, accueil à l'arrivée et assurance, organisés par un conseiller.</li>
+        <li><b>Navi</b>, assistant IA conseiller d'orientation, présent à chaque étape.</li>
+      </ul>
+    </div>
+  </div>
+  <h3 style="margin-top:6mm">La plateforme aujourd'hui, en chiffres réels</h3>
+  <div class="grille4" style="margin-top:2mm">
+    <div class="carte chiffre"><b>103</b><span>établissements privés au Maroc, statut officiel affiché (reconnus par l'État, diplômes homologués)</span></div>
+    <div class="carte chiffre"><b>93</b><span>formations et <b style="display:inline;font-size:inherit;color:inherit">96</b> métiers décrits, reliés aux séries du bac</span></div>
+    <div class="carte chiffre"><b>17</b><span>villes avec un coût de la vie propre (loyers, vie courante, transports)</span></div>
+    <div class="carte chiffre"><b>60</b><span>écoles dont les bourses et réductions sont recensées</span></div>
+    <div class="carte chiffre"><b>14</b><span>résidences universitaires aux loyers officiels</span></div>
+    <div class="carte chiffre"><b>291</b><span>lycées gabonais proposés à l'inscription, séries techniques comprises</span></div>
+    <div class="carte chiffre"><b>198</b><span>pays de départ pris en charge (devise, indicatif, visa)</span></div>
+    <div class="carte chiffre"><b>0 F</b><span>pour l'élève et sa famille : inscription, devis et candidatures gratuits</span></div>
+  </div>
+  <div class="encart" style="margin-top:6mm">
+    <span class="sur">Principe économique</span>
+    <p style="margin:1.5mm 0 0;font-size:10pt">L'élève et sa famille ne paient rien à Navigoal. Les revenus viennent des établissements (visibilité, outils Premium, salons virtuels, fiches contact qualifiées), des réservations de logement Navilease (frais de service) et des prestations NaviTravel. Détail en page 14.</p>
+  </div>
+  <div class="pied"><span>Navigoal · Parcours utilisateurs</span><span>2</span></div>
+</section>
+
+<!-- 3. Les acteurs -->
+<section class="page">
+  <span class="sur">Les acteurs</span>
+  <h2>Cinq profils, une seule plateforme</h2>
+  <p class="chapo">Chaque profil a son propre espace. Tous sont reliés : l'élève candidate, l'école répond, le parent suit et paie, le bailleur loge, l'équipe Navigoal vérifie et accompagne.</p>
+  <div class="flux" style="margin:6mm 0">
+    <div class="p" style="background:#1a47f5">Élève / étudiant<small>s'oriente, candidate, s'installe</small></div>
+    <div class="p" style="background:#0b1a4f">Parent ou tuteur<small>suit, consent, finance</small></div>
+    <div class="p" style="background:#1336e0">Établissement<small>recrute, admet, encaisse</small></div>
+    <div class="p" style="background:#1f4d38">Bailleur Navilease<small>loge en toute sécurité</small></div>
+    <div class="p" style="background:#a55a00">Équipe Navigoal<small>vérifie, relaie, conseille</small></div>
+  </div>
+  <table class="t">
+    <tr><th style="width:22%">Profil</th><th>Ce qu'il cherche</th><th style="width:36%">Ce que Navigoal lui apporte</th></tr>
+    <tr><td><b>Élève, étudiant</b></td><td>Savoir quoi étudier, où, pour combien ; être admis ; trouver un logement sûr ; arriver serein.</td><td>Test d'orientation, Navi, écoles vérifiées, devis certifié, candidature gratuite, suivi, logement, voyage.</td></tr>
+    <tr><td><b>Parent, tuteur</b></td><td>Comprendre le coût, garder la main sur les décisions et les paiements, être rassuré.</td><td>Espace parent lié à l'enfant, montants en F CFA, accords parentaux, rappels de paiement, rôle de garant.</td></tr>
+    <tr><td><b>Établissement</b></td><td>Recevoir des candidatures qualifiées d'Afrique, réduire le temps de traitement, remplir ses promotions.</td><td>Fiche et formations, candidatures et dossiers complets, rendez-vous vidéo, salons virtuels, Premium, mise en avant.</td></tr>
+    <tr><td><b>Bailleur</b></td><td>Louer à des étudiants fiables, être payé, éviter les impayés.</td><td>Annonces vérifiées, demandes de réservation, paiement en séquestre, garant parent, visites virtuelles.</td></tr>
+    <tr><td><b>Équipe Navigoal</b></td><td>Garantir la qualité et la confiance, accompagner les cas difficiles, piloter.</td><td>Back-office complet : vérifications, relais des messages, modération, offres, audience, suivi de Navi.</td></tr>
+  </table>
+  <div class="grille2" style="margin-top:6mm;align-items:start">
+    <div><div class="capture"><img src="img/11-inscription.jpg" alt="Inscription"></div><div class="legende">Inscription : un parcours par profil, en trois étapes. Pour un lycéen gabonais, choix du lycée parmi 291 établissements et des séries du bac technique.</div></div>
+    <div><div class="capture"><img src="img/20-eleve-espace.jpg" alt="Espace élève"></div><div class="legende">Espace élève : le parcours est matérialisé (profil, test, recommandations, candidature, admission), avec le parrainage.</div></div>
+  </div>
+  <div class="pied"><span>Navigoal · Parcours utilisateurs</span><span>3</span></div>
+</section>
+
+<!-- 4. Section élève -->
+<section class="page section-titre">
+  <span class="sur" style="color:var(--sun)">Parcours 1</span>
+  <h1>L'élève,<br>de la première visite<br>à l'installation au Maroc</h1>
+  <p class="chapo">Neuf étapes, toutes réalisables depuis un téléphone, avec Navi à portée de main et les parents associés à chaque décision.</p>
+  <div class="frise" style="margin-top:14mm">
+    <div style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff"><b style="color:var(--sun)">1</b>Découvrir</div>
+    <div style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff"><b style="color:var(--sun)">2</b>S'orienter</div>
+    <div style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff"><b style="color:var(--sun)">3</b>Choisir</div>
+    <div style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff"><b style="color:var(--sun)">4</b>Chiffrer</div>
+    <div style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff"><b style="color:var(--sun)">5</b>Financer</div>
+    <div style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff"><b style="color:var(--sun)">6</b>Candidater</div>
+    <div style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff"><b style="color:var(--sun)">7</b>S'inscrire</div>
+    <div style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff"><b style="color:var(--sun)">8</b>Se loger, partir</div>
+    <div style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff"><b style="color:var(--sun)">9</b>S'installer</div>
+  </div>
+  <img src="img/navi-fennec.png" alt="Navi" style="position:absolute;right:18mm;bottom:22mm;width:42mm">
+  <div class="pied" style="border-color:rgba(255,255,255,.15);color:#9fb0e6"><span>Navigoal · Parcours utilisateurs</span><span>4</span></div>
+</section>
+
+<!-- 5. Étapes 1-3 -->
+<section class="page">
+  <span class="sur">Élève · étapes 1 à 3</span>
+  <h2>Découvrir, s'orienter, choisir</h2>
+  <div class="etapes">
+    <div class="etape"><div class="num">1</div><div><div class="titre">Découvrir la plateforme <small>site public, sans compte</small></div>
+      <p>L'élève arrive par une recherche Google, un partage WhatsApp, un salon, un roll-up ou une campagne (« Trouve ta voie » au Gabon). Tout est consultable librement : métiers, formations, écoles, villes, bourses, guides pratiques. Une invitation discrète l'incite à discuter avec Navi.</p>
+      <div class="tags"><span class="tag">Accès libre</span><span class="tag">Montants dans sa devise (F CFA…)</span><span class="tag">Navi, assistant IA</span><span class="tag">Parrainage et suivi des sources</span></div></div></div>
+    <div class="etape"><div class="num">2</div><div><div class="titre">S'orienter <small>test d'orientation, Navi</small></div>
+      <p>Le test d'orientation (profil RIASEC) révèle ses centres d'intérêt et propose des métiers compatibles. Navi, conçu comme un conseiller d'orientation, discute avec lui : goûts, matières, durée d'études acceptable, ville, budget, puis propose par étapes métiers → formations → écoles. Il vérifie aussi si sa série du bac est conseillée pour une formation.</p>
+      <div class="tags"><span class="tag">96 métiers illustrés</span><span class="tag">Séries du bac de chaque pays</span><span class="tag">Navi se souvient du projet (fiche de suivi visible et effaçable)</span></div></div></div>
+    <div class="etape"><div class="num">3</div><div><div class="titre">Choisir une formation et une école <small>catalogue vérifié, comparateur</small></div>
+      <p>Chaque école affiche son statut officiel (reconnue par l'État, diplômes homologués, ou diplômes d'établissement), ses formations homologuées et leur date de validité, sa ville et ses campus, ses frais publiés, sa réactivité aux candidatures et des avis vérifiés d'étudiants inscrits. Le comparateur met plusieurs écoles côte à côte : statut, coût total, vie sur place, compatibilité avec son profil.</p>
+      <div class="tags"><span class="tag v">Statut officiel vérifié</span><span class="tag">Avis vérifiés « inscrit via Navigoal »</span><span class="tag">Délai de réponse de l'école</span></div></div></div>
+  </div>
+  <div class="grille3" style="margin-top:5mm;align-items:start">
+    <div><div class="capture"><img src="img/02-orientation.jpg" alt=""></div><div class="legende">Test d'orientation et série du bac.</div></div>
+    <div><div class="capture"><img src="img/04-ecole.jpg" alt=""></div><div class="legende">Fiche école : statut, formations, coûts, campus.</div></div>
+    <div><div class="capture"><img src="img/05-comparateur.jpg" alt=""></div><div class="legende">Comparateur d'écoles.</div></div>
+  </div>
+  <div class="pied"><span>Navigoal · Parcours utilisateurs</span><span>5</span></div>
+</section>
+
+<!-- 6. Étapes 4-5 -->
+<section class="page">
+  <span class="sur">Élève · étapes 4 et 5</span>
+  <h2>Chiffrer le projet et le financer</h2>
+  <div class="etapes">
+    <div class="etape"><div class="num">4</div><div><div class="titre">Obtenir un devis complet et certifié <small>devis personnalisé, PDF à cachet numérique</small></div>
+      <p>Le devis calcule le coût réel des études pour une formation et une école précises : scolarité (tarif publié par l'école quand il existe), logement, vie courante et transports <b>propres à la ville</b>, visa et carte de séjour, assurance, billets d'avion depuis son pays, équipement, imprévus. Il se personnalise : type de logement ou <b>annonce Navilease réelle</b>, niveau de vie, retours au pays, bourse déduite. Le montant est présenté par mois, avec ce qu'il faut réunir avant le départ, puis le total.</p>
+      <p>Le PDF tient sur une page, avec les conditions de service et un <b>cachet numérique</b> : le serveur recalcule le devis, l'enregistre et y appose un QR code. Une banque, une ambassade ou un parent peut vérifier en ligne que le document n'a pas été modifié.</p>
+      <div class="tags"><span class="tag">Coût de la vie de 17 villes</span><span class="tag">Montants « à partir de », jamais de fourchette</span><span class="tag v">Devis vérifiable par QR code</span></div></div></div>
+    <div class="etape"><div class="num">5</div><div><div class="titre">Trouver un financement <small>bourses, réductions, suivi</small></div>
+      <p>Le catalogue des bourses réunit les bourses publiques (ANBG pour le Gabon, coopération) et les bourses et réductions annoncées par 60 écoles. L'éligibilité est évaluée sur son profil (éligible, à vérifier, non éligible, avec les raisons). Il suit les bourses qui l'intéressent et reçoit, comme ses parents, les alertes d'ouverture et de date limite.</p>
+      <div class="tags"><span class="tag">Éligibilité expliquée</span><span class="tag">Alertes à l'élève et aux parents</span><span class="tag">Bourse déduite dans le devis</span></div></div></div>
+  </div>
+  <div class="grille3" style="margin-top:5mm;align-items:start">
+    <div style="grid-column: span 2"><div class="capture"><img src="img/06-devis.jpg" alt=""></div><div class="legende">Devis personnalisé : le montant mensuel détaillé, ce qu'il faut pour démarrer, le total.</div></div>
+    <div><div class="capture"><img src="img/devis-pdf.jpg" alt=""></div><div class="legende">Devis PDF d'une page, cachet numérique et QR code.</div></div>
+  </div>
+  <div class="pied"><span>Navigoal · Parcours utilisateurs</span><span>6</span></div>
+</section>
+
+<!-- 7. Étapes 6-7 -->
+<section class="page">
+  <span class="sur">Élève · étapes 6 et 7</span>
+  <h2>Candidater, être admis, s'inscrire</h2>
+  <div class="etapes">
+    <div class="etape"><div class="num">6</div><div><div class="titre">Candidater gratuitement <small>dossier unique, suivi en temps réel</small></div>
+      <p>Aucun frais de dossier. L'élève dépose une fois ses pièces (identité, photo, relevés de notes…), complétées par celles que demande chaque école et sa fiche de candidature officielle. Navi relit sa lettre de motivation (points forts, à améliorer) sans jamais l'écrire à sa place. Il suit chaque candidature : reçue, en étude, pièce demandée, entretien, décision.</p>
+      <p>Il échange avec l'école dans une messagerie, passe ses <b>entretiens en visio</b> sur un rendez-vous planifié (calendrier, rappels, lien sécurisé), et peut assister aux <b>salons virtuels</b> des écoles pour poser ses questions en direct. Ses parents sont prévenus à chaque étape importante.</p>
+      <div class="tags"><span class="tag v">0 F de frais de dossier</span><span class="tag">Rappels : pièce manquante, clôture</span><span class="tag">Entretiens vidéo sans installation</span><span class="tag">Relances automatiques des écoles lentes</span></div></div></div>
+    <div class="etape"><div class="num">7</div><div><div class="titre">Payer l'école en confiance et confirmer l'inscription <small>moyens de paiement vérifiés</small></div>
+      <p>Une fois admis, il reçoit l'échéancier de l'école. Navigoal n'encaisse pas la scolarité : la famille paie <b>directement l'école</b>, uniquement par des moyens de paiement que l'école a déclarés et que l'équipe Navigoal a vérifiés (protection contre les faux RIB). La famille dépose sa preuve, l'école confirme : l'inscription est confirmée. Des rappels préviennent avant chaque échéance.</p>
+      <div class="tags"><span class="tag v">Coordonnées bancaires vérifiées</span><span class="tag">Preuve de paiement et confirmation</span><span class="tag">Rappels de paiement programmables</span></div></div></div>
+  </div>
+  <div class="grille3" style="margin-top:5mm;align-items:start">
+    <div><div class="capture"><img src="img/21-eleve-candidatures.jpg" alt=""></div><div class="legende">Suivi des candidatures.</div></div>
+    <div><div class="capture"><img src="img/22-eleve-rdv.jpg" alt=""></div><div class="legende">Agenda des rendez-vous vidéo.</div></div>
+    <div><div class="capture"><img src="img/salons-maquette-direct.jpg" alt=""></div><div class="legende">Salon virtuel en direct : présentation et questions.</div></div>
+  </div>
+  <div class="pied"><span>Navigoal · Parcours utilisateurs</span><span>7</span></div>
+</section>
+
+<!-- 8. Étapes 8-9 -->
+<section class="page">
+  <span class="sur">Élève · étapes 8 et 9</span>
+  <h2>Se loger, voyager, s'installer</h2>
+  <div class="etapes">
+    <div class="etape"><div class="num">8</div><div><div class="titre">Réserver son logement et organiser son départ <small>Navilease, NaviTravel</small></div>
+      <p><b>Navilease</b> propose des logements près de son campus : studios, colocations, résidences. Les annonces sont vérifiées (identité du bailleur, visite, partenaire), avec photos, distance à l'école et avis. Il peut visiter <b>en vidéo</b> avant de réserver. Le paiement de la réservation (mobile money, carte, espèces validées) est conservé <b>en séquestre</b> : le bailleur n'est payé qu'après l'entrée dans les lieux. Un parent peut être garant. Les résidences universitaires sont présentées avec leurs loyers officiels.</p>
+      <p><b>NaviTravel</b> organise le billet, le visa si sa nationalité l'exige, l'accueil à l'arrivée et l'assurance, sur demande de devis auprès d'un conseiller.</p>
+      <div class="tags"><span class="tag v">Paiement protégé en séquestre</span><span class="tag">Mobile money Airtel et Moov, carte</span><span class="tag">Visite virtuelle</span><span class="tag">Parent garant</span></div></div></div>
+    <div class="etape"><div class="num">9</div><div><div class="titre">S'installer et réussir sa première année <small>guides, rappels, communauté</small></div>
+      <p>Des guides pratiques, sourcés, l'accompagnent sur place : carte de séjour, transports et abonnements étudiants par ville, ouverture d'un compte, envoi d'argent depuis la zone F CFA, paiement au Maroc. Il programme des rappels avant chaque loyer ou échéance. Navi reste disponible pour les questions du quotidien et l'oriente vers un conseiller si besoin. À la fin de l'année, il laisse un avis vérifié sur son école, qui aidera les suivants.</p>
+      <div class="tags"><span class="tag">Guides transport et argent</span><span class="tag">Rappels loyer et scolarité</span><span class="tag">Avis vérifiés</span><span class="tag">Conseiller humain sur demande</span></div></div></div>
+  </div>
+  <div class="grille3" style="margin-top:5mm;align-items:start">
+    <div><div class="capture"><img src="img/09-navilease.jpg" alt=""></div><div class="legende">Navilease : logements près des campus.</div></div>
+    <div><div class="capture"><img src="img/navilease-refonte-code-fiche.jpg" alt=""></div><div class="legende">Fiche d'un logement : réservation en séquestre.</div></div>
+    <div><div class="capture"><img src="img/13-navitravel.jpg" alt=""></div><div class="legende">NaviTravel : billet, visa, accueil, assurance.</div></div>
+  </div>
+  <div class="pied"><span>Navigoal · Parcours utilisateurs</span><span>8</span></div>
+</section>
+
+<!-- 9. Parent -->
+<section class="page">
+  <span class="sur">Parcours 2</span>
+  <h2>Le parent ou tuteur : rassuré, associé, maître du budget</h2>
+  <p class="chapo">Le parent est le plus souvent celui qui paie et qui décide. Navigoal lui donne un espace à lui, relié à celui de son enfant.</p>
+  <div class="grille2" style="margin-top:3mm">
+    <div class="etapes">
+      <div class="etape"><div class="num">1</div><div><div class="titre">Comprendre le coût</div><p>Page Parents et devis en F CFA : coût mensuel, ce qu'il faut avant le départ, total des études. Le devis certifié se partage par WhatsApp ou se télécharge.</p></div></div>
+      <div class="etape"><div class="num">2</div><div><div class="titre">Se lier au compte de l'enfant</div><p>Le mineur indique le contact de son parent à l'inscription. Le parent suit le profil, les candidatures, les rendez-vous et les messages importants.</p></div></div>
+      <div class="etape"><div class="num">3</div><div><div class="titre">Donner son accord</div><p>Rien n'est transmis à une école ou à un salon sans l'accord du parent pour un mineur : prospection Premium, fiche contact d'un salon virtuel.</p></div></div>
+      <div class="etape"><div class="num">4</div><div><div class="titre">Payer et ne rien oublier</div><p>Il paie l'école par les moyens vérifiés, se porte garant du logement, et programme des rappels avant chaque loyer ou échéance de scolarité (2, 3, 5 ou 7 jours avant).</p></div></div>
+      <div class="etape"><div class="num">5</div><div><div class="titre">Rester informé</div><p>Notifications et e-mails à chaque étape, alertes de bourses, et un conseiller joignable par WhatsApp ou en rendez-vous vidéo.</p></div></div>
+    </div>
+    <div>
+      <div class="capture"><img src="img/30-parent.jpg" alt=""></div><div class="legende">Espace parent : enfants suivis, budget, candidatures, démarches.</div>
+      <div class="capture" style="margin-top:4mm"><img src="img/12-parents.jpg" alt=""></div><div class="legende">Page Parents : coût en F CFA, rôle de garant, questions fréquentes.</div>
+    </div>
+  </div>
+  <div class="pied"><span>Navigoal · Parcours utilisateurs</span><span>9</span></div>
+</section>
+
+<!-- 10. Établissement -->
+<section class="page">
+  <span class="sur">Parcours 3</span>
+  <h2>L'établissement : des candidatures qualifiées d'Afrique, traitées plus vite</h2>
+  <div class="grille2" style="margin-top:2mm">
+    <div class="etapes">
+      <div class="etape"><div class="num">1</div><div><div class="titre">Accéder et compléter sa fiche</div><p>Chaque école reçoit son accès officiel, complète sa fiche, ses formations, ses frais et sa fiche de candidature. Un indicateur « fiche complète » le guide.</p></div></div>
+      <div class="etape"><div class="num">2</div><div><div class="titre">Recevoir et traiter les candidatures</div><p>Dossiers complets en un clic (ZIP), demande de pièces, messagerie, entretiens vidéo planifiés, décisions. Son délai moyen de réponse est affiché aux élèves ; des relances l'aident à tenir les délais.</p></div></div>
+      <div class="etape"><div class="num">3</div><div><div class="titre">Encaisser la scolarité</div><p>Il déclare ses moyens de paiement (vérifiés par Navigoal), crée l'échéancier de chaque admis et confirme les paiements reçus.</p></div></div>
+      <div class="etape"><div class="num">4</div><div><div class="titre">Se faire connaître</div><p>Mise en avant, place « À la une » de l'accueil, badge « Partenaire Navigoal », recommandation prioritaire par Navi.</p></div></div>
+      <div class="etape"><div class="num">5</div><div><div class="titre">Organiser des salons virtuels</div><p>Présentation en direct à des élèves ciblés (pays, niveau, domaine), invitation par Navi et par l'équipe. Après le salon : bilan, et fiches contact des participants consentants, facturées selon le niveau de ciblage.</p></div></div>
+      <div class="etape"><div class="num">6</div><div><div class="titre">Recruter avec Premium</div><p>Tri des candidatures (résultats, projet, financement), vivier d'élèves consentants, invitations et campagnes de prospection relues par l'équipe.</p></div></div>
+    </div>
+    <div>
+      <div class="capture"><img src="img/40-ecole.jpg" alt=""></div><div class="legende">Tableau de bord de l'école : candidatures, réactivité, fiche complète.</div>
+      <div class="capture" style="margin-top:3.5mm"><img src="img/41-ecole-candidatures.jpg" alt=""></div><div class="legende">Gestion des candidatures.</div>
+      <div class="capture" style="margin-top:3.5mm"><img src="img/42-ecole-salons.jpg" alt=""></div><div class="legende">Salons virtuels de l'école.</div>
+    </div>
+  </div>
+  <div class="pied"><span>Navigoal · Parcours utilisateurs</span><span>10</span></div>
+</section>
+
+<!-- 11. Bailleur -->
+<section class="page">
+  <span class="sur">Parcours 4</span>
+  <h2>Le bailleur Navilease : des locataires étudiants fiables, un paiement garanti</h2>
+  <div class="grille2" style="margin-top:2mm">
+    <div class="etapes">
+      <div class="etape"><div class="num">1</div><div><div class="titre">Créer son compte et se faire vérifier</div><p>Identité contrôlée, puis visite ou statut de partenaire : le niveau de vérification s'affiche sur ses annonces.</p></div></div>
+      <div class="etape"><div class="num">2</div><div><div class="titre">Publier ses logements</div><p>Photos, loyer, charges, caution, équipements, règles, écoles à proximité avec le temps de trajet. Chaque annonce est relue avant publication.</p></div></div>
+      <div class="etape"><div class="num">3</div><div><div class="titre">Recevoir des demandes et faire visiter à distance</div><p>Demandes de réservation d'étudiants, échanges par messagerie, visite virtuelle en vidéo.</p></div></div>
+      <div class="etape"><div class="num">4</div><div><div class="titre">Être payé en toute sécurité</div><p>Le montant de la réservation est conservé en séquestre et lui est versé après l'entrée de l'étudiant. Un parent peut se porter garant. Loyers suivis dans son espace.</p></div></div>
+      <div class="etape"><div class="num">5</div><div><div class="titre">Construire sa réputation</div><p>Avis des locataires, tableau de bord des revenus, alertes. Ses annonces apparaissent aussi dans le devis des familles qui chiffrent leur projet.</p></div></div>
+    </div>
+    <div>
+      <div class="capture"><img src="img/50-bailleur.jpg" alt=""></div><div class="legende">Espace bailleur : revenus, demandes, vérification.</div>
+      <div class="capture" style="margin-top:4mm"><img src="img/51-bailleur-resa.jpg" alt=""></div><div class="legende">Demandes et réservations.</div>
+    </div>
+  </div>
+  <div class="pied"><span>Navigoal · Parcours utilisateurs</span><span>11</span></div>
+</section>
+
+<!-- 12. Équipe -->
+<section class="page">
+  <span class="sur">Parcours 5</span>
+  <h2>L'équipe Navigoal : vérifier, accompagner, piloter</h2>
+  <p class="chapo">La confiance est le cœur du service. Un back-office complet permet à une petite équipe de garantir la qualité à grande échelle.</p>
+  <div class="grille3" style="margin-top:3mm">
+    <div class="carte"><h4>Vérifier</h4><ul class="puces"><li>Statut officiel des écoles et renouvellement des accréditations</li><li>Moyens de paiement des écoles (anti faux RIB)</li><li>Bailleurs et annonces</li><li>Avis et témoignages avant publication</li></ul></div>
+    <div class="carte"><h4>Accompagner</h4><ul class="puces"><li>Relais des messages pour le compte d'une école</li><li>Mode accompagné pour les écoles peu équipées</li><li>Conseillers en rendez-vous vidéo</li><li>Échanges directs avec n'importe quel compte</li></ul></div>
+    <div class="carte"><h4>Piloter</h4><ul class="puces"><li>Audience en temps réel, sources d'inscription</li><li>Offres et abonnements des écoles</li><li>Salons virtuels : validation, invitations, fiches</li><li>Qualité et coût des réponses de Navi</li></ul></div>
+  </div>
+  <div class="grille2" style="margin-top:5mm;align-items:start">
+    <div><div class="capture"><img src="img/60-admin.jpg" alt=""></div><div class="legende">Tableau de bord du back-office.</div></div>
+    <div><div class="capture"><img src="img/61-admin-salons.jpg" alt=""></div><div class="legende">Salons virtuels : création pour une école, invitation des élèves ciblés.</div></div>
+  </div>
+  <h3 style="margin-top:6mm">Confiance et conformité</h3>
+  <div class="grille4" style="margin-top:1.5mm">
+    <div class="carte bleue"><h4>Données protégées</h4><p style="font-size:8.5pt;margin:0">Hébergement dans l'Union européenne, droit gabonais (CNPDCP) et loi marocaine 09-08, politique de confidentialité tenue à jour.</p></div>
+    <div class="carte bleue"><h4>Mineurs</h4><p style="font-size:8.5pt;margin:0">Accord parental pour toute transmission de données à une école ou un salon.</p></div>
+    <div class="carte bleue"><h4>Argent</h4><p style="font-size:8.5pt;margin:0">Séquestre pour le logement, paiement direct et vérifié pour la scolarité, devis certifiés.</p></div>
+    <div class="carte bleue"><h4>Sécurité</h4><p style="font-size:8.5pt;margin:0">Audits automatisés à chaque version (plus de 230 contrôles d'accès, injections, sessions).</p></div>
+  </div>
+  <div class="pied"><span>Navigoal · Parcours utilisateurs</span><span>12</span></div>
+</section>
+
+<!-- 13. Parcours croisé -->
+<section class="page">
+  <span class="sur">Vue d'ensemble</span>
+  <h2>Qui fait quoi, à chaque étape</h2>
+  <table class="t" style="margin-top:2mm">
+    <tr><th style="width:15%">Étape</th><th style="width:23%">Élève</th><th style="width:20%">Parent</th><th style="width:21%">École / bailleur</th><th>Navigoal</th></tr>
+    <tr><td><b>1. Découvrir</b></td><td>Explore librement, discute avec Navi</td><td>Consulte la page Parents</td><td>École mise en avant</td><td>Contenus, SEO, campagnes, parrainage</td></tr>
+    <tr><td><b>2. S'orienter</b></td><td>Test d'orientation, métiers</td><td>—</td><td>—</td><td>Navi, recommandations</td></tr>
+    <tr><td><b>3. Choisir</b></td><td>Compare les écoles</td><td>Regarde les avis, les coûts</td><td>Fiche à jour, avis vérifiés</td><td>Vérification des statuts</td></tr>
+    <tr><td><b>4. Chiffrer</b></td><td>Devis personnalisé</td><td>Devis en F CFA, PDF certifié</td><td>Frais publiés ; annonces Navilease</td><td>Coût de la vie par ville, cachet</td></tr>
+    <tr><td><b>5. Financer</b></td><td>Bourses, éligibilité</td><td>Alertes de bourses</td><td>Bourses de l'école</td><td>Catalogue des bourses</td></tr>
+    <tr><td><b>6. Candidater</b></td><td>Dossier unique, gratuit</td><td>Suit, est prévenu</td><td>Traite, entretiens vidéo, salons</td><td>Relances, relais, salons</td></tr>
+    <tr><td><b>7. S'inscrire</b></td><td>Échéancier</td><td>Paie l'école, rappels</td><td>Confirme les paiements</td><td>Vérifie les moyens de paiement</td></tr>
+    <tr><td><b>8. Se loger, partir</b></td><td>Réserve un logement</td><td>Se porte garant</td><td>Bailleur payé après l'entrée</td><td>Séquestre, NaviTravel</td></tr>
+    <tr><td><b>9. S'installer</b></td><td>Guides, rappels, avis</td><td>Rappels de paiement</td><td>Réponse aux avis</td><td>Navi, conseillers</td></tr>
+  </table>
+  <div class="grille2" style="margin-top:6mm;align-items:start">
+    <div><div class="capture"><img src="img/08-ville.jpg" alt=""></div><div class="legende">Page ville : écoles, quartiers, transports, coût de la vie, logement.</div></div>
+    <div><div class="capture"><img src="img/07-bourses.jpg" alt=""></div><div class="legende">Bourses publiques et bourses des écoles.</div></div>
+  </div>
+  <div class="pied"><span>Navigoal · Parcours utilisateurs</span><span>13</span></div>
+</section>
+
+<!-- 14. Modèle économique -->
+<section class="page">
+  <span class="sur">Modèle économique</span>
+  <h2>Gratuit pour les familles, payant pour ceux qui recrutent et qui louent</h2>
+  <table class="t" style="margin-top:2mm">
+    <tr><th style="width:26%">Source de revenus</th><th>Contenu</th><th style="width:24%">Tarif public actuel</th></tr>
+    <tr><td><b>Premium établissement</b></td><td>Tri des candidatures, vivier d'élèves consentants, prospection, mise en avant incluse</td><td>5 000 MAD par an</td></tr>
+    <tr><td><b>Mise en avant</b></td><td>Badge « Partenaire Navigoal », tête des listes, pages villes, résultats de formations</td><td>900 MAD (3 mois) · 1 600 MAD (6 mois) · 2 800 MAD (12 mois)</td></tr>
+    <tr><td><b>À la une de l'accueil</b></td><td>Première place du bandeau des écoles partenaires</td><td>1 500 MAD (1 mois) · 4 000 MAD (3 mois)</td></tr>
+    <tr><td><b>Salon virtuel</b></td><td>Organisation, salle, invitations ciblées, annonce par Navi</td><td>Forfait sur devis</td></tr>
+    <tr><td><b>Fiches contact (leads)</b></td><td>Participants consentants d'un salon ; +25 % par critère de ciblage (métier, formation, admission, budget)</td><td>117 MAD la fiche (7 000 F CFA), jusqu'à 286 MAD</td></tr>
+    <tr><td><b>Salons et tournées physiques</b></td><td>Présence de l'école sur les salons Navigoal en Afrique</td><td>Sur devis</td></tr>
+    <tr><td><b>Navilease</b></td><td>Réservation de logement avec séquestre</td><td>Frais de service de 5 %</td></tr>
+    <tr><td><b>NaviTravel</b></td><td>Billet, visa, accueil, assurance</td><td>Prestations sur devis</td></tr>
+  </table>
+  <p style="font-size:8.5pt;color:var(--mute);margin-top:2mm">Tarifs modifiables depuis le back-office. Les élèves et les parents ne paient ni inscription, ni devis, ni frais de dossier.</p>
+  <h3 style="margin-top:5mm">État d'avancement</h3>
+  <table class="t" style="margin-top:1.5mm">
+    <tr><th style="width:40%">Brique</th><th style="width:16%">Statut</th><th>Précision</th></tr>
+    <tr><td>Navigoal (orientation, écoles, devis, bourses, candidatures, suivi)</td><td><span class="statut ok">En ligne</span></td><td>navigoal.net, destination Maroc</td></tr>
+    <tr><td>Navi, assistant IA sur le site</td><td><span class="statut ok">En ligne</span></td><td>Conseiller d'orientation, outils sur la base réelle</td></tr>
+    <tr><td>Navilease (logement, séquestre, résidences)</td><td><span class="statut ok">En ligne</span></td><td>Mobile money Gabon, carte, espèces validées</td></tr>
+    <tr><td>Rendez-vous vidéo, salons virtuels</td><td><span class="statut ok">En ligne</span></td><td>Sans enregistrement</td></tr>
+    <tr><td>Navi sur WhatsApp</td><td><span class="statut prep">En préparation</span></td><td>Développé ; mise en service à l'ouverture du compte WhatsApp Business</td></tr>
+    <tr><td>Paiement de la scolarité par un partenaire agréé</td><td><span class="statut prep">En préparation</span></td><td>Aujourd'hui : paiement direct à l'école, moyens vérifiés</td></tr>
+    <tr><td>Nouvelles destinations (Sénégal…)</td><td><span class="statut prep">En préparation</span></td><td>Référentiel du Sénégal prêt, non publié</td></tr>
+  </table>
+  <div class="pied"><span>Navigoal · Parcours utilisateurs</span><span>14</span></div>
+</section>
+
+<!-- 15. Contact -->
+<section class="page couv" style="padding-top:28mm">
+  <div class="logos"><img src="img/navigoal-logo.png" alt="Navigoal"><img src="img/navilease-horizontal.png" alt="Navilease"><img src="img/navitravel-horizontal.png" alt="NaviTravel"></div>
+  <h1 style="margin-top:40mm">Un parcours complet,<br><em>de la question « que faire après le bac ? »</em><br>aux clés du logement.</h1>
+  <p class="sous">Navigoal accompagne l'élève, rassure sa famille, apporte aux écoles des candidats qualifiés et aux bailleurs des locataires fiables.</p>
+  <div class="bas"><div><b style="color:#fff;font-size:12pt">navigoal.net</b><br>contact@navigoal.net</div><div style="text-align:right">OAPS Consulting Group, SARLU · Libreville, Gabon<br>RCCM GA-LBV-01-2021-B13-00360<br><img src="img/oaps-logo.webp" alt="OAPS Consulting Group" style="margin-top:2mm"></div></div>
+</section>
+
+</body>
+</html>
