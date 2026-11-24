@@ -48,7 +48,7 @@ npm run lint    # vérification TypeScript (depuis la racine : npm ci au préala
 Comme le veulent les consignes du projet, l'interface est maquettée dans Figma avant d'être codée :
 <https://www.figma.com/design/GuXATD2l598OY7hYuvobPd>
 
-- 🔁 01 · Accueil et 02 · Créer mon adresse : faits, mais avec des textes sénégalais à remplacer par des textes gabonais
+- ✅ 01 · Accueil et 02 · Créer mon adresse (textes adaptés à Libreville)
 - ⏳ 03 · Carte d'adresse partageable (QR, WhatsApp, SMS)
 - ⏳ 04 · Mode livreur (saisie d'un code, itinéraire, écoute de la consigne)
 
@@ -56,7 +56,7 @@ Le code des écrans sera écrit après validation des maquettes.
 
 ## Prochaines étapes
 
-1. Adapter les maquettes 01–02 au Gabon, puis terminer et faire valider 03–04.
+1. Terminer les maquettes 03–04, puis faire valider l'ensemble.
 2. Obtenir les données du projet d'adressage : limites des arrondissements, noms de voies, numéros de porte.
 3. App mobile (application web installable d'abord : hors ligne, Android d'entrée de gamme) + API REST.
 4. Pilote dans un arrondissement de Libreville avec 1 ou 2 services de livraison.
