@@ -52,7 +52,21 @@ Comme le veulent les consignes du projet, l'interface est maquettée dans Figma 
 - ⏳ 03 · Carte d'adresse partageable (QR, WhatsApp, SMS)
 - ⏳ 04 · Mode livreur (saisie d'un code, itinéraire, écoute de la consigne)
 
-Le code des écrans sera écrit après validation des maquettes.
+## Application (`app/`)
+
+Application web mobile (Vite + React + Leaflet/OpenStreetMap) qui code les écrans **01** et **02** validés :
+- **Accueil** : carte « Mon adresse » (code Nda, partage natif ou WhatsApp, itinéraire), actions rapides, adresses enregistrées.
+- **Créer mon adresse** : GPS ou épingle à placer sur la carte, zone détectée automatiquement, choix du quartier et de la voie officielle (ou « voie sans nom »), numéro de porte, repère, consigne vocale enregistrée au micro (30 s).
+
+Les adresses sont stockées sur le téléphone (localStorage), sans compte ni serveur pour l'instant.
+« Trouver » et « Scanner » attendent les maquettes 03–04.
+
+```bash
+cd nda/app
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # vérifie les types + produit dist/ (hébergeable sur Vercel, Netlify, LWS…)
+```
 
 ## Prochaines étapes
 

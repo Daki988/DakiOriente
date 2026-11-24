@@ -1,0 +1,171 @@
+/* Jetons repris de la collection Figma « Dëkk / Couleurs » (fichier GuXATD2l598OY7hYuvobPd) */
+:root {
+  --primary: #0b6e4f;
+  --primary-strong: #07503a;
+  --primary-soft: #dcefe6;
+  --accent: #f2b705;
+  --accent-soft: #fdf1cc;
+  --bg: #f7f3ec;
+  --surface: #ffffff;
+  --ink: #13201a;
+  --muted: #5e6b64;
+  --line: #e3ddd2;
+  --danger: #c8452c;
+  --map-land: #ece4d4;
+
+  --font: "Plus Jakarta Sans", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  background: #e9e3d8;
+  font-family: var(--font);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Cadre mobile : plein écran sur téléphone, centré 390 px sur ordinateur */
+.ecran {
+  display: flex;
+  flex-direction: column;
+  max-width: 430px;
+  min-height: 100%;
+  margin: 0 auto;
+  background: var(--bg);
+}
+@media (min-width: 600px) {
+  body { padding: 24px 0; }
+  .ecran { min-height: calc(100% - 48px); border-radius: 32px; overflow: hidden; box-shadow: 0 20px 60px rgb(0 0 0 / 0.15); }
+}
+
+.contenu { flex: 1; display: flex; flex-direction: column; gap: 20px; padding: 18px 20px 24px; }
+.h-section { margin: 0; font-size: 16px; font-weight: 700; }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+
+/* En-tête accueil */
+.entete { display: flex; justify-content: space-between; align-items: center; }
+.entete .salut { font-size: 14px; font-weight: 500; color: var(--muted); }
+.logo { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; color: var(--primary); }
+.avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); }
+
+/* Bouton (composant Figma « Button ») */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 20px; border-radius: 14px; border: 0;
+  font-size: 16px; font-weight: 700; text-decoration: none;
+}
+.btn--primary { background: var(--primary); color: var(--surface); }
+.btn--secondary { background: var(--surface); color: var(--primary); box-shadow: inset 0 0 0 1.5px var(--primary); }
+.btn--accent { background: var(--accent); color: var(--ink); }
+.btn:disabled { opacity: 0.5; }
+.btn--bloc { width: 100%; }
+
+/* Badge */
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px; border-radius: 999px;
+  background: var(--primary-soft); color: var(--primary-strong);
+  font-size: 12px; font-weight: 600;
+}
+.badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
+.badge--attente { background: var(--accent-soft); color: var(--ink); }
+.badge--attente::before { background: var(--accent); }
+
+/* Carte « Mon adresse » */
+.hero { display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 24px; background: var(--primary); color: var(--surface); }
+.hero__haut { display: flex; justify-content: space-between; align-items: center; }
+.hero__titre { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--accent); }
+.hero__adresse { margin: 0; font-size: 22px; font-weight: 700; line-height: 28px; }
+.hero__code { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; color: var(--primary-soft); }
+.puce-code { padding: 4px 10px; border-radius: 8px; background: var(--primary-strong); color: var(--accent); font: 700 14px var(--mono); }
+.hero__actions { display: flex; gap: 10px; }
+.hero__actions .btn { flex: 1; }
+.hero--vide .hero__adresse { font-size: 18px; line-height: 24px; }
+
+/* Actions rapides (composant « QuickAction ») */
+.actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.qa {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  padding: 16px 14px; border-radius: 18px; border: 1px solid var(--line); background: var(--surface);
+  text-align: left; font-size: 13px; font-weight: 600;
+}
+.qa__icone { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--primary-soft); color: var(--primary); font-size: 20px; font-weight: 700; }
+.qa__bientot { font-size: 11px; font-weight: 500; color: var(--muted); }
+
+/* Carte générique */
+.carte { display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); }
+.carte--astuce { background: var(--accent-soft); border: 0; }
+.carte--astuce p { margin: 0; font-size: 13px; line-height: 19px; color: var(--muted); }
+.carte--astuce strong { font-size: 14px; }
+
+.liste { padding: 4px; gap: 0; }
+.ligne { display: flex; align-items: center; gap: 12px; padding: 12px 14px; }
+.ligne__point { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); flex: none; }
+.ligne__texte { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ligne__texte strong { font-size: 14px; }
+.ligne__texte span { font-size: 12px; color: var(--muted); }
+.ligne .mono { font-size: 11px; color: var(--primary); font-weight: 500; }
+.vide { padding: 14px; font-size: 13px; color: var(--muted); }
+
+/* Barre de navigation */
+.nav {
+  position: sticky; bottom: 0;
+  display: flex; justify-content: space-between;
+  padding: 12px 28px calc(16px + env(safe-area-inset-bottom));
+  background: var(--surface); border-top: 1px solid var(--line);
+}
+.nav__item { display: flex; flex-direction: column; align-items: center; gap: 4px; border: 0; background: none; font-size: 11px; font-weight: 500; color: var(--muted); }
+.nav__item::before { content: ""; width: 22px; height: 22px; border-radius: 7px; background: var(--line); }
+.nav__item[aria-current="page"] { color: var(--primary); font-weight: 700; }
+.nav__item[aria-current="page"]::before { background: var(--primary); }
+
+/* Écran « Créer mon adresse » */
+.titre { display: flex; align-items: center; gap: 12px; padding: 18px 20px 12px; }
+.retour { border: 0; background: none; font-size: 22px; font-weight: 700; padding: 0 4px; }
+.titre h1 { margin: 0; font-size: 18px; font-weight: 700; }
+.titre p { margin: 2px 0 0; font-size: 12px; font-weight: 500; color: var(--muted); }
+.progression { display: flex; gap: 6px; padding: 0 20px 12px; }
+.progression span { flex: 1; height: 4px; border-radius: 2px; background: var(--line); }
+.progression span.on { background: var(--primary); }
+
+.carte-zone { position: relative; height: 230px; background: var(--map-land); }
+.carte-zone .leaflet-container { height: 100%; width: 100%; background: var(--map-land); font-family: var(--font); }
+.pastille-gps {
+  position: absolute; left: 16px; bottom: 14px; z-index: 500;
+  padding: 6px 10px; border-radius: 999px; border: 0; background: var(--surface);
+  font-size: 12px; font-weight: 600; box-shadow: 0 2px 8px rgb(0 0 0 / 0.12);
+}
+.epingle { width: 22px; height: 22px; border-radius: 50%; background: var(--primary); border: 4px solid var(--surface); box-shadow: 0 0 0 20px rgb(11 110 79 / 0.15); }
+
+.formulaire { flex: 1; display: flex; flex-direction: column; gap: 14px; padding: 18px 20px; }
+.champ { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.champ > label, .champ > .etiquette { font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: var(--muted); text-transform: uppercase; }
+.saisie {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 13px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface);
+  font-size: 15px; font-weight: 600;
+}
+.saisie:focus-within, .saisie:focus { border: 2px solid var(--primary); padding: 12px 13px; outline: none; }
+.saisie input, .saisie select { flex: 1; min-width: 0; border: 0; background: none; font-weight: 600; outline: none; }
+.saisie .tag { font-size: 11px; font-weight: 700; color: var(--primary); }
+.aide { margin: 0; font-size: 11px; line-height: 15px; color: var(--muted); }
+.rangee { display: flex; gap: 12px; }
+.rangee .champ:first-child { flex: 1; }
+.rangee .champ:last-child { width: 96px; flex: none; }
+
+.vocal { display: flex; flex-direction: column; gap: 6px; padding: 14px; border-radius: 16px; background: var(--primary-soft); color: var(--primary-strong); }
+.vocal button { align-self: flex-start; border: 0; background: none; padding: 0; font-size: 13px; font-weight: 700; color: var(--primary-strong); text-align: left; }
+.vocal p { margin: 0; font-size: 12px; }
+.vocal audio { width: 100%; height: 36px; }
+
+.pied { padding: 12px 20px calc(30px + env(safe-area-inset-bottom)); background: var(--bg); }
+.erreur { margin: 0; padding: 10px 14px; border-radius: 12px; background: #fbe4de; color: var(--danger); font-size: 13px; font-weight: 600; }
+.toast { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); z-index: 1000; padding: 10px 16px; border-radius: 999px; background: var(--ink); color: var(--surface); font-size: 13px; font-weight: 600; }

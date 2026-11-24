@@ -1,0 +1,10 @@
+{
+  "name": "Nda — adresses du Gabon",
+  "short_name": "Nda",
+  "lang": "fr",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F3EC",
+  "theme_color": "#0B6E4F",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
