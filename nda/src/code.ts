@@ -1,16 +1,16 @@
 /**
- * Code Dëkk : identifiant court d'un point, relatif à sa commune.
+ * Code Nda : identifiant court d'un point, relatif à sa zone d'adressage.
  *
- * Format : RR-CCC-XXXXX
- *   RR    = région (code ISO 3166-2:SN sans le préfixe « SN- »), ex. DK = Dakar
- *   CCC   = commune (code du référentiel Dëkk), ex. SLB = Sicap-Liberté
- *   XXXXX = position dans l'emprise de la commune, 5 caractères en base 28
+ * Format : PP-ZZZ-XXXXX
+ *   PP    = province (ES = Estuaire, OM = Ogooué-Maritime…)
+ *   ZZZ   = zone (arrondissement ou commune), ex. LB1 = Libreville 1er arr.
+ *   XXXXX = position dans l'emprise de la zone, 5 caractères en base 28
  *
  * L'alphabet exclut 0/O, 1/I/L et les voyelles : pas de confusion à l'oral
  * ni de mots formés par hasard.
  */
 
-import type { Commune, Point } from "./types.ts";
+import type { Point, Zone } from "./types.ts";
 
 export const ALPHABET = "23456789BCDFGHJKMNPQRSTVWXYZ";
 const BASE = ALPHABET.length; // 28
@@ -21,9 +21,9 @@ export const GRID = Math.floor(Math.sqrt(BASE ** LOCAL_LENGTH));
 const M_PER_DEG_LAT = 111_320;
 const mPerDegLon = (lat: number) => M_PER_DEG_LAT * Math.cos((lat * Math.PI) / 180);
 
-/** Emprise carrée (en degrés) utilisée pour quadriller la commune. */
-function grille(c: Commune) {
-  const { south, west, north, east } = c.bbox;
+/** Grille carrée posée sur l'emprise de la zone. */
+function grille(z: Zone) {
+  const { south, west, north, east } = z.bbox;
   const midLat = (south + north) / 2;
   const hM = (north - south) * M_PER_DEG_LAT;
   const wM = (east - west) * mPerDegLon(midLat);
@@ -37,19 +37,19 @@ function grille(c: Commune) {
   };
 }
 
-/** Taille (en mètres) d'une cellule de code pour cette commune. */
-export function precisionMetres(c: Commune): number {
-  return grille(c).cellM;
+/** Taille (en mètres) d'une cellule de code dans cette zone. */
+export function precisionMetres(z: Zone): number {
+  return grille(z).cellM;
 }
 
-export function contient(c: Commune, p: Point): boolean {
-  const b = c.bbox;
+export function contient(z: Zone, p: Point): boolean {
+  const b = z.bbox;
   return p.lat >= b.south && p.lat <= b.north && p.lon >= b.west && p.lon <= b.east;
 }
 
-export function encoderLocal(c: Commune, p: Point): string {
-  if (!contient(c, p)) throw new RangeError(`Point hors de la commune ${c.nom}`);
-  const g = grille(c);
+export function encoderLocal(z: Zone, p: Point): string {
+  if (!contient(z, p)) throw new RangeError(`Point hors de la zone ${z.code}`);
+  const g = grille(z);
   const x = Math.min(GRID - 1, Math.floor((p.lon - g.west) / g.stepLon));
   const y = Math.min(GRID - 1, Math.floor((p.lat - g.south) / g.stepLat));
   let n = y * GRID + x;
@@ -62,7 +62,7 @@ export function encoderLocal(c: Commune, p: Point): string {
 }
 
 /** Centre de la cellule désignée par le code local. */
-export function decoderLocal(c: Commune, code: string): Point {
+export function decoderLocal(z: Zone, code: string): Point {
   const s = normaliser(code);
   if (s.length !== LOCAL_LENGTH) throw new SyntaxError(`Code local invalide : ${code}`);
   let n = 0;
@@ -74,27 +74,27 @@ export function decoderLocal(c: Commune, code: string): Point {
   const x = n % GRID;
   const y = Math.floor(n / GRID);
   if (y >= GRID) throw new RangeError(`Code hors grille : ${code}`);
-  const g = grille(c);
+  const g = grille(z);
   return { lat: g.south + (y + 0.5) * g.stepLat, lon: g.west + (x + 0.5) * g.stepLon };
 }
 
-export function encoder(c: Commune, p: Point): string {
-  return `${c.region}-${c.code}-${encoderLocal(c, p)}`;
+export function encoder(z: Zone, p: Point): string {
+  return `${z.province}-${z.code}-${encoderLocal(z, p)}`;
 }
 
 export interface CodeDecompose {
-  region: string;
-  commune: string;
+  province: string;
+  zone: string;
   local: string;
 }
 
-/** Majuscules, sans espaces ; corrige les confusions courantes à la saisie (O→0 n'existe pas, donc rejeté plus loin). */
+/** Majuscules, sans espaces ni points. */
 export function normaliser(code: string): string {
   return code.toUpperCase().replace(/[\s·.]/g, "");
 }
 
 export function decomposer(code: string): CodeDecompose {
-  const m = /^([A-Z]{2})-?([A-Z]{3})-?([0-9A-Z]{5})$/.exec(normaliser(code));
-  if (!m) throw new SyntaxError(`Format attendu RR-CCC-XXXXX, reçu : ${code}`);
-  return { region: m[1], commune: m[2], local: m[3] };
+  const m = /^([A-Z]{2})-?([0-9A-Z]{3})-?([0-9A-Z]{5})$/.exec(normaliser(code));
+  if (!m) throw new SyntaxError(`Format attendu PP-ZZZ-XXXXX, reçu : ${code}`);
+  return { province: m[1], zone: m[2], local: m[3] };
 }

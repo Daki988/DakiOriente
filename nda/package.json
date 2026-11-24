@@ -1,0 +1,12 @@
+{
+  "name": "nda",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Moteur d'adressage Nda (Gabon) : adresse officielle + code court partageable",
+  "scripts": {
+    "test": "node --test test/nda.test.ts",
+    "lint": "tsc --noEmit -p ."
+  },
+  "engines": { "node": ">=22.18" }
+}

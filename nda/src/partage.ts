@@ -2,7 +2,7 @@ import { formaterAdresse } from "./adresse.ts";
 import type { Adresse } from "./types.ts";
 
 /** URL publique de la fiche adresse (à adapter au domaine final). */
-export function lienFiche(a: Adresse, base = "https://dekk.sn"): string {
+export function lienFiche(a: Adresse, base = "https://nda.ga"): string {
   return `${base}/${a.code}`;
 }
 
@@ -16,7 +16,7 @@ export function texteWhatsApp(a: Adresse, base?: string): string {
     "📍 Mon adresse",
     ...formaterAdresse(a),
     a.repere ? `Repère : ${a.repere}` : null,
-    `Code Dëkk : ${a.code}`,
+    `Code Nda : ${a.code}`,
     lienFiche(a, base),
   ]
     .filter(Boolean)
