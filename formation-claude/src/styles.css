@@ -315,3 +315,36 @@ td { padding: 10px 12px; border-top: 1px solid var(--line); vertical-align: top;
 
 .check-card { padding: 18px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
 .check-card .sticky-cta { margin: 4px -18px -18px; padding: 14px 18px 18px; border-radius: 0 0 var(--radius) var(--radius); background: var(--surface); position: static; }
+
+/* ═════════ Certification ═════════ */
+.cert-hero { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 26px 18px; border-radius: 28px; text-align: center;
+  background: radial-gradient(circle at 50% 0%, var(--accent-soft), var(--surface) 70%); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.seal { width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; font-size: 38px; background: var(--surface); border: 3px solid var(--accent); box-shadow: 0 0 0 6px var(--accent-soft); }
+.exam-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.exam-facts > div { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; padding: 14px 8px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); }
+.exam-facts strong { font: 700 24px var(--display); color: var(--accent); }
+.exam-facts span { font-size: 12px; color: var(--muted); line-height: 1.3; }
+.level { display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--line); }
+.level.is-mine { border-color: var(--lc); }
+.level-badge { flex: none; min-width: 54px; height: 40px; padding: 0 8px; border-radius: 12px; display: grid; place-items: center; background: var(--lc); color: #fff; font-size: 14px; letter-spacing: 1px; }
+.text-ok { color: var(--success); } .text-ko { color: var(--error); }
+.timer-pill { font: 700 14px var(--mono); padding: 8px 11px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-strong); white-space: nowrap; }
+.timer-pill.is-urgent { background: var(--error-soft); color: var(--error); animation: pulse 1.2s infinite; }
+.qgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); gap: 6px; padding: 12px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); }
+.qgrid button { height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); font: 600 13px var(--mono); }
+.qgrid button.is-answered { background: var(--accent-soft); border-color: var(--accent); }
+.qgrid button.is-current { outline: 2px solid var(--ink); }
+.cert-level { padding: 8px 18px; border-radius: 999px; background: var(--lc); color: #fff; font-weight: 700; font-size: 15px; }
+.certificate { border-color: var(--lc, var(--accent)); }
+.cert-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; padding-top: 14px; margin-top: 6px; border-top: 1px solid var(--line); }
+.cert-foot > div { display: flex; flex-direction: column; gap: 2px; }
+.cert-foot strong { font-size: 14px; }
+.cert-foot span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.grid-2 .btn { font-size: 14.5px; padding: 0 10px; }
+@media print {
+  body { background: #fff; }
+  .no-print { display: none !important; }
+  .screen { max-width: none; padding: 0; min-height: auto; animation: none; }
+  .certificate { box-shadow: none; border-width: 4px; padding: 60px 40px; margin-top: 40px; color: #191714; background: #fff; }
+}

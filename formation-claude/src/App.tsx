@@ -4,9 +4,12 @@ import {
   FINAL_SIZE, PASS, QUIZ_SIZE, currentIndex, drawFinal, drawQuiz, drawReview, isUnlocked, lessonDone, load, progress, resetAll, statusOf, update,
   type Item, type Status, type Store,
 } from "./engine";
+import { CertIntro, Certificate } from "./ui/Certification";
+import { ExamRunner } from "./ui/Exam";
 import { Lesson, type LessonMode } from "./ui/Lesson";
 import { QuizRunner, type Answer } from "./ui/Quiz";
 import { Rich } from "./ui/Rich";
+import { levelOf } from "./cert";
 import { Toolbox } from "./ui/Toolbox";
 
 type QuizKind = { k: "module"; i: number } | { k: "final" } | { k: "review" };
@@ -17,7 +20,9 @@ type Screen =
   | { name: "quiz"; kind: QuizKind; items: Item[] }
   | { name: "result"; kind: QuizKind; answers: Answer[] }
   | { name: "toolbox" }
-  | { name: "certificate" };
+  | { name: "certificate" }
+  | { name: "certIntro" }
+  | { name: "exam"; items: Item[] };
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>({ name: "map" });
@@ -88,6 +93,8 @@ export default function App() {
                 } else {
                   ms.toReview = [...new Set(answers.filter((a) => !a.correct).map((a) => a.item.q.section))];
                 }
+              } else if (k.k === "review") {
+                if (score >= 0.7) st.final.needReview = false;
               } else if (k.k === "final") {
                 st.final.attempts++;
                 st.final.best = Math.max(st.final.best, score);
@@ -102,12 +109,39 @@ export default function App() {
         />
       );
     }
+    case "exam":
+      return (
+        <ExamRunner
+          items={screen.items}
+          onQuit={() => {
+            update((st) => { st.final.attempts++; if (!st.final.passed) st.final.needReview = true; });
+            go({ name: "certIntro" });
+          }}
+          onFinish={(answers, seconds) => {
+            const score = answers.filter((a) => a.correct).length / answers.length;
+            update((st) => {
+              const f = st.final;
+              f.attempts++;
+              f.history = [...(f.history ?? []), { date: Date.now(), score, seconds }];
+              if (score >= PASS) {
+                if (!f.passed || score > f.best) f.date = Date.now();
+                f.passed = true;
+                f.needReview = false;
+              } else if (!f.passed) f.needReview = true;
+              f.best = Math.max(f.best, score);
+            });
+            go({ name: "result", kind: { k: "final" }, answers });
+          }}
+        />
+      );
+    case "certIntro":
+      return <CertIntro store={store} onBack={() => go({ name: "map" })} onStart={() => go({ name: "exam", items: drawFinal() })} onReview={() => go({ name: "quiz", kind: { k: "review" }, items: drawReview(load()) })} onCertificate={() => go({ name: "certificate" })} />;
     case "result":
       return <ResultView kind={screen.kind} answers={screen.answers} store={store} go={go} />;
     case "toolbox":
       return <Toolbox store={store} onBack={() => go({ name: "map" })} onReview={() => go({ name: "quiz", kind: { k: "review" }, items: drawReview(load()) })} onChange={refresh} />;
     case "certificate":
-      return <Certificate store={store} onBack={() => go({ name: "map" })} onSave={refresh} />;
+      return <Certificate store={store} onBack={() => go({ name: "map" })} onSave={refresh} onRetake={() => go({ name: "certIntro" })} />;
   }
 }
 
@@ -144,7 +178,7 @@ function MapView({ store, go }: { store: Store; go: (s: Screen) => void }) {
                 {store.mods[MODULES[cur].id].done > 0 ? "Continuer" : "Commencer"} le palier {MODULES[cur].num} →
               </button>
             ) : (
-              <button className="btn btn-primary btn-sm" onClick={() => go(store.final.passed ? { name: "certificate" } : { name: "quiz", kind: { k: "final" }, items: drawFinal() })}>
+              <button className="btn btn-primary btn-sm" onClick={() => go(store.final.passed ? { name: "certificate" } : { name: "certIntro" })}>
                 {store.final.passed ? "Voir mon certificat" : "Passer l'examen final →"}
               </button>
             )}
@@ -178,9 +212,9 @@ function MapView({ store, go }: { store: Store; go: (s: Screen) => void }) {
         })}
         <li className={`node node-final ${allPassed ? (store.final.passed ? "node-passed" : "is-current") : "node-locked"}`}>
           <span className="node-dot" aria-hidden>{store.final.passed ? "🎓" : allPassed ? "★" : "🔒"}</span>
-          <button className="node-card" disabled={!allPassed} onClick={() => go(store.final.passed ? { name: "certificate" } : { name: "quiz", kind: { k: "final" }, items: drawFinal() })}>
+          <button className="node-card" disabled={!allPassed} onClick={() => go(store.final.passed ? { name: "certificate" } : { name: "certIntro" })}>
             <span className="node-num mono">Certification</span>
-            <strong className="node-title">Examen final · {FINAL_SIZE} questions</strong>
+            <strong className="node-title">Certification · examen de {FINAL_SIZE} questions</strong>
             <span className="small muted">{store.final.passed ? `Réussi à ${Math.round(store.final.best * 100)} %` : allPassed ? `${Math.round(PASS * 100)} % requis sur l'ensemble du parcours` : "Se débloque quand les 10 paliers sont validés"}</span>
           </button>
         </li>
@@ -338,13 +372,14 @@ function ResultView({ kind, answers, store, go }: { kind: QuizKind; answers: Ans
         <span className="big-emoji" aria-hidden>{kind.k === "review" ? "🧠" : pass ? (kind.k === "final" ? "🎓" : "🏆") : "📖"}</span>
         <div className="ring-lg" style={{ ["--p" as string]: score }}><span>{Math.round(score * 100)}<small>%</small></span></div>
         <h1 className="h1 center">
-          {kind.k === "review" ? "Révision terminée" : pass ? (kind.k === "final" ? "Tu es certifié·e !" : `Palier ${m!.num} validé !`) : "Pas encore validé"}
+          {kind.k === "review" ? "Révision terminée" : pass ? (kind.k === "final" ? "Certification obtenue !" : `Palier ${m!.num} validé !`) : "Pas encore validé"}
         </h1>
         <p className="muted center">
           {good}/{answers.length} bonnes réponses · {Math.round(PASS * 100)} % requis.{" "}
           {kind.k === "module" && !pass && "Relis les sections concernées : le quiz se débloque ensuite, avec de nouvelles questions."}
           {kind.k === "module" && pass && nextI < MODULES.length && `Le module ${MODULES[nextI].num} est débloqué.`}
-          {kind.k === "final" && !pass && "Revois les modules concernés dans la boîte à outils, puis retente."}
+          {kind.k === "final" && !pass && "Fais une révision express réussie (70 % ou plus) pour débloquer une nouvelle tentative."}
+          {kind.k === "final" && pass && levelOf(store) && `Niveau obtenu : ${levelOf(store)!.title}.`}
         </p>
       </section>
 
@@ -364,10 +399,11 @@ function ResultView({ kind, answers, store, go }: { kind: QuizKind; answers: Ans
 
       <div className="sticky-cta stack-10">
         {kind.k === "module" && pass && nextI < MODULES.length && <button className="btn btn-primary" onClick={() => go({ name: "module", i: nextI })}>Commencer le palier {MODULES[nextI].num} →</button>}
-        {kind.k === "module" && pass && nextI >= MODULES.length && <button className="btn btn-primary" onClick={() => go({ name: "quiz", kind: { k: "final" }, items: drawFinal() })}>Passer l'examen final →</button>}
+        {kind.k === "module" && pass && nextI >= MODULES.length && <button className="btn btn-primary" onClick={() => go({ name: "certIntro" })}>Découvrir la certification →</button>}
         {kind.k === "module" && !pass && <button className="btn btn-primary" onClick={() => go({ name: "module", i: kind.i })}>Relire les sections concernées</button>}
-        {kind.k === "final" && pass && <button className="btn btn-primary" onClick={() => go({ name: "certificate" })}>Voir mon certificat 🎓</button>}
-        {kind.k === "final" && !pass && <button className="btn btn-primary" onClick={() => go({ name: "quiz", kind: { k: "final" }, items: drawFinal() })}>Retenter l'examen</button>}
+        {kind.k === "final" && pass && <button className="btn btn-primary" onClick={() => go({ name: "certificate" })}>Voir et télécharger mon certificat 🎓</button>}
+        {kind.k === "review" && store.final.passed === false && MODULES.every((x) => store.mods[x.id].passed) && <button className="btn btn-primary" onClick={() => go({ name: "certIntro" })}>Retour à la certification</button>}
+        {kind.k === "final" && !pass && <button className="btn btn-primary" onClick={() => go({ name: "certIntro" })}>Préparer une nouvelle tentative</button>}
         {kind.k === "review" && <button className="btn btn-primary" onClick={() => go({ name: "quiz", kind: { k: "review" }, items: drawReview(store) })}>Nouvelle révision</button>}
         <button className="btn btn-ghost" onClick={() => go({ name: "map" })}>Retour au parcours</button>
       </div>
@@ -375,32 +411,3 @@ function ResultView({ kind, answers, store, go }: { kind: QuizKind; answers: Ans
   );
 }
 
-/* ───────────────────────── Certificat ───────────────────────── */
-
-function Certificate({ store, onBack, onSave }: { store: Store; onBack: () => void; onSave: () => void }) {
-  const [name, setName] = useState(store.final.name ?? "");
-  if (!store.final.passed) return <main className="screen"><p>Certificat non encore obtenu.</p><button className="btn" onClick={onBack}>Retour</button></main>;
-  const date = new Date(store.final.date ?? Date.now()).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
-  return (
-    <main className="screen">
-      <header className="topbar"><button className="icon-btn" aria-label="Retour" onClick={onBack}>←</button><span className="topbar-title fill">Certificat</span></header>
-      <section className="certificate">
-        <span className="logo logo-lg" aria-hidden>✳</span>
-        <span className="kicker">Certificat de réussite</span>
-        <h1 className="display center">Formation Claude Code</h1>
-        <p className="muted center">décerné à</p>
-        <p className="cert-name">{name || "Ton nom"}</p>
-        <p className="center">pour avoir validé les 10 paliers du parcours et réussi l'examen final à <strong>{Math.round(store.final.best * 100)} %</strong>.</p>
-        <p className="small muted center">{date}</p>
-      </section>
-      <label className="stack-6">
-        <span className="small strong">Ton nom sur le certificat</span>
-        <input className="input" value={name} onChange={(e) => setName(e.target.value)} onBlur={() => { update((s) => { s.final.name = name; }); onSave(); }} placeholder="Prénom Nom" />
-      </label>
-      <section className="callout callout-key">
-        <strong>Les 5 règles d'or</strong>
-        <span>Plan avant le code · Toujours une preuve de vérification · Une tâche, un contexte propre · Consigne répétée trois fois → CLAUDE.md, skill ou hook · Relire chaque diff ; aucun agent ne fusionne seul.</span>
-      </section>
-    </main>
-  );
-}

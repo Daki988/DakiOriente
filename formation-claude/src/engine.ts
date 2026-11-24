@@ -3,7 +3,8 @@ import type { Module, Question } from "./content/types";
 
 export const PASS = 0.8;
 export const QUIZ_SIZE = 8;
-export const FINAL_SIZE = 20;
+export const FINAL_SIZE = 30;
+export const FINAL_MINUTES = 40;
 export const REVIEW_SIZE = 10;
 
 export type ModState = {
@@ -18,7 +19,14 @@ export type ModState = {
 };
 export type Store = {
   mods: Record<string, ModState>;
-  final: { passed: boolean; best: number; attempts: number; date?: number; name?: string };
+  final: {
+    passed: boolean; best: number; attempts: number; date?: number; name?: string;
+    /** Critères pratiques de la grille de certification (module 9) cochés */
+    grille?: string[];
+    /** Après un échec, une révision express est exigée avant de retenter */
+    needReview?: boolean;
+    history?: { date: number; score: number; seconds: number }[];
+  };
   flashKnown: string[];
 };
 
