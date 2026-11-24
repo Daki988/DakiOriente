@@ -3,6 +3,8 @@ import type { Module } from "../content/types";
 import { checkFor, type Item } from "../engine";
 import { Blocks } from "./Rich";
 import { QuestionCard } from "./Quiz";
+import { VideoPlayer } from "./VideoPlayer";
+import { videoForSection, videoMs } from "../video";
 
 export type LessonMode = "learn" | "review" | "reread";
 
@@ -16,12 +18,14 @@ export function Lesson({
   const [phase, setPhase] = useState<"read" | "check" | "retry">("read");
   const [item, setItem] = useState<Item | null>(null);
   const [fails, setFails] = useState(0);
+  const [video, setVideo] = useState(false);
   const top = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setPhase("read");
     setItem(null);
     setFails(0);
+    setVideo(false);
     window.scrollTo({ top: 0 });
   }, [index, m.id]);
 
@@ -52,6 +56,7 @@ export function Lesson({
             <span className="chip">{mode === "review" ? "🔁 À relire" : `Section ${m.num}.${index + 1}`}</span>
             <h1 className="h1">{sec.title}</h1>
           </div>
+          <LessonVideo m={m} index={index} open={video} onOpen={() => setVideo(true)} />
           <article className="lesson card">
             <Blocks blocks={sec.blocks} />
           </article>
@@ -104,5 +109,19 @@ export function Lesson({
         </section>
       )}
     </main>
+  );
+}
+
+function LessonVideo({ m, index, open, onOpen }: { m: Module; index: number; open: boolean; onOpen: () => void }) {
+  const v = videoForSection(m, m.sections[index], index);
+  if (open) return <VideoPlayer key={m.id + index} video={v} autoPlay />;
+  return (
+    <button className="vposter" onClick={onOpen}>
+      <span className="vposter-play" aria-hidden>▶</span>
+      <span className="stack-2">
+        <strong>Regarder la vidéo de la leçon</strong>
+        <span className="small">{Math.max(1, Math.round(videoMs(v) / 60000))} min · animations, voix off et sous-titres</span>
+      </span>
+    </button>
   );
 }

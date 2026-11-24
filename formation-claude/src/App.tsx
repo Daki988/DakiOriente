@@ -11,6 +11,7 @@ import { QuizRunner, type Answer } from "./ui/Quiz";
 import { Rich } from "./ui/Rich";
 import { levelOf } from "./cert";
 import { Toolbox } from "./ui/Toolbox";
+import { ProjectView, ProjectsList } from "./ui/Projects";
 
 type QuizKind = { k: "module"; i: number } | { k: "final" } | { k: "review" };
 type Screen =
@@ -22,6 +23,8 @@ type Screen =
   | { name: "toolbox" }
   | { name: "certificate" }
   | { name: "certIntro" }
+  | { name: "projects" }
+  | { name: "project"; id: string }
   | { name: "exam"; items: Item[] };
 
 export default function App() {
@@ -134,6 +137,10 @@ export default function App() {
           }}
         />
       );
+    case "projects":
+      return <ProjectsList store={store} onBack={() => go({ name: "map" })} onOpen={(id) => go({ name: "project", id })} />;
+    case "project":
+      return <ProjectView id={screen.id} store={store} onBack={() => go({ name: "projects" })} onChange={refresh} />;
     case "certIntro":
       return <CertIntro store={store} onBack={() => go({ name: "map" })} onStart={() => go({ name: "exam", items: drawFinal() })} onReview={() => go({ name: "quiz", kind: { k: "review" }, items: drawReview(load()) })} onCertificate={() => go({ name: "certificate" })} />;
     case "result":
@@ -164,7 +171,7 @@ function MapView({ store, go }: { store: Store; go: (s: Screen) => void }) {
         <div className="row-12 hero-top">
           <span className="logo" aria-hidden>✳</span>
           <span className="kicker">Formation Claude Code</span>
-          <button className="pill-btn" onClick={() => go({ name: "toolbox" })}>🧰 Boîte à outils</button>
+          <button className="pill-btn" onClick={() => go({ name: "toolbox" })}>🧰 Outils</button>
         </div>
         <h1 className="display">Devenir un crack de Claude&nbsp;Code</h1>
         <p className="hero-sub">10 paliers, de l'installation à l'automatisation. Chaque palier se débloque quand le précédent est validé : leçon guidée avec contrôles, puis quiz réussi à {Math.round(PASS * 100)} %.</p>
@@ -185,6 +192,15 @@ function MapView({ store, go }: { store: Store; go: (s: Screen) => void }) {
           </div>
         </div>
       </section>
+
+      <button className="proj-cta" onClick={() => go({ name: "projects" })}>
+        <span className="proj-cta-icon" aria-hidden>🛠</span>
+        <span className="stack-2 fill">
+          <strong>Projets guidés · du simple à ta propre IA</strong>
+          <span className="small">9 tutoriels vidéo pas à pas : automatisation, serveur MCP, agent IA, IA spécialisée</span>
+        </span>
+        <span aria-hidden>→</span>
+      </button>
 
       <ol className="path" aria-label="Paliers du parcours">
         {MODULES.map((m, i) => {

@@ -28,6 +28,8 @@ export type Store = {
     history?: { date: number; score: number; seconds: number }[];
   };
   flashKnown: string[];
+  /** Étapes cochées par projet guidé */
+  projects?: Record<string, string[]>;
 };
 
 const KEY = "formation-claude-code:v1";

@@ -18,7 +18,7 @@ export function Rich({ text }: { text: string }) {
   return <>{parts}</>;
 }
 
-function CodeBlock({ title, text }: { title?: string; text: string }) {
+export function CodeBlock({ title, text }: { title?: string; text: string }) {
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     try {
