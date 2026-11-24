@@ -61,6 +61,10 @@ Application web mobile (Vite + React + Leaflet/OpenStreetMap) qui code les écra
 Les adresses sont stockées sur le téléphone (localStorage), sans compte ni serveur pour l'instant.
 « Trouver » et « Scanner » attendent les maquettes 03–04.
 
+**En ligne : <https://nda-gabon.netlify.app>** (Netlify, projet `nda-gabon`, config dans `nda/netlify.toml`).
+
+Pour redéployer depuis le dossier `nda/` : supprimer d'abord `app/node_modules` (sinon il est envoyé à moitié et la compilation échoue), puis lancer le déploiement Netlify.
+
 ```bash
 cd nda/app
 npm install

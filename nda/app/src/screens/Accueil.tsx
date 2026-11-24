@@ -3,7 +3,7 @@ import { ActionRapide, Badge, BarreNavigation, Bouton } from "../components/ui.t
 import { resoudre, type Enregistrement } from "../stockage.ts";
 
 async function partager(a: Adresse) {
-  const text = texteWhatsApp(a);
+  const text = texteWhatsApp(a, window.location.origin);
   if (navigator.share) {
     try {
       await navigator.share({ title: "Mon adresse", text });
@@ -12,7 +12,7 @@ async function partager(a: Adresse) {
       /* partage annulé : on retombe sur WhatsApp */
     }
   }
-  window.open(lienWhatsApp(a), "_blank", "noopener");
+  window.open(lienWhatsApp(a, window.location.origin), "_blank", "noopener");
 }
 
 export function Accueil({ adresses, onCreer }: { adresses: Enregistrement[]; onCreer: () => void }) {
