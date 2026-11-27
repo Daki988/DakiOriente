@@ -67,6 +67,40 @@ jobs:
           fi
           rm -f env.srv
 
+      # Deux causes possibles quand les inscrits ne recoivent rien : les identifiants SMTP sont refuses,
+      # ou les comptes ont ete crees avec un telephone et sans adresse e-mail. On teste les deux.
+      # Aucun e-mail n'est envoye : nodemailer.verify() ouvre la session et s'arrete la.
+      - name: E-mails — identifiants SMTP et comptes sans adresse
+        env:
+          DB: ${{ secrets.NAVIGOAL_DATABASE_URL }}
+        run: |
+          curl -s --user "$U:$P" "ftp://$S${D%/}/.env" > env.srv || true
+          set -a; . ./env.srv; set +a; rm -f env.srv
+          npm i --silent nodemailer@6 pg@8 >/dev/null 2>&1
+          node -e '
+            const n = require("nodemailer");
+            const port = Number(process.env.SMTP_PORT || 465);
+            n.createTransport({ host: process.env.SMTP_HOST, port,
+              secure: process.env.SMTP_SECURE ? process.env.SMTP_SECURE === "true" : port === 465,
+              auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS } : undefined })
+              .verify()
+              .then(() => console.log("SMTP : connexion et mot de passe ACCEPTES"))
+              .catch((e) => console.log("SMTP : REFUSE —", e.message));
+          '
+          [ -z "$DB" ] && { echo "Base : secret NAVIGOAL_DATABASE_URL absent, comptage impossible."; exit 0; }
+          DB="$DB" node -e '
+            const { Client } = require("pg");
+            const c = new Client({ connectionString: process.env.DB, ssl: { rejectUnauthorized: false } });
+            c.connect().then(() => c.query(`select count(*)::int total,
+                 count(*) filter (where email is not null and email <> '')::int avec_email,
+                 count(*) filter (where email is null or email = '')::int sans_email
+               from users where created_at > now() - interval '30 days'`))
+             .then((r) => { const x = r.rows[0];
+               console.log(`Comptes crees sur 30 jours : ${x.total} — avec e-mail : ${x.avec_email}, sans e-mail (inscription par telephone) : ${x.sans_email}`); })
+             .catch((e) => console.log("Base :", e.message))
+             .finally(() => c.end());
+          '
+
       - name: Pages et état de synchronisation
         run: |
           base="ftp://$S${D%/}"
