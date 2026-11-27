@@ -31,6 +31,38 @@ const LOGO = (() => {
   return null;
 })();
 
+// État de l'envoi d'e-mails. Une panne SMTP est invisible autrement : sendEmail journalise et rend la main,
+// et personne ne s'aperçoit que plus rien ne part (panne du 27/11/2026, mot de passe refusé pendant des jours).
+// Repris par /api/sante, par le contrôle de fin de mise en ligne et par le workflow « Diagnostic ».
+export type EtatEmail = { configure: boolean; etat: "ok" | "en échec" | "non configuré" | "inconnu"; envoyes: number; echecs: number; dernierEchec: { quand: string; message: string } | null };
+const etat: EtatEmail = { configure: false, etat: "inconnu", envoyes: 0, echecs: 0, dernierEchec: null };
+const echec = (e: unknown) => {
+  etat.echecs += 1;
+  etat.etat = "en échec";
+  etat.dernierEchec = { quand: new Date().toISOString(), message: (e as Error)?.message ?? String(e) };
+};
+
+export function etatEmail(): EtatEmail {
+  return { ...etat, configure: !!process.env.SMTP_HOST };
+}
+
+/** Ouvre une session SMTP sans envoyer d'e-mail : dit tout de suite si les identifiants sont acceptés. */
+export async function verifierEmail(): Promise<EtatEmail> {
+  const t = await smtp();
+  if (!t) {
+    etat.etat = "non configuré";
+    return etatEmail();
+  }
+  try {
+    await (t as unknown as { verify: () => Promise<unknown> }).verify();
+    etat.etat = "ok";
+  } catch (e) {
+    echec(e);
+    console.error("E-MAIL HORS SERVICE : le serveur SMTP refuse nos identifiants —", (e as Error).message);
+  }
+  return etatEmail();
+}
+
 export async function sendEmail(o: Out) {
   const from = process.env.MAIL_FROM || "Navigoal <contact@navigoal.net>";
   const t = await smtp();
@@ -41,11 +73,15 @@ export async function sendEmail(o: Out) {
         text: emailTexte(o), html: emailHtml(o, LOGO ? "cid:logo-navigoal" : null),
         attachments: LOGO ? [{ filename: "navigoal.png", path: LOGO, cid: "logo-navigoal" }] : [],
       });
+      etat.envoyes += 1;
+      etat.etat = "ok";
     } catch (e) {
+      echec(e);
       console.error("E-mail non envoyé", o.to, (e as Error).message);
     }
     return;
   }
+  etat.etat = "non configuré";
   outbox.push(o);
   if (process.env.NODE_ENV !== "test") console.log(`[e-mail] ${o.to} · ${o.subject} · ${o.text}`);
 }

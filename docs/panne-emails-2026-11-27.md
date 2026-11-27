@@ -33,6 +33,20 @@ parents, identifiants des établissements, alertes `ALERTE_EMAIL`.
    ACCEPTES ».
 5. Créer un compte de test avec une adresse Gmail et vérifier la réception, indésirables compris.
 
+## Ce qui a été corrigé le 27/11/2026 : le silence
+
+Le mot de passe se change dans cPanel (étapes ci-dessus) ; ce qui relevait du code, c'est que la panne
+soit passée inaperçue. Désormais :
+
+- `sendEmail` tient un état (envoyés, échecs, dernier message d'erreur) — `etatEmail()` dans
+  `web/src/server/lib/messaging-channels.ts` ;
+- **au démarrage de l'application**, `verifierEmail()` ouvre une session SMTP sans envoyer d'e-mail ; si
+  les identifiants sont refusés, la ligne « E-MAIL HORS SERVICE » apparaît dans le journal ;
+- **`/api/sante`** renvoie `email: "ok" | "en échec" | "non configuré"` (état grossier : la page est
+  publique, le détail reste dans le workflow « Diagnostic ») ;
+- **chaque mise en ligne** lit cet état et affiche un avertissement visible dans le récapitulatif GitHub
+  quand les e-mails ne partent plus.
+
 ## Ce que le diagnostic sait faire maintenant
 
 `.github/workflows/diagnostic.yml` (lecture seule, lancement manuel) affiche :

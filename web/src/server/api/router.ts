@@ -10,6 +10,7 @@ import { etabById } from "@/lib/data";
 import { ipClient } from "../lib/geoip";
 import { limiter } from "../lib/counters";
 import { sql } from "drizzle-orm";
+import { etatEmail } from "../lib/messaging-channels";
 import { db, schema } from "../db";
 import { clearSessionCookie, createSession, currentUser, destroySession, setSessionCookie, SESSION_COOKIE, type Role } from "../auth/session";
 import { AppError, forbidden, unauthorized } from "../lib/errors";
@@ -650,7 +651,9 @@ route("GET", "/sante", "Documentation", "État du service (surveillance de dispo
   const debut = Date.now();
   try {
     await db.execute(sql`select 1`);
-    return json({ ok: true, base: "ok", ms: Date.now() - debut, version: process.env.NAVIGOAL_VERSION ?? process.env.npm_package_version ?? null });
+    // L'état des e-mails est volontairement grossier ici (page publique) : le détail est dans le workflow
+    // « Diagnostic ». Sans cette ligne, une panne d'envoi reste invisible (27/11/2026).
+    return json({ ok: true, base: "ok", ms: Date.now() - debut, email: etatEmail().etat, version: process.env.NAVIGOAL_VERSION ?? process.env.npm_package_version ?? null });
   } catch {
     return json({ ok: false, base: "injoignable" }, 503);
   }

@@ -168,8 +168,19 @@ jobs:
           sleep 10
           curl -s -m 120 -o /dev/null "$SITE/" || true   # premier appel : démarrage, sauvegarde et migrations
           for i in $(seq 1 30); do
-            code=$(curl -s -o /dev/null -m 30 -w '%{http_code}' "$SITE/api/sante/" || true)
-            [ "$code" = 200 ] && { echo "Site en ligne."; exit 0; }
+            rep=$(curl -s -m 30 -w '\n%{http_code}' "$SITE/api/sante/" || true)
+            code=$(printf '%s' "$rep" | tail -1)
+            if [ "$code" = 200 ]; then
+              echo "Site en ligne."
+              # Une panne d'envoi d'e-mails est muette dans l'application : on la remonte ici (27/11/2026).
+              mail=$(printf '%s' "$rep" | head -1 | sed -n 's/.*"email":"\([^"]*\)".*/\1/p')
+              case "$mail" in
+                ok) echo "E-mails : serveur SMTP accepté." ;;
+                "") echo "E-mails : état non renvoyé (version antérieure ?)." ;;
+                *) echo "::warning::E-mails : $mail. Plus aucun message ne part (bienvenue, codes de vérification, notifications, rappels). Voir docs/panne-emails-2026-11-27.md." ;;
+              esac
+              exit 0
+            fi
             echo "Essai $i : réponse $code"; sleep 10
           done
           echo "::error::Le site ne répond pas après la mise en ligne ($SITE/api/sante/). Consultez navigoal/stderr.log sur l'hébergement."
