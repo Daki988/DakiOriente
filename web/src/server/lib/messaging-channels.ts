@@ -35,7 +35,14 @@ const LOGO = (() => {
 // et personne ne s'aperçoit que plus rien ne part (panne du 27/11/2026, mot de passe refusé pendant des jours).
 // Repris par /api/sante, par le contrôle de fin de mise en ligne et par le workflow « Diagnostic ».
 export type EtatEmail = { configure: boolean; etat: "ok" | "en échec" | "non configuré" | "inconnu"; envoyes: number; echecs: number; dernierEchec: { quand: string; message: string } | null };
-const etat: EtatEmail = { configure: false, etat: "inconnu", envoyes: 0, echecs: 0, dernierEchec: null };
+// L'état est posé sur globalThis et non dans une variable de module : Next compile l'instrumentation et les
+// routes d'API dans des paquets séparés, qui chargent chacun leur copie du module. Sans cela, la vérification
+// faite au démarrage reste invisible de /api/sante (constaté le 27/11/2026, l'état restait « inconnu »).
+const CLE = Symbol.for("navigoal.etatEmail");
+const g = globalThis as unknown as Record<symbol, EtatEmail & { verifieLe: number } | undefined>;
+const etat = (g[CLE] ??= { configure: false, etat: "inconnu", envoyes: 0, echecs: 0, dernierEchec: null, verifieLe: 0 });
+/** Au-delà de ce délai, l'état est reconsidéré : un mot de passe corrigé doit se voir sans redémarrage. */
+const FRAICHEUR_MS = 10 * 60 * 1000;
 const echec = (e: unknown) => {
   etat.echecs += 1;
   etat.etat = "en échec";
@@ -43,11 +50,19 @@ const echec = (e: unknown) => {
 };
 
 export function etatEmail(): EtatEmail {
-  return { ...etat, configure: !!process.env.SMTP_HOST };
+  // Lance une vérification en arrière-plan si l'état est inconnu ou vieux : la réponse n'attend jamais le
+  // serveur SMTP (une page de santé qui se bloque ne vaut rien), elle sera juste à l'appel suivant.
+  if (Date.now() - etat.verifieLe > FRAICHEUR_MS) {
+    etat.verifieLe = Date.now();
+    void verifierEmail().catch(() => undefined);
+  }
+  const { verifieLe: _, ...vu } = etat;
+  return { ...vu, configure: !!process.env.SMTP_HOST };
 }
 
 /** Ouvre une session SMTP sans envoyer d'e-mail : dit tout de suite si les identifiants sont acceptés. */
 export async function verifierEmail(): Promise<EtatEmail> {
+  etat.verifieLe = Date.now();
   const t = await smtp();
   if (!t) {
     etat.etat = "non configuré";
