@@ -77,3 +77,61 @@ Relevé du 27/11/2026 : SPF (`v=spf1 … include:premiumsmtp.dnshostservices.com
 Le secret GitHub `NAVIGOAL_DATABASE_URL` n'est pas configuré, et le workflow `accreditations.yml` n'a
 **jamais** été exécuté — une planification `schedule` ne se déclenche que sur la branche par défaut du
 dépôt, or le travail se fait sur une branche de développement.
+
+## Automatiser : ne plus jamais éditer un fichier à la main
+
+Trois niveaux, du plus utile au plus accessoire.
+
+### 1. Supprimer la cause : une boîte dédiée à l'application (recommandé)
+
+La fragilité de fond, c'est que **l'application s'authentifie avec la boîte d'un humain**. Le jour où
+quelqu'un change le mot de passe de `contact@navigoal.net` dans son téléphone ou dans cPanel, toute la
+plateforme cesse d'envoyer — exactement ce qui s'est passé.
+
+Créer une boîte **`no-reply@navigoal.net`** utilisée uniquement par le serveur, dont personne ne lit le
+courrier et dont le mot de passe ne bouge jamais. On garde `MAIL_REPLY_TO=contact@navigoal.net` : les
+réponses des familles continuent d'arriver dans la vraie boîte.
+
+Cinq minutes dans cPanel, aucun changement de code, et le mode de panne disparaît.
+
+*Variante plus solide encore* : passer par un service d'envoi (Brevo, Resend, Mailgun) avec une clé d'API
+au lieu d'un mot de passe de boîte. Meilleure délivrabilité et statistiques d'ouverture, mais c'est un
+changement de code — à garder pour après le gel.
+
+### 2. Gérer les réglages SMTP depuis les secrets GitHub (en place depuis le 27/11/2026)
+
+La mise en ligne dépose désormais `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER` et `SMTP_PASS` dans `.env.github`
+s'ils existent comme secrets GitHub, au même titre que `DAILY_API_KEY`.
+
+**Condition à respecter une fois pour toutes** : `.env` est prioritaire sur `.env.github`
+(`deploiement/app.js`). Tant que `SMTP_PASS` reste dans le `.env` du serveur, le secret GitHub est ignoré.
+
+Bascule, à faire une seule fois :
+
+1. GitHub → Settings → Secrets and variables → Actions → créer `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`,
+   `SMTP_PASS` avec les bonnes valeurs.
+2. Sur le serveur, **supprimer ces quatre lignes** du `navigoal/.env`.
+3. Relancer une mise en ligne.
+
+Ensuite, changer le mot de passe se fait **en un seul endroit** : le secret GitHub, puis une mise en ligne.
+Plus de gestionnaire de fichiers, plus de FTP, et la valeur n'est jamais visible nulle part.
+
+### 3. Surveillance automatique
+
+Ce qui existe déjà depuis le 27/11 : contrôle au démarrage de l'application, `email` dans `/api/sante`, et
+avertissement à la fin de chaque mise en ligne.
+
+Ce qui manque : une vérification **périodique**, qui remarquerait une panne entre deux mises en ligne.
+
+Obstacle à connaître : une planification `schedule` de GitHub Actions **ne se déclenche que sur la branche
+par défaut du dépôt** (ici `claude/mcp-server-install-ewj59b`), et non sur la branche de travail. C'est
+aussi la raison pour laquelle `accreditations.yml` n'a jamais tourné.
+
+Deux voies possibles :
+
+- placer un petit workflow planifié sur la branche par défaut, qui appelle `/api/sante` toutes les heures
+  et ouvre un ticket GitHub si `email` n'est pas `ok` (un ticket, pas un e-mail : quand les e-mails sont en
+  panne, alerter par e-mail ne sert à rien) ;
+- ou afficher l'état dans le back-office, pour que l'équipe le voie en se connectant.
+
+À décider : les deux sont rapides, mais la première demande d'écrire sur la branche par défaut.

@@ -130,6 +130,9 @@ jobs:
 
       # Clés gérées dans les secrets GitHub (Settings › Secrets and variables › Actions), déposées dans .env.github
       # sans toucher au .env du serveur (qui reste prioritaire). Fichier jamais affiché dans le journal.
+      # SMTP_* : pour qu'un secret GitHub prenne effet, la variable doit être ABSENTE du .env du serveur,
+      # sinon celui-ci gagne (voir deploiement/app.js). Une fois retirée du .env, changer le mot de passe de
+      # la boîte se fait en un endroit : le secret GitHub, puis une mise en ligne.
       - name: Clés depuis les secrets GitHub
         working-directory: .
         env:
@@ -138,10 +141,14 @@ jobs:
           WHATSAPP_PHONE_ID: ${{ secrets.WHATSAPP_PHONE_ID }}
           WHATSAPP_APP_SECRET: ${{ secrets.WHATSAPP_APP_SECRET }}
           WHATSAPP_VERIFY_TOKEN: ${{ secrets.WHATSAPP_VERIFY_TOKEN }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
         run: |
           umask 077
           : > .env.github
-          for v in DAILY_API_KEY WHATSAPP_TOKEN WHATSAPP_PHONE_ID WHATSAPP_APP_SECRET WHATSAPP_VERIFY_TOKEN; do
+          for v in DAILY_API_KEY WHATSAPP_TOKEN WHATSAPP_PHONE_ID WHATSAPP_APP_SECRET WHATSAPP_VERIFY_TOKEN SMTP_HOST SMTP_PORT SMTP_USER SMTP_PASS; do
             if [ -n "${!v}" ]; then printf '%s=%s\n' "$v" "${!v}" >> .env.github; fi
           done
           if [ -s .env.github ]; then
@@ -151,7 +158,7 @@ jobs:
             curl -sS $tls --user "$FTP_USERNAME:$FTP_PASSWORD" -Q "SITE CHMOD 600 ${FTP_DIR%/}/.env.github" "ftp://$FTP_SERVER${FTP_DIR%/}/" -o /dev/null || echo "Droits de .env.github non modifiés (CHMOD refusé)"
             echo "Clés déposées : $(cut -d= -f1 .env.github | tr '\n' ' ')"
           else
-            echo "Aucune clé dans les secrets GitHub (DAILY_API_KEY, WHATSAPP_…) : rien à déposer."
+            echo "Aucune clé dans les secrets GitHub (DAILY_API_KEY, WHATSAPP_…, SMTP_…) : rien à déposer."
           fi
           rm -f .env.github
 
