@@ -45,6 +45,28 @@ jobs:
             echo "Salles d'appel créées par le site (5 dernières) :"
             curl -s -H "Authorization: Bearer $DAILY" 'https://api.daily.co/v1/rooms?limit=5' | jq -r '.data[] | "  \(.name) · créée \(.created_at) · expire \(.config.exp // "?")"'
           fi
+      # Réglages du serveur : on n'affiche QUE les noms des variables et la longueur de leur valeur,
+      # jamais les valeurs elles-mêmes. Sert à savoir si l'envoi d'e-mails est configuré.
+      - name: Réglages du serveur (.env) — noms seulement
+        run: |
+          curl -s --user "$U:$P" "ftp://$S${D%/}/.env" > env.srv || true
+          echo "Fichier .env sur le serveur : $(wc -c < env.srv) octets"
+          grep -E '^[A-Za-z_][A-Za-z0-9_]*=' env.srv | while IFS='=' read -r nom reste; do
+            echo "  $nom : ${#reste} caractères"
+          done
+          echo
+          for v in SMTP_HOST SMTP_PORT SMTP_USER SMTP_PASS MAIL_FROM; do
+            grep -qE "^$v=.+" env.srv && echo "$v : présent" || echo "$v : ABSENT"
+          done
+          if grep -qE '^SMTP_HOST=.+' env.srv; then
+            h=$(grep -E '^SMTP_HOST=' env.srv | head -1 | cut -d= -f2- | tr -d '"'"'"'\r')
+            pt=$(grep -E '^SMTP_PORT=' env.srv | head -1 | cut -d= -f2- | tr -d '"'"'"'\r'); pt=${pt:-465}
+            echo "Port $pt joignable sur $h : $(timeout 10 bash -c "cat < /dev/null > /dev/tcp/$h/$pt" 2>/dev/null && echo oui || echo non)"
+          else
+            echo "=> Aucun SMTP configure : l'application journalise les e-mails au lieu de les envoyer."
+          fi
+          rm -f env.srv
+
       - name: Pages et état de synchronisation
         run: |
           base="ftp://$S${D%/}"
